@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @since 5.1.1
+ * @since TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -22,4 +22,4 @@ if ( $event->featured ) : ?>
 		aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 	></em>
-<?php endif;
+<?php endif; ?>
