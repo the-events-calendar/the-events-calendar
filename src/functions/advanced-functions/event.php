@@ -25,7 +25,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * type in any case.
 	 *
 	 * @category Events
-	 *           
+	 *
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 *
 	 * @see      wp_insert_post()
