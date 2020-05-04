@@ -50,7 +50,7 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 	 */
 	public function attr( $index, $default = null ) {
 
-		$attribute = $this->get( array_merge( array( 'attributes' ), (array) $index ), array(), $default );
+		$attribute = $this->get( array_merge( array( 'attributes' ), (array) $index ), $default );
 
 		return $attribute;
 
