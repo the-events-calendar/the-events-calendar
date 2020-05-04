@@ -9,15 +9,12 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
- *
  * @var WP_Post $event An event post object with event-specific properties added from the the `tribe_get_event`
  *
  * @see tribe_get_event() For the format of the event object and its properties.
  *
+ * @since TBD
  */
-
-
 
 ?>
 <div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -29,12 +26,11 @@
 		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 	>
-		<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden/featured', [ 'event' => $event ] ); ?>
+		<?php if ( ! empty( $event->featured ) ) : ?>
+			<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden/featured' ); ?>
+		<?php endif; ?>
 		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-			<?php
-			// phpcs:ignore
-			echo $event->title;
-			?>
+			<?php echo $event->title; // phpcs:ignore ?>
 		</h3>
 	</a>
 </div>

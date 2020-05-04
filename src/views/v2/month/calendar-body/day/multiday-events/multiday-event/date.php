@@ -21,8 +21,8 @@ use Tribe__Date_Utils as Dates;
 
 ?>
 <time
-datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>"
-class="tribe-common-a11y-visual-hide"
+	datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>"
+	class="tribe-common-a11y-visual-hide"
 >
 	<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ); ?>
 </time>

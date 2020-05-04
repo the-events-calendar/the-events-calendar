@@ -16,15 +16,15 @@
  * @see tribe_get_event() For the format of the event object and its properties.
  *
  */
+
 ?>
 <div class="tribe-events-calendar-month__multiday-event-bar">
 	<div class="tribe-events-calendar-month__multiday-event-bar-inner">
-		<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/bar/featured', [ 'event' => $event ] ); ?>
+		<?php if ( ! empty( $event->featured ) ) : ?>
+			<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/bar/featured' ); ?>
+		<?php endif; ?>
 		<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
-			<?php
-			// phpcs:ignore
-			echo $event->title;
-			?>
+			<?php echo $event->title; // phpcs:ignore ?>
 		</h3>
 	</div>
 </div>

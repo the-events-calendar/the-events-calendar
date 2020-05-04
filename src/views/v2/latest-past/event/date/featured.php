@@ -10,20 +10,15 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @since TBD
- *
- * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
- *
- * @see tribe_get_event() For the format of the event object.
  */
 
-if ( $event->featured ) : ?>
-	<em
-		class="tribe-events-calendar-latest-past__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-		aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-	>
-	</em>
-	<span class="tribe-events-calendar-latest-past__event-datetime-featured-text tribe-common-a11y-visual-hide">
-		<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
-	</span>
-<?php endif; ?>
+?>
+<em
+	class="tribe-events-calendar-latest-past__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+	aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+	title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+>
+</em>
+<span class="tribe-events-calendar-latest-past__event-datetime-featured-text tribe-common-a11y-visual-hide">
+	<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>
+</span>
