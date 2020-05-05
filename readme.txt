@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
 * Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
 * Fix - Prevent creation of empty venue when removing a Venue inside of the Events using the Classic editor that had a US state selected. [TEC-3416]
+* Fix - Event Aggregator imported events when using default status or categories from the Settings Page will now be imported correctly. [TEC-3445]
 
 = [5.1.0] 2020-04-23 =
 
