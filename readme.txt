@@ -220,10 +220,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
-Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
-Fix - A localization support that would mangle Views URLs when WPML plugin is active alongside Views v2 [TEC-3404]
-Tweak - Deprecated the `Tribe__Events__Main::get_i18n_strings_for_domains()` and `Tribe__Events__Main::get_i18n_strings()` methods; use the methods with the same name and signature provided by the `tribe( 'tec.18n' )` object [TEC-3404]
+= [5.1.1] TBD =
+
+* Tweak - Deprecated the `Tribe__Events__Main::get_i18n_strings_for_domains()` and `Tribe__Events__Main::get_i18n_strings()` methods; use the methods with the same name and signature provided by the `tribe( 'tec.18n' )` object [TEC-3404]
+* Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
+* Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
+* Fix - Event Aggregator imported events when using default status or categories from the Settings Page will now be imported correctly. [TEC-3445]
+* Fix - A localization support that would mangle Views URLs when WPML plugin is active alongside Views v2 [TEC-3404]
 
 = [5.1.0] 2020-04-23 =
 
