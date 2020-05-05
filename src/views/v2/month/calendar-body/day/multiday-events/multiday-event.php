@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.0
+ * @since 5.0.0
  *
  * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date      Today's date in the `Y-m-d` format.
@@ -20,6 +20,7 @@
  *
  * @see tribe_get_event() For the format of the event object and its properties.
  *
+ * @version TBD Move icons into separate templates.
  */
 
 use Tribe__Date_Utils as Dates;
