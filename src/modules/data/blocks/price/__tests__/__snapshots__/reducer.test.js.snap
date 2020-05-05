@@ -1,18 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[STORE] - Price reducer Should set the cost 1`] = `
+exports[`[STORE] - Price reducer Should return the default state to meta map 1`] = `
 Object {
-  "cost": 10,
-  "description": "",
-  "position": "prefix",
-  "symbol": "$",
+  "cost": "_EventCost",
+  "position": "_EventCurrencyPosition",
+  "symbol": "_EventCurrencySymbol",
 }
 `;
 
-exports[`[STORE] - Price reducer Should set the cost description 1`] = `
+exports[`[STORE] - Price reducer Should set the cost 1`] = `
 Object {
-  "cost": "",
-  "description": "Cost description",
+  "cost": 10,
   "position": "prefix",
   "symbol": "$",
 }
@@ -21,7 +19,14 @@ Object {
 exports[`[STORE] - Price reducer Should set the cost symbol 1`] = `
 Object {
   "cost": "",
-  "description": "",
+  "position": "prefix",
+  "symbol": "€",
+}
+`;
+
+exports[`[STORE] - Price reducer Should set the initial state 1`] = `
+Object {
+  "cost": "15",
   "position": "prefix",
   "symbol": "€",
 }
@@ -30,17 +35,7 @@ Object {
 exports[`[STORE] - Price reducer Should set the symbol position 1`] = `
 Object {
   "cost": "",
-  "description": "",
   "position": "prefix",
-  "symbol": "$",
-}
-`;
-
-exports[`[STORE] - Price reducer Should toggle the prefix of the position 1`] = `
-Object {
-  "cost": "",
-  "description": "",
-  "position": "suffix",
   "symbol": "$",
 }
 `;

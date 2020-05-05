@@ -17,6 +17,8 @@ $do_not_override_status   = [ 'do_not_override' => esc_html__( '(do not override
 $eventbrite_post_statuses = $do_not_override_status + $post_statuses;
 unset( $eventbrite_post_statuses['publish'] );
 
+$category_placeholder = esc_attr__( 'No Additional Categories', 'the-events-calendar' );
+
 $category_dropdown = wp_dropdown_categories( [
 	'echo'       => false,
 	'name'       => 'aggregator[category]',
@@ -27,7 +29,8 @@ $category_dropdown = wp_dropdown_categories( [
 	'taxonomy'   => Tribe__Events__Main::TAXONOMY,
 ] );
 $category_dropdown = preg_replace( '!\<select!', '<select data-hide-search', $category_dropdown );
-$category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value="">' . __( 'No Additional Categories', 'the-events-calendar' ) . '</option>', $category_dropdown );
+$category_dropdown = preg_replace( '!\<select!', sprintf( '<select placeholder="%s"', $category_placeholder ), $category_dropdown );
+$category_dropdown = preg_replace( '!(\<select[^\>]*\>)!', '$1<option value="">' . $category_placeholder . '</option>', $category_dropdown );
 $category_dropdown = preg_replace( '!(value="' . $default_category . '")!', '$1 selected', $category_dropdown );
 
 wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
@@ -91,7 +94,7 @@ wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce' );
 						data-hide-search
 						data-prevent-clear
 					>
-						<option value=""></option>
+						<option></option>
 						<?php foreach ( $field->options as $option ) : ?>
 							<option
 								value="<?php echo esc_attr( $option->id ); ?>"
@@ -250,7 +253,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-ea-field-post_status"
 				data-hide-search
 			>
-				<option value=""></option>
+				<option value=""><?php esc_html__( '(do not override)', 'the-events-calendar' ); ?></option>
 				<?php foreach ( $eventbrite_post_statuses as $slug => $post_status ) : ?>
 					<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $default_post_status, $slug ); ?>><?php echo esc_html( $post_status ); ?></option>
 				<?php endforeach; ?>
@@ -285,6 +288,16 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			data-width-rule="all-triggers"
 		></span>
 	</div>
+
+	<?php
+	/**
+	 * Allows output of custom import preview options.
+	 *
+	 * @since 5.1.0
+	 */
+	do_action( 'tribe_events_aggregator_import_form_preview_options' );
+	?>
+
 	<textarea style="display:none;" name="aggregator[selected_rows]" id="tribe-selected-rows"></textarea>
 </div>
 <div class="tribe-finalize-container">

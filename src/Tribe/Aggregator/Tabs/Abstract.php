@@ -119,6 +119,15 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			$meta['source'] = $meta['source_type'];
 		}
 
+		/**
+		 * Filters the meta used during submit.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param array $meta Import meta.
+		 */
+		$meta = apply_filters( 'tribe_aggregator_import_submit_meta', $meta );
+
 		// Only apply this verification when dealing with Creating new items
 		if ( ! empty( $post_data['action'] ) && 'new' === $post_data['action'] ) {
 			$hash = array_filter( $meta );

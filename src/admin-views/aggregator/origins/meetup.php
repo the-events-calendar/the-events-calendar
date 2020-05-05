@@ -70,34 +70,34 @@ if ( $missing_meetup_credentials ) :
 			</select>
 		<?php endif; ?>
 
-		<select
-			name="aggregator[meetup][import_frequency]"
-			id="tribe-ea-field-meetup_import_frequency"
-			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-dependent"
-			placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
-			data-hide-search
+		<span
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition="schedule"
-			data-prevent-clear
 		>
-			<option value=""></option>
-			<?php foreach ( $frequencies as $frequency_object ) : ?>
-				<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
-			<?php endforeach; ?>
-		</select>
+			<select
+				name="aggregator[meetup][import_frequency]"
+				id="tribe-ea-field-meetup_import_frequency"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-dependent"
+				placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
+				data-hide-search
+				data-prevent-clear
+			>
+				<?php foreach ( $frequencies as $frequency_object ) : ?>
+					<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
+				<?php endforeach; ?>
+			</select>
+			<span
+				class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+				data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
+				data-width-rule="all-triggers"
+			></span>
+		</span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $field->help ); ?>"
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition-not="schedule"
 			data-condition-empty
-			data-width-rule="all-triggers"
-		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
-			data-depends="#tribe-ea-field-meetup_import_type"
-			data-condition="schedule"
 			data-width-rule="all-triggers"
 		></span>
 	</td>

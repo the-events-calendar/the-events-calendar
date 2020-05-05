@@ -90,7 +90,14 @@ class Messages {
 	 */
 	public static function for_key( $key, ...$values ) {
 		$map = [
-			'no_results_found'                 => __( 'There were no results found.', 'the-events-calendar' ),
+			'no_results_found'                 => __(
+				'There were no results found.',
+				'the-events-calendar'
+			),
+			'month_no_results_found'           => __(
+				'There were no results found for this view.',
+				'the-events-calendar'
+			),
 			// translators: the placeholder is the keyword(s), as the user entered it in the bar.
 			'no_results_found_w_keyword'       => __(
 				'There were no results found for <strong>"%1$s"</strong>.',
@@ -103,7 +110,17 @@ class Messages {
 			),
 			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020".
 			'day_no_results_found'             => __(
-				'No %1$s scheduled for %2$s. Please try another day.',
+				'No %1$s scheduled for %2$s.',
+				'the-events-calendar'
+			),
+			// translators: the placeholder is an html link to the next month with available events.
+			'month_no_results_found_w_ff_link'  => __(
+				'There were no results found for this view. %1$s',
+				'the-events-calendar'
+			),
+			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020". %3$s html link to next day with available events.
+			'day_no_results_found_w_ff_link'    => __(
+				'No %1$s scheduled for %2$s. %3$s',
 				'the-events-calendar'
 			),
 		];
@@ -124,7 +141,7 @@ class Messages {
 			return $match;
 		}
 
-		$need_events_label_keys = [ 'day_no_results_found' ];
+		$need_events_label_keys = [ 'day_no_results_found', 'day_no_results_found_w_ff_link' ];
 
 		/**
 		 * Filters the array of keys of the messages that need the events label.

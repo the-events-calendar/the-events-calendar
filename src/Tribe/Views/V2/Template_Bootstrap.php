@@ -153,6 +153,10 @@ class Template_Bootstrap {
 
 		$html = ob_get_clean();
 
+		if ( function_exists( 'do_blocks' ) ) {
+			$html = do_blocks( $html );
+		}
+
 		return $html;
 	}
 
@@ -270,6 +274,11 @@ class Template_Bootstrap {
 	public function should_load( $query = null ) {
 		if ( ! $query instanceof \WP_Query ) {
 			$query = tribe_get_global_query_object();
+		}
+
+		if ( ! $query instanceof WP_Query ) {
+			// Cannot discriminate, bail.
+			return false;
 		}
 
 		$should_load = null;

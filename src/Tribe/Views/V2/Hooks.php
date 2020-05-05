@@ -397,7 +397,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_admin_post_thumbnail_html( $html ) {
 
-		if ( TEC::POSTTYPE !== get_current_screen()->post_type ) {
+		$screen = get_current_screen();
+
+		if ( ! $screen instanceof \WP_Screen ) {
+			return $html;
+		}
+
+		if ( TEC::POSTTYPE !== $screen->post_type ) {
 			return $html;
 		}
 
@@ -424,6 +430,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		$context = tribe_context();
+
+		// Bail with the original redirect if we are not dealing with a CPT from TEC.
+		if ( ! $context->is( 'tec_post_type' ) ) {
+			return $redirect_url;
+		}
 
 		$view = $context->get( 'view_request', null );
 

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[STORE] - Organizers subscribers Should determine if a block is an organizer block 1`] = `true`;
+
+exports[`[STORE] - Organizers subscribers Should determine if a block is an organizer block 2`] = `false`;
+
+exports[`[STORE] - Organizers subscribers Should return block client id 1`] = `"clientId"`;
