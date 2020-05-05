@@ -35,7 +35,7 @@ $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event'
 
 // @todo @fe move class configuration to template tag
 
-if ( $event->featured ) {
+if ( ! empty( $event->featured ) ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--featured';
 }
 

@@ -18,7 +18,7 @@
 
 $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__calendar-event' ], $event->ID );
 
-if ( $event->featured ) {
+if ( ! empty( $event->featured ) ) {
 	$classes[] = 'tribe-events-calendar-month__calendar-event--featured';
 }
 ?>

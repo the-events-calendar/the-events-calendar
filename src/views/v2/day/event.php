@@ -18,10 +18,9 @@
 
 $classes = tribe_get_post_class( [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ], $event->ID );
 
-if ( $event->featured ) {
+if ( ! empty( $event->featured ) ) {
 	$classes[] = 'tribe-events-calendar-day__event--featured';
 }
-
 ?>
 <article <?php tribe_classes( $classes ); ?>>
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
