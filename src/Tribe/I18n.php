@@ -153,7 +153,7 @@ class I18n {
 	 *
 	 * @return array<string|array> A map of the compiled string translations.
 	 */
-	protected function compile_translations( array $strings, $domains ) {
+	 public function compile_translations( array $strings, $domains ) {
 		$cache_salts = [ $strings, $domains, get_locale() ];
 		$cache_key   = __METHOD__ . md5( serialize( $cache_salts ) );
 
