@@ -54,10 +54,14 @@ class I18n {
 	 * @return array                    A multi level array with the possible translations for the given strings
 	 */
 	public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US' ) {
-		$domains = wp_parse_args( $domains, array(
-			'default'             => true, // Default doesn't need file path
-			'the-events-calendar' => $this->tec->plugin_dir . 'lang/',
-		) );
+		$domains = wp_parse_args(
+			$domains,
+			[
+				// The `default` domain doesn't need file path.
+				'default'             => true,
+				'the-events-calendar' => $this->tec->plugin_dir . 'lang/',
+			]
+		);
 
 		return $this->get_i18n_strings_for_domains( $strings, $languages, $domains );
 	}
@@ -70,14 +74,13 @@ class I18n {
 	 *
 	 * @since TBD
 	 *
+	 * @param array $strings   An array of strings (required).
+	 * @param array $languages Which l10n to fetch the string (required).
+	 * @param array $domains   Possible domains to re-load.
+	 *
+	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
+	 *
 	 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
-	 *
-	 *
-	 * @param array $strings   An array of strings (required)
-	 * @param array $languages Which l10n to fetch the string (required)
-	 * @param array $domains   Possible Domains to re-load
-	 *
-	 * @return array                    A multi level array with the possible translations for the given strings
 	 */
 	public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ) ) {
 		sort( $languages );

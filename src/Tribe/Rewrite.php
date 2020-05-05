@@ -517,11 +517,14 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$localized_matchers = parent::get_localized_matchers();
 
 		// If possible add a `localized_slug` entry to each localized matcher to support multi-language.
-		array_walk( $localized_matchers, function ( array &$localized_matcher ) {
-			if ( isset( $localized_matcher['base'], $this->localized_bases[ $localized_matcher['base'] ] ) ) {
-				$localized_matcher['localized_slug'] = $this->localized_bases[ $localized_matcher['base'] ];
+		array_walk(
+			$localized_matchers,
+			function ( array &$localized_matcher ) {
+				if ( isset( $localized_matcher['base'], $this->localized_bases[ $localized_matcher['base'] ] ) ) {
+					$localized_matcher['localized_slug'] = $this->localized_bases[ $localized_matcher['base'] ];
+				}
 			}
-		} );
+		);
 
 		// Handle the dates.
 		$localized_matchers['(\d{4}-\d{2})']       = 'eventDate';
@@ -711,7 +714,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 */
 	public function get_localized_bases( array $bases, array $domains ) {
 		$locale             = get_locale();
-		$cache_key          = __METHOD__ . md5( serialize( array_merge( $bases, $domains, [ $locale ] ) ) );
+		$cache_key          = __METHOD__ . md5( json_encode( array_merge( $bases, $domains, [ $locale ] ) ) );
 		$expiration_trigger = Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES;
 
 		$cached = tribe_cache()->get( $cache_key, $expiration_trigger, false );
@@ -722,10 +725,14 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		$localized_bases = tribe( 'tec.i18n' )->get_i18n_strings_for_domains( $bases, [ $locale ], $domains );
 
-		$return = array_filter( array_map( static function ( $locale_base ) {
-			return is_array( $locale_base ) ? end( $locale_base ) : false;
-		}, $localized_bases
-		) );
+		$return = array_filter(
+			array_map(
+				static function ( $locale_base ) {
+					return is_array( $locale_base ) ? end( $locale_base ) : false;
+				},
+				$localized_bases
+			)
+		);
 
 		tribe_cache()->set( $cache_key, $return, DAY_IN_SECONDS, $expiration_trigger );
 
