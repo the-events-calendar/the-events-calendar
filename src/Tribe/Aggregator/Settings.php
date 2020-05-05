@@ -378,6 +378,10 @@ class Tribe__Events__Aggregator__Settings {
 			$setting = tribe_get_option( "tribe_aggregator_default_{$origin}_update_authority", $setting );
 		}
 
+		if ( -1 === (int) $setting ) {
+			$setting = self::$default_update_authority;
+		}
+
 		return $setting;
 	}
 
@@ -391,7 +395,8 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_post_status( $origin = null ) {
-		$setting = $setting = tribe_get_option( 'tribe_aggregator_default_post_status', 'publish' );
+		$default = 'publish';
+		$setting = tribe_get_option( 'tribe_aggregator_default_post_status', $default );
 
 		if ( $origin ) {
 			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_post_status", $setting );
@@ -399,6 +404,10 @@ class Tribe__Events__Aggregator__Settings {
 			if ( ! empty( $origin_setting ) ) {
 				$setting = $origin_setting;
 			}
+		}
+
+		if ( -1 === (int) $setting ) {
+			$setting = $default;
 		}
 
 		return $setting;
@@ -414,7 +423,8 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_category( $origin = null ) {
-		$setting = tribe_get_option( 'tribe_aggregator_default_category', null );
+		$default = null;
+		$setting = tribe_get_option( 'tribe_aggregator_default_category', $default );
 
 		if ( $origin ) {
 			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $setting );
@@ -422,6 +432,10 @@ class Tribe__Events__Aggregator__Settings {
 			if ( ! empty( $origin_setting ) ) {
 				$setting = $origin_setting;
 			}
+		}
+
+		if ( -1 === (int) $setting ) {
+			$setting = $default;
 		}
 
 		return $setting;
@@ -437,7 +451,8 @@ class Tribe__Events__Aggregator__Settings {
 	 * @return string
 	 */
 	public function default_map( $origin = null ) {
-		$setting = tribe_get_option( 'tribe_aggregator_default_show_map', 'no' );
+		$default = 'no';
+		$setting = tribe_get_option( 'tribe_aggregator_default_show_map', $default );
 
 		if ( $origin ) {
 			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_show_map", $setting );
@@ -445,6 +460,10 @@ class Tribe__Events__Aggregator__Settings {
 			if ( ! empty( $origin_setting ) ) {
 				$setting = $origin_setting;
 			}
+		}
+
+		if ( -1 === (int) $setting ) {
+			$setting = $default;
 		}
 
 		return $setting;
