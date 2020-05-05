@@ -44,7 +44,7 @@ class HTML_CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache_key_salts   = $this->implementation->get_cache_html_key_salts();
 
 		$this->assertTrue( $should_cache_html );
-		$this->assertEqualSets( $cache_key_salts, [ 'current_user_can_read_private_posts' => false ] );
+		$this->assertEqualSets( $cache_key_salts, [ 'current_user_can_read_private_posts' => false, 'locale' => 'en_US' ] );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class HTML_CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache_key_salts   = $this->implementation->get_cache_html_key_salts();
 
 		$this->assertTrue( $should_cache_html );
-		$this->assertEqualSets( $cache_key_salts, [ 'current_user_can_read_private_posts' => false ] );
+		$this->assertEqualSets( $cache_key_salts, [ 'current_user_can_read_private_posts' => false, 'locale' => 'en_US' ] );
 	}
 
 	/**
@@ -113,7 +113,7 @@ class HTML_CacheTest extends \Codeception\TestCase\WPTestCase {
 		$cache_key_salts   = $this->implementation->get_cache_html_key_salts();
 
 		$this->assertTrue( $should_cache_html );
-		$this->assertEqualSets( $cache_key_salts, [ 'current_user_can_read_private_posts' => true ] );
+		$this->assertEqualSets( $cache_key_salts, [ 'current_user_can_read_private_posts' => true, 'locale' => 'en_US' ] );
 	}
 
 	/**
