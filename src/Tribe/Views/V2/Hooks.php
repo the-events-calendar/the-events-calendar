@@ -722,8 +722,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string>  $sheets Array of sheets to search for.
-	 * @param string $css_template String containing the inline css to add.
+	 * @param array<string> $sheets Array of sheets to search for.
+	 * @param string        $css_template String containing the inline css to add.
 	 *
 	 * @return array Modified array of sheets to search for.
 	 */
