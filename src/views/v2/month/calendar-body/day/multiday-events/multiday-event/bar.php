@@ -30,7 +30,7 @@ if (
 	! $is_start_of_week
 	&& ! in_array( $day_date, $event->displays_on, true )
 ) {
-		return;
+	return;
 }
 ?>
 <div class="tribe-events-calendar-month__multiday-event-bar">

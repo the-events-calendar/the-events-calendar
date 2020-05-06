@@ -21,11 +21,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
  *
  * @since TBD
  *
- * @param WP_Post $event          An event post object with event-specific properties added from the the `tribe_get_event`
- *                              function.
- * @param string $day_date        The `Y-m-d` date of the day currently being displayed.
- * @param bool $is_start_of_week  Whether the current grid day being rendered is the first day of the week or not.
- * @param string $today_date      Today's date in the `Y-m-d` format.
+ * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
+ *                                  function.
+ * @param string  $day_date         The `Y-m-d` date of the day currently being displayed.
+ * @param bool    $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
+ * @param string  $today_date       Today's date in the `Y-m-d` format.
  *
  * @return array $classes The classes to add to the multiday event.
  */
