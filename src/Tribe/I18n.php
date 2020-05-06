@@ -96,13 +96,17 @@ class I18n {
 			$strings_buffer[] = $language_strings;
 		}
 
-		$strings = count( $strings_buffer ) > 1 ? array_merge_recursive( ...
-			$strings_buffer ) : reset( $strings_buffer );
+		$strings = count( $strings_buffer ) > 1
+			? array_merge_recursive( ... $strings_buffer )
+			: reset( $strings_buffer );
 
-		// Prevent Empty Strings and Duplicates
+		// Prevent empty strings and duplicates.
 		foreach ( $strings as $key => $value ) {
-			$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes',
-				(array) $value ) ) );
+			$strings[ $key ] = array_filter(
+				array_unique(
+					array_map( 'sanitize_title_with_dashes', (array) $value )
+				)
+			);
 		}
 
 		return $strings;

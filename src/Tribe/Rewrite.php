@@ -715,7 +715,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 */
 	public function get_localized_bases( array $bases, array $domains ) {
 		$locale             = get_locale();
-		$cache_key          = __METHOD__ . md5( json_encode( array_merge( $bases, $domains, [ $locale ] ) ) );
+		$cache_key          = __METHOD__ . md5( serialize( array_merge( $bases, $domains, [ $locale ] ) ) );
 		$expiration_trigger = Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES;
 
 		$cached = tribe_cache()->get( $cache_key, $expiration_trigger, false );
