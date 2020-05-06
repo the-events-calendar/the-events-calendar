@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Month View - Single Multiday Event Featured Icon
+ * View: Month View - Single Multiday Event Bar Featured Icon
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/v2/month/calendar-body/day/multiday-events/multiday-event/bar/featured.php

@@ -5,7 +5,7 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
-// Don't load directly
+// Don't load directly!
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -21,10 +21,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
  *
  * @since TBD
  *
- * @var WP_Post $event          An event post object with event-specific properties added from the the `tribe_get_event`
+ * @param WP_Post $event          An event post object with event-specific properties added from the the `tribe_get_event`
  *                              function.
- * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
- * @var bool $is_start_of_week  Whether the current grid day being rendered is the first day of the week or not.
+ * @param string $day_date        The `Y-m-d` date of the day currently being displayed.
+ * @param bool $is_start_of_week  Whether the current grid day being rendered is the first day of the week or not.
+ * @param string $today_date      Today's date in the `Y-m-d` format.
  *
  * @return array $classes The classes to add to the multiday event.
  */

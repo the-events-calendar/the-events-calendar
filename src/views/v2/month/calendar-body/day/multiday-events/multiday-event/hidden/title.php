@@ -17,6 +17,7 @@
  *
  * @version TBD
  */
+
 ?>
 <a
 	href="<?php echo esc_url( $event->permalink ); ?>"

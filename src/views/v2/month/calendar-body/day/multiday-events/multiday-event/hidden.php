@@ -17,6 +17,7 @@
  *
  * @version TBD
  */
+
 ?>
 <div class="tribe-events-calendar-month__multiday-event-hidden">
 	<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden/date', [ 'event' => $event ] ); ?>

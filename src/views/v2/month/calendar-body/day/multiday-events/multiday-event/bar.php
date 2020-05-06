@@ -19,8 +19,7 @@
  *
  * @version TBD
  */
-?>
-<?php
+
 $start_display_date = $event->dates->start_display->format( 'Y-m-d' );
 
 /*
@@ -30,9 +29,9 @@ $start_display_date = $event->dates->start_display->format( 'Y-m-d' );
 if (
 	! $is_start_of_week
 	&& ! in_array( $day_date, $event->displays_on, true )
-	) {
+) {
 		return;
-	}
+}
 ?>
 <div class="tribe-events-calendar-month__multiday-event-bar">
 	<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/bar/inner', [ 'event' => $event ] ); ?>
@@ -47,4 +46,3 @@ if (
 }
 ?>
 <?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
-

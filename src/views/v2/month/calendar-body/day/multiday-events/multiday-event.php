@@ -35,10 +35,10 @@ $classes = tribe_events_multiday_classes( $event, $day_date, $is_start_of_week, 
 		$this->template(
 			'month/calendar-body/day/multiday-events/multiday-event/bar',
 			[
-				'event'               => $event,
-				'grid_start_date'     => $grid_start_date,
-				'is_start_of_week'    => $is_start_of_week,
-				'day_date'            => $day_date,
+				'event'            => $event,
+				'grid_start_date'  => $grid_start_date,
+				'is_start_of_week' => $is_start_of_week,
+				'day_date'         => $day_date,
 			]
 		);
 		?>
