@@ -543,8 +543,8 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 **/
 		public static function getTemplateHierarchy( $template, $args = array() ) {
 			if ( ! is_array( $args ) ) {
+				$passed        = [ $template, $args ];
 				$args          = array();
-				$passed        = func_get_args();
 				$backwards_map = array( 'namespace', 'plugin_path' );
 				$count = count( $passed );
 
