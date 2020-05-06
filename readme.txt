@@ -222,6 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.1.1] TBD =
 
+* Fix - Enqueue Customizer stylesheets properly via `tribe_customizer_inline_stylesheets` in Common. [TEC-3401]
 * Feature - Move all the featured event icons to templates. [TEC-3441]
 * Fix - Not being able to create events because capabilities were not set on activation or update of the plugin. [TEC-3350]
 * Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
