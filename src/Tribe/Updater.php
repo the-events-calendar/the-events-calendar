@@ -191,7 +191,7 @@ class Tribe__Events__Updater {
 	 * @since TBD - change method of calling set_capabilities.
 	 */
 	public function set_capabilities() {
-		/* @var Tribe__Events__Capabilities $capabilities */
+		// @var Tribe__Events__Capabilities $capabilities
 		$capabilities = tribe( Tribe__Events__Capabilities::class );
 
 		// We need to set the requirement on update to allow the next page load to trigger
