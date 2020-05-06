@@ -92,4 +92,47 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		}
 		$this->assertFalse( has_action( 'wp_loaded', 'flush_rewrite_rules' ) );
 	}
+
+	/**
+	 * @test
+	 */
+	public function test_capabilities_flag_is_added_on_do_updates() {
+		$settings = Tribe__Settings_Manager::instance();
+		$settings::set_option( 'schema-version', 0 );
+
+		// @var Tribe__Events__Capabilities $capabilities
+		$capabilities = tribe( Tribe__Events__Capabilities::class );
+
+		$this->assertEmpty( $capabilities->needs_init() );
+
+		$updater = new Tribe__Events__Updater( '3.8' );
+		$updater->do_updates();
+
+		// Update completed, so check for transient to update capabilities.
+		$this->assertNotEmpty( $capabilities->needs_init() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_capabilities_flag_is_removed_after_set_initial_caps() {
+		$settings = Tribe__Settings_Manager::instance();
+		$settings::set_option( 'schema-version', 0 );
+
+		// @var Tribe__Events__Capabilities $capabilities
+		$capabilities = tribe( Tribe__Events__Capabilities::class );
+
+		$this->assertEmpty( $capabilities->needs_init() );
+
+		// Run Updates.
+		$updater = new Tribe__Events__Updater( '3.8' );
+		$updater->do_updates();
+
+		$this->assertNotEmpty( $capabilities->needs_init() );
+
+		$capabilities->set_initial_caps();
+
+		// Capabilities Updated, therefore the transient should be removed.
+		$this->assertEmpty( $capabilities->needs_init() );
+	}
 }
