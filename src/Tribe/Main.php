@@ -528,7 +528,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function bind_implementations(  ) {
 			tribe_singleton( 'tec.main', $this );
 
-			// i18n
+			// i18n.
 			tribe_singleton( 'tec.i18n', new Tribe\Events\I18n( $this ) );
 
 			// Utils
@@ -3099,9 +3099,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since TBD Deprecated and moved to the `Tribe\Events\I18n` class.
 		 *
-		 * @param  array  $strings          An array of strings (required).
-		 * @param  array  $languages        Which l10n to fetch the string (required).
-		 * @param  array  $domains          Possible Domains to re-load.
+		 * @param array $strings   An array of strings (required).
+		 * @param array $languages Which l10n to fetch the string (required).
+		 * @param array $domains   Possible Domains to re-load.
 		 *
 		 * @return array                    A multi level array with the possible translations for the given strings.
 		 *

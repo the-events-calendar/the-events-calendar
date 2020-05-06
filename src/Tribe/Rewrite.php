@@ -282,7 +282,8 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', $default_bases );
 
 		// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
-		$bases = $unfiltered_bases = array_map( 'array_unique', $bases );
+		$bases            = array_map( 'array_unique', $bases );
+		$unfiltered_bases = $bases;
 
 		// By default we load the Default and our plugin domains
 		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
