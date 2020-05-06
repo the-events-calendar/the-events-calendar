@@ -10,8 +10,17 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @since TBD
+ *
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of the event object.
+ *
+ * @version TBD
  */
 
+if ( empty( $event->featured ) ) {
+	return;
+}
 ?>
 <em
 	class="tribe-events-calendar-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"

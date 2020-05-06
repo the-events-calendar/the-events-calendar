@@ -1,17 +1,26 @@
 <?php
 /**
- * View: Month View - Single Multiday Event Featured Icon
+ * View: Month View - Single Multiday Event Hidden Featured Icon
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/month/calendar-body/day/multiday-events/date/featured-hidden.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/featured.php
  *
  * See more documentation about our views templating system.
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @since TBD
+ *
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of the event object.
+ *
+ * @version TBD
  */
 
+if ( empty( $event->featured ) ) {
+	return;
+}
 ?>
 <em
 	class="tribe-events-calendar-month__multiday-event-hidden-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"

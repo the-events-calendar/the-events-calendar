@@ -149,7 +149,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Gets the current day in the month loop
 	 *
 	 * Returned array contains the following elements if the day is in the currently displaying month:
-	 *    'daynum'       => Day of the month (int)
+	 *  'daynum'       => Day of the month (int)
 	 *  'date'         => Complete date (Y-m-d)
 	 *  'events'       => Object containing events on this day (WP_Query)
 	 *  'total_events' => Number of events on this day (int)
