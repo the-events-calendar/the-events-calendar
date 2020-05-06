@@ -9,7 +9,8 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 5.0.0
+ * @since 5.0.0
+ * @since TBD Move icons into separate templates.
  *
  * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date      Today's date in the `Y-m-d` format.
@@ -20,6 +21,7 @@
  *
  * @see tribe_get_event() For the format of the event object and its properties.
  *
+ * @version TBD
  */
 
 use Tribe__Date_Utils as Dates;
@@ -35,7 +37,7 @@ $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event'
 
 // @todo @fe move class configuration to template tag
 
-if ( $event->featured ) {
+if ( ! empty( $event->featured ) ) {
 	$classes[] = 'tribe-events-calendar-month__multiday-event--featured';
 }
 
@@ -85,13 +87,7 @@ if ( $should_display ) {
 				data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 				aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 			>
-				<?php if ( $event->featured ) : ?>
-					<em
-						class="tribe-events-calendar-month__multiday-event-hidden-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-						aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-						title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-					></em>
-				<?php endif; ?>
+				<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured-hidden', [ 'event' => $event ] ); ?>
 				<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 					<?php
 					// phpcs:ignore
@@ -103,13 +99,7 @@ if ( $should_display ) {
 		<?php if ( $should_display ) : ?>
 			<div class="tribe-events-calendar-month__multiday-event-bar">
 				<div class="tribe-events-calendar-month__multiday-event-bar-inner">
-					<?php if ( $event->featured ) : ?>
-						<em
-							class="tribe-events-calendar-month__multiday-event-bar-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-							aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-							title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
-						></em>
-					<?php endif; ?>
+					<?php $this->template( 'month/calendar-body/day/multiday-events/date/featured', [ 'event' => $event ] ); ?>
 					<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
 						<?php
 						// phpcs:ignore
