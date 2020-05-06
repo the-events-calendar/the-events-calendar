@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.1.1] TBD =
 
 * Feature - Move all the featured event icons to templates. [TEC-3441]
+* Fix - Not being able to create events because capabilities were not set on activation or update of the plugin. [TEC-3350]
 * Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
 * Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
 * Fix - Event Aggregator imported events when using default status or categories from the Settings Page will now be imported correctly. [TEC-3445]
