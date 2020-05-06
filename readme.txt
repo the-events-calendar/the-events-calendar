@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Move all the featured event icons to templates. [TEC-3441]
 * Tweak - Deprecated the `Tribe__Events__Main::get_i18n_strings_for_domains()` and `Tribe__Events__Main::get_i18n_strings()` methods; use the methods with the same name and signature provided by the `tribe( 'tec.18n' )` object [TEC-3404]
+* Fix - Not being able to create events because capabilities were not set on activation or update of the plugin. [TEC-3350]
 * Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
 * Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
 * Fix - Event Aggregator imported events when using default status or categories from the Settings Page will now be imported correctly. [TEC-3445]
