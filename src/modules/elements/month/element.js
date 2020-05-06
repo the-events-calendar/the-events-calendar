@@ -15,9 +15,11 @@ import { Component } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+import { globals } from '@moderntribe/common/utils';
 import { YearMonthForm } from '@moderntribe/events/elements';
 import './style.pcss';
 
+const { wpHooks } = globals;
 const today = new Date();
 const currentYear = today.getFullYear();
 const currentMonth = today.getMonth();
@@ -52,6 +54,23 @@ export default class Month extends Component {
 			to: null,
 		};
 	}
+
+	/**
+	 * Get the filterable React Day Picker modifiers object.
+	 *
+	 * @link http://react-day-picker.js.org/docs/matching-days
+	 *
+	 * @returns {Object}
+	 */
+	getModifiers = () => {
+		const { withRange, from, to } = this.props;
+
+		const monthModifiers = withRange ? { start: from, end: to } : {};
+
+	 	wpHooks.applyFilters( 'blocks.eventDatetime.monthModifiersHook', 'tribe/tec/monthModifiers', monthModifiers );
+
+		return monthModifiers;
+	};
 
 	selectDay = ( day ) => {
 		const { withRange } = this.props;
@@ -126,7 +145,6 @@ export default class Month extends Component {
 
 	render() {
 		const { from, to, month, withRange, setVisibleMonth } = this.props;
-		const modifiers = withRange ? { start: from, end: to } : {};
 		const containerClass = classNames( { 'tribe-editor__calendars--range': withRange } );
 		return (
 			<DayPicker
@@ -135,11 +153,11 @@ export default class Month extends Component {
 				toMonth={ this.state.toMonth }
 				month={ month }
 				numberOfMonths={ 2 }
-				modifiers={ modifiers }
 				selectedDays={ this.getSelectedDays() }
 				onDayClick={ this.selectDay }
 				onMonthChange={ setVisibleMonth }
 				captionElement={ this.getCaptionElement }
+				modifiers={this.getModifiers()}
 			/>
 		);
 	}
