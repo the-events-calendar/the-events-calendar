@@ -26,8 +26,6 @@
 	data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 	aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 >
-	<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden/featured', [ 'event' => $event ] ); ?>
-	<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-		<?php echo $event->title; // phpcs:ignore  ?>
-	</h3>
+	<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden/link/featured', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden/link/title', [ 'event' => $event ] ); ?>
 </a>

@@ -25,7 +25,9 @@
  * @version TBD
  */
 
-$classes = tribe_events_multiday_classes( $event, $day_date, $is_start_of_week, $today_date );
+$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, $day_date, $is_start_of_week, $today_date );
+
+$start_display_date = $event->dates->start_display->format( 'Y-m-d' );
 
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
@@ -41,6 +43,13 @@ $classes = tribe_events_multiday_classes( $event, $day_date, $is_start_of_week, 
 				'day_date'         => $day_date,
 			]
 		);
+		// If the event didn't start today, we're done.
+		if (
+			( $start_display_date === $day_date )
+			|| ( $start_display_date < $grid_start_date && $grid_start_date === $day_date )
+		) {
+			$this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] );
+		}
 		?>
 	</article>
 </div>

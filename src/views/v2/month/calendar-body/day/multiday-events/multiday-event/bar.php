@@ -20,8 +20,6 @@
  * @version TBD
  */
 
-$start_display_date = $event->dates->start_display->format( 'Y-m-d' );
-
 /*
  * To keep the calendar accessible, in the context of a week, we only print
  * the event bar on the first day of the event or the first day of the week.
@@ -34,15 +32,8 @@ if (
 }
 ?>
 <div class="tribe-events-calendar-month__multiday-event-bar">
-	<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/bar/inner', [ 'event' => $event ] ); ?>
+	<div class="tribe-events-calendar-month__multiday-event-bar-inner">
+		<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/bar/featured', [ 'event' => $event ] ); ?>
+		<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/bar/title', [ 'event' => $event ] ); ?>
+	</div>
 </div>
-<?php
-// If the event didn't start today, we're done.
-if (
-	( $start_display_date !== $day_date )
-	&& ( $start_display_date >= $grid_start_date || $grid_start_date !== $day_date )
-) {
-	return;
-}
-?>
-<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/tooltip', [ 'event' => $event ] ); ?>
