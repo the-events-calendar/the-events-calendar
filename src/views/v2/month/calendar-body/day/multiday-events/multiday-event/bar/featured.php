@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Month View - Single Multiday Event Featured Icon
+ * View: Month View - Single Multiday Event Bar Featured Icon
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/month/calendar-body/day/multiday-events/date/featured.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/multiday-events/multiday-event/bar/featured.php
  *
  * See more documentation about our views templating system.
  *
@@ -14,6 +14,8 @@
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
+ *
+ * @version TBD
  */
 
 if ( empty( $event->featured ) ) {
