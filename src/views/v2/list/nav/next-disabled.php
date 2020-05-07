@@ -15,6 +15,9 @@
 
 /* translators: %s: Event (plural or singular). */
 $label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() );
+
+/* translators: %s: Event (plural or singular). */ 
+$events_mobile_friendly_label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), '<span class="tribe-events-c-nav__next-label-plural tribe-common-a11y-visual-hide">' . tribe_get_event_label_plural() . '</span>' );
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button
