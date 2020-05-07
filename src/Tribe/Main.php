@@ -557,6 +557,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Ignored Events
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
 
+			// Capabilities.
+			tribe_singleton( Tribe__Events__Capabilities::class, Tribe__Events__Capabilities::class, [ 'hook' ] );
+
 			// Assets loader
 			tribe_singleton( 'tec.assets', 'Tribe__Events__Assets', array( 'register', 'hook' ) );
 
@@ -910,6 +913,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( 'tec.privacy' );
+			tribe( Tribe__Events__Capabilities::class );
 		}
 
 		/**
