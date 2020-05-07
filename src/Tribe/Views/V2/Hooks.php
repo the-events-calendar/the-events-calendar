@@ -104,6 +104,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( ! has_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10 ) ) {
 			add_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10, 3 );
 		}
+
+		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 	}
 
 	/**
@@ -712,5 +714,33 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function print_single_json_ld() {
 
 		$this->container->make( Template\JSON_LD::class )->print_single_json_ld();
+	}
+
+	/**
+	 * Add views stylesheets to customizer styles array to check.
+	 * Remove unused legacy stylesheets.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $sheets Array of sheets to search for.
+	 * @param string        $css_template String containing the inline css to add.
+	 *
+	 * @return array Modified array of sheets to search for.
+	 */
+	public function customizer_inline_stylesheets( $sheets, $css_template ) {
+		$v2_sheets = [
+			'tribe-events-views-v2-skeleton',
+			'tribe-events-views-v2-full',
+		];
+
+		// Unenqueue legacy sheets.
+		$keys = array_keys( $sheets, 'tribe-events-calendar-style' );
+		if ( ! empty( $keys ) ) {
+			foreach ( $keys as $key ) {
+				unset( $sheets[ $key ] );
+			}
+		}
+
+		return array_merge( $sheets, $v2_sheets );
 	}
 }

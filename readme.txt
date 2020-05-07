@@ -222,9 +222,15 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.1.1] TBD =
 
+* Feature - Move all the featured event icons to templates. [TEC-3441]
+* Fix - Enqueue Customizer stylesheets properly via `tribe_customizer_inline_stylesheets` in Common. [TEC-3401]
+* Fix - Not being able to create events because capabilities were not set on activation or update of the plugin. [TEC-3350]
 * Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
 * Fix - Correct bad defaults from `Template->attr()` and ensure that the timezone info is correctly hydrated in the case of an unchanged block. [TEC-2964]
 * Fix - Show the correct counts on the Event Aggregator Import "History" tab for non-Event content types being imported.
+* Fix - Prevent creation of empty venue when removing a Venue inside of the Events using the Classic editor that had a US state selected. [TEC-3416]
+* Fix - Event Aggregator imported events when using default status or categories from the Settings Page will now be imported correctly. [TEC-3445]
+* Fix - Prevent problems with `func_get_args()` usage around template inclusion for legacy template files [TEC-3104]
 * Tweak - Add new filter `tribe_aggregator_manage_record_column_source_html` to customize the source column content HTML used on the Event Aggregator Import "History" tab.
 
 = [5.1.0] 2020-04-23 =
