@@ -25,7 +25,7 @@
  * @version TBD
  */
 
-$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, $day_date, $is_start_of_week, $today_date );
+$classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, $day_date, $is_start_of_week, $today_date );
 
 $start_display_date = $event->dates->start_display->format( 'Y-m-d' );
 
