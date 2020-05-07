@@ -21,6 +21,8 @@ class Multiday_EventTest extends HtmlPartialTestCase
 			'event'            => $event,
 			'is_start_of_week' => false,
 			'grid_start_date'  => '2019-01-01',
+			'week_start_date'  => '2019-06-16',
+			'today_date'       => '2019-06-22',
 		] ) );
 	}
 
@@ -34,6 +36,8 @@ class Multiday_EventTest extends HtmlPartialTestCase
 			'event'            => $event,
 			'is_start_of_week' => false,
 			'grid_start_date'  => '2019-01-01',
+			'week_start_date'  => '2019-06-16',
+			'today_date'       => '2019-06-22',
 		] ) );
 	}
 

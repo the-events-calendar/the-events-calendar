@@ -56,46 +56,86 @@
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999997">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
-			<time
-				datetime="2018-07-01"
-				class="tribe-common-a11y-visual-hide"
-			>
-				2018-07-01			</time>
-			<a
-				href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am"
-				class="tribe-events-calendar-month__multiday-event-hidden-link"
-				data-js="tribe-events-tooltip"
-				data-tooltip-content="#tribe-events-tooltip-content-999997"
-				aria-describedby="tribe-events-tooltip-content-999997"
-			>
-								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-					Test Multi-day Event &#8211; 2018-07-01 11am				</h3>
-			</a>
-		</div>
-			</article>
+	<time
+	datetime="2018-07-01"
+	class="tribe-common-a11y-visual-hide"
+>
+	2018-07-01</time>
+	<a
+	href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am"
+	class="tribe-events-calendar-month__multiday-event-hidden-link"
+	data-js="tribe-events-tooltip"
+	data-tooltip-content="#tribe-events-tooltip-content-999997"
+	aria-describedby="tribe-events-tooltip-content-999997"
+>
+		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Test Multi-day Event &#8211; 2018-07-01 11am</h3></a>
+</div>
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-999997"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2018-07-01">
+		<span class="tribe-event-date-start">July 1, 2018 @ 11:00 am</span> - <span class="tribe-event-date-end">July 4, 2018 @ 9:00 am</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-11am"
+		title="Test Multi-day Event &#8211; 2018-07-01 11am"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Test Multi-day Event &#8211; 2018-07-01 11am	</a>
+</h3>
+					</div>
+</div>
+	</article>
 </div>
 
 	<div class="tribe-events-calendar-month__multiday-event-wrapper tribe-events-calendar-month__multiday-event--empty"></div>
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999996">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
-			<time
-				datetime="2018-07-01"
-				class="tribe-common-a11y-visual-hide"
-			>
-				2018-07-01			</time>
-			<a
-				href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm"
-				class="tribe-events-calendar-month__multiday-event-hidden-link"
-				data-js="tribe-events-tooltip"
-				data-tooltip-content="#tribe-events-tooltip-content-999996"
-				aria-describedby="tribe-events-tooltip-content-999996"
-			>
-								<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-					Test Multi-day Event &#8211; 2018-07-01 1pm				</h3>
-			</a>
-		</div>
-			</article>
+	<time
+	datetime="2018-07-01"
+	class="tribe-common-a11y-visual-hide"
+>
+	2018-07-01</time>
+	<a
+	href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm"
+	class="tribe-events-calendar-month__multiday-event-hidden-link"
+	data-js="tribe-events-tooltip"
+	data-tooltip-content="#tribe-events-tooltip-content-999996"
+	aria-describedby="tribe-events-tooltip-content-999996"
+>
+		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Test Multi-day Event &#8211; 2018-07-01 1pm</h3></a>
+</div>
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-999996"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2018-07-01">
+		<span class="tribe-event-date-start">July 1, 2018 @ 1:00 pm</span> - <span class="tribe-event-date-end">July 3, 2018 @ 11:00 am</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=test-multi-day-event-2018-07-01-1pm"
+		title="Test Multi-day Event &#8211; 2018-07-01 1pm"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Test Multi-day Event &#8211; 2018-07-01 1pm	</a>
+</h3>
+					</div>
+</div>
+	</article>
 </div>
 
 

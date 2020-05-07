@@ -24,7 +24,7 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
 <div class="tribe-events-calendar-list__event-datetime-wrapper tribe-common-b2">
-	<?php $this->template( 'list/event/date/featured', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'list/event/date/featured' ); ?>
 	<time class="tribe-events-calendar-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo $event->schedule_details->value(); ?>
 	</time>
