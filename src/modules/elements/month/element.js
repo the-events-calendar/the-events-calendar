@@ -55,23 +55,6 @@ export default class Month extends Component {
 		};
 	}
 
-	/**
-	 * Get the filterable React Day Picker modifiers object.
-	 *
-	 * @link http://react-day-picker.js.org/docs/matching-days
-	 *
-	 * @returns {Object}
-	 */
-	getModifiers = () => {
-		const { withRange, from, to } = this.props;
-
-		const monthModifiers = withRange ? { start: from, end: to } : {};
-
-	 	wpHooks.applyFilters( 'blocks.eventDatetime.monthModifiersHook', 'tribe/tec/monthModifiers', monthModifiers );
-
-		return monthModifiers;
-	};
-
 	selectDay = ( day ) => {
 		const { withRange } = this.props;
 		let range = {};
@@ -145,6 +128,7 @@ export default class Month extends Component {
 
 	render() {
 		const { from, to, month, withRange, setVisibleMonth } = this.props;
+		const modifiers = withRange ? { start: from, end: to } : {};
 		const containerClass = classNames( { 'tribe-editor__calendars--range': withRange } );
 		return (
 			<DayPicker
@@ -157,7 +141,8 @@ export default class Month extends Component {
 				onDayClick={ this.selectDay }
 				onMonthChange={ setVisibleMonth }
 				captionElement={ this.getCaptionElement }
-				modifiers={this.getModifiers()}
+				modifiers={ modifiers }
+				disabledDays={ wpHooks.applyFilters( 'blocks.tribeEventDayPicker.disabledDays', null ) }
 			/>
 		);
 	}
