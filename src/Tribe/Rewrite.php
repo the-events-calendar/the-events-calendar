@@ -285,6 +285,13 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$bases            = array_map( 'array_unique', $bases );
 		$unfiltered_bases = $bases;
 
+		apply_filters_deprecated(
+			'tribe_events_rewrite_i18n_languages',
+			[ array_unique( array( 'en_US', get_locale() ) ) ],
+			'TBD',
+			'Deprecated in version TBD, not used since version 4.2.'
+		);
+
 		// By default we load the Default and our plugin domains
 		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 			'default'             => true, // Default doesn't need file path
