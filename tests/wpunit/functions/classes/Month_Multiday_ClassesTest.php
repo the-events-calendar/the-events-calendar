@@ -27,7 +27,7 @@ class Month_Multiday_ClassesTest extends WPTestCase {
 			$event->displays_on = [];
 		}
 
-		$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, null, null, null );
+		$classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, null, null, null );
 		$expected = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 
 		$this->assertEquals( $expected, $classes, "Classes don't match expected!" );
@@ -45,7 +45,7 @@ class Month_Multiday_ClassesTest extends WPTestCase {
 
 		$event->featured = true;
 
-		$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, null, null, null );
+		$classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, null, null, null );
 		$expected = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 		$expected[] = 'tribe-events-calendar-month__multiday-event--featured';
 
@@ -61,7 +61,7 @@ class Month_Multiday_ClassesTest extends WPTestCase {
 	public function it_should_return_expected_classes_when_passed_a_first_day_event() {
 		$event    = $this->get_mock_event( 'events/single/1.json' );
 
-		$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, $event->start_date, true, null );
+		$classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, $event->start_date, true, null );
 		$expected = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 		$expected[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
 		$expected[] = 'tribe-events-calendar-month__multiday-event--display';
@@ -76,7 +76,7 @@ class Month_Multiday_ClassesTest extends WPTestCase {
 	public function it_should_return_expected_classes_when_passed_a_first_day_past_event() {
 		$event    = $this->get_mock_event( 'events/single/1.json' );
 
-		$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, $event->start_date, true, $event->start_date );
+		$classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, $event->start_date, true, $event->start_date );
 		$expected = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 		$expected[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
 		$expected[] = 'tribe-events-calendar-month__multiday-event--display';
@@ -93,7 +93,7 @@ class Month_Multiday_ClassesTest extends WPTestCase {
 		$event    = $this->get_mock_event( 'events/single/1.json' );
 		$event->starts_this_week = true;
 
-		$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, $event->start_date, true, null );
+		$classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, $event->start_date, true, null );
 		$expected = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 		$expected[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
 		$expected[] = 'tribe-events-calendar-month__multiday-event--display';
@@ -110,7 +110,7 @@ class Month_Multiday_ClassesTest extends WPTestCase {
 		$event    = $this->get_mock_event( 'events/single/1.json' );
 		$event->ends_this_week = true;
 
-		$classes = \Tribe\Events\Views\V2\tribe_events_month_multiday_classes( $event, $event->start_date, true, null );
+		$classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, $event->start_date, true, null );
 		$expected = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 		$expected[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
 		$expected[] = 'tribe-events-calendar-month__multiday-event--display';

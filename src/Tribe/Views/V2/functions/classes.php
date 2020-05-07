@@ -29,7 +29,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
  *
  * @return array<string> $classes   The classes to add to the multiday event.
  */
-function tribe_events_month_multiday_classes( $event, $day_date, $is_start_of_week, $today_date ) {
+function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_date ) {
 	$classes = tribe_get_post_class( [ 'tribe-events-calendar-month__multiday-event' ], $event->ID );
 
 	if ( ! empty( $event->featured ) ) {
