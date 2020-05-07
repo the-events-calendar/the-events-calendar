@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 = [5.1.1] TBD =
 
 * Feature - Move all the featured event icons to templates. [TEC-3441]
+* Tweak - Deprecated the `Tribe__Events__Main::get_i18n_strings_for_domains()` and `Tribe__Events__Main::get_i18n_strings()` methods; use the methods with the same name and signature provided by the `tribe( 'tec.18n' )` object [TEC-3404]
+* Tweak - Add new filter `tribe_aggregator_manage_record_column_source_html` to customize the source column content HTML used on the Event Aggregator Import "History" tab.
+* Tweak - Modify language variables to improve translations readability on Updated Views navigation previous and next buttons. [props @justlevine]
+* Tweak - Add new filter `tribe_aggregator_manage_record_column_source_html` to customize the source column content HTML used on the Event Aggregator Import "History" tab.
 * Fix - Enqueue Customizer stylesheets properly via `tribe_customizer_inline_stylesheets` in Common. [TEC-3401]
 * Fix - Not being able to create events because capabilities were not set on activation or update of the plugin. [TEC-3350]
 * Fix - Adjust templates to show time zone in event details when "Show time zone" is checked. [TEC-2979]
@@ -230,9 +234,8 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Show the correct counts on the Event Aggregator Import "History" tab for non-Event content types being imported.
 * Fix - Prevent creation of empty venue when removing a Venue inside of the Events using the Classic editor that had a US state selected. [TEC-3416]
 * Fix - Event Aggregator imported events when using default status or categories from the Settings Page will now be imported correctly. [TEC-3445]
+* Fix - A localization support that would mangle Views URLs when WPML plugin is active alongside Views v2 [TEC-3404]
 * Fix - Prevent problems with `func_get_args()` usage around template inclusion for legacy template files [TEC-3104]
-* Tweak - Modify language variables to improve translations readability on Updated Views navigation previous and next buttons. [props @justlevine]
-* Tweak - Add new filter `tribe_aggregator_manage_record_column_source_html` to customize the source column content HTML used on the Event Aggregator Import "History" tab.
 
 = [5.1.0] 2020-04-23 =
 

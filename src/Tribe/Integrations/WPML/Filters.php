@@ -36,10 +36,11 @@ class Tribe__Events__Integrations__WPML__Filters {
 			return $bases;
 		}
 
-		$tec = Tribe__Events__Main::instance();
-
 		// Grab all languages
 		$langs = $sitepress->get_active_languages();
+
+		// Sort the languages to stick w/ the order that will be used to support localized bases.
+		ksort( $langs );
 
 		if ( empty( $langs ) ) {
 			return $bases;
@@ -59,7 +60,16 @@ class Tribe__Events__Integrations__WPML__Filters {
 		// remove WPML filter to avoid the locale being set to the default one
 		remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 
-		$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
+		/*
+		 * Translate only the English version of the bases to ensure the order of the translations.
+		 */
+		$untranslated_bases = array_combine( array_keys( $bases ), array_column( $bases, 0 ) );
+
+		$translated_bases = tribe( 'tec.i18n' )
+			->get_i18n_strings( $untranslated_bases, $languages, $domains, $current_locale );
+
+		// Prepend the WPML-translated bases to the set of bases.
+		$bases = array_merge_recursive( $translated_bases, $bases );
 
 		// re-hook WPML filter
 		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
@@ -103,5 +113,4 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 		return $bases;
 	}
-
 }
