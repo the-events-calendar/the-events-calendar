@@ -33,7 +33,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.1.0';
+		const VERSION             = '5.1.1';
 
 		/**
 		 * Min Pro Addon
@@ -528,7 +528,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function bind_implementations(  ) {
 			tribe_singleton( 'tec.main', $this );
 
-			// i18n
+			// i18n.
 			tribe_singleton( 'tec.i18n', new Tribe\Events\I18n( $this ) );
 
 			// Utils
@@ -560,6 +560,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Ignored Events
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', array( 'hook' ) );
+
+			// Capabilities.
+			tribe_singleton( Tribe__Events__Capabilities::class, Tribe__Events__Capabilities::class, [ 'hook' ] );
 
 			// Assets loader
 			tribe_singleton( 'tec.assets', 'Tribe__Events__Assets', array( 'register', 'hook' ) );
@@ -914,6 +917,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( 'tec.privacy' );
+			tribe( Tribe__Events__Capabilities::class );
 		}
 
 		/**
@@ -2521,7 +2525,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * WARNING: This function is slow because it deals with files, so don't overuse it!
 		 *
-		 * @since TBD Deprecated and moved code to the `Tribe\Events\I18n` class.
+		 * @since 5.1.1 Deprecated and moved code to the `Tribe\Events\I18n` class.
 		 *
 		 * @param  array  $strings          An array of strings (required)
 		 * @param  array  $languages        Which l10n to fetch the string (required)
@@ -2530,7 +2534,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return array                    A multi level array with the possible translations for the given strings
 		 *
-		 * @deprecated Since TBD, use `tribe( 'tec.i18n' )->get_i18n_strings()` instead.
+		 * @deprecated Since 5.1.1, use `tribe( 'tec.i18n' )->get_i18n_strings()` instead.
 		 */
 		public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US' ) {
 			_deprecated_function( __METHOD__, 'TBD', "tribe( 'tec.i18n' )->get_i18n_strings()" );
@@ -3097,15 +3101,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * WARNING: This function is slow because it deals with files, so don't overuse it!
 		 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
 		 *
-		 * @since TBD Deprecated and moved to the `Tribe\Events\I18n` class.
+		 * @since 5.1.1 Deprecated and moved to the `Tribe\Events\I18n` class.
 		 *
-		 * @param  array  $strings          An array of strings (required).
-		 * @param  array  $languages        Which l10n to fetch the string (required).
-		 * @param  array  $domains          Possible Domains to re-load.
+		 * @param array $strings   An array of strings (required).
+		 * @param array $languages Which l10n to fetch the string (required).
+		 * @param array $domains   Possible Domains to re-load.
 		 *
 		 * @return array                    A multi level array with the possible translations for the given strings.
 		 *
-		 * @deprecated Since TBD, use `tribe( 'tec.i18n' )->get_i18n_strings_for_domains()` instead.
+		 * @deprecated Since 5.1.1, use `tribe( 'tec.i18n' )->get_i18n_strings_for_domains()` instead.
 		 */
 		public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ) ) {
 			_deprecated_function( __METHOD__, 'TBD', "tribe( 'tec.i18n' )->get_i18n_strings_for_domains()" );

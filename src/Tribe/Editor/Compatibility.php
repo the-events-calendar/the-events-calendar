@@ -82,7 +82,7 @@ class Tribe__Events__Editor__Compatibility {
 		/**
 		 * Filters whether the Blocks Editor is on or not.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param bool $is_on Whether the Blocks Editor is on or not.
 		 */

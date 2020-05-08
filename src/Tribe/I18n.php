@@ -2,7 +2,7 @@
 /**
  * Handles internationalization of The Events Calendar strings.
  *
- * @since   TBD
+ * @since   5.1.1
  *
  * @package Tribe\Events
  */
@@ -16,7 +16,7 @@ use Tribe__Main as Common;
 /**
  * Class I18n
  *
- * @since   TBD
+ * @since   5.1.1
  *
  * @package Tribe\Events
  */
@@ -24,7 +24,7 @@ class I18n {
 	/**
 	 * An instance of the The Events Calendar main class.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @var TEC
 	 */
@@ -44,7 +44,7 @@ class I18n {
 	 *
 	 * WARNING: This function is slow because it deals with files, so don't overuse it!
 	 *
-	 * @since TBD Moved here from Tribe__Events__Main.
+	 * @since 5.1.1 Moved here from Tribe__Events__Main.
 	 *
 	 * @param array  $strings          An array of strings (required).
 	 * @param array  $languages        Which l10n to fetch the string (required).
@@ -72,7 +72,7 @@ class I18n {
 	 * WARNING: This function is slow because it deals with files, so don't overuse it!
 	 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param array $strings   An array of strings (required).
 	 * @param array $languages Which l10n to fetch the string (required).
@@ -96,13 +96,17 @@ class I18n {
 			$strings_buffer[] = $language_strings;
 		}
 
-		$strings = count( $strings_buffer ) > 1 ? array_merge_recursive( ...
-			$strings_buffer ) : reset( $strings_buffer );
+		$strings = count( $strings_buffer ) > 1
+			? array_merge_recursive( ... $strings_buffer )
+			: reset( $strings_buffer );
 
-		// Prevent Empty Strings and Duplicates
+		// Prevent empty strings and duplicates.
 		foreach ( $strings as $key => $value ) {
-			$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes',
-				(array) $value ) ) );
+			$strings[ $key ] = array_filter(
+				array_unique(
+					array_map( 'sanitize_title_with_dashes', (array) $value )
+				)
+			);
 		}
 
 		return $strings;
@@ -116,7 +120,7 @@ class I18n {
 	 * The main purpose of this method is to avoid a rat race against plugins and themes that will filter the locale
 	 * by attaching the filtering method or function at `PHP_INT_MAX`.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param string   $locale The locale to set for the execution of the callback.
 	 * @param callable $do     The callable to execute in the context of a specific locale.
@@ -146,7 +150,7 @@ class I18n {
 	/**
 	 * Compiles the translations for a set of strings iterating on a set of domains.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.

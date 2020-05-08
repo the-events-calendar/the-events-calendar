@@ -35,7 +35,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	/**
 	 * A map providing each current base to its current locale translation.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @var array<string,string>
 	 */
@@ -282,7 +282,15 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', $default_bases );
 
 		// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
-		$bases = $unfiltered_bases = array_map( 'array_unique', $bases );
+		$bases            = array_map( 'array_unique', $bases );
+		$unfiltered_bases = $bases;
+
+		apply_filters_deprecated(
+			'tribe_events_rewrite_i18n_languages',
+			[ array_unique( array( 'en_US', get_locale() ) ) ],
+			'TBD',
+			'Deprecated in version 5.1.1, not used since version 4.2.'
+		);
 
 		// By default we load the Default and our plugin domains
 		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
@@ -703,7 +711,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * The bases are the ones used to build the permalinks, the domains are those of the currently activated plugins
 	 * that include a localized rewrite component.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param array<string> $bases   The bases to set up the locale translation for.
 	 * @param array<string> $domains A list of text domains belonging to the plugins currently active that handle and
@@ -714,7 +722,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 */
 	public function get_localized_bases( array $bases, array $domains ) {
 		$locale             = get_locale();
-		$cache_key          = __METHOD__ . md5( json_encode( array_merge( $bases, $domains, [ $locale ] ) ) );
+		$cache_key          = __METHOD__ . md5( serialize( array_merge( $bases, $domains, [ $locale ] ) ) );
 		$expiration_trigger = Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES;
 
 		$cached = tribe_cache()->get( $cache_key, $expiration_trigger, false );

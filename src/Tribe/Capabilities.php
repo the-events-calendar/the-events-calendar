@@ -1,9 +1,41 @@
 <?php
 
 class Tribe__Events__Capabilities {
-	public $set_initial_caps = false;
-	private $cap_aliases = array(
-		'editor' => array( // full permissions to a post type
+
+	/**
+	 * The transient key for delayed capabilities updates.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @var string
+	 */
+	public static $key_needs_init = '_tribe_events_needs_capability_init';
+
+	/**
+	 * An array of roles to update capabilities.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @var array
+	 */
+	protected $roles = [
+		'administrator',
+		'editor',
+		'author',
+		'contributor',
+		'subscriber',
+	];
+
+	/**
+	 * An array of capabilities aliases by role.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @var array
+	 */
+	private $cap_aliases = [
+		// Full permissions to a post type.
+		'editor'      => [
 			'read',
 			'read_private_posts',
 			'edit_posts',
@@ -15,24 +47,96 @@ class Tribe__Events__Capabilities {
 			'delete_private_posts',
 			'delete_published_posts',
 			'publish_posts',
-		),
-		'author' => array( // full permissions for content the user created
+		],
+		// Full permissions for content the user created.
+		'author'      => [
 			'read',
 			'edit_posts',
 			'edit_published_posts',
 			'delete_posts',
 			'delete_published_posts',
 			'publish_posts',
-		),
-		'contributor' => array( // create, but not publish
+		],
+		// Create, but not publish.
+		'contributor' => [
 			'read',
 			'edit_posts',
 			'delete_posts',
-		),
-		'subscriber' => array( // read only
+		],
+		// Read only.
+		'subscriber'  => [
 			'read',
-		),
-	);
+		],
+	];
+
+	/**
+	 * @deprecated 5.1.1
+	 *
+	 * @var bool
+	 */
+	public $set_initial_caps = false;
+
+	/**
+	 * Hook up the correct methods to the places required to setup the capabilities.
+	 *
+	 * @since 5.1.1
+	 */
+	public function hook() {
+		// Update Capabilities.
+		add_action( 'wp_loaded', [ $this, 'set_initial_caps' ], 10, 0 );
+	}
+
+	/**
+	 * Set the transient for flagging the transients needs a initialization.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @return bool Status of set_transient.
+	 */
+	public function set_needs_init() {
+		return set_transient( static::$key_needs_init, 'yes', DAY_IN_SECONDS );
+	}
+
+	/**
+	 * Deletes the transient for flagging the transients needs a initialization.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @return bool Status of delete_transient.
+	 */
+	public function delete_needs_init() {
+		return delete_transient( static::$key_needs_init );
+	}
+
+	/**
+	 * Determines if capabilities need initialization on this request.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @return bool Caps need initialisation.
+	 */
+	public function needs_init() {
+		return tribe_is_truthy( get_transient( static::$key_needs_init ) );
+	}
+
+	/**
+	 * Get the Roles to Modify Capabilities.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @return array An array of roles to modify capabilities.
+	 */
+	public function get_roles() {
+
+		/**
+		 * Filters the Roles for Tribe Events Capabilities.
+		 *
+		 * @since 5.1.1
+		 *
+		 * @param array $roles An array of roles to add capabilities.
+		 */
+		return apply_filters( 'tribe_events_filter_roles_with_capabilities', $this->roles );
+	}
 
 	/**
 	 * Grant caps for the given post type to the given role
@@ -100,26 +204,38 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Set the initial capabilities for events and related post types on default roles
 	 *
+	 * @since 5.1.1 - use get_roles() method, add check for transient.
+	 *
+	 * @param boolean $force Force the registering of new caps without checking any flags.
+	 *
 	 * @return void
 	 */
-	public function set_initial_caps() {
-		// this is a flag for testing purposes to make sure this function is firing
-		$this->set_initial_caps = true;
-		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
+	public function set_initial_caps( $force = false ) {
+		// Allows bailing on check for needs init.
+		if ( ! $force && ! $this->needs_init() ) {
+			return;
+		}
+
+		foreach ( $this->get_roles() as $role ) {
 			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Aggregator__Records::$post_type, $role );
 		}
+
+		$this->delete_needs_init();
 	}
 
 	/**
 	 * Remove capabilities for events and related post types from default roles
 	 *
+	 * @since 5.1.1 - use get_roles() method.
+	 *
 	 * @return void
 	 */
 	public function remove_all_caps() {
-		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
+
+		foreach ( $this->get_roles() as $role ) {
 			$this->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
