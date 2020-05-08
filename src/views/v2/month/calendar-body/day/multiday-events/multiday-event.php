@@ -10,8 +10,8 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @since 5.0.0
- * @since TBD Move icons into separate templates.
- * @since TBD Split this template into more granular sub-templates.
+ * @since 5.1.1 Move icons into separate templates.
+ * @since 5.1.1 Split this template into more granular sub-templates.
  *
  * @var string $day_date        The `Y-m-d` date of the day currently being displayed.
  * @var string $today_date      Today's date in the `Y-m-d` format.
@@ -22,7 +22,7 @@
  *
  * @see tribe_get_event() For the format of the event object and its properties.
  *
- * @version TBD
+ * @version 5.1.1
  */
 
 $classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, $day_date, $is_start_of_week, $today_date );

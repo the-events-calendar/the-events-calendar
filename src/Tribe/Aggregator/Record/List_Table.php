@@ -523,7 +523,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		/**
 		 * Customize the Events > Import > History > Source column HTML.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param array                                       $html   List of HTML details.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record The record object.

@@ -54,7 +54,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Returns the block data for the block editor.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @return array<string,mixed> The block data for the editor.
 	 */

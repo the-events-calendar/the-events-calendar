@@ -9,13 +9,13 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version TBD
+ * @version 5.1.1
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  *
- * @version TBD
+ * @version 5.1.1
  */
 
 if ( empty( $event->featured ) ) {

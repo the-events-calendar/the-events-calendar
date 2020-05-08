@@ -2,7 +2,7 @@
 /**
  * Calendar Class Functions
  *
- * @since TBD
+ * @since 5.1.1
  */
 namespace Tribe\Events\Views\V2;
 
@@ -19,7 +19,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
  * Used in the multiday month loop.
  * Outputs classes for the multiday event (article).
  *
- * @since TBD
+ * @since 5.1.1
  *
  * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
  *                                  function.
@@ -47,7 +47,7 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
 		/**
 		 * Allows filtering the multiday event classes.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param array<string> $classes    An array of thee classes to be applied.
 		 * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
@@ -83,7 +83,7 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
 	/**
 	 * Allows filtering the multiday event classes.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param array<string> $classes    An array of thee classes to be applied.
 	 * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`

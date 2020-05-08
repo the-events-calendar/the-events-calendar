@@ -188,7 +188,7 @@ class Tribe__Events__Updater {
 	/**
 	 * Set the Capabilities for Events and Related Post Types.
 	 *
-	 * @since TBD - change method of calling set_capabilities.
+	 * @since 5.1.1 - change method of calling set_capabilities.
 	 */
 	public function set_capabilities() {
 		// @var Tribe__Events__Capabilities $capabilities

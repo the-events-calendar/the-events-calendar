@@ -5,7 +5,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * The transient key for delayed capabilities updates.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @var string
 	 */
@@ -14,7 +14,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * An array of roles to update capabilities.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @var array
 	 */
@@ -29,7 +29,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * An array of capabilities aliases by role.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @var array
 	 */
@@ -70,7 +70,7 @@ class Tribe__Events__Capabilities {
 	];
 
 	/**
-	 * @deprecated TBD
+	 * @deprecated 5.1.1
 	 *
 	 * @var bool
 	 */
@@ -79,7 +79,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Hook up the correct methods to the places required to setup the capabilities.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 */
 	public function hook() {
 		// Update Capabilities.
@@ -89,7 +89,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Set the transient for flagging the transients needs a initialization.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @return bool Status of set_transient.
 	 */
@@ -100,7 +100,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Deletes the transient for flagging the transients needs a initialization.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @return bool Status of delete_transient.
 	 */
@@ -111,7 +111,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Determines if capabilities need initialization on this request.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @return bool Caps need initialisation.
 	 */
@@ -122,7 +122,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Get the Roles to Modify Capabilities.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @return array An array of roles to modify capabilities.
 	 */
@@ -131,7 +131,7 @@ class Tribe__Events__Capabilities {
 		/**
 		 * Filters the Roles for Tribe Events Capabilities.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param array $roles An array of roles to add capabilities.
 		 */
@@ -204,7 +204,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Set the initial capabilities for events and related post types on default roles
 	 *
-	 * @since TBD - use get_roles() method, add check for transient.
+	 * @since 5.1.1 - use get_roles() method, add check for transient.
 	 *
 	 * @param boolean $force Force the registering of new caps without checking any flags.
 	 *
@@ -229,7 +229,7 @@ class Tribe__Events__Capabilities {
 	/**
 	 * Remove capabilities for events and related post types from default roles
 	 *
-	 * @since TBD - use get_roles() method.
+	 * @since 5.1.1 - use get_roles() method.
 	 *
 	 * @return void
 	 */

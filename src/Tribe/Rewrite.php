@@ -35,7 +35,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	/**
 	 * A map providing each current base to its current locale translation.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @var array<string,string>
 	 */
@@ -289,7 +289,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			'tribe_events_rewrite_i18n_languages',
 			[ array_unique( array( 'en_US', get_locale() ) ) ],
 			'TBD',
-			'Deprecated in version TBD, not used since version 4.2.'
+			'Deprecated in version 5.1.1, not used since version 4.2.'
 		);
 
 		// By default we load the Default and our plugin domains
@@ -711,7 +711,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * The bases are the ones used to build the permalinks, the domains are those of the currently activated plugins
 	 * that include a localized rewrite component.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param array<string> $bases   The bases to set up the locale translation for.
 	 * @param array<string> $domains A list of text domains belonging to the plugins currently active that handle and

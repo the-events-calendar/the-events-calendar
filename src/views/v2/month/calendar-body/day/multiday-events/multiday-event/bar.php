@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @since TBD
+ * @since 5.1.1
  *
  * @var boolean $should_display If the event starts today and this week.
  * @var string $grid_start_date The `Y-m-d` date of the day where the grid starts.
@@ -17,7 +17,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  *
- * @version TBD
+ * @version 5.1.1
  */
 
 /*

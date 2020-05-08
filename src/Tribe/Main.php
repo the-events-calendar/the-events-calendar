@@ -2525,7 +2525,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * WARNING: This function is slow because it deals with files, so don't overuse it!
 		 *
-		 * @since TBD Deprecated and moved code to the `Tribe\Events\I18n` class.
+		 * @since 5.1.1 Deprecated and moved code to the `Tribe\Events\I18n` class.
 		 *
 		 * @param  array  $strings          An array of strings (required)
 		 * @param  array  $languages        Which l10n to fetch the string (required)
@@ -2534,7 +2534,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return array                    A multi level array with the possible translations for the given strings
 		 *
-		 * @deprecated Since TBD, use `tribe( 'tec.i18n' )->get_i18n_strings()` instead.
+		 * @deprecated Since 5.1.1, use `tribe( 'tec.i18n' )->get_i18n_strings()` instead.
 		 */
 		public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US' ) {
 			_deprecated_function( __METHOD__, 'TBD', "tribe( 'tec.i18n' )->get_i18n_strings()" );
@@ -3101,7 +3101,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * WARNING: This function is slow because it deals with files, so don't overuse it!
 		 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
 		 *
-		 * @since TBD Deprecated and moved to the `Tribe\Events\I18n` class.
+		 * @since 5.1.1 Deprecated and moved to the `Tribe\Events\I18n` class.
 		 *
 		 * @param array $strings   An array of strings (required).
 		 * @param array $languages Which l10n to fetch the string (required).
@@ -3109,7 +3109,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return array                    A multi level array with the possible translations for the given strings.
 		 *
-		 * @deprecated Since TBD, use `tribe( 'tec.i18n' )->get_i18n_strings_for_domains()` instead.
+		 * @deprecated Since 5.1.1, use `tribe( 'tec.i18n' )->get_i18n_strings_for_domains()` instead.
 		 */
 		public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ) ) {
 			_deprecated_function( __METHOD__, 'TBD', "tribe( 'tec.i18n' )->get_i18n_strings_for_domains()" );
