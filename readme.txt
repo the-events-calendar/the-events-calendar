@@ -220,6 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add missing CSS classes to the Event Categories label
+
 = [5.1.1] 2020-05-11 =
 
 * Feature - Move all the featured event icons to templates. [TEC-3441]
