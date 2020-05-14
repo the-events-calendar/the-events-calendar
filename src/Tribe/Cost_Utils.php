@@ -66,7 +66,7 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 		$costs = array_filter(
 			(array) $costs,
 			static function ( $cost ) {
-				return $cost !== '';
+				return '' !== $cost;
 			}
 		);
 
