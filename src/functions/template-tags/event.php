@@ -146,7 +146,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			 */
 			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
-			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			// Dont try to reset cache when forcing.
+			if ( ! $force ) {
+				$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			}
 		}
 
 		/**
