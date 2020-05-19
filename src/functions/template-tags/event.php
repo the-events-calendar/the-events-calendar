@@ -145,8 +145,9 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			 * @param string  $filter The filter, or context of the fetch.
 			 */
 			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
-
-			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			if ( ! $force ) {
+				$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			}
 		}
 
 		/**

@@ -220,6 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.2] TBD =
+
+* Tweak - Prevent undefined errors when using tribe_get_events and forcing a cache refresh.
+
 = [5.1.1] 2020-05-11 =
 
 * Feature - Move all the featured event icons to templates. [TEC-3441]
