@@ -53,4 +53,4 @@ jobs:
       - name: Init the WordPress container
         run: tric up wordpress
       - name: Run suite tests
-        run: tric run ${{ matrix.suite }}
+        run: tric run ${{ matrix.suite }} --debug
