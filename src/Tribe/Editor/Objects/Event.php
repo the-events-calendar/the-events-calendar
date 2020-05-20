@@ -89,6 +89,8 @@ class Event implements Editor_Object_Interface {
 			return isset( $this->data[ $key ] ) ? $this->data[ $key ] : $default;
 		}
 
+		//todo add filter
+
 		return $this->data;
 	}
 }
