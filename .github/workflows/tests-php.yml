@@ -50,6 +50,7 @@ jobs:
           tric composer install --no-dev
           tric use the-events-calendar
           tric composer install
+          tric init
       - name: Init the WordPress container
         run: tric up wordpress
       - name: Run suite tests
