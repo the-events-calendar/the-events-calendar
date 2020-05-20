@@ -39,12 +39,9 @@ jobs:
           tric info
       - name: Print the current tric configuration
         run: tric config
-      - name: fetch and init TEC
+      - name: init TEC
         run: |
-          cd ${GITHUB_WORKSPACE}/..
-          git clone https://github.com/moderntribe/the-events-calendar.git
-          cd the-events-calendar
-          git checkout origin/release/B20.05
+          cd ${GITHUB_WORKSPACE}
           sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
           git submodule update --init
           git submodule foreach --recursive "[ -f .gitmodules ] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
