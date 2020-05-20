@@ -33,6 +33,9 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 	 * @return array The languages with maybe updated URLs
 	 */
 	public function filter_icl_ls_languages( array $languages = array() ) {
+		/** @var SitePress $sitepress */
+		global $sitepress;
+
 		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return $languages;
 		}
@@ -48,13 +51,30 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 			$request_uri = str_replace( $root_folder, '', $request_uri );
 		}
 
-		$current_url = home_url( $request_uri );
+		$current_url      = home_url( $request_uri );
+		$current_query    = parse_url( $current_url, PHP_URL_QUERY );
+		$current_request  = str_replace( $current_query, '', $current_url );
+		$current_language = $sitepress->get_current_language();
+		$original_url     = $languages[ $current_language ]['url'];
 
-		/** @var SitePress $sitepress */
-		global $sitepress;
+		$endpoint = trim( str_replace( $original_url, '', $current_request ), '/?' );
+		if ( ! empty( $endpoint ) ) {
+			foreach ( [ 'month', 'list', 'today' ] as $slug ) {
+				if ( __( $slug, 'the-events-calendar' ) === $endpoint ) {
+					$endpoint = $slug;
+					break;
+				}
+			}
 
-		foreach ( $languages as &$language ) {
-			$language['url'] = $sitepress->convert_url( $current_url, $language['code'] );
+			foreach ( $languages as &$language ) {
+				$sitepress->switch_lang( $language['code'] );
+
+				$language['url'] = trailingslashit( $language['url'] . __( $endpoint, 'the-events-calendar' ) );
+				if ( ! empty( $current_query ) ) {
+					$language['url'] .= '?' . $current_query;
+				}
+			}
+			$sitepress->switch_lang( $current_language );
 		}
 
 		return $languages;
