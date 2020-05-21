@@ -108,19 +108,23 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return null;
 		}
 
-		$key_fields    = [
+		$key_fields = [
 			$cache_post->ID,
 			$cache_post->post_modified,
 			// Use the `post_password` field as we show/hide some information depending on that.
 			$cache_post->post_password,
 			// We must include options on cache key, because options influence the hydrated data on the Event object.
 			wp_json_encode( Tribe__Settings_Manager::get_options() ),
-			wp_json_encode( [ get_option( 'start_of_week' ), get_option( 'timezone_string' ), get_option( 'gmt_offset' ) ] ),
+			wp_json_encode( [
+				get_option( 'start_of_week' ),
+				get_option( 'timezone_string' ),
+				get_option( 'gmt_offset' )
+			] ),
 			$output,
-			$filter
+			$filter,
 		];
 
-		$cache_key     = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
+		$cache_key = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
 
 		if ( ! $force ) {
 			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
