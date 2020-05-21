@@ -103,7 +103,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		/** @var Tribe__Cache $cache */
 		$cache = tribe( 'cache' );
 
-		$cache_post    = get_post( $event );
+		$cache_post = get_post( $event );
+
 		if ( empty( $cache_post ) ) {
 			return null;
 		}
