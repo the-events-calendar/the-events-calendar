@@ -63,6 +63,13 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 
 		$costs = tribe_get_event_meta( $event->ID, '_EventCost', false );
 
+		$costs = array_filter(
+			(array) $costs,
+			static function ( $cost ) {
+				return '' !== $cost;
+			}
+		);
+
 		$parsed_costs = array();
 
 		foreach ( $costs as $index => $value ) {

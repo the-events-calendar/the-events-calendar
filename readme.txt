@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Add missing CSS classes to the Event Categories label on the single event page
+* Tweak - Prevent undefined errors when using tribe_get_events and forcing a cache refresh.
 
 = [5.1.1] 2020-05-11 =
 
