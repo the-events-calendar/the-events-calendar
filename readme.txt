@@ -220,9 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.2] TBD =
+= [5.1.2] TBD =
 
 * Tweak - Prevent undefined errors when using tribe_get_events and forcing a cache refresh.
+* Fix - Prevent `E_ERROR` on for `Tribe__Events__Meta__Save` construct when dealing with revisions, which some WP Engine customers was seeing.
 
 = [5.1.1] 2020-05-11 =
 

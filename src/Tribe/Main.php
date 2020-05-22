@@ -3146,7 +3146,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			// When Post is not an instance of Post we bail.
+			// When not an instance of Post we bail to avoid revision problems.
 			if ( ! $post instanceof WP_Post ) {
 				return;
 			}
