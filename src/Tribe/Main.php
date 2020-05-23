@@ -3146,6 +3146,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
+			// When not an instance of Post we bail to avoid revision problems.
+			if ( ! $post instanceof WP_Post ) {
+				return;
+			}
+
 			$event_meta = new Tribe__Events__Meta__Save( $postId, $post );
 			$event_meta->maybe_save();
 
