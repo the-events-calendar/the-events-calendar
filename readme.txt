@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.1.1
+Stable tag: 5.1.2
 Tested up to: 5.4.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -220,10 +220,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.2] TBD =
+= [5.1.2] 2020-05-27 =
 
 * Tweak - Prevent undefined errors when using tribe_get_events and forcing a cache refresh.
 * Fix - Prevent `E_ERROR` on for `Tribe__Events__Meta__Save` construct when dealing with revisions, which some WP Engine customers was seeing.
+* Language - 0 new strings added, 49 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.1.1] 2020-05-11 =
 
