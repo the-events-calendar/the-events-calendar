@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.1.2] 2020-05-27 =
 
 * Tweak - Prevent undefined errors when using tribe_get_events and forcing a cache refresh.
-* Fix - Prevent `E_ERROR` on for `Tribe__Events__Meta__Save` construct when dealing with revisions, which some WP Engine customers was seeing.
+* Fix - Prevent `E_ERROR` for `Tribe__Events__Meta__Save` construct when dealing with revisions, which some WP Engine customers were seeing.
 * Language - 0 new strings added, 49 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.1.1] 2020-05-11 =
