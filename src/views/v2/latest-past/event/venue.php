@@ -25,14 +25,16 @@ $venue                = $event->venues[0];
 $append_after_address = array_filter( array_map( 'trim', [ $venue->city, $venue->state_province, $venue->state, $venue->province ] ) );
 $address              = $venue->address . ( $venue->address && $append_after_address ? $separator : '' );
 ?>
-<address class="tribe-events-calendar-latest-past__event-venue tribe-common-b2">
-	<span class="tribe-events-calendar-latest-past__event-venue-title tribe-common-b2--bold">
-		<?php echo wp_kses_post( $venue->post_title ); ?>
-	</span>
-	<span class="tribe-events-calendar-latest-past__event-venue-address">
-		<?php echo esc_html( $address ); ?>
-		<?php if ( $append_after_address ) : ?>
-			<?php echo esc_html( reset( $append_after_address ) ); ?>
-		<?php endif; ?>
-	</span>
-</address>
+<div class="tribe-events-calendar-latest-past__event-venue-wrapper">
+	<address class="tribe-events-calendar-latest-past__event-venue tribe-common-b2">
+		<span class="tribe-events-calendar-latest-past__event-venue-title tribe-common-b2--bold">
+			<?php echo wp_kses_post( $venue->post_title ); ?>
+		</span>
+		<span class="tribe-events-calendar-latest-past__event-venue-address">
+			<?php echo esc_html( $address ); ?>
+			<?php if ( $append_after_address ) : ?>
+				<?php echo esc_html( reset( $append_after_address ) ); ?>
+			<?php endif; ?>
+		</span>
+	</address>
+</div>
