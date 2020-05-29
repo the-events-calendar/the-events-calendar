@@ -74,7 +74,8 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertInstanceOf( \WP_Post::class, $event );
 		$this->assertEquals( $venue, get_post_meta( $event->ID, '_EventVenueID', true ) );
-		$this->assertEquals( [ $organizer ], get_post_meta( $event->ID, '_EventOrganizerID', true ) );
+		$this->assertEquals( [ $organizer ], get_post_meta( $event->ID, '_EventOrganizerID', false ) );
+		$this->assertEquals( $organizer, get_post_meta( $event->ID, '_EventOrganizerID', true ) );
 	}
 
 	/**
@@ -95,7 +96,8 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		$event       = tribe_events()->set_args( $args )->create();
 
 		$this->assertInstanceOf( \WP_Post::class, $event );
-		$this->assertEquals( [ $organizer_1, $organizer_2 ], get_post_meta( $event->ID, '_EventOrganizerID', true ) );
+		$this->assertEquals( [ $organizer_1, $organizer_2 ], get_post_meta( $event->ID, '_EventOrganizerID', false ) );
+		$this->assertEquals( $organizer_1, get_post_meta( $event->ID, '_EventOrganizerID', true ) );
 	}
 
 	/**
