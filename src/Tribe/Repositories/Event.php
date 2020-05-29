@@ -1225,7 +1225,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array The filtered event post array.
 	 */
 	protected function update_linked_post_meta( array $postarr ) {
-		// @todo crete linked posts here?! Using ORM?
+		// @todo create linked posts here?! Using ORM?
 		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
 			unset( $postarr['meta_input']['_EventVenueID'] );
 		}
@@ -1242,6 +1242,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			if ( ! count( $valid ) ) {
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 			} else {
+				$this->unpack_meta_on_update( '_EventOrganizerID' );
+				// Pass this to the function to have this value passed to the closure later.
 				$postarr['meta_input']['_EventOrganizerID'] = $valid;
 			}
 		}

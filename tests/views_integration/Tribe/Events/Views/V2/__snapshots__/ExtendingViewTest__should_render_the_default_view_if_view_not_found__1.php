@@ -12,6 +12,6 @@
     "event_post_type": false,
     "venue_post_type": false,
     "organizer_post_type": false,
-    "latest_event_date": "",
-    "earliest_event_date": ""
+    "latest_event_date": "2019-11-03 11:00:00",
+    "earliest_event_date": "2019-11-03 09:00:00"
 }';
