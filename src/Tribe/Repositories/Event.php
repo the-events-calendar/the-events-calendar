@@ -429,7 +429,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param null|int            $min_sec_overlap The minimum overlap, in seconds, an event should have with the
 	 *                                             interval; defaults to at least a second.
 	 */
-	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null, $min_sec_overlap = 1 ) {public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null, $min_sec_overlap = 1 ) {
+	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null, $min_sec_overlap = 1 ) {
 		if ( 0 < $min_sec_overlap ) {
 			$start_datetime = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone );
 			$end_datetime   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone );
