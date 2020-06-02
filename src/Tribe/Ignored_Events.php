@@ -990,12 +990,15 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @param [type] $counts
-		 * @param [type] $type
-		 * @param [type] $perm
-		 * @return void
+		  * @param object $counts       An object containing the current post_type's post
+		 *                              counts by status.
+		 * @param string $unused_type   Post type.
+		 * @param string $unused_perm   The permission to determine if the posts are 'readable'
+		 *                              by the current user.
+		 * @return object $counts       The modified object containing the current post_type's post
+		 *                              counts by status.
 		 */
-		public function patch_count_posts( $counts, $type, $perm ) {
+		public function patch_count_posts( $counts, $unused_type, $unused_perm ) {
 			$status = $this::$ignored_status;
 
 			if ( ! isset( $counts->$status ) ) {
