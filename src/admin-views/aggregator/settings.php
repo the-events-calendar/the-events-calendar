@@ -119,7 +119,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$stop_running_processes_message = sprintf(
 		__( 'If you want to stop and clear current asynchronous import processes %1$s.', 'the-events-calendar' ),
-		sprintf( '<a href="' . add_query_arg( array( Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ) ) . '">%s</a>',
+		sprintf( '<a href="%s">%s</a>',
+			add_query_arg( array( Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ) ),
 			esc_html__( 'click here', 'the-events-calendar' )
 		)
 	);
