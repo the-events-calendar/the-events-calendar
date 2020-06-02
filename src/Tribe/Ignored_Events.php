@@ -78,9 +78,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return  array
 		 */
 		public function filter_bulk_actions( $actions ) {
+
 			if ( ! isset( $_GET['post_status'] ) || self::$ignored_status !== $_GET['post_status'] ) {
 				return $actions;
 			}
+
 
 			$post_type_obj = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 
@@ -975,7 +977,32 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			 */
 			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
 
+			add_filter( 'wp_count_posts', [ $this, 'patch_count_posts' ], 10, 3 );
+
 			return true;
+		}
+
+		/**
+		 * Patch post-list-table queries to include ignored status,
+		 * as WP just accesses the stati without checking if they exist.
+		 *
+		 * @see wp-admin/includes/class-wp-posts-list-table.php->get_views()
+		 *
+		 * @since TBD
+		 *
+		 * @param [type] $counts
+		 * @param [type] $type
+		 * @param [type] $perm
+		 * @return void
+		 */
+		public function patch_count_posts( $counts, $type, $perm ) {
+			$status = $this::$ignored_status;
+
+			if ( ! isset( $counts->$status ) ) {
+				$counts->$status = 0;
+			}
+
+			return $counts;
 		}
 	}
 }
