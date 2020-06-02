@@ -220,6 +220,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correctly store Event Organizer meta when using the ORM.
+
 = [5.1.2] 2020-05-27 =
 
 * Tweak - Prevent undefined errors when using tribe_get_events and forcing a cache refresh.
