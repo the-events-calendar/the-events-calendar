@@ -57,7 +57,16 @@ class Title {
 		$this->events_label_plural = tribe_get_event_label_plural();
 	}
 
-
+	/**
+	 * Builds and returns the page title, to be used to filter the `wp_title` tag.
+	 *
+	 * @since 4.9.10
+	 *
+	 * @param string      $title The page title built so far.
+	 * @param null|string $sep   The separator sequence to separate the title components..
+	 *
+	 * @return string the filtered page title.
+	 */
 	public function filter_wp_title( $title, $sep = null ) {
 		$new_title = $this->build_title( $title, false );
 
@@ -108,7 +117,7 @@ class Title {
 	 * injectable and controllable, in place of the global one.
 	 *
 	 * @since 4.9.10
-	 * @since TBD - Add filter for plural events label.
+	 * @since TBD - Add filter for plural events label and move featured label to a method.
 	 *
 	 * @param string $current_title Current Title used on the page.
 	 * @param bool   $depth         Whether to use depth to build the taxonomy archive title, or not.
