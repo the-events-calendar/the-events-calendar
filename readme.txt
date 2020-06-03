@@ -293,7 +293,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Update events, venues, and organizers to use dynamic labels. [TEC-3280]
 * Fix - Resolve an issue in Views v2 that would break URLs when the event single and archive slugs have the same value due to the "Events URL slug" and "Single event URL slug" settings or due to their translations [TEC-3254]
 * Fix - Restore correct handling of events RSS feeds; events will show in the RSS feed in ascending start date, starting from the current day and the event publish date will be set to the event start date [TEC-3252]
-* Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [TEC-3322]
+* Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those labels. [TEC-3322]
 * Hook - Add the `tribe_views_v2_events_query_controller_active` filter; returning a falsy value from this filter will prevent Views v2 from altering the WordPress query. This filter allows handling situations where Views v2 might interfere with third party plugins (e.g. custom RSS feed implementations) [TEC-3252]
 * Tweak - Added filters: `tribe_events_option_convert_live_filters`, `tribe_events_views_v2_messages_need_events_label_keys`
 * Tweak - Removed filters: `tribe_events_ical_export_text`
@@ -369,9 +369,9 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add upgrade path for new Month, Day, and List views making it opt-in for any existing users.
 * Feature - New templating engine to power the new Views. [See More](https://m.tri.be/1aid)
 * Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
-* Feature - Views manager and bootstraping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
+* Feature - Views manager and bootstrapping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
 * Feature - Reduced maintenance burden of customizations by leveraging atomic templates for the new views. (See list of files now available below)
-* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More](https://m.tri.be/1aib)
+* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusability of components. [See More](https://m.tri.be/1aib)
 * Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points.
 * Feature - View navigation relies on the WP Rest API, improving reliability and caching opportunities.
 * Feature - Event permalinks are now more consistent across navigation using `WP_Rewrite` to map params to their matching URL, which improves SEO.
@@ -394,10 +394,10 @@ Remember to always make a backup of your database and files before updating!
 = [4.9.14] 2020-01-15 =
 
 * Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
-* Tweak - Modifications to the Freemius code initalization to allow better data around plugin uninstalls.
+* Tweak - Modifications to the Freemius code initialization to allow better data around plugin uninstalls.
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Changed views: `blocks/event-venue`
-* Fix - Cost field description no longer disapears when editing the block. [TEC-2992]
+* Fix - Cost field description no longer disappears when editing the block. [TEC-2992]
 * Fix - Organizer theme no longer getting overwritten by Blocks editor styles. [TEC-2974]
 * Fix - Venue block properly receives the correct HTML class. [TEC-3020]
 * Fix - Correct missing block when switching from blocks to classic editor. [131493]
@@ -522,19 +522,19 @@ Remember to always make a backup of your database and files before updating!
 
 = [4.9.2] 2019-05-16 =
 
-* Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
+* Tweak - In the Event Repository class: filter the event creation meta before checking it for coherency
 * Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translate.wordpress.org
 * Fix - Fix event bar issue where it was required to pick the date in order to search events via keyword or location [126158]
 * Fix - Make back-compatibility handling more robust when dealing with classes non-existing in the older plugin versions [127173]
 
 = [4.9.1.1] 2019-05-06 =
 
-* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
+* Fix - Prevent Composer autoloader from throwing Fatal due to nonexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.1] 2019-05-02 =
 
 * Fix - Prevent recurring events all page to throw 404 when events are in the past [126790]
-* Fix - Backwards compatibility for `eventDiplay` usage around `list` and `day` only showing upcoming events [126686]
+* Fix - Backwards compatibility for `eventDisplay` usage around `list` and `day` only showing upcoming events [126686]
 * Fix - List events Widget will display events until their end date has passed [126837]
 * Tweak - Add values for the JSON-LD object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
 * Tweak - Add `tribe_events_cost_unformatted` filter to allow WPML support for WooCommerce Multilingual
@@ -542,7 +542,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [4.9.0.3] 2019-04-26 =
 
-* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
+* Fix - Prevent Composer autoloader from throwing Fatal due to nonexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.0.2] 2019-04-25 =
 
@@ -977,7 +977,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added caching to reduce the number of HTTP requests being made in relation to Event Aggregator within the admin environment [99486]
 * Tweak - Improved performance by reducing the number of queries that run in single event pages (in relation to `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` specifically) [94587]
 * Tweak - Added pagination to single organizer and venue pages [97772]
-* Tweak - Improved compatibility with the Twety Seventeen theme (ensuring the calendar is full-width if set to be the site's homepage) [97977]
+* Tweak - Improved compatibility with the Twenty Seventeen theme (ensuring the calendar is full-width if set to be the site's homepage) [97977]
 * Language - 3 new strings added, 161 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.6.11.1] 2018-02-16 =
@@ -1087,9 +1087,9 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fixed the broken 'Learn more' URL received after an unsuccessful "Other URL" import preview [92890]
 * Fix - Fixed issue in list view navigation with backwards previous/next classes (thanks @secondtoughest) [36230]
 * Fix - Fixed an issue where venues and organizers would not be correctly assigned to events in CSV imports with import statuses other than "Publish" [79680]
-* Tweak - Remove net import scheduled notes for on domand imports [79079]
+* Tweak - Remove net import scheduled notes for on demand imports [79079]
 * Tweak - Allow for non-Latin characters to be used as the Events URL slug and the Single Event URL slug (thanks @daviddweb for originally reporting this) [61880]
-* Tweak - Remove net import scheduled notes for on domand imports [79079]
+* Tweak - Remove net import scheduled notes for on demand imports [79079]
 * Tweak - Fixed some layout issues that would emerge with "Events URL Slug" option when "Plain" permalinks were enabled [92314]
 * Tweak - Tweaked some language in Event Aggregator's metabox on individual edit-event screens to reduce confusion around the impact of the Update Authority on CSV imports [77957]
 * Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
@@ -1138,7 +1138,7 @@ Remember to always make a backup of your database and files before updating!
 = [4.6.1] 2017-10-04 =
 
 * Fix - Fixed "Next Events" and "Previous Events" navigation links in list views, which would sometimes make a category-filtered list view lose its category filter as a user navigated through pages of future or past events (props @forumhelpdesk and @atomicdust for reporting this!) [72013]
-* Fix - Fixed some layout issues with the Tribe Bar datepicker that would arise when using a Twentysixteen or Twentyfifteen child them (thanks to @stefanrueegger for reporting this) [46471]
+* Fix - Fixed some layout issues with the Tribe Bar datepicker that would arise when using a Twenty Sixteen or Twenty Fifteen child them (thanks to @stefanrueegger for reporting this) [46471]
 * Fix - Prevented modification of event titles within the loop when using TRIBE_MODIFY_GLOBAL_TITLE [89273]
 * Fix - Fixed issue when exporting all-day multi-day events via iCal where the end date was one day early (Thank you @fairmont for reporting this!) [87775]
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
