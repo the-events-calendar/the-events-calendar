@@ -977,7 +977,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			 */
 			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
 
-			add_filter( 'wp_count_posts', [ $this, 'patch_count_posts' ], 10 );
+			add_filter( 'wp_count_posts', [ $this, 'patch_count_posts' ] );
 
 			return true;
 		}
