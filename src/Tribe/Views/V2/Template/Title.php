@@ -57,16 +57,7 @@ class Title {
 		$this->events_label_plural = tribe_get_event_label_plural();
 	}
 
-	/**
-	 * Builds and returns the page title, to be used to filter the `wp_title` tag.
-	 *
-	 * @since 4.9.10
-	 *
-	 * @param string      $title The page title built so far.
-	 * @param null|string $sep   The separator sequence to separate the title components..
-	 *
-	 * @return string the filtered page title.
-	 */
+
 	public function filter_wp_title( $title, $sep = null ) {
 		$new_title = $this->build_title( $title, false );
 
@@ -82,6 +73,32 @@ class Title {
 		$the_title = apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep );
 
 		return $the_title;
+	}
+
+	/**
+	 * Filter the plural events label for Featured V2 Views.
+	 *
+	 * @since TBD
+	 *
+	 * @param string  $label   The plural events label as it's been generated thus far.
+	 * @param Context $context The context used to build the title, it could be the global one, or one externally
+	 *                         set.
+	 *
+	 * @return string the original label or updated label for virtual archives.
+	 */
+	public function filter_views_v2_wp_title_plural_events_label( $label, Context $context ) {
+
+		$context = $context ? $context : tribe_context();
+
+		if ( $context->is( 'featured' ) ) {
+			return sprintf(
+				/* translators: %s: events label plural */
+				_x( 'Featured %s', 'featured events title', 'the-events-calendar' ),
+				$this->events_label_plural
+			);
+		}
+
+		return $label;
 	}
 
 	/**
@@ -102,13 +119,6 @@ class Title {
 		$context = $this->context ?: tribe_context();
 		$posts   = $this->get_posts();
 
-		if ( $context->is( 'featured' ) ) {
-			$this->events_label_plural = sprintf(
-				_x( 'Featured %s', 'featured events title', 'the-events-calendar' ),
-				$this->events_label_plural
-			);
-		}
-
 		/**
 		 * Filter the plural Events label for Views Title.
 		 *
@@ -118,7 +128,7 @@ class Title {
 		 * @param Context $context             The context used to build the title, it could be the global one, or one externally
 		 *                                     set.
 		 */
-		$this->events_label_plural = apply_filters( 'tribe_events_filter_views_v2_plural_events_label', $this->events_label_plural, $context );
+		$this->events_label_plural = apply_filters( 'tribe_events_filter_views_v2_wp_title_plural_events_label', $this->events_label_plural, $context );
 
 		if ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
 			// For single events, the event title itself is required
