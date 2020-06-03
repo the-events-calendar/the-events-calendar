@@ -220,6 +220,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add new filter `tribe_events_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
+* Fix - Correctly store Event Organizer meta when using the ORM.
+* Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
+
 = [5.1.2] 2020-05-27 =
 
 * Tweak - Prevent undefined errors when using tribe_get_events and forcing a cache refresh.
