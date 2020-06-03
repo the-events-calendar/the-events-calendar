@@ -977,7 +977,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			 */
 			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
 
-			add_filter( 'wp_count_posts', [ $this, 'patch_count_posts' ], 10, 3 );
+			add_filter( 'wp_count_posts', [ $this, 'patch_count_posts' ], 10 );
 
 			return true;
 		}
@@ -990,15 +990,13 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @since TBD
 		 *
-		  * @param object $counts       An object containing the current post_type's post
-		 *                              counts by status.
-		 * @param string $unused_type   Post type.
-		 * @param string $unused_perm   The permission to determine if the posts are 'readable'
-		 *                              by the current user.
-		 * @return object $counts       The modified object containing the current post_type's post
-		 *                              counts by status.
+		 * @param object $counts An object containing the current post_type's post
+		 *                       counts by status.
+		 *
+		 * @return object $counts The modified object containing the current post_type's post
+		 *                        counts by status.
 		 */
-		public function patch_count_posts( $counts, $unused_type, $unused_perm ) {
+		public function patch_count_posts( $counts ) {
 			$status = $this::$ignored_status;
 
 			if ( ! isset( $counts->$status ) ) {
