@@ -20,6 +20,7 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
+use Tribe\Events\Views\V2\Template\Featured_Title;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
@@ -317,7 +318,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string the original label or updated label for virtual archives.
 	 */
 	public function filter_wp_title_plural_events_label( $label, Context $context ) {
-		return $this->container->make( Title::class )->filter_views_v2_wp_title_plural_events_label( $label, $context );
+		return $this->container->make( Featured_Title::class )->filter_views_v2_wp_title_plural_events_label( $label, $context );
 	}
 
 	/**

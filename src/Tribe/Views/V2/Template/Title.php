@@ -85,32 +85,6 @@ class Title {
 	}
 
 	/**
-	 * Filter the plural events label for Featured V2 Views.
-	 *
-	 * @since TBD
-	 *
-	 * @param string  $label   The plural events label as it's been generated thus far.
-	 * @param Context $context The context used to build the title, it could be the global one, or one externally
-	 *                         set.
-	 *
-	 * @return string the original label or updated label for virtual archives.
-	 */
-	public function filter_views_v2_wp_title_plural_events_label( $label, Context $context ) {
-
-		$context = $context ? $context : tribe_context();
-
-		if ( $context->is( 'featured' ) ) {
-			return sprintf(
-				/* translators: %s: events label plural */
-				_x( 'Featured %s', 'featured events title', 'the-events-calendar' ),
-				$this->events_label_plural
-			);
-		}
-
-		return $label;
-	}
-
-	/**
 	 * Builds the page title from a context.
 	 *
 	 * This method is a rewrite of the `tribe_get_events_title` function to make it leverage the local context,
