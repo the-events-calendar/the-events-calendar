@@ -990,7 +990,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @since TBD
 		 *
-		  * @param object $counts       An object containing the current post_type's post
+		 * @param object $counts       An object containing the current post_type's post
 		 *                              counts by status.
 		 * @param string $unused_type   Post type.
 		 * @param string $unused_perm   The permission to determine if the posts are 'readable'
