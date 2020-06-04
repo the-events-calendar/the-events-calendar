@@ -20,10 +20,12 @@ namespace Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
+use Tribe\Events\Views\V2\Template\Featured_Title;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use Tribe__Context as Context;
 
 /**
  * Class Hooks
@@ -95,6 +97,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 
 		if ( tribe_context()->doing_php_initial_state() ) {
+			add_filter( 'tribe_events_filter_views_v2_wp_title_plural_events_label', [ $this, 'filter_wp_title_plural_events_label' ], 10, 2 );
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
 			add_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
 			add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
@@ -301,6 +304,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
 
 		return $classes;
+	}
+
+	/**
+	 * Filter the plural events label for Featured V2 Views.
+	 *
+	 * @since TBD
+	 *
+	 * @param string  $label   The plural events label as it's been generated thus far.
+	 * @param Context $context The context used to build the title, it could be the global one, or one externally
+	 *                         set.
+	 *
+	 * @return string the original label or updated label for virtual archives.
+	 */
+	public function filter_wp_title_plural_events_label( $label, Context $context ) {
+		return $this->container->make( Featured_Title::class )->filter_views_v2_wp_title_plural_events_label( $label, $context );
 	}
 
 	/**
