@@ -387,6 +387,7 @@ jQuery( document ).ready( function( $ ) {
 			existingPost = !! $selected.data( 'existingPost' );
 		}
 
+		// Always hide the edit link unless we have an edit link to show (handled below).
 		$edit.hide();
 
 		if (
