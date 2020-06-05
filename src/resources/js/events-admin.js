@@ -387,6 +387,8 @@ jQuery( document ).ready( function( $ ) {
 			existingPost = !! $selected.data( 'existingPost' );
 		}
 
+		$edit.hide();
+
 		if (
 			! existingPost &&
 			'-1' !== value &&
@@ -405,8 +407,6 @@ jQuery( document ).ready( function( $ ) {
 			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
 
 		} else {
-			$edit.hide();
-
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input, select' ).val( '' );
 
