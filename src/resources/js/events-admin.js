@@ -373,19 +373,23 @@ jQuery( document ).ready( function( $ ) {
 
 	var toggle_linked_post_fields = function( event ) {
 
-		var $select    = $( this );
-		var selectData = $select.data( 'select2' );
-		var $group     = $select.closest( 'tbody' );
-		var $edit      = $group.find( '.edit-linked-post-link a' );
-		var value      = $select.val();
-		var editLink   = '';
+		var $select      = $( this );
+		var selectData   = $select.data( 'select2' );
+		var $group       = $select.closest( 'tbody' );
+		var $edit        = $group.find( '.edit-linked-post-link a' );
+		var value        = $select.val();
+		var editLink     = '';
+		var existingPost = false;
+		var $selected    = $select.find( ':selected' );
+		var selectedVal  = $selected.val();
 
-		if ( $select.find( ':selected' ).val() == value ) {
-			editLink = $select.find( ':selected' ).data( 'editLink' );
+		if ( selectedVal == value ) {
+			editLink     = $selected.data( 'editLink' );
+			existingPost = !! $selected.data( 'existingPost' );
 		}
 
 		if (
-			( ! editLink || _.isEmpty( editLink ) )
+			! existingPost
 			&& -1 != value
 			&& $select.find( ':selected' ).length
 		) {
