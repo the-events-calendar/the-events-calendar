@@ -373,25 +373,24 @@ jQuery( document ).ready( function( $ ) {
 
 	var toggle_linked_post_fields = function( event ) {
 
-		var $select      = $( this );
-		var selectData   = $select.data( 'select2' );
-		var $group       = $select.closest( 'tbody' );
-		var $edit        = $group.find( '.edit-linked-post-link a' );
-		var value        = $select.val();
-		var editLink     = '';
-		var existingPost = false;
-		var $selected    = $select.find( ':selected' );
-		var selectedVal  = $selected.val();
+		const $select = $( this );
+		const selectData = $select.data( 'select2' );
+		const $group = $select.closest( 'tbody' );
+		const $edit = $group.find( '.edit-linked-post-link a' );
+		const value = $select.val();
+		const $selected = $select.find( ':selected' );
+		const selectedVal = $selected.val();
+		let editLink = '';
+		let existingPost = false;
 
 		if ( selectedVal == value ) {
-			editLink     = $selected.data( 'editLink' );
-			existingPost = !! $selected.data( 'existingPost' );
+			editLink = $selected.data( 'editLink' );
+			existingPost = !!$selected.data( 'existingPost' );
 		}
 
 		if (
-			! existingPost
-			&& -1 != value
-			&& $select.find( ':selected' ).length
+			!existingPost
+			&& -1 != value && $select.find( ':selected' ).length
 		) {
 			// Apply the New Given Title to the Correct Field
 			$group.find( '.linked-post-name' ).val( value ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
