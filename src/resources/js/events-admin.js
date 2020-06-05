@@ -374,7 +374,6 @@ jQuery( document ).ready( function( $ ) {
 	var toggle_linked_post_fields = function( event ) {
 
 		const $select = $( this );
-		const selectData = $select.data( 'select2' );
 		const $group = $select.closest( 'tbody' );
 		const $edit = $group.find( '.edit-linked-post-link a' );
 		const value = $select.val();
@@ -389,8 +388,9 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		if (
-			! existingPost
-			&& -1 != value && $select.find( ':selected' ).length
+			! existingPost &&
+			'-1' !== value &&
+			$selected.length
 		) {
 			// Apply the New Given Title to the Correct Field
 			$group.find( '.linked-post-name' ).val( value ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
