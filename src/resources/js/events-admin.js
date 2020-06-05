@@ -383,13 +383,13 @@ jQuery( document ).ready( function( $ ) {
 		let editLink = '';
 		let existingPost = false;
 
-		if ( selectedVal == value ) {
+		if ( selectedVal === value ) {
 			editLink = $selected.data( 'editLink' );
-			existingPost = !!$selected.data( 'existingPost' );
+			existingPost = !! $selected.data( 'existingPost' );
 		}
 
 		if (
-			!existingPost
+			! existingPost
 			&& -1 != value && $select.find( ':selected' ).length
 		) {
 			// Apply the New Given Title to the Correct Field
