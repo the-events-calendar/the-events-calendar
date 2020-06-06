@@ -373,21 +373,27 @@ jQuery( document ).ready( function( $ ) {
 
 	var toggle_linked_post_fields = function( event ) {
 
-		var $select    = $( this );
-		var selectData = $select.data( 'select2' );
-		var $group     = $select.closest( 'tbody' );
-		var $edit      = $group.find( '.edit-linked-post-link a' );
-		var value      = $select.val();
-		var editLink   = '';
+		const $select = $( this );
+		const $group = $select.closest( 'tbody' );
+		const $edit = $group.find( '.edit-linked-post-link a' );
+		const value = $select.val();
+		const $selected = $select.find( ':selected' );
+		const selectedVal = $selected.val();
+		let editLink = '';
+		let existingPost = false;
 
-		if ( $select.find( ':selected' ).val() == value ) {
-			editLink = $select.find( ':selected' ).data( 'editLink' );
+		if ( selectedVal === value ) {
+			editLink = $selected.data( 'editLink' );
+			existingPost = !! $selected.data( 'existingPost' );
 		}
 
+		// Always hide the edit link unless we have an edit link to show (handled below).
+		$edit.hide();
+
 		if (
-			( ! editLink || _.isEmpty( editLink ) )
-			&& -1 != value
-			&& $select.find( ':selected' ).length
+			! existingPost &&
+			'-1' !== value &&
+			$selected.length
 		) {
 			// Apply the New Given Title to the Correct Field
 			$group.find( '.linked-post-name' ).val( value ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
@@ -402,8 +408,6 @@ jQuery( document ).ready( function( $ ) {
 			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
 
 		} else {
-			$edit.hide();
-
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input, select' ).val( '' );
 
@@ -809,5 +813,4 @@ jQuery( document ).ready( function( $ ) {
 			$el.val( tribeDateFormat( $el.datepicker( 'getDate' ), 'tribeQuery' ) );
 		} );
 	} );
-
-});
+} );

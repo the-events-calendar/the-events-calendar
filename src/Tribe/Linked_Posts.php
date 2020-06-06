@@ -971,6 +971,7 @@ class Tribe__Events__Linked_Posts {
 			<?php selected( $option['selected'] ); ?>
 			value="<?php echo esc_attr( $option['id'] ); ?>"
 			data-edit-link="<?php echo esc_url( $option['edit'] ); ?>"
+			data-existing-post="1"
 		>
 			<?php echo esc_html( $option['text'] ); ?>
 		</option>
