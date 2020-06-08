@@ -12,10 +12,10 @@ class Service extends \WP_UnitTest_Factory {
 	 *                                      `oauth` to override the `oauth` section of the response.
 	 *                                      `limit` to override the `limit` section of the response.
 	 *                                      `usage` to override the `usage->import` section of the response.
-	 *                                      `enable` - a whitelist of source ids that will be enabled; defaults to all sources
+	 *                                      `enable` - a safe list of source ids that will be enabled; defaults to all sources
 	 *                                      enabled.
-	 *                                      `disable` - a blacklist of source ids that will be disabled; defaults to no sources
-	 *                                      blacklisted.
+	 *                                      `disable` - a list of blocked source ids that will be disabled; defaults to no sources
+	 *                                      blocked.
 	 *
 	 * @return \stdClass
 	 */
@@ -74,17 +74,17 @@ class Service extends \WP_UnitTest_Factory {
 			] ),
 		];
 
-		$sources_whitelist = isset( $args['enable'] ) ? (array) $args['enable'] : false;
-		if ( is_array( $sources_whitelist ) ) {
-			$origin = array_filter( $origin, function ( $origin ) use ( $sources_whitelist ) {
-				return in_array( $origin->id, $sources_whitelist );
+		$sources_safe_list = isset( $args['enable'] ) ? (array) $args['enable'] : false;
+		if ( is_array( $sources_safe_list ) ) {
+			$origin = array_filter( $origin, function ( $origin ) use ( $sources_safe_list ) {
+				return in_array( $origin->id, $sources_safe_list );
 			} );
 		}
 
-		$sources_blacklist = isset( $args['disable'] ) ? (array) $args['disable'] : false;
-		if ( is_array( $sources_blacklist ) ) {
-			$origin = array_filter( $origin, function ( $origin ) use ( $sources_blacklist ) {
-				return ! in_array( $origin->id, $sources_blacklist );
+		$sources_block_list = isset( $args['disable'] ) ? (array) $args['disable'] : false;
+		if ( is_array( $sources_block_list ) ) {
+			$origin = array_filter( $origin, function ( $origin ) use ( $sources_block_list ) {
+				return ! in_array( $origin->id, $sources_block_list );
 			} );
 		}
 

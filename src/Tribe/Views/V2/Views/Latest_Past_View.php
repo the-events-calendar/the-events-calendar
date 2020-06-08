@@ -34,13 +34,13 @@ class Latest_Past_View extends View {
 	protected static $publicly_visible = true;
 
 	/**
-	 * Whitelist of Templates to display when Latest Past Events is Active.
+	 * Safe list of Templates to display when Latest Past Events is Active.
 	 *
 	 * @since 5.1.0
 	 *
 	 * @var array
 	 */
-	protected $whitelist = [
+	protected $safe_list = [
 		// Standard View Components.
 		'components/loader',
 		'components/json-ld-data',
@@ -149,31 +149,30 @@ class Latest_Past_View extends View {
 	}
 
 	/**
-	 * Add Filters for Whitelist and Adding View HTML.
+	 * Add Filters for safe list and Adding View HTML.
 	 *
 	 * @since 5.1.0
 	 */
 	public function add_view_filters() {
-
 		add_filter( 'tribe_template_html:events/v2/components/messages', [ $this, 'filter_template_done' ] );
 		add_filter( 'tribe_template_html:events/v2/components/ical-link', [ $this, 'add_view' ] );
 	}
 
 	/**
-	 * Connect Whitelist Filter to Tribe Template Done to Prevent some of the current View's
+	 * Connect safe list Filter to Tribe Template Done to Prevent some of the current View's
 	 * Templates from Displaying when the Latest Past Events Displays.
 	 *
 	 * @since 5.1.0
 	 */
 	public function filter_template_done( $html ) {
 
-		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_whitelist' ], 10, 4 );
+		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_safe_list' ], 10, 4 );
 
 		return $html;
 	}
 
 	/**
-	 * Filter the Template Files and Only Return HTML if in Whitelist.
+	 * Filter the Template Files and Only Return HTML if in safe list.
 	 *
 	 * @since 5.1.0
 	 *
@@ -184,9 +183,9 @@ class Latest_Past_View extends View {
 	 *
 	 * @return string
 	 */
-	public function filter_template_display_by_whitelist( $done, $name, $context, $echo ) {
+	public function filter_template_display_by_safe_list($done, $name, $context, $echo ) {
 
-		if ( in_array( $name, $this->whitelist, true ) ) {
+		if ( in_array( $name, $this->safe_list, true ) ) {
 			return $done;
 		}
 

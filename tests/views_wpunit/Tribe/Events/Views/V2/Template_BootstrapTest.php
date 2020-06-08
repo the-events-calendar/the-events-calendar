@@ -335,10 +335,10 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Sets up filters to simulate a theme with a specific set of templates available.
 	 *
-	 * @param array<string> $whitelist The list of templates available in the theme.
+	 * @param array<string> $safe_list The list of templates available in the theme.
 	 */
-	protected function setup_fake_theme_templates( array $whitelist = [] ) {
-		if ( in_array( 'page', $whitelist ) ) {
+	protected function setup_fake_theme_templates( array $safe_list = [] ) {
+		if ( in_array( 'page', $safe_list ) ) {
 			// Filter the `page` template, to cover `get_page_template`.
 			add_filter( 'page_template', static function () {
 				return codecept_data_dir( 'templates/page.php' );
@@ -349,7 +349,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 			} );
 		}
 
-		if ( in_array( 'singular', $whitelist ) ) {
+		if ( in_array( 'singular', $safe_list ) ) {
 			// Filter the `singular` template, to cover `get_singular_template`.
 			add_filter( 'singular_template', static function () {
 				return codecept_data_dir( 'templates/singular.php' );
@@ -360,7 +360,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 			} );
 		}
 
-		if ( in_array( 'index', $whitelist ) ) {
+		if ( in_array( 'index', $safe_list ) ) {
 			// Filter the `index` template, to cover `get_index_template`.
 			add_filter( 'index_template', static function () {
 				return codecept_data_dir( 'templates/index.php' );
@@ -371,7 +371,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 			} );
 		}
 
-		if ( in_array( 'custom', $whitelist ) ) {
+		if ( in_array( 'custom', $safe_list ) ) {
 			// Filter the `custom` template, to cover `get_custom_template`.
 			add_filter( 'custom_template', static function () {
 				return codecept_data_dir( 'templates/custom.php' );
