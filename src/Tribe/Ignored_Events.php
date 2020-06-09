@@ -991,6 +991,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @since TBD
 		 *
 		 * @param object $counts       An object containing the current post_type's post
+		 *                             counts by status.
 		 *
 		 * @return object $counts       The modified object containing the current post_type's post
 		 *                              counts by status.
