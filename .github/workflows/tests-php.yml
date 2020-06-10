@@ -49,7 +49,7 @@ jobs:
           tric composer install --no-dev
       - name: Set up the-events-calendar
         run: |
-          tric use events-virtual
+          tric use the-events-calendar
           tric composer install
       - name: Init the WordPress container
         run: tric up wordpress
