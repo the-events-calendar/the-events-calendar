@@ -751,6 +751,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$args['resolve_geolocation'] = 0;
 		}
 
+		/**
+		 * Add an option for other plugins or external sources to update the arguments used to create a new record on EA.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args An array with the arguments used to create a new record on EA server.
+		 * @param Tribe__Events__Aggregator__Record__Abstract $this A reference to the current record import.
+		 *
+		 * @return array An array with the updated list of arguments used to create a new request.
+		 */
+		$args = apply_filters( 'tribe_aggregator_import_args', $args, $this );
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
 
