@@ -15,26 +15,26 @@ modules:
         # See the `.env` file for more information.
         url: 'http://%WP_CHROMEDRIVER_URL%'
         # see codeception.dist.yml for the configuration
-        adminUsername: %WP_ADMIN_USERNAME%
-        adminPassword: %WP_ADMIN_PASSWORD%
+        adminUsername: %TEST_SITE_ADMIN_USERNAME%
+        adminPassword: %TEST_SITE_ADMIN_PASSWORD%
         adminPath: '/wp-admin'
         browser: chrome
-        host: %CHROMEDRIVER_HOST%
-        port: %CHROMEDRIVER_PORT%
+        host: %CHROME_HOST%
+        port: %CHROME_PORT%
         window_size: false
         capabilities:
           chromeOptions:
             args: ["--headless", "--disable-gpu", "--proxy-server='direct://'", "--proxy-bypass-list=*" ]
       WPDb:
-        dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
-        user: %WP_DB_USER%
-        password: %WP_DB_PASSWORD%
+        dsn: 'mysql:host=%TEST_DB_HOST%;dbname=%TEST_DB_NAME%'
+        user: %TEST_DB_USER%
+        password: %TEST_DB_PASSWORD%
         dump: 'tests/_data/dump.sql'
         populate: true
         waitlock: 10
         cleanup: true
         reconnect: false
-        url: '%WP_URL%'
+        url: '%TEST_SITE_WP_URL%'
         tablePrefix: 'wp_'
       WPFilesystem:
         wpRootFolder: '%WP_ROOT_FOLDER%'
@@ -46,7 +46,7 @@ modules:
         # just load WordPress using the same db as WPDb
         loadOnly: true
         wpRootFolder: %WP_ROOT_FOLDER%
-        dbName: %WP_DB_NAME%
-        dbHost: %WP_DB_HOST%
-        dbUser: %WP_DB_USER%
-        dbPassword: '%WP_DB_PASSWORD%'
+        dbName: %TEST_DB_NAME%
+        dbHost: %TEST_DB_HOST%
+        dbUser: %TEST_DB_USER%
+        dbPassword: '%TEST_DB_PASSWORD%'

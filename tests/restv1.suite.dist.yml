@@ -10,29 +10,29 @@ modules:
         - WPLoader
     config:
         WPDb:
-            dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
-            user: %WP_DB_USER%
-            password: %WP_DB_PASSWORD%
+            dsn: 'mysql:host=%TEST_DB_HOST%;dbname=%TEST_DB_NAME%'
+            user: %TEST_DB_USER%
+            password: %TEST_DB_PASSWORD%
             dump: tests/_data/dump.sql
             populate: true
             cleanup: true
-            url: '%WP_URL%'
-            tablePrefix: '%WP_TABLE_PREFIX%'
+            url: '%TEST_SITE_WP_URL%'
+            tablePrefix: '%TEST_TABLE_PREFIX%'
             waitlock: 10
         WPBrowser:
-            url: '%WP_URL%'
-            adminUsername: %WP_ADMIN_USERNAME%
-            adminPassword: '%WP_ADMIN_PASSWORD%'
+            url: '%TEST_SITE_WP_URL%'
+            adminUsername: %TEST_SITE_ADMIN_USERNAME%
+            adminPassword: '%TEST_SITE_ADMIN_PASSWORD%'
             adminUrl: /wp-admin
         REST:
             depends: WPBrowser
-            url: '%WP_URL%/wp-json/tribe/events/v1/'
+            url: '%TEST_SITE_WP_URL%/wp-json/tribe/events/v1/'
         WPLoader:
             # just load WordPress using the same db as WPDb
             loadOnly: true
             wpRootFolder: %WP_ROOT_FOLDER%
-            dbName: %WP_DB_NAME%
-            dbHost: %WP_DB_HOST%
-            dbUser: %WP_DB_USER%
-            dbPassword: '%WP_DB_PASSWORD%'
+            dbName: %TEST_DB_NAME%
+            dbHost: %TEST_DB_HOST%
+            dbUser: %TEST_DB_USER%
+            dbPassword: '%TEST_DB_PASSWORD%'
 
