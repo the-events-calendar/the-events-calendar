@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ 'wpunit' ]
+        suite: [ 'views_integration', 'views_rest', 'wpunit' ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -53,5 +53,7 @@ jobs:
           tric composer install
       - name: Init the WordPress container
         run: tric up wordpress
+      - name: Print tric info
+        run: tric info
       - name: Run suite tests
         run: tric run ${{ matrix.suite }}
