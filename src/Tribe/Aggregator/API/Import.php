@@ -107,9 +107,19 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	 * @return stdClass|WP_Error
 	 */
 	public function create( $args ) {
-		$response = $this->service->post_import( $args );
+		return $this->service->post_import( $args );
+	}
 
-		return $response;
+	/**
+	 * Update the details of an existing import
+	 *
+	 * @param $import_id
+	 * @param $args
+	 *
+	 * @return object|stdClass|string|WP_Error
+	 */
+	public function update( $import_id, $args ) {
+		return $this->service->update_import( $import_id, $args );
 	}
 
 	/**

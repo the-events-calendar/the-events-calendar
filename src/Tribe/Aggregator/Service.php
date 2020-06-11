@@ -526,6 +526,36 @@ class Tribe__Events__Aggregator__Service {
 		return $this->post( 'import', $args );
 	}
 
+	public function update_import( $import_id, $args ) {
+		$api = $this->api();
+
+		// if the user doesn't have a license key, don't bother hitting the service
+		if ( is_wp_error( $api ) ) {
+			return $api;
+		}
+
+		/**
+		 * Allows filtering to add a PUE key to be passed to the EA service
+		 *
+		 * @since TBD
+		 *
+		 * @param  bool|string $pue_key PUE key
+		 * @param  array       $args    Arguments to queue the import
+		 * @param  self        $record  Which record we are dealing with
+		 */
+		$licenses = apply_filters( 'tribe_aggregator_service_put_pue_licenses', [], $args, $this );
+
+		// If we have a key we add that to the Arguments
+		if ( ! empty( $licenses ) ) {
+			$args['licenses'] = $licenses;
+		}
+
+		return $this->post( "import/{$import_id}", [
+			'body' => $args,
+			'method' => 'PUT',
+		] );
+	}
+
 	/**
 	 * Fetches an image from the Event Aggregator service
 	 *
