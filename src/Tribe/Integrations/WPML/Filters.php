@@ -135,9 +135,13 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 			$slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
 
-			$string_id = icl_get_string_id( $slug, [ 'domain' => 'the-events-calendar', 'context' => 'Archive Events Slug' ] );
+			$context   = [ 'domain' => 'the-events-calendar', 'context' => 'Archive Events Slug' ];
+			$string_id = icl_get_string_id( $slug, $context );
 
 			if ( ! $string_id ) {
+				// If we couldn't find the string, we might need to register it.
+				icl_register_string( $context, false, $slug );
+
 				continue;
 			}
 
