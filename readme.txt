@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
 * Fix - Correctly store Event Organizer meta when using the ORM.
 * Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
 
