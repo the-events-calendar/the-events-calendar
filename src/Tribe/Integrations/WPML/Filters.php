@@ -79,6 +79,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 		if ( $string_translation_active && $post_slug_translation_on ) {
 			$bases = $this->translate_single_slugs( $bases );
+			$bases = $this->translate_archive_slugs( $bases );
 		}
 
 		return $bases;
@@ -117,6 +118,36 @@ class Tribe__Events__Integrations__WPML__Filters {
 			}
 
 			$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations, 'value' ) );
+		}
+
+		return $bases;
+	}
+
+	/**
+	 * @param $bases
+	 *
+	 * @return array
+	 */
+	protected function translate_archive_slugs( array $bases ) {
+		$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
+
+		foreach ( $supported_post_types as $post_type ) {
+
+			$slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+
+			$string_id = icl_get_string_id( $slug, [ 'domain' => 'the-events-calendar', 'context' => 'Archive Events Slug' ] );
+
+			if ( ! $string_id ) {
+				continue;
+			}
+
+			$slug_translations = icl_get_string_translations_by_id( $string_id );
+
+			if ( empty( $slug_translations ) ) {
+				continue;
+			}
+
+			$bases['archive'] = array_merge( $bases['archive'], wp_list_pluck( $slug_translations, 'value' ) );
 		}
 
 		return $bases;
