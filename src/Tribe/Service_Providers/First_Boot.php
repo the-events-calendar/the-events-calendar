@@ -51,6 +51,8 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function set_default_options() {
+		$options = \Tribe__Settings_Manager::get_options();
+
 		$options['did_init'] = true;
 
 		if ( ! isset( $options['tribeEventsTemplate'] ) ) {
