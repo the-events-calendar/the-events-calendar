@@ -66,8 +66,8 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 		}
 
 		if ( ! isset( $options['viewOption'] ) ) {
-			// Set the Default View to Month
-			$options['viewOption'] = 'month';
+			// Set the Default View to List
+			$options['viewOption'] = 'list';
 		}
 
 		\Tribe__Settings_Manager::set_options( $options );
