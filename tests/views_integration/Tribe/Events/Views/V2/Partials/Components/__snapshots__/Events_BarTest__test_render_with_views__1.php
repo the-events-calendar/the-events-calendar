@@ -22,7 +22,7 @@
 			id="tribe-events-search-filters-container"
 			data-js="tribe-events-search-filters-container"
 		>
-			
+
 			<div
 	class="tribe-events-c-events-bar__search"
 	id="tribe-events-events-bar-search"
@@ -34,7 +34,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/list/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be" />
 
 		<div class="tribe-events-c-search__input-group">
 			<div
@@ -66,7 +66,7 @@
 </div>
 
 					</div>
-	
+
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
