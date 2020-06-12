@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ 'views_integration', 'views_rest', 'wpunit' ]
+        suite: [ 'wpunit' ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
