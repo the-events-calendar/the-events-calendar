@@ -105,9 +105,14 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_only_return_publicly_visible_views_when_requested() {
 		// Set publicly-visible-test as an enabled view.
-		$options = \Tribe__Settings_Manager::get_options();
-		$options['tribeEnableViews'] = ['publicly-visible-test'];
-		\Tribe__Settings_Manager::set_options( $options );
+		add_filter( 'tribe_get_option', function ( $value, $optionName, $default ) {
+
+			if ( 'tribeEnableViews' !== $optionName ) {
+				return $value;
+			}
+
+			return [ 'publicly-visible-test' ];
+		}, 10, 3 );
 
 		$manager = $this->make_instance();
 
