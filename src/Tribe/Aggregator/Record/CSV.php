@@ -1,9 +1,9 @@
 <?php
 
-use Tribe\Traits\With_Db_Lock;
+use Tribe\Traits\With_DB_Lock;
 
 class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__Record__Abstract {
-	use With_Db_Lock;
+	use With_DB_Lock;
 
 	private $state    = '';
 	private $output   = '';
