@@ -13,7 +13,7 @@ api:
     ea_license: YOUR_EA_LICENSE
 params:
   # read dynamic configuration parameters from the .env file
-  - .env
+  - .env.testing
 extensions:
     enabled:
       - Tribe\Test\Codeception\Extensions\Function_Mocker
