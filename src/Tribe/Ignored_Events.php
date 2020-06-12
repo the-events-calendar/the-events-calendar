@@ -999,6 +999,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public function patch_count_posts( $counts ) {
 			$status = $this::$ignored_status;
 
+
 			if ( ! isset( $counts->$status ) ) {
 				$counts->$status = 0;
 			}

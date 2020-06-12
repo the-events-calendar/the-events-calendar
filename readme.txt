@@ -1,10 +1,10 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, jentheo, leahkoerper, lucatume, mastromktg, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, tribecari, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, Camwyn, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
-Donate link: http://m.tri.be/29
+Donate link: https://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.1.2
+Stable tag: 5.1.3
 Tested up to: 5.4.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -14,74 +14,117 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 == Description ==
 
-Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust.
+Easily create and manage an events calendar on your website with [The Events Calendar](https://m.tri.be/mj). Whether your events are in-person or virtual events, this plugin boasts professional features backed by our world-class team of developers and designers.
 
-Packed with loads of useful features, The Events Calendar by Modern Tribe is ready to go right out of the box. It’s extensible, easy to use, and completely customizable.
+https://vimeo.com/425323974
 
-Just getting started? Read through the [New User Primer](http://m.tri.be/2d) to get set up.
+Packed with loads of features, The Events Calendar by Modern Tribe is ready to go out of the box. It’s also extensible, easy to use, and completely customizable.
 
-Looking for additional functionality including recurring events, ticket sales, publicly submitted events, automatic imports, and more?
+= 📅 The #1 Calendar for WordPress  =
 
-<strong>Check out [Events Calendar PRO](http://m.tri.be/mj) and [other add-ons](http://m.tri.be/2a)</strong>
+See the calendar in action on our [demo experience](https://m.tri.be/1ajs). Just getting started? Read through the [New User Primer](https://m.tri.be/2d) to get set up.
 
-><strong>New Import Tool!</strong>
->We’ve made bulk event imports easier to manage than ever. This add-on service for The Events Calendar allows you to import events from your favorite sources, including Meetup, Google Calendar, iCalendar, CSV, ICS and Other URLs (beta).
->[Check out Event Aggregator now](http://m.tri.be/197u).
+Looking for additional features like recurring events, ticket sales, user-submitted events, automatic imports, and more?
 
-= Built solid & supported =
+<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong>
 
-The Events Calendar is crafted the WordPress way with hours of strategy, design, development, and testing going into each release. We stand behind our work and offer light support weekly for the community via the WordPress.org support forums.
+= 🔌🎨 Plug and Play or Customize =
 
-If you need a deeper level of support or a faster response to your specific question, our Events Calendar PRO add-on includes access to our premium support forums with a 24-48 hour response time during the workweek.
+The Events Calendar is built to work out of the box. Simply install the plugin, configure your settings, and start creating events in minutes.
 
-Enjoy using The Events Calendar, know how to customize it, and want to make money helping people? We’re growing our community team and would love to hear from you. If you’re interested, [check this out!](http://m.tri.be/mk)
+Want to add your personal touch? Use The Events Calendar as the foundation for customization. Personalize to your heart's content with the help of a skeleton stylesheet, partial template overrides, template tags, hooks and filters, [careful documentation](https://m.tri.be/eu), and a [library of free extensions](https://m.tri.be/1a0r).
 
-= Plug-n-play & highly customizable =
+Whether your vision is big or small, you're in good company. Hundreds of thousands of small businesses, musicians, venues, restaurants, and non-profits are publishing and promoting their in-person and virtual events with The Events Calendar. Our plugins have also been scaled to work on large networks for Fortune 100 companies, universities, and government institutions.
 
-The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events in less than 5 minutes.
+= ✨ Features =
 
-By developers, for developers... it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, [careful documentation](http://m.tri.be/eu), as well as a [library of free extensions](http://m.tri.be/ext). The Events Calendar is built FOR people who build websites.
+Our feature-rich plugin comes with everything you need to create and manage your calendar.
 
-Whether your vision is big or small, you’re in good company. Hundreds of thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar.
+✔️ Rapidly create events
+✔️ Saved venues & organizers
+✔️ Calendar month view with tooltips
+✔️ Event List view
+✔️ Day view
+✔️ Block Editor support
+✔️ Event search
+✔️ Google maps
+✔️ Widget: Upcoming events list
+✔️ Events Taxonomies (Categories & Tags)
+✔️ Google Calendar and iCal exporting
+✔️ WP REST API endpoints
+✔️ Completely ajaxified for super smooth browsing
+✔️ Completely responsive from mobile to tablet to desktop
+✔️ Tested on the major theme frameworks such as Avada, Divi, Enfold, Genesis, and many more.
+✔️ Increase your SEO with JSON-LD Structured Data
+✔️ Internationalized & translated
+✔️ Multiple stylesheets to improve integration
+✔️ Extensive template tags for customization
+✔️ Hooks & filters galore
+✔️ Caching support
+✔️ Debug mode for developers
+✔️ [Library of extensions](https://m.tri.be/1a0r)
 
-The Events Calendar has been scaled to work on networks with over 25 million unique visitors per month and hundreds of thousands of events. Fortune 100 companies, major universities, government institutions, and some seriously epic startups showcase their events with our platform.
+== 📃 Documentation ==
 
-= Features =
+All of our documentation can be found in [our Knowledgebase](https://m.tri.be/eu).
 
-Whether you’re operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or you’re a sole business owner listing your classes, The Events Calendar has your back.
+Additional helpful links:
 
-* Rapidly create events
-* Saved venues & organizers
-* Calendar month view with tooltips
-* Event List view
-* Day view
-* Event search
-* Google maps
-* Widget: Upcoming events list
-* Events Taxonomies (Categories & Tags)
-* Google Calendar and iCal exporting
-* WP REST API endpoints
-* Completely ajaxified for super smooth browsing
-* Completely responsive from mobile to tablet to desktop
-* Tested on the major theme frameworks such as Avada, Genesis, Woo Themes, Thesis and many more.
-* Increase your SEO with Microformats
-* Internationalized & translated
-* Multiple stylesheets to improve integration
-* Extensive template tags for customization
-* Hooks & filters galore
-* Caching support
-* Debug mode for developers
-* [Library of extensions](http://m.tri.be/1a0r)
+* [The Events Calendar New User Primer](https://m.tri.be/2l)
+* [The Themer’s Guide to The Events Calendar](https://m.tri.be/2m)
 
-= Submitting Patches =
+If you have any questions about this plugin, you can post a thread in the [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar). Please search existing threads before starting a new one.
 
-If you’ve identified a bug and have a fix, we’d welcome it at our [GitHub page for The Events Calendar](https://github.com/moderntribe/the-events-calendar). Simply submit a pull request so we can review as part of our [release cycle](http://m.tri.be/release-schedule) and merge into the codebase if appropriate from there. If a pull request is rejected, we'll do our best to tell you why. Users whose pull requests are accepted will receive credit in the plugin's changelog. For more information, check out the readme at our GitHub page. Happy coding!
+== Add-Ons ==
+
+Take your calendar to the next level by pairing it with our plugins for ticketing, crowdsourcing, email marketing, and more. Learn more about all our products on [our website](https://m.tri.be/18wn).
+
+Our Free Plugins:
+
+🎟️ [Event Tickets](https://wordpress.org/plugins/event-tickets/)
+📐 [Advanced Post Manager](https://wordpress.org/plugins/advanced-post-manager/)
+
+Our Premium Plugins and Services:
+
+⚡ [Events Calendar PRO](https://m.tri.be/18wi)
+↪️ [Event Aggregator](https://m.tri.be/197u) (service)
+🎟️ [Event Tickets Plus](https://m.tri.be/18wk)
+✉️ [Promoter](https://m.tri.be/1ajt)
+👥 [Community Events](https://m.tri.be/2g)
+🎟️ [Community Tickets](https://m.tri.be/18wl)
+✏️ [Filter Bar](https://m.tri.be/fa)
+🗓️ [Eventbrite Tickets](https://m.tri.be/2e)
+
+== Help ==
+
+If you aren’t familiar with The Events Calendar, check out our [New User Primer](https://m.tri.be/2p). It will have you creating events in no time.
+
+Ready to dig deeper? Check out these resources:
+
+* [Tutorials](https://m.tri.be/2u)
+* [Release Schedule](https://theeventscalendar.com/release-schedule/)
+* [Known Issues](https://theeventscalendar.com/known-issues/)
+* [Documentation](https://m.tri.be/eu)
+* [Help Videos](https://m.tri.be/2t)
+* [Release Notes](https://m.tri.be/2v)
+
+We check in on the [The Events Calendar forum here on WordPress.org](https://wordpress.org/support/plugin/the-events-calendar/) about once a week to help users with basic troubleshooting and identifying bugs. If you’re looking for premium, personalized support, consider upgrading to Events Calendar Pro.
+
+Still have a question? Shoot us an email at support@theeventscalendar.com.
 
 == Installation ==
 
-= Install & Activate =
+Installing the plugin is easy. Just follow one of the following methods:
 
-Installing the plugin is easy. Just follow these steps:
+= Install The Events Calendar from within Wordpress =
+
+1. Visit the plugins page within your dashboard and select ‘Add New’
+2. Search for "Events Calendar"
+3. Activate The Events Calendar from your Plugins page
+4. You're done!
+
+
+= Install The Events Calendar Manually =
 
 1. From the dashboard of your site, navigate to Plugins --> Add New.
 2. Select the Upload option and hit "Choose File."
@@ -89,7 +132,7 @@ Installing the plugin is easy. Just follow these steps:
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
 
-That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Need help getting things started? Check out our [new user primer](http://m.tri.be/2l) for help with settings and features.
+That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Need help getting things started? Check out our [new user primer](https://m.tri.be/2l) for help with settings and features.
 
 == Screenshots ==
 
@@ -107,38 +150,58 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (4.6 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar. If you’re running Events Calendar PRO or  any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar is running on your site. If the issue persists from there, revert to the default [Twenty Twenty](https://wordpress.org/themes/twentytwenty/) theme. If the issue is resolved after deactivating a specific plugin or your theme, you’ll know that is the source of the conflict.
 
-Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
+Note that we aren’t going to say “tough luck” if you identify a plugin/theme conflict. While we can’t guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar/), which we hit about once a week (usually on Wednesdays). Please make sure to read [our sticky post](http://m.tri.be/19oc) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
+Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar/), which we visit about once a week. Please make sure to read [our sticky post](https://m.tri.be/19oc) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a license for Events Calendar Pro.
 
-If you're already a PRO user, you're entitled access to our more actively-monitored [Events Calendar PRO forum](http://m.tri.be/2r) on our website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all comments within 24-48 hours during the business week.
+If you're already an Events Calendar Pro user, you're entitled access to our actively-monitored [Premium Support](https://m.tri.be/1aju) on our website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all tickets within 24-48 hours during the business week.
 
-= Events Calendar PRO looks awesome! I'm sold! How can I get my hands on it? =
+= What's the difference between The Events Calendar and Events Calendar Pro? =
 
-Events Calendar PRO can be purchased directly on [our website](http://m.tri.be/18wi). There are five (5) license types available, and all licenses include access to premium support, new feature releases, and regular maintenance updates.
+The Events Calendar is our cornerstone plugin, and it’s required in order to run any of our premium calendar add-ons, including Events Calendar Pro, Community Events, Filter Bar, and others.
 
-= I'm interested in PRO or another add-on, but there are a few questions I've got before making the purchase. Can you help me get those addressed? =
-
-Absolutely. If you're not finding your questions answered on the product pages, hit up our [pre-sales forum](http://m.tri.be/2w) on our site. You can save yourself some time by reviewing the threads first to verify if your question has already been asked. If it hasn't, post a new thread as a guest. We'll get you a reply as quickly as we can, so you can make an informed decision regarding purchase.
+In other words, Events Calendar Pro runs alongside The Events Calendar and enhances it with extra features, including recurring events, additional calendar views, calendar shortcodes, advanced widgets, custom event fields and more.
 
 = What add-ons are available for The Events Calendar, and where can I read more about them? =
 
 The following add-ons are available for The Events Calendar:
 
-* [Events Calendar PRO](http://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
-* [Event Aggregator](http://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
-* [Event Tickets](http://m.tri.be/18wj) (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
-* [Event Tickets Plus](http://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
-* [Community Events](http://m.tri.be/2g), for allowing frontend event submission from your readers.
-* [Community Tickets](http://m.tri.be/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
-* [Filter Bar](http://m.tri.be/fa), for adding advanced frontend filtering capabilities to your events calendar.
-* [Eventbrite Tickets](http://m.tri.be/2e), for selling tickets to your event directly through Eventbrite.
+* [Events Calendar Pro](https://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](http://m.tri.be/1ajw), additional fields, and more!
+* [Event Aggregator](https://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
+* Virtual Events, COMING SUMMER 2020 this add-on will optimize your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
+* [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
+* [Event Tickets Plus](https://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
+* [Promoter](https://m.tri.be/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
+* [Community Events](https://m.tri.be/2g), for allowing frontend event submission from your readers.
+* [Community Tickets](https://m.tri.be/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
+* [Filter Bar](https://m.tri.be/fa), for adding advanced frontend filtering capabilities to your events calendar.
+* [Eventbrite Tickets](https://m.tri.be/2e), for selling tickets to your event directly through Eventbrite.
+
+= Can I import events to my calendar? =
+
+Yes! The Events Calendar has a built-in CSV import tool. If you want to step it up and automatically import events from Google Calendar, Meetup, Eventbrite and more, check out [Event Aggregator](https://m.tri.be/197u).
+
+= How do I sell tickets to events on my calendar? =
+
+You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-tickets/) plugin for that. This free plugin works alongside The Events Calendar and lets you create RSVPs and tickets for events. Event Tickets integrates with PayPal so you can collect payments for tickets, while our premium solution, Event Tickets Plus fully integrates with WooCommerce or Easy Digital Downloads.
+
+= Can I have more than one calendar on my site? =
+
+Unfortunately, no. However, you can use event categories or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as "Fitness," [like this example from our demo site](http://m.tri.be/1ajv).
+
+With Events Calendar Pro, you can use [shortcodes](http://m.tri.be/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
+
+= Can I allow people to submit events to my calendar? =
+
+This is available with the [Community Events](https://m.tri.be/2g) add-on to facilitate submissions. Install Community Events alongside The Events Calendar and a page will be added to your WordPress site with a form that visitors can use to submit events. As the calendar owner, you have full control over whether event submissions are published immediately or require moderation first.
+
+If you want to let users sell tickets for the events they submit, check out [Community Tickets](https://m.tri.be/18wl). It runs with The Events Calendar, Community Events, and Event Tickets and empowers visitors to create and sell tickets, splitting the profits with you.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -146,69 +209,7 @@ We've got a [UserVoice page](https://tribe.uservoice.com/forums/195723-feature-i
 
 = I've still got questions. Where can I find answers? =
 
-Check out our extensive [knowledgebase](http://m.tri.be/18wm) for articles on using, tweaking, and troubleshooting our plugins.
-
-== Documentation ==
-
-All of our online documentation can be found on [our documentation site](http://m.tri.be/eu).
-
-Some links you may find particularly useful are:
-
-* [The Events Calendar New User Primer](http://m.tri.be/2l)
-* [The Themer's Guide to The Events Calendar](http://m.tri.be/2m)
-* [Knowledgebase](http://m.tri.be/18wm)
-
-If you have any questions about this plugin, you can post a thread in our [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar). Please search existing threads before opening a new one.
-
-The [Modern Tribe premium support forums](http://m.tri.be/2r) are available for you to read. You won't, however, be able to post a message in any forums beyond Pre-Sale Questions unless you have purchased a premium license.
-
-== Add-Ons ==
-
-But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over on [our website](http://m.tri.be/18wn).
-
-Our Free Plugins:
-
-* [Event Tickets](https://wordpress.org/plugins/event-tickets/)
-* [Advanced Post Manager](https://wordpress.org/plugins/advanced-post-manager/)
-* [GigPress](https://wordpress.org/plugins/gigpress/)
-* [Image Widget](https://wordpress.org/plugins/image-widget/)
-
-Our Premium Plugins and Services:
-
-* [Events Calendar PRO](http://m.tri.be/18wi)
-* [Event Aggregator](http://m.tri.be/197u) (service)
-* [Event Tickets Plus](http://m.tri.be/18wk)
-* [Community Events](http://m.tri.be/2g)
-* [Community Tickets](http://m.tri.be/18wl)
-* [Filter Bar](http://m.tri.be/fa)
-* [Eventbrite Tickets](http://m.tri.be/2e)
-
-== Help ==
-
-Welcome to The Events Calendar, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you be awesome.
-
-If you aren't familiar with The Events Calendar, check out our [new user primer](http://m.tri.be/2p). It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
-
-Additional resources available include:
-
-* [Release Schedule](https://theeventscalendar.com/release-schedule/)
-* [Known Issues](https://theeventscalendar.com/known-issues/)
-* [Documentation](http://m.tri.be/eu)
-* [FAQ](http://m.tri.be/2n)
-* [Help Videos](http://m.tri.be/2t)
-* [Tutorials](http://m.tri.be/2u)
-* [Release Notes](http://m.tri.be/2v)
-* [Forums](http://m.tri.be/2r)
-
-We hit the [The Events Calendar forum here on WordPress.org](https://wordpress.org/support/plugin/the-events-calendar/) about once a week, assisting users with basic troubleshooting and identifying bugs that have been reported. (If you are looking for more active support, might we suggest buying a PRO license? Our team hits the [Premium Forums](http://m.tri.be/2r) daily.)
-
-Some things to consider before posting on the forum:
-
-* Look through existing threads before posting a new one and check that there isn't already a discussion going on for your issue.
-* Your issue will be solved more quickly if you run a few checks before making a support request. Deactivate your plugins one by one - if the issue is fixed by deactivating a plugin you know you've got a plugin conflict. To test your Theme, revert to the default Twenty Twelve Theme to see if you are still experiencing the problem. If not, your Theme is the issue. Please provide this information when making your support request.
-* Sometimes, just resetting your permalinks can fix the issue. Visit Events -> Settings -> Permalinks, save your permalinks with a different option and then save with your preferred choice again. This can solve events-related problems and is worth a shot before creating a new thread.
-
-Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
+Check out our extensive [knowledgebase](https://m.tri.be/18wm) for articles on using, tweaking, and troubleshooting our plugins.
 
 == Upgrade Notice ==
 
@@ -220,10 +221,16 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.3] TBD =
 
 * Tweak - Add new filter `tribe_events_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
 * Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
+* Fix - Correctly store Event Organizer meta when using the ORM.
+* Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
+
+= [5.1.2.1] 2020-06-09 =
+
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
 
 = [5.1.2] 2020-05-27 =
 
@@ -297,7 +304,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Update events, venues, and organizers to use dynamic labels. [TEC-3280]
 * Fix - Resolve an issue in Views v2 that would break URLs when the event single and archive slugs have the same value due to the "Events URL slug" and "Single event URL slug" settings or due to their translations [TEC-3254]
 * Fix - Restore correct handling of events RSS feeds; events will show in the RSS feed in ascending start date, starting from the current day and the event publish date will be set to the event start date [TEC-3252]
-* Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those lables. [TEC-3322]
+* Hook - Add filters `tribe_events_liveupdate_automatic_label_text` and `tribe_events_liveupdate_manual_label_text` to allow Filter Bar to include itself in those labels. [TEC-3322]
 * Hook - Add the `tribe_views_v2_events_query_controller_active` filter; returning a falsy value from this filter will prevent Views v2 from altering the WordPress query. This filter allows handling situations where Views v2 might interfere with third party plugins (e.g. custom RSS feed implementations) [TEC-3252]
 * Tweak - Added filters: `tribe_events_option_convert_live_filters`, `tribe_events_views_v2_messages_need_events_label_keys`
 * Tweak - Removed filters: `tribe_events_ical_export_text`
@@ -371,19 +378,19 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
 * Feature - Add upgrade path for new Month, Day, and List views making it opt-in for any existing users.
-* Feature - New templating engine to power the new Views. [See More](http://m.tri.be/1aid)
+* Feature - New templating engine to power the new Views. [See More](https://m.tri.be/1aid)
 * Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
-* Feature - Views manager and bootstraping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
+* Feature - Views manager and bootstrapping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
 * Feature - Reduced maintenance burden of customizations by leveraging atomic templates for the new views. (See list of files now available below)
-* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More](http://m.tri.be/1aib)
+* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusability of components. [See More](https://m.tri.be/1aib)
 * Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points.
 * Feature - View navigation relies on the WP Rest API, improving reliability and caching opportunities.
 * Feature - Event permalinks are now more consistent across navigation using `WP_Rewrite` to map params to their matching URL, which improves SEO.
 * Feature - Event data filtering used across all new views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
 * Feature - Venue data filtering used across all new views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
 * Tweak - Custom Before and After HTML on the Events > Settings page will now prefer event view styling over the Theme's CSS.
-* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](http://m.tri.be/1aic)
-* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](http://m.tri.be/1aia)
+* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](https://m.tri.be/1aic)
+* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](https://m.tri.be/1aia)
 * Tweak - Switch to a compact date while on day and month view in mobile [136789]
 * Tweak - Remove `tribe_events_getLink` in favor of `tribe_events_get_link` which was a deprecated filter since version 4.3
 * Hooks - View template include and render filters and actions: `tribe_template_before_include`, `tribe_template_before_include:{$template_path}`, `tribe_template_after_include`, `tribe_template_after_include:{$template_path}`, `tribe_template_html`, `tribe_template_html:{$template_path}`
@@ -398,10 +405,10 @@ Remember to always make a backup of your database and files before updating!
 = [4.9.14] 2020-01-15 =
 
 * Feature - Add Repository filter `where_meta_related_by_meta` for getting a post by the meta value an associated post. [133333]
-* Tweak - Modifications to the Freemius code initalization to allow better data around plugin uninstalls.
+* Tweak - Modifications to the Freemius code initialization to allow better data around plugin uninstalls.
 * Tweak - Adjust tooltip title styles for Twenty Twenty theme. [TEC-2998]
 * Tweak - Changed views: `blocks/event-venue`
-* Fix - Cost field description no longer disapears when editing the block. [TEC-2992]
+* Fix - Cost field description no longer disappears when editing the block. [TEC-2992]
 * Fix - Organizer theme no longer getting overwritten by Blocks editor styles. [TEC-2974]
 * Fix - Venue block properly receives the correct HTML class. [TEC-3020]
 * Fix - Correct missing block when switching from blocks to classic editor. [131493]
@@ -467,7 +474,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [4.9.6] 2019-08-07 =
 
-* Tweak - Update Event Aggregator to include compatibility with new Meetup API requirements - [See more](http://m.tri.be/1afb) [125635]
+* Tweak - Update Event Aggregator to include compatibility with new Meetup API requirements - [See more](https://m.tri.be/1afb) [125635]
 * Language - 5 new strings added, 120 updated, 5 fuzzied, and 10 obsoleted
 
 = [4.9.5] 2019-07-25 =
@@ -526,19 +533,19 @@ Remember to always make a backup of your database and files before updating!
 
 = [4.9.2] 2019-05-16 =
 
-* Tweak - In the Event Repository class: filter the event cretion meta before checking it for coherency
+* Tweak - In the Event Repository class: filter the event creation meta before checking it for coherency
 * Tweak - Reduced file size by removing .po files and directing anyone creating or editing local translations to translate.wordpress.org
 * Fix - Fix event bar issue where it was required to pick the date in order to search events via keyword or location [126158]
 * Fix - Make back-compatibility handling more robust when dealing with classes non-existing in the older plugin versions [127173]
 
 = [4.9.1.1] 2019-05-06 =
 
-* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
+* Fix - Prevent Composer autoloader from throwing Fatal due to nonexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.1] 2019-05-02 =
 
 * Fix - Prevent recurring events all page to throw 404 when events are in the past [126790]
-* Fix - Backwards compatibility for `eventDiplay` usage around `list` and `day` only showing upcoming events [126686]
+* Fix - Backwards compatibility for `eventDisplay` usage around `list` and `day` only showing upcoming events [126686]
 * Fix - List events Widget will display events until their end date has passed [126837]
 * Tweak - Add values for the JSON-LD object to avoid Google console errors. Fields added: `offers.availability`, `offers.category`, `offers.priceCurrency`, `offers.validFrom` and `performer` [120193]
 * Tweak - Add `tribe_events_cost_unformatted` filter to allow WPML support for WooCommerce Multilingual
@@ -546,7 +553,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [4.9.0.3] 2019-04-26 =
 
-* Fix - Prevent Composer autoloader from throwing Fatal due to unexistent `setClassMapAuthoritative()` method [126590]
+* Fix - Prevent Composer autoloader from throwing Fatal due to nonexistent `setClassMapAuthoritative()` method [126590]
 
 = [4.9.0.2] 2019-04-25 =
 
@@ -981,7 +988,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added caching to reduce the number of HTTP requests being made in relation to Event Aggregator within the admin environment [99486]
 * Tweak - Improved performance by reducing the number of queries that run in single event pages (in relation to `tribe_get_prev_event_link()` and `tribe_get_next_event_link()` specifically) [94587]
 * Tweak - Added pagination to single organizer and venue pages [97772]
-* Tweak - Improved compatibility with the Twety Seventeen theme (ensuring the calendar is full-width if set to be the site's homepage) [97977]
+* Tweak - Improved compatibility with the Twenty Seventeen theme (ensuring the calendar is full-width if set to be the site's homepage) [97977]
 * Language - 3 new strings added, 161 updated, 1 fuzzied, and 2 obsoleted
 
 = [4.6.11.1] 2018-02-16 =
@@ -1091,9 +1098,9 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fixed the broken 'Learn more' URL received after an unsuccessful "Other URL" import preview [92890]
 * Fix - Fixed issue in list view navigation with backwards previous/next classes (thanks @secondtoughest) [36230]
 * Fix - Fixed an issue where venues and organizers would not be correctly assigned to events in CSV imports with import statuses other than "Publish" [79680]
-* Tweak - Remove net import scheduled notes for on domand imports [79079]
+* Tweak - Remove net import scheduled notes for on demand imports [79079]
 * Tweak - Allow for non-Latin characters to be used as the Events URL slug and the Single Event URL slug (thanks @daviddweb for originally reporting this) [61880]
-* Tweak - Remove net import scheduled notes for on domand imports [79079]
+* Tweak - Remove net import scheduled notes for on demand imports [79079]
 * Tweak - Fixed some layout issues that would emerge with "Events URL Slug" option when "Plain" permalinks were enabled [92314]
 * Tweak - Tweaked some language in Event Aggregator's metabox on individual edit-event screens to reduce confusion around the impact of the Update Authority on CSV imports [77957]
 * Tweak - Fix PHP 7.1 compatibility with Event Aggregator (props @BJP NEALE) [90002]
@@ -1142,7 +1149,7 @@ Remember to always make a backup of your database and files before updating!
 = [4.6.1] 2017-10-04 =
 
 * Fix - Fixed "Next Events" and "Previous Events" navigation links in list views, which would sometimes make a category-filtered list view lose its category filter as a user navigated through pages of future or past events (props @forumhelpdesk and @atomicdust for reporting this!) [72013]
-* Fix - Fixed some layout issues with the Tribe Bar datepicker that would arise when using a Twentysixteen or Twentyfifteen child them (thanks to @stefanrueegger for reporting this) [46471]
+* Fix - Fixed some layout issues with the Tribe Bar datepicker that would arise when using a Twenty Sixteen or Twenty Fifteen child them (thanks to @stefanrueegger for reporting this) [46471]
 * Fix - Prevented modification of event titles within the loop when using TRIBE_MODIFY_GLOBAL_TITLE [89273]
 * Fix - Fixed issue when exporting all-day multi-day events via iCal where the end date was one day early (Thank you @fairmont for reporting this!) [87775]
 * Fix - Fixed issues with the jQuery Timepicker vendor script conflicting with other plugins' similar scripts (props: @hcny et al.) [74644]
