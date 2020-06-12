@@ -4,7 +4,20 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ 'wpunit' ]
+        suite:
+          - acceptance
+          - aggregatorv1
+          - blocks_editor_integration
+          - features
+          - integration
+          - muintegration
+          - restv1
+          - views_integration
+          - views_rest
+          - views_settings
+          - views_ui
+          - views_wpunit
+          - wpunit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
