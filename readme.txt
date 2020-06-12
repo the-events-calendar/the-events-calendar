@@ -224,6 +224,8 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
+* Tweak - Create a new method to request an update back to EA imports to mark imports as completed on EA server [TEC-3476]
+* Tweak - Add a new filter `tribe_aggregator_service_put_pue_licenses` to enable external sources the option to add additional PUE attached to the request. [TEC-3476]
 * Fix - Correctly store Event Organizer meta when using the ORM.
 * Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
 
