@@ -1,6 +1,10 @@
 <?php
 
+use Tribe\Traits\With_Db_Lock;
+
 class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__Record__Abstract {
+	use With_Db_Lock;
+
 	private $state    = '';
 	private $output   = '';
 	private $messages = array();
@@ -342,10 +346,10 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 	public function continue_import() {
 		global $wpdb;
-		if ( empty( $wpdb->get_var( "SELECT GET_LOCK('tribe_ea_csv_import',10)" ) ) ) {
-			do_action( 'tribe_log', 'debug', 'CSV Import',
-				[ 'message' => 'Could not acquire lock.', 'error' => $wpdb->last_error ] );
 
+		$lock_key = 'tribe_ea_csv_import_' . $this->id;
+
+		if ( empty( $this->acquire_db_lock( $lock_key ) ) ) {
 			return $this->meta['activity'];
 		}
 
@@ -406,8 +410,9 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		$new_offset = $importer->import_complete() ? -1 : $importer->get_last_completed_row();
 		update_option( 'tribe_events_importer_offset', $new_offset );
-		global $wpdb;
-		$wpdb->query("SELECT RELEASE_LOCK('tribe_ea_csv_import')");
+
+		$lock_key = 'tribe_ea_csv_import_' . $this->id;
+		$this->release_db_lock( $lock_key );
 
 		if ( -1 === $new_offset ) {
 			do_action( 'tribe_events_csv_import_complete' );
