@@ -524,4 +524,49 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( home_url( '/eventos/lista/' ), $canonical_url );
 	}
+
+	/**
+	 * It should correctly handle sub-directory installations when parsing requests
+	 *
+	 * @test
+	 */
+	public function should_correctly_handle_sub_directory_installations_when_parsing_requests() {
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		// We're using permalinks.
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$expected_parsed                 = [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'default',
+		];
+		update_option('home', 'http://wordpress.test/test');
+
+		$rewrite = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+		$parsed = $rewrite->parse_request( 'http://wordpress.test/test/events' );
+
+		$this->assertEquals( $expected_parsed, $parsed );
+	}
+
+	/**
+	 * It should correctly build canonical URL in subdirectory installation
+	 *
+	 * @test
+	 */
+	public function should_correctly_build_canonical_url_in_subdirectory_installation() {
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		// We're using permalinks.
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		update_option('home', 'http://wordpress.test/test');
+
+		$rewrite = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+		$url = $rewrite->get_canonical_url( add_query_arg( [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'default',
+		], 'http://wordpress.test/test' ) );
+
+		$this->assertEquals( 'http://wordpress.test/test/events/', $url );
+	}
 }
