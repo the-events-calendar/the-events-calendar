@@ -526,16 +526,27 @@ class Tribe__Events__Aggregator__Service {
 		return $this->post( 'import', $args );
 	}
 
+	/**
+	 * Update the details of an existing import into EA server.
+	 *
+	 * @since TBD
+	 *
+	 * @param $import_id string The ID of the import to be updated.
+	 * @param $args      array An key, value array representing the values to update on the EA server.
+	 *
+	 * @return object|stdClass|string|WP_Error Response from EA server.
+	 */
 	public function update_import( $import_id, $args ) {
 		$api = $this->api();
 
-		// if the user doesn't have a license key, don't bother hitting the service
+		// if the user doesn't have a license key, don't bother hitting the service.
 		if ( is_wp_error( $api ) ) {
 			return $api;
 		}
 
 		/**
-		 * Allows filtering to add a PUE key to be passed to the EA service
+		 * Allow any external sources (plugins) to add licenses attached to the call to the EA server as part
+		 * of an array on licenses, useful when you have different products accessing EA server.
 		 *
 		 * @since TBD
 		 *
@@ -545,15 +556,18 @@ class Tribe__Events__Aggregator__Service {
 		 */
 		$licenses = apply_filters( 'tribe_aggregator_service_put_pue_licenses', [], $args, $this );
 
-		// If we have a key we add that to the Arguments
+		// If we have a key we add that to the Arguments.
 		if ( ! empty( $licenses ) ) {
 			$args['licenses'] = $licenses;
 		}
 
-		return $this->post( "import/{$import_id}", [
-			'body' => $args,
-			'method' => 'PUT',
-		] );
+		return $this->post(
+			"import/{$import_id}",
+			[
+				'body'   => $args,
+				'method' => 'PUT',
+			]
+		);
 	}
 
 	/**

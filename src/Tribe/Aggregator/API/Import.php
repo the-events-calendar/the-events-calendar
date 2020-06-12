@@ -111,12 +111,14 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	}
 
 	/**
-	 * Update the details of an existing import
+	 * Update the details of an existing import into EA server.
 	 *
-	 * @param $import_id
-	 * @param $args
+	 * @since TBD
 	 *
-	 * @return object|stdClass|string|WP_Error
+	 * @param $import_id string The ID of the import to be updated.
+	 * @param $args      array An key, value array representing the values to update on the EA server.
+	 *
+	 * @return object|stdClass|string|WP_Error Response from EA server.
 	 */
 	public function update( $import_id, $args ) {
 		return $this->service->update_import( $import_id, $args );
