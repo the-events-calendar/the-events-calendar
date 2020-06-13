@@ -901,6 +901,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'transition_post_status', array( $this, 'action_expire_archive_slug_conflict_notice' ), 10, 3 );
 
+			add_filter( 'tribe_body_classes_should_add', [ $this, 'body_classes_should_add' ], 10, 4 );
+
 			tribe( 'tec.featured_events.query_helper' )->hook();
 			tribe( 'tec.featured_events.permalinks_helper' )->hook();
 
@@ -5334,6 +5336,29 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function loadTextDomain() {
 			_deprecated_function( __METHOD__, '4.3.4', 'Tribe__Main::instance()->load_text_domain( \'the-events-calendar\', $this->plugin_dir . \'lang/\' );' );
+		}
+
+		/**
+		 * Hook into filter and add our logic for adding body classes.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $add              Whether to add classes or not.
+		 * @param array   $add_classes      The array of body class names to add.
+		 * @param array   $existing_classes An array of existing body class names from WP.
+		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
+		 *
+		 * @return boolean
+		 */
+		public function body_classes_should_add( $add, $add_classes, $existing_classes, $queue ) {
+			global $post;
+
+			// If we're on the front end and doing an event query, add classes.
+			if ( 'admin' !== $queue && tribe_is_event_query() ) {
+				return true;
+			}
+
+			return $add;
 		}
 
 		/**
