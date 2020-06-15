@@ -307,11 +307,27 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $classes;
 	}
 
+	/**
+	 * Add body classes.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function add_body_classes() {
-		$classes = $this->container->make( Theme_Compatibility::class )->add_body_classes();
-		$classes = $this->container->make( Template_Bootstrap::class )->add_body_classes();
+		$this->container->make( Theme_Compatibility::class )->add_body_classes();
+		$this->container->make( Template_Bootstrap::class )->add_body_classes();
 	}
 
+	/**
+	 * Logic for if body classes should be added.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $add   Whether to add classes or not.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+	 * @return void
+	 */
 	public function body_classes_should_add( $add, $queue ) {
 		if ( tribe_is_event_query() ) {
 			return true;

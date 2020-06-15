@@ -77,6 +77,13 @@ class Theme_Compatibility {
 		return array_merge( $classes, $this->get_body_classes() );
 	}
 
+	/**
+	 * Add body classes.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function add_body_classes() {
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
 			return;

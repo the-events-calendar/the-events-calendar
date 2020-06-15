@@ -389,6 +389,13 @@ class Template_Bootstrap {
 		return $classes;
 	}
 
+	/**
+	 * Add body classes.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function add_body_classes() {
 		$setting  = $this->get_template_setting();
 
