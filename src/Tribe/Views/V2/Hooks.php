@@ -55,6 +55,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_actions() {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
+		add_action( 'init', [ $this, 'add_body_classes' ] );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
@@ -76,7 +77,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
-		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
+		add_filter( 'body_class', [ $this, 'filter_body_classes' ] );
+		add_filter( 'tribe_body_classes_should_add', [ $this, 'body_classes_should_add' ], 10, 3 );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
 		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
@@ -113,7 +115,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Includes includes edge cases for filtering when we need to manually overwrite theme's read
-	 * more link when excerpt is cut programatically.
+	 * more link when excerpt is cut programmatically.
 	 *
 	 * @see   tribe_events_get_the_excerpt
 	 *
@@ -299,11 +301,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array $classes
 	 */
-	public function filter_body_class( $classes ) {
-		$classes = $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
+	public function filter_body_classes( $classes ) {
 		$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
 
 		return $classes;
+	}
+
+	public function add_body_classes() {
+		$classes = $this->container->make( Theme_Compatibility::class )->add_body_classes();
+		$classes = $this->container->make( Template_Bootstrap::class )->add_body_classes();
+	}
+
+	public function body_classes_should_add( $add, $queue ) {
+		if ( tribe_is_event_query() ) {
+			return true;
+		}
+
+		return $add;
 	}
 
 	/**

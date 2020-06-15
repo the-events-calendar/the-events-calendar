@@ -64,6 +64,8 @@ class Theme_Compatibility {
 	 * @return array $classes
 	 */
 	public function filter_add_body_classes( array $classes ) {
+		_deprecated_function( __FUNCTION__, 'TBD', 'Theme_Compatibility::add_body_classes()' );
+
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
 			return $classes;
 		}
@@ -73,6 +75,18 @@ class Theme_Compatibility {
 		}
 
 		return array_merge( $classes, $this->get_body_classes() );
+	}
+
+	public function add_body_classes() {
+		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
+			return;
+		}
+
+		if ( ! $this->is_compatibility_required() ) {
+			return;
+		}
+
+		tribe( Body_Classes::class )->add_classes( $this->get_body_classes() );
 	}
 
 	/**
