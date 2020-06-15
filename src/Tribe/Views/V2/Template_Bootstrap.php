@@ -397,7 +397,7 @@ class Template_Bootstrap {
 	 * @return void
 	 */
 	public function add_body_classes() {
-		$setting  = $this->get_template_setting();
+		$setting = $this->get_template_setting();
 
 		if ( 'page' !== $setting ) {
 			tribe( Body_Classes::class )->add_class( 'tribe-events-page-template' );
