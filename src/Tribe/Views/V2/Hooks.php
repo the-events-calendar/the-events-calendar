@@ -326,10 +326,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param boolean $add   Whether to add classes or not.
 	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
-	 * @return void
+	 *
+	 * @return boolean Whether to add classes or not.
 	 */
 	public function body_classes_should_add( $add, $queue ) {
-		if ( tribe_is_event_query() ) {
+		$context = tribe_context();
+		$shortcode_id = $context->get( 'shortcode', false );
+
+		if (
+			tribe_is_event_query()
+			|| ! empty( $shortcode_id )
+		) {
 			return true;
 		}
 
