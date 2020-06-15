@@ -348,7 +348,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		$lock_key = 'tribe_ea_csv_import_' . $this->id;
 
-		if ( $this->acquire_db_lock( $lock_key ) ) {
+		if ( ! $this->acquire_db_lock( $lock_key ) ) {
 			return $this->meta['activity'];
 		}
 
