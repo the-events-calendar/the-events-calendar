@@ -42,11 +42,12 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 * Creates an easy way to test valid Actions
 	 * @var array
 	 */
-	private static $actions = array(
-		'created' => array(),
-		'updated' => array(),
-		'skipped' => array(),
-	);
+	private static $actions = [
+		'created'   => [],
+		'updated'   => [],
+		'skipped'   => [],
+		'scheduled' => [],
+	];
 
 	public function __construct() {
 		// The items are registered on the wakeup to avoid saving unnecessary data
