@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use Tribe__Container as Container;
+use Tribe\Utils\Body_Classes;
 
 class Theme_Compatibility {
 	/**
@@ -78,6 +79,32 @@ class Theme_Compatibility {
 	}
 
 	/**
+	 * Contains the logic for if this object's classes should be added to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $add   Whether to add the class to the queue or not.
+	 * @param array   $class The array of body class names to add.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+	 * @return boolean
+	 */
+	public function should_add_body_class_to_queue( $add, $class, $queue ) {
+		if (
+			'admin' === $queue
+			|| ! tribe( Template_Bootstrap::class )->should_load()
+			|| ! $this->is_compatibility_required()
+		) {
+			return $add;
+		}
+
+		if ( in_array( $class, $this->get_body_classes() ) ) {
+			return true;
+		}
+
+		return $add;
+	}
+
+	/**
 	 * Add body classes.
 	 *
 	 * @since TBD
@@ -85,14 +112,6 @@ class Theme_Compatibility {
 	 * @return void
 	 */
 	public function add_body_classes() {
-		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
-			return;
-		}
-
-		if ( ! $this->is_compatibility_required() ) {
-			return;
-		}
-
 		tribe( Body_Classes::class )->add_classes( $this->get_body_classes() );
 	}
 

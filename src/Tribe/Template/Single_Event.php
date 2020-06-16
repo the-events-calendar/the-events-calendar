@@ -122,8 +122,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 			}
 		}
 
-
-
 		/**
 		 * Hook into filter and add our logic for adding body classes.
 		 *

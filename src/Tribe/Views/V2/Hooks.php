@@ -78,6 +78,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_classes' ] );
+		add_filter( 'tribe_body_class_should_add_to_queue', [ $this, 'body_class_should_add_to_queue' ], 10, 3 );
 		add_filter( 'tribe_body_classes_should_add', [ $this, 'body_classes_should_add' ], 10, 3 );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
@@ -317,6 +318,24 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function add_body_classes() {
 		$this->container->make( Theme_Compatibility::class )->add_body_classes();
 		$this->container->make( Template_Bootstrap::class )->add_body_classes();
+	}
+
+	/**
+	 * Contains hooks to the logic for if this object's classes should be added to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $add   Whether to add the class to the queue or not.
+	 * @param array   $class The array of body class names to add.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+	 * @return boolean
+	 */
+	public function body_class_should_add_to_queue( $add, $class, $queue ) {
+		$add = $this->container->make( Template_Bootstrap::class )->should_add_body_class_to_queue( $add, $class, $queue );
+
+		$add = $this->container->make( Theme_Compatibility::class )->should_add_body_class_to_queue( $add, $class, $queue );
+
+		return $add;
 	}
 
 	/**

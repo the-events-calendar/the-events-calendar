@@ -390,6 +390,32 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Contains the logic for if this object's classes should be added to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $add   Whether to add the class to the queue or not.
+	 * @param array   $class The array of body class names to add.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+	 * @return boolean
+	 */
+	public function should_add_body_class_to_queue( $add, $class, $queue ) {
+		if ( 'admin' === $queue ) {
+			return $add;
+		}
+
+		if ( 'tribe-events-page-template' === $class ) {
+			$setting = $this->get_template_setting();
+
+			if ( 'page' !== $setting ) {
+				return true;
+			}
+		}
+
+		return $add;
+	}
+
+	/**
 	 * Add body classes.
 	 *
 	 * @since TBD
@@ -397,11 +423,7 @@ class Template_Bootstrap {
 	 * @return void
 	 */
 	public function add_body_classes() {
-		$setting = $this->get_template_setting();
-
-		if ( 'page' !== $setting ) {
-			tribe( Body_Classes::class )->add_class( 'tribe-events-page-template' );
-		}
+		tribe( Body_Classes::class )->add_class( 'tribe-events-page-template' );
 	}
 
 	/**
