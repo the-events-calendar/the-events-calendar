@@ -331,11 +331,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function body_classes_should_add( $add, $queue ) {
 		$context = tribe_context();
-		$shortcode_id = $context->get( 'shortcode', false );
 
 		if (
-			tribe_is_event_query()
-			|| ! empty( $shortcode_id )
+			$context->get( 'event_post_type', false )
+			|| $context->get( 'shortcode', false )
 		) {
 			return true;
 		}
