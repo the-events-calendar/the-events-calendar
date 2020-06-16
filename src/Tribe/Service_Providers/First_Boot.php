@@ -60,6 +60,16 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 			$options['tribeEventsTemplate'] = '';
 		}
 
+		if ( ! isset( $options['tribeEnableViews'] ) ) {
+			// Set the Enabled Views to List, Month, and Day.
+			$options['tribeEnableViews'] = [ 'list', 'month', 'day' ];
+		}
+
+		if ( ! isset( $options['viewOption'] ) ) {
+			// Set the Default View to List.
+			$options['viewOption'] = 'list';
+		}
+
 		\Tribe__Settings_Manager::set_options( $options );
 	}
 }
