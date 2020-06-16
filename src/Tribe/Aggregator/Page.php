@@ -310,12 +310,13 @@ class Tribe__Events__Aggregator__Page {
 	/**
 	 * A very simple method to include a Aggregator Template, allowing filtering and additions using hooks.
 	 *
-	 * @param  string  $name Which file we are talking about including
-	 * @param  array   $data Any context data you need to expose to this file
-	 * @param  boolean $echo If we should also print the Template
+	 * @param string  $name Which file we are talking about including-
+	 * @param array   $data Any context data you need to expose to this file.
+	 * @param boolean $echo If we should also print the Template.
+	 *
 	 * @return string        Final Content HTML
 	 */
-	public function template( $name, $data = array(), $echo = true ) {
+	public function template( $name, $data = [], $echo = true ) {
 		// Clean this Variable
 		$name = array_map( 'sanitize_title_with_dashes', (array) explode( '/', $name ) );
 
@@ -325,9 +326,13 @@ class Tribe__Events__Aggregator__Page {
 		/**
 		 * A more Specific Filter that will include the template name
 		 *
-		 * @param string $file     Complete path to include the PHP File
-		 * @param string $name     Template name
-		 * @param array  $data     The Data that will be used on this template
+		 * @since 4.3
+		 *
+		 * @param string $file Complete path to include the PHP File.
+		 * @param array  $name Template name.
+		 * @param array  $data The Data that will be used on this template.
+		 *
+		 * @return string $file Complete path to include the PHP File
 		 */
 		$file = apply_filters( 'tribe_aggregator_template_file', $file, $name, $data );
 
