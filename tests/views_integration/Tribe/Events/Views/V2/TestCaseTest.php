@@ -30,6 +30,16 @@ class TestCaseTest extends TestCase {
 	 * @test
 	 */
 	public function should_be_able_to_setup_a_main_query_context() {
+		// Set test as an enabled view.
+		add_filter( 'tribe_get_option', function ( $value, $optionName, $default ) {
+
+			if ( 'tribeEnableViews' !== $optionName ) {
+				return $value;
+			}
+
+			return [ 'test' ];
+		}, 10, 3 );
+
 		add_filter( 'tribe_events_views', function () {
 			return [ 'test' => Test_View::class ];
 		} );

@@ -490,13 +490,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param mixed $redirect_url URL which we will redirect to.
+	 * @param mixed      $redirect_url URL which we will redirect to.
+	 * @param string|int $original_url The original URL if this method runs on the `redirect_canonical` filter, else
+	 *                                 the redirect status (e.g. `301`) if this method runs in the context of the
+	 *                                 `wp_redirect` filter.
 	 *
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
 	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
-		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
-			return $redirect_url;
+		if ( doing_filter( 'redirect_canonical' ) ) {
+			/*
+			 * If we're not running in the context of the `redirect_canonical` filter, skip this check
+			 * as it would happen between a string (`$redirect_url`) and an integer (the redirect HTTP
+			 * status code).
+			 */
+			if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
+				return $redirect_url;
+			}
 		}
 
 		$context = tribe_context();
