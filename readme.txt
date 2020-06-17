@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.1.2
+Stable tag: 5.1.3
 Tested up to: 5.4.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.4] TBD =
 
 * Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
 * Tweak - Create a new method to request an update back to EA imports to mark imports as completed on EA server [TEC-3476]
@@ -229,8 +229,17 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Prevent lastest-past from showing in the front end view selector in new installs [TEC-3450]
 * Tweak - On a fresh install set the enabled views to list, month, and day and set the default view to list to stop erroneous error entries [TEC-3451]
 * Tweak - Add a new "scheduled" status for the activity reporter of imports from EA [TEC-3475]
+
+= [5.1.3] TBD =
+
+* Tweak - Add new filter `tribe_events_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
+* Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
 * Fix - Correctly store Event Organizer meta when using the ORM.
 * Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
+
+= [5.1.2.1] 2020-06-09 =
+
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
 
 = [5.1.2] 2020-05-27 =
 
