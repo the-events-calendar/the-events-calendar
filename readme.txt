@@ -94,6 +94,7 @@ Our Premium Plugins and Services:
 🎟️ [Community Tickets](https://m.tri.be/18wl)
 ✏️ [Filter Bar](https://m.tri.be/fa)
 🗓️ [Eventbrite Tickets](https://m.tri.be/2e)
+📡 [Virtual Events](http://m.tri.be/1aky)
 
 == Help ==
 
@@ -174,7 +175,7 @@ The following add-ons are available for The Events Calendar:
 
 * [Events Calendar Pro](https://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](http://m.tri.be/1ajw), additional fields, and more!
 * [Event Aggregator](https://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
-* Virtual Events, COMING SUMMER 2020 this add-on will optimize your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
+* [Virtual Events](http://m.tri.be/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
 * [Promoter](https://m.tri.be/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
