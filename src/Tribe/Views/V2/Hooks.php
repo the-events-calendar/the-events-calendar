@@ -332,7 +332,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function body_class_should_add_to_queue( $add, $class, $queue ) {
 		$add = $this->container->make( Template_Bootstrap::class )->should_add_body_class_to_queue( $add, $class, $queue );
-
 		$add = $this->container->make( Theme_Compatibility::class )->should_add_body_class_to_queue( $add, $class, $queue );
 
 		return $add;

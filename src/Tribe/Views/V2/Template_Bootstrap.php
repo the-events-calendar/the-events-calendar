@@ -397,7 +397,8 @@ class Template_Bootstrap {
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of body class names to add.
 	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
-	 * @return boolean
+
+	 * @return boolean Whether body classes should be added or not.
 	 */
 	public function should_add_body_class_to_queue( $add, $class, $queue ) {
 		if ( 'admin' === $queue ) {

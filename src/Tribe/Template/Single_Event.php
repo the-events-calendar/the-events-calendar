@@ -130,7 +130,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		 * @param boolean $add              Whether to add classes or not.
 		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
 		 *
-		 * @return boolean
+		 * @return boolean Whether body classes should be added or not.
 		 */
 		public function body_classes_should_add( $add, $queue ) {
 			// If we're on the front end and doing an event query, add classes.
