@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.1.3] TBD =
 
 * Tweak - Add new filter `tribe_events_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
+* Tweak - Add admin notice for Virtual Events. [TEC-3620]
 * Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
 * Fix - Correctly store Event Organizer meta when using the ORM.
 * Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
