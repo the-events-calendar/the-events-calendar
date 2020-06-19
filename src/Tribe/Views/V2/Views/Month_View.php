@@ -91,7 +91,7 @@ class Month_View extends By_Day_View {
 			$prev_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
 			$prev_date->sub( new \DateInterval( 'P1M' ) );
 			// Let's make sure to prevent users from paginating endlessly back when we know there are no more events.
-			$earliest = tribe_get_option( 'earliest_date', $prev_date );
+			$earliest = $this->context->get( 'earliest_event_date', $prev_date );
 			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $earliest )->format( 'Y-m' ) ) {
 				return $this->filter_prev_url( $canonical, '' );
 			}
@@ -140,7 +140,7 @@ class Month_View extends By_Day_View {
 			$next_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
 			$next_date->add( new \DateInterval( 'P1M' ) );
 			// Let's make sure to prevent users from paginating endlessly forward when we know there are no more events.
-			$latest = tribe_get_option( 'latest_date', $next_date );
+			$latest = $this->context->get( 'latest_event_date', $next_date );
 			if ( $current_date->format( 'Y-m' ) === Dates::build_date_object( $latest )->format( 'Y-m' ) ) {
 				return $this->filter_next_url( $canonical, '' );
 			}

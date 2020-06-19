@@ -16,6 +16,7 @@ class Tribe__Events__Assets {
 	public function hook() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'dequeue_incompatible' ), 200 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin' ) );
+		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 10, 2 );
 	}
 
 	/**
@@ -772,6 +773,24 @@ class Tribe__Events__Assets {
 		);
 
 		return $data;
+	}
+
+	/**
+	 * Add legacy stylesheets to customizer styles array to check.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param array  $sheets Array of sheets to search for.
+	 * @param string $css_template String containing the inline css to add.
+	 *
+	 * @return array Modified array of sheets to search for.
+	 */
+	public function customizer_inline_stylesheets( $sheets, $css_template ) {
+		$tec_sheets = [
+			'tribe-events-calendar-style',
+		];
+
+		return array_merge( $sheets, $tec_sheets );
 	}
 
 }

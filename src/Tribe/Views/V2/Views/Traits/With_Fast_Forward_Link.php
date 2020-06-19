@@ -2,7 +2,7 @@
 /**
  * Provides methods for a Views that supports fast-forward links.
  *
- * @since   TBD
+ * @since   5.1.1
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  */
@@ -15,7 +15,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class With_Fast_Forward_Link
  *
- * @since   TBD
+ * @since   5.1.1
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  */
@@ -67,7 +67,7 @@ trait With_Fast_Forward_Link {
 	/**
 	 * Whether to use the fast-forward link in the View or not.
 	 *
-	 * @since TBD
+	 * @since 5.1.1
 	 *
 	 * @param bool  $canonical     Whether to return the canonical, pretty, version of the link or not.
 	 * @param array $passthru_vars A set of query vars to just passthru and not process as part of the canonical link
@@ -101,7 +101,7 @@ trait With_Fast_Forward_Link {
 		/**
 		 * Filters whether the fast-forward link should be used in Views or not whenever possible.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param bool           $use_ff_link   Whether to use the fast-forward link in Views or not.
 		 * @param bool           $canonical     Whether to return the canonical, pretty, version of the link or not.
@@ -114,7 +114,7 @@ trait With_Fast_Forward_Link {
 		/**
 		 * Filters whether the fast-forward link should be used for this specific View or not whenever possible.
 		 *
-		 * @since TBD
+		 * @since 5.1.1
 		 *
 		 * @param bool           $use_ff_link   Whether to use the fast-forward link in Views or not.
 		 * @param bool           $canonical     Whether to return the canonical, pretty, version of the link or not.

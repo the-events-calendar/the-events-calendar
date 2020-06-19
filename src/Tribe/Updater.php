@@ -39,7 +39,7 @@ class Tribe__Events__Updater {
 				}
 			}
 
-			foreach ( $this->constant_updates() as $callback )  {
+			foreach ( $this->get_constant_update_callbacks() as $callback ) {
 				call_user_func( $callback );
 			}
 
@@ -85,19 +85,6 @@ class Tribe__Events__Updater {
 			'4.2'    => array( $this, 'migrate_import_option' ),
 			'4.6.23' => array( $this, 'migrate_wordpress_custom_field_option' ),
 		);
-	}
-
-	/**
-	 * Returns an array of callbacks that should be called
-	 * every time the version is updated
-	 *
-	 * This method has been deprecated in favor of a more testable public function
-	 *
-	 * @return array
-	 * @deprecated 4.0
-	 */
-	protected function constant_updates() {
-		return $this->get_constant_update_callbacks();
 	}
 
 	/**
@@ -198,10 +185,21 @@ class Tribe__Events__Updater {
 		add_action( 'wp_loaded', 'flush_rewrite_rules' );
 	}
 
+	/**
+	 * Set the Capabilities for Events and Related Post Types.
+	 *
+	 * @since 5.1.1 - change method of calling set_capabilities.
+	 */
 	public function set_capabilities() {
-		$this->capabilities = new Tribe__Events__Capabilities();
-		add_action( 'wp_loaded', array( $this->capabilities, 'set_initial_caps' ) );
-		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
+		// @var Tribe__Events__Capabilities $capabilities
+		$capabilities = tribe( Tribe__Events__Capabilities::class );
+
+		// We need to set the requirement on update to allow the next page load to trigger
+		// only when the current request fails before `wp_loaded`, dont run `set_initial_caps` here.
+		$capabilities->set_needs_init();
+
+		add_action( 'wp_loaded', [ $capabilities, 'set_initial_caps' ], 10, 0 );
+		add_action( 'wp_loaded', [ $this, 'reload_current_user' ], 11, 0 );
 	}
 
 	/**

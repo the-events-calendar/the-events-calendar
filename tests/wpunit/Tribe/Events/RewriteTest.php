@@ -495,4 +495,33 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected_parsed, $parsed );
 		$this->assertEquals( $pretty_archive_url, $canonical_url );
 	}
+
+	/**
+	 * It should use the localized slug when available
+	 *
+	 * @test
+	 */
+	public function should_use_the_localized_slug_when_available() {
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$expected_parsed                 = [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'list',
+		];
+		add_filter( 'locale', static function () {
+			return 'es_ES';
+		} );
+		add_filter( 'load_textdomain_mofile', static function ( $mofile, $domain ) {
+			return codecept_data_dir( 'lang/the-events-calendar-es_ES.mo' );
+		}, 99, 2 );
+
+
+		$rewrite = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+		$ugly_archive_url = add_query_arg( $expected_parsed, home_url() );
+		$canonical_url    = $rewrite->get_canonical_url( $ugly_archive_url );
+
+		$this->assertEquals( home_url( '/eventos/lista/' ), $canonical_url );
+	}
 }

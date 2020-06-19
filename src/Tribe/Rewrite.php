@@ -2,6 +2,7 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Main as TEC;
 use Tribe__Main as Common;
 use Tribe__Utils__Array as Arr;
@@ -30,6 +31,15 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * @var boolean
 	 */
 	protected $hook_lock = false;
+
+	/**
+	 * A map providing each current base to its current locale translation.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @var array<string,string>
+	 */
+	protected $localized_bases = [];
 
 	/**
 	 * Static Singleton Factory Method
@@ -272,10 +282,15 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', $default_bases );
 
 		// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
-		$bases = array_map( 'array_unique', $bases );
+		$bases            = array_map( 'array_unique', $bases );
+		$unfiltered_bases = $bases;
 
-		// By default we always have `en_US` to avoid 404 with older URLs
-		$languages = apply_filters( 'tribe_events_rewrite_i18n_languages', array_unique( array( 'en_US', get_locale() ) ) );
+		apply_filters_deprecated(
+			'tribe_events_rewrite_i18n_languages',
+			[ array_unique( array( 'en_US', get_locale() ) ) ],
+			'TBD',
+			'Deprecated in version 5.1.1, not used since version 4.2.'
+		);
 
 		// By default we load the Default and our plugin domains
 		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
@@ -317,6 +332,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
+
+		// In this moment set up the object locale bases too.
+		$this->localized_bases = $this->get_localized_bases( $unfiltered_bases, $domains );
 
 		$this->bases = $bases;
 
@@ -506,6 +524,16 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	protected function get_localized_matchers() {
 		$localized_matchers = parent::get_localized_matchers();
 
+		// If possible add a `localized_slug` entry to each localized matcher to support multi-language.
+		array_walk(
+			$localized_matchers,
+			function ( array &$localized_matcher ) {
+				if ( isset( $localized_matcher['base'], $this->localized_bases[ $localized_matcher['base'] ] ) ) {
+					$localized_matcher['localized_slug'] = $this->localized_bases[ $localized_matcher['base'] ];
+				}
+			}
+		);
+
 		// Handle the dates.
 		$localized_matchers['(\d{4}-\d{2})']       = 'eventDate';
 		$localized_matchers['(\d{4}-\d{2}-\d{2})'] = 'eventDate';
@@ -675,5 +703,47 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		];
 
 		return $entry;
+	}
+
+	/**
+	 * Returns the map of localized bases for the specified text domains.
+	 *
+	 * The bases are the ones used to build the permalinks, the domains are those of the currently activated plugins
+	 * that include a localized rewrite component.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param array<string> $bases   The bases to set up the locale translation for.
+	 * @param array<string> $domains A list of text domains belonging to the plugins currently active that handle and
+	 *                               provide support for a localized rewrite component.
+	 *
+	 * @return array<string,string> A map relating the bases in their English, lowercase form to their current locale
+	 *                              translated form.
+	 */
+	public function get_localized_bases( array $bases, array $domains ) {
+		$locale             = get_locale();
+		$cache_key          = __METHOD__ . md5( serialize( array_merge( $bases, $domains, [ $locale ] ) ) );
+		$expiration_trigger = Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES;
+
+		$cached = tribe_cache()->get( $cache_key, $expiration_trigger, false );
+
+		if ( false !== $cached ) {
+			return $cached;
+		}
+
+		$localized_bases = tribe( 'tec.i18n' )->get_i18n_strings_for_domains( $bases, [ $locale ], $domains );
+
+		$return = array_filter(
+			array_map(
+				static function ( $locale_base ) {
+					return is_array( $locale_base ) ? end( $locale_base ) : false;
+				},
+				$localized_bases
+			)
+		);
+
+		tribe_cache()->set( $cache_key, $return, DAY_IN_SECONDS, $expiration_trigger );
+
+		return $return;
 	}
 }

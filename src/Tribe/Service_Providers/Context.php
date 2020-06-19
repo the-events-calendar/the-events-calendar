@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Service_Providers;
 
+use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Utils;
 use Tribe__Context;
 use Tribe__Date_Utils as Dates;
@@ -376,6 +377,22 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
 						Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
 						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
+					],
+				],
+				'latest_event_date'    => [
+					'read'  => [
+						Tribe__Context::TRIBE_OPTION => [ 'latest_date' ],
+					],
+					'write' => [
+						Tribe__Context::TRIBE_OPTION => [ 'latest_date' ],
+					],
+				],
+				'earliest_event_date'  => [
+					'read'  => [
+						Tribe__Context::TRIBE_OPTION => [ 'earliest_date' ],
+					],
+					'write' => [
+						Tribe__Context::TRIBE_OPTION => [ 'earliest_date' ],
 					],
 				],
 			]
