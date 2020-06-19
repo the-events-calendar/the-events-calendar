@@ -3,6 +3,13 @@
 namespace Tribe\Events\Views\V2;
 
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
+
+	public function setUp() {
+		parent::setUp();
+		// Let's make sure we do not run "second" tests on a cached value.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
+	}
+
 	/**
 	 * @test
 	 */

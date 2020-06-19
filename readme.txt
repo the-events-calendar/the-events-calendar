@@ -94,6 +94,7 @@ Our Premium Plugins and Services:
 🎟️ [Community Tickets](https://m.tri.be/18wl)
 ✏️ [Filter Bar](https://m.tri.be/fa)
 🗓️ [Eventbrite Tickets](https://m.tri.be/2e)
+📡 [Virtual Events](http://m.tri.be/1aky)
 
 == Help ==
 
@@ -174,7 +175,7 @@ The following add-ons are available for The Events Calendar:
 
 * [Events Calendar Pro](https://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](http://m.tri.be/1ajw), additional fields, and more!
 * [Event Aggregator](https://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
-* Virtual Events, COMING SUMMER 2020 this add-on will optimize your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
+* [Virtual Events](http://m.tri.be/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
 * [Promoter](https://m.tri.be/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
@@ -220,6 +221,15 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.1.4] TBD =
+
+* Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
+* Tweak - Create a new method to request an update back to EA imports to mark imports as completed on EA server [TEC-3476]
+* Tweak - Add a new filter `tribe_aggregator_service_put_pue_licenses` to enable external sources the option to add additional PUE attached to the request. [TEC-3476]
+* Tweak - Prevent lastest-past from showing in the front end view selector in new installs [TEC-3450]
+* Tweak - On a fresh install set the enabled views to list, month, and day and set the default view to list to stop erroneous error entries [TEC-3451]
+* Tweak - Add a new "scheduled" status for the activity reporter of imports from EA [TEC-3475]
 
 = [5.1.3] 2020-06-22 =
 
