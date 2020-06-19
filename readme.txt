@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: https://m.tri.be/29
 Requires at least: 4.9
 Stable tag: 5.1.3
-Tested up to: 5.4.1
+Tested up to: 5.4.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.3] TBD =
+= [5.1.3] 2020-06-22 =
 
 * Tweak - Add new filter `tribe_events_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
 * Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
