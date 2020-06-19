@@ -227,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
 * Fix - Correctly store Event Organizer meta when using the ORM.
 * Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
+* Language - 1 new strings added, 112 updated, 0 fuzzied, and 1 obsoleted
 
 = [5.1.2.1] 2020-06-09 =
 
