@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Prevent lastest-past from showing in the front end view selector in new installs [TEC-3450]
 * Tweak - On a fresh install set the enabled views to list, month, and day and set the default view to list to stop erroneous error entries [TEC-3451]
 * Tweak - Add a new "scheduled" status for the activity reporter of imports from EA [TEC-3475]
+* Tweak - Add admin notice for Virtual Events. [TEC-3620]
 
 = [5.1.3] 2020-06-22 =
 

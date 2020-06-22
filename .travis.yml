@@ -131,8 +131,7 @@ before_script:
   - cd ${PLUGIN_DIR}
 
 script:
-  # Suspend while bug is worked out.
-  # - codecept run -f views_integration
+  - codecept run -f views_integration
   - codecept run -f views_settings
   - codecept run -f views_rest
   - codecept run -f views_ui
