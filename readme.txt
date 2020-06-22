@@ -3,7 +3,7 @@
 Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, Camwyn, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
-Requires at least: 4.9
+Requires at least: 4.9.14
 Stable tag: 5.1.3
 Tested up to: 5.4.2
 Requires PHP: 5.6
