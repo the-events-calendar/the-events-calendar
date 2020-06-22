@@ -81,8 +81,8 @@ class Tribe__Events__Admin__Notice__Marketing {
 	 */
 	public function should_display_virtual_events() {
 		$today = date_create()->format( 'Y-m-d' );
-		$start = '2020-06-18';
-		$end   = '2020-08-31';
+		$start = '2020-06-21';
+		$end   = '2020-07-08';
 
 		return $today >= $start && $today <= $end;
 	}
@@ -159,7 +159,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 		);
 
 		return sprintf(
-			_x( 'Just launched: %1s! Identify events as virtual events, Zoom integration, hidden livestream links and more.', 'Virtual Events Annoucement Banner', 'the-events-calendar' ),
+			_x( '🎉 Just launched: %1s! Identify events as virtual events, Zoom integration, hidden livestream links and more.', 'Virtual Events Annoucement Banner', 'the-events-calendar' ),
 			$link
 		);
 	}

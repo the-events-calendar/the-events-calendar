@@ -230,11 +230,11 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Prevent lastest-past from showing in the front end view selector in new installs [TEC-3450]
 * Tweak - On a fresh install set the enabled views to list, month, and day and set the default view to list to stop erroneous error entries [TEC-3451]
 * Tweak - Add a new "scheduled" status for the activity reporter of imports from EA [TEC-3475]
+* Tweak - Add admin notice for Virtual Events. [TEC-3620]
 
 = [5.1.3] 2020-06-22 =
 
 * Tweak - Add new filter `tribe_events_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
-* Tweak - Add admin notice for Virtual Events. [TEC-3620]
 * Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
 * Fix - Correctly store Event Organizer meta when using the ORM.
 * Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
