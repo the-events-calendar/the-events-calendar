@@ -46,9 +46,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p class="privacy-policy-tutorial"><strong><?php esc_html_e( 'Suggested text:', 'event-tickets' ); ?></strong></p>
 
-	<p><?php esc_html_e( 'We make use of certain API keys, in order to provide specific features.', 'the-events-calendar' ); ?></p>
+	<p><?php esc_html_e( 'We make use of certain APIs, in order to provide specific features.', 'the-events-calendar' ); ?></p>
 
-	<p><?php esc_html_e( 'These API keys may include the following third party services: Google Maps, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret).', 'the-events-calendar' ); ?></p>
+	<p><?php esc_html_e( 'These APIs may include the following third party services: Google Maps (API key), Meetup (OAuth token), PayPal (email, Client ID, Client Secret), Eventbrite (API key, auth URL, Client Secret), and Zoom (email, Client ID, Client Secret).', 'the-events-calendar' ); ?></p>
 
 	<h3 class="privacy-policy-tutorial"><?php esc_html_e( 'How Long You Retain this Data', 'the-events-calendar' ); ?></h3>
 
