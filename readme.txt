@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9
-Stable tag: 5.1.2
-Tested up to: 5.4.1
+Stable tag: 5.1.3
+Tested up to: 5.4.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -94,6 +94,7 @@ Our Premium Plugins and Services:
 🎟️ [Community Tickets](https://m.tri.be/18wl)
 ✏️ [Filter Bar](https://m.tri.be/fa)
 🗓️ [Eventbrite Tickets](https://m.tri.be/2e)
+📡 [Virtual Events](http://m.tri.be/1aky)
 
 == Help ==
 
@@ -174,7 +175,7 @@ The following add-ons are available for The Events Calendar:
 
 * [Events Calendar Pro](https://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](http://m.tri.be/1ajw), additional fields, and more!
 * [Event Aggregator](https://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
-* Virtual Events, COMING SUMMER 2020 this add-on will optimize your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
+* [Virtual Events](http://m.tri.be/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
 * [Promoter](https://m.tri.be/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
@@ -221,10 +222,26 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.4] TBD =
 
+* Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
+* Tweak - Create a new method to request an update back to EA imports to mark imports as completed on EA server [TEC-3476]
+* Tweak - Add a new filter `tribe_aggregator_service_put_pue_licenses` to enable external sources the option to add additional PUE attached to the request. [TEC-3476]
+* Tweak - Prevent lastest-past from showing in the front end view selector in new installs [TEC-3450]
+* Tweak - On a fresh install set the enabled views to list, month, and day and set the default view to list to stop erroneous error entries [TEC-3451]
+* Tweak - Add a new "scheduled" status for the activity reporter of imports from EA [TEC-3475]
+
+= [5.1.3] 2020-06-22 =
+
+* Tweak - Add new filter `tribe_events_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
+* Fix - Prevent "too few arguments" on the settings page when a url contains percentage signs. [VE-111]
 * Fix - Correctly store Event Organizer meta when using the ORM.
 * Fix - Linked posts (Organizers and Venues) correctly check if the item selected is brand new or existing when edit link is empty. [TEC-3481]
+* Language - 1 new strings added, 112 updated, 0 fuzzied, and 1 obsoleted
+
+= [5.1.2.1] 2020-06-09 =
+
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
 
 = [5.1.2] 2020-05-27 =
 

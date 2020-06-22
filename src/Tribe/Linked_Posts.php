@@ -1177,7 +1177,7 @@ class Tribe__Events__Linked_Posts {
 				<?php if ( $creation_enabled ) : ?>
 				data-freeform
 				data-sticky-search
-				data-create-choice-template="<?php echo __( 'Create: <b><%= term %></b>', 'the-events-calendar' ); ?>"
+				data-create-choice-template="<?php echo __( 'Create: <%= term %>', 'the-events-calendar' ); ?>"
 				data-allow-html
 				data-force-search
 				<?php endif; ?>

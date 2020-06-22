@@ -990,14 +990,15 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @param object $counts An object containing the current post_type's post
-		 *                       counts by status.
+		 * @param object $counts       An object containing the current post_type's post
+		 *                             counts by status.
 		 *
-		 * @return object $counts The modified object containing the current post_type's post
-		 *                        counts by status.
+		 * @return object $counts       The modified object containing the current post_type's post
+		 *                              counts by status.
 		 */
 		public function patch_count_posts( $counts ) {
-			$status = self::$ignored_status;
+			$status = $this::$ignored_status;
+
 
 			if ( ! isset( $counts->$status ) ) {
 				$counts->$status = 0;
