@@ -160,7 +160,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 
 		return sprintf(
 			/* translators: the placeholder is for the link to the Virtual Events for The Events Calendar information and download page. */
-			_x( '🎉 Just launched: %1s! Identify events as virtual events, Zoom integration, hidden livestream links and more.', 'Virtual Events Annoucement Banner', 'the-events-calendar' ),
+			_x( '🎉 Just launched: %s! Identify events as virtual events, Zoom integration, hidden livestream links and more.', 'Virtual Events Announcement Banner', 'the-events-calendar' ),
 			$link
 		);
 	}
