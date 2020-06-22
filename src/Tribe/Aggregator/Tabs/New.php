@@ -284,6 +284,20 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				);
 			}
 
+			$images_scheduled = $queue->activity->get( 'images', 'scheduled' );
+			if ( ! empty( $images_scheduled ) ) {
+				$messages['success'][] = sprintf(
+						// translators: %1$d is replaced with a number of scheduled images.
+						_n(
+								'%1$d new image was scheduled for import.',
+								'%1$d new images were scheduled for import.',
+								$queue->activity->count( 'images', 'scheduled' ),
+								'the-events-calendar'
+						),
+						$queue->activity->count( 'images', 'scheduled' )
+				);
+			}
+
 			if ( $queue && ! $messages ) {
 				$messages['success'][] = sprintf(
 					__( 'No %1$s were imported or updated.', 'the-events-calendar' ),
