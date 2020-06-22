@@ -1,6 +1,10 @@
 <?php
 
+use Tribe\Traits\With_DB_Lock;
+
 class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__Record__Abstract {
+	use With_DB_Lock;
+
 	private $state    = '';
 	private $output   = '';
 	private $messages = array();
@@ -341,6 +345,13 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	}
 
 	public function continue_import() {
+
+		$lock_key = 'tribe_ea_csv_import_' . $this->id;
+
+		if ( ! $this->acquire_db_lock( $lock_key ) ) {
+			return $this->meta['activity'];
+		}
+
 		$importer                    = $this->get_importer();
 		$importer->is_aggregator     = true;
 		$importer->aggregator_record = $this;
@@ -398,6 +409,9 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		$new_offset = $importer->import_complete() ? -1 : $importer->get_last_completed_row();
 		update_option( 'tribe_events_importer_offset', $new_offset );
+
+		$lock_key = 'tribe_ea_csv_import_' . $this->id;
+		$this->release_db_lock( $lock_key );
 
 		if ( -1 === $new_offset ) {
 			do_action( 'tribe_events_csv_import_complete' );
