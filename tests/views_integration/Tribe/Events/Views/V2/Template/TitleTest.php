@@ -126,12 +126,42 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertMatchesSnapshot( $title->build_title() );
 	}
 
+	public function test_featured_month_view(  ) {
+		$context = tribe_context()->alter( [
+			'single'          => false,
+			'event_post_type' => true,
+			'event_display'   => 'month',
+			'featured'        => true,
+			'event_date'      => '2019-02',
+		] );
+
+		$title = new Title();
+		$title->set_context( $context );
+
+		$this->assertMatchesSnapshot( $title->build_title() );
+	}
+
 	public function test_day_view(  ) {
 		$context = tribe_context()->alter( [
 			'single'          => false,
 			'event_post_type' => true,
-			'event_display' => 'day',
-			'event_date' => '2019-02-02',
+			'event_display'   => 'day',
+			'event_date'      => '2019-02-02',
+		] );
+
+		$title = new Title();
+		$title->set_context( $context );
+
+		$this->assertMatchesSnapshot( $title->build_title() );
+	}
+
+	public function test_featured_day_view(  ) {
+		$context = tribe_context()->alter( [
+			'single'          => false,
+			'event_post_type' => true,
+			'event_display'   => 'day',
+			'featured'        => true,
+			'event_date'      => '2019-02-02',
 		] );
 
 		$title = new Title();
@@ -148,6 +178,23 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 			'event_post_type' => true,
 			'taxonomy' => TEC::TAXONOMY,
 			TEC::TAXONOMY => 'test',
+		] );
+
+		$title = new Title();
+		$title->set_context( $context );
+
+		$this->assertMatchesSnapshot( $title->build_title() );
+	}
+
+	public function test_w_category_and_featured(  ) {
+		static::factory()->term->create( [ 'taxonomy' => TEC::TAXONOMY, 'slug' => 'test', 'name' => 'test' ] );
+
+		$context = tribe_context()->alter( [
+			'single'          => false,
+			'event_post_type' => true,
+			'featured'        => true,
+			'taxonomy'        => TEC::TAXONOMY,
+			TEC::TAXONOMY     => 'test',
 		] );
 
 		$title = new Title();
