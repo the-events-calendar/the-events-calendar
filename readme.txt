@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - On a fresh install set the enabled views to list, month, and day and set the default view to list to stop erroneous error entries [TEC-3451]
 * Tweak - Add a new "scheduled" status for the activity reporter of imports from EA [TEC-3475]
 * Tweak - Add admin notice for Virtual Events. [TEC-3620]
+* Language - 3 new strings added, 246 updated, 1 fuzzied, and 1 obsoleted
 
 = [5.1.3] 2020-06-22 =
 
