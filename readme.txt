@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.4] TBD =
+= [5.1.4] 2020-06-24 =
 
 * Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
 * Tweak - Create a new method to request an update back to EA imports to mark imports as completed on EA server [TEC-3476]
