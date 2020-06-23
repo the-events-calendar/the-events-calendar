@@ -199,7 +199,7 @@ class Template_Bootstrap {
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param string          $pre_html  Allow pre-filtering the HTML that we will boostrap.
+		 * @param string          $pre_html  Allow pre-filtering the HTML that we will bootstrap.
 		 * @param string          $view_slug The slug of the View that will be built, based on the context.
 		 * @param \Tribe__Context $context   Tribe context used to setup the view.
 		 * @param \WP_Query       $query     The current WP Query object.
@@ -335,7 +335,7 @@ class Template_Bootstrap {
 	 *
 	 * @param string $template The template located by WordPress.
 	 *
-	 * @return string Path to the File that initalizes the template
+	 * @return string Path to the File that initializes the template
 	 */
 	public function filter_template_include( $template ) {
 		$query = tribe_get_global_query_object();
@@ -446,7 +446,7 @@ class Template_Bootstrap {
 
 		$template_name = end( $name );
 
-		// Bail when we dont are not loading 'default-template'.
+		// Bail when we don't are not loading 'default-template'.
 		if ( 'default-template' !== $template_name ) {
 			return $file;
 		}
