@@ -3,6 +3,13 @@
 namespace Tribe\Events\Views\V2;
 
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
+
+	public function setUp() {
+		parent::setUp();
+		// Let's make sure we do not run "second" tests on a cached value.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
+	}
+
 	/**
 	 * @test
 	 */
@@ -220,11 +227,11 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should not filte a 404 template
+	 * It should not filter a 404 template
 	 *
 	 * @test
 	 */
-	public function should_not_filte_a_404_template() {
+	public function should_not_filter_a_404_template() {
 		// Replace the main query with one we control.
 		global $wp_the_query, $wp_query;
 		$wp_the_query = new \WP_Query();

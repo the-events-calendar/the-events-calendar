@@ -360,12 +360,12 @@ class Page {
 				$should_hijack = false;
 			}
 
-			// Dont hijack event based.
+			// Don't hijack event based.
 			if ( 'event' === tribe( Template_Bootstrap::class )->get_template_setting() ) {
 				$should_hijack = false;
 			}
 
-			// We dont want the main Query.
+			// We don't want the main Query.
 			if ( ! $query->is_main_query() ) {
 				$should_hijack = false;
 			}
