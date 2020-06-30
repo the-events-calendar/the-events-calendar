@@ -23,8 +23,6 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v1
         with:
-          fetch-depth: 1
-          token: ${{ secrets.GH_BOT_TOKEN }}
           submodules: recursive
       - name: Checkout automation tools
         uses: actions/checkout@v1
