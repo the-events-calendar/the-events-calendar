@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.1.3
+Stable tag: 5.1.4
 Tested up to: 5.4.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,6 +221,17 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.1.4] 2020-06-24 =
+
+* Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
+* Tweak - Create a new method to request an update back to EA imports to mark imports as completed on EA server [TEC-3476]
+* Tweak - Add a new filter `tribe_aggregator_service_put_pue_licenses` to enable external sources the option to add additional PUE attached to the request. [TEC-3476]
+* Tweak - Prevent lastest-past from showing in the front end view selector in new installs [TEC-3450]
+* Tweak - On a fresh install set the enabled views to list, month, and day and set the default view to list to stop erroneous error entries [TEC-3451]
+* Tweak - Add a new "scheduled" status for the activity reporter of imports from EA [TEC-3475]
+* Tweak - Add admin notice for Virtual Events. [TEC-3620]
+* Language - 3 new strings added, 246 updated, 1 fuzzied, and 1 obsoleted
 
 = [5.1.3] 2020-06-22 =
 

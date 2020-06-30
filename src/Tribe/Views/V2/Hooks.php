@@ -55,6 +55,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_actions() {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
+		add_action( 'parse_query', [ $this, 'add_body_classes' ], 55 );
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
@@ -76,7 +77,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
-		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
+		add_filter( 'body_class', [ $this, 'filter_body_classes' ] );
+		add_filter( 'tribe_body_class_should_add_to_queue', [ $this, 'body_class_should_add_to_queue' ], 10, 3 );
+		add_filter( 'tribe_body_classes_should_add', [ $this, 'body_classes_should_add' ], 10, 3 );
 		add_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
 		add_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15, 3 );
 		add_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
@@ -113,7 +116,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Includes includes edge cases for filtering when we need to manually overwrite theme's read
-	 * more link when excerpt is cut programatically.
+	 * more link when excerpt is cut programmatically.
 	 *
 	 * @see   tribe_events_get_the_excerpt
 	 *
@@ -299,11 +302,62 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array $classes
 	 */
-	public function filter_body_class( $classes ) {
-		$classes = $this->container->make( Theme_Compatibility::class )->filter_add_body_classes( $classes );
+	public function filter_body_classes( $classes ) {
 		$classes = $this->container->make( Template_Bootstrap::class )->filter_add_body_classes( $classes );
 
 		return $classes;
+	}
+
+	/**
+	 * Add body classes.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function add_body_classes() {
+		$this->container->make( Theme_Compatibility::class )->add_body_classes();
+		$this->container->make( Template_Bootstrap::class )->add_body_classes();
+	}
+
+	/**
+	 * Contains hooks to the logic for if this object's classes should be added to the queue.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $add   Whether to add the class to the queue or not.
+	 * @param array   $class The array of body class names to add.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+	 * @return boolean
+	 */
+	public function body_class_should_add_to_queue( $add, $class, $queue ) {
+		$add = $this->container->make( Template_Bootstrap::class )->should_add_body_class_to_queue( $add, $class, $queue );
+		$add = $this->container->make( Theme_Compatibility::class )->should_add_body_class_to_queue( $add, $class, $queue );
+
+		return $add;
+	}
+
+	/**
+	 * Logic for if body classes should be added.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $add   Whether to add classes or not.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+	 *
+	 * @return boolean Whether to add classes or not.
+	 */
+	public function body_classes_should_add( $add, $queue ) {
+		$context = tribe_context();
+
+		if (
+			$context->get( 'event_post_type', false )
+			|| $context->get( 'shortcode', false )
+		) {
+			return true;
+		}
+
+		return $add;
 	}
 
 	/**
@@ -435,13 +489,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param mixed $redirect_url URL which we will redirect to.
+	 * @param mixed      $redirect_url URL which we will redirect to.
+	 * @param string|int $original_url The original URL if this method runs on the `redirect_canonical` filter, else
+	 *                                 the redirect status (e.g. `301`) if this method runs in the context of the
+	 *                                 `wp_redirect` filter.
 	 *
 	 * @return string A redirection URL, or `false` to prevent redirection.
 	 */
 	public function filter_redirect_canonical( $redirect_url = null, $original_url = null ) {
-		if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
-			return $redirect_url;
+		if ( doing_filter( 'redirect_canonical' ) ) {
+			/*
+			 * If we're not running in the context of the `redirect_canonical` filter, skip this check
+			 * as it would happen between a string (`$redirect_url`) and an integer (the redirect HTTP
+			 * status code).
+			 */
+			if ( trailingslashit( $original_url ) === trailingslashit( $redirect_url ) ) {
+				return $redirect_url;
+			}
 		}
 
 		$context = tribe_context();
