@@ -24,11 +24,14 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
+          ref: master
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          submodules: recursive
       - name: Checkout automation tools
         uses: actions/checkout@v1
         with:
           repository: moderntribe/tric
-          ref: master
+          ref: main
           path: tric
           fetch-depth: 1
       - name: Add tric to the PATH
@@ -52,18 +55,11 @@ jobs:
           tric info
       - name: Print the current tric configuration
         run: tric config
-      - name: fetch and init TEC
+      - name: init TEC
         run: |
-          cd ${GITHUB_WORKSPACE}
-          sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules
-          git submodule update --init
-          git submodule foreach --recursive "[ -f .gitmodules ] && sed -i 's/git@github.com:/git:\/\/github.com\//' .gitmodules; git submodule update --init;"
-          tric use the-events-calendar/common
-          tric composer install --no-dev
-      - name: Set up the-events-calendar
-        run: |
+          docker network prune -f
           tric use the-events-calendar
-          tric composer install
+          tric composer install --no-dev
       - name: Init the WordPress container
         run: tric up wordpress
       - name: Print tric info
