@@ -24,7 +24,6 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
-          ref: master
           token: ${{ secrets.GH_BOT_TOKEN }}
           submodules: recursive
       - name: Checkout automation tools
