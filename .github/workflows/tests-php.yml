@@ -5,23 +5,23 @@ jobs:
     strategy:
       matrix:
         suite:
-          - acceptance
-          - aggregatorv1
-          - blocks_editor_integration
-          - features
-          - integration
-          - muintegration
-          - restv1
-          - views_integration
-          - views_rest
-          - views_settings
-          - views_ui
-          - views_wpunit
+#          - acceptance
+#          - aggregatorv1
+#          - blocks_editor_integration
+#          - features
+#          - integration
+#          - muintegration
+#          - restv1
+#          - views_integration
+#          - views_rest
+#          - views_settings
+#          - views_ui
+#          - views_wpunit
           - wpunit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.GH_BOT_TOKEN }}
           submodules: recursive
@@ -53,11 +53,10 @@ jobs:
           tric info
       - name: Print the current tric configuration
         run: tric config
-      - name: init TEC
+      - name: Set up events-virtual
         run: |
-          docker network prune -f
           tric use the-events-calendar
-          tric composer install --no-dev
+          tric composer install
       - name: Init the WordPress container
         run: tric up wordpress
       - name: Print tric info
