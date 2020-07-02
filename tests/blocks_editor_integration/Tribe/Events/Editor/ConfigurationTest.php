@@ -8,8 +8,9 @@ use Tribe__Events__Editor__Configuration as Configuration;
 use Tribe__Events__Main as TEC;
 
 class ConfigurationTest extends WPTestCase {
-	public static function _setUpBeforeClass() {
-		parent::_setUpBeforeClass();
+
+	public static function setUpBeforeClass() {
+		parent::setUpBeforeClass();
 		static::factory()->event = new \Tribe\Events\Test\Factories\Event();
 	}
 
