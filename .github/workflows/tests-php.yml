@@ -53,7 +53,7 @@ jobs:
           tric info
       - name: Print the current tric configuration
         run: tric config
-      - name: Set up events-virtual
+      - name: Set up The Events Calendar
         run: |
           tric use the-events-calendar
           tric composer install
