@@ -30,7 +30,8 @@
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "wp-coding-standards/wpcs": "^2.1",
     "xamin/handlebars.php": "^0.10.3",
-    "vlucas/phpdotenv": "^4.1"
+    "vlucas/phpdotenv": "^4.1",
+    "php-webdriver/webdriver": "^1.8"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
