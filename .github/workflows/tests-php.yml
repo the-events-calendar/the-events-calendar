@@ -5,10 +5,10 @@ jobs:
     strategy:
       matrix:
         suite:
-          - acceptance
+          # - acceptance
           - aggregatorv1
-          - blocks_editor_integration
-          - features
+          # - blocks_editor_integration
+          # - features
           - integration
           - muintegration
           - restv1
