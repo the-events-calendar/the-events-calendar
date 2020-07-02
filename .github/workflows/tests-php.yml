@@ -66,6 +66,3 @@ jobs:
         run: tric info
       - name: Run suite tests
         run: tric run ${{ matrix.suite }}
-        env:
-          CI: true
-          FUNCTION_MOCKER_CACHE_PATH: ${GITHUB_WORKSPACE}/.function-mocker-cache
