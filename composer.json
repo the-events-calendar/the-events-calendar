@@ -19,7 +19,6 @@
     "codeception/module-webdriver": "^1.0",
     "codeception/util-universalframework": "^1.0",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
-    "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
     "lucatume/wp-browser": "^2.6",
     "lucatume/wp-snaphot-assertions": "1.1.0",
