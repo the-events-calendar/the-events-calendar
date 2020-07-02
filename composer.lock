@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a8055f7e8cc82d4c443eeaf965a557c",
+    "content-hash": "ccd2777ff71828ac14f1c7bc651e0a0b",
     "packages": [],
     "packages-dev": [
         {
@@ -867,16 +867,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "1.10.7",
+            "version": "1.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "956608ea4f7de9e58c53dfb019d85ae62b193c39"
+                "reference": "56e0e094478f30935e9128552188355fa9712291"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/956608ea4f7de9e58c53dfb019d85ae62b193c39",
-                "reference": "956608ea4f7de9e58c53dfb019d85ae62b193c39",
+                "url": "https://api.github.com/repos/composer/composer/zipball/56e0e094478f30935e9128552188355fa9712291",
+                "reference": "56e0e094478f30935e9128552188355fa9712291",
                 "shasum": ""
             },
             "require": {
@@ -895,12 +895,11 @@
                 "symfony/process": "^2.7 || ^3.0 || ^4.0 || ^5.0"
             },
             "conflict": {
-                "symfony/console": "2.8.38",
-                "symfony/phpunit-bridge": "3.4.40"
+                "symfony/console": "2.8.38"
             },
             "require-dev": {
                 "phpspec/prophecy": "^1.10",
-                "symfony/phpunit-bridge": "^3.4"
+                "symfony/phpunit-bridge": "^4.2"
             },
             "suggest": {
                 "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -944,7 +943,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2020-06-03T08:03:56+00:00"
+            "time": "2020-06-24T19:23:30+00:00"
         },
         {
             "name": "composer/semver",
@@ -2182,16 +2181,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "2.6.2",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "83fc32b65ba4720ba07c41109cc5d9348085d210"
+                "reference": "e9797f2fc919ffe246b66ecfef517b895ed158e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/83fc32b65ba4720ba07c41109cc5d9348085d210",
-                "reference": "83fc32b65ba4720ba07c41109cc5d9348085d210",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/e9797f2fc919ffe246b66ecfef517b895ed158e6",
+                "reference": "e9797f2fc919ffe246b66ecfef517b895ed158e6",
                 "shasum": ""
             },
             "require": {
@@ -2261,7 +2260,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2020-06-19T08:46:27+00:00"
+            "time": "2020-06-30T10:46:22+00:00"
         },
         {
             "name": "lucatume/wp-snaphot-assertions",
@@ -2310,16 +2309,16 @@
         },
         {
             "name": "mck89/peast",
-            "version": "v1.10.3",
+            "version": "v1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mck89/peast.git",
-                "reference": "6d1100f39f684c9e004f808b27f6c824b083d8d8"
+                "reference": "e11664ef53ba2a4ca1d16d8bc73fcc317cd65d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mck89/peast/zipball/6d1100f39f684c9e004f808b27f6c824b083d8d8",
-                "reference": "6d1100f39f684c9e004f808b27f6c824b083d8d8",
+                "url": "https://api.github.com/repos/mck89/peast/zipball/e11664ef53ba2a4ca1d16d8bc73fcc317cd65d3d",
+                "reference": "e11664ef53ba2a4ca1d16d8bc73fcc317cd65d3d",
                 "shasum": ""
             },
             "require": {
@@ -2331,7 +2330,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.10.3-dev"
+                    "dev-master": "1.10.4-dev"
                 }
             },
             "autoload": {
@@ -2351,7 +2350,7 @@
                 }
             ],
             "description": "Peast is PHP library that generates AST for JavaScript code",
-            "time": "2020-04-03T09:06:20+00:00"
+            "time": "2020-06-21T17:16:08+00:00"
         },
         {
             "name": "mikemclin/laravel-wp-password",
@@ -5235,16 +5234,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.17.0",
+            "version": "v1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9"
+                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
-                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
+                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
                 "shasum": ""
             },
             "require": {
@@ -5257,6 +5256,10 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -5289,20 +5292,20 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2020-05-12T16:14:59+00:00"
+            "time": "2020-06-06T08:46:27+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.17.0",
+            "version": "v1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "3bff59ea7047e925be6b7f2059d60af31bb46d6a"
+                "reference": "a57f8161502549a742a63c09f0a604997bf47027"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/3bff59ea7047e925be6b7f2059d60af31bb46d6a",
-                "reference": "3bff59ea7047e925be6b7f2059d60af31bb46d6a",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/a57f8161502549a742a63c09f0a604997bf47027",
+                "reference": "a57f8161502549a742a63c09f0a604997bf47027",
                 "shasum": ""
             },
             "require": {
@@ -5317,6 +5320,10 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -5351,20 +5358,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-05-12T16:47:27+00:00"
+            "time": "2020-06-06T08:46:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.17.0",
+            "version": "v1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
+                "reference": "7110338d81ce1cbc3e273136e4574663627037a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
-                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7110338d81ce1cbc3e273136e4574663627037a7",
+                "reference": "7110338d81ce1cbc3e273136e4574663627037a7",
                 "shasum": ""
             },
             "require": {
@@ -5377,6 +5384,10 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -5410,7 +5421,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-05-12T16:47:27+00:00"
+            "time": "2020-06-06T08:46:27+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
