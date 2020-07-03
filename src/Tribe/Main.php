@@ -3945,7 +3945,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'key'     => '_EventStartDate',
 						'value'   => $start_date,
 						'compare' => $direction,
-						'type'    => 'DATETIME'
+						'type'    => 'DATETIME',
 					],
 					'hide_from_upcoming_clause' => [
 						'key'     => '_EventHideFromUpcoming',
