@@ -1605,7 +1605,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, true, $after );
-		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DATETIME) AS {$meta_alias}", $filter_id, true );
+		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DATETIME ) AS {$meta_alias}", $filter_id, true );
 	}
 
 	/**
