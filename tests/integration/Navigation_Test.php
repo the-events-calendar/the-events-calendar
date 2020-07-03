@@ -103,53 +103,50 @@ class Navigation_Test extends \Codeception\TestCase\WPTestCase {
 	 *   5   2015-12-03 16:00:00
 	 */
 	public function test_closest_event_non_linear() {
-		$main = \Tribe__Events__Main::instance();
+		$main     = \Tribe__Events__Main::instance();
 		$settings = $this->post_example_settings;
 		unset( $settings['EventHideFromUpcoming'] );
 
-		$settings['EventStartDate'] = date( 'Y-m-d', strtotime( '+2 days' ) );
-		$settings['EventEndDate'] = date( 'Y-m-d', strtotime( '+2 days' ) );
-		$settings['EventStartHour'] = '3';
-		$settings['EventStartMinute'] = '00';
-		$settings['EventStartMeridian'] = 'pm';
-		$settings['EventEndHour'] = '4';
-		$settings['EventEndMinute'] = '00';
-		$settings['EventEndMeridian'] = 'pm';
-
-		$post_id = tribe_create_event( $settings );
-		$post_1 = tribe_get_events( array( 'p' => $post_id ) )[0];
-
-		$settings['post_title'] = 'Test event 2';
-		$settings['EventStartDate'] = date( 'Y-m-d', strtotime( '+1 day' ) );
-		$settings['EventEndDate'] = date( 'Y-m-d', strtotime( '+1 day' ) );
-		$settings['EventStartHour'] = '12';
-		$settings['EventEndHour'] = '1';
-
-		$post_id = tribe_create_event( $settings );
-		$post_2 = tribe_get_events( array( 'p' => $post_id ) )[0];
-
-		$settings['post_title'] = 'Test event 3';
-		$settings['EventStartDate'] = date( 'Y-m-d', strtotime( '+2 days' ) );
-		$settings['EventEndDate'] = date( 'Y-m-d', strtotime( '+2 days' ) );
-		$settings['EventStartHour'] = '3';
-		$settings['EventEndHour'] = '4';
-
-		$post_id = tribe_create_event( $settings );
-		$post_3 = tribe_get_events( array( 'p' => $post_id ) )[0];
-
-		$settings['post_title'] = 'Test event 4';
-
-		$post_id = tribe_create_event( $settings );
-		$post_4 = tribe_get_events( array( 'p' => $post_id ) )[0];
-
-		$settings['post_title'] = 'Test event 5';
-		$settings['EventStartDate'] = date( 'Y-m-d', strtotime( '+3 days' ) );
-		$settings['EventEndDate'] = date( 'Y-m-d', strtotime( '+3 days' ) );
-		$settings['EventStartHour'] = '4';
-		$settings['EventEndHour'] = '5';
-
-		$post_id = tribe_create_event( $settings );
-		$post_5 = tribe_get_events( array( 'p' => $post_id ) )[0];
+		$post_1 = tribe_events()
+			->set_args( [
+				'title'      => 'Event 1',
+				'start_date' => '+2 days 15:00:00',
+				'duration'   => HOUR_IN_SECONDS,
+				'status'     => 'publish',
+			] )
+			->create();
+		$post_2 = tribe_events()
+			->set_args( [
+				'title'      => 'Event 2',
+				'start_date' => '+1 days 12:00:00',
+				'duration'   => HOUR_IN_SECONDS,
+				'status'     => 'publish',
+			] )
+			->create();
+		$post_3 = tribe_events()
+			->set_args( [
+				'title'      => 'Event 3',
+				'start_date' => '+2 days 15:00:00',
+				'duration'   => HOUR_IN_SECONDS,
+				'status'     => 'publish',
+			] )
+			->create();
+		$post_4 = tribe_events()
+			->set_args( [
+				'title'      => 'Event 4',
+				'start_date' => '+2 days 15:00:00',
+				'duration'   => HOUR_IN_SECONDS,
+				'status'     => 'publish',
+			] )
+			->create();
+		$post_5 = tribe_events()
+			->set_args( [
+				'title'      => 'Event 5',
+				'start_date' => '+3 days 16:00:00',
+				'duration'   => HOUR_IN_SECONDS,
+				'status'     => 'publish',
+			] )
+			->create();
 
 		$this->assertEquals( $post_2->ID, $main->get_closest_event( $post_1, 'previous' )->ID, "Post 1's previous post should be Post 2" );
 		$this->assertEquals( $post_3->ID, $main->get_closest_event( $post_1, 'next' )->ID, "Post 1's next post should be Post 3" );
