@@ -3935,7 +3935,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$args = [
 				'post__not_in'   => [ $post->ID ],
-				'orderby'        => [ 'start_date_clause' => $order, 'ID' => $order ],
+				'orderby'        => [
+					'start_date_clause' => $order,
+					'ID'                => $order,
+				],
 				'posts_per_page' => 1,
 				'meta_query'     => [
 					'start_date_clause'         => [
