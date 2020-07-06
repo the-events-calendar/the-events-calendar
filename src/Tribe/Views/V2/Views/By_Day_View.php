@@ -207,8 +207,6 @@ abstract class By_Day_View extends View {
 			$view_event_ids = $repo
 				->all();
 
-			error_log('last request: ' . print_r($repo->get_query()->request,true));
-
 			$day_results = [];
 
 			$start_meta_key = '_EventStartDate';
