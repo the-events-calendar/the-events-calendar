@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.1.5] TBD =
+
+* Fix - Prevent PHP error when using V2, the site home page at `Main Events page`, including events in the blog loop, and Pro is active.  [ECP-361]
+
 = [5.1.4] 2020-06-24 =
 
 * Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
