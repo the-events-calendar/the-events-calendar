@@ -187,13 +187,24 @@ abstract class By_Day_View extends View {
 			$last_grid_day  = $days->end;
 			$end            = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
 
-			$view_event_ids = tribe_events()
+			/*
+			 * Sort events in duration ascending order to make sure events that start on the same date and time
+			 * will be correctly positioned for multi-day, or all-day, parsing.
+			 * If not explicit, then events with the same start date and time would be sorted in the order MySQL
+			 * read them (not guaranteed).
+			 */
+			$order_by                   = tribe_normalize_orderby( $order_by, $order );
+			$order_by['event_duration'] = 'ASC';
+
+			$repo           = tribe_events()
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
 				->where( 'date_overlaps', $start, $end, null, 2 )
 				->per_page( - 1 )
-				->order_by( $order_by, $order )
+				->order_by( $order_by, $order );
+
+			$view_event_ids = $repo
 				->all();
 
 			$day_results = [];
