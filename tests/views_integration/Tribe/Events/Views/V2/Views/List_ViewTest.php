@@ -238,8 +238,6 @@ class List_ViewTest extends ViewTestCase {
 		// Call this method to trigger the message population in the View.
 		$template_vars = $view->get_template_vars();
 		$this->assertArrayHasKey( 'events', $template_vars );
-		codecept_debug('Dates:');
-		codecept_debug( ( new Collection( $mock_events ) )->pluck_combine( 'ID', '_EventStartDate' ) );
 		$this->assertCount( 2, $template_vars['events'] );
 		$found_event_ids = wp_list_pluck( $template_vars['events'], 'ID' );
 		// Invert the slice as events should show in ASC date order.
