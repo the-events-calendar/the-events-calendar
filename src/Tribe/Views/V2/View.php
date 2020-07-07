@@ -456,7 +456,12 @@ class View implements View_Interface {
 		// This code is coupled with the idea of viewing events: that's fine as Events are the default view content.
 		$view_repository = tribe_events();
 		// Sort events  by start date first and by duration second, this is equivalent to sorting them by end date.
-		$view_repository->order_by( [ 'event_date' => 'ASC', 'event_duration' => 'ASC' ] );
+		$view_repository->order_by(
+			[
+				'event_date'     => 'ASC',
+				'event_duration' => 'ASC',
+			]
+		);
 
 		/**
 		 * Filters the Repository object for a View.
