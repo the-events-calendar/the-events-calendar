@@ -9,7 +9,7 @@
  *
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
- * @version 4.9.4
+ * @version TBD
  *
  * @var string $day_date Date for this marker, following `Y-m-d` format.
  *
@@ -20,7 +20,9 @@ if ( ! isset( $day_date ) ) {
 	return;
 }
 
-$day_date_datetime = Dates::build_date_object( $day_date )->getTimestamp()
+$day_date_obj = Dates::build_date_object( $day_date );
+$day_date_datetime = $day_date_obj->getTimestamp() + $day_date_obj->getOffset();
+//$day_date_datetime = Dates::build_date_object( $day_date )->getTimestamp();
 ?>
 <div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
 	<time
