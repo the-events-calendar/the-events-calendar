@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fix the display order of Events starting on the same date and time to ensure it's consistent. [TEC-3548]
+
 = [5.1.4] 2020-06-24 =
 
 * Tweak - Improve fresh install experience by setting the default template to the Events one [TEC-3453]
