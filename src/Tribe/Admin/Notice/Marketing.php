@@ -7,6 +7,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 	 * Register marketing notices.
 	 *
 	 * @since 4.6.17
+	 * @since TBD - add Virtual Events Notice.
 	 */
 	public function hook() {
 		tribe_notice(
@@ -29,6 +30,17 @@ class Tribe__Events__Admin__Notice__Marketing {
 				'wrap'    => 'p',
 			),
 			array( $this, 'should_display_gutenberg' )
+		);
+
+		tribe_notice(
+			'tribe-virtual-events',
+			array( $this, 'virtual_events_notice' ),
+			array(
+				'dismiss' => 1,
+				'type'    => 'warning',
+				'wrap'    => 'p',
+			),
+			array( $this, 'should_display_virtual_events' )
 		);
 
 	}
@@ -56,6 +68,21 @@ class Tribe__Events__Admin__Notice__Marketing {
 		$today         = date_create()->format( 'Y-m-d' );
 		$start         = '2018-10-23';
 		$end           = '2018-10-30';
+
+		return $today >= $start && $today <= $end;
+	}
+
+	/**
+	 * Check if we should display the Virtual Events Notice.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether to display the notice.
+	 */
+	public function should_display_virtual_events() {
+		$today = date_create()->format( 'Y-m-d' );
+		$start = '2020-06-21';
+		$end   = '2020-07-08';
 
 		return $today >= $start && $today <= $end;
 	}
@@ -117,4 +144,24 @@ class Tribe__Events__Admin__Notice__Marketing {
 		return $notice;
 	}
 
+	/**
+	 * Announcement Notice for Virtual Events.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The notice html.
+	 */
+	public function virtual_events_notice() {
+		$link = sprintf(
+			'<a href="%1$s" target="_blank">%2$s</a>',
+			esc_url( 'http://m.tri.be/1aky' ),
+			esc_html__( 'Virtual Events for The Events Calendar', 'the-events-calendar' )
+		);
+
+		return sprintf(
+			/* translators: the placeholder is for the link to the Virtual Events for The Events Calendar information and download page. */
+			_x( '🎉 Just launched: %s! Identify events as virtual events, Zoom integration, hidden livestream links and more.', 'Virtual Events Announcement Banner', 'the-events-calendar' ),
+			$link
+		);
+	}
 }

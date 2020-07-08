@@ -144,15 +144,15 @@ class Theme_Compatibility {
 	}
 
 	/**
-	 * Returns a list of themes registred for compatibility with our Views.
+	 * Returns a list of themes registered for compatibility with our Views.
 	 *
 	 * @since  4.9.4
 	 *
-	 * @return array An array of the themes registred.
+	 * @return array An array of the themes registered.
 	 */
 	public function get_registered_themes() {
 		/**
-		 * Filters the list of themes that are registred for compatibility.
+		 * Filters the list of themes that are registered for compatibility.
 		 *
 		 * @since 4.9.4
 		 *

@@ -35,7 +35,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.1.3';
+		const VERSION             = '5.1.4';
 
 		/**
 		 * Min Pro Addon
@@ -3933,24 +3933,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$start_date = get_post_meta( $post->ID, '_EventStartDate', true );
 			$this->_where_start_date = $start_date;
 
-			$args       = array(
-				'post__not_in'   => array( $post->ID ),
-				'meta_key'       => '_EventStartDate',
-				'orderby'        => array( '_EventStartDate' => $order, 'ID' => $order ),
+			$args = [
+				'post__not_in'   => [ $post->ID ],
+				'orderby'        => [
+					'start_date_clause' => $order,
+					'ID'                => $order,
+				],
 				'posts_per_page' => 1,
-				'meta_query'     => array(
-					array(
+				'meta_query'     => [
+					'start_date_clause'         => [
 						'key'     => '_EventStartDate',
 						'value'   => $start_date,
 						'compare' => $direction,
-					),
-					array(
+						'type'    => 'DATETIME',
+					],
+					'hide_from_upcoming_clause' => [
 						'key'     => '_EventHideFromUpcoming',
 						'compare' => 'NOT EXISTS',
-					),
-					'relation'    => 'AND',
-				),
-			);
+					],
+					'relation'                  => 'AND',
+				],
+			];
 
 			/**
 			 * Allows the query arguments used when retrieving the next/previous event link
