@@ -25,7 +25,7 @@ use Tribe\Events\Models\Post_Types\Venue;
  *                              @type string $address The venue address field, normally street and number.
  *                              @type string $country Which country the venue happens, full name of the country, no abbr.
  *                              @type string $city The city for the venue.
- *                              @type string $state_province State or province for the venue, avaiable for venues outside of the US.
+ *                              @type string $state_province State or province for the venue, available for venues outside of the US.
  *                              @type string $state The state for the venue in case of a US based venue.
  *                              @type string $province Province for the venue, mostly deprecated, use state_province.
  *                              @type string $zip Zip code of the venue.
@@ -295,7 +295,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of the venue's full address.
 		 *
 		 * @since ??
-		 * @since 4.5.11 Added dockblock; also added $venue_id and $includeVenueName to filter.
+		 * @since 4.5.11 Added docblock; also added $venue_id and $includeVenueName to filter.
 		 *
 		 * @param string $address The formatted event address
 		 * @param int $venue_id The venue ID.
@@ -382,7 +382,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string State
-	 * @todo Depricate tribe_get_stateprovince or tribe_get_region
+	 * @todo Deprecate tribe_get_stateprovince or tribe_get_region
 	 */
 	function tribe_get_stateprovince( $postId = null ) {
 		$venue_id = tribe_get_venue_id( $postId );
@@ -455,7 +455,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string
-	 * @todo Depricate tribe_get_region or tribe_get_stateprovince
+	 * @todo Deprecate tribe_get_region or tribe_get_stateprovince
 	 */
 	function tribe_get_region( $postId = null ) {
 		$venue_id = tribe_get_venue_id( $postId );
@@ -538,7 +538,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @since ??
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
-	 * @return array An Array with the Latitute and Longitude of the venue
+	 * @return array An Array with the Latitude and Longitude of the venue
 	 */
 	function tribe_get_coordinates( $postId = null ) {
 		$venue_id = tribe_get_venue_id( $postId );
@@ -559,7 +559,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since ??
 		 * @since 4.5.11 Added docblock and venue ID to filter
 		 *
-		 * @param array $output The latitute and longitude of the venue.
+		 * @param array $output The latitude and longitude of the venue.
 		 * @param int $venue_id The venue ID
 		 */
 		return apply_filters( 'tribe_get_coordinates', $output, $venue_id );
@@ -732,10 +732,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * @since ??
 			 * @since 4.5.11 Added docblock and venue ID to filter.
 			 *
-			 * @param string $output The venue's website link target.
-			 * @param int $post_id The venue ID.
+			 * @param string $target The target attribute string. Defaults to "_self".
+			 * @param string $url    The link URL.
 			 */
-			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $post_id );
+			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $url );
 			$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
 
 			/**
