@@ -268,7 +268,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$org_id = tribe_get_organizer_id( $post_id );
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
 
-			$url    = esc_url_raw( get_permalink( $org_id ) );
+			$url = esc_url_raw( get_permalink( $org_id ) );
 			/**
 			 * Filter the organizer link target attribute.
 			 *
