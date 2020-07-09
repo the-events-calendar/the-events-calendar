@@ -21,9 +21,32 @@ use Tribe__Main as Common;
  * @package Tribe\Events
  */
 class I18n {
+	/**
+	 * A flag to require translation compilation of the input as is.
+	 *
+	 * @since TBD
+	 */
 	const COMPILE_INPUT = 1;
+
+	/**
+	 * A flag to require translation compilation of the lower-case version of the input.
+	 *
+	 * @since TBD
+	 */
 	const COMPILE_STRTOLOWER = 2;
+
+	/**
+	 * A flag to require translation compilation of the input in its title form.
+	 *
+	 * @since TBD
+	 */
 	const COMPILE_UCFIRST = 4;
+
+	/**
+	 * A flag to require translation compilation of the input in all the available forms.
+	 *
+	 * @since TBD
+	 */
 	const COMPILE_ALL = 7;
 
 	/**
@@ -50,6 +73,7 @@ class I18n {
 	 * WARNING: This function is slow because it deals with files, so don't overuse it!
 	 *
 	 * @since 5.1.1 Moved here from Tribe__Events__Main.
+	 * @since TBD   Add support for the $flags argument.
 	 *
 	 * @param array  $strings                     An array of strings (required).
 	 * @param array  $languages                   Which l10n to fetch the string (required).
@@ -87,6 +111,8 @@ class I18n {
 	 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
 	 *
 	 * @since 5.1.1
+	 * @since TBD   Add support for the $flags argument.
+	 *
 	 *
 	 * @param array $strings    An array of strings (required).
 	 * @param array $languages Which l10n to fetch the string (required).
@@ -178,6 +204,7 @@ class I18n {
 	 * only the translation of the string as input and in their lowercase version.
 	 *
 	 * @since 5.1.1
+	 * @since TBD   Add support for the $flags argument.
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.
