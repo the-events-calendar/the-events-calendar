@@ -299,6 +299,12 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			'the-events-calendar' => $tec->plugin_dir . 'lang/',
 		) );
 
+		// In this moment set up the object locale bases too.
+		$this->localized_bases = $this->get_localized_bases( $unfiltered_bases, $domains );
+
+		// Merge the localized bases into the non-localized bases to ensure any following filter will apply to all.
+		$bases = $this->merge_localized_bases( $bases );
+
 		/**
 		 * Use `tribe_events_rewrite_i18n_slugs_raw` to modify the raw version of the l10n slugs bases.
 		 *
@@ -310,11 +316,6 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs_raw', $bases, $method, $domains );
-
-		// In this moment set up the object locale bases too.
-		$this->localized_bases = $this->get_localized_bases( $unfiltered_bases, $domains );
-
-		$bases = $this->merge_localized_bases( $bases );
 
 		if ( 'regex' === $method ) {
 			foreach ( $bases as $type => $base ) {
