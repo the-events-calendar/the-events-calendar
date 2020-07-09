@@ -75,21 +75,19 @@ class I18n {
 	 * @since 5.1.1 Moved here from Tribe__Events__Main.
 	 * @since TBD   Add support for the $flags argument.
 	 *
-	 * @param array  $strings                     An array of strings (required).
-	 * @param array  $languages                   Which l10n to fetch the string (required).
-	 * @param array  $domains                     Possible Domains to re-load.
-	 * @param string $default_language            The default language to avoid re-doing that.
-	 * @param int $flags                          An integer resulting from the combination of compilation flags;
-	 *                                            defaults to `static::COMPILE_ALL` to compile all versions of the
-	 *                                            translations.
-	 *                                            `static::COMPILE_INPUT` will compile the translation for the string,
-	 *                                            as input.
-	 *                                            `static::COMPILE_STRTOLOWER` will compile the translation for the
-	 *                                            string in its lowercase version.
-	 *                                            `static::COMPILE_UCFIRST` will compile the translation for the string
-	 *                                            in its title version.
+	 * @param array  $strings          An array of strings (required).
+	 * @param array  $languages        Which l10n to fetch the string (required).
+	 * @param array  $domains          Possible Domains to re-load.
+	 * @param string $default_language The default language to avoid re-doing that.
+	 * @param int    $flags            An integer resulting from the combination of compilation flags;
+	 *                                 defaults to `static::COMPILE_ALL` to compile all versions of the translations.
+	 *                                 `static::COMPILE_INPUT` will compile the translation for the string, as input.
+	 *                                 `static::COMPILE_STRTOLOWER` will compile the translation for the string in its
+	 *                                 lowercase version.
+	 *                                 `static::COMPILE_UCFIRST` will compile the translation for the string in its
+	 *                                 title version.
 	 *
-	 * @return array                    A multi level array with the possible translations for the given strings
+	 * @return array<array<string>> A multi level array with the possible translations for the given strings
 	 */
 	public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US', $flags = null ) {
 		$domains = wp_parse_args(
@@ -112,7 +110,6 @@ class I18n {
 	 *
 	 * @since 5.1.1
 	 * @since TBD   Add support for the $flags argument.
-	 *
 	 *
 	 * @param array $strings    An array of strings (required).
 	 * @param array $languages Which l10n to fetch the string (required).
@@ -208,8 +205,8 @@ class I18n {
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.
-	 * @param int $flags                          An integer resulting from the combination of compilation flags;
-	 *                                            defaults to `static::COMPILE_ALL` to compile all versions of the
+     * @param int                        $flags   An integer resulting from the combination of compilation flags;
+     *                                            defaults to `static::COMPILE_ALL` to compile all versions of the
 	 *                                            translations.
 	 *                                            `static::COMPILE_INPUT` will compile the translation for the string,
 	 *                                            as input.
@@ -220,7 +217,7 @@ class I18n {
 	 *
 	 * @return array<string|array> A map of the compiled string translations.
 	 */
-	 public function compile_translations( array $strings, $domains, $flags = 7 ) {
+	public function compile_translations( array $strings, $domains, $flags = 7 ) {
 		$cache_salts = [ $strings, $domains, get_locale() ];
 		$cache_key   = __METHOD__ . md5( serialize( $cache_salts ) );
 
@@ -253,23 +250,23 @@ class I18n {
 
 				// Grab the possible strings for default and any other domain.
 				if ( 'default' === $domain ) {
-					if ($flags & static::COMPILE_INPUT) {
+					if ( $flags & static::COMPILE_INPUT ) {
 						$strings[ $key ][] = __( $value );
 					}
-					if ($flags & static::COMPILE_STRTOLOWER) {
+					if ( $flags & static::COMPILE_STRTOLOWER ) {
 						$strings[ $key ][] = __( strtolower( $value ) );
 					}
-					if ($flags & static::COMPILE_UCFIRST) {
+					if ( $flags & static::COMPILE_UCFIRST ) {
 						$strings[ $key ][] = __( ucfirst( $value ) );
 					}
 				} else {
-					if ($flags & static::COMPILE_INPUT) {
+					if ( $flags & static::COMPILE_INPUT ) {
 						$strings[ $key ][] = __( $value, $domain );
 					}
-					if ($flags & static::COMPILE_STRTOLOWER) {
+					if ( $flags & static::COMPILE_STRTOLOWER ) {
 						$strings[ $key ][] = __( strtolower( $value ), $domain );
 					}
-					if ($flags & static::COMPILE_UCFIRST) {
+					if ( $flags & static::COMPILE_UCFIRST ) {
 						$strings[ $key ][] = __( ucfirst( $value ), $domain );
 					}
 				}
