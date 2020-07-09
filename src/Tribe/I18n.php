@@ -21,6 +21,11 @@ use Tribe__Main as Common;
  * @package Tribe\Events
  */
 class I18n {
+	const COMPILE_INPUT = 1;
+	const COMPILE_STRTOLOWER = 2;
+	const COMPILE_UCFIRST = 4;
+	const COMPILE_ALL = 7;
+
 	/**
 	 * An instance of the The Events Calendar main class.
 	 *
@@ -46,14 +51,23 @@ class I18n {
 	 *
 	 * @since 5.1.1 Moved here from Tribe__Events__Main.
 	 *
-	 * @param array  $strings          An array of strings (required).
-	 * @param array  $languages        Which l10n to fetch the string (required).
-	 * @param array  $domains          Possible Domains to re-load.
-	 * @param string $default_language The default language to avoid re-doing that.
+	 * @param array  $strings                     An array of strings (required).
+	 * @param array  $languages                   Which l10n to fetch the string (required).
+	 * @param array  $domains                     Possible Domains to re-load.
+	 * @param string $default_language            The default language to avoid re-doing that.
+	 * @param int $flags                          An integer resulting from the combination of compilation flags;
+	 *                                            defaults to `static::COMPILE_ALL` to compile all versions of the
+	 *                                            translations.
+	 *                                            `static::COMPILE_INPUT` will compile the translation for the string,
+	 *                                            as input.
+	 *                                            `static::COMPILE_STRTOLOWER` will compile the translation for the
+	 *                                            string in its lowercase version.
+	 *                                            `static::COMPILE_UCFIRST` will compile the translation for the string
+	 *                                            in its title version.
 	 *
 	 * @return array                    A multi level array with the possible translations for the given strings
 	 */
-	public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US' ) {
+	public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US', $flags = null ) {
 		$domains = wp_parse_args(
 			$domains,
 			[
@@ -63,7 +77,7 @@ class I18n {
 			]
 		);
 
-		return $this->get_i18n_strings_for_domains( $strings, $languages, $domains );
+		return $this->get_i18n_strings_for_domains( $strings, $languages, $domains, $flags );
 	}
 
 	/**
@@ -74,15 +88,22 @@ class I18n {
 	 *
 	 * @since 5.1.1
 	 *
-	 * @param array $strings   An array of strings (required).
+	 * @param array $strings    An array of strings (required).
 	 * @param array $languages Which l10n to fetch the string (required).
 	 * @param array $domains   Possible domains to re-load.
+	 * @param int   $flags     An integer resulting from the combination of compilation flags;
+	 *                         defaults to `static::COMPILE_ALL` to compile all versions of the translations.
+	 *                         `static::COMPILE_INPUT` will compile the translation for the string, as input.
+	 *                         `static::COMPILE_STRTOLOWER` will compile the translation for the string in its lowercase
+	 *                         version.
+	 *                         `static::COMPILE_UCFIRST` will compile the translation for the string in its title
+	 *                         version.
 	 *
 	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
 	 *
 	 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
 	 */
-	public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ) ) {
+	public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ), $flags = null ) {
 		sort( $languages );
 		$strings_buffer = [ $strings ];
 
@@ -91,7 +112,7 @@ class I18n {
 			$language_strings = $this->with_locale(
 				$language,
 				[ $this, 'compile_translations' ],
-				[ $strings, $domains ]
+				[ $strings, $domains, $flags ]
 			);
 			$strings_buffer[] = $language_strings;
 		}
@@ -150,14 +171,29 @@ class I18n {
 	/**
 	 * Compiles the translations for a set of strings iterating on a set of domains.
 	 *
+	 * The 4th argument is a bitmask to control the compiled translations.
+	 * E.g. `$i18n->compile_translations( $strings, $domains, I18n::COMPILE_STRTOLOWER);` will only compile
+	 * translations of the strings in their `strtolower` versions.
+	 * Combine the flags using the usual PHP syntax: `I18n::COMPILE_INPUT | I18n::COMPILE_STRTOLOWER` to compile
+	 * only the translation of the string as input and in their lowercase version.
+	 *
 	 * @since 5.1.1
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.
+	 * @param int $flags                          An integer resulting from the combination of compilation flags;
+	 *                                            defaults to `static::COMPILE_ALL` to compile all versions of the
+	 *                                            translations.
+	 *                                            `static::COMPILE_INPUT` will compile the translation for the string,
+	 *                                            as input.
+	 *                                            `static::COMPILE_STRTOLOWER` will compile the translation for the
+	 *                                            string in its lowercase version.
+	 *                                            `static::COMPILE_UCFIRST` will compile the translation for the string
+	 *                                            in its title version.
 	 *
 	 * @return array<string|array> A map of the compiled string translations.
 	 */
-	 public function compile_translations( array $strings, $domains ) {
+	 public function compile_translations( array $strings, $domains, $flags = 7 ) {
 		$cache_salts = [ $strings, $domains, get_locale() ];
 		$cache_key   = __METHOD__ . md5( serialize( $cache_salts ) );
 
@@ -190,13 +226,25 @@ class I18n {
 
 				// Grab the possible strings for default and any other domain.
 				if ( 'default' === $domain ) {
-					$strings[ $key ][] = __( $value );
-					$strings[ $key ][] = __( strtolower( $value ) );
-					$strings[ $key ][] = __( ucfirst( $value ) );
+					if ($flags & static::COMPILE_INPUT) {
+						$strings[ $key ][] = __( $value );
+					}
+					if ($flags & static::COMPILE_STRTOLOWER) {
+						$strings[ $key ][] = __( strtolower( $value ) );
+					}
+					if ($flags & static::COMPILE_UCFIRST) {
+						$strings[ $key ][] = __( ucfirst( $value ) );
+					}
 				} else {
-					$strings[ $key ][] = __( $value, $domain );
-					$strings[ $key ][] = __( strtolower( $value ), $domain );
-					$strings[ $key ][] = __( ucfirst( $value ), $domain );
+					if ($flags & static::COMPILE_INPUT) {
+						$strings[ $key ][] = __( $value, $domain );
+					}
+					if ($flags & static::COMPILE_STRTOLOWER) {
+						$strings[ $key ][] = __( strtolower( $value ), $domain );
+					}
+					if ($flags & static::COMPILE_UCFIRST) {
+						$strings[ $key ][] = __( ucfirst( $value ), $domain );
+					}
 				}
 			}
 
