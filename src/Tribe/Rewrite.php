@@ -2,11 +2,11 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use Tribe\Events\I18n;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Main as TEC;
 use Tribe__Main as Common;
 use Tribe__Utils__Array as Arr;
-use Tribe\Events\I18n;
 
 /**
  * Rewrite Configuration Class
@@ -311,6 +311,11 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs_raw', $bases, $method, $domains );
 
+		// In this moment set up the object locale bases too.
+		$this->localized_bases = $this->get_localized_bases( $unfiltered_bases, $domains );
+
+		$bases = $this->merge_localized_bases( $bases );
+
 		if ( 'regex' === $method ) {
 			foreach ( $bases as $type => $base ) {
 				// Escape all the Bases
@@ -333,9 +338,6 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
-
-		// In this moment set up the object locale bases too.
-		$this->localized_bases = $this->get_localized_bases( $unfiltered_bases, $domains );
 
 		$this->bases = $bases;
 
@@ -748,5 +750,32 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		tribe_cache()->set( $cache_key, $return, DAY_IN_SECONDS, $expiration_trigger );
 
 		return $return;
+	}
+
+	/**
+	 * Enrich the bases adding the localized ones.
+	 *
+	 * Note: the method is not conditioned by the current locale (e.g. do not do this if current locale is en_US) to
+	 * avoid issues with translation plugins that might filter the locale dynamically.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<array<string>> $bases The input bases, in the format `[<base> => [<version_1>, <version_2>, ...]]`.
+	 *
+	 * @return array<array<string>> The input bases modified to include the localized version of the bases.
+	 *                              The format is the same as the input: `[<base> => [<version_1>, <version_2>, ...]]`.
+	 */
+	protected function merge_localized_bases( array $bases = [] ) {
+		foreach ( $bases as $base_slug => $bases_list ) {
+			if ( isset( $this->localized_bases[ $base_slug ] ) ) {
+				// Deal with 1 or more bases in string or array form.
+				$localized_bases       = (array) $this->localized_bases[ $base_slug ];
+				$localized_base        = reset( $localized_bases );
+				$bases[ $base_slug ][] = $localized_base;
+				$bases[ $base_slug ]   = array_unique( $bases[ $base_slug ] );
+			}
+		}
+
+		return $bases;
 	}
 }
