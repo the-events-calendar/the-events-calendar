@@ -834,9 +834,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @since ??
 	 *
-	 * @param int $event_id The event ID.
-	 * @param boolean $link Whether or not to wrap the text in a venue link.
-	 * @return string       Single-line address string.
+	 * @param int     $event_id The event ID.
+	 * @param boolean $link     Whether or not to wrap the text in a venue link.
+	 * @return string           Single-line address string.
 	 */
 	function tribe_get_venue_single_line_address( $event_id, $link = true ) {
 		$venue = null;

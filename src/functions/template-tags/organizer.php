@@ -223,7 +223,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the Organizer's Email.
 	 *
-	 * @param int $postId       Either event id or organizer id, if none specified, current post is used.
+	 * @param int  $postId      Either event id or organizer id, if none specified, current post is used.
 	 * @param bool $antispambot Whether the email should pass through the `antispambot` function or not.
 	 *
 	 * @return string Organizer's Email
