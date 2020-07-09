@@ -710,12 +710,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @since ??
 	 *
-	 * @param null $post_id
-	 * @param null $label
+	 * @param null|int    $post_id
+	 * @param null|string $label
 	 * @return string Formatted link to the venue website
 	 */
 	function tribe_get_venue_website_link( $post_id = null, $label = null ) {
-		$url = tribe_get_venue_website_url( $post_id );
+		$post_id = tribe_get_venue_id( $post_id );
+		$url     = tribe_get_venue_website_url( $post_id );
 
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;
@@ -732,10 +733,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * @since ??
 			 * @since 4.5.11 Added docblock and venue ID to filter.
 			 *
-			 * @param string $target The target attribute string. Defaults to "_self".
-			 * @param string $url    The link URL.
+			 * @param string $target  The target attribute string. Defaults to "_self".
+			 * @param string $url     The link URL.
+			 * @param int    $post_id The venue ID.
 			 */
-			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $url );
+			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $url, $post_id );
 			$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
 
 			/**
@@ -744,8 +746,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * @since ??
 			 * @since 4.5.11 Added docblock and venue ID to filter.
 			 *
-			 * @param string $label The venue's website link label.
-			 * @param int $post_id The venue ID.
+			 * @param string $label    The venue's website link label.
+			 * @param int     $post_id The venue ID.
 			 */
 			$website_link_label = apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ), $post_id );
 
@@ -778,7 +780,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @since ??
 	 *
-	 * @param int|null $post_id
+	 * @param int|null $post_id The event ID
 	 * @return string
 	 */
 	function tribe_get_venue_website_url( $post_id = null ) {

@@ -274,10 +274,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @since 5.1.0
 			 *
-			 * @param string $target The target attribute string. Defaults to "_self".
-			 * @param string $url    The link URL.
+			 * @param string   $target  The target attribute string. Defaults to "_self".
+			 * @param string   $url     The link URL.
+			 * @param int      $post_id Can supply either event id or organizer id, if none specified, current post is used.
 			 */
-			$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url );
+			$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id );
 			$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : '';
 
 			if ( $full_link ) {
@@ -357,8 +358,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the event Organizer Name with a link to their supplied website
 	 *
-	 * @param $post_id post ID for an event
-	 * @param $label   text for the link
+	 * @param $post_id post ID for an event.
+	 * @param $label   text for the link.
 	 *
 	 * @return string
 	 **/
@@ -371,10 +372,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 5.1.0
 		 *
-		 * @param string $target The target attribute string. Defaults to "_self".
-		 * @param string $url   The link URL.
+		 * @param string   $target  The target attribute string. Defaults to "_self".
+		 * @param string   $url     The link URL.
+		 * @param null|int $post_id post ID for the organizer.
 		 */
-		$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url );
+		$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id );
 		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 		/**
