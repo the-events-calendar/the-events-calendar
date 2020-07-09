@@ -6,6 +6,7 @@ use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Main as TEC;
 use Tribe__Main as Common;
 use Tribe__Utils__Array as Arr;
+use Tribe\Events\I18n;
 
 /**
  * Rewrite Configuration Class
@@ -706,7 +707,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	}
 
 	/**
-	 * Returns the map of localized bases for the specified text domains.
+	 * Rettrns the map of localized bases for the specified text domains.
 	 *
 	 * The bases are the ones used to build the permalinks, the domains are those of the currently activated plugins
 	 * that include a localized rewrite component.
@@ -731,7 +732,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			return $cached;
 		}
 
-		$localized_bases = tribe( 'tec.i18n' )->get_i18n_strings_for_domains( $bases, [ $locale ], $domains );
+		$flags = I18n::COMPILE_STRTOLOWER;
+		$localized_bases = tribe( 'tec.i18n' )
+			->get_i18n_strings_for_domains( $bases, [ $locale ], $domains, $flags );
 
 		$return = array_filter(
 			array_map(
