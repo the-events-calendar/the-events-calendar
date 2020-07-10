@@ -710,7 +710,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	}
 
 	/**
-	 * Rettrns the map of localized bases for the specified text domains.
+	 * Returns the map of localized bases for the specified text domains.
 	 *
 	 * The bases are the ones used to build the permalinks, the domains are those of the currently activated plugins
 	 * that include a localized rewrite component.
