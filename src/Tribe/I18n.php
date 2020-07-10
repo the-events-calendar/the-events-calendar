@@ -205,8 +205,8 @@ class I18n {
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.
-     * @param int                        $flags   An integer resulting from the combination of compilation flags;
-     *                                            defaults to `static::COMPILE_ALL` to compile all versions of the
+	 * @param int                        $flags   An integer resulting from the combination of compilation flags;
+	 *                                            defaults to `static::COMPILE_ALL` to compile all versions of the
 	 *                                            translations.
 	 *                                            `static::COMPILE_INPUT` will compile the translation for the string,
 	 *                                            as input.
