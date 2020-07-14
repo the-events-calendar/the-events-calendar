@@ -70,7 +70,6 @@ export const DEFAULT_STATE = {
 	allDay: false,
 	multiDay: false,
 	timeZone: date.FORMATS.TIMEZONE.string,
-	timeZoneLabel: date.FORMATS.TIMEZONE.string,
 	showTimeZone: false,
 	isEditable: true,
 };
@@ -131,11 +130,6 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				timeZone: action.payload.timeZone,
-			};
-		case types.SET_TIMEZONE_LABEL:
-			return {
-				...state,
-				timeZoneLabel: action.payload.label,
 			};
 		case types.SET_TIMEZONE_VISIBILITY:
 			return {
