@@ -25,7 +25,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -43,7 +42,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -61,7 +59,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -79,7 +76,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -97,7 +93,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -115,7 +110,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -133,7 +127,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -151,7 +144,6 @@ Object {
   "startTimeInput": "9:30 am",
   "timeRangeSeparator": "to",
   "timeZone": "UTC+8",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -169,7 +161,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -187,7 +178,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -205,7 +195,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -223,7 +212,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -241,7 +229,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": " | ",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -259,7 +246,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -277,7 +263,6 @@ Object {
   "startTimeInput": "18:00",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -295,25 +280,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
-}
-`;
-
-exports[`[STORE] - Datetime reducer Should set the timezone label 1`] = `
-Object {
-  "allDay": false,
-  "dateTimeSeparator": "@",
-  "end": "2018-07-19 17:00:00",
-  "endTimeInput": "5:00 pm",
-  "isEditable": true,
-  "multiDay": false,
-  "naturalLanguage": "July 19 2018 at 8:00 am - 5:00 pm",
-  "showTimeZone": false,
-  "start": "2018-07-19 08:00:00",
-  "startTimeInput": "8:00 am",
-  "timeRangeSeparator": "-",
-  "timeZone": "UTC",
-  "timeZoneLabel": "Modern Tribe",
 }
 `;
 
@@ -331,7 +297,6 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -349,6 +314,5 @@ Object {
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;

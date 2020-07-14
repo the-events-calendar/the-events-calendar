@@ -840,15 +840,6 @@ describe( 'Event Date time Block sagas', () => {
 			action = { type: null };
 		} );
 
-		it( 'should handle time zone changes', () => {
-			action.type = types.SET_TIME_ZONE;
-			const gen = sagas.handler( action );
-			expect( gen.next().value ).toEqual(
-				call( sagas.onTimeZoneChange, action )
-			);
-			expect( gen.next().done ).toEqual( true );
-		} );
-
 		it( 'should handle date range changes', () => {
 			action.type = types.SET_DATE_RANGE;
 			const gen = sagas.handler( action );
