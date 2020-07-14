@@ -40,7 +40,7 @@ export const setInitialState = ( data ) => {
 
 	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
 	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
-	DEFAULT_STATE.naturalLanguage = date.rangeToNaturalLanguage( start, end );
+	DEFAULT_STATE.naturalLanguageLabel = date.rangeToNaturalLanguage( start, end );
 	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
 };
 
@@ -60,7 +60,7 @@ export const DEFAULT_STATE = {
 	end: defaultEndDateTime,
 	startTimeInput: momentUtil.toTime( defaultStartMoment ),
 	endTimeInput: momentUtil.toTime( defaultEndMoment ),
-	naturalLanguage: date.rangeToNaturalLanguage( defaultStartDateTime, defaultEndDateTime ),
+	naturalLanguageLabel: date.rangeToNaturalLanguage( defaultStartDateTime, defaultEndDateTime ),
 	dateTimeSeparator: globals.settings().dateTimeSeparator
 		? globals.settings().dateTimeSeparator
 		: __( '@', 'the-events-calendar' ),
@@ -104,7 +104,7 @@ export default ( state = DEFAULT_STATE, action ) => {
 		case types.SET_NATURAL_LANGUAGE_LABEL:
 			return {
 				...state,
-				naturalLanguage: action.payload.label,
+				naturalLanguageLabel: action.payload.label,
 			};
 		case types.SET_ALL_DAY:
 			return {

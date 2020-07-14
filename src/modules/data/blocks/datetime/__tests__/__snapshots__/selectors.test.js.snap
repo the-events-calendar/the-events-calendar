@@ -12,7 +12,6 @@ Object {
   "endTimeInput": "5:00 pm",
   "isEditable": true,
   "multiDay": false,
-  "naturalLanguage": "July 19 2018 at 8:00 am - 5:00 pm",
   "naturalLanguageLabel": "July 19 2018 at 8:00 am - 5:00 pm",
   "showTimeZone": false,
   "start": "2018-07-19 08:00:00",

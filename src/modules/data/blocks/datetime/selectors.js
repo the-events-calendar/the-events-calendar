@@ -57,7 +57,7 @@ export const getTimeZoneVisibility = createSelector(
 
 export const getNaturalLanguageLabel = createSelector(
 	[ datetimeSelector ],
-	( datetime ) => datetime.naturalLanguage,
+	( datetime ) => datetime.naturalLanguageLabel,
 );
 
 export const isEditable = createSelector(
