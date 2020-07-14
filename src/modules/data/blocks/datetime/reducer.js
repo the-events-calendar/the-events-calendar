@@ -69,7 +69,7 @@ export const DEFAULT_STATE = {
 		: __( '-', 'the-events-calendar' ),
 	allDay: false,
 	multiDay: false,
-	timeZone: date.FORMATS.TIMEZONE.string,
+	timeZone: globals.timezone().timeZone ? globals.timezone().timeZone : date.FORMATS.TIMEZONE.string,
 	showTimeZone: false,
 	isEditable: true,
 };
