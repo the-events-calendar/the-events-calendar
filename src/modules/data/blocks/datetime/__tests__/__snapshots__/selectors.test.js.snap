@@ -12,14 +12,12 @@ Object {
   "endTimeInput": "5:00 pm",
   "isEditable": true,
   "multiDay": false,
-  "naturalLanguage": "April 9 2020 at 8:00 am - 5:00 pm",
   "naturalLanguageLabel": "July 19 2018 at 8:00 am - 5:00 pm",
   "showTimeZone": false,
   "start": "2018-07-19 08:00:00",
   "startTimeInput": "8:00 am",
   "timeRangeSeparator": "-",
   "timeZone": "UTC",
-  "timeZoneLabel": "UTC",
 }
 `;
 
@@ -33,13 +31,11 @@ exports[`[STORE] - Datetime selectors Should return the end time input 1`] = `"5
 
 exports[`[STORE] - Datetime selectors Should return the multi day 1`] = `false`;
 
-exports[`[STORE] - Datetime selectors Should return the natural language label 1`] = `"April 9 2020 at 8:00 am - 5:00 pm"`;
+exports[`[STORE] - Datetime selectors Should return the natural language label 1`] = `"July 19 2018 at 8:00 am - 5:00 pm"`;
 
 exports[`[STORE] - Datetime selectors Should return the start date 1`] = `"2018-07-19 08:00:00"`;
 
 exports[`[STORE] - Datetime selectors Should return the start time input 1`] = `"8:00 am"`;
-
-exports[`[STORE] - Datetime selectors Should return the time zone label 1`] = `"UTC"`;
 
 exports[`[STORE] - Datetime selectors Should return the time zone visibility 1`] = `false`;
 

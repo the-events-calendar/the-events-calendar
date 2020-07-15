@@ -196,16 +196,6 @@ export function* onHumanReadableChange( action ) {
 //
 
 /**
- * Set timezone label on timezone change
- *
- * @since 0.3.5-alpha
- * @param {Object} action Payload with timeZone
- */
-export function* onTimeZoneChange( action ) {
-	yield put( actions.setTimeZoneLabel( action.payload.timeZone ) );
-}
-
-/**
  * Handle date range changes on calendar
  *
  * @export
@@ -511,10 +501,6 @@ export function* setEndTimeInput() {
  */
 export function* handler( action ) {
 	switch ( action.type ) {
-		case types.SET_TIME_ZONE:
-			yield call( onTimeZoneChange, action );
-			break;
-
 		case types.SET_DATE_RANGE:
 			yield call( handleDateRangeChange, action );
 			yield call( resetNaturalLanguageLabel );
