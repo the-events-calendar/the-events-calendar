@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Add filters to link generation for events, venues, and organizers. [EXT-151]
+* Fix - Prevent the wrong dates in mobile month view date marker when on leading UTC timezones. [TEC-3549]
 * Fix - Fix the display order of Events starting on the same date and time to ensure it's consistent. [TEC-3548]
 * Fix - Fix the handling of URL fragments translations in Views to ensure fully localized View URLs work. [TEC-3479]
 * Fix - Display promo at the bottom of views when "Show The Events Calender link" is checked. [TEC-3321]
