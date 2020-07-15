@@ -4,7 +4,9 @@ namespace Tribe\Events;
 
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Rewrite as Rewrite;
+use Tribe__Events__Venue as Venue;
 use function tad\WPBrowser\setPrivateProperties;
 
 if ( ! class_exists( '\\SitePress' ) ) {
@@ -620,5 +622,88 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		], 'http://wordpress.test/test' ) );
 
 		$this->assertEquals( 'http://wordpress.test/test/events/', $url );
+	}
+
+	public function non_scalar_query_args_data_provider() {
+		yield 'multiple mix post types' => [
+			[
+				'post_type' => [ 'post', TEC::POSTTYPE ],
+			],
+			'/?post_type[0]=post&post_type[1]=' . TEC::POSTTYPE,
+		];
+
+		yield 'multiple non TEC post types' => [
+			[
+				'post_type' => [ 'post', 'page' ],
+			],
+			'/?post_type[0]=post&post_type[1]=page',
+		];
+
+		yield 'multiple TEC post types' => [
+			[
+				'post_type' => [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ],
+			],
+			'/?post_type[0]=' . TEC::POSTTYPE . '&post_type[1]=' . Venue::POSTTYPE . '&post_type[2]=' . Organizer::POSTTYPE,
+		];
+
+		yield 'single non TEC post type in array format' => [
+			[
+				'post_type' => [ 'post' ],
+			],
+			'/?post_type[0]=post',
+		];
+
+		/*
+		 * This might seem counter-intuitive, but we build our pretty URLs only from single post types.
+		 * When we get the post types in array format we should not assume that is coming from our code.
+		 */
+		yield 'single TEC post type in array format' => [
+			[
+				'eventDisplay' => 'default',
+				'post_type'    => [ TEC::POSTTYPE ],
+			],
+			'/events/',
+		];
+
+		/*
+		 * This has no real meaning, but we're stress testing here, when the `paged` query var is not single, we do not
+		 * assume it's for an archive of events.
+		 */
+		yield 'events post type and paged array' => [
+			[
+				'eventDisplay' => 'default',
+				'post_type'    => TEC::POSTTYPE,
+				'paged'        => [ 2, 3 ],
+			],
+			'/events/',
+		];
+
+		yield 'events post type and single paged el in array format' => [
+			[
+				'eventDisplay' => 'default',
+				'post_type'    => [ TEC::POSTTYPE ],
+				'paged'        => [ 2 ],
+			],
+			'/events/page/2/',
+		];
+	}
+
+	/**
+	 * It should correctly handle array values when building canonical URLs
+	 *
+	 * @test
+	 * @dataProvider non_scalar_query_args_data_provider
+	 */
+	public function should_correctly_handle_array_values_when_building_canonical_urls(
+		array $query_args,
+		string $expected_uri
+	) {
+		$rewrite = new Rewrite;
+		global $wp_rewrite;
+		$rewrite->setup( $wp_rewrite );
+
+		$canonical_url = $rewrite->get_canonical_url( add_query_arg( $query_args, home_url() ) );
+
+		$this->assertEquals( home_url( $expected_uri ), urldecode( $canonical_url ) );
 	}
 }
