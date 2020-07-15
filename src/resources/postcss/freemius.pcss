@@ -22,11 +22,7 @@
 			margin: 0 35px;
 			padding: 20px 0 0;
 
-			.fs-site-icon,
-			.fs-plugin-icon,
-			.fs-first.dashicons-plus,
-			.fs-second.dashicons-plus,
-			.fs-connect-logo {
+			.fs-site-icon {
 				border: 0;
 				bottom: auto;
 				left: auto;
@@ -34,19 +30,17 @@
 				position: relative;
 				right: auto;
 				top: auto;
-				width: auto;
+				width: 340px;
 			}
 
-			.fs-site-icon,
-			.fs-plugin-icon {
-				width: 60px;
+			.fs-plugin-icon,
+			.fs-first.dashicons-plus,
+			.fs-second.dashicons-plus,
+			.fs-connect-logo {
+				display: none;
 			}
 
-			.dashicons-plus {
-				color: #17a0d6;
-				padding-left: 4px;
-				padding-right: 4px;
-				width: auto;
+			.fs-site-icon {
 			}
 
 			.fs-site-icon {
@@ -55,8 +49,8 @@
 				}
 
 				&::before {
-					background-image: url( ../icons/the-events-calendar.svg );
-					background-position: center center;
+					background-image: url( ../icons/tec-logo-2020.svg );
+					background-position: left center;
 					background-repeat: no-repeat;
 					background-size: 85%;
 					content: '';
@@ -84,19 +78,6 @@
 					width: 100%;
 				}
 			}
-
-			.fs-connect-logo {
-				background-image: url( ../icons/mailplane.svg );
-				background-position: center center;
-				background-repeat: no-repeat;
-				background-size: 80%;
-				box-sizing: border-box;
-				-moz-box-sizing: border-box;
-				display: block;
-				height: 80px;
-				padding-left: 60px;
-				width: 60px;
-			}
 		}
 
 		.fs-content {
@@ -112,6 +93,10 @@
 
 				&:first-child,
 				&:last-child {
+					margin-bottom: 0;
+				}
+
+				&:last-of-type {
 					margin-bottom: 0;
 				}
 			}
@@ -133,7 +118,7 @@
 		}
 
 		.fs-actions {
-			background-color: #f3f3f3;
+			background-color: #ffffff;
 			display: flex;
 			flex-flow: row wrap;
 			padding: 20px 35px;
@@ -150,9 +135,9 @@
 			}
 
 			.button {
-
 				height: auto;
 				padding: 7px 35px;
+
 				&.button-primary {
 					padding-left: 35px;
 					padding-right: 35px;
@@ -169,6 +154,12 @@
 				padding: 10px;
 				position: absolute;
 				top: -65px;
+			}
+
+			.fs-switch {
+				height: 0;
+				visibility: hidden;
+				width: 0;
 			}
 
 			&.fs-open {
@@ -203,19 +194,23 @@
 					}
 
 					.dashicons-admin-users {
-						background-image: url( ../icons/user.svg );
+						background-image: url( ../icons/freemius-icon-profile.svg );
 					}
 
 					.dashicons-admin-settings {
-						background-image: url( ../icons/settings.svg );
+						background-image: url( ../icons/freemius-icon-site.svg );
 					}
 
 					.dashicons-testimonial {
-						background-image: url( ../icons/megaphone.svg );
+						background-image: url( ../icons/freemius-icon-notice.svg );
 					}
 
 					.dashicons-admin-plugins {
-						background-image: url( ../icons/plug.svg );
+						background-image: url( ../icons/freemius-icon-plugin.svg );
+					}
+
+					.dashicons-menu {
+						background-image: url( ../icons/freemius-icon-themes.svg );
 					}
 				}
 			}

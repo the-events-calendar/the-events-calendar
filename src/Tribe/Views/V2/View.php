@@ -16,7 +16,6 @@ use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\iCal_Data;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
-use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -456,7 +455,13 @@ class View implements View_Interface {
 
 		// This code is coupled with the idea of viewing events: that's fine as Events are the default view content.
 		$view_repository = tribe_events();
-		$view_repository->order_by( 'event_date', 'ASC' );
+		// Sort events  by start date first and by duration second, this is equivalent to sorting them by end date.
+		$view_repository->order_by(
+			[
+				'event_date'     => 'ASC',
+				'event_duration' => 'ASC',
+			]
+		);
 
 		/**
 		 * Filters the Repository object for a View.

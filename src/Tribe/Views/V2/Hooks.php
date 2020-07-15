@@ -63,6 +63,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
+		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 	}
 
 	/**
@@ -667,6 +668,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( $this->container->make( Template_Bootstrap::class )->is_single_event() ) {
 			$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
 		}
+	}
+
+	/**
+	 * Include the promo banner after the after component.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $file     Complete path to include the PHP File.
+	 * @param array    $name     Template name.
+	 * @param Template $template Current instance of the Template.
+	 *
+	 * @return void  Template render has no return.
+	 */
+	public function action_add_promo_banner( $file, $name, $template ) {
+		$this->container->make( Template\Promo::class )->action_add_promo_banner( $file, $name, $template );
 	}
 
 	/**
