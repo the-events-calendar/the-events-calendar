@@ -84,6 +84,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 			),
 			'timeZone'     => array(
 				'showTimeZone' => tribe_get_option( 'tribe_events_timezones_show_zone', false ),
+				'timeZone'     => $this->get_timezone_label(),
 				'label'        => $this->get_timezone_label(),
 			),
 			'defaultTimes' => array(

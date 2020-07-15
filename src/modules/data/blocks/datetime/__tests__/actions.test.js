@@ -28,10 +28,6 @@ describe( '[STORE] - Datetime actions', () => {
 		expect( actions.setTimeZone( 'UTC' ) ).toMatchSnapshot();
 	} );
 
-	test( 'Action to set the time zone label', () => {
-		expect( actions.setTimeZoneLabel( 'Modern Tribe' ) ).toMatchSnapshot();
-	} );
-
 	test( 'Action to set the visibility of the time zone', () => {
 		expect( actions.setTimeZoneVisibility( true ) ).toMatchSnapshot();
 		expect( actions.setTimeZoneVisibility( false ) ).toMatchSnapshot();

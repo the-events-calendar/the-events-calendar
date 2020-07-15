@@ -46,10 +46,6 @@ describe( '[STORE] - Datetime selectors', () => {
 		expect( selectors.getTimeZone( state ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should return the time zone label', () => {
-		expect( selectors.getTimeZoneLabel( state ) ).toMatchSnapshot();
-	} );
-
 	it( 'Should return the time zone visibility', () => {
 		expect( selectors.getTimeZoneVisibility( state ) ).toMatchSnapshot();
 	} );
