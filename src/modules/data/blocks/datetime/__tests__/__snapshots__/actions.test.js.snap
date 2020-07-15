@@ -85,15 +85,6 @@ Object {
 }
 `;
 
-exports[`[STORE] - Datetime actions Action to set the time zone label 1`] = `
-Object {
-  "payload": Object {
-    "label": "Modern Tribe",
-  },
-  "type": "@@MT/EVENTS/SET_TIMEZONE_LABEL",
-}
-`;
-
 exports[`[STORE] - Datetime actions Action to set the visibility of the time zone 1`] = `
 Object {
   "payload": Object {
