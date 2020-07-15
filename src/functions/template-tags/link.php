@@ -364,9 +364,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 5.1.0
 		 *
-		 * @param string the target attribute string. Defaults to "_self".
+		 * @param string          $target The target attribute string. Defaults to "_self".
+		 * @param string          $url    The link URL.
+		 * @param null|object|int $event  The event the url is attached to.
 		 */
-		$target = apply_filters( 'tribe_get_event_website_link_target', '_self' );
+		$target = apply_filters( 'tribe_get_event_website_link_target', '_self', $url, $event );
 		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 		if ( ! empty( $url ) ) {

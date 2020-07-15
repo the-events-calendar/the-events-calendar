@@ -233,7 +233,7 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.updateUrl = function( $container ) {
-		// When handling popstate (broswer back/next) it will not handle this part.
+		// When handling popstate (browser back/next) it will not handle this part.
 		if ( obj.doingPopstate ) {
 			return;
 		}
@@ -268,7 +268,7 @@ tribe.events.views.manager = {};
 		}
 
 		/**
-		 * Compatitiblity for browsers updating title
+		 * Compatibility for browsers updating title
 		 */
 		document.title = data.title;
 
@@ -298,7 +298,7 @@ tribe.events.views.manager = {};
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
 
-		// Fetch nonce from container if the link doesnt have any
+		// Fetch nonce from container if the link doesn't have any
 		if ( ! nonce ) {
 			nonce = $container.data( 'view-rest-nonce' );
 		}
@@ -311,7 +311,7 @@ tribe.events.views.manager = {};
 		};
 
 		if ( shortcodeId ) {
-			data['shortcode'] = shortcodeId;
+			data[ 'shortcode' ] = shortcodeId;
 		}
 
 		obj.request( data, $container );
@@ -345,8 +345,8 @@ tribe.events.views.manager = {};
 		var formData = Qs.parse( $form.serialize() );
 
 		var data = {
-			view_data: formData['tribe-events-views'],
-			_wpnonce: nonce
+			view_data: formData[ 'tribe-events-views' ],
+			_wpnonce: nonce,
 		};
 
 		// Pass the data to the request reading it from `tribe-events-views`.
@@ -360,7 +360,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Catches the normal browser interactions for Next and Previous pages
 	 * so that we can use the manager to load the page requested instead
-	 * of just chaning the URL.
+	 * of just changing the URL.
 	 *
 	 * @since  4.9.12
 	 *
@@ -390,7 +390,7 @@ tribe.events.views.manager = {};
 
 		var data = {
 			url: url,
-			_wpnonce: nonce
+			_wpnonce: nonce,
 		};
 
 		obj.request( data, $container );
@@ -441,7 +441,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.getAjaxSettings = function( $container ) {
 		var ajaxSettings = {
-			url: $container.data('view-rest-url'),
+			url: $container.data( 'view-rest-url' ),
 			accepts: 'html',
 			dataType: 'html',
 			method: 'GET',
