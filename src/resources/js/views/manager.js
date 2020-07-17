@@ -133,6 +133,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.setup = function( index, container ) {
 		var $container = $( container );
+		obj.normalizeData( $container );
 		var $form = $container.find( obj.selectors.form );
 		var $data = $container.find( obj.selectors.dataScript );
 		var data  = {};
@@ -619,6 +620,27 @@ tribe.events.views.manager = {};
 
 		return obj.$lastContainer;
 	}
+
+	/**
+	 * Normalizes the View data attribute contents unescaping it and replacing various forms of double quotes with
+	 * standard double quotes.
+	 *
+	 * When the data is rendered in the context of a shortcode or widget, then the data HTML code will go through
+	 * filters applied to post content that will escape it. This function will run before any other function in the
+	 * object tries to access and manipulate the data to avoid `JSON.parse` errors.
+	 *
+	 * @since TBD
+	 *
+	 * @param  {jQuery} $container The jQuery object built on the container whose data needs to be normalized.
+	 */
+	obj.normalizeData = function ( $container ) {
+		var $data = $container.find( obj.selectors.dataScript );
+		var raw = $.trim( $data.text() );
+		var tempDoc = new DOMParser().parseFromString( raw, "text/html" );
+		var unescaped = tempDoc.documentElement.textContent;
+		var normalized = unescaped.replace( /[\u201c\u201d\u201e\u201f\u2033]/g, '"' );
+		$data.text( normalized );
+	};
 
 	/**
 	 * Handles the initialization of the manager when Document is ready.
