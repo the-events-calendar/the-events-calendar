@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fix the handling of URL fragments translations in Views to ensure fully localized View URLs work. [TEC-3479]
 * Fix - Display promo at the bottom of views when "Show The Events Calender link" is checked. [TEC-3321]
 * Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
+* Fix - Prevent PHP error when using V2, the site home page at `Main Events page`, including events in the blog loop, and Pro is active.  [ECP-361]
 * Fix - Resolve WordPress REST API authentication errors related to `null` returns. Props to @ahaurat [TEC-3539]
 
 = [5.1.4] 2020-06-24 =
