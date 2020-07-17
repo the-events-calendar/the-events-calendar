@@ -12,8 +12,9 @@
  * @version 4.7
  *
  */
+$href = $this->attr( 'href' );
 
-if ( ! $this->attr( 'href' ) || ! $this->attr( 'urlLabel' ) ) {
+if ( ! $href || ! $this->attr( 'urlLabel' ) ) {
 	return;
 }
 
@@ -22,13 +23,15 @@ if ( ! $this->attr( 'href' ) || ! $this->attr( 'urlLabel' ) ) {
  *
  * @since 5.1.0
  *
- * @param string the target attribute string. Defaults to "_self".
+ * @param string $target The target attribute string. Defaults to "_self".
+ * @param string $href   The link URL.
  */
-$target = apply_filters( 'tribe_get_event_website_link_target', '_self' );
+$target = apply_filters( 'tribe_get_event_website_link_target', '_self', $href, $this->context['post_id'] );
+
 ?>
 <div class="tribe-block tribe-block__event-website">
 	<a
-		href="<?php echo esc_url( $this->attr( 'href' ) ); ?>"
+		href="<?php echo esc_url( $href ); ?>"
 		target="<?php echo esc_attr( $target ); ?>"
 		<?php if ( '_blank' === $target  ) : ?> rel="noopener noreferrer" <?php endif; ?>
 	>
