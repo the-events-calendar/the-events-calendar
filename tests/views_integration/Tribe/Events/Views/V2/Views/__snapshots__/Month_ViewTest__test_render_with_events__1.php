@@ -2256,9 +2256,9 @@
 	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
 	<time
 		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2018-12-31"
+		datetime="2019-01-01"
 	>
-		December 31	</time>
+		January 1	</time>
 </div>
 
 			
