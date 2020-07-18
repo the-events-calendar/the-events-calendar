@@ -49,9 +49,6 @@ if ( ! $should_expose_post_object ) {
  */
 $data = apply_filters( 'tribe_events_views_v2_view_data', $data, $view_slug, $view );
 ?>
-<script
-	data-js="tribe-events-view-data"
-	type="application/json"
->
+<script data-js="tribe-events-view-data" type="application/json">
 	<?php echo wp_json_encode( $data ); ?>
 </script>
