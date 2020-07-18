@@ -22,10 +22,11 @@ use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Utils\View as View_Utils;
+use Tribe__Context as Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe__Context as Context;
 
 /**
  * Class Hooks
@@ -113,6 +114,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
+		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
 	}
 
 	/**
