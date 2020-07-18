@@ -133,7 +133,6 @@ tribe.events.views.manager = {};
 	 */
 	obj.setup = function( index, container ) {
 		var $container = $( container );
-		obj.normalizeData( $container );
 		var $form = $container.find( obj.selectors.form );
 		var $data = $container.find( obj.selectors.dataScript );
 		var data  = {};
@@ -630,11 +629,9 @@ tribe.events.views.manager = {};
 	 * object tries to access and manipulate the data to avoid `JSON.parse` errors.
 	 *
 	 * @since TBD
-	 *
-	 * @param  {jQuery} $container The jQuery object built on the container whose data needs to be normalized.
 	 */
-	obj.normalizeData = function ( $container ) {
-		var $data = $container.find( obj.selectors.dataScript );
+	obj.normalizeData = function () {
+		var $data = $( obj.selectors.dataScript );
 		var raw = $.trim( $data.text() );
 		var tempDoc = new DOMParser().parseFromString( raw, "text/html" );
 		var unescaped = tempDoc.documentElement.textContent;
@@ -651,6 +648,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.ready = function() {
 		obj.selectContainers();
+		obj.normalizeData();
 		obj.$containers.each( obj.setup );
 	};
 
