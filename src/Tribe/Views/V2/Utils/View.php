@@ -54,4 +54,31 @@ class View {
 		return $event_display_key;
 	}
 
+	/**
+	 * Cleans the View data that will be printed by the `components/data.php` template to avoid its mangling.
+	 *
+	 * By default, the View data is a copy of the View template variables, to avoid the mangling of the JSON data
+	 * some entries of the data might require to be removed, some might require to be formatted or escaped. E.g. the
+	 * View JSON-LD data, a <script>, should not be printed as-is in the data <script> tag to avoid later escaping
+	 * functions (e.g. `wptexturize`) mangling it.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,string|array> $view_data The initial View data.
+	 *
+	 * @return array<string,string|array> The filtered View data, some entries removed from it to avoid the data script
+	 *                                    being mangled by escaping and texturizing functions running on it.
+	 */
+	public static function clean_data( $view_data ) {
+		if ( ! is_array( $view_data ) ) {
+			return $view_data;
+		}
+
+		if ( isset( $view_data['json_ld_data'] ) ) {
+			// Include the data in escaped form; non-escaped form is printed by the `components/json-ld-data` template.
+			$view_data['json_ld_data'] = esc_html( $view_data['json_ld_data'] );
+		}
+
+		return $view_data;
+	}
 }
