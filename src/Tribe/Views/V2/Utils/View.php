@@ -73,12 +73,10 @@ class View {
 		}
 
 		/*
-		 * Escape the JSON-LD data, it's already printed by the `components/json-ld-data.php` template. Printing a
+		 * Remove the JSON-LD data, it's already printed by the `components/json-ld-data.php` template. Printing a
 		 * `<script>`, the JSON-LD data, inside a `<script>`, the data, will cause issues.
 		 */
-		if ( isset( $view_data['json_ld_data'] ) ) {
-			$view_data ['json_ld_data'] = esc_html( $view_data['json_ld_data'] );
-		}
+		$view_data = array_diff_key( $view_data, array_flip( [ 'json_ld_data' ] ) );
 
 		// Remove objects that should not be printed on the page, keep data objects.
 		$view_data = array_filter( $view_data, static function ( $value ) {
