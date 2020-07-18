@@ -58,9 +58,7 @@ class View {
 	 * Cleans the View data that will be printed by the `components/data.php` template to avoid its mangling.
 	 *
 	 * By default, the View data is a copy of the View template variables, to avoid the mangling of the JSON data
-	 * some entries of the data might require to be removed, some might require to be formatted or escaped. E.g. the
-	 * View JSON-LD data, a <script>, should not be printed as-is in the data <script> tag to avoid later escaping
-	 * functions (e.g. `wptexturize`) mangling it.
+	 * some entries of the data might require to be removed, some might require to be formatted or escaped.
 	 *
 	 * @since TBD
 	 *
@@ -74,10 +72,18 @@ class View {
 			return $view_data;
 		}
 
+		/*
+		 * Escape the JSON-LD data, it's already printed by the `components/json-ld-data.php` template. Printing a
+		 * `<script>`, the JSON-LD data, inside a `<script>`, the data, will cause issues.
+		 */
 		if ( isset( $view_data['json_ld_data'] ) ) {
-			// Include the data in escaped form; non-escaped form is printed by the `components/json-ld-data` template.
-			$view_data['json_ld_data'] = esc_html( $view_data['json_ld_data'] );
+			$view_data ['json_ld_data'] = esc_html( $view_data['json_ld_data'] );
 		}
+
+		// Remove objects that should not be printed on the page, keep data objects.
+		$view_data = array_filter( $view_data, static function ( $value ) {
+			return ! is_object( $value ) || $value instanceof \stdClass;
+		} );
 
 		return $view_data;
 	}
