@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.1.5] 2020-07-27 =
 
 * Tweak - Add filters to link generation for events, venues, and organizers. [EXT-151]
 * Tweak - Remove disabled admin notice for Virtual Events and Gutenberg. [TEC-3546]
