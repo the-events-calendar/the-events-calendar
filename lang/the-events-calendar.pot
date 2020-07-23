@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.1.4\n"
+"Project-Id-Version: The Events Calendar 5.1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2020-06-23 04:02:13+00:00\n"
+"POT-Creation-Date: 2020-07-23 05:41:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-06-23 04:02\n"
+"PO-Revision-Date: 2020-07-23 05:41\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -47,7 +47,7 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4174
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4177
 #: src/admin-views/tribe-options-upgrade.php:20
 msgid "View Calendar"
 msgstr ""
@@ -58,7 +58,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:211 src/Tribe/Main.php:2045
-#: src/Tribe/Main.php:5270 src/Tribe/Main.php:5317 src/Tribe/Organizer.php:93
+#: src/Tribe/Main.php:5273 src/Tribe/Main.php:5320 src/Tribe/Organizer.php:93
 #: src/Tribe/Venue.php:112
 msgid "Edit %s"
 msgstr ""
@@ -69,7 +69,7 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4222
+#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4225
 msgid "Settings"
 msgstr ""
 
@@ -77,54 +77,16 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Marketing.php:101
+#: src/Tribe/Admin/Notice/Marketing.php:49
 msgctxt "2018 user survey"
 msgid "take the survey now"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Marketing.php:105
+#: src/Tribe/Admin/Notice/Marketing.php:53
 msgctxt "2018 user survey"
 msgid ""
 "<strong>The Events Calendar Annual Survey:</strong> share your feedback with "
 "our team—%1$s!"
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing.php:118
-msgid "<strong>The Events Calendar & Gutenberg</strong>"
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing.php:122
-msgid ""
-"WordPress 5.0 is coming soon, and with it, the arrival of the new block "
-"editor interface."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing.php:127
-msgid ""
-"Get up to speed with our comprehensive Guide to Gutenberg ebook, then see "
-"how events and tickets will behave in the block editor by installing our "
-"free Events Gutenberg extension."
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing.php:133
-msgid "Download the eBook"
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing.php:141
-msgid "Try Events Gutenberg"
-msgstr ""
-
-#: src/Tribe/Admin/Notice/Marketing.php:158
-msgid "Virtual Events for The Events Calendar"
-msgstr ""
-
-#. translators: the placeholder is for the link to the Virtual Events for The
-#. Events Calendar information and download page.
-#: src/Tribe/Admin/Notice/Marketing.php:163
-msgctxt "Virtual Events Announcement Banner"
-msgid ""
-"🎉 Just launched: %s! Identify events as virtual events, Zoom integration, "
-"hidden livestream links and more."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Timezones.php:149
@@ -2664,7 +2626,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.1.4)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.1.5)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:945 src/Tribe/Main.php:1400 src/Tribe/Privacy.php:29
 #: src/functions/template-tags/general.php:1373 the-events-calendar.php:57
@@ -3113,181 +3075,181 @@ msgstr ""
 msgid "%s Information"
 msgstr ""
 
-#: src/Tribe/Main.php:4048
+#: src/Tribe/Main.php:4051
 msgid "Support"
 msgstr ""
 
-#: src/Tribe/Main.php:4051
+#: src/Tribe/Main.php:4054
 msgid "View All Add-Ons"
 msgstr ""
 
-#: src/Tribe/Main.php:4071
+#: src/Tribe/Main.php:4074
 msgid "News from Modern Tribe"
 msgstr ""
 
-#: src/Tribe/Main.php:4116
+#: src/Tribe/Main.php:4119
 msgid "Additional Functionality"
 msgstr ""
 
-#: src/Tribe/Main.php:4121
+#: src/Tribe/Main.php:4124
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
 
-#: src/Tribe/Main.php:4122
+#: src/Tribe/Main.php:4125
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
-#: src/Tribe/Main.php:4223
+#: src/Tribe/Main.php:4226
 msgid "Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:4239
+#: src/Tribe/Main.php:4242
 msgid "List"
 msgstr ""
 
-#: src/Tribe/Main.php:4257
+#: src/Tribe/Main.php:4260
 msgid "Month"
 msgstr ""
 
-#: src/Tribe/Main.php:4274 src/admin-views/aggregator/fields/schedule.php:43
+#: src/Tribe/Main.php:4277 src/admin-views/aggregator/fields/schedule.php:43
 #: src/admin-views/aggregator/fields/schedule.php:61
 msgid "Day"
 msgstr ""
 
-#: src/Tribe/Main.php:4297
+#: src/Tribe/Main.php:4300
 msgid "Search for %s by Keyword."
 msgstr ""
 
-#: src/Tribe/Main.php:4300
+#: src/Tribe/Main.php:4303
 #: src/views/v2/components/events-bar/search-button.php:25
 msgid "Search"
 msgstr ""
 
-#: src/Tribe/Main.php:4301
+#: src/Tribe/Main.php:4304
 msgid "Keyword"
 msgstr ""
 
-#: src/Tribe/Main.php:4318
+#: src/Tribe/Main.php:4321
 msgid "4 digit year hyphen 2 digit month hyphen 2 digit day"
 msgstr ""
 
-#: src/Tribe/Main.php:4319
+#: src/Tribe/Main.php:4322
 msgid "1 digit month slash 1 digit day slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4320
+#: src/Tribe/Main.php:4323
 msgid "2 digit month slash 2 digit day slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4321
+#: src/Tribe/Main.php:4324
 msgid "1 digit day slash 1 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4322
+#: src/Tribe/Main.php:4325
 msgid "2 digit day slash 2 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4323
+#: src/Tribe/Main.php:4326
 msgid "1 digit month hyphen 1 digit day hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4324
+#: src/Tribe/Main.php:4327
 msgid "1 digit month hyphen 2 digit day hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4325
+#: src/Tribe/Main.php:4328
 msgid "1 digit day hyphen 1 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4326
+#: src/Tribe/Main.php:4329
 msgid "2 digit day hyphen 2 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4327
+#: src/Tribe/Main.php:4330
 msgid "4 digit year dot 2 digit month dot 2 digit day"
 msgstr ""
 
-#: src/Tribe/Main.php:4328
+#: src/Tribe/Main.php:4331
 msgid "2 digit month dot 2 digit day dot 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4329
+#: src/Tribe/Main.php:4332
 msgid "2 digit day dot 2 digit month dot 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4333
+#: src/Tribe/Main.php:4336
 msgid "4 digit year hyphen 2 digit month"
 msgstr ""
 
-#: src/Tribe/Main.php:4334 src/Tribe/Main.php:4336
+#: src/Tribe/Main.php:4337 src/Tribe/Main.php:4339
 msgid "1 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4335 src/Tribe/Main.php:4337
+#: src/Tribe/Main.php:4338 src/Tribe/Main.php:4340
 msgid "2 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4338 src/Tribe/Main.php:4339 src/Tribe/Main.php:4340
+#: src/Tribe/Main.php:4341 src/Tribe/Main.php:4342 src/Tribe/Main.php:4343
 msgid "1 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4341
+#: src/Tribe/Main.php:4344
 msgid "2 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4342
+#: src/Tribe/Main.php:4345
 msgid "4 digit year dot 2 digit month"
 msgstr ""
 
-#: src/Tribe/Main.php:4343 src/Tribe/Main.php:4344
+#: src/Tribe/Main.php:4346 src/Tribe/Main.php:4347
 msgid "2 digit month dot 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4373 src/Tribe/Main.php:4410
+#: src/Tribe/Main.php:4376 src/Tribe/Main.php:4413
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
 msgstr ""
 
-#: src/Tribe/Main.php:4375
+#: src/Tribe/Main.php:4378
 msgid "Search for %s by Date. Please use the format %s."
 msgstr ""
 
-#: src/Tribe/Main.php:4388
+#: src/Tribe/Main.php:4391
 msgid "%s In"
 msgstr ""
 
-#: src/Tribe/Main.php:4390
+#: src/Tribe/Main.php:4393
 msgid "Search for %s by month. Please use the format %s."
 msgstr ""
 
-#: src/Tribe/Main.php:4393
+#: src/Tribe/Main.php:4396
 msgid "%s From"
 msgstr ""
 
-#: src/Tribe/Main.php:4396
+#: src/Tribe/Main.php:4399
 msgid "Day Of"
 msgstr ""
 
-#: src/Tribe/Main.php:4476
+#: src/Tribe/Main.php:4479
 msgid "Once Every 30 Mins"
 msgstr ""
 
-#: src/Tribe/Main.php:5203
+#: src/Tribe/Main.php:5206
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
 
-#: src/Tribe/Main.php:5215
+#: src/Tribe/Main.php:5218
 msgid ""
 "The following plugins are out of date: %1$s. All add-ons contain "
 "dependencies on The Events Calendar and will not function properly unless "
 "paired with the right version. %2$sLearn More%3$s."
 msgstr ""
 
-#: src/Tribe/Main.php:5254 src/Tribe/Main.php:5311
+#: src/Tribe/Main.php:5257 src/Tribe/Main.php:5314
 msgid "Use Saved %s:"
 msgstr ""
 
@@ -4570,7 +4532,7 @@ msgstr ""
 msgid "The requested event term archive page does not exist"
 msgstr ""
 
-#: src/Tribe/Rewrite.php:258
+#: src/Tribe/Rewrite.php:259
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -4694,7 +4656,7 @@ msgctxt "Metabox title"
 msgid "Location"
 msgstr ""
 
-#: src/Tribe/Venue.php:325 src/functions/template-tags/venue.php:465
+#: src/Tribe/Venue.php:325 src/functions/template-tags/venue.php:466
 msgid "United States"
 msgstr ""
 
@@ -4702,15 +4664,15 @@ msgstr ""
 msgid "Unnamed Venue"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:484
+#: src/Tribe/Views/V2/Hooks.php:487
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:561
+#: src/Tribe/Views/V2/Hooks.php:564
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:576
+#: src/Tribe/Views/V2/Hooks.php:579
 msgid "The Events Calendar - View V2"
 msgstr ""
 
@@ -4784,7 +4746,7 @@ msgctxt "day_view"
 msgid "%1$s for %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1864 src/views/v2/day/event/date/featured.php:27
+#: src/Tribe/Views/V2/View.php:1869 src/views/v2/day/event/date/featured.php:27
 #: src/views/v2/day/event/date/featured.php:28
 #: src/views/v2/day/event/date/featured.php:32
 #: src/views/v2/latest-past/event/date/featured.php:27
@@ -7361,7 +7323,7 @@ msgid ""
 "plural, and this singular.%3$sYour single Event URL is like: %4$s"
 msgstr ""
 
-#: src/functions/template-tags/venue.php:867
+#: src/functions/template-tags/venue.php:870
 #: src/views/v2/day/event/venue.php:23
 #: src/views/v2/latest-past/event/venue.php:23
 #: src/views/v2/list/event/venue.php:23
