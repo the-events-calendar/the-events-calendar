@@ -10,9 +10,9 @@
  * @link {INSERT_ARTCILE_LINK_HERE}
  *
  * @since 4.9.4
- * @since TBD Utilize\Tribe\Utils\Date_I18n_Immutable's format_i18n method for date display.
+ * @since 5.1.5 Utilize\Tribe\Utils\Date_I18n_Immutable's format_i18n method for date display.
  *
- * @version TBD
+ * @version 5.1.5
  *
  * @var string $day_date Date for this marker, following `Y-m-d` format.
  *

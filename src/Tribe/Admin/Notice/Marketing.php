@@ -7,7 +7,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 	 * Register marketing notices.
 	 *
 	 * @since 4.6.17
-	 * @since TBD - add Virtual Events Notice.
+	 * @since 5.1.5 - add Virtual Events Notice.
 	 */
 	public function hook() {
 		tribe_notice(

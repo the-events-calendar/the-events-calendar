@@ -113,7 +113,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	/**
 	 * Update the details of an existing import into EA server.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param $import_id string The ID of the import to be updated.
 	 * @param $args      array An key, value array representing the values to update on the EA server.

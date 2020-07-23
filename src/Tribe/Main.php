@@ -2545,7 +2545,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @deprecated Since 5.1.1, use `tribe( 'tec.i18n' )->get_i18n_strings()` instead.
 		 */
 		public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US' ) {
-			_deprecated_function( __METHOD__, 'TBD', "tribe( 'tec.i18n' )->get_i18n_strings()" );
+			_deprecated_function( __METHOD__, '5.1.5', "tribe( 'tec.i18n' )->get_i18n_strings()" );
 
 			return tribe( 'tec.i18n' )->get_i18n_strings( $strings, $languages, $domains, $default_language );
 		}
@@ -3120,7 +3120,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @deprecated Since 5.1.1, use `tribe( 'tec.i18n' )->get_i18n_strings_for_domains()` instead.
 		 */
 		public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ) ) {
-			_deprecated_function( __METHOD__, 'TBD', "tribe( 'tec.i18n' )->get_i18n_strings_for_domains()" );
+			_deprecated_function( __METHOD__, '5.1.5', "tribe( 'tec.i18n' )->get_i18n_strings_for_domains()" );
 
 			return tribe( 'tec.i18n' )->get_i18n_strings_for_domains( $strings, $languages, $domains );
 		}

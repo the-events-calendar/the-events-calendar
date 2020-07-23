@@ -1749,7 +1749,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Sets up the query filters to order events by the duration (`_EventDuration`) custom field.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
 	 *                           specified in the current query or default arguments.

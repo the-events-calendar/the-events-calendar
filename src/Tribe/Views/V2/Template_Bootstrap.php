@@ -392,7 +392,7 @@ class Template_Bootstrap {
 	/**
 	 * Contains the logic for if this object's classes should be added to the queue.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of body class names to add.
@@ -419,7 +419,7 @@ class Template_Bootstrap {
 	/**
 	 * Add body classes.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @return void
 	 */

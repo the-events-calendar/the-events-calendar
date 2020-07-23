@@ -289,7 +289,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		apply_filters_deprecated(
 			'tribe_events_rewrite_i18n_languages',
 			[ array_unique( array( 'en_US', get_locale() ) ) ],
-			'TBD',
+			'5.1.5',
 			'Deprecated in version 5.1.1, not used since version 4.2.'
 		);
 
@@ -759,7 +759,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * Note: the method is not conditioned by the current locale (e.g. do not do this if current locale is en_US) to
 	 * avoid issues with translation plugins that might filter the locale dynamically.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param array<array<string>> $bases The input bases, in the format `[<base> => [<version_1>, <version_2>, ...]]`.
 	 *

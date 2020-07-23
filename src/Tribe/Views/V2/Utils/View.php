@@ -60,7 +60,7 @@ class View {
 	 * By default, the View data is a copy of the View template variables, to avoid the mangling of the JSON data
 	 * some entries of the data might require to be removed, some might require to be formatted or escaped.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param array<string,string|array> $view_data The initial View data.
 	 *
