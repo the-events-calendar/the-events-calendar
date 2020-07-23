@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Set proper timezone on block editor when creating a new event. [TEC-3543]
 * Fix - Prevent PHP error when using V2, the site home page at `Main Events page`, including events in the blog loop, and Pro is active.  [ECP-361]
 * Fix - Resolve WordPress REST API authentication errors related to `null` returns. Props to @ahaurat [TEC-3539]
+* Language - 0 new strings added, 55 updated, 0 fuzzied, and 6 obsoleted
 
 = [5.1.4] 2020-06-24 =
 
