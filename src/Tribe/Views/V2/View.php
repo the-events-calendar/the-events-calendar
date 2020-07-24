@@ -976,7 +976,9 @@ class View implements View_Interface {
 		wp_reset_postdata();
 
 		// Set the $_SERVER['REQUEST_URI'] as many WordPress functions rely on it to correctly work.
-		$_SERVER['REQUEST_URI'] = $this->get_request_uri();
+		if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
+			$_SERVER['REQUEST_URI'] = $this->get_request_uri();
+		}
 
 		// Make the template global to power template tags.
 		global $tribe_template;
