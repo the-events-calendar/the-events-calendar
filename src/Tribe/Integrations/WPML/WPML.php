@@ -1,4 +1,8 @@
 <?php
+
+use Tribe\Events\I18n;
+use Tribe__Utils__Array as Arr;
+
 /**
  * Class Tribe__Events__Integrations__WPML__WPML
  *
@@ -80,6 +84,40 @@ class Tribe__Events__Integrations__WPML__WPML {
 			$category_translation = Tribe__Events__Integrations__WPML__Category_Translation::instance();
 			add_filter( 'tribe_events_category_slug', array( $category_translation, 'filter_tribe_events_category_slug' ), 20, 2 );
 		}
+
+		//// WORK IN PROGRESS!!!
+
+		add_action( "tribe_repository_events_pre_get_posts", function () {
+			$request_uri = isset( $_SERVER['REQUEST_URI'] )
+				? filter_var( $_SERVER['REQUEST_URI'], FILTER_SANITIZE_STRING )
+				: false;
+			if(false === $request_uri){
+				return;
+			}
+			$url_language_code = false;
+			global $sitepress;
+			$languages               = array_column( (array) $sitepress->get_active_languages(), 'default_locale' );
+			$flags = I18n::COMPILE_STRTOLOWER;
+			$translated_bases = tribe( 'tec.i18n' )
+				->get_i18n_strings( ['archive'=> Tribe__Events__Main::instance()->rewriteSlug], $languages, ['default','the-events-calendar'], 'en_US', $flags );
+			$archive_translations = Arr::get($translated_bases,'archive', []);
+			if(count($archive_translations) !== count($languages)){
+				return;
+			}
+			$archive_translations = array_combine($languages,$archive_translations);
+			foreach ( $archive_translations as $lang => $localized_archive_slug ) {
+				$haystack = urldecode( $request_uri );
+				$needle   = '/' . urldecode( $localized_archive_slug );
+				if ( 0 === strpos( $haystack, $needle ) ) {
+					$url_language_code = $lang;
+					break;
+				}
+			}
+			if( false === $url_language_code){
+				return;
+			}
+			do_action( 'wpml_switch_language', $url_language_code );
+		} );
 	}
 
 	protected function setup_cache_expiration_triggers() {
