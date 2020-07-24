@@ -173,8 +173,9 @@ class I18n {
 	 * @return mixed The callback return value, if any.
 	 */
 	protected function with_locale( $locale, callable $do, array $args = [] ) {
-		global $wp_filter;
+		global $wp_filter, $l10n;
 		$locale_filters_backup = isset( $wp_filter['locale'] ) ? $wp_filter['locale'] : [];
+		$l10n_backup = $l10n;
 		$wp_filter['locale']   = $locale_filters_backup instanceof \WP_Hook ? new \WP_Hook() : [];
 
 		$force_locale = static function () use ( $locale ) {
@@ -187,6 +188,8 @@ class I18n {
 
 		// Restore the `locale` filtering functions.
 		$wp_filter['locale'] = $locale_filters_backup;
+		// Restore the previous I10n object.
+		$l10n = $l10n_backup;
 
 		return $result;
 	}
