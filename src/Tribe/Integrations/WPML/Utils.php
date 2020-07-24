@@ -71,7 +71,6 @@ class Tribe__Events__Integrations__WPML__Utils {
 		return $translations;
 	}
 
-
 	/**
 	 * Fetches the optional post slug translations for a post type.
 	 *
