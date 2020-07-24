@@ -53,6 +53,7 @@ class Rewrite {
 	 */
 	protected function add_url_encoded_slugs( $bases ) {
 		array_walk( $bases, function ( array &$base_group ) {
+			$base_group_add = [];
 			foreach ( $base_group as $value ) {
 				$is_encoded = $this->is_encoded( $value );
 
@@ -69,13 +70,13 @@ class Rewrite {
 				}
 
 				// Some function expect, or provide, uppercase encoding chars, some don't. Cope w/ both.
-				$base_group[] = $decoded;
-				$base_group[] = strtoupper( $encoded );
-				$base_group[] = $encoded;
+				$base_group_add[] = $decoded;
+				$base_group_add[] = strtoupper( $encoded );
+				$base_group_add[] = $encoded;
 			}
 
 			// Remove duplicates and put the non-encoded strings first.
-			$base_group = array_unique( $base_group );
+			$base_group = array_unique( array_merge( $base_group, $base_group_add ) );
 			usort( $base_group, [ $this, 'sort_by_encoding' ] );
 		} );
 
