@@ -62,7 +62,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 		remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 		$flags = I18n::COMPILE_INPUT;
 		$translations = tribe( 'tec.i18n' )
-			->get_i18n_strings_for_domains( $strings, $languages, $domains, $current_locale, $flags );
+			->get_i18n_strings_for_domains( $strings, $languages, $domains, $flags );
 		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 
 		// once an option is updated this cache is deprecated
