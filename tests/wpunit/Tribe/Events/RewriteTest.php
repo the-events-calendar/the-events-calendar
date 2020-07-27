@@ -621,4 +621,42 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( 'http://wordpress.test/test/events/', $url );
 	}
+
+	public function non_scalar_values_passthrough_data_provider() {
+		yield 'tribe_eventcategory[0]=2' => [
+			[
+				'tribe_eventcategory' => [ 0 => 2 ],
+			],
+			'/events/?tribe_eventcategory[0]=2',
+		];
+		yield 'tribe_eventcategory[0]=2&tribe_tags[0]=23&tribe_tags[1]=89' => [
+			[
+				'tribe_eventcategory' => [ 0 => 2 ],
+				'tribe_tags'          => [ 0 => 23, 1 => 89 ],
+			],
+			'/events/?tribe_eventcategory[0]=2&tribe_tags[0]=23&tribe_tags[1]=89',
+		];
+	}
+
+	/**
+	 * It should allow non-scalar query vars to pass through clean urls
+	 *
+	 * @test
+	 * @dataProvider non_scalar_values_passthrough_data_provider
+	 */
+	public function should_allow_non_scalar_query_vars_to_pass_through_clean_urls(array $query_args, string $expected) {
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		// We're using permalinks.
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$rewrite = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+
+		$clean_url = $rewrite->get_clean_url( add_query_arg( array_merge( [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'default',
+		], $query_args ) ) );
+
+		$this->assertEquals( $expected, str_replace( home_url(), '', urldecode( $clean_url ) ) );
+	}
 }
