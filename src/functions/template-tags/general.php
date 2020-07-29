@@ -60,7 +60,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $label The singular version of the Event label, defaults to "Event" (uppercase)
 		 */
-		return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
+		return esc_html(
+			apply_filters(
+				'tribe_event_label_singular',
+				__( 'Event', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**
@@ -76,7 +81,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $label The singular lowercase version of the Event label, defaults to "event" (lowercase)
 		 */
-		return apply_filters( 'tribe_event_label_singular_lowercase', esc_html__( 'event', 'the-events-calendar' ) );
+		return esc_html(
+			apply_filters(
+				'tribe_event_label_singular_lowercase',
+				__( 'event', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**
@@ -92,7 +102,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $label The plural version of the Event label, defaults to "Events" (uppercase)
 		 */
-		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
+		return esc_html(
+			apply_filters(
+				'tribe_event_label_plural',
+				__( 'Events', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**
@@ -108,7 +123,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $label The plural lowercase version of the Event label, defaults to "events" (lowercase)
 		 */
-		return apply_filters( 'tribe_event_label_plural_lowercase', esc_html__( 'events', 'the-events-calendar' ) );
+		return esc_html(
+			apply_filters(
+				'tribe_event_label_plural_lowercase',
+				__( 'events', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**

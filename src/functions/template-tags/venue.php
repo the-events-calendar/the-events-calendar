@@ -140,7 +140,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $label The singular version of the Venue label, defaults to "Venue" (uppercase)
 		 */
-		return apply_filters( 'tribe_venue_label_singular', esc_html__( 'Venue', 'the-events-calendar' ) );
+		return esc_html(
+			apply_filters(
+				'tribe_venue_label_singular',
+				__( 'Venue', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**
@@ -159,7 +164,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $label The plural version of the Venue label, defaults to "Venues" (uppercase)
 		 */
-		return apply_filters( 'tribe_venue_label_plural', esc_html__( 'Venues', 'the-events-calendar' ) );
+		return  esc_html(
+			apply_filters(
+				'tribe_venue_label_plural',
+				__( 'Venues', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**

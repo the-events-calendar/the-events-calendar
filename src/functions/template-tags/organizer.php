@@ -109,7 +109,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_organizer_label_singular() {
-		return apply_filters( 'tribe_organizer_label_singular', esc_html__( 'Organizer', 'the-events-calendar' ) );
+		return esc_html(
+			apply_filters(
+				'tribe_organizer_label_singular',
+				__( 'Organizer', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**
@@ -120,7 +125,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_organizer_label_plural() {
-		return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
+		return esc_html(
+			apply_filters(
+				'tribe_organizer_label_plural',
+				__( 'Organizers', 'the-events-calendar' )
+			)
+		);
 	}
 
 	/**
