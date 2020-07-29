@@ -164,7 +164,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $label The plural version of the Venue label, defaults to "Venues" (uppercase)
 		 */
-		return  esc_html(
+		return esc_html(
 			apply_filters(
 				'tribe_venue_label_plural',
 				__( 'Venues', 'the-events-calendar' )
