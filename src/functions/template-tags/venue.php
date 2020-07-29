@@ -125,52 +125,58 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Returns the singular version of the Venue Label
+	 * Returns the singular version of the Venue Label.
+	 *
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
 	 * @since 3.7
-	 * @since TBD escape later.
+	 * @since TBD remove escaping.
 	 *
-	 * @return string
+	 * @return string The singular version of the Venue Label.
 	 */
 	function tribe_get_venue_label_singular() {
 		/**
-		 * Allows customization of the singular version of the Venue Label
+		 * Allows customization of the singular version of the Venue Label.
+		 * Note: the output of this filter is not escaped!
 		 *
-		 * @since ??
+		 * @since 3.7
 		 * @since 4.5.12 Added docblock.
+		 * @since TBD Remove escaping.
 		 *
 		 * @param string $label The singular version of the Venue label, defaults to "Venue" (uppercase)
 		 */
-		return esc_html(
-			apply_filters(
-				'tribe_venue_label_singular',
-				__( 'Venue', 'the-events-calendar' )
-			)
+		return apply_filters(
+			'tribe_venue_label_singular',
+			__( 'Venue', 'the-events-calendar' )
 		);
 	}
 
 	/**
-	 * Returns the plural version of the Venue Label
+	 * Returns the plural version of the Venue Label.
+	 *
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
 	 * @since 3.7
-	 * @since TBD escape later.
+	 * @since TBD remove escaping.
 	 *
-	 * @return string
+	 * @return string The plural version of the Venue Label.
 	 */
 	function tribe_get_venue_label_plural() {
 		/**
-		 * Allows customization of the plural version of the Venue Label
+		 * Allows customization of the plural version of the Venue Label.
+		 * Note: the output of this filter is not escaped!
 		 *
-		 * @since ??
+		 * @since 3.7
 		 * @since 4.5.12 Added docblock
+		 * @since TBD Remove escaping.
 		 *
 		 * @param string $label The plural version of the Venue label, defaults to "Venues" (uppercase)
 		 */
-		return esc_html(
-			apply_filters(
-				'tribe_venue_label_plural',
-				__( 'Venues', 'the-events-calendar' )
-			)
+		return apply_filters(
+			'tribe_venue_label_plural',
+			__( 'Venues', 'the-events-calendar' )
 		);
 	}
 
