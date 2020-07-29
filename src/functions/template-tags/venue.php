@@ -127,7 +127,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Returns the singular version of the Venue Label
 	 *
-	 * @since ??
+	 * @since 3.7
+	 * @since TBD escape later.
 	 *
 	 * @return string
 	 */
@@ -136,7 +137,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allows customization of the singular version of the Venue Label
 		 *
 		 * @since ??
-		 * @since 4.5.12 Added docblock
+		 * @since 4.5.12 Added docblock.
 		 *
 		 * @param string $label The singular version of the Venue label, defaults to "Venue" (uppercase)
 		 */
@@ -151,7 +152,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Returns the plural version of the Venue Label
 	 *
-	 * @since ??
+	 * @since 3.7
+	 * @since TBD escape later.
 	 *
 	 * @return string
 	 */

@@ -52,6 +52,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the singular version of the Event Label
 	 *
+	 * @since 3.10
+	 * @since TBD escape later.
+	 *
 	 * @return string
 	 */
 	function tribe_get_event_label_singular() {
@@ -72,6 +75,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Get Event Label Singular lowercase
 	 *
 	 * Returns the singular version of the Event Label
+	 *
+	 * @since 4.1.1
+	 * @since TBD escape later.
 	 *
 	 * @return string
 	 */
@@ -94,6 +100,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the plural version of the Event Label
 	 *
+	 * @since 3.10
+	 * @since TBD escape later.
+	 *
 	 * @return string
 	 */
 	function tribe_get_event_label_plural() {
@@ -114,6 +123,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Get Event Label Plural lowercase
 	 *
 	 * Returns the plural version of the Event Label
+	 *
+	 * @since 4.1.1
+	 * @since TBD escape later.
 	 *
 	 * @return string
 	 */

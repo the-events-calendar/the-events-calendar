@@ -106,9 +106,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the singular version of the Organizer Label.
 	 *
+	 * @since 3.7
+	 * @since TBD escape later.
+	 *
 	 * @return string
 	 */
 	function tribe_get_organizer_label_singular() {
+		/**
+		 * Allows customization of the singular version of the Organizer Label
+		 *
+		 * @since TBD Added docblock.
+		 *
+		 * @param string $label The singular version of the Organizer label, defaults to "Organizer" (uppercase)
+		 */
 		return esc_html(
 			apply_filters(
 				'tribe_organizer_label_singular',
@@ -122,9 +132,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the plural version of the Organizer Label.
 	 *
+	 * @since 3.7
+	 * @since TBD escape later.
+	 *
 	 * @return string
 	 */
 	function tribe_get_organizer_label_plural() {
+		/**
+		 * Allows customization of the plural version of the Organizer Label
+		 *
+		 * @since TBD Added docblock.
+		 *
+		 * @param string $label The plural version of the Organizer label, defaults to "Organizers" (uppercase)
+		 */
 		return esc_html(
 			apply_filters(
 				'tribe_organizer_label_plural',
