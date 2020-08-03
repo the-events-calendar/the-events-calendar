@@ -48,67 +48,115 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Get Event Label Singular
+	 * Get Event Label Singular.
+	 * Returns the singular version of the Event Label.
 	 *
-	 * Returns the singular version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.10
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The singular version of the Event Label.
 	 */
 	function tribe_get_event_label_singular() {
 		/**
-		 * Allows customization of the singular version of the Event Label
+		 * Allows customization of the singular version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.10
+		 * @since TBD Remove escaping.
 		 *
 		 * @param string $label The singular version of the Event label, defaults to "Event" (uppercase)
 		 */
-		return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_singular',
+			__( 'Event', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get Event Label Singular lowercase
+	 * Get Event Label Singular lowercase.
+	 * Returns the lowercase singular version of the Event Label.
 	 *
-	 * Returns the singular version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 4.1.1
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The lowercase singular version of the Event Label.
 	 */
 	function tribe_get_event_label_singular_lowercase() {
 		/**
-		 * Allows customization of the singular lowercase version of the Event Label
+		 * Allows customization of the singular lowercase version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 4.1.1
+		 * @since TBD Remove escaping.
 		 *
 		 * @param string $label The singular lowercase version of the Event label, defaults to "event" (lowercase)
 		 */
-		return apply_filters( 'tribe_event_label_singular_lowercase', esc_html__( 'event', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_singular_lowercase',
+			__( 'event', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get Event Label Plural
+	 * Get Event Label Plural.
+	 * Returns the plural version of the Event Label.
 	 *
-	 * Returns the plural version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.10
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The plural version of the Event Label.
 	 */
 	function tribe_get_event_label_plural() {
 		/**
-		 * Allows customization of the plural version of the Event Label
+		 * Allows customization of the plural version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.10
+		 * @since TBD Remove escaping.
 		 *
 		 * @param string $label The plural version of the Event label, defaults to "Events" (uppercase)
 		 */
-		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_plural',
+			__( 'Events', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get Event Label Plural lowercase
+	 * Get Event Label Plural lowercase.
+	 * Returns the plural version of the Event Label.
 	 *
-	 * Returns the plural version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 4.1.1
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The lowercase plural version of the Event Label.
 	 */
 	function tribe_get_event_label_plural_lowercase() {
 		/**
-		 * Allows customization of the plural lowercase version of the Event Label
+		 * Allows customization of the plural lowercase version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 4.1.1
+		 * @since TBD Remove escaping.
 		 *
 		 * @param string $label The plural lowercase version of the Event label, defaults to "events" (lowercase)
 		 */
-		return apply_filters( 'tribe_event_label_plural_lowercase', esc_html__( 'events', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_plural_lowercase',
+			__( 'events', 'the-events-calendar' )
+		);
 	}
 
 	/**
