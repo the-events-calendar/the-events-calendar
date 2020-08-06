@@ -27,15 +27,15 @@ $main = Tribe__Main::instance();
 			alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
 		/>
 		<h2 class="tribe-events-admin-title__heading"><?php esc_html_e( 'The Events Calendar', 'the-events-calendar' ); ?></h2>
-		<p class="tribe-events-admin-title__description"><?php esc_html_e( 'The Events Calendar provides the tools you need like customizable templates, widgets, views, and more to make sharing your events online a breeze. Start by configuring your settings, including time zone, xyz other things.', 'the-events-calendar' ); ?></p>
+		<p class="tribe-events-admin-title__description"><?php esc_html_e( 'Thanks for installing The Events Calendar! Here are some handy resources for getting started with our plugins.', 'the-events-calendar' ); ?></p>
 	</div>
 
 	<div class="tribe-events-admin-quick-nav">
 		<div class="tribe-events-admin-quick-nav__title"><?php esc_html_e( 'Quick Links:', 'the-events-calendar' ); ?></div>
 		<ul class="tribe-events-admin-quick-nav__links">
-			<li class="tribe-events-admin-quick-nav__link-item"><a href="TODO" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Configure Settings', 'the-events-calendar' ); ?></a></li>
-			<li class="tribe-events-admin-quick-nav__link-item"><a href="TODO" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Create an Event', 'the-events-calendar' ); ?></a></li>
-			<li class="tribe-events-admin-quick-nav__link-item"><a href="TODO" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'View My Calendar', 'the-events-calendar' ); ?></a></li>
+			<li class="tribe-events-admin-quick-nav__link-item"><a href="edit.php?post_type=tribe_events&page=tribe-common" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Configure Settings', 'the-events-calendar' ); ?></a></li>
+			<li class="tribe-events-admin-quick-nav__link-item"><a href="post-new.php?post_type=tribe_events" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Create an Event', 'the-events-calendar' ); ?></a></li>
+			<li class="tribe-events-admin-quick-nav__link-item"><a href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'View My Calendar', 'the-events-calendar' ); ?></a></li>
 		</ul>
 	</div>
 
