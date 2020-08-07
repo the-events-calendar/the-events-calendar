@@ -102,29 +102,66 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Get Organizer Label Singular
-	 *
+	 * Get Organizer Label Singular.
 	 * Returns the singular version of the Organizer Label.
 	 *
-	 * @return string
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
+	 *
+	 * @since 3.7
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The singular version of the Organizer Label.
 	 */
 	function tribe_get_organizer_label_singular() {
-		return apply_filters( 'tribe_organizer_label_singular', esc_html__( 'Organizer', 'the-events-calendar' ) );
+		/**
+		 * Allows customization of the singular version of the Organizer Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.7
+		 * @since TBD Added docblock, remove escaping.
+		 *
+		 * @param string $label The singular version of the Organizer label, defaults to "Organizer" (uppercase)
+		 */
+		return apply_filters(
+			'tribe_organizer_label_singular',
+			__( 'Organizer', 'the-events-calendar' )
+		);
 	}
 
 	/**
 	 * Get Organizer Label Plural
-	 *
 	 * Returns the plural version of the Organizer Label.
 	 *
-	 * @return string
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
+	 *
+	 * @since 3.7
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The plural version of the Organizer Label.
 	 */
 	function tribe_get_organizer_label_plural() {
-		return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
+		/**
+		 * Allows customization of the plural version of the Organizer Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.7
+		 * @since TBD Added docblock, remove escaping.
+		 *
+		 * @param string $label The plural version of the Organizer label, defaults to "Organizers" (uppercase).
+		 */
+		return apply_filters(
+			'tribe_organizer_label_plural',
+			__( 'Organizers', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get the organizer label
+	 * Get the organizer label.
+	 *
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
 	 * @param bool $singular TRUE to return the singular label, FALSE to return plural.
 	 *
