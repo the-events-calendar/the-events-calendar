@@ -21,7 +21,6 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Backcompat as V1_Backcompat;
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Query as V1_Query;
 
 /**
  * Class V1_Compat
@@ -56,10 +55,41 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 	 * This method is meant to fire after Common and `Tribe__Events__Main` did bootstrap.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Refactored the compilation of the list of filters to remove and extracted the `get_filters_to_remove`
+	 *        method.
 	 */
 	public function remove_v1_filters() {
-		$backcompat        = V1_Backcompat::instance();
-		$tec_bar           = tribe( 'tec.bar' );
+		$filters_to_remove = $this->get_filters_to_remove();
+
+		foreach ( $filters_to_remove as $tag => $filters ) {
+			foreach ( $filters as $filter_data ) {
+				$callback = $filter_data['callback'];
+				$priority = isset( $filter_data['priority'] ) ? $filter_data['priority'] : 10;
+				/*
+				 * Why are we not checking with `has_filter` or `has_action` if the filter is actually hooked?
+				 * The check is made internally in the `remove_filter` function anyway, it's not efficient to run
+				 * the same check twice.
+				 */
+				remove_filter( $tag, $callback, $priority );
+			}
+		}
+	}
+
+	/**
+	 * Returns a map of the filters to remove, by filter, or action, handle.
+	 *
+	 * @since TBD Refactored method out of the `remove_v1_filters` method.
+	 *
+	 * @param object|null $only_by            An optional instance, or class name, that should be used to filter the map
+	 *                                        of filters to remove to only return, for each filter, callables managed by
+	 *                                        the specified object or class.
+	 *
+	 * @return array<string,array<callable>> A map of the callables to remove from the filters or actions, by
+	 *                                       filter or action handle.
+	 */
+	protected function get_filters_to_remove( $only_by = null ) {
+		$backcompat = V1_Backcompat::instance();
+		$tec_bar    = tribe( 'tec.bar' );
 
 		$filters_to_remove = [
 			'query_vars'                       => [
@@ -68,13 +98,6 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 			'parse_query'                      => [
 				[ 'callback' => [ TEC::instance(), 'setDisplay' ], 'priority' => 51 ],
 				[ 'callback' => [ $backcompat, 'change_qv_to_list' ], 'priority' => 45 ],
-				[ 'callback' => [ V1_Query::class, 'parse_query' ], 'priority' => 50 ],
-			],
-			'pre_get_posts'                    => [
-				[ 'callback' => [ V1_Query::class, 'pre_get_posts' ], 'priority' => 50 ],
-			],
-			'posts_results'                    => [
-				[ 'callback' => [ V1_Query::class, 'posts_results' ], 'priority' => 10 ],
 			],
 			'wp'                               => [
 				[ 'callback' => [ TEC::instance(), 'issue_noindex' ], 'priority' => 10 ],
@@ -101,17 +124,16 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 			],
 		];
 
-		foreach ( $filters_to_remove as $tag => $filters ) {
-			foreach ( $filters as $filter_data ) {
-				$callback = $filter_data['callback'];
-				$priority = isset( $filter_data['priority'] ) ? $filter_data['priority'] : 10;
-				/*
-				 * Why are we not checking with `has_filter` or `has_action` if the filter is actually hooked?
-				 * The check is made internally in the `remove_filter` function anyway, it's not efficient to run
-				 * the same check twice.
-				 */
-				remove_filter( $tag, $callback, $priority );
+		if ( $only_by ) {
+			foreach ( $filters_to_remove as &$filter_to_remove ) {
+				foreach ( $filter_to_remove as $entry_index => $filter_entry ) {
+					if ( $only_by === $filter_entry['callback'][0] ) {
+						unset( $filter_to_remove[ $entry_index ] );
+					}
+				}
 			}
 		}
+
+		return $filters_to_remove;
 	}
 }
