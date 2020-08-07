@@ -65,6 +65,7 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 			foreach ( $filters as $filter_data ) {
 				$callback = $filter_data['callback'];
 				$priority = isset( $filter_data['priority'] ) ? $filter_data['priority'] : 10;
+
 				/*
 				 * Why are we not checking with `has_filter` or `has_action` if the filter is actually hooked?
 				 * The check is made internally in the `remove_filter` function anyway, it's not efficient to run
