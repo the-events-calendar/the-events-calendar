@@ -210,7 +210,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
 			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
 			'ping_status'           => $this->get_boolean_value_by_key( $record, 'event_ping_status', 'open', 'closed' ),
-			'post_excerpt'          => $this->get_post_excerpt( $event_id, $this->get_value_by_key( $record, 'event_excerpt' ) ),
+			'post_excerpt'          => $this->get_excerpt( $event_id, $record ),
 			'menu_order'            => $this->get_boolean_value_by_key( $record, 'event_sticky', '-1', '0' ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),
@@ -442,23 +442,37 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return Tribe__Timezones::get_timezone( $timezone_candidate, false ) ? $timezone_candidate : false;
 	}
 
-	/**
-	 * Returns the `post_excerpt` to use.
-	 *
-	 * Will return the existing one if present.
-	 *
-	 * @param int $event_id
-	 * @param string $import_excerpt
-	 *
-	 * @return string
-	 */
-	private function get_post_excerpt( $event_id, $import_excerpt ) {
-		if ( $event_id ) {
-			$post_excerpt = get_post( $event_id )->post_excerpt;
+	private function get_description( $event_id, $import_excerpt ) {
 
-			return empty( $post_excerpt ) && ! empty( $import_excerpt ) ? $import_excerpt : $post_excerpt;
+	}
+
+	/**
+	 * Get Excerpt from Import or Existing Value.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id The event id being updated by import.
+	 * @param array $record An event record from the import.
+	 *
+	 * @return string The excerpt value to update the event with.
+	 */
+	protected function get_excerpt( $event_id, $record ) {
+
+		$import_exists = $this->has_value_by_key( $record, 'event_excerpt' );
+
+		// if the excerpt is not being imported and there is no id, return empty string.
+		if ( ! $import_exists && empty( $event_id ) ) {
+			return '';
 		}
 
+		// if the excerpt is not being imported and there is an id, return current excerpt.
+		if ( ! $import_exists && $event_id ) {
+			return get_post( $event_id )->post_excerpt;
+		}
+
+		$import_excerpt = $this->get_value_by_key( $record, 'event_excerpt' );
+
+		// If there is no event id we return the imported excerpt, even if empty.
 		return $import_excerpt;
 	}
 
@@ -481,5 +495,23 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return 'prefix';
+	}
+
+	/**
+	 * Returns the `post_excerpt` to use.
+	 *
+	 * @deprecated TBD
+	 *
+	 * Will return the existing one if present.
+	 *
+	 * @param int $event_id
+	 * @param string $import_excerpt
+	 *
+	 * @return string
+	 */
+	private function get_post_excerpt( $event_id, $import_excerpt ) {
+		_deprecated_function( __METHOD__, 'TBD', 'get_excerpt' );
+
+		return $this->get_excerpt( $event_id, 'event_excerpt' );
 	}
 }
