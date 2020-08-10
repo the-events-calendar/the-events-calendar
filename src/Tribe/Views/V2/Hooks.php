@@ -18,6 +18,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
+use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
 use Tribe\Events\Views\V2\Template\Title;
@@ -42,6 +43,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function register() {
+		$this->container->tag( [ Event_Query_Controller::class, ], 'query_controllers' );
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -73,6 +75,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		add_filter( 'wp_redirect', [ $this, 'filter_redirect_canonical' ], 10, 2 );
 		add_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ], 10, 2 );
+		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
@@ -580,6 +583,22 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		];
 
 		return $plugins;
+	}
+
+	/**
+	 * Suppress v1 query filters on a per-query basis, if required.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param \WP_Query $query The current WordPress query object.
+	 */
+	public function parse_query( $query ) {
+		if ( ! $query instanceof \WP_Query ) {
+			return;
+		}
+
+		$event_query = $this->container->make( Event_Query_Controller::class );
+		$event_query->parse_query( $query );
 	}
 
 	/**
