@@ -78,7 +78,7 @@ class CategoryDeletionCest extends BaseRestCest {
 	public function should_return_bad_request_if_term_id_parameter_is_bad( Tester $I, Example $example ) {
 		$I->haveTermInDatabase( 'foo', Main::TAXONOMY );
 
-		$I->generate_nonce_for_role( 'subscriber' );
+		$I->generate_nonce_for_role( 'editor' );
 		$I->sendDELETE( $this->categories_url . "/{$example[0]}" );
 
 		$I->seeResponseCodeIs( 400 );

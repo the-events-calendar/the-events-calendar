@@ -48,33 +48,25 @@ trait Auth  {
 		$user_pass  = 'user';
 
 		if ( isset( static::$role_to_user_id_map[ $role ] ) ) {
-			$user_id = static::$role_to_user_id_map[ $role ];
-
-			if ( ! isset( static::$users_cookies[ $user_id ] ) ) {
-				// Login to get the cookies, do not store the cookies.
-				$this->loginAs( $role, $role );
-				$all_wp_cookies                    = $this->grabCookiesWithPattern( '/^wordpress_.+/' );
-				static::$users_cookies[ $user_id ] = array_combine(
-					array_map( static function ( Cookie $cookie ) {
-						return $cookie->getName();
-					}, $all_wp_cookies ),
-					$all_wp_cookies
-				);
-			}
-
-			$user_cookies                = static::$users_cookies[ $user_id ];
-			$_COOKIE[ LOGGED_IN_COOKIE ] = $user_cookies[ LOGGED_IN_COOKIE ]->getValue();
-		}
-
-		if ( 'visitor' !== $role ) {
+			// Let's avoid creating the user if we can.
+			$user_id    = static::$role_to_user_id_map[ $role ];
+			$user_login = $user_pass = $role;
+			/*
+			 * @todo The natural evolution of this is to avoid the `loginAs` call entirely.
+			 * The logic to restore the user session (including cookies) correctly for the purpose of nonce
+			 * generation, though, is not that straightforward and will require a bit more work.
+			 */
+		} elseif ( 'visitor' !== $role ) {
 			$user_id = $I->haveUserInDatabase( 'user', $role, [ 'user_pass' => 'user' ] );
-			// Login to get the cookies, do not store the cookies.
-			$this->loginAs( $user_login, $user_pass );
-			// Set this cookie in the variable space to allow for the correct generation of the nonce.
-			$_COOKIE[ LOGGED_IN_COOKIE ] = $this->grabCookie( LOGGED_IN_COOKIE );
 		}
 
-		$nonce = $this->generate_nonce_for_user( $user_id );
+		// Login to get the cookies, do not store the cookies.
+		$this->loginAs( $user_login, $user_pass );
+		// Set this cookie in the variable space to allow for the correct generation of the nonce.
+		$_COOKIE[ LOGGED_IN_COOKIE ] = $this->grabCookie( LOGGED_IN_COOKIE );
+
+		// Generate the nonce for the logged in user.
+		$nonce = $this->generate_nonce_for_user( $user_id, $user_login,$user_pass );
 
 		$I->haveHttpHeader( 'X-WP-Nonce', $nonce );
 
@@ -90,8 +82,18 @@ trait Auth  {
 	 *
 	 * @throws \RuntimeException If the nonce cannot be generated for the user.
 	 */
-	protected function generate_nonce_for_user( $user_id ) {
+	protected function generate_nonce_for_user( $user_id, $user_login,$user_pass ) {
+		$credentials = [
+			'user_login'    => $user_login,
+			'user_password' => $user_pass
+		];
+
+		if ( ! wp_signon( $credentials ) instanceof \WP_User ) {
+			throw new \RuntimeException( "Could not sign in as user {$user_login} with password {$user_pass}." );
+		}
+
 		wp_set_current_user( $user_id );
+
 		$nonce = wp_create_nonce( 'wp_rest' );
 
 		if ( empty( $nonce ) ) {
