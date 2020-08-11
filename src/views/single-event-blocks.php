@@ -9,7 +9,7 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link http://m.tri.be/18jd
+ * @link http://m.tri.be/1ami+
  *
  * @version 4.7
  *
