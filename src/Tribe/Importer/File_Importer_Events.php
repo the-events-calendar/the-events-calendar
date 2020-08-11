@@ -528,8 +528,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @deprecated TBD
 	 *
-	 * @param int    $event_id
-	 * @param string $import_excerpt
+	 * @param int   $event_id        The event id being updated by import.
+	 * @param string $import_excerpt The imported excerpt text.
 	 *
 	 * @return string
 	 */
