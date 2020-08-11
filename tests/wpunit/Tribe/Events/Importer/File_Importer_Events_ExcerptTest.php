@@ -132,4 +132,29 @@ class File_Importer_Events_ExcerptTest extends File_Importer_EventsTest {
 		$this->assertEquals( $post_id, $reimport_post_id );
 		$this->assertEquals( 'A', get_post( $reimport_post_id )->post_excerpt );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_overwrite_the_excerpt_if_excerpt_import_is_empty() {
+		$this->data        = [
+			'excerpt_1' => 'A',
+		];
+		$this->field_map[] = 'event_excerpt';
+
+		$sut     = $this->make_instance( 'excerpt' );
+		$post_id = $sut->import_next_row();
+
+		$this->assertEquals( 'A', get_post( $post_id )->post_excerpt );
+
+		$this->data = [
+			'excerpt_1' => '',
+		];
+
+		$sut              = $this->make_instance( 'excerpt' );
+		$reimport_post_id = $sut->import_next_row();
+
+		$this->assertEquals( $post_id, $reimport_post_id );
+		$this->assertEquals( '', get_post( $reimport_post_id )->post_excerpt );
+	}
 }

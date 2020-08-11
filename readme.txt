@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.1.6] TBD =
+
+* Fix - On reimport of the excerpt field enable changes to the existing values. [TEC-3080]
+
 = [5.1.5] 2020-07-27 =
 
 * Tweak - Add filters to link generation for events, venues, and organizers. [EXT-151]

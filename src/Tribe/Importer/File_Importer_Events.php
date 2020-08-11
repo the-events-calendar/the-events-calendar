@@ -207,7 +207,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'post_type'             => Tribe__Events__Main::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => $post_status_setting,
-			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
+			'post_content'          => $this->get_description( $event_id, $record ),
 			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
 			'ping_status'           => $this->get_boolean_value_by_key( $record, 'event_ping_status', 'open', 'closed' ),
 			'post_excerpt'          => $this->get_excerpt( $event_id, $record ),
@@ -442,8 +442,34 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return Tribe__Timezones::get_timezone( $timezone_candidate, false ) ? $timezone_candidate : false;
 	}
 
-	private function get_description( $event_id, $import_excerpt ) {
+	/**
+	 * Get Description from Import or Existing Value.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id The event id being updated by import.
+	 * @param array $record An event record from the import.
+	 *
+	 * @return string The description value to update the event with.
+	 */
+	protected function get_description( $event_id, $record ) {
 
+		$import_exists = $this->has_value_by_key( $record, 'event_description' );
+
+		// if the description is not being imported and there is no id, return empty string.
+		if ( ! $import_exists && empty( $event_id ) ) {
+			return '';
+		}
+
+		// if the description is not being imported and there is an id, return current description.
+		if ( ! $import_exists && $event_id ) {
+			return get_post( $event_id )->post_content;
+		}
+
+		$import_description = $this->get_value_by_key( $record, 'event_description' );
+
+		// If there is no event id we return the imported description, even if empty.
+		return $import_description;
 	}
 
 	/**
