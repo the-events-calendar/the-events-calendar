@@ -237,12 +237,12 @@ class QueryTest extends Events_TestCase {
 	}
 
 	/**
-	 * It should apply query filters to query when tribe_suppress_query_filters flat is not set
+	 * It should apply query filters to query when tribe_suppress_query_filters flag is not set
 	 *
 	 * @test
 	 * @link https://moderntribe.atlassian.net/browse/TEC-3530
 	 */
-	public function should_apply_query_filters_to_query_when_tribe_suppress_query_filters_flat_is_not_set() {
+	public function should_apply_query_filters_to_query_when_tribe_suppress_query_filters_flag_is_not_set() {
 		// Run a Venue query first, this will hook the filters and is the condition that would trigger the issue.
 		new \WP_Query( [ 'post_type' => Venue::POSTTYPE ] );
 
@@ -258,12 +258,12 @@ class QueryTest extends Events_TestCase {
 	}
 
 	/**
-	 * It should apply query filters to query when tribe_suppress_query_filters flat is false
+	 * It should apply query filters to query when tribe_suppress_query_filters flag is false
 	 *
 	 * @test
 	 * @link https://moderntribe.atlassian.net/browse/TEC-3530
 	 */
-	public function should_apply_query_filters_to_query_when_tribe_suppress_query_filters_flat_is_false() {
+	public function should_apply_query_filters_to_query_when_tribe_suppress_query_filters_flag_is_false() {
 		// Run a Venue query first, this will hook the filters and is the condition that would trigger the issue.
 		new \WP_Query( [ 'post_type' => Venue::POSTTYPE ] );
 
