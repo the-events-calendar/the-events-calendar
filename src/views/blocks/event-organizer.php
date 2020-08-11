@@ -22,7 +22,6 @@ if ( ! $organizer ) {
 $phone   = tribe_get_organizer_phone( $organizer );
 $website = tribe_get_organizer_website_link( $organizer );
 $email   = tribe_get_organizer_email( $organizer );
-
 ?>
 <div class="tribe-block tribe-block__organizer__details tribe-clearfix">
 	<div class="tribe-block__organizer__title">

@@ -27,7 +27,6 @@ if ( ! $href || ! $this->attr( 'urlLabel' ) ) {
  * @param string $href   The link URL.
  */
 $target = apply_filters( 'tribe_get_event_website_link_target', '_self', $href, $this->context['post_id'] );
-
 ?>
 <div class="tribe-block tribe-block__event-website">
 	<a
