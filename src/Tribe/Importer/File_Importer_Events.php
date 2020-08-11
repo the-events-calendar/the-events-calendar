@@ -447,8 +447,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since TBD
 	 *
-	 * @param int $event_id The event id being updated by import.
-	 * @param array $record An event record from the import.
+	 * @param int   $event_id The event id being updated by import.
+	 * @param array $record   An event record from the import.
 	 *
 	 * @return string The description value to update the event with.
 	 */
@@ -477,8 +477,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since TBD
 	 *
-	 * @param int $event_id The event id being updated by import.
-	 * @param array $record An event record from the import.
+	 * @param int   $event_id The event id being updated by import.
+	 * @param array $record   An event record from the import.
 	 *
 	 * @return string The excerpt value to update the event with.
 	 */
@@ -528,9 +528,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @deprecated TBD
 	 *
-	 * Will return the existing one if present.
-	 *
-	 * @param int $event_id
+	 * @param int    $event_id
 	 * @param string $import_excerpt
 	 *
 	 * @return string
