@@ -100,7 +100,7 @@ $main = Tribe__Main::instance();
 				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'the-events-calendar' ); ?>"
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Want to take your events to the next level?', 'the-events-calendar' ); ?></div>
-			<a class="tribe-events-admin-card__link" href="https://m.tri.be/FIX-THIS-LINK"><?php esc_html_e( 'Check out our suite of add-ons', 'the-events-calendar' ); ?></a>
+			<a class="tribe-events-admin-card__link" href="edit.php?post_type=tribe_events&page=tribe-app-shop"><?php esc_html_e( 'Check out our suite of add-ons', 'the-events-calendar' ); ?></a>
 		</div>
 
 		<div class="tribe-events-admin-card tribe-events-admin-card--1up tribe-events-admin-card--promo-blue">
