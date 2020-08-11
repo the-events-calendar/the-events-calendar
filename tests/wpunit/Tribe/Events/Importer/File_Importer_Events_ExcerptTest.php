@@ -66,7 +66,7 @@ class File_Importer_Events_ExcerptTest extends File_Importer_EventsTest {
 	/**
 	 * @test
 	 */
-	public function it_should_import_the_excerpt_if_defined_in_file_but_already_set_on_post() {
+	public function it_should_import_the_excerpt_if_defined_in_file_and_already_set_on_post() {
 		$this->data        = [
 			'excerpt_1' => 'A',
 		];
