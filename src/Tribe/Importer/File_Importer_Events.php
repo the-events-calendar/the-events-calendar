@@ -512,7 +512,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * @return string
 	 */
 	private function get_post_excerpt( $event_id, $import_excerpt ) {
-		_deprecated_function( __METHOD__, 'TBD', 'get_excerpt' );
+		_deprecated_function( __METHOD__, 'TBD', '$this->get_post_text_field( $event_id, $record, 'event_excerpt', 'post_excerpt' )' );
 
 		return $this->get_excerpt( $event_id, 'event_excerpt' );
 	}
