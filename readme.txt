@@ -227,6 +227,8 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fix SQL errors that would show up when creating custom Event queries in theme builders. [TEC-3530]
 * Fix - Fix SQL errors that would show up when running custom Event queries in plugins . [TEC-3528]
 * Fix - Fix SQL errors that would prevent customers from being able to select tickets assigned to Events in some instances. [TEC-3500]
+* Fix - On re-import of the excerpt and event description field enable changes to the existing values. [TEC-3080]
+* Fix - On re-import enable excerpt and description to be cleared of their values. [TEC-3080]
 * Tweak - Replace placeholders in template docblocks with appropriate links. [TEC-3399]
 
 = [5.1.5] 2020-07-27 =
