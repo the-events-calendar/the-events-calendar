@@ -632,10 +632,10 @@ class Tribe__Events__iCal {
 		}
 
 		$tzoned = (object) [
-			'start'    => date( $format, $time->start ),
-			'end'      => date( $format, $time->end ),
-			'modified' => date( $utc_format, $time->modified ),
-			'created'  => date( $utc_format, $time->created ),
+			'start'    => Tribe__Date_Utils::build_date_object( $time->start )->format( $format ),
+			'end'      => Tribe__Date_Utils::build_date_object( $time->end )->format( $format ),
+			'modified' => Tribe__Date_Utils::build_date_object( $time->modified )->format( $utc_format ),
+			'created'  => Tribe__Date_Utils::build_date_object( $time->created )->format( $utc_format ),
 		];
 
 		$dtstart = $tzoned->start;
@@ -644,7 +644,7 @@ class Tribe__Events__iCal {
 		if ( 'DATE' === $type ) {
 			// For all day events dtend should always be +1 day.
 			if ( $all_day ) {
-				$dtend = date( $format, strtotime( '+1 day', strtotime( $dtend ) ) );
+				$dtend = Tribe__Date_Utils::build_date_object( strtotime( '+1 day', strtotime( $dtend ) ) )->format( $format );
 			}
 
 			$item['DTSTART'] = 'DTSTART;VALUE=' . $type . ':' . $dtstart;
@@ -658,10 +658,10 @@ class Tribe__Events__iCal {
 			$item['DTEND']   = 'DTEND;TZID=' . $timezone->getName() . ':' . $dtend;
 		}
 
-		$item['DTSTAMP']       = 'DTSTAMP:' . date( $full_format, time() );
+		$item['DTSTAMP']       = 'DTSTAMP:' . Tribe__Date_Utils::build_date_object()->format( $full_format );
 		$item['CREATED']       = 'CREATED:' . $tzoned->created;
 		$item['LAST-MODIFIED'] = 'LAST-MODIFIED:' . $tzoned->modified;
-		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
+		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
 		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( strip_tags( $event_post->post_title ) );
 
 		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
