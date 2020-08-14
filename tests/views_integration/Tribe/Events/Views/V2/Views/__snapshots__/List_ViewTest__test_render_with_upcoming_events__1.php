@@ -27,7 +27,6 @@
 		<div class="tribe-events-before-html">
 	<div id="tribe-events" class="tribe-no-js" data-live_ajax="1" data-datepicker_format="1" data-category="" data-featured=""></div>
 
-
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
 			
 			
@@ -389,7 +388,6 @@
 	>Export Events</a>
 </div>
 
-
 		<div class="tribe-events-after-html">
 	</div><!-- #tribe-events -->
 <!--
@@ -397,7 +395,6 @@ This calendar is powered by The Events Calendar.
 http://m.tri.be/18wn
 -->
 </div>
-
 
 	</div>
 </div>
