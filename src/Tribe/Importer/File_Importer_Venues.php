@@ -41,8 +41,9 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 * @since 3.2
 	 * @since TBD Adjust to prevent overwriting values that aren't mapped.
 	 *
-	 * @param int    $venue_id The ID of the venue we're currently importing
-	 * @param array  $record An event record from the import.
+	 * @param int   $venue_id The ID of the venue we're currently importing
+	 * @param array $record An event record from the import.
+	 *
 	 * @return array $venue The array of venue data for creation/update.
 	 */
 	private function build_venue_array( $venue_id, array $record ) {
@@ -85,7 +86,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			 * @since TBD
 			 *
 			 * @param string $key    The key for the value we'll be importing.
-			 * @param string $value   The value we'll be importing.
+			 * @param string $value  The value we'll be importing.
 			 * @param array  $venue  The array of venue data we're modifying.
 			 * @param array  $record The event record from the import.
 			 */
@@ -159,7 +160,8 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 *
 	 * @param array $venue  The array of venue data we're modifying.
 	 * @param array $record The event record from the import.
-	 * @return array        The modified venue data.
+	 *
+	 * @return array The modified venue data.
 	 */
 	public function set_defaults( $venue, $record ) {
 		$columns = [
