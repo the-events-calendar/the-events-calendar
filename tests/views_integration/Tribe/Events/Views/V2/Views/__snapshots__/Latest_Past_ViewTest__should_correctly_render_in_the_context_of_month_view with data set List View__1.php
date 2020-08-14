@@ -25,7 +25,6 @@
 		<div class="tribe-events-before-html">
 	<div id="tribe-events" class="tribe-no-js" data-live_ajax="1" data-datepicker_format="1" data-category="" data-featured=""></div>
 
-
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
 			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2" >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">

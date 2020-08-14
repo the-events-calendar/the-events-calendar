@@ -2183,7 +2183,6 @@
 	>Export Events</a>
 </div>
 
-
 		<div class="tribe-events-after-html">
 	
 <!--
@@ -2191,7 +2190,6 @@ This calendar is powered by The Events Calendar.
 http://m.tri.be/18wn
 -->
 </div>
-
 
 	</div>
 
