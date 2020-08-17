@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.1.6] TBD =
 
+* Tweak - Move the iCal output coding out of the loop and into its own method.  [VE-150]
 * Fix - Fix SQL errors that would show up when creating custom Event queries in theme builders. [TEC-3530]
 * Fix - Fix SQL errors that would show up when running custom Event queries in plugins . [TEC-3528]
 * Fix - Fix SQL errors that would prevent customers from being able to select tickets assigned to Events in some instances. [TEC-3500]
