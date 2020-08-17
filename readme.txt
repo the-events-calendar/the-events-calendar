@@ -229,6 +229,9 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fix SQL errors that would prevent customers from being able to select tickets assigned to Events in some instances. [TEC-3500]
 * Fix - On re-import of the excerpt and event description field enable changes to the existing values. [TEC-3080]
 * Fix - On re-import enable excerpt and description to be cleared of their values. [TEC-3080]
+* Fix - On re-import only overwrite items that have been mapped. [TEC-2962]
+* Tweak - Add filters for venue and organizer import data. [TEC-2962]
+* Tweak - Add ability to use default values from settings for venue imports via the `tribe_events_importer_set_default_venue_import_values` filter. [TEC-2962]
 * Tweak - Replace placeholders in template docblocks with appropriate links. [TEC-3399]
 
 = [5.1.5] 2020-07-27 =
