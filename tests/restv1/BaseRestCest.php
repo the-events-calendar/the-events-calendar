@@ -62,6 +62,18 @@ class BaseRestCest {
 		$this->categories_url    = $this->rest_url . 'categories';
 		$this->tags_url          = $this->rest_url . 'tags';
 		$this->documentation_url = $this->rest_url . 'doc';
+		$this->set_up_home_url();
 		wp_cache_flush();
+	}
+
+	protected function set_up_home_url() {
+		$home_url_filter = static function ( string $home_url ) {
+			$host = parse_url( $home_url, PHP_URL_HOST );
+
+			return str_replace( $host, getenv( 'WP_DOMAIN' ), $home_url );
+		};
+		if ( ! has_filter( 'home_url', $home_url_filter ) ) {
+			add_filter( 'home_url', $home_url_filter );
+		}
 	}
 }
