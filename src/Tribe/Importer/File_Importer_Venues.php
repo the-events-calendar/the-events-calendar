@@ -41,7 +41,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 * @since 3.2
 	 * @since TBD Adjust to prevent overwriting values that aren't mapped.
 	 *
-	 * @param int   $venue_id The ID of the venue we're currently importing
+	 * @param int   $venue_id The ID of the venue we're currently importing.
 	 * @param array $record An event record from the import.
 	 *
 	 * @return array $venue The array of venue data for creation/update.
@@ -83,6 +83,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			/**
 			 * Allows filtering of main values before setting.
 			 * Return boolean false to prevent importing that value.
+
 			 * @since TBD
 			 *
 			 * @param string $key    The key for the value we'll be importing.
