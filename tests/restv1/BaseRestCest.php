@@ -84,5 +84,8 @@ class BaseRestCest {
 		if ( ! has_filter( 'home_url', $home_url_filter ) ) {
 			add_filter( 'home_url', $home_url_filter );
 		}
+		if ( ! has_filter( 'wp_get_attachment_url', $home_url_filter ) ) {
+			add_filter( 'wp_get_attachment_url', $home_url_filter );
+		}
 	}
 }
