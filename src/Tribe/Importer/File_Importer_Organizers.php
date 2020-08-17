@@ -42,14 +42,14 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	 * @since 3.2
 	 * @since TBD Adjust to prevent overwriting values that aren't mapped.
 	 *
-	 * @param int    $organizer_id The ID of the organizer we're currently importing
-	 * @param array  $record       An event record from the import.
+	 * @param int   $organizer_id The ID of the organizer we're currently importing
+	 * @param array $record       An event record from the import.
 	 *
 	 * @return array $organizer The array of organizer data for creation/update.
 	 */
 	private function build_organizer_array( $organizer_id, array $record ) {
-		$organizer          = [];
-		$columns        = [
+		$organizer = [];
+		$columns   = [
 			'Organizer'   => 'organizer_name',
 			'Description' => 'organizer_description',
 			'Email'       => 'organizer_email',
@@ -69,6 +69,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 			/**
 			 * Allows filtering of main values before setting.
 			 * Return boolean false to prevent importing that value.
+			 *
 			 * @since TBD
 			 *
 			 * @param string $key       The key for the value we'll be importing.
@@ -112,7 +113,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 				$organizer,
 				$record,
 				$organizer_id,
-				$this
+				$this,
 			],
 			'TBD',
 			'tribe_events_importer_organizer_fields'
