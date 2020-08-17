@@ -42,7 +42,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	 * @since 3.2
 	 * @since TBD Adjust to prevent overwriting values that aren't mapped.
 	 *
-	 * @param int   $organizer_id The ID of the organizer we're currently importing
+	 * @param int   $organizer_id The ID of the organizer we're currently importing.
 	 * @param array $record       An event record from the import.
 	 *
 	 * @return array $organizer The array of organizer data for creation/update.
