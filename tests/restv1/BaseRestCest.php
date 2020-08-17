@@ -68,10 +68,19 @@ class BaseRestCest {
 
 	protected function set_up_home_url() {
 		$home_url_filter = static function ( string $home_url ) {
-			$host = parse_url( $home_url, PHP_URL_HOST );
+			static $replace;
 
-			return str_replace( $host, getenv( 'WP_DOMAIN' ), $home_url );
+			if ( null === $replace ) {
+				$replace = parse_url( $home_url, PHP_URL_HOST );
+				$port    = parse_url( $home_url, PHP_URL_PORT );
+				if ( $port ) {
+					$replace .= ':' . (int) $port;
+				}
+			}
+
+			return str_replace( $replace, getenv( 'WP_DOMAIN' ), $home_url );
 		};
+
 		if ( ! has_filter( 'home_url', $home_url_filter ) ) {
 			add_filter( 'home_url', $home_url_filter );
 		}
