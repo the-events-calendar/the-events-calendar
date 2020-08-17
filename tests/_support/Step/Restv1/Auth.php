@@ -24,15 +24,14 @@ trait Auth  {
 		if ( 'visitor' !== $role ) {
 			$user_id = $I->haveUserInDatabase( 'user', $role, [ 'user_pass' => 'user' ] );
 
-			// login to get the cookies
+			// Login to get the cookies.
 			$I->loginAs( 'user', 'user' );
-
-			// nonce recipes
-			$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
 		}
 
 		wp_set_current_user( $user_id );
-		$nonce = wp_create_nonce( 'wp_rest' );
+
+		// This will leverage the code in the `restv1-wp-verify-nonce.php` mu-plugin.
+		$nonce = wp_create_nonce( "{$role}|{$user_id}" );
 
 		$I->haveHttpHeader( 'X-WP-Nonce', $nonce );
 
