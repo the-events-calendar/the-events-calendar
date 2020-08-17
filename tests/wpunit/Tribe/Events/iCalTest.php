@@ -317,4 +317,37 @@ multiple lines",
 		);
 		$this->assertContains( "DESCRIPTION:" . $content, $ical );
 	}
+
+	public function event_timezones() {
+		return [
+			[ 'UTC' ],
+			[ 'America/New_York' ],
+			[ 'Europe/Paris' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider event_timezones
+	 */
+	public function should_parse_the_event_dates( $timezone_name ) {
+
+		$format = 'Ymd\THis';
+		$event  = $this->factory()->event->starting_on( '2021-01-10 09:00:00' )
+										 ->with_timezone( $timezone_name )
+		                                 ->lasting( 5 * HOUR_IN_SECONDS )
+		                                 ->create();
+
+		$sut   = $this->make_instance();
+		$event = get_post( $event );
+		$ical  = $sut->generate_ical_feed( $event, false );
+
+		$start           = tribe_get_start_date( $event->ID, false, 'U' );
+		$end             = tribe_get_end_date( $event->ID, false, 'U' );
+		$start_timestamp = \Tribe__Date_Utils::build_date_object( $start )->format( $format );
+		$end_timestamp   = \Tribe__Date_Utils::build_date_object( $end )->format( $format );
+
+		$this->assertContains( "DTSTART;TZID={$timezone_name}:{$start_timestamp}", $ical );
+		$this->assertContains( "DTEND;TZID={$timezone_name}:{$end_timestamp}", $ical );
+	}
 }
