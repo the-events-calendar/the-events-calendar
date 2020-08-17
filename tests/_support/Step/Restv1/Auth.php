@@ -31,7 +31,7 @@ trait Auth  {
 		wp_set_current_user( $user_id );
 
 		// This will leverage the code in the `restv1-wp-verify-nonce.php` mu-plugin.
-		$nonce = wp_create_nonce( "{$role}|{$user_id}" );
+		$nonce = "{$role}|{$user_id}";
 
 		$I->haveHttpHeader( 'X-WP-Nonce', $nonce );
 
