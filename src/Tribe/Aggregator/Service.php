@@ -258,6 +258,11 @@ class Tribe__Events__Aggregator__Service {
 	 * @return stdClass|WP_Error
 	 */
 	public function post( $endpoint, $data = [] ) {
+		/**
+		 * @since TBD
+		 */
+		do_action( 'tribe_events_aggregator_before_post', $endpoint, $data );
+
 		$url = $this->build_url( $endpoint );
 
 		// If we have an WP_Error we return it here
