@@ -316,8 +316,6 @@ multiple lines",
 			wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) )
 		);
 
-		var_dump($args['post_title']);
-		var_dump($content);
 		$this->assertContains( "DESCRIPTION:" . $content, $ical );
 	}
 
