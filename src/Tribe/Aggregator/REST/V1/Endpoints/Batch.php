@@ -37,7 +37,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	 * @since 4.6.15
 	 *
 	 * @param WP_REST_Request $request
-	 * @param bool $return_id
+	 * @param bool            $return_id
 	 *
 	 * @return int|WP_Error|WP_REST_Response
 	 */
@@ -46,7 +46,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		$records = tribe( 'events-aggregator.records' );
 
 		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
-		$record = $records->get_by_import_id( $request['import_id'], array( 'post_status' => 'any' ) );
+		$record = $records->get_by_import_id( $request['import_id'], [ 'post_status' => 'any' ] );
 
 		if ( empty( $record->meta['post_status'] ) ) {
 			$record->update_meta( 'post_status', tribe( 'events-aggregator.settings' )->default_post_status( $record->meta['origin'] ) );
@@ -83,11 +83,24 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 			? min( $this->interval_max, (int) $interval )
 			: $this->interval_min;
 
-		$response_data = array(
-			'status' => 'success',
+		$response_data = [
+			'status'   => 'success',
 			'activity' => $activity->get_items(),
 			'interval' => $interval,
+		];
+
+		// Save activity values.
+		$meta = get_post_meta(
+			$record->post->ID,
+			Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$activity_key,
+			true
 		);
+
+		if ( $meta instanceof Tribe__Events__Aggregator__Record__Activity ) {
+			$activity->merge( $meta );
+		}
+
+		$record->update_meta( Tribe__Events__Aggregator__Record__Queue::$activity_key, $activity );
 
 		if ( $is_finished ) {
 			$record->delete_meta( 'next_batch_hash' );
@@ -106,38 +119,38 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	 * {@inheritdoc}
 	 */
 	public function CREATE_args() {
-		return array(
-			'import_id' => array(
-				'required' => true,
-				'type' => 'string',
-				'validate_callback' => array( $this, 'is_valid_import_id' ),
-				'description' => __( 'The import unique ID as provided by Event Aggregator service', 'the-events-calendar' ),
-			),
-			'batch_hash' => array(
-				'required' => true,
-				'type' => 'string',
-				'validate_callback' => array( $this, 'is_expected_batch_hash' ),
-				'description' => __( 'The hash of the next expected batch, as previously provided by the client', 'the-events-calendar' ),
-			),
-			'status' => array(
-				'required' => true,
-				'type' => 'object',
-				'validate_callback' => array( $this, 'is_valid_status_information' ),
-				'description' => __( 'The current status of the import.', 'the-events-calendar' ),
-			),
-			'percentage_complete' => array(
-				'required' => true,
-				'type' => 'integer',
-				'validate_callback' => array( $this, 'is_percentage' ),
-				'description' => __( 'The percentage of import completed.', 'the-events-calendar' ),
-			),
-			'interval' => array(
-				'required' => false,
-				'type' => 'integer',
-				'validate_callback' => array( $this, 'is_valid_interval' ),
-				'description' => __( 'The current interval, in seconds, between the end of a batch process and the start of the next; as set on the server.', 'the-events-calendar' ),
-			),
-		);
+		return [
+			'import_id'           => [
+				'required'          => true,
+				'type'              => 'string',
+				'validate_callback' => [ $this, 'is_valid_import_id' ],
+				'description'       => __( 'The import unique ID as provided by Event Aggregator service', 'the-events-calendar' ),
+			],
+			'batch_hash'          => [
+				'required'          => true,
+				'type'              => 'string',
+				'validate_callback' => [ $this, 'is_expected_batch_hash' ],
+				'description'       => __( 'The hash of the next expected batch, as previously provided by the client', 'the-events-calendar' ),
+			],
+			'status'              => [
+				'required'          => true,
+				'type'              => 'object',
+				'validate_callback' => [ $this, 'is_valid_status_information' ],
+				'description'       => __( 'The current status of the import.', 'the-events-calendar' ),
+			],
+			'percentage_complete' => [
+				'required'          => true,
+				'type'              => 'integer',
+				'validate_callback' => [ $this, 'is_percentage' ],
+				'description'       => __( 'The percentage of import completed.', 'the-events-calendar' ),
+			],
+			'interval'            => [
+				'required'          => false,
+				'type'              => 'integer',
+				'validate_callback' => [ $this, 'is_valid_interval' ],
+				'description'       => __( 'The current interval, in seconds, between the end of a batch process and the start of the next; as set on the server.', 'the-events-calendar' ),
+			],
+		];
 	}
 
 	/**
