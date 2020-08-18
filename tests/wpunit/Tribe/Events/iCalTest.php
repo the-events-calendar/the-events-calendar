@@ -306,15 +306,18 @@ multiple lines",
 		$event = get_post( $event );
 		$ical = $sut->generate_ical_feed( $event, false );
 
-		$this->assertContains( "SUMMARY:" . $args['post_title'], $ical );
+		$this->assertContains( "SUMMARY:" . wp_strip_all_tags( $args['post_title'] ), $ical );
 
 		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event->post_content ) );
 
 		$content =  str_replace(
 			[  ',', "\n", "\r"  ],
 			[  '\,', '\n', '' ],
-			strip_tags( str_replace( '</p>', '</p> ', $content ) )
+			wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) )
 		);
+
+		var_dump($args['post_title']);
+		var_dump($content);
 		$this->assertContains( "DESCRIPTION:" . $content, $ical );
 	}
 

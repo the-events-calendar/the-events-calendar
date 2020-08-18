@@ -662,11 +662,11 @@ class Tribe__Events__iCal {
 		$item['CREATED']       = 'CREATED:' . $tzoned->created;
 		$item['LAST-MODIFIED'] = 'LAST-MODIFIED:' . $tzoned->modified;
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
-		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( strip_tags( $event_post->post_title ) );
+		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
 
 		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
 
-		$item['DESCRIPTION'] = 'DESCRIPTION:' . $this->replace( strip_tags( str_replace( '</p>', '</p> ', $content ) ) );
+		$item['DESCRIPTION'] = 'DESCRIPTION:' . $this->replace( wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) ) );
 
 		$item['URL'] = 'URL:' . get_permalink( $event_post->ID );
 
