@@ -52,7 +52,7 @@ class RestGuy extends \Restv1Tester {
 			if ( $key === 'query' ) {
 				parse_str( $response_components[ $key ], $expected );
 				parse_str( $value, $actual );
-				$this->assertEquals( $expected, $actual );
+				$this->assertEquals( $actual, $expected );
 			} else {
 				$this->assertEquals( $response_components[ $key ], $value );
 			}
