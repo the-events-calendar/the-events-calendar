@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add filters for venue and organizer import data. [TEC-2962]
 * Tweak - Add ability to use default values from settings for venue imports via the `tribe_events_importer_set_default_venue_import_values` filter. [TEC-2962]
 * Tweak - Replace placeholders in template docblocks with appropriate links. [TEC-3399]
+* Language - 32 new strings added, 75 updated, 0 fuzzied, and 28 obsoleted
 
 = [5.1.5] 2020-07-27 =
 
