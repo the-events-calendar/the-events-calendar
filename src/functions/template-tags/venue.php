@@ -131,7 +131,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * You should escape it wherever you use it!
 	 *
 	 * @since 3.7
-	 * @since TBD remove escaping.
+	 * @since5.1.6 remove escaping.
 	 *
 	 * @return string The singular version of the Venue Label.
 	 */
@@ -142,7 +142,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 3.7
 		 * @since 4.5.12 Added docblock.
-		 * @since TBD Remove escaping.
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The singular version of the Venue label, defaults to "Venue" (uppercase)
 		 */
@@ -159,7 +159,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * You should escape it wherever you use it!
 	 *
 	 * @since 3.7
-	 * @since TBD remove escaping.
+	 * @since5.1.6 remove escaping.
 	 *
 	 * @return string The plural version of the Venue Label.
 	 */
@@ -170,7 +170,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 3.7
 		 * @since 4.5.12 Added docblock
-		 * @since TBD Remove escaping.
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The plural version of the Venue label, defaults to "Venues" (uppercase)
 		 */
