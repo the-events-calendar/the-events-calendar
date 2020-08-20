@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.1.5
-Tested up to: 5.4.2
+Stable tag: 5.1.6
+Tested up to: 5.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.6] TBD =
+= [5.1.6] 2020-08-24 =
 
 * Tweak - Move the iCal output coding out of the loop and into its own method.  [VE-150]
 * Fix - Fix SQL errors that would show up when creating custom Event queries in theme builders. [TEC-3530]
