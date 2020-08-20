@@ -37,7 +37,7 @@ function tribe_events_views_v2_is_enabled() {
 /**
  * Checks smart activation of the view v2, is not a function for verification of v2 is active or not.
  *
- * Current only being triggered on plugin actiovation hook.
+ * Current only being triggered on plugin activation hook.
  *
  * @since 4.9.13
  *

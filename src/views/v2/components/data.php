@@ -10,7 +10,7 @@
  * @var string                               $view_slug The slug of the view currently being rendered.
  * @var Tribe\Events\Views\V2\View_Interface $view      The View instance that is being rendered.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
  * @version 5.0.0
  */
@@ -49,9 +49,6 @@ if ( ! $should_expose_post_object ) {
  */
 $data = apply_filters( 'tribe_events_views_v2_view_data', $data, $view_slug, $view );
 ?>
-<script
-	data-js="tribe-events-view-data"
-	type="application/json"
->
+<script data-js="tribe-events-view-data" type="application/json">
 	<?php echo wp_json_encode( $data ); ?>
 </script>

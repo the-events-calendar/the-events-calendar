@@ -1225,7 +1225,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array The filtered event post array.
 	 */
 	protected function update_linked_post_meta( array $postarr ) {
-		// @todo crete linked posts here?! Using ORM?
+		// @todo create linked posts here?! Using ORM?
 		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
 			unset( $postarr['meta_input']['_EventVenueID'] );
 		}
@@ -1242,6 +1242,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			if ( ! count( $valid ) ) {
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 			} else {
+				$this->unpack_meta_on_update( '_EventOrganizerID' );
+				// Pass this to the function to have this value passed to the closure later.
 				$postarr['meta_input']['_EventOrganizerID'] = $valid;
 			}
 		}
@@ -1469,23 +1471,28 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$loop  = 0;
 
 		foreach ( $check_orderby as $key => $value ) {
-			$loop++;
 			$order_by      = is_numeric( $key ) ? $value : $key;
-			$order         = is_numeric( $key ) ? 'ASC' : $value;
 			$default_order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+			$order         = is_numeric( $key ) ? $default_order : $value;
+
+			// Let the first applied ORDER BY clause override the existing ones, then stack the ORDER BY clauses.
+			$override = $loop === 0;
 
 			switch ( $order_by ) {
 				case 'event_date':
-					$this->order_by_date( false, $after );
+					$this->order_by_date( false, $order, $after, $override );
 					break;
 				case 'event_date_utc':
-					$this->order_by_date( true, $after );
+					$this->order_by_date( true, $order, $after, $override );
+					break;
+				case 'event_duration':
+					$this->order_by_duration( $order, $after, $override );
 					break;
 				case 'organizer':
-					$this->order_by_organizer( $after );
+					$this->order_by_organizer( $order, $after, $override );
 					break;
 				case 'venue':
-					$this->order_by_venue( $after );
+					$this->order_by_venue( $order, $after, $override );
 					break;
 				case $timestamp_key:
 					$this->filter_query->orderby( [ $timestamp_key => $default_order ], null, null, $after );
@@ -1541,11 +1548,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9.7
 	 * @since 4.9.11 Added the `$after` parameter.
 	 *
-	 * @param bool $use_utc      Whether to use the events UTC start dates or their localized dates.
-	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 * @param bool   $use_utc    Whether to use the events UTC start dates or their localized dates.
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses or not; default to `true` to override
+	 *                           existing ORDER BY clauses.
 	 */
-	protected function order_by_date( $use_utc, $after = false ) {
+	protected function order_by_date( $use_utc, $order = null, $after = false, $override = true ) {
 		global $wpdb;
 
 		$meta_alias = 'event_date';
@@ -1601,9 +1612,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			true
 		);
 
-		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
-		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, true, $after );
-		$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$meta_alias}", $filter_id, true );
+		$order = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
+		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DATETIME ) AS {$meta_alias}", $filter_id, $override );
 	}
 
 	/**
@@ -1612,10 +1625,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9.7
 	 * @since 4.9.11 Added the `$after` parameter.
 	 *
-	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses with this one or not; default to
+	 *                           `true` to override existing ORDER BY clauses.
 	 */
-	protected function order_by_organizer( $after = false ) {
+	protected function order_by_organizer( $order = null, $after = false, $override = true ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_organizer_meta';
@@ -1639,10 +1656,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_organizer';
+		$order     = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
 
-		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
-		$this->filter_query->orderby( [ 'organizer' => $order ], $filter_id, true, $after );
-		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, true );
+		$this->filter_query->orderby( [ 'organizer' => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, $override );
 	}
 
 	/**
@@ -1651,10 +1670,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9.7
 	 * @since 4.9.11 Added the `$after` parameter.
 	 *
-	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses with this one or not; default to
+	 *                           `true` to override existing ORDER BY clauses.
 	 */
-	protected function order_by_venue( $after = false ) {
+	protected function order_by_venue( $order = null,$after = false, $override = true ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_venue_meta';
@@ -1678,9 +1701,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_venue';
-		$order     = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
-		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, true, $after );
-		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, true );
+		$order     = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
+
+		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, $override );
 	}
 
 	/**
@@ -1718,5 +1744,50 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		$this->by( 'meta_not_exists', '_EventHideFromUpcoming' );
+	}
+
+	/**
+	 * Sets up the query filters to order events by the duration (`_EventDuration`) custom field.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the duration ORDER BY clause to the existing clauses or not;
+	 *                           defaults to `false` to prepend the duration clause to the existing ORDER BY
+	 *                           clauses.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses with this one or not; default to
+	 *                           `true` to override existing ORDER BY clauses.
+	 */
+	protected function order_by_duration( $order = null, $after = false, $override = true ) {
+		global $wpdb;
+
+		$meta_alias = 'event_duration';
+		$meta_key   = '_EventDuration';
+
+		$postmeta_table = "orderby_{$meta_alias}_meta";
+
+		$filter_id = 'order_by_duration';
+
+		$this->filter_query->join(
+			$wpdb->prepare(
+				"
+				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
+					ON (
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID
+						AND {$postmeta_table}.meta_key = %s
+					)
+				",
+				$meta_key
+			),
+			$filter_id,
+			true
+		);
+
+		$order = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
+		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DECIMAL ) AS {$meta_alias}", $filter_id, $override );
 	}
 }

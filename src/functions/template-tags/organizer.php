@@ -95,38 +95,75 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
-		// Make sure before the merge the order is ordered by the keys
+		// Make sure before the merge the order is ordered by the keys.
 		ksort( $order );
 
 		return array_merge( $order, $excluded );
 	}
 
 	/**
-	 * Get Organizer Label Singular
+	 * Get Organizer Label Singular.
+	 * Returns the singular version of the Organizer Label.
 	 *
-	 * Returns the singular version of the Organizer Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.7
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The singular version of the Organizer Label.
 	 */
 	function tribe_get_organizer_label_singular() {
-		return apply_filters( 'tribe_organizer_label_singular', esc_html__( 'Organizer', 'the-events-calendar' ) );
+		/**
+		 * Allows customization of the singular version of the Organizer Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.7
+		 * @since TBD Added docblock, remove escaping.
+		 *
+		 * @param string $label The singular version of the Organizer label, defaults to "Organizer" (uppercase)
+		 */
+		return apply_filters(
+			'tribe_organizer_label_singular',
+			__( 'Organizer', 'the-events-calendar' )
+		);
 	}
 
 	/**
 	 * Get Organizer Label Plural
+	 * Returns the plural version of the Organizer Label.
 	 *
-	 * Returns the plural version of the Organizer Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.7
+	 * @since TBD remove escaping.
+	 *
+	 * @return string The plural version of the Organizer Label.
 	 */
 	function tribe_get_organizer_label_plural() {
-		return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
+		/**
+		 * Allows customization of the plural version of the Organizer Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.7
+		 * @since TBD Added docblock, remove escaping.
+		 *
+		 * @param string $label The plural version of the Organizer label, defaults to "Organizers" (uppercase).
+		 */
+		return apply_filters(
+			'tribe_organizer_label_plural',
+			__( 'Organizers', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get the organizer label
+	 * Get the organizer label.
 	 *
-	 * @param bool $singular TRUE to return the singular label, FALSE to return plural
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
+	 *
+	 * @param bool $singular TRUE to return the singular label, FALSE to return plural.
 	 *
 	 * @return string
 	 */
@@ -144,7 +181,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Typically this is a pipe separated format containing the organizer's telephone
 	 * number, email address and website where available.
 	 *
-	 * @param int $post_id
+	 * @param int $post_id Either the organizer or event ID, if none specified, current post is used.
 	 *
 	 * @return string
 	 */
@@ -175,9 +212,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Provides an opportunity to modify the organizer details HTML.
 		 *
-		 * @param string $html
-		 * @param int    $post_id
-		 * @param int    $organizer_id
+		 * @param string $html         Organizer details HTML.
+		 * @param int    $post_id      Either the organizer or event ID.
+		 * @param int    $organizer_id The organizer ID.
 		 */
 		return apply_filters( 'tribe_get_organizer_details', $html, $post_id, $organizer_id );
 	}
@@ -187,7 +224,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the name of the Organizer
 	 *
-	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Either event id or organizer id, if none specified, current post is used.
 	 *
 	 * @return string Organizer's Name
 	 */
@@ -205,9 +242,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Test
 	 *
-	 * Returns true or false depending on if the post id has/is a n organizer
+	 * Returns true or false depending on if the post id has/is an organizer
 	 *
-	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Either event id or organizer id, if none specified, current post is used.
 	 *
 	 * @return bool
 	 */
@@ -221,9 +258,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Email
 	 *
-	 * Returns the Organizer's Email
+	 * Returns the Organizer's Email.
 	 *
-	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param int  $postId      Either event id or organizer id, if none specified, current post is used.
 	 * @param bool $antispambot Whether the email should pass through the `antispambot` function or not.
 	 *
 	 * @return string Organizer's Email
@@ -251,7 +288,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the event Organizer Name with a link to their single organizer page.
 	 *
-	 * @param int  $post_id    Can supply either event id or organizer id, if none specified, current post is used.
+	 * @param int  $post_id   Either event id or organizer id, if none specified, current post is used.
 	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output.
 	 * @param bool $echo      Deprecated. If true, echo the link, otherwise return.
 	 *
@@ -259,24 +296,28 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_organizer_link( $post_id = null, $full_link = true, $echo = false ) {
 
-		// As of TEC 4.0 this argument is deprecated
-		// If needed precede the call to this function with echo
+		// As of TEC 4.0 this argument is deprecated.
+		// If needed precede the call to this function with echo.
 		if ( false != $echo ) {
 			_deprecated_argument( __FUNCTION__, '4.0', 'As of TEC 4.0 this argument is deprecated. If needed, precede the call to this function with echo' );
 		}
 
 		$org_id = tribe_get_organizer_id( $post_id );
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
+
+			$url = esc_url_raw( get_permalink( $org_id ) );
 			/**
 			 * Filter the organizer link target attribute.
 			 *
 			 * @since 5.1.0
 			 *
-			 * @param string the target attribute string. Defaults to "_self".
+			 * @param string   $target  The target attribute string. Defaults to "_self".
+			 * @param string   $url     The link URL.
+			 * @param int      $post_id Either event id or organizer id, if none specified, current post is used.
+			 * @param int      $org_id  The organizer id.
 			 */
-			$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self' );
+			$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id, $org_id );
 			$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : '';
-			$url    = esc_url_raw( get_permalink( $org_id ) );
 
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $org_id );
@@ -355,8 +396,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the event Organizer Name with a link to their supplied website
 	 *
-	 * @param $post_id post ID for an event
-	 * @param $label   text for the link
+	 * @param null|int    $post_id The post ID for an event.
+	 * @param null|string $label   The text for the link.
 	 *
 	 * @return string
 	 **/
@@ -369,9 +410,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 5.1.0
 		 *
-		 * @param string the target attribute string. Defaults to "_self".
+		 * @param string   $target  The target attribute string. Defaults to "_self".
+		 * @param string   $url     The link URL.
+		 * @param null|int $post_id post ID for the organizer.
 		 */
-		$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self' );
+		$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id );
 		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 		/**
