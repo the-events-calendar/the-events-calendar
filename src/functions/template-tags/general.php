@@ -55,7 +55,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * You should escape it wherever you use it!
 	 *
 	 * @since 3.10
-	 * @since TBD remove escaping.
+	 * @since5.1.6 remove escaping.
 	 *
 	 * @return string The singular version of the Event Label.
 	 */
@@ -65,7 +65,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Note: the output of this filter is not escaped!
 		 *
 		 * @since 3.10
-		 * @since TBD Remove escaping.
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The singular version of the Event label, defaults to "Event" (uppercase)
 		 */
@@ -83,7 +83,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * You should escape it wherever you use it!
 	 *
 	 * @since 4.1.1
-	 * @since TBD remove escaping.
+	 * @since5.1.6 remove escaping.
 	 *
 	 * @return string The lowercase singular version of the Event Label.
 	 */
@@ -93,7 +93,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Note: the output of this filter is not escaped!
 		 *
 		 * @since 4.1.1
-		 * @since TBD Remove escaping.
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The singular lowercase version of the Event label, defaults to "event" (lowercase)
 		 */
@@ -111,7 +111,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * You should escape it wherever you use it!
 	 *
 	 * @since 3.10
-	 * @since TBD remove escaping.
+	 * @since5.1.6 remove escaping.
 	 *
 	 * @return string The plural version of the Event Label.
 	 */
@@ -121,7 +121,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Note: the output of this filter is not escaped!
 		 *
 		 * @since 3.10
-		 * @since TBD Remove escaping.
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The plural version of the Event label, defaults to "Events" (uppercase)
 		 */
@@ -139,7 +139,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * You should escape it wherever you use it!
 	 *
 	 * @since 4.1.1
-	 * @since TBD remove escaping.
+	 * @since5.1.6 remove escaping.
 	 *
 	 * @return string The lowercase plural version of the Event Label.
 	 */
@@ -149,7 +149,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Note: the output of this filter is not escaped!
 		 *
 		 * @since 4.1.1
-		 * @since TBD Remove escaping.
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The plural lowercase version of the Event label, defaults to "events" (lowercase)
 		 */
