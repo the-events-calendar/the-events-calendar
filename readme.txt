@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.1.7] TBD =
 
-
+* Tweak - Use the `border-small` class for the today button, add new border button styles to customizer. [FBAR-143]
 
 = [5.1.6] 2020-08-24 =
 
