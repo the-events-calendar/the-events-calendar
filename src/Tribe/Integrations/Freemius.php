@@ -279,7 +279,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @since  TBD
+	 * @since 5.1.6
 	 *
 	 * @return string The welcome page URL.
 	 */
