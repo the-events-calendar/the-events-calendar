@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.1.7] TBD =
 
-* Tweak - Add missing CSS classes to the Event Categories label on the single event page
+* Tweak - Add missing CSS classes to the Event Categories label on the single event page. [TEC-3478]
 
 = [5.1.6] 2020-08-24 =
 
