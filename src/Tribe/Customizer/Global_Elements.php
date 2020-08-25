@@ -82,7 +82,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
-			// overrides for common components/full/buttons/_border.pcss.
+			// Overrides for common components/full/buttons/_border.pcss.
 			$template .= '
 				.tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt),
 				.tribe-common a.tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt) {
