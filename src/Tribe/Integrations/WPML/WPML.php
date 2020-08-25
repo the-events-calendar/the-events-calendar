@@ -78,10 +78,10 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		if ( ! is_admin() ) {
 			$category_translation = Tribe__Events__Integrations__WPML__Category_Translation::instance();
-			add_filter( 'tribe_events_category_slug', array( $category_translation, 'filter_tribe_events_category_slug' ), 20, 2 );
+			add_filter( 'tribe_events_category_slug', [ $category_translation, 'filter_tribe_events_category_slug' ], 20, 2 );
 
 			$option = Tribe__Events__Integrations__WPML__Option::instance();
-			add_filter( 'tribe_get_single_option', array( $option, 'translate' ), 20, 3 );
+			add_filter( 'tribe_get_single_option', [ $option, 'translate' ], 20, 3 );
 		}
 	}
 

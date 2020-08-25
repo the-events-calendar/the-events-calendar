@@ -1,20 +1,35 @@
 <?php
+/**
+ * Handles the translation of the plugin settings.
+ *
+ * @since   TBD
+ *
+ * @package Tribe__Events__Integrations__WPML__Option
+ */
 
 
 /**
  * Class Tribe__Events__Integrations__WPML__Option
  *
- * Handles translation of settings.
+ * @since TBD
  */
 class Tribe__Events__Integrations__WPML__Option {
 
 	/**
+	 * The singleton instance of this class.
+	 *
+	 * @since TBD
+	 *
 	 * @var Tribe__Events__Integrations__WPML__Option
 	 */
 	protected static $instance;
 
 	/**
-	 * @return Tribe__Events__Integrations__WPML__Option
+	 * The singleton method of this class.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tribe__Events__Integrations__WPML__Option The singleton instance of this class.
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
@@ -27,25 +42,26 @@ class Tribe__Events__Integrations__WPML__Option {
 	/**
 	 * Translate the option value using WPML filters.
 	 *
-	 * @see https://wpml.org/wpml-hook/wpml_translate_single_string/
+	 * @since TBD
 	 *
-	 * @param string $option
-	 * @param string $default
-	 * @param string $option_name
+	 * @param string $option_value The value of the option to translate.
+	 * @param string $default      The option default value.
+	 * @param string $option_name  The name of the option to translate.
 	 *
-	 * @return string
+	 * @return string The translated option value.
+	 *
+	 * @see   https://wpml.org/wpml-hook/wpml_translate_single_string/
 	 */
-	public function translate( $option, $default, $option_name ) {
-		if ( is_string( $option ) ) {
-			$option = apply_filters(
+	public function translate( $option_value, $default, $option_name ) {
+		if ( is_string( $option_value ) ) {
+			$option_value = apply_filters(
 				'wpml_translate_single_string',
-				$option,
+				$option_value,
 				'admin_texts_tribe_events_calendar_options',
 				'[tribe_events_calendar_options]' . $option_name
 			);
 		}
 
-		return $option;
+		return $option_value;
 	}
-
 }
