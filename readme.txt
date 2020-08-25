@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454]
 * Fix - Fix a compatibility issue with the WPML plugin that would prevent some options from being translated correctly. [TEC-3454]
+* Tweak - Use the `border-small` class for the today button, add new border button styles to customizer. [FBAR-143]
 
 = [5.1.6] 2020-08-24 =
 
