@@ -115,7 +115,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 				$organizer_id,
 				$this,
 			],
-			5.1.6',
+			'5.1.6',
 			'tribe_events_importer_organizer_fields'
 		);
 
