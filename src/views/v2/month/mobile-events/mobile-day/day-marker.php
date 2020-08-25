@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
  * @since 4.9.4
  * @since 5.1.5 Utilize\Tribe\Utils\Date_I18n_Immutable's format_i18n method for date display.
