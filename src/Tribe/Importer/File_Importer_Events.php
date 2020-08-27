@@ -445,7 +445,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Get Post Text from Import or Existing Value using the provided field name and post field.
 	 *
-	 * @since TBD
+	 * @since5.1.6
 	 *
 	 * @param int    $event_id   The event id being updated by import.
 	 * @param array  $record     An event record from the import.
@@ -504,7 +504,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Returns the `post_excerpt` to use.
 	 *
-	 * @deprecated TBD
+	 * @deprecated5.1.6
 	 *
 	 * @param int    $event_id        The event id being updated by import.
 	 * @param string $import_excerpt The imported excerpt text.
@@ -512,7 +512,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * @return string
 	 */
 	private function get_post_excerpt( $event_id, $import_excerpt ) {
-		_deprecated_function( __METHOD__, 'TBD', '$this->get_post_text_field( $event_id, $record, "event_excerpt", "post_excerpt" )' );
+		_deprecated_function(
+			__METHOD__,
+			'5.1.6',
+			'$this->get_post_text_field( $event_id, $record, "event_excerpt", "post_excerpt" )'
+		);
 
 		return '';
 	}
