@@ -39,9 +39,13 @@ jobs:
           tric info
       - name: Print the current tric configuration
         run: tric config
-      - name: Set up The Events Calendar
+      - name: Set up Common
         run: |
           docker network prune -f
+          tric use the-events-calendar/common
+          tric composer install --no-dev
+      - name: Set up The Events Calendar
+        run: |
           tric use the-events-calendar
           tric composer install
       - name: Init the WordPress container
