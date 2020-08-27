@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         suite: [ 'restv1' ]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout The Events Calendar
         uses: actions/checkout@v2
