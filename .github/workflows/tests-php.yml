@@ -1,0 +1,54 @@
+name: 'Codeception Tests'
+on: [pull_request]
+jobs:
+  test:
+    strategy:
+      matrix:
+        suite: [ 'restv1' ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout The Events Calendar
+        uses: actions/checkout@v2
+        with:
+          repository: moderntribe/the-events-calendar
+          ref: release/B20.08
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          path: the-events-calendar
+          submodules: recursive
+      - name: Checkout automation tools
+        uses: actions/checkout@v2
+        with:
+          repository: moderntribe/tric
+          ref: main
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          path: tric
+          submodules: recursive
+      - name: Add tric to the PATH
+        run: echo "::set-env name=PATH::${GITHUB_WORKSPACE}/../tric:$PATH"
+      - name: Set run_context() for tric
+        run: echo "::set-env name=TRIC::1"
+      - name: Start ssh-agent
+        run: |
+          mkdir -p "${HOME}/.ssh";
+          ssh-agent -a /tmp/ssh_agent.sock;
+      - name: Export SSH_AUTH_SOCK env var
+        run: echo "::set-env name=SSH_AUTH_SOCK::/tmp/ssh_agent.sock"
+      - name: Set up tric for CI
+        run: |
+          cd ${GITHUB_WORKSPACE}/..
+          tric here
+          tric interactive off
+          tric build-prompt off
+          tric xdebug off
+          tric debug on
+          tric info
+      - name: Print the current tric configuration
+        run: tric config
+      - name: Set up The Events Calendar
+        run: |
+          docker network prune -f
+          tric init the-events-calendar
+          tric use the-events-calendar
+          tric composer install
+      - name: Run suite tests
+        run: tric run ${{ matrix.suite }}
