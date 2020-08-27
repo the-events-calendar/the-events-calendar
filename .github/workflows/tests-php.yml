@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: moderntribe/tric
-          ref: main
+          ref: fix/term-detection
           token: ${{ secrets.GH_BOT_TOKEN }}
           path: tric
           submodules: recursive
@@ -35,7 +35,7 @@ jobs:
         run: echo "::set-env name=SSH_AUTH_SOCK::/tmp/ssh_agent.sock"
       - name: Set up tric for CI
         run: |
-          cd ${GITHUB_WORKSPACE}/..
+          cd ${GITHUB_WORKSPACE}/.. && pwd
           tric here
           tric interactive off
           tric build-prompt off
