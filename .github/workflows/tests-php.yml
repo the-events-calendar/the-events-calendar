@@ -50,5 +50,7 @@ jobs:
           tric init the-events-calendar
           tric use the-events-calendar
           tric composer install
+      - name: Init the WordPress container
+        run: tric up wordpress
       - name: Run suite tests
         run: tric run ${{ matrix.suite }} --debug
