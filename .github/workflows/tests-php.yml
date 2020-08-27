@@ -42,12 +42,12 @@ jobs:
           tric xdebug off
           tric debug on
           tric info
+          tric use the-events-calendar
       - name: Print the current tric configuration
         run: tric config
       - name: Set up The Events Calendar
         run: |
           docker network prune -f
-          tric use the-events-calendar
           tric composer install
       - name: Init the WordPress container
         run: tric up wordpress
