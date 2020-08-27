@@ -7,24 +7,19 @@ jobs:
         suite: [ 'restv1' ]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout The Events Calendar
-        uses: actions/checkout@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v1
         with:
-          repository: moderntribe/the-events-calendar
-          ref: release/B20.08
-          token: ${{ secrets.GH_BOT_TOKEN }}
-          path: the-events-calendar
-          submodules: recursive
+          fetch-depth: 1
       - name: Checkout automation tools
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
         with:
           repository: moderntribe/tric
           ref: fix/term-detection
-          token: ${{ secrets.GH_BOT_TOKEN }}
           path: tric
-          submodules: recursive
+          fetch-depth: 1
       - name: Add tric to the PATH
-        run: echo "::set-env name=PATH::${GITHUB_WORKSPACE}/tric:$PATH"
+        run: echo "::set-env name=PATH::${GITHUB_WORKSPACE}/../tric:$PATH"
       - name: Set run_context() for tric
         run: echo "::set-env name=TRIC::1"
       - name: Start ssh-agent
@@ -35,21 +30,22 @@ jobs:
         run: echo "::set-env name=SSH_AUTH_SOCK::/tmp/ssh_agent.sock"
       - name: Set up tric for CI
         run: |
-          cd ${GITHUB_WORKSPACE}/.. && pwd
+          cd ${GITHUB_WORKSPACE}/..
           tric here
           tric interactive off
           tric build-prompt off
           tric xdebug off
           tric debug on
           tric info
-          tric use the-events-calendar
       - name: Print the current tric configuration
         run: tric config
       - name: Set up The Events Calendar
         run: |
           docker network prune -f
+          tric use the-events-calendar
           tric composer install
       - name: Init the WordPress container
         run: tric up wordpress
       - name: Run suite tests
         run: tric run ${{ matrix.suite }} --debug
+
