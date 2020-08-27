@@ -39,7 +39,7 @@ tribe.events.views.accordion = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		accordionTrigger: '[data-js="tribe-events-accordion-trigger"]',
+		accordionTrigger: '[data-js~="tribe-events-accordion-trigger"]',
 	};
 
 	/**
