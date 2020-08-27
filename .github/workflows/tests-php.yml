@@ -24,7 +24,7 @@ jobs:
           path: tric
           submodules: recursive
       - name: Add tric to the PATH
-        run: echo "::set-env name=PATH::${GITHUB_WORKSPACE}/../tric:$PATH"
+        run: echo "::set-env name=PATH::${GITHUB_WORKSPACE}/tric:$PATH"
       - name: Set run_context() for tric
         run: echo "::set-env name=TRIC::1"
       - name: Start ssh-agent
