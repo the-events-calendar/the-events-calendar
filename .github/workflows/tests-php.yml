@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         suite: [ 'restv1' ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout The Events Calendar
         uses: actions/checkout@v2
@@ -51,4 +51,4 @@ jobs:
           tric use the-events-calendar
           tric composer install
       - name: Run suite tests
-        run: tric run ${{ matrix.suite }}
+        run: tric run ${{ matrix.suite }} --debug
