@@ -185,6 +185,17 @@ class I18n {
 		$result = $do( ...$args );
 		remove_filter( 'locale', $force_locale );
 
+		foreach ( (array) $args[1] as $domain => $file ) {
+			// Reload it with the correct language.
+			unload_textdomain( $domain );
+
+			if ( 'default' === $domain ) {
+				load_default_textdomain();
+			} else {
+				Common::instance()->load_text_domain( $domain, $file );
+			}
+		}
+
 		// Restore the `locale` filtering functions.
 		$wp_filter['locale'] = $locale_filters_backup;
 
@@ -270,15 +281,6 @@ class I18n {
 						$strings[ $key ][] = __( ucfirst( $value ), $domain );
 					}
 				}
-			}
-
-			// Reload it with the correct language.
-			unload_textdomain( $domain );
-
-			if ( 'default' === $domain ) {
-				load_default_textdomain();
-			} else {
-				Common::instance()->load_text_domain( $domain, $file );
 			}
 		}
 
