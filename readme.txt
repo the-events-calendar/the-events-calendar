@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Use the `border-small` class for the today button, add new border button styles to customizer. [FBAR-143]
 * Tweak - Add missing CSS classes to the Event Categories label on the single event page. [TEC-3478]
 * Tweak - Adjust accordion trigger selector to allow multiple space-separated `data-js` attributes. [FBAR-125]
+* Tweak - Adjust spacing on header to prevent screen overflow. [FBAR-132]
 
 = [5.1.6] 2020-08-24 =
 
