@@ -1398,11 +1398,14 @@ class View implements View_Interface {
 		 *
 		 * @see TEC-3579
 		 */
-		$rest_nonce = tribe_without_filters( [ 'nonce_user_logged_out' ], static function () {
-			return wp_create_nonce( 'wp_rest' );
-		} );
+		$rest_nonce = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			static function () {
+				return wp_create_nonce( 'wp_rest' );
+			}
+		);
 
-		$template_vars   = [
+		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
 			'url'                  => $this->get_url( true ),
