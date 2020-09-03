@@ -53,11 +53,8 @@ tribe.events.views.accordion = {};
 	 * @return {void}
 	 */
 	obj.setOpenAccordionA11yAttrs = function( $header, $content ) {
-		$header
-			.attr( 'aria-expanded', 'true' )
-			.attr( 'aria-selected', 'true' );
-		$content
-			.attr( 'aria-hidden', 'false' );
+		$header.attr( 'aria-expanded', 'true' )
+		$content.attr( 'aria-hidden', 'false' );
 	};
 
 	/**
@@ -71,11 +68,8 @@ tribe.events.views.accordion = {};
 	 * @return {void}
 	 */
 	obj.setCloseAccordionA11yAttrs = function( $header, $content ) {
-		$header
-			.attr( 'aria-expanded', 'false' )
-			.attr( 'aria-selected', 'false' );
-		$content
-			.attr( 'aria-hidden', 'true' );
+		$header.attr( 'aria-expanded', 'false' )
+		$content.attr( 'aria-hidden', 'true' );
 	};
 
 	/**
@@ -162,10 +156,8 @@ tribe.events.views.accordion = {};
 	obj.deinitAccordionA11yAttrs = function( $header, $content ) {
 		$header
 			.removeAttr( 'aria-expanded' )
-			.removeAttr( 'aria-selected' )
 			.removeAttr( 'aria-controls' );
-		$content
-			.removeAttr( 'aria-hidden' );
+		$content.removeAttr( 'aria-hidden' );
 	};
 
 	/**
@@ -181,7 +173,6 @@ tribe.events.views.accordion = {};
 	obj.initAccordionA11yAttrs = function( $header, $content ) {
 		$header
 			.attr( 'aria-expanded', 'false' )
-			.attr( 'aria-selected', 'false' )
 			.attr( 'aria-controls', $content.attr( 'id' ) );
 		$content.attr( 'aria-hidden', 'true' );
 	};

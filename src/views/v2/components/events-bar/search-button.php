@@ -17,7 +17,6 @@
 	class="tribe-events-c-events-bar__search-button"
 	aria-controls="tribe-events-search-container"
 	aria-expanded="false"
-	aria-selected="false"
 	data-js="tribe-events-search-button"
 >
 	<?php $this->template( 'components/events-bar/search-button/icon' ); ?>
