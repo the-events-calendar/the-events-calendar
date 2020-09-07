@@ -318,7 +318,7 @@ class Tribe__Events__Aggregator__Cron {
 				 * This means the record post exists but the origin is not currently supported.
 				 * To avoid re-looping on this let's trash this post and continue.
 				 */
-				$record->delete( );
+				$record->delete();
 				continue;
 			}
 
@@ -327,7 +327,7 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			if ( $record->get_child_record_by_status( 'pending', - 1, array( 'after' => time() - 4 * 3600 ) ) ) {
+			if ( $record->get_child_record_by_status( 'pending', -1, [ 'after' => time() - 4 * HOUR_IN_SECONDS ] ) ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has pending child(ren)', $record->id ), 'EA Cron' );
 				continue;
 			}
