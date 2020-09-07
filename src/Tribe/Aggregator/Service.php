@@ -278,6 +278,14 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
 
+		// we know it is not a 404 or 403 at this point
+		if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+			return new WP_Error(
+				'core:aggregator:bad-response',
+				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
+			);
+		}
+
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
