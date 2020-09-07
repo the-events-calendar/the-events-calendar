@@ -205,6 +205,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 		$version                 = $service->api['version'];
 		$service->api['version'] = 'v2.0.0';
 
+		// TODO: Filter the body before delivering to EA.
 		$body = [
 			'batch_size'       => 10,
 			'batch_interval'   => 10,
