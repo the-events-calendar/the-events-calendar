@@ -370,6 +370,10 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 		return ! empty( $this->error );
 	}
 
+	public function is_fetching() {
+		return false;
+	}
+
 	/**
 	 * Returns the queue error message.
 	 *

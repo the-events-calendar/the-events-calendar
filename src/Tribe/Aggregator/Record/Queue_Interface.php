@@ -90,6 +90,13 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	public function has_errors();
 
 	/**
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_fetching();
+
+	/**
 	 * Returns the queue error message.
 	 *
 	 * @since 4.6.21

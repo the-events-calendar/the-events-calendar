@@ -149,4 +149,8 @@ class Tribe__Events__Aggregator__Record__Void_Queue
 	public function get_wp_error() {
 		return $this->wp_error;
 	}
+
+	public function is_fetching() {
+		return false;
+	}
 }

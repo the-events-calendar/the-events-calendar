@@ -97,11 +97,6 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 		}
 
 		$this->record = $record;
-
-		if ( ! empty( $this->record->meta['allow_batch_push'] ) ) {
-			$this->null_process = true;
-		}
-
 		$this->activity();
 
 		if ( ! empty( $items ) ) {
@@ -174,7 +169,7 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	 *
 	 * @return boolean
 	 */
-	protected function is_fetching() {
+	public function is_fetching() {
 		return $this->is_fetching;
 	}
 
@@ -266,12 +261,6 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	 * @return self|Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function process( $batch_size = null ) {
-		if ( $this->null_process ) {
-			do_action( 'tribe_aggregator_process_null_queue', $this );
-
-			return $this;
-		}
-
 		$this->has_lock = $this->acquire_lock();
 
 		if ( $this->has_lock ) {
