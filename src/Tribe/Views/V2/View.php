@@ -1393,6 +1393,18 @@ class View implements View_Interface {
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 
+		/*
+		 * Some plugins, like WooCommerce, will modify the UID of logged out users; avoid that filtering here.
+		 *
+		 * @see TEC-3579
+		 */
+		$rest_nonce = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			static function () {
+				return wp_create_nonce( 'wp_rest' );
+			}
+		);
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1408,7 +1420,7 @@ class View implements View_Interface {
 			'now'                  => $this->context->get( 'now', 'now' ),
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
 			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
+			'rest_nonce'           => $rest_nonce,
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
 			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
