@@ -1239,10 +1239,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues events, venues, and organizers for insertion
 	 *
-	 * @param array $data Import data
-	 * @param bool $start_immediately Whether the data processing should start immediately or not.
+	 * @param array $data              Import data
+	 * @param bool  $start_immediately Whether the data processing should start immediately or not.
 	 *
-	 * @return array|WP_Error|Tribe__Events__Aggregator__Record__Queue
+	 * @return array|Tribe__Events__Aggregator__Record__Queue_Interface|WP_Error|Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function process_posts( $data = [], $start_immediately = false ) {
 		if ( ! $start_immediately && 'manual' === $this->type ) {
@@ -1251,11 +1251,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			$service->confirm_import( $this->meta );
 		}
 
+		// CSV should be processed right away as does not have support for batch pushing.
+		$is_not_csv = empty( $data ) || empty( $data['origin'] ) || $data['origin'] !== 'csv';
 		// if this is a batch push record then set its queue to fetching
 		// to feed the UI something coherent
-		if ( ! $start_immediately && ! $this->is_polling() ) {
+		if ( $is_not_csv && ! $this->is_polling() ) {
 			// @todo let's revisit this to return when more UI is exposed
-			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
+			$queue = new Tribe__Events__Aggregator__Record__Batch_Queue( $this );
+
+			if ( $start_immediately ) {
+				$queue->process();
+
+				return $queue->activity();
+			}
 
 			return $queue;
 		}
