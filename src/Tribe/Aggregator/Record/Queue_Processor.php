@@ -294,7 +294,11 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 		// Force the use of the Legacy Queue for CSV Imports
 		if ( $record instanceof Tribe__Events__Aggregator__Record__CSV || $use_legacy ) {
-			$class = 'Tribe__Events__Aggregator__Record__Queue';
+			$class = Tribe__Events__Aggregator__Record__Queue::class;
+		}
+
+		if ( ! empty( $record->meta ) && ! empty( $record->meta['allow_batch_push'] ) &&  tribe_is_truthy($record->meta['allow_batch_push'] )) {
+			$class = Tribe__Events__Aggregator__Record__Batch_Queue::class;
 		}
 
 		/**
