@@ -16,6 +16,11 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 		tribe_register( 'events-aggregator.record-items', 'Tribe__Events__Aggregator__Record__Items' );
 		tribe_register( 'events-aggregator.processes.import-events', 'Tribe__Events__Aggregator__Processes__Import_Events' );
 		tribe_singleton( 'events-aggregator.queue-control', 'Tribe__Events__Aggregator__Processes__Queue_Control' );
+		tribe_singleton(
+			Tribe__Events__Aggregator__Processes__Batch_Imports::class,
+			Tribe__Events__Aggregator__Processes__Batch_Imports::class,
+			[ 'hook' ]
+		);
 
 		add_filter( 'tribe_process_queues', array( $this, 'filter_tribe_process_queues' ) );
 		add_filter( 'tribe_settings_save_field_value', array(
@@ -25,6 +30,8 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 
 		$this->handle_clear_request();
 		$this->handle_clear_result();
+
+		tribe( Tribe__Events__Aggregator__Processes__Batch_Imports::class );
 	}
 
 	/**
