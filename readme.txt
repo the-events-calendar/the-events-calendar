@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.1.5
-Tested up to: 5.4.2
+Stable tag: 5.1.6
+Tested up to: 5.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,6 +221,20 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.1.6] 2020-08-24 =
+
+* Tweak - Move the iCal output coding out of the loop and into its own method.  [VE-150]
+* Fix - Fix SQL errors that would show up when creating custom Event queries in theme builders. [TEC-3530]
+* Fix - Fix SQL errors that would show up when running custom Event queries in plugins . [TEC-3528]
+* Fix - Fix SQL errors that would prevent customers from being able to select tickets assigned to Events in some instances. [TEC-3500]
+* Fix - On re-import of the excerpt and event description field enable changes to the existing values. [TEC-3080]
+* Fix - On re-import enable excerpt and description to be cleared of their values. [TEC-3080]
+* Fix - On re-import only overwrite items that have been mapped. [TEC-2962]
+* Tweak - Add filters for venue and organizer import data. [TEC-2962]
+* Tweak - Add ability to use default values from settings for venue imports via the `tribe_events_importer_set_default_venue_import_values` filter. [TEC-2962]
+* Tweak - Replace placeholders in template docblocks with appropriate links. [TEC-3399]
+* Language - 32 new strings added, 75 updated, 0 fuzzied, and 28 obsoleted
 
 = [5.1.5] 2020-07-27 =
 

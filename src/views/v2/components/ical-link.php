@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
  * @version 5.0.1
  *
@@ -26,4 +26,3 @@ if ( empty( $ical->display_link ) ) {
 		href="<?php echo esc_url( $ical->link->url ); ?>"
 	><?php echo esc_html( $ical->link->text ); ?></a>
 </div>
-
