@@ -1496,7 +1496,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( $should_import_settings && isset( $event['sticky'] ) ) {
 				if ( $event['sticky'] == true ) {
 					$event['EventShowInCalendar'] = 'yes';
-					$event['menu_order']          = - 1;
+					$event['menu_order']          = -1;
 				}
 				unset( $event['sticky'] );
 			}
@@ -2748,14 +2748,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return bool
 	 */
 	public function is_polling() {
-		$is_polling = empty( $this->meta['allow_batch_push'] ) || false === (bool) $this->meta['allow_batch_push'];
+		$is_polling = empty( $this->meta['allow_batch_push'] ) || ! tribe_is_truthy( $this->meta['allow_batch_push'] );
 
 		/**
 		 * Whether the current record is a Service polling one or not.
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param bool $is_polling
+		 * @param bool                                        $is_polling
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record
 		 */
 		$is_polling = apply_filters( 'tribe_aggregator_record_is_polling', $is_polling, $this );
