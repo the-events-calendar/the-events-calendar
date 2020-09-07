@@ -46,7 +46,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		$records = tribe( 'events-aggregator.records' );
 
 		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
-		$record = $records->get_by_import_id( $request['import_id'], [ 'post_status' => 'any' ] );
+		$record = $records->get_by_import_id( $request['import_id'], [ 'post_status' => Tribe__Events__Aggregator__Records::$status->pending ] );
 
 		if ( empty( $record->meta['post_status'] ) ) {
 			$record->update_meta( 'post_status', tribe( 'events-aggregator.settings' )->default_post_status( $record->meta['origin'] ) );
