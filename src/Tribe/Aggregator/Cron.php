@@ -67,9 +67,10 @@ class Tribe__Events__Aggregator__Cron {
 		add_filter( 'pre_http_request', array( $this, 'filter_check_http_limit' ), 25, 3 );
 
 		// Add the Actual Process to run on the Action
-		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_child_record_creation' ), 5 );
-		add_action( 'tribe_aggregator_cron_run', array( $this, 'verify_fetching_from_service' ), 15 );
-		add_action( 'tribe_aggregator_cron_run', array( $this, 'purge_expired_records' ), 25 );
+		add_action( 'tribe_aggregator_cron_run', [ $this, 'verify_child_record_creation' ], 5 );
+		add_action( 'tribe_aggregator_cron_run', [ $this, 'verify_fetching_from_service' ], 15 );
+		add_action( 'tribe_aggregator_cron_run', [ $this, 'start_batch_pushing_records' ], 20 );
+		add_action( 'tribe_aggregator_cron_run', [ $this, 'purge_expired_records' ], 25 );
 	}
 
 	/**
@@ -382,6 +383,71 @@ class Tribe__Events__Aggregator__Cron {
 				tribe( 'logger' )->log_debug( $child->get_error_message(), 'EA Cron' );
 				$record->update_meta( 'last_import_status', 'error:import-failed' );
 			}
+		}
+	}
+
+	public function start_batch_pushing_records() {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+			return;
+		}
+
+		$records = Tribe__Events__Aggregator__Records::instance();
+
+		$query = $records->query( [
+			'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
+			'posts_per_page' => 15,
+			'order'          => 'ASC',
+			'meta_query'     => [
+				'origin-not-csv'               => [
+					'key'     => '_tribe_aggregator_origin',
+					'value'   => 'csv',
+					'compare' => '!=',
+				],
+				'batch-push-support-specified' => [
+					'key'     => '_tribe_aggregator_allow_batch_push',
+					'value'   => true,
+					'compare' => '=',
+				],
+				'batch-not-queued'             => [
+					'key'     => '_tribe_aggregator_batch_started',
+					'value'   => 'bug #23268',
+					'compare' => 'NOT EXISTS',
+				],
+			],
+			'after'          => '-4 hours',
+		] );
+
+		if ( ! $query->have_posts() ) {
+			tribe( 'logger' )->log_debug( 'No Pending Batch to be started', 'EA Cron' );
+
+			return;
+		}
+
+		tribe( 'logger' )->log_debug( "Found {$query->found_posts} records", 'EA Cron' );
+
+		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
+		foreach ( $query->posts as $post ) {
+			$record = $records->get_by_post_id( $post );
+
+			if ( $record === null || tribe_is_error( $record ) ) {
+				continue;
+			}
+
+			$cleaner->remove_duplicate_pending_records_for( $record );
+			$failed = $cleaner->maybe_fail_stalled_record( $record );
+
+			if ( $failed ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Stalled record (%d) was skipped', $record->id ), 'EA Cron' );
+				continue;
+			}
+
+			// Just double Check for CSV
+			if ( 'csv' === $record->origin ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
+				continue;
+			}
+
+			$record->process_posts([], true);
 		}
 	}
 
