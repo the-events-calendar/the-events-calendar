@@ -299,7 +299,7 @@ tribe.events.views.accordion = {};
 	 */
 	obj.ready = function() {
 		if ( ! tribe.events.views.manager ) {
-			// The script might  be used outside of the Views v2 context, if that is the case, skip the auto-binding.
+			// The script might be used outside of the Views v2 context, if that is the case, skip the auto-binding.
 			return;
 		}
 
