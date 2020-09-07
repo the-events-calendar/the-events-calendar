@@ -440,7 +440,7 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );
 
-			if ( tribe_is_error( $record ) ) {
+			if ( $record === null || tribe_is_error( $record ) ) {
 				continue;
 			}
 
