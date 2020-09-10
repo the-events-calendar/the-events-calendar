@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.1.7
-Tested up to: 5.5
+Stable tag: 5.2.0
+Tested up to: 5.5.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.7] TBD =
+= [5.2.0] TBD =
 
 * Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454]
 * Fix - Fix a compatibility issue with the WPML plugin that would prevent some options from being translated correctly. [TEC-3454]
