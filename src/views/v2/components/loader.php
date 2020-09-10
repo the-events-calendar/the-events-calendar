@@ -18,7 +18,7 @@
 	role="alert"
 	aria-live="polite"
 >
-	<span class="tribe-events-view-loader__text tribe-common-visually-hide">
+	<span class="tribe-events-view-loader__text tribe-common-a11y-visual-hide">
 		<?php esc_html_e( 'Loading view.', 'the-events-calendar' ); ?>
 	</span>
 	<div class="tribe-events-view-loader__dots tribe-common-c-loader">
