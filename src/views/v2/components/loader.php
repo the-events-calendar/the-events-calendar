@@ -9,14 +9,14 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 4.9.10
+ * @version TBD
  *
  */
 ?>
 <div
 	class="tribe-events-view-loader tribe-common-a11y-hidden"
 	role="alert"
-	aria-live="assertive"
+	aria-live="polite"
 >
 	<div class="tribe-events-view-loader__dots tribe-common-c-loader">
 		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--first"></div>
