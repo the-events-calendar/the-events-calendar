@@ -10,7 +10,6 @@
  * @link http://m.tri.be/1aiy
  *
  * @version TBD
- *
  */
 ?>
 <div
