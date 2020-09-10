@@ -12,7 +12,6 @@
  * @version TBD
  *
  */
-
 ?>
 <div
 	class="tribe-events-view-loader tribe-common-a11y-hidden"
