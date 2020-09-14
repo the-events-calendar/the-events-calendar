@@ -125,7 +125,7 @@ class Latest_Past_View extends View {
 		'latest-past/event/date/meta',
 
 		// Add-ons.
-		'components/filter-bar'
+		'components/filter-bar',
 	];
 
 	/**
