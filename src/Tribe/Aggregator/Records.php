@@ -561,14 +561,14 @@ class Tribe__Events__Aggregator__Records {
 		$json = json_encode( $_POST );
 
 		// The we convert the json string to a stdClass()
-		$request = json_decode( $json );
+		$request = json_decode( $json, true );
 
 		// Empty Required Variables
-		if ( empty( $request->data->import_id ) || empty( $_GET['key'] ) ) {
+		if ( empty( $_GET['key'] ) || empty( $request ) || empty( $request['data'] ) || empty( $request['data']['import_id'] ) ) {
 			return wp_send_json_error();
 		}
 
-		$import_id = $request->data->import_id;
+		$import_id = $request['data']['import_id'];
 		$record = $this->get_by_import_id( $import_id );
 
 		// We received an Invalid Import ID
