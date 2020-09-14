@@ -7,9 +7,8 @@
 
 			<button
 	class="tribe-events-c-events-bar__search-button"
-	aria-controls="tribe-events-search-filter-container"
+	aria-controls="tribe-events-search-container"
 	aria-expanded="false"
-	aria-selected="false"
 	data-js="tribe-events-search-button"
 >
 	<span class="tribe-events-c-events-bar__search-button-icon tribe-common-svgicon"></span>
@@ -18,15 +17,14 @@
 </button>
 
 		<div
-			class="tribe-events-c-events-bar__search-filters-container"
-			id="tribe-events-search-filters-container"
-			data-js="tribe-events-search-filters-container"
+			class="tribe-events-c-events-bar__search-container"
+			id="tribe-events-search-container"
+			data-js="tribe-events-search-container"
 		>
-			
 			<div
 	class="tribe-events-c-events-bar__search"
 	id="tribe-events-events-bar-search"
-	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
+	data-js="tribe-events-events-bar-search"
 >
 	<form
 		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
@@ -64,8 +62,7 @@
 	Find Events</button>
 	</form>
 </div>
-
-					</div>
+		</div>
 	
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">

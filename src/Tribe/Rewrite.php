@@ -317,6 +317,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs_raw', $bases, $method, $domains );
 
+		// Again, make sure the bases are unique.
+		$bases = array_map( 'array_unique', $bases );
+
 		if ( 'regex' === $method ) {
 			foreach ( $bases as $type => $base ) {
 				// Escape all the Bases

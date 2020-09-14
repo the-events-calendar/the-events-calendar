@@ -9,8 +9,10 @@
 		<div
 	class="tribe-events-view-loader tribe-common-a11y-hidden"
 	role="alert"
-	aria-live="assertive"
+	aria-live="polite"
 >
+	<span class="tribe-events-view-loader__text tribe-common-a11y-visual-hide">
+		Loading view.	</span>
 	<div class="tribe-events-view-loader__dots tribe-common-c-loader">
 		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--first"></div>
 		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--second"></div>
@@ -43,9 +45,8 @@
 
 			<button
 	class="tribe-events-c-events-bar__search-button"
-	aria-controls="tribe-events-search-filter-container"
+	aria-controls="tribe-events-search-container"
 	aria-expanded="false"
-	aria-selected="false"
 	data-js="tribe-events-search-button"
 >
 	<span class="tribe-events-c-events-bar__search-button-icon tribe-common-svgicon"></span>
@@ -54,15 +55,14 @@
 </button>
 
 		<div
-			class="tribe-events-c-events-bar__search-filters-container"
-			id="tribe-events-search-filters-container"
-			data-js="tribe-events-search-filters-container"
+			class="tribe-events-c-events-bar__search-container"
+			id="tribe-events-search-container"
+			data-js="tribe-events-search-container"
 		>
-			
 			<div
 	class="tribe-events-c-events-bar__search"
 	id="tribe-events-events-bar-search"
-	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
+	data-js="tribe-events-events-bar-search"
 >
 	<form
 		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
@@ -100,8 +100,7 @@
 	Find Events</button>
 	</form>
 </div>
-
-					</div>
+		</div>
 	
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
@@ -190,7 +189,7 @@
 
 	<a
 	href="http://test.tri.be/events/today/"
-	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
+	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
 	aria-label="Click to select today&#039;s date"
 	title="Click to select today&#039;s date"

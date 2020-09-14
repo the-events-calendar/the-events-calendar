@@ -46,6 +46,7 @@ tribe.events.views.manager = {};
 		link: '[data-js="tribe-events-view-link"]',
 		dataScript: '[data-js="tribe-events-view-data"]',
 		loader: '.tribe-events-view-loader',
+		loaderText: '.tribe-events-view-loader__text',
 		hiddenElement: '.tribe-common-a11y-hidden',
 	};
 
@@ -478,7 +479,10 @@ tribe.events.views.manager = {};
 
 		if ( $loader.length ) {
 			$loader.removeClass( obj.selectors.hiddenElement.className() );
+			var $loaderText = $loader.find( obj.selectors.loaderText );
+			$loaderText.text( $loaderText.text() );
 		}
+		$container.attr( 'aria-busy', 'true' );
 
 		$container.trigger( 'afterAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 	};
