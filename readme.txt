@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Adjust accordion trigger selector to allow multiple space-separated `data-js` attributes. [FBAR-125]
 * Tweak - Adjust spacing on header to prevent screen overflow. [FBAR-132]
 * Tweak - Adjust aria attributes and add loader text to make ajax loading more accessible. [FBAR-147]
+* Tweak - Add the `tribe_events_latest_past_view_display_template` filter to allow controlling the display of templates  in the context of the Latest Past Events View. [FBAR-148]
 
 = [5.1.6] 2020-08-24 =
 
