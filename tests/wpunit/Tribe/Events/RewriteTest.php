@@ -5,6 +5,7 @@ namespace Tribe\Events;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
+use function tad\WPBrowser\setPrivateProperties;
 
 if ( ! class_exists( '\\SitePress' ) ) {
 	require_once codecept_data_dir( 'classes/SitePress.php' );
@@ -274,27 +275,27 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		return [
 			'list_page_1' => [
 				'/?post_type=tribe_events&eventDisplay=list',
-				'/events/elenco/',
+				'/eventi/elenco/',
 			],
 			'list_page_2' => [
 				'/?post_type=tribe_events&eventDisplay=list&paged=2',
-				'/events/pagina/2/',
+				'/eventi/elenco/pagina/2/',
 			],
 			'month'       => [
 				'/?post_type=tribe_events&eventDisplay=month',
-				'/events/mese/',
+				'/eventi/mese/',
 			],
 			'featured'    => [
 				'/?post_type=tribe_events&eventDisplay=list&featured=1',
-				'/events/elenco/in-evidenza/',
+				'/eventi/elenco/in-evidenza/',
 			],
 			'category'    => [
 				'/?post_type=tribe_events&eventDisplay=list&tribe_events_cat=test',
-				'/events/categoria/test/elenco/',
+				'/eventi/categoria/test/elenco/',
 			],
 			'tag'    => [
 				'/?post_type=tribe_events&eventDisplay=list&tag=test',
-				'/events/tag/test/elenco/',
+				'/eventi/tag/test/elenco/',
 			],
 		];
 	}
@@ -496,33 +497,84 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $pretty_archive_url, $canonical_url );
 	}
 
+	public function lang_data_provider() {
+		yield 'Spanish list view' => [
+			'lang'          => 'es',
+			'lang_code'     => 'en_ES',
+			'args'          => [
+				'post_type'    => TEC::POSTTYPE,
+				'eventDisplay' => 'list'
+			],
+			'expected_path' => '/eventos/lista/',
+		];
+
+		yield 'Spanish month view' => [
+			'lang'          => 'es',
+			'lang_code'     => 'en_ES',
+			'args'          => [
+				'post_type'    => TEC::POSTTYPE,
+				'eventDisplay' => 'month'
+			],
+			'expected_path' => '/eventos/mes/',
+		];
+
+		yield 'Japanese list view' => [
+			'lang'          => 'ja',
+			'lang_code'     => 'ja',
+			'args'          => [
+				'post_type'    => TEC::POSTTYPE,
+				'eventDisplay' => 'list'
+			],
+			'expected_path' => '/イベント/リスト/',
+		];
+
+		yield 'Japanese month view' => [
+			'lang'          => 'ja',
+			'lang_code'     => 'ja',
+			'args'          => [
+				'post_type'    => TEC::POSTTYPE,
+				'eventDisplay' => 'month'
+			],
+			'expected_path' => '/イベント/月/',
+		];
+	}
+
 	/**
 	 * It should use the localized slug when available
 	 *
 	 * @test
+	 * @dataProvider lang_data_provider
 	 */
-	public function should_use_the_localized_slug_when_available() {
+	public function should_use_the_localized_slug_when_available(
+		string $lang,
+		string $lang_code,
+		array $args,
+		string $expected_path
+	) {
+		list( $rewrite_rules, $bases, $localized_bases ) = array_values( include( codecept_data_dir( "rewrite/{$lang}-translated-rules.php" ) ) );
 		/** @var \WP_Rewrite $wp_rewrite */
 		global $wp_rewrite;
+		$wp_rewrite->rules               = $rewrite_rules;
 		$wp_rewrite->permalink_structure = '/%postname%/';
-		$expected_parsed                 = [
-			'post_type'    => TEC::POSTTYPE,
-			'eventDisplay' => 'list',
-		];
-		add_filter( 'locale', static function () {
-			return 'es_ES';
+		add_filter( 'locale', static function () use ( $lang_code ) {
+			return $lang_code;
 		} );
-		add_filter( 'load_textdomain_mofile', static function ( $mofile, $domain ) {
-			return codecept_data_dir( 'lang/the-events-calendar-es_ES.mo' );
+		add_filter( 'load_textdomain_mofile', static function ( $mofile, $domain ) use ( $lang_code ) {
+			return codecept_data_dir( "lang/the-events-calendar-{$lang_code}.mo" );
 		}, 99, 2 );
 
 
+		wp_cache_flush();
 		$rewrite = new Rewrite();
 		$rewrite->setup( $wp_rewrite );
-		$ugly_archive_url = add_query_arg( $expected_parsed, home_url() );
+		$rewrite->bases = $bases;
+		setPrivateProperties( $rewrite, [
+			'localized_bases' => $localized_bases,
+		] );
+		$ugly_archive_url = add_query_arg( $args, home_url() );
 		$canonical_url    = $rewrite->get_canonical_url( $ugly_archive_url );
 
-		$this->assertEquals( home_url( '/eventos/lista/' ), $canonical_url );
+		$this->assertEquals( home_url( $expected_path ), urldecode( $canonical_url ) );
 	}
 
 	/**
@@ -568,5 +620,79 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		], 'http://wordpress.test/test' ) );
 
 		$this->assertEquals( 'http://wordpress.test/test/events/', $url );
+	}
+
+	public function non_scalar_values_passthrough_data_provider() {
+		yield 'one array query var' => [
+			[
+				'tribe_eventcategory' => [ 0 => 2 ],
+			],
+			'/events/?tribe_eventcategory[0]=2',
+		];
+
+		yield 'two array query vars w/ multiple values' => [
+			[
+				'tribe_eventcategory' => [ 0 => 2 ],
+				'tribe_tags'          => [ 0 => 23, 1 => 89 ],
+			],
+			'/events/?tribe_eventcategory[0]=2&tribe_tags[0]=23&tribe_tags[1]=89',
+		];
+	}
+
+	/**
+	 * It should allow non-scalar query vars to pass through clean urls
+	 *
+	 * @test
+	 * @dataProvider non_scalar_values_passthrough_data_provider
+	 */
+	public function should_allow_non_scalar_query_vars_to_pass_through_clean_urls(array $query_args, string $expected) {
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		// We're using permalinks.
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$rewrite = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+
+		$clean_url = $rewrite->get_clean_url( add_query_arg( array_merge( [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'default',
+		], $query_args ) ) );
+
+		$this->assertEquals( $expected, str_replace( home_url(), '', urldecode( $clean_url ) ) );
+	}
+
+	/**
+	 * It should correctly cache clean URLs with passthru vars
+	 *
+	 * @test
+	 */
+	public function should_correctly_cache_clean_urls_with_passthru_vars() {
+		/** @var \WP_Rewrite $wp_rewrite */
+		global $wp_rewrite;
+		// We're using permalinks.
+		$wp_rewrite->permalink_structure = '/%postname%/';
+		$rewrite                         = new Rewrite();
+		$rewrite->setup( $wp_rewrite );
+		$input_url = add_query_arg( [
+			'post_type'    => TEC::POSTTYPE,
+			'eventDisplay' => 'default',
+			'tribe_tags'   => [ 0 => 23, 1 => 89 ],
+		], home_url() );
+		$expected  = '/events/?tribe_tags[0]=23&tribe_tags[1]=89';
+
+		$clean_url_1 = $rewrite->get_clean_url( $input_url );
+		$cached_clean_url_1 = $rewrite->get_clean_url( $input_url );
+		$cached_clean_url_2 = $rewrite->get_clean_url( $input_url );
+		$cached_canonical_url_1 = $rewrite->get_canonical_url( $input_url );
+		$cached_canonical_url_2 = $rewrite->get_canonical_url( $input_url );
+
+		$the_ = static function ( string $url ): string {
+			return urldecode( str_replace( home_url(), '', $url ) );
+		};
+		$this->assertEquals( $expected, $the_($clean_url_1) );
+		$this->assertEquals( $expected, $the_($cached_clean_url_1) );
+		$this->assertEquals( $expected, $the_($cached_clean_url_2) );
+		$this->assertEquals( $expected, $the_($cached_canonical_url_1) );
+		$this->assertEquals( $expected, $the_($cached_canonical_url_2) );
 	}
 }

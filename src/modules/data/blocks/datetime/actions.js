@@ -99,13 +99,6 @@ export const setTimeZone = ( timeZone ) => ( {
 	},
 } );
 
-export const setTimeZoneLabel = ( label ) => ( {
-	type: types.SET_TIMEZONE_LABEL,
-	payload: {
-		label,
-	},
-} );
-
 export const setTimeZoneVisibility = ( show ) => ( {
 	type: types.SET_TIMEZONE_VISIBILITY,
 	payload: {

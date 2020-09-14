@@ -65,7 +65,7 @@ class Theme_Compatibility {
 	 * @return array $classes
 	 */
 	public function filter_add_body_classes( array $classes ) {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Theme_Compatibility::add_body_classes()' );
+		_deprecated_function( __FUNCTION__, '5.1.5', 'Theme_Compatibility::add_body_classes()' );
 
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
 			return $classes;
@@ -81,7 +81,7 @@ class Theme_Compatibility {
 	/**
 	 * Contains the logic for if this object's classes should be added to the queue.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of body class names to add.
@@ -108,7 +108,7 @@ class Theme_Compatibility {
 	/**
 	 * Add body classes.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @return void
 	 */

@@ -529,7 +529,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Update the details of an existing import into EA server.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param $import_id string The ID of the import to be updated.
 	 * @param $args      array An key, value array representing the values to update on the EA server.
@@ -548,7 +548,7 @@ class Tribe__Events__Aggregator__Service {
 		 * Allow any external sources (plugins) to add licenses attached to the call to the EA server as part
 		 * of an array on licenses, useful when you have different products accessing EA server.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param  bool|string $pue_key PUE key
 		 * @param  array       $args    Arguments to queue the import

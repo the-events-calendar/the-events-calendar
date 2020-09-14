@@ -125,7 +125,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		/**
 		 * Hook into filter and add our logic for adding body classes.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param boolean $add              Whether to add classes or not.
 		 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.

@@ -1,5 +1,5 @@
 <?php
-_deprecated_file( __FILE__, 'TBD', 'Tribe__Events__Customizer__Global_Elements' );
+_deprecated_file( __FILE__, '5.1.5', 'Tribe__Events__Customizer__Global_Elements' );
 
 /**
  * The Events Calendar Customizer Section: Text.

@@ -988,7 +988,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @see wp-admin/includes/class-wp-posts-list-table.php->get_views()
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param object $counts       An object containing the current post_type's post
 		 *                             counts by status.

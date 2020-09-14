@@ -22,10 +22,11 @@ use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
 use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Utils\View as View_Utils;
+use Tribe__Context as Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe__Context as Context;
 
 /**
  * Class Hooks
@@ -63,6 +64,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
+		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 	}
 
 	/**
@@ -112,6 +114,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
+		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
 	}
 
 	/**
@@ -311,7 +314,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add body classes.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @return void
 	 */
@@ -323,7 +326,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Contains hooks to the logic for if this object's classes should be added to the queue.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of body class names to add.
@@ -340,7 +343,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Logic for if body classes should be added.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param boolean $add   Whether to add classes or not.
 	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
@@ -363,7 +366,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filter the plural events label for Featured V2 Views.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param string  $label   The plural events label as it's been generated thus far.
 	 * @param Context $context The context used to build the title, it could be the global one, or one externally
@@ -667,6 +670,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( $this->container->make( Template_Bootstrap::class )->is_single_event() ) {
 			$this->container->make( Template\Event::class )->manage_sensitive_info( $post );
 		}
+	}
+
+	/**
+	 * Include the promo banner after the after component.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @param string   $file     Complete path to include the PHP File.
+	 * @param array    $name     Template name.
+	 * @param Template $template Current instance of the Template.
+	 *
+	 * @return void  Template render has no return.
+	 */
+	public function action_add_promo_banner( $file, $name, $template ) {
+		$this->container->make( Template\Promo::class )->action_add_promo_banner( $file, $name, $template );
 	}
 
 	/**

@@ -245,7 +245,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				 */
 				add_filter( 'option_page_on_front', array( __CLASS__, 'default_page_on_front' ) );
 				// check option for including events in the main wordpress loop, if true, add events post type
-				if ( tribe_get_option( 'showEventsInMainLoop', false ) ) {
+				if ( tribe_get_option( 'showEventsInMainLoop', false ) && ! get_query_var( 'tribe_events_front_page' ) ) {
 					$query->query_vars['post_type']   = isset( $query->query_vars['post_type'] )
 						? ( array ) $query->query_vars['post_type']
 						: array( 'post' );
@@ -886,6 +886,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string
 		 */
 		public static function posts_orderby( $order_sql, $query ) {
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $order_sql;
+			}
+
 			global $wpdb;
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {

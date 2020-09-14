@@ -91,7 +91,7 @@ class Title {
 	 * injectable and controllable, in place of the global one.
 	 *
 	 * @since 4.9.10
-	 * @since TBD - Add filter for plural events label and move featured label to a method.
+	 * @since 5.1.5 - Add filter for plural events label and move featured label to a method.
 	 *
 	 * @param string $current_title Current Title used on the page.
 	 * @param bool   $depth         Whether to use depth to build the taxonomy archive title, or not.
@@ -105,7 +105,7 @@ class Title {
 		/**
 		 * Filter the plural Events label for Views Title.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param string  $events_label_plural The plural events label as it's been generated thus far.
 		 * @param Context $context             The context used to build the title, it could be the global one, or one externally

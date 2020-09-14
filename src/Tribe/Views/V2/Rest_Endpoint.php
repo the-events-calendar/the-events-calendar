@@ -153,11 +153,12 @@ class Rest_Endpoint {
 				 * Since WordPress 4.7 the REST API cannot be disabled completely.
 				 * The "disabling" happens by returning falsy or error values from the `rest_authentication_errors`
 				 * filter.
-				 * If that is the case we follow through and and do not authorize the callback.
+				 * If false or error, we follow through and and do not authorize the callback.
+				 * If null, the site is using alternate authentication such as SAML
 				 */
 				$auth = apply_filters( 'rest_authentication_errors', null );
 
-				return $auth
+				return ( $auth || is_null( $auth ) )
 				       && ! is_wp_error( $auth )
 				       && wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
 			},

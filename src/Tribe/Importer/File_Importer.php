@@ -264,20 +264,40 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Retrieves a value from the record.
 	 *
-	 * @param array   $record
-	 * @param  string $key
+	 * @since5.1.6 - modify to use has_value_by_key().
+	 *
+	 * @param array  $record An event record from the import.
+	 * @param string $key    The text of the key to find in the record array.
 	 *
 	 * @return mixed|string Either the value or an empty string if the value was not found.
 	 */
 	public function get_value_by_key( array $record, $key ) {
-		if ( ! isset( $this->inverted_map[ $key ] ) ) {
-			return '';
-		}
-		if ( ! isset( $record[ $this->inverted_map[ $key ] ] ) ) {
+		if ( ! $this->has_value_by_key( $record, $key ) ) {
 			return '';
 		}
 
 		return $record[ $this->inverted_map[ $key ] ];
+	}
+
+	/**
+	 * Check if a key is found.
+	 *
+	 * @since5.1.6
+	 *
+	 * @param array  $record An event record from the import.
+	 * @param string $key    The text of the key to find in the record array.
+	 *
+	 * @return bool Whether the key is found in the record.
+	 */
+	public function has_value_by_key( array $record, $key ) {
+		if ( ! isset( $this->inverted_map[ $key ] ) ) {
+			return false;
+		}
+		if ( ! isset( $record[ $this->inverted_map[ $key ] ] ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	protected function find_matching_post_id( $name, $post_type, $post_status = 'publish' ) {
