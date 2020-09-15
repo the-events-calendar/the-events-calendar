@@ -94,9 +94,14 @@ class Messages {
 				'There were no results found.',
 				'the-events-calendar'
 			),
-			'no_upcoming_events'               => __(
-				'There are no upcoming events.',
-				'the-events-calendar'
+			'no_upcoming_events'               => sprintf(
+			/* Translators: %1$s is the lowercase plural virtual event term. */
+				_x(
+					'There are no upcoming %1$s.',
+					'A message to indicate there are no upcoming events.',
+					'the-events-calendar'
+				),
+				tribe_get_event_label_plural_lowercase()
 			),
 			'month_no_results_found'           => __(
 				'There were no results found for this view.',
