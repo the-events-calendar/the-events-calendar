@@ -465,9 +465,7 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
-		$message_key = $this->is_default_date() && tribe_events()->where( 'starts_after', 'now' )->found() === 0
-			? 'no_upcoming_events'
-			: 'no_results_found';
+		$message_key = $this->upcoming_events_count() ? 'no_results_found' : 'no_upcoming_events';
 		$this->messages->insert(
 			Messages::TYPE_NOTICE,
 			Messages::for_key( $message_key ),

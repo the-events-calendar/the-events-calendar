@@ -1772,9 +1772,7 @@ class View implements View_Interface {
 			if ( $keyword ) {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
 			} else {
-				$message_key = $this->is_default_date() && tribe_events()->where( 'starts_after', 'now' )->found() === 0
-					? 'no_upcoming_events'
-					: 'no_results_found';
+				$message_key = $this->upcoming_events_count() ? 'no_results_found' : 'no_upcoming_events';
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key ) );
 			}
 		}
@@ -2248,16 +2246,15 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * Returns whether the date requested by this View Context is the default one for the view or not.
+	 * Returns the number of upcoming events in relation to the "now" time.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the date requested by this View Context is the default one for the view or not.
+	 * @return int The number of upcoming events from "now".
 	 */
-	protected function is_default_date(): bool {
-		$now           = Dates::build_date_object();
-		$default_dates = [ 'today', 'now', $now->format( 'Y-m' ), $now->format( 'Y-m-d' ) ];
+	protected function upcoming_events_count() {
+		$from_date = tribe_beginning_of_day( $this->context->get( 'now', date( 'Y-m-d H:i:s' ) ) );
 
-		return in_array( $this->context->get( 'event_date', 'today' ), $default_dates, true );
+		return (int) tribe_events()->where( 'starts_after', $from_date )->found();
 	}
 }
