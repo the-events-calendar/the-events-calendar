@@ -1772,7 +1772,8 @@ class View implements View_Interface {
 			if ( $keyword ) {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
 			} else {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+				$message_key = $this->upcoming_events_count() ? 'no_results_found' : 'no_upcoming_events';
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key ) );
 			}
 		}
 	}
@@ -2242,5 +2243,19 @@ class View implements View_Interface {
 			$latest_past_view->set_context( $this->context );
 			$latest_past_view->add_view_filters();
 		}
+	}
+
+	/**
+	 * Returns the number of upcoming events in relation to the "now" time.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The number of upcoming events from "now".
+	 */
+	protected function upcoming_events_count() {
+		$now       = $this->context->get( 'now', Dates::build_date_object()->format( 'Y-m-d H:i:s' ) );
+		$from_date = tribe_beginning_of_day( $now );
+
+		return (int) tribe_events()->where( 'starts_after', $from_date )->found();
 	}
 }
