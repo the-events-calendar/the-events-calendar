@@ -251,10 +251,10 @@ class Day_View extends View {
 				return;
 			}
 
-			$this->messages->insert(
-				Messages::TYPE_NOTICE,
-				Messages::for_key( 'day_no_results_found', $date_label )
-			);
+			$message_key = $this->is_default_date() && $this->repository->where( 'starts_after', 'now' )->found() === 0
+				? 'no_upcoming_events'
+				: 'day_no_results_found';
+			$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key, $date_label ) );
 		}
 	}
 

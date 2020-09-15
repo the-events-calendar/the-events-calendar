@@ -91,6 +91,10 @@ class Messages {
 	public static function for_key( $key, ...$values ) {
 		$map = [
 			'no_results_found'                 => __(
+				'There were no results found.',
+				'the-events-calendar'
+			),
+			'no_upcoming_events'                 => __(
 				'There are no upcoming events.',
 				'the-events-calendar'
 			),
