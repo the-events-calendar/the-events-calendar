@@ -2253,7 +2253,8 @@ class View implements View_Interface {
 	 * @return int The number of upcoming events from "now".
 	 */
 	protected function upcoming_events_count() {
-		$from_date = tribe_beginning_of_day( $this->context->get( 'now', date( 'Y-m-d H:i:s' ) ) );
+		$now       = $this->context->get( 'now', Dates::build_date_object()->format( 'Y-m-d H:i:s' ) );
+		$from_date = tribe_beginning_of_day( $now );
 
 		return (int) tribe_events()->where( 'starts_after', $from_date )->found();
 	}
