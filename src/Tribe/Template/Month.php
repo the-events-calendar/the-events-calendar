@@ -460,7 +460,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			elseif ( ! empty( $tax_term ) ) {
 				Tribe__Notices::set_notice( 'events-not-found', sprintf( esc_html__( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'the-events-calendar' ), $events_label_plural_lowercase, $tax_term ) );
 			} else {
-				Tribe__Notices::set_notice( 'event-search-no-results', esc_html__( 'There are no upcoming events.', 'the-events-calendar' ) );
+				Tribe__Notices::set_notice( 'event-search-no-results', esc_html__( 'There were no results found.', 'the-events-calendar' ) );
 			}
 		}
 
