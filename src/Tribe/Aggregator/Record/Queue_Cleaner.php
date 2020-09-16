@@ -114,7 +114,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		$since_creation = $now - $created;
 		$pending_for = $now - $last_updated;
 
-		if ( $pending_for > $this->stall_limit || $since_creation > $this->time_to_live ) {
+		if ( $pending_for > $this->get_stall_limit() || $since_creation > $this->get_time_to_live() ) {
 			tribe( 'logger' )->log_debug( "Record {$record->id} has stalled for too long: deleting it and its queue information", 'Queue_Cleaner' );
 			$failed = Tribe__Events__Aggregator__Records::$status->failed;
 			wp_update_post( array( 'ID' => $id, 'post_status' => $failed ) );
@@ -125,6 +125,15 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		}
 
 		return false;
+	}
+
+	public function set_time_to_live( $time_to_live ) {
+		$this->time_to_live = (int) $time_to_live;
+		return $this;
+	}
+
+	public function get_time_to_live() {
+		return $this->time_to_live;
 	}
 
 	/**
@@ -143,5 +152,6 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 */
 	public function set_stall_limit( $stall_limit ) {
 		$this->stall_limit = $stall_limit;
+		return $this;
 	}
 }
