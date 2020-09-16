@@ -205,10 +205,9 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 		$version                 = $service->api['version'];
 		$service->api['version'] = 'v2.0.0';
 
-		// TODO: Filter the body before delivering to EA.
 		$body = [
-			'batch_size'       => 10,
-			'batch_interval'   => 10,
+			'batch_size'       => apply_filters( 'event_aggregator_event_batch_size', 10 ),
+			'batch_interval'   => apply_filters( 'event_aggregator_event_batch_interval', 10 ),
 			'tec_version'      => Tribe__Events__Main::VERSION,
 			'next_import_hash' => $this->record->meta['next_batch_hash'],
 			'api'              => get_rest_url( get_current_blog_id(), 'tribe/event-aggregator/v1' ),
