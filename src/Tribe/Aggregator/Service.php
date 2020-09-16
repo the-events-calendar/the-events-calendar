@@ -210,7 +210,8 @@ class Tribe__Events__Aggregator__Service {
 			return $response;
 		}
 
-		if ( 403 == wp_remote_retrieve_response_code( $response ) ) {
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( 403 === $code ) {
 			return new WP_Error(
 				'core:aggregator:request-denied',
 				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.', 'the-events-calendar' )
@@ -218,7 +219,7 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		// we know it is not a 404 or 403 at this point
-		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
+		if ( $code >= 300 || $code < 200 ) {
 			return new WP_Error(
 				'core:aggregator:bad-response',
 				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
@@ -279,7 +280,8 @@ class Tribe__Events__Aggregator__Service {
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
 
 		// we know it is not a 404 or 403 at this point
-		if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( $code >= 300 || $code < 200 ) {
 			return new WP_Error(
 				'core:aggregator:bad-response',
 				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
