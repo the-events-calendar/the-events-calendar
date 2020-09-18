@@ -765,11 +765,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 			$error = $response;
 
+			tribe( 'logger' )->log_debug( "Error during the queue of the record.", 'EA Queue Import' );
+
 			return $this->set_status_as_failed( $error );
 		}
 
 		// if the Aggregator response has an unexpected format, set this record as failed
 		if ( empty( $response->message_code ) ) {
+			tribe( 'logger' )->log_debug( 'Response code is empty.', 'EA Abstract' );
+
 			return $this->set_status_as_failed( tribe_error( 'core:aggregator:invalid-service-response' ) );
 		}
 
@@ -789,11 +793,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$data
 			);
 
+			tribe( 'logger' )->log_debug( "Error when the creation of the import is taking place.", 'EA Queue Import' );
+
 			return $this->set_status_as_failed( $error );
 		}
 
 		// if the Import creation didn't provide an import id, the response was invalid so mark as failed
 		if ( empty( $response->data->import_id ) ) {
+			tribe( 'logger' )->log_debug( 'Response import ID was not provided.', 'EA Abstract' );
+
 			return $this->set_status_as_failed( tribe_error( 'core:aggregator:invalid-service-response' ) );
 		}
 
@@ -1271,6 +1279,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
+			tribe( 'logger' )->log_debug( "Error while preparing the items of the request.", 'EA Process Posts.' );
+
 			$this->set_status_as_failed( $items );
 			return $items;
 		}
@@ -1335,6 +1345,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( is_wp_error( $data ) ) {
+			tribe( 'logger' )->log_debug( "Data of the import has errors.", 'EA Prepare Import' );
+
 			$this->set_status_as_failed( $data );
 			return $data;
 		}
