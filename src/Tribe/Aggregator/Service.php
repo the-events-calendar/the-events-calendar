@@ -277,7 +277,7 @@ class Tribe__Events__Aggregator__Service {
 
 		// if not timeout was set we pass it as 15 seconds
 		if ( ! isset( $args['timeout'] ) ) {
-			$args['timeout'] = 15;
+			$args['timeout'] = 30;
 		}
 
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
