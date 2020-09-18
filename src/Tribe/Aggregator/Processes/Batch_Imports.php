@@ -3,7 +3,7 @@
 class Tribe__Events__Aggregator__Processes__Batch_Imports {
 	public function hook() {
 		add_filter( 'tribe_events_aggregator_build_url', [ $this, 'build_url' ], 10, 3 );
-
+		add_filter( 'tribe_aggregator_service_post_import_args', [ $this, 'import_args' ], 10, 2 );
 		add_filter( 'tribe_aggregator_allow_batch_push', [ $this, 'allow_batch_import' ], 10, 2 );
 	}
 
@@ -46,5 +46,24 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Update the args used for imports.
+	 *
+	 * TODO: Update EventBrite to use batch pushing to deliver events instead.
+	 *
+	 * @param $args
+	 * @param $record
+	 *
+	 * @return mixed
+	 */
+	public function import_args( $args, $record ) {
+		if ( isset( $args['callback'] ) ) {
+			$args['callback'] = null;
+		}
+
+		return $args;
 	}
 }
