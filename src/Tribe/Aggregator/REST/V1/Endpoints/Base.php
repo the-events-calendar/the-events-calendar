@@ -55,7 +55,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	 * @return bool
 	 */
 	public function is_valid_interval( $interval ) {
-		return is_numeric( $interval ) && $interval >= $this->interval_min && $interval <= $this->interval_max;
+		return is_numeric( $interval );
 	}
 
 	/**
