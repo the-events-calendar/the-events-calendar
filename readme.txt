@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Adjust spacing on header to prevent screen overflow. [FBAR-132]
 * Tweak - Adjust aria attributes and add loader text to make ajax loading more accessible. [FBAR-147]
 * Tweak - Add the `tribe_events_latest_past_view_display_template` filter to allow controlling the display of templates  in the context of the Latest Past Events View. [FBAR-148]
+* Tweak - Allow passing of additional data to the AJAX request by use of container data. [FBAR-162]
 
 = [5.1.6] 2020-08-24 =
 
