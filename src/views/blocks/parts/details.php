@@ -152,7 +152,7 @@ $website = tribe_get_event_website_link();
 				'sep'          => ', ',
 				'after'        => '',
 				'label'        => null, // An appropriate plural/singular label will be provided
-				'label_before' => '<dt>',
+				'label_before' => '<dt class="tribe-events-event-categories-label">',
 				'label_after'  => '</dt>',
 				'wrap_before'  => '<dd class="tribe-events-event-categories">',
 				'wrap_after'   => '</dd>',
