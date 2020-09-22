@@ -9,15 +9,14 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 4.9.10
+ * @version TBD
  *
  */
 ?>
 <button
 	class="tribe-events-c-events-bar__search-button"
-	aria-controls="tribe-events-search-filter-container"
+	aria-controls="tribe-events-search-container"
 	aria-expanded="false"
-	aria-selected="false"
 	data-js="tribe-events-search-button"
 >
 	<?php $this->template( 'components/events-bar/search-button/icon' ); ?>

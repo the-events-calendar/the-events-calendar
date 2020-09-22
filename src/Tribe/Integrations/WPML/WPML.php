@@ -52,7 +52,7 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 	protected function hook_filters() {
 		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
-		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 10, 3 );
+		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', array( $filters, 'filter_tribe_events_rewrite_i18n_slugs_raw' ), 100, 3 );
 
 		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
 		add_filter( 'tribe_events_linked_posts_query', array( $linked_posts, 'filter_tribe_events_linked_posts_query' ), 10, 2 );
@@ -78,7 +78,10 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		if ( ! is_admin() ) {
 			$category_translation = Tribe__Events__Integrations__WPML__Category_Translation::instance();
-			add_filter( 'tribe_events_category_slug', array( $category_translation, 'filter_tribe_events_category_slug' ), 20, 2 );
+			add_filter( 'tribe_events_category_slug', [ $category_translation, 'filter_tribe_events_category_slug' ], 20, 2 );
+
+			$option = Tribe__Events__Integrations__WPML__Option::instance();
+			add_filter( 'tribe_get_single_option', [ $option, 'translate' ], 20, 3 );
 		}
 	}
 
