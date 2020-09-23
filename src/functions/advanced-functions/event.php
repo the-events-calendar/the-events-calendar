@@ -136,9 +136,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool false if delete failed.
 	 */
 	function tribe_delete_event( $postId, $force_delete = false ) {
-		$success = Tribe__Events__API::deleteEvent( $postId, $force_delete );
-
-		return $success;
+		return Tribe__Events__API::deleteEvent( $postId, $force_delete );
 	}
 
 }
