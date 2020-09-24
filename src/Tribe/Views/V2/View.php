@@ -2248,7 +2248,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the number of upcoming events in relation to the "now" time.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return int The number of upcoming events from "now".
 	 */
