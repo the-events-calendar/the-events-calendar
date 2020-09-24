@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.2.0] TBD =
+= [5.2.0] 2020-09-28 =
 
 * Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454]
 * Fix - Fix a compatibility issue with the WPML plugin that would prevent some options from being translated correctly. [TEC-3454]
@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Adjust aria attributes and add loader text to make ajax loading more accessible. [FBAR-147]
 * Tweak - Add the `tribe_events_latest_past_view_display_template` filter to allow controlling the display of templates  in the context of the Latest Past Events View. [FBAR-148]
 * Tweak - Allow passing of additional data to the AJAX request by use of container data. [FBAR-162]
+* Language - 2 new strings added, 20 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.1.6] 2020-08-24 =
 
