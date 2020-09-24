@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.2.0] TBD =
+= [5.2.0] 2020-09-28 =
 
 * Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454]
 * Fix - Fix a compatibility issue with the WPML plugin that would prevent some options from being translated correctly. [TEC-3454]
