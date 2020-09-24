@@ -224,7 +224,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.2.0] 2020-09-28 =
 
-* Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454]
+* Fix - Fix the order of the List View when the PRO is set to show only the first instance of a Recurring Event. [ECP-467]
+* Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454, TEC-3578]
 * Fix - Fix a compatibility issue with the WPML plugin that would prevent some options from being translated correctly. [TEC-3454]
 * Fix - Generation and usage of translated strings that would cause issues with the WPML plugin. [TEC-3454]
 * Tweak - Use the `border-small` class for the today button, add new border button styles to customizer. [FBAR-143]
