@@ -420,7 +420,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				// for the purpose of finding duplicates we skip empty fields
 				$candidate_data = array_filter( $postdata );
 
-				// Set the $post_title to avoid returning false for lack of $post_fields.
+				// Set the $post_title to avoid returning false for lack of a post title.
 				if ( ! isset( $candidate_data['post_title'] ) ) {
 					$candidate_data['post_title'] = '';
 				}
