@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.2.0
  *
  * @var bool $display_events_bar   Boolean on whether to display the events bar.
  * @var bool $disable_event_search Boolean on whether to disable the event search.
