@@ -1,0 +1,4 @@
+actor: Views_widgetsTester
+modules:
+    enabled:
+        - \Helper\Views_widgets
