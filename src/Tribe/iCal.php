@@ -90,7 +90,7 @@ class Tribe__Events__iCal {
 		 * If the url contains "now" for the date, replace it with the current year-month.
 		 * Make sure we don't replace if it is part of another word - check for slashes.
 		 */
-		$url = str_replace( '/now/', '/' . date( 'Y-m' ) . '/', $url );
+		$url = str_replace( '/now/', '/' . gmdate( 'Y-m' ) . '/', $url );
 
 		return add_query_arg( [ 'ical' => 1 ], $url );
 	}
