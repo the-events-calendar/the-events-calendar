@@ -1407,7 +1407,7 @@ class View implements View_Interface {
 		);
 
 		/** @var Rest_Endpoint $endpoint */
-		$endpoint      = tribe( Rest_Endpoint::class );
+		$endpoint = tribe( Rest_Endpoint::class );
 
 		$template_vars = [
 			'title'                => $this->get_title( $events ),

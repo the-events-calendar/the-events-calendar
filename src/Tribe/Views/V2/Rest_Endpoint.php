@@ -216,7 +216,7 @@ class Rest_Endpoint {
 	 * @return Request The mocked request.
 	 */
 	public function get_mocked_rest_request( array $params ) {
-		$request = new Request( 'POST', static::ROOT_NAMESPACE . '/html' );
+		$request   = new Request( 'POST', static::ROOT_NAMESPACE . '/html' );
 		$arguments = $this->get_request_arguments();
 
 		foreach ( $params as $key => $value ) {
@@ -250,7 +250,7 @@ class Rest_Endpoint {
 	 */
 	public function handle_ajax_request() {
 		// Use the POST method data, if set; else fallback on the GET data.
-		$source = isset( $_POST ) ? $_POST : $_GET;
+		$source  = isset( $_POST ) ? $_POST : $_GET;
 		$request = $this->get_mocked_rest_request( $source );
 		if ( is_wp_error( $request ) ) {
 			/**
