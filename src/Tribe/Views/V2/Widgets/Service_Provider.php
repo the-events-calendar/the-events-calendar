@@ -49,11 +49,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 *
+	 * Add the widgets to register with WordPress.
 	 *
 	 * @since TBD
 	 *
-	 * @param $widgets
+	 * @param array $widgets An array of widget classes to register.
 	 *
 	 * @return mixed
 	 */

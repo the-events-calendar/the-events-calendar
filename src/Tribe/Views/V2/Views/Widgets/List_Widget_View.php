@@ -13,7 +13,14 @@ use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 use Tribe__Utils__Array as Arr;
 
-class List_View extends View {
+/**
+ * Class List_Widget_View
+ *
+ * @since   TBD
+ *
+ * @package Tribe\Events\Views\V2\Views\Widgets
+ */
+class List_Widget_View extends View {
 	use List_Behavior;
 	/**
 	 * Slug for this view
