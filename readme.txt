@@ -222,6 +222,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+* Fix - Correct url for current month iCal export link. [TEC-3575]
+
 = [5.2.0] 2020-09-28 =
 
 * Fix - Fix the order of the List View when the PRO is set to show only the first instance of a Recurring Event. [ECP-467]
