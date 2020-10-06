@@ -84,8 +84,15 @@ class Tribe__Events__iCal {
 	 */
 	public function month_view_ical_link( $event_date = null ) {
 		$tec = Tribe__Events__Main::instance();
+		$url = $tec->getLink( 'month', $event_date );
 
-		return add_query_arg( [ 'ical' => 1 ], $tec->getLink( 'month', $event_date ) );
+		/*
+		 * If the url contains "now" for the date, replace it with the current year-month.
+		 * Make sure we don't replace if it is part of another word - check for slashes.
+		 */
+		$url = str_replace( '/now/', '/' . date( 'Y-m' ) . '/', $url );
+
+		return add_query_arg( [ 'ical' => 1 ], $url );
 	}
 
 	/**
