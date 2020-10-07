@@ -68,13 +68,13 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * @todo
+	 * Add the widget views to the view manager.
 	 *
 	 * @since TBD
 	 *
-	 * @param $views
+	 * @param array<string,string> $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 	 *
-	 * @return mixed
+	 * @return array<string,string> $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 	 */
 	public function add_views( $views ) {
 		$views['widget-list'] = Widget_List_View::class;

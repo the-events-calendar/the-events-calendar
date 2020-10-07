@@ -60,6 +60,8 @@ class Widget_List extends Widget_Abstract {
 	];
 
 	/**
+	 * @todo update in TEC-3612 & TEC-3613
+	 *
 	 * {@inheritDoc}
 	 */
 	protected $validate_arguments_map = [
@@ -84,7 +86,7 @@ class Widget_List extends Widget_Abstract {
 	public function get_arguments() {
 		$arguments = $this->arguments;
 
-		$arguments['description']                   = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
+		$arguments['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
 		// todo update name once this widget is ready to replace the existing list widget.
 		$arguments['name']                          = esc_html__( 'Events List V2', 'the-events-calendar' );
 		$arguments['widget_options']['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
