@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, Camwyn, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
@@ -222,9 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.2.0] TBD =
+= [5.2.0] 2020-09-28 =
 
-* Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454]
+* Fix - Fix the order of the List View when the PRO is set to show only the first instance of a Recurring Event. [ECP-467]
+* Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454, TEC-3578]
 * Fix - Fix a compatibility issue with the WPML plugin that would prevent some options from being translated correctly. [TEC-3454]
 * Fix - Generation and usage of translated strings that would cause issues with the WPML plugin. [TEC-3454]
 * Tweak - Use the `border-small` class for the today button, add new border button styles to customizer. [FBAR-143]
@@ -233,6 +234,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Adjust spacing on header to prevent screen overflow. [FBAR-132]
 * Tweak - Adjust aria attributes and add loader text to make ajax loading more accessible. [FBAR-147]
 * Tweak - Add the `tribe_events_latest_past_view_display_template` filter to allow controlling the display of templates  in the context of the Latest Past Events View. [FBAR-148]
+* Tweak - Allow passing of additional data to the AJAX request by use of container data. [FBAR-162]
+* Language - 2 new strings added, 20 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.1.6] 2020-08-24 =
 

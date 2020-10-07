@@ -191,7 +191,7 @@ class Latest_Past_View extends View {
 		/**
 		 * Filters whether a specific template should show in the context of the Latest Past Events View or not.
 		 *
-		 * @since TBD
+		 * @since 5.2.0
 		 *
 		 * @param bool   $display Whether a specified template should display or not.
 		 * @param string $name    The template name.

@@ -2216,7 +2216,7 @@ class View implements View_Interface {
 		// Flatten Views such as Month and Week that have an array values.
 		$first_value = reset( $events );
 		if ( is_array( $first_value ) ) {
-			$events = array_unique( array_merge( ...array_values( $events ) ) );
+			$events = array_unique( array_merge( ...array_values( $events ) ), SORT_REGULAR );
 		}
 
 		/**
@@ -2248,7 +2248,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the number of upcoming events in relation to the "now" time.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return int The number of upcoming events from "now".
 	 */
