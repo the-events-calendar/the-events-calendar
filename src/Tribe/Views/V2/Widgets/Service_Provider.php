@@ -8,6 +8,9 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
+use Tribe\Events\Views\V2\Views\Widgets\List_Widget_View;
+use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
+
 /**
  * Class Service_Provider
  *
@@ -45,7 +48,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function hook() {
-		add_filter( 'tribe_widgets', [ $this, 'add_widgets' ] );
+		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
+		add_filter( 'tribe_events_views', [ $this, 'add_views' ] );
 	}
 
 	/**
@@ -57,9 +61,24 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return mixed
 	 */
-	public function add_widgets( $widgets ) {
-		$widgets['tribe_events_list_widget'] = List_Widget::class;
+	public function register_widget( $widgets ) {
+		$widgets['tribe_events_list_widget'] = Widget_List::class;
 
 		return $widgets;
+	}
+
+	/**
+	 * @todo
+	 *
+	 * @since TBD
+	 *
+	 * @param $views
+	 *
+	 * @return mixed
+	 */
+	public function add_views( $views ) {
+		$views['widget-list'] = Widget_List_View::class;
+
+		return $views;
 	}
 }

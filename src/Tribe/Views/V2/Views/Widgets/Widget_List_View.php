@@ -20,8 +20,8 @@ use Tribe__Utils__Array as Arr;
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  */
-class List_Widget_View extends View {
-	use List_Behavior;
+class Widget_List_View extends View {
+
 	/**
 	 * Slug for this view
 	 *
@@ -29,7 +29,7 @@ class List_Widget_View extends View {
 	 *
 	 * @var string
 	 */
-	protected $slug = 'list-widget';
+	protected $slug = 'widget-list';
 
 	/**
 	 * Visibility for this view.
@@ -38,7 +38,16 @@ class List_Widget_View extends View {
 	 *
 	 * @var bool
 	 */
-	protected static $publicly_visible = true;
+	protected static $publicly_visible = false;
+
+	/**
+	 * Whether the View should display the events bar or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected $display_events_bar = false;
 
 	/**
 	 * {@inheritDoc}
