@@ -40,7 +40,7 @@ class Latest_Past_View extends View {
 	 *
 	 * @var array
 	 */
-	protected $whitelist = [
+	protected $safelist = [
 		// Standard View Components.
 		'components/loader',
 		'components/json-ld-data',
@@ -123,6 +123,9 @@ class Latest_Past_View extends View {
 		'latest-past/event/cost',
 		'latest-past/event/date-tag',
 		'latest-past/event/date/meta',
+
+		// Add-ons.
+		'components/filter-bar',
 	];
 
 	/**
@@ -154,7 +157,6 @@ class Latest_Past_View extends View {
 	 * @since 5.1.0
 	 */
 	public function add_view_filters() {
-
 		add_filter( 'tribe_template_html:events/v2/components/messages', [ $this, 'filter_template_done' ] );
 		add_filter( 'tribe_template_html:events/v2/components/ical-link', [ $this, 'add_view' ] );
 	}
@@ -166,8 +168,7 @@ class Latest_Past_View extends View {
 	 * @since 5.1.0
 	 */
 	public function filter_template_done( $html ) {
-
-		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_whitelist' ], 10, 4 );
+		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_safelist' ], 10, 4 );
 
 		return $html;
 	}
@@ -184,9 +185,22 @@ class Latest_Past_View extends View {
 	 *
 	 * @return string
 	 */
-	public function filter_template_display_by_whitelist( $done, $name, $context, $echo ) {
+	public function filter_template_display_by_safelist( $done, $name, $context, $echo ) {
+		$display = in_array( $name, $this->safelist, true );
 
-		if ( in_array( $name, $this->whitelist, true ) ) {
+		/**
+		 * Filters whether a specific template should show in the context of the Latest Past Events View or not.
+		 *
+		 * @since 5.2.0
+		 *
+		 * @param bool   $display Whether a specified template should display or not.
+		 * @param string $name    The template name.
+		 * @param array  $context The data context for this template inclusion.
+		 * @param bool   $echo    Whether the template inclusion is attempted to then echo to the page, or not.
+		 */
+		$display = apply_filters( 'tribe_events_latest_past_view_display_template', $display, $name, $context, $echo );
+
+		if ( $display ) {
 			return $done;
 		}
 

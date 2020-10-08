@@ -89,7 +89,7 @@ class I18n {
 	 *
 	 * @return array<array<string>> A multi level array with the possible translations for the given strings
 	 */
-	public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US', $flags = null ) {
+	public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US', $flags = 7 ) {
 		$domains = wp_parse_args(
 			$domains,
 			[
@@ -126,7 +126,7 @@ class I18n {
 	 *
 	 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
 	 */
-	public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ), $flags = null ) {
+	public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ), $flags = 7 ) {
 		sort( $languages );
 		$strings_buffer = [ $strings ];
 
@@ -184,6 +184,17 @@ class I18n {
 		add_filter( 'locale', $force_locale );
 		$result = $do( ...$args );
 		remove_filter( 'locale', $force_locale );
+
+		foreach ( (array) $args[1] as $domain => $file ) {
+			// Reload it with the correct language.
+			unload_textdomain( $domain );
+
+			if ( 'default' === $domain ) {
+				load_default_textdomain();
+			} else {
+				Common::instance()->load_text_domain( $domain, $file );
+			}
+		}
 
 		// Restore the `locale` filtering functions.
 		$wp_filter['locale'] = $locale_filters_backup;
@@ -270,15 +281,6 @@ class I18n {
 						$strings[ $key ][] = __( ucfirst( $value ), $domain );
 					}
 				}
-			}
-
-			// Reload it with the correct language.
-			unload_textdomain( $domain );
-
-			if ( 'default' === $domain ) {
-				load_default_textdomain();
-			} else {
-				Common::instance()->load_text_domain( $domain, $file );
 			}
 		}
 
