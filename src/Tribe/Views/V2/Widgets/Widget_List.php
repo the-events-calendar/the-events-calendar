@@ -22,16 +22,22 @@ class Widget_List extends Widget_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @var string
 	 */
 	protected $slug = 'tribe_events_list_widget';
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @var string
 	 */
 	protected $view_slug = 'widget-list';
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @var array<string,mixed>
 	 */
 	protected $default_arguments = [
 		// View options.
@@ -64,6 +70,8 @@ class Widget_List extends Widget_Abstract {
 	 * @todo update in TEC-3612 & TEC-3613
 	 *
 	 * {@inheritDoc}
+	 *
+	 * @var array<string,mixed>
 	 */
 	protected $validate_arguments_map = [
 		'should_manage_url'    => 'tribe_is_truthy',

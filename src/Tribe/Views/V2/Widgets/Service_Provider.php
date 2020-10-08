@@ -3,7 +3,6 @@
  * The main service provider for the version 2 of the Widgets.
  *
  * @since   TBD
-
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
