@@ -3,12 +3,12 @@
  * The main service provider for the version 2 of the Widgets.
  *
  * @since   TBD
+ *
  * @package Tribe\Events\Views\V2\Widgets
  */
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe\Events\Views\V2\Views\Widgets\List_Widget_View;
 use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
 
 /**
@@ -25,7 +25,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string>
 	 */
 	private $widgets = [
 		'tribe_events_list_widget',
@@ -57,7 +57,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $widgets An array of widget classes to register.
+	 * @param array<string,string> $widgets An array of widget classes to register.
 	 *
 	 * @return mixed
 	 */

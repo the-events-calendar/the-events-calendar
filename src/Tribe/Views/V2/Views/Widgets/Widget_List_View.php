@@ -10,7 +10,6 @@ namespace Tribe\Events\Views\V2\Views\Widgets;
 
 use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
-use Tribe__Utils__Array as Arr;
 
 /**
  * Class List_Widget_View
@@ -55,19 +54,12 @@ class Widget_List_View extends View {
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
-	 * @return array The arguments, ready to be set on the View repository instance.
+	 * @return array<string,mixed> The arguments, ready to be set on the View repository instance.
 	 */
 	protected function setup_repository_args( Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		$args = parent::setup_repository_args( $context );
-
-		$context_arr = $context->to_array();
-
-		$date = Arr::get( $context_arr, 'event_date', 'now' );
-
-		$args['ends_after'] = $date;
-		$args['order']      = 'ASC';
 
 		return $args;
 	}
@@ -77,7 +69,7 @@ class Widget_List_View extends View {
 	 *
 	 * @since TBD
 	 *
-	 * @return array The List View template vars, modified if required.
+	 * @return array<string,mixed> The List View template vars, modified if required.
 	 */
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
