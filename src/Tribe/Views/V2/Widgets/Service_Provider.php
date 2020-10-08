@@ -3,6 +3,7 @@
  * The main service provider for the version 2 of the Widgets.
  *
  * @since   TBD
+ 
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -21,7 +22,7 @@ use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	/**
-	 * Variable that holds the name of the widgets being created
+	 * Variable that holds the name of the widgets being created.
 	 *
 	 * @since TBD
 	 *
@@ -33,6 +34,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
+	 *
+	 * @since TBD
 	 */
 	public function register() {
 		if ( ! tribe_events_views_v2_is_enabled() ) {
@@ -72,9 +75,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,string> $views An associative  array of views in the shape `[ <slug> => <class> ]`.
+	 * @param array<string,string> $views An associative array of views in the shape `[ <slug> => <class> ]`.
 	 *
-	 * @return array<string,string> $views An associative  array of views in the shape `[ <slug> => <class> ]`.
+	 * @return array<string,string> $views The modified array of views in the shape `[ <slug> => <class> ]`.
 	 */
 	public function add_views( $views ) {
 		$views['widget-list'] = Widget_List_View::class;

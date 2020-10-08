@@ -21,7 +21,7 @@ use Tribe__Context as Context;
 class Widget_List_View extends View {
 
 	/**
-	 * Slug for this view
+	 * The slug for this view.
 	 *
 	 * @since TBD
 	 *

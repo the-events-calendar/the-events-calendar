@@ -2,8 +2,9 @@
 /**
  * List Widget
  *
- * @package Tribe\Events\Views\V2\Widgets
  * @since   TBD
+ *
+ * @package Tribe\Events\Views\V2\Widgets
  */
 
 namespace Tribe\Events\Views\V2\Widgets;
