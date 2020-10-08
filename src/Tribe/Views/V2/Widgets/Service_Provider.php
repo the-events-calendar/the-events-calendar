@@ -3,7 +3,7 @@
  * The main service provider for the version 2 of the Widgets.
  *
  * @since   TBD
- 
+
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -62,7 +62,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param array<string,string> $widgets An array of widget classes to register.
 	 *
-	 * @return mixed
+	 * @return array<string,string> An array of registered widget classes.
 	 */
 	public function register_widget( $widgets ) {
 		$widgets['tribe_events_list_widget'] = Widget_List::class;
