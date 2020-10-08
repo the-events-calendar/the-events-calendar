@@ -11,7 +11,7 @@ namespace Tribe\Events\Views\V2\Widgets;
 use Tribe\Widget\Widget_Abstract;
 
 /**
- * Class for List Widget.
+ * Class for the List Widget.
  *
  * @since   TBD
  *
@@ -87,7 +87,7 @@ class Widget_List extends Widget_Abstract {
 		$arguments = $this->arguments;
 
 		$arguments['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
-		// todo update name once this widget is ready to replace the existing list widget.
+		// @todo update name once this widget is ready to replace the existing list widget.
 		$arguments['name']                          = esc_html__( 'Events List V2', 'the-events-calendar' );
 		$arguments['widget_options']['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
 
