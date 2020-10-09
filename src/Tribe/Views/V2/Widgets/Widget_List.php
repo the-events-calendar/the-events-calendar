@@ -9,8 +9,6 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe\Widget\Widget_Abstract;
-
 /**
  * Class for the List Widget.
  *
