@@ -65,6 +65,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
+
+		add_action( 'parse_request', [ $this, 'parse_request' ] );
 	}
 
 	/**
@@ -115,6 +117,29 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
+	}
+
+	/**
+	 * @todo: add docblock and revise this method.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP $req
+	 * @return void
+	 */
+	public function parse_request( $req ) {
+
+		if ( empty( $req->query_vars[ TEC::TAXONOMY ] )  ) {
+			return;
+		}
+
+		if ( ! is_array( $req->query_vars[ TEC::TAXONOMY ] )  ) {
+			return;
+		}
+
+		$categories = $req->query_vars[ TEC::TAXONOMY ];
+		unset( $req->query_vars[ TEC::TAXONOMY ] );
+
 	}
 
 	/**
@@ -552,7 +577,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since  4.9.13
 	 *
-	 * @param  array $fields  Fields that were passed for the Settigns tab.
+	 * @param  array $fields  Fields that were passed for the Settings tab.
 	 *
 	 * @return array          Fields after changing the tooltip.
 	 */
@@ -571,7 +596,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since  4.9.13
 	 *
-	 * @param array $plugins List of plugisn to be checked.
+	 * @param array $plugins List of plugins to be checked.
 	 *
 	 * @return array
 	 */
@@ -833,7 +858,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-full',
 		];
 
-		// Unenqueue legacy sheets.
+		// Dequeue legacy sheets.
 		$keys = array_keys( $sheets, 'tribe-events-calendar-style' );
 		if ( ! empty( $keys ) ) {
 			foreach ( $keys as $key ) {

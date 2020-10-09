@@ -101,6 +101,9 @@ class List_ViewTest extends ViewTestCase {
 		$this->assertMatchesSnapshot( $html );
 	}
 
+	// @todo test render with one category
+	// @todo test render with two categories
+
 	public function today_url_data_sets() {
 		$event_dates    = [
 			'lt' => '2019-02-01',

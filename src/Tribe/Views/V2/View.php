@@ -336,7 +336,9 @@ class View implements View_Interface {
 					$not_overridable_params
 				)
 			);
-
+			bdump(
+				$params
+			);
 		/** @var View $view */
 		$view = static::make( $slug, $context );
 
@@ -1146,7 +1148,20 @@ class View implements View_Interface {
 
 		// Set's up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
-			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+			if ( ! is_array( $context_arr[ TEC::TAXONOMY ] ) ) {
+				$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
+			} else {
+				if ( empty( $args['tax_query'] ) ) {
+					$args['tax_query'] = [];
+				}
+
+				$args['tax_query'][] = [
+					'taxonomy' => TEC::TAXONOMY,
+					'field'    => 'slug',
+					'terms'    => $context_arr[ TEC::TAXONOMY ]
+				];
+			}
+
 		}
 
 		if ( ! empty( $context_arr['event_category'] ) ) {
@@ -1849,19 +1864,27 @@ class View implements View_Interface {
 		$taxonomy    = TEC::TAXONOMY;
 		$context_tax = $context->get( $taxonomy, false );
 
-		// Get term slug if taxonomy is not empty
+		// Get term slug if taxonomy is not empty.
 		if ( ! empty( $context_tax ) ) {
-			$term  = get_term_by( 'slug', $context_tax, $taxonomy );
-			if ( ! empty( $term->name ) ) {
-				$label = $term->name;
+			$context_tax = (array) $context_tax;
+			foreach( $context_tax as $term_slug ) {
+				$term = get_term_by( 'slug', $term_slug, $taxonomy );
+				if ( ! empty( $term->name ) ) {
+					$label[] = $term->name;
 
+
+				}
+			}
+
+			if ( ! empty( $label ) ) {
 				$breadcrumbs[] = [
 					'link'  => $this->get_today_url( true ),
 					'label' => tribe_get_event_label_plural(),
 				];
+
 				$breadcrumbs[] = [
 					'link'  => '',
-					'label' => $label,
+					'label' => implode( ', ', $label ),
 				];
 			}
 		}
