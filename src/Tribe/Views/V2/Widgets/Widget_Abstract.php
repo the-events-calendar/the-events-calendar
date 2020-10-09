@@ -99,7 +99,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since  TBD
 	 *
-	 * @param \Tribe__Context $context   Context we will use to build the view.
+	 * @param \Tribe__Context     $context   Context we will use to build the view.
 	 * @param array<string,mixed> $arguments Current set of arguments.
 	 *
 	 * @return \Tribe__Context Context after widget changes.
