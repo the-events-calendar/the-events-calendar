@@ -1158,10 +1158,9 @@ class View implements View_Interface {
 				$args['tax_query'][] = [
 					'taxonomy' => TEC::TAXONOMY,
 					'field'    => 'slug',
-					'terms'    => $context_arr[ TEC::TAXONOMY ]
+					'terms'    => $context_arr[ TEC::TAXONOMY ],
 				];
 			}
-
 		}
 
 		if ( ! empty( $context_arr['event_category'] ) ) {
@@ -1867,8 +1866,10 @@ class View implements View_Interface {
 		// Get term slug if taxonomy is not empty.
 		if ( ! empty( $context_tax ) ) {
 			$context_tax = (array) $context_tax;
-			foreach( $context_tax as $term_slug ) {
+
+			foreach ( $context_tax as $term_slug ) {
 				$term = get_term_by( 'slug', $term_slug, $taxonomy );
+
 				if ( ! empty( $term->name ) ) {
 					$label[] = $term->name;
 

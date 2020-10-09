@@ -120,16 +120,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * @todo: add docblock and revise this method.
+	 * Clear query vars that cause issues with the main query - they are handled elsewhere.
 	 *
 	 * @since TBD
 	 *
-	 * @param WP $req
-	 * @return void
+	 * @param WP $req The WP Object we're trying to prepare for.
 	 */
 	public function parse_request( $req ) {
-
-		if ( empty( $req->query_vars[ TEC::TAXONOMY ] )  ) {
+		if ( empty( $req->query_vars[ TEC::TAXONOMY ] ) ) {
 			return;
 		}
 
@@ -138,8 +136,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		$categories = $req->query_vars[ TEC::TAXONOMY ];
-		unset( $req->query_vars[ TEC::TAXONOMY ] );
 
+		unset( $req->query_vars[ TEC::TAXONOMY ] );
 	}
 
 	/**
