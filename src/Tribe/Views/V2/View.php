@@ -1872,8 +1872,6 @@ class View implements View_Interface {
 
 				if ( ! empty( $term->name ) ) {
 					$label[] = $term->name;
-
-
 				}
 			}
 

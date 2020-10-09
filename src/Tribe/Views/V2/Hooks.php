@@ -131,7 +131,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		if ( ! is_array( $req->query_vars[ TEC::TAXONOMY ] )  ) {
+		if ( ! is_array( $req->query_vars[ TEC::TAXONOMY ] ) ) {
 			return;
 		}
 
