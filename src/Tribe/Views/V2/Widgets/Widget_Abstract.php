@@ -1,4 +1,11 @@
 <?php
+/**
+ * Widget Abstract
+ *
+ * @since   TBD
+ *
+ * @package Tribe\Events\Views\V2\Widgets
+ */
 
 namespace Tribe\Events\Views\V2\Widgets;
 
@@ -12,7 +19,6 @@ use Tribe__Context as Context;
  * @since   TBD
  *
  * @package Tribe\Widget
- *
  */
 abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
@@ -43,7 +49,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		$context = tribe_context();
 
 		// Modifies the Context for the widget params.
-		// todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990
+		// @todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990.
 		$context = $this->alter_context( $context );
 
 		// Setup the view instance.
@@ -94,12 +100,12 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @since  TBD
 	 *
 	 * @param \Tribe__Context $context   Context we will use to build the view.
-	 * @param array<string,mixed>        $arguments Current set of arguments.
+	 * @param array<string,mixed> $arguments Current set of arguments.
 	 *
 	 * @return \Tribe__Context Context after widget changes.
 	 */
 	public function alter_context( Context $context, array $arguments = [] ) {
-		// todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990
+		// @todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990.
 		$alter_context = $this->args_to_context( $arguments, $context );
 
 		$context = $context->alter( $alter_context );
@@ -114,8 +120,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,mixed>   $arguments Current set of arguments.
-	 * @param Context               $context   The request context.
+	 * @param array<string,mixed> $arguments Current set of arguments.
+	 * @param Context             $context   The request context.
 	 *
 	 * @return array<string,mixed> The translated widget arguments.
 	 */
