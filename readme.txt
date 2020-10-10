@@ -222,8 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.2.1] TBD =
+
 * Fix - Correct url for current month iCal export link. [TEC-3575]
+* Fix - Prevent Event Aggregator 15 minute Cron Schedule from being created when not required (props @jetxpert) [EA-317]
 
 = [5.2.0] 2020-09-28 =
 
