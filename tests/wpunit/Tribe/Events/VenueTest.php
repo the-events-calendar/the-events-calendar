@@ -274,4 +274,43 @@ class VenueTest extends Events_TestCase {
 		$this->assertEquals( [ $venue_1, $venue_2 ], $sut->find_with_upcoming_events( true ) );
 		$this->assertEquals( [ $venue_3, $venue_4, $venue_5 ], $sut->find_with_upcoming_events( false ) );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_create_duplicate_venues_and_should_update_existing_with_same_title() {
+		$venue = $this->make_instance();
+
+		$data = [
+			'Venue'         => 'Test Venue A',
+			'Description'   => 'Test Venue',
+			'Address'       => 'Road A',
+			'City'          => 'Providence',
+			'Province'      => 'Rhode Island',
+			'State'         => 'NewYork',
+			'StateProvince' => '',
+			'Zip'           => '9090',
+			'Phone'         => 883383,
+		];
+
+		// Using same data should return the same venue.
+		$venue_1 = $venue->create( $data, 'publish' );
+		$venue_2 = $venue->create( $data, 'publish', true );
+
+		$this->assertEquals( $venue_1, $venue_2 );
+
+		// Using different title should create different venues.
+		$data['Venue'] = 'Test Venue B';
+		$venue_3 = $venue->create( $data, 'publish', true );
+		$this->assertNotEquals( $venue_1, $venue_3 );
+
+		// Using same title with different address should update the existing venue.
+		$data['City']  = 'Austin';
+		$data['State'] = 'Texas';
+		$data['Zip']   = '123';
+		$venue_4         = $venue->create( $data, 'publish', true );
+
+		$this->assertEquals( $venue_3, $venue_4 );
+		$this->assertEquals( tribe_get_address( $venue_3 ), tribe_get_address( $venue_4 ) );
+	}
 }
