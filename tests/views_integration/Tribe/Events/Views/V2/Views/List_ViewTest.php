@@ -7,6 +7,7 @@ use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 use Tribe__Utils__Post_Collection as Collection;
+use Tribe__Events__Main as TEC;
 
 class List_ViewTest extends ViewTestCase {
 
@@ -101,7 +102,88 @@ class List_ViewTest extends ViewTestCase {
 		$this->assertMatchesSnapshot( $html );
 	}
 
+	public function create_event_cat( $tag ) {
+
+		//create categories
+		$cat1 = wp_insert_term( $tag, TEC::TAXONOMY );
+		$term_id = $cat1['term_id'];
+
+		// Sanity check.
+		$term_info = term_exists( $term_id, TEC::TAXONOMY );
+		$this->assertIsArray( $term_info );
+		$this->assertNotEmpty( $term_info );
+
+		return $term_id;
+	}
+
 	// @todo test render with one category
+
+	public function test_render_with_one_category() {
+		$events = [];
+
+		// Create the events.
+		foreach (
+			[
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
+			] as $start_date
+		) {
+			$events[] = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_date,
+				'status'     => 'publish',
+			] )->create();
+		}
+
+		// Sanity check
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
+
+		$this->remap_posts( $events, [
+			'events/single/1.json',
+			'events/single/2.json',
+			'events/single/3.json',
+		] );
+
+		$term_id = $this->create_event_cat( 'pepperoni' );
+		// We're explicitly only setting two.
+		wp_set_object_terms( $events[0]->ID, $term_id, TEC::TAXONOMY, true );
+		wp_set_object_terms( $events[1]->ID, $term_id, TEC::TAXONOMY, true );
+
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+
+
+		$list_view = View::make( List_View::class );
+		$context = tribe_context()->alter( [
+			'event_display'      => 'list',
+			'event_display_mode' => 'list',
+			'today'              => $this->mock_date_value,
+			'now'                => $this->mock_date_value,
+			'event_date'         => $this->mock_date_value,
+			'events_per_page'    => 2,
+			TEC::TAXONOMY        => 'pepperoni',
+		] );
+
+		$list_view->set_context( $context );
+		$html     = $list_view->get_html();
+		$list_ids = $list_view->found_post_ids();
+
+		// Let's make sure the View is displaying what events we expect it to display.
+		$this->assertEquals(
+			$expected_post_ids,
+			$list_ids
+		);
+
+		// Sanity check
+		foreach ( $list_ids as $id ) {
+			$has_term = has_term( $term_id, TEC::TAXONOMY, $id );
+			$this->assertTrue( $has_term );
+		}
+
+		$this->assertMatchesSnapshot( $html );
+	}
 	// @todo test render with two categories
 
 	public function today_url_data_sets() {
