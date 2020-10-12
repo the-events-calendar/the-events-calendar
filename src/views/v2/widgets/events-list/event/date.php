@@ -25,5 +25,5 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 	<time class="tribe-events-widget-events-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo $event->schedule_details->value(); ?>
 	</time>
-	<?php $this->template( 'widgets/events-list/event/date/meta', [ 'event' => $event ] ); ?>
+	<?php $this->do_entry_point( 'after_event_datetime' ); ?>
 </div>
