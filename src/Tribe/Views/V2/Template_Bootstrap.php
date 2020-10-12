@@ -350,7 +350,25 @@ class Template_Bootstrap {
 			return $template;
 		}
 
-		$context   = tribe_context();
+		// Grab the context early so folks can use it if they bypass our templates.
+		$context = tribe_context();
+
+		/**
+		 * Allows filtering the loading of our proprietary templates.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean        $load     Whether we should load the Tribe templates. Default true.
+		 * @param string         $template The template located by WordPress.
+		 * @param Tribe__Context $context  The singleton, immutable, global object instance.
+		 */
+		$load_template = apply_filters( 'tribe_events_views_v2_template_should_load', true, $template, $context );
+
+		// Let others decide if they want to load our templates or not.
+		if ( ! $load_template ) {
+			return $template;
+		}
+
 		$view_slug = $context->get( 'view' );
 		$is_embed  = V1_Templates::is_embed() || 'embed' === $view_slug;
 
