@@ -21,8 +21,25 @@
  * @var array    $messages           An array of user-facing messages, managed by the View.
  */
 
+$event = (object) [
+	'ID' => 1234,
+	'permalink' => 'https://tri.be/',
+	'title' => 'Puppy time',
+	'cost' => '$12 - $15',
+	'venues' => [
+		(object) [
+			'post_title' => 'BC Place',
+			'address' => '777 Pacific Blvd',
+			'city' => 'Vancouver',
+			'state_province' => 'BC',
+			'zip' => 'V6B 4Y8',
+			'country' => 'Canada',
+		],
+	],
+	'featured' => false,
+];
 $events = [
-
+	$event,
 ];
 $rest_url = 'https://tri.be/';
 $rest_nonce = 'a3ghv98awe98';
@@ -31,6 +48,17 @@ $container_classes = [ 'tribe-common', 'tribe-events', 'tribe-events-view', 'tri
 $container_data = [];
 $breakpoint_pointer = 'e1a5c9c2-2781-4fcb-b4fa-0ab738292e04';
 $messages = [];
+$display = [
+	'cost'      => true,
+	'venue'     => true,
+	'street'    => true,
+	'city'      => true,
+	'region'    => true,
+	'zip'       => true,
+	'country'   => true,
+	'phone'     => true,
+	'organizer' => true,
+];
 ?>
 <div
 	<?php tribe_classes( $container_classes ); ?>
@@ -47,12 +75,21 @@ $messages = [];
 >
 	<div class="tribe-events-widget-events-list">
 		<header class="tribe-events-widget-events-list__header">
-			<h3 class="tribe-events-widget-events-list__header-title"><?php // title ?></h3>
+			<h3 class="tribe-events-widget-events-list__header-title">
+				<?php
+				echo esc_html(
+					sprintf(
+						_x( 'Upcoming %1$s', 'Title for events list widget.', 'the-events-calendar' ),
+						tribe_get_event_label_singular()
+					)
+				);
+				?>
+			</h3>
 		</header>
 
 		<?php if ( ! empty( $events ) ) : ?>
 			<?php foreach ( $events as $event ) : ?>
-				<?php // include event template ?>
+				<?php $this->template( 'widgets/events-list/event', [ 'event' => $event, 'display' => $display ] ); ?>
 			<?php endforeach; ?>
 		<?php else : ?>
 			<?php // get messages component ?>

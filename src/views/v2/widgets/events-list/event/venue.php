@@ -27,9 +27,12 @@ if (
 	&& empty( $display['city'] )
 	&& empty( $display['region'] )
 	&& empty( $display['zip'] )
+	&& empty( $display['country'] )
 ) {
 	return;
 }
+
+$venue = $event->venues[0];
 ?>
 <div class="tribe-events-widget-events-list__event-venue tribe-common-b2">
 
@@ -45,6 +48,7 @@ if (
 		|| ! empty( $display['city'] )
 		|| ! empty( $display['region'] )
 		|| ! empty( $display['zip'] )
+		|| ! empty( $display['country'] )
 	) :
 	?>
 		<address class="tribe-events-widget-events-list__event-venue-address">
@@ -72,6 +76,12 @@ if (
 							<?php echo esc_html( $venue->zip ); ?>
 						</span>
 					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $display['country'] ) ) : ?>
+				<div class="tribe-events-widget-events-list__event-venue-address-country">
+					<?php echo esc_html( $venue->country ); ?>
 				</div>
 			<?php endif; ?>
 
