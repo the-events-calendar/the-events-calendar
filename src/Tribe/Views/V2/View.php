@@ -336,9 +336,7 @@ class View implements View_Interface {
 					$not_overridable_params
 				)
 			);
-			bdump(
-				$params
-			);
+
 		/** @var View $view */
 		$view = static::make( $slug, $context );
 
