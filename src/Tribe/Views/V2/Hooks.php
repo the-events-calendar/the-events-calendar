@@ -65,7 +65,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
-		add_action( 'parse_request', [ $this, 'parse_request' ] );
+		add_action( 'parse_request', [ $this, 'on_parse_request' ] );
 	}
 
 	/**
@@ -125,12 +125,36 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param WP $req The WP Object we're trying to prepare for.
 	 */
-	public function parse_request( $req ) {
+	public function on_parse_request( $req ) {
+		// Don't mess with the admin!
+		if ( is_admin() ) {
+			return;
+		}
+
+		// V2 views only!
+		if ( ! tribe_events_views_v2_is_enabled() ) {
+			return;
+		}
+
 		if ( empty( $req->query_vars[ TEC::TAXONOMY ] ) ) {
 			return;
 		}
 
 		if ( ! is_array( $req->query_vars[ TEC::TAXONOMY ] ) ) {
+			return;
+		}
+
+		/**
+		 * Allows outside plugins, etc, to turn this off if necessary.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $remove_cat = whether to remove TEC::TAXONOMY from the main query.
+		 * @param WP      $req The WP Object we're trying to prepare for.
+		 */
+		$remove_cat = apply_filters( 'tribe_events_v2_remove_events_category_from_query', true, $req );
+
+		if ( ! $remove_cat ) {
 			return;
 		}
 
