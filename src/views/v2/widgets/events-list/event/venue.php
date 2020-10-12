@@ -11,7 +11,8 @@
  *
  * @version TBD
  *
- * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var WP_Post            $event   The event post object with properties added by the `tribe_get_event` function.
+ * @var array<string,bool> $display Associative array of display settings for event meta.
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -20,19 +21,61 @@ if ( ! $event->venues->count() ) {
 	return;
 }
 
-$separator            = esc_html_x( ', ', 'Address separator', 'the-events-calendar' );
-$venue                = $event->venues[0];
-$append_after_address = array_filter( array_map( 'trim', [ $venue->city, $venue->state_province, $venue->state, $venue->province ] ) );
-$address              = $venue->address . ( $venue->address && $append_after_address ? $separator : '' );
+if (
+	empty( $display['venue'] )
+	&& empty( $display['street'] )
+	&& empty( $display['city'] )
+	&& empty( $display['region'] )
+	&& empty( $display['zip'] )
+) {
+	return;
+}
 ?>
-<address class="tribe-events-widget-events-list__event-venue tribe-common-b2">
-	<span class="tribe-events-widget-events-list__event-venue-title tribe-common-b2--bold">
-		<?php echo wp_kses_post( $venue->post_title ); ?>
-	</span>
-	<span class="tribe-events-widget-events-list__event-venue-address">
-		<?php echo esc_html( $address ); ?>
-		<?php if ( $append_after_address ) : ?>
-			<?php echo esc_html( reset( $append_after_address ) ); ?>
-		<?php endif; ?>
-	</span>
-</address>
+<div class="tribe-events-widget-events-list__event-venue tribe-common-b2">
+
+	<?php if ( ! empty( $display['venue'] ) ) : ?>
+		<span class="tribe-events-widget-events-list__event-venue-name tribe-common-b2--bold">
+			<?php echo wp_kses_post( $venue->post_title ); ?>
+		</span>
+	<?php endif; ?>
+
+	<?php
+	if (
+		! empty( $display['street'] )
+		|| ! empty( $display['city'] )
+		|| ! empty( $display['region'] )
+		|| ! empty( $display['zip'] )
+	) :
+	?>
+		<address class="tribe-events-widget-events-list__event-venue-address">
+
+			<?php if ( ! empty( $display['street'] ) ) : ?>
+				<div class="tribe-events-widget-events-list__event-venue-address-street">
+					<?php echo esc_html( $venue->address ); ?>
+				</div>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $display['city'] ) || ! empty( $display['region'] ) || ! empty( $display['zip'] ) ) : ?>
+				<div class="tribe-events-widget-events-list__event-venue-address-">
+					<?php if ( ! empty( $display['city'] ) ) : ?>
+						<span class="tribe-events-widget-events-list__event-venue-address-city">
+							<?php echo esc_html( $venue->city ); ?>
+						</span>
+					<?php endif; ?>
+					<?php if ( ! empty( $display['region'] ) ) : ?>
+						<span class="tribe-events-widget-events-list__event-venue-address-region">
+							<?php echo esc_html( $venue->state_province ); ?>
+						</span>
+					<?php endif; ?>
+					<?php if ( ! empty( $display['zip'] ) ) : ?>
+						<span class="tribe-events-widget-events-list__event-venue-address-zip">
+							<?php echo esc_html( $venue->zip ); ?>
+						</span>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+
+		</address>
+	<?php endif; ?>
+
+</div>
