@@ -41,6 +41,64 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	protected $view_slug;
 
 	/**
+	 * @todo update in TEC-3612 & TEC-3613
+	 *
+	 * {@inheritDoc}
+	 * {@inheritDoc}default
+	 */
+	public function setup() {
+		// Add the admin template class for the widget admin form.
+		$this->admin_template = tribe( Admin_Template::class );
+
+		// Setup the View for the frontend.
+		$this->setup_view();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function form( $instance ) {
+
+		add_filter(
+			"tribe_widget_{$this->get_registration_slug()}_arguments",
+			function ( array $arguments ) use ( $instance ) {
+				$current_instance = $instance;
+				$new_arguements = wp_parse_args(
+					$instance,
+					$arguments
+				);
+
+				return $new_arguements;
+		} );
+
+		$arguments  = $this->get_arguments();
+
+		$this->admin_template->template( 'widgets/list', $arguments );
+	}
+
+	/**
+	 * The function for saving widget updates in the admin section.
+	 *
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 *
+	 * @return array The new widget settings.
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+
+		// todo update method so that is can be used in all the widgets.
+		/* Strip tags (if needed) and update the widget settings. */
+		$instance['title']                = strip_tags( $new_instance['title'] );
+		$instance['limit']                = $new_instance['limit'];
+		$instance['no_upcoming_events']   = isset( $new_instance['no_upcoming_events'] ) && $new_instance['no_upcoming_events'] ? true : false;
+		$instance['featured_events_only'] = isset( $new_instance['featured_events_only'] ) && $new_instance['featured_events_only'] ? true : false;
+		$instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] ) ? 1 : 0;
+
+		return $instance;
+	}
+
+	/**
 	 * Setup the view for the widget.
 	 *
 	 * @since TBD
