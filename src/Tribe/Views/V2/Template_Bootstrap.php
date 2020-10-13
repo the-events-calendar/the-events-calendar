@@ -358,14 +358,14 @@ class Template_Bootstrap {
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean        $load     Whether we should load the Tribe templates. Default true.
+		 * @param boolean        $load     Whether we should load the theme templates instead of the Tribe templates. Default false.
 		 * @param string         $template The template located by WordPress.
 		 * @param Tribe__Context $context  The singleton, immutable, global object instance.
 		 */
-		$load_template = apply_filters( 'tribe_events_views_v2_template_should_load', true, $template, $context );
+		$load_template = apply_filters( 'tribe_events_views_v2_should_load_default_templates', false, $template, $context );
 
 		// Let others decide if they want to load our templates or not.
-		if ( ! $load_template ) {
+		if ( $load_template ) {
 			return $template;
 		}
 
