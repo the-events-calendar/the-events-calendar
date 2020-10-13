@@ -68,13 +68,16 @@ class List_ViewTest extends ViewTestCase {
 				'duration'   => 3 * HOUR_IN_SECONDS,
 				'title'      => 'Test Event - ' . $start_date,
 				'status'     => 'publish',
-				'tax_input'  => [
-					TEC::TAXONOMY => 'pepperoni',
-				],
 			] )->create();
 		}
 		// Sanity check
 		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
+
+		$this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json'
+		] );
 
 		$list_view = View::make( List_View::class );
 		$context = tribe_context()->alter( [
