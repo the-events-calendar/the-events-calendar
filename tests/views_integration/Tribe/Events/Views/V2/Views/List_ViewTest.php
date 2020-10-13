@@ -57,9 +57,9 @@ class List_ViewTest extends ViewTestCase {
 		// Create the events.
 		foreach (
 			[
-				'2019-01-01 9am',
-				'2019-01-01 +1 week',
-				'2019-01-01 +9 days',
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
 			] as $start_date
 		) {
 			$events[] = tribe_events()->set_args( [
@@ -84,9 +84,6 @@ class List_ViewTest extends ViewTestCase {
 			'now'                => $this->mock_date_value,
 			'event_date'         => $this->mock_date_value,
 			'events_per_page'    => 2,
-			'tax_input'  => [
-				TEC::TAXONOMY => 'pepperoni',
-			],
 		] );
 
 		$list_view->set_context( $context );
