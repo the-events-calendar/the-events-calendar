@@ -57,9 +57,9 @@ class List_ViewTest extends ViewTestCase {
 		// Create the events.
 		foreach (
 			[
-				'tomorrow 9am',
-				'+1 week',
-				'+9 days',
+				'2019-01-01 9am',
+				'2019-01-01 +1 week',
+				'2019-01-01 +9 days',
 			] as $start_date
 		) {
 			$events[] = tribe_events()->set_args( [
@@ -68,16 +68,13 @@ class List_ViewTest extends ViewTestCase {
 				'duration'   => 3 * HOUR_IN_SECONDS,
 				'title'      => 'Test Event - ' . $start_date,
 				'status'     => 'publish',
+				'tax_input'  => [
+					TEC::TAXONOMY => 'pepperoni',
+				],
 			] )->create();
 		}
 		// Sanity check
 		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
-
-		$this->remap_posts( $events, [
-			'events/featured/1.json',
-			'events/single/1.json',
-			'events/single/2.json'
-		] );
 
 		$list_view = View::make( List_View::class );
 		$context = tribe_context()->alter( [
@@ -87,6 +84,9 @@ class List_ViewTest extends ViewTestCase {
 			'now'                => $this->mock_date_value,
 			'event_date'         => $this->mock_date_value,
 			'events_per_page'    => 2,
+			'tax_input'  => [
+				TEC::TAXONOMY => 'pepperoni',
+			],
 		] );
 
 		$list_view->set_context( $context );
@@ -121,13 +121,14 @@ class List_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_with_one_category() {
 		$events = [];
+		$term_id = $this->create_event_cat( 'pepperoni' );
 
 		// Create the events.
 		foreach (
 			[
-				'tomorrow 9am',
-				'+1 week',
-				'+9 days',
+				'2019-01-01 9am',
+				'2019-01-01 +1 week',
+				'2019-01-01 +9 days',
 			] as $start_date
 		) {
 			$events[] = tribe_events()->set_args( [
@@ -136,24 +137,27 @@ class List_ViewTest extends ViewTestCase {
 				'duration'   => 3 * HOUR_IN_SECONDS,
 				'title'      => 'Test Event - ' . $start_date,
 				'status'     => 'publish',
+				'tax_input'  => [
+					'taxonomy' => TEC::TAXONOMY,
+					'field'    => 'term_id',
+					'terms'    => $term_id,
+				],
 			] )->create();
 		}
 
-		// Sanity check
-		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
-
-		$this->remap_posts( $events, [
-			'events/single/1.json',
-			'events/single/2.json',
-			'events/single/3.json',
-		] );
-
-		$term_id = $this->create_event_cat( 'pepperoni' );
 		foreach( $events as $event ) {
+			// Let's make sure we have the term ID we expect. The above set_args() doesn't always do the trick?
 			wp_set_object_terms( $event->ID, $term_id, TEC::TAXONOMY, true );
 		}
 
-		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 3 ), 'ID' );
+		// Sanity check
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', $this->mock_date_value )->count() );
+
+		$expected_post_ids = wp_list_pluck( $events, 'ID' );
+
+		foreach ( $expected_post_ids as $id ) {
+			$this->assertTrue( has_term( $term_id, TEC::TAXONOMY, $id ), "Missing term before context change." );
+		}
 
 		$list_view = View::make( List_View::class );
 		$context = tribe_context()->alter( [
@@ -163,7 +167,11 @@ class List_ViewTest extends ViewTestCase {
 			'now'                => $this->mock_date_value,
 			'event_date'         => $this->mock_date_value,
 			'events_per_page'    => 3,
-			TEC::TAXONOMY        => 'pepperoni',
+			'tax_input'  => [
+				'taxonomy' => TEC::TAXONOMY,
+				'field'    => 'slug',
+				'terms'    => 'pepperoni',
+			],
 		] );
 
 		$list_view->set_context( $context );
@@ -176,10 +184,9 @@ class List_ViewTest extends ViewTestCase {
 			$list_ids
 		);
 
-		// Sanity check
+		// Another sanity check
 		foreach ( $list_ids as $id ) {
-			$has_term = has_term( $term_id, TEC::TAXONOMY, $id );
-			$this->assertTrue( $has_term );
+			$this->assertTrue( has_term( $term_id, TEC::TAXONOMY, $id ), "Missing term." );
 		}
 
 		$this->assertMatchesSnapshot( $html );
@@ -190,13 +197,15 @@ class List_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_with_two_categories() {
 		$events = [];
+		$term_id = $this->create_event_cat( 'pepperoni' );
+		$term_id_2 = $this->create_event_cat( 'pineapple' );
 
 		// Create the events.
 		foreach (
 			[
-				'tomorrow 9am',
-				'+1 week',
-				'+9 days',
+				'2019-01-01 9am',
+				'2019-01-01 +1 week',
+				'2019-01-01 +9 days',
 			] as $start_date
 		) {
 			$events[] = tribe_events()->set_args( [
@@ -205,29 +214,24 @@ class List_ViewTest extends ViewTestCase {
 				'duration'   => 3 * HOUR_IN_SECONDS,
 				'title'      => 'Test Event - ' . $start_date,
 				'status'     => 'publish',
+				'tax_input'  => [
+					TEC::TAXONOMY => 'pepperoni',
+				],
 			] )->create();
 		}
 
 		// Sanity check
-		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
-
-		$this->remap_posts( $events, [
-			'events/single/1.json',
-			'events/single/2.json',
-			'events/single/3.json',
-		] );
-
-		$term_id = $this->create_event_cat( 'pepperoni' );
-		$term_id_2 = $this->create_event_cat( 'pineapple' );
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', $this->mock_date_value )->count() );
 
 		foreach( $events as $event ) {
+			// Let's make sure we have the term ID we expect. The above set_args() doesn't always do the trick?
 			wp_set_object_terms( $event->ID, $term_id, TEC::TAXONOMY, true );
 		}
 
-		// Third param - overwrites existing terms (pepperoni -> pineapple).
-		wp_set_object_terms( $events[0]->ID, $term_id_2, TEC::TAXONOMY );
+		// Second category - third param appends to existing terms (pepperoni & pineapple).
+		wp_set_object_terms( $events[0]->ID, $term_id_2, TEC::TAXONOMY, true );
 
-		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 1 ), 'ID' );
 
 		$list_view = View::make( List_View::class );
 		$context = tribe_context()->alter( [
@@ -237,23 +241,23 @@ class List_ViewTest extends ViewTestCase {
 			'now'                => $this->mock_date_value,
 			'event_date'         => $this->mock_date_value,
 			'events_per_page'    => 2,
-			TEC::TAXONOMY        => 'pepperoni',
+			TEC::TAXONOMY        => 'pineapple',
 		] );
 
 		$list_view->set_context( $context );
 		$html     = $list_view->get_html();
 		$list_ids = $list_view->found_post_ids();
 
-		// Let's make sure the View is displaying what events we expect it to display.
+		// Let's make sure the View is displaying the event we expect it to display.
 		$this->assertEquals(
-			$expected_post_ids,
+			[ $events[0]->ID ],
 			$list_ids
 		);
 
-		// Sanity check
+		// Another sanity check
 		foreach ( $list_ids as $id ) {
-			$has_term = has_term( $term_id, TEC::TAXONOMY, $id );
-			$this->assertTrue( $has_term );
+			$this->assertTrue( has_term( $term_id, TEC::TAXONOMY, $id ), "Missing first term." );
+			$this->assertTrue( has_term( $term_id_2, TEC::TAXONOMY, $id ), "Missing second term." );
 		}
 
 		$this->assertMatchesSnapshot( $html );
