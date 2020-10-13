@@ -325,7 +325,7 @@ class Rest_Endpoint {
 	}
 
 	/**
-	 * Returns the filtered HTTP method Views should use to fetch their content from the backend endpoint..
+	 * Returns the filtered HTTP method Views should use to fetch their content from the backend endpoint.
 	 *
 	 * @since TBD
 	 *
@@ -338,7 +338,7 @@ class Rest_Endpoint {
 		 * @since TBD
 		 *
 		 * @param string $method The HTTP method Views will use to fetch their content. Either `POST` (default) or
-		 *                       `GET`. Invalid values will be defaulted to `POST`.
+		 *                       `GET`. Invalid values will be set to the default `POST`.
 		 */
 		$method = strtoupper( (string) apply_filters( 'tribe_events_views_v2_endpoint_method', 'POST' ) );
 
