@@ -263,7 +263,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should not return the event template path when filtered false.
+	 * It should return the event template path when filtered false.
 	 *
 	 * @test
 	 */
@@ -278,11 +278,11 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
-		$this->assertEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
+		$this->assertEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when filtered false." );
 	}
 
 	/**
-	 * It should return the event template path when filtered true.
+	 * It should not return the event template path when filtered true.
 	 *
 	 * @test
 	 */
@@ -298,9 +298,9 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
-		$this->assertNotEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
+		$this->assertNotEquals( $template, $default_events, "Template path should not be {$default_events} on the `embed_template` hook when filtered true." );
 		// Sanity check
-		$this->assertEquals( $template, 'foo-bar', "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
+		$this->assertEquals( $template, 'foo-bar', "Template path should be 'foo-bar' on the `embed_template` hook when filtered true." );
 	}
 
 	public function filter_template_include_data_set() {
