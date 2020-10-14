@@ -76,7 +76,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param View_Interface  $view  Which view we are using this template on.
+	 * @param View_Interface $view Which view we are using this template on.
 	 */
 	public function set_view( View_Interface $view ) {
 		$this->view = $view;
