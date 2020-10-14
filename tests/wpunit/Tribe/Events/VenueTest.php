@@ -283,7 +283,7 @@ class VenueTest extends Events_TestCase {
 
 		$data = [
 			'Venue'         => 'Test Venue A',
-			'Description'   => 'Test Venue',
+			'Description'   => 'This is Venue A ',
 			'Address'       => 'Road A',
 			'City'          => 'Providence',
 			'Province'      => 'Rhode Island',
@@ -297,20 +297,21 @@ class VenueTest extends Events_TestCase {
 		$venue_1 = $venue->create( $data, 'publish' );
 		$venue_2 = $venue->create( $data, 'publish', true );
 
-		$this->assertEquals( $venue_1, $venue_2 );
+		$this->assertEquals( $venue_1, $venue_2, 'Venue ID should be same for same data' );
 
 		// Using different title should create different venues.
-		$data['Venue'] = 'Test Venue B';
-		$venue_3 = $venue->create( $data, 'publish', true );
-		$this->assertNotEquals( $venue_1, $venue_3 );
+		$data['Venue']       = 'Test Venue B';
+		$data['Description'] = 'This is Venue B';
+		$venue_3             = $venue->create( $data, 'publish', true );
+		$this->assertNotEquals( $venue_1, $venue_3, 'Venue ID should be different for different title and description' );
 
 		// Using same title with different address should update the existing venue.
 		$data['City']  = 'Austin';
 		$data['State'] = 'Texas';
 		$data['Zip']   = '123';
-		$venue_4         = $venue->create( $data, 'publish', true );
+		$venue_4       = $venue->create( $data, 'publish', true );
 
-		$this->assertEquals( $venue_3, $venue_4 );
-		$this->assertEquals( tribe_get_address( $venue_3 ), tribe_get_address( $venue_4 ) );
+		$this->assertEquals( $venue_3, $venue_4, 'Venue should be updated keeping the same ID' );
+		$this->assertEquals( tribe_get_address( $venue_3 ), tribe_get_address( $venue_4 ), 'Venue address should be updated properly' );
 	}
 }
