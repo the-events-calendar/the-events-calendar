@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages integration between WPML and Views v2 of The Events Calendar.
+ * Manages integration between WPML and Views v2 filters of The Events Calendar.
  *
  * @since   TBD
  *
