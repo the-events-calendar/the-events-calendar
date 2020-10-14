@@ -83,8 +83,9 @@ $view_more_link = '#';
 					<?php
 					echo esc_html(
 						sprintf(
+							/* translators: %1$s: Event (plural). */
 							_x( 'Upcoming %1$s', 'Title for events list widget.', 'the-events-calendar' ),
-							tribe_get_event_label_singular()
+							tribe_get_event_label_plural()
 						)
 					);
 					?>
