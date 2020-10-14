@@ -75,7 +75,7 @@ $display = [
 >
 	<div class="tribe-events-widget-events-list">
 		<header class="tribe-events-widget-events-list__header">
-			<h3 class="tribe-events-widget-events-list__header-title">
+			<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
 				<?php
 				echo esc_html(
 					sprintf(
