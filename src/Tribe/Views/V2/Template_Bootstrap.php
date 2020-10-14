@@ -338,19 +338,7 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initializes the template
 	 */
 	public function filter_template_include( $template ) {
-		$query = tribe_get_global_query_object();
-
-		// Global 404 needs to be respected.
-		if ( $query->is_404() ) {
-			return $template;
-		}
-
-		// Determine if we should load bootstrap or bail.
-		if ( ! $this->should_load() ) {
-			return $template;
-		}
-
-		// Grab the context early so folks can use it if they bypass our templates.
+		$query   = tribe_get_global_query_object();
 		$context = tribe_context();
 
 		/**
@@ -362,10 +350,20 @@ class Template_Bootstrap {
 		 * @param string         $template The template located by WordPress.
 		 * @param Tribe__Context $context  The singleton, immutable, global object instance.
 		 */
-		$load_template = apply_filters( 'tribe_events_views_v2_should_load_default_templates', false, $template, $context );
+		$load_template = apply_filters( 'tribe_events_views_v2_should_load_default_templates', false, $template, $context, $query );
 
 		// Let others decide if they want to load our templates or not.
-		if ( $load_template ) {
+		if ( (bool) $load_template ) {
+			return $template;
+		}
+
+		// Global 404 needs to be respected.
+		if ( $query->is_404() ) {
+			return $template;
+		}
+
+		// Determine if we should load bootstrap or bail.
+		if ( ! $this->should_load() ) {
 			return $template;
 		}
 
