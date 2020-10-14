@@ -402,7 +402,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Sets up the request data for AJAX request.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @param  {object}         data       Data object to modify and setup.
 	 * @param  {Element|jQuery} $container Which container we are dealing with.
@@ -471,7 +471,7 @@ tribe.events.views.manager = {};
 			url: $container.data( 'view-rest-url' ),
 			accepts: 'html',
 			dataType: 'html',
-			method: 'GET',
+			method: $container.data( 'view-rest-method' ) || 'POST',
 			'async': true, // async is keyword
 			beforeSend: obj.ajaxBeforeSend,
 			complete: obj.ajaxComplete,

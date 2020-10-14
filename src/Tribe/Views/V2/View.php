@@ -1356,6 +1356,7 @@ class View implements View_Interface {
 	 * Sets up the View template variables.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Add the `rest_method` to the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1405,6 +1406,9 @@ class View implements View_Interface {
 			}
 		);
 
+		/** @var Rest_Endpoint $endpoint */
+		$endpoint = tribe( Rest_Endpoint::class );
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1419,7 +1423,8 @@ class View implements View_Interface {
 			'today'                => $today,
 			'now'                  => $this->context->get( 'now', 'now' ),
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
-			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_url'             => $endpoint->get_url(),
+			'rest_method'          => $endpoint->get_method(),
 			'rest_nonce'           => $rest_nonce,
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
@@ -2216,7 +2221,7 @@ class View implements View_Interface {
 		// Flatten Views such as Month and Week that have an array values.
 		$first_value = reset( $events );
 		if ( is_array( $first_value ) ) {
-			$events = array_unique( array_merge( ...array_values( $events ) ) );
+			$events = array_unique( array_merge( ...array_values( $events ) ), SORT_REGULAR );
 		}
 
 		/**
@@ -2248,7 +2253,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the number of upcoming events in relation to the "now" time.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return int The number of upcoming events from "now".
 	 */
