@@ -39,7 +39,7 @@ $messages = [];
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
 	<?php foreach ( $container_data as $key => $value ) : ?>
-		data-view-<?php echo esc_attr( $key ) ?>="<?php echo esc_attr( $value ) ?>"
+		data-view-<?php echo esc_attr( $key ); ?>="<?php echo esc_attr( $value ); ?>"
 	<?php endforeach; ?>
 	<?php if ( ! empty( $breakpoint_pointer ) ) : ?>
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
