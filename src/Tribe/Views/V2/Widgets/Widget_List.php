@@ -50,14 +50,6 @@ class Widget_List extends Widget_Abstract {
 		'no_upcoming_events'   => false,
 		'featured_events_only' => false,
 		'jsonld_enable'        => true,
-		'admin_fields'         => [
-			'title'                => [],
-			'limit'                => [],
-			'no_upcoming_events'   => [],
-			'featured_events_only' => [],
-			'tribe_is_list_widget' => [],
-			'jsonld_enable'        => [],
-		],
 
 		// WP_Widget properties.
 		'id_base'              => 'tribe-events-list-widget',
@@ -86,15 +78,6 @@ class Widget_List extends Widget_Abstract {
 	];
 
 	/**
-	 * @todo update in TEC-3612 & TEC-3613
-	 *
-	 * {@inheritDoc}
-	 */
-	public function setup() {
-		$this->setup_view();
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function get_arguments() {
@@ -109,7 +92,43 @@ class Widget_List extends Widget_Abstract {
 		$arguments['title'] = __( 'Upcoming Events', 'the-events-calendar' );
 
 		// Setup admin fields.
-		$arguments['admin_fields'] = [
+		$arguments['admin_fields'] = $this->get_admin_fields();
+
+		// Add the Widget to the arguments to pass to the admin template.
+		$arguments['widget_obj'] = $this;
+
+		$arguments = wp_parse_args( $arguments, $this->get_default_arguments() );
+
+		return $this->filter_arguments( $arguments );
+	}
+
+	/**
+	 * The function for saving widget updates in the admin section.
+	 *
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 *
+	 * @return array The new widget settings.
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+
+		/* Strip tags (if needed) and update the widget settings. */
+		$instance['title']                = strip_tags( $new_instance['title'] );
+		$instance['limit']                = $new_instance['limit'];
+		$instance['no_upcoming_events']   = isset( $new_instance['no_upcoming_events'] ) && $new_instance['no_upcoming_events'] ? true : false;
+		$instance['featured_events_only'] = isset( $new_instance['featured_events_only'] ) && $new_instance['featured_events_only'] ? true : false;
+		$instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] ) ? 1 : 0;
+
+		return $instance;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_admin_fields() {
+
+		return [
 			'title'                => [
 				'label' => __( 'Title:', 'the-events-calendar' ),
 				'type'  => 'text',
@@ -133,13 +152,6 @@ class Widget_List extends Widget_Abstract {
 			],
 
 		];
-
-		// Add the Widget to the arguments to pass to the admin template.
-		$arguments['widget_obj'] = $this;
-
-		$arguments = wp_parse_args( $arguments, $this->get_default_arguments() );
-
-		return $this->filter_arguments( $arguments );
 	}
 
 	/**
