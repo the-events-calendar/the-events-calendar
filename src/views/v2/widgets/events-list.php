@@ -89,11 +89,17 @@ $display = [
 			</header>
 
 			<?php if ( ! empty( $events ) ) : ?>
-				<?php foreach ( $events as $event ) : ?>
-					<?php $this->template( 'widgets/events-list/event', [ 'event' => $event, 'display' => $display ] ); ?>
-				<?php endforeach; ?>
+
+				<div class="tribe-events-widget-events-list__events">
+					<?php foreach ( $events as $event ) : ?>
+						<?php $this->template( 'widgets/events-list/event', [ 'event' => $event, 'display' => $display ] ); ?>
+					<?php endforeach; ?>
+				</div>
+
 			<?php else : ?>
+
 				<?php // get messages component ?>
+
 			<?php endif; ?>
 		</div>
 	</div>
