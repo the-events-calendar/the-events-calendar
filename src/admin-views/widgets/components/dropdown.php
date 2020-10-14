@@ -34,8 +34,8 @@
 	>
 		<?php foreach ( $options as $option ) { ?>
 			<option
-					value="<?php echo $option['value']; ?>"
-					<?php esc_html( selected( $option['value'], $value ) ); ?>
+					value="<?php echo esc_html( $option['value'] ); ?>"
+					<?php selected( $option['value'], $value ); ?>
 			>
 				<?php echo esc_html( $option['text'] ); ?>
 			</option>
