@@ -971,6 +971,7 @@ class Tribe__Events__Linked_Posts {
 			<?php selected( $option['selected'] ); ?>
 			value="<?php echo esc_attr( $option['id'] ); ?>"
 			data-edit-link="<?php echo esc_url( $option['edit'] ); ?>"
+			data-existing-post="1"
 		>
 			<?php echo esc_html( $option['text'] ); ?>
 		</option>
@@ -1176,7 +1177,7 @@ class Tribe__Events__Linked_Posts {
 				<?php if ( $creation_enabled ) : ?>
 				data-freeform
 				data-sticky-search
-				data-create-choice-template="<?php echo __( 'Create: <b><%= term %></b>', 'the-events-calendar' ); ?>"
+				data-create-choice-template="<?php echo __( 'Create: <%= term %>', 'the-events-calendar' ); ?>"
 				data-allow-html
 				data-force-search
 				<?php endif; ?>

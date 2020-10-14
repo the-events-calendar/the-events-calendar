@@ -150,9 +150,9 @@ class Tribe__Events__Integrations__Freemius {
 		] );
 
 		$this->instance->add_filter( 'connect_url', [ $this, 'get_connect_url' ], 10, 10 );
-		$this->instance->add_filter( 'after_skip_url', [ $this, 'get_settings_url' ] );
-		$this->instance->add_filter( 'after_connect_url', [ $this, 'get_settings_url' ] );
-		$this->instance->add_filter( 'after_pending_connect_url', [ $this, 'get_settings_url' ] );
+		$this->instance->add_filter( 'after_skip_url', [ $this, 'get_welcome_url' ] );
+		$this->instance->add_filter( 'after_connect_url', [ $this, 'get_welcome_url' ] );
+		$this->instance->add_filter( 'after_pending_connect_url', [ $this, 'get_welcome_url' ] );
 		$this->instance->add_filter( 'plugin_icon', [ $this, 'get_plugin_icon_url' ] );
 
 		/*
@@ -274,6 +274,17 @@ class Tribe__Events__Integrations__Freemius {
 	 */
 	public function get_settings_path() {
 		return sprintf( 'edit.php?post_type=%s&page=%s', Tribe__Events__Main::POSTTYPE, $this->page );
+	}
+
+	/**
+	 * Get the Welcome page URL.
+	 *
+	 * @since 5.1.6
+	 *
+	 * @return string The welcome page URL.
+	 */
+	public function get_welcome_url() {
+		return Tribe__Settings::instance()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] );
 	}
 
 	/**

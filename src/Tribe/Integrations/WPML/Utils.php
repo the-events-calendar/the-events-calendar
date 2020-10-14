@@ -59,7 +59,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 		// Get the strings on multiple Domains and Languages
 		// WPML filter is unhooked to avoid the locale being set to the default one
 		remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
-		$translations = tribe( 'tec.i18n' )->get_i18n_strings_for_domains( $strings, $languages, $domains, $current_locale );
+		$translations = tribe( 'tec.i18n' )->get_i18n_strings( $strings, $languages, $domains, $current_locale );
 		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
 
 		// once an option is updated this cache is deprecated

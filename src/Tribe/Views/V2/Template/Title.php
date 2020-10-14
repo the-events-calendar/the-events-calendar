@@ -91,6 +91,7 @@ class Title {
 	 * injectable and controllable, in place of the global one.
 	 *
 	 * @since 4.9.10
+	 * @since 5.1.5 - Add filter for plural events label and move featured label to a method.
 	 *
 	 * @param string $current_title Current Title used on the page.
 	 * @param bool   $depth         Whether to use depth to build the taxonomy archive title, or not.
@@ -101,12 +102,16 @@ class Title {
 		$context = $this->context ?: tribe_context();
 		$posts   = $this->get_posts();
 
-		if ( $context->is( 'featured' ) ) {
-			$this->events_label_plural = sprintf(
-				_x( 'Featured %s', 'featured events title', 'the-events-calendar' ),
-				$this->events_label_plural
-			);
-		}
+		/**
+		 * Filter the plural Events label for Views Title.
+		 *
+		 * @since 5.1.5
+		 *
+		 * @param string  $events_label_plural The plural events label as it's been generated thus far.
+		 * @param Context $context             The context used to build the title, it could be the global one, or one externally
+		 *                                     set.
+		 */
+		$this->events_label_plural = apply_filters( 'tribe_events_filter_views_v2_wp_title_plural_events_label', $this->events_label_plural, $context );
 
 		if ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
 			// For single events, the event title itself is required

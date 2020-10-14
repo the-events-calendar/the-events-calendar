@@ -46,6 +46,7 @@ tribe.events.views.manager = {};
 		link: '[data-js="tribe-events-view-link"]',
 		dataScript: '[data-js="tribe-events-view-data"]',
 		loader: '.tribe-events-view-loader',
+		loaderText: '.tribe-events-view-loader__text',
 		hiddenElement: '.tribe-common-a11y-hidden',
 	};
 
@@ -233,7 +234,7 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.updateUrl = function( $container ) {
-		// When handling popstate (broswer back/next) it will not handle this part.
+		// When handling popstate (browser back/next) it will not handle this part.
 		if ( obj.doingPopstate ) {
 			return;
 		}
@@ -268,7 +269,7 @@ tribe.events.views.manager = {};
 		}
 
 		/**
-		 * Compatitiblity for browsers updating title
+		 * Compatibility for browsers updating title
 		 */
 		document.title = data.title;
 
@@ -298,7 +299,7 @@ tribe.events.views.manager = {};
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
 
-		// Fetch nonce from container if the link doesnt have any
+		// Fetch nonce from container if the link doesn't have any
 		if ( ! nonce ) {
 			nonce = $container.data( 'view-rest-nonce' );
 		}
@@ -311,7 +312,7 @@ tribe.events.views.manager = {};
 		};
 
 		if ( shortcodeId ) {
-			data['shortcode'] = shortcodeId;
+			data[ 'shortcode' ] = shortcodeId;
 		}
 
 		obj.request( data, $container );
@@ -345,8 +346,8 @@ tribe.events.views.manager = {};
 		var formData = Qs.parse( $form.serialize() );
 
 		var data = {
-			view_data: formData['tribe-events-views'],
-			_wpnonce: nonce
+			view_data: formData[ 'tribe-events-views' ],
+			_wpnonce: nonce,
 		};
 
 		// Pass the data to the request reading it from `tribe-events-views`.
@@ -360,7 +361,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Catches the normal browser interactions for Next and Previous pages
 	 * so that we can use the manager to load the page requested instead
-	 * of just chaning the URL.
+	 * of just changing the URL.
 	 *
 	 * @since  4.9.12
 	 *
@@ -390,12 +391,46 @@ tribe.events.views.manager = {};
 
 		var data = {
 			url: url,
-			_wpnonce: nonce
+			_wpnonce: nonce,
 		};
 
 		obj.request( data, $container );
 
 		return false;
+	};
+
+	/**
+	 * Sets up the request data for AJAX request.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param  {object}         data       Data object to modify and setup.
+	 * @param  {Element|jQuery} $container Which container we are dealing with.
+	 *
+	 * @return {void}
+	 */
+	obj.setupRequestData = function( data, $container ) {
+		var shouldManageUrl = obj.shouldManageUrl( $container );
+		var containerData = obj.getContainerData( $container );
+
+		if ( ! data.url ) {
+			data.url = containerData.url;
+		}
+
+		if ( ! data.prev_url ) {
+			data.prev_url = containerData.prev_url;
+		}
+
+		data.should_manage_url = shouldManageUrl;
+
+		// Allow other values to be passed to request from container data.
+		var requestData = $container.data( 'tribeRequestData' );
+
+		if ( ! $.isPlainObject( requestData ) ) {
+			return data;
+		}
+
+		return $.extend( requestData, data );
 	};
 
 	/**
@@ -410,24 +445,16 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.request = function( data, $container ) {
+		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
+
 		var settings = obj.getAjaxSettings( $container );
-		var shouldManageUrl = obj.shouldManageUrl( $container );
-		var containerData = obj.getContainerData( $container );
 
-		if ( ! data.url ) {
-			data.url = containerData.url;
-		}
-
-		if ( ! data.prev_url ) {
-			data.prev_url = containerData.prev_url;
-		}
-
-		data.should_manage_url = shouldManageUrl;
-
-		// Pass the data received to the $.ajax settings
-		settings.data = data;
+		// Pass the data setup to the $.ajax settings
+		settings.data = obj.setupRequestData( data, $container );
 
 		obj.currentAjaxRequest = $.ajax( settings );
+
+		$container.trigger( 'afterRequest.tribeEvents', [ data, $container ] );
 	};
 
 	/**
@@ -441,7 +468,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.getAjaxSettings = function( $container ) {
 		var ajaxSettings = {
-			url: $container.data('view-rest-url'),
+			url: $container.data( 'view-rest-url' ),
 			accepts: 'html',
 			dataType: 'html',
 			method: 'GET',
@@ -478,7 +505,10 @@ tribe.events.views.manager = {};
 
 		if ( $loader.length ) {
 			$loader.removeClass( obj.selectors.hiddenElement.className() );
+			var $loaderText = $loader.find( obj.selectors.loaderText );
+			$loaderText.text( $loaderText.text() );
 		}
+		$container.attr( 'aria-busy', 'true' );
 
 		$container.trigger( 'afterAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 	};

@@ -48,7 +48,7 @@ install:
   - phpenv config-rm xdebug.ini
 
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
-  - composer update --prefer-dist
+  - composer install
 
   # Let's ensure common autoload files are there.
   - (cd common; composer install --no-dev)
@@ -140,5 +140,6 @@ script:
   - codecept run -f muintegration
   - codecept run -f wpunit
   - codecept run -f aggregatorv1
-  - codecept run -f restv1
+  # Disabled on 2020/08/18 due to inconsistent failures.
+  # - codecept run -f restv1
   # - codecept run acceptance

@@ -6,6 +6,7 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe__Utils__Post_Collection as Collection;
 
 class List_ViewTest extends ViewTestCase {
 
@@ -164,7 +165,7 @@ class List_ViewTest extends ViewTestCase {
 		yield 'no_results_found' => [
 			[],
 			[
-				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_results_found' ) ],
+				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_upcoming_events' ) ],
 			]
 		];
 
@@ -206,9 +207,9 @@ class List_ViewTest extends ViewTestCase {
 
 	public function pages_data_set() {
 		return [
-			'1' => [ 1 ],
-			'2' => [ 2 ],
-			'3' => [ 3 ],
+			'page 1' => [ 1 ],
+			'page 2' => [ 2 ],
+			'page 3' => [ 3 ],
 		];
 	}
 
@@ -226,13 +227,13 @@ class List_ViewTest extends ViewTestCase {
 		];
 		$context = $this->get_mock_context()->alter( array_filter( $values ) );
 		// Create 6 events, from 2019-09-01 to 2019-09-06. All before "today" date of 2019-09-11.
-		$mock_events = array_map( function ( $i ) {
+		$mock_events = array_map( static function ( $i ) {
 			return static::factory()->event->create( [ 'when' => '2019-09-0' . $i . ' 09:00:00' ] );
 		}, range( 1, 6 ) );
 		// Reverse the order to ease the expectation.
 		$mock_events = array_reverse( $mock_events );
 
-		$view = View::make( Photo_View::class, $context );
+		$view = View::make( List_View::class, $context );
 
 		// Call this method to trigger the message population in the View.
 		$template_vars = $view->get_template_vars();
@@ -242,5 +243,44 @@ class List_ViewTest extends ViewTestCase {
 		// Invert the slice as events should show in ASC date order.
 		$slice = array_reverse( array_slice( $mock_events, $page * 2 - 2, 2 ) );
 		$this->assertEquals( $slice, $found_event_ids );
+	}
+
+	public function test_render_with_events_all_starting_on_same_date_time(  ) {
+		$context_alterations = [
+			'today'      => '2020-01-01',
+			'now'        => '2020-01-01 00:00:00',
+			'event_date' => '2020-01-01',
+		];
+		$context             = $this->get_mock_context()->alter( array_filter( $context_alterations ) );
+		// Shuffle to ensure the post date does not have a role in the output order.
+		$durations = [
+			'8am to 1pm'  => 5 * HOUR_IN_SECONDS,
+			'8am to 11am' => 3 * HOUR_IN_SECONDS,
+			'8am to 3pm'  => 7 * HOUR_IN_SECONDS,
+			'8am to 12pm' => 4 * HOUR_IN_SECONDS,
+			'8am to 10am' => 2 * HOUR_IN_SECONDS,
+		];
+		foreach ( $durations as $title => $duration ) {
+			tribe_events()
+				->set_args( [
+					'title'      => $title,
+					'status'     => 'publish',
+					'start_date' => '2020-01-01 08:00:00',
+					'duration'   => $duration,
+				] )->create();
+		}
+
+		$view    = View::make( List_View::class, $context );
+		$template_vars = $view->get_template_vars();
+
+		$collection = new Collection($template_vars['events']);
+		$expected   =[
+			'8am to 10am',
+			'8am to 11am',
+			'8am to 12pm',
+			'8am to 1pm',
+			'8am to 3pm',
+		];
+		$this->assertEquals($expected, $collection->pluck('post_title'))	;
 	}
 }

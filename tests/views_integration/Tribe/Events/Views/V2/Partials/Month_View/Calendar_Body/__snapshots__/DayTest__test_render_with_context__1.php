@@ -7,7 +7,6 @@
 
 	<button
 					aria-expanded="true"
-			aria-selected="true"
 			aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
 				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
@@ -69,7 +68,8 @@
 	aria-describedby="tribe-events-tooltip-content-999997"
 >
 		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Test Multi-day Event &#8211; 2018-07-01 11am</h3></a>
+	Test Multi-day Event &#8211; 2018-07-01 11am</h3>
+</a>
 </div>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
 	<div
@@ -112,7 +112,8 @@
 	aria-describedby="tribe-events-tooltip-content-999996"
 >
 		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Test Multi-day Event &#8211; 2018-07-01 1pm</h3></a>
+	Test Multi-day Event &#8211; 2018-07-01 1pm</h3>
+</a>
 </div>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
 	<div

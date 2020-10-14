@@ -9,8 +9,10 @@
 		<div
 	class="tribe-events-view-loader tribe-common-a11y-hidden"
 	role="alert"
-	aria-live="assertive"
+	aria-live="polite"
 >
+	<span class="tribe-events-view-loader__text tribe-common-a11y-visual-hide">
+		Loading view.	</span>
 	<div class="tribe-events-view-loader__dots tribe-common-c-loader">
 		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--first"></div>
 		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--second"></div>
@@ -19,11 +21,8 @@
 </div>
 
 		
-		<script
-	data-js="tribe-events-view-data"
-	type="application/json"
->
-	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","view":{},"title":"Search Results for &#8220;&#8221; &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","request_date":{"date":"2019-01-01 09:00:00.000000","timezone_type":3,"timezone":"UTC"},"rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["No events scheduled for January 1, 2019."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"},"latest-past":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Latest_Past_View","view_url":"http:\\/\\/test.tri.be\\/?post_type=tribe_events&eventDisplay=latest-past&tribe-bar-date=2019-01-01","view_label":"Latest-past"}},"show_latest_past":true,"json_ld_data":"","_context":{"slug":"day"},"text":"Loading..."}</script>
+		<script data-js="tribe-events-view-data" type="application/json">
+	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Search Results for &#8220;&#8221; &#8211; The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"_context":{"slug":"day"},"text":"Loading..."}</script>
 
 		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
@@ -31,7 +30,7 @@
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<ul class="tribe-events-c-messages__message-list">
 									<li class="tribe-events-c-messages__message-list-item">
-						No events scheduled for January 1, 2019.					</li>
+						There are no upcoming events.					</li>
 							</ul>
 		</div>
 	</div>
@@ -46,9 +45,8 @@
 
 			<button
 	class="tribe-events-c-events-bar__search-button"
-	aria-controls="tribe-events-search-filter-container"
+	aria-controls="tribe-events-search-container"
 	aria-expanded="false"
-	aria-selected="false"
 	data-js="tribe-events-search-button"
 >
 	<span class="tribe-events-c-events-bar__search-button-icon tribe-common-svgicon"></span>
@@ -57,15 +55,14 @@
 </button>
 
 		<div
-			class="tribe-events-c-events-bar__search-filters-container"
-			id="tribe-events-search-filters-container"
-			data-js="tribe-events-search-filters-container"
+			class="tribe-events-c-events-bar__search-container"
+			id="tribe-events-search-container"
+			data-js="tribe-events-search-container"
 		>
-			
 			<div
 	class="tribe-events-c-events-bar__search"
 	id="tribe-events-events-bar-search"
-	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
+	data-js="tribe-events-events-bar-search"
 >
 	<form
 		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
@@ -103,13 +100,12 @@
 	Find Events</button>
 	</form>
 </div>
-
-					</div>
+		</div>
 	
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
-	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--labels"  data-js="tribe-events-view-selector">
+	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--labels tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
 		<button
 			class="tribe-events-c-view-selector__button"
 			data-js="tribe-events-view-selector-button"
@@ -157,17 +153,6 @@
 			Day		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--latest-past">
-	<a
-		href="http://test.tri.be/?post_type=tribe_events&#038;eventDisplay=latest-past&#038;tribe-bar-date=2019-01-01"
-		class="tribe-events-c-view-selector__list-item-link"
-		data-js="tribe-events-view-link"
-	>
-		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--latest-past"></span>
-		<span class="tribe-events-c-view-selector__list-item-text">
-			Latest-past		</span>
-	</a>
-</li>
 			</ul>
 </div>
 	</div>
@@ -204,7 +189,7 @@
 
 	<a
 	href="http://test.tri.be/events/today/"
-	class="tribe-common-c-btn-border tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
+	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
 	aria-label="Click to select today&#039;s date"
 	title="Click to select today&#039;s date"
@@ -294,7 +279,6 @@
 	>Export Events</a>
 </div>
 
-
 		<div class="tribe-events-after-html">
 	
 <!--
@@ -302,7 +286,6 @@ This calendar is powered by The Events Calendar.
 http://m.tri.be/18wn
 -->
 </div>
-
 
 	</div>
 

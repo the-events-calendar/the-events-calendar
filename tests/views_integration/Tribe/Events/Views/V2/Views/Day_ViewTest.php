@@ -154,7 +154,8 @@ class Day_ViewTest extends ViewTestCase {
 		$view = View::make( Day_View::class, $context );
 		$view->set_repository( $mock_repository );
 
-		$this->assertEquals( home_url( $expected ), $view->get_today_url( true ) );
+		$today_url = $view->get_today_url( true );
+		$this->assertEquals( home_url( $expected ), $today_url );
 	}
 
 	public function message_data_sets(  ) {
@@ -163,7 +164,7 @@ class Day_ViewTest extends ViewTestCase {
 			[
 				Messages::TYPE_NOTICE => [
 					Messages::for_key(
-						'day_no_results_found',
+						'no_upcoming_events',
 						date_i18n( tribe_get_date_format( true ), Dates::build_date_object( '2019-09-11' )->getTimestamp() ),
 						null
 					)

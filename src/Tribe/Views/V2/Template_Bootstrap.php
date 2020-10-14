@@ -10,6 +10,7 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Utils\Body_Classes;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Templates as V1_Event_Templates;
 use Tribe__Notices;
@@ -198,7 +199,7 @@ class Template_Bootstrap {
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param string          $pre_html  Allow pre-filtering the HTML that we will boostrap.
+		 * @param string          $pre_html  Allow pre-filtering the HTML that we will bootstrap.
 		 * @param string          $view_slug The slug of the View that will be built, based on the context.
 		 * @param \Tribe__Context $context   Tribe context used to setup the view.
 		 * @param \WP_Query       $query     The current WP Query object.
@@ -334,7 +335,7 @@ class Template_Bootstrap {
 	 *
 	 * @param string $template The template located by WordPress.
 	 *
-	 * @return string Path to the File that initalizes the template
+	 * @return string Path to the File that initializes the template
 	 */
 	public function filter_template_include( $template ) {
 		$query = tribe_get_global_query_object();
@@ -371,21 +372,59 @@ class Template_Bootstrap {
 		$setting  = $this->get_template_setting();
 		$template = $this->get_template_object()->get_path();
 
-		if ( 'page' === $setting ) {
-			$classes[] = 'page-template-' . sanitize_title( $template );
+		if ( 'page' !== $setting ) {
+			return $classes;
+		}
 
-			if ( ! is_tax() ) {
-				$key = array_search( 'archive', $classes );
+		$classes[] = 'page-template-' . sanitize_title( $template );
 
-				if ( false !== $key ) {
-					unset( $classes[ $key ] );
-				}
+		if ( ! is_tax() ) {
+			$key = array_search( 'archive', $classes );
+
+			if ( false !== $key ) {
+				unset( $classes[ $key ] );
 			}
-		} else {
-			$classes[] = 'tribe-events-page-template';
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Contains the logic for if this object's classes should be added to the queue.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @param boolean $add   Whether to add the class to the queue or not.
+	 * @param array   $class The array of body class names to add.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+
+	 * @return boolean Whether body classes should be added or not.
+	 */
+	public function should_add_body_class_to_queue( $add, $class, $queue ) {
+		if ( 'admin' === $queue ) {
+			return $add;
+		}
+
+		if ( 'tribe-events-page-template' === $class ) {
+			$setting = $this->get_template_setting();
+
+			if ( 'page' !== $setting ) {
+				return true;
+			}
+		}
+
+		return $add;
+	}
+
+	/**
+	 * Add body classes.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @return void
+	 */
+	public function add_body_classes() {
+		tribe( Body_Classes::class )->add_class( 'tribe-events-page-template' );
 	}
 
 	/**
@@ -407,7 +446,7 @@ class Template_Bootstrap {
 
 		$template_name = end( $name );
 
-		// Bail when we dont are not loading 'default-template'.
+		// Bail when we don't are not loading 'default-template'.
 		if ( 'default-template' !== $template_name ) {
 			return $file;
 		}

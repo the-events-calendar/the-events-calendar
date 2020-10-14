@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
- * @version 4.9.11
+ * @version 5.2.0
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -38,13 +38,11 @@ $day_classes = [ 'tribe-events-calendar-month__day' ];
 $day_button_classes = [ 'tribe-events-calendar-month__day-cell', 'tribe-events-calendar-month__day-cell--mobile' ];
 $day_number = $day['day_number'];
 $expanded = 'false';
-$selected = 'false';
 
 $day_id = 'tribe-events-calendar-day-' . $day_date;
 
 if ( $today_date === $day_date ) {
 	$expanded = 'true';
-	$selected = 'true';
 	$day_classes[] = 'tribe-events-calendar-month__day--current';
 	$day_button_classes[] = 'tribe-events-calendar-month__day-cell--selected';
 }
@@ -78,7 +76,6 @@ $num_events_label = sprintf(
 	<button
 		<?php if ( ! empty( $day['found_events'] ) ) : ?>
 			aria-expanded="<?php echo esc_attr( $expanded ); ?>"
-			aria-selected="<?php echo esc_attr( $selected ); ?>"
 			aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		<?php endif; ?>
 		<?php tribe_classes( $day_button_classes ); ?>

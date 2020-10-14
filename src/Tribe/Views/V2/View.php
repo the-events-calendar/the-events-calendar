@@ -16,7 +16,6 @@ use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\iCal_Data;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
-use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -456,7 +455,13 @@ class View implements View_Interface {
 
 		// This code is coupled with the idea of viewing events: that's fine as Events are the default view content.
 		$view_repository = tribe_events();
-		$view_repository->order_by( 'event_date', 'ASC' );
+		// Sort events  by start date first and by duration second, this is equivalent to sorting them by end date.
+		$view_repository->order_by(
+			[
+				'event_date'     => 'ASC',
+				'event_duration' => 'ASC',
+			]
+		);
 
 		/**
 		 * Filters the Repository object for a View.
@@ -1388,6 +1393,18 @@ class View implements View_Interface {
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 
+		/*
+		 * Some plugins, like WooCommerce, will modify the UID of logged out users; avoid that filtering here.
+		 *
+		 * @see TEC-3579
+		 */
+		$rest_nonce = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			static function () {
+				return wp_create_nonce( 'wp_rest' );
+			}
+		);
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1403,7 +1420,7 @@ class View implements View_Interface {
 			'now'                  => $this->context->get( 'now', 'now' ),
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
 			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
+			'rest_nonce'           => $rest_nonce,
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
 			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
@@ -1755,7 +1772,8 @@ class View implements View_Interface {
 			if ( $keyword ) {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
 			} else {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+				$message_key = $this->upcoming_events_count() ? 'no_results_found' : 'no_upcoming_events';
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key ) );
 			}
 		}
 	}
@@ -2198,7 +2216,7 @@ class View implements View_Interface {
 		// Flatten Views such as Month and Week that have an array values.
 		$first_value = reset( $events );
 		if ( is_array( $first_value ) ) {
-			$events = array_unique( array_merge( ...array_values( $events ) ) );
+			$events = array_unique( array_merge( ...array_values( $events ) ), SORT_REGULAR );
 		}
 
 		/**
@@ -2225,5 +2243,19 @@ class View implements View_Interface {
 			$latest_past_view->set_context( $this->context );
 			$latest_past_view->add_view_filters();
 		}
+	}
+
+	/**
+	 * Returns the number of upcoming events in relation to the "now" time.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @return int The number of upcoming events from "now".
+	 */
+	protected function upcoming_events_count() {
+		$now       = $this->context->get( 'now', Dates::build_date_object()->format( 'Y-m-d H:i:s' ) );
+		$from_date = tribe_beginning_of_day( $now );
+
+		return (int) tribe_events()->where( 'starts_after', $from_date )->found();
 	}
 }

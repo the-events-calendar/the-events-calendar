@@ -29,7 +29,7 @@ if ( ! function_exists( 'tribe_events' ) ) {
 		 * Filters the map relating event repository slugs to service container bindings.
 		 *
 		 * @since 4.9
-		 * @since 4.9.13 Added additional call arguements support.
+		 * @since 4.9.13 Added additional call arguments support.
 		 *
 		 * @param array  $map        A map in the shape [ <repository_slug> => <service_name> ]
 		 * @param string $repository The currently requested implementation.
