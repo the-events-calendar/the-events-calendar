@@ -41,8 +41,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	protected $view_slug;
 
 	/**
-	 * @todo update in TEC-3612 & TEC-3613
-	 *
 	 * {@inheritDoc}
 	 */
 	public function setup() {

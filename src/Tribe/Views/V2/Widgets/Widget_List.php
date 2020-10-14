@@ -64,20 +64,6 @@ class Widget_List extends Widget_Abstract {
 	];
 
 	/**
-	 * @todo update in TEC-3612 & TEC-3613
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @var array<string,mixed>
-	 */
-	protected $validate_arguments_map = [
-		'should_manage_url'    => 'tribe_is_truthy',
-		'no_upcoming_events'   => 'tribe_is_truthy',
-		'featured_events_only' => 'tribe_is_truthy',
-		'jsonld_enable'        => 'tribe_is_truthy',
-	];
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function get_arguments() {
