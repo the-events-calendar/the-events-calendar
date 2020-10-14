@@ -66,7 +66,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 					$instance,
 					$arguments
 				);
-		} );
+			}
+		);
 
 		$arguments = $this->get_arguments();
 

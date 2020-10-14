@@ -13,11 +13,11 @@
  * @var string  $value   Value for the checkbox.
  * @var string  $id      ID of the checkbox.
  * @var string  $name    Name attribute for the checkbox.
- * @var boolean $checked Whether the checkbox is checked or not.
  *
  * @version TBD
  *
  */
+
 ?>
 <p
 	class="tribe-filter-bar-c-checkbox tribe-common-form-control-checkbox"

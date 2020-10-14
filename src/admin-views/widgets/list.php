@@ -25,7 +25,7 @@ foreach ( $admin_fields as $id => $field ) {
 	if ( empty( $field['type'] ) ) {
 		continue;
 	}
-	// todo lets not assume this and find a better way
+	// todo lets not assume this and find a better way.
 	$value = ${$id};
 
 	$data = [

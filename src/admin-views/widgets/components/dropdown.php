@@ -9,11 +9,10 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @var string  $label   Label for the checkbox.
- * @var string  $value   Value for the checkbox.
- * @var string  $id      ID of the checkbox.
- * @var string  $name    Name attribute for the checkbox.
- * @var boolean $checked Whether the checkbox is checked or not.
+ * @var string $label Label for the checkbox.
+ * @var string $value Value for the checkbox.
+ * @var string $id    ID of the checkbox.
+ * @var string $name  Name attribute for the checkbox.
  *
  * @version TBD
  *
@@ -34,15 +33,14 @@
 			name="<?php echo esc_attr( $name ); ?>"
 			class="tribe-common-form-control-dropdown__input widefat"
 	>
-		<?php foreach ( $options as $option ) {
-			?>
+		<?php foreach ( $options as $option ) { ?>
 			<option
 					value="<?php echo $option['value']; ?>"
 					<?php echo $option['value'] == $value ? 'selected="selected"' : ''; ?>
 					<?php // todo why does checked not work? it shows as selected? can I typecast? but what about supporting string and int? ?>
 					<?php //checked( $option['value'], $value ); ?>
 			>
-				<?php echo $option['text']; ?>
+				<?php echo esc_html( $option['text'] ); ?>
 			</option>
 		<?php } ?>
 	</select>

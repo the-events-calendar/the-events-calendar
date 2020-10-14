@@ -88,7 +88,7 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_arguments( $instance = [] ) {
+	public function get_arguments() {
 		$arguments = $this->arguments;
 
 		$arguments['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
@@ -97,7 +97,7 @@ class Widget_List extends Widget_Abstract {
 		$arguments['widget_options']['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
 
 		// Setup default title.
-		$arguments['title']        = __( 'Upcoming Events', 'the-events-calendar' );
+		$arguments['title'] = __( 'Upcoming Events', 'the-events-calendar' );
 
 		// Setup admin fields.
 		$arguments['admin_fields'] = [
@@ -106,8 +106,8 @@ class Widget_List extends Widget_Abstract {
 				'type'  => 'text',
 			],
 			'limit'                => [
-				'label' => __( 'Show:', 'the-events-calendar' ),
-				'type'  => 'dropdown',
+				'label'   => __( 'Show:', 'the-events-calendar' ),
+				'type'    => 'dropdown',
 				'options' => $this->get_limit_options(),
 			],
 			'no_upcoming_events'   => [
@@ -148,7 +148,7 @@ class Widget_List extends Widget_Abstract {
 		 *
 		 * @param int The max limit of events to display in the List Widget, default 10.
 		 */
-		$events_limit = apply_filters( "tribe_events_widget_list_events_max_limit", 10 );
+		$events_limit = apply_filters( 'tribe_events_widget_list_events_max_limit', 10 );
 
 		$options = [];
 
