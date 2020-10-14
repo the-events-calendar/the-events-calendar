@@ -59,10 +59,13 @@ class Template extends Base_Template {
 	public function render( array $context_overrides = [] ) {
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
-		$template_slug = array_filter( [
-			$this->view->get_template_path(),
-			$this->view->get_template_slug(),
-		] );
+
+		$template_slug = array_filter(
+			[
+				$this->view->get_template_path(),
+				$this->view->get_template_slug(),
+			]
+		);
 
 		return parent::template( $template_slug, $context, false );
 	}
