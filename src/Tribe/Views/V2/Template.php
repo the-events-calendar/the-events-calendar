@@ -60,12 +60,13 @@ class Template extends Base_Template {
 		$context = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
-		$template_slug = array_filter(
-			[
+		$template_slug = $this->view->get_template_slug();
+		if ( ! empty( $this->view->get_template_path() ) ) {
+			$template_slug = [
 				$this->view->get_template_path(),
-				$this->view->get_template_slug(),
-			]
-		);
+				$template_slug,
+			];
+		}
 
 		return parent::template( $template_slug, $context, false );
 	}
