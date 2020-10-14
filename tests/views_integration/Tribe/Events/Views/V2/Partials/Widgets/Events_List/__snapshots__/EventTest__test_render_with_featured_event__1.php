@@ -1,11 +1,11 @@
 <?php return '<div  class="tribe-common-g-row tribe-events-widget-events-list__event-row tribe-events-widget-events-list__event-row--featured" >
 
 	<div class="tribe-events-widget-events-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-widget-events-list__event-date-tag-datetime" datetime="2020-10-15">
+	<time class="tribe-events-widget-events-list__event-date-tag-datetime" datetime="2019-06-20">
 		<span class="tribe-events-widget-events-list__event-date-tag-month">
-			Oct		</span>
+			Jun		</span>
 		<span class="tribe-events-widget-events-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
-			15		</span>
+			20		</span>
 	</time>
 </div>
 
