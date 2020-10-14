@@ -22,17 +22,13 @@ use Tribe__Date_Utils as Dates;
  * If the request date is after the event start date, show the request date to avoid users from seeing dates "in the
  * past" in relation to the date they requested (or today's date).
  */
-// $display_date = empty( $is_past ) && ! empty( $request_date )
-// 	? max( $event->dates->start_display, $request_date )
-// 	: $event->dates->start_display;
+$display_date = empty( $is_past ) && ! empty( $request_date )
+	? max( $event->dates->start_display, $request_date )
+	: $event->dates->start_display;
 
-// $event_month     = $display_date->format_i18n( 'M' );
-// $event_day_num   = $display_date->format_i18n( 'j' );
-// $event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
-
-$event_month     = 'Oct';
-$event_day_num   = '15';
-$event_date_attr = '2020-10-15';
+$event_month     = $display_date->format_i18n( 'M' );
+$event_day_num   = $display_date->format_i18n( 'j' );
+$event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-widget-events-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-widget-events-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
