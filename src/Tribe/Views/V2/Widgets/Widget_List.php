@@ -86,6 +86,15 @@ class Widget_List extends Widget_Abstract {
 	];
 
 	/**
+	 * @todo update in TEC-3612 & TEC-3613
+	 *
+	 * {@inheritDoc}
+	 */
+	public function setup() {
+		$this->setup_view();
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function get_arguments() {
