@@ -22,15 +22,15 @@ if ( empty( $admin_fields ) ) {
 	return;
 }
 
-foreach ( $admin_fields as $id => $field ) {
+foreach ( $admin_fields as $field_id => $field ) {
 
 	$data = [
-		'for'     => $widget_obj->get_field_id( $id ),
-		'id'      => $widget_obj->get_field_id( $id ),
-		'name'    => $widget_obj->get_field_name( $id ),
+		'for'     => $widget_obj->get_field_id( $field_id ),
+		'id'      => $widget_obj->get_field_id( $field_id ),
+		'name'    => $widget_obj->get_field_name( $field_id ),
 		'label'   => Arr::get( $field, 'label', '' ),
 		'options' => Arr::get( $field, 'options', [] ),
-		'value'   => isset( ${$id} ) ? ${$id} : null,
+		'value'   => isset( ${$field_id} ) ? ${$field_id} : null,
 	];
 
 	switch ( $field['type'] ) {

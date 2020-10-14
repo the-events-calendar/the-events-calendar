@@ -15,7 +15,6 @@
  * @var string $name  Name attribute for the checkbox.
  *
  * @version TBD
- *
  */
 
 ?>

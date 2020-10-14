@@ -89,18 +89,13 @@ class Widget_List extends Widget_Abstract {
 	}
 
 	/**
-	 * The function for saving widget updates in the admin section.
-	 *
-	 * @param array $new_instance
-	 * @param array $old_instance
-	 *
-	 * @return array The new widget settings.
+	 * {@inheritDoc}
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$instance['title']                = strip_tags( $new_instance['title'] );
+		$instance['title']                = wp_strip_all_tags( $new_instance['title'] );
 		$instance['limit']                = $new_instance['limit'];
 		$instance['no_upcoming_events']   = isset( $new_instance['no_upcoming_events'] ) && $new_instance['no_upcoming_events'] ? true : false;
 		$instance['featured_events_only'] = isset( $new_instance['featured_events_only'] ) && $new_instance['featured_events_only'] ? true : false;

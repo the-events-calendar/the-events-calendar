@@ -15,7 +15,6 @@
  * @var string $name  Name attribute for the checkbox.
  *
  * @version TBD
- *
  */
 
 ?>
@@ -36,7 +35,7 @@
 		<?php foreach ( $options as $option ) { ?>
 			<option
 					value="<?php echo $option['value']; ?>"
-					<?php selected( $option['value'], $value ); ?>
+					<?php esc_html( selected( $option['value'], $value ) ); ?>
 			>
 				<?php echo esc_html( $option['text'] ); ?>
 			</option>
