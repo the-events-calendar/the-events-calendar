@@ -96,8 +96,10 @@ class Widget_List extends Widget_Abstract {
 		$arguments['name']                          = esc_html__( 'Events List V2', 'the-events-calendar' );
 		$arguments['widget_options']['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
 
-		// Setup Admin Fields.
+		// Setup default title.
 		$arguments['title']        = __( 'Upcoming Events', 'the-events-calendar' );
+
+		// Setup admin fields.
 		$arguments['admin_fields'] = [
 			'title'                => [
 				'label' => __( 'Title:', 'the-events-calendar' ),

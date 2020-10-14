@@ -62,16 +62,13 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		add_filter(
 			"tribe_widget_{$this->get_registration_slug()}_arguments",
 			function ( array $arguments ) use ( $instance ) {
-				$current_instance = $instance;
-				$new_arguements = wp_parse_args(
+				return wp_parse_args(
 					$instance,
 					$arguments
 				);
-
-				return $new_arguements;
 		} );
 
-		$arguments  = $this->get_arguments();
+		$arguments = $this->get_arguments();
 
 		$this->admin_template->template( 'widgets/list', $arguments );
 	}
