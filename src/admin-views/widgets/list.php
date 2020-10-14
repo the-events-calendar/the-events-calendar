@@ -9,11 +9,13 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @var array<array> $admin_fields An array of admin fields to display in the widget form.
+ * @var Widget_Abstract $widget_obj   An instance with the widget abstract.
+ * @var array<array>    $admin_fields An array of admin fields to display in the widget form.
  *
  * @version TBD
  */
 
+use \Tribe\Events\Views\V2\Widgets\Widget_Abstract;
 use Tribe__Utils__Array as Arr;
 
 if ( empty( $admin_fields ) ) {
@@ -22,19 +24,13 @@ if ( empty( $admin_fields ) ) {
 
 foreach ( $admin_fields as $id => $field ) {
 
-	if ( empty( $field['type'] ) ) {
-		continue;
-	}
-	// todo lets not assume this and find a better way.
-	$value = ${$id};
-
 	$data = [
 		'for'     => $widget_obj->get_field_id( $id ),
 		'id'      => $widget_obj->get_field_id( $id ),
 		'name'    => $widget_obj->get_field_name( $id ),
 		'label'   => Arr::get( $field, 'label', '' ),
 		'options' => Arr::get( $field, 'options', [] ),
-		'value'   => $value,
+		'value'   => isset( ${$id} ) ? ${$id} : null,
 	];
 
 	switch ( $field['type'] ) {

@@ -36,9 +36,7 @@
 		<?php foreach ( $options as $option ) { ?>
 			<option
 					value="<?php echo $option['value']; ?>"
-					<?php echo $option['value'] == $value ? 'selected="selected"' : ''; ?>
-					<?php // todo why does checked not work? it shows as selected? can I typecast? but what about supporting string and int? ?>
-					<?php //checked( $option['value'], $value ); ?>
+					<?php selected( $option['value'], $value ); ?>
 			>
 				<?php echo esc_html( $option['text'] ); ?>
 			</option>
