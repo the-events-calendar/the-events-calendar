@@ -254,41 +254,12 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_the_event_template_path_when_unfiltered() {
-		add_filter(
-			'template_include',
-			function( $template ){
-				return 'foo-bar';
-			},
-			PHP_INT_MIN
-		);
-
-		// The function runs on two hooks - let's test both.
-		add_filter(
-			'embed_template',
-			function( $template ){
-				return 'foo-bar';
-			},
-			PHP_INT_MIN
-		);
-
-		add_filter(
-			'template_include',
-			function( $template ){
-				$this->assertNotEquals( $template, 'foo-bar', "Template path should not be 'foo-bar' on the `template_include` hook when unfiltered." );
-			},
-			PHP_INT_MAX
-		);
-
-		add_filter(
-			'embed_template',
-			function( $template ){
-				$this->assertNotEquals( $template, 'foo-bar', "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
-			},
-			PHP_INT_MAX
-		);
-
+		$default_events = '/var/www/html/wp-content/plugins/the-events-calendar/src/views/v2/default-template.php';
 		// Run our "faked" events query.
 		$this->setup_event_query();
+
+		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
+		$this->assertEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
 	}
 
 	/**
@@ -296,47 +267,18 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function it_should_not_return_the_event_template_path_when_filtered_false() {
+	public function it_should_return_the_event_template_path_when_filtered_false() {
+		$default_events = '/var/www/html/wp-content/plugins/the-events-calendar/src/views/v2/default-template.php';
+		// Run our "faked" events query.
+		$this->setup_event_query();
+
 		add_filter(
 			'tribe_events_views_v2_should_load_default_templates',
 			'__return_false'
 		);
 
-		add_filter(
-			'template_include',
-			function( $template ){
-				return 'foo-bar';
-			},
-			PHP_INT_MIN
-		);
-
-		// The function runs on two hooks - let's test both.
-		add_filter(
-			'embed_template',
-			function( $template ){
-				return 'foo-bar';
-			},
-			PHP_INT_MIN
-		);
-
-		add_filter(
-			'template_include',
-			function( $template ){
-				$this->assertEquals( $template, 'foo-bar', "Template path should be 'foo-bar' on the `template_include` hook when filtered false." );
-			},
-			PHP_INT_MAX
-		);
-
-		add_filter(
-			'embed_template',
-			function( $template ){
-				$this->assertEquals( $template, 'foo-bar', "Template path should be 'foo-bar' on the `embed_template` hook when filtered false." );
-			},
-			PHP_INT_MAX
-		);
-
-		// Run our "faked" events query.
-		$this->setup_event_query();
+		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
+		$this->assertEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
 	}
 
 	/**
@@ -344,46 +286,21 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function it_should_return_the_event_template_path_when_filtered_true() {
+	public function it_should_not_return_the_event_template_path_when_filtered_true() {
+		$default_events = '/var/www/html/wp-content/plugins/the-events-calendar/src/views/v2/default-template.php';
+
+		// Run our "faked" events query.
+		$this->setup_event_query();
+
 		add_filter(
 			'tribe_events_views_v2_should_load_default_templates',
 			'__return_true'
 		);
 
-		add_filter(
-			'template_include',
-			function( $template ) {
-				return 'foo-bar';
-			},
-			PHP_INT_MIN
-		);
-
-		add_filter(
-			'embed_template',
-			function( $template ) {
-				return 'foo-bar';
-			},
-			PHP_INT_MIN
-		);
-
-		add_filter(
-			'template_include',
-			function( $template ) {
-				$this->assertNotEquals( $template, 'foo-bar', "Template path should not be 'foo-bar' on the `template_include` hook when filtered true." );
-			},
-			PHP_INT_MAX
-		);
-
-		add_filter(
-			'embed_template',
-			function( $template ) {
-				$this->assertNotEquals( $template, 'foo-bar', "Template path should not be 'foo-bar' on the `embed_template` hook when filtered true." );
-			},
-			PHP_INT_MAX
-		);
-
-		// Run our "faked" events query.
-		$this->setup_event_query();
+		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
+		$this->assertNotEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
+		// Sanity check
+		$this->assertEquals( $template, 'foo-bar', "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
 	}
 
 	public function filter_template_include_data_set() {
@@ -535,8 +452,10 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * Lets us set the query up manually after setting up hooks.
 	 */
 	protected function setup_event_query() {
-		global $wp_query;
-		// Let's make sure this is an event query and flag it as such.
-		$wp_query->tribe_is_event_query = true;
+		global $wp_the_query, $wp_query;
+		$wp_the_query = new \WP_Query();
+		$wp_query     = $wp_the_query;
+		// This is an event query, but a 404 one.
+		$wp_the_query->tribe_is_event_query = true;
 	}
 }
