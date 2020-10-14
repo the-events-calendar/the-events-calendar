@@ -64,7 +64,7 @@ class Filters {
 		$url_keys = array_filter(
 			$template_vars,
 			static function ( $value, $key ) {
-				return str_contains( $key, 'url' ) && (bool) filter_var( $value, FILTER_VALIDATE_URL );
+				return strpos( $key, 'url' ) !== false && (bool) filter_var( $value, FILTER_VALIDATE_URL );
 			},
 			ARRAY_FILTER_USE_BOTH
 		);
