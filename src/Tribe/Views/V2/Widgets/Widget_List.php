@@ -84,7 +84,7 @@ class Widget_List extends Widget_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function setup() {
-
+		$this->setup_view();
 	}
 
 	/**

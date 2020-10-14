@@ -30,6 +30,15 @@ class Widget_List_View extends View {
 	protected $slug = 'widget-list';
 
 	/**
+	 * The slug for the template path.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $template_path = 'widgets';
+
+	/**
 	 * Visibility for this view.
 	 *
 	 * @since TBD
