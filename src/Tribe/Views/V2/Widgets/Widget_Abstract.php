@@ -150,7 +150,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Alters the widget context with its arguments.
 	 *
-	 * @todo update in TEC-3612 & TEC-3613
+	 * @todo update in TEC-3620 & TEC-3597
 	 *
 	 * @since  TBD
 	 *
@@ -171,7 +171,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Translates widget arguments to their Context argument counterpart.
 	 *
-	 * @todo update in TEC-3612 & TEC-3613
+	 * @todo update in TEC-3620 & TEC-3597
 	 *
 	 * @since TBD
 	 *

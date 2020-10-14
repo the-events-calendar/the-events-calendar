@@ -27,7 +27,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @var array<string>
 	 */
-	private $widgets = [
+	protected $widgets = [
 		'tribe_events_list_widget',
 	];
 
