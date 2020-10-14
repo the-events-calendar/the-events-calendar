@@ -21,4 +21,30 @@
 			@mixin desktop-heading-4;
 		}
 	}
+
+	.tribe-events-widget-events-list__view-more-link {
+		color: var(--color-accent-primary);
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: var(--color-accent-primary);
+			border-bottom-color: var(--color-accent-primary);
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-events-widget-events-list__view-more-link {
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-primary);
+			}
+		}
+	}
 }
