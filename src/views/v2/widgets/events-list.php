@@ -11,14 +11,14 @@
  *
  * @version TBD
  *
- * @var array    $events             The array containing the events.
- * @var string   $rest_url           The REST URL.
- * @var string   $rest_nonce         The REST nonce.
- * @var int      $should_manage_url  int containing if it should manage the URL.
- * @var string[] $container_classes  Classes used for the container of the view.
- * @var array    $container_data     An additional set of container `data` attributes.
- * @var string   $breakpoint_pointer String we use as pointer to the current view we are setting up with breakpoints.
- * @var array    $messages           An array of user-facing messages, managed by the View.
+ * @var array<\WP_Post>      $events             The array containing the events.
+ * @var string               $rest_url           The REST URL.
+ * @var string               $rest_nonce         The REST nonce.
+ * @var int                  $should_manage_url  int containing if it should manage the URL.
+ * @var array<string>        $container_classes  Classes used for the container of the view.
+ * @var array<string,mixed>  $container_data     An additional set of container `data` attributes.
+ * @var string               $breakpoint_pointer String we use as pointer to the current view we are setting up with breakpoints.
+ * @var array<string,string> $messages           An array of user-facing messages, managed by the View.
  */
 
 $events = [
