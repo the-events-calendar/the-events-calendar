@@ -224,9 +224,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
-Tweak - Add the `tribe_events_views_v2_endpoint_method` filter to allow controlling the HTTP method Views should use to fetch their content from the back-end endpoint. [TEC-3283]
-Tweak - Add the `tribe_events_views_v2_endpoint_url` filter to allow controlling the URL Views should use to fetch their content from the back-end endpoint. [TEC-3283]
+* Fix - Add filter to toggle off the event templates hijack. [TEC-3521]
+* Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
+* Tweak - Add the `tribe_events_views_v2_endpoint_method` filter to allow controlling the HTTP method Views should use to fetch their content from the back-end endpoint. [TEC-3283]
+* Tweak - Add the `tribe_events_views_v2_endpoint_url` filter to allow controlling the URL Views should use to fetch their content from the back-end endpoint. [TEC-3283]
 * Fix - Correct url for current month iCal export link. [TEC-3575]
 
 = [5.2.0] 2020-09-28 =
