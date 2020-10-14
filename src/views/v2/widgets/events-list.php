@@ -99,7 +99,7 @@ $view_more_link = '#';
 						$this->template(
 							'widgets/events-list/event',
 							[
-								'event' => $event,
+								'event'   => $event,
 								'display' => $display,
 							]
 						);
