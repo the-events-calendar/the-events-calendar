@@ -35,7 +35,7 @@ $event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
 		<span class="tribe-events-widget-events-list__event-date-tag-month">
 			<?php echo esc_html( $event_month ); ?>
 		</span>
-		<span class="tribe-events-widget-events-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+		<span class="tribe-events-widget-events-list__event-date-tag-daynum tribe-common-h2 tribe-common-h4--min-medium">
 			<?php echo esc_html( $event_day_num ); ?>
 		</span>
 	</time>
