@@ -118,4 +118,48 @@ class Filters {
 
 		return $public_views;
 	}
+
+	/**
+	 * Updates the Views v2 request URI used to set up the `$_SERVER['REQUEST_URI']` in the `View::setup_the_loop`
+	 * method to make sure it will point to the correct URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $request_uri The original request URI.
+	 *
+	 * @return string The corrected request URI.
+	 */
+	public static function translate_view_request_uri( $request_uri ) {
+		if ( ! is_string( $request_uri ) ) {
+			return $request_uri;
+		}
+
+		$lang = static::get_request_lang();
+
+		if ( false === $lang ) {
+			return $request_uri;
+		}
+
+		if ( static::using_subdir() && strpos( $request_uri, '/' . $lang ) !== 0 ) {
+			$request_uri = '/' . $lang . $request_uri;
+		}
+
+		return $request_uri;
+	}
+
+	/**
+	 * Returns whether the current WPML URL translation setting is the sub-directory one (e.g. `http://foo.bar/it`) or
+	 * not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current WPML URL translation setting is the sub-directory one or not.
+	 */
+	protected static function using_subdir() {
+		/** @var \SitePress $sitepress */
+		global $sitepress;
+		$lang_negotiation = (int) $sitepress->get_setting( 'language_negotiation_type' );
+
+		return WPML_LANGUAGE_NEGOTIATION_TYPE_DIRECTORY === $lang_negotiation;
+	}
 }
