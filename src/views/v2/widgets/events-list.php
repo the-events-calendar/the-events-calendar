@@ -19,6 +19,8 @@
  * @var array<string,mixed>  $container_data     An additional set of container `data` attributes.
  * @var string               $breakpoint_pointer String we use as pointer to the current view we are setting up with breakpoints.
  * @var array<string,string> $messages           An array of user-facing messages, managed by the View.
+ * @var array<string,bool>   $display            An array of whether to display specific event meta or not.
+ * @var string               $view_more_link     The URL to view all events.
  */
 
 $event = (object) [
@@ -59,6 +61,7 @@ $display = [
 	'phone'     => true,
 	'organizer' => true,
 ];
+$view_more_link = '#';
 ?>
 <div
 	<?php tribe_classes( $container_classes ); ?>
@@ -73,26 +76,45 @@ $display = [
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
-	<div class="tribe-events-widget-events-list">
-		<header class="tribe-events-widget-events-list__header">
-			<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-				<?php
-				echo esc_html(
-					sprintf(
-						_x( 'Upcoming %1$s', 'Title for events list widget.', 'the-events-calendar' ),
-						tribe_get_event_label_singular()
-					)
-				);
-				?>
-			</h3>
-		</header>
+	<div class="tribe-common-l-container">
+		<div class="tribe-events-widget-events-list">
+			<header class="tribe-events-widget-events-list__header">
+				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+					<?php
+					echo esc_html(
+						sprintf(
+							/* translators: %1$s: Event (plural). */
+							_x( 'Upcoming %1$s', 'Title for events list widget.', 'the-events-calendar' ),
+							tribe_get_event_label_plural()
+						)
+					);
+					?>
+				</h3>
+			</header>
 
-		<?php if ( ! empty( $events ) ) : ?>
-			<?php foreach ( $events as $event ) : ?>
-				<?php $this->template( 'widgets/events-list/event', [ 'event' => $event, 'display' => $display ] ); ?>
-			<?php endforeach; ?>
-		<?php else : ?>
-			<?php // get messages component ?>
-		<?php endif; ?>
+			<?php if ( ! empty( $events ) ) : ?>
+
+				<div class="tribe-events-widget-events-list__events">
+					<?php foreach ( $events as $event ) : ?>
+						<?php
+						$this->template(
+							'widgets/events-list/event',
+							[
+								'event'   => $event,
+								'display' => $display,
+							]
+						);
+						?>
+					<?php endforeach; ?>
+				</div>
+
+				<?php $this->template( 'widgets/events-list/view-more', [ 'view_more_link' => $view_more_link ] ); ?>
+
+			<?php else : ?>
+
+				<?php // get messages component ?>
+
+			<?php endif; ?>
+		</div>
 	</div>
 </div>

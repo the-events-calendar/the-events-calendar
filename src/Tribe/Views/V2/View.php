@@ -79,6 +79,15 @@ class View implements View_Interface {
 	protected $template_slug;
 
 	/**
+	 * The template path will be used as a prefix for template slug when locating its template files.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected $template_path = '';
+
+	/**
 	 * The Template instance the view will use to locate, manage and render its template.
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
@@ -638,6 +647,13 @@ class View implements View_Interface {
 	 */
 	public function get_slug() {
 		return $this->slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_template_path() {
+		return $this->template_path;
 	}
 
 	/**
