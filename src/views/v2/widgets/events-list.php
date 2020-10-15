@@ -73,26 +73,35 @@ $display = [
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
-	<div class="tribe-events-widget-events-list">
-		<header class="tribe-events-widget-events-list__header">
-			<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-				<?php
-				echo esc_html(
-					sprintf(
-						_x( 'Upcoming %1$s', 'Title for events list widget.', 'the-events-calendar' ),
-						tribe_get_event_label_singular()
-					)
-				);
-				?>
-			</h3>
-		</header>
+	<div class="tribe-common-l-container">
+		<div class="tribe-events-widget-events-list">
+			<header class="tribe-events-widget-events-list__header">
+				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+					<?php
+					echo esc_html(
+						sprintf(
+							/* translators: %1$s: Event (plural). */
+							_x( 'Upcoming %1$s', 'Title for events list widget.', 'the-events-calendar' ),
+							tribe_get_event_label_plural()
+						)
+					);
+					?>
+				</h3>
+			</header>
 
-		<?php if ( ! empty( $events ) ) : ?>
-			<?php foreach ( $events as $event ) : ?>
-				<?php $this->template( 'widgets/events-list/event', [ 'event' => $event, 'display' => $display ] ); ?>
-			<?php endforeach; ?>
-		<?php else : ?>
-			<?php // get messages component ?>
-		<?php endif; ?>
+			<?php if ( ! empty( $events ) ) : ?>
+
+				<div class="tribe-events-widget-events-list__events">
+					<?php foreach ( $events as $event ) : ?>
+						<?php $this->template( 'widgets/events-list/event', [ 'event' => $event, 'display' => $display ] ); ?>
+					<?php endforeach; ?>
+				</div>
+
+			<?php else : ?>
+
+				<?php // get messages component ?>
+
+			<?php endif; ?>
+		</div>
 	</div>
 </div>

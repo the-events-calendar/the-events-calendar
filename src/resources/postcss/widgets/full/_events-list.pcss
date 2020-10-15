@@ -1,0 +1,24 @@
+.tribe-events {
+
+	.tribe-events-widget-events-list__header {
+		margin-bottom: var(--spacer-5);
+	}
+
+	.tribe-events-widget-events-list__event-date-tag-month {
+		@mixin mobile-body-3;
+
+		color: var(--color-text-secondary);
+		text-transform: uppercase;
+	}
+
+	.tribe-events-widget-events-list__event-title {
+
+		.tribe-common--breakpoint-xsmall& {
+			@mixin heading-5;
+		}
+
+		.tribe-common--breakpoint-medium& {
+			@mixin desktop-heading-4;
+		}
+	}
+}
