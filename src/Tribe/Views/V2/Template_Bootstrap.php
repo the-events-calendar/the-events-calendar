@@ -350,7 +350,7 @@ class Template_Bootstrap {
 		 * @param string         $template The template located by WordPress.
 		 * @param Tribe__Context $context  The singleton, immutable, global object instance.
 		 */
-		$load_template = apply_filters( 'tribe_events_views_v2_should_load_default_templates', false, $template, $context, $query );
+		$load_template = apply_filters( 'tribe_events_views_v2_use_wp_template_hierarchy', false, $template, $context, $query );
 
 		// Let others decide if they want to load our templates or not.
 		if ( (bool) $load_template ) {

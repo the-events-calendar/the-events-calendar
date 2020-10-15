@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
-use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
+use Tribe__Events__Main as Main;
 
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 
@@ -254,12 +254,12 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_the_event_template_path_when_unfiltered() {
-		$default_events = '/var/www/html/wp-content/plugins/the-events-calendar/src/views/v2/default-template.php';
+		$default_events = Main::instance()->plugin_path . 'src/views/v2/default-template.php';
 		// Run our "faked" events query.
 		$this->setup_event_query();
 
 		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
-		$this->assertEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
+		$this->assertEquals( $default_events, $template, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
 	}
 
 	/**
@@ -268,17 +268,17 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_return_the_event_template_path_when_filtered_false() {
-		$default_events = '/var/www/html/wp-content/plugins/the-events-calendar/src/views/v2/default-template.php';
+		$default_events = Main::instance()->plugin_path . 'src/views/v2/default-template.php';
 		// Run our "faked" events query.
 		$this->setup_event_query();
 
 		add_filter(
-			'tribe_events_views_v2_should_load_default_templates',
+			'tribe_events_views_v2_use_wp_template_hierarchy',
 			'__return_false'
 		);
 
 		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
-		$this->assertEquals( $template, $default_events, "Template path should not be 'foo-bar' on the `embed_template` hook when filtered false." );
+		$this->assertEquals( $default_events, $template, "Template path should not be 'foo-bar' on the `embed_template` hook when filtered false." );
 	}
 
 	/**
@@ -287,20 +287,20 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_not_return_the_event_template_path_when_filtered_true() {
-		$default_events = '/var/www/html/wp-content/plugins/the-events-calendar/src/views/v2/default-template.php';
+		$default_events = Main::instance()->plugin_path . 'src/views/v2/default-template.php';
 
 		// Run our "faked" events query.
 		$this->setup_event_query();
 
 		add_filter(
-			'tribe_events_views_v2_should_load_default_templates',
+			'tribe_events_views_v2_use_wp_template_hierarchy',
 			'__return_true'
 		);
 
 		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
-		$this->assertNotEquals( $template, $default_events, "Template path should not be {$default_events} on the `embed_template` hook when filtered true." );
+		$this->assertNotEquals( $default_events, $template, "Template path should not be {$default_events} on the `embed_template` hook when filtered true." );
 		// Sanity check
-		$this->assertEquals( $template, 'foo-bar', "Template path should be 'foo-bar' on the `embed_template` hook when filtered true." );
+		$this->assertEquals( 'foo-bar', $template, "Template path should be 'foo-bar' on the `embed_template` hook when filtered true." );
 	}
 
 	public function filter_template_include_data_set() {
