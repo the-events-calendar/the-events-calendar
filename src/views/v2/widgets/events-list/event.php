@@ -11,8 +11,7 @@
  *
  * @version TBD
  *
- * @var WP_Post            $event   The event post object with properties added by the `tribe_get_event` function.
- * @var array<string,bool> $display Associative array of display settings for event meta.
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -34,6 +33,8 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-widget-events-list__event
 					<?php $this->template( 'widgets/events-list/event/date', [ 'event' => $event ] ); ?>
 					<?php $this->template( 'widgets/events-list/event/title', [ 'event' => $event ] ); ?>
 				</header>
+
+				<?php $this->do_entry_point( 'event_meta' ); ?>
 
 				<?php // $this->template( 'widgets/events-list/event/cost', [ 'event' => $event, 'display' => $display ] ); ?>
 				<?php // $this->template( 'widgets/events-list/event/venue', [ 'event' => $event, 'display' => $display ] ); ?>
