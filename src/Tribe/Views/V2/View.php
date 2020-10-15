@@ -1537,6 +1537,15 @@ class View implements View_Interface {
 				'/'
 			);
 
+		/**
+		 * Allows filtering the Views request URI that will be used to set up the loop.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $request_uri The parsed request URI.
+		 */
+		$request_uri = apply_filters( 'tribe_events_views_v2_request_uri', $request_uri );
+
 		return $request_uri;
 	}
 
