@@ -11,7 +11,7 @@
  *
  * @version TBD
  *
- * @var WP_Post $view_more_link The URL to view all events.
+ * @var string $view_more_link The URL to view all events.
  *
  * @see tribe_get_event() For the format of the event object.
  */
