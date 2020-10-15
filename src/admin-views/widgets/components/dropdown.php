@@ -9,17 +9,17 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @var string $label Label for the checkbox.
- * @var string $value Value for the checkbox.
- * @var string $id    ID of the checkbox.
- * @var string $name  Name attribute for the checkbox.
+ * @var string $label Label for the dropdown.
+ * @var string $value Value for the dropdown.
+ * @var string $id    ID of the dropdown.
+ * @var string $name  Name attribute for the dropdown.
  *
  * @version TBD
  */
 
 ?>
 <p
-		class="tribe-filter-bar-c-dropdown tribe-common-form-control-dropdown"
+		class="tribe-widget-dropdown tribe-common-form-control-dropdown"
 >
 	<label
 			class="tribe-common-form-control-dropdown__label"

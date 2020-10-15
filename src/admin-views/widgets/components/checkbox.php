@@ -19,7 +19,7 @@
 
 ?>
 <p
-		class="tribe-filter-bar-c-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
 >
 	<input
 			class="tribe-common-form-control-checkbox__input"

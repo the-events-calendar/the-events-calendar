@@ -9,17 +9,17 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @var string $label Label for the checkbox.
- * @var string $value Value for the checkbox.
- * @var string $id    ID of the checkbox.
- * @var string $name  Name attribute for the checkbox.
+ * @var string $label Label for the text input.
+ * @var string $value Value for the text input.
+ * @var string $id    ID of the text input.
+ * @var string $name  Name attribute for the text input.
  *
  * @version TBD
  */
 
 ?>
 <p
-		class="tribe-filter-bar-c-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
 >
 	<label
 			class="tribe-common-form-control-checkbox__label"

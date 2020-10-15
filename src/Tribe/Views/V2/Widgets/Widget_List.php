@@ -46,7 +46,7 @@ class Widget_List extends Widget_Abstract {
 		'id'                   => null,
 		'alias-slugs'          => null,
 		'title'                => '',
-		'limit'                => '5',
+		'limit'                => 5,
 		'no_upcoming_events'   => false,
 		'featured_events_only' => false,
 		'jsonld_enable'        => true,

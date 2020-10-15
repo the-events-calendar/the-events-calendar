@@ -1,5 +1,5 @@
 <?php return '<p
-		class="tribe-filter-bar-c-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
 >
 	<label
 			class="tribe-common-form-control-checkbox__label"
@@ -15,7 +15,7 @@
 	/>
 </p>
 <p
-		class="tribe-filter-bar-c-dropdown tribe-common-form-control-dropdown"
+		class="tribe-widget-dropdown tribe-common-form-control-dropdown"
 >
 	<label
 			class="tribe-common-form-control-dropdown__label"
@@ -70,7 +70,7 @@
 			</select>
 </p>
 <p
-		class="tribe-filter-bar-c-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
 >
 	<input
 			class="tribe-common-form-control-checkbox__input"
@@ -86,7 +86,7 @@
 		Show widget only if there are upcoming events	</label>
 </p>
 <p
-		class="tribe-filter-bar-c-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
 >
 	<input
 			class="tribe-common-form-control-checkbox__input"
@@ -102,7 +102,7 @@
 		Limit to featured events only	</label>
 </p>
 <p
-		class="tribe-filter-bar-c-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
 >
 	<input
 			class="tribe-common-form-control-checkbox__input"
