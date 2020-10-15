@@ -228,6 +228,7 @@ Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues wit
 Tweak - Add the `tribe_events_views_v2_endpoint_method` filter to allow controlling the HTTP method Views should use to fetch their content from the back-end endpoint. [TEC-3283]
 Tweak - Add the `tribe_events_views_v2_endpoint_url` filter to allow controlling the URL Views should use to fetch their content from the back-end endpoint. [TEC-3283]
 * Fix - Correct url for current month iCal export link. [TEC-3575]
+* Fix - Avoid loading the same CSS file twice on the back-end. [TEC-3623]
 
 = [5.2.0] 2020-09-28 =
 
