@@ -136,11 +136,11 @@ class Widget_List extends Widget_Abstract {
 	}
 
 	/**
-	 *
+	 * Get the options to use in a the limit dropdown.
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> An array of options with the text and value included.
 	 */
 	public function get_limit_options() {
 		/**
