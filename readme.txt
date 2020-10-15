@@ -229,6 +229,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add the `tribe_events_views_v2_endpoint_method` filter to allow controlling the HTTP method Views should use to fetch their content from the back-end endpoint. [TEC-3283]
 * Tweak - Add the `tribe_events_views_v2_endpoint_url` filter to allow controlling the URL Views should use to fetch their content from the back-end endpoint. [TEC-3283]
 * Fix - Correct url for current month iCal export link. [TEC-3575]
+* Fix - Ensure ECP shortcode prev/next urls handle categories gracefully. [ECP-492]
 
 = [5.2.0] 2020-09-28 =
 
