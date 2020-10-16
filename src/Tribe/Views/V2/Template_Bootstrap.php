@@ -349,6 +349,7 @@ class Template_Bootstrap {
 		 * @param boolean        $load     Whether we should load the theme templates instead of the Tribe templates. Default false.
 		 * @param string         $template The template located by WordPress.
 		 * @param Tribe__Context $context  The singleton, immutable, global object instance.
+		 * @param WP_Query       $query    The global $wp_query, the $wp_the_query if $wp_query empty, null otherwise. From tribe_get_global_query_object() above.
 		 */
 		$load_template = apply_filters( 'tribe_events_views_v2_use_wp_template_hierarchy', false, $template, $context, $query );
 
