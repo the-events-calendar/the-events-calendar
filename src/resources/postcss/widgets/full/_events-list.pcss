@@ -4,6 +4,19 @@
 		margin-bottom: var(--spacer-5);
 	}
 
+	.tribe-events-widget-events-list__event-row--featured {
+
+		.tribe-events-widget-events-list__event-date-tag-datetime:after {
+			background-color: var(--color-accent-primary);
+			content: '';
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: 3px;
+		}
+	}
+
+
 	.tribe-events-widget-events-list__event-date-tag-month {
 		@mixin mobile-body-3;
 
@@ -19,6 +32,33 @@
 
 		.tribe-common--breakpoint-medium& {
 			@mixin desktop-heading-4;
+		}
+	}
+
+	.tribe-events-widget-events-list__view-more-link {
+		color: var(--color-accent-primary);
+		text-transform: capitalize;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: var(--color-accent-primary);
+			border-bottom-color: var(--color-accent-primary);
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-events-widget-events-list__view-more-link {
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-primary);
+			}
 		}
 	}
 }

@@ -19,7 +19,7 @@
 
 	.tribe-events-widget-events-list__event-date-tag {
 		flex: none;
-		margin-bottom: calc(var(--spacer-0) * -1);
+		position: relative;
 		width: var(--spacer-11);
 
 		.tribe-common--breakpoint-medium& {
@@ -34,7 +34,8 @@
 		text-align: center;
 	}
 
-	.tribe-events-widget-events-list__event-date-tag-month {
+	.tribe-events-widget-events-list__event-date-tag-month,
+	.tribe-events-widget-events-list__event-date-tag-daynum {
 		margin-bottom: calc(var(--spacer-0) * -1);
 	}
 
@@ -44,5 +45,9 @@
 		.tribe-common--breakpoint-medium& {
 			margin-bottom: 0;
 		}
+	}
+
+	.tribe-events-widget-events-list__view-more {
+		margin-top: var(--spacer-4);
 	}
 }
