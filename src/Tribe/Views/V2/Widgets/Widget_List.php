@@ -69,13 +69,13 @@ class Widget_List extends Widget_Abstract {
 	public function get_arguments() {
 		$arguments = $this->arguments;
 
-		$arguments['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
+		$arguments['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
 		// @todo update name once this widget is ready to replace the existing list widget.
-		$arguments['name']                          = esc_html__( 'Events List V2', 'the-events-calendar' );
-		$arguments['widget_options']['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
+		$arguments['name']                          = esc_html_x( 'Events List V2', 'The name of the widget.', 'the-events-calendar' );
+		$arguments['widget_options']['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.',  'the-events-calendar' );
 
 		// Setup default title.
-		$arguments['title'] = __( 'Upcoming Events', 'the-events-calendar' );
+		$arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
 
 		// Setup admin fields.
 		$arguments['admin_fields'] = $this->get_admin_fields();
@@ -97,9 +97,9 @@ class Widget_List extends Widget_Abstract {
 		/* Strip tags (if needed) and update the widget settings. */
 		$instance['title']                = wp_strip_all_tags( $new_instance['title'] );
 		$instance['limit']                = $new_instance['limit'];
-		$instance['no_upcoming_events']   = isset( $new_instance['no_upcoming_events'] ) && $new_instance['no_upcoming_events'] ? true : false;
-		$instance['featured_events_only'] = isset( $new_instance['featured_events_only'] ) && $new_instance['featured_events_only'] ? true : false;
-		$instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] ) ? 1 : 0;
+		$instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
+		$instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
+		$instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
 
 		return $instance;
 	}
@@ -111,24 +111,24 @@ class Widget_List extends Widget_Abstract {
 
 		return [
 			'title'                => [
-				'label' => __( 'Title:', 'the-events-calendar' ),
+				'label' => _x( 'Title:', 'The label for the field of the title of the List Widget.','the-events-calendar' ),
 				'type'  => 'text',
 			],
 			'limit'                => [
-				'label'   => __( 'Show:', 'the-events-calendar' ),
+				'label'   => _x( 'Show:', 'The label for the amount of events to show in the List Widget.', 'the-events-calendar' ),
 				'type'    => 'dropdown',
 				'options' => $this->get_limit_options(),
 			],
 			'no_upcoming_events'   => [
-				'label' => __( 'Show widget only if there are upcoming events', 'the-events-calendar' ),
+				'label' => _x( 'Show widget only if there are upcoming events', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 			'featured_events_only' => [
-				'label' => _x( 'Limit to featured events only', 'events list widget setting', 'the-events-calendar' ),
+				'label' => _x( 'Limit to featured events only', 'The label for the option to only show featured events in the List Widget.', 'events list widget setting', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 			'jsonld_enable'        => [
-				'label' => __( 'Generate JSON-LD data', 'the-events-calendar' ),
+				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSONLD on the List Widget.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 
@@ -154,7 +154,7 @@ class Widget_List extends Widget_Abstract {
 
 		$options = [];
 
-		for ( $i = 1; $i <= $events_limit; $i ++ ) {
+		foreach ( range( 1, $events_limit ) as $i ) {
 			$options[] = [
 				'text'  => $i,
 				'value' => $i,

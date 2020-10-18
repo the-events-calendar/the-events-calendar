@@ -9,12 +9,12 @@
  *
  * @link    http://m.tri.be/1aiy
  *
+ * @version TBD
+ *
  * @var string $label Label for the dropdown.
  * @var string $value Value for the dropdown.
  * @var string $id    ID of the dropdown.
  * @var string $name  Name attribute for the dropdown.
- *
- * @version TBD
  */
 
 ?>

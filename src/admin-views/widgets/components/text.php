@@ -9,12 +9,12 @@
  *
  * @link    http://m.tri.be/1aiy
  *
+ * @version TBD
+ *
  * @var string $label Label for the text input.
  * @var string $value Value for the text input.
  * @var string $id    ID of the text input.
  * @var string $name  Name attribute for the text input.
- *
- * @version TBD
  */
 
 ?>

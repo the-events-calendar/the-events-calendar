@@ -9,12 +9,12 @@
  *
  * @link    http://m.tri.be/1aiy
  *
+ * @version TBD
+ *
  * @var string $label Label for the checkbox.
  * @var string $value Value for the checkbox.
  * @var string $id    ID of the checkbox.
  * @var string $name  Name attribute for the checkbox.
- *
- * @version TBD
  */
 
 ?>
