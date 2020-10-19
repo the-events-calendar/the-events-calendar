@@ -35,6 +35,13 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @var string
+	 */
+	protected $view_admin_slug = 'widgets/list';
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @var array<string,mixed>
 	 */
 	protected $default_arguments = [
@@ -66,7 +73,7 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_arguments() {
+	public function get_arguments( array $instance = []  ) {
 		$arguments = $this->arguments;
 
 		$arguments['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
@@ -77,13 +84,15 @@ class Widget_List extends Widget_Abstract {
 		// Setup default title.
 		$arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
 
-		// Setup admin fields.
-		$arguments['admin_fields'] = $this->get_admin_fields();
+		$arguments = wp_parse_args(
+			$arguments,
+			$this->get_default_arguments()
+		);
 
-		// Add the Widget to the arguments to pass to the admin template.
-		$arguments['widget_obj'] = $this;
-
-		$arguments = wp_parse_args( $arguments, $this->get_default_arguments() );
+		$arguments = wp_parse_args(
+			$instance,
+			$arguments
+		);
 
 		return $this->filter_arguments( $arguments );
 	}
@@ -101,7 +110,7 @@ class Widget_List extends Widget_Abstract {
 		$instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
 		$instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
 
-		return $instance;
+		return $this->filter_updated_instance( $instance );
 	}
 
 	/**
