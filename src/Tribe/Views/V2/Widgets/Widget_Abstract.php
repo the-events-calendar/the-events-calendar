@@ -66,7 +66,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		// Setup the view instance.
 		$view = View::make( $this->get_view_slug(), $context );
 
-		$view->get_template()->set_values( $this->get_arguments(), false );
+		$view->get_template()->set_values( $this->setup_arguments(), false );
 
 		$this->set_view( $view );
 	}

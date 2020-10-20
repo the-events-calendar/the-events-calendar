@@ -31,7 +31,7 @@ class Widget_List_FormTest extends ViewTestCase {
 			}
 		);
 
-		$arguments = $widget->get_arguments();
+		$arguments = $widget->setup_arguments();
 		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
@@ -60,7 +60,7 @@ class Widget_List_FormTest extends ViewTestCase {
 			}
 		);
 
-		$arguments = $widget->get_arguments();
+		$arguments = $widget->setup_arguments();
 		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
@@ -94,7 +94,7 @@ class Widget_List_FormTest extends ViewTestCase {
 			}
 		);
 
-		$arguments = $widget->get_arguments();
+		$arguments = $widget->setup_arguments();
 		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );

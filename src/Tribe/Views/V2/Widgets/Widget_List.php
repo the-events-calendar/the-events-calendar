@@ -17,7 +17,6 @@ namespace Tribe\Events\Views\V2\Widgets;
  * @package Tribe\Events\Views\V2\Widgets
  */
 class Widget_List extends Widget_Abstract {
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -70,31 +69,22 @@ class Widget_List extends Widget_Abstract {
 		],
 	];
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_arguments( array $instance = []  ) {
-		$arguments = $this->arguments;
+	protected function setup_default_arguments() {
+		$default_arguments = parent::setup_default_arguments();
 
-		$arguments['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
+		$default_arguments['description'] = esc_html_x( 'A widget that displays upcoming events.',
+			'The description of the List Widget.', 'the-events-calendar' );
 		// @todo update name once this widget is ready to replace the existing list widget.
-		$arguments['name']                          = esc_html_x( 'Events List V2', 'The name of the widget.', 'the-events-calendar' );
-		$arguments['widget_options']['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.',  'the-events-calendar' );
+		$default_arguments['name']                          = esc_html_x( 'Events List V2', 'The name of the widget.',
+			'the-events-calendar' );
+		$default_arguments['widget_options']['description'] = esc_html_x( 'A widget that displays upcoming events.',
+			'The description of the List Widget.', 'the-events-calendar' );
 
 		// Setup default title.
-		$arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
+		$default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.',
+			'the-events-calendar' );
 
-		$arguments = wp_parse_args(
-			$arguments,
-			$this->get_default_arguments()
-		);
-
-		$arguments = wp_parse_args(
-			$instance,
-			$arguments
-		);
-
-		return $this->filter_arguments( $arguments );
+		return $default_arguments;
 	}
 
 	/**
@@ -171,5 +161,26 @@ class Widget_List extends Widget_Abstract {
 		}
 
 		return $options;
+	}
+
+	protected function args_to_context( array $arguments, Context $context ) {
+		$alterations =  parent::args_to_context( $arguments, $context );
+
+		// featured
+		if ( tribe_is_truthy( $arguments['feature_events_only'] ) ) {
+			$alterations['featured'] = true;
+		}
+
+		// posts_per_page
+		if ( ! isset( $arguments['limit'] ) ) {
+			$alterations['events_per_page'] = 5;
+		} else {
+			// Ignore any 0 and negative values.
+			$alterations['events_per_page'] = (int) $arguments['limit'] > 0 ? (int) $arguments['limit'] : 5;
+		}
+
+		// This might require emptying some Context locations to remove stuff that does not apply in a widget View.
+
+		return $alterations;
 	}
 }
