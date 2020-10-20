@@ -77,7 +77,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 		// Prevent from trying to schedule in case we dont have any scheduled records to process, value will either be false or 0.
 		if ( ! $this->next_waiting_record( false, true ) ) {
-			// Also clear in case we dont have an records to process.
+			// Also clear in case we don't have any records to process.
 			$this->clear_scheduled_task();
 			return;
 		}
@@ -181,7 +181,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 * @since TBD Inclusion of a $cache param for performance purposes.
 	 *
 	 * @param boolean $interactive_only Whether or not we should look for imports that were kicked off interactively
-	 * @param boolean $cache            When checking on every request we should have a transient caching to prevent hitting the DB every time.
+	 * @param boolean $cache            When checking on every request we should utilize transient caching to prevent hitting the DB every time.
 	 *
 	 * @return boolean|integer
 	 */
