@@ -736,6 +736,10 @@ class View implements View_Interface {
 	public function get_url( $canonical = false, $force = false ) {
 		$category = $this->context->get( 'event_category', false );
 
+		if ( is_array( $category ) ) {
+			$category = Arr::to_list( reset( $category ) );
+		}
+
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
 			'eventDisplay'     => $this->slug,
@@ -1536,6 +1540,15 @@ class View implements View_Interface {
 					$this->rewrite->get_clean_url( (string) $this->get_url() ) ),
 				'/'
 			);
+
+		/**
+		 * Allows filtering the Views request URI that will be used to set up the loop.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $request_uri The parsed request URI.
+		 */
+		$request_uri = apply_filters( 'tribe_events_views_v2_request_uri', $request_uri );
 
 		return $request_uri;
 	}
