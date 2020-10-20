@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.1.6\n"
+"Project-Id-Version: The Events Calendar 5.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2020-08-20 16:28:15+00:00\n"
+"POT-Creation-Date: 2020-09-24 06:38:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-08-20 16:28\n"
+"PO-Revision-Date: 2020-09-24 06:38\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1868,7 +1868,7 @@ msgid "Global configurations for the styling of The Events Calendar"
 msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:291
-#: src/Tribe/Customizer/Global_Elements.php:465
+#: src/Tribe/Customizer/Global_Elements.php:491
 msgid "Accent Color"
 msgstr ""
 
@@ -1918,34 +1918,34 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:423
+#: src/Tribe/Customizer/Global_Elements.php:449
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:423
+#: src/Tribe/Customizer/Global_Elements.php:449
 msgid "Global Elements"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:424
+#: src/Tribe/Customizer/Global_Elements.php:450
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" section."
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:489
+#: src/Tribe/Customizer/Global_Elements.php:515
 #: src/deprecated/Tribe__Events__Customizer__Text.php:105
 msgid "Link Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:517
+#: src/Tribe/Customizer/Global_Elements.php:543
 msgid "Filter Bar Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:539
+#: src/Tribe/Customizer/Global_Elements.php:565
 msgid "Button Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:563
+#: src/Tribe/Customizer/Global_Elements.php:589
 msgid "Map Pin"
 msgstr ""
 
@@ -2626,7 +2626,7 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.1.6)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.2.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:945 src/Tribe/Main.php:1400 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
@@ -3124,7 +3124,7 @@ msgid "Search for %s by Keyword."
 msgstr ""
 
 #: src/Tribe/Main.php:4303
-#: src/views/v2/components/events-bar/search-button.php:25
+#: src/views/v2/components/events-bar/search-button.php:24
 msgid "Search"
 msgstr ""
 
@@ -4677,19 +4677,25 @@ msgstr ""
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Messages.php:97
+#. Translators: %1$s is the lowercase plural virtual event term.
+#: src/Tribe/Views/V2/Messages.php:99
+msgctxt "A message to indicate there are no upcoming events."
+msgid "There are no upcoming %1$s."
+msgstr ""
+
+#: src/Tribe/Views/V2/Messages.php:106
 msgid "There were no results found for this view."
 msgstr ""
 
 #. translators: the placeholder is the keyword(s), as the user entered it in
 #. the bar.
-#: src/Tribe/Views/V2/Messages.php:102
+#: src/Tribe/Views/V2/Messages.php:111
 msgid "There were no results found for <strong>\"%1$s\"</strong>."
 msgstr ""
 
 #. translators: the placeholder is the keyword(s), as the user entered it in
 #. the bar.
-#: src/Tribe/Views/V2/Messages.php:107
+#: src/Tribe/Views/V2/Messages.php:116
 msgid ""
 "There were no results found for <strong>\"%1$s\"</strong> this month. Try "
 "searching next month."
@@ -4697,19 +4703,19 @@ msgstr ""
 
 #. translators: %1$s: events (plural), %2$s: the formatted date string, e.g.
 #. "February 22, 2020".
-#: src/Tribe/Views/V2/Messages.php:112
+#: src/Tribe/Views/V2/Messages.php:121
 msgid "No %1$s scheduled for %2$s."
 msgstr ""
 
 #. translators: the placeholder is an html link to the next month with
 #. available events.
-#: src/Tribe/Views/V2/Messages.php:117
+#: src/Tribe/Views/V2/Messages.php:126
 msgid "There were no results found for this view. %1$s"
 msgstr ""
 
 #. translators: %1$s: events (plural), %2$s: the formatted date string, e.g.
 #. "February 22, 2020". %3$s html link to next day with available events.
-#: src/Tribe/Views/V2/Messages.php:122
+#: src/Tribe/Views/V2/Messages.php:131
 msgid "No %1$s scheduled for %2$s. %3$s"
 msgstr ""
 
@@ -4747,7 +4753,7 @@ msgctxt "day_view"
 msgid "%1$s for %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1869 src/views/v2/day/event/date/featured.php:27
+#: src/Tribe/Views/V2/View.php:1882 src/views/v2/day/event/date/featured.php:27
 #: src/views/v2/day/event/date/featured.php:28
 #: src/views/v2/day/event/date/featured.php:32
 #: src/views/v2/latest-past/event/date/featured.php:27
@@ -7492,6 +7498,10 @@ msgstr ""
 msgid "Views Navigation"
 msgstr ""
 
+#: src/views/v2/components/loader.php:22
+msgid "Loading view."
+msgstr ""
+
 #: src/views/v2/components/read-more.php:22
 msgid "Continue Reading"
 msgstr ""
@@ -7568,19 +7578,19 @@ msgstr[1] ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events
 #. (plural).
-#: src/views/v2/month/calendar-body/day.php:64
+#: src/views/v2/month/calendar-body/day.php:62
 msgid "%1$s %2$s"
 msgid_plural "%1$s %3$s"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: Events (plural).
-#: src/views/v2/month/calendar-body/day.php:102
+#: src/views/v2/month/calendar-body/day.php:99
 msgid "Has featured %s"
 msgstr ""
 
 #. translators: %s: Events (plural).
-#: src/views/v2/month/calendar-body/day.php:113
+#: src/views/v2/month/calendar-body/day.php:110
 msgid "Has %s"
 msgstr ""
 
