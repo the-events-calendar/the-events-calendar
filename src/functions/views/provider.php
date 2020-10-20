@@ -118,7 +118,7 @@ function tribe_events_view_v2_use_period_repository() {
  * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` constant,
  * the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` environment variable.
  *
- * @since TBD
+ * @since 5.2.1
  *
  * @return bool Whether Widgets v2 should load.
  */

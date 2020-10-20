@@ -2,7 +2,7 @@
 /**
  * Manages integration between WPML and Views v2 filters of The Events Calendar.
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Integrations\WPML\Views\V2
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Integrations\WPML\Views\V2;
 /**
  * Class Filters
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Integrations\WPML\Views\V2
  */
@@ -20,7 +20,7 @@ class Filters {
 	/**
 	 * Translates the View URL.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param string $url The original View URL.
 	 *
@@ -38,7 +38,7 @@ class Filters {
 	/**
 	 * Returns the current request language, read from the request cookie.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @return string|false Either the request language, e.g. `fr`, or `false` to indicate the language could not be
 	 *                      parsed from the request context.
@@ -50,7 +50,7 @@ class Filters {
 	/**
 	 * Translates the URls contained in the View template variables.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param array<string,mixed> $template_vars The original View template variables.
 	 *
@@ -64,7 +64,7 @@ class Filters {
 		$url_keys = array_filter(
 			$template_vars,
 			static function ( $value, $key ) {
-				return str_contains( $key, 'url' ) && (bool) filter_var( $value, FILTER_VALIDATE_URL );
+				return strpos( $key, 'url' ) !== false && (bool) filter_var( $value, FILTER_VALIDATE_URL );
 			},
 			ARRAY_FILTER_USE_BOTH
 		);
@@ -89,7 +89,7 @@ class Filters {
 	/**
 	 * Translates the URL of the public Views, the ones selectable in the Views selector.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param array<string,array<string,mixed>> $public_views The original data for the current public Views.
 	 *
@@ -117,5 +117,49 @@ class Filters {
 		);
 
 		return $public_views;
+	}
+
+	/**
+	 * Updates the Views v2 request URI used to set up the `$_SERVER['REQUEST_URI']` in the `View::setup_the_loop`
+	 * method to make sure it will point to the correct URL.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @param string $request_uri The original request URI.
+	 *
+	 * @return string The corrected request URI.
+	 */
+	public static function translate_view_request_uri( $request_uri ) {
+		if ( ! is_string( $request_uri ) ) {
+			return $request_uri;
+		}
+
+		$lang = static::get_request_lang();
+
+		if ( false === $lang ) {
+			return $request_uri;
+		}
+
+		if ( static::using_subdir() && strpos( $request_uri, '/' . $lang ) !== 0 ) {
+			$request_uri = '/' . $lang . $request_uri;
+		}
+
+		return $request_uri;
+	}
+
+	/**
+	 * Returns whether the current WPML URL translation setting is the sub-directory one (e.g. `http://foo.bar/it`) or
+	 * not.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @return bool Whether the current WPML URL translation setting is the sub-directory one or not.
+	 */
+	protected static function using_subdir() {
+		/** @var \SitePress $sitepress */
+		global $sitepress;
+		$lang_negotiation = (int) $sitepress->get_setting( 'language_negotiation_type' );
+
+		return WPML_LANGUAGE_NEGOTIATION_TYPE_DIRECTORY === $lang_negotiation;
 	}
 }

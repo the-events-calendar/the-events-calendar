@@ -92,7 +92,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Returns a View template path, usually a prefix for the template slug.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @return string The view template path, usually a prefix for the template slug.
 	 */
