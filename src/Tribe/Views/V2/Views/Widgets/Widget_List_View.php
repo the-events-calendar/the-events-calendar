@@ -27,7 +27,7 @@ class Widget_List_View extends View {
 	 *
 	 * @var string
 	 */
-	protected $slug = 'widget-event-list';
+	protected $slug = 'widget-events-list';
 
 	/**
 	 * The slug for the template path.
@@ -71,6 +71,7 @@ class Widget_List_View extends View {
 		$args = parent::setup_repository_args( $context );
 
 		// @todo read from context and set up additional args.
+		$args['ends_after'] = 'now';
 
 		return $args;
 	}
@@ -86,7 +87,22 @@ class Widget_List_View extends View {
 		$template_vars = parent::setup_template_vars();
 
 		// Here update, add and remove from the default template vars.
-		$template_vars['foo_bar'] = 'lorem';
+		$template_vars['view_more_link']   = tribe_get_events_link();
+		$template_vars['widget_title']     = $this->context->get( 'widget_title' );
+		$template_vars['show_latest_past'] = false;
+
+		// @todo remove these once PRO handles the display.
+		$template_vars['display'] = [
+			'cost'      => true,
+			'venue'     => true,
+			'street'    => true,
+			'city'      => true,
+			'region'    => true,
+			'zip'       => true,
+			'country'   => true,
+			'phone'     => true,
+			'organizer' => true,
+		];
 
 		return $template_vars;
 	}

@@ -31,7 +31,7 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
-	protected $view_slug = 'widget-list';
+	protected $view_slug = 'widget-events-list';
 
 	/**
 	 * {@inheritDoc}
@@ -169,15 +169,12 @@ class Widget_List extends Widget_Abstract {
 	protected function args_to_context( array $arguments, Context $context ) {
 		$alterations = parent::args_to_context( $arguments, $context );
 
-		// featured
-		if (
-			isset( $arguments['feature_events_only'] ) &&
-			tribe_is_truthy( $arguments['feature_events_only'] )
-		) {
+		// Only Featured Events.
+		if ( tribe_is_truthy( $arguments['featured_events_only'] ) ) {
 			$alterations['featured'] = true;
 		}
 
-		// posts_per_page
+		// Add posts per page.
 		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
 			(int) $arguments['limit'] :
 			5;

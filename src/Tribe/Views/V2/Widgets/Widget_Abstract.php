@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\Widgets;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Context as Context;
+use Tribe__Utils__Array as Arr;
 
 /**
  * The abstract all widgets should implement.
@@ -46,9 +47,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	public function setup() {
 		// Add the admin template class for the widget admin form.
 		$this->set_admin_template( tribe( Admin_Template::class ) );
-
-		// Setup the View for the frontend.
-		$this->setup_view();
 	}
 
 	/**
@@ -56,12 +54,11 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since TBD
 	 */
-	public function setup_view() {
+	public function setup_view( $arguments ) {
 		$context = tribe_context();
 
 		// Modifies the Context for the widget params.
-		// @todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990.
-		$context = $this->alter_context( $context );
+		$context = $this->alter_context( $context, $arguments );
 
 		// Setup the view instance.
 		$view = View::make( $this->get_view_slug(), $context );
@@ -140,7 +137,10 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @return array<string,mixed> The translated widget arguments.
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {
-		$context_args = [ 'widget' => true ];
+		$context_args = [
+			'widget' => true,
+			'widget_title' => Arr::get( $arguments, 'title' ),
+		];
 
 		return $context_args;
 	}
