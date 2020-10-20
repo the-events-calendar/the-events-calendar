@@ -82,19 +82,6 @@ class Tribe__Events__Assets {
 			)
 		);
 
-		// All tribe events pages
-		tribe_asset(
-			$plugin,
-			'tribe_events-admin',
-			'events-admin.css',
-			array(),
-			'admin_enqueue_scripts',
-			array(
-				'groups'       => array( 'events-admin' ),
-				'conditionals' => array( $this, 'should_enqueue_admin' ),
-			)
-		);
-
 		// Post Type admin page
 		tribe_assets(
 			$plugin,

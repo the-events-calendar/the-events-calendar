@@ -135,6 +135,7 @@ script:
   - codecept run -f views_settings
   - codecept run -f views_rest
   - codecept run -f views_ui
+  - codecept run -f views_widgets
   - codecept run -f views_wpunit
   - codecept run -f integration
   - codecept run -f muintegration

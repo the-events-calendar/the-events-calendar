@@ -27,7 +27,7 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	}
 
 	/**
-	 * Hooks the filters and actions neede for this integration to work.
+	 * Hooks the filters and actions needed for this integration to work.
 	 */
 	public function hook() {
 		add_filter( 'template_include', array( $this, 'filter_template_include' ) );
