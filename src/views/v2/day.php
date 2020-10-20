@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.2.1
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.

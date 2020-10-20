@@ -54,7 +54,7 @@ class Rest_Endpoint {
 	 * admin AJAX one.
 	 *
 	 * @since   4.9.2
-	 * @since   TBD Add filtering to the URL.
+	 * @since   5.2.1 Add filtering to the URL.
 	 *
 	 * @return  string The URL of the backend endpoint Views will use to fetch their content.
 	 */
@@ -71,7 +71,7 @@ class Rest_Endpoint {
 		/**
 		 * Filters the URL Views should use to fetch their contents from the backend.
 		 *
-		 * @since TBD
+		 * @since 5.2.1
 		 *
 		 * @param string $url            The View endpoint URL, either a REST API URL or a admin-ajax.php fallback URL if REST API
 		 *                               is not available.
@@ -159,7 +159,7 @@ class Rest_Endpoint {
 	 * Register the endpoint if available.
 	 *
 	 * @since  4.9.7
-	 * @since TBD Add support for the POST method.
+	 * @since 5.2.1 Add support for the POST method.
 	 *
 	 * @return boolean If we registered the endpoint.
 	 */
@@ -209,7 +209,7 @@ class Rest_Endpoint {
 	 * the REST API still have the Views V2 working.
 	 *
 	 * @since  4.9.7
-	 * @since TBD Changed the mock request HTTP method to POST (was GET).
+	 * @since 5.2.1 Changed the mock request HTTP method to POST (was GET).
 	 *
 	 * @param  array $params Associative array with the params that will be used on this mocked request
 	 *
@@ -246,7 +246,7 @@ class Rest_Endpoint {
 	 * and use the same method behind the scenes to make sure we have consistency.
 	 *
 	 * @since  4.9.7
-	 * @since TBD Look up the POST data before the GET one to process the request.
+	 * @since 5.2.1 Look up the POST data before the GET one to process the request.
 	 */
 	public function handle_ajax_request() {
 		// Use the POST method data, if set; else fallback on the GET data.
@@ -327,7 +327,7 @@ class Rest_Endpoint {
 	/**
 	 * Returns the filtered HTTP method Views should use to fetch their content from the backend endpoint.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @return string The filtered HTTP method Views should use to fetch their content from the back-end endpoint.
 	 */
@@ -335,7 +335,7 @@ class Rest_Endpoint {
 		/**
 		 * Filters the HTTP method Views should use to fetch their contents calling the back-end endpoint.
 		 *
-		 * @since TBD
+		 * @since 5.2.1
 		 *
 		 * @param string $method The HTTP method Views will use to fetch their content. Either `POST` (default) or
 		 *                       `GET`. Invalid values will be set to the default `POST`.

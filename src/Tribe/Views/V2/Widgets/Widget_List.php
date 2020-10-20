@@ -2,7 +2,7 @@
 /**
  * List Widget
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2\Widgets;
 /**
  * Class for the List Widget.
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
