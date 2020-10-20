@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
+use Tribe__Context as Context;
+
 /**
  * Class for the List Widget.
  *
@@ -159,5 +161,29 @@ class Widget_List extends Widget_Abstract {
 		}
 
 		return $options;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function args_to_context( array $arguments, Context $context ) {
+		$alterations = parent::args_to_context( $arguments, $context );
+
+		// featured
+		if (
+			isset( $arguments['feature_events_only'] ) &&
+			tribe_is_truthy( $arguments['feature_events_only'] )
+		) {
+			$alterations['featured'] = true;
+		}
+
+		// posts_per_page
+		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
+			(int) $arguments['limit'] :
+			5;
+
+		// This might require emptying some Context locations to remove stuff that does not apply in a widget View.
+
+		return $alterations;
 	}
 }

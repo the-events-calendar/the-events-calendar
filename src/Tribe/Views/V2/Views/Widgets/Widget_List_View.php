@@ -27,7 +27,7 @@ class Widget_List_View extends View {
 	 *
 	 * @var string
 	 */
-	protected $slug = 'widget-list';
+	protected $slug = 'widget-event-list';
 
 	/**
 	 * The slug for the template path.
@@ -70,6 +70,8 @@ class Widget_List_View extends View {
 
 		$args = parent::setup_repository_args( $context );
 
+		// @todo read from context and set up additional args.
+
 		return $args;
 	}
 
@@ -82,6 +84,9 @@ class Widget_List_View extends View {
 	 */
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
+
+		// Here update, add and remove from the default template vars.
+		$template_vars['foo_bar'] = 'lorem';
 
 		return $template_vars;
 	}
