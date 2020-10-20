@@ -79,6 +79,6 @@ class LinkedPostTest extends WPTestCase {
 
 		$this->assertEquals( '', $mocker->get_prefix_key( '' ), 'If key not found in supported keys, it should return same key' );
 
-		$this->assertEquals( null, $mocker->get_prefix_key( null ), 'If key not found in supported keys, it should return same key' );
+		$this->assertNull( $mocker->get_prefix_key( null ), 'If key not found in supported keys, it should return same key' );
 	}
 }
