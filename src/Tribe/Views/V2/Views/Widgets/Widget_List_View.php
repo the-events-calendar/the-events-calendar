@@ -3,7 +3,7 @@
  * The List Widget View.
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
- * @since TBD
+ * @since 5.2.1
  */
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
@@ -14,7 +14,7 @@ use Tribe__Context as Context;
 /**
  * Class List_Widget_View
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  */
@@ -23,7 +23,7 @@ class Widget_List_View extends View {
 	/**
 	 * The slug for this view.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Widget_List_View extends View {
 	/**
 	 * The slug for the template path.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Widget_List_View extends View {
 	/**
 	 * Visibility for this view.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var bool
 	 */
@@ -50,7 +50,7 @@ class Widget_List_View extends View {
 	/**
 	 * Whether the View should display the events bar or not.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var bool
 	 */
@@ -59,7 +59,7 @@ class Widget_List_View extends View {
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
@@ -79,7 +79,7 @@ class Widget_List_View extends View {
 	/**
 	 * Overrides the base View method to fix the order of the events in the `past` display mode.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @return array<string,mixed> The List View template vars, modified if required.
 	 */

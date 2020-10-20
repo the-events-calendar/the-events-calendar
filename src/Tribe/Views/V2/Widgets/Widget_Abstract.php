@@ -2,7 +2,7 @@
 /**
  * Widget Abstract
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -17,7 +17,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * The abstract all widgets should implement.
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Widget
  */
@@ -26,7 +26,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * The view interface for the widget.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var View_Interface;
 	 */
@@ -35,7 +35,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * The slug of the widget view.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var string
 	 */
@@ -52,7 +52,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Setup the view for the widget.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 */
 	public function setup_view( $arguments ) {
 		$context = tribe_context();
@@ -71,7 +71,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Returns the rendered View HTML code.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @return string
 	 */
@@ -82,7 +82,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Sets the template view.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param View_Interface $view Which view we are using this template on.
 	 */
@@ -93,7 +93,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Returns the current template view, either set in the constructor or using the `set_view` method.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @return View_Interface The current template view.
 	 */
@@ -111,7 +111,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Alters the widget context with its arguments.
 	 *
-	 * @since  TBD
+	 * @since  5.2.1
 	 *
 	 * @param \Tribe__Context     $context   Context we will use to build the view.
 	 * @param array<string,mixed> $arguments Current set of arguments.
@@ -129,7 +129,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Translates widget arguments to their Context argument counterpart.
 	 *
-	 * @since TBD
+	 * @since  5.2.1
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
 	 * @param Context             $context   The request context.

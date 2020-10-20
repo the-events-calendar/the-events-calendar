@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.2.0
+Stable tag: 5.2.1
 Tested up to: 5.5.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.2.1] 2020-10-26 =
 
 * Fix - Add filter to toggle off the event templates hijack. [TEC-3521]
 * Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct url for current month iCal export link. [TEC-3575]
 * Fix - Avoid loading the same CSS file twice on the back-end. [TEC-3623]
 * Fix - Ensure ECP shortcode prev/next urls handle categories gracefully. [ECP-492]
+* Language - 3 new strings added, 200 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.2.0] 2020-09-28 =
 

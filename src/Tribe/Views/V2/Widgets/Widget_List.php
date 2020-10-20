@@ -2,7 +2,7 @@
 /**
  * List Widget
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -14,7 +14,7 @@ use Tribe__Context as Context;
 /**
  * Class for the List Widget.
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
