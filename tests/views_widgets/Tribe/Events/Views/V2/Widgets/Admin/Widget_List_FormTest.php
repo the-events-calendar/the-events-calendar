@@ -20,18 +20,8 @@ class Widget_List_FormTest extends ViewTestCase {
 	public function test_with_default_arguments() {
 		$widget = new Widget_List();
 		$instance = [];
+		$arguments = $widget->get_arguments( $instance );
 
-		add_filter(
-			"tribe_widget_{$widget->get_registration_slug()}_arguments",
-			static function ( array $arguments ) use ( $instance ) {
-				return wp_parse_args(
-					$instance,
-					$arguments
-				);
-			}
-		);
-
-		$arguments = $widget->setup_arguments();
 		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
@@ -50,17 +40,7 @@ class Widget_List_FormTest extends ViewTestCase {
 			'jsonld_enable'        => false,
 		];
 
-		add_filter(
-			"tribe_widget_{$widget->get_registration_slug()}_arguments",
-			static function ( array $arguments ) use ( $instance ) {
-				return wp_parse_args(
-					$instance,
-					$arguments
-				);
-			}
-		);
-
-		$arguments = $widget->setup_arguments();
+		$arguments = $widget->get_arguments( $instance );
 		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
@@ -84,17 +64,7 @@ class Widget_List_FormTest extends ViewTestCase {
 			}
 		);
 
-		add_filter(
-			"tribe_widget_{$widget->get_registration_slug()}_arguments",
-			static function ( array $arguments ) use ( $instance ) {
-				return wp_parse_args(
-					$instance,
-					$arguments
-				);
-			}
-		);
-
-		$arguments = $widget->setup_arguments();
+		$arguments = $widget->get_arguments( $instance );
 		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
