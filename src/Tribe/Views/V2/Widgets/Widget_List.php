@@ -108,7 +108,7 @@ class Widget_List extends Widget_Abstract {
 
 		return [
 			'title'                => [
-				'label' => _x( 'Title:', 'The label for the field of the title of the List Widget.','the-events-calendar' ),
+				'label' => _x( 'Title:', 'The label for the field of the title of the List Widget.', 'the-events-calendar' ),
 				'type'  => 'text',
 			],
 			'limit'                => [
@@ -121,11 +121,11 @@ class Widget_List extends Widget_Abstract {
 				'type'  => 'checkbox',
 			],
 			'featured_events_only' => [
-				'label' => _x( 'Limit to featured events only', 'The label for the option to only show featured events in the List Widget.', 'events list widget setting', 'the-events-calendar' ),
+				'label' => _x( 'Limit to featured events only', 'The label for the option to only show featured events in the List Widget', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 			'jsonld_enable'        => [
-				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSONLD on the List Widget.', 'the-events-calendar' ),
+				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSONLD in the List Widget.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 
