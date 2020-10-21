@@ -58,6 +58,7 @@ class Widget_List extends Widget_Abstract {
 		'no_upcoming_events'   => false,
 		'featured_events_only' => false,
 		'jsonld_enable'        => true,
+		'tribe_is_list_widget' => true,
 
 		// WP_Widget properties.
 		'id_base'              => 'tribe-events-list-widget',
@@ -91,22 +92,23 @@ class Widget_List extends Widget_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
+		$updated_instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$instance['title']                = wp_strip_all_tags( $new_instance['title'] );
-		$instance['limit']                = $new_instance['limit'];
-		$instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
-		$instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
-		$instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
+		$updated_instance['title']                = wp_strip_all_tags( $new_instance['title'] );
+		$updated_instance['limit']                = $new_instance['limit'];
+		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
+		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
+		$updated_instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
+		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
 
-		return $this->filter_updated_instance( $instance );
+		return $this->filter_updated_instance( $updated_instance, $new_instance );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_admin_fields() {
+	public function setup_admin_fields() {
 
 		return [
 			'title'                => [
@@ -179,8 +181,14 @@ class Widget_List extends Widget_Abstract {
 			(int) $arguments['limit'] :
 			5;
 
-		// This might require emptying some Context locations to remove stuff that does not apply in a widget View.
-
-		return $alterations;
+		/**
+		 * Applies a filter to the args to context.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $alterations The alterations to make to the context.
+		 * @param array<string,mixed> $arguments   Current set of arguments.
+		 */
+		return apply_filters( 'tribe_events_views_v2_list_widget_args_to_context', $alterations, $arguments );
 	}
 }

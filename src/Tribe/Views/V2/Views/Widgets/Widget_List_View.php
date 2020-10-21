@@ -59,7 +59,7 @@ class Widget_List_View extends View {
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
-	 * @since 5.2.1
+	 * @since TBD
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
@@ -69,19 +69,17 @@ class Widget_List_View extends View {
 		$context = null !== $context ? $context : $this->context;
 
 		$args = parent::setup_repository_args( $context );
-
-		// @todo read from context and set up additional args.
 		$args['ends_after'] = 'now';
 
 		return $args;
 	}
 
 	/**
-	 * Overrides the base View method to fix the order of the events in the `past` display mode.
+	 * Overrides the base View method.
 	 *
-	 * @since 5.2.1
+	 * @since TBD
 	 *
-	 * @return array<string,mixed> The List View template vars, modified if required.
+	 * @return array<string,mixed> The Widget List View template vars, modified if required.
 	 */
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
@@ -91,19 +89,14 @@ class Widget_List_View extends View {
 		$template_vars['widget_title']     = $this->context->get( 'widget_title' );
 		$template_vars['show_latest_past'] = false;
 
-		// @todo remove these once PRO handles the display.
-		$template_vars['display'] = [
-			'cost'      => true,
-			'venue'     => true,
-			'street'    => true,
-			'city'      => true,
-			'region'    => true,
-			'zip'       => true,
-			'country'   => true,
-			'phone'     => true,
-			'organizer' => true,
-		];
-
-		return $template_vars;
+		/**
+		 * Applies a filter to the template vars for the List Widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $template_vars The updated instance of the widget.
+		 * @param \Tribe__Context $context   Tribe context used to setup the view.
+		 */
+		return apply_filters( 'tribe_events_view_v2_list_widget_template_vars', $template_vars, $this->context );
 	}
 }
