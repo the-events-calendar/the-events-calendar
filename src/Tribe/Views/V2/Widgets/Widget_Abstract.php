@@ -54,6 +54,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.2.1
 	 * @since TBD Correct asset enqueue method.
+	 *
+	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
 	 */
 	public function setup_view( $arguments ) {
 		$context = tribe_context();
@@ -115,7 +117,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		// Ensure we enqueue widget styles and scripts.
 		add_filter(
 			'tribe_events_views_v2_assets_should_enqueue_widget_assets',
-			function() use ($enqueue) {
+			function() use ( $enqueue ) {
 				return $enqueue;
 			}
 		);

@@ -430,7 +430,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		 *
 		 * @param bool $should_enqueue
 		 */
-		$should_enqueue =  apply_filters( 'tribe_events_views_v2_assets_should_enqueue_frontend', $should_enqueue );
+		$should_enqueue = apply_filters( 'tribe_events_views_v2_assets_should_enqueue_frontend', $should_enqueue );
 
 		$this->should_enqueue_frontend = $should_enqueue;
 
@@ -447,13 +447,14 @@ class Assets extends \tad_DI52_ServiceProvider {
 	public function should_enqueue_widget_assets() {
 		/**
 		 * Allow filtering of where the widget Frontend Assets will be loaded.
-		 * Individual widgets should hook in here from their `setup_view()` method to ensure the assets enqueue.
+		 * The abstract widget hooks in here from `setup_view()`,
+		 * widgets that want to filter this value should do so from there.
 		 *
 		 * @since TBD
 		 *
 		 * @param bool $should_enqueue Should the widget assets be enqueued. Defaults to false.
 		 */
-		$should_enqueue =  apply_filters( 'tribe_events_views_v2_assets_should_enqueue_widget_assets', false );
+		$should_enqueue = apply_filters( 'tribe_events_views_v2_assets_should_enqueue_widget_assets', false );
 
 		return $should_enqueue;
 	}
