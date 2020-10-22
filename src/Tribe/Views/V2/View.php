@@ -1593,7 +1593,7 @@ class View implements View_Interface {
 		$category = $this->context->get( 'event_category', false );
 
 		if ( is_array( $category ) ) {
-			$category = Arr::to_list( reset( $category ) );
+			$category                       = Arr::to_list( reset( $category ) );
 			$query_args['tribe_events_cat'] = $category;
 		}
 
