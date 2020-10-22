@@ -552,7 +552,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since  4.9.13
 	 *
-	 * @param  array $fields  Fields that were passed for the Settigns tab.
+	 * @param  array $fields  Fields that were passed for the Settings tab.
 	 *
 	 * @return array          Fields after changing the tooltip.
 	 */
@@ -571,7 +571,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since  4.9.13
 	 *
-	 * @param array $plugins List of plugisn to be checked.
+	 * @param array $plugins List of plugins to be checked.
 	 *
 	 * @return array
 	 */
@@ -833,7 +833,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-full',
 		];
 
-		// Unenqueue legacy sheets.
+		// Dequeue legacy sheets.
 		$keys = array_keys( $sheets, 'tribe-events-calendar-style' );
 		if ( ! empty( $keys ) ) {
 			foreach ( $keys as $key ) {

@@ -90,6 +90,15 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_slug();
 
 	/**
+	 * Returns a View template path, usually a prefix for the template slug.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @return string The view template path, usually a prefix for the template slug.
+	 */
+	public function get_template_path();
+
+	/**
 	 * Returns all the parent views that the current class as an array of slugs.
 	 *
 	 * @since 4.9.13
