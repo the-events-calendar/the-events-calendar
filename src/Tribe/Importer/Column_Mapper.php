@@ -23,14 +23,12 @@ class Tribe__Events__Importer__Column_Mapper {
 				$this->column_names = $this->get_organizer_column_names();
 				break;
 			default:
-				$column_names = array();
-
 				/**
 				 * Filters the column names that will be available for a custom import type.
 				 *
 				 * @param array $column_names
 				 */
-				$this->column_names = apply_filters( "tribe_event_import_{$import_type}_column_names", $column_names );
+				$this->column_names = apply_filters( "tribe_event_import_{$import_type}_column_names", [] );
 				break;
 		}
 	}

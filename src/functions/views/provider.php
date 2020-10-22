@@ -111,3 +111,18 @@ function tribe_events_view_v2_use_period_repository() {
 	 */
 	return (bool) apply_filters( 'tribe_events_views_v2_use_period_repository', $enabled );
 }
+
+/**
+ * Checks whether V2 widgets should load.
+ *
+ * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` constant,
+ * the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` environment variable.
+ *
+ * @since 5.2.1
+ *
+ * @return bool Whether Widgets v2 should load.
+ */
+function tribe_events_widgets_v2_is_enabled() {
+
+	return (bool) defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) && TRIBE_EVENTS_WIDGETS_V2_ENABLED;
+}

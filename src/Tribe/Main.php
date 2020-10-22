@@ -35,7 +35,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.2.0';
+		const VERSION             = '5.4.0';
 
 		/**
 		 * Min Pro Addon
@@ -615,6 +615,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// The Views v2 service provider.
 			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
+			tribe_register_provider( Tribe\Events\Views\V2\Widgets\Service_Provider::class );
 
 			// Register and start the Customizer Sections
 			if ( ! tribe_events_views_v2_is_enabled() ) {
