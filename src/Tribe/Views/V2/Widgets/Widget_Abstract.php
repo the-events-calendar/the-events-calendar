@@ -66,6 +66,9 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		$view->get_template()->set_values( $this->setup_arguments(), false );
 
 		$this->set_view( $view );
+
+		// @todo temporary loading of assets to be removed with TEC-3614
+		tribe_asset_enqueue_group( 'events-views-v2' );
 	}
 
 	/**
@@ -129,7 +132,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Translates widget arguments to their Context argument counterpart.
 	 *
-	 * @since  5.2.1
+	 * @since 5.2.1
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
 	 * @param Context             $context   The request context.

@@ -88,15 +88,9 @@ class Widget_List_View extends View {
 		$template_vars['view_more_link']   = tribe_get_events_link();
 		$template_vars['widget_title']     = $this->context->get( 'widget_title' );
 		$template_vars['show_latest_past'] = false;
+		// Display is modified with filters in Pro.
+		$template_vars['display'] = [];
 
-		/**
-		 * Applies a filter to the template vars for the List Widget.
-		 *
-		 * @since TBD
-		 *
-		 * @param array<string,mixed> $template_vars The updated instance of the widget.
-		 * @param \Tribe__Context $context   Tribe context used to setup the view.
-		 */
-		return apply_filters( 'tribe_events_view_v2_list_widget_template_vars', $template_vars, $this->context );
+		return $template_vars;
 	}
 }
