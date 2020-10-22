@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.2.1] 2020-10-26 =
+= [5.2.1] 2020-10-22 =
 
 * Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
 * Tweak - Add the `tribe_events_views_v2_endpoint_method` filter to allow controlling the HTTP method Views should use to fetch their content from the back-end endpoint. [TEC-3283]
