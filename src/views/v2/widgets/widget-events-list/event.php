@@ -36,10 +36,6 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-widget-events-list__event
 
 				<?php $this->do_entry_point( 'event_meta' ); ?>
 
-				<?php // $this->template( 'widgets/widget-events-list/event/cost', [ 'event' => $event, 'display' => $display ] ); ?>
-				<?php // $this->template( 'widgets/widget-events-list/event/venue', [ 'event' => $event, 'display' => $display ] ); ?>
-				<?php // $this->template( 'widgets/widget-events-list/event/organizer', [ 'event' => $event, 'display' => $display ] ); ?>
-
 			</div>
 		</article>
 	</div>
