@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.2.1
  *
  * @var string $view_more_link The URL to view all events.
  *

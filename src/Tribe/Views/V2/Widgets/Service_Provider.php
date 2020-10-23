@@ -2,7 +2,7 @@
 /**
  * The main service provider for the version 2 of the Widgets.
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -14,7 +14,7 @@ use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -23,7 +23,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Variable that holds the name of the widgets being created.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var array<string>
 	 */
@@ -34,7 +34,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 */
 	public function register() {
 		if ( ! tribe_events_views_v2_is_enabled() ) {
@@ -52,7 +52,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Function used to attach the hooks associated with this class.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 */
 	public function hook() {
 		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
@@ -62,7 +62,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add the widgets to register with WordPress.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param array<string,string> $widgets An array of widget classes to register.
 	 *
@@ -77,14 +77,14 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add the widget views to the view manager.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @param array<string,string> $views An associative array of views in the shape `[ <slug> => <class> ]`.
 	 *
 	 * @return array<string,string> $views The modified array of views in the shape `[ <slug> => <class> ]`.
 	 */
 	public function add_views( $views ) {
-		$views['widget-list'] = Widget_List_View::class;
+		$views['widget-events-list'] = Widget_List_View::class;
 
 		return $views;
 	}

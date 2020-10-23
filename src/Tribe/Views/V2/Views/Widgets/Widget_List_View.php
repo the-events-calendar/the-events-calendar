@@ -3,7 +3,7 @@
  * The List Widget View.
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
- * @since TBD
+ * @since 5.2.1
  */
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
@@ -14,7 +14,7 @@ use Tribe__Context as Context;
 /**
  * Class List_Widget_View
  *
- * @since   TBD
+ * @since   5.2.1
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  */
@@ -23,16 +23,16 @@ class Widget_List_View extends View {
 	/**
 	 * The slug for this view.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var string
 	 */
-	protected $slug = 'widget-list';
+	protected $slug = 'widget-events-list';
 
 	/**
 	 * The slug for the template path.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Widget_List_View extends View {
 	/**
 	 * Visibility for this view.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var bool
 	 */
@@ -50,7 +50,7 @@ class Widget_List_View extends View {
 	/**
 	 * Whether the View should display the events bar or not.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var bool
 	 */
@@ -69,19 +69,27 @@ class Widget_List_View extends View {
 		$context = null !== $context ? $context : $this->context;
 
 		$args = parent::setup_repository_args( $context );
+		$args['ends_after'] = 'now';
 
 		return $args;
 	}
 
 	/**
-	 * Overrides the base View method to fix the order of the events in the `past` display mode.
+	 * Overrides the base View method.
 	 *
 	 * @since TBD
 	 *
-	 * @return array<string,mixed> The List View template vars, modified if required.
+	 * @return array<string,mixed> The Widget List View template vars, modified if required.
 	 */
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
+
+		// Here update, add and remove from the default template vars.
+		$template_vars['view_more_link']   = tribe_get_events_link();
+		$template_vars['widget_title']     = $this->context->get( 'widget_title' );
+		$template_vars['show_latest_past'] = false;
+		// Display is modified with filters in Pro.
+		$template_vars['display'] = [];
 
 		return $template_vars;
 	}

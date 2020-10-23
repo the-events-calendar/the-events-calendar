@@ -81,7 +81,7 @@ class View implements View_Interface {
 	/**
 	 * The template path will be used as a prefix for template slug when locating its template files.
 	 *
-	 * @since TBD
+	 * @since 5.2.1
 	 *
 	 * @var string
 	 */
@@ -1376,7 +1376,7 @@ class View implements View_Interface {
 	 * Sets up the View template variables.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Add the `rest_method` to the template variables.
+	 * @since 5.2.1 Add the `rest_method` to the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1544,7 +1544,7 @@ class View implements View_Interface {
 		/**
 		 * Allows filtering the Views request URI that will be used to set up the loop.
 		 *
-		 * @since TBD
+		 * @since 5.2.1
 		 *
 		 * @param string $request_uri The parsed request URI.
 		 */
@@ -1589,6 +1589,13 @@ class View implements View_Interface {
 
 		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
 		$query_args['eventDisplay'] = $this->slug;
+
+		$category = $this->context->get( 'event_category', false );
+
+		if ( is_array( $category ) ) {
+			$category                       = Arr::to_list( reset( $category ) );
+			$query_args['tribe_events_cat'] = $category;
+		}
 
 		$query_args = $this->filter_query_args( $query_args, $canonical );
 

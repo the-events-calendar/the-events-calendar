@@ -344,7 +344,7 @@ class Template_Bootstrap {
 		/**
 		 * Allows filtering the loading of our proprietary templates.
 		 *
-		 * @since TBD
+		 * @since 5.2.1
 		 *
 		 * @param boolean        $load     Whether we should load the theme templates instead of the Tribe templates. Default false.
 		 * @param string         $template The template located by WordPress.
