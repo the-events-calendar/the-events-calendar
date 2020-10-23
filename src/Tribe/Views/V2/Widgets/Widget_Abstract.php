@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\Widgets;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Context as Context;
+use Tribe__Utils__Array as Arr;
 
 /**
  * The abstract all widgets should implement.
@@ -46,9 +47,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	public function setup() {
 		// Add the admin template class for the widget admin form.
 		$this->set_admin_template( tribe( Admin_Template::class ) );
-
-		// Setup the View for the frontend.
-		$this->setup_view();
 	}
 
 	/**
@@ -56,12 +54,11 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.2.1
 	 */
-	public function setup_view() {
+	public function setup_view( $arguments ) {
 		$context = tribe_context();
 
 		// Modifies the Context for the widget params.
-		// @todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990.
-		$context = $this->alter_context( $context );
+		$context = $this->alter_context( $context, $arguments );
 
 		// Setup the view instance.
 		$view = View::make( $this->get_view_slug(), $context );
@@ -69,6 +66,9 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		$view->get_template()->set_values( $this->setup_arguments(), false );
 
 		$this->set_view( $view );
+
+		// @todo temporary loading of assets to be removed with TEC-3614
+		tribe_asset_enqueue_group( 'events-views-v2' );
 	}
 
 	/**
@@ -114,8 +114,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Alters the widget context with its arguments.
 	 *
-	 * @todo update in TEC-3620 & TEC-3597
-	 *
 	 * @since  5.2.1
 	 *
 	 * @param \Tribe__Context     $context   Context we will use to build the view.
@@ -124,7 +122,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @return \Tribe__Context Context after widget changes.
 	 */
 	public function alter_context( Context $context, array $arguments = [] ) {
-		// @todo update per https://github.com/moderntribe/tribe-common/pull/1451#discussion_r501498990.
 		$alter_context = $this->args_to_context( $arguments, $context );
 
 		$context = $context->alter( $alter_context );
@@ -135,8 +132,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Translates widget arguments to their Context argument counterpart.
 	 *
-	 * @todo update in TEC-3620 & TEC-3597
-	 *
 	 * @since 5.2.1
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
@@ -145,7 +140,10 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @return array<string,mixed> The translated widget arguments.
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {
-		$context_args = [ 'widget' => true ];
+		$context_args = [
+			'widget'       => true,
+			'widget_title' => Arr::get( $arguments, 'title' ),
+		];
 
 		return $context_args;
 	}
