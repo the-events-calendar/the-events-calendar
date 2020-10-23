@@ -19,7 +19,7 @@ extensions:
       - Tribe\Test\Codeception\Extensions\Function_Mocker
     config:
       Tribe\Test\Codeception\Extensions\Function_Mocker:
-            suites: [ 'views_integration' ]
+            suites: [ 'views_integration', 'views_widgets' ]
             initFile: tests/_function-mocker-bootstrap.php
     commands:
         - 'Codeception\Command\GenerateWPUnit'

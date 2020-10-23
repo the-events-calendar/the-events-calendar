@@ -68,6 +68,20 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 * batches of pending import record inserts/updates.
 	 */
 	public function register_scheduled_task() {
+		// Bail on registration of scheduled event in case we dont have an API setup.
+		if ( is_wp_error( tribe( 'events-aggregator.service' )->api() ) ) {
+			// Also clear in case we dont have an API key.
+			$this->clear_scheduled_task();
+			return;
+		}
+
+		// Prevent from trying to schedule in case we dont have any scheduled records to process, value will either be false or 0.
+		if ( ! $this->next_waiting_record( false, true ) ) {
+			// Also clear in case we don't have any records to process.
+			$this->clear_scheduled_task();
+			return;
+		}
+
 		if ( wp_next_scheduled( self::$scheduled_key ) ) {
 			return;
 		}
@@ -164,11 +178,23 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 *
 	 * If no records in need of further processing can be found it will return bool false.
 	 *
-	 * @param boolean $interactive_only Whether or not we should look for imports that were kicked off interactively
+	 * @since TBD Inclusion of a $cache param for performance purposes.
 	 *
-	 * @return boolean
+	 * @param boolean $interactive_only Whether or not we should look for imports that were kicked off interactively
+	 * @param boolean $cache            When checking on every request we should utilize transient caching to prevent hitting the DB every time.
+	 *
+	 * @return boolean|integer
 	 */
-	public function next_waiting_record( $interactive_only = false ) {
+	public function next_waiting_record( $interactive_only = false, $cache = false ) {
+		if ( true === $cache ) {
+			$transient_key = 'tribe-event-aggregator-next_waiting_record' . ( ! $interactive_only ?: '_interactive_only' );
+			$next_waiting_record = get_transient( $transient_key );
+
+			if ( ! empty( $next_waiting_record ) ) {
+				return $this->current_record_id = $next_waiting_record;
+			}
+		}
+
 		$args = array(
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
 			'post_status'    => 'any',
@@ -195,6 +221,12 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		}
 
 		$next_record = array_shift( $waiting_records );
+
+		// Set cache in case of usage.
+		if ( true === $cache ) {
+			set_transient( $transient_key, $next_record->ID, 5 * MINUTE_IN_SECONDS );
+		}
+
 		return $this->current_record_id = $next_record->ID;
 	}
 
