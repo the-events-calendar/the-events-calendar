@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
+* Tweak - ensure widgets don't get Filter Bar classes on their containers. [TBD]
 
 = [5.2.1] 2020-10-22 =
 
