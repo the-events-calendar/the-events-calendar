@@ -200,22 +200,22 @@ class Event extends Base {
 				'displays_on'            => $displays_on,
 				'featured'               => $featured,
 				'sticky'                 => $sticky,
-				'cost'                   =>  tribe_get_cost( $post_id, true ),
+				'cost'                   => tribe_get_cost( $post_id, true ),
 				'excerpt'                => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) );
 					},
 					false
 				) )->on_resolve( $cache_this ),
-				'organizer_names'             => ( new Lazy_Collection( $organizer_names_fetch ) )->on_resolve( $cache_this ),
-				'organizers'                  => (
-					new Lazy_Post_Collection(
-						$organizer_fetch,
-						'tribe_get_organizer_object'
-					)
+				'organizer_names'        => ( new Lazy_Collection( $organizer_names_fetch ) )->on_resolve( $cache_this ),
+				'organizers'             => (
+				new Lazy_Post_Collection(
+					$organizer_fetch,
+					'tribe_get_organizer_object'
+				)
 				)->on_resolve( $cache_this ),
 				'venues'                 => (
-					new Lazy_Post_Collection(
+				new Lazy_Post_Collection(
 					$venue_fetch,
 					'tribe_get_venue_object' )
 				)->on_resolve( $cache_this ),
