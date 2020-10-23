@@ -30,7 +30,6 @@
 				</header>
 
 				
-												
 			</div>
 		</article>
 	</div>

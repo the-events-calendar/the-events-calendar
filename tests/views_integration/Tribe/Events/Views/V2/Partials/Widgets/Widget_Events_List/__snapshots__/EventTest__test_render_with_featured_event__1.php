@@ -38,7 +38,6 @@
 				</header>
 
 				
-												
 			</div>
 		</article>
 	</div>
