@@ -53,6 +53,9 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * Setup the view for the widget.
 	 *
 	 * @since 5.2.1
+	 * @since TBD Correct asset enqueue method.
+	 *
+	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
 	 */
 	public function setup_view( $arguments ) {
 		$context = tribe_context();
@@ -67,8 +70,57 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		$this->set_view( $view );
 
-		// @todo temporary loading of assets to be removed with TEC-3614
-		tribe_asset_enqueue_group( 'events-views-v2' );
+		$this->enqueue_assets( $context, $view );
+	}
+
+	/**
+	 * Encapsulates and handles the logic for asset enqueues in it's own method.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Context $context Context we are using to build the view.
+	 * @param View_Interface  $view    Which view we are using the template on.
+	 */
+	public function enqueue_assets( $context, $view ) {
+		/**
+		 * Allow other plugins to hook in here to alter the enqueue.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $enqueue Should the widget assets be enqueued. Defaults to true.
+		 * @param \Tribe__Context $context Context we are using to build the view.
+		 * @param View_Interface  $view    Which view we are using the template on.
+		 */
+		$enqueue = apply_filters(
+			'tribe_events_views_v2_widget_enqueue_assets',
+			true,
+			$context,
+			$view
+		);
+
+		/**
+		 * Allow other plugins to hook in here to alter the enqueue for a specific widget type.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $enqueue Should the widget assets be enqueued.
+		 * @param \Tribe__Context $context Context we are using to build the view.
+		 * @param View_Interface  $view    Which view we are using the template on.
+		 */
+		$enqueue = apply_filters(
+			"tribe_events_views_v2_widget_{$this->view_slug}_enqueue_assets",
+			$enqueue,
+			$context,
+			$view
+		);
+
+		// Ensure we enqueue widget styles and scripts.
+		add_filter(
+			'tribe_events_views_v2_assets_should_enqueue_widget_assets',
+			function() use ( $enqueue ) {
+				return $enqueue;
+			}
+		);
 	}
 
 	/**
