@@ -1590,6 +1590,13 @@ class View implements View_Interface {
 		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
 		$query_args['eventDisplay'] = $this->slug;
 
+		$category = $this->context->get( 'event_category', false );
+
+		if ( is_array( $category ) ) {
+			$category                       = Arr::to_list( reset( $category ) );
+			$query_args['tribe_events_cat'] = $category;
+		}
+
 		$query_args = $this->filter_query_args( $query_args, $canonical );
 
 		$ugly_url = add_query_arg( $query_args, $this->get_url( false ) );
