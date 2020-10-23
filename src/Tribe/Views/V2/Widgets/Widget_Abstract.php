@@ -71,6 +71,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		$this->set_view( $view );
 
 		$this->enqueue_assets( $context, $view );
+
+		add_filter( "tribe_events_views_v2_filter_bar_{$this->view_slug}view_html_classes", '__return_false' );
 	}
 
 	/**
