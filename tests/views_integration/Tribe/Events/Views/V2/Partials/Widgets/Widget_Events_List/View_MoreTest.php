@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Views\V2\Partials\Widgets\Events_List;
+namespace Tribe\Events\Views\V2\Partials\Widgets\Widget_Events_List;
 
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
@@ -9,7 +9,7 @@ class View_MoreTest extends HtmlPartialTestCase
 {
 	use With_Post_Remapping;
 
-	protected $partial_path = 'widgets/events-list/view-more';
+	protected $partial_path = 'widgets/widget-events-list/view-more';
 
 	/**
 	 * Test render with link

@@ -3,7 +3,7 @@
  * Widget: Events List Event
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/events-list/event.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list/event.php
  *
  * See more documentation about our views templating system.
  *
@@ -23,22 +23,22 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-widget-events-list__event
 ?>
 <div <?php tribe_classes( $container_classes ); ?>>
 
-	<?php $this->template( 'widgets/events-list/event/date-tag', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'widgets/widget-events-list/event/date-tag', [ 'event' => $event ] ); ?>
 
 	<div class="tribe-events-widget-events-list__event-wrapper tribe-common-g-col">
 		<article <?php tribe_classes( $event_classes ) ?>>
 			<div class="tribe-events-widget-events-list__event-details">
 
 				<header class="tribe-events-widget-events-list__event-header">
-					<?php $this->template( 'widgets/events-list/event/date', [ 'event' => $event ] ); ?>
-					<?php $this->template( 'widgets/events-list/event/title', [ 'event' => $event ] ); ?>
+					<?php $this->template( 'widgets/widget-events-list/event/date', [ 'event' => $event ] ); ?>
+					<?php $this->template( 'widgets/widget-events-list/event/title', [ 'event' => $event ] ); ?>
 				</header>
 
 				<?php $this->do_entry_point( 'event_meta' ); ?>
 
-				<?php // $this->template( 'widgets/events-list/event/cost', [ 'event' => $event, 'display' => $display ] ); ?>
-				<?php // $this->template( 'widgets/events-list/event/venue', [ 'event' => $event, 'display' => $display ] ); ?>
-				<?php // $this->template( 'widgets/events-list/event/organizer', [ 'event' => $event, 'display' => $display ] ); ?>
+				<?php // $this->template( 'widgets/widget-events-list/event/cost', [ 'event' => $event, 'display' => $display ] ); ?>
+				<?php // $this->template( 'widgets/widget-events-list/event/venue', [ 'event' => $event, 'display' => $display ] ); ?>
+				<?php // $this->template( 'widgets/widget-events-list/event/organizer', [ 'event' => $event, 'display' => $display ] ); ?>
 
 			</div>
 		</article>

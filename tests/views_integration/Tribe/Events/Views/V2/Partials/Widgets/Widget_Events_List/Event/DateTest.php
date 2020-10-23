@@ -1,15 +1,15 @@
 <?php
 
-namespace Tribe\Events\Views\V2\Partials\Widgets\Events_List\Event\Date;
+namespace Tribe\Events\Views\V2\Partials\Widgets\Widget_Events_List\Event;
 
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class FeaturedTest extends HtmlPartialTestCase
+class DateTest extends HtmlPartialTestCase
 {
 	use With_Post_Remapping;
 
-	protected $partial_path = 'widgets/events-list/event/date/featured';
+	protected $partial_path = 'widgets/widget-events-list/event/date';
 
 	/**
 	 * Test render with event

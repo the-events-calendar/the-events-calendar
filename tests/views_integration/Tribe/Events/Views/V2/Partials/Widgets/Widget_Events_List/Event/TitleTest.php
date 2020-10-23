@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Views\V2\Partials\Widgets\Events_List\Event;
+namespace Tribe\Events\Views\V2\Partials\Widgets\Widget_Events_List\Event;
 
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
@@ -9,7 +9,7 @@ class TitleTest extends HtmlPartialTestCase
 {
 	use With_Post_Remapping;
 
-	protected $partial_path = 'widgets/events-list/event/title';
+	protected $partial_path = 'widgets/widget-events-list/event/title';
 
 	/**
 	 * Test render with event

@@ -3,7 +3,7 @@
  * Widget: Events List Event Featured Icon
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/events-list/event/date/featured.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list/event/date/featured.php
  *
  * See more documentation about our views templating system.
  *

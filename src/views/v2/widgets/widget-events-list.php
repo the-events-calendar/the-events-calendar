@@ -3,7 +3,7 @@
  * Widget: Events List
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/events-list.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list.php
  *
  * See more documentation about our views templating system.
  *
@@ -41,9 +41,7 @@
 		<div class="tribe-events-widget-events-list">
 			<header class="tribe-events-widget-events-list__header">
 				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-					<?php
-					echo esc_html( $widget_title );
-					?>
+					<?php echo esc_html( $widget_title ); ?>
 				</h3>
 			</header>
 
@@ -51,11 +49,11 @@
 
 				<div class="tribe-events-widget-events-list__events">
 					<?php foreach ( $events as $event ) : ?>
-						<?php $this->template( 'widgets/events-list/event', [ 'event' => $event ] ); ?>
+						<?php $this->template( 'widgets/widget-events-list/event', [ 'event' => $event ] ); ?>
 					<?php endforeach; ?>
 				</div>
 
-				<?php $this->template( 'widgets/events-list/view-more', [ 'view_more_link' => $view_more_link ] ); ?>
+				<?php $this->template( 'widgets/widget-events-list/view-more', [ 'view_more_link' => $view_more_link ] ); ?>
 
 			<?php else : ?>
 
