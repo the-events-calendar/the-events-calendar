@@ -256,10 +256,21 @@ class eventTest extends WPTestCase {
 		remove_filter( 'tribe_get_organizer', $fail );
 
 		$this->assertEquals( [], $wo_organizer_event->organizers->all() );
-		$this->assertEquals( [ tribe_get_organizer( $organizer_1 ) ], tribe_get_event( $w_organizer_1 )->organizers->all() );
+		$this->assertEquals(
+			[ tribe_get_organizer( $organizer_1 ) ],
+			tribe_get_event( $w_organizer_1 )->organizer_names->all()
+		);
+		$this->assertEquals(
+			[ tribe_get_organizer_object( $organizer_1 ) ],
+			tribe_get_event( $w_organizer_1 )->organizers->all()
+		);
 		$this->assertEqualSets( [
 			tribe_get_organizer( $organizer_1 ),
 			tribe_get_organizer( $organizer_2 )
+		], tribe_get_event( $w_both_organizers )->organizer_names->all() );
+		$this->assertEqualSets( [
+			tribe_get_organizer_object( $organizer_1 ),
+			tribe_get_organizer_object( $organizer_2 )
 		], tribe_get_event( $w_both_organizers )->organizers->all() );
 	}
 
