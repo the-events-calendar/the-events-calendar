@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
+
 = [5.2.1] 2020-10-22 =
 
 * Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
