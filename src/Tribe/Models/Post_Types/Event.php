@@ -163,10 +163,11 @@ class Event extends Base {
 				}
 			}
 
-			$featured        = tribe_is_truthy( isset( $post_meta[ Featured::FEATURED_EVENT_KEY ][0] ) ? $post_meta[ Featured::FEATURED_EVENT_KEY ][0] : null );
-			$sticky          = get_post_field( 'menu_order', $post_id ) === -1;
-			$organizer_fetch = Organizer::get_fetch_callback( $post_id );
-			$venue_fetch     = Venue::get_fetch_callback( $post_id );
+			$featured              = tribe_is_truthy( isset( $post_meta[ Featured::FEATURED_EVENT_KEY ][0] ) ? $post_meta[ Featured::FEATURED_EVENT_KEY ][0] : null );
+			$sticky                = get_post_field( 'menu_order', $post_id ) === - 1;
+			$organizer_names_fetch = Organizer::get_fetch_names_callback( $post_id );
+			$organizer_fetch       = Organizer::get_fetch_callback( $post_id );
+			$venue_fetch           = Venue::get_fetch_callback( $post_id );
 
 			$start_site         = $start_date_object->setTimezone( $site_timezone );
 			$end_site           = $end_date_object->setTimezone( $site_timezone );
@@ -206,8 +207,15 @@ class Event extends Base {
 					},
 					false
 				) )->on_resolve( $cache_this ),
-				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
-				'venues'                 => ( new Lazy_Post_Collection(
+				'organizer_names'             => ( new Lazy_Collection( $organizer_names_fetch ) )->on_resolve( $cache_this ),
+				'organizers'                  => (
+					new Lazy_Post_Collection(
+						$organizer_fetch,
+						'tribe_get_organizer_object'
+					)
+				)->on_resolve( $cache_this ),
+				'venues'                 => (
+					new Lazy_Post_Collection(
 					$venue_fetch,
 					'tribe_get_venue_object' )
 				)->on_resolve( $cache_this ),
