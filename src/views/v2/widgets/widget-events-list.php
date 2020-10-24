@@ -39,6 +39,11 @@
 >
 	<div class="tribe-common-l-container">
 		<div class="tribe-events-widget-events-list">
+
+			<?php $this->template( 'components/json-ld-data' ); ?>
+
+			<?php $this->template( 'components/data' ); ?>
+
 			<header class="tribe-events-widget-events-list__header">
 				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
 					<?php echo esc_html( $widget_title ); ?>
@@ -63,3 +68,5 @@
 		</div>
 	</div>
 </div>
+
+<?php $this->template( 'components/breakpoints' ); ?>
