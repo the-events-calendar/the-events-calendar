@@ -21,7 +21,7 @@ if ( empty( $event->featured ) ) {
 }
 ?>
 <em
-	class="tribe-events-widget-events-list__event-datetime-featured-icon"
+	class="tribe-events-widget-events-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 	aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 	title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 >
