@@ -46,6 +46,7 @@ tribe.events.views.manager = {};
 		link: '[data-js="tribe-events-view-link"]',
 		dataScript: '[data-js="tribe-events-view-data"]',
 		loader: '.tribe-events-view-loader',
+		loaderText: '.tribe-events-view-loader__text',
 		hiddenElement: '.tribe-common-a11y-hidden',
 	};
 
@@ -399,18 +400,16 @@ tribe.events.views.manager = {};
 	};
 
 	/**
-	 * Performs an AJAX request given the data for the REST API and which container
-	 * we are going to pass the answer to.
+	 * Sets up the request data for AJAX request.
 	 *
-	 * @since 4.9.2
+	 * @since 5.2.0
 	 *
-	 * @param  {object}         data       DOM Event related to the Click action
-	 * @param  {Element|jQuery} $container Which container we are dealing with
+	 * @param  {object}         data       Data object to modify and setup.
+	 * @param  {Element|jQuery} $container Which container we are dealing with.
 	 *
 	 * @return {void}
 	 */
-	obj.request = function( data, $container ) {
-		var settings = obj.getAjaxSettings( $container );
+	obj.setupRequestData = function( data, $container ) {
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var containerData = obj.getContainerData( $container );
 
@@ -424,10 +423,38 @@ tribe.events.views.manager = {};
 
 		data.should_manage_url = shouldManageUrl;
 
-		// Pass the data received to the $.ajax settings
-		settings.data = data;
+		// Allow other values to be passed to request from container data.
+		var requestData = $container.data( 'tribeRequestData' );
+
+		if ( ! $.isPlainObject( requestData ) ) {
+			return data;
+		}
+
+		return $.extend( requestData, data );
+	};
+
+	/**
+	 * Performs an AJAX request given the data for the REST API and which container
+	 * we are going to pass the answer to.
+	 *
+	 * @since 4.9.2
+	 *
+	 * @param  {object}         data       DOM Event related to the Click action
+	 * @param  {Element|jQuery} $container Which container we are dealing with
+	 *
+	 * @return {void}
+	 */
+	obj.request = function( data, $container ) {
+		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
+
+		var settings = obj.getAjaxSettings( $container );
+
+		// Pass the data setup to the $.ajax settings
+		settings.data = obj.setupRequestData( data, $container );
 
 		obj.currentAjaxRequest = $.ajax( settings );
+
+		$container.trigger( 'afterRequest.tribeEvents', [ data, $container ] );
 	};
 
 	/**
@@ -444,7 +471,7 @@ tribe.events.views.manager = {};
 			url: $container.data( 'view-rest-url' ),
 			accepts: 'html',
 			dataType: 'html',
-			method: 'GET',
+			method: $container.data( 'view-rest-method' ) || 'POST',
 			'async': true, // async is keyword
 			beforeSend: obj.ajaxBeforeSend,
 			complete: obj.ajaxComplete,
@@ -478,7 +505,10 @@ tribe.events.views.manager = {};
 
 		if ( $loader.length ) {
 			$loader.removeClass( obj.selectors.hiddenElement.className() );
+			var $loaderText = $loader.find( obj.selectors.loaderText );
+			$loaderText.text( $loaderText.text() );
 		}
+		$container.attr( 'aria-busy', 'true' );
 
 		$container.trigger( 'afterAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 	};

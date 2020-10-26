@@ -40,16 +40,9 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.selectors = {
 		eventsBar: '[data-js="tribe-events-events-bar"]',
-		tabList: '[data-js="tribe-events-events-bar-tablist"]',
-		tab: '[data-js~="tribe-events-events-bar-tab"]',
-		tabPanel: '[data-js~="tribe-events-events-bar-tabpanel"]',
 		searchButton: '[data-js="tribe-events-search-button"]',
 		searchButtonActiveClass: '.tribe-events-c-events-bar__search-button--active',
-		filtersButton: '[data-js="tribe-events-filters-button"]',
-		searchFiltersContainer: '[data-js="tribe-events-search-filters-container"]',
-		filtersContainer: '[data-js~="tribe-events-events-bar-filters"]',
-		hasFilterBarClass: '.tribe-events-c-events-bar--has-filter-bar',
-		activeTabClass: '.tribe-events-c-events-bar__tab--active',
+		searchContainer: '[data-js="tribe-events-search-container"]',
 	};
 
 	/**
@@ -64,217 +57,6 @@ tribe.events.views.eventsBar = {};
 		HOME: 36,
 		LEFT: 37,
 		RIGHT: 39,
-	};
-
-	/**
-	 * Deselects all tabs
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {array} tabs array of jQuery objects of tabs
-	 *
-	 * @return {void}
-	 */
-	obj.deselectTabs = function( tabs ) {
-		tabs.forEach( function( $tab ) {
-			$tab
-				.attr( 'tabindex', '-1' )
-				.attr( 'aria-selected', 'false' )
-				.removeClass( obj.selectors.activeTabClass.className() );
-		} );
-	};
-
-	/**
-	 * Hides all tab panels
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {array} tabPanels array of jQuery objects of tabPanels
-	 *
-	 * @return {void}
-	 */
-	obj.hideTabPanels = function( tabPanels ) {
-		tabPanels.forEach( function( $tabPanel ) {
-			$tabPanel.prop( 'hidden', true );
-		} );
-	};
-
-	/**
-	 * Select tab based on index
-	 *
-	 * @since 4.9.8
-	 *
-	 * @param {array} tabs array of jQuery objects of tabs
-	 * @param {array} tabPanels array of jQuery objects of tabPanels
-	 * @param {jQuery} $tab jQuery object of tab to be selected
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.selectTab = function( tabs, tabPanels, $tab, $container ) {
-		obj.deselectTabs( tabs );
-		obj.hideTabPanels( tabPanels );
-
-		$tab
-			.attr( 'aria-selected', 'true' )
-			.removeAttr( 'tabindex' )
-			.addClass( obj.selectors.activeTabClass.className() )
-			.focus();
-		$container
-			.find( '#' + $tab.attr( 'aria-controls' ) )
-			.removeProp( 'hidden' );
-	};
-
-	/**
-	 * Gets current tab index
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {array} tabs array of jQuery objects of tabs
-	 *
-	 * @return {integer} index of current tab
-	 */
-	obj.getCurrentTab = function( tabs ) {
-		var currentTab;
-
-		tabs.forEach( function( $tab, index ) {
-			if ( $tab.is( document.activeElement ) ) {
-				currentTab = index;
-			}
-		} );
-
-		return currentTab;
-	};
-
-	/**
-	 * Handles 'click' event on tab
-	 *
-	 * @since 4.9.8
-	 *
-	 * @param {Event} event event object of click event
-	 *
-	 * @return {void}
-	 */
-	obj.handleTabClick = function( event ) {
-		var $container = $( event.data.container );
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'tribeEventsState' );
-		var tabs = state.tabs;
-		var tabPanels = state.tabPanels;
-		var selectedTab = $( event.target ).closest( obj.selectors.tab );
-
-		obj.selectTab( tabs, tabPanels, selectedTab, $container );
-	};
-
-	/**
-	 * Handles 'keydown' event on tab
-	 *
-	 * @since 4.9.8
-	 *
-	 * @param {Event} event event object of keydown event
-	 *
-	 * @return {void}
-	 */
-	obj.handleTabKeydown = function( event ) {
-		var key = event.which || event.keyCode;
-		var $container = $( event.data.container );
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'tribeEventsState' );
-		var tabs = state.tabs;
-		var tabPanels = state.tabPanels;
-		var currentTab = obj.getCurrentTab( tabs );
-		var nextTab;
-
-		switch ( key ) {
-			case obj.keyCode.LEFT:
-				nextTab = 0 === currentTab ? tabs.length - 1 : currentTab - 1;
-				break;
-			case obj.keyCode.RIGHT:
-				nextTab = tabs.length - 1 === currentTab ? 0 : currentTab + 1;
-				break;
-			case obj.keyCode.HOME:
-				nextTab = 0;
-				break;
-			case obj.keyCode.END:
-				nextTab = tabs.length - 1;
-				break;
-			default:
-				return;
-		}
-
-		obj.selectTab( tabs, tabPanels, tabs[ nextTab ], $container );
-		event.preventDefault();
-	};
-
-	/**
-	 * Deinitializes tablist
-	 *
-	 * @since 4.9.7
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.deinitTablist = function( $container ) {
-		$container
-			.find( obj.selectors.tab )
-			.each( function( index, tab ) {
-				$( tab )
-					.removeAttr( 'aria-selected' )
-					.removeAttr( 'tabindex' )
-					.off();
-			} );
-		$container
-			.find( obj.selectors.tabPanel )
-			.each( function( index, tabpanel ) {
-				$( tabpanel )
-					.removeAttr( 'role' )
-					.removeAttr( 'aria-labelledby' )
-					.removeProp( 'hidden' );
-			} );
-	};
-
-	/**
-	 * Initializes tablist
-	 *
-	 * @since 4.9.8
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.initTablist = function( $container ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = $eventsBar.data( 'tribeEventsState' );
-		var tabs = [];
-		var tabpanels = [];
-
-		$container
-			.find( obj.selectors.tab )
-			.each( function( index, tab ) {
-				var $tab = $( tab );
-				var $tabpanel = $container.find( '#' + $tab.attr( 'aria-controls' ) );
-
-				$tab
-					.attr( 'aria-selected', 'true' )
-					.on( 'keydown', { container: $container }, obj.handleTabKeydown )
-					.on( 'click', { container: $container }, obj.handleTabClick );
-				$tabpanel
-					.attr( 'role', 'tabpanel' )
-					.attr( 'aria-labelledby', $tab.attr( 'id' ) );
-
-				if ( index !== 0 ) {
-					$tab.attr( 'tabindex', '-1' );
-					$tabpanel.prop( 'hidden', true );
-				}
-
-				tabs.push( $tab );
-				tabpanels.push( $tabpanel );
-			} );
-
-		state.tabs = tabs;
-		state.tabPanels = tabpanels;
-		$eventsBar.data( 'tribeEventsState', state );
 	};
 
 	/**
@@ -310,42 +92,6 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Deinitialize filter button accordion
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.deinitFiltersAccordion = function( $container ) {
-		var $filtersButton = $container.find( obj.selectors.filtersButton );
-
-		if ( $filtersButton.length ) {
-			var $filtersContainer = $container.find( obj.selectors.filtersContainer );
-			obj.deinitAccordion( $filtersButton, $filtersContainer );
-		}
-	};
-
-	/**
-	 * Initialize filter button accordion
-	 *
-	 * @since 4.9.4
-	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 *
-	 * @return {void}
-	 */
-	obj.initFiltersAccordion = function( $container ) {
-		var $filtersButton = $container.find( obj.selectors.filtersButton );
-
-		if ( $filtersButton.length ) {
-			var $filtersContainer = $container.find( obj.selectors.filtersContainer );
-			obj.initAccordion( $container, $filtersButton, $filtersContainer );
-		}
-	};
-
-	/**
 	 * Toggles active class on search button
 	 *
 	 * @since 4.9.7
@@ -370,8 +116,8 @@ tribe.events.views.eventsBar = {};
 	obj.deinitSearchAccordion = function( $container ) {
 		var $searchButton = $container.find( obj.selectors.searchButton );
 		$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
-		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
-		obj.deinitAccordion( $searchButton, $searchFiltersContainer );
+		var $searchContainer = $container.find( obj.selectors.searchContainer );
+		obj.deinitAccordion( $searchButton, $searchContainer );
 		$searchButton.off( 'click', obj.handleSearchButtonClick );
 	};
 
@@ -386,8 +132,8 @@ tribe.events.views.eventsBar = {};
 	 */
 	obj.initSearchAccordion = function( $container ) {
 		var $searchButton = $container.find( obj.selectors.searchButton );
-		var $searchFiltersContainer = $container.find( obj.selectors.searchFiltersContainer );
-		obj.initAccordion( $container, $searchButton, $searchFiltersContainer );
+		var $searchContainer = $container.find( obj.selectors.searchContainer );
+		obj.initAccordion( $container, $searchButton, $searchContainer );
 		$searchButton.on( 'click', { target: $searchButton }, obj.handleSearchButtonClick );
 	};
 
@@ -405,9 +151,6 @@ tribe.events.views.eventsBar = {};
 		var state = {
 			mobileInitialized: false,
 			desktopInitialized: false,
-			tabs: [],
-			tabPanels: [],
-			currentTab: 0,
 		};
 
 		$eventsBar.data( 'tribeEventsState', state );
@@ -423,8 +166,6 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.deinitEventsBar = function( $container ) {
-		obj.deinitTablist( $container );
-		obj.deinitFiltersAccordion( $container );
 		obj.deinitSearchAccordion( $container );
 	};
 
@@ -442,16 +183,11 @@ tribe.events.views.eventsBar = {};
 
 		if ( $eventsBar.length ) {
 			var state = $eventsBar.data( 'tribeEventsState' );
-			var $filtersButton = $container.find( obj.selectors.filtersButton );
 			var containerState = $container.data( 'tribeEventsState' );
 			var isMobile = containerState.isMobile;
 
 			// If viewport is mobile and mobile state is not initialized
 			if ( isMobile && ! state.mobileInitialized ) {
-				if ( $filtersButton.length ) {
-					obj.initTablist( $container );
-					obj.deinitFiltersAccordion( $container );
-				}
 				obj.initSearchAccordion( $container );
 				state.desktopInitialized = false;
 				state.mobileInitialized = true;
@@ -459,10 +195,6 @@ tribe.events.views.eventsBar = {};
 
 			// If viewport is desktop and desktop state is not initialized
 			} else if ( ! isMobile && ! state.desktopInitialized ) {
-				if ( $filtersButton.length ) {
-					obj.deinitTablist( $container );
-					obj.initFiltersAccordion( $container );
-				}
 				obj.deinitSearchAccordion( $container );
 				state.mobileInitialized = false;
 				state.desktopInitialized = true;
@@ -496,17 +228,17 @@ tribe.events.views.eventsBar = {};
 	obj.handleClick = function( event ) {
 		var $target = $( event.target );
 		var isParentSearchButton = Boolean( $target.closest( obj.selectors.searchButton ).length );
-		var isParentSearchFiltersContainer = Boolean( $target.closest( obj.selectors.searchFiltersContainer ).length );
+		var isParentSearchContainer = Boolean( $target.closest( obj.selectors.searchContainer ).length );
 
-		if ( ! ( isParentSearchButton || isParentSearchFiltersContainer ) ) {
+		if ( ! ( isParentSearchButton || isParentSearchContainer ) ) {
 			var $container = event.data.container;
 			var $eventsBar = $container.find( obj.selectors.eventsBar );
 			var $searchButton = $eventsBar.find( obj.selectors.searchButton );
 
 			if ( $searchButton.hasClass( obj.selectors.searchButtonActiveClass.className() ) ) {
-				var $searchFiltersContainer = $eventsBar.find( obj.selectors.searchFiltersContainer );
+				var $searchContainer = $eventsBar.find( obj.selectors.searchContainer );
 				$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
-				tribe.events.views.accordion.closeAccordion( $searchButton, $searchFiltersContainer );
+				tribe.events.views.accordion.closeAccordion( $searchButton, $searchContainer );
 			}
 		}
 	};

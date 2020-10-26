@@ -2,7 +2,7 @@
 /**
  * Handles the translation of the plugin settings.
  *
- * @since   TBD
+ * @since   5.2.0
  *
  * @package Tribe__Events__Integrations__WPML__Option
  */
@@ -11,14 +11,14 @@
 /**
  * Class Tribe__Events__Integrations__WPML__Option
  *
- * @since TBD
+ * @since 5.2.0
  */
 class Tribe__Events__Integrations__WPML__Option {
 
 	/**
 	 * The singleton instance of this class.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @var Tribe__Events__Integrations__WPML__Option
 	 */
@@ -27,7 +27,7 @@ class Tribe__Events__Integrations__WPML__Option {
 	/**
 	 * The singleton method of this class.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @return Tribe__Events__Integrations__WPML__Option The singleton instance of this class.
 	 */
@@ -42,7 +42,7 @@ class Tribe__Events__Integrations__WPML__Option {
 	/**
 	 * Translate the option value using WPML filters.
 	 *
-	 * @since TBD
+	 * @since 5.2.0
 	 *
 	 * @param string $option_value The value of the option to translate.
 	 * @param string $default      The option default value.

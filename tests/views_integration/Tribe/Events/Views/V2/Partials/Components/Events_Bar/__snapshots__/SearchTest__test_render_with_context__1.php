@@ -1,7 +1,7 @@
 <?php return '<div
 	class="tribe-events-c-events-bar__search"
 	id="tribe-events-events-bar-search"
-	data-js="tribe-events-events-bar-tabpanel tribe-events-events-bar-search"
+	data-js="tribe-events-events-bar-search"
 >
 	<form
 		class="tribe-events-c-search tribe-events-c-events-bar__search-form"
