@@ -9,7 +9,6 @@
 namespace Tribe\Events\Models\Post_Types;
 
 use Tribe\Models\Post_Types\Base;
-use Tribe\Utils\Post_Thumbnail;
 
 /**
  * Class Venue.

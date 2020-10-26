@@ -618,6 +618,8 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Changed the method to return Organizer post objects, not just organizer names.
 	 */
 	public static function get_fetch_callback( $event ) {
 		$event = Tribe__Main::post_id_helper( $event );
@@ -627,11 +629,10 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * Returning a non `null` value here will skip the default logic.
 		 *
-		 * @since 4.9.7
+		 * @since TBD
 		 *
 		 * @param callable|null The fetch callback.
 		 * @param int $event The event post ID.
-		 *
 		 */
 		$callback = apply_filters( 'tribe_events_organizers_fetch_callback', null, $event );
 
@@ -647,12 +648,51 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 				)
 			);
 
-			$organizers    = ! empty( $organizer_ids )
-				? array_map( 'tribe_get_organizer', $organizer_ids )
+			$organizers = ! empty( $organizer_ids )
+				? array_map( 'tribe_get_organizer_object', $organizer_ids )
 				: [];
 
 			return array_filter( $organizers );
 		};
 	}
 
+	/**
+	 * Builds and returns a Closure to lazily fetch an event Organizer names.
+	 *
+	 * @since TBD Changed the name of this method from `get_fetch_callback` to `get_fetch_names_callback`.
+	 */
+	public static function get_fetch_names_callback( $event ) {
+		$event = Tribe__Main::post_id_helper( $event );
+
+		/**
+		 * Filters the closure that will fetch an Event Organizers.
+		 *
+		 * Returning a non `null` value here will skip the default logic.
+		 *
+		 * @since 4.9.7
+		 *
+		 * @param callable|null The fetch callback.
+		 * @param int $event The event post ID.
+		 */
+		$callback = apply_filters( 'tribe_events_organizers_fetch_names_callback', null, $event );
+
+		if ( null !== $callback ) {
+			return $callback;
+		}
+
+		return static function () use ( $event ) {
+			$organizer_ids = array_filter(
+				array_map(
+					'absint',
+					(array) get_post_meta( $event, '_EventOrganizerID' )
+				)
+			);
+
+			$organizers = ! empty( $organizer_ids )
+				? array_map( 'tribe_get_organizer', $organizer_ids )
+				: [];
+
+			return array_filter( $organizers );
+		};
+	}
 }
