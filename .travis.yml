@@ -29,8 +29,8 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  # Install the version 1.10 of Composer.
-  - wget https://raw.githubusercontent.com/composer/getcomposer.org/e494bb438e44b9e4782c16940b229a8c46ea8a3baa9b908bf9db310cd0171ee2/web/installer -O - -q | php -- --quiet
+  # Install version 1 of Composer.
+  - composer self-update --rollback
   # Sourcing the .env file will make sure we use, in the environment configuration, the same variables the tests are using.
   - set -o allexport; source .env; set +o allexport;
 
