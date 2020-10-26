@@ -228,6 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
 * Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
 * Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
+* Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
 
 = [5.2.1] 2020-10-22 =
 
