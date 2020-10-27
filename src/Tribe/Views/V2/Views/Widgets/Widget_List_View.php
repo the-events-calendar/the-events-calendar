@@ -100,7 +100,7 @@ class Widget_List_View extends View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_messages( array $events ) {
-		if ( ! empty( $events )	) {
+		if ( ! empty( $events ) ) {
 			return;
 		}
 
@@ -118,8 +118,8 @@ class Widget_List_View extends View {
 		global $wp_query;
 
 		$this->global_backup = [
-			'wp_query'   => $wp_query,
-			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : []
+			'wp_query' => $wp_query,
+			'$_SERVER' => isset( $_SERVER ) ? $_SERVER : []
 		];
 
 		$args = wp_parse_args( $args, $this->repository_args );
