@@ -23,6 +23,17 @@ if ( empty( $admin_fields ) ) {
 }
 
 foreach ( $admin_fields as $field_id => $field ) {
+	// Handle a section start. May contain a section title.
+	if ( 'section_start' === $field_id ) {
+		$this->template( 'widgets/components/input-section-start', $field );
+		continue;
+	}
+
+	// Handle a section end.
+	if ( 'section_end' === $field_id ) {
+		echo '</div>';
+		continue;
+	}
 
 	$data = [
 		'for'     => $widget_obj->get_field_id( $field_id ),
