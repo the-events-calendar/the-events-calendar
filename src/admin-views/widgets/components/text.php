@@ -19,16 +19,16 @@
 
 ?>
 <p
-		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-text tribe-common-form-control-text"
 >
 	<label
-			class="tribe-common-form-control-checkbox__label"
+			class="tribe-common-form-control-text__label"
 			for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</label>
 	<input
-			class="tribe-common-form-control-checkbox__input widefat"
+			class="tribe-common-form-control-text__input widefat"
 			id="<?php echo esc_attr( $id ); ?>"
 			name="<?php echo esc_attr( $name ); ?>"
 			type="text"

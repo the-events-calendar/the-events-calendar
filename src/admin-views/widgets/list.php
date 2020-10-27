@@ -24,13 +24,13 @@ if ( empty( $admin_fields ) ) {
 
 foreach ( $admin_fields as $field_id => $field ) {
 	// Handle a section start. May contain a section title.
-	if ( 'section_start' === $field_id ) {
+	if ( false !== stripos( $field_id, 'section_start' ) ) {
 		$this->template( 'widgets/components/input-section-start', $field );
 		continue;
 	}
 
 	// Handle a section end.
-	if ( 'section_end' === $field_id ) {
+	if ( false !== stripos( $field_id, 'section_end' ) ) {
 		echo '</div>';
 		continue;
 	}
@@ -48,6 +48,9 @@ foreach ( $admin_fields as $field_id => $field ) {
 		case 'checkbox':
 			$this->template( 'widgets/components/checkbox', $data );
 			break;
+		case 'radio':
+			$this->template( 'widgets/components/radio', $data );
+			break;
 		case 'dropdown':
 			$this->template( 'widgets/components/dropdown', $data );
 			break;
@@ -55,6 +58,7 @@ foreach ( $admin_fields as $field_id => $field ) {
 			$this->template( 'widgets/components/text', $data );
 			break;
 		default:
+			do_action( "tribe_events_view_v2_list_widget_admin_form_{$field['type']}_input", $data, $widget_obj );
 			break;
 	}
 }
