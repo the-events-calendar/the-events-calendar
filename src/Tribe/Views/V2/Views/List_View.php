@@ -55,7 +55,7 @@ class List_View extends View {
 		}
 
 		$current_page = (int) $this->context->get( 'page', 1 );
-		$display      = $this->context->get( 'event_display_mode', 'list' );
+		$display      = $this->context->get( 'event_display_mode', $this->slug );
 
 		if ( 'past' === $display ) {
 			$url = parent::next_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
@@ -83,7 +83,7 @@ class List_View extends View {
 		}
 
 		$current_page = (int) $this->context->get( 'page', 1 );
-		$display      = $this->context->get( 'event_display_mode', 'list' );
+		$display      = $this->context->get( 'event_display_mode', $this->slug );
 
 		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
