@@ -28,7 +28,7 @@ foreach ( $admin_fields as $field_id => $field ) {
 	if ( false !== stripos( $field_id, 'section_start' ) ) {
 		echo '<div class="tribe-events-widget-admin-form__input-section">';
 		if ( ! empty( $field['title'] ) ) {
-			// Note: the actual widget title/handle is an <h3>
+			// Note: the actual widget title/handle is an <h3>.
 			echo '<h4>' . esc_html( $field['title'] ) . '</h4>';
 		}
 
