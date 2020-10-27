@@ -24,13 +24,19 @@ if ( empty( $admin_fields ) ) {
 
 foreach ( $admin_fields as $field_id => $field ) {
 	// Handle a section start. May contain a section title.
-	if ( 'section_start' === $field_id ) {
-		$this->template( 'widgets/components/input-section-start', $field );
+	// Using stripos() to allow for multiple occurrences ("section_start_1", "section_start_2" etc).
+	if ( false !== stripos( $field_id, 'section_start' ) ) {
+		echo '<div class="tribe-events-widget-admin-form__input-section">';
+		if ( ! empty( $field['title'] ) ) {
+			// Note: the actual widget title/handle is an <h3>
+			echo '<h4>' . esc_html( $field['title'] ) . '</h4>';
+		}
+
 		continue;
 	}
 
 	// Handle a section end.
-	if ( 'section_end' === $field_id ) {
+	if ( false !== stripos( $field_id, 'section_end' ) ) {
 		echo '</div>';
 		continue;
 	}
