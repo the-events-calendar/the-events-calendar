@@ -20,10 +20,15 @@
  * @var string               $breakpoint_pointer String we use as pointer to the current view we are setting up with breakpoints.
  * @var array<string,string> $messages           An array of user-facing messages, managed by the View.
  * @var array<string,bool>   $display            An array of whether to display specific event meta or not.
+ * @var boolean              $no_upcoming_events Hide widget if no events.
  * @var string               $view_more_link     The URL to view all events.
  * @var string               $widget_title       The title of the widget.
  */
 
+// Hide widget if no events and widget only displays with events is checked.
+if ( empty( $events ) && $no_upcoming_events ) {
+	return;
+}
 ?>
 <div
 	<?php tribe_classes( $container_classes ); ?>

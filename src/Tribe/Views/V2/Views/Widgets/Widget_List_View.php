@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
 
+use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 
@@ -85,12 +86,54 @@ class Widget_List_View extends View {
 		$template_vars = parent::setup_template_vars();
 
 		// Here update, add and remove from the default template vars.
-		$template_vars['view_more_link']   = tribe_get_events_link();
-		$template_vars['widget_title']     = $this->context->get( 'widget_title' );
-		$template_vars['show_latest_past'] = false;
+		$template_vars['view_more_link']     = tribe_get_events_link();
+		$template_vars['widget_title']       = $this->context->get( 'widget_title' );
+		$template_vars['no_upcoming_events'] = $this->context->get( 'no_upcoming_events' );
+		$template_vars['show_latest_past']   = false;
 		// Display is modified with filters in Pro.
 		$template_vars['display'] = [];
 
 		return $template_vars;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_messages( array $events ) {
+		if ( ! empty( $events )	) {
+			return;
+		}
+
+		$keyword = $this->context->get( 'keyword', false );
+		$this->messages->insert(
+			Messages::TYPE_NOTICE,
+			Messages::for_key( 'no_upcoming_events', trim( $keyword ) )
+		);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setup_the_loop( array $args = [] ) {
+		global $wp_query;
+
+		$this->global_backup = [
+			'wp_query'   => $wp_query,
+			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : []
+		];
+
+		$args = wp_parse_args( $args, $this->repository_args );
+
+		$this->repository->by_args( $args );
+
+		$this->set_url( $args, true );
+
+		$wp_query = $this->repository->get_query();
+
+		wp_reset_postdata();
+
+		// Make the template global to power template tags.
+		global $tribe_template;
+		$tribe_template = $this->template;
 	}
 }
