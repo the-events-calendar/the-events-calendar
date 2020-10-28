@@ -47,6 +47,39 @@
 		}
 	}
 
+	.tribe-events-widget-events-list {
+
+		.tribe-events-c-messages__message {
+			background-color: transparent;
+			border-radius: 0;
+		}
+
+		.tribe-events-c-messages__message--notice {
+
+			&:before {
+				background-image: svg-inline(messages-not-found);
+				background-repeat: no-repeat;
+				background-size: 22px;
+				display: inline-block;
+				content: '';
+				min-width: 22px;
+				height: 24px;
+				margin-right: var(--spacer-2);
+			}
+		}
+
+		.tribe-events-c-messages__message-list {
+
+			.tribe-common--breakpoint-medium& {
+				text-align: left;
+			}
+		}
+
+		.tribe-events-c-messages__message-list-item-link {
+			font-weight:  var(--font-weight-bold);;
+		}
+	}
+
 	/* -------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ------------------------------------------------------------------------- */
