@@ -9,7 +9,7 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @version 5.2.1
+ * @version TBD
  *
  * @var array<\WP_Post>      $events                     The array containing the events.
  * @var string               $rest_url                   The REST URL.
