@@ -96,7 +96,7 @@ class Widget_View extends View {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array|null  $args An array of associative arguments used to setup the repository for the View.
+	 * @param array|null $args An array of associative arguments used to setup the repository for the View.
 	 */
 	public function setup_the_loop( array $args = [] ) {
 		$args = wp_parse_args( $args, $this->repository_args );
