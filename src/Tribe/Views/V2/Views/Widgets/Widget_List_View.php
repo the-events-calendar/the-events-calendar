@@ -115,6 +115,8 @@ class Widget_List_View extends View {
 	 * Modify the setup the loop method to only set the repository arguments.
 	 *
 	 * @since TBD
+	 *
+	 * @param  array|null  $args An array of associative arguments used to setup the repository for the View.
 	 */
 	public function setup_the_loop( array $args = [] ) {
 		$args = wp_parse_args( $args, $this->repository_args );
