@@ -3,7 +3,7 @@
  * Widget: Events List Event
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/events-list/event.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list/event.php
  *
  * See more documentation about our views templating system.
  *
@@ -11,8 +11,7 @@
  *
  * @version 5.2.1
  *
- * @var WP_Post            $event   The event post object with properties added by the `tribe_get_event` function.
- * @var array<string,bool> $display Associative array of display settings for event meta.
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -24,20 +23,18 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-widget-events-list__event
 ?>
 <div <?php tribe_classes( $container_classes ); ?>>
 
-	<?php $this->template( 'widgets/events-list/event/date-tag', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'widgets/widget-events-list/event/date-tag', [ 'event' => $event ] ); ?>
 
 	<div class="tribe-events-widget-events-list__event-wrapper tribe-common-g-col">
 		<article <?php tribe_classes( $event_classes ) ?>>
 			<div class="tribe-events-widget-events-list__event-details">
 
 				<header class="tribe-events-widget-events-list__event-header">
-					<?php $this->template( 'widgets/events-list/event/date', [ 'event' => $event ] ); ?>
-					<?php $this->template( 'widgets/events-list/event/title', [ 'event' => $event ] ); ?>
+					<?php $this->template( 'widgets/widget-events-list/event/date', [ 'event' => $event ] ); ?>
+					<?php $this->template( 'widgets/widget-events-list/event/title', [ 'event' => $event ] ); ?>
 				</header>
 
-				<?php // $this->template( 'widgets/events-list/event/cost', [ 'event' => $event, 'display' => $display ] ); ?>
-				<?php // $this->template( 'widgets/events-list/event/venue', [ 'event' => $event, 'display' => $display ] ); ?>
-				<?php // $this->template( 'widgets/events-list/event/organizer', [ 'event' => $event, 'display' => $display ] ); ?>
+				<?php $this->do_entry_point( 'event_meta' ); ?>
 
 			</div>
 		</article>

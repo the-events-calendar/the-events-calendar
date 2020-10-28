@@ -1,5 +1,5 @@
 <?php return '<em
-	class="tribe-events-widget-events-list__event-datetime-featured-icon"
+	class="tribe-events-widget-events-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 	aria-label="Featured"
 	title="Featured"
 >

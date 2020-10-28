@@ -3,7 +3,7 @@
  * Widget: Events List
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/events-list.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list.php
  *
  * See more documentation about our views templating system.
  *
@@ -19,7 +19,6 @@
  * @var array<string,mixed>  $container_data             An additional set of container `data` attributes.
  * @var string               $breakpoint_pointer         String we use as pointer to the current view we are setting up with breakpoints.
  * @var array<string,string> $messages                   An array of user-facing messages, managed by the View.
- * @var array<string,bool>   $display                    An array of whether to display specific event meta or not.
  * @var boolean              $hide_if_no_upcoming_events Hide widget if no events.
  * @var string               $view_more_link             The URL to view all events.
  * @var string               $widget_title               The title of the widget.
@@ -45,11 +44,14 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 >
 	<div class="tribe-common-l-container">
 		<div class="tribe-events-widget-events-list">
+
+			<?php $this->template( 'components/json-ld-data' ); ?>
+
+			<?php $this->template( 'components/data' ); ?>
+
 			<header class="tribe-events-widget-events-list__header">
 				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-					<?php
-					echo esc_html( $widget_title );
-					?>
+					<?php echo esc_html( $widget_title ); ?>
 				</h3>
 			</header>
 
@@ -57,19 +59,11 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 
 				<div class="tribe-events-widget-events-list__events">
 					<?php foreach ( $events as $event ) : ?>
-						<?php
-						$this->template(
-							'widgets/events-list/event',
-							[
-								'event'   => $event,
-								'display' => $display,
-							]
-						);
-						?>
+						<?php $this->template( 'widgets/widget-events-list/event', [ 'event' => $event ] ); ?>
 					<?php endforeach; ?>
 				</div>
 
-				<?php $this->template( 'widgets/events-list/view-more', [ 'view_more_link' => $view_more_link ] ); ?>
+				<?php $this->template( 'widgets/widget-events-list/view-more', [ 'view_more_link' => $view_more_link ] ); ?>
 
 			<?php else : ?>
 
@@ -79,3 +73,5 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 		</div>
 	</div>
 </div>
+
+<?php $this->template( 'components/breakpoints' ); ?>
