@@ -3,7 +3,7 @@
  * Widget: Events List Event Date
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/events-list/event/date.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list/event/date.php
  *
  * See more documentation about our views templating system.
  *
@@ -21,7 +21,7 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
 <div class="tribe-events-widget-events-list__event-datetime-wrapper tribe-common-b2 tribe-common-b3--min-medium">
-	<?php $this->template( 'widgets/events-list/event/date/featured', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'widgets/widget-events-list/event/date/featured', [ 'event' => $event ] ); ?>
 	<time class="tribe-events-widget-events-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php
 		// The date returned back contains HTML and is already escaped.

@@ -1,6 +1,6 @@
 <?php return '<div class="tribe-events-widget-events-list__event-datetime-wrapper tribe-common-b2 tribe-common-b3--min-medium">
 	<em
-	class="tribe-events-widget-events-list__event-datetime-featured-icon"
+	class="tribe-events-widget-events-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
 	aria-label="Featured"
 	title="Featured"
 >
