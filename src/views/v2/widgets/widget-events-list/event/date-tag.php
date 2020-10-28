@@ -3,7 +3,7 @@
  * Widget: Events List Event Venue
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/events-list/event/venue.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list/event/venue.php
  *
  * See more documentation about our views templating system.
  *

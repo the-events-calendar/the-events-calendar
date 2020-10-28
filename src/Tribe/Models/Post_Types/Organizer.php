@@ -39,12 +39,14 @@ class Organizer extends Base {
 			$phone   = tribe_get_organizer_phone( $this->post->ID );
 			$website = tribe_get_organizer_website_url( $this->post->ID );
 			// Do not mangle the email now, it should fall on the client code to apply antispambot filters to it.
-			$email = tribe_get_organizer_email( $this->post->ID, false );
+			$email     = tribe_get_organizer_email( $this->post->ID, false );
+			$permalink = get_permalink( $this->post->ID );
 
 			$properties = [
-				'phone'   => $phone,
-				'website' => $website,
-				'email'   => $email,
+				'phone'     => $phone,
+				'website'   => $website,
+				'email'     => $email,
+				'permalink' => $permalink,
 			];
 		} catch ( \Exception $e ) {
 			return [];
