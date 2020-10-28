@@ -157,22 +157,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-query-string',
 				'underscore',
-				'tribe-events-views-v2-viewport',
-				'tribe-events-views-v2-accordion',
-				'tribe-events-views-v2-view-selector',
-				'tribe-events-views-v2-navigation-scroll',
-				'tribe-events-views-v2-multiday-events',
-				'tribe-events-views-v2-month-mobile-events',
-				'tribe-events-views-v2-month-grid',
-				'tribe-events-views-v2-tooltip',
-				'tribe-events-views-v2-events-bar',
-				'tribe-events-views-v2-events-bar-inputs',
-				'tribe-events-views-v2-datepicker',
 			],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 20,
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'should_enqueue_frontend' ],
+					[ $this, 'should_enqueue_widget_assets' ],
+				],
 				'groups'       => [ static::$group_key ],
 			]
 		);
@@ -186,9 +179,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-events-views-v2-breakpoints',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'should_enqueue_frontend' ],
+					[ $this, 'should_enqueue_widget_assets' ],
+				],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -200,9 +199,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -216,9 +217,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -230,9 +233,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 15,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -244,9 +249,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -260,9 +267,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -271,9 +280,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-month-grid',
 			'views/month-grid.js',
 			[ 'jquery', 'tribe-common' ],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -286,9 +297,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-tooltipster',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -302,9 +315,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -316,9 +331,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -331,9 +348,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-events-views-v2-bootstrap-datepicker',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -348,7 +367,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'should_enqueue_frontend' ],
+					[ $this, 'should_enqueue_widget_assets' ],
+				],
 				'groups'       => [ static::$group_key ],
 				'in_footer'    => false,
 			]
