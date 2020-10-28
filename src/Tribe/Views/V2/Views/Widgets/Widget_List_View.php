@@ -31,33 +31,6 @@ class Widget_List_View extends Widget_View {
 	protected $slug = 'widget-events-list';
 
 	/**
-	 * The slug for the template path.
-	 *
-	 * @since 5.2.1
-	 *
-	 * @var string
-	 */
-	protected $template_path = 'widgets';
-
-	/**
-	 * Visibility for this view.
-	 *
-	 * @since 5.2.1
-	 *
-	 * @var bool
-	 */
-	protected static $publicly_visible = false;
-
-	/**
-	 * Whether the View should display the events bar or not.
-	 *
-	 * @since 5.2.1
-	 *
-	 * @var bool
-	 */
-	protected $display_events_bar = false;
-
-	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since TBD
@@ -110,18 +83,5 @@ class Widget_List_View extends Widget_View {
 			Messages::TYPE_NOTICE,
 			Messages::for_key( 'no_upcoming_events', trim( $keyword ) )
 		);
-	}
-
-	/**
-	 * Modify the setup the loop method to only set the repository arguments.
-	 *
-	 * @since TBD
-	 *
-	 * @param  array|null  $args An array of associative arguments used to setup the repository for the View.
-	 */
-	public function setup_the_loop( array $args = [] ) {
-		$args = wp_parse_args( $args, $this->repository_args );
-
-		$this->repository->by_args( $args );
 	}
 }

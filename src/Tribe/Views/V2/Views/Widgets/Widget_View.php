@@ -20,6 +20,33 @@ use Tribe\Events\Views\V2\View;
 class Widget_View extends View {
 
 	/**
+	 * The slug for the template path.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @var string
+	 */
+	protected $template_path = 'widgets';
+
+	/**
+	 * Visibility for this view.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @var bool
+	 */
+	protected static $publicly_visible = false;
+
+	/**
+	 * Whether the View should display the events bar or not.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @var bool
+	 */
+	protected $display_events_bar = false;
+
+	/**
 	 * Overrides the base View method.
 	 *
 	 * @since TBD
@@ -62,5 +89,18 @@ class Widget_View extends View {
 		$html_classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_html_classes", $html_classes, $this );
 
 		return $html_classes;
+	}
+
+	/**
+	 * Modify the setup the loop method to only set the repository arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param  array|null  $args An array of associative arguments used to setup the repository for the View.
+	 */
+	public function setup_the_loop( array $args = [] ) {
+		$args = wp_parse_args( $args, $this->repository_args );
+
+		$this->repository->by_args( $args );
 	}
 }
