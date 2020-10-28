@@ -113,16 +113,16 @@ function tribe_events_view_v2_use_period_repository() {
 }
 
 /**
- * Checks whether V2 widgets should load.
+ * Checks whether to disable V2 widgets.
  *
- * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` constant,
- * the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` environment variable.
+ * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` constant,
+ * the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` environment variable.
  *
- * @since 5.2.1
+ * @since TBD
  *
  * @return bool Whether Widgets v2 should load.
  */
-function tribe_events_widgets_v2_is_enabled() {
+function tribe_events_widgets_v2_is_disabled() {
 
-	return (bool) defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) && TRIBE_EVENTS_WIDGETS_V2_ENABLED;
+	return (bool) defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) && TRIBE_EVENTS_WIDGETS_V2_DISABLED;
 }

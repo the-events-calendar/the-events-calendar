@@ -42,7 +42,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		// Determine if V2 widgets should load.
-		if ( ! tribe_events_widgets_v2_is_enabled() ) {
+		if ( tribe_events_widgets_v2_is_disabled() ) {
 			return;
 		}
 
@@ -57,6 +57,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function hook() {
 		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
 		add_filter( 'tribe_events_views', [ $this, 'add_views' ] );
+		add_action( 'widgets_init', array( $this, 'unregister_list_widget' ), 95 );
 	}
 
 	/**
@@ -87,5 +88,14 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$views['widget-events-list'] = Widget_List_View::class;
 
 		return $views;
+	}
+
+	/**
+	 * Unregister the existing List Widget.
+	 *
+	 * @since TBD
+	 */
+	public function unregister_list_widget() {
+		unregister_widget( 'Tribe__Events__List_Widget' );
 	}
 }
