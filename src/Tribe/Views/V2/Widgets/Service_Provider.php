@@ -57,7 +57,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function hook() {
 		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
 		add_filter( 'tribe_events_views', [ $this, 'add_views' ] );
-		add_action( 'widgets_init', array( $this, 'unregister_list_widget' ), 95 );
+		add_action( 'widgets_init', [ $this, 'unregister_list_widget' ], 90 );
 	}
 
 	/**
