@@ -19,7 +19,7 @@ use Tribe__Context as Context;
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  */
-class Widget_List_View extends View {
+class Widget_List_View extends Widget_View {
 
 	/**
 	 * The slug for this view.
@@ -95,6 +95,7 @@ class Widget_List_View extends View {
 
 		return $template_vars;
 	}
+
 
 	/**
 	 * {@inheritDoc}

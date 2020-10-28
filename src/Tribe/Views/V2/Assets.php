@@ -110,11 +110,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
-				'conditionals' => [
-					'operator' => 'AND',
-					[ $this, 'should_enqueue_frontend' ],
-					[ $this, 'should_enqueue_widget_assets' ],
-				],
+				'conditionals' => [ $this, 'should_enqueue_widget_assets' ],
 				'groups'       => [ static::$group_key ],
 			]
 		);
@@ -132,7 +128,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority'     => 10,
 				'conditionals' => [
 					'operator' => 'AND',
-					[ $this, 'should_enqueue_frontend' ],
 					[ $this, 'should_enqueue_widget_assets' ],
 					[ $this, 'should_enqueue_full_styles' ],
 				],
