@@ -36,7 +36,7 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 	}
 
 	/**
-	 * Test render with upcoming events
+	 * Test render with no upcoming events
 	 */
 	public function test_render_with_no_upcoming_events() {
 		$context = [
@@ -62,7 +62,7 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 	}
 
 	/**
-	 * Test render with upcoming events
+	 * Test render with hide if no upcoming events
 	 */
 	public function test_render_with_hide_if_no_upcoming_events() {
 		$context = [
