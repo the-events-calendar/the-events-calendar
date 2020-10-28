@@ -73,7 +73,7 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 
 			<?php else : ?>
 
-				<?php // get messages component ?>
+				<?php $this->template( 'components/messages' ); ?>
 
 			<?php endif; ?>
 		</div>
