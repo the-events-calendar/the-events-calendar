@@ -86,7 +86,6 @@ class Widget_List_View extends Widget_View {
 		$template_vars = parent::setup_template_vars();
 
 		// Here update, add and remove from the default template vars.
-		$template_vars['events'] = [];
 		$template_vars['view_more_link']             = tribe_get_events_link();
 		$template_vars['widget_title']               = $this->context->get( 'widget_title' );
 		$template_vars['hide_if_no_upcoming_events'] = $this->context->get( 'no_upcoming_events' );
