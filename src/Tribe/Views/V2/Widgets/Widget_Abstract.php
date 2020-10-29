@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
+use Tribe\Events\Views\V2\Assets;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Context as Context;
@@ -114,13 +115,16 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 			$view
 		);
 
-		// Ensure we enqueue widget styles and scripts.
-		add_filter(
-			'tribe_events_views_v2_assets_should_enqueue_widget_assets',
-			function() use ( $enqueue ) {
-				return $enqueue;
-			}
-		);
+		if ( false === (bool) $enqueue ) {
+			return;
+		}
+
+		// Only enqueue styles where we need them.
+		wp_enqueue_style( 'tribe-events-widgets-v2-skeleton' );
+		wp_enqueue_style( 'tribe-events-widgets-v2-full' );
+
+		// Ensure we laos have all the other things from Tribe\Events\Views\V2\Assets we need.
+		tribe_asset_enqueue_group( Assets::$widget_group_key );
 	}
 
 	/**

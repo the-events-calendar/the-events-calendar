@@ -60,6 +60,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_register_widget_styles' ] );
 		add_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [ $this, 'action_disable_shortcode_assets_v1' ] );
 		add_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
@@ -145,6 +146,25 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		$assets->disable_v1();
+	}
+
+	public function action_register_widget_styles() {
+		$style_dir = plugin_dir_url( TRIBE_EVENTS_FILE ) . 'src/resources/css/';
+
+		wp_register_style(
+			'tribe-events-widgets-v2-skeleton',
+			$style_dir . 'widgets-skeleton.css',
+			[ 'tribe-common-skeleton-style' ],
+		);
+
+		wp_register_style(
+			'tribe-events-widgets-v2-full',
+			$style_dir  . 'widgets-full.css',
+			[
+				'tribe-common-full-style',
+				'tribe-events-widgets-v2-skeleton',
+			],
+		);
 	}
 
 	/**
