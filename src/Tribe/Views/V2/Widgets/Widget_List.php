@@ -176,6 +176,11 @@ class Widget_List extends Widget_Abstract {
 			$alterations['featured'] = true;
 		}
 
+		// Hide widget if no events.
+		if ( tribe_is_truthy( $arguments['no_upcoming_events'] ) ) {
+			$alterations['no_upcoming_events'] = true;
+		}
+
 		// Add posts per page.
 		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
 			(int) $arguments['limit'] :
