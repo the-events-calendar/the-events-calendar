@@ -116,10 +116,10 @@ class Widget_List extends Widget_Abstract {
 		}
 
 		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
-		tribe_asset_enqueue( 'tribe-events-widgets-v2-skeleton' );
+		tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-skeleton' );
 
 		if ( tribe( Assets::class )->should_enqueue_full_styles() ) {
-			tribe_asset_enqueue( 'tribe-events-widgets-v2-full' );
+			tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-full' );
 		}
 	}
 
