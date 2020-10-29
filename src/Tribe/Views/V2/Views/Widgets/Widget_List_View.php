@@ -59,16 +59,15 @@ class Widget_List_View extends Widget_View {
 		$template_vars = parent::setup_template_vars();
 
 		// Here update, add and remove from the default template vars.
-		$template_vars['view_more_link']     = tribe_get_events_link();
-		$template_vars['widget_title']       = $this->context->get( 'widget_title' );
-		$template_vars['no_upcoming_events'] = $this->context->get( 'no_upcoming_events' );
-		$template_vars['show_latest_past']   = false;
+		$template_vars['view_more_link']             = tribe_get_events_link();
+		$template_vars['widget_title']               = $this->context->get( 'widget_title' );
+		$template_vars['hide_if_no_upcoming_events'] = $this->context->get( 'no_upcoming_events' );
+		$template_vars['show_latest_past']           = false;
 		// Display is modified with filters in Pro.
 		$template_vars['display'] = [];
 
 		return $template_vars;
 	}
-
 
 	/**
 	 * {@inheritDoc}
