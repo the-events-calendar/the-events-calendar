@@ -119,10 +119,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 			return;
 		}
 
-		// Only enqueue styles where we need them.
-		wp_enqueue_style( 'tribe-events-widgets-v2-skeleton' );
-		wp_enqueue_style( 'tribe-events-widgets-v2-full' );
-
 		// Ensure we aso have all the other things from Tribe\Events\Views\V2\Assets we need.
 		tribe_asset_enqueue_group( Assets::$widget_group_key );
 	}
