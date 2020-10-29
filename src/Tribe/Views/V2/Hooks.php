@@ -162,7 +162,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'tribe-events-widgets-v2-skeleton',
 			$style_dir . 'widgets-skeleton.css',
 			[ 'tribe-common-skeleton-style' ],
-			\Tribe__Events__Main::VERSION
+			TEC::VERSION
 		);
 
 		wp_register_style(
@@ -172,7 +172,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 				'tribe-common-full-style',
 				'tribe-events-widgets-v2-skeleton',
 			],
-			\Tribe__Events__Main::VERSION
+			TEC::VERSION
 		);
 	}
 
