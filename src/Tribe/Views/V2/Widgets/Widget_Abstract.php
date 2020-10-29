@@ -71,7 +71,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		$this->set_view( $view );
 
-		$this->enqueue_assets( $context, $view );
+		$this->filter_enqueue_assets( $context, $view );
 	}
 
 	/**
@@ -82,7 +82,102 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @param \Tribe__Context $context Context we are using to build the view.
 	 * @param View_Interface  $view    Which view we are using the template on.
 	 */
+	public function filter_enqueue_assets( $context, $view ) {
+		$should_enqueue = $this->should_enqueue_assets( $context, $view );
+
+		/**
+		 * Run an action before we start enqueuing widget assets.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
+		 * @param \Tribe__Context $context        Context we are using to build the view.
+		 * @param View_Interface  $view           Which view we are using the template on.
+		 */
+		do_action(
+			'tribe_events_views_v2_widget_before_enqueue_assets',
+			$should_enqueue,
+			$context,
+			$view
+		);
+
+		/**
+		 * Run an action for a specific widget before we start enqueuing widget assets.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
+		 * @param \Tribe__Context $context        Context we are using to build the view.
+		 * @param View_Interface  $view           Which view we are using the template on.
+		 */
+		do_action(
+			"tribe_events_views_v2_widget_{$this->view_slug}_before_enqueue_assets",
+			$should_enqueue,
+			$context,
+			$view
+		);
+
+		if ( $should_enqueue ) {
+			$this->enqueue_assets( $context, $view );
+		}
+
+		/**
+		 * Run an action after we start enqueuing widget assets.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
+		 * @param \Tribe__Context $context        Context we are using to build the view.
+		 * @param View_Interface  $view           Which view we are using the template on.
+		 */
+		do_action(
+			'tribe_events_views_v2_widget_after_enqueue_assets',
+			$should_enqueue,
+			$context,
+			$view
+		);
+
+		/**
+		 * Run an action for a specific widget after we start enqueuing widget assets.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
+		 * @param \Tribe__Context $context        Context we are using to build the view.
+		 * @param View_Interface  $view           Which view we are using the template on.
+		 */
+		do_action(
+			"tribe_events_views_v2_widget_{$this->view_slug}_after_enqueue_assets",
+			$should_enqueue,
+			$context,
+			$view
+		);
+	}
+
+	/**
+	 * Enqueues the assets for widgets.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Context $context Context we are using to build the view.
+	 * @param View_Interface  $view    Which view we are using the template on.
+	 */
 	public function enqueue_assets( $context, $view ) {
+		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
+		tribe_asset_enqueue_group( Assets::$widget_group_key );
+	}
+
+	/**
+	 * Determines whether to enqueue assets for widgets.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Context $context Context we are using to build the view.
+	 * @param View_Interface  $view    Which view we are using the template on.
+	 *
+	 * @return bool Whether assets are enqueued or not.
+	 */
+	public function should_enqueue_assets( $context, $view ) {
 		/**
 		 * Allow other plugins to hook in here to alter the enqueue.
 		 *
@@ -115,12 +210,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 			$view
 		);
 
-		if ( false === (bool) $enqueue ) {
-			return;
-		}
-
-		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
-		tribe_asset_enqueue_group( Assets::$widget_group_key );
+		return $enqueue;
 	}
 
 	/**
