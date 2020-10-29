@@ -39,7 +39,7 @@ class Compatibility {
 	 * @since TBD
 	 */
 	public function hooks() {
-		add_filter( 'tribe_plugins_loaded', [ $this, 'switch_to_v1_compatibility' ] );
+		add_action( 'tribe_plugins_loaded', [ $this, 'switch_compatibility' ] );
 		add_filter( 'option_sidebars_widgets', [ $this, 'remap_list_widget_id_bases' ] );
 		add_filter( 'option_widget_tribe-events-list-widget', [ $this, 'merge_list_widget_options' ] );
 	}
@@ -50,9 +50,8 @@ class Compatibility {
 	 * v1 free list widget to the v1 Pro advanced list widget.
 	 *
 	 * @since TBD
-	 *
 	 */
-	public function switch_to_v1_compatibility() {
+	public function switch_compatibility() {
 		// if Pro is disabled, use the defaults.
 		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			return;
