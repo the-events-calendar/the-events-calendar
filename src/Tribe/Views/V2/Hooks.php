@@ -148,6 +148,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$assets->disable_v1();
 	}
 
+	/**
+	 * Fires to register v2 widget assets.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function action_register_widget_styles() {
 		$style_dir = plugin_dir_url( TRIBE_EVENTS_FILE ) . 'src/resources/css/';
 
@@ -155,15 +162,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'tribe-events-widgets-v2-skeleton',
 			$style_dir . 'widgets-skeleton.css',
 			[ 'tribe-common-skeleton-style' ],
+			\Tribe__Events__Main::VERSION
 		);
 
 		wp_register_style(
 			'tribe-events-widgets-v2-full',
-			$style_dir  . 'widgets-full.css',
+			$style_dir . 'widgets-full.css',
 			[
 				'tribe-common-full-style',
 				'tribe-events-widgets-v2-skeleton',
 			],
+			\Tribe__Events__Main::VERSION
 		);
 	}
 
