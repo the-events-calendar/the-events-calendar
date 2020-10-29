@@ -37,6 +37,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.2.1
 	 */
 	public function register() {
+		// These hooks always run to provide widget compatibility for v1 to v2 and reverse.
+		$this->register_compatibility();
+
 		if ( ! tribe_events_views_v2_is_enabled() ) {
 			return;
 		}
@@ -50,6 +53,17 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Registers the provider handling for compatibility hooks.
+	 *
+	 * @since TBD
+	 */
+	protected function register_compatibility() {
+		$this->container->singleton( Compatibility::class, Compatibility::class, ['hooks'] );
+		$this->container->singleton( 'pro.views.v2.widgets.compatibility', Compatibility::class, ['hooks'] );
+		$this->container->make( Compatibility::class );
+	}
+
+	/**
 	 * Function used to attach the hooks associated with this class.
 	 *
 	 * @since 5.2.1
@@ -57,7 +71,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function hook() {
 		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
 		add_filter( 'tribe_events_views', [ $this, 'add_views' ] );
-		add_action( 'widgets_init', [ $this, 'unregister_list_widget' ], 90 );
+		add_action( 'widgets_init', [ $this, 'unregister_list_widget' ], 95 );
 	}
 
 	/**
