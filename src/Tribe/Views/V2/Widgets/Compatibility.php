@@ -83,7 +83,6 @@ class Compatibility {
 	 * @return array<string,mixed> $widget_areas An array of widgets areas with the saved widgets in each location.
 	 */
 	public function remap_list_widget_id_bases( $widget_areas ) {
-
 		$widget_areas_bak = $widget_areas;
 
 		if ( ! is_array( $widget_areas ) ) {
@@ -91,7 +90,6 @@ class Compatibility {
 		}
 
 		foreach ( $widget_areas as $key => $widget_location ) {
-
 			if ( ! is_array( $widget_location ) ) {
 				continue;
 			}
@@ -111,10 +109,9 @@ class Compatibility {
 	 *
 	 * @param array<int,mixed> $widgets An array of saved widgets.
 	 *
-	 * @return array<int,mixed> $widgets An array of saved widgets.
+	 * @return array<int,mixed> $widgets The modified array of saved widgets.
 	 */
 	public function merge_list_widget_options( $widgets ) {
-
 		if ( ! is_array( $widgets ) ) {
 			return $widgets;
 		}
@@ -125,7 +122,7 @@ class Compatibility {
 			return $widgets;
 		}
 
-		// Combine arrays and key the array keys.
+		// Combine arrays and keep the array keys.
 		return $widgets + $alternative_options;
 	}
 }
