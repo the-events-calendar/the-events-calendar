@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
+use Tribe\Events\Views\V2\Assets;
 use Tribe__Context as Context;
 
 /**
@@ -71,6 +72,56 @@ class Widget_List extends Widget_Abstract {
 			'id_base' => 'tribe-events-list-widget',
 		],
 	];
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function enqueue_assets( $context, $view ) {
+		parent::enqueue_assets( $context, $view );
+
+		/**
+		 * Allow other plugins to hook in here to alter the enqueue.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $enqueue Should the widget assets be enqueued. Defaults to true.
+		 * @param \Tribe__Context $context Context we are using to build the view.
+		 * @param View_Interface  $view    Which view we are using the template on.
+		 */
+		$enqueue = apply_filters(
+			'tribe_events_views_v2_widget_enqueue_assets',
+			true,
+			$context,
+			$view
+		);
+
+		/**
+		 * Allow other plugins to hook in here to alter the enqueue for a specific widget type.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean         $enqueue Should the widget assets be enqueued.
+		 * @param \Tribe__Context $context Context we are using to build the view.
+		 * @param View_Interface  $view    Which view we are using the template on.
+		 */
+		$enqueue = apply_filters(
+			"tribe_events_views_v2_widget_{$this->view_slug}_enqueue_assets",
+			$enqueue,
+			$context,
+			$view
+		);
+
+		if ( false === (bool) $enqueue ) {
+			return;
+		}
+
+		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
+		tribe_asset_enqueue( 'tribe-events-widgets-v2-skeleton' );
+
+		if ( tribe( Assets::class )->should_enqueue_full_styles() ) {
+			tribe_asset_enqueue( 'tribe-events-widgets-v2-full' );
+		}
+	}
 
 	/**
 	 * {@inheritDoc}

@@ -119,7 +119,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 			return;
 		}
 
-		// Ensure we aso have all the other things from Tribe\Events\Views\V2\Assets we need.
+		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
 		tribe_asset_enqueue_group( Assets::$widget_group_key );
 	}
 

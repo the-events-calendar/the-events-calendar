@@ -50,7 +50,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	protected $should_enqueue_frontend;
 
-
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -119,7 +118,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 			null,
 			[
 				'priority' => 15,
-				'groups'   => [ static::$widget_group_key ],
 			]
 		);
 
@@ -134,7 +132,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 			null,
 			[
 				'priority' => 15,
-				'groups'   => [ static::$widget_group_key ],
 			]
 		);
 
