@@ -1,7 +1,13 @@
 <?php
 /**
  * Compatibility for Advanced List Widgets and List Widget.
- * In V2 Advanced List Widgets are merged with List Widgets, it is reversed with V1.
+ * Scenarios:
+ * * TEC with Pro Activated in V1 ( Reverse )
+ * * Pro Disabled to TEC in V1 ( Default ) - @todo PRO widget removed, free widgets stay
+ * * V1 to V2 ( Default )
+ * * Pro Disabled V2 Active ( Default )
+ * * Pro Active V2 to V1 with constant ( Reverse )
+ * * Pro Disabled V2 back to V1 with constant ( Default ) - @todo PRO widget removed, free widgets stay
  *
  * @since   TBD
  *
@@ -41,7 +47,6 @@ class Compatibility {
 	public function hooks() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'switch_compatibility' ] );
 		add_filter( 'option_sidebars_widgets', [ $this, 'remap_list_widget_id_bases' ] );
-		add_filter( 'option_widget_tribe-events-list-widget', [ $this, 'merge_list_widget_options' ] );
 	}
 
 	/**
@@ -64,6 +69,8 @@ class Compatibility {
 			$this->primary_id_base     = 'tribe-events-adv-list-widget';
 			$this->alternative_id_base = 'tribe-events-list-widget';
 		}
+
+		add_filter( "option_widget_{$this->primary_id_base}", [ $this, 'merge_list_widget_options' ] );
 	}
 
 	/**
@@ -76,6 +83,8 @@ class Compatibility {
 	 * @return array<string,mixed> $widget_areas An array of widgets areas with the saved widgets in each location.
 	 */
 	public function remap_list_widget_id_bases( $widget_areas ) {
+
+		$widget_areas_bak = $widget_areas;
 
 		if ( ! is_array( $widget_areas ) ) {
 			return $widget_areas;
