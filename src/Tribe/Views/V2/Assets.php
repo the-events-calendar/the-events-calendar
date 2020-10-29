@@ -447,8 +447,8 @@ class Assets extends \tad_DI52_ServiceProvider {
 	public function should_enqueue_widget_assets() {
 		/**
 		 * Allow filtering of where the widget Frontend Assets will be loaded.
-		 * The abstract widget hooks in here from `setup_view()`,
-		 * widgets that want to filter this value should do so from there.
+		 * The abstract widget hooks in here from `setup_view()` and set this to true,
+		 * widgets that want to filter this value individually should do so via "tribe_asset_enqueue_{$widget_class->get_asset_slug()}".
 		 *
 		 * @since TBD
 		 *

@@ -38,6 +38,13 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
+	protected $asset_slug = 'tribe-events-list-widget-v2';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
 	protected $view_admin_slug = 'widgets/list';
 
 	/**

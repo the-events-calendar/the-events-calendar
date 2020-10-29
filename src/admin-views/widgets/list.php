@@ -25,13 +25,35 @@ if ( empty( $admin_fields ) ) {
 foreach ( $admin_fields as $field_id => $field ) {
 	// Handle a section start. May contain a section title.
 	if ( false !== stripos( $field_id, 'section_start' ) ) {
-		$this->template( 'widgets/components/input-section-start', $field );
+		$section_classes = [ 'tribe-events-widget-admin-form__input-section' ];
+		if ( ! empty( $field['classes'] ) ) {
+			$classes = $field['classes'];
+
+			if ( ! is_array( $classes ) ) {
+				$classes = explode( ' ', $classes );
+			}
+
+			$section_classes = array_merge( $section_classes, $classes );
+		}
+
+		?>
+		<div <?php tribe_classes( $section_classes ); ?>>
+			<?php
+			if ( ! empty( $field['title'] ) ) {
+				// Note: the actual widget title/handle is an <h3>.
+				?>
+				<h4><?php echo esc_html( $field['title'] ); ?></h4>
+				<?php
+			}
+
 		continue;
 	}
 
 	// Handle a section end.
 	if ( false !== stripos( $field_id, 'section_end' ) ) {
-		echo '</div>';
+		?>
+		</div>
+		<?php
 		continue;
 	}
 

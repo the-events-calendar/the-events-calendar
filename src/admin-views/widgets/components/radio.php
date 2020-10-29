@@ -11,28 +11,38 @@
  *
  * @version TBD
  *
- * @var string $label Label for the radio.
- * @var string $value Value for the radio.
- * @var string $id    ID of the radio.
- * @var string $name  Name attribute for the radio.
+ * @var string       $label   Label for the radio group.
+ * @var string       $value   Value for the radio.
+ * @var string       $name    Name attribute for the radio.
+ * @var array<array> $options Data for the individual radio buttons.
  */
+if ( ! empty( $label ) ) : ?>
+	<h5><?php echo esc_html( $label ); ?></h5>
+<?php
+endif;
 
- foreach ( $options as $option ) : ?>
-	<p
-			class="tribe-widget-radio tribe-common-form-control-radio"
-	>
+$i = 1;
 
+foreach ( $options as $option ) :
+    $radio_id = $id . $i;
+    ?>
+	<p class="tribe-widget-radio tribe-common-form-control-radio">
+		<input
+			class="tribe-common-form-control-radio__input"
+			id="<?php echo esc_attr( $radio_id ); ?>"
+			name="<?php echo esc_attr( $name ); ?>"
+			type="radio"
+			value="<?php echo esc_html( $option['value'] ); ?>"
+			<?php checked( $option['value'], $value ); ?>
+		/>
 		<label
 				class="tribe-common-form-control-radio__label"
+				for="<?php echo esc_attr( $radio_id ); ?>"
 		>
-			<input
-					class="tribe-common-form-control-radio__input"
-					name="<?php echo esc_attr( $name ); ?>"
-					type="radio"
-					value="<?php echo esc_attr( $option['value'] ); ?>"
-					<?php checked( $option['value'], $value ); ?>
-			/>
 			<?php echo esc_html( $option['text'] ); ?>
 		</label>
 	</p>
-<?php endforeach; ?>
+<?php
+$i++;
+endforeach;
+?>
