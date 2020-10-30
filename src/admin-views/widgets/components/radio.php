@@ -17,7 +17,7 @@
  * @var array<array> $options Data for the individual radio buttons.
  */
 if ( ! empty( $label ) ) : ?>
-	<h5><?php echo esc_html( $label ); ?></h5>
+	<p><?php echo esc_html( $label ); ?></p>
 <?php
 endif;
 

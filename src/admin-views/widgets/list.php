@@ -66,6 +66,9 @@ foreach ( $admin_fields as $field_id => $field ) {
 		'value'   => isset( ${$field_id} ) ? ${$field_id} : null,
 	];
 
+	$data = apply_filters( "tribe_events_view_v2_list_widget_admin_form_{$field['type']}_data", $data, $this, $field_id, $field, $widget_obj );
+
+
 	switch ( $field['type'] ) {
 		case 'checkbox':
 			$this->template( 'widgets/components/checkbox', $data );
@@ -80,7 +83,7 @@ foreach ( $admin_fields as $field_id => $field ) {
 			$this->template( 'widgets/components/text', $data );
 			break;
 		default:
-			do_action( "tribe_events_view_v2_list_widget_admin_form_{$field['type']}_input", $data, $widget_obj );
+			do_action( "tribe_events_view_v2_list_widget_admin_form_{$field['type']}_input", $data, $widget_obj, $field );
 			break;
 	}
 }

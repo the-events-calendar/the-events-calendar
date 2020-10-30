@@ -109,7 +109,9 @@ class Widget_List extends Widget_Abstract {
 		$updated_instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
 		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
 
-		return $this->filter_updated_instance( $updated_instance, $new_instance );
+		$updated_instance = $this->filter_updated_instance( $updated_instance, $new_instance );
+
+		return $updated_instance;
 	}
 
 	/**
