@@ -104,6 +104,7 @@ class organizerTest extends Events_TestCase {
 		$this->assertEquals( '11223344', $organizer->phone );
 		$this->assertEquals( 'http://the.org/anizer', $organizer->website );
 		$this->assertEquals( 'indy@the.org', $organizer->email );
+		$this->assertEquals( get_the_permalink($organizer_id), $organizer->permalink );
 	}
 
 	protected function given_an_organizer() {
