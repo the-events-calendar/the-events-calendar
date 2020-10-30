@@ -25,19 +25,24 @@ if ( empty( $admin_fields ) ) {
 foreach ( $admin_fields as $field_id => $field ) {
 	// Handle a section start. May contain a section title.
 	// Using stripos() to allow for multiple occurrences ("section_start_1", "section_start_2" etc).
-	if ( false !== stripos( $field_id, 'section_start' ) ) : ?>
+	if ( false !== stripos( $field_id, 'section_start' ) ) {
+	?>
 		<div class="tribe-events-widget-admin-form__input-section">
-			<?php if ( ! empty( $field['title'] ) ) : ?>
-				<h4><?php echo esc_html( $field['title'] ); ?></h4>
-			<?php endif;
+		<?php if ( ! empty( $field['title'] ) ) { ?>
+			<h4><?php echo esc_html( $field['title'] ); ?></h4>
+		<?php
+		}
+
 		continue;
-	endif;
+	}
 
 	// Handle a section end.
-	if ( false !== stripos( $field_id, 'section_end' ) ) : ?>
+	if ( false !== stripos( $field_id, 'section_end' ) ) {
+	?>
 		</div>
-		<?php continue;
-	endif;
+		<?php
+		continue;
+	}
 
 	$data = [
 		'for'     => $widget_obj->get_field_id( $field_id ),
