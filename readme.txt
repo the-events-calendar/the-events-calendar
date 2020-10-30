@@ -224,6 +224,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.2.1] 2020-10-22 =
 
+* Fix - Event Aggregator - Fix Eventbrite status filter to not return 'do_not_override' and handle Eventbrite's additional statuses. [TEC-3569]
+
+= [5.2.1] 2020-10-22 =
+
 * Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
 * Tweak - Add the `tribe_events_views_v2_endpoint_method` filter to allow controlling the HTTP method Views should use to fetch their content from the back-end endpoint. [TEC-3283]
 * Tweak - Add the `tribe_events_views_v2_endpoint_url` filter to allow controlling the URL Views should use to fetch their content from the back-end endpoint. [TEC-3283]
