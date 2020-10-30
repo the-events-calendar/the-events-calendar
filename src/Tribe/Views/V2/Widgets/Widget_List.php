@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
+use Tribe\Events\Views\V2\Assets;
 use Tribe__Context as Context;
 
 /**
@@ -71,6 +72,20 @@ class Widget_List extends Widget_Abstract {
 			'id_base' => 'tribe-events-list-widget',
 		],
 	];
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function enqueue_assets( $context, $view ) {
+		parent::enqueue_assets( $context, $view );
+
+		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
+		tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-skeleton' );
+
+		if ( tribe( Assets::class )->should_enqueue_full_styles() ) {
+			tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-full' );
+		}
+	}
 
 	/**
 	 * {@inheritDoc}
