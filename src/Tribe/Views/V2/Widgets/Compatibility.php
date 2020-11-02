@@ -60,7 +60,7 @@ class Compatibility {
 	 */
 	public function switch_compatibility() {
 		/**
-		 * Allow filtering of whether the event list or the advanced event list widget is primary.
+		 * Allow filtering of whether the event list or the advanced event list widget should be primary.
 		 *
 		 * @since TBD
 		 *

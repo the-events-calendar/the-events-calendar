@@ -65,7 +65,7 @@ class CompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_combine_pro_with_free_when_v2_is_active() {
+	public function it_should_merge_pro_into_free_when_v2_is_active() {
 		$widgets = get_option( 'widget_tribe-events-list-widget' );
 
 		$this->assertEquals( 3, count( $widgets ) );
@@ -83,9 +83,9 @@ class CompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_combine_free_with_pro_when_v1_is_active() {
+	public function it_should_merge_free_into_pro_when_v1_is_active() {
 		add_filter( 'tribe_events_views_v2_advanced_list_widget_primary', '__return_true' );
-		putenv( 'TRIBE_EVENTS_V2_VIEWS=0' );
+		defined( 'TRIBE_EVENTS_V2_VIEWS' ) ? null : define( 'TRIBE_EVENTS_V2_VIEWS', false );
 		$this->make_instance()->switch_compatibility();
 		$widgets = get_option( 'widget_tribe-events-adv-list-widget' );
 
@@ -97,8 +97,7 @@ class CompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_change_free_with_pro_when_v1_is_active() {
 		add_filter( 'tribe_events_views_v2_advanced_list_widget_primary', '__return_true' );
-		putenv( 'TRIBE_EVENTS_V2_VIEWS=0' );
-		$this->make_instance()->switch_compatibility();
+		defined( 'TRIBE_EVENTS_V2_VIEWS' ) ? null : define( 'TRIBE_EVENTS_V2_VIEWS', false );
 		$sidebars = get_option( 'sidebars_widgets' );
 
 		$this->assertEquals( 'tribe-events-adv-list-widget-10', $sidebars['header-right'][0] );
@@ -108,10 +107,9 @@ class CompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_combine_free_with_pro_when_v1_is_active_by_constant() {
-		defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? null : define( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED', true );
+	public function it_should_merge_free_into_pro_when_v1_is_active_by_constant() {
 		add_filter( 'tribe_events_views_v2_advanced_list_widget_primary', '__return_true' );
-		putenv( 'TRIBE_EVENTS_V2_VIEWS=0' );
+		defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? null : define( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED', true );
 		$this->make_instance()->switch_compatibility();
 		$widgets = get_option( 'widget_tribe-events-adv-list-widget' );
 
@@ -122,9 +120,8 @@ class CompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_change_free_with_pro_when_v1_is_active_by_constant() {
-		defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? null : define( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED', true );
 		add_filter( 'tribe_events_views_v2_advanced_list_widget_primary', '__return_true' );
-		putenv( 'TRIBE_EVENTS_V2_VIEWS=0' );
+		defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? null : define( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED', true );
 		$this->make_instance()->switch_compatibility();
 		$sidebars = get_option( 'sidebars_widgets' );
 
