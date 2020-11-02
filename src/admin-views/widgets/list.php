@@ -46,7 +46,7 @@ foreach ( $admin_fields as $field_id => $field ) {
 				<?php
 			}
 
-		continue;
+			continue;
 	}
 
 	// Handle a section end.

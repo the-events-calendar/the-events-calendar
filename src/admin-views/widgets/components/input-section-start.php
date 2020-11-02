@@ -16,19 +16,19 @@
  */
 
  $section_classes = [
-	 'tribe-events-widget-admin-form__input-section',
+	'tribe-events-widget-admin-form__input-section',
  ];
 
  if ( ! empty( $classes ) ) {
-	 if ( ! is_array( $classes ) ) {
+	if ( ! is_array( $classes ) ) {
 		$classes = explode( ' ', $classes );
-	 }
+	}
 
 	$section_classes = array_merge( $section_classes, $classes );
  }
 
 ?>
-<div <?php tribe_classes( $section_classes ); ?>>
-	<?php if ( ! empty( $title ) ) : ?>
-		<h4><?php echo esc_html( $title ); ?></h4>
-	<?php endif; ?>
+	<div <?php tribe_classes( $section_classes ); ?>>
+		<?php if ( ! empty( $title ) ) : ?>
+			<h4><?php echo esc_html( $title ); ?></h4>
+		<?php endif; ?>
