@@ -59,16 +59,20 @@ class Compatibility {
 	 * @since TBD
 	 */
 	public function switch_compatibility() {
-		// if Pro is disabled, use the defaults.
-		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			add_filter( "option_widget_{$this->primary_id_base}", [ $this, 'merge_list_widget_options' ] );
-
-			return;
-		}
-
+		/**
+		 * Allow filtering of whether the event list or the advanced event list widget is primary.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $adv_primary Whether the advanced list widget is primary.
+		 */
+		$advanced_primary = apply_filters( 'tribe_events_views_v2_advanced_list_widget_primary', false );
 		if (
-			! tribe_events_views_v2_is_enabled() ||
-			tribe_events_widgets_v2_is_disabled()
+			$advanced_primary &&
+			(
+				! tribe_events_views_v2_is_enabled() ||
+				tribe_events_widgets_v2_is_disabled()
+			)
 		) {
 			$this->primary_id_base     = 'tribe-events-adv-list-widget';
 			$this->alternative_id_base = 'tribe-events-list-widget';
@@ -87,8 +91,6 @@ class Compatibility {
 	 * @return array<string,mixed> $widget_areas An array of widgets areas with the saved widgets in each location.
 	 */
 	public function remap_list_widget_id_bases( $widget_areas ) {
-		$widget_areas_bak = $widget_areas;
-
 		if ( ! is_array( $widget_areas ) ) {
 			return $widget_areas;
 		}

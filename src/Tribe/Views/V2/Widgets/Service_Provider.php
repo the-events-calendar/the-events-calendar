@@ -59,7 +59,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	protected function register_compatibility() {
 		$this->container->singleton( Compatibility::class, Compatibility::class, [ 'hooks' ] );
-		$this->container->singleton( 'pro.views.v2.widgets.compatibility', Compatibility::class, [ 'hooks' ] );
+		$this->container->singleton( 'events.views.v2.widgets.compatibility', Compatibility::class, [ 'hooks' ] );
 		$this->container->make( Compatibility::class );
 	}
 
