@@ -62,25 +62,58 @@ class CompatibilityTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Scenarios:
-	 * * TEC with Pro Activated in V1 ( Reverse )
-	 * * Pro Disabled to TEC in V1 ( Default ) - not supported
-	 * * XV1 to V2 ( Default )
-	 * * Pro Disabled V2 Active ( Default )
-	 * * Pro Active V2 to V1 with constant ( Reverse )
-	 * * Pro Disabled V2 back to V1 with constant ( Default ) - not supported
+	 * @test
 	 */
+	public function it_should_combine_pro_with_free_when_v2_is_active() {
+		$widgets = get_option( 'widget_tribe-events-list-widget' );
+
+		$this->assertEquals( 3, count( $widgets ) );
+	}
 
 	/**
 	 * @test
 	 */
 	public function it_should_change_pro_to_free_when_v2_is_active() {
-
 		$sidebars = get_option( 'sidebars_widgets' );
-		var_dump('get_option');
-		$widgets = get_option( 'widget_tribe-events-list-widget' );
 
-		//var_dump($sidebars);
-		var_dump(count( $widgets ));
+		$this->assertEquals( 'tribe-events-list-widget-8', $sidebars['sidebar'][0] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_combine_free_with_pro_when_v1_is_active() {
+		$widgets = get_option( 'widget_tribe-events-adv-list-widget' );
+		$this->assertEquals( 3, count( $widgets ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_change_free_with_pro_when_v1_is_active() {
+		$sidebars = get_option( 'sidebars_widgets' );
+
+		$this->assertEquals( 'tribe-events-adv-list-widget-10', $sidebars['header-right'][0] );
+		$this->assertEquals( 'tribe-events-adv-list-widget-5', $sidebars['sidebar'][1] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_combine_free_with_pro_when_v1_is_active_by_constant() {
+		defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? null : define( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED', true );
+		$widgets = get_option( 'widget_tribe-events-adv-list-widget' );
+		$this->assertEquals( 3, count( $widgets ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_change_free_with_pro_when_v1_is_active_by_constant() {
+		defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? null : define( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED', true );
+		$sidebars = get_option( 'sidebars_widgets' );
+
+		$this->assertEquals( 'tribe-events-adv-list-widget-10', $sidebars['header-right'][0] );
+		$this->assertEquals( 'tribe-events-adv-list-widget-5', $sidebars['sidebar'][1] );
 	}
 }

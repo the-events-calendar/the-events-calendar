@@ -3,11 +3,11 @@
  * Compatibility for Advanced List Widgets and List Widget.
  * Scenarios:
  * * TEC with Pro Activated in V1 ( Reverse )
- * * Pro Disabled to TEC in V1 ( Default ) - @todo PRO widget removed, free widgets stay
+ * * Pro Disabled to TEC in V1 ( Default ) - not supported.
  * * V1 to V2 ( Default )
  * * Pro Disabled V2 Active ( Default )
  * * Pro Active V2 to V1 with constant ( Reverse )
- * * Pro Disabled V2 back to V1 with constant ( Default ) - @todo PRO widget removed, free widgets stay
+ * * Pro Disabled V2 back to V1 with constant ( Default ) - not supported.
  *
  * @since   TBD
  *
@@ -53,12 +53,16 @@ class Compatibility {
 	 * Switches the primary and alternative id base when v1 is active
 	 * or v2 widgets are disabled, this enables support for upgrading from
 	 * v1 free list widget to the v1 Pro advanced list widget.
+	 * This class lives here as it could support the v1 advanced list widget
+	 * turning back to the free widget.
 	 *
 	 * @since TBD
 	 */
 	public function switch_compatibility() {
 		// if Pro is disabled, use the defaults.
 		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			add_filter( "option_widget_{$this->primary_id_base}", [ $this, 'merge_list_widget_options' ] );
+
 			return;
 		}
 
