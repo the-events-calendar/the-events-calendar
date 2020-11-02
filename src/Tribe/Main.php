@@ -4552,6 +4552,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Registers the list widget
 		 */
 		public function register_list_widget() {
+			if ( tribe_events_widgets_v2_is_enabled() ) {
+				return;
+			}
+
 			register_widget( 'Tribe__Events__List_Widget' );
 		}
 
