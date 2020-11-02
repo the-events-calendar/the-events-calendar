@@ -66,6 +66,15 @@ foreach ( $admin_fields as $field_id => $field ) {
 		'value'   => isset( ${$field_id} ) ? ${$field_id} : null,
 	];
 
+	/**
+	 * Allows filtering the data used for the widget admin form.
+	 *
+	 * @param mixed $data     The widget data we're filtering.
+	 * @param Tribe__Template The template object
+	 * @param int $field_id   The ID of the current field
+	 * @param int $field      The current field's data.
+	 * @param obj $widget_obj The widget object
+	 */
 	$data = apply_filters( "tribe_events_view_v2_list_widget_admin_form_{$field['type']}_data", $data, $this, $field_id, $field, $widget_obj );
 
 
