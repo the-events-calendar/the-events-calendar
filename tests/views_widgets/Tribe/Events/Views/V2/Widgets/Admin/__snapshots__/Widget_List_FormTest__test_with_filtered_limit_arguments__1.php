@@ -1,13 +1,13 @@
 <?php return '<p
-		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
+		class="tribe-widget-text tribe-common-form-control-text"
 >
 	<label
-			class="tribe-common-form-control-checkbox__label"
+			class="tribe-common-form-control-text__label"
 			for="widget-tribe-events-list-widget--title"
 	>
 		Title:	</label>
 	<input
-			class="tribe-common-form-control-checkbox__input widefat"
+			class="tribe-common-form-control-text__input widefat"
 			id="widget-tribe-events-list-widget--title"
 			name="widget-tribe-events-list-widget[][title]"
 			type="text"
