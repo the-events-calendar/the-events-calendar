@@ -24,16 +24,10 @@ if ( empty( $admin_fields ) ) {
 
 foreach ( $admin_fields as $field_id => $field ) {
 	// Handle a section start. May contain a section title.
-	if ( false !== stripos( $field_id, 'section_start' ) ) {
+	if ( 0 === stripos( $field_id, 'section_start' ) ) {
 		$section_classes = [ 'tribe-events-widget-admin-form__input-section' ];
 		if ( ! empty( $field['classes'] ) ) {
-			$classes = $field['classes'];
-
-			if ( ! is_array( $classes ) ) {
-				$classes = explode( ' ', $classes );
-			}
-
-			$section_classes = array_merge( $section_classes, $classes );
+			$section_classes = array_merge( $section_classes, Arr::list_to_array( $field['classes'], ' ' ) );
 		}
 
 		?>
@@ -50,7 +44,7 @@ foreach ( $admin_fields as $field_id => $field ) {
 	}
 
 	// Handle a section end.
-	if ( false !== stripos( $field_id, 'section_end' ) ) {
+	if ( 0 === stripos( $field_id, 'section_end' ) ) {
 		?>
 		</div>
 		<?php
@@ -58,7 +52,6 @@ foreach ( $admin_fields as $field_id => $field ) {
 	}
 
 	$data = [
-		'for'     => $widget_obj->get_field_id( $field_id ),
 		'id'      => $widget_obj->get_field_id( $field_id ),
 		'name'    => $widget_obj->get_field_name( $field_id ),
 		'label'   => Arr::get( $field, 'label', '' ),

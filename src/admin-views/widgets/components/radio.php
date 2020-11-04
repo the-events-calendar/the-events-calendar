@@ -27,13 +27,13 @@ $i = 1;
 foreach ( $options as $option ) :
 	$radio_id = $id . $i;
 	?>
-	<p class="tribe-widget-radio tribe-common-form-control-radio">
+	<div class="tribe-widget-radio tribe-common-form-control-radio">
 		<input
 			class="tribe-common-form-control-radio__input"
 			id="<?php echo esc_attr( $radio_id ); ?>"
 			name="<?php echo esc_attr( $name ); ?>"
 			type="radio"
-			value="<?php echo esc_html( $option['value'] ); ?>"
+			value="<?php echo esc_attr( $option['value'] ); ?>"
 			<?php checked( $option['value'], $value ); ?>
 		/>
 		<label
@@ -42,7 +42,7 @@ foreach ( $options as $option ) :
 		>
 			<?php echo esc_html( $option['text'] ); ?>
 		</label>
-	</p>
+	</div>
 	<?php
 	$i++;
 endforeach;
