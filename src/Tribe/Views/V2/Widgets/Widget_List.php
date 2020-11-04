@@ -136,7 +136,7 @@ class Widget_List extends Widget_Abstract {
 				'options' => $this->get_limit_options(),
 			],
 			'no_upcoming_events'   => [
-				'label' => _x( 'Show widget only if there are upcoming events', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
+				'label' => _x( 'Hide this widget if there are no upcoming events.', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 			'featured_events_only' => [
