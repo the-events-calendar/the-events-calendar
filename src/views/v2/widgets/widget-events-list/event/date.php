@@ -22,7 +22,7 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 if ( $event->multiday ) {
 	// The date returned back contains HTML and is already escaped.
 	$event_date = $event->schedule_details->value();
-} else if ( $event->all_day ) {
+} elseif ( $event->all_day ) {
 	$event_date = esc_html_x( 'All day', 'All day label for event', 'the-events-calendar' );
 } else {
 	// The date returned back contains HTML and is already escaped.
