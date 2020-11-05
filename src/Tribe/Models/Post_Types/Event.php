@@ -77,7 +77,7 @@ class Event extends Base {
 			$multiday = false;
 
 			if ( $all_day ) {
-				$start_end_diff = $start_date_object->diff( $end_date_object );
+				$start_end_diff = $start_date_object->diff( $end_date_object->add( $one_second ) );
 				$is_multiday    = $start_end_diff->days > 1;
 				$multiday       = $is_multiday ? $start_end_diff->days : false;
 			} else {
