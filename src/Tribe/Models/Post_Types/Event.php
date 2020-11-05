@@ -232,6 +232,12 @@ class Event extends Base {
 					},
 					false
 				) )->on_resolve( $cache_this ),
+				'short_schedule_details' => ( new Lazy_String(
+					static function () use ( $post_id ) {
+						return tribe_events_event_short_schedule_details( $post_id );
+					},
+					false
+				) )->on_resolve( $cache_this ),
 				'plain_schedule_details' => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id, '', '', false );
