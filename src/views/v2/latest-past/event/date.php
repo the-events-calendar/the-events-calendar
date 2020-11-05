@@ -24,7 +24,7 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
 <div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
-	<?php $this->template( 'latest-past/event/date/featured' ); ?>
+	<?php $this->template( 'latest-past/event/date/featured', [ 'event' => $event ] ); ?>
 	<time class="tribe-events-calendar-latest-past__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo $event->schedule_details->value(); ?>
 	</time>
