@@ -1234,6 +1234,31 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Return the short details of the start/end date/time.
+	 *
+	 * @see tribe_events_event_schedule_details() for the format of the schedule details.
+	 *
+	 * @param int|null $event  The event post ID, or `null` to use the global event.
+	 * @param string   $before A string to prepend before the schedule details.
+	 * @param string   $after  A string to append after the schedule details.
+	 * @param bool     $html   Whether to use HTML elements in the output string or not; defaults to `true`.
+	 *
+	 * @return string The human-readable event short schedule details formatted according to the current settings.
+	 */
+	function tribe_events_event_short_schedule_details( $event = null, $before = '', $after = '', $html = true ) {
+		$closure = static function ( $settings ) {
+			$settings['date'] = false;
+			return $settings;
+		};
+
+		add_filter( 'tribe_events_event_schedule_details_formatting', $closure );
+		$filtered = tribe_events_event_schedule_details( $event, $before, $after, $html );
+		remove_filter( 'tribe_events_event_schedule_details_formatting', $closure );
+
+		return $filtered;
+	}
+
+	/**
 	 * Returns json for javascript templating functions throughout the plugin.
 	 *
 	 * @category Events
