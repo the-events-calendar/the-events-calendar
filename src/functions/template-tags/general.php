@@ -1115,6 +1115,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			$settings = array(
 				'show_end_time' => true,
+				'date'          => true,
 				'time'          => true,
 			);
 
@@ -1125,6 +1126,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			/**
 			 * @var $show_end_time
+			 * @var $date
 			 * @var $time
 			 */
 			extract( $settings );
@@ -1156,8 +1158,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$format2ndday = apply_filters( 'tribe_format_second_date_in_range', $format, $event );
 
 				if ( tribe_event_is_all_day( $event ) ) {
-					$inner .= tribe_get_start_date( $event, true, $format );
-					$inner .= ( $html ? '</span>' : '' ) . $time_range_separator;
+					$inner .= $date ? tribe_get_start_date( $event, true, $format ) : '';
+					$inner .= $html ? '</span>' : '';
+					$inner .= $date ? $time_range_separator : '';
 					$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 
 					$end_date_full = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
@@ -1170,23 +1173,33 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 						$end_date = tribe_get_end_date( $event, false, $format2ndday );
 					}
 
-					$inner .= $end_date;
+					$inner .= $date ? $end_date : '';
 				} else {
-					$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-					$inner .= ( $html ? '</span>' : '' )  . $time_range_separator;
+					$inner .= $date ? tribe_get_start_date( $event, false, $format ) : '';
+					$inner .= $date && $time ? $datetime_separator : '';
+					$inner .= $time ? tribe_get_start_date( $event, false, $time_format ) : '';
+					$inner .= $html ? '</span>' : '';
+					$inner .= $date && $time ? $time_range_separator : '';
 					$inner .= $html ? '<span class="tribe-event-date-end">' : '';
-					$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
+					$inner .= $date ? tribe_get_end_date( $event, false, $format2ndday ) : '';
+					$inner .= $date && $time ? $datetime_separator : '';
+					$inner .= $time ? tribe_get_end_date( $event, false, $time_format ) : '';
 				}
 			} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
-				$inner .= tribe_get_start_date( $event, true, $format );
+				$inner .= $date ? tribe_get_start_date( $event, true, $format ) : '';
 			} else { // single day event
 				if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
-					$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
+					$inner .= $date ? tribe_get_start_date( $event, false, $format ) : '';
+					$inner .= $date && $time ? $datetime_separator : '';
+					$inner .= $time ? tribe_get_start_date( $event, false, $time_format ) : '';
 				} else { // defined start/end time
-					$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-					$inner .= ( $html ? '</span>' : '' ) . ( $show_end_time ? $time_range_separator : '' );
+					$inner .= $date ? tribe_get_start_date( $event, false, $format ) : '';
+					$inner .= $date && $time ? $datetime_separator : '';
+					$inner .= $time ? tribe_get_start_date( $event, false, $time_format ) : '';
+					$inner .= $html ? '</span>' : '';
+					$inner .= $show_end_time ? $time_range_separator : '';
 					$inner .= $html ? '<span class="tribe-event-time">' : '';
-					$inner .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' );
+					$inner .= $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '';
 				}
 			}
 
