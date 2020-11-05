@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.2.1
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -19,14 +19,20 @@ use Tribe__Date_Utils as Dates;
 
 $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
+if ( $event->multiday ) {
+	// The date returned back contains HTML and is already escaped.
+	$event_date = $event->schedule_details->value();
+} else if ( $event->all_day ) {
+	$event_date = esc_html_x( 'All day', 'All day label for event', 'the-events-calendar' );
+} else {
+	// The date returned back contains HTML and is already escaped.
+	$event_date = $event->short_schedule_details->value();
+}
 ?>
 <div class="tribe-events-widget-events-list__event-datetime-wrapper tribe-common-b2 tribe-common-b3--min-medium">
 	<?php $this->template( 'widgets/widget-events-list/event/date/featured', [ 'event' => $event ] ); ?>
 	<time class="tribe-events-widget-events-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
-		<?php
-		// The date returned back contains HTML and is already escaped.
-		echo $event->schedule_details->value();
-		?>
+		<?php echo $event_date; // phpcs:ignore. ?>
 	</time>
 	<?php $this->do_entry_point( 'after_event_datetime' ); ?>
 </div>
