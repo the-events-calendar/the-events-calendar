@@ -1233,16 +1233,78 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string The human-readable event short schedule details formatted according to the current settings.
 	 */
 	function tribe_events_event_short_schedule_details( $event = null, $before = '', $after = '', $html = true ) {
-		$closure = static function ( $settings ) {
-			$settings['date'] = false;
-			return $settings;
-		};
+		static $cache_var_name = __FUNCTION__;
 
-		add_filter( 'tribe_events_event_schedule_details_formatting', $closure );
-		$filtered = tribe_events_event_schedule_details( $event, $before, $after, $html );
-		remove_filter( 'tribe_events_event_schedule_details_formatting', $closure );
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
 
-		return $filtered;
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		// if the post is password protected, don't return the schedule details
+		if ( post_password_required( $event ) ) {
+			return '';
+		}
+
+		$cache_details     = tribe_get_var( $cache_var_name, [] );
+		$cache_details_key = "{$event->ID}:{$before}:{$after}:{$html}";
+
+		if ( ! isset( $cache_details[ $cache_details_key ] ) ) {
+			if ( tribe_event_is_multiday( $event ) ) {
+				// Multiday event.
+				$inner = tribe_events_event_schedule_details( $event, $before, $after, $html );
+			} elseif ( tribe_event_is_all_day( $event ) ) {
+				// All day event.
+				$inner = esc_html_x( 'All day', 'All day label for event', 'the-events-calendar' );
+			} else {
+				// Single day event.
+				$inner       = $html ? '<span class="tribe-event-date-start">' : '';
+				$time_format = get_option( 'time_format' );
+
+				if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) {
+					// Same start/end time.
+					$inner .= tribe_get_start_date( $event, false, $time_format );
+				} else {
+					// Different start/end time.
+					$inner .= tribe_get_start_date( $event, false, $time_format );
+					$inner .= $html ? '</span>' : '';
+					$inner .= $time_range_separator;
+					$inner .= $html ? '<span class="tribe-event-time">' : '';
+					$inner .= tribe_get_end_date( $event, false, $time_format );
+				}
+
+				$inner .= $html ? '</span>' : '';
+			}
+
+			$cache_details[ $cache_details_key ] = $inner;
+			tribe_set_var( $cache_var_name, $cache_details );
+		}
+
+		/**
+		 * Provides an opportunity to modify the *inner* short schedule details HTML
+		 * (ie before it is wrapped).
+		 *
+		 * @param string $inner_html the output HTML.
+		 * @param int    $event_id   post ID of the event we are interested in.
+		 */
+		$inner = apply_filters( 'tribe_events_event_schedule_details_inner', $cache_details[ $cache_details_key ], $event->ID );
+
+		// Wrap the schedule text
+		$schedule = $before . $inner . $after;
+
+		/**
+		 * Provides an opportunity to modify the short schedule details HTML for a specific event
+		 * after it has been wrapped in the before and after markup.
+		 *
+		 * @param string $schedule the output HTML.
+		 * @param int    $event_id post ID of the event we are interested in.
+		 * @param string $before   part of the HTML wrapper that was prepended.
+		 * @param string $after    part of the HTML wrapper that was appended.
+		 */
+		return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after );
 	}
 
 	/**
