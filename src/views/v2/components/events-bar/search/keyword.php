@@ -29,7 +29,7 @@ $aria_label = sprintf( __( 'Enter Keyword. Search for %s by Keyword.', 'the-even
 		<?php printf( esc_html__( 'Enter Keyword. Search for %s by Keyword.', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>
 	</label>
 	<input
-		class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
+		class="tribe-common-form-control-text__input tribe-events-c-search__input"
 		data-js="tribe-events-events-bar-input-control-input"
 		type="text"
 		id="tribe-events-events-bar-keyword"
@@ -38,4 +38,11 @@ $aria_label = sprintf( __( 'Enter Keyword. Search for %s by Keyword.', 'the-even
 		placeholder="<?php echo esc_attr( $placeholder ); ?>"
 		aria-label="<?php echo esc_attr( $aria_label ); ?>"
 	/>
+	<em
+		class="tribe-events-c-search__input-control-icon"
+		aria-label="<?php esc_attr_e( 'Search', 'the-events-calendar' ); ?>"
+		title="<?php esc_attr_e( 'Search', 'the-events-calendar' ); ?>"
+	>
+		<?php $this->template('components/icons/search', [ 'classes' => ['tribe-events-c-search__input-control-icon-svg'] ] ) ?>
+	</em>
 </div>

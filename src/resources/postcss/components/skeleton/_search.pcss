@@ -60,11 +60,23 @@
 	}
 
 	.tribe-events-c-search__input-control {
+		position: relative;
 
 		.tribe-common--breakpoint-medium& {
 			flex: auto;
 			margin: var(--spacer-2) 0;
 		}
+	}
+	
+	.tribe-events-c-search__input-control-icon {
+		position: absolute;
+		top: 50%;
+		left: 16px;
+		transform: translateY(-50%);
+	}
+	
+	.tribe-events-c-search__input-control-icon-svg path {
+		fill: var(--color-icon-active);
 	}
 
 	.tribe-events-c-search__input {
