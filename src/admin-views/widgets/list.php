@@ -24,6 +24,7 @@ if ( empty( $admin_fields ) ) {
 
 foreach ( $admin_fields as $field_id => $field ) {
 	// Handle a section start. May contain a section title.
+	// Using stripos() to allow for multiple occurrences ("section_start_1", "section_start_2" etc).
 	if ( 0 === stripos( $field_id, 'section_start' ) ) {
 		$section_classes = [ 'tribe-events-widget-admin-form__input-section' ];
 		if ( ! empty( $field['classes'] ) ) {
