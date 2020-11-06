@@ -1306,7 +1306,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $before   part of the HTML wrapper that was prepended.
 		 * @param string $after    part of the HTML wrapper that was appended.
 		 */
-		return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after );
+		return apply_filters( 'tribe_events_event_short_schedule_details', $schedule, $event->ID, $before, $after );
 	}
 
 	/**
