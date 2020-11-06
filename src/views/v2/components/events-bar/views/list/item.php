@@ -27,7 +27,9 @@ if ( $view_slug === $public_view_slug ) {
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
-		<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--<?php echo esc_attr( $public_view_slug ); ?>"></span>
+		<span class="tribe-events-c-view-selector__list-item-icon">
+			<?php $this->template('components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => ['tribe-events-c-view-selector__list-item-icon-svg'] ] ); ?>
+		</span>
 		<span class="tribe-events-c-view-selector__list-item-text">
 			<?php echo esc_html( $public_view_data->view_label ); ?>
 		</span>

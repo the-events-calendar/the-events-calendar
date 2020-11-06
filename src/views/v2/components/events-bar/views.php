@@ -33,7 +33,9 @@ $view_selector_classes = [
 			class="tribe-events-c-view-selector__button"
 			data-js="tribe-events-view-selector-button"
 		>
-			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon <?php echo sanitize_html_class( "tribe-common-svgicon--{$view_slug}" ); ?>"></span>
+			<span class="tribe-events-c-view-selector__button-icon">
+				<?php $this->template('components/icons/' . esc_attr( $view_slug ), [ 'classes' => ['tribe-events-c-view-selector__button-icon-svg'] ] ); ?>
+			</span>
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $view_label ); ?>
 			</span>
