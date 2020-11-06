@@ -1292,7 +1292,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $inner_html the output HTML.
 		 * @param int    $event_id   post ID of the event we are interested in.
 		 */
-		$inner = apply_filters( 'tribe_events_event_schedule_details_inner', $cache_details[ $cache_details_key ], $event->ID );
+		$inner = apply_filters( 'tribe_events_event_short_schedule_details_inner', $cache_details[ $cache_details_key ], $event->ID );
 
 		// Wrap the schedule text
 		$schedule = $before . $inner . $after;
