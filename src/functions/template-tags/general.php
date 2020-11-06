@@ -1269,6 +1269,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 					$inner .= tribe_get_start_date( $event, false, $time_format );
 				} else {
 					// Different start/end time.
+					$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+
 					$inner .= tribe_get_start_date( $event, false, $time_format );
 					$inner .= $html ? '</span>' : '';
 					$inner .= $time_range_separator;
