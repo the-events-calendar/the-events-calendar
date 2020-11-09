@@ -247,7 +247,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 					aria-label="Search"
 					title="Search"
 				>
-					<?php $this->template('components/icons/search', [ 'classes' => ['tribe-events-c-search__input-control-icon-svg'] ] ) ?>
+					<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-search__input-control-icon-svg' ] ] ); ?>
 				</em>
 				<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
 					Keyword
@@ -271,7 +271,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 					aria-label="Search"
 					title="Search"
 				>
-					<?php $this->template('components/icons/search', [ 'classes' => ['tribe-events-c-search__input-control-icon-svg'] ] ) ?>
+					<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-search__input-control-icon-svg' ] ] ); ?>
 				</em>
 				<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-location">
 					Location
