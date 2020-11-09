@@ -24,5 +24,8 @@ if ( empty( $ical->display_link ) ) {
 		class="tribe-events-c-ical__link"
 		title="<?php echo esc_attr( $ical->link->title ); ?>"
 		href="<?php echo esc_url( $ical->link->url ); ?>"
-	><?php echo esc_html( $ical->link->text ); ?></a>
+	>
+		<?php $this->template('components/icons/plus', [ 'classes' => ['tribe-events-c-ical__link-icon-svg'] ] ) ?>
+		<?php echo esc_html( $ical->link->text ); ?>
+	</a>
 </div>

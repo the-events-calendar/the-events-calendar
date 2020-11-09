@@ -14,27 +14,26 @@
 		display: inline-flex;
 		font-weight: var(--font-weight-bold);
 		justify-content: center;
-
-		&:before {
-			background-image: svg-inline(plus-focus);
-			background-repeat: no-repeat;
-			background-size: contain;
-			content: '';
-			display: inline-block;
+		
+		.tribe-events-c-ical__link-icon-svg {
 			flex: none;
 			height: 10px;
-			margin-right: var(--spacer-1);
 			width: 10px;
+			margin-right: var(--spacer-1);
+			
+			path {
+				stroke: var(--color-icon-focus);
+			}
 		}
-
+		
 		&:hover,
 		&:focus,
 		&:active {
 			color: var(--color-background);
 			background-color: var(--color-accent-primary);
-
-			&:before {
-				background-image: svg-inline(plus-white);
+			
+			.tribe-events-c-ical__link-icon-svg path {
+				stroke: var(--color-background);
 			}
 		}
 
