@@ -71,8 +71,13 @@
 	.tribe-events-c-search__input-control-icon {
 		position: absolute;
 		top: 50%;
-		left: 16px;
+		right: 0;
 		transform: translateY(-50%);
+		
+		.tribe-common--breakpoint-medium& {
+			right: auto;
+			left: 16px;
+		}
 	}
 	
 	.tribe-events-c-search__input-control-icon-svg path {
