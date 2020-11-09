@@ -10,7 +10,6 @@
  * @link http://m.tri.be/1aiy
  *
  * @version 4.9.10
- *
  */
-?>
-<?php $this->template('components/icons/search', [ 'classes' => ['tribe-events-c-events-bar__search-button-icon-svg'] ] ) ?>
+
+$this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-events-bar__search-button-icon-svg' ] ] );

@@ -43,6 +43,6 @@ $aria_label = sprintf( __( 'Enter Keyword. Search for %s by Keyword.', 'the-even
 		aria-label="<?php esc_attr_e( 'Search', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Search', 'the-events-calendar' ); ?>"
 	>
-		<?php $this->template('components/icons/search', [ 'classes' => ['tribe-events-c-search__input-control-icon-svg'] ] ) ?>
+		<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-search__input-control-icon-svg' ] ] ); ?>
 	</em>
 </div>
