@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
+use Tribe\Events\Views\V2\Assets;
 use Tribe__Context as Context;
 
 /**
@@ -75,6 +76,20 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
+	public function enqueue_assets( $context, $view ) {
+		parent::enqueue_assets( $context, $view );
+
+		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
+		tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-skeleton' );
+
+		if ( tribe( Assets::class )->should_enqueue_full_styles() ) {
+			tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-full' );
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function setup_default_arguments() {
 		$default_arguments = parent::setup_default_arguments();
 
@@ -121,7 +136,7 @@ class Widget_List extends Widget_Abstract {
 				'options' => $this->get_limit_options(),
 			],
 			'no_upcoming_events'   => [
-				'label' => _x( 'Show widget only if there are upcoming events', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
+				'label' => _x( 'Hide this widget if there are no upcoming events.', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 			'featured_events_only' => [
