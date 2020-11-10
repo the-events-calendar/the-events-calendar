@@ -169,7 +169,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 				tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
 
-				tribe( 'logger' )->log_debug( "There was an error while creating the schedule record.", 'EA New' );
+				tribe( 'logger' )->log_debug( 'There was an error while creating the schedule record.', 'EA New' );
 
 				$record->set_status_as_failed( $create_schedule_result );
 				return $create_schedule_result;

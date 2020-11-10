@@ -39,6 +39,8 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	public $total = 0;
 
 	/**
+	 * @since TBD
+	 *
 	 * @var Tribe__Events__Aggregator__Record__Queue_Cleaner
 	 */
 	protected $cleaner;
@@ -46,17 +48,23 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Whether any real processing should happen for the queue or not.
 	 *
+	 * @since TBD
+	 *
 	 * @var bool
 	 */
 	protected $null_process = false;
 
 	/**
+	 * @since TBD
+	 *
 	 * @var bool Whether this queue instance has acquired the lock or not.
 	 */
 	protected $has_lock = false;
 
 	/**
 	 * Tribe__Events__Aggregator__Record__Queue constructor.
+	 *
+	 * @since TBD
 	 *
 	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record
 	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
@@ -85,21 +93,35 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 		$this->activity();
 	}
 
+	/**
+	 * GEt the activity if a call to a dynamic attribute is taking place in this case `$this->>activity`
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The dynamic key to be returned.
+	 *
+	 * @return mixed|Tribe__Events__Aggregator__Record__Activity
+	 */
 	public function __get( $key ) {
-		switch ( $key ) {
-			case 'activity':
-				return $this->activity();
-				break;
+		if ( $key === 'activity' ) {
+			return $this->activity();
 		}
 	}
 
+	/**
+	 * Returns the activity object for the processing of this Queue.
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed|Tribe__Events__Aggregator__Record__Activity
+	 */
 	public function activity() {
 		if ( empty( $this->activity ) ) {
 			if (
 				empty( $this->record->meta[ self::$activity_key ] )
 				|| ! $this->record->meta[ self::$activity_key ] instanceof Tribe__Events__Aggregator__Record__Activity
 			) {
-				$this->activity = new Tribe__Events__Aggregator__Record__Activity;
+				$this->activity = new Tribe__Events__Aggregator__Record__Activity();
 			} else {
 				$this->activity = $this->record->meta[ self::$activity_key ];
 			}
@@ -111,6 +133,8 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Allows us to check if the Events Data has still pending
 	 *
+	 * @since TBD
+	 *
 	 * @return boolean
 	 */
 	public function is_fetching() {
@@ -120,6 +144,8 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Shortcut to check how many items are going to be processed next
 	 *
+	 * @since TBD
+	 *
 	 * @return int
 	 */
 	public function count() {
@@ -128,6 +154,8 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 
 	/**
 	 * Shortcut to check if this queue is empty or it has a null process.
+	 *
+	 * @since TBD
 	 *
 	 * @return boolean `true` if this queue instance has acquired the lock and
 	 *                 the count is 0, `false` otherwise.
@@ -140,21 +168,41 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 		return ! $this->is_in_progress();
 	}
 
+	/**
+	 * After the process has been completed make sure the `post_modified` and `post_status` are updated accordingly.
+	 *
+	 * @since TBD
+	 *
+	 * @return $this
+	 */
 	protected function complete() {
-		// Updates the Modified time for the Record Log
-		$args = [
-			'ID'            => $this->record->post->ID,
-			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
-			'post_status'   => Tribe__Events__Aggregator__Records::$status->success,
-		];
-
-		wp_update_post( $args );
+		try {
+			// Updates the Modified time for the Record Log.
+			$args = [
+				'ID'            => $this->record->post->ID,
+				'post_modified' => ( new DateTime( 'now', new DateTimeZone( 'UTC' ) ) )->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+				'post_status'   => Tribe__Events__Aggregator__Records::$status->success,
+			];
+			wp_update_post( $args );
+		} catch ( Exception $e ) {
+			do_action( 'tribe_log', 'debug', __METHOD__, [
+				'message'   => $e->getMessage(),
+				'record'    => $this->record,
+				'exception' => $e,
+			] );
+		}
 
 		return $this;
 	}
 
 	/**
 	 * Processes a batch for the queue
+	 *
+	 * @since TBD
+	 *
+	 * @throws Exception
+	 *
+	 * @param null $batch_size The batch size is ignored on batch import as is controlled via the initial filtered value.
 	 *
 	 * @return self|Tribe__Events__Aggregator__Record__Activity
 	 */
@@ -177,6 +225,11 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 		return $this->activity();
 	}
 
+	/**
+	 * Create the initial request to the EA server requesting that the client is ready to start getting batches of events.
+	 *
+	 * @since TBD
+	 */
 	public function start() {
 		if (
 			empty( $this->record->meta['allow_batch_push'] )
@@ -229,6 +282,8 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Returns the total progress made on processing the queue so far as a percentage.
 	 *
+	 * @since TBD
+	 *
 	 * @return int
 	 */
 	public function progress_percentage() {
@@ -246,18 +301,24 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	 *
 	 * The flag naturally expires after an hour to allow for recovery if for instance
 	 * execution hangs half way through the processing of a batch.
+	 *
+	 * @since TBD
 	 */
 	public function set_in_progress_flag() {
 	}
 
 	/**
 	 * Clears the in progress flag.
+	 *
+	 * @since TBD
 	 */
 	public function clear_in_progress_flag() {
 	}
 
 	/**
 	 * Indicates if the queue for the current event is actively being processed.
+	 *
+	 * @since TBD
 	 *
 	 * @return bool
 	 */
@@ -276,6 +337,8 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Returns the primary post type the queue is processing
 	 *
+	 * @since TBD
+	 *
 	 * @return string
 	 */
 	public function get_queue_type() {
@@ -291,7 +354,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Whether the current queue process is stuck or not.
 	 *
-	 * @since 4.6.21
+	 * @since TBD
 	 *
 	 * @return mixed
 	 */
@@ -302,7 +365,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Orderly closes the queue process.
 	 *
-	 * @since 4.6.21
+	 * @since TBD
 	 *
 	 * @return bool
 	 */
@@ -313,7 +376,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Whether the current queue process failed or not.
 	 *
-	 * @since 4.6.21
+	 * @since TBD
 	 *
 	 * @return bool
 	 */
@@ -324,7 +387,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	/**
 	 * Returns the queue error message.
 	 *
-	 * @since 4.6.21
+	 * @since TBD
 	 *
 	 * @return string
 	 */

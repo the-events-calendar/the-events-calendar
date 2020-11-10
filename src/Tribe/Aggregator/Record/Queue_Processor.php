@@ -1,4 +1,5 @@
 <?php
+
 class Tribe__Events__Aggregator__Record__Queue_Processor {
 	public static $scheduled_key = 'tribe_aggregator_process_insert_records';
 
@@ -44,7 +45,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 
 
 	public function __construct() {
-		add_action( 'init', array( $this, 'action_init' ) );
+		add_action( 'init', [ $this, 'action_init' ] );
 	}
 
 	public function action_init() {
@@ -55,10 +56,10 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 * Configures a scheduled task to handle "background processing" of import record insertions/updates.
 	 */
 	public function manage_scheduled_task() {
-		add_action( 'tribe_events_blog_deactivate', array( $this, 'clear_scheduled_task' ) );
+		add_action( 'tribe_events_blog_deactivate', [ $this, 'clear_scheduled_task' ] );
 
-		add_action( self::$scheduled_key, array( $this, 'process_queue' ), 20, 0 );
-		add_action( self::$scheduled_single_key, array( $this, 'process_queue' ), 20, 0 );
+		add_action( self::$scheduled_key, [ $this, 'process_queue' ], 20, 0 );
+		add_action( self::$scheduled_single_key, [ $this, 'process_queue' ], 20, 0 );
 
 		$this->register_scheduled_task();
 	}
@@ -72,6 +73,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		if ( is_wp_error( tribe( 'events-aggregator.service' )->api() ) ) {
 			// Also clear in case we dont have an API key.
 			$this->clear_scheduled_task();
+
 			return;
 		}
 
@@ -79,6 +81,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		if ( ! $this->next_waiting_record( false, true ) ) {
 			// Also clear in case we don't have any records to process.
 			$this->clear_scheduled_task();
+
 			return;
 		}
 
@@ -127,7 +130,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		 * @param int $small_batch_size
 		 */
 		$default_batch_size = apply_filters( 'tribe_aggregator_small_batch_size', self::$small_batch_size );
-		self::$batch_size = ( null === $batch_size ) ? $default_batch_size : (int) $batch_size;
+		self::$batch_size   = ( null === $batch_size ) ? $default_batch_size : (int) $batch_size;
 
 		$this->current_record_id = (int) $record_id;
 		$this->do_processing();
@@ -187,7 +190,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	public function next_waiting_record( $interactive_only = false, $cache = false ) {
 		if ( true === $cache ) {
-			$transient_key = 'tribe-event-aggregator-next_waiting_record' . ( ! $interactive_only ?: '_interactive_only' );
+			$transient_key       = 'tribe-event-aggregator-next_waiting_record' . ( ! $interactive_only ?: '_interactive_only' );
 			$next_waiting_record = get_transient( $transient_key );
 
 			if ( ! empty( $next_waiting_record ) ) {
@@ -195,23 +198,23 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			}
 		}
 
-		$args = array(
+		$args = [
 			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
 			'post_status'    => 'any',
 			'posts_per_page' => 1,
-			'meta_query'     => array(
-				array(
-					'key' => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key,
+			'meta_query'     => [
+				[
+					'key'     => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$queue_key,
 					'compare' => 'EXISTS',
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( $interactive_only ) {
-			$args['meta_query'][] = array(
-				'key' => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'interactive',
+			$args['meta_query'][] = [
+				'key'     => Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'interactive',
 				'compare' => 'EXISTS',
-			);
+			];
 		}
 
 		$waiting_records = get_posts( $args );
@@ -263,6 +266,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			$this->current_queue = self::build_queue( $this->current_record_id );
 		} catch ( InvalidArgumentException $e ) {
 			do_action( 'log', sprintf( __( 'Could not process queue for Import Record %1$d: %2$s', 'the-events-calendar' ), $this->current_record_id, $e->getMessage() ) );
+
 			return false;
 		}
 
@@ -293,9 +297,9 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 *
 	 * @since 4.6.16
 	 *
-	 * @param int|Tribe__Events__Aggregator__Record__Abstract $record A record object or ID
-	 * @param array|string $items
-	 * @param bool $use_legacy                                        Whether to use the legacy queue processor or not.
+	 * @param int|Tribe__Events__Aggregator__Record__Abstract $record     A record object or ID
+	 * @param array|string                                    $items
+	 * @param bool                                            $use_legacy Whether to use the legacy queue processor or not.
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Queue_Interface
 	 */
@@ -329,7 +333,12 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			$class = Tribe__Events__Aggregator__Record__Queue::class;
 		}
 
-		if ( ! empty( $record->meta ) && ! empty( $record->meta['allow_batch_push'] ) &&  tribe_is_truthy($record->meta['allow_batch_push'] )) {
+		// This is a batch pushing import and should use the Batch Queue to process this import.
+		if (
+			! empty( $record->meta )
+			&& ! empty( $record->meta['allow_batch_push'] )
+			&& tribe_is_truthy( $record->meta['allow_batch_push'] )
+		) {
 			$class = Tribe__Events__Aggregator__Record__Batch_Queue::class;
 		}
 
@@ -340,10 +349,10 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		 *
 		 * @since 4.6.16
 		 *
-		 * @param string $class                                       The import process class that will be used to process
+		 * @param string                                      $class  The import process class that will be used to process
 		 *                                                            import records.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record The current record being processed.
-		 * @param array|string $items                                 Either an array of the record items to process or a string
+		 * @param array|string                                $items  Either an array of the record items to process or a string
 		 *                                                            to indicate pre-process states like fetch or on-hold.
 		 */
 		$class = apply_filters( 'tribe_aggregator_queue_class', $class, $record, $items );

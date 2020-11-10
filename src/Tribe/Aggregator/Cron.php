@@ -304,6 +304,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records Scheduled, skipped creating children', 'EA Cron' );
+
 			return;
 		}
 
@@ -336,7 +337,7 @@ class Tribe__Events__Aggregator__Cron {
 			// if there are no remaining imports for today, log that and skip
 			if ( $service->is_over_limit( true ) ) {
 				$import_limit     = $service->get_limit( 'import' );
-				$service_template = $service->get_service_message( 'error:usage-limit-exceeded', array( $import_limit ) );
+				$service_template = $service->get_service_message( 'error:usage-limit-exceeded', [ $import_limit ] );
 				tribe( 'logger' )->log_debug( sprintf( $service_template . ' (%1$d)', $record->id ), 'EA Cron' );
 				$record->update_meta( 'last_import_status', 'error:usage-limit-exceeded' );
 				continue;
@@ -393,29 +394,31 @@ class Tribe__Events__Aggregator__Cron {
 
 		$records = Tribe__Events__Aggregator__Records::instance();
 
-		$query = $records->query( [
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
-			'posts_per_page' => 15,
-			'order'          => 'ASC',
-			'meta_query'     => [
-				'origin-not-csv'               => [
-					'key'     => '_tribe_aggregator_origin',
-					'value'   => 'csv',
-					'compare' => '!=',
+		$query = $records->query(
+			[
+				'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
+				'posts_per_page' => 15,
+				'order'          => 'ASC',
+				'meta_query'     => [
+					'origin-not-csv'               => [
+						'key'     => '_tribe_aggregator_origin',
+						'value'   => 'csv',
+						'compare' => '!=',
+					],
+					'batch-push-support-specified' => [
+						'key'     => '_tribe_aggregator_allow_batch_push',
+						'value'   => true,
+						'compare' => '=',
+					],
+					'batch-not-queued'             => [
+						'key'     => '_tribe_aggregator_batch_started',
+						'value'   => 'bug #23268',
+						'compare' => 'NOT EXISTS',
+					],
 				],
-				'batch-push-support-specified' => [
-					'key'     => '_tribe_aggregator_allow_batch_push',
-					'value'   => true,
-					'compare' => '=',
-				],
-				'batch-not-queued'             => [
-					'key'     => '_tribe_aggregator_batch_started',
-					'value'   => 'bug #23268',
-					'compare' => 'NOT EXISTS',
-				],
-			],
-			'after'          => '-4 hours',
-		] );
+				'after'          => '-4 hours',
+			]
+		);
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Pending Batch to be started', 'EA Cron' );
@@ -429,7 +432,7 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );
 
-			if ( $record === null || tribe_is_error( $record ) ) {
+			if ( null === $record || tribe_is_error( $record ) ) {
 				continue;
 			}
 
@@ -445,13 +448,13 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			// Just double Check for CSV
+			// Just double Check for CSV.
 			if ( 'csv' === $record->origin ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
 				continue;
 			}
 
-			$record->process_posts([], true);
+			$record->process_posts( [], true );
 		}
 	}
 

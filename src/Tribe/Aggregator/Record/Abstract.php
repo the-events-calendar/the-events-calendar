@@ -24,6 +24,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
 	 * An associative array of origins and the settings they define a policy for.
+	 *
 	 * @var array
 	 */
 	protected $origin_import_policies = [
@@ -171,13 +172,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function setup_meta( $meta ) {
 		foreach ( $meta as $key => $value ) {
-			$key = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
+			$key                = preg_replace( '/^' . self::$meta_key_prefix . '/', '', $key );
 			$this->meta[ $key ] = maybe_unserialize( is_array( $value ) ? reset( $value ) : $value );
 		}
 
 		// `source` will be empty when importing .ics files
 		$this->meta['source'] = ! empty ( $this->meta['source'] ) ? $this->meta['source'] : '';
-		$original_source = $this->meta['source'];
+		$original_source      = $this->meta['source'];
 
 		// Intelligently prepend "http://" if the protocol is missing from the source URL
 		if ( ! empty( $this->meta['source'] ) && false === strpos( $this->meta['source'], '://' ) ) {
@@ -211,8 +212,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Updates import record meta
 	 *
-	 * @param string $key Meta key
-	 * @param mixed $value Meta value
+	 * @param string $key   Meta key
+	 * @param mixed  $value Meta value
 	 */
 	public function update_meta( $key, $value ) {
 		$this->meta[ $key ] = $value;
@@ -233,6 +234,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function delete_meta( $key ) {
 		unset( $this->meta[ $key ] );
+
 		return delete_post_meta( $this->post->ID, self::$meta_key_prefix . $key );
 	}
 
@@ -311,8 +313,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Creates an import record
 	 *
 	 * @param string $type Type of record to create - manual or schedule
-	 * @param array $args Post type args
-	 * @param array $meta Post meta
+	 * @param array  $args Post type args
+	 * @param array  $meta Post meta
 	 *
 	 * @return WP_Post|WP_Error
 	 */
@@ -362,8 +364,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Edits an import record
 	 *
 	 * @param int   $post_id
-	 * @param array $args    Post type args
-	 * @param array $meta    Post meta
+	 * @param array $args Post type args
+	 * @param array $meta Post meta
 	 *
 	 * @return WP_Post|WP_Error
 	 */
@@ -375,15 +377,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$defaults = [
 			'parent' => 0,
 		];
-		$args = (object) wp_parse_args( $args, $defaults );
+		$args     = (object) wp_parse_args( $args, $defaults );
 
 		$defaults = [
 			'frequency' => null,
 		];
-		$meta = wp_parse_args( $meta, $defaults );
+		$meta     = wp_parse_args( $meta, $defaults );
 
-		$post = $this->prep_post_args( $meta['type'], $args, $meta );
-		$post['ID'] = absint( $post_id );
+		$post                = $this->prep_post_args( $meta['type'], $args, $meta );
+		$post['ID']          = absint( $post_id );
 		$post['post_status'] = Tribe__Events__Aggregator__Records::$status->schedule;
 
 		add_filter( 'wp_insert_post_data', [ $this, 'dont_change_post_modified' ], 10, 2 );
@@ -402,14 +404,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Filter the post_modified dates to be unchanged
 	 * conditionally hooked to wp_insert_post_data and then unhooked after wp_update_post
 	 *
-	 * @param array $data new data to be used in the update
+	 * @param array $data    new data to be used in the update
 	 * @param array $postarr existing post data
 	 *
 	 * @return array
 	 */
 	public function dont_change_post_modified( $data, $postarr ) {
-		$post = get_post( $postarr['ID'] );
-		$data['post_modified'] = $postarr['post_modified'];
+		$post                      = get_post( $postarr['ID'] );
+		$data['post_modified']     = $postarr['post_modified'];
 		$data['post_modified_gmt'] = $postarr['post_modified_gmt'];
 
 		return $data;
@@ -419,8 +421,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Preps post arguments for create/save
 	 *
 	 * @param string $type Type of record to create - manual or schedule
-	 * @param array $args Post type args
-	 * @param array $meta Post meta
+	 * @param array  $args Post type args
+	 * @param array  $meta Post meta
 	 *
 	 * @return array
 	 */
@@ -481,6 +483,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function generate_title() {
 		$parts = func_get_args();
+
 		return __( 'Record: ', 'the-events-calendar' ) . implode( ' ', array_filter( $parts ) );
 	}
 
@@ -633,7 +636,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * If using WP < 4.4, we need to add meta to the post via update_post_meta
 	 *
-	 * @param int $id Post id to add data to
+	 * @param int   $id   Post id to add data to
 	 * @param array $meta Meta to add to the post
 	 */
 	public function maybe_add_meta_via_pre_wp_44_method( $id, $meta ) {
@@ -649,11 +652,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues the import on the Aggregator service
 	 *
-	 * @see Tribe__Events__Aggregator__API__Import::create()
-	 *
 	 * @return stdClass|WP_Error|int A response object, a `WP_Error` instance on failure or a record
 	 *                               post ID if the record had to be re-scheduled due to HTTP request
 	 *                               limit.
+	 * @see Tribe__Events__Aggregator__API__Import::create()
+	 *
 	 */
 	public function queue_import( $args = [] ) {
 		$aggregator = tribe( 'events-aggregator.main' );
@@ -760,12 +763,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			/** @var WP_Error $response */
 			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
 				$this->should_queue_import( true );
+
 				return $this->set_status_as_pending();
 			}
 
 			$error = $response;
 
-			tribe( 'logger' )->log_debug( "Error during the queue of the record.", 'EA Queue Import' );
+			tribe( 'logger' )->log_debug( 'Error during the queue of the record.', 'EA Queue Import' );
 
 			return $this->set_status_as_failed( $error );
 		}
@@ -793,7 +797,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$data
 			);
 
-			tribe( 'logger' )->log_debug( "Error when the creation of the import is taking place.", 'EA Queue Import' );
+			tribe( 'logger' )->log_debug( 'Error when the creation of the import is taking place.', 'EA Queue Import' );
 
 			return $this->set_status_as_failed( $error );
 		}
@@ -818,7 +822,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param bool $service_supports_batch_push Whether the Service supports batch pushing or not.
+		 * @param bool                                        $service_supports_batch_push Whether the Service supports batch pushing or not.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
 		 */
 		$allow_batch_push = apply_filters( 'tribe_aggregator_allow_batch_push', $service_supports_batch_push, $this );
@@ -854,7 +858,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
-		$import_api  = $aggregator->api( 'import' );
+		$import_api = $aggregator->api( 'import' );
 
 		if ( empty( $this->meta['import_id'] ) ) {
 			return tribe_error( 'core:aggregator:record-not-finalized' );
@@ -865,8 +869,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @since 4.6.18
 		 *
-		 * @param  array                                        $data   Which Arguments
-		 * @param  Tribe__Events__Aggregator__Record__Abstract  $record Record we are dealing with
+		 * @param array                                       $data   Which Arguments
+		 * @param Tribe__Events__Aggregator__Record__Abstract $record Record we are dealing with
 		 */
 		$data = apply_filters( 'tribe_aggregator_get_import_data_args', $data, $this );
 
@@ -891,7 +895,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status( $status ) {
-		if ( ! isset( Tribe__Events__Aggregator__Records::$status->{ $status } ) ) {
+		if ( ! isset( Tribe__Events__Aggregator__Records::$status->{$status} ) ) {
 			return false;
 		}
 
@@ -947,7 +951,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * A quick method to fetch the Child Records to the current on this class
 	 *
-	 * @param  array  $args WP_Query Arguments
+	 * @param array $args WP_Query Arguments
 	 *
 	 * @return WP_Query|WP_Error
 	 */
@@ -971,7 +975,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_child_record_by_status( $status = 'success', $qty = -1, array $args = [] ) {
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
-		if ( ! isset( $statuses->{ $status } ) && 'trash' !== $status ) {
+		if ( ! isset( $statuses->{$status} ) && 'trash' !== $status ) {
 			return false;
 		}
 
@@ -999,6 +1003,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		];
 
 		$args = wp_parse_args( $args, $defaults );
+
 		return get_comments( $args );
 	}
 
@@ -1011,7 +1016,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function log_error( WP_Error $error ) {
 		$today = getdate();
-		$args = [
+		$args  = [
 			'number'     => 1,
 			'date_query' => [
 				[
@@ -1041,6 +1046,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
 	 * Verifies if this Schedule Record can create a new Child Record
+	 *
 	 * @return boolean
 	 */
 	public function is_schedule_time() {
@@ -1068,7 +1074,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$retry_interval = $this->get_retry_interval();
+		$retry_interval         = $this->get_retry_interval();
 		$failure_time_threshold = time() - $retry_interval;
 
 		// If the last import status is an error and it happened before half the frequency ago let's try again
@@ -1123,6 +1129,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
 	 * Verifies if this Record can pruned
+	 *
 	 * @return boolean
 	 */
 	public function has_passed_retention_time() {
@@ -1155,7 +1162,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function get_source_info() {
 		if ( in_array( $this->origin, [ 'ics', 'csv' ] ) ) {
 			if ( empty( $this->meta['source_name'] ) ) {
-				$file = get_post( $this->meta['file'] );
+				$file  = get_post( $this->meta['file'] );
 				$title = $file instanceof WP_Post ? $file->post_title : sprintf( esc_html__( 'Deleted Attachment: %d', 'the-events-calendar' ), $this->meta['file'] );
 			} else {
 				$title = $this->meta['source_name'];
@@ -1181,7 +1188,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Fetches the status message for the last import attempt on (scheduled) records
 	 *
-	 * @param string $type Type of message to fetch
+	 * @param string $type            Type of message to fetch
 	 * @param bool   $lookup_children Whether the function should try to read the last children post status to return a coherent
 	 *                                last import status or not, default `false`.
 	 *
@@ -1215,6 +1222,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( 'error:usage-limit-exceeded' === $status ) {
 			return __( 'When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached.', 'the-events-calendar' );
 		}
+
 		return tribe( 'events-aggregator.service' )->get_service_message( $status );
 	}
 
@@ -1247,7 +1255,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues events, venues, and organizers for insertion
 	 *
-	 * @param array $data              Import data
+	 * @param array $data              Import data.
 	 * @param bool  $start_immediately Whether the data processing should start immediately or not.
 	 *
 	 * @return array|Tribe__Events__Aggregator__Record__Queue_Interface|WP_Error|Tribe__Events__Aggregator__Record__Activity
@@ -1260,7 +1268,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// CSV should be processed right away as does not have support for batch pushing.
-		$is_not_csv = empty( $data ) || empty( $data['origin'] ) || $data['origin'] !== 'csv';
+		$is_not_csv = empty( $data ) || empty( $data['origin'] ) || 'csv' !== $data['origin'];
 		// if this is a batch push record then set its queue to fetching
 		// to feed the UI something coherent
 		if ( $is_not_csv && ! $this->is_polling() ) {
@@ -1279,9 +1287,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$items = $this->prep_import_data( $data );
 
 		if ( is_wp_error( $items ) ) {
-			tribe( 'logger' )->log_debug( "Error while preparing the items of the request.", 'EA Process Posts.' );
+			tribe( 'logger' )->log_debug( 'Error while preparing the items of the request.', 'EA Process Posts.' );
 
 			$this->set_status_as_failed( $items );
+
 			return $items;
 		}
 
@@ -1345,9 +1354,10 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		if ( is_wp_error( $data ) ) {
-			tribe( 'logger' )->log_debug( "Data of the import has errors.", 'EA Prepare Import' );
+			tribe( 'logger' )->log_debug( 'Data of the import has errors.', 'EA Prepare Import' );
 
 			$this->set_status_as_failed( $data );
+
 			return $data;
 		}
 
@@ -1388,8 +1398,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$default_user_id = $this->get_default_user_id();
 
 		// Creates an Activity to log what Happened
-		$activity = new Tribe__Events__Aggregator__Record__Activity();
-		$initial_created_events = $activity->count( Tribe__Events__Main::POSTTYPE );
+		$activity                = new Tribe__Events__Aggregator__Record__Activity();
+		$initial_created_events  = $activity->count( Tribe__Events__Main::POSTTYPE );
 		$expected_created_events = $initial_created_events + count( $items );
 
 		$unique_field = $this->get_unique_field();
@@ -1463,9 +1473,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				 *
 				 * @since 4.8.2
 				 *
-				 * @param string $post_status The event's post status before being filtered.
-				 * @param array $event The WP event data about to imported and saved to the DB.
-				 * @param Tribe__Events__Aggregator__Record__Abstract $record The import's EA Import Record.
+				 * @param string                                      $post_status The event's post status before being filtered.
+				 * @param array                                       $event       The WP event data about to imported and saved to the DB.
+				 * @param Tribe__Events__Aggregator__Record__Abstract $record      The import's EA Import Record.
 				 */
 				$event['post_status'] = apply_filters( 'tribe_aggregator_new_event_post_status_before_import', $event['post_status'], $event, $this );
 			}
@@ -1539,7 +1549,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
 				$event['Venue']['Venue'] = trim( $event['Venue']['Venue'] );
 
-				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, array( 'ics', 'csv', 'gcal', 'ical' ) ) ) {
+				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, [
+						'ics',
+						'csv',
+						'gcal',
+						'ical',
+					] ) ) {
 					// Pre-set for ICS based imports
 					$venue = false;
 					if ( ! empty( $item->venue->global_id ) ) {
@@ -1563,7 +1578,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 
 					if ( $venue ) {
-						$venue_id = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
+						$venue_id                   = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
 						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 
 						// Here we might need to update the Venue depending on the main GlobalID
@@ -1592,7 +1607,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						 * @since 4.6.15
 						 *
 						 * @param int|null $venue_id The matching venue ID if any
-						 * @param array $venue The venue data from the record.
+						 * @param array    $venue    The venue data from the record.
 						 */
 						$venue_id = apply_filters( 'tribe_aggregator_find_matching_venue', null, $event['Venue'] );
 
@@ -1628,7 +1643,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 							}
 
 							if ( $venue ) {
-								$venue_id = $venue->ID;
+								$venue_id                  = $venue->ID;
 								$found_venues[ $venue_id ] = $event['Venue']['Venue'];
 							}
 						}
@@ -1777,7 +1792,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 								 * @since 4.6.15
 								 *
 								 * @param int|null $organizer_id The matching organizer ID if any
-								 * @param array $organizer The venue data from the record.
+								 * @param array    $organizer    The venue data from the record.
 								 */
 								$organizer_id = apply_filters( 'tribe_aggregator_find_matching_organizer', null, $organizer_data['Organizer'] );
 
@@ -1915,7 +1930,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				/**
 				 * Filters the event data before inserting event
 				 *
-				 * @param array $event Event data to save
+				 * @param array                                       $event  Event data to save
 				 * @param Tribe__Events__Aggregator__Record__Abstract $record Importer record
 				 */
 				$event = apply_filters( 'tribe_aggregator_before_insert_event', $event, $this );
@@ -2007,7 +2022,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			$normalized_categories = tribe_normalize_terms_list( $terms, Tribe__Events__Main::TAXONOMY );
-			$normalized_tags = tribe_normalize_terms_list( $tags, 'post_tag' );
+			$normalized_tags       = tribe_normalize_terms_list( $tags, 'post_tag' );
 			wp_set_object_terms( $event['ID'], $normalized_categories, Tribe__Events__Main::TAXONOMY, false );
 			wp_set_object_terms( $event['ID'], $normalized_tags, 'post_tag', false );
 
@@ -2035,14 +2050,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			 *
 			 * @since 4.6.16
 			 *
-			 * @param  array $event   Which Event data was sent
-			 * @param  array $item    Raw version of the data sent from EA
-			 * @param  self  $record  The record we are dealing with
+			 * @param array $event  Which Event data was sent
+			 * @param array $item   Raw version of the data sent from EA
+			 * @param self  $record The record we are dealing with
 			 */
 			do_action( 'tribe_aggregator_after_insert_post', $event, $item, $this );
 		}
 
-		remove_filter( 'tribe-post-origin', array( Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ), 10 );
+		remove_filter( 'tribe-post-origin', [
+			Tribe__Events__Aggregator__Records::instance(),
+			'filter_post_origin',
+		], 10 );
 
 		/**
 		 * Fires after events and linked posts have been inserted in the database.
@@ -2077,7 +2095,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Gets all ids that already exist in the post meta table from the provided records
 	 *
 	 * @param array $records Array of records
-	 * @param array $data Submitted data
+	 * @param array $data    Submitted data
 	 *
 	 * @return array
 	 */
@@ -2194,7 +2212,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public static function preserve_event_option_fields( $event ) {
 		$event_post = get_post( $event['ID'] );
-		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+		$post_meta  = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
 
 		//preserve show map
 		if ( isset( $post_meta['_EventShowMap'] ) && tribe_is_truthy( $post_meta['_EventShowMap'] ) ) {
@@ -2223,14 +2241,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return $event;
 	}
 
-    /**
-     * Imports an image information from EA server and creates the WP attachment object if required.
-     *
-     * @param array $event An event representation in the format provided by an Event Aggregator response.
-     *
-     * @return bool|stdClass|WP_Error An image information in the format provided by an Event Aggregator responsr or
-     *                                `false` on failure.
-     */
+	/**
+	 * Imports an image information from EA server and creates the WP attachment object if required.
+	 *
+	 * @param array $event An event representation in the format provided by an Event Aggregator response.
+	 *
+	 * @return bool|stdClass|WP_Error An image information in the format provided by an Event Aggregator responsr or
+	 *                                `false` on failure.
+	 */
 	public function import_aggregator_image( $event ) {
 		// Attempt to grab the event image
 		$image_import = tribe( 'events-aggregator.main' )->api( 'image' )->get( $event['image']->id, $this );
@@ -2238,8 +2256,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		/**
 		 * Filters the returned event image url
 		 *
-		 * @param array|bool $image       Attachment information
-		 * @param array      $event       Event array
+		 * @param array|bool $image Attachment information
+		 * @param array      $event Event array
 		 */
 		$image = apply_filters( 'tribe_aggregator_event_image', $image_import, $event );
 
@@ -2274,7 +2292,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$uploader = new Tribe__Image__Uploader( $data['image'] );
+		$uploader     = new Tribe__Image__Uploader( $data['image'] );
 		$thumbnail_id = $uploader->upload_and_get_attachment_id();
 
 		return false !== $thumbnail_id ? (object) [ 'post_id' => $thumbnail_id ] : false;
@@ -2397,7 +2415,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @since 4.5.13
 	 *
-	 * @param int $post_id The ID of the post the thumbnail should be assigned to.
+	 * @param int $post_id          The ID of the post the thumbnail should be assigned to.
 	 * @param int $new_thumbnail_id The new attachment post ID.
 	 *
 	 * @return bool Whether the post thumbnail ID changed or not.
@@ -2492,9 +2510,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @since 4.6.9
 		 *
 		 * @param bool                                        $import_venue_image Defaults to `true`
-		 * @param int                                         $venue_id The venue post ID
-		 * @param string                                      $image_url The URL to the image that should be imported
-		 * @param Tribe__Events__Aggregator__Record__Activity $activity The importer activity so far
+		 * @param int                                         $venue_id           The venue post ID
+		 * @param string                                      $image_url          The URL to the image that should be imported
+		 * @param Tribe__Events__Aggregator__Record__Activity $activity           The importer activity so far
 		 */
 		$import_venue_image = apply_filters( 'tribe_aggregator_import_venue_image', true, $venue_id, $image_url, $activity );
 
@@ -2708,7 +2726,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param int $retry_interval An interval in seconds; defaults to the record frequency / 2.
+		 * @param int                                         $retry_interval An interval in seconds; defaults to the record frequency / 2.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
 		 */
 		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_interval, $this );
@@ -2745,7 +2763,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param int $retry_time A timestamp.
+		 * @param int                                         $retry_time A timestamp.
 		 * @param Tribe__Events__Aggregator__Record__Abstract $this
 		 */
 		return apply_filters( 'tribe_aggregator_scheduled_records_retry_interval', $retry_time, $this );

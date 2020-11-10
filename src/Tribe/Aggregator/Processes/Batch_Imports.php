@@ -8,7 +8,7 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 	}
 
 	public function build_url( $url, $endpoint, $api ) {
-		if ( $endpoint !== 'import' ) {
+		if ( 'import' !== $endpoint ) {
 			return $url;
 		}
 
@@ -47,7 +47,6 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 
 		return false;
 	}
-
 
 	/**
 	 * Update the args used for imports.
