@@ -2314,7 +2314,7 @@ class View implements View_Interface {
 	 */
 	public function get_url_args() {
 		$view_url       = $this->get_url( false );
-		$view_query_str = parse_url( $view_url, PHP_URL_QUERY );
+		$view_query_str = wp_parse_url( $view_url, PHP_URL_QUERY );
 		if ( empty( $view_query_str ) ) {
 			// This might happen if the URL is too mangled to be parsed.
 			return [];
