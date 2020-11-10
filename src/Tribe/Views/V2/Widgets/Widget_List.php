@@ -114,7 +114,7 @@ class Widget_List extends Widget_Abstract {
 		$updated_instance['limit']                = $new_instance['limit'];
 		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
 		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
-		$updated_instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
+		$updated_instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] );
 		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
 
 		return $this->filter_updated_instance( $updated_instance, $new_instance );
@@ -144,7 +144,7 @@ class Widget_List extends Widget_Abstract {
 				'type'  => 'checkbox',
 			],
 			'jsonld_enable'        => [
-				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSONLD in the List Widget.', 'the-events-calendar' ),
+				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSON-LD in the List Widget.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
 
@@ -189,6 +189,11 @@ class Widget_List extends Widget_Abstract {
 		// Only Featured Events.
 		if ( tribe_is_truthy( $arguments['featured_events_only'] ) ) {
 			$alterations['featured'] = true;
+		}
+
+		// Enable JSON-LD?
+		if ( tribe_is_truthy( $arguments['jsonld_enable'] ) ) {
+			$alterations['jsonld_enable'] = true;
 		}
 
 		// Hide widget if no events.
