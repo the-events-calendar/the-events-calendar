@@ -9,6 +9,9 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
+use Tribe\Events\Views\V2\Assets;
+use Tribe__Context as Context;
+
 /**
  * Class for the List Widget.
  *
@@ -17,7 +20,6 @@ namespace Tribe\Events\Views\V2\Widgets;
  * @package Tribe\Events\Views\V2\Widgets
  */
 class Widget_List extends Widget_Abstract {
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -30,7 +32,14 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
-	protected $view_slug = 'widget-list';
+	protected $view_slug = 'widget-events-list';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
+	protected $view_admin_slug = 'widgets/list';
 
 	/**
 	 * {@inheritDoc}
@@ -47,10 +56,10 @@ class Widget_List extends Widget_Abstract {
 		'alias-slugs'          => null,
 		'title'                => '',
 		'limit'                => 5,
-		'no_upcoming_events'   => '',
+		'no_upcoming_events'   => false,
 		'featured_events_only' => false,
-		'tribe_is_list_widget' => true,
 		'jsonld_enable'        => true,
+		'tribe_is_list_widget' => true,
 
 		// WP_Widget properties.
 		'id_base'              => 'tribe-events-list-widget',
@@ -65,41 +74,141 @@ class Widget_List extends Widget_Abstract {
 	];
 
 	/**
-	 * @todo update in TEC-3612 & TEC-3613
-	 *
 	 * {@inheritDoc}
-	 *
-	 * @var array<string,mixed>
 	 */
-	protected $validate_arguments_map = [
-		'should_manage_url'    => 'tribe_is_truthy',
-		'no_upcoming_events'   => 'tribe_is_truthy',
-		'featured_events_only' => 'tribe_is_truthy',
-		'jsonld_enable'        => 'tribe_is_truthy',
-	];
+	public function enqueue_assets( $context, $view ) {
+		parent::enqueue_assets( $context, $view );
 
-	/**
-	 * @todo update in TEC-3612 & TEC-3613
-	 *
-	 * {@inheritDoc}
-	 */
-	public function setup() {
-		$this->setup_view();
+		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
+		tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-skeleton' );
+
+		if ( tribe( Assets::class )->should_enqueue_full_styles() ) {
+			tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-full' );
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_arguments() {
-		$arguments = $this->arguments;
+	protected function setup_default_arguments() {
+		$default_arguments = parent::setup_default_arguments();
 
-		$arguments['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
+		$default_arguments['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
 		// @todo update name once this widget is ready to replace the existing list widget.
-		$arguments['name']                          = esc_html__( 'Events List V2', 'the-events-calendar' );
-		$arguments['widget_options']['description'] = esc_html__( 'A widget that displays upcoming events.', 'the-events-calendar' );
+		$default_arguments['name']                          = esc_html_x( 'Events List V2', 'The name of the widget.', 'the-events-calendar' );
+		$default_arguments['widget_options']['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
+		// Setup default title.
+		$default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
 
-		$arguments = wp_parse_args( $arguments, $this->get_default_arguments() );
+		return $default_arguments;
+	}
 
-		return $this->filter_arguments( $arguments );
+	/**
+	 * {@inheritDoc}
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$updated_instance = $old_instance;
+
+		/* Strip tags (if needed) and update the widget settings. */
+		$updated_instance['title']                = wp_strip_all_tags( $new_instance['title'] );
+		$updated_instance['limit']                = $new_instance['limit'];
+		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
+		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
+		$updated_instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
+		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
+
+		return $this->filter_updated_instance( $updated_instance, $new_instance );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setup_admin_fields() {
+
+		return [
+			'title'                => [
+				'label' => _x( 'Title:', 'The label for the field of the title of the List Widget.', 'the-events-calendar' ),
+				'type'  => 'text',
+			],
+			'limit'                => [
+				'label'   => _x( 'Show:', 'The label for the amount of events to show in the List Widget.', 'the-events-calendar' ),
+				'type'    => 'dropdown',
+				'options' => $this->get_limit_options(),
+			],
+			'no_upcoming_events'   => [
+				'label' => _x( 'Hide this widget if there are no upcoming events.', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
+				'type'  => 'checkbox',
+			],
+			'featured_events_only' => [
+				'label' => _x( 'Limit to featured events only', 'The label for the option to only show featured events in the List Widget', 'the-events-calendar' ),
+				'type'  => 'checkbox',
+			],
+			'jsonld_enable'        => [
+				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSONLD in the List Widget.', 'the-events-calendar' ),
+				'type'  => 'checkbox',
+			],
+
+		];
+	}
+
+	/**
+	 * Get the options to use in a the limit dropdown.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> An array of options with the text and value included.
+	 */
+	public function get_limit_options() {
+		/**
+		 * Filter the max limit of events to display in the List Widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param int The max limit of events to display in the List Widget, default 10.
+		 */
+		$events_limit = apply_filters( 'tribe_events_widget_list_events_max_limit', 10 );
+
+		$options = [];
+
+		foreach ( range( 1, $events_limit ) as $i ) {
+			$options[] = [
+				'text'  => $i,
+				'value' => $i,
+			];
+		}
+
+		return $options;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function args_to_context( array $arguments, Context $context ) {
+		$alterations = parent::args_to_context( $arguments, $context );
+
+		// Only Featured Events.
+		if ( tribe_is_truthy( $arguments['featured_events_only'] ) ) {
+			$alterations['featured'] = true;
+		}
+
+		// Hide widget if no events.
+		if ( tribe_is_truthy( $arguments['no_upcoming_events'] ) ) {
+			$alterations['no_upcoming_events'] = true;
+		}
+
+		// Add posts per page.
+		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
+			(int) $arguments['limit'] :
+			5;
+
+		/**
+		 * Applies a filter to the args to context.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $alterations The alterations to make to the context.
+		 * @param array<string,mixed> $arguments   Current set of arguments.
+		 */
+		return apply_filters( 'tribe_events_views_v2_list_widget_args_to_context', $alterations, $arguments );
 	}
 }
