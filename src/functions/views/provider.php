@@ -123,6 +123,9 @@ function tribe_events_view_v2_use_period_repository() {
  * @return bool Whether Widgets v2 should load.
  */
 function tribe_events_widgets_v2_is_enabled() {
+	if ( ! tribe_events_views_v2_is_enabled() ) {
+		return false;
+	}
 
-	return (bool) defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) && TRIBE_EVENTS_WIDGETS_V2_ENABLED;
+	return ! defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) || TRIBE_EVENTS_WIDGETS_V2_ENABLED;
 }
