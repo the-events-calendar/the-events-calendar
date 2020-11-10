@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Events\Views\V2;
+namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe__Events__Main as Main;
 use Tribe__Settings_Manager as Settings;
@@ -14,24 +14,20 @@ class Widget_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function make_v1() {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_false' );
+		putenv( 'TRIBE_EVENTS_V2_VIEWS=0' );
 	}
 
 	public function make_v2() {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
+		putenv( 'TRIBE_EVENTS_V2_VIEWS=1' );
 	}
 
 	public function make_widget_v1() {
-		if ( ! defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) ) {
-			define( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED', false );
-		}
+		putenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED=0' );
 
 	}
 
 	public function make_widget_v2() {
-		if ( ! defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) ) {
-			define( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED', true );
-		}
+		putenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED=1' );
 	}
 
 	/**

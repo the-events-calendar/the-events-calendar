@@ -127,5 +127,11 @@ function tribe_events_widgets_v2_is_enabled() {
 		return false;
 	}
 
+
+	$env_var = getenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' );
+	if ( false !== $env_var ) {
+		return (bool) $env_var;
+	}
+
 	return ! defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) || TRIBE_EVENTS_WIDGETS_V2_ENABLED;
 }
