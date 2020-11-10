@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe\Events\Views\V2\View;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Trait iCal_Data
@@ -107,10 +108,13 @@ trait iCal_Data {
 	 * @return string The iCAl URL for the month view.
 	 */
 	public function get_month_view_url() {
-		$event_date = $this->context->get( 'event_date', 'now' );
+		$event_date = $this->context->get( 'event_date', Dates::build_date_object()->format( Dates::DBYEARMONTHTIMEFORMAT ) );
 
 		// If we don't have a date for some reason, give them the default iCal link.
-		$url = ! empty( $event_date ) ? tribe( 'tec.iCal' )->month_view_ical_link( $event_date ) : tribe( 'tec.iCal' )->get_ical_link();
+		$url = ! empty( $event_date )
+		? tribe( 'tec.iCal' )->month_view_ical_link( $event_date )
+		: tribe( 'tec.iCal' )->get_ical_link();
+
 		return $url;
 	}
 }

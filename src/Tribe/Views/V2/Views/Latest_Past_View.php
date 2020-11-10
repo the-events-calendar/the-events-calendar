@@ -34,12 +34,13 @@ class Latest_Past_View extends View {
 	protected static $publicly_visible = true;
 
 	/**
-	 * Whitelist of Templates to display when Latest Past Events is Active.
+	 * Safe list of Templates to display when Latest Past Events is Active.
 	 *
 	 * @since 5.1.0
 	 *
 	 * @var array
 	 */
+
 	protected $safelist = [
 		// Standard View Components.
 		'components/loader',
@@ -152,7 +153,7 @@ class Latest_Past_View extends View {
 	}
 
 	/**
-	 * Add Filters for Whitelist and Adding View HTML.
+	 * Add Filters for safe list and Adding View HTML.
 	 *
 	 * @since 5.1.0
 	 */
@@ -162,19 +163,19 @@ class Latest_Past_View extends View {
 	}
 
 	/**
-	 * Connect Whitelist Filter to Tribe Template Done to Prevent some of the current View's
+	 * Connect safe list Filter to Tribe Template Done to Prevent some of the current View's
 	 * Templates from Displaying when the Latest Past Events Displays.
 	 *
 	 * @since 5.1.0
 	 */
 	public function filter_template_done( $html ) {
-		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_safelist' ], 10, 4 );
 
+		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_safelist' ], 10, 4 );
 		return $html;
 	}
 
 	/**
-	 * Filter the Template Files and Only Return HTML if in Whitelist.
+	 * Filter the Template Files and Only Return HTML if in safe list.
 	 *
 	 * @since 5.1.0
 	 *

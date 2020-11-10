@@ -79,6 +79,15 @@ class View implements View_Interface {
 	protected $template_slug;
 
 	/**
+	 * The template path will be used as a prefix for template slug when locating its template files.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @var string
+	 */
+	protected $template_path = '';
+
+	/**
 	 * The Template instance the view will use to locate, manage and render its template.
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
@@ -643,6 +652,13 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
+	public function get_template_path() {
+		return $this->template_path;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function get_parents_slug() {
 		$parents = class_parents( $this );
 		$parents = array_map( [ tribe( Manager::class ), 'get_view_slug_by_class' ], $parents );
@@ -719,6 +735,10 @@ class View implements View_Interface {
 	 */
 	public function get_url( $canonical = false, $force = false ) {
 		$category = $this->context->get( 'event_category', false );
+
+		if ( is_array( $category ) ) {
+			$category = Arr::to_list( reset( $category ) );
+		}
 
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
@@ -1356,6 +1376,7 @@ class View implements View_Interface {
 	 * Sets up the View template variables.
 	 *
 	 * @since 4.9.4
+	 * @since 5.2.1 Add the `rest_method` to the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1405,6 +1426,9 @@ class View implements View_Interface {
 			}
 		);
 
+		/** @var Rest_Endpoint $endpoint */
+		$endpoint = tribe( Rest_Endpoint::class );
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1419,7 +1443,8 @@ class View implements View_Interface {
 			'today'                => $today,
 			'now'                  => $this->context->get( 'now', 'now' ),
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
-			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
+			'rest_url'             => $endpoint->get_url(),
+			'rest_method'          => $endpoint->get_method(),
 			'rest_nonce'           => $rest_nonce,
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
@@ -1516,6 +1541,15 @@ class View implements View_Interface {
 				'/'
 			);
 
+		/**
+		 * Allows filtering the Views request URI that will be used to set up the loop.
+		 *
+		 * @since 5.2.1
+		 *
+		 * @param string $request_uri The parsed request URI.
+		 */
+		$request_uri = apply_filters( 'tribe_events_views_v2_request_uri', $request_uri );
+
 		return $request_uri;
 	}
 
@@ -1555,6 +1589,13 @@ class View implements View_Interface {
 
 		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
 		$query_args['eventDisplay'] = $this->slug;
+
+		$category = $this->context->get( 'event_category', false );
+
+		if ( is_array( $category ) ) {
+			$category                       = Arr::to_list( reset( $category ) );
+			$query_args['tribe_events_cat'] = $category;
+		}
 
 		$query_args = $this->filter_query_args( $query_args, $canonical );
 

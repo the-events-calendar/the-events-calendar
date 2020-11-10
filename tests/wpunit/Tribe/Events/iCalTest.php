@@ -244,6 +244,32 @@ class iCalTest extends WPTestCase {
 	}
 
 	/**
+	 * Check to make sure that month_view_ical_link function works as expected with no date.
+	 */
+	public function test_get_month_view_ical_link_no_date() {
+		$ical_link_via_object = $this->make_instance()->month_view_ical_link();
+
+		$this->assertNotEmpty( filter_var( $ical_link_via_object, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from object.' );
+
+		$manual_link = untrailingslashit( home_url() ) . '/events/' . \Tribe__Date_Utils::build_date_object()->format( \Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT ) . '/?ical=1';
+
+		$this->assertEquals( $ical_link_via_object, $manual_link, 'Check that the object gets the same results as a manual build.' );
+	}
+
+	/**
+	 * Check to make sure that month_view_ical_link function works as expected with a date supplied.
+	 */
+	public function test_get_month_view_ical_link_with_date() {
+		$ical_link_via_object = $this->make_instance()->month_view_ical_link( '2020-10' );
+
+		$this->assertNotEmpty( filter_var( $ical_link_via_object, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from object.' );
+
+		$manual_link = untrailingslashit( home_url() ) . '/events/2020-10/?ical=1';
+
+		$this->assertEquals( $ical_link_via_object, $manual_link, 'Check that the object gets the same results as a manual build.' );
+	}
+
+	/**
 	 * It should generate the iCal content
 	 *
 	 * @dataProvider ical_content_provider
