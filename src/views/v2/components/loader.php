@@ -22,6 +22,8 @@
 		<?php esc_html_e( 'Loading view.', 'the-events-calendar' ); ?>
 	</span>
 	<div class="tribe-events-view-loader__dots tribe-common-c-loader">
-		<?php $this->template( 'components/icons/dots', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot-svg' ] ] ); ?>
 	</div>
 </div>

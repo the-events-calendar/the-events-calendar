@@ -10,7 +10,9 @@
 	 *     aria-controls="container-id"
 	 *     aria-expanded="false"
 	 *   >
-	 *     <span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *     <span class="tribe-events-c-view-selector__button-icon">
+	 *       <?php $this->template( 'components/icons/' . esc_attr( $view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+	 *     </span>
 	 *     <span class="tribe-events-c-view-selector__button-text">
 	 *       Month
 	 *     </span>
@@ -23,7 +25,9 @@
 	 *     <ul class="tribe-events-c-view-selector__list">
 	 *       <li class="tribe-events-c-view-selector__list-item">
 	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
-	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-icon">
+	 *             <?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
+	 *           </span>
 	 *           <span class="tribe-events-c-view-selector__list-item-text">
 	 *             Month
 	 *           </span>
@@ -31,7 +35,9 @@
 	 *       </li>
 	 *       <li class="tribe-events-c-view-selector__list-item">
 	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
-	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-icon">
+	 *             <?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
+	 *           </span>
 	 *           <span class="tribe-events-c-view-selector__list-item-text">
 	 *             List
 	 *           </span>
