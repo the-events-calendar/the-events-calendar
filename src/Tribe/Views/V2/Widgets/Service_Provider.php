@@ -40,6 +40,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		// These hooks always run to provide widget compatibility for v1 to v2 and reverse.
 		$this->register_compatibility();
 
+		// Determine if V2 views are loaded.
 		if ( ! tribe_events_views_v2_is_enabled() ) {
 			return;
 		}
