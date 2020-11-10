@@ -70,8 +70,7 @@ class Compatibility {
 		if (
 			$advanced_primary &&
 			(
-				! tribe_events_views_v2_is_enabled() ||
-				tribe_events_widgets_v2_is_disabled()
+				! tribe_events_views_v2_is_enabled()
 			)
 		) {
 			$this->primary_id_base     = 'tribe-events-adv-list-widget';
