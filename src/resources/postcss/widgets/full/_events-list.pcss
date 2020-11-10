@@ -1,0 +1,97 @@
+.tribe-events-widget {
+
+	.tribe-events-widget-events-list__header {
+		margin-bottom: var(--spacer-5);
+	}
+
+	.tribe-events-widget-events-list__event-row--featured {
+
+		.tribe-events-widget-events-list__event-date-tag-datetime:after {
+			background-color: var(--color-accent-primary);
+			content: '';
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: 3px;
+		}
+	}
+
+
+	.tribe-events-widget-events-list__event-date-tag-month {
+		@mixin mobile-body-3;
+
+		color: var(--color-text-secondary);
+		text-transform: uppercase;
+	}
+
+	.tribe-events-widget-events-list__event-title {
+
+		.tribe-common--breakpoint-xsmall& {
+			@mixin heading-5;
+		}
+
+		.tribe-common--breakpoint-medium& {
+			@mixin desktop-heading-4;
+		}
+	}
+
+	.tribe-events-widget-events-list__view-more-link {
+		color: var(--color-accent-primary);
+		text-transform: capitalize;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: var(--color-accent-primary);
+			border-bottom-color: var(--color-accent-primary);
+		}
+	}
+
+	.tribe-events-widget-events-list {
+
+		.tribe-events-c-messages__message {
+			background-color: transparent;
+			border-radius: 0;
+		}
+
+		.tribe-events-c-messages__message--notice {
+
+			&:before {
+				background-image: svg-inline(messages-not-found);
+				background-repeat: no-repeat;
+				background-size: 22px;
+				display: inline-block;
+				content: '';
+				min-width: 22px;
+				height: 24px;
+				margin-right: var(--spacer-2);
+			}
+		}
+
+		.tribe-events-c-messages__message-list {
+
+			.tribe-common--breakpoint-medium& {
+				text-align: left;
+			}
+		}
+
+		.tribe-events-c-messages__message-list-item-link {
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen & {
+
+		.tribe-events-widget-events-list__view-more-link {
+
+			&:hover,
+			&:focus {
+				color: var(--color-accent-primary);
+			}
+		}
+	}
+}

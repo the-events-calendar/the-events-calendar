@@ -471,7 +471,7 @@ tribe.events.views.manager = {};
 			url: $container.data( 'view-rest-url' ),
 			accepts: 'html',
 			dataType: 'html',
-			method: 'GET',
+			method: $container.data( 'view-rest-method' ) || 'POST',
 			'async': true, // async is keyword
 			beforeSend: obj.ajaxBeforeSend,
 			complete: obj.ajaxComplete,
