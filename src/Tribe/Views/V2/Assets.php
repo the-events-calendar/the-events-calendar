@@ -141,6 +141,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'widget-events-list-full.css',
 			[
 				'tribe-common-full-style',
+				'tribe-events-widgets-v2-base-skeleton',
 				'tribe-events-widgets-v2-events-list-skeleton',
 			],
 			null,
