@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
 * Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
 * Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
+* Fix - Make sure Month View "View More" link to Day View will preserve the current search criteria. [TEC-3230]
 
 = [5.2.1] 2020-10-22 =
 
