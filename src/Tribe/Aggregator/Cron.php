@@ -397,7 +397,7 @@ class Tribe__Events__Aggregator__Cron {
 		$query = $records->query(
 			[
 				'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
-				'posts_per_page' => 15,
+				'posts_per_page' => 250,
 				'order'          => 'ASC',
 				'meta_query'     => [
 					'origin-not-csv'               => [
@@ -437,8 +437,8 @@ class Tribe__Events__Aggregator__Cron {
 			}
 
 			$cleaner
-				->set_stall_limit( HOUR_IN_SECONDS * 23 )
-				->set_time_to_live( HOUR_IN_SECONDS * 24 );
+				->set_stall_limit( HOUR_IN_SECONDS * 22 )
+				->set_time_to_live( HOUR_IN_SECONDS * 23 );
 
 			$cleaner->remove_duplicate_pending_records_for( $record );
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
