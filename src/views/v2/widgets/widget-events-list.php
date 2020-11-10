@@ -50,7 +50,7 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 			<?php $this->template( 'components/data' ); ?>
 
 			<header class="tribe-events-widget-events-list__header">
-				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6">
 					<?php echo esc_html( $widget_title ); ?>
 				</h3>
 			</header>
