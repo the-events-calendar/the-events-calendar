@@ -84,7 +84,7 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 	 *
 	 * @since TBD
 	 *
-	 * @param array                              $args   Arguments to queue the import.
+	 * @param array<string, mixed>               $args   Arguments to queue the import.
 	 * @param Tribe__Events__Aggregator__Service $record Which record we are dealing with.
 	 *
 	 * @return mixed
