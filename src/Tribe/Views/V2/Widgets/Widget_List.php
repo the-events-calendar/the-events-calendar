@@ -211,6 +211,15 @@ class Widget_List extends Widget_Abstract {
 		return apply_filters( 'tribe_events_views_v2_list_widget_args_to_context', $alterations, $arguments );
 	}
 
+	/**
+	 * Empties the json_ld_data if jsonld_enable is false,
+	 * removing the need for additional checks in the template.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed>  $template_vars The current template variables.
+	 * @return array<string,mixed> $template_vars The modified template variables.
+	 */
 	public function disable_json_data( $template_vars ) {
 		if (
 			isset( $template_vars['jsonld_enable'] )
