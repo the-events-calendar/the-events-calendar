@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Events\Aggregator\Record\Batch_Queue;
+
 class Tribe__Events__Aggregator__Record__Queue_Processor {
 	public static $scheduled_key = 'tribe_aggregator_process_insert_records';
 
@@ -339,7 +341,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			&& ! empty( $record->meta['allow_batch_push'] )
 			&& tribe_is_truthy( $record->meta['allow_batch_push'] )
 		) {
-			$class = Tribe__Events__Aggregator__Record__Batch_Queue::class;
+			$class = Batch_Queue::class;
 		}
 
 		/**

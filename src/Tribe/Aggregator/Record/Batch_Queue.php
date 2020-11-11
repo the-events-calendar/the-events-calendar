@@ -1,49 +1,58 @@
 <?php
-// Don't load directly
-defined( 'WPINC' ) or die;
+/**
+ * Create a new Queue to process Batch imports.
+ *
+ * @since TBD
+ */
 
-class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface {
+namespace Tribe\Events\Aggregator\Record;
+
+use DateTime;
+use DateTimeZone;
+use Exception;
+use Tribe__Date_Utils;
+use Tribe__Events__Aggregator__Record__Abstract;
+use Tribe__Events__Aggregator__Record__Activity;
+use Tribe__Events__Aggregator__Record__Queue_Cleaner;
+use Tribe__Events__Aggregator__Record__Queue_Interface;
+use Tribe__Events__Aggregator__Records;
+use Tribe__Events__Aggregator__Service;
+use Tribe__Events__Main;
+use WP_Error;
+use WP_Post;
+
+// Prevent to access the file directly.
+defined( 'WPINC' ) || die;
+
+/**
+ * Class Tribe__Events__Aggregator__Record__Batch_Queue - New Queue system to process imports crated with the new
+ * batch system.
+ *
+ * @since TBD
+ */
+class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface {
+	/**
+	 * Set a name to identify the activity object.
+	 *
+	 * @since TBD
+	 *
+	 * @var string $activity_key Key to identify the activity object.
+	 */
 	public static $activity_key = 'activity';
 
 	/**
-	 * @var Tribe__Events__Aggregator__Record__Abstract
+	 * Access to the current record.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Events__Aggregator__Record__Abstract $record The current record.
 	 */
 	public $record;
-
-	protected $importer;
 
 	/**
 	 * @var Tribe__Events__Aggregator__Record__Activity
 	 */
 	protected $activity;
-
-	/**
-	 * Holds the Items that will be processed
-	 *
-	 * @var array
-	 */
-	public $items = [];
-
-	/**
-	 * Holds the Items that will be processed next
-	 *
-	 * @var array
-	 */
-	public $next = [];
-
-	/**
-	 * How many items are going to be processed
-	 *
-	 * @var int
-	 */
-	public $total = 0;
-
-	/**
-	 * @since TBD
-	 *
-	 * @var Tribe__Events__Aggregator__Record__Queue_Cleaner
-	 */
-	protected $cleaner;
 
 	/**
 	 * Whether any real processing should happen for the queue or not.
@@ -53,13 +62,6 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	 * @var bool
 	 */
 	protected $null_process = false;
-
-	/**
-	 * @since TBD
-	 *
-	 * @var bool Whether this queue instance has acquired the lock or not.
-	 */
-	protected $has_lock = false;
 
 	/**
 	 * Tribe__Events__Aggregator__Record__Queue constructor.
@@ -106,6 +108,8 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 		if ( $key === 'activity' ) {
 			return $this->activity();
 		}
+
+		return null;
 	}
 
 	/**
@@ -207,10 +211,12 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	 * @return self|Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function process( $batch_size = null ) {
+		// This batch has not started yet, make sure to initiate this import.
 		if ( empty( $this->record->meta['batch_started'] ) ) {
+			$now = new DateTime( 'now', new DateTimeZone( 'UTC' ) );
 			$this->record->update_meta(
 				'batch_started',
-				( new DateTime( 'now', new DateTimeZone( 'UTC' ) ) )->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
+				$now->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
 			);
 			$this->record->set_status_as_pending();
 			$this->start();
@@ -305,6 +311,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	 * @since TBD
 	 */
 	public function set_in_progress_flag() {
+		// No operation.
 	}
 
 	/**
@@ -313,6 +320,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	 * @since TBD
 	 */
 	public function clear_in_progress_flag() {
+		// No operation.
 	}
 
 	/**
@@ -356,7 +364,7 @@ class Tribe__Events__Aggregator__Record__Batch_Queue implements Tribe__Events__A
 	 *
 	 * @since TBD
 	 *
-	 * @return mixed
+	 * @return bool
 	 */
 	public function is_stuck() {
 		return false;

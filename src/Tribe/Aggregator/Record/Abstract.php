@@ -1,6 +1,8 @@
 <?php
-// Don't load directly
-defined( 'WPINC' ) or die;
+use Tribe\Events\Aggregator\Record\Batch_Queue;
+
+// Don't load directly.
+defined( 'WPINC' ) || die;
 
 abstract class Tribe__Events__Aggregator__Record__Abstract {
 
@@ -844,7 +846,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return stdClass|WP_Error An object containing the response data or a `WP_Error` on failure.
 	 */
 	public function get_import_data() {
-		/** @var \Tribe__Events__Aggregator $aggregator */
+		/** @var Tribe__Events__Aggregator $aggregator */
 		$aggregator = tribe( 'events-aggregator.main' );
 
 		$data = [];
@@ -857,7 +859,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			];
 		}
 
-		/** @var \Tribe__Events__Aggregator__API__Import $import_api */
+		/** @var Tribe__Events__Aggregator__API__Import $import_api */
 		$import_api = $aggregator->api( 'import' );
 
 		if ( empty( $this->meta['import_id'] ) ) {
@@ -1273,7 +1275,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// to feed the UI something coherent
 		if ( $is_not_csv && ! $this->is_polling() ) {
 			// @todo let's revisit this to return when more UI is exposed
-			$queue = new Tribe__Events__Aggregator__Record__Batch_Queue( $this );
+			$queue = new Batch_Queue( $this );
 
 			if ( $start_immediately ) {
 				$queue->process();
@@ -2339,7 +2341,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @param WP_Error|object $import_data
 	 *
-	 * @return array|\WP_Error
+	 * @return array|WP_Error
 	 */
 	protected function maybe_cast_to_error( $import_data ) {
 		if ( is_wp_error( $import_data ) ) {
@@ -2349,7 +2351,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( ! empty( $import_data->status ) && 'error' === $import_data->status ) {
 			$import_data = (array) $import_data;
 			$code        = Tribe__Utils__Array::get( $import_data, 'message_code', 'error:import-failed' );
-			/** @var \Tribe__Events__Aggregator__Service $service */
+			/** @var Tribe__Events__Aggregator__Service $service */
 			$service     = tribe( 'events-aggregator.service' );
 			$message     = Tribe__Utils__Array::get( $import_data, 'message', $service->get_service_message( 'error:import-failed' ) );
 			$data        = Tribe__Utils__Array::get( $import_data, 'data', [] );
