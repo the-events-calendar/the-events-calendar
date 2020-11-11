@@ -387,6 +387,12 @@ class Tribe__Events__Aggregator__Cron {
 		}
 	}
 
+	/**
+	 * Start the processing of the scheduled imports created with batch pushing the cron job would select and start
+	 * the beginning of the batch delivery.
+	 *
+	 * @since TBD
+	 */
 	public function start_batch_pushing_records() {
 		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
@@ -436,9 +442,7 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			$cleaner
-				->set_stall_limit( HOUR_IN_SECONDS * 22 )
-				->set_time_to_live( HOUR_IN_SECONDS * 23 );
+			$cleaner->set_stall_limit( HOUR_IN_SECONDS * 22 )->set_time_to_live( HOUR_IN_SECONDS * 23 );
 
 			$cleaner->remove_duplicate_pending_records_for( $record );
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
@@ -477,7 +481,7 @@ class Tribe__Events__Aggregator__Cron {
 			'posts_per_page' => -1,
 			'order'          => 'ASC',
 			'meta_query'     => [
-				'origin-not-csv'                  => [
+				'origin-not-csv' => [
 					'key'     => '_tribe_aggregator_origin',
 					'value'   => 'csv',
 					'compare' => '!=',
@@ -503,6 +507,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records Pending, skipped Fetching from service', 'EA Cron' );
+
 			return;
 		}
 
@@ -566,7 +571,7 @@ class Tribe__Events__Aggregator__Cron {
 	public function purge_expired_records() {
 		global $wpdb;
 
-		$records = Tribe__Events__Aggregator__Records::instance();
+		$records  = Tribe__Events__Aggregator__Records::instance();
 		$statuses = Tribe__Events__Aggregator__Records::$status;
 
 		$sql = "
@@ -615,6 +620,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records over retention limit, skipped pruning expired', 'EA Cron' );
+
 			return;
 		}
 

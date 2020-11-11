@@ -14,17 +14,6 @@
  */
 class Tribe__Events__Aggregator__Processes__Batch_Imports {
 	/**
-	 * Attach hooks to support batch pushing.
-	 *
-	 * @since TBD
-	 */
-	public function hook() {
-		add_filter( 'tribe_events_aggregator_build_url', [ $this, 'build_url' ], 10, 3 );
-		add_filter( 'tribe_aggregator_service_post_import_args', [ $this, 'import_args' ], 10, 2 );
-		add_filter( 'tribe_aggregator_allow_batch_push', [ $this, 'allow_batch_import' ], 10, 2 );
-	}
-
-	/**
 	 * Update the endpoint used to initiate an process an import of events.
 	 *
 	 * @param string   $url      The completed URL generated.
@@ -38,12 +27,14 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 			return $url;
 		}
 
-		return "{$api->domain}{$api->path}{v2.0.0}/{$endpoint}";
+		return $api->domain . $api->path . 'v2.0.0' . '/' . $endpoint;
 	}
 
 	/**
-	 * Filter subsequent imports to mark children imports as batch pushing if the parent was marked as batch pushing or
-	 * if is a new import that was created using the new version of endpoints to support batch pushing.
+	 * Filter imports (if it has a parent import is a schedule import) and if the parent was not a batch pushing import,
+	 * make sure that that setting is respected, in this way we can support backwards compatibility as all imports created
+	 * before batch pushing are going to remaining using the old system and new imports are going to be considered as
+	 * batch pushing imports.
 	 *
 	 * @since TBD
 	 *
@@ -62,7 +53,7 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 		}
 
 		// This is a new record and does not have a parent.
-		if ( ! $abstract->post->post_parent ) {
+		if ( ! $abstract->post instanceof WP_Post || ! $abstract->post->post_parent ) {
 			return $service_supports_batch_push;
 		}
 
