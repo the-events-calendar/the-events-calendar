@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Timezones as Timezones;
+
 if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
@@ -390,7 +392,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// Try to create a a current and end date with the timezone to avoid using the WP timezone if is not the setup case.
 		try {
-			$timezone = new DateTimeZone( $timezone_name );
+			$timezone = Timezones::build_timezone_object( $timezone_name );
 			$current  = date_create( 'now', $timezone );
 			$end      = date_create( $end_date, $timezone );
 		} catch( Exception $exception ) {
