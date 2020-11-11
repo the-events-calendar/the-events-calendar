@@ -46,6 +46,8 @@ tribe.events.views.datepicker = {};
 		button: '[data-js="tribe-events-top-bar-datepicker-button"]',
 		buttonOpenClass: '.tribe-events-c-top-bar__datepicker-button--open',
 		dateInput: '[name="tribe-events-views[tribe-bar-date]"]',
+		prevIcon: '#tribe-events-c-top-bar__datepicker-template-prev-icon',
+		nextIcon: '#tribe-events-c-top-bar__datepicker-template-next-icon',
 	};
 
 	/**
@@ -596,6 +598,8 @@ tribe.events.views.datepicker = {};
 
 		var $input = $container.find( obj.selectors.input );
 		var $datepickerButton = $container.find( obj.selectors.button );
+		var $prevIcon = $( $container.find( obj.selectors.prevIcon ) ).html();
+		var $nextIcon = $( $container.find( obj.selectors.nextIcon ) ).html();
 		var viewSlug = data.slug;
 		var isMonthView = 'month' === viewSlug;
 
@@ -623,8 +627,8 @@ tribe.events.views.datepicker = {};
 		var datepickerI18n = tribeL10nDatatables.datepicker || {};
 		var nextText = datepickerI18n.nextText || 'Next';
 		var prevText = datepickerI18n.prevText || 'Prev';
-		obj.options.templates.leftArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + prevText + '</span>',
-		obj.options.templates.rightArrow = '<span class="tribe-common-svgicon"></span><span class="tribe-common-a11y-visual-hide">' + nextText + '</span>',
+		obj.options.templates.leftArrow = $prevIcon + '<span class="tribe-common-a11y-visual-hide">' + prevText + '</span>',
+		obj.options.templates.rightArrow = $nextIcon + '<span class="tribe-common-a11y-visual-hide">' + nextText + '</span>',
 		obj.options.beforeShowDay = obj.filterDayCells;
 		obj.options.beforeShowMonth = obj.filterMonthCells;
 		obj.options.beforeShowYear = obj.filterYearCells;
