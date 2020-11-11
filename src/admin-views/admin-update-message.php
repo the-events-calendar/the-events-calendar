@@ -6,7 +6,11 @@
 
 ?>
 
-<p class="tribe-welcome-message"><?php echo esc_html( sprintf( __( 'You are running Version %s and deserve a hug :-)', 'the-events-calendar' ), Tribe__Events__Main::VERSION ) ); ?></p>
+
+<p class="tribe-update-message"><?php
+	/* translators: the placeholder will contain the semantic version of The Events Calenda plugin, e.g. 1.2.3 */
+	echo esc_html( sprintf( __( 'You are running Version %s and deserve a hug :-)', 'the-events-calendar' ), Tribe__Events__Main::VERSION ) );
+	?></p>
 
 <div class="tribe-row">
 	<div class="tribe-half-column">

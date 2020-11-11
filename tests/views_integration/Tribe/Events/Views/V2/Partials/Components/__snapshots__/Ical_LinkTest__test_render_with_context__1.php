@@ -5,5 +5,4 @@
 		href="http://tests.tri.be/?ical=something"
 	>Export Events</a>
 </div>
-
 ';

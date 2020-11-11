@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Events\I18n;
+
 
 class Tribe__Events__Integrations__WPML__Filters {
 
@@ -66,7 +68,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 		$untranslated_bases = array_combine( array_keys( $bases ), array_column( $bases, 0 ) );
 
 		$translated_bases = tribe( 'tec.i18n' )
-			->get_i18n_strings( $untranslated_bases, $languages, $domains, $current_locale );
+			->get_i18n_strings( $untranslated_bases, $languages, $domains, $current_locale, I18n::COMPILE_STRTOLOWER );
 
 		// Prepend the WPML-translated bases to the set of bases.
 		$bases = array_merge_recursive( $translated_bases, $bases );

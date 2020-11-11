@@ -82,6 +82,32 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
+			// Overrides for common components/full/buttons/_border.pcss.
+			$template .= '
+				.tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt),
+				.tribe-common a.tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt) {
+					border-color: <%= global_elements.accent_color %>;
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
+				.tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
+				.tribe-common a.tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
+				.tribe-common a.tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover {
+					color: ' . $color_background . ';
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
 			// overrides for common components/full/buttons/_solid.pcss.
 			$template .= '
 				.tribe-common .tribe-common-c-btn,

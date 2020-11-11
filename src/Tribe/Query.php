@@ -886,6 +886,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string
 		 */
 		public static function posts_orderby( $order_sql, $query ) {
+			// If this is set then the class will bail out of any filtering.
+			if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+				return $order_sql;
+			}
+
 			global $wpdb;
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {

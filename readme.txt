@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, Camwyn, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.1.5
-Tested up to: 5.4.2
+Stable tag: 5.4.0
+Tested up to: 5.5.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,6 +221,56 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [TBD] TBD =
+
+* Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
+* Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
+* Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
+* Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
+* Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
+* Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
+
+= [5.2.1] 2020-10-22 =
+
+* Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
+* Tweak - Add the `tribe_events_views_v2_endpoint_method` filter to allow controlling the HTTP method Views should use to fetch their content from the back-end endpoint. [TEC-3283]
+* Tweak - Add the `tribe_events_views_v2_endpoint_url` filter to allow controlling the URL Views should use to fetch their content from the back-end endpoint. [TEC-3283]
+* Fix - Prevent Event Aggregator 15 minute Cron Schedule from being created when not required (props @jetxpert) [EA-317]
+* Fix - Add filter to toggle off the event templates hijack. [TEC-3521]
+* Fix - Correct url for current month iCal export link. [TEC-3575]
+* Fix - Avoid loading the same CSS file twice on the back-end. [TEC-3623]
+* Fix - Ensure ECP shortcode prev/next urls handle categories gracefully. [ECP-492]
+* Language - 3 new strings added, 200 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.2.0] 2020-09-28 =
+
+* Fix - Fix the order of the List View when the PRO is set to show only the first instance of a Recurring Event. [ECP-467]
+* Fix - Fix a PHP error that would arise when during the translation, by the WPML plugin, of some strings. [TEC-3454, TEC-3578]
+* Fix - Fix a compatibility issue with the WPML plugin that would prevent some options from being translated correctly. [TEC-3454]
+* Fix - Generation and usage of translated strings that would cause issues with the WPML plugin. [TEC-3454]
+* Tweak - Use the `border-small` class for the today button, add new border button styles to customizer. [FBAR-143]
+* Tweak - Add missing CSS classes to the Event Categories label on the single event page. [TEC-3478]
+* Tweak - Adjust accordion trigger selector to allow multiple space-separated `data-js` attributes. [FBAR-125]
+* Tweak - Adjust spacing on header to prevent screen overflow. [FBAR-132]
+* Tweak - Adjust aria attributes and add loader text to make ajax loading more accessible. [FBAR-147]
+* Tweak - Add the `tribe_events_latest_past_view_display_template` filter to allow controlling the display of templates  in the context of the Latest Past Events View. [FBAR-148]
+* Tweak - Allow passing of additional data to the AJAX request by use of container data. [FBAR-162]
+* Language - 2 new strings added, 20 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.1.6] 2020-08-24 =
+
+* Tweak - Move the iCal output coding out of the loop and into its own method.  [VE-150]
+* Fix - Fix SQL errors that would show up when creating custom Event queries in theme builders. [TEC-3530]
+* Fix - Fix SQL errors that would show up when running custom Event queries in plugins . [TEC-3528]
+* Fix - Fix SQL errors that would prevent customers from being able to select tickets assigned to Events in some instances. [TEC-3500]
+* Fix - On re-import of the excerpt and event description field enable changes to the existing values. [TEC-3080]
+* Fix - On re-import enable excerpt and description to be cleared of their values. [TEC-3080]
+* Fix - On re-import only overwrite items that have been mapped. [TEC-2962]
+* Tweak - Add filters for venue and organizer import data. [TEC-2962]
+* Tweak - Add ability to use default values from settings for venue imports via the `tribe_events_importer_set_default_venue_import_values` filter. [TEC-2962]
+* Tweak - Replace placeholders in template docblocks with appropriate links. [TEC-3399]
+* Language - 32 new strings added, 75 updated, 0 fuzzied, and 28 obsoleted
 
 = [5.1.5] 2020-07-27 =
 

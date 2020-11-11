@@ -48,67 +48,115 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Get Event Label Singular
+	 * Get Event Label Singular.
+	 * Returns the singular version of the Event Label.
 	 *
-	 * Returns the singular version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.10
+	 * @since5.1.6 remove escaping.
+	 *
+	 * @return string The singular version of the Event Label.
 	 */
 	function tribe_get_event_label_singular() {
 		/**
-		 * Allows customization of the singular version of the Event Label
+		 * Allows customization of the singular version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.10
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The singular version of the Event label, defaults to "Event" (uppercase)
 		 */
-		return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_singular',
+			__( 'Event', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get Event Label Singular lowercase
+	 * Get Event Label Singular lowercase.
+	 * Returns the lowercase singular version of the Event Label.
 	 *
-	 * Returns the singular version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 4.1.1
+	 * @since5.1.6 remove escaping.
+	 *
+	 * @return string The lowercase singular version of the Event Label.
 	 */
 	function tribe_get_event_label_singular_lowercase() {
 		/**
-		 * Allows customization of the singular lowercase version of the Event Label
+		 * Allows customization of the singular lowercase version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 4.1.1
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The singular lowercase version of the Event label, defaults to "event" (lowercase)
 		 */
-		return apply_filters( 'tribe_event_label_singular_lowercase', esc_html__( 'event', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_singular_lowercase',
+			__( 'event', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get Event Label Plural
+	 * Get Event Label Plural.
+	 * Returns the plural version of the Event Label.
 	 *
-	 * Returns the plural version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.10
+	 * @since5.1.6 remove escaping.
+	 *
+	 * @return string The plural version of the Event Label.
 	 */
 	function tribe_get_event_label_plural() {
 		/**
-		 * Allows customization of the plural version of the Event Label
+		 * Allows customization of the plural version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.10
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The plural version of the Event label, defaults to "Events" (uppercase)
 		 */
-		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_plural',
+			__( 'Events', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get Event Label Plural lowercase
+	 * Get Event Label Plural lowercase.
+	 * Returns the plural version of the Event Label.
 	 *
-	 * Returns the plural version of the Event Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 4.1.1
+	 * @since5.1.6 remove escaping.
+	 *
+	 * @return string The lowercase plural version of the Event Label.
 	 */
 	function tribe_get_event_label_plural_lowercase() {
 		/**
-		 * Allows customization of the plural lowercase version of the Event Label
+		 * Allows customization of the plural lowercase version of the Event Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 4.1.1
+		 * @since5.1.6 Remove escaping.
 		 *
 		 * @param string $label The plural lowercase version of the Event label, defaults to "events" (lowercase)
 		 */
-		return apply_filters( 'tribe_event_label_plural_lowercase', esc_html__( 'events', 'the-events-calendar' ) );
+		return apply_filters(
+			'tribe_event_label_plural_lowercase',
+			__( 'events', 'the-events-calendar' )
+		);
 	}
 
 	/**
@@ -1170,6 +1218,95 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string $after     part of the HTML wrapper that was appended
 		 */
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after );
+	}
+
+	/**
+	 * Return the short details of the start/end date/time.
+	 *
+	 * @see tribe_events_event_schedule_details() for the format of the schedule details.
+	 *
+	 * @param int|null $event  The event post ID, or `null` to use the global event.
+	 * @param string   $before A string to prepend before the schedule details.
+	 * @param string   $after  A string to append after the schedule details.
+	 * @param bool     $html   Whether to use HTML elements in the output string or not; defaults to `true`.
+	 *
+	 * @return string The human-readable event short schedule details formatted according to the current settings.
+	 */
+	function tribe_events_event_short_schedule_details( $event = null, $before = '', $after = '', $html = true ) {
+		static $cache_var_name = __FUNCTION__;
+
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		// if the post is password protected, don't return the schedule details
+		if ( post_password_required( $event ) ) {
+			return '';
+		}
+
+		$cache_details     = tribe_get_var( $cache_var_name, [] );
+		$cache_details_key = "{$event->ID}:{$before}:{$after}:{$html}";
+
+		if ( ! isset( $cache_details[ $cache_details_key ] ) ) {
+			if ( tribe_event_is_multiday( $event ) ) {
+				// Multiday event.
+				$inner = tribe_events_event_schedule_details( $event, $before, $after, $html );
+			} elseif ( tribe_event_is_all_day( $event ) ) {
+				// All day event.
+				$inner = esc_html_x( 'All day', 'All day label for event', 'the-events-calendar' );
+			} else {
+				// Single day event.
+				$inner       = $html ? '<span class="tribe-event-date-start">' : '';
+				$time_format = get_option( 'time_format' );
+
+				if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) {
+					// Same start/end time.
+					$inner .= tribe_get_start_date( $event, false, $time_format );
+				} else {
+					// Different start/end time.
+					$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+
+					$inner .= tribe_get_start_date( $event, false, $time_format );
+					$inner .= $html ? '</span>' : '';
+					$inner .= $time_range_separator;
+					$inner .= $html ? '<span class="tribe-event-time">' : '';
+					$inner .= tribe_get_end_date( $event, false, $time_format );
+				}
+
+				$inner .= $html ? '</span>' : '';
+			}
+
+			$cache_details[ $cache_details_key ] = $inner;
+			tribe_set_var( $cache_var_name, $cache_details );
+		}
+
+		/**
+		 * Provides an opportunity to modify the *inner* short schedule details HTML
+		 * (ie before it is wrapped).
+		 *
+		 * @param string $inner_html the output HTML.
+		 * @param int    $event_id   post ID of the event we are interested in.
+		 */
+		$inner = apply_filters( 'tribe_events_event_short_schedule_details_inner', $cache_details[ $cache_details_key ], $event->ID );
+
+		// Wrap the schedule text
+		$schedule = $before . $inner . $after;
+
+		/**
+		 * Provides an opportunity to modify the short schedule details HTML for a specific event
+		 * after it has been wrapped in the before and after markup.
+		 *
+		 * @param string $schedule the output HTML.
+		 * @param int    $event_id post ID of the event we are interested in.
+		 * @param string $before   part of the HTML wrapper that was prepended.
+		 * @param string $after    part of the HTML wrapper that was appended.
+		 */
+		return apply_filters( 'tribe_events_event_short_schedule_details', $schedule, $event->ID, $before, $after );
 	}
 
 	/**

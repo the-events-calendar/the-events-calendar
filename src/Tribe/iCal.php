@@ -1,5 +1,7 @@
 <?php
 
+use Tribe__Date_Utils as Dates;
+
 /**
  *  Class that implements the export to iCal functionality
  *  both for list and single events
@@ -85,7 +87,14 @@ class Tribe__Events__iCal {
 	public function month_view_ical_link( $event_date = null ) {
 		$tec = Tribe__Events__Main::instance();
 
-		return add_query_arg( [ 'ical' => 1 ], $tec->getLink( 'month', $event_date ) );
+		// Default to current month if not set.
+		if ( empty( $event_date ) ) {
+			$event_date = Dates::build_date_object()->format( Dates::DBYEARMONTHTIMEFORMAT );
+		}
+
+		$url = $tec->getLink( 'month', $event_date );
+
+		return add_query_arg( [ 'ical' => 1 ], $url );
 	}
 
 	/**
@@ -578,6 +587,7 @@ class Tribe__Events__iCal {
 	 * Get the Body With all the events of the .ics file
 	 *
 	 * @since 4.9.4
+	 * @since5.1.6 - Utilize get_ical_output_for_an_event() to get the iCal output.
 	 *
 	 * @param array $posts
 	 *
@@ -588,125 +598,137 @@ class Tribe__Events__iCal {
 		$events      = '';
 
 		foreach ( $posts as $event_post ) {
-			// add fields to iCal output
-			$item = [];
 
-			$full_format = 'Ymd\THis';
-			$utc_format  = 'Ymd\THis\Z';
-			$all_day     = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
-			$time = (object) [
-				'start' => tribe_get_start_date( $event_post->ID, false, 'U' ),
-				'end' => tribe_get_end_date( $event_post->ID, false, 'U' ),
-				'modified' => Tribe__Date_Utils::wp_strtotime( $event_post->post_modified ),
-				'created' => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
-			];
-
-			$type   = 'DATE-TIME';
-			$format = $full_format;
-
-			if ( $all_day ) {
-				$type   = 'DATE';
-				$format = 'Ymd';
-			}
-
-			$tzoned = (object) [
-				'start' => date( $format, $time->start ),
-				'end' => date( $format, $time->end ),
-				'modified' => date( $utc_format, $time->modified ),
-				'created' => date( $utc_format, $time->created ),
-			];
-
-			$dtstart = $tzoned->start;
-			$dtend   = $tzoned->end;
-
-			if ( 'DATE' === $type ) {
-				// For all day events dtend should always be +1 day.
-				if ( $all_day ) {
-					$dtend = date( $format, strtotime( '+1 day', strtotime( $dtend ) ) );
-				}
-
-				$item[] = 'DTSTART;VALUE=' . $type . ':' . $dtstart;
-				$item[] = 'DTEND;VALUE=' . $type . ':' . $dtend;
-			} else {
-				// Are we using the sitewide timezone or the local event timezone?
-				$timezone_name = $this->get_timezone( $event_post );
-				$timezone = Tribe__Events__Timezones::build_timezone_object( $timezone_name );
-
-				$item[] = 'DTSTART;TZID=' . $timezone->getName() . ':' . $dtstart;
-				$item[] = 'DTEND;TZID=' . $timezone->getName() . ':' . $dtend;
-			}
-
-			$item[] = 'DTSTAMP:' . date( $full_format, time() );
-			$item[] = 'CREATED:' . $tzoned->created;
-			$item[] = 'LAST-MODIFIED:' . $tzoned->modified;
-			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
-			$item[] = 'SUMMARY:' . $this->replace( strip_tags( $event_post->post_title ) );
-
-			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
-
-			$item[] = 'DESCRIPTION:' . $this->replace( strip_tags( str_replace( '</p>', '</p> ', $content ) ) );
-
-			$item[] = 'URL:' . get_permalink( $event_post->ID );
-
-			// add location if available
-			$location = $tec->fullAddressString( $event_post->ID );
-			if ( ! empty( $location ) ) {
-				$str_location = $this->replace( $location, [ ',', "\n" ], [ '\,', '\n' ] );
-
-				$item[] = 'LOCATION:' .  $str_location;
-			}
-
-			// add categories if available
-			$event_cats = (array) wp_get_object_terms(
-				$event_post->ID,
-				Tribe__Events__Main::TAXONOMY,
-				[ 'fields' => 'names' ]
-			);
-
-			if ( ! empty( $event_cats ) ) {
-				$item[] = 'CATEGORIES:' . $this->html_decode( join( ',', $event_cats ) );
-			}
-
-			// add featured image if available
-			if ( has_post_thumbnail( $event_post->ID ) ) {
-				$thumbnail_id        = get_post_thumbnail_id( $event_post->ID );
-				$thumbnail_url       = wp_get_attachment_url( $thumbnail_id );
-				$thumbnail_mime_type = get_post_mime_type( $thumbnail_id );
-
-				/**
-				 * Allow for customization of an individual iCal-exported event's thumbnail.
-				 *
-				 * @param string $string This thumbnail's iCal-formatted "ATTACH;" string with the thumbnail mime type and URL.
-				 * @param int $post_id The ID of the event this thumbnail belongs to.
-				 */
-				$item[] = apply_filters( 'tribe_ical_feed_item_thumbnail', sprintf( 'ATTACH;FMTTYPE=%s:%s', $thumbnail_mime_type, $thumbnail_url ), $event_post->ID );
-			}
-
-			// add organizer if available
-			$organizer_email = tribe_get_organizer_email( $event_post->ID, false );
-			if ( $organizer_email ) {
-				$organizer_id = tribe_get_organizer_id( $event_post->ID );
-				$organizer    = get_post( $organizer_id );
-
-				if ( $organizer_id ) {
-					$item[] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', rawurlencode( $organizer->post_title ), $organizer_email );
-				} else {
-					$item[] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
-				}
-			}
-
-			/**
-			 * Allow for customization of an individual "VEVENT" item to be rendered inside an iCal export file.
-			 *
-			 * @param array $item The various iCal file format components of this specific event item.
-			 * @param object $event_post The WP_Post of this event.
-			 */
-			$item = apply_filters( 'tribe_ical_feed_item', $item, $event_post );
+			$item = $this->get_ical_output_for_an_event( $event_post, $tec );
 
 			$events .= "BEGIN:VEVENT\r\n" . implode( "\r\n", $item ) . "\r\nEND:VEVENT\r\n";
 		}
 
 		return $events;
+	}
+
+	/**
+	 * Get the iCal Output for the provided event object.
+	 *
+	 * @since5.1.6
+	 *
+	 * @param \WP_Post             $event_post The event post object.
+	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.
+	 *
+	 * @return array  An array of iCal output fields.
+	 */
+	public function get_ical_output_for_an_event( $event_post, Tribe__Events__Main $tec ) {
+
+		// Add fields to iCal output.
+		$item = [];
+
+		$full_format = 'Ymd\THis';
+		$utc_format  = 'Ymd\THis\Z';
+		$all_day     = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
+		$time        = (object) [
+			'start'    => tribe_get_start_date( $event_post->ID, false, 'U' ),
+			'end'      => tribe_get_end_date( $event_post->ID, false, 'U' ),
+			'modified' => Tribe__Date_Utils::wp_strtotime( $event_post->post_modified ),
+			'created'  => Tribe__Date_Utils::wp_strtotime( $event_post->post_date ),
+		];
+
+		$type   = 'DATE-TIME';
+		$format = $full_format;
+
+		if ( $all_day ) {
+			$type   = 'DATE';
+			$format = 'Ymd';
+		}
+
+		$tzoned = (object) [
+			'start'    => Tribe__Date_Utils::build_date_object( $time->start )->format( $format ),
+			'end'      => Tribe__Date_Utils::build_date_object( $time->end )->format( $format ),
+			'modified' => Tribe__Date_Utils::build_date_object( $time->modified )->format( $utc_format ),
+			'created'  => Tribe__Date_Utils::build_date_object( $time->created )->format( $utc_format ),
+		];
+
+		$dtstart = $tzoned->start;
+		$dtend   = $tzoned->end;
+
+		if ( 'DATE' === $type ) {
+			// For all day events dtend should always be +1 day.
+			if ( $all_day ) {
+				$dtend = Tribe__Date_Utils::build_date_object( strtotime( '+1 day', strtotime( $dtend ) ) )->format( $format );
+			}
+
+			$item['DTSTART'] = 'DTSTART;VALUE=' . $type . ':' . $dtstart;
+			$item['DTEND']   = 'DTEND;VALUE=' . $type . ':' . $dtend;
+		} else {
+			// Are we using the sitewide timezone or the local event timezone?
+			$timezone_name = $this->get_timezone( $event_post );
+			$timezone      = Tribe__Events__Timezones::build_timezone_object( $timezone_name );
+
+			$item['DTSTART'] = 'DTSTART;TZID=' . $timezone->getName() . ':' . $dtstart;
+			$item['DTEND']   = 'DTEND;TZID=' . $timezone->getName() . ':' . $dtend;
+		}
+
+		$item['DTSTAMP']       = 'DTSTAMP:' . Tribe__Date_Utils::build_date_object()->format( $full_format );
+		$item['CREATED']       = 'CREATED:' . $tzoned->created;
+		$item['LAST-MODIFIED'] = 'LAST-MODIFIED:' . $tzoned->modified;
+		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
+
+		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+
+		$item['DESCRIPTION'] = 'DESCRIPTION:' . $this->replace( wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) ) );
+
+		$item['URL'] = 'URL:' . get_permalink( $event_post->ID );
+
+		// Add location if available.
+		$location = $tec->fullAddressString( $event_post->ID );
+		if ( ! empty( $location ) ) {
+			$str_location = $this->replace( $location, [ ',', "\n" ], [ '\,', '\n' ] );
+
+			$item['LOCATION'] = 'LOCATION:' . $str_location;
+		}
+
+		// Add categories if available.
+		$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, [ 'fields' => 'names' ] );
+
+		if ( ! empty( $event_cats ) ) {
+			$item['CATEGORIES'] = 'CATEGORIES:' . $this->html_decode( join( ',', $event_cats ) );
+		}
+
+		// Add featured image if available.
+		if ( has_post_thumbnail( $event_post->ID ) ) {
+			$thumbnail_id        = get_post_thumbnail_id( $event_post->ID );
+			$thumbnail_url       = wp_get_attachment_url( $thumbnail_id );
+			$thumbnail_mime_type = get_post_mime_type( $thumbnail_id );
+
+			/**
+			 * Allow for customization of an individual iCal-exported event's thumbnail.
+			 *
+			 * @param string $string  This thumbnail's iCal-formatted "ATTACH;" string with the thumbnail mime type and URL.
+			 * @param int    $post_id The ID of the event this thumbnail belongs to.
+			 */
+			$item['ATTACH'] = apply_filters( 'tribe_ical_feed_item_thumbnail', sprintf( 'ATTACH;FMTTYPE=%s:%s', $thumbnail_mime_type, $thumbnail_url ), $event_post->ID );
+		}
+
+		// Add organizer if available.
+		$organizer_email = tribe_get_organizer_email( $event_post->ID, false );
+		if ( $organizer_email ) {
+			$organizer_id = tribe_get_organizer_id( $event_post->ID );
+			$organizer    = get_post( $organizer_id );
+
+			if ( $organizer_id ) {
+				$item['ORGANIZER'] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', rawurlencode( $organizer->post_title ), $organizer_email );
+			} else {
+				$item['ORGANIZER'] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
+			}
+		}
+
+		/**
+		 * Allow for customization of an individual "VEVENT" item to be rendered inside an iCal export file.
+		 *
+		 * @param array  $item       The various iCal file format components of this specific event item.
+		 * @param object $event_post The WP_Post of this event.
+		 */
+		return apply_filters( 'tribe_ical_feed_item', $item, $event_post );
 	}
 
 	/**

@@ -199,7 +199,7 @@ class Month_ViewTest extends ViewTestCase {
 		yield 'no_results_found' => [
 			[],
 			[
-				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_results_found' ) ],
+				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_upcoming_events' ) ],
 			]
 		];
 

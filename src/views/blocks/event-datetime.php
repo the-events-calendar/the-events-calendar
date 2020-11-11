@@ -7,7 +7,7 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
  * @version 5.0.1
  *
@@ -68,9 +68,8 @@ $is_all_day        = tribe_event_is_all_day( $event_id );
 $is_same_day       = $formatted_start_date == $formatted_end_date;
 $is_same_start_end = $formatted_start_date == $formatted_end_date && $formatted_start_time == $formatted_end_time;
 
+$event_id = $this->get( 'post_id' );
 ?>
-
-<?php $event_id = $this->get( 'post_id' ); ?>
 <div class="tribe-events-schedule tribe-clearfix">
 	<h2 class="tribe-events-schedule__datetime">
 		<span class="tribe-events-schedule__date tribe-events-schedule__date--start">
