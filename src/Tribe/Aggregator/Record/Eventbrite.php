@@ -172,7 +172,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 				$status = 'publish';
 			}
 			// If not draft, looked if listed. If not, set to private.
-			if ( 'draft' ! == $status && isset( $event['eventbrite']->listed ) && !tribe_is_truthy( $event['eventbrite']->listed ) ) {
+			if ( 'draft' !== $status && isset( $event['eventbrite']->listed ) && ! tribe_is_truthy( $event['eventbrite']->listed ) ) {
 				$status = 'private';
 			}
 		}
