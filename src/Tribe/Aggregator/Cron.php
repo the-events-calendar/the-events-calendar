@@ -196,7 +196,7 @@ class Tribe__Events__Aggregator__Cron {
 	 *
 	 * @return array            Modified list of schedules.
 	 */
-	public function filter_add_cron_schedules( $schedules = [] ) : array {
+	public function filter_add_cron_schedules( $schedules = [] ) {
 		// Ensure schedules is an array.
 		$schedules = is_array( $schedules ) ? $schedules : [];
 
