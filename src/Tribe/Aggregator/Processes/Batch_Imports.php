@@ -1,12 +1,38 @@
 <?php
+/**
+ * Class Tribe__Events__Aggregator__Processes__Batch_Imports
+ *
+ * @since TBD
+ */
 
+/**
+ * Class Tribe__Events__Aggregator__Processes__Batch_Imports
+ *
+ * Add custom hooks in order to support batch pushing.
+ *
+ * @since TBD
+ */
 class Tribe__Events__Aggregator__Processes__Batch_Imports {
+	/**
+	 * Attach hooks to support batch pushing.
+	 *
+	 * @since TBD
+	 */
 	public function hook() {
 		add_filter( 'tribe_events_aggregator_build_url', [ $this, 'build_url' ], 10, 3 );
 		add_filter( 'tribe_aggregator_service_post_import_args', [ $this, 'import_args' ], 10, 2 );
 		add_filter( 'tribe_aggregator_allow_batch_push', [ $this, 'allow_batch_import' ], 10, 2 );
 	}
 
+	/**
+	 * Update the endpoint used to initiate an process an import of events.
+	 *
+	 * @param string   $url      The completed URL generated.
+	 * @param string   $endpoint The path of the endpoint inside of the base url.
+	 * @param stdClass $api      An object representing the properties of the API.
+	 *
+	 * @return string The modified URL where to hit to process an import.
+	 */
 	public function build_url( $url, $endpoint, $api ) {
 		if ( 'import' !== $endpoint ) {
 			return $url;
@@ -15,6 +41,17 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 		return "{$api->domain}{$api->path}{v2.0.0}/{$endpoint}";
 	}
 
+	/**
+	 * Filter subsequent imports to mark children imports as batch pushing if the parent was marked as batch pushing or
+	 * if is a new import that was created using the new version of endpoints to support batch pushing.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool                                        $service_supports_batch_push If the current import has support for batch pushing.
+	 * @param Tribe__Events__Aggregator__Record__Abstract $abstract
+	 *
+	 * @return boolean If the current import supports batch pushing or not.
+	 */
 	public function allow_batch_import( $service_supports_batch_push, $abstract ) {
 		if ( ! $service_supports_batch_push ) {
 			return $service_supports_batch_push;
@@ -29,19 +66,20 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 			return $service_supports_batch_push;
 		}
 
-		$parent = $abstract->post->post_parent;
+		$parent_id = $abstract->post->post_parent;
 
-		if ( $parent instanceof WP_Post ) {
-			$parent = $parent->ID;
+		// Make sure $parent_id is always an integer.
+		if ( $parent_id instanceof WP_Post ) {
+			$parent_id = $parent_id->ID;
 		}
 
-		$batch = get_post_meta(
-			$parent,
+		$allow_batch_pushing = get_post_meta(
+			$parent_id,
 			Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'allow_batch_push',
 			true
 		);
 
-		if ( tribe_is_truthy( $batch ) ) {
+		if ( tribe_is_truthy( $allow_batch_pushing ) ) {
 			return $service_supports_batch_push;
 		}
 
@@ -53,8 +91,10 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 	 *
 	 * TODO: Update EventBrite to use batch pushing to deliver events instead.
 	 *
-	 * @param $args
-	 * @param $record
+	 * @since TBD
+	 *
+	 * @param array                              $args   Arguments to queue the import.
+	 * @param Tribe__Events__Aggregator__Service $record Which record we are dealing with.
 	 *
 	 * @return mixed
 	 */

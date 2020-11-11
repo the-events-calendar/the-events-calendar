@@ -151,7 +151,9 @@ class Tribe__Events__Aggregator__Record__Void_Queue
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * This Queue never fetches on external resources so is always `false`.
+	 *
+	 * @return bool The state of the queue with external resources.
 	 */
 	public function is_fetching() {
 		return false;

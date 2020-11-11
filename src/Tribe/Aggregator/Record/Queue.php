@@ -261,6 +261,10 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	 * @return self|Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function process( $batch_size = null ) {
+		if ( $this->null_process ) {
+			return $this;
+		}
+
 		$this->has_lock = $this->acquire_lock();
 
 		if ( $this->has_lock ) {
