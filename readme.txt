@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.2.1.1] 2020-11-11 =
 
-
+* Tweak - Update version of Freemius to the latest version 2.4.1 [TEC-3668]
 
 = [5.2.1] 2020-10-22 =
 
