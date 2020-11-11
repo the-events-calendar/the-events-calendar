@@ -8,10 +8,12 @@
 	 *   <ul class="tribe-events-c-nav__list">
 	 *     <li class="tribe-events-c-nav__list-item">
 	 *       <a href="#" class="tribe-events-c-nav__prev">
+	 *         <?php $this->template( 'components/icons/caret-alt-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 	 *         Previous
 	 *       </a>
 	 *       <a href="#" class="tribe-events-c-nav__next">
 	 *         Next
+	 *         <?php $this->template( 'components/icons/caret-alt-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	 *       </a>
 	 *     </li>
 	 *   </ul>
@@ -68,29 +70,35 @@
 
 	.tribe-events-c-nav__prev {
 
-		&:before {
-			background-image: svg-inline(caret-left-active);
-			background-repeat: no-repeat;
-			background-size: contain;
-			content: '';
+		.tribe-events-c-nav__prev-icon-svg {
 			height: 12px;
 			margin-right: 8px;
 			width: 7px;
+			
+			path {
+				fill: var(--color-icon-active);
+			}
 
 			.tribe-common--breakpoint-medium& {
-				background-image: svg-inline(caret-left);
-				height: 14px;
+				height: 15px;
 				margin-right: 15px;
 				width: 9px;
+				
+				path {
+					fill: var(--color-icon-primary);
+				}
 			}
 		}
 
 		&:hover,
 		&:focus {
 
-			&:before {
-				background-image: svg-inline(caret-left-active);
+			.tribe-events-c-nav__prev-icon-svg {
 				opacity: var(--opacity-icon-hover);
+				
+				path {
+					fill: var(--color-icon-active);
+				}
 			}
 		}
 
@@ -103,37 +111,43 @@
 
 		&:disabled {
 
-			&:before {
-				background-image: svg-inline(caret-left-disabled);
+			.tribe-events-c-nav__prev-icon-svg path {
+				fill: var(--color-icon-disabled);
 			}
 		}
 	}
 
 	.tribe-events-c-nav__next {
 
-		&:after {
-			background-image: svg-inline(caret-right-active);
-			background-repeat: no-repeat;
-			background-size: contain;
-			content: '';
+		.tribe-events-c-nav__next-icon-svg {
 			height: 12px;
 			margin-left: 8px;
 			width: 7px;
+			
+			path {
+				fill: var(--color-icon-active);
+			}
 
 			.tribe-common--breakpoint-medium& {
-				background-image: svg-inline(caret-right);
-				height: 14px;
+				height: 15px;
 				margin-left: 15px;
 				width: 9px;
+				
+				path {
+					fill: var(--color-icon-primary);
+				}
 			}
 		}
 
 		&:hover,
 		&:focus {
 
-			&:after {
-				background-image: svg-inline(caret-right-active);
+			.tribe-events-c-nav__next-icon-svg {
 				opacity: var(--opacity-icon-hover);
+				
+				path {
+					fill: var(--color-icon-active);
+				}
 			}
 		}
 
@@ -146,8 +160,8 @@
 
 		&:disabled {
 
-			&:after {
-				background-image: svg-inline(caret-right-disabled);
+			.tribe-events-c-nav__next-icon-svg path {
+				fill: var(--color-icon-disabled);
 			}
 		}
 	}

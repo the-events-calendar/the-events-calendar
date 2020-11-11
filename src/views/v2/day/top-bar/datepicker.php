@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.0.1
+ * @version TBD
  *
  * @var string $now                    The current date and time in the `Y-m-d H:i:s` format.
  * @var object $date_formats           Object containing the date formats.
@@ -46,6 +46,7 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 				<?php echo esc_html( $selected_date_label ); ?>
 			</span>
 		</time>
+		<?php $this->template( 'components/icons/caret-alt-down', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-button-icon-svg' ] ] ); ?>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

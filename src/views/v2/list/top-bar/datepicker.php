@@ -9,7 +9,7 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @version 5.0.1
+ * @version TBD
  *
  * @var bool   $is_now                     Whether the date selected in the datepicker is "now" or not.
  * @var bool   $show_now                   Whether to show the "Now" label as range start or not.
@@ -68,6 +68,7 @@
 				</span>
 			</time>
 		<?php endif; ?>
+		<?php $this->template( 'components/icons/caret-alt-down', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-button-icon-svg' ] ] ); ?>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"

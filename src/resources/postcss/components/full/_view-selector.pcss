@@ -64,29 +64,25 @@
 					content: none;
 				}
 			}
-
-			&:after {
-
-				.tribe-common--breakpoint-medium& {
-					background-image: svg-inline(caret-down);
-					background-repeat: no-repeat;
-					background-size: contain;
-					content: '';
-					display: block;
-					flex: none;
-					height: 6px;
-					margin-left: var(--spacer-1);
-					width: 10px;
-				}
+		}
+		
+		.tribe-events-c-view-selector__button-icon-svg {
+			
+			.tribe-common--breakpoint-medium& {
+				display: block;
+				flex: none;
+				height: 6px;
+				margin-left: var(--spacer-1);
+				width: 10px;
 			}
 		}
 
 		.tribe-events-c-view-selector__button--active {
 
-			&:after {
+			.tribe-events-c-view-selector__button-icon-svg {
 
 				.tribe-common--breakpoint-medium& {
-					background-image: svg-inline(caret-up);
+					transform: rotate(180deg);
 				}
 			}
 		}
