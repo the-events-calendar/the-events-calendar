@@ -243,7 +243,6 @@ class Widget_ListTest extends ViewTestCase {
 			'tribe_events_views_v2_view_widget-events-list_template_vars',
 			function( $template_vars ) {
 				$template_vars['jsonld_enable'] = 0;
-				codecept_debug($template_vars);
 				return $template_vars;
 			},
 			19
@@ -258,7 +257,6 @@ class Widget_ListTest extends ViewTestCase {
 		] );
 
 		$widget_list_view->set_context( $context );
-		codecept_debug($widget_list_view->get_template_vars());
 		$html = $widget_list_view->get_html();
 
 		// Let's make sure the View is displaying the events we expect it to display.
