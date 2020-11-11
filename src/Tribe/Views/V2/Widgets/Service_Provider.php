@@ -96,7 +96,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,mixed>  $template_vars The current template variables.
+	 * @param array<string,mixed> $template_vars The current template variables.
 	 * @return array<string,mixed> $template_vars The modified template variables.
 	 */
 	public function filter_template_vars( $template_vars ) {

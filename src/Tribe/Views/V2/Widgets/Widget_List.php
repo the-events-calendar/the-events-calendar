@@ -217,7 +217,7 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,mixed>  $template_vars The current template variables.
+	 * @param array<string,mixed> $template_vars The current template variables.
 	 * @return array<string,mixed> $template_vars The modified template variables.
 	 */
 	public function disable_json_data( $template_vars ) {
