@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.2.1
+Stable tag: 5.4.0
 Tested up to: 5.5.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,9 +222,18 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.2.2] TBA =
+= [TBD] TBD =
 
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
+* Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
+* Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
+* Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
+* Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
+* Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
+* Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
+* Fix - Ensure Event Aggregator Cron schedules always have array format and avoid errors on fresh WordPress installations (thanks @mmcachran).
+* Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
+* Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
 
 = [5.2.1] 2020-10-22 =
 
