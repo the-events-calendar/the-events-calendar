@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
 * Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
 * Fix - Make sure Month View "View More" link to Day View will preserve the current search criteria. [TEC-3230]
+* Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
 * Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
 
 = [5.2.1] 2020-10-22 =
