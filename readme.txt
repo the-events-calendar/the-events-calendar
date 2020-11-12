@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.2.2] TBA =
+
+* Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
+
 = [5.2.1] 2020-10-22 =
 
 * Tweak - Change Views v2 AJAX request method from GET to POST to avoid issues with too long URLs. [TEC-3283]
