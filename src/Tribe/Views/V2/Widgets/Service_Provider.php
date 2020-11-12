@@ -90,14 +90,14 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		return $views;
 	}
 
-
 	/**
 	 * Filters the template vars for widget-specific items.
 	 *
 	 * @since TBD
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
-	 * @return array<string,mixed> $template_vars The modified template variables.
+	 *
+	 * @return array<string,mixed> The modified template variables.
 	 */
 	public function filter_template_vars( $template_vars ) {
 		return tribe( Widget_List::class )->disable_json_data( $template_vars );

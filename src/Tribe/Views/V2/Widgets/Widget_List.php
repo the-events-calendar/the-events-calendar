@@ -114,8 +114,8 @@ class Widget_List extends Widget_Abstract {
 		$updated_instance['limit']                = $new_instance['limit'];
 		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
 		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
-		$updated_instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] );
-		$updated_instance['tribe_is_list_widget'] = (int) ! empty( $new_instance['tribe_is_list_widget'] );
+		$updated_instance['jsonld_enable']        = (int) ! empty( $new_instance['jsonld_enable'] );
+		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
 
 		return $this->filter_updated_instance( $updated_instance, $new_instance );
 	}
@@ -218,7 +218,8 @@ class Widget_List extends Widget_Abstract {
 	 * @since TBD
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
-	 * @return array<string,mixed> $template_vars The modified template variables.
+	 *
+	 * @return array<string,mixed> The modified template variables.
 	 */
 	public function disable_json_data( $template_vars ) {
 		if (
