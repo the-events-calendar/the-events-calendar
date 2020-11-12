@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.0.1
+ * @version TBD
  *
  */
 ?>
@@ -21,5 +21,6 @@
 		disabled
 	>
 		<?php esc_html_e( 'Next Day', 'the-events-calendar' ); ?>
+		<?php $this->template( 'components/icons/caret-alt-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	</button>
 </li>

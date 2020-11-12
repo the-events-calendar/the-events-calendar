@@ -36,38 +36,32 @@
 			}
 		}
 
-		.prev {
-
-			&:hover,
-			&:focus,
-			&:active {
-
-				.tribe-common-svgicon {
-					background-image: svg-inline(caret-left-active);
-				}
-			}
-
-			.tribe-common-svgicon {
-				background-image: svg-inline(caret-left-secondary);
-				margin-right: auto;
-			}
-		}
-
+		.prev,
 		.next {
 
 			&:hover,
 			&:focus,
 			&:active {
 
-				.tribe-common-svgicon {
-					background-image: svg-inline(caret-right-active);
+				.tribe-common-c-svgicon path {
+					fill: var(--color-icon-active);
 				}
 			}
 
-			.tribe-common-svgicon {
-				background-image: svg-inline(caret-right-secondary);
-				margin-left: auto;
+			.tribe-common-c-svgicon {
+				margin-right: auto;
+				height: 15px;
+				width: 9px;
+				
+				path {
+					fill: var(--color-icon-secondary);
+				}
 			}
+		}
+		
+		.next .tribe-common-c-svgicon {
+			margin-left: auto;
+			margin-right: 0;
 		}
 
 		.datepicker-months,

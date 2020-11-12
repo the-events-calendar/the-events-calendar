@@ -165,7 +165,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			$template .= '
 				@keyframes tribe-common-c-loader-bounce {
 					0% {}
-					50% { background-color: <%= global_elements.accent_color %>; }
+					50% { fill: <%= global_elements.accent_color %>; }
 					100% {}
 				}
 			';

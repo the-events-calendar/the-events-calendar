@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.1.1
+ * @version TBD
  */
 
 /* translators: %s: Event (plural or singular). */
@@ -25,6 +25,7 @@ $events_mobile_friendly_label = sprintf( __( 'Previous %1$s', 'the-events-calend
 		title="<?php echo esc_attr( $label ); ?>"
 		disabled
 	>
+		<?php $this->template( 'components/icons/caret-alt-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<span class="tribe-events-c-nav__prev-label">
 			<?php echo wp_kses( $events_mobile_friendly_label, [ 'span' => [ 'class' => [] ] ] ); ?>
 		</span>
