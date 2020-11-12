@@ -103,7 +103,7 @@ $num_events_label = sprintf(
 				aria-label="<?php echo esc_attr( $has_featured_events_label ); ?>"
 				title="<?php echo esc_attr( $has_featured_events_label ); ?>"
 			>
-				<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-month__mobile-events-icon-svg--featured' ] ] ); ?>
+				<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-month__mobile-events-icon-svg' ] ] ); ?>
 			</em>
 		<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
 			<?php
