@@ -37,10 +37,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.2.1
 	 */
 	public function register() {
-		if ( ! tribe_events_views_v2_is_enabled() ) {
-			return;
-		}
-
 		// Determine if V2 widgets should load.
 		if ( ! tribe_events_widgets_v2_is_enabled() ) {
 			return;
@@ -84,7 +80,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @return array<string,string> $views The modified array of views in the shape `[ <slug> => <class> ]`.
 	 */
 	public function add_views( $views ) {
-		$views['widget-list'] = Widget_List_View::class;
+		$views['widget-events-list'] = Widget_List_View::class;
 
 		return $views;
 	}
