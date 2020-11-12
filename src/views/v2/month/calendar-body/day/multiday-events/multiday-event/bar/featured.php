@@ -15,7 +15,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  *
- * @version 5.1.1
+ * @version TBD
  */
 
 if ( empty( $event->featured ) ) {

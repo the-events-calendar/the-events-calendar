@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.0.1
+ * @version TBD
  *
  * @var object $ical Object containing iCal data
  */

@@ -11,7 +11,7 @@
  *
  * @var array $bar The search bar contents.
  *
- * @version 5.0.3
+ * @version TBD
  *
  */
 
