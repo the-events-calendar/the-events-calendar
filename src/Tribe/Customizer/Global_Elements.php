@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package The Events Calendar
  * @subpackage Customizer
- * @since 4.4
+ * @since TBD
  */
 final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer__Section {
 	/**
@@ -145,6 +145,12 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					color: <%= global_elements.accent_color %>;
 				}
 			';
+			
+			$template .= '
+				.tribe-common .tribe-events-virtual-virtual-event__icon-svg {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
 
 			$template .= '
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
@@ -158,15 +164,6 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
 					background-color: ' . $accent_color_hover . ';
-				}
-			';
-
-			// overrides for common components/full/_loader.pcss.
-			$template .= '
-				@keyframes tribe-common-c-loader-bounce {
-					0% {}
-					50% { fill: <%= global_elements.accent_color %>; }
-					100% {}
 				}
 			';
 
