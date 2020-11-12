@@ -3,6 +3,7 @@ namespace TEC\Test\functions\template_tags;
 
 use Codeception\TestCase\WPTestCase;
 use Tribe\Events\Test\Factories\Event;
+use Tribe__Events__Timezones as Timezones;
 
 class generalTest extends WPTestCase {
 
@@ -47,19 +48,6 @@ HTML;
 	public static function setUpBeforeClass(  ) {
 		parent::setUpBeforeClass();
 		static::factory()->event = new Event();
-	}
-	public function setUp() {
-		// before
-		parent::setUp();
-
-		// your set up methods here
-	}
-
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
 	}
 
 	public function separated_field_inputs() {
@@ -109,5 +97,58 @@ HTML;
 		$excerpt_w_blocks = "<p>Before embed. https://vimeo.com/346787418 http://www.youtube.com/watch?v=dQw4w9WgXcQ After embed. After embed 2.</p>\n";
 
 		$this->assertEquals( $excerpt_w_blocks, tribe_events_get_the_excerpt( $event ) );
+	}
+
+	public function is_past_event_data_provider() {
+		return [
+			'tomorrow event mode=site tz=UTC+0'                                => [
+				false,
+				Timezones::SITE_TIMEZONE,
+				[ 'when' => 'tomorrow 8am' ],
+				'UTC+0'
+			],
+			'today event mode=site tz=UTC+0'                                   => [
+				false,
+				Timezones::SITE_TIMEZONE,
+				[ 'when' => 'today 8am', 'duration' => DAY_IN_SECONDS ],
+				'UTC+0'
+			],
+			'yesterday event mode=site tz=UTC+0'                               => [
+				true,
+				Timezones::SITE_TIMEZONE,
+				[ 'when' => 'yesterday 8am', 'duration' => HOUR_IN_SECONDS ],
+				'UTC+0'
+			],
+			'tomorrow event mode=event event_tz=America/Los_Angeles tz=UTC+0'  => [
+				false,
+				Timezones::EVENT_TIMEZONE,
+				[ 'when' => 'tomorrow 8am', 'timezone' => 'America/Los_Angeles' ],
+				'UTC+0'
+			],
+			'today event mode=event event_tz=America/Los_Angeles tz=UTC+0'     => [
+				false,
+				Timezones::EVENT_TIMEZONE,
+				[ 'when' => 'today 8am', 'duration' => DAY_IN_SECONDS, 'timezone' => 'America/Los_Angeles' ],
+				'UTC+0'
+			],
+			'yesterday event mode=event event_tz=America/Los_Angeles tz=UTC+0' => [
+				true,
+				Timezones::EVENT_TIMEZONE,
+				[ 'when' => 'yesterday 8am', 'duration' => HOUR_IN_SECONDS, 'timezone' => 'America/Los_Angeles' ],
+				'UTC+0'
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider is_past_event_data_provider
+	 */
+	public function test_is_past_event( $expected, $timezone_mode, $event_overrides, $site_timezone = null ) {
+		tribe_update_option( 'tribe_events_timezone_mode', $timezone_mode );
+		if ( null !== $site_timezone ) {
+			update_option( 'timezone_string', $site_timezone );
+		}
+		$event = static::factory()->event->create_and_get( $event_overrides );
+		$this->assertEquals( $expected, tribe_is_past_event( $event ) );
 	}
 }
