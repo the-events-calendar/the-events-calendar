@@ -160,17 +160,10 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 		// override status if set within import.
 		$status = isset( $record->meta['post_status'] ) ? $record->meta['post_status'] : $post_status;
 		if ( 'do_not_override' === $status ) {
-			if ( isset( $event['eventbrite']->status ) ) {
-				// draft if set, otherwise publish.
-				if ( 'draft' === $event['eventbrite']->status ) {
-					$status = 'draft';
-				} else {
-					$status = 'publish';
-				}
-			} else {
-				// if not set, assume publish.
-				$status = 'publish';
-			}
+			$status = 'publish';
+			if ( isset( $event['eventbrite']->status ) &&  'draft' === $event['eventbrite']->status ) {
+				$status = 'draft';
+			} 
 			// If not draft, looked if listed. If not, set to private.
 			if ( 'draft' !== $status && isset( $event['eventbrite']->listed ) && ! tribe_is_truthy( $event['eventbrite']->listed ) ) {
 				$status = 'private';
