@@ -37,10 +37,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.2.1
 	 */
 	public function register() {
-		if ( ! tribe_events_views_v2_is_enabled() ) {
-			return;
-		}
-
 		// Determine if V2 widgets should load.
 		if ( ! tribe_events_widgets_v2_is_enabled() ) {
 			return;
