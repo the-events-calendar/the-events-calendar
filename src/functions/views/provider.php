@@ -124,5 +124,26 @@ function tribe_events_view_v2_use_period_repository() {
  * @return bool Whether Widgets v2 should load.
  */
 function tribe_events_widgets_v2_is_enabled() {
-	return ! (bool) defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) || TRIBE_EVENTS_WIDGETS_V2_ENABLED;
+	// MUST have v2 views enabled.
+	if ( ! tribe_events_views_v2_is_enabled() ) {
+		return false;
+	}
+
+	// Allow env_var to short-circuit for testing.
+	$env_var = getenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' );
+	if ( false !== $env_var ) {
+		return (bool) $env_var;
+	}
+
+	$enabled = ! defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) || TRIBE_EVENTS_WIDGETS_V2_ENABLED;
+
+	/**
+	 * Allows toggling of the v2 widget views via a filter.
+	 * For other plugins to hook into and for testing.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean Do we enable the widget views?
+	 */
+	return apply_filters( 'tribe_events_widgets_v2_is_enabled', $enabled );
 }
