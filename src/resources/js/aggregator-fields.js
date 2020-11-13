@@ -1083,9 +1083,8 @@ tribe_aggregator.fields = {
 		obj.progress.update( tribe_aggregator_save.progress, tribe_aggregator_save.progressText );
 	};
 
+	obj.progress.increment = 0;
 	obj.progress.handle_response = function( data ) {
-		var now     = Date.now();
-		var elapsed = now - obj.progress.data.time;
 
 		if ( data.html ) {
 			obj.progress.data.notice.html( data.html );
@@ -1096,13 +1095,8 @@ tribe_aggregator.fields = {
 		}
 
 		if ( data.continue ) {
-			// If multiple editors are open for the same event we don't want to hammer the server
-			// and so a min delay of 1/2 sec is introduced between update requests
-			if ( elapsed < 500 ) {
-				setTimeout( obj.progress.send_request, 500 - elapsed  );
-			} else {
-				obj.progress.send_request();
-			}
+			setTimeout( obj.progress.send_request, obj.progress.increment  );
+			obj.progress.increment += 50;
 		}
 
 		if ( data.error ) {
