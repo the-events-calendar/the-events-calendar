@@ -13,6 +13,7 @@ use Exception;
 use Tribe__Date_Utils;
 use Tribe__Events__Aggregator__Record__Abstract;
 use Tribe__Events__Aggregator__Record__Activity;
+use Tribe__Events__Aggregator__Record__Queue;
 use Tribe__Events__Aggregator__Record__Queue_Cleaner;
 use Tribe__Events__Aggregator__Record__Queue_Interface;
 use Tribe__Events__Aggregator__Records;
@@ -218,6 +219,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 				'batch_started',
 				$now->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
 			);
+			$this->record->update_meta( Tribe__Events__Aggregator__Record__Queue::$queue_key, 'fetch' );
 			$this->record->set_status_as_pending();
 			$this->start();
 
