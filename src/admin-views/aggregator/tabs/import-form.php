@@ -330,11 +330,6 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 	></span>
 
 	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
-		<p class="tribe-limits-message">
-			<?php echo esc_html__( 'Eventbrite imports can fetch up to 50 events from your source.', 'the-events-calendar' ); ?>
-		</p>
-	</div>
-	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="eventbrite">
 		<p class="tribe-timezone-message">
 			<?php echo sprintf(
 				'%1$s %2$s%3$s%4$s %5$s',
