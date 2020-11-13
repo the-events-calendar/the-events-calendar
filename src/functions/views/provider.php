@@ -135,7 +135,7 @@ function tribe_events_widgets_v2_is_enabled() {
 		return (bool) $env_var;
 	}
 
-	$enabled = ! defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) || TRIBE_EVENTS_WIDGETS_V2_ENABLED;
+	$enabled = defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) ? TRIBE_EVENTS_WIDGETS_V2_ENABLED : true;
 
 	/**
 	 * Allows toggling of the v2 widget views via a filter.
