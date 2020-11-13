@@ -37,9 +37,14 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	 *
 	 * @return bool
 	 */
-	public function is_expected_batch_hash( $batch_hash ) {
+	public function is_expected_batch_hash( $batch_hash, WP_REST_Request $request ) {
 		if ( ! $this->current_record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
 			return false;
+		}
+
+		// If the import is going to be marked as failure ignore the next batch validation.
+		if ( 'failed' === $request->get_param( 'status' ) ) {
+			return true;
 		}
 
 		return $this->current_record->meta['next_batch_hash'] === $batch_hash;

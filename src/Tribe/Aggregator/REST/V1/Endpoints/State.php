@@ -24,6 +24,10 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 
 		$updated = $record->set_status( $status );
 
+		if ( 'failed' === $request->get_param( 'status' ) ) {
+			$record->log_error( new WP_Error( $request->get_param( 'message_slug' ), $request->get_param( 'message' ) ) );
+		}
+
 		if ( empty( $updated ) ) {
 			$updated = new WP_Error( "Could not update the status of import {$record->id} to {$status}; current record status is {$record->post->post_status}" );
 		}
