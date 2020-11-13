@@ -293,11 +293,26 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 * @return int
 	 */
 	public function progress_percentage() {
-		if ( empty( $this->record ) || empty( $this->record->meta['percentage_complete'] ) ) {
+		if ( empty( $this->record ) ) {
 			return 0;
 		}
 
-		return (int) $this->record->meta['percentage_complete'];
+		if ( empty( $this->record->meta['total_events'] ) ) {
+			// Backwards compatible if the total_events meta key is still not present.
+			if ( empty( $this->record->meta['percentage_complete'] ) ) {
+				return 0;
+			}
+			return (int) $this->record->meta['percentage_complete'];
+		}
+
+		$total = (int) $this->record->meta['total_events'];
+		$done = (int) $this->record->activity()->count( Tribe__Events__Main::POSTTYPE );
+
+		if ( 0 === $total ) {
+			return 100;
+		}
+
+		return min( 100, max( 1, (int) ( 100 * ( $done / $total ) ) ) );
 	}
 
 	/**
