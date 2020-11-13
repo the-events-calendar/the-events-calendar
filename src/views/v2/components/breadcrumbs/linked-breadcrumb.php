@@ -22,4 +22,5 @@
 	>
 		<?php echo esc_html( $breadcrumb['label'] ); ?>
 	</a>
+	<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-breadcrumbs__list-item-icon-svg' ] ] ); ?>
 </li>
