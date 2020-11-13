@@ -68,6 +68,9 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		$is_finished = ( $is_last_batch && $is_success );
 		$new_status  = $is_finished ? 'success' : 'pending';
 
+		// status variable is validated to have 'data' and 'total' key on method `is_valid_status_information`.
+		$record->update_meta( 'total_events', (int) $request->get_param('status')['data']['total'] );
+
 		if ( $is_success ) {
 			$record->update_meta( 'percentage_complete', $request['percentage_complete'] );
 		}
