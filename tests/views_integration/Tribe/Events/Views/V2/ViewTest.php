@@ -79,7 +79,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_print_a_view_html_on_the_page_when_caling_send_html() {
+	public function should_print_a_view_html_on_the_page_when_calling_send_html() {
 		add_filter( 'tribe_events_views', static function () {
 			return [ 'test' => Test_View::class ];
 		} );
