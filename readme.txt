@@ -224,12 +224,17 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
 * Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
 * Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
 * Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
 * Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
 * Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
 * Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
+* Fix - Make sure Month View "View More" link to Day View will preserve the current search criteria. [TEC-3230]
+* Fix - Ensure Event Aggregator Cron schedules always have array format and avoid errors on fresh WordPress installations (thanks @mmcachran).
+* Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
+* Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
 
 = [5.2.1] 2020-10-22 =
 
