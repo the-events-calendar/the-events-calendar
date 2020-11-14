@@ -37,7 +37,14 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control__fieldset' ], Arr:
 	<?php
 	foreach ( $children as $child_id => $child ) {
 		// A provided name is a passthrough for radios.
-		$this->maybe_input( $child_id, $child, [ 'name' => $name, 'value' => $value ] );
+		$this->maybe_input(
+			$child_id,
+			$child,
+			[
+				'name' => $name,
+				'value' => $value
+			]
+		);
 	}
 	?>
 
