@@ -149,9 +149,9 @@ class Admin_Template extends \Tribe__Template {
 		];
 
 		if ( 'radio' === $field['type'] ) {
-			$data[ 'button_value' ] = Arr::get( $field, 'button_value', '' );
-			$data['name']           = Arr::get( $passthrough, 'name', '' );
-			$data['value']          = Arr::get( $passthrough, 'value', null );
+			$data['button_value'] = Arr::get( $field, 'button_value', '' );
+			$data['name']         = Arr::get( $passthrough, 'name', '' );
+			$data['value']        = Arr::get( $passthrough, 'value', null );
 		}
 
 		if ( in_array( $field['type'], $this->allowed_field_types ) ) {
@@ -176,7 +176,8 @@ class Admin_Template extends \Tribe__Template {
 	 * @since TBD
 	 *
 	 * @param array <string,mixed> $field The field info.
-	 * @return void
+	 *
+	 * @return string The dependency attributes.
 	 */
 	public function format_dependency( $field ) {
 		$deps = Arr::get( $field, 'dependency', false );
