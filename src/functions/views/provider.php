@@ -124,5 +124,5 @@ function tribe_events_view_v2_use_period_repository() {
  */
 function tribe_events_widgets_v2_is_enabled() {
 
-	return (bool) defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) && TRIBE_EVENTS_WIDGETS_V2_ENABLED;
+	return defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) ? TRIBE_EVENTS_WIDGETS_V2_ENABLED : true;
 }

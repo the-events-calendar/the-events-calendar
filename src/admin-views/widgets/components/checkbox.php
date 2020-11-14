@@ -18,11 +18,12 @@
  */
 
 ?>
-<p
-		class="tribe-widget-checkbox tribe-common-form-control-checkbox"
+<div
+		class="tribe-widget-form-control tribe-widget-form-control-checkbox"
+		<?php echo esc_html( $dependency ); ?>
 >
 	<input
-			class="tribe-common-form-control-checkbox__input"
+			class="tribe-widget-form-control__input"
 			id="<?php echo esc_attr( $id ); ?>"
 			name="<?php echo esc_attr( $name ); ?>"
 			type="checkbox"
@@ -30,9 +31,9 @@
 			<?php checked( tribe_is_truthy( $value ), true ); ?>
 	/>
 	<label
-			class="tribe-common-form-control-checkbox__label"
+			class="tribe-widget-form-control__label"
 			for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</label>
-</p>
+</div>

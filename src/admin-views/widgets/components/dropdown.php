@@ -18,11 +18,12 @@
  */
 
 ?>
-<p
-		class="tribe-widget-dropdown tribe-common-form-control-dropdown"
+<div
+		class="tribe-widget-form-control tribe-widget-form-control-dropdown"
+		<?php echo esc_html( $dependency ); ?>
 >
 	<label
-			class="tribe-common-form-control-dropdown__label"
+			class="tribe-widget-form-control__label"
 			for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
@@ -30,15 +31,14 @@
 	<select
 			id="<?php echo esc_attr( $id ); ?>"
 			name="<?php echo esc_attr( $name ); ?>"
-			class="tribe-common-form-control-dropdown__input widefat"
+			class="tribe-widget-form-control__input widefat"
 	>
 		<?php foreach ( $options as $option ) { ?>
 			<option
 					value="<?php echo esc_html( $option['value'] ); ?>"
-					<?php selected( $option['value'], $value ); ?>
 			>
 				<?php echo esc_html( $option['text'] ); ?>
 			</option>
 		<?php } ?>
 	</select>
-</p>
+</div>

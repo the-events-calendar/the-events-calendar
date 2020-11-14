@@ -34,6 +34,13 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	protected $view;
 
 	/**
+	 * The widget slug.
+	 *
+	 * @var string
+	 */
+	protected $slug;
+
+	/**
 	 * The slug of the widget view.
 	 *
 	 * @since 5.2.1
@@ -253,6 +260,17 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 */
 	public function get_view() {
 		return $this->view;
+	}
+
+	/**
+	 * Returns the widget slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget slug.
+	 */
+	public function get_slug() {
+		return $this->slug;
 	}
 
 	/**
