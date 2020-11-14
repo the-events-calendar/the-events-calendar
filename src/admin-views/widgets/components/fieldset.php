@@ -41,8 +41,8 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control__fieldset' ], Arr:
 			$child_id,
 			$child,
 			[
-				'name' => $name,
-				'value' => $value
+				'name'  => $name,
+				'value' => $value,
 			]
 		);
 	}
