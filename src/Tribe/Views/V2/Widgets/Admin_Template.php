@@ -20,6 +20,11 @@ use Tribe__Utils__Array as Arr;
  */
 class Admin_Template extends \Tribe__Template {
 
+	/**
+	 * Allowed field types.
+	 *
+	 * @var array
+	 */
 	public $allowed_field_types = [
 		'checkbox',
 		'radio',
@@ -28,6 +33,11 @@ class Admin_Template extends \Tribe__Template {
 		'multiselect',
 	];
 
+	/**
+	 * Placeholder for the widget object.
+	 *
+	 * @var WP_Widget
+	 */
 	private $widget_obj;
 
 	/**
@@ -82,7 +92,7 @@ class Admin_Template extends \Tribe__Template {
 	 * @since TBD
 	 *
 	 * @param int                  $field_id    The ID of the field.
-	 * @param array <string,mixed> $field       The field data.
+	 * @param array <string,mixed> $field       The field info.
 	 * @param array                $passthrough Passthrough data (from parent - like fieldset, to children).
 	 */
 	public function maybe_input( $field_id, $field, $passthrough = [] ) {
@@ -93,6 +103,15 @@ class Admin_Template extends \Tribe__Template {
 		}
 	}
 
+	/**
+	 * Section templating to handle control/input sections and fieldsets.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                  $field_id    The ID of the field.
+	 * @param array <string,mixed> $field       The field info.
+	 * @param array                $passthrough Passthrough data (from parent - like fieldset, to children).
+	 */
 	public function section( $field_id, $field, $passthrough = [] ) {
 		$data = [
 			'id'         => $this->widget_obj->get_field_id( $field_id ),
@@ -108,6 +127,15 @@ class Admin_Template extends \Tribe__Template {
 		$this->template( "widgets/components/{$field['type']}", $data, $field, $passthrough );
 	}
 
+	/**
+	 * Input templating.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                  $field_id    The ID of the field.
+	 * @param array <string,mixed> $field       The field info.
+	 * @param array                $passthrough Passthrough data (from parent - like fieldset, to children).
+	 */
 	public function input( $field_id, $field, $passthrough = [] ) {
 		$data = [
 			'id'          => $this->widget_obj->get_field_id( $field_id ),
@@ -129,6 +157,15 @@ class Admin_Template extends \Tribe__Template {
 		if ( in_array( $field['type'], $this->allowed_field_types ) ) {
 			$this->template( "widgets/components/{$field['type']}", $data );
 		} else {
+			/**
+			 * Allows injection of custom "inputs" by other plugins.
+			 *
+			 * @since TBD
+			 *
+			 * @param array<string,mixed> $data       The field data passed to templates.
+			 * @param array<string,mixed> $field      The field info.
+			 * @param WP_Widget           $widget_obj The widget object.
+			 */
 			do_action( "tribe_events_view_v2_widget_admin_form_{$field['type']}_input", $data, $field, $this->widget_obj, $this->context );
 		}
 	}
@@ -138,7 +175,7 @@ class Admin_Template extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param [type] $field
+	 * @param array <string,mixed> $field The field info.
 	 * @return void
 	 */
 	public function format_dependency( $field ) {
