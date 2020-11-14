@@ -33,9 +33,11 @@ $section_classes = array_merge( [ 'tribe-widget-form-control__section' ], Arr::l
 		<h4 class="tribe-widget-form-control__section-title"><?php echo esc_html( $label ); ?></h4>
 	<?php endif; ?>
 
-	<?php foreach( $children as $child_id => $child ) {
-		$this->maybe_input( $child_id , $child );
-	} ?>
+	<?php
+	foreach ( $children as $child_id => $child ) {
+		$this->maybe_input( $child_id, $child );
+	}
+	?>
 
 	<?php // End the section. ?>
 </div>

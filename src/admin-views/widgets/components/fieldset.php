@@ -34,10 +34,12 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control__fieldset' ], Arr:
 		<legend class="tribe-widget-form-control__legend"><?php echo esc_html( $label ); ?></legend>
 	<?php endif; ?>
 
-	<?php foreach( $children as $child_id => $child ) {
+	<?php
+	foreach ( $children as $child_id => $child ) {
 		// A provided name is a passthrough for radios.
-		$this->maybe_input( $child_id , $child, [ 'name' => $name, 'value' => $value ] );
-	} ?>
+		$this->maybe_input( $child_id, $child, [ 'name' => $name, 'value' => $value ] );
+	}
+	?>
 
 	<?php // End the fieldset. ?>
 </fieldset>
