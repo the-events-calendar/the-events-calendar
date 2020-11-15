@@ -278,7 +278,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 			$body['selected_events'] = $this->record->meta['ids_to_import'];
 		}
 
-		$response = $service->post( "import/{$this->record->meta['import_id']}}/deliver/", [ 'body' => $body ] );
+		$response = $service->post( "import/{$this->record->meta['import_id']}/deliver/", [ 'body' => $body ] );
 
 		if ( is_wp_error( $response ) ) {
 			$this->record->set_status_as_failed( $response );
