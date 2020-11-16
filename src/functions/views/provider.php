@@ -115,8 +115,8 @@ function tribe_events_view_v2_use_period_repository() {
 /**
  * Checks whether V2 widgets should load.
  *
- * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` constant,
- * the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` environment variable.
+ * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` constant,
+ * the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` environment variable.
  *
  * @since 5.2.1
  *
@@ -128,10 +128,11 @@ function tribe_events_widgets_v2_is_enabled() {
 	}
 
 
-	$env_var = getenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' );
+	$env_var = getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
 	if ( false !== $env_var ) {
 		return (bool) $env_var;
 	}
 
-	return defined( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' ) ? TRIBE_EVENTS_WIDGETS_V2_ENABLED : true;
+	// If the constnat is defined, returns the opposite of the constnat, otherwise true (default).
+	return defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? ! TRIBE_EVENTS_WIDGETS_V2_DISABLED : true;
 }

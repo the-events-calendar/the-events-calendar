@@ -23,7 +23,7 @@ class Admin_Template extends \Tribe__Template {
 	/**
 	 * Allowed field types.
 	 *
-	 * @var array
+	 * @var array<string>
 	 */
 	public $allowed_field_types = [
 		'checkbox',
@@ -72,7 +72,6 @@ class Admin_Template extends \Tribe__Template {
 	 *
 	 * @param WP_Widget           $widget_obj   The widget object.
 	 * @param array<string,mixed> $admin_fields The array of field(s) data.
-	 * @return void
 	 */
 	public function structure( $widget_obj, $admin_fields ) {
 		$this->widget_obj = $widget_obj;
@@ -91,9 +90,9 @@ class Admin_Template extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param int                  $field_id    The ID of the field.
-	 * @param array <string,mixed> $field       The field info.
-	 * @param array                $passthrough Passthrough data (from parent - like fieldset, to children).
+	 * @param int                 $field_id    The ID of the field.
+	 * @param array<string,mixed> $field       The field info.
+	 * @param array<string,mixed> $passthrough Passthrough data (from parent - like fieldset, to children).
 	 */
 	public function maybe_input( $field_id, $field, $passthrough = [] ) {
 		if ( 'section' === $field['type'] || 'fieldset' === $field['type'] ) {
@@ -108,9 +107,9 @@ class Admin_Template extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param int                  $field_id    The ID of the field.
-	 * @param array <string,mixed> $field       The field info.
-	 * @param array                $passthrough Passthrough data (from parent - like fieldset, to children).
+	 * @param int                 $field_id    The ID of the field.
+	 * @param array<string,mixed> $field       The field info.
+	 * @param array<string,mixed> $passthrough Passthrough data (from parent - like fieldset, to children).
 	 */
 	public function section( $field_id, $field, $passthrough = [] ) {
 		$data = [
@@ -132,9 +131,9 @@ class Admin_Template extends \Tribe__Template {
 	 *
 	 * @since TBD
 	 *
-	 * @param int                  $field_id    The ID of the field.
-	 * @param array <string,mixed> $field       The field info.
-	 * @param array                $passthrough Passthrough data (from parent - like fieldset, to children).
+	 * @param int                 $field_id    The ID of the field.
+	 * @param array<string,mixed> $field       The field info.
+	 * @param array<string,mixed> $passthrough Passthrough data (from parent - like fieldset, to children).
 	 */
 	public function input( $field_id, $field, $passthrough = [] ) {
 		$data = [
@@ -189,6 +188,7 @@ class Admin_Template extends \Tribe__Template {
 		if ( isset( $deps['ID'] ) ) {
 			$deps['id'] = $deps['ID'];
 		}
+
 		// No ID to hook to? Bail.
 		if ( empty( $deps['id'] ) ) {
 			return;

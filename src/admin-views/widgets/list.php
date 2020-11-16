@@ -22,4 +22,4 @@ if ( empty( $admin_fields ) ) {
 	return;
 }
 
-$this->structure( $widget_obj, $admin_fields );
+$this->print_form( $widget_obj, $admin_fields );
