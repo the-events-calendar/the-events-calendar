@@ -73,7 +73,7 @@ class Admin_Template extends \Tribe__Template {
 	 * @param WP_Widget           $widget_obj   The widget object.
 	 * @param array<string,mixed> $admin_fields The array of field(s) data.
 	 */
-	public function structure( $widget_obj, $admin_fields ) {
+	public function print_form( $widget_obj, $admin_fields ) {
 		$this->widget_obj = $widget_obj;
 		foreach ( $admin_fields as $field_id => $field ) {
 			// Can't do anything if we don't know what we're dealing with.
