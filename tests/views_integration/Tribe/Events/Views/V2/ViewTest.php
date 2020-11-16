@@ -79,7 +79,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_print_a_view_html_on_the_page_when_caling_send_html() {
+	public function should_print_a_view_html_on_the_page_when_calling_send_html() {
 		add_filter( 'tribe_events_views', static function () {
 			return [ 'test' => Test_View::class ];
 		} );
@@ -274,5 +274,59 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$url_event_date = $template_vars['url_event_date'];
 
 		$this->assertEquals( $expected, $url_event_date );
+	}
+
+	/**
+	 * It should return empty array if View URL is not valid
+	 *
+	 * @test
+	 */
+	public function should_return_empty_array_if_view_url_is_not_valid() {
+		$invalid_url_view = new class extends View {
+			public function get_url( $canonical = false, $force = false ) {
+				return 'not-a-url';
+			}
+		};
+
+		$this->assertEquals( [], $invalid_url_view->get_url_args() );
+	}
+
+	public function get_url_args_data_provider() {
+		return [
+			'no query args'      => [ 'http://wp.test', [] ],
+			'one query arg'      => [ 'http://wp.test?foo=bar', [ 'foo' => 'bar' ] ],
+			'two query args'     => [ 'http://wp.test/?foo=bar&bar=baz', [ 'foo' => 'bar', 'bar' => 'baz' ] ],
+			'eventDisplay month' => [
+				'http://wp.test/?post_type=tribe_events&eventDisplay=month',
+				[ 'post_type' => 'tribe_events', 'eventDisplay' => 'month' ],
+			],
+			'many arguments'     => [
+				'http://wp.test/?post_type=tribe_events&eventDisplay=month&tribe-bar-search=cabbage&tribe_events_cat=test',
+				[ 'post_type' => 'tribe_events', 'eventDisplay' => 'month', 'tribe-bar-search' => 'cabbage', 'tribe_events_cat' => 'test' ],
+			],
+		];
+	}
+
+	/**
+	 * It should return the correct view URL args
+	 *
+	 * @test
+	 * @dataProvider get_url_args_data_provider
+	 */
+	public function should_return_the_correct_view_url_args( string $view_url, array $expected ) {
+		$invalid_url_view = new class( null, $view_url ) extends View {
+			protected $_view_url;
+
+			public function __construct( Messages $messages = null, $view_url ) {
+				parent::__construct( $messages );
+				$this->_view_url = $view_url;
+			}
+
+			public function get_url( $canonical = false, $force = false ) {
+				return $this->_view_url;
+			}
+		};
+
+		$this->assertEquals( $expected, $invalid_url_view->get_url_args() );
 	}
 }
