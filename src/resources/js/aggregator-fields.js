@@ -1096,6 +1096,21 @@ tribe_aggregator.fields = {
 
 		if ( data.continue ) {
 			setTimeout( obj.progress.send_request, obj.progress.increment  );
+			/**
+			 * If a subsequent call is made to the progress bar prevent to create a linear set of calls as the call is
+			 * primarily made to check the current status of the import, having a check made in a linear way if the tab
+			 * is open will create a large number of calls to thw wo-admin/ajax.php consuming a large set of resources
+			 * on each call.
+			 *
+			 * Instead by doing an increment of 50 to the current value this would decrease the time between each call
+			 * if more calls are happening as the time progress as the next time would take more time to be executed,
+			 * for instance this is an example in how the delay between each call would take place.
+			 *
+			 * [0, 50, 100, 150, 200, 250, 300, 350, 400, 500]
+			 *
+			 * As described the next call to review the progress of the import would take longer to complete preventing
+			 * to create a large number of calls against the site.
+			 */
 			obj.progress.increment += 50;
 		}
 
