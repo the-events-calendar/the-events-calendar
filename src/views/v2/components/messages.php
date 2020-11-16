@@ -29,7 +29,7 @@ $classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-
 <div <?php tribe_classes( $classes ); ?>>
 	<?php foreach ( $messages as $message_type => $message_group ) : ?>
 		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
-			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '/icon' ); ?>
+			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
 			<ul class="tribe-events-c-messages__message-list">
 				<?php foreach ( $message_group as $message ) : ?>
 					<li class="tribe-events-c-messages__message-list-item">
