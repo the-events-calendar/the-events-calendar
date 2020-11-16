@@ -36,6 +36,7 @@
 		<?php foreach ( $options as $option ) { ?>
 			<option
 					value="<?php echo esc_html( $option['value'] ); ?>"
+					<?php selected( $value, $option['value'] ); ?>
 			>
 				<?php echo esc_html( $option['text'] ); ?>
 			</option>
