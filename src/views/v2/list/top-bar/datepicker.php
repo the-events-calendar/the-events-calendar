@@ -88,10 +88,10 @@
 		readonly="readonly"
 	/>
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
-	<template id="tribe-events-c-top-bar__datepicker-template-prev-icon">
+	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">
 		<?php $this->template( 'components/icons/caret-alt-left', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
 	</template>
-	<template id="tribe-events-c-top-bar__datepicker-template-next-icon">
+	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
 		<?php $this->template( 'components/icons/caret-alt-right', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
 	</template>
 </div>
