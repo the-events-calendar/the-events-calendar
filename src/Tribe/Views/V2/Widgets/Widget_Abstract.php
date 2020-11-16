@@ -332,4 +332,67 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		return $context_args;
 	}
+
+	/**
+	 * Handles gathering the data for admin fields.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                 $field_id    The ID of the field.
+	 * @param array<string,mixed> $field       The field info.
+	 * @param array<string,mixed> $passthrough Passthrough data (from a parent - like fieldset, to its children).
+	 * @param Context             $context     The Admin View current context.
+	 * @return void
+	 */
+	public function get_admin_data( $field_id, $field, $passthrough, $context ) {
+		$data = [
+			'children'    => Arr::get( $field, 'children', '' ),
+			'classes'     => Arr::get( $field, 'classes', '' ),
+			'dependency'  => $this->format_dependency( $field ),
+			'id'          => $this->get_field_id( $field_id ),
+			'label'       => Arr::get( $field, 'label', '' ),
+			'name'        => $this->get_field_name( $field_id ),
+			'options'     => Arr::get( $field, 'options', [] ),
+			'placeholder' => Arr::get( $field, 'placeholder', '' ),
+			'value'       => Arr::get( $context, $field_id, [] ),
+		];
+
+		if ( 'radio' === $field['type'] ) {
+			$data['button_value'] = Arr::get( $field, 'button_value', '' );
+			$data['name']         = Arr::get( $passthrough, 'name', '' );
+			$data['value']        = Arr::get( $passthrough, 'value', null );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Massages the data before asking tribe_format_field_dependency() to create the dependency attributes.
+	 *
+	 * @since TBD
+	 *
+	 * @param array <string,mixed> $field The field info.
+	 *
+	 * @return string The dependency attributes.
+	 */
+	public function format_dependency( $field ) {
+		$deps = Arr::get( $field, 'dependency', false );
+		// Sanity check.
+		if ( empty( $deps ) ) {
+			return '';
+		}
+
+		if ( isset( $deps['ID'] ) ) {
+			$deps['id'] = $deps['ID'];
+		}
+
+		// No ID to hook to? Bail.
+		if ( empty( $deps['id'] ) ) {
+			return;
+		}
+
+		$deps['id'] = $this->get_field_id( $deps['id'] );
+
+		return tribe_format_field_dependency( $deps );
+	}
 }
