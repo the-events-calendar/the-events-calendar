@@ -442,6 +442,12 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
+			// Just double Check for CSV.
+			if ( 'csv' === $record->origin ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
+				continue;
+			}
+
 			$cleaner->set_stall_limit( HOUR_IN_SECONDS * 22 )->set_time_to_live( HOUR_IN_SECONDS * 23 );
 
 			$cleaner->remove_duplicate_pending_records_for( $record );
@@ -449,12 +455,6 @@ class Tribe__Events__Aggregator__Cron {
 
 			if ( $failed ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Stalled record (%d) was skipped', $record->id ), 'EA Cron' );
-				continue;
-			}
-
-			// Just double Check for CSV.
-			if ( 'csv' === $record->origin ) {
-				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
 				continue;
 			}
 
@@ -522,17 +522,17 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
+			// Just double Check for CSV
+			if ( 'csv' === $record->origin ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
+				continue;
+			}
+
 			$cleaner->remove_duplicate_pending_records_for( $record );
 			$failed = $cleaner->maybe_fail_stalled_record( $record );
 
 			if ( $failed ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Stalled record (%d) was skipped', $record->id ), 'EA Cron' );
-				continue;
-			}
-
-			// Just double Check for CSV
-			if ( 'csv' === $record->origin ) {
-				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
 				continue;
 			}
 
