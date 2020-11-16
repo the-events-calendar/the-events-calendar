@@ -1,4 +1,7 @@
 <?php
+
+use Tribe__Events__Aggregator__Record__Abstract as Record_Abstract;
+
 /**
  * Class Tribe__Events__Aggregator__Processes__Batch_Imports
  *
@@ -38,8 +41,8 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool                                        $service_supports_batch_push If the current import has support for batch pushing.
-	 * @param Tribe__Events__Aggregator__Record__Abstract $abstract
+	 * @param bool            $service_supports_batch_push If the current import has support for batch pushing.
+	 * @param Record_Abstract $abstract
 	 *
 	 * @return boolean If the current import supports batch pushing or not.
 	 */

@@ -1,5 +1,8 @@
 <?php
 
+use Tribe__Events__Aggregator__Record__Abstract as Record_Abstract;
+use Tribe__Events__Aggregator__Record__Queue as Record_Queue;
+
 /**
  * Class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
  *
@@ -13,7 +16,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	implements Tribe__REST__Endpoints__CREATE_Endpoint_Interface {
 
 	/**
-	 * @var Tribe__Events__Aggregator__Record__Abstract
+	 * @var Record_Abstract
 	 */
 	protected $current_record;
 
@@ -36,7 +39,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	 *
 	 * @since 4.6.15
 	 *
-	 * @param WP_REST_Request $request Object representing the Http request to this endpoint.
+	 * @param WP_REST_Request $request   Object representing the Http request to this endpoint.
 	 * @param bool            $return_id Whether the ID should be returned or not.
 	 *
 	 * @return int|WP_Error|WP_REST_Response
@@ -45,7 +48,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		/** @var Tribe__Events__Aggregator__Records $records */
 		$records = tribe( 'events-aggregator.records' );
 
-		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
+		/** @var Record_Abstract $record */
 		$record = $records->get_by_import_id(
 			$request['import_id'],
 			// Make sure to only select pending records to be processed.
@@ -69,7 +72,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		$new_status  = $is_finished ? 'success' : 'pending';
 
 		// Status variable is validated to have 'data' and 'total' key on method `is_valid_status_information`.
-		$record->update_meta( 'total_events', (int) $request->get_param('status')['data']['total'] );
+		$record->update_meta( 'total_events', (int) $request->get_param( 'status' )['data']['total'] );
 
 		if ( $is_success ) {
 			$record->update_meta( 'percentage_complete', $request['percentage_complete'] );
@@ -99,7 +102,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 		// Save activity values.
 		$meta = get_post_meta(
 			$record->post->ID,
-			Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . Tribe__Events__Aggregator__Record__Queue::$activity_key,
+			Record_Abstract::$meta_key_prefix . Record_Queue::$activity_key,
 			true
 		);
 
@@ -107,7 +110,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 			$activity->merge( $meta );
 		}
 
-		$record->update_meta( Tribe__Events__Aggregator__Record__Queue::$activity_key, $activity );
+		$record->update_meta( Record_Queue::$activity_key, $activity );
 
 		if ( $is_finished ) {
 			$record->delete_meta( 'next_batch_hash' );
