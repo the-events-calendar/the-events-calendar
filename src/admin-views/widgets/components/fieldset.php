@@ -23,7 +23,7 @@
 
 use Tribe__Utils__Array as Arr;
 
-$fieldset_classes = array_merge( [ 'tribe-widget-form-control__fieldset' ], Arr::list_to_array( $classes, ' ' ) );
+$fieldset_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--fieldset' ], Arr::list_to_array( $classes, ' ' ) );
 
 ?>
 <fieldset
@@ -31,7 +31,7 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control__fieldset' ], Arr:
 	<?php echo esc_html( $dependency ); ?>
 >
 	<?php if ( ! empty( $label ) ) : ?>
-		<legend class="tribe-widget-form-control__legend"><?php echo esc_html( $label ); ?></legend>
+		<legend class="tribe-widget-form-control--legend"><?php echo esc_html( $label ); ?></legend>
 	<?php endif; ?>
 
 	<?php

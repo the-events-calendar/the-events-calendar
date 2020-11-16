@@ -21,7 +21,7 @@
 
 use Tribe__Utils__Array as Arr;
 
-$section_classes = array_merge( [ 'tribe-widget-form-control__section' ], Arr::list_to_array( $classes, ' ' ) );
+$section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--section' ], Arr::list_to_array( $classes, ' ' ) );
 
 ?>
 <div
@@ -30,7 +30,7 @@ $section_classes = array_merge( [ 'tribe-widget-form-control__section' ], Arr::l
 >
 	<?php if ( ! empty( $label ) ) : ?>
 		<?php // Note: the actual widget title/handle is an <h3>. ?>
-		<h4 class="tribe-widget-form-control__section-title"><?php echo esc_html( $label ); ?></h4>
+		<h4 class="tribe-widget-form-control--section-title"><?php echo esc_html( $label ); ?></h4>
 	<?php endif; ?>
 
 	<?php
