@@ -36,8 +36,8 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control__fieldset' ], Arr:
 
 	<?php
 	foreach ( $children as $child_id => $child ) {
-		// A provided name is a passthrough for radios.
-		$this->maybe_input(
+		// The provided name/value are passed through for radios.
+		$this->section_handler(
 			$child_id,
 			$child,
 			[
@@ -47,6 +47,4 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control__fieldset' ], Arr:
 		);
 	}
 	?>
-
-	<?php // End the fieldset. ?>
 </fieldset>

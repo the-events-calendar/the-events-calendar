@@ -19,7 +19,7 @@
 
 ?>
 <div
-		class="tribe-widget-form-control tribe-widget-form-control-dropdown"
+		class="tribe-widget-form-control tribe-widget-form-control--dropdown"
 		<?php echo esc_html( $dependency ); ?>
 >
 	<label

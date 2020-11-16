@@ -19,7 +19,7 @@
 
 ?>
 <div
-		class="tribe-widget-form-control tribe-widget-form-control-checkbox"
+		class="tribe-widget-form-control tribe-widget-form-control--checkbox"
 		<?php echo esc_html( $dependency ); ?>
 >
 	<input

@@ -19,7 +19,7 @@
 
 ?>
 <p
-		class="tribe-widget-text tribe-common-form-control-text"
+		class="tribe-widget-form-control tribe-widget-form-control--text"
 >
 	<label
 			class="tribe-common-form-control__label"

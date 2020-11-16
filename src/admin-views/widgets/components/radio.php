@@ -20,7 +20,7 @@
 
 ?>
 <div
-	class="tribe-widget-form-control tribe-widget-form-control-radio"
+	class="tribe-widget-form-control tribe-widget-form-control--radio"
 	<?php echo esc_html( $dependency ); ?>
 >
 	<input

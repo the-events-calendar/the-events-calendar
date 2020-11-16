@@ -35,9 +35,7 @@ $section_classes = array_merge( [ 'tribe-widget-form-control__section' ], Arr::l
 
 	<?php
 	foreach ( $children as $child_id => $child ) {
-		$this->maybe_input( $child_id, $child );
+		$this->section_handler( $child_id, $child );
 	}
 	?>
-
-	<?php // End the section. ?>
 </div>
