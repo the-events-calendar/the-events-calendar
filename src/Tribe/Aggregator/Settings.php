@@ -657,7 +657,7 @@ class Tribe__Events__Aggregator__Settings {
 		 *
 		 * @param int
 		 */
-		return apply_filters( 'tribe_aggregator_import_count_default', 200 );
+		return apply_filters( 'tribe_aggregator_import_count_default', 1000 );
 	}
 
 	/**
