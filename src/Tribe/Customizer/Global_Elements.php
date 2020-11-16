@@ -475,6 +475,30 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
+		
+		$manager->add_setting(
+			$customizer->get_setting_name( 'my_test', $section ),
+			array(
+				'default'              => '#334AFF',
+				'type'                 => 'option',
+
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			)
+		);
+		
+		$manager->add_control(
+			new Tribe__Customizer__Control(
+				$manager,
+				$customizer->get_setting_name( 'my_test', $section ),
+				array(
+					'label'   => esc_html__( 'My Test', 'the-events-calendar' ),
+					'section' => $section->id,
+					'description' => 'HELP ME',
+					'extra' => 'Extra',
+				)
+			)
+		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
