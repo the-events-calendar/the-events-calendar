@@ -15,7 +15,7 @@
 	/>
 </p>
 <div
-		class="tribe-widget-form-control tribe-widget-form-control-dropdown"
+		class="tribe-widget-form-control tribe-widget-form-control--dropdown"
 		>
 	<label
 			class="tribe-widget-form-control__label"
@@ -90,7 +90,7 @@
 			</select>
 </div>
 <div
-		class="tribe-widget-form-control tribe-widget-form-control-checkbox"
+		class="tribe-widget-form-control tribe-widget-form-control--checkbox"
 		>
 	<input
 			class="tribe-widget-form-control__input"
@@ -106,7 +106,7 @@
 		Hide this widget if there are no upcoming events.	</label>
 </div>
 <div
-		class="tribe-widget-form-control tribe-widget-form-control-checkbox"
+		class="tribe-widget-form-control tribe-widget-form-control--checkbox"
 		>
 	<input
 			class="tribe-widget-form-control__input"
@@ -122,7 +122,7 @@
 		Limit to featured events only	</label>
 </div>
 <div
-		class="tribe-widget-form-control tribe-widget-form-control-checkbox"
+		class="tribe-widget-form-control tribe-widget-form-control--checkbox"
 		>
 	<input
 			class="tribe-widget-form-control__input"
