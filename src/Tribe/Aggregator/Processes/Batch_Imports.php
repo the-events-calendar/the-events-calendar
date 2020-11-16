@@ -14,7 +14,7 @@
  */
 class Tribe__Events__Aggregator__Processes__Batch_Imports {
 	/**
-	 * Update the endpoint used to initiate an process an import of events.
+	 * Update the endpoint used to initiate a process an import of events.
 	 *
 	 * @param string   $url      The completed URL generated.
 	 * @param string   $endpoint The path of the endpoint inside of the base url.
