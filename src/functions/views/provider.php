@@ -130,9 +130,9 @@ function tribe_events_widgets_v2_is_enabled() {
 
 	$env_var = getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
 	if ( false !== $env_var ) {
-		return (bool) $env_var;
+		return !! $env_var;
 	}
 
-	// If the constnat is defined, returns the opposite of the constnat, otherwise true (default).
+	// If the constant is defined, returns the opposite of the constant, otherwise true (default).
 	return defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? ! TRIBE_EVENTS_WIDGETS_V2_DISABLED : true;
 }
