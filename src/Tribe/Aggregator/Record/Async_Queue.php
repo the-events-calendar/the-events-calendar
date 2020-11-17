@@ -371,6 +371,15 @@ class Tribe__Events__Aggregator__Record__Async_Queue
 	}
 
 	/**
+	 * This Queue never fetches on external resources so is always `false`.
+	 *
+	 * @return bool The state of the queue with external resources.
+	 */
+	public function is_fetching() {
+		return false;
+	}
+
+	/**
 	 * Returns the queue error message.
 	 *
 	 * @since 4.6.21

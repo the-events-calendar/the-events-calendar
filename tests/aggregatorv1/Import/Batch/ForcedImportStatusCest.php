@@ -46,8 +46,8 @@ class ForcedImportStatusCest {
 
 		$I->canSeeResponseContainsJson( [ 'status' => 'success' ] );
 		$next_batch_hash_criteria = [
-			'post_id' => $record->post->ID,
-			'meta_key' => '_tribe_aggregator_next_batch_hash'
+			'post_id'  => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_next_batch_hash',
 		];
 		if ( $force_status === 'pending' ) {
 			$next_batch_hash = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $next_batch_hash_criteria );
@@ -56,8 +56,8 @@ class ForcedImportStatusCest {
 			$I->dontSeeInDatabase( $I->grabPostMetaTableName(), $next_batch_hash_criteria );
 		}
 		$done_criteria = [
-			'post_id' => $record->post->ID,
-			'meta_key' => '_tribe_aggregator_percentage_complete'
+			'post_id'  => $record->post->ID,
+			'meta_key' => '_tribe_aggregator_percentage_complete',
 		];
 		$done_in_db    = $I->grabFromDatabase( $I->grabPostMetaTableName(), 'meta_value', $done_criteria );
 		$I->assertEquals( $done, $done_in_db );
@@ -83,6 +83,34 @@ class ForcedImportStatusCest {
 
 		$I->seeResponseIsJson();
 		$I->seeResponseCodeIs( 400 );
+	}
+
+	/**
+	 * should allow to mark an import as a failure if no next hash is present
+	 *
+	 * @test
+	 */
+	public function should_allow_to_mark_an_import_as_a_failure_if_no_next_hash_is_present( Aggregatorv1Tester $I ) {
+		$import_id = '234324234234234';
+
+		$record      = $this->make_manual_record( $import_id, [], 'pending' );
+		$posts_table = $I->grabPostsTableName();
+		$status      = $I->grabFromDatabase( $posts_table, 'post_status', [ 'ID' => $record->post->ID ] );
+
+		$I->assertEquals( Records::$status->pending, $status );
+
+		$data = $this->make_status_data( [ 'status' => 'failed' ] );
+		$I->sendPOST( "import/{$import_id}/state", $data );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 200 );
+
+		$status_after_processing = $I->grabFromDatabase( $posts_table, 'post_status', [ 'ID' => $record->post->ID ] );
+		$I->assertEquals(
+			Records::$status->failed,
+			$status_after_processing,
+			'After forcing a status the record should have that status'
+		);
 	}
 
 	protected function forceable_stati() {

@@ -16,6 +16,8 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 		tribe_register( 'events-aggregator.record-items', 'Tribe__Events__Aggregator__Record__Items' );
 		tribe_register( 'events-aggregator.processes.import-events', 'Tribe__Events__Aggregator__Processes__Import_Events' );
 		tribe_singleton( 'events-aggregator.queue-control', 'Tribe__Events__Aggregator__Processes__Queue_Control' );
+		$batch_imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
+		tribe_singleton( Tribe__Events__Aggregator__Processes__Batch_Imports::class, $batch_imports );
 
 		add_filter( 'tribe_process_queues', array( $this, 'filter_tribe_process_queues' ) );
 		add_filter( 'tribe_settings_save_field_value', array(
@@ -25,6 +27,12 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 
 		$this->handle_clear_request();
 		$this->handle_clear_result();
+
+		$batch = tribe( Tribe__Events__Aggregator__Processes__Batch_Imports::class );
+		// Add hooks to enable batch pushing.
+		add_filter( 'tribe_events_aggregator_build_url', [ $batch, 'build_url' ], 10, 3 );
+		add_filter( 'tribe_aggregator_service_post_import_args', [ $batch, 'import_args' ], 10, 2 );
+		add_filter( 'tribe_aggregator_allow_batch_push', [ $batch, 'allow_batch_import' ], 10, 2 );
 	}
 
 	/**

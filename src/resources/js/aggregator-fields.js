@@ -1083,9 +1083,8 @@ tribe_aggregator.fields = {
 		obj.progress.update( tribe_aggregator_save.progress, tribe_aggregator_save.progressText );
 	};
 
+	obj.progress.increment = 0;
 	obj.progress.handle_response = function( data ) {
-		var now     = Date.now();
-		var elapsed = now - obj.progress.data.time;
 
 		if ( data.html ) {
 			obj.progress.data.notice.html( data.html );
@@ -1096,13 +1095,23 @@ tribe_aggregator.fields = {
 		}
 
 		if ( data.continue ) {
-			// If multiple editors are open for the same event we don't want to hammer the server
-			// and so a min delay of 1/2 sec is introduced between update requests
-			if ( elapsed < 500 ) {
-				setTimeout( obj.progress.send_request, 500 - elapsed  );
-			} else {
-				obj.progress.send_request();
-			}
+			setTimeout( obj.progress.send_request, obj.progress.increment  );
+			/**
+			 * If a subsequent call is made to the progress bar prevent to create a linear set of calls as the call is
+			 * primarily made to check the current status of the import, having a check made in a linear way if the tab
+			 * is open will create a large number of calls to thw wo-admin/ajax.php consuming a large set of resources
+			 * on each call.
+			 *
+			 * Instead by doing an increment of 50 to the current value this would decrease the time between each call
+			 * if more calls are happening as the time progress as the next time would take more time to be executed,
+			 * for instance this is an example in how the delay between each call would take place.
+			 *
+			 * [0, 50, 100, 150, 200, 250, 300, 350, 400, 500]
+			 *
+			 * As described the next call to review the progress of the import would take longer to complete preventing
+			 * to create a large number of calls against the site.
+			 */
+			obj.progress.increment += 50;
 		}
 
 		if ( data.error ) {
