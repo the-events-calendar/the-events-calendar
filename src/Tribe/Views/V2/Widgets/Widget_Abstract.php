@@ -356,9 +356,9 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since TBD
 	 *
+	 * @param array<string,mixed> $arguments Current set of arguments.
 	 * @param int                 $field_name    The ID of the field.
 	 * @param array<string,mixed> $field       The field info.
-	 * @param Context             $context     The Admin View current context.
 	 *
 	 * @return array<string,mixed> $data The assembled field data.
 	 */
@@ -391,8 +391,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		$data = array_merge( $field, $data );
 
 		return apply_filters( 'tribe_events_views_v2_widget_field_data', $data, $field_name, $this );
-
-		return $data;
 	}
 
 	/**
