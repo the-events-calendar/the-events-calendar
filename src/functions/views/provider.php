@@ -131,7 +131,7 @@ function tribe_events_widgets_v2_is_enabled() {
 	}
 
 
-	$env_var = getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
+	$env_var = (bool) getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
 	if ( false !== $env_var ) {
 		return ! $env_var;
 	}
