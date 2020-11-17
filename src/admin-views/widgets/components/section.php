@@ -29,7 +29,7 @@ $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-for
 	<?php tribe_classes( $section_classes ); ?>
 	<?php
 		// Not escaped - contains html ( data-attr="value")
-		echo $dependency;
+		echo $dependency; // phpcs:ignore
 		?>
 >
 	<?php if ( ! empty( $label ) ) : ?>

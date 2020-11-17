@@ -27,16 +27,16 @@
 		?>
 >
 	<input
-			class="tribe-widget-form-control__input"
-			id="<?php echo esc_attr( $id ); ?>"
-			name="<?php echo esc_attr( $name ); ?>"
-			type="checkbox"
-			value="1"
-			<?php checked( tribe_is_truthy( $value ), true ); ?>
+		class="tribe-widget-form-control__input"
+		id="<?php echo esc_attr( $id ); ?>"
+		name="<?php echo esc_attr( $name ); ?>"
+		type="checkbox"
+		value="1"
+		<?php checked( tribe_is_truthy( $value ), true ); ?>
 	/>
 	<label
-			class="tribe-widget-form-control__label"
-			for="<?php echo esc_attr( $id ); ?>"
+		class="tribe-widget-form-control__label"
+		for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</label>

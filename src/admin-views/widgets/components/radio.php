@@ -23,9 +23,9 @@
 <div
 	class="tribe-widget-form-control tribe-widget-form-control--radio"
 	<?php
-		// Not escaped - contains html ( data-attr="value")
-		echo $dependency; // phpcs:ignore
-		?>
+	// Not escaped - contains html ( data-attr="value")
+	echo $dependency; // phpcs:ignore
+	?>
 >
 	<input
 		class="tribe-widget-form-control__input"
@@ -36,8 +36,8 @@
 		<?php checked( $button_value, $value ); ?>
 	/>
 	<label
-			class="tribe-widget-form-control__label"
-			for="<?php echo esc_attr( $id ); ?>"
+		class="tribe-widget-form-control__label"
+		for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</label>

@@ -389,7 +389,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		// No ID to hook to? Bail.
 		if ( empty( $deps['id'] ) ) {
-			return;
+			return '';
 		}
 
 		$deps['id'] = $this->get_field_id( $deps['id'] );
