@@ -91,6 +91,22 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_arguments( array $instance = [] ) {
+		$arguments = parent::setup_arguments( $instance );
+
+		$admin_fields = $arguments['admin_fields'];
+
+		foreach ( $admin_fields as $field_name => $field ) {
+			$arguments['admin_fields'][ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
+		}
+		// add data here.
+
+		return $arguments;
+	}
+
+	/**
 	 * Encapsulates and handles the logic for asset enqueues in it's own method.
 	 *
 	 * @since TBD
@@ -317,6 +333,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Translates widget arguments to their Context argument counterpart.
 	 *
+	 * For front-end display.
+	 *
 	 * @since 5.2.1
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
@@ -338,31 +356,41 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param int                 $field_id    The ID of the field.
+	 * @param int                 $field_name    The ID of the field.
 	 * @param array<string,mixed> $field       The field info.
-	 * @param array<string,mixed> $passthrough Passthrough data (from a parent - like fieldset, to its children).
 	 * @param Context             $context     The Admin View current context.
 	 *
 	 * @return array<string,mixed> $data The assembled field data.
 	 */
-	public function get_admin_data( $field_id, $field, $passthrough, $context ) {
+	public function get_admin_data( $arguments, $field_name, $field ) {
 		$data = [
-			'children'    => Arr::get( $field, 'children', '' ),
 			'classes'     => Arr::get( $field, 'classes', '' ),
 			'dependency'  => $this->format_dependency( $field ),
-			'id'          => $this->get_field_id( $field_id ),
+			'id'          => $this->get_field_id( $field_name ),
 			'label'       => Arr::get( $field, 'label', '' ),
-			'name'        => $this->get_field_name( $field_id ),
+			'name'        => $this->get_field_name( $field_name ),
 			'options'     => Arr::get( $field, 'options', [] ),
 			'placeholder' => Arr::get( $field, 'placeholder', '' ),
-			'value'       => Arr::get( $context, $field_id, [] ),
+			'value'       => Arr::get( $arguments, $field_name ),
 		];
 
-		if ( 'radio' === $field['type'] ) {
-			$data['button_value'] = Arr::get( $field, 'button_value', '' );
-			$data['name']         = Arr::get( $passthrough, 'name', '' );
-			$data['value']        = Arr::get( $passthrough, 'value', null );
+		$children = Arr::get( $field, 'children', [] );
+
+		if ( ! empty( $children ) ) {
+			foreach ( $children as $child_name => $child ) {
+				$child_data = $this->get_admin_data(
+					$arguments,
+					$child_name,
+					$child
+				);
+
+				$data['children'][ $child_name ] = $child_data;
+			}
 		}
+
+		$data = array_merge( $field, $data );
+
+		return apply_filters( 'tribe_events_views_v2_widget_field_data', $data, $field_name, $this );
 
 		return $data;
 	}

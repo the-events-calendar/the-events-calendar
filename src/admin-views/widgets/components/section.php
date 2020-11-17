@@ -39,7 +39,9 @@ $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-for
 
 	<?php
 	foreach ( $children as $child_id => $child ) {
-		$this->section_handler( $child_id, $child );
+		$this->template( "widgets/components/{$child['type']}", $child );
+
+		do_action( "tribe_events_views_v2_widget_admin_form_{$child['type']}_input", $child );
 	}
 	?>
 </div>

@@ -15,11 +15,8 @@
  * @version TBD
  */
 
-use \Tribe\Events\Views\V2\Widgets\Widget_Abstract;
-use Tribe__Utils__Array as Arr;
+foreach ( $admin_fields as $field ) {
+	$this->template( "widgets/components/{$field['type']}", $field );
 
-if ( empty( $admin_fields ) ) {
-	return;
+	do_action( "tribe_events_views_v2_widget_admin_form_{$field['type']}_input", $field, $widget_obj );
 }
-
-$this->print_form( $widget_obj, $admin_fields );

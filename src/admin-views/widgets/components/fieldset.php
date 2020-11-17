@@ -38,16 +38,9 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-fo
 	<?php endif; ?>
 
 	<?php
-	foreach ( $children as $child_id => $child ) {
+	foreach ( $children as $child ) {
 		// The provided name/value are passed through for radios.
-		$this->section_handler(
-			$child_id,
-			$child,
-			[
-				'name'  => $name,
-				'value' => $value,
-			]
-		);
+		$this->template( "widgets/components/{$child['type']}", $child );
 	}
 	?>
 </fieldset>

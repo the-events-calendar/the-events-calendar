@@ -1,6 +1,6 @@
 <?php
 /**
- * The List Widget View.
+ * The Front End List Widget View.
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  * @since 5.2.1

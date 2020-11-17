@@ -131,7 +131,6 @@ class Widget_List extends Widget_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function setup_admin_fields() {
-
 		return [
 			'title'                => [
 				'label' => _x( 'Title:', 'The label for the field of the title of the List Widget.', 'the-events-calendar' ),
@@ -154,7 +153,6 @@ class Widget_List extends Widget_Abstract {
 				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSONLD in the List Widget.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
-
 		];
 	}
 
@@ -207,6 +205,8 @@ class Widget_List extends Widget_Abstract {
 		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
 			(int) $arguments['limit'] :
 			5;
+
+			// get admin data?
 
 		/**
 		 * Applies a filter to the args to context.
