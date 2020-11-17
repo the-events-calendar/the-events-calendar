@@ -130,15 +130,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @see      wp_delete_post()
 	 * @category Events
 	 *
-	 * @param int  $postId       ID of the event to be deleted.
+	 * @param int  $post_id      Post ID of the Event.
 	 * @param bool $force_delete Whether to bypass trash and force deletion. Defaults to false.
 	 *
 	 * @return bool false if delete failed.
 	 */
-	function tribe_delete_event( $postId, $force_delete = false ) {
-		$success = Tribe__Events__API::deleteEvent( $postId, $force_delete );
-
-		return $success;
+	function tribe_delete_event( $post_id, $force_delete = false ) {
+		return Tribe__Events__API::deleteEvent( $post_id, $force_delete );
 	}
 
 }

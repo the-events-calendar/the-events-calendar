@@ -1,4 +1,4 @@
-.tribe-events {
+.tribe-events-widget {
 
 	.tribe-events-widget-events-list__header {
 		margin-bottom: var(--spacer-5);
@@ -47,7 +47,44 @@
 		}
 	}
 
+	.tribe-events-widget-events-list__event-datetime-featured-icon {
+		display: inline-block;
+		margin-right: var(--spacer-0);
+	}
+
 	.tribe-events-widget-events-list__view-more {
 		margin-top: var(--spacer-4);
+	}
+
+	.tribe-events-widget-events-list {
+
+		.tribe-events-c-messages {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.tribe-events-c-messages__message {
+			align-items: center;
+			display: flex;
+			padding: 0;
+			width: 100%;
+
+			.tribe-common--breakpoint-medium& {
+				justify-content: flex-start;
+				padding: 0;
+			}
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Astra
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-astra.ast-separate-container &,
+	.theme-astra.ast-separate-container & {
+
+		.tribe-events-widget-events-list__event {
+			padding: 0;
+		}
 	}
 }

@@ -234,4 +234,49 @@ class Month_ViewTest extends ViewTestCase {
 
 		$this->assertEquals( $expected, $view->get_messages() );
 	}
+
+	public function day_url_data_provider() {
+		return [
+			// Context alterations, expected placeholder.
+			'no filters'                               => [ [], '/events/{{ first_date }}/' ],
+			'with category'                            => [ [ 'event_category' => 'test' ], '/events/category/test/day/{{ first_date }}/' ],
+			'featured events only'                     => [ [ 'featured' => 'true' ], '/events/{{ first_date }}/featured/' ],
+			'featured events only in category'         => [
+				[ 'event_category' => 'test', 'featured' => 'true' ],
+				'/events/category/test/day/{{ first_date }}/featured/',
+			],
+			'with keyword'                             => [
+				[ 'keyword' => 'cabbage' ],
+				'/events/{{ first_date }}/?tribe-bar-search=cabbage',
+			],
+			'with keyword, featured only and category' => [
+				[ 'event_category' => 'test', 'featured' => 'true', 'keyword' => 'cabbage' ],
+				'/events/category/test/day/{{ first_date }}/featured/?tribe-bar-search=cabbage',
+			]
+		];
+	}
+
+	/**
+	 * It should carry over query args from View to View More link
+	 *
+	 * @testS
+	 * @dataProvider day_url_data_provider
+	 */
+	public function should_carry_over_query_args_from_view_to_view_more_link( array $context_alterations, string $expected_template ) {
+		// Create the category to make sure it will appear.
+		static::factory()->term->create( [ 'taxonomy' => TEC::TAXONOMY, 'slug' => 'test' ] );
+		$view = View::make( Month_View::class );
+		$view->set_context( $this->context->alter( $context_alterations ) );
+		$view_template_vars = $view->get_template_vars();
+
+		// Sanity check.
+		$this->assertNotEmpty($view_template_vars['days']);
+
+		// We're just interested in the URL structure, the dates are tested elsewhere.
+		$first_date = array_keys($view_template_vars['days'])[0];
+		$day_view_more_link = $view_template_vars['days'][$first_date]['day_url'];
+
+		$expected = home_url( str_replace( '{{ first_date }}', $first_date, $expected_template ) );
+		$this->assertEquals( $expected, $day_view_more_link );
+	}
 }

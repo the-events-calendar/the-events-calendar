@@ -197,6 +197,7 @@ class venueTest extends Events_TestCase {
 		] );
 
 		// Create a venueless event
+		$settings['EventVenueID']   = $this->posts['venue_without_url'];
 		$settings['EventStartDate'] = date( 'Y-m-d', strtotime( '+1 day' ) );
 		$settings['EventEndDate']   = date( 'Y-m-d', strtotime( '+1 day' ) );
 		$this->posts['no_venue']    = tribe_create_event( $settings );
@@ -246,13 +247,16 @@ class venueTest extends Events_TestCase {
 		$venue = tribe_get_venue_object( $venue_id );
 
 		$expected = [
-			'address'               => get_post_meta( $venue_id, '_VenueAddress', true ),
-			'country'               => get_post_meta( $venue_id, '_VenueCountry', true ),
-			'city'                  => get_post_meta( $venue_id, '_VenueCity', true ),
-			'state_province'        => get_post_meta( $venue_id, '_VenueStateProvince', true ),
-			'state'                 => get_post_meta( $venue_id, '_VenueState', true ),
-			'province'              => get_post_meta( $venue_id, '_VenueProvince', true ),
-			'zip'                   => get_post_meta( $venue_id, '_VenueZip', true ),
+			'address'         => get_post_meta( $venue_id, '_VenueAddress', true ),
+			'country'         => get_post_meta( $venue_id, '_VenueCountry', true ),
+			'city'            => get_post_meta( $venue_id, '_VenueCity', true ),
+			'state_province'  => get_post_meta( $venue_id, '_VenueStateProvince', true ),
+			'state'           => get_post_meta( $venue_id, '_VenueState', true ),
+			'province'        => get_post_meta( $venue_id, '_VenueProvince', true ),
+			'zip'             => get_post_meta( $venue_id, '_VenueZip', true ),
+			'phone'           => tribe_get_phone( $venue_id ),
+			'permalink'       => get_the_permalink( $venue_id ),
+			'directions_link' => tribe_get_map_link( $venue_id ),
 		];
 
 		foreach ( $expected as $key => $value ) {

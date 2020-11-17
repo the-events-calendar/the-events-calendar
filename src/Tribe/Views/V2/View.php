@@ -1590,6 +1590,13 @@ class View implements View_Interface {
 		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
 		$query_args['eventDisplay'] = $this->slug;
 
+		$category = $this->context->get( 'event_category', false );
+
+		if ( is_array( $category ) ) {
+			$category                       = Arr::to_list( reset( $category ) );
+			$query_args['tribe_events_cat'] = $category;
+		}
+
 		$query_args = $this->filter_query_args( $query_args, $canonical );
 
 		$ugly_url = add_query_arg( $query_args, $this->get_url( false ) );
@@ -2291,5 +2298,29 @@ class View implements View_Interface {
 		$from_date = tribe_beginning_of_day( $now );
 
 		return (int) tribe_events()->where( 'starts_after', $from_date )->found();
+	}
+
+	/**
+	 * Returns the View current URL query arguments, parsed from the View `get_url()` method.
+	 *
+	 * Since there are a number of parties filtering each View URL arguments, this method will
+	 * parse a View URL query arguments from its filtered URL. This will include all the modifications
+	 * done to a View URL by other plugins and add-ons.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The current View URL args or an empty array if the View URL is empty
+	 *                             or not valid..
+	 */
+	public function get_url_args() {
+		$view_url       = $this->get_url( false );
+		$view_query_str = wp_parse_url( $view_url, PHP_URL_QUERY );
+		if ( empty( $view_query_str ) ) {
+			// This might happen if the URL is too mangled to be parsed.
+			return [];
+		}
+		parse_str( $view_query_str, $view_query_args );
+
+		return (array) $view_query_args;
 	}
 }
