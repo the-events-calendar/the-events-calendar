@@ -247,7 +247,6 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'foo/bar.php', $bootstrap->filter_template_include( 'foo/bar.php' ) );
 	}
 
-
 	/**
 	 * It should return the event template path when unfiltered.
 	 *

@@ -294,6 +294,22 @@ class Month_View extends By_Day_View {
 
 		// Let's prepare an array of days more digestible by the templates.
 		$days = [];
+
+		$default_day_url_args = array_merge( $this->get_url_args(), [ 'eventDisplay' => 'day' ] );
+
+		/**
+		 * Allows filtering the base URL arguments that will be added to each "View More" link in Month View.
+		 *
+		 * The URL arguments will be used to build each day "View More" link URL and, while building each day URL,
+		 * the day date will be merged with these default arguments.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,string|int|float> $default_day_url_args A default set of URL arguments that will be used to build
+		 *                                                             the View More link.
+		 */
+		$default_day_url_args = apply_filters( 'tribe_events_views_v2_month_view_more_url_args', $default_day_url_args, $this );
+
 		foreach ( $grid_days as $day_date => $day_events ) {
 			/**
 			 * This will be used to call `tribe_get_event` in the context of a specific week for each day
@@ -354,7 +370,9 @@ class Month_View extends By_Day_View {
 			$start_of_week = get_option( 'start_of_week', 0 );
 			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
 
-			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
+			$day_url_args = array_merge( $default_day_url_args, [ 'eventDate' => $day_date ] );
+
+			$day_url = tribe_events_get_url( $day_url_args );
 
 			$day_data = [
 				'date'             => $day_date,

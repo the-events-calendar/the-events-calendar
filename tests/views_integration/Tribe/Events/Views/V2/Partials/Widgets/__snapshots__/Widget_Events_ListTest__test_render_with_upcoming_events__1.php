@@ -5,21 +5,20 @@
 	data-view-manage-url=""
 				data-view-breakpoint-pointer="aabbccddee"
 	>
-	<div class="tribe-common-l-container">
-		<div class="tribe-events-widget-events-list">
+	<div class="tribe-events-widget-events-list">
 
-			{}
-			<script data-js="tribe-events-view-data" type="application/json">
+		{}
+		<script data-js="tribe-events-view-data" type="application/json">
 	{"slug":"reflector","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Reflector_View","view_slug":"reflector","view_label":"Reflector","events":[8,9],"is_initial_load":true,"rest_url":"https:\\/\\/rest.tri.be\\/","rest_nonce":"1122334455","should_manage_url":false,"container_classes":["tribe-common","tribe-events","tribe-events-widget"],"container_data":[],"breakpoint_pointer":"aabbccddee","messages":[],"hide_if_no_upcoming_events":false,"view_more_link":"https:\\/\\/test.tri.be\\/","widget_title":"Upcoming Events"}</script>
 
-			<header class="tribe-events-widget-events-list__header">
-				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-					Upcoming Events				</h3>
-			</header>
+		<header class="tribe-events-widget-events-list__header">
+			<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+				Upcoming Events			</h3>
+		</header>
 
-			
-				<div class="tribe-events-widget-events-list__events">
-											<div  class="tribe-common-g-row tribe-events-widget-events-list__event-row" >
+		
+			<div class="tribe-events-widget-events-list__events">
+									<div  class="tribe-common-g-row tribe-events-widget-events-list__event-row" >
 
 	<div class="tribe-events-widget-events-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-widget-events-list__event-date-tag-datetime" datetime="2019-06-20">
@@ -56,7 +55,7 @@
 	</div>
 
 </div>
-											<div  class="tribe-common-g-row tribe-events-widget-events-list__event-row" >
+									<div  class="tribe-common-g-row tribe-events-widget-events-list__event-row" >
 
 	<div class="tribe-events-widget-events-list__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-widget-events-list__event-date-tag-datetime" datetime="2019-06-20">
@@ -93,9 +92,9 @@
 	</div>
 
 </div>
-									</div>
+							</div>
 
-				<div class="tribe-events-widget-events-list__view-more tribe-common-b1 tribe-common-b2--min-medium">
+			<div class="tribe-events-widget-events-list__view-more tribe-common-b1 tribe-common-b2--min-medium">
 	<a
 		href="https://test.tri.be/"
 		class="tribe-events-widget-events-list__view-more-link tribe-common-anchor-thin"
@@ -103,8 +102,7 @@
 		View more	</a>
 </div>
 
-					</div>
-	</div>
+			</div>
 </div>
 
 <script class="tribe-events-breakpoints">
