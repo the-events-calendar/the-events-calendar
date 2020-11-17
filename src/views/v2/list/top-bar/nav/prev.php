@@ -24,6 +24,6 @@ $label = sprintf( __( 'Previous %1$s', 'the-events-calendar' ), tribe_get_event_
 		title="<?php echo esc_attr( $label ); ?>"
 		data-js="tribe-events-view-link"
 	>
-		<?php $this->template( 'components/icons/caret-alt-left', [ 'classes' => [ 'tribe-common-c-btn-icon-svg', 'tribe-common-c-btn-icon-svg--caret-left', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon-svg', 'tribe-common-c-btn-icon-svg--caret-left', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</a>
 </li>

@@ -20,7 +20,7 @@
 		title="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
 		disabled
 	>
-		<?php $this->template( 'components/icons/caret-alt-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<?php esc_html_e( 'Previous Day', 'the-events-calendar' ); ?>
 	</button>
 </li>
