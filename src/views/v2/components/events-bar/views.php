@@ -23,7 +23,6 @@ $view_selector_classes = [
 	'tribe-events-c-view-selector--labels' => empty( $disable_event_search ),
 	'tribe-events-c-view-selector--tabs'   => $is_tabs_style,
 ];
-$view_slug             = 'reflector' === $view_slug ? 'list' : $view_slug; // Test uses fake 'reflector' view.
 ?>
 <div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
