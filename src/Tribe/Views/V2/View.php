@@ -1533,13 +1533,12 @@ class View implements View_Interface {
 	 * @return string The View request URI, a value suitable to be used to set the `$_SERVER['REQUEST_URI']` value.
 	 */
 	protected function get_request_uri() {
-		$request_uri = '/' . ltrim(
-				str_replace(
-					home_url(),
-					'',
-					$this->rewrite->get_clean_url( (string) $this->get_url() ) ),
-				'/'
-			);
+		$plain_url   = (string) $this->get_url();
+		$clean_url   = $this->rewrite->get_clean_url( $plain_url );
+		$url_frags   = wp_parse_url( $clean_url );
+		$request_uri = '/' . ( isset( $url_frags['path'] ) ? trim( $url_frags['path'], '/' ) . '/' : '' )
+		               . ( isset( $url_frags['query'] ) ? '?' . $url_frags['query'] : '' )
+		               . ( isset( $url_frags['fragment'] ) ? '#' . $url_frags['fragment'] : '' );
 
 		/**
 		 * Allows filtering the Views request URI that will be used to set up the loop.
