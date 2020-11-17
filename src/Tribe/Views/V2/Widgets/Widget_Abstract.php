@@ -342,7 +342,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @param array<string,mixed> $field       The field info.
 	 * @param array<string,mixed> $passthrough Passthrough data (from a parent - like fieldset, to its children).
 	 * @param Context             $context     The Admin View current context.
-	 * @return void
+	 *
+	 * @return array<string,mixed> $data The assembled field data.
 	 */
 	public function get_admin_data( $field_id, $field, $passthrough, $context ) {
 		$data = [
