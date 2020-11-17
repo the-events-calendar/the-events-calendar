@@ -28,9 +28,9 @@ $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-for
 <div
 	<?php tribe_classes( $section_classes ); ?>
 	<?php
-		// Not escaped - contains html ( data-attr="value")
-		echo $dependency; // phpcs:ignore
-		?>
+	// Not escaped - contains html ( data-attr="value").
+	echo $dependency; // phpcs:ignore
+	?>
 >
 	<?php if ( ! empty( $label ) ) : ?>
 		<?php // Note: the actual widget title/handle is an <h3>. ?>

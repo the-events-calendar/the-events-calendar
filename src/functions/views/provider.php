@@ -118,6 +118,9 @@ function tribe_events_view_v2_use_period_repository() {
  * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` constant,
  * the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` environment variable.
  *
+ * Note the internal logic is inverted, as the name of the function is "...is_enabled"
+ * while the names of the constant/env_var are "...DISABLED".
+ *
  * @since 5.2.1
  *
  * @return bool Whether Widgets v2 should load.
@@ -130,7 +133,7 @@ function tribe_events_widgets_v2_is_enabled() {
 
 	$env_var = getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
 	if ( false !== $env_var ) {
-		return !! $env_var;
+		return ! $env_var;
 	}
 
 	// If the constant is defined, returns the opposite of the constant, otherwise true (default).

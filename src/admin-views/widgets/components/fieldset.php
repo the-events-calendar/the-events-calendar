@@ -29,9 +29,9 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-fo
 <fieldset
 	<?php tribe_classes( $fieldset_classes ); ?>
 	<?php
-		// Not escaped - contains html ( data-attr="value")
-		echo $dependency; // phpcs:ignore
-		?>
+	// Not escaped - contains html ( data-attr="value").
+	echo $dependency; // phpcs:ignore
+	?>
 >
 	<?php if ( ! empty( $label ) ) : ?>
 		<legend class="tribe-widget-form-control--legend"><?php echo esc_html( $label ); ?></legend>
