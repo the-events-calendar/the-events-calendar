@@ -11,16 +11,20 @@
  *
  * @version TBD
  *
- * @var string $label Label for the dropdown.
- * @var string $value Value for the dropdown.
- * @var string $id    ID of the dropdown.
- * @var string $name  Name attribute for the dropdown.
+ * @var string $label      Label for the dropdown.
+ * @var string $value      Value for the dropdown.
+ * @var string $id         ID of the dropdown.
+ * @var string $name       Name attribute for the dropdown.
+ * @var string $dependency The dependency attributes for the control wrapper.
  */
 
 ?>
 <div
 		class="tribe-widget-form-control tribe-widget-form-control--dropdown"
-		<?php echo esc_html( $dependency ); ?>
+		<?php
+		// Not escaped - contains html ( data-attr="value")
+		echo $dependency;
+		?>
 >
 	<label
 			class="tribe-widget-form-control__label"

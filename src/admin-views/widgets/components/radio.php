@@ -11,17 +11,21 @@
  *
  * @version TBD
  *
- * @var string       $label         Label for the radio group.
- * @var string       $value         Value for the radio group.
- * @var string       $button_value  Value for the individual button.
- * @var string       $name          Name attribute for the radio.
- * @var string       $id            ID attribute for the radio.
+ * @var string $label        Label for the radio group.
+ * @var string $value        Value for the radio group.
+ * @var string $button_value Value for the individual button.
+ * @var string $name         Name attribute for the radio.
+ * @var string $id           ID attribute for the radio.
+ * @var string $dependency   The dependency attributes for the control wrapper.
  */
 
 ?>
 <div
 	class="tribe-widget-form-control tribe-widget-form-control--radio"
-	<?php echo esc_html( $dependency ); ?>
+	<?php
+		// Not escaped - contains html ( data-attr="value")
+		echo $dependency;
+		?>
 >
 	<input
 		class="tribe-widget-form-control__input"

@@ -11,16 +11,20 @@
  *
  * @version TBD
  *
- * @var string $label Label for the checkbox.
- * @var string $value Value for the checkbox.
- * @var string $id    ID of the checkbox.
- * @var string $name  Name attribute for the checkbox.
+ * @var string $label      Label for the checkbox.
+ * @var string $value      Value for the checkbox.
+ * @var string $id         ID of the checkbox.
+ * @var string $name       Name attribute for the checkbox.
+ * @var string $dependency The dependency attributes for the control wrapper.
  */
 
 ?>
 <div
 		class="tribe-widget-form-control tribe-widget-form-control--checkbox"
-		<?php echo esc_html( $dependency ); ?>
+		<?php
+		// Not escaped - contains html ( data-attr="value")
+		echo $dependency;
+		?>
 >
 	<input
 			class="tribe-widget-form-control__input"
