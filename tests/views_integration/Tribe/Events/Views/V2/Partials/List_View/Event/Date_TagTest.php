@@ -26,15 +26,15 @@ class Date_TagTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
 
-	public function request_dates(  ) {
-			return [
-				'one_week_before' => ['-P1W' ,false],
-				'on_same_day' => [false,false],
-				'one_week_after' => ['P1W',false],
-				'on_same_day_past' => [false,true],
-				'one_week_after_past' => ['P1W',true],
-			];
-}
+	public function request_dates() {
+		return [
+			'one_week_before' => ['-P1W' ,false],
+			'on_same_day' => [false,false],
+			'one_week_after' => ['P1W',false],
+			'on_same_day_past' => [false,true],
+			'one_week_after_past' => ['P1W',true],
+		];
+	}
 
 	/**
 	 * @dataProvider request_dates
@@ -42,7 +42,6 @@ class Date_TagTest extends HtmlPartialTestCase
 	public function test_render_with_req_dates_and_multi_day_event_combination( $raw_interval_spec, $is_past ) {
 		$event = $this->mock_event( 'events/single/1.json' )->is_multiday( 20 )->get();
 		$event_start_date = $event->dates->start_display;
-		codecept_debug( $event_start_date->format( 'Y-m-d' ) );
 		$request_date = $event_start_date;
 		if ( false !== $raw_interval_spec ) {
 			$sub           = strpos( $raw_interval_spec, '-' ) === 0;
@@ -53,7 +52,7 @@ class Date_TagTest extends HtmlPartialTestCase
 				: $event_start_date->add( $date_interval );
 		}
 
-		$context          = [
+		$context = [
 			'event'        => $event,
 			'is_past'      => $is_past,
 			'request_date' => $request_date

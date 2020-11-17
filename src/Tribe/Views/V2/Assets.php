@@ -99,6 +99,49 @@ class Assets extends \tad_DI52_ServiceProvider {
 			]
 		);
 
+		/**
+		 * @todo: @paulmskim figure out how to enqueue only when widget is available.
+		 * @todo: @paulmskim commented out for release so widget styles do not enqueue, uncomment when actually releasing.
+		 */
+		// tribe_asset(
+		// 	$plugin,
+		// 	'tribe-events-widgets-v2-skeleton',
+		// 	'widgets-skeleton.css',
+		// 	[
+		// 		'tribe-common-skeleton-style',
+		// 	],
+		// 	'wp_enqueue_scripts',
+		// 	[
+		// 		'priority'     => 10,
+		// 		'conditionals' => [ $this, 'should_enqueue_frontend' ],
+		// 		'groups'       => [ static::$group_key ],
+		// 	]
+		// );
+
+		/**
+		 * @todo: @paulmskim figure out how to enqueue only when widget is available.
+		 * @todo: @paulmskim commented out for release so widget styles do not enqueue, uncomment when actually releasing.
+		 */
+		// tribe_asset(
+		// 	$plugin,
+		// 	'tribe-events-widgets-v2-full',
+		// 	'widgets-full.css',
+		// 	[
+		// 		'tribe-common-full-style',
+		// 		'tribe-events-widgets-v2-skeleton',
+		// 	],
+		// 	'wp_enqueue_scripts',
+		// 	[
+		// 		'priority'     => 10,
+		// 		'conditionals' => [
+		// 			'operator' => 'AND',
+		// 			[ $this, 'should_enqueue_frontend' ],
+		// 			[ $this, 'should_enqueue_full_styles' ],
+		// 		],
+		// 		'groups'       => [ static::$group_key ],
+		// 	]
+		// );
+
 		tribe_asset(
 			$plugin,
 			'tribe-events-views-v2-bootstrap-datepicker',
