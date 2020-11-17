@@ -24,7 +24,7 @@
 	class="tribe-widget-form-control tribe-widget-form-control--radio"
 	<?php
 		// Not escaped - contains html ( data-attr="value")
-		echo $dependency;
+		echo $dependency; // phpcs:ignore
 		?>
 >
 	<input

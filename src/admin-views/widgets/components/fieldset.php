@@ -30,7 +30,7 @@ $fieldset_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-fo
 	<?php tribe_classes( $fieldset_classes ); ?>
 	<?php
 		// Not escaped - contains html ( data-attr="value")
-		echo $dependency;
+		echo $dependency; // phpcs:ignore
 		?>
 >
 	<?php if ( ! empty( $label ) ) : ?>

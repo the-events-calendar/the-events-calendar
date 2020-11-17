@@ -23,7 +23,7 @@
 		class="tribe-widget-form-control tribe-widget-form-control--dropdown"
 		<?php
 		// Not escaped - contains html ( data-attr="value")
-		echo $dependency;
+		echo $dependency; // phpcs:ignore
 		?>
 >
 	<label
