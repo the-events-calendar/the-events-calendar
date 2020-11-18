@@ -41,7 +41,15 @@ $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-for
 	foreach ( $children as $child_id => $child ) {
 		$this->template( "widgets/components/{$child['type']}", $child );
 
-		do_action( "tribe_events_views_v2_widget_admin_form_{$child['type']}_input", $child );
+		/**
+		 * Allows other plugins to hook in as needed to inject things that aren't necessarily an input.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<array,mixed> $child The child "field" info.
+		 * @var Widget_Abstract $widget_obj An instance of the widget abstract.
+		 */
+		do_action( "tribe_events_views_v2_widget_admin_form_{$child['type']}_input", $child, $widget_obj );
 	}
 	?>
 </div>
