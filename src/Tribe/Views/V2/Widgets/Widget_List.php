@@ -205,8 +205,6 @@ class Widget_List extends Widget_Abstract {
 			(int) $arguments['limit'] :
 			5;
 
-			// get admin data?
-
 		/**
 		 * Applies a filter to the args to context.
 		 *
