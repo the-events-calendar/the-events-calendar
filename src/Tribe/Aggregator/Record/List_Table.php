@@ -708,7 +708,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	/**
 	 * Displays the pagination.
 	 *
-	 * @since 5.2.2
+	 * @since TBD
 	 * @access protected
 	 *
 	 * @param string $which
