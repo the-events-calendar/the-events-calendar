@@ -834,8 +834,6 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		} else {
 			$page_class = ' no-pages';
 		}
-		$this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
-
-		echo $this->_pagination;
+		?><div class='tablenav-pages<? echo $page_class; ?>'><?php echo $output; ?></div><?php
 	}
 }
