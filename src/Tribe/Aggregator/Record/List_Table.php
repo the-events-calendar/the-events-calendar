@@ -103,18 +103,18 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				array(
 					'key'     => '_tribe_aggregator_source_name',
 					'value'   => $_REQUEST['s'],
-					'compare' => 'LIKE'
+					'compare' => 'LIKE',
 				),
 				array(
 					'key'     => '_tribe_aggregator_import_name',
 					'value'   => $_REQUEST['s'],
-					'compare' => 'LIKE'
+					'compare' => 'LIKE',
 				),
 				array(
 					'key'     => '_tribe_aggregator_source',
 					'value'   => $_REQUEST['s'],
-					'compare' => 'LIKE'
-				)
+					'compare' => 'LIKE',
+				),
 			);
 		}
 
@@ -742,7 +742,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
-		if( isset( $_REQUEST['s'] ) ) {
+		if ( isset( $_REQUEST['s'] ) ) {
 			$current_url = add_query_arg( 's', $_REQUEST['s'], $current_url );
 		}
 
