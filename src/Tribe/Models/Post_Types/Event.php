@@ -77,7 +77,7 @@ class Event extends Base {
 			$multiday = false;
 
 			if ( $all_day ) {
-				$start_end_diff = $start_date_object->diff( $end_date_object );
+				$start_end_diff = $start_date_object->diff( $end_date_object->add( $one_second ) );
 				$is_multiday    = $start_end_diff->days > 1;
 				$multiday       = $is_multiday ? $start_end_diff->days : false;
 			} else {
@@ -229,6 +229,12 @@ class Event extends Base {
 				'schedule_details'       => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id );
+					},
+					false
+				) )->on_resolve( $cache_this ),
+				'short_schedule_details' => ( new Lazy_String(
+					static function () use ( $post_id ) {
+						return tribe_events_event_short_schedule_details( $post_id );
 					},
 					false
 				) )->on_resolve( $cache_this ),

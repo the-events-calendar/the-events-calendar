@@ -83,7 +83,7 @@
 			class="tribe-common-form-control-checkbox__label"
 			for="widget-tribe-events-list-widget--no_upcoming_events"
 	>
-		Show widget only if there are upcoming events	</label>
+		Hide this widget if there are no upcoming events.	</label>
 </p>
 <p
 		class="tribe-widget-checkbox tribe-common-form-control-checkbox"

@@ -33,6 +33,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 	public static $group_key = 'events-views-v2';
 
 	/**
+	 * Key for the widget group of assets.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $widget_group_key = 'events-views-v2-widgets';
+
+	/**
 	 * Caches the result of the `should_enqueue_frontend` check.
 	 *
 	 * @since 4.9.13
@@ -40,7 +49,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @var bool
 	 */
 	protected $should_enqueue_frontend;
-
 
 	/**
 	 * Binds and sets up implementations.
@@ -102,36 +110,25 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-widgets-v2-skeleton',
-			'widgets-skeleton.css',
+			'tribe-events-widgets-v2-events-list-skeleton',
+			'widget-events-list-skeleton.css',
+			null,
 			[
-				'tribe-common-skeleton-style',
-			],
-			'wp_enqueue_scripts',
-			[
-				'priority'     => 10,
-				'conditionals' => [ $this, 'should_enqueue_widget_assets' ],
-				'groups'       => [ static::$group_key ],
+				'priority' => 15,
 			]
 		);
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-widgets-v2-full',
-			'widgets-full.css',
+			'tribe-events-widgets-v2-events-list-full',
+			'widget-events-list-full.css',
 			[
 				'tribe-common-full-style',
-				'tribe-events-widgets-v2-skeleton',
+				'tribe-events-widgets-v2-events-list-skeleton',
 			],
-			'wp_enqueue_scripts',
+			null,
 			[
-				'priority'     => 10,
-				'conditionals' => [
-					'operator' => 'AND',
-					[ $this, 'should_enqueue_widget_assets' ],
-					[ $this, 'should_enqueue_full_styles' ],
-				],
-				'groups'       => [ static::$group_key ],
+				'priority' => 15,
 			]
 		);
 
@@ -157,23 +154,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-query-string',
 				'underscore',
-				'tribe-events-views-v2-viewport',
-				'tribe-events-views-v2-accordion',
-				'tribe-events-views-v2-view-selector',
-				'tribe-events-views-v2-navigation-scroll',
-				'tribe-events-views-v2-multiday-events',
-				'tribe-events-views-v2-month-mobile-events',
-				'tribe-events-views-v2-month-grid',
-				'tribe-events-views-v2-tooltip',
-				'tribe-events-views-v2-events-bar',
-				'tribe-events-views-v2-events-bar-inputs',
-				'tribe-events-views-v2-datepicker',
 			],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 20,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key ],
+				'groups'       => [ static::$group_key, static::$widget_group_key ],
 			]
 		);
 
@@ -186,9 +172,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-events-views-v2-breakpoints',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key, static::$widget_group_key ],
 			]
 		);
 
@@ -200,9 +188,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -216,9 +206,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -230,9 +222,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 15,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -244,9 +238,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -260,9 +256,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -271,9 +269,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-views-v2-month-grid',
 			'views/month-grid.js',
 			[ 'jquery', 'tribe-common' ],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -286,9 +286,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-tooltipster',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -302,9 +304,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-events-views-v2-viewport',
 				'tribe-events-views-v2-accordion',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -316,9 +320,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -331,9 +337,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-common',
 				'tribe-events-views-v2-bootstrap-datepicker',
 			],
-			null,
+			'wp_enqueue_scripts',
 			[
-				'priority' => 10,
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
@@ -349,7 +357,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key ],
+				'groups'       => [ static::$group_key, static::$widget_group_key ],
 				'in_footer'    => false,
 			]
 		);
@@ -428,28 +436,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 		$should_enqueue = apply_filters( 'tribe_events_views_v2_assets_should_enqueue_frontend', $should_enqueue );
 
 		$this->should_enqueue_frontend = $should_enqueue;
-
-		return $should_enqueue;
-	}
-
-	/**
-	 * Checks if we should enqueue frontend assets for the V2 widget views.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool $should_enqueue Should the widget assets be enqueued.
-	 */
-	public function should_enqueue_widget_assets() {
-		/**
-		 * Allow filtering of where the widget Frontend Assets will be loaded.
-		 * The abstract widget hooks in here from `setup_view()`,
-		 * widgets that want to filter this value should do so from there.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $should_enqueue Should the widget assets be enqueued. Defaults to false.
-		 */
-		$should_enqueue = apply_filters( 'tribe_events_views_v2_assets_should_enqueue_widget_assets', false );
 
 		return $should_enqueue;
 	}
