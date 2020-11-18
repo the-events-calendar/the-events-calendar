@@ -742,7 +742,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$current              = $this->get_pagenum();
 		$removable_query_args = wp_removable_query_args();
 
-		$current_url = set_url_scheme( 'http://' . sanitize_text_field ( $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
+		$current_url = set_url_scheme( 'http://' . sanitize_text_field( $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
