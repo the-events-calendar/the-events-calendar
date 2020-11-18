@@ -34,13 +34,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	protected $view;
 
 	/**
-	 * The widget slug.
-	 *
-	 * @var string
-	 */
-	protected $slug;
-
-	/**
 	 * The slug of the widget view.
 	 *
 	 * @since 5.2.1
@@ -48,15 +41,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @var string
 	 */
 	protected $view_slug;
-
-	/**
-	 * The slug the widget uses to register assets.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $asset_slug;
 
 	/**
 	 * {@inheritDoc}
@@ -298,18 +282,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 */
 	public function get_view_slug() {
 		return $this->view_slug;
-	}
-
-	/**
-	 * Returns the widget asset slug.
-	 * This is used to enqueue assets.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The widget asset slug.
-	 */
-	public function get_asset_slug() {
-		return $this->asset_slug;
 	}
 
 	/**
