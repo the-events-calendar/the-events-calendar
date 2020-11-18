@@ -152,4 +152,122 @@ class Widget_ListTest extends ViewTestCase {
 
 		$this->assertMatchesSnapshot( $html );
 	}
+
+	/**
+	 * @test
+	 */
+	public function test_render_json_with_upcoming_events() {
+		$events = [];
+
+		// Create the events.
+		foreach (
+			[
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
+			] as $start_date
+		) {
+			$events[] = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'America/New_York',
+				'duration'   => 2 * HOUR_IN_SECONDS,
+				'title'      => 'Widget Event - ' . $start_date,
+				'status'     => 'publish',
+			] )->create();
+		}
+		// Sanity check.
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
+
+		$this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json'
+		] );
+
+		$widget_list_view = View::make( Widget_List_View::class );
+		$context = tribe_context()->alter( [
+			'today'              => $this->mock_date_value,
+			'now'                => $this->mock_date_value,
+			'event_date'         => $this->mock_date_value,
+			'events_per_page'    => 2,
+		] );
+
+		$widget_list_view->set_context( $context );
+		$html = $widget_list_view->get_html();
+
+		// Let's make sure the View is displaying the events we expect it to display.
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+		$this->assertEquals(
+			$expected_post_ids,
+			$widget_list_view->found_post_ids()
+		);
+
+		$this->assertMatchesSnapshot( $html );
+
+		$this->assertNotFalse( stripos( $html, 'ld+json' ) );
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function test_render_no_json_with_upcoming_events() {
+		$events = [];
+
+		// Create the events.
+		foreach (
+			[
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
+			] as $start_date
+		) {
+			$events[] = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'America/New_York',
+				'duration'   => 2 * HOUR_IN_SECONDS,
+				'title'      => 'Widget Event - ' . $start_date,
+				'status'     => 'publish',
+			] )->create();
+		}
+		// Sanity check.
+		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
+
+		$this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json'
+		] );
+
+		add_filter(
+			'tribe_events_views_v2_view_widget-events-list_template_vars',
+			function( $template_vars ) {
+				$template_vars['jsonld_enable'] = 0;
+				return $template_vars;
+			},
+			19
+		);
+
+		$widget_list_view = View::make( Widget_List_View::class );
+		$context = tribe_context()->alter( [
+			'today'              => $this->mock_date_value,
+			'now'                => $this->mock_date_value,
+			'event_date'         => $this->mock_date_value,
+			'events_per_page'    => 2,
+		] );
+
+		$widget_list_view->set_context( $context );
+		$html = $widget_list_view->get_html();
+
+		// Let's make sure the View is displaying the events we expect it to display.
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+		$this->assertEquals(
+			$expected_post_ids,
+			$widget_list_view->found_post_ids()
+		);
+
+		$this->assertMatchesSnapshot( $html );
+		// There is no way the snapshot will start with this string, so assertFalse seems safe enough here.
+		$this->assertFalse( stripos( $html, 'ld+json' ) );
+	}
 }
