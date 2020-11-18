@@ -101,18 +101,18 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$args['meta_query'] = array(
 				'relation' => 'OR',
 				array(
-					'key' => '_tribe_aggregator_source_name',
-					'value' => $_REQUEST['s'],
+					'key'     => '_tribe_aggregator_source_name',
+					'value'   => $_REQUEST['s'],
 					'compare' => 'LIKE'
 				),
 				array(
-					'key' => '_tribe_aggregator_import_name',
-					'value' => $_REQUEST['s'],
+					'key'     => '_tribe_aggregator_import_name',
+					'value'   => $_REQUEST['s'],
 					'compare' => 'LIKE'
 				),
 				array(
-					'key' => '_tribe_aggregator_source',
-					'value' => $_REQUEST['s'],
+					'key'     => '_tribe_aggregator_source',
+					'value'   => $_REQUEST['s'],
 					'compare' => 'LIKE'
 				)
 			);
