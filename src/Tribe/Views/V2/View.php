@@ -258,8 +258,10 @@ class View implements View_Interface {
 			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
 		}
 
-		$slug       = Arr::get( $params, 'view', false );
-		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
+		$slug = Arr::get( $params, 'view', false );
+		// Convert the URL to lowercase to make sure the rewrite rules, all lowercase, will match it.
+		$raw_url    = Arr::get( $params, 'url' );
+		$url_object = Url::from_url_and_params( strtolower( $raw_url ), $params );
 
 		$url = $url_object->__toString();
 		$params['url'] = $url;
