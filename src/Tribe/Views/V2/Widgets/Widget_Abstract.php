@@ -350,9 +350,11 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		if ( ! empty( $children ) ) {
 			foreach ( $children as $child_name => $child ) {
+				$input_name =  ( 'radio' === $child['type'] ) ? $field_name : $child_name;
+
 				$child_data = $this->get_admin_data(
 					$arguments,
-					$child_name,
+					$input_name,
 					$child
 				);
 
