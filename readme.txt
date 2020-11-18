@@ -229,6 +229,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
 * Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
 * Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
+* Tweak - Add an option to trash events after 1 month (thanks @StefanSchroeder).
+* Fix - Event Aggregator - Fix Eventbrite status filter to not return 'do_not_override' and handle Eventbrite's additional statuses. [TEC-3569]
 * Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
 * Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
 * Fix - Make sure Month View "View More" link to Day View will preserve the current search criteria. [TEC-3230]
