@@ -98,24 +98,28 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$args['posts_per_page'] = $per_page;
 
 		if ( 'scheduled' === $this->tab->get_slug() && isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
-			$args['meta_query'] = [
-				'relation' => 'OR',
-				[
-					'key'     => '_tribe_aggregator_source_name',
-					'value'   => sanitize_text_field( $_REQUEST['s'] ),
-					'compare' => 'LIKE',
-				],
-				[
-					'key'     => '_tribe_aggregator_import_name',
-					'value'   => sanitize_text_field( $_REQUEST['s'] ),
-					'compare' => 'LIKE',
-				],
-				[
-					'key'     => '_tribe_aggregator_source',
-					'value'   => sanitize_text_field( $_REQUEST['s'] ),
-					'compare' => 'LIKE',
-				],
-			];
+			// nonce check if search form submitted
+			$nonce_check = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? wp_verify_nonce( $_POST['aggregator']['nonce'], 'aggregator_' . $this->tab->get_slug() . '_request' ) : 1;
+			if( $nonce_check !== false ) {
+				$args['meta_query'] = [
+					'relation' => 'OR',
+					[
+						'key'     => '_tribe_aggregator_source_name',
+						'value'   => sanitize_text_field( $_REQUEST['s'] ),
+						'compare' => 'LIKE',
+					],
+					[
+						'key'     => '_tribe_aggregator_import_name',
+						'value'   => sanitize_text_field( $_REQUEST['s'] ),
+						'compare' => 'LIKE',
+					],
+					[
+						'key'     => '_tribe_aggregator_source',
+						'value'   => sanitize_text_field( $_REQUEST['s'] ),
+						'compare' => 'LIKE',
+					],
+				];
+			}
 		}
 
 		$query = new WP_Query( $args );
@@ -711,7 +715,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @since TBD
 	 * @access protected
 	 *
-	 * @param string $which
+	 * @param string $which Equal to NULL, 'top' or 'bottom'.
 	 */
 	protected function pagination( $which ) {
 		if ( empty( $this->_pagination_args ) ) {
@@ -738,7 +742,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$current              = $this->get_pagenum();
 		$removable_query_args = wp_removable_query_args();
 
-		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		$current_url = set_url_scheme( 'http://' . sanitize_text_field ( $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
@@ -746,30 +750,15 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$current_url = add_query_arg( 's', sanitize_text_field( $_REQUEST['s'] ), $current_url );
 		}
 
-		$page_links = array();
+		$page_links = [];
 
 		$total_pages_before = '<span class="paging-input">';
 		$total_pages_after  = '</span></span>';
 
-		$disable_first = false;
-		$disable_last  = false;
-		$disable_prev  = false;
-		$disable_next  = false;
-
-		if ( 1 == $current ) {
-			$disable_first = true;
-			$disable_prev  = true;
-		}
-		if ( 2 == $current ) {
-			$disable_first = true;
-		}
-		if ( $total_pages == $current ) {
-			$disable_last = true;
-			$disable_next = true;
-		}
-		if ( $total_pages - 1 == $current ) {
-			$disable_last = true;
-		}
+		$disable_first = 1 === $current || 2 === $current;
+		$disable_last  = $total_pages === $current || $total_pages - 1 === $current;
+		$disable_prev  = 1 === $current;
+		$disable_next  = $total_pages === $current;
 
 		if ( $disable_first ) {
 			$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>';
@@ -777,7 +766,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$page_links[] = sprintf(
 				"<a class='first-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( remove_query_arg( 'paged', $current_url ) ),
-				__( 'First page' ),
+				__( 'First page', 'the-events-calendar' ),
 				'&laquo;'
 			);
 		}
@@ -788,7 +777,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$page_links[] = sprintf(
 				"<a class='prev-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ),
-				__( 'Previous page' ),
+				__( 'Previous page', 'the-events-calendar' ),
 				'&lsaquo;'
 			);
 		}
@@ -818,7 +807,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$page_links[] = sprintf(
 				"<a class='next-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ),
-				__( 'Next page' ),
+				__( 'Next page', 'the-events-calendar' ),
 				'&rsaquo;'
 			);
 		}
@@ -829,7 +818,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$page_links[] = sprintf(
 				"<a class='last-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
-				__( 'Last page' ),
+				__( 'Last page', 'the-events-calendar' ),
 				'&raquo;'
 			);
 		}
