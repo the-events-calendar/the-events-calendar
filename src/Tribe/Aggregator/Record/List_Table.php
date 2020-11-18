@@ -98,24 +98,24 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$args['posts_per_page'] = $per_page;
 
 		if ( 'scheduled' === $this->tab->get_slug() && isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
-			$args['meta_query'] = array(
+			$args['meta_query'] = [
 				'relation' => 'OR',
-				array(
+				[
 					'key'     => '_tribe_aggregator_source_name',
-					'value'   => $_REQUEST['s'],
+					'value'   => sanitize_text_field( $_REQUEST['s'] ),
 					'compare' => 'LIKE',
-				),
-				array(
+				],
+				[
 					'key'     => '_tribe_aggregator_import_name',
-					'value'   => $_REQUEST['s'],
+					'value'   => sanitize_text_field( $_REQUEST['s'] ),
 					'compare' => 'LIKE',
-				),
-				array(
+				],
+				[
 					'key'     => '_tribe_aggregator_source',
-					'value'   => $_REQUEST['s'],
+					'value'   => sanitize_text_field( $_REQUEST['s'] ),
 					'compare' => 'LIKE',
-				),
-			);
+				],
+			];
 		}
 
 		$query = new WP_Query( $args );
@@ -742,8 +742,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
-		if ( isset( $_REQUEST['s'] ) ) {
-			$current_url = add_query_arg( 's', $_REQUEST['s'], $current_url );
+		if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
+			$current_url = add_query_arg( 's', sanitize_text_field( $_REQUEST['s'] ), $current_url );
 		}
 
 		$page_links = array();
