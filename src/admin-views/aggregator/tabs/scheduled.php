@@ -8,7 +8,7 @@ $table->prepare_items();
 <form id="posts-filter" method="get">
 <?php
 $table->nonce();
-$table->search_box('Search', 'search_ea_scheduled');
+$table->search_box( 'Search', 'search_ea_scheduled' );
 $table->display();
 ?>
 </form>
