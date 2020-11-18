@@ -29,6 +29,6 @@ $events_mobile_friendly_label = sprintf( __( 'Next %1$s', 'the-events-calendar' 
 		<span class="tribe-events-c-nav__next-label">
 			<?php echo wp_kses( $events_mobile_friendly_label, [ 'span' => [ 'class' => [] ] ] ); ?>
 		</span>
-		<?php $this->template( 'components/icons/caret-alt-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	</button>
 </li>

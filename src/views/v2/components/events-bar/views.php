@@ -23,7 +23,6 @@ $view_selector_classes = [
 	'tribe-events-c-view-selector--labels' => empty( $disable_event_search ),
 	'tribe-events-c-view-selector--tabs'   => $is_tabs_style,
 ];
-$view_slug             = 'reflector' === $view_slug ? 'list' : $view_slug; // Test uses fake 'reflector' view.
 ?>
 <div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
@@ -40,7 +39,7 @@ $view_slug             = 'reflector' === $view_slug ? 'list' : $view_slug; // Te
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $view_label ); ?>
 			</span>
-			<?php $this->template( 'components/icons/caret-alt-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
 		</button>
 		<?php $this->template( 'components/events-bar/views/list' ); ?>
 	</div>

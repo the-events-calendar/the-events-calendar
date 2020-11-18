@@ -46,8 +46,8 @@ tribe.events.views.datepicker = {};
 		button: '[data-js="tribe-events-top-bar-datepicker-button"]',
 		buttonOpenClass: '.tribe-events-c-top-bar__datepicker-button--open',
 		dateInput: '[name="tribe-events-views[tribe-bar-date]"]',
-		prevIcon: '#tribe-events-c-top-bar__datepicker-template-prev-icon',
-		nextIcon: '#tribe-events-c-top-bar__datepicker-template-next-icon',
+		prevIconTemplate: '.tribe-events-c-top-bar__datepicker-template-prev-icon',
+		nextIconTemplate: '.tribe-events-c-top-bar__datepicker-template-next-icon',
 	};
 
 	/**
@@ -598,8 +598,8 @@ tribe.events.views.datepicker = {};
 
 		var $input = $container.find( obj.selectors.input );
 		var $datepickerButton = $container.find( obj.selectors.button );
-		var $prevIcon = $( $container.find( obj.selectors.prevIcon ) ).html();
-		var $nextIcon = $( $container.find( obj.selectors.nextIcon ) ).html();
+		var $prevIcon = $container.find( obj.selectors.prevIconTemplate ).html();
+		var $nextIcon = $container.find( obj.selectors.nextIconTemplate ).html();
 		var viewSlug = data.slug;
 		var isMonthView = 'month' === viewSlug;
 
