@@ -20,6 +20,6 @@
 		title="<?php esc_attr_e( 'Previous day', 'the-events-calendar' ); ?>"
 		disabled
 	>
-		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-common-c-btn-icon__icon-svg--caret-left', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</button>
 </li>
