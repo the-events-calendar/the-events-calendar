@@ -22,7 +22,7 @@
 <div
 	class="tribe-widget-form-control tribe-widget-form-control--dropdown"
 	<?php
-	// Not escaped - contains html ( data-attr="value").
+	// Not escaped - contains html (data-attr="value").
 	echo $dependency; // phpcs:ignore
 	?>
 >
@@ -39,7 +39,7 @@
 	>
 		<?php foreach ( $options as $option ) { ?>
 			<option
-				value="<?php echo esc_html( $option['value'] ); ?>"
+				value="<?php echo esc_attr( $option['value'] ); ?>"
 				<?php selected( $value, $option['value'] ); ?>
 			>
 				<?php echo esc_html( $option['text'] ); ?>

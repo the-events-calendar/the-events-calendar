@@ -9,8 +9,6 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe__Utils__Array as Arr;
-
 /**
  * Class Admin_Template
  *
@@ -22,7 +20,7 @@ class Admin_Template extends \Tribe__Template {
 	/**
 	 * Template constructor.
 	 *
-	 * Sets teh correct paths for templates in this plugin (as opposed to The Events Calendar).
+	 * Sets the correct paths for templates in this plugin (as opposed to The Events Calendar).
 	 *
 	 * @since TBD
 	 */

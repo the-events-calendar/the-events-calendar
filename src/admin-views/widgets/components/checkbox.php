@@ -20,11 +20,11 @@
 
 ?>
 <div
-		class="tribe-widget-form-control tribe-widget-form-control--checkbox"
-		<?php
-		// Not escaped - contains html ( data-attr="value").
-		echo $dependency; // phpcs:ignore
-		?>
+	class="tribe-widget-form-control tribe-widget-form-control--checkbox"
+	<?php
+	// Not escaped - contains html (data-attr="value").
+	echo $dependency; // phpcs:ignore
+	?>
 >
 	<input
 		class="tribe-widget-form-control__input"
