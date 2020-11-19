@@ -85,7 +85,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		foreach ( $admin_fields as $field_name => $field ) {
 			$arguments['admin_fields'][ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
 		}
-		// add data here.
 
 		return $arguments;
 	}
