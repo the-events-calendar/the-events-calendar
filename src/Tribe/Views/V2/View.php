@@ -1538,9 +1538,10 @@ class View implements View_Interface {
 		$plain_url   = (string) $this->get_url();
 		$clean_url   = $this->rewrite->get_clean_url( $plain_url );
 		$url_frags   = wp_parse_url( $clean_url );
-		$request_uri = '/' . ( isset( $url_frags['path'] ) ? trim( $url_frags['path'], '/' ) . '/' : '' )
-					   . ( isset( $url_frags['query'] ) ? '?' . $url_frags['query'] : '' )
-					   . ( isset( $url_frags['fragment'] ) ? '#' . $url_frags['fragment'] : '' );
+		$path        = isset( $url_frags['path'] ) ? trim( $url_frags['path'], '/' ) . '/' : '';
+		$query       = isset( $url_frags['query'] ) ? '?' . $url_frags['query'] : '';
+		$fragment    = isset( $url_frags['fragment'] ) ? '#' . $url_frags['fragment'] : '';
+		$request_uri = '/' . $path . $query . $fragment;
 
 		/**
 		 * Allows filtering the Views request URI that will be used to set up the loop.
