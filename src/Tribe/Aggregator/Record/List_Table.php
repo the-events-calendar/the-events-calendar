@@ -97,10 +97,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$args['posts_per_page'] = $per_page;
 
-		if ( 'scheduled' === $this->tab->get_slug() && isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
+		if ( 'scheduled' === $this->tab->get_slug() && ! empty( $_REQUEST['s'] ) ) {
 			// nonce check if search form submitted.
-			$nonce_check = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? wp_verify_nonce( sanitize_text_field( $_POST['aggregator']['nonce'] ), 'aggregator_' . $this->tab->get_slug() . '_request' ) : 1;
-			if ( false !== $nonce_check ) {
+			$nonce = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? $_POST['aggregator']['nonce'] :  '';
+			if ( $nonce === '' || wp_verify_nonce( $nonce,  'aggregator_' . $this->tab->get_slug() . '_request'  ) ) {
 				$args['meta_query'] = [
 					'relation' => 'OR',
 					[
@@ -735,14 +735,14 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$output = '<span class="displaying-num">' . sprintf(
 			/* translators: %s: Number of items. */
-			_n( '%s item', '%s items', $total_items ),
+			_n( '%s item', '%s items', $total_items, 'the-events-calendar' ),
 			number_format_i18n( $total_items )
 		) . '</span>';
 
 		$current              = $this->get_pagenum();
 		$removable_query_args = wp_removable_query_args();
 
-		$current_url = set_url_scheme( 'http://' . sanitize_text_field( $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
+		$current_url = set_url_scheme( 'http://' . esc_url_raw( $_SERVER['HTTP_HOST'] ) . esc_url_raw( $_SERVER['REQUEST_URI'] ) );
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
@@ -784,11 +784,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		if ( 'bottom' === $which ) {
 			$html_current_page  = $current;
-			$total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
+			$total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page', 'the-events-calendar' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
 		} else {
 			$html_current_page = sprintf(
 				"%s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
-				'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page' ) . '</label>',
+				'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page', 'the-events-calendar' ) . '</label>',
 				$current,
 				strlen( $total_pages )
 			);
@@ -796,7 +796,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
 		$page_links[]     = $total_pages_before . sprintf(
 			/* translators: 1: Current page, 2: Total pages. */
-			_x( '%1$s of %2$s', 'paging' ),
+			_x( '%1$s of %2$s', 'paging', 'the-events-calendar' ),
 			$html_current_page,
 			$html_total_pages
 		) . $total_pages_after;
@@ -834,6 +834,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		} else {
 			$page_class = ' no-pages';
 		}
-		?><div class='tablenav-pages<? echo $page_class; ?>'><?php echo $output; ?></div><?php
+		?>
+		<div class='tablenav-pages<? echo $page_class; ?>'>
+			<?php echo $output; ?>
+		</div>
+		<?php
 	}
 }
