@@ -20,6 +20,7 @@
  * @var string               $breakpoint_pointer         String we use as pointer to the current view we are setting up with breakpoints.
  * @var array<string,string> $messages                   An array of user-facing messages, managed by the View.
  * @var boolean              $hide_if_no_upcoming_events Hide widget if no events.
+ * @var string               $json_ld_data               The JSON-LD for widget events, if enabled.
  * @var string               $view_more_link             The URL to view all events.
  * @var string               $widget_title               The title of the widget.
  */
@@ -42,35 +43,33 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
-	<div class="tribe-common-l-container">
-		<div class="tribe-events-widget-events-list">
+	<div class="tribe-events-widget-events-list">
 
-			<?php $this->template( 'components/json-ld-data' ); ?>
+		<?php $this->template( 'components/json-ld-data' ); ?>
 
-			<?php $this->template( 'components/data' ); ?>
+		<?php $this->template( 'components/data' ); ?>
 
-			<header class="tribe-events-widget-events-list__header">
-				<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-					<?php echo esc_html( $widget_title ); ?>
-				</h3>
-			</header>
+		<header class="tribe-events-widget-events-list__header">
+			<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+				<?php echo esc_html( $widget_title ); ?>
+			</h3>
+		</header>
 
-			<?php if ( ! empty( $events ) ) : ?>
+		<?php if ( ! empty( $events ) ) : ?>
 
-				<div class="tribe-events-widget-events-list__events">
-					<?php foreach ( $events as $event ) : ?>
-						<?php $this->template( 'widgets/widget-events-list/event', [ 'event' => $event ] ); ?>
-					<?php endforeach; ?>
-				</div>
+			<div class="tribe-events-widget-events-list__events">
+				<?php foreach ( $events as $event ) : ?>
+					<?php $this->template( 'widgets/widget-events-list/event', [ 'event' => $event ] ); ?>
+				<?php endforeach; ?>
+			</div>
 
-				<?php $this->template( 'widgets/widget-events-list/view-more', [ 'view_more_link' => $view_more_link ] ); ?>
+			<?php $this->template( 'widgets/widget-events-list/view-more', [ 'view_more_link' => $view_more_link ] ); ?>
 
-			<?php else : ?>
+		<?php else : ?>
 
-				<?php $this->template( 'components/messages' ); ?>
+			<?php $this->template( 'components/messages' ); ?>
 
-			<?php endif; ?>
-		</div>
+		<?php endif; ?>
 	</div>
 </div>
 

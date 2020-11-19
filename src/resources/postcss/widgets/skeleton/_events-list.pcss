@@ -37,14 +37,14 @@
 	.tribe-events-widget-events-list__event-date-tag-month,
 	.tribe-events-widget-events-list__event-date-tag-daynum {
 		margin-bottom: calc(var(--spacer-0) * -1);
+
+		.tribe-common--breakpoint-xsmall& {
+			margin-bottom: -2px;
+		}
 	}
 
 	.tribe-events-widget-events-list__event-datetime-wrapper {
 		margin-bottom: var(--spacer-0);
-
-		.tribe-common--breakpoint-medium& {
-			margin-bottom: 0;
-		}
 	}
 
 	.tribe-events-widget-events-list__event-datetime-featured-icon {
@@ -73,6 +73,18 @@
 				justify-content: flex-start;
 				padding: 0;
 			}
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Astra
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-astra.ast-separate-container &,
+	.theme-astra.ast-separate-container & {
+
+		.tribe-events-widget-events-list__event {
+			padding: 0;
 		}
 	}
 }

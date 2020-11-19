@@ -15,7 +15,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  *
- * @version 5.1.1
+ * @version TBD
  */
 
 if ( empty( $event->featured ) ) {
@@ -23,8 +23,9 @@ if ( empty( $event->featured ) ) {
 }
 ?>
 <em
-	class="tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+	class="tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon"
 	aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 	title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 >
+	<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon-svg' ] ] ); ?>
 </em>
