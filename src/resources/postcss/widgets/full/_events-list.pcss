@@ -85,7 +85,7 @@
 
 	.tribe-theme-twentyseventeen &,
 	.tribe-theme-twentyseventeen .site-footer .widget-area &,
-	.theme-twentyseventeen .site-footer .widget-area & {
+	.site-footer .widget-area & {
 
 		.tribe-events-widget-events-list__view-more-link {
 			color: var(--color-accent-primary);
@@ -115,12 +115,17 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-theme-enfold &,
-	.theme-enfold & {
+	.footer_color &,
+	.main_color & {
 
 		.tribe-events-widget-events-list__event-venue-address,
 		.tribe-events-widget-events-list__event-organizer-contact {
 			color: var(--color-text-primary);
 		}
+	}
+
+	.tribe-theme-enfold &,
+	.main_color .sidebar & {
 
 		.tribe-events-widget-events-list__view-more-link {
 			color: var(--color-accent-primary);
