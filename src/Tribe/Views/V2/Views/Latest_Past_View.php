@@ -2,7 +2,7 @@
 /**
  * The Past Latest View.
  *
- * @since   5.1.0
+ * @since   TBD
  * @package Tribe\Events\Views\V2\Views
  */
 
@@ -64,6 +64,7 @@ class Latest_Past_View extends View {
 		'components/events-bar/views/list/item',
 		'components/ical-link',
 		'components/breakpoints',
+		'components/icons/featured',
 
 		// Day View
 		'day',
@@ -123,6 +124,7 @@ class Latest_Past_View extends View {
 		'latest-past/event/description',
 		'latest-past/event/cost',
 		'latest-past/event/date-tag',
+		'latest-past/event/date/featured',
 		'latest-past/event/date/meta',
 
 		// Add-ons.

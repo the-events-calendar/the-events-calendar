@@ -11,7 +11,7 @@
  *
  * @var string $prev_url The URL to the previous page, if any, or an empty string.
  *
- * @version 5.0.1
+ * @version TBD
  *
  */
 $label = sprintf( __( 'Previous %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() );
@@ -24,5 +24,6 @@ $label = sprintf( __( 'Previous %1$s', 'the-events-calendar' ), tribe_get_event_
 		title="<?php echo esc_attr( $label ); ?>"
 		data-js="tribe-events-view-link"
 	>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</a>
 </li>
