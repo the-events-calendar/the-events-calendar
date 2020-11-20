@@ -61,14 +61,8 @@
 
 		.tribe-events-c-messages__message--notice {
 
-			&:before {
-				background-image: svg-inline(messages-not-found);
-				background-repeat: no-repeat;
-				background-size: 22px;
+			.tribe-events-c-messages__message-icon-svg {
 				display: inline-block;
-				content: '';
-				min-width: 22px;
-				height: 24px;
 				margin-right: var(--spacer-2);
 			}
 		}
@@ -91,7 +85,7 @@
 
 	.tribe-theme-twentyseventeen &,
 	.tribe-theme-twentyseventeen .site-footer .widget-area &,
-	.theme-twentyseventeen .site-footer .widget-area & {
+	.site-footer .widget-area & {
 
 		.tribe-events-widget-events-list__view-more-link {
 			color: var(--color-accent-primary);
@@ -108,7 +102,7 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-theme-astra.ast-separate-container &,
-	.theme-astra.ast-separate-container & {
+	.ast-separate-container & {
 
 		.tribe-events-widget-events-list__event {
 			background-color: transparent;
@@ -121,12 +115,17 @@
 	 * ------------------------------------------------------------------------- */
 
 	.tribe-theme-enfold &,
-	.theme-enfold & {
+	.footer_color &,
+	.main_color & {
 
 		.tribe-events-widget-events-list__event-venue-address,
 		.tribe-events-widget-events-list__event-organizer-contact {
 			color: var(--color-text-primary);
 		}
+	}
+
+	.tribe-theme-enfold &,
+	.main_color .sidebar & {
 
 		.tribe-events-widget-events-list__view-more-link {
 			color: var(--color-accent-primary);
