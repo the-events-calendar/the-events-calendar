@@ -12,15 +12,17 @@ jobs:
         with:
           fetch-depth: 1
           submodules: recursive
-      - name: Checkout automation tools
+      - name: Checkout tric
         uses: actions/checkout@v2
         with:
           repository: moderntribe/tric
           ref: main
           path: tric
           fetch-depth: 1
-      - name: Add tric to the PATH
-        run: echo "TRIC_BIN=${GITHUB_WORKSPACE}/tric/tric" >> $GITHUB_ENV
+      - name: Set up tric env vars
+        run: |
+          echo "TRIC_BIN=${GITHUB_WORKSPACE}/tric/tric" >> $GITHUB_ENV
+          echo "TRIC_WP_DIR=${GITHUB_WORKSPACE}/tric/_wordpress" >> $GITHUB_ENV
       - name: Set run context for tric
         run: echo "TRIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
       - name: Start ssh-agent
@@ -51,6 +53,8 @@ jobs:
           ${TRIC_BIN} composer install
       - name: Init the WordPress container
         run: ${TRIC_BIN} up wordpress
+      - name: Debug file modes of WordPress directory
+        run: echo "Worker ID - $(id -u):$(id -g)" && ls -la ${TRIC_WP_DIR} && ls -la ${TRIC_WP_DIR}/wp-content
       - name: Run suite tests
         run: ${TRIC_BIN} run tests/wpunit/Tribe/Events/Aggregator/Record/UrlTest.php:it_should_not_reimport_image_by_url_when_set_in_event_information --debug
 
