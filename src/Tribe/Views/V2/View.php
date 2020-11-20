@@ -260,7 +260,7 @@ class View implements View_Interface {
 
 		$slug = Arr::get( $params, 'view', false );
 		// Convert the URL to lowercase to make sure the rewrite rules, all lowercase, will match it.
-		$url  = Arr::get( $params, 'url' );
+		$url        = Arr::get( $params, 'url' );
 		$url_object = Url::from_url_and_params( $url, $params );
 
 		$url = $url_object->__toString();
