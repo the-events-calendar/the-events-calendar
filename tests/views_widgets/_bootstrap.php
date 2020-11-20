@@ -5,7 +5,12 @@ use Tribe\Events\Views\V2\Widgets\Service_Provider as Widget_Provider;
 
 // Ensure Views v2 are activated.
 putenv( 'TRIBE_EVENTS_V2_VIEWS=1' );
+
+// v2 Widgets.
+define( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED', false );
 add_filter( 'tribe_events_widgets_v2_is_enabled', '__return_true' );
+
+// Register needed providers.
 tribe_register_provider( Service_Provider::class );
 tribe_register_provider( Widget_Provider::class );
 
