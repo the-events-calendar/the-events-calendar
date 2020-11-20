@@ -138,14 +138,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					background-color: ' . $accent_color_background . ';
 				}
 			';
-			
+
 			// Override svg icons color.
 			$template .= '
 				.tribe-common .tribe-common-c-svgicon {
 					color: <%= global_elements.accent_color %>;
 				}
 			';
-			
+
 			$template .= '
 				.tribe-common .tribe-events-virtual-virtual-event__icon-svg {
 					color: <%= global_elements.accent_color %>;
@@ -238,7 +238,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					background-color: <%= global_elements.accent_color %>;
 				}
 			';
-			
+
 			$template .= '
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event-datetime-featured-text {
 					color: <%= global_elements.accent_color %>;
