@@ -99,8 +99,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		if ( 'scheduled' === $this->tab->get_slug() && ! empty( $_REQUEST['s'] ) ) {
 			// nonce check if search form submitted.
-			$nonce = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? $_POST['aggregator']['nonce'] :  '';
-			if ( $nonce === '' || wp_verify_nonce( $nonce,  'aggregator_' . $this->tab->get_slug() . '_request'  ) ) {
+			$nonce = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? sanitize_text_field( $_POST['aggregator']['nonce'] ) :  '';
+			if ( wp_verify_nonce( $nonce,  'aggregator_' . $this->tab->get_slug() . '_request'  ) ) {
 				$args['meta_query'] = [
 					'relation' => 'OR',
 					[
@@ -746,7 +746,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
-		if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
+		if ( ! empty( $_REQUEST['s'] ) ) {
 			$current_url = add_query_arg( 's', sanitize_text_field( $_REQUEST['s'] ), $current_url );
 		}
 
@@ -835,7 +835,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$page_class = ' no-pages';
 		}
 		?>
-		<div class='tablenav-pages<? echo $page_class; ?>'>
+		<div class='tablenav-pages<? echo esc_attr( $page_class ); ?>'>
 			<?php echo $output; ?>
 		</div>
 		<?php
