@@ -44,6 +44,12 @@ class UrlTest extends Events_TestCase {
 		unset( $event['id'] );
 		$event['title'] = md5( $event['title'] );
 		$image = codecept_data_dir( 'images/featured-image.jpg' );
+
+		/// DEBUG
+		codecept_debug( $image );
+		codecept_debug( wp_upload_bits( basename( $image ), null, file_get_contents( $image ) ) );
+		/// DEBUG
+
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image );
 		$attachment_url = wp_get_attachment_url( $attachment_id );
 		$event['image'] = $attachment_url;

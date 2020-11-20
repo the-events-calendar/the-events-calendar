@@ -52,5 +52,5 @@ jobs:
       - name: Init the WordPress container
         run: ${TRIC_BIN} up wordpress
       - name: Run suite tests
-        run: ${TRIC_BIN} run ${{ matrix.suite }} --debug
+        run: ${TRIC_BIN} run tests/wpunit/Tribe/Events/Aggregator/Record/UrlTest.php:it_should_not_reimport_image_by_url_when_set_in_event_information --debug
 
