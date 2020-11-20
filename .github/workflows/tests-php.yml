@@ -4,6 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
+        suite: [ 'wpunit' ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
