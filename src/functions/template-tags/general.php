@@ -593,7 +593,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Get the current page template that we are on
 	 *
 	 * @category Events
-	 * @todo Update the function name to ensure there are no namespace conflicts.
 	 * @return string Page template
 	 */
 	function tribe_get_current_template() {
@@ -749,7 +748,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @category Events
 	 * @param string|null $current_view
 	 *
-	 * @todo move to template classes
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
 
@@ -1075,7 +1073,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * 'tribe_events_event_schedule_details' filter, should none of the above settings be sufficient.
 	 *
 	 * @category Events
-	 * @todo use tribe_get_datetime_format() and related functions if possible
+	 * @todo [BTRIA-644]: Use tribe_get_datetime_format() and related functions if possible.
 	 *
 	 * @param int|null $event The event post ID, or `null` to use the global event.
 	 * @param string $before A string to prepend before the schedule details.
