@@ -33,7 +33,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$customizer = Tribe__Customizer::instance();
 		$settings   = $customizer->get_option( [ $this->ID ] );
 
-		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
+		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'accent_color' ) ) {
 
 			$accent_color     = new Tribe__Utils__Color( $settings['accent_color'] );
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
