@@ -4,7 +4,8 @@ jobs:
   test:
     strategy:
       matrix:
-        suite: [ 'restv1' ]
+        # Start with something easy.
+        suite: [ 'wpunit' ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -20,15 +21,15 @@ jobs:
           path: tric
           fetch-depth: 1
       - name: Add tric to the PATH
-        run: echo "::set-env name=PATH::${GITHUB_WORKSPACE}/../tric:$PATH"
+        run: echo "PATH=${GITHUB_WORKSPACE}/../tric:$PATH" >> $GITHUB_ENV
       - name: Set run_context() for tric
-        run: echo "::set-env name=TRIC::1"
+        run: echo "TRIC=1" >> $GITHUB_ENV
       - name: Start ssh-agent
         run: |
           mkdir -p "${HOME}/.ssh";
           ssh-agent -a /tmp/ssh_agent.sock;
       - name: Export SSH_AUTH_SOCK env var
-        run: echo "::set-env name=SSH_AUTH_SOCK::/tmp/ssh_agent.sock"
+        run: echo "SSH_AUTH_SOCK=/tmp/ssh_agent.sock" >> $GITHUB_ENV
       - name: Set up tric for CI
         run: |
           cd ${GITHUB_WORKSPACE}/..
@@ -38,8 +39,7 @@ jobs:
           tric xdebug off
           tric debug on
           tric info
-      - name: Print the current tric configuration
-        run: tric config
+          tric config
       - name: Set up Common
         run: |
           docker network prune -f
