@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.2.1
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -21,10 +21,11 @@ if ( empty( $event->featured ) ) {
 }
 ?>
 <em
-	class="tribe-events-widget-events-list__event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
+	class="tribe-events-widget-events-list__event-datetime-featured-icon"
 	aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 	title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 >
+	<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-widget-events-list__event-datetime-featured-icon-svg' ] ] ); ?>
 </em>
 <span class="tribe-events-widget-events-list__event-datetime-featured-text tribe-common-a11y-visual-hide">
 	<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>

@@ -9,61 +9,22 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @var Widget_Abstract $widget_obj   An instance with the widget abstract.
- * @var array<array>    $admin_fields An array of admin fields to display in the widget form.
+ * @var Widget_Abstract $widget_obj   An instance of the widget abstract.
+ * @var array<array,mixed>    $admin_fields An array of admin fields to display in the widget form.
  *
  * @version TBD
  */
 
-use \Tribe\Events\Views\V2\Widgets\Widget_Abstract;
-use Tribe__Utils__Array as Arr;
+foreach ( $admin_fields as $field ) {
+	$this->template( "widgets/components/{$field['type']}", $field );
 
-if ( empty( $admin_fields ) ) {
-	return;
-}
-
-foreach ( $admin_fields as $field_id => $field ) {
-	// Handle a section start. May contain a section title.
-	// Using stripos() to allow for multiple occurrences ("section_start_1", "section_start_2" etc).
-	if ( 0 === stripos( $field_id, 'section_start' ) ) {
-	?>
-		<div class="tribe-events-widget-admin-form__input-section">
-		<?php if ( ! empty( $field['title'] ) ) { ?>
-			<h4><?php echo esc_html( $field['title'] ); ?></h4>
-		<?php
-		}
-
-		continue;
-	}
-
-	// Handle a section end.
-	if ( 0 === stripos( $field_id, 'section_end' ) ) {
-	?>
-		</div>
-		<?php
-		continue;
-	}
-
-	$data = [
-		'for'     => $widget_obj->get_field_id( $field_id ),
-		'id'      => $widget_obj->get_field_id( $field_id ),
-		'name'    => $widget_obj->get_field_name( $field_id ),
-		'label'   => Arr::get( $field, 'label', '' ),
-		'options' => Arr::get( $field, 'options', [] ),
-		'value'   => isset( ${$field_id} ) ? ${$field_id} : null,
-	];
-
-	switch ( $field['type'] ) {
-		case 'checkbox':
-			$this->template( 'widgets/components/checkbox', $data );
-			break;
-		case 'dropdown':
-			$this->template( 'widgets/components/dropdown', $data );
-			break;
-		case 'text':
-			$this->template( 'widgets/components/text', $data );
-			break;
-		default:
-			break;
-	}
+	/**
+	 * Allows other plugins to hook in as needed to inject things that aren't necessarily an input.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<array,mixed> $field The "field" info.
+	 * @var Widget_Abstract $widget_obj An instance of the widget abstract.
+	 */
+	do_action( "tribe_events_views_v2_widget_admin_form_{$field['type']}_input", $field, $widget_obj );
 }
