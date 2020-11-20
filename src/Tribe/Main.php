@@ -1474,7 +1474,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load the day view template tags
 		 * Loaded late due to potential upgrade conflict since moving them from pro
-		 * @todo move this require to be with the rest of the template tag includes in 3.9
+		 *
+		 * @todo [BTRIA-620]: move this require to be with the rest of the template tag includes in 3.9
 		 */
 		public function init_day_view() {
 			// load day view functions

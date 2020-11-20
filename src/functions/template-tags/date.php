@@ -100,7 +100,8 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 			$event_end    = $event_end->format( 'U' );
 		}
 
-		/* Note:
+		/*
+		 * Note:
 		 * events that start exactly on the EOD cutoff will count on the following day
 		 * events that end exactly on the EOD cutoff will count on the previous day
 		 */
