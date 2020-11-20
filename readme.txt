@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
+* Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
 * Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
 * Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
 * Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
