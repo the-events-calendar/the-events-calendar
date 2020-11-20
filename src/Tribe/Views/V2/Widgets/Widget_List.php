@@ -39,6 +39,13 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
+	protected $asset_slug = 'tribe-events-list-widget-v2';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
 	protected $view_admin_slug = 'widgets/list';
 
 	/**
@@ -124,7 +131,6 @@ class Widget_List extends Widget_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function setup_admin_fields() {
-
 		return [
 			'title'                => [
 				'label' => _x( 'Title:', 'The label for the field of the title of the List Widget.', 'the-events-calendar' ),
@@ -147,7 +153,6 @@ class Widget_List extends Widget_Abstract {
 				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSON-LD in the List Widget.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
-
 		];
 	}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * The List Widget View.
+ * The Front End List Widget View.
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  * @since 5.2.1
@@ -9,7 +9,6 @@
 namespace Tribe\Events\Views\V2\Views\Widgets;
 
 use Tribe\Events\Views\V2\Messages;
-use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 
 /**
@@ -83,5 +82,16 @@ class Widget_List_View extends Widget_View {
 			Messages::TYPE_NOTICE,
 			Messages::for_key( 'no_upcoming_events', trim( $keyword ) )
 		);
+	}
+
+	/**
+	 * Overrides the base method to return an empty array, since the widget will not use breadcrubms.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<array<string,string>> An empty array, the widget will not use breadcrumbs.
+	 */
+	protected function get_breadcrumbs() {
+		return [];
 	}
 }
