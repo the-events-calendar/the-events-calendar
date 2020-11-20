@@ -12,7 +12,7 @@ const { request: {
 	utils:requestUtils,
 } } = middlewares;
 
-// TODO: There is a lot of logic in this thunk that should be moved into
+// @todo [BTRIA-617]: There is a lot of logic in this thunk that should be moved into
 // each specific call instead. Given the function name and location,
 // "search" should only search given params and handle success/error.
 export const search = ( id, params ) => ( dispatch, getState ) => {
