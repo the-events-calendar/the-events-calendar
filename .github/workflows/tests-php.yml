@@ -35,6 +35,7 @@ jobs:
           ${TRIC_BIN} here
           ${TRIC_BIN} interactive off
           ${TRIC_BIN} build-prompt off
+          ${TRIC_BIN} build-subdir off
           ${TRIC_BIN} xdebug off
           ${TRIC_BIN} debug on
           ${TRIC_BIN} info
