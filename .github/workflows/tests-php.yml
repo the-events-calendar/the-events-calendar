@@ -16,13 +16,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: moderntribe/tric
-          ref: main
+          ref: fix/filemode-issues-in-ci
           path: tric
           fetch-depth: 1
       - name: Set up tric env vars
         run: |
           echo "TRIC_BIN=${GITHUB_WORKSPACE}/tric/tric" >> $GITHUB_ENV
           echo "TRIC_WP_DIR=${GITHUB_WORKSPACE}/tric/_wordpress" >> $GITHUB_ENV
+          echo "TRIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
       - name: Set run context for tric
         run: echo "TRIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
       - name: Start ssh-agent
