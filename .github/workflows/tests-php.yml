@@ -20,9 +20,9 @@ jobs:
           path: tric
           fetch-depth: 1
       - name: Add tric to the PATH
-        run: echo "TRIC_BIN=/home/runner/work/the-events-calendar/the-events-calendar/tric" >> $GITHUB_ENV
+        run: echo "TRIC_BIN=${GITHUB_WORKSPACE}/tric/tric" >> $GITHUB_ENV
       - name: Debug tric bin
-        run: ${TRIC_BIN} info
+        run: echo "${TRIC_BIN}" && ${TRIC_BIN} info
       - name: Set run_context() for tric
         run: echo "TRIC=1" >> $GITHUB_ENV
       - name: Start ssh-agent
