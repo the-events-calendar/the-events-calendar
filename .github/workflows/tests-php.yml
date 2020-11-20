@@ -4,8 +4,6 @@ jobs:
   test:
     strategy:
       matrix:
-        # Start with something easy.
-        suite: [ 'wpunit' ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -21,7 +19,7 @@ jobs:
           path: tric
           fetch-depth: 1
       - name: Add tric to the PATH
-        run: echo "PATH=${GITHUB_WORKSPACE}/../tric:$PATH" >> $GITHUB_ENV
+        run: echo "TRIC_BIN=${GITHUB_WORKSPACE}/../tric/tric" >> $GITHUB_ENV
       - name: Set run_context() for tric
         run: echo "TRIC=1" >> $GITHUB_ENV
       - name: Start ssh-agent
@@ -33,24 +31,24 @@ jobs:
       - name: Set up tric for CI
         run: |
           cd ${GITHUB_WORKSPACE}/..
-          tric here
-          tric interactive off
-          tric build-prompt off
-          tric xdebug off
-          tric debug on
-          tric info
-          tric config
+          ${TRIC_BIN} here
+          ${TRIC_BIN} interactive off
+          ${TRIC_BIN} build-prompt off
+          ${TRIC_BIN} xdebug off
+          ${TRIC_BIN} debug on
+          ${TRIC_BIN} info
+          ${TRIC_BIN} config
       - name: Set up Common
         run: |
           docker network prune -f
-          tric use the-events-calendar/common
-          tric composer install --no-dev
+          ${TRIC_BIN} use the-events-calendar/common
+          ${TRIC_BIN} composer install --no-dev
       - name: Set up The Events Calendar
         run: |
-          tric use the-events-calendar
-          tric composer install
+          ${TRIC_BIN} use the-events-calendar
+          ${TRIC_BIN} composer install
       - name: Init the WordPress container
-        run: tric up wordpress
+        run: ${TRIC_BIN} up wordpress
       - name: Run suite tests
-        run: tric run ${{ matrix.suite }} --debug
+        run: ${TRIC_BIN} run ${{ matrix.suite }} --debug
 
