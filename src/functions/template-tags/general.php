@@ -1075,7 +1075,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * 'tribe_events_event_schedule_details' filter, should none of the above settings be sufficient.
 	 *
 	 * @category Events
-	 * @TODO use tribe_get_datetime_format() and related functions if possible
+	 * @todo use tribe_get_datetime_format() and related functions if possible
 	 *
 	 * @param int|null $event The event post ID, or `null` to use the global event.
 	 * @param string $before A string to prepend before the schedule details.

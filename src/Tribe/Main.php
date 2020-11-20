@@ -155,7 +155,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public $activation_page;
 
-		// @todo remove in 4.0
+		// @todo [BTRIA-602]: Remove in 4.0.
 		public $upcomingSlug = 'upcoming';
 		public $pastSlug     = 'past';
 
@@ -897,7 +897,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
 			// is hosting an earlier version of tribe-common which is already active)
 			//
-			// @todo remove this safety check when we're confident the risk has diminished
+			// @todo [BTRIA-603]: Remove this safety check when we're confident the risk has diminished.
 			if ( function_exists( 'tribe_notice' ) ) {
 				tribe_notice( 'archive-slug-conflict', array( $this, 'render_notice_archive_slug_conflict' ), 'dismiss=1&type=error' );
 			}
@@ -1031,7 +1031,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
 			// if we don't take this precaution).
 			//
-			// @todo remove class_exists() test once enough time has elapsed and the risk has reduced
+			// @todo [BTRIA-604]: Remove class_exists() test once enough time has elapsed and the risk has reduced.
 			if ( empty( $this->activation_page ) && class_exists( 'Tribe__Admin__Activation_Page' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page( array(
 					'slug'                  => 'the-events-calendar',
@@ -1474,7 +1474,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load the day view template tags
 		 * Loaded late due to potential upgrade conflict since moving them from pro
-		 * @TODO move this require to be with the rest of the template tag includes in 3.9
+		 * @todo move this require to be with the rest of the template tag includes in 3.9
 		 */
 		public function init_day_view() {
 			// load day view functions
@@ -1873,7 +1873,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $classes
 		 *
 		 * @return array
-		 * @TODO move this to template class
+		 * @todo move this to template class
 		 */
 		public function body_class( $classes ) {
 			if ( get_query_var( 'post_type' ) == self::POSTTYPE ) {
@@ -1891,7 +1891,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $classes
 		 *
 		 * @return array
-		 * @TODO move this to template class
+		 * @todo move this to template class
 		 */
 		public function post_class( $classes ) {
 			global $post;
@@ -2444,7 +2444,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function setup_l10n_strings() {
-			// @todo these members became deprecated in 4.4 - remove in future release
+			// @todo [BTRIA-605]: These members became deprecated in 4.4 - remove in future release.
 			$this->monthsFull      = Tribe__Date_Utils::get_localized_months_full();
 			$this->monthsShort     = Tribe__Date_Utils::get_localized_months_short();
 			$this->daysOfWeek      = Tribe__Date_Utils::get_localized_weekdays_full();
@@ -3600,7 +3600,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$post_type = Tribe__Events__Organizer::POSTTYPE;
 			}
 
-			// TODO update this verification to check all post_status <> 'trash'
+			// @todo [BTRIA-606]: Update this verification to check all post_status <> 'trash'.
 			$results = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish'", $post_type, $name ) );
 
 			return ( $results ) ? 0 : 1;

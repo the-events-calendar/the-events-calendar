@@ -38,7 +38,7 @@ class Event_Query_Controller extends Abstract_Query_Controller {
 	 * {@inheritDoc}
 	 */
 	protected function repository() {
-		// @todo refine this to handle order depending on the View.
+		// @todo [BTRIA-594]: Refine this to handle order depending on the View.
 		return tribe_events()->order_by( 'event_date', 'ASC' );
 	}
 

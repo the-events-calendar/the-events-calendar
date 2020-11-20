@@ -257,7 +257,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( ! empty( $item_updated ) ) {
 				$content_label = 1 === $queue->activity->count( $content_post_type, 'updated' ) ? $content_type : $content_type_plural;
 
-				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
+				// @todo [BTRIA-589]: Include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>.
 				$messages['success'][] = sprintf( // add updated event count
 					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $queue->activity->count( $content_post_type, 'updated' ), 'the-events-calendar' ),
 					$queue->activity->count( $content_post_type, 'updated' ),

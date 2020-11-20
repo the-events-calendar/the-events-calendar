@@ -167,7 +167,7 @@ class Rest_Endpoint {
 		return register_rest_route( static::ROOT_NAMESPACE, '/html', [
 			// Support both GET and POST HTTP methods: we originally used GET.
 			'methods'             => [ Server::READABLE, Server::CREATABLE ],
-			 // @todo  Make sure we do proper handling of cache longer then 12h.
+			 // @todo [BTRIA-600]:  Make sure we do proper handling of caches longer then 12h.
 			'permission_callback' => static function ( Request $request ) {
 
 				/*

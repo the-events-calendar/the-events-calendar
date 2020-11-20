@@ -157,7 +157,7 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 			return (bool) $have_uncosted;
 		}
 
-		// @todo consider expanding our logic for improved handling of private posts etc
+		// @todo [BTRIA-601]: Consider expanding our logic for improved handling of private posts etc.
 		$uncosted = $wpdb->get_var( $wpdb->prepare( "
 			SELECT ID
 			FROM   {$wpdb->posts}

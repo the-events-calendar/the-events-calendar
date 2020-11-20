@@ -1254,7 +1254,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// if this is a batch push record then set its queue to fetching
 		// to feed the UI something coherent
 		if ( ! $start_immediately && ! $this->is_polling() ) {
-			// @todo let's revisit this to return when more UI is exposed
+			// @todo [BTRIA-587]: Let's revisit this to return when more UI is exposed.
 			$queue = new Tribe__Events__Aggregator__Record__Queue( $this, 'fetch' );
 
 			return $queue;
@@ -1505,7 +1505,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			// Do we have an existing venue for this event that we should preserve?
-			// @todo review: should we care about the potential for multiple venue IDs?
+			// @todo [BTRIA-588]: Review - should we care about the potential for multiple venue IDs?
 			if (
 				! empty( $event['ID'] )
 				&& 'preserve_changes' === $update_authority_setting
@@ -2767,4 +2767,3 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return md5( uniqid( '', true ) );
 	}
 }
-

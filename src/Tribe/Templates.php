@@ -516,8 +516,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			if ( ! is_admin() && tribe_get_option( 'showInLoops' ) && ( $query->is_home() || $query->is_tag ) && empty( $query->query_vars['post_type'] ) && false == $query->query_vars['suppress_filters'] ) {
 
-				// @todo remove
-				// 3.3 know-how for main query check
+				// @todo [BTRIA-608]: Remove - 3.3 know-how for main query check.
 				if ( self::is_main_loop( $query ) ) {
 					self::$isMainLoop = true;
 					$post_types       = array( 'post', Tribe__Events__Main::POSTTYPE );

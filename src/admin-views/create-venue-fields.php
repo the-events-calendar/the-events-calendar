@@ -213,7 +213,7 @@ if ( ! $_POST && is_admin() ) {
  * @since
  * @central #73813
  *
- * @TODO ascertain version number
+ * @todo ascertain version number
  *
  */
 if ( ! is_admin() ) {
