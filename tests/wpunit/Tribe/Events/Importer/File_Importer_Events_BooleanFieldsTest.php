@@ -2,10 +2,6 @@
 namespace Tribe\Events\Importer;
 require_once 'File_Importer_EventsTest.php';
 
-use Handlebars\Handlebars;
-use Handlebars\Loader\FilesystemLoader;
-use org\bovigo\vfs\vfsStream;
-
 class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 
 	public function boolean_fields() {
@@ -20,7 +16,7 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 
 	}
 
-	/**z    
+	/**z
 	 * @test
 	 * it should not mark record as invalid if boolean field is missing
 	 * @dataProvider boolean_fields
@@ -65,6 +61,8 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 	 * @dataProvider truthy_boolean_values
 	 */
 	public function it_should_accept_various_valid_boolean_values_to_allow_comments( $truthy_boolean_value ) {
+		$this->markTestSkipped( 'xamin/handlebars.php incompat. issue.' );
+
 		$this->data        = [
 			'value_1' => $truthy_boolean_value,
 		];
