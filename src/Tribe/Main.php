@@ -65,7 +65,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_php = '5.2.17';
+		protected $min_php = '5.6.0';
 
 		/**
 		 * Min Version of Event Tickets
