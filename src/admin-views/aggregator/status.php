@@ -33,7 +33,9 @@ $show_third_party_accounts = ! is_network_admin();
 				$notes .= '</a>';
 			} else {
 				$text  = __( 'Your license is invalid', 'the-events-calendar' );
-				$notes = '<a href="' . esc_url( Tribe__Settings::instance()->get_url( array( 'tab' => 'licenses' ) ) ) . '">' . esc_html__( 'Check your license key', 'the-events-calendar' ) . '</a>';
+				$notes = '<a href="' . esc_url(
+								Tribe__Settings::instance()->get_url( [ 'tab' => 'licenses' ] )
+						) . '">' . esc_html__( 'Check your license key', 'the-events-calendar' ) . '</a>';
 			}
 		}
 		?>
@@ -167,7 +169,9 @@ $show_third_party_accounts = ! is_network_admin();
 			if ( ! tribe( 'events-aggregator.settings' )->has_eb_security_key() ) {
 				$indicator = 'warning';
 				$text = __( 'You have not connected Event Aggregator to Eventbrite', 'the-events-calendar' );
-				$eventbrite_auth_url = Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url( array( 'back' => 'settings' ) );
+				$eventbrite_auth_url = Tribe__Events__Aggregator__Record__Eventbrite::get_auth_url(
+						[ 'back' => 'settings' ]
+				);
 				$notes = '<a href="' . esc_url( $eventbrite_auth_url ). '">' . esc_html_x( 'Connect to Eventbrite', 'link for connecting eventbrite', 'the-events-calendar' ) . '</a>';
 			}
 		} else {
@@ -194,7 +198,7 @@ $show_third_party_accounts = ! is_network_admin();
 			if ( ! tribe( 'events-aggregator.settings' )->has_meetup_security_key() ) {
 				$indicator = 'warning';
 				$text = __( 'You have not connected Event Aggregator to Meetup', 'the-events-calendar' );
-				$meetup_auth_url = Tribe__Events__Aggregator__Record__Meetup::get_auth_url( array( 'back' => 'settings' ) );
+				$meetup_auth_url = Tribe__Events__Aggregator__Record__Meetup::get_auth_url( [ 'back' => 'settings' ] );
 				$notes = '<a href="' . esc_url( $meetup_auth_url ). '">' . esc_html_x( 'Connect to Meetup', 'link for connecting meetup', 'the-events-calendar' ) . '</a>';
 			}
 		} else {

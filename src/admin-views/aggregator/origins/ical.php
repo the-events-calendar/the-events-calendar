@@ -1,15 +1,21 @@
 <?php
 $tab                = $this->tabs->get_active();
 $origin_slug        = 'ical';
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
-$field->help        = __( 'One-time imports include all events in the current feed, while scheduled imports automatically grab new events and updates from the feed on a set schedule.', 'the-events-calendar' );
+$field->help        = __(
+		'One-time imports include all events in the current feed, while scheduled imports automatically grab new events and updates from the feed on a set schedule.',
+		'the-events-calendar'
+);
 $field->source      = 'ical_import_type';
 
-$frequency              = (object) array();
+$frequency              = (object) [];
 $frequency->placeholder = __( 'Select Frequency', 'the-events-calendar' );
-$frequency->help        = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
+$frequency->help        = __(
+		'Select how often you would like events to be automatically imported.',
+		'the-events-calendar'
+);
 $frequency->source      = 'ical_import_frequency';
 
 $cron = Tribe__Events__Aggregator__Cron::instance();
@@ -72,15 +78,21 @@ $frequencies = $cron->get_frequency();
 
 <?php
 if ( 'edit' === $tab->get_slug() ) {
-	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+	$this->template(
+			'fields/schedule',
+			[ 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ]
+	);
 }
 ?>
 
 <?php
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'example.com/url.ics', 'the-events-calendar' );
-$field->help        = __( 'Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics', 'the-events-calendar' );
+$field->help        = __(
+		'Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics',
+		'the-events-calendar'
+);
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-ical_import_type" data-condition-not-empty>
 	<th scope="row">

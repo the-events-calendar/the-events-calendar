@@ -1,15 +1,21 @@
 <?php
 $tab                = $this->tabs->get_active();
 $origin_slug        = 'meetup';
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
-$field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
+$field->help        = __(
+		'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import.',
+		'the-events-calendar'
+);
 $field->source      = 'meetup_import_type';
 
-$frequency              = (object) array();
+$frequency              = (object) [];
 $frequency->placeholder = __( 'Select Frequency', 'the-events-calendar' );
-$frequency->help        = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
+$frequency->help        = __(
+		'Select how often you would like events to be automatically imported.',
+		'the-events-calendar'
+);
 $frequency->source      = 'meetup_import_frequency';
 
 $cron = Tribe__Events__Aggregator__Cron::instance();
@@ -105,12 +111,15 @@ if ( $missing_meetup_credentials ) :
 
 <?php
 if ( 'edit' === $tab->get_slug() ) {
-	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+	$this->template(
+			'fields/schedule',
+			[ 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ]
+	);
 }
 ?>
 
 <?php
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'meetup.com/example', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event.', 'the-events-calendar' );
