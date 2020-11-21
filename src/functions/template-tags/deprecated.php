@@ -1445,7 +1445,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array
 	 */
-	function tribe_get_object_property_from_array( $array_objects = array(), $property = null ) {
+	function tribe_get_object_property_from_array( $array_objects = [], $property = null ) {
 		_deprecated_function( __FUNCTION__, '3.0', 'wp_list_pluck()' );
 
 		return wp_list_pluck( $array_objects, $property );
