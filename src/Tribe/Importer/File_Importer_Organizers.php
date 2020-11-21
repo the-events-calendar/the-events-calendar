@@ -5,7 +5,7 @@
  */
 class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__Importer__File_Importer {
 
-	protected $required_fields = array( 'organizer_name' );
+	protected $required_fields = [ 'organizer_name' ];
 
 	protected function match_existing_post( array $record ) {
 		$name = $this->get_value_by_key( $record, 'organizer_name' );

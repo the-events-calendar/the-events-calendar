@@ -91,10 +91,10 @@ function tribe_not_php_version_names() {
 	 *
 	 * @param array $names Name of the plugins that are not compatible
 	 */
-	return apply_filters( 'tribe_not_php_version_names', array() );
+	return apply_filters( 'tribe_not_php_version_names', [] );
 }
 
-/**
+	/**
  * Echoes out the error for the PHP min version as a WordPress admin Notice
  *
  * @since  4.8

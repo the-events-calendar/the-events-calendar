@@ -18,21 +18,21 @@ class Tribe__Events__Front_Page_View {
 	public function hook() {
 
 		// Prevent breaking changing on sites with the old implementation
-		add_action( 'admin_init', array( $this, 'backwards_compatible' ) );
+		add_action( 'admin_init', [ $this, 'backwards_compatible' ] );
 
 		// Allow to set negative numbers on the homepage.
-		add_action( 'sanitize_option_show_on_front', array( $this, 'save_show_on_front' ), 10, 3 );
-		add_action( 'sanitize_option_page_on_front', array( $this, 'save_page_on_front' ), 10, 3 );
+		add_action( 'sanitize_option_show_on_front', [ $this, 'save_show_on_front' ], 10, 3 );
+		add_action( 'sanitize_option_page_on_front', [ $this, 'save_page_on_front' ], 10, 3 );
 		// Insert the main Events page on the Customizer and Reading settings option
-		add_filter( 'wp_dropdown_pages', array( $this, 'add_events_page_option' ), 10, 3 );
+		add_filter( 'wp_dropdown_pages', [ $this, 'add_events_page_option' ], 10, 3 );
 
 		if ( tribe_get_option( 'front_page_event_archive', false ) ) {
 			// Implement front page view
-			add_action( 'parse_query', array( $this, 'parse_query' ), 5 );
-			add_filter( 'tribe_events_get_link', array( $this, 'main_event_page_links' ) );
+			add_action( 'parse_query', [ $this, 'parse_query' ], 5 );
+			add_filter( 'tribe_events_get_link', [ $this, 'main_event_page_links' ] );
 		}
 
-		add_action( 'parse_query', array( $this, 'parse_customizer_query' ) );
+		add_action( 'parse_query', [ $this, 'parse_customizer_query' ] );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Tribe__Events__Front_Page_View {
 		}
 
 		// We don't need this to run again after this point
-		remove_action( 'parse_query', array( $this, 'parse_query' ), 5 );
+		remove_action( 'parse_query', [ $this, 'parse_query' ], 5 );
 
 		// Let's set the relevant flags in order to cause the main events page to show
 		$query->set( 'page_id', 0 );
@@ -82,7 +82,7 @@ class Tribe__Events__Front_Page_View {
 	 */
 	public function parse_customizer_query( $query ) {
 
-		$data = tribe_get_request_var( 'customized', array() );
+		$data = tribe_get_request_var( 'customized', [] );
 
 		if ( empty( $data ) ) {
 			return;
@@ -96,19 +96,19 @@ class Tribe__Events__Front_Page_View {
 		}
 
 		// Fallback to the data that is missing with the current settings
-		$data = wp_parse_args( $data, array(
+		$data = wp_parse_args( $data, [
 			'show_on_front' => get_option( 'show_on_front' ),
 			'page_on_front' => get_option( 'page_on_front' ),
-		) );
+		] );
 
 
 		if ( 'posts' === $data['show_on_front'] ) {
-			$query->query_vars = wp_parse_args( $query->query_vars, array(
+			$query->query_vars = wp_parse_args( $query->query_vars, [
 				'is_post_type_archive' => false,
-				'post_type' => '',
-				'eventDisplay' => '',
-				'page_id' => 0,
-			) );
+				'post_type'            => '',
+				'eventDisplay'         => '',
+				'page_id'              => 0,
+			] );
 			unset( $query->query_vars['is_post_type_archive'] );
 			unset( $query->query_vars['post_type'] );
 			unset( $query->query_vars['eventDisplay'] );
@@ -229,7 +229,7 @@ class Tribe__Events__Front_Page_View {
 	public function add_events_page_option( $output, $args, $pages ) {
 
 		// Ensures we only modify the Homepage dropdown.
-		$valid_names = array( '_customize-dropdown-pages-page_on_front', 'page_on_front' );
+		$valid_names = [ '_customize-dropdown-pages-page_on_front', 'page_on_front' ];
 		if ( ! isset( $args['name'] ) || ! in_array( $args['name'], $valid_names ) ) {
 			return $output;
 		}

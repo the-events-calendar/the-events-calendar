@@ -16,13 +16,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	public $page;
 	public $user;
 
-	public function __construct( $args = array() ) {
+	public function __construct( $args = [] ) {
 		$screen = WP_Screen::get( Tribe__Events__Aggregator__Records::$post_type );
 
-		$default = array(
-			'screen' => $screen,
-			'tab' => Tribe__Events__Aggregator__Tabs::instance()->get_active(),
-		);
+		$default = [
+				'screen' => $screen,
+				'tab'    => Tribe__Events__Aggregator__Tabs::instance()->get_active(),
+		];
 		$args = wp_parse_args( $args, $default );
 
 		parent::__construct( $args );
@@ -56,12 +56,12 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$order = 'desc';
 		}
 
-		$args = array(
-			'post_type' => $this->screen->post_type,
-			'orderby'   => 'modified',
-			'order'     => $order,
-			'paged'     => absint( isset( $_GET['paged'] ) ? $_GET['paged'] : 1 ),
-		);
+		$args = [
+				'post_type' => $this->screen->post_type,
+				'orderby'   => 'modified',
+				'order'     => $order,
+				'paged'     => absint( isset( $_GET['paged'] ) ? $_GET['paged'] : 1 ),
+		];
 
 		$status = Tribe__Events__Aggregator__Records::$status;
 
@@ -72,11 +72,11 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				break;
 
 			case 'history':
-				$args['post_status'] = array(
-					$status->success,
-					$status->failed,
-					$status->pending,
-				);
+				$args['post_status'] = [
+						$status->success,
+						$status->failed,
+						$status->pending,
+				];
 				break;
 		}
 
@@ -101,10 +101,12 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$this->items = $query->posts;
 
-		$this->set_pagination_args( array(
-			'total_items' => $query->found_posts,
-			'per_page' => $query->query_vars['posts_per_page'],
-		) );
+		$this->set_pagination_args(
+				[
+						'total_items' => $query->found_posts,
+						'per_page'    => $query->query_vars['posts_per_page'],
+				]
+		);
 	}
 
 	public function nonce() {
@@ -122,9 +124,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @return array
 	 */
 	protected function get_sortable_columns() {
-		return array(
-			'imported' => 'imported',
-		);
+		return [
+				'imported' => 'imported',
+		];
 	}
 
 	/**
@@ -140,7 +142,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		echo '<div class="alignleft actions">';
 
-		$field = (object) array();
+		$field        = (object) [];
 		$field->label = esc_html__( 'Filter By Origin', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Filter By Origin', 'the-events-calendar' );
 		$field->options = tribe( 'events-aggregator.main' )->api( 'origins' )->get();
@@ -159,7 +161,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		<?php
 
 		if ( 'schedule' === $this->tab->get_slug() ) {
-			$field = (object) array();
+			$field        = (object) [];
 			$field->label = esc_html__( 'Filter By Frequency', 'the-events-calendar' );
 			$field->placeholder = esc_attr__( 'Filter By Frequency', 'the-events-calendar' );
 			$field->options = Tribe__Events__Aggregator__Cron::instance()->get_frequency();
@@ -191,16 +193,16 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @return array
 	 */
 	protected function get_bulk_actions() {
-		return array(
-			array(
-				'id' => 'delete',
-				'text' => 'Delete',
-			),
+		return [
+				[
+						'id'   => 'delete',
+						'text' => 'Delete',
+				],
 			// array(
 			// 	'id' => 'import',
 			// 	'text' => 'Import Now',
 			// ),
-		);
+		];
 	}
 
 	/**
@@ -224,7 +226,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			return '';
 		}
 
-		$field = (object) array();
+		$field        = (object) [];
 		$field->label = esc_html__( 'Bulk Actions', 'the-events-calendar' );
 		$field->placeholder = esc_attr__( 'Bulk Actions', 'the-events-calendar' );
 		$field->options = $this->get_bulk_actions();
@@ -252,15 +254,15 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @return array
 	 */
 	protected function get_views() {
-		$views = array();
+		$views        = [];
 		$given_origin = isset( $_GET['origin'] ) ? $_GET['origin'] : false;
 
-		$type = array( 'schedule' );
+		$type = [ 'schedule' ];
 		if ( 'history' === $this->tab->get_slug() ) {
 			$type[] = 'manual';
 		}
 
-		$status = array();
+		$status = [];
 		if ( 'history' === $this->tab->get_slug() ) {
 			$status[] = 'success';
 			$status[] = 'failed';
@@ -272,7 +274,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$origins = Tribe__Events__Aggregator__Records::instance()->count_by_origin( $type, $status );
 
 		$total = array_sum( $origins );
-		$link = $this->page->get_url( array( 'tab' => $this->tab->get_slug() ) );
+		$link = $this->page->get_url( [ 'tab' => $this->tab->get_slug() ] );
 		$text = sprintf(
 			_nx(
 				'All <span class="count">(%s)</span>',
@@ -297,7 +299,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				continue;
 			}
 
-			$link = $this->page->get_url( array( 'tab' => $this->tab->get_slug(), 'origin' => $origin ) );
+			$link = $this->page->get_url( [ 'tab' => $this->tab->get_slug(), 'origin' => $origin ] );
 			$text = $origin_instance->get_label() . sprintf( ' <span class="count">(%s)</span>', number_format_i18n( $count ) );
 			$views[ $origin ] = ( $given_origin !== $origin ? sprintf( '<a href="%s">%s</a>', $link, $text ) : $text );
 		}
@@ -310,7 +312,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @return array
 	 */
 	public function get_columns() {
-		$columns = array();
+		$columns = [];
 
 		switch ( $this->tab->get_slug() ) {
 			case 'scheduled':
@@ -357,7 +359,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		$post_type_object = get_post_type_object( $post->post_type );
-		$actions = array();
+		$actions = [];
 
 		if ( current_user_can( $post_type_object->cap->edit_post, $post->ID ) ) {
 			$actions['edit'] = sprintf(
@@ -366,12 +368,12 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				__( 'Edit', 'the-events-calendar' )
 			);
 
-			$args = array(
-				'tab'    => $this->tab->get_slug(),
-				'action' => 'run-import',
-				'ids'   => absint( $post->ID ),
-				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
-			);
+			$args               = [
+					'tab'    => $this->tab->get_slug(),
+					'action' => 'run-import',
+					'ids'    => absint( $post->ID ),
+					'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
+			];
 			$actions['run-now'] = sprintf(
 				'<a href="%1$s" title="%2$s">%3$s</a>',
 				Tribe__Events__Aggregator__Page::instance()->get_url( $args ),
@@ -419,7 +421,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				$classes[] = 'dashicons-warning';
 				$helper_text = __( 'Import failed', 'the-events-calendar' );
 				if ( $errors = $record->get_errors() ) {
-					$error_messages = array();
+					$error_messages = [];
 					foreach ( $errors as $error ) {
 						$error_messages[] = $error->comment_content;
 					}
@@ -448,7 +450,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		return $this->render( $html );
 	}
 
-	private function render( $html = array(), $glue = "\r\n", $echo = false ) {
+	private function render( $html = [], $glue = "\r\n", $echo = false ) {
 		$html = implode( $glue, (array) $html );
 
 		if ( $echo ) {
@@ -534,7 +536,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_imported( $post ) {
-		$html = array();
+		$html   = [];
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 
 		if ( tribe_is_error( $record ) ) {
@@ -602,7 +604,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 	public function column_frequency( $post ) {
 		if ( 'schedule' === $post->ping_status ) {
-			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( array( 'id' => $post->post_content ) );
+			$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( [ 'id' => $post->post_content ] );
 			if ( ! empty( $frequency->text ) ) {
 				$html[] = $frequency->text;
 			} else {
@@ -616,7 +618,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	public function column_total( $post ) {
-		$html = array();
+		$html = [];
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
 

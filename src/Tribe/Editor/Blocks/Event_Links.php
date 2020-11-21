@@ -18,18 +18,15 @@ extends Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since 4.7
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function default_attributes() {
-
-		$defaults = array(
+		return [
 			'googleCalendarLabel' => esc_html__( 'Google Calendar', 'the-events-calendar' ),
 			'iCalLabel'           => esc_html__( 'iCal Export', 'the-events-calendar' ),
 			'hasiCal'             => true,
 			'hasGoogleCalendar'   => true,
-		);
-
-		return $defaults;
+		];
 	}
 
 	/**
@@ -41,7 +38,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @return string
 	 */
-	public function render( $attributes = array() ) {
+	public function render( $attributes = [] ) {
 		$has_filter = function_exists( 'strip_dynamic_blocks' ) && has_filter( 'the_content', 'strip_dynamic_blocks' );
 		if ( $has_filter ) {
 			add_filter( 'the_content', 'strip_dynamic_blocks', 1 );
@@ -52,7 +49,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		// Add the rendering attributes into global context
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
-		$html = tribe( 'events.editor.template' )->template( array( 'blocks', $this->slug() ), $args, false );
+		$html = tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
 
 		if ( $has_filter ) {
 			remove_filter( 'the_content', 'strip_dynamic_blocks', 1 );
@@ -73,11 +70,11 @@ extends Tribe__Editor__Blocks__Abstract {
 			tribe( 'tec.main' ),
 			'tribe-events-block-' . $this->slug(),
 			'app/' . $this->slug() . '/frontend.css',
-			array(),
+			[],
 			'wp_enqueue_scripts',
-			array(
-				'conditionals' => array( $this, 'has_block' ),
-			)
+			[
+				'conditionals' => [ $this, 'has_block' ],
+			]
 		);
 	}
 }

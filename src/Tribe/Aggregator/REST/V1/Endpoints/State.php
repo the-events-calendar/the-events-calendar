@@ -17,7 +17,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 		$records = tribe( 'events-aggregator.records' );
 
 		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
-		$record = $records->get_by_import_id( $request['import_id'], array( 'post_status' => 'any' ) );
+		$record = $records->get_by_import_id( $request['import_id'], [ 'post_status' => 'any' ] );
 
 		$status = $request['status'];
 
@@ -38,7 +38,7 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 			$record->delete_meta( 'next_batch_hash' );
 		}
 
-		return new WP_REST_Response( array( 'status' => 'success' ), 200 );
+		return new WP_REST_Response( [ 'status' => 'success' ], 200 );
 	}
 
 	/**
@@ -48,42 +48,42 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__State
 	 * @return array
 	 */
 	public function CREATE_args() {
-		return array(
-			'import_id' => array(
-				'required' => true,
-				'type' => 'string',
-				'validate_callback' => array( $this, 'is_valid_import_id' ),
-				'description' => __( 'The import unique ID as provided by Event Aggregator service', 'the-events-calendar' ),
-			),
-			'batch_hash' => array(
-				'required' => true,
-				'type' => 'string',
-				'validate_callback' => array( $this, 'is_expected_batch_hash' ),
-				'description' => __( 'The hash of the next expected batch, as previously provided by the client', 'the-events-calendar' ),
-			),
-			'status' => array(
-				'required' => true,
-				'type' => 'string',
-				'enum' => array( 'success', 'failed', 'pending' ),
+		return [
+			'import_id'           => [
+				'required'          => true,
+				'type'              => 'string',
+				'validate_callback' => [ $this, 'is_valid_import_id' ],
+				'description'       => __( 'The import unique ID as provided by Event Aggregator service', 'the-events-calendar' ),
+			],
+			'batch_hash'          => [
+				'required'          => true,
+				'type'              => 'string',
+				'validate_callback' => [ $this, 'is_expected_batch_hash' ],
+				'description'       => __( 'The hash of the next expected batch, as previously provided by the client', 'the-events-calendar' ),
+			],
+			'status'              => [
+				'required'    => true,
+				'type'        => 'string',
+				'enum'        => [ 'success', 'failed', 'pending' ],
 				'description' => __( 'The new status of the import.', 'the-events-calendar' ),
-			),
-			'message' => array(
-				'required' => true,
-				'type' => 'string',
+			],
+			'message'             => [
+				'required'    => true,
+				'type'        => 'string',
 				'description' => __( 'The new status message for the user, not localized.', 'the-events-calendar' ),
-			),
-			'message_slug' => array(
-				'required' => true,
-				'type' => 'string',
+			],
+			'message_slug'        => [
+				'required'    => true,
+				'type'        => 'string',
 				'description' => __( 'The new status message slug, to allow for localized messages.', 'the-events-calendar' ),
-			),
-			'percentage_complete' => array(
-				'required' => true,
-				'type' => 'integer',
-				'validate_callback' => array( $this, 'is_percentage' ),
-				'description' => __( 'The percentage of import completed.', 'the-events-calendar' ),
-			),
-		);
+			],
+			'percentage_complete' => [
+				'required'          => true,
+				'type'              => 'integer',
+				'validate_callback' => [ $this, 'is_percentage' ],
+				'description'       => __( 'The percentage of import completed.', 'the-events-calendar' ),
+			],
+		];
 	}
 
 	/**

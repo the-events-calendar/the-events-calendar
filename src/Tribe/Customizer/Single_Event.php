@@ -52,7 +52,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 		return $template;
 	}
 
-	public function create_ghost_settings( $settings = array() ) {
+	public function create_ghost_settings( $settings = [] ) {
 		if ( ! empty( $settings['details_bg_color'] ) ) {
 			$details_bg_color = new Tribe__Utils__Color( $settings['details_bg_color'] );
 
@@ -67,19 +67,19 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	}
 
 	public function setup() {
-		$this->defaults = array(
+		$this->defaults = [
 			'post_title_color' => '#333',
 			'details_bg_color' => '#e5e5e5',
-		);
+		];
 
 		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'Options selected here will override what was selected in the General and Text sections.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' );
 
-		$this->arguments = array(
+		$this->arguments = [
 			'priority'    => 60,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'Single Event', 'the-events-calendar' ),
 			'description' => $description,
-		);
+		];
 	}
 
 	/**
@@ -95,45 +95,48 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'post_title_color', $section ),
-			array(
-				'default'              => $this->get_default( 'post_title_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'post_title_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'post_title_color', $section ),
-				array(
-					'label'   => tribe_events_views_v2_is_enabled() ? esc_html__( 'Event Title Color', 'the-events-calendar' ) : esc_html__( 'Post Title Color', 'the-events-calendar' ),
+				[
+					'label'   => tribe_events_views_v2_is_enabled() ? esc_html__(
+						'Event Title Color',
+						'the-events-calendar'
+					) : esc_html__( 'Post Title Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'details_bg_color', $section ),
-			array(
-				'default'              => $this->get_default( 'details_bg_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'details_bg_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'details_bg_color', $section ),
-				array(
+				[
 					'label'   => esc_html__( 'Details Background Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 

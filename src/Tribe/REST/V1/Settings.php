@@ -26,7 +26,7 @@ class Tribe__Events__REST__V1__Settings {
 	 *
 	 * @return array
 	 */
-	public function filter_tribe_addons_tab_fields( array $fields = array() ) {
+	public function filter_tribe_addons_tab_fields( array $fields = [] ) {
 		if ( ! $this->system->supports_wp_rest_api() ) {
 			return $fields;
 		}
@@ -43,7 +43,7 @@ class Tribe__Events__REST__V1__Settings {
 	 *
 	 * @return array
 	 */
-	protected function add_fields( array $fields = array() ) {
+	protected function add_fields( array $fields = [] ) {
 		return $fields;
 	}
 }

@@ -1,23 +1,23 @@
 <?php
-$field              = (object) array();
-$field->label       = __( 'Schedule:', 'the-events-calendar' );
-$week_days = array();
+$field              = (object) [];
+$field->label = __( 'Schedule:', 'the-events-calendar' );
+$week_days = [];
 for ( $i = 1; $i <= 7; $i++ ) {
-	$week_days[] = array(
-		'id' => $i,
-		'text' => (string) date_i18n( 'l', strtotime( '31-12-2016 +' . $i . " day" ) ),
-	);
+	$week_days[] = [
+			'id'   => $i,
+			'text' => (string) date_i18n( 'l', strtotime( '31-12-2016 +' . $i . " day" ) ),
+	];
 }
-$month_days = array();
+$month_days = [];
 for ( $i = 1; $i <= 31; $i++ ) {
-	$month_days[] = array(
-		'id' => $i,
-		'text' => (string) $i
-	);
+	$month_days[] = [
+			'id'   => $i,
+			'text' => (string) $i,
+	];
 }
 ?>
 <tr
-	class="tribe-dependent"
+		class="tribe-dependent"
 	data-depends="#tribe-ea-field-<?php echo esc_attr( $origin ) ?>_import_frequency"
 	data-condition='["daily", "weekly", "monthly"]'
 >

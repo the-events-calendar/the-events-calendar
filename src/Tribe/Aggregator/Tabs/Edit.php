@@ -27,9 +27,9 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 		// Setup Abstract hooks
 		parent::__construct();
 
-		add_action( 'wp_ajax_tribe_aggregator_preview_import', array( $this, 'ajax_preview_import' ) );
+		add_action( 'wp_ajax_tribe_aggregator_preview_import', [ $this, 'ajax_preview_import' ] );
 
-		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_submit' ) );
+		add_action( 'tribe_aggregator_page_request', [ $this, 'handle_submit' ] );
 	}
 
 	public function enqueue_media() {
@@ -53,11 +53,11 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 	}
 
 	public function handle_submit() {
-		$this->messages = array(
-			'error',
-			'success',
-			'warning',
-		);
+		$this->messages = [
+				'error',
+				'success',
+				'warning',
+		];
 
 		if ( empty( $_POST['aggregator']['action'] ) || 'edit' !== $_POST['aggregator']['action'] ) {
 			return;
@@ -78,7 +78,7 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 			return;
 		}
 
-		$post = $record->create( $meta['type'], array(), $meta );
+		$post = $record->create( $meta['type'], [], $meta );
 
 		if ( is_wp_error( $post ) ) {
 			return $post;
@@ -101,16 +101,16 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 	 * @param array $meta Meta to be saved to the schedule
 	 */
 	public function finalize_schedule_edit( $record, $post_data, $meta ) {
-		$this->messages = array(
-			'error' => array(),
-			'success' => array(),
-			'warning' => array(),
-		);
+		$this->messages = [
+				'error'   => [],
+				'success' => [],
+				'warning' => [],
+		];
 
 		$meta['post_status'] = empty( $post_data['post_status'] ) ? 'draft' : $post_data['post_status'];
 		$meta['category'] = Tribe__Utils__Array::get( $post_data, 'category', null );
 
-		$result = $record->save( $post_data['post_id'], array(), $meta );
+		$result = $record->save( $post_data['post_id'], [], $meta );
 
 		if ( is_wp_error( $result ) ) {
 			$this->messages['error'][] = $result->get_error_message();
@@ -154,10 +154,10 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 		$result = $this->handle_submit();
 
 		if ( is_wp_error( $result ) ) {
-			$result = (object) array(
-				'message_code' => $result->get_error_code(),
-				'message' => $result->get_error_message(),
-			);
+			$result = (object) [
+					'message_code' => $result->get_error_code(),
+					'message'      => $result->get_error_message(),
+			];
 			wp_send_json_error( $result );
 		}
 

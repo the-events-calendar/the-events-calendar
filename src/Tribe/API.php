@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Tribe__Events__API' ) ) {
 	class Tribe__Events__API {
-		public static $valid_venue_keys = array(
+		public static $valid_venue_keys = [
 			'Venue',
 			'Address',
 			'City',
@@ -20,14 +20,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			'Province',
 			'Zip',
 			'Phone',
-		);
+		];
 
-		public static $valid_organizer_keys = array(
+		public static $valid_organizer_keys = [
 			'Organizer',
 			'Phone',
 			'Email',
 			'Website',
-		);
+		];
 
 		/**
 		 * Create a new event
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// allow for the change of the date and the status in the same update request
 			if (
 				isset( $args['post_date'], $args['post_status'] )
-				&& in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft' ) )
+				&& in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft' ] )
 				&& $args['post_status'] !== $post->post_status
 			) {
 				$args['edit_date'] = true;
@@ -183,7 +183,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			// Ordinarily there is a single cost value for each event, but addons (ie, ticketing plugins) may need
 			// to record a number of different price points for the same event
-			$event_cost = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : array();
+			$event_cost        = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : [];
 			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_costs', $event_cost, $event_id );
 
 			// If we are saving just one meta, we reset to avoid deleting and re-adding cost every time
@@ -239,16 +239,16 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// Set sticky state for calendar view.
 			if ( $event instanceof WP_Post ) {
 				if ( isset( $data['EventShowInCalendar'] ) && $data['EventShowInCalendar'] == 'yes' && $event->menu_order != '-1' ) {
-					$update_event = array(
+					$update_event = [
 						'ID'         => $event_id,
 						'menu_order' => '-1',
-					);
+					];
 					wp_update_post( $update_event );
 				} elseif ( ( ! isset( $data['EventShowInCalendar'] ) || $data['EventShowInCalendar'] != 'yes' ) && $event->menu_order == '-1' ) {
-					$update_event = array(
+					$update_event = [
 						'ID'         => $event_id,
 						'menu_order' => '0',
-					);
+					];
 					wp_update_post( $update_event );
 				}
 			}
@@ -484,7 +484,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function update_event_cost( $event_id ) {
 			// Loads current event costs, on construct
 			// Tribe__Events__Tickets__Tickets->get_ticket_prices() adds them to this filter
-			$event_cost = (array) apply_filters( 'tribe_events_event_costs', array(), $event_id );
+			$event_cost = (array) apply_filters( 'tribe_events_event_costs', [], $event_id );
 
 			// Kill the old cost meta data
 			delete_post_meta( $event_id, '_EventCost' );
@@ -505,8 +505,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @return array An associative array of terms in the [ <taxonomy> => [ <term_1>, <term_2>, ...], ...] format.
 		 */
-		public static function get_event_terms( $event_id, array $args = array() ) {
-			$terms = array();
+		public static function get_event_terms( $event_id, array $args = [] ) {
+			$terms = [];
 			foreach ( get_post_taxonomies( $event_id ) as $taxonomy ) {
 				$tax_terms = wp_get_object_terms( $event_id, $taxonomy, $args );
 				$terms[ $taxonomy ] = $tax_terms;
@@ -665,7 +665,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		public static function get_and_flatten_event_meta( $event_id ) {
 			$temp_post_meta = get_post_meta( $event_id );
-			$post_meta = array();
+			$post_meta      = [];
 			foreach ( (array) $temp_post_meta as $key => $value ) {
 				if ( 1 === count( $value ) ) {
 					$post_meta[ $key ] = maybe_unserialize( reset( $value ) );
