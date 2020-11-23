@@ -115,26 +115,29 @@ function tribe_events_view_v2_use_period_repository() {
 /**
  * Checks whether to disable V2 widgets.
  *
- * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` constant,
- * the `TRIBE_EVENTS_WIDGETS_V2_ENABLED` environment variable.
- * To disable the new widgets, set the constant to false. No need to set it to enable.
+ * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` constant,
+ * the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` environment variable.
+ *
+ * Note the internal logic is inverted, as the name of the function is "...is_enabled"
+ * while the names of the constant/env_var are "...DISABLED".
  *
  * @since TBD
  *
  * @return bool Whether Widgets v2 should load.
  */
 function tribe_events_widgets_v2_is_enabled() {
-	// MUST have v2 views enabled.
+	// Must have v2 views active.
 	if ( ! tribe_events_views_v2_is_enabled() ) {
 		return false;
 	}
 
 	// Allow env_var to short-circuit for testing.
-	$env_var = (bool) getenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED' );
+	$env_var = (bool) getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
 	if ( false !== $env_var ) {
-		return $env_var;
+		return ! $env_var;
 	}
 
+	// If the constant is defined, returns the opposite of the constant, otherwise true (default).
 	$enabled = defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? ! TRIBE_EVENTS_WIDGETS_V2_DISABLED : true;
 
 	/**

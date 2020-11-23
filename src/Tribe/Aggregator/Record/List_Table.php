@@ -97,6 +97,31 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$args['posts_per_page'] = $per_page;
 
+		if ( 'scheduled' === $this->tab->get_slug() && ! empty( $_REQUEST['s'] ) ) {
+			// nonce check if search form submitted.
+			$nonce = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? sanitize_text_field( $_POST['aggregator']['nonce'] ) :  '';
+			if ( wp_verify_nonce( $nonce,  'aggregator_' . $this->tab->get_slug() . '_request'  ) ) {
+				$args['meta_query'] = [
+					'relation' => 'OR',
+					[
+						'key'     => '_tribe_aggregator_source_name',
+						'value'   => sanitize_text_field( $_REQUEST['s'] ),
+						'compare' => 'LIKE',
+					],
+					[
+						'key'     => '_tribe_aggregator_import_name',
+						'value'   => sanitize_text_field( $_REQUEST['s'] ),
+						'compare' => 'LIKE',
+					],
+					[
+						'key'     => '_tribe_aggregator_source',
+						'value'   => sanitize_text_field( $_REQUEST['s'] ),
+						'compare' => 'LIKE',
+					],
+				];
+			}
+		}
+
 		$query = new WP_Query( $args );
 
 		$this->items = $query->posts;
@@ -392,8 +417,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	}
 
 	/**
-     * Returns the status icon HTML
-     *
+	 * Returns the status icon HTML
+	 *
 	 * @param Tribe__Events__Aggregator__Record__Abstract $record
 	 *
 	 * @return array|string
@@ -681,6 +706,138 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			?></label>
 			<input id="cb-select-<?php the_ID(); ?>" type="checkbox" name="aggregator[records][]" value="<?php echo esc_attr( $post->ID ); ?>" />
 			<div class="locked-indicator"></div>
+		<?php
+	}
+
+	/**
+	 * Displays the pagination.
+	 *
+	 * @since TBD
+	 * @access protected
+	 *
+	 * @param string $which Equal to NULL, 'top' or 'bottom'.
+	 */
+	protected function pagination( $which ) {
+		if ( empty( $this->_pagination_args ) ) {
+			return;
+		}
+
+		$total_items     = $this->_pagination_args['total_items'];
+		$total_pages     = $this->_pagination_args['total_pages'];
+		$infinite_scroll = false;
+		if ( isset( $this->_pagination_args['infinite_scroll'] ) ) {
+			$infinite_scroll = $this->_pagination_args['infinite_scroll'];
+		}
+
+		if ( 'top' === $which && $total_pages > 1 ) {
+			$this->screen->render_screen_reader_content( 'heading_pagination' );
+		}
+
+		$output = '<span class="displaying-num">' . sprintf(
+			/* translators: %s: Number of items. */
+			_n( '%s item', '%s items', $total_items, 'the-events-calendar' ),
+			number_format_i18n( $total_items )
+		) . '</span>';
+
+		$current              = $this->get_pagenum();
+		$removable_query_args = wp_removable_query_args();
+
+		$current_url = set_url_scheme( 'http://' . esc_url_raw( $_SERVER['HTTP_HOST'] ) . esc_url_raw( $_SERVER['REQUEST_URI'] ) );
+
+		$current_url = remove_query_arg( $removable_query_args, $current_url );
+
+		if ( ! empty( $_REQUEST['s'] ) ) {
+			$current_url = add_query_arg( 's', sanitize_text_field( $_REQUEST['s'] ), $current_url );
+		}
+
+		$page_links = [];
+
+		$total_pages_before = '<span class="paging-input">';
+		$total_pages_after  = '</span></span>';
+
+		$disable_first = 1 === $current || 2 === $current;
+		$disable_last  = $total_pages === $current || $total_pages - 1 === $current;
+		$disable_prev  = 1 === $current;
+		$disable_next  = $total_pages === $current;
+
+		if ( $disable_first ) {
+			$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>';
+		} else {
+			$page_links[] = sprintf(
+				"<a class='first-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				esc_url( remove_query_arg( 'paged', $current_url ) ),
+				__( 'First page', 'the-events-calendar' ),
+				'&laquo;'
+			);
+		}
+
+		if ( $disable_prev ) {
+			$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&lsaquo;</span>';
+		} else {
+			$page_links[] = sprintf(
+				"<a class='prev-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ),
+				__( 'Previous page', 'the-events-calendar' ),
+				'&lsaquo;'
+			);
+		}
+
+		if ( 'bottom' === $which ) {
+			$html_current_page  = $current;
+			$total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page', 'the-events-calendar' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
+		} else {
+			$html_current_page = sprintf(
+				"%s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
+				'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page', 'the-events-calendar' ) . '</label>',
+				$current,
+				strlen( $total_pages )
+			);
+		}
+		$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
+		$page_links[]     = $total_pages_before . sprintf(
+			/* translators: 1: Current page, 2: Total pages. */
+			_x( '%1$s of %2$s', 'paging', 'the-events-calendar' ),
+			$html_current_page,
+			$html_total_pages
+		) . $total_pages_after;
+
+		if ( $disable_next ) {
+			$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
+		} else {
+			$page_links[] = sprintf(
+				"<a class='next-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ),
+				__( 'Next page', 'the-events-calendar' ),
+				'&rsaquo;'
+			);
+		}
+
+		if ( $disable_last ) {
+			$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&raquo;</span>';
+		} else {
+			$page_links[] = sprintf(
+				"<a class='last-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
+				__( 'Last page', 'the-events-calendar' ),
+				'&raquo;'
+			);
+		}
+
+		$pagination_links_class = 'pagination-links';
+		if ( ! empty( $infinite_scroll ) ) {
+			$pagination_links_class .= ' hide-if-js';
+		}
+		$output .= "\n<span class='$pagination_links_class'>" . join( "\n", $page_links ) . '</span>';
+
+		if ( $total_pages ) {
+			$page_class = $total_pages < 2 ? ' one-page' : '';
+		} else {
+			$page_class = ' no-pages';
+		}
+		?>
+		<div class='tablenav-pages<? echo esc_attr( $page_class ); ?>'>
+			<?php echo $output; ?>
+		</div>
 		<?php
 	}
 }
