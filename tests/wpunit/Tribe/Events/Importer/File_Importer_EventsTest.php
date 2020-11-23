@@ -93,8 +93,6 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 
 	protected function setup_file( $template_dir = null ) {
 		if ( ! empty( $template_dir ) ) {
-//			$this->handlebars->setLoader( new FilesystemLoader( codecept_data_dir( trailingslashit( 'csv-import-test-files' ) . $template_dir ) ) );
-//			$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
 			$template_dir      = trim( $template_dir, '\\/' );
 			$template_name     = trim( $this->template, '\\/' );
 			$csv_file_template = codecept_data_dir( "csv-import-test-files/{$template_dir}/{$template_name}.handlebars" );
