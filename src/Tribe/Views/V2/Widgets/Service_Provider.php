@@ -96,6 +96,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @return array<string,mixed> The modified template variables.
 	 */
 	public function filter_template_vars( $template_vars, $view ) {
-		return tribe( Widget_List::class )->disable_json_data( $template_vars, $view );
+		return tribe( Widget_List::class )->disable_json_data( $template_vars );
 	}
 }

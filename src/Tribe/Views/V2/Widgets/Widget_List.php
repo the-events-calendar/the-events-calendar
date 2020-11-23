@@ -226,7 +226,7 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @return array<string,mixed> The modified template variables.
 	 */
-	public function disable_json_data( $template_vars, $view ) {
+	public function disable_json_data( $template_vars ) {
 		if (
 			isset( $template_vars['jsonld_enable'] )
 			&& ! tribe_is_truthy( $template_vars['jsonld_enable'] )
