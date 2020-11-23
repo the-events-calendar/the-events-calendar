@@ -199,18 +199,21 @@ class Tribe__Events__Aggregator__Cron {
 	 * Instead of having cron be scheduled to specific times, we will check every 30 minutes
 	 * to make sure we can insert without having to expire cache.
 	 *
-	 * @param  array $schedules
+	 * @param array $schedules Current list of schedules.
 	 *
-	 * @return array
+	 * @return array            Modified list of schedules.
 	 */
-	public function filter_add_cron_schedules( array $schedules ) {
+	public function filter_add_cron_schedules( $schedules = [] ) {
+		// Ensure schedules is an array.
+		$schedules = is_array( $schedules ) ? $schedules : [];
+
 		// Adds the Min frequency to WordPress cron schedules
 		$schedules['tribe-every15mins'] = [
 			'interval' => MINUTE_IN_SECONDS * 15,
 			'display'  => esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
 		];
 
-		return (array) $schedules;
+		return $schedules;
 	}
 
 	/**

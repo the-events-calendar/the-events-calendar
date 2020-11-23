@@ -291,7 +291,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			unset( $data['VenueID'] );
 		}
 
-		return $this->create( $data, $post_status );
+		return $this->create( $data, $post_status, true );
 	}
 
 	/**
@@ -419,6 +419,12 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 				// for the purpose of finding duplicates we skip empty fields
 				$candidate_data = array_filter( $postdata );
+
+				// Set the $post_title to avoid returning false for lack of a post title.
+				if ( ! isset( $candidate_data['post_title'] ) ) {
+					$candidate_data['post_title'] = '';
+				}
+
 				$candidate_data = array_combine(
 					array_map( [ $this, 'prefix_key' ], array_keys( $candidate_data ) ),
 					array_values( $candidate_data )

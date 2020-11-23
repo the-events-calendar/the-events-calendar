@@ -773,9 +773,15 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		foreach ( $bases as $base_slug => $bases_list ) {
 			if ( isset( $this->localized_bases[ $base_slug ] ) ) {
 				// Deal with 1 or more bases in string or array form.
-				$localized_bases       = (array) $this->localized_bases[ $base_slug ];
-				$localized_base        = reset( $localized_bases );
-				$bases[ $base_slug ][] = $localized_base;
+				$localized_bases = (array) $this->localized_bases[ $base_slug ];
+				$localized_base  = reset( $localized_bases );
+				$transliterated  = preg_replace( '/[^A-Za-z0-9]/', '', convert_chars( urldecode( $localized_base ) ) );
+				$match           = array_search( $transliterated, $bases[ $base_slug ], true );
+				if ( false === $match ) {
+					$bases[ $base_slug ][] = $localized_base;
+				} else {
+					$bases[ $base_slug ][ $match ] = $localized_base;
+				}
 				$bases[ $base_slug ]   = array_unique( $bases[ $base_slug ] );
 			}
 		}

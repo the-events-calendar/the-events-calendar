@@ -35,7 +35,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.2.1';
+		const VERSION             = '5.4.0';
 
 		/**
 		 * Min Pro Addon
@@ -4606,6 +4606,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Registers the list widget
 		 */
 		public function register_list_widget() {
+			if ( tribe_events_widgets_v2_is_enabled() ) {
+				return;
+			}
+
 			register_widget( 'Tribe__Events__List_Widget' );
 		}
 

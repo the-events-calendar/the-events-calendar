@@ -158,21 +158,20 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	 */
 	public static function filter_setup_do_not_override_post_status( $post_status, $event, $record ) {
 
-		if ( ! isset( $event['eventbrite']->status ) || ! isset( $record->meta['post_status'] ) ) {
-			return $post_status;
+		// override status if set within import.
+		$status = isset( $record->meta['post_status'] ) ? $record->meta['post_status'] : $post_status;
+		if ( 'do_not_override' === $status ) {
+			$status = 'publish';
+			if ( isset( $event['eventbrite']->status ) && 'draft' === $event['eventbrite']->status ) {
+				$status = 'draft';
+			}
+			// If not draft, looked if listed. If not, set to private.
+			if ( 'draft' !== $status && isset( $event['eventbrite']->listed ) && ! tribe_is_truthy( $event['eventbrite']->listed ) ) {
+				$status = 'private';
+			}
 		}
 
-		// We're only interested in the "(do not override)" post status.
-		if ( 'do_not_override' !== $record->meta['post_status'] ) {
-			return $post_status;
-		}
-
-		// Currently, 'live' is the only Eventbrite.com status that needs mapping to a WP post status.
-		if ( 'live' === $event['eventbrite']->status ) {
-			return 'publish';
-		}
-
-		return $post_status;
+		return $status;
 	}
 
 	/**

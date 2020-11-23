@@ -101,8 +101,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		$this->create_args['post_type'] = Tribe__Events__Main::POSTTYPE;
-		$this->taxonomies = [
-			Tribe__Events__Main::TAXONOMY,
+		$tribe_events_category          = Tribe__Events__Main::TAXONOMY;
+		$this->taxonomies               = [
+			$tribe_events_category,
 			'post_tag',
 		];
 
@@ -120,6 +121,32 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'venue'              => '_EventVenueID',
 				'organizer'          => '_EventOrganizerID',
 				'category'           => Tribe__Events__Main::TAXONOMY,
+				'cost'               => '_EventCost',
+				'currency_symbol'    => '_EventCurrencySymbol',
+				'currency_position'  => '_EventCurrencyPosition',
+				'show_map'           => '_EventShowMap',
+				'show_map_link'      => '_EventShowMapLink',
+				'url'                => '_EventURL',
+				'hide_from_upcoming' => '_EventHideFromUpcoming',
+				// Where is "sticky"? It's handled in the meta filtering by setting `menu_order`.
+				'featured'           => '_tribe_featured',
+			]
+		);
+
+
+		$this->update_fields_aliases = array_merge(
+			$this->update_fields_aliases,
+			[
+				'start_date'         => '_EventStartDate',
+				'end_date'           => '_EventEndDate',
+				'start_date_utc'     => '_EventStartDateUTC',
+				'end_date_utc'       => '_EventEndDateUTC',
+				'duration'           => '_EventDuration',
+				'all_day'            => '_EventAllDay',
+				'timezone'           => '_EventTimezone',
+				'venue'              => '_EventVenueID',
+				'organizer'          => '_EventOrganizerID',
+				'category'           => $tribe_events_category,
 				'cost'               => '_EventCost',
 				'currency_symbol'    => '_EventCurrencySymbol',
 				'currency_position'  => '_EventCurrencyPosition',
@@ -181,8 +208,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$this->add_simple_meta_schema_entry( 'website', '_EventURL' );
 
-		$this->add_simple_tax_schema_entry( 'event_category', Tribe__Events__Main::TAXONOMY );
-		$this->add_simple_tax_schema_entry( 'event_category_not_in', Tribe__Events__Main::TAXONOMY, 'term_not_in' );
+		$this->add_simple_tax_schema_entry( 'event_category', $tribe_events_category );
+		$this->add_simple_tax_schema_entry( 'event_category_not_in', $tribe_events_category, 'term_not_in' );
+		$this->add_simple_tax_schema_entry( 'category', $tribe_events_category );
+		$this->add_simple_tax_schema_entry( 'category_not_in', $tribe_events_category, 'term_not_in' );
+		$this->add_simple_tax_schema_entry( $tribe_events_category, $tribe_events_category );
+		$this->add_simple_tax_schema_entry( $tribe_events_category . '_not_in', $tribe_events_category, 'term_not_in' );
 		$this->add_simple_tax_schema_entry( 'tag', 'post_tag' );
 		$this->add_simple_tax_schema_entry( 'tag_not_in', 'post_tag', 'term_not_in' );
 	}

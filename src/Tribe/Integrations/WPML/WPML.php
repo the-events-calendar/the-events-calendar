@@ -101,14 +101,11 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		/*
 		 * Handle Views v2 URLs in all the places that's required.
-		 *
-		 * Commented out as this is not a reliably working implementation.
-		 *
+		 */
 		add_filter( 'tribe_events_views_v2_view_url', [ Views_V2_Filters::class, 'translate_view_url' ] );
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_template_vars_urls' ] );
 		add_filter( 'tribe_events_views_v2_view_public_views', [ Views_V2_Filters::class, 'translate_public_views_urls' ] );
 		add_filter( 'tribe_events_views_v2_request_uri', [ Views_V2_Filters::class, 'translate_view_request_uri' ] );
-		*/
 	}
 
 	protected function setup_cache_expiration_triggers() {
