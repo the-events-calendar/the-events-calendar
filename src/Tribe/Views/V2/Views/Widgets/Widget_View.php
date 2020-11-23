@@ -1,6 +1,6 @@
 <?php
 /**
- * The Base Widget View.
+ * The Base Front End Widget View.
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  * @since TBD
