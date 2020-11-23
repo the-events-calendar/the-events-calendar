@@ -1,7 +1,6 @@
 <?php
 namespace Tribe\Events\Importer;
 
-use Handlebars\Handlebars;
 use org\bovigo\vfs\vfsStream;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Importer__File_Importer_Events as Events_Importer;
@@ -37,11 +36,6 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 	protected $file_reader;
 
 	/**
-	 * @var Handlebars
-	 */
-	protected $handlebars;
-
-	/**
 	 * @var array
 	 */
 	protected $data = [ ];
@@ -61,7 +55,6 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
-		$this->handlebars              = new Handlebars();
 		$this->featured_image_uploader = $this->prophesize( 'Tribe__Events__Importer__Featured_Image_Uploader' );
 		$this->factory()->event = new Event();
 	}
