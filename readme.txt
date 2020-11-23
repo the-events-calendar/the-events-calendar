@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
 * Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
 * Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
@@ -231,6 +232,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
 * Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
 * Tweak - Add an option to trash events after 1 month (thanks @StefanSchroeder).
+* Tweak - Add the `tribe_events_views_v2_datepicker_no_conflict` filter (default `false`) to allow loading the Views v2 datepicker in no-conflict mode, when set to `true`, and avoid issues with other plugins that are loading the built-in WordPress `jquery-ui-datepicker` script. [TEC-3581]
+* Tweak - Improve WPML integration and URL localization of Views v2. [TEC-3608]
 * Fix - Event Aggregator - Fix Eventbrite status filter to not return 'do_not_override' and handle Eventbrite's additional statuses. [TEC-3569]
 * Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
 * Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
@@ -238,6 +241,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure Event Aggregator Cron schedules always have array format and avoid errors on fresh WordPress installations (thanks @mmcachran).
 * Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
 * Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
+* Fix - Review and improve the Rewrite component to correctly parse and handle localized URLs and accented characters. [TEC-3608]
 
 = [5.2.1] 2020-10-22 =
 
