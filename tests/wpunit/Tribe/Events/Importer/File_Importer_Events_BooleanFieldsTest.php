@@ -61,8 +61,6 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 	 * @dataProvider truthy_boolean_values
 	 */
 	public function it_should_accept_various_valid_boolean_values_to_allow_comments( $truthy_boolean_value ) {
-		$this->markTestSkipped( 'xamin/handlebars.php incompat. issue.' );
-
 		$this->data        = [
 			'value_1' => $truthy_boolean_value,
 		];
@@ -82,8 +80,6 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 	 * @dataProvider falsy_boolean_values
 	 */
 	public function it_should_accept_falsy_values_to_block_comments( $falsy_boolean_value ) {
-		$this->markTestSkipped( 'due to xamin/handlebars.php syntax issues' );
-
 		$this->data        = [
 			'value_1' => $falsy_boolean_value,
 		];

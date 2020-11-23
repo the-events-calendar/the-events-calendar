@@ -2,10 +2,10 @@
 namespace Tribe\Events\Importer;
 
 use Handlebars\Handlebars;
-use Handlebars\Loader\FilesystemLoader;
 use org\bovigo\vfs\vfsStream;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Importer__File_Importer_Events as Events_Importer;
+use function tad\WPBrowser\renderString;
 
 class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 
@@ -93,8 +93,23 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 
 	protected function setup_file( $template_dir = null ) {
 		if ( ! empty( $template_dir ) ) {
-			$this->handlebars->setLoader( new FilesystemLoader( codecept_data_dir( trailingslashit( 'csv-import-test-files' ) . $template_dir ) ) );
-			$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
+//			$this->handlebars->setLoader( new FilesystemLoader( codecept_data_dir( trailingslashit( 'csv-import-test-files' ) . $template_dir ) ) );
+//			$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
+			$template_dir      = trim( $template_dir, '\\/' );
+			$template_name     = trim( $this->template, '\\/' );
+			$csv_file_template = codecept_data_dir( "csv-import-test-files/{$template_dir}/{$template_name}.handlebars" );
+
+			if ( ! is_file( $csv_file_template ) ) {
+				throw new \InvalidArgumentException( "Template file {$csv_file_template} does not exist or is not accessible." );
+			}
+
+			$template_contents = file_get_contents( $csv_file_template );
+
+			if ( false === $template_contents ) {
+				throw new \RuntimeException( "Could not read contents of {$csv_file_template}." );
+			}
+
+			$this->rendered_file_contents = renderString( $template_contents, $this->data );
 			vfsStream::setup( 'csv_file_root', null, [ 'events.csv' => $this->rendered_file_contents ] );
 			$this->file_reader = new \Tribe__Events__Importer__File_Reader( vfsStream::url( 'csv_file_root/events.csv' ) );
 		} else {
