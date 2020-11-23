@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.0.1
+ * @version TBD
  *
  */
 ?>
@@ -20,5 +20,6 @@
 		title="<?php esc_attr_e( 'Next month', 'the-events-calendar' ); ?>"
 		disabled
 	>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</button>
 </li>

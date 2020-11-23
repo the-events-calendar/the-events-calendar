@@ -285,6 +285,20 @@ class Url {
 			$url = home_url( add_query_arg( [] ) );
 		}
 
+		/*
+		 * Depending on the source of the request the encoded chars might be in uppercase (`%C3`) or lowercase (`%c2j`) format.
+		 * Ensure the format of the encoded chars is consistently lowercase.
+		 */
+		$lowercase_encoded_url = preg_replace_callback(
+			'/%[A-F0-9]{2}/',
+			static function ( array $matches ) {
+				return strtolower( reset( $matches ) );
+			},
+			$url
+		);
+
+		$url = is_string( $lowercase_encoded_url ) ? $lowercase_encoded_url : $url;
+
 		if ( isset( $params['view_data'] ) ) {
 			// If we have it, then use the up-to-date View data to "correct" the URL.
 			$bar_params           = array_intersect_key(

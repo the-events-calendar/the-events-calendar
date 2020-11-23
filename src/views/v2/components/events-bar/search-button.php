@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.2.0
+ * @version TBD
  *
  */
 ?>
@@ -19,7 +19,7 @@
 	aria-expanded="false"
 	data-js="tribe-events-search-button"
 >
-	<?php $this->template( 'components/events-bar/search-button/icon' ); ?>
+	<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-events-bar__search-button-icon-svg' ] ] ); ?>
 	<span class="tribe-events-c-events-bar__search-button-text tribe-common-a11y-visual-hide">
 		<?php esc_html_e( 'Search', 'the-events-calendar' ); ?>
 	</span>
