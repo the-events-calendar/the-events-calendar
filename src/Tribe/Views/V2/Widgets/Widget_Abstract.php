@@ -78,6 +78,21 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_arguments( array $instance = [] ) {
+		$arguments = parent::setup_arguments( $instance );
+
+		$admin_fields = $arguments['admin_fields'];
+
+		foreach ( $admin_fields as $field_name => $field ) {
+			$arguments['admin_fields'][ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
+		}
+
+		return $arguments;
+	}
+
+	/**
 	 * Encapsulates and handles the logic for asset enqueues in it's own method.
 	 *
 	 * @since TBD
@@ -250,7 +265,22 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns the widget slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget slug.
+	 */
+	public function get_slug() {
+		return $this->slug;
+	}
+
+	/**
+	 * Returns the widget view slug.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @return string The widget view slug.
 	 */
 	public function get_view_slug() {
 		return $this->view_slug;
@@ -277,6 +307,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Translates widget arguments to their Context argument counterpart.
 	 *
+	 * For front-end display.
+	 *
 	 * @since 5.2.1
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
@@ -291,5 +323,79 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		];
 
 		return $context_args;
+	}
+
+	/**
+	 * Handles gathering the data for admin fields.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $arguments Current set of arguments.
+	 * @param int                 $field_name    The ID of the field.
+	 * @param array<string,mixed> $field       The field info.
+	 *
+	 * @return array<string,mixed> $data The assembled field data.
+	 */
+	public function get_admin_data( $arguments, $field_name, $field ) {
+		$data = [
+			'classes'     => Arr::get( $field, 'classes', '' ),
+			'dependency'  => $this->format_dependency( $field ),
+			'id'          => $this->get_field_id( $field_name ),
+			'label'       => Arr::get( $field, 'label', '' ),
+			'name'        => $this->get_field_name( $field_name ),
+			'options'     => Arr::get( $field, 'options', [] ),
+			'placeholder' => Arr::get( $field, 'placeholder', '' ),
+			'value'       => Arr::get( $arguments, $field_name ),
+		];
+
+		$children = Arr::get( $field, 'children', [] );
+
+		if ( ! empty( $children ) ) {
+			foreach ( $children as $child_name => $child ) {
+				$input_name =  ( 'radio' === $child['type'] ) ? $field_name : $child_name;
+
+				$child_data = $this->get_admin_data(
+					$arguments,
+					$input_name,
+					$child
+				);
+
+				$data['children'][ $child_name ] = $child_data;
+			}
+		}
+
+		$data = array_merge( $field, $data );
+
+		return apply_filters( 'tribe_events_views_v2_widget_field_data', $data, $field_name, $this );
+	}
+
+	/**
+	 * Massages the data before asking tribe_format_field_dependency() to create the dependency attributes.
+	 *
+	 * @since TBD
+	 *
+	 * @param array <string,mixed> $field The field info.
+	 *
+	 * @return string The dependency attributes.
+	 */
+	public function format_dependency( $field ) {
+		$deps = Arr::get( $field, 'dependency', false );
+		// Sanity check.
+		if ( empty( $deps ) ) {
+			return '';
+		}
+
+		if ( isset( $deps['ID'] ) ) {
+			$deps['id'] = $deps['ID'];
+		}
+
+		// No ID to hook to? Bail.
+		if ( empty( $deps['id'] ) ) {
+			return '';
+		}
+
+		$deps['id'] = $this->get_field_id( $deps['id'] );
+
+		return tribe_format_field_dependency( $deps );
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 /** @var \Tribe__Events__Aggregator__Settings $settings */
 $settings             = tribe( 'events-aggregator.settings' );
-$global_limit_type    = tribe_get_option( 'tribe_aggregator_default_import_limit_type', 'range' );
+$global_limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', 'count' );
 
 if ( 'no_limit' === $global_limit_type ) {
 	return;
