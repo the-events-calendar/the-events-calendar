@@ -258,8 +258,10 @@ class View implements View_Interface {
 			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
 		}
 
-		$slug       = Arr::get( $params, 'view', false );
-		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
+		$slug = Arr::get( $params, 'view', false );
+		// Convert the URL to lowercase to make sure the rewrite rules, all lowercase, will match it.
+		$url        = Arr::get( $params, 'url' );
+		$url_object = Url::from_url_and_params( $url, $params );
 
 		$url = $url_object->__toString();
 		$params['url'] = $url;
@@ -1533,13 +1535,13 @@ class View implements View_Interface {
 	 * @return string The View request URI, a value suitable to be used to set the `$_SERVER['REQUEST_URI']` value.
 	 */
 	protected function get_request_uri() {
-		$request_uri = '/' . ltrim(
-				str_replace(
-					home_url(),
-					'',
-					$this->rewrite->get_clean_url( (string) $this->get_url() ) ),
-				'/'
-			);
+		$plain_url   = (string) $this->get_url();
+		$clean_url   = $this->rewrite->get_clean_url( $plain_url );
+		$url_frags   = wp_parse_url( $clean_url );
+		$path        = isset( $url_frags['path'] ) ? trim( $url_frags['path'], '/' ) . '/' : '';
+		$query       = isset( $url_frags['query'] ) ? '?' . $url_frags['query'] : '';
+		$fragment    = isset( $url_frags['fragment'] ) ? '#' . $url_frags['fragment'] : '';
+		$request_uri = '/' . $path . $query . $fragment;
 
 		/**
 		 * Allows filtering the Views request URI that will be used to set up the loop.
