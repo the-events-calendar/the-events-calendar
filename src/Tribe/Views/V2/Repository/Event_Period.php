@@ -1063,8 +1063,8 @@ class Event_Period implements Core_Read_Interface {
 		$cache   = tribe( 'cache' );
 		$trigger = Cache_Listener::TRIGGER_SAVE_POST;
 
-		$periods_key      = static::get_cache_key( 'periods' );
-		$cached_periods   = $cache->get_transient( $periods_key, $trigger );
+		$periods_key      = self::get_cache_key( 'periods' );
+		$cached_periods   = (array) $cache->get_transient( $periods_key, $trigger );
 		$cached_periods[] = [ $start->format( Dates::DBDATEFORMAT ), $end->format( Dates::DBDATEFORMAT ) ];
 		$cache->set_transient( $periods_key, $cached_periods, WEEK_IN_SECONDS, $trigger );
 

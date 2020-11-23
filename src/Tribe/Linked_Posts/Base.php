@@ -339,7 +339,7 @@ abstract class Tribe__Events__Linked_Posts__Base {
 	 * @since TDB
 	 */
 	protected function prefix_key( $key ) {
-		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, Tribe__Events__Organizer::$meta_keys ) ) {
+		if ( 0 !== strpos( $key, $this->meta_prefix ) && in_array( $key, static::$meta_keys, true ) ) {
 			return $this->meta_prefix . $key;
 		}
 

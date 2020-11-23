@@ -11,7 +11,7 @@
  *
  * @var string $link The URL to the previous page.
  *
- * @version 5.1.1
+ * @version TBD
  *
  */
 
@@ -30,6 +30,7 @@ $events_mobile_friendly_label = sprintf( __( 'Previous %1$s', 'the-events-calend
 		aria-label="<?php echo esc_attr( $label ); ?>"
 		title="<?php echo esc_attr( $label ); ?>"
 	>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<span class="tribe-events-c-nav__prev-label">
 			<?php echo wp_kses( $events_mobile_friendly_label, [ 'span' => [ 'class' => [] ] ] ); ?>
 		</span>

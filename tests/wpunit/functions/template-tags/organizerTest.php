@@ -1,6 +1,8 @@
 <?php
+
 namespace TEC\Test\functions\template_tags;
 
+use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Testcases\Events_TestCase;
 
 class organizerTest extends Events_TestCase {
@@ -57,7 +59,7 @@ class organizerTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_return_0_when_no_posts_are_found_and_found_posts_is_set() {
-		$found_posts = tribe_get_organizers( false, - 1, true, [ 'found_posts' => true] );
+		$found_posts = tribe_get_organizers( false, - 1, true, [ 'found_posts' => true ] );
 		$this->assertEquals( 0, $found_posts );
 	}
 
@@ -84,5 +86,88 @@ class organizerTest extends Events_TestCase {
 		$this->assertEquals( [ 1, 2, 3, 4, 5, 6 ], tribe_sanitize_organizers( [ 4, 2, 5, 1, 3, 6 ], [ 1, 2, 3 ] ) );
 		// Test only a single ordered value the remaining are placed are entered
 		$this->assertEquals( [ 2, 1, 3, 4, 5, 6 ], tribe_sanitize_organizers( [ 1, 2, 3, 4, 5, 6 ], [ 2 ] ) );
+	}
+
+	/**
+	 * It should allow getting an organizer decorated post object
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_an_organizer_decorated_post_object() {
+		$this->assertNull( tribe_get_organizer_object( PHP_INT_MAX ) );
+
+		$organizer_id = $this->given_an_organizer();
+		$organizer    = tribe_get_organizer_object( $organizer_id );
+
+		$this->assertInstanceOf( \WP_Post::class, $organizer );
+		$this->assertEquals( 'Indiana Jones', $organizer->post_title );
+		$this->assertEquals( '11223344', $organizer->phone );
+		$this->assertEquals( 'http://the.org/anizer', $organizer->website );
+		$this->assertEquals( 'indy@the.org', $organizer->email );
+		$this->assertEquals( get_the_permalink($organizer_id), $organizer->permalink );
+	}
+
+	protected function given_an_organizer() {
+		$organizer_id = ( new Organizer() )->create( [
+			'post_title' => 'Indiana Jones',
+			'meta_input' => [
+				'_OrganizerPhone'   => '11223344',
+				'_OrganizerWebsite' => 'http://the.org/anizer',
+				'_OrganizerEmail'   => 'indy@the.org',
+			]
+		] );
+
+		return $organizer_id;
+	}
+
+	/**
+	 * It should return the data of the global organizer when set
+	 *
+	 * @test
+	 */
+	public function should_return_the_data_of_the_global_organizer_when_set() {
+		$organizer_id       = $this->given_an_organizer();
+		$GLOBALS['post']    = get_post( $organizer_id );
+		$GLOBALS['post_id'] = $organizer_id;
+
+		$organizer = tribe_get_organizer_object( null );
+
+		$this->assertInstanceOf( \WP_Post::class, $organizer );
+		$this->assertEquals( 'Indiana Jones', $organizer->post_title );
+		$this->assertEquals( '11223344', $organizer->phone );
+		$this->assertEquals( 'http://the.org/anizer', $organizer->website );
+		$this->assertEquals( 'indy@the.org', $organizer->email );
+	}
+
+	/**
+	 * It should allow getting the organizer as associative_array
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_the_organizer_as_associative_array() {
+		$organizer_id = $this->given_an_organizer();
+
+		$organizer = tribe_get_organizer_object( $organizer_id, ARRAY_A );
+
+		$this->assertInternalType( 'array', $organizer );
+		$this->assertCount( 0, array_filter( array_keys( $organizer ), 'is_int' ) );
+		$this->assertEquals( 'Indiana Jones', $organizer['post_title'] );
+		$this->assertEquals( '11223344', $organizer['phone'] );
+		$this->assertEquals( 'http://the.org/anizer', $organizer['website'] );
+		$this->assertEquals( 'indy@the.org', $organizer['email'] );
+	}
+
+	/**
+	 * It should allow getting the organizer as an array
+	 *
+	 * @test
+	 */
+	public function should_allow_getting_the_organizer_as_an_array() {
+		$organizer_id = $this->given_an_organizer();
+
+		$organizer = tribe_get_organizer_object( $organizer_id, ARRAY_N );
+
+		$this->assertInternalType( 'array', $organizer );
+		$this->assertCount( count( $organizer ), array_filter( array_keys( $organizer ), 'is_int' ) );
 	}
 }
