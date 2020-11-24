@@ -86,24 +86,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @var array
 		 */
 		protected $post_type_args = [
-				'public'          => true,
-				'rewrite'         => [ 'slug' => 'event', 'with_front' => false ],
-				'menu_position'   => 6,
-				'supports'        => [
-						'title',
-						'editor',
-						'excerpt',
-						'author',
-						'thumbnail',
-						'custom-fields',
-						'comments',
-						'revisions',
-				],
-				'taxonomies'      => [ 'post_tag' ],
-				'capability_type' => [ 'tribe_event', 'tribe_events' ],
-				'map_meta_cap'    => true,
-				'has_archive'     => true,
-				'menu_icon'       => 'dashicons-calendar',
+			'public'          => true,
+			'rewrite'         => [ 'slug' => 'event', 'with_front' => false ],
+			'menu_position'   => 6,
+			'supports'        => [
+				'title',
+				'editor',
+				'excerpt',
+				'author',
+				'thumbnail',
+				'custom-fields',
+				'comments',
+				'revisions',
+			],
+			'taxonomies'      => [ 'post_tag' ],
+			'capability_type' => [ 'tribe_event', 'tribe_events' ],
+			'map_meta_cap'    => true,
+			'has_archive'     => true,
+			'menu_icon'       => 'dashicons-calendar',
 		];
 
 		/**
@@ -195,49 +195,49 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected $tabIndexStart = 2000;
 
 		public $metaTags = [
-				'_EventAllDay',
-				'_EventStartDate',
-				'_EventEndDate',
-				'_EventStartDateUTC',
-				'_EventEndDateUTC',
-				'_EventDuration',
-				'_EventVenueID',
-				'_EventShowMapLink',
-				'_EventShowMap',
-				'_EventCurrencySymbol',
-				'_EventCurrencyPosition',
-				'_EventCost',
-				'_EventCostMin',
-				'_EventCostMax',
-				'_EventURL',
-				'_EventOrganizerID',
-				'_EventPhone',
-				'_EventHideFromUpcoming',
-				'_EventTimezone',
-				'_EventTimezoneAbbr',
-				self::EVENTSERROROPT,
-				'_EventOrigin',
-				'_tribe_featured',
+			'_EventAllDay',
+			'_EventStartDate',
+			'_EventEndDate',
+			'_EventStartDateUTC',
+			'_EventEndDateUTC',
+			'_EventDuration',
+			'_EventVenueID',
+			'_EventShowMapLink',
+			'_EventShowMap',
+			'_EventCurrencySymbol',
+			'_EventCurrencyPosition',
+			'_EventCost',
+			'_EventCostMin',
+			'_EventCostMax',
+			'_EventURL',
+			'_EventOrganizerID',
+			'_EventPhone',
+			'_EventHideFromUpcoming',
+			'_EventTimezone',
+			'_EventTimezoneAbbr',
+			self::EVENTSERROROPT,
+			'_EventOrigin',
+			'_tribe_featured',
 		];
 
 		public $venueTags = [
-				'_VenueCountry',
-				'_VenueAddress',
-				'_VenueCity',
-				'_VenueStateProvince',
-				'_VenueState',
-				'_VenueProvince',
-				'_VenueZip',
-				'_VenuePhone',
-				'_VenueURL',
-				'_VenueShowMap',
-				'_VenueShowMapLink',
+			'_VenueCountry',
+			'_VenueAddress',
+			'_VenueCity',
+			'_VenueStateProvince',
+			'_VenueState',
+			'_VenueProvince',
+			'_VenueZip',
+			'_VenuePhone',
+			'_VenueURL',
+			'_VenueShowMap',
+			'_VenueShowMapLink',
 		];
 
 		public $organizerTags = [
-				'_OrganizerEmail',
-				'_OrganizerWebsite',
-				'_OrganizerPhone',
+			'_OrganizerEmail',
+			'_OrganizerWebsite',
+			'_OrganizerPhone',
 		];
 
 		public $currentPostTimestamp;
@@ -371,8 +371,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				|| version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
 			) {
 				$GLOBALS['tribe-common-info'] = [
-						'dir'     => "{$this->plugin_path}common/src/Tribe",
-						'version' => $common_version,
+					'dir'     => "{$this->plugin_path}common/src/Tribe",
+					'version' => $common_version,
 				];
 			}
 		}
@@ -1132,10 +1132,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$data_attributes = [
-					'live_ajax'         => 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ? 1 : 0,
-					'datepicker_format' => \Tribe__Date_Utils::get_datepicker_format_index(),
-					'category'          => $category,
-					'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
+				'live_ajax'         => 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ? 1 : 0,
+				'datepicker_format' => \Tribe__Date_Utils::get_datepicker_format_index(),
+				'category'          => $category,
+				'featured'          => tribe( 'tec.featured_events' )->is_featured_query(),
 			];
 			// allow data attributes to be filtered before display
 			$data_attributes = (array) apply_filters( 'tribe_events_view_data_attributes', $data_attributes );
@@ -1360,12 +1360,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
-			new Tribe__Settings_Tab( 'upgrade', esc_html__( 'Upgrade', 'tribe-common' ), [
+			new Tribe__Settings_Tab(
+				'upgrade', esc_html__( 'Upgrade', 'tribe-common' ),
+				[
 					'priority'      => 100,
 					'fields'        => $upgrade_fields,
 					'network_admin' => is_network_admin(),
 					'show_save'     => true,
-			] );
+				]
+			);
 		}
 
 		/**
@@ -1979,22 +1982,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Linked_Posts::instance();
 
 			$taxonomy_args = [
-					'hierarchical'          => true,
-					'update_count_callback' => '',
-					'rewrite'               => [
-							'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
-							'with_front'   => false,
-							'hierarchical' => true,
-					],
-					'public'                => true,
-					'show_ui'               => true,
-					'labels'                => $this->taxonomyLabels,
-					'capabilities'          => [
-							'manage_terms' => 'publish_tribe_events',
-							'edit_terms'   => 'publish_tribe_events',
-							'delete_terms' => 'publish_tribe_events',
-							'assign_terms' => 'edit_tribe_events',
-					],
+				'hierarchical'          => true,
+				'update_count_callback' => '',
+				'rewrite'               => [
+					'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
+					'with_front'   => false,
+					'hierarchical' => true,
+				],
+				'public'                => true,
+				'show_ui'               => true,
+				'labels'                => $this->taxonomyLabels,
+				'capabilities'          => [
+					'manage_terms' => 'publish_tribe_events',
+					'edit_terms'   => 'publish_tribe_events',
+					'delete_terms' => 'publish_tribe_events',
+					'assign_terms' => 'edit_tribe_events',
+				],
 			];
 
 			/**
@@ -4292,10 +4295,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setup_listview_in_bar( $views ) {
 			$views[] = [
-					'displaying'     => 'list',
-					'event_bar_hook' => 'tribe_events_before_template',
-					'anchor'         => esc_html__( 'List', 'the-events-calendar' ),
-					'url'            => tribe_get_listview_link(),
+				'displaying'     => 'list',
+				'event_bar_hook' => 'tribe_events_before_template',
+				'anchor'         => esc_html__( 'List', 'the-events-calendar' ),
+				'url'            => tribe_get_listview_link(),
 			];
 
 			return $views;
@@ -4310,10 +4313,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setup_gridview_in_bar( $views ) {
 			$views[] = [
-					'displaying'     => 'month',
-					'event_bar_hook' => 'tribe_events_month_before_template',
-					'anchor'         => esc_html__( 'Month', 'the-events-calendar' ),
-					'url'            => tribe_get_gridview_link(),
+				'displaying'     => 'month',
+				'event_bar_hook' => 'tribe_events_month_before_template',
+				'anchor'         => esc_html__( 'Month', 'the-events-calendar' ),
+				'url'            => tribe_get_gridview_link(),
 			];
 
 			return $views;
@@ -4328,10 +4331,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setup_dayview_in_bar( $views ) {
 			$views[] = [
-					'displaying'     => 'day',
-					'anchor'         => esc_html__( 'Day', 'the-events-calendar' ),
-					'event_bar_hook' => 'tribe_events_before_template',
-					'url'            => tribe_get_day_link(),
+				'displaying'     => 'day',
+				'anchor'         => esc_html__( 'Day', 'the-events-calendar' ),
+				'event_bar_hook' => 'tribe_events_before_template',
+				'url'            => tribe_get_day_link(),
 			];
 
 			return $views;
@@ -4373,33 +4376,33 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function setup_date_search_in_bar( $filters ) {
 
 			$formats_full = [
-					'0'  => __( '4 digit year hyphen 2 digit month hyphen 2 digit day', 'the-events-calendar' ),
-					'1'  => __( '1 digit month slash 1 digit day slash 4 digit year', 'the-events-calendar' ),
-					'2'  => __( '2 digit month slash 2 digit day slash 4 digit year', 'the-events-calendar' ),
-					'3'  => __( '1 digit day slash 1 digit month slash 4 digit year', 'the-events-calendar' ),
-					'4'  => __( '2 digit day slash 2 digit month slash 4 digit year', 'the-events-calendar' ),
-					'5'  => __( '1 digit month hyphen 1 digit day hyphen 4 digit year', 'the-events-calendar' ),
-					'6'  => __( '1 digit month hyphen 2 digit day hyphen 4 digit year', 'the-events-calendar' ),
-					'7'  => __( '1 digit day hyphen 1 digit month hyphen 4 digit year', 'the-events-calendar' ),
-					'8'  => __( '2 digit day hyphen 2 digit month hyphen 4 digit year', 'the-events-calendar' ),
-					'9'  => __( '4 digit year dot 2 digit month dot 2 digit day', 'the-events-calendar' ),
-					'10' => __( '2 digit month dot 2 digit day dot 4 digit year', 'the-events-calendar' ),
-					'11' => __( '2 digit day dot 2 digit month dot 4 digit year', 'the-events-calendar' ),
+				'0'  => __( '4 digit year hyphen 2 digit month hyphen 2 digit day', 'the-events-calendar' ),
+				'1'  => __( '1 digit month slash 1 digit day slash 4 digit year', 'the-events-calendar' ),
+				'2'  => __( '2 digit month slash 2 digit day slash 4 digit year', 'the-events-calendar' ),
+				'3'  => __( '1 digit day slash 1 digit month slash 4 digit year', 'the-events-calendar' ),
+				'4'  => __( '2 digit day slash 2 digit month slash 4 digit year', 'the-events-calendar' ),
+				'5'  => __( '1 digit month hyphen 1 digit day hyphen 4 digit year', 'the-events-calendar' ),
+				'6'  => __( '1 digit month hyphen 2 digit day hyphen 4 digit year', 'the-events-calendar' ),
+				'7'  => __( '1 digit day hyphen 1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'8'  => __( '2 digit day hyphen 2 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'9'  => __( '4 digit year dot 2 digit month dot 2 digit day', 'the-events-calendar' ),
+				'10' => __( '2 digit month dot 2 digit day dot 4 digit year', 'the-events-calendar' ),
+				'11' => __( '2 digit day dot 2 digit month dot 4 digit year', 'the-events-calendar' ),
 			];
 
 			$formats_month = [
-					'0'  => __( '4 digit year hyphen 2 digit month', 'the-events-calendar' ),
-					'1'  => __( '1 digit month slash 4 digit year', 'the-events-calendar' ),
-					'2'  => __( '2 digit month slash 4 digit year', 'the-events-calendar' ),
-					'3'  => __( '1 digit month slash 4 digit year', 'the-events-calendar' ),
-					'4'  => __( '2 digit month slash 4 digit year', 'the-events-calendar' ),
-					'5'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
-					'6'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
-					'7'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
-					'8'  => __( '2 digit month hyphen 4 digit year', 'the-events-calendar' ),
-					'9'  => __( '4 digit year dot 2 digit month', 'the-events-calendar' ),
-					'10' => __( '2 digit month dot 4 digit year', 'the-events-calendar' ),
-					'11' => __( '2 digit month dot 4 digit year', 'the-events-calendar' ),
+				'0'  => __( '4 digit year hyphen 2 digit month', 'the-events-calendar' ),
+				'1'  => __( '1 digit month slash 4 digit year', 'the-events-calendar' ),
+				'2'  => __( '2 digit month slash 4 digit year', 'the-events-calendar' ),
+				'3'  => __( '1 digit month slash 4 digit year', 'the-events-calendar' ),
+				'4'  => __( '2 digit month slash 4 digit year', 'the-events-calendar' ),
+				'5'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'6'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'7'  => __( '1 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'8'  => __( '2 digit month hyphen 4 digit year', 'the-events-calendar' ),
+				'9'  => __( '4 digit year dot 2 digit month', 'the-events-calendar' ),
+				'10' => __( '2 digit month dot 4 digit year', 'the-events-calendar' ),
+				'11' => __( '2 digit month dot 4 digit year', 'the-events-calendar' ),
 			];
 
 			if ( ! $wp_query = tribe_get_global_query_object() ) {
@@ -4530,8 +4533,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function register_30min_interval( $schedules ) {
 			$schedules['every_30mins'] = [
-					'interval' => 30 * MINUTE_IN_SECONDS,
-					'display'  => esc_html__( 'Once Every 30 Mins', 'the-events-calendar' ),
+				'interval' => 30 * MINUTE_IN_SECONDS,
+				'display'  => esc_html__( 'Once Every 30 Mins', 'the-events-calendar' ),
 			];
 
 			return $schedules;
@@ -4852,7 +4855,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			$bits = [
-					'ajaxurl' => esc_url_raw( admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) ) ),
+				'ajaxurl' => esc_url_raw(
+					admin_url( 'admin-ajax.php', ( is_ssl() || FORCE_SSL_ADMIN ? 'https' : 'http' ) )
+				),
 			];
 
 			return $bits;
@@ -5972,8 +5977,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function register_plugin_autoload_paths( ) {
 			$prefixes = [
-					'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
-					'ForceUTF8__'     => $this->plugin_path . 'vendor/ForceUTF8',
+				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
+				'ForceUTF8__'     => $this->plugin_path . 'vendor/ForceUTF8',
 			];
 
 			$this->get_autoloader_instance()->register_prefixes( $prefixes );

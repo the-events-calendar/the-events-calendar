@@ -124,9 +124,9 @@ class Tribe__Events__Aggregator {
 	public function api( $api = null ) {
 		if ( ! $this->api ) {
 			$this->api = (object) [
-					'origins' => new Tribe__Events__Aggregator__API__Origins,
-					'import'  => new Tribe__Events__Aggregator__API__Import,
-					'image'   => new Tribe__Events__Aggregator__API__Image,
+				'origins' => new Tribe__Events__Aggregator__API__Origins,
+				'import'  => new Tribe__Events__Aggregator__API__Import,
+				'image'   => new Tribe__Events__Aggregator__API__Image,
 			];
 		}
 
@@ -150,8 +150,8 @@ class Tribe__Events__Aggregator {
 	 */
 	public function action_endpoint_configuration( $rewrite ) {
 		$rewrite->add(
-				[ 'event-aggregator', '(insert)' ],
-				[ 'tribe-aggregator' => 1, 'tribe-action' => '%1' ]
+			[ 'event-aggregator', '(insert)' ],
+			[ 'tribe-aggregator' => 1, 'tribe-action' => '%1' ]
 		);
 	}
 
@@ -424,7 +424,9 @@ class Tribe__Events__Aggregator {
 		$this->queue_realtime = new Tribe__Events__Aggregator__Record__Queue_Realtime( null, null, $this->queue_processor );
 		$this->errors = Tribe__Events__Aggregator__Errors::instance();
 		$this->pue_checker = new Tribe__PUE__Checker(
-				'http://tri.be/', 'event-aggregator', [ 'context' => 'service' ]
+			'http://tri.be/',
+			'event-aggregator',
+			[ 'context' => 'service' ]
 		);
 
 		// Initializes the Classes related to the API
@@ -527,9 +529,10 @@ class Tribe__Events__Aggregator {
 		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
 		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
 			remove_action(
-					'deactivate_' . plugin_basename(
-							Tribe__Events__Ical_Importer__Main::$plugin_path . 'the-events-calendar-ical-importer.php'
-					), 'tribe_events_ical_deactivate'
+				'deactivate_' . plugin_basename(
+					Tribe__Events__Ical_Importer__Main::$plugin_path . 'the-events-calendar-ical-importer.php'
+				),
+				'tribe_events_ical_deactivate'
 			);
 		}
 

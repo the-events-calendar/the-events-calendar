@@ -20,8 +20,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$screen = WP_Screen::get( Tribe__Events__Aggregator__Records::$post_type );
 
 		$default = [
-				'screen' => $screen,
-				'tab'    => Tribe__Events__Aggregator__Tabs::instance()->get_active(),
+			'screen' => $screen,
+			'tab'    => Tribe__Events__Aggregator__Tabs::instance()->get_active(),
 		];
 		$args = wp_parse_args( $args, $default );
 
@@ -57,10 +57,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		$args = [
-				'post_type' => $this->screen->post_type,
-				'orderby'   => 'modified',
-				'order'     => $order,
-				'paged'     => absint( isset( $_GET['paged'] ) ? $_GET['paged'] : 1 ),
+			'post_type' => $this->screen->post_type,
+			'orderby'   => 'modified',
+			'order'     => $order,
+			'paged'     => absint( isset( $_GET['paged'] ) ? $_GET['paged'] : 1 ),
 		];
 
 		$status = Tribe__Events__Aggregator__Records::$status;
@@ -73,9 +73,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 			case 'history':
 				$args['post_status'] = [
-						$status->success,
-						$status->failed,
-						$status->pending,
+					$status->success,
+					$status->failed,
+					$status->pending,
 				];
 				break;
 		}
@@ -127,10 +127,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$this->items = $query->posts;
 
 		$this->set_pagination_args(
-				[
-						'total_items' => $query->found_posts,
-						'per_page'    => $query->query_vars['posts_per_page'],
-				]
+			[
+				'total_items' => $query->found_posts,
+				'per_page'    => $query->query_vars['posts_per_page'],
+			]
 		);
 	}
 
@@ -150,7 +150,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 */
 	protected function get_sortable_columns() {
 		return [
-				'imported' => 'imported',
+			'imported' => 'imported',
 		];
 	}
 

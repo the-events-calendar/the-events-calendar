@@ -65,12 +65,12 @@ class Tribe__Events__Aggregator__Page {
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
 
 		tribe_notice(
-				'tribe-aggregator-legacy-import-plugins-active',
-				[
-						$this,
-						'notice_legacy_plugins',
-				],
-				'type=warning'
+			'tribe-aggregator-legacy-import-plugins-active',
+			[
+				$this,
+				'notice_legacy_plugins',
+			],
+			'type=warning'
 		);
 	}
 
@@ -78,41 +78,65 @@ class Tribe__Events__Aggregator__Page {
 		$plugin = Tribe__Events__Main::instance();
 
 		$localize_data = [
-				'name' => 'tribe_aggregator',
-				'data' => [
-						'csv_column_mapping'   => [
-								'events'    => get_option( 'tribe_events_import_column_mapping_events', [] ),
-								'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', [] ),
-								'venue'     => get_option( 'tribe_events_import_column_mapping_venues', [] ),
-						],
-						'l10n'                 => [
-								'all_day'                           => __( 'All Day', 'the-events-calendar' ),
-								'am'                                => _x( 'AM', 'Meridian: am', 'the-events-calendar' ),
-								'pm'                                => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
-								'preview_timeout'                   => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
-								'preview_fetch_error_prefix'        => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
-								'preview_fetch_warning_prefix'      => __( 'A warning was generated while fetching the results from your import:', 'the-events-calendar' ),
-								'import_all'                        => __( 'Import All (%d)', 'the-events-calendar' ),
-								'import_all_no_number'              => __( 'Import All', 'the-events-calendar' ),
-								'import_checked'                    => __( 'Import Checked (%d)', 'the-events-calendar' ),
-								'create_schedule'                   => __( 'Save Scheduled Import', 'the-events-calendar' ),
-								'edit_save'                         => __( 'Save Changes', 'the-events-calendar' ),
-								'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
-								'no_results'                        => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
-								'verify_schedule_delete'            => __( 'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.', 'the-events-calendar' ),
-								'view_filters'                      => __( 'View Filters', 'the-events-calendar' ),
-								'hide_filters'                      => __( 'Hide Filters', 'the-events-calendar' ),
-								'preview_polling'                   => [
-										__( 'Please wait while your preview is fetched.', 'the-events-calendar' ),
-										__( 'Please continue to wait while your preview is generated.', 'the-events-calendar' ),
-										__( 'If all goes according to plan, you will have your preview in a few moments.', 'the-events-calendar' ),
-										__( 'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.', 'the-events-calendar' ),
-								],
-								'debug'                             => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
-						],
-						'default_settings'     => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
-						'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
+			'name' => 'tribe_aggregator',
+			'data' => [
+				'csv_column_mapping'   => [
+					'events'    => get_option( 'tribe_events_import_column_mapping_events', [] ),
+					'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', [] ),
+					'venue'     => get_option( 'tribe_events_import_column_mapping_venues', [] ),
 				],
+				'l10n'                 => [
+					'all_day'                           => __( 'All Day', 'the-events-calendar' ),
+					'am'                                => _x( 'AM', 'Meridian: am', 'the-events-calendar' ),
+					'pm'                                => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
+					'preview_timeout'                   => __(
+						'The preview is taking longer than expected. Please try again in a moment.',
+						'the-events-calendar'
+					),
+					'preview_fetch_error_prefix'        => __(
+						'There was an error fetching the results from your import:',
+						'the-events-calendar'
+					),
+					'preview_fetch_warning_prefix'      => __(
+						'A warning was generated while fetching the results from your import:',
+						'the-events-calendar'
+					),
+					'import_all'                        => __( 'Import All (%d)', 'the-events-calendar' ),
+					'import_all_no_number'              => __( 'Import All', 'the-events-calendar' ),
+					'import_checked'                    => __( 'Import Checked (%d)', 'the-events-calendar' ),
+					'create_schedule'                   => __( 'Save Scheduled Import', 'the-events-calendar' ),
+					'edit_save'                         => __( 'Save Changes', 'the-events-calendar' ),
+					'events_required_for_manual_submit' => __(
+						'Your import must include at least one event',
+						'the-events-calendar'
+					),
+					'no_results'                        => __(
+						'Your preview doesn\'t have any records to import.',
+						'the-events-calendar'
+					),
+					'verify_schedule_delete'            => __(
+						'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.',
+						'the-events-calendar'
+					),
+					'view_filters'                      => __( 'View Filters', 'the-events-calendar' ),
+					'hide_filters'                      => __( 'Hide Filters', 'the-events-calendar' ),
+					'preview_polling'                   => [
+						__( 'Please wait while your preview is fetched.', 'the-events-calendar' ),
+						__( 'Please continue to wait while your preview is generated.', 'the-events-calendar' ),
+						__(
+							'If all goes according to plan, you will have your preview in a few moments.',
+							'the-events-calendar'
+						),
+						__(
+							'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.',
+							'the-events-calendar'
+						),
+					],
+					'debug'                             => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
+				],
+				'default_settings'     => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
+				'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
+			],
 		];
 
 		/**
@@ -130,30 +154,31 @@ class Tribe__Events__Aggregator__Page {
 		$localize_data['data'] = apply_filters( 'tribe_aggregator_localized_data', $localize_data['data'] );
 
 		// Load these on all the pages
-		tribe_assets( $plugin,
+		tribe_assets(
+			$plugin,
+			[
 				[
-						[
-								'tribe-ea-fields',
-								'aggregator-fields.js',
-								[
-										'jquery',
-										'tribe-datatables',
-										'underscore',
-										'tribe-bumpdown',
-										'tribe-dependency',
-										'tribe-select2',
-										'tribe-events-admin',
-								],
-						],
-						[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
+					'tribe-ea-fields',
+					'aggregator-fields.js',
+					[
+						'jquery',
+						'tribe-datatables',
+						'underscore',
+						'tribe-bumpdown',
+						'tribe-dependency',
+						'tribe-select2',
+						'tribe-events-admin',
+					],
 				],
-				'admin_enqueue_scripts',
-				[
-						'conditionals' => [
-								[ $this, 'is_screen' ],
-						],
-						'localize'     => (object) $localize_data,
-				]
+				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
+			],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					[ $this, 'is_screen' ],
+				],
+				'localize'     => (object) $localize_data,
+			]
 		);
 	}
 
@@ -248,8 +273,8 @@ class Tribe__Events__Aggregator__Page {
 	 */
 	public function get_url( $args = [], $relative = false ) {
 		$defaults = [
-				'page'      => self::$slug,
-				'post_type' => Tribe__Events__Main::POSTTYPE,
+			'page'      => self::$slug,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 		];
 
 		// Allow the link to be "changed" on the fly

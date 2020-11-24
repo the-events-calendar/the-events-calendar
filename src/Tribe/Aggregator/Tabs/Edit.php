@@ -54,9 +54,9 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 
 	public function handle_submit() {
 		$this->messages = [
-				'error',
-				'success',
-				'warning',
+			'error',
+			'success',
+			'warning',
 		];
 
 		if ( empty( $_POST['aggregator']['action'] ) || 'edit' !== $_POST['aggregator']['action'] ) {
@@ -102,9 +102,9 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 	 */
 	public function finalize_schedule_edit( $record, $post_data, $meta ) {
 		$this->messages = [
-				'error'   => [],
-				'success' => [],
-				'warning' => [],
+			'error'   => [],
+			'success' => [],
+			'warning' => [],
 		];
 
 		$meta['post_status'] = empty( $post_data['post_status'] ) ? 'draft' : $post_data['post_status'];
