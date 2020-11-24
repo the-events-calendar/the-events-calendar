@@ -743,7 +743,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		$current              = $this->get_pagenum();
 		$removable_query_args = wp_removable_query_args();
 
-		$current_url = set_url_scheme( esc_url_raw( $_SERVER['REQUEST_URI'] ), 'relative' );
+		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( $_SERVER['REQUEST_URI'] ) : admin_url( $wp->request );
+		$current_url = set_url_scheme( $request_uri, 'relative' );
 
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
