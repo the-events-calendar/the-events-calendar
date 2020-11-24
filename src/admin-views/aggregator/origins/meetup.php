@@ -5,25 +5,25 @@ $field              = (object) [];
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __(
-		'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import.',
-		'the-events-calendar'
+	'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import.',
+	'the-events-calendar'
 );
 $field->source      = 'meetup_import_type';
 
 $frequency              = (object) [];
 $frequency->placeholder = __( 'Select Frequency', 'the-events-calendar' );
 $frequency->help        = __(
-		'Select how often you would like events to be automatically imported.',
-		'the-events-calendar'
+	'Select how often you would like events to be automatically imported.',
+	'the-events-calendar'
 );
 $frequency->source      = 'meetup_import_frequency';
 
-$cron = Tribe__Events__Aggregator__Cron::instance();
+$cron        = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
 $missing_meetup_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_meetup();
-$data_depends = '#tribe-ea-field-origin';
-$data_condition = 'meetup';
+$data_depends               = '#tribe-ea-field-origin';
+$data_condition             = 'meetup';
 
 if ( $missing_meetup_credentials ) :
 	$data_depends = '#tribe-has-meetup-credentials';

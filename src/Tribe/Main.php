@@ -944,12 +944,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// @todo remove this safety check when we're confident the risk has diminished
 			if ( function_exists( 'tribe_notice' ) ) {
 				tribe_notice(
-						'archive-slug-conflict',
-						[
-								$this,
-								'render_notice_archive_slug_conflict',
-						],
-						'dismiss=1&type=error'
+					'archive-slug-conflict',
+					[
+						$this,
+						'render_notice_archive_slug_conflict',
+					],
+					'dismiss=1&type=error'
 				);
 			}
 
@@ -1809,11 +1809,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				Tribe__Main::instance()->load_text_domain( $domain, $mopath );
 			}
 
-			$url = add_query_arg( [
+			$url = add_query_arg(
+				[
 					'tab'       => 'plugin-information',
 					'plugin'    => 'event-tickets',
 					'TB_iframe' => 'true',
-			], admin_url( 'plugin-install.php' ) );
+				],
+				admin_url( 'plugin-install.php' )
+			);
 
 			echo '<div class="error"><p>'
 			. sprintf(
@@ -1922,7 +1925,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			array_unshift(
-					$posts, (object) [
+				$posts,
+				(object) [
 					'ID'           => 0,
 					'object_id'    => $_nav_menu_placeholder,
 					'post_content' => '',
@@ -1931,7 +1935,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'post_type'    => 'nav_menu_item',
 					'type'         => 'custom',
 					'url'          => $archive_slug,
-			]
+				]
 			);
 
 			return $posts;
