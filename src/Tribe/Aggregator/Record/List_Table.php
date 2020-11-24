@@ -101,11 +101,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			// nonce check if search form submitted.
 			$nonce = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? sanitize_text_field( $_POST['aggregator']['nonce'] ) :  '';
 			if ( isset( $_GET['s'] ) || wp_verify_nonce( $nonce,  'aggregator_' . $this->tab->get_slug() . '_request'  ) ) {
-				if ( false === filter_var( $_REQUEST['s'], FILTER_VALIDATE_URL ) ) {
-                    $search_term = sanitize_text_field( $_REQUEST['s'] );
-                }else{
-                    $search_term = sanitize_url( $_REQUEST['s'] );
-                }
+				$search_term = filter_var( $_REQUEST['s'], FILTER_VALIDATE_URL ) ? sanitize_url( $_REQUEST['s'] ) : sanitize_text_field( $_REQUEST['s'] );
 				$args['meta_query'] = [
 					'relation' => 'OR',
 					[
