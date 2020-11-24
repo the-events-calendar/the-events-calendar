@@ -121,7 +121,7 @@ class Widget_List extends Widget_Abstract {
 		$updated_instance['limit']                = $new_instance['limit'];
 		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
 		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
-		$updated_instance['jsonld_enable']        = (int) ! empty( $new_instance['jsonld_enable'] );
+		$updated_instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] );
 		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
 
 		return $this->filter_updated_instance( $updated_instance, $new_instance );
@@ -195,7 +195,7 @@ class Widget_List extends Widget_Abstract {
 		$alterations['featured'] = tribe_is_truthy( $arguments['featured_events_only'] );
 
 		// Enable JSON-LD?
-		$alterations['jsonld_enable'] = tribe_is_truthy( $arguments['jsonld_enable'] );
+		$alterations['jsonld_enable'] = (int) tribe_is_truthy( $arguments['jsonld_enable'] );
 
 		// Hide widget if no events.
 		$alterations['no_upcoming_events'] = tribe_is_truthy( $arguments['no_upcoming_events'] );
@@ -229,7 +229,7 @@ class Widget_List extends Widget_Abstract {
 	public function disable_json_data( $template_vars ) {
 		if (
 			isset( $template_vars['jsonld_enable'] )
-			&& empty( $template_vars['jsonld_enable'] )
+			&& ! tribe_is_truthy( $template_vars['jsonld_enable'] )
 		) {
 			$template_vars['json_ld_data'] = '';
 		}
