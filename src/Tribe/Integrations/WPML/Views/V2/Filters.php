@@ -17,6 +17,7 @@ namespace Tribe\Events\Integrations\WPML\Views\V2;
  * @package Tribe\Events\Integrations\WPML\Views\V2
  */
 class Filters {
+
 	/**
 	 * Translates the View URL.
 	 *

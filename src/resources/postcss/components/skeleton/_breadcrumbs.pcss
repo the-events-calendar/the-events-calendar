@@ -26,22 +26,26 @@
 
 		&:not(:last-child) {
 
-			&:after {
-				content: '';
-				background-image: svg-inline(caret-right);
-				background-repeat: no-repeat;
-				background-size: contain;
+			.tribe-events-c-breadcrumbs__list-item-icon-svg {
 				display: inline-block;
-				height: 10px;
-				width: 6px;
-				margin: 0 6px;
-
-				.tribe-common--breakpoint-medium& {
-					height: 16px;
-					width: 10px;
-					margin: 0 10px;
-				}
 			}
+		}
+	}
+	
+	.tribe-events-c-breadcrumbs__list-item-icon-svg {
+		display: none;
+		height: 14px;
+		width: 6px;
+		margin: 0 6px;
+		
+		path {
+			fill: var(--color-icon-primary);
+		}
+		
+		.tribe-common--breakpoint-medium& {
+			height: 16px;
+			width: 10px;
+			margin: 0 10px;
 		}
 	}
 }

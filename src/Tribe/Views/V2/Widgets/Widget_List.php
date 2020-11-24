@@ -39,6 +39,13 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
+	protected $asset_slug = 'tribe-events-list-widget-v2';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
 	protected $view_admin_slug = 'widgets/list';
 
 	/**
@@ -114,7 +121,7 @@ class Widget_List extends Widget_Abstract {
 		$updated_instance['limit']                = $new_instance['limit'];
 		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
 		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
-		$updated_instance['jsonld_enable']        = (int) ( ! empty( $new_instance['jsonld_enable'] ) );
+		$updated_instance['jsonld_enable']        = (int) ! empty( $new_instance['jsonld_enable'] );
 		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
 
 		return $this->filter_updated_instance( $updated_instance, $new_instance );
@@ -124,7 +131,6 @@ class Widget_List extends Widget_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function setup_admin_fields() {
-
 		return [
 			'title'                => [
 				'label' => _x( 'Title:', 'The label for the field of the title of the List Widget.', 'the-events-calendar' ),
@@ -144,10 +150,9 @@ class Widget_List extends Widget_Abstract {
 				'type'  => 'checkbox',
 			],
 			'jsonld_enable'        => [
-				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSONLD in the List Widget.', 'the-events-calendar' ),
+				'label' => _x( 'Generate JSON-LD data', 'The label for the option to enable JSON-LD in the List Widget.', 'the-events-calendar' ),
 				'type'  => 'checkbox',
 			],
-
 		];
 	}
 
@@ -187,14 +192,13 @@ class Widget_List extends Widget_Abstract {
 		$alterations = parent::args_to_context( $arguments, $context );
 
 		// Only Featured Events.
-		if ( tribe_is_truthy( $arguments['featured_events_only'] ) ) {
-			$alterations['featured'] = true;
-		}
+		$alterations['featured'] = tribe_is_truthy( $arguments['featured_events_only'] );
+
+		// Enable JSON-LD?
+		$alterations['jsonld_enable'] = tribe_is_truthy( $arguments['jsonld_enable'] );
 
 		// Hide widget if no events.
-		if ( tribe_is_truthy( $arguments['no_upcoming_events'] ) ) {
-			$alterations['no_upcoming_events'] = true;
-		}
+		$alterations['no_upcoming_events'] = tribe_is_truthy( $arguments['no_upcoming_events'] );
 
 		// Add posts per page.
 		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
@@ -210,5 +214,26 @@ class Widget_List extends Widget_Abstract {
 		 * @param array<string,mixed> $arguments   Current set of arguments.
 		 */
 		return apply_filters( 'tribe_events_views_v2_list_widget_args_to_context', $alterations, $arguments );
+	}
+
+	/**
+	 * Empties the json_ld_data if jsonld_enable is false,
+	 * removing the need for additional checks in the template.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $template_vars The current template variables.
+	 *
+	 * @return array<string,mixed> The modified template variables.
+	 */
+	public function disable_json_data( $template_vars ) {
+		if (
+			isset( $template_vars['jsonld_enable'] )
+			&& empty( $template_vars['jsonld_enable'] )
+		) {
+			$template_vars['json_ld_data'] = '';
+		}
+
+		return $template_vars;
 	}
 }
