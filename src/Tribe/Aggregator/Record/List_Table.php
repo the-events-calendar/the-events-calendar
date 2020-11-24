@@ -100,8 +100,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		if ( 'scheduled' === $this->tab->get_slug() && ! empty( $_REQUEST['s'] ) ) {
 			// nonce check if search form submitted.
 			$nonce = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? sanitize_text_field( $_POST['aggregator']['nonce'] ) :  '';
-			if ( isset( $_GET['s'] ) || wp_verify_nonce( $nonce,  'aggregator_' . $this->tab->get_slug() . '_request'  ) ) {
-				$search_term = filter_var( $_REQUEST['s'], FILTER_VALIDATE_URL ) ? sanitize_url( $_REQUEST['s'] ) : sanitize_text_field( $_REQUEST['s'] );
+			if ( isset( $_GET['s'] ) || wp_verify_nonce( $nonce, 'aggregator_' . $this->tab->get_slug() . '_request' ) ) {
+				$search_term = filter_var( $_REQUEST['s'], FILTER_VALIDATE_URL ) ? esc_url_raw( $_REQUEST['s'] ) : sanitize_text_field( $_REQUEST['s'] );
 				$args['meta_query'] = [
 					'relation' => 'OR',
 					[
