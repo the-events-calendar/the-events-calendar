@@ -29,7 +29,7 @@
 >
 	<input
 		class="tribe-widget-form-control__input"
-		id="<?php echo esc_attr( $id ); ?>"
+		id="<?php echo esc_attr( $id . '-' . strtolower( $button_value ) ); ?>"
 		name="<?php echo esc_attr( $name ); ?>"
 		type="radio"
 		value="<?php echo esc_attr( $button_value ); ?>"
@@ -37,7 +37,7 @@
 	/>
 	<label
 		class="tribe-widget-form-control__label"
-		for="<?php echo esc_attr( $id ); ?>"
+		for="<?php echo esc_attr( $id . '-' . strtolower( $button_value ) ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</label>
