@@ -5,16 +5,16 @@ $field              = (object) [];
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __(
-		'One-time imports include all events in the current feed, while scheduled imports automatically grab new events and updates from the feed on a set schedule.',
-		'the-events-calendar'
+	'One-time imports include all events in the current feed, while scheduled imports automatically grab new events and updates from the feed on a set schedule.',
+	'the-events-calendar'
 );
 $field->source      = 'gcal_import_type';
 
 $frequency              = (object) [];
 $frequency->placeholder = __( 'Select Frequency', 'the-events-calendar' );
 $frequency->help        = __(
-		'Select how often you would like events to be automatically imported.',
-		'the-events-calendar'
+	'Select how often you would like events to be automatically imported.',
+	'the-events-calendar'
 );
 $frequency->source      = 'gcal_import_frequency';
 

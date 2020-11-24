@@ -23,10 +23,10 @@ $origin_post_statuses = $events_aggregator_is_active
 		: $post_statuses;
 
 $origin_categories = [
-		'-1' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__(
-				'None',
-				'the-events-calendar'
-		),
+	'-1' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__(
+		'None',
+		'the-events-calendar'
+	),
 ];
 
 foreach ( $matches[1] as $key => $match ) {

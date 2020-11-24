@@ -65,8 +65,8 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function get_post_type_container_data() {
 		$post_types = array_keys( $this->linked_post_types );
-		$data = [
-				'post_types' => [],
+		$data       = [
+			'post_types' => [],
 		];
 
 		foreach ( $post_types as $post_type ) {
@@ -83,8 +83,8 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function register_default_linked_post_types() {
 		$default_post_types = [
-				Tribe__Events__Venue::POSTTYPE,
-				Tribe__Events__Organizer::POSTTYPE,
+			Tribe__Events__Venue::POSTTYPE,
+			Tribe__Events__Organizer::POSTTYPE,
 		];
 
 		/**
@@ -127,11 +127,11 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		$default_args = [
-				'name'                    => $post_type_object->labels->name,
-				'singular_name'           => $post_type_object->labels->singular_name,
-				'singular_name_lowercase' => $post_type_object->labels->singular_name_lowercase,
-				'allow_multiple'          => true,
-				'allow_creation'          => false,
+			'name'                    => $post_type_object->labels->name,
+			'singular_name'           => $post_type_object->labels->singular_name,
+			'singular_name_lowercase' => $post_type_object->labels->singular_name_lowercase,
+			'allow_multiple'          => true,
+			'allow_creation'          => false,
 		];
 
 		$args = wp_parse_args( $args, $default_args );
@@ -295,24 +295,24 @@ class Tribe__Events__Linked_Posts {
 		$post_id_post_type = get_post_type( $post_id );
 
 		$args = [
-				'p'          => $post_id,
-				'post_type'  => $post_id_post_type,
-				'meta_query' => [],
+			'p'          => $post_id,
+			'post_type'  => $post_id_post_type,
+			'meta_query' => [],
 		];
 
 		if ( Tribe__Events__Main::POSTTYPE === $post_id_post_type ) {
 			// if the post type that we're looking at is an event, we'll need to find all linked post types
 			foreach ( $post_types as $post_type => $post_type_data ) {
 				$args['meta_query'][] = [
-						'key'     => $this->get_meta_key( $post_type ),
-						'compare' => 'EXISTS',
+					'key'     => $this->get_meta_key( $post_type ),
+					'compare' => 'EXISTS',
 				];
 			}
 		} else {
 			// if the post type is NOT an event post type, we just want to find the associated event posts
 			$args['meta_query'][] = [
-					'key'     => $this->get_meta_key( Tribe__Events__Main::POSTTYPE ),
-					'compare' => 'EXISTS',
+				'key'     => $this->get_meta_key( Tribe__Events__Main::POSTTYPE ),
+				'compare' => 'EXISTS',
 			];
 		}
 
@@ -523,17 +523,17 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		$defaults = [
-				'post_type'            => $linked_post_type,
-				'post_status'          => [
-						'publish',
-						'draft',
-						'private',
-						'pending',
-				],
-				'order'                => 'ASC',
-				'orderby'              => 'post__in post_title',
-				'ignore_sticky_posts ' => true,
-				'nopaging'             => true,
+			'post_type'            => $linked_post_type,
+			'post_status'          => [
+				'publish',
+				'draft',
+				'private',
+				'pending',
+			],
+			'order'                => 'ASC',
+			'orderby'              => 'post__in post_title',
+			'ignore_sticky_posts ' => true,
+			'nopaging'             => true,
 		];
 
 		if ( is_array( $linked_post_ids ) ) {
@@ -995,14 +995,14 @@ class Tribe__Events__Linked_Posts {
 		$singular_name_lowercase = ! empty( $this->linked_post_types[ $post_type ]['singular_name_lowercase'] ) ? $this->linked_post_types[ $post_type ]['singular_name_lowercase'] : $singular_name;
 
 		$options = (object) [
-				'owned'     => [
-						'text'     => sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name ),
-						'children' => [],
-				],
-				'available' => [
-						'text'     => sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $plural_name ),
-						'children' => [],
-				],
+			'owned'     => [
+				'text'     => sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name ),
+				'children' => [],
+			],
+			'available' => [
+				'text'     => sprintf( esc_html__( 'Available %s', 'the-events-calendar' ), $plural_name ),
+				'children' => [],
+			],
 		];
 
 		// backwards compatibility with old organizer filter
@@ -1051,16 +1051,16 @@ class Tribe__Events__Linked_Posts {
 		add_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
 
 		$my_linked_posts = $this->get_linked_post_info(
-				$post_type,
-				[
-						'post_status' => [
-								'publish',
-								'draft',
-								'private',
-								'pending',
-						],
-						'author'      => $current_user->ID,
-				]
+			$post_type,
+			[
+				'post_status' => [
+					'publish',
+					'draft',
+					'private',
+					'pending',
+				],
+				'author'      => $current_user->ID,
+			]
 		);
 
 		if ( ! empty( $my_linked_posts ) ) {
@@ -1068,8 +1068,8 @@ class Tribe__Events__Linked_Posts {
 				$my_linked_post_ids[] = $my_linked_post->ID;
 
 				$new_child = [
-						'id'   => $my_linked_post->ID,
-						'text' => wp_kses( get_the_title( $my_linked_post->ID ), [] ),
+					'id'   => $my_linked_post->ID,
+					'text' => wp_kses( get_the_title( $my_linked_post->ID ), [] ),
 				];
 
 				$new_child['selected'] = ( (int) $current === (int) $my_linked_post->ID );
@@ -1086,24 +1086,24 @@ class Tribe__Events__Linked_Posts {
 
 		if ( $can_edit_others_posts ) {
 			$linked_posts = $this->get_linked_post_info(
-					$post_type,
-					[
-							'post_status'  => [
-									'publish',
-									'draft',
-									'private',
-									'pending',
-							],
-							'post__not_in' => $my_linked_post_ids,
-					]
+				$post_type,
+				[
+					'post_status'  => [
+						'publish',
+						'draft',
+						'private',
+						'pending',
+					],
+					'post__not_in' => $my_linked_post_ids,
+				]
 			);
 		} else {
 			$linked_posts = $this->get_linked_post_info(
-					$post_type,
-					[
-							'post_status'  => 'publish',
-							'post__not_in' => $my_linked_post_ids,
-					]
+				$post_type,
+				[
+					'post_status'  => 'publish',
+					'post__not_in' => $my_linked_post_ids,
+				]
 			);
 		}
 
@@ -1112,8 +1112,8 @@ class Tribe__Events__Linked_Posts {
 		if ( $linked_posts ) {
 			foreach ( $linked_posts as $linked_post ) {
 				$new_child = [
-						'id'   => $linked_post->ID,
-						'text' => wp_kses( get_the_title( $linked_post->ID ), [] ),
+					'id'   => $linked_post->ID,
+					'text' => wp_kses( get_the_title( $linked_post->ID ), [] ),
 				];
 
 				$new_child['selected'] = ( (int) $current === (int) $linked_post->ID );
@@ -1163,7 +1163,6 @@ class Tribe__Events__Linked_Posts {
 		$label = $this->get_create_or_find_labels( $post_type, $creation_enabled );
 
 		if ( $linked_posts || $my_linked_posts ) {
-
 			?>
 			<select
 				class="tribe-dropdown linked-post-dropdown hide-before-select2-init"
@@ -1341,8 +1340,8 @@ class Tribe__Events__Linked_Posts {
 		// Allow for the post type container to have first letter in uppercase form.
 		// e.g. `venue` and `Venue` should both be valid.
 		$linked_post_type_containers_candidates = [
-				$linked_post_type_container,
-				ucfirst( $linked_post_type_container ),
+			$linked_post_type_container,
+			ucfirst( $linked_post_type_container ),
 		];
 
 		$post_type_container = false;

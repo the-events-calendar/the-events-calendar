@@ -240,9 +240,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 			return;
 		}
 
-		$classes = [
-				'tribe-add-post',
-		];
+		$classes = [ 'tribe-add-post' ];
+
 		if ( is_admin() ) {
 			$classes[] = 'button';
 		} else {

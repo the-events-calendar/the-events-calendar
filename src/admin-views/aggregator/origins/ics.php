@@ -40,12 +40,12 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 <?php
 if ( 'edit' === $tab->get_slug() ) {
 	$this->template(
-			'fields/schedule',
-			[
-					'record'            => $record,
-					'origin'            => $origin_slug,
-					'aggregator_action' => $aggregator_action,
-			]
+		'fields/schedule',
+		[
+			'record'            => $record,
+			'origin'            => $origin_slug,
+			'aggregator_action' => $aggregator_action,
+		]
 	);
 }
 ?>

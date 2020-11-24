@@ -1,18 +1,18 @@
 <?php
-$field              = (object) [];
+$field        = (object) [];
 $field->label = __( 'Schedule:', 'the-events-calendar' );
-$week_days = [];
+$week_days    = [];
 for ( $i = 1; $i <= 7; $i++ ) {
 	$week_days[] = [
-			'id'   => $i,
-			'text' => (string) date_i18n( 'l', strtotime( '31-12-2016 +' . $i . " day" ) ),
+		'id'   => $i,
+		'text' => (string) date_i18n( 'l', strtotime( '31-12-2016 +' . $i . " day" ) ),
 	];
 }
 $month_days = [];
 for ( $i = 1; $i <= 31; $i++ ) {
 	$month_days[] = [
-			'id'   => $i,
-			'text' => (string) $i,
+		'id'   => $i,
+		'text' => (string) $i,
 	];
 }
 ?>

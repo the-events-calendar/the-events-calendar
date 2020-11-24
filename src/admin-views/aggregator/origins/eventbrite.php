@@ -6,8 +6,8 @@ $field              = (object) [];
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __(
-		'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Eventbrite on a set schedule. Single events can be added via a one-time import.',
-		'the-events-calendar'
+	'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Eventbrite on a set schedule. Single events can be added via a one-time import.',
+	'the-events-calendar'
 );
 $field->source      = 'eventbrite_import_type';
 
