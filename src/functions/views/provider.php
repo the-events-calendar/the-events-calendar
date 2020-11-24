@@ -131,21 +131,23 @@ function tribe_events_widgets_v2_is_enabled() {
 		return false;
 	}
 
+	// If the constant is defined, returns the opposite of the constant.
+	if ( defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ) {
+		return (bool) ! TRIBE_EVENTS_WIDGETS_V2_DISABLED;
+	}
+
 	// Allow env_var to short-circuit for testing.
 	$env_var = (bool) getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
 	if ( false !== $env_var ) {
 		return ! $env_var;
 	}
 
-	// If the constant is defined, returns the opposite of the constant, otherwise true (default).
-	$enabled = defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ? ! TRIBE_EVENTS_WIDGETS_V2_DISABLED : true;
-
 	/**
-	 * Allows toggling of the v2 widget views via a filter.
+	 * Allows toggling of the v2 widget views via a filter. Defaults to true.
 	 *
 	 * @since TBD
 	 *
 	 * @return boolean Do we enable the widget views?
 	 */
-	return apply_filters( 'tribe_events_widgets_v2_is_enabled', $enabled );
+	return apply_filters( 'tribe_events_widgets_v2_is_enabled', true );
 }
