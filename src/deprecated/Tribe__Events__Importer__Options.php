@@ -6,8 +6,8 @@ _deprecated_file( __FILE__, '4.5', 'CSV Import settings moved to Event Aggregato
  */
 class Tribe__Events__Importer__Options {
 	public static $options = [
-			'imported_post_status',
-			'imported_encoding_status',
+		'imported_post_status',
+		'imported_encoding_status',
 	];
 
 	public static function process_general_form_submission() {

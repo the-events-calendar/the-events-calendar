@@ -155,8 +155,8 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 
 		if ( is_wp_error( $result ) ) {
 			$result = (object) [
-					'message_code' => $result->get_error_code(),
-					'message'      => $result->get_error_message(),
+				'message_code' => $result->get_error_code(),
+				'message'      => $result->get_error_message(),
 			];
 			wp_send_json_error( $result );
 		}

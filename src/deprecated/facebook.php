@@ -103,10 +103,14 @@ if ( $missing_facebook_credentials ) :
 
 <?php
 if ( 'edit' === $tab->get_slug() ) {
-	$this->template( 'fields/schedule', [ 'record'            => $record,
-										  'origin'            => $origin_slug,
-										  'aggregator_action' => $aggregator_action,
-	] );
+	$this->template(
+		'fields/schedule',
+		[
+			'record'            => $record,
+			'origin'            => $origin_slug,
+			'aggregator_action' => $aggregator_action,
+		]
+	);
 }
 ?>
 

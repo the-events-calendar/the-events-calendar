@@ -63,7 +63,7 @@ class Tribe__Events__Customizer__Day_List_View extends Tribe__Customizer__Sectio
 
 	public function setup() {
 		$this->defaults = [
-				'price_bg_color' => '#eeeeee',
+			'price_bg_color' => '#eeeeee',
 		];
 
 		ob_start();
@@ -78,10 +78,10 @@ class Tribe__Events__Customizer__Day_List_View extends Tribe__Customizer__Sectio
 		$description = ob_get_clean();
 
 		$this->arguments = [
-				'priority'    => 40,
-				'capability'  => 'edit_theme_options',
-				'title'       => esc_html__( 'List-style Views', 'the-events-calendar' ),
-				'description' => $description,
+			'priority'    => 40,
+			'capability'  => 'edit_theme_options',
+			'title'       => esc_html__( 'List-style Views', 'the-events-calendar' ),
+			'description' => $description,
 		];
 	}
 
@@ -97,25 +97,25 @@ class Tribe__Events__Customizer__Day_List_View extends Tribe__Customizer__Sectio
 		$customizer = Tribe__Customizer::instance();
 
 		$manager->add_setting(
-				$customizer->get_setting_name( 'price_bg_color', $section ),
-				[
-						'default' => $this->get_default( 'price_bg_color' ),
-						'type'    => 'option',
+			$customizer->get_setting_name( 'price_bg_color', $section ),
+			[
+				'default' => $this->get_default( 'price_bg_color' ),
+				'type'    => 'option',
 
-						'sanitize_callback'    => 'sanitize_hex_color',
-						'sanitize_js_callback' => 'maybe_hash_hex_color',
-				]
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
 		);
 
 		$manager->add_control(
-				new WP_Customize_Color_Control(
-						$manager,
-						$customizer->get_setting_name( 'price_bg_color', $section ),
-						[
-								'label'   => esc_html__( 'Price Background Color', 'the-events-calendar' ),
-								'section' => $section->id,
-						]
-				)
+			new WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'price_bg_color', $section ),
+				[
+					'label'   => esc_html__( 'Price Background Color', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
 		);
 
 		// Introduced to make Selective Refresh have less code duplication

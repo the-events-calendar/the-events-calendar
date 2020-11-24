@@ -219,14 +219,10 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 */
 	protected function get_bulk_actions() {
 		return [
-				[
-						'id'   => 'delete',
-						'text' => 'Delete',
-				],
-			// array(
-			// 	'id' => 'import',
-			// 	'text' => 'Import Now',
-			// ),
+			[
+				'id'   => 'delete',
+				'text' => 'Delete',
+			],
 		];
 	}
 
@@ -393,12 +389,13 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 				__( 'Edit', 'the-events-calendar' )
 			);
 
-			$args               = [
-					'tab'    => $this->tab->get_slug(),
-					'action' => 'run-import',
-					'ids'    => absint( $post->ID ),
-					'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
+			$args = [
+				'tab'    => $this->tab->get_slug(),
+				'action' => 'run-import',
+				'ids'    => absint( $post->ID ),
+				'nonce'  => wp_create_nonce( 'aggregator_' . $this->tab->get_slug() . '_request' ),
 			];
+
 			$actions['run-now'] = sprintf(
 				'<a href="%1$s" title="%2$s">%3$s</a>',
 				Tribe__Events__Aggregator__Page::instance()->get_url( $args ),

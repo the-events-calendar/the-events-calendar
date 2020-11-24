@@ -328,12 +328,12 @@ class Tribe__Events__Aggregator__Page {
 	public function register_menu_item() {
 		$cpt      = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		$this->ID = add_submenu_page(
-				$this->get_url( [ 'page' => null ], true ),
-				esc_html( $this->get_page_title() ),
-				esc_html( $this->get_menu_label() ),
-				$cpt->cap->publish_posts,
-				self::$slug,
-				[ $this, 'render' ]
+			$this->get_url( [ 'page' => null ], true ),
+			esc_html( $this->get_page_title() ),
+			esc_html( $this->get_menu_label() ),
+			$cpt->cap->publish_posts,
+			self::$slug,
+			[ $this, 'render' ]
 		);
 
 		return $this->ID;
