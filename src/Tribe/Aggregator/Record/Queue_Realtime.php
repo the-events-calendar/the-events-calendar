@@ -111,10 +111,10 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	}
 
 	/**
-     * Action to reply every time a heart beat is executed to send the progress of EA if an EA record is present.
-     *
-	 * @param array<string, mixed> $response The current response object
-	 * @param array<string, mixed> $data An array with the data from the client.
+	 * Action to reply every time a heart beat is executed to send the progress of EA if an EA record is present.
+	 *
+	 * @param array<string, mixed> $response The current response object.
+	 * @param array<string, mixed> $data     An array with the data from the client.
 	 *
 	 * @return array<string, mixed> An array used to construct the heart beat response.
 	 */
@@ -125,7 +125,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 		$this->record_id = absint( $data['ea_record'] );
 
-		if ( $this->record_id === 0 ) {
+		if ( 0 === $this->record_id ) {
 			return $response;
 		}
 
@@ -144,13 +144,18 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * Handle queue ajax requests
 	 */
 	public function ajax() {
-	    _deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, 'TBD' );
 
-		$this->record_id = (int) $_POST['record'];
+		$this->record_id = (int) tribe_get_request_var( 'record' );
 
-		// Nonce check
-		$this->ajax_operations->verify_or_exit( $_POST['check'], $this->get_ajax_nonce_action(), $this->get_unable_to_continue_processing_data() );
-		$data = $this->get_queue_progress_data();
+		// Nonce check.
+		$this->ajax_operations->verify_or_exit(
+			tribe_get_request_var('check'),
+            $this->get_ajax_nonce_action(),
+            $this->get_unable_to_continue_processing_data()
+		);
+
+		$data      = $this->get_queue_progress_data();
 		$exit_data = empty( $data ) ? '' : wp_json_encode( $data );
 		$this->ajax_operations->exit_data( $exit_data );
 	}
@@ -212,7 +217,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	public function get_progress_message_data( $queue, $percentage, $done ) {
 		_deprecated_function( __METHOD__, 'TBD' );
 
-		return wp_json_encode( $this->get_progress_data($queue, $percentage, $done) );
+		return wp_json_encode( $this->get_progress_data( $queue, $percentage, $done ) );
 	}
 
 	/**
@@ -227,10 +232,10 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			return [];
 		}
 
-		// Load the queue
+		// Load the queue.
 		/** @var \Tribe__Events__Aggregator__Record__Queue_Interface $queue */
 		$queue = $this->queue ? $this->queue : Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this->record_id );
-		// We always need to setup the Current Queue
+		// We always need to setup the Current Queue.
 		$this->queue_processor->set_current_queue( $queue );
 
 		// Only if it's not empty that we care about processing.
