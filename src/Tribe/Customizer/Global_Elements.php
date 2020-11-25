@@ -1,5 +1,7 @@
 <?php
 // Don't load directly.
+use Tribe\Customizer\Controls\Heading;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -475,61 +477,36 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
-		
-		// $manager->add_setting(
-		// 	$customizer->get_setting_name( 'my_test', $section ),
-		// 	array(
-		// 		'default'              => '#334AFF',
-		// 		'type'                 => 'option',
 
-		// 		'sanitize_callback'    => 'sanitize_hex_color',
-		// 		'sanitize_js_callback' => 'maybe_hash_hex_color',
-		// 	)
-		// );
-		
-		// $manager->add_control(
-		// 	new Tribe__Customizer__Control(
-		// 		$manager,
-		// 		$customizer->get_setting_name( 'my_test', $section ),
-		// 		array(
-		// 			'label'   => esc_html__( 'My Test', 'the-events-calendar' ),
-		// 			'section' => $section->id,
-		// 			'description' => 'HELP ME',
-		// 			'extra' => 'Extra',
-		// 		)
-		// 	)
-		// );
-		
-		$manager->add_control(
-			new \Tribe\Customizer\Controls\Heading(
-				$manager,
-				'custom_id',
-				array(
-					'label'   => esc_html__( 'Custom Heading', 'the-events-calendar' ),
-					'section' => $section->id,
-				)
-			)
-		);
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control( new Heading(
+			$manager,
+			$customizer->get_setting_name( 'accent_color_heading', $section ),
+			[
+				'label'   => esc_html__( 'Accent color heading', 'the-events-calendar' ),
+				'section' => $section->id,
+			]
+		) );
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
-			array(
-				'default'              => '#334AFF',
-				'type'                 => 'option',
-
+			[
+				'default' => '#334AFF',
+				'type'    => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'accent_color', $section ),
-				array(
-					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
-					'section' => $section->id,
-				)
+				[
+					'label'       => esc_html__( 'Accent Color', 'the-events-calendar' ),
+					'description' => esc_html__( 'Accent color description', 'the-events-calendar' ),
+					'section'     => $section->id,
+				]
 			)
 		);
 
@@ -537,23 +514,33 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
-			array(
+			[
 				'default'              => $this->get_default( 'link_color' ),
 				'type'                 => 'option',
-
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
+
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control( new Heading(
+			$manager,
+			$customizer->get_setting_name( 'link_color_heading', $section ),
+			[
+				'label'   => esc_html__( 'Link color heading', 'the-events-calendar' ),
+				'section' => $section->id,
+			]
+		) );
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'link_color', $section ),
-				array(
-					'label'   => esc_html__( 'Link Color', 'the-events-calendar' ),
-					'section' => $section->id,
-				)
+				[
+					'label'       => esc_html__( 'Link Color', 'the-events-calendar' ),
+					'description' => esc_html__( 'Link color description', 'the-events-calendar' ),
+					'section'     => $section->id,
+				]
 			)
 		);
 
