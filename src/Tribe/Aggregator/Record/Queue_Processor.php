@@ -334,7 +334,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			$class = Tribe__Events__Aggregator__Record__Queue::class;
 		}
 		// If the current Queue is a cron Queue or a Batch Queue.
-		$is_batch_queue  = ( $class === Tribe__Events__Aggregator__Record__Queue::class || $class === Batch_Queue::class );
+		$is_batch_queue  = ( Tribe__Events__Aggregator__Record__Queue::class === $class || Batch_Queue::class === $class );
 		$use_batch_queue = ( $use_legacy || $is_batch_queue );
 		if (
 			$use_batch_queue
