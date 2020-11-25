@@ -51,6 +51,10 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 			return $service_supports_batch_push;
 		}
 
+		if ( 'async' === tribe_get_option( 'tribe_aggregator_import_process_system' ) ) {
+			return false;
+		}
+
 		if ( ! $abstract instanceof Tribe__Events__Aggregator__Record__Abstract ) {
 			return $service_supports_batch_push;
 		}
