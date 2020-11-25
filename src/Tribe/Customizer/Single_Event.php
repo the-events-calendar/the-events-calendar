@@ -1,5 +1,7 @@
 <?php
 // Don't load directly.
+use Tribe\Customizer\Controls\Heading;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -72,7 +74,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			'details_bg_color' => '#e5e5e5',
 		];
 
-		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'Options selected here will override what was selected in the General and Text sections.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' );
+		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'These settings control the appearance of the single event pages.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' );
 
 		$this->arguments = [
 			'priority'    => 60,
@@ -92,13 +94,25 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
+		
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'post_title_heading', $section ),
+				[
+					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'post_title_color', $section ),
 			[
-				'default' => $this->get_default( 'post_title_color' ),
-				'type'    => 'option',
 
+				'default'              => $this->get_default( 'post_title_color' ),
+				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
@@ -109,10 +123,21 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				$manager,
 				$customizer->get_setting_name( 'post_title_color', $section ),
 				[
-					'label'   => tribe_events_views_v2_is_enabled() ? esc_html__(
-						'Event Title Color',
-						'the-events-calendar'
-					) : esc_html__( 'Post Title Color', 'the-events-calendar' ),
+					'label'   => tribe_events_views_v2_is_enabled()
+						? esc_html__( 'Event Title Color', 'the-events-calendar' )
+						: esc_html__( 'Post Title Color', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
+		
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'details_bg_color_heading', $section ),
+				[
+					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
 					'section' => $section->id,
 				]
 			)
@@ -121,9 +146,8 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 		$manager->add_setting(
 			$customizer->get_setting_name( 'details_bg_color', $section ),
 			[
-				'default' => $this->get_default( 'details_bg_color' ),
-				'type'    => 'option',
-
+				'default'              => $this->get_default( 'details_bg_color' ),
+				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
@@ -134,8 +158,9 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				$manager,
 				$customizer->get_setting_name( 'details_bg_color', $section ),
 				[
-					'label'   => esc_html__( 'Details Background Color', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'       => esc_html__( 'Event Details Background Color', 'the-events-calendar' ),
+					'description' => esc_html__( 'For classic editor', 'the-events-calendar' ),
+					'section'     => $section->id,
 				]
 			)
 		);

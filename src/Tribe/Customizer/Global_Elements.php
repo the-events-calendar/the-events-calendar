@@ -1,5 +1,7 @@
 <?php
 // Don't load directly.
+use Tribe\Customizer\Controls\Heading;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -476,12 +478,23 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
 
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'accent_color_heading', $section ),
+				[
+					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
+
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
 			[
-				'default' => '#334AFF',
-				'type'    => 'option',
-
+				'default'              => '#334AFF',
+				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
@@ -503,12 +516,23 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
 			[
-				'default' => $this->get_default( 'link_color' ),
-				'type'    => 'option',
-
+				'default'              => $this->get_default( 'link_color' ),
+				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
+		);
+
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'link_color_heading', $section ),
+				[
+					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
 		);
 
 		$manager->add_control(
@@ -516,8 +540,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'link_color', $section ),
 				[
-					'label'   => esc_html__( 'Link Color', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'       => esc_html__( 'Links', 'the-events-calendar' ),
+					'description' => esc_html__( 'For displayed URLs', 'the-events-calendar' ),
+					'section'     => $section->id,
 				]
 			)
 		);
