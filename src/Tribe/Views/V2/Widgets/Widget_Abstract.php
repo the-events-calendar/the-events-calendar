@@ -72,6 +72,9 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		$this->set_view( $view );
 
 		$this->filter_enqueue_assets( $context, $view );
+
+		// Ensure widgets never get Filter Bar classes on their containers.
+		add_filter( "tribe_events_views_v2_filter_bar_{$this->view_slug}_view_html_classes", '__return_false' );
 	}
 
 	/**
