@@ -96,14 +96,16 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 		$customizer = Tribe__Customizer::instance();
 		
 		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
-		$manager->add_control( new Heading(
-			$manager,
-			$customizer->get_setting_name( 'post_title_heading', $section ),
-			[
-				'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
-				'section' => $section->id,
-			]
-		) );
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'post_title_heading', $section ),
+				[
+					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'post_title_color', $section ),
@@ -127,14 +129,16 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 		);
 		
 		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
-		$manager->add_control( new Heading(
-			$manager,
-			$customizer->get_setting_name( 'details_bg_color_heading', $section ),
-			[
-				'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
-				'section' => $section->id,
-			]
-		) );
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'details_bg_color_heading', $section ),
+				[
+					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'details_bg_color', $section ),
