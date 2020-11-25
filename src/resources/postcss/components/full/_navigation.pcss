@@ -8,12 +8,12 @@
 	 *   <ul class="tribe-events-c-nav__list">
 	 *     <li class="tribe-events-c-nav__list-item">
 	 *       <a href="#" class="tribe-events-c-nav__prev">
-	 *         <?php $this->template( 'components/icons/caret-alt-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
+	 *         <?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 	 *         Previous
 	 *       </a>
 	 *       <a href="#" class="tribe-events-c-nav__next">
 	 *         Next
-	 *         <?php $this->template( 'components/icons/caret-alt-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
+	 *         <?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	 *       </a>
 	 *     </li>
 	 *   </ul>
@@ -70,26 +70,6 @@
 
 	.tribe-events-c-nav__prev {
 
-		.tribe-events-c-nav__prev-icon-svg {
-			height: 12px;
-			margin-right: 8px;
-			width: 7px;
-			
-			path {
-				fill: var(--color-icon-active);
-			}
-
-			.tribe-common--breakpoint-medium& {
-				height: 15px;
-				margin-right: 15px;
-				width: 9px;
-				
-				path {
-					fill: var(--color-icon-primary);
-				}
-			}
-		}
-
 		&:hover,
 		&:focus {
 
@@ -116,28 +96,26 @@
 			}
 		}
 	}
+	
+	.tribe-events-c-nav__prev-icon-svg {
+		margin-right: 8px;
+		width: 7px;
+		
+		path {
+			fill: var(--color-icon-active);
+		}
 
-	.tribe-events-c-nav__next {
-
-		.tribe-events-c-nav__next-icon-svg {
-			height: 12px;
-			margin-left: 8px;
-			width: 7px;
+		.tribe-common--breakpoint-medium& {
+			margin-right: 15px;
+			width: 9px;
 			
 			path {
-				fill: var(--color-icon-active);
-			}
-
-			.tribe-common--breakpoint-medium& {
-				height: 15px;
-				margin-left: 15px;
-				width: 9px;
-				
-				path {
-					fill: var(--color-icon-primary);
-				}
+				fill: var(--color-icon-primary);
 			}
 		}
+	}
+
+	.tribe-events-c-nav__next {
 
 		&:hover,
 		&:focus {
@@ -162,6 +140,24 @@
 
 			.tribe-events-c-nav__next-icon-svg path {
 				fill: var(--color-icon-disabled);
+			}
+		}
+	}
+	
+	.tribe-events-c-nav__next-icon-svg {
+		margin-left: 8px;
+		width: 7px;
+		
+		path {
+			fill: var(--color-icon-active);
+		}
+
+		.tribe-common--breakpoint-medium& {
+			margin-left: 15px;
+			width: 9px;
+			
+			path {
+				fill: var(--color-icon-primary);
 			}
 		}
 	}

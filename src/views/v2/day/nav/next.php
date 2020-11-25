@@ -25,6 +25,6 @@
 		title="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
 	>
 		<?php esc_html_e( 'Next Day', 'the-events-calendar' ); ?>
-		<?php $this->template( 'components/icons/caret-alt-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	</a>
 </li>

@@ -22,12 +22,12 @@ class Widget_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function make_widget_v1() {
-		putenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED=0' );
+		putenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED=1' );
 
 	}
 
 	public function make_widget_v2() {
-		putenv( 'TRIBE_EVENTS_WIDGETS_V2_ENABLED=1' );
+		putenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED=0' );
 	}
 
 	/**

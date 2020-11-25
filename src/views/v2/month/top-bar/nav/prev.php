@@ -23,6 +23,6 @@
 		title="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		data-js="tribe-events-view-link"
 	>
-		<?php $this->template( 'components/icons/caret-alt-left', [ 'classes' => [ 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</a>
 </li>

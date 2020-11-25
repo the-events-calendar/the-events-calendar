@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package The Events Calendar
  * @subpackage Customizer
- * @since TBD
+ * @since 4.4
  */
 final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer__Section {
 	/**
@@ -33,7 +33,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$customizer = Tribe__Customizer::instance();
 		$settings   = $customizer->get_option( [ $this->ID ] );
 
-		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
+		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'accent_color' ) ) {
 
 			$accent_color     = new Tribe__Utils__Color( $settings['accent_color'] );
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
@@ -138,14 +138,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					background-color: ' . $accent_color_background . ';
 				}
 			';
-			
+
 			// Override svg icons color.
 			$template .= '
 				.tribe-common .tribe-common-c-svgicon {
 					color: <%= global_elements.accent_color %>;
 				}
 			';
-			
+
 			$template .= '
 				.tribe-common .tribe-events-virtual-virtual-event__icon-svg {
 					color: <%= global_elements.accent_color %>;
@@ -238,7 +238,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					background-color: <%= global_elements.accent_color %>;
 				}
 			';
-			
+
 			$template .= '
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event-datetime-featured-text {
 					color: <%= global_elements.accent_color %>;
