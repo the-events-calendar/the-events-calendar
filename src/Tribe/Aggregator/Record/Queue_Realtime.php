@@ -35,7 +35,8 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	) {
 		tribe_notice( 'aggregator-update-msg', array( $this, 'render_update_message' ), 'type=warning&dismiss=0' );
 
-		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array( $this, 'ajax' ) );
+		add_filter( 'heartbeat_received', [ $this, 'receive_heartbeat' ], 10, 2 );
+
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations;
 		$this->queue_processor = $queue_processor ? $queue_processor : tribe( 'events-aggregator.main' )->queue_processor;
@@ -110,35 +111,48 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	}
 
 	/**
+     * Action to reply every time a heart beat is executed to send the progress of EA if an EA record is present.
+     *
+	 * @param array<string, mixed> $response The current response object
+	 * @param array<string, mixed> $data An array with the data from the client.
+	 *
+	 * @return array<string, mixed> An array used to construct the heart beat response.
+	 */
+	public function receive_heartbeat( array $response, array $data ) {
+		if ( empty( $data['ea_record'] ) ) {
+			return $response;
+		}
+
+		$this->record_id = absint( $data['ea_record'] );
+
+		if ( $this->record_id === 0 ) {
+			return $response;
+		}
+
+		$data = $this->get_queue_progress_data();
+
+		if ( empty( $data ) ) {
+			return $response;
+		}
+
+		$response['ea_progress'] = $data;
+
+		return $response;
+	}
+
+	/**
 	 * Handle queue ajax requests
 	 */
 	public function ajax() {
+	    _deprecated_function( __METHOD__, 'TBD' );
+
 		$this->record_id = (int) $_POST['record'];
 
 		// Nonce check
 		$this->ajax_operations->verify_or_exit( $_POST['check'], $this->get_ajax_nonce_action(), $this->get_unable_to_continue_processing_data() );
-
-		// Load the queue
-		/** @var \Tribe__Events__Aggregator__Record__Queue_Interface $queue */
-		$queue = $this->queue ? $this->queue : Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this->record_id );
-		// We always need to setup the Current Queue
-		$this->queue_processor->set_current_queue( $queue );
-
-		// Only if it's not empty that we care about processing.
-		if ( ! $queue->is_empty() ) {
-			$this->queue_processor->process_batch( $this->record_id );
-		}
-
-		/**
-		 * Include current queue to prevent progress bar from sticking on csv imports
-		 *
-		 * @var \Tribe__Events__Aggregator__Record__Queue_Interface $current_queue
-		 */
-		$current_queue = $this->queue_processor->current_queue;
-		$done          = $current_queue->is_empty() && empty( $current_queue->is_fetching() );
-
-		$percentage = $current_queue->progress_percentage();
-		$this->ajax_operations->exit_data( $this->get_progress_message_data( $current_queue, $percentage, $done ) );
+		$data = $this->get_queue_progress_data();
+		$exit_data = empty( $data ) ? '' : wp_json_encode( $data );
+		$this->ajax_operations->exit_data( $exit_data );
 	}
 
 	/**
@@ -196,6 +210,59 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * @return mixed|string|void
 	 */
 	public function get_progress_message_data( $queue, $percentage, $done ) {
+		_deprecated_function( __METHOD__, 'TBD' );
+
+		return wp_json_encode( $this->get_progress_data($queue, $percentage, $done) );
+	}
+
+	/**
+	 * Get the data that is used to construct the current status of the EA progress bar.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, mixed> An array with the details of the progress bar.
+	 */
+	private function get_queue_progress_data() {
+		if ( $this->record_id <= 0 ) {
+			return [];
+		}
+
+		// Load the queue
+		/** @var \Tribe__Events__Aggregator__Record__Queue_Interface $queue */
+		$queue = $this->queue ? $this->queue : Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this->record_id );
+		// We always need to setup the Current Queue
+		$this->queue_processor->set_current_queue( $queue );
+
+		// Only if it's not empty that we care about processing.
+		if ( ! $queue->is_empty() ) {
+			$this->queue_processor->process_batch( $this->record_id );
+		}
+
+		/**
+		 * Include current queue to prevent progress bar from sticking on csv imports
+		 *
+		 * @var \Tribe__Events__Aggregator__Record__Queue_Interface $current_queue
+		 */
+		$current_queue = $this->queue_processor->current_queue;
+		$done          = $current_queue->is_empty() && empty( $current_queue->is_fetching() );
+
+		$percentage = $current_queue->progress_percentage();
+
+		return $this->get_progress_data( $current_queue, $percentage, $done );
+	}
+
+	/**
+	 * Get the current Queue status for EA to consume the status of the progress bar.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Events__Aggregator__Record__Queue_Interface $queue      The Queue being processed.
+	 * @param int                                                $percentage The amount of the percentage.
+	 * @param bool                                               $done       If the Import was completed or not.
+	 *
+	 * @return array<string, mixed> Get an array with the details of the current Queue.
+	 */
+	private function get_progress_data( $queue, $percentage, $done ) {
 		$queue_type = $queue->get_queue_type();
 
 		$is_event_queue = $queue_type === Tribe__Events__Main::POSTTYPE;
@@ -231,6 +298,6 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			$data['complete_text'] = '<p>' . implode( ' ', $messages['success'] ) . '</p>';
 		}
 
-		return json_encode( $data );
+		return $data;
 	}
 }

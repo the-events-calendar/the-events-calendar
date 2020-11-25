@@ -1075,15 +1075,33 @@ tribe_aggregator.fields = {
 		obj.progress.$.bar       = obj.progress.$.notice.find( '.bar' );
 		obj.progress.data.time   = Date.now();
 
+		if ( typeof wp !== 'undefined' && wp.heartbeat ) {
+			wp.heartbeat.interval( 15 );
+		}
+
 		setTimeout( obj.progress.start );
 	};
 
-	obj.progress.start = function() {
-		obj.progress.send_request();
-		obj.progress.update( tribe_aggregator_save.progress, tribe_aggregator_save.progressText );
+	obj.progress.start = function () {
+		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
 	};
 
-	obj.progress.increment = 0;
+	obj.progress.continue = true;
+	$(document).on('heartbeat-send', function (event, data) {
+		if ( obj.progress.continue ) {
+			data.ea_record = tribe_aggregator_save.record_id;
+		}
+	});
+
+	$(document).on('heartbeat-tick', function (event, data) {
+		// Check for our data, and use it.
+		if (!data.ea_progress) {
+			return;
+		}
+
+		obj.progress.handle_response(data.ea_progress);
+	});
+
 	obj.progress.handle_response = function( data ) {
 
 		if ( data.html ) {
@@ -1094,25 +1112,7 @@ tribe_aggregator.fields = {
 			obj.progress.update( data );
 		}
 
-		if ( data.continue ) {
-			setTimeout( obj.progress.send_request, obj.progress.increment  );
-			/**
-			 * If a subsequent call is made to the progress bar prevent to create a linear set of calls as the call is
-			 * primarily made to check the current status of the import, having a check made in a linear way if the tab
-			 * is open will create a large number of calls to thw wo-admin/ajax.php consuming a large set of resources
-			 * on each call.
-			 *
-			 * Instead by doing an increment of 50 to the current value this would decrease the time between each call
-			 * if more calls are happening as the time progress as the next time would take more time to be executed,
-			 * for instance this is an example in how the delay between each call would take place.
-			 *
-			 * [0, 50, 100, 150, 200, 250, 300, 350, 400, 500]
-			 *
-			 * As described the next call to review the progress of the import would take longer to complete preventing
-			 * to create a large number of calls against the site.
-			 */
-			obj.progress.increment += 50;
-		}
+		obj.progress.continue = data.continue;
 
 		if ( data.error ) {
 			obj.progress.$.notice.find( '.tribe-message' ).html( data.error_text );
@@ -1125,15 +1125,6 @@ tribe_aggregator.fields = {
 			obj.progress.$.notice.find( '.progress-container' ).remove();
 			obj.progress.$.notice.removeClass( 'warning' ).addClass( 'completed' );
 		}
-	};
-
-	obj.progress.send_request = function() {
-		var payload = {
-			record:  tribe_aggregator_save.record_id,
-			check:  tribe_aggregator_save.check,
-			action: 'tribe_aggregator_realtime_update'
-		};
-		$.post( ajaxurl, payload, obj.progress.handle_response, 'json' );
 	};
 
 	obj.progress.update = function( data ) {
