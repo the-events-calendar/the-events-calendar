@@ -476,36 +476,12 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
 		
-		// $manager->add_setting(
-		// 	$customizer->get_setting_name( 'my_test', $section ),
-		// 	array(
-		// 		'default'              => '#334AFF',
-		// 		'type'                 => 'option',
-
-		// 		'sanitize_callback'    => 'sanitize_hex_color',
-		// 		'sanitize_js_callback' => 'maybe_hash_hex_color',
-		// 	)
-		// );
-		
-		// $manager->add_control(
-		// 	new Tribe__Customizer__Control(
-		// 		$manager,
-		// 		$customizer->get_setting_name( 'my_test', $section ),
-		// 		array(
-		// 			'label'   => esc_html__( 'My Test', 'the-events-calendar' ),
-		// 			'section' => $section->id,
-		// 			'description' => 'HELP ME',
-		// 			'extra' => 'Extra',
-		// 		)
-		// 	)
-		// );
-		
 		$manager->add_control(
 			new \Tribe\Customizer\Controls\Heading(
 				$manager,
-				'custom_id',
+				$customizer->get_setting_name( 'set_font_colors', $section ),
 				array(
-					'label'   => esc_html__( 'Custom Heading', 'the-events-calendar' ),
+					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 					'section' => $section->id,
 				)
 			)
@@ -534,6 +510,17 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		);
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
+		
+		$manager->add_control(
+			new \Tribe\Customizer\Controls\Heading(
+				$manager,
+				$customizer->get_setting_name( 'adjust_appearance', $section ),
+				array(
+					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section' => $section->id,
+				)
+			)
+		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
@@ -551,7 +538,8 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'link_color', $section ),
 				array(
-					'label'   => esc_html__( 'Link Color', 'the-events-calendar' ),
+					'label'   		=> esc_html__( 'Links', 'the-events-calendar' ),
+					'description'	=> esc_html__( 'For displayed URLs', 'the-events-calendar'),
 					'section' => $section->id,
 				)
 			)
