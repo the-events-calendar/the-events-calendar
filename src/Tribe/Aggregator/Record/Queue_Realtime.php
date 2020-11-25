@@ -150,9 +150,9 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 		// Nonce check.
 		$this->ajax_operations->verify_or_exit(
-			tribe_get_request_var('check'),
-            $this->get_ajax_nonce_action(),
-            $this->get_unable_to_continue_processing_data()
+			tribe_get_request_var( 'check' ),
+			$this->get_ajax_nonce_action(),
+			$this->get_unable_to_continue_processing_data()
 		);
 
 		$data      = $this->get_queue_progress_data();
