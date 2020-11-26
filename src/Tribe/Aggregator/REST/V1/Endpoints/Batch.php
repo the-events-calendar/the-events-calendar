@@ -2,6 +2,7 @@
 
 use Tribe__Events__Aggregator__Record__Abstract as Record_Abstract;
 use Tribe__Events__Aggregator__Record__Queue as Record_Queue;
+use Tribe__Events__Aggregator__Records as Records;
 
 /**
  * Class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
@@ -45,14 +46,14 @@ class Tribe__Events__Aggregator__REST__V1__Endpoints__Batch
 	 * @return int|WP_Error|WP_REST_Response
 	 */
 	public function create( WP_REST_Request $request, $return_id = false ) {
-		/** @var Tribe__Events__Aggregator__Records $records */
+		/** @var Records $records */
 		$records = tribe( 'events-aggregator.records' );
 
 		/** @var Record_Abstract $record */
 		$record = $records->get_by_import_id(
 			$request['import_id'],
 			// Make sure to only select pending records to be processed.
-			[ 'post_status' => Tribe__Events__Aggregator__Records::$status->pending ]
+			[ 'post_status' => Records::$status->pending ]
 		);
 
 		if ( empty( $record->meta['post_status'] ) ) {

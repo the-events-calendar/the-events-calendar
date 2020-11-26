@@ -39,7 +39,7 @@ $view_selector_classes = [
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $view_label ); ?>
 			</span>
-			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-caret-svg' ] ] ); ?>
 		</button>
 		<?php $this->template( 'components/events-bar/views/list' ); ?>
 	</div>

@@ -1551,12 +1551,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
 				$event['Venue']['Venue'] = trim( $event['Venue']['Venue'] );
 
-				if ( ! empty( $item->venue->global_id ) || in_array( $this->origin, [
-						'ics',
-						'csv',
-						'gcal',
-						'ical',
-					] ) ) {
+				$is_valid_origin = in_array( $this->origin, [ 'ics', 'csv', 'gcal', 'ical' ], true );
+				if ( ! empty( $item->venue->global_id ) || $is_valid_origin ) {
 					// Pre-set for ICS based imports
 					$venue = false;
 					if ( ! empty( $item->venue->global_id ) ) {
@@ -2059,10 +2055,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			do_action( 'tribe_aggregator_after_insert_post', $event, $item, $this );
 		}
 
-		remove_filter( 'tribe-post-origin', [
-			Tribe__Events__Aggregator__Records::instance(),
-			'filter_post_origin',
-		], 10 );
+		remove_filter(
+			'tribe-post-origin',
+			[
+				Tribe__Events__Aggregator__Records::instance(),
+				'filter_post_origin',
+			],
+			10
+		);
 
 		/**
 		 * Fires after events and linked posts have been inserted in the database.

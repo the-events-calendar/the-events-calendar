@@ -5,7 +5,6 @@ namespace Tribe\Events\Aggregator\Processes;
 
 
 use Codeception\TestCase\WPTestCase;
-use Tribe__Events__Aggregator__Processes__Batch_Imports;
 use Tribe__Events__Aggregator__Record__gCal;
 use Tribe__Events__Aggregator__Records;
 
@@ -18,7 +17,7 @@ class Batch_imports_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_build_a_url_for_the_new_ea_import( $url, $endpoint, $expected ) {
-		$imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
+		$imports = new Batch_Imports();
 		$api     = (object) [
 			'key'      => 'Random Key',
 			'version'  => 'v1',
@@ -44,7 +43,7 @@ class Batch_imports_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_return_if_batch_pushing_is_already_marked_as_false() {
-		$imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
+		$imports = new Batch_Imports();
 
 		$this->assertFalse( $imports->allow_batch_import( false, $this->create_record() ) );
 	}
@@ -55,7 +54,7 @@ class Batch_imports_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_return_early_if_the_record_is_invalid() {
-		$imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
+		$imports = new Batch_Imports();
 
 		$this->assertTrue( $imports->allow_batch_import( true, null ) );
 	}
@@ -66,7 +65,7 @@ class Batch_imports_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_return_early_if_the_record_does_not_have_a_parent_record() {
-		$imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
+		$imports = new Batch_Imports();
 
 		$this->assertTrue( $imports->allow_batch_import( true, $this->create_record() ) );
 	}
@@ -77,7 +76,7 @@ class Batch_imports_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_return_false_if_the_parent_does_not_support_batch_pushing() {
-		$imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
+		$imports = new Batch_Imports();
 		$parent  = $record = $this->create_record();
 		$record  = $this->create_record( [ 'parent' => $parent->post->ID ] );
 
@@ -90,7 +89,7 @@ class Batch_imports_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_return_true_only_if_the_parent_has_support_for_batch_pushing() {
-		$imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
+		$imports = new Batch_Imports();
 		$parent  = $record = $this->create_record();
 		$parent->update_meta( 'allow_batch_push', true );
 		$record = $this->create_record( [ 'parent' => $parent->post->ID ] );
