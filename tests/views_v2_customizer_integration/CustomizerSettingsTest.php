@@ -37,14 +37,21 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'pre_option_tribe_customizer', static function () use ( $settings ) {
 			return $settings;
 		}, PHP_INT_MAX );
+		// All sheets should count as enqueued.
+		add_filter( 'tribe_customizer_inline_stylesheets', static function ( array $sheets ) use ( &$all_sheets ) {
+			global $wp_scripts;
+			foreach ( $sheets as $sheet ) {
+				if ( ! isset( $wp_scripts[ $sheet ] ) ) {
+					$wp_scripts->registered[ $sheet ] = true;
+				}
+			}
+		}, PHP_INT_MAX );
 
 		/** @var Customizer $customizer */
 		$customizer       = tribe( 'customizer' );
 		$styles_collector = function ( string $sheet, string $inline_style ) {
 			$this->collected_inline_styles[ $sheet ] = $inline_style;
 		};
-		// All sheets should count as enqueued.
-		uopz_set_return( 'wp_style_is', true );
 		add_action( 'tribe_customizer_before_inline_style', $styles_collector, 100, 2 );
 		$customizer->inline_style( $force = true );
 		remove_action( 'tribe_customizer_before_inline_style', $styles_collector, 100 );
