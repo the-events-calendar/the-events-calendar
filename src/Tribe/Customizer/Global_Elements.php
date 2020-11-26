@@ -388,6 +388,18 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					background-color: <%= global_elements.background_color %>;
 				}
 			';
+			
+			$template .= '
+				.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-start:before {
+					background: linear-gradient(-90deg, transparent 15%, <%= global_elements.background_color %> 70%);
+				}
+			';
+			
+			$template .= '
+				.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-end:after {
+					background: linear-gradient(90deg, transparent 15%, <%= global_elements.background_color %> 70%);
+				}
+			';
 		}
 
 		if ( tribe_events_views_v2_is_enabled() ) {
