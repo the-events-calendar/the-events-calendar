@@ -45,8 +45,16 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 
 		if ( $customizer->has_option( $this->ID, 'post_title_color' ) ) {
 			$template .= '
-				.tribe-events-single-event-title {
+				.single-tribe_events .tribe-events-single-event-title {
 					color: <%= single_event.post_title_color %>;
+				}
+			';
+		}
+		
+		if ( $customizer->has_option( $this->ID, 'post_date_time_color' ) ) {
+			$template .= '
+				.single-tribe_events .tribe-events-schedule h2 {
+					color: <%= single_event.post_date_time_color %>;
 				}
 			';
 		}
@@ -70,8 +78,9 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 
 	public function setup() {
 		$this->defaults = array(
-			'post_title_color' => '#333',
-			'details_bg_color' => '#e5e5e5',
+			'post_title_color'     => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
+			'post_date_time_color' => '#141827',
+			'details_bg_color'     => '#e5e5e5',
 		);
 
 		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'These settings control the appearance of the single event pages.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' );
