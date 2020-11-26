@@ -401,6 +401,55 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 		}
+		
+		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'event_title' ) ) {
+			$template .= '
+				.single-tribe_events .tribe-events-single-event-title,
+				.tribe-events-view .tribe-events-calendar-list__event-title,
+				.tribe-events-view a.tribe-events-calendar-list__event-title-link,
+				.tribe-events-view .tribe-events-calendar-month__calendar-event-title,
+				.tribe-events-view a.tribe-events-calendar-month__calendar-event-title-link,
+				.tribe-events-view .tribe-events-calendar-month__multiday-event-bar-title,
+				.tribe-common .tribe-events-calendar-month__calendar-event-tooltip-title,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
+				.tribe-events-view .tribe-events-calendar-day__event-title,
+				.tribe-common a.tribe-events-calendar-day__event-title-link,
+				.tribe-common .tribe-events-calendar-day__event-title-link:hover,
+				.tribe-common .tribe-events-calendar-day__event-title-link:focus,
+				.tribe-events-view .tribe-events-pro-photo__event-title,
+				.tribe-events-view a.tribe-events-pro-photo__event-title-link,
+				.tribe-events-view .tribe-events-pro-map__event-title,
+				.tribe-events-view a.tribe-events-pro-map__event-title-link,
+				.tribe-common .tribe-events-pro-map__event-tooltip-title,
+				.tribe-common a.tribe-events-pro-map__event-tooltip-title-link,
+				.tribe-events-view .tribe-events-pro-week-grid__event-title,
+				.tribe-events-view .tribe-events-pro-week-grid__event-title-link,
+				.tribe-common .tribe-events-pro-week-grid__event-tooltip-title,
+				.tribe-common a.tribe-events-pro-week-grid__event-tooltip-title-link,
+				.tribe-events-view .tribe-events-pro-week-grid__multiday-event-bar-title {
+					color: <%= global_elements.event_title %>;
+				}
+			';
+			
+			$template .= '
+				.tribe-common .tribe-events-calendar-list__event-title-link:hover,
+				.tribe-common .tribe-events-calendar-list__event-title-link:focus,
+				.tribe-common .tribe-events-calendar-month__calendar-event-title-link:hover,
+				.tribe-common .tribe-events-calendar-month__calendar-event-title-link:focus,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
+				.tribe-common .tribe-events-calendar-day__event-title-link:hover,
+				.tribe-common .tribe-events-calendar-day__event-title-link:focus,
+				.tribe-common .tribe-events-pro-photo__event-title-link:hover,
+				.tribe-common .tribe-events-pro-photo__event-title-link:focus,
+				.tribe-common a.tribe-events-pro-map__event-tooltip-title-link:hover,
+				.tribe-common a.tribe-events-pro-map__event-tooltip-title-link:focus {
+					border-color: <%= global_elements.event_title %>;
+				}
+			';
+		}
 
 		if ( tribe_events_views_v2_is_enabled() ) {
 			return $template;
@@ -479,6 +528,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$this->defaults = [
 			'link_color'           => '#141827',
 			// 'background_color'     => '#e9e4f0', // TODO: use customizer setting
+			'event_title'     => 'red', // TODO: use customizer setting
 		];
 
 		$this->arguments = array(
