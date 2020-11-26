@@ -94,7 +94,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	}
 
 	/**
-	 * GEt the activity if a call to a dynamic attribute is taking place in this case `$this->>activity`
+	 * Get the activity if a call to a dynamic attribute is taking place in this case `$this->>activity`
 	 *
 	 * @since TBD
 	 *
