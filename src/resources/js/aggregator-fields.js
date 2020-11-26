@@ -1075,7 +1075,9 @@ tribe_aggregator.fields = {
 		obj.progress.$.bar       = obj.progress.$.notice.find( '.bar' );
 		obj.progress.data.time   = Date.now();
 
-		if ( typeof wp !== 'undefined' && wp.heartbeat ) {
+		obj.progress.hasHeartBeat = typeof wp !== 'undefined' && wp.heartbeat;
+
+		if ( obj.progress.hasHeartBeat ) {
 			wp.heartbeat.interval( 15 );
 		}
 
@@ -1084,6 +1086,9 @@ tribe_aggregator.fields = {
 
 	obj.progress.start = function () {
 		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
+		if ( ! obj.progress.hasHeartBeat ) {
+			obj.progress.send_request();
+		}
 	};
 
 	obj.progress.continue = true;
@@ -1113,6 +1118,9 @@ tribe_aggregator.fields = {
 		}
 
 		obj.progress.continue = data.continue;
+		if (data.continue && !obj.progress.hasHeartBeat) {
+			setTimeout(obj.progress.send_request, 15000);
+		}
 
 		if ( data.error ) {
 			obj.progress.$.notice.find( '.tribe-message' ).html( data.error_text );
@@ -1125,6 +1133,15 @@ tribe_aggregator.fields = {
 			obj.progress.$.notice.find( '.progress-container' ).remove();
 			obj.progress.$.notice.removeClass( 'warning' ).addClass( 'completed' );
 		}
+	};
+
+	obj.progress.send_request = function() {
+		var payload = {
+			record:  tribe_aggregator_save.record_id,
+			check:  tribe_aggregator_save.check,
+			action: 'tribe_aggregator_realtime_update'
+		};
+		$.post( ajaxurl, payload, obj.progress.handle_response, 'json' );
 	};
 
 	obj.progress.update = function( data ) {
