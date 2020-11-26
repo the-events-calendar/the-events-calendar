@@ -38,13 +38,16 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 			return $settings;
 		}, PHP_INT_MAX );
 		// All sheets should count as enqueued.
-		add_filter( 'tribe_customizer_inline_stylesheets', static function ( array $sheets ) use ( &$all_sheets ) {
-			global $wp_scripts;
+		add_filter( 'tribe_customizer_inline_stylesheets', static function ( array $sheets ) {
+			global $wp_styles;
 			foreach ( $sheets as $sheet ) {
-				if ( ! isset( $wp_scripts[ $sheet ] ) ) {
-					$wp_scripts->registered[ $sheet ] = true;
+				if ( ! isset( $wp_styles->registered[ $sheet ] ) ) {
+					$wp_styles->registered[ $sheet ] = new _WP_Dependency( $sheet, __FILE__, [], '1.0.0', [] );
+					$wp_styles->queue[]              = $sheet;
 				}
 			}
+
+			return $sheets;
 		}, PHP_INT_MAX );
 
 		/** @var Customizer $customizer */
