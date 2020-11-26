@@ -10,15 +10,15 @@ namespace Tribe\Events\Aggregator\Record;
 use DateTime;
 use DateTimeZone;
 use Exception;
-use Tribe__Date_Utils;
+use Tribe__Date_Utils as Dates;
 use Tribe__Events__Aggregator__Record__Abstract;
 use Tribe__Events__Aggregator__Record__Activity;
 use Tribe__Events__Aggregator__Record__Queue;
 use Tribe__Events__Aggregator__Record__Queue_Cleaner;
 use Tribe__Events__Aggregator__Record__Queue_Interface;
-use Tribe__Events__Aggregator__Records;
+use Tribe__Events__Aggregator__Records as Records;
 use Tribe__Events__Aggregator__Service;
-use Tribe__Events__Main;
+use Tribe__Events__Main as TEC;
 use WP_Error;
 use WP_Post;
 
@@ -71,7 +71,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 */
 	public function __construct( $record, Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		if ( is_numeric( $record ) ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
+			$record = Records::instance()->get_by_post_id( $record );
 		}
 
 		if ( ! is_object( $record ) || ! $record instanceof \Tribe__Events__Aggregator__Record__Abstract ) {
@@ -182,7 +182,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 		$args = [
 			'ID'            => $this->record->post->ID,
 			'post_modified' => $this->now(),
-			'post_status'   => Tribe__Events__Aggregator__Records::$status->success,
+			'post_status'   => Records::$status->success,
 		];
 
 		wp_update_post( $args );
@@ -212,7 +212,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 
 			$this->record->update_meta(
 				'batch_started',
-				$now->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
+				$now->format( Dates::DBDATETIMEFORMAT )
 			);
 			$this->record->update_meta( Tribe__Events__Aggregator__Record__Queue::$queue_key, 'fetch' );
 			$this->record->set_status_as_pending();
@@ -236,7 +236,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 * @return DateTime|false|\Tribe\Utils\Date_I18n
 	 */
 	private function now() {
-		return Tribe__Date_Utils::build_date_object( 'now', new DateTimeZone( 'UTC' ) );
+		return Dates::build_date_object( 'now', new DateTimeZone( 'UTC' ) );
 	}
 
 	/**
@@ -275,7 +275,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 		$body = [
 			'batch_size'       => apply_filters( 'event_aggregator_event_batch_size', 10 ),
 			'batch_interval'   => apply_filters( 'event_aggregator_event_batch_interval', 10 ),
-			'tec_version'      => Tribe__Events__Main::VERSION,
+			'tec_version'      => TEC::VERSION,
 			'next_import_hash' => $this->record->meta['next_batch_hash'],
 			'api'              => get_rest_url( get_current_blog_id(), 'tribe/event-aggregator/v1' ),
 		];
@@ -314,7 +314,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 		}
 
 		$total = (int) $this->record->meta['total_events'];
-		$done = (int) $this->record->activity()->count( Tribe__Events__Main::POSTTYPE );
+		$done = (int) $this->record->activity()->count( TEC::POSTTYPE );
 
 		if ( 0 === $total ) {
 			return 100;
@@ -362,7 +362,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 			return false;
 		}
 
-		return $this->record->post->post_status === Tribe__Events__Aggregator__Records::$status->pending;
+		return $this->record->post->post_status === Records::$status->pending;
 	}
 
 	/**
@@ -373,7 +373,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 * @return string
 	 */
 	public function get_queue_type() {
-		$item_type = Tribe__Events__Main::POSTTYPE;
+		$item_type = TEC::POSTTYPE;
 
 		if ( ! empty( $this->record->origin ) && 'csv' === $this->record->origin ) {
 			$item_type = $this->record->meta['content_type'];
