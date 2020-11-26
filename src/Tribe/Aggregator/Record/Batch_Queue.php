@@ -22,9 +22,6 @@ use Tribe__Events__Main;
 use WP_Error;
 use WP_Post;
 
-// Prevent to access the file directly.
-defined( 'WPINC' ) || die;
-
 /**
  * Class Tribe__Events__Aggregator__Record__Batch_Queue - New Queue system to process imports crated with the new
  * batch system.
@@ -181,21 +178,14 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 * @return $this
 	 */
 	protected function complete() {
-		try {
-			// Updates the Modified time for the Record Log.
-			$args = [
-				'ID'            => $this->record->post->ID,
-				'post_modified' => ( new DateTime( 'now', new DateTimeZone( 'UTC' ) ) )->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
-				'post_status'   => Tribe__Events__Aggregator__Records::$status->success,
-			];
-			wp_update_post( $args );
-		} catch ( Exception $e ) {
-			do_action( 'tribe_log', 'debug', __METHOD__, [
-				'message'   => $e->getMessage(),
-				'record'    => $this->record,
-				'exception' => $e,
-			] );
-		}
+		// Updates the Modified time for the Record Log.
+		$args = [
+			'ID'            => $this->record->post->ID,
+			'post_modified' => $this->now(),
+			'post_status'   => Tribe__Events__Aggregator__Records::$status->success,
+		];
+
+		wp_update_post( $args );
 
 		return $this;
 	}
@@ -214,7 +204,12 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	public function process( $batch_size = null ) {
 		// This batch has not started yet, make sure to initiate this import.
 		if ( empty( $this->record->meta['batch_started'] ) ) {
-			$now = new DateTime( 'now', new DateTimeZone( 'UTC' ) );
+			$now = $this->now();
+
+			if ( ! $now instanceof DateTime ) {
+				return $this;
+			}
+
 			$this->record->update_meta(
 				'batch_started',
 				$now->format( Tribe__Date_Utils::DBDATETIMEFORMAT )
@@ -231,6 +226,17 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 		}
 
 		return $this->activity();
+	}
+
+	/**
+	 * Get the current date time using UTC as the time zone.
+	 *
+	 * @since TBD
+	 *
+	 * @return DateTime|false|\Tribe\Utils\Date_I18n
+	 */
+	private function now() {
+		return Tribe__Date_Utils::build_date_object( 'now', new DateTimeZone( 'UTC' ) );
 	}
 
 	/**
