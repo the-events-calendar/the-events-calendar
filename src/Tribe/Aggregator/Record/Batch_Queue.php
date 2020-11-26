@@ -144,7 +144,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	}
 
 	/**
-	 * Shortcut to check how many items are going to be processed next
+	 * Shortcut to check how many items are going to be processed next.
 	 *
 	 * @since TBD
 	 *
