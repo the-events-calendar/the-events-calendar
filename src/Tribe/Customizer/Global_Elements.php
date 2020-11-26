@@ -380,6 +380,15 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			';
 		}
 
+		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'background_color' ) ) {
+			$template .= '
+				.tribe-common.tribe-events-view,
+				.tribe-events-page-template,
+				.single-tribe_organizer {
+					background-color: <%= global_elements.background_color %>;
+				}
+			';
+		}
 
 		if ( tribe_events_views_v2_is_enabled() ) {
 			return $template;
@@ -457,6 +466,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$this->defaults = [
 			'link_color'           => '#141827',
+			// 'background_color'     => '#e9e4f0', // TODO: use customizer setting
 		];
 
 		$this->arguments = array(
