@@ -1,5 +1,6 @@
 <?php
 
+use Tribe__Events__Aggregator__Records as Records;
 
 class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
@@ -37,7 +38,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 
-		$pending_status = Tribe__Events__Aggregator__Records::$status->pending;
+		$pending_status = Records::$status->pending;
 
 		$query = $wpdb->prepare( "SELECT ID
 			FROM {$wpdb->postmeta} pm
@@ -47,7 +48,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 			AND p.post_status = %s
 			AND pm.meta_key = '_tribe_aggregator_import_id'
 			AND pm.meta_value = %s
-			ORDER BY p.post_modified_gmt DESC", Tribe__Events__Aggregator__Records::$post_type, $pending_status, $import_id );
+			ORDER BY p.post_modified_gmt DESC", Records::$post_type, $pending_status, $import_id );
 
 		/**
 		 * Filters the query to find duplicate pending import records in respect to an
@@ -89,8 +90,8 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 * @return bool If the record status has been set to failed or not.
 	 */
 	public function maybe_fail_stalled_record( Tribe__Events__Aggregator__Record__Abstract $record ) {
-		$pending = Tribe__Events__Aggregator__Records::$status->pending;
-		$failed  = Tribe__Events__Aggregator__Records::$status->failed;
+		$pending = Records::$status->pending;
+		$failed  = Records::$status->failed;
 
 		$post_status = $record->post->post_status;
 
@@ -116,7 +117,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
 		if ( $pending_for > $this->get_stall_limit() || $since_creation > $this->get_time_to_live() ) {
 			tribe( 'logger' )->log_debug( "Record {$record->id} has stalled for too long: deleting it and its queue information", 'Queue_Cleaner' );
-			$failed = Tribe__Events__Aggregator__Records::$status->failed;
+			$failed = Records::$status->failed;
 			wp_update_post( [ 'ID' => $id, 'post_status' => $failed ] );
 			delete_post_meta( $id, '_tribe_aggregator_queue' );
 			Tribe__Post_Transient::instance()->delete( $id, '_tribe_aggregator_queue' );

@@ -1,21 +1,26 @@
 <?php
 
+namespace Tribe\Events\Aggregator\Processes;
+
+use stdClass;
 use Tribe__Events__Aggregator__Record__Abstract as Record_Abstract;
+use Tribe__Events__Aggregator__Service;
+use WP_Post;
 
 /**
- * Class Tribe__Events__Aggregator__Processes__Batch_Imports
+ * Class Batch_Imports
  *
  * @since TBD
  */
 
 /**
- * Class Tribe__Events__Aggregator__Processes__Batch_Imports
+ * Class Batch_Imports
  *
  * Add custom hooks in order to support batch pushing.
  *
  * @since TBD
  */
-class Tribe__Events__Aggregator__Processes__Batch_Imports {
+class Batch_Imports {
 	/**
 	 * Update the endpoint used to initiate a process an import of events.
 	 *
@@ -51,7 +56,7 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 			return $service_supports_batch_push;
 		}
 
-		if ( ! $abstract instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+		if ( ! $abstract instanceof Record_Abstract ) {
 			return $service_supports_batch_push;
 		}
 
@@ -69,7 +74,7 @@ class Tribe__Events__Aggregator__Processes__Batch_Imports {
 
 		$allow_batch_pushing = get_post_meta(
 			$parent_id,
-			Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'allow_batch_push',
+			Record_Abstract::$meta_key_prefix . 'allow_batch_push',
 			true
 		);
 
