@@ -129,18 +129,10 @@ class Tribe__Events__Importer__File_Reader {
 	 * }
 	 */
 	private function set_csv_params( $params ) {
-		// The escape parameter was added in PHP v5.3.
-		if ( version_compare( phpversion(), '5.3', '>' ) ) {
-			$this->file->setCsvControl(
-				$params['delimter'],
-				$params['enclosure'],
-				$params['escape']
-			);
-		} else {
-			$this->file->setCsvControl(
-				$params['delimter'],
-				$params['enclosure']
-			);
-		}
+		$this->file->setCsvControl(
+			$params['delimter'],
+			$params['enclosure'],
+			$params['escape']
+		);
 	}
 }
