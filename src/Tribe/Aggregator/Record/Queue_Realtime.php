@@ -36,7 +36,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		tribe_notice( 'aggregator-update-msg', array( $this, 'render_update_message' ), 'type=warning&dismiss=0' );
 
 		add_filter( 'heartbeat_received', [ $this, 'receive_heartbeat' ], 10, 2 );
-		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array( $this, 'ajax' ) );
+		add_action( 'wp_ajax_tribe_aggregator_realtime_update', [ $this, 'ajax' ] );
 
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations;
