@@ -25,7 +25,7 @@ class Tribe__Events__Template__Embed extends Tribe__Events__Template_Factory {
 	public function hooks() {
 		parent::hooks();
 
-		add_action( 'embed_head', array( $this, 'embed_head' ) );
+		add_action( 'embed_head', [ $this, 'embed_head' ] );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Tribe__Events__Template__Embed extends Tribe__Events__Template_Factory {
 
 		// Check if event has passed
 		$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
-		$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
+		$gmt_offset = str_replace( [ '.25', '.5', '.75' ], [ ':15', ':30', ':45' ], $gmt_offset );
 
 		if ( ! tribe_is_showing_all() && strtotime( tribe_get_end_date( $post, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
 			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), $events_label_singular_lowercase ) );

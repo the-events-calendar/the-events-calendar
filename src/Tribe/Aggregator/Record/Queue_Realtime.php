@@ -33,9 +33,9 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		Tribe__Events__Ajax__Operations $ajax_operations = null,
 		Tribe__Events__Aggregator__Record__Queue_Processor $queue_processor = null
 	) {
-		tribe_notice( 'aggregator-update-msg', array( $this, 'render_update_message' ), 'type=warning&dismiss=0' );
+		tribe_notice( 'aggregator-update-msg', [ $this, 'render_update_message' ], 'type=warning&dismiss=0' );
 
-		add_action( 'wp_ajax_tribe_aggregator_realtime_update', array( $this, 'ajax' ) );
+		add_action( 'wp_ajax_tribe_aggregator_realtime_update', [ $this, 'ajax' ] );
 		$this->queue           = $queue;
 		$this->ajax_operations = $ajax_operations ? $ajax_operations : new Tribe__Events__Ajax__Operations;
 		$this->queue_processor = $queue_processor ? $queue_processor : tribe( 'events-aggregator.main' )->queue_processor;
@@ -48,13 +48,13 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		$percentage = $this->queue->progress_percentage();
 
 		$progress = $this->sanitize_progress( $percentage );
-		$data     = array(
+		$data = [
 			'record_id'    => $this->record_id,
 			'check'        => $this->get_ajax_nonce(),
 			'completeMsg'  => __( 'Completed!', 'the-events-calendar' ),
 			'progress'     => $progress,
 			'progressText' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress ),
-		);
+		];
 
 		wp_localize_script( 'tribe-ea-fields', 'tribe_aggregator_save', $data );
 
@@ -177,12 +177,17 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * @return mixed|string|void
 	 */
 	public function get_unable_to_continue_processing_data() {
-		return json_encode( array(
-			'html'     => __( 'Unable to continue inserting data. Please reload this page to continue/try again.', 'the-events-calendar' ),
-			'progress' => false,
-			'continue' => false,
-			'complete' => false,
-		) );
+		return json_encode(
+			[
+				'html'     => __(
+					'Unable to continue inserting data. Please reload this page to continue/try again.',
+					'the-events-calendar'
+				),
+				'progress' => false,
+				'continue' => false,
+				'complete' => false,
+			]
+		);
 	}
 
 	/**
@@ -202,14 +207,14 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 		$error = $queue->has_errors();
 
-		$data   = array(
+		$data = [
 			'html'          => false,
 			'progress'      => $percentage,
 			'progress_text' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $percentage ),
 			'continue'      => ! $done,
 			'complete'      => $done,
-			'error'        => $error,
-			'counts'        => array(
+			'error'         => $error,
+			'counts'        => [
 				'total'      => $activity->count( $queue_type ),
 				'created'    => $activity->count( $queue_type, 'created' ),
 				'updated'    => $activity->count( $queue_type, 'updated' ),
@@ -219,8 +224,8 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 				'venues'     => $is_event_queue ? $activity->count( 'venues', 'created' ) : 0,
 				'organizers' => $is_event_queue ? $activity->count( 'organizer', 'created' ) : 0,
 				'remaining'  => $queue->count(),
-			),
-		);
+			],
+		];
 
 		$messages = Tribe__Events__Aggregator__Tabs__New::instance()->get_result_messages( $queue );
 

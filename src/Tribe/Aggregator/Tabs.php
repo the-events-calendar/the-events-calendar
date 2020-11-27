@@ -30,7 +30,7 @@ class Tribe__Events__Aggregator__Tabs extends Tribe__Tabbed_View  {
 	 * It will add the methods and setup any dependencies
 	 */
 	private function __construct() {
-		add_filter( 'admin_title', array( $this, 'filter_admin_title' ), 10, 2 );
+		add_filter( 'admin_title', [ $this, 'filter_admin_title' ], 10, 2 );
 
 		// Configure the Base Tabs
 		$this->register( 'Tribe__Events__Aggregator__Tabs__New' );
@@ -70,7 +70,7 @@ class Tribe__Events__Aggregator__Tabs extends Tribe__Tabbed_View  {
 	public function register( $tab ) {
 		// If Obj is a string, check if it's existing class, then get an instance of it
 		if ( is_string( $tab ) && class_exists( $tab ) && method_exists( $tab, 'instance' ) ) {
-			$tab = call_user_func_array( array( $tab, 'instance' ), array() );
+			$tab = call_user_func_array( [ $tab, 'instance' ], [] );
 		}
 
 		// Makes sure that the tab you are registering is extended from the Abstract

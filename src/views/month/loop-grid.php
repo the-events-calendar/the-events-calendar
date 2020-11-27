@@ -47,8 +47,8 @@ global $wp_locale;
 
 			<td class="<?php tribe_events_the_month_day_classes() ?>"
 				data-day="<?php echo esc_attr( isset( $daydata['daynum'] ) ? $daydata['date'] : '' ); ?>"
-				data-tribejson='<?php echo tribe_events_template_data( null, array( 'date_name' => tribe_format_date( $daydata['date'], false ) ) ); ?>'
-				>
+				data-tribejson='<?php echo tribe_events_template_data( null, [ 'date_name' => tribe_format_date( $daydata['date'], false ) ] ); ?>'
+			>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>
 			<?php endwhile; ?>

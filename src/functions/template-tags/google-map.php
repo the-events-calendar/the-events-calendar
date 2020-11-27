@@ -168,10 +168,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name, Tribe__Events__Google__Maps_API_Key::$default_api_key );
 
-		$embed_url_args = array(
+		$embed_url_args = [
 			'key' => $api_key,
 			'q'   => urlencode( $address_string ),
-		);
+		];
 
 		$embed_url = add_query_arg(
 			/**

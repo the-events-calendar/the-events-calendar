@@ -16,8 +16,8 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'admin_init', array( $this, 'deactivate_gutenberg_extension_plugin' ) );
-		add_action( 'tribe_editor_classic_is_active', array( $this, 'filter_is_classic_editor' ) );
+		add_action( 'admin_init', [ $this, 'deactivate_gutenberg_extension_plugin' ] );
+		add_action( 'tribe_editor_classic_is_active', [ $this, 'filter_is_classic_editor' ] );
 	}
 
 	/**
@@ -122,7 +122,7 @@ class Tribe__Events__Editor__Compatibility {
 	 *
 	 * @return array
 	 */
-	public function insert_toggle_blocks_editor_field( $fields = array() ) {
+	public function insert_toggle_blocks_editor_field( $fields = [] ) {
 		if ( ! tribe( 'editor' )->is_wp_version() ) {
 			return $fields;
 		}
@@ -131,23 +131,23 @@ class Tribe__Events__Editor__Compatibility {
 		$read_more_link = sprintf( ' <a href="%2$s" target="_blank">%1$s</a>.', esc_html__( 'Read more', 'the-events-calendar' ), esc_url( $read_more_url ) );
 
 		$insert_before = 'showComments';
-		$insert_data   = array(
-			$this->get_toggle_blocks_editor_key() => array(
+		$insert_data = [
+			$this->get_toggle_blocks_editor_key()        => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Activate Block Editor for Events', 'the-events-calendar' ),
 				'tooltip'         => esc_html__( 'Enable the Gutenberg block editor interface for creating events.', 'the-events-calendar' ) . $read_more_link,
 				'default'         => false,
 				'validation_type' => 'boolean',
-				'attributes'      => array( 'id' => 'tribe-blocks-editor-toggle-field' ),
-			),
-			$this->get_toggle_blocks_editor_hidden_key() => array(
+				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-field' ],
+			],
+			$this->get_toggle_blocks_editor_hidden_key() => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Hidden Blocks Editor Config', 'the-events-calendar' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
-				'attributes'      => array( 'id' => 'tribe-blocks-editor-toggle-hidden-field' ),
-			),
-		);
+				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-hidden-field' ],
+			],
+		];
 
 		return Tribe__Main::array_insert_before_key( $insert_before, $fields, $insert_data );
 	}
