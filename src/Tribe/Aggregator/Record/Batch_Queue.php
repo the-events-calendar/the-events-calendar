@@ -66,10 +66,11 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 *
 	 * @since TBD
 	 *
-	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record
-	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
+	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record The current record or record ID.
+	 * @param array|string|null                                     $items The items to build the Queue.
+	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner The cleaner to remove duplicates.
 	 */
-	public function __construct( $record, Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
+	public function __construct( $record, $items = null, Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		if ( is_numeric( $record ) ) {
 			$record = Records::instance()->get_by_post_id( $record );
 		}
@@ -273,8 +274,8 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 		$service->api['version'] = 'v2.0.0';
 
 		$body = [
-			'batch_size'       => apply_filters( 'event_aggregator_event_batch_size', 10 ),
-			'batch_interval'   => apply_filters( 'event_aggregator_event_batch_interval', 10 ),
+			'batch_size'       => $this->batch_size(),
+			'batch_interval'   => $this->batch_interval(),
 			'tec_version'      => TEC::VERSION,
 			'next_import_hash' => $this->record->meta['next_batch_hash'],
 			'api'              => get_rest_url( get_current_blog_id(), 'tribe/event-aggregator/v1' ),
@@ -291,6 +292,28 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 		}
 
 		$service->api['version'] = $version;
+	}
+
+	/**
+	 * Return the number of events delivered per batch.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	private function batch_size() {
+		return (int) apply_filters( 'event_aggregator_event_batch_size', 10 );
+	}
+
+	/**
+	 * Return the interval in seconds of the delivery of each batch.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	private function batch_interval() {
+		return (int) apply_filters( 'event_aggregator_event_batch_interval', 10 );
 	}
 
 	/**
