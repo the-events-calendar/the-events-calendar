@@ -873,13 +873,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param string                     $css_template The CSS template, as produced by the Global Elements.
-	 * @param Tribe__Customizer__Section $section      The Global Elements section.
-	 * @param Tribe__Customizer          $customizer   The current Customizer instance.
+	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
+	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
+	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_global_elements_css_template($css_template, $section, $customizer  ) {
+	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section && $customizer instanceof \Tribe__Customizer ) ) {
 			return $css_template;
 		}
@@ -892,9 +892,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param string                     $css_template The CSS template, as produced by the Global Elements.
-	 * @param Tribe__Customizer__Section $section      The Single Event section.
-	 * @param Tribe__Customizer          $customizer   The current Customizer instance.
+	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
+	 * @param \Tribe__Customizer__Section $section      The Single Event section.
+	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
 	 *
 	 * @return string The filtered CSS template.
 	 */
