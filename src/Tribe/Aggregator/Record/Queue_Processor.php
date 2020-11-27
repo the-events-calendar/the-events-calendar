@@ -45,7 +45,6 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	public $current_queue;
 
-
 	public function __construct() {
 		add_action( 'init', [ $this, 'action_init' ] );
 	}
@@ -334,10 +333,12 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		if ( $record instanceof Tribe__Events__Aggregator__Record__CSV || $use_legacy ) {
 			$class = Tribe__Events__Aggregator__Record__Queue::class;
 		}
-
-		// This is a batch pushing import and should use the Batch Queue to process this import.
+		// If the current Queue is a cron Queue or a Batch Queue.
+		$is_batch_queue  = ( Tribe__Events__Aggregator__Record__Queue::class === $class || Batch_Queue::class === $class );
+		$use_batch_queue = ( $use_legacy || $is_batch_queue );
 		if (
-			! empty( $record->meta )
+			$use_batch_queue
+			&& ! empty( $record->meta )
 			&& ! empty( $record->meta['allow_batch_push'] )
 			&& tribe_is_truthy( $record->meta['allow_batch_push'] )
 		) {
