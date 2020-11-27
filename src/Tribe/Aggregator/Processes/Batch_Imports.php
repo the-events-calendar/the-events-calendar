@@ -70,20 +70,14 @@ class Batch_Imports {
 			return $service_supports_batch_push;
 		}
 
-		$parent_id = $abstract->post->post_parent;
+		$parent_id = $abstract->post->post_parent instanceof WP_Post
+			? $abstract->post->post_parent->ID
+			: $abstract->post->post_parent;
 
-		// Make sure $parent_id is always an integer.
-		if ( $parent_id instanceof WP_Post ) {
-			$parent_id = $parent_id->ID;
-		}
+		$parent_record = Records::instance()->get_by_post_id( $parent_id);
 
-		$allow_batch_pushing = get_post_meta(
-			$parent_id,
-			Record_Abstract::$meta_key_prefix . 'allow_batch_push',
-			true
-		);
-
-		if ( tribe_is_truthy( $allow_batch_pushing ) ) {
+		// Only return the $service_supports_batch_push if the parent record was created with batch pushing.
+		if ( $parent_record instanceof Record_Abstract && ! $parent_record->is_polling() ) {
 			return $service_supports_batch_push;
 		}
 

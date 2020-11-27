@@ -161,26 +161,25 @@ class Tribe__Events__Aggregator__Service {
 			return $api;
 		}
 
-		/**
-		 * Allow to change the constructed URL used for EA.
-		 *
-		 * @since TBD
-		 *
-		 * @param string   $url      The completed URL generated.
-		 * @param string   $endpoint The path of the endpoint inside of the base url.
-		 * @param stdClass $api      An object representing the properties of the API.
-		 *
-		 * @return string The generated URL.
-		 */
-		$url = apply_filters( 'tribe_events_aggregator_build_url', "{$api->domain}{$api->path}{$api->version}/{$endpoint}/", $endpoint, $api );
-
 		// Enforce Key on the Query Data
 		$data['key'] = $api->key;
 
 		// If we have data we add it
-		$url = add_query_arg( $data, $url );
+		return add_query_arg( $data, $this->base_url( $endpoint, $api ) );
+	}
 
-		return $url;
+	/**
+	 * Allow to change the constructed URL used for EA.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $endpoint The path of the endpoint inside of the base url.
+	 * @param stdClass $api      An object representing the properties of the API.
+	 *
+	 * @return string The generated URL.
+	 */
+	private function base_url( $endpoint, stdClass $api ) {
+		return (string) apply_filters( 'tribe_events_aggregator_build_url', "{$api->domain}{$api->path}{$api->version}/{$endpoint}/", $endpoint, $api );
 	}
 
 	/**

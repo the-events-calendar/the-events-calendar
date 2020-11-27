@@ -90,8 +90,7 @@ class Batch_imports_Test extends WPTestCase {
 	 */
 	public function should_return_true_only_if_the_parent_has_support_for_batch_pushing() {
 		$imports = new Batch_Imports();
-		$parent  = $record = $this->create_record();
-		$parent->update_meta( 'allow_batch_push', true );
+		$parent  = $record = $this->create_record([], ['allow_batch_push' => true]);
 		$record = $this->create_record( [ 'parent' => $parent->post->ID ] );
 
 		$this->assertTrue( $imports->allow_batch_import( true, $record ) );
@@ -103,9 +102,8 @@ class Batch_imports_Test extends WPTestCase {
 	 * @test
 	 */
 	 public function should_return_false_if_async_mode_is_enabled() {
-		 $imports = new Tribe__Events__Aggregator__Processes__Batch_Imports();
-		 $parent  = $record = $this->create_record();
-		 $parent->update_meta( 'allow_batch_push', true );
+		 $imports = new Batch_Imports();
+		 $parent  = $record = $this->create_record([], ['allow_batch_push' => true]);
 		 $record = $this->create_record( [ 'parent' => $parent->post->ID ] );
 
 		 add_filter(

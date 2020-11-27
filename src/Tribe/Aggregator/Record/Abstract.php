@@ -2788,9 +2788,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * @param bool                                        $is_polling
 		 * @param Tribe__Events__Aggregator__Record__Abstract $record
 		 */
-		$is_polling = apply_filters( 'tribe_aggregator_record_is_polling', $is_polling, $this );
-
-		return $is_polling;
+		return (bool) apply_filters( 'tribe_aggregator_record_is_polling', $is_polling, $this );
 	}
 
 	/*
