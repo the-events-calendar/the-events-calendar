@@ -389,23 +389,10 @@ class Customizer {
 					background-color: <%= global_elements.background_color %>;
 				}
 			';
-			
-			// TODO: move to events-filterbar
-			$css_template .= '
-				.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-start:before {
-					background: linear-gradient(-90deg, transparent 15%, <%= global_elements.background_color %> 70%);
-				}
-			';
-			
-			// TODO: move to events-filterbar
-			$css_template .= '
-				.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-end:after {
-					background: linear-gradient(90deg, transparent 15%, <%= global_elements.background_color %> 70%);
-				}
-			';
 		}
 		
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
+			// Event Title overrides.
 			$css_template .= '
 				.single-tribe_events .tribe-events-single-event-title,
 				.tribe-events-view .tribe-events-calendar-list__event-title,
@@ -423,9 +410,7 @@ class Customizer {
 				.tribe-common .tribe-events-calendar-day__event-title-link:focus {
 					color: <%= global_elements.event_title_color %>;
 				}
-			';
-			
-			$css_template .= '
+				
 				.tribe-common .tribe-events-calendar-list__event-title-link:hover,
 				.tribe-common .tribe-events-calendar-list__event-title-link:focus,
 				.tribe-common .tribe-events-calendar-month__calendar-event-title-link:hover,
@@ -437,22 +422,18 @@ class Customizer {
 					border-color: <%= global_elements.event_title_color %>;
 				}
 			';
-			
+		}
+		
+		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
+			// Event Date Time overrides.
 			$css_template .= '
+				.single-tribe_events .tribe-events-schedule h2,
 				.tribe-events-calendar-list__event-datetime,
 				.tribe-events-calendar-day__event-datetime,
 				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
 				.tribe-events .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
 				.tribe-events .tribe-events-calendar-month__calendar-event-tooltip-datetime {
 					color: <%= global_elements.event_date_time_color %>;
-				}
-			';
-		}
-		
-		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
-			$css_template .= '
-				.single-tribe_events .tribe-events-schedule h2 {
-						color: <%= global_elements.event_date_time_color %>;
 				}
 			';
 		}
