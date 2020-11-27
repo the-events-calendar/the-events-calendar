@@ -20,7 +20,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 */
 	public function __construct( $volatile = false ) {
 		$this->volatile        = $volatile;
-		$this->volatile_values = array();
+		$this->volatile_values = [];
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 */
 	public function offsetUnset( $offset ) {
 		if ( $this->volatile ) {
-			$this->volatile_values = array_diff( $this->volatile_values, array( $offset ) );
+			$this->volatile_values = array_diff( $this->volatile_values, [ $offset ] );
 		} else {
 			// no op
 		}

@@ -22,19 +22,22 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			if ( is_admin() ) {
 				if ( ! tribe( 'context' )->doing_ajax() ) {
 					// Logic for sorting events by event category or tags
-					add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
+					add_filter( 'posts_clauses', [ __CLASS__, 'sort_by_tax' ], 10, 2 );
 
 					// Logic for sorting events by start or end date
-					add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 11, 2 );
+					add_filter( 'posts_clauses', [ __CLASS__, 'sort_by_event_date' ], 11, 2 );
 
-					add_filter( 'posts_fields', array( __CLASS__, 'events_search_fields' ), 10, 2 );
+					add_filter( 'posts_fields', [ __CLASS__, 'events_search_fields' ], 10, 2 );
 
 					// Pagination
-					add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
+					add_filter( 'post_limits', [ __CLASS__, 'events_search_limits' ], 10, 2 );
 
-					add_filter( 'tribe_apm_headers_' . Tribe__Events__Main::POSTTYPE, array( __CLASS__, 'column_headers_check' ) );
+					add_filter(
+						'tribe_apm_headers_' . Tribe__Events__Main::POSTTYPE,
+						[ __CLASS__, 'column_headers_check' ]
+					);
 
-					add_filter( 'views_edit-tribe_events', array( __CLASS__, 'update_event_counts' ) );
+					add_filter( 'views_edit-tribe_events', [ __CLASS__, 'update_event_counts' ] );
 				}
 
 				/**
@@ -42,11 +45,19 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				 *
 				 * Registers custom event columns category/start date/end date
 				 */
-				add_action( 'manage_posts_custom_column', array( __CLASS__, 'custom_columns' ), 10, 2 );
-				add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( __CLASS__, 'column_headers' ) );
+				add_action( 'manage_posts_custom_column', [ __CLASS__, 'custom_columns' ], 10, 2 );
+				add_filter(
+					'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns',
+					[ __CLASS__, 'column_headers' ]
+				);
 
 				// Registers event start/end date as sortable columns
-				add_action( 'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns', array( __CLASS__, 'register_sortable_columns' ), 10, 2 );
+				add_action(
+					'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns',
+					[ __CLASS__, 'register_sortable_columns' ],
+					10,
+					2
+				);
 			}
 		}
 
@@ -278,7 +289,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return array The modified columns array.
 		 */
 		public static function register_sortable_columns( $columns ) {
-			foreach ( array( 'events-cats', 'tags', 'start-date', 'end-date' ) as $sortable ) {
+			foreach ( [ 'events-cats', 'tags', 'start-date', 'end-date' ] as $sortable ) {
 				$columns[ $sortable ] = $sortable;
 			}
 
@@ -295,9 +306,13 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		public static function custom_columns( $column_id, $post_id ) {
 			switch ( $column_id ) {
 				case 'events-cats':
-					$event_cats = wp_get_post_terms( $post_id, Tribe__Events__Main::TAXONOMY, array(
-						'fields' => 'names',
-					) );
+					$event_cats = wp_get_post_terms(
+						$post_id,
+						Tribe__Events__Main::TAXONOMY,
+						[
+							'fields' => 'names',
+						]
+					);
 					$categories_list = '-';
 					if ( is_array( $event_cats ) ) {
 						$categories_list = implode( ', ', $event_cats );
@@ -329,13 +344,13 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			$total_posts = array_sum( (array) $num_posts );
 
-			foreach ( get_post_stati( array( 'show_in_admin_all_list' => false ) ) as $state ) {
+			foreach ( get_post_stati( [ 'show_in_admin_all_list' => false ] ) as $state ) {
 				$total_posts -= $num_posts->$state;
 			}
 
 			$counts['all'] = "<a href='edit.php?post_type=tribe_events' class='current'>" . sprintf( esc_html_x( 'All %s', '%s Event count in admin list', 'the-events-calendar' ), "<span class='count'>({$total_posts})</span>" ) . '</a>';
 
-			foreach ( get_post_stati( array( 'show_in_admin_status_list' => true ), 'objects' ) as $status ) {
+			foreach ( get_post_stati( [ 'show_in_admin_status_list' => true ], 'objects' ) as $status ) {
 				$class = '';
 
 				$status_name = $status->name;
@@ -392,7 +407,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			$count = $wpdb->get_results( $wpdb->prepare( $query, $type ), ARRAY_A );
 
-			$stats = array();
+			$stats = [];
 			foreach ( get_post_stati() as $state ) {
 				$stats[ $state ] = 0;
 			}

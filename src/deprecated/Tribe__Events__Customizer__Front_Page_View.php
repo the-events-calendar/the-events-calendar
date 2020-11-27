@@ -28,8 +28,9 @@ class Tribe__Events__Customizer__Front_Page_View extends Tribe__Customizer__Sect
 	 * @since 4.6.12
 	 */
 	public function setup() {
-		add_filter( 'wp_dropdown_pages', array( $this, 'add_events_page_option' ), 10, 3 );
+		add_filter( 'wp_dropdown_pages', [ $this, 'add_events_page_option' ], 10, 3 );
 	}
+
 	/**
 	 * Add "Main Events Page" option to the Customizer's "Homepage Settings" static-page dropdown.
 	 *

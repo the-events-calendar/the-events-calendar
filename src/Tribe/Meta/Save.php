@@ -47,7 +47,7 @@ class Tribe__Events__Meta__Save {
 	 */
 	protected function manage_preview_metapost( $post_type, $event_id ) {
 
-		if ( ! in_array( $post_type, array( 'venue', 'organizer' ) ) ) {
+		if ( ! in_array( $post_type, [ 'venue', 'organizer' ] ) ) {
 			return;
 		}
 
@@ -65,10 +65,12 @@ class Tribe__Events__Meta__Save {
 				// we're previewing
 				if ( $preview_post_id && $preview_post_id == $valid_post_id( $preview_post_id ) ) {
 					// a preview post has been created and is valid, update that
-					wp_update_post( array(
-						'ID'         => $preview_post_id,
-						'post_title' => $_POST[ $posttype ][ $posttype ],
-					) );
+					wp_update_post(
+						[
+							'ID'         => $preview_post_id,
+							'post_title' => $_POST[ $posttype ][ $posttype ],
+						]
+					);
 				} else {
 					// a preview post has not been created yet, or is not valid - create one and save the ID
 					$preview_post_id = Tribe__Events__API::$create( $_POST[ $posttype ], 'draft' );
@@ -215,16 +217,16 @@ class Tribe__Events__Meta__Save {
 
 		// Set sticky state for calendar view.
 		if ( $event instanceof WP_Post ) {
-			$show_in_cal = Tribe__Utils__Array::get( $data, array( 'EventShowInCalendar' ), false );
+			$show_in_cal = Tribe__Utils__Array::get( $data, [ 'EventShowInCalendar' ], false );
 			if (
 				$show_in_cal
 				&& tribe_is_truthy( $show_in_cal )
 				&& $event->menu_order != '-1'
 			) {
-				$update_event = array(
+				$update_event = [
 					'ID'         => $event_id,
 					'menu_order' => '-1',
-				);
+				];
 				wp_update_post( $update_event );
 			} elseif (
 				(
@@ -233,10 +235,10 @@ class Tribe__Events__Meta__Save {
 				)
 				&& $event->menu_order == '-1'
 			) {
-				$update_event = array(
+				$update_event = [
 					'ID'         => $event_id,
 					'menu_order' => '0',
-				);
+				];
 				wp_update_post( $update_event );
 			}
 		}

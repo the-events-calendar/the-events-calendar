@@ -54,7 +54,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 		return $template;
 	}
 
-	public function create_ghost_settings( $settings = array() ) {
+	public function create_ghost_settings( $settings = [] ) {
 		if ( ! empty( $settings['details_bg_color'] ) ) {
 			$details_bg_color = new Tribe__Utils__Color( $settings['details_bg_color'] );
 
@@ -69,19 +69,19 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	}
 
 	public function setup() {
-		$this->defaults = array(
+		$this->defaults = [
 			'post_title_color' => '#333',
 			'details_bg_color' => '#e5e5e5',
-		);
+		];
 
 		$description = tribe_events_views_v2_is_enabled() ? esc_html__( 'These settings control the appearance of the single event pages.', 'the-events-calendar' ) : esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' );
 
-		$this->arguments = array(
+		$this->arguments = [
 			'priority'    => 60,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'Single Event', 'the-events-calendar' ),
 			'description' => $description,
-		);
+		];
 	}
 
 	/**
@@ -110,6 +110,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 		$manager->add_setting(
 			$customizer->get_setting_name( 'post_title_color', $section ),
 			[
+
 				'default'              => $this->get_default( 'post_title_color' ),
 				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
@@ -122,7 +123,9 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				$manager,
 				$customizer->get_setting_name( 'post_title_color', $section ),
 				[
-					'label'   => tribe_events_views_v2_is_enabled() ? esc_html__( 'Event Title Color', 'the-events-calendar' ) : esc_html__( 'Post Title Color', 'the-events-calendar' ),
+					'label'   => tribe_events_views_v2_is_enabled()
+						? esc_html__( 'Event Title Color', 'the-events-calendar' )
+						: esc_html__( 'Post Title Color', 'the-events-calendar' ),
 					'section' => $section->id,
 				]
 			)

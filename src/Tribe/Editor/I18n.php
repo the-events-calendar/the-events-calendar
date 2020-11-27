@@ -13,7 +13,7 @@ class Tribe__Events__Editor__I18n {
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'include_inline_script' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'include_inline_script' ] );
 	}
 
 	/**
@@ -30,10 +30,10 @@ class Tribe__Events__Editor__I18n {
 
 		$domain = 'the-events-calendar';
 		$translations = get_translations_for_domain( $domain );
-		$locale = array(
-			'' => (object) array(),
+		$locale = [
+			''              => (object) [],
 			'prevent-empty' => 'prevent-empty',
-		);
+		];
 
 		foreach ( $translations->entries as $msgid => $entry ) {
 			$locale[ $msgid ] = $entry->translations;

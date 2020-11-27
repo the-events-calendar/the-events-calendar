@@ -18,12 +18,12 @@ class Tribe__Events__Gutenberg {
 
 		tribe_notice(
 			'gutenberg-extension',
-			array( $this, 'notice' ),
-			array(
-				'type' => 'warning',
+			[ $this, 'notice' ],
+			[
+				'type'    => 'warning',
 				'dismiss' => 1,
-				'wrap' => 'p',
-			)
+				'wrap'    => 'p',
+			]
 		);
 	}
 

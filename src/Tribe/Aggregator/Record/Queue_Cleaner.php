@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 */
 	public function remove_duplicate_pending_records_for( Tribe__Events__Aggregator__Record__Abstract $record ) {
 		if ( empty( $record->meta['import_id'] ) ) {
-			return array();
+			return [];
 		}
 
 		$import_id = $record->meta['import_id'];
@@ -63,13 +63,13 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		$query = apply_filters( 'tribe_aggregator_import_queue_cleaner_query', $query );
 
 		if ( empty( $query ) ) {
-			return array();
+			return [];
 		}
 
 		$records = $wpdb->get_col( $query );
 		array_shift( $records );
 
-		$deleted = array();
+		$deleted = [];
 		foreach ( $records as $to_delete ) {
 			$post = wp_delete_post( $to_delete, true );
 			if ( ! empty( $post ) ) {
@@ -117,7 +117,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		if ( $pending_for > $this->stall_limit || $since_creation > $this->time_to_live ) {
 			tribe( 'logger' )->log_debug( "Record {$record->id} has stalled for too long: deleting it and its queue information", 'Queue_Cleaner' );
 			$failed = Tribe__Events__Aggregator__Records::$status->failed;
-			wp_update_post( array( 'ID' => $id, 'post_status' => $failed ) );
+			wp_update_post( [ 'ID' => $id, 'post_status' => $failed ] );
 			delete_post_meta( $id, '_tribe_aggregator_queue' );
 			Tribe__Post_Transient::instance()->delete( $id, '_tribe_aggregator_queue' );
 
