@@ -226,6 +226,9 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
 * Feature - Event Aggregator Batch Pushing for Cron Imports [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_time_to_live` to customize the time in seconds to consider an EA record alive. [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_stall_limit` to customize the number of seconds for an EA record to be considerd stalled. [EA-297]
+* Tweak - Add the filter `tribe_events_aggregator_build_url` [EA-297]
 * Tweak - Adjust Event Aggregator Client Progress Bar using the Heart Beat API for polling state instead [TEC-3534]
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
 * Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.

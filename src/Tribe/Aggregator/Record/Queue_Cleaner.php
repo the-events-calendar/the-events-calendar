@@ -148,25 +148,39 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 *
 	 * @since TBD
 	 *
-	 * @return int
+	 * @return int The number of time to consider a record alive.
 	 */
 	public function get_time_to_live() {
-		return $this->time_to_live;
+		/**
+		 * Allow to define the number of seconds used to define if a record is alive or not.
+		 *
+		 * @since TBD
+		 *
+		 * @return int The number of time to consider a record alive.
+		 */
+		return (int) apply_filters( 'tribe_aggregator_import_queue_cleaner_time_to_live', $this->time_to_live );
 	}
 
 	/**
 	 * Gets the time, in seconds, after which a pending record is considered stalling.
 	 *
-	 * @return int
+	 * @return int The number in seconds for a record to be stalled
 	 */
 	public function get_stall_limit() {
-		return $this->stall_limit;
+		/**
+		 * Allow to define the number of seconds for a record to be considered stalled.
+		 *
+		 * @since TBD
+		 *
+		 * @return int The number in seconds for a record to be stalled
+		 */
+		return (int) apply_filters( 'tribe_aggregator_import_queue_cleaner_stall_limit', $this->stall_limit );
 	}
 
 	/**
 	 * Sets the time, in seconds, after which a pending record is considered stalling.
 	 *
-	 * @param int $stall_limit
+	 * @param int $stall_limit Allow to set the stall limit of a record.
 	 */
 	public function set_stall_limit( $stall_limit ) {
 		$this->stall_limit = $stall_limit;
