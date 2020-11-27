@@ -9,8 +9,8 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 */
 	public function __construct() {
 		$this->listen();
-		add_action( 'wp_ajax_tribe_timezone_update', array( $this, 'ajax_updater' ) );
-		add_filter( 'tribe_general_settings_tab_fields', array( $this, 'settings_ui' ) );
+		add_action( 'wp_ajax_tribe_timezone_update', [ $this, 'ajax_updater' ] );
+		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'settings_ui' ] );
 	}
 
 	/**
@@ -92,9 +92,9 @@ class Tribe__Events__Admin__Timezone_Settings {
 		$updater = new Tribe__Events__Admin__Timezone_Updater;
 		$updater->init_update();
 
-		wp_send_json( array(
+		wp_send_json( [
 			'html'     => $updater->notice_inner(),
 			'continue' => $updater->update_needed(),
-		) );
+		] );
 	}
 }

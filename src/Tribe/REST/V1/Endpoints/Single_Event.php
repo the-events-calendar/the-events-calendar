@@ -75,7 +75,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
 
-			return new WP_Error( 'event-not-accessible', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'event-not-accessible', $message, [ 'status' => 403 ] );
 		}
 
 		$data = $this->post_repository->get_event_data( $request['id'], 'single' );
@@ -106,79 +106,79 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
-		$POST_defaults = array( 'in' => 'formData', 'default' => '', 'type' => 'string' );
+		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
+		$POST_defaults = [ 'in' => 'formData', 'default' => '', 'type' => 'string' ];
 		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
 
-		return array(
-			'get'  => array(
+		return [
+			'get'    => [
 				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns the data of the event with the specified post ID', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Event',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'The event post ID is missing.', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The event with the specified ID is not accessible.', 'the-events-calendar' ),
-					),
-					'404' => array(
+					],
+					'404' => [
 						'description' => __( 'An event with the specified ID does not exist.', 'the-events-calendar' ),
-					),
-				),
-			),
-			'post' => array(
-				'consumes' => array( 'application/x-www-form-urlencoded' ),
+					],
+				],
+			],
+			'post'   => [
+				'consumes'   => [ 'application/x-www-form-urlencoded' ],
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns the data of the updated event', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Event',
-						),
-					),
-					'201' => array(
+						],
+					],
+					'201' => [
 						'description' => __( 'Returns the data of the created event', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Event',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' ),
-					),
-				),
-			),
-			'delete'  => array(
+					],
+				],
+			],
+			'delete' => [
 				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Deletes an event and returns its data', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Event',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'The event post ID is missing or does not exist.', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The current user cannot delete the event with the specified ID.', 'the-events-calendar' ),
-					),
-					'410' => array(
+					],
+					'410' => [
 						'description' => __( 'The event with the specified ID has been deleted already.', 'the-events-calendar' ),
-					),
-					'500' => array(
+					],
+					'500' => [
 						'description' => __( 'The event with the specified ID could not be deleted.', 'the-events-calendar' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -187,15 +187,15 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array
 	 */
 	public function READ_args() {
-		return array(
-			'id' => array(
+		return [
+			'id' => [
 				'in'                => 'path',
 				'type'              => 'integer',
 				'description'       => __( 'the event post ID', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_event_id' ),
-			),
-		);
+				'validate_callback' => [ $this->validator, 'is_event_id' ],
+			],
+		];
 	}
 
 	/**
@@ -205,156 +205,156 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array
 	 */
 	public function CREATE_args() {
-		return array(
+		return [
 			// Post fields
-			'author'             => array(
+			'author'             => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_user_id' ),
+				'validate_callback' => [ $this->validator, 'is_user_id' ],
 				'type'              => 'integer',
 				'description'       => __( 'The event author ID', 'the-events-calendar' ),
-			),
-			'date'               => array(
+			],
+			'date'               => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'description'       => __( 'The event publication date', 'the-events-calendar' ),
-			),
-			'date_utc'           => array(
+			],
+			'date_utc'           => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'description'       => __( 'The event publication date (UTC time zone)', 'the-events-calendar' ),
-			),
-			'title'              => array(
+			],
+			'title'              => [
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The event title', 'the-events-calendar' ),
-			),
-			'description'        => array(
+			],
+			'description'        => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The event description', 'the-events-calendar' ),
-			),
-			'slug'               => array(
+			],
+			'slug'               => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The event slug', 'the-events-calendar' ),
-			),
-			'excerpt'            => array(
+			],
+			'excerpt'            => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The event excerpt', 'the-events-calendar' ),
-			),
-			'status'             => array(
+			],
+			'status'             => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_post_status' ),
+				'validate_callback' => [ $this->validator, 'is_post_status' ],
 				'type'              => 'string',
 				'description'       => __( 'The event post status', 'the-events-calendar' ),
-			),
+			],
 			// Event meta fields
-			'timezone'           => array(
+			'timezone'           => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_timezone_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_timezone_or_empty' ],
 				'type'              => 'string',
 				'description'       => __( 'The event time zone', 'the-events-calendar' ),
-			),
-			'all_day'            => array(
+			],
+			'all_day'            => [
 				'required'    => false,
 				'default'     => false,
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event lasts the whole day or not', 'the-events-calendar' ),
-			),
-			'start_date'         => array(
+			],
+			'start_date'         => [
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'description'       => __( 'The event start date and time', 'the-events-calendar' ),
-			),
-			'end_date'           => array(
+			],
+			'end_date'           => [
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'description'       => __( 'The event end date and time', 'the-events-calendar' ),
-			),
-			'image'              => array(
+			],
+			'image'              => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_image' ),
+				'validate_callback' => [ $this->validator, 'is_image' ],
 				'type'              => 'string',
 				'description'       => __( 'The event featured image ID or URL', 'the-events-calendar' ),
-			),
-			'cost'               => array(
+			],
+			'cost'               => [
 				'required'     => false,
 				'swagger_type' => 'string',
 				'description'  => __( 'The event cost', 'the-events-calendar' ),
-			),
-			'website'            => array(
+			],
+			'website'            => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_url_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_url_or_empty' ],
 				'swagger_type'      => 'string',
 				'default'           => null,
 				'description'       => __( 'The event website URL', 'the-events-calendar' ),
-			),
+			],
 			// Event presentation data
-			'show_map'           => array(
+			'show_map'           => [
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event should show a map or not', 'the-events-calendar' ),
-			),
-			'show_map_link'      => array(
+			],
+			'show_map_link'      => [
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event should show a map link or not', 'the-events-calendar' ),
-			),
-			'hide_from_listings' => array(
+			],
+			'hide_from_listings' => [
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Whether events should be hidden in the calendar view or not', 'the-events-calendar' ),
-			),
-			'sticky'             => array(
+			],
+			'sticky'             => [
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event should be sticky in the calendar view or not', 'the-events-calendar' ),
-			),
-			'featured'           => array(
+			],
+			'featured'           => [
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Whether the event should be featured on the site or not', 'the-events-calendar' ),
-			),
+			],
 			// Taxonomies
-			'categories'         => array(
+			'categories'         => [
 				'required'     => false,
 				'default'      => null,
 				'swagger_type' => 'array',
 				'description'  => __( 'The event category ID or name', 'the-events-calendar' ),
-			),
-			'tags'               => array(
+			],
+			'tags'               => [
 				'required'     => false,
 				'default'      => null,
 				'swagger_type' => 'array',
 				'description'  => __( 'The event tag ID or name', 'the-events-calendar' ),
-			),
+			],
 			// Linked Posts
-			'venue'              => array(
+			'venue'              => [
 				'required'          => false,
 				'default'           => null,
-				'validate_callback' => array( $this->validator, 'is_venue_id_or_entry_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_venue_id_or_entry_or_empty' ],
 				'swagger_type'      => 'array',
-				'items'             => array( 'type' => 'integer' ),
+				'items'             => [ 'type' => 'integer' ],
 				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
-			),
-			'organizer'          => array(
+			],
+			'organizer'          => [
 				'required'          => false,
 				'default'           => null,
-				'validate_callback' => array( $this->validator, 'is_organizer_id_or_entry_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_organizer_id_or_entry_or_empty' ],
 				'swagger_type'      => 'array',
-				'items'             => array( 'type' => 'integer' ),
+				'items'             => [ 'type' => 'integer' ],
 				'description'       => __( 'The event organizer IDs or data', 'the-events-calendar' ),
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -429,7 +429,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( 'trash' === $event->post_status ) {
 			$message = $this->messages->get_message( 'event-is-in-trash' );
 
-			return new WP_Error( 'event-is-in-trash', $message, array( 'status' => 410 ) );
+			return new WP_Error( 'event-is-in-trash', $message, [ 'status' => 410 ] );
 		}
 
 		/**
@@ -450,7 +450,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( false === $deleted ) {
 			$message = $this->messages->get_message( 'could-not-delete-event' );
 
-			return new WP_Error( 'could-not-delete-event', $message, array( 'status' => 500 ) );
+			return new WP_Error( 'could-not-delete-event', $message, [ 'status' => 500 ] );
 		}
 
 		$data = $this->post_repository->get_event_data( $event_id );
@@ -498,7 +498,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( false === $id ) {
 			$message = $this->messages->get_message( 'could-not-update-event' );
 
-			return new WP_Error( 'could-not-update-event', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'could-not-update-event', $message, [ 'status' => 403 ] );
 		}
 
 		$data = $this->post_repository->get_event_data( $id );
@@ -518,7 +518,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function EDIT_args() {
 		// when editing the only required argument is the ID ('id')
 		$create_args = $this->CREATE_args();
-		array_walk( $create_args, array( $this, 'unrequire_arg' ) );
+		array_walk( $create_args, [ $this, 'unrequire_arg' ] );
 
 		return array_merge( $this->READ_args(), $create_args );
 	}
@@ -551,7 +551,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
 			: false;
 
-		$postarr = array(
+		$postarr = [
 			// Post fields
 			'post_author'           => $request['author'],
 			'post_date'             => $post_date,
@@ -574,12 +574,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'EventCurrencySymbol'   => tribe( 'cost-utils' )->parse_currency_symbol( $request['cost'] ),
 			'EventURL'              => filter_var( $request['website'], FILTER_SANITIZE_URL ),
 			// Taxonomies
-			'tax_input'             => array(),
-		);
+			'tax_input'             => [],
+		];
 
 		// Check if categories is provided (allowing for empty array to remove categories).
 		if ( isset( $request['categories'] ) ) {
-			$postarr['tax_input'][ $events_cat ] = array();
+			$postarr['tax_input'][ $events_cat ] = [];
 
 			if ( ! empty( $request['categories'] ) ) {
 				$postarr['tax_input'][ $events_cat ] = Tribe__Terms::translate_terms_to_ids( $request['categories'], $events_cat );
@@ -588,7 +588,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		// Check if tags is provided (allowing for empty array to remove tags).
 		if ( isset( $request['tags'] ) ) {
-			$postarr['tax_input']['post_tag'] = array();
+			$postarr['tax_input']['post_tag'] = [];
 
 			if ( ! empty( $request['tags'] ) ) {
 				$postarr['tax_input']['post_tag'] = Tribe__Terms::translate_terms_to_ids( $request['tags'], 'post_tag' );
@@ -643,7 +643,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_event_prepare_postarr', $postarr, $request );
 
-		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
+		$postarr = array_filter( $postarr, [ $this->validator, 'is_not_null' ] );
 
 		return $postarr;
 	}

@@ -14,7 +14,7 @@ if ( ! function_exists( 'tribe_register_linked_post_type' ) ) {
 	 *
 	 * @return boolean
 	 */
-	function tribe_register_linked_post_type( $post_type, $args = array() ) {
+	function tribe_register_linked_post_type( $post_type, $args = [] ) {
 		return Tribe__Events__Linked_Posts::instance()->register_linked_post_type( $post_type, $args );
 	}
 }
@@ -29,7 +29,7 @@ if ( ! function_exists( 'tribe_deregister_linked_post_type' ) ) {
 	 *
 	 * @return boolean
 	 */
-	function tribe_deregister_linked_post_type( $post_type, $args = array() ) {
+	function tribe_deregister_linked_post_type( $post_type, $args = [] ) {
 		return Tribe__Events__Linked_Posts::instance()->deregister_linked_post_type( $post_type, $args );
 	}
 }

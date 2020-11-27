@@ -11,7 +11,7 @@ class Tribe__Events__Integrations__Twenty_Seventeen {
 	 * @since 4.5.10
 	 */
 	public function hook() {
-		add_filter( 'body_class', array( $this, 'body_classes' ) );
+		add_filter( 'body_class', [ $this, 'body_classes' ] );
 	}
 
 	/**

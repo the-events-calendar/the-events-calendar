@@ -19,9 +19,9 @@ if ( ! function_exists( 'tribe_events' ) ) {
 	 *                                      class.
 	 */
 	function tribe_events( $repository = 'default' ) {
-		$map = array(
+		$map = [
 			'default' => 'events.event-repository',
-		);
+		];
 
 		$args = func_num_args() > 1 ? array_slice( func_get_args(), 1 ) : [];
 
@@ -54,9 +54,9 @@ if ( ! function_exists( 'tribe_organizers' ) ) {
 	 *                                      class.
 	 */
 	function tribe_organizers( $repository = 'default' ) {
-		$map = array(
+		$map = [
 			'default' => 'events.organizer-repository',
-		);
+		];
 
 		/**
 		 * Filters the map relating organizer repository slugs to service container bindings.
@@ -84,9 +84,9 @@ if ( ! function_exists( 'tribe_venues' ) ) {
 	 *                                      class.
 	 */
 	function tribe_venues( $repository = 'default' ) {
-		$map = array(
+		$map = [
 			'default' => 'events.venue-repository',
-		);
+		];
 
 		/**
 		 * Filters the map relating venue repository slugs to service container bindings.

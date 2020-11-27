@@ -117,7 +117,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
 		if ( $pending_for > $this->get_stall_limit() || $since_creation > $this->get_time_to_live() ) {
 			tribe( 'logger' )->log_debug( "Record {$record->id} has stalled for too long: deleting it and its queue information", 'Queue_Cleaner' );
-			$failed = Records::$status->failed;
+			$failed = Tribe__Events__Aggregator__Records::$status->failed;
 			wp_update_post( [ 'ID' => $id, 'post_status' => $failed ] );
 			delete_post_meta( $id, '_tribe_aggregator_queue' );
 			Tribe__Post_Transient::instance()->delete( $id, '_tribe_aggregator_queue' );

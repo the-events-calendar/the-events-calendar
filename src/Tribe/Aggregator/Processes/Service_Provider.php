@@ -21,11 +21,8 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 		$batch_imports = new Batch_Imports();
 		tribe_singleton( Batch_Imports::class, $batch_imports );
 
-		add_filter( 'tribe_process_queues', array( $this, 'filter_tribe_process_queues' ) );
-		add_filter( 'tribe_settings_save_field_value', array(
-			$this,
-			'filter_tribe_settings_save_field_value',
-		), 10, 2 );
+		add_filter( 'tribe_process_queues', [ $this, 'filter_tribe_process_queues' ] );
+		add_filter( 'tribe_settings_save_field_value', [ $this, 'filter_tribe_settings_save_field_value'], 10, 2 );
 
 		$this->handle_clear_request();
 		$this->handle_clear_result();
@@ -46,7 +43,7 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 	 *
 	 * @return array
 	 */
-	public function filter_tribe_process_queues( array $queues = array() ) {
+	public function filter_tribe_process_queues( array $queues = [] ) {
 		$queues[] = 'Tribe__Events__Aggregator__Processes__Import_Events';
 
 		return $queues;
@@ -92,7 +89,7 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 			tribe_notice(
 				'ea-clear-queues-result',
 				'<p>' . $message . '</p>',
-				array( 'type' => 'success' )
+				[ 'type' => 'success' ]
 			);
 		}
 	}

@@ -11,7 +11,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	/**
 	 * @var array
 	 */
-	protected $supported_query_vars = array();
+	protected $supported_query_vars = [];
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Base constructor.
@@ -30,25 +30,25 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 *
 	 * @return array The converted arguments.
 	 */
-	public function swaggerize_args( array $args = array(), array $defaults = array() ) {
+	public function swaggerize_args( array $args = [], array $defaults = [] ) {
 		if ( empty( $args ) ) {
 			return $args;
 		}
 
 		$no_description = __( 'No description provided', 'the-events-calendar' );
-		$defaults = array_merge( array(
+		$defaults = array_merge( [
 			'in'          => 'body',
 			'type'        => 'string',
 			'description' => $no_description,
 			'required'    => false,
 			'default'     => '',
-			'items' => array(
+			'items'       => [
 				'type' => 'integer',
-			),
-		), $defaults );
+			],
+		], $defaults );
 
 
-		$swaggerized = array();
+		$swaggerized = [];
 		foreach ( $args as $name => $info ) {
 			if ( isset( $info['swagger_type'] ) ) {
 				$type = $info['swagger_type'];
@@ -58,7 +58,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 			$type = $this->convert_type( $type );
 
-			$read = array(
+			$read = [
 				'name'             => $name,
 				'in'               => isset( $info['in'] ) ? $info['in'] : false,
 				'collectionFormat' => isset( $info['collectionFormat'] ) ? $info['collectionFormat'] : false,
@@ -67,7 +67,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 				'items'            => isset( $info['items'] ) ? $info['items'] : false,
 				'required'         => isset( $info['required'] ) ? $info['required'] : false,
 				'default'          => isset( $info['default'] ) ? $info['default'] : false,
-			);
+			];
 
 			if ( isset( $info['swagger_type'] ) ) {
 				$read['type'] = $info['swagger_type'];
@@ -97,7 +97,8 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 		if ( current_user_can( $post_type_object->cap->publish_posts ) ) {
 			return ! empty( $post_status ) ? $post_status : 'publish';
 		}
-		if ( in_array( $post_status, array( 'publish', 'future' ) ) ) {
+
+		if ( in_array( $post_status, [ 'publish', 'future' ] ) ) {
 			return 'pending';
 		}
 
@@ -145,7 +146,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			}
 		}
 
-		$args = wp_parse_args( array_filter( $args, array( $this, 'is_not_null' ) ), $defaults );
+		$args = wp_parse_args( array_filter( $args, [ $this, 'is_not_null' ] ), $defaults );
 
 		return $args;
 	}
@@ -173,10 +174,10 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 * @return string
 	 */
 	protected function convert_type( $type ) {
-		$rest_to_swagger_type_map = array(
+		$rest_to_swagger_type_map = [
 			'int'  => 'integer',
 			'bool' => 'boolean',
-		);
+		];
 
 		return Tribe__Utils__Array::get( $rest_to_swagger_type_map, $type, $type );
 	}

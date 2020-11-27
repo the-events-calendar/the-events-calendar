@@ -35,7 +35,7 @@ class Tribe__Events__REST__V1__Validator__Base
 		/** @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $venue_endpoint */
 		$venue_endpoint = tribe( 'tec.rest-v1.endpoints.single-venue' );
 
-		$request->set_attributes( array( 'args' => $venue_endpoint->CREATE_args() ) );
+		$request->set_attributes( [ 'args' => $venue_endpoint->CREATE_args() ] );
 		foreach ( $venue as $key => $value ) {
 			$request->set_param( $key, $value );
 		}
@@ -105,7 +105,7 @@ class Tribe__Events__REST__V1__Validator__Base
 			/** @var Tribe__Events__REST__V1__Endpoints__Linked_Post_Endpoint_Interface $organizer_endpoint */
 			$organizer_endpoint = tribe( 'tec.rest-v1.endpoints.single-organizer' );
 
-			$request->set_attributes( array( 'args' => $organizer_endpoint->CREATE_args() ) );
+			$request->set_attributes( [ 'args' => $organizer_endpoint->CREATE_args() ] );
 			foreach ( $entry as $key => $value ) {
 				$request->set_param( $key, $value );
 			}

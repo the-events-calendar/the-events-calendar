@@ -20,7 +20,7 @@ class Tribe__Events__Event_Tickets__Ticket_Email {
 	 * @since 4.0.2
 	 */
 	public function add_hooks() {
-		add_filter( 'event_tickets_email_include_start_date', array( $this, 'maybe_include_start_date' ), 10, 2 );
+		add_filter( 'event_tickets_email_include_start_date', [ $this, 'maybe_include_start_date' ], 10, 2 );
 	}
 
 	/**

@@ -20,7 +20,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 	class Tribe__Events__Template__List extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'events-list';
-		protected $asset_packages = array();
+		protected $asset_packages = [];
 
 		const AJAX_HOOK = 'tribe_list';
 
@@ -79,12 +79,12 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			$display = tribe( 'context' )->get( 'event_display' );
 
-			$args = array(
+			$args = [
 				'eventDisplay' => $display,
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged,
-			);
+			];
 
 			// If the request is false or not set we assume the request is for all events, not just featured ones.
 			if (
@@ -169,7 +169,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				$query         = tribe_get_events( $args, true );
 			}
 
-			$response = array(
+			$response = [
 				'html'        => '',
 				'success'     => true,
 				'max_pages'   => $query->max_num_pages,
@@ -177,7 +177,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 				'tribe_paged' => $tribe_paged,
 				'total_count' => $query->found_posts,
 				'view'        => 'list',
-			);
+			];
 
 			global $post;
 			global $paged;

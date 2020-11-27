@@ -20,7 +20,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	public function is_valid_import_id( $import_id ) {
 		/** @var Tribe__Events__Aggregator__Records $records */
 		$records = tribe( 'events-aggregator.records' );
-		$args    = array( 'post_status' => Tribe__Events__Aggregator__Records::$status->pending );
+		$args    = [ 'post_status' => Tribe__Events__Aggregator__Records::$status->pending ];
 		$record  = $records->get_by_import_id( $import_id, $args );
 
 		$this->current_record = $record;

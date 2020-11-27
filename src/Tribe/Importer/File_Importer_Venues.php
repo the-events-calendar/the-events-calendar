@@ -4,7 +4,7 @@
  */
 class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Importer__File_Importer {
 
-	protected $required_fields = array( 'venue_name' );
+	protected $required_fields = [ 'venue_name' ];
 
 	protected function match_existing_post( array $record ) {
 		$name = $this->get_value_by_key( $record, 'venue_name' );

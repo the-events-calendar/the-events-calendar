@@ -19,8 +19,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		// Provide backwards compatibility for meta data
 		$post_type = Tribe__Events__Main::POSTTYPE;
-		add_filter( "rest_prepare_{$post_type}", array( $this, 'meta_backwards_compatibility' ), 10, 3 );
-		add_filter( "rest_after_insert_{$post_type}", array( $this, 'add_utc_dates' ), 10, 2 );
+		add_filter( "rest_prepare_{$post_type}", [ $this, 'meta_backwards_compatibility' ], 10, 3 );
+		add_filter( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
 		register_meta( 'post', '_EventTimezone', $this->text() );
@@ -42,9 +42,9 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			'_EventDateTimeSeparator',
 			array_merge(
 				$this->text(),
-				array(
-					'sanitize_callback' => array( $this, 'sanitize_separator' ),
-				)
+				[
+					'sanitize_callback' => [ $this, 'sanitize_separator' ],
+				]
 			)
 		);
 		register_meta(
@@ -52,9 +52,9 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			'_EventTimeRangeSeparator',
 			array_merge(
 				$this->text(),
-				array(
-					'sanitize_callback' => array( $this, 'sanitize_separator' ),
-				)
+				[
+					'sanitize_callback' => [ $this, 'sanitize_separator' ],
+				]
 			)
 		);
 		register_meta(
@@ -62,23 +62,23 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			'_EventOrganizerID',
 			array_merge(
 				$this->numeric_array(),
-				array(
+				[
 					'description' => __( 'Event Organizers', 'the-events-calendar' ),
-				)
+				]
 			)
 		);
 
 		register_meta(
 			'post',
 			'_EventVenueID',
-			array(
+			[
 				'description'       => __( 'Event Organizers', 'the-events-calendar' ),
-				'auth_callback'     => array( $this, 'auth_callback' ),
+				'auth_callback'     => [ $this, 'auth_callback' ],
 				'sanitize_callback' => 'absint',
 				'type'              => 'integer',
 				'single'            => true,
 				'show_in_rest'      => true,
-			)
+			]
 		);
 
 		// Organizers Meta
@@ -136,7 +136,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 */
 	public function add_utc_dates( $post_data, WP_REST_Request $request ) {
 		$json_params = $request->get_json_params();
-		$meta = Tribe__Utils__Array::get( $json_params, 'meta', array() );
+		$meta = Tribe__Utils__Array::get( $json_params, 'meta', [] );
 
 		// No changes to start or end? No need to update UTC dates.
 		if ( ! ( isset( $meta['_EventStartDate'] ) || isset( $meta['_EventEndDate'] ) ) ) {
