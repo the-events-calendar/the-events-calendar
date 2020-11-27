@@ -7,7 +7,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
-	protected $supported_query_vars = array(
+	protected $supported_query_vars = [
 		'page'        => 'paged',
 		'per_page'    => 'posts_per_page',
 		'start_date'  => 'start_date',
@@ -24,7 +24,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'status'      => 'post_status',
 		'post_parent' => 'post_parent',
 		'include'     => 'post__in',
-	);
+	];
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Archive_Event constructor.
@@ -53,7 +53,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
-		$args        = array();
+		$args        = [];
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 
 		$args['paged']          = $request['page'];
@@ -102,22 +102,22 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			}
 		}
 
-		$args['meta_query'] = array_filter( array(
+		$args['meta_query'] = array_filter( [
 			$this->parse_meta_query_entry( $request['venue'], '_EventVenueID', '=', 'NUMERIC' ),
 			$this->parse_meta_query_entry( $request['organizer'], '_EventOrganizerID', '=', 'NUMERIC' ),
 			$this->parse_featured_meta_query_entry( $request['featured'] ),
-		) );
+		] );
 
-		$args['tax_query'] = array_filter( array(
+		$args['tax_query'] = array_filter( [
 			$this->parse_terms_query( $request['categories'], Tribe__Events__Main::TAXONOMY ),
 			$this->parse_terms_query( $request['tags'], 'post_tag' ),
-		) );
+		] );
 
-		$extra_rest_args = array(
+		$extra_rest_args = [
 			'venue'     => Tribe__Utils__Array::to_list( $request['venue'] ),
 			'organizer' => Tribe__Utils__Array::to_list( $request['organizer'] ),
 			'featured'  => $request['featured'],
-		);
+		];
 		$extra_rest_args = array_diff_key( $extra_rest_args, array_filter( $extra_rest_args, 'is_null' ) );
 
 		// Filter by geoloc
@@ -130,7 +130,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		// When including specific posts date queries will be voided
 		if ( isset( $args['post__in'] ) ) {
 			unset( $args['start_date'], $args['end_date'] );
-			$args['orderby'] = Tribe__Utils__Array::get( $args, 'orderby', array( 'date', 'ID' ) );
+			$args['orderby'] = Tribe__Utils__Array::get( $args, 'orderby', [ 'date', 'ID' ] );
 			$args['order']   = Tribe__Utils__Array::get( $args, 'order', 'ASC' );
 		}
 
@@ -157,7 +157,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$data = $cache->get( $cache_key, 'save_post' );
 
 		if ( ! is_array( $data ) ) {
-			$data = array( 'events' => array() );
+			$data = [ 'events' => [] ];
 
 			$data['rest_url'] = $this->get_current_rest_url( $args, $extra_rest_args );
 
@@ -179,7 +179,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			if ( empty( $events ) && (int) $page > 1 ) {
 				$message = $this->messages->get_message( 'event-archive-page-not-found' );
 
-				return new WP_Error( 'event-archive-page-not-found', $message, array( 'status' => 404 ) );
+				return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
 			}
 
 			$events = wp_list_pluck( $events, 'ID' );
@@ -248,10 +248,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			return false;
 		}
 
-		$parsed = array(
-			'key' => Tribe__Events__Featured_Events::FEATURED_EVENT_KEY,
+		$parsed = [
+			'key'     => Tribe__Events__Featured_Events::FEATURED_EVENT_KEY,
 			'compare' => $featured ? 'EXISTS' : 'NOT EXISTS',
-		);
+		];
 
 		return $parsed;
 	}
@@ -269,7 +269,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			return false;
 		}
 
-		$parsed    = array();
+		$parsed    = [];
 		$requested = Tribe__Utils__Array::list_to_array( $terms );
 
 		foreach ( $requested as $t ) {
@@ -283,11 +283,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		if ( ! empty( $parsed ) ) {
-			$parsed = array(
+			$parsed = [
 				'taxonomy' => $taxonomy,
 				'field'    => 'term_id',
 				'terms'    => $parsed,
-			);
+			];
 		}
 
 		return $parsed;
@@ -311,14 +311,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$meta_values = Tribe__Utils__Array::list_to_array( $meta_value );
 
-		$parsed = array( 'relation' => 'OR' );
+		$parsed = [ 'relation' => 'OR' ];
 		foreach ( $meta_values as $value ) {
-			$parsed[] = array(
+			$parsed[] = [
 				'key'     => $meta_key,
 				'value'   => $value,
 				'type'    => $type,
 				'compare' => $compare,
-			);
+			];
 		}
 
 		return $parsed;
@@ -333,12 +333,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return bool
 	 */
 	protected function has_next( $args, $page ) {
-		$overrides = array(
+		$overrides = [
 			'paged'                  => $page + 1,
 			'fields'                 => 'ids',
 			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
-		);
+			'update_post_term_cache' => false,
+		];
 		$next      = tribe_get_events( array_merge( $args, $overrides ) );
 
 		return ! empty( $next );
@@ -353,12 +353,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return bool
 	 */
 	protected function has_previous( $page, $args ) {
-		$overrides = array(
+		$overrides = [
 			'paged'                  => $page - 1,
 			'fields'                 => 'ids',
 			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
-		);
+			'update_post_term_cache' => false,
+		];
 		$previous  = tribe_get_events( array_merge( $args, $overrides ) );
 
 		return 1 !== $page && ! empty( $previous );
@@ -391,27 +391,27 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		return array(
-			'get' => array(
-				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
-				'responses'  => array(
-					'200' => array(
+		return [
+			'get' => [
+				'parameters' => $this->swaggerize_args( $this->READ_args(), [ 'in' => 'query', 'default' => '' ] ),
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns all the upcoming events matching the search criteria', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'title' => 'events',
 							'type'  => 'array',
-							'items' => array( '$ref' => '#/definitions/Event' ),
-						),
-					),
-					'400' => array(
+							'items' => [ '$ref' => '#/definitions/Event' ],
+						],
+					],
+					'400' => [
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
-					),
-					'404' => array(
+					],
+					'404' => [
 						'description' => __( 'The requested page was not found.', 'the-events-calendar' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -421,119 +421,119 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return array
 	 */
 	public function READ_args() {
-		return array(
-			'page'       => array(
+		return [
+			'page'        => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_positive_int' ),
+				'validate_callback' => [ $this->validator, 'is_positive_int' ],
 				'default'           => 1,
 				'description'       => __( 'The archive page to return', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'per_page'   => array(
+			],
+			'per_page'    => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_positive_int' ),
-				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
+				'validate_callback' => [ $this->validator, 'is_positive_int' ],
+				'sanitize_callback' => [ $this, 'sanitize_per_page' ],
 				'default'           => $this->get_default_posts_per_page(),
 				'description'       => __( 'The number of events to return on each page', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'start_date' => array(
+			],
+			'start_date'  => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
 				'description'       => __( 'Events should start after the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
-			),
-			'end_date'   => array(
+			],
+			'end_date'    => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
 				'description'       => __( 'Events should start before the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
-			),
-			'search'     => array(
+			],
+			'search'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'description'       => __( 'Events should contain the specified string in the title or description', 'the-events-calendar' ),
 				'type'              => 'string',
-			),
-			'categories' => array(
+			],
+			'categories'  => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_category' ),
-				'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
-			),
-			'tags'       => array(
+				'validate_callback' => [ $this->validator, 'is_event_category' ],
+				'description'       => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'items'             => [ 'type' => 'integer' ],
+				'collectionFormat'  => 'csv',
+			],
+			'tags'        => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_post_tag' ),
-				'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
-			),
-			'venue'      => array(
+				'validate_callback' => [ $this->validator, 'is_post_tag' ],
+				'description'       => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'items'             => [ 'type' => 'integer' ],
+				'collectionFormat'  => 'csv',
+			],
+			'venue'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_venue_id_list' ),
-				'description' => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
-			),
-			'organizer'  => array(
+				'validate_callback' => [ $this->validator, 'is_venue_id_list' ],
+				'description'       => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'items'             => [ 'type' => 'integer' ],
+				'collectionFormat'  => 'csv',
+			],
+			'organizer'   => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
-				'description' => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
-			),
-			'featured'   => array(
+				'validate_callback' => [ $this->validator, 'is_organizer_id_list' ],
+				'description'       => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
+				'swagger_type'      => 'array',
+				'items'             => [ 'type' => 'integer' ],
+				'collectionFormat'  => 'csv',
+			],
+			'featured'    => [
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Events should be filtered by their featured status', 'the-events-calendar' ),
-			),
-			'status'     => array(
+			],
+			'status'      => [
 				'required'          => false,
-				'validate_callback' => array( $this, 'filter_post_status_list' ),
+				'validate_callback' => [ $this, 'filter_post_status_list' ],
 				'swagger_type'      => 'string',
 				'format'            => 'string',
 				'description'       => __( 'The event post status', 'the-events-calendar' ),
-			),
-			'geoloc'     => array(
+			],
+			'geoloc'      => [
 				'required'    => false,
 				'type'        => 'boolean',
 				'description' => __( 'Requires Events Calendar Pro. Events should be filtered by whether their venue has geolocation data', 'the-events-calendar' ),
-			),
-			'geoloc_lat' => array(
+			],
+			'geoloc_lat'  => [
 				'required'     => false,
 				'swagger_type' => 'number',
 				'format'       => 'double',
 				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue latitude location, must also provide geoloc_lng', 'the-events-calendar' ),
-			),
-			'geoloc_lng' => array(
+			],
+			'geoloc_lng'  => [
 				'required'     => false,
 				'swagger_type' => 'number',
 				'format'       => 'double',
 				'description'  => __( 'Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat', 'the-events-calendar' ),
-			),
-			'include' => array(
+			],
+			'include'     => [
 				'required'          => false,
 				'description'       => __( 'Include events with one of the post IDs specified in the array of CSV list, date filters will be ignored.', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
-				'items'             => array( 'type' => 'integer' ),
+				'items'             => [ 'type' => 'integer' ],
 				'collectionFormat'  => 'csv',
-				'validate_callback' => array( $this->validator, 'is_positive_int_list' ),
-				'sanitize_callback' => array( 'Tribe__Utils__Array', 'list_to_array' ),
-			),
-			'post_parent' => array(
+				'validate_callback' => [ $this->validator, 'is_positive_int_list' ],
+				'sanitize_callback' => [ 'Tribe__Utils__Array', 'list_to_array' ],
+			],
+			'post_parent' => [
 				'required'          => false,
 				'type'              => 'integer',
 				'description'       => __( 'Events should be filtered by their post_parent being the specified one.', 'the-events-calendar' ),
-				'validate_callback' => array( $this->validator, 'is_event_id' ),
-			),
-		);
+				'validate_callback' => [ $this->validator, 'is_event_id' ],
+			],
+		];
 	}
 
 	/**
@@ -546,11 +546,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * @return int
 	 */
 	protected function get_total( $args ) {
-		$this->total = tribe_get_events( array_merge( $args, array(
+		$this->total = tribe_get_events( array_merge( $args, [
 			'found_posts'            => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
-		) ) );
+		] ) );
 
 		return $this->total;
 	}

@@ -32,7 +32,7 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 	 *
 	 * @return array The languages with maybe updated URLs
 	 */
-	public function filter_icl_ls_languages( array $languages = array() ) {
+	public function filter_icl_ls_languages( array $languages = [] ) {
 		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return $languages;
 		}

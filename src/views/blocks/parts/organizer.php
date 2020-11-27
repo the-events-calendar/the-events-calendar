@@ -16,7 +16,7 @@
 if ( ! tribe_has_organizer() ) {
 	return;
 }
-$attributes = $this->get( 'attributes', array() );
+$attributes = $this->get( 'attributes', [] );
 
 $organizer_ids = tribe_get_organizer_ids();
 $multiple = count( $organizer_ids ) > 1;

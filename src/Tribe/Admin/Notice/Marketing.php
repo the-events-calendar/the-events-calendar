@@ -12,13 +12,13 @@ class Tribe__Events__Admin__Notice__Marketing {
 	public function hook() {
 		tribe_notice(
 			'tribe-events-upcoming-survey',
-			array( $this, 'notice' ),
-			array(
+			[ $this, 'notice' ],
+			[
 				'dismiss' => 1,
 				'type'    => 'info',
 				'wrap'    => 'p',
-			),
-			array( $this, 'should_display' )
+			],
+			[ $this, 'should_display' ]
 		);
 	}
 

@@ -297,14 +297,14 @@ class Tribe__Events__Adjacent_Events {
 
 				// escape special characters used in the second parameter of preg_replace
 				$title = str_replace(
-					array(
+					[
 						'\\',
 						'$',
-					),
-					array(
+					],
+					[
 						'\\\\',
 						'\$',
-					),
+					],
 					$title
 				);
 

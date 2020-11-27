@@ -20,8 +20,8 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 	 * @since 4.0.1
 	 */
 	public function add_hooks() {
-		add_action( 'tribe_tickets_attendees_event_details_list_top', array( $this, 'event_details_top' ) );
-		add_action( 'tribe_tickets_plus_report_event_details_list_top', array( $this, 'event_details_top' ) );
+		add_action( 'tribe_tickets_attendees_event_details_list_top', [ $this, 'event_details_top' ] );
+		add_action( 'tribe_tickets_plus_report_event_details_list_top', [ $this, 'event_details_top' ] );
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Tribe__Events__Event_Tickets__Attendees_Report {
 			echo '
 				<li>
 					<strong>' . esc_html__( 'Event Date:', 'the-events-calendar' ) . '</strong>
-					' . tribe_get_start_date( $event_id, false, tribe_get_date_format( true ) ) . ' 
+					' . tribe_get_start_date( $event_id, false, tribe_get_date_format( true ) ) . '
 				</li>
 			';
 		}

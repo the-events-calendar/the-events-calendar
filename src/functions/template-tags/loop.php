@@ -443,7 +443,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_left_navigation_classes() {
 
-		$classes     = array();
+		$classes     = [];
 		$tribe_paged = absint( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
 		$classes['direction'] = 'tribe-events-nav-previous';
@@ -464,7 +464,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_right_navigation_classes() {
 
-		$classes     = array();
+		$classes     = [];
 		$tribe_paged = absint( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
 		$classes['direction'] = 'tribe-events-nav-next';

@@ -39,7 +39,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$this->singular_name_lowercase = $this->linked_posts->linked_post_types[ $this->post_type ]['singular_name_lowercase'];
 		$this->get_event( $event );
 
-		add_action( 'wp', array( $this, 'sticky_form_data' ), 50 ); // Later than events-admin.js itself is enqueued
+		add_action( 'wp', [ $this, 'sticky_form_data' ], 50 ); // Later than events-admin.js itself is enqueued
 	}
 
 	/**
@@ -61,7 +61,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		if ( ! $event instanceof WP_Post ) {
-			$event = new WP_Post( (object) array( 'ID' => 0 ) );
+			$event = new WP_Post( (object) [ 'ID' => 0 ] );
 		}
 
 		$this->event = $event;
@@ -117,7 +117,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 			 * @param array $default Default post array
 			 * @param string $post_type Linked post post type
 			 */
-			$current_linked_posts = apply_filters( 'tribe_events_linked_post_default', array(), $this->post_type );
+			$current_linked_posts = apply_filters( 'tribe_events_linked_post_default', [], $this->post_type );
 		}
 
 		/**
@@ -240,9 +240,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 			return;
 		}
 
-		$classes = array(
-			'tribe-add-post',
-		);
+		$classes = [ 'tribe-add-post' ];
+
 		if ( is_admin() ) {
 			$classes[] = 'button';
 		} else {
@@ -287,7 +286,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * them with sticky qualities. This *must* run later than the action:priority used to enqueue events-admin.js.
 	 */
 	public function sticky_form_data() {
-		$submitted_data = array();
+		$submitted_data = [];
 
 		$linked_posts = Tribe__Events__Linked_Posts::instance();
 		$container    = $linked_posts->get_post_type_container( $this->post_type );
@@ -303,7 +302,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 			foreach ( $set_of_values as $index => $value ) {
 				if ( ! isset( $submitted_data[ $index ] ) ) {
-					$submitted_data[ $index ] = array();
+					$submitted_data[ $index ] = [];
 				}
 
 				$submitted_data[ $index ][ $field ] = esc_attr( $value );
@@ -319,7 +318,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * @param $current_linked_posts
 	 * @return mixed
 	 */
-	private function maybe_parse_candidate_linked_posts( array $current_linked_posts = array() ) {
+	private function maybe_parse_candidate_linked_posts( array $current_linked_posts = [] ) {
 		$linked_post_type_container = $this->linked_posts->get_post_type_container( $this->post_type );
 
 		// filter out any non-truthy values

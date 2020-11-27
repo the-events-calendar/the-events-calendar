@@ -29,7 +29,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $value;
 		}
 
-		$accepted_values = array( '_EventOrganizerID', '_EventVenueID' );
+		$accepted_values = [ '_EventOrganizerID', '_EventVenueID' ];
 
 		if ( ! in_array( $meta_key, $accepted_values ) ) {
 			return $value;
@@ -99,7 +99,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * @param object $q
 	 */
 	public function include_all_languages( $q ) {
-		$keys = array( 'venue', 'organizer' );
+		$keys = [ 'venue', 'organizer' ];
 		foreach ( $keys as $key ) {
 			if ( ! isset( $q->query_vars[ $key ] ) ) {
 				continue;
