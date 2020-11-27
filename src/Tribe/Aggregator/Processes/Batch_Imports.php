@@ -4,6 +4,7 @@ namespace Tribe\Events\Aggregator\Processes;
 
 use stdClass;
 use Tribe__Events__Aggregator__Record__Abstract as Record_Abstract;
+use Tribe__Events__Aggregator__Records as Records;
 use Tribe__Events__Aggregator__Service;
 use WP_Post;
 

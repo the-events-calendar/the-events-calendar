@@ -1332,11 +1332,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		switch ( $type ) {
 			case 'total':
 				return $this->meta['activity']->count( $activity_type, 'created' ) + $this->meta['activity']->count( $activity_type, 'updated' );
-				break;
 
 			default:
 				return $this->meta['activity']->count( $activity_type, $type );
-				break;
 		}
 	}
 

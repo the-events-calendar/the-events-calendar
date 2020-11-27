@@ -2,6 +2,8 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use Tribe__Events__Aggregator__Records as Records;
+
 class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Action where the cron will run, on schedule
@@ -297,11 +299,11 @@ class Tribe__Events__Aggregator__Cron {
 		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
-		$records = Tribe__Events__Aggregator__Records::instance();
+		$records = Records::instance();
 		$service = tribe( 'events-aggregator.service' );
 
 		$query = $records->query( [
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
+			'post_status'    => Records::$status->schedule,
 			'posts_per_page' => -1,
 		] );
 
@@ -312,7 +314,7 @@ class Tribe__Events__Aggregator__Cron {
 		}
 
 		foreach ( $query->posts as $post ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+			$record = Records::instance()->get_by_post_id( $post );
 
 			if ( tribe_is_error( $record ) ) {
 				continue;
@@ -477,10 +479,10 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
-		$records = Tribe__Events__Aggregator__Records::instance();
+		$records = Records::instance();
 
 		$query = $records->query( [
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
+			'post_status'    => Records::$status->pending,
 			'posts_per_page' => -1,
 			'order'          => 'ASC',
 			'meta_query'     => [
@@ -574,8 +576,8 @@ class Tribe__Events__Aggregator__Cron {
 	public function purge_expired_records() {
 		global $wpdb;
 
-		$records  = Tribe__Events__Aggregator__Records::instance();
-		$statuses = Tribe__Events__Aggregator__Records::$status;
+		$records  = Records::instance();
+		$statuses = Records::$status;
 
 		$sql = "
 			SELECT
@@ -628,7 +630,7 @@ class Tribe__Events__Aggregator__Cron {
 		}
 
 		foreach ( $query->posts as $post ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+			$record = Records::instance()->get_by_post_id( $post );
 
 			if ( tribe_is_error( $record ) ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, original post non-existent', $post->ID ), 'EA Cron' );
