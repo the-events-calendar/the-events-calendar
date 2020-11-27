@@ -15,10 +15,10 @@ class Tribe__Events__Asset__Bootstrap_Datepicker extends Tribe__Events__Asset__A
 		$days_week_min   = Tribe__Date_Utils::get_localized_weekdays_initial();
 
 		$handle = $this->prefix . '-bootstrap-datepicker';
-		wp_enqueue_script( $handle, $path, array( 'jquery' ), '3.2' );
+		wp_enqueue_script( $handle, $path, [ 'jquery' ], '3.2' );
 		Tribe__Events__Template_Factory::add_vendor_script( $handle );
 
-		$localized_datepicker_array = array(
+		$localized_datepicker_array = [
 			'days'        => $days_week,
 			'daysShort'   => $days_week_short,
 			'daysMin'     => $days_week_min,
@@ -28,7 +28,7 @@ class Tribe__Events__Asset__Bootstrap_Datepicker extends Tribe__Events__Asset__A
 			'today'       => esc_attr__( 'Today', 'the-events-calendar' ),
 			'titleFormat' => esc_attr( 'MM yyyy' ),
 			'firstDay'    => get_option( 'start_of_week' ),
-		);
-		wp_localize_script( $handle, 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
+		];
+		wp_localize_script( $handle, 'tribe_bootstrap_datepicker_strings', [ 'dates' => $localized_datepicker_array ] );
 	}
 }

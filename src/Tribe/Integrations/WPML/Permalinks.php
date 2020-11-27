@@ -24,10 +24,10 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 	 * @param array|null $supported_post_types An injectable array of supported post types.
 	 */
 	public function __construct( array $supported_post_types = null ) {
-		$this->supported_post_types = null !== $supported_post_types ? $supported_post_types : array(
+		$this->supported_post_types = null !== $supported_post_types ? $supported_post_types : [
 			Tribe__Events__Organizer::POSTTYPE,
 			Tribe__Events__Venue::POSTTYPE,
-		);
+		];
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 				return $post_link;
 			} else {
 				$post_link = remove_query_arg( 'lang', $post_link );
-				$post_link = add_query_arg( array( 'lang' => $post_language ), $post_link );
+				$post_link = add_query_arg( [ 'lang' => $post_language ], $post_link );
 
 				return $post_link;
 			}
@@ -122,11 +122,11 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 		global $sitepress;
 
 		$sitepress->switch_lang( $post_language );
-		remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 20 );
+		remove_filter( 'post_type_link', [ $this, 'filter_post_type_link' ], 20 );
 
 		$post_link = get_permalink( $post->ID );
 
-		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 20, 2 );
+		add_filter( 'post_type_link', [ $this, 'filter_post_type_link' ], 20, 2 );
 		$sitepress->switch_lang( ICL_LANGUAGE_CODE );
 
 		return $post_link;

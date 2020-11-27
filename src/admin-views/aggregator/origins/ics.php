@@ -1,7 +1,7 @@
 <?php
 $tab                = $this->tabs->get_active();
 $origin_slug        = 'ics';
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose File', 'the-events-calendar' );
 $field->help        = __( 'Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );
@@ -39,7 +39,14 @@ $field->media_title = __( 'Upload an ICS File', 'the-events-calendar' );
 
 <?php
 if ( 'edit' === $tab->get_slug() ) {
-	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+	$this->template(
+		'fields/schedule',
+		[
+			'record'            => $record,
+			'origin'            => $origin_slug,
+			'aggregator_action' => $aggregator_action,
+		]
+	);
 }
 ?>
 

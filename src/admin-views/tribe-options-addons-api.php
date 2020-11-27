@@ -3,7 +3,7 @@
  * Create a easy way to hook to the Add-ons Tab Fields
  * @var array
  */
-$internal = array();
+$internal = [];
 
 $current_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] );
 

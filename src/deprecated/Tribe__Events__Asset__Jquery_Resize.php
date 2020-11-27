@@ -5,7 +5,7 @@ class Tribe__Events__Asset__Jquery_Resize extends Tribe__Events__Asset__Abstract
 
 	public function handle() {
 		$path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'jquery-resize/jquery.ba-resize.js', true );
-		$deps = array_merge( $this->deps, array( 'jquery' ) );
+		$deps = array_merge( $this->deps, [ 'jquery' ] );
 
 		$handle = $this->prefix . '-jquery-resize';
 		wp_enqueue_script( $handle, $path, $deps, '1.1', false );

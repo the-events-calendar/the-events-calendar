@@ -6,11 +6,11 @@ class Tribe__Events__Asset__Tribe_Select2 extends Tribe__Events__Asset__Abstract
 	/**
 	 * @var array
 	 */
-	protected $aliases = array(
-		'tribe-select2' => array(
+	protected $aliases = [
+		'tribe-select2' => [
 			'advanced-custom-fields-pro/acf.php' => 'select2',
-		),
-	);
+		],
+	];
 
 	public function handle() {
 		wp_enqueue_style( 'tribe-select2-css' );

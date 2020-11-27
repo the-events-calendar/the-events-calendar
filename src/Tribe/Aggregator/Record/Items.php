@@ -23,7 +23,7 @@ class Tribe__Events__Aggregator__Record__Items {
 	 *
 	 * @param array $items A list of items to process, the format should be the one used by EA Service
 	 */
-	public function __construct( array $items = array() ) {
+	public function __construct( array $items = [] ) {
 		$this->items          = $items;
 		$this->original_items = $items;
 	}
@@ -62,12 +62,12 @@ class Tribe__Events__Aggregator__Record__Items {
 	public function mark_dependencies() {
 		$items = $this->items;
 
-		$venue_global_ids     = array();
-		$organizer_global_ids = array();
+		$venue_global_ids     = [];
+		$organizer_global_ids = [];
 
 		foreach ( $items as &$item ) {
 			$item             = (object) $item;
-			$item->depends_on = array();
+			$item->depends_on = [];
 
 			if ( isset( $item->venue ) ) {
 				$venue = (object) $item->venue;
@@ -86,7 +86,7 @@ class Tribe__Events__Aggregator__Record__Items {
 				$organizers = $item->organizer;
 
 				if ( is_object( $item->organizer ) ) {
-					$organizers = array( $item->organizer );
+					$organizers = [ $item->organizer ];
 				}
 
 				foreach ( $organizers as $organizer ) {

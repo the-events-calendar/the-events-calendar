@@ -16,24 +16,24 @@ class Tribe__Events__Utils__Radius {
 
 		if ( $unit == 'miles' ) {
 			$mi_string = _x( '%1$s (mi)', 'X (miles abbreviation)', 'the-events-calendar' );
-			$radii = array(
-				sprintf( $mi_string, 1 ) => 1.6,
-				sprintf( $mi_string, 5 ) => 8,
-				sprintf( $mi_string, 10 ) => 16.1,
-				sprintf( $mi_string, 25 ) => 40.2,
-				sprintf( $mi_string, 50 ) => 80.5,
+			$radii = [
+				sprintf( $mi_string, 1 )   => 1.6,
+				sprintf( $mi_string, 5 )   => 8,
+				sprintf( $mi_string, 10 )  => 16.1,
+				sprintf( $mi_string, 25 )  => 40.2,
+				sprintf( $mi_string, 50 )  => 80.5,
 				sprintf( $mi_string, 100 ) => 160.9,
-			);
+			];
 		} else {
 			$km_string = _x( '%1$s (km)', 'X (kilometers abbreviation)', 'the-events-calendar' );
-			$radii = array(
-				sprintf( $km_string, 1 ) => 1,
-				sprintf( $km_string, 5 ) => 5,
-				sprintf( $km_string, 10 ) => 10,
-				sprintf( $km_string, 25 ) => 25,
-				sprintf( $km_string, 50 ) => 50,
+			$radii = [
+				sprintf( $km_string, 1 )   => 1,
+				sprintf( $km_string, 5 )   => 5,
+				sprintf( $km_string, 10 )  => 10,
+				sprintf( $km_string, 25 )  => 25,
+				sprintf( $km_string, 50 )  => 50,
 				sprintf( $km_string, 100 ) => 100,
-			);
+			];
 		}
 
 		/**

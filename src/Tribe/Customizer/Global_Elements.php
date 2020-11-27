@@ -438,7 +438,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		return $template;
 	}
 
-	public function create_ghost_settings( $settings = array() ) {
+	public function create_ghost_settings( $settings = [] ) {
 		if ( ! empty( $settings['filterbar_color'] ) ) {
 			$settings['filterbar_color_darker'] = new Tribe__Utils__Color( $settings['filterbar_color'] );
 			$settings['filterbar_color_darker'] = '#' . $settings['filterbar_color_darker']->darken();
@@ -456,15 +456,15 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'link_color'           => '#141827',
+			'link_color' => '#141827',
 		];
 
-		$this->arguments = array(
+		$this->arguments = [
 			'priority'    => 20,
 			'capability'  => 'edit_theme_options',
 			'title'       => $title,
 			'description' => $description,
-		);
+		];
 	}
 
 	/**
@@ -482,37 +482,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$manager->add_control(
 			new Heading(
 				$manager,
-				$customizer->get_setting_name( 'accent_color_heading', $section ),
+				$customizer->get_setting_name( 'link_color_heading', $section ),
 				[
 					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 					'section' => $section->id,
 				]
 			)
 		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'accent_color', $section ),
-			[
-				'default'              => '#334AFF',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'accent_color', $section ),
-				[
-					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
-					'section' => $section->id,
-				]
-			)
-		);
-
-		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
-
+		
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
 			[
@@ -522,19 +499,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
 		);
-
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
-		$manager->add_control(
-			new Heading(
-				$manager,
-				$customizer->get_setting_name( 'link_color_heading', $section ),
-				[
-					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
-					'section' => $section->id,
-				]
-			)
-		);
-
+		
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
@@ -548,6 +513,41 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		);
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
+		
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'accent_color_heading', $section ),
+				[
+					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
+		
+		$manager->add_setting(
+			$customizer->get_setting_name( 'accent_color', $section ),
+			[
+				'default'              => '#334AFF',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+		
+		$manager->add_control(
+			new WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'accent_color', $section ),
+				[
+					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
+
+		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
 
 		if ( tribe_events_views_v2_is_enabled() ) {
 			return;
@@ -555,45 +555,45 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'filterbar_color', $section ),
-			array(
-				'default'              => $this->get_default( 'filterbar_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'filterbar_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'filterbar_color', $section ),
-				array(
+				[
 					'label'   => esc_html__( 'Filter Bar Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'button_color', $section ),
-			array(
-				'default'              => $this->get_default( 'button_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'button_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'button_color', $section ),
-				array(
+				[
 					'label'   => esc_html__( 'Button Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
@@ -602,22 +602,22 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 			$manager->add_setting(
 				$customizer->get_setting_name( 'map_pin', $section ),
-				array(
-					'default'              => $this->get_default( 'map_pin' ),
-					'type'                 => 'option',
-					'sanitize_callback'    => 'esc_url_raw',
-				)
+				[
+					'default'           => $this->get_default( 'map_pin' ),
+					'type'              => 'option',
+					'sanitize_callback' => 'esc_url_raw',
+				]
 			);
 
 			$manager->add_control(
 				new WP_Customize_Image_Control(
 					$manager,
 					$customizer->get_setting_name( 'map_pin', $section ),
-					array(
-						'default'    => $this->get_default( 'button_color' ),
-						'label'      => esc_html__( 'Map Pin', 'the-events-calendar' ),
-						'section'    => $section->id,
-					)
+					[
+						'default' => $this->get_default( 'button_color' ),
+						'label'   => esc_html__( 'Map Pin', 'the-events-calendar' ),
+						'section' => $section->id,
+					]
 				)
 			);
 		}

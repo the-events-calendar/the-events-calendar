@@ -18,7 +18,7 @@ class Tribe__Events__Aggregator__API__Requests {
 		$site      = parse_url( home_url() );
 		$x_ea_site = ! empty( $site['path'] ) ? $site['host'] . $site['path'] : $site['host'];
 
-		return array( 'X-EA-Site' => $x_ea_site );
+		return [ 'X-EA-Site' => $x_ea_site ];
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator__API__Requests {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function get( $url, $args = array() ) {
+	public function get( $url, $args = [] ) {
 		$site_headers = $this->get_site_headers();
 
 		if ( empty( $args['headers'] ) ) {
@@ -53,7 +53,7 @@ class Tribe__Events__Aggregator__API__Requests {
 	 *
 	 * @return array|WP_Error
 	 */
-	public function post( $url, $args = array() ) {
+	public function post( $url, $args = [] ) {
 		$site_headers = $this->get_site_headers();
 
 		if ( empty( $args['headers'] ) ) {

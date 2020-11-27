@@ -8,7 +8,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a WP_REST_Terms_Controller query.
 	 */
-	protected $supported_query_vars = array(
+	protected $supported_query_vars = [
 		'page'       => 'page',
 		'per_page'   => 'per_page',
 		'search'     => 'search',
@@ -20,7 +20,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 		'post'       => 'post',
 		'event'      => 'post',
 		'slug'       => 'slug',
-	);
+	];
 
 	/**
 	 * Returns an array in the format used by Swagger 2.0.
@@ -37,27 +37,27 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		return array(
-			'get' => array(
-				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
-				'responses'  => array(
-					'200' => array(
+		return [
+			'get' => [
+				'parameters' => $this->swaggerize_args( $this->READ_args(), [ 'in' => 'query', 'default' => '' ] ),
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns all the event tags matching the search criteria', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'title' => $this->get_data_key(),
 							'type'  => 'array',
-							'items' => array( '$ref' => '#/definitions/Term' ),
-						),
-					),
-					'400' => array(
+							'items' => [ '$ref' => '#/definitions/Term' ],
+						],
+					],
+					'400' => [
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
-					),
-					'404' => array(
+					],
+					'404' => [
 						'description' => __( 'No event tags match the query or the requested page was not found.', 'the-events-calendar' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -102,79 +102,79 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 	 * @return array
 	 */
 	public function READ_args() {
-		return array(
-			'page'       => array(
+		return [
+			'page'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_positive_int' ),
+				'validate_callback' => [ $this->validator, 'is_positive_int' ],
 				'default'           => 1,
 				'description'       => __( 'The archive page to return', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'per_page'   => array(
+			],
+			'per_page'   => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_positive_int' ),
-				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
+				'validate_callback' => [ $this->validator, 'is_positive_int' ],
+				'sanitize_callback' => [ $this, 'sanitize_per_page' ],
 				'default'           => $this->get_default_posts_per_page(),
 				'description'       => __( 'The number of event tags to return on each page', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'search'     => array(
+			],
+			'search'     => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'description'       => __( 'Limit results to those matching a string', 'the-events-calendar' ),
 				'type'              => 'string',
-			),
-			'exclude'    => array(
+			],
+			'exclude'    => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_post_tag' ),
+				'validate_callback' => [ $this->validator, 'is_post_tag' ],
 				'description'       => __( 'Ensure result set exclude specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
-				'items' => array( 'type' => 'integer' ),
-			),
-			'include'    => array(
+				'items'             => [ 'type' => 'integer' ],
+			],
+			'include'    => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_post_tag' ),
+				'validate_callback' => [ $this->validator, 'is_post_tag' ],
 				'description'       => __( 'Limit result set to specific IDs', 'the-events-calendar' ),
 				'swagger_type'      => 'array',
-				'items' => array( 'type' => 'integer' ),
-			),
-			'order'      => array(
+				'items'             => [ 'type' => 'integer' ],
+			],
+			'order'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'description'       => __( 'Order sort attribute ascending or descending', 'the-events-calendar' ),
 				'type'              => 'string',
-			),
-			'orderby'    => array(
+			],
+			'orderby'    => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'description'       => __( 'Sort collection by term attribute', 'the-events-calendar' ),
 				'type'              => 'string',
-			),
-			'hide_empty' => array(
+			],
+			'hide_empty' => [
 				'required'    => false,
 				'description' => __( 'Whether to hide terms not assigned to any posts', 'the-events-calendar' ),
 				'type'        => 'boolean',
 				'default'     => '1',
-			),
-			'post'       => array(
+			],
+			'post'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_id' ),
+				'validate_callback' => [ $this->validator, 'is_event_id' ],
 				'description'       => __( 'Limit result set to terms assigned to a specific post', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'event'      => array(
+			],
+			'event'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_id' ),
+				'validate_callback' => [ $this->validator, 'is_event_id' ],
 				'description'       => __( 'Limit result set to terms assigned to a specific event (an alias of the "post" parameter)',
 					'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'slug'       => array(
+			],
+			'slug'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'description'       => __( 'Limit result set to terms with a specific slug', 'the-events-calendar' ),
 				'type'              => 'string',
-			),
-		);
+			],
+		];
 	}
 }
