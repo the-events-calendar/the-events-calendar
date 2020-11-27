@@ -397,7 +397,7 @@ class Customizer {
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_single_event_css_template(  $css_template, $section, $customizer) {
+	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
 		return $css_template;
 	}
 }
