@@ -20,7 +20,7 @@
 $filters     = tribe_events_get_filters();
 $views       = tribe_events_get_views();
 $current_url = tribe_events_get_current_filter_url();
-$classes     = array( 'tribe-clearfix' );
+$classes     = [ 'tribe-clearfix' ];
 
 if ( ! empty( $filters ) ) {
 	$classes[] = 'tribe-events-bar--has-filters';

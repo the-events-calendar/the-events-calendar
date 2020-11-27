@@ -14,10 +14,10 @@ class Tribe__Events__Aggregator__Record__ICS extends Tribe__Events__Aggregator__
 	 *
 	 * @return WP_Post|WP_Error
 	 */
-	public function create( $type = 'manual', $args = array(), $meta = array() ) {
-		$defaults = array(
-			'file'   => empty( $this->meta['file'] ) ? null : $this->meta['file'],
-		);
+	public function create( $type = 'manual', $args = [], $meta = [] ) {
+		$defaults = [
+			'file' => empty( $this->meta['file'] ) ? null : $this->meta['file'],
+		];
 
 		$meta = wp_parse_args( $meta, $defaults );
 

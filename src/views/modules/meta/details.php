@@ -137,7 +137,8 @@ $website = tribe_get_event_website_link();
 
 		<?php
 		echo tribe_get_event_categories(
-			get_the_id(), array(
+			get_the_id(),
+			[
 				'before'       => '',
 				'sep'          => ', ',
 				'after'        => '',
@@ -146,7 +147,7 @@ $website = tribe_get_event_website_link();
 				'label_after'  => '</dt>',
 				'wrap_before'  => '<dd class="tribe-events-event-categories">',
 				'wrap_after'   => '</dd>',
-			)
+			]
 		);
 		?>
 

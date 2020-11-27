@@ -131,7 +131,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *
 	 * @when       after_wp_load
 	 */
-	public function import_from_source( array $args, array $assoc_args = array() ) {
+	public function import_from_source( array $args, array $assoc_args = [] ) {
 		$this->ensure_timeout( $assoc_args );
 
 		list( $origin, $source ) = $args;
@@ -172,21 +172,21 @@ class Tribe__Events__Aggregator__CLI__Command {
 	protected function create_record_from( array $assoc_args, $origin, $source ) {
 		$is_csv = 'csv' === $origin;
 
-		$types = array(
-			'ical' => 'Tribe__Events__Aggregator__Record__iCal',
-			'gcal' => 'Tribe__Events__Aggregator__Record__gCal',
-			'csv' => 'Tribe__Events__Aggregator__Record__CSV',
-			'ics' => 'Tribe__Events__Aggregator__Record__ICS',
+		$types = [
+			'ical'   => 'Tribe__Events__Aggregator__Record__iCal',
+			'gcal'   => 'Tribe__Events__Aggregator__Record__gCal',
+			'csv'    => 'Tribe__Events__Aggregator__Record__CSV',
+			'ics'    => 'Tribe__Events__Aggregator__Record__ICS',
 			'meetup' => 'Tribe__Events__Aggregator__Record__Meetup',
-			'url' => 'Tribe__Events__Aggregator__Record__Url',
-		);
+			'url'    => 'Tribe__Events__Aggregator__Record__Url',
+		];
 
 		$record_class = Tribe__Utils__Array::get( $types, $origin, reset( $types ) );
 
 		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
 		$record = new $record_class;
 
-		$record_args = array();
+		$record_args = [];
 
 		$location   = Tribe__Utils__Array::get( $assoc_args, 'location' );
 		$limit_type = Tribe__Utils__Array::get( $assoc_args, 'limit_type' );
@@ -210,20 +210,20 @@ class Tribe__Events__Aggregator__CLI__Command {
 			$category_id = $term->term_id;
 		}
 
-		$record_meta = array(
-			'origin' => $origin,
-			'type' => 'manual',
-			'keywords' => Tribe__Utils__Array::get( $assoc_args, 'keywords', '' ),
-			'location' => $location,
-			'start' => Tribe__Utils__Array::get( $assoc_args, 'start' ),
-			'end' => Tribe__Utils__Array::get( $assoc_args, 'end' ),
-			'radius' => $location ? Tribe__Utils__Array::get( $assoc_args, 'radius' ) : null,
+		$record_meta = [
+			'origin'     => $origin,
+			'type'       => 'manual',
+			'keywords'   => Tribe__Utils__Array::get( $assoc_args, 'keywords', '' ),
+			'location'   => $location,
+			'start'      => Tribe__Utils__Array::get( $assoc_args, 'start' ),
+			'end'        => Tribe__Utils__Array::get( $assoc_args, 'end' ),
+			'radius'     => $location ? Tribe__Utils__Array::get( $assoc_args, 'radius' ) : null,
 			'limit_type' => $limit_type,
-			'limit' => $limit,
-			'source' => $source,
-			'preview' => false,
-			'category' => $category_id,
-		);
+			'limit'      => $limit,
+			'source'     => $source,
+			'preview'    => false,
+			'category'   => $category_id,
+		];
 
 		if ( ! empty( $record_meta['start'] ) ) {
 			$record_meta['start'] = Tribe__Date_Utils::reformat( $record_meta['start'], 'Y-m-d H:i:s' );
@@ -251,10 +251,10 @@ class Tribe__Events__Aggregator__CLI__Command {
 		}
 
 		if ( 'ics' === $origin ) {
-			$record_meta['file'] = array(
-				'name' => $source,
+			$record_meta['file'] = [
+				'name'     => $source,
 				'tmp_name' => $source,
-			);
+			];
 		}
 
 		if ( empty( $assoc_args['post_status'] ) ) {
@@ -288,7 +288,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * @return array
 	 */
 	protected function fetch_and_process( array $assoc_args, $record, $is_csv ) {
-		$queue_import_args         = array();
+		$queue_import_args = [];
 
 		// remove anything that cannot be serialized
 		foreach ( $record->meta as $key => $value ) {
@@ -370,31 +370,31 @@ class Tribe__Events__Aggregator__CLI__Command {
 			WP_CLI::error( 'The provided column map is invalid.' );
 		}
 
-		$map    = array(
-			'events' => 'event',
-			'venues' => 'venue',
+		$map    = [
+			'events'     => 'event',
+			'venues'     => 'venue',
 			'organizers' => 'organizer',
-		);
+		];
 		$prefix = Tribe__Utils__Array::get( $map, $record->meta['content_type'], 'event' );
 
 		$column_map = array_map( function ( $key ) use ( $prefix ) {
 			return $key === 'featured_image' || $key === 'feature_event' ? $key : $prefix . '_' . $key;
 		}, $column_map );
 
-		$data = array(
-			'action' => 'new',
-			'import_id' => $record->id,
-			'origin' => 'csv',
-			'csv' =>
-				array(
+		$data = [
+			'action'        => 'new',
+			'import_id'     => $record->id,
+			'origin'        => 'csv',
+			'csv'           =>
+				[
 					'content_type' => 'tribe_' . $record->meta['content_type'],
-					'file' => $record->meta['file'],
-				),
-			'column_map' => $column_map,
-			'post_status' => $record->meta['post_status'],
-			'category' => $record->meta['category'],
+					'file'         => $record->meta['file'],
+				],
+			'column_map'    => $column_map,
+			'post_status'   => $record->meta['post_status'],
+			'category'      => $record->meta['category'],
 			'selected_rows' => 'all',
-		);
+		];
 
 		$response = $queue_result;
 
@@ -552,7 +552,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *
 	 * @when       after_wp_load
 	 */
-	public function run_import( array $args, array $assoc_args = array() ) {
+	public function run_import( array $args, array $assoc_args = [] ) {
 		$this->ensure_timeout( $assoc_args );
 
 		$record_id = $args[0];
@@ -599,7 +599,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 *
 	 * @param array $assoc_args
 	 */
-	protected function ensure_column_map( array $assoc_args = array() ) {
+	protected function ensure_column_map( array $assoc_args = [] ) {
 		if ( ! isset( $assoc_args['column_map'] ) ) {
 			WP_CLI::error( 'the --column_map argument is required when importing CSV files.' );
 		}

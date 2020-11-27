@@ -33,7 +33,7 @@ abstract class Tribe__Events__Asset__Abstract_Asset {
 	 *
 	 * @see Tribe__Events__Asset__Abstract_Asset::has_script_alias()
 	 */
-	protected $aliases = array();
+	protected $aliases = [];
 
 	public function set_name( $name ) {
 		$this->name = $name;

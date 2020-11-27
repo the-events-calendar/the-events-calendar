@@ -32,14 +32,14 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 
 		$this->create_args['post_type'] = Tribe__Events__Venue::POSTTYPE;
 
-		$this->default_args = array(
+		$this->default_args = [
 			'post_type'                    => Tribe__Events__Venue::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
-		);
+		];
 
 		// Add venue specific aliases.
-		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
+		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, [
 			'venue'         => 'post_title',
 			'address'       => '_VenueAddress',
 			'city'          => '_VenueCity',
@@ -51,7 +51,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 			'country'       => '_VenueCountry',
 			'phone'         => '_VenuePhone',
 			'website'       => '_VenueURL',
-		) );
+		] );
 
 		$this->linked_id_meta_key = '_EventVenueID';
 

@@ -16,7 +16,7 @@
 if ( ! tribe_get_venue_id() ) {
 	return;
 }
-$attributes = $this->get( 'attributes', array() );
+$attributes = $this->get( 'attributes', [] );
 
 $phone   = tribe_get_phone();
 $website = tribe_get_venue_website_link();

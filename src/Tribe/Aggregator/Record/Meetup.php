@@ -8,7 +8,7 @@ class Tribe__Events__Aggregator__Record__Meetup extends Tribe__Events__Aggregato
 	/**
 	 * Queues the import on the Aggregator service
 	 */
-	public function queue_import( $args = array() ) {
+	public function queue_import( $args = [] ) {
 		$meetup_api_key    = tribe_get_option( 'meetup_api_key' );
 
 		$defaults = array(
