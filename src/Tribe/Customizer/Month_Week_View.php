@@ -102,7 +102,7 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 		return $template;
 	}
 
-	public function create_ghost_settings( $settings = array() ) {
+	public function create_ghost_settings( $settings = [] ) {
 
 		// Retrieve the stylesheet option to set the proper defaults
 		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
@@ -142,12 +142,15 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 
 		$this->set_defaults();
 
-		$this->arguments = array(
+		$this->arguments = [
 			'priority'    => 30,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'Month View', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.', 'the-events-calendar' ),
-		);
+			'description' => esc_html__(
+				'Options selected here will override what was selected in the "General Theme" and "Global Elements" sections.',
+				'the-events-calendar'
+			),
+		];
 	}
 
 	/**
@@ -163,45 +166,45 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'table_bg_color', $section ),
-			array(
-				'default'              => $this->get_default( 'table_bg_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'table_bg_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'table_bg_color', $section ),
-				array(
+				[
 					'label'   => __( 'Calendar Table Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'highlight_color', $section ),
-			array(
-				'default'              => $this->get_default( 'highlight_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'highlight_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'highlight_color', $section ),
-				array(
+				[
 					'label'   => __( 'Calendar Highlight Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
@@ -224,17 +227,17 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 
 		switch ( $style_option ) {
 			case 'full': // Full styles
-				$this->defaults = array(
+				$this->defaults = [
 					'table_bg_color'  => '#fff',
 					'highlight_color' => '#666',
-				);
+				];
 				break;
 			case 'skeleton': // Skeleton styles
 			default:         // tribe styles is the default so add full and theme (tribe)
-				$this->defaults = array(
+				$this->defaults = [
 					'table_bg_color'  => '#f9f9f9',
 					'highlight_color' => '#21759b',
-				);
+				];
 				break;
 		}
 	}

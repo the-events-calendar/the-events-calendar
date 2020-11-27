@@ -42,12 +42,12 @@ class Tribe__Events__Editor__Assets {
 			$plugin,
 			'tribe-the-events-calendar-views',
 			'app/views.css',
-			array(),
+			[],
 			'wp_enqueue_scripts',
-			array(
-				'groups'       => array( 'events-views' ),
-				'conditionals' => array( $this, 'should_enqueue_frontend' ),
-			)
+			[
+				'groups'       => [ 'events-views' ],
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+			]
 		);
 	}
 

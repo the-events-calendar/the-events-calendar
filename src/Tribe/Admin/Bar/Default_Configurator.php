@@ -13,70 +13,70 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 	public function configure( WP_Admin_Bar $wp_admin_bar ) {
 		$main = Tribe__Events__Main::instance();
 
-		$wp_admin_bar->add_menu( array(
+		$wp_admin_bar->add_menu( [
 			'id'    => 'tribe-events',
 			'title' => '<span class="ab-icon dashicons-before dashicons-calendar"></span>' . sprintf( __( '%s', 'the-events-calendar' ), $main->plural_event_label ),
 			'href'  => $main->getLink( 'home' ),
-		) );
+		] );
 
-		$wp_admin_bar->add_group( array(
+		$wp_admin_bar->add_group( [
 			'id'     => 'tribe-events-group',
 			'parent' => 'tribe-events',
-		) );
+		] );
 
-		$wp_admin_bar->add_group( array(
+		$wp_admin_bar->add_group( [
 			'id'     => 'tribe-events-add-ons-group',
 			'parent' => 'tribe-events',
-		) );
+		] );
 
-		$wp_admin_bar->add_group( array(
+		$wp_admin_bar->add_group( [
 			'id'     => 'tribe-events-settings-group',
 			'parent' => 'tribe-events',
-		) );
+		] );
 		if ( current_user_can( 'edit_tribe_events' ) ) {
-			$wp_admin_bar->add_group( array(
+			$wp_admin_bar->add_group( [
 				'id'     => 'tribe-events-import-group',
 				'parent' => 'tribe-events-add-ons-group',
-			) );
+			] );
 		}
 
-		$wp_admin_bar->add_menu( array(
+		$wp_admin_bar->add_menu( [
 			'id'     => 'tribe-events-view-calendar',
 			'title'  => esc_html__( 'View Calendar', 'the-events-calendar' ),
 			'href'   => $main->getLink( 'home' ),
 			'parent' => 'tribe-events-group',
-		) );
+		] );
 
 		if ( current_user_can( 'edit_tribe_events' ) ) {
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'id'     => 'tribe-events-add-event',
 				'title'  => sprintf( esc_html__( 'Add %s', 'the-events-calendar' ), $main->singular_event_label ),
 				'href'   => trailingslashit( get_admin_url() ) . 'post-new.php?post_type=' . Tribe__Events__Main::POSTTYPE,
 				'parent' => 'tribe-events-group',
-			) );
+			] );
 		}
 
 		if ( current_user_can( 'edit_tribe_events' ) ) {
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'id'     => 'tribe-events-edit-events',
 				'title'  => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $main->plural_event_label ),
 				'href'   => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE,
 				'parent' => 'tribe-events-group',
-			) );
+			] );
 		}
 
 		if ( current_user_can( 'publish_tribe_events' ) ) {
 			$import_node = $wp_admin_bar->get_node( 'tribe-events-import' );
 			if ( ! is_object( $import_node ) ) {
-				$wp_admin_bar->add_node( array(
+				$wp_admin_bar->add_node( [
 					'id'     => 'tribe-events-import',
 					'title'  => esc_html__( 'Import', 'the-events-calendar' ),
 					'parent' => 'tribe-events-import-group',
-					'href'   => esc_url( add_query_arg( array(
+					'href'   => esc_url( add_query_arg( [
 						'post_type' => Tribe__Events__Main::POSTTYPE,
 						'page'      => 'aggregator',
-					), admin_url( 'edit.php' ) ) ),
-				) );
+					], admin_url( 'edit.php' ) ) ),
+				] );
 			}
 		}
 
@@ -84,27 +84,27 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 
 			$hide_all_settings = Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' );
 			if ( $hide_all_settings == '0' ) {
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'id'     => 'tribe-events-settings',
 					'title'  => esc_html__( 'Settings', 'the-events-calendar' ),
 					'href'   => Tribe__Settings::instance()->get_url(),
 					'parent' => 'tribe-events-settings-group',
-				) );
+				] );
 			}
 
 			// Only show help link if it's not blocked in network admin.
-			$hidden_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', array() );
+			$hidden_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', [] );
 			if ( ! in_array( 'help', $hidden_settings_tabs ) ) {
-				$href = esc_url( add_query_arg( array(
+				$href = esc_url( add_query_arg( [
 					'post_type' => Tribe__Events__Main::POSTTYPE,
 					'page'      => 'tribe-help',
-				), admin_url( 'edit.php' ) ) );
-				$wp_admin_bar->add_menu( array(
+				], admin_url( 'edit.php' ) ) );
+				$wp_admin_bar->add_menu( [
 					'id'     => 'tribe-events-help',
 					'title'  => esc_html__( 'Help', 'the-events-calendar' ),
 					'href'   => $href,
 					'parent' => 'tribe-events-settings-group',
-				) );
+				] );
 			}
 		}
 	}

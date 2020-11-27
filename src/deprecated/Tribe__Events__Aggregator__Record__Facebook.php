@@ -11,12 +11,12 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 	/**
 	 * Queues the import on the Aggregator service
 	 */
-	public function queue_import( $args = array() ) {
+	public function queue_import( $args = [] ) {
 		$fb_token = tribe_get_option( 'fb_token' );
 
-		$defaults = array(
+		$defaults = [
 			'facebook_token' => $fb_token,
-		);
+		];
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -41,7 +41,7 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 	 *
 	 * @return string Either the URL to obtain FB authorization token or an empty string.
 	 */
-	public static function get_auth_url( $args = array() ) {
+	public static function get_auth_url( $args = [] ) {
 		$service = tribe( 'events-aggregator.service' );
 
 		if ( $service->api() instanceof WP_Error ) {
@@ -49,12 +49,12 @@ class Tribe__Events__Aggregator__Record__Facebook extends Tribe__Events__Aggrega
 		}
 
 		$url = $service->api()->domain . 'facebook/' . $service->api()->key;
-		$defaults = array(
-			'referral' => urlencode( home_url() ),
+		$defaults = [
+			'referral'  => urlencode( home_url() ),
 			'admin_url' => urlencode( get_admin_url() ),
-			'type' => 'new',
-			'lang' => get_bloginfo( 'language' ),
-		);
+			'type'      => 'new',
+			'lang'      => get_bloginfo( 'language' ),
+		];
 
 		$args = wp_parse_args( $args, $defaults );
 

@@ -152,7 +152,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			// setup classes in the template
 			$template = Tribe__Events__Meta_Factory::embed_classes( $_tribe_meta_factory->meta[ $meta_id ]['wrap'], $_tribe_meta_factory->meta[ $meta_id ]['classes'] );
 
-			$args = array(
+			$args = [
 				'before'       => '',
 				'sep'          => ', ',
 				'after'        => '',
@@ -161,7 +161,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				'label_after'  => $template['label_after'],
 				'wrap_before'  => $template['meta_before'],
 				'wrap_after'   => $template['meta_after'],
-			);
+			];
 
 			// Event categories
 			return apply_filters( 'tribe_event_meta_event_category', tribe_get_event_categories( $post_id, $args ) );

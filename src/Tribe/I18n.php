@@ -89,7 +89,7 @@ class I18n {
 	 *
 	 * @return array<array<string>> A multi level array with the possible translations for the given strings
 	 */
-	public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US', $flags = 7 ) {
+	public function get_i18n_strings( $strings, $languages, $domains = [], $default_language = 'en_US', $flags = 7 ) {
 		$domains = wp_parse_args(
 			$domains,
 			[
@@ -126,7 +126,7 @@ class I18n {
 	 *
 	 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
 	 */
-	public function get_i18n_strings_for_domains( $strings, $languages, $domains = array( 'default' ), $flags = 7 ) {
+	public function get_i18n_strings_for_domains( $strings, $languages, $domains = [ 'default' ], $flags = 7 ) {
 		sort( $languages );
 		$strings_buffer = [ $strings ];
 

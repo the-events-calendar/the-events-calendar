@@ -56,17 +56,17 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	private function __construct() {
 		// Register the base cron schedule
-		add_action( 'init', array( $this, 'action_register_cron' ) );
+		add_action( 'init', [ $this, 'action_register_cron' ] );
 
 		// Register the Required Cron Schedules
-		add_filter( 'cron_schedules', array( $this, 'filter_add_cron_schedules' ) );
+		add_filter( 'cron_schedules', [ $this, 'filter_add_cron_schedules' ] );
 
 		// Check for imports on cron action
-		add_action( self::$action, array( $this, 'run' ) );
-		add_action( self::$single_action, array( $this, 'run' ) );
+		add_action( self::$action, [ $this, 'run' ] );
+		add_action( self::$single_action, [ $this, 'run' ] );
 
 		// Decreases limit after each Request, runs late for security
-		add_filter( 'pre_http_request', array( $this, 'filter_check_http_limit' ), 25, 3 );
+		add_filter( 'pre_http_request', [ $this, 'filter_check_http_limit' ], 25, 3 );
 
 		// Add the Actual Process to run on the Action
 		add_action( 'tribe_aggregator_cron_run', [ $this, 'verify_child_record_creation' ], 5 );
@@ -82,48 +82,55 @@ class Tribe__Events__Aggregator__Cron {
 	 *
 	 * @return array|stdClass
 	 */
-	public function get_frequency( $search = array() ) {
-		$search = wp_parse_args( $search, array() );
+	public function get_frequency( $search = [] ) {
+		$search = wp_parse_args( $search, [] );
 
 		/**
 		 * Allow developers to filter to add or remove schedules
 		 * @param array $schedules
 		 */
-		$found = $schedules = apply_filters( 'tribe_aggregator_record_frequency', array(
-			(object) array(
-				'id'       => 'on_demand',
-				'interval' => false,
-				'text'     => esc_html_x( 'On Demand', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'id'       => 'every30mins',
-				'interval' => MINUTE_IN_SECONDS * 30,
-				'text'     => esc_html_x( 'Every 30 Minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'id'       => 'hourly',
-				'interval' => HOUR_IN_SECONDS,
-				'text'     => esc_html_x( 'Hourly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'id'       => 'daily',
-				'interval' => DAY_IN_SECONDS,
-				'text'     => esc_html_x( 'Daily', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'id'       => 'weekly',
-				'interval' => WEEK_IN_SECONDS,
-				'text'     => esc_html_x( 'Weekly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-			(object) array(
-				'id'       => 'monthly',
-				'interval' => DAY_IN_SECONDS * 30,
-				'text'     => esc_html_x( 'Monthly', 'aggregator schedule frequency', 'the-events-calendar' ),
-			),
-		) );
+		$found = $schedules = apply_filters(
+			'tribe_aggregator_record_frequency',
+			[
+				(object) [
+					'id'       => 'on_demand',
+					'interval' => false,
+					'text'     => esc_html_x( 'On Demand', 'aggregator schedule frequency', 'the-events-calendar' ),
+				],
+				(object) [
+					'id'       => 'every30mins',
+					'interval' => MINUTE_IN_SECONDS * 30,
+					'text'     => esc_html_x(
+						'Every 30 Minutes',
+						'aggregator schedule frequency',
+						'the-events-calendar'
+					),
+				],
+				(object) [
+					'id'       => 'hourly',
+					'interval' => HOUR_IN_SECONDS,
+					'text'     => esc_html_x( 'Hourly', 'aggregator schedule frequency', 'the-events-calendar' ),
+				],
+				(object) [
+					'id'       => 'daily',
+					'interval' => DAY_IN_SECONDS,
+					'text'     => esc_html_x( 'Daily', 'aggregator schedule frequency', 'the-events-calendar' ),
+				],
+				(object) [
+					'id'       => 'weekly',
+					'interval' => WEEK_IN_SECONDS,
+					'text'     => esc_html_x( 'Weekly', 'aggregator schedule frequency', 'the-events-calendar' ),
+				],
+				(object) [
+					'id'       => 'monthly',
+					'interval' => DAY_IN_SECONDS * 30,
+					'text'     => esc_html_x( 'Monthly', 'aggregator schedule frequency', 'the-events-calendar' ),
+				],
+			]
+		);
 
 		if ( ! empty( $search ) ) {
-			$found = array();
+			$found = [];
 
 			foreach ( $schedules as $i => $schedule ) {
 				// Check if the search matches this schedule
@@ -250,7 +257,7 @@ class Tribe__Events__Aggregator__Cron {
 			// By default WordPress won't allow more than one Action to happen twice in 10 minutes
 			wp_schedule_single_event( time(), self::$single_action );
 
-			return tribe_error( 'core:aggregator:http_request-limit', array( 'request' => $request, 'url' => $url ) );
+			return tribe_error( 'core:aggregator:http_request-limit', [ 'request' => $request, 'url' => $url ] );
 		}
 
 		// Lower the Limit

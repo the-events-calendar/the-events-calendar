@@ -83,6 +83,16 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
+	public function setup_view( $arguments ) {
+		parent::setup_view( $arguments );
+
+		add_filter( 'tribe_customizer_should_print_widget_customizer_styles', '__return_true' );
+		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'add_full_stylesheet_to_customizer' ], 12, 2 );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function enqueue_assets( $context, $view ) {
 		parent::enqueue_assets( $context, $view );
 
@@ -235,5 +245,19 @@ class Widget_List extends Widget_Abstract {
 		}
 
 		return $template_vars;
+	}
+
+	/**
+	 * Add full events list widget stylesheets to customizer styles array to check.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $sheets       Array of sheets to search for.
+	 * @param string        $css_template String containing the inline css to add.
+	 *
+	 * @return array Modified array of sheets to search for.
+	 */
+	public function add_full_stylesheet_to_customizer( $sheets, $css_template ) {
+		return array_merge( $sheets, [ 'tribe-events-widgets-v2-events-list-full' ] );
 	}
 }

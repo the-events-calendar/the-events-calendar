@@ -12,32 +12,36 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 * @var Tribe__Events__Integrations__WPML__Linked_Posts
 	 */
 	protected static $instance;
+
 	/**
 	 * @var string The English version of the venue slug.
 	 */
 	protected $venue_slug = 'venue';
+
 	/**
 	 * @var string The English version of the organizer slug.
 	 */
 	protected $organizer_slug = 'organizer';
+
 	/**
 	 * @var array An array of translations for the venue slug
 	 */
-	protected $venue_slug_translations = array();
+	protected $venue_slug_translations = [];
+
 	/**
 	 * @var array An array of translations for the organizer slug
 	 */
-	protected $organizer_slug_translations = array();
+	protected $organizer_slug_translations = [];
 
 	/**
 	 * @var array An array containing the translated version of each venue and organizer rule
 	 */
-	protected $translated_rules = array();
+	protected $translated_rules = [];
 
 	/**
 	 * @var array
 	 */
-	protected $replacement_rules = array();
+	protected $replacement_rules = [];
 
 	/**
 	 * @return Tribe__Events__Integrations__WPML__Linked_Posts
@@ -62,21 +66,25 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		$this->prepare_venue_slug_translations();
 		$this->prepare_organizer_slug_translations();
 
-		array_walk( $rewrite_rules, array( $this, 'translate_venue_rules' ) );
-		array_walk( $rewrite_rules, array( $this, 'translate_organizer_rules' ) );
+		array_walk( $rewrite_rules, [ $this, 'translate_venue_rules' ] );
+		array_walk( $rewrite_rules, [ $this, 'translate_organizer_rules' ] );
 
 		return $this->replace_rules_with_translations( $rewrite_rules );
 	}
 
 	protected function prepare_venue_slug_translations() {
-		$wpml_i18n_strings             = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->venue_slug ) );
+		$wpml_i18n_strings = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings(
+			[ $this->venue_slug ]
+		);
 		$post_slug_translations        = Tribe__Events__Integrations__WPML__Utils::get_post_slug_translations_for( Tribe__Events__Venue::POSTTYPE );
 		$slug_translations             = array_merge( $wpml_i18n_strings[0], array_values( $post_slug_translations ) );
 		$this->venue_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );
 	}
 
 	protected function prepare_organizer_slug_translations() {
-		$wpml_i18n_strings                 = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( $this->organizer_slug ) );
+		$wpml_i18n_strings                 = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings(
+			[ $this->organizer_slug ]
+		);
 		$post_slug_translations            = Tribe__Events__Integrations__WPML__Utils::get_post_slug_translations_for( Tribe__Events__Organizer::POSTTYPE );
 		$slug_translations                 = array_merge( $wpml_i18n_strings[0], array_values( $post_slug_translations ) );
 		$this->organizer_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );

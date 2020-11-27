@@ -30,10 +30,10 @@ class Tribe__Events__Integrations__WPML__Utils {
 		}
 
 		$tec     = Tribe__Events__Main::instance();
-		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
+		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', [
 			'default'             => true, // Default doesn't need file path
 			'the-events-calendar' => $tec->pluginDir . 'lang/',
-		) );
+		] );
 
 		/** @var SitePress $sitepress */
 		global $sitepress;
@@ -41,13 +41,13 @@ class Tribe__Events__Integrations__WPML__Utils {
 		if ( null === $locale ) { // Grab all languages
 			$langs = $sitepress->get_active_languages();
 
-			$languages = array();
+			$languages = [];
 
 			foreach ( $langs as $lang ) {
 				$languages[] = $sitepress->get_locale( $lang['code'] );
 			}
 		} else {
-			$languages = array( $locale );
+			$languages = [ $locale ];
 		}
 
 		// Prevent Duplicates and Empty langs
@@ -58,9 +58,9 @@ class Tribe__Events__Integrations__WPML__Utils {
 
 		// Get the strings on multiple Domains and Languages
 		// WPML filter is unhooked to avoid the locale being set to the default one
-		remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
+		remove_filter( 'locale', [ $sitepress, 'locale_filter' ] );
 		$translations = tribe( 'tec.i18n' )->get_i18n_strings( $strings, $languages, $domains, $current_locale );
-		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
+		add_filter( 'locale', [ $sitepress, 'locale_filter' ] );
 
 		// once an option is updated this cache is deprecated
 		$cache->set_transient( $cache_key, $translations, 0, 'wpml_updates' );
@@ -86,12 +86,12 @@ class Tribe__Events__Integrations__WPML__Utils {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
-		$post_slug_translation_settings = $sitepress->get_setting( 'posts_slug_translation', array() );
+		$post_slug_translation_settings = $sitepress->get_setting( 'posts_slug_translation', [] );
 
 		if ( empty( $post_slug_translation_settings['types'][ $type ] )
 		     || ! $sitepress->is_translated_post_type( $type )
 		) {
-			return array();
+			return [];
 		}
 
 		/** @var \wpdb $wpdb */
@@ -105,7 +105,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 					", 'URL slug: ' . $type, ICL_TM_COMPLETE ) );
 
 		if ( empty( $results ) ) {
-			return array();
+			return [];
 		}
 
 		return array_combine( wp_list_pluck( $results, 'language' ), wp_list_pluck( $results, 'value' ) );
@@ -121,7 +121,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 	public static function get_active_locales() {
 		global $sitepress;
 
-		$locales = array();
+		$locales   = [];
 		$languages = $sitepress->get_active_languages();
 		unset( $languages['en'] );
 

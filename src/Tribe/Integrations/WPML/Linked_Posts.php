@@ -96,7 +96,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return array|null An array of linked posts populated taking WPML managed translations into account or `null` if
 	 *                    WPML is not active or the current language is the default one.
 	 */
-	public function filter_tribe_events_linked_posts_query( $results = null, array $args = array() ) {
+	public function filter_tribe_events_linked_posts_query( $results = null, array $args = [] ) {
 		$func_args = func_get_args();
 		$cache_key = $this->cache->make_key( $func_args, 'filtered_linked_post_query' );
 		if ( isset( $this->cache[ $cache_key ] ) ) {
@@ -126,7 +126,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		}
 
 		// IDs only and drop the order to avoid wasting time on something we'll account for later
-		$sub_query_args = array_merge( $args, array( 'fields' => 'ids', 'orderby' => false ) );
+		$sub_query_args = array_merge( $args, [ 'fields' => 'ids', 'orderby' => false ] );
 
 		$linked_posts_ids = $this->get_current_language_linked_posts_ids( $sub_query_args );
 
@@ -139,10 +139,10 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		}
 
 		if ( empty( $linked_posts_ids ) ) {
-			return $linked_posts = array();
+			return $linked_posts = [];
 		} else {
 			// run this query to keep the specified `orderby`
-			$linked_posts = get_posts( array_merge( $args, array( 'post__in' => $linked_posts_ids ) ) );
+			$linked_posts = get_posts( array_merge( $args, [ 'post__in' => $linked_posts_ids ] ) );
 		}
 
 		$this->cache[ $cache_key ] = $linked_posts;
@@ -172,7 +172,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		// the user might have posts that are *only* translated and none in the default language
 		$query = new WP_Query( $args );
 
-		$linked_post_ids = $query->have_posts() ? $query->posts : array();
+		$linked_post_ids = $query->have_posts() ? $query->posts : [];
 
 		$this->cache[ $cache_key ] = $linked_post_ids;
 
@@ -201,11 +201,11 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 
 		$query = new WP_Query( $args );
 
-		$posts = $query->have_posts() ? $query->posts : array();
+		$posts = $query->have_posts() ? $query->posts : [];
 
 		$sitepress->switch_lang( ICL_LANGUAGE_CODE );
 
-		$not_translated = array_filter( $posts, array( $this, 'is_not_translated' ) );
+		$not_translated = array_filter( $posts, [ $this, 'is_not_translated' ] );
 		$assigned = $this->get_linked_post_assigned_to_current( $args );
 
 		// if a linked post is assigned always show it, translated or not
@@ -225,31 +225,31 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *               is specified in the args, or the current post is not an event.
 	 */
 	protected function get_linked_post_assigned_to_current( array $args ) {
-		$post_type = (array) Tribe__Utils__Array::get( $args, 'post_type', array() );
+		$post_type       = (array) Tribe__Utils__Array::get( $args, 'post_type', [] );
 		$current_post_id = Tribe__Main::post_id_helper();
 
 		if ( ! tribe_is_event( $current_post_id ) ) {
-			return array();
+			return [];
 		}
 
 		if ( 1 !== count( $post_type ) || empty( $current_post_id ) ) {
-			return array();
+			return [];
 		}
 
 		$post_type = reset( $post_type );
 
-		$map = array(
+		$map = [
 			Tribe__Events__Main::VENUE_POST_TYPE     => '_EventVenueID',
 			Tribe__Events__Main::ORGANIZER_POST_TYPE => '_EventOrganizerID',
-		);
+		];
 
 		if ( empty( $map[ $post_type ] ) ) {
-			return array();
+			return [];
 		}
 
 		$assigned = get_post_meta( $current_post_id, $map[ $post_type ], false );
 
-		return ! empty( $assigned ) ? $assigned : array();
+		return ! empty( $assigned ) ? $assigned : [];
 	}
 
 	/**
@@ -260,7 +260,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 * @return bool Whether the `shutdown` action has been hooked or not.
 	 */
 	public function maybe_translate_linked_posts( array $data ) {
-		$required_keys = array( 'element_id', 'element_type', 'type' );
+		$required_keys = [ 'element_id', 'element_type', 'type' ];
 
 		$intersected_keys = array_intersect_key( $data, array_combine( $required_keys, $required_keys ) );
 		if ( count( $intersected_keys ) < count( $required_keys ) ) {
@@ -288,7 +288,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		$this->element_id = $data['element_id'];
 		$this->current_language = $current_language;
 
-		add_action( 'shutdown', array( $this, 'translate_linked_posts' ) );
+		add_action( 'shutdown', [ $this, 'translate_linked_posts' ] );
 
 		return true;
 	}

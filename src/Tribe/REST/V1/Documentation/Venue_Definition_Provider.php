@@ -16,127 +16,127 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$documentation = array(
+		$documentation = [
 			'type'       => 'object',
-			'properties' => array(
-				'id' => array(
-					'type' => 'integer',
+			'properties' => [
+				'id'                => [
+					'type'        => 'integer',
 					'description' => __( 'The venue WordPress post ID', 'the-events-calendar' ),
-				),
-				'global_id' => array(
-					'type' => 'string',
+				],
+				'global_id'         => [
+					'type'        => 'string',
 					'description' => __( 'The venue ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
-				),
-				'global_id_lineage' => array(
-					'type' => 'array',
-					'items' => array( 'type' => 'string' ),
+				],
+				'global_id_lineage' => [
+					'type'        => 'array',
+					'items'       => [ 'type' => 'string' ],
 					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
-				),
-				'author' => array(
-					'type' => 'integer',
+				],
+				'author'            => [
+					'type'        => 'integer',
 					'description' => __( 'The venue author WordPress post ID', 'the-events-calendar' ),
-				),
-				'date' => array(
-					'type' => 'string',
+				],
+				'date'              => [
+					'type'        => 'string',
 					'description' => __( 'The venue creation date in the site time zone', 'the-events-calendar' ),
-				),
-				'date_utc' => array(
-					'type' => 'string',
+				],
+				'date_utc'          => [
+					'type'        => 'string',
 					'description' => __( 'The venue creation date in UTC time', 'the-events-calendar' ),
-				),
-				'modified' => array(
-					'type' => 'string',
+				],
+				'modified'          => [
+					'type'        => 'string',
 					'description' => __( 'The venue last modification date in the site time zone', 'the-events-calendar' ),
-				),
-				'modified_utc' => array(
-					'type' => 'string',
+				],
+				'modified_utc'      => [
+					'type'        => 'string',
 					'description' => __( 'The venue last modification date in UTC time', 'the-events-calendar' ),
-				),
-				'status' => array(
-					'type' => 'string',
+				],
+				'status'            => [
+					'type'        => 'string',
 					'description' => __( 'The venue status', 'the-events-calendar' ),
-				),
-				'url' => array(
-					'type' => 'string',
+				],
+				'url'               => [
+					'type'        => 'string',
 					'description' => __( 'The URL to the venue page', 'the-events-calendar' ),
-				),
-				'venue' => array(
-					'type' => 'string',
+				],
+				'venue'             => [
+					'type'        => 'string',
 					'description' => __( 'The venue name', 'the-events-calendar' ),
-				),
-				'description' => array(
-					'type' => 'string',
+				],
+				'description'       => [
+					'type'        => 'string',
 					'description' => __( 'The venue long description', 'the-events-calendar' ),
-				),
-				'excerpt' => array(
-					'type' => 'string',
+				],
+				'excerpt'           => [
+					'type'        => 'string',
 					'description' => __( 'The venue short description', 'the-events-calendar' ),
-				),
-				'slug' => array(
-					'type' => 'string',
+				],
+				'slug'              => [
+					'type'        => 'string',
 					'description' => __( 'The venue slug', 'the-events-calendar' ),
-				),
-				'image' => array(
-					'type' => 'string',
+				],
+				'image'             => [
+					'type'        => 'string',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Image',
-				),
-				'show_map' => array(
-					'type' => 'boolean',
+					'$ref'        => '#/definitions/Image',
+				],
+				'show_map'          => [
+					'type'        => 'boolean',
 					'description' => __( 'Whether the map should be shown for the venue or not', 'the-events-calendar' ),
-				),
-				'show_map_link' => array(
-					'type' => 'boolean',
+				],
+				'show_map_link'     => [
+					'type'        => 'boolean',
 					'description' => __( 'Whether the map link should be shown for the venue or not', 'the-events-calendar' ),
-				),
-				'address' => array(
-					'type' => 'string',
+				],
+				'address'           => [
+					'type'        => 'string',
 					'description' => __( 'The venue address', 'the-events-calendar' ),
-				),
-				'city' => array(
-					'type' => 'string',
+				],
+				'city'              => [
+					'type'        => 'string',
 					'description' => __( 'The venue city', 'the-events-calendar' ),
-				),
-				'country' => array(
-					'type' => 'string',
+				],
+				'country'           => [
+					'type'        => 'string',
 					'description' => __( 'The venue country', 'the-events-calendar' ),
-				),
-				'province' => array(
-					'type' => 'string',
+				],
+				'province'          => [
+					'type'        => 'string',
 					'description' => __( 'The venue province', 'the-events-calendar' ),
-				),
-				'state' => array(
-					'type' => 'string',
+				],
+				'state'             => [
+					'type'        => 'string',
 					'description' => __( 'The venue state', 'the-events-calendar' ),
-				),
-				'zip' => array(
-					'type' => 'string',
+				],
+				'zip'               => [
+					'type'        => 'string',
 					'description' => __( 'The venue ZIP code', 'the-events-calendar' ),
-				),
-				'phone' => array(
-					'type' => 'string',
+				],
+				'phone'             => [
+					'type'        => 'string',
 					'description' => __( 'The venue phone number', 'the-events-calendar' ),
-				),
-				'website' => array(
-					'type' => 'string',
+				],
+				'website'           => [
+					'type'        => 'string',
 					'description' => __( 'The venue website URL', 'the-events-calendar' ),
-				),
-				'stateprovince' => array(
-					'type' => 'string',
+				],
+				'stateprovince'     => [
+					'type'        => 'string',
 					'description' => __( 'The venue state or province', 'the-events-calendar' ),
-				),
-				'geo_lat' => array(
-					'type'   => 'number',
-					'format' => 'double',
+				],
+				'geo_lat'           => [
+					'type'        => 'number',
+					'format'      => 'double',
 					'description' => __( 'The venue geo latitude', 'the-events-calendar' ),
-				),
-				'geo_lng' => array(
-					'type'   => 'number',
-					'format' => 'double',
+				],
+				'geo_lng'           => [
+					'type'        => 'number',
+					'format'      => 'double',
 					'description' => __( 'The venue geo longitude', 'the-events-calendar' ),
-				),
-			),
-		);
+				],
+			],
+		];
 
 		/**
 		 * Filters the Swagger documentation generated for a venue in the TEC REST API.

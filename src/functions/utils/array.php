@@ -13,7 +13,7 @@
  * @return array
  */
 function tribe_array_unique( array $original ) {
-	$unique = array();
+	$unique = [];
 
 	foreach( $original as $inner ) {
 		$unique[ join( '|', $inner ) ] = $inner;
