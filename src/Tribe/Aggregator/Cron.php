@@ -403,33 +403,8 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
-		$records = Tribe__Events__Aggregator__Records::instance();
-
-		$query = $records->query(
-			[
-				'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
-				'posts_per_page' => 250,
-				'order'          => 'ASC',
-				'meta_query'     => [
-					'origin-not-csv'               => [
-						'key'     => '_tribe_aggregator_origin',
-						'value'   => 'csv',
-						'compare' => '!=',
-					],
-					'batch-push-support-specified' => [
-						'key'     => '_tribe_aggregator_allow_batch_push',
-						'value'   => true,
-						'compare' => '=',
-					],
-					'batch-not-queued'             => [
-						'key'     => '_tribe_aggregator_batch_started',
-						'value'   => 'bug #23268',
-						'compare' => 'NOT EXISTS',
-					],
-				],
-				'after'          => '-4 hours',
-			]
-		);
+		$records = Records::instance();
+		$query = $this->get_batch_pushing_records();
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Pending Batch to be started', 'EA Cron' );
@@ -466,6 +441,42 @@ class Tribe__Events__Aggregator__Cron {
 			$record->process_posts( [], true );
 		}
 	}
+
+	/**
+	 * Get the first set of pending schedule records to be processed for batch pushing.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query The result of the Query.
+	 */
+	private function get_batch_pushing_records() {
+		return Records::instance()->query(
+			[
+				'post_status'    => Records::$status->pending,
+				'posts_per_page' => 250,
+				'order'          => 'ASC',
+				'meta_query'     => [
+					'origin-not-csv'               => [
+						'key'     => '_tribe_aggregator_origin',
+						'value'   => 'csv',
+						'compare' => '!=',
+					],
+					'batch-push-support-specified' => [
+						'key'     => '_tribe_aggregator_allow_batch_push',
+						'value'   => true,
+						'compare' => '=',
+					],
+					'batch-not-queued'             => [
+						'key'     => '_tribe_aggregator_batch_started',
+						'value'   => 'bug #23268',
+						'compare' => 'NOT EXISTS',
+					],
+				],
+				'after'          => '-4 hours',
+			]
+		);
+	}
+
 
 	/**
 	 * Checks if any record data needs to be fetched from the service, this will run on the Cron every 15m
