@@ -1075,7 +1075,7 @@ tribe_aggregator.fields = {
 		obj.progress.$.bar       = obj.progress.$.notice.find( '.bar' );
 		obj.progress.data.time   = Date.now();
 
-		obj.progress.hasHeartBeat = typeof wp !== 'undefined' && wp.heartbeat;
+		obj.progress.hasHeartBeat = 'undefined' !== typeof wp && wp.heartbeat;
 
 		if ( obj.progress.hasHeartBeat ) {
 			wp.heartbeat.interval( 15 );
