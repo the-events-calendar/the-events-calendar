@@ -354,6 +354,53 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					color: <%= global_elements.accent_color %>;
 				}
 			';
+
+			// overrides for tec widgets/full/_events-list.pcss.
+			$template .= '
+				.tribe-events-widget .tribe-events-widget-events-list__event-row--featured .tribe-events-widget-events-list__event-date-tag-datetime:after {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:visited {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover {
+					color: <%= global_elements.accent_color %>;
+					border-bottom-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:visited,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:visited,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:active {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
 		}
 
 		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'link_color' ) ) {
