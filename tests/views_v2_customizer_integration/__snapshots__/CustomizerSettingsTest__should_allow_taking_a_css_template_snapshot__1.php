@@ -220,11 +220,55 @@
 				.tribe-venue-url a,
 				.tribe-organizer-url a,
 
-				.tribe-events-pro .tribe-events-pro-organizer__meta-website a,
 				.tribe-block__organizer__website a,
-				.tribe-events-pro .tribe-events-pro-venue__meta-website a,
 				.tribe-block__venue__website a,
 				.tribe_events p a {
 					color: #238923;
+				}
+			
+				.tribe-common.tribe-events-view,
+				.tribe-events-page-template,
+				.single-tribe_organizer {
+					background-color: #fff;
+				}
+			
+				.single-tribe_events .tribe-events-single-event-title,
+				.tribe-events-view .tribe-events-calendar-list__event-title,
+				.tribe-events-view a.tribe-events-calendar-list__event-title-link,
+				.tribe-events-view .tribe-events-calendar-month__calendar-event-title,
+				.tribe-events-view a.tribe-events-calendar-month__calendar-event-title-link,
+				.tribe-events-view .tribe-events-calendar-month__multiday-event-bar-title,
+				.tribe-events-view .tribe-events-calendar-month-mobile-events__mobile-event-title,
+				.tribe-events-view a.tribe-events-calendar-month-mobile-events__mobile-event-title-link,
+				.tribe-common .tribe-events-calendar-month__calendar-event-tooltip-title,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
+				.tribe-events-view .tribe-events-calendar-day__event-title,
+				.tribe-common a.tribe-events-calendar-day__event-title-link,
+				.tribe-common .tribe-events-calendar-day__event-title-link:hover,
+				.tribe-common .tribe-events-calendar-day__event-title-link:focus {
+					color: #141827;
+				}
+				
+				.tribe-common .tribe-events-calendar-list__event-title-link:hover,
+				.tribe-common .tribe-events-calendar-list__event-title-link:focus,
+				.tribe-common .tribe-events-calendar-month__calendar-event-title-link:hover,
+				.tribe-common .tribe-events-calendar-month__calendar-event-title-link:focus,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
+				.tribe-common a.tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
+				.tribe-common .tribe-events-calendar-day__event-title-link:hover,
+				.tribe-common .tribe-events-calendar-day__event-title-link:focus  {
+					border-color: #141827;
+				}
+			
+				.single-tribe_events .tribe-events-schedule h2,
+				.tribe-events-calendar-list__event-datetime,
+				.tribe-events-calendar-day__event-datetime,
+				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
+				.tribe-events .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
+				.tribe-events .tribe-events-calendar-month__calendar-event-tooltip-datetime,
+				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime {
+					color: #141827;
 				}',
 );
