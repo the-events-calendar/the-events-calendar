@@ -129,10 +129,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'link_color'               => '#141827',
-			'background_color'         => '#e9e4f0', // TODO: use customizer setting
-			'event_title_color'        => '#009051', // TODO: use customizer setting
-			'event_date_time_color'    => '#D4AF37', // TODO: use customizer setting
+			'link_color'            => '#141827',
+			'background_color'      => '#fff',
+			'event_title_color'     => '#141827',
+			'event_date_time_color' => '#141827',
 		];
 
 		$this->arguments = [
