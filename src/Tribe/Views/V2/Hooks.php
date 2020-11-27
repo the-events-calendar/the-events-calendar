@@ -115,6 +115,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
+
+		// Customizer.
+		add_filter( 'tribe_customizer_pre_sections', [ $this, 'filter_customizer_sections' ], 20, 2 );
 	}
 
 	/**
@@ -842,5 +845,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return array_merge( $sheets, $v2_sheets );
+	}
+
+	/**
+	 * Filters the currently registered Customizer sections to add or modify them.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,array<string,array<string,int|float|string>>> $sections The registered Customizer sections.
+	 * @param \Tribe___Customizer $customizer The Customizer object.
+	 *
+	 * @return array<string,array<string,array<string,int|float|string>>> The filtered sections.
+	 */
+	public function filter_customizer_sections( $sections, $customizer ) {
+		if ( ! ( is_array( $sections ) && $customizer instanceof \Tribe__Customizer ) ) {
+			return $sections;
+		}
+
+		return $this->container->make( Customizer::class )->filter_sections( $sections, $customizer );
 	}
 }
