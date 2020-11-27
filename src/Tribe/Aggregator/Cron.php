@@ -2,6 +2,8 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use Tribe__Events__Aggregator__Records as Records;
+
 class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Action where the cron will run, on schedule
@@ -19,7 +21,7 @@ class Tribe__Events__Aggregator__Cron {
 	 * Limit of Requests to our servers
 	 * @var int
 	 */
-	private $limit = 5;
+	private $limit = 25;
 
 	/**
 	 * A Boolean holding if this Cron is Running
@@ -69,6 +71,7 @@ class Tribe__Events__Aggregator__Cron {
 		// Add the Actual Process to run on the Action
 		add_action( 'tribe_aggregator_cron_run', [ $this, 'verify_child_record_creation' ], 5 );
 		add_action( 'tribe_aggregator_cron_run', [ $this, 'verify_fetching_from_service' ], 15 );
+		add_action( 'tribe_aggregator_cron_run', [ $this, 'start_batch_pushing_records' ], 20 );
 		add_action( 'tribe_aggregator_cron_run', [ $this, 'purge_expired_records' ], 25 );
 	}
 
@@ -303,21 +306,22 @@ class Tribe__Events__Aggregator__Cron {
 		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
 			return;
 		}
-		$records = Tribe__Events__Aggregator__Records::instance();
+		$records = Records::instance();
 		$service = tribe( 'events-aggregator.service' );
 
 		$query = $records->query( [
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
+			'post_status'    => Records::$status->schedule,
 			'posts_per_page' => -1,
 		] );
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records Scheduled, skipped creating children', 'EA Cron' );
+
 			return;
 		}
 
 		foreach ( $query->posts as $post ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+			$record = Records::instance()->get_by_post_id( $post );
 
 			if ( tribe_is_error( $record ) ) {
 				continue;
@@ -328,7 +332,7 @@ class Tribe__Events__Aggregator__Cron {
 				 * This means the record post exists but the origin is not currently supported.
 				 * To avoid re-looping on this let's trash this post and continue.
 				 */
-				$record->delete( );
+				$record->delete();
 				continue;
 			}
 
@@ -337,7 +341,7 @@ class Tribe__Events__Aggregator__Cron {
 				continue;
 			}
 
-			if ( $record->get_child_record_by_status( 'pending', -1, [ 'after' => time() - 4 * 3600 ] ) ) {
+			if ( $record->get_child_record_by_status( 'pending', -1, [ 'after' => time() - 4 * HOUR_IN_SECONDS ] ) ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has pending child(ren)', $record->id ), 'EA Cron' );
 				continue;
 			}
@@ -396,6 +400,92 @@ class Tribe__Events__Aggregator__Cron {
 	}
 
 	/**
+	 * Start the processing of the scheduled imports created with batch pushing the cron job would select and start
+	 * the beginning of the batch delivery.
+	 *
+	 * @since TBD
+	 */
+	public function start_batch_pushing_records() {
+		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
+			return;
+		}
+
+		$records = Records::instance();
+		$query = $this->get_batch_pushing_records();
+
+		if ( ! $query->have_posts() ) {
+			tribe( 'logger' )->log_debug( 'No Pending Batch to be started', 'EA Cron' );
+
+			return;
+		}
+
+		tribe( 'logger' )->log_debug( "Found {$query->found_posts} records", 'EA Cron' );
+
+		$cleaner = new Tribe__Events__Aggregator__Record__Queue_Cleaner();
+		foreach ( $query->posts as $post ) {
+			$record = $records->get_by_post_id( $post );
+
+			if ( null === $record || tribe_is_error( $record ) ) {
+				continue;
+			}
+
+			// Just double Check for CSV.
+			if ( 'csv' === $record->origin ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
+				continue;
+			}
+
+			$cleaner->set_stall_limit( HOUR_IN_SECONDS * 22 )->set_time_to_live( HOUR_IN_SECONDS * 23 );
+
+			$cleaner->remove_duplicate_pending_records_for( $record );
+			$failed = $cleaner->maybe_fail_stalled_record( $record );
+
+			if ( $failed ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Stalled record (%d) was skipped', $record->id ), 'EA Cron' );
+				continue;
+			}
+
+			$record->process_posts( [], true );
+		}
+	}
+
+	/**
+	 * Get the first set of pending schedule records to be processed for batch pushing.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query The result of the Query.
+	 */
+	private function get_batch_pushing_records() {
+		return Records::instance()->query(
+			[
+				'post_status'    => Records::$status->pending,
+				'posts_per_page' => 250,
+				'order'          => 'ASC',
+				'meta_query'     => [
+					'origin-not-csv'               => [
+						'key'     => '_tribe_aggregator_origin',
+						'value'   => 'csv',
+						'compare' => '!=',
+					],
+					'batch-push-support-specified' => [
+						'key'     => '_tribe_aggregator_allow_batch_push',
+						'value'   => true,
+						'compare' => '=',
+					],
+					'batch-not-queued'             => [
+						'key'     => '_tribe_aggregator_batch_started',
+						'value'   => 'bug #23268',
+						'compare' => 'NOT EXISTS',
+					],
+				],
+				'after'          => '-4 hours',
+			]
+		);
+	}
+
+
+	/**
 	 * Checks if any record data needs to be fetched from the service, this will run on the Cron every 15m
 	 *
 	 * @since  4.3
@@ -407,14 +497,14 @@ class Tribe__Events__Aggregator__Cron {
 			return;
 		}
 
-		$records = Tribe__Events__Aggregator__Records::instance();
+		$records = Records::instance();
 
 		$query = $records->query( [
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->pending,
+			'post_status'    => Records::$status->pending,
 			'posts_per_page' => -1,
 			'order'          => 'ASC',
 			'meta_query'     => [
-				'origin-not-csv'                  => [
+				'origin-not-csv' => [
 					'key'     => '_tribe_aggregator_origin',
 					'value'   => 'csv',
 					'compare' => '!=',
@@ -440,6 +530,7 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records Pending, skipped Fetching from service', 'EA Cron' );
+
 			return;
 		}
 
@@ -450,7 +541,13 @@ class Tribe__Events__Aggregator__Cron {
 		foreach ( $query->posts as $post ) {
 			$record = $records->get_by_post_id( $post );
 
-			if ( tribe_is_error( $record ) ) {
+			if ( $record === null || tribe_is_error( $record ) ) {
+				continue;
+			}
+
+			// Just double Check for CSV
+			if ( 'csv' === $record->origin ) {
+				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
 				continue;
 			}
 
@@ -459,12 +556,6 @@ class Tribe__Events__Aggregator__Cron {
 
 			if ( $failed ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Stalled record (%d) was skipped', $record->id ), 'EA Cron' );
-				continue;
-			}
-
-			// Just double Check for CSV
-			if ( 'csv' === $record->origin ) {
-				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, has CSV origin', $record->id ), 'EA Cron' );
 				continue;
 			}
 
@@ -503,8 +594,8 @@ class Tribe__Events__Aggregator__Cron {
 	public function purge_expired_records() {
 		global $wpdb;
 
-		$records = Tribe__Events__Aggregator__Records::instance();
-		$statuses = Tribe__Events__Aggregator__Records::$status;
+		$records  = Records::instance();
+		$statuses = Records::$status;
 
 		$sql = "
 			SELECT
@@ -552,11 +643,12 @@ class Tribe__Events__Aggregator__Cron {
 
 		if ( ! $query->have_posts() ) {
 			tribe( 'logger' )->log_debug( 'No Records over retention limit, skipped pruning expired', 'EA Cron' );
+
 			return;
 		}
 
 		foreach ( $query->posts as $post ) {
-			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $post );
+			$record = Records::instance()->get_by_post_id( $post );
 
 			if ( tribe_is_error( $record ) ) {
 				tribe( 'logger' )->log_debug( sprintf( 'Record (%d) skipped, original post non-existent', $post->ID ), 'EA Cron' );
