@@ -19,7 +19,7 @@ class Tribe__Events__Importer__File_Reader {
 		$this->lines = $this->file->key();
 		$this->file->rewind();
 
-		add_filter( 'tribe_events_import_row', array( $this, 'sanitize_row' ) );
+		add_filter( 'tribe_events_import_row', [ $this, 'sanitize_row' ] );
 	}
 
 	public function __destruct() {
@@ -45,7 +45,7 @@ class Tribe__Events__Importer__File_Reader {
 	public function read_next_row() {
 		$this->last_line_read = $this->file->key();
 		if ( ! $this->file->valid() ) {
-			return array();
+			return [];
 		}
 		$row = $this->file->current();
 
@@ -60,7 +60,7 @@ class Tribe__Events__Importer__File_Reader {
 
 		$this->file->next();
 
-		return empty( $row ) ? array() : $row;
+		return empty( $row ) ? [] : $row;
 	}
 
 	public function get_last_line_number_read() {
@@ -90,11 +90,11 @@ class Tribe__Events__Importer__File_Reader {
 	 * @return array The CSV field parameters.
 	 */
 	public function get_csv_params() {
-		$csv_params = array(
+		$csv_params = [
 			'delimter'  => ',',
 			'enclosure' => '"',
 			'escape'    => '\\',
-		);
+		];
 
 		/**
 		 * Set the parameters used for reading and importing CSV files.
@@ -129,18 +129,10 @@ class Tribe__Events__Importer__File_Reader {
 	 * }
 	 */
 	private function set_csv_params( $params ) {
-		// The escape parameter was added in PHP v5.3.
-		if ( version_compare( phpversion(), '5.3', '>' ) ) {
-			$this->file->setCsvControl(
-				$params['delimter'],
-				$params['enclosure'],
-				$params['escape']
-			);
-		} else {
-			$this->file->setCsvControl(
-				$params['delimter'],
-				$params['enclosure']
-			);
-		}
+		$this->file->setCsvControl(
+			$params['delimter'],
+			$params['enclosure'],
+			$params['escape']
+		);
 	}
 }

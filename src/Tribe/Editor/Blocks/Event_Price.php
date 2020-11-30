@@ -18,15 +18,13 @@ extends Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since 4.7
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function default_attributes() {
 
-		$defaults = array(
+		return [
 			'cost' => tribe_get_formatted_cost(),
-		);
-
-		return $defaults;
+		];
 	}
 
 	/**
@@ -38,13 +36,13 @@ extends Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @return string
 	 */
-	public function render( $attributes = array() ) {
+	public function render( $attributes = [] ) {
 		$args['attributes'] = $this->attributes( $attributes );
 
 		// Add the rendering attributes into global context
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
-		return tribe( 'events.editor.template' )->template( array( 'blocks', $this->slug() ), $args, false );
+		return tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
 	}
 
 	/**
@@ -59,11 +57,11 @@ extends Tribe__Editor__Blocks__Abstract {
 			tribe( 'tec.main' ),
 			'tribe-events-block-' . $this->slug(),
 			'app/' . $this->slug() . '/frontend.css',
-			array(),
+			[],
 			'wp_enqueue_scripts',
-			array(
-				'conditionals' => array( $this, 'has_block' ),
-			)
+			[
+				'conditionals' => [ $this, 'has_block' ],
+			]
 		);
 	}
 }

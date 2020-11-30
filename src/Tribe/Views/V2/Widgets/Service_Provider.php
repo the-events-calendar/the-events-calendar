@@ -37,12 +37,31 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.2.1
 	 */
 	public function register() {
+		// These hooks always run to provide widget compatibility for v1 to v2 and reverse.
+		$this->register_compatibility();
+
+		// Determine if V2 views are loaded.
+		if ( ! tribe_events_views_v2_is_enabled() ) {
+			return;
+		}
+
 		// Determine if V2 widgets should load.
 		if ( ! tribe_events_widgets_v2_is_enabled() ) {
 			return;
 		}
 
 		$this->hook();
+	}
+
+	/**
+	 * Registers the provider handling for compatibility hooks.
+	 *
+	 * @since TBD
+	 */
+	protected function register_compatibility() {
+		$this->container->singleton( Compatibility::class, Compatibility::class, [ 'hooks' ] );
+		$this->container->singleton( 'events.views.v2.widgets.compatibility', Compatibility::class, [ 'hooks' ] );
+		$this->container->make( Compatibility::class );
 	}
 
 	/**
@@ -53,6 +72,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function hook() {
 		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
 		add_filter( 'tribe_events_views', [ $this, 'add_views' ] );
+		add_action( 'widgets_init', [ $this, 'unregister_list_widget' ], 95 );
 		add_filter( 'tribe_events_views_v2_view_widget-events-list_template_vars', [ $this, 'filter_template_vars' ], 20 );
 	}
 
@@ -84,6 +104,15 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$views['widget-events-list'] = Widget_List_View::class;
 
 		return $views;
+	}
+
+	/**
+	 * Unregister the existing List Widget.
+	 *
+	 * @since TBD
+	 */
+	public function unregister_list_widget() {
+		unregister_widget( 'Tribe__Events__List_Widget' );
 	}
 
 	/**

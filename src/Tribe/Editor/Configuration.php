@@ -17,7 +17,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 	 * @since 4.7
 	 */
 	public function hook() {
-		add_filter( 'tribe_editor_config', array( $this, 'editor_config' ) );
+		add_filter( 'tribe_editor_config', [ $this, 'editor_config' ] );
 	}
 
 	/**
@@ -68,29 +68,29 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 			'priceSettings' => [
 				'defaultCurrencySymbol'   => tribe_get_option( 'defaultCurrencySymbol', '$' ),
 				'defaultCurrencyPosition' => (
-					tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
+				tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
 				),
 			],
-			'dateSettings'  => array(
+			'dateSettings'  => [
 				'datepickerFormat' => Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) ),
-			),
-			'editor'        => array(
+			],
+			'editor'        => [
 				'isClassic' => $this->post_is_from_classic_editor( tribe_get_request_var( 'post', 0 ) ),
-			),
-			'googleMap'     => array(
+			],
+			'googleMap'     => [
 				'embed' => tribe_get_option( 'embedGoogleMaps', true ),
 				'zoom'  => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
 				'key'   => tribe_get_option( 'google_maps_js_api_key' ),
-			),
-			'timeZone'     => array(
+			],
+			'timeZone'      => [
 				'showTimeZone' => tribe_get_option( 'tribe_events_timezones_show_zone', false ),
 				'timeZone'     => $this->get_timezone_label(),
 				'label'        => $this->get_timezone_label(),
-			),
-			'defaultTimes' => array(
+			],
+			'defaultTimes'  => [
 				'start' => $events_meta_box->get_timepicker_default( 'start' ),
-				'end' => $events_meta_box->get_timepicker_default( 'end' ),
-			),
+				'end'   => $events_meta_box->get_timepicker_default( 'end' ),
+			],
 		];
 
 		return $data;

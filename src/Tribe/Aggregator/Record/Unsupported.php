@@ -43,7 +43,7 @@ class Tribe__Events__Aggregator__Record__Unsupported extends Tribe__Events__Aggr
 			 * Let's delay the deletion to avoid client code from relying on
 			 * a deleted post for this request.
 			 */
-			add_action( 'shutdown', array( $this, 'delete_post' ) );
+			add_action( 'shutdown', [ $this, 'delete_post' ] );
 		}
 	}
 

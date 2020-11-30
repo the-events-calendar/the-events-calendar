@@ -18,14 +18,13 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 *
 	 * @var array
 	 */
-	protected $vars = array(
+	protected $vars = [
 		'_EventAllDay'      => false,
 		'_EventEndDate'     => null,
 		'_EventStartDate'   => null,
 		'_EventOrganizerID' => null,
 		'_EventVenueID'     => null,
-	);
-
+	];
 
 	/**
 	 * Sets up and renders the event meta box for the specified existing event
@@ -78,7 +77,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		} elseif ( $event instanceof WP_Post ) {
 			$this->event = $event;
 		} else {
-			$this->event = new WP_Post( (object) array( 'ID' => 0 ) );
+			$this->event = new WP_Post( (object) [ 'ID' => 0 ] );
 		}
 	}
 

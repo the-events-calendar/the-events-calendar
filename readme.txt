@@ -225,11 +225,17 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
+* Feature - Event Aggregator Batch Pushing for Cron Imports [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_time_to_live` to customize the time in seconds to consider an EA record alive. [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_stall_limit` to customize the number of seconds for an EA record to be considerd stalled. [EA-297]
+* Tweak - Add the filter `tribe_events_aggregator_build_url` [EA-297]
+* Tweak - Adjust Event Aggregator Client Progress Bar using the Heart Beat API for polling state instead [TEC-3534]
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
 * Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
 * Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
 * Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
 * Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
+* Tweak - ensure widgets don't get Filter Bar classes on their containers. [TBD]
 * Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
 * Tweak - Add an option to trash events after 1 month (thanks @StefanSchroeder).
 * Tweak - Add the `tribe_events_views_v2_datepicker_no_conflict` filter (default `false`) to allow loading the Views v2 datepicker in no-conflict mode, when set to `true`, and avoid issues with other plugins that are loading the built-in WordPress `jquery-ui-datepicker` script. [TEC-3581]
