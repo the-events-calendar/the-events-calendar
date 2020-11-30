@@ -887,17 +887,26 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
+		// Prevent to change the status of a schedule import.
+		if ( $this->post instanceof WP_Post && $this->post->post_status === Tribe__Events__Aggregator__Records::$status->schedule ) {
+			return false;
+		}
 
 		$status = wp_update_post( [
 			'ID'          => $this->id,
 			'post_status' => Tribe__Events__Aggregator__Records::$status->{$status},
 		] );
 
-		if ( ! is_wp_error( $status ) && ! empty( $this->post->post_parent ) ) {
-			$status = wp_update_post( [
-				'ID'            => $this->post->post_parent,
-				'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
-			] );
+		if ( ! is_wp_error( $status ) ) {
+			// Reload the properties of the post if the status of the record was changed.
+			$this->load( $this->id );
+
+			if ( ! empty( $this->post->post_parent ) ) {
+				$status = wp_update_post( [
+					'ID'            => $this->post->post_parent,
+					'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
+				] );
+			}
 		}
 
 		return $status;
