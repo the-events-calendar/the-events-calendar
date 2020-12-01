@@ -135,7 +135,8 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'background_color' ) ) {
 			$css_template .= '
 				.tribe-events-view:not(.tribe-events-widget),
-				.single-tribe_events {
+				#tribe-events,
+				#tribe-events-pg-template {
 					background-color: <%= global_elements.background_color %>;
 				}
 			';
