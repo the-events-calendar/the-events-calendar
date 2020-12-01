@@ -10,11 +10,11 @@
  *
  * @return bool $success
  */
-function tribe_register_meta_group( $meta_group_id, $args = array() ) {
+function tribe_register_meta_group( $meta_group_id, $args = [] ) {
 	_deprecated_function( __FUNCTION__, '4.3' );
 
 	// setup default for registering a meta group
-	$defaults = array( 'register_type' => 'meta_group', 'register_overwrite' => true );
+	$defaults = [ 'register_type' => 'meta_group', 'register_overwrite' => true ];
 
 	// parse the $default and $args into the second param for registering a meta item
 	return Tribe__Events__Meta_Factory::register( $meta_group_id, wp_parse_args( $args, $defaults ) );
@@ -31,7 +31,7 @@ function tribe_register_meta_group( $meta_group_id, $args = array() ) {
  *
  * @return bool $success
  */
-function tribe_register_meta( $meta_id, $args = array() ) {
+function tribe_register_meta( $meta_id, $args = [] ) {
 	_deprecated_function( __FUNCTION__, '4.3' );
 
 	return Tribe__Events__Meta_Factory::register( $meta_id, $args );
@@ -77,7 +77,7 @@ function tribe_get_meta_group( $meta_group_id, $is_the_meta = false ) {
 		}
 	}
 
-	$params = array( $meta_group_id );
+	$params = [ $meta_group_id ];
 
 	if ( ! empty( $meta['filter_callback'] ) ) {
 		return call_user_func_array( $meta['filter_callback'], $params );
@@ -121,7 +121,7 @@ function tribe_get_meta( $meta_id, $is_the_meta = false ) {
 		return false;
 	}
 
-	$params = array( $meta_id );
+	$params = [ $meta_id ];
 
 	if ( ! empty( $meta['filter_callback'] ) ) {
 		return call_user_func_array( $meta['filter_callback'], $params );
@@ -222,7 +222,7 @@ function tribe_set_the_meta_visibility( $meta_id, $status = true, $type = 'meta'
  *
  * @return bool
  */
-function tribe_set_the_meta_template( $meta_id, $template = array(), $type = 'meta' ) {
+function tribe_set_the_meta_template( $meta_id, $template = [], $type = 'meta' ) {
 	_deprecated_function( __FUNCTION__, '4.3' );
 
 	if ( is_array( $meta_id ) ) {
@@ -415,8 +415,8 @@ if ( ! function_exists( 'Tribe_Events_Importer_Load' ) ) {
 
 		Tribe__Events__Importer__Plugin::set_plugin_basename( plugin_basename( __FILE__ ) );
 		if ( is_admin() ) {
-			add_action( 'init', array( 'Tribe__Events__Importer__Plugin', 'initialize_admin' ), 10, 0 );
-			add_action( 'init', array( 'Tribe__Events__Importer__Options', 'process_general_form_submission' ) );
+			add_action( 'init', [ 'Tribe__Events__Importer__Plugin', 'initialize_admin' ], 10, 0 );
+			add_action( 'init', [ 'Tribe__Events__Importer__Options', 'process_general_form_submission' ] );
 		}
 	}
 

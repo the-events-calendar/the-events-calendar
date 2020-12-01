@@ -35,8 +35,8 @@ class Tribe__Events__Aggregator__Tabs__History extends Tribe__Events__Aggregator
 		parent::__construct();
 
 		// Handle Screen Options
-		add_action( 'current_screen', array( $this, 'action_screen_options' ) );
-		add_filter( 'set-screen-option', array( $this, 'filter_save_screen_options' ), 10, 3 );
+		add_action( 'current_screen', [ $this, 'action_screen_options' ] );
+		add_filter( 'set-screen-option', [ $this, 'filter_save_screen_options' ], 10, 3 );
 	}
 
 	/**
@@ -51,11 +51,11 @@ class Tribe__Events__Aggregator__Tabs__History extends Tribe__Events__Aggregator
 
 		$record_screen = WP_Screen::get( Tribe__Events__Aggregator__Records::$post_type );
 
-		$args = array(
+		$args = [
 			'label'   => esc_html__( 'Records per page', 'the-events-calendar' ),
 			'default' => 10,
 			'option'  => 'tribe_records_history_per_page',
-		);
+		];
 
 		// We need to Add on both because of a WP Limitation on WP_Screen
 		$record_screen->add_option( 'per_page', $args );

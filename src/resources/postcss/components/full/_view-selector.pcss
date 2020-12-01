@@ -10,10 +10,13 @@
 	 *     aria-controls="container-id"
 	 *     aria-expanded="false"
 	 *   >
-	 *     <span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *     <span class="tribe-events-c-view-selector__button-icon">
+	 *       <?php $this->template( 'components/icons/' . esc_attr( $view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+	 *     </span>
 	 *     <span class="tribe-events-c-view-selector__button-text">
 	 *       Month
 	 *     </span>
+	 *     <?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-caret-svg' ] ] ); ?>
 	 *   </button>
 	 *   <div
 	 *     class="tribe-events-c-view-selector__content"
@@ -23,7 +26,9 @@
 	 *     <ul class="tribe-events-c-view-selector__list">
 	 *       <li class="tribe-events-c-view-selector__list-item">
 	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
-	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-icon">
+	 *             <?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
+	 *           </span>
 	 *           <span class="tribe-events-c-view-selector__list-item-text">
 	 *             Month
 	 *           </span>
@@ -31,7 +36,9 @@
 	 *       </li>
 	 *       <li class="tribe-events-c-view-selector__list-item">
 	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
-	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-icon">
+	 *             <?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
+	 *           </span>
 	 *           <span class="tribe-events-c-view-selector__list-item-text">
 	 *             List
 	 *           </span>
@@ -58,29 +65,26 @@
 					content: none;
 				}
 			}
-
-			&:after {
-
-				.tribe-common--breakpoint-medium& {
-					background-image: svg-inline(caret-down);
-					background-repeat: no-repeat;
-					background-size: contain;
-					content: '';
-					display: block;
-					flex: none;
-					height: 6px;
-					margin-left: var(--spacer-1);
-					width: 10px;
-				}
+		}
+		
+		.tribe-events-c-view-selector__button-icon-caret-svg {
+			display: none;
+			
+			.tribe-common--breakpoint-medium& {
+				display: block;
+				flex: none;
+				height: 6px;
+				margin-left: var(--spacer-1);
+				width: 10px;
 			}
 		}
 
 		.tribe-events-c-view-selector__button--active {
 
-			&:after {
+			.tribe-events-c-view-selector__button-icon-caret-svg {
 
 				.tribe-common--breakpoint-medium& {
-					background-image: svg-inline(caret-up);
+					transform: rotate(180deg);
 				}
 			}
 		}

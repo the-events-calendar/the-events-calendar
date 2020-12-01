@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb,bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, peterchester, paulskim, reid.peifer, shane.pearlman, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.2.1
-Tested up to: 5.5.3
+Stable tag: 5.4.0
+Tested up to: 5.5.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,6 +221,28 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [TBD] TBD =
+
+* Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
+* Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
+* Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
+* Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
+* Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
+* Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
+* Tweak - ensure widgets don't get Filter Bar classes on their containers. [TBD]
+* Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
+* Tweak - Add an option to trash events after 1 month (thanks @StefanSchroeder).
+* Tweak - Add the `tribe_events_views_v2_datepicker_no_conflict` filter (default `false`) to allow loading the Views v2 datepicker in no-conflict mode, when set to `true`, and avoid issues with other plugins that are loading the built-in WordPress `jquery-ui-datepicker` script. [TEC-3581]
+* Tweak - Improve WPML integration and URL localization of Views v2. [TEC-3608]
+* Fix - Event Aggregator - Fix Eventbrite status filter to not return 'do_not_override' and handle Eventbrite's additional statuses. [TEC-3569]
+* Fix - Ensure ECP shortcode today button handles categories gracefully. [ECP-492]
+* Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
+* Fix - Make sure Month View "View More" link to Day View will preserve the current search criteria. [TEC-3230]
+* Fix - Ensure Event Aggregator Cron schedules always have array format and avoid errors on fresh WordPress installations (thanks @mmcachran).
+* Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
+* Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
+* Fix - Review and improve the Rewrite component to correctly parse and handle localized URLs and accented characters. [TEC-3608]
 
 = [5.2.1] 2020-10-22 =
 

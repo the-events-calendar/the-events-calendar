@@ -26,10 +26,10 @@ class Tribe__Events__Editor__Settings {
 	 * @return boolean
 	 */
 	public function is_private_option( $key ) {
-		$unsafe_rules = array(
+		$unsafe_rules = [
 			'_token',
 			'_key',
-		);
+		];
 
 		foreach ( $unsafe_rules as $rule ) {
 			if ( preg_match( '/' . $rule . '/', $key ) ) {
@@ -51,7 +51,7 @@ class Tribe__Events__Editor__Settings {
 	 */
 	public function get_options() {
 		$raw_options = Tribe__Settings_Manager::get_options();
-		$options = array();
+		$options = [];
 
 		foreach ( $raw_options as $key => $option ) {
 			if ( $this->is_private_option( $key ) ) {

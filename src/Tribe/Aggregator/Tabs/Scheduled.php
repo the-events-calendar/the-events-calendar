@@ -34,11 +34,11 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 		parent::__construct();
 
 		// Handle Requests to the Tab
-		add_action( 'tribe_aggregator_page_request', array( $this, 'handle_request' ) );
+		add_action( 'tribe_aggregator_page_request', [ $this, 'handle_request' ] );
 
 		// Handle Screen Options
-		add_action( 'current_screen', array( $this, 'action_screen_options' ) );
-		add_filter( 'set-screen-option', array( $this, 'filter_save_screen_options' ), 10, 3 );
+		add_action( 'current_screen', [ $this, 'action_screen_options' ] );
+		add_filter( 'set-screen-option', [ $this, 'filter_save_screen_options' ], 10, 3 );
 	}
 
 	/**

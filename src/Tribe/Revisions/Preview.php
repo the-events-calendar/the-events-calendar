@@ -54,7 +54,7 @@ class Tribe__Events__Revisions__Preview {
 
 			$this->latest_revision = reset( $revisions );
 
-			add_filter( 'get_post_metadata', array( $this, 'intercept_post_metadata' ), 50, 4 );
+			add_filter( 'get_post_metadata', [ $this, 'intercept_post_metadata' ], 50, 4 );
 		}
 	}
 

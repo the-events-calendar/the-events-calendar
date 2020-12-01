@@ -32,19 +32,19 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 
 		$this->create_args['post_type'] = Tribe__Events__Organizer::POSTTYPE;
 
-		$this->default_args = array(
+		$this->default_args = [
 			'post_type'                    => Tribe__Events__Organizer::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
-		);
+		];
 
 		// Add organizer specific aliases.
-		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
+		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, [
 			'organizer' => 'post_title',
 			'phone'     => '_OrganizerPhone',
 			'website'   => '_OrganizerWebsite',
 			'email'     => '_OrganizerEmail',
-		) );
+		] );
 
 		$this->linked_id_meta_key = '_EventOrganizerID';
 

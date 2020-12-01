@@ -29,6 +29,8 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
+  # Install version 1 of Composer.
+  - composer self-update --rollback
   # Sourcing the .env file will make sure we use, in the environment configuration, the same variables the tests are using.
   - set -o allexport; source .env; set +o allexport;
 
@@ -141,6 +143,7 @@ script:
   - codecept run -f muintegration
   - codecept run -f wpunit
   - codecept run -f aggregatorv1
+  - codecept run -f views_v2_customizer_integration
   # Disabled on 2020/08/18 due to inconsistent failures.
   # - codecept run -f restv1
   # - codecept run acceptance

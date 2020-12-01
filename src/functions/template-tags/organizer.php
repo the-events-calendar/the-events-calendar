@@ -6,6 +6,8 @@
  */
 
 // Don't load directly
+use Tribe\Events\Models\Post_Types\Organizer;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -50,7 +52,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_organizer_ids( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 
-		$organizer_ids = array();
+		$organizer_ids = [];
 
 		if ( Tribe__Events__Main::instance()->isEvent( $event_id ) ) {
 			$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
@@ -77,15 +79,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array
 	 */
-	function tribe_sanitize_organizers( $current = array(), $ordered = array() ) {
+	function tribe_sanitize_organizers( $current = [], $ordered = [] ) {
 		_deprecated_function( __METHOD__, '4.6.23', 'No longer needed after removing reliance on a separate postmeta field to store the ordering.' );
 
 		if ( empty( $ordered ) ) {
 			return $current;
 		}
 
-		$order    = array();
-		$excluded = array();
+		$order    = [];
+		$excluded = [];
 		foreach ( (array) $current as $post_id ) {
 			$key = array_search( $post_id, $ordered );
 			if ( false === $key ) {
@@ -186,9 +188,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_organizer_details( $post_id = null ) {
-		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
+		$post_id      = Tribe__Events__Main::postIdHelper( $post_id );
 		$organizer_id = (int) tribe_get_organizer_id( $post_id );
-		$details = array();
+		$details      = [];
 
 		if ( $organizer_id && $tel = tribe_get_organizer_phone() ) {
 			$details[] = '<span class="tel">' . $tel . '</span>';
@@ -472,7 +474,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array|int An array of organizer post objects or an integer value if `found_posts` is set to a truthy value.
 	 */
-	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = - 1, $suppress_filters = true, array $args = array() ) {
+	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true, array $args = [] ) {
 		// filter out the `null` values
 		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
 
@@ -480,11 +482,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['only_with_upcoming'] = true;
 		}
 
-		$filter_args = array(
+		$filter_args = [
 			'event'              => 'find_for_event',
 			'has_events'         => 'find_with_events',
 			'only_with_upcoming' => 'find_with_upcoming_events',
-		);
+		];
 
 		foreach ( $filter_args as $filter_arg => $method ) {
 			if ( ! isset( $args[ $filter_arg ] ) ) {
@@ -501,7 +503,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( empty( $found ) ) {
-				return array();
+				return [];
 			}
 
 			$args['post__in'] = ! empty( $args['post__in'] )
@@ -509,15 +511,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				: $found;
 
 			if ( empty( $args['post__in'] ) ) {
-				return array();
+				return [];
 			}
 		}
 
-		$parsed_args = wp_parse_args( $args, array(
+		$parsed_args = wp_parse_args(
+			$args,
+			[
 				'post_type'        => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 				'posts_per_page'   => $posts_per_page,
 				'suppress_filters' => $suppress_filters,
-			)
+			]
 		);
 
 		$return_found_posts = ! empty( $args['found_posts'] );
@@ -538,7 +542,88 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return 0;
 		}
 
-		return $query->have_posts() ? $query->posts : array();
+		return $query->have_posts() ? $query->posts : [];
 	}
 
+	/**
+	 * Fetches and returns a decorated post object representing a Organizer.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|int|WP_Post $organizer  The organizer ID or post object or `null` to use the global one.
+	 * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
+	 *                                 correspond to a WP_Post object, an associative array, or a numeric array,
+	 *                                 respectively. Defaults to `OBJECT`.
+	 * @param string           $filter Type of filter to apply. Accepts 'raw'.
+	 * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
+	 *
+	 * @return array|mixed|void|WP_Post|null {
+	 *                              The Organizer post object or array, `null` if not found.
+	 *
+	 *                              @type string $phone The organizer phone number NOT filtered, apply anti-spambot filters if required.
+	 *                              @type string $website The organizer full website URL.
+	 *                              @type string $email The organizer email address NOT filtered, apply anti-spambot filters if required.
+	 *                          }
+	 */
+	function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filter = 'raw', $force = false ) {
+		/**
+		 * Filters the organizer result before any logic applies.
+		 *
+		 * Returning a non `null` value here will short-circuit the function and return the value.
+		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed       $return      The organizer object to return.
+		 * @param mixed       $organizer       The organizer object to fetch.
+		 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+		 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+		 *                                 respectively. Defaults to `OBJECT`.
+		 * @param string      $filter      Type of filter to apply. Accepts 'raw'.
+		 */
+		$return = apply_filters( 'tribe_get_organizer_object_before', null, $organizer, $output, $filter );
+
+		if ( null !== $return ) {
+			return $return;
+		}
+
+		$post = false;
+		if ( ! $force ) {
+			$cache_key = 'tribe_get_organizer_object_' . md5( json_encode( [ $organizer, $output, $filter ] ) );
+			/** @var Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		if ( false === $post ) {
+			$post = Organizer::from_post( $organizer )->to_post( $output, $filter );
+
+			if ( empty( $post ) ) {
+				return null;
+			}
+
+			/**
+			 * Filters the organizer post object before caching it and returning it.
+			 *
+			 * Note: this value will be cached; as such this filter might not run on each request.
+			 * If you need to filter the output value on each call of this function then use the `tribe_get_organizer_object_before`
+			 * filter.
+			 *
+			 * @since TBD
+			 *
+			 * @param WP_Post $post   The organizer post object, decorated with a set of custom properties.
+			 * @param string  $output The output format to use.
+			 * @param string  $filter The filter, or context of the fetch.
+			 */
+			$post = apply_filters( 'tribe_get_organizer_object', $post, $output, $filter );
+
+			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		if ( OBJECT !== $output ) {
+			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+		}
+
+		return $post;
+	}
 }

@@ -49,7 +49,7 @@ class Tribe__Events__Integrations__WPML__Category_Translation {
 			$slug = 'category';
 		} else {
 			$lang            = $sitepress->get_locale( ICL_LANGUAGE_CODE );
-			$tec_translation = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( 'category' ), $lang );
+			$tec_translation = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( [ 'category' ], $lang );
 			$slug            = ! empty( $tec_translation[0] ) ? end( $tec_translation[0] ) : $slug;
 
 			$remove_accents = true;
@@ -85,18 +85,18 @@ class Tribe__Events__Integrations__WPML__Category_Translation {
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
-		$translations     = array();
+		$translations     = [];
 		$tax_sync_options = $sitepress->get_setting( 'taxonomies_sync_option' );
 		$should_translate = ! empty( $tax_sync_options[ Tribe__Events__Main::TAXONOMY ] );
 
 		// If the event category slug shouldn't be translated, return an empty list
 		if ( ! $should_translate ) {
-			return array();
+			return [];
 		}
 
 		// Determine the translated form of the category slug for each active locale
 		foreach ( Tribe__Events__Integrations__WPML__Utils::get_active_locales() as $lang ) {
-			$slugs = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( array( 'category' ), $lang );
+			$slugs = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings( [ 'category' ], $lang );
 
 			// We expect an array of arrays with at least one element to come back
 			if ( empty( $slugs[0] ) ) {

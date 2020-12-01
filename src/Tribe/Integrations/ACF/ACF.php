@@ -31,7 +31,7 @@ class Tribe__Events__Integrations__ACF__ACF {
 	 * @since 4.6.3
 	 */
 	public function hook() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_compat_js' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'load_compat_js' ] );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Tribe__Events__Integrations__ACF__ACF {
 			wp_enqueue_script(
 				'tribe-admin-acf-compat',
 				plugin_dir_url( __FILE__ ) . 'resources/tribe-admin-acf-compat.js',
-				array( 'jquery' ),
+				[ 'jquery' ],
 				'1.0.0',
 				true
 			);
