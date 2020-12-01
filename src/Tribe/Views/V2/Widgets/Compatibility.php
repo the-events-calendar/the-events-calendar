@@ -59,6 +59,10 @@ class Compatibility {
 	 * @since TBD
 	 */
 	public function switch_compatibility() {
+		if ( ! $this->is_v2_adv_list_widget() ) {
+			return;
+		}
+
 		/**
 		 * Allow filtering of whether the event list or the advanced event list widget should be primary.
 		 *
@@ -67,17 +71,24 @@ class Compatibility {
 		 * @param bool $adv_primary Whether the advanced list widget is primary.
 		 */
 		$advanced_primary = apply_filters( 'tribe_events_views_v2_advanced_list_widget_primary', false );
+
 		if (
 			$advanced_primary &&
-			(
-				! tribe_events_views_v2_is_enabled()
-			)
+			! tribe_events_views_v2_is_enabled()
 		) {
 			$this->primary_id_base     = 'tribe-events-adv-list-widget';
 			$this->alternative_id_base = 'tribe-events-list-widget';
 		}
 
 		add_filter( "option_widget_{$this->primary_id_base}", [ $this, 'merge_list_widget_options' ] );
+	}
+
+	public function is_v2_adv_list_widget() {
+		if ( ! defined( 'Tribe__Events__Pro__Main::VERSION' ) ) {
+			return true;
+		}
+
+		return version_compare( \Tribe__Events__Pro__Main::VERSION, '5.3.0-dev', '>=' );
 	}
 
 	/**
@@ -87,10 +98,14 @@ class Compatibility {
 	 *
 	 * @param array<string,mixed> $widget_areas An array of widgets areas with the saved widgets in each location.
 	 *
-	 * @return array<string,mixed> $widget_areas An array of widgets areas with the saved widgets in each location.
+	 * @return array<string,mixed> $widget_areas A modified array of widgets areas with the saved widgets in each location.
 	 */
 	public function remap_list_widget_id_bases( $widget_areas ) {
 		if ( ! is_array( $widget_areas ) ) {
+			return $widget_areas;
+		}
+
+		if ( ! $this->is_v2_adv_list_widget() ) {
 			return $widget_areas;
 		}
 
