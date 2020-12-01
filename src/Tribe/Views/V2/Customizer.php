@@ -49,8 +49,7 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			// Event Title overrides.
 			$css_template .= '
-				#tribe-events .tribe-events-single-event-title,
-				#tribe-events-pg-template .tribe-events-single-event-title,
+				.tribe-events-single-event-title,
 				.tribe-events .tribe-events-calendar-list__event-title-link,
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
 				.tribe-events .tribe-events-calendar-list__event-title-link:visited,
@@ -111,8 +110,7 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
 			// Event Date Time overrides.
 			$css_template .= '
-				#tribe-events .tribe-events-schedule h2,
-				#tribe-events-pg-template .tribe-events-schedule h2,
+				.tribe-events-schedule h2,
 				.tribe-events .tribe-events-calendar-list__event-datetime,
 				.tribe-events .tribe-events-calendar-day__event-datetime,
 				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
@@ -130,7 +128,6 @@ class Customizer {
 				.tribe-events-event-url a,
 				.tribe-venue-url a,
 				.tribe-organizer-url a,
-
 				.tribe-block__organizer__website a,
 				.tribe-block__venue__website a,
 				.tribe_events p a {
@@ -489,8 +486,7 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'post_title_color' ) ) {
 			// Single Event Title overrides.
 			$css_template .= '
-				#tribe-events .tribe-events-single-event-title,
-				#tribe-events-pg-template .tribe-events-single-event-title {
+				.tribe-events-single-event-title {
 					color: <%= single_event.post_title_color %>;
 				}
 			';
@@ -499,10 +495,8 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'post_date_time_color' ) ) {
 			// Single Event Date Time overrides.
 			$css_template .= '
-				#tribe-events .tribe-events-schedule h2,
-				#tribe-events-pg-template .tribe-events-schedule h2,
-				.tribe-theme-enfold #tribe-events .tribe-events-schedule h3,
-				.tribe-theme-enfold #tribe-events-pg-template .tribe-events-schedule h3 {
+				.tribe-events-schedule h2,
+				.tribe-theme-enfold .tribe-events-schedule h3 {
 					color: <%= single_event.post_date_time_color %>;
 				}
 			';
