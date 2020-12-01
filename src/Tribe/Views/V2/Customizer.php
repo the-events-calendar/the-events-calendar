@@ -500,7 +500,9 @@ class Customizer {
 			// Single Event Date Time overrides.
 			$css_template .= '
 				#tribe-events .tribe-events-schedule h2,
-				#tribe-events-pg-template .tribe-events-schedule h2 {
+				#tribe-events-pg-template .tribe-events-schedule h2,
+				.tribe-theme-enfold #tribe-events .tribe-events-schedule h3,
+				.tribe-theme-enfold #tribe-events-pg-template .tribe-events-schedule h3 {
 					color: <%= single_event.post_date_time_color %>;
 				}
 			';
