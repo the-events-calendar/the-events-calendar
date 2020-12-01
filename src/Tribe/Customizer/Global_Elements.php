@@ -130,9 +130,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$this->defaults = [
 			'link_color'            => '#141827',
-			'background_color'      => '#fff',
 			'event_title_color'     => '#141827',
 			'event_date_time_color' => '#141827',
+			'background_color'      => '#fff',
 		];
 
 		$this->arguments = [

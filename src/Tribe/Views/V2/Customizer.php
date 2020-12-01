@@ -380,15 +380,6 @@ class Customizer {
 				}
 			';
 		}
-
-		if ( $customizer->has_option( $section->ID, 'background_color' ) ) {
-			$css_template .= '
-				.tribe-events-view:not(.tribe-events-widget),
-				.single-tribe_events {
-					background-color: <%= global_elements.background_color %>;
-				}
-			';
-		}
 		
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			// Event Title overrides.
@@ -457,6 +448,15 @@ class Customizer {
 				.tribe-events .tribe-events-calendar-month__calendar-event-tooltip-datetime,
 				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime {
 					color: <%= global_elements.event_date_time_color %>;
+				}
+			';
+		}
+
+		if ( $customizer->has_option( $section->ID, 'background_color' ) ) {
+			$css_template .= '
+				.tribe-events-view:not(.tribe-events-widget),
+				.single-tribe_events {
+					background-color: <%= global_elements.background_color %>;
 				}
 			';
 		}
