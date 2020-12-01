@@ -112,7 +112,7 @@ class Widget_List extends Widget_Abstract {
 
 		$default_arguments['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
 		// @todo update name once this widget is ready to replace the existing list widget.
-		$default_arguments['name']                          = esc_html_x( 'Events List V2', 'The name of the widget.', 'the-events-calendar' );
+		$default_arguments['name']                          = esc_html_x( 'Events List', 'The name of the List Widget.', 'the-events-calendar' );
 		$default_arguments['widget_options']['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
 		// Setup default title.
 		$default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
