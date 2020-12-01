@@ -83,6 +83,13 @@ class Compatibility {
 		add_filter( "option_widget_{$this->primary_id_base}", [ $this, 'merge_list_widget_options' ] );
 	}
 
+	/**
+	 * Function that determines which version of the widget we should load based on the ECP version.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
 	public function is_v2_adv_list_widget() {
 		if ( ! defined( 'Tribe__Events__Pro__Main::VERSION' ) ) {
 			return true;
