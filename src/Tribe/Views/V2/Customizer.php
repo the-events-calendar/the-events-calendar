@@ -49,7 +49,8 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			// Event Title overrides.
 			$css_template .= '
-				.single-tribe_events .tribe-events-single-event-title,
+				#tribe-events .tribe-events-single-event-title,
+				#tribe-events-pg-template .tribe-events-single-event-title,
 				.tribe-events .tribe-events-calendar-list__event-title-link,
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
 				.tribe-events .tribe-events-calendar-list__event-title-link:visited,
@@ -110,7 +111,8 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
 			// Event Date Time overrides.
 			$css_template .= '
-				.single-tribe_events .tribe-events-schedule h2,
+				#tribe-events .tribe-events-schedule h2,
+				#tribe-events-pg-template .tribe-events-schedule h2,
 				.tribe-events .tribe-events-calendar-list__event-datetime,
 				.tribe-events .tribe-events-calendar-day__event-datetime,
 				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
@@ -482,6 +484,28 @@ class Customizer {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+		$settings = $customizer->get_option( [ $section->ID ] );
+		
+		if ( $customizer->has_option( $section->ID, 'post_title_color' ) ) {
+			// Single Event Title overrides.
+			$css_template .= '
+				#tribe-events .tribe-events-single-event-title,
+				#tribe-events-pg-template .tribe-events-single-event-title {
+					color: <%= single_event.post_title_color %>;
+				}
+			';
+		}
+		
+		if ( $customizer->has_option( $section->ID, 'post_date_time_color' ) ) {
+			// Single Event Date Time overrides.
+			$css_template .= '
+				#tribe-events .tribe-events-schedule h2,
+				#tribe-events-pg-template .tribe-events-schedule h2 {
+					color: <%= single_event.post_date_time_color %>;
+				}
+			';
+		}
+		
 		return $css_template;
 	}
 }
