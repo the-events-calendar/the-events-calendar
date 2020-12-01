@@ -81,7 +81,12 @@ class Customizer {
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-day__event-title-link:hover,
-				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-day__event-title-link:focus {
+				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-day__event-title-link:focus,
+				.tribe-theme-enfold .tribe-events .tribe-events-calendar-list__event-title,
+				.tribe-theme-enfold .tribe-events .tribe-events-calendar-month__calendar-event-title,
+				.tribe-theme-enfold .tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-title,
+				.tribe-theme-enfold .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title,
+				.tribe-theme-enfold .tribe-events .tribe-events-calendar-day__event-title {
 					color: <%= global_elements.event_title_color %>;
 				}
 				
