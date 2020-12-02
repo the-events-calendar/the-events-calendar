@@ -51,14 +51,6 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			';
 		}
 
-		if ( $customizer->has_option( $this->ID, 'post_date_time_color' ) ) {
-			$template .= '
-				.single-tribe_events .tribe-events-schedule h2 {
-					color: <%= single_event.post_date_time_color %>;
-				}
-			';
-		}
-
 		/**
 		 * Allows filtering the CSS template with full knowledge of the Single Event section and the current Customizer instance.
 		 *

@@ -86,11 +86,11 @@ class Customizer {
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-day__event-title-link:hover,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-day__event-title-link:focus,
-				.tribe-theme-enfold .tribe-events .tribe-events-calendar-list__event-title-link:visited,
-				.tribe-theme-enfold .tribe-events .tribe-events-calendar-month__calendar-event-title,
-				.tribe-theme-enfold .tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-title,
-				.tribe-theme-enfold .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title,
-				.tribe-theme-enfold .tribe-events .tribe-events-calendar-day__event-title {
+				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-list__event-title-link,
+				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-month__calendar-event-title-link,
+				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-title-link,
+				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title-link,
+				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-day__event-title-link {
 					color: <%= global_elements.event_title_color %>;
 				}
 				
@@ -490,20 +490,10 @@ class Customizer {
 	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
 		$settings = $customizer->get_option( [ $section->ID ] );
 		
-		if ( $customizer->has_option( $section->ID, 'post_title_color' ) ) {
-			// Single Event Title overrides.
-			$css_template .= '
-				.tribe-events-single-event-title {
-					color: <%= single_event.post_title_color %>;
-				}
-			';
-		}
-		
 		if ( $customizer->has_option( $section->ID, 'post_date_time_color' ) ) {
 			// Single Event Date Time overrides.
 			$css_template .= '
-				.tribe-events-schedule h2,
-				.tribe-theme-enfold .tribe-events-schedule h3 {
+				.tribe-events-schedule h2 {
 					color: <%= single_event.post_date_time_color %>;
 				}
 			';
