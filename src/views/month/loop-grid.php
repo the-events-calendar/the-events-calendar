@@ -5,9 +5,11 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/loop-grid.php
  *
- * @package TribeEventsCalendar
- * @version 4.6.19
+ * @link http://m.tri.be/1aiy
  *
+ * @package TribeEventsCalendar
+ *
+ * @version 4.6.19
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
