@@ -78,10 +78,6 @@
 	.tribe-events-c-search__input-control--location {
 
 		.tribe-events-c-search__input {
-			
-			.tribe-theme-twentyseventeen.colors-dark & {
-				background: var(--background-color);
-			}
 		
 			&:focus ~ .tribe-events-c-search__input-control-icon-svg path {
 				fill: currentColor;
@@ -97,6 +93,23 @@
 			& ~ .tribe-events-c-search__input-control-icon-svg path {
 				fill: currentColor;
 			}
+		}
+	}
+	
+	/* -----------------------------------------------------------------------------
+	 *
+	 * Search: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ----------------------------------------------------------------------------- */
+	 
+	.tribe-theme-twentyseventeen.colors-dark & {
+		
+		.tribe-events-c-search__input {
+			background: var(--background-color);
 		}
 	}
 }
