@@ -726,7 +726,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( ! empty( $args['start'] ) ) {
 			$args['start'] = ! is_numeric( $args['start'] )
 				? Dates::maybe_format_from_datepicker( $args['start'] )
-				: Dates::build_date_object( $args['start'] )->format( Dates::DBDATETIMEFORMAT)
+				: Dates::build_date_object( $args['start'] )->format( Dates::DBDATETIMEFORMAT );
 		}
 
 		if ( ! empty( $args['end'] ) ) {
