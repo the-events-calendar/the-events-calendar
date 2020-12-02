@@ -40,16 +40,6 @@ class Compatibility {
 	protected $alternative_id_base = 'tribe-events-adv-list-widget';
 
 	/**
-	 * Adds the filters for V2 Widgets
-	 *
-	 * @since TBD
-	 */
-	public function hooks() {
-		add_action( 'tribe_plugins_loaded', [ $this, 'switch_compatibility' ] );
-		add_filter( 'option_sidebars_widgets', [ $this, 'remap_list_widget_id_bases' ] );
-	}
-
-	/**
 	 * Switches the primary and alternative id base when v1 is active
 	 * or v2 widgets are disabled, this enables support for upgrading from
 	 * v1 free list widget to the v1 Pro advanced list widget.
