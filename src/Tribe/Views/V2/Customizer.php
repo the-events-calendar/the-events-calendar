@@ -490,20 +490,10 @@ class Customizer {
 	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
 		$settings = $customizer->get_option( [ $section->ID ] );
 		
-		if ( $customizer->has_option( $section->ID, 'post_title_color' ) ) {
-			// Single Event Title overrides.
-			$css_template .= '
-				.tribe-events-single-event-title {
-					color: <%= single_event.post_title_color %>;
-				}
-			';
-		}
-		
 		if ( $customizer->has_option( $section->ID, 'post_date_time_color' ) ) {
 			// Single Event Date Time overrides.
 			$css_template .= '
-				.tribe-events-schedule h2,
-				.tribe-theme-enfold .tribe-events-schedule h3 {
+				.tribe-events-schedule h2 {
 					color: <%= single_event.post_date_time_color %>;
 				}
 			';

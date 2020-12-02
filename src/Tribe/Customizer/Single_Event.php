@@ -45,16 +45,8 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 
 		if ( $customizer->has_option( $this->ID, 'post_title_color' ) ) {
 			$template .= '
-				.single-tribe_events .tribe-events-single-event-title {
+				.tribe-events-single-event-title {
 					color: <%= single_event.post_title_color %>;
-				}
-			';
-		}
-
-		if ( $customizer->has_option( $this->ID, 'post_date_time_color' ) ) {
-			$template .= '
-				.single-tribe_events .tribe-events-schedule h2 {
-					color: <%= single_event.post_date_time_color %>;
 				}
 			';
 		}
@@ -90,7 +82,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	public function setup() {
 		$this->defaults = array(
 			'post_title_color'     => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
-			'post_date_time_color' => '#141827',
+			'post_date_time_color' => 'lightblue',
 			'details_bg_color'     => '#e5e5e5',
 		);
 
