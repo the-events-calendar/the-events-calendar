@@ -50,7 +50,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				}
 			';
 		}
-		
+
 		if ( $customizer->has_option( $this->ID, 'post_date_time_color' ) ) {
 			$template .= '
 				.single-tribe_events .tribe-events-schedule h2 {
@@ -117,7 +117,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
@@ -153,7 +153,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			)
 		);
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,

@@ -154,14 +154,57 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
-				$customizer->get_setting_name( 'link_color_heading', $section ),
+				$customizer->get_setting_name( 'font_color_heading', $section ),
 				[
 					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 					'section' => $section->id,
+				]
+			)
+		);
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'event_title_color', $section ),
+			[
+				'default'              => '#141827',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'event_title_color', $section ),
+				[
+					'label'       => esc_html__( 'Event Title', 'the-events-calendar' ),
+					'section'     => $section->id,
+				]
+			)
+		);
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'event_date_time_color', $section ),
+			[
+				'default'              => '#141827',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'event_date_time_color', $section ),
+				[
+					'label'       => esc_html__( 'Event Date and Time', 'the-events-calendar' ),
+					'description' => esc_html__( 'Main date and time display on views and single event pages.', 'the-events-calendar' ),
+					'section'     => $section->id,
 				]
 			)
 		);
@@ -190,7 +233,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
