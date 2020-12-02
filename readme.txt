@@ -248,6 +248,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
 * Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
 * Fix - Review and improve the Rewrite component to correctly parse and handle localized URLs and accented characters. [TEC-3608]
+* Language - 25 new strings added, 775 updated, 1 fuzzied, and 6 obsoleted
 
 = [5.2.1] 2020-10-22 =
 
