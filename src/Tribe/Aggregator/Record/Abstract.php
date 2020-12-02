@@ -906,6 +906,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			// Reload the properties of the post if the status of the record was changed.
 			$this->load( $this->id );
 
+			// If a parent exists and an error occur register the last update time on the parent record.
 			if ( ! empty( $this->post->post_parent ) ) {
 				$status = wp_update_post(
 					[
