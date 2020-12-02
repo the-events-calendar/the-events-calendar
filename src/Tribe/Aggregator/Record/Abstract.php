@@ -139,7 +139,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:invalid-record-object', [], [ $post ] );
 		}
 
-		if ( $post->post_type !== Records::$post_type ) {
+		if ( Records::$post_type !== $post->post_type ) {
 			return tribe_error( 'core:aggregator:invalid-record-post_type', [], [ $post ] );
 		}
 
@@ -726,13 +726,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		if ( ! empty( $args['start'] ) ) {
 			$args['start'] = ! is_numeric( $args['start'] )
 				? Dates::maybe_format_from_datepicker( $args['start'] )
-				: date( Dates::DBDATETIMEFORMAT, $args['start'] );
+				: Dates::build_date_object( $args['start'] )->format( Dates::DBDATETIMEFORMAT)
 		}
 
 		if ( ! empty( $args['end'] ) ) {
 			$args['end'] = ! is_numeric( $args['end'] )
 				? Dates::maybe_format_from_datepicker( $args['end'] )
-				: date( Dates::DBDATETIMEFORMAT, $args['end'] );
+				: Dates::build_date_object( $args['end'] )->format( Dates::DBDATETIMEFORMAT );
 		}
 
 		// Set site for origin(s) that need it for new token handling.
@@ -1063,7 +1063,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// If we are not dealing with the Record Schedule
-		if ( $this->post->post_status !== Records::$status->schedule ) {
+		if ( Records::$status->schedule !== $this->post->post_status ) {
 			return false;
 		}
 
@@ -2039,7 +2039,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			do_action( 'tribe_aggregator_after_insert_post', $event, $item, $this );
 		}
 
-		remove_filter( 'tribe-post-origin', array( Records::instance(), 'filter_post_origin' ), 10 );
+		remove_filter( 'tribe-post-origin', [ Records::instance(), 'filter_post_origin' ], 10 );
 
 		/**
 		 * Fires after events and linked posts have been inserted in the database.
