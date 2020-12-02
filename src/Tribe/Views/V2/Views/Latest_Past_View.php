@@ -47,6 +47,8 @@ class Latest_Past_View extends View {
 		'components/icons/caret-left',
 		'components/icons/caret-right',
 		'components/icons/day',
+		'components/icons/dot',
+		'components/icons/error',
 		'components/icons/featured',
 		'components/icons/list',
 		'components/icons/map',
