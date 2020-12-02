@@ -27,10 +27,10 @@
 		<script data-js="tribe-events-view-data" type="application/json">
 	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Search Results for &#8220;&#8221; &#8211; The Events Calendar Tests","events":[904385349785,349589759485,340934095850],"url":"http:\\/\\/test.tri.be\\/events\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/m.tri.be\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"_context":{"slug":"day"},"text":"Loading..."}</script>
 
-		
+
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
-			
-			
+
+
 			<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
@@ -96,7 +96,7 @@
 	</form>
 </div>
 		</div>
-	
+
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
@@ -234,10 +234,10 @@
 </div>
 		</header>
 
-		
+
 		<div class="tribe-events-calendar-day">
 
-							
+
 								<div class="tribe-events-calendar-day__time-separator">
 	<time
 		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
@@ -248,7 +248,7 @@
 				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-904385349785 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-		
+
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -275,17 +275,17 @@
 </h3>
 							</header>
 
-						
+
 		</div>
 
 	</div>
 </article>
 
-							
+
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-349589759485 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-		
+
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -304,17 +304,17 @@
 </h3>
 							</header>
 
-						
+
 		</div>
 
 	</div>
 </article>
 
-							
+
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-340934095850 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-		
+
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -333,13 +333,13 @@
 </h3>
 							</header>
 
-						
+
 		</div>
 
 	</div>
 </article>
 
-			
+
 		</div>
 
 		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
@@ -377,10 +377,10 @@
 </div>
 
 		<div class="tribe-events-after-html">
-	
+
 <!--
 This calendar is powered by The Events Calendar.
-http://m.tri.be/18wn
+https://evnt.is/18wn
 -->
 </div>
 

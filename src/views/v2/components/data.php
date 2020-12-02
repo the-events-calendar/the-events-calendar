@@ -10,7 +10,7 @@
  * @var string                               $view_slug The slug of the view currently being rendered.
  * @var Tribe\Events\Views\V2\View_Interface $view      The View instance that is being rendered.
  *
- * @link http://m.tri.be/1aiy
+ * @link https://evnt.is/1aiy
  *
  * @version 5.0.0
  */

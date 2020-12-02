@@ -31,8 +31,8 @@
 	<div id="tribe-events" class="tribe-no-js" data-live_ajax="1" data-datepicker_format="1" data-category="" data-featured=""></div>
 
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
-			
-			
+
+
 			<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
@@ -98,7 +98,7 @@
 	</form>
 </div>
 		</div>
-	
+
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
@@ -236,10 +236,10 @@
 </div>
 		</header>
 
-		
+
 		<div class="tribe-events-calendar-list">
 
-							
+
 				<div class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
@@ -261,7 +261,7 @@
 
 	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
 		<article  class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters post-7 tribe_events type-tribe_events status-publish hentry" >
-			
+
 			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
 
 				<header class="tribe-events-calendar-list__event-header">
@@ -288,15 +288,15 @@
 </h3>
 									</header>
 
-								
+
 			</div>
 		</article>
 	</div>
 
 </div>
 
-							
-				
+
+
 				<div  class="tribe-common-g-row tribe-events-calendar-list__event-row" >
 
 	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
@@ -310,7 +310,7 @@
 
 	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
 		<article  class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters post-8 tribe_events type-tribe_events status-publish hentry" >
-			
+
 			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
 
 				<header class="tribe-events-calendar-list__event-header">
@@ -329,14 +329,14 @@
 </h3>
 									</header>
 
-								
+
 			</div>
 		</article>
 	</div>
 
 </div>
 
-			
+
 		</div>
 
 		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
@@ -392,7 +392,7 @@
 	</div><!-- #tribe-events -->
 <!--
 This calendar is powered by The Events Calendar.
-http://m.tri.be/18wn
+https://evnt.is/18wn
 -->
 </div>
 

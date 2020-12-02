@@ -2,7 +2,7 @@
 
 Contributors: ModernTribe, borkweb,bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, peterchester, paulskim, reid.peifer, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
-Donate link: https://m.tri.be/29
+Donate link: https://evnt.is/29
 Requires at least: 4.9.14
 Stable tag: 5.2.1
 Tested up to: 5.5.3
@@ -14,7 +14,7 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 == Description ==
 
-Easily create and manage an events calendar on your website with [The Events Calendar](https://m.tri.be/mj). Whether your events are in-person or virtual events, this plugin boasts professional features backed by our world-class team of developers and designers.
+Easily create and manage an events calendar on your website with [The Events Calendar](https://evnt.is/mj). Whether your events are in-person or virtual events, this plugin boasts professional features backed by our world-class team of developers and designers.
 
 https://vimeo.com/425323974
 
@@ -22,17 +22,17 @@ Packed with loads of features, The Events Calendar by Modern Tribe is ready to g
 
 = 📅 The #1 Calendar for WordPress  =
 
-See the calendar in action on our [demo experience](https://m.tri.be/1ajs). Just getting started? Read through the [New User Primer](https://m.tri.be/2d) to get set up.
+See the calendar in action on our [demo experience](https://evnt.is/1ajs). Just getting started? Read through the [New User Primer](https://evnt.is/2d) to get set up.
 
 Looking for additional features like recurring events, ticket sales, user-submitted events, automatic imports, and more?
 
-<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong> ...and all of them are on sale from November 23-30 during our annual 💰[Black Friday Sale](https://m.tri.be/1aod)💰
+<strong>Check out [Events Calendar Pro](https://evnt.is/mj), [Event Aggregator](https://evnt.is/197u), and [more add-ons](https://evnt.is/2a)</strong> ...and all of them are on sale from November 23-30 during our annual 💰[Black Friday Sale](https://evnt.is/1aod)💰
 
 = 🔌🎨 Plug and Play or Customize =
 
 The Events Calendar is built to work out of the box. Simply install the plugin, configure your settings, and start creating events in minutes.
 
-Want to add your personal touch? Use The Events Calendar as the foundation for customization. Personalize to your heart's content with the help of a skeleton stylesheet, partial template overrides, template tags, hooks and filters, [careful documentation](https://m.tri.be/eu), and a [library of free extensions](https://m.tri.be/1a0r).
+Want to add your personal touch? Use The Events Calendar as the foundation for customization. Personalize to your heart's content with the help of a skeleton stylesheet, partial template overrides, template tags, hooks and filters, [careful documentation](https://evnt.is/eu), and a [library of free extensions](https://evnt.is/1a0r).
 
 Whether your vision is big or small, you're in good company. Hundreds of thousands of small businesses, musicians, venues, restaurants, and non-profits are publishing and promoting their in-person and virtual events with The Events Calendar. Our plugins have also been scaled to work on large networks for Fortune 100 companies, universities, and government institutions.
 
@@ -62,22 +62,22 @@ Our feature-rich plugin comes with everything you need to create and manage your
 ✔️ Hooks & filters galore
 ✔️ Caching support
 ✔️ Debug mode for developers
-✔️ [Library of extensions](https://m.tri.be/1a0r)
+✔️ [Library of extensions](https://evnt.is/1a0r)
 
 == 📃 Documentation ==
 
-All of our documentation can be found in [our Knowledgebase](https://m.tri.be/eu).
+All of our documentation can be found in [our Knowledgebase](https://evnt.is/eu).
 
 Additional helpful links:
 
-* [The Events Calendar New User Primer](https://m.tri.be/2l)
-* [The Themer’s Guide to The Events Calendar](https://m.tri.be/2m)
+* [The Events Calendar New User Primer](https://evnt.is/2l)
+* [The Themer’s Guide to The Events Calendar](https://evnt.is/2m)
 
 If you have any questions about this plugin, you can post a thread in the [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar). Please search existing threads before starting a new one.
 
 == Add-Ons ==
 
-Take your calendar to the next level by pairing it with our plugins for ticketing, crowdsourcing, email marketing, and more. Learn more about all our products on [our website](https://m.tri.be/18wn).
+Take your calendar to the next level by pairing it with our plugins for ticketing, crowdsourcing, email marketing, and more. Learn more about all our products on [our website](https://evnt.is/18wn).
 
 Our Free Plugins:
 
@@ -86,28 +86,28 @@ Our Free Plugins:
 
 Our Premium Plugins and Services:
 
-⚡ [Events Calendar PRO](https://m.tri.be/18wi)
-↪️ [Event Aggregator](https://m.tri.be/197u) (service)
-🎟️ [Event Tickets Plus](https://m.tri.be/18wk)
-✉️ [Promoter](https://m.tri.be/1ajt)
-👥 [Community Events](https://m.tri.be/2g)
-🎟️ [Community Tickets](https://m.tri.be/18wl)
-✏️ [Filter Bar](https://m.tri.be/fa)
-🗓️ [Eventbrite Tickets](https://m.tri.be/2e)
-📡 [Virtual Events](http://m.tri.be/1aky)
+⚡ [Events Calendar PRO](https://evnt.is/18wi)
+↪️ [Event Aggregator](https://evnt.is/197u) (service)
+🎟️ [Event Tickets Plus](https://evnt.is/18wk)
+✉️ [Promoter](https://evnt.is/1ajt)
+👥 [Community Events](https://evnt.is/2g)
+🎟️ [Community Tickets](https://evnt.is/18wl)
+✏️ [Filter Bar](https://evnt.is/fa)
+🗓️ [Eventbrite Tickets](https://evnt.is/2e)
+📡 [Virtual Events](http://evnt.is/1aky)
 
 == Help ==
 
-If you aren’t familiar with The Events Calendar, check out our [New User Primer](https://m.tri.be/2p). It will have you creating events in no time.
+If you aren’t familiar with The Events Calendar, check out our [New User Primer](https://evnt.is/2p). It will have you creating events in no time.
 
 Ready to dig deeper? Check out these resources:
 
-* [Tutorials](https://m.tri.be/2u)
+* [Tutorials](https://evnt.is/2u)
 * [Release Schedule](https://theeventscalendar.com/release-schedule/)
 * [Known Issues](https://theeventscalendar.com/known-issues/)
-* [Documentation](https://m.tri.be/eu)
-* [Help Videos](https://m.tri.be/2t)
-* [Release Notes](https://m.tri.be/2v)
+* [Documentation](https://evnt.is/eu)
+* [Help Videos](https://evnt.is/2t)
+* [Release Notes](https://evnt.is/2v)
 
 We check in on the [The Events Calendar forum here on WordPress.org](https://wordpress.org/support/plugin/the-events-calendar/) about once a week to help users with basic troubleshooting and identifying bugs. If you’re looking for premium, personalized support, consider upgrading to Events Calendar Pro.
 
@@ -133,7 +133,7 @@ Installing the plugin is easy. Just follow one of the following methods:
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
 
-That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Need help getting things started? Check out our [new user primer](https://m.tri.be/2l) for help with settings and features.
+That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Need help getting things started? Check out our [new user primer](https://evnt.is/2l) for help with settings and features.
 
 == Screenshots ==
 
@@ -159,9 +159,9 @@ Note that we aren’t going to say “tough luck” if you identify a plugin/the
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar/), which we visit about once a week. Please make sure to read [our sticky post](https://m.tri.be/19oc) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a license for Events Calendar Pro.
+Users of the free The Events Calendar should post their questions in the plugin's [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar/), which we visit about once a week. Please make sure to read [our sticky post](https://evnt.is/19oc) providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a license for Events Calendar Pro.
 
-If you're already an Events Calendar Pro user, you're entitled access to our actively-monitored [Premium Support](https://m.tri.be/1aju) on our website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all tickets within 24-48 hours during the business week.
+If you're already an Events Calendar Pro user, you're entitled access to our actively-monitored [Premium Support](https://evnt.is/1aju) on our website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all tickets within 24-48 hours during the business week.
 
 = What's the difference between The Events Calendar and Events Calendar Pro? =
 
@@ -173,20 +173,20 @@ In other words, Events Calendar Pro runs alongside The Events Calendar and enhan
 
 The following add-ons are available for The Events Calendar:
 
-* [Events Calendar Pro](https://m.tri.be/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](http://m.tri.be/1ajw), additional fields, and more!
-* [Event Aggregator](https://m.tri.be/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
-* [Virtual Events](http://m.tri.be/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
+* [Events Calendar Pro](https://evnt.is/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](http://evnt.is/1ajw), additional fields, and more!
+* [Event Aggregator](https://evnt.is/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
+* [Virtual Events](http://evnt.is/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
-* [Event Tickets Plus](https://m.tri.be/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
-* [Promoter](https://m.tri.be/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
-* [Community Events](https://m.tri.be/2g), for allowing frontend event submission from your readers.
-* [Community Tickets](https://m.tri.be/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
-* [Filter Bar](https://m.tri.be/fa), for adding advanced frontend filtering capabilities to your events calendar.
-* [Eventbrite Tickets](https://m.tri.be/2e), for selling tickets to your event directly through Eventbrite.
+* [Event Tickets Plus](https://evnt.is/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
+* [Promoter](https://evnt.is/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
+* [Community Events](https://evnt.is/2g), for allowing frontend event submission from your readers.
+* [Community Tickets](https://evnt.is/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
+* [Filter Bar](https://evnt.is/fa), for adding advanced frontend filtering capabilities to your events calendar.
+* [Eventbrite Tickets](https://evnt.is/2e), for selling tickets to your event directly through Eventbrite.
 
 = Can I import events to my calendar? =
 
-Yes! The Events Calendar has a built-in CSV import tool. If you want to step it up and automatically import events from Google Calendar, Meetup, Eventbrite and more, check out [Event Aggregator](https://m.tri.be/197u).
+Yes! The Events Calendar has a built-in CSV import tool. If you want to step it up and automatically import events from Google Calendar, Meetup, Eventbrite and more, check out [Event Aggregator](https://evnt.is/197u).
 
 = How do I sell tickets to events on my calendar? =
 
@@ -194,15 +194,15 @@ You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-ticke
 
 = Can I have more than one calendar on my site? =
 
-Unfortunately, no. However, you can use event categories or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as "Fitness," [like this example from our demo site](http://m.tri.be/1ajv).
+Unfortunately, no. However, you can use event categories or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as "Fitness," [like this example from our demo site](http://evnt.is/1ajv).
 
-With Events Calendar Pro, you can use [shortcodes](http://m.tri.be/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
+With Events Calendar Pro, you can use [shortcodes](http://evnt.is/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
 
 = Can I allow people to submit events to my calendar? =
 
-This is available with the [Community Events](https://m.tri.be/2g) add-on to facilitate submissions. Install Community Events alongside The Events Calendar and a page will be added to your WordPress site with a form that visitors can use to submit events. As the calendar owner, you have full control over whether event submissions are published immediately or require moderation first.
+This is available with the [Community Events](https://evnt.is/2g) add-on to facilitate submissions. Install Community Events alongside The Events Calendar and a page will be added to your WordPress site with a form that visitors can use to submit events. As the calendar owner, you have full control over whether event submissions are published immediately or require moderation first.
 
-If you want to let users sell tickets for the events they submit, check out [Community Tickets](https://m.tri.be/18wl). It runs with The Events Calendar, Community Events, and Event Tickets and empowers visitors to create and sell tickets, splitting the profits with you.
+If you want to let users sell tickets for the events they submit, check out [Community Tickets](https://evnt.is/18wl). It runs with The Events Calendar, Community Events, and Event Tickets and empowers visitors to create and sell tickets, splitting the profits with you.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -210,7 +210,7 @@ We've got a [UserVoice page](https://tribe.uservoice.com/forums/195723-feature-i
 
 = I've still got questions. Where can I find answers? =
 
-Check out our extensive [knowledgebase](https://m.tri.be/18wm) for articles on using, tweaking, and troubleshooting our plugins.
+Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on using, tweaking, and troubleshooting our plugins.
 
 == Upgrade Notice ==
 
@@ -446,19 +446,19 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Created new Month, Day, and List views with all new HTML, CSS, and JavaScript.
 * Feature - Add upgrade path for new Month, Day, and List views making it opt-in for any existing users.
-* Feature - New templating engine to power the new Views. [See More](https://m.tri.be/1aid)
+* Feature - New templating engine to power the new Views. [See More](https://evnt.is/1aid)
 * Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
 * Feature - Views manager and bootstrapping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
 * Feature - Reduced maintenance burden of customizations by leveraging atomic templates for the new views. (See list of files now available below)
-* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusability of components. [See More](https://m.tri.be/1aib)
+* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusability of components. [See More](https://evnt.is/1aib)
 * Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points.
 * Feature - View navigation relies on the WP Rest API, improving reliability and caching opportunities.
 * Feature - Event permalinks are now more consistent across navigation using `WP_Rewrite` to map params to their matching URL, which improves SEO.
 * Feature - Event data filtering used across all new views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
 * Feature - Venue data filtering used across all new views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
 * Tweak - Custom Before and After HTML on the Events > Settings page will now prefer event view styling over the Theme's CSS.
-* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](https://m.tri.be/1aic)
-* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](https://m.tri.be/1aia)
+* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](https://evnt.is/1aic)
+* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](https://evnt.is/1aia)
 * Tweak - Switch to a compact date while on day and month view in mobile [136789]
 * Tweak - Remove `tribe_events_getLink` in favor of `tribe_events_get_link` which was a deprecated filter since version 4.3
 * Hooks - View template include and render filters and actions: `tribe_template_before_include`, `tribe_template_before_include:{$template_path}`, `tribe_template_after_include`, `tribe_template_after_include:{$template_path}`, `tribe_template_html`, `tribe_template_html:{$template_path}`
@@ -542,7 +542,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [4.9.6] 2019-08-07 =
 
-* Tweak - Update Event Aggregator to include compatibility with new Meetup API requirements - [See more](https://m.tri.be/1afb) [125635]
+* Tweak - Update Event Aggregator to include compatibility with new Meetup API requirements - [See more](https://evnt.is/1afb) [125635]
 * Language - 5 new strings added, 120 updated, 5 fuzzied, and 10 obsoleted
 
 = [4.9.5] 2019-07-25 =
