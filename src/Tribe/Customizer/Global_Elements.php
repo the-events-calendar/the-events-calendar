@@ -190,11 +190,11 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
-				$customizer->get_setting_name( 'accent_color_heading', $section ),
+				$customizer->get_setting_name( 'adjust_appearance_heading', $section ),
 				[
 					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
 					'section' => $section->id,
@@ -202,10 +202,44 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			)
 		);
 
+		$bg_color_setting_name = $customizer->get_setting_name( 'background_color', $section );
+
+		$manager->add_setting( $bg_color_setting_name, [ 'default' => 'transparent' ] );
+
+		 $manager->add_control(
+			$bg_color_setting_name,
+			[
+				'label'      => esc_html__( 'Background Color', 'the-events-calendar' ),
+				'section'    => $section->id,
+				'settings'   => $bg_color_setting_name,
+				'type'       => 'radio',
+				'choices'    => [
+					'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
+					'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
+				],
+			]
+		);
+
+		$manager->add_setting( 'custom_background_color', [ 'default' => '#fff' ] );
+
+		 $manager->add_control(
+			 new WP_Customize_Color_Control(
+				 $manager,
+				 'custom_background_color',
+				 [
+					'section' => $section->id,
+					'settings'   => 'custom_background_color',
+					'active_callback' => function ( $control ) use ( $bg_color_setting_name ) {
+						return 'transparent' !== $control->manager->get_setting( $bg_color_setting_name )->value();
+					},
+				]
+			)
+		);
+
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
 			[
-				'default'              => '#334AFF',
+				'default'              => '#334aff',
 				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -225,6 +259,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
 
+		// Old stuff for backwards compatibility.
 		if ( tribe_events_views_v2_is_enabled() ) {
 			return;
 		}
