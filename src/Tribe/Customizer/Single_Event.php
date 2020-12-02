@@ -50,7 +50,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				}
 			';
 		}
-		
+
 		if ( $customizer->has_option( $this->ID, 'post_date_time_color' ) ) {
 			$template .= '
 				.single-tribe_events .tribe-events-schedule h2 {
