@@ -2,9 +2,6 @@
 /**
  * Main Tribe Events Calendar class.
  */
-
-// Don't load directly
-
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
