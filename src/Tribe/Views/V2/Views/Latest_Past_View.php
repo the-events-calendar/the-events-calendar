@@ -44,16 +44,19 @@ class Latest_Past_View extends View {
 	protected $safelist = [
 		// Common Components.
 		'components/icons/caret-down',
+		'components/icons/caret-left',
+		'components/icons/caret-right',
 		'components/icons/day',
 		'components/icons/featured',
 		'components/icons/list',
 		'components/icons/map',
+		'components/icons/messages-not-found',
 		'components/icons/month',
 		'components/icons/photo',
 		'components/icons/recurring',
 		'components/icons/search',
+		'components/icons/virtual',
 		'components/icons/week',
-
 
 		// Standard View Components.
 		'components/after',
