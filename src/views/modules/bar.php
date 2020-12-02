@@ -11,6 +11,9 @@
  *     [your-theme]/tribe-events/modules/bar.php
  *
  * @package  TribeEventsCalendar
+ *
+ * @link http://m.tri.be/1aiy
+ *
  * @version 4.6.26
  */
 ?>
