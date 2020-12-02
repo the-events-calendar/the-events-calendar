@@ -44,6 +44,9 @@ class CompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'sidebars_widgets', $this->sidebars );
 		update_option( 'widget_tribe-events-adv-list-widget', $this->adv_list_widget );
 		update_option( 'widget_tribe-events-list-widget', $this->list_widget );
+
+		// This method would be called only on `tribe_plugins_loaded`; that will not be called in the tests flow, we call it now.
+		tribe( Compatibility::class )->switch_compatibility();
 	}
 
 	/**
