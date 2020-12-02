@@ -145,7 +145,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			)
 		);
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
