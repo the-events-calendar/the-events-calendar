@@ -181,8 +181,8 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'event_title_color', $section ),
 				[
-					'label'       => esc_html__( 'Event Title', 'the-events-calendar' ),
-					'section'     => $section->id,
+					'label'   => esc_html__( 'Event Title', 'the-events-calendar' ),
+					'section' => $section->id,
 				]
 			)
 		);
