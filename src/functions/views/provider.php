@@ -121,7 +121,7 @@ function tribe_events_view_v2_use_period_repository() {
  * Note the internal logic is inverted, as the name of the function is "...is_enabled"
  * while the names of the constant/env_var are "...DISABLED".
  *
- * @since TBD
+ * @since 5.3.0
  *
  * @return bool Whether Widgets v2 should load.
  */
@@ -145,7 +145,7 @@ function tribe_events_widgets_v2_is_enabled() {
 	/**
 	 * Allows toggling of the v2 widget views via a filter. Defaults to true.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return boolean Do we enable the widget views?
 	 */

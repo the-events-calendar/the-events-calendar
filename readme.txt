@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.4.0
-Tested up to: 5.5.1
+Stable tag: 5.3.1
+Tested up to: 5.5.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -222,9 +222,14 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.3.0] 2020-12-02 =
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
+* Feature - Event Aggregator Batch Pushing for Cron Imports [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_time_to_live` to customize the time in seconds to consider an EA record alive. [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_stall_limit` to customize the number of seconds for an EA record to be considerd stalled. [EA-297]
+* Tweak - Add the filter `tribe_events_aggregator_build_url` [EA-297]
+* Tweak - Adjust Event Aggregator Client Progress Bar using the Heart Beat API for polling state instead [TEC-3534]
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
 * Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
 * Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
@@ -243,6 +248,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
 * Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
 * Fix - Review and improve the Rewrite component to correctly parse and handle localized URLs and accented characters. [TEC-3608]
+* Language - 25 new strings added, 775 updated, 1 fuzzied, and 6 obsoleted
 
 = [5.2.1] 2020-10-22 =
 
