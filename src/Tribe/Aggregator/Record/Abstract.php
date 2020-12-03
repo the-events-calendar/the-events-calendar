@@ -886,7 +886,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status( $status ) {
-		if ( ! isset( Records::$status->{ $status } ) ) {
+		$new_status = Records::$status->{$status};
+		if ( ! isset( $new_status ) ) {
 			return false;
 		}
 
@@ -895,14 +896,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return false;
 		}
 
-		$status = wp_update_post(
+		$updated_id = wp_update_post(
 			[
 				'ID'          => $this->id,
-				'post_status' => Records::$status->{$status},
+				'post_status' => $new_status,
 			]
 		);
 
-		if ( ! is_wp_error( $status ) ) {
+		if ( $updated_id !== $this->id || ! is_wp_error( $updated_id ) ) {
 			// Reload the properties of the post if the status of the record was changed.
 			$this->load( $this->id );
 
