@@ -94,12 +94,6 @@
 					color: #238923;
 				}
 			
-				.tribe-events-view:not(.tribe-events-widget),
-				#tribe-events,
-				#tribe-events-pg-template {
-					background-color: #fff;
-				}
-			
 				.tribe-common .tribe-common-form-control-toggle__input:checked {
 					background-color: #238923;
 				}

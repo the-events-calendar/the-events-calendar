@@ -129,10 +129,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'event_title_color'     => '#141827',
-			'event_date_time_color' => '#141827',
-			'link_color'            => '#141827',
-			'background_color'      => '#fff',
+			'link_color' => '#141827',
 		];
 
 		$this->arguments = [
@@ -154,14 +151,15 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
-				$customizer->get_setting_name( 'link_color_heading', $section ),
+				$customizer->get_setting_name( 'font_color_heading', $section ),
 				[
-					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 0,
 				]
 			)
 		);
@@ -190,7 +188,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,

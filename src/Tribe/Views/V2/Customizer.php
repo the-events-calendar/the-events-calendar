@@ -33,6 +33,64 @@ class Customizer {
 	}
 
 	/**
+	 * Adds new settings/controls via the hook in common.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
+	public function include_global_elements_settings( $section, $manager, $customizer ) {
+		// Event Title.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'event_title_color', $section ),
+			[
+				'default'              => '#141827',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new \WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'event_title_color', $section ),
+				[
+					'label'    => esc_html__( 'Event Title', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 8,
+				]
+			)
+		);
+
+		// Event Date & Time.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'event_date_time_color', $section ),
+			[
+				'default'              => '#141827',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new \WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'event_date_time_color', $section ),
+				[
+					'label'       => esc_html__( 'Event Date and Time', 'the-events-calendar' ),
+					'description' => esc_html__( 'Main date and time display on views and single event pages.', 'the-events-calendar' ),
+					'section'     => $section->id,
+					'priority'    => 8,
+				]
+			)
+		);
+	}
+
+	/**
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
 	 * @since TBD
@@ -45,7 +103,7 @@ class Customizer {
 	 */
 	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
 		$settings = $customizer->get_option( [ $section->ID ] );
-		
+
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			// Event Title overrides.
 			$css_template .= '
@@ -101,7 +159,7 @@ class Customizer {
 				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-latest-past__event-title-link {
 					color: <%= global_elements.event_title_color %>;
 				}
-				
+
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
 				.tribe-events .tribe-events-calendar-list__event-title-link:hover,
 				.tribe-events .tribe-events-calendar-list__event-title-link:focus,
@@ -124,7 +182,7 @@ class Customizer {
 				}
 			';
 		}
-		
+
 		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
 			// Event Date Time overrides.
 			$css_template .= '
@@ -140,7 +198,7 @@ class Customizer {
 				}
 			';
 		}
-		
+
 		if ( $customizer->has_option( $section->ID, 'link_color' ) ) {
 			$css_template .= '
 				.tribe-events-single-event-description a,
@@ -164,7 +222,7 @@ class Customizer {
 				}
 			';
 		}
-		
+
 		if ( $customizer->has_option( $section->ID, 'accent_color' ) ) {
 			$accent_color     = new \Tribe__Utils__Color( $settings['accent_color'] );
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
@@ -501,7 +559,7 @@ class Customizer {
 	 */
 	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
 		$settings = $customizer->get_option( [ $section->ID ] );
-		
+
 		if ( $customizer->has_option( $section->ID, 'post_date_time_color' ) ) {
 			// Single Event Date Time overrides.
 			$css_template .= '
@@ -510,7 +568,7 @@ class Customizer {
 				}
 			';
 		}
-		
+
 		return $css_template;
 	}
 }
