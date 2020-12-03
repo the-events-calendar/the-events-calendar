@@ -26,7 +26,7 @@ See the calendar in action on our [demo experience](https://m.tri.be/1ajs). Just
 
 Looking for additional features like recurring events, ticket sales, user-submitted events, automatic imports, and more?
 
-<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong>
+<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong> ...and all of them are on sale from November 23-30 during our annual 💰[Black Friday Sale](https://m.tri.be/1aod)💰
 
 = 🔌🎨 Plug and Play or Customize =
 

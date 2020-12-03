@@ -369,7 +369,7 @@ class Tribe__Events__Aggregator__Cron {
 
 					$record->update_meta( 'last_import_status', 'success:queued' );
 
-					$this->maybe_process_immediately( $record );
+					$this->maybe_process_immediately( $child );
 				} elseif ( is_numeric( $response ) ) {
 					// it's the post ID of a rescheduled record
 					tribe( 'logger' )->log_debug( sprintf( 'rescheduled — %s', $response ), 'EA Cron' );
