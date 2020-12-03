@@ -42,29 +42,44 @@ class Latest_Past_View extends View {
 	 */
 
 	protected $safelist = [
+		// Common Components.
+		'components/icons/caret-down',
+		'components/icons/caret-left',
+		'components/icons/caret-right',
+		'components/icons/day',
+		'components/icons/dot',
+		'components/icons/error',
+		'components/icons/featured',
+		'components/icons/list',
+		'components/icons/map',
+		'components/icons/messages-not-found',
+		'components/icons/month',
+		'components/icons/photo',
+		'components/icons/recurring',
+		'components/icons/search',
+		'components/icons/virtual',
+		'components/icons/week',
+
 		// Standard View Components.
-		'components/loader',
-		'components/json-ld-data',
-		'components/data',
+		'components/after',
 		'components/before',
-		'components/messages',
 		'components/breadcrumbs',
+		'components/breakpoints',
+		'components/data',
 		'components/events-bar',
-		'components/breadcrumbs',
-		'components/top-bar/today',
-		'components/top-bar/actions',
+		'components/events-bar/search-button',
+		'components/events-bar/search',
 		'components/events-bar/search/keyword',
 		'components/events-bar/search/submit',
-		'components/events-bar/search-button',
-		'components/events-bar/tabs',
-		'components/events-bar/search',
-		'components/events-bar/filters',
 		'components/events-bar/views',
 		'components/events-bar/views/list',
 		'components/events-bar/views/list/item',
 		'components/ical-link',
-		'components/breakpoints',
-		'components/icons/featured',
+		'components/json-ld-data',
+		'components/loader',
+		'components/messages',
+		'components/top-bar/today',
+		'components/top-bar/actions',
 
 		// Day View
 		'day',
@@ -171,7 +186,6 @@ class Latest_Past_View extends View {
 	 * @since 5.1.0
 	 */
 	public function filter_template_done( $html ) {
-
 		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_safelist' ], 10, 4 );
 		return $html;
 	}
@@ -220,7 +234,6 @@ class Latest_Past_View extends View {
 	 * @return string The HTML of the View being Rendered and Latest Past Events HTML
 	 */
 	public function add_view( $html ) {
-
 		return $this->get_html();
 	}
 }
