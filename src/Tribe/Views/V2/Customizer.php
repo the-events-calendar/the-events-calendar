@@ -45,7 +45,7 @@ class Customizer {
 	 */
 	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
 		$settings = $customizer->get_option( [ $section->ID ] );
-		
+
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			// Event Title overrides.
 			$css_template .= '
@@ -93,7 +93,7 @@ class Customizer {
 				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-day__event-title-link {
 					color: <%= global_elements.event_title_color %>;
 				}
-				
+
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
 				.tribe-events .tribe-events-calendar-list__event-title-link:hover,
 				.tribe-events .tribe-events-calendar-list__event-title-link:focus,
@@ -113,7 +113,7 @@ class Customizer {
 				}
 			';
 		}
-		
+
 		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
 			// Event Date Time overrides.
 			$css_template .= '
@@ -128,7 +128,7 @@ class Customizer {
 				}
 			';
 		}
-		
+
 		if ( $customizer->has_option( $section->ID, 'link_color' ) ) {
 			$css_template .= '
 				.tribe-events-single-event-description a,
@@ -143,16 +143,32 @@ class Customizer {
 			';
 		}
 
-		if ( $customizer->has_option( $section->ID, 'background_color' ) ) {
-			$css_template .= '
+		if ( $customizer->has_option( $section->ID, 'background_color_choice' )  ) {
+			if (
+				'custom' === $customizer->get_option( $section->ID, 'background_color_choice' ) &&
+				$customizer->has_option( $section->ID, 'background_color' )
+			) {
+				$css_template .= '
+					.tribe-events-view:not(.tribe-events-widget),
+					#tribe-events,
+					#tribe-events-pg-template {
+						background-color: <%= global_elements.background_color %>;
+					}
+				';
+			} else {
+				$css_template .= '
 				.tribe-events-view:not(.tribe-events-widget),
 				#tribe-events,
 				#tribe-events-pg-template {
-					background-color: <%= global_elements.background_color %>;
+					background-color: <%= global_elements.background_color_choice %>;
 				}
 			';
+			}
 		}
-		
+
+
+
+
 		if ( $customizer->has_option( $section->ID, 'accent_color' ) ) {
 			$accent_color     = new \Tribe__Utils__Color( $settings['accent_color'] );
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
@@ -489,7 +505,7 @@ class Customizer {
 	 */
 	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
 		$settings = $customizer->get_option( [ $section->ID ] );
-		
+
 		if ( $customizer->has_option( $section->ID, 'post_date_time_color' ) ) {
 			// Single Event Date Time overrides.
 			$css_template .= '
@@ -498,7 +514,7 @@ class Customizer {
 				}
 			';
 		}
-		
+
 		return $css_template;
 	}
 }

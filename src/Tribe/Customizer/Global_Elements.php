@@ -211,17 +211,20 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		);
 
 		$manager->add_control(
-			$customizer->get_setting_name( 'background_color_choice', $section ),
-			[
-				'label'       => 'Background Color',
-				'section'     => $section->id,
-				'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar'),
-				'type'        => 'radio',
-				'choices'     => [
-					'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
-					'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
-				],
-			]
+			new WP_Customize_Control(
+				$manager,
+				$customizer->get_setting_name( 'background_color_choice', $section ),
+				[
+					'label'       => 'Background Color',
+					'section'     => $section->id,
+					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
+					'type'        => 'radio',
+					'choices'     => [
+						'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
+						'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
+					],
+				]
+			)
 		);
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color_choice', $section ) );
@@ -241,9 +244,13 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				[
 					'section'         => $section->id,
 					'active_callback' => function ( $control ) use ( $customizer, $section ) {
-						return (bool) 'custom' == $control->manager->get_setting(
-							$customizer->get_setting_name( 'background_color_choice', $section )
-						)->value();
+						if (
+							'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'background_color_choice', $section ) )->value()
+						) {
+							return true;
+						};
+
+						return false;
 					},
 				]
 			)
