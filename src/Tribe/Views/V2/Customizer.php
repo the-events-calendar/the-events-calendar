@@ -76,6 +76,11 @@ class Customizer {
 				.tribe-events .tribe-events-calendar-day__event-title-link:visited,
 				.tribe-events .tribe-events-calendar-day__event-title-link:hover,
 				.tribe-events .tribe-events-calendar-day__event-title-link:focus,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link:active,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link:visited,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link:hover,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link:focus,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-list__event-title-link:hover,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-list__event-title-link:focus,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__calendar-event-title-link:hover,
@@ -86,11 +91,14 @@ class Customizer {
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-day__event-title-link:hover,
 				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-day__event-title-link:focus,
+				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-latest-past__event-title-link:hover,
+				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-latest-past__event-title-link:focus,
 				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-list__event-title-link,
 				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-month__calendar-event-title-link,
 				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-title-link,
 				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title-link,
-				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-day__event-title-link {
+				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-day__event-title-link,
+				.tribe-theme-enfold#top .tribe-events .tribe-events-calendar-latest-past__event-title-link {
 					color: <%= global_elements.event_title_color %>;
 				}
 				
@@ -108,7 +116,10 @@ class Customizer {
 				.tribe-events .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
 				.tribe-events .tribe-events-calendar-day__event-title-link:active,
 				.tribe-events .tribe-events-calendar-day__event-title-link:hover,
-				.tribe-events .tribe-events-calendar-day__event-title-link:focus {
+				.tribe-events .tribe-events-calendar-day__event-title-link:focus,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link:active,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link:hover,
+				.tribe-events .tribe-events-calendar-latest-past__event-title-link:focus {
 					border-color: <%= global_elements.event_title_color %>;
 				}
 			';
@@ -123,7 +134,8 @@ class Customizer {
 				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
 				.tribe-events .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
 				.tribe-events .tribe-events-calendar-month__calendar-event-tooltip-datetime,
-				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime {
+				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
+				.tribe-events .tribe-events-calendar-latest-past__event-datetime {
 					color: <%= global_elements.event_date_time_color %>;
 				}
 			';
