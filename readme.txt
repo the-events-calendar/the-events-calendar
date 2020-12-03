@@ -224,6 +224,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Compatibility for some theme menus that no longer displayed when an event is password protected. [TEC-2968]
+
+= [TBD] TBD =
+
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
 * Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
