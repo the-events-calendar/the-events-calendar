@@ -134,7 +134,8 @@ class Customizer {
 				.tribe-events .tribe-events-calendar-month__calendar-event-datetime,
 				.tribe-events .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
 				.tribe-events .tribe-events-calendar-month__calendar-event-tooltip-datetime,
-				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime {
+				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
+				.tribe-events .tribe-events-calendar-latest-past__event-datetime {
 					color: <%= global_elements.event_date_time_color %>;
 				}
 			';
