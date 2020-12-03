@@ -1,13 +1,13 @@
 <?php
 $tab                = $this->tabs->get_active();
 $origin_slug        = 'url';
-$field              = (object) array();
+$field = (object) [];
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
 $field->help        = __( 'One-time imports include currently listed upcoming events, while scheduled imports automatically grab new events and updates from this url on a set schedule.', 'the-events-calendar' );
 $field->source      = 'url_import_type';
 
-$frequency              = (object) array();
+$frequency              = (object) [];
 $frequency->placeholder = __( 'Select Frequency', 'the-events-calendar' );
 $frequency->help        = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
 $frequency->source      = 'url_import_frequency';
@@ -72,12 +72,19 @@ $frequencies = $cron->get_frequency();
 
 <?php
 if ( 'edit' === $tab->get_slug() ) {
-	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+	$this->template(
+		'fields/schedule',
+		[
+			'record'            => $record,
+			'origin'            => $origin_slug,
+			'aggregator_action' => $aggregator_action,
+		]
+	);
 }
 ?>
 
 <?php
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'example.com/', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for the calendar, website, or event you would like to import. Event Aggregator will attempt to import events at that location.', 'the-events-calendar' );

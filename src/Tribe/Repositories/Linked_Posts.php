@@ -37,15 +37,15 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 	public function __construct() {
 		parent::__construct();
 
-		$this->default_args = array(
+		$this->default_args = [
 			'post_type'                    => Tribe__Events__Venue::POSTTYPE,
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
-		);
+		];
 
-		$this->schema = array_merge( $this->schema, array(
-			'event' => array( $this, 'filter_by_event' ),
-		) );
+		$this->schema = array_merge( $this->schema, [
+			'event' => [ $this, 'filter_by_event' ],
+		] );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Tribe__Events__Repositories__Linked_Posts extends Tribe__Repository {
 
 		$events = (array) $event;
 
-		$post_ids = array_map( array( 'Tribe__Main', 'post_id_helper' ), $events );
+		$post_ids = array_map( [ 'Tribe__Main', 'post_id_helper' ], $events );
 		$post_ids = array_filter( $post_ids );
 		$post_ids = array_unique( $post_ids );
 

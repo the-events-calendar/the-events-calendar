@@ -117,7 +117,7 @@
 				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__button-icon-svg"  viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.451.432V17.6c0 .238.163.432.364.432H18.12c.2 0 .364-.194.364-.432V.432c0-.239-.163-.432-.364-.432H.815c-.2 0-.364.193-.364.432zm.993.81h16.024V3.56H1.444V1.24zM17.468 3.56H1.444v13.227h16.024V3.56z" class="tribe-common-c-svgicon__svg-fill"/><g clip-path="url(#clip0)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 4.912v1.825c0 .504.409.913.913.913h1.825a.913.913 0 00.912-.913V4.912A.913.913 0 0014.57 4h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 7.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 5.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><g clip-path="url(#clip1)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 10.912v1.825c0 .505.409.913.913.913h1.825a.913.913 0 00.912-.912v-1.825A.913.913 0 0014.57 10h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 13.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 11.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><defs><clipPath id="clip0"><path transform="translate(3.451 4)" d="M0 0h13v4H0z"/></clipPath><clipPath id="clip1"><path transform="translate(3.451 10)" d="M0 0h13v4H0z"/></clipPath></defs></svg>			</span>
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				List			</span>
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-view-selector__button-icon-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-view-selector__button-icon-caret-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
 		</button>
 		<div
 	class="tribe-events-c-view-selector__content"
@@ -296,7 +296,7 @@
 		title="Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 		href="http://test.tri.be/events/?ical=1"
 	>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--minus tribe-events-c-ical__link-icon-svg"  viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M11 5.881H1M5.88 1v10" stroke-width="2" stroke-linecap="square"/></svg>
+		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--plus tribe-events-c-ical__link-icon-svg"  viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M11 5.881H1M5.88 1v10" stroke-width="2" stroke-linecap="square"/></svg>
 		Export Events	</a>
 </div>
 

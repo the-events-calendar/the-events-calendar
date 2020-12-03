@@ -25,14 +25,14 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	 *
 	 * @var array
 	 */
-	public $items = array();
+	public $items = [];
 
 	/**
 	 * Holds the Items that will be processed next
 	 *
 	 * @var array
 	 */
-	public $next = array();
+	public $next = [];
 
 	/**
 	 * How many items are going to be processed
@@ -65,7 +65,7 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	 * @param array                                                 $items
 	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
 	 */
-	public function __construct( $record, $items = array(), Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
+	public function __construct( $record, $items = [], Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		tribe( 'chunker' );
 
 		if ( is_numeric( $record ) ) {
@@ -139,7 +139,7 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	protected function load_queue() {
 		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
 			$this->is_fetching = false;
-			$this->items       = array();
+			$this->items       = [];
 		} else {
 			$this->items = $this->record->meta[ self::$queue_key ];
 		}
@@ -239,10 +239,10 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 		}
 
 		// Updates the Modified time for the Record Log
-		$args = array(
-			'ID' => $this->record->post->ID,
+		$args = [
+			'ID'            => $this->record->post->ID,
 			'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
-		);
+		];
 
 		if ( empty( $this->items ) ) {
 			$args['post_status'] = Tribe__Events__Aggregator__Records::$status->success;

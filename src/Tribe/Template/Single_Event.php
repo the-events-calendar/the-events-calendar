@@ -33,7 +33,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 			parent::hooks();
 
 			// Print JSON-LD markup on the `wp_head`
-			add_action( 'wp_head', array( Tribe__Events__JSON_LD__Event::instance(), 'markup' ) );
+			add_action( 'wp_head', [ Tribe__Events__JSON_LD__Event::instance(), 'markup' ] );
 
 			// Add hook for body classes.
 			add_filter( 'tribe_body_classes_should_add', [ $this, 'body_classes_should_add' ], 10, 2 );
@@ -51,10 +51,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 
 			/**
 			 * Setup default meta templates
+			 *
 			 * @var array
 			 */
 			$meta_template_keys = apply_filters(
-				'tribe_events_single_event_meta_template_keys', array(
+				'tribe_events_single_event_meta_template_keys', [
 					'tribe_event_date',
 					'tribe_event_cost',
 					'tribe_event_category',
@@ -70,40 +71,41 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 					'tribe_event_organizer_email',
 					'tribe_event_organizer_website',
 					'tribe_event_custom_meta',
-				)
+				]
 			);
 			$meta_templates     = apply_filters(
-				'tribe_events_single_event_meta_templates', array(
+				'tribe_events_single_event_meta_templates', [
 					'before'       => '',
 					'after'        => '',
 					'label_before' => '<dt>',
 					'label_after'  => '</dt>',
 					'meta_before'  => '<dd class="%s">',
 					'meta_after'   => '</dd>',
-				)
+				]
 			);
 			tribe_set_the_meta_template( $meta_template_keys, $meta_templates );
 
 			/**
 			 * Setup default meta group templates
+			 *
 			 * @var array
 			 */
 			$meta_group_template_keys = apply_filters(
-				'tribe_events_single_event_meta_group_template_keys', array(
+				'tribe_events_single_event_meta_group_template_keys', [
 					'tribe_event_details',
 					'tribe_event_venue',
 					'tribe_event_organizer',
-				)
+				]
 			);
 			$meta_group_templates     = apply_filters(
-				'tribe_events_single_event_meta_group_templates', array(
+				'tribe_events_single_event_meta_group_templates', [
 					'before'       => '<div class="%s">',
 					'after'        => '</div>',
 					'label_before' => '<h3 class="%s">',
 					'label_after'  => '</h3>',
 					'meta_before'  => '<dl>',
 					'meta_after'   => '</dl>',
-				)
+				]
 			);
 
 			tribe_set_the_meta_template( $meta_group_template_keys, $meta_group_templates, 'meta_group' );

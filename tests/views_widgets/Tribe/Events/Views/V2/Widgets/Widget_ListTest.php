@@ -192,6 +192,15 @@ class Widget_ListTest extends ViewTestCase {
 			'events_per_page'    => 2,
 		] );
 
+		add_filter(
+			'tribe_events_views_v2_view_widget-events-list_template_vars',
+			function( $template_vars ) {
+				$template_vars['jsonld_enable'] = 1;
+				return $template_vars;
+			},
+			19
+		);
+
 		$widget_list_view->set_context( $context );
 		$html = $widget_list_view->get_html();
 

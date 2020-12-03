@@ -17,10 +17,10 @@ class Tribe__Events__Aggregator__CLI__Service_Provider extends tad_DI52_ServiceP
 		WP_CLI::add_command(
 			'event-aggregator',
 			'Tribe__Events__Aggregator__CLI__Command',
-			array(
+			[
 				'shortdesc' => __( 'Create, run and manage Event Aggregator imports.', 'the-events-calendar' ),
-				'longdesc' => __( 'If required the commands will use the API keys and licenses set for the current site.' ),
-			)
+				'longdesc'  => __( 'If required the commands will use the API keys and licenses set for the current site.' ),
+			]
 		);
 	}
 }
