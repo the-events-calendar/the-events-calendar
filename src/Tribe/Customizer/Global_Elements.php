@@ -159,7 +159,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$manager->add_control(
 			new Heading(
 				$manager,
-				$customizer->get_setting_name( 'link_color_heading', $section ),
+				$customizer->get_setting_name( 'font_color_heading', $section ),
 				[
 					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 					'section' => $section->id,
@@ -213,11 +213,11 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$manager->add_control(
 			$customizer->get_setting_name( 'background_color_choice', $section ),
 			[
-				'label'      => 'Background Color',
-				'section'    => $section->id,
+				'label'       => 'Background Color',
+				'section'     => $section->id,
 				'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar'),
-				'type'       => 'radio',
-				'choices'    => [
+				'type'        => 'radio',
+				'choices'     => [
 					'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
 					'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
 				],
@@ -239,7 +239,6 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'background_color', $section ),
 				[
-					'label'           => 'Custom Color',
 					'section'         => $section->id,
 					'active_callback' => function ( $control ) use ( $customizer, $section ) {
 						return (bool) 'custom' == $control->manager->get_setting(
