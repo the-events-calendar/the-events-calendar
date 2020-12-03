@@ -1,4 +1,5 @@
 <?php return array (
+<<<<<<< HEAD
   'tribe-events-views-v2-full' => '.tribe-events-single-event-title,
 				.tribe-events .tribe-events-calendar-list__event-title-link,
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
@@ -73,6 +74,9 @@
 				}
 			
 				.tribe-events-single-event-description a,
+=======
+  'tribe-events-views-v2-full' => '.tribe-events-single-event-description a,
+>>>>>>> feature/TEC-3684-event-title-iu
 				.tribe-events-event-url a,
 				.tribe-venue-url a,
 				.tribe-organizer-url a,
@@ -82,12 +86,15 @@
 					color: #238923;
 				}
 			
+<<<<<<< HEAD
 				.tribe-events-view:not(.tribe-events-widget),
 				#tribe-events,
 				#tribe-events-pg-template {
 					background-color: transparent;
 				}
 			
+=======
+>>>>>>> feature/TEC-3684-event-title-iu
 				.tribe-common .tribe-common-form-control-toggle__input:checked {
 					background-color: #238923;
 				}

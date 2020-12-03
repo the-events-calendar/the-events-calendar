@@ -66,6 +66,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
+
+		// Customizer.
+		add_action( 'tribe_customizer_register_global_elements_settings', [ $this, 'action_include_global_elements_settings' ], 10, 3 );
 	}
 
 	/**
@@ -118,6 +121,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
 
 		// Customizer.
+		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
 		add_filter( 'tribe_customizer_pre_sections', [ $this, 'filter_customizer_sections' ], 20, 2 );
 		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
 		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
@@ -851,6 +855,18 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Changes the action the Customizer should use to try and print inline styles to print the inline
+	 * styles in the footer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The action the Customizer should use to print inline styles.
+	 */
+	public function print_inline_styles_in_footer() {
+		return 'wp_print_footer_scripts';
+	}
+
+	/**
 	 * Filters the currently registered Customizer sections to add or modify them.
 	 *
 	 * @since TBD
@@ -866,6 +882,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Customizer::class )->filter_sections( $sections, $customizer );
+	}
+
+	/**
+	 * Adds new settings via the hook in common.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
+	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
+		$this->container->make( Customizer::class )->include_global_elements_settings( $section, $manager, $customizer );
 	}
 
 	/**

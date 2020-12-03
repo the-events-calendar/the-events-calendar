@@ -8,6 +8,8 @@
  */
 
 namespace Tribe\Events\Views\V2;
+use \WP_Customize_Control as Control;
+use \WP_Customize_Color_Control as Color_Control;
 
 /**
  * Class Customizer
@@ -33,20 +35,125 @@ class Customizer {
 		return $sections;
 	}
 
-
 	/**
-	 * Adds settings to the Global Elements section.
+	 * Adds new settings/controls via the hook in common.
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Customizer__Section $section    The Global Elements section.
-	 * @param  WP_Customize_Manager       $manager    The WordPress Customizer Manager.
-	 * @param \Tribe__Customizer          $customizer The current Customizer instance.
-	 *
-	 * @return void
+	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
 	 */
 	public function include_global_elements_settings( $section, $manager, $customizer ) {
+		// Event Title.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'event_title_color', $section ),
+			[
+				'default'              => '#141827',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
 
+		$manager->add_control(
+			new Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'event_title_color', $section ),
+				[
+					'label'    => esc_html__( 'Event Title', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 8,
+				]
+			)
+		);
+
+		// Event Date & Time.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'event_date_time_color', $section ),
+			[
+				'default'              => '#141827',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'event_date_time_color', $section ),
+				[
+					'label'       => esc_html__( 'Event Date and Time', 'the-events-calendar' ),
+					'description' => esc_html__( 'Main date and time display on views and single event pages.', 'the-events-calendar' ),
+					'section'     => $section->id,
+					'priority'    => 8,
+				]
+			)
+		);
+
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'background_color_choice', $section ),
+			[
+				'default' => 'transparent',
+				'type'    => 'option',
+			]
+		);
+
+		$manager->add_control(
+			new Control(
+				$manager,
+				$customizer->get_setting_name( 'background_color_choice', $section ),
+				[
+					'label'       => 'Background Color',
+					'section'     => $section->id,
+					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
+					'type'        => 'radio',
+					'priority'    => 12,
+					'choices'     => [
+						'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
+						'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
+					],
+				]
+			)
+		);
+
+		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color_choice', $section ) );
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'background_color', $section ),
+			[
+				'default' => '#fff',
+				'type'    => 'option',
+			]
+		);
+
+		$manager->add_control(
+			new Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'background_color', $section ),
+				[
+					'section'         => $section->id,
+					'priority'        => 12,
+					'active_callback' => function ( $control ) use ( $customizer, $section ) {
+						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'background_color_choice', $section ) )->value();
+					},
+				]
+			)
+		);
+
+		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color', $section ) );
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'accent_color', $section ),
+			[
+				'default'              => '#334aff',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
 	}
 
 	/**
@@ -66,7 +173,7 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			// Event Title overrides.
 			$css_template .= '
-				.tribe-events-single-event-title,
+				.single-tribe_events .tribe-events-single-event-title,
 				.tribe-events .tribe-events-calendar-list__event-title-link,
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
 				.tribe-events .tribe-events-calendar-list__event-title-link:visited,

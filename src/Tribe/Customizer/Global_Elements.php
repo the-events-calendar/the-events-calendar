@@ -129,11 +129,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'event_title_color'       => '#141827',
-			'event_date_time_color'   => '#141827',
-			'link_color'              => '#141827',
-			'background_color_choice' => 'transparent',
-			'background_color'        => '#fff',
+			'link_color' => '#141827',
 		];
 
 		$this->arguments = [
@@ -161,8 +157,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'font_color_heading', $section ),
 				[
-					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 0,
 				]
 			)
 		);
@@ -197,70 +194,11 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'adjust_appearance_heading', $section ),
 				[
-					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 10,
 				]
 			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'background_color_choice', $section ),
-			[
-				'default' => $this->get_default( 'background_color_choice' ),
-				'type' => 'option',
-			]
-		);
-
-		$manager->add_control(
-			new WP_Customize_Control(
-				$manager,
-				$customizer->get_setting_name( 'background_color_choice', $section ),
-				[
-					'label'       => 'Background Color',
-					'section'     => $section->id,
-					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
-					'type'        => 'radio',
-					'choices'     => [
-						'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
-						'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
-					],
-				]
-			)
-		);
-
-		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color_choice', $section ) );
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'background_color', $section ),
-			[
-				'default' => $this->get_default( 'background_color' ),
-				'type'    => 'option',
-			]
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'background_color', $section ),
-				[
-					'section'         => $section->id,
-					'active_callback' => function ( $control ) use ( $customizer, $section ) {
-						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'background_color_choice', $section ) )->value();
-					},
-				]
-			)
-		);
-
-		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color', $section ) );
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'accent_color', $section ),
-			[
-				'default'              => '#334aff',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
 		);
 
 		$manager->add_control(
@@ -270,6 +208,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				[
 					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
 					'section' => $section->id,
+					'priority' => 15,
 				]
 			)
 		);
@@ -297,8 +236,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'filterbar_color', $section ),
 				[
-					'label'   => esc_html__( 'Filter Bar Color', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Filter Bar Color', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 20,
 				]
 			)
 		);
@@ -321,6 +261,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				[
 					'label'   => esc_html__( 'Button Color', 'the-events-calendar' ),
 					'section' => $section->id,
+					'priority' => 20,
 				]
 			)
 		);
@@ -345,6 +286,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 						'default' => $this->get_default( 'button_color' ),
 						'label'   => esc_html__( 'Map Pin', 'the-events-calendar' ),
 						'section' => $section->id,
+						'priority' => 20,
 					]
 				)
 			);
