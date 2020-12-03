@@ -31,7 +31,6 @@ class Customizer {
 	 */
 	public function filter_sections( array $sections, $customizer ) {
 		// TODO Filter the sections.
-		bdump($sections);
 		return $sections;
 	}
 
@@ -92,12 +91,14 @@ class Customizer {
 			)
 		);
 
-
+		// Background Color.
 		$manager->add_setting(
 			$customizer->get_setting_name( 'background_color_choice', $section ),
 			[
-				'default' => 'transparent',
-				'type'    => 'option',
+				'default'              => 'transparent',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
 			]
 		);
 
@@ -119,13 +120,13 @@ class Customizer {
 			)
 		);
 
-		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color_choice', $section ) );
-
 		$manager->add_setting(
 			$customizer->get_setting_name( 'background_color', $section ),
 			[
 				'default' => '#fff',
 				'type'    => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
 		);
 
@@ -143,8 +144,7 @@ class Customizer {
 			)
 		);
 
-		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color', $section ) );
-
+		// Accent Color.
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
 			[
@@ -279,9 +279,10 @@ class Customizer {
 			';
 		}
 
-		if ( $customizer->has_option( $section->ID, 'background_color_choice' ) &&
-			'custom' === $customizer->get_option( $section->ID, 'background_color_choice' ) &&
-			$customizer->has_option( $section->ID, 'background_color' )
+		if (
+			$customizer->has_option( $section->ID, 'background_color_choice' )
+			&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
+			&& $customizer->has_option( $section->ID, 'background_color' )
 		) {
 			$css_template .= '
 				.tribe-events-view:not(.tribe-events-widget),
