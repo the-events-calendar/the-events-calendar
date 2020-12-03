@@ -22,7 +22,7 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 		// Uses the public folders
 		$this->set_template_folder_lookup( true );
 
-		add_action( 'tribe_events_before_view', array( $this, 'set_notices' ), 0 );
+		add_action( 'tribe_events_before_view', [ $this, 'set_notices' ], 0 );
 	}
 
 	/**
@@ -33,9 +33,9 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 	 * @param array $default_attributes
 	 * @return array
 	 */
-	public function attributes( $default_attributes = array() ) {
+	public function attributes( $default_attributes = [] ) {
 		return wp_parse_args(
-			$this->get( 'attributes', array() ),
+			$this->get( 'attributes', [] ),
 			$default_attributes
 		);
 	}
@@ -50,7 +50,7 @@ class Tribe__Events__Editor__Template extends Tribe__Template {
 	 */
 	public function attr( $index, $default = null ) {
 
-		$attribute = $this->get( array_merge( array( 'attributes' ), (array) $index ), $default );
+		$attribute = $this->get( array_merge( [ 'attributes' ], (array) $index ), $default );
 
 		return $attribute;
 

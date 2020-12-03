@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 4.9.11
+ * @version 5.3.0
  *
  * @var array $breadcrumb Data for breadcrumb.
  */
@@ -18,4 +18,5 @@
 	<span class="tribe-events-c-breadcrumbs__list-item-text">
 		<?php echo esc_html( $breadcrumb['label'] ); ?>
 	</span>
+	<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-breadcrumbs__list-item-icon-svg' ] ] ); ?>
 </li>

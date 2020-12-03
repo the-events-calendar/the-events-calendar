@@ -38,12 +38,15 @@ class Tribe__Events__Event_Cleaner {
 	 * Receives the existing value and the new value (modified by user) for the $key_trash_events option,
 	 * compares them and runs the scheduler if the conditions are satisfied.
 	 *
-	 * @param array $old_value
-	 * @param array $new_value
+	 * @param array<string,mixed>|null $old_value The old value of the `tribe_events_calendar_options` option.
+	 * @param array<string,mixed>|null $new_value The old value of the `tribe_events_calendar_options` option.
 	 *
 	 * @since 4.6.13
+	 * @since 5.3.0 Loosen the type-checking to avoid errors during option updates.
 	 */
-	public function move_old_events_to_trash( array $old_value, array $new_value ) {
+	public function move_old_events_to_trash( $old_value = [], $new_value = [] ) {
+		$old_value = (array) $old_value;
+		$new_value = (array) $new_value;
 		$old_value = empty( $old_value[ $this->key_trash_events ] ) ? null : $old_value[ $this->key_trash_events ];
 		$new_value = empty( $new_value[ $this->key_trash_events ] ) ? null : $new_value[ $this->key_trash_events ];
 

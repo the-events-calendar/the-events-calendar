@@ -1,4 +1,4 @@
-.tribe-events {
+.tribe-events-widget {
 
 	.tribe-events-widget-events-list__header {
 		margin-bottom: var(--spacer-5);
@@ -8,6 +8,7 @@
 
 		.tribe-events-widget-events-list__event-date-tag-datetime:after {
 			background-color: var(--color-accent-primary);
+			border-radius: 1.5px;
 			content: '';
 			height: 100%;
 			left: 0;
@@ -39,6 +40,10 @@
 		color: var(--color-accent-primary);
 		text-transform: capitalize;
 
+		&:visited {
+			color: var(--color-accent-primary);
+		}
+
 		&:active,
 		&:focus,
 		&:hover {
@@ -47,16 +52,88 @@
 		}
 	}
 
+	.tribe-events-widget-events-list {
+
+		.tribe-events-c-messages__message {
+			background-color: transparent;
+			border-radius: 0;
+		}
+
+		.tribe-events-c-messages__message--notice {
+
+			.tribe-events-c-messages__message-icon-svg {
+				display: inline-block;
+				margin-right: var(--spacer-2);
+			}
+		}
+
+		.tribe-events-c-messages__message-list {
+
+			.tribe-common--breakpoint-medium& {
+				text-align: left;
+			}
+		}
+
+		.tribe-events-c-messages__message-list-item-link {
+			font-weight: var(--font-weight-bold);
+		}
+	}
+
 	/* -------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ------------------------------------------------------------------------- */
 
-	.tribe-theme-twentyseventeen & {
+	.tribe-theme-twentyseventeen &,
+	.tribe-theme-twentyseventeen .site-footer .widget-area &,
+	.site-footer .widget-area & {
 
 		.tribe-events-widget-events-list__view-more-link {
+			color: var(--color-accent-primary);
 
 			&:hover,
 			&:focus {
+				color: var(--color-accent-primary);
+			}
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Astra
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-astra.ast-separate-container &,
+	.ast-separate-container & {
+
+		.tribe-events-widget-events-list__event {
+			background-color: transparent;
+			border: 0;
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-enfold &,
+	.footer_color &,
+	.main_color & {
+
+		.tribe-events-widget-events-list__event-venue-address,
+		.tribe-events-widget-events-list__event-organizer-contact {
+			color: var(--color-text-primary);
+		}
+	}
+
+	.tribe-theme-enfold &,
+	.main_color .sidebar & {
+
+		.tribe-events-widget-events-list__view-more-link {
+			color: var(--color-accent-primary);
+
+			&:visited,
+			&:hover,
+			&:focus,
+			&:active {
 				color: var(--color-accent-primary);
 			}
 		}

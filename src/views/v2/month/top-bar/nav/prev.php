@@ -11,7 +11,7 @@
  *
  * @var string $prev_url The URL to the previous page, if any, or an empty string.
  *
- * @version 5.0.1
+ * @version 5.3.0
  *
  */
 ?>
@@ -23,5 +23,6 @@
 		title="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		data-js="tribe-events-view-link"
 	>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</a>
 </li>

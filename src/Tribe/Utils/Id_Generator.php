@@ -3,7 +3,7 @@
 
 class Tribe__Events__Utils__Id_Generator {
 
-	protected static $count = array();
+	protected static $count = [];
 
 	public static function generate_id( $string, $group = 'default' ) {
 
@@ -27,7 +27,7 @@ class Tribe__Events__Utils__Id_Generator {
 
 	public static function reset( $group = null ) {
 		if ( empty( $group ) ) {
-			self::$count = array();
+			self::$count = [];
 		} else {
 			self::$count[ $group ] = 0;
 		}

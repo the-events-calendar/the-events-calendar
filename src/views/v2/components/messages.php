@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.1.0
+ * @version 5.3.0
  *
  * @var array  $messges     An array of user-facing messages, managed by the View.
  * @var string $wp_version  Global WP version.
@@ -29,6 +29,7 @@ $classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-
 <div <?php tribe_classes( $classes ); ?>>
 	<?php foreach ( $messages as $message_type => $message_group ) : ?>
 		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
+			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
 			<ul class="tribe-events-c-messages__message-list">
 				<?php foreach ( $message_group as $message ) : ?>
 					<li class="tribe-events-c-messages__message-list-item">

@@ -24,10 +24,10 @@
 		background-color: var(--color-background);
 		display: none;
 		left: 0;
-		padding: var(--spacer-2) var(--grid-gutter-small-half);
+		padding: var(--spacer-1) var(--grid-gutter-small-half) var(--spacer-2);
 		position: absolute;
 		right: 0;
-		top: calc(100% - var(--spacer-2));
+		top: calc(100% - var(--spacer-1));
 		z-index: var(--z-index-dropdown);
 
 		.tribe-common--breakpoint-medium& {
@@ -64,11 +64,12 @@
 		}
 	}
 
-	.tribe-events-c-events-bar__search-button-icon {
-		background-image: svg-inline(search-active);
-		display: block;
-		height: 21px;
+	.tribe-events-c-events-bar__search-button-icon-svg {
 		width: 21px;
+
+		path {
+			fill: currentColor;
+		}
 	}
 
 	/* -----------------------------------------------------------------------------

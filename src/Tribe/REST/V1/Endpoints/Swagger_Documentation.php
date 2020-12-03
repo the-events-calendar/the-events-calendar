@@ -18,12 +18,12 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	/**
 	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
 	 */
-	protected $documentation_providers = array();
+	protected $documentation_providers = [];
 
 	/**
 	 * @var Tribe__Documentation__Swagger__Provider_Interface[]
 	 */
-	protected $definition_providers = array();
+	protected $definition_providers = [];
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Swagger_Documentation constructor.
@@ -60,17 +60,17 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$documentation = array(
+		$documentation = [
 			'swagger'     => $this->swagger_version,
 			'info'        => $this->get_api_info(),
 			'host'        => parse_url( home_url(), PHP_URL_HOST ),
 			'basePath'    => str_replace( home_url(), '', tribe_events_rest_url() ),
-			'schemes'     => is_ssl() ? array( 'https', 'http' ) : array( 'http' ),
-			'consumes'    => array( 'application/json' ),
-			'produces'    => array( 'application/json' ),
+			'schemes'     => is_ssl() ? [ 'https', 'http' ] : [ 'http' ],
+			'consumes'    => [ 'application/json' ],
+			'produces'    => [ 'application/json' ],
 			'paths'       => $this->get_paths(),
 			'definitions' => $this->get_definitions(),
-		);
+		];
 
 		/**
 		 * Filters the Swagger documentation generated for the TEC REST API.
@@ -86,15 +86,15 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	}
 
 	protected function get_api_info() {
-		return array(
+		return [
 			'version'     => $this->tec_rest_api_version,
 			'title'       => __( 'The Events Calendar REST API', 'the-events-calendar' ),
 			'description' => __( 'The Events Calendar REST API allows accessing upcoming events information easily and conveniently.', 'the-events-calendar' ),
-		);
+		];
 	}
 
 	protected function get_paths() {
-		$paths = array();
+		$paths = [];
 		foreach ( $this->documentation_providers as $path => $endpoint ) {
 			if ( $endpoint !== $this ) {
 				/** @var Tribe__Documentation__Swagger__Provider_Interface $endpoint */
@@ -119,19 +119,19 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	}
 
 	protected function get_own_documentation() {
-		return array(
-			'get' => array(
-				'responses' => array(
-					'200' => array(
+		return [
+			'get' => [
+				'responses' => [
+					'200' => [
 						'description' => __( 'Returns the documentation for The Events Calendar REST API in Swagger consumable format.', 'the-events-calendar' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	protected function get_definitions() {
-		$definitions = array();
+		$definitions = [];
 		/** @var Tribe__Documentation__Swagger__Provider_Interface $provider */
 		foreach ( $this->definition_providers as $type => $provider ) {
 			$definitions[ $type ] = $provider->get_documentation();
@@ -171,6 +171,6 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	 * @return array
 	 */
 	public function READ_args() {
-		return array();
+		return [];
 	}
 }

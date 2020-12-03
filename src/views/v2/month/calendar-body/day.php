@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version 5.2.0
+ * @version 5.3.0
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -103,6 +103,7 @@ $num_events_label = sprintf(
 				aria-label="<?php echo esc_attr( $has_featured_events_label ); ?>"
 				title="<?php echo esc_attr( $has_featured_events_label ); ?>"
 			>
+				<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-month__mobile-events-icon-svg' ] ] ); ?>
 			</em>
 		<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
 			<?php

@@ -11,7 +11,7 @@
  *
  * @var string $link The URL to the previous page.
  *
- * @version 5.0.1
+ * @version 5.3.0
  *
  */
 ?>
@@ -24,6 +24,7 @@
 		aria-label="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
 	>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<?php esc_html_e( 'Previous Day', 'the-events-calendar' ); ?>
 	</a>
 </li>

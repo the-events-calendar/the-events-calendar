@@ -68,9 +68,6 @@ class Rewrite {
 					continue;
 				}
 
-				// Some function expect, or provide, uppercase encoding chars, some don't. Cope w/ both.
-				$base_group[] = $decoded;
-				$base_group[] = strtoupper( $encoded );
 				$base_group[] = $encoded;
 			}
 

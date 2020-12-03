@@ -16,85 +16,85 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$documentation = array(
+		$documentation = [
 			'type'       => 'object',
-			'properties' => array(
-				'id' => array(
-					'type' => 'integer',
+			'properties' => [
+				'id'                => [
+					'type'        => 'integer',
 					'description' => __( 'The organizer WordPress post ID', 'the-events-calendar' ),
-				),
-				'global_id' => array(
-					'type' => 'string',
+				],
+				'global_id'         => [
+					'type'        => 'string',
 					'description' => __( 'The organizer ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
-				),
-				'global_id_lineage' => array(
-					'type' => 'array',
-					'items' => array( 'type' => 'string' ),
+				],
+				'global_id_lineage' => [
+					'type'        => 'array',
+					'items'       => [ 'type' => 'string' ],
 					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
-				),
-				'author' => array(
-					'type' => 'integer',
+				],
+				'author'            => [
+					'type'        => 'integer',
 					'description' => __( 'The organizer author WordPress post ID', 'the-events-calendar' ),
-				),
-				'date' => array(
-					'type' => 'string',
+				],
+				'date'              => [
+					'type'        => 'string',
 					'description' => __( 'The organizer creation date in the site time zone', 'the-events-calendar' ),
-				),
-				'date_utc' => array(
-					'type' => 'string',
+				],
+				'date_utc'          => [
+					'type'        => 'string',
 					'description' => __( 'The organizer creation date in UTC time', 'the-events-calendar' ),
-				),
-				'modified' => array(
-					'type' => 'string',
+				],
+				'modified'          => [
+					'type'        => 'string',
 					'description' => __( 'The organizer last modification date in the site time zone', 'the-events-calendar' ),
-				),
-				'modified_utc' => array(
-					'type' => 'string',
+				],
+				'modified_utc'      => [
+					'type'        => 'string',
 					'description' => __( 'The organizer last modification date in UTC time', 'the-events-calendar' ),
-				),
-				'status' => array(
-					'type' => 'string',
+				],
+				'status'            => [
+					'type'        => 'string',
 					'description' => __( 'The organizer status', 'the-events-calendar' ),
-				),
-				'url' => array(
-					'type' => 'string',
+				],
+				'url'               => [
+					'type'        => 'string',
 					'description' => __( 'The URL to the organizer page', 'the-events-calendar' ),
-				),
-				'organizer' => array(
-					'type' => 'string',
+				],
+				'organizer'         => [
+					'type'        => 'string',
 					'description' => __( 'The organizer name', 'the-events-calendar' ),
-				),
-				'description' => array(
-					'type' => 'string',
+				],
+				'description'       => [
+					'type'        => 'string',
 					'description' => __( 'The organizer long description', 'the-events-calendar' ),
-				),
-				'excerpt' => array(
-					'type' => 'string',
+				],
+				'excerpt'           => [
+					'type'        => 'string',
 					'description' => __( 'The organizer short description', 'the-events-calendar' ),
-				),
-				'slug' => array(
-					'type' => 'string',
+				],
+				'slug'              => [
+					'type'        => 'string',
 					'description' => __( 'The organizer slug', 'the-events-calendar' ),
-				),
-				'image' => array(
-					'type' => 'string',
+				],
+				'image'             => [
+					'type'        => 'string',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Image',
-				),
-				'phone' => array(
-					'type' => 'string',
+					'$ref'        => '#/definitions/Image',
+				],
+				'phone'             => [
+					'type'        => 'string',
 					'description' => __( 'The organizer phone number', 'the-events-calendar' ),
-				),
-				'website' => array(
-					'type' => 'string',
+				],
+				'website'           => [
+					'type'        => 'string',
 					'description' => __( 'The organizer website', 'the-events-calendar' ),
-				),
-				'email' => array(
-					'type' => 'string',
+				],
+				'email'             => [
+					'type'        => 'string',
 					'description' => __( 'The organizer email address', 'the-events-calendar' ),
-				),
-			),
-		);
+				],
+			],
+		];
 
 		/**
 		 * Filters the Swagger documentation generated for an organizer in the TEC REST API.

@@ -21,7 +21,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 * Holds a Log of what has been done on This Queue
 	 * @var array
 	 */
-	protected $items = array();
+	protected $items = [];
 
 	/**
 	 * The status of the last processing operation.
@@ -34,7 +34,7 @@ class Tribe__Events__Aggregator__Record__Activity {
 	 * Allows easier quick shortcodes to access activity
 	 * @var array
 	 */
-	private $map = array();
+	private $map = [];
 
 	public $total = 0;
 

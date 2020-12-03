@@ -1,5 +1,7 @@
 <?php
 // Don't load directly.
+use Tribe\Customizer\Controls\Heading;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -33,7 +35,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$customizer = Tribe__Customizer::instance();
 		$settings   = $customizer->get_option( [ $this->ID ] );
 
-		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
+		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'accent_color' ) ) {
 
 			$accent_color     = new Tribe__Utils__Color( $settings['accent_color'] );
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
@@ -139,6 +141,19 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				}
 			';
 
+			// Override svg icons color.
+			$template .= '
+				.tribe-common .tribe-common-c-svgicon {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-common .tribe-events-virtual-virtual-event__icon-svg {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
 			$template .= '
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
 					background-color: <%= global_elements.accent_color %>;
@@ -151,15 +166,6 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
 					background-color: ' . $accent_color_hover . ';
-				}
-			';
-
-			// overrides for common components/full/_loader.pcss.
-			$template .= '
-				@keyframes tribe-common-c-loader-bounce {
-					0% {}
-					50% { background-color: <%= global_elements.accent_color %>; }
-					100% {}
 				}
 			';
 
@@ -348,6 +354,53 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					color: <%= global_elements.accent_color %>;
 				}
 			';
+
+			// overrides for tec widgets/full/_events-list.pcss.
+			$template .= '
+				.tribe-events-widget .tribe-events-widget-events-list__event-row--featured .tribe-events-widget-events-list__event-date-tag-datetime:after {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:visited {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover {
+					color: <%= global_elements.accent_color %>;
+					border-bottom-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			$template .= '
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:visited,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-theme-enfold .tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:visited,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.main_color .sidebar .tribe-events-widget .tribe-events-widget-events-list__view-more-link:active {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
 		}
 
 		if ( tribe_events_views_v2_is_enabled() && $customizer->has_option( $this->ID, 'link_color' ) ) {
@@ -432,7 +485,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		return $template;
 	}
 
-	public function create_ghost_settings( $settings = array() ) {
+	public function create_ghost_settings( $settings = [] ) {
 		if ( ! empty( $settings['filterbar_color'] ) ) {
 			$settings['filterbar_color_darker'] = new Tribe__Utils__Color( $settings['filterbar_color'] );
 			$settings['filterbar_color_darker'] = '#' . $settings['filterbar_color_darker']->darken();
@@ -450,15 +503,15 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'link_color'           => '#141827',
+			'link_color' => '#141827',
 		];
 
-		$this->arguments = array(
+		$this->arguments = [
 			'priority'    => 20,
 			'capability'  => 'edit_theme_options',
 			'title'       => $title,
 			'description' => $description,
-		);
+		];
 	}
 
 	/**
@@ -472,53 +525,76 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
 
-		$manager->add_setting(
-			$customizer->get_setting_name( 'accent_color', $section ),
-			array(
-				'default'              => '#334AFF',
-				'type'                 => 'option',
-
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
-		);
-
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
 		$manager->add_control(
-			new WP_Customize_Color_Control(
+			new Heading(
 				$manager,
-				$customizer->get_setting_name( 'accent_color', $section ),
-				array(
-					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
+				$customizer->get_setting_name( 'link_color_heading', $section ),
+				[
+					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
-
-		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
-
+		
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
-			array(
+			[
 				'default'              => $this->get_default( 'link_color' ),
 				'type'                 => 'option',
-
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
-
+		
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'link_color', $section ),
-				array(
-					'label'   => esc_html__( 'Link Color', 'the-events-calendar' ),
-					'section' => $section->id,
-				)
+				[
+					'label'       => esc_html__( 'Links', 'the-events-calendar' ),
+					'description' => esc_html__( 'For displayed URLs', 'the-events-calendar' ),
+					'section'     => $section->id,
+				]
 			)
 		);
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
+		
+		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		$manager->add_control(
+			new Heading(
+				$manager,
+				$customizer->get_setting_name( 'accent_color_heading', $section ),
+				[
+					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
+		
+		$manager->add_setting(
+			$customizer->get_setting_name( 'accent_color', $section ),
+			[
+				'default'              => '#334AFF',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+		
+		$manager->add_control(
+			new WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'accent_color', $section ),
+				[
+					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
+					'section' => $section->id,
+				]
+			)
+		);
+
+		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
 
 		if ( tribe_events_views_v2_is_enabled() ) {
 			return;
@@ -526,45 +602,45 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'filterbar_color', $section ),
-			array(
-				'default'              => $this->get_default( 'filterbar_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'filterbar_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'filterbar_color', $section ),
-				array(
+				[
 					'label'   => esc_html__( 'Filter Bar Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'button_color', $section ),
-			array(
-				'default'              => $this->get_default( 'button_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'button_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'button_color', $section ),
-				array(
+				[
 					'label'   => esc_html__( 'Button Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
@@ -573,22 +649,22 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 
 			$manager->add_setting(
 				$customizer->get_setting_name( 'map_pin', $section ),
-				array(
-					'default'              => $this->get_default( 'map_pin' ),
-					'type'                 => 'option',
-					'sanitize_callback'    => 'esc_url_raw',
-				)
+				[
+					'default'           => $this->get_default( 'map_pin' ),
+					'type'              => 'option',
+					'sanitize_callback' => 'esc_url_raw',
+				]
 			);
 
 			$manager->add_control(
 				new WP_Customize_Image_Control(
 					$manager,
 					$customizer->get_setting_name( 'map_pin', $section ),
-					array(
-						'default'    => $this->get_default( 'button_color' ),
-						'label'      => esc_html__( 'Map Pin', 'the-events-calendar' ),
-						'section'    => $section->id,
-					)
+					[
+						'default' => $this->get_default( 'button_color' ),
+						'label'   => esc_html__( 'Map Pin', 'the-events-calendar' ),
+						'section' => $section->id,
+					]
 				)
 			);
 		}
