@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  * @var string $now                    The current date and time in the `Y-m-d H:i:s` format.
  * @var object $date_formats           Object containing the date formats.

@@ -2,7 +2,7 @@
 /**
  * Create a new Queue to process Batch imports.
  *
- * @since TBD
+ * @since 5.3.0
  */
 
 namespace Tribe\Events\Aggregator\Record;
@@ -26,13 +26,13 @@ use WP_Post;
  * Class Tribe__Events__Aggregator__Record__Batch_Queue - New Queue system to process imports crated with the new
  * batch system.
  *
- * @since TBD
+ * @since 5.3.0
  */
 class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Set a name to identify the activity object.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @var string $activity_key Key to identify the activity object.
 	 */
@@ -41,7 +41,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Access to the current record.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @var Tribe__Events__Aggregator__Record__Abstract $record The current record.
 	 */
@@ -55,7 +55,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Whether any real processing should happen for the queue or not.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @var bool
 	 */
@@ -64,7 +64,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Tribe__Events__Aggregator__Record__Queue constructor.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record The current record or record ID.
 	 * @param array|string|null                                     $items The items to build the Queue.
@@ -97,7 +97,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Get the activity if a call to a dynamic attribute is taking place in this case `$this->>activity`
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param string $key The dynamic key to be returned.
 	 *
@@ -114,7 +114,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Returns the activity object for the processing of this Queue.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return mixed|Tribe__Events__Aggregator__Record__Activity
 	 */
@@ -136,7 +136,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Allows us to check if the Events Data has still pending
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return boolean
 	 */
@@ -147,7 +147,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Shortcut to check how many items are going to be processed next.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return int
 	 */
@@ -158,7 +158,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Shortcut to check if this queue is empty or it has a null process.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return boolean `true` if this queue instance has acquired the lock and
 	 *                 the count is 0, `false` otherwise.
@@ -174,7 +174,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * After the process has been completed make sure the `post_modified` and `post_status` are updated accordingly.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return $this
 	 */
@@ -194,7 +194,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Processes a batch for the queue
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @throws Exception
 	 *
@@ -232,7 +232,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Get the current date time using UTC as the time zone.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return DateTime|false|\Tribe\Utils\Date_I18n
 	 */
@@ -243,7 +243,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Create the initial request to the EA server requesting that the client is ready to start getting batches of events.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	public function start() {
 		if (
@@ -297,7 +297,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Return the number of events delivered per batch.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return int
 	 */
@@ -308,7 +308,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Return the interval in seconds of the delivery of each batch.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return int
 	 */
@@ -319,7 +319,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Returns the total progress made on processing the queue so far as a percentage.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return int
 	 */
@@ -354,7 +354,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 * The flag naturally expires after an hour to allow for recovery if for instance
 	 * execution hangs half way through the processing of a batch.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	public function set_in_progress_flag() {
 		// No operation.
@@ -363,7 +363,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Clears the in progress flag.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	public function clear_in_progress_flag() {
 		// No operation.
@@ -372,7 +372,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Indicates if the queue for the current event is actively being processed.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return bool
 	 */
@@ -391,7 +391,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Returns the primary post type the queue is processing
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return string
 	 */
@@ -408,7 +408,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Whether the current queue process is stuck or not.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return bool
 	 */
@@ -419,7 +419,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Orderly closes the queue process.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return bool
 	 */
@@ -430,7 +430,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Whether the current queue process failed or not.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return bool
 	 */
@@ -441,7 +441,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	/**
 	 * Returns the queue error message.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return string
 	 */

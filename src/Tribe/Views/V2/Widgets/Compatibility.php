@@ -9,7 +9,7 @@
  * * Pro Active V2 to V1 with constant ( Reverse )
  * * Pro Disabled V2 back to V1 with constant ( Default ) - not supported.
  *
- * @since   TBD
+ * @since   5.3.0
  *
  * @package Tribe\Events\Pro\Views\V2\Widgets
  */
@@ -19,7 +19,7 @@ namespace Tribe\Events\Views\V2\Widgets;
 /**
  * Class Compatibility
  *
- * @since   TBD
+ * @since   5.3.0
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -46,7 +46,7 @@ class Compatibility {
 	 * This class lives here as it could support the v1 advanced list widget
 	 * turning back to the free widget.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	public function switch_compatibility() {
 		if ( ! $this->is_v2_adv_list_widget() ) {
@@ -56,7 +56,7 @@ class Compatibility {
 		/**
 		 * Allow filtering of whether the event list or the advanced event list widget should be primary.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param bool $adv_primary Whether the advanced list widget is primary.
 		 */
@@ -76,7 +76,7 @@ class Compatibility {
 	/**
 	 * Function that determines which version of the widget we should load based on the ECP version.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return boolean
 	 */
@@ -91,7 +91,7 @@ class Compatibility {
 	/**
 	 * Remap the widget id_base for the Pro Advanced List Widget.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array<string,mixed> $widget_areas An array of widgets areas with the saved widgets in each location.
 	 *
@@ -122,7 +122,7 @@ class Compatibility {
 	/**
 	 * Merge the Event List and Advanced List Widget Options.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array<int,mixed> $widgets An array of saved widgets.
 	 *

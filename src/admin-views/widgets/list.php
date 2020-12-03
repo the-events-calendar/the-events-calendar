@@ -12,7 +12,7 @@
  * @var Widget_Abstract $widget_obj   An instance of the widget abstract.
  * @var array<array,mixed>    $admin_fields An array of admin fields to display in the widget form.
  *
- * @version TBD
+ * @version 5.3.0
  */
 
 foreach ( $admin_fields as $field ) {
@@ -21,7 +21,7 @@ foreach ( $admin_fields as $field ) {
 	/**
 	 * Allows other plugins to hook in as needed to inject things that aren't necessarily an input.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array<array,mixed> $field The "field" info.
 	 * @var Widget_Abstract $widget_obj An instance of the widget abstract.

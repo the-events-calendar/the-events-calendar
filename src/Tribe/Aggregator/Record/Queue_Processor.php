@@ -182,7 +182,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 *
 	 * If no records in need of further processing can be found it will return bool false.
 	 *
-	 * @since TBD Inclusion of a $cache param for performance purposes.
+	 * @since 5.3.0 Inclusion of a $cache param for performance purposes.
 	 *
 	 * @param boolean $interactive_only Whether or not we should look for imports that were kicked off interactively
 	 * @param boolean $cache            When checking on every request we should utilize transient caching to prevent hitting the DB every time.

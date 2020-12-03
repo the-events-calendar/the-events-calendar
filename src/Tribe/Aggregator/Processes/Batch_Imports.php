@@ -11,7 +11,7 @@ use WP_Post;
 /**
  * Class Batch_Imports
  *
- * @since TBD
+ * @since 5.3.0
  */
 
 /**
@@ -19,7 +19,7 @@ use WP_Post;
  *
  * Add custom hooks in order to support batch pushing.
  *
- * @since TBD
+ * @since 5.3.0
  */
 class Batch_Imports {
 	/**
@@ -45,7 +45,7 @@ class Batch_Imports {
 	 * before batch pushing are going to remaining using the old system and new imports are going to be considered as
 	 * batch pushing imports.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param bool            $service_supports_batch_push If the current import has support for batch pushing.
 	 * @param Record_Abstract $abstract
@@ -89,7 +89,7 @@ class Batch_Imports {
 	 *
 	 * TODO: Update EventBrite to use batch pushing to deliver events instead.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array<string, mixed>               $args   Arguments to queue the import.
 	 * @param Tribe__Events__Aggregator__Service $record Which record we are dealing with.

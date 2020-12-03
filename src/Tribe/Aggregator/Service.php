@@ -171,7 +171,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Allow to change the constructed URL used for EA.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param string   $endpoint The path of the endpoint inside of the base url.
 	 * @param stdClass $api      An object representing the properties of the API.

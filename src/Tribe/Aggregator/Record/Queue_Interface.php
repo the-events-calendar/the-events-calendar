@@ -92,7 +92,7 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	/**
 	 * Whether the current queue is fetching values from a remote or external source.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return bool
 	 */

@@ -131,7 +131,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	/**
 	 * Allow external caller to define the amount of the time to live in seconds.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param int $time_to_live Live time in seconds default to 12 hours.
 	 *
@@ -146,7 +146,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	/**
 	 * Get the current value of time to live setting an integer in seconds, default to 12 hours.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return int The number of time to consider a record alive.
 	 */
@@ -154,7 +154,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		/**
 		 * Allow to define the number of seconds used to define if a record is alive or not.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @return int The number of time to consider a record alive.
 		 */
@@ -170,7 +170,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		/**
 		 * Allow to define the number of seconds for a record to be considered stalled.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @return int The number in seconds for a record to be stalled
 		 */
