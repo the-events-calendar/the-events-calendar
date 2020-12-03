@@ -53,4 +53,4 @@ jobs:
           ${TRIC_BIN} use the-events-calendar
           ${TRIC_BIN} composer install
       - name: Run suite tests
-        run: ${TRIC_BIN} run ${{ matrix.suite }}
+        run: ${TRIC_BIN} run ${{ matrix.suite }} --ext DotReporter
