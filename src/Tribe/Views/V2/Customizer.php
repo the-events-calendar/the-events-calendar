@@ -49,7 +49,7 @@ class Customizer {
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			// Event Title overrides.
 			$css_template .= '
-				.tribe-events-single-event-title,
+				.single-tribe_events .tribe-events-single-event-title,
 				.tribe-events .tribe-events-calendar-list__event-title-link,
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
 				.tribe-events .tribe-events-calendar-list__event-title-link:visited,

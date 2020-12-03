@@ -1,5 +1,5 @@
 <?php return array (
-  'tribe-events-views-v2-full' => '.tribe-events-single-event-title,
+  'tribe-events-views-v2-full' => '.single-tribe_events .tribe-events-single-event-title,
 				.tribe-events .tribe-events-calendar-list__event-title-link,
 				.tribe-events .tribe-events-calendar-list__event-title-link:active,
 				.tribe-events .tribe-events-calendar-list__event-title-link:visited,
