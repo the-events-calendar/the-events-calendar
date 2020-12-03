@@ -129,9 +129,11 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'event_title_color'     => '#141827',
-			'event_date_time_color' => '#141827',
-			'link_color'            => '#141827',
+			'event_title_color'       => '#141827',
+			'event_date_time_color'   => '#141827',
+			'link_color'              => '#141827',
+			'background_color_choice' => 'transparent',
+			'background_color'        => '#fff',
 		];
 
 		$this->arguments = [
@@ -201,45 +203,54 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			)
 		);
 
-		$bg_color_setting_name = $customizer->get_setting_name( 'background_color', $section );
-
-		$manager->add_setting( $bg_color_setting_name, [ 'default' => 'transparent' ] );
-
-		 $manager->add_control(
-			 new WP_Customize_Control (
-				$manager,
-				$bg_color_setting_name,
-				[
-					'label'      => esc_html__( 'Background Color', 'the-events-calendar' ),
-					'section'    => $section->id,
-					'type'       => 'radio',
-					'choices'    => [
-						'#334aff' => esc_html__( 'Transparent', 'the-events-calendar' ),
-						'#fff'    => esc_html__( 'Select Color', 'the-events-calendar' ),
-					],
-				]
-			 )
+		$manager->add_setting(
+			$customizer->get_setting_name( 'background_color_choice', $section ),
+			[
+				'default' => $this->get_default( 'background_color_choice' ),
+			]
 		);
 
-		$customizer->add_setting_name( $bg_color_setting_name );
+		$manager->add_control(
+			$customizer->get_setting_name( 'background_color_choice', $section ),
+			[
+				'label'      => 'Background Color',
+				'section'    => $section->id,
+				'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar'),
+				'type'       => 'radio',
+				'choices'    => [
+					'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
+					'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
+				],
+			]
+		);
 
-		/*
-		$manager->add_setting( 'custom_background_color', [ 'default' => '#fff' ] );
+		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color_choice', $section ) );
 
-		 $manager->add_control(
-			 new WP_Customize_Color_Control(
-				 $manager,
-				 'custom_background_color',
-				 [
-					'section' => $section->id,
-					'settings'   => 'custom_background_color',
-					'active_callback' => function ( $control ) use ( $bg_color_setting_name ) {
-						return 'transparent' !== $control->manager->get_setting( $bg_color_setting_name )->value();
+		$manager->add_setting(
+			$customizer->get_setting_name( 'background_color', $section ),
+			[
+				'default' => $this->get_default( 'background_color' ),
+				'type'    => 'option',
+			]
+		);
+
+		$manager->add_control(
+			new WP_Customize_Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'background_color', $section ),
+				[
+					'label'           => 'Custom Color',
+					'section'         => $section->id,
+					'active_callback' => function ( $control ) use ( $customizer, $section ) {
+						return (bool) 'custom' == $control->manager->get_setting(
+							$customizer->get_setting_name( 'background_color_choice', $section )
+						)->value();
 					},
 				]
 			)
 		);
-		*/
+
+		$customizer->add_setting_name( $customizer->get_setting_name( 'background_color', $section ) );
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
