@@ -884,6 +884,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $this->container->make( Customizer::class )->filter_sections( $sections, $customizer );
 	}
 
+	/**
+	 * Adds new settings via the hook in common.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
 	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
 		$this->container->make( Customizer::class )->include_global_elements_settings( $section, $manager, $customizer );
 	}

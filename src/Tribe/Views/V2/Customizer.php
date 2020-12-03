@@ -32,6 +32,15 @@ class Customizer {
 		return $sections;
 	}
 
+	/**
+	 * Adds new settings/controls via the hook in common.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
 	public function include_global_elements_settings( $section, $manager, $customizer ) {
 		// Event Title.
 		$manager->add_setting(
@@ -75,7 +84,7 @@ class Customizer {
 					'label'       => esc_html__( 'Event Date and Time', 'the-events-calendar' ),
 					'description' => esc_html__( 'Main date and time display on views and single event pages.', 'the-events-calendar' ),
 					'section'     => $section->id,
-					'priority' => 8,
+					'priority'    => 8,
 				]
 			)
 		);
