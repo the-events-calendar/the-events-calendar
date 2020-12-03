@@ -143,7 +143,7 @@ class Customizer {
 			';
 		}
 
-		if ( $customizer->has_option( $section->ID, 'background_color_choice' )  ) {
+		if ( $customizer->has_option( $section->ID, 'background_color_choice' ) ) {
 			if (
 				'custom' === $customizer->get_option( $section->ID, 'background_color_choice' ) &&
 				$customizer->has_option( $section->ID, 'background_color' )
