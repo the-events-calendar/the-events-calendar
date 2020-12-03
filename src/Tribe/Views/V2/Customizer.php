@@ -29,7 +29,24 @@ class Customizer {
 	 */
 	public function filter_sections( array $sections, $customizer ) {
 		// TODO Filter the sections.
+		bdump($sections);
 		return $sections;
+	}
+
+
+	/**
+	 * Adds settings to the Global Elements section.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Global Elements section.
+	 * @param  WP_Customize_Manager       $manager    The WordPress Customizer Manager.
+	 * @param \Tribe__Customizer          $customizer The current Customizer instance.
+	 *
+	 * @return void
+	 */
+	public function include_global_elements_settings( $section, $manager, $customizer ) {
+
 	}
 
 	/**
@@ -143,31 +160,18 @@ class Customizer {
 			';
 		}
 
-		if ( $customizer->has_option( $section->ID, 'background_color_choice' ) ) {
-			if (
-				'custom' === $customizer->get_option( $section->ID, 'background_color_choice' ) &&
-				$customizer->has_option( $section->ID, 'background_color' )
-			) {
-				$css_template .= '
-					.tribe-events-view:not(.tribe-events-widget),
-					#tribe-events,
-					#tribe-events-pg-template {
-						background-color: <%= global_elements.background_color %>;
-					}
-				';
-			} else {
-				$css_template .= '
+		if ( $customizer->has_option( $section->ID, 'background_color_choice' ) &&
+			'custom' === $customizer->get_option( $section->ID, 'background_color_choice' ) &&
+			$customizer->has_option( $section->ID, 'background_color' )
+		) {
+			$css_template .= '
 				.tribe-events-view:not(.tribe-events-widget),
 				#tribe-events,
 				#tribe-events-pg-template {
-					background-color: <%= global_elements.background_color_choice %>;
+					background-color: <%= global_elements.background_color %>;
 				}
 			';
-			}
 		}
-
-
-
 
 		if ( $customizer->has_option( $section->ID, 'accent_color' ) ) {
 			$accent_color     = new \Tribe__Utils__Color( $settings['accent_color'] );

@@ -207,6 +207,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 			$customizer->get_setting_name( 'background_color_choice', $section ),
 			[
 				'default' => $this->get_default( 'background_color_choice' ),
+				'type' => 'option',
 			]
 		);
 
@@ -244,13 +245,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				[
 					'section'         => $section->id,
 					'active_callback' => function ( $control ) use ( $customizer, $section ) {
-						if (
-							'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'background_color_choice', $section ) )->value()
-						) {
-							return true;
-						};
-
-						return false;
+						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'background_color_choice', $section ) )->value();
 					},
 				]
 			)
