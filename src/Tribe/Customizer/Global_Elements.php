@@ -129,10 +129,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'event_title_color'     => '#141827',
-			'event_date_time_color' => '#141827',
-			'link_color'            => '#141827',
-			'background_color'      => '#fff',
+			'link_color' => '#141827',
 		];
 
 		$this->arguments = [
@@ -160,51 +157,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'font_color_heading', $section ),
 				[
-					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
-					'section' => $section->id,
-				]
-			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'event_title_color', $section ),
-			[
-				'default'              => '#141827',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'event_title_color', $section ),
-				[
-					'label'   => esc_html__( 'Event Title', 'the-events-calendar' ),
-					'section' => $section->id,
-				]
-			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'event_date_time_color', $section ),
-			[
-				'default'              => '#141827',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'event_date_time_color', $section ),
-				[
-					'label'       => esc_html__( 'Event Date and Time', 'the-events-calendar' ),
-					'description' => esc_html__( 'Main date and time display on views and single event pages.', 'the-events-calendar' ),
-					'section'     => $section->id,
+					'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 0,
 				]
 			)
 		);
