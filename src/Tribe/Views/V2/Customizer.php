@@ -8,6 +8,8 @@
  */
 
 namespace Tribe\Events\Views\V2;
+use \WP_Customize_Control as Control;
+use \WP_Customize_Color_Control as Color_Control;
 
 /**
  * Class Customizer
@@ -54,7 +56,7 @@ class Customizer {
 		);
 
 		$manager->add_control(
-			new \WP_Customize_Color_Control(
+			new Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'event_title_color', $section ),
 				[
@@ -77,7 +79,7 @@ class Customizer {
 		);
 
 		$manager->add_control(
-			new \WP_Customize_Color_Control(
+			new Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'event_date_time_color', $section ),
 				[
@@ -87,6 +89,70 @@ class Customizer {
 					'priority'    => 8,
 				]
 			)
+		);
+
+		// Background Color.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'background_color_choice', $section ),
+			[
+				'default'              => 'transparent',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			]
+		);
+
+		$manager->add_control(
+			new Control(
+				$manager,
+				$customizer->get_setting_name( 'background_color_choice', $section ),
+				[
+					'label'       => 'Background Color',
+					'section'     => $section->id,
+					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
+					'type'        => 'radio',
+					'priority'    => 12,
+					'choices'     => [
+						'transparent' => esc_html__( 'Transparent', 'the-events-calendar' ),
+						'custom'      => esc_html__( 'Select Color', 'the-events-calendar' ),
+					],
+				]
+			)
+		);
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'background_color', $section ),
+			[
+				'default' => '#fff',
+				'type'    => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'background_color', $section ),
+				[
+					'section'         => $section->id,
+					'priority'        => 12,
+					'active_callback' => function ( $control ) use ( $customizer, $section ) {
+						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'background_color_choice', $section ) )->value();
+					},
+				]
+			)
+		);
+
+		// Accent Color.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'accent_color', $section ),
+			[
+				'default'              => '#334aff',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
 		);
 	}
 
@@ -213,7 +279,11 @@ class Customizer {
 			';
 		}
 
-		if ( $customizer->has_option( $section->ID, 'background_color' ) ) {
+		if (
+			$customizer->has_option( $section->ID, 'background_color_choice' )
+			&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
+			&& $customizer->has_option( $section->ID, 'background_color' )
+		) {
 			$css_template .= '
 				.tribe-events-view:not(.tribe-events-widget),
 				#tribe-events,

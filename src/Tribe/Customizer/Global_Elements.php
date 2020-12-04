@@ -192,22 +192,13 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$manager->add_control(
 			new Heading(
 				$manager,
-				$customizer->get_setting_name( 'accent_color_heading', $section ),
+				$customizer->get_setting_name( 'adjust_appearance_heading', $section ),
 				[
-					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 10,
 				]
 			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'accent_color', $section ),
-			[
-				'default'              => '#334AFF',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
 		);
 
 		$manager->add_control(
@@ -217,12 +208,14 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				[
 					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
 					'section' => $section->id,
+					'priority' => 15,
 				]
 			)
 		);
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'accent_color', $section ) );
 
+		// Old stuff for backwards compatibility.
 		if ( tribe_events_views_v2_is_enabled() ) {
 			return;
 		}
@@ -243,8 +236,9 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				$manager,
 				$customizer->get_setting_name( 'filterbar_color', $section ),
 				[
-					'label'   => esc_html__( 'Filter Bar Color', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Filter Bar Color', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 20,
 				]
 			)
 		);
@@ -267,6 +261,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 				[
 					'label'   => esc_html__( 'Button Color', 'the-events-calendar' ),
 					'section' => $section->id,
+					'priority' => 20,
 				]
 			)
 		);
@@ -291,6 +286,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 						'default' => $this->get_default( 'button_color' ),
 						'label'   => esc_html__( 'Map Pin', 'the-events-calendar' ),
 						'section' => $section->id,
+						'priority' => 20,
 					]
 				)
 			);
