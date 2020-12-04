@@ -222,11 +222,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.0] 2020-12-02 =
+= [TBD] TBD =
 
 * Fix - Fix an issue in csv venue imports where the address would not import.  [TEC-3637]
 
-= [TBD] TBD =
+= [5.3.0] 2020-12-02 =
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
 * Feature - Event Aggregator Batch Pushing for Cron Imports [EA-297]
