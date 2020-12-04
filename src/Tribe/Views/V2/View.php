@@ -1138,7 +1138,6 @@ class View implements View_Interface {
 	 * @return array The arguments, ready to be set on the View repository instance.
 	 */
 	protected function setup_repository_args( Context $context = null ) {
-		bdump('view_setup_repository_args');
 		$context = null !== $context ? $context : $this->context;
 
 		$context_arr = $context->to_array();
