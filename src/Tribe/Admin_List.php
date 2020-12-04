@@ -21,6 +21,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		public static function init() {
 			if ( is_admin() ) {
 				if ( ! tribe( 'context' )->doing_ajax() ) {
+					// Logic for filtering events by aggregator record
+					add_filter( 'posts_clauses', [ __CLASS__, 'filter_by_aggregator_record' ], 9, 2 );
+
 					// Logic for sorting events by event category or tags
 					add_filter( 'posts_clauses', [ __CLASS__, 'sort_by_tax' ], 10, 2 );
 
@@ -151,6 +154,41 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			$clauses['orderby'] = $revised_orderby;
+
+			return $clauses;
+		}
+
+		/**
+		 * Defines custom logic for filtering events table by aggregator record.
+		 *
+		 * @param   Array       $clauses    SQL clauses for fetching posts
+		 * @param   WP_Query    $wp_query   A paginated query for items
+		 *
+		 * @return  Array                   Modified SQL clauses
+		 */
+		public static function filter_by_aggregator_record( Array $clauses, WP_Query $wp_query ) {
+			// Check for event post type.
+			if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
+				return $clauses;
+			}
+
+			// Check if filtering by aggregator record.
+            $record_num = intval( tribe_get_request_var( 'aggregator_record', 0 ) );
+            if( $record_num === 0 ) {
+            	return $clauses;
+            }
+
+			global $wpdb;
+
+            // Add the record meta query if it is missing.
+			if ( ! preg_match( '/tribe_aggregator_record/', $clauses['join'] ) ) {
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_aggregator_record ON {$wpdb->posts}.ID = tribe_aggregator_record.post_id AND tribe_aggregator_record.meta_key = '_tribe_aggregator_parent_record' ";
+			}
+
+            // Add the record meta filter if it is missing.
+			if ( ! preg_match( '/tribe_aggregator_record/', $clauses['where'] ) ) {
+                $clauses['where'] .= " AND tribe_aggregator_record.meta_value = '{$record_num}' ";
+			}
 
 			return $clauses;
 		}
