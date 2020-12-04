@@ -72,8 +72,7 @@ class Widget_View extends View {
 	 * @return array The arguments, ready to be set on the View repository instance.
 	 */
 	protected function setup_repository_args( Context $context = null ) {
-		bdump('widget_setup_repository_args');
-		$context = null !== $context ? $context : $this->context;
+		$context     = null !== $context ? $context : $this->context;
 		$context_arr = $context->to_array();
 		$args        = parent::setup_repository_args( $context );
 
@@ -85,11 +84,7 @@ class Widget_View extends View {
 		 * @param $context
 		 */
 		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_repository_args", $args, $context, $context_arr );
-		bdump( [
-			'END_widget_setup_repository_args',
-			$args
-		]
-	);
+
 		return $args;
 	}
 
