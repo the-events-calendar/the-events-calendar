@@ -11,7 +11,7 @@
  *
  * @var string $link The URL to the next page.
  *
- * @version TBD
+ * @version 5.3.0
  *
  */
 ?>

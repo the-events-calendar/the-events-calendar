@@ -24,24 +24,24 @@
 		display: inline-flex;
 		align-items: center;
 
-		&:not(:last-child) {
+		&:last-child {
 
 			.tribe-events-c-breadcrumbs__list-item-icon-svg {
-				display: inline-block;
+				display: none;
 			}
 		}
 	}
-	
+
 	.tribe-events-c-breadcrumbs__list-item-icon-svg {
-		display: none;
+		display: inline-block;
 		height: 14px;
 		width: 6px;
 		margin: 0 6px;
-		
+
 		path {
-			fill: var(--color-icon-primary);
+			fill: currentColor;
 		}
-		
+
 		.tribe-common--breakpoint-medium& {
 			height: 16px;
 			width: 10px;

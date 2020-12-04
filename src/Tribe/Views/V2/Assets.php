@@ -35,7 +35,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Key for the widget group of assets.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @var string
 	 */
@@ -57,7 +57,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * When loaded in no-conflict mode, then the jquery-ui-datepicker script bundled with WordPress will be
 	 * loaded before it.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return bool Whether to load Views v2 datepicker in no conflict mode, loading the jquery-ui-datepicker
 	 *              script before it, or not
@@ -69,7 +69,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		 * When loaded in no-conflict mode, then the jquery-ui-datepicker script bundled with WordPress will be
 		 * loaded before it.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param bool $load_no_conflict_moode whether to load the Bootstrap datepicker in no-conflict mode in
 		 *                                     the context of Views v2 or not.

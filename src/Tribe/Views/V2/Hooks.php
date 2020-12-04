@@ -835,10 +835,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return array Modified array of sheets to search for.
 	 */
 	public function customizer_inline_stylesheets( $sheets, $css_template ) {
-		$v2_sheets = [
-			'tribe-events-views-v2-skeleton',
-			'tribe-events-views-v2-full',
-		];
+		$v2_sheets = [ 'tribe-events-views-v2-full' ];
 
 		// Dequeue legacy sheets.
 		$keys = array_keys( $sheets, 'tribe-events-calendar-style' );

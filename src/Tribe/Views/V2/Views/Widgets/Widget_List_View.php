@@ -32,7 +32,7 @@ class Widget_List_View extends Widget_View {
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
@@ -50,7 +50,7 @@ class Widget_List_View extends Widget_View {
 	/**
 	 * Overrides the base View method.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return array<string,mixed> The Widget List View template vars, modified if required.
 	 */
@@ -87,7 +87,7 @@ class Widget_List_View extends Widget_View {
 	/**
 	 * Overrides the base method to return an empty array, since the widget will not use breadcrubms.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return array<array<string,string>> An empty array, the widget will not use breadcrumbs.
 	 */

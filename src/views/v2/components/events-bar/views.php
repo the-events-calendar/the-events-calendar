@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  * @var string $view_slug            Slug of the current view.
  * @var string $view_label           Label of the current view.
