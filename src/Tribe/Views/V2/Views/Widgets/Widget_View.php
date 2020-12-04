@@ -7,6 +7,7 @@
  */
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
+use Tribe__Context as Context;
 
 use Tribe\Events\Views\V2\View;
 
@@ -59,6 +60,37 @@ class Widget_View extends View {
 		$template_vars['container_classes'] = $this->get_html_classes();
 
 		return $template_vars;
+	}
+
+	/**
+	 * Sets up the View repository arguments from the View context or a provided Context object.
+	 *
+	 * @since 4.9.3
+	 *
+	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
+	 *
+	 * @return array The arguments, ready to be set on the View repository instance.
+	 */
+	protected function setup_repository_args( Context $context = null ) {
+		bdump('widget_setup_repository_args');
+		$context = null !== $context ? $context : $this->context;
+		$context_arr = $context->to_array();
+		$args        = parent::setup_repository_args( $context );
+
+		/**
+		 * A widget-specific filter for repository args, based on widget slug.
+		 * Allows other plugins to add/remove args for the repository pre-query.
+		 *
+		 * @param $args
+		 * @param $context
+		 */
+		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_repository_args", $args, $context, $context_arr );
+		bdump( [
+			'END_widget_setup_repository_args',
+			$args
+		]
+	);
+		return $args;
 	}
 
 	/**
