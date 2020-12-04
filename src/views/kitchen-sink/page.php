@@ -1,4 +1,17 @@
 <?php
+/**
+ * The Events Calendar Styles kitchen sink.
+ *
+ * Displays all the styles applied to all UI components.
+ *
+ * @link http://m.tri.be/1aiy
+ *
+ * @version 4.2
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
 tribe_asset_enqueue( 'tribe-common-style' );
 ?>
 <div class="tribe-common tribe-events">

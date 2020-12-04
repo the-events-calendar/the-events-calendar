@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  */
 $label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() );
