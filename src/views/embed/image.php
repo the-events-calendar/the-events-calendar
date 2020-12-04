@@ -6,6 +6,8 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/embed/image.php
  *
+ * @link http://m.tri.be/1aiy
+ *
  * @version 4.2
  *
  * @package TribeEventsCalendar

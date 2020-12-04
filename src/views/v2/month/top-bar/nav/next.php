@@ -11,7 +11,7 @@
  *
  * @var string $next_url The URL to the next page, if any, or an empty string.
  *
- * @version TBD
+ * @version 5.3.0
  *
  */
 ?>

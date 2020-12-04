@@ -41,6 +41,23 @@
 			}
 		}
 
+		.prev,
+		.next {
+
+			&:hover,
+			&:focus,
+			&:active {
+
+				.tribe-events-c-top-bar__datepicker-nav-icon-svg path {
+					fill: var(--color-icon-active);
+				}
+			}
+
+			.tribe-events-c-top-bar__datepicker-nav-icon-svg path {
+				fill: var(--color-icon-secondary);
+			}
+		}
+
 		.dow {
 			@mixin mobile-body-3;
 		}

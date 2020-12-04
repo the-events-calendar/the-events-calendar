@@ -54,7 +54,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * Setup the view for the widget.
 	 *
 	 * @since 5.2.1
-	 * @since TBD Correct asset enqueue method.
+	 * @since 5.3.0 Correct asset enqueue method.
 	 *
 	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
 	 */
@@ -95,7 +95,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Encapsulates and handles the logic for asset enqueues in it's own method.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param \Tribe__Context $context Context we are using to build the view.
 	 * @param View_Interface  $view    Which view we are using the template on.
@@ -106,7 +106,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		/**
 		 * Run an action before we start enqueuing widget assets.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
 		 * @param \Tribe__Context $context        Context we are using to build the view.
@@ -122,7 +122,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		/**
 		 * Run an action for a specific widget before we start enqueuing widget assets.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
 		 * @param \Tribe__Context $context        Context we are using to build the view.
@@ -142,7 +142,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		/**
 		 * Run an action after we start enqueuing widget assets.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
 		 * @param \Tribe__Context $context        Context we are using to build the view.
@@ -158,7 +158,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		/**
 		 * Run an action for a specific widget after we start enqueuing widget assets.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
 		 * @param \Tribe__Context $context        Context we are using to build the view.
@@ -175,7 +175,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Enqueues the assets for widgets.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param \Tribe__Context $context Context we are using to build the view.
 	 * @param View_Interface  $view    Which view we are using the template on.
@@ -188,7 +188,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Determines whether to enqueue assets for widgets.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param \Tribe__Context $context Context we are using to build the view.
 	 * @param View_Interface  $view    Which view we are using the template on.
@@ -199,7 +199,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		/**
 		 * Allow other plugins to hook in here to alter the enqueue.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param boolean         $enqueue Should the widget assets be enqueued. Defaults to true.
 		 * @param \Tribe__Context $context Context we are using to build the view.
@@ -215,7 +215,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		/**
 		 * Allow other plugins to hook in here to alter the enqueue for a specific widget type.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param boolean         $enqueue Should the widget assets be enqueued.
 		 * @param \Tribe__Context $context Context we are using to build the view.
@@ -267,7 +267,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Returns the widget slug.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return string The widget slug.
 	 */
@@ -328,7 +328,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Handles gathering the data for admin fields.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array<string,mixed> $arguments Current set of arguments.
 	 * @param int                 $field_name    The ID of the field.
@@ -372,7 +372,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Massages the data before asking tribe_format_field_dependency() to create the dependency attributes.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array <string,mixed> $field The field info.
 	 *

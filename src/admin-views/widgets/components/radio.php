@@ -9,7 +9,7 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  * @var string $label        Label for the radio group.
  * @var string $value        Value for the radio group.
