@@ -161,8 +161,8 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * Defines custom logic for filtering events table by aggregator record.
 		 *
-		 * @param array       $clauses    SQL clauses for fetching posts.
-		 * @param WP_Query    $wp_query   A paginated query for items.
+		 * @param array    $clauses    SQL clauses for fetching posts.
+		 * @param WP_Query $wp_query   A paginated query for items.
 		 *
 		 * @return array                  Modified SQL clauses.
 		 */
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			// Check if filtering by aggregator record.
 			$record_num = intval( tribe_get_request_var( 'aggregator_record', 0 ) );
-			if ( $record_num === 0 ) {
+			if ( 0 === $record_num ) {
 				return $clauses;
 			}
 
