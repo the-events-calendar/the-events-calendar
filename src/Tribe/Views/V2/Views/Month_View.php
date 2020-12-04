@@ -303,7 +303,7 @@ class Month_View extends By_Day_View {
 		 * The URL arguments will be used to build each day "View More" link URL and, while building each day URL,
 		 * the day date will be merged with these default arguments.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param array<string,string|int|float> $default_day_url_args A default set of URL arguments that will be used to build
 		 *                                                             the View More link.

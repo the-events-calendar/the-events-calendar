@@ -2,9 +2,6 @@
 /**
  * Main Tribe Events Calendar class.
  */
-
-// Don't load directly
-
 use Tribe\DB_Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.4.0';
+		const VERSION             = '5.3.0';
 
 		/**
 		 * Min Pro Addon

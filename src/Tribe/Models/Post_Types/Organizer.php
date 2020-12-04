@@ -2,7 +2,7 @@
 /**
  * Models an Organizer.
  *
- * @since   TBD
+ * @since   5.3.0
  *
  * @package Tribe\Events\Models\Post_Types
  */
@@ -14,7 +14,7 @@ use Tribe\Models\Post_Types\Base;
 /**
  * Class Organizer
  *
- * @since   TBD
+ * @since   5.3.0
  *
  * @package Tribe\Events\Models\Post_Types
  */
@@ -23,7 +23,7 @@ class Organizer extends Base {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	protected function get_cache_slug() {
 		return 'organizers';
@@ -32,7 +32,7 @@ class Organizer extends Base {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	protected function build_properties( $filter ) {
 		try {

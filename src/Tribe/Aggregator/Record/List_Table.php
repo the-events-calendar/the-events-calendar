@@ -101,8 +101,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			// nonce check if search form submitted.
 			$nonce = isset( $_POST['s'] ) && isset( $_POST['aggregator']['nonce'] ) ? sanitize_text_field( $_POST['aggregator']['nonce'] ) :  '';
 			if ( isset( $_GET['s'] ) || wp_verify_nonce( $nonce, 'aggregator_' . $this->tab->get_slug() . '_request' ) ) {
-				$search_term        = filter_var( $search_term, FILTER_VALIDATE_URL ) 
-					? esc_url_raw( $search_term ) 
+				$search_term        = filter_var( $search_term, FILTER_VALIDATE_URL )
+					? esc_url_raw( $search_term )
 					: sanitize_text_field( $search_term );
 				$args['meta_query'] = [
 					'relation' => 'OR',
@@ -714,7 +714,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	/**
 	 * Displays the pagination.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 * @access protected
 	 *
 	 * @param string $which Equal to NULL, 'top' or 'bottom'.
@@ -751,8 +751,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 		$search_term = tribe_get_request_var( 's' );
 		if ( ! empty( $search_term ) ) {
-			$search_term = filter_var( $search_term, FILTER_VALIDATE_URL ) 
-				? esc_url_raw( $search_term ) 
+			$search_term = filter_var( $search_term, FILTER_VALIDATE_URL )
+				? esc_url_raw( $search_term )
 				: sanitize_text_field( $search_term );
 			$current_url = add_query_arg( 's', $search_term, $current_url );
 		}

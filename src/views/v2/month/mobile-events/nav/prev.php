@@ -12,7 +12,7 @@
  * @var string $link The URL to the previous page, if any, or an empty string.
  * @var string $label The label for the previous link.
  *
- * @version TBD
+ * @version 5.3.0
  *
  */
 ?>
