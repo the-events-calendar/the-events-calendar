@@ -222,11 +222,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.0] 2020-12-02 =
+= [TBD] TBD =
 
 * Fix - Compatibility for some theme menus that no longer displayed when an event is password protected. [TEC-2968]
 
-= [TBD] TBD =
+= [5.3.0] 2020-12-02 =
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
 * Feature - Event Aggregator Batch Pushing for Cron Imports [EA-297]
