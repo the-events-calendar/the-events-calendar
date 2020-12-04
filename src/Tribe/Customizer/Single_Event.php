@@ -81,9 +81,8 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 
 	public function setup() {
 		$this->defaults = array(
-			'post_title_color'     => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
-			'post_date_time_color' => '#141827',
-			'details_bg_color'     => '#e5e5e5',
+			'post_title_color' => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
+			'details_bg_color' => '#e5e5e5',
 		);
 
 		$description = tribe_events_views_v2_is_enabled()

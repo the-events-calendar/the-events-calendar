@@ -20,21 +20,6 @@ use \WP_Customize_Color_Control as Color_Control;
  */
 class Customizer {
 	/**
-	 * Filters the currently registered Customizer sections to add or modify them.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string,array<string,array<string,int|float|string>>> $sections   The registered Customizer sections.
-	 * @param \Tribe__Customizer                                         $customizer The Customizer object.
-	 *
-	 * @return array<string,array<string,array<string,int|float|string>>> The filtered sections.
-	 */
-	public function filter_sections( array $sections, $customizer ) {
-		// TODO Filter the sections.
-		return $sections;
-	}
-
-	/**
 	 * Adds new settings/controls via the hook in common.
 	 *
 	 * @since TBD
@@ -123,7 +108,6 @@ class Customizer {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'background_color', $section ),
 			[
-				'default'              => '#fff',
 				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -148,7 +132,6 @@ class Customizer {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
 			[
-				'default'              => '#334aff',
 				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -609,32 +592,6 @@ class Customizer {
 			$css_template .= '
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-day__event-datetime-featured-text {
 					color: <%= global_elements.accent_color %>;
-				}
-			';
-		}
-
-		return $css_template;
-	}
-
-	/**
-	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
-	 *
-	 * @since TBD
-	 *
-	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
-	 * @param \Tribe__Customizer__Section $section      The Single Event section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
-	 *
-	 * @return string The filtered CSS template.
-	 */
-	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
-		$settings = $customizer->get_option( [ $section->ID ] );
-
-		if ( $customizer->has_option( $section->ID, 'post_date_time_color' ) ) {
-			// Single Event Date Time overrides.
-			$css_template .= '
-				.tribe-events-schedule h2 {
-					color: <%= single_event.post_date_time_color %>;
 				}
 			';
 		}
