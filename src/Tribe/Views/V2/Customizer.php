@@ -123,8 +123,8 @@ class Customizer {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'background_color', $section ),
 			[
-				'default' => '#fff',
-				'type'    => 'option',
+				'default'              => '#fff',
+				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
