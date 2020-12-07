@@ -29,8 +29,6 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  # Install version 1 of Composer.
-  - composer self-update --rollback
   # Sourcing the .env file will make sure we use, in the environment configuration, the same variables the tests are using.
   - set -o allexport; source .env; set +o allexport;
 
@@ -48,6 +46,9 @@ before_install:
 install:
   # Disable XDebug to speed up the tests.
   - phpenv config-rm xdebug.ini
+
+  # Roll-back Composer to version 1.
+  - composer self-update --1 || true
 
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
   - composer install
