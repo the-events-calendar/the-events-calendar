@@ -359,6 +359,15 @@ class Url {
 			$a_args = array_diff_key( $a_args, array_combine( $ignore, $ignore ) );
 			$b_args = array_diff_key( $b_args, array_combine( $ignore, $ignore ) );
 
+			// "Fix" the `eventDisplay` query argument transforming `default` to the actual default view slug.
+			$default_view_slug = tribe_get_option( 'viewOption', 'default' );
+			if ( isset( $a_args['eventDisplay'] ) && $a_args['eventDisplay'] === 'default' ) {
+				$a_args['eventDisplay'] = $default_view_slug;
+			}
+			if ( isset( $b_args['eventDisplay'] ) && $b_args['eventDisplay'] === 'default' ) {
+				$b_args['eventDisplay'] = 'list';
+			}
+
 			// Query vars might just be ordered differently, so we sort them.
 			ksort( $a_args );
 			ksort( $b_args );
