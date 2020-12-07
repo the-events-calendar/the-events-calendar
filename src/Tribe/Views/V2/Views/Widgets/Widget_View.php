@@ -7,8 +7,8 @@
  */
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
-use Tribe__Context as Context;
 
+use Tribe__Context as Context;
 use Tribe\Events\Views\V2\View;
 
 /**
@@ -69,11 +69,10 @@ class Widget_View extends View {
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
-	 * @return array The arguments, ready to be set on the View repository instance.
+	 * @return array<string,mixed> The arguments, ready to be set on the View repository instance.
 	 */
 	protected function setup_repository_args( Context $context = null ) {
 		$context     = null !== $context ? $context : $this->context;
-		$context_arr = $context->to_array();
 		$args        = parent::setup_repository_args( $context );
 
 		/**
@@ -83,7 +82,7 @@ class Widget_View extends View {
 		 * @param array<string,mixed> $args        The arguments, ready to be set on the View repository instance.
 		 * @param array<string,mixed> $context_arr The context to use to setup the args,in array format.
 		 */
-		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_repository_args", $args, $context_arr );
+		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_repository_args", $args, $context );
 
 		return $args;
 	}
