@@ -79,8 +79,8 @@ class Widget_View extends View {
 		 * A widget-specific filter for repository args, based on widget slug.
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
-		 * @param array<string,mixed> $args        The arguments, ready to be set on the View repository instance.
-		 * @param array<string,mixed> $context_arr The context to use to setup the args,in array format.
+		 * @param array<string,mixed> $args    The arguments, ready to be set on the View repository instance.
+		 * @param Tribe_Context       $context The context to use to setup the args.
 		 */
 		$args = apply_filters( "tribe_events_views_v2_widget_repository_args", $args, $context );
 
@@ -88,8 +88,8 @@ class Widget_View extends View {
 		 * A widget-specific filter for repository args, based on widget slug.
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
-		 * @param array<string,mixed> $args        The arguments, ready to be set on the View repository instance.
-		 * @param array<string,mixed> $context_arr The context to use to setup the args,in array format.
+		 * @param array<string,mixed> $args    The arguments, ready to be set on the View repository instance.
+		 * @param Tribe_Context       $context The context to use to setup the args.
 		 */
 		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context );
 
