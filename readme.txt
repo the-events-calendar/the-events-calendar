@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add customizer support for custom location pins on single events when Views V2 is active. [TEC-3276]
+
 = [5.3.0] 2020-12-02 =
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
