@@ -173,7 +173,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			// Check if filtering by aggregator record.
-			$record_num = intval( tribe_get_request_var( 'aggregator_record', 0 ) );
+			$record_num = (int)tribe_get_request_var( 'aggregator_record', 0 );
 			if ( 0 === $record_num ) {
 				return $clauses;
 			}
