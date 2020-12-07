@@ -47,6 +47,9 @@ install:
   # Disable XDebug to speed up the tests.
   - phpenv config-rm xdebug.ini
 
+  # Roll-back Composer to version 1.
+  - composer self-update --1 || true
+
   # The installation will include wp-cli as well as it's a requirement of wp-browser.
   - composer install
 

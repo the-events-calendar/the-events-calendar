@@ -122,9 +122,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Customizer.
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
-		add_filter( 'tribe_customizer_pre_sections', [ $this, 'filter_customizer_sections' ], 20, 2 );
 		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
-		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
 	}
 
 	/**
@@ -861,24 +859,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function print_inline_styles_in_footer() {
 		return 'wp_print_footer_scripts';
-	}
-
-	/**
-	 * Filters the currently registered Customizer sections to add or modify them.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string,array<string,array<string,int|float|string>>> $sections The registered Customizer sections.
-	 * @param \Tribe___Customizer $customizer The Customizer object.
-	 *
-	 * @return array<string,array<string,array<string,int|float|string>>> The filtered sections.
-	 */
-	public function filter_customizer_sections( $sections, $customizer ) {
-		if ( ! ( is_array( $sections ) && $customizer instanceof \Tribe__Customizer ) ) {
-			return $sections;
-		}
-
-		return $this->container->make( Customizer::class )->filter_sections( $sections, $customizer );
 	}
 
 	/**
