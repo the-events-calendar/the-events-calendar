@@ -434,8 +434,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @uses wp_get_object_terms()
 	 */
 	function tribe_get_event_cat_slugs( $post_id = 0 ) {
-		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
-		$slugs   = wp_list_pluck( (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY ), 'slug' );
+		$post_id      = Tribe__Events__Main::postIdHelper( $post_id );
+		$slugs = wp_list_pluck( array_filter(
+			(array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY ),
+			static function ( $term ) {
+				return $term instanceof WP_Term;
+			}
+		), 'slug' );
 
 		return apply_filters( 'tribe_get_event_cat_slugs', $slugs, $post_id );
 	}
