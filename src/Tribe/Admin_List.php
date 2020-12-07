@@ -161,7 +161,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * Defines custom logic for filtering events table by aggregator record.
 		 *
-		 * @param array    $clauses    SQL clauses for fetching posts.
+		 * @param array<string>    $clauses    SQL clauses for fetching posts.
 		 * @param WP_Query $wp_query   A paginated query for items.
 		 *
 		 * @return array<string>                  Modified SQL clauses.
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			global $wpdb;
 
 			// Add the record meta query if it is missing.
-			if ( ! preg_match( '/tribe_aggregator_record/', $clauses['join'] ) ) {
+			if ( ! preg_match( '/\\stribe_aggregator_record\\s/', $clauses['join'] ) ) {
 				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_aggregator_record ON {$wpdb->posts}.ID = tribe_aggregator_record.post_id AND tribe_aggregator_record.meta_key = '_tribe_aggregator_parent_record' ";
 			}
 
