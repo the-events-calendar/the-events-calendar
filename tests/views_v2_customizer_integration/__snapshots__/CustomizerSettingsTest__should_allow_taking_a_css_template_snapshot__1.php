@@ -1,5 +1,15 @@
 <?php return array (
-  'tribe-events-views-v2-full' => '.tribe-common .tribe-common-form-control-toggle__input:checked {
+  'tribe-events-views-v2-full' => '.tribe-events-single-event-description a,
+				.tribe-events-event-url a,
+				.tribe-venue-url a,
+				.tribe-organizer-url a,
+				.tribe-block__organizer__website a,
+				.tribe-block__venue__website a,
+				.tribe_events p a {
+					color: #238923;
+				}
+			
+				.tribe-common .tribe-common-form-control-toggle__input:checked {
 					background-color: #238923;
 				}
 			
@@ -212,19 +222,6 @@
 				}
 			
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-day__event-datetime-featured-text {
-					color: #238923;
-				}
-			
-				.tribe-events-single-event-description a,
-				.tribe-events-event-url a,
-				.tribe-venue-url a,
-				.tribe-organizer-url a,
-
-				.tribe-events-pro .tribe-events-pro-organizer__meta-website a,
-				.tribe-block__organizer__website a,
-				.tribe-events-pro .tribe-events-pro-venue__meta-website a,
-				.tribe-block__venue__website a,
-				.tribe_events p a {
 					color: #238923;
 				}',
 );
