@@ -163,10 +163,10 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * Defines custom logic for filtering events table by aggregator record.
 		 *
-		 * @param array<string>    $clauses    SQL clauses for fetching posts.
-		 * @param WP_Query $wp_query   A paginated query for items.
+		 * @param array<string> $clauses    SQL clauses for fetching posts.
+		 * @param WP_Query      $wp_query   A paginated query for items.
 		 *
-		 * @return array<string>                  Modified SQL clauses.
+		 * @return array<string>            Modified SQL clauses.
 		 */
 		public static function filter_by_aggregator_record( array $clauses, WP_Query $wp_query ) {
 			// Check for event post type.
