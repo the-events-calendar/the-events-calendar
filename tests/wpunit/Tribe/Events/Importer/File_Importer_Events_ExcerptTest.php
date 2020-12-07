@@ -3,10 +3,6 @@ namespace Tribe\Events\Importer;
 
 require_once 'File_Importer_EventsTest.php';
 
-use Handlebars\Handlebars;
-use Handlebars\Loader\FilesystemLoader;
-use org\bovigo\vfs\vfsStream;
-
 class File_Importer_Events_ExcerptTest extends File_Importer_EventsTest {
 
 
