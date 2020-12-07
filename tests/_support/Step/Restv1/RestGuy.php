@@ -50,7 +50,10 @@ class RestGuy extends \Restv1Tester {
 		foreach ( $components as $key => $value ) {
 			$this->assertArrayHasKey( $key, $response_components );
 			if ( $key === 'query' ) {
-				$this->assertEquals( parse_str( $response_components[ $key ] ), parse_str( $value ) );
+				parse_str( $response_components[ $key ], $actual );
+				parse_str( $value, $expected );
+				// Do a partial match, we expect the actual response to contain all the expected query components.
+				$this->assertEquals( $expected, array_intersect_key( $expected, $actual ) );
 			} else {
 				$this->assertEquals( $response_components[ $key ], $value );
 			}
