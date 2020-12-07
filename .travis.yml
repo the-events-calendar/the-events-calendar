@@ -4,6 +4,7 @@ language: php
 
 notifications:
   email: false
+
 branches:
   except:
     # Temp fix, exclude `release/B20.12` branch from Travis CI automated builds.
