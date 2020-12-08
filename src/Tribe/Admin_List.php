@@ -175,18 +175,18 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			// Check if filtering by aggregator record.
-			$record_num = (int) tribe_get_request_var( 'aggregator_record', 0 );
-			if ( 0 === $record_num ) {
+			$parent_record_id = (int) tribe_get_request_var( 'aggregator_record', 0 );
+			if ( 0 === $parent_record_id ) {
 				return $clauses;
 			}
 
 			global $wpdb;
 
-            $child_args = array(
-                'post_type'   => TEC_AR::$post_type,
-                'post_parent' => $record_num,
-            );
-            $child_ids = implode( ",", array_keys( get_children( $child_args, ARRAY_A ) ) );
+            		$child_args = array(
+                		'post_type'   => TEC_AR::$post_type,
+                		'post_parent' => $parent_record_id,
+            		);
+            		$child_ids = implode( ",", array_keys( get_children( $child_args, ARRAY_A ) ) );
 
 			$table_alias = 'ea_record_' . substr( uniqid( 'ea_record', true ), 0, 10 );
 			// Add the record meta query if it is missing.
