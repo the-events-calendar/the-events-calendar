@@ -83,6 +83,7 @@ class Event {
 			}
 
 			if ( $this->template_bootstrap->is_single_event() ) {
+				add_filter( 'the_title', '__return_empty_string' );
 				add_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
 			}
 
