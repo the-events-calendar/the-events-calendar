@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Aggregator__Records as TEC_AR;
 
 if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 	class Tribe__Events__Admin_List {
