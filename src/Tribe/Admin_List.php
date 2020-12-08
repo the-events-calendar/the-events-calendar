@@ -181,16 +181,22 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			global $wpdb;
-			
+
+            $child_args = array(
+                'post_type'   => TEC_AR::$post_type,
+                'post_parent' => $record_num,
+            );
+            $child_ids = implode( ",", array_keys( get_children( $child_args, ARRAY_A ) ) );
+
 			$table_alias = 'ea_record_' . substr( uniqid( 'ea_record', true ), 0, 10 );
 			// Add the record meta query if it is missing.
 			if ( ! preg_match( '/\\s' . preg_quote( $table_alias, '/' ) . '\\s/', $clauses['join'] ) ) {
-				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS {$table_alias} ON {$wpdb->posts}.ID = {$table_alias}.post_id AND {$table_alias}.meta_key = '_tribe_aggregator_parent_record' ";
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS {$table_alias} ON {$wpdb->posts}.ID = {$table_alias}.post_id AND {$table_alias}.meta_key = '_tribe_aggregator_record' ";
 			}
 
 			// Add the record meta filter if it is missing.
 			if ( ! preg_match( '/\\s' . preg_quote( $table_alias , '/' ) . '\\s/', $clauses['where'] ) ) {
-				$clauses['where'] .= " AND {$table_alias}.meta_value = '{$record_num}' ";
+				$clauses['where'] .= " AND {$table_alias}.meta_value IN ({$child_ids}) ";
 			}
 
 			return $clauses;
