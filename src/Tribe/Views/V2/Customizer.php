@@ -69,7 +69,7 @@ class Customizer {
 				$customizer->get_setting_name( 'event_date_time_color', $section ),
 				[
 					'label'       => esc_html__( 'Event Date and Time', 'the-events-calendar' ),
-					'description' => esc_html__( 'Main date and time display on views and single event pages.', 'the-events-calendar' ),
+					'description' => esc_html__( 'Main date and time display on views and single event pages', 'the-events-calendar' ),
 					'section'     => $section->id,
 					'priority'    => 8,
 				]
@@ -94,7 +94,7 @@ class Customizer {
 				[
 					'label'       => 'Background Color',
 					'section'     => $section->id,
-					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
+					'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
 					'type'        => 'radio',
 					'priority'    => 12,
 					'choices'     => [
