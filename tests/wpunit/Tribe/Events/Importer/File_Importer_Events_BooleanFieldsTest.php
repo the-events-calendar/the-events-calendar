@@ -2,10 +2,6 @@
 namespace Tribe\Events\Importer;
 require_once 'File_Importer_EventsTest.php';
 
-use Handlebars\Handlebars;
-use Handlebars\Loader\FilesystemLoader;
-use org\bovigo\vfs\vfsStream;
-
 class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 
 	public function boolean_fields() {
@@ -20,7 +16,7 @@ class File_Importer_Events_BooleanFieldsTest extends File_Importer_EventsTest {
 
 	}
 
-	/**z    
+	/**z
 	 * @test
 	 * it should not mark record as invalid if boolean field is missing
 	 * @dataProvider boolean_fields
