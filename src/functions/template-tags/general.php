@@ -421,8 +421,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_event_cat_ids( $post_id = 0 ) {
 		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
+		$terms   = array_filter( (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY ) );
 
-		return wp_list_pluck( (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY ), 'term_id' );
+		return wp_list_pluck( $terms, 'term_id' );
 	}
 
 	/**
@@ -435,7 +436,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_event_cat_slugs( $post_id = 0 ) {
 		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
-		$slugs   = wp_list_pluck( (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY ), 'slug' );
+		$terms   = array_filter( (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY ) );
+		$slugs   = wp_list_pluck( $terms, 'slug' );
 
 		return apply_filters( 'tribe_get_event_cat_slugs', $slugs, $post_id );
 	}
