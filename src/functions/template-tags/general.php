@@ -437,12 +437,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_event_cat_slugs( $post_id = 0 ) {
 		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
 		$terms   = (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
-    $terms   = array_filter(
-      $terms,
-      static function ( $term ) {
+	    $terms   = array_filter(
+			$terms,
+			static function ( $term ) {
 				return $term instanceof WP_Term;
-		  }
-    );
+			}
+	    );
 		$slugs   = wp_list_pluck( $terms, 'slug' );
 
 		return apply_filters( 'tribe_get_event_cat_slugs', $slugs, $post_id );
