@@ -183,12 +183,6 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			global $wpdb;
 
-            		$child_args = array(
-                		'post_type'   => TEC_AR::$post_type,
-                		'post_parent' => $parent_record_id,
-            		);
-            		$child_ids = implode( ",", array_keys( get_children( $child_args, ARRAY_A ) ) );
-
 			$table_alias = 'ea_record_' . substr( uniqid( 'ea_record', true ), 0, 10 );
 			// Add the record meta query if it is missing.
 			if ( ! preg_match( '/\\s' . preg_quote( $table_alias, '/' ) . '\\s/', $clauses['join'] ) ) {
@@ -197,7 +191,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			// Add the record meta filter if it is missing.
 			if ( ! preg_match( '/\\s' . preg_quote( $table_alias , '/' ) . '\\s/', $clauses['where'] ) ) {
-				$clauses['where'] .= " AND {$table_alias}.meta_value IN ({$child_ids}) ";
+				$clauses['where'] .= " AND {$table_alias}.meta_value IN ( SELECT {$wpdb->posts}.ID FROM {$wpdb->posts} WHERE {$wpdb->posts}.post_parent = {$parent_record_id} ) ";
 			}
 
 			return $clauses;
