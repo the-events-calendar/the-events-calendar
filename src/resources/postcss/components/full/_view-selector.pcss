@@ -211,4 +211,26 @@
 	.tribe-events-c-view-selector__list-item-text {
 		@mixin desktop-body-2;
 	}
+	
+	/* -----------------------------------------------------------------------------
+	 *
+	 * View Selector: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ----------------------------------------------------------------------------- */
+	 
+	.tribe-theme-twentyseventeen.colors-dark & {
+		
+		.tribe-events-c-view-selector__button {
+			
+			&,
+			&:hover,
+			&:focus {
+				background-color: transparent;
+			}
+		}
+	}
 }

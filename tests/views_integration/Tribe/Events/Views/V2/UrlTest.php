@@ -204,4 +204,20 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 	public function should_correctly_spot_different_requests( $url_a, $url_b, $is_diff, $ignore = [] ) {
 		$this->assertEquals( $is_diff, URL::is_diff( $url_a, $url_b, $ignore ) );
 	}
+
+	/**
+	 * It should correctly handle diffing pagination from default view to next page
+	 *
+	 * @test
+	 */
+	public function should_correctly_handle_diffing_pagination_from_default_view_to_next_page() {
+		tribe_update_option('viewOption','list');
+		$this->assertFalse(
+			URL::is_diff(
+				home_url( '/events/' ),
+				home_url( '/events/list/page/2/' ),
+				[ 'page', 'paged' ]
+			)
+		);
+	}
 }

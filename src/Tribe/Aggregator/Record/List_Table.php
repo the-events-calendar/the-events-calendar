@@ -513,6 +513,15 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 		}
 
 		$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $source_info['via']  . '</strong></p>';
+
+		$html[] = '<div class="tribe-view-links-container" style="display:flex; flex-direction:row">';
+		if ( 'scheduled' === $this->tab->get_slug() ) {
+			$filter_link = admin_url( "edit.php?post_type=tribe_events&aggregator_record={$record->id}" );
+			$html[]      = '<div class="tribe-view-events-container">';
+			$html[]      = '<a href="' . esc_url( $filter_link ) . '" class="tribe-view-events">' . esc_html__( 'View Events', 'the-events-calendar' ) . '</a>';
+			$html[]      = '</div>';
+		}
+
 		if (
 			! empty( $record->meta['keywords'] )
 			|| ! empty( $record->meta['start'] )
@@ -520,6 +529,9 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			|| ! empty( $record->meta['radius'] )
 		) {
 			$html[] = '<div class="tribe-view-filters-container">';
+			if ( 'scheduled' === $this->tab->get_slug() ) {
+				$html[] = '&nbsp;|&nbsp;';
+			}
 			$html[] = '<a href="" class="tribe-view-filters">' . esc_html__( 'View Filters', 'the-events-calendar' ) . '</a>';
 			$html[] = '<dl class="tribe-filters">';
 
@@ -546,6 +558,8 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 
 			$html[] = '</dl></div>';
 		}
+
+		$html[] = '</div>';
 
 		/**
 		 * Customize the Events > Import > History > Source column HTML.

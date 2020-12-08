@@ -21,7 +21,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
-    "lucatume/wp-browser": "^2.2.37",
+    "lucatume/wp-browser": "^2.6.17",
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
     "moderntribe/tribalscents": "dev-master",
@@ -30,7 +30,6 @@
     "scotteh/php-dom-wrapper": "0.7.3",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "wp-coding-standards/wpcs": "^2.1",
-    "xamin/handlebars.php": "^0.10.3",
     "vlucas/phpdotenv": "^4.1"
   },
   "minimum-stability": "stable",

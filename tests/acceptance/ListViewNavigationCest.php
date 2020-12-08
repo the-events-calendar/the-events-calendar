@@ -2,6 +2,7 @@
 class ListViewNavigationCest {
 	public function _before( AcceptanceTester $I ) {
 		$I->haveOptionInDatabase( 'permalink_structure', '/%postname%/' );
+		$I->setTribeOption( 'views_v2_enabled', false );
 		$I->setTribeOption( 'postsPerPage', 1 );
 	}
 
