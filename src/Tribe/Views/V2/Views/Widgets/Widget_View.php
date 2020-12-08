@@ -3,7 +3,7 @@
  * The Base Front End Widget View.
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
- * @since TBD
+ * @since 5.3.0
  */
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
@@ -49,7 +49,7 @@ class Widget_View extends View {
 	/**
 	 * Overrides the base View method.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return array<string,mixed> The Widget View template vars, modified if required.
 	 */
@@ -70,7 +70,7 @@ class Widget_View extends View {
 		/**
 		 * Filters the HTML classes applied to a widget top-level container.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param array  $html_classes Array of classes used for this widget.
 		 * @param string $view_slug    The current widget slug.
@@ -81,7 +81,7 @@ class Widget_View extends View {
 		/**
 		 * Filters the HTML classes applied to a specific widget top-level container.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param array $html_classes Array of classes used for this widget.
 		 * @param View  $instance     The current View object.
@@ -94,7 +94,7 @@ class Widget_View extends View {
 	/**
 	 * Modify the setup the loop method to only set the repository arguments.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array|null $args An array of associative arguments used to setup the repository for the View.
 	 */

@@ -56,7 +56,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling for compatibility hooks.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	protected function register_compatibility() {
 		$compatiblity = new Compatibility();
@@ -112,7 +112,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Unregister the existing List Widget.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	public function unregister_list_widget() {
 		unregister_widget( 'Tribe__Events__List_Widget' );
@@ -121,7 +121,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the template vars for widget-specific items.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
 	 *

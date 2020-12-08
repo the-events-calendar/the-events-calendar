@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  * @var array  $messges     An array of user-facing messages, managed by the View.
  * @var string $wp_version  Global WP version.

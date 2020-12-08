@@ -42,7 +42,7 @@ class Tribe__Events__Event_Cleaner {
 	 * @param array<string,mixed>|null $new_value The old value of the `tribe_events_calendar_options` option.
 	 *
 	 * @since 4.6.13
-	 * @since TBD Loosen the type-checking to avoid errors during option updates.
+	 * @since 5.3.0 Loosen the type-checking to avoid errors during option updates.
 	 */
 	public function move_old_events_to_trash( $old_value = [], $new_value = [] ) {
 		$old_value = (array) $old_value;

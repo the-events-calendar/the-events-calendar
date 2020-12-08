@@ -403,7 +403,7 @@ class Tribe__Events__Aggregator__Cron {
 	 * Start the processing of the scheduled imports created with batch pushing the cron job would select and start
 	 * the beginning of the batch delivery.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 */
 	public function start_batch_pushing_records() {
 		if ( ! tribe( 'events-aggregator.main' )->is_service_active() ) {
@@ -452,7 +452,7 @@ class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Get the first set of pending schedule records to be processed for batch pushing.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return WP_Query The result of the Query.
 	 */

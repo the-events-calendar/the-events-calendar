@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  */
 
  $this->template( 'components/icons/messages-not-found', [ 'classes' => [ 'tribe-events-c-messages__message-icon-svg' ] ] );

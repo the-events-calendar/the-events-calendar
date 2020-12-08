@@ -225,7 +225,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	/**
 	 * Get the data that is used to construct the current status of the EA progress bar.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @return array<string, mixed> An array with the details of the progress bar.
 	 */
@@ -261,7 +261,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	/**
 	 * Get the current Queue status for EA to consume the status of the progress bar.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param Tribe__Events__Aggregator__Record__Queue_Interface $queue      The Queue being processed.
 	 * @param int                                                $percentage The amount of the percentage.

@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb,bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, peterchester, paulskim, reid.peifer, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
@@ -26,7 +26,7 @@ See the calendar in action on our [demo experience](https://m.tri.be/1ajs). Just
 
 Looking for additional features like recurring events, ticket sales, user-submitted events, automatic imports, and more?
 
-<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong>
+<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong> ...and all of them are on sale from November 23-30 during our annual 💰[Black Friday Sale](https://m.tri.be/1aod)💰
 
 = 🔌🎨 Plug and Play or Customize =
 

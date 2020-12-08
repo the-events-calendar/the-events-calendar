@@ -548,7 +548,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Fetches and returns a decorated post object representing a Organizer.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param null|int|WP_Post $organizer  The organizer ID or post object or `null` to use the global one.
 	 * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
@@ -572,7 +572,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Returning a non `null` value here will short-circuit the function and return the value.
 		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param mixed       $return      The organizer object to return.
 		 * @param mixed       $organizer       The organizer object to fetch.
@@ -609,7 +609,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * If you need to filter the output value on each call of this function then use the `tribe_get_organizer_object_before`
 			 * filter.
 			 *
-			 * @since TBD
+			 * @since 5.3.0
 			 *
 			 * @param WP_Post $post   The organizer post object, decorated with a set of custom properties.
 			 * @param string  $output The output format to use.

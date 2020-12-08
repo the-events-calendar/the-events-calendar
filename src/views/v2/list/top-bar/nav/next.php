@@ -11,7 +11,7 @@
  *
  * @var string $next_url The URL to the next page, if any, or an empty string.
  *
- * @version TBD
+ * @version 5.3.0
  *
  */
 $label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() );

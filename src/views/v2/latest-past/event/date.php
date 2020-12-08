@@ -16,7 +16,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  *
- * @version TBD
+ * @version 5.3.0
  */
 use Tribe__Date_Utils as Dates;
 
