@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe__Events__Main as TEC;
+
 if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 	class Tribe__Events__Admin_List {
 		protected static $start_col_active = true;
@@ -21,6 +23,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		public static function init() {
 			if ( is_admin() ) {
 				if ( ! tribe( 'context' )->doing_ajax() ) {
+					// Logic for filtering events by aggregator record.
+					add_filter( 'posts_clauses', [ __CLASS__, 'filter_by_aggregator_record' ], 9, 2 );
+
 					// Logic for sorting events by event category or tags
 					add_filter( 'posts_clauses', [ __CLASS__, 'sort_by_tax' ], 10, 2 );
 
@@ -151,6 +156,42 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 			$clauses['orderby'] = $revised_orderby;
+
+			return $clauses;
+		}
+
+		/**
+		 * Defines custom logic for filtering events table by aggregator record.
+		 *
+		 * @param array<string> $clauses    SQL clauses for fetching posts.
+		 * @param WP_Query      $wp_query   A paginated query for items.
+		 *
+		 * @return array<string>            Modified SQL clauses.
+		 */
+		public static function filter_by_aggregator_record( array $clauses, WP_Query $wp_query ) {
+			// Check for event post type.
+			if ( $wp_query->get( 'post_type' ) !== TEC::POSTTYPE ) {
+				return $clauses;
+			}
+
+			// Check if filtering by aggregator record.
+			$record_num = (int) tribe_get_request_var( 'aggregator_record', 0 );
+			if ( 0 === $record_num ) {
+				return $clauses;
+			}
+
+			global $wpdb;
+			
+			$table_alias = 'ea_record_' . substr( uniqid( 'ea_record', true ), 0, 10 );
+			// Add the record meta query if it is missing.
+			if ( ! preg_match( '/\\s' . preg_quote( $table_alias, '/' ) . '\\s/', $clauses['join'] ) ) {
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS {$table_alias} ON {$wpdb->posts}.ID = {$table_alias}.post_id AND {$table_alias}.meta_key = '_tribe_aggregator_parent_record' ";
+			}
+
+			// Add the record meta filter if it is missing.
+			if ( ! preg_match( '/\\s' . preg_quote( $table_alias , '/' ) . '\\s/', $clauses['where'] ) ) {
+				$clauses['where'] .= " AND {$table_alias}.meta_value = '{$record_num}' ";
+			}
 
 			return $clauses;
 		}
