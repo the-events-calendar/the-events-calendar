@@ -6,8 +6,11 @@
 
 .tribe-events {
 
-	.tribe-events-c-events-bar {
-		background-color: var(--color-background);
+	.tribe-events-header--has-event-search .tribe-events-c-events-bar {
+		
+		.tribe-common--breakpoint-medium& {
+			background-color: var(--color-background);
+		}
 	}
 
 	.tribe-events-c-events-bar--border {
@@ -18,6 +21,7 @@
 	}
 
 	.tribe-events-c-events-bar__search-button {
+		display: flex;
 
 		&:hover,
 		&:focus {
@@ -57,5 +61,20 @@
 	 * Events Bar: Theme Overrides
 	 *
 	 * ----------------------------------------------------------------------------- */
-
+	
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ----------------------------------------------------------------------------- */
+	 
+	.tribe-theme-twentyseventeen.colors-dark & {
+		
+		.tribe-events-c-events-bar__search-button {
+			
+			&,
+			&:hover,
+			&:focus {
+				background-color: transparent;
+			}
+		}
+	}
 }
