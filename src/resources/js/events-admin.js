@@ -591,14 +591,14 @@ jQuery( document ).ready( function( $ ) {
 			}
 		} );
 
-		$start_end_month.change();
+		$start_end_month.trigger( 'change' );
 
 		$( 'select[name="EventStartYear"]' ).change( function() {
-			$start_month.change();
+			$start_month.trigger( 'change' );
 		} );
 
 		$( 'select[name="EventEndYear"]' ).change( function() {
-			$end_month.change();
+			$end_month.trigger( 'change' );
 		} );
 
 		for ( var i in tribe_events_linked_posts.post_types ) {
