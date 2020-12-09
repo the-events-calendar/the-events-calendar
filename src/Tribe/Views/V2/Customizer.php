@@ -20,7 +20,7 @@ use \WP_Customize_Color_Control as Color_Control;
  */
 class Customizer {
 	/**
-	 * Adds new settings/controls via the hook in common.
+	 * Adds new settings/controls to the Global Elements section via the hook in common.
 	 *
 	 * @since TBD
 	 *
@@ -45,7 +45,7 @@ class Customizer {
 				$manager,
 				$customizer->get_setting_name( 'event_title_color', $section ),
 				[
-					'label'    => esc_html__( 'Event Title', 'the-events-calendar' ),
+					'label'    => esc_html__( 'Event Title G', 'the-events-calendar' ),
 					'section'  => $section->id,
 					'priority' => 8,
 				]
@@ -136,6 +136,75 @@ class Customizer {
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
+		);
+	}
+
+	/**
+	 * Adds new settings/controls to the Single Events section via the hook in common.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Single Events Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
+	public function include_single_event_settings( $section, $manager, $customizer ) {
+		// Remove the old setting/control to refactor.
+		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ), );
+		$manager->remove_control( $customizer->get_setting_name( 'post_title_color', $section ) );
+
+		// Register new control with option.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'post_title_color_choice', $section ),
+			[
+				'default'              => 'general',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			]
+		);
+
+		$manager->add_control(
+			new Control(
+				$manager,
+				$customizer->get_setting_name( 'post_title_color_choice', $section ),
+				[
+					'label'       => esc_html__( 'Event Title Color', 'the-events-calendar' ),
+					'section'     => $section->id,
+					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
+					'type'        => 'radio',
+					'priority'    => 5,
+					'choices'     => [
+						'general' => esc_html__( 'Use General', 'the-events-calendar' ),
+						'custom'  => esc_html__( 'Custom', 'the-events-calendar' ),
+					],
+				]
+			)
+		);
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'post_title_color', $section ),
+			[
+				'default'              => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'post_title_color', $section ),
+				[
+					'label'   => esc_html__( 'Custom Color', 'the-events-calendar' ),
+					'section' => $section->id,
+					'priority'        => 6,
+					'active_callback' => function ( $control ) use ( $customizer, $section ) {
+						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'post_title_color_choice', $section ) )->value();
+					},
+				]
+			)
 		);
 	}
 
@@ -592,6 +661,33 @@ class Customizer {
 			$css_template .= '
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-day__event-datetime-featured-text {
 					color: <%= global_elements.accent_color %>;
+				}
+			';
+		}
+
+		return $css_template;
+	}
+
+	/**
+	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string                      $css_template The CSS template, as produced by the Single Event.
+	 * @param \Tribe__Customizer__Section $section      The Single Event section.
+	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 *
+	 * @return string The filtered CSS template.
+	 */
+	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+		if (
+			$customizer->has_option( $section->ID, 'post_title_color_choice' )
+			&& 'custom' === $customizer->get_option( [ $section->ID, 'post_title_color_choice' ] )
+			&& $customizer->has_option( $section->ID, 'post_title_color' )
+		) {
+			$css_template .= '
+				.single-tribe_events .tribe-events-single-event-title {
+					color: <%= single_event.post_title_color %>;
 				}
 			';
 		}
