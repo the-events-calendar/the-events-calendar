@@ -1,10 +1,9 @@
 <?php
 namespace Tribe\Events\Importer;
 
-use Handlebars\Handlebars;
-use Handlebars\Loader\FilesystemLoader;
 use org\bovigo\vfs\vfsStream;
 use Tribe__Events__Importer__File_Importer_Organizers as Organizers_Importer;
+use function tad\WPBrowser\renderString;
 
 class File_Importer_OrganizersTest extends \Codeception\TestCase\WPTestCase {
 
@@ -19,11 +18,6 @@ class File_Importer_OrganizersTest extends \Codeception\TestCase\WPTestCase {
 	 * @var \Tribe__Events__Importer__File_Reader
 	 */
 	protected $file_reader;
-
-	/**
-	 * @var Handlebars
-	 */
-	protected $handlebars;
 
 	/**
 	 * @var array
@@ -50,7 +44,6 @@ class File_Importer_OrganizersTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 
 		// your set up methods here
-		$this->handlebars              = new Handlebars();
 		$this->featured_image_uploader = $this->prophesize( 'Tribe__Events__Importer__Featured_Image_Uploader' );
 	}
 
@@ -85,8 +78,16 @@ class File_Importer_OrganizersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected function setup_file( $template_dir ) {
 		if ( ! empty( $template_dir ) ) {
-			$this->handlebars->setLoader( new FilesystemLoader( codecept_data_dir( 'csv-import-test-files/' . $template_dir ) ) );
-			$this->rendered_file_contents = $this->handlebars->loadTemplate( $this->template )->render( $this->data );
+			$template_dir           = trim( $template_dir, '\\/' );
+			$template_name          = trim( $this->template, '\\/' );
+			$template_file          = codecept_data_dir( "csv-import-test-files/{$template_dir}/{$template_name}.handlebars" );
+			$template_file_contents = file_get_contents( $template_file );
+
+			if ( false === $template_file_contents ) {
+				throw new \RuntimeException( "Could not read {$template_file} contents." );
+			}
+
+			$this->rendered_file_contents = renderString( $template_file_contents, $this->data );
 			vfsStream::setup( 'csv_file_root', null, [ 'organizers.csv' => $this->rendered_file_contents ] );
 			$this->file_reader = new \Tribe__Events__Importer__File_Reader( vfsStream::url( 'csv_file_root/organizers.csv' ) );
 		} else {

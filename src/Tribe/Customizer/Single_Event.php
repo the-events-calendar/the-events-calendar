@@ -45,7 +45,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 
 		if ( $customizer->has_option( $this->ID, 'post_title_color' ) ) {
 			$template .= '
-				.tribe-events-single-event-title {
+				.single-tribe_events .tribe-events-single-event-title {
 					color: <%= single_event.post_title_color %>;
 				}
 			';
@@ -80,10 +80,10 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	}
 
 	public function setup() {
-		$this->defaults = [
-			'post_title_color' => '#333',
+		$this->defaults = array(
+			'post_title_color' => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
 			'details_bg_color' => '#e5e5e5',
-		];
+		);
 
 		$description = tribe_events_views_v2_is_enabled()
 			? esc_html__( 'These settings control the appearance of the single event pages.', 'the-events-calendar' )
@@ -108,7 +108,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
 		$customizer = Tribe__Customizer::instance();
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
@@ -144,7 +144,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			)
 		);
 
-		// Add an heading that is a Control only in name: it does not, actulally, control or save any setting.
+		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
 			new Heading(
 				$manager,
