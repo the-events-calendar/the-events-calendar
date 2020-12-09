@@ -45,7 +45,7 @@ class Customizer {
 				$manager,
 				$customizer->get_setting_name( 'event_title_color', $section ),
 				[
-					'label'    => esc_html__( 'Event Title G', 'the-events-calendar' ),
+					'label'    => esc_html__( 'Event Title', 'the-events-calendar' ),
 					'section'  => $section->id,
 					'priority' => 8,
 				]
@@ -150,7 +150,7 @@ class Customizer {
 	 */
 	public function include_single_event_settings( $section, $manager, $customizer ) {
 		// Remove the old setting/control to refactor.
-		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ), );
+		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ) );
 		$manager->remove_control( $customizer->get_setting_name( 'post_title_color', $section ) );
 
 		// Register new control with option.
