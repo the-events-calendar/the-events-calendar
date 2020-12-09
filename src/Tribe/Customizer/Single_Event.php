@@ -43,7 +43,10 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			';
 		}
 
-		if ( $customizer->has_option( $this->ID, 'post_title_color' ) ) {
+		if (
+			! $customizer->has_option( $this->ID, 'post_title_color_choice' )
+			&& $customizer->has_option( $this->ID, 'post_title_color' )
+		) {
 			$template .= '
 				.single-tribe_events .tribe-events-single-event-title {
 					color: <%= single_event.post_title_color %>;
@@ -114,8 +117,9 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				$manager,
 				$customizer->get_setting_name( 'post_title_heading', $section ),
 				[
-					'label'   => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 0,
 				]
 			)
 		);
@@ -150,8 +154,9 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 				$manager,
 				$customizer->get_setting_name( 'details_bg_color_heading', $section ),
 				[
-					'label'   => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
-					'section' => $section->id,
+					'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 10,
 				]
 			)
 		);

@@ -543,7 +543,7 @@
 						// @endif
 
 						var $theContent = '';
-						if ( $.isFunction( $.fn.parseHTML ) ) {
+						if ( 'function' === typeof $.fn.parseHTML ) {
 							$theContent = $.parseHTML( response.html );
 						} else {
 							$theContent = response.html;
