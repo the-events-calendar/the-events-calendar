@@ -176,7 +176,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			// Check if filtering by aggregator record.
 			$parent_record_id = (int) tribe_get_request_var( 'aggregator_record', 0 );
-			if ( 0 <= $parent_record_id ) {
+			if ( 0 >= $parent_record_id ) {
 				return $clauses;
 			}
 
