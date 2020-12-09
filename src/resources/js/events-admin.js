@@ -264,7 +264,7 @@ jQuery( document ).ready( function( $ ) {
 		 */
 		function add_sticky_linked_post_data( post_type, container, fields ) {
 			// Bail if expected global sticky data array is not set
-			if ( 'undefined' === typeof window['tribe_sticky_' + post_type + '_fields'] || ! $.isArray( window['tribe_sticky_' + post_type + '_fields'] ) ) {
+			if ( 'undefined' === typeof window['tribe_sticky_' + post_type + '_fields'] || ! Array.isArray( window['tribe_sticky_' + post_type + '_fields'] ) ) {
 				return;
 			}
 
@@ -513,8 +513,8 @@ jQuery( document ).ready( function( $ ) {
 				}
 
 				// fire the change and blur handlers on the field
-				$( this ).change();
-				$( this ).blur();
+				$( this ).trigger( 'change' );
+				$( this ).trigger( 'blur' );
 			}
 		};
 
@@ -591,14 +591,14 @@ jQuery( document ).ready( function( $ ) {
 			}
 		} );
 
-		$start_end_month.change();
+		$start_end_month.trigger( 'change' );
 
 		$( 'select[name="EventStartYear"]' ).change( function() {
-			$start_month.change();
+			$start_month.trigger( 'change' );
 		} );
 
 		$( 'select[name="EventEndYear"]' ).change( function() {
-			$end_month.change();
+			$end_month.trigger( 'change' );
 		} );
 
 		for ( var i in tribe_events_linked_posts.post_types ) {
@@ -654,9 +654,12 @@ jQuery( document ).ready( function( $ ) {
 
 	var eventSubmitButton = $( '.wp-admin.events-cal #post #publishing-action input[type="submit"]' );
 
-	eventSubmitButton.click( function() {
-		$( this ).data( 'clicked', true );
-	} );
+	eventSubmitButton.on(
+		'click',
+		function() {
+			$( this ).data( 'clicked', true );
+		}
+	);
 
 	// Workaround for venue & organizer post types when editing or adding
 	// so events parent menu stays open and active
