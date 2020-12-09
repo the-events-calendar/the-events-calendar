@@ -1711,13 +1711,13 @@ Date.prototype.format = function( mask, utc ) {
 
 		tribe_ical_url();
 
-		$( window )
-			.resize( function() {
-
+		$( window ).on(
+			'resize',
+			function() {
 				clearTimeout( resize_timer );
 				resize_timer = setTimeout( tf.execute_resize, 200 );
-
-			} );
+			}
+		);
 
 		// @ifdef DEBUG
 		if ( dbug ) {
