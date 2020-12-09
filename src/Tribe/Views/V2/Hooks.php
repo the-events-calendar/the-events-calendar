@@ -69,6 +69,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Customizer.
 		add_action( 'tribe_customizer_register_global_elements_settings', [ $this, 'action_include_global_elements_settings' ], 10, 3 );
+		add_action( 'tribe_customizer_register_single_event_settings', [ $this, 'action_include_single_event_settings' ], 15, 3 );
 	}
 
 	/**
@@ -123,6 +124,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// Customizer.
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
 		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
+		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
+
 	}
 
 	/**
@@ -862,7 +865,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Adds new settings via the hook in common.
+	 * Adds new Global Elements settings via the hook in common.
 	 *
 	 * @since TBD
 	 *
@@ -872,6 +875,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
 		$this->container->make( Customizer::class )->include_global_elements_settings( $section, $manager, $customizer );
+	}
+
+	/**
+	 * Adds new Single Event settings via the hook in common.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Single Event Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
+	public function action_include_single_event_settings( $section, $manager, $customizer ) {
+		$this->container->make( Customizer::class )->include_single_event_settings( $section, $manager, $customizer );
 	}
 
 	/**
