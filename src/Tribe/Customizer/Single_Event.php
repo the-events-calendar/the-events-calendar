@@ -43,27 +43,26 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			';
 		}
 
-		if (
-			! $customizer->has_option( $this->ID, 'post_title_color_choice' )
-			&& $customizer->has_option( $this->ID, 'post_title_color' )
-		) {
+		if ( tribe_events_views_v2_is_enabled() ) {
+			/**
+			 * Allows filtering the CSS template with full knowledge of the Single Event section and the current Customizer instance.
+			 *
+			 * @since TBD
+			 *
+			 * @param string                     $template   The CSS template, as produced by the Global Elements.
+			 * @param Tribe__Customizer__Section $this       The Single Event section.
+			 * @param Tribe__Customizer          $customizer The current Customizer instance.
+			 */
+			return apply_filters( 'tribe_customizer_single_event_css_template', $template, $this, $customizer );
+		}
+
+		if ( $customizer->has_option( $this->ID, 'post_title_color' ) ) {
 			$template .= '
 				.single-tribe_events .tribe-events-single-event-title {
 					color: <%= single_event.post_title_color %>;
 				}
 			';
 		}
-
-		/**
-		 * Allows filtering the CSS template with full knowledge of the Single Event section and the current Customizer instance.
-		 *
-		 * @since TBD
-		 *
-		 * @param string                     $template   The CSS template, as produced by the Global Elements.
-		 * @param Tribe__Customizer__Section $this       The Single Event section.
-		 * @param Tribe__Customizer          $customizer The current Customizer instance.
-		 */
-		$template = apply_filters( 'tribe_customizer_single_event_css_template', $template, $this, $customizer );
 
 		return $template;
 	}

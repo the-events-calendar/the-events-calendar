@@ -169,9 +169,8 @@ class Customizer {
 				$manager,
 				$customizer->get_setting_name( 'post_title_color_choice', $section ),
 				[
-					'label'       => esc_html__( 'Event Title Color', 'the-events-calendar' ),
+					'label'       => esc_html__( 'Event Title', 'the-events-calendar' ),
 					'section'     => $section->id,
-					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
 					'type'        => 'radio',
 					'priority'    => 5,
 					'choices'     => [
