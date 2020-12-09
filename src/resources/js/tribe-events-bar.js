@@ -192,7 +192,7 @@ var tribe_events_bar_action;
 			$tribebarviews
 				.slideDown( 'fast' )
 				.attr( 'aria-activedescendant', $currentli.attr( 'id' ) )
-				.focus();
+				.trigger( 'focus' );
 			$tribebar.addClass( 'tribe-bar-views-open' );
 			$tribebarviewstoggle.attr( 'aria-expanded', 'true' );
 		}
@@ -215,13 +215,13 @@ var tribe_events_bar_action;
 
 			// If the new selection is the same as the current view, just close the drop-down and bail.
 			if ( $this.data( 'view' ) === $tribebarviewstoggle.data( 'view' ) ) {
-				$tribebarviewstoggle.focus();
+				$tribebarviewstoggle.trigger( 'focus' );
 				closeViewsToggle();
 				return;
 			}
 
 			// Otherwise, update the page with the selected view and trigger the change
-			$tribebarviewstoggle.html( $this.html() ).focus();
+			$tribebarviewstoggle.html( $this.html() ).trigger( 'focus' );
 			closeViewsToggle();
 
 			ts.cur_url              = $( 'option[data-view=' + $this.data( 'view' ) + ']' ).val();
@@ -276,7 +276,7 @@ var tribe_events_bar_action;
 			if ( $newView.length ) {
 				$tribebarviews.attr( 'aria-activedescendant', $newView.attr( 'id' ) );
 				$oldView.removeClass( 'tribe-bar-active' );
-				$newView.addClass( 'tribe-bar-active' ).focus();
+				$newView.addClass( 'tribe-bar-active' ).trigger( 'focus' );
 			}
 		} );
 
@@ -365,14 +365,14 @@ var tribe_events_bar_action;
 			var $filters_toggle = $( '#tribe-bar-collapse-toggle' );
 			if ( $tribebar.hasClass( 'tribe-bar-collapse' ) && $filters_toggle.hasClass( 'tribe-bar-filters-open' ) ) {
 				closeFiltersToggle( $filters_toggle );
-				$filters_toggle.focus();
+				$filters_toggle.trigger( 'focus' );
 			}
 
 			// Close Event Views is open and escaped
 			var $views_toggle = $( '#tribe-bar-views-toggle' );
 			if ( $tribebar.hasClass( 'tribe-bar-views-open' ) ) {
 				closeViewsToggle();
-				$views_toggle.focus();
+				$views_toggle.trigger( 'focus' );
 			}
 		} );
 
@@ -382,7 +382,7 @@ var tribe_events_bar_action;
 			var $filters_toggle = $( '#tribe-bar-collapse-toggle' );
 			if ( $tribebar.hasClass( 'tribe-bar-collapse' ) && $filters_toggle.hasClass( 'tribe-bar-filters-open' ) ) {
 				closeFiltersToggle( $filters_toggle );
-				$filters_toggle.focus();
+				$filters_toggle.trigger( 'focus' );
 			}
 
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
@@ -546,14 +546,14 @@ var tribe_events_bar_action;
 				// Close the Event Views if open
 				if ( $tribebar.hasClass( 'tribe-bar-views-open' ) && ! $.contains( document.getElementById( 'tribe-bar-views' ), e.target ) ) {
 					closeViewsToggle();
-					$tribebarviewstoggle.focus();
+					$tribebarviewstoggle.trigger( 'focus' );
 				}
 
 				// Close the Event Filters if open
 				var $filters_toggle = $( '#tribe-bar-collapse-toggle' );
 				if ( $tribebar.hasClass( 'tribe-bar-collapse' ) && $filters_toggle.hasClass( 'tribe-bar-filters-open' ) && ! $.contains( document.getElementById( 'tribe-bar-filters-wrap' ), e.target ) ) {
 					closeFiltersToggle( $filters_toggle );
-					$filters_toggle.focus();
+					$filters_toggle.trigger( 'focus' );
 				}
 
 				if ( $tribeDropToggle.hasClass( 'open' ) ) {
