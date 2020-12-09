@@ -264,7 +264,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Retrieves a value from the record.
 	 *
-	 * @since5.1.6 - modify to use has_value_by_key().
+	 * @since 5.1.6 - modify to use has_value_by_key().
 	 *
 	 * @param array  $record An event record from the import.
 	 * @param string $key    The text of the key to find in the record array.
@@ -282,7 +282,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Check if a key is found.
 	 *
-	 * @since5.1.6
+	 * @since 5.1.6
 	 *
 	 * @param array  $record An event record from the import.
 	 * @param string $key    The text of the key to find in the record array.
