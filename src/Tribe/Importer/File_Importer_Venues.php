@@ -39,7 +39,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 * Build a venue array for creation/update of the current imported venue.
 	 *
 	 * @since 3.2
-	 * @since5.1.6 Adjust to prevent overwriting values that aren't mapped.
+	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
 	 *
 	 * @param int                   $venue_id The ID of the venue we're currently importing.
 	 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
@@ -77,8 +77,6 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 				$address_1 = trim( $this->get_value_by_key( $record, 'venue_address' ) );
 				$address_2 = trim( $this->get_value_by_key( $record, 'venue_address2' ) );
 				$value     = ( empty( $address_2 ) ) ? $address_1 : $address_1 . ' ' . $address_2;
-
-				continue;
 			} else {
 				$value = $this->get_value_by_key( $record, $key );
 			}
@@ -87,7 +85,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			 * Allows filtering of individual main values before setting.
 			 * Return boolean false to prevent importing that value.
 
-			 * @since5.1.6
+			 * @since 5.1.6
 			 *
 			 * @param string                $key    The mapped key for the value we'll be importing.
 			 *                                      From the $columns array above, this would be 'venue_name', for example.
@@ -123,7 +121,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		/**
 		 * Allows triggering using the default values set in the admin for imported venues.
 		 *
-		 * @since5.1.6
+		 * @since 5.1.6
 		 * @param int                   $venue_id The ID of the venue we're currently importing.
 		 * @param array                 $venue    The array of venue data we're modifying.
 		 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
@@ -172,7 +170,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 * Note this will only set a value if it has been mapped, and it is empty.
 	 * If you are using the importer to erase values, you should NOT be triggering this!
 	 *
-	 * @since5.1.6
+	 * @since 5.1.6
 	 *
 	 * @param array                 $venue  The array of venue data we're modifying.
 	 * @param array <string,string> $record The event record from the import file. Only contains mapped values.
@@ -204,7 +202,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			 * Also allows setting a value (specifically for imports) by filter
 			 * that is not set in the admin for manually-created venues.
 			 *
-			 * @since5.1.6
+			 * @since 5.1.6
 			 *
 			 * @param string                $value  The default value as set in the admin "defaults" settings.
 			 * @param string                $key    The mapped key for the value we'll be importing.

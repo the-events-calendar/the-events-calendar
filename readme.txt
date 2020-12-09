@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Fix an issue in csv venue imports where the address would not import.  [TEC-3637]
 * Feature - Event Aggregator - Filter Events by Aggregator/Import Record. [EA-130]
 
 = [5.3.0] 2020-12-02 =
