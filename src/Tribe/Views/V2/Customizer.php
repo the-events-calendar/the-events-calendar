@@ -8,8 +8,9 @@
  */
 
 namespace Tribe\Events\Views\V2;
-use \WP_Customize_Control as Control;
-use \WP_Customize_Color_Control as Color_Control;
+use Tribe__Events__Main as TEC;
+use WP_Customize_Color_Control as Color_Control;
+use WP_Customize_Control as Control;
 
 /**
  * Class Customizer
@@ -69,7 +70,7 @@ class Customizer {
 				$customizer->get_setting_name( 'event_date_time_color', $section ),
 				[
 					'label'       => esc_html__( 'Event Date and Time', 'the-events-calendar' ),
-					'description' => esc_html__( 'Main date and time display on views and single event pages.', 'the-events-calendar' ),
+					'description' => esc_html__( 'Main date and time display on views and single event pages', 'the-events-calendar' ),
 					'section'     => $section->id,
 					'priority'    => 8,
 				]
@@ -94,7 +95,7 @@ class Customizer {
 				[
 					'label'       => 'Background Color',
 					'section'     => $section->id,
-					'description' => esc_html__( 'All calendar and event pages.', 'the-events-calendar' ),
+					'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
 					'type'        => 'radio',
 					'priority'    => 12,
 					'choices'     => [
@@ -692,5 +693,14 @@ class Customizer {
 		}
 
 		return $css_template;
+	}
+
+	/**
+	 * Enqueues Customizer controls styles specific to Views v2 components.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_customizer_controls_styles() {
+		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
 	}
 }
