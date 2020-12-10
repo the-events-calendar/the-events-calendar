@@ -158,7 +158,7 @@ tribe_aggregator.fields = {
 
 				var importType = $this.val();
 
-				$frequency.val( ( 'schedule' === importType ? 'daily' : '' ) ).change();
+				$frequency.val( ( 'schedule' === importType ? 'daily' : '' ) ).trigger( 'change' );
 
 				// set a data attribute on the form indicating the schedule type
 				obj.$.form.attr( 'data-type', importType );
@@ -266,7 +266,7 @@ tribe_aggregator.fields = {
 				$( '#tribe-ea-field-' + origin + '_source' ).val( value ).trigger( 'change' );
 			} );
 
-		$( '.tribe-dependency' ).change();
+		$( '.tribe-dependency' ).trigger( 'change' );
 
 		// Configure TimePickers
 		tribe_timepickers.setup_timepickers( $( tribe_timepickers.selector.timepicker ) );
@@ -806,7 +806,7 @@ tribe_aggregator.fields = {
 		jqxhr.done( function( response ) {
 			if ( response.success ) {
 				$credentials_form.addClass( 'credentials-entered' );
-				$credentials_form.find( '[name="has-credentials"]' ).val( 1 ).change();
+				$credentials_form.find( '[name="has-credentials"]' ).val( 1 ).trigger( 'change' );
 			}
 		} );
 	};
@@ -958,7 +958,7 @@ tribe_aggregator.fields = {
 				selection.each( function( attachment ) {
 					$field.data( { id: attachment.attributes.id, text: attachment.attributes.title } );
 					$field.val( attachment.attributes.id );
-					$field.change();
+					$field.trigger( 'change' );
 					$name.html( attachment.attributes.filename );
 					$name.attr( 'title', attachment.attributes.filename );
 				} );
@@ -991,7 +991,7 @@ tribe_aggregator.fields = {
 	 * Triggers a change event on the given field
 	 */
 	obj.events.trigger_field_change = function() {
-		$( this ).change();
+		$( this ).trigger( 'change' );
 	};
 
 	/**

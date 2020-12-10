@@ -40,7 +40,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	 * Build a organizer array for creation/update of the current imported organizer.
 	 *
 	 * @since 3.2
-	 * @since5.1.6 Adjust to prevent overwriting values that aren't mapped.
+	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
 	 *
 	 * @param int   $organizer_id The ID of the organizer we're currently importing.
 	 * @param array $record       An event record from the import.
@@ -70,7 +70,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 			 * Allows filtering of main values before setting.
 			 * Return boolean false to prevent importing that value.
 			 *
-			 * @since5.1.6
+			 * @since 5.1.6
 			 *
 			 * @param string $key       The key for the value we'll be importing.
 			 * @param string $value     The value we'll be importing.
@@ -122,7 +122,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 		/**
 		 * Allows filtering of record values before import.
 		 *
-		 * @since5.1.6
+		 * @since 5.1.6
 		 *
 		 * @param array $organizer The array of organizer data we're modifying.
 		 * @param array $record The event record from the import.
