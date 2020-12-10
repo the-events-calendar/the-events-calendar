@@ -190,7 +190,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			// Add the record meta filter if it is missing.
 			if ( ! preg_match( '/\\s' . preg_quote( $table_alias , '/' ) . '\\s/', $clauses['where'] ) ) {
-				$sub_query = $wpdb->prepare( "SELECT %s.`ID` FROM %s WHERE `post_parent` = %d", $wpdb->posts, $wpdb->posts, $parent_record_id );
+				$sub_query = $wpdb->prepare( "SELECT {$wpdb->posts}.ID FROM {$wpdb->posts} WHERE {$wpdb->posts}.post_parent = %d", $parent_record_id );
 				$clauses['where'] .= " AND {$table_alias}.meta_value IN ( {$sub_query} ) ";
 			}
 
