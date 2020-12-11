@@ -856,7 +856,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Changes the action the Customizer should use to try and print inline styles to print the inline
 	 * styles in the footer.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @return string The action the Customizer should use to print inline styles.
 	 */
@@ -867,7 +867,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds new Global Elements settings via the hook in common.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
@@ -880,7 +880,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds new Single Event settings via the hook in common.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Single Event Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
@@ -893,7 +893,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
@@ -912,7 +912,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Single Event section.

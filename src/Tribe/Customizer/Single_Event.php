@@ -47,7 +47,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			/**
 			 * Allows filtering the CSS template with full knowledge of the Single Event section and the current Customizer instance.
 			 *
-			 * @since TBD
+			 * @since 5.3.1
 			 *
 			 * @param string                     $template   The CSS template, as produced by the Global Elements.
 			 * @param Tribe__Customizer__Section $this       The Single Event section.
