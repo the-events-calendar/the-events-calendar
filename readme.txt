@@ -225,6 +225,11 @@ Remember to always make a backup of your database and files before updating!
 = [5.3.1] 2020-12-16 =
 
 * Feature - Event Aggregator - Filter Events by Aggregator/Import Record. [EA-130]
+* Feature - V2 Customizer - Add background color css overrides. [TEC-3651]
+* Feature - V2 Customizer - Add Event Title color css overrides. [TEC-3334]
+* Feature - V2 Customizer - Add Event Date & Time color css overrides. [TEC-3675]
+* Tweak - Add opaque backgrounds for selected bordered elements. [TEC-3673]
+* Tweak - Change Title/Date & Time font color defaults on the Event Single page. [TEC-3682]
 * Fix - Fix an issue in csv venue imports where the address would not import.  [TEC-3637]
 * Fix - Compatibility for some theme menus that no longer displayed when an event is password protected. [TEC-2968]
 * Language - 8 new strings added, 63 updated, 1 fuzzied, and 0 obsoleted
