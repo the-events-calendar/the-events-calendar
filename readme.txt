@@ -222,10 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.3.1] 2020-12-16 =
 
-* Fix - Fix an issue in csv venue imports where the address would not import.  [TEC-3637]
 * Feature - Event Aggregator - Filter Events by Aggregator/Import Record. [EA-130]
+* Fix - Fix an issue in csv venue imports where the address would not import.  [TEC-3637]
 * Fix - Compatibility for some theme menus that no longer displayed when an event is password protected. [TEC-2968]
 
 = [5.3.0] 2020-12-02 =
