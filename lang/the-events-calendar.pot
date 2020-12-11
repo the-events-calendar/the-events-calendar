@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.3.0\n"
+"Project-Id-Version: The Events Calendar 5.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2020-12-02 16:14:18+00:00\n"
+"POT-Creation-Date: 2020-12-11 06:23:57+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-12-02 16:14\n"
+"PO-Revision-Date: 2020-12-11 06:23\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -129,23 +129,23 @@ msgid ""
 "refresh and try again."
 msgstr ""
 
-#: src/Tribe/Admin_List.php:257 src/Tribe/Main.php:2194
+#: src/Tribe/Admin_List.php:299 src/Tribe/Main.php:2194
 msgid "%s Categories"
 msgstr ""
 
-#: src/Tribe/Admin_List.php:263
+#: src/Tribe/Admin_List.php:305
 #: src/admin-views/aggregator/tabs/import-form.php:224
 #: src/admin-views/aggregator/tabs/import-form.php:236
 msgid "Start Date"
 msgstr ""
 
-#: src/Tribe/Admin_List.php:264
+#: src/Tribe/Admin_List.php:306
 #: src/admin-views/aggregator/tabs/import-form.php:226
 #: src/admin-views/aggregator/tabs/import-form.php:238
 msgid "End Date"
 msgstr ""
 
-#: src/Tribe/Admin_List.php:351
+#: src/Tribe/Admin_List.php:393
 msgctxt "%s Event count in admin list"
 msgid "All %s"
 msgstr ""
@@ -489,7 +489,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:121
-#: src/Tribe/Aggregator/Record/List_Table.php:523
+#: src/Tribe/Aggregator/Record/List_Table.php:535
 msgid "View Filters"
 msgstr ""
 
@@ -595,23 +595,23 @@ msgstr ""
 msgid "The new status message slug, to allow for localized messages."
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:354
+#: src/Tribe/Aggregator/Record/Abstract.php:357
 msgid "Something went wrong while inserting the record in the database."
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:489
+#: src/Tribe/Aggregator/Record/Abstract.php:492
 msgid "Record: "
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:1168
+#: src/Tribe/Aggregator/Record/Abstract.php:1185
 msgid "Deleted Attachment: %d"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:1183
+#: src/Tribe/Aggregator/Record/Abstract.php:1200
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:1225
+#: src/Tribe/Aggregator/Record/Abstract.php:1242
 msgid ""
 "When this import was last scheduled to run, the daily limit for your Event "
 "Aggregator license had already been reached."
@@ -750,11 +750,15 @@ msgctxt "record via origin"
 msgid "via "
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:527
+#: src/Tribe/Aggregator/Record/List_Table.php:521
+msgid "View Events"
+msgstr ""
+
+#: src/Tribe/Aggregator/Record/List_Table.php:539
 msgid "Keywords:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:536
+#: src/Tribe/Aggregator/Record/List_Table.php:548
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:48
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:80
 #: src/views/blocks/parts/details.php:77 src/views/blocks/parts/details.php:103
@@ -762,103 +766,103 @@ msgstr ""
 msgid "Start:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:540
+#: src/Tribe/Aggregator/Record/List_Table.php:552
 msgid "Location:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:544
+#: src/Tribe/Aggregator/Record/List_Table.php:556
 msgid "Radius:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:583
+#: src/Tribe/Aggregator/Record/List_Table.php:597
 msgid "Unknown"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:604 src/Tribe/Aggregator.php:602
+#: src/Tribe/Aggregator/Record/List_Table.php:618 src/Tribe/Aggregator.php:602
 #: src/Tribe/Ignored_Events.php:371
 msgctxt "human readable time ago"
 msgid "about %s ago"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:606 src/Tribe/Aggregator.php:604
+#: src/Tribe/Aggregator/Record/List_Table.php:620 src/Tribe/Aggregator.php:604
 #: src/Tribe/Ignored_Events.php:373
 msgctxt "in human readable time"
 msgid "in about %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:617
+#: src/Tribe/Aggregator/Record/List_Table.php:631
 msgctxt "in human readable time"
 msgid "retrying in about %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:620
+#: src/Tribe/Aggregator/Record/List_Table.php:634
 msgctxt "when the retry will happen, a date"
 msgid "retrying at %s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:636
+#: src/Tribe/Aggregator/Record/List_Table.php:650
 msgid "Invalid Frequency"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:639
+#: src/Tribe/Aggregator/Record/List_Table.php:653
 msgid "One Time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:665
+#: src/Tribe/Aggregator/Record/List_Table.php:679
 msgid "all time"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:667
+#: src/Tribe/Aggregator/Record/List_Table.php:681
 msgid "Latest Import:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:670
-#: src/Tribe/Aggregator/Record/List_Table.php:678
-#: src/Tribe/Aggregator/Record/List_Table.php:686
+#: src/Tribe/Aggregator/Record/List_Table.php:684
+#: src/Tribe/Aggregator/Record/List_Table.php:692
+#: src/Tribe/Aggregator/Record/List_Table.php:700
 msgid "new"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:672
-#: src/Tribe/Aggregator/Record/List_Table.php:681
-#: src/Tribe/Aggregator/Record/List_Table.php:689
+#: src/Tribe/Aggregator/Record/List_Table.php:686
+#: src/Tribe/Aggregator/Record/List_Table.php:695
+#: src/Tribe/Aggregator/Record/List_Table.php:703
 msgid "updated"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:707
+#: src/Tribe/Aggregator/Record/List_Table.php:721
 msgid "Select %s"
 msgstr ""
 
 #. translators: %s: Number of items.
-#: src/Tribe/Aggregator/Record/List_Table.php:740
+#: src/Tribe/Aggregator/Record/List_Table.php:754
 msgid "%s item"
 msgid_plural "%s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:776
+#: src/Tribe/Aggregator/Record/List_Table.php:790
 msgid "First page"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:787
+#: src/Tribe/Aggregator/Record/List_Table.php:801
 msgid "Previous page"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:794
-#: src/Tribe/Aggregator/Record/List_Table.php:798
+#: src/Tribe/Aggregator/Record/List_Table.php:808
+#: src/Tribe/Aggregator/Record/List_Table.php:812
 msgid "Current Page"
 msgstr ""
 
 #. translators: 1: Current page, 2: Total pages.
-#: src/Tribe/Aggregator/Record/List_Table.php:806
+#: src/Tribe/Aggregator/Record/List_Table.php:820
 msgctxt "paging"
 msgid "%1$s of %2$s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:817
+#: src/Tribe/Aggregator/Record/List_Table.php:831
 msgid "Next page"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/List_Table.php:828
+#: src/Tribe/Aggregator/Record/List_Table.php:842
 msgid "Last page"
 msgstr ""
 
@@ -1878,7 +1882,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Day_List_View.php:72
 #: src/Tribe/Customizer/Month_Week_View.php:149
-#: src/Tribe/Customizer/Single_Event.php:77 src/Tribe/Customizer/Widget.php:60
+#: src/Tribe/Customizer/Single_Event.php:92 src/Tribe/Customizer/Widget.php:60
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" and \"Global Elements\" sections."
@@ -1906,7 +1910,7 @@ msgid "Global configurations for the styling of The Events Calendar"
 msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:291
-#: src/Tribe/Customizer/Global_Elements.php:591
+#: src/Tribe/Customizer/Global_Elements.php:209
 msgid "Accent Color"
 msgstr ""
 
@@ -1953,50 +1957,51 @@ msgid "Sunshine"
 msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:402
+#: src/Tribe/Views/V2/Customizer.php:178
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:502
+#: src/Tribe/Customizer/Global_Elements.php:128
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:502
+#: src/Tribe/Customizer/Global_Elements.php:128
 msgid "Global Elements"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:503
+#: src/Tribe/Customizer/Global_Elements.php:129
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" section."
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:534
-#: src/Tribe/Customizer/Single_Event.php:104
+#: src/Tribe/Customizer/Global_Elements.php:160
+#: src/Tribe/Customizer/Single_Event.php:119
 msgid "Set Font Colors"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:555
+#: src/Tribe/Customizer/Global_Elements.php:182
 msgid "Links"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:556
+#: src/Tribe/Customizer/Global_Elements.php:183
 msgid "For displayed URLs"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:570
-#: src/Tribe/Customizer/Single_Event.php:140
+#: src/Tribe/Customizer/Global_Elements.php:197
+#: src/Tribe/Customizer/Single_Event.php:156
 msgid "Adjust Appearance"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:619
+#: src/Tribe/Customizer/Global_Elements.php:239
 msgid "Filter Bar Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:641
+#: src/Tribe/Customizer/Global_Elements.php:262
 msgid "Button Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:665
+#: src/Tribe/Customizer/Global_Elements.php:287
 msgid "Map Pin"
 msgstr ""
 
@@ -2012,27 +2017,27 @@ msgstr ""
 msgid "Calendar Highlight Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:77
+#: src/Tribe/Customizer/Single_Event.php:91
 msgid "These settings control the appearance of the single event pages."
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:82
+#: src/Tribe/Customizer/Single_Event.php:97
 msgid "Single Event"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:127
+#: src/Tribe/Customizer/Single_Event.php:143
 msgid "Event Title Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:128
+#: src/Tribe/Customizer/Single_Event.php:144
 msgid "Post Title Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:161
+#: src/Tribe/Customizer/Single_Event.php:178
 msgid "Event Details Background Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:162
+#: src/Tribe/Customizer/Single_Event.php:179
 msgid "For classic editor"
 msgstr ""
 
@@ -2679,11 +2684,11 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.3.0)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.3.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: src/Tribe/Main.php:994 src/Tribe/Main.php:1496 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
-#: src/functions/template-tags/general.php:1523 the-events-calendar.php:57
+#: src/functions/template-tags/general.php:1531 the-events-calendar.php:57
 msgid "The Events Calendar"
 msgstr ""
 
@@ -4718,15 +4723,47 @@ msgstr ""
 msgid "Unnamed Venue"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:487
+#: src/Tribe/Views/V2/Customizer.php:48 src/Tribe/Views/V2/Customizer.php:172
+msgid "Event Title"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:71
+msgid "Event Date and Time"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:72
+msgid "Main date and time display on views and single event pages."
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:97
+msgid "All calendar and event pages."
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:101
+msgid "Transparent"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:102
+msgid "Select Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:177
+msgid "Use General"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:199
+msgid "Custom Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Hooks.php:498
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:564
+#: src/Tribe/Views/V2/Hooks.php:575
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:579
+#: src/Tribe/Views/V2/Hooks.php:590
 msgid "The Events Calendar - View V2"
 msgstr ""
 
@@ -7412,36 +7449,36 @@ msgid "Category"
 msgstr ""
 
 #. translators: %s is the singular translation of "Event"
-#: src/functions/template-tags/general.php:503
+#: src/functions/template-tags/general.php:511
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/functions/template-tags/general.php:542
+#: src/functions/template-tags/general.php:550
 msgid "Tags:"
 msgstr ""
 
-#: src/functions/template-tags/general.php:654
+#: src/functions/template-tags/general.php:662
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1270
+#: src/functions/template-tags/general.php:1278
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1397
+#: src/functions/template-tags/general.php:1405
 msgid "Find out more »"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1398
+#: src/functions/template-tags/general.php:1406
 msgid "%s for"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1523
+#: src/functions/template-tags/general.php:1531
 msgid "Calendar powered by %s"
 msgstr ""
 

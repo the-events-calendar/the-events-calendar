@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb,bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, peterchester, paulskim, reid.peifer, shane.pearlman, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.3.0
-Tested up to: 5.5.3
+Stable tag: 5.3.1
+Tested up to: 5.6.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,6 +221,13 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.3.1] 2020-12-16 =
+
+* Feature - Event Aggregator - Filter Events by Aggregator/Import Record. [EA-130]
+* Fix - Fix an issue in csv venue imports where the address would not import.  [TEC-3637]
+* Fix - Compatibility for some theme menus that no longer displayed when an event is password protected. [TEC-2968]
+* Language - 8 new strings added, 63 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.3.0] 2020-12-02 =
 

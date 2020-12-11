@@ -445,7 +445,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Get Post Text from Import or Existing Value using the provided field name and post field.
 	 *
-	 * @since5.1.6
+	 * @since 5.1.6
 	 *
 	 * @param int    $event_id   The event id being updated by import.
 	 * @param array  $record     An event record from the import.
