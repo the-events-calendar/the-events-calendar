@@ -228,6 +228,9 @@ Remember to always make a backup of your database and files before updating!
 * Feature - V2 Customizer - Add background color css overrides. [TEC-3651]
 * Feature - V2 Customizer - Add Event Title color css overrides. [TEC-3334]
 * Feature - V2 Customizer - Add Event Date & Time color css overrides. [TEC-3675]
+* Feature - V2 Customizer - Add controls for Background Color to general and single-event sections. [TEC-3683]
+* Feature - V2 Customizer - Add controls for Event Title Color to general section. [TEC-3684]
+* Feature - V2 Customizer - Add controls for Event Date & Time Color to general section. [TEC-3685]
 * Tweak - Add opaque backgrounds for selected bordered elements. [TEC-3673]
 * Tweak - Change Title/Date & Time font color defaults on the Event Single page. [TEC-3682]
 * Fix - Fix an issue in csv venue imports where the address would not import.  [TEC-3637]
@@ -247,7 +250,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
 * Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
 * Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
-* Tweak - ensure widgets don't get Filter Bar classes on their containers. [TBD]
+* Tweak - Ensure widgets don't get Filter Bar classes on their containers. [FBAR-202]
 * Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
 * Tweak - Add an option to trash events after 1 month (thanks @StefanSchroeder).
 * Tweak - Add the `tribe_events_views_v2_datepicker_no_conflict` filter (default `false`) to allow loading the Views v2 datepicker in no-conflict mode, when set to `true`, and avoid issues with other plugins that are loading the built-in WordPress `jquery-ui-datepicker` script. [TEC-3581]
