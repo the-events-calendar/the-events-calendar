@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] =
+
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
+
 = [5.3.1] 2020-12-16 =
 
 * Feature - Event Aggregator - Filter Events by Aggregator/Import Record. [EA-130]
