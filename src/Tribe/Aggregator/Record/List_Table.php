@@ -856,7 +856,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 			$page_class = ' no-pages';
 		}
 		?>
-		<div class='tablenav-pages<? echo esc_attr( $page_class ); ?>'>
+		<div class='tablenav-pages<?php echo esc_attr( $page_class ); ?>'>
 			<?php echo $output; ?>
 		</div>
 		<?php
