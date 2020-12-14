@@ -1116,7 +1116,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 			$timezone         = Tribe__Timezones::build_timezone_object( $input_timezone );
 			$timezone_changed = $input_timezone !== $current_event_timezone_string;
-			$utc              = $this->normal_timezone;
+			$utc              = Timezones::build_timezone_object('UTC');
 			$dates_changed    = [];
 
 			/**
@@ -1135,7 +1135,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 						$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $meta_value;
 					}
 
-					$date = new DateTime( $meta_value, $timezone );
+					$date = Dates::build_date_object($meta_value,$timezone);
 
 					$postarr['meta_input']["_Event{$check}Date"] = $date->format( $datetime_format );
 

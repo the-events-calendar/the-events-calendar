@@ -6,6 +6,7 @@ use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Factories\Venue;
 use Tribe__Events__Main as Main;
+use Tribe__Timezones as Timezones;
 
 class CreateTest extends \Codeception\TestCase\WPTestCase {
 
@@ -421,5 +422,85 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 
 		$event = tribe_events()->set_args( $args )->create();
 		$this->assertEquals( $expected, get_post_meta( $event->ID, '_EventTimezone', true ) );
+	}
+
+	/**
+	 * It should correctly assign UTC dates and times when timezone mode is event
+	 *
+	 * @test
+	 */
+	public function should_correctly_assign_utc_dates_and_times_when_timezone_mode_is_event() {
+		tribe_update_option( 'tribe_events_timezone_mode', Timezones::EVENT_TIMEZONE );
+		update_option( 'timezone_string', 'America/New_York' );
+		$args = [
+			'title'      => 'Test',
+			'start_date' => '2018-03-04 12:00:00',
+			'end_date'   => '2018-03-04 14:00:00',
+			'status'     => 'publish',
+		];
+		// Timezone should be inferred from the site one.
+
+		$event = tribe_events()->set_args( $args )->create();
+
+		$this->assertEquals( '2018-03-04 12:00:00', get_post_meta( $event->ID, '_EventStartDate', true ) );
+		$this->assertEquals( '2018-03-04 14:00:00', get_post_meta( $event->ID, '_EventEndDate', true ) );
+		$this->assertEquals( '2018-03-04 17:00:00', get_post_meta( $event->ID, '_EventStartDateUTC', true ) );
+		$this->assertEquals( '2018-03-04 19:00:00', get_post_meta( $event->ID, '_EventEndDateUTC', true ) );
+
+		// Update the event time.
+		tribe_events()->where( 'p', $event->ID )
+		              ->set_args( [
+			              'title'      => 'Updated Event',
+			              'start_date' => '2018-03-04 17:00:00',
+			              'end_date'   => '2018-03-04 19:00:00',
+		              ] )->save();
+
+		clean_post_cache( $event->ID );
+
+		$this->assertEquals( 'Updated Event', get_the_title( $event->ID ) );
+		$this->assertEquals( '2018-03-04 17:00:00', get_post_meta( $event->ID, '_EventStartDate', true ) );
+		$this->assertEquals( '2018-03-04 19:00:00', get_post_meta( $event->ID, '_EventEndDate', true ) );
+		$this->assertEquals( '2018-03-04 22:00:00', get_post_meta( $event->ID, '_EventStartDateUTC', true ) );
+		$this->assertEquals( '2018-03-05 00:00:00', get_post_meta( $event->ID, '_EventEndDateUTC', true ) );
+	}
+
+	/**
+	 * It should correctly assign UTC dates and times when timezone mode is site
+	 *
+	 * @test
+	 */
+	public function should_correctly_assign_utc_dates_and_times_when_timezone_mode_is_site() {
+		tribe_update_option( 'tribe_events_timezone_mode', Timezones::SITE_TIMEZONE );
+		update_option( 'timezone_string', 'America/New_York' );
+		$args = [
+			'title'      => 'Test',
+			'start_date' => '2018-03-04 12:00:00',
+			'end_date'   => '2018-03-04 14:00:00',
+			'status' => 'publish',
+		];
+		// Timezone should be inferred from the site one.
+
+		$event = tribe_events()->set_args( $args )->create();
+
+		$this->assertEquals( '2018-03-04 12:00:00', get_post_meta( $event->ID, '_EventStartDate', true ) );
+		$this->assertEquals( '2018-03-04 14:00:00', get_post_meta( $event->ID, '_EventEndDate', true ) );
+		$this->assertEquals( '2018-03-04 17:00:00', get_post_meta( $event->ID, '_EventStartDateUTC', true ) );
+		$this->assertEquals( '2018-03-04 19:00:00', get_post_meta( $event->ID, '_EventEndDateUTC', true ) );
+
+		// Update the event time.
+		tribe_events()->where( 'p', $event->ID )
+		              ->set_args( [
+			              'title'      => 'Updated Event',
+			              'start_date' => '2018-03-04 17:00:00',
+			              'end_date'   => '2018-03-04 19:00:00',
+		              ] )->save();
+
+		clean_post_cache( $event->ID );
+
+		$this->assertEquals( 'Updated Event', get_the_title( $event->ID ) );
+		$this->assertEquals( '2018-03-04 17:00:00', get_post_meta( $event->ID, '_EventStartDate', true ) );
+		$this->assertEquals( '2018-03-04 19:00:00', get_post_meta( $event->ID, '_EventEndDate', true ) );
+		$this->assertEquals( '2018-03-04 22:00:00', get_post_meta( $event->ID, '_EventStartDateUTC', true ) );
+		$this->assertEquals( '2018-03-05 00:00:00', get_post_meta( $event->ID, '_EventEndDateUTC', true ) );
 	}
 }
