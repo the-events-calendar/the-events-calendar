@@ -24,7 +24,7 @@ modules:
         window_size: false
         capabilities:
           chromeOptions:
-            args: ["--headless", "--disable-gpu", "--proxy-server='direct://'", "--proxy-bypass-list=*" ]
+            args: ["--headless", "--disable-gpu", "--proxy-server='direct://'", "--proxy-bypass-list=*", "--url-base=/wd/hub" ]
       WPDb:
         dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
         user: %WP_DB_USER%
