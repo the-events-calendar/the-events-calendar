@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.1] 2020-12-16 =
+= [5.3.1] 2020-12-15 =
 
 * Feature - Event Aggregator - Filter Events by Aggregator/Import Record. [EA-130]
 * Feature - V2 Customizer - Add background color css overrides. [TEC-3651]
