@@ -53,11 +53,5 @@ jobs:
         run: |
           ${TRIC_BIN} use the-events-calendar
           ${TRIC_BIN} composer install
-      - name: Debug Chrome container
-        run: |
-          ${TRIC_BIN} dc up -d chrome
-          sleep 10
-          ${TRIC_BIN} dc ps -a
-          ${TRIC_BIN} dc logs chrome
       - name: Run suite tests
         run: ${TRIC_BIN} run ${{ matrix.suite }} --ext DotReporter
