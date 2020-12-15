@@ -4,7 +4,8 @@ jobs:
   test:
     strategy:
       matrix:
-       suite: [acceptance, aggregatorv1, blocks_editor_integration, integration, muintegration, restv1, views_integration, views_rest, views_settings, views_ui, views_v2_customizer_integration, views_widgets, views_wpunit, wpunit ]
+       #suite: [acceptance, aggregatorv1, blocks_editor_integration, integration, muintegration, restv1, views_integration, views_rest, views_settings, views_ui, views_v2_customizer_integration, views_widgets, views_wpunit, wpunit ]
+       suite: [ views_ui ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -52,5 +53,11 @@ jobs:
         run: |
           ${TRIC_BIN} use the-events-calendar
           ${TRIC_BIN} composer install
+      - name: Debug Chrome container
+        run: |
+          ${TRIC_BIN} dc up -d chrome
+          sleep 10
+          ${TRIC_BIN} dc ps -a
+          ${TRIC_BIN} dc logs chrome
       - name: Run suite tests
         run: ${TRIC_BIN} run ${{ matrix.suite }} --ext DotReporter
