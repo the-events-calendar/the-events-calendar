@@ -51,16 +51,12 @@ trait With_Fast_Forward_Link {
 
 		$url_date = Dates::build_date_object( $next_event->start_date );
 		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
-		
-		$event_label_singular = tribe_get_event_label_singular_lowercase() ?: 'event';
-		$event_label_plural = tribe_get_event_label_plural_lowercase() ?: 'events';
 
 		$link = sprintf(
 		/* translators: 1: opening href tag 2: event label singular 3: event label plural 4: closing href tag */
-			__( 'Jump to the %1$snext upcoming %2$s/%3$s%4$s.', 'the-events-calendar' ),
+			__( 'Jump to the %1$snext upcoming %2$s%3$s.', 'the-events-calendar' ),
 			'<a href="' . esc_url( $url ) . '" class="tribe-events-c-messages__message-list-item-link tribe-common-anchor-thin-alt" data-js="tribe-events-view-link">',
-			$event_label_singular,
-			$event_label_plural,
+			tribe_get_event_label_plural_lowercase(),
 			'</a>'
 		);
 
