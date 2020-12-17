@@ -224,7 +224,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.3.2] TBD =
 
-
+* Tweak - Increase top padding above date stamp in list view. [TEC-3656]
+* Tweak - Reduce bottom margin of the event title in list/day views. [TEC-3656]
+* Tweak - Round featured event line corners. [TEC-3656]
 
 = [5.3.1] 2020-12-15 =
 
