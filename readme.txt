@@ -1,10 +1,10 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.3.1
+Stable tag: 5.3.2
 Tested up to: 5.6.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,7 +222,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.1] 2020-12-16 =
+= [5.3.2] TBD =
+
+
+
+= [5.3.1] 2020-12-15 =
 
 * Feature - Event Aggregator - Filter Events by Aggregator/Import Record. [EA-130]
 * Feature - V2 Customizer - Add background color css overrides. [TEC-3651]
