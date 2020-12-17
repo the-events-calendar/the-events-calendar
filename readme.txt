@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.3.2] TBD =
 
-
+* Fix - Use dynamic label for fast-forward link on the month view. [TEC-3452]
 
 = [5.3.1] 2020-12-15 =
 
