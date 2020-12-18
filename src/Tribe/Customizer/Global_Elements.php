@@ -37,7 +37,7 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		/**
 		 * Allows filtering the CSS template with full knowledge of the Global Elements section and the current Customizer instance.
 		 *
-		 * @since TBD
+		 * @since 5.3.1
 		 *
 		 * @param string                     $template   The CSS template, as produced by the Global Elements.
 		 * @param Tribe__Customizer__Section $this       The Global Elements section.

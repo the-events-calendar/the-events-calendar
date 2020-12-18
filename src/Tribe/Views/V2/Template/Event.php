@@ -186,7 +186,7 @@ class Event {
 	/**
 	 * Filter the display of the_title for password protected events, venues, and organizers.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param string       $title   The post title.
 	 * @param int|\WP_Post $post_id The post ID, or object, to apply the filter for.

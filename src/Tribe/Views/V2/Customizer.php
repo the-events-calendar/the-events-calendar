@@ -2,7 +2,7 @@
 /**
  * Handles Views v2 Customizer settings.
  *
- * @since   TBD
+ * @since   5.3.1
  *
  * @package Tribe\Events\Views\V2
  */
@@ -15,7 +15,7 @@ use WP_Customize_Control as Control;
 /**
  * Class Customizer
  *
- * @since   TBD
+ * @since   5.3.1
  *
  * @package Tribe\Events\Views\V2
  */
@@ -23,7 +23,7 @@ class Customizer {
 	/**
 	 * Adds new settings/controls to the Global Elements section via the hook in common.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
@@ -143,7 +143,7 @@ class Customizer {
 	/**
 	 * Adds new settings/controls to the Single Events section via the hook in common.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Single Events Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
@@ -211,7 +211,7 @@ class Customizer {
 	/**
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
@@ -671,7 +671,7 @@ class Customizer {
 	/**
 	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
 	 *
-	 * @since TBD
+	 * @since 5.3.1
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Single Event.
 	 * @param \Tribe__Customizer__Section $section      The Single Event section.
