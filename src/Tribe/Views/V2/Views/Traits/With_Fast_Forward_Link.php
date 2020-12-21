@@ -53,7 +53,7 @@ trait With_Fast_Forward_Link {
 		$url      = $this->build_url_for_date( $url_date, $canonical, $passthru_vars );
 
 		$link = sprintf(
-		/* translators: 1: opening href tag 2: event label singular 3: event label plural 4: closing href tag */
+		/* translators: 1: opening href tag 2: event label plural 3: closing href tag */
 			__( 'Jump to the %1$snext upcoming %2$s%3$s.', 'the-events-calendar' ),
 			'<a href="' . esc_url( $url ) . '" class="tribe-events-c-messages__message-list-item-link tribe-common-anchor-thin-alt" data-js="tribe-events-view-link">',
 			tribe_get_event_label_plural_lowercase(),
