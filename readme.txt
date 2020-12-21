@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.3.2] TBD =
 
-
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.3.1] 2020-12-15 =
 
