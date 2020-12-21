@@ -111,7 +111,8 @@ class Day_View extends View {
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
 		$event_display = Arr::get( $context_arr, 'event_display_mode', Arr::get( $context_arr, 'event_display' ), 'current' );
 
-		$args['date_overlaps'] = [ tribe_beginning_of_day( $date ), tribe_end_of_day( $date ) ];
+		$current_date = Dates::build_date_object( $date );
+		$args['date_overlaps'] = [ tribe_beginning_of_day( $current_date->format('Y-m-d') ), tribe_end_of_day( $current_date->format('Y-m-d') ) ];
 
 		/**
 		 * @todo  @bordoni We need to consider fetching events on a given day from a cache
