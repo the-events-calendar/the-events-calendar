@@ -76,7 +76,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
 		add_filter( 'tribe_events_views', [ $this, 'add_views' ] );
 		add_action( 'widgets_init', [ $this, 'unregister_list_widget' ], 95 );
-		add_filter( 'tribe_events_views_v2_view_widget-events-list_template_vars', [ $this, 'filter_template_vars' ], 20 );
 	}
 
 	/**
@@ -116,18 +115,5 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function unregister_list_widget() {
 		unregister_widget( 'Tribe__Events__List_Widget' );
-	}
-
-	/**
-	 * Filters the template vars for widget-specific items.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param array<string,mixed> $template_vars The current template variables.
-	 *
-	 * @return array<string,mixed> The modified template variables.
-	 */
-	public function filter_template_vars( $template_vars ) {
-		return tribe( Widget_List::class )->disable_json_data( $template_vars );
 	}
 }

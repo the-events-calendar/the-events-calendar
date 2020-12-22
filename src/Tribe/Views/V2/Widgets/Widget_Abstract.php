@@ -48,6 +48,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	public function setup() {
 		// Add the admin template class for the widget admin form.
 		$this->set_admin_template( tribe( Admin_Template::class ) );
+
+		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_template_vars' ], 20, 2 );
 	}
 
 	/**
@@ -397,5 +399,43 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		$deps['id'] = $this->get_field_id( $deps['id'] );
 
 		return tribe_format_field_dependency( $deps );
+	}
+
+	/**
+	 * Filters the template vars for widget-specific items.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param array<string,mixed> $template_vars The current template variables.
+	 *
+	 * @return array<string,mixed> The modified template variables.
+	 */
+	public function filter_template_vars( $template_vars, $view ) {
+		if ( $view->get_slug() !== $this->view_slug ) {
+			return $template_vars;
+		}
+
+		return $this->disable_json_data( $template_vars );
+	}
+
+	/**
+	 * Empties the json_ld_data if jsonld_enable is false,
+	 * removing the need for additional checks in the template.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param array<string,mixed> $template_vars The current template variables.
+	 *
+	 * @return array<string,mixed> The modified template variables.
+	 */
+	public function disable_json_data( $template_vars ) {
+		if (
+			isset( $template_vars['jsonld_enable'] )
+			&& ! tribe_is_truthy( $template_vars['jsonld_enable'] )
+		) {
+			$template_vars['json_ld_data'] = '';
+		}
+
+		return $template_vars;
 	}
 }
