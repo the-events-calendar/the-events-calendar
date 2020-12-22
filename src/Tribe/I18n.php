@@ -174,8 +174,8 @@ class I18n {
 	 */
 	protected function with_locale( $locale, callable $do, array $args = [] ) {
 		global $wp_filter;
-		$locale_filters_backup = isset( $wp_filter['locale'] ) ? $wp_filter['locale'] : [];
-		$wp_filter['locale']   = $locale_filters_backup instanceof \WP_Hook ? new \WP_Hook() : [];
+		$locale_filters_backup = isset( $wp_filter['locale'] ) ? $wp_filter['locale'] : new \WP_Hook;
+		$wp_filter['locale']   = $locale_filters_backup instanceof \WP_Hook ? new \WP_Hook() : new \WP_Hook();
 
 		$force_locale = static function () use ( $locale ) {
 			return $locale;

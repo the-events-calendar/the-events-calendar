@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.3.2] TBD =
 
 * Fix - Use dynamic label for fast-forward link on the month view. [TEC-3452]
+* Fix - Correcly filter `locale` in the `Tribe\Events\I18n` class to avoid errors. [???]
 * Tweak - Increase top padding above date stamp in list view. [TEC-3656]
 * Tweak - Reduce bottom margin of the event title in list/day views. [TEC-3656]
 * Tweak - Round featured event line corners. [TEC-3656]
