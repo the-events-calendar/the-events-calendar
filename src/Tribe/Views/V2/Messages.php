@@ -114,7 +114,7 @@ class Messages {
 			),
 			// translators: the placeholder is the keyword(s), as the user entered it in the bar.
 			'month_no_results_found_w_keyword' => __(
-				'There were no results found for <strong>"%1$s"</strong> this month. Try searching next month.',
+				'There were no results found for <strong>"%1$s"</strong> this month.',
 				'the-events-calendar'
 			),
 			// translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020".
