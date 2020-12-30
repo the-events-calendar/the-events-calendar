@@ -39,9 +39,8 @@ class Widget_List_View extends Widget_View {
 	 * @return array<string,mixed> The arguments, ready to be set on the View repository instance.
 	 */
 	protected function setup_repository_args( Context $context = null ) {
-		$context = null !== $context ? $context : $this->context;
-
-		$args = parent::setup_repository_args( $context );
+		$context            = null !== $context ? $context : $this->context;
+		$args               = parent::setup_repository_args( $context );
 		$args['ends_after'] = 'now';
 
 		return $args;
