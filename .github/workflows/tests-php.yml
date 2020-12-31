@@ -16,7 +16,7 @@ jobs:
       - name: Checkout tric
         uses: actions/checkout@v2
         with:
-          repository: moderntribe/tric
+          repository: the-events-calendar/tric
           ref: main
           path: tric
           fetch-depth: 1
