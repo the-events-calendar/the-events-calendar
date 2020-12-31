@@ -395,9 +395,9 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		if ( empty( $deps['id'] ) ) {
 			return '';
 		}
-bdump($deps['id']);
+
 		$deps['id'] = $this->get_field_id( $deps['id'] );
-bdump($deps['id']);
+
 		return tribe_format_field_dependency( $deps );
 	}
 
