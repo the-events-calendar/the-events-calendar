@@ -4,8 +4,21 @@ jobs:
   test:
     strategy:
       matrix:
-              # suite: [acceptance, aggregatorv1, blocks_editor_integration, integration, muintegration, restv1, views_integration, views_rest, views_settings, views_ui, views_v2_customizer_integration, views_widgets, views_wpunit, wpunit ]
-        suite: [acceptance, aggregatorv1, blocks_editor_integration, integration, muintegration, restv1, views_integration, views_rest, views_settings, views_v2_customizer_integration, views_widgets, views_wpunit, wpunit ]
+        suite:
+          - acceptance
+          - aggregatorv1
+          - blocks_editor_integration
+          - integration
+          - muintegration
+          - restv1
+          - views_integration
+          - views_rest
+          - views_settings
+          - views_ui
+          - views_v2_customizer_integration
+          - views_widgets
+          - views_wpunit
+          - wpunit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -44,6 +57,8 @@ jobs:
           ${TRIC_BIN} debug on
           ${TRIC_BIN} info
           ${TRIC_BIN} config
+      - name: Start the Chrome container
+        run: ${TRIC_BIN} up chrome
       - name: Set up Common
         run: |
           docker network prune -f
