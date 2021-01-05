@@ -49,7 +49,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		// Add the admin template class for the widget admin form.
 		$this->set_admin_template( tribe( Admin_Template::class ) );
 
-		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_template_vars' ], 20, 2 );
+		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_widget_template_vars' ], 20, 2 );
+		add_filter( "tribe_events_views_v2_view{$this->view_slug}_template_vars", [ $this, 'filter_widget_template_vars' ], 20, 2 );
 	}
 
 	/**
@@ -410,7 +411,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @return array<string,mixed> The modified template variables.
 	 */
-	public function filter_template_vars( $template_vars, $view ) {
+	public function filter_widget_template_vars( $template_vars, $view ) {
 		if ( $view->get_slug() !== $this->view_slug ) {
 			return $template_vars;
 		}
