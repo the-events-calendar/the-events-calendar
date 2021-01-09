@@ -229,6 +229,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Increase top padding above date stamp in list view. [TEC-3656]
 * Tweak - Reduce bottom margin of the event title in list/day views. [TEC-3656]
 * Tweak - Round featured event line corners. [TEC-3656]
+* Tweak - Add new filter `events_aggregator_build_url_data` to customize the URL delivered to EA server.
 * Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.3.1] 2020-12-15 =
