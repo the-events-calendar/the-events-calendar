@@ -45,6 +45,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		$this->container->tag( [ Event_Query_Controller::class, ], 'query_controllers' );
+
+		// Register the Views V2 Customizer controls asset.
+		tribe_asset( TEC::instance(), 'tribe-customizer-views-v2-controls', 'customizer-views-v2-controls.css' );
+
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -126,6 +130,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
 		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
 
+		// Register the asset for Customizer controls.
+		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
 	}
 
 	/**
@@ -926,5 +932,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Customizer::class )->filter_single_event_css_template( $css_template, $section, $customizer );
+	}
+
+	/**
+	 * Enqueues Customizer controls styles specific to Views v2 components.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_customizer_controls_styles() {
+		return $this->container->make( Customizer::class )->enqueue_customizer_controls_styles();
 	}
 }
