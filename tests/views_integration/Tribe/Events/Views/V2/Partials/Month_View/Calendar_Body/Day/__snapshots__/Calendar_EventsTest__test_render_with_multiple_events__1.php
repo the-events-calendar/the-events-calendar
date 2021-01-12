@@ -1,7 +1,7 @@
 <?php return '
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-7 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month__calendar-event--featured" >
+<article  class="tribe-events-calendar-month__calendar-event post-7 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month__calendar-event--featured" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -68,7 +68,7 @@
 
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-8 tribe_events type-tribe_events status-publish hentry entry" >
+<article  class="tribe-events-calendar-month__calendar-event post-8 tribe_events type-tribe_events status-publish hentry" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -121,7 +121,7 @@
 
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-9 tribe_events type-tribe_events status-publish hentry entry" >
+<article  class="tribe-events-calendar-month__calendar-event post-9 tribe_events type-tribe_events status-publish hentry" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
