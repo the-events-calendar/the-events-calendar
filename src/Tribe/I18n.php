@@ -165,17 +165,20 @@ class I18n {
 	 * by attaching the filtering method or function at `PHP_INT_MAX`.
 	 *
 	 * @since 5.1.1
+	 * @since TBD Changed the method visibility to public.
 	 *
-	 * @param string   $locale The locale to set for the execution of the callback.
-	 * @param callable $do     The callable to execute in the context of a specific locale.
-	 * @param array    $args   A set of arguments that will be passed to the callback.
+	 * @param string       $locale The locale to set for the execution of the callback.
+	 * @param callable     $do     The callable to execute in the context of a specific locale.
+	 * @param array<mixed> $args   A set of arguments that will be passed to the callback.
 	 *
 	 * @return mixed The callback return value, if any.
 	 */
-	protected function with_locale( $locale, callable $do, array $args = [] ) {
+	public function with_locale( $locale, callable $do, array $args = [] ) {
 		global $wp_filter;
-		$locale_filters_backup = isset( $wp_filter['locale'] ) ? $wp_filter['locale'] : [];
-		$wp_filter['locale']   = $locale_filters_backup instanceof \WP_Hook ? new \WP_Hook() : [];
+		// Backup the current state of the locale filter.
+		$locale_filters_backup = isset( $wp_filter['locale'] ) ? $wp_filter['locale'] : new \WP_Hook;
+		// Set the `locale` filter to a new hook, nothing is hooked to it.
+		$wp_filter['locale'] = new \WP_Hook();
 
 		$force_locale = static function () use ( $locale ) {
 			return $locale;
@@ -184,17 +187,6 @@ class I18n {
 		add_filter( 'locale', $force_locale );
 		$result = $do( ...$args );
 		remove_filter( 'locale', $force_locale );
-
-		foreach ( (array) $args[1] as $domain => $file ) {
-			// Reload it with the correct language.
-			unload_textdomain( $domain );
-
-			if ( 'default' === $domain ) {
-				load_default_textdomain();
-			} else {
-				Common::instance()->load_text_domain( $domain, $file );
-			}
-		}
 
 		// Restore the `locale` filtering functions.
 		$wp_filter['locale'] = $locale_filters_backup;
