@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.3.2] TBD =
 
+* Feature - Add customizer support for custom location pins on single events when Views V2 is active. [TEC-3276]
 * Fix - Use dynamic label for fast-forward link on the month view. [TEC-3452]
 * Fix - Correcly filter `locale` in the `Tribe\Events\I18n` class to avoid errors. [???]
 * Tweak - Increase top padding above date stamp in list view. [TEC-3656]
