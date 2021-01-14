@@ -227,27 +227,6 @@ class Widget_List extends Widget_Abstract {
 	}
 
 	/**
-	 * Empties the json_ld_data if jsonld_enable is false,
-	 * removing the need for additional checks in the template.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param array<string,mixed> $template_vars The current template variables.
-	 *
-	 * @return array<string,mixed> The modified template variables.
-	 */
-	public function disable_json_data( $template_vars ) {
-		if (
-			isset( $template_vars['jsonld_enable'] )
-			&& ! tribe_is_truthy( $template_vars['jsonld_enable'] )
-		) {
-			$template_vars['json_ld_data'] = '';
-		}
-
-		return $template_vars;
-	}
-
-	/**
 	 * Add full events list widget stylesheets to customizer styles array to check.
 	 *
 	 * @since 5.3.0

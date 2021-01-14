@@ -221,6 +221,22 @@ class Widget_ListTest extends ViewTestCase {
 	 * @test
 	 */
 	public function test_render_no_json_with_upcoming_events() {
+		// The changes happen inside the widget object, which we don't instantiate here.
+		// @TODO: This is a hack until we can figure a better way to handle this.
+		// This also call into question the previous test results
+		// since setting jsonld_enable has no effect without the widget object.
+		add_filter(
+			'tribe_events_views_v2_view_widget-events-list_template_vars',
+			function( $template_vars ) {
+				if ( 0 === $template_vars['jsonld_enable'] ) {
+					$template_vars['json_ld_data']  = '';
+				}
+
+				return $template_vars;
+			},
+			15
+		);
+
 		$events = [];
 
 		// Create the events.
@@ -248,15 +264,6 @@ class Widget_ListTest extends ViewTestCase {
 			'events/single/2.json'
 		] );
 
-		add_filter(
-			'tribe_events_views_v2_view_widget-events-list_template_vars',
-			function( $template_vars ) {
-				$template_vars['jsonld_enable'] = 0;
-				return $template_vars;
-			},
-			19
-		);
-
 		$widget_list_view = View::make( Widget_List_View::class );
 		$context = tribe_context()->alter( [
 			'today'              => $this->mock_date_value,
@@ -266,6 +273,7 @@ class Widget_ListTest extends ViewTestCase {
 		] );
 
 		$widget_list_view->set_context( $context );
+
 		$html = $widget_list_view->get_html();
 
 		// Let's make sure the View is displaying the events we expect it to display.
