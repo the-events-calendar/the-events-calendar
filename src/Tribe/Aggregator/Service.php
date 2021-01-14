@@ -171,7 +171,7 @@ class Tribe__Events__Aggregator__Service {
 		 * @since TBD
 		 *
 		 * @param array<string, mixed> $data     An array with the data to build the URL.
-		 * @param                      $endpoint string The endpoint used to construct the URL.
+		 * @param string               $endpoint The endpoint used to construct the URL.
 		 *
 		 * @return array<string, mixed> An array with the data used to build the URL.
 		 */
