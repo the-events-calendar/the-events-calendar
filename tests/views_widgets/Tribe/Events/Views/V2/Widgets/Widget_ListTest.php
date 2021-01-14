@@ -272,8 +272,6 @@ class Widget_ListTest extends ViewTestCase {
 			'events_per_page'    => 2,
 		] );
 
-		codecept_debug( $context );
-
 		$widget_list_view->set_context( $context );
 
 		$html = $widget_list_view->get_html();
