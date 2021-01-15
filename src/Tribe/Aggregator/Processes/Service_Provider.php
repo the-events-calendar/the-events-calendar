@@ -30,7 +30,6 @@ class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_Se
 		$batch = tribe( Batch_Imports::class );
 		// Add hooks to enable batch pushing.
 		add_filter( 'tribe_events_aggregator_build_url', [ $batch, 'build_url' ], 10, 3 );
-		add_filter( 'tribe_aggregator_service_post_import_args', [ $batch, 'import_args' ], 10, 2 );
 		add_filter( 'tribe_aggregator_allow_batch_push', [ $batch, 'allow_batch_import' ], 10, 2 );
 	}
 
