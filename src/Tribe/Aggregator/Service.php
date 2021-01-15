@@ -164,6 +164,19 @@ class Tribe__Events__Aggregator__Service {
 		// Enforce Key on the Query Data
 		$data['key'] = $api->key;
 
+		/**
+		 * Allow to filter the variable used to build the URL with `add_query_arg` to insert or change
+		 * values as required.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string, mixed> $data     An array with the data to build the URL.
+		 * @param string               $endpoint The endpoint used to construct the URL.
+		 *
+		 * @return array<string, mixed> An array with the data used to build the URL.
+		 */
+		$data = apply_filters( 'tribe_aggregator_build_url_data', $data, $endpoint );
+
 		// If we have data we add it
 		return add_query_arg( $data, $this->base_url( $endpoint, $api ) );
 	}
