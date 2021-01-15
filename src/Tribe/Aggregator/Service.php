@@ -175,7 +175,7 @@ class Tribe__Events__Aggregator__Service {
 		 *
 		 * @return array<string, mixed> An array with the data used to build the URL.
 		 */
-		$data = apply_filters( 'events_aggregator_build_url_data', $data, $endpoint );
+		$data = apply_filters( 'tribe_aggregator_build_url_data', $data, $endpoint );
 
 		// If we have data we add it
 		return add_query_arg( $data, $this->base_url( $endpoint, $api ) );
