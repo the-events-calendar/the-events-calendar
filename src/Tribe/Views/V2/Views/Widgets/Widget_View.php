@@ -75,6 +75,8 @@ class Widget_View extends View {
 		$context     = null !== $context ? $context : $this->context;
 		$args        = parent::setup_repository_args( $context );
 
+		$dev = $context->to_array();
+
 		/**
 		 * A widget-specific filter for repository args, based on widget slug.
 		 * Allows other plugins to add/remove args for the repository pre-query.
