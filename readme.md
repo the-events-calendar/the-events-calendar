@@ -12,7 +12,7 @@ We do have some guidelines that you should keep in mind while working with this 
 
 2. **Please submit a detailed description with your pull request.** If we can't figure out what you're submitting, then we may close your request.
 
-3. **We do not accept or handle support issues or bug reports here.** You may notice that we have disabled the Issues tab on this GitHub project. Please submit bug reports at [WordPress.org](http://wordpress.org/support/plugin/the-events-calendar). If you have purchased any of our premium add-ons, you may create an account and submit support requests at our [Premium Support Forums](http://m.tri.be/kj).
+3. **We do not accept or handle support issues or bug reports here.** You may notice that we have disabled the Issues tab on this GitHub project. Please submit bug reports at [WordPress.org](http://wordpress.org/support/plugin/the-events-calendar). If you have purchased any of our premium add-ons, you may create an account and submit support requests at our [Premium Support Forums](http://evnt.is/kj).
 
 4. **Please fork `master` and submit your pull requests against that branch.** This is the branch with the latest code we are working on. Pull requests will be re-targeted against the branch for the next appropriate release before merged.
 

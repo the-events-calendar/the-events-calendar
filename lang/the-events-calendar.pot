@@ -1055,7 +1055,7 @@ msgid "read more about Facebook restrictions in our knowledgebase"
 msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:762
-msgid "https://m.tri.be/1afb"
+msgid "https://evnt.is/1afb"
 msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:767
@@ -7792,5 +7792,5 @@ msgid "Modern Tribe, Inc."
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://m.tri.be/1x"
+msgid "http://evnt.is/1x"
 msgstr ""
