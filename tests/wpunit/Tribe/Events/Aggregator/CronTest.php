@@ -2,12 +2,18 @@
 
 namespace Tribe\Events\Aggregator;
 
+use Tribe\Events\Test\Testcases\Aggregator\V1\Aggregator_TestCase;
+use Tribe\Events\Test\Traits\Aggregator\AggregatorMaker;
+use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
 use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Service;
 use Tribe__Events__Aggregator__Cron as Cron;
 use Tribe__Events__Aggregator__Records as Records;
 
-class CronTest extends \Codeception\TestCase\WPTestCase {
+class CronTest extends Aggregator_TestCase {
+	use RecordMaker;
+	use AggregatorMaker;
+
 	/**
 	 * @test
 	 * it should be instantiatable
@@ -57,6 +63,169 @@ class CronTest extends \Codeception\TestCase\WPTestCase {
 		$cron->verify_child_record_creation();
 
 		$this->assertEmpty( get_post( $record_post ) );
+	}
+
+	/**
+	 * should prevent to modify a template record if it fails to process
+	 *
+	 * @test
+	 */
+	public function should_prevent_to_modify_a_template_record_if_it_fails_to_process() {
+		$import_id      = uniqid( 'import_id', true );
+		$next_import_id = uniqid( 'next_import_id', true );
+
+		tribe_register( 'events-aggregator.main', $this->make_aggregator_instance() );
+
+		$service = $this->prophesize( \Tribe__Events__Aggregator__Service::class );
+		$service->api()->willReturn( true );
+		$service->is_over_limit( true )->willReturn( false );
+		$service
+			->post_import(
+				[
+					'type'                      => 'schedule',
+					'origin'                    => 'gcal',
+					'source'                    => 'http://source-one.cal',
+					'callback'                  => home_url(
+						'/event-aggregator/insert/?key=' . urlencode( $import_id )
+					),
+					'resolve_geolocation'       => 1,
+					'frequency'                 => 'every30mins',
+					'allow_multiple_organizers' => 1,
+				]
+			)
+			->willReturn(
+				(object) [
+					'message_code' => 'success:create-import',
+					'data'         => (object) [
+						'import_id' => 'import-created-123',
+					],
+					'status'       => 'created',
+					'message'      => 'Created',
+				]
+			);
+		// Import returns an error.
+		$service->get_import( 'import-created-123', [] )->willReturn( new \WP_Error() );
+		tribe_register( 'events-aggregator.service', $service->reveal() );
+
+		/** @var Record $scheduled */
+		$scheduled = $this->make_schedule_record(
+			'birthday-cal',
+			[
+				'source'          => 'http://source-one.cal',
+				'hash'            => $import_id,
+				'next_batch_hash' => $next_import_id,
+			]
+		);
+
+		$records = Records::instance();
+		$this->assertSame( 1, $records->query( [ 'post_status' => Records::$status->schedule ] )->found_posts );
+		$this->assertSame( 0, $records->query( [ 'post_status' => Records::$status->failed ] )->found_posts );
+
+		$value = getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' );
+		putenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE=true' );
+
+		$cron = $this->make_instance();
+		$cron->verify_child_record_creation();
+
+		$this->assertinstanceOf( \WP_Post::class, $scheduled->post );
+		$this->assertEquals( Records::$status->schedule, $scheduled->post->post_status );
+
+		$this->assertSame( 2, $records->query( [ 'post_status' => 'any' ] )->found_posts );
+		$this->assertSame( 1, $records->query( [ 'post_status' => Records::$status->schedule ] )->found_posts );
+		$this->assertSame( 1, $records->query( [ 'post_status' => Records::$status->failed ] )->found_posts );
+
+		putenv( "TRIBE_DEBUG_OVERRIDE_SCHEDULE={$value}" );
+		$this->restore_aggregator();
+	}
+
+	/**
+	 * should process pending records with empty events
+	 *
+	 * @test
+	 */
+	 public function should_process_pending_records_with_empty_events() {
+		$import_id      = uniqid( 'import_id', true );
+		$next_import_id = uniqid( 'next_import_id', true );
+
+		tribe_register( 'events-aggregator.main', $this->make_aggregator_instance() );
+
+		$service = $this->prophesize( \Tribe__Events__Aggregator__Service::class );
+		$service->api()->willReturn( true );
+		$service->is_over_limit( true )->willReturn( false );
+		$service
+			->post_import(
+				[
+					'type'                      => 'schedule',
+					'origin'                    => 'gcal',
+					'source'                    => 'http://source-one.cal',
+					'callback'                  => home_url(
+						'/event-aggregator/insert/?key=' . urlencode( $import_id )
+					),
+					'resolve_geolocation'       => 1,
+					'frequency'                 => 'every30mins',
+					'allow_multiple_organizers' => 1,
+				]
+			)
+			->willReturn(
+				(object) [
+					'message_code' => 'success:create-import',
+					'data'         => (object) [
+						'import_id' => 'import-created-123',
+					],
+					'status'       => 'created',
+					'message'      => 'Created',
+				]
+			);
+		$service->get_import( 'import-created-123', [] )->willReturn(
+			(object) [
+				'status'       => 'success',
+				'message_code' => 'success:create-import',
+				'message'      => 'Import created',
+				'data'         => [
+					'import_id' => 'import-created-123',
+					'events'    => [],
+				],
+			]
+		);
+		$service->get_service_message(
+			'success:create-import',
+			[
+				'import_id' => 'import-created-123',
+				'events'    => [],
+			],
+			'Import created'
+		)->willReturn( 'Import created' );
+		tribe_register( 'events-aggregator.service', $service->reveal() );
+
+		/** @var Record $scheduled */
+		$scheduled = $this->make_schedule_record(
+			'birthday-cal',
+			[
+				'source'          => 'http://source-one.cal',
+				'hash'            => $import_id,
+				'next_batch_hash' => $next_import_id,
+			]
+		);
+
+		$records = Records::instance();
+		$this->assertSame( 1, $records->query( [ 'post_status' => Records::$status->schedule ] )->found_posts );
+		$this->assertSame( 0, $records->query( [ 'post_status' => Records::$status->failed ] )->found_posts );
+
+		$value = getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' );
+		putenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE=true' );
+
+		$cron = $this->make_instance();
+		$cron->verify_child_record_creation();
+
+		$this->assertinstanceOf( \WP_Post::class, $scheduled->post );
+		$this->assertEquals( Records::$status->schedule, $scheduled->post->post_status );
+
+		$this->assertSame( 2, $records->query( [ 'post_status' => 'any' ] )->found_posts );
+		$this->assertSame( 1, $records->query( [ 'post_status' => Records::$status->schedule ] )->found_posts );
+		$this->assertSame( 1, $records->query( [ 'post_status' => Records::$status->pending ] )->found_posts );
+
+		putenv( "TRIBE_DEBUG_OVERRIDE_SCHEDULE={$value}" );
+		$this->restore_aggregator();
 	}
 
 	/**

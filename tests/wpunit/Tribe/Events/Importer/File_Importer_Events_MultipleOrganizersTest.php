@@ -3,9 +3,6 @@ namespace Tribe\Events\Importer;
 
 require_once "File_Importer_EventsTest.php";
 
-use Handlebars\Handlebars;
-use Handlebars\Loader\FilesystemLoader;
-use org\bovigo\vfs\vfsStream;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Organizer as Organizer;
 

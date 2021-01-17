@@ -1,0 +1,57 @@
+name: 'Codeception Tests'
+on: [pull_request]
+jobs:
+  test:
+    strategy:
+      matrix:
+              # suite: [acceptance, aggregatorv1, blocks_editor_integration, integration, muintegration, restv1, views_integration, views_rest, views_settings, views_ui, views_v2_customizer_integration, views_widgets, views_wpunit, wpunit ]
+        suite: [acceptance, aggregatorv1, blocks_editor_integration, integration, muintegration, restv1, views_integration, views_rest, views_settings, views_v2_customizer_integration, views_widgets, views_wpunit, wpunit ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          submodules: recursive
+      - name: Checkout tric
+        uses: actions/checkout@v2
+        with:
+          repository: the-events-calendar/tric
+          ref: main
+          path: tric
+          fetch-depth: 1
+      - name: Set up tric env vars
+        run: |
+          echo "TRIC_BIN=${GITHUB_WORKSPACE}/tric/tric" >> $GITHUB_ENV
+          echo "TRIC_WP_DIR=${GITHUB_WORKSPACE}/tric/_wordpress" >> $GITHUB_ENV
+          echo "TRIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
+      - name: Set run context for tric
+        run: echo "TRIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
+      - name: Start ssh-agent
+        run: |
+          mkdir -p "${HOME}/.ssh";
+          ssh-agent -a /tmp/ssh_agent.sock;
+      - name: Export SSH_AUTH_SOCK env var
+        run: echo "SSH_AUTH_SOCK=/tmp/ssh_agent.sock" >> $GITHUB_ENV
+      - name: Set up tric for CI
+        run: |
+          cd ${GITHUB_WORKSPACE}/..
+          ${TRIC_BIN} here
+          ${TRIC_BIN} interactive off
+          ${TRIC_BIN} build-prompt off
+          ${TRIC_BIN} build-subdir off
+          ${TRIC_BIN} xdebug off
+          ${TRIC_BIN} debug on
+          ${TRIC_BIN} info
+          ${TRIC_BIN} config
+      - name: Set up Common
+        run: |
+          docker network prune -f
+          ${TRIC_BIN} use the-events-calendar/common
+          ${TRIC_BIN} composer install --no-dev
+      - name: Set up The Events Calendar
+        run: |
+          ${TRIC_BIN} use the-events-calendar
+          ${TRIC_BIN} composer install
+      - name: Run suite tests
+        run: ${TRIC_BIN} run ${{ matrix.suite }} --ext DotReporter

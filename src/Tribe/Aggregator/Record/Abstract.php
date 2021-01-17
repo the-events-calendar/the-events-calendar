@@ -4,6 +4,9 @@ use Tribe\Events\Aggregator\Record\Batch_Queue;
 // Don't load directly.
 defined( 'WPINC' ) || die;
 
+use Tribe__Date_Utils as Dates;
+use Tribe__Events__Aggregator__Records as Records;
+
 abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 	/**
@@ -139,7 +142,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return tribe_error( 'core:aggregator:invalid-record-object', [], [ $post ] );
 		}
 
-		if ( $post->post_type !== Tribe__Events__Aggregator__Records::$post_type ) {
+		if ( Records::$post_type !== $post->post_type ) {
 			return tribe_error( 'core:aggregator:invalid-record-post_type', [], [ $post ] );
 		}
 
@@ -388,7 +391,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$post                = $this->prep_post_args( $meta['type'], $args, $meta );
 		$post['ID']          = absint( $post_id );
-		$post['post_status'] = Tribe__Events__Aggregator__Records::$status->schedule;
+		$post['post_status'] = Records::$status->schedule;
 
 		add_filter( 'wp_insert_post_data', [ $this, 'dont_change_post_modified' ], 10, 2 );
 		$result = wp_update_post( $post );
@@ -431,12 +434,12 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function prep_post_args( $type, $args, $meta = [] ) {
 		$post = [
 			'post_title'     => $this->generate_title( $type, $this->origin, $meta['frequency'], $args->parent ),
-			'post_type'      => Tribe__Events__Aggregator__Records::$post_type,
+			'post_type'      => Records::$post_type,
 			'ping_status'    => $type,
 			// The Mime Type needs to be on a %/% format to work on WordPress
 			'post_mime_type' => 'ea/' . $this->origin,
 			'post_date'      => current_time( 'mysql' ),
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
+			'post_status'    => Records::$status->draft,
 			'post_parent'    => $args->parent,
 			'meta_input'     => [],
 		];
@@ -501,7 +504,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
 			'post_date'      => current_time( 'mysql' ),
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->schedule,
+			'post_status'    => Records::$status->schedule,
 			'post_parent'    => 0,
 			'meta_input'     => [],
 		];
@@ -564,7 +567,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$this->post->post_parent = $schedule_id;
 
-		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $schedule_id );
+		return Records::instance()->get_by_post_id( $schedule_id );
 	}
 
 	/**
@@ -586,7 +589,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			'ping_status'    => $this->post->ping_status,
 			'post_mime_type' => $this->post->post_mime_type,
 			'post_date'      => current_time( 'mysql' ),
-			'post_status'    => Tribe__Events__Aggregator__Records::$status->draft,
+			'post_status'    => Records::$status->draft,
 			'post_parent'    => $this->id,
 			'post_author'    => $this->post->post_author,
 			'meta_input'     => [],
@@ -632,7 +635,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// track the most recent child that was spawned
 		$this->update_meta( 'recent_child', $child_id );
 
-		return Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $child_id );
+		return Records::instance()->get_by_post_id( $child_id );
 	}
 
 	/**
@@ -727,14 +730,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		if ( ! empty( $args['start'] ) ) {
 			$args['start'] = ! is_numeric( $args['start'] )
-				? Tribe__Date_Utils::maybe_format_from_datepicker( $args['start'] )
-				: date( Tribe__Date_Utils::DBDATETIMEFORMAT, $args['start'] );
+				? Dates::maybe_format_from_datepicker( $args['start'] )
+				: Dates::build_date_object( $args['start'] )->format( Dates::DBDATETIMEFORMAT );
 		}
 
 		if ( ! empty( $args['end'] ) ) {
 			$args['end'] = ! is_numeric( $args['end'] )
-				? Tribe__Date_Utils::maybe_format_from_datepicker( $args['end'] )
-				: date( Tribe__Date_Utils::DBDATETIMEFORMAT, $args['end'] );
+				? Dates::maybe_format_from_datepicker( $args['end'] )
+				: Dates::build_date_object( $args['end'] )->format( Dates::DBDATETIMEFORMAT );
 		}
 
 		// Set site for origin(s) that need it for new token handling.
@@ -897,21 +900,35 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return int
 	 */
 	public function set_status( $status ) {
-		if ( ! isset( Tribe__Events__Aggregator__Records::$status->{$status} ) ) {
+		if ( ! isset( Records::$status->{$status} ) ) {
 			return false;
 		}
 
+		// Status of Scheduled Imports cannot change.
+		if ( $this->post instanceof WP_Post && Records::$status->schedule === $this->post->post_status ) {
+			return false;
+		}
 
-		$status = wp_update_post( [
-			'ID'          => $this->id,
-			'post_status' => Tribe__Events__Aggregator__Records::$status->{$status},
-		] );
+		$updated_id = wp_update_post(
+			[
+				'ID'          => $this->id,
+				'post_status' => Records::$status->{$status},
+			]
+		);
 
-		if ( ! is_wp_error( $status ) && ! empty( $this->post->post_parent ) ) {
-			$status = wp_update_post( [
-				'ID'            => $this->post->post_parent,
-				'post_modified' => date( Tribe__Date_Utils::DBDATETIMEFORMAT, current_time( 'timestamp' ) ),
-			] );
+		if ( $updated_id !== $this->id || ! is_wp_error( $updated_id ) ) {
+			// Reload the properties of the post if the status of the record was changed.
+			$this->load( $this->id );
+
+			// If a parent exists and an error occur register the last update time on the parent record.
+			if ( ! empty( $this->post->post_parent ) ) {
+				$status = wp_update_post(
+					[
+						'ID'            => $this->post->post_parent,
+						'post_modified' => Dates::build_date_object()->format( Dates::DBDATETIMEFORMAT ),
+					]
+				);
+			}
 		}
 
 		return $status;
@@ -964,7 +981,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// Force the parent
 		$args->post_parent = $this->id;
 
-		return Tribe__Events__Aggregator__Records::instance()->query( $args );
+		return Records::instance()->query( $args );
 	}
 
 	/**
@@ -975,7 +992,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return WP_Query|WP_Error|bool
 	 */
 	public function get_child_record_by_status( $status = 'success', $qty = -1, array $args = [] ) {
-		$statuses = Tribe__Events__Aggregator__Records::$status;
+		$statuses = Records::$status;
 
 		if ( ! isset( $statuses->{$status} ) && 'trash' !== $status ) {
 			return false;
@@ -1062,7 +1079,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// If we are not dealing with the Record Schedule
-		if ( $this->post->post_status !== Tribe__Events__Aggregator__Records::$status->schedule ) {
+		if ( Records::$status->schedule !== $this->post->post_status ) {
 			return false;
 		}
 
@@ -1136,7 +1153,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function has_passed_retention_time() {
 		// Bail if we are trying to prune a Schedule Record
-		if ( Tribe__Events__Aggregator__Records::$status->schedule === $this->post->post_status ) {
+		if ( Records::$status->schedule === $this->post->post_status ) {
 			return false;
 		}
 
@@ -1145,13 +1162,13 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// Prevents Pending that is younger than 1 hour to be pruned
 		if (
-			Tribe__Events__Aggregator__Records::$status->pending === $this->post->post_status
+			Records::$status->pending === $this->post->post_status
 			&& $current < $created + HOUR_IN_SECONDS
 		) {
 			return false;
 		}
 
-		$prune = $created + Tribe__Events__Aggregator__Records::instance()->get_retention();
+		$prune = $created + Records::instance()->get_retention();
 
 		return $current > $prune;
 	}
@@ -1245,7 +1262,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			return;
 		}
 
-		$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->post->post_parent );
+		$parent_record = Records::instance()->get_by_post_id( $this->post->post_parent );
 
 		if ( tribe_is_error( $parent_record ) ) {
 			return;
@@ -1382,7 +1399,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return Tribe__Events__Aggregator__Record__Activity The import activity record.
 	 */
 	public function insert_posts( $items = [] ) {
-		add_filter( 'tribe-post-origin', [ Tribe__Events__Aggregator__Records::instance(), 'filter_post_origin' ], 10 );
+		add_filter( 'tribe-post-origin', [ Records::instance(), 'filter_post_origin' ], 10 );
 
 		/**
 		 * Fires before events and linked posts are inserted in the database.
@@ -1949,7 +1966,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				}
 			}
 
-			Tribe__Events__Aggregator__Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
+			Records::instance()->add_record_to_event( $event['ID'], $this->id, $this->origin );
 
 			// Add post parent possibility
 			if ( empty( $event['parent_uid'] ) && ! empty( $unique_field ) && ! empty( $event[ $unique_field['target'] ] ) ) {
@@ -2053,14 +2070,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			do_action( 'tribe_aggregator_after_insert_post', $event, $item, $this );
 		}
 
-		remove_filter(
-			'tribe-post-origin',
-			[
-				Tribe__Events__Aggregator__Records::instance(),
-				'filter_post_origin',
-			],
-			10
-		);
+		remove_filter( 'tribe-post-origin', [ Records::instance(), 'filter_post_origin' ], 10 );
 
 		/**
 		 * Fires after events and linked posts have been inserted in the database.
@@ -2632,7 +2642,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$last_child_post = $this->get_last_child_post();
 
 		return $last_child_post && $last_child_post instanceof WP_Post
-			? Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $last_child_post->ID )
+			? Records::instance()->get_by_post_id( $last_child_post->ID )
 			: $this;
 	}
 

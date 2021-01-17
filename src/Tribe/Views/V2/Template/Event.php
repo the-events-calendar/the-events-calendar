@@ -83,7 +83,7 @@ class Event {
 			}
 
 			if ( $this->template_bootstrap->is_single_event() ) {
-				add_filter( 'the_title', '__return_empty_string' );
+				add_filter( 'the_title', [ $this, 'filter_the_title_display' ], 10, 2 );
 				add_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
 			}
 
@@ -181,5 +181,40 @@ class Event {
 		}
 
 		return $event;
+	}
+
+	/**
+	 * Filter the display of the_title for password protected events, venues, and organizers.
+	 *
+	 * @since 5.3.1
+	 *
+	 * @param string       $title   The post title.
+	 * @param int|\WP_Post $post_id The post ID, or object, to apply the filter for.
+	 *
+	 * @return string The post title or empty string if password protected.
+	 */
+	public function filter_the_title_display( $title, $post_id = 0 ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post instanceof \WP_Post ) {
+			return $title;
+		}
+
+		if ( empty( $post->post_password ) ) {
+			return $title;
+		}
+
+		$post_type  = get_post_type( $post_id );
+		$post_types = array(
+			\Tribe__Events__Main::POSTTYPE,
+			\Tribe__Events__Organizer::POSTTYPE,
+			\Tribe__Events__Venue::POSTTYPE,
+		);
+
+		if ( in_array( $post_type, $post_types, true ) ) {
+			return '';
+		}
+
+		return $title;
 	}
 }
