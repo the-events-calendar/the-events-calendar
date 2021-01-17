@@ -6,11 +6,11 @@
 class Tribe__Events__Bar {
 
 	// Each row should be an associative array with three fields: name, caption and html (html is the markup of the field)
-	private $filters = array();
+	private $filters = [];
 
 	// Each row should be an associative array with three fields: displaying, anchor and url.
 	// Displaying is the value of Tribe__Events__Main->displaying
-	private $views = array();
+	private $views = [];
 
 	/**
 	 * Hooking the required Filters and Actions for this Class
@@ -20,10 +20,10 @@ class Tribe__Events__Bar {
 	 * @return void
 	 */
 	public function hook() {
-		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ), 9 );
-		add_filter( 'body_class', array( $this, 'body_class' ) );
-		add_action( 'tribe_events_bar_before_template', array( $this, 'disabled_bar_before' ) );
-		add_action( 'tribe_events_bar_after_template', array( $this, 'disabled_bar_after' ) );
+		add_filter( 'wp_enqueue_scripts', [ $this, 'load_script' ], 9 );
+		add_filter( 'body_class', [ $this, 'body_class' ] );
+		add_action( 'tribe_events_bar_before_template', [ $this, 'disabled_bar_before' ] );
+		add_action( 'tribe_events_bar_after_template', [ $this, 'disabled_bar_after' ] );
 	}
 
 	/**
@@ -43,10 +43,10 @@ class Tribe__Events__Bar {
 			return;
 		}
 
-		$disallowed_types = array(
+		$disallowed_types = [
 			Tribe__Events__Organizer::POSTTYPE,
 			Tribe__Events__Venue::POSTTYPE,
-		);
+		];
 
 		$in_disallowed_type = in_array( get_post_type(), $disallowed_types );
 		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && ! $in_disallowed_type );

@@ -9,7 +9,7 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  * @var string $label        Label for the radio group.
  * @var string $value        Value for the radio group.
@@ -29,7 +29,7 @@
 >
 	<input
 		class="tribe-widget-form-control__input"
-		id="<?php echo esc_attr( $id ); ?>"
+		id="<?php echo esc_attr( $id . '-' . strtolower( $button_value ) ); ?>"
 		name="<?php echo esc_attr( $name ); ?>"
 		type="radio"
 		value="<?php echo esc_attr( $button_value ); ?>"
@@ -37,7 +37,7 @@
 	/>
 	<label
 		class="tribe-widget-form-control__label"
-		for="<?php echo esc_attr( $id ); ?>"
+		for="<?php echo esc_attr( $id . '-' . strtolower( $button_value ) ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 	</label>

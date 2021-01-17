@@ -45,16 +45,16 @@ abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
 		}
 
 		if ( is_numeric( $data ) && $this->is_post_type( $data ) ) {
-			return array( $this->get_id_index() => $data );
+			return [ $this->get_id_index() => $data ];
 		}
 
 		if ( ! empty( $data['id'] ) ) {
 			if ( $this->is_post_type( $data['id'] ) ) {
-				return array( $this->get_id_index() => $data['id'] );
+				return [ $this->get_id_index() => $data['id'] ];
 			}
 			$message = $this->messages->get_message( 'invalid-linked-post-id' );
 
-			return new WP_Error( 'invalid-linked-post-id', $message, array( 'status' => 400 ) );
+			return new WP_Error( 'invalid-linked-post-id', $message, [ 'status' => 400 ] );
 		}
 
 		$data_request = new WP_REST_Request();
@@ -71,7 +71,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
 			return $post_id;
 		}
 
-		return array( $this->get_id_index() => $post_id );
+		return [ $this->get_id_index() => $post_id ];
 	}
 
 	/**

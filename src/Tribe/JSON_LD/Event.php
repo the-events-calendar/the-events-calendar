@@ -65,17 +65,17 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 *
 	 * @return array
 	 */
-	public function get_data( $posts = null, $args = array() ) {
+	public function get_data( $posts = null, $args = [] ) {
 		// Fetch the global post object if no posts are provided
 		if ( ! is_array( $posts ) && empty( $posts ) ) {
-			$posts = array( $GLOBALS['post'] );
+			$posts = [ $GLOBALS['post'] ];
 		}
 		// If we only received a single post object, wrap it in an array
 		else {
-			$posts = ( $posts instanceof WP_Post ) ? array( $posts ) : (array) $posts;
+			$posts = ( $posts instanceof WP_Post ) ? [ $posts ] : (array) $posts;
 		}
 
-		$return = array();
+		$return = [];
 
 		foreach ( $posts as $i => $post ) {
 			// We may have been passed a post ID - let's ensure we have the post object
@@ -170,9 +170,9 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		$regex_free  = '/^\\s*' . __( 'Free', 'the-events-calendar' ) . '\\s*$/i';
 
 		// Replace free with 0 (in any language)
-		$map = array(
+		$map = [
 			$regex_free => '0',
-		);
+		];
 
 		foreach ( $map as $normalization_regex => $normalized_price ) {
 			if ( preg_match( $normalization_regex, '' . $price ) ) {

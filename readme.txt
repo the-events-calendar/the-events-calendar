@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, jbrinley, jentheo, leahkoerper, lucatume, neillmcshea, nicosantos, patriciahillebrandt, peterchester, paulskim, reid.peifer, roblagatta, ryancurban, shane.pearlman, vicskf, zbtirrell, juanfra
+Contributors: ModernTribe, borkweb,bordoni, brianjessee, aguseo, camwynsp, cliffpaulick, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, peterchester, paulskim, reid.peifer, shane.pearlman, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://m.tri.be/29
 Requires at least: 4.9.14
-Stable tag: 5.4.0
-Tested up to: 5.5.1
+Stable tag: 5.3.0
+Tested up to: 5.5.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -26,7 +26,7 @@ See the calendar in action on our [demo experience](https://m.tri.be/1ajs). Just
 
 Looking for additional features like recurring events, ticket sales, user-submitted events, automatic imports, and more?
 
-<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong>
+<strong>Check out [Events Calendar Pro](https://m.tri.be/mj), [Event Aggregator](https://m.tri.be/197u), and [more add-ons](https://m.tri.be/2a)</strong> ...and all of them are on sale from November 23-30 during our annual 💰[Black Friday Sale](https://m.tri.be/1aod)💰
 
 = 🔌🎨 Plug and Play or Customize =
 
@@ -222,14 +222,20 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.3.0] 2020-12-02 =
 
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
+* Feature - Event Aggregator Batch Pushing for Cron Imports [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_time_to_live` to customize the time in seconds to consider an EA record alive. [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_stall_limit` to customize the number of seconds for an EA record to be considerd stalled. [EA-297]
+* Tweak - Add the filter `tribe_events_aggregator_build_url` [EA-297]
+* Tweak - Adjust Event Aggregator Client Progress Bar using the Heart Beat API for polling state instead [TEC-3534]
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
 * Tweak - Event Aggregator/Eventbrite Tickets - Remove verbiage regarding 50 event limit on Eventbrite imports.
 * Tweak - Add the `tribe_get_organizer_object` function. [TEC-3645]
 * Tweak - Change the return value of the `tribe_get_event( $event_id )->organizers` from a collection of Organizer names to a collection of Organizer post objects. [TEC-3645s]
 * Tweak - Add the `tribe_get_event( $event_id )->organizer_names` method to return a collection of the Event Organizer names. [TEC-3645]
+* Tweak - ensure widgets don't get Filter Bar classes on their containers. [TBD]
 * Tweak - Switch the List View previous/next URL methods to use the slug rather than a hard-coded "list" so the class is more easily extendable. [TEC-3648]
 * Tweak - Add an option to trash events after 1 month (thanks @StefanSchroeder).
 * Tweak - Add the `tribe_events_views_v2_datepicker_no_conflict` filter (default `false`) to allow loading the Views v2 datepicker in no-conflict mode, when set to `true`, and avoid issues with other plugins that are loading the built-in WordPress `jquery-ui-datepicker` script. [TEC-3581]
@@ -242,6 +248,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
 * Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
 * Fix - Review and improve the Rewrite component to correctly parse and handle localized URLs and accented characters. [TEC-3608]
+* Language - 25 new strings added, 775 updated, 1 fuzzied, and 6 obsoleted
 
 = [5.2.1] 2020-10-22 =
 

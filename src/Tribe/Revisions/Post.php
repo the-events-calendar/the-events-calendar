@@ -30,12 +30,12 @@ class Tribe__Events__Revisions__Post {
 	 * @return Tribe__Events__Revisions__Post
 	 */
 	public static function new_from_post( $post ) {
-		$types_map = array(
+		$types_map = [
 			Tribe__Events__Main::POSTTYPE            => 'Tribe__Events__Revisions__Event',
 			Tribe__Events__Main::ORGANIZER_POST_TYPE => 'Tribe__Events__Revisions__Organizer',
 			Tribe__Events__Main::VENUE_POST_TYPE     => 'Tribe__Events__Revisions__Venue',
 			'post'                                   => __CLASS__,
-		);
+		];
 
 		$parent_post = get_post( wp_is_post_revision( $post ) );
 

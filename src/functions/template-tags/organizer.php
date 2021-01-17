@@ -52,7 +52,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_organizer_ids( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 
-		$organizer_ids = array();
+		$organizer_ids = [];
 
 		if ( Tribe__Events__Main::instance()->isEvent( $event_id ) ) {
 			$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
@@ -79,15 +79,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array
 	 */
-	function tribe_sanitize_organizers( $current = array(), $ordered = array() ) {
+	function tribe_sanitize_organizers( $current = [], $ordered = [] ) {
 		_deprecated_function( __METHOD__, '4.6.23', 'No longer needed after removing reliance on a separate postmeta field to store the ordering.' );
 
 		if ( empty( $ordered ) ) {
 			return $current;
 		}
 
-		$order    = array();
-		$excluded = array();
+		$order    = [];
+		$excluded = [];
 		foreach ( (array) $current as $post_id ) {
 			$key = array_search( $post_id, $ordered );
 			if ( false === $key ) {
@@ -188,9 +188,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_organizer_details( $post_id = null ) {
-		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
+		$post_id      = Tribe__Events__Main::postIdHelper( $post_id );
 		$organizer_id = (int) tribe_get_organizer_id( $post_id );
-		$details = array();
+		$details      = [];
 
 		if ( $organizer_id && $tel = tribe_get_organizer_phone() ) {
 			$details[] = '<span class="tel">' . $tel . '</span>';
@@ -474,7 +474,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array|int An array of organizer post objects or an integer value if `found_posts` is set to a truthy value.
 	 */
-	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = - 1, $suppress_filters = true, array $args = array() ) {
+	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true, array $args = [] ) {
 		// filter out the `null` values
 		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
 
@@ -482,11 +482,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['only_with_upcoming'] = true;
 		}
 
-		$filter_args = array(
+		$filter_args = [
 			'event'              => 'find_for_event',
 			'has_events'         => 'find_with_events',
 			'only_with_upcoming' => 'find_with_upcoming_events',
-		);
+		];
 
 		foreach ( $filter_args as $filter_arg => $method ) {
 			if ( ! isset( $args[ $filter_arg ] ) ) {
@@ -503,7 +503,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( empty( $found ) ) {
-				return array();
+				return [];
 			}
 
 			$args['post__in'] = ! empty( $args['post__in'] )
@@ -511,15 +511,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				: $found;
 
 			if ( empty( $args['post__in'] ) ) {
-				return array();
+				return [];
 			}
 		}
 
-		$parsed_args = wp_parse_args( $args, array(
+		$parsed_args = wp_parse_args(
+			$args,
+			[
 				'post_type'        => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 				'posts_per_page'   => $posts_per_page,
 				'suppress_filters' => $suppress_filters,
-			)
+			]
 		);
 
 		$return_found_posts = ! empty( $args['found_posts'] );
@@ -540,13 +542,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return 0;
 		}
 
-		return $query->have_posts() ? $query->posts : array();
+		return $query->have_posts() ? $query->posts : [];
 	}
 
 	/**
 	 * Fetches and returns a decorated post object representing a Organizer.
 	 *
-	 * @since TBD
+	 * @since 5.3.0
 	 *
 	 * @param null|int|WP_Post $organizer  The organizer ID or post object or `null` to use the global one.
 	 * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
@@ -570,7 +572,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Returning a non `null` value here will short-circuit the function and return the value.
 		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param mixed       $return      The organizer object to return.
 		 * @param mixed       $organizer       The organizer object to fetch.
@@ -607,7 +609,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 * If you need to filter the output value on each call of this function then use the `tribe_get_organizer_object_before`
 			 * filter.
 			 *
-			 * @since TBD
+			 * @since 5.3.0
 			 *
 			 * @param WP_Post $post   The organizer post object, decorated with a set of custom properties.
 			 * @param string  $output The output format to use.

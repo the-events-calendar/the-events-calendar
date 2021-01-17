@@ -9,7 +9,7 @@
  *
  * @link http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  * @var string $view_slug            Slug of the current view.
  * @var string $view_label           Label of the current view.
@@ -39,7 +39,7 @@ $view_selector_classes = [
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $view_label ); ?>
 			</span>
-			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-caret-svg' ] ] ); ?>
 		</button>
 		<?php $this->template( 'components/events-bar/views/list' ); ?>
 	</div>

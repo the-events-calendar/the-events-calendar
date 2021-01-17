@@ -4,9 +4,9 @@
  * Class Tribe__Events__Importer__Column_Mapper
  */
 class Tribe__Events__Importer__Column_Mapper {
-	private $column_names = array();
+	private $column_names = [];
 	private $import_type = '';
-	private $defaults = array();
+	private $defaults = [];
 
 	public function __construct( $import_type ) {
 		$this->import_type = $import_type;

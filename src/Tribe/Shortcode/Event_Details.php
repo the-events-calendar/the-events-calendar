@@ -28,7 +28,7 @@ class Tribe__Events__Shortcode__Event_Details {
 	 * @return  void
 	 */
 	public function hook() {
-		add_action( 'init', array( $this, 'add_shortcode' ) );
+		add_action( 'init', [ $this, 'add_shortcode' ] );
 	}
 
 	/**

@@ -15,7 +15,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 	class Tribe__Events__Template__Day extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'tribe-events-day';
-		protected $asset_packages = array();
+		protected $asset_packages = [];
 
 		const AJAX_HOOK = 'tribe_event_day';
 
@@ -40,8 +40,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 			tribe_asset_enqueue( 'tribe-events-ajax-day' );
 
-			add_filter( 'tribe_get_ical_link', array( $this, 'ical_link' ), 20, 1 );
-			add_filter( 'tribe_events_header_attributes', array( $this, 'header_attributes' ) );
+			add_filter( 'tribe_get_ical_link', [ $this, 'ical_link' ], 20, 1 );
+			add_filter( 'tribe_events_header_attributes', [ $this, 'header_attributes' ] );
 		}
 
 		/**
@@ -124,9 +124,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				unset( $post );
 
 				// Make sure All Day events come first
-				$all_day = array();
-				$ongoing = array();
-				$hourly  = array();
+				$all_day = [];
+				$ongoing = [];
+				$hourly  = [];
 				foreach ( $unsorted_posts as $i => $post ) {
 					if ( $post->timeslot == esc_html__( 'All Day', 'the-events-calendar' ) ) {
 						$all_day[ $i ] = $post;
@@ -252,12 +252,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				ob_start();
 				tribe_get_view( 'day/content' );
 
-				$response = array(
+				$response = [
 					'html'        => ob_get_clean(),
 					'success'     => true,
 					'total_count' => $query->found_posts,
 					'view'        => 'day',
-				);
+				];
 				apply_filters( 'tribe_events_ajax_response', $response );
 
 				header( 'Content-type: application/json' );

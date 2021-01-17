@@ -26,7 +26,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		if ( ! ( 'publish' === $organizer->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'organizer-not-accessible' );
 
-			return new WP_Error( 'organizer-not-accessible', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'organizer-not-accessible', $message, [ 'status' => 403 ] );
 		}
 
 		$data = $this->post_repository->get_organizer_data( $request['id'], 'single' );
@@ -62,7 +62,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-create-organizer' );
 
-			return new WP_Error( 'could-not-create-organizer', $message, array( 'status' => 400 ) );
+			return new WP_Error( 'could-not-create-organizer', $message, [ 'status' => 400 ] );
 		}
 
 		if ( $return_id ) {
@@ -90,7 +90,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	public function insert( $data ) {
 		$data = (array) $data;
 
-		$inserted = array();
+		$inserted = [];
 		foreach ( $data as $entry ) {
 			$organizer_id = parent::insert( $entry );
 
@@ -101,7 +101,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			$inserted[] = $organizer_id;
 		}
 
-		return array( $this->get_id_index() => wp_list_pluck( $inserted, $this->get_id_index() ) );
+		return [ $this->get_id_index() => wp_list_pluck( $inserted, $this->get_id_index() ) ];
 	}
 
 	/**
@@ -119,73 +119,73 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @since bucket/full-rest-api
 	 */
 	public function get_documentation() {
-		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
-		$POST_defaults = array( 'in' => 'formData', 'default' => '', 'type' => 'string' );
-		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
+		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
+		$POST_defaults = [ 'in' => 'formData', 'default' => '', 'type' => 'string' ];
+		$post_args     = array_merge( $this->READ_args(), $this->CREATE_args() );
 
-		return array(
-			'get'  => array(
+		return [
+			'get'    => [
 				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns the data of the organizer with the specified post ID', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Organizer',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'The organizer post ID is missing.', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The organizer with the specified ID is not accessible.', 'the-events-calendar' ),
-					),
-					'404' => array(
+					],
+					'404' => [
 						'description' => __( 'An organizer with the specified event does not exist.', 'the-events-calendar' ),
-					),
-				),
-			),
-			'post' => array(
-				'consumes' => array( 'application/x-www-form-urlencoded' ),
+					],
+				],
+			],
+			'post'   => [
+				'consumes'   => [ 'application/x-www-form-urlencoded' ],
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
-				'responses'  => array(
-					'201' => array(
+				'responses'  => [
+					'201' => [
 						'description' => __( 'Returns the data of the created organizer', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Organizer',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The user is not authorized to create organizers', 'the-events-calendar' ),
-					),
-				),
-			),
-			'delete'  => array(
+					],
+				],
+			],
+			'delete' => [
 				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Deletes an organizer and returns its data', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Organizer',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'The organizer post ID is missing or does not exist.', 'the-venues-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The current user cannot delete the organizer with the specified ID.', 'the-venues-calendar' ),
-					),
-					'410' => array(
+					],
+					'410' => [
 						'description' => __( 'The organizer with the specified ID has been deleted already.', 'the-venues-calendar' ),
-					),
-					'500' => array(
+					],
+					'500' => [
 						'description' => __( 'The organizer with the specified ID could not be deleted.', 'the-venues-calendar' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -197,15 +197,15 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @since bucket/full-rest-api
 	 */
 	public function READ_args() {
-		return array(
-			'id' => array(
+		return [
+			'id' => [
 				'in'                => 'path',
 				'type'              => 'integer',
 				'description'       => __( 'the organizer post ID', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_organizer_id' ),
-			),
-		);
+				'validate_callback' => [ $this->validator, 'is_organizer_id' ],
+			],
+		];
 	}
 
 	/**
@@ -217,80 +217,80 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @since bucket/full-rest-api
 	 */
 	public function CREATE_args() {
-		return array(
+		return [
 			// Post fields
-			'author'      => array(
+			'author'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_user_id' ),
+				'validate_callback' => [ $this->validator, 'is_user_id' ],
 				'type'              => 'integer',
 				'default'           => null,
 				'description'       => __( 'The organizer author ID', 'the-events-calendar' ),
-			),
-			'date'        => array(
+			],
+			'date'        => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer publication date', 'the-events-calendar' ),
-			),
-			'date_utc'    => array(
+			],
+			'date_utc'    => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer publication date (UTC time zone)', 'the-events-calendar' ),
-			),
-			'organizer'   => array(
+			],
+			'organizer'   => [
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer name', 'the-events-calendar' ),
-			),
-			'description' => array(
+			],
+			'description' => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer description', 'the-events-calendar' ),
-			),
-			'status'      => array(
+			],
+			'status'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_post_status' ),
+				'validate_callback' => [ $this->validator, 'is_post_status' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer post status', 'the-events-calendar' ),
-			),
+			],
 			// Organizer meta fields
-			'phone'       => array(
+			'phone'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer phone number', 'the-events-calendar' ),
-			),
-			'website'     => array(
+			],
+			'website'     => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_url_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_url_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer website', 'the-events-calendar' ),
-			),
-			'email'       => array(
+			],
+			'email'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer e-mail address', 'the-events-calendar' ),
-			),
-			'image'       => array(
+			],
+			'image'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_image_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_image_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer featured image ID or URL', 'the-events-calendar' ),
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -320,7 +320,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			: false;
 
 		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
-		$postarr = array(
+		$postarr = [
 			$this->get_id_index() => $request['id'],
 			'post_author'         => $request['author'],
 			'post_date'           => $post_date,
@@ -332,7 +332,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			'Website'             => $request['website'],
 			'Email'               => $request['email'],
 			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
-		);
+		];
 
 		/**
 		 * Allow filtering of $postarr data with additional $request arguments.
@@ -344,7 +344,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_organizer_prepare_postarr', $postarr, $request );
 
-		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
+		$postarr = array_filter( $postarr, [ $this->validator, 'is_not_null' ] );
 
 		return $postarr;
 	}
@@ -389,7 +389,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		if ( 'trash' === $organizer->post_status ) {
 			$message = $this->messages->get_message( 'organizer-is-in-trash' );
 
-			return new WP_Error( 'organizer-is-in-trash', $message, array( 'status' => 410 ) );
+			return new WP_Error( 'organizer-is-in-trash', $message, [ 'status' => 410 ] );
 		}
 
 		/**
@@ -410,7 +410,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		if ( false === $deleted ) {
 			$message = $this->messages->get_message( 'could-not-delete-organizer' );
 
-			return new WP_Error( 'could-not-delete-organizer', $message, array( 'status' => 500 ) );
+			return new WP_Error( 'could-not-delete-organizer', $message, [ 'status' => 500 ] );
 		}
 
 		$data = $this->post_repository->get_organizer_data( $organizer_id );
@@ -457,7 +457,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-update-organizer' );
 
-			return new WP_Error( 'could-not-update-organizer', $message, array( 'status' => 400 ) );
+			return new WP_Error( 'could-not-update-organizer', $message, [ 'status' => 400 ] );
 		}
 
 		$data = $this->post_repository->get_organizer_data( $id );
@@ -477,7 +477,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	public function EDIT_args() {
 		// when editing the only required argument is the ID ('id')
 		$create_args = $this->CREATE_args();
-		array_walk( $create_args, array( $this, 'unrequire_arg' ) );
+		array_walk( $create_args, [ $this, 'unrequire_arg' ] );
 
 		return array_merge( $this->READ_args(), $create_args );
 	}

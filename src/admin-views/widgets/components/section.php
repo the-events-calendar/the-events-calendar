@@ -11,7 +11,7 @@
  *
  * @link    http://m.tri.be/1aiy
  *
- * @version TBD
+ * @version 5.3.0
  *
  * @var string              $label       Title for the section. (optional)
  * @var string              $description Description for the section. (optional)
@@ -44,7 +44,7 @@ $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-for
 		/**
 		 * Allows other plugins to hook in as needed to inject things that aren't necessarily an input.
 		 *
-		 * @since TBD
+		 * @since 5.3.0
 		 *
 		 * @param array<array,mixed> $child The child "field" info.
 		 * @var Widget_Abstract $widget_obj An instance of the widget abstract.

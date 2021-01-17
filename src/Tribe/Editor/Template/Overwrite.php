@@ -18,11 +18,11 @@ class Tribe__Events__Editor__Template__Overwrite {
 		 * @todo remove filter if WP 5.0 patches this function and filter
 		 */
 		if ( ! function_exists( 'gutenberg_disable_editor_settings_wpautop' ) ) {
-			add_filter( 'wp_editor_settings', array( $this, 'disable_editor_settings_wpautop' ), 10, 2 );
+			add_filter( 'wp_editor_settings', [ $this, 'disable_editor_settings_wpautop' ], 10, 2 );
 		}
 
-		add_filter( 'tribe_events_template_single-event.php', array( $this, 'silence' ) );
-		add_action( 'tribe_events_before_view', array( $this, 'include_blocks' ), 1, PHP_INT_MAX );
+		add_filter( 'tribe_events_template_single-event.php', [ $this, 'silence' ] );
+		add_action( 'tribe_events_before_view', [ $this, 'include_blocks' ], 1, PHP_INT_MAX );
 	}
 
 	/**
@@ -88,10 +88,10 @@ class Tribe__Events__Editor__Template__Overwrite {
 			return $silence;
 		}
 
-		$args = array(
+		$args = [
 			'post_id' => $post_id,
-			'post' => get_post( $post_id ),
-		);
+			'post'    => get_post( $post_id ),
+		];
 
 		// Set globals to allow better usage of render method for each block
 		tribe( 'events.editor.template' )->add_template_globals( $args );
