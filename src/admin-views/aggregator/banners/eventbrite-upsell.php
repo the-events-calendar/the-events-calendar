@@ -13,7 +13,7 @@
 
 		<h3><?php esc_html_e( 'Do more with Eventbrite Tickets', 'the-events-calendar' ); ?></h3>
 
-		<a href="https://m.tri.be/1a4d" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
+		<a href="https://evnt.is/1a4d" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
 			<?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?>
 			<span class="screen-reader-text">
 				<?php esc_html_e( 'opens in a new window', 'the-events-calendar' ); ?>

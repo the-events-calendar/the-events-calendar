@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link    http://m.tri.be/1aiy
+ * @link    http://evnt.is/1aiy
  *
  * @var Widget_Abstract $widget_obj   An instance of the widget abstract.
  * @var array<array,mixed>    $admin_fields An array of admin fields to display in the widget form.
