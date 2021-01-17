@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link http://m.tri.be/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @var string $view_slug        Slug of the current view.
  * @var string $public_view_slug Slug of the view currently being listed.

@@ -84,7 +84,7 @@ trait With_Fast_Forward_Link {
 
 		// Don't do filter checks if taxonomy check has failed.
 		if ( $use_ff_link ) {
-			// @todo move this to Filterbar @stephen
+			// @todo [BTRIA-598]: @stephen Move this to Filterbar.
 			$filters = array_filter( (array) $this->context->get( 'view_data' ) );
 
 			if ( isset( $filters['url'] ) ) {

@@ -45,7 +45,7 @@ class Tribe__Events__Admin__Notice__Marketing {
 	public function notice() {
 		$link = sprintf(
 			'<a href="%1$s" target="_blank">%2$s</a>',
-			esc_url( 'https://m.tri.be/1a3l' ),
+			esc_url( 'https://evnt.is/1a3l' ),
 			esc_html_x( 'take the survey now', '2018 user survey', 'the-events-calendar' )
 		);
 

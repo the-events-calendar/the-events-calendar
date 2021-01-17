@@ -167,7 +167,7 @@ class Rest_Endpoint {
 		return register_rest_route( static::ROOT_NAMESPACE, '/html', [
 			// Support both GET and POST HTTP methods: we originally used GET.
 			'methods'             => [ Server::READABLE, Server::CREATABLE ],
-			 // @todo  Make sure we do proper handling of cache longer then 12h.
+			 // @todo [BTRIA-600]: Make sure we do proper handling of caches longer then 12h.
 			'permission_callback' => static function ( Request $request ) {
 
 				/*
@@ -183,10 +183,10 @@ class Rest_Endpoint {
 				       && ! is_wp_error( $auth )
 				       && wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
 			},
-			'callback' => static function ( Request $request ) {
+			'callback'            => static function ( Request $request ) {
 				View::make_for_rest( $request )->send_html();
 			},
-			'args' => $this->get_request_arguments(),
+			'args'                => $this->get_request_arguments(),
 		] );
 	}
 

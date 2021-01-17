@@ -118,7 +118,7 @@ $show_third_party_accounts = ! is_network_admin();
 			$text = sprintf( __( 'Connected to %s', 'the-events-calendar' ), $ea_server );
 		}
 
-		// @todo - eventually link $text to the status page
+		// @todo [BTRIA-611]: Link $text to the status page.
 		?>
 		<tr>
 			<td class="label"><?php esc_html_e( 'Server Connection', 'the-events-calendar' ); ?></td>
@@ -130,7 +130,7 @@ $show_third_party_accounts = ! is_network_admin();
 		$indicator = 'good';
 		$notes = '&nbsp;';
 
-		// @todo add API request for pingback check
+		// @todo [BTRIA-612]: add API request for pingback check
 		if ( defined( 'DISABLE_WP_CRON' ) && true === DISABLE_WP_CRON ) {
 			$indicator = 'warning';
 			$text      = __( 'WP Cron not enabled', 'the-events-calendar' );

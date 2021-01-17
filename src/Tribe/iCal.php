@@ -505,7 +505,7 @@ class Tribe__Events__iCal {
 					$start = new DateTime( $transition['time'], $timezone );
 					$item[] = 'DTSTART:' . $start->format( "Ymd\THis" );
 				} catch ( Exception $e ) {
-					// TODO: report this exception
+					// @todo [BTRIA-610]: report this exception
 				}
 				$item[] = 'END:' . $type;
 				$last_transition = $transition;
