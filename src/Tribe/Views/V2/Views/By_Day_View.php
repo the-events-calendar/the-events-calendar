@@ -167,7 +167,7 @@ abstract class By_Day_View extends View {
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
 		$events_per_day = $this->get_events_per_day();
 
-		// @todo remove this when the Event_Period repository is solid and clean up.
+		// @todo [BTRIA-599]: Remove this when the Event_Period repository is solid and cleaned up.
 		$using_period_repository = tribe_events_view_v2_use_period_repository();
 		$use_site_timezone       = Timezones::is_mode( 'site' );
 

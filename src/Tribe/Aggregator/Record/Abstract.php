@@ -425,9 +425,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Preps post arguments for create/save
 	 *
-	 * @param string $type Type of record to create - manual or schedule
-	 * @param array  $args Post type args
-	 * @param array  $meta Post meta
+	 * @param string  $type Type of record to create - manual or schedule
+	 * @param object  $args Post type args
+	 * @param array   $meta Post meta
 	 *
 	 * @return array
 	 */
@@ -528,7 +528,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		$frequency = Tribe__Events__Aggregator__Cron::instance()->get_frequency( [ 'id' => $this->meta['frequency'] ] );
 		if ( ! $frequency ) {
-			return tribe_error( 'core:aggregator:invalid-record-frequency', $meta );
+			return tribe_error( 'core:aggregator:invalid-record-frequency', $this->meta );
 		}
 
 		// Setups the post_content as the Frequency (makes it easy to fetch by frequency)
@@ -1552,7 +1552,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			// Do we have an existing venue for this event that we should preserve?
-			// @todo review: should we care about the potential for multiple venue IDs?
+			// @todo [BTRIA-588]: Review - should we care about the potential for multiple venue IDs?
 			if (
 				! empty( $event['ID'] )
 				&& 'preserve_changes' === $update_authority_setting
@@ -2813,4 +2813,3 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		return md5( uniqid( '', true ) );
 	}
 }
-

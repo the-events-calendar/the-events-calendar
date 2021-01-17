@@ -136,7 +136,7 @@ class EventVenue extends Component {
 	}
 
 	renderSearchOrCreate() {
-		// TODO: The store should not be passed through like this as a prop.
+		// @todo [BTRIA-618]: The store should not be passed through like this as a prop.
 		// Instead, we should hook up the element with a HOC.
 		const { isSelected, store, name, onItemSelect, onCreateNew } = this.props;
 		return (

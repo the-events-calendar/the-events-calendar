@@ -126,7 +126,7 @@ class Stack {
 			return [];
 		}
 
-		// @todo @be we use the spacer someplace, refer it to this value.
+		// @todo [BTRIA-597]: @be We use the spacer someplace, find it and refer it to this value.
 		$this->spacer          = null !== $spacer ? $spacer : $this->get_spacer();
 		$this->recycle_space   = null !== $recycle_space ?
 			(bool) $recycle_space

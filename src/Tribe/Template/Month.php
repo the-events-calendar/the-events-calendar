@@ -1219,7 +1219,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$post = $day['events']->post;
 
-			// @todo review whether the erasure of any existing classes is generally desirable
+			// @todo [BTRIA-593]: Review whether the erasure of any existing classes is generally desirable.
 			$classes = [];
 
 			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );

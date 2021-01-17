@@ -315,7 +315,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 */
 		do_action( 'tribe_events_venue_save', $venue_id, $data, $venue );
 
-		// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
+		// @todo [BTRIA-609]: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 		if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 			if (
 				isset( $data['State'] ) && $data['State'] != ''
