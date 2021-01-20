@@ -555,7 +555,7 @@ jQuery( function( $ ) {
 			$( document.getElementById( '31EndDays' ) )
 		];
 
-		$start_end_month.change( function() {
+		$start_end_month.on( 'change', function() {
 			var t = $( this );
 			var startEnd = t.attr( 'name' );
 			// get changed select field
@@ -593,11 +593,11 @@ jQuery( function( $ ) {
 
 		$start_end_month.trigger( 'change' );
 
-		$( 'select[name="EventStartYear"]' ).change( function() {
+		$( 'select[name="EventStartYear"]' ).on( 'change', function() {
 			$start_month.trigger( 'change' );
 		} );
 
-		$( 'select[name="EventEndYear"]' ).change( function() {
+		$( 'select[name="EventEndYear"]' ).on( 'change', function() {
 			$end_month.trigger( 'change' );
 		} );
 
@@ -648,7 +648,7 @@ jQuery( function( $ ) {
 	} );
 	overwriteCoordinates.$toggle.trigger( 'change' );
 
-	$( '#EventInfo input, #EventInfo select' ).change( function() {
+	$( '#EventInfo input, #EventInfo select' ).on( 'change', function() {
 		$( '.rec-error' ).hide();
 	} );
 

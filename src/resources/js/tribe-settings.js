@@ -2,7 +2,7 @@ jQuery( function( $ ) {
 	updateMapsFields();
 
 	// toggle view of the google maps size fields
-	$( '.google-embed-size input' ).change( updateMapsFields );
+	$( '.google-embed-size input' ).on( 'change', updateMapsFields );
 
 	// toggle view of the google maps size fields
 	function updateMapsFields() {
