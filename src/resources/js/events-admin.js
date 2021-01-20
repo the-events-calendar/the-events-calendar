@@ -144,7 +144,7 @@ Date.prototype.format = function( mask, utc ) {
 
 var tribe_datepicker_opts = {};
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
 	$( '.bumpdown-trigger' ).bumpdown();
 

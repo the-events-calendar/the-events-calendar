@@ -34,6 +34,6 @@ tribe.upgradePage =  tribe.upgradePage || {};
 		} );
 	}
 
-	$( document ).ready( obj.setup );
+	$( obj.setup );
 
 } )( jQuery, tribe.upgradePage );

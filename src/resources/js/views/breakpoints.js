@@ -225,5 +225,5 @@ tribe.events.views.breakpoints = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.breakpoints );

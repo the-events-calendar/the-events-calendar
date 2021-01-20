@@ -1237,5 +1237,5 @@ tribe_aggregator.fields = {
 	};
 
 	// Run Init on Document Ready
-	$( document ).ready( obj.init );
+	$( obj.init );
 } )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );

@@ -30,7 +30,6 @@ tribe.events.views.manager = {};
  */
 ( function( $, _, obj ) {
 	'use strict';
-	var $document = $( document );
 	var $window = $( window );
 
 	/**
@@ -663,7 +662,7 @@ tribe.events.views.manager = {};
 	};
 
 	// Configure on document ready.
-	$document.ready( obj.ready );
+	$( obj.ready );
 
 	// Attaches the popstate method to the window object.
 	$window.on( 'popstate', obj.onPopState );

@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	updateMapsFields();
 
 	// toggle view of the google maps size fields
@@ -18,12 +18,11 @@ jQuery( document ).ready( function( $ ) {
 
 ( function( $, data ) {
 	"use strict";
-	var $document = $( document );
 
 	/**
 	 * Check hidden field when Unchecked when the base field is checked first
 	 */
-	$document.ready( function() {
+	$( function() {
 		// Verify that all WP variables exists
 		if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
 			return false;
