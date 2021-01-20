@@ -867,7 +867,7 @@ tribe_aggregator.fields = {
 
 		$( '.dataTables_scrollBody' ).find( '[name^="aggregator[column_map]"]' ).remove();
 
-		obj.$.form.submit();
+		obj.$.form.trigger( 'submit' );
 	};
 
 	/**
