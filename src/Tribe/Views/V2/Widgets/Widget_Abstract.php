@@ -51,6 +51,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_widget_template_vars' ], 20, 2 );
 		add_filter( "tribe_events_views_v2_view{$this->view_slug}_template_vars", [ $this, 'filter_widget_template_vars' ], 20, 2 );
+		// Dequeue and enqueue manager JS to ensure it is the last JS file to be added.
+		add_action( 'tribe_events_views_v2_widget_after_enqueue_assets', [ $this, 'action_enqueue_manager' ], 10, 3 );
 	}
 
 	/**
@@ -186,6 +188,24 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	public function enqueue_assets( $context, $view ) {
 		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
 		tribe_asset_enqueue_group( Assets::$widget_group_key );
+	}
+
+	/**
+	 * Dequeues and enqueues the manager JS.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean         $should_enqueue Whether assets are enqueued or not.
+	 * @param \Tribe__Context $context        Context we are using to build the view.
+	 * @param View_Interface  $view           Which view we are using the template on.
+	 */
+	public function action_enqueue_manager( $should_enqueue, $context, $view ) {
+		if ( ! $should_enqueue ) {
+			return;
+		}
+
+		wp_dequeue_script( 'tribe-events-views-v2-manager' );
+		tribe_asset_enqueue( 'tribe-events-views-v2-manager' );
 	}
 
 	/**
