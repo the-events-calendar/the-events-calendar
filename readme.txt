@@ -227,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add customizer support for custom location pins on single events when Views V2 is active. [TEC-3276]
 * Fix - Use dynamic label for fast-forward link on the month view. [TEC-3452]
 * Fix - Correctly filter `locale` in the `Tribe\Events\I18n` class to avoid errors. [???]
+* Fix - Prevent heartbeat warning when null data param is passed on Cron and AJAX requests [BTRIA-687]
 * Tweak - Increase top padding above date stamp in list view. [TEC-3656]
 * Tweak - Reduce bottom margin of the event title in list/day views. [TEC-3656]
 * Tweak - Round featured event line corners. [TEC-3656]
