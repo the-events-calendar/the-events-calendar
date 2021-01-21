@@ -191,7 +191,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'priority'     => 20,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key, static::$widget_group_key ],
+				'groups'       => [ static::$group_key ],
 			]
 		);
 
