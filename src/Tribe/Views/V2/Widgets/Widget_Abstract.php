@@ -51,6 +51,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_widget_template_vars' ], 20, 2 );
 		add_filter( "tribe_events_views_v2_view{$this->view_slug}_template_vars", [ $this, 'filter_widget_template_vars' ], 20, 2 );
+		// Dequeue and enqueue manager JS to ensure it is the last JS file to be added.
 		add_action( 'tribe_events_views_v2_widget_after_enqueue_assets', [ $this, 'action_enqueue_manager' ], 10, 3 );
 	}
 
