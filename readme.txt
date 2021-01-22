@@ -26,7 +26,7 @@ See the calendar in action on our [demo experience](https://evnt.is/1ajs). Just 
 
 Looking for additional features like recurring events, ticket sales, user-submitted events, automatic imports, and more?
 
-<strong>Check out [Events Calendar Pro](https://evnt.is/mj), [Event Aggregator](https://evnt.is/197u), and [more add-ons](https://evnt.is/2a)</strong> ...and all of them are on sale from November 23-30 during our annual 💰[Black Friday Sale](https://evnt.is/1aod)💰
+<strong>Check out [Events Calendar Pro](https://evnt.is/mj), [Event Aggregator](https://evnt.is/197u), and [more add-ons](https://evnt.is/2a).</strong>
 
 = 🔌🎨 Plug and Play or Customize =
 
