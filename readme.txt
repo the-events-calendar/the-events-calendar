@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Round featured event line corners. [TEC-3656]
 * Tweak - Add new filter `tribe_aggregator_build_url_data` to customize the URL delivered to EA server.
 * Tweak - Update V2 Customizer admin styles of TEC sections. [TEC-3696]
+* Tweak - Added filters: `tribe_aggregator_build_url_data`
 * Language - 4 new strings added, 187 updated, 3 fuzzied, and 5 obsoleted
 
 = [5.3.1] 2020-12-15 =
