@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.2] 2021-02-01 =
+= [5.3.2] 2021-01-28 =
 
 * Feature - Add customizer support for custom location pins on single events when Views V2 is active. [TEC-3276]
 * Fix - Use dynamic label for fast-forward link on the month view. [TEC-3452]
