@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.3.2
-Tested up to: 5.6.0
+Stable tag: 5.3.3
+Tested up to: 5.6.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -222,12 +222,23 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.2] 2021-02-01 =
+= [5.3.3] TBD =
+
+
+
+= [5.3.2] 2021-01-28 =
 
 * Feature - Add customizer support for custom location pins on single events when Views V2 is active. [TEC-3276]
 * Fix - Use dynamic label for fast-forward link on the month view. [TEC-3452]
-* Fix - Correctly filter `locale` in the `Tribe\Events\I18n` class to avoid errors. [???]
+* Fix - Correctly filter `locale` in the `Tribe\Events\I18n` class to avoid errors.
 * Fix - Prevent heartbeat warning when null data param is passed on Cron and AJAX requests [BTRIA-687]
+* Fix - Increase the minimum width of the datetime dropdown when editing an event with the block editor. [TEC-3126]
+* Fix - Ordering with an Array when using `Tribe__Repository` now properly ignores the global order passed as the default. [ECP-598]
+* Fix - Resolve PHP 8.0 incompatibility with `__wakeup` and `__clone` visibility on Extension class.
+* Fix - Prevent `tribe_sort_by_priority` from throwing warnings on `uasort` usage for PHP 8+ compatibility.
+* Fix - Update Di52 to include PHP 8+ compatibility.
+* Fix - Modify Freemius `class-fs-logger.php` file to prevent PHP 8+ warnings.
+* Fix - Correctly handle *nix and Windows server paths that contain falsy values (e.g. `0` or spaces) when building template paths. [TEC-3712]
 * Tweak - Increase top padding above date stamp in list view. [TEC-3656]
 * Tweak - Reduce bottom margin of the event title in list/day views. [TEC-3656]
 * Tweak - Round featured event line corners. [TEC-3656]
