@@ -1,0 +1,43 @@
+/**
+ * The Events Calendar Tribe Single Event View V2 Stylesheet
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
+.tribe-events-view-single {
+	
+	/* Header metadata wrapper  */
+	.tribe-events-schedule {
+		align-items: baseline;
+		display: flex;
+		margin: var(--spacer-4) 0 var(--spacer-7);
+	}
+	
+	/* Datetime block */
+	.tribe-events-schedule h2 {
+		margin-right: var(--spacer-1);
+		order: 0;
+	}
+	
+	/* Recurring info block */
+	.tribe-events-schedule .recurringinfo {
+		margin: 0 var(--spacer-1);
+		order: 2;
+		padding: var(--spacer-1) var(--spacer-3);
+		
+		.tribe-events-divider {
+			display: none;
+		}
+	
+		.event-is-recurring {
+			padding-left: var(--spacer-4);
+		}
+	}
+	
+	/* Cost block */
+	.tribe-events-schedule .tribe-events-cost {
+		margin: 0 var(--spacer-1);
+		order: 1;
+	}
+}

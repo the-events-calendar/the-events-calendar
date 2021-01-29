@@ -1,0 +1,74 @@
+/**
+ * The Events Calendar Tribe Single Event View V2 Stylesheet
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
+.tribe-events-view-single {
+	
+	/* Back navigation block */
+	.tribe-events-back {
+		margin-bottom: var(--spacer-7);
+		
+		a {
+			font-family: var(--font-family-base);
+		}
+	}
+	
+	/* Event title */
+	.tribe-events-single-event-title { /* NOTE: this is best done by adding tribe-common-h1 to the html */
+		@mixin heading;
+		@mixin mobile-heading-1;
+
+		/* .tribe-common--breakpoint-medium& { */ /* TODO: not sure we can use this here? */
+		@media (--viewport-medium) {
+			@mixin desktop-heading-1;
+		}
+	}
+	
+	/* Datetime block */
+	.tribe-events-schedule h2 { /* NOTE: this is best done by adding tribe-common-h8 to the html */
+		@mixin heading;
+		@mixin mobile-heading-6;
+		font-weight: var(--font-weight-regular);
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-6;
+		}
+	}
+	
+	/* Recurring info block */
+	.tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
+		@mixin heading;
+		@mixin heading-7;
+		background-color: var(--color-background-secondary);
+		border-radius: 40px;
+		
+		.event-is-recurring {
+			background: svg-inline(recurring-active) 0 / 12px no-repeat;
+			
+			&,
+			&:hover,
+			&:focus {
+				color: var(--color-text-primary);
+			}
+		}
+		
+		a {
+			color: var(--color-accent-primary);
+		}
+	}
+	
+	/* Cost block */
+	.tribe-events-schedule .tribe-events-cost {
+		@mixin heading;
+		@mixin mobile-heading-6;
+		color: var(--color-text-primary);
+		text-transform: uppercase;
+		
+		@media (--viewport-medium) {
+			@mixin desktop-heading-6;
+		}
+	}
+}
