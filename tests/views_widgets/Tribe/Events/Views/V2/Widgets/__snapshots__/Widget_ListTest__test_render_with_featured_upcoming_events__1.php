@@ -49,7 +49,7 @@
 	<time class="tribe-events-widget-events-list__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
 	</div>
-					<h3 class="tribe-events-widget-events-list__event-title tribe-common-h7">
+					<h4 class="tribe-events-widget-events-list__event-title tribe-common-h7">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
 		title="Test Event &#8211; +9 days"
@@ -57,7 +57,7 @@
 		class="tribe-events-widget-events-list__event-title-link tribe-common-anchor-thin"
 	>
 		Test Event &#8211; +9 days	</a>
-</h3>
+</h4>
 				</header>
 
 				
