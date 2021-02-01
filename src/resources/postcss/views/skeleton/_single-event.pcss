@@ -7,37 +7,94 @@
 
 .tribe-events-view-single {
 	
+	/* Back navigation block */
+	.tribe-events-back {
+		margin-bottom: var(--spacer-7);
+	}
+	
 	/* Header metadata wrapper  */
 	.tribe-events-schedule {
-		align-items: baseline;
+		align-items: center;
 		display: flex;
-		margin: var(--spacer-4) 0 var(--spacer-7);
+		flex-wrap: wrap;
+		margin: var(--spacer-1) 0 var(--spacer-4);
+		padding: 0;
+		
+		@media (--viewport-medium) {
+			align-items: baseline;
+			flex-wrap: nowrap;
+			margin: var(--spacer-4) 0 var(--spacer-7);
+		}
 	}
 	
 	/* Datetime block */
 	.tribe-events-schedule h2 {
+		margin-bottom: var(--spacer-1);
 		margin-right: var(--spacer-1);
 		order: 0;
+		width: 100%;
+		
+		@media (--viewport-medium) {
+			margin-bottom: 0;
+			width: auto;
+		}
 	}
 	
 	/* Recurring info block */
 	.tribe-events-schedule .recurringinfo {
-		margin: 0 var(--spacer-1);
+		margin-right: var(--spacer-1);
 		order: 2;
-		padding: var(--spacer-1) var(--spacer-3);
+		padding: 0 var(--spacer-1);
+		
+		@media (--viewport-medium) {
+			margin-left: var(--spacer-1);
+			padding: var(--spacer-1) var(--spacer-3);
+		}
+		
+		&:before {
+			background: svg-inline(recurring-active) 0 / 12px no-repeat;
+			content: '';
+			height: 20px;
+			left: 8px;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 20px;
+			
+			@media (--viewport-medium) {
+				left: 16px;
+			}
+		}
 		
 		.tribe-events-divider {
 			display: none;
 		}
 	
 		.event-is-recurring {
+			letter-spacing: -9999px; /* To hide the "Recurring Event" label on mobile */
 			padding-left: var(--spacer-4);
+			visibility: hidden;
+			
+			@media (--viewport-medium) {
+				height: auto;
+				letter-spacing: normal;
+				visibility: visible;
+			}
+		}
+		
+		a {
+			visibility: visible;
+			letter-spacing: normal;
 		}
 	}
 	
 	/* Cost block */
 	.tribe-events-schedule .tribe-events-cost {
-		margin: 0 var(--spacer-1);
+		margin-right: var(--spacer-1);
 		order: 1;
+		
+		@media (--viewport-medium) {
+			margin: 0 var(--spacer-1);
+		}
 	}
 }

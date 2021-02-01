@@ -8,12 +8,8 @@
 .tribe-events-view-single {
 	
 	/* Back navigation block */
-	.tribe-events-back {
-		margin-bottom: var(--spacer-7);
-		
-		a {
-			font-family: var(--font-family-base);
-		}
+	.tribe-events-back a {
+		font-family: var(--font-family-base);
 	}
 	
 	/* Event title */
@@ -25,6 +21,12 @@
 		@media (--viewport-medium) {
 			@mixin desktop-heading-1;
 		}
+	}
+	
+	/* Header metadata wrapper  */
+	.tribe-events-schedule {
+		background-color: transparent;
+		border: 0;
 	}
 	
 	/* Datetime block */
@@ -41,12 +43,15 @@
 	/* Recurring info block */
 	.tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
 		@mixin heading;
-		@mixin heading-7;
+		@mixin heading-8;
 		background-color: var(--color-background-secondary);
 		border-radius: 40px;
 		
+		@media (--viewport-medium) {
+			@mixin heading-7;
+		}
+		
 		.event-is-recurring {
-			background: svg-inline(recurring-active) 0 / 12px no-repeat;
 			
 			&,
 			&:hover,
@@ -58,6 +63,11 @@
 		a {
 			color: var(--color-accent-primary);
 			font-weight: var(--font-weight-regular);
+			line-height: 20px;
+			
+			@media (--viewport-medium) {
+				line-height: var(--line-height-3);
+			}
 		}
 	}
 	
