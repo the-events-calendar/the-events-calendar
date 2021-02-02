@@ -122,16 +122,6 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * @return array<string, mixed> An array used to construct the heart beat response.
 	 */
 	public function receive_heartbeat( $response, $data ) {
-		// Makes sure we don't throw warnings when $response is not correct.
-		if ( empty( $response ) || ! is_array( $response ) ) {
-			return $response;
-		}
-
-		// Makes sure we don't throw warnings when $data is not correct.
-		if ( empty( $data ) || ! is_array( $data ) ) {
-			return $response;
-		}
-
 		if ( empty( $data['ea_record'] ) ) {
 			return $response;
 		}

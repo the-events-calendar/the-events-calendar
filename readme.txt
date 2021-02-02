@@ -222,6 +222,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.3.2.1] 2021-02-02 =
+
+* Fix - Prevent Event Aggregator ASYNC requests from failing to import after 5 Events, Venues, RSVP, Tickets and/or Organizers. [TEC-3769]
+* Fix - Update compatibility with PHP 7.4 for ForceUTF8 vendor module. [TEC-3769]
+
 = [5.3.2] 2021-01-28 =
 
 * Feature - Add customizer support for custom location pins on single events when Views V2 is active. [TEC-3276]
