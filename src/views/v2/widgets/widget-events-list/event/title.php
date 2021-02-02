@@ -16,7 +16,7 @@
  * @see tribe_get_event() For the format of the event object.
  */
 ?>
-<h4 class="tribe-events-widget-events-list__event-title tribe-common-h7">
+<h3 class="tribe-events-widget-events-list__event-title tribe-common-h7">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
 		title="<?php echo esc_attr( $event->title ); ?>"
@@ -28,4 +28,4 @@
 		echo $event->title;
 		?>
 	</a>
-</h4>
+</h3>
