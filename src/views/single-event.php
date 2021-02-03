@@ -22,7 +22,7 @@ $event_id = get_the_ID();
 
 ?>
 
-<div id="tribe-events-content" class="tribe-events-single tribe-events-view-single"> <!-- TODO: tribe-events-view-single should be added under condition -->
+<div id="tribe-events-content" class="tribe-events-single">
 
 	<p class="tribe-events-back">
 		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
