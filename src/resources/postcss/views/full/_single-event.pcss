@@ -100,17 +100,9 @@
 			color: var(--color-accent-primary);
 		}
 		
-		&.secondary {
-			border-top: 0;
-			
-			.tribe-events-venue-map {
-				border: 0;
-				border-radius: 0;
-			}
-			
-			@media (--viewport-medium) {
-				border-top: 1px solid var(--color-border-secondary);
-			}
+		.tribe-events-venue-map {
+			border: 0;
+			border-radius: 0;
 		}
 		
 		.tribe-events-meta-group {
@@ -131,6 +123,14 @@
 		.tribe-events-address {
 			font-style: normal;
 			line-height: 26px;
+		}
+		
+		&.secondary {
+			border-top: 0;
+			
+			@media (--viewport-medium) {
+				border-top: 1px solid var(--color-border-secondary);
+			}
 		}
 	}
 }

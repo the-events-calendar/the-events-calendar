@@ -137,6 +137,25 @@
 			margin-bottom: var(--spacer-0);
 		}
 		
+		.tribe-events-venue-map {
+			margin: 0 0 var(--spacer-5) 0;
+			order: -1;
+			padding: 0;
+			width: 100%;
+			
+			@media (--viewport-medium) {
+				margin-top: var(--spacer-7);
+				order: 1;
+				width: 211px;
+			}
+			
+			&, & > div {
+				@media (--viewport-medium) {
+					height: 211px !important; /* TODO: look into an alternative way to restrain gmaps' size */
+				}
+			}
+		}
+		
 		&.primary {
 			@media (--viewport-medium) {
 				flex: 0 0 auto;
@@ -157,25 +176,6 @@
 				
 				@media (--viewport-medium) {
 					margin-right: var(--spacer-5);
-				}
-			}
-			
-			.tribe-events-venue-map {
-				margin: 0 0 var(--spacer-5) 0;
-				order: -1;
-				padding: 0;
-				width: 100%;
-				
-				@media (--viewport-medium) {
-					margin-top: var(--spacer-7);
-					order: 1;
-					width: 211px;
-				}
-				
-				&, & > div {
-					@media (--viewport-medium) {
-						height: 211px !important; /* TODO: look into an alternative way to restrain gmaps' size */
-					}
 				}
 			}
 		}
