@@ -472,33 +472,42 @@ jQuery( function( $ ) {
 					object.input.datepicker( 'option', 'maxDate', object.input.data( 'datepicker-max-date' ) );
 				}
 
-				// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
+				// Capture the datepicker div here; it's dynamically generated so best to grab here instead
+				// of elsewhere.
 				$dpDiv = $( object.dpDiv );
 
-				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
+				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere
+				// with other plugins'/themes'.
 				$dpDiv.addClass( 'tribe-ui-datepicker' );
 
 				$event_details.trigger( 'tribe.ui-datepicker-div-beforeshow', [ object ] );
 
-				$dpDiv.attrchange({
-					trackValues : true,
-					callback    : function( attr ) {
+				$dpDiv.attrchange( {
+					trackValues: true,
+					callback: function( attr ) {
 						// This is a non-ideal, but very reliable way to look for the closing of the ui-datepicker box,
 						// since onClose method is often occluded by other plugins, including Events Calender PRO.
 						if (
-							attr.newValue.indexOf( 'display: none' ) >= 0 ||
-							attr.newValue.indexOf( 'display:none' ) >= 0
+							'string' === typeof attr.newValue &&
+							(
+								attr.newValue.indexOf( 'display: none' ) >= 0 ||
+								attr.newValue.indexOf( 'display:none' ) >= 0
+							)
 						) {
 							$dpDiv.removeClass( 'tribe-ui-datepicker' );
 							$event_details.trigger( 'tribe.ui-datepicker-div-closed', [ object ] );
 						}
-					}
-				});
+					},
+				} );
 			},
 			onSelect: function( selected_date, object ) {
 
 				var instance = $( this ).data( 'datepicker' );
-				var date     = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
+				var date     = $.datepicker.parseDate(
+					instance.settings.dateFormat || $.datepicker._defaults.dateFormat,
+					selected_date,
+					instance.settings
+				);
 
 				// If the start date was adjusted, then let's modify the minimum acceptable end date
 				if ( this.id === 'EventStartDate' ) {
@@ -533,9 +542,9 @@ jQuery( function( $ ) {
 			};
 
 			$.each( $els, function( i, el ) {
-				var $el = $(el);
+				var $el = $( el );
 				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
-			})
+			} )
 		}
 
 		var tribeDaysPerMonth = [29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
