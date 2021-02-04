@@ -413,6 +413,31 @@ class Assets extends \tad_DI52_ServiceProvider {
 				]
 			);
 		}
+		
+		// @todo: Only include these two when needed
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-skeleton',
+			'tribe-events-single-skeleton.css',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'priority' => 15,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-skeleton-full',
+			'tribe-events-single-full.css',
+			[
+				'tribe-events-v2-single-skeleton',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority' => 15,
+			]
+		);
 	}
 
 	/**
