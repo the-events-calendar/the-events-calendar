@@ -91,6 +91,11 @@
 		border-right-width: 0;
 		font-family: var(--font-family-base);
 		
+		@media (--viewport-medium) {
+			border-top: 1px solid var(--color-border-secondary);
+			border-bottom: 1px solid var(--color-border-secondary);
+		}
+		
 		a {
 			color: var(--color-accent-primary);
 		}
@@ -101,6 +106,10 @@
 			.tribe-events-venue-map {
 				border: 0;
 				border-radius: 0;
+			}
+			
+			@media (--viewport-medium) {
+				border-top: 1px solid var(--color-border-secondary);
 			}
 		}
 		

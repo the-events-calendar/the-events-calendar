@@ -11,6 +11,15 @@
 		max-width: 1048px;
 	}
 	
+	.tribe-events-single > .tribe_events {
+		display: flex;
+		flex-wrap: wrap;
+		
+		& > div {
+			width: 100%;
+		}
+	}
+	
 	/* Back navigation block */
 	.tribe-events-back {
 		margin-bottom: var(--spacer-7);
@@ -109,11 +118,33 @@
 		margin: var(--spacer-5) 0 var(--spacer-7);
 		padding: var(--spacer-5) 0;
 		
+		@media (--viewport-medium) {
+			padding: var(--spacer-2) 0;
+		}
+		
+		&.primary {
+			@media (--viewport-medium) {
+				flex: 1 0 60%;
+				width: auto;
+			}
+		}
+		
 		&.secondary {
 			padding-top: 0;
 			
+			@media (--viewport-medium) {
+				flex: none;
+				padding-top: var(--spacer-2);
+				width: auto;
+			}
+			
 			.tribe-events-meta-group {
 				margin-right: 0;
+				
+				@media (--viewport-medium) {
+					margin-right: var(--spacer-5);
+					width: 168px;
+				}
 			}
 			
 			.tribe-events-venue-map {
@@ -121,6 +152,18 @@
 				order: -1;
 				padding: 0;
 				width: 100%;
+				
+				@media (--viewport-medium) {
+					margin-top: var(--spacer-4);
+					order: 1;
+					width: 211px;
+				}
+				
+				&, & > div {
+					@media (--viewport-medium) {
+						height: 211px !important; /* TODO: look into an alternative way to restrain gmaps' size */
+					}
+				}
 			}
 		}
 		
@@ -128,6 +171,10 @@
 			flex: 1 0 140px;
 			margin-right: var(--spacer-5);
 			padding: 0;
+			
+			@media (--viewport-medium) {
+				flex: 0 0 168px;
+			}
 			
 			&:last-child {
 				margin-right: 0;
