@@ -449,9 +449,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function disable_v1() {
 		// Dont disable V1 on Single Event page
-		if ( tribe( Template_Bootstrap::class )->is_single_event() ) {
-			return;
-		}
+		// if ( tribe( Template_Bootstrap::class )->is_single_event() ) {
+		// 	return;
+		// }
 
 		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-script', '__return_false' );
 		add_filter( 'tribe_asset_enqueue_tribe-events-bar', '__return_false' );
