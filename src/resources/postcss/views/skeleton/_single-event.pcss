@@ -34,7 +34,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		
-		& > div {
+		& > div:not(.primary, .secondary) {
 			width: 100%;
 		}
 	}
@@ -132,71 +132,59 @@
 	}
 	
 	/* Details block */
-	#tribe-events-content .tribe-events-event-meta {
+	.tribe-events-event-meta {
 		display: flex;
 		flex-wrap: wrap;
 		margin: var(--spacer-5) 0 var(--spacer-7);
-		padding: 0;
-		
-		.tribe-events-meta-group {
-			flex: 1 0 140px;
-			margin-right: var(--spacer-5);
-			padding: var(--spacer-5) 0;
-			
-			@media (--viewport-medium) {
-				padding: var(--spacer-2) 0;
-				width: 168px;
-			}
-		
-			.tribe-events-single-section-title {
-				margin-bottom: var(--spacer-1);
-			}
-		}
 		
 		dt, dd {
-			margin-bottom: var(--spacer-0);
+			margin: 0 0 var(--spacer-0) 0;
 		}
 		
-		.tribe-events-venue-map {
-			margin: 0 0 var(--spacer-5) 0;
-			order: -1;
-			padding: 0;
+		.tribe-events-address {
+			margin: 0;
+		}
+
+		&.primary,
+		&.secondary {
 			width: 100%;
 			
 			@media (--viewport-medium) {
-				margin-top: var(--spacer-7);
-				order: 1;
-				width: 211px;
-			}
-			
-			&, & > div {
-				@media (--viewport-medium) {
-					height: 211px !important; /* TODO: look into an alternative way to restrain gmaps' size */
-				}
-			}
-		}
-		
-		&.primary {
-			@media (--viewport-medium) {
-				flex: 0 0 auto;
 				width: auto;
 			}
 		}
+	}
+	
+	/* Details column */
+	.tribe-events-meta-group {
+		flex: 1 0 140px;
+		margin-right: var(--spacer-5);
 		
-		&.secondary {
-			padding-top: 0;
-			
+		@media (--viewport-medium) {
+			padding: var(--spacer-7) 0 var(--spacer-3);
+			width: 168px;
+		}
+	
+		.tribe-events-single-section-title {
+			margin-bottom: var(--spacer-1);
+		}
+	}
+	
+	/* Venue block */
+	.tribe-events-venue-map {
+		margin: 0 0 var(--spacer-3) 0;
+		order: -1;
+		width: 100%;
+		
+		@media (--viewport-medium) {
+			margin-top: var(--spacer-7);
+			order: 1;
+			width: 211px;
+		}
+		
+		&, & > div {
 			@media (--viewport-medium) {
-				flex: none;
-				width: auto;
-			}
-			
-			.tribe-events-meta-group {
-				margin-right: 0;
-				
-				@media (--viewport-medium) {
-					margin-right: var(--spacer-5);
-				}
+				height: 211px !important; /* TODO: look into an alternative way to restrain gmaps' size */
 			}
 		}
 	}
