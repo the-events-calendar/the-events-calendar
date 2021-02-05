@@ -2,7 +2,14 @@
 
 namespace tests\functional\Tribe\Events\Importer;
 
-require_once 'functions.php';
+function get_image_url( $extension = 'jpg' ) {
+	return plugins_url( 'tests/_data/csv-import-test-files/featured-image/images/featured-image.' . $extension, codecept_root_dir( 'the-events-calendar.php' ) );
+}
+
+function get_image_path( $extension = 'jpg' ) {
+	return codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.' . $extension );
+}
+
 require_once 'File_Importer_EventsTest.php';
 
 use Tribe\Events\Importer\File_Importer_EventsTest;
