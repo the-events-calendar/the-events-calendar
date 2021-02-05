@@ -224,6 +224,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.3.3] TBD =
 
+* Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
+
 = [5.3.2.1] 2021-02-02 =
 
 * Fix - Prevent Event Aggregator ASYNC requests from failing to import after 5 Events, Venues, RSVP, Tickets and/or Organizers. [TEC-3769]
