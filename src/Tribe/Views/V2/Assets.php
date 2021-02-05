@@ -466,8 +466,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-override-style', '__return_false' );
 
 		add_filter( 'tribe_events_assets_should_enqueue_frontend', '__return_false' );
-		
-		add_filter( 'tribe_events_stylesheet_url', '__return_false' );
 	}
 
 	/**
