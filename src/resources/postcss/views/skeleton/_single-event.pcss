@@ -7,8 +7,27 @@
 
 .single-tribe_events-v2 {
 	
+	/* Hide a bunch of elements (from v1 styles) */
+	.single-featured-image-header,
+	#tribe-events-header,
+	.tribe-events-divider,
+	.recurring-info-tooltip,
+	.tribe-events-ajax-loading
+	 {
+		display: none;
+	}
+	
 	#tribe-events-pg-template {
+		margin: 0 auto;
 		max-width: 1048px;
+		padding: var(--spacer-8) var(--spacer-4) var(--spacer-4);
+	}
+	
+	.tribe-events-before-html,
+	.tribe-events-after-html {
+		p {
+			margin: 0 0 10px;
+		}
 	}
 	
 	.tribe-events-single > .tribe_events {
@@ -25,13 +44,18 @@
 		margin-bottom: var(--spacer-7);
 	}
 	
+	/* Event title */
+	.tribe-events-single-event-title { /* NOTE: this is best done by adding tribe-common-h1 to the html */
+		margin: 0;
+		padding: 0;
+	}
+	
 	/* Header metadata wrapper  */
 	.tribe-events-schedule {
 		align-items: center;
 		display: flex;
 		flex-wrap: wrap;
 		margin: var(--spacer-1) 0 var(--spacer-4);
-		padding: 0;
 		
 		@media (--viewport-medium) {
 			align-items: baseline;
@@ -58,6 +82,7 @@
 		margin-right: var(--spacer-1);
 		order: 2;
 		padding: 0 var(--spacer-1);
+		position: relative;
 		
 		@media (--viewport-medium) {
 			margin-left: var(--spacer-1);
@@ -78,10 +103,6 @@
 				left: 16px;
 			}
 		}
-		
-		.tribe-events-divider {
-			display: none;
-		}
 	
 		.event-is-recurring {
 			letter-spacing: -9999px; /* To hide the "Recurring Event" label on mobile */
@@ -89,7 +110,6 @@
 			visibility: hidden;
 			
 			@media (--viewport-medium) {
-				height: auto;
 				letter-spacing: normal;
 				visibility: visible;
 			}
