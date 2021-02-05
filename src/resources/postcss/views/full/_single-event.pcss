@@ -8,9 +8,17 @@
 .single-tribe_events-v2 {
 	-webkit-font-smoothing: antialiased;
 	
+	.tribe-events-before-html,
+	.tribe-events-after-html {
+		p {
+			line-height: 1.7;
+		}
+	}
+	
 	/* Back navigation block */
 	.tribe-events-back a {
 		font-family: var(--font-family-base);
+		font-weight: var(--font-weight-bold);
 	}
 	
 	/* Event title */
@@ -24,21 +32,12 @@
 		}
 	}
 	
-	/* Header metadata wrapper  */
-	.tribe-events-schedule {
-		background-color: transparent;
-		border: 0;
-	}
-	
 	/* Datetime block */
 	.tribe-events-schedule h2 { /* NOTE: this is best done by adding tribe-common-h8 to the html */
-		@mixin heading;
-		@mixin mobile-heading-6;
+		@mixin body;
+		font-size: var(--font-size-3);
 		font-weight: var(--font-weight-regular);
-
-		@media (--viewport-medium) {
-			@mixin desktop-heading-6;
-		}
+		line-height: var(--line-height-3);
 	}
 	
 	/* Recurring info block */
@@ -50,15 +49,6 @@
 		
 		@media (--viewport-medium) {
 			@mixin heading-7;
-		}
-		
-		.event-is-recurring {
-			
-			&,
-			&:hover,
-			&:focus {
-				color: var(--color-text-primary);
-			}
 		}
 		
 		a {
