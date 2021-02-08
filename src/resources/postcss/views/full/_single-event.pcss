@@ -13,11 +13,10 @@
 	}
 	
 	/* Event title */
-	.tribe-events-single-event-title { /* NOTE: this is best done by adding tribe-common-h1 to the html */
+	.tribe-events-single-event-title {
 		@mixin heading;
-		@mixin mobile-heading-1;
+		@mixin mobile-heading-2;
 
-		/* .tribe-common--breakpoint-medium& { */ /* TODO: not sure we can use this here? */
 		@media (--viewport-medium) {
 			@mixin desktop-heading-1;
 		}
