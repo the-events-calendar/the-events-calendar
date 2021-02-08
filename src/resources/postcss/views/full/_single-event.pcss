@@ -88,9 +88,14 @@
 			@mixin mobile-heading-3;
 		}
 		
-		p {
-			font-size: var(--font-size-4);
-			line-height: var(--line-height-2);
+		p, ul, ol {
+			font-size: var(--font-size-3);
+			line-height: var(--line-height-3);
+			
+			@media (--viewport-medium) {
+				font-size: var(--font-size-4);
+				line-height: var(--line-height-2);
+			}
 		}
 		
 		ul, ol {
