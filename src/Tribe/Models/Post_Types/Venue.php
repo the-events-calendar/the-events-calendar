@@ -34,6 +34,7 @@ class Venue extends Base {
 			$phone           = tribe_get_phone( $this->post->ID );
 			$permalink       = get_permalink( $this->post->ID );
 			$directions_link = tribe_get_map_link( $this->post->ID );
+			$website_url     = tribe_get_venue_website_url( $this->post->ID );
 
 			$properties = [
 				'address'         => $address,
@@ -46,6 +47,7 @@ class Venue extends Base {
 				'phone'           => $phone,
 				'permalink'       => $permalink,
 				'directions_link' => $directions_link,
+				'website'         => $website_url,
 			];
 		} catch ( \Exception $e ) {
 			return [];
