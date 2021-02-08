@@ -1843,11 +1843,44 @@ class View implements View_Interface {
 				},
 				ARRAY_FILTER_USE_BOTH
 			);
+
 			if ( ! empty( $bar_data ) ) {
 				$current_url = add_query_arg( $bar_data, $current_url );
 			}
 
-			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, [ 'page', 'paged' ] );
+			/**
+			 * Filters the ignored params for resetting page number the View will do when paginating via AJAX.
+			 *
+			 * @since TBD
+			 *
+			 * @see Url::is_diff()
+			 *
+			 * @param array $page_reset_ignored_params An array of params to be ignored.
+			 * @param View  $this                      The current View instance being rendered.
+			 */
+			$page_reset_ignored_params = apply_filters(
+				'tribe_events_views_v2_view_page_reset_ignored_params',
+				[ 'page', 'paged' ],
+				$this
+			);
+
+			/**
+			 * Filters the ignored params for resetting page number a specific View will do when paginating via AJAX.
+			 *
+			 * @since TBD
+			 *
+			 * @see Url::is_diff()
+			 *
+			 * @param array $page_reset_ignored_params An array of params to be ignored.
+			 * @param View  $this                      The current View instance being rendered.
+			 */
+			$page_reset_ignored_params = apply_filters(
+				"tribe_events_views_v2_view_{$this->slug}_page_reset_ignored_params",
+				$page_reset_ignored_params,
+				$this
+			);
+
+			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, $page_reset_ignored_params );
 		}
 
 		return $this->should_reset_page;
