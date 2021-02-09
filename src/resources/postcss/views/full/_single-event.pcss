@@ -40,12 +40,21 @@
 	}
 	
 	/* Recurring info block */
-	.tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
+	.tribe-events-schedule .recurringinfo,
+	.tribe-related-event-info .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
 		@mixin heading;
 		@mixin heading-8;
 		background-color: var(--color-background-secondary);
 		border-radius: 40px;
 		
+		a {
+			color: var(--color-accent-primary);
+			font-weight: var(--font-weight-regular);
+			line-height: 20px;
+		}
+	}
+	
+	.tribe-events-schedule .recurringinfo {
 		@media (--viewport-medium) {
 			@mixin heading-7;
 		}
@@ -60,10 +69,6 @@
 		}
 		
 		a {
-			color: var(--color-accent-primary);
-			font-weight: var(--font-weight-regular);
-			line-height: 20px;
-			
 			@media (--viewport-medium) {
 				line-height: var(--line-height-3);
 			}
@@ -79,6 +84,155 @@
 		
 		@media (--viewport-medium) {
 			@mixin desktop-heading-6;
+		}
+	}
+	
+	/* Description Block */
+	.tribe-events-content {
+		@mixin body;
+		
+		h2, h3, h4, h5, h6 {
+			@mixin heading;
+			letter-spacing: normal;
+			text-transform: none;
+		}
+		
+		h2 {
+			@mixin mobile-heading-3;
+		}
+		
+		p, ul, ol {
+			font-size: var(--font-size-3);
+			line-height: var(--line-height-3);
+			
+			@media (--viewport-medium) {
+				font-size: var(--font-size-4);
+				line-height: var(--line-height-2);
+			}
+		}
+		
+		ul, ol {
+			list-style-position: inside;
+		}
+		
+		a {
+			@mixin anchor-thin;
+		}
+	}
+	
+	/* Cal export links block */
+	.tribe-events-cal-links {
+		@mixin body;
+		
+		.tribe-events-gcal,
+		.tribe-events-ical {
+			background: svg-inline(cal-export) 0 / 24px no-repeat;
+			color: var(--color-accent-primary);
+			font-size: var(--font-size-2);
+			font-weight: var(--font-weight-regular);
+			line-height: var(--line-height-3);
+		}
+	}
+	
+	/* Details block */
+	.tribe-events-event-meta {
+		@mixin body;
+		font-size: var(--font-size-2);
+		
+		a {
+			color: var(--color-accent-primary);
+		}
+		
+		dt {
+			line-height: var(--line-height-3);
+		}
+		
+		.tribe-events-address {
+			font-style: normal;
+			line-height: 26px;
+		}
+	}
+	
+	/* Details column */
+	.tribe-events-meta-group {
+		
+		.tribe-events-single-section-title {
+			@mixin heading;
+			@mixin heading-8;
+			color: var(--color-text-primary-light);
+			font-weight: var(--font-weight-regular);
+			text-transform: uppercase;
+		}
+	}
+	
+	/* Venue block */
+	.tribe-events-venue-map {
+		border: 0;
+		border-radius: 0;
+	}
+	
+	/* Details block */
+	.tribe-events-event-meta {
+		@mixin body;
+		font-size: var(--font-size-2);
+		
+		a {
+			color: var(--color-accent-primary);
+		}
+		
+		dt {
+			line-height: var(--line-height-3);
+		}
+		
+		.tribe-events-address {
+			font-style: normal;
+			line-height: 26px;
+		}
+		
+		&:not(.secondary):before,
+		& ~ div:not(.tribe-events-event-meta) {
+			border-top: 1px solid var(--color-border-secondary);
+		}
+	}
+	
+	/* Details column */
+	.tribe-events-meta-group {
+		
+		.tribe-events-single-section-title {
+			@mixin heading;
+			@mixin heading-8;
+			color: var(--color-text-primary-light);
+			font-weight: var(--font-weight-regular);
+			text-transform: uppercase;
+		}
+	}
+	
+	/* Venue block */
+	.tribe-events-venue-map {
+		border: 0;
+		border-radius: 0;
+	}
+	
+	/* Related Events block */
+	.tribe-events-related-events-title {
+		@mixin heading;
+		@mixin mobile-heading-3;
+		border-top: 1px solid var(--color-border-secondary);
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-3;
+		}
+	}
+	
+	ul.tribe-related-events {
+		
+		li {
+			@mixin body;
+
+			.tribe-related-events-title {
+				@mixin heading;
+				@mixin heading-7;
+			}
 		}
 	}
 }
