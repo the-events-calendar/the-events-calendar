@@ -123,7 +123,7 @@
 	>
 		Generate JSON-LD data	</label>
 </div>
+</div>
+</div>
 
-</div>
-</div>
 ';
