@@ -4,74 +4,83 @@
  * @package TribeEventsCalendar
  *
  */
-
-.single-tribe_events-v2 {
+ 
+.tribe-events-single {
 	-webkit-font-smoothing: antialiased;
+}
 	
-	.tribe-events-before-html,
-	.tribe-events-after-html {
-		p {
-			line-height: 1.7;
-		}
-	}
-	
-	/* Back navigation block */
-	.tribe-events-back a {
-		font-family: var(--font-family-base);
-		font-weight: var(--font-weight-bold);
-	}
-	
-	/* Event title */
-	.tribe-events-single-event-title { /* NOTE: this is best done by adding tribe-common-h1 to the html */
-		@mixin heading;
-		@mixin mobile-heading-1;
+/* Back navigation block */
+.tribe-events-back a {
+	font-family: var(--font-family-base);
+}
 
-		/* .tribe-common--breakpoint-medium& { */ /* TODO: not sure we can use this here? */
-		@media (--viewport-medium) {
-			@mixin desktop-heading-1;
+/* Event title */
+.tribe-events-single-event-title {
+	@mixin heading;
+	@mixin mobile-heading-2;
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-1;
+	}
+}
+
+/* Header metadata wrapper  */
+.tribe-events-schedule {
+	background-color: transparent;
+	border: 0;
+}
+
+/* Datetime block */
+.tribe-events-schedule h2 { /* NOTE: this is best done by adding tribe-common-h8 to the html */
+	@mixin heading;
+	@mixin mobile-heading-6;
+	font-weight: var(--font-weight-regular);
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-6;
+	}
+}
+
+/* Recurring info block */
+.tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
+	@mixin heading;
+	@mixin heading-8;
+	background-color: var(--color-background-secondary);
+	border-radius: 40px;
+	
+	@media (--viewport-medium) {
+		@mixin heading-7;
+	}
+	
+	.event-is-recurring {
+		
+		&,
+		&:hover,
+		&:focus {
+			color: var(--color-text-primary);
 		}
 	}
 	
-	/* Datetime block */
-	.tribe-events-schedule h2 { /* NOTE: this is best done by adding tribe-common-h8 to the html */
-		@mixin body;
-		font-size: var(--font-size-3);
+	a {
+		color: var(--color-accent-primary);
 		font-weight: var(--font-weight-regular);
-		line-height: var(--line-height-3);
-	}
-	
-	/* Recurring info block */
-	.tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
-		@mixin heading;
-		@mixin heading-8;
-		background-color: var(--color-background-secondary);
-		border-radius: 40px;
+		line-height: 20px;
 		
 		@media (--viewport-medium) {
-			@mixin heading-7;
-		}
-		
-		a {
-			color: var(--color-accent-primary);
-			font-weight: var(--font-weight-regular);
-			line-height: 20px;
-			
-			@media (--viewport-medium) {
-				line-height: var(--line-height-3);
-			}
+			line-height: var(--line-height-3);
 		}
 	}
+}
+
+/* Cost block */
+.tribe-events-schedule .tribe-events-cost {
+	@mixin heading;
+	@mixin mobile-heading-6;
+	color: var(--color-text-primary);
+	text-transform: uppercase;
 	
-	/* Cost block */
-	.tribe-events-schedule .tribe-events-cost {
-		@mixin heading;
-		@mixin mobile-heading-6;
-		color: var(--color-text-primary);
-		text-transform: uppercase;
-		
-		@media (--viewport-medium) {
-			@mixin desktop-heading-6;
-		}
+	@media (--viewport-medium) {
+		@mixin desktop-heading-6;
 	}
 	
 	/* Description Block */
