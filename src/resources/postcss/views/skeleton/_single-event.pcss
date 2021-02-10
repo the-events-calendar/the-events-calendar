@@ -128,61 +128,38 @@
 	}
 }
 
-/* Details block */
-.tribe-events-event-meta {
-	display: flex;
-	flex-wrap: wrap;
-	margin: var(--spacer-5) 0 var(--spacer-7);
+/* Featured Image */
+.tribe-events-event-image {
+	margin-bottom: var(--spacer-3);
 	
-	dt, dd {
-		margin: 0 0 var(--spacer-0) 0;
+	img {
+		display: block;
 	}
 	
-	.tribe-events-address {
-		margin: 0;
+	@media (--viewport-medium) {
+		margin-bottom: var(--spacer-7);
 	}
+}
 
-	&.primary,
-	&.secondary {
-		width: 100%;
+/* Cal export links block */
+.tribe-events-cal-links {
+	margin-bottom: var(--spacer-7);
+	
+	@media (--viewport-medium) {
+		margin-bottom: var(--spacer-8);
+	}
+	
+	.tribe-events-gcal {
+		margin-right: var(--spacer-5);
 		
 		@media (--viewport-medium) {
-			width: auto;
+			margin-right: var(--spacer-8);
 		}
 	}
-}
-
-/* Details column */
-.tribe-events-meta-group {
-	flex: 1 0 140px;
-	margin-right: var(--spacer-5);
 	
-	@media (--viewport-medium) {
-		padding: var(--spacer-7) 0 var(--spacer-3);
-		width: 168px;
-	}
-
-	.tribe-events-single-section-title {
-		margin-bottom: var(--spacer-1);
-	}
-}
-
-/* Venue block */
-.tribe-events-venue-map {
-	margin: 0 0 var(--spacer-3) 0;
-	order: -1;
-	width: 100%;
-	
-	@media (--viewport-medium) {
-		margin-top: var(--spacer-7);
-		order: 1;
-		width: 211px;
-	}
-	
-	&, & > div {
-		@media (--viewport-medium) {
-			height: 211px !important; /* TODO: look into an alternative way to restrain gmaps' size */
-		}
+	.tribe-events-gcal,
+	.tribe-events-ical {
+		padding-left: var(--spacer-7);
 	}
 }
 
