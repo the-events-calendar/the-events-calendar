@@ -12,8 +12,8 @@
 	{"slug":"reflector","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Reflector_View","view_slug":"reflector","view_label":"Reflector","events":[8,9],"is_initial_load":true,"rest_url":"https:\\/\\/rest.tri.be\\/","rest_nonce":"1122334455","should_manage_url":false,"container_classes":["tribe-common","tribe-events","tribe-events-widget"],"container_data":[],"breakpoint_pointer":"aabbccddee","messages":[],"hide_if_no_upcoming_events":false,"view_more_link":"https:\\/\\/test.tri.be\\/","widget_title":"Upcoming Events"}</script>
 
 		<header class="tribe-events-widget-events-list__header">
-			<h3 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-				Upcoming Events			</h3>
+			<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+				Upcoming Events			</h2>
 		</header>
 
 		
