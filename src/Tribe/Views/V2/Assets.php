@@ -414,32 +414,35 @@ class Assets extends \tad_DI52_ServiceProvider {
 			);
 		}
 		
-		// @todo: need logic to handle this as calling tribe( Template_Bootstrap::class )->is_single_event() doesn't work
-		if ( tribe_events_views_v2_is_enabled() ) {
-			tribe_asset(
-				$plugin,
-				'tribe-events-v2-single-skeleton',
-				'tribe-events-single-skeleton.css',
-				[],
-				'wp_enqueue_scripts',
-				[
-					'priority' => 15,
-				]
-			);
-
-			tribe_asset(
-				$plugin,
-				'tribe-events-v2-single-skeleton-full',
-				'tribe-events-single-full.css',
-				[
-					'tribe-events-v2-single-skeleton',
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-skeleton',
+			'tribe-events-single-skeleton.css',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'priority' => 15,
+				'conditionals' => [
+					[ $this, 'should_enqueue_single_event_styles' ],
 				],
-				'wp_enqueue_scripts',
-				[
-					'priority' => 15,
-				]
-			);
-		}
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-skeleton-full',
+			'tribe-events-single-full.css',
+			[
+				'tribe-events-v2-single-skeleton',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority' => 15,
+				'conditionals' => [
+					[ $this, 'should_enqueue_single_event_styles' ],
+				],
+			]
+		);
 	}
 
 	/**
@@ -450,11 +453,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	public function disable_v1() {
-		// Dont disable V1 on Single Event page
-		// if ( tribe( Template_Bootstrap::class )->is_single_event() ) {
-		// 	return;
-		// }
-
 		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-script', '__return_false' );
 		add_filter( 'tribe_asset_enqueue_tribe-events-bar', '__return_false' );
 		add_filter( 'tribe_asset_enqueue_the-events-calendar', '__return_false' );
@@ -533,5 +531,26 @@ class Assets extends \tad_DI52_ServiceProvider {
 		 * @param bool $is_skeleton_style
 		 */
 		return apply_filters( 'tribe_events_views_v2_assets_should_enqueue_full_styles', $should_enqueue );
+	}
+	
+	/**
+	 * Verifies if we are on V2 and on Event Single in order to enqueue the override styles for Single Event
+	 *
+	 * @since TBD
+	 * 
+	 * @return boolean
+	 */
+	public function should_enqueue_single_event_styles() {
+		// Bail if not V2.
+		if ( ! tribe_events_views_v2_is_enabled() ) {
+			return false;
+		}
+		
+		// Bail if not Single Event.
+		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+			return false;
+		}
+		
+		return true;
 	}
 }
