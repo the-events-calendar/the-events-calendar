@@ -4,14 +4,22 @@
  * @package TribeEventsCalendar
  *
  */
- 
+
 .tribe-events-single {
 	-webkit-font-smoothing: antialiased;
+}
+	
+.tribe-events-before-html,
+.tribe-events-after-html {
+	p {
+		line-height: 1.7;
+	}
 }
 	
 /* Back navigation block */
 .tribe-events-back a {
 	font-family: var(--font-family-base);
+	font-weight: var(--font-weight-bold);
 }
 
 /* Event title */
@@ -50,15 +58,6 @@
 	
 	@media (--viewport-medium) {
 		@mixin heading-7;
-	}
-	
-	.event-is-recurring {
-		
-		&,
-		&:hover,
-		&:focus {
-			color: var(--color-text-primary);
-		}
 	}
 	
 	a {
