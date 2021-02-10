@@ -90,7 +90,7 @@ class Widget_View extends View {
 		$args = apply_filters( "tribe_events_views_v2_widget_repository_args", $args, $context, $this );
 
 		/**
-		 * A widget-specific filter for repository args, based on widget slwug.
+		 * A widget-specific filter for repository args, based on widget slug.
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
 		 * @since 5.2.0
