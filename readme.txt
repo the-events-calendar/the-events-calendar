@@ -224,6 +224,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.3.3] TBD =
 
+* Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
+* Tweak - Include the `tribe_events_views_v2_view_page_reset_ignored_params` filter to prevent certain params from interfering with pagination resetting. [FBAR-222]
+
 = [5.3.2.1] 2021-02-02 =
 
 * Fix - Prevent Event Aggregator ASYNC requests from failing to import after 5 Events, Venues, RSVP, Tickets and/or Organizers. [TEC-3769]
