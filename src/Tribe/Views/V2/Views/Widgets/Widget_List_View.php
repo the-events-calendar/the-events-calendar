@@ -47,17 +47,6 @@ class Widget_List_View extends Widget_View {
 	}
 
 	/**
-	 * Returns the widget "view more" url.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The widget "view more" url.
-	 */
-	public function get_view_more_url() {
-		return tribe_events_get_url();
-	}
-
-	/**
 	 * Overrides the base View method.
 	 *
 	 * @since 5.3.0

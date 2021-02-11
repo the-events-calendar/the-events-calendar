@@ -56,7 +56,7 @@ class Widget_View extends View {
 	 * @return string The widget "view more" text.
 	 */
 	public function get_view_more_text() {
-		return __( 'View More', 'the-events-calendar');
+		return esc_html__( 'View More', 'the-events-calendar');
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Widget_View extends View {
 	 * @return string The widget "view more" url.
 	 */
 	public function get_view_more_url() {
-		return '';
+		return tribe_events_get_url();
 	}
 
 	/**
