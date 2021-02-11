@@ -5,81 +5,273 @@
  *
  */
 
-.single-tribe_events-v2 {
+.tribe-events-single {
+	-webkit-font-smoothing: antialiased;
+}
 	
-	/* Back navigation block */
-	.tribe-events-back a {
-		font-family: var(--font-family-base);
+.tribe-events-before-html,
+.tribe-events-after-html {
+	p {
+		line-height: 1.7;
 	}
+}
 	
-	/* Event title */
-	.tribe-events-single-event-title { /* NOTE: this is best done by adding tribe-common-h1 to the html */
-		@mixin heading;
-		@mixin mobile-heading-1;
+/* Back navigation block */
+.tribe-events-back a {
+	font-family: var(--font-family-base);
+	font-weight: var(--font-weight-bold);
+}
 
-		/* .tribe-common--breakpoint-medium& { */ /* TODO: not sure we can use this here? */
-		@media (--viewport-medium) {
-			@mixin desktop-heading-1;
-		}
+/* Event title */
+.tribe-events-single-event-title {
+	@mixin heading;
+	@mixin mobile-heading-2;
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-1;
+	}
+}
+
+/* Header metadata wrapper  */
+.tribe-events-schedule {
+	background-color: transparent;
+	border: 0;
+}
+
+/* Datetime block */
+.tribe-events-schedule h2 { /* NOTE: this is best done by adding tribe-common-h8 to the html */
+	@mixin heading;
+	@mixin mobile-heading-6;
+	font-weight: var(--font-weight-regular);
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-6;
+	}
+}
+
+/* Recurring info block */
+.tribe-events-schedule .recurringinfo,
+.tribe-related-event-info .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
+	@mixin heading;
+	@mixin heading-8;
+	background-color: var(--color-background-secondary);
+	border-radius: 40px;
+	
+	.event-is-recurring {
+		letter-spacing: -9999px; /* To hide the "Recurring Event" label on mobile */
 	}
 	
-	/* Header metadata wrapper  */
-	.tribe-events-schedule {
-		background-color: transparent;
-		border: 0;
-	}
-	
-	/* Datetime block */
-	.tribe-events-schedule h2 { /* NOTE: this is best done by adding tribe-common-h8 to the html */
-		@mixin heading;
-		@mixin mobile-heading-6;
+	a {
+		color: var(--color-accent-primary);
 		font-weight: var(--font-weight-regular);
+		letter-spacing: normal;
+		line-height: 20px;
+	}
+}
 
+/* Recurring info block */
+.tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
+	@mixin heading;
+	@mixin heading-8;
+	background-color: var(--color-background-secondary);
+	border-radius: 40px;
+	
+	@media (--viewport-medium) {
+		@mixin heading-7;
+	}
+	
+	.event-is-recurring {
 		@media (--viewport-medium) {
-			@mixin desktop-heading-6;
+			letter-spacing: normal;
+		}
+	}
+}
+
+/* Cost block */
+.tribe-events-schedule .tribe-events-cost {
+	@mixin heading;
+	@mixin mobile-heading-6;
+	color: var(--color-text-primary);
+	text-transform: uppercase;
+	
+	@media (--viewport-medium) {
+		@mixin desktop-heading-6;
+	}
+}
+
+/* Description Block */
+.tribe-events-content {
+	@mixin body;
+	
+	h2, h3, h4, h5, h6 {
+		@mixin heading;
+		letter-spacing: normal;
+		text-transform: none;
+	}
+	
+	h2 {
+		@mixin mobile-heading-3;
+	}
+	
+	p, ul, ol {
+		font-size: var(--font-size-3);
+		line-height: var(--line-height-3);
+		
+		@media (--viewport-medium) {
+			font-size: var(--font-size-4);
+			line-height: var(--line-height-2);
 		}
 	}
 	
-	/* Recurring info block */
-	.tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
+	ul, ol {
+		list-style-position: inside;
+	}
+	
+	a {
+		@mixin anchor-thin;
+	}
+}
+
+/* Cal export links block */
+.tribe-events-cal-links {
+	@mixin body;
+	
+	.tribe-events-gcal,
+	.tribe-events-ical {
+		background: svg-inline(cal-export) 0 / 24px no-repeat;
+		color: var(--color-accent-primary);
+		font-size: var(--font-size-2);
+		font-weight: var(--font-weight-regular);
+		line-height: var(--line-height-3);
+	}
+}
+
+/* Details block */
+.tribe-events-event-meta {
+	@mixin body;
+	font-size: var(--font-size-2);
+	
+	a {
+		color: var(--color-accent-primary);
+	}
+	
+	dt {
+		line-height: var(--line-height-3);
+	}
+	
+	.tribe-events-address {
+		font-style: normal;
+		line-height: 26px;
+	}
+	
+	&:not(.secondary):before,
+	& ~ div:not(.tribe-events-event-meta) {
+		border-top: 1px solid var(--color-border-secondary);
+	}
+	
+	/* We don't want the Customizer's overrides applied here */
+	.single-tribe_events .tribe-events-single & {
+		color: var(--color-text-primary);
+		background-color: transparent;
+	}
+}
+
+/* Details column */
+.tribe-events-meta-group {
+	
+	.tribe-events-single-section-title {
 		@mixin heading;
 		@mixin heading-8;
-		background-color: var(--color-background-secondary);
-		border-radius: 40px;
-		
-		@media (--viewport-medium) {
+		color: var(--color-text-primary-light);
+		font-weight: var(--font-weight-regular);
+		text-transform: uppercase;
+	}
+}
+
+/* Venue block */
+.tribe-events-venue-map {
+	border: 0;
+	border-radius: 0;
+}
+
+/* Related Events block */
+.tribe-events-related-events-title {
+	@mixin heading;
+	@mixin mobile-heading-3;
+	border-top: 1px solid var(--color-border-secondary);
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-3;
+	}
+}
+
+.tribe-events-single ul.tribe-related-events {
+	
+	li {
+		@mixin body;
+
+		.tribe-related-events-title {
+			@mixin heading;
 			@mixin heading-7;
 		}
+	}
+}
+
+/* Footer Navigation */
+#tribe-events-footer {
+	border-top: 1px solid var(--color-border-secondary);
+}
+
+.tribe-events-single .tribe-events-sub-nav {
+	@mixin body;
+	font-size: var(--font-size-1);
+	
+	@media (--viewport-medium) {
+		font-size: var(--font-size-3);
+	}
+	
+	.tribe-events-nav-previous a,
+	.tribe-events-nav-next a {
+		color: var(--color-text-secondary);
+		vertical-align: middle;
 		
-		.event-is-recurring {
+		&:hover,
+		&:focus {
+			color: var(--color-text-primary);
+		}
+	}
+	
+	.tribe-events-nav-previous a {
+		&:before {
+			background: svg-inline(caret-left) 0 / 7px no-repeat;
 			
-			&,
-			&:hover,
-			&:focus {
-				color: var(--color-text-primary);
+			@media (--viewport-medium) {
+				background-size: 9px;
 			}
 		}
 		
-		a {
-			color: var(--color-accent-primary);
-			font-weight: var(--font-weight-regular);
-			line-height: 20px;
-			
-			@media (--viewport-medium) {
-				line-height: var(--line-height-3);
+		&:hover,
+		&:focus {
+			&:before {
+				background-image: svg-inline(caret-left-active);
 			}
 		}
 	}
 	
-	/* Cost block */
-	.tribe-events-schedule .tribe-events-cost {
-		@mixin heading;
-		@mixin mobile-heading-6;
-		color: var(--color-text-primary);
-		text-transform: uppercase;
+	.tribe-events-nav-next a {
+		&:after {
+			background: svg-inline(caret-right) right / 7px no-repeat;
+			
+			@media (--viewport-medium) {
+				background-size: 9px;
+			}
+		}
 		
-		@media (--viewport-medium) {
-			@mixin desktop-heading-6;
+		&:hover,
+		&:focus {
+			&:after {
+				background-image: svg-inline(caret-right-active);
+			}
 		}
 	}
 }
