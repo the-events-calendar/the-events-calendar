@@ -37,6 +37,7 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 		if ( $customizer->has_option( $this->ID, 'details_bg_color' ) ) {
 			$template .= '
 				.single-tribe_events .tribe-events-event-meta {
+					background-color: <%= single_event.details_bg_color %>;
 					color: <%= single_event.details_text_color %>;
 				}
 			';

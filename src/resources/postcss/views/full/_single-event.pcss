@@ -152,6 +152,12 @@
 	& ~ div:not(.tribe-events-event-meta) {
 		border-top: 1px solid var(--color-border-secondary);
 	}
+	
+	/* We don't want the Customizer's overrides applied here */
+	.single-tribe_events .tribe-events-single & {
+		color: var(--color-text-primary);
+		background-color: transparent;
+	}
 }
 
 /* Details column */
