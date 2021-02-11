@@ -57,9 +57,14 @@
 	background-color: var(--color-background-secondary);
 	border-radius: 40px;
 	
+	.event-is-recurring {
+		letter-spacing: -9999px; /* To hide the "Recurring Event" label on mobile */
+	}
+	
 	a {
 		color: var(--color-accent-primary);
 		font-weight: var(--font-weight-regular);
+		letter-spacing: normal;
 		line-height: 20px;
 	}
 }
@@ -75,15 +80,9 @@
 		@mixin heading-7;
 	}
 	
-	.tribe-events-schedule .recurringinfo {
+	.event-is-recurring {
 		@media (--viewport-medium) {
-			@mixin heading-7;
-		}
-		
-		a {
-			@media (--viewport-medium) {
-				line-height: var(--line-height-3);
-			}
+			letter-spacing: normal;
 		}
 	}
 }
