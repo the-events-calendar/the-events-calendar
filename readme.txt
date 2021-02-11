@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.3.3] TBD =
 
 * Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
+* Fix - Latest Past view moved to not publicly visible, which was the intended behavior.
 * Tweak - Include the `tribe_events_views_v2_view_page_reset_ignored_params` filter to prevent certain params from interfering with pagination resetting. [FBAR-222]
 * Tweak - Removed `tribe_events_views_v2_widget_admin_form_{$field_type}_input` from the List Widget admin form in favor of using `Tribe__Template::do_entry_point()` [ECP-486]
 * Tweak - Moved administration templates for List Widget components to Common. [ECP-486]
