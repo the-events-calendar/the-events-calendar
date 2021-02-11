@@ -81,184 +81,82 @@
 	@media (--viewport-medium) {
 		@mixin desktop-heading-6;
 	}
+}
+
+/* Description Block */
+.tribe-events-content {
+	@mixin body;
 	
-	/* Description Block */
-	.tribe-events-content {
-		@mixin body;
-		
-		h2, h3, h4, h5, h6 {
-			@mixin heading;
-			letter-spacing: normal;
-			text-transform: none;
-		}
-		
-		h2 {
-			@mixin mobile-heading-3;
-		}
-		
-		p, ul, ol {
-			font-size: var(--font-size-3);
-			line-height: var(--line-height-3);
-			
-			@media (--viewport-medium) {
-				font-size: var(--font-size-4);
-				line-height: var(--line-height-2);
-			}
-		}
-		
-		ul, ol {
-			list-style-position: inside;
-		}
-		
-		a {
-			@mixin anchor-thin;
-		}
-	}
-	
-	/* Cal export links block */
-	.tribe-events-cal-links {
-		@mixin body;
-		
-		.tribe-events-gcal,
-		.tribe-events-ical {
-			background: svg-inline(cal-export) 0 / 24px no-repeat;
-			color: var(--color-accent-primary);
-			font-size: var(--font-size-2);
-			font-weight: var(--font-weight-regular);
-			line-height: var(--line-height-3);
-		}
-	}
-	
-	/* Details block */
-	.tribe-events-event-meta {
-		@mixin body;
-		font-size: var(--font-size-2);
-		
-		a {
-			color: var(--color-accent-primary);
-		}
-		
-		dt {
-			line-height: var(--line-height-3);
-		}
-		
-		.tribe-events-address {
-			font-style: normal;
-			line-height: 26px;
-		}
-	}
-	
-	/* Details column */
-	.tribe-events-meta-group {
-		
-		.tribe-events-single-section-title {
-			@mixin heading;
-			@mixin heading-8;
-			color: var(--color-text-primary-light);
-			font-weight: var(--font-weight-regular);
-			text-transform: uppercase;
-		}
-	}
-	
-	/* Venue block */
-	.tribe-events-venue-map {
-		border: 0;
-		border-radius: 0;
-	}
-	
-	/* Details block */
-	.tribe-events-event-meta {
-		@mixin body;
-		font-size: var(--font-size-2);
-		
-		a {
-			color: var(--color-accent-primary);
-		}
-		
-		dt {
-			line-height: var(--line-height-3);
-		}
-		
-		.tribe-events-address {
-			font-style: normal;
-			line-height: 26px;
-		}
-		
-		&:not(.secondary):before,
-		& ~ div:not(.tribe-events-event-meta) {
-			border-top: 1px solid var(--color-border-secondary);
-		}
-	}
-	
-	/* Details column */
-	.tribe-events-meta-group {
-		
-		.tribe-events-single-section-title {
-			@mixin heading;
-			@mixin heading-8;
-			color: var(--color-text-primary-light);
-			font-weight: var(--font-weight-regular);
-			text-transform: uppercase;
-		}
-	}
-	
-	/* Venue block */
-	.tribe-events-venue-map {
-		border: 0;
-		border-radius: 0;
-	}
-	
-	/* Related Events block */
-	.tribe-events-related-events-title {
+	h2, h3, h4, h5, h6 {
 		@mixin heading;
+		letter-spacing: normal;
+		text-transform: none;
+	}
+	
+	h2 {
 		@mixin mobile-heading-3;
-		border-top: 1px solid var(--color-border-secondary);
-
+	}
+	
+	p, ul, ol {
+		font-size: var(--font-size-3);
+		line-height: var(--line-height-3);
+		
 		@media (--viewport-medium) {
-			@mixin desktop-heading-3;
+			font-size: var(--font-size-4);
+			line-height: var(--line-height-2);
 		}
 	}
 	
-	ul.tribe-related-events {
-		
-		li {
-			@mixin body;
+	ul, ol {
+		list-style-position: inside;
+	}
+	
+	a {
+		@mixin anchor-thin;
+	}
+}
 
-			.tribe-related-events-title {
-				@mixin heading;
-				@mixin heading-7;
+/* Cal export links block */
+.tribe-events-cal-links {
+	@mixin body;
+	
+	.tribe-events-gcal,
+	.tribe-events-ical {
+		background: svg-inline(cal-export) 0 / 24px no-repeat;
+		color: var(--color-accent-primary);
+		font-size: var(--font-size-2);
+		font-weight: var(--font-weight-regular);
+		line-height: var(--line-height-3);
+	}
+}
+
+/* Footer Navigation */
+.tribe-events-sub-nav {
+	@mixin body;
+	font-weight: var(--font-weight-bold);
+	
+	.tribe-events-nav-previous a {
+		&:before {
+			background: svg-inline(caret-left) 0 / 11px no-repeat;
+		}
+		
+		&:hover,
+		&:focus {
+			&:before {
+				background-image: svg-inline(caret-left-active);
 			}
 		}
 	}
 	
-	/* Footer Navigation */
-	.tribe-events-sub-nav {
-		@mixin body;
-		font-weight: var(--font-weight-bold);
-		
-		.tribe-events-nav-previous a {
-			&:before {
-				background: svg-inline(caret-left) 0 / 11px no-repeat;
-			}
-			
-			&:hover,
-			&:focus {
-				&:before {
-					background-image: svg-inline(caret-left-active);
-				}
-			}
+	.tribe-events-nav-next a {
+		&:after {
+			background: svg-inline(caret-right) 0 / 11px no-repeat;
 		}
 		
-		.tribe-events-nav-next a {
+		&:hover,
+		&:focus {
 			&:after {
-				background: svg-inline(caret-right) 0 / 11px no-repeat;
-			}
-			
-			&:hover,
-			&:focus {
-				&:after {
-					background-image: svg-inline(caret-right-active);
-				}
+				background-image: svg-inline(caret-right-active);
 			}
 		}
 	}
