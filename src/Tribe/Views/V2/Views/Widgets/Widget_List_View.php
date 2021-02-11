@@ -47,6 +47,17 @@ class Widget_List_View extends Widget_View {
 	}
 
 	/**
+	 * Returns the widget "view more" url.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget "view more" url.
+	 */
+	public function get_view_more_url() {
+		return tribe_get_events_link();
+	}
+
+	/**
 	 * Overrides the base View method.
 	 *
 	 * @since 5.3.0
@@ -57,7 +68,6 @@ class Widget_List_View extends Widget_View {
 		$template_vars = parent::setup_template_vars();
 
 		// Here update, add and remove from the default template vars.
-		$template_vars['view_more_link']             = tribe_get_events_link();
 		$template_vars['widget_title']               = $this->context->get( 'widget_title' );
 		$template_vars['hide_if_no_upcoming_events'] = $this->context->get( 'no_upcoming_events' );
 		$template_vars['jsonld_enable']              = (int) $this->context->get( 'jsonld_enable' );

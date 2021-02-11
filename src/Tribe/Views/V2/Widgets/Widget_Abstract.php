@@ -341,8 +341,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {
 		$context_args = [
-			'widget'       => true,
-			'widget_title' => Arr::get( $arguments, 'title' ),
+			'widget'          => true,
+			'widget_title'    => Arr::get( $arguments, 'title' ),
 		];
 
 		return $context_args;
