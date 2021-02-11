@@ -130,6 +130,54 @@
 	}
 }
 
+/* Details block */
+.tribe-events-event-meta {
+	@mixin body;
+	font-size: var(--font-size-2);
+	
+	a {
+		color: var(--color-accent-primary);
+	}
+	
+	dt {
+		line-height: var(--line-height-3);
+	}
+	
+	.tribe-events-address {
+		font-style: normal;
+		line-height: 26px;
+	}
+	
+	&:not(.secondary):before,
+	& ~ div:not(.tribe-events-event-meta) {
+		border-top: 1px solid var(--color-border-secondary);
+	}
+	
+	/* We don't want the Customizer's overrides applied here */
+	.single-tribe_events .tribe-events-single & {
+		color: var(--color-text-primary);
+		background-color: transparent;
+	}
+}
+
+/* Details column */
+.tribe-events-meta-group {
+	
+	.tribe-events-single-section-title {
+		@mixin heading;
+		@mixin heading-8;
+		color: var(--color-text-primary-light);
+		font-weight: var(--font-weight-regular);
+		text-transform: uppercase;
+	}
+}
+
+/* Venue block */
+.tribe-events-venue-map {
+	border: 0;
+	border-radius: 0;
+}
+
 /* Footer Navigation */
 #tribe-events-footer {
 	border-top: 1px solid var(--color-border-secondary);

@@ -175,6 +175,92 @@
 	}
 }
 
+/* Details block */
+.tribe-events-event-meta {
+	display: flex;
+	flex-wrap: wrap;
+	margin: var(--spacer-5) 0 var(--spacer-7);
+	
+	@media (--viewport-medium) {
+		margin-bottom: var(--spacer-3);
+	}
+	
+	dt, dd {
+		margin: 0 0 var(--spacer-0) 0;
+	}
+	
+	.tribe-events-address {
+		margin: 0;
+	}
+
+	&.primary,
+	&.secondary {
+		order: 2;
+		width: 100%;
+		
+		@media (--viewport-medium) {
+			width: auto;
+		}
+	}
+	
+	&.primary {
+		padding-top: var(--spacer-5);
+		position: relative;
+		
+		@media (--viewport-medium) {
+			padding-top: 0;
+			position: static;
+		}
+	}
+	
+	&:not(.secondary):before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		
+		@media (--viewport-medium) {
+			top: auto;
+		}
+	}
+}
+
+/* Details column */
+.tribe-events-meta-group {
+	flex: 1 0 140px;
+	margin-right: var(--spacer-5);
+	
+	@media (--viewport-medium) {
+		padding: var(--spacer-7) 0 var(--spacer-3);
+		width: 168px;
+	}
+
+	.tribe-events-single-section-title {
+		margin-bottom: var(--spacer-1);
+	}
+}
+
+/* Venue block */
+.tribe-events-venue-map {
+	margin: 0 0 var(--spacer-3) 0;
+	order: -1;
+	width: 100%;
+	
+	@media (--viewport-medium) {
+		margin-top: var(--spacer-7);
+		order: 1;
+		width: 211px;
+	}
+	
+	/* Make sure the gmap div has this specific height on desktop */
+	& > div {
+		@media (--viewport-medium) {
+			max-height: 211px;
+		}
+	}
+}
+
 /* Footer Navigation */
 #tribe-events-footer {
 	padding: var(--spacer-4) 0;
@@ -223,4 +309,3 @@
 		width: 9px;
 	}
 }
-
