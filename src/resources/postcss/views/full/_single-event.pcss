@@ -83,6 +83,39 @@
 	}
 }
 
+/* Description Block */
+.tribe-events-content {
+	@mixin body;
+	
+	h2, h3, h4, h5, h6 {
+		@mixin heading;
+		letter-spacing: normal;
+		text-transform: none;
+	}
+	
+	h2 {
+		@mixin mobile-heading-3;
+	}
+	
+	p, ul, ol {
+		font-size: var(--font-size-3);
+		line-height: var(--line-height-3);
+		
+		@media (--viewport-medium) {
+			font-size: var(--font-size-4);
+			line-height: var(--line-height-2);
+		}
+	}
+	
+	ul, ol {
+		list-style-position: inside;
+	}
+	
+	a {
+		@mixin anchor-thin;
+	}
+}
+
 /* Cal export links block */
 .tribe-events-cal-links {
 	@mixin body;
