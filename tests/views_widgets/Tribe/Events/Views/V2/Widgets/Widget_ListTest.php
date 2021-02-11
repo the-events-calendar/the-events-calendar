@@ -211,11 +211,10 @@ class Widget_ListTest extends ViewTestCase {
 			$widget_list_view->found_post_ids()
 		);
 
-		$this->assertMatchesSnapshot( $html );
-
 		$this->assertNotFalse( stripos( $html, 'ld+json' ) );
-	}
 
+		$this->assertMatchesSnapshot( $html );
+	}
 
 	/**
 	 * @test
@@ -282,9 +281,9 @@ class Widget_ListTest extends ViewTestCase {
 			$expected_post_ids,
 			$widget_list_view->found_post_ids()
 		);
-
-		$this->assertMatchesSnapshot( $html );
 		// There is no way the snapshot will start with this string, so assertFalse seems safe enough here.
 		$this->assertFalse( stripos( $html, 'ld+json' ) );
+
+		$this->assertMatchesSnapshot( $html );
 	}
 }

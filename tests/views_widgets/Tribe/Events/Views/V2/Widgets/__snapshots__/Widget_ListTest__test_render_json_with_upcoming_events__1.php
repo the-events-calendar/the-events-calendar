@@ -18,7 +18,7 @@
 							</h2>
 		</header>
 
-
+		
 			<div class="tribe-events-widget-events-list__events">
 									<div  class="tribe-common-g-row tribe-events-widget-events-list__event-row tribe-events-widget-events-list__event-row--featured" >
 
@@ -60,7 +60,7 @@
 </h3>
 				</header>
 
-
+				
 			</div>
 		</article>
 	</div>
@@ -97,7 +97,7 @@
 </h3>
 				</header>
 
-
+				
 			</div>
 		</article>
 	</div>
