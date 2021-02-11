@@ -153,7 +153,7 @@ function tribe_events_widgets_v2_is_enabled() {
 }
 
 /**
- * Checks whether to disable V2 Single Event.
+ * Checks whether to disable V2 Single Event styles overrides.
  *
  * In order the function will check the `TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED` constant,
  * the `TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED` environment variable.
@@ -163,7 +163,7 @@ function tribe_events_widgets_v2_is_enabled() {
  *
  * @since TBD
  *
- * @return bool Whether Single Event v2 should load.
+ * @return bool Whether Single Event v2 styles overrides should load.
  */
 function tribe_events_single_view_v2_is_enabled() {
 	// Must have v2 views active.
@@ -183,11 +183,11 @@ function tribe_events_single_view_v2_is_enabled() {
 	}
 
 	/**
-	 * Allows toggling of the v2 widget views via a filter. Defaults to true.
+	 * Allows toggling of the single event v2 overrides via a filter. Defaults to true.
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean Do we enable the widget views?
+	 * @return boolean Do we enable the single event styles overrides?
 	 */
 	return apply_filters( 'tribe_events_single_view_v2_is_enabled', true );
 }
