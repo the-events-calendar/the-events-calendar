@@ -50,6 +50,26 @@
 }
 
 /* Recurring info block */
+.tribe-events-schedule .recurringinfo,
+.tribe-related-event-info .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
+	@mixin heading;
+	@mixin heading-8;
+	background-color: var(--color-background-secondary);
+	border-radius: 40px;
+	
+	.event-is-recurring {
+		letter-spacing: -9999px; /* To hide the "Recurring Event" label on mobile */
+	}
+	
+	a {
+		color: var(--color-accent-primary);
+		font-weight: var(--font-weight-regular);
+		letter-spacing: normal;
+		line-height: 20px;
+	}
+}
+
+/* Recurring info block */
 .tribe-events-schedule .recurringinfo { /* NOTE: this is best done by adding tribe-common-h7 to the html */
 	@mixin heading;
 	@mixin heading-8;
@@ -60,13 +80,9 @@
 		@mixin heading-7;
 	}
 	
-	a {
-		color: var(--color-accent-primary);
-		font-weight: var(--font-weight-regular);
-		line-height: 20px;
-		
+	.event-is-recurring {
 		@media (--viewport-medium) {
-			line-height: var(--line-height-3);
+			letter-spacing: normal;
 		}
 	}
 }
@@ -176,4 +192,27 @@
 .tribe-events-venue-map {
 	border: 0;
 	border-radius: 0;
+}
+
+/* Related Events block */
+.tribe-events-related-events-title {
+	@mixin heading;
+	@mixin mobile-heading-3;
+	border-top: 1px solid var(--color-border-secondary);
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-3;
+	}
+}
+
+.tribe-events-single ul.tribe-related-events {
+	
+	li {
+		@mixin body;
+
+		.tribe-related-events-title {
+			@mixin heading;
+			@mixin heading-7;
+		}
+	}
 }
