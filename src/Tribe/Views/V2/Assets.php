@@ -534,7 +534,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	}
 	
 	/**
-	 * Verifies if we are on V2 and on Event Single in order to enqueue the override styles for Single Event
+	 * Verifies if we are on V2 and on Event Single in order to enqueue the override styles for Single Event.
 	 *
 	 * @since TBD
 	 * 
