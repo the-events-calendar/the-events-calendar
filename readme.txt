@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.4.0] TBD =
 
+* Version - The Events Calendar 5.4.0 is only compatible with Events Calendar PRO 5.3.0 and higher
 * Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
 * Fix - Latest Past view moved to not publicly visible, which was the intended behavior.
 * Tweak - Include the `tribe_events_views_v2_view_page_reset_ignored_params` filter to prevent certain params from interfering with pagination resetting. [FBAR-222]
