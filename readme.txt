@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.3.3
+Stable tag: 5.4.0
 Tested up to: 5.6.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,9 +222,19 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.3] TBD =
+= [5.4.0] TBD =
 
+* Version - The Events Calendar 5.4.0 is only compatible with Events Calendar PRO 5.3.0 and higher
+* Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
+* Fix - Latest Past view moved to not publicly visible, which was the intended behavior.
+* Tweak - Include the `tribe_events_views_v2_view_page_reset_ignored_params` filter to prevent certain params from interfering with pagination resetting. [FBAR-222]
+* Tweak - Removed `tribe_events_views_v2_widget_admin_form_{$field_type}_input` from the List Widget admin form in favor of using `Tribe__Template::do_entry_point()` [ECP-486]
+* Tweak - Moved administration templates for List Widget components to Common. [ECP-486]
 
+= [5.3.2.1] 2021-02-02 =
+
+* Fix - Prevent Event Aggregator ASYNC requests from failing to import after 5 Events, Venues, RSVP, Tickets and/or Organizers. [TEC-3769]
+* Fix - Update compatibility with PHP 7.4 for ForceUTF8 vendor module. [TEC-3769]
 
 = [5.3.2] 2021-01-28 =
 

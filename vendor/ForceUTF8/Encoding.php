@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright (c) 2008 Sebasti·n Grignoli
+Copyright (c) 2008 Sebasti√°n Grignoli
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,7 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * @author   "Sebasti·n Grignoli" <grignoli@gmail.com>
+ * @author   "Sebasti√°n Grignoli" <grignoli@gmail.com>
  * @package  Encoding
  * @version  2.0
  * @link     https://github.com/neitanod/forceutf8
@@ -137,34 +137,32 @@ class ForceUTF8__Encoding {
 		"\xc5\xb8"     => "\x9f"
 	);
 
+	/**
+	 * Function \ForceUTF8\Encoding::toUTF8
+	 *
+	 * This function leaves UTF8 characters alone, while converting almost all non-UTF8 to UTF8.
+	 *
+	 * It assumes that the encoding of the original string is either Windows-1252 or ISO 8859-1.
+	 *
+	 * It may fail to convert characters to UTF-8 if they fall into one of these scenarios:\
+	 *
+	 * 1) when any of these characters:   √Ä√Å√Ç√É√Ñ√Ö√Ü√á√à√â√ä√ã√å√ç√é√è√ê√ë√í√ì√î√ï√ñ√ó√ò√ô√ö√õ√ú√ù√û√ü
+	 *    are followed by any of these:  ("group B")
+	 *                                    ¬°¬¢¬£¬§¬•¬¶¬ß¬®¬©¬™¬´¬¨¬≠¬Æ¬Ø¬∞¬±¬≤¬≥¬¥¬µ¬∂‚Ä¢¬∏¬π¬∫¬ª¬º¬Ω¬æ¬ø
+	 * For example:   %ABREPRESENT%C9%BB. ¬´REPRESENT√â¬ª
+	 * The "¬´" (%AB) character will be converted, but the "√â" followed by "¬ª" (%C9%BB)
+	 * is also a valid unicode character, and will be left unchanged.\
+	 *
+	 * 2) when any of these: √†√°√¢√£√§√•√¶√ß√®√©√™√´√¨√≠√Æ√Ø  are followed by TWO chars from group B,
+	 * 3) when any of these: √∞√±√≤√≥  are followed by THREE chars from group B.
+	 *
+	 * @name toUTF8
+	 *
+	 * @param string $text  Any string.
+	 *
+	 * @return string  The same string, UTF8 encoded
+	 */
 	static function toUTF8( $text ) {
-		/**
-		 * Function \ForceUTF8\Encoding::toUTF8
-		 *
-		 * This function leaves UTF8 characters alone, while converting almost all non-UTF8 to UTF8.
-		 *
-		 * It assumes that the encoding of the original string is either Windows-1252 or ISO 8859-1.
-		 *
-		 * It may fail to convert characters to UTF-8 if they fall into one of these scenarios:
-		 *
-		 * 1) when any of these characters:   ¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ
-		 *    are followed by any of these:  ("group B")
-		 *                                    °¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂ï∏π∫ªºΩæø
-		 * For example:   %ABREPRESENT%C9%BB. ´REPRESENT…ª
-		 * The "´" (%AB) character will be converted, but the "…" followed by "ª" (%C9%BB)
-		 * is also a valid unicode character, and will be left unchanged.
-		 *
-		 * 2) when any of these: ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔ  are followed by TWO chars from group B,
-		 * 3) when any of these: ÒÚÛ  are followed by THREE chars from group B.
-		 *
-		 * @name         toUTF8
-		 *
-		 * @param string $text Any string.
-		 *
-		 * @return string  The same string, UTF8 encoded
-		 *
-		 */
-
 		if ( is_array( $text ) ) {
 			foreach ( $text as $k => $v ) {
 				$text[ $k ] = self::toUTF8( $v );
@@ -181,11 +179,11 @@ class ForceUTF8__Encoding {
 
 		$buf = "";
 		for ( $i = 0; $i < $max; $i ++ ) {
-			$c1 = $text{$i};
+			$c1 = $text[ $i ];
 			if ( $c1 >= "\xc0" ) { //Should be converted to UTF8, if it's not UTF8 already
-				$c2 = $i + 1 >= $max ? "\x00" : $text{$i + 1};
-				$c3 = $i + 2 >= $max ? "\x00" : $text{$i + 2};
-				$c4 = $i + 3 >= $max ? "\x00" : $text{$i + 3};
+				$c2 = $i + 1 >= $max ? "\x00" : $text[ $i + 1 ];
+				$c3 = $i + 2 >= $max ? "\x00" : $text[ $i + 2 ];
+				$c4 = $i + 3 >= $max ? "\x00" : $text[ $i + 3 ];
 				if ( $c1 >= "\xc0" & $c1 <= "\xdf" ) { //looks like 2 bytes UTF8
 					if ( $c2 >= "\x80" && $c2 <= "\xbf" ) { //yeah, almost sure it's UTF8 already
 						$buf .= $c1 . $c2;
