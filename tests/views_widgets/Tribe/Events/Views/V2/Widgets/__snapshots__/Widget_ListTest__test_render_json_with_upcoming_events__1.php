@@ -18,7 +18,7 @@
 							</h2>
 		</header>
 
-		
+
 			<div class="tribe-events-widget-events-list__events">
 									<div  class="tribe-common-g-row tribe-events-widget-events-list__event-row tribe-events-widget-events-list__event-row--featured" >
 
@@ -32,7 +32,7 @@
 </div>
 
 	<div class="tribe-events-widget-events-list__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-widget-events-list__event post-7 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-widget-events-list__event post-7 tribe_events type-tribe_events status-publish hentry" >
 			<div class="tribe-events-widget-events-list__event-details">
 
 				<header class="tribe-events-widget-events-list__event-header">
@@ -60,7 +60,7 @@
 </h3>
 				</header>
 
-				
+
 			</div>
 		</article>
 	</div>
@@ -78,7 +78,7 @@
 </div>
 
 	<div class="tribe-events-widget-events-list__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-widget-events-list__event post-8 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-widget-events-list__event post-8 tribe_events type-tribe_events status-publish hentry" >
 			<div class="tribe-events-widget-events-list__event-details">
 
 				<header class="tribe-events-widget-events-list__event-header">
@@ -97,7 +97,7 @@
 </h3>
 				</header>
 
-				
+
 			</div>
 		</article>
 	</div>
