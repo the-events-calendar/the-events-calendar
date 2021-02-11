@@ -453,6 +453,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	public function disable_v1() {
+		// Dont disable V1 on Single Event page using the Block Editor.
+		if ( tribe( Template_Bootstrap::class )->is_single_event() && has_blocks( get_queried_object_id() ) ) {	
+			return;	
+		}
+		
 		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-script', '__return_false' );
 		add_filter( 'tribe_asset_enqueue_tribe-events-bar', '__return_false' );
 		add_filter( 'tribe_asset_enqueue_the-events-calendar', '__return_false' );
@@ -542,12 +547,17 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function should_enqueue_single_event_styles() {
 		// Bail if not V2.
-		if ( ! tribe_events_views_v2_is_enabled() ) {
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}
 		
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+			return false;
+		}
+		
+		// Bail if Block Editor.
+		if ( has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
 		
