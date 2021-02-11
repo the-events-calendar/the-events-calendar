@@ -297,7 +297,7 @@
 	width: 100%;
 }
 
-ul.tribe-related-events {
+.tribe-events-single ul.tribe-related-events {
 	display: flex;
 	flex-direction: column;
 	
@@ -321,6 +321,23 @@ ul.tribe-related-events {
 		.tribe-related-events-thumbnail {
 			margin-bottom: var(--spacer-3);
 			width: 100%;
+			
+			/* Display featured images in a specific aspect ratio */
+			@media (--viewport-medium) {
+				a {
+					display: block;
+					overflow: hidden;
+					position: relative;
+					padding-top: 75%; /* 4:3 aspect ratio */
+				}
+				
+				img {
+					height: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+				}
+			}
 		}
 		
 		.tribe-related-event-info {
