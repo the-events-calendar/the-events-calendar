@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.3.3
+Stable tag: 5.4.0
 Tested up to: 5.6.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.3.3] TBD =
+= [5.4.0] TBD =
 
 * Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
 * Fix - Latest Past view moved to not publicly visible, which was the intended behavior.
