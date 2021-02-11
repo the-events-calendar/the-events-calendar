@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
 * Tweak - Include the `tribe_events_views_v2_view_page_reset_ignored_params` filter to prevent certain params from interfering with pagination resetting. [FBAR-222]
+* Tweak - Use filterable attributes for the view more link and text. Add customizer styling for the link. [ECP-568]
 
 = [5.3.2.1] 2021-02-02 =
 
