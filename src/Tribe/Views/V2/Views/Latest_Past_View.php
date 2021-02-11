@@ -31,7 +31,7 @@ class Latest_Past_View extends View {
 	 *
 	 * @var bool
 	 */
-	protected static $publicly_visible = false;
+	protected static $publicly_visible = true;
 
 	/**
 	 * Safe list of Templates to display when Latest Past Events is Active.

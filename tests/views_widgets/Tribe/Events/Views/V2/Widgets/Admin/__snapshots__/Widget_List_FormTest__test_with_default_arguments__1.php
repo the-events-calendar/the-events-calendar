@@ -1,10 +1,4 @@
-<?php return '
-<div
-	 class="tribe-widget-form" >
-	
-<div
-	 class="tribe-widget-fields" >
-	<div
+<?php return '<div
 	class="tribe-widget-form-control tribe-widget-form-control--text"
 	>
 	<label
@@ -123,7 +117,4 @@
 	>
 		Generate JSON-LD data	</label>
 </div>
-</div>
-</div>
-
 ';

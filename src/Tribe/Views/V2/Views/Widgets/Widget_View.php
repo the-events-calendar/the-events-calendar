@@ -8,7 +8,6 @@
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
 
-use Tribe\Widget\Widget_Abstract;
 use Tribe__Context as Context;
 use Tribe\Events\Views\V2\View;
 
@@ -120,31 +119,25 @@ class Widget_View extends View {
 		$context     = null !== $context ? $context : $this->context;
 		$args        = parent::setup_repository_args( $context );
 
-		/**
-		 * A widget-specific filter for repository args, based on widget slug.
-		 * Allows other plugins to add/remove args for the repository pre-query.
-		 *
-		 * @since 5.2.0
-		 * @since TBD Include the $widget param.
-		 *
-		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
-		 * @param Context              $context The context to use to setup the args.
-		 * @param Widget_View          $widget  Instance of the Widget View we are filtering for.
-		 */
-		$args = apply_filters( "tribe_events_views_v2_widget_repository_args", $args, $context, $this );
+		$dev = $context->to_array();
 
 		/**
 		 * A widget-specific filter for repository args, based on widget slug.
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
-		 * @since 5.2.0
-		 * @since TBD Include the $widget param.
-		 *
-		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
-		 * @param Context              $context The context to use to setup the args.
-		 * @param Widget_View          $widget  Instance of the Widget View we are filtering for.
+		 * @param array<string,mixed> $args    The arguments, ready to be set on the View repository instance.
+		 * @param Tribe_Context       $context The context to use to setup the args.
 		 */
-		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context, $this );
+		$args = apply_filters( "tribe_events_views_v2_widget_repository_args", $args, $context );
+
+		/**
+		 * A widget-specific filter for repository args, based on widget slug.
+		 * Allows other plugins to add/remove args for the repository pre-query.
+		 *
+		 * @param array<string,mixed> $args    The arguments, ready to be set on the View repository instance.
+		 * @param Tribe_Context       $context The context to use to setup the args.
+		 */
+		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context );
 
 		return $args;
 	}
