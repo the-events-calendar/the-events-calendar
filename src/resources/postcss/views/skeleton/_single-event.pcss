@@ -279,9 +279,10 @@
 		width: 211px;
 	}
 	
-	&, & > div {
+	/* Make sure the gmap div has this specific height on desktop */
+	& > div {
 		@media (--viewport-medium) {
-			height: 211px !important; /* TODO: look into an alternative way to restrain gmaps' size */
+			max-height: 211px;
 		}
 	}
 }
