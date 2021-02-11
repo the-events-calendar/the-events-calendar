@@ -54,7 +54,7 @@ class Widget_List_View extends Widget_View {
 	 * @return string The widget "view more" url.
 	 */
 	public function get_view_more_url() {
-		return tribe_get_events_link();
+		return tribe_events_get_url();
 	}
 
 	/**
