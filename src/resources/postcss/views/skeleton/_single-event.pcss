@@ -258,11 +258,34 @@
 /* Details column */
 .tribe-events-meta-group {
 	flex: 1 0 140px;
+	order: 0;
 	margin-right: var(--spacer-5);
 	
 	@media (--viewport-medium) {
 		padding: var(--spacer-7) 0 var(--spacer-3);
 		width: 168px;
+	}
+	
+	/* Scenario where all the details are in the same container */
+	&.tribe-events-meta-group-venue {
+		order: 1;
+		
+		@media (--viewport-medium) {
+			order: 0;
+		}
+	}
+	
+	&.tribe-events-meta-group-gmap {
+		flex-basis: 100%;
+		margin-top: var(--spacer-1);
+		padding-top: var(--spacer-5);
+		width: auto;
+		
+		@media (--viewport-medium) {
+			flex-basis: 140px;
+			margin-top: 0;
+			padding-top: 0;
+		}
 	}
 
 	.tribe-events-single-section-title {
