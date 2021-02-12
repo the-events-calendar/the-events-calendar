@@ -164,9 +164,15 @@
 		line-height: 26px;
 	}
 	
-	&:not(.secondary):before,
+	&:before,
 	& ~ div:not(.tribe-events-event-meta, .event-tickets) {
 		border-top: 1px solid var(--color-border-secondary);
+	}
+	
+	&.secondary:before {
+		@media (--viewport-medium) {
+			content: normal;
+		}
 	}
 	
 	/* We don't want the Customizer's overrides applied here */
