@@ -147,40 +147,43 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 			)
 		);
 
-		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
-		$manager->add_control(
-			new Heading(
-				$manager,
-				$customizer->get_setting_name( 'details_bg_color_heading', $section ),
-				[
-					'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
-					'section'  => $section->id,
-					'priority' => 10,
-				]
-			)
-		);
+		// The Details Background Color control won't be present if the Single Event styles overrides are enabled
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
+			// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
+			$manager->add_control(
+				new Heading(
+					$manager,
+					$customizer->get_setting_name( 'details_bg_color_heading', $section ),
+					[
+						'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+						'section'  => $section->id,
+						'priority' => 10,
+					]
+				)
+			);
 
-		$manager->add_setting(
-			$customizer->get_setting_name( 'details_bg_color', $section ),
-			[
-				'default'              => $this->get_default( 'details_bg_color' ),
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
-		);
-
-		$manager->add_control(
-			new WP_Customize_Color_Control(
-				$manager,
+			$manager->add_setting(
 				$customizer->get_setting_name( 'details_bg_color', $section ),
 				[
-					'label'       => esc_html__( 'Event Details Background Color', 'the-events-calendar' ),
-					'description' => esc_html__( 'For classic editor', 'the-events-calendar' ),
-					'section'     => $section->id,
+					'default'              => $this->get_default( 'details_bg_color' ),
+					'type'                 => 'option',
+					'sanitize_callback'    => 'sanitize_hex_color',
+					'sanitize_js_callback' => 'maybe_hash_hex_color',
 				]
-			)
-		);
+			);
+
+			$manager->add_control(
+				new WP_Customize_Color_Control(
+					$manager,
+					$customizer->get_setting_name( 'details_bg_color', $section ),
+					[
+						'label'       => esc_html__( 'Event Details Background Color', 'the-events-calendar' ),
+						'description' => esc_html__( 'For classic editor', 'the-events-calendar' ),
+						'section'     => $section->id,
+					]
+				)
+			);
+		}
 
 		// Introduced to make Selective Refresh have less code duplication
 		$customizer->add_setting_name( $customizer->get_setting_name( 'post_title_color', $section ) );
