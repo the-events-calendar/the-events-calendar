@@ -453,8 +453,13 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	public function disable_v1() {
-		// Dont disable V1 on Single Event page using the Block Editor.
-		if ( tribe( Template_Bootstrap::class )->is_single_event() && has_blocks( get_queried_object_id() ) ) {	
+		// Don't disable V1:
+		// - on Single Event page
+		// - using the Block Editor OR using the Classic editor but with the V2 overrides disabled.
+		if (
+			tribe( Template_Bootstrap::class )->is_single_event() &&
+			( has_blocks( get_queried_object_id() ) || ! tribe_events_single_view_v2_is_enabled() )
+		) {	
 			return;
 		}
 
