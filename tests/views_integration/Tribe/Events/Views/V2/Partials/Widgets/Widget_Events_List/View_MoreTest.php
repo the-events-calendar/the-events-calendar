@@ -16,8 +16,8 @@ class View_MoreTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_link() {
 		$context = [
-			'view_more_url' => 'https://test.tri.be/',
-			'view_more_text' => 'View More',
+			'view_more_link'  => 'https://test.tri.be/',
+			'view_more_text'  => 'View More',
 			'view_more_title' => 'View more events.',
 		];
 
@@ -29,8 +29,8 @@ class View_MoreTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_link() {
 		$context = [
-			'view_more_url' => '',
-			'view_more_text' => 'View More',
+			'view_more_link'  => '',
+			'view_more_text'  => 'View More',
 			'view_more_title' => 'View more events.',
 		];
 

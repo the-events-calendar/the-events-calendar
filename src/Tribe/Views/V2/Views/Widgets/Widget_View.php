@@ -85,7 +85,7 @@ class Widget_View extends View {
 	 *
 	 * @return string The widget "view more" url.
 	 */
-	public function get_view_more_url() {
+	public function get_view_more_link() {
 		return tribe_events_get_url();
 	}
 
@@ -102,7 +102,7 @@ class Widget_View extends View {
 		$template_vars['container_classes'] = $this->get_html_classes();
 		$template_vars['view_more_text']    = $this->get_view_more_text();
 		$template_vars['view_more_title']   = $this->get_view_more_title();
-		$template_vars['view_more_url']     = $this->get_view_more_url();
+		$template_vars['view_more_link']    = $this->get_view_more_link();
 
 		return $template_vars;
 	}
