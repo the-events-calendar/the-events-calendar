@@ -235,6 +235,15 @@
 		color: var(--color-text-secondary);
 		vertical-align: middle;
 		
+		&:before,
+		&:after {
+			content: '';
+			display: inline-block;
+			height: 20px;
+			vertical-align: middle;
+			width: 11px;
+		}
+		
 		&:hover,
 		&:focus {
 			color: var(--color-text-primary);
