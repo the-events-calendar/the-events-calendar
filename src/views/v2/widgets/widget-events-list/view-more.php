@@ -9,9 +9,12 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.2.1
+ * @since 5.2.1
+ * @since TBD   Add template vars for link text and title.
  *
- * @var string $view_more_link   The URL to view all events.
+ * @version TDB
+ *
+ * @var string $view_more_link  The URL to view all events.
  * @var string $view_more_text  The text for the "view more" link.
  * @var string $view_more_title The widget "view more" link title attribute. Adds some context to the link for screen readers.
  *

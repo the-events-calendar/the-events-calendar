@@ -9,7 +9,10 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version 5.3.0
+ * @since 5.3.0
+ * @since TBD   Remove passed vars - rely on widget object in view more template.
+ *
+ * @version TBD
  *
  * @var array<\WP_Post>      $events                     The array containing the events.
  * @var string               $rest_url                   The REST URL.
