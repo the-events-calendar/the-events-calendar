@@ -2,7 +2,8 @@
 	<a
 		href="https://test.tri.be/"
 		class="tribe-events-widget-events-list__view-more-link tribe-common-anchor-thin"
+		title="View more events."
 	>
-		View more	</a>
+		View More	</a>
 </div>
 ';

@@ -30,6 +30,8 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 			'messages'                   => [],
 			'hide_if_no_upcoming_events' => false,
 			'view_more_link'             => 'https://test.tri.be/',
+			'view_more_text'             => 'View More',
+			'view_more_title'            => 'View more events.',
 			'widget_title'               => 'Upcoming Events',
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -56,6 +58,8 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 			],
 			'hide_if_no_upcoming_events' => false,
 			'view_more_link'             => 'https://test.tri.be/',
+			'view_more_text'             => 'View More',
+			'view_more_title'            => 'View more events.',
 			'widget_title'               => 'Upcoming Events',
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
@@ -82,6 +86,8 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 			],
 			'hide_if_no_upcoming_events' => true,
 			'view_more_link'             => 'https://test.tri.be/',
+			'view_more_text'             => 'View More',
+			'view_more_title'            => 'View more events.',
 			'widget_title'               => 'Upcoming Events',
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );

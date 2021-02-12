@@ -362,6 +362,10 @@ class Customizer {
 				.tribe-common .tribe-common-form-control-toggle__input:checked {
 					background-color: <%= global_elements.accent_color %>;
 				}
+
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
+					color: <%= global_elements.accent_color %>;
+				}
 			';
 
 			// overrides for common base/full/typography/_ctas.pcss.
