@@ -227,5 +227,24 @@
 			
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-day__event-datetime-featured-text {
 					color: #238923;
-				}',
+				}
+			
+					.tribe-events-cal-links .tribe-events-gcal,
+					.tribe-events-cal-links .tribe-events-ical,
+					.tribe-events-event-meta a,
+					.tribe-events-schedule .recurringinfo a,
+					.tribe-related-event-info .recurringinfo a,
+					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a {
+						color: #238923;
+					}
+					
+					.tribe-events-virtual-link-button {
+						background-color: #238923;
+					}
+					
+					.tribe-events-virtual-link-button:active,
+					.tribe-events-virtual-link-button:focus,
+					.tribe-events-virtual-link-button:hover {
+						background-color: rgba(35,137,35,0.8);
+					}',
 );

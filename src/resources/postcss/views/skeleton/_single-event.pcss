@@ -216,25 +216,33 @@
 
 	&.primary,
 	&.secondary {
+		margin-bottom: var(--spacer-1);
 		order: 2;
+		padding-top: var(--spacer-5);
+		position: relative;
 		width: 100%;
 		
 		@media (--viewport-medium) {
+			margin-bottom: 0;
+			padding-top: 0;
+			position: static;
 			width: auto;
 		}
 	}
 	
-	&.primary {
-		padding-top: var(--spacer-5);
-		position: relative;
+	&.primary + .event-tickets {
+		margin-top: calc(-1 * var(--spacer-6));
+	}
+	
+	&.secondary {
+		margin-top: 0;
 		
 		@media (--viewport-medium) {
-			padding-top: 0;
-			position: static;
+			margin-top: var(--spacer-5);
 		}
 	}
 	
-	&:not(.secondary):before {
+	&:before {
 		content: '';
 		position: absolute;
 		left: 0;
@@ -250,11 +258,34 @@
 /* Details column */
 .tribe-events-meta-group {
 	flex: 1 0 140px;
+	order: 0;
 	margin-right: var(--spacer-5);
 	
 	@media (--viewport-medium) {
 		padding: var(--spacer-7) 0 var(--spacer-3);
 		width: 168px;
+	}
+	
+	/* Scenario where all the details are in the same container */
+	&.tribe-events-meta-group-venue {
+		order: 1;
+		
+		@media (--viewport-medium) {
+			order: 0;
+		}
+	}
+	
+	&.tribe-events-meta-group-gmap {
+		flex-basis: 100%;
+		margin-top: var(--spacer-1);
+		padding-top: var(--spacer-5);
+		width: auto;
+		
+		@media (--viewport-medium) {
+			flex-basis: 140px;
+			margin-top: 0;
+			padding-top: 0;
+		}
 	}
 
 	.tribe-events-single-section-title {
@@ -264,7 +295,7 @@
 
 /* Venue block */
 .tribe-events-venue-map {
-	margin: 0 0 var(--spacer-3) 0;
+	margin: 0 0 var(--spacer-5) 0;
 	order: -1;
 	width: 100%;
 	
@@ -274,8 +305,10 @@
 		width: 211px;
 	}
 	
-	/* Make sure the gmap div has this specific height on desktop */
+	/* Make sure the gmap div has these specific heights */
 	& > div {
+		max-height: 241px;
+		
 		@media (--viewport-medium) {
 			max-height: 211px;
 		}
@@ -357,19 +390,8 @@
 	display: flex;
 	justify-content: space-between;
 	
-	a {
-		&:before,
-		&:after {
-			content: '';
-			display: inline-block;
-			height: 20px;
-			vertical-align: middle;
-			width: 11px;
-		}
-		
-		span {
-			display: none;
-		}
+	a span {
+		display: none;
 	}
 }
 
