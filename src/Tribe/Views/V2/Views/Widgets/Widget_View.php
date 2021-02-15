@@ -49,6 +49,47 @@ class Widget_View extends View {
 	protected $display_events_bar = false;
 
 	/**
+	 * Returns the widget "view more" text.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget "view more" text.
+	 */
+	public function get_view_more_text() {
+		return esc_html__( 'View More', 'the-events-calendar');
+	}
+
+	/**
+	 * Returns the widget "view more" title.
+	 * Adds context as needed for screen readers.
+	 * @see Tribe\Events\Pro\Views\V2\Views\Widgets\Venue_View for an example.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget "view more" title.
+	 */
+	public function get_view_more_title() {
+		return esc_html(
+			sprintf(
+				/* Translators: 1: plural lowercase event term */
+				__( 'View more %1$s.', 'the-events-calendar' ),
+				tribe_get_event_label_plural_lowercase()
+			)
+		);
+	}
+
+	/**
+	 * Returns the widget "view more" url.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget "view more" url.
+	 */
+	public function get_view_more_link() {
+		return tribe_events_get_url();
+	}
+
+	/**
 	 * Overrides the base View method.
 	 *
 	 * @since 5.3.0
@@ -59,6 +100,9 @@ class Widget_View extends View {
 		$template_vars = parent::setup_template_vars();
 
 		$template_vars['container_classes'] = $this->get_html_classes();
+		$template_vars['view_more_text']    = $this->get_view_more_text();
+		$template_vars['view_more_title']   = $this->get_view_more_title();
+		$template_vars['view_more_link']    = $this->get_view_more_link();
 
 		return $template_vars;
 	}
