@@ -15,13 +15,25 @@ class View_MoreTest extends HtmlPartialTestCase
 	 * Test render with link
 	 */
 	public function test_render_with_link() {
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'view_more_link' => 'https://test.tri.be/' ] ) );
+		$context = [
+			'view_more_link'  => 'https://test.tri.be/',
+			'view_more_text'  => 'View More',
+			'view_more_title' => 'View more events.',
+		];
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
 
 	/**
 	 * Test render without link
 	 */
 	public function test_render_without_link() {
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'view_more_link' => '' ] ) );
+		$context = [
+			'view_more_link'  => '',
+			'view_more_text'  => 'View More',
+			'view_more_title' => 'View more events.',
+		];
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
 }
