@@ -30,6 +30,7 @@ class Theme_Compatibility {
 		'twentyseventeen',
 		'twentynineteen',
 		'twentytwenty',
+		'twentytwentyone',
 	];
 
 	/**
