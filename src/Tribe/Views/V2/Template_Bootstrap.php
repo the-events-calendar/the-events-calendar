@@ -314,9 +314,6 @@ class Template_Bootstrap {
 			return false;
 		}
 
-		$a = $query->is_main_query();
-		$b = ! empty( $query->tribe_is_event_query );
-
 		/**
 		 * Bail if we are not dealing with an Event, Venue or Organizer main query.
 		 *

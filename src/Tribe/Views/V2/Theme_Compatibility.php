@@ -43,7 +43,7 @@ class Theme_Compatibility {
 	public function is_compatibility_required() {
 		$template   = strtolower( get_template() );
 		$stylesheet = strtolower( get_stylesheet() );
-		bdump('is_compatibility_required');
+
 		// Prevents empty stylesheet or template
 		if ( empty( $template ) || empty( $stylesheet ) ) {
 			return false;
@@ -66,7 +66,6 @@ class Theme_Compatibility {
 	 * @return array $classes
 	 */
 	public function filter_add_body_classes( array $classes ) {
-		bdump('filter_add_body_classes');
 		_deprecated_function( __FUNCTION__, '5.1.5', 'Theme_Compatibility::add_body_classes()' );
 
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
@@ -92,10 +91,6 @@ class Theme_Compatibility {
 	 * @return boolean Whether body classes should be added or not.
 	 */
 	public function should_add_body_class_to_queue( $add, $class, $queue ) {
-		$a = tribe( Template_Bootstrap::class )->should_load();
-		$b = $this->is_compatibility_required();
-		bdump('should_add_body_class_to_queue');
-
 		if (
 			'admin' === $queue
 			|| ! tribe( Template_Bootstrap::class )->should_load()
