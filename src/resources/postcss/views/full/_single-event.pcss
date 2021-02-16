@@ -18,10 +18,13 @@
 	
 /* Back navigation block */
 .tribe-events-back a {
-	@mixin body;
-	font-size: var(--font-size-3);
-	font-weight: var(--font-weight-bold);
-	text-decoration: none;
+	
+	&, &:visited {
+		@mixin body;
+		font-size: var(--font-size-3);
+		font-weight: var(--font-weight-bold);
+		text-decoration: none;
+	}
 }
 
 /* Event title */
@@ -160,7 +163,15 @@
 	font-size: var(--font-size-2);
 	
 	a {
-		color: var(--color-accent-primary);
+		
+		&, &:visited {
+			color: var(--color-accent-primary);
+		}
+		
+		&:focus,
+		&:hover {
+			color: var(--color-accent-primary-hover);
+		}
 	}
 	
 	dt, dd {
@@ -319,6 +330,23 @@
  * Single Event: Theme Overrides
  *
  * ------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Twenty Nineteen
+ * ----------------------------------------------------------------------------- */
+
+.tribe-theme-twentynineteen {
+	
+	.tribe-events-schedule h2,
+	.tribe-events-single-event-title,
+	.tribe-events-content h2,
+	.tribe-events-single-section-title,
+	.tribe-events-related-events-title {
+		&:before {
+			content: normal;
+		}
+	}
+}
 
 /* -----------------------------------------------------------------------------
  * Theme Overrides - Twenty Twenty One
