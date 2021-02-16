@@ -133,6 +133,10 @@
 		list-style-position: inside;
 	}
 	
+	ul {
+		list-style-type: disc;
+	}
+	
 	a {
 		@mixin anchor-thin;
 	}
@@ -365,5 +369,40 @@
 			background: transparent;
 			text-decoration: none;
 		}
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Enfold
+ * ----------------------------------------------------------------------------- */
+ 
+#top.tribe-theme-enfold.single-tribe_events {
+	
+	.tribe-events-single-event-title {
+		@mixin heading;
+		@mixin mobile-heading-2;
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-1;
+		}
+	}
+	
+	.tribe-events-schedule h3 {
+		@mixin heading;
+		@mixin mobile-heading-6;
+		font-weight: var(--font-weight-regular);
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-6;
+		}
+	}
+	
+	.tribe-events-content pre {
+		background-image: none;
+	}
+	
+	#wrap_all .tribe-events-cal-links a,
+	.av-single-event-meta-bar-inner {
+		border: 0;
 	}
 }
