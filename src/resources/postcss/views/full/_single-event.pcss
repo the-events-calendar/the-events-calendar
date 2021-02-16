@@ -68,6 +68,7 @@
 		font-weight: var(--font-weight-regular);
 		letter-spacing: normal;
 		line-height: 20px;
+		text-decoration: none;
 	}
 }
 
@@ -321,5 +322,14 @@
 	
 	.tribe-events-cal-links a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
 		background: svg-inline(cal-export) 0 / 24px no-repeat;
+	}
+	
+	.tribe-events-schedule .recurringinfo,
+	.tribe-related-event-info .recurringinfo {
+		
+		a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+			background: transparent;
+			text-decoration: none;
+		}
 	}
 }
