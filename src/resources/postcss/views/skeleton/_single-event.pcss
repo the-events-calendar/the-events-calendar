@@ -414,6 +414,12 @@
 .tribe-events-single .tribe-events-sub-nav {
 	display: flex;
 	justify-content: space-between;
+	margin-left: 0;
+	
+	.tribe-events-nav-previous,
+	.tribe-events-nav-next {
+		margin: 0;
+	}
 	
 	a span {
 		display: none;
@@ -437,5 +443,37 @@
 	@media (--viewport-medium) {
 		margin-left: var(--spacer-1);
 		width: 9px;
+	}
+}
+
+/* -------------------------------------------------------------------------
+ *
+ * Single Event: Theme Overrides
+ *
+ * ------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Twenty Twenty
+ * ----------------------------------------------------------------------------- */
+ 
+.tribe-theme-twentytwenty {
+	
+	.tribe-events-schedule h2 {
+		margin-left: 0;
+	}
+	
+	.tribe-events-content {
+		h2, h3, h4, h5, h6 {
+			margin-top: 0;
+		}
+		
+		ul, ol {
+			margin-left: 0;
+		}
+	}
+	
+	.tribe-events-single-section-title,
+	.tribe-events-related-events-title {
+		margin-top: 0;
 	}
 }
