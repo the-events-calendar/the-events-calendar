@@ -232,10 +232,17 @@
 					.tribe-events-cal-links .tribe-events-gcal,
 					.tribe-events-cal-links .tribe-events-ical,
 					.tribe-events-event-meta a,
+					.tribe-events-event-meta a:active,
+					.tribe-events-event-meta a:visited,
 					.tribe-events-schedule .recurringinfo a,
 					.tribe-related-event-info .recurringinfo a,
 					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a {
 						color: #238923;
+					}
+					
+					.tribe-events-event-meta a:focus,
+					.tribe-events-event-meta a:hover {
+						color: rgba(35,137,35,0.8);
 					}
 					
 					.tribe-events-virtual-link-button {
