@@ -137,13 +137,11 @@ abstract class By_Day_View extends View {
 
 		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $this->user_date );
 
-		$grid_days = apply_filters( t'tribe_events_views_v2_by_day_view_grid_days', null, $grid_start, $grid_end,
-		$force, $this );
+		$grid_days = apply_filters( 'tribe_events_views_v2_by_day_view_grid_days', null, $grid_start, $grid_end, $force, $this );
 
 		if ( null !== $grid_days ) {
 			return $grid_days;
 		}
-
 
 		try {
 			$grid_start_date = $grid_start->setTime( 0, 0 );
@@ -204,7 +202,7 @@ abstract class By_Day_View extends View {
 			$order_by                   = tribe_normalize_orderby( $order_by, $order );
 			$order_by['event_duration'] = 'ASC';
 
-			$repo           = tribe_events()
+			$events_repository = tribe_events()
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
@@ -212,8 +210,7 @@ abstract class By_Day_View extends View {
 				->per_page( - 1 )
 				->order_by( $order_by, $order );
 
-			$view_event_ids = $repo
-				->all();
+			$view_event_ids = $events_repository->all();
 
 			$day_results = [];
 
