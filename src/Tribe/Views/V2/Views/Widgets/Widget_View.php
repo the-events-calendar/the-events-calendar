@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
 
+use Tribe\Widget\Widget_Abstract;
 use Tribe__Context as Context;
 use Tribe\Events\Views\V2\View;
 
@@ -48,6 +49,47 @@ class Widget_View extends View {
 	protected $display_events_bar = false;
 
 	/**
+	 * Returns the widget "view more" text.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget "view more" text.
+	 */
+	public function get_view_more_text() {
+		return esc_html__( 'View More', 'the-events-calendar');
+	}
+
+	/**
+	 * Returns the widget "view more" title.
+	 * Adds context as needed for screen readers.
+	 * @see Tribe\Events\Pro\Views\V2\Views\Widgets\Venue_View for an example.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget "view more" title.
+	 */
+	public function get_view_more_title() {
+		return esc_html(
+			sprintf(
+				/* Translators: 1: plural lowercase event term */
+				__( 'View more %1$s.', 'the-events-calendar' ),
+				tribe_get_event_label_plural_lowercase()
+			)
+		);
+	}
+
+	/**
+	 * Returns the widget "view more" url.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The widget "view more" url.
+	 */
+	public function get_view_more_link() {
+		return tribe_events_get_url();
+	}
+
+	/**
 	 * Overrides the base View method.
 	 *
 	 * @since 5.3.0
@@ -58,6 +100,9 @@ class Widget_View extends View {
 		$template_vars = parent::setup_template_vars();
 
 		$template_vars['container_classes'] = $this->get_html_classes();
+		$template_vars['view_more_text']    = $this->get_view_more_text();
+		$template_vars['view_more_title']   = $this->get_view_more_title();
+		$template_vars['view_more_link']    = $this->get_view_more_link();
 
 		return $template_vars;
 	}
@@ -75,25 +120,31 @@ class Widget_View extends View {
 		$context     = null !== $context ? $context : $this->context;
 		$args        = parent::setup_repository_args( $context );
 
-		$dev = $context->to_array();
+		/**
+		 * A widget-specific filter for repository args, based on widget slug.
+		 * Allows other plugins to add/remove args for the repository pre-query.
+		 *
+		 * @since 5.2.0
+		 * @since TBD Include the $widget param.
+		 *
+		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
+		 * @param Context              $context The context to use to setup the args.
+		 * @param Widget_View          $widget  Instance of the Widget View we are filtering for.
+		 */
+		$args = apply_filters( "tribe_events_views_v2_widget_repository_args", $args, $context, $this );
 
 		/**
 		 * A widget-specific filter for repository args, based on widget slug.
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
-		 * @param array<string,mixed> $args    The arguments, ready to be set on the View repository instance.
-		 * @param Tribe_Context       $context The context to use to setup the args.
-		 */
-		$args = apply_filters( "tribe_events_views_v2_widget_repository_args", $args, $context );
-
-		/**
-		 * A widget-specific filter for repository args, based on widget slug.
-		 * Allows other plugins to add/remove args for the repository pre-query.
+		 * @since 5.2.0
+		 * @since TBD Include the $widget param.
 		 *
-		 * @param array<string,mixed> $args    The arguments, ready to be set on the View repository instance.
-		 * @param Tribe_Context       $context The context to use to setup the args.
+		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
+		 * @param Context              $context The context to use to setup the args.
+		 * @param Widget_View          $widget  Instance of the Widget View we are filtering for.
 		 */
-		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context );
+		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context, $this );
 
 		return $args;
 	}

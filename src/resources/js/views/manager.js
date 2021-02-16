@@ -287,13 +287,16 @@ tribe.events.views.manager = {};
 	 */
 	obj.onLinkClick = function( event ) {
 		var $container = obj.getContainer( this );
+
 		$container.trigger( 'beforeOnLinkClick.tribeEvents', event );
 
 		event.preventDefault();
 
+		var containerData = obj.getContainerData( $container );
+
 		var $link = $( this );
 		var url = $link.attr( 'href' );
-		var currentUrl = window.location.href;
+		var currentUrl = containerData.prev_url;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );

@@ -12,6 +12,10 @@
 				.tribe-common .tribe-common-form-control-toggle__input:checked {
 					background-color: #238923;
 				}
+
+				.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
+					color: #238923;
+				}
 			
 				.tribe-common .tribe-common-cta--alt,
 				.tribe-common .tribe-common-cta--alt:active,
