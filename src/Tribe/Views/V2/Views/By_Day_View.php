@@ -137,6 +137,14 @@ abstract class By_Day_View extends View {
 
 		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $this->user_date );
 
+		$grid_days = apply_filters( t'tribe_events_views_v2_by_day_view_grid_days', null, $grid_start, $grid_end,
+		$force, $this );
+
+		if ( null !== $grid_days ) {
+			return $grid_days;
+		}
+
+
 		try {
 			$grid_start_date = $grid_start->setTime( 0, 0 );
 			// Add a day at the end to pick-up multi-day events starting on the last day.
@@ -355,7 +363,6 @@ abstract class By_Day_View extends View {
 		// Drop the last day we've added before.
 		array_pop( $this->grid_days_cache );
 		array_pop( $this->grid_days_found_cache );
-
 		$this->fill_week_duration_cache();
 
 		return $this->grid_days_cache;
