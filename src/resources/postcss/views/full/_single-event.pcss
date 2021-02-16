@@ -149,6 +149,7 @@
 		font-size: var(--font-size-2);
 		font-weight: var(--font-weight-regular);
 		line-height: var(--line-height-3);
+		text-decoration: none;
 	}
 }
 
@@ -303,5 +304,22 @@
 				background-image: svg-inline(caret-right-active);
 			}
 		}
+	}
+}
+
+/* -------------------------------------------------------------------------
+ *
+ * Single Event: Theme Overrides
+ *
+ * ------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Twenty Twenty One
+ * ----------------------------------------------------------------------------- */
+
+.tribe-theme-twentytwentyone {
+	
+	.tribe-events-cal-links a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+		background: svg-inline(cal-export) 0 / 24px no-repeat;
 	}
 }
