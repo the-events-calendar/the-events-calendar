@@ -298,5 +298,5 @@ tribe.events.views.accordion = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.accordion );
