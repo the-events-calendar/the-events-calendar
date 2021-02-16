@@ -151,6 +151,7 @@
 
 /* Featured Image */
 .tribe-events-event-image {
+	align-self: flex-start;
 	margin-bottom: var(--spacer-3);
 	
 	img {
@@ -171,6 +172,25 @@
 		@media (--viewport-medium) {
 			margin-bottom: var(--spacer-2);
 		}
+	}
+	
+	h3, h4, h5, h6 {
+		margin-bottom: 0.75em;
+	}
+	
+	p, ul, ol {
+		margin-bottom: var(--spacer-6);
+	}
+	
+	ul, ol {
+		padding: 0;
+	}
+	
+	pre {
+		font-size: var(--font-size-3);
+		line-height: var(--line-height-3);
+		margin-bottom: var(--spacer-5);
+		padding: var(--spacer-5);
 	}
 }
 
@@ -414,3 +434,15 @@
 		width: 9px;
 	}
 }
+
+/* -------------------------------------------------------------------------
+ *
+ * Single Event: Theme Overrides
+ *
+ * ------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Twenty Twenty One
+ * ----------------------------------------------------------------------------- */
+
+
