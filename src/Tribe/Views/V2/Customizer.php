@@ -674,10 +674,17 @@ class Customizer {
 					.tribe-events-cal-links .tribe-events-gcal,
 					.tribe-events-cal-links .tribe-events-ical,
 					.tribe-events-event-meta a,
+					.tribe-events-event-meta a:active,
+					.tribe-events-event-meta a:visited,
 					.tribe-events-schedule .recurringinfo a,
 					.tribe-related-event-info .recurringinfo a,
 					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a {
 						color: <%= global_elements.accent_color %>;
+					}
+					
+					.tribe-events-event-meta a:focus,
+					.tribe-events-event-meta a:hover {
+						color: ' . $accent_color_hover . ';
 					}
 					
 					.tribe-events-virtual-link-button {
