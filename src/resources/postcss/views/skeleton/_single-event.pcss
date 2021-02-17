@@ -326,8 +326,9 @@
 		width: 211px;
 	}
 	
-	/* Make sure the gmap div has these specific heights */
-	& > div {
+	/* Make sure the gmap div/iframe has these specific heights */
+	& > div,
+	& > iframe {
 		max-height: 241px;
 		
 		@media (--viewport-medium) {
