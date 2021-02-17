@@ -35,7 +35,8 @@
     "test": "TZ=UTC jest --config jest.config.json",
     "test:travis": "npm run test -- --maxWorkers=4",
     "zip": "node node_modules/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress"
+    "glotpress": "gulp glotpress",
+    "preinstall": "npx npm-force-resolutions"
   },
   "engines": {
     "node": "10.16.0",
@@ -144,5 +145,8 @@
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
   }
 }
