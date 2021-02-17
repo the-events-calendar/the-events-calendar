@@ -30,6 +30,7 @@ class Theme_Compatibility {
 		'twentyseventeen',
 		'twentynineteen',
 		'twentytwenty',
+		'twentytwentyone',
 	];
 
 	/**
@@ -156,7 +157,7 @@ class Theme_Compatibility {
 		 *
 		 * @since 4.9.4
 		 *
-		 * @param array $registered An associative array of views in the shape `[ <slug> => <class> ]`.
+		 * @param array $registered An array of views in the shape `[ <slug> ]`.
 		 */
 		$registered = apply_filters( 'tribe_events_views_v2_theme_compatibility_registered', $this->themes );
 

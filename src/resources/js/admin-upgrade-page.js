@@ -30,10 +30,10 @@ tribe.upgradePage =  tribe.upgradePage || {};
 
 		$( document ).on( 'click', '#tribe-upgrade-step2 button', function( e ) {
 			e.preventDefault();
-			$( '#tribeSaveSettings' ).click();
+			$( '#tribeSaveSettings' ).trigger( 'click' );
 		} );
 	}
 
-	$( document ).ready( obj.setup );
+	$( obj.setup );
 
 } )( jQuery, tribe.upgradePage );
