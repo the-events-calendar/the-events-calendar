@@ -91,7 +91,6 @@ class Theme_Compatibility {
 	 * @return boolean Whether body classes should be added or not.
 	 */
 	public function should_add_body_class_to_queue( $add, $class, $queue ) {
-		$a = ! tribe( Template_Bootstrap::class )->should_load();
 		if (
 			'admin' === $queue
 			|| ! tribe( Template_Bootstrap::class )->should_load()
