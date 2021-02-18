@@ -1,0 +1,16 @@
+vendor/**
+node_modules/**
+**/*.jsx
+**/*.js
+*.jsx
+*.js
+
+src/resources/postcss/aggregator-page.pcss
+src/resources/postcss/debugger.pcss
+src/resources/postcss/events-admin.pcss
+src/resources/postcss/freemius.pcss
+src/resources/postcss/tribe-events-full.pcss
+src/resources/postcss/tribe-events-full-mobile.pcss
+src/resources/postcss/tribe-events-skeleton.pcss
+src/resources/postcss/tribe-events-theme.pcss
+src/resources/postcss/tribe-events-theme-mobile.pcss
