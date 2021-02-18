@@ -32,6 +32,7 @@
     "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
     "lint": "eslint --quiet --parser=babel-eslint 'src/modules/**/*.js'",
     "lint:fix": "npm run lint -- --fix",
+    "lint:stylelint": "gulp stylelint",
     "test": "TZ=UTC jest --config jest.config.json",
     "test:travis": "npm run test -- --maxWorkers=4",
     "zip": "node node_modules/product-taskmaster/util/zip.js",
