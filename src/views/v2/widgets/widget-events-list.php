@@ -33,7 +33,7 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $compatibility_classes); ?>>
+<div <?php tribe_classes( $compatibility_classes ); ?>>
 	<div
 		<?php tribe_classes( $container_classes ); ?>
 		data-js="tribe-events-view"
