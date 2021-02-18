@@ -1,0 +1,44 @@
+name: 'Run stylelint with reviewdog'
+description: '🐶 Run stylelint with reviewdog on pull requests to improve code review experience.'
+author: 'haya14busa (reviewdog)'
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN.'
+    required: true
+  level:
+    description: 'Report level for reviewdog [info,warning,error]'
+    default: 'error'
+  fail_on_error:
+    description: 'Whether reviewdog should fail when errors are found. [true,false] - This is useful for failing CI builds.'
+    default: 'false'
+  filter_mode:
+    description: 'Reviewdog filter mode [added, diff_context, file, nofilter]'
+    default: 'added'
+  name:
+    description: 'Report name'
+    default: 'stylelint'
+  packages:
+    description: 'Additional NPM packages'
+    default: ''
+  reporter:
+    description: |
+      Reporter of reviewdog command [github-pr-check,github-pr-review,github-check].
+      Default is github-pr-check.
+      github-pr-review can use Markdown and add a link to rule page in reviewdog reports.
+    default: 'github-pr-check'
+  stylelint_input:
+    description: "Files or glob. Default: `**/*.css`.  It's same as `[input]` of stylelint."
+    default: '**/*.css'
+  stylelint_config:
+    description: "It's same as `--config` flag of stylelint."
+  stylelint_ignore:
+    description: "Files or glob. It's the same as `--ignore-pattern` of stylelint"
+  workdir:
+    description: "The directory from which to look for and run stylelint. Default: '.'"
+    default: '.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'alert-triangle'
+  color: 'yellow'

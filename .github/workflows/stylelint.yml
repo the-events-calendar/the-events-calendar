@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - uses: reviewdog/action-stylelint@v1
+      - uses: ./.github/actions/stylelint
         with:
           github_token: ${{ secrets.GH_BOT_TOKEN }}
           reporter: github-pr-review
