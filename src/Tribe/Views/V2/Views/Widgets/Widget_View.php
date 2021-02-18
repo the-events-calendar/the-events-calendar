@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\Views\Widgets;
 use Tribe\Widget\Widget_Abstract;
 use Tribe__Context as Context;
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Theme_Compatibility;
 
 /**
  * Class Widget_View
@@ -99,10 +100,11 @@ class Widget_View extends View {
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
 
-		$template_vars['container_classes'] = $this->get_html_classes();
-		$template_vars['view_more_text']    = $this->get_view_more_text();
-		$template_vars['view_more_title']   = $this->get_view_more_title();
-		$template_vars['view_more_link']    = $this->get_view_more_link();
+		$template_vars['compatibility_classes'] = $this->get_compatibility_classes();
+		$template_vars['container_classes']     = $this->get_html_classes();
+		$template_vars['view_more_text']        = $this->get_view_more_text();
+		$template_vars['view_more_title']       = $this->get_view_more_title();
+		$template_vars['view_more_link']        = $this->get_view_more_link();
 
 		return $template_vars;
 	}
@@ -147,6 +149,49 @@ class Widget_View extends View {
 		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context, $this );
 
 		return $args;
+	}
+
+	/**
+	 * Adds compatibility classes to the widget view container.
+	 * Not the view itself - the wrapping div around that
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> An Array of class names to add to the container. Will contain
+	 *                       _at least_ 'tribe-compatibility-container' as an indicator.
+	 */
+	public function get_compatibility_classes() {
+		$theme_compatibility = tribe( Theme_Compatibility::class );
+		$classes = [ 'tribe-compatibility-container' ];
+
+		if ( ! $theme_compatibility->is_compatibility_required() ) {
+			return $classes;
+		}
+
+		$classes = array_merge( $classes, $theme_compatibility->get_body_classes() );
+
+		/**
+		 * Filters the HTML classes applied to a widget top-level container.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param array  $html_classes Array of classes used for this widget.
+		 * @param string $view_slug    The current widget slug.
+		 * @param View   $instance     The current View object.
+		 */
+		$classes = apply_filters( 'tribe_events_views_v2_widget_compatibility_classes', $classes, $this->get_slug(), $this );
+
+		/**
+		 * Filters the HTML classes applied to a specific widget top-level container.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param array $classes Array of classes used for this widget.
+		 * @param View  $instance     The current View object.
+		 */
+		$classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_compatibility_classes", $classes, $this );
+
+		return $classes;
 	}
 
 	/**

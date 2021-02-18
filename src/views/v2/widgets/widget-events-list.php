@@ -18,6 +18,7 @@
  * @var string               $rest_url                   The REST URL.
  * @var string               $rest_nonce                 The REST nonce.
  * @var int                  $should_manage_url          int containing if it should manage the URL.
+ * @var array<string>        $compatibility_classes      Classes used for the compatibility container.
  * @var array<string>        $container_classes          Classes used for the container of the view.
  * @var array<string,mixed>  $container_data             An additional set of container `data` attributes.
  * @var string               $breakpoint_pointer         String we use as pointer to the current view we are setting up with breakpoints.
@@ -32,47 +33,48 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 	return;
 }
 ?>
-<div
-	<?php tribe_classes( $container_classes ); ?>
-	data-js="tribe-events-view"
-	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
-	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
-	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
-	<?php foreach ( $container_data as $key => $value ) : ?>
-		data-view-<?php echo esc_attr( $key ); ?>="<?php echo esc_attr( $value ); ?>"
-	<?php endforeach; ?>
-	<?php if ( ! empty( $breakpoint_pointer ) ) : ?>
-		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
-	<?php endif; ?>
->
-	<div class="tribe-events-widget-events-list">
-
-		<?php $this->template( 'components/json-ld-data' ); ?>
-
-		<?php $this->template( 'components/data' ); ?>
-
-		<header class="tribe-events-widget-events-list__header">
-			<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-				<?php echo esc_html( $widget_title ); ?>
-			</h2>
-		</header>
-
-		<?php if ( ! empty( $events ) ) : ?>
-
-			<div class="tribe-events-widget-events-list__events">
-				<?php foreach ( $events as $event ) : ?>
-					<?php $this->template( 'widgets/widget-events-list/event', [ 'event' => $event ] ); ?>
-				<?php endforeach; ?>
-			</div>
-
-			<?php $this->template( 'widgets/widget-events-list/view-more' ); ?>
-
-		<?php else : ?>
-
-			<?php $this->template( 'components/messages' ); ?>
-
+<div <?php tribe_classes( $compatibility_classes ); ?>>
+	<div
+		<?php tribe_classes( $container_classes ); ?>
+		data-js="tribe-events-view"
+		data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
+		data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
+		data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
+		<?php foreach ( $container_data as $key => $value ) : ?>
+			data-view-<?php echo esc_attr( $key ); ?>="<?php echo esc_attr( $value ); ?>"
+		<?php endforeach; ?>
+		<?php if ( ! empty( $breakpoint_pointer ) ) : ?>
+			data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 		<?php endif; ?>
+	>
+		<div class="tribe-events-widget-events-list">
+
+			<?php $this->template( 'components/json-ld-data' ); ?>
+
+			<?php $this->template( 'components/data' ); ?>
+
+			<header class="tribe-events-widget-events-list__header">
+				<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+					<?php echo esc_html( $widget_title ); ?>
+				</h2>
+			</header>
+
+			<?php if ( ! empty( $events ) ) : ?>
+
+				<div class="tribe-events-widget-events-list__events">
+					<?php foreach ( $events as $event ) : ?>
+						<?php $this->template( 'widgets/widget-events-list/event', [ 'event' => $event ] ); ?>
+					<?php endforeach; ?>
+				</div>
+
+				<?php $this->template( 'widgets/widget-events-list/view-more' ); ?>
+
+			<?php else : ?>
+
+				<?php $this->template( 'components/messages' ); ?>
+
+			<?php endif; ?>
+		</div>
 	</div>
 </div>
-
 <?php $this->template( 'components/breakpoints' ); ?>
