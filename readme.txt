@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
 Stable tag: 5.4.0
-Tested up to: 5.6.1
+Tested up to: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -222,9 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.4.0] TBD =
+= [5.4.0] 2021-02-24 =
 
 * Version - The Events Calendar 5.4.0 is only compatible with Events Calendar PRO 5.3.0 and higher
+* Fix - Compatibility with WordPress 5.7 and jQuery 3.5.X
 * Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
 * Fix - Latest Past view moved to not publicly visible, which was the intended behavior.
 * Tweak - Add compatibility container to widgets - to allow for a non-body target for compatibility classes.
