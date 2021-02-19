@@ -36,13 +36,13 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: echo "::set-env name=SSH_AUTH_SOCK::/tmp/ssh_agent.sock"
-      - name: tric use events-virtual
+      - name: tric use the-events-calendar
         run: |
           cd ${GITHUB_WORKSPACE}/..
           tric interactive off
           tric build-prompt off
           tric here
-          tric use events-virtual
+          tric use the-events-calendar
           tric debug on
       - name: tric npm install
         run: tric npm install
