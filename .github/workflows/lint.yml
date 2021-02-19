@@ -49,6 +49,4 @@ jobs:
       - name: Install node dependencies
         run: ${TRIC_BIN} npm install
       - name: Run linters
-        run: |
-          ${TRIC_BIN} npm run ${{ matrix.suite }} --formatter unix '**/*.pcss' \
-            | ruby -pe 'sub(/^(.+):(\d+):(\d+): (.+) \[(.+)\]$/, %q{::\5 file=\1,line=\2,col=\3::\4})'
+        run: ${TRIC_BIN} npm run ${{ matrix.suite }} --pretty
