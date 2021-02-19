@@ -10,11 +10,13 @@ jobs:
         suite: [ 'lint:stylelint' ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout the repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 1
+          submodules: recursive
       - name: Checkout automation tools
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           repository: the-events-calendar/tric
           ref: main
