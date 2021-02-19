@@ -1,0 +1,50 @@
+name: 'Stylelint'
+on:
+  pull_request:
+    paths:
+      - 'src/resources/postcss/**.pcss'
+jobs:
+  lint:
+    strategy:
+      matrix:
+        suite: [ 'lint:stylelint' ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Checkout automation tools
+        uses: actions/checkout@v1
+        with:
+          repository: the-events-calendar/tric
+          ref: main
+          path: tric
+          fetch-depth: 1
+      - name: Add tric to the PATH
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: echo "::set-env name=PATH::${GITHUB_WORKSPACE}/../tric:$PATH"
+      - name: Set run_context() for tric
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: echo "::set-env name=TRIC::1"
+      - name: Start ssh-agent
+        run: |
+          mkdir -p "${HOME}/.ssh";
+          ssh-agent -a /tmp/ssh_agent.sock;
+      - name: Export SSH_AUTH_SOCK env var
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: echo "::set-env name=SSH_AUTH_SOCK::/tmp/ssh_agent.sock"
+      - name: tric use events-virtual
+        run: |
+          cd ${GITHUB_WORKSPACE}/..
+          tric interactive off
+          tric build-prompt off
+          tric here
+          tric use events-virtual
+          tric debug on
+      - name: tric npm install
+        run: tric npm install
+      - name: Run JS test suite
+        run: tric npm run ${{ matrix.suite }} --pretty
