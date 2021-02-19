@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Invert quotes to protect against issue with MySQL in `ANSI_QUOTES` mode. [TEC-3785]
+
 = [5.4.0] 2021-02-24 =
 
 * Version - The Events Calendar 5.4.0 is only compatible with Events Calendar PRO 5.3.0 and higher
