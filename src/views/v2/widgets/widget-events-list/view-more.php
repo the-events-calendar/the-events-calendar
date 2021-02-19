@@ -10,7 +10,7 @@
  * @link http://evnt.is/1aiy
  *
  * @since 5.2.1
- * @since TBD   Add template vars for link text and title.
+ * @since 5.4.0   Add template vars for link text and title.
  *
  * @version TDB
  *

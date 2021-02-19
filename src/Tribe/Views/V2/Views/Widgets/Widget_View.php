@@ -52,7 +52,7 @@ class Widget_View extends View {
 	/**
 	 * Returns the widget "view more" text.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @return string The widget "view more" text.
 	 */
@@ -65,7 +65,7 @@ class Widget_View extends View {
 	 * Adds context as needed for screen readers.
 	 * @see Tribe\Events\Pro\Views\V2\Views\Widgets\Venue_View for an example.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @return string The widget "view more" title.
 	 */
@@ -82,7 +82,7 @@ class Widget_View extends View {
 	/**
 	 * Returns the widget "view more" url.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @return string The widget "view more" url.
 	 */
@@ -127,7 +127,7 @@ class Widget_View extends View {
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
 		 * @since 5.2.0
-		 * @since TBD Include the $widget param.
+		 * @since 5.4.0 Include the $widget param.
 		 *
 		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
 		 * @param Context              $context The context to use to setup the args.
@@ -140,7 +140,7 @@ class Widget_View extends View {
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
 		 * @since 5.2.0
-		 * @since TBD Include the $widget param.
+		 * @since 5.4.0 Include the $widget param.
 		 *
 		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
 		 * @param Context              $context The context to use to setup the args.
@@ -155,7 +155,7 @@ class Widget_View extends View {
 	 * Adds compatibility classes to the widget view container.
 	 * Not the view itself - the wrapping div around that
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @return array<string> An Array of class names to add to the container. Will contain
 	 *                       _at least_ 'tribe-compatibility-container' as an indicator.
