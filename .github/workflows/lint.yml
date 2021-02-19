@@ -46,11 +46,18 @@ jobs:
           ${TRIC_BIN} debug on
           ${TRIC_BIN} info
           ${TRIC_BIN} config
+      - name: Start the Chrome container
+        run: ${TRIC_BIN} up chrome
+      - name: Set up Common
+        run: |
+          docker network prune -f
+          ${TRIC_BIN} use the-events-calendar/common
+          ${TRIC_BIN} composer install --no-dev
       - name: Set up The Events Calendar
         run: |
           ${TRIC_BIN} use the-events-calendar
+          ${TRIC_BIN} composer install
       - name: Install node dependencies
         run: ${TRIC_BIN} npm install
       - name: Run linters
         run: ${TRIC_BIN} run ${{ matrix.suite }} --ext DotReporter
-        # run: tric npm run ${{ matrix.suite }} --pretty
