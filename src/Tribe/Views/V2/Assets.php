@@ -189,9 +189,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			],
 			'wp_enqueue_scripts',
 			[
-				'priority'     => 20,
+				'priority'     => 200,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
+				'defer'        => true,
 			]
 		);
 
