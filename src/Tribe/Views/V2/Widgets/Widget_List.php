@@ -25,7 +25,7 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
-	protected $slug = 'tribe_events_list_widget';
+	protected static $widget_slug = 'tribe_events_list_widget';
 
 	/**
 	 * {@inheritDoc}
@@ -88,20 +88,6 @@ class Widget_List extends Widget_Abstract {
 
 		add_filter( 'tribe_customizer_should_print_widget_customizer_styles', '__return_true' );
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'add_full_stylesheet_to_customizer' ], 12, 2 );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function enqueue_assets( $context, $view ) {
-		parent::enqueue_assets( $context, $view );
-
-		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
-		tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-skeleton' );
-
-		if ( tribe( Assets::class )->should_enqueue_full_styles() ) {
-			tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-full' );
-		}
 	}
 
 	/**

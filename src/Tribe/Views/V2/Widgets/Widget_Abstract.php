@@ -74,8 +74,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		$this->set_view( $view );
 
-		$this->filter_enqueue_assets( $context, $view );
-
 		// Ensure widgets never get Filter Bar classes on their containers.
 		add_filter( "tribe_events_views_v2_filter_bar_{$this->view_slug}_view_html_classes", '__return_false' );
 	}
@@ -93,145 +91,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		}
 
 		return $arguments;
-	}
-
-	/**
-	 * Encapsulates and handles the logic for asset enqueues in it's own method.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param \Tribe__Context $context Context we are using to build the view.
-	 * @param View_Interface  $view    Which view we are using the template on.
-	 */
-	public function filter_enqueue_assets( $context, $view ) {
-		$should_enqueue = $this->should_enqueue_assets( $context, $view );
-
-		/**
-		 * Run an action before we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			'tribe_events_views_v2_widget_before_enqueue_assets',
-			$should_enqueue,
-			$context,
-			$view
-		);
-
-		/**
-		 * Run an action for a specific widget before we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			"tribe_events_views_v2_widget_{$this->view_slug}_before_enqueue_assets",
-			$should_enqueue,
-			$context,
-			$view
-		);
-
-		if ( $should_enqueue ) {
-			$this->enqueue_assets( $context, $view );
-		}
-
-		/**
-		 * Run an action after we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			'tribe_events_views_v2_widget_after_enqueue_assets',
-			$should_enqueue,
-			$context,
-			$view
-		);
-
-		/**
-		 * Run an action for a specific widget after we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			"tribe_events_views_v2_widget_{$this->view_slug}_after_enqueue_assets",
-			$should_enqueue,
-			$context,
-			$view
-		);
-	}
-
-	/**
-	 * Enqueues the assets for widgets.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param \Tribe__Context $context Context we are using to build the view.
-	 * @param View_Interface  $view    Which view we are using the template on.
-	 */
-	public function enqueue_assets( $context, $view ) {
-		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
-		tribe_asset_enqueue_group( Assets::$widget_group_key );
-	}
-
-	/**
-	 * Determines whether to enqueue assets for widgets.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param \Tribe__Context $context Context we are using to build the view.
-	 * @param View_Interface  $view    Which view we are using the template on.
-	 *
-	 * @return bool Whether assets are enqueued or not.
-	 */
-	public function should_enqueue_assets( $context, $view ) {
-		/**
-		 * Allow other plugins to hook in here to alter the enqueue.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $enqueue Should the widget assets be enqueued. Defaults to true.
-		 * @param \Tribe__Context $context Context we are using to build the view.
-		 * @param View_Interface  $view    Which view we are using the template on.
-		 */
-		$enqueue = apply_filters(
-			'tribe_events_views_v2_widget_enqueue_assets',
-			true,
-			$context,
-			$view
-		);
-
-		/**
-		 * Allow other plugins to hook in here to alter the enqueue for a specific widget type.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $enqueue Should the widget assets be enqueued.
-		 * @param \Tribe__Context $context Context we are using to build the view.
-		 * @param View_Interface  $view    Which view we are using the template on.
-		 */
-		$enqueue = apply_filters(
-			"tribe_events_views_v2_widget_{$this->view_slug}_enqueue_assets",
-			$enqueue,
-			$context,
-			$view
-		);
-
-		return $enqueue;
 	}
 
 	/**
@@ -265,17 +124,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 */
 	public function get_view() {
 		return $this->view;
-	}
-
-	/**
-	 * Returns the widget slug.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @return string The widget slug.
-	 */
-	public function get_slug() {
-		return $this->slug;
 	}
 
 	/**
@@ -438,5 +286,82 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		}
 
 		return $template_vars;
+	}
+
+	/**********************
+	 * Deprecated Methods *
+	 **********************/
+
+	/**
+	 * Encapsulates and handles the logic for asset enqueues in it's own method.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 *
+	 * @param \Tribe__Context $context Context we are using to build the view.
+	 * @param View_Interface  $view    Which view we are using the template on.
+	 */
+	public function filter_enqueue_assets( $context, $view ) {
+		/**
+		 * We removed 4 actions from here:
+		 * - 'tribe_events_views_v2_widget_before_enqueue_assets'
+		 * - "tribe_events_views_v2_widget_{$this->view_slug}_before_enqueue_assets"
+		 *
+		 * - 'tribe_events_views_v2_widget_after_enqueue_assets'
+		 * - "tribe_events_views_v2_widget_{$this->view_slug}_after_enqueue_assets"
+		 *
+		 * If you were making use of those refer to to the filters related on the asset registration.
+		 */
+	}
+
+	/**
+	 * Enqueues the assets for widgets.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 *
+	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
+	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
+	 */
+	public function enqueue_assets( $_deprecated, $__deprecated ) {
+
+	}
+
+	/**
+	 * Determines whether to enqueue assets for widgets.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 *
+	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
+	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
+	 *
+	 * @return bool Whether assets are enqueued or not.
+	 */
+	public function should_enqueue_assets( $_deprecated, $__deprecated ) {
+		/**
+		 * We removed two filters from here:
+		 * - 'tribe_events_views_v2_widget_enqueue_assets'
+		 * - "tribe_events_views_v2_widget_{$this->view_slug}_enqueue_assets"
+		 *
+		 * If you were making use of those refer to to the filters related on the asset registration.
+		 */
+
+		return false;
+	}
+
+	/**
+	 * Returns the widget slug.
+	 *
+	 * @since 5.3.0
+	 * @deprecated TBD replaced by the static::get_widget_slug().
+	 *
+	 * @return string The widget slug.
+	 */
+	public function get_slug() {
+		return static::get_widget_slug();
 	}
 }

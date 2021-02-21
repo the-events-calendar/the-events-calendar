@@ -51,6 +51,20 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_compatibility();
 
 		$this->hook();
+		$this->register_assets();
+	}
+
+
+	/**
+	 * Registers the provider handling all assets for widgets v2.
+	 *
+	 * @since TBD
+	 */
+	protected function register_assets() {
+		$assets = new Assets( $this->container );
+		$assets->register();
+
+		$this->container->singleton( Assets::class, $assets );
 	}
 
 	/**
@@ -88,7 +102,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @return array<string,string> An array of registered widget classes.
 	 */
 	public function register_widget( $widgets ) {
-		$widgets['tribe_events_list_widget'] = Widget_List::class;
+		$widgets[ Widget_List::get_widget_slug() ] = Widget_List::class;
 
 		return $widgets;
 	}
