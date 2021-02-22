@@ -1851,7 +1851,7 @@ class View implements View_Interface {
 			/**
 			 * Filters the ignored params for resetting page number the View will do when paginating via AJAX.
 			 *
-			 * @since TBD
+			 * @since 5.4.0
 			 *
 			 * @see Url::is_diff()
 			 *
@@ -1867,7 +1867,7 @@ class View implements View_Interface {
 			/**
 			 * Filters the ignored params for resetting page number a specific View will do when paginating via AJAX.
 			 *
-			 * @since TBD
+			 * @since 5.4.0
 			 *
 			 * @see Url::is_diff()
 			 *

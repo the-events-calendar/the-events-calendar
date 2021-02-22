@@ -2,12 +2,11 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 
 ( function( $, data ) {
 	"use strict";
-	var $document = $( document );
 
 	/**
 	 * Migration for Lagacy Ignored Event
 	 */
-	$document.ready( function() {
+	$( function() {
 		$( '#tribe-migrate-legacy-events' ).on( 'click', function() {
 			var $this = $( this ),
 				$spinner = $this.next( '.spinner' ),
@@ -42,7 +41,7 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 	/**
 	 * Modify Archive page elements
 	 */
-	$document.ready( function(){
+	$( function(){
 		// Verify that all WP variables exists
 		if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
 			return false;
@@ -68,7 +67,7 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 	/**
 	 * Modify Single page elements
 	 */
-	$document.ready( function() {
+	$( function() {
 		// Verify that all WP variables exists
 		if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
 			return false;

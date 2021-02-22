@@ -306,7 +306,7 @@ tribe.events.views.datepicker = {};
 
 		$datepickerButton
 			.removeClass( obj.selectors.buttonOpenClass.className() )
-			.focus();
+			.trigger( 'focus' );
 	};
 
 	/**
@@ -365,7 +365,7 @@ tribe.events.views.datepicker = {};
 		$input.bootstrapDatepicker( method );
 
 		if ( 'show' === method ) {
-			$input.focus();
+			$input.trigger( 'focus' );
 		}
 	};
 
@@ -716,5 +716,5 @@ tribe.events.views.datepicker = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.datepicker );
