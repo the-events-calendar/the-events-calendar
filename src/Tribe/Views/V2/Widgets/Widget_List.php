@@ -138,35 +138,6 @@ class Widget_List extends Widget_Abstract {
 	}
 
 	/**
-	 * Get the options to use in a the limit dropdown.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @return array<string,mixed> An array of options with the text and value included.
-	 */
-	public function get_limit_options() {
-		/**
-		 * Filter the max limit of events to display in the List Widget.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param int The max limit of events to display in the List Widget, default 10.
-		 */
-		$events_limit = apply_filters( 'tribe_events_widget_list_events_max_limit', 10 );
-
-		$options = [];
-
-		foreach ( range( 1, $events_limit ) as $i ) {
-			$options[] = [
-				'text'  => $i,
-				'value' => $i,
-			];
-		}
-
-		return $options;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {

@@ -364,4 +364,37 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	public function get_slug() {
 		return static::get_widget_slug();
 	}
+
+	/**
+	 * Get the options to use in a the limit dropdown.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param int $min The minimum value, defaults to 1.
+	 * @param int $max The maximum value, defaults to 10.
+	 *
+	 * @return array<string,mixed> An array of options with the text and value included.
+	 */
+	public function get_limit_options( int $min = 1, int $max = 10 ) {
+		$widget_slug = static::get_widget_slug();
+		/**
+		 * Filter the max limit of events to display in the Featured Venue Widget.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param int The max limit of events to display in the Featured Venue Widget, default 10.
+		 */
+		$max = apply_filters( "tribe_events_widget_{$widget_slug}_events_max_limit", $max );
+
+		$options = [];
+
+		foreach ( range( 1, $max ) as $i ) {
+			$options[] = [
+				'text'  => $i,
+				'value' => $i,
+			];
+		}
+
+		return $options;
+	}
 }
