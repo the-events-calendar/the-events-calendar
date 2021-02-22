@@ -119,8 +119,11 @@ class Widget_List extends Widget_Abstract {
 			],
 			'limit'                => [
 				'label'   => _x( 'Show:', 'The label for the amount of events to show in the List Widget.', 'the-events-calendar' ),
-				'type'    => 'dropdown',
-				'options' => $this->get_limit_options(),
+				'type'    => 'number',
+				'default' => $this->default_arguments['limit'],
+				'min'     => 1,
+				'max'     => 10,
+				'step'    => 1,
 			],
 			'no_upcoming_events'   => [
 				'label' => _x( 'Hide this widget if there are no upcoming events.', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
