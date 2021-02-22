@@ -48,9 +48,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	public function setup() {
 		// Add the admin template class for the widget admin form.
 		$this->set_admin_template( tribe( Admin_Template::class ) );
-
-		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_widget_template_vars' ], 20, 2 );
-		add_filter( "tribe_events_views_v2_view{$this->view_slug}_template_vars", [ $this, 'filter_widget_template_vars' ], 20, 2 );
 	}
 
 	/**
@@ -250,12 +247,18 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		return tribe_format_field_dependency( $deps );
 	}
 
+	/**********************
+	 * Deprecated Methods *
+	 **********************/
+
 	/**
 	 * Filters the template vars for widget-specific items.
 	 *
 	 * @since 5.3.0
+	 * @deprecated TBD Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
+	 * @param View                $view          Which view we are dealing with.
 	 *
 	 * @return array<string,mixed> The modified template variables.
 	 */
@@ -272,6 +275,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * removing the need for additional checks in the template.
 	 *
 	 * @since 5.3.0
+	 * @deprecated TBD Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
 	 *
@@ -287,10 +291,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		return $template_vars;
 	}
-
-	/**********************
-	 * Deprecated Methods *
-	 **********************/
 
 	/**
 	 * Encapsulates and handles the logic for asset enqueues in it's own method.
