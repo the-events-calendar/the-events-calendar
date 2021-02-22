@@ -299,10 +299,10 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
 	 *
-	 * @param \Tribe__Context $context Context we are using to build the view.
-	 * @param View_Interface  $view    Which view we are using the template on.
+	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
+	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
 	 */
-	public function filter_enqueue_assets( $context, $view ) {
+	public function filter_enqueue_assets( $_deprecated, $__deprecated ) {
 		/**
 		 * We removed 4 actions from here:
 		 * - 'tribe_events_views_v2_widget_before_enqueue_assets'
