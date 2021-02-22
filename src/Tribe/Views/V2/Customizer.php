@@ -668,7 +668,9 @@ class Customizer {
 				}
 			';
 			
-			// Single Event styles overrides
+			// Single Event styles overrides.
+			// This is under filter_global_elements_css_template() in order to have
+			// access to global_elements.accent_color, which is under a different section
 			if ( tribe_events_single_view_v2_is_enabled() ) {
 				$css_template .= '
 					.tribe-events-cal-links .tribe-events-gcal,
