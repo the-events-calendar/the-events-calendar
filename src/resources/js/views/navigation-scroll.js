@@ -61,5 +61,5 @@ tribe.events.views.navigationScroll = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.navigationScroll );

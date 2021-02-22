@@ -30,7 +30,6 @@ tribe.events.views.manager = {};
  */
 ( function( $, _, obj ) {
 	'use strict';
-	var $document = $( document );
 	var $window = $( window );
 
 	/**
@@ -106,7 +105,7 @@ tribe.events.views.manager = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
-			data = JSON.parse( $.trim( $data.text() ) );
+			data = JSON.parse( $data.text().trim() );
 		}
 
 		$container.trigger( 'beforeCleanup.tribeEvents', [ $container, data ] );
@@ -140,7 +139,7 @@ tribe.events.views.manager = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
-			data = JSON.parse( $.trim( $data.text() ) );
+			data = JSON.parse( $data.text().trim() );
 		}
 
 		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container, data ] );
@@ -191,7 +190,7 @@ tribe.events.views.manager = {};
 			return;
 		}
 
-		var data = JSON.parse( $.trim( $data.text() ) );
+		var data = JSON.parse( $data.text().trim() );
 
 		return data;
 	};
@@ -251,7 +250,7 @@ tribe.events.views.manager = {};
 			return;
 		}
 
-		var data = JSON.parse( $.trim( $data.text() ) );
+		var data = JSON.parse( $data.text().trim() );
 
 		// Bail when the data is not a valid object
 		if ( ! _.isObject( data ) ) {
@@ -666,7 +665,7 @@ tribe.events.views.manager = {};
 	};
 
 	// Configure on document ready.
-	$document.ready( obj.ready );
+	$( obj.ready );
 
 	// Attaches the popstate method to the window object.
 	$window.on( 'popstate', obj.onPopState );

@@ -193,7 +193,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Dequeues and enqueues the manager JS.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @param boolean         $should_enqueue Whether assets are enqueued or not.
 	 * @param \Tribe__Context $context        Context we are using to build the view.

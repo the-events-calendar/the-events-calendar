@@ -25,6 +25,7 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 			'rest_nonce'                 => '1122334455',
 			'should_manage_url'          => false,
 			'container_classes'          => [ 'tribe-common', 'tribe-events', 'tribe-events-widget' ],
+			'compatibility_classes'      => [ 'tribe-compatibility-container' ],
 			'container_data'             => [],
 			'breakpoint_pointer'         => 'aabbccddee',
 			'messages'                   => [],
@@ -49,6 +50,7 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 			'rest_nonce'                 => '1122334455',
 			'should_manage_url'          => false,
 			'container_classes'          => [ 'tribe-common', 'tribe-events', 'tribe-events-widget' ],
+			'compatibility_classes'      => [ 'tribe-compatibility-container' ],
 			'container_data'             => [],
 			'breakpoint_pointer'         => 'aabbccddee',
 			'messages'                   => [
@@ -77,6 +79,7 @@ class Widget_Events_ListTest extends HtmlPartialTestCase
 			'rest_nonce'                 => '1122334455',
 			'should_manage_url'          => false,
 			'container_classes'          => [ 'tribe-common', 'tribe-events', 'tribe-events-widget' ],
+			'compatibility_classes'      => [ 'tribe-compatibility-container' ],
 			'container_data'             => [],
 			'breakpoint_pointer'         => 'aabbccddee',
 			'messages'                   => [
