@@ -187,9 +187,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-query-string',
 				'underscore',
 			],
-			'wp_enqueue_scripts',
+			'wp_print_footer_scripts',
 			[
-				'priority'     => 200,
+				'priority'     => 9, // for `wp_print_footer_scripts` we are required to go before P10.
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
 				'defer'        => true,
