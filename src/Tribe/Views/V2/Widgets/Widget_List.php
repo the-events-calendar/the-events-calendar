@@ -25,7 +25,7 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
-	protected static $widget_slug = 'tribe_events_list_widget';
+	protected static $widget_slug = 'events-list';
 
 	/**
 	 * {@inheritDoc}
@@ -33,20 +33,6 @@ class Widget_List extends Widget_Abstract {
 	 * @var string
 	 */
 	protected $view_slug = 'widget-events-list';
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @var string
-	 */
-	protected $asset_slug = 'tribe-events-list-widget-v2';
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @var string
-	 */
-	protected $view_admin_slug = 'widgets/list';
 
 	/**
 	 * {@inheritDoc}
@@ -200,15 +186,7 @@ class Widget_List extends Widget_Abstract {
 			(int) $arguments['limit'] :
 			5;
 
-		/**
-		 * Applies a filter to the args to context.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param array<string,mixed> $alterations The alterations to make to the context.
-		 * @param array<string,mixed> $arguments   Current set of arguments.
-		 */
-		return apply_filters( 'tribe_events_views_v2_list_widget_args_to_context', $alterations, $arguments );
+		return $this->filter_args_to_context( $alterations, $arguments );
 	}
 
 	/**

@@ -21,17 +21,6 @@ use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	/**
-	 * Variable that holds the name of the widgets being created.
-	 *
-	 * @since 5.2.1
-	 *
-	 * @var array<string>
-	 */
-	protected $widgets = [
-		'tribe_events_list_widget',
-	];
-
-	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since 5.2.1

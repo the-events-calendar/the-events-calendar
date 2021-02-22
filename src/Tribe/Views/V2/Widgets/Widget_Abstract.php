@@ -350,7 +350,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		 * If you were making use of those refer to to the filters related on the asset registration.
 		 */
 
-		return false;
+		return static::is_widget_in_use();
 	}
 
 	/**
