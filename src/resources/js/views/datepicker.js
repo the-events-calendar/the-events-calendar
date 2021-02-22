@@ -306,7 +306,7 @@ tribe.events.views.datepicker = {};
 
 		$datepickerButton
 			.removeClass( obj.selectors.buttonOpenClass.className() )
-			.focus();
+			.trigger( 'focus' );
 	};
 
 	/**
@@ -365,7 +365,7 @@ tribe.events.views.datepicker = {};
 		$input.bootstrapDatepicker( method );
 
 		if ( 'show' === method ) {
-			$input.focus();
+			$input.trigger( 'focus' );
 		}
 	};
 
