@@ -181,6 +181,16 @@ function tribe_events_single_view_v2_is_enabled() {
 	if ( false !== $env_var ) {
 		return ! $env_var;
 	}
+	
+	// Bail if not Single Event.
+	if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+		return false;
+	}
+	
+	// Bail if Block Editor.
+	if ( has_blocks( get_queried_object_id() ) ) {
+		return false;
+	}
 
 	/**
 	 * Allows toggling of the single event v2 overrides via a filter. Defaults to true.
