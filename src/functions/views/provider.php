@@ -1,5 +1,6 @@
 <?php
 use Tribe\Events\Views\V2\Manager;
+use Tribe\Events\Views\V2\Template_Bootstrap;
 
 /**
  * Checks whether v2 of the Views is enabled or not.
@@ -170,6 +171,16 @@ function tribe_events_single_view_v2_is_enabled() {
 	if ( ! tribe_events_views_v2_is_enabled() ) {
 		return false;
 	}
+	
+	// Bail if not Single Event.
+	if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+		return false;
+	}
+	
+	// Bail if Block Editor.
+	if ( has_blocks( get_queried_object_id() ) ) {
+		return false;
+	}
 
 	// If the constant is defined, returns the opposite of the constant.
 	if ( defined( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' ) ) {
@@ -180,16 +191,6 @@ function tribe_events_single_view_v2_is_enabled() {
 	$env_var = (bool) getenv( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' );
 	if ( false !== $env_var ) {
 		return ! $env_var;
-	}
-	
-	// Bail if not Single Event.
-	if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
-		return false;
-	}
-	
-	// Bail if Block Editor.
-	if ( has_blocks( get_queried_object_id() ) ) {
-		return false;
 	}
 
 	/**
