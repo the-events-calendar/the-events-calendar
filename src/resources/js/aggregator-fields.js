@@ -276,7 +276,7 @@ tribe_aggregator.fields = {
 			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
 		}
 
-		if ( 'object' === typeof tribe_aggregator_save ) {
+		if ( 'object' === typeof tribe_aggregator ) {
 			obj.progress.init();
 		}
 	};
