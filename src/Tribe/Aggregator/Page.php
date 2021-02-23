@@ -168,6 +168,7 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dependency',
 						'tribe-select2',
 						'tribe-events-admin',
+						'tribe-datepicker',
 					],
 				],
 				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
