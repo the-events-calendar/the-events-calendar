@@ -208,7 +208,7 @@ class Month_View extends By_Day_View {
 	 */
 	protected function setup_template_vars() {
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
-		$grid_days = $this->get_grid_days();
+		$grid_days = $this->get_grid_days( null, true );
 		// Set this to be used in the following methods.
 		$this->grid_days = $grid_days;
 
@@ -288,6 +288,7 @@ class Month_View extends By_Day_View {
 	 */
 	protected function get_days_data( array $grid_days ) {
 		$found_events = $this->get_grid_days_counts();
+		$events_per_day = $this->get_events_per_day();
 
 		// The multi-day stack will contain spacers and post IDs.
 		$day_stacks = $this->build_day_stacks( $grid_days );
@@ -327,6 +328,7 @@ class Month_View extends By_Day_View {
 					: $element;
 			}, Arr::get( $day_stacks, $day_date, [] ) );
 
+			// All non-multiday events.
 			$the_day_events = array_map( 'tribe_get_event',
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
 					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
@@ -352,18 +354,31 @@ class Month_View extends By_Day_View {
 					)
 				);
 				/*
-				 * In the context of the Month View we want to know if there are more events we're not seeing.
-				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
+				 * In the context of the Month View we want to know if there are more events we're not going to see.
+				 * So we exclude the ones we'll see, the multi-day ones that in the multi-day stack,
+				 * and the ones we're going to trim off if $events_per_day is set & lower than the number of found events.
 				 */
-				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
+				$more_events = max( 0, min( $events_per_day, $day_found_events ) - $stack_events_count - count( $the_day_events ) );
 			}
 
-			$featured_events = array_map( 'tribe_get_event',
-				array_filter( $day_events,
+			$combo_events = array_map( 'tribe_get_event',
+				array_filter( $the_day_events,
 					static function ( $event ) use ( $date_object ) {
-						$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
+						return $event->featured && -1 === $event->menu_order;
+					} )
+			);
 
-						return $event instanceof \WP_Post && $event->featured;
+			$sticky_events = array_map( 'tribe_get_event',
+				array_filter( $the_day_events,
+					static function ( $event ) use ( $date_object ) {
+						return -1 === $event->menu_order && ! $event->featured;
+					} )
+			);
+
+			$featured_events = array_map( 'tribe_get_event',
+				array_filter( $the_day_events,
+					static function ( $event ) use ( $date_object ) {
+						return $event->featured && -1 !== $event->menu_order;
 					} )
 			);
 
@@ -374,6 +389,18 @@ class Month_View extends By_Day_View {
 
 			$day_url = tribe_events_get_url( $day_url_args );
 
+			// Recombine $the_day_events in the order we want.
+			$the_day_events = array_merge(
+				array_filter( $combo_events ),
+				array_filter( $sticky_events ),
+				array_filter( $featured_events ),
+				$the_day_events
+			);
+
+			if ( $events_per_day > - 1 ) {
+				$the_day_events = array_slice( $the_day_events, 0, $events_per_day );
+			}
+
 			$day_data = [
 				'date'             => $day_date,
 				'is_start_of_week' => $is_start_of_week,
@@ -381,7 +408,6 @@ class Month_View extends By_Day_View {
 				'month_number'     => $date_object->format( 'm' ),
 				'day_number'       => $date_object->format( 'j' ),
 				'events'           => $the_day_events,
-				'featured_events'  => $featured_events,
 				'multiday_events'  => $day_stack,
 				'found_events'     => $day_found_events,
 				'more_events'      => $more_events,
