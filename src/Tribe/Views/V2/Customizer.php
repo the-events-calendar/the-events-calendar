@@ -702,7 +702,7 @@ class Customizer {
 	/**
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 */
 	public function enqueue_customizer_controls_styles() {
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
