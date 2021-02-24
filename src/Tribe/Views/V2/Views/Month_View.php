@@ -403,7 +403,6 @@ class Month_View extends By_Day_View {
 				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
 			}
 
-
 			$day_url_args     = array_merge( $default_day_url_args, [ 'eventDate' => $day_date ] );
 			$day_data         = [
 				'date'             => $day_date,

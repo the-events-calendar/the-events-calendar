@@ -285,7 +285,7 @@ abstract class By_Day_View extends View {
 					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 				}
 
-				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
+				$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
 				$this->grid_days_found_cache[ $day_string ] = $day_results->count();
 			} else {
 				$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
@@ -317,7 +317,7 @@ abstract class By_Day_View extends View {
 
 				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
 
-				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
+				$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
 				$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );
 			}
 
