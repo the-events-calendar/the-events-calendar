@@ -53,24 +53,29 @@ class Widget_List extends Widget_Abstract {
 		'featured_events_only' => false,
 		'jsonld_enable'        => true,
 		'tribe_is_list_widget' => true,
-
-		// WP_Widget properties.
-		'id_base'              => 'tribe-events-list-widget',
-		'name'                 => null,
-		'widget_options'       => [
-			'classname'   => 'tribe-events-list-widget',
-			'description' => null,
-		],
-		'control_options'      => [
-			'id_base' => 'tribe-events-list-widget',
-		],
 	];
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function setup_view( $arguments ) {
-		parent::setup_view( $arguments );
+	public static function get_default_widget_name() {
+		return esc_html_x( 'Events List', 'The name of the List Widget.', 'the-events-calendar' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_default_widget_options() {
+		return [
+			'description' => esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' ),
+		];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setup_view( $_deprecated ) {
+		parent::setup_view( $_deprecated );
 
 		add_filter( 'tribe_customizer_should_print_widget_customizer_styles', '__return_true' );
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'add_full_stylesheet_to_customizer' ], 12, 2 );
@@ -80,15 +85,12 @@ class Widget_List extends Widget_Abstract {
 	 * {@inheritDoc}
 	 */
 	protected function setup_default_arguments() {
-		$default_arguments = parent::setup_default_arguments();
+		parent::setup_default_arguments();
 
-		$default_arguments['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
-		$default_arguments['name']                          = esc_html_x( 'Events List', 'The name of the List Widget.', 'the-events-calendar' );
-		$default_arguments['widget_options']['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
 		// Setup default title.
-		$default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
+		$this->default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
 
-		return $default_arguments;
+		return $this->default_arguments;
 	}
 
 	/**

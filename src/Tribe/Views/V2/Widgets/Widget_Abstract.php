@@ -45,9 +45,15 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function setup() {
+	public function setup( $args = [], $instance = [] ) {
 		// Add the admin template class for the widget admin form.
 		$this->set_admin_template( tribe( Admin_Template::class ) );
+
+		// Saves the instance values to the arguments
+		$this->setup_arguments( $instance );
+
+		// Setup the View for the frontend.
+		$this->setup_view( null );
 	}
 
 	/**
@@ -55,39 +61,25 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.2.1
 	 * @since 5.3.0 Correct asset enqueue method.
+	 * @since TBD Deprecated $arguments param since it should come from the instance.
 	 *
-	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
+	 * @param array<string,mixed> $_deprecated The widget arguments, as set by the user in the widget string.
 	 */
-	public function setup_view( $arguments ) {
+	public function setup_view( $_deprecated ) {
 		$context = tribe_context();
 
 		// Modifies the Context for the widget params.
-		$context = $this->alter_context( $context, $arguments );
+		$context = $this->alter_context( $context, $this->get_arguments() );
 
 		// Setup the view instance.
 		$view = View::make( $this->get_view_slug(), $context );
 
-		$view->get_template()->set_values( $this->setup_arguments(), false );
+		$view->get_template()->set_values( $this->get_arguments(), false );
 
 		$this->set_view( $view );
 
 		// Ensure widgets never get Filter Bar classes on their containers.
 		add_filter( "tribe_events_views_v2_filter_bar_{$this->view_slug}_view_html_classes", '__return_false' );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function setup_arguments( array $instance = [] ) {
-		$arguments = parent::setup_arguments( $instance );
-
-		$admin_fields = $arguments['admin_fields'];
-
-		foreach ( $admin_fields as $field_name => $field ) {
-			$arguments['admin_fields'][ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
-		}
-
-		return $arguments;
 	}
 
 	/**
@@ -171,50 +163,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		];
 
 		return $context_args;
-	}
-
-	/**
-	 * Handles gathering the data for admin fields.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param array<string,mixed> $arguments Current set of arguments.
-	 * @param int                 $field_name    The ID of the field.
-	 * @param array<string,mixed> $field       The field info.
-	 *
-	 * @return array<string,mixed> $data The assembled field data.
-	 */
-	public function get_admin_data( $arguments, $field_name, $field ) {
-		$data = [
-			'classes'     => Arr::get( $field, 'classes', '' ),
-			'dependency'  => $this->format_dependency( $field ),
-			'id'          => $this->get_field_id( $field_name ),
-			'label'       => Arr::get( $field, 'label', '' ),
-			'name'        => $this->get_field_name( $field_name ),
-			'options'     => Arr::get( $field, 'options', [] ),
-			'placeholder' => Arr::get( $field, 'placeholder', '' ),
-			'value'       => Arr::get( $arguments, $field_name ),
-		];
-
-		$children = Arr::get( $field, 'children', [] );
-
-		if ( ! empty( $children ) ) {
-			foreach ( $children as $child_name => $child ) {
-				$input_name =  ( 'radio' === $child['type'] ) ? $field_name : $child_name;
-
-				$child_data = $this->get_admin_data(
-					$arguments,
-					$input_name,
-					$child
-				);
-
-				$data['children'][ $child_name ] = $child_data;
-			}
-		}
-
-		$data = array_merge( $field, $data );
-
-		return apply_filters( 'tribe_events_views_v2_widget_field_data', $data, $field_name, $this );
 	}
 
 	/**
