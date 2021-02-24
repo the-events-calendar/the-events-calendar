@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Use filterable attributes for the view more link and text. Add customizer styling for the link. [ECP-568]
 * Tweak - Removed `tribe_events_views_v2_widget_admin_form_{$field_type}_input` from the List Widget admin form in favor of using `Tribe__Template::do_entry_point()` [ECP-486]
 * Tweak - Moved administration templates for List Widget components to Common. [ECP-486]
+* Language - 1 new strings added, 10 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.3.2.1] 2021-02-02 =
 
