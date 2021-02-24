@@ -337,7 +337,29 @@ class Month_View extends By_Day_View {
 				} )
 			);
 
-			$more_events  = 0;
+			 usort(
+				$the_day_events,
+				function ( $event_a, $event_b )  {
+					$a = [ (int) ( -1 === $event_a->menu_order ), (int) $event_a->featured ];
+					$b = [ (int) ( -1 === $event_b->menu_order ), (int) $event_b->featured ];
+
+					if ( $b > $a ) {
+						return 1;
+					}
+
+					if ( $b < $a ) {
+						return -1;
+					}
+
+					return 0;
+				}
+			);
+
+			 if ( $events_per_day > - 1 ) {
+				$the_day_events = array_slice( array_filter( $the_day_events ), 0, $events_per_day );
+			}
+
+			$more_events      = 0;
 			$day_found_events = Arr::get( $found_events, $day_date, 0 );
 
 			if ( $day_found_events ) {
@@ -353,57 +375,19 @@ class Month_View extends By_Day_View {
 						}
 					)
 				);
+
 				/*
 				 * In the context of the Month View we want to know if there are more events we're not going to see.
-				 * So we exclude the ones we'll see, the multi-day ones that in the multi-day stack,
-				 * and the ones we're going to trim off if $events_per_day is set & lower than the number of found events.
+				 * So we exclude the ones we'll see and the multi-day ones in the multi-day stack.
 				 */
-				$more_events = max( 0, min( $events_per_day, $day_found_events ) - $stack_events_count - count( $the_day_events ) );
+				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
 			}
 
-			$combo_events = array_map( 'tribe_get_event',
-				array_filter( $the_day_events,
-					static function ( $event ) use ( $date_object ) {
-						return $event->featured && -1 === $event->menu_order;
-					} )
-			);
 
-			$sticky_events = array_map( 'tribe_get_event',
-				array_filter( $the_day_events,
-					static function ( $event ) use ( $date_object ) {
-						return -1 === $event->menu_order && ! $event->featured;
-					} )
-			);
-
-			$featured_events = array_map( 'tribe_get_event',
-				array_filter( $the_day_events,
-					static function ( $event ) use ( $date_object ) {
-						return $event->featured && -1 !== $event->menu_order;
-					} )
-			);
-
-			$start_of_week = get_option( 'start_of_week', 0 );
-			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
-
-			$day_url_args = array_merge( $default_day_url_args, [ 'eventDate' => $day_date ] );
-
-			$day_url = tribe_events_get_url( $day_url_args );
-
-			// Recombine $the_day_events in the order we want.
-			$the_day_events = array_merge(
-				array_filter( $combo_events ),
-				array_filter( $sticky_events ),
-				array_filter( $featured_events ),
-				$the_day_events
-			);
-
-			if ( $events_per_day > - 1 ) {
-				$the_day_events = array_slice( $the_day_events, 0, $events_per_day );
-			}
-
-			$day_data = [
+			$day_url_args     = array_merge( $default_day_url_args, [ 'eventDate' => $day_date ] );
+			$day_data         = [
 				'date'             => $day_date,
-				'is_start_of_week' => $is_start_of_week,
+				'is_start_of_week' => (int) get_option( 'start_of_week', 0 ) === (int) $date_object->format( 'w' ),
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
 				'day_number'       => $date_object->format( 'j' ),
@@ -411,7 +395,7 @@ class Month_View extends By_Day_View {
 				'multiday_events'  => $day_stack,
 				'found_events'     => $day_found_events,
 				'more_events'      => $more_events,
-				'day_url'          => $day_url,
+				'day_url'          => tribe_events_get_url( $day_url_args ),
 			];
 
 			$days[ $day_date ] = $day_data;
