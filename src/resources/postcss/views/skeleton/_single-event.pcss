@@ -371,7 +371,7 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		margin-bottom: var(--spacer-7);
+		margin-bottom: var(--spacer-6);
 		padding: 0;
 		width: auto;
 
@@ -396,11 +396,15 @@
 			width: 100%;
 
 			.tribe-event-date-start {
-				margin: var(--spacer-0) 0;
+				margin: var(--spacer-0) 0 var(--spacer-2);
 			}
 
 			.recurringinfo {
-				margin: 0 0 0 var(--spacer-1);
+				margin: 0 var(--spacer-1) var(--spacer-2) 0;
+			}
+			
+			span:last-of-type {
+				margin-right: var(--spacer-1);
 			}
 		}
 
