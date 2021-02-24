@@ -1095,6 +1095,10 @@ tribe_aggregator.fields = {
 
 	obj.progress.continue = true;
 	$(document).on('heartbeat-send', function (event, data) {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
 		if ( obj.progress.continue ) {
 			data.ea_record = tribe_aggregator_save.record_id;
 		}
