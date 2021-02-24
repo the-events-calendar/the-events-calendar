@@ -551,7 +551,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return boolean
 	 */
 	public function should_enqueue_single_event_styles() {
-		// Bail if not V2.
+		// Bail if not Single Event V2.
 		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}
