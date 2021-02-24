@@ -208,7 +208,7 @@ class Month_View extends By_Day_View {
 	 */
 	protected function setup_template_vars() {
 		// The events will be returned in an array with shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
-		$grid_days = $this->get_grid_days( null, true );
+		$grid_days = $this->get_grid_days();
 		// Set this to be used in the following methods.
 		$this->grid_days = $grid_days;
 
@@ -337,6 +337,19 @@ class Month_View extends By_Day_View {
 				} )
 			);
 
+			/**
+			 * This is used for determining if a day has featured events - ex: for the mobile icon.
+			 * The events themselves are not used in the template, yet.
+			 */
+			$featured_events = array_map( 'tribe_get_event',
+				array_filter( $day_events,
+					static function ( $event ) use ( $date_object ) {
+						$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
+
+						return $event instanceof \WP_Post && $event->featured;
+					} )
+			);
+
 			 usort(
 				$the_day_events,
 				function ( $event_a, $event_b )  {
@@ -399,6 +412,7 @@ class Month_View extends By_Day_View {
 				'month_number'     => $date_object->format( 'm' ),
 				'day_number'       => $date_object->format( 'j' ),
 				'events'           => $the_day_events,
+				'featured_events'  => $featured_events,
 				'multiday_events'  => $day_stack,
 				'found_events'     => $day_found_events,
 				'more_events'      => $more_events,
