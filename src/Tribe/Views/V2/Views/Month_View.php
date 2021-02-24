@@ -340,8 +340,15 @@ class Month_View extends By_Day_View {
 			 usort(
 				$the_day_events,
 				function ( $event_a, $event_b )  {
-					$a = [ (int) ( -1 === $event_a->menu_order ), (int) $event_a->featured ];
-					$b = [ (int) ( -1 === $event_b->menu_order ), (int) $event_b->featured ];
+					$a = [
+						(int) ( -1 === $event_a->menu_order ),
+						( (int) ( -1 === $event_a->menu_order ) && (int) $event_a->featured  )
+					];
+
+					$b = [
+						(int) ( -1 === $event_b->menu_order ),
+						( (int) ( -1 === $event_b->menu_order ) && (int) $event_b->featured  )
+					];
 
 					if ( $b > $a ) {
 						return 1;

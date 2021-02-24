@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - correct display order of sticky, featured, and "normal" events on Month View. Adds a class for targeting sticky posts for styling. [TEC-3770]
+
 = [5.4.0] 2021-02-24 =
 
 * Version - The Events Calendar 5.4.0 is only compatible with Events Calendar PRO 5.3.0 and higher
