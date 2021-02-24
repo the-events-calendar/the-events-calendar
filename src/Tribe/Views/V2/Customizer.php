@@ -668,9 +668,7 @@ class Customizer {
 				}
 			';
 			
-			// Single Event styles overrides.
-			// This is under filter_global_elements_css_template() in order to have
-			// access to global_elements.accent_color, which is under a different section.
+			// Single Event styles overrides
 			if ( tribe_events_single_view_v2_is_enabled() ) {
 				$css_template .= '
 					.tribe-events-cal-links .tribe-events-gcal,
@@ -739,5 +737,35 @@ class Customizer {
 	 */
 	public function enqueue_customizer_controls_styles() {
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
+	}
+	
+	/**
+	 * Check whether the Single Event styles overrides can be applied
+	 *
+	 * @return void
+	 */
+	function tribe_events_single_view_v2_is_enabled() {
+		// If the constant is defined, returns the opposite of the constant.
+		if ( defined( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' ) ) {
+			return (bool) ! TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED;
+		}
+
+		// Allow env_var to short-circuit for testing.
+		$env_var = (bool) getenv( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' );
+		if ( false !== $env_var ) {
+			return ! $env_var;
+		}
+
+		// Bail if not Single Event.
+		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+			return false;
+		}
+
+		// Bail if Block Editor.
+		if ( has_blocks( get_queried_object_id() ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -1,6 +1,5 @@
 <?php
 use Tribe\Events\Views\V2\Manager;
-use Tribe\Events\Views\V2\Template_Bootstrap;
 
 /**
  * Checks whether v2 of the Views is enabled or not.
@@ -169,16 +168,6 @@ function tribe_events_widgets_v2_is_enabled() {
 function tribe_events_single_view_v2_is_enabled() {
 	// Must have v2 views active.
 	if ( ! tribe_events_views_v2_is_enabled() ) {
-		return false;
-	}
-	
-	// Bail if not Single Event.
-	if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
-		return false;
-	}
-	
-	// Bail if Block Editor.
-	if ( has_blocks( get_queried_object_id() ) ) {
 		return false;
 	}
 
