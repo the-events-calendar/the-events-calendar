@@ -279,7 +279,7 @@ tribe_aggregator.fields = {
 		}
 
 		if ( 'object' === typeof tribe_aggregator_save ) {
-			// obj.progress.init();
+			obj.progress.init();
 		}
 	};
 
