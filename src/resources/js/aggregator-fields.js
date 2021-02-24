@@ -1087,6 +1087,10 @@ tribe_aggregator.fields = {
 	};
 
 	obj.progress.start = function () {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
 		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
 		if ( ! obj.progress.hasHeartBeat ) {
 			obj.progress.send_request();
