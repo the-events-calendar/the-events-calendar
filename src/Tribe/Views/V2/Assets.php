@@ -191,7 +191,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[
 				'priority'     => 9, // for `wp_print_footer_scripts` we are required to go before P10.
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key ],
+				'groups'       => [ static::$group_key, static::$widget_group_key ],
 				'defer'        => true,
 			]
 		);
