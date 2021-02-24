@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Version - The Events Calendar 5.4.0 is only compatible with Events Calendar PRO 5.3.0 and higher
 * Fix - Compatibility with WordPress 5.7 and jQuery 3.5.X
+* Fix - Updated views JavaScript manager is now deferred to the end of the request, to make sure all dependencies are loaded.
 * Fix - Navigation for the Views will no longer use current browser URL as previous url, preventing problems on shortcodes.
 * Fix - Latest Past view moved to not publicly visible, which was the intended behavior.
 * Tweak - Add compatibility container to widgets - to allow for a non-body target for compatibility classes.
