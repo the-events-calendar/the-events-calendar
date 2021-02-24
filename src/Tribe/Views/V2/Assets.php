@@ -187,11 +187,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-query-string',
 				'underscore',
 			],
-			'wp_enqueue_scripts',
+			'wp_print_footer_scripts',
 			[
-				'priority'     => 20,
+				'priority'     => 9, // for `wp_print_footer_scripts` we are required to go before P10.
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key ],
+				'groups'       => [ static::$group_key, static::$widget_group_key ],
+				'defer'        => true,
 			]
 		);
 
@@ -555,12 +556,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}
-		
+
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
 			return false;
 		}
-		
+
 		// Bail if Block Editor.
 		if ( has_blocks( get_queried_object_id() ) ) {
 			return false;

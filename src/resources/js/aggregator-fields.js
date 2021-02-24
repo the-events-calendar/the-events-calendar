@@ -124,7 +124,9 @@ tribe_aggregator.fields = {
 		obj.importType = $( '#tribe-ea-field-url_import_type' );
 		obj.urlImport = {
 			startDate: $( '#tribe-ea-field-url_start' ),
-			originalMinDate: $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '',
+			originalMinDate: function() {
+				return $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '';
+			},
 		};
 
 		// Setup each type of field
@@ -277,7 +279,7 @@ tribe_aggregator.fields = {
 		}
 
 		if ( 'object' === typeof tribe_aggregator_save ) {
-			obj.progress.init();
+			// obj.progress.init();
 		}
 	};
 
@@ -867,7 +869,7 @@ tribe_aggregator.fields = {
 
 		$( '.dataTables_scrollBody' ).find( '[name^="aggregator[column_map]"]' ).remove();
 
-		obj.$.form.submit();
+		obj.$.form.trigger( 'submit' );
 	};
 
 	/**
@@ -1237,5 +1239,5 @@ tribe_aggregator.fields = {
 	};
 
 	// Run Init on Document Ready
-	$( document ).ready( obj.init );
+	$( window ).on( 'load', obj.init );
 } )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );

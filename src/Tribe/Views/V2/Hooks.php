@@ -937,7 +937,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 */
 	public function enqueue_customizer_controls_styles() {
 		return $this->container->make( Customizer::class )->enqueue_customizer_controls_styles();

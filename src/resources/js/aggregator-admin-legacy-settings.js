@@ -2,12 +2,11 @@ var tribe_aggregator = tribe_aggregator || {};
 
 ( function( $, data ) {
 	"use strict";
-	var $document = $( document );
 
 	/**
 	 * Migration for Lagacy Ignored Event
 	 */
-	$document.ready( function() {
+	$( function() {
 		$( '#tribe-migrate-ical-settings' ).on( 'click', function() {
 			var $this = $( this ),
 			    $spinner = $this.next( '.spinner' ),
