@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	// placeholders
 	if ( ! supports_input_placeholder() ) {
 		$( '[placeholder]' )

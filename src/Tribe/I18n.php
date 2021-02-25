@@ -165,7 +165,7 @@ class I18n {
 	 * by attaching the filtering method or function at `PHP_INT_MAX`.
 	 *
 	 * @since 5.1.1
-	 * @since TBD Changed the method visibility to public.
+	 * @since 5.4.0 Changed the method visibility to public.
 	 *
 	 * @param string       $locale The locale to set for the execution of the callback.
 	 * @param callable     $do     The callable to execute in the context of a specific locale.
