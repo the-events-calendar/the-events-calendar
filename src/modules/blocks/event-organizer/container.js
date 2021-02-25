@@ -81,7 +81,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			ownProps.setAttributes( { organizer: 0 } );
 			dispatch( actions.removeOrganizerInBlock( clientId, organizer ) );
 
-			const blocks = globals.wpData.select( 'core/editor' ).getBlocks();
+			const blocks = globals.wpDataSelectCoreEditor.getBlocks();
 			const classicBlock = blocks.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
 
 			if ( ! classicBlock.length || volatile ) {
