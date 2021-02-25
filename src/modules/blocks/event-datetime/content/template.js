@@ -9,7 +9,6 @@ import classNames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { PlainText } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -21,8 +20,9 @@ import {
 	date,
 	moment as momentUtil,
 } from '@moderntribe/common/utils';
-import { editor, settings, wpHooks } from '@moderntribe/common/utils/globals';
+import { editor, settings, wpEditor, wpHooks } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../human-readable-input/container';
+const { PlainText } = wpEditor;
 
 /**
  * Module Code

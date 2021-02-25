@@ -13,11 +13,11 @@ import {
 	PanelBody,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/editor';
 
 /**
  * Internal dependencies
  */
+import { wpEditor } from '@moderntribe/common/utils/globals';
 import {
 	SearchOrCreate,
 	EditLink,
@@ -26,6 +26,7 @@ import OrganizerDetails from './details';
 import OrganizerForm from './form';
 import { Organizer as OrganizerIcon } from '@moderntribe/events/icons';
 import { toFields } from '@moderntribe/events/elements/organizer-form/utils';
+const InspectorControls = wpEditor;
 
 class EventOrganizer extends PureComponent {
 
