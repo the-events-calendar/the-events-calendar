@@ -52,6 +52,8 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		// Saves the instance values to the arguments
 		$this->setup_arguments( $instance );
 
+		$this->setup_sidebar_arguments( $args );
+
 		// Setup the View for the frontend.
 		$this->setup_view( null );
 	}
