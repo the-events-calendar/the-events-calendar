@@ -233,7 +233,7 @@
 .tribe-events-event-meta {
 	display: flex;
 	flex-wrap: wrap;
-	margin: var(--spacer-5) 0 var(--spacer-7);
+	margin: 0 0 var(--spacer-7);
 
 	@media (--viewport-medium) {
 		margin-bottom: var(--spacer-3);
@@ -269,15 +269,26 @@
 		}
 	}
 
-	&.primary + .event-tickets {
+	/* RSVP Block */
+	&.primary + .event-tickets,
+	&.secondary + .event-tickets {
 		margin-top: calc(-1 * var(--spacer-6));
-	}
-
-	&.secondary {
-		margin-top: 0;
-
+		margin-bottom: var(--spacer-7);
+		
 		@media (--viewport-medium) {
-			margin-top: var(--spacer-5);
+			margin-bottom: var(--spacer-8);
+		}
+	}
+	
+	/* Tickets Block */
+	&.primary + .event-tickets + .event-tickets,
+	&.secondary + .event-tickets + .event-tickets {
+		margin-top: calc(-1 * var(--spacer-7));
+		margin-bottom: var(--spacer-1);
+		
+		@media (--viewport-medium) {
+			margin-top: calc(-1 * var(--spacer-8));
+			margin-bottom: var(--spacer-3);
 		}
 	}
 
