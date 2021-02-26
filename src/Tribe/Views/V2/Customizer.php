@@ -703,8 +703,9 @@ class Customizer {
 					.tribe-events-single-event-description a,
 					.tribe-events-single-event-description a:active,
 					.tribe-events-single-event-description a:focus,
-					.tribe-events-single-event-description a:hover {
-						border-bottom-color: <%= global_elements.accent_color %>;
+					.tribe-events-single-event-description a:hover,
+					.tribe-events-content blockquote {
+						border-color: <%= global_elements.accent_color %>;
 					}
 				';
 			}
