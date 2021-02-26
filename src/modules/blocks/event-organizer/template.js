@@ -26,7 +26,7 @@ import OrganizerDetails from './details';
 import OrganizerForm from './form';
 import { Organizer as OrganizerIcon } from '@moderntribe/events/icons';
 import { toFields } from '@moderntribe/events/elements/organizer-form/utils';
-const InspectorControls = wpEditor;
+const { InspectorControls } = wpEditor;
 
 class EventOrganizer extends PureComponent {
 
