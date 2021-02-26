@@ -394,6 +394,11 @@
 			margin-bottom: var(--spacer-3);
 			width: 100%;
 
+			/**
+			 * TODO: This is done specifically for IE11 and because we could not
+			 * touch templates. Use object-fit: cover; in the future if IE11
+			 * support gets dropped or update the HTML template if possible.
+			**/
 			a {
 				display: block;
 				overflow: hidden;
@@ -408,6 +413,11 @@
 				right: 0;
 				top: 50%;
 				transform: translate(-50%, -50%) scale(2);
+				
+				/* Maintain the normal scale for placeholder images */
+				&[src$="tribe-related-events-placeholder.png"] {
+					transform: translate(-50%, -50%) scale(1);
+				}
 			}
 		}
 
