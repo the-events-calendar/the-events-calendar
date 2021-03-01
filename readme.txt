@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.4.0
+Stable tag: 5.5.0
 Tested up to: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.5.0] TBD =
 
 * Fix - correct display order of sticky, featured, and "normal" events on Month View. Adds a class for targeting sticky posts for styling. [TEC-3770]
 
@@ -238,6 +238,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Use filterable attributes for the view more link and text. Add customizer styling for the link. [ECP-568]
 * Tweak - Removed `tribe_events_views_v2_widget_admin_form_{$field_type}_input` from the List Widget admin form in favor of using `Tribe__Template::do_entry_point()` [ECP-486]
 * Tweak - Moved administration templates for List Widget components to Common. [ECP-486]
+* Language - 1 new strings added, 10 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.3.2.1] 2021-02-02 =
 
