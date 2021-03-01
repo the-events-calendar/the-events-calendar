@@ -1,9 +1,10 @@
+/* globals tribe, jQuery */
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
  * @since  4.9.2
  *
- * @type   {PlainObject}
+ * @type   {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +14,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since  4.9.2
  *
- * @type   {PlainObject}
+ * @type   {Object}
  */
 tribe.events.views.manager = {};
 
@@ -22,9 +23,9 @@ tribe.events.views.manager = {};
  *
  * @since  4.9.2
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} _   Underscore.js
- * @param  {PlainObject} obj tribe.events.views.manager
+ * @param  {Object} $   jQuery
+ * @param  {Object} _   Underscore.js
+ * @param  {Object} obj tribe.events.views.manager
  *
  * @return {void}
  */
@@ -37,7 +38,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		container: '[data-js="tribe-events-view"]',
@@ -126,7 +127,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
 	 *
-	 * @param  {integer}        index     jQuery.each index param
+	 * @param  {Integer}        index     jQuery.each index param
 	 * @param  {Element|jQuery} container Which element we are going to setup
 	 *
 	 * @return {void}
@@ -200,7 +201,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {Element|jQuery} element Which element we are using as the container.
+	 * @param  {Element|jQuery} $container Which element we are using as the container.
 	 *
 	 * @return {Boolean}
 	 */
@@ -466,7 +467,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param  {Element|jQuery} $container Which container we are dealing with
 	 *
-	 * @return {PlainObject}
+	 * @return {Object}
 	 */
 	obj.getAjaxSettings = function( $container ) {
 		var ajaxSettings = {
@@ -495,7 +496,7 @@ tribe.events.views.manager = {};
 	 * @since 4.9.2
 	 *
 	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request will be made with
+	 * @param  {Object} settings Settings that this request will be made with
 	 *
 	 * @return {void}
 	 */
@@ -607,7 +608,7 @@ tribe.events.views.manager = {};
 	 * @since 4.9.2
 	 *
 	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request was made with
+	 * @param  {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -628,10 +629,11 @@ tribe.events.views.manager = {};
 	 *
 	 * @since  4.9.12
 	 *
-	 * @return {void}
+	 * @return {jQuery} Which containers were selected.
 	 */
 	obj.selectContainers = function() {
 		obj.$containers = $( obj.selectors.container );
+		return obj.$containers;
 	};
 
 	/**
@@ -639,7 +641,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since  4.9.12
 	 *
-	 * @return {jQuery}
+	 * @return {jQuery} Last container element.
 	 */
 	obj.getLastContainer = function() {
 		/**
@@ -650,7 +652,7 @@ tribe.events.views.manager = {};
 		}
 
 		return obj.$lastContainer;
-	}
+	};
 
 	/**
 	 * Handles the initialization of the manager when Document is ready.
@@ -660,8 +662,7 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		obj.selectContainers();
-		obj.$containers.each( obj.setup );
+		obj.selectContainers().each( obj.setup );
 	};
 
 	// Configure on document ready.
