@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { get, values, noop, pick } from 'lodash';
+import { decode } from 'he';
 
 /**
  * WordPress dependencies
@@ -108,9 +109,11 @@ export default class VenueForm extends Component {
 	}
 
 	renderOption( element ) {
-		return ( <option value={ element.code } key={ element.code }>
-			{ element.name }
-		</option> );
+		return (
+			<option value={ element.code } key={ element.code }>
+				{ decode( element.name ) }
+			</option>
+		);
 	}
 
 	renderCountry() {
