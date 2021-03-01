@@ -279,7 +279,7 @@ tribe_aggregator.fields = {
 		}
 
 		if ( 'object' === typeof tribe_aggregator_save ) {
-			// obj.progress.init();
+			obj.progress.init();
 		}
 	};
 
@@ -1087,6 +1087,10 @@ tribe_aggregator.fields = {
 	};
 
 	obj.progress.start = function () {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
 		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
 		if ( ! obj.progress.hasHeartBeat ) {
 			obj.progress.send_request();
@@ -1095,6 +1099,10 @@ tribe_aggregator.fields = {
 
 	obj.progress.continue = true;
 	$(document).on('heartbeat-send', function (event, data) {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
 		if ( obj.progress.continue ) {
 			data.ea_record = tribe_aggregator_save.record_id;
 		}
@@ -1239,5 +1247,5 @@ tribe_aggregator.fields = {
 	};
 
 	// Run Init on Document Ready
-	$( window ).on( 'load', obj.init );
+	$( obj.init );
 } )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );
