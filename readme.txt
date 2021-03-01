@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.4.0
+Stable tag: 5.5.0
 Tested up to: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,7 +222,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-=[TBD] TBD =
+=[5.5.0] TBD =
+
 * Feature - Add `has_event` and `has_no_events` to the Venue and Organizer ORM so we can filter requests for both by whether they have events or not.
 
 = [5.4.0] 2021-02-24 =
