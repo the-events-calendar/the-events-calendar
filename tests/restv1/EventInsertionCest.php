@@ -3,7 +3,6 @@
 use Step\Restv1\RestGuy as Tester;
 use Tribe__Image__Uploader as Image;
 use Tribe__Timezones as Timezones;
-use Tribe__Date_Utils as Dates;
 
 class EventInsertionCest extends BaseRestCest {
 	/**
@@ -228,17 +227,13 @@ class EventInsertionCest extends BaseRestCest {
 
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$tz = Timezones::build_timezone_object( $timezone );
-
-		$date = Dates::build_date_object( 'tomorrow 9am', $tz );
-		$start_date = Dates::build_date_object( 'tomorrow 11am', $tz );
-		$end_date = Dates::build_date_object( 'tomorrow 9am', $tz );
+		$date = ( new \DateTime( 'tomorrow 9am', new DateTimeZone( $timezone ) ) );
 
 		$params = [
 			'title'      => 'An event title',
-			'start_date' => $start_date->format( 'U' ),
-			'end_date'   => $end_date->format( 'U' ),
-			'date'       => $date->format( 'U' ),
+			'start_date' => 'tomorrow 9am',
+			'end_date'   => 'tomorrow 11am',
+			'date'       => 'tomorrow 9am',
 		];
 
 		$I->sendPOST( $this->events_url, $params );
@@ -246,7 +241,7 @@ class EventInsertionCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 201 );
 
 		$I->seeResponseContainsJson( [
-			'date' => $date->format( Dates::DBDATETIMEFORMAT ),
+			'date' => $date->format( 'Y-m-d H:i:s' ),
 		] );
 	}
 
