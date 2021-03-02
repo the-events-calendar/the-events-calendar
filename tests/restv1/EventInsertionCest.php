@@ -3,8 +3,17 @@
 use Step\Restv1\RestGuy as Tester;
 use Tribe__Image__Uploader as Image;
 use Tribe__Timezones as Timezones;
+use Tribe__Date_Utils as Dates;
 
 class EventInsertionCest extends BaseRestCest {
+	protected static function reformat( $value, $new_format = null, $tz_string = null ) {
+		if ( empty( $new_format ) ) {
+			$new_format = Dates::DBDATETIMEFORMAT;
+		}
+		$tz = Timezones::build_timezone_object( $tz_string );
+		return Dates::build_date_object( $value, $tz )->format( $new_format );
+	}
+
 	/**
 	 * It should return 401 if user cannot insert events
 	 *
@@ -39,8 +48,8 @@ class EventInsertionCest extends BaseRestCest {
 			'slug'        => 'an-event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => static::reformat( $start, null, $timezone ),
+			'end_date'    => static::reformat( $end, null, $timezone ),
 		] );
 
 		$I->seeResponseCodeIs( 201 );
@@ -50,10 +59,10 @@ class EventInsertionCest extends BaseRestCest {
 			'slug'           => 'an-event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
 			'excerpt'        => trim( apply_filters( 'the_excerpt', 'An event excerpt' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => static::reformat( $start, null, $timezone ),
+			'end_date'       => static::reformat( $end, null, $timezone ),
+			'utc_start_date' => static::reformat( $start, null, 'UTC' ),
+			'utc_end_date'   => static::reformat( $end, null, 'UTC' ),
 		] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
