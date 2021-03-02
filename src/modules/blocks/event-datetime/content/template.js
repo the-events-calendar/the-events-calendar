@@ -21,7 +21,7 @@ import {
 	date,
 	moment as momentUtil,
 } from '@moderntribe/common/utils';
-import { editor, settings, wpHooks } from '@moderntribe/common/utils/globals';
+import { settings, wpHooks } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../human-readable-input/container';
 
 /**
@@ -70,29 +70,6 @@ const renderSeparator = ( props, type, className ) => {
 		default:
 			return null;
 	}
-};
-
-const renderPrice = ( { cost, currencyPosition, currencySymbol, setCost } ) => {
-	// Bail when not classic
-	if ( ! editor() || ! editor().isClassic ) {
-		return null;
-	}
-
-	return (
-		<div
-			key="tribe-editor-event-cost"
-			className="tribe-editor__event-cost"
-		>
-			{ 'prefix' === currencyPosition && <span>{ currencySymbol }</span> }
-			<PlainText
-				className={ classNames( 'tribe-editor__event-cost__value', `tribe-editor-cost-symbol-position-${ currencyPosition }` ) }
-				value={ cost }
-				placeholder={ __( 'Enter price', 'the-events-calendar' ) }
-				onChange={ setCost }
-			/>
-			{ 'suffix' === currencyPosition && <span>{ currencySymbol }</span> }
-		</div>
-	);
 };
 
 const renderStartDate = ( { start, end } ) => {
@@ -176,7 +153,6 @@ const renderTimezone = ( props ) => {
 const renderExtras = ( props ) => (
 	<Fragment>
 		{ renderTimezone( props ) }
-		{ renderPrice( props ) }
 	</Fragment>
 );
 
