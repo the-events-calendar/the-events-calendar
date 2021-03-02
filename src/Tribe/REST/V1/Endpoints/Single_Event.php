@@ -544,20 +544,11 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	protected function prepare_postarr( WP_REST_Request $request ) {
 		$events_cat            = Tribe__Events__Main::TAXONOMY;
 
-		$tz = Tribe__Timezones::build_timezone_object( empty( $request['timezone'] ) ? null : $request['timezone'] );
-		$tz_utc = Tribe__Timezones::build_timezone_object( 'UTC' );
-		$reformat = static function( $value, $new_format ) use ( $tz ) {
-			return Tribe__Date_Utils::build_date_object( $value, $tz )->format( $new_format );
-		};
-		$reformat_utc = static function( $value, $new_format ) use ( $tz_utc ) {
-			return Tribe__Date_Utils::build_date_object( $value, $tz_utc )->format( $new_format );
-		};
-
 		$post_date     = isset( $request['date'] )
-			? $reformat( $request['date'], 'Y-m-d H:i:s' )
+			? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' )
 			: false;
 		$post_date_gmt = isset( $request['date_utc'] )
-			? $reformat_utc( $request['date_utc'], 'Y-m-d H:i:s' )
+			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
 			: false;
 
 		$postarr = [
@@ -573,10 +564,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Event data
 			'EventTimezone'         => $request['timezone'],
 			'EventAllDay'           => isset( $request['all_day'] ) ? tribe_is_truthy( $request['all_day'] ) : null,
-			'EventStartDate'        => $request['start_date'] ? $reformat( $request['start_date'], 'Y-m-d' ) : null,
-			'EventStartTime'        => $request['start_date'] ? $reformat( $request['start_date'], 'H:i:s' ) : null,
-			'EventEndDate'          => $request['end_date'] ? $reformat( $request['end_date'], 'Y-m-d' ) : null,
-			'EventEndTime'          => $request['end_date'] ? $reformat( $request['end_date'], 'H:i:s' ) : null,
+			'EventStartDate'        => $request['start_date'] ? Tribe__Date_Utils::reformat( $request['start_date'], 'Y-m-d' ) : null,
+			'EventStartTime'        => $request['start_date'] ? Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ) : null,
+			'EventEndDate'          => $request['end_date'] ? Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ) : null,
+			'EventEndTime'          => $request['end_date'] ? Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ) : null,
 			'FeaturedImage'         => tribe_upload_image( $request['image'] ),
 			'EventCost'             => $request['cost'],
 			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
