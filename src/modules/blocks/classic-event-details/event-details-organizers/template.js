@@ -9,7 +9,7 @@ import classNames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Dropdown, IconButton, Dashicon } from '@wordpress/components';
+import { Dropdown, Dashicon } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -17,6 +17,7 @@ import { Dropdown, IconButton, Dashicon } from '@wordpress/components';
 import { OrganizerForm, SearchPosts } from '@moderntribe/events/elements';
 import EventDetailsOrganizer from './event-details-organizer/container';
 import { editor } from '@moderntribe/common/data';
+import { IconButton } from '@moderntribe/common/utils/globals';
 
 const EventDetailsOrganizers = ( props ) => {
 	const renderDropdownToggle = ( { onToggle } ) => (
