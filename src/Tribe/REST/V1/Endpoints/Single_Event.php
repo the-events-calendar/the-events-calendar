@@ -545,15 +545,19 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$events_cat            = Tribe__Events__Main::TAXONOMY;
 
 		$tz = Tribe__Timezones::build_timezone_object( empty( $request['timezone'] ) ? null : $request['timezone'] );
+		$tz_utc = Tribe__Timezones::build_timezone_object( 'UTC' );
 		$reformat = static function( $value, $new_format ) use ( $tz ) {
 			return Tribe__Date_Utils::build_date_object( $value, $tz )->format( $new_format );
+		};
+		$reformat_utc = static function( $value, $new_format ) use ( $tz_utc ) {
+			return Tribe__Date_Utils::build_date_object( $value, $tz_utc )->format( $new_format );
 		};
 
 		$post_date     = isset( $request['date'] )
 			? $reformat( $request['date'], 'Y-m-d H:i:s' )
 			: false;
 		$post_date_gmt = isset( $request['date_utc'] )
-			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
+			? $reformat_utc( $request['date_utc'], 'Y-m-d H:i:s' )
 			: false;
 
 		$postarr = [
