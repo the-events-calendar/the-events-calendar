@@ -155,7 +155,7 @@ export const onBlocksChangeListener = ( selector ) => {
 const subscribe = () => {
 	globals.wpData.subscribe(
 		onBlocksChangeListener(
-			globals.wpData.select( 'core/editor' ).getBlocks
+			globals.wpDataSelectCoreEditor().getBlocks
 		)
 	);
 };
