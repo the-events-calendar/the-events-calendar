@@ -132,6 +132,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Register the asset for Customizer controls.
 		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
+		
+		// Add filter to change the display of website links on the Single Event template.
+		add_filter( 'tribe_events_single_event_details_website_label', [ $this, 'filter_single_event_details_website_label' ], 10, 2 );
 	}
 
 	/**
@@ -941,5 +944,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function enqueue_customizer_controls_styles() {
 		return $this->container->make( Customizer::class )->enqueue_customizer_controls_styles();
+	}
+	
+	/**
+	 * Filter the website link label and change it for Single Event Classic Editor
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string $label The filtered label.
+	 */
+	public function filter_single_event_details_website_label( $label ) {
+		// If not V2 or not Classic Editor, return the website url.
+		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( get_queried_object_id() ) ) {
+			return $label;
+		}
+		
+		return esc_html__( 'View', 'the-events-calendar' );
 	}
 }
