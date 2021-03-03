@@ -97,9 +97,9 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 		],
 		'ical-info'                     => [
-			'type'             => 'html',
-			'display_callback' => ( function_exists( 'tribe_get_ical_link' ) ) ? '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . esc_html__( 'Here is the iCal feed URL for your events:', 'the-events-calendar' ) . ' <code>' . tribe_get_ical_link() . '</code></p>' : '',
-			'conditional'      => function_exists( 'tribe_get_ical_link' ),
+			'type'        => 'html',
+			'html'        => ( function_exists( 'tribe_get_ical_link' ) ) ? '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . esc_html__( 'Here is the iCal feed URL for your events:', 'the-events-calendar' ) . ' <code>' . tribe_get_ical_link() . '</code></p>' : '',
+			'conditional' => function_exists( 'tribe_get_ical_link' ),
 		],
 		'singleEventSlug'               => [
 			'type'            => 'text',
