@@ -134,7 +134,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
 		
 		// Add filter to change the display of website links on the Single Event template.
-		add_filter( 'tribe_events_single_event_details_website_label', [ $this, 'filter_single_event_details_website_label' ], 10, 2 );
+		add_filter( 'tribe_get_venue_website_link_label', [ $this, 'filter_single_event_details_website_label' ], 10, 2 );
 	}
 
 	/**
@@ -947,18 +947,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 	
 	/**
-	 * Filter the website link label and change it for Single Event Classic Editor
+	 * Filter the website link label and change it for Single Event Classic Editor.
+	 * Use the following in functions.php to disable:
+	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );
 	 * 
 	 * @since TBD
 	 * 
-	 * @param string $label The filtered label.
+	 * @param string     $label The filtered label.
+	 * @param string|int $post_id The current post ID.
+	 * 
+	 * @return string
 	 */
-	public function filter_single_event_details_website_label( $label ) {
+	public function filter_single_event_details_website_label( $label, $post_id ) {
 		// If not V2 or not Classic Editor, return the website url.
-		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( get_queried_object_id() ) ) {
+		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( $post_id ) ) {
 			return $label;
 		}
 		
-		return esc_html__( 'View', 'the-events-calendar' );
+		return __( 'View', 'the-events-calendar' );
 	}
 }

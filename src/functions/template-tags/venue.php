@@ -760,17 +760,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $url, $post_id );
 			$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
-			
-			/**
-			 * Filter the organizer link label.
-			 * 
-			 * @since TBD
-			 * 
-			 * @param string $label The string to show instead of the full url.
-			 */
-			if ( apply_filters( 'tribe_events_single_event_details_website_label', true ) ) {
-				$label = apply_filters( 'tribe_events_single_event_details_website_label', esc_html( $label ) );
-			};
 
 			/**
 			 * Allows customization of a venue's website link label.
