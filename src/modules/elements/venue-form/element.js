@@ -9,7 +9,6 @@ import { get, values, noop, pick } from 'lodash';
 import { __ } from '@wordpress/i18n';
 import { select } from '@wordpress/data';
 import { Component } from '@wordpress/element';
-import { RichText } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -17,8 +16,9 @@ import { RichText } from '@wordpress/editor';
 import { Input } from '@moderntribe/events/elements';
 import list, { getCountries, getStates, getCountryCode, getStateCode } from '@moderntribe/events/editor/utils/geo-data';
 import { setDefault, getVenueCountry, getVenueStateProvince } from '@moderntribe/events/data/blocks/venue/utils';
-import { editorDefaults } from '@moderntribe/common/utils/globals';
+import { editorDefaults, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+const { RichText } = wpEditor;
 
 export function toFields( venue ) {
 	const title = get( venue, 'title', {} );
