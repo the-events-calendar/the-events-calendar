@@ -49,6 +49,16 @@
 	}
 }
 
+/* Notices block (e.g. "This event has passed") */
+.tribe-events-notices {
+	margin-bottom: var(--spacer-4);
+	padding-bottom: var(--spacer-2);
+	
+	ul {
+		margin: 0;
+	}
+}
+
 /* Event title */
 .tribe-events-single-event-title {
 	margin: 0;
@@ -247,6 +257,10 @@
 	dd {
 		margin: 0 0 var(--spacer-0) 0;
 		padding: 0;
+	}
+	
+	dt:not(:first-child) {
+		margin-top: var(--spacer-3);
 	}
 
 	.tribe-events-address {

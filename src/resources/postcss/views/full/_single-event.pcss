@@ -30,6 +30,18 @@
 	}
 }
 
+/* Notices block (e.g. "This event has passed") */
+.tribe-events-notices {
+	box-shadow: none;
+	border-bottom: 1px solid var(--color-border-secondary);
+	
+	ul {
+		list-style: none;
+		text-align: left;
+		text-transform: none;
+	}
+}
+
 /* Event title */
 .tribe-events-single-event-title {
 	@mixin heading;
@@ -248,7 +260,7 @@
 	.tribe-events-single-section-title {
 		color: var(--color-text-primary);
 		font-size: 15px;
-		font-weight: 500;
+		font-weight: var(--font-weight-bold);
 		letter-spacing: 1px;
 		text-transform: uppercase;
 	}
