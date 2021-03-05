@@ -72,7 +72,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	toggleDashboardDateTime: () => {
 		// there may be a better way to do this, but for now there's no way to access context
 		// outside of the provider.
-		const blocks = globals.wpData.select( 'core/editor' ).getBlocks();
+		const blocks = globals.wpDataSelectCoreEditor().getBlocks();
 
 		const filteredBlocks = blocks.filter( ( block ) => {
 			return block.name === `tribe/${ dateTimeBlock.id }`;
