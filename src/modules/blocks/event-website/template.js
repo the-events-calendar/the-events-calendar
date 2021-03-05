@@ -10,13 +10,14 @@ import AutosizeInput from 'react-input-autosize';
  * WordPress dependencies
  */
 import { Dashicon } from '@wordpress/components';
-import { URLInput } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
+import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+const { URLInput } = wpEditor;
 
 /**
  * Module Code
