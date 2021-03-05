@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.5.0] TBD =
 
+* Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
 
 
 = [5.4.0] 2021-02-24 =
