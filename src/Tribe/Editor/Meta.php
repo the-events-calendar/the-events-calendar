@@ -118,7 +118,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * @return bool
 	 */
 	public function filter_allow_meta_delete_non_existent_key( $delete, $object_id, $meta_key, $meta_value, $delete_all ) {
-		if ( ! function_exists( 'wp_is_json_request' ) || ! wp_is_json_request() ) {
+		if ( ! empty( $meta_value ) ) {
 			return $delete;
 		}
 
@@ -131,7 +131,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			return $delete;
 		}
 
-		if ( ! empty( $meta_value ) ) {
+		if ( ! function_exists( 'wp_is_json_request' ) || ! wp_is_json_request() ) {
 			return $delete;
 		}
 
