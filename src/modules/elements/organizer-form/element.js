@@ -78,11 +78,11 @@ class OrganizerForm extends Component {
 	}
 
 	updateOrganizer( toSend ) {
-		const basePath = wp.api.getPostTypeRoute( this.props.postType );
+		const basePath = this.props.postType;
 		const request = wp.apiRequest( {
 			path: `/wp/v2/${ basePath }`,
 			method: 'POST',
-			body: JSON.stringify( toSend ),
+			data: toSend,
 		} );
 
 		// Set the organizer state
@@ -93,7 +93,7 @@ class OrganizerForm extends Component {
 				console.warning( 'Invalid creation of organizer:', newPost );
 			}
 
-			this.props.addOrganizer( newPost );
+			this.props.addOrganizer( newPost.id, newPost );
 			this.props.onClose();
 		} ).fail( ( err ) => {
 			console.error( err );
