@@ -39,16 +39,9 @@ describe( 'OrganizerForm', () => {
 			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
 		);
 		component.setState( state );
-		// const spy = jest.spyOn( component.instance(), 'updateOrganizer' );
 		const spyRequest = jest.spyOn( wp, 'apiRequest' );
-		// const spyConsole = jest.spyOn( console, 'warning' );
-		// component.instance().forceUpdate();
 		const button = component.find( '.button-secondary' );
 		button.simulate( 'click' );
-		// expect( spy ).not.toHaveReturned();
 		expect( spyRequest ).toHaveBeenCalledWith( payload );
-		// expect( spyConsole ).toHaveBeenCalled();
-		// expect( updateOrganizer ).toHaveBeenCalledTimes( 1 );
-		// expect( addOrganizer ).toHaveBeenCalledTimes( 1 );
 	} );
 } );
