@@ -43,7 +43,9 @@ $website = tribe_get_venue_website_link();
 		<?php endif ?>
 
 		<?php if ( ! empty( $website ) ): ?>
-			<dt class="tribe-venue-url-label"> <?php esc_html_e( 'Website:', 'the-events-calendar' ) ?> </dt>
+			<?php if ( ! has_filter( 'tribe_get_venue_website_link_label' ) ): ?>
+				<dt class="tribe-venue-url-label"> <?php esc_html_e( 'Website:', 'the-events-calendar' ) ?> </dt>
+			<?php endif ?>
 			<dd class="tribe-venue-url"> <?php echo $website ?> </dd>
 		<?php endif ?>
 

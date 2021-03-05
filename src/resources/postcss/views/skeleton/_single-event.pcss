@@ -248,6 +248,15 @@
 		margin: 0 0 var(--spacer-0) 0;
 		padding: 0;
 	}
+	
+	dt:not(:first-child),
+	dd[class$="url"] {
+		margin-top: var(--spacer-3);
+	}
+	
+	dt[class*="url"] + dd {
+		margin-top: 0;
+	}
 
 	.tribe-events-address {
 		margin: 0;
