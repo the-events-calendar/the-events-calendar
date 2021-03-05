@@ -9,7 +9,6 @@ import AutosizeInput from 'react-input-autosize';
  * WordPress dependencies
  */
 import { PanelBody, ToggleControl } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -17,7 +16,9 @@ import { __ } from '@wordpress/i18n';
  */
 import { Link as LinkIcon } from '@moderntribe/events/icons';
 import { input } from '@moderntribe/common/utils';
+import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+const { InspectorControls } = wpEditor;
 
 /**
  * Module Code

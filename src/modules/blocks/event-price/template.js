@@ -14,7 +14,6 @@ import {
 	TextControl,
 	PanelBody,
 } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -22,6 +21,8 @@ import { InspectorControls } from '@wordpress/editor';
 import { Dashboard } from '@moderntribe/events/elements';
 import { range } from '@moderntribe/common/utils';
 import './style.pcss';
+import { wpEditor } from '@moderntribe/common/utils/globals';
+const { InspectorControls } = wpEditor;
 
 /**
  * Module Code
