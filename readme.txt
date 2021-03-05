@@ -225,7 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.5.0] TBD =
 
 * Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
-
+* Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
 
 = [5.4.0] 2021-02-24 =
 
