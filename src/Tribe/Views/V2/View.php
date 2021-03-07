@@ -2170,7 +2170,7 @@ class View implements View_Interface {
 		 * @param string               $view_slug The current view slug.
 		 * @param View                 $instance  The current View object.
 		 */
-		$data = apply_filters( 'tribe_events_views_v2_view_data', [], $this->get_slug(), $this );
+		$data = apply_filters( 'tribe_events_views_v2_view_container_data', [], $this->get_slug(), $this );
 
 		/**
 		 * Filters the data for a specific View top-level container.
@@ -2180,7 +2180,7 @@ class View implements View_Interface {
 		 * @param array<string,string> $data     Associative array of data for the View top-level container.
 		 * @param View                 $instance The current View object.
 		 */
-		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_data", $data, $this );
+		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_container_data", $data, $this );
 
 		return $data;
 	}
