@@ -375,7 +375,7 @@ class Month_View extends By_Day_View {
 				}
 			);
 
-			 if ( $events_per_day > - 1 ) {
+			 if ( $events_per_day > -1 ) {
 				$the_day_events = array_slice( array_filter( $the_day_events ), 0, $events_per_day );
 			}
 

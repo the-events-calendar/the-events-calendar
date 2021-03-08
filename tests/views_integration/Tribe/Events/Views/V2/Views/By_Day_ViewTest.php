@@ -22,10 +22,8 @@ class By_Day_ViewTest extends ViewTestCase {
 						'2019-10-27' => [],
 						// Back-filled here.
 						'2019-10-28' => array_merge( $events['2019-10-28'], [ $md_event ] ),
-						// Here it appears first.
-						'2019-10-29' => [ $md_event, $events['2019-10-29'][0] ],
-						// Here it appears first.
-						'2019-10-30' => [ $md_event, $events['2019-10-30'][0] ],
+						'2019-10-29' => array_merge( $events['2019-10-29'], [ $md_event ] ),
+						'2019-10-30' => array_merge( $events['2019-10-30'], [ $md_event ] ),
 					];
 
 					return $map[ $date ];
@@ -37,9 +35,10 @@ class By_Day_ViewTest extends ViewTestCase {
 			static function ( $date, array $events, $md_event ) {
 				$map = [
 					'2019-10-27' => $events['2019-10-27'],
+					// Back-filled here.
 					'2019-10-28' => [ $md_event ],
-					'2019-10-29' => [ $md_event, $events['2019-10-29'][0] ],
-					'2019-10-30' => [ $md_event, $events['2019-10-30'][0] ],
+					'2019-10-29' => array_merge( $events['2019-10-29'], [ $md_event ] ),
+					'2019-10-30' => array_merge( $events['2019-10-30'], [ $md_event ] ),
 				];
 
 				return $map[ $date ];
@@ -52,9 +51,9 @@ class By_Day_ViewTest extends ViewTestCase {
 				$map = [
 					'2019-10-27' => $events['2019-10-27'],
 					// Back-filled here.
-					'2019-10-28' => array_merge( $events['2019-10-28'], [ $md_event ]),
+					'2019-10-28' => array_merge( $events['2019-10-28'], [ $md_event ] ),
 					'2019-10-29' => [ $md_event ],
-					'2019-10-30' => [ $md_event, $events['2019-10-30'][0] ],
+					'2019-10-30' => array_merge( $events['2019-10-30'], [ $md_event ] ),
 				];
 
 				return $map[ $date ];
@@ -68,7 +67,7 @@ class By_Day_ViewTest extends ViewTestCase {
 					'2019-10-27' => $events['2019-10-27'],
 					// Back-filled here.
 					'2019-10-28' => array_merge( $events['2019-10-28'], [ $md_event ] ),
-					'2019-10-29' => [ $md_event, $events['2019-10-29'][0] ],
+					'2019-10-29' => array_merge( $events['2019-10-29'], [ $md_event ] ),
 					'2019-10-30' => [ $md_event ],
 				];
 
@@ -83,8 +82,8 @@ class By_Day_ViewTest extends ViewTestCase {
 					'2019-10-27' => $events['2019-10-27'],
 					// Back-filled here.
 					'2019-10-28' => array_merge( $events['2019-10-28'], [ $md_event ] ),
-					'2019-10-29' => [ $md_event, $events['2019-10-29'][0] ],
-					'2019-10-30' => [ $md_event, $events['2019-10-30'][0] ],
+					'2019-10-29' => array_merge( $events['2019-10-29'], [ $md_event ] ),
+					'2019-10-30' => array_merge( $events['2019-10-30'], [ $md_event ] ),
 				];
 
 				return $map[ $date ];
@@ -95,8 +94,9 @@ class By_Day_ViewTest extends ViewTestCase {
 	/**
 	 * It should correctly back-fill multi-day events
 	 *
-	 * The 2 events per day, given the 2 events per day limit, will "push" the multi-day event, on its first day,
-	 * out.
+	 * The 2 events per day, given the 2 events per day limit, will add the multi-day event to the correct days.
+	 * Multi-day events are not trimmed in get_grid_days(), and the limit doesn't apply to the the same way,
+	 * so they'll just be added to the list(s).
 	 *
 	 * @test
 	 * @dataProvider multi_day_backfill_data_set
@@ -132,7 +132,7 @@ class By_Day_ViewTest extends ViewTestCase {
 		foreach ( $period as $day ) {
 			$day_string = $day->format( Dates::DBDATEFORMAT );
 			$this->assertArrayHasKey( $day_string, $grid_days );
-			$this->assertEquals(
+			$this->assertEqualsCanonicalizing(
 				$expected[ $day_string ],
 				$grid_days[ $day_string ],
 				'Days on day ' . $day_string . ' do not match expectation.'
