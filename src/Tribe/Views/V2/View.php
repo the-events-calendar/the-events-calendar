@@ -259,6 +259,7 @@ class View implements View_Interface {
 		}
 
 		$slug = Arr::get( $params, 'view', false );
+
 		// Convert the URL to lowercase to make sure the rewrite rules, all lowercase, will match it.
 		$url        = Arr::get( $params, 'url' );
 		$url_object = Url::from_url_and_params( $url, $params );
@@ -270,6 +271,17 @@ class View implements View_Interface {
 		}
 
 		$params = array_merge( $params, $url_object->get_query_args() );
+
+		/**
+		 * Run an action before we start making a new View instance for rest requests.
+		 *
+		 * @since  TBD
+		 *
+		 * @param  string            $slug    The current view Slug.
+		 * @param  array             $params  Params so far that will be used to build this view.
+		 * @param  \WP_REST_Request  $request The rest request that generated this call.
+		 */
+		do_action( 'tribe_events_views_v2_before_make_view_for_rest', $slug, $params, $request );
 
 		// Let View data override any other data.
 		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
@@ -335,7 +347,6 @@ class View implements View_Interface {
 			$params = apply_filters( "tribe_events_views_v2_{$slug}_rest_params", $params, $request );
 		}
 
-
 		// Determine context based on the request parameters.
 		$do_not_override = [ 'event_display_mode' ];
 		$not_overridable_params = array_intersect_key( $params, array_combine( $do_not_override, $do_not_override ) );
@@ -355,6 +366,16 @@ class View implements View_Interface {
 
 		// Setup whether this view should manage URL or not, based on the Rest Request Sent.
 		$view->should_manage_url = tribe_is_truthy( Arr::get( $params, 'should_manage_url', true ) );
+
+		/**
+		 * Run an action after we finish making a new View instance for rest requests.
+		 *
+		 * @since  TBD
+		 *
+		 * @param  View              $view    The current view Slug.
+		 * @param  \WP_REST_Request  $request Request that generated this view.
+		 */
+		do_action( 'tribe_events_views_v2_after_make_view_for_rest', $view, $request );
 
 		return $view;
 	}
