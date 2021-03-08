@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.5.0] TBD =
 
+* Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
 *  Tweak - Add the `tribe_events_views_v2_by_day_view_grid_days` and `tribe_events_views_v2_by_day_view_day_results` filters to the `By_Day_View` class to allow the injection and replacement of the per-day results in Month and Week Views.
 
 = [5.4.0] 2021-02-24 =
