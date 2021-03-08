@@ -108,9 +108,11 @@ export default class VenueForm extends Component {
 	}
 
 	renderOption( element ) {
-		return ( <option value={ element.code } key={ element.code }>
-			{ element.name }
-		</option> );
+		return (
+			<option value={ element.code } key={ element.code }>
+				{ element.name }
+			</option>
+		);
 	}
 
 	renderCountry() {
