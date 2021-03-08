@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.5.0] TBD =
 
 * Fix - correct display order of sticky, featured, and "normal" events on Month View. Adds a class for targeting sticky posts for styling. [TEC-3770]
+* Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
 
 = [5.4.0] 2021-02-24 =
 
