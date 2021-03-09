@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.5.0] TBD =
 
 * Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
+* Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
 
 = [5.4.0] 2021-02-24 =
 
