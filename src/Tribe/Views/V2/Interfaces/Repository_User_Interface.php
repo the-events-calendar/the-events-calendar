@@ -33,7 +33,7 @@ interface Repository_User_Interface {
 	 *
 	 * @since 4.9.3
 	 *
-	 * @return Repository|null The repository instance used by the instance or `null` if the instance is not using a
+	 * @return Repository The repository instance used by the instance or `null` if the instance is not using a
 	 *                         repository.
 	 */
 	public function get_repository(  );
