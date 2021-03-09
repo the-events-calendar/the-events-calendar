@@ -14,16 +14,7 @@ global.jQuery = $;
 global.$ = $;
 global.wp = {
 	element: React,
-	apiRequest: () => ( {
-		done( fn ) {
-			fn( {} );
-			return this;
-		},
-		fail( fn ) {
-			fn( 'Error' );
-			return this;
-		},
-	} ),
+	apiRequest: () => $.Deferred(),
 	editor: {},
 	components: {},
 };
