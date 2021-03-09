@@ -30,6 +30,18 @@
 	}
 }
 
+/* Notices block (e.g. "This event has passed") */
+.tribe-events-notices {
+	box-shadow: none;
+	border-bottom: 1px solid var(--color-border-secondary);
+	
+	ul {
+		list-style: none;
+		text-align: left;
+		text-transform: none;
+	}
+}
+
 /* Event title */
 .tribe-events-single-event-title {
 	@mixin heading;
@@ -127,10 +139,6 @@
 		text-transform: none;
 	}
 
-	h2 {
-		@mixin mobile-heading-3;
-	}
-
 	p,
 	ul,
 	ol {
@@ -153,11 +161,26 @@
 	}
 
 	a {
-		@mixin anchor-thin;
+		@mixin anchor-thin-alt;
+		text-decoration: none;
 	}
 
 	pre {
-		background-color: var(--color-border-secondary);
+		background-color: var(--color-background-secondary-transparent);
+		font-size: var(--font-size-3);
+		line-height: var(--line-height-3);
+	}
+	
+	blockquote {
+		quotes: auto;
+		
+		&:before {
+			content: open-quote;
+		}
+		
+		&:after {
+			content: close-quote;
+		}
 	}
 }
 
@@ -209,6 +232,8 @@
 		line-height: 26px;
 	}
 
+	/* TODO: move .event-tickets declaration to ET in the future if still needed,
+	/* depending on template updates */
 	&:before,
 	& ~ div:not(.tribe-events-event-meta, .event-tickets) {
 		border-top: 1px solid var(--color-border-secondary);
@@ -231,11 +256,10 @@
 .tribe-events-meta-group {
 
 	.tribe-events-single-section-title {
-		@mixin heading;
-		@mixin heading-8;
-
-		color: var(--color-text-primary-light);
-		font-weight: var(--font-weight-regular);
+		color: var(--color-text-primary);
+		font-size: var(--font-size-2);
+		font-weight: var(--font-weight-bold);
+		letter-spacing: 1px;
 		text-transform: uppercase;
 	}
 

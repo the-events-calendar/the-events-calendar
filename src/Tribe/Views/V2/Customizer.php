@@ -680,7 +680,10 @@ class Customizer {
 					.tribe-events-event-meta a:visited,
 					.tribe-events-schedule .recurringinfo a,
 					.tribe-related-event-info .recurringinfo a,
-					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a {
+					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a,
+					.tribe-events-single-event-description a:active,
+					.tribe-events-single-event-description a:focus,
+					.tribe-events-single-event-description a:hover {
 						color: <%= global_elements.accent_color %>;
 					}
 					
@@ -697,6 +700,14 @@ class Customizer {
 					.tribe-events-virtual-link-button:focus,
 					.tribe-events-virtual-link-button:hover {
 						background-color: ' . $accent_color_hover . ';
+					}
+					
+					.tribe-events-single-event-description a,
+					.tribe-events-single-event-description a:active,
+					.tribe-events-single-event-description a:focus,
+					.tribe-events-single-event-description a:hover,
+					.tribe-events-content blockquote {
+						border-color: <%= global_elements.accent_color %>;
 					}
 				';
 			}

@@ -49,6 +49,16 @@
 	}
 }
 
+/* Notices block (e.g. "This event has passed") */
+.tribe-events-notices {
+	margin-bottom: var(--spacer-4);
+	padding-bottom: var(--spacer-2);
+	
+	ul {
+		margin: 0;
+	}
+}
+
 /* Event title */
 .tribe-events-single-event-title {
 	margin: 0;
@@ -63,9 +73,9 @@
 	margin: var(--spacer-1) 0 var(--spacer-4);
 
 	@media (--viewport-medium) {
+		margin: var(--spacer-5) 0 var(--spacer-7);
 		align-items: baseline;
 		flex-wrap: nowrap;
-		margin: var(--spacer-4) 0 var(--spacer-7);
 	}
 }
 
@@ -165,15 +175,8 @@
 
 /* Description Block */
 .tribe-events-content {
-
-	h2 {
-		margin-bottom: var(--spacer-1);
-
-		@media (--viewport-medium) {
-			margin-bottom: var(--spacer-2);
-		}
-	}
-
+	
+	h2,
 	h3,
 	h4,
 	h5,
@@ -184,7 +187,11 @@
 	p,
 	ul,
 	ol {
-		margin-bottom: var(--spacer-6);
+		margin-bottom: var(--spacer-3);
+		
+		&:last-child {
+			margin-bottom: var(--spacer-6);
+		}
 	}
 
 	ul,
@@ -193,10 +200,12 @@
 	}
 
 	pre {
-		font-size: var(--font-size-3);
-		line-height: var(--line-height-3);
 		margin-bottom: var(--spacer-5);
 		padding: var(--spacer-5);
+	}
+	
+	blockquote p {
+		display: inline-block;
 	}
 }
 
@@ -218,6 +227,7 @@
 
 	.tribe-events-gcal,
 	.tribe-events-ical {
+		display: inline-block;
 		padding-left: var(--spacer-7);
 	}
 }
@@ -226,16 +236,24 @@
 .tribe-events-event-meta {
 	display: flex;
 	flex-wrap: wrap;
-	margin: var(--spacer-5) 0 var(--spacer-7);
+	margin: 0 0 var(--spacer-7);
 
 	@media (--viewport-medium) {
 		margin-bottom: var(--spacer-3);
+	}
+	
+	dl {
+		margin-top: var(--spacer-1);
 	}
 
 	dt,
 	dd {
 		margin: 0 0 var(--spacer-0) 0;
 		padding: 0;
+	}
+	
+	dt:not(:first-child) {
+		margin-top: var(--spacer-3);
 	}
 
 	.tribe-events-address {
@@ -258,15 +276,28 @@
 		}
 	}
 
-	&.primary + .event-tickets {
+	/* RSVP Block */
+	/* TODO: move to ET in the future if still needed, depending on template updates */
+	&.primary + .event-tickets,
+	&.secondary + .event-tickets {
 		margin-top: calc(-1 * var(--spacer-6));
-	}
-
-	&.secondary {
-		margin-top: 0;
-
+		margin-bottom: var(--spacer-7);
+		
 		@media (--viewport-medium) {
-			margin-top: var(--spacer-5);
+			margin-bottom: var(--spacer-8);
+		}
+	}
+	
+	/* Tickets Block */
+	/* TODO: move to ET in the future if still needed, depending on template updates */
+	&.primary + .event-tickets + .event-tickets,
+	&.secondary + .event-tickets + .event-tickets {
+		margin-top: calc(-1 * var(--spacer-7));
+		margin-bottom: var(--spacer-1);
+		
+		@media (--viewport-medium) {
+			margin-top: calc(-1 * var(--spacer-8));
+			margin-bottom: var(--spacer-3);
 		}
 	}
 
@@ -337,6 +368,7 @@
 	& > div,
 	& > iframe {
 		max-height: 241px;
+		margin-bottom: 0;
 
 		@media (--viewport-medium) {
 			max-height: 211px;
@@ -370,7 +402,7 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		margin-bottom: var(--spacer-7);
+		margin-bottom: var(--spacer-6);
 		padding: 0;
 		width: auto;
 
@@ -382,8 +414,30 @@
 			margin-bottom: var(--spacer-3);
 			width: 100%;
 
+			/**
+			 * TODO: This is done specifically for IE11 and because we could not
+			 * touch templates. Use object-fit: cover; in the future if IE11
+			 * support gets dropped or update the HTML template if possible.
+			**/
 			a {
 				display: block;
+				overflow: hidden;
+				padding-top: 75%; /* 4:3 aspect ratio */
+				position: relative;
+			}
+			
+			img {
+				bottom: 0;
+				left: 50%;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				transform: translate(-50%, -50%) scale(2);
+				
+				/* Maintain the normal scale for placeholder images */
+				&[src$="tribe-related-events-placeholder.png"] {
+					transform: translate(-50%, -50%) scale(1);
+				}
 			}
 		}
 
@@ -395,11 +449,23 @@
 			width: 100%;
 
 			.tribe-event-date-start {
-				margin: var(--spacer-0) 0;
+				margin: var(--spacer-0) var(--spacer-0) var(--spacer-2) 0;
+			}
+			
+			.tribe-event-time {
+				margin-left: var(--spacer-0);
 			}
 
 			.recurringinfo {
-				margin: 0 0 0 var(--spacer-1);
+				margin: 0 var(--spacer-1) var(--spacer-2) 0;
+			}
+			
+			.timezone {
+				margin-left: var(--spacer-0);
+			}
+			
+			span:last-of-type {
+				margin-right: var(--spacer-1);
 			}
 		}
 
@@ -537,6 +603,7 @@
 		padding-right: 0;
 		position: relative;
 
+		/* TODO: move to ET in the future if still needed, depending on template updates */
 		& > .event-tickets {
 			width: 100%;
 		}
