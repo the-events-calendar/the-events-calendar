@@ -124,7 +124,9 @@ tribe_aggregator.fields = {
 		obj.importType = $( '#tribe-ea-field-url_import_type' );
 		obj.urlImport = {
 			startDate: $( '#tribe-ea-field-url_start' ),
-			originalMinDate: $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '',
+			originalMinDate: function() {
+				return $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '';
+			},
 		};
 
 		// Setup each type of field
@@ -867,7 +869,7 @@ tribe_aggregator.fields = {
 
 		$( '.dataTables_scrollBody' ).find( '[name^="aggregator[column_map]"]' ).remove();
 
-		obj.$.form.submit();
+		obj.$.form.trigger( 'submit' );
 	};
 
 	/**
@@ -1085,6 +1087,10 @@ tribe_aggregator.fields = {
 	};
 
 	obj.progress.start = function () {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
 		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
 		if ( ! obj.progress.hasHeartBeat ) {
 			obj.progress.send_request();
@@ -1093,6 +1099,10 @@ tribe_aggregator.fields = {
 
 	obj.progress.continue = true;
 	$(document).on('heartbeat-send', function (event, data) {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
 		if ( obj.progress.continue ) {
 			data.ea_record = tribe_aggregator_save.record_id;
 		}
@@ -1237,5 +1247,5 @@ tribe_aggregator.fields = {
 	};
 
 	// Run Init on Document Ready
-	$( document ).ready( obj.init );
+	$( obj.init );
 } )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );

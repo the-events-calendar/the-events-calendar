@@ -114,7 +114,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	/**
 	 * Action to reply every time a heart beat is executed to send the progress of EA if an EA record is present.
 	 *
-	 * @since TBD Change the method signature to be a little bit less aggressive with enforcing types.
+	 * @since 5.4.0 Change the method signature to be a little bit less aggressive with enforcing types.
 	 *
 	 * @param array<string, mixed> $response The current response object.
 	 * @param array<string, mixed> $data     An array with the data from the client.

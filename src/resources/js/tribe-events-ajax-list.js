@@ -16,7 +16,7 @@
 	 * dbug = tribe_debug
 	 */
 
-	$( document ).ready( function() {
+	$( function() {
 
 		var tribe_is_paged = tf.get_url_param( 'tribe_paged' ),
 			$venue_view = $( '#tribe-events > .tribe-events-venue' );
