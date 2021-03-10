@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.4.0.2] 2021-03-10 =
 
-* Fix - Saving organizers are properly work on WordPress 5.7 with Blocks Editor [TEC-3788]
+* Fix - Saving organizers properly work on WordPress 5.7 with Blocks Editor [TEC-3788]
 
 = [5.4.0.1] 2021-03-04 =
 
