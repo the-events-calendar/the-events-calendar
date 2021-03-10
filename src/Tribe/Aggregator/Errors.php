@@ -300,7 +300,7 @@ class Tribe__Events__Aggregator__Errors {
 			return $stats;
 		}
 
-		$where = 'WHERE comment_type != "' . self::$comment_type . '"';
+		$where = "WHERE comment_type != '" . self::$comment_type . "'";
 
 		if ( $post_id > 0 ) {
 			$where .= $wpdb->prepare( ' AND comment_post_ID = %d', $post_id );
@@ -354,5 +354,3 @@ class Tribe__Events__Aggregator__Errors {
 		return vsprintf( $message, $args );
 	}
 }
-
-
