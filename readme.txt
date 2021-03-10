@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.4.0.1
+Stable tag: 5.4.0.2
 Tested up to: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,6 +221,10 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.4.0.2] 2021-03-10 =
+
+* Fix - Saving organizers are properly work on WordPress 5.7 with Blocks Editor [TEC-3788]
 
 = [5.4.0.1] 2021-03-04 =
 
