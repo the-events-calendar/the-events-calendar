@@ -16,7 +16,7 @@
 	 * dbug = tribe_debug
 	 */
 
-	$( document ).ready( function() {
+	$( function() {
 
 		var $nav_link = $( '[class^="tribe-events-nav-"] a' );
 		var base_url = '/';

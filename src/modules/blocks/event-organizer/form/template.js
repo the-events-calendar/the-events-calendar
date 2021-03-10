@@ -10,7 +10,6 @@ import validator from 'validator';
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
-import { RichText } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 
 import './style.pcss';
@@ -18,6 +17,8 @@ import './style.pcss';
 /**
  * Internal dependencies
  */
+import { wpEditor } from '@moderntribe/common/utils/globals';
+const { RichText } = wpEditor;
 
 export default class OrganizerForm extends Component {
 	static defaultProps = {

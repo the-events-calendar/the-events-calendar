@@ -271,5 +271,5 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.multidayEvents );

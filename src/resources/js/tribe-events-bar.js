@@ -23,7 +23,7 @@ var tribe_events_bar_action;
 	 * dbug = tribe_debug
 	 */
 
-	$( document ).ready( function() {
+	$( function() {
 
 		// @ifdef DEBUG
 		if ( dbug ) {

@@ -462,7 +462,7 @@
 			
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-234234234 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month__calendar-event--featured" >
+<article  class="tribe-events-calendar-month__calendar-event post-234234234 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month__calendar-event--featured" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -529,7 +529,7 @@
 
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-2453454355 tribe_events type-tribe_events status-publish hentry" >
+<article  class="tribe-events-calendar-month__calendar-event post-2453454355 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -582,7 +582,7 @@
 
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-3094853477 tribe_events type-tribe_events status-publish hentry" >
+<article  class="tribe-events-calendar-month__calendar-event post-3094853477 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month__calendar-event-details">
@@ -2274,7 +2274,7 @@
 
 			
 		
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-234234234 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month-mobile-events__mobile-event--featured" >
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-234234234 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month-mobile-events__mobile-event--featured" >
 
 	
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
@@ -2307,7 +2307,7 @@
 
 			
 		
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-2453454355 tribe_events type-tribe_events status-publish hentry" >
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-2453454355 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
@@ -2331,7 +2331,7 @@
 
 			
 		
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-3094853477 tribe_events type-tribe_events status-publish hentry" >
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-3094853477 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">

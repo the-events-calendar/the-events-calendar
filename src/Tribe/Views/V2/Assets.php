@@ -95,6 +95,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
+				'print'        => true,
 			]
 		);
 
@@ -112,6 +113,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
+				'print'        => true,
 			]
 		);
 
@@ -132,6 +134,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 					[ $this, 'should_enqueue_full_styles' ],
 				],
 				'groups'       => [ static::$group_key ],
+				'print'        => true,
 			]
 		);
 
@@ -139,9 +142,13 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-widgets-v2-events-list-skeleton',
 			'widget-events-list-skeleton.css',
+			[
+				'tribe-common-skeleton-style'
+			],
 			null,
 			[
 				'priority' => 15,
+				'print'    => true,
 			]
 		);
 
@@ -156,6 +163,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			null,
 			[
 				'priority' => 15,
+				'print'    => true,
 			]
 		);
 
@@ -187,11 +195,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tribe-query-string',
 				'underscore',
 			],
-			'wp_enqueue_scripts',
+			'wp_print_footer_scripts',
 			[
-				'priority'     => 20,
+				'priority'     => 9, // for `wp_print_footer_scripts` we are required to go before P10.
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'groups'       => [ static::$group_key ],
+				'groups'       => [ static::$group_key, static::$widget_group_key ],
+				'defer'        => true,
 			]
 		);
 
@@ -410,6 +419,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 					'priority'     => 10,
 					'conditionals' => [ $this, 'should_enqueue_frontend' ],
 					'groups'       => [ static::$group_key ],
+					'print'        => true,
 				]
 			);
 		}
