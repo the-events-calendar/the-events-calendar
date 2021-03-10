@@ -74,7 +74,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( ! empty( $map_link ) ) {
 			$link = sprintf(
-				'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank" rel="noreferrer">%s</a>',
+				'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank" rel="noreferrer noopener">%s</a>',
 				$map_link,
 				esc_html__( 'Click to view a Google Map', 'the-events-calendar' ),
 				esc_html__( '+ Google Map', 'the-events-calendar' )
