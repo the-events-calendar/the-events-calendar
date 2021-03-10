@@ -105,7 +105,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_fetching_organizers_by_has_events() {
 		$organizers = $this->create_organizers_and_events( 4, 3, 0 );
-		codecept_debug($organizers);
 		$this->assertEqualSets( $organizers['with'] , tribe_organizers()->where( 'has_events', true )->get_ids() );
 	}
 
@@ -114,7 +113,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_fetching_organizers_by_has_no_events() {
 		$organizers = $this->create_organizers_and_events( 4, 3, 0 );
-		codecept_debug($organizers);
 		$this->assertEqualSets( $organizers['without'] , tribe_organizers()->where( 'has_no_events', true )->get_ids() );
 	}
 
@@ -154,9 +152,6 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 			$this->factory()->event->create();
 			$extra_events--;
 		}
-
-		codecept_debug( tribe_organizers()->where( 'event', tribe_events()->fields( 'ids' )  )->get_ids() );
-
 
 		return $returned_organizers;
 	}
