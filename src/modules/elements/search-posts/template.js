@@ -12,7 +12,6 @@ import { decode } from 'he';
  */
 import {
 	Dropdown,
-	IconButton,
 	Dashicon,
 	Spinner,
 	Placeholder,
@@ -21,6 +20,7 @@ import {
 /**
  * Internal dependencies
  */
+import { IconButton } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
 /**

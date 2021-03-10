@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.4.0
+Stable tag: 5.5.0
 Tested up to: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,6 +221,13 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.5.0] TBD =
+
+* Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
+* Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
+* Tweak - Include actions before and after the creation of a view for REST API requests. Hooks added were: `tribe_events_views_v2_before_make_view_for_rest` and `tribe_events_views_v2_after_make_view_for_rest`
+* Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
 
 = [5.4.0] 2021-02-24 =
 
