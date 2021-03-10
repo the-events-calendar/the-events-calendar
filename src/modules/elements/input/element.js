@@ -9,6 +9,7 @@ import validator from 'validator';
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
+import { TextControl } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -73,17 +74,17 @@ class Input extends Component {
 	 *
 	 * @param {Event} event Event fired by the onChange listener
 	 */
-	onChange = ( event ) => {
+	onChange = ( input ) => {
 		const { onChange, onComplete, validate } = this.props;
 		const callback = isFunction( onChange ) ? onChange : noop;
 		const completeCallback = isFunction( onComplete ) ? onComplete : noop;
 
 		if ( validate ) {
-			this.setState( { isValid: this.validate( event.target.value ) }, completeCallback );
-			callback( event );
+			this.setState( () => ({ isValid: this.validate( input ) }), completeCallback );
+			callback( input );
 		} else {
 			completeCallback();
-			callback( event );
+			callback( input );
 		}
 	}
 
@@ -115,6 +116,7 @@ class Input extends Component {
 		let isValid = true;
 		switch ( type ) {
 			case 'tel':
+			case 'phone':
 				isValid = validator.isMobilePhone( value, 'any' );
 				break;
 			case 'email':
@@ -174,7 +176,7 @@ class Input extends Component {
 		// Remove properties that are not part of the DOM.
 		const { onComplete, required, validate, ...properties } = this.props;
 		return (
-			<input
+			<TextControl
 				{ ...properties }
 				className={ `${ this.getClassName() }` }
 				ref={ ( input ) => this.input = input }

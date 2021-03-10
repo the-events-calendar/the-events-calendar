@@ -162,7 +162,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[name]"
 							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { title: next.target.value } ) }
+							onChange={ ( next ) => this.setState( { title: next } ) }
 							validate
 						/>
 					</dd>
@@ -176,7 +176,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[phone]"
 							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { phone: next.target.value } ) }
+							onChange={ ( next ) => this.setState( { phone: next } ) }
 							validate
 						/>
 					</dd>
@@ -189,7 +189,7 @@ class OrganizerForm extends Component {
 							type="url"
 							ref={ this.saveRef }
 							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { website: next.target.value } ) }
+							onChange={ ( next ) => this.setState( { website: next } ) }
 							name="organizer[website]"
 							validate
 						/>
@@ -204,7 +204,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[email]"
 							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { email: next.target.value } ) }
+							onChange={ ( next ) => this.setState( { email: next } ) }
 							validate
 						/>
 					</dd>
