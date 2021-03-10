@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.5.0] TBD =
 
+* Fix - Invert quotes to protect against issue with MySQL in `ANSI_QUOTES` mode. [TEC-3785]
 * Fix - correct display order of sticky, featured, and "normal" events on Month View. Adds a class for targeting sticky posts for styling. [TEC-3770]
 * Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
 * Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
