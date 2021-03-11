@@ -108,11 +108,11 @@ class Input extends Component {
 	 */
 	maybeValidate = ( value ) => {
 		const { type, required } = this.props;
-
+		
 		if ( value.length === 0 ) {
 			return ! required;
 		}
-
+		
 		let isValid = true;
 		switch ( type ) {
 			case 'tel':

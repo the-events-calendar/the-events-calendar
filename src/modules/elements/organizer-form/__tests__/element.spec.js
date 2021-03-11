@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React from 'react';
-import { shallow } from 'enzyme';
 
 /**
  * Internal dependencies
@@ -10,10 +9,29 @@ import { shallow } from 'enzyme';
 import OrganizerForm from '../element';
 
 describe( 'OrganizerForm', () => {
-	test( 'should send a request to the wp-api to create a new Organizer on submit', () => {
-		const addOrganizer = jest.fn();
-		const onClose = jest.fn();
+	const addOrganizer = jest.fn();
+	const onClose = jest.fn();
 
+	test( 'should be set as invalid when any field validation fails', () => {
+		const component = shallow(
+			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
+		);
+		const input = component.find( '[data-testid="organizer-form-input-phone"]' );
+		const instance = component.instance();
+		const spyIsValid = jest.spyOn( instance, 'isValid' );
+		instance.fields = { 'organizer[phone]': input.dive().instance() };
+		const inputField = instance.fields[ 'organizer[phone]' ];
+		const spyOnChange = jest.spyOn( inputField, 'onChange' );
+
+		expect( component.state( 'phone' ) ).toEqual( '' );
+		inputField.onChange( 'not a phone number' );
+		expect( component.state( 'phone' ) ).toEqual( 'not a phone number' );
+
+		expect( spyOnChange ).toHaveBeenCalledWith( 'not a phone number' );
+		expect( spyIsValid ).toHaveReturnedWith( false );
+	} );
+
+	test( 'should send a request to the wp-api to create a new Organizer on submit', () => {
 		const state = {
 			title: 'Organizer',
 			email: '',
@@ -40,7 +58,7 @@ describe( 'OrganizerForm', () => {
 		);
 		component.setState( state );
 		const spyRequest = jest.spyOn( wp, 'apiRequest' );
-		const button = component.find( '.button-secondary' );
+		const button = component.find( '[data-testid="organizer-form-button-create"]' );
 		button.simulate( 'click' );
 		expect( spyRequest ).toHaveBeenCalledWith( payload );
 	} );

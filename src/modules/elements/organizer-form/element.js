@@ -178,6 +178,7 @@ class OrganizerForm extends Component {
 							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
 							onChange={ ( next ) => this.setState( { phone: next } ) }
 							validate
+							data-testid="organizer-form-input-phone"
 						/>
 					</dd>
 					<dt onClick={ this.focus( 'organizer[website]' ) }>
@@ -215,6 +216,7 @@ class OrganizerForm extends Component {
 					className="button-secondary"
 					onClick={ this.onSubmit }
 					disabled={ ! this.isValid() }
+					data-testid="organizer-form-button-create"
 				>
 					{ __( 'Create Organizer', 'the-events-calendar' ) }
 				</button>
