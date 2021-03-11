@@ -142,6 +142,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-widgets-v2-events-list-skeleton',
 			'widget-events-list-skeleton.css',
+			[
+				'tribe-common-skeleton-style'
+			],
 			null,
 			[
 				'priority' => 15,

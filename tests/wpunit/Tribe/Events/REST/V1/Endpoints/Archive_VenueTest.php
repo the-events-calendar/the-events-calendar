@@ -40,7 +40,7 @@ class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function tearDown() {
-		// your tear down methods here
+		_delete_all_posts();
 
 		// then
 		parent::tearDown();
@@ -190,7 +190,7 @@ class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_allow_filtering_the_venues_by_having_upcoming_events_or_not() {
 		$venue_1 = $this->factory()->venue->create();
-		$this->factory()->event->create( [ 'venue' => $venue_1, 'when' => '+ 1month' ] );
+		$this->factory()->event->create( [ 'venue' => $venue_1, 'when' => '+1 month' ] );
 		$venue_2 = $this->factory()->venue->create();
 		$this->factory()->event->create( [ 'venue' => $venue_2, 'when' => '+1 month' ] );
 		$venue_3 = $this->factory()->venue->create();

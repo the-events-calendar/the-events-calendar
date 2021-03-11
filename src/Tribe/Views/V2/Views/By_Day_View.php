@@ -153,7 +153,7 @@ abstract class By_Day_View extends View {
 
 		if ( empty( $this->repository_args ) ) {
 			/**
-			 * If repository arguments have not ben set up yet, let's do it now.
+			 * If repository arguments have not been set up yet, let's do it now.
 			 */
 			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args( $this->context ) );
 		}
@@ -165,7 +165,6 @@ abstract class By_Day_View extends View {
 
 		$this->warmup_cache( 'grid_days', 0, Cache_Listener::TRIGGER_SAVE_POST );
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
-		$events_per_day = $this->get_events_per_day();
 
 		// @todo [BTRIA-599]: Remove this when the Event_Period repository is solid and cleaned up.
 		$using_period_repository = tribe_events_view_v2_use_period_repository();
@@ -196,7 +195,7 @@ abstract class By_Day_View extends View {
 			$order_by                   = tribe_normalize_orderby( $order_by, $order );
 			$order_by['event_duration'] = 'ASC';
 
-			$repo           = tribe_events()
+			$repo = tribe_events()
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
@@ -286,11 +285,7 @@ abstract class By_Day_View extends View {
 					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 				}
 
-				if ( $events_per_day > - 1 ) {
-					$day_event_ids = array_slice( $event_ids, 0, $events_per_day );
-				}
-
-				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
+				$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
 				$this->grid_days_found_cache[ $day_string ] = $day_results->count();
 			} else {
 				$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
@@ -322,11 +317,7 @@ abstract class By_Day_View extends View {
 
 				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
 
-				if ( $events_per_day > - 1 ) {
-					$day_event_ids = array_slice( $day_event_ids, 0, $events_per_day );
-				}
-
-				$this->grid_days_cache[ $day_string ]       = $day_event_ids;
+				$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
 				$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );
 			}
 
