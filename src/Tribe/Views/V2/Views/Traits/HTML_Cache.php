@@ -208,7 +208,7 @@ trait HTML_Cache {
 	 * @return bool
 	 */
 	protected function should_enable_html_cache( $context ) {
-		$event_date = $context->get( 'event_date', '' );
+		$event_date = $context->get( 'event_date' );
 
 		// Respect the month view caching setting.
 		if ( ! tribe_get_option( 'enable_month_view_cache', true ) ) {
@@ -220,8 +220,13 @@ trait HTML_Cache {
 			return true;
 		}
 
+		// In case we got a invalid value for Date time we dont cache.
+		if ( $event_date instanceof \DateTimeInterface ) {
+			return false;
+		}
+
 		// If the eventDate argument is not in the expected format then do not cache.
-		if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', (string) $event_date ) ) {
+		if ( ! preg_match( '/^[0-9]{4}-[0-9]{1,2}$/', $event_date ) ) {
 			return false;
 		}
 
