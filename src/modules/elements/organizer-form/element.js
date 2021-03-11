@@ -76,6 +76,14 @@ class OrganizerForm extends Component {
 			},
 		} );
 	}
+	
+	onInputChange( key, value ) {
+		this.setState( { [key]: value } );
+	}
+	
+	onInputComplete() {
+		this.setState( { isValid: this.isValid() } );
+	}
 
 	updateOrganizer( toSend ) {
 		const basePath = this.props.postType;
@@ -154,58 +162,54 @@ class OrganizerForm extends Component {
 				<dl>
 					<dt onClick={ this.focus( 'organizer[name]' ) }>
 						{ __( 'Name:', 'the-events-calendar' ) }
-						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="text"
 							ref={ this.saveRef }
 							name="organizer[name]"
-							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { title: next } ) }
+							onComplete={ this.onInputComplete }
+							onChange={ this.onInputChange.bind(this, 'title') }
 							validate
 						/>
 					</dd>
 					<dt onClick={ this.focus( 'organizer[phone]' ) }>
 						{ __( 'Phone:', 'the-events-calendar' ) }
-						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="phone"
 							ref={ this.saveRef }
 							name="organizer[phone]"
-							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { phone: next } ) }
+							onComplete={ this.onInputComplete }
+							onChange={ this.onInputChange.bind(this, 'phone') }
 							validate
 							data-testid="organizer-form-input-phone"
 						/>
 					</dd>
 					<dt onClick={ this.focus( 'organizer[website]' ) }>
 						{ __( 'Website:', 'the-events-calendar' ) }
-						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="url"
 							ref={ this.saveRef }
-							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { website: next } ) }
+							onComplete={ this.onInputComplete }
+							onChange={ this.onInputChange.bind(this, 'website') }
 							name="organizer[website]"
 							validate
 						/>
 					</dd>
 					<dt onClick={ this.focus( 'organizer[email]' ) }>
 						{ __( 'Email:', 'the-events-calendar' ) }
-						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="email"
 							ref={ this.saveRef }
 							name="organizer[email]"
-							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
-							onChange={ ( next ) => this.setState( { email: next } ) }
+							onComplete={ this.onInputComplete }
+							onChange={ this.onInputChange.bind(this, 'email') }
 							validate
 						/>
 					</dd>
