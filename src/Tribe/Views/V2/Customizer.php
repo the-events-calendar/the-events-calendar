@@ -669,7 +669,9 @@ class Customizer {
 			';
 			
 			// Single Event styles overrides
-			if ( tribe_events_single_view_v2_is_enabled() ) {
+			// This is under filter_global_elements_css_template() in order to have
+			// access to global_elements.accent_color, which is under a different section.
+			if ( $this->should_add_single_view_v2_styles() ) {
 				$css_template .= '
 					.tribe-events-cal-links .tribe-events-gcal,
 					.tribe-events-cal-links .tribe-events-ical,
@@ -753,20 +755,9 @@ class Customizer {
 	/**
 	 * Check whether the Single Event styles overrides can be applied
 	 *
-	 * @return void
+	 * @return false/true
 	 */
-	function tribe_events_single_view_v2_is_enabled() {
-		// If the constant is defined, returns the opposite of the constant.
-		if ( defined( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' ) ) {
-			return (bool) ! TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED;
-		}
-
-		// Allow env_var to short-circuit for testing.
-		$env_var = (bool) getenv( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' );
-		if ( false !== $env_var ) {
-			return ! $env_var;
-		}
-
+	public function should_add_single_view_v2_styles() {
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
 			return false;
@@ -774,6 +765,12 @@ class Customizer {
 
 		// Bail if Block Editor.
 		if ( has_blocks( get_queried_object_id() ) ) {
+			return false;
+		}
+		
+		// Use the function from provider.php to check if V2 is not enabled
+		// or the TRIBE_EVENTS_WIDGETS_V2_DISABLED constant is true.
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}
 
