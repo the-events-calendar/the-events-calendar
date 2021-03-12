@@ -73,8 +73,8 @@ class OrganizerForm extends Component {
 		} );
 	}
 	
-	onInputChange = ( key, value ) => {
-		this.setState( { [key]: value } );
+	onInputChange = ( key ) => ( value ) => {
+		this.setState( { [ key ]: value } );
 	}
 	
 	onInputComplete = () => {
@@ -154,7 +154,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[name]"
 							onComplete={ this.onInputComplete }
-							onChange={ (value) => this.onInputChange('title', value) }
+							onChange={ this.onInputChange('title') }
 							validate
 						/>
 					</dd>
@@ -167,7 +167,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[phone]"
 							onComplete={ this.onInputComplete }
-							onChange={ (value) => this.onInputChange('phone', value) }
+							onChange={ this.onInputChange('phone') }
 							validate
 							data-testid="organizer-form-input-phone"
 						/>
@@ -180,7 +180,7 @@ class OrganizerForm extends Component {
 							type="url"
 							ref={ this.saveRef }
 							onComplete={ this.onInputComplete }
-							onChange={ (value) => this.onInputChange('website', value) }
+							onChange={ this.onInputChange('website') }
 							name="organizer[website]"
 							validate
 						/>
@@ -194,7 +194,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[email]"
 							onComplete={ this.onInputComplete }
-							onChange={ (value) => this.onInputChange('email', value) }
+							onChange={ this.onInputChange('email') }
 							validate
 						/>
 					</dd>
