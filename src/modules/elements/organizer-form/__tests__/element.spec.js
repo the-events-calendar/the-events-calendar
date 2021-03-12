@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import toJson from 'enzyme-to-json';
 
 /**
  * Internal dependencies
@@ -11,6 +12,25 @@ import OrganizerForm from '../element';
 describe( 'OrganizerForm', () => {
 	const addOrganizer = jest.fn();
 	const onClose = jest.fn();
+	let state;
+
+	beforeEach( () => {
+		state = {
+			title: '',
+			email: '',
+			phone: '',
+			website: '',
+		};
+	} );
+
+	test( 'should show a spinner while creating', () => {
+		const component = shallow(
+			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
+		);
+		component.instance().isCreating = jest.fn( () => true );
+		component.instance().forceUpdate();
+		expect( toJson( component ) ).toMatchSnapshot();
+	} );
 
 	test( 'should be set as invalid when any field validation fails', () => {
 		const component = shallow(
@@ -32,12 +52,7 @@ describe( 'OrganizerForm', () => {
 	} );
 
 	test( 'should send a request to the wp-api to create a new Organizer on submit', () => {
-		const state = {
-			title: 'Organizer',
-			email: '',
-			phone: '',
-			website: '',
-		};
+		state.title = 'Organizer';
 
 		const payload = {
 			path: '/wp/v2/tribe_organizer',
