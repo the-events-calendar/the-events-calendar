@@ -21,6 +21,7 @@ class Widget_ListTest extends ViewTestCase {
 
 		remove_filter( 'post_class', 'twenty_twenty_one_post_classes', 10 );
 		remove_filter( 'post_class', 'twentynineteen_post_classes', 10 );
+		add_filter( 'tribe_events_views_v2_theme_compatibility_registered', '__return_empty_array' );
 	}
 
 	/**
