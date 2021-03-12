@@ -18,6 +18,9 @@ class Widget_ListTest extends ViewTestCase {
 
 			return $views;
 		} );
+
+		remove_filter( 'post_class', 'twenty_twenty_one_post_classes', 10 );
+		remove_filter( 'post_class', 'twentynineteen_post_classes', 10 );
 	}
 
 	/**
