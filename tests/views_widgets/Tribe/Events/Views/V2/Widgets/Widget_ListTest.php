@@ -216,25 +216,16 @@ class Widget_ListTest extends ViewTestCase {
 		$this->assertMatchesSnapshot( $html );
 	}
 
+	public function remove_json_ld( $template_vars ) {
+		$template_vars['json_ld_data'] = false;
+		return $template_vars;
+	}
+
 	/**
 	 * @test
 	 */
 	public function test_render_no_json_with_upcoming_events() {
-		// The changes happen inside the widget object, which we don't instantiate here.
-		// @TODO: This is a hack until we can figure a better way to handle this.
-		// This also call into question the previous test results
-		// since setting jsonld_enable has no effect without the widget object.
-		add_filter(
-			'tribe_events_views_v2_view_widget-events-list_template_vars',
-			function( $template_vars ) {
-				if ( 0 === $template_vars['jsonld_enable'] ) {
-					$template_vars['json_ld_data']  = '';
-				}
-
-				return $template_vars;
-			},
-			15
-		);
+		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'remove_json_ld' ] );
 
 		$events = [];
 
@@ -285,5 +276,7 @@ class Widget_ListTest extends ViewTestCase {
 		$this->assertFalse( stripos( $html, 'ld+json' ) );
 
 		$this->assertMatchesSnapshot( $html );
+
+		remove_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'remove_json_ld' ] );
 	}
 }
