@@ -43,6 +43,15 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	protected $view_slug;
 
 	/**
+	 * Widget css group slug.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $widget_css_group;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function setup( $args = [], $instance = [] ) {
@@ -82,6 +91,17 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		// Ensure widgets never get Filter Bar classes on their containers.
 		add_filter( "tribe_events_views_v2_filter_bar_{$this->view_slug}_view_html_classes", '__return_false' );
+	}
+
+	/**
+	 * Get local widget css group slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public static function get_css_group() {
+		return static::$widget_css_group;
 	}
 
 	/**

@@ -37,6 +37,13 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @var string
+	 */
+	protected static $widget_css_group = 'events-list-widget';
+
+	/**
+	 * {@inheritDoc}
+	 *
 	 * @var array<string,mixed>
 	 */
 	protected $default_arguments = [
