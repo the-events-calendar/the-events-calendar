@@ -154,7 +154,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[name]"
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange.bind(this, 'title') }
+							onChange={ (value) => this.onInputChange('title', value) }
 							validate
 						/>
 					</dd>
@@ -167,7 +167,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[phone]"
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange.bind(this, 'phone') }
+							onChange={ (value) => this.onInputChange('phone', value) }
 							validate
 							data-testid="organizer-form-input-phone"
 						/>
@@ -180,7 +180,7 @@ class OrganizerForm extends Component {
 							type="url"
 							ref={ this.saveRef }
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange.bind(this, 'website') }
+							onChange={ (value) => this.onInputChange('website', value) }
 							name="organizer[website]"
 							validate
 						/>
@@ -194,7 +194,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[email]"
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange.bind(this, 'email') }
+							onChange={ (value) => this.onInputChange('email', value) }
 							validate
 						/>
 					</dd>
