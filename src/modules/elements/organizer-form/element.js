@@ -27,37 +27,33 @@ class OrganizerForm extends Component {
 	static defaultProps = {
 		postType: 'tribe_organizer',
 	};
+	
+	state = {
+		title: null,
+		phone: '',
+		website: '',
+		email: '',
+		organizer: null,
+		isValid: true,
+	};
+	
+	fields = {};
 
-	constructor() {
-		super( ...arguments );
-		this.updateOrganizer = this.updateOrganizer.bind( this );
-		this.onSubmit = this.onSubmit.bind( this );
-
-		this.state = {
-			title: null,
-			phone: '',
-			website: '',
-			email: '',
-			organizer: null,
-			isValid: this.isValid(),
-		};
-
-		this.fields = {};
-	}
-
-	isCreating() {
-		if ( ! this.state.organizer ) {
+	isCreating = () => {
+		const { organizer } = this.state;
+		
+		if ( ! organizer ) {
 			return false;
 		}
 
-		if ( ! isFunction( this.state.organizer.state ) ) {
+		if ( ! isFunction( organizer.state ) ) {
 			return false;
 		}
 
-		return 'pending' === this.state.organizer.state();
+		return 'pending' === organizer.state();
 	}
 
-	onSubmit() {
+	onSubmit = () => {
 		const {
 			title,
 			phone,
@@ -77,18 +73,18 @@ class OrganizerForm extends Component {
 		} );
 	}
 	
-	onInputChange( key, value ) {
+	onInputChange = ( key, value ) => {
 		this.setState( { [key]: value } );
 	}
 	
-	onInputComplete() {
+	onInputComplete = () => {
 		this.setState( { isValid: this.isValid() } );
 	}
 
-	updateOrganizer( toSend ) {
-		const basePath = this.props.postType;
+	updateOrganizer = ( toSend ) => {
+		const { postType } = this.props;
 		const request = wp.apiRequest( {
-			path: `/wp/v2/${ basePath }`,
+			path: `/wp/v2/${ postType }`,
 			method: 'POST',
 			data: toSend,
 		} );
@@ -108,20 +104,11 @@ class OrganizerForm extends Component {
 		} );
 	}
 
-	isValid() {
+	isValid = () => {
 		const fields = values( this.fields );
 		const results = fields.filter( ( input ) => input.isValid() );
 
 		return fields.length === results.length;
-	}
-
-	focus( name ) {
-		return () => {
-			const input = this.fields[ name ];
-			if ( input ) {
-				input.focus();
-			}
-		};
 	}
 
 	saveRef = ( input ) => {
@@ -134,7 +121,7 @@ class OrganizerForm extends Component {
 
 	render() {
 		if ( this.isCreating() ) {
-			return [
+			return (
 				<div
 					className="tribe-editor__organizer__form"
 					key="tribe-organizer-form"
@@ -142,11 +129,11 @@ class OrganizerForm extends Component {
 					<Placeholder key="placeholder">
 						<Spinner />
 					</Placeholder>
-				</div>,
-			];
+				</div>
+			);
 		}
 
-		return [
+		return (
 			<div
 				className="tribe-editor__organizer__form"
 				key="tribe-organizer-form"
@@ -154,13 +141,11 @@ class OrganizerForm extends Component {
 				<h3 key="tribe-organizer-form-title">
 					{ __( 'Create Organizer' ) }
 				</h3>
-				<p
-					className="description"
-				>
+				<p className="description">
 					{ __( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ) }
 				</p>
 				<dl>
-					<dt onClick={ this.focus( 'organizer[name]' ) }>
+					<dt>
 						{ __( 'Name:', 'the-events-calendar' ) }
 					</dt>
 					<dd>
@@ -173,7 +158,7 @@ class OrganizerForm extends Component {
 							validate
 						/>
 					</dd>
-					<dt onClick={ this.focus( 'organizer[phone]' ) }>
+					<dt>
 						{ __( 'Phone:', 'the-events-calendar' ) }
 					</dt>
 					<dd>
@@ -187,7 +172,7 @@ class OrganizerForm extends Component {
 							data-testid="organizer-form-input-phone"
 						/>
 					</dd>
-					<dt onClick={ this.focus( 'organizer[website]' ) }>
+					<dt>
 						{ __( 'Website:', 'the-events-calendar' ) }
 					</dt>
 					<dd>
@@ -200,7 +185,7 @@ class OrganizerForm extends Component {
 							validate
 						/>
 					</dd>
-					<dt onClick={ this.focus( 'organizer[email]' ) }>
+					<dt>
 						{ __( 'Email:', 'the-events-calendar' ) }
 					</dt>
 					<dd>
@@ -224,8 +209,8 @@ class OrganizerForm extends Component {
 				>
 					{ __( 'Create Organizer', 'the-events-calendar' ) }
 				</button>
-			</div>,
-		];
+			</div>
+		);
 	}
 }
 
