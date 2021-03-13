@@ -350,7 +350,7 @@ class Month_View extends By_Day_View {
 					} )
 			);
 
-			 usort(
+			usort(
 				$the_day_events,
 				function ( $event_a, $event_b )  {
 					$a = [

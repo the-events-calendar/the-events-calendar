@@ -74,7 +74,7 @@ $num_events_label = sprintf(
 >
 
 	<button
-		<?php if ( ! empty( $day['found_events'] ) ) : ?>
+		<?php if ( ! empty( $day['found_events'] ) || ! empty( $day['is-widget-today']) ) : ?>
 			aria-expanded="<?php echo esc_attr( $expanded ); ?>"
 			aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		<?php endif; ?>
