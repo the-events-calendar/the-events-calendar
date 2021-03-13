@@ -43,14 +43,28 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	protected $view_slug;
 
 	/**
+	 * Widget css group slug.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $widget_css_group;
+
+	/**
 	 * {@inheritDoc}
 	 */
-	public function setup() {
+	public function setup( $args = [], $instance = [] ) {
 		// Add the admin template class for the widget admin form.
 		$this->set_admin_template( tribe( Admin_Template::class ) );
 
-		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_widget_template_vars' ], 20, 2 );
-		add_filter( "tribe_events_views_v2_view{$this->view_slug}_template_vars", [ $this, 'filter_widget_template_vars' ], 20, 2 );
+		// Saves the instance values to the arguments
+		$this->setup_arguments( $instance );
+
+		$this->setup_sidebar_arguments( $args );
+
+		// Setup the View for the frontend.
+		$this->setup_view( null );
 	}
 
 	/**
@@ -58,180 +72,36 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.2.1
 	 * @since 5.3.0 Correct asset enqueue method.
+	 * @since TBD Deprecated $arguments param since it should come from the instance.
 	 *
-	 * @param array<string,mixed> $arguments The widget arguments, as set by the user in the widget string.
+	 * @param array<string,mixed> $_deprecated The widget arguments, as set by the user in the widget string.
 	 */
-	public function setup_view( $arguments ) {
+	public function setup_view( $_deprecated ) {
 		$context = tribe_context();
 
 		// Modifies the Context for the widget params.
-		$context = $this->alter_context( $context, $arguments );
+		$context = $this->alter_context( $context, $this->get_arguments() );
 
 		// Setup the view instance.
 		$view = View::make( $this->get_view_slug(), $context );
 
-		$view->get_template()->set_values( $this->setup_arguments(), false );
+		$view->get_template()->set_values( $this->get_arguments(), false );
 
 		$this->set_view( $view );
-
-		$this->filter_enqueue_assets( $context, $view );
 
 		// Ensure widgets never get Filter Bar classes on their containers.
 		add_filter( "tribe_events_views_v2_filter_bar_{$this->view_slug}_view_html_classes", '__return_false' );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Get local widget css group slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
 	 */
-	protected function setup_arguments( array $instance = [] ) {
-		$arguments = parent::setup_arguments( $instance );
-
-		$admin_fields = $arguments['admin_fields'];
-
-		foreach ( $admin_fields as $field_name => $field ) {
-			$arguments['admin_fields'][ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
-		}
-
-		return $arguments;
-	}
-
-	/**
-	 * Encapsulates and handles the logic for asset enqueues in it's own method.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param \Tribe__Context $context Context we are using to build the view.
-	 * @param View_Interface  $view    Which view we are using the template on.
-	 */
-	public function filter_enqueue_assets( $context, $view ) {
-		$should_enqueue = $this->should_enqueue_assets( $context, $view );
-
-		/**
-		 * Run an action before we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			'tribe_events_views_v2_widget_before_enqueue_assets',
-			$should_enqueue,
-			$context,
-			$view
-		);
-
-		/**
-		 * Run an action for a specific widget before we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			"tribe_events_views_v2_widget_{$this->view_slug}_before_enqueue_assets",
-			$should_enqueue,
-			$context,
-			$view
-		);
-
-		if ( $should_enqueue ) {
-			$this->enqueue_assets( $context, $view );
-		}
-
-		/**
-		 * Run an action after we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			'tribe_events_views_v2_widget_after_enqueue_assets',
-			$should_enqueue,
-			$context,
-			$view
-		);
-
-		/**
-		 * Run an action for a specific widget after we start enqueuing widget assets.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $should_enqueue Whether assets are enqueued or not.
-		 * @param \Tribe__Context $context        Context we are using to build the view.
-		 * @param View_Interface  $view           Which view we are using the template on.
-		 */
-		do_action(
-			"tribe_events_views_v2_widget_{$this->view_slug}_after_enqueue_assets",
-			$should_enqueue,
-			$context,
-			$view
-		);
-	}
-
-	/**
-	 * Enqueues the assets for widgets.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param \Tribe__Context $context Context we are using to build the view.
-	 * @param View_Interface  $view    Which view we are using the template on.
-	 */
-	public function enqueue_assets( $context, $view ) {
-		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
-		tribe_asset_enqueue_group( Assets::$widget_group_key );
-	}
-
-	/**
-	 * Determines whether to enqueue assets for widgets.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param \Tribe__Context $context Context we are using to build the view.
-	 * @param View_Interface  $view    Which view we are using the template on.
-	 *
-	 * @return bool Whether assets are enqueued or not.
-	 */
-	public function should_enqueue_assets( $context, $view ) {
-		/**
-		 * Allow other plugins to hook in here to alter the enqueue.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $enqueue Should the widget assets be enqueued. Defaults to true.
-		 * @param \Tribe__Context $context Context we are using to build the view.
-		 * @param View_Interface  $view    Which view we are using the template on.
-		 */
-		$enqueue = apply_filters(
-			'tribe_events_views_v2_widget_enqueue_assets',
-			true,
-			$context,
-			$view
-		);
-
-		/**
-		 * Allow other plugins to hook in here to alter the enqueue for a specific widget type.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param boolean         $enqueue Should the widget assets be enqueued.
-		 * @param \Tribe__Context $context Context we are using to build the view.
-		 * @param View_Interface  $view    Which view we are using the template on.
-		 */
-		$enqueue = apply_filters(
-			"tribe_events_views_v2_widget_{$this->view_slug}_enqueue_assets",
-			$enqueue,
-			$context,
-			$view
-		);
-
-		return $enqueue;
+	public static function get_css_group() {
+		return static::$widget_css_group;
 	}
 
 	/**
@@ -265,17 +135,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 */
 	public function get_view() {
 		return $this->view;
-	}
-
-	/**
-	 * Returns the widget slug.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @return string The widget slug.
-	 */
-	public function get_slug() {
-		return $this->slug;
 	}
 
 	/**
@@ -329,50 +188,6 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	}
 
 	/**
-	 * Handles gathering the data for admin fields.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param array<string,mixed> $arguments Current set of arguments.
-	 * @param int                 $field_name    The ID of the field.
-	 * @param array<string,mixed> $field       The field info.
-	 *
-	 * @return array<string,mixed> $data The assembled field data.
-	 */
-	public function get_admin_data( $arguments, $field_name, $field ) {
-		$data = [
-			'classes'     => Arr::get( $field, 'classes', '' ),
-			'dependency'  => $this->format_dependency( $field ),
-			'id'          => $this->get_field_id( $field_name ),
-			'label'       => Arr::get( $field, 'label', '' ),
-			'name'        => $this->get_field_name( $field_name ),
-			'options'     => Arr::get( $field, 'options', [] ),
-			'placeholder' => Arr::get( $field, 'placeholder', '' ),
-			'value'       => Arr::get( $arguments, $field_name ),
-		];
-
-		$children = Arr::get( $field, 'children', [] );
-
-		if ( ! empty( $children ) ) {
-			foreach ( $children as $child_name => $child ) {
-				$input_name =  ( 'radio' === $child['type'] ) ? $field_name : $child_name;
-
-				$child_data = $this->get_admin_data(
-					$arguments,
-					$input_name,
-					$child
-				);
-
-				$data['children'][ $child_name ] = $child_data;
-			}
-		}
-
-		$data = array_merge( $field, $data );
-
-		return apply_filters( 'tribe_events_views_v2_widget_field_data', $data, $field_name, $this );
-	}
-
-	/**
 	 * Massages the data before asking tribe_format_field_dependency() to create the dependency attributes.
 	 *
 	 * @since 5.3.0
@@ -402,12 +217,18 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		return tribe_format_field_dependency( $deps );
 	}
 
+	/**********************
+	 * Deprecated Methods *
+	 **********************/
+
 	/**
 	 * Filters the template vars for widget-specific items.
 	 *
 	 * @since 5.3.0
+	 * @deprecated TBD Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
+	 * @param View                $view          Which view we are dealing with.
 	 *
 	 * @return array<string,mixed> The modified template variables.
 	 */
@@ -424,6 +245,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * removing the need for additional checks in the template.
 	 *
 	 * @since 5.3.0
+	 * @deprecated TBD Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
 	 *
@@ -438,5 +260,78 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 		}
 
 		return $template_vars;
+	}
+
+	/**
+	 * Encapsulates and handles the logic for asset enqueues in it's own method.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 *
+	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
+	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
+	 */
+	public function filter_enqueue_assets( $_deprecated, $__deprecated ) {
+		/**
+		 * We removed 4 actions from here:
+		 * - 'tribe_events_views_v2_widget_before_enqueue_assets'
+		 * - "tribe_events_views_v2_widget_{$this->view_slug}_before_enqueue_assets"
+		 *
+		 * - 'tribe_events_views_v2_widget_after_enqueue_assets'
+		 * - "tribe_events_views_v2_widget_{$this->view_slug}_after_enqueue_assets"
+		 *
+		 * If you were making use of those refer to to the filters related on the asset registration.
+		 */
+	}
+
+	/**
+	 * Enqueues the assets for widgets.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 *
+	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
+	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
+	 */
+	public function enqueue_assets( $_deprecated, $__deprecated ) {
+
+	}
+
+	/**
+	 * Determines whether to enqueue assets for widgets.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 *
+	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
+	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
+	 *
+	 * @return bool Whether assets are enqueued or not.
+	 */
+	public function should_enqueue_assets( $_deprecated, $__deprecated ) {
+		/**
+		 * We removed two filters from here:
+		 * - 'tribe_events_views_v2_widget_enqueue_assets'
+		 * - "tribe_events_views_v2_widget_{$this->view_slug}_enqueue_assets"
+		 *
+		 * If you were making use of those refer to to the filters related on the asset registration.
+		 */
+
+		return static::is_widget_in_use();
+	}
+
+	/**
+	 * Returns the widget slug.
+	 *
+	 * @since 5.3.0
+	 * @deprecated TBD replaced by the static::get_widget_slug().
+	 *
+	 * @return string The widget slug.
+	 */
+	public function get_slug() {
+		return static::get_widget_slug();
 	}
 }
