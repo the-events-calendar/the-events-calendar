@@ -64,7 +64,7 @@ $website_title = tribe_events_get_organizer_website_title();
 				?>
 				<?php if ( ! empty( $website_title ) ): ?>
 					<dt class="tribe-organizer-url-label">
-						<?php esc_html_e( 'Website:', 'the-events-calendar' ) ?>
+						<?php echo esc_html( $website_title ) ?>
 					</dt>
 				<?php endif; ?>
 				<dd class="tribe-organizer-url">

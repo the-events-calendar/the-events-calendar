@@ -164,7 +164,7 @@ $website_title = tribe_events_get_event_website_title();
 		// Event Website
 		if ( ! empty( $website ) ) : ?>
 			<?php if ( ! empty( $website_title ) ): ?>
-				<dt class="tribe-events-event-url-label"> <?php esc_html_e( 'Website:', 'the-events-calendar' ); ?> </dt>
+				<dt class="tribe-events-event-url-label"> <?php echo esc_html( $website_title ); ?> </dt>
 			<?php endif; ?>
 			<dd class="tribe-events-event-url"> <?php echo $website; ?> </dd>
 		<?php endif ?>
