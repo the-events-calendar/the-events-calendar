@@ -363,6 +363,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Filter the target attribute for the event website link
 		 *
 		 * @since 5.1.0
+		 * @since TBD Added $event argument
 		 *
 		 * @param string          $target The target attribute string. Defaults to "_self".
 		 * @param string          $url    The link URL.
@@ -380,7 +381,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @param string the link label/text.
 			 */
-			$label = apply_filters( 'tribe_get_event_website_link_label', $label );
+			$label = apply_filters( 'tribe_get_event_website_link_label', $label, $event );
 			$html  = sprintf(
 				'<a href="%s" target="%s" rel="%s">%s</a>',
 				esc_url( $url ),
@@ -402,6 +403,27 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		return apply_filters( 'tribe_get_event_website_link', $html );
 	}
 
+	/**
+	 * Get the link for the event website.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|int $post_id The event or event ID.
+	 * @return string  Formatted title for the event website link
+	 */
+	function tribe_events_get_event_website_title( $post_id = null ) {
+		$post_id = Tribe__Main::post_id_helper( $post_id );
+
+		/**
+		 * Allows customization of a event's website title link.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $title The title of the event's website link.
+		 * @param int 	 $post_id The event ID.
+		 */
+		return apply_filters( 'tribe_events_get_event_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
+	}
 
 	/**
 	 * Event Website URL

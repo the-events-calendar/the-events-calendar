@@ -15,6 +15,7 @@ $multiple = count( $organizer_ids ) > 1;
 $phone = tribe_get_organizer_phone();
 $email = tribe_get_organizer_email();
 $website = tribe_get_organizer_website_link();
+$website_title = tribe_events_get_organizer_website_title();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
@@ -61,9 +62,11 @@ $website = tribe_get_organizer_website_link();
 
 			if ( ! empty( $website ) ) {
 				?>
-				<dt class="tribe-organizer-url-label">
-					<?php esc_html_e( 'Website:', 'the-events-calendar' ) ?>
-				</dt>
+				<?php if ( ! empty( $website_title ) ): ?>
+					<dt class="tribe-organizer-url-label">
+						<?php echo esc_html( $website_title ) ?>
+					</dt>
+				<?php endif; ?>
 				<dd class="tribe-organizer-url">
 					<?php echo $website; ?>
 				</dd>
