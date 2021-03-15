@@ -24,7 +24,7 @@
  *                                  page limit, including the multi-day ones.
  *          @type int $more_events The number of events not showing in the day.
  *          @type array $events The non multi-day events on this day. The format of each event is the one returned by
- *                    the `tribe_get_event` function.
+ *                    the `tribe_get_event` function. Does not include the below events.
  *          @type array $featured_events The featured events on this day. The format of each event is the one returned
  *                    by the `tribe_get_event` function.
  *          @type array $multiday_events The stack of multi-day events on this day. The stack is a mix of event post
@@ -74,7 +74,7 @@ $num_events_label = sprintf(
 >
 
 	<button
-		<?php if ( ! empty( $day['found_events'] ) ) : ?>
+		<?php if ( ! empty( $day['found_events'] ) || ! empty( $day['is-widget-today']) ) : ?>
 			aria-expanded="<?php echo esc_attr( $expanded ); ?>"
 			aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 		<?php endif; ?>
@@ -152,7 +152,7 @@ $num_events_label = sprintf(
 				'is_start_of_week' => $day['is_start_of_week'],
 			] ); ?>
 
-			<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day_events' => $day['events'] ] ); ?>
+			<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day_events' => $day['events'], ] ); ?>
 		</div>
 
 		<?php $this->template( 'month/calendar-body/day/more-events', [ 'more_events' => $day['more_events'], 'more_url' => $day['day_url'] ] ); ?>

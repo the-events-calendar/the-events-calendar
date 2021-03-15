@@ -59,8 +59,8 @@ class Widget_List_View extends Widget_View {
 		// Here update, add and remove from the default template vars.
 		$template_vars['widget_title']               = $this->context->get( 'widget_title' );
 		$template_vars['hide_if_no_upcoming_events'] = $this->context->get( 'no_upcoming_events' );
-		$template_vars['jsonld_enable']              = (int) $this->context->get( 'jsonld_enable' );
 		$template_vars['show_latest_past']           = false;
+
 		// Display is modified with filters in Pro.
 		$template_vars['display'] = [];
 

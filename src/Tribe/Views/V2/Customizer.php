@@ -669,7 +669,9 @@ class Customizer {
 			';
 			
 			// Single Event styles overrides
-			if ( tribe_events_single_view_v2_is_enabled() ) {
+			// This is under filter_global_elements_css_template() in order to have
+			// access to global_elements.accent_color, which is under a different section.
+			if ( $this->should_add_single_view_v2_styles() ) {
 				$css_template .= '
 					.tribe-events-cal-links .tribe-events-gcal,
 					.tribe-events-cal-links .tribe-events-ical,
@@ -678,7 +680,10 @@ class Customizer {
 					.tribe-events-event-meta a:visited,
 					.tribe-events-schedule .recurringinfo a,
 					.tribe-related-event-info .recurringinfo a,
-					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a {
+					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a,
+					.tribe-events-single-event-description a:active,
+					.tribe-events-single-event-description a:focus,
+					.tribe-events-single-event-description a:hover {
 						color: <%= global_elements.accent_color %>;
 					}
 					
@@ -695,6 +700,14 @@ class Customizer {
 					.tribe-events-virtual-link-button:focus,
 					.tribe-events-virtual-link-button:hover {
 						background-color: ' . $accent_color_hover . ';
+					}
+					
+					.tribe-events-single-event-description a,
+					.tribe-events-single-event-description a:active,
+					.tribe-events-single-event-description a:focus,
+					.tribe-events-single-event-description a:hover,
+					.tribe-events-content blockquote {
+						border-color: <%= global_elements.accent_color %>;
 					}
 				';
 			}
@@ -742,30 +755,25 @@ class Customizer {
 	/**
 	 * Check whether the Single Event styles overrides can be applied
 	 *
-	 * @return void
+	 * @return false/true
 	 */
-	function tribe_events_single_view_v2_is_enabled() {
-		// If the constant is defined, returns the opposite of the constant.
-		if ( defined( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' ) ) {
-			return (bool) ! TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED;
-		}
-	
-		// Allow env_var to short-circuit for testing.
-		$env_var = (bool) getenv( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' );
-		if ( false !== $env_var ) {
-			return ! $env_var;
-		}
-		
+	public function should_add_single_view_v2_styles() {
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
 			return false;
 		}
-		
+
 		// Bail if Block Editor.
 		if ( has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
-	
+		
+		// Use the function from provider.php to check if V2 is not enabled
+		// or the TRIBE_EVENTS_WIDGETS_V2_DISABLED constant is true.
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
+			return false;
+		}
+
 		return true;
 	}
 }
