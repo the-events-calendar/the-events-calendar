@@ -9,12 +9,13 @@ import { unescape, trim, isEmpty } from 'lodash';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Dashicon, IconButton } from '@wordpress/components';
+import { Dashicon } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import { Loading } from '@moderntribe/events/elements';
+import { IconButton } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
 /**

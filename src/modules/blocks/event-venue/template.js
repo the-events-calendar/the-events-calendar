@@ -18,7 +18,6 @@ import {
 	PanelBody,
 	Dashicon,
 } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -34,8 +33,9 @@ import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
 import { utils } from '@moderntribe/events/data/blocks/venue';
-import { google } from '@moderntribe/common/utils/globals';
+import { google, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+const { InspectorControls } = wpEditor;
 
 /**
  * Module Code

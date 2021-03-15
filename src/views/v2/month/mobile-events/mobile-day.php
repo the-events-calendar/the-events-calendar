@@ -25,7 +25,7 @@
  *                                  page limit, including the multi-day ones.
  *          @type int $more_events The number of events not showing in the day.
  *          @type array $events The non multi-day events on this day. The format of each event is the one returned by
- *                    the `tribe_get_event` function.
+ *                    the `tribe_get_event` function. Does not include the below events.
  *          @type array $featured_events The featured events on this day. The format of each event is the one returned
  *                    by the `tribe_get_event` function.
  *          @type array $multiday_events The stack of multi-day events on this day. The stack is a mix of event post

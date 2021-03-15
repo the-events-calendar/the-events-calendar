@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
-Stable tag: 5.4.0
+Stable tag: 5.5.0
 Tested up to: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,6 +222,16 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.5.0] TBD =
+
+* Fix - Invert quotes to protect against issue with MySQL in `ANSI_QUOTES` mode. [TEC-3785]
+* Fix - correct display order of sticky, featured, and "normal" events on Month View. Adds a class for targeting sticky posts for styling. [TEC-3770]
+* Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
+* Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
+* Tweak - Added rel=noreferrer to Google Map links. [TEC-3795]
+* Tweak - Include actions before and after the creation of a view for REST API requests. Hooks added were: `tribe_events_views_v2_before_make_view_for_rest` and `tribe_events_views_v2_after_make_view_for_rest`
+* Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
+
 = [5.4.0] 2021-02-24 =
 
 * Version - The Events Calendar 5.4.0 is only compatible with Events Calendar PRO 5.3.0 and higher
@@ -234,6 +244,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Use filterable attributes for the view more link and text. Add customizer styling for the link. [ECP-568]
 * Tweak - Removed `tribe_events_views_v2_widget_admin_form_{$field_type}_input` from the List Widget admin form in favor of using `Tribe__Template::do_entry_point()` [ECP-486]
 * Tweak - Moved administration templates for List Widget components to Common. [ECP-486]
+* Language - 1 new strings added, 10 updated, 1 fuzzied, and 0 obsoleted
 
 = [5.3.2.1] 2021-02-02 =
 
