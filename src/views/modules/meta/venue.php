@@ -45,7 +45,7 @@ $website_title = tribe_events_get_venue_website_title();
 
 		<?php if ( ! empty( $website ) ): ?>
 			<?php if ( ! empty( $website_title ) ): ?>
-				<dt class="tribe-venue-url-label"> <?php esc_html( $website_title ) ?> </dt>
+				<dt class="tribe-venue-url-label"> <?php echo esc_html( $website_title ) ?> </dt>
 			<?php endif ?>
 			<dd class="tribe-venue-url"> <?php echo $website ?> </dd>
 		<?php endif ?>
