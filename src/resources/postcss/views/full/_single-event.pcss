@@ -1,0 +1,459 @@
+/**
+ * The Events Calendar Tribe Single Event View V2 Stylesheet
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
+.tribe-events-single {
+	-webkit-font-smoothing: antialiased;
+}
+
+.tribe-events-before-html,
+.tribe-events-after-html {
+
+	p {
+		line-height: 1.7;
+	}
+}
+
+/* Back navigation block */
+.tribe-events-back a {
+
+	&,
+	&:visited {
+		@mixin body;
+
+		font-size: var(--font-size-3);
+		font-weight: var(--font-weight-bold);
+		text-decoration: none;
+	}
+}
+
+/* Notices block (e.g. "This event has passed") */
+.tribe-events-notices {
+	box-shadow: none;
+	border-bottom: 1px solid var(--color-border-secondary);
+	
+	ul {
+		list-style: none;
+		text-align: left;
+		text-transform: none;
+	}
+}
+
+/* Event title */
+.tribe-events-single-event-title {
+	@mixin heading;
+	@mixin mobile-heading-2;
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-1;
+	}
+}
+
+/* Header metadata wrapper  */
+.tribe-events-schedule {
+	background-color: transparent;
+	border: 0;
+}
+
+/* Datetime block */
+.tribe-events-schedule h2 {
+	@mixin heading;
+	@mixin mobile-heading-6;
+
+	font-weight: var(--font-weight-regular);
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-6;
+	}
+}
+
+/* Recurring info block */
+.tribe-events-schedule .recurringinfo,
+.tribe-related-event-info .recurringinfo {
+	@mixin heading;
+	@mixin heading-8;
+
+	background-color: var(--color-background-secondary);
+	border-radius: 40px;
+
+	.event-is-recurring {
+		letter-spacing: -9999px; /* To hide the "Recurring Event" label on mobile */
+	}
+
+	a {
+		color: var(--color-accent-primary);
+		font-weight: var(--font-weight-regular);
+		letter-spacing: normal;
+		line-height: 20px;
+		text-decoration: none;
+	}
+}
+
+/* Recurring info block */
+.tribe-events-schedule .recurringinfo {
+	@mixin heading;
+	@mixin heading-8;
+
+	background-color: var(--color-background-secondary);
+	border-radius: 40px;
+
+	@media (--viewport-medium) {
+		@mixin heading-7;
+	}
+
+	.event-is-recurring {
+		@media (--viewport-medium) {
+			letter-spacing: normal;
+		}
+	}
+}
+
+/* Cost block */
+.tribe-events-schedule .tribe-events-cost {
+	@mixin heading;
+	@mixin mobile-heading-6;
+
+	color: var(--color-text-primary);
+	text-transform: uppercase;
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-6;
+	}
+}
+
+/* Description Block */
+.tribe-events-content {
+	@mixin body;
+
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@mixin heading;
+
+		letter-spacing: normal;
+		text-transform: none;
+	}
+
+	p,
+	ul,
+	ol {
+		font-size: var(--font-size-3);
+		line-height: var(--line-height-3);
+
+		@media (--viewport-medium) {
+			font-size: var(--font-size-4);
+			line-height: var(--line-height-2);
+		}
+	}
+
+	ul,
+	ol {
+		list-style-position: inside;
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
+	a {
+		@mixin anchor-thin-alt;
+		text-decoration: none;
+	}
+
+	pre {
+		background-color: var(--color-background-secondary-transparent);
+		font-size: var(--font-size-3);
+		line-height: var(--line-height-3);
+	}
+	
+	blockquote {
+		quotes: auto;
+		
+		&:before {
+			content: open-quote;
+		}
+		
+		&:after {
+			content: close-quote;
+		}
+	}
+}
+
+/* Cal export links block */
+.tribe-events-cal-links {
+	@mixin body;
+
+	.tribe-events-gcal,
+	.tribe-events-ical {
+		background: svg-inline(cal-export) 0 / 24px no-repeat;
+		color: var(--color-accent-primary);
+		font-size: var(--font-size-2);
+		font-weight: var(--font-weight-regular);
+		line-height: var(--line-height-3);
+		text-decoration: none;
+	}
+}
+
+/* Details block */
+.tribe-events-event-meta {
+	@mixin body;
+
+	font-size: var(--font-size-2);
+
+	a {
+
+		&,
+		&:visited {
+			color: var(--color-accent-primary);
+		}
+
+		&:focus,
+		&:hover {
+			color: var(--color-accent-primary-hover);
+		}
+	}
+
+	dt,
+	dd {
+		word-break: break-word;
+	}
+
+	dt {
+		line-height: var(--line-height-3);
+	}
+
+	.tribe-events-address {
+		font-style: normal;
+		line-height: 26px;
+	}
+
+	/* TODO: move .event-tickets declaration to ET in the future if still needed,
+	/* depending on template updates */
+	&:before,
+	& ~ div:not(.tribe-events-event-meta, .event-tickets) {
+		border-top: 1px solid var(--color-border-secondary);
+	}
+
+	&.secondary:before {
+		@media (--viewport-medium) {
+			content: normal;
+		}
+	}
+
+	/* We don't want the Customizer's overrides applied here */
+	.single-tribe_events .tribe-events-single & {
+		background-color: transparent;
+		color: var(--color-text-primary);
+	}
+}
+
+/* Details column */
+.tribe-events-meta-group {
+
+	.tribe-events-single-section-title {
+		color: var(--color-text-primary);
+		font-size: var(--font-size-2);
+		font-weight: var(--font-weight-bold);
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+
+	/* Scenario where all the details are in the same container */
+	&.tribe-events-meta-group-gmap {
+		border-top: 1px solid var(--color-border-secondary);
+	}
+}
+
+/* Venue block */
+.tribe-events-venue-map {
+	border: 0;
+	border-radius: 0;
+}
+
+/* Related Events block */
+.tribe-events-related-events-title {
+	@mixin heading;
+	@mixin mobile-heading-3;
+
+	border-top: 1px solid var(--color-border-secondary);
+
+	@media (--viewport-medium) {
+		@mixin desktop-heading-3;
+	}
+}
+
+.tribe-events-single ul.tribe-related-events {
+
+	li {
+		@mixin body;
+
+		.tribe-related-events-title {
+			@mixin heading;
+			@mixin heading-7;
+
+			a {
+				color: var(--color-accent-primary);
+			}
+		}
+	}
+}
+
+/* Footer Navigation */
+#tribe-events-footer {
+	border-top: 1px solid var(--color-border-secondary);
+}
+
+.tribe-events-single .tribe-events-sub-nav {
+	@mixin body;
+
+	font-size: var(--font-size-1);
+	list-style: none;
+
+	@media (--viewport-medium) {
+		font-size: var(--font-size-3);
+	}
+
+	.tribe-events-nav-previous a,
+	.tribe-events-nav-next a {
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		vertical-align: middle;
+
+		&:before,
+		&:after {
+			content: '';
+			display: inline-block;
+			height: 20px;
+			vertical-align: middle;
+			width: 11px;
+		}
+
+		&:hover,
+		&:focus {
+			color: var(--color-text-primary);
+		}
+	}
+
+	.tribe-events-nav-previous a {
+
+		&:before {
+			background: svg-inline(caret-left) 0 / 7px no-repeat;
+
+			@media (--viewport-medium) {
+				background-size: 9px;
+			}
+		}
+
+		&:hover,
+		&:focus {
+
+			&:before {
+				background-image: svg-inline(caret-left-active);
+			}
+		}
+	}
+
+	.tribe-events-nav-next a {
+
+		&:after {
+			background: svg-inline(caret-right) right / 7px no-repeat;
+
+			@media (--viewport-medium) {
+				background-size: 9px;
+			}
+		}
+
+		&:hover,
+		&:focus {
+
+			&:after {
+				background-image: svg-inline(caret-right-active);
+			}
+		}
+	}
+}
+
+/* -------------------------------------------------------------------------
+ *
+ * Single Event: Theme Overrides
+ *
+ * ------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Twenty Nineteen
+ * ----------------------------------------------------------------------------- */
+
+.tribe-theme-twentynineteen {
+
+	.tribe-events-schedule h2,
+	.tribe-events-single-event-title,
+	.tribe-events-content h2,
+	.tribe-events-single-section-title,
+	.tribe-events-related-events-title {
+
+		&:before {
+			content: normal;
+		}
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Twenty Twenty One
+ * ----------------------------------------------------------------------------- */
+
+.tribe-theme-twentytwentyone {
+
+	.tribe-events-cal-links a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+		background: svg-inline(cal-export) 0 / 24px no-repeat;
+	}
+
+	.tribe-events-schedule .recurringinfo,
+	.tribe-related-event-info .recurringinfo {
+
+		a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+			background: transparent;
+			text-decoration: none;
+		}
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Enfold
+ * ----------------------------------------------------------------------------- */
+
+#top.tribe-theme-enfold.single-tribe_events {
+
+	.tribe-events-single-event-title {
+		@mixin heading;
+		@mixin mobile-heading-2;
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-1;
+		}
+	}
+
+	.tribe-events-schedule h3 {
+		@mixin heading;
+		@mixin mobile-heading-6;
+
+		font-weight: var(--font-weight-regular);
+
+		@media (--viewport-medium) {
+			@mixin desktop-heading-6;
+		}
+	}
+
+	.tribe-events-content pre {
+		background-image: none;
+	}
+
+	#wrap_all .tribe-events-cal-links a,
+	.av-single-event-meta-bar-inner {
+		border: 0;
+	}
+}
