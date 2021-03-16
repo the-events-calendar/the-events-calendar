@@ -31,10 +31,24 @@ class Legacy_Views_Deprecation {
 		);
 	}
 
+	/**
+	 * Checks if we are using a debug constant.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
 	public function is_debug() {
 		return defined( 'WP_DEBUG' ) && WP_DEBUG;
 	}
 
+	/**
+	 * Checks if we are in a page we need to display.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
 	public function is_valid_screen() {
 		/** @var Tribe__Admin__Helpers $admin_helpers */
 		$admin_helpers = tribe( 'admin.helpers' );
@@ -43,6 +57,8 @@ class Legacy_Views_Deprecation {
 	}
 
 	/**
+	 * Checks all methods required for display.
+	 *
 	 * @since TBD
 	 *
 	 * @return bool
@@ -52,6 +68,8 @@ class Legacy_Views_Deprecation {
 	}
 
 	/**
+	 * Get the date in which we are meant to deprecate.
+	 *
 	 * @since TBD
 	 *
 	 * @return Tribe\Utils\Date_I18n_Immutable
