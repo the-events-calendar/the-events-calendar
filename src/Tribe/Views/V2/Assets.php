@@ -423,6 +423,36 @@ class Assets extends \tad_DI52_ServiceProvider {
 				]
 			);
 		}
+		
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-skeleton',
+			'tribe-events-single-skeleton.css',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'priority' => 15,
+				'conditionals' => [
+					[ $this, 'should_enqueue_single_event_styles' ],
+				],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-skeleton-full',
+			'tribe-events-single-full.css',
+			[
+				'tribe-events-v2-single-skeleton',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority' => 15,
+				'conditionals' => [
+					[ $this, 'should_enqueue_single_event_styles' ],
+				],
+			]
+		);
 	}
 
 	/**
@@ -433,8 +463,13 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	public function disable_v1() {
-		// Dont disable V1 on Single Event page
-		if ( tribe( Template_Bootstrap::class )->is_single_event() ) {
+		// Don't disable V1:
+		// - on Single Event page
+		// - using the Block Editor OR using the Classic editor but with the V2 overrides disabled.
+		if (
+			tribe( Template_Bootstrap::class )->is_single_event() &&
+			( has_blocks( get_queried_object_id() ) || ! tribe_events_single_view_v2_is_enabled() )
+		) {	
 			return;
 		}
 
@@ -516,5 +551,31 @@ class Assets extends \tad_DI52_ServiceProvider {
 		 * @param bool $is_skeleton_style
 		 */
 		return apply_filters( 'tribe_events_views_v2_assets_should_enqueue_full_styles', $should_enqueue );
+	}
+	
+	/**
+	 * Verifies if we are on V2 and on Event Single in order to enqueue the override styles for Single Event.
+	 *
+	 * @since TBD
+	 * 
+	 * @return boolean
+	 */
+	public function should_enqueue_single_event_styles() {
+		// Bail if not Single Event V2.
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
+			return false;
+		}
+
+		// Bail if not Single Event.
+		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+			return false;
+		}
+
+		// Bail if Block Editor.
+		if ( has_blocks( get_queried_object_id() ) ) {
+			return false;
+		}
+		
+		return true;
 	}
 }
