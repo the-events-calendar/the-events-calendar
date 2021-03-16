@@ -51,6 +51,15 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 		$this->add_simple_meta_schema_entry( 'email', '_OrganizerEmail' );
 		$this->add_simple_meta_schema_entry( 'phone', '_OrganizerPhone' );
 		$this->add_simple_meta_schema_entry( 'website', '_OrganizerWebsite' );
+
+		$this->schema = array_merge(
+			$this->schema,
+			[
+				'has_events'          => [ $this, 'filter_by_has_events' ],
+				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
+				'has_upcoming_events' => [ $this, 'filter_by_has_upcoming_events' ],
+			]
+		);
 	}
 
 	/**
