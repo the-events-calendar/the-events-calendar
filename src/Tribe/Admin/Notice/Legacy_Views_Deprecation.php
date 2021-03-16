@@ -90,7 +90,7 @@ class Legacy_Views_Deprecation {
 			$link = sprintf(
 				'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
 				esc_url( 'TBD_LINK' ),
-				esc_html_x( 'read more about how that might affect you', 'read more about deprecation of legacy views', 'the-events-calendar' )
+				esc_html_x( 'Read more about how that might affect you.', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
 			);
 
 			return sprintf(
@@ -103,7 +103,7 @@ class Legacy_Views_Deprecation {
 		$link = sprintf(
 			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
 			esc_url( 'TBD_LINK' ),
-			esc_html_x( 'read more about how that might affect you', 'read more about deprecation of legacy views', 'the-events-calendar' )
+			esc_html_x( 'Read more about how that might affect you.', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
 		);
 
 		return sprintf(
