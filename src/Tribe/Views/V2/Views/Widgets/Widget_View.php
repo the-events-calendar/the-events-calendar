@@ -63,7 +63,7 @@ class Widget_View extends View {
 	/**
 	 * Returns the widget "view more" title.
 	 * Adds context as needed for screen readers.
-	 * @see Tribe\Events\Pro\Views\V2\Views\Widgets\Venue_View for an example.
+	 * @see \Tribe\Events\Pro\Views\V2\Views\Widgets\Venue_View for an example.
 	 *
 	 * @since 5.4.0
 	 *
@@ -99,6 +99,14 @@ class Widget_View extends View {
 	 */
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
+
+		$is_jsonld_enabled              = tribe_is_truthy( $this->context->get( 'jsonld_enable' ) );
+		$template_vars['jsonld_enable'] = $is_jsonld_enabled;
+
+		// If JSON-LD not enabled, just empty data.
+		if ( ! $is_jsonld_enabled ) {
+			$template_vars['json_ld_data'] = '';
+		}
 
 		$template_vars['compatibility_classes'] = $this->get_compatibility_classes();
 		$template_vars['container_classes']     = $this->get_html_classes();
@@ -161,14 +169,11 @@ class Widget_View extends View {
 	 *                       _at least_ 'tribe-compatibility-container' as an indicator.
 	 */
 	public function get_compatibility_classes() {
+		/**
+		 * @var Theme_Compatibility $theme_compatibility
+		 */
 		$theme_compatibility = tribe( Theme_Compatibility::class );
-		$classes = [ 'tribe-compatibility-container' ];
-
-		if ( ! $theme_compatibility->is_compatibility_required() ) {
-			return $classes;
-		}
-
-		$classes = array_merge( $classes, $theme_compatibility->get_body_classes() );
+		$classes = $theme_compatibility->get_container_classes();
 
 		/**
 		 * Filters the HTML classes applied to a widget top-level container.

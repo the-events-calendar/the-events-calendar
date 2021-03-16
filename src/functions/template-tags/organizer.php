@@ -426,7 +426,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string the link label/text.
 		 */
-		$label = apply_filters( 'tribe_get_organizer_website_link_label', $label );
+		$label = apply_filters( 'tribe_get_organizer_website_link_label', $label, $post_id );
 
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;
@@ -456,6 +456,28 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param string the link HTML.
 		 */
 		return apply_filters( 'tribe_get_organizer_website_link', $html );
+	}
+	
+	/**
+	 * Get the link for the organizer website.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|int $post_id The event or organizer ID.
+	 * @return string  Formatted title for the organizer website link
+	 */
+	function tribe_events_get_organizer_website_title( $post_id = null ) {
+		$post_id = tribe_get_organizer_id( $post_id );
+
+		/**
+		 * Allows customization of a organizer's website title link.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $title The title of the organizer's website link.
+		 * @param int 	 $post_id The organizer ID.
+		 */
+		return apply_filters( 'tribe_events_get_organizer_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
 	}
 
 	/**
