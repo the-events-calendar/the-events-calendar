@@ -38,6 +38,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[],
 			'wp_print_footer_scripts',
 			[
+				'print'        => true,
 				'priority'     => 5,
 				'conditionals' => [
 					[ Widget_List::class, 'is_widget_in_use' ],
@@ -57,6 +58,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			],
 			'wp_print_footer_scripts',
 			[
+				'print'        => true,
 				'priority'     => 5,
 				'conditionals' => [
 					'operator' => 'AND',
