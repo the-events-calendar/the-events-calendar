@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added rel=noreferrer to Google Map links. [TEC-3795]
 * Tweak - Include actions before and after the creation of a view for REST API requests. Hooks added were: `tribe_events_views_v2_before_make_view_for_rest` and `tribe_events_views_v2_after_make_view_for_rest`
 * Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
+* Tweak - Include Legacy views deprecation notice [TEC-4809]
 
 = [5.4.0] 2021-02-24 =
 
