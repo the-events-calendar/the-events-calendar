@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.5.0] TBD =
 
+* Feature - Add `has_event` and `has_no_events` to the Venue and Organizer ORM so we can filter requests for both by whether they have events or not.
 * Fix - Invert quotes to protect against issue with MySQL in `ANSI_QUOTES` mode. [TEC-3785]
 * Fix - correct display order of sticky, featured, and "normal" events on Month View. Adds a class for targeting sticky posts for styling. [TEC-3770]
 * Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
@@ -232,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Include actions before and after the creation of a view for REST API requests. Hooks added were: `tribe_events_views_v2_before_make_view_for_rest` and `tribe_events_views_v2_after_make_view_for_rest`
 * Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
 * Tweak - Add the `tribe_events_views_v2_by_day_view_grid_days` and `tribe_events_views_v2_by_day_view_day_results` filters to the `By_Day_View` class to allow the injection and replacement of the per-day results in Month and Week Views.
+* Tweak - Include Legacy views deprecation notice [TEC-4809]
 
 = [5.4.0] 2021-02-24 =
 
