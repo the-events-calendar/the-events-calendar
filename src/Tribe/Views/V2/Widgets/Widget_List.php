@@ -22,6 +22,11 @@ use Tribe__Context as Context;
 class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
+	 */
+	protected static $widget_in_use;
+
+	/**
+	 * {@inheritDoc}
 	 *
 	 * @var string
 	 */
