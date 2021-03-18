@@ -19,7 +19,7 @@ namespace Tribe\Events\Integrations\Fusion;
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	/**
-	 * Registers the bindings and hooks the filters required for the Elementor integration to work.
+	 * Registers the bindings and hooks the filters required for the Fusion Core integration to work.
 	 *
 	 * @since   TBD
 	 */
@@ -41,7 +41,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since   TBD
 	 */
 	public function register_hooks() {
-		// Hook on the AJAX call Elementor will make during edits to support the archive shortcodes.
 		add_action( 'shortcode_atts_fusion_widget', [ $this, 'filter_shortcode_widget_atts' ], 25, 4 );
 	}
 
