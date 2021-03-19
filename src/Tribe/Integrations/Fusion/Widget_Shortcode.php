@@ -63,7 +63,7 @@ class Widget_Shortcode {
 		$class_map = $this->get_widget_class_map();
 
 		// Bail when we are not mapped to fix this type of widget.
-		if ( ! isset( $class_map[ $out['type'] ] ) ) {
+		if ( ! isset( $out['type'], $class_map[ $out['type'] ] ) ) {
 			return $out;
 		}
 
