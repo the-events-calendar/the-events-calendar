@@ -2,7 +2,7 @@
 /**
  * Handles the integration with Fusion Core.
  *
- * @since   TBD
+ * @since   5.5.0
  *
  * @package Tribe\Events\Pro\Integrations\Fusion
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Integrations\Fusion;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   5.5.0
  *
  * @package Tribe\Events\Integrations\Fusion
  */
@@ -21,7 +21,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the bindings and hooks the filters required for the Fusion Core integration to work.
 	 *
-	 * @since   TBD
+	 * @since   5.5.0
 	 */
 	public function register() {
 		// Bail in case Fusion core is not loaded.
@@ -43,7 +43,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register the hooks for Fusion integration.
 	 *
-	 * @since   TBD
+	 * @since   5.5.0
 	 */
 	public function register_hooks() {
 		add_action( 'shortcode_atts_fusion_widget', [ $this, 'filter_shortcode_widget_atts' ], 25, 4 );
@@ -52,7 +52,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Builds and hooks the class that will handle shortcode support in the context of Fusipn Core.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @param array  $out       The output array of shortcode attributes.
 	 * @param array  $pairs     The supported attributes and their defaults.

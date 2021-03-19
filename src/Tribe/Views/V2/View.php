@@ -275,7 +275,7 @@ class View implements View_Interface {
 		/**
 		 * Run an action before we start making a new View instance for rest requests.
 		 *
-		 * @since  TBD
+		 * @since  5.5.0
 		 *
 		 * @param  string            $slug    The current view Slug.
 		 * @param  array             $params  Params so far that will be used to build this view.
@@ -370,7 +370,7 @@ class View implements View_Interface {
 		/**
 		 * Run an action after we finish making a new View instance for rest requests.
 		 *
-		 * @since  TBD
+		 * @since  5.5.0
 		 *
 		 * @param  View              $view    The current view Slug.
 		 * @param  \WP_REST_Request  $request Request that generated this view.

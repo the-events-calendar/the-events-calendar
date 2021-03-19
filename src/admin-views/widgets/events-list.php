@@ -10,9 +10,9 @@
  *
  * @var \Tribe__Template $this Instance of the template including this file.
  *
- * @since TBD Rename from list.php to events-list.php matching slug of the widget class.
+ * @since 5.5.0 Rename from list.php to events-list.php matching slug of the widget class.
  *
- * @version TBD
+ * @version 5.5.0
  */
 
 $this->template( 'widgets/components/form' );

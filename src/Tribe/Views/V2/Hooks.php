@@ -132,14 +132,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Register the asset for Customizer controls.
 		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
-		
+
 		// Add filters to change the display of website links on the Single Event template.
 		add_filter( 'tribe_get_event_website_link_label', [ $this, 'filter_single_event_details_event_website_label' ], 10, 2 );
 		add_filter( 'tribe_events_get_event_website_title', '__return_empty_string' );
-		
+
 		add_filter( 'tribe_get_venue_website_link_label', [ $this, 'filter_single_event_details_venue_website_label' ], 10, 2 );
 		add_filter( 'tribe_events_get_venue_website_title', '__return_empty_string' );
-		
+
 		add_filter( 'tribe_get_organizer_website_link_label', [ $this, 'filter_single_event_details_organizer_website_label' ], 10, 2 );
 		add_filter( 'tribe_events_get_organizer_website_title', '__return_empty_string' );
 	}
@@ -952,17 +952,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function enqueue_customizer_controls_styles() {
 		return $this->container->make( Customizer::class )->enqueue_customizer_controls_styles();
 	}
-	
+
 	/**
 	 * Filter the website link label and change it for Single Event Classic Editor.
 	 * Use the following in functions.php to disable:
 	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.5.0
+	 *
 	 * @param string     $label The filtered label.
 	 * @param string|int $post_id The current post ID.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function filter_single_event_details_event_website_label( $label, $post_id ) {
@@ -970,20 +970,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( $post_id ) ) {
 			return $label;
 		}
-		
+
 		return __( 'View Event Website', 'the-events-calendar' );
 	}
-	
+
 		/**
 	 * Filter the website link label and change it for Single Event Classic Editor.
 	 * Use the following in functions.php to disable:
 	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.5.0
+	 *
 	 * @param string     $label The filtered label.
 	 * @param string|int $post_id The current post ID.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function filter_single_event_details_venue_website_label( $label, $post_id ) {
@@ -991,20 +991,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( $post_id ) ) {
 			return $label;
 		}
-		
+
 		return __( 'View Venue Website', 'the-events-calendar' );
 	}
-	
+
 		/**
 	 * Filter the website link label and change it for Single Event Classic Editor.
 	 * Use the following in functions.php to disable:
 	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.5.0
+	 *
 	 * @param string     $label The filtered label.
 	 * @param string|int $post_id The current post ID.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function filter_single_event_details_organizer_website_label( $label, $post_id ) {
@@ -1012,7 +1012,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( $post_id ) ) {
 			return $label;
 		}
-		
+
 		return __( 'View Organizer Website', 'the-events-calendar' );
 	}
 }

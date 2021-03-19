@@ -122,7 +122,7 @@ class Theme_Compatibility {
 	/**
 	 * Fetches the correct class strings for theme and child theme if available + the container class.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return array $classes
 	 */
@@ -136,7 +136,7 @@ class Theme_Compatibility {
 		/**
 		 * Filters the HTML classes applied to a widget top-level container.
 		 *
-		 * @since TBD
+		 * @since 5.5.0
 		 *
 		 * @param array  $html_classes Array of classes used for this widget.
 		 */

@@ -794,11 +794,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		return apply_filters( 'tribe_get_venue_website_link', $html, $post_id );
 	}
-	
+
 	/**
 	 * Get the link for the venue website.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @param null|int $post_id The event or venue ID.
 	 * @return string  Formatted title for the venue website link
@@ -809,7 +809,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of a venue's website title link.
 		 *
-		 * @since TBD
+		 * @since 5.5.0
 		 *
 		 * @param string $title The title of the venue's website link.
 		 * @param int 	 $post_id The venue ID.

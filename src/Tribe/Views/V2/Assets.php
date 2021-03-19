@@ -423,7 +423,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				]
 			);
 		}
-		
+
 		tribe_asset(
 			$plugin,
 			'tribe-events-v2-single-skeleton',
@@ -469,7 +469,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		if (
 			tribe( Template_Bootstrap::class )->is_single_event() &&
 			( has_blocks( get_queried_object_id() ) || ! tribe_events_single_view_v2_is_enabled() )
-		) {	
+		) {
 			return;
 		}
 
@@ -552,12 +552,12 @@ class Assets extends \tad_DI52_ServiceProvider {
 		 */
 		return apply_filters( 'tribe_events_views_v2_assets_should_enqueue_full_styles', $should_enqueue );
 	}
-	
+
 	/**
 	 * Verifies if we are on V2 and on Event Single in order to enqueue the override styles for Single Event.
 	 *
-	 * @since TBD
-	 * 
+	 * @since 5.5.0
+	 *
 	 * @return boolean
 	 */
 	public function should_enqueue_single_event_styles() {
@@ -575,7 +575,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		if ( has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }

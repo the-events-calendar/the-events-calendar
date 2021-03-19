@@ -174,7 +174,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads the Fusion integration if Fusion Core is currently active.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 */
 	public function load_fusion_integration() {
 		tribe_register_provider( Fusion_Integration::class );

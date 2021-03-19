@@ -105,7 +105,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * Short-circuits deleting metadata items that dont exist, for compatibility purposes we need to make sure
 	 * WordPress doesn't throw an error when the meta is not present.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @param null|bool $delete     Whether to allow metadata deletion of the given type.
 	 * @param int       $object_id  ID of the object metadata is for.

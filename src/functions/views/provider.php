@@ -161,7 +161,7 @@ function tribe_events_widgets_v2_is_enabled() {
  * Note the internal logic is inverted, as the name of the function is "...is_enabled"
  * while the names of the constant/env_var are "...DISABLED".
  *
- * @since TBD
+ * @since 5.5.0
  *
  * @return bool Whether Single Event v2 styles overrides should load.
  */
@@ -185,7 +185,7 @@ function tribe_events_single_view_v2_is_enabled() {
 	/**
 	 * Allows toggling of the single event v2 overrides via a filter. Defaults to true.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return boolean Do we enable the single event styles overrides?
 	 */

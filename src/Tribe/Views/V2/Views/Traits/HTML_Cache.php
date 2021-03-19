@@ -152,7 +152,7 @@ trait HTML_Cache {
 		/**
 		 * Allow specifically changing which views get cache.
 		 *
-		 * @since TBD
+		 * @since 5.5.0
 		 *
 		 * @param array               $views Should the current view have its HTML cached?
 		 * @param View_Interface|null $view  The object using the trait, or null in case of static usage.

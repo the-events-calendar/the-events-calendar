@@ -5,7 +5,7 @@ namespace Tribe\Events\Integrations\Fusion;
 /**
  * Class Widget_Shortcode
  *
- * @since   TBD
+ * @since   5.5.0
  *
  * @package Tribe\Events\Pro\Integrations\Fusion
  */
@@ -14,7 +14,7 @@ class Widget_Shortcode {
 	/**
 	 * Fetches a list of widgets we will fix inside of the Fusion Core builder.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return array
 	 */
@@ -26,7 +26,7 @@ class Widget_Shortcode {
 		/**
 		 * Filtering the widget classes we fix for out own widgets on Fusion builder/core.
 		 *
-		 * @since TBD
+		 * @since 5.5.0
 		 *
 		 * @param array $classes List of classes we are
 		 */
@@ -45,7 +45,7 @@ class Widget_Shortcode {
 	/**
 	 * Filters the attributes for shortcodes to modify the class names for Avada/Fusion core widgets.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 *
 	 * @param array  $out       The output array of shortcode attributes.
