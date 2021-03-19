@@ -24,6 +24,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since   TBD
 	 */
 	public function register() {
+		// Bail in case Fusion core is not loaded.
+		if ( ! defined( 'FUSION_CORE_VERSION' ) || empty( FUSION_CORE_VERSION ) ) {
+			return;
+		}
+
 		// Fusion compatibility only for V2 users.
 		if ( ! tribe_events_views_v2_is_enabled() ) {
 			return;

@@ -177,10 +177,6 @@ class Tribe__Events__Integrations__Manager {
 	 * @since TBD
 	 */
 	public function load_fusion_integration() {
-		if ( ! defined( 'FUSION_CORE_VERSION' ) || empty( FUSION_CORE_VERSION ) ) {
-			return;
-		}
-
 		tribe_register_provider( Fusion_Integration::class );
 	}
 }
