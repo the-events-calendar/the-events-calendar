@@ -4,17 +4,21 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.14
+<<<<<<< HEAD
 Stable tag: 5.5.0
+=======
+Stable tag: 5.4.0.2
+>>>>>>> origin/master
 Tested up to: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The Events Calendar is a carefully crafted, extensible plugin that lets you easily manage and share events. Beautiful. Solid. Awesome.
+The Events Calendar is the number one calendar plugin for WordPress. Easily create and manage events (including virtual events!) on your WordPress site with The Events Calendar free plugin.
 
 == Description ==
 
-Easily create and manage an events calendar on your website with [The Events Calendar](https://evnt.is/mj). Whether your events are in-person or virtual events, this plugin boasts professional features backed by our world-class team of developers and designers.
+Easily create and manage an events calendar on your WordPress site with [The Events Calendar](https://evnt.is/mj) free plugin. Whether your events are in-person or virtual events, this WordPress calendar plugin boasts professional features backed by our world-class team of developers and designers.
 
 https://vimeo.com/425323974
 
@@ -234,6 +238,14 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
 * Tweak - Add the `tribe_events_views_v2_by_day_view_grid_days` and `tribe_events_views_v2_by_day_view_day_results` filters to the `By_Day_View` class to allow the injection and replacement of the per-day results in Month and Week Views.
 * Tweak - Include Legacy views deprecation notice [TEC-4809]
+
+= [5.4.0.2] 2021-03-10 =
+
+* Fix - Saving organizers properly work on WordPress 5.7 with Blocks Editor [TEC-3788]
+
+= [5.4.0.1] 2021-03-04 =
+
+* Fix - Prevent fatals happening with PHP 5.6 due to duplicated class for templates [BTRIA-767]
 
 = [5.4.0] 2021-02-24 =
 
