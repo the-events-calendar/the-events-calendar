@@ -30,7 +30,7 @@ class Widget_Shortcode {
 		 *
 		 * @param array $classes List of classes we are
 		 */
-		$classes = apply_filters( 'tribe_events_integrations_fusion_widget_class_map', $classes );
+		$classes = (array) apply_filters( 'tribe_events_integrations_fusion_widget_class_map', $classes );
 
 		$map = [];
 
