@@ -71,7 +71,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 			[
 				'has_events'          => [ $this, 'filter_by_has_events' ],
 				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
-				'has_upcoming_events' => [ $this, 'filter_by_has_upcoming_events' ],
 			]
 		);
 	}
