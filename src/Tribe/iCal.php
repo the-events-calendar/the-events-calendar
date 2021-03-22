@@ -1,6 +1,7 @@
 <?php
 
 use Tribe__Date_Utils as Dates;
+use Tribe__Utils__Array as Arr;
 
 /**
  *  Class that implements the export to iCal functionality
@@ -210,11 +211,25 @@ class Tribe__Events__iCal {
 				return;
 			}
 
-			if ( isset( $_GET['event_ids'] ) ) {
-				if ( empty( $_GET['event_ids'] ) ) {
+			$event_ids = tribe_get_request_var( 'event_ids', false );
+
+			/**
+			 * Allows filtering the event IDs after the `Tribe__Events__ICal` class
+			 * tried to fetch them from the current request.
+			 *
+			 * @since TBD
+			 *
+			 * @param array<int>|false Either a list of requested event post IDs or `false`
+			 *                         if the current request does not specify the event post
+			 *                         IDs to fetch.
+			 */
+			$event_ids = apply_filters( 'tribe_ical_template_event_ids', $event_ids );
+
+			if ( false !== $event_ids ) {
+				if ( empty( $event_ids ) ) {
 					die();
 				}
-				$event_ids = explode( ',', $_GET['event_ids'] );
+				$event_ids = Arr::list_to_array( $event_ids );
 				$events = tribe_get_events( [ 'post__in' => $event_ids ] );
 				$this->generate_ical_feed( $events );
 			} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
