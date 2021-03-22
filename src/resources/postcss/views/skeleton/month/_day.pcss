@@ -5,8 +5,9 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__day {
-		height: 48px;
+		min-height: 36px;
 		overflow: hidden;
+		padding-top: var(--grid-width-1-of-7);
 		position: relative;
 		width: var(--grid-width-1-of-7);
 
@@ -29,7 +30,9 @@
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		position: absolute;
 		text-align: center;
+		top: 0;
 
 		.tribe-common--breakpoint-medium& {
 			@mixin hidden;
