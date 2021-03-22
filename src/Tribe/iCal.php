@@ -858,7 +858,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @return int
 	 */
-	protected function feed_posts_per_page() {
+	public function feed_posts_per_page() {
 		/**
 		 * Filters the number of upcoming events the iCal feed should export.
 		 *
