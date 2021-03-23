@@ -152,7 +152,7 @@ trait HTML_Cache {
 		/**
 		 * Allow specifically changing which views get cache.
 		 *
-		 * @since TBD
+		 * @since 5.5.0
 		 *
 		 * @param array               $views Should the current view have its HTML cached?
 		 * @param View_Interface|null $view  The object using the trait, or null in case of static usage.
@@ -218,6 +218,11 @@ trait HTML_Cache {
 		// Default to always caching the current month.
 		if ( ! $event_date ) {
 			return true;
+		}
+
+		// In case we got a invalid value for Date time we dont cache.
+		if ( $event_date instanceof \DateTimeInterface ) {
+			return false;
 		}
 
 		// If the eventDate argument is not in the expected format then do not cache.

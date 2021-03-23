@@ -22,7 +22,7 @@ class Widget_List_FormTest extends ViewTestCase {
 		$instance = [];
 		$arguments = $widget->get_arguments( $instance );
 
-		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
+		$html = $widget->get_admin_template()->template( 'widgets/events-list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
 	}
@@ -41,7 +41,7 @@ class Widget_List_FormTest extends ViewTestCase {
 		];
 
 		$arguments = $widget->get_arguments( $instance );
-		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
+		$html = $widget->get_admin_template()->template( 'widgets/events-list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
 	}
@@ -65,7 +65,7 @@ class Widget_List_FormTest extends ViewTestCase {
 		);
 
 		$arguments = $widget->get_arguments( $instance );
-		$html = $widget->get_admin_template()->template( 'widgets/list', $arguments, false );
+		$html = $widget->get_admin_template()->template( 'widgets/events-list', $arguments, false );
 
 		$this->assertMatchesSnapshot( $html );
 	}

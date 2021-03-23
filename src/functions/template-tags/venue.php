@@ -796,6 +796,28 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Get the link for the venue website.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param null|int $post_id The event or venue ID.
+	 * @return string  Formatted title for the venue website link
+	 */
+	function tribe_events_get_venue_website_title( $post_id = null ) {
+		$post_id = tribe_get_venue_id( $post_id );
+
+		/**
+		 * Allows customization of a venue's website title link.
+		 *
+		 * @since 5.5.0
+		 *
+		 * @param string $title The title of the venue's website link.
+		 * @param int 	 $post_id The venue ID.
+		 */
+		return apply_filters( 'tribe_events_get_venue_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
+	}
+
+	/**
 	 * Returns the venue website URL related to the current post or for the optionally
 	 * specified post.
 	 *

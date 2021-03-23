@@ -175,4 +175,61 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 5, tribe_venues()->get_ids() );
 	}
 
+	/**
+	 * @test
+	 */
+	public function should_allow_fetching_venues_by_has_events() {
+		$venues = $this->create_venues_and_events( 4, 3, 3 );
+
+		$this->assertEqualSets( $venues['with'] , tribe_venues()->where( 'has_events', true )->get_ids() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_allow_fetching_venues_by_has_no_events() {
+		$venues = $this->create_venues_and_events( 4, 3, 3 );
+
+		$this->assertEqualSets( $venues['without'] , tribe_venues()->where( 'has_no_events', true )->get_ids() );
+	}
+
+	/**
+	 * Creates a set of venues and a set of events for half the venues.
+	 * Also creates a set of "extra" events for "noise"
+	 *
+	 * @since TBD
+	 *
+	 * @param int $venues       The number of venues to create.
+	 * @param int $events       The number of events to create per venue.
+	 * @param int $extra_events The number of extra events to create.
+	 *
+	 * @return array<string,array<int,int>> List of IDs that were created, sorted by with/without events.
+	 */
+	public function create_venues_and_events( int $venues = 1, int $events = 1, int $extra_events = 0 ) {
+		$with_events    = ceil( $venues / 2 );
+		$without_events = floor( $venues / 2 );
+		$returned_venues = [];
+
+		while ($without_events > 0 ) {
+			$id = $this->factory()->venue->create();
+			$returned_venues['without'][] = $id;
+			$without_events--;
+		}
+
+		while ($with_events > 0 ) {
+			$id                = $this->factory()->venue->create();
+			$returned_venues['with'][] = $id;
+
+			$this->factory()->event->create_many( $events, [ 'venue' => $id ] );
+
+			$with_events--;
+		}
+
+		while ($extra_events > 0 ) {
+			$this->factory()->event->create();
+			$extra_events--;
+		}
+
+		return $returned_venues;
+	}
 }

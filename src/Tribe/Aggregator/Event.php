@@ -256,10 +256,24 @@ class Tribe__Events__Aggregator__Event {
 		if ( ! empty( $fields[ $origin ]['legacy'] ) ) {
 			$keys[] = $key;
 			$keys[] = "_{$fields[ $origin ]['legacy']}";
+			$combined_keys = implode(
+				 ', ',
+				 array_map(
+					 function ( $meta_key ) {
+						$meta_key = esc_sql( $meta_key );
 
-			$sql .= 'AND meta_key IN ( "' . implode( '", "', array_map( 'esc_sql', $keys ) ) .'" )';
+						return "'{$meta_key}'";
+					},
+					 $keys
+				)
+			);
+
+			// Results in "AND meta_key IN ( 'one', 'two', 'etc' )"
+			$sql .= "AND meta_key IN ( {$combined_keys} )";
 		} else {
-			$sql .= 'AND meta_key = "' . esc_sql( $key ) . '"';
+			$key = esc_sql( $key );
+			// Results in "AND meta_key = 'one'"
+			$sql .= "AND meta_key = '{$key}'";
 		}
 
 		return $wpdb->get_results( $sql, OBJECT_K );
