@@ -55,15 +55,12 @@ if ( $today_date === $day_date ) {
 	<?php foreach ( $events as $event ) : ?>
 		<?php $event_date = $event->dates->start->format( Dates::DBDATEFORMAT ); ?>
 
-		<?php if ( empty( $running_date ) || $running_date !== $event_date ) : ?>
-			<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'day_date' => $event_date ] ); ?>
-		<?php endif; ?>
+		<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'events' => $events, 'event' => $event, 'request_date' => $day_date ] ); ?>
 
 		<?php $this->setup_postdata( $event ); ?>
 
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event', [ 'event' => $event ] ); ?>
 
-		<?php $running_date = $event_date; ?>
 	<?php endforeach; ?>
 
 	<?php $this->template( 'month/mobile-events/mobile-day/more-events', [ 'more_events' => $day['more_events'], 'more_url' => $day['day_url'] ] ); ?>
