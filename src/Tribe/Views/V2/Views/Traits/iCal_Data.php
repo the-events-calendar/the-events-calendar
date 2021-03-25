@@ -89,6 +89,17 @@ trait iCal_Data {
 			$query_args['eventDate'] = $event_date;
 		}
 
+		$passthrough_map = [
+			'tribe_events_cat' => 'tribe_events_cat',
+		];
+
+		foreach ( $passthrough_map as $context_key => $query_arg ) {
+			$context_value = $this->context->get( $context_key, null );
+			if ( null !== $context_value ) {
+				$query_args[ $query_arg ] = $context_value;
+			}
+		}
+
 		// Put it all together and create a URL that will request what we just required.
 		if ( count( $query_args ) ) {
 			$url = add_query_arg( $query_args, $url );
