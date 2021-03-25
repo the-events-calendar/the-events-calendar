@@ -59,13 +59,39 @@ trait iCal_Data {
 
 		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 
-		switch ( $slug ) {
-			case 'month':
-				$url = $this->get_month_view_url();
-				break;
-			default:
-				$url = tribe_get_ical_link();
-				break;
+		$url = tribe_get_ical_link();
+
+		/*
+		 * Whether the request comes in the context of a PHP initial state request or an
+		 * AJAX-driven, the request URI will be correctly set.
+		 */
+		$unsafe_request_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
+		$request_uri        = filter_var( $unsafe_request_uri, FILTER_SANITIZE_URL );
+
+		// From the Request URI read only the query arguments that start with `tribe`.
+		$query_string = wp_parse_url( $request_uri, PHP_URL_QUERY );
+		parse_str( $query_string, $query_args );
+		$query_args = array_filter( $query_args, static function ( $query_arg_name ) {
+			return strpos( $query_arg_name, 'tribe' ) === 0;
+		}, ARRAY_FILTER_USE_KEY );
+
+		// Set the View explicitly; will be read with `Context::get( 'ical_view' )`.
+		$query_args['view'] = $this->slug;
+
+		// Set the display mode, if any, explicitly; will be read with Context::get( 'ical_view_mode' )`.
+		if ( $this->context->get( 'event_display_mode', false ) === 'past' ) {
+			$query_args['mode'] = 'past';
+		}
+
+		// Set the request date explicitly; will be read with `Context::get( 'eventDate' )`.
+		$event_date = $this->context->get( 'event_date', null );
+		if ( null !== $event_date && 'now' !== $event_date ) {
+			$query_args['eventDate'] = $event_date;
+		}
+
+		// Put it all together and create a URL that will request what we just required.
+		if ( count( $query_args ) ) {
+			$url = add_query_arg( $query_args, $url );
 		}
 
 		$ical_data = (object) [

@@ -2392,6 +2392,21 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Sets up the View repository args to produce the correct list of Events
+	 * in the context of an iCalendar export.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $per_page The number of events per page to show in the iCalendar
+	 *                      export. The value will override whatever events per page
+	 *                      setting the View might have.
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		$this->repository->by_args( $this->get_repository_args() );
+		$this->repository->per_page( $per_page );
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function get_ical_ids( $per_page ) {
