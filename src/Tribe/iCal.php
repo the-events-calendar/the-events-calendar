@@ -230,7 +230,7 @@ class Tribe__Events__iCal {
 					die();
 				}
 				$event_ids = Arr::list_to_array( $event_ids );
-				$events = tribe_get_events( [ 'post__in' => $event_ids ] );
+				$events = array_map( 'tribe_get_event', $event_ids );
 				$this->generate_ical_feed( $events );
 			} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 				$this->generate_ical_feed( $wp_query->post );
