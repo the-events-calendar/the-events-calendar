@@ -92,6 +92,7 @@ trait iCal_Data {
 
 		$passthrough_map = [
 			'tribe_events_cat' => 'tribe_events_cat',
+			'name' => 'name',
 		];
 
 		foreach ( $passthrough_map as $context_key => $query_arg ) {
