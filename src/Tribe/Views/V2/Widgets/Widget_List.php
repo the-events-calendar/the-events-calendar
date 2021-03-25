@@ -9,7 +9,6 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe\Events\Views\V2\Assets;
 use Tribe__Context as Context;
 
 /**

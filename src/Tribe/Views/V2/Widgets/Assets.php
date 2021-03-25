@@ -35,7 +35,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-widgets-v2-events-list-skeleton',
 			'widget-events-list-skeleton.css',
-			[],
+			[
+				'tribe-common-skeleton-style'
+			],
 			'wp_print_footer_scripts',
 			[
 				'print'        => true,
@@ -54,6 +56,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-widgets-v2-events-list-full',
 			'widget-events-list-full.css',
 			[
+				'tribe-common-full-style',
 				'tribe-events-widgets-v2-events-list-skeleton',
 			],
 			'wp_print_footer_scripts',
