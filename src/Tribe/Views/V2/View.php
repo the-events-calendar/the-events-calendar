@@ -1404,10 +1404,7 @@ class View implements View_Interface {
 	 * @return array An array of Template variables for the View Template.
 	 */
 	protected function setup_template_vars() {
-		if ( empty( $this->repository_args ) ) {
-			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args() );
-			$this->repository->by_args( $this->repository_args );
-		}
+		$this->repository->by_args( $this->get_repository_args() );
 
 		$events = (array) $this->repository->all();
 
@@ -2378,5 +2375,33 @@ class View implements View_Interface {
 		parse_str( $view_query_str, $view_query_args );
 
 		return (array) $view_query_args;
+	}
+
+	/**
+	 * Initializes the View repository args, if required, and
+	 * applies them to the View repository instance.
+	 *
+	 * @since TBD
+	 */
+	protected function get_repository_args() {
+		if ( ! empty( $this->repository_args ) ) {
+			return $this->repository_args;
+		}
+
+		return $this->filter_repository_args( $this->setup_repository_args() );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_ical_ids( $per_page ) {
+		$this->setup_ical_repository_args( $per_page );
+
+		$ids = $this->repository->get_ids();
+
+		// Reset the repository args to force a re-initialization of the repository on next run.
+		$this->repository_args = null;
+
+		return $ids;
 	}
 }
