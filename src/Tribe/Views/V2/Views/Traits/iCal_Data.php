@@ -83,9 +83,10 @@ trait iCal_Data {
 			$query_args['mode'] = 'past';
 		}
 
-		// Set the request date explicitly; will be read with `Context::get( 'eventDate' )`.
+		// Set the request date explicitly; will be read with `Context::get( 'event_date' )`.
 		$event_date = $this->context->get( 'event_date', null );
 		if ( null !== $event_date && 'now' !== $event_date ) {
+			unset( $query_args['tribe-bar-date'] );
 			$query_args['eventDate'] = $event_date;
 		}
 
