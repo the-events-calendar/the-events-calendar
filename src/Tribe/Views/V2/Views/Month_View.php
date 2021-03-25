@@ -520,4 +520,19 @@ class Month_View extends By_Day_View {
 			9
 		);
 	}
+
+	/**
+	 * Overrides the base View implementation to limit the results to the View grid.
+	 *
+	 * {@inheritdoc}
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		$this->repository->by_args( $this->get_repository_args() );
+		$this->repository->per_page( $per_page );
+		$event_date = Dates::build_date_object( $this->context->get( 'event_date', 'now' ) );
+		$start_date = tribe_beginning_of_day( $event_date->format( 'Y-m-01' ) );
+		$end_date   = tribe_end_of_day( $event_date->format( 'Y-m-t' ) );
+		$this->repository->where( 'ends_after', $start_date );
+		$this->repository->where( 'starts_before', $end_date );
+	}
 }
