@@ -719,7 +719,9 @@ abstract class By_Day_View extends View {
 	 * {@inheritdoc}
 	 */
 	protected function setup_ical_repository_args( $per_page ) {
-		$this->repository->by_args( $this->get_repository_args() );
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
 		$this->repository->per_page( $per_page );
 		list( $start_date, $end_date ) = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
 		$this->repository->where( 'ends_after', $start_date );

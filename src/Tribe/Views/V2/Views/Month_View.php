@@ -527,7 +527,9 @@ class Month_View extends By_Day_View {
 	 * {@inheritdoc}
 	 */
 	protected function setup_ical_repository_args( $per_page ) {
-		$this->repository->by_args( $this->get_repository_args() );
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
 		$this->repository->per_page( $per_page );
 		$event_date = Dates::build_date_object( $this->context->get( 'event_date', 'now' ) );
 		$start_date = tribe_beginning_of_day( $event_date->format( 'Y-m-01' ) );

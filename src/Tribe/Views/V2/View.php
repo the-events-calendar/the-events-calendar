@@ -1404,7 +1404,9 @@ class View implements View_Interface {
 	 * @return array An array of Template variables for the View Template.
 	 */
 	protected function setup_template_vars() {
-		$this->repository->by_args( $this->get_repository_args() );
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
 
 		$events = (array) $this->repository->all();
 
@@ -2402,7 +2404,9 @@ class View implements View_Interface {
 	 *                      setting the View might have.
 	 */
 	protected function setup_ical_repository_args( $per_page ) {
-		$this->repository->by_args( $this->get_repository_args() );
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
 		$this->repository->per_page( $per_page );
 	}
 
