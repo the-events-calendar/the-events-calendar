@@ -142,6 +142,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_get_organizer_website_link_label', [ $this, 'filter_single_event_details_organizer_website_label' ], 10, 2 );
 		add_filter( 'tribe_events_get_organizer_website_title', '__return_empty_string' );
+
+		// iCalendar export link.
+		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 	}
 
 	/**
@@ -1014,5 +1017,30 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return __( 'View Organizer Website', 'the-events-calendar' );
+	}
+
+	/**
+	 * Overrides the default iCalendar export link logic to inject a list of event
+	 * post IDs fitting the Views V2 criteria.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<int>|false $event_ids Either a list of event post IDs that has been
+	 *                                    explicitly requested or `false` to indicate the
+	 *                                    iCalendar export link did not indicate a specific
+	 *                                    set of event post IDs.
+	 *
+	 * @return array<int> Either the original input value if a specific set of event post IDs
+	 *                    was requested as part of the iCalendar export link, or a filtered
+	 *                    set of event post IDs compiled depending on the current View context
+	 *                    and request arguments.
+	 */
+	public function inject_ical_event_ids( $event_ids = null ) {
+		if ( false !== $event_ids ) {
+			// The request already specifies a set of Event post IDs to return, bail.
+			return $event_ids;
+		}
+
+		return $this->container->make( iCalendar\Request::class )->get_event_ids();
 	}
 }
