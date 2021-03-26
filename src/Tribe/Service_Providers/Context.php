@@ -121,26 +121,6 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::QUERY_VAR   => 'ical',
 					],
 				],
-				'ical_view' => [
-					'read'  => [
-						Tribe__Context::REQUEST_VAR => 'view',
-						Tribe__Context::QUERY_VAR   => 'view',
-					],
-					'write' => [
-						Tribe__Context::REQUEST_VAR => 'view',
-						Tribe__Context::QUERY_VAR   => 'view',
-					]
-				],
-				'ical_view_mode' => [
-					'read'  => [
-						Tribe__Context::REQUEST_VAR => 'mode',
-						Tribe__Context::QUERY_VAR   => 'mode',
-					],
-					'write' => [
-						Tribe__Context::REQUEST_VAR => 'mode',
-						Tribe__Context::QUERY_VAR   => 'mode',
-					],
-				],
 				'start_date'           => [
 					'read'  => [
 						Tribe__Context::REQUEST_VAR => 'start_date',
