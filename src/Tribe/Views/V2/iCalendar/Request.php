@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\iCalendar;
 
+use Tribe\Events\Views\V2\Manager;
 use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 use Tribe__Events__iCal as iCal;
@@ -65,8 +66,7 @@ class Request {
 	 *                    iCalendar export request.
 	 */
 	public function get_event_ids() {
-		// Build the View instance from the iCalendar requested view.
-		$view = View::make( $this->context->get( 'ical_view', 'default' ) );
+		$view = View::make( tribe_context()->get( 'view', 'default' ) );
 
 		$event_ids = $view->get_ical_ids( $this->ical->feed_posts_per_page() );
 
