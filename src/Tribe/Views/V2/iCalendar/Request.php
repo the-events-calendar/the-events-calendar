@@ -55,6 +55,7 @@ class Request {
 	public function get_event_ids() {
 		$view = View::make( tribe_context()->get( 'view', 'default' ) );
 
+		// @todo @bordoni test this method for each View. w/ and w/o date set, with some filtering args.
 		$event_ids = $view->get_ical_ids( $this->ical->feed_posts_per_page() );
 
 		return $event_ids;
