@@ -9,7 +9,6 @@
 
 namespace Tribe\Events\Views\V2\iCalendar;
 
-use Tribe\Events\Views\V2\Manager;
 use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 use Tribe__Events__iCal as iCal;
@@ -22,7 +21,6 @@ use Tribe__Events__iCal as iCal;
  * @package Tribe\Events\Views\V2\iCalendar
  */
 class Request {
-
 	/**
 	 * A reference to the base implementation of the iCalendar exports handler.
 	 *
@@ -31,16 +29,6 @@ class Request {
 	 * @var iCal
 	 */
 	protected $ical;
-
-	/**
-	 * A reference to the Context instance the request should use to set up the
-	 * repository arguments.
-	 *
-	 * @since TBD
-	 *
-	 * @var Context
-	 */
-	protected $context;
 
 	/**
 	 * Request constructor.
@@ -52,8 +40,7 @@ class Request {
 	 *                        by the `tribe` Service Locator.
 	 */
 	public function __construct( Context $context = null, iCal $ical = null ) {
-		$this->context = $context ?: tribe_context();
-		$this->ical    = $ical ?: tribe( 'tec.iCal' );
+		$this->ical = $ical ?: tribe( 'tec.iCal' );
 	}
 
 	/**
