@@ -1405,7 +1405,8 @@ class View implements View_Interface {
 	 */
 	protected function setup_template_vars() {
 		if ( empty( $this->repository_args ) ) {
-			$this->repository->by_args( $this->get_repository_args() );
+			$this->repository_args = $this->get_repository_args();
+			$this->repository->by_args( $this->repository_args );
 		}
 
 		$events = (array) $this->repository->all();
