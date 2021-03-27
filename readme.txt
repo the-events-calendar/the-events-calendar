@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
 * Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
 * Fix - Fusion Core/Avada Widget implementation of The Events Calendar will no longer throw warnings on the frontend display. [ECP-538]
+* Fix - Usage of `tribe_get_events()` for non-existent posts will no longer throw warnings on the Blocks Editor, impacted Community Events Shortcode usage [BTPLAN-121]
 * Tweak - Added rel=noreferrer to Google Map links. [TEC-3795]
 * Tweak - Include actions before and after the creation of a view for REST API requests. Hooks added were: `tribe_events_views_v2_before_make_view_for_rest` and `tribe_events_views_v2_after_make_view_for_rest`
 * Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
