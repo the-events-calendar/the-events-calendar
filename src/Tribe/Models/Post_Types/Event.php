@@ -222,7 +222,8 @@ class Event extends Base {
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
 				'permalink'              => ( new Lazy_String(
 					static function () use ( $post_id ) {
-						return get_permalink( $post_id );
+						$permalink = get_permalink( $post_id );
+						return (string) ( empty( $permalink ) ? '' : $permalink );
 					},
 					false
 				) )->on_resolve( $cache_this ),
@@ -246,7 +247,8 @@ class Event extends Base {
 				) )->on_resolve( $cache_this ),
 				'title'                  => ( new Lazy_String(
 					static function () use ( $post_id ) {
-						return get_the_title( $post_id );
+						$title = get_the_title( $post_id );
+						return (string) ( empty( $title ) ? '' : $title );
 					},
 					false
 				) )->on_resolve( $cache_this ),
