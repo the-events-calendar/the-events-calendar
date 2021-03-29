@@ -222,7 +222,6 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
 = [5.5.0] 2021-03-29 =
 
 * Feature - Add `has_event` and `has_no_events` to the Venue and Organizer ORM so we can filter requests for both by whether they have events or not.
@@ -237,7 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
 * Tweak - Include Legacy views deprecation notice [TEC-4809]
 * Language - 8 new strings added, 181 updated, 0 fuzzied, and 0 obsoleted
-=======
+
 = [5.4.0.2] 2021-03-10 =
 
 * Fix - Saving organizers properly work on WordPress 5.7 with Blocks Editor [TEC-3788]
@@ -245,7 +244,6 @@ Remember to always make a backup of your database and files before updating!
 = [5.4.0.1] 2021-03-04 =
 
 * Fix - Prevent fatals happening with PHP 5.6 due to duplicated class for templates [BTRIA-767]
->>>>>>> 6cab1ae2fbd1f6222017ef65cff05c8386320253
 
 = [5.4.0] 2021-02-24 =
 
