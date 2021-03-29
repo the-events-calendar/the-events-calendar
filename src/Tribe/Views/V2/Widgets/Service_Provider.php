@@ -47,7 +47,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider handling all assets for widgets v2.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 */
 	protected function register_assets() {
 		$assets = new Assets( $this->container );

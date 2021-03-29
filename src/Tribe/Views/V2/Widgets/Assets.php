@@ -5,7 +5,7 @@
  * To remove a Assets:
  * tribe( 'assets' )->remove( 'asset-name' );
  *
- * @since TBD
+ * @since 5.5.0
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -17,7 +17,7 @@ use \Tribe\Events\Views\V2\Assets as TEC_Assets;
 /**
  * Register Assets related to Widgets.
  *
- * @since TBD
+ * @since 5.5.0
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -26,7 +26,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-    * @since TBD
+    * @since 5.5.0
 	 */
 	public function register() {
 		$plugin = Plugin::instance();
@@ -35,7 +35,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-widgets-v2-events-list-skeleton',
 			'widget-events-list-skeleton.css',
-			[],
+			[
+				'tribe-common-skeleton-style'
+			],
 			'wp_print_footer_scripts',
 			[
 				'print'        => true,
@@ -54,6 +56,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-widgets-v2-events-list-full',
 			'widget-events-list-full.css',
 			[
+				'tribe-common-full-style',
 				'tribe-events-widgets-v2-events-list-skeleton',
 			],
 			'wp_print_footer_scripts',

@@ -457,11 +457,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		return apply_filters( 'tribe_get_organizer_website_link', $html );
 	}
-	
+
 	/**
 	 * Get the link for the organizer website.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @param null|int $post_id The event or organizer ID.
 	 * @return string  Formatted title for the organizer website link
@@ -472,7 +472,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of a organizer's website title link.
 		 *
-		 * @since TBD
+		 * @since 5.5.0
 		 *
 		 * @param string $title The title of the organizer's website link.
 		 * @param int 	 $post_id The organizer ID.

@@ -363,7 +363,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Filter the target attribute for the event website link
 		 *
 		 * @since 5.1.0
-		 * @since TBD Added $event argument
+		 * @since 5.5.0 Added $event argument
 		 *
 		 * @param string          $target The target attribute string. Defaults to "_self".
 		 * @param string          $url    The link URL.
@@ -406,7 +406,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Get the link for the event website.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @param null|int $post_id The event or event ID.
 	 * @return string  Formatted title for the event website link
@@ -417,7 +417,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Allows customization of a event's website title link.
 		 *
-		 * @since TBD
+		 * @since 5.5.0
 		 *
 		 * @param string $title The title of the event's website link.
 		 * @param int 	 $post_id The event ID.

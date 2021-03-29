@@ -12,6 +12,7 @@ use Tribe\Widget\Widget_Abstract;
 use Tribe__Context as Context;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Theme_Compatibility;
+use Tribe\Events\Views\V2\Assets as TEC_Assets;
 
 /**
  * Class Widget_View
@@ -240,5 +241,7 @@ class Widget_View extends View {
 		$args = wp_parse_args( $args, $this->repository_args );
 
 		$this->repository->by_args( $args );
+
+		tribe_asset_enqueue_group( TEC_Assets::$widget_group_key );
 	}
 }

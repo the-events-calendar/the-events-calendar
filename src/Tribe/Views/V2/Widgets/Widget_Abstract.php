@@ -9,7 +9,6 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe\Events\Views\V2\Assets;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Context as Context;
@@ -45,7 +44,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Widget css group slug.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @var string
 	 */
@@ -72,7 +71,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.2.1
 	 * @since 5.3.0 Correct asset enqueue method.
-	 * @since TBD Deprecated $arguments param since it should come from the instance.
+	 * @since 5.5.0 Deprecated $arguments param since it should come from the instance.
 	 *
 	 * @param array<string,mixed> $_deprecated The widget arguments, as set by the user in the widget string.
 	 */
@@ -96,7 +95,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	/**
 	 * Get local widget css group slug.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return string
 	 */
@@ -225,7 +224,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * Filters the template vars for widget-specific items.
 	 *
 	 * @since 5.3.0
-	 * @deprecated TBD Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
+	 * @deprecated 5.5.0 Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
 	 * @param View                $view          Which view we are dealing with.
@@ -245,7 +244,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * removing the need for additional checks in the template.
 	 *
 	 * @since 5.3.0
-	 * @deprecated TBD Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
+	 * @deprecated 5.5.0 Removed due to using template vars properly, see Tribe\Events\Views\V2\Views\Widgets\Widget_View::setup_template_vars().
 	 *
 	 * @param array<string,mixed> $template_vars The current template variables.
 	 *
@@ -267,7 +266,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.3.0
 	 *
-	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 * @deprecated 5.5.0 Removed to make use of just should enqueue setup in asset manager.
 	 *
 	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
 	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
@@ -290,7 +289,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.3.0
 	 *
-	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 * @deprecated 5.5.0 Removed to make use of just should enqueue setup in asset manager.
 	 *
 	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
 	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
@@ -304,7 +303,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 *
 	 * @since 5.3.0
 	 *
-	 * @deprecated TBD Removed to make use of just should enqueue setup in asset manager.
+	 * @deprecated 5.5.0 Removed to make use of just should enqueue setup in asset manager.
 	 *
 	 * @param mixed $_deprecated  (deprecated) Previously held context we are using to build the view.
 	 * @param mixed $__deprecated (deprecated) Previously held which view we are using the template on.
@@ -327,7 +326,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * Returns the widget slug.
 	 *
 	 * @since 5.3.0
-	 * @deprecated TBD replaced by the static::get_widget_slug().
+	 * @deprecated 5.5.0 replaced by the static::get_widget_slug().
 	 *
 	 * @return string The widget slug.
 	 */

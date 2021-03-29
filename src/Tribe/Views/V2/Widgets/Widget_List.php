@@ -9,7 +9,6 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe\Events\Views\V2\Assets;
 use Tribe__Context as Context;
 
 /**
@@ -20,6 +19,11 @@ use Tribe__Context as Context;
  * @package Tribe\Events\Views\V2\Widgets
  */
 class Widget_List extends Widget_Abstract {
+	/**
+	 * {@inheritDoc}
+	 */
+	protected static $widget_in_use;
+
 	/**
 	 * {@inheritDoc}
 	 *

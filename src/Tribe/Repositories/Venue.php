@@ -71,7 +71,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 			[
 				'has_events'          => [ $this, 'filter_by_has_events' ],
 				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
-				'has_upcoming_events' => [ $this, 'filter_by_has_upcoming_events' ],
 			]
 		);
 	}
@@ -91,7 +90,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	/**
 	 * Filters a venue query by ones that have associated events.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
@@ -113,7 +112,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	/**
 	 * Filters a venue query by ones that DO NOT have associated events.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return array An array of query arguments that will be added to the main query.
 	 */

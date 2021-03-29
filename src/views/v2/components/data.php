@@ -53,7 +53,7 @@ $data = apply_filters( 'tribe_events_views_v2_view_data', $data, $view_slug, $vi
  * Allows the filtering of the JSON options for testing and development purposes of the JSON encode options for the
  * view data JSON passed into the manager.
  *
- * @since TBD
+ * @since 5.5.0
  *
  * @param int                                  $options   The Options passed into the json_encode.
  * @param string                               $view_slug The slug of the view currently being rendered.

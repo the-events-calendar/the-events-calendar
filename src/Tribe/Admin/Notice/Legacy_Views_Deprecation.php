@@ -7,14 +7,14 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Legacy_Views_Deprecation
  *
- * @since TBD
+ * @since 5.5.0
  *
  */
 class Legacy_Views_Deprecation {
 	/**
 	 * Register v1 deprecation notice.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 */
 	public function hook() {
 		tribe_notice(
@@ -34,7 +34,7 @@ class Legacy_Views_Deprecation {
 	/**
 	 * Checks if we are using a debug constant.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return bool
 	 */
@@ -45,7 +45,7 @@ class Legacy_Views_Deprecation {
 	/**
 	 * Checks if we are in a page we need to display.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return bool
 	 */
@@ -59,7 +59,7 @@ class Legacy_Views_Deprecation {
 	/**
 	 * Checks all methods required for display.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return bool
 	 */
@@ -70,7 +70,7 @@ class Legacy_Views_Deprecation {
 	/**
 	 * Get the date in which we are meant to deprecate.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return Tribe\Utils\Date_I18n_Immutable
 	 */
@@ -81,7 +81,7 @@ class Legacy_Views_Deprecation {
 	/**
 	 * HTML for the notice for sites using V1.
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @return string
 	 */
