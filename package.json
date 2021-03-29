@@ -66,7 +66,6 @@
     "css-mqpacker": "^4.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
-    "enzyme-to-json": "^3.6.1",
     "eslint": "^4.19.1",
     "eslint-config-products": "github:the-events-calendar/eslint-config-products#v0.1.1",
     "eslint-import-resolver-babel-module": "^4.0.0",
