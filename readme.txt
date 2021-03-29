@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.5.0] 2021-03-25 =
+= [5.5.0] 2021-03-29 =
 
 * Feature - Add `has_event` and `has_no_events` to the Venue and Organizer ORM so we can filter requests for both by whether they have events or not.
 * Fix - Invert quotes to protect against issue with MySQL in `ANSI_QUOTES` mode. [TEC-3785]
