@@ -8,7 +8,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Events;
-use Tribe__Template as Base_Template;
+use Tribe__Template as Common_Template;
 
 /**
  * Class Kitchen_Sink
@@ -16,7 +16,7 @@ use Tribe__Template as Base_Template;
  * @package Tribe\Events\Views\V2
  * @since   4.9.2
  */
-class Kitchen_Sink extends Base_Template {
+class Kitchen_Sink extends Common_Template {
 	/**
 	 * Setup the Kitchen Sink Template constructor.
 	 *
