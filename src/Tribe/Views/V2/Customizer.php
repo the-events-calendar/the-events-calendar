@@ -363,7 +363,7 @@ class Customizer {
 					background-color: <%= global_elements.accent_color %>;
 				}
 
-				.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
 					color: <%= global_elements.accent_color %>;
 				}
 			';
