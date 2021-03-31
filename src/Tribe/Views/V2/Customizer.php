@@ -373,6 +373,10 @@ class Customizer {
 					border-bottom-color: <%= global_elements.accent_color %>;
 				}
 
+				.tribe-events-widget .tribe-events-widget-events-list__event-row--featured .tribe-events-widget-events-list__event-date-tag-datetime:after {
+					background-color: <%= global_elements.accent_color %>;
+				}
+
 			';
 
 			// overrides for common base/full/typography/_ctas.pcss.
