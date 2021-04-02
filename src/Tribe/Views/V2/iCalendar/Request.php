@@ -31,16 +31,27 @@ class Request {
 	protected $ical;
 
 	/**
+	 * A reference the context used for the request.
+	 *
+	 * @since TBD
+	 *
+	 * @var Context
+	 */
+	protected $context;
+
+	/**
 	 * Request constructor.
 	 *
 	 * @since TBD
 	 *
-	 * @param iCal|null $ical Either a reference to an explicit instance of the base
-	 *                        iCalendar exports handler, or `null` to use the one provided
-	 *                        by the `tribe` Service Locator.
+	 * @param Context|null $context Which context was used to prepare this request for iCal.
+	 * @param iCal|null    $ical    Either a reference to an explicit instance of the base
+	 *                              iCalendar exports handler, or `null` to use the one provided
+	 *                              by the `tribe` Service Locator.
 	 */
 	public function __construct( Context $context = null, iCal $ical = null ) {
-		$this->ical = $ical ?: tribe( 'tec.iCal' );
+		$this->ical    = $ical ?: tribe( 'tec.iCal' );
+		$this->context = $context ?: tribe_context();
 	}
 
 	/**
@@ -53,7 +64,7 @@ class Request {
 	 *                    iCalendar export request.
 	 */
 	public function get_event_ids() {
-		$view = View::make( tribe_context()->get( 'view', 'default' ) );
+		$view = View::make( $this->context->get( 'view', 'default' ), $this->context );
 
 		// @todo @bordoni test this method for each View. w/ and w/o date set, with some filtering args.
 		$event_ids = $view->get_ical_ids( $this->ical->feed_posts_per_page() );

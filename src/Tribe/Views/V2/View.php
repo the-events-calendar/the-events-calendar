@@ -2406,9 +2406,48 @@ class View implements View_Interface {
 	 */
 	protected function setup_ical_repository_args( $per_page ) {
 		if ( empty( $this->repository_args ) ) {
-			$this->repository->by_args( $this->get_repository_args() );
+			$this->repository->by_args( $this->filter_ical_repository_args( $this->get_repository_args() ) );
 		}
+
+		// Overwrites the amount of posts manually for ical.
 		$this->repository->per_page( $per_page );
+	}
+
+	/**
+	 * Filters the repository arguments that will be used to set up the View repository instance for iCal requests.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $repository_args The repository arguments that will be used to set up the View repository instance.
+	 *
+	 * @return array The filtered repository arguments for ical requests.
+	 */
+	protected function filter_ical_repository_args( $repository_args ) {
+		/**
+		 * Filters the repository args for a View on iCal requests.
+		 *
+		 * @since TBD
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters( 'tribe_events_views_v2_view_ical_repository_args', $repository_args, $this );
+
+		/**
+		 * Filters the repository args for a specific View on iCal requests.
+		 *
+		 * @since TBD
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters(
+			"tribe_events_views_v2_view_{$this->slug}_ical_repository_args",
+			$repository_args,
+			$this
+		);
+
+		return $repository_args;
 	}
 
 	/**
