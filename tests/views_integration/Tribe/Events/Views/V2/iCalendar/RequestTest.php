@@ -3,7 +3,6 @@
 namespace Tribe\Events\Views\V2\iCalendar;
 
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
-use Tribe__Date_Utils as Dates;
 
 class RequestTest extends \Codeception\TestCase\WPTestCase {
 	use With_Post_Remapping;
@@ -11,44 +10,50 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 	public static $events = [];
 
 	public static function wpSetUpBeforeClass() {
+		$featured = [
+			'today',
+			'next week monday',
+		];
+
 		foreach (
 			[
 				'-49 days', // single
-				'yesterday 9am', // single
-				'tomorrow 9am', // single (needs to be featured)
-				'+4 days', // single
+				'last week monday', // single
+				'next week monday', // single (needs to be featured)
+				'next week thursday', // single
 				'+49 days', // single
+				'today',
 			] as $start_date
 		) {
-			$events[] = tribe_events()->set_args( [
+			$events[ $start_date ] = tribe_events()->set_args( [
 				'start_date' => $start_date,
 				'timezone'   => 'Europe/Paris',
 				'duration'   => 3 * HOUR_IN_SECONDS,
 				'title'      => 'Test Event - ' . $start_date,
 				'status'     => 'publish',
-				'featured'   => 'tomorrow 9am' === $start_date ? 1 : 0,
+				'featured'   => in_array( $start_date, $featured ),
 			] )->create();
 		}
 
-		$events[] = tribe_events()->set_args( [
-			'start_date' => '+2 day',
+		$events[ 'next week tuesday' ] = tribe_events()->set_args( [
+			'start_date' => 'next week tuesday',
 			'timezone'   => 'Europe/Paris',
 			'duration'   => 28 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event - +2 day',
+			'title'      => 'Test Event - next tuesday',
 			'status'     => 'publish',
 		] )->create();
-		$events[] = tribe_events()->set_args( [
-			'start_date' => '+3 days',
+		$events[ 'next week wednesday' ] = tribe_events()->set_args( [
+			'start_date' => 'next week wednesday',
 			'timezone'   => 'Europe/Paris',
 			'duration'   => ( 24 * HOUR_IN_SECONDS ) - 1,
-			'title'      => 'Test Event - +3 days',
+			'title'      => 'Test Event - next wednesday',
 			'status'     => 'publish',
 		] )->create();
-		$events[] = tribe_events()->set_args( [
-			'start_date' => 'yesterday',
+		$events[ 'next sunday' ] = tribe_events()->set_args( [
+			'start_date' => 'next sunday',
 			'timezone'   => 'Europe/Paris',
 			'duration'   => 36 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event - yesterday 36hours',
+			'title'      => 'Test Event - next sunday 36 hours',
 			'status'     => 'publish',
 		] )->create();
 
@@ -68,27 +73,37 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'view' => 'list',
 				],
-				[ 2, 5, 6, 3 ] // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[
+					'next sunday',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
 			],
 			'with_date_list_view' => [
 				[
 					'view' => 'list',
-					'event_date' => date( 'Y-m-d', strtotime( '+2 days' ) ),
+					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
 				],
-				[ 5, 6, 3, 4 ]
+				[
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
 			],
 			'without_date_featured_list_view' => [
 				[
 					'view' => 'list',
 					'featured' => true,
 				],
-				[ 2 ] // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ 'next week monday' ] // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
 			],
 			'with_date_featured_list_view' => [
 				[
 					'view' => 'list',
 					'featured' => true,
-					'event_date' => date( 'Y-m-d', strtotime( '+2 days' ) ),
+					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
 				],
 				[]
 			],
