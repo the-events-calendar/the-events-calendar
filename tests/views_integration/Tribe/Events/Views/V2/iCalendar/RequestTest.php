@@ -107,6 +107,38 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				],
 				[]
 			],
+			'without_date_day_view' => [
+				[
+					'view' => 'day',
+				],
+				[
+					'today',
+				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+			],
+			'with_date_day_view' => [
+				[
+					'view' => 'day',
+					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
+				],
+				[
+					'next week tuesday',
+				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+			],
+			'without_date_featured_day_view' => [
+				[
+					'view' => 'day',
+					'featured' => true,
+				],
+				[ 'today' ] // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+			],
+			'with_date_featured_day_view' => [
+				[
+					'view' => 'day',
+					'featured' => true,
+					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
+				],
+				[]
+			],
 		];
 
 		return $data;
