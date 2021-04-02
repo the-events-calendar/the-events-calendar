@@ -961,58 +961,94 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 5.5.0
 	 *
 	 * @param string     $label The filtered label.
-	 * @param string|int $post_id The current post ID.
+	 * @param null|string|int $post_id The current post ID.
 	 *
 	 * @return string
 	 */
-	public function filter_single_event_details_event_website_label( $label, $post_id ) {
+	public function filter_single_event_details_event_website_label( $label, $post_id = null ) {
 		// If not V2 or not Classic Editor, return the website url.
-		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( $post_id ) ) {
+		if ( $this->tribe_is_v1_or_blocks( $post_id ) ) {
 			return $label;
 		}
 
-		return __( 'View Event Website', 'the-events-calendar' );
+		return sprintf(
+			_x(
+				'View %s Website',
+				'Capitalized label for the event website link.',
+				'the-events-calendar'
+			),
+			tribe_get_event_label_singular()
+		);
 	}
 
-		/**
+	/**
 	 * Filter the website link label and change it for Single Event Classic Editor.
 	 * Use the following in functions.php to disable:
-	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );
+	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_venue_website_label' ] );
 	 *
 	 * @since 5.5.0
 	 *
 	 * @param string     $label The filtered label.
-	 * @param string|int $post_id The current post ID.
+	 * @param null|string|int $post_id The current post ID.
 	 *
 	 * @return string
 	 */
-	public function filter_single_event_details_venue_website_label( $label, $post_id ) {
+	public function filter_single_event_details_venue_website_label( $label, $post_id = null ) {
 		// If not V2 or not Classic Editor, return the website url.
-		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( $post_id ) ) {
+		if ( $this->tribe_is_v1_or_blocks( $post_id ) ) {
 			return $label;
 		}
 
-		return __( 'View Venue Website', 'the-events-calendar' );
+		return sprintf(
+			_x(
+				'View %s Website',
+				'Capitalized label for the venue website link.',
+				'the-events-calendar'
+			),
+			tribe_get_venue_label_singular()
+		);
 	}
 
-		/**
+	/**
 	 * Filter the website link label and change it for Single Event Classic Editor.
 	 * Use the following in functions.php to disable:
-	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );
+	 * remove_filter( 'tribe_get_organizer_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_organizer_website_label' ] );
 	 *
 	 * @since 5.5.0
 	 *
 	 * @param string     $label The filtered label.
-	 * @param string|int $post_id The current post ID.
+	 * @param null|string|int $post_id The current post ID.
 	 *
 	 * @return string
 	 */
-	public function filter_single_event_details_organizer_website_label( $label, $post_id ) {
+	public function filter_single_event_details_organizer_website_label( $label, $post_id = null ) {
 		// If not V2 or not Classic Editor, return the website url.
-		if ( ! tribe_events_single_view_v2_is_enabled() || has_blocks( $post_id ) ) {
+		if ( $this->tribe_is_v1_or_blocks( $post_id ) ) {
 			return $label;
 		}
 
-		return __( 'View Organizer Website', 'the-events-calendar' );
+		return sprintf(
+			_x(
+				'View %s Website',
+				'Capitalized label for the organizer website link.',
+				'the-events-calendar'
+			),
+			tribe_get_organizer_label_singular()
+		);
+	}
+
+	/**
+	 * Sugar function for the above that determines if the labels should be filtered.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|string|int $post_id The current post ID.
+	 *
+	 * @return boolean
+	 */
+	public function tribe_is_v1_or_blocks( $post_id = null ) {
+		return is_null( $post_id )
+				|| ! tribe_events_single_view_v2_is_enabled()
+				|| has_blocks( $post_id );
 	}
 }
