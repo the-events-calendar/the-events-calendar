@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.5.1] TBD =
 
-
+* Fix - Correct implementation of filters in Views/V2/Hooks.php to avoid fatals. [BTRIA-791]
 
 = [5.5.0] 2021-03-29 =
 
