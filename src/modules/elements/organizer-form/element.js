@@ -27,33 +27,37 @@ class OrganizerForm extends Component {
 	static defaultProps = {
 		postType: 'tribe_organizer',
 	};
-	
-	state = {
-		title: null,
-		phone: '',
-		website: '',
-		email: '',
-		organizer: null,
-		isValid: true,
-	};
-	
-	fields = {};
 
-	isCreating = () => {
-		const { organizer } = this.state;
-		
-		if ( ! organizer ) {
-			return false;
-		}
+	constructor() {
+		super( ...arguments );
+		this.updateOrganizer = this.updateOrganizer.bind( this );
+		this.onSubmit = this.onSubmit.bind( this );
 
-		if ( ! isFunction( organizer.state ) ) {
-			return false;
-		}
+		this.state = {
+			title: null,
+			phone: '',
+			website: '',
+			email: '',
+			organizer: null,
+			isValid: this.isValid(),
+		};
 
-		return 'pending' === organizer.state();
+		this.fields = {};
 	}
 
-	onSubmit = () => {
+	isCreating() {
+		if ( ! this.state.organizer ) {
+			return false;
+		}
+
+		if ( ! isFunction( this.state.organizer.state ) ) {
+			return false;
+		}
+
+		return 'pending' === this.state.organizer.state();
+	}
+
+	onSubmit() {
 		const {
 			title,
 			phone,
@@ -72,21 +76,13 @@ class OrganizerForm extends Component {
 			},
 		} );
 	}
-	
-	onInputChange = ( key ) => ( value ) => {
-		this.setState( { [ key ]: value } );
-	}
-	
-	onInputComplete = () => {
-		this.setState( { isValid: this.isValid() } );
-	}
 
-	updateOrganizer = ( toSend ) => {
-		const { postType } = this.props;
+	updateOrganizer( toSend ) {
+		const basePath = wp.api.getPostTypeRoute( this.props.postType );
 		const request = wp.apiRequest( {
-			path: `/wp/v2/${ postType }`,
+			path: `/wp/v2/${ basePath }`,
 			method: 'POST',
-			data: toSend,
+			body: JSON.stringify( toSend ),
 		} );
 
 		// Set the organizer state
@@ -97,18 +93,27 @@ class OrganizerForm extends Component {
 				console.warning( 'Invalid creation of organizer:', newPost );
 			}
 
-			this.props.addOrganizer( newPost.id, newPost );
+			this.props.addOrganizer( newPost );
 			this.props.onClose();
 		} ).fail( ( err ) => {
 			console.error( err );
 		} );
 	}
 
-	isValid = () => {
+	isValid() {
 		const fields = values( this.fields );
 		const results = fields.filter( ( input ) => input.isValid() );
 
 		return fields.length === results.length;
+	}
+
+	focus( name ) {
+		return () => {
+			const input = this.fields[ name ];
+			if ( input ) {
+				input.focus();
+			}
+		};
 	}
 
 	saveRef = ( input ) => {
@@ -121,7 +126,7 @@ class OrganizerForm extends Component {
 
 	render() {
 		if ( this.isCreating() ) {
-			return (
+			return [
 				<div
 					className="tribe-editor__organizer__form"
 					key="tribe-organizer-form"
@@ -129,11 +134,11 @@ class OrganizerForm extends Component {
 					<Placeholder key="placeholder">
 						<Spinner />
 					</Placeholder>
-				</div>
-			);
+				</div>,
+			];
 		}
 
-		return (
+		return [
 			<div
 				className="tribe-editor__organizer__form"
 				key="tribe-organizer-form"
@@ -141,60 +146,65 @@ class OrganizerForm extends Component {
 				<h3 key="tribe-organizer-form-title">
 					{ __( 'Create Organizer' ) }
 				</h3>
-				<p className="description">
+				<p
+					className="description"
+				>
 					{ __( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ) }
 				</p>
 				<dl>
-					<dt>
+					<dt onClick={ this.focus( 'organizer[name]' ) }>
 						{ __( 'Name:', 'the-events-calendar' ) }
+						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="text"
 							ref={ this.saveRef }
 							name="organizer[name]"
-							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('title') }
+							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
+							onChange={ ( next ) => this.setState( { title: next.target.value } ) }
 							validate
 						/>
 					</dd>
-					<dt>
+					<dt onClick={ this.focus( 'organizer[phone]' ) }>
 						{ __( 'Phone:', 'the-events-calendar' ) }
+						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="phone"
 							ref={ this.saveRef }
 							name="organizer[phone]"
-							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('phone') }
+							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
+							onChange={ ( next ) => this.setState( { phone: next.target.value } ) }
 							validate
-							data-testid="organizer-form-input-phone"
 						/>
 					</dd>
-					<dt>
+					<dt onClick={ this.focus( 'organizer[website]' ) }>
 						{ __( 'Website:', 'the-events-calendar' ) }
+						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="url"
 							ref={ this.saveRef }
-							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('website') }
+							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
+							onChange={ ( next ) => this.setState( { website: next.target.value } ) }
 							name="organizer[website]"
 							validate
 						/>
 					</dd>
-					<dt>
+					<dt onClick={ this.focus( 'organizer[email]' ) }>
 						{ __( 'Email:', 'the-events-calendar' ) }
+						{ ' ' }
 					</dt>
 					<dd>
 						<Input
 							type="email"
 							ref={ this.saveRef }
 							name="organizer[email]"
-							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('email') }
+							onComplete={ () => this.setState( { isValid: this.isValid() } ) }
+							onChange={ ( next ) => this.setState( { email: next.target.value } ) }
 							validate
 						/>
 					</dd>
@@ -205,12 +215,11 @@ class OrganizerForm extends Component {
 					className="button-secondary"
 					onClick={ this.onSubmit }
 					disabled={ ! this.isValid() }
-					data-testid="organizer-form-button-create"
 				>
 					{ __( 'Create Organizer', 'the-events-calendar' ) }
 				</button>
-			</div>
-		);
+			</div>,
+		];
 	}
 }
 
