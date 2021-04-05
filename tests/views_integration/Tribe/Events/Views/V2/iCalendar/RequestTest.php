@@ -9,7 +9,20 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 
 	public static $events = [];
 
-	public static function wpSetUpBeforeClass() {
+	public function tearDown() {
+		parent::tearDown();
+		if ( empty( static::$events ) ) {
+			return;
+		}
+
+		$ids = wp_list_pluck( static::$events, 'ID' );
+		foreach ( $ids as $event_id ) {
+			wp_delete_post( $event_id, true );
+		}
+	}
+
+	protected function create_and_get_generic_events() {
+		static::$events = [];
 		$featured = [
 			'today',
 			'next week monday',
@@ -49,15 +62,69 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 			'title'      => 'Test Event - next wednesday',
 			'status'     => 'publish',
 		] )->create();
-		$events[ 'next sunday' ] = tribe_events()->set_args( [
+		$events['this week sunday'] = tribe_events()->set_args( [
 			'start_date' => 'next sunday',
 			'timezone'   => 'Europe/Paris',
 			'duration'   => 36 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event - next sunday 36 hours',
+			'title'      => 'Test Event - this week sunday 36 hours',
 			'status'     => 'publish',
 		] )->create();
 
 		static::$events = $events;
+		return static::$events;
+	}
+
+
+	protected function create_and_get_month_events() {
+		static::$events = [];
+		$featured = [
+			date( 'Y-m-07' ),
+		];
+
+		foreach (
+			[
+				date( 'Y-m-28', strtotime( 'last month' ) ), // single
+				date( 'Y-m-01' ), // single
+				date( 'Y-m-07' ), // single (needs to be featured)
+				date( 'Y-m-15' ), // single
+				date( 'Y-m-01', strtotime( 'next month' ) ), // single
+				date( 'Y-m-10', strtotime( 'next month' ) ), // single
+			] as $start_date
+		) {
+			$events[ $start_date ] = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_date,
+				'status'     => 'publish',
+				'featured'   => in_array( $start_date, $featured ),
+			] )->create();
+		}
+
+		$events[ date( 'Y-m-18' ) ] = tribe_events()->set_args( [
+			'start_date' => date( 'Y-m-18' ),
+			'timezone'   => 'Europe/Paris',
+			'duration'   => 28 * HOUR_IN_SECONDS,
+			'title'      => 'Test Event - ' . date( 'Y-m-18' ),
+			'status'     => 'publish',
+		] )->create();
+		$events[ date( 'Y-m-21' ) ] = tribe_events()->set_args( [
+			'start_date' => date( 'Y-m-21' ),
+			'timezone'   => 'Europe/Paris',
+			'duration'   => ( 24 * HOUR_IN_SECONDS ) - 1,
+			'title'      => 'Test Event - ' . date( 'Y-m-21' ),
+			'status'     => 'publish',
+		] )->create();
+		$events[ date( 'Y-m-25' ) ] = tribe_events()->set_args( [
+			'start_date' => date( 'Y-m-25' ),
+			'timezone'   => 'Europe/Paris',
+			'duration'   => 36 * HOUR_IN_SECONDS,
+			'title'      => 'Test Event - ' . date( 'Y-m-25' ),
+			'status'     => 'publish',
+		] )->create();
+
+		static::$events = $events;
+		return static::$events;
 	}
 
 	/**
@@ -74,7 +141,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'view' => 'list',
 				],
 				[
-					'next sunday',
+					'this week sunday',
 					'next week monday',
 					'next week tuesday',
 					'next week wednesday',
@@ -107,6 +174,52 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				],
 				[]
 			],
+
+
+			'without_date_month_view' => [
+				[
+					'view' => 'month',
+				],
+				[
+					date( 'Y-m-01' ),
+					date( 'Y-m-07' ),
+					date( 'Y-m-15' ),
+					date( 'Y-m-18' ),
+				],
+				'create_and_get_month_events',
+			],
+			'with_date_month_view' => [
+				[
+					'view' => 'month',
+					'event_date' => date( 'Y-m', strtotime( 'next month' ) ),
+				],
+				[
+					date( 'Y-m-01', strtotime( 'next month' ) ),
+					date( 'Y-m-10', strtotime( 'next month' ) ),
+				],
+				'create_and_get_month_events',
+			],
+			'without_date_featured_month_view' => [
+				[
+					'view' => 'month',
+					'featured' => true,
+				],
+				[
+					date( 'Y-m-07' ),
+				],
+				'create_and_get_month_events',
+			],
+			'with_date_featured_month_view' => [
+				[
+					'view' => 'month',
+					'featured' => true,
+					'event_date' => date( 'Y-m-10', strtotime( 'last month' ) ),
+				],
+				[],
+				'create_and_get_month_events',
+			],
+
+
 			'without_date_day_view' => [
 				[
 					'view' => 'day',
@@ -148,11 +261,14 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider request_context_data
 	 * @test
 	 */
-	public function it_should_render_based_on_context_arguments( $context_args, $expected_events_index ) {
+	public function it_should_render_based_on_context_arguments( $context_args, $expected_events_index, $method = 'create_and_get_generic_events' ) {
+		// create the events.
+		call_user_func_array( [ $this, $method ], [] );
+
 		$events_indexed = wp_list_pluck( static::$events, 'ID' );
 		$dates = wp_list_pluck( static::$events, 'start_date' );
 		codecept_debug( $events_indexed );
-		codecept_debug( $dates );
+		codecept_debug( $expected_events_index );
 
 		add_filter( 'tribe_ical_feed_posts_per_page', static function () {
 			return 4;
