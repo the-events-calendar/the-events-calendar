@@ -174,6 +174,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 
 		global $wp_post_statuses;
 		$valid_stati = array_keys( $wp_post_statuses );
+		$valid_stati[] = 'any';
 
 		return count( array_intersect( $stati, $valid_stati ) ) === count( $stati )
 			? $stati
