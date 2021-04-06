@@ -458,13 +458,6 @@ class Customizer {
 				}
 			";
 
-			// Override svg icons color.
-			$css_template .= "
-				$tribe_common .tribe-common-c-svgicon {
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
 			$css_template .= "
 				$tribe_common .tribe-events-virtual-virtual-event__icon-svg {
 					color: <%= global_elements.accent_color %>;
