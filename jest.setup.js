@@ -14,10 +14,18 @@ global.jQuery = $;
 global.$ = $;
 global.wp = {
 	element: React,
+	apiRequest: () => $.Deferred(),
+	editor: {},
+	components: {},
 };
 global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 global.renderer = renderer;
+global.console = {
+	error: jest.fn(),
+	log: jest.fn(),
+	warning: jest.fn(),
+};
 
 moment.tz.setDefault( 'UTC' );
