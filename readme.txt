@@ -226,6 +226,10 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Correct implementation of filters in Views/V2/Hooks.php to avoid fatals. [BTRIA-791]
 
+= [5.5.0.1] 2021-04-05  =
+
+* Fix - Reduce overhead of widget setup on every page load by setting up the widgets only as needed. [TEC-3833]
+
 = [5.5.0] 2021-03-29 =
 
 * Feature - Add `has_event` and `has_no_events` to the Venue and Organizer ORM so we can filter requests for both by whether they have events or not.
