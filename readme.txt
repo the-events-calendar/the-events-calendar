@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.6.0] TBD =
 
+* Tweak - Added the ability to filter cached view HTML. Hooks added were: `tribe_events_views_v2_view_cached_html` and `tribe_events_views_v2_view_{$view_slug}_cached_html`. [ECP-770]
 
 = [5.5.0.1] 2021-04-05  =
 

@@ -50,6 +50,39 @@ trait HTML_Cache {
 
 		$cached_html = $this->inject_nonces_into_cached_html( $cached_html );
 
+		return $this->filter_cached_html( $cached_html );
+	}
+
+	/**
+	 * Filters the cached HTML returned for a specific View.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $cached_html Cached HTML for a view.
+	 *
+	 * @return string The filtered cached HTML.
+	 */
+	protected function filter_cached_html( $cached_html ) {
+		/**
+		 * Filters the cached HTML returned for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $cached_html  Cached HTML for a view.
+		 * @param View_Interface $this This view instance.
+		 */
+		$cached_html = apply_filters( 'tribe_events_views_v2_view_cached_html', $cached_html, $this );
+
+		/**
+		 * Filters the cached HTML returned for a View.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $cached_html  Cached HTML for a view.
+		 * @param View_Interface $this This view instance.
+		 */
+		$cached_html = apply_filters( "tribe_events_views_v2_view_{$this->slug}_cached_html", $cached_html, $this );
+
 		return $cached_html;
 	}
 
