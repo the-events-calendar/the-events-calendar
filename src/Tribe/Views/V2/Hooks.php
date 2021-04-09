@@ -967,7 +967,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_single_event_details_event_website_label( $label, $post_id = null ) {
 		// If not V2 or not Classic Editor, return the website url.
-		if ( $this->tribe_is_v1_or_blocks( $post_id ) ) {
+		if ( $this->is_v1_or_blocks( $post_id ) ) {
 			return $label;
 		}
 
@@ -995,7 +995,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_single_event_details_venue_website_label( $label, $post_id = null ) {
 		// If not V2 or not Classic Editor, return the website url.
-		if ( $this->tribe_is_v1_or_blocks( $post_id ) ) {
+		if ( $this->is_v1_or_blocks( $post_id ) ) {
 			return $label;
 		}
 
@@ -1023,7 +1023,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_single_event_details_organizer_website_label( $label, $post_id = null ) {
 		// If not V2 or not Classic Editor, return the website url.
-		if ( $this->tribe_is_v1_or_blocks( $post_id ) ) {
+		if ( $this->is_v1_or_blocks( $post_id ) ) {
 			return $label;
 		}
 
@@ -1046,7 +1046,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return boolean
 	 */
-	public function tribe_is_v1_or_blocks( $post_id = null ) {
+	public function is_v1_or_blocks( $post_id = null ) {
 		return is_null( $post_id )
 				|| ! tribe_events_single_view_v2_is_enabled()
 				|| has_blocks( $post_id );
