@@ -7,24 +7,24 @@
 .tribe-events {
 
 	.tribe-events-c-top-bar__datepicker-button {
-		transition: var(--transition-opacity);
+		transition: var(--tec-transition-opacity);
 
 		&:hover,
 		&:focus {
-			opacity: var(--opacity-icon-hover);
+			opacity: var(--tec-opacity-icon-hover);
 		}
 
 		&:active {
-			opacity: var(--opacity-icon-active);
+			opacity: var(--tec-opacity-icon-active);
 		}
 	}
-	
+
 	.tribe-events-c-top-bar__datepicker-button-icon-svg {
 		display: block;
-		margin-left: var(--spacer-1);
+		margin-left: var(--tec-spacer-1);
 		height: 6px;
 		width: 9px;
-		
+
 		.tribe-common--breakpoint-medium& {
 			height: 8px;
 			width: 11px;
@@ -47,21 +47,21 @@
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-	 
+
 	.tribe-theme-twentyseventeen.colors-dark & {
-		
+
 		.tribe-events-c-top-bar__datepicker-button,
 		.tribe-events-c-top-bar__nav-link {
 			background-color: transparent;
 		}
 	}
-	
+
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Genesis
 	 * ----------------------------------------------------------------------------- */
-	
+
 	.tribe-theme-genesis & {
-		
+
 		.tribe-events-c-top-bar__nav-link {
 			&:disabled,
 			&:hover,
