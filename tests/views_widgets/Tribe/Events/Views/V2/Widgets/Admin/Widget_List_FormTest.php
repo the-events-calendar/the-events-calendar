@@ -20,6 +20,7 @@ class Widget_List_FormTest extends ViewTestCase {
 	public function test_with_default_arguments() {
 		$widget = new Widget_List();
 		$instance = [];
+		$widget->setup( [], $instance );
 		$arguments = $widget->get_arguments( $instance );
 
 		$html = $widget->get_admin_template()->template( 'widgets/events-list', $arguments, false );
@@ -39,6 +40,7 @@ class Widget_List_FormTest extends ViewTestCase {
 			'featured_events_only' => true,
 			'jsonld_enable'        => false,
 		];
+		$widget->setup( [], $instance );
 
 		$arguments = $widget->get_arguments( $instance );
 		$html = $widget->get_admin_template()->template( 'widgets/events-list', $arguments, false );
@@ -56,6 +58,7 @@ class Widget_List_FormTest extends ViewTestCase {
 			'limit'                => '12',
 			'no_upcoming_events'   => true,
 		];
+		$widget->setup( [], $instance );
 
 		add_filter(
 			'tribe_events_widget_list_events_max_limit',
