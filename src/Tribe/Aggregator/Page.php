@@ -199,8 +199,23 @@ class Tribe__Events__Aggregator__Page {
 			return $settings;
 		}
 
-		if ( ! empty( $settings['filters']['mime_types'] ) ) {
-			unset( $settings['filters']['mime_types'] );
+
+		if ( isset( $settings['filters']['mime_types'] ) ) {
+			$extensions = [
+				'csv', // comma-separated values
+				'xls', // Excel 97- Excel 2003 Workbook
+				'xlsx' // Excel Workbook
+			];
+
+			if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
+				$extensions[] = 'ics';
+			}
+
+			$settings['filters']['mime_types'] = [
+				[
+					'extensions' => implode( ',', $extensions ),
+				],
+			];
 		}
 
 		return $settings;
