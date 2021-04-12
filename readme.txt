@@ -222,6 +222,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Fix - Ensure when saving on Blocks editor Organizer and Venue IDs don't throw notices for failed deletion. [TEC-3844]
+
 = [5.5.0.1] 2021-04-05  =
 
 * Fix - Reduce overhead of widget setup on every page load by setting up the widgets only as needed. [TEC-3833]
