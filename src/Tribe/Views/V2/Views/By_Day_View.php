@@ -701,6 +701,7 @@ abstract class By_Day_View extends View {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Formats the day results in the format expected for day-by-day grid building.
 	 *
 	 * The method will fetch the required data in chunks to avoid overloading the database.
@@ -776,5 +777,20 @@ abstract class By_Day_View extends View {
 		}
 
 		return $day_results;
+	}
+
+	/**
+	 * Overrides the base View implementation to limit the results to the View grid.
+	 *
+	 * {@inheritdoc}
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
+		$this->repository->per_page( $per_page );
+		list( $start_date, $end_date ) = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
+		$this->repository->where( 'ends_after', $start_date );
+		$this->repository->where( 'starts_before', $end_date );
 	}
 }
