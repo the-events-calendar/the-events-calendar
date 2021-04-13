@@ -17,6 +17,23 @@
 					color: #238923;
 				}
 			
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover {
+					border-bottom-color: #238923;
+				}
+			
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentytwentyone .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link {
+					color: #238923;
+				}
+			
+				.tribe-events-widget .tribe-events-widget-events-list__event-row--featured .tribe-events-widget-events-list__event-date-tag-datetime:after {
+					background-color: #238923;
+				}
+			
 				.tribe-common .tribe-common-cta--alt,
 				.tribe-common .tribe-common-cta--alt:active,
 				.tribe-common .tribe-common-cta--alt:hover,
