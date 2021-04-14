@@ -133,7 +133,7 @@ class Widget_List extends Widget_Abstract {
 	 * @return array<string> The modified list of widgets.
 	 */
 	public function add_self_to_virtual_widget_groups( $groups ) {
-		$groups[] = self::get_css_group();
+		$groups[] = static::get_css_group();
 
 		return $groups;
 	}
