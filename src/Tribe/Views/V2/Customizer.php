@@ -8,7 +8,6 @@
  */
 
 namespace Tribe\Events\Views\V2;
-use Tribe__Events__Main as TEC;
 use WP_Customize_Color_Control as Color_Control;
 use WP_Customize_Control as Control;
 
@@ -371,6 +370,32 @@ class Customizer {
 				color: <%= global_elements.accent_color %>;
 			}
 		";
+
+			// overrides for the widget view more link
+			$css_template .= '
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover {
+					border-bottom-color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			// Theme overrides for widget view more link
+			$css_template .= '
+				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentytwentyone .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
+				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link {
+					color: <%= global_elements.accent_color %>;
+				}
+			';
+
+			// Widget featured icon color
+			$css_template .= '
+				.tribe-events-widget .tribe-events-widget-events-list__event-row--featured .tribe-events-widget-events-list__event-date-tag-datetime:after {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			';
 
 			// overrides for common base/full/typography/_ctas.pcss.
 			$css_template .= "

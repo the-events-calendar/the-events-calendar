@@ -712,4 +712,19 @@ abstract class By_Day_View extends View {
 		return defined( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' )
 		       && TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY;
 	}
+
+	/**
+	 * Overrides the base View implementation to limit the results to the View grid.
+	 *
+	 * {@inheritdoc}
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
+		$this->repository->per_page( $per_page );
+		list( $start_date, $end_date ) = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
+		$this->repository->where( 'ends_after', $start_date );
+		$this->repository->where( 'starts_before', $end_date );
+	}
 }
