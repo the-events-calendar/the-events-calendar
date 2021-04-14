@@ -106,6 +106,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * WordPress doesn't throw an error when the meta is not present.
 	 *
 	 * @since 5.5.0
+	 * @since TBD Apply to all Rest Endpoints not only Events.
 	 *
 	 * @param null|bool $delete     Whether to allow metadata deletion of the given type.
 	 * @param int       $object_id  ID of the object metadata is for.
@@ -138,7 +139,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		global $wp;
 
 		$current_url = home_url( $wp->request );
-		$allowed_rest_url = rest_url( 'wp/v2/' . TEC::POSTTYPE );
+		$allowed_rest_url = rest_url( 'wp/v2' );
 
 		// Only this overwrite on the Tribe Events Endpoint.
 		if ( false === strpos( $current_url, $allowed_rest_url ) ) {
