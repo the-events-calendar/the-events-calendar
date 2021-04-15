@@ -204,7 +204,7 @@ class Tribe__Events__Aggregator__Page {
 			$extensions = [
 				'csv', // comma-separated values
 				'xls', // Excel 97- Excel 2003 Workbook
-				'xlsx' // Excel Workbook
+				'xlsx', // Excel Workbook
 			];
 
 			if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
