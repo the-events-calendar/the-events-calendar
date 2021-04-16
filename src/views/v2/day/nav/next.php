@@ -19,7 +19,7 @@
 	<a
 		href="<?php echo esc_url( $link ); ?>"
 		rel="next"
-		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
+		class="tribe-common-b2 tribe-common-b1--min-medium tribe-events-c-nav__next"
 		data-js="tribe-events-view-link"
 		aria-label="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"

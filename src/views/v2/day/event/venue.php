@@ -25,8 +25,8 @@ $venue                = $event->venues[0];
 $append_after_address = array_filter( array_map( 'trim', [ $venue->city, $venue->state_province, $venue->state, $venue->province ] ) );
 $address              = $venue->address . ( $venue->address && $append_after_address ? $separator : '' );
 ?>
-<address class="tribe-events-calendar-day__event-venue tribe-common-b2">
-	<span class="tribe-events-calendar-day__event-venue-title tribe-common-b2--bold">
+<address class="tribe-common-b2 tribe-events-calendar-day__event-venue">
+	<span class="tribe-common-b2--bold tribe-events-calendar-day__event-venue-title">
 		<?php echo wp_kses_post( $venue->post_title ); ?>
 	</span>
 	<span class="tribe-events-calendar-day__event-venue-address">

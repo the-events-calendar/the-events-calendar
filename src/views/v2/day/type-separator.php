@@ -30,7 +30,7 @@ if ( 'all_day' === $event->timeslot ) {
 }
 ?>
 <div class="tribe-events-calendar-day__type-separator">
-	<span class="tribe-events-calendar-day__type-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt">
+	<span class="tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt tribe-events-calendar-day__type-separator-text">
 		<?php echo esc_html( $separator_text ); ?>
 	</span>
 </div>

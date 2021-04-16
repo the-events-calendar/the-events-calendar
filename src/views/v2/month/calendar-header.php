@@ -28,7 +28,7 @@ global $wp_locale;
 				role="columnheader"
 				aria-label="<?php echo esc_attr( $day ); ?>"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<h3 class="tribe-common-b3 tribe-events-calendar-month__header-column-title">
 					<span class="tribe-events-calendar-month__header-column-title-mobile">
 						<?php echo esc_html( $wp_locale->get_weekday_initial( $day ) ); ?>
 					</span>

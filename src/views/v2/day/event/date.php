@@ -23,7 +23,7 @@ use Tribe__Date_Utils as Dates;
 $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 
 ?>
-<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+<div class="tribe-common-b2 tribe-events-calendar-day__event-datetime-wrapper">
 	<?php $this->template( 'day/event/date/featured' ); ?>
 	<time class="tribe-events-calendar-day__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo $event->schedule_details->value(); ?>

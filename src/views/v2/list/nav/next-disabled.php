@@ -21,7 +21,7 @@ $events_mobile_friendly_label = sprintf( __( 'Next %1$s', 'the-events-calendar' 
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button
-		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
+		class="tribe-common-b2 tribe-common-b1--min-medium tribe-events-c-nav__next"
 		aria-label="<?php echo esc_attr( $label ); ?>"
 		title="<?php echo esc_attr( $label ); ?>"
 		disabled

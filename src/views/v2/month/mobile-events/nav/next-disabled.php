@@ -18,7 +18,7 @@
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button
-		class="tribe-events-c-nav__next tribe-common-b2"
+		class="tribe-common-b2 tribe-events-c-nav__next"
 		aria-label="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		title="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		disabled

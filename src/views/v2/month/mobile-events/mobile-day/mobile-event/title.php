@@ -16,7 +16,10 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-$classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title', 'tribe-common-h7' ];
+$classes = [
+	'tribe-common-h7',
+	'tribe-events-calendar-month-mobile-events__mobile-event-title',
+];
 
 ?>
 <h3 <?php tribe_classes( $classes ); ?>>
@@ -24,7 +27,7 @@ $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title', 't
 		href="<?php echo esc_url( $event->permalink ) ?>"
 		title="<?php echo esc_attr( $event->title ) ?>"
 		rel="bookmark"
-		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
+		class="tribe-common-anchor tribe-events-calendar-month-mobile-events__mobile-event-title-link"
 	>
 		<?php
 		// phpcs:ignore

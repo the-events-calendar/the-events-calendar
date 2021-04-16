@@ -14,6 +14,6 @@
 
 $label = sprintf( __( 'Latest Past %s', 'the-events-calendar' ), tribe_get_event_label_plural() );
 ?>
-<h2 class="tribe-events-calendar-latest-past__heading tribe-common-h5 tribe-common-h3--min-medium">
+<h2 class="tribe-common-h5 tribe-common-h3--min-medium tribe-events-calendar-latest-past__heading">
 	<?php echo esc_html( $label ); ?>
 </h2>

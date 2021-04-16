@@ -30,12 +30,12 @@ $event_month     = $display_date->format_i18n( 'M' );
 $event_day_num   = $display_date->format_i18n( 'j' );
 $event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
 ?>
-<div class="tribe-events-widget-events-list__event-date-tag tribe-common-g-col">
+<div class="tribe-common-g-col tribe-events-widget-events-list__event-date-tag">
 	<time class="tribe-events-widget-events-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<span class="tribe-events-widget-events-list__event-date-tag-month">
 			<?php echo esc_html( $event_month ); ?>
 		</span>
-		<span class="tribe-events-widget-events-list__event-date-tag-daynum tribe-common-h2 tribe-common-h4--min-medium">
+		<span class="tribe-common-h2 tribe-common-h4--min-medium tribe-events-widget-events-list__event-date-tag-daynum">
 			<?php echo esc_html( $event_day_num ); ?>
 		</span>
 	</time>

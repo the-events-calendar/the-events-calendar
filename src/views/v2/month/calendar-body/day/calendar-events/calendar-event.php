@@ -16,10 +16,14 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-$classes = tribe_get_post_class( [ 'tribe-events-calendar-month__calendar-event' ], $event->ID );
+$classes = [
+	'tribe-events-calendar-month__calendar-event',
+	'tribe-events-calendar-month__calendar-event--featured' => ! empty( $event->featured ),
+	'tribe-events-calendar-month__calendar-event--sticky'   => ( -1 === $event->menu_order )
+];
 
-$classes['tribe-events-calendar-month__calendar-event--featured'] = ! empty( $event->featured );
-$classes['tribe-events-calendar-month__calendar-event--sticky']   = ( -1 === $event->menu_order );
+$classes = tribe_get_post_class( $classes, $event->ID );
+
 ?>
 
 <article <?php tribe_classes( $classes ) ?>>

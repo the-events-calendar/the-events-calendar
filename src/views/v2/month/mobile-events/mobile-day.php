@@ -41,11 +41,11 @@ if ( ! empty( $day['multiday_events'] ) ) {
 }
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
 
-$classes = [ 'tribe-events-calendar-month-mobile-events__mobile-day' ];
+$classes = [
+	'tribe-events-calendar-month-mobile-events__mobile-day',
+	'tribe-events-calendar-month-mobile-events__mobile-day--show'=> ( $today_date === $day_date ),
+];
 
-if ( $today_date === $day_date ) {
-	$classes[] = 'tribe-events-calendar-month-mobile-events__mobile-day--show';
-}
 ?>
 
 <div <?php tribe_classes( $classes ); ?> id="<?php echo sanitize_html_class( $mobile_day_id ); ?>">

@@ -23,10 +23,11 @@ $heading = $disable_event_search
 	? __( 'Views Navigation', 'the-events-calendar' )
 	: sprintf( __( '%s Search and Views Navigation', 'the-events-calendar' ), tribe_get_event_label_plural() );
 
-$classes = [ 'tribe-events-header__events-bar', 'tribe-events-c-events-bar' ];
-if ( empty( $disable_event_search ) ) {
-	$classes[] = 'tribe-events-c-events-bar--border';
-}
+$classes = [
+	'tribe-events-c-events-bar',
+	'tribe-events-c-events-bar--border' => empty( $disable_event_search ),
+	'tribe-events-header__events-bar',
+];
 ?>
 <div
 	<?php tribe_classes( $classes ); ?>

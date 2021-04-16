@@ -20,7 +20,7 @@
 	<a
 		href="<?php echo esc_url( $link ); ?>"
 		rel="prev"
-		class="tribe-events-c-nav__prev tribe-common-b2"
+		class="tribe-common-b2 tribe-events-c-nav__prev"
 		data-js="tribe-events-view-link"
 		aria-label="<?php echo esc_attr( sprintf( __( 'Previous month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		title="<?php echo esc_attr( sprintf( __( 'Previous month, %1$s', 'the-events-calendar' ), $label ) ); ?>"

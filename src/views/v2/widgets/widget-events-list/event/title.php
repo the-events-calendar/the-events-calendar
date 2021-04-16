@@ -16,12 +16,12 @@
  * @see tribe_get_event() For the format of the event object.
  */
 ?>
-<h3 class="tribe-events-widget-events-list__event-title tribe-common-h7">
+<h3 class="tribe-common-h7 tribe-events-widget-events-list__event-title">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
 		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
-		class="tribe-events-widget-events-list__event-title-link tribe-common-anchor-thin"
+		class="tribe-common-anchor-thin tribe-events-widget-events-list__event-title-link"
 	>
 		<?php
 		// phpcs:ignore

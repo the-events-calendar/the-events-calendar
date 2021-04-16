@@ -23,7 +23,11 @@ if ( empty( $messages ) ) {
 
 global $wp_version;
 
-$classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-common-b2' ];
+$classes = [
+	'tribe-common-b2',
+	'tribe-events-c-messages',
+	'tribe-events-header__messages',
+];
 
 ?>
 <div <?php tribe_classes( $classes ); ?>>

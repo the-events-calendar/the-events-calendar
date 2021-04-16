@@ -156,7 +156,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 			aria-selected="false"
 			data-js="tribe-events-accordion-trigger"
 		>
-			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+			<span class="tribe-common-svgicon tribe-common-svgicon--month tribe-events-c-view-selector__button-icon"></span>
 			<span class="tribe-events-c-view-selector__button-text">
 				Month
 			</span>
@@ -169,7 +169,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 			<ul class="tribe-events-c-view-selector__list">
 				<li class="tribe-events-c-view-selector__list-item">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
-						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+						<span class="tribe-common-svgicon tribe-common-svgicon--month tribe-events-c-view-selector__list-item-icon"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							Month
 						</span>
@@ -177,7 +177,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				</li>
 				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
-						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+						<span class="tribe-common-svgicon tribe-common-svgicon--list tribe-events-c-view-selector__list-item-icon"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							List
 						</span>
@@ -185,7 +185,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				</li>
 				<li class="tribe-events-c-view-selector__list-item">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
-						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--day"></span>
+						<span class="tribe-common-svgicon tribe-common-svgicon--day tribe-events-c-view-selector__list-item-icon"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							Day
 						</span>
@@ -203,7 +203,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 			aria-selected="false"
 			data-js="tribe-events-accordion-trigger"
 		>
-			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+			<span class="tribe-common-svgicon tribe-common-svgicon--month tribe-events-c-view-selector__button-icon"></span>
 			<span class="tribe-events-c-view-selector__button-text">
 				Month
 			</span>
@@ -216,7 +216,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 			<ul class="tribe-events-c-view-selector__list">
 				<li class="tribe-events-c-view-selector__list-item">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
-						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+						<span class="tribe-common-svgicon tribe-common-svgicon--month tribe-events-c-view-selector__list-item-icon"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							Month
 						</span>
@@ -224,7 +224,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				</li>
 				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
-						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+						<span class="tribe-common-svgicon tribe-common-svgicon--list tribe-events-c-view-selector__list-item-icon"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							List
 						</span>
@@ -232,7 +232,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				</li>
 				<li class="tribe-events-c-view-selector__list-item">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
-						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--day"></span>
+						<span class="tribe-common-svgicon tribe-common-svgicon--day tribe-events-c-view-selector__list-item-icon"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
 							Day
 						</span>

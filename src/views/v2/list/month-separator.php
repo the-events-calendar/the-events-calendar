@@ -42,7 +42,7 @@ $sep_date = empty( $is_past ) && ! empty( $request_date )
 ?>
 <div class="tribe-events-calendar-list__month-separator">
 	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
+		class="tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt tribe-events-calendar-list__month-separator-text"
 		datetime="<?php
 		echo esc_attr( $sep_date->format( 'Y-m' ) ); ?>"
 	>

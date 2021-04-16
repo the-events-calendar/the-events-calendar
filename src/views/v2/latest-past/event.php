@@ -25,11 +25,11 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-calendar-latest-past__eve
 
 	<?php $this->template( 'latest-past/event/date-tag', [ 'event' => $event ] ); ?>
 
-	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
+	<div class="tribe-common-g-col tribe-events-calendar-latest-past__event-wrapper">
 		<article <?php tribe_classes( $event_classes ) ?>>
 			<?php $this->template( 'latest-past/event/featured-image', [ 'event' => $event ] ); ?>
 
-			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
+			<div class="tribe-common-g-col tribe-events-calendar-latest-past__event-details">
 
 				<header class="tribe-events-calendar-latest-past__event-header">
 					<?php $this->template( 'latest-past/event/date', [ 'event' => $event ] ); ?>

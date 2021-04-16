@@ -23,7 +23,7 @@ use Tribe__Date_Utils as Dates;
 $time_format = tribe_get_time_format();
 $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 ?>
-<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
+<div class="tribe-common-b2 tribe-events-calendar-month-mobile-events__mobile-event-datetime">
 	<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/date/featured' ); ?>
 	<?php if ( $event->all_day ) : ?>
 		<time datetime="<?php echo esc_attr( $event->dates->start->format( Dates::DBDATEFORMAT ) ) ?>">

@@ -16,14 +16,21 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-$classes = tribe_get_post_class( [ 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ], $event->ID );
+$classes = tribe_get_post_class(
+	[
+		'tribe-common-g-row',
+		'tribe-common-g-row--gutters',
+		'tribe-events-calendar-day__event',
+	],
+	$event->ID
+);
 
 if ( ! empty( $event->featured ) ) {
 	$classes[] = 'tribe-events-calendar-day__event--featured';
 }
 ?>
 <article <?php tribe_classes( $classes ); ?>>
-	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+	<div class="tribe-common-g-col tribe-events-calendar-day__event-content">
 
 		<?php $this->template( 'day/event/featured-image', [ 'event' => $event ] ); ?>
 

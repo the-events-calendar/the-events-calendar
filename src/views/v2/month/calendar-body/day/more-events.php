@@ -26,7 +26,7 @@ if ( empty( $more_events ) || empty( $more_url ) ) {
 <div class="tribe-events-calendar-month__more-events">
 	<a
 		href="<?php echo esc_url( $more_url ); ?>"
-		class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin"
+		class="tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin tribe-events-calendar-month__more-events-link"
 		data-js="tribe-events-view-link"
 	>
 		<?php
