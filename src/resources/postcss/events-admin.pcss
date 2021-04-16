@@ -1,6 +1,6 @@
-@custom-media --tablet (max-width: 782px);
-@custom-media --not-phone (min-width: 480px);
-@custom-media --phone (max-width: 480px);
+@custom-media --tec-tablet (max-width: 782px);
+@custom-media --tec-not-phone (min-width: 480px);
+@custom-media --tec-phone (max-width: 480px);
 
 /* = Post Type Listing
 =============================================*/
@@ -144,7 +144,7 @@
 		.tribe-field-start_date,
 		.tribe-field-end_date {
 			width: 100px;
-			@media (--tablet) {
+			@media (--tec-tablet) {
 				width: 63%;
 				display: inline-block;
 			}
@@ -153,14 +153,14 @@
 		.tribe-field-start_time,
 		.tribe-field-end_time {
 			width: 80px;
-			@media (--tablet) {
+			@media (--tec-tablet) {
 				width: 35%;
 				display: inline-block;
 			}
 		}
 
 		.tribe-datetime-separator {
-			@media (--tablet) {
+			@media (--tec-tablet) {
 				width: 100%;
 				display: block;
 				text-align: center;
@@ -183,7 +183,7 @@
 				display: inline-block;
 				margin-top: -4px;
 
-				@media (--tablet) {
+				@media (--tec-tablet) {
 					display: table;
 					margin: 10px auto 0;
 				}
@@ -192,7 +192,7 @@
 
 		.tribe-change-timezone {
 			white-space: nowrap;
-			@media (--tablet) {
+			@media (--tec-tablet) {
 				width: 100%;
 				display: block;
 				text-align: center;
@@ -382,7 +382,7 @@
 			display: none;
 		}
 
-		@media (--not-phone) {
+		@media (--tec-not-phone) {
 			.tribe-upgrade-absolute-text {
 				position: absolute;
 				word-wrap: break-word;
@@ -390,7 +390,7 @@
 				bottom: 80px;
 			}
 		}
-		@media (--phone) {
+		@media (--tec-phone) {
 			.tribe-upgrade-absolute-text {
 				display: block;
 				margin: 15px 10px;
