@@ -24,7 +24,7 @@ $classes = [ 'tribe-events-calendar-month-mobile-events__mobile-event-title', 't
 		href="<?php echo esc_url( $event->permalink ) ?>"
 		title="<?php echo esc_attr( $event->title ) ?>"
 		rel="bookmark"
-		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
+		class="tribe-common-anchor tribe-events-calendar-month-mobile-events__mobile-event-title-link"
 	>
 		<?php
 		// phpcs:ignore

@@ -18,7 +18,7 @@
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
 		href="<?php echo esc_url( $today_url ); ?>"
-		class="tribe-events-c-nav__today tribe-common-b2"
+		class="tribe-common-b2 tribe-events-c-nav__today"
 		data-js="tribe-events-view-link"
 		aria-label="<?php esc_attr_e( 'Click to select today\'s date', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Click to select today\'s date', 'the-events-calendar' ); ?>"

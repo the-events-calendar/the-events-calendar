@@ -20,7 +20,7 @@
 	<a
 		href="<?php echo esc_url( $link ); ?>"
 		rel="next"
-		class="tribe-events-c-nav__next tribe-common-b2"
+		class="tribe-common-b2 tribe-events-c-nav__next"
 		data-js="tribe-events-view-link"
 		aria-label="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		title="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"

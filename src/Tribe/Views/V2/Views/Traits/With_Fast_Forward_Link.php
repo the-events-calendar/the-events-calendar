@@ -55,7 +55,7 @@ trait With_Fast_Forward_Link {
 		$link = sprintf(
 		/* translators: 1: opening href tag 2: event label plural 3: closing href tag */
 			__( 'Jump to the %1$snext upcoming %2$s%3$s.', 'the-events-calendar' ),
-			'<a href="' . esc_url( $url ) . '" class="tribe-events-c-messages__message-list-item-link tribe-common-anchor-thin-alt" data-js="tribe-events-view-link">',
+			'<a href="' . esc_url( $url ) . '" class="tribe-common-anchor-thin-alt tribe-events-c-messages__message-list-item-link" data-js="tribe-events-view-link">',
 			tribe_get_event_label_plural_lowercase(),
 			'</a>'
 		);

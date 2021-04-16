@@ -21,7 +21,7 @@ if ( ! $event->thumbnail->exists ) {
 }
 
 ?>
-<div class="tribe-events-calendar-list__event-featured-image-wrapper tribe-common-g-col">
+<div class="tribe-common-g-col tribe-events-calendar-list__event-featured-image-wrapper">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
 		title="<?php echo esc_attr( $event->title ); ?>"

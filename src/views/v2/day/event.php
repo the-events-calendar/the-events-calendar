@@ -23,7 +23,7 @@ if ( ! empty( $event->featured ) ) {
 }
 ?>
 <article <?php tribe_classes( $classes ); ?>>
-	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+	<div class="tribe-common-g-col tribe-events-calendar-day__event-content">
 
 		<?php $this->template( 'day/event/featured-image', [ 'event' => $event ] ); ?>
 

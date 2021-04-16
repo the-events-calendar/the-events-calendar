@@ -82,7 +82,7 @@ $num_events_label = sprintf(
 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<h3 class="tribe-common-h6 tribe-common-h--alt tribe-events-calendar-month__day-date">
 			<span class="tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $num_events_label ); ?>,
 			</span>
@@ -123,7 +123,7 @@ $num_events_label = sprintf(
 		id="<?php echo esc_attr( $day_id ); ?>"
 		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+		<h3 class="tribe-common-h4 tribe-events-calendar-month__day-date">
 			<span class="tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $num_events_label ); ?>,
 			</span>

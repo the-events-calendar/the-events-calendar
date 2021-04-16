@@ -17,12 +17,12 @@
  */
 
 ?>
-<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+<h3 class="tribe-common-h8 tribe-common-h--alt tribe-events-calendar-month__calendar-event-title">
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
 		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		class="tribe-common-anchor-thin tribe-events-calendar-month__calendar-event-title-link"
 		data-js="tribe-events-tooltip"
 		data-tooltip-content="#tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"
 		aria-describedby="tribe-events-tooltip-content-<?php echo esc_attr( $event->ID ); ?>"

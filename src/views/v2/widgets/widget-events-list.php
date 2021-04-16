@@ -54,7 +54,7 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 			<?php $this->template( 'components/data' ); ?>
 
 			<header class="tribe-events-widget-events-list__header">
-				<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+				<h2 class="tribe-common-h6 tribe-common-h--alt tribe-events-widget-events-list__header-title">
 					<?php echo esc_html( $widget_title ); ?>
 				</h2>
 			</header>

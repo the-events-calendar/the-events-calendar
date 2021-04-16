@@ -29,7 +29,7 @@ if ( $event->multiday ) {
 	$event_date = $event->short_schedule_details->value();
 }
 ?>
-<div class="tribe-events-widget-events-list__event-datetime-wrapper tribe-common-b2 tribe-common-b3--min-medium">
+<div class="tribe-common-b2 tribe-common-b3--min-medium tribe-events-widget-events-list__event-datetime-wrapper">
 	<?php $this->template( 'widgets/widget-events-list/event/date/featured', [ 'event' => $event ] ); ?>
 	<time class="tribe-events-widget-events-list__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<?php echo $event_date; // phpcs:ignore. ?>

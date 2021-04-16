@@ -17,12 +17,12 @@
  */
 
 ?>
-<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+<h3 class="tribe-common-h7 tribe-events-calendar-month__calendar-event-tooltip-title">
 	<a
 		href="<?php echo esc_url( $event->permalink ) ?>"
 		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+		class="tribe-common-anchor-thin tribe-events-calendar-month__calendar-event-tooltip-title-link"
 	>
 		<?php
 		// phpcs:ignore

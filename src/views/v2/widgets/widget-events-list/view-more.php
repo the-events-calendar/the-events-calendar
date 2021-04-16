@@ -25,10 +25,10 @@ if ( empty( $view_more_link ) ) {
 	return;
 }
 ?>
-<div class="tribe-events-widget-events-list__view-more tribe-common-b1 tribe-common-b2--min-medium">
+<div class="tribe-common-b1 tribe-common-b2--min-medium tribe-events-widget-events-list__view-more">
 	<a
 		href="<?php echo esc_url( $view_more_link ); ?>"
-		class="tribe-events-widget-events-list__view-more-link tribe-common-anchor-thin"
+		class="tribe-common-anchor-thin tribe-events-widget-events-list__view-more-link"
 		title="<?php echo esc_attr( $view_more_title ); ?>"
 	>
 		<?php echo esc_html( $view_more_text ); ?>

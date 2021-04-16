@@ -33,12 +33,12 @@ $event_week_day  = $display_date->format_i18n( 'D' );
 $event_day_num   = $display_date->format_i18n( 'j' );
 $event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
 ?>
-<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
+<div class="tribe-common-g-col tribe-events-calendar-list__event-date-tag">
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
 			<?php echo esc_html( $event_week_day ); ?>
 		</span>
-		<span class="tribe-events-calendar-list__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+		<span class="tribe-common-h5 tribe-common-h4--min-medium tribe-events-calendar-list__event-date-tag-daynum">
 			<?php echo esc_html( $event_day_num ); ?>
 		</span>
 	</time>

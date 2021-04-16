@@ -18,6 +18,6 @@
 <div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-c-read-more">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
-		class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
+		class="tribe-common-cta tribe-common-cta--thin-alt tribe-events-c-small-cta__link"
 	><?php esc_html_e( 'Continue Reading', 'the-events-calendar' ); ?></a>
 </div>

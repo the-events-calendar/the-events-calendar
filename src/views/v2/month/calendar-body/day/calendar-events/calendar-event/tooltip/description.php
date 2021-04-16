@@ -20,6 +20,6 @@ if ( empty( (string) $event->excerpt ) ) {
 	return;
 }
 ?>
-<div class="tribe-events-calendar-month__calendar-event-tooltip-description tribe-common-b3">
+<div class="tribe-common-b3 tribe-events-calendar-month__calendar-event-tooltip-description">
 	<?php echo (string) $event->excerpt; ?>
 </div>
