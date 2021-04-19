@@ -2264,15 +2264,17 @@
 		
 			
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day tribe-events-calendar-month-mobile-events__mobile-day--show"  id="tribe-events-calendar-mobile-day-2019-01-1">
-	<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-01-01"
-	>
-		January 1	</time>
-</div>
 
 			
+		<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
+	<time
+		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
+		datetime="2019-06-20"
+	>
+		June 20	</time>
+</div>
+
+		
 		
 <article  class="tribe-events-calendar-month-mobile-events__mobile-event post-234234234 tribe_events type-tribe_events status-publish hentry entry tribe-events-calendar-month-mobile-events__mobile-event--featured" >
 
@@ -2307,6 +2309,8 @@
 
 			
 		
+		
+		
 <article  class="tribe-events-calendar-month-mobile-events__mobile-event post-2453454355 tribe_events type-tribe_events status-publish hentry entry" >
 
 	
@@ -2330,6 +2334,8 @@
 </article>
 
 			
+		
+		
 		
 <article  class="tribe-events-calendar-month-mobile-events__mobile-event post-3094853477 tribe_events type-tribe_events status-publish hentry entry" >
 

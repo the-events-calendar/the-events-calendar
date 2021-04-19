@@ -107,6 +107,40 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected function add_hooks() {
+		parent::add_hooks();
+
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_styles', '__return_true' );
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups' ] );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function remove_hooks() {
+		parent::remove_hooks();
+
+		remove_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups'] );
+	}
+
+	/**
+	 * Add this widget's css group to the VE list of widget groups to load icon styles for.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $widgets The list of widgets
+	 *
+	 * @return array<string> The modified list of widgets.
+	 */
+	public function add_self_to_virtual_widget_groups( $groups ) {
+		$groups[] = static::get_css_group();
+
+		return $groups;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function update( $new_instance, $old_instance ) {
 		$updated_instance = $old_instance;
 

@@ -11,7 +11,6 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template_Bootstrap;
-use Tribe__Container as Container;
 use Tribe\Utils\Body_Classes;
 
 class Theme_Compatibility {

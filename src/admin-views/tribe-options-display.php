@@ -36,7 +36,7 @@ $stylesheet_choices = [
 ];
 
 
-// If V2 is ensabled, we don't show the (redundant) 'full' option
+// If V2 is enabled, we don't show the (redundant) 'full' option
 if ( tribe_events_views_v2_is_enabled() ) {
 	unset( $stylesheet_choices[ 'full' ] ) ;
 }
@@ -51,7 +51,7 @@ $stylesheet_option = [
 
 $stylesheet_mode = [ 'type' => 'html'];
 
-// If V2 is ensabled, we swap the options so we don't overwrite. For backwards compatibility.
+// If V2 is enabled, we swap the options so we don't overwrite. For backwards compatibility.
 if ( tribe_events_views_v2_is_enabled() ) {
 	$stylesheet_mode = $stylesheet_option;
 	$stylesheet_option = [ 'type' => 'html' ];

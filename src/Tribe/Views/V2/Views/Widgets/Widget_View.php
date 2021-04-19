@@ -58,7 +58,7 @@ class Widget_View extends View {
 	 * @return string The widget "view more" text.
 	 */
 	public function get_view_more_text() {
-		return esc_html__( 'View More', 'the-events-calendar');
+		return esc_html__( 'View Calendar', 'the-events-calendar');
 	}
 
 	/**
