@@ -99,6 +99,10 @@
 					background-color: rgba(35,137,35,0.07);
 				}
 			
+				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-svgicon {
+					color: #238923;
+				}
+			
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-events-virtual-virtual-event__icon-svg {
 					color: #238923;
 				}
