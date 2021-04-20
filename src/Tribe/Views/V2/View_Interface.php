@@ -243,4 +243,14 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *                    used to fetch the Events.
 	 */
 	public function get_ical_ids( $per_page );
+
+	/**
+	 * Updates the View URL object reference.
+	 *
+	 * @since TBD
+	 *
+	 * @param Url $url_object A reference to the the new URL instance
+	 *                        the View should use.
+	 */
+	public function set_url_object( Url $url_object );
 }

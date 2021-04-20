@@ -2463,4 +2463,11 @@ class View implements View_Interface {
 
 		return $ids;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_url_object( Url $url_object ) {
+		$this->url = $url_object;
+	}
 }
