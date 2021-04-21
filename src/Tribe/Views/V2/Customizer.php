@@ -555,16 +555,18 @@ class Customizer {
 
 			// overrides for tec components/full/_ical-link.pcss.
 			$css_template .= "
-				$tribe_events .tribe-events-c-ical__link:not(:hover):not(:focus):not(:active) {
+				$tribe_events .tribe-events-c-ical__link {
 					border-color: <%= global_elements.accent_color %>;
 					color: <%= global_elements.accent_color %>;
 				}
 			";
 
+			/* @todo replace this with the variable var(--color-background) when we make those available */
 			$css_template .= "
 			$tribe_events .tribe-events-c-ical__link:hover,
 			$tribe_events .tribe-events-c-ical__link:focus,
 			$tribe_events .tribe-events-c-ical__link:active {
+				color: #fff;
 				background-color: <%= global_elements.accent_color %>;
 				border-color: <%= global_elements.accent_color %>;
 			}
