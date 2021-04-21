@@ -51,7 +51,7 @@ $time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $ti
  */
 $time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
 
-$website = tribe_get_event_website_link();
+$website = tribe_get_event_website_link( $event_id );
 ?>
 <div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix">
 	<?php do_action( 'tribe_events_single_event_meta_primary_section_start' ); ?>
