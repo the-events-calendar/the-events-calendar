@@ -561,11 +561,14 @@ class Customizer {
 				}
 			";
 
+			/* @todo replace this with the variable var(--color-background) when we make those available */
 			$css_template .= "
 			$tribe_events .tribe-events-c-ical__link:hover,
 			$tribe_events .tribe-events-c-ical__link:focus,
 			$tribe_events .tribe-events-c-ical__link:active {
+				color: #fff;
 				background-color: <%= global_elements.accent_color %>;
+				border-color: <%= global_elements.accent_color %>;
 			}
 		";
 
