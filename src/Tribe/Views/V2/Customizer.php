@@ -407,6 +407,7 @@ class Customizer {
 				$tribe_common .tribe-common-cta--thin-alt:active,
 				$tribe_common .tribe-common-cta--thin-alt:focus,
 				$tribe_common .tribe-common-cta--thin-alt:hover {
+					color: <%= global_elements.accent_color %>;
 					border-bottom-color: <%= global_elements.accent_color %>;
 				}
 			";
