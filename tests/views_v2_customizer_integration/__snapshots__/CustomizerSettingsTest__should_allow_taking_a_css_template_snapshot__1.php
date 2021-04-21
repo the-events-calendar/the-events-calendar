@@ -160,7 +160,9 @@
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:hover,
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:focus,
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:active {
+				color: #fff;
 				background-color: #238923;
+				border-color: #238923;
 			}
 		
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-view-selector__button:before {
