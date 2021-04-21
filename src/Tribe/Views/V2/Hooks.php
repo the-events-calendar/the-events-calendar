@@ -969,12 +969,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string
 	 */
 	public function filter_single_event_details_event_website_label( $label, $post_id = null ) {
-		bdump('filter_single_event_details_event_website_label');
-		bdump([
-			is_null( $post_id ),
-				! tribe_events_single_view_v2_is_enabled(),
-				has_blocks( $post_id ),
-		]);
 		// If not V2 or not Classic Editor, return the website url.
 		if ( $this->is_v1_or_blocks( $post_id ) ) {
 			return $label;
