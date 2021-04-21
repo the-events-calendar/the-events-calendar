@@ -152,7 +152,7 @@
 					background-color: #238923;
 				}
 			
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link {
+				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:not(:hover):not(:focus):not(:active) {
 					border-color: #238923;
 					color: #238923;
 				}
@@ -161,6 +161,7 @@
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:focus,
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:active {
 				background-color: #238923;
+				border-color: #238923;
 			}
 		
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-view-selector__button:before {
