@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure when saving on Blocks editor Organizer and Venue IDs don't throw notices for failed deletion. [TEC-3844]
 * Tweak - Added the ability to filter cached view HTML. Hooks added were: `tribe_events_views_v2_view_cached_html` and `tribe_events_views_v2_view_{$view_slug}_cached_html`. [ECP-770]
 * Fix - Resolve compatibility problem between The Events Calendar and other plugins using Select2. [TEC-3748]
+* Fix - Enqueue full styles for v2 event single only when using full styles. [TEC-3848]
 
 = [5.5.0.1] 2021-04-05  =
 

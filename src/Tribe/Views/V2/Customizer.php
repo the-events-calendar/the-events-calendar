@@ -407,6 +407,7 @@ class Customizer {
 				$tribe_common .tribe-common-cta--thin-alt:active,
 				$tribe_common .tribe-common-cta--thin-alt:focus,
 				$tribe_common .tribe-common-cta--thin-alt:hover {
+					color: <%= global_elements.accent_color %>;
 					border-bottom-color: <%= global_elements.accent_color %>;
 				}
 			";
@@ -483,6 +484,13 @@ class Customizer {
 				}
 			";
 
+			// Override svg icons color.
+			$css_template .= "
+				$tribe_common .tribe-common-c-svgicon {
+					color: <%= global_elements.accent_color %>;
+				}
+			";
+
 			$css_template .= "
 				$tribe_common .tribe-events-virtual-virtual-event__icon-svg {
 					color: <%= global_elements.accent_color %>;
@@ -554,11 +562,14 @@ class Customizer {
 				}
 			";
 
+			/* @todo replace this with the variable var(--color-background) when we make those available */
 			$css_template .= "
 			$tribe_events .tribe-events-c-ical__link:hover,
 			$tribe_events .tribe-events-c-ical__link:focus,
 			$tribe_events .tribe-events-c-ical__link:active {
+				color: #fff;
 				background-color: <%= global_elements.accent_color %>;
+				border-color: <%= global_elements.accent_color %>;
 			}
 		";
 
