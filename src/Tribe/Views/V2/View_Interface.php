@@ -245,12 +245,11 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_ical_ids( $per_page );
 
 	/**
-	 * Updates the View URL object reference.
+	 * Disable the url management inside of the current view.
 	 *
 	 * @since TBD
 	 *
-	 * @param Url $url_object A reference to the the new URL instance
-	 *                        the View should use.
+	 * @return View_Interface
 	 */
-	public function set_url_object( Url $url_object );
+	public function disable_url_management();
 }
