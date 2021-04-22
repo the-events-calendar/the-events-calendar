@@ -2470,4 +2470,16 @@ class View implements View_Interface {
 	public function set_url_object( Url $url_object ) {
 		$this->url = $url_object;
 	}
+
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @return $this
+	 */
+	public function disable_url_management() {
+		$this->should_manage_url = false;
+
+		return $this;
+	}
 }
