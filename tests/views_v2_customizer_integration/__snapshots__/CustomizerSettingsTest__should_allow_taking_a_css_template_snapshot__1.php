@@ -42,6 +42,7 @@
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-cta--thin-alt:active,
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-cta--thin-alt:focus,
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-cta--thin-alt:hover {
+					color: #238923;
 					border-bottom-color: #238923;
 				}
 			
