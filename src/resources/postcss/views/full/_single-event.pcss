@@ -46,6 +46,7 @@
 .tribe-events-single-event-title {
 	@mixin heading;
 	@mixin mobile-heading-2;
+	color: var(--tec-color-text-event-title);
 
 	@media (--tec-viewport-medium) {
 		@mixin desktop-heading-1;
@@ -63,6 +64,7 @@
 	@mixin heading;
 	@mixin mobile-heading-6;
 
+	color: var(--tec-color-text-event-date);
 	font-weight: var(--tec-font-weight-regular);
 
 	@media (--tec-viewport-medium) {
@@ -191,7 +193,7 @@
 	.tribe-events-gcal,
 	.tribe-events-ical {
 		background: svg-inline(cal-export) 0 / 24px no-repeat;
-		color: var(--tec-color-accent-primary);
+		color: var(--tec-color-link-accent);
 		font-size: var(--tec-font-size-2);
 		font-weight: var(--tec-font-weight-regular);
 		line-height: var(--tec-line-height-3);
@@ -209,12 +211,12 @@
 
 		&,
 		&:visited {
-			color: var(--tec-color-accent-primary);
+			color: var(--tec-color-link-accent);
 		}
 
 		&:focus,
 		&:hover {
-			color: var(--tec-color-accent-primary-hover);
+			color: var(--tec-color-link-accent-hover);
 		}
 	}
 
@@ -297,7 +299,7 @@
 			@mixin heading-7;
 
 			a {
-				color: var(--tec-color-accent-primary);
+				color: var(--tec-color-link-primary);
 			}
 		}
 	}
@@ -441,6 +443,7 @@
 		@mixin heading;
 		@mixin mobile-heading-6;
 
+		color: var(--tec-color-text-event-date);
 		font-weight: var(--tec-font-weight-regular);
 
 		@media (--tec-viewport-medium) {

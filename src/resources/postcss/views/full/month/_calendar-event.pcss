@@ -11,7 +11,7 @@
 		}
 
 		.tribe-events-calendar-month__calendar-event-datetime {
-			color: var(--tec-color-text-primary);
+			color: var(--tec-color-text-event-date);
 			opacity: 0.94; /* This opacity is compounded with the calendar-event opacity above */
 		}
 
@@ -55,6 +55,11 @@
 		}
 	}
 
+	.tribe-events-calendar-month__calendar-event-title-link,
+	.tribe-events-calendar-month__calendar-event-tooltip-title-link {
+		@mixin event-title-link;
+	}
+
 	/* -----------------------------------------------------------------------------
 	 * Calendar Event Tooltip
 	 * ----------------------------------------------------------------------------- */
@@ -74,5 +79,6 @@
 
 	.tribe-events-calendar-month__calendar-event-tooltip-datetime {
 		@mixin mobile-body-3;
+		color: var(--tec-color-text-event-date);
 	}
 }

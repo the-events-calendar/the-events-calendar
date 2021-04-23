@@ -401,7 +401,7 @@ a.tribe-events-gcal {
 .tribe-events-schedule h2 {
 	display: inline-block;
 	margin-bottom: 0;
-	color: var(--tec-color-text-primary);
+	color: var(--tec-color-text-event-date);
 	font-size: 1.2em;
 	font-style: normal;
 	font-weight: bold;
@@ -926,7 +926,7 @@ select.tribe-events-dropdown {
    @ Template: single-event.php
 =============================================*/
 .single-tribe_events .tribe-events-single-event-title {
-	color: var(--tec-color-text-primary);
+	color: var(--tec-color-text-event-title);
 	font-size: 1.7em;
 	line-height: 1;
 	margin: 0;
@@ -953,11 +953,15 @@ select.tribe-events-dropdown {
 	}
 }
 
-#tribe-events-content .tribe-events-single-event-description  .attachment-post-thumbnail {
+#tribe-events-content .tribe-events-single-event-description .attachment-post-thumbnail {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+.single-tribe_events .tribe-events-single-event-description a {
+	color: var(--tec-color-link-primary);
 }
 
 .tribe-events-meta-group {
@@ -2235,6 +2239,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 				display: inline-block;
 				font-size: 1.2em;
 				margin: 0;
+			}
+
+			p a {
+				color: var(--tec-color-link-primary);
 			}
 		}
 

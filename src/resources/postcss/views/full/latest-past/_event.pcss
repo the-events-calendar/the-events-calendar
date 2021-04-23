@@ -51,11 +51,19 @@
 		}
 	}
 
+	.tribe-events-calendar-latest-past__event-datetime {
+		color: var(--tec-color-text-event-date);
+	}
+
 	.tribe-events-calendar-latest-past__event-datetime-featured-text {
 
 		.tribe-common--breakpoint-medium& {
 			color: var(--tec-color-accent-primary);
 			font-weight: var(--tec-font-weight-bold);
 		}
+	}
+
+	.tribe-events-calendar-latest-past__event-title-link {
+		@mixin event-title-link;
 	}
 }

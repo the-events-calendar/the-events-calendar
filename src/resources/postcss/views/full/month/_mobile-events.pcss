@@ -9,7 +9,7 @@
 	}
 
 	.tribe-events-calendar-month-mobile-events__mobile-event-datetime {
-		color: var(--tec-color-text-secondary);
+		color: var(--tec-color-text-event-date-secondary);
 	}
 
 	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
@@ -27,5 +27,9 @@
 				stroke: currentColor;
 			}
 		}
+	}
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-title-link {
+		@mixin event-title-link;
 	}
 }
