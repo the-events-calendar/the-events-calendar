@@ -626,6 +626,11 @@ class View implements View_Interface {
 			$this->setup_the_loop( $repository_args );
 		}
 
+		/**
+		 * Fire new action on the views.
+		 */
+		do_action( 'tribe_views_v2_after_setup_loop', $this );
+
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
