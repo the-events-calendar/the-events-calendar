@@ -195,6 +195,7 @@ a.tribe-button,
 #tribe-events,
 #tribe-events-pg-template,
 .tribe-events-pg-template {
+	background-color: var(--tec-color-background-events);
 	padding: 40px 20px 20px;
 }
 
@@ -1620,7 +1621,6 @@ select.tribe-events-dropdown {
 	}
 }
 
-
 #tribe-events-bar {
 	clear: none;
 	height: auto;
@@ -2203,8 +2203,9 @@ input[name*='tribe-bar-']:-moz-placeholder {
 ========================================================================== */
 .tribe-theme-twentyfifteen,
 .tribe-theme-parent-twentyfifteen {
+	--tec-color-background-events: var(--tec-color-background);
 	#tribe-events {
-		background: white;
+		background-color: var(--tec-color-background-events);
 		margin: 0 8.333%;
 		padding-top: 8.333%;
 	}
@@ -2228,6 +2229,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 	&.single-tribe_events {
 		#tribe-events {
+			background-color: var(--tec-color-background-events);
 			.tribe_events {
 				box-shadow: none;
 				margin-left: 0;

@@ -11,7 +11,6 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template_Bootstrap;
-use Tribe__Container as Container;
 use Tribe\Utils\Body_Classes;
 
 class Theme_Compatibility {
@@ -143,6 +142,25 @@ class Theme_Compatibility {
 		return apply_filters( 'tribe_events_views_v2_compatibility_classes', $classes );
 	}
 
+	public function get_active_themes() {
+		$child_theme  = strtolower( get_stylesheet() );
+		$parent_theme = strtolower( get_template() );
+		$themes = [];
+
+		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
+			return $themes;
+		}
+
+		$themes['parent'] = $parent_theme;
+
+		// if the 2 options are the same, then there is no child theme.
+		if ( $child_theme !== $parent_theme ) {
+			$themes['child'] = $child_theme;
+		}
+
+		return $themes;
+	}
+
 	/**
 	 * Fetches the correct class strings for theme and child theme if available.
 	 *
@@ -151,20 +169,24 @@ class Theme_Compatibility {
 	 * @return array $classes
 	 */
 	public function get_body_classes() {
-		$classes      = [];
-		$child_theme  = strtolower( get_stylesheet() );
-		$parent_theme = strtolower( get_template() );
+		$classes = [];
+		$themes = $this->get_active_themes();
 
-		// Prevents empty stylesheet or template
-		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
+		if ( empty( $themes ) ) {
 			return $classes;
 		}
 
-		$classes[] = sanitize_html_class( "tribe-theme-$parent_theme" );
+		foreach ( $themes as $generation => $name ) {
+			// Just in case.
+			if ( empty( $name ) ) {
+				continue;
+			}
 
-		// if the 2 options are the same, then there is no child theme.
-		if ( $child_theme !== $parent_theme ) {
-			$classes[] = sanitize_html_class( "tribe-theme-child-$child_theme" );
+			if ( 'child' === $generation ) {
+				$name = 'child-' . $name;
+			}
+
+			$classes[] = sanitize_html_class( "tribe-theme-$name" );
 		}
 
 		return $classes;
