@@ -42,6 +42,7 @@
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-cta--thin-alt:active,
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-cta--thin-alt:focus,
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-cta--thin-alt:hover {
+					color: #238923;
 					border-bottom-color: #238923;
 				}
 			
@@ -97,6 +98,10 @@
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn:disabled,
 				.tribe-common:not( .tribe-events-view--shortcode ) a.tribe-common-c-btn:disabled {
 					background-color: rgba(35,137,35,0.07);
+				}
+			
+				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-svgicon {
+					color: #238923;
 				}
 			
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-events-virtual-virtual-event__icon-svg {
@@ -156,7 +161,9 @@
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:hover,
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:focus,
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:active {
+				color: #fff;
 				background-color: #238923;
+				border-color: #238923;
 			}
 		
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-view-selector__button:before {

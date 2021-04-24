@@ -13,7 +13,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The Events Calendar is the number one calendar plugin for WordPress. Easily create and manage events (including virtual events!) on your WordPress site with The Events Calendar free plugin.
 
 == Description ==
-
 Easily create and manage an events calendar on your WordPress site with [The Events Calendar](https://evnt.is/mj) free plugin. Whether your events are in-person or virtual events, this WordPress calendar plugin boasts professional features backed by our world-class team of developers and designers.
 
 https://vimeo.com/425323974
@@ -228,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure when saving on Blocks editor Organizer and Venue IDs don't throw notices for failed deletion. [TEC-3844]
 * Tweak - Added the ability to filter cached view HTML. Hooks added were: `tribe_events_views_v2_view_cached_html` and `tribe_events_views_v2_view_{$view_slug}_cached_html`. [ECP-770]
 * Fix - Resolve compatibility problem between The Events Calendar and other plugins using Select2. [TEC-3748]
+* Fix - Enqueue full styles for v2 event single only when using full styles. [TEC-3848]
 
 = [5.5.0.1] 2021-04-05  =
 
