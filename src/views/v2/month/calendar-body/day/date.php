@@ -1,18 +1,15 @@
 <?php
 /**
- * View: Month View - Day
+ * View: Month View - Day Date
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/month/calendar-body/day.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/date.php
  *
  * See more documentation about our views templating system.
  *
  * @link http://evnt.is/1aiy
  *
  * @version TBD
- *
- * @since TBD Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
- * @since 5.3.0 Introduced.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -36,24 +33,52 @@
  *                              the day
  *      }
  */
-$day_classes = [ 'tribe-events-calendar-month__day' ];
+
+$day_button_classes = [ 'tribe-events-calendar-month__day-cell', 'tribe-events-calendar-month__day-cell--mobile' ];
+$day_number = $day['day_number'];
+$expanded = 'false';
+
 $day_id = 'tribe-events-calendar-day-' . $day_date;
 
 if ( $today_date === $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--current';
+	$expanded = 'true';
+	$day_button_classes[] = 'tribe-events-calendar-month__day-cell--selected';
 }
 
-if ( $today_date > $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--past';
-}
+// Only add id if events exist on the day.
+$mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
+
+$events_label_singular = tribe_get_event_label_singular_lowercase();
+$events_label_plural   = tribe_get_event_label_plural_lowercase();
+
+$num_events_label = sprintf(
+	/* translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). */
+	_n( '%1$s %2$s', '%1$s %3$s', $day['found_events'], 'the-events-calendar' ),
+	number_format_i18n( $day['found_events'] ),
+	$events_label_singular,
+	$events_label_plural
+);
 ?>
 
-<div
-	<?php tribe_classes( $day_classes ); ?>
-	role="gridcell"
-	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
-	data-js="tribe-events-month-grid-cell"
+<button
+	<?php if ( ! empty( $day['found_events'] ) || ! empty( $day['is-widget-today']) ) : ?>
+		aria-expanded="<?php echo esc_attr( $expanded ); ?>"
+		aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
+	<?php endif; ?>
+	<?php tribe_classes( $day_button_classes ); ?>
+	data-js="tribe-events-calendar-month-day-cell-mobile"
+	tabindex="-1"
 >
-	<?php $this->template( 'month/calendar-body/day/date', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-	<?php $this->template( 'month/calendar-body/day/cell', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-</div>
+	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			<?php echo esc_html( $num_events_label ); ?>,
+		</span>
+		<time
+			class="tribe-events-calendar-month__day-date-daynum"
+			datetime="<?php echo esc_attr( $day['date'] ); ?>"
+		>
+			<?php echo esc_html( $day_number ); ?>
+		</time>
+	</h3>
+	<?php $this->template( 'month/calendar-body/day/date-extras', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
+</button>
