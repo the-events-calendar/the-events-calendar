@@ -256,12 +256,15 @@ class Customizer {
 			$accent_color_background     = '';
 
 			$css_template .= "
+				/* Accent Color overrides. */
 				--tec-color-accent-primary: <%= global_elements.accent_color %>;
 				--tec-color-accent-primary-hover: rgba({$accent_css_rgb},0.8);
 				--tec-color-accent-primary-multiday: rgba({$accent_css_rgb},0.24);
 				--tec-color-accent-primary-multiday-hover: rgba({$accent_css_rgb},0.34);
 				--tec-color-accent-primary-active: rgba({$accent_css_rgb},0.9);
 				--tec-color-accent-primary-background: rgba({$accent_css_rgb},0.07);
+				--tec-color-background-secondary-datepicker: rgba({$accent_css_rgb},0.5);
+				--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;
 			";
 
 			/*
@@ -274,153 +277,12 @@ class Customizer {
 				}
 			';
 
-			// overrides for common components/full/buttons/_solid.pcss.
-			$css_template .= '
-				.tribe-common .tribe-common-c-btn,
-				.tribe-common a.tribe-common-c-btn {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$css_template .= '
-				.tribe-common .tribe-common-c-btn:disabled,
-				.tribe-common a.tribe-common-c-btn:disabled {
-					background-color: ' . $accent_color_background . ';
-				}
-			';
-
-			// Override svg icons color.
-			$css_template .= '
-				.tribe-common .tribe-common-c-svgicon {
-					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$css_template .= '
-				.tribe-common .tribe-events-virtual-virtual-event__icon-svg {
-					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$css_template .= '
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
 			$css_template .= '
 				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
 				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:focus,
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
 					background-color: var(--tec-color-accent-primary-hover);
-				}
-			';
-
-			// overrides for tec components/full/_datepicker.pcss.
-			$css_template .= '
-				.tribe-events .datepicker .day.current,
-				.tribe-events .datepicker .month.current,
-				.tribe-events .datepicker .year.current,
-				.tribe-events .datepicker .day.current:hover,
-				.tribe-events .datepicker .day.current:focus,
-				.tribe-events .datepicker .day.current.focused,
-				.tribe-events .datepicker .month.current:hover,
-				.tribe-events .datepicker .month.current:focus,
-				.tribe-events .datepicker .month.current.focused,
-				.tribe-events .datepicker .year.current:hover,
-				.tribe-events .datepicker .year.current:focus,
-				.tribe-events .datepicker .year.current.focused {
-					background: ' . $accent_color_background . ';
-				}
-			';
-
-			$css_template .= '
-				.tribe-events .datepicker .day.active,
-				.tribe-events .datepicker .month.active,
-				.tribe-events .datepicker .year.active,
-				.tribe-events .datepicker .day.active:hover,
-				.tribe-events .datepicker .day.active:focus,
-				.tribe-events .datepicker .day.active.focused,
-				.tribe-events .datepicker .month.active:hover,
-				.tribe-events .datepicker .month.active:focus,
-				.tribe-events .datepicker .month.active.focused,
-				.tribe-events .datepicker .year.active:hover,
-				.tribe-events .datepicker .year.active:focus,
-				.tribe-events .datepicker .year.active.focused {
-					background: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// overrides for tec components/full/_events-bar.pcss.
-			$css_template .= '
-				.tribe-events .tribe-events-c-events-bar__search-button:before {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// overrides for tec components/full/_ical-link.pcss.
-			$css_template .= '
-				.tribe-events .tribe-events-c-ical__link {
-					border-color: <%= global_elements.accent_color %>;
-					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$css_template .= '
-				.tribe-events .tribe-events-c-ical__link:hover,
-				.tribe-events .tribe-events-c-ical__link:focus,
-				.tribe-events .tribe-events-c-ical__link:active {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// overrides for tec components/full/_view-selector.pcss.
-			$css_template .= '
-				.tribe-events .tribe-events-c-view-selector__button:before {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// overrides for tec views/full/list/_event.pcss.
-			$css_template .= '
-				.tribe-events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$css_template .= '
-				.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event-datetime-featured-text {
-					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// overrides for tec views/full/month/_calendar-event.pcss.
-			$css_template .= '
-				.tribe-events .tribe-events-calendar-month__calendar-event--featured:before {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// overrides for tec views/full/month/_day.pcss.
-			$css_template .= '
-				.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date,
-				.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link {
-					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$css_template .= '
-				.tribe-events .tribe-events-calendar-month__day-cell--selected,
-				.tribe-events .tribe-events-calendar-month__day-cell--selected:hover,
-				.tribe-events .tribe-events-calendar-month__day-cell--selected:focus {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			$css_template .= '
-				.tribe-events .tribe-events-calendar-month__mobile-events-icon--event {
-					background-color: <%= global_elements.accent_color %>;
 				}
 			';
 
@@ -437,10 +299,9 @@ class Customizer {
 				}
 			';
 
-			// overrides for tec views/full/month/_mobile-events.pcss.
 			$css_template .= '
-				.tribe-events .tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
-					color: <%= global_elements.accent_color %>;
+				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
+					background-color: <%= global_elements.accent_color %>;
 				}
 			';
 
@@ -482,6 +343,7 @@ class Customizer {
 		// Event Title overrides.
 		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
 			$css_template .= '
+				/* Event Title overrides. */
 				--tec-color-text-events-title: <%= global_elements.event_title_color %>;
 			';
 		}
@@ -493,24 +355,28 @@ class Customizer {
 			&& $customizer->has_option( $section->ID, 'background_color' )
 		) {
 			$css_template .= '
+				/* Background Color overrides. */
 				--tec-color-background-events: <%= global_elements.background_color %>;
 			';
 			$overrides['twentytwenty'] .= '
+				/* Background Color overrides. */
 				--tec-color-background-events: <%= global_elements.background_color %>;
 			';
 		}
 
-		// Event Date Time overrides.
+		// Event Date/Time overrides.
 		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
 			$css_template .= '
+				/* Event Date/Time overrides. */
 				--tec-color-text-event-date: <%= global_elements.event_date_time_color %>;
-				--tec-color-text-event-date-secondary: <%= global_elements.event_date_time_color %>;
+				--tec-color-text-secondary-event-date: <%= global_elements.event_date_time_color %>;
 			';
 		}
 
 		// Link color overrides.
 		if ( $customizer->has_option( $section->ID, 'link_color' ) ) {
 			$css_template .= '
+				/* Link Color overrides. */
 				--tec-color-link-primary: <%= global_elements.link_color %>;
 				--tec-color-link-accent: <%= global_elements.link_color %>;
 				--tec-color-link-accent-hover: <%= global_elements.link_color %>CC;
@@ -519,7 +385,7 @@ class Customizer {
 
 		if ( $has_options ) {
 			$css_template .= '
-				}
+			}
 			';
 		}
 
