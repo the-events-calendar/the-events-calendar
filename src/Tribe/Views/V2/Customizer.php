@@ -92,7 +92,7 @@ class Customizer {
 				$manager,
 				$customizer->get_setting_name( 'background_color_choice', $section ),
 				[
-					'label'       => 'Background Color',
+					'label'       => esc_html__( 'Background Color', 'the-events-calendar' ),
 					'section'     => $section->id,
 					'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
 					'type'        => 'radio',
