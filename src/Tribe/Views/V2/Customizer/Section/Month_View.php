@@ -18,7 +18,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 /**
      * ID of the section.
      *
-     * @since 4.0
+     * @since TBD
      *
      * @access public
      * @var string
@@ -27,6 +27,8 @@ class Month_View extends \Tribe__Customizer__Section {
 
 	/**
      * This method will be executed when the Class is Initialized.
+	 *
+	 * @since TBD
      */
 	public function setup() {
 		parent::setup();
@@ -51,6 +53,9 @@ class Month_View extends \Tribe__Customizer__Section {
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_headings() {
 		$this->content_headings = [
 			'grid' => [
@@ -78,6 +83,9 @@ class Month_View extends \Tribe__Customizer__Section {
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_settings() {
 		$this->content_settings = [
 			'grid_lines_color'                => [
@@ -115,6 +123,13 @@ class Month_View extends \Tribe__Customizer__Section {
 		];
 	}
 
+	/**
+	 * Gets the link to the event background color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
 	public function get_events_background_link() {
 		$control                     = tribe( 'customizer' )->get_setting_name( 'background_color_choice', 'global_elements' );
 		$query['autofocus[control]'] = 'tribe_customizer' . $control;
@@ -128,6 +143,13 @@ class Month_View extends \Tribe__Customizer__Section {
 		);
 	}
 
+	/**
+	 * Gets the link to the accent color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
 	public function get_accent_color_link() {
 		$control                     = tribe( 'customizer' )->get_setting_name( 'accent_color', 'global_elements' );
 		$query['autofocus[control]'] = 'tribe_customizer' . $control;
@@ -141,14 +163,31 @@ class Month_View extends \Tribe__Customizer__Section {
 		);
 	}
 
+	/**
+	 * Gets the value of the event background color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The (hex)color value.
+	 */
 	public function get_events_background_color() {
 		return tribe('customizer')->get_option( [ 'global_elements', 'background_color' ] );
 	}
 
+	/**
+	 * Gets the value of the accent color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The (hex)color value.
+	 */
 	public function get_accent_color() {
 		return tribe('customizer')->get_option( [ 'global_elements', 'accent_color' ] );
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_controls() {
 		$this->content_controls = [
 			'grid_lines_color'         => [
