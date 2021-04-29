@@ -16,39 +16,49 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
 class Month_View extends \Tribe__Customizer__Section {
 
 	 /**
-     * ID of the section.
-     *
-     * @since TBD
-     *
-     * @access public
-     * @var string
-     */
-    public $ID = 'month_view';
-
-	/**
-     * This method will be executed when the Class is Initialized.
+	 * ID of the section.
 	 *
 	 * @since TBD
-     */
+	 *
+	 * @access public
+	 * @var string
+	 */
+	public $ID = 'month_view';
+
+	/**
+	 * This method will be executed when the Class is Initialized.
+	 *
+	 * @since TBD
+	 */
 	public function setup() {
 		parent::setup();
+	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setup_defaults() {
 		$this->defaults = [
-			'grid_lines_color'                => '#e4e4e4',
-			'grid_background_color_choice'    => 'transparent',
-			'grid_background_color'           => '#FFFFFF',
-			'days_of_week_color'              => '#5d5d5d',
-			'date_marker_color'               => '#141827',
+			'grid_lines_color'				=> '#e4e4e4',
+			'grid_background_color_choice'	=> 'transparent',
+			'grid_background_color'		   => '#FFFFFF',
+			'days_of_week_color'			  => '#5d5d5d',
+			'date_marker_color'			   => '#141827',
 			'multiday_event_bar_color_choice' => 'accent',
-			'multiday_background_color'       => '#334aff',
+			'multiday_background_color'	   => '#334aff',
 			'tooltip_background_color_choice' => 'default',
-			'tooltip_background_color'        => 'default',
+			'tooltip_background_color'		=> 'default',
 		];
+	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setup_arguments() {
 		$this->arguments = [
-			'priority'    => 65,
+			'priority'	=> 65,
 			'capability'  => 'edit_theme_options',
-			'title'       => esc_html__( 'Month View', 'the-events-calendar' ),
+			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
 			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section.', 'the-events-calendar' ),
 		];
 	}
@@ -59,22 +69,22 @@ class Month_View extends \Tribe__Customizer__Section {
 	public function setup_content_headings() {
 		$this->content_headings = [
 			'grid' => [
-				'priority'     => 0,
-				'type'         => 'heading',
-				'label'        => esc_html_x(
+				'priority'	 => 0,
+				'type'		 => 'heading',
+				'label'		=> esc_html_x(
 					'Calendar Grid',
 					'The header for the calendar grid color control section.',
 					'the-events-calendar'
 				),
 			],
 			'month_view_separator' => [
-				'priority'     => 10,
-				'type'         => 'separator',
+				'priority'	 => 10,
+				'type'		 => 'separator',
 			],
 			'date_day' => [
-				'priority'     => 11,
-				'type'         => 'heading',
-				'label'        => esc_html_x(
+				'priority'	 => 11,
+				'type'		 => 'heading',
+				'label'		=> esc_html_x(
 					'Date and Day',
 					'The header for the date and day color control section.',
 					'the-events-calendar'
@@ -88,40 +98,40 @@ class Month_View extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_settings() {
 		$this->content_settings = [
-			'grid_lines_color'                => [
-				'sanitize_callback'    => 'sanitize_hex_color',
+			'grid_lines_color'				=> [
+				'sanitize_callback'	=> 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
-			'grid_background_color_choice'    => [
-				'sanitize_callback'    => 'sanitize_key',
+			'grid_background_color_choice'	=> [
+				'sanitize_callback'	=> 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 			],
-			'grid_background_color'           => [
-				'sanitize_callback'    => 'sanitize_hex_color',
+			'grid_background_color'		   => [
+				'sanitize_callback'	=> 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
-			'tooltip_background_color'        => [
-				'sanitize_callback'    => 'sanitize_key',
+			'tooltip_background_color'		=> [
+				'sanitize_callback'	=> 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 			],
-			'grid_hover_color'                => [
-				'sanitize_callback'    => 'sanitize_hex_color',
+			'grid_hover_color'				=> [
+				'sanitize_callback'	=> 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
-			'days_of_week_color'              => [
-				'sanitize_callback'    => 'sanitize_hex_color',
+			'days_of_week_color'			  => [
+				'sanitize_callback'	=> 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
-			'date_marker_color'               => [
-				'sanitize_callback'    => 'sanitize_hex_color',
+			'date_marker_color'			   => [
+				'sanitize_callback'	=> 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
 			'multiday_event_bar_color_choice' => [
-				'sanitize_callback'    => 'sanitize_key',
+				'sanitize_callback'	=> 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 			],
-			'multiday_event_bar_color'        => [
-				'sanitize_callback'    => 'sanitize_hex_color',
+			'multiday_event_bar_color'		=> [
+				'sanitize_callback'	=> 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
 		];
@@ -135,10 +145,10 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * @return string The HTML link element.
 	 */
 	public function get_events_background_link() {
-		$control                     = tribe( 'customizer' )->get_setting_name( 'background_color_choice', 'global_elements' );
+		$control					 = tribe( 'customizer' )->get_setting_name( 'background_color_choice', 'global_elements' );
 		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url                 = add_query_arg( $query, admin_url( 'customize.php' ) );
-		$control_text                = esc_html__( 'Events Background Color', 'the-events-calendar' );
+		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
+		$control_text				= esc_html__( 'Events Background Color', 'the-events-calendar' );
 
 		return sprintf(
 			'<a href="%s">%s</a>',
@@ -155,10 +165,10 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * @return string The HTML link element.
 	 */
 	public function get_accent_color_link() {
-		$control                     = tribe( 'customizer' )->get_setting_name( 'accent_color', 'global_elements' );
+		$control					 = tribe( 'customizer' )->get_setting_name( 'accent_color', 'global_elements' );
 		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url                 = add_query_arg( $query, admin_url( 'customize.php' ) );
-		$control_text                = esc_html__( 'Accent Color', 'the-events-calendar' );
+		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
+		$control_text				= esc_html__( 'Accent Color', 'the-events-calendar' );
 
 		return sprintf(
 			'<a href="%s">%s</a>',
@@ -175,10 +185,10 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * @return string The HTML link element.
 	 */
 	public function get_event_title_color_link() {
-		$control                     = tribe( 'customizer' )->get_setting_name( 'post_title_color', 'global_elements' );
+		$control					 = tribe( 'customizer' )->get_setting_name( 'post_title_color', 'global_elements' );
 		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url                 = add_query_arg( $query, admin_url( 'customize.php' ) );
-		$control_text                = esc_html__( 'Event Title Color', 'the-events-calendar' );
+		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
+		$control_text				= esc_html__( 'Event Title Color', 'the-events-calendar' );
 
 		return sprintf(
 			'<a href="%s">%s</a>',
@@ -228,19 +238,19 @@ class Month_View extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_controls() {
 		$this->content_controls = [
-			'grid_lines_color'                => [
-				'priority'     => 3,
-				'type'         => 'color',
-				'label'        => esc_html_x(
+			'grid_lines_color'				=> [
+				'priority'	 => 3,
+				'type'		 => 'color',
+				'label'		=> esc_html_x(
 					'Grid lines color',
 					'The grid lines color setting label.',
 					'the-events-calendar'
 				),
 			],
-			'grid_background_color_choice'    => [
-				'priority'     => 6,
-				'type'         => 'radio',
-				'label'        => esc_html_x(
+			'grid_background_color_choice'	=> [
+				'priority'	 => 6,
+				'type'		 => 'radio',
+				'label'		=> esc_html_x(
 					'Grid background color',
 					'The grid background color setting label.',
 					'the-events-calendar'
@@ -250,23 +260,23 @@ class Month_View extends \Tribe__Customizer__Section {
 					'The grid background color setting description.',
 					'the-events-calendar'
 				),
-				'choices'      => [
+				'choices'	  => [
 					'transparent' => _x(
 						'Transparent  - the ' . $this->get_events_background_link() . ' <span style="color: ' . $this->get_events_background_color() . ';"  class="dashicons dashicons-image-filter"></span> will show through.',
 						'Label for option to leave transparent (default).',
 						'the-events-calendar'
 					),
-					'custom'      => esc_html_x(
+					'custom'	  => esc_html_x(
 						'Select Custom Color',
 						'Label for option to set a custom color.',
 						'the-events-calendar'
 					),
 				],
 			],
-			'grid_background_color'           => [
-				'priority'        => 7, // This should come immediately after 'grid_background_color_choice'.
-				'type'            => 'color',
-				'label'           => esc_html_x(
+			'grid_background_color'		   => [
+				'priority'		=> 7, // This should come immediately after 'grid_background_color_choice'.
+				'type'			=> 'color',
+				'label'		   => esc_html_x(
 					'Custom Color',
 					'Label for custom background color setting.',
 					'the-events-calendar'
@@ -278,10 +288,10 @@ class Month_View extends \Tribe__Customizer__Section {
 				},
 
 			],
-			'tooltip_background_color'        => [
-				'priority'        => 7, // This should come immediately after 'grid_background_color_choice'.
-				'type'            => 'radio',
-				'label'           => esc_html_x(
+			'tooltip_background_color'		=> [
+				'priority'		=> 7, // This should come immediately after 'grid_background_color_choice'.
+				'type'			=> 'radio',
+				'label'		   => esc_html_x(
 					'Tooltip Background Color',
 					'Label for tooltip background color setting.',
 					'the-events-calendar'
@@ -291,13 +301,13 @@ class Month_View extends \Tribe__Customizer__Section {
 					'The grid background color setting description.',
 					'the-events-calendar'
 				),
-				'choices'      => [
+				'choices'	  => [
 					'default' => _x(
 						'Use the default background color. <span style="color: #FFFFFF;" class="dashicons dashicons-image-filter"></span>',
 						'Label for option to leave white (default).',
 						'the-events-calendar'
 					),
-					'event'      => _x(
+					'event'	  => _x(
 						'Use the ' . $this->get_events_background_link() . '. <span style="color: ' . $this->get_events_background_color() . ';"  class="dashicons dashicons-image-filter"></span>',
 						'Label for option to use the event background color.',
 						'the-events-calendar'
@@ -310,10 +320,10 @@ class Month_View extends \Tribe__Customizer__Section {
 				},
 
 			],
-			'grid_hover_color_choice'          => [
-				'priority'     => 9,
-				'type'         => 'radio',
-				'label'        => esc_html_x(
+			'grid_hover_color_choice'		  => [
+				'priority'	 => 9,
+				'type'		 => 'radio',
+				'label'		=> esc_html_x(
 					'Grid hover color',
 					'The grid hover color setting label.',
 					'the-events-calendar'
@@ -323,22 +333,22 @@ class Month_View extends \Tribe__Customizer__Section {
 					'The grid hover color setting description.',
 					'the-events-calendar'
 				),
-				'choices'      => [
+				'choices'	  => [
 					'default' => _x(
 						'Inherit the ' . $this->get_event_title_color_link() . '. <span style="color: ' . $this->get_event_title_color() . ';" class="dashicons dashicons-image-filter"></span>',
 						'Label for option to leave white (default).',
 						'the-events-calendar'
 					),
-					'custom'      => _x(
+					'custom'	  => _x(
 						'Use the ' . $this->get_events_background_link() . '. <span style="color: ' . $this->get_events_background_color() . ';"  class="dashicons dashicons-image-filter"></span>',
 						'Label for option to use the event background color.',
 						'the-events-calendar'
 					),
 				],
-			],'grid_hover_color'                => [
-				'priority'     => 10, // This should come immediately after 'grid_hover_color_choice'.
-				'type'         => 'color',
-				'label'        => esc_html_x(
+			],'grid_hover_color'				=> [
+				'priority'	 => 10, // This should come immediately after 'grid_hover_color_choice'.
+				'type'		 => 'color',
+				'label'		=> esc_html_x(
 					'Grid hover color',
 					'The grid hover color setting label.',
 					'the-events-calendar'
@@ -349,10 +359,10 @@ class Month_View extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 			],
-			'days_of_week_color'              => [
-				'priority'     => 13,
-				'type'         => 'color',
-				'label'        => esc_html_x(
+			'days_of_week_color'			  => [
+				'priority'	 => 13,
+				'type'		 => 'color',
+				'label'		=> esc_html_x(
 					'Days of the Week color',
 					'The days of the week text color setting label.',
 					'the-events-calendar'
@@ -363,10 +373,10 @@ class Month_View extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 			],
-			'date_marker_color'               => [
-				'priority'     => 16,
-				'type'         => 'color',
-				'label'        => esc_html_x(
+			'date_marker_color'			   => [
+				'priority'	 => 16,
+				'type'		 => 'color',
+				'label'		=> esc_html_x(
 					'Date Marker color',
 					'The date marker text color setting label.',
 					'the-events-calendar'
@@ -378,9 +388,9 @@ class Month_View extends \Tribe__Customizer__Section {
 				),
 			],
 			'multiday_event_bar_color_choice' => [
-				'priority'     => 19,
-				'type'         => 'radio',
-				'label'        => esc_html_x(
+				'priority'	 => 19,
+				'type'		 => 'radio',
+				'label'		=> esc_html_x(
 					'Multiday Event Bar Color',
 					'The multiday event bar color setting label.',
 					'the-events-calendar'
@@ -390,23 +400,23 @@ class Month_View extends \Tribe__Customizer__Section {
 					'The multiday event bar color setting description.',
 					'the-events-calendar'
 				),
-				'choices'      => [
+				'choices'	  => [
 					'accent' => _x(
 						'Use the ' . $this->get_accent_color_link() . ' <span style="color:' . $this->get_accent_color() . '" class="dashicons dashicons-image-filter"></span>',
 						'Label for option to use the accent color.',
 						'the-events-calendar'
 					),
-					'custom'      => esc_html_x(
+					'custom'	  => esc_html_x(
 						'Select Custom Color',
 						'Label for option to set a custom color.',
 						'the-events-calendar'
 					),
 				],
 			],
-			'multiday_event_bar_color'        => [
-				'priority'     => 20,
+			'multiday_event_bar_color'		=> [
+				'priority'	 => 20,
 				'control_type' => 'color',
-				'label'        => esc_html_x(
+				'label'		=> esc_html_x(
 					'Custom Color',
 					'The multiday event bar custom color setting label.',
 					'the-events-calendar'
