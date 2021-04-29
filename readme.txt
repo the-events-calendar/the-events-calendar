@@ -220,13 +220,20 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.6.0] TBD =
+= [5.6.0] 2021-04-29 =
 
+* Version - The Events Calendar 5.6.0 is only compatible with Events Calendar PRO 5.6.0 and higher
 * Fix - Correct implementation of filters in Views/V2/Hooks.php to avoid fatals. [BTRIA-791]
 * Fix - Ensure when saving on Blocks editor Organizer and Venue IDs don't throw notices for failed deletion. [TEC-3844]
-* Tweak - Added the ability to filter cached view HTML. Hooks added were: `tribe_events_views_v2_view_cached_html` and `tribe_events_views_v2_view_{$view_slug}_cached_html`. [ECP-770]
 * Fix - Resolve compatibility problem between The Events Calendar and other plugins using Select2. [TEC-3748]
 * Fix - Enqueue full styles for v2 event single only when using full styles. [TEC-3848]
+* Fix - Modify Select2 to clone the `jQuery.fn.select2` into `jQuery.fn.select2TEC` to avoid conflicting with third-party usage that didn't include the full version of Select2 [TEC-3748]
+* Fix - Add filtering hooks to Cache Listener to allow modifications of which options trigger an occurrence. [ECP-826] [ECP-824]
+* Fix - Improve escaping for messages when no results were found using search (Thanks Steve Pollak)
+* Tweak - Added the ability to filter cached view HTML. Hooks added were: `tribe_events_views_v2_view_cached_html` and `tribe_events_views_v2_view_{$view_slug}_cached_html`. [ECP-770]
+* Tweak - Added filters: `tribe_customizer_should_print_shortcode_customizer_styles`, `tribe_events_views_v2_view_ical_repository_args`, `tribe_events_views_v2_view_cached_html`, `tribe_events_views_v2_view_{$this->slug}_cached_html`, `tribe_ical_template_event_ids`
+* Tweak - Changed views: `blocks/classic-event-details`, `blocks/parts/details`, `modules/meta/details`, `v2/components/messages`, `v2/month/mobile-events/mobile-day`, `v2/month/mobile-events/mobile-day/day-marker`
+* Language - 3 new strings added, 176 updated, 0 fuzzied, and 6 obsoleted
 
 = [5.5.0.1] 2021-04-05  =
 

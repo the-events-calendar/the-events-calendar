@@ -495,7 +495,7 @@ class Month_View extends By_Day_View {
 		if ( $keyword ) {
 			$this->messages->insert(
 				Messages::TYPE_NOTICE,
-				Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) )
+				Messages::for_key( 'month_no_results_found_w_keyword', esc_html( trim( $keyword ) ) )
 			);
 
 			return;
