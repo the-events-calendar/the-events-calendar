@@ -43,6 +43,19 @@ class Manager {
 	public static $option_mobile_default = 'mobile_default_view';
 
 	/**
+	 * Registration objects for auto-registered views.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	private $view_registration = [];
+
+	public function register_view( $slug, $name, $class, $priority = 30 ) {
+		$this->view_registration[ $slug ] = new View_Register( $slug, $name, $class, $priority );
+	}
+
+	/**
 	 * Returns an associative array of Views currently registered.
 	 *
 	 * @since  4.9.4

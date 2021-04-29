@@ -141,6 +141,37 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Gets a view permalink.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool|int|null $term
+	 *
+	 * @return string $permalink
+	 */
+	function tribe_get_view_permalink( $slug, $term = null ) {
+		$permalink = Tribe__Events__Main::instance()->getLink( $slug, null, $term );
+
+		/**
+		 * Provides an opportunity to modify the overall view permalink.
+		 *
+		 * @var string $permalink
+		 * @var string $slug
+		 * @var mixed  $term
+		 */
+		$permalink = apply_filters( 'tribe_get_view_permalink', $permalink, $slug, $term );
+
+		/**
+		 * Provides an opportunity to modify the specific view permalink.
+		 *
+		 * @var string $permalink
+		 * @var string $slug
+		 * @var mixed  $term
+		 */
+		return apply_filters( "tribe_get_{$slug}_view_permalink", $permalink, $slug, $term );
+	}
+
+	/**
 	 * Link to Grid View
 	 *
 	 * Returns a link to the general or category calendar grid view

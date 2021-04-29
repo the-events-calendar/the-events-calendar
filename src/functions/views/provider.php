@@ -2,6 +2,18 @@
 use Tribe\Events\Views\V2\Manager;
 
 /**
+ * Registers a view.
+ *
+ * @param string $slug View slug.
+ * @param string $name View name.
+ * @param string $class View class.
+ * @param int $priority View registration priority.
+ */
+function tribe_register_view( $slug, $name, $class, $priority = 30 ) {
+	tribe( Manager::class )->register_view( $slug, $name, $class, $priority );
+}
+
+/**
  * Checks whether v2 of the Views is enabled or not.
  *
  * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
