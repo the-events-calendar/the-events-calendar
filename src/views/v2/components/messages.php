@@ -11,7 +11,7 @@
  *
  * @version 5.3.0
  *
- * @var array  $messges     An array of user-facing messages, managed by the View.
+ * @var array  $messages     An array of user-facing messages, managed by the View.
  * @var string $wp_version  Global WP version.
  *
  * @package the-events-calendar/views/v2
