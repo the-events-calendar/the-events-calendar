@@ -59,6 +59,9 @@ class View_Register {
 
 		$this->add_actions();
 		$this->add_filters();
+
+		$asset_registration_object = call_user_func( $this->class . '::get_asset_origin', $this->slug );
+		call_user_func( $this->class . '::register_assets', $asset_registration_object );
 	}
 
 	/**
