@@ -51,8 +51,29 @@ class Manager {
 	 */
 	private $view_registration = [];
 
+	/**
+	 * Registers a view such that sensible defaults are registered and hooked.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $slug View slug.
+	 * @param string $name View name.
+	 * @param string $class View class.
+	 * @param int $priority View registration priority.
+	 */
 	public function register_view( $slug, $name, $class, $priority = 30 ) {
 		$this->view_registration[ $slug ] = new View_Register( $slug, $name, $class, $priority );
+	}
+
+	/**
+	 * Gets all generated View_Register objects.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function get_view_registration_objects() {
+		return $this->view_registration;
 	}
 
 	/**

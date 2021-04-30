@@ -4,6 +4,8 @@ use Tribe\Events\Views\V2\Manager;
 /**
  * Registers a view.
  *
+ * @since TBD
+ *
  * @param string $slug View slug.
  * @param string $name View name.
  * @param string $class View class.
