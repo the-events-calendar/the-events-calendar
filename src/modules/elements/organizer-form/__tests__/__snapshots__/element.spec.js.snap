@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrganizerForm should show a spinner while creating 1`] = `
+<div
+  className="tribe-editor__organizer__form"
+  key="tribe-organizer-form"
+>
+  <Component
+    key="placeholder"
+  >
+    <Spinner />
+  </Component>
+</div>
+`;
