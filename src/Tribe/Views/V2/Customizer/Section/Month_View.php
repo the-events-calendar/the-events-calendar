@@ -15,7 +15,7 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
  */
 class Month_View extends \Tribe__Customizer__Section {
 
-	 /**
+	/**
 	 * ID of the section.
 	 *
 	 * @since TBD
@@ -428,5 +428,14 @@ class Month_View extends \Tribe__Customizer__Section {
 				}
 			],
 		];
+	}
+
+	/**
+	 * Grab the CSS rules template
+	 *
+	 * @return string
+	 */
+	public function get_css_template( $template ) {
+		return $template;
 	}
 }

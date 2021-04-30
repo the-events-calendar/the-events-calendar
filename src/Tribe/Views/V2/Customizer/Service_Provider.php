@@ -21,16 +21,24 @@ use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function register() {
 		$this->container->singleton( 'events.views.v2.customizer.provider', $this );
+
+		$this->register_hooks();
+		$this->register_assets();
+
 		$this->container->singleton( Customizer::class, Customizer::class );
 
 		tribe_singleton( 'events.views.v2.customizer.month-view', new Month_View() );
 		tribe('events.views.v2.customizer.month-view');
-
-		$this->register_hooks();
-		$this->register_assets();
 	}
 
-	public function register_hooks() {}
+	public function register_hooks() {
+		$hooks = new Hooks( $this->container );
+		$hooks->register();
+
+		// Allow Hooks to be removed, by having the them registered to the container
+		$this->container->singleton( Hooks::class, $hooks );
+		$this->container->singleton( 'events.views.v2.customizer.hooks', $hooks );
+	}
 
 	public function register_assets() {}
 
