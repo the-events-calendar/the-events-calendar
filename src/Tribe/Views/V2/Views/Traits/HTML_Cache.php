@@ -56,7 +56,7 @@ trait HTML_Cache {
 	/**
 	 * Filters the cached HTML returned for a specific View.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param string $cached_html Cached HTML for a view.
 	 *
@@ -66,7 +66,7 @@ trait HTML_Cache {
 		/**
 		 * Filters the cached HTML returned for a View.
 		 *
-		 * @since TBD
+		 * @since 4.6.0
 		 *
 		 * @param string $cached_html  Cached HTML for a view.
 		 * @param View_Interface $this This view instance.
@@ -76,7 +76,7 @@ trait HTML_Cache {
 		/**
 		 * Filters the cached HTML returned for a View.
 		 *
-		 * @since TBD
+		 * @since 4.6.0
 		 *
 		 * @param string $cached_html  Cached HTML for a view.
 		 * @param View_Interface $this This view instance.
