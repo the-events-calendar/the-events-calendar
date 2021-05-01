@@ -62,8 +62,8 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @return Manager
 	 */
-	private function make_instance( $slug = 'test', $name = 'Test View', $class = List_View::class, $priority = 10 ) {
-		return new View_Register( $slug, $name, $class, $priority );
+	private function make_instance( $slug = 'test', $name = 'Test View', $class = List_View::class, $priority = 50 ) {
+		return tribe_register_view( $slug, $name, $class, $priority );
 	}
 
 	/**
@@ -104,8 +104,6 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $args, $parsed );
 		$this->assertEquals( $pretty_archive_url, $canonical_url );
-
-		codecept_debug( $rewrite->rewrite->rules );
 	}
 
 	public function endpoint_provider() {

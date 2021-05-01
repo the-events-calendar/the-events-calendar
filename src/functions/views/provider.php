@@ -11,8 +11,8 @@ use Tribe\Events\Views\V2\Manager;
  * @param string $class View class.
  * @param int $priority View registration priority.
  */
-function tribe_register_view( $slug, $name, $class, $priority = 30 ) {
-	tribe( Manager::class )->register_view( $slug, $name, $class, $priority );
+function tribe_register_view( $slug, $name, $class, $priority = 50 ) {
+	return tribe( Manager::class )->register_view( $slug, $name, $class, $priority );
 }
 
 /**

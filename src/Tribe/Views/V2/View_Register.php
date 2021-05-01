@@ -51,7 +51,7 @@ class View_Register {
 	 * @param string $class Class name for the view.
 	 * @param int $priority Priority order for the view registration.
 	 */
-	public function __construct( $slug, $name, $class, $priority = 10 ) {
+	public function __construct( $slug, $name, $class, $priority = 40 ) {
 		$this->slug     = $slug;
 		$this->name     = $name;
 		$this->class    = $class;

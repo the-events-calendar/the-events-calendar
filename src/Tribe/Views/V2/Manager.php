@@ -60,9 +60,11 @@ class Manager {
 	 * @param string $name View name.
 	 * @param string $class View class.
 	 * @param int $priority View registration priority.
+	 *
+	 * @return View_Register
 	 */
 	public function register_view( $slug, $name, $class, $priority = 30 ) {
-		$this->view_registration[ $slug ] = new View_Register( $slug, $name, $class, $priority );
+		return $this->view_registration[ $slug ] = new View_Register( $slug, $name, $class, $priority );
 	}
 
 	/**
