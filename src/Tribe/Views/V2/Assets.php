@@ -402,7 +402,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[],
 			'wp_enqueue_scripts',
 			[
-				'priority' => 15,
+				'priority'     => 15,
 				'conditionals' => [
 					[ $this, 'should_enqueue_single_event_styles' ],
 				],
@@ -418,9 +418,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			],
 			'wp_enqueue_scripts',
 			[
-				'priority' => 15,
+				'priority'     => 15,
 				'conditionals' => [
+					'operator' => 'AND',
 					[ $this, 'should_enqueue_single_event_styles' ],
+					[ $this, 'should_enqueue_full_styles' ],
 				],
 			]
 		);
@@ -502,7 +504,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Verifies if we dont have skeleton active, which will trigger true for the two other possible options.
+	 * Verifies if we don't have skeleton active, which will trigger true for the two other possible options.
 	 * Options:
 	 * - `full` - Deprecated
 	 * - `tribe`  - All styles load
