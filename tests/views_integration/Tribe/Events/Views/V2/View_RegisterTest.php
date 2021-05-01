@@ -104,6 +104,8 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $args, $parsed );
 		$this->assertEquals( $pretty_archive_url, $canonical_url );
+
+		codecept_debug( $rewrite->rewrite->rules );
 	}
 
 	public function endpoint_provider() {
@@ -171,12 +173,54 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 			],
 		];
 
+		yield 'tag featured' => [
+			'url'  => '/events/tag/bacon/bork/featured/',
+			'args' => [
+				'post_type'    => TEC::POSTTYPE,
+				'eventDisplay' => 'bork',
+				'tag'          => 'bacon',
+				'featured'     => true,
+			],
+		];
+
+		yield 'tag featured and paged' => [
+			'url'  => '/events/tag/bacon/bork/featured/page/2/',
+			'args' => [
+				'post_type'    => TEC::POSTTYPE,
+				'eventDisplay' => 'bork',
+				'tag'          => 'bacon',
+				'featured'     => true,
+				'paged'        => 2,
+			],
+		];
+
 		yield 'category' => [
 			'url'  => '/events/category/potato/bork/',
 			'args' => [
 				'post_type'        => TEC::POSTTYPE,
 				'eventDisplay'     => 'bork',
 				'tribe_events_cat' => 'potato',
+			],
+		];
+
+		yield 'category featured' => [
+			'url'  => '/events/category/potato/bork/featured/',
+			'args' => [
+				'post_type'        => TEC::POSTTYPE,
+				'eventDisplay'     => 'bork',
+				'tribe_events_cat' => 'potato',
+				'featured'         => true,
+			],
+		];
+
+		yield 'category featured and paged' => [
+			'url'  => '/events/category/potato/bork/featured/page/3/',
+			'args' => [
+				'post_type'        => TEC::POSTTYPE,
+				'eventDisplay'     => 'bork',
+				'tribe_events_cat' => 'potato',
+				'featured'         => true,
+				'paged'            => 3,
 			],
 		];
 	}
