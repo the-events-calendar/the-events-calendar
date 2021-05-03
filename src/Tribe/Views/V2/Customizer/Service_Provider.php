@@ -25,8 +25,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		$this->register_assets();
 
-		$this->container->singleton( Customizer::class, Customizer::class );
-
 		tribe_singleton( 'events.views.v2.customizer.month-view', new Month_View() );
 		tribe('events.views.v2.customizer.month-view');
 	}
