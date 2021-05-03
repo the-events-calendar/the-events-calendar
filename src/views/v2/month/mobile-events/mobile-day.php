@@ -35,6 +35,8 @@
  *      }
  */
 
+use Tribe__Date_Utils as Dates;
+
 $events = $day['events'];
 if ( ! empty( $day['multiday_events'] ) ) {
 	$events = array_filter( array_merge( $day['multiday_events'], $events ) );
@@ -49,9 +51,12 @@ if ( $today_date === $day_date ) {
 ?>
 
 <div <?php tribe_classes( $classes ); ?> id="<?php echo sanitize_html_class( $mobile_day_id ); ?>">
-	<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'day_date' => $day_date ] ); ?>
 
-	<?php foreach( $events as $event ) : ?>
+	<?php foreach ( $events as $event ) : ?>
+		<?php $event_date = $event->dates->start->format( Dates::DBDATEFORMAT ); ?>
+
+		<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'events' => $events, 'event' => $event, 'request_date' => $day_date ] ); ?>
+
 		<?php $this->setup_postdata( $event ); ?>
 
 		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event', [ 'event' => $event ] ); ?>
