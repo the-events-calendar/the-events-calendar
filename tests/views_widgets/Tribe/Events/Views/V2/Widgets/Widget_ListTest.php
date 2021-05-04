@@ -229,11 +229,7 @@ class Widget_ListTest extends ViewTestCase {
 	 */
 	public function test_render_no_json_with_upcoming_events() {
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'remove_json_ld' ] );
-		codecept_debug( [
-			get_stylesheet(),
-			get_template(),
-			wp_get_theme()
-		 ] );
+
 		$events = [];
 
 		// Create the events.
