@@ -174,7 +174,7 @@ class Widget_View extends View {
 		 * @var Theme_Compatibility $theme_compatibility
 		 */
 		$theme_compatibility = tribe( Theme_Compatibility::class );
-		$classes = $theme_compatibility->get_container_classes();
+		$classes = $theme_compatibility::get_container_classes();
 
 		/**
 		 * Filters the HTML classes applied to a widget top-level container.
