@@ -1405,7 +1405,7 @@ class View implements View_Interface {
 	 */
 	protected function setup_template_vars() {
 		if ( empty( $this->repository_args ) ) {
-			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+			$this->repository_args = $this->get_repository_args();
 			$this->repository->by_args( $this->repository_args );
 		}
 
@@ -1834,7 +1834,7 @@ class View implements View_Interface {
 		if ( empty( $events ) ) {
 			$keyword = $this->context->get( 'keyword', false );
 			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', esc_html( trim( $keyword ) ) ) );
 			} else {
 				$message_key = $this->upcoming_events_count() ? 'no_results_found' : 'no_upcoming_events';
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key ) );
@@ -2378,5 +2378,89 @@ class View implements View_Interface {
 		parse_str( $view_query_str, $view_query_args );
 
 		return (array) $view_query_args;
+	}
+
+	/**
+	 * Initializes the View repository args, if required, and
+	 * applies them to the View repository instance.
+	 *
+	 * @since 4.6.0
+	 */
+	protected function get_repository_args() {
+		if ( ! empty( $this->repository_args ) ) {
+			return $this->repository_args;
+		}
+
+		return $this->filter_repository_args( $this->setup_repository_args() );
+	}
+
+	/**
+	 * Sets up the View repository args to produce the correct list of Events
+	 * in the context of an iCalendar export.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param int $per_page The number of events per page to show in the iCalendar
+	 *                      export. The value will override whatever events per page
+	 *                      setting the View might have.
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->filter_ical_repository_args( $this->get_repository_args() ) );
+		}
+
+		// Overwrites the amount of posts manually for ical.
+		$this->repository->per_page( $per_page );
+	}
+
+	/**
+	 * Filters the repository arguments that will be used to set up the View repository instance for iCal requests.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param array  $repository_args The repository arguments that will be used to set up the View repository instance.
+	 *
+	 * @return array The filtered repository arguments for ical requests.
+	 */
+	protected function filter_ical_repository_args( $repository_args ) {
+		/**
+		 * Filters the repository args for a View on iCal requests.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters( 'tribe_events_views_v2_view_ical_repository_args', $repository_args, $this );
+
+		/**
+		 * Filters the repository args for a specific View on iCal requests.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters(
+			"tribe_events_views_v2_view_{$this->slug}_ical_repository_args",
+			$repository_args,
+			$this
+		);
+
+		return $repository_args;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_ical_ids( $per_page ) {
+		$this->setup_ical_repository_args( $per_page );
+
+		$ids = $this->repository->get_ids();
+
+		// Reset the repository args to force a re-initialization of the repository on next run.
+		$this->repository_args = null;
+
+		return $ids;
 	}
 }

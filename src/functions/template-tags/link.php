@@ -357,19 +357,21 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string $html
 	 */
 	function tribe_get_event_website_link( $event = null, $label = null ) {
-		$url = tribe_get_event_website_url( $event );
+		// We won't get far without a post ID. Especially since we pass it to filters that depend on it.
+		$post_id = Tribe__Events__Main::postIdHelper( $event );
+		$url     = tribe_get_event_website_url( $post_id );
 
 		/**
 		 * Filter the target attribute for the event website link
 		 *
 		 * @since 5.1.0
-		 * @since 5.5.0 Added $event argument
+		 * @since 5.5.0 Added $post_id argument
 		 *
 		 * @param string          $target The target attribute string. Defaults to "_self".
 		 * @param string          $url    The link URL.
-		 * @param null|object|int $event  The event the url is attached to.
+		 * @param null|object|int $post_id  The event the url is attached to.
 		 */
-		$target = apply_filters( 'tribe_get_event_website_link_target', '_self', $url, $event );
+		$target = apply_filters( 'tribe_get_event_website_link_target', '_self', $url, $post_id );
 		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 		if ( ! empty( $url ) ) {
@@ -381,7 +383,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @param string the link label/text.
 			 */
-			$label = apply_filters( 'tribe_get_event_website_link_label', $label, $event );
+			$label = apply_filters( 'tribe_get_event_website_link_label', $label, $post_id );
 			$html  = sprintf(
 				'<a href="%s" target="%s" rel="%s">%s</a>',
 				esc_url( $url ),

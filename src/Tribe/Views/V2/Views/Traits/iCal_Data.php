@@ -59,19 +59,13 @@ trait iCal_Data {
 
 		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 
-		switch ( $slug ) {
-			case 'month':
-				$url = $this->get_month_view_url();
-				break;
-			default:
-				$url = tribe_get_ical_link();
-				break;
-		}
+		// The View iCalendar export link will be just the View URL with `ical=1` added to it.
+		$url = add_query_arg( [ 'ical' => 1 ], $this->get_url( true ) );
 
-		$ical_data = (object) [
+		$ical_data     = (object) [
 			'display_link' => $display_ical,
 			'link'         => (object) [
-				'url'   => esc_url( $url ),
+				'url' => esc_url( $url ),
 				'text'  => $link_text,
 				'title' => $link_title,
 			],

@@ -375,7 +375,7 @@ class Month_View extends By_Day_View {
 				}
 			);
 
-			 if ( $events_per_day > -1 ) {
+			if ( $events_per_day > -1 ) {
 				$the_day_events = array_slice( array_filter( $the_day_events ), 0, $events_per_day );
 			}
 
@@ -495,7 +495,7 @@ class Month_View extends By_Day_View {
 		if ( $keyword ) {
 			$this->messages->insert(
 				Messages::TYPE_NOTICE,
-				Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) )
+				Messages::for_key( 'month_no_results_found_w_keyword', esc_html( trim( $keyword ) ) )
 			);
 
 			return;
@@ -519,5 +519,22 @@ class Month_View extends By_Day_View {
 			Messages::for_key( $message_key ),
 			9
 		);
+	}
+
+	/**
+	 * Overrides the base View implementation to limit the results to the View grid.
+	 *
+	 * {@inheritdoc}
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
+		$this->repository->per_page( $per_page );
+		$event_date = Dates::build_date_object( $this->context->get( 'event_date', 'now' ) );
+		$start_date = tribe_beginning_of_day( $event_date->format( 'Y-m-01' ) );
+		$end_date   = tribe_end_of_day( $event_date->format( 'Y-m-t' ) );
+		$this->repository->where( 'ends_after', $start_date );
+		$this->repository->where( 'starts_before', $end_date );
 	}
 }

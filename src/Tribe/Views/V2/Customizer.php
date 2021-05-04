@@ -221,7 +221,7 @@ class Customizer {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
-		$settings = $customizer->get_option( [ $section->ID ] );
+		$settings    = $customizer->get_option( [ $section->ID ] );
 		$has_options = $customizer->has_option( $section->ID, 'event_title_color' )
 						|| $customizer->has_option( $section->ID, 'accent_color' )
 						|| $customizer->has_option( $section->ID, 'event_date_time_color' )
@@ -234,13 +234,13 @@ class Customizer {
 
 			// Override placeholders - we'll clean up and concat these at the end.
 			$overrides = [
-				'avada' => '',
-				'divi' => '',
-				'enfold' => '',
-				'genesis' => '',
+				'avada'           => '',
+				'divi'            => '',
+				'enfold'          => '',
+				'genesis'         => '',
 				'twentyseventeen' => '',
-				'twentynineteen' => '',
-				'twentytwenty' => '',
+				'twentynineteen'  => '',
+				'twentytwenty'    => '',
 				'twentytwentyone' => '',
 			];
 		}
@@ -251,9 +251,6 @@ class Customizer {
 			$accent_color     = new \Tribe__Utils__Color( $settings['accent_color'] );
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
 			$accent_css_rgb   = $accent_color_rgb['R'] . ',' . $accent_color_rgb['G'] . ',' . $accent_color_rgb['B'];
-
-			// Opacities need to be computed ahead of time.   = '';
-			$accent_color_background     = '';
 
 			$css_template .= "
 				/* Accent Color overrides. */
@@ -270,12 +267,12 @@ class Customizer {
 			/*
 			// overrides for common base/full/typography/_ctas.pcss.
 
-			$css_template .= '
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
+			$css_template .= "
+				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
+				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
 					background-color: <%= global_elements.accent_color %>;
 				}
-			';
+			";
 
 			$css_template .= '
 				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
@@ -284,26 +281,26 @@ class Customizer {
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
 					background-color: var(--tec-color-accent-primary-hover);
 				}
-			';
+			";
 
-			$css_template .= '
-				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__day-cell--selected:hover,
-				.tribe-theme-twentyseventeen .tribe-events .tribe-events-calendar-month__day-cell--selected:focus {
+			$css_template .= "
+				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:hover,
+				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:focus {
 					background-color: <%= global_elements.accent_color %>;
 				}
-			';
+			";
 
-			$css_template .= '
-				.tribe-theme-twentytwenty .tribe-events .tribe-events-calendar-month__day-cell--selected {
+			$css_template .= "
+				.tribe-theme-twentytwenty $tribe_events .tribe-events-calendar-month__day-cell--selected {
 					background-color: <%= global_elements.accent_color %>;
 				}
-			';
+			";
 
 			$css_template .= '
 				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
 					background-color: <%= global_elements.accent_color %>;
 				}
-			';
+			";
 
 			// Single Event styles overrides
 			// This is under filter_global_elements_css_template() in order to have

@@ -62,12 +62,12 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.3.0
 	 */
 	protected function register_compatibility() {
-		$compatiblity = new Compatibility();
-		$this->container->singleton( Compatibility::class, $compatiblity );
-		$this->container->singleton( 'events.views.v2.widgets.compatibility', $compatiblity );
+		$compatibility = new Compatibility();
+		$this->container->singleton( Compatibility::class, $compatibility );
+		$this->container->singleton( 'events.views.v2.widgets.compatibility', $compatibility );
 
-		add_action( 'tribe_plugins_loaded', [ $compatiblity, 'switch_compatibility' ] );
-		add_filter( 'option_sidebars_widgets', [ $compatiblity, 'remap_list_widget_id_bases' ] );
+		add_action( 'tribe_plugins_loaded', [ $compatibility, 'switch_compatibility' ] );
+		add_filter( 'option_sidebars_widgets', [ $compatibility, 'remap_list_widget_id_bases' ] );
 	}
 
 	/**

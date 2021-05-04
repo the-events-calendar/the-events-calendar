@@ -5,18 +5,22 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__day {
-		height: 48px;
+		aspect-ratio: 1 / 1;
+		height: auto;
+		min-height: 36px;
 		overflow: hidden;
+		padding-top: var(--grid-width-1-of-7);
 		position: relative;
 		width: var(--tec-grid-width-1-of-7);
 
 		.tribe-common--breakpoint-medium& {
+			aspect-ratio: auto;
 			border-color: var(--tec-color-border-secondary);
 			border-style: solid;
 			border-width: 0 1px 1px 0;
-			height: auto;
 			min-height: 168px;
 			overflow: visible;
+			padding-top: 0;
 		}
 	}
 
@@ -29,7 +33,9 @@
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		position: absolute;
 		text-align: center;
+		top: 0;
 
 		.tribe-common--breakpoint-medium& {
 			@mixin hidden;
@@ -73,9 +79,4 @@
 			fill: currentColor;
 		}
 	}
-
-	/* -----------------------------------------------------------------------------
-	 * Day: Theme Overrides
-	 * ----------------------------------------------------------------------------- */
-
 }
