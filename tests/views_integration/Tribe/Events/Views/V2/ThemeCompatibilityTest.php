@@ -36,9 +36,9 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'template', 'invalid-value-for-theme' );
 		update_option( 'stylesheet', 'invalid-value-for-theme' );
 
-		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
+		$is_compatibility_required = $this->make_instance()::is_compatibility_required();
 
-		$this->assertEquals( $is_compatibility_required, false );
+		$this->assertFalse( $is_compatibility_required );
 	}
 
 	/**
@@ -49,9 +49,9 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'stylesheet', $input );
 		update_option( 'template', $input );
 
-		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
+		$is_compatibility_required = $this->make_instance()::is_compatibility_required();
 
-		$this->assertEquals( $is_compatibility_required, true );
+		$this->assertTrue( $is_compatibility_required, true );
 	}
 
 	/**
@@ -62,9 +62,9 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'template', $input );
 		delete_option( 'stylesheet' );
 
-		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
+		$is_compatibility_required = $this->make_instance()::is_compatibility_required();
 
-		$this->assertEquals( $is_compatibility_required, false );
+		$this->assertFalse( $is_compatibility_required, false );
 	}
 
 	/**
@@ -75,9 +75,9 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		delete_option( 'template' );
 		update_option( 'stylesheet', $input );
 
-		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
+		$is_compatibility_required = $this->make_instance()::is_compatibility_required();
 
-		$this->assertEquals( $is_compatibility_required, false );
+		$this->assertFalse( $is_compatibility_required, false );
 	}
 
 	/**
@@ -89,16 +89,16 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'stylesheet', 'invalid-value-for-theme' );
 
 		add_filter(
-			'tribe_events_views_v2_theme_compatibility_registered',
+			'tribe_theme_compatibility_registered',
 			static function( $themes ) use ( $theme ) {
 				$themes[] = $theme;
 				return $themes;
 			}
 		);
 
-		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
+		$is_compatibility_required = $this->make_instance()::is_compatibility_required();
 
-		$this->assertEquals( $is_compatibility_required, true );
+		$this->assertTrue( $is_compatibility_required, true );
 	}
 
 	/**
@@ -110,16 +110,16 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'stylesheet', $theme );
 
 		add_filter(
-			'tribe_events_views_v2_theme_compatibility_registered',
+			'tribe_theme_compatibility_registered',
 			static function( $themes ) use ( $theme ) {
 				$themes[] = $theme;
 				return $themes;
 			}
 		);
 
-		$is_compatibility_required = $this->make_instance()->is_compatibility_required();
+		$is_compatibility_required = $this->make_instance()::is_compatibility_required();
 
-		$this->assertEquals( $is_compatibility_required, true );
+		$this->assertTrue( $is_compatibility_required, true );
 	}
 
 	/**
@@ -154,11 +154,7 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'tribe_body_class_should_add_to_queue', '__return_true' );
 		$this->make_instance()->add_body_classes();
 
-		// Have to add the page template class.
-		$intended_classes = array_merge(
-			[ 'tribe-events-page-template' ],
-			$this->make_instance()->get_body_classes()
-		);
+		$intended_classes = $this->make_instance()->get_body_classes();
 
 		$actual_classes = $body_classes->get_class_names();
 
@@ -208,8 +204,8 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		update_option( 'template', $template );
 		update_option( 'stylesheet', $stylesheet );
 
-		$classes = $this->make_instance()->get_body_classes();
+		$classes = $this->make_instance()::get_compatibility_classes();
 
-		$this->assertEquals( $classes, $classes_expected );
+		$this->assertEquals( $classes_expected, $classes );
 	}
 }
