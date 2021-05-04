@@ -47,7 +47,7 @@ class Theme_Compatibility extends Compat {
 			return $classes;
 		}
 
-		return array_merge( $classes, $this->get_body_classes() );
+		return array_merge( $classes, static::get_compatibility_classes() );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Theme_Compatibility extends Compat {
 			return $add;
 		}
 
-		if ( in_array( $class, $this->get_body_classes() ) ) {
+		if ( in_array( $class, static::get_compatibility_classes() ) ) {
 			return true;
 		}
 
@@ -85,6 +85,6 @@ class Theme_Compatibility extends Compat {
 	 * @return void
 	 */
 	public function add_body_classes() {
-		tribe( Body_Classes::class )->add_classes( $this->get_body_classes() );
+		tribe( Body_Classes::class )->add_classes( static::get_compatibility_classes() );
 	}
 }
