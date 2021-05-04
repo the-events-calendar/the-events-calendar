@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibilit.
+
 = [5.6.0] 2021-04-29 =
 
 * Version - The Events Calendar 5.6.0 is only compatible with Events Calendar PRO 5.6.0 and higher
