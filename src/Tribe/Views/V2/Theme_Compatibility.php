@@ -18,7 +18,9 @@ class Theme_Compatibility extends Compat {
 	 * Fetches the correct class strings for theme and child theme if available.
 	 *
 	 * @since 4.9.3
-	 * @since TBD made an extension of Tribe\Utils\Theme_Compatibility
+	 * @since TBD made an extension of Tribe\Utils\Theme_Compatibility.
+	 *
+	 * @deprecated TBD
 	 *
 	 * @return array $classes
 	 */
@@ -31,8 +33,11 @@ class Theme_Compatibility extends Compat {
 	 * Add the theme to the body class.
 	 *
 	 * @since 4.9.3
+	 * @since TBD now uses static::get_compatibility_classes().
 	 *
 	 * @param  array $classes Classes that are been passed to the body.
+	 *
+	 * @deprecated 5.1.5
 	 *
 	 * @return array $classes
 	 */
@@ -54,6 +59,7 @@ class Theme_Compatibility extends Compat {
 	 * Contains the logic for if this object's classes should be added to the queue.
 	 *
 	 * @since 5.1.5
+	 * @since TBD now uses static::get_compatibility_classes().
 	 *
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of body class names to add.
@@ -81,6 +87,7 @@ class Theme_Compatibility extends Compat {
 	 * Add body classes.
 	 *
 	 * @since 5.1.5
+	 * @since TBD now uses static::get_compatibility_classes().
 	 *
 	 * @return void
 	 */
