@@ -74,4 +74,62 @@ class ListStyleHeadingCest {
 		codecept_debug( "Looking for label: '{$date} onwards'" );
 		$I->see( "{$date} onwards", \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
 	}
+
+	/**
+	 * only has a single page of events  and filters by date
+	 *
+	 * @test
+	 */
+	public function only_has_a_single_page_of_events_and_filters_by_date( AcceptanceTester $I ) {
+		$ids                           = $I->haveManyEventsInDatabase( 10, [ 'when' => 'tomorrow' ], 24 );
+		$last_occurrence_of_first_page = reset( $ids );
+		$date                          = tribe_get_start_date( $last_occurrence_of_first_page, false, tribe_get_date_option( 'dateWithoutYearFormat', 'F j' ) );
+
+		$I->amOnPage( '/events/list/?tribe-bar-date=' . tribe_get_start_date( $last_occurrence_of_first_page, false, Tribe__Date_Utils::DBDATEFORMAT ) );
+		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 1 );
+		$I->dontSeeElement( '.tribe-events-c-top-bar__datepicker-separator' );
+
+		codecept_debug( "Looking for label: '{$date} onwards'" );
+		$I->see( "{$date} onwards", \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
+	}
+
+	/**
+	 * renders the dates ranges if there are multiple pages of events with date filtering
+	 *
+	 * @test
+	 */
+	public function renders_the_dates_ranges_if_there_are_multiple_pages_of_events_with_date_filtering( AcceptanceTester $I ) {
+		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ], 24 );
+		$last_occurrence_of_first_page = $ids[11]; // Last element on a 12 events per page setup.
+		$format                        = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
+		$start_date                    = tribe_get_start_date( $ids[0], false, $format );
+		$end_date                      = tribe_get_start_date( $last_occurrence_of_first_page, false, $format );
+
+		$I->amOnPage( '/events/list/?tribe-bar-date=' . tribe_get_start_date( $ids[0], false, Tribe__Date_Utils::DBDATEFORMAT ) );
+		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 2 );
+		$I->seeNumberOfElements( '.tribe-events-c-top-bar__datepicker-separator', 1 );
+
+		codecept_debug( "Looking for label: '{$start_date} {$end_date}'" );
+		$I->see( $start_date, \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
+		$I->see( $end_date, \Codeception\Util\Locator::elementAt( 'time.tribe-events-c-top-bar__datepicker-time', 2 ) );
+	}
+
+	/**
+	 * display onwards when visiting the last page of events and the date picker has been used
+	 *
+	 * @test
+	 */
+	public function display_onwards_when_visiting_the_last_page_of_events_and_the_date_picker_has_been_used( AcceptanceTester $I ) {
+		$ids                          = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ], 24 );
+		$first_occurrence_second_page = $ids[12]; // First element on the second page of events
+		$format                       = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
+		$start_date                   = tribe_get_start_date( $first_occurrence_second_page, false, $format );
+
+		$I->amOnPage( '/events/list/page/2/?tribe-bar-date=' . tribe_get_start_date( $ids[0], false, Tribe__Date_Utils::DBDATEFORMAT ) );
+		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 1 );
+		$I->dontSeeElement( '.tribe-events-c-top-bar__datepicker-separator' );
+
+		codecept_debug( "Looking for label: '{$start_date} onwards'" );
+		$I->see( "{$start_date} onwards", \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
+	}
 }
