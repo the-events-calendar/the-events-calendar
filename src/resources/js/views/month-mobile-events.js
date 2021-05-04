@@ -44,6 +44,9 @@ tribe.events.views.monthMobileEvents = {};
 		calendarDaySelectedClass: '.tribe-events-calendar-month__day-cell--selected',
 		mobileEvents: '[data-js="tribe-events-calendar-month-mobile-events"]',
 		mobileEventsMobileDayShowClass: '.tribe-events-calendar-month-mobile-events__mobile-day--show',
+		mobileEventsDefaultNotices: '.tribe-events-header__messages[data-js-mobile-notice="default"]',
+		mobileEventsDynamicNotices: '.tribe-events-header__messages[data-js-mobile-notice="dynamic"]',
+		messageHeaderListItem: '.tribe-events-c-messages__message-list-item',
 	};
 
 	/**
@@ -56,6 +59,8 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.closeAllEvents = function( $container ) {
+		var hasDays = false;
+
 		$container.find( obj.selectors.calendarDay ).each( function( index, header ) {
 			var $header = $( header );
 			var contentId = $header.attr( 'aria-controls' );
@@ -69,10 +74,53 @@ tribe.events.views.monthMobileEvents = {};
 			if ( contentId ) {
 				$content = $container.find( '#' + contentId );
 				tribe.events.views.accordion.closeAccordion( $header, $content );
+				hasDays = true;
 			}
 
 			obj.closeMobileEvents( $header, $content );
 		} );
+	};
+
+	/**
+	 * Handles the user selection of a day in the Grid.
+	 *
+	 * @since TBD
+	 *
+	 * @param {bool} viewHasDays Whether the day selected by the user has days in it or not.
+	 *
+	 * @return {void} The method does not return a value and will hide and show message elements.
+	 */
+	obj.handleMobileDayClick = function(hasDays){
+		var $defaultNotices = $(obj.selectors.mobileEventsDefaultNotices)
+		var $dynamicNotices = $(obj.selectors.mobileEventsDynamicNotices)
+
+		if(hasDays){
+			$defaultNotices.hide();
+			$dynamicNotices.hide();
+			return;
+		}
+
+		var dynamicNoticesList = $dynamicNotices.find(obj.selectors.messageHeaderListItem)
+		var visibleMessages = 0
+
+		if (dynamicNoticesList.length > 0) {
+			dynamicNoticesList.each(function (index, item) {
+				if (item.getAttribute('data-key') !== 'no-events-in-day') {
+					item.style.display = 'none'
+				} else {
+					item.style.display = ''
+					visibleMessages++
+				}
+			})
+		}
+
+		if (visibleMessages > 0) {
+			$defaultNotices.hide()
+			$dynamicNotices.show()
+		} else {
+			$dynamicNotices.hide()
+			$defaultNotices.show()
+		}
 	};
 
 	/**
@@ -139,6 +187,8 @@ tribe.events.views.monthMobileEvents = {};
 		if ( contentId ) {
 			$content = $container.find( '#' + contentId );
 		}
+
+		obj.handleMobileDayClick(contentId)
 
 		if ( $header.hasClass( obj.selectors.calendarDaySelectedClass.className() ) ) {
 			obj.closeMobileEvents( $header, $content );

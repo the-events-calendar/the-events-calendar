@@ -241,6 +241,8 @@ class Month_View extends By_Day_View {
 		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
 		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
 
+		$mobile_messages = $this->get_mobile_messages();
+
 		$today                                       = $this->context->get( 'today' );
 		$template_vars['the_date']                   = $grid_date;
 		$template_vars['today_date']                 = Dates::build_date_object( $today )->format( 'Y-m-d' );
@@ -252,6 +254,7 @@ class Month_View extends By_Day_View {
 		$template_vars['prev_label']                 = $prev_month;
 		$template_vars['next_label']                 = $next_month;
 		$template_vars['messages']                   = $this->messages->to_array();
+		$template_vars['mobile_messages']            = $mobile_messages;
 		$template_vars['grid_start_date']            = $grid_start_date;
 
 		return $template_vars;
@@ -536,5 +539,39 @@ class Month_View extends By_Day_View {
 		$end_date   = tribe_end_of_day( $event_date->format( 'Y-m-t' ) );
 		$this->repository->where( 'ends_after', $start_date );
 		$this->repository->where( 'starts_before', $end_date );
+	}
+
+	/**
+	 * Returns a set of messages that will be show to the user in the mobile interaction.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,array<string|int,string>> A map from message types to messages for
+	 *                                                each type.
+	 */
+	protected function get_mobile_messages() {
+		$mobile_messages = [
+			'notice' =>
+				[
+					'no-events-in-day' => _x(
+						'There are no events on this day.',
+						'A message shown in the mobile version when a day without events is selected.',
+						'the-events-calendar'
+					)
+				]
+		];
+
+		/**
+		 * Allows filtering the mobile messages Month view will display to the user depending on the interaction.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,array<string|int,string>> A map from message types to messages for
+		 *                                                each type.
+		 * @param Month_View $view                        A reference to the View instance that is filtering its mobile messages.
+		 */
+		$mobile_messages = apply_filters( 'tribe_events_views_v2_month_mobile_messages', $mobile_messages, $this );
+
+		return $mobile_messages;
 	}
 }

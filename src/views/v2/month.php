@@ -9,7 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version  5.0.2
+ * @version  TBD
  *
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_method          The HTTP method, either `POST` or `GET`, the View will use to make requests.
@@ -19,6 +19,7 @@
  * @var string[] $container_classes    Classes used for the container of the view.
  * @var array    $container_data       An additional set of container `data` attributes.
  * @var string   $breakpoint_pointer   String we use as pointer to the current view we are setting up with breakpoints.
+ * @var array    $mobile_messages      A set of mobile messages that will be used to handle the user interaction in mobile.
  */
 
 $header_classes = [ 'tribe-events-header' ];
@@ -76,7 +77,28 @@ if ( empty( $disable_event_search ) ) {
 		</div>
 
 		<!-- This is the second occurrence of this, let's never show it to screen readers. -->
-		<?php $this->template( 'components/messages', [ 'attributes' => [ 'aria-hidden' => 'true' ] ] ); ?>
+		<?php
+		$this->template(
+			'components/messages',
+			[
+				'attributes' => [
+					'aria-hidden' => 'true',
+					'data-js-mobile-notice' => 'default',
+				],
+			]
+		); ?>
+
+		<?php
+		$this->template(
+			'components/messages',
+			[
+				'attributes' => [
+					'aria-hidden' => 'true',
+					'data-js-mobile-notice' => 'dynamic',
+				],
+				'messages'   => $mobile_messages,
+			] );
+		?>
 
 		<?php $this->template( 'month/mobile-events' ); ?>
 

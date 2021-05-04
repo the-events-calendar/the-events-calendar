@@ -33,9 +33,12 @@ $attributes = isset( $attributes ) ? (array) $attributes : [];
 		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
 			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
 			<ul class="tribe-events-c-messages__message-list">
-				<?php foreach ( $message_group as $message ) : ?>
-					<li class="tribe-events-c-messages__message-list-item">
-						<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : $message; ?>
+				<?php foreach ( $message_group as $key => $message ) : ?>
+					<li
+						class="tribe-events-c-messages__message-list-item"
+						<?php tribe_attributes( [ 'data-key' => (string)$key ] ); ?>
+					>
+					<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : $message; ?>
 					</li>
 				<?php endforeach; ?>
 			</ul>
