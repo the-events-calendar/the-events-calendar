@@ -50,23 +50,9 @@
 		margin-bottom: var(--spacer-3);
 		width: 100%;
 
-		/* By default hide the first one, show the second one. */
-		&:not([aria-hidden]) {
-			display: none;
-		}
-
 		.tribe-common--breakpoint-medium& {
 			margin-bottom: var(--spacer-7);
 			order: 1;
-
-			/* Hide the second one at the bottom on medium and above. */
-			&:not([aria-hidden]) {
-				display: flex;
-			}
-
-			&[aria-hidden] {
-				display: none;
-			}
 		}
 	}
 
