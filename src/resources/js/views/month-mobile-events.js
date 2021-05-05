@@ -90,36 +90,36 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @return {void} The method does not return a value and will hide and show message elements.
 	 */
-	obj.handleMobileDayClick = function(hasDays){
-		var $defaultNotices = $(obj.selectors.mobileEventsDefaultNotices)
-		var $dynamicNotices = $(obj.selectors.mobileEventsDynamicNotices)
+	obj.handleMobileDayClick = function( hasDays ) {
+		var $defaultNotices = $( obj.selectors.mobileEventsDefaultNotices );
+		var $dynamicNotices = $( obj.selectors.mobileEventsDynamicNotices );
 
-		if(hasDays){
+		if ( hasDays ) {
 			$defaultNotices.hide();
 			$dynamicNotices.hide();
 			return;
 		}
 
-		var dynamicNoticesList = $dynamicNotices.find(obj.selectors.messageHeaderListItem)
-		var visibleMessages = 0
+		var dynamicNoticesList = $dynamicNotices.find( obj.selectors.messageHeaderListItem );
+		var visibleMessages = 0;
 
-		if (dynamicNoticesList.length > 0) {
-			dynamicNoticesList.each(function (index, item) {
-				if (item.getAttribute('data-key') !== 'no-events-in-day') {
-					item.style.display = 'none'
+		if ( dynamicNoticesList.length > 0 ) {
+			dynamicNoticesList.each( function( index, item ) {
+				if ( item.getAttribute( 'data-key' ) !== 'no-events-in-day' ) {
+					item.style.display = 'none';
 				} else {
-					item.style.display = ''
-					visibleMessages++
+					item.style.display = '';
+					visibleMessages++;
 				}
-			})
+			} );
 		}
 
-		if (visibleMessages > 0) {
-			$defaultNotices.hide()
-			$dynamicNotices.show()
+		if ( visibleMessages > 0 ) {
+			$defaultNotices.hide();
+			$dynamicNotices.show();
 		} else {
-			$dynamicNotices.hide()
-			$defaultNotices.show()
+			$dynamicNotices.hide();
+			$defaultNotices.show();
 		}
 	};
 
@@ -188,7 +188,7 @@ tribe.events.views.monthMobileEvents = {};
 			$content = $container.find( '#' + contentId );
 		}
 
-		obj.handleMobileDayClick(contentId)
+		obj.handleMobileDayClick( contentId );
 
 		if ( $header.hasClass( obj.selectors.calendarDaySelectedClass.className() ) ) {
 			obj.closeMobileEvents( $header, $content );
@@ -275,11 +275,19 @@ tribe.events.views.monthMobileEvents = {};
 		var containerState = $container.data( 'tribeEventsState' );
 		var isMobile = containerState.isMobile;
 
-		if ( ! isMobile && ! state.desktopInitialized ) {
-			obj.closeAllEvents( $container );
-			state.desktopInitialized = true;
-		} else if ( isMobile && state.desktopInitialized ) {
-			state.desktopInitialized = false;
+		if ( ! isMobile ) {
+			$( obj.selectors.mobileEventsDefaultNotices ).hide();
+			$( obj.selectors.mobileEventsDynamicNotices ).hide();
+
+			if ( ! state.desktopInitialized ) {
+				obj.closeAllEvents( $container );
+				state.desktopInitialized = true;
+			}
+		} else {
+			obj.handleMobileDayClick();
+			if ( state.desktopInitialized ) {
+				state.desktopInitialized = false;
+			}
 		}
 
 		$mobileEvents.data( 'tribeEventsState', state );
