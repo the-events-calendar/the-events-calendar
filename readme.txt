@@ -223,7 +223,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.6.1] TBD =
 
-
+* Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
+* Tweak - Display a message to let visitors know the selected Month View day has no events in mobile. [TEC-3812]
 
 = [5.6.0] 2021-04-29 =
 
