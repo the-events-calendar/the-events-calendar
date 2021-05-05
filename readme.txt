@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.6.1] TBD =
 
 * Fix - Resolve conflicts with Gravity Forms plugin that would prevent correct submission of forms data. [ECP-466]
+* Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
 
 = [5.6.0] 2021-04-29 =
 
