@@ -2,7 +2,7 @@
 /**
  * Models an HTTP request for an iCalendar export.
  *
- * @since   TBD
+ * @since   4.6.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -16,7 +16,7 @@ use Tribe__Events__iCal as iCal;
 /**
  * Class Request
  *
- * @since   TBD
+ * @since   4.6.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -24,7 +24,7 @@ class Request {
 	/**
 	 * A reference to the base implementation of the iCalendar exports handler.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @var iCal
 	 */
@@ -33,7 +33,7 @@ class Request {
 	/**
 	 * A reference the context used for the request.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @var Context
 	 */
@@ -42,7 +42,7 @@ class Request {
 	/**
 	 * Request constructor.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param Context|null $context Which context was used to prepare this request for iCal.
 	 * @param iCal|null    $ical    Either a reference to an explicit instance of the base
@@ -58,7 +58,7 @@ class Request {
 	 * Returns the ordered list of event post IDs that match the current
 	 * iCalendar export request.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @return array<int> A list of event post IDs that match the current
 	 *                    iCalendar export request.
