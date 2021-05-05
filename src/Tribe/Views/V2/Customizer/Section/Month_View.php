@@ -145,6 +145,30 @@ class Month_View extends \Tribe__Customizer__Section {
 	}
 
 	/**
+	 * Gets the link to the a setting in the TEC Customizer Global Elements.
+	 *
+	 * @since TBD
+	 *
+	 * @todo (Stephen): Maybe move this to common? Generalize more or create on for each section?
+	 *
+	 * @param string $setting    The sting setting "slug" to link to.
+	 * @param string $label_text The translated label text for the link.
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_global_element_link( $setting, $label_text ) {
+		$control					 = tribe( 'customizer' )->get_setting_name( $setting, 'global_elements' );
+		$query['autofocus[control]'] = 'tribe_customizer' . $control;
+		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
+
+		return sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( $control_url ),
+			esc_html( $label_text )
+		);
+	}
+
+	/**
 	 * Gets the link to the event background color setting in Customizer.
 	 *
 	 * @since TBD
@@ -152,16 +176,8 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * @return string The HTML link element.
 	 */
 	public function get_events_background_link() {
-		$control					 = tribe( 'customizer' )->get_setting_name( 'background_color_choice', 'global_elements' );
-		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
-		$control_text				= esc_html__( 'Events Background Color', 'the-events-calendar' );
-
-		return sprintf(
-			'<a href="%s">%s</a>',
-			$control_url,
-			$control_text
-		);
+		$label_text = __( 'Events Background Color', 'the-events-calendar' );
+		return $this->get_global_element_link( 'background_color_choice', $label_text );
 	}
 
 	/**
@@ -172,72 +188,8 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * @return string The HTML link element.
 	 */
 	public function get_accent_color_link() {
-		$control					 = tribe( 'customizer' )->get_setting_name( 'accent_color', 'global_elements' );
-		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
-		$control_text				= esc_html__( 'Accent Color', 'the-events-calendar' );
-
-		return sprintf(
-			'<a href="%s">%s</a>',
-			$control_url,
-			$control_text
-		);
-	}
-
-	/**
-	 * Gets the link to the event tile color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The HTML link element.
-	 */
-	public function get_event_title_color_link() {
-		$control					 = tribe( 'customizer' )->get_setting_name( 'post_title_color', 'global_elements' );
-		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
-		$control_text				= esc_html__( 'Event Title Color', 'the-events-calendar' );
-
-		return sprintf(
-			'<a href="%s">%s</a>',
-			$control_url,
-			$control_text
-		);
-	}
-
-	/**
-	 * Gets the value of the event background color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The (hex)color value.
-	 */
-	public function get_events_background_color() {
-		$color = tribe('customizer')->get_option( [ 'global_elements', 'background_color' ] );
-		return ! empty( $color ) ? $color : 'transparent';
-	}
-
-	/**
-	 * Gets the value of the event title color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The (hex)color value.
-	 */
-	public function get_event_title_color() {
-		$color = tribe('customizer')->get_option( [ 'global_elements', 'post_title_color' ] );
-		return ! empty( $color ) ? $color : '#141827';
-	}
-
-	/**
-	 * Gets the value of the accent color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The (hex)color value.
-	 */
-	public function get_accent_color() {
-		$color =  tribe('customizer')->get_option( [ 'global_elements', 'accent_color' ] );
-		return ! empty( $color ) ? $color : '#334aff';
+		$label_text				 = __( 'Accent Color', 'the-events-calendar' );
+		return $this->get_global_element_link( 'accent_color', $label_text );
 	}
 
 	/**
@@ -279,7 +231,7 @@ class Month_View extends \Tribe__Customizer__Section {
 				),
 				'choices'     => [
 					'transparent' => _x(
-						'Transparent  - the ' . esc_url( $this->get_events_background_link() ) . ' <span style="color: ' . $this->get_events_background_color() . ';"  class="dashicons dashicons-image-filter"></span> will show through.',
+						'Transparent  - the ' . $this->get_events_background_link() . ' will show through.',
 						'Label for option to leave transparent (default).',
 						'the-events-calendar'
 					),
@@ -315,12 +267,12 @@ class Month_View extends \Tribe__Customizer__Section {
 				),
 				'choices'     => [
 					'default' => _x(
-						'Use the default background color. <span style="color: #FFFFFF;" class="dashicons dashicons-image-filter"></span>',
+						'Use the default background color.',
 						'Label for option to leave white (default).',
 						'the-events-calendar'
 					),
 					'event'	  => _x(
-						'Use the ' . $this->get_events_background_link() . '. <span style="color: ' . $this->get_events_background_color() . ';"  class="dashicons dashicons-image-filter"></span>',
+						'Use the ' . $this->get_events_background_link() . '.',
 						'Label for option to use the event background color.',
 						'the-events-calendar'
 					),
@@ -375,7 +327,7 @@ class Month_View extends \Tribe__Customizer__Section {
 				),
 				'choices'     => [
 					'default' => _x(
-						'Use the ' . $this->get_accent_color_link() . ' <span style="color:' . $this->get_accent_color() . '" class="dashicons dashicons-image-filter"></span>',
+						'Use the ' . $this->get_accent_color_link() . '',
 						'Label for option to use the accent color.',
 						'the-events-calendar'
 					),
