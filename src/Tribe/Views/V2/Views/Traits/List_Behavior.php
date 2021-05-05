@@ -161,7 +161,13 @@ trait List_Behavior {
 			$show_now = true;
 		}
 
-		if ( ! empty( $date_sorted_events ) && $page === 1 && ! $has_next_page && ! $is_past && $this->context->get( 'event_date' ) === null ) {
+		if (
+			! empty( $date_sorted_events )
+			&& 1 === $page
+			&& ! $has_next_page
+			&& ! $is_past
+			&& null === $this->context->get( 'event_date' )
+		) {
 			$now_label = sprintf(
 				_x( 'Upcoming', 'The datepicker range definition when no more pages of event exists.', 'the-events-calendar' ),
 				$onwards_label_start
