@@ -222,7 +222,7 @@ class Day_View extends View {
 			$keyword = $this->context->get( 'keyword', false );
 
 			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', esc_html( trim( $keyword ) ) ) );
 			} else {
 				$date_time  = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
 				$date_label = date_i18n(
