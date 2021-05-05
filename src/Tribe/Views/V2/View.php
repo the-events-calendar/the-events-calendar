@@ -1753,7 +1753,7 @@ class View implements View_Interface {
 		if ( empty( $events ) ) {
 			$keyword = $this->context->get( 'keyword', false );
 			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', esc_html( trim( $keyword ) ) ) );
 			} else {
 				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
 			}
