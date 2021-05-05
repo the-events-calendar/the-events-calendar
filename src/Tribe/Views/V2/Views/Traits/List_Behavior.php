@@ -169,7 +169,7 @@ trait List_Behavior {
 			&& null === $this->context->get( 'event_date' )
 		) {
 			$now_label = sprintf(
-				_x( 'Upcoming', 'The datepicker range definition when no more pages of event exists.', 'the-events-calendar' ),
+				_x( 'Upcoming', 'The datepicker range definition when no more pages of events exist.', 'the-events-calendar' ),
 				$onwards_label_start
 			);
 
