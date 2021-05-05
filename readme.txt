@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.6.1] TBD =
 
-* Tweak - Adjust wording for 'onwards' for different scenarios on views using the List type of view [TEC-3831]
+* Tweak - Reduced the usage of the word "onwards" on list-style view date range headings where simpler headings are better suited. [TEC-3831]
 
 
 = [5.6.0] 2021-04-29 =
