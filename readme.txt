@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.6.1] TBD =
 
-
+* Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
 
 = [5.6.0] 2021-04-29 =
 

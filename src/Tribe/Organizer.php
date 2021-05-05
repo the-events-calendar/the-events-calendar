@@ -100,6 +100,14 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			'item_reverted_to_draft'   => sprintf( esc_html__( '%s reverted to draft.', 'the-events-calendar' ), $this->singular_organizer_label ),
 			'item_scheduled'           => sprintf( esc_html__( '%s scheduled.', 'the-events-calendar' ), $this->singular_organizer_label ),
 			'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
+			'item_link'                => sprintf(
+				// Translators: %s: Organizer singular.
+				esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_organizer_label
+			),
+			'item_link_description'    => sprintf(
+				// Translators: %s: Organizer singular.
+				esc_html__( 'A link to a particular %s.', 'the-events-calendar' ), $this->singular_organizer_label
+			),
 		] );
 
 		$this->register_post_type();
