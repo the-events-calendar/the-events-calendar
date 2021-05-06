@@ -38,7 +38,7 @@
 
 use Tribe__Date_Utils as Dates;
 
-$events = $day['events'];
+$events = ! empty( $day['events'] ) ? $day['events'] : [];
 if ( ! empty( $day['multiday_events'] ) ) {
 	$events = array_filter( array_merge( $day['multiday_events'], $events ) );
 }
