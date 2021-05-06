@@ -64,7 +64,11 @@ class ThemeCompatibilityTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'tribe_body_class_should_add_to_queue', '__return_true' );
 		$this->make_instance()->add_body_classes();
 
-		$intended_classes = $this->make_instance()->get_body_classes();
+		// Have to add the page template class.
+		$intended_classes = array_merge(
+			[ 'tribe-events-page-template' ],
+			$this->make_instance()->get_body_classes()
+		);
 
 		$actual_classes = $body_classes->get_class_names();
 
