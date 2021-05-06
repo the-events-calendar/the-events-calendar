@@ -13,7 +13,7 @@
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
- * @var array $day The current day data.{
+ * @var array  $day The current day data.{
  *          @type string $date The day date, in the `Y-m-d` format.
  *          @type bool $is_start_of_week Whether the current day is the first day of the week or not.
  *          @type string $year_number The day year number, e.g. `2019`.
@@ -33,6 +33,7 @@
  *                              spacers. Spacers are falsy values indicating an empty space in the multi-day stack for
  *                              the day
  *      }
+ * @var array  $mobile_messages A set of mobile messages that will be used to handle the user interaction in mobile.
  */
 
 use Tribe__Date_Utils as Dates;
@@ -52,16 +53,24 @@ if ( $today_date === $day_date ) {
 
 <div <?php tribe_classes( $classes ); ?> id="<?php echo sanitize_html_class( $mobile_day_id ); ?>">
 
-	<?php foreach ( $events as $event ) : ?>
-		<?php $event_date = $event->dates->start->format( Dates::DBDATEFORMAT ); ?>
+	<?php if ( count($events) ) : ?>
 
-		<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'events' => $events, 'event' => $event, 'request_date' => $day_date ] ); ?>
+		<?php foreach ( $events as $event ) : ?>
+			<?php $event_date = $event->dates->start->format( Dates::DBDATEFORMAT ); ?>
 
-		<?php $this->setup_postdata( $event ); ?>
+			<?php $this->template( 'month/mobile-events/mobile-day/day-marker', [ 'events' => $events, 'event' => $event, 'request_date' => $day_date ] ); ?>
 
-		<?php $this->template( 'month/mobile-events/mobile-day/mobile-event', [ 'event' => $event ] ); ?>
+			<?php $this->setup_postdata( $event ); ?>
 
-	<?php endforeach; ?>
+			<?php $this->template( 'month/mobile-events/mobile-day/mobile-event', [ 'event' => $event ] ); ?>
 
-	<?php $this->template( 'month/mobile-events/mobile-day/more-events', [ 'more_events' => $day['more_events'], 'more_url' => $day['day_url'] ] ); ?>
+		<?php endforeach; ?>
+
+		<?php $this->template( 'month/mobile-events/mobile-day/more-events', [ 'more_events' => $day['more_events'], 'more_url' => $day['day_url'] ] ); ?>
+
+	<?php else : ?>
+
+		<?php $this->template( 'components/messages', [ 'attributes' => [ 'aria-hidden' => 'true' ], 'messages' => $mobile_messages ] ); ?>
+
+	<?php endif; ?>
 </div>

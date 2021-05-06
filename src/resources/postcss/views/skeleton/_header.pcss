@@ -59,18 +59,13 @@
 			margin-bottom: var(--spacer-7);
 			order: 1;
 
-			/* Hide the second one at the bottom on medium and above. */
+			/* Show the first one, hide the second one. */
 			&:not([aria-hidden]) {
 				display: flex;
 			}
-
 			&[aria-hidden] {
 				display: none;
 			}
-		}
-
-		&[data-js-mobile-notice="dynamic"] {
-			display: none;
 		}
 	}
 
