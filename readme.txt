@@ -223,7 +223,11 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibilit.
+* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility. [TCMN-106]
+
+= [5.6.1] TBD =
+
+* Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
 
 = [5.6.0] 2021-04-29 =
 
