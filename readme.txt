@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.6.1] TBD =
+
+* Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
+
 = [5.6.0] 2021-04-29 =
 
 * Version - The Events Calendar 5.6.0 is only compatible with Events Calendar PRO 5.6.0 and higher

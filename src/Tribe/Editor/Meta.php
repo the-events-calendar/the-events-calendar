@@ -106,7 +106,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * WordPress doesn't throw an error when the meta is not present.
 	 *
 	 * @since 5.5.0
-	 * @since TBD Apply to all Rest Endpoints not only Events.
+	 * @since 4.6.0 Apply to all Rest Endpoints not only Events.
 	 *
 	 * @param null|bool $delete     Whether to allow metadata deletion of the given type.
 	 * @param int       $object_id  ID of the object metadata is for.
