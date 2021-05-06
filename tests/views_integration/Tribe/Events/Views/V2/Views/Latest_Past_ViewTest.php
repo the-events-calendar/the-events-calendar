@@ -10,6 +10,13 @@ use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 class Latest_Past_ViewTest extends ViewTestCase {
 	use With_Post_Remapping;
 
+	/**
+	 * @before
+	 */
+	public function clean_caches() {
+		wp_cache_flush();
+	}
+
 	public function latest_past_events_snapshot_data_provider() {
 		return [
 			'Month View' => [ Month_View::class, 'month' ],
@@ -29,13 +36,13 @@ class Latest_Past_ViewTest extends ViewTestCase {
 		tribe_update_option( View_Manager::$option_default, $view_slug );
 		tribe_update_option( View_Manager::$option_mobile_default, $view_slug );
 		// Create a mock context that will ensure the Latest Past Events View will show.
-		$context    = tribe_context()->alter( [
+		$context = tribe_context()->alter( [
 			'today'            => '2020-03-01',
 			'now'              => '2020-03-01 11:00:00',
 			'event_date'       => '2020-03-01',
 			'show_latest_past' => true,
 		] );
-		$month_view = View::make( $view_class, $context );
+		$view    = View::make( $view_class, $context );
 
 		// Let's make sure we're starting from a clean slate.
 		$this->assertEquals( 0, tribe_events()->found() );
@@ -66,6 +73,6 @@ class Latest_Past_ViewTest extends ViewTestCase {
 		$this->remap_post_ids( $ids, $mock_event_ids );
 
 		// Test the Month View HTML, it will include the Latest Past Events View.
-		$this->assertMatchesSnapshot( $month_view->get_html() );
+		$this->assertMatchesSnapshot( $view->get_html() );
 	}
 }
