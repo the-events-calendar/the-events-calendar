@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
  *
  * @since TBD
  */
-class Month_View extends \Tribe__Customizer__Section {
+final class Month_View extends \Tribe__Customizer__Section {
 
 	/**
 	 * ID of the section.
@@ -44,6 +44,18 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * {@inheritdoc}
 	 */
+	public function setup_arguments() {
+		$this->arguments = [
+			'priority'	=> 65,
+			'capability'  => 'edit_theme_options',
+			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
+			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section on teh Month View.', 'the-events-calendar' ),
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_defaults() {
 		$this->defaults = [
 			'grid_lines_color'				  => '#e4e4e4',
@@ -55,18 +67,6 @@ class Month_View extends \Tribe__Customizer__Section {
 			'multiday_event_bar_color_choice' => 'default',
 			'multiday_event_bar_color'	      => '#334aff',
 			'tooltip_background_color'		  => 'default',
-		];
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setup_arguments() {
-		$this->arguments = [
-			'priority'	=> 65,
-			'capability'  => 'edit_theme_options',
-			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section.', 'the-events-calendar' ),
 		];
 	}
 
@@ -142,54 +142,6 @@ class Month_View extends \Tribe__Customizer__Section {
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			]
 		];
-	}
-
-	/**
-	 * Gets the link to the a setting in the TEC Customizer Global Elements.
-	 *
-	 * @since TBD
-	 *
-	 * @todo (Stephen): Maybe move this to common? Generalize more or create on for each section?
-	 *
-	 * @param string $setting    The sting setting "slug" to link to.
-	 * @param string $label_text The translated label text for the link.
-	 *
-	 * @return string The HTML link element.
-	 */
-	public function get_global_element_link( $setting, $label_text ) {
-		$control					 = tribe( 'customizer' )->get_setting_name( $setting, 'global_elements' );
-		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
-
-		return sprintf(
-			'<a href="%s">%s</a>',
-			esc_url( $control_url ),
-			esc_html( $label_text )
-		);
-	}
-
-	/**
-	 * Gets the link to the event background color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The HTML link element.
-	 */
-	public function get_events_background_link() {
-		$label_text = __( 'Events Background Color', 'the-events-calendar' );
-		return $this->get_global_element_link( 'background_color_choice', $label_text );
-	}
-
-	/**
-	 * Gets the link to the accent color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The HTML link element.
-	 */
-	public function get_accent_color_link() {
-		$label_text				 = __( 'Accent Color', 'the-events-calendar' );
-		return $this->get_global_element_link( 'accent_color', $label_text );
 	}
 
 	/**
@@ -442,5 +394,53 @@ class Month_View extends \Tribe__Customizer__Section {
 			}
 		}
 		return $template;
+	}
+
+	/**
+	 * Gets the link to the a setting in the TEC Customizer Global Elements.
+	 *
+	 * @since TBD
+	 *
+	 * @todo (Stephen): Maybe move this to common? Generalize more or create on for each section?
+	 *
+	 * @param string $setting    The sting setting "slug" to link to.
+	 * @param string $label_text The translated label text for the link.
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_global_element_link( $setting, $label_text ) {
+		$control					 = tribe( 'customizer' )->get_setting_name( $setting, 'global_elements' );
+		$query['autofocus[control]'] = 'tribe_customizer' . $control;
+		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
+
+		return sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( $control_url ),
+			esc_html( $label_text )
+		);
+	}
+
+	/**
+	 * Gets the link to the event background color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_events_background_link() {
+		$label_text = __( 'Events Background Color', 'the-events-calendar' );
+		return $this->get_global_element_link( 'background_color_choice', $label_text );
+	}
+
+	/**
+	 * Gets the link to the accent color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_accent_color_link() {
+		$label_text				 = __( 'Accent Color', 'the-events-calendar' );
+		return $this->get_global_element_link( 'accent_color', $label_text );
 	}
 }

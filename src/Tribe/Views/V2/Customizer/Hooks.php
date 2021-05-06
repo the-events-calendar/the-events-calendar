@@ -35,9 +35,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->add_filters();
 	}
 
-
 	public function add_filters() {
+		// Register the assets for Customizer controls.
+		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
+		// Register assets for Customizer styles.
+		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
+	}
+
+	/**
+	 * Enqueues Customizer controls styles specific to Views v2 components.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_customizer_controls_styles() {
+		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
 	}
 
 	/**
@@ -50,5 +62,30 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function print_inline_styles_in_footer() {
 		return 'wp_print_footer_scripts';
+	}
+
+	/**
+	 * Add views stylesheets to customizer styles array to check.
+	 * Remove unused legacy stylesheets.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param array<string> $sheets Array of sheets to search for.
+	 * @param string        $css_template String containing the inline css to add.
+	 *
+	 * @return array Modified array of sheets to search for.
+	 */
+	public function customizer_inline_stylesheets( $sheets, $css_template ) {
+		$v2_sheets = [ 'tribe-events-views-v2-full' ];
+
+		// Dequeue legacy sheets.
+		$keys = array_keys( $sheets, 'tribe-events-calendar-style' );
+		if ( ! empty( $keys ) ) {
+			foreach ( $keys as $key ) {
+				unset( $sheets[ $key ] );
+			}
+		}
+
+		return array_merge( $sheets, $v2_sheets );
 	}
 }

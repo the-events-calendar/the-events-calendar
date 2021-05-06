@@ -1,4 +1,5 @@
 <?php
+_deprecated_file( __FILE__, 'TBD', 'Tribe\Events\Views\V2\Customizer\Section\Global_Elements' );
 // Don't load directly.
 use Tribe\Customizer\Controls\Heading;
 
@@ -13,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package The Events Calendar
  * @subpackage Customizer
  * @since 4.4
+ *
+ * @deprecated TBD
  */
 final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer__Section {
 	/**

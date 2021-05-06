@@ -122,16 +122,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			add_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ], 10, 3 );
 		}
 
-		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
 
 		// Customizer.
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
 		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
 		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
-
-		// Register the asset for Customizer controls.
-		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
 
 		// Add filters to change the display of website links on the Single Event template.
 		add_filter( 'tribe_get_event_website_link_label', [ $this, 'filter_single_event_details_event_website_label' ], 10, 2 );
@@ -847,31 +843,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Add views stylesheets to customizer styles array to check.
-	 * Remove unused legacy stylesheets.
-	 *
-	 * @since 5.1.1
-	 *
-	 * @param array<string> $sheets Array of sheets to search for.
-	 * @param string        $css_template String containing the inline css to add.
-	 *
-	 * @return array Modified array of sheets to search for.
-	 */
-	public function customizer_inline_stylesheets( $sheets, $css_template ) {
-		$v2_sheets = [ 'tribe-events-views-v2-full' ];
-
-		// Dequeue legacy sheets.
-		$keys = array_keys( $sheets, 'tribe-events-calendar-style' );
-		if ( ! empty( $keys ) ) {
-			foreach ( $keys as $key ) {
-				unset( $sheets[ $key ] );
-			}
-		}
-
-		return array_merge( $sheets, $v2_sheets );
-	}
-
-	/**
 	 * Changes the action the Customizer should use to try and print inline styles to print the inline
 	 * styles in the footer.
 	 *
@@ -945,15 +916,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Customizer::class )->filter_single_event_css_template( $css_template, $section, $customizer );
-	}
-
-	/**
-	 * Enqueues Customizer controls styles specific to Views v2 components.
-	 *
-	 * @since 5.4.0
-	 */
-	public function enqueue_customizer_controls_styles() {
-		return $this->container->make( Customizer::class )->enqueue_customizer_controls_styles();
 	}
 
 	/**
