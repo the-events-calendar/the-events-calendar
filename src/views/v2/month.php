@@ -76,7 +76,11 @@ if ( empty( $disable_event_search ) ) {
 		</div>
 
 		<!-- This is the second occurrence of this, let's never show it to screen readers. -->
-		<?php $this->template( 'components/messages', [ 'attributes' => [ 'aria-hidden' => 'true' ] ] ); ?>
+		<?php
+		$this->template(
+			'components/messages', [
+			'attributes' => [ 'aria-hidden' => 'true', 'data-js-type' => 'default' ]
+		] ); ?>
 
 		<?php $this->template( 'month/mobile-events' ); ?>
 

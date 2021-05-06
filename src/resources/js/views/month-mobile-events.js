@@ -44,9 +44,7 @@ tribe.events.views.monthMobileEvents = {};
 		calendarDaySelectedClass: '.tribe-events-calendar-month__day-cell--selected',
 		mobileEvents: '[data-js="tribe-events-calendar-month-mobile-events"]',
 		mobileEventsMobileDayShowClass: '.tribe-events-calendar-month-mobile-events__mobile-day--show',
-		mobileEventsDefaultNotices: '.tribe-events-header__messages[data-js-mobile-notice="default"]',
-		mobileEventsDynamicNotices: '.tribe-events-header__messages[data-js-mobile-notice="dynamic"]',
-		messageHeaderListItem: '.tribe-events-c-messages__message-list-item',
+		mobileEventsDefaultNotices: '.tribe-events-header__messages[data-js-type="default"]',
 	};
 
 	/**
