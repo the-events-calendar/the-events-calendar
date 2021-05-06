@@ -570,8 +570,6 @@ class Month_View extends By_Day_View {
 		 *                                                each type.
 		 * @param Month_View $view                        A reference to the View instance that is filtering its mobile messages.
 		 */
-		$mobile_messages = apply_filters( 'tribe_events_views_v2_month_mobile_messages', $mobile_messages, $this );
-
-		return $mobile_messages;
+		return apply_filters( 'tribe_events_views_v2_month_mobile_messages', $mobile_messages, $this );
 	}
 }
