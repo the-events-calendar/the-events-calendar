@@ -2324,7 +2324,6 @@
 
 		</div>
 
-		<!-- This is the second occurrence of this, let\'s never show it to screen readers. -->
 		
 		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
 
@@ -2333,7 +2332,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2018-12-31">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2455,7 +2454,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-2">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2474,7 +2473,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-3">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2493,7 +2492,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-4">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2512,7 +2511,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-5">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2531,7 +2530,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-6">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2550,7 +2549,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-7">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2569,7 +2568,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-8">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2588,7 +2587,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-9">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2607,7 +2606,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-10">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2626,7 +2625,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-11">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2645,7 +2644,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-12">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2664,7 +2663,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-13">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2683,7 +2682,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-14">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2702,7 +2701,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-15">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2721,7 +2720,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-16">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2740,7 +2739,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-17">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2759,7 +2758,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-18">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2778,7 +2777,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-19">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2797,7 +2796,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-20">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2816,7 +2815,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-21">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2835,7 +2834,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-22">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2854,7 +2853,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-23">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2873,7 +2872,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-24">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2892,7 +2891,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-25">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2911,7 +2910,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-26">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2930,7 +2929,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-27">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2949,7 +2948,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-28">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2968,7 +2967,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-29">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -2987,7 +2986,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-30">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -3006,7 +3005,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-01-31">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -3025,7 +3024,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-02-1">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -3044,7 +3043,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-02-2">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
@@ -3063,7 +3062,7 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day"  id="tribe-events-calendar-mobile-day-2019-02-3">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"   aria-hidden="true" >
+		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">

@@ -70,7 +70,10 @@ if ( $today_date === $day_date ) {
 
 	<?php else : ?>
 
-		<?php $this->template( 'components/messages', [ 'attributes' => [ 'aria-hidden' => 'true' ], 'messages' => $mobile_messages ] ); ?>
+		<?php $this->template( 'components/messages', [
+			'classes' => [ 'tribe-events-header__messages--mobile','tribe-events-header__messages--day' ],
+			'messages' => $mobile_messages ]
+		); ?>
 
 	<?php endif; ?>
 </div>

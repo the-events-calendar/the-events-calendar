@@ -24,7 +24,8 @@ if ( empty( $messages ) ) {
 
 global $wp_version;
 
-$classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-common-b2' ];
+$default_classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-common-b2' ];
+$classes         = isset( $classes ) ? array_merge( $default_classes, $classes ) : $default_classes;
 $attributes = isset( $attributes ) ? (array) $attributes : [];
 
 ?>

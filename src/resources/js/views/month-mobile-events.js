@@ -44,7 +44,7 @@ tribe.events.views.monthMobileEvents = {};
 		calendarDaySelectedClass: '.tribe-events-calendar-month__day-cell--selected',
 		mobileEvents: '[data-js="tribe-events-calendar-month-mobile-events"]',
 		mobileEventsMobileDayShowClass: '.tribe-events-calendar-month-mobile-events__mobile-day--show',
-		mobileEventsDefaultNotices: '.tribe-events-header__messages[data-js-type="default"]',
+		mobileEventsDefaultNotices: '.tribe-events-header__messages--mobile:not(.tribe-events-header__messages--day)',
 	};
 
 	/**
@@ -75,6 +75,7 @@ tribe.events.views.monthMobileEvents = {};
 			obj.closeMobileEvents( $header, $content );
 		} );
 	};
+
 
 	/**
 	 * Handle the display state of the default "No events found in month" messages.
