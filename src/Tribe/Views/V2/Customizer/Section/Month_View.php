@@ -157,9 +157,9 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * @return string The HTML link element.
 	 */
 	public function get_global_element_link( $setting, $label_text ) {
-		$control					 = tribe( 'customizer' )->get_setting_name( $setting, 'global_elements' );
+		$control                     = tribe( 'customizer' )->get_setting_name( $setting, 'global_elements' );
 		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url				 = add_query_arg( $query, admin_url( 'customize.php' ) );
+		$control_url                 = add_query_arg( $query, admin_url( 'customize.php' ) );
 
 		return sprintf(
 			'<a href="%s">%s</a>',
@@ -366,58 +366,57 @@ class Month_View extends \Tribe__Customizer__Section {
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
 		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
 
-
 		if ( $this->should_include_setting( 'grid_lines_color' ) ) {
 			$template .= "
-			$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__body,
-			$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day,
-			$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__week {
-				border-color: <%= month_view.grid_lines_color %>;
-			}
+				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__body,
+				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day,
+				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__week {
+					border-color: <%= month_view.grid_lines_color %>;
+				}
 			";
 		}
 
 		if ( $this->should_include_setting( 'grid_hover_color' ) ) {
 			$template .= "
-			$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day:hover::after {
-				background-color: <%= month_view.grid_hover_color %>;
-			}
+				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day:hover::after {
+					background-color: <%= month_view.grid_hover_color %>;
+				}
 			";
 		}
 
 		if ( $this->should_include_setting( 'grid_background_color_choice' ) ) {
 			if ( $this->should_include_setting( 'grid_background_color' ) ) {
 				$template .="
-				.tribe-events-calendar-month__body {
-					background-color: <%= month_view.grid_background_color %>;
-				}
+					.tribe-events-calendar-month__body {
+						background-color: <%= month_view.grid_background_color %>;
+					}
 				";
 			}
 		} else {
 			if ( $this->should_include_setting( 'tooltip_background_color' ) ) {
 				$template .="
-				.tooltipster-base.tribe-events-tooltip-theme,
-				.tooltipster-base.tribe-events-tooltip-theme--hover {
-					background-color: <%= global_elements.background_color %>;
-				}
+					.tooltipster-base.tribe-events-tooltip-theme,
+					.tooltipster-base.tribe-events-tooltip-theme--hover {
+						background-color: <%= global_elements.background_color %>;
+					}
 				";
 			}
 		}
 
 		if ( $this->should_include_setting( 'days_of_week_color' )  ) {
 			$template .="
-			$tribe_events .tribe-events-calendar-month__header-column-title {
-				color: <%= month_view.days_of_week_color %>;
-			}
+				$tribe_events .tribe-events-calendar-month__header-column-title {
+					color: <%= month_view.days_of_week_color %>;
+				}
 			";
 		}
 
 		if ( $this->should_include_setting( 'date_marker_color' )  ) {
 			$template .="
-			.tribe-events-calendar-month__day-date.tribe-common-h4,
-			$tribe_events .tribe-events-calendar-month__day-date-link {
-				color: <%= month_view.date_marker_color %>;
-			}
+				.tribe-events-calendar-month__day-date.tribe-common-h4,
+				$tribe_events .tribe-events-calendar-month__day-date-link {
+					color: <%= month_view.date_marker_color %>;
+				}
 			";
 		}
 
@@ -428,14 +427,14 @@ class Month_View extends \Tribe__Customizer__Section {
 				$bar_color_hover = 'rgba(' . $bar_color_rgb . ',0.34)';
 
 				$template .="
-				$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner {
-					background-color: $bar_color;
-				}
+					$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner {
+						background-color: $bar_color;
+					}
 
-				$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--hover,
-				$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--focus {
-					background-color: $bar_color_hover;
-				}
+					$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--hover,
+					$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--focus {
+						background-color: $bar_color_hover;
+					}
 				";
 
 
