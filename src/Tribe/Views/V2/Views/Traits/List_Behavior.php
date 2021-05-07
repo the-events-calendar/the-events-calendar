@@ -132,7 +132,6 @@ trait List_Behavior {
 			            && $start->format( 'Y-m-d' ) !== $end->format( 'Y-m-d' )
 		            );
 
-
 		$start_timestamp_w_offset = $start->getTimestamp() + $start->getOffset();
 		$start_format_w_year      = $today->format( 'Y' ) !== $start->format( 'Y' );
 		$start_label_format       = tribe_get_date_format( $start_format_w_year );
