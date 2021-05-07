@@ -340,7 +340,10 @@ final class Month_View extends \Tribe__Customizer__Section {
 				";
 			}
 		} else {
-			if ( $this->should_include_setting_css( 'tooltip_background_color' ) ) {
+			if (
+				$this->should_include_setting_css( 'tooltip_background_color' )
+				&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
+			) {
 				$template .="
 					.tooltipster-base.tribe-events-tooltip-theme,
 					.tooltipster-base.tribe-events-tooltip-theme--hover {
