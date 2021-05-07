@@ -32,17 +32,25 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'days'       => [
 				'2018-06-01' => [
+					'year_number'  => '2018',
+					'month_number' => '06',
+					'day_number'   => '01',
 					'found_events' => 0,
 				],
 				'2018-06-02' => [
+					'year_number'  => '2018',
+					'month_number' => '06',
+					'day_number'   => '02',
 					'found_events' => 0,
 				],
 			],
+			'today_date'       => '2018-06-01',
 			'today_url'  => 'http://test.tri.be',
 			'prev_url'   => 'http://test.tri.be',
 			'next_url'   => 'http://test.tri.be',
 			'prev_label' => 'May',
 			'next_label' => 'July',
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		] ) );
 	}
 

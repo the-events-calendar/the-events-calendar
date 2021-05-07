@@ -26,6 +26,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'events'       => [],
 				'more_events'  => 0,
 			],
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
@@ -45,6 +46,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'events'       => [],
 				'more_events'  => 0,
 			],
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
@@ -65,6 +67,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'events'       => [ $event ],
 				'more_events'  => 0,
 			],
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
@@ -89,6 +92,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				],
 				'more_events'  => 0,
 			],
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
@@ -112,6 +116,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'multiday_events' => [ $event ],
 				'more_events'     => 0,
 			],
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
@@ -141,6 +146,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				],
 				'more_events'     => 0,
 			],
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
@@ -165,6 +171,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'multiday_events' => [ $event_2 ],
 				'more_events'     => 0,
 			],
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		];
 		$this->assertMatchesSnapshot( $this->get_partial_html( $context ) );
 	}
