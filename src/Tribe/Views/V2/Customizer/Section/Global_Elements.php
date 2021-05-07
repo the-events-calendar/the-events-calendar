@@ -181,11 +181,14 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * @return string The filtered CSS template.
 	 */
 	public function get_css_template( $css_template ) {
-		$settings    = $customizer->get_option( [ $section->ID ] );
-		$has_options = $customizer->has_option( $section->ID, 'event_title_color' )
-						|| $customizer->has_option( $section->ID, 'accent_color' )
-						|| $customizer->has_option( $section->ID, 'event_date_time_color' )
-						|| $customizer->has_option( $section->ID, 'link_color' );
+		if ( ! tribe_events_views_v2_is_enabled() ) {
+			return $css_template;
+		}
+
+		$has_options = $this->should_include_setting_css( 'event_title_color' )
+					|| $this->should_include_setting_css( 'event_date_time_color' )
+					|| $this->should_include_setting_css( 'accent_color' )
+					|| $this->should_include_setting_css( 'link_color' );
 
 		if ( $has_options ) {
 			$css_template .= "
@@ -207,9 +210,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 
 		// Accent color overrides.
-		if ( $customizer->has_option( $section->ID, 'accent_color' ) ) {
-			$accent_color     = new \Tribe__Utils__Color( $settings['accent_color'] );
-			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
+		if ( $this->should_include_setting_css( 'accent_color' ) ) {
+			$accent_color_rgb = $this->to_rgb( $this->get_option( 'accent_color' ) );
 			$accent_css_rgb   = $accent_color_rgb['R'] . ',' . $accent_color_rgb['G'] . ',' . $accent_color_rgb['B'];
 
 			$css_template .= "
@@ -298,7 +300,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		}
 
 		// Event Title overrides.
-		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
+		if ( $this->should_include_setting_css( 'event_title_color' ) ) {
 			$css_template .= '
 				/* Event Title overrides. */
 				--tec-color-text-events-title: <%= global_elements.event_title_color %>;
@@ -306,6 +308,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		}
 
 		// Background color overrides.
+		if ( $this->should_include_setting_css( 'background_color_choice' ) ) {
 		if (
 			$customizer->has_option( $section->ID, 'background_color_choice' )
 			&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
