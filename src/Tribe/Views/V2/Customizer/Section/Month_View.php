@@ -306,11 +306,6 @@ class Month_View extends \Tribe__Customizer__Section {
 					'The date marker text color setting label.',
 					'the-events-calendar'
 				),
-				'description' => esc_html_x(
-					'The Month View grid lines',
-					'The date marker text color setting description.',
-					'the-events-calendar'
-				),
 			],
 			'multiday_event_bar_color_choice' => [
 				'priority'    => 18,
