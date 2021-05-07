@@ -185,28 +185,29 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
-		$has_options = $this->should_include_setting_css( 'event_title_color' )
-					|| $this->should_include_setting_css( 'event_date_time_color' )
-					|| $this->should_include_setting_css( 'accent_color' )
-					|| $this->should_include_setting_css( 'link_color' );
-
-		if ( $has_options ) {
-			$css_template .= "
-			:root{
-			";
-
-			// Override placeholders - we'll clean up and concat these at the end.
-			$overrides = [
-				'avada'           => '',
-				'divi'            => '',
-				'enfold'          => '',
-				'genesis'         => '',
-				'twentyseventeen' => '',
-				'twentynineteen'  => '',
-				'twentytwenty'    => '',
-				'twentytwentyone' => '',
-			];
+		if (
+			$this->should_include_setting_css( 'event_title_color' )
+			|| $this->should_include_setting_css( 'event_date_time_color' )
+			|| $this->should_include_setting_css( 'accent_color' )
+			|| $this->should_include_setting_css( 'link_color' )
+		) {
+			return $css_template;
 		}
+
+		$css_template .= ":root{\n";
+
+		// Override placeholders - we'll clean up and concat these at the end.
+		$overrides = [
+			'avada'           => '',
+			'divi'            => '',
+			'enfold'          => '',
+			'genesis'         => '',
+			'twentyseventeen' => '',
+			'twentynineteen'  => '',
+			'twentytwenty'    => '',
+			'twentytwentyone' => '',
+		];
+
 
 
 		// Accent color overrides.
@@ -227,75 +228,75 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			";
 
 			/*
-			// overrides for common base/full/typography/_ctas.pcss.
+				// overrides for common base/full/typography/_ctas.pcss.
 
-			$css_template .= "
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= '
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
-				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:focus,
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
-					background-color: var(--tec-color-accent-primary-hover);
-				}
-			";
-
-			$css_template .= "
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:focus {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				.tribe-theme-twentytwenty $tribe_events .tribe-events-calendar-month__day-cell--selected {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= '
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// Single Event styles overrides
-			// This is under filter_global_elements_css_template() in order to have
-			// access to global_elements.accent_color, which is under a different section.
-			if ( $this->should_add_single_view_v2_styles() ) {
-				$css_template .= '
-					.tribe-events-cal-links .tribe-events-gcal,
-					.tribe-events-cal-links .tribe-events-ical,
-					.tribe-events-event-meta a,
-					.tribe-events-event-meta a:active,
-					.tribe-events-event-meta a:visited,
-					.tribe-events-schedule .recurringinfo a,
-					.tribe-related-event-info .recurringinfo a,
-					.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a,
-					.tribe-events-single-event-description a:active,
-					.tribe-events-single-event-description a:focus,
-					.tribe-events-single-event-description a:hover {
-						color: <%= global_elements.accent_color %>;
-					}
-
-					.tribe-events-virtual-link-button {
+				$css_template .= "
+					.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
+					.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
 						background-color: <%= global_elements.accent_color %>;
 					}
+				";
 
-					.tribe-events-single-event-description a,
-					.tribe-events-single-event-description a:active,
-					.tribe-events-single-event-description a:focus,
-					.tribe-events-single-event-description a:hover,
-					.tribe-events-content blockquote {
-						border-color: <%= global_elements.accent_color %>;
+				$css_template .= '
+					.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
+					.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:focus,
+					.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
+					.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
+						background-color: var(--tec-color-accent-primary-hover);
 					}
-				';
-			}
+				";
+
+				$css_template .= "
+					.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:hover,
+					.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:focus {
+						background-color: <%= global_elements.accent_color %>;
+					}
+				";
+
+				$css_template .= "
+					.tribe-theme-twentytwenty $tribe_events .tribe-events-calendar-month__day-cell--selected {
+						background-color: <%= global_elements.accent_color %>;
+					}
+				";
+
+				$css_template .= '
+					.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
+						background-color: <%= global_elements.accent_color %>;
+					}
+				";
+
+				// Single Event styles overrides
+				// This is under filter_global_elements_css_template() in order to have
+				// access to global_elements.accent_color, which is under a different section.
+				if ( $this->should_add_single_view_v2_styles() ) {
+					$css_template .= '
+						.tribe-events-cal-links .tribe-events-gcal,
+						.tribe-events-cal-links .tribe-events-ical,
+						.tribe-events-event-meta a,
+						.tribe-events-event-meta a:active,
+						.tribe-events-event-meta a:visited,
+						.tribe-events-schedule .recurringinfo a,
+						.tribe-related-event-info .recurringinfo a,
+						.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a,
+						.tribe-events-single-event-description a:active,
+						.tribe-events-single-event-description a:focus,
+						.tribe-events-single-event-description a:hover {
+							color: <%= global_elements.accent_color %>;
+						}
+
+						.tribe-events-virtual-link-button {
+							background-color: <%= global_elements.accent_color %>;
+						}
+
+						.tribe-events-single-event-description a,
+						.tribe-events-single-event-description a:active,
+						.tribe-events-single-event-description a:focus,
+						.tribe-events-single-event-description a:hover,
+						.tribe-events-content blockquote {
+							border-color: <%= global_elements.accent_color %>;
+						}
+					';
+				}
 			*/
 		}
 
@@ -304,28 +305,30 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			$css_template .= '
 				/* Event Title overrides. */
 				--tec-color-text-events-title: <%= global_elements.event_title_color %>;
+				--tec-color-text-event-title: <%= global_elements.event_title_color %>;
 			';
 		}
 
 		// Background color overrides.
 		if ( $this->should_include_setting_css( 'background_color_choice' ) ) {
-		if (
-			$customizer->has_option( $section->ID, 'background_color_choice' )
-			&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
-			&& $customizer->has_option( $section->ID, 'background_color' )
-		) {
-			$css_template .= '
-				/* Background Color overrides. */
-				--tec-color-background-events: <%= global_elements.background_color %>;
-			';
-			$overrides['twentytwenty'] .= '
-				/* Background Color overrides. */
-				--tec-color-background-events: <%= global_elements.background_color %>;
-			';
+			if (
+				$customizer->has_option( $section->ID, 'background_color_choice' )
+				&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
+				&& $customizer->has_option( $section->ID, 'background_color' )
+			) {
+				$css_template .= '
+					/* Background Color overrides. */
+					--tec-color-background-events: <%= global_elements.background_color %>;
+				';
+				$overrides['twentytwenty'] .= '
+					/* Background Color overrides. */
+					--tec-color-background-events: <%= global_elements.background_color %>;
+				';
+			}
 		}
 
 		// Event Date/Time overrides.
-		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
+		if ( $this->should_include_setting_css( 'event_date_time_color' ) ) {
 			$css_template .= '
 				/* Event Date/Time overrides. */
 				--tec-color-text-event-date: <%= global_elements.event_date_time_color %>;
@@ -334,7 +337,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		}
 
 		// Link color overrides.
-		if ( $customizer->has_option( $section->ID, 'link_color' ) ) {
+		if ( $this->should_include_setting_css( 'link_color' ) ) {
 			$css_template .= '
 				/* Link Color overrides. */
 				--tec-color-link-primary: <%= global_elements.link_color %>;
@@ -343,13 +346,10 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			';
 		}
 
-		if ( $has_options ) {
-			$css_template .= '
-			}
-			';
-		}
 
-		// Now for some magic...
+		$css_template .= '\n}';
+
+		// Now for some theme magic...
 		/**
 		 * @var Theme_Compatibility $theme_compatibility
 		 */
@@ -363,11 +363,9 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			}
 
 			$css_template .= "
-
-			.tribe-theme-$theme .tribe-common {
-				{$overrides[ $theme ]}
-			}
-
+				.tribe-theme-$theme .tribe-common {
+					{$overrides[ $theme ]}
+				}
 			";
 		}
 
