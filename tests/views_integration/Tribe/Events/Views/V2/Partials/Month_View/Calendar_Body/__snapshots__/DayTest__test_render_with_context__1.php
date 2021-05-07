@@ -6,9 +6,9 @@
 >
 
 	<button
-					aria-expanded="true"
-			aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="true"
+		aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
