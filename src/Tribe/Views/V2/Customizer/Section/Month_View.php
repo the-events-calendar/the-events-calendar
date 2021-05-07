@@ -258,11 +258,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 					'The date marker text color setting label.',
 					'the-events-calendar'
 				),
-				'description' => esc_html_x(
-					'The Month View grid lines',
-					'The date marker text color setting description.',
-					'the-events-calendar'
-				),
 			],
 			'multiday_event_bar_color_choice' => [
 				'priority'    => 18,
@@ -318,7 +313,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
 		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
 
-
 		if ( $this->should_include_setting_css( 'grid_lines_color' ) ) {
 			$template .= "
 				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__body,
@@ -331,16 +325,16 @@ final class Month_View extends \Tribe__Customizer__Section {
 
 		if ( $this->should_include_setting_css( 'grid_hover_color' ) ) {
 			$template .= "
-			$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day:hover::after {
-				background-color: <%= month_view.grid_hover_color %>;
-			}
+				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day:hover::after {
+					background-color: <%= month_view.grid_hover_color %>;
+				}
 			";
 		}
 
 		if ( $this->should_include_setting_css( 'grid_background_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'grid_background_color' ) ) {
 				$template .="
-					.tribe-events-calendar-month__body {
+					$tribe_events .tribe-events-calendar-month__body {
 						background-color: <%= month_view.grid_background_color %>;
 					}
 				";
@@ -367,7 +361,8 @@ final class Month_View extends \Tribe__Customizer__Section {
 		if ( $this->should_include_setting_css( 'date_marker_color' )  ) {
 			$template .="
 				.tribe-events-calendar-month__day-date.tribe-common-h4,
-				$tribe_events .tribe-events-calendar-month__day-date-link {
+				$tribe_events .tribe-events-calendar-month__day-date-link,
+				$tribe_events .tribe-events-calendar-month__day-date-daynum {
 					color: <%= month_view.date_marker_color %>;
 				}
 			";
