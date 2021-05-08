@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
 * Tweak - Display a message to let visitors know the selected Month View day has no events in mobile. [TEC-3812]
 * Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
+* Tewak - Filter the type of files allowed to upload into the EA Client [TEC-3882]
 
 = [5.6.0] 2021-04-29 =
 
