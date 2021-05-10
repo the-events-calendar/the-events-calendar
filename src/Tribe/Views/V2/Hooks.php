@@ -1043,7 +1043,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Sugar function for the above that determines if the labels should be filtered.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param null|string|int $post_id The current post ID.
 	 *
@@ -1059,7 +1059,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Overrides the default iCalendar export link logic to inject a list of event
 	 * post IDs fitting the Views V2 criteria.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param array<int>|false $event_ids Either a list of event post IDs that has been
 	 *                                    explicitly requested or `false` to indicate the

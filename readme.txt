@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 4.9.14
+Requires at least: 4.9.16
 Stable tag: 5.6.0
-Tested up to: 5.7.0
+Tested up to: 5.7.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -220,6 +220,13 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.6.1] TBD =
+
+* Fix - Resolve conflicts with Gravity Forms plugin that would prevent correct submission of forms data. [ECP-466]
+* Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
+* Tweak - Display a message to let visitors know the selected Month View day has no events in mobile. [TEC-3812]
+* Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
 
 = [5.6.0] 2021-04-29 =
 

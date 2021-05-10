@@ -217,7 +217,7 @@ class Tribe__Events__iCal {
 			 * Allows filtering the event IDs after the `Tribe__Events__ICal` class
 			 * tried to fetch them from the current request.
 			 *
-			 * @since TBD
+			 * @since 4.6.0
 			 *
 			 * @param array<int>|false Either a list of requested event post IDs or `false`
 			 *                         if the current request does not specify the event post

@@ -89,7 +89,7 @@ class Separators {
 	 * events might be sorted this method should not interfere with.
 	 * The method will perform the check using the "display" date of the events since this is a front-end facing method.
 	 *
-	 * @since  TBD
+	 * @since  4.6.0
 	 *
 	 * @param array                          $events       WP_Post or numeric ID for events.
 	 * @param \WP_Post|int                   $event        Event we want to check.
