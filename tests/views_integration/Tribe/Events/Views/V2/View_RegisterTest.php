@@ -103,6 +103,7 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 		$rewrite->setup( $wp_rewrite );
 
 		$original_rewrite = tribe( 'events.rewrite' );
+		tribe_unset_var( 'Tribe__Rewrite::get_handled_rewrite_rules' );
 		tribe_register( 'events.rewrite', $rewrite );
 
 		flush_rewrite_rules();
@@ -117,6 +118,7 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $pretty_archive_url, $canonical_url );
 
 		tribe_register( 'events.rewrite', $original_rewrite );
+		tribe_unset_var( 'Tribe__Rewrite::get_handled_rewrite_rules' );
 	}
 
 	public function endpoint_provider() {
