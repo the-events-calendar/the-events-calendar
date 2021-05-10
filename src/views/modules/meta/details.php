@@ -5,7 +5,7 @@
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe-events/modules/meta/details.php
  *
- * @link http://m.tri.be/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @package TribeEventsCalendar
  *
@@ -53,7 +53,8 @@ $time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $ti
 $time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
 
 $cost    = tribe_get_formatted_cost();
-$website = tribe_get_event_website_link();
+$website = tribe_get_event_website_link( $event_id );
+$website_title = tribe_events_get_event_website_title();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-details">
@@ -162,8 +163,9 @@ $website = tribe_get_event_website_link();
 		<?php
 		// Event Website
 		if ( ! empty( $website ) ) : ?>
-
-			<dt class="tribe-events-event-url-label"> <?php esc_html_e( 'Website:', 'the-events-calendar' ); ?> </dt>
+			<?php if ( ! empty( $website_title ) ): ?>
+				<dt class="tribe-events-event-url-label"> <?php echo esc_html( $website_title ); ?> </dt>
+			<?php endif; ?>
 			<dd class="tribe-events-event-url"> <?php echo $website; ?> </dd>
 		<?php endif ?>
 

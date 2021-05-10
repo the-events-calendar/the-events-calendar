@@ -18,6 +18,10 @@ class Widget_ListTest extends ViewTestCase {
 
 			return $views;
 		} );
+
+		remove_filter( 'post_class', 'twenty_twenty_one_post_classes', 10 );
+		remove_filter( 'post_class', 'twentynineteen_post_classes', 10 );
+		add_filter( 'tribe_events_views_v2_theme_compatibility_registered', '__return_empty_array' );
 	}
 
 	/**
@@ -211,16 +215,22 @@ class Widget_ListTest extends ViewTestCase {
 			$widget_list_view->found_post_ids()
 		);
 
-		$this->assertMatchesSnapshot( $html );
-
 		$this->assertNotFalse( stripos( $html, 'ld+json' ) );
+
+		$this->assertMatchesSnapshot( $html );
 	}
 
+	public function remove_json_ld( $template_vars ) {
+		$template_vars['json_ld_data'] = false;
+		return $template_vars;
+	}
 
 	/**
 	 * @test
 	 */
 	public function test_render_no_json_with_upcoming_events() {
+		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'remove_json_ld' ] );
+
 		$events = [];
 
 		// Create the events.
@@ -248,15 +258,6 @@ class Widget_ListTest extends ViewTestCase {
 			'events/single/2.json'
 		] );
 
-		add_filter(
-			'tribe_events_views_v2_view_widget-events-list_template_vars',
-			function( $template_vars ) {
-				$template_vars['jsonld_enable'] = 0;
-				return $template_vars;
-			},
-			19
-		);
-
 		$widget_list_view = View::make( Widget_List_View::class );
 		$context = tribe_context()->alter( [
 			'today'              => $this->mock_date_value,
@@ -266,6 +267,7 @@ class Widget_ListTest extends ViewTestCase {
 		] );
 
 		$widget_list_view->set_context( $context );
+
 		$html = $widget_list_view->get_html();
 
 		// Let's make sure the View is displaying the events we expect it to display.
@@ -274,9 +276,11 @@ class Widget_ListTest extends ViewTestCase {
 			$expected_post_ids,
 			$widget_list_view->found_post_ids()
 		);
-
-		$this->assertMatchesSnapshot( $html );
 		// There is no way the snapshot will start with this string, so assertFalse seems safe enough here.
 		$this->assertFalse( stripos( $html, 'ld+json' ) );
+
+		$this->assertMatchesSnapshot( $html );
+
+		remove_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'remove_json_ld' ] );
 	}
 }

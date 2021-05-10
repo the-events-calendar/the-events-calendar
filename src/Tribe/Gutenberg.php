@@ -108,7 +108,7 @@ class Tribe__Events__Gutenberg {
 			return false;
 		}
 
-		$url = 'http://m.tri.be/19zc';
+		$url = 'http://evnt.is/19zc';
 		$link = sprintf(
 			'<a href="%1$s" target="_blank">%2$s</a>',
 			esc_url( $url ),

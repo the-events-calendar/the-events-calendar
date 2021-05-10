@@ -120,6 +120,14 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			'item_reverted_to_draft'   => sprintf( esc_html__( '%s reverted to draft.', 'the-events-calendar' ), $this->singular_venue_label ),
 			'item_scheduled'           => sprintf( esc_html__( '%s scheduled.', 'the-events-calendar' ), $this->singular_venue_label ),
 			'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
+			'item_link'                => sprintf(
+				// Translators: %s: Venue singular.
+				esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_venue_label
+			),
+			'item_link_description'    => sprintf(
+				// Translators: %s: Venue singular.
+				esc_html__( 'A link to a particular %s.', 'the-events-calendar' ), $this->singular_venue_label
+			),
 		] );
 
 		$this->register_post_type();
@@ -315,7 +323,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 */
 		do_action( 'tribe_events_venue_save', $venue_id, $data, $venue );
 
-		// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
+		// @todo [BTRIA-609]: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 		if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 			if (
 				isset( $data['State'] ) && $data['State'] != ''

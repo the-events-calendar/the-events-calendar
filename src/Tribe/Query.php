@@ -342,7 +342,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$skip_event_display_filters = is_admin() && $query->is_main_query() && ! tribe_is_ajax_view_request();
 
-				//@todo stop calling EOD cutoff transformations all over the place
+				// @todo  [BTRIA-607]: Stop calling EOD cutoff transformations all over the place.
 				if ( ! empty( $query->query_vars['eventDisplay'] ) && ! $skip_event_display_filters ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 						case 'custom':

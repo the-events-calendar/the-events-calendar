@@ -152,7 +152,7 @@ class Events_Result_Set implements Collection_Interface {
 			throw new \InvalidArgumentException( 'Order "' . $order . '" is not supported, only "ASC" and "DESC" are.' );
 		}
 
-		// @todo @be here support more ordering criteria than date.
+		// @todo [BTRIA-596]: @be Support more ordering criteria than date.
 		$order_by_key_map = [
 			'event_date' => 'start_date',
 		];

@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.3.1';
+		const VERSION             = '5.6.1';
 
 		/**
 		 * Min Pro Addon
@@ -153,7 +153,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public $activation_page;
 
-		// @todo remove in 4.0
+		// @todo [BTRIA-602]: Remove in 4.0.
 		public $upcomingSlug = 'upcoming';
 		public $pastSlug     = 'past';
 
@@ -599,6 +599,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Admin Notices
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', [ 'hook' ] );
+			tribe_singleton( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, [ 'hook' ] );
 
 			// GDPR Privacy
 			tribe_singleton( 'tec.privacy', 'Tribe__Events__Privacy', [ 'hook' ] );
@@ -613,7 +614,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// The Views v2 service provider.
 			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
-			tribe_register_provider( Tribe\Events\Views\V2\Widgets\Service_Provider::class );
 
 			// Register and start the Customizer Sections
 			if ( ! tribe_events_views_v2_is_enabled() ) {
@@ -938,7 +938,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register slug conflict notices (but test to see if tribe_notice() is indeed available, in case another plugin
 			// is hosting an earlier version of tribe-common which is already active)
 			//
-			// @todo remove this safety check when we're confident the risk has diminished
+			// @todo [BTRIA-603]: Remove this safety check when we're confident the risk has diminished.
 			if ( function_exists( 'tribe_notice' ) ) {
 				tribe_notice(
 					'archive-slug-conflict',
@@ -973,6 +973,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.gutenberg' );
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
+			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
 		}
@@ -1079,7 +1080,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
 			// if we don't take this precaution).
 			//
-			// @todo remove class_exists() test once enough time has elapsed and the risk has reduced
+			// @todo [BTRIA-604]: Remove class_exists() test once enough time has elapsed and the risk has reduced.
 			if ( empty( $this->activation_page ) && class_exists( 'Tribe__Admin__Activation_Page' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page(
 					[
@@ -1413,7 +1414,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function add_help_section_feature_box_content( $help ) {
-			$link = '<a href="https://m.tri.be/18j8" target="_blank">' . esc_html__( 'New User Primer', 'the-events-calendar' ) . '</a>';
+			$link = '<a href="https://evnt.is/18j8" target="_blank">' . esc_html__( 'New User Primer', 'the-events-calendar' ) . '</a>';
 
 			$help->add_section_content( 'feature-box', sprintf( __( 'We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running.', 'the-events-calendar' ), $link ) );
 		}
@@ -1436,7 +1437,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							'%s: A thorough walkthrough of The Events Calendar and the settings that are available to you.',
 							'the-events-calendar'
 						),
-                        '<strong><a href="https://m.tri.be/18je" target="_blank">' . esc_html__( 'Settings overview', 'the-events-calendar' ) . '</a></strong>'
+                        '<strong><a href="https://evnt.is/18je" target="_blank">' . esc_html__( 'Settings overview', 'the-events-calendar' ) . '</a></strong>'
 					),
 
 					sprintf(
@@ -1444,7 +1445,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							'%s: A complete look at the features you can expect to see right out of the box as well as how to use them.',
 							'the-events-calendar'
 						),
-                        '<strong><a href="https://m.tri.be/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>'
+                        '<strong><a href="https://evnt.is/18jc" target="_blank">' . esc_html__( 'Features overview', 'the-events-calendar' ) . '</a></strong>'
 					),
 
 					sprintf(
@@ -1452,7 +1453,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							'%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles.',
 							'the-events-calendar'
 						),
-                        '<strong><a href="https://m.tri.be/18jg" target="_blank">' . esc_html__( "Themer's Guide", 'the-events-calendar' ) . '</a></strong>'
+                        '<strong><a href="https://evnt.is/18jg" target="_blank">' . esc_html__( "Themer's Guide", 'the-events-calendar' ) . '</a></strong>'
 					),
 
 					sprintf(
@@ -1460,7 +1461,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							'%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them.',
 							'the-events-calendar'
 						),
-                        '<strong><a href="https://m.tri.be/18jd" target="_blank">' . esc_html__( 'Using stylesheets and page templates', 'the-events-calendar' ) . '</a></strong>'
+                        '<strong><a href="https://evnt.is/18jd" target="_blank">' . esc_html__( 'Using stylesheets and page templates', 'the-events-calendar' ) . '</a></strong>'
 					),
 
 					sprintf(
@@ -1468,7 +1469,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							'%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it.',
 							'the-events-calendar'
 						),
-                        '<strong><a href="https://m.tri.be/18jb" target="_blank">' . esc_html__( 'Troubleshooting common problems', 'the-events-calendar' ) . '</a></strong>'
+                        '<strong><a href="https://evnt.is/18jb" target="_blank">' . esc_html__( 'Troubleshooting common problems', 'the-events-calendar' ) . '</a></strong>'
 					),
 
 					sprintf(
@@ -1476,7 +1477,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							'%s: Code and guides for customizing your calendar in useful and interesting ways.',
 							'the-events-calendar'
 						),
-                        '<strong><a href="https://m.tri.be/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>'
+                        '<strong><a href="https://evnt.is/18ja" target="_blank">' . esc_html__( 'Customizing the Events plugins', 'the-events-calendar' ) . '</a></strong>'
 					),
 				],
                 15
@@ -1497,7 +1498,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$link_et = '<a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">' . esc_html__( 'Events Tickets', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. ', 'the-events-calendar' ), $link_tec, $link_et ), 20 );
 
-				$link = '<a href="https://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="https://evnt.is/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays', 'the-events-calendar' ), $link ), 20 );
 
 			} elseif ( ! $help->is_active( [ 'events-calendar-pro', 'event-tickets' ] ) ) {
@@ -1505,13 +1506,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$link = '<a href="https://wordpress.org/support/plugin/the-events-calendar" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there.', 'the-events-calendar' ), $link ), 20 );
 
-				$link_forum = '<a href="https://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
-				$link_plus = '<a href="https://m.tri.be/18n0" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
+				$link_forum = '<a href="https://evnt.is/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
+				$link_plus = '<a href="https://evnt.is/18n0" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays.', 'the-events-calendar' ), $link_forum, $link_plus ), 20 );
 
 			} else {
 
-				$link = '<a href="https://m.tri.be/4w/" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
+				$link = '<a href="https://evnt.is/4w/" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
 				$help->add_section_content( 'extra-help', sprintf( __( 'If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week).', 'the-events-calendar' ), $link ), 20 );
 
 			}
@@ -1569,7 +1570,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Load the day view template tags
 		 * Loaded late due to potential upgrade conflict since moving them from pro
-		 * @TODO move this require to be with the rest of the template tag includes in 3.9
+		 *
+		 * @todo [BTRIA-620]: move this require to be with the rest of the template tag includes in 3.9
 		 */
 		public function init_day_view() {
 			// load day view functions
@@ -1972,7 +1974,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $classes
 		 *
 		 * @return array
-		 * @TODO move this to template class
+		 * @todo move this to template class
 		 */
 		public function body_class( $classes ) {
 			if ( get_query_var( 'post_type' ) == self::POSTTYPE ) {
@@ -1990,7 +1992,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $classes
 		 *
 		 * @return array
-		 * @TODO move this to template class
+		 * @todo move this to template class
 		 */
 		public function post_class( $classes ) {
 			global $post;
@@ -2179,6 +2181,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'item_updated'             => sprintf(
 						esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_event_label
 					),
+					'item_link'                => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link_description'    => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( 'A link to a particular %s.', 'the-events-calendar' ), $this->singular_event_label
+					),
 				]
 			);
 
@@ -2219,6 +2229,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'new_item_name'     => sprintf(
 						esc_html__( 'New %s Category Name', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link'         => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( '%s Category Link.', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link_description' => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( 'A link to a particular%s category.', 'the-events-calendar' ), $this->singular_event_label
 					),
 				]
 			);
@@ -2602,7 +2620,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function setup_l10n_strings() {
-			// @todo these members became deprecated in 4.4 - remove in future release
+			// @todo [BTRIA-605]: These members became deprecated in 4.4 - remove in future release.
 			$this->monthsFull      = Tribe__Date_Utils::get_localized_months_full();
 			$this->monthsShort     = Tribe__Date_Utils::get_localized_months_short();
 			$this->daysOfWeek      = Tribe__Date_Utils::get_localized_weekdays_full();
@@ -3762,7 +3780,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$post_type = Tribe__Events__Organizer::POSTTYPE;
 			}
 
-			// TODO update this verification to check all post_status <> 'trash'
+			// @todo [BTRIA-606]: Update this verification to check all post_status <> 'trash'.
 			$results = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish'", $post_type, $name ) );
 
 			return ( $results ) ? 0 : 1;

@@ -7,7 +7,7 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link http://m.tri.be/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @version 4.7
  *
@@ -53,7 +53,7 @@ $time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $ti
 $time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
 
 $cost = tribe_get_formatted_cost();
-$website = tribe_get_event_website_link();
+$website = tribe_get_event_website_link( $event_id );
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-details">

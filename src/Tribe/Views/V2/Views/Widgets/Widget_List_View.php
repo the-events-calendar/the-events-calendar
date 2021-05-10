@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\Messages;
 use Tribe__Context as Context;
 
 /**
- * Class List_Widget_View
+ * Class Widget_List_View
  *
  * @since   5.2.1
  *
@@ -39,9 +39,8 @@ class Widget_List_View extends Widget_View {
 	 * @return array<string,mixed> The arguments, ready to be set on the View repository instance.
 	 */
 	protected function setup_repository_args( Context $context = null ) {
-		$context = null !== $context ? $context : $this->context;
-
-		$args = parent::setup_repository_args( $context );
+		$context            = null !== $context ? $context : $this->context;
+		$args               = parent::setup_repository_args( $context );
 		$args['ends_after'] = 'now';
 
 		return $args;
@@ -58,11 +57,10 @@ class Widget_List_View extends Widget_View {
 		$template_vars = parent::setup_template_vars();
 
 		// Here update, add and remove from the default template vars.
-		$template_vars['view_more_link']             = tribe_get_events_link();
 		$template_vars['widget_title']               = $this->context->get( 'widget_title' );
 		$template_vars['hide_if_no_upcoming_events'] = $this->context->get( 'no_upcoming_events' );
-		$template_vars['jsonld_enable']              = (int) $this->context->get( 'jsonld_enable' );
 		$template_vars['show_latest_past']           = false;
+
 		// Display is modified with filters in Pro.
 		$template_vars['display'] = [];
 
@@ -85,7 +83,7 @@ class Widget_List_View extends Widget_View {
 	}
 
 	/**
-	 * Overrides the base method to return an empty array, since the widget will not use breadcrubms.
+	 * Overrides the base method to return an empty array, since the widget will not use breadcrumbs.
 	 *
 	 * @since 5.3.0
 	 *

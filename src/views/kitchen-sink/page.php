@@ -4,7 +4,7 @@
  *
  * Displays all the styles applied to all UI components.
  *
- * @link http://m.tri.be/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @version 4.2
  *

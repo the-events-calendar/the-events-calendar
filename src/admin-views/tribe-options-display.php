@@ -36,7 +36,7 @@ $stylesheet_choices = [
 ];
 
 
-// If V2 is ensabled, we don't show the (redundant) 'full' option
+// If V2 is enabled, we don't show the (redundant) 'full' option
 if ( tribe_events_views_v2_is_enabled() ) {
 	unset( $stylesheet_choices[ 'full' ] ) ;
 }
@@ -51,7 +51,7 @@ $stylesheet_option = [
 
 $stylesheet_mode = [ 'type' => 'html'];
 
-// If V2 is ensabled, we swap the options so we don't overwrite. For backwards compatibility.
+// If V2 is enabled, we swap the options so we don't overwrite. For backwards compatibility.
 if ( tribe_events_views_v2_is_enabled() ) {
 	$stylesheet_mode = $stylesheet_option;
 	$stylesheet_option = [ 'type' => 'html' ];
@@ -258,7 +258,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'monthEventAmount'        => [
 			'type'            => 'text',
 			'label'           => __( 'Month view events per day', 'the-events-calendar' ),
-			'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'https://m.tri.be/rh' ),
+			'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'https://evnt.is/rh' ),
 			'validation_type' => 'int',
 			'size'            => 'small',
 			'default'         => '3',
@@ -266,7 +266,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 		'enable_month_view_cache' => [
 			'type'            => 'checkbox_bool',
 			'label'           => __( 'Enable the Month View Cache', 'the-events-calendar' ),
-			'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'https://m.tri.be/18di' ),
+			'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'https://evnt.is/18di' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
 		],

@@ -151,3 +151,43 @@ function tribe_events_widgets_v2_is_enabled() {
 	 */
 	return apply_filters( 'tribe_events_widgets_v2_is_enabled', true );
 }
+
+/**
+ * Checks whether to disable V2 Single Event styles overrides.
+ *
+ * In order the function will check the `TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED` constant,
+ * the `TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED` environment variable.
+ *
+ * Note the internal logic is inverted, as the name of the function is "...is_enabled"
+ * while the names of the constant/env_var are "...DISABLED".
+ *
+ * @since 5.5.0
+ *
+ * @return bool Whether Single Event v2 styles overrides should load.
+ */
+function tribe_events_single_view_v2_is_enabled() {
+	// Must have v2 views active.
+	if ( ! tribe_events_views_v2_is_enabled() ) {
+		return false;
+	}
+
+	// If the constant is defined, returns the opposite of the constant.
+	if ( defined( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' ) ) {
+		return (bool) ! TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED;
+	}
+
+	// Allow env_var to short-circuit for testing.
+	$env_var = (bool) getenv( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' );
+	if ( false !== $env_var ) {
+		return ! $env_var;
+	}
+
+	/**
+	 * Allows toggling of the single event v2 overrides via a filter. Defaults to true.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return boolean Do we enable the single event styles overrides?
+	 */
+	return apply_filters( 'tribe_events_single_view_v2_is_enabled', true );
+}

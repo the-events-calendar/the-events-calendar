@@ -12,7 +12,7 @@
  *
  * @package  TribeEventsCalendar
  *
- * @link http://m.tri.be/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @version 4.6.26
  */

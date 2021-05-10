@@ -207,7 +207,7 @@ tribe.events.views.breakpoints = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
-			data = JSON.parse( $.trim( $data.text() ) );
+			data = JSON.parse( $data.text().trim() );
 		}
 
 		obj.initTasks( $container, data );
@@ -225,5 +225,5 @@ tribe.events.views.breakpoints = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.breakpoints );

@@ -164,6 +164,19 @@ class Tribe__Events__Aggregator__Service {
 		// Enforce Key on the Query Data
 		$data['key'] = $api->key;
 
+		/**
+		 * Allow to filter the variable used to build the URL with `add_query_arg` to insert or change
+		 * values as required.
+		 *
+		 * @since 5.4.0
+		 *
+		 * @param array<string, mixed> $data     An array with the data to build the URL.
+		 * @param string               $endpoint The endpoint used to construct the URL.
+		 *
+		 * @return array<string, mixed> An array with the data used to build the URL.
+		 */
+		$data = apply_filters( 'tribe_aggregator_build_url_data', $data, $endpoint );
+
 		// If we have data we add it
 		return add_query_arg( $data, $this->base_url( $endpoint, $api ) );
 	}
@@ -758,8 +771,8 @@ class Tribe__Events__Aggregator__Service {
 		);
 
 		$meetup_api_changes_link = sprintf(
-			'<a href="https://m.tri.be/1afb">%s</a>',
-			esc_html__( 'https://m.tri.be/1afb', 'the-events-calendar' )
+			'<a href="https://evnt.is/1afb">%s</a>',
+			esc_html__( 'https://evnt.is/1afb', 'the-events-calendar' )
 		);
 
 		$this->service_messages = [

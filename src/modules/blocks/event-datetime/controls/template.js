@@ -14,7 +14,6 @@ import {
 	ToggleControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -22,6 +21,8 @@ import { InspectorControls } from '@wordpress/editor';
 import {
 	date,
 } from '@moderntribe/common/utils';
+import { wpEditor } from '@moderntribe/common/utils/globals';
+const { InspectorControls } = wpEditor;
 
 /**
  * Module Code

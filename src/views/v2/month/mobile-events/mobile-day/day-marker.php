@@ -7,23 +7,33 @@
  *
  * See more documentation about our views templating system.
  *
- * @link http://m.tri.be/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @since 4.9.4
- * @since 5.1.5 Utilize\Tribe\Utils\Date_I18n_Immutable's format_i18n method for date display.
+ * @since 5.1.5 format_i18n method from Utilize\Tribe\Utils\Date_I18n_Immutable for date display.
+ * @since 4.6.0   Add logic around date separator to alow for displaying multiple days in the list.
  *
- * @version 5.1.5
+ * @version 4.6.0
  *
- * @var string $day_date Date for this marker, following `Y-m-d` format.
+ * @var string $request_date Date for the day displayed. May not be the same as the event date.
  *
  */
 use Tribe__Date_Utils as Dates;
 
-if ( ! isset( $day_date ) ) {
+
+use Tribe\Events\Views\V2\Utils;
+
+if ( empty( $is_past ) && ! empty ( $request_date ) ) {
+	$should_have_day_separator = Utils\Separators::should_have_day( $this->get( 'events' ), $event, $request_date );
+} else {
+	$should_have_day_separator = Utils\Separators::should_have_day( $this->get( 'events' ), $event );
+}
+
+if ( ! $should_have_day_separator ) {
 	return;
 }
 
-$day_date_obj = Dates::build_date_object( $day_date );
+$day_date_obj = Dates::build_date_object( $event->dates->start_display );
 ?>
 <div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
 	<time

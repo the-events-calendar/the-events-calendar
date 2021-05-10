@@ -128,14 +128,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			}
 		}
 
+		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
+
 		/** @var Tribe__Cache $cache */
 		$cache     = tribe( 'cache' );
-		$cache_key = 'rest_get_organizers_data_' . get_current_user_id() . '_' . wp_json_encode( $args );
+		$cache_key = 'rest_get_organizers_data_' . get_current_user_id() . '_' . wp_json_encode( $args ) . '_' . $only_with_upcoming . '_' . $posts_per_page;
 
 		$data = $cache->get( $cache_key, 'save_post' );
 
 		if ( ! is_array( $data ) ) {
-			$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 			$organizers = isset( $organizers ) ? $organizers : tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
 
 			unset( $args['fields'] );

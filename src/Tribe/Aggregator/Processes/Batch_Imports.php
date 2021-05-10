@@ -83,24 +83,4 @@ class Batch_Imports {
 
 		return false;
 	}
-
-	/**
-	 * Update the args used for imports.
-	 *
-	 * TODO: Update EventBrite to use batch pushing to deliver events instead.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @param array<string, mixed>               $args   Arguments to queue the import.
-	 * @param Tribe__Events__Aggregator__Service $record Which record we are dealing with.
-	 *
-	 * @return mixed
-	 */
-	public function import_args( $args, $record ) {
-		if ( isset( $args['callback'] ) ) {
-			$args['callback'] = null;
-		}
-
-		return $args;
-	}
 }
