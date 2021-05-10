@@ -13,7 +13,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-1"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -61,7 +63,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-2"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -109,7 +113,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="true"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-3"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -157,7 +163,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-4"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -205,7 +213,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-5"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -253,7 +263,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-6"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -301,7 +313,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-7"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -355,7 +369,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-8"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -403,7 +419,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-9"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -451,7 +469,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-10"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -499,7 +519,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-11"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -547,7 +569,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-12"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -595,7 +619,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-13"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -643,7 +669,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-14"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -697,7 +725,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-15"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -745,7 +775,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-16"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -793,7 +825,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-17"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -841,7 +875,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-18"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -889,7 +925,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-19"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -937,7 +975,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-20"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -985,7 +1025,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-21"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1039,7 +1081,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-22"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1087,7 +1131,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-23"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1135,7 +1181,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-24"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1183,7 +1231,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-25"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1231,7 +1281,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-26"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1279,7 +1331,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-27"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1327,7 +1381,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-28"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1381,7 +1437,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-29"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1429,7 +1487,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-30"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1477,7 +1537,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-7-31"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1525,7 +1587,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-8-1"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1573,7 +1637,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-8-2"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1621,7 +1687,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-8-3"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1669,7 +1737,9 @@
 >
 
 	<button
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="false"
+		aria-controls="tribe-events-calendar-mobile-day-2019-8-4"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
