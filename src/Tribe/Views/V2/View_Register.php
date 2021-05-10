@@ -80,6 +80,7 @@ class View_Register {
 	 */
 	protected function add_filters() {
 		add_filter( 'tribe_events_views', [ $this, 'filter_events_views' ] );
+		add_filter( 'tribe-events-bar-views', [ $this, 'filter_tec_bar_views' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_base_slugs', [ $this, 'filter_add_base_slugs' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_add_matchers_to_query_vars_map' ], $this->priority, 2 );
 	}
@@ -160,6 +161,26 @@ class View_Register {
 	 */
 	public function filter_events_views( array $views = [] ) {
 		$views[ $this->slug ] = $this->class;
+
+		return $views;
+	}
+
+	/**
+	 * Add the view to the views selector in the TEC bar.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $views The current array of views registered to the tribe bar.
+	 *
+	 * @return array The views registered with photo view added.
+	 */
+	public function filter_tec_bar_views( $views ) {
+		$views[] = [
+			'displaying'     => $this->slug,
+			'anchor'         => $this->name,
+			'event_bar_hook' => 'tribe_events_before_template',
+			'url'            => \tribe_get_view_permalink( $this->slug ),
+		];
 
 		return $views;
 	}
