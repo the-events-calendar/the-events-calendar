@@ -329,4 +329,74 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $expected, $invalid_url_view->get_url_args() );
 	}
+
+	/**
+	 * It should correctly restore the loop
+	 *
+	 * @test
+	 */
+	public function should_correctly_restore_the_loop() {
+		// Let's register the test view as legit View.
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		// Set up the pre-view render context.
+		global $wp_query;
+		$page_name              = 'some-test-page';
+		$page_id                = static::factory()->post->create( [
+			'post_type' => 'page',
+			'post_name' => $page_name,
+		] );
+		$original_wp_query      = new \WP_Query( [ 'p' => $page_id ] );
+		$wp_query               = $original_wp_query;
+		$original_request_uri   = "/{$page_name}";
+		$_SERVER['REQUEST_URI'] = $original_request_uri;
+
+		$view = View::make( 'list' );
+		$view->setup_the_loop();
+
+		// We do not  care about the specifics, only that it changed.
+		$this->assertNotSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertNotEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+
+		$view->restore_the_loop();
+
+		$this->assertSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+	}
+
+	/**
+	 * It should correctly restore the loop when set up with args
+	 *
+	 * @test
+	 */
+	public function should_correctly_restore_the_loop_when_set_up_with_args() {
+		// Let's register the test view as legit View.
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		// Set up the pre-view render context.
+		global $wp_query;
+		$page_name              = 'some-test-page';
+		$page_id                = static::factory()->post->create( [
+			'post_type' => 'page',
+			'post_name' => $page_name,
+		] );
+		$original_wp_query      = new \WP_Query( [ 'p' => $page_id ] );
+		$wp_query               = $original_wp_query;
+		$original_request_uri   = "/{$page_name}";
+		$_SERVER['REQUEST_URI'] = $original_request_uri;
+
+		$view = View::make( 'list' );
+		$view->setup_the_loop( [ 'eventDate' => '2020-01-01', 'tribe-bar-search' => 'lorem' ] );
+
+		// We do not  care about the specifics, only that it changed.
+		$this->assertNotSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertNotEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+
+		$view->restore_the_loop();
+
+		$this->assertSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+	}
 }

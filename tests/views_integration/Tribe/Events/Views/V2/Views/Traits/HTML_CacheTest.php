@@ -4,8 +4,11 @@ namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Views\V2\View;
+use Tribe\Test\Products\Traits\With_Context;
 
 class HTML_CacheTest extends \Codeception\TestCase\WPTestCase {
+	use With_Context;
+
 	/**
 	 * @var HTML_Cache
 	 */
@@ -28,6 +31,12 @@ class HTML_CacheTest extends \Codeception\TestCase\WPTestCase {
 		while ( tribe_events()->found() ) {
 			tribe_events()->delete();
 		}
+		tribe_singleton( 'context', new \Tribe__Context() );
+		$this->backup_context();
+	}
+
+	public function tearDown(  ) {
+		$this->restore_context();
 	}
 
 	/**
