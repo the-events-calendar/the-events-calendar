@@ -30,6 +30,8 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $rewrite;
 
+	public static $original_permalink_structure;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -50,13 +52,19 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 		// Let's create some terms that we'll be using.
 		wp_insert_term( 'bacon', 'post_tag' );
 		wp_insert_term( 'potato', 'tribe_events_cat' );
+
+		static::$original_permalink_structure = get_option( 'permalink_structure' );
+		update_option( 'permalink_structure', '/%postname%/' );
+		flush_rewrite_rules();
 	}
 
-	public function tearDown() {
+	public static function tearDownAfterClass() {
 		global $wp, $wp_rewrite;
 		$wp->public_query_vars = static::$wp_public_query_vars;
 		$wp_rewrite            = static::$wp_rewrite;
-		parent::tearDown();
+		update_option( 'permalink_structure', static::$original_permalink_structure );
+		flush_rewrite_rules();
+		parent::tearDownAfterClass();
 	}
 
 	/**
@@ -94,6 +102,9 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 		$rewrite->rules = null;
 		$rewrite->setup( $wp_rewrite );
 
+		$original_rewrite = tribe( 'events.rewrite' );
+		tribe_register( 'events.rewrite', $rewrite );
+
 		flush_rewrite_rules();
 
 		$pretty_archive_url = home_url( $url );
@@ -104,6 +115,8 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( $args, $parsed );
 		$this->assertEquals( $pretty_archive_url, $canonical_url );
+
+		tribe_register( 'events.rewrite', $original_rewrite );
 	}
 
 	public function endpoint_provider() {
