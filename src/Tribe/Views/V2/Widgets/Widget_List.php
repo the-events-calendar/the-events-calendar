@@ -9,7 +9,6 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe\Events\Views\V2\Assets;
 use Tribe__Context as Context;
 
 /**
@@ -103,6 +102,40 @@ class Widget_List extends Widget_Abstract {
 		$this->default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
 
 		return $this->default_arguments;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function add_hooks() {
+		parent::add_hooks();
+
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_styles', '__return_true' );
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups' ] );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function remove_hooks() {
+		parent::remove_hooks();
+
+		remove_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups'] );
+	}
+
+	/**
+	 * Add this widget's css group to the VE list of widget groups to load icon styles for.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param array<string> $widgets The list of widgets
+	 *
+	 * @return array<string> The modified list of widgets.
+	 */
+	public function add_self_to_virtual_widget_groups( $groups ) {
+		$groups[] = static::get_css_group();
+
+		return $groups;
 	}
 
 	/**

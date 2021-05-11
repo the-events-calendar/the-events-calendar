@@ -41,6 +41,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Template\JSON_LD::class, Template\JSON_LD::class );
 		$this->container->singleton( Customizer::class, Customizer::class );
 
+		tribe_register_provider( Widgets\Service_Provider::class );
+
 		$this->register_hooks();
 		$this->register_assets();
 

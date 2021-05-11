@@ -138,35 +138,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 			]
 		);
 
-		tribe_asset(
-			$plugin,
-			'tribe-events-widgets-v2-events-list-skeleton',
-			'widget-events-list-skeleton.css',
-			[
-				'tribe-common-skeleton-style'
-			],
-			null,
-			[
-				'priority' => 15,
-				'print'    => true,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-widgets-v2-events-list-full',
-			'widget-events-list-full.css',
-			[
-				'tribe-common-full-style',
-				'tribe-events-widgets-v2-events-list-skeleton',
-			],
-			null,
-			[
-				'priority' => 15,
-				'print'    => true,
-			]
-		);
-
 		$bootstrap_datepicker_dependencies = [ 'jquery' ];
 		if ( static::datepicker_no_conflict_mode() ) {
 			$bootstrap_datepicker_dependencies[] = 'jquery-ui-datepicker';
@@ -431,7 +402,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			[],
 			'wp_enqueue_scripts',
 			[
-				'priority' => 15,
+				'priority'     => 15,
 				'conditionals' => [
 					[ $this, 'should_enqueue_single_event_styles' ],
 				],
@@ -447,9 +418,11 @@ class Assets extends \tad_DI52_ServiceProvider {
 			],
 			'wp_enqueue_scripts',
 			[
-				'priority' => 15,
+				'priority'     => 15,
 				'conditionals' => [
+					'operator' => 'AND',
 					[ $this, 'should_enqueue_single_event_styles' ],
+					[ $this, 'should_enqueue_full_styles' ],
 				],
 			]
 		);
@@ -531,7 +504,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Verifies if we dont have skeleton active, which will trigger true for the two other possible options.
+	 * Verifies if we don't have skeleton active, which will trigger true for the two other possible options.
 	 * Options:
 	 * - `full` - Deprecated
 	 * - `tribe`  - All styles load
