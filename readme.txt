@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.6.1] TBD =
 
 * Fix - Resolve conflicts with Gravity Forms plugin that would prevent correct submission of forms data. [ECP-466]
+* Fix - Correctly handle start and end of day cutoff in Day View when the server timezone is not the same as the site (thanks @therealgilles). [TEC-3877]
 * Fix - Do not remove the `archive` body class from post tag and category pages when using Page as Event Template. [TEC-3846]
 * Tweak - Reduced the usage of the word "onwards" on list-style view date range headings where simpler headings are better suited. [TEC-3831]
 * Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
