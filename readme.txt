@@ -225,6 +225,9 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Apply responsive breakpoints once the page has fully loaded with all JavaScript and Elements on the page [TEC-3797]
 * Fix - Resolve conflicts with Gravity Forms plugin that would prevent correct submission of forms data. [ECP-466]
+* Fix - Correctly handle start and end of day cutoff in Day View when the server timezone is not the same as the site (thanks @therealgilles). [TEC-3877]
+* Fix - Do not remove the `archive` body class from post tag and category pages when using Page as Event Template. [TEC-3846]
+* Fix - Correctly translate calendar view in WPML language switcher (thanks @dgwatkins). [TEC-3810]
 * Tweak - Reduced the usage of the word "onwards" on list-style view date range headings where simpler headings are better suited. [TEC-3831]
 * Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
 * Tweak - Display a message to let visitors know the selected Month View day has no events in mobile. [TEC-3812]
