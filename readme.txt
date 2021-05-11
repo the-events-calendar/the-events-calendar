@@ -223,13 +223,13 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.6.1] TBD =
 
-				* Fix - Apply responsive breakpoints once the page has fully load with all JavaScript and Elements on the page [TEC-3797]
+* Fix - Apply responsive breakpoints once the page has fully loaded with all JavaScript and Elements on the page [TEC-3797]
 * Fix - Resolve conflicts with Gravity Forms plugin that would prevent correct submission of forms data. [ECP-466]
 * Tweak - Reduced the usage of the word "onwards" on list-style view date range headings where simpler headings are better suited. [TEC-3831]
 * Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
 * Tweak - Display a message to let visitors know the selected Month View day has no events in mobile. [TEC-3812]
 * Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
-* Tewak - Filter the type of files allowed to upload into the EA Client [TEC-3882]
+* Tweak - Filter the type of files allowed to upload into the EA Client [TEC-3882]
 
 = [5.6.0] 2021-04-29 =
 
