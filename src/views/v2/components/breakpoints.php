@@ -20,7 +20,7 @@ if ( ! $is_initial_load ) {
 }
 ?>
 <script class="tribe-events-breakpoints">
-	(function () {
+	( function () {
 		var completed = false;
 
 		function initBreakpoints() {
