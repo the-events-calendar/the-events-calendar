@@ -18,13 +18,13 @@
 			opacity: var(--opacity-icon-active);
 		}
 	}
-	
+
 	.tribe-events-c-top-bar__datepicker-button-icon-svg {
 		display: block;
 		margin-left: var(--spacer-1);
 		height: 6px;
 		width: 9px;
-		
+
 		.tribe-common--breakpoint-medium& {
 			height: 8px;
 			width: 11px;
@@ -47,27 +47,47 @@
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-	 
+
 	.tribe-theme-twentyseventeen.colors-dark & {
-		
+
 		.tribe-events-c-top-bar__datepicker-button,
 		.tribe-events-c-top-bar__nav-link {
 			background-color: transparent;
 		}
 	}
-	
+
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Genesis
 	 * ----------------------------------------------------------------------------- */
-	
+
 	.tribe-theme-genesis & {
-		
+
 		.tribe-events-c-top-bar__nav-link {
 			&:disabled,
 			&:hover,
 			&:focus {
 				background-color: transparent;
 			}
+		}
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * Theme Overrides - Twenty Twenty One
+ * ----------------------------------------------------------------------------- */
+.tribe-theme-twentytwentyone {
+	button.tribe-events-c-top-bar__datepicker-button:focus {
+		outline-offset: 0;
+	}
+
+	.tribe-events {
+		/* Higher level of specificity to avoid using !import and override the theme styles. */
+		a.tribe-events-c-top-bar__nav-link--next.tribe-events-c-top-bar__nav-link:focus {
+			background: transparent;
+		}
+
+		a.tribe-events-c-top-bar__nav-link--prev.tribe-events-c-top-bar__nav-link:focus {
+			background: transparent;
 		}
 	}
 }
