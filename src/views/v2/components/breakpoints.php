@@ -26,7 +26,7 @@ if ( ! $is_initial_load ) {
 		function initBreakpoints() {
 			if ( completed ) {
 				// This was fired already and completed no need to attach to the event listener.
-				document.removeEventListener('DOMContentLoaded', initBreakpoints);
+				document.removeEventListener( 'DOMContentLoaded', initBreakpoints );
 				return;
 			}
 
