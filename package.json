@@ -144,6 +144,7 @@
     "url-loader": "^0.6.2",
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3"
+    "zero-fill": "^2.2.3",
+    "mt-a11y-dialog": "^5.1.1"
   }
 }
