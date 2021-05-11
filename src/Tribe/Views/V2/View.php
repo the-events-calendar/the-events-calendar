@@ -1004,8 +1004,8 @@ class View implements View_Interface {
 		global $wp_query;
 
 		$this->global_backup = [
-			'wp_query'   => $wp_query,
-			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : []
+			'globals::wp_query'   => $wp_query,
+			'server::request_uri' => isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '',
 		];
 
 		$args = wp_parse_args( $args, $this->repository_args );
@@ -1034,8 +1034,11 @@ class View implements View_Interface {
 			return;
 		}
 
-		foreach ( $this->global_backup as $key => $value ) {
-			$GLOBALS[ $key ] = $value;
+		if ( isset( $this->global_backup['globals::wp_query'] ) ) {
+			$GLOBALS['wp_query'] = $this->global_backup['globals::wp_query'];
+		}
+		if ( isset( $this->global_backup['server::request_uri'] ) ) {
+			$_SERVER['REQUEST_URI'] = $this->global_backup['server::request_uri'];
 		}
 
 		wp_reset_postdata();
