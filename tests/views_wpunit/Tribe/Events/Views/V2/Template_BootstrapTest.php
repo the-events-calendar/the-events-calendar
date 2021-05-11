@@ -528,14 +528,13 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * @dataProvider page_template_tax_archive_body_classes_provider
 	 */
-	public function should_correctly_filter_body_classes_for_tax_archives_when_using_page_template
-	(
+	public function should_correctly_filter_body_classes_for_tax_archives_when_using_page_template(
 		$initial_body_classes,
 		$setup,
 		$expected
 	) {
 		$setup();
-		$template      = tribe_update_option( 'tribeEventsTemplate', 'page' );
+		$template              = tribe_update_option( 'tribeEventsTemplate', 'page' );
 		$template_bootstrap    = $this->make_instance();
 		$filtered_body_classes = $template_bootstrap->filter_add_body_classes( $initial_body_classes );
 
