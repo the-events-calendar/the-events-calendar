@@ -30,7 +30,7 @@ tribe.events.views.manager = {};
  * @return {void}
  */
 ( function( $, _, obj ) {
-	const $window = $( window );
+	var $window = $( window );
 
 	/**
 	 * Selectors used for configuration and setup
@@ -98,10 +98,10 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.cleanup = function( container ) {
-		const $container = $( container );
-		const $form = $container.find( obj.selectors.form );
-		const $data = $container.find( obj.selectors.dataScript );
-		let data  = {};
+		var $container = $( container );
+		var $form = $container.find( obj.selectors.form );
+		var $data = $container.find( obj.selectors.dataScript );
+		var data  = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
@@ -132,10 +132,10 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.setup = function( index, container ) {
-		const $container = $( container );
-		const $form = $container.find( obj.selectors.form );
-		const $data = $container.find( obj.selectors.dataScript );
-		let data  = {};
+		var $container = $( container );
+		var $form = $container.find( obj.selectors.form );
+		var $data = $container.find( obj.selectors.dataScript );
+		var data  = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
@@ -164,7 +164,7 @@ tribe.events.views.manager = {};
 	 * @return {jQuery}
 	 */
 	obj.getContainer = function( element ) {
-		const $element = $( element );
+		var $element = $( element );
 
 		if ( ! $element.is( obj.selectors.container ) ) {
 			return $element.parents( obj.selectors.container ).eq( 0 );
@@ -183,14 +183,14 @@ tribe.events.views.manager = {};
 	 * @return {mixed}
 	 */
 	obj.getContainerData = function( $container ) {
-		const $data = $container.find( obj.selectors.dataScript );
+		var $data = $container.find( obj.selectors.dataScript );
 
 		// Bail in case we dont find data script.
 		if ( ! $data.length ) {
 			return;
 		}
 
-		const data = JSON.parse( $data.text().trim() );
+		var data = JSON.parse( $data.text().trim() );
 
 		return data;
 	};
@@ -205,8 +205,8 @@ tribe.events.views.manager = {};
 	 * @return {Boolean}
 	 */
 	obj.shouldManageUrl = function( $container ) {
-		let shouldManageUrl = $container.data( 'view-manage-url' );
-		const tribeIsTruthy   = /^(true|1|on|yes)$/;
+		var shouldManageUrl = $container.data( 'view-manage-url' );
+		var tribeIsTruthy   = /^(true|1|on|yes)$/;
 
 		// When undefined we use true as the default.
 		if ( typeof shouldManageUrl === typeof undefined ) {
@@ -243,14 +243,14 @@ tribe.events.views.manager = {};
 			return;
 		}
 
-		const $data = $container.find( obj.selectors.dataScript );
+		var $data = $container.find( obj.selectors.dataScript );
 
 		// Bail in case we dont find data script.
 		if ( ! $data.length ) {
 			return;
 		}
 
-		const data = JSON.parse( $data.text().trim() );
+		var data = JSON.parse( $data.text().trim() );
 
 		// Bail when the data is not a valid object
 		if ( ! _.isObject( data ) ) {
@@ -286,27 +286,27 @@ tribe.events.views.manager = {};
 	 * @return {boolean}
 	 */
 	obj.onLinkClick = function( event ) {
-		const $container = obj.getContainer( this );
+		var $container = obj.getContainer( this );
 
 		$container.trigger( 'beforeOnLinkClick.tribeEvents', event );
 
 		event.preventDefault();
 
-		const containerData = obj.getContainerData( $container );
+		var containerData = obj.getContainerData( $container );
 
-		const $link = $( this );
-		const url = $link.attr( 'href' );
-		const currentUrl = containerData.prev_url;
-		let nonce = $link.data( 'view-rest-nonce' );
-		const shouldManageUrl = obj.shouldManageUrl( $container );
-		const shortcodeId = $container.data( 'view-shortcode' );
+		var $link = $( this );
+		var url = $link.attr( 'href' );
+		var currentUrl = containerData.prev_url;
+		var nonce = $link.data( 'view-rest-nonce' );
+		var shouldManageUrl = obj.shouldManageUrl( $container );
+		var shortcodeId = $container.data( 'view-shortcode' );
 
 		// Fetch nonce from container if the link doesn't have any
 		if ( ! nonce ) {
 			nonce = $container.data( 'view-rest-nonce' );
 		}
 
-		const data = {
+		var data = {
 			prev_url: encodeURI( decodeURI( currentUrl ) ),
 			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
@@ -336,18 +336,18 @@ tribe.events.views.manager = {};
 	 * @return {boolean}
 	 */
 	obj.onSubmit = function( event ) {
-		const $container = obj.getContainer( this );
+		var $container = obj.getContainer( this );
 		$container.trigger( 'beforeOnSubmit.tribeEvents', event );
 
 		event.preventDefault();
 
 		// The submit event is triggered on the form, not the container.
-		const $form = $( this );
-		const nonce = $container.data( 'view-rest-nonce' );
+		var $form = $( this );
+		var nonce = $container.data( 'view-rest-nonce' );
 
-		const formData = Qs.parse( $form.serialize() );
+		var formData = Qs.parse( $form.serialize() );
 
-		const data = {
+		var data = {
 			view_data: formData[ 'tribe-events-views' ],
 			_wpnonce: nonce,
 		};
@@ -372,9 +372,9 @@ tribe.events.views.manager = {};
 	 * @return {boolean}     Will always return false on this one.
 	 */
 	obj.onPopState = function( event ) {
-		const target = event.originalEvent.target;
-		const url = target.location.href;
-		const $container = obj.getLastContainer();
+		var target = event.originalEvent.target;
+		var url = target.location.href;
+		var $container = obj.getLastContainer();
 
 		// A pop state from a hash inside of the same URL has been trigger like #content  so no request is required.
 		if ( url && url.split( '#' ).length >= 2 ) {
@@ -394,9 +394,9 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforePopState.tribeEvents', event );
 
-		const nonce = $container.data( 'view-rest-nonce' );
+		var nonce = $container.data( 'view-rest-nonce' );
 
-		const data = {
+		var data = {
 			url: url,
 			_wpnonce: nonce,
 		};
@@ -417,8 +417,8 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.setupRequestData = function( data, $container ) {
-		const shouldManageUrl = obj.shouldManageUrl( $container );
-		const containerData = obj.getContainerData( $container );
+		var shouldManageUrl = obj.shouldManageUrl( $container );
+		var containerData = obj.getContainerData( $container );
 
 		if ( ! data.url ) {
 			data.url = containerData.url;
@@ -431,7 +431,7 @@ tribe.events.views.manager = {};
 		data.should_manage_url = shouldManageUrl;
 
 		// Allow other values to be passed to request from container data.
-		const requestData = $container.data( 'tribeRequestData' );
+		var requestData = $container.data( 'tribeRequestData' );
 
 		if ( ! $.isPlainObject( requestData ) ) {
 			return data;
@@ -454,7 +454,7 @@ tribe.events.views.manager = {};
 	obj.request = function( data, $container ) {
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
 
-		const settings = obj.getAjaxSettings( $container );
+		var settings = obj.getAjaxSettings( $container );
 
 		// Pass the data setup to the $.ajax settings
 		settings.data = obj.setupRequestData( data, $container );
@@ -474,7 +474,7 @@ tribe.events.views.manager = {};
 	 * @return {Object}
 	 */
 	obj.getAjaxSettings = function( $container ) {
-		const ajaxSettings = {
+		var ajaxSettings = {
 			url: $container.data( 'view-rest-url' ),
 			accepts: 'html',
 			dataType: 'html',
@@ -505,14 +505,14 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxBeforeSend = function( jqXHR, settings ) {
-		const $container = this;
-		const $loader = $container.find( obj.selectors.loader );
+		var $container = this;
+		var $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 
 		if ( $loader.length ) {
 			$loader.removeClass( obj.selectors.hiddenElement.className() );
-			const $loaderText = $loader.find( obj.selectors.loaderText );
+			var $loaderText = $loader.find( obj.selectors.loaderText );
 			$loaderText.text( $loaderText.text() );
 		}
 		$container.attr( 'aria-busy', 'true' );
@@ -535,8 +535,8 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxComplete = function( jqXHR, textStatus ) {
-		const $container = this;
-		const $loader = $container.find( obj.selectors.loader );
+		var $container = this;
+		var $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 
@@ -572,11 +572,11 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxSuccess = function( data, textStatus, jqXHR ) {
-		let $container = this;
+		var $container = this;
 
 		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
-		const $html = $( data );
+		var $html = $( data );
 
 		// Clean up the container and event listeners
 		obj.cleanup( $container );
@@ -617,7 +617,7 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.ajaxError = function( jqXHR, settings ) {
-		const $container = this;
+		var $container = this;
 
 		$container.trigger( 'beforeAjaxError.tribeEvents', [ jqXHR, settings ] );
 
