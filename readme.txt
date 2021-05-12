@@ -227,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correctly handle start and end of day cutoff in Day View when the server timezone is not the same as the site (thanks @therealgilles). [TEC-3877]
 * Fix - Do not remove the `archive` body class from post tag and category pages when using Page as Event Template. [TEC-3846]
 * Fix - Correctly translate calendar view in WPML language switcher (thanks @dgwatkins). [TEC-3810]
+* Fix - Make sure events from latest past events display the featured image correctly. [TEC-3655]
 * Tweak - Reduced the usage of the word "onwards" on list-style view date range headings where simpler headings are better suited. [TEC-3831]
 * Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
 * Tweak - Display a message to let visitors know the selected Month View day has no events in mobile. [TEC-3812]
