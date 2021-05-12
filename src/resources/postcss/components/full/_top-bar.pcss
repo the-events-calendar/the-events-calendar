@@ -70,22 +70,18 @@
 			}
 		}
 	}
-}
 
-/* -----------------------------------------------------------------------------
- * Theme Overrides - Twenty Twenty One
- * ----------------------------------------------------------------------------- */
-.tribe-theme-twentytwentyone {
-	button.tribe-events-c-top-bar__datepicker-button:focus {
-		outline-offset: 0;
-	}
 
-	.tribe-events {
-		/* Higher level of specificity to avoid using !important and override the theme styles. */
-		a.tribe-events-c-top-bar__nav-link--next.tribe-events-c-top-bar__nav-link:focus {
-			background: transparent;
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Twenty One
+	 * ----------------------------------------------------------------------------- */
+	.tribe-theme-twentytwentyone & {
+		button.tribe-events-c-top-bar__datepicker-button:focus {
+			outline-offset: 0;
 		}
 
+		/* Higher level of specificity to avoid using !important and override the theme styles. */
+		a.tribe-events-c-top-bar__nav-link--next.tribe-events-c-top-bar__nav-link:focus,
 		a.tribe-events-c-top-bar__nav-link--prev.tribe-events-c-top-bar__nav-link:focus {
 			background: transparent;
 		}
