@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
 * Tweak - Filter the type of files allowed to upload into the EA Client. [TEC-3882]
 * Tweak - Updating lodash to 4.17.21. [TEC-3885]
+* Tweak - Prevent to list changes of hash on URL changes like `#content` [TEC-3890]
 
 = [5.6.0] 2021-04-29 =
 
