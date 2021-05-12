@@ -41,12 +41,16 @@ class EventUpdateCest extends BaseRestCest
 
 		$start = 'tomorrow 9am';
 		$end = 'tomorrow 11am';
+
+		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
+		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => $start_date,
+			'end_date'    => $end_date,
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -55,10 +59,10 @@ class EventUpdateCest extends BaseRestCest
 			'title'          => 'An event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
 			'excerpt'        => trim( apply_filters( 'the_excerpt', 'An event excerpt' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $start_date,
+			'end_date'       => $end_date,
+			'utc_start_date' => Timezones::convert_date_from_timezone( $start_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $end_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
@@ -78,13 +82,17 @@ class EventUpdateCest extends BaseRestCest
 
 		$start = 'tomorrow 9am';
 		$end = 'tomorrow 11am';
+
+		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
+		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'slug'        => 'an-interesting-event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => $start_date,
+			'end_date'    => $end_date,
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -94,10 +102,10 @@ class EventUpdateCest extends BaseRestCest
 			'slug'           => 'an-interesting-event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
 			'excerpt'        => trim( apply_filters( 'the_excerpt', 'An event excerpt' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $start_date,
+			'end_date'       => $end_date,
+			'utc_start_date' => Timezones::convert_date_from_timezone( $start_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $end_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
@@ -119,6 +127,9 @@ class EventUpdateCest extends BaseRestCest
 		$start = $data[0];
 		$end = $data[1];
 
+		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
+		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
@@ -132,10 +143,10 @@ class EventUpdateCest extends BaseRestCest
 
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $start_date,
+			'end_date'       => $end_date,
+			'utc_start_date' => Timezones::convert_date_from_timezone( $start_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $end_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
 	}
 
@@ -161,6 +172,9 @@ class EventUpdateCest extends BaseRestCest
 		$end = $data[1];
 		$timezone = $data[2];
 
+		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
+		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'      => 'An event',
 			'start_date' => $start,
@@ -173,10 +187,10 @@ class EventUpdateCest extends BaseRestCest
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'timezone'       => $timezone,
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $start_date,
+			'end_date'       => $end_date,
+			'utc_start_date' => Timezones::convert_date_from_timezone( $start_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $end_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
 
 		$new_timezone = 'Europe/Paris';
@@ -193,10 +207,10 @@ class EventUpdateCest extends BaseRestCest
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'timezone'       => $new_timezone,
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $start_date,
+			'end_date'       => $end_date,
+			'utc_start_date' => Timezones::convert_date_from_timezone( $start_date, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $end_date, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
 
 	}
@@ -289,11 +303,13 @@ class EventUpdateCest extends BaseRestCest
 
 		$date = ( new \DateTime( 'tomorrow 9am', new DateTimeZone( $timezone ) ) );
 
+		$date_string = $date->format( 'Y-m-d H:i:s' );
+
 		$params = [
 			'title'      => 'An event title',
 			'start_date' => 'tomorrow 9am',
 			'end_date'   => 'tomorrow 11am',
-			'date'       => 'tomorrow 9am',
+			'date'       => $date_string,
 		];
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
@@ -301,7 +317,7 @@ class EventUpdateCest extends BaseRestCest
 		$I->seeResponseCodeIs( 200 );
 
 		$I->seeResponseContainsJson( [
-			'date' => $date->format( 'Y-m-d H:i:s' ),
+			'date' => $date_string,
 		] );
 	}
 
@@ -393,12 +409,19 @@ class EventUpdateCest extends BaseRestCest
 		$end = 'tomorrow 11am';
 		$all_day_start = 'tomorrow 00:00:00';
 		$all_day_end = 'tomorrow 23:59:59';
+
+		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
+		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+
+		$all_day_start_date = date( 'Y-m-d H:i:s', strtotime( $all_day_start ) );
+		$all_day_end_date   = date( 'Y-m-d H:i:s', strtotime( $all_day_end ) );
+
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => $start_date,
+			'end_date'    => $end_date,
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -406,10 +429,10 @@ class EventUpdateCest extends BaseRestCest
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $all_day_start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $all_day_end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $all_day_start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $all_day_end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $all_day_start_date,
+			'end_date'       => $all_day_end_date,
+			'utc_start_date' => Timezones::convert_date_from_timezone( $all_day_start_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $all_day_end_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'all_day'        => true,
 		] );
 		$response = json_decode( $I->grabResponse(), true );
@@ -432,12 +455,19 @@ class EventUpdateCest extends BaseRestCest
 		$end = '+5 days 11am';
 		$all_day_start = 'tomorrow 00:00:00';
 		$all_day_end = '+5 days 23:59:59';
+
+		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
+		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+
+		$all_day_start_date = date( 'Y-m-d H:i:s', strtotime( $all_day_start ) );
+		$all_day_end_date   = date( 'Y-m-d H:i:s', strtotime( $all_day_end ) );
+
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => $start_date,
+			'end_date'    => $end_date,
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -445,10 +475,10 @@ class EventUpdateCest extends BaseRestCest
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $all_day_start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $all_day_end ) ),
-			'utc_start_date' => Timezones::convert_date_from_timezone( $all_day_start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $all_day_end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $all_day_start_date,
+			'end_date'       => $all_day_end_date,
+			'utc_start_date' => Timezones::convert_date_from_timezone( $all_day_start_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'utc_end_date'   => Timezones::convert_date_from_timezone( $all_day_end_date, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'all_day'        => true,
 		] );
 		$response = json_decode( $I->grabResponse(), true );

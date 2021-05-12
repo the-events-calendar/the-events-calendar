@@ -2466,4 +2466,38 @@ class View implements View_Interface {
 
 		return $ids;
 	}
+
+	/**
+	 * Gets the base object for asset registration.
+	 *
+	 * @since TBD
+	 *
+	 * @return \stdClass $object Object to tie registered assets to.
+	 */
+	public static function get_asset_origin( $slug ) {
+		$asset_registration_object = tribe( 'tec.main' );
+
+		/**
+		 * Filters the object used for registering assets.
+		 *
+		 * @since TBD
+		 *
+		 * @param \stdClass $origin_object Object used for asset registration.
+		 * @param string $slug View slug.
+		 */
+		$asset_registration_object = apply_filters( "tribe_events_views_v2_view_{$slug}_asset_origin_object", $asset_registration_object, $slug );
+
+		return $asset_registration_object;
+	}
+
+	/**
+	 * Registers assets for the view.
+	 *
+	 * Should be overridden if there are assets for the view.
+	 *
+	 * @since TBD
+	 *
+	 * @param \stdClass $object Object to tie registered assets to.
+	 */
+	public static function register_assets( $object ) {}
 }

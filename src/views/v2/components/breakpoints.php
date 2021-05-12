@@ -20,11 +20,11 @@ if ( ! $is_initial_load ) {
 }
 ?>
 <script class="tribe-events-breakpoints">
-	(function() {
+	( function () {
 		var completed = false;
 
 		function initBreakpoints() {
-			if ( completed === true ) {
+			if ( completed ) {
 				// This was fired already and completed no need to attach to the event listener.
 				document.removeEventListener( 'DOMContentLoaded', initBreakpoints );
 				return;

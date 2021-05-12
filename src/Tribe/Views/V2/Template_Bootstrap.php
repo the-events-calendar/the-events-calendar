@@ -395,8 +395,8 @@ class Template_Bootstrap {
 
 		$classes[] = 'page-template-' . sanitize_title( $template );
 
-		if ( ! is_tax() ) {
-			$key = array_search( 'archive', $classes );
+		if ( ! get_queried_object() instanceof \WP_Term ) {
+			$key = array_search( 'archive', $classes, true );
 
 			if ( false !== $key ) {
 				unset( $classes[ $key ] );
