@@ -30,6 +30,7 @@ tribe.events.views.manager = {};
  * @return {void}
  */
 ( function( $, _, obj ) {
+	'use strict';
 	var $window = $( window );
 
 	/**
@@ -479,7 +480,7 @@ tribe.events.views.manager = {};
 			accepts: 'html',
 			dataType: 'html',
 			method: $container.data( 'view-rest-method' ) || 'POST',
-			async: true, // async is keyword
+			'async': true, // async is keyword
 			beforeSend: obj.ajaxBeforeSend,
 			complete: obj.ajaxComplete,
 			success: obj.ajaxSuccess,
