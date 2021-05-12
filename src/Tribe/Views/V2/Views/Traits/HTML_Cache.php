@@ -41,7 +41,7 @@ trait HTML_Cache {
 
 		$cache_key = $this->get_cache_html_key();
 
-		$cached_html = tribe( 'cache' )->get_transient( $cache_key, $this->cache_html_triggers() );
+		$cached_html = tribe( 'cache' )->get_chunkable_transient( $cache_key, $this->cache_html_triggers() );
 
 		if ( ! $cached_html ) {
 			return false;
@@ -122,7 +122,7 @@ trait HTML_Cache {
 		/** @var Cache $cache */
 		$cache = tribe( 'cache' );
 
-		return $cache->set_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
+		return $cache->set_chunkable_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
 	}
 
 	/**
