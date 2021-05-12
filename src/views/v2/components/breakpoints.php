@@ -20,49 +20,49 @@ if ( ! $is_initial_load ) {
 }
 ?>
 <script class="tribe-events-breakpoints">
-	(function () {
+	(function() {
 		var completed = false;
 
 		function initBreakpoints() {
-			if (completed === true) {
+			if ( completed === true ) {
 				// This was fired already and completed no need to attach to the event listener.
-				document.removeEventListener('DOMContentLoaded', initBreakpoints);
+				document.removeEventListener( 'DOMContentLoaded', initBreakpoints );
 				return;
 			}
 
-			if ('undefined' === typeof window.tribe) {
+			if ( 'undefined' === typeof window.tribe ) {
 				return;
 			}
 
-			if ('undefined' === typeof window.tribe.events) {
+			if ( 'undefined' === typeof window.tribe.events ) {
 				return;
 			}
 
-			if ('undefined' === typeof window.tribe.events.views) {
+			if ( 'undefined' === typeof window.tribe.events.views ) {
 				return;
 			}
 
-			if ('undefined' === typeof window.tribe.events.views.breakpoints) {
+			if ( 'undefined' === typeof window.tribe.events.views.breakpoints ) {
 				return;
 			}
 
-			if ('function' !== typeof (window.tribe.events.views.breakpoints.setup)) {
+			if ( 'function' !== typeof (window.tribe.events.views.breakpoints.setup) ) {
 				return;
 			}
 
-			var container = document.querySelectorAll('[data-view-breakpoint-pointer="<?php echo esc_js( $breakpoint_pointer ); ?>"]');
-			if (!container) {
+			var container = document.querySelectorAll( '[data-view-breakpoint-pointer="<?php echo esc_js( $breakpoint_pointer ); ?>"]' );
+			if ( ! container ) {
 				return;
 			}
 
-			window.tribe.events.views.breakpoints.setup(container);
+			window.tribe.events.views.breakpoints.setup( container );
 			completed = true;
 			// This was fired already and completed no need to attach to the event listener.
-			document.removeEventListener('DOMContentLoaded', initBreakpoints);
+			document.removeEventListener( 'DOMContentLoaded', initBreakpoints );
 		}
 
 		// Try to init the breakpoints right away.
 		initBreakpoints();
-		document.addEventListener('DOMContentLoaded', initBreakpoints);
+		document.addEventListener( 'DOMContentLoaded', initBreakpoints );
 	})();
 </script>
