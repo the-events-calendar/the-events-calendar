@@ -8,6 +8,7 @@
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
+tribe.state = tribe.state || {};
 
 /**
  * Configures Views Object in the Global Tribe variable
@@ -315,7 +316,7 @@ tribe.events.views.manager = {};
 		};
 
 		if ( shortcodeId ) {
-			data[ 'shortcode' ] = shortcodeId;
+			data.shortcode = shortcodeId;
 		}
 
 		obj.request( data, $container );
@@ -376,6 +377,16 @@ tribe.events.views.manager = {};
 		var target = event.originalEvent.target;
 		var url = target.location.href;
 		var $container = obj.getLastContainer();
+
+		// A pop state from a hash inside of the same URL has been trigger like #content  so no request is required.
+		if ( target.location.hash ) {
+			return false;
+		}
+
+		// We no longer have the hash in place, and the URLs are the same so no need for a new request.
+		if ( tribe.state.initial_location && target.location.href === tribe.state.initial_location.href ) {
+			return false;
+		}
 
 		if ( ! $container ) {
 			return false;
@@ -670,4 +681,5 @@ tribe.events.views.manager = {};
 
 	// Attaches the popstate method to the window object.
 	$window.on( 'popstate', obj.onPopState );
+	tribe.state.initial_location = document.location || '';
 } )( jQuery, window.underscore || window._, tribe.events.views.manager );

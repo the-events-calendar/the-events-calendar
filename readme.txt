@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.6.1] TBD =
 
+* Fix - Apply responsive breakpoints once the page has fully loaded with all JavaScript and Elements on the page [TEC-3797]
 * Fix - Resolve conflicts with Gravity Forms plugin that would prevent correct submission of forms data. [ECP-466]
 * Fix - Correctly handle start and end of day cutoff in Day View when the server timezone is not the same as the site (thanks @therealgilles). [TEC-3877]
 * Fix - Do not remove the `archive` body class from post tag and category pages when using Page as Event Template. [TEC-3846]
@@ -238,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add compatibility for the Full Site Editor navigation block. [TEC-3850]
 * Tweak - Filter the type of files allowed to upload into the EA Client. [TEC-3882]
 * Tweak - Updating lodash to 4.17.21. [TEC-3885]
+* Tweak - Prevent to list changes of hash on URL changes like `#content` [TEC-3890]
 
 = [5.6.0] 2021-04-29 =
 
