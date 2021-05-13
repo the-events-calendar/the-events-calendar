@@ -376,33 +376,50 @@ http://evnt.is/18wn
 </div>
 
 <script class="tribe-events-breakpoints">
-	(function(){
-		if ( \'undefined\' === typeof window.tribe ) {
-			return;
+	( function () {
+		var completed = false;
+
+		function initBreakpoints() {
+			if ( completed ) {
+				// This was fired already and completed no need to attach to the event listener.
+				document.removeEventListener( \'DOMContentLoaded\', initBreakpoints );
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe ) {
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe.events ) {
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe.events.views ) {
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe.events.views.breakpoints ) {
+				return;
+			}
+
+			if ( \'function\' !== typeof (window.tribe.events.views.breakpoints.setup) ) {
+				return;
+			}
+
+			var container = document.querySelectorAll( \'[data-view-breakpoint-pointer="random-id"]\' );
+			if ( ! container ) {
+				return;
+			}
+
+			window.tribe.events.views.breakpoints.setup( container );
+			completed = true;
+			// This was fired already and completed no need to attach to the event listener.
+			document.removeEventListener( \'DOMContentLoaded\', initBreakpoints );
 		}
 
-		if ( \'undefined\' === typeof window.tribe.events ) {
-			return;
-		}
-
-		if ( \'undefined\' === typeof window.tribe.events.views ) {
-			return;
-		}
-
-		if ( \'undefined\' === typeof window.tribe.events.views.breakpoints ) {
-			return;
-		}
-
-		if ( \'function\' !== typeof( window.tribe.events.views.breakpoints.setup ) ) {
-			return;
-		}
-
-		var container = document.querySelectorAll( \'[data-view-breakpoint-pointer="random-id"]\' );
-		if ( ! container ) {
-			return;
-		}
-
-		window.tribe.events.views.breakpoints.setup( container );
+		// Try to init the breakpoints right away.
+		initBreakpoints();
+		document.addEventListener( \'DOMContentLoaded\', initBreakpoints );
 	})();
 </script>
 ';
