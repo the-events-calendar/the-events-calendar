@@ -18,7 +18,7 @@ namespace Tribe\Events\Integrations\Hello_Elementor;
  */
 class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function register() {
-		if('hello-elementor' !== get_template()){
+		if ( 'hello-elementor' !== get_template() ) {
 			return;
 		}
 		require_once __DIR__ . '/hello-elementor-functions.php';
