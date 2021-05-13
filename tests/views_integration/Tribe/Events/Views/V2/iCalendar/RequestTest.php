@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2\iCalendar;
 
+use Tribe\Events\Test\Factories\Event;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\Traits\With_Context;
 
@@ -299,5 +300,23 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		}
 
 		$this->assertEquals( $expected_events, $event_ids );
+	}
+
+	/**
+	 * It should return the single event request ID when creating expor for single-event
+	 *
+	 * @test
+	 */
+	public function should_return_the_single_event_request_id_when_creating_expor_for_single_event() {
+		$post_id = ( new Event() )->create();
+		$context = tribe_context()->alter( [
+			'view'    => 'single-event',
+			'post_id' => $post_id,
+		] );
+
+		$request   = $this->make_instance( $context );
+		$event_ids = $request->get_event_ids();
+
+		$this->assertEquals( [ $post_id ], $event_ids );
 	}
 }
