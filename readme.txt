@@ -227,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correctly handle start and end of day cutoff in Day View when the server timezone is not the same as the site (thanks @therealgilles). [TEC-3877]
 * Fix - Do not remove the `archive` body class from post tag and category pages when using Page as Event Template. [TEC-3846]
 * Fix - Correctly translate calendar view in WPML language switcher (thanks @dgwatkins). [TEC-3810]
+* Fix - Single event iCalendar export will correctly export only that event information. [TEC-3886]
 * Fix - Use the correct date and time in the Day View time separator when Timezone Mode is set to "Manual time zones for each event". [TEC-3877]
 * Fix - Make sure events from latest past events display the featured image correctly. [TEC-3655]
 * Fix - Correctly integrate with the "Hello Elementor" theme to avoid issues with The Events Calendar and The Events Calendar PRO Views. [ECP-648]
