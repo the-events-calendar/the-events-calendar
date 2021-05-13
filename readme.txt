@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Single event iCalendar export will correctly export only that event information. [TEC-3886]
 * Fix - Use the correct date and time in the Day View time separator when Timezone Mode is set to "Manual time zones for each event". [TEC-3877]
 * Fix - Make sure events from latest past events display the featured image correctly. [TEC-3655]
+* Fix - Correctly integrate with the "Hello Elementor" theme to avoid issues with The Events Calendar and The Events Calendar PRO Views. [ECP-648]
 * Tweak - Reduced the usage of the word "onwards" on list-style view date range headings where simpler headings are better suited. [TEC-3831]
 * Tweak - Move messages below the calendar grid in the mobile version of Month View. [TEC-3793]
 * Tweak - Display a message to let visitors know the selected Month View day has no events in mobile. [TEC-3812]
