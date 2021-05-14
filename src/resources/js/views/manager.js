@@ -8,7 +8,6 @@
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
-tribe.state = tribe.state || {};
 
 /**
  * Configures Views Object in the Global Tribe variable
@@ -49,6 +48,18 @@ tribe.events.views.manager = {};
 		loader: '.tribe-events-view-loader',
 		loaderText: '.tribe-events-view-loader__text',
 		hiddenElement: '.tribe-common-a11y-hidden',
+	};
+
+	/**
+	 * Object with the details of the last location URL.
+	 *
+	 * @since TBD
+	 *
+	 * @type {{origin: string, pathname: string}}
+	 */
+	obj.lastLocation = {
+		origin: '',
+		pathname: '',
 	};
 
 	/**
@@ -276,6 +287,8 @@ tribe.events.views.manager = {};
 
 		// Push browser history
 		window.history.pushState( null, data.title, data.url );
+		obj.lastLocation.pathname = document.location.pathname;
+		obj.lastLocation.origin = document.location.origin;
 	};
 
 	/**
@@ -378,15 +391,16 @@ tribe.events.views.manager = {};
 		var url = target.location.href;
 		var $container = obj.getLastContainer();
 
-		// A pop state from a hash inside of the same URL has been trigger like #content  so no request is required.
-		if ( target.location.hash ) {
+		// We are at the same URL + path as before so not really a change on the
+		// actual URL happen, it might be just a hash change which shouldn't
+		// trigger and XHR request.
+		// eslint-disable-next-line max-len
+		if ( obj.lastLocation.origin === target.location.origin && obj.lastLocation.pathname === target.location.pathname ) {
 			return false;
 		}
 
-		// We no longer have the hash in place, and the URLs are the same so no need for a new request.
-		if ( tribe.state.initial_location && target.location.href === tribe.state.initial_location.href ) {
-			return false;
-		}
+		obj.lastLocation.pathname = document.location.pathname;
+		obj.lastLocation.origin = document.location.origin;
 
 		if ( ! $container ) {
 			return false;
@@ -674,6 +688,10 @@ tribe.events.views.manager = {};
 	 */
 	obj.ready = function() {
 		obj.selectContainers().each( obj.setup );
+		obj.lastLocation = {
+			origin: document.location.origin,
+			pathname: document.location.pathname,
+		};
 	};
 
 	// Configure on document ready.
@@ -681,5 +699,4 @@ tribe.events.views.manager = {};
 
 	// Attaches the popstate method to the window object.
 	$window.on( 'popstate', obj.onPopState );
-	tribe.state.initial_location = document.location || '';
 } )( jQuery, window.underscore || window._, tribe.events.views.manager );
