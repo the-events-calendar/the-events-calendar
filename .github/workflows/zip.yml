@@ -11,9 +11,6 @@ jobs:
   zip:
     runs-on: ubuntu-latest
     steps:
-      - name: Downgrade composer
-        run: |
-          composer self-update 1.10.22
       - name: If a pull_request, set final to 0
         if: github.event_name == 'pull_request'
         run: |
