@@ -57,7 +57,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @type {{origin: string, pathname: string}}
 	 */
-	obj.last_location = {
+	obj.lastLocation = {
 		origin: '',
 		pathname: '',
 	};
@@ -287,8 +287,8 @@ tribe.events.views.manager = {};
 
 		// Push browser history
 		window.history.pushState( null, data.title, data.url );
-		obj.last_location.pathname = document.location.pathname;
-		obj.last_location.origin = document.location.origin;
+		obj.lastLocation.pathname = document.location.pathname;
+		obj.lastLocation.origin = document.location.origin;
 	};
 
 	/**
@@ -395,12 +395,12 @@ tribe.events.views.manager = {};
 		// actual URL happen, it might be just a hash change which shouldn't
 		// trigger and XHR request.
 		// eslint-disable-next-line max-len
-		if ( obj.last_location.origin === target.location.origin && obj.last_location.pathname === target.location.pathname ) {
+		if ( obj.lastLocation.origin === target.location.origin && obj.lastLocation.pathname === target.location.pathname ) {
 			return false;
 		}
 
-		obj.last_location.pathname = document.location.pathname;
-		obj.last_location.origin = document.location.origin;
+		obj.lastLocation.pathname = document.location.pathname;
+		obj.lastLocation.origin = document.location.origin;
 
 		if ( ! $container ) {
 			return false;
@@ -688,7 +688,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.ready = function() {
 		obj.selectContainers().each( obj.setup );
-		obj.last_location = {
+		obj.lastLocation = {
 			origin: document.location.origin,
 			pathname: document.location.pathname,
 		};
