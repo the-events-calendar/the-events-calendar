@@ -3029,12 +3029,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'sprop'    => 'website:' . home_url(),
 			];
 
-			$timezone = Tribe__Events__Timezones::get_event_timezone_string( $post->ID );
-			$timezone = Tribe__Events__Timezones::maybe_get_tz_name( $timezone );
+			if ( Tribe__Timezones::is_mode( Tribe__Timezones::SITE_TIMEZONE ) ) {
+				$timezone = Tribe__Timezones::build_timezone_object();
+			} else {
+				$timezone = Tribe__Events__Timezones::get_timezone(
+					Tribe__Events__Timezones::get_event_timezone_string( $post->ID )
+				);
+			}
 
 			// If we have a good timezone string we setup it; UTC doesn't work on Google
-			if ( false !== $timezone ) {
-				$params['ctz'] = urlencode( $timezone );
+			if ( $timezone instanceof DateTimeZone) {
+				$params['ctz'] = urlencode( $timezone->getName() );
 			}
 
 			/**
