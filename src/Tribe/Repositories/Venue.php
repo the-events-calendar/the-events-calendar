@@ -65,6 +65,14 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		$this->add_simple_meta_schema_entry( 'country', '_VenueCountry' );
 		$this->add_simple_meta_schema_entry( 'phone', '_VenuePhone' );
 		$this->add_simple_meta_schema_entry( 'website', '_VenueURL' );
+
+		$this->schema = array_merge(
+			$this->schema,
+			[
+				'has_events'          => [ $this, 'filter_by_has_events' ],
+				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
+			]
+		);
 	}
 
 	/**
@@ -79,4 +87,47 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		return parent::filter_postarr_for_create( $postarr );
 	}
 
+	/**
+	 * Filters a venue query by ones that have associated events.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
+	 */
+	public function filter_by_has_events() {
+		global $wpdb;
+
+		$this->filter_query->join(
+			$wpdb->prepare(
+				"
+				INNER JOIN {$wpdb->postmeta} AS venue_has_events
+				ON ({$wpdb->posts}.ID = venue_has_events.meta_value
+				AND venue_has_events.meta_key = %s)
+					",
+				$this->linked_id_meta_key
+			)
+		);
+	}
+
+	/**
+	 * Filters a venue query by ones that DO NOT have associated events.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
+	 */
+	public function filter_by_has_no_events() {
+		global $wpdb;
+
+		$this->filter_query->where(
+			$wpdb->prepare(
+				"NOT EXISTS (
+					SELECT * FROM {$wpdb->postmeta}
+						WHERE {$wpdb->postmeta}.meta_key = %s
+						AND {$wpdb->postmeta}.meta_value = {$wpdb->posts}.ID
+					) ",
+				$this->linked_id_meta_key
+			)
+		);
+	}
 }

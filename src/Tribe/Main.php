@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.4.0';
+		const VERSION             = '5.6.1';
 
 		/**
 		 * Min Pro Addon
@@ -599,6 +599,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Admin Notices
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', [ 'hook' ] );
+			tribe_singleton( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, [ 'hook' ] );
 
 			// GDPR Privacy
 			tribe_singleton( 'tec.privacy', 'Tribe__Events__Privacy', [ 'hook' ] );
@@ -613,7 +614,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// The Views v2 service provider.
 			tribe_register_provider( Tribe\Events\Views\V2\Service_Provider::class );
-			tribe_register_provider( Tribe\Events\Views\V2\Widgets\Service_Provider::class );
 
 			// Register and start the Customizer Sections
 			if ( ! tribe_events_views_v2_is_enabled() ) {
@@ -973,6 +973,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.gutenberg' );
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
+			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
 		}
@@ -2180,6 +2181,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'item_updated'             => sprintf(
 						esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_event_label
 					),
+					'item_link'                => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link_description'    => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( 'A link to a particular %s.', 'the-events-calendar' ), $this->singular_event_label
+					),
 				]
 			);
 
@@ -2220,6 +2229,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'new_item_name'     => sprintf(
 						esc_html__( 'New %s Category Name', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link'         => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( '%s Category Link.', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link_description' => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( 'A link to a particular%s category.', 'the-events-calendar' ), $this->singular_event_label
 					),
 				]
 			);

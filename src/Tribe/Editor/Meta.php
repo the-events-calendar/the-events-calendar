@@ -1,6 +1,7 @@
 <?php
 
 use Tribe__Date_Utils as Date;
+use Tribe__Events__Main as TEC;
 
 /**
  * Initialize Gutenberg Event Meta fields
@@ -21,6 +22,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		$post_type = Tribe__Events__Main::POSTTYPE;
 		add_filter( "rest_prepare_{$post_type}", [ $this, 'meta_backwards_compatibility' ], 10, 3 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
+		add_filter( 'delete_post_metadata', [ $this, 'filter_allow_meta_delete_non_existent_key' ], 15, 5 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
 		register_meta( 'post', '_EventTimezone', $this->text() );
@@ -72,7 +74,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			'post',
 			'_EventVenueID',
 			[
-				'description'       => __( 'Event Organizers', 'the-events-calendar' ),
+				'description'       => __( 'Event Venue', 'the-events-calendar' ),
 				'auth_callback'     => [ $this, 'auth_callback' ],
 				'sanitize_callback' => 'absint',
 				'type'              => 'integer',
@@ -97,6 +99,62 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		register_meta( 'post', '_VenueStateProvince', $this->text() );
 		register_meta( 'post', '_VenueLat', $this->text() );
 		register_meta( 'post', '_VenueLng', $this->text() );
+	}
+
+	/**
+	 * Short-circuits deleting metadata items that dont exist, for compatibility purposes we need to make sure
+	 * WordPress doesn't throw an error when the meta is not present.
+	 *
+	 * @since 5.5.0
+	 * @since 4.6.0 Apply to all Rest Endpoints not only Events.
+	 *
+	 * @param null|bool $delete     Whether to allow metadata deletion of the given type.
+	 * @param int       $object_id  ID of the object metadata is for.
+	 * @param string    $meta_key   Metadata key.
+	 * @param mixed     $meta_value Metadata value. Must be serializable if non-scalar.
+	 * @param bool      $delete_all Whether to delete the matching metadata entries
+	 *                              for all objects, ignoring the specified $object_id.
+	 *                              Default false.
+	 *
+	 * @return bool
+	 */
+	public function filter_allow_meta_delete_non_existent_key( $delete, $object_id, $meta_key, $meta_value, $delete_all ) {
+		if ( ! empty( $meta_value ) ) {
+			return $delete;
+		}
+
+		$meta_keys_to_allow = [
+			'_EventOrganizerID' => true,
+			'_EventVenueID' => true,
+		];
+
+		if ( ! isset( $meta_keys_to_allow[ $meta_key ] ) ) {
+			return $delete;
+		}
+
+		if ( ! function_exists( 'wp_is_json_request' ) || ! wp_is_json_request() ) {
+			return $delete;
+		}
+
+		global $wp;
+
+		$current_url = home_url( $wp->request );
+		$allowed_rest_url = rest_url( 'wp/v2' );
+
+		// Only this overwrite on the Tribe Events Endpoint.
+		if ( false === strpos( $current_url, $allowed_rest_url ) ) {
+			return $delete;
+		}
+
+		$current_value = array_filter( get_post_meta( $object_id, $meta_key ) );
+
+		// Let the WP method run it's course, if we have a value.
+		if ( ! empty( $current_value ) ) {
+			return $delete;
+		}
+
+		// If we got to this point we allow the deletion without caring about the value.
+		return true;
 	}
 
 	/**

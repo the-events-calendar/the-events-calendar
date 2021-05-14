@@ -9,7 +9,6 @@ import { get, values, noop, pick } from 'lodash';
 import { __ } from '@wordpress/i18n';
 import { select } from '@wordpress/data';
 import { Component } from '@wordpress/element';
-import { RichText } from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -17,8 +16,9 @@ import { RichText } from '@wordpress/editor';
 import { Input } from '@moderntribe/events/elements';
 import list, { getCountries, getStates, getCountryCode, getStateCode } from '@moderntribe/events/editor/utils/geo-data';
 import { setDefault, getVenueCountry, getVenueStateProvince } from '@moderntribe/events/data/blocks/venue/utils';
-import { editorDefaults } from '@moderntribe/common/utils/globals';
+import { editorDefaults, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+const { RichText } = wpEditor;
 
 export function toFields( venue ) {
 	const title = get( venue, 'title', {} );
@@ -99,6 +99,10 @@ export default class VenueForm extends Component {
 		this.props.onSubmit( fields );
 	}
 
+	onInputChange = ( key ) => ( value ) => {
+		this.setState( { [ key ]: value } );
+	}
+
 	saveRef = ( input ) => {
 		if ( input ) {
 			const { props } = input;
@@ -108,9 +112,11 @@ export default class VenueForm extends Component {
 	}
 
 	renderOption( element ) {
-		return ( <option value={ element.code } key={ element.code }>
-			{ element.name }
-		</option> );
+		return (
+			<option value={ element.code } key={ element.code }>
+				{ element.name }
+			</option>
+		);
 	}
 
 	renderCountry() {
@@ -145,7 +151,7 @@ export default class VenueForm extends Component {
 					name="venue[stateProvince]"
 					placeholder="State"
 					ref={ this.saveRef }
-					onChange={ ( event ) => this.setState( { stateProvince: event.target.value } ) }
+					onChange={ this.onInputChange( 'stateProvince' ) }
 					value={ stateProvince }
 				/>
 			);
@@ -191,14 +197,14 @@ export default class VenueForm extends Component {
 						placeholder="Street Address"
 						ref={ this.saveRef }
 						value={ address }
-						onChange={ ( next ) => this.setState( { address: next.target.value } ) }
+						onChange={ this.onInputChange( 'address' ) }
 					/>
 					<Input
 						type="text"
 						name="venue[city]"
 						placeholder="City"
 						ref={ this.saveRef }
-						onChange={ ( next ) => this.setState( { city: next.target.value } ) }
+						onChange={ this.onInputChange( 'city' ) }
 						value={ city }
 					/>
 					<div className="row">
@@ -212,7 +218,7 @@ export default class VenueForm extends Component {
 							name="venue[zip]"
 							placeholder="ZIP"
 							ref={ this.saveRef }
-							onChange={ ( next ) => this.setState( { zip: next.target.value } ) }
+							onChange={ this.onInputChange( 'zip' ) }
 							value={ zip }
 						/>
 					</div>
@@ -221,7 +227,7 @@ export default class VenueForm extends Component {
 						name="venue[phone]"
 						placeholder="Phone number"
 						ref={ this.saveRef }
-						onChange={ ( next ) => this.setState( { phone: next.target.value } ) }
+						onChange={ this.onInputChange( 'phone' ) }
 						value={ phone }
 					/>
 					<Input
@@ -229,7 +235,7 @@ export default class VenueForm extends Component {
 						name="venue[url]"
 						placeholder="Website"
 						ref={ this.saveRef }
-						onChange={ ( next ) => this.setState( { url: next.target.value } ) }
+						onChange={ this.onInputChange( 'url' ) }
 						value={ url }
 					/>
 				</div>

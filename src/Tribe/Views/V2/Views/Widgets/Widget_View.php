@@ -11,6 +11,8 @@ namespace Tribe\Events\Views\V2\Views\Widgets;
 use Tribe\Widget\Widget_Abstract;
 use Tribe__Context as Context;
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Theme_Compatibility;
+use Tribe\Events\Views\V2\Assets as TEC_Assets;
 
 /**
  * Class Widget_View
@@ -51,20 +53,20 @@ class Widget_View extends View {
 	/**
 	 * Returns the widget "view more" text.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @return string The widget "view more" text.
 	 */
 	public function get_view_more_text() {
-		return esc_html__( 'View More', 'the-events-calendar');
+		return esc_html__( 'View Calendar', 'the-events-calendar');
 	}
 
 	/**
 	 * Returns the widget "view more" title.
 	 * Adds context as needed for screen readers.
-	 * @see Tribe\Events\Pro\Views\V2\Views\Widgets\Venue_View for an example.
+	 * @see \Tribe\Events\Pro\Views\V2\Views\Widgets\Venue_View for an example.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @return string The widget "view more" title.
 	 */
@@ -81,7 +83,7 @@ class Widget_View extends View {
 	/**
 	 * Returns the widget "view more" url.
 	 *
-	 * @since TBD
+	 * @since 5.4.0
 	 *
 	 * @return string The widget "view more" url.
 	 */
@@ -99,10 +101,19 @@ class Widget_View extends View {
 	protected function setup_template_vars() {
 		$template_vars = parent::setup_template_vars();
 
-		$template_vars['container_classes'] = $this->get_html_classes();
-		$template_vars['view_more_text']    = $this->get_view_more_text();
-		$template_vars['view_more_title']   = $this->get_view_more_title();
-		$template_vars['view_more_link']    = $this->get_view_more_link();
+		$is_jsonld_enabled              = tribe_is_truthy( $this->context->get( 'jsonld_enable' ) );
+		$template_vars['jsonld_enable'] = $is_jsonld_enabled;
+
+		// If JSON-LD not enabled, just empty data.
+		if ( ! $is_jsonld_enabled ) {
+			$template_vars['json_ld_data'] = '';
+		}
+
+		$template_vars['compatibility_classes'] = $this->get_compatibility_classes();
+		$template_vars['container_classes']     = $this->get_html_classes();
+		$template_vars['view_more_text']        = $this->get_view_more_text();
+		$template_vars['view_more_title']       = $this->get_view_more_title();
+		$template_vars['view_more_link']        = $this->get_view_more_link();
 
 		return $template_vars;
 	}
@@ -125,7 +136,7 @@ class Widget_View extends View {
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
 		 * @since 5.2.0
-		 * @since TBD Include the $widget param.
+		 * @since 5.4.0 Include the $widget param.
 		 *
 		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
 		 * @param Context              $context The context to use to setup the args.
@@ -138,7 +149,7 @@ class Widget_View extends View {
 		 * Allows other plugins to add/remove args for the repository pre-query.
 		 *
 		 * @since 5.2.0
-		 * @since TBD Include the $widget param.
+		 * @since 5.4.0 Include the $widget param.
 		 *
 		 * @param array<string,mixed>  $args    The arguments, ready to be set on the View repository instance.
 		 * @param Context              $context The context to use to setup the args.
@@ -147,6 +158,46 @@ class Widget_View extends View {
 		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context, $this );
 
 		return $args;
+	}
+
+	/**
+	 * Adds compatibility classes to the widget view container.
+	 * Not the view itself - the wrapping div around that
+	 *
+	 * @since 5.4.0
+	 *
+	 * @return array<string> An Array of class names to add to the container. Will contain
+	 *                       _at least_ 'tribe-compatibility-container' as an indicator.
+	 */
+	public function get_compatibility_classes() {
+		/**
+		 * @var Theme_Compatibility $theme_compatibility
+		 */
+		$theme_compatibility = tribe( Theme_Compatibility::class );
+		$classes = $theme_compatibility->get_container_classes();
+
+		/**
+		 * Filters the HTML classes applied to a widget top-level container.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param array  $html_classes Array of classes used for this widget.
+		 * @param string $view_slug    The current widget slug.
+		 * @param View   $instance     The current View object.
+		 */
+		$classes = apply_filters( 'tribe_events_views_v2_widget_compatibility_classes', $classes, $this->get_slug(), $this );
+
+		/**
+		 * Filters the HTML classes applied to a specific widget top-level container.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param array $classes Array of classes used for this widget.
+		 * @param View  $instance     The current View object.
+		 */
+		$classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_compatibility_classes", $classes, $this );
+
+		return $classes;
 	}
 
 	/**
@@ -190,5 +241,7 @@ class Widget_View extends View {
 		$args = wp_parse_args( $args, $this->repository_args );
 
 		$this->repository->by_args( $args );
+
+		tribe_asset_enqueue_group( TEC_Assets::$widget_group_key );
 	}
 }

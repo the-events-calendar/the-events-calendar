@@ -11,7 +11,6 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template_Bootstrap;
-use Tribe__Container as Container;
 use Tribe\Utils\Body_Classes;
 
 class Theme_Compatibility {
@@ -115,6 +114,32 @@ class Theme_Compatibility {
 	 */
 	public function add_body_classes() {
 		tribe( Body_Classes::class )->add_classes( $this->get_body_classes() );
+	}
+
+
+
+	/**
+	 * Fetches the correct class strings for theme and child theme if available + the container class.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return array $classes
+	 */
+	public function get_container_classes() {
+		$classes =  [ 'tribe-compatibility-container' ];
+
+		if ( $this->is_compatibility_required() ) {
+			$classes = array_merge( $classes, $this->get_body_classes() );
+		}
+
+		/**
+		 * Filters the HTML classes applied to a widget top-level container.
+		 *
+		 * @since 5.5.0
+		 *
+		 * @param array  $html_classes Array of classes used for this widget.
+		 */
+		return apply_filters( 'tribe_events_views_v2_compatibility_classes', $classes );
 	}
 
 	/**

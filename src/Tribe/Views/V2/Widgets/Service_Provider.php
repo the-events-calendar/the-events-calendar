@@ -21,17 +21,6 @@ use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
 class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	/**
-	 * Variable that holds the name of the widgets being created.
-	 *
-	 * @since 5.2.1
-	 *
-	 * @var array<string>
-	 */
-	protected $widgets = [
-		'tribe_events_list_widget',
-	];
-
-	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since 5.2.1
@@ -51,6 +40,20 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_compatibility();
 
 		$this->hook();
+		$this->register_assets();
+	}
+
+
+	/**
+	 * Registers the provider handling all assets for widgets v2.
+	 *
+	 * @since 5.5.0
+	 */
+	protected function register_assets() {
+		$assets = new Assets( $this->container );
+		$assets->register();
+
+		$this->container->singleton( Assets::class, $assets );
 	}
 
 	/**
@@ -59,12 +62,12 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.3.0
 	 */
 	protected function register_compatibility() {
-		$compatiblity = new Compatibility();
-		$this->container->singleton( Compatibility::class, $compatiblity );
-		$this->container->singleton( 'events.views.v2.widgets.compatibility', $compatiblity );
+		$compatibility = new Compatibility();
+		$this->container->singleton( Compatibility::class, $compatibility );
+		$this->container->singleton( 'events.views.v2.widgets.compatibility', $compatibility );
 
-		add_action( 'tribe_plugins_loaded', [ $compatiblity, 'switch_compatibility' ] );
-		add_filter( 'option_sidebars_widgets', [ $compatiblity, 'remap_list_widget_id_bases' ] );
+		add_action( 'tribe_plugins_loaded', [ $compatibility, 'switch_compatibility' ] );
+		add_filter( 'option_sidebars_widgets', [ $compatibility, 'remap_list_widget_id_bases' ] );
 	}
 
 	/**
@@ -88,7 +91,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @return array<string,string> An array of registered widget classes.
 	 */
 	public function register_widget( $widgets ) {
-		$widgets['tribe_events_list_widget'] = Widget_List::class;
+		$widgets[ Widget_List::get_widget_slug() ] = Widget_List::class;
 
 		return $widgets;
 	}

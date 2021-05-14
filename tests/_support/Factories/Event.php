@@ -72,10 +72,8 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 			                    ->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT );
 		} else {
 			// Use the timezone to create the "local" (to the site) times.
-			$local_start = Dates::build_date_object( $start_timestamp )
-			                    ->setTimezone( $timezone_obj )->format( Dates::DBDATETIMEFORMAT );
-			$local_end   = Dates::build_date_object( $end_timestamp )
-			                    ->setTimezone( $timezone_obj )->format( Dates::DBDATETIMEFORMAT );
+			$local_start = Dates::build_date_object( $start_timestamp, $timezone_obj )->format( Dates::DBDATETIMEFORMAT );
+			$local_end   = Dates::build_date_object( $end_timestamp, $timezone_obj )->format( Dates::DBDATETIMEFORMAT );
 		}
 
 		$meta_input = [

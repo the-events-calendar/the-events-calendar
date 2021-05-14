@@ -109,9 +109,12 @@ class Day_View extends View {
 		$context_arr = $context->to_array();
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
-		$event_display = Arr::get( $context_arr, 'event_display_mode', Arr::get( $context_arr, 'event_display' ), 'current' );
 
-		$args['date_overlaps'] = [ tribe_beginning_of_day( $date ), tribe_end_of_day( $date ) ];
+		$current_date          = Dates::build_date_object( $date );
+		$args['date_overlaps'] = [
+			tribe_beginning_of_day( $current_date->format( 'Y-m-d' ) ),
+			tribe_end_of_day( $current_date->format( 'Y-m-d' ) )
+		];
 
 		/**
 		 * @todo  @bordoni We need to consider fetching events on a given day from a cache
@@ -229,7 +232,7 @@ class Day_View extends View {
 			$keyword = $this->context->get( 'keyword', false );
 
 			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', esc_html( trim( $keyword ) ) ) );
 
 				return;
 			}

@@ -9,7 +9,6 @@
 
 namespace Tribe\Events\Views\V2\Widgets;
 
-use Tribe\Events\Views\V2\Assets;
 use Tribe__Context as Context;
 
 /**
@@ -22,10 +21,15 @@ use Tribe__Context as Context;
 class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
+	 */
+	protected static $widget_in_use;
+
+	/**
+	 * {@inheritDoc}
 	 *
 	 * @var string
 	 */
-	protected $slug = 'tribe_events_list_widget';
+	protected static $widget_slug = 'events-list';
 
 	/**
 	 * {@inheritDoc}
@@ -39,14 +43,7 @@ class Widget_List extends Widget_Abstract {
 	 *
 	 * @var string
 	 */
-	protected $asset_slug = 'tribe-events-list-widget-v2';
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @var string
-	 */
-	protected $view_admin_slug = 'widgets/list';
+	protected static $widget_css_group = 'events-list-widget';
 
 	/**
 	 * {@inheritDoc}
@@ -67,24 +64,29 @@ class Widget_List extends Widget_Abstract {
 		'featured_events_only' => false,
 		'jsonld_enable'        => true,
 		'tribe_is_list_widget' => true,
-
-		// WP_Widget properties.
-		'id_base'              => 'tribe-events-list-widget',
-		'name'                 => null,
-		'widget_options'       => [
-			'classname'   => 'tribe-events-list-widget',
-			'description' => null,
-		],
-		'control_options'      => [
-			'id_base' => 'tribe-events-list-widget',
-		],
 	];
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function setup_view( $arguments ) {
-		parent::setup_view( $arguments );
+	public static function get_default_widget_name() {
+		return esc_html_x( 'Events List', 'The name of the List Widget.', 'the-events-calendar' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_default_widget_options() {
+		return [
+			'description' => esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' ),
+		];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setup_view( $_deprecated ) {
+		parent::setup_view( $_deprecated );
 
 		add_filter( 'tribe_customizer_should_print_widget_customizer_styles', '__return_true' );
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'add_full_stylesheet_to_customizer' ], 12, 2 );
@@ -93,31 +95,47 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function enqueue_assets( $context, $view ) {
-		parent::enqueue_assets( $context, $view );
+	protected function setup_default_arguments() {
+		parent::setup_default_arguments();
 
-		// Ensure we also have all the other things from Tribe\Events\Views\V2\Assets we need.
-		tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-skeleton' );
+		// Setup default title.
+		$this->default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
 
-		if ( tribe( Assets::class )->should_enqueue_full_styles() ) {
-			tribe_asset_enqueue( 'tribe-events-widgets-v2-events-list-full' );
-		}
+		return $this->default_arguments;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function setup_default_arguments() {
-		$default_arguments = parent::setup_default_arguments();
+	protected function add_hooks() {
+		parent::add_hooks();
 
-		$default_arguments['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
-		// @todo update name once this widget is ready to replace the existing list widget.
-		$default_arguments['name']                          = esc_html_x( 'Events List', 'The name of the List Widget.', 'the-events-calendar' );
-		$default_arguments['widget_options']['description'] = esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' );
-		// Setup default title.
-		$default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the List Widget.', 'the-events-calendar' );
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_styles', '__return_true' );
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups' ] );
+	}
 
-		return $default_arguments;
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function remove_hooks() {
+		parent::remove_hooks();
+
+		remove_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups'] );
+	}
+
+	/**
+	 * Add this widget's css group to the VE list of widget groups to load icon styles for.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param array<string> $widgets The list of widgets
+	 *
+	 * @return array<string> The modified list of widgets.
+	 */
+	public function add_self_to_virtual_widget_groups( $groups ) {
+		$groups[] = static::get_css_group();
+
+		return $groups;
 	}
 
 	/**
@@ -148,8 +166,11 @@ class Widget_List extends Widget_Abstract {
 			],
 			'limit'                => [
 				'label'   => _x( 'Show:', 'The label for the amount of events to show in the List Widget.', 'the-events-calendar' ),
-				'type'    => 'dropdown',
-				'options' => $this->get_limit_options(),
+				'type'    => 'number',
+				'default' => $this->default_arguments['limit'],
+				'min'     => 1,
+				'max'     => 10,
+				'step'    => 1,
 			],
 			'no_upcoming_events'   => [
 				'label' => _x( 'Hide this widget if there are no upcoming events.', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
@@ -164,35 +185,6 @@ class Widget_List extends Widget_Abstract {
 				'type'  => 'checkbox',
 			],
 		];
-	}
-
-	/**
-	 * Get the options to use in a the limit dropdown.
-	 *
-	 * @since 5.3.0
-	 *
-	 * @return array<string,mixed> An array of options with the text and value included.
-	 */
-	public function get_limit_options() {
-		/**
-		 * Filter the max limit of events to display in the List Widget.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param int The max limit of events to display in the List Widget, default 10.
-		 */
-		$events_limit = apply_filters( 'tribe_events_widget_list_events_max_limit', 10 );
-
-		$options = [];
-
-		foreach ( range( 1, $events_limit ) as $i ) {
-			$options[] = [
-				'text'  => $i,
-				'value' => $i,
-			];
-		}
-
-		return $options;
 	}
 
 	/**
@@ -215,15 +207,7 @@ class Widget_List extends Widget_Abstract {
 			(int) $arguments['limit'] :
 			5;
 
-		/**
-		 * Applies a filter to the args to context.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param array<string,mixed> $alterations The alterations to make to the context.
-		 * @param array<string,mixed> $arguments   Current set of arguments.
-		 */
-		return apply_filters( 'tribe_events_views_v2_list_widget_args_to_context', $alterations, $arguments );
+		return $this->filter_args_to_context( $alterations, $arguments );
 	}
 
 	/**

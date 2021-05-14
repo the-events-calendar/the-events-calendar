@@ -165,7 +165,7 @@ class I18n {
 	 * by attaching the filtering method or function at `PHP_INT_MAX`.
 	 *
 	 * @since 5.1.1
-	 * @since TBD Changed the method visibility to public.
+	 * @since 5.4.0 Changed the method visibility to public.
 	 *
 	 * @param string       $locale The locale to set for the execution of the callback.
 	 * @param callable     $do     The callable to execute in the context of a specific locale.
@@ -187,6 +187,20 @@ class I18n {
 		add_filter( 'locale', $force_locale );
 		$result = $do( ...$args );
 		remove_filter( 'locale', $force_locale );
+
+		$domains = isset( $args[1] ) ? (array) $args[1] : false;
+		if ( false !== $domains ) {
+			foreach ( $domains as $domain => $file ) {
+				// Reload it with the correct language.
+				unload_textdomain( $domain );
+
+				if ( 'default' === $domain ) {
+					load_default_textdomain();
+				} elseif ( is_string( $file ) ) {
+					Common::instance()->load_text_domain( $domain, $file );
+				}
+			}
+		}
 
 		// Restore the `locale` filtering functions.
 		$wp_filter['locale'] = $locale_filters_backup;

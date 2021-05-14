@@ -12,7 +12,7 @@ class MainQueryRenderCest {
 	}
 
 	/**
-	 * @test
+	 * @skip
 	 */
 	public function should_correctly_render_a_mock_list_view( Tester $I, $scenario ) {
 		$I->comment( 'Skipped due to revision to how basic template should work' );
