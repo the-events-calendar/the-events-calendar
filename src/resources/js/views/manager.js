@@ -699,4 +699,4 @@ tribe.events.views.manager = {};
 
 	// Attaches the popstate method to the window object.
 	$window.on( 'popstate', obj.onPopState );
-})( jQuery, window.underscore || window._, tribe.events.views.manager );
+} )( jQuery, window.underscore || window._, tribe.events.views.manager );
