@@ -27,12 +27,23 @@ jobs:
         run: |
           echo "::set-output name=branch::${JOB_BRANCH}"
       # ------------------------------------------------------------------------------
+      # Setup SSH keys and known_hosts
+      # ------------------------------------------------------------------------------
+      - name: Setup SSH keys and known_hosts
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.GH_ACTIONS_SSH_KEY }}"
+      # ------------------------------------------------------------------------------
       # Checkout the repo and tric
       # ------------------------------------------------------------------------------
       - name: Checkout the repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 200
+          fetch-depth: 1000
           token: ${{ secrets.GH_BOT_TOKEN }}
           submodules: recursive
           ref: ${{ steps.settings.outputs.branch }}
@@ -127,6 +138,8 @@ jobs:
       # Zip
       # ------------------------------------------------------------------------------
       - name: Package the plugin into a zip
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         id: zip
         if: steps.s3_zip.outcome != 'success'
         working-directory: ../
