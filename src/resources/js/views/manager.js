@@ -394,10 +394,8 @@ tribe.events.views.manager = {};
 		// We are at the same URL + path as before so not really a change on the
 		// actual URL happen, it might be just a hash change which shouldn't
 		// trigger and XHR request.
-		if (
-				obj.last_location.origin === target.location.origin
-				&& obj.last_location.pathname === target.location.pathname
-		) {
+		// eslint-disable-next-line max-len
+		if ( obj.last_location.origin === target.location.origin && obj.last_location.pathname === target.location.pathname ) {
 			return false;
 		}
 
