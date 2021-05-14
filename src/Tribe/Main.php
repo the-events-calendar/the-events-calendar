@@ -3033,7 +3033,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$timezone = Tribe__Timezones::build_timezone_object();
 			} else {
 				$timezone = Tribe__Events__Timezones::get_timezone(
-						Tribe__Events__Timezones::get_event_timezone_string( $post->ID )
+					Tribe__Events__Timezones::get_event_timezone_string( $post->ID )
 				);
 			}
 
