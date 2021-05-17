@@ -66,7 +66,19 @@ class Month_View extends \Tribe__Customizer__Section {
 			'priority'	=> 65,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section.', 'the-events-calendar' ),
+			'description' => esc_html__(
+				'Options selected here will override what was selected in the ' . $this->get_general_settings_link() . ' section.',
+				'the-events-calendar'
+			),
+			/* translators: 1: Customizer link (HTML). */
+			'description' => sprintf(
+				_x(
+					'Options selected here will override what was selected in the %1$s section.',
+					'Note about overriding general settings. Contains link HTML.',
+					'the-events-calendar'
+				),
+				$this->get_general_settings_link(),
+			)
 		];
 	}
 
@@ -75,28 +87,28 @@ class Month_View extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_headings() {
 		$this->content_headings = [
-			'grid' => [
+			'date_day' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
 				'label'		=> esc_html_x(
-					'Calendar Grid',
+					'Set Font Colors',
+					'The header for the date and day color control section.',
+					'the-events-calendar'
+				),
+			],
+			'month_view_separator-10' => [
+				'priority'	 => 10,
+				'type'		 => 'separator',
+			],
+			'grid' => [
+				'priority'	 => 11,
+				'type'		 => 'heading',
+				'label'		=> esc_html_x(
+					'Adjust Grid Colors',
 					'The header for the calendar grid color control section.',
 					'the-events-calendar'
 				),
 			],
-			'month_view_separator' => [
-				'priority'	 => 10,
-				'type'		 => 'separator',
-			],
-			'date_day' => [
-				'priority'	 => 11,
-				'type'		 => 'heading',
-				'label'		=> esc_html_x(
-					'Date and Day',
-					'The header for the date and day color control section.',
-					'the-events-calendar'
-				),
-			]
 		];
 	}
 
@@ -145,95 +157,46 @@ class Month_View extends \Tribe__Customizer__Section {
 	}
 
 	/**
-	 * Gets the link to the a setting in the TEC Customizer Global Elements.
-	 *
-	 * @since TBD
-	 *
-	 * @todo (Stephen): Maybe move this to common? Generalize more or create on for each section?
-	 *
-	 * @param string $setting    The sting setting "slug" to link to.
-	 * @param string $label_text The translated label text for the link.
-	 *
-	 * @return string The HTML link element.
-	 */
-	public function get_global_element_link( $setting, $label_text ) {
-		$control                     = tribe( 'customizer' )->get_setting_name( $setting, 'global_elements' );
-		$query['autofocus[control]'] = 'tribe_customizer' . $control;
-		$control_url                 = add_query_arg( $query, admin_url( 'customize.php' ) );
-
-		return sprintf(
-			'<a href="%s">%s</a>',
-			esc_url( $control_url ),
-			esc_html( $label_text )
-		);
-	}
-
-	/**
-	 * Gets the link to the event background color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The HTML link element.
-	 */
-	public function get_events_background_link() {
-		$label_text = __( 'Events Background Color', 'the-events-calendar' );
-		return $this->get_global_element_link( 'background_color_choice', $label_text );
-	}
-
-	/**
-	 * Gets the link to the accent color setting in Customizer.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The HTML link element.
-	 */
-	public function get_accent_color_link() {
-		$label_text				 = __( 'Accent Color', 'the-events-calendar' );
-		return $this->get_global_element_link( 'accent_color', $label_text );
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
 		$this->content_controls = [
-			'grid_lines_color'                => [
-				'priority' => 3,
-				'type'     => 'color',
-				'label'    => esc_html_x(
-					'Grid Lines Color',
-					'The grid lines color setting label.',
+			'days_of_week_color'              => [
+				'priority'    => 3,
+				'type'        => 'color',
+				'label'       => esc_html_x(
+					'Days of the Week',
+					'The days of the week text color setting label.',
 					'the-events-calendar'
 				),
 			],
-			'grid_hover_color'              => [
-				'priority'    => 5, // This should come immediately after 'grid_hover_color_choice'.
+			'date_marker_color'               => [
+				'priority'    => 5,
 				'type'        => 'color',
-				'description' => esc_html_x(
-					'The color of the day cell hover indicator (bottom border).',
-					'The grid hover color setting description.',
+				'label'       => esc_html_x(
+					'Date Marker',
+					'The date marker text color setting label.',
 					'the-events-calendar'
 				),
 			],
 			'grid_background_color_choice'    => [
-				'priority'    => 6,
+				'priority'    => 17,
 				'type'        => 'radio',
 				'label'       => esc_html_x(
-					'Grid Background Color',
+					'Grid Background',
 					'The grid background color setting label.',
 					'the-events-calendar'
 				),
-				'description' => esc_html_x(
-					'The Month View grid background',
-					'The grid background color setting description.',
-					'the-events-calendar'
-				),
 				'choices'     => [
-					'transparent' => _x(
-						'Transparent  - the ' . $this->get_events_background_link() . ' will show through.',
-						'Label for option to leave transparent (default).',
-						'the-events-calendar'
+					/* translators: 1: Customizer link (HTML). */
+					'transparent' => sprintf(
+						_x(
+							'Transparent  - the %1$s will show through.',
+							'Label for option to leave transparent (default).',
+							'the-events-calendar'
+						),
+						$this->get_events_background_link()
 					),
 					'custom'	  => esc_html_x(
 						'Select Custom Color',
@@ -243,7 +206,7 @@ class Month_View extends \Tribe__Customizer__Section {
 				],
 			],
 			'grid_background_color'           => [
-				'priority'        => 7, // This should come immediately after 'grid_background_color_choice'.
+				'priority'        => 18, // This should come immediately after 'grid_background_color_choice'.
 				'type'            => 'color',
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'grid_background_color_choice', $control->section );
@@ -253,7 +216,7 @@ class Month_View extends \Tribe__Customizer__Section {
 
 			],
 			'tooltip_background_color'        => [
-				'priority'    => 7, // This should come immediately after 'grid_background_color_choice'.
+				'priority'    => 18, // This should come immediately after 'grid_background_color_choice'.
 				'type'        => 'radio',
 				'label'       => esc_html_x(
 					'Tooltip Background Color',
@@ -261,7 +224,7 @@ class Month_View extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 				'description' => esc_html_x(
-					'The Tooltip Background Color',
+					'Preview display when hovering on an event title.',
 					'The grid background color setting description.',
 					'the-events-calendar'
 				),
@@ -271,11 +234,15 @@ class Month_View extends \Tribe__Customizer__Section {
 						'Label for option to leave white (default).',
 						'the-events-calendar'
 					),
-					'event'	  => _x(
-						'Use the ' . $this->get_events_background_link() . '.',
-						'Label for option to use the event background color.',
-						'the-events-calendar'
-					),
+					'event'	  => sprintf(
+						/* translators: 1: Customizer link (HTML). */
+						_x(
+							'Use the %1$s.',
+							'Label for option to use the event background color.',
+							'the-events-calendar'
+						),
+						$this->get_events_background_link()
+					)
 				],
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'grid_background_color_choice', $control->section );
@@ -284,39 +251,25 @@ class Month_View extends \Tribe__Customizer__Section {
 				},
 
 			],
-			'days_of_week_color'              => [
-				'priority'    => 13,
-				'type'        => 'color',
-				'label'       => esc_html_x(
-					'Days of the Week Color',
-					'The days of the week text color setting label.',
-					'the-events-calendar'
-				),
-				'description' => esc_html_x(
-					'Text color for the Days of the Week',
-					'The days of the week text color setting description.',
-					'the-events-calendar'
-				),
-			],
-			'date_marker_color'               => [
-				'priority'    => 16,
-				'type'        => 'color',
-				'label'       => esc_html_x(
-					'Date Marker Color',
-					'The date marker text color setting label.',
+			'grid_lines_color'                => [
+				'priority' => 13,
+				'type'     => 'color',
+				'label'    => esc_html_x(
+					'Grid Lines Color',
+					'The grid lines color setting label.',
 					'the-events-calendar'
 				),
 			],
 			'multiday_event_bar_color_choice' => [
-				'priority'    => 18,
+				'priority'    => 7,
 				'type'        => 'radio',
 				'label'       => esc_html_x(
-					'Multiday Event Bar Color',
+					'Event Span',
 					'The multiday event bar color setting label.',
 					'the-events-calendar'
 				),
 				'description' => esc_html_x(
-					'The Month View multiday and all-day event bar background color.',
+					'For all-day and multi-day events.',
 					'The multiday event bar color setting description.',
 					'the-events-calendar'
 				),
@@ -334,7 +287,7 @@ class Month_View extends \Tribe__Customizer__Section {
 				],
 			],
 			'multiday_event_bar_color'        => [
-				'priority'        => 19,
+				'priority'        => 9,
 				'type'    => 'color',
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'multiday_event_bar_color_choice', $control->section );
@@ -342,7 +295,93 @@ class Month_View extends \Tribe__Customizer__Section {
 					return $this->defaults['multiday_event_bar_color_choice'] !== $value;
 				},
 			],
+			'grid_hover_color'              => [
+				'priority'    => 15,
+				'type'        => 'color',
+				'description' => esc_html_x(
+					'Bottom border highlight when hovering on a day.',
+					'The grid hover color setting description.',
+					'the-events-calendar'
+				),
+			],
 		];
+	}
+
+	/**
+	 * Gets the link to the a setting in the TEC Customizer Global Elements.
+	 *
+	 * @since TBD
+	 *
+	 * @todo (Stephen): Maybe move this to common? Generalize more or create on for each section?
+	 *
+	 * @param string $setting    The sting setting "slug" to link to.
+	 * @param string $label_text The translated label text for the link.
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_global_element_link( $setting, $label_text ) {
+		if ( empty( $setting ) ) {
+			// Default to first item if not set.
+			$setting = 'event_title_color';
+		}
+		$control                     = tribe( 'customizer' )->get_setting_name( $setting, 'global_elements' );
+		$query['autofocus[control]'] = 'tribe_customizer' . $control;
+		$control_url                 = add_query_arg( $query, admin_url( 'customize.php' ) );
+
+		return sprintf(
+			/* translators: 1: Customizer URL, 2: Passed (already translated) link text. */
+			'<a href="%1$s">%2$s</a>',
+			esc_url( $control_url ),
+			esc_html( $label_text )
+		);
+	}
+
+	/**
+	 * Gets the link to the event background color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_general_settings_link() {
+		$label_text = _x(
+			'General',
+			'Text used for links to the General settings section.',
+			'the-events-calendar'
+		);
+		return $this->get_global_element_link( '', $label_text );
+	}
+
+	/**
+	 * Gets the link to the event background color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_events_background_link() {
+		$label_text = _x(
+			'Events Background Color',
+			'Text used for links to the Event Background Color setting.',
+			'the-events-calendar'
+		);
+		return $this->get_global_element_link( 'background_color_choice', $label_text );
+	}
+
+	/**
+	 * Gets the link to the accent color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_accent_color_link() {
+		$label_text = _x(
+			'Accent Color',
+			'Text used for links to the Accent Color setting.',
+			'the-events-calendar'
+		);
+		return $this->get_global_element_link( 'accent_color', $label_text );
 	}
 
 	/**
