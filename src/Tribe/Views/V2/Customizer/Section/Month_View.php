@@ -46,7 +46,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 	 */
 	public function setup_arguments() {
 		$this->arguments = [
-			'priority'	=> 65,
+			'priority'	=> 20,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
 			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section on teh Month View.', 'the-events-calendar' ),
@@ -298,7 +298,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 	}
 
 	/**
-	 * Grab the CSS rules template
+	 * Modify the CSS rules template
 	 *
 	 * @param string $template The Customizer CSS string/template.
 	 *

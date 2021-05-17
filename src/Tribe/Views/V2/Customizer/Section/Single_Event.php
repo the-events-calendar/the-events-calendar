@@ -46,7 +46,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 */
 	public function setup_arguments() {
 		$this->arguments = [
-			'priority'	=> 60,
+			'priority'	=> 10,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Single Event', 'the-events-calendar' ),
 			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section on Single Event views.', 'the-events-calendar' ),
@@ -59,86 +59,86 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 */
 	public function setup_defaults() {
 		$this->defaults = [
-			'grid_lines_color'				  => '#e4e4e4',
-			'grid_background_color_choice'	  => 'transparent',
-			'grid_background_color'		      => '#FFFFFF',
-			'grid_hover_color'                => '#141827',
-			'days_of_week_color'			  => '#5d5d5d',
-			'date_marker_color'			      => '#141827',
-			'multiday_event_bar_color_choice' => 'default',
-			'multiday_event_bar_color'	      => '#334aff',
-			'tooltip_background_color'		  => 'default',
+			'post_title_color_choice' => 'default',
+			'post_title_color'        => '#141827',
+			'details_bg_color'        => '#e5e5e5',
 		];
 	}
 
-
-
-	/**
-	 * Adds new settings/controls to the Single Events section via the hook in common.
-	 *
-	 * @since 5.3.1
-	 *
-	 * @param \Tribe__Customizer__Section $section    The Single Events Customizer section.
-	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
-	 */
-	public function include_single_event_settings( $section, $manager, $customizer ) {
-		// Remove the old setting/control to refactor.
-		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ) );
-		$manager->remove_control( $customizer->get_setting_name( 'post_title_color', $section ) );
-
-		// Register new control with option.
-		$manager->add_setting(
-			$customizer->get_setting_name( 'post_title_color_choice', $section ),
-			[
-				'default'              => 'general',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_key',
+	public function setup_content_settings() {
+		$this->content_settings = [
+			'post_title_color_choice' => [
+				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
-			]
-		);
-
-		$manager->add_control(
-			new Control(
-				$manager,
-				$customizer->get_setting_name( 'post_title_color_choice', $section ),
-				[
-					'label'       => esc_html__( 'Event Title', 'the-events-calendar' ),
-					'section'     => $section->id,
-					'type'        => 'radio',
-					'priority'    => 5,
-					'choices'     => [
-						'general' => esc_html__( 'Use General', 'the-events-calendar' ),
-						'custom'  => esc_html__( 'Custom', 'the-events-calendar' ),
-					],
-				]
-			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'post_title_color', $section ),
-			[
-				'default'              => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
+			],
+			'post_title_color'        => [
+				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
-		);
+			],
+			'details_bg_color'        => [
+				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			],
+		];
+	}
 
-		$manager->add_control(
-			new Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'post_title_color', $section ),
-				[
-					'label'   => esc_html__( 'Custom Color', 'the-events-calendar' ),
-					'section' => $section->id,
-					'priority'        => 6,
-					'active_callback' => function ( $control ) use ( $customizer, $section ) {
-						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'post_title_color_choice', $section ) )->value();
-					},
-				]
-			)
-		);
+	public function setup_content_headings() {
+		$this->content_headings = [
+			'font_colors' => [
+				'priority'	 => 0,
+				'type'		 => 'heading',
+				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+			],
+			'single_view_separator' => [
+				'priority'	 => 10,
+				'type'		 => 'separator',
+				'active_callback' => function() {
+					// Heading should not show if the new Single View is enabled.
+					return ! tribe_events_single_view_v2_is_enabled();
+				},
+			],
+			'adjust_appearance' => [
+				'priority'	 => 20,
+				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+				'active_callback' => function() {
+					// Heading should not show if the new Single View is enabled.
+					return ! tribe_events_single_view_v2_is_enabled();
+				},
+			],
+		];
+	}
+
+	public function setup_content_controls() {
+		$customizer = tribe( 'customizer' );
+		$this->content_controls = [
+			'post_title_color_choice' => [
+				'priority' => 5,
+				'type'     => 'radio',
+				'label'    => esc_html__( 'Event Title Color', 'the-events-calendar' ),
+				'choices'  => [
+					'default' => esc_html__( 'Use General', 'the-events-calendar' ),
+					'custom'  => esc_html__( 'Custom', 'the-events-calendar' ),
+				],
+			],
+			'post_title_color'        => [
+				'priority' => 6, // Should come immediately after post_title_color_choice
+				'type'     => 'color',
+				'active_callback' => function( $control ) use ( $customizer ) {
+					$setting_name = $customizer->get_setting_name( 'post_title_color_choice', $control->section );
+					$value = $control->manager->get_setting( $setting_name )->value();
+					return $this->defaults['post_title_color_choice'] !== $value;
+				},
+			],
+			'details_bg_color'        => [
+				'priority'    => 25,
+				'type'        => 'color',
+				'label'       => esc_html__( 'Event Details Background Color', 'the-events-calendar' ),
+				'active_callback' => function() {
+					// Control should not show if the new Single View is enabled.
+					return ! tribe_events_single_view_v2_is_enabled();
+				},
+			],
+		];
 	}
 
 	/**
@@ -152,11 +152,10 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+	public function get_css_template( $css_template ) {
 		if (
-			$customizer->has_option( $section->ID, 'post_title_color_choice' )
-			&& 'custom' === $customizer->get_option( [ $section->ID, 'post_title_color_choice' ] )
-			&& $customizer->has_option( $section->ID, 'post_title_color' )
+			$this->should_include_setting_css( 'post_title_color_choice' )
+			&& $this->should_include_setting_css( 'post_title_color' )
 		) {
 			$css_template .= '
 				--tec-color-text-event-title: <%= single_event.post_title_color %>;
@@ -172,6 +171,12 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 * @return false/true
 	 */
 	public function should_add_single_view_v2_styles() {
+		// Use the function from provider.php to check if V2 is not enabled
+		// or the TRIBE_EVENTS_WIDGETS_V2_DISABLED constant is true.
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
+			return false;
+		}
+
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
 			return false;
@@ -179,12 +184,6 @@ final class Single_Event extends \Tribe__Customizer__Section {
 
 		// Bail if Block Editor.
 		if ( has_blocks( get_queried_object_id() ) ) {
-			return false;
-		}
-
-		// Use the function from provider.php to check if V2 is not enabled
-		// or the TRIBE_EVENTS_WIDGETS_V2_DISABLED constant is true.
-		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}
 

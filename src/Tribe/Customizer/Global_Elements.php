@@ -14,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package The Events Calendar
  * @subpackage Customizer
  * @since 4.4
- *
- * @deprecated TBD
  */
 final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer__Section {
 	/**

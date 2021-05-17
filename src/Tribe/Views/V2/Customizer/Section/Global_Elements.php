@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
 
+use Tribe\Utils\Theme_Compatibility;
+
 /**
  * Month View
  *
@@ -45,7 +47,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_arguments() {
 		$this->arguments = [
-			'priority'	=> 55,
+			'priority'	=> 1,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Global Elements', 'the-events-calendar' ),
 		];
@@ -92,7 +94,27 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		];
 	}
 
-		/**
+	public function setup_content_headings() {
+		$this->content_headings = [
+			'font_color' => [
+				'priority'	 => 0,
+				'type'		 => 'heading',
+				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+			],
+			'global_elements_separator' => [
+				'priority'	 => 20,
+				'type'		 => 'separator',
+			],
+			'adjust_appearance' => [
+				'priority'	 => 21,
+				'type'		 => 'heading',
+				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+			],
+
+		];
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function setup_content_controls() {
@@ -100,7 +122,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 		$this->content_controls = [
 			'event_title_color' => [
-				'priority' => 3,
+				'priority' => 5,
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Event Title',
@@ -109,7 +131,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				),
 			],
 			'event_date_time_color' => [
-				'priority' => 6,
+				'priority' => 10,
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Event Date and Time',
@@ -123,10 +145,10 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				),
 			],
 			'background_color_choice' => [
-				'priority'    => 9,
+				'priority'    => 25,
 				'type'        => 'radio',
 				'label'       => esc_html__( 'Background Color', 'the-events-calendar' ),
-				'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
+				'description' => esc_html__( 'All calendar and event pages - fnord', 'the-events-calendar' ),
 				'choices'     => [
 					'transparent' => _x(
 						'Transparent.',
@@ -141,7 +163,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				],
 			],
 			'background_color' => [
-				'priority' => 10,
+				'priority' => 26, // Should come right after background_color_choice
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Event Title',
@@ -151,12 +173,11 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'background_color_choice', $control->section );
 					$value = $control->manager->get_setting( $setting_name )->value();
-					bdump($value);
 					return $this->defaults['background_color_choice'] !== $value;
 				},
 			],
 			'accent_color' => [
-				'priority' => 15,
+				'priority' => 30,
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Accent Color',
@@ -182,15 +203,17 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function get_css_template( $css_template ) {
 		if ( ! tribe_events_views_v2_is_enabled() ) {
+			bdump('no v2');
 			return $css_template;
 		}
 
 		if (
-			$this->should_include_setting_css( 'event_title_color' )
-			|| $this->should_include_setting_css( 'event_date_time_color' )
-			|| $this->should_include_setting_css( 'accent_color' )
-			|| $this->should_include_setting_css( 'link_color' )
+			! $this->should_include_setting_css( 'event_title_color' )
+			&& ! $this->should_include_setting_css( 'event_date_time_color' )
+			&& ! $this->should_include_setting_css( 'accent_color' )
+			&& ! $this->should_include_setting_css( 'link_color' )
 		) {
+			bdump('no settings');
 			return $css_template;
 		}
 
@@ -208,24 +231,33 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'twentytwentyone' => '',
 		];
 
-
-
 		// Accent color overrides.
 		if ( $this->should_include_setting_css( 'accent_color' ) ) {
 			$accent_color_rgb = $this->to_rgb( $this->get_option( 'accent_color' ) );
-			$accent_css_rgb   = $accent_color_rgb['R'] . ',' . $accent_color_rgb['G'] . ',' . $accent_color_rgb['B'];
 
 			$css_template .= "
 				/* Accent Color overrides. */
 				--tec-color-accent-primary: <%= global_elements.accent_color %>;
-				--tec-color-accent-primary-hover: rgba({$accent_css_rgb},0.8);
-				--tec-color-accent-primary-multiday: rgba({$accent_css_rgb},0.24);
-				--tec-color-accent-primary-multiday-hover: rgba({$accent_css_rgb},0.34);
-				--tec-color-accent-primary-active: rgba({$accent_css_rgb},0.9);
-				--tec-color-accent-primary-background: rgba({$accent_css_rgb},0.07);
-				--tec-color-background-secondary-datepicker: rgba({$accent_css_rgb},0.5);
+				--tec-color-accent-primary-hover: rgba({$accent_color_rgb},0.8);
+				--tec-color-accent-primary-multiday: rgba({$accent_color_rgb},0.24);
+				--tec-color-accent-primary-multiday-hover: rgba({$accent_color_rgb},0.34);
+				--tec-color-accent-primary-active: rgba({$accent_color_rgb},0.9);
+				--tec-color-accent-primary-background: rgba({$accent_color_rgb},0.07);
+				--tec-color-background-secondary-datepicker: rgba({$accent_color_rgb},0.5);
 				--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;
 			";
+
+			$overrides['twentyseventeen'] .= '
+				/* Accent Color overrides. */
+				--tec-color-background-events: <%= global_elements.background_color %>;
+			';
+
+			$overrides['twentytwenty'] .= '
+				/* Accent Color overrides. */
+				--tec-color-background-events: <%= global_elements.background_color %>;
+			';
+
+
 
 			/*
 				// overrides for common base/full/typography/_ctas.pcss.
@@ -264,39 +296,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 						background-color: <%= global_elements.accent_color %>;
 					}
 				";
-
-				// Single Event styles overrides
-				// This is under filter_global_elements_css_template() in order to have
-				// access to global_elements.accent_color, which is under a different section.
-				if ( $this->should_add_single_view_v2_styles() ) {
-					$css_template .= '
-						.tribe-events-cal-links .tribe-events-gcal,
-						.tribe-events-cal-links .tribe-events-ical,
-						.tribe-events-event-meta a,
-						.tribe-events-event-meta a:active,
-						.tribe-events-event-meta a:visited,
-						.tribe-events-schedule .recurringinfo a,
-						.tribe-related-event-info .recurringinfo a,
-						.tribe-events-single ul.tribe-related-events li .tribe-related-events-title a,
-						.tribe-events-single-event-description a:active,
-						.tribe-events-single-event-description a:focus,
-						.tribe-events-single-event-description a:hover {
-							color: <%= global_elements.accent_color %>;
-						}
-
-						.tribe-events-virtual-link-button {
-							background-color: <%= global_elements.accent_color %>;
-						}
-
-						.tribe-events-single-event-description a,
-						.tribe-events-single-event-description a:active,
-						.tribe-events-single-event-description a:focus,
-						.tribe-events-single-event-description a:hover,
-						.tribe-events-content blockquote {
-							border-color: <%= global_elements.accent_color %>;
-						}
-					';
-				}
 			*/
 		}
 
@@ -311,15 +310,12 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 		// Background color overrides.
 		if ( $this->should_include_setting_css( 'background_color_choice' ) ) {
-			if (
-				$customizer->has_option( $section->ID, 'background_color_choice' )
-				&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
-				&& $customizer->has_option( $section->ID, 'background_color' )
-			) {
-				$css_template .= '
+			if ( $this->should_include_setting_css( 'background_color' ) ) {
+				$css_template             .= '
 					/* Background Color overrides. */
 					--tec-color-background-events: <%= global_elements.background_color %>;
 				';
+
 				$overrides['twentytwenty'] .= '
 					/* Background Color overrides. */
 					--tec-color-background-events: <%= global_elements.background_color %>;
@@ -347,7 +343,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		}
 
 
-		$css_template .= '\n}';
+		$css_template .= "\n}";
 
 		// Now for some theme magic...
 		/**
@@ -362,11 +358,13 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				$theme = 'child-' . $theme;
 			}
 
-			$css_template .= "
-				.tribe-theme-$theme .tribe-common {
-					{$overrides[ $theme ]}
-				}
-			";
+			if ( ! empty( $overrides[ $theme ] ) ) {
+				$css_template .= "
+					.tribe-theme-$theme .tribe-common {
+						{$overrides[ $theme ]}
+					}
+				";
+			}
 		}
 
 		bdump($css_template);

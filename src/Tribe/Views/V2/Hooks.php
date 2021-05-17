@@ -70,10 +70,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
-
-		// Customizer.
-		add_action( 'tribe_customizer_register_global_elements_settings', [ $this, 'action_include_global_elements_settings' ], 10, 3 );
-		add_action( 'tribe_customizer_register_single_event_settings', [ $this, 'action_include_single_event_settings' ], 15, 3 );
 	}
 
 	/**
