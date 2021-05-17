@@ -126,7 +126,7 @@ class Widget_List extends Widget_Abstract {
 	/**
 	 * Add this widget's css group to the VE list of widget groups to load icon styles for.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param array<string> $widgets The list of widgets
 	 *
