@@ -88,18 +88,6 @@ jobs:
           COMMAND: exists
           FILE: ${{ steps.file_name.outputs.value }}
       # ------------------------------------------------------------------------------
-      # Initialize Node
-      # ------------------------------------------------------------------------------
-      - name: Get node version
-        if: steps.s3_zip.outcome != 'success'
-        id: declare_node
-        run: echo ::set-output name=node_version:$(cat ${GITHUB_WORKSPACE}/.nvmrc | cut -f1 -d"." )
-      - name: Setup Node
-        if: steps.s3_zip.outputs.exists == false
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ steps.declare_node.outputs.node_version }}
-      # ------------------------------------------------------------------------------
       # Prepare our cache directories
       # ------------------------------------------------------------------------------
       - name: Get Composer Cache Directory
