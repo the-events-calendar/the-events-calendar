@@ -119,9 +119,9 @@ jobs:
       # Downgrade composer
       # ------------------------------------------------------------------------------
       - name: Downgrade composer to v1
-        if: steps.s3_zip.outcome != 'success'
         run: |
-          composer self-update --1
+          sudo composer self-update --1
+          sudo chown $USER $HOME/.composer
       # ------------------------------------------------------------------------------
       # Initialize tut
       # ------------------------------------------------------------------------------
