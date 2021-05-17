@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: the-events-calendar/tut
-          ref: feature/tut-no-global-gulp
+          ref: feature/use-node-modules-gulp
           path: tut
           fetch-depth: 1
       # ------------------------------------------------------------------------------
