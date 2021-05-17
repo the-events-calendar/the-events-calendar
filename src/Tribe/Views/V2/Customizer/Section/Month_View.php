@@ -189,17 +189,15 @@ class Month_View extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 				'choices'     => [
-					/* translators: 1: Customizer link (HTML). */
 					'transparent' => sprintf(
 						_x(
-							'Transparent  - the %1$s will show through.',
+							'Transparent.',
 							'Label for option to leave transparent (default).',
 							'the-events-calendar'
-						),
-						$this->get_events_background_link()
+						)
 					),
 					'custom'	  => esc_html_x(
-						'Select Custom Color',
+						'Custom',
 						'Label for option to set a custom color.',
 						'the-events-calendar'
 					),
@@ -219,7 +217,7 @@ class Month_View extends \Tribe__Customizer__Section {
 				'priority'    => 18, // This should come immediately after 'grid_background_color_choice'.
 				'type'        => 'radio',
 				'label'       => esc_html_x(
-					'Tooltip Background Color',
+					'Event Preview Background',
 					'Label for tooltip background color setting.',
 					'the-events-calendar'
 				),
@@ -230,7 +228,7 @@ class Month_View extends \Tribe__Customizer__Section {
 				),
 				'choices'     => [
 					'default' => _x(
-						'Use the default background color.',
+						'White',
 						'Label for option to leave white (default).',
 						'the-events-calendar'
 					),
@@ -280,7 +278,7 @@ class Month_View extends \Tribe__Customizer__Section {
 						'the-events-calendar'
 					),
 					'custom'  => _x(
-						'Select Custom Color',
+						'Custom',
 						'Label for option to set a custom color.',
 						'the-events-calendar'
 					),
@@ -361,7 +359,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 */
 	public function get_events_background_link() {
 		$label_text = _x(
-			'Events Background Color',
+			'General Background Color',
 			'Text used for links to the Event Background Color setting.',
 			'the-events-calendar'
 		);
