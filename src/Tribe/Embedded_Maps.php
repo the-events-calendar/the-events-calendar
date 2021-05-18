@@ -182,7 +182,7 @@ class Tribe__Events__Embedded_Maps {
 					'tribe_events_single_map_zoom_level',
 					(int) tribe_get_option( 'embedGoogleMapsZoom', 8 )
 				),
-				'pin_url'   => Tribe__Customizer::instance()->get_option( [ 'global_elements', 'map_pin' ], false ),
+				'pin_url'   => tribe( 'customizer' )->get_option( [ 'global_elements', 'map_pin' ], false ),
 			]
 		);
 	}

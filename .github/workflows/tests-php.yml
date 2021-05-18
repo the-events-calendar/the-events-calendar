@@ -3,7 +3,7 @@ on:
   pull_request:
     paths:
       - 'src/**.php'
-      - 'tests/**',
+      - 'tests/**'
       - '*.php'
       - 'composer.json'
       - 'codeception.*.yml'
