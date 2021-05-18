@@ -68,4 +68,4 @@ npm run build:gulp
 npm run build:webpack
 ```
 
-We also provide `gulp watch` tasks, so feel free to leverage that while tinkering with CSS or JS to run the build process automatically when you change files.
+We also provide `gulp watch` tasks, so feel free to leverage those while tinkering with CSS or JS to run the build process automatically when you change files.
