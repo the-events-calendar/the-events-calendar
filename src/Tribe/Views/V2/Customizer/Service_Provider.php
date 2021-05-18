@@ -27,9 +27,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		$this->register_assets();
 
-		tribe_singleton( 'tec.v2.customizer.month-view', new Month_View() );
-		tribe_singleton( 'tec.v2.customizer.global-elements', new Global_Elements() );
-		tribe_singleton( 'tec.v2.customizer.single-event', new Single_Event() );
+		tribe_singleton( 'tec.customizer.month-view', new Month_View() );
+		tribe_singleton( 'tec.customizer.global-elements', new Global_Elements() );
+		tribe_singleton( 'tec.customizer.single-event', new Single_Event() );
 	}
 
 	public function register_hooks() {
