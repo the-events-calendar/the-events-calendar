@@ -232,8 +232,30 @@ class Customizer {
 				}
 			";
 
-			$css_template .= '
-				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
+			// overrides for tec views/full/month/_mobile-events.pcss.
+			$css_template .= "
+			$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
+					color: <%= global_elements.accent_color %>;
+				}
+			";
+
+			// overrides for tec views/full/month/_multiday-events.pcss.
+			$css_template .= "
+				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past )  .tribe-events-calendar-month__multiday-event-bar-inner {
+					background-color: $accent_color_multiday;
+				}
+			";
+
+			$css_template .= "
+				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past )  .tribe-events-calendar-month__multiday-event-bar-inner--hover,
+				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past )  .tribe-events-calendar-month__multiday-event-bar-inner--focus {
+					background-color: $accent_color_multiday_hover;
+				}
+			";
+
+			// overrides for tec views/full/day/_event.pcss.
+			$css_template .= "
+				$tribe_events .tribe-events-calendar-day__event--featured:after {
 					background-color: <%= global_elements.accent_color %>;
 				}
 			";

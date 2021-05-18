@@ -50,9 +50,20 @@
 		margin-bottom: var(--tec-spacer-3);
 		width: 100%;
 
+		&:not(.tribe-events-header__messages--mobile) {
+			display: none;
+		}
+
 		.tribe-common--breakpoint-medium& {
 			margin-bottom: var(--tec-spacer-7);
 			order: 1;
+
+			&:not(.tribe-events-header__messages--mobile) {
+				display: flex;
+			}
+			&.tribe-events-header__messages--mobile {
+				display: none;
+			}
 		}
 	}
 

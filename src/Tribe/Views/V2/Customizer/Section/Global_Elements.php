@@ -203,7 +203,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function get_css_template( $css_template ) {
 		if ( ! tribe_events_views_v2_is_enabled() ) {
-			bdump('no v2');
 			return $css_template;
 		}
 
@@ -213,7 +212,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			&& ! $this->should_include_setting_css( 'accent_color' )
 			&& ! $this->should_include_setting_css( 'link_color' )
 		) {
-			bdump('no settings');
 			return $css_template;
 		}
 

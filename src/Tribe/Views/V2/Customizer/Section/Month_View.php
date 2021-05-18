@@ -44,18 +44,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setup_arguments() {
-		$this->arguments = [
-			'priority'	=> 20,
-			'capability'  => 'edit_theme_options',
-			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
-			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section on teh Month View.', 'the-events-calendar' ),
-		];
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function setup_defaults() {
 		$this->defaults = [
 			'grid_lines_color'				  => '#e4e4e4',
@@ -73,30 +61,54 @@ final class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * {@inheritdoc}
 	 */
+	public function setup_arguments() {
+		$this->arguments = [
+			'priority'	=> 65,
+			'capability'  => 'edit_theme_options',
+			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
+			'description' => esc_html__(
+				'Options selected here will override what was selected in the ' . $this->get_general_settings_link() . ' section.',
+				'the-events-calendar'
+			),
+			/* translators: 1: Customizer link (HTML). */
+			'description' => sprintf(
+				_x(
+					'Options selected here will override what was selected in the %1$s section.',
+					'Note about overriding general settings. Contains link HTML.',
+					'the-events-calendar'
+				),
+				$this->get_general_settings_link(),
+			)
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_headings() {
 		$this->content_headings = [
-			'grid' => [
+			'date_day' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
 				'label'		=> esc_html_x(
-					'Calendar Grid',
+					'Set Font Colors',
+					'The header for the date and day color control section.',
+					'the-events-calendar'
+				),
+			],
+			'month_view_separator-10' => [
+				'priority'	 => 10,
+				'type'		 => 'separator',
+			],
+			'grid' => [
+				'priority'	 => 11,
+				'type'		 => 'heading',
+				'label'		=> esc_html_x(
+					'Adjust Grid Colors',
 					'The header for the calendar grid color control section.',
 					'the-events-calendar'
 				),
 			],
-			'month_view_separator' => [
-				'priority'	 => 10,
-				'type'		 => 'separator',
-			],
-			'date_day' => [
-				'priority'	 => 11,
-				'type'		 => 'heading',
-				'label'		=> esc_html_x(
-					'Date and Day',
-					'The header for the date and day color control section.',
-					'the-events-calendar'
-				),
-			]
 		];
 	}
 
@@ -150,52 +162,49 @@ final class Month_View extends \Tribe__Customizer__Section {
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
 		$this->content_controls = [
-			'grid_lines_color'                => [
-				'priority' => 3,
-				'type'     => 'color',
-				'label'    => esc_html_x(
-					'Grid Lines Color',
-					'The grid lines color setting label.',
+			'days_of_week_color'              => [
+				'priority'    => 3,
+				'type'        => 'color',
+				'label'       => esc_html_x(
+					'Days of the Week',
+					'The days of the week text color setting label.',
 					'the-events-calendar'
 				),
 			],
-			'grid_hover_color'              => [
-				'priority'    => 5, // This should come immediately after 'grid_hover_color_choice'.
+			'date_marker_color'               => [
+				'priority'    => 5,
 				'type'        => 'color',
-				'description' => esc_html_x(
-					'The color of the day cell hover indicator (bottom border).',
-					'The grid hover color setting description.',
+				'label'       => esc_html_x(
+					'Date Marker',
+					'The date marker text color setting label.',
 					'the-events-calendar'
 				),
 			],
 			'grid_background_color_choice'    => [
-				'priority'    => 6,
+				'priority'    => 17,
 				'type'        => 'radio',
 				'label'       => esc_html_x(
-					'Grid Background Color',
+					'Grid Background',
 					'The grid background color setting label.',
 					'the-events-calendar'
 				),
-				'description' => esc_html_x(
-					'The Month View grid background',
-					'The grid background color setting description.',
-					'the-events-calendar'
-				),
 				'choices'     => [
-					'transparent' => _x(
-						'Transparent  - the ' . $this->get_events_background_link() . ' will show through.',
-						'Label for option to leave transparent (default).',
-						'the-events-calendar'
+					'transparent' => sprintf(
+						_x(
+							'Transparent.',
+							'Label for option to leave transparent (default).',
+							'the-events-calendar'
+						)
 					),
 					'custom'	  => esc_html_x(
-						'Select Custom Color',
+						'Custom',
 						'Label for option to set a custom color.',
 						'the-events-calendar'
 					),
 				],
 			],
 			'grid_background_color'           => [
-				'priority'        => 7, // This should come immediately after 'grid_background_color_choice'.
+				'priority'        => 18, // This should come immediately after 'grid_background_color_choice'.
 				'type'            => 'color',
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'grid_background_color_choice', $control->section );
@@ -205,29 +214,33 @@ final class Month_View extends \Tribe__Customizer__Section {
 
 			],
 			'tooltip_background_color'        => [
-				'priority'    => 7, // This should come immediately after 'grid_background_color_choice'.
+				'priority'    => 18, // This should come immediately after 'grid_background_color_choice'.
 				'type'        => 'radio',
 				'label'       => esc_html_x(
-					'Tooltip Background Color',
+					'Event Preview Background',
 					'Label for tooltip background color setting.',
 					'the-events-calendar'
 				),
 				'description' => esc_html_x(
-					'The Tooltip Background Color',
+					'Preview display when hovering on an event title.',
 					'The grid background color setting description.',
 					'the-events-calendar'
 				),
 				'choices'     => [
 					'default' => _x(
-						'Use the default background color.',
+						'White',
 						'Label for option to leave white (default).',
 						'the-events-calendar'
 					),
-					'event'	  => _x(
-						'Use the ' . $this->get_events_background_link() . '.',
-						'Label for option to use the event background color.',
-						'the-events-calendar'
-					),
+					'event'	  => sprintf(
+						/* translators: 1: Customizer link (HTML). */
+						_x(
+							'Use the %1$s.',
+							'Label for option to use the event background color.',
+							'the-events-calendar'
+						),
+						$this->get_events_background_link()
+					)
 				],
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'grid_background_color_choice', $control->section );
@@ -236,39 +249,25 @@ final class Month_View extends \Tribe__Customizer__Section {
 				},
 
 			],
-			'days_of_week_color'              => [
-				'priority'    => 13,
-				'type'        => 'color',
-				'label'       => esc_html_x(
-					'Days of the Week Color',
-					'The days of the week text color setting label.',
-					'the-events-calendar'
-				),
-				'description' => esc_html_x(
-					'Text color for the Days of the Week',
-					'The days of the week text color setting description.',
-					'the-events-calendar'
-				),
-			],
-			'date_marker_color'               => [
-				'priority'    => 16,
-				'type'        => 'color',
-				'label'       => esc_html_x(
-					'Date Marker Color',
-					'The date marker text color setting label.',
+			'grid_lines_color'                => [
+				'priority' => 13,
+				'type'     => 'color',
+				'label'    => esc_html_x(
+					'Grid Lines Color',
+					'The grid lines color setting label.',
 					'the-events-calendar'
 				),
 			],
 			'multiday_event_bar_color_choice' => [
-				'priority'    => 18,
+				'priority'    => 7,
 				'type'        => 'radio',
 				'label'       => esc_html_x(
-					'Multiday Event Bar Color',
+					'Event Span',
 					'The multiday event bar color setting label.',
 					'the-events-calendar'
 				),
 				'description' => esc_html_x(
-					'The Month View multiday and all-day event bar background color.',
+					'For all-day and multi-day events.',
 					'The multiday event bar color setting description.',
 					'the-events-calendar'
 				),
@@ -279,14 +278,14 @@ final class Month_View extends \Tribe__Customizer__Section {
 						'the-events-calendar'
 					),
 					'custom'  => _x(
-						'Select Custom Color',
+						'Custom',
 						'Label for option to set a custom color.',
 						'the-events-calendar'
 					),
 				],
 			],
 			'multiday_event_bar_color'        => [
-				'priority'        => 19,
+				'priority'        => 9,
 				'type'    => 'color',
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'multiday_event_bar_color_choice', $control->section );
@@ -294,11 +293,36 @@ final class Month_View extends \Tribe__Customizer__Section {
 					return $this->defaults['multiday_event_bar_color_choice'] !== $value;
 				},
 			],
+			'grid_hover_color'              => [
+				'priority'    => 15,
+				'type'        => 'color',
+				'description' => esc_html_x(
+					'Bottom border highlight when hovering on a day.',
+					'The grid hover color setting description.',
+					'the-events-calendar'
+				),
+			],
 		];
 	}
 
 	/**
-	 * Modify the CSS rules template
+	 * Gets the link to the event background color setting in Customizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML link element.
+	 */
+	public function get_general_settings_link() {
+		$label_text = _x(
+			'General',
+			'Text used for links to the General settings section.',
+			'the-events-calendar'
+		);
+		return $this->get_global_element_link( '', $label_text );
+	}
+
+	/**
+	 * Grab the CSS rules template
 	 *
 	 * @param string $template The Customizer CSS string/template.
 	 *
@@ -365,7 +389,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 			$template .="
 				.tribe-events-calendar-month__day-date.tribe-common-h4,
 				$tribe_events .tribe-events-calendar-month__day-date-link,
-				$tribe_events .tribe-events-calendar-month__day-date-daynum {
+				$tribe_events .tribe-events-calendar-month__day:not(.tribe-events-calendar-month__day--current) .tribe-events-calendar-month__day-date-daynum {
 					color: <%= month_view.date_marker_color %>;
 				}
 			";
@@ -378,12 +402,12 @@ final class Month_View extends \Tribe__Customizer__Section {
 				$bar_color_hover = 'rgba(' . $bar_color_rgb . ',0.34)';
 
 				$template .="
-					$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner {
+					$tribe_events .tribe-events-calendar-month__multiday-event:not(.tribe-events-calendar-month__multiday-event--past) .tribe-events-calendar-month__multiday-event-bar-inner {
 						background-color: $bar_color;
 					}
 
-					$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--hover,
-					$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--focus {
+					$tribe_events tribe-events-calendar-month__multiday-event:not(.tribe-events-calendar-month__multiday-event--past) .tribe-events-calendar-month__multiday-event-bar-inner--hover,
+					$tribe_events tribe-events-calendar-month__multiday-event:not(.tribe-events-calendar-month__multiday-event--past) .tribe-events-calendar-month__multiday-event-bar-inner--focus {
 						background-color: $bar_color_hover;
 					}
 				";
