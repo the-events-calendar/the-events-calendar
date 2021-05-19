@@ -2483,7 +2483,6 @@ class View implements View_Interface {
 		$this->url = $url_object;
 	}
 
-
 	/**
 	 * {@inheritdoc}
 	 */
