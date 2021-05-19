@@ -30,7 +30,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 	 *
 	 * @var integer
 	 */
-	public $queue_priority = 20;
+	public $queue_priority = 25;
 
 	/**
 	 * This method will be executed when the Class is Initialized.

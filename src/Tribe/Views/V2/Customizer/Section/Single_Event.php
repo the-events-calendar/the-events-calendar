@@ -30,7 +30,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 *
 	 * @var integer
 	 */
-	public $queue_priority = 17;
+	public $queue_priority = 20;
 
 	/**
 	 * This method will be executed when the Class is Initialized.
