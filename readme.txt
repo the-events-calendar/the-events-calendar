@@ -242,6 +242,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Updating lodash to 4.17.21. [TEC-3885]
 * Tweak - Prevent to list changes of hash on URL changes like `#content` [TEC-3890]
 * Tweak - Update Google Calendar link to use the timezone based on the Timezone Settings from the Calendar [TEC-3143]
+* Tweak - Add the `tribe_views_v2_after_setup_loop` filter to modify the loop context set up in the View (v2). [ECP-811]
 
 = [5.6.0] 2021-04-29 =
 

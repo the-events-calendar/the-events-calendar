@@ -628,6 +628,10 @@ class View implements View_Interface {
 
 		/**
 		 * Fire new action on the views.
+		 *
+		 * @since TBD
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
 		 */
 		do_action( 'tribe_views_v2_after_setup_loop', $this );
 
