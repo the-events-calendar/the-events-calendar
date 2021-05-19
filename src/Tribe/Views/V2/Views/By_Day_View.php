@@ -153,8 +153,7 @@ abstract class By_Day_View extends View {
 		 * @param DateTimeInterface $grid_end   The View grid end date.
 		 * @param By_Day_View       $this       A reference to the View instance that has fired this filter.
 		 */
-		$grid_days = apply_filters( 'tribe_events_views_v2_by_day_view_grid_days', null, $grid_start, $grid_end,
-			$this );
+		$grid_days = apply_filters( 'tribe_events_views_v2_by_day_view_grid_days', null, $grid_start, $grid_end, $this );
 
 		if ( null !== $grid_days ) {
 			return $grid_days;
@@ -241,12 +240,7 @@ abstract class By_Day_View extends View {
 			 * @param By_Day_View_Compatibility $this           A reference to the `By_Day_View` instance that is applying the
 			 *                                                  filter.
 			 */
-			$day_results = apply_filters(
-				'tribe_events_views_v2_by_day_view_day_results',
-				null,
-				$view_event_ids,
-				$this
-			);
+			$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
 
 			if ( null === $day_results ) {
 				$day_results = $this->prepare_day_results( $use_site_timezone, $view_event_ids );
