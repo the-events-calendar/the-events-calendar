@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: the-events-calendar/tut
-          ref: main
+          ref: feature/use-yarn-and-nvm
           path: tut
           fetch-depth: 1
       # ------------------------------------------------------------------------------
