@@ -730,7 +730,7 @@ abstract class By_Day_View extends View {
 			$results_buffer[] = $chunk_results;
 		}
 
-		$results = array_merge( ...$results_buffer );
+		$results = count( $results_buffer ) ? array_merge( ...$results_buffer ) : [];
 
 		$indexed_results = [];
 
