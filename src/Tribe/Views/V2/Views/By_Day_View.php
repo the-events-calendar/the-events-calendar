@@ -683,19 +683,6 @@ abstract class By_Day_View extends View {
 	}
 
 	/**
-	 * ${CARET}
-	 *
-	 * @since 4.9.13
-	 *
-	 * @return bool
-	 */
-	protected function using_period_repository() {
-		return defined( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' )
-		       && TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY;
-	}
-
-	/**
-<<<<<<< HEAD
 	 * Formats the day results in the format expected for day-by-day grid building.
 	 *
 	 * The method will fetch the required data in chunks to avoid overloading the database.
