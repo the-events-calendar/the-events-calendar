@@ -457,4 +457,87 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		// This is an event query, but a 404 one.
 		$wp_the_query->tribe_is_event_query = true;
 	}
+
+	public function page_template_tax_archive_body_classes_provider() {
+		$noop = static function () {
+		};
+
+		return [
+			'empty'                  => [ [], $noop, false ],
+			'post tag archive'       => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->tag->create_and_get();
+				},
+				true
+			],
+			'post category archive'  => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->category->create_and_get();
+				},
+				true
+			],
+			'event category archive' => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = true;
+					$wp_query->queried_object = static::factory()->term->create_and_get( [ 'taxonomy' => Main::TAXONOMY ] );
+				},
+				true
+			],
+			'event tag archive'      => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->tag->create_and_get();
+				},
+				true
+			],
+			'custom tax archive'     => [
+				[ 'archive' ],
+				static function () {
+					register_taxonomy( 'accessibility', Main::POSTTYPE );
+					global $wp_query;
+					$wp_query->is_tax         = true;
+					$wp_query->queried_object = static::factory()->term->create_and_get( [ 'taxonomy' => 'accessibility' ] );
+				},
+				true
+			],
+			'not a taxonomy page' => [
+				['archive']	,
+				static function(){
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->post->create_and_get( );
+				},
+				false
+			]
+		];
+	}
+
+	/**
+	 * It should correctly filter body classes for tax archives when using page template
+	 *
+	 * @test
+	 * @dataProvider page_template_tax_archive_body_classes_provider
+	 */
+	public function should_correctly_filter_body_classes_for_tax_archives_when_using_page_template(
+		$initial_body_classes,
+		$setup,
+		$expected
+	) {
+		$setup();
+		$template              = tribe_update_option( 'tribeEventsTemplate', 'page' );
+		$template_bootstrap    = $this->make_instance();
+		$filtered_body_classes = $template_bootstrap->filter_add_body_classes( $initial_body_classes );
+
+		$this->assertEquals( $expected, in_array( 'archive', $filtered_body_classes, true ) );
+	}
 }

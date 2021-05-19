@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.6.0",
+  "version": "5.6.1",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -121,7 +121,7 @@
     "google-maps-react": "^1.1.11",
     "he": "^1.2.0",
     "jquery": "3.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
     "prop-types": "^15.6.2",
@@ -144,6 +144,7 @@
     "url-loader": "^0.6.2",
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3"
+    "zero-fill": "^2.2.3",
+    "mt-a11y-dialog": "^5.1.1"
   }
 }
