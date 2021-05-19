@@ -67,11 +67,11 @@ class Tribe__Events__Linked_Posts {
 		$data       = [
 			'post_types' => [],
 		];
-		
-		if(!is_array($this->linked_post_types)){
+
+		if ( ! count( (array) $this->linked_post_types ) ) {
 			return $data;
 		}
-		
+
 		$post_types = array_keys( $this->linked_post_types );
 
 		foreach ( $post_types as $post_type ) {
