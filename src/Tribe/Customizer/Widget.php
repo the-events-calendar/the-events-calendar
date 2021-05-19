@@ -30,7 +30,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
-		$customizer = Tribe__Customizer::instance();
+		$customizer = tribe( 'customizer' );
 
 		if ( ! $customizer->get_option( [ 'widget', 'featured_show_images' ] ) ) {
 			$template .= '
@@ -70,7 +70,7 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 	 * @return void
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
-		$customizer = Tribe__Customizer::instance();
+		$customizer = tribe( 'customizer' );
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'calendar_header_color', $section ),

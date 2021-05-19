@@ -222,6 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.6.1] TBD =
 
+* Feature - Add new Month View section to the Customizer for v2 views. [TEC-3836]
 * Fix - Apply responsive breakpoints once the page has fully loaded with all JavaScript and Elements on the page [TEC-3797]
 * Fix - Resolve conflicts with Gravity Forms plugin that would prevent correct submission of forms data. [ECP-466]
 * Fix - Correctly handle start and end of day cutoff in Day View when the server timezone is not the same as the site (thanks @therealgilles). [TEC-3877]
@@ -343,7 +344,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Event Aggregator - Search Box for Scheduled Imports. [TEC-3570]
 * Feature - Event Aggregator Batch Pushing for Cron Imports [EA-297]
 * Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_time_to_live` to customize the time in seconds to consider an EA record alive. [EA-297]
-* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_stall_limit` to customize the number of seconds for an EA record to be considerd stalled. [EA-297]
+* Tweak - Add the filter `tribe_aggregator_import_queue_cleaner_stall_limit` to customize the number of seconds for an EA record to be considered stalled. [EA-297]
 * Tweak - Add the filter `tribe_events_aggregator_build_url` [EA-297]
 * Tweak - Adjust Event Aggregator Client Progress Bar using the Heart Beat API for polling state instead [TEC-3534]
 * Tweak - Event Aggregator - Make default limit by number of events instead of by date range. [TEC-3635]
@@ -361,7 +362,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent creation of duplicate venues for default address while adding or editing events. [ECP-482]
 * Fix - Make sure Month View "View More" link to Day View will preserve the current search criteria. [TEC-3230]
 * Fix - Ensure Event Aggregator Cron schedules always have array format and avoid errors on fresh WordPress installations (thanks @mmcachran).
-* Fix - Regular expresion to sanitize name of columns on the EA client make sure all invalid characters are removed.
+* Fix - Regular expression to sanitize name of columns on the EA client make sure all invalid characters are removed.
 * Fix - Use more robust code in the `tribe_is_past_event` template tag to avoid Warnings.
 * Fix - Review and improve the Rewrite component to correctly parse and handle localized URLs and accented characters. [TEC-3608]
 * Language - 25 new strings added, 775 updated, 1 fuzzied, and 6 obsoleted

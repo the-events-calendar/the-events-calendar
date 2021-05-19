@@ -92,7 +92,7 @@ class Customizer {
 				$manager,
 				$customizer->get_setting_name( 'background_color_choice', $section ),
 				[
-					'label'       => 'Background Color',
+					'label'       => esc_html__( 'Background Color', 'the-events-calendar' ),
 					'section'     => $section->id,
 					'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
 					'type'        => 'radio',
@@ -676,14 +676,14 @@ class Customizer {
 
 			// overrides for tec views/full/month/_multiday-events.pcss.
 			$css_template .= "
-				$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner {
+				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past )  .tribe-events-calendar-month__multiday-event-bar-inner {
 					background-color: $accent_color_multiday;
 				}
 			";
 
 			$css_template .= "
-				$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--hover,
-				$tribe_events .tribe-events-calendar-month__multiday-event-bar-inner--focus {
+				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past )  .tribe-events-calendar-month__multiday-event-bar-inner--hover,
+				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past )  .tribe-events-calendar-month__multiday-event-bar-inner--focus {
 					background-color: $accent_color_multiday_hover;
 				}
 			";

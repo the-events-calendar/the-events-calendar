@@ -86,7 +86,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
-		$customizer = Tribe__Customizer::instance();
+		$customizer = tribe( 'customizer' );
 		$settings = $customizer->get_option( [ $this->ID ] );
 		$background_color_obj = new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
 
@@ -270,7 +270,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return void
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
-		$customizer = Tribe__Customizer::instance();
+		$customizer = tribe( 'customizer' );
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
