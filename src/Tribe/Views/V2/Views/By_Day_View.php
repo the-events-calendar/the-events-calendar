@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use DateTimeInterface;
+use iCalTec\Views\V2\By_Day_View_Compatibility;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Utils\Stack;
@@ -137,6 +139,26 @@ abstract class By_Day_View extends View {
 
 		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $this->user_date );
 
+		/**
+		 * Allows injecting the View grid days before any default logic runs.
+		 *
+		 * Note: this filter assumes the filtering function will handle any additional filtering criteria
+		 * the View might be required based on the Context.
+		 *
+		 * @since  TBD
+		 *
+		 * @param array<string,array<int>>|null The View grid days in a map from the day date in `Y-m-d` format to the
+		 *                                      list of Event post IDs matching the search criteria for each day.
+		 * @param DateTimeInterface $grid_start The View grid start date.
+		 * @param DateTimeInterface $grid_end   The View grid end date.
+		 * @param By_Day_View       $this       A reference to the View instance that has fired this filter.
+		 */
+		$grid_days = apply_filters( 'tribe_events_views_v2_by_day_view_grid_days', null, $grid_start, $grid_end, $this );
+
+		if ( null !== $grid_days ) {
+			return $grid_days;
+		}
+
 		try {
 			$grid_start_date = $grid_start->setTime( 0, 0 );
 			// Add a day at the end to pick-up multi-day events starting on the last day.
@@ -195,7 +217,7 @@ abstract class By_Day_View extends View {
 			$order_by                   = tribe_normalize_orderby( $order_by, $order );
 			$order_by['event_duration'] = 'ASC';
 
-			$repo = tribe_events()
+			$events_repository = tribe_events()
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
@@ -203,65 +225,25 @@ abstract class By_Day_View extends View {
 				->per_page( - 1 )
 				->order_by( $order_by, $order );
 
-			$view_event_ids = $repo
-				->all();
+			$view_event_ids = $events_repository->all();
 
-			$day_results = [];
+			/**
+			 * Allows filtering the formatted day results before the default logic kicks in and after all the
+			 * matching Event post IDs have been found.
+			 *
+			 * @since TBD
+			 *
+			 * @param null|array<int,\stdClass> $day_results    A map from each event Post ID to the value object that
+			 *                                                  will represent the Event ID, start date, end date and
+			 *                                                  timezone.
+			 * @param array<int>                $view_event_ids The set of Event Post IDs to build and format the Day
+			 * @param By_Day_View_Compatibility $this           A reference to the `By_Day_View` instance that is applying the
+			 *                                                  filter.
+			 */
+			$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
 
-			$start_meta_key = '_EventStartDate';
-			$end_meta_key   = '_EventEndDate';
-
-			if ( $use_site_timezone ) {
-				$start_meta_key = '_EventStartDateUTC';
-				$end_meta_key   = '_EventEndDateUTC';
-			}
-
-			$results        = [];
-			$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
-
-			foreach ( $request_chunks as $chunk_ids ) {
-				$sql = "
-					SELECT
-					  post_id,
-						meta_key,
-						meta_value
-					FROM
-						{$wpdb->postmeta}
-					WHERE
-						meta_key IN ( %s, %s, %s )
-						AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
-				";
-
-				$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql, [ $start_meta_key, $end_meta_key, '_EventTimezone' ] ) );
-
-				$results = array_merge( $results, $chunk_results );
-			}
-
-			$indexed_results = [];
-
-			foreach ( $results as $row ) {
-				if ( ! isset( $indexed_results[ $row->post_id ] ) ) {
-					$indexed_results[ $row->post_id ] = [
-						'ID'         => $row->post_id,
-						'start_date' => null,
-						'end_date'   => null,
-						'timezone'   => null,
-					];
-				}
-
-				$map = [
-					$start_meta_key  => 'start_date',
-					$end_meta_key    => 'end_date',
-					'_EventTimezone' => 'timezone',
-				];
-
-				$key = Arr::get( $map, $row->meta_key );
-
-				$indexed_results[ $row->post_id ][ $key ] = $row->meta_value;
-			}
-
-			foreach ( $view_event_ids as $id ) {
-				$day_results[] = (object) $indexed_results[ $id ];
+			if ( null === $day_results ) {
+				$day_results = $this->prepare_day_results( $view_event_ids, $use_site_timezone );
 			}
 		}
 
@@ -346,7 +328,6 @@ abstract class By_Day_View extends View {
 		// Drop the last day we've added before.
 		array_pop( $this->grid_days_cache );
 		array_pop( $this->grid_days_found_cache );
-
 		$this->fill_week_duration_cache();
 
 		return $this->grid_days_cache;
@@ -702,15 +683,83 @@ abstract class By_Day_View extends View {
 	}
 
 	/**
-	 * ${CARET}
+	 * Formats the day results in the format expected for day-by-day grid building.
 	 *
-	 * @since 4.9.13
+	 * The method will fetch the required data in chunks to avoid overloading the database.
 	 *
-	 * @return bool
+	 * @since TBD
+	 *
+	 * @param array<int> $view_event_ids    The set of Event Post IDs to build and format the Day
+	 * @param bool       $use_site_timezone Whether to use the site timezone to format the event dates or not. The value
+	 *                                      descends from the "Timezone Mode" setting.
+	 *
+	 * @return array<int,\stdClass> A map from each event Post ID to the value object that will represent
+	 *                              the Event ID, start date, end date and timezone.
 	 */
-	protected function using_period_repository() {
-		return defined( 'TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY' )
-		       && TRIBE_EVENTS_V2_VIEWS_USE_PERIOD_REPOSITORY;
+	protected function prepare_day_results( array $view_event_ids, $use_site_timezone ) {
+		$day_results = [];
+
+		$start_meta_key = '_EventStartDate';
+		$end_meta_key   = '_EventEndDate';
+
+		if ( $use_site_timezone ) {
+			$start_meta_key = '_EventStartDateUTC';
+			$end_meta_key   = '_EventEndDateUTC';
+		}
+
+		$results_buffer = [];
+		$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
+		global $wpdb;
+
+		foreach ( $request_chunks as $chunk_ids ) {
+			$sql = "
+					SELECT
+					  post_id,
+						meta_key,
+						meta_value
+					FROM
+						{$wpdb->postmeta}
+					WHERE
+						meta_key IN ( %s, %s, %s )
+						AND post_id IN ( " . implode( ',', $chunk_ids ) . " )
+				";
+
+			$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql,
+				[ $start_meta_key, $end_meta_key, '_EventTimezone' ] ) );
+
+			$results_buffer[] = $chunk_results;
+		}
+
+		$results = count( $results_buffer ) ? array_merge( ...$results_buffer ) : [];
+
+		$indexed_results = [];
+
+		foreach ( $results as $row ) {
+			if ( ! isset( $indexed_results[ $row->post_id ] ) ) {
+				$indexed_results[ $row->post_id ] = [
+					'ID'         => $row->post_id,
+					'start_date' => null,
+					'end_date'   => null,
+					'timezone'   => null,
+				];
+			}
+
+			$map = [
+				$start_meta_key  => 'start_date',
+				$end_meta_key    => 'end_date',
+				'_EventTimezone' => 'timezone',
+			];
+
+			$key = Arr::get( $map, $row->meta_key );
+
+			$indexed_results[ $row->post_id ][ $key ] = $row->meta_value;
+		}
+
+		foreach ( $view_event_ids as $id ) {
+			$day_results[] = (object) $indexed_results[ $id ];
+		}
+
+		return $day_results;
 	}
 
 	/**

@@ -243,4 +243,13 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *                    used to fetch the Events.
 	 */
 	public function get_ical_ids( $per_page );
+
+	/**
+	 * Disable the url management inside of the current view.
+	 *
+	 * @since TBD
+	 *
+	 * @return View_Interface A reference to the View-like that is being directed.
+	 */
+	public function disable_url_management();
 }

@@ -242,6 +242,9 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Updating lodash to 4.17.21. [TEC-3885]
 * Tweak - Prevent to list changes of hash on URL changes like `#content` [TEC-3890]
 * Tweak - Update Google Calendar link to use the timezone based on the Timezone Settings from the Calendar [TEC-3143]
+* Tweak - Add the `tribe_views_v2_after_setup_loop` filter to modify the loop context set up in the View (v2). [ECP-811]
+* Tweak - Add the `tribe_events_views_v2_by_day_view_grid_days` to allow pre-filling Month and Week Views (v2) Events. [ECP-529]
+* Tweak - Add the `tribe_events_views_v2_by_day_view_day_results` to allow fine-grained control over Month and Week Views (v2) Event data. [ECP-529]
 
 = [5.6.0] 2021-04-29 =
 

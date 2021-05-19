@@ -77,7 +77,7 @@ class Month_View extends \Tribe__Customizer__Section {
 					'Note about overriding general settings. Contains link HTML.',
 					'the-events-calendar'
 				),
-				$this->get_general_settings_link(),
+				$this->get_general_settings_link()
 			)
 		];
 	}
