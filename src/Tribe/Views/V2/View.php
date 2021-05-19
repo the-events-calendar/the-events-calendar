@@ -2486,8 +2486,6 @@ class View implements View_Interface {
 
 	/**
 	 * {@inheritdoc}
-	 *
-	 * @return $this
 	 */
 	public function disable_url_management() {
 		$this->should_manage_url = false;
