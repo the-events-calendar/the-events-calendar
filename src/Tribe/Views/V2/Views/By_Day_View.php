@@ -243,7 +243,7 @@ abstract class By_Day_View extends View {
 			$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
 
 			if ( null === $day_results ) {
-				$day_results = $this->prepare_day_results( $use_site_timezone, $view_event_ids );
+				$day_results = $this->prepare_day_results( $view_event_ids, $use_site_timezone );
 			}
 		}
 
@@ -689,14 +689,14 @@ abstract class By_Day_View extends View {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<int> $view_event_ids The set of Event Post IDs to build and format the Day
+	 * @param array<int> $view_event_ids    The set of Event Post IDs to build and format the Day
+	 * @param bool       $use_site_timezone Whether to use the site timezone to format the event dates or not. The value
+	 *                                      descends from the "Timezone Mode" setting.
 	 *
 	 * @return array<int,\stdClass> A map from each event Post ID to the value object that will represent
 	 *                              the Event ID, start date, end date and timezone.
 	 */
-	protected function prepare_day_results( array $view_event_ids ) {
-		$use_site_timezone = Timezones::is_mode( 'site' );
-
+	protected function prepare_day_results( array $view_event_ids, $use_site_timezone ) {
 		$day_results = [];
 
 		$start_meta_key = '_EventStartDate';
@@ -707,7 +707,7 @@ abstract class By_Day_View extends View {
 			$end_meta_key   = '_EventEndDateUTC';
 		}
 
-		$results        = [];
+		$results_buffer = [];
 		$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
 		global $wpdb;
 
@@ -727,8 +727,10 @@ abstract class By_Day_View extends View {
 			$chunk_results = $wpdb->get_results( $wpdb->prepare( $sql,
 				[ $start_meta_key, $end_meta_key, '_EventTimezone' ] ) );
 
-			$results = array_merge( $results, $chunk_results );
+			$results_buffer[] = $chunk_results;
 		}
+
+		$results = array_merge( ...$results_buffer );
 
 		$indexed_results = [];
 
