@@ -324,13 +324,13 @@ final class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Grab the CSS rules template
 	 *
-	 * @param string $template The Customizer CSS string/template.
+	 * @param string $css_template The Customizer CSS string/template.
 	 *
 	 * @return string The Customizer CSS string/template, with v2 Month View styles added.
 	 */
-	public function get_css_template( $template ) {
+	public function get_css_template( $css_template ) {
 		if ( ! tribe_events_views_v2_is_enabled() ) {
-			return $template;
+			return $css_template;
 		}
 
 		// These allow us to continue to _not_ target the shortcode.
@@ -338,7 +338,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
 
 		if ( $this->should_include_setting_css( 'grid_lines_color' ) ) {
-			$template .= "
+			$css_template .= "
 				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__body,
 				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day,
 				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__week {
@@ -348,7 +348,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'grid_hover_color' ) ) {
-			$template .= "
+			$css_template .= "
 				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day:hover::after {
 					background-color: <%= month_view.grid_hover_color %>;
 				}
@@ -357,7 +357,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 
 		if ( $this->should_include_setting_css( 'grid_background_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'grid_background_color' ) ) {
-				$template .="
+				$css_template .="
 					$tribe_events .tribe-events-calendar-month__body {
 						background-color: <%= month_view.grid_background_color %>;
 					}
@@ -368,7 +368,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 				$this->should_include_setting_css( 'tooltip_background_color' )
 				&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
 			) {
-				$template .="
+				$css_template .="
 					.tooltipster-base.tribe-events-tooltip-theme,
 					.tooltipster-base.tribe-events-tooltip-theme--hover {
 						background-color: <%= global_elements.background_color %>;
@@ -378,7 +378,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'days_of_week_color' )  ) {
-			$template .="
+			$css_template .="
 				$tribe_events .tribe-events-calendar-month__header-column-title {
 					color: <%= month_view.days_of_week_color %>;
 				}
@@ -386,7 +386,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'date_marker_color' )  ) {
-			$template .="
+			$css_template .="
 				.tribe-events-calendar-month__day-date.tribe-common-h4,
 				$tribe_events .tribe-events-calendar-month__day-date-link,
 				$tribe_events .tribe-events-calendar-month__day:not(.tribe-events-calendar-month__day--current) .tribe-events-calendar-month__day-date-daynum {
@@ -401,7 +401,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 				$bar_color       = 'rgba(' . $bar_color_rgb . ',0.24)';
 				$bar_color_hover = 'rgba(' . $bar_color_rgb . ',0.34)';
 
-				$template .="
+				$css_template .="
 					$tribe_events .tribe-events-calendar-month__multiday-event:not(.tribe-events-calendar-month__multiday-event--past) .tribe-events-calendar-month__multiday-event-bar-inner {
 						background-color: $bar_color;
 					}
@@ -413,7 +413,8 @@ final class Month_View extends \Tribe__Customizer__Section {
 				";
 			}
 		}
-		return $template;
+
+		return $css_template;
 	}
 
 	/**

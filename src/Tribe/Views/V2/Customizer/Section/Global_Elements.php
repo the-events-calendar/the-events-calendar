@@ -7,9 +7,6 @@
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
-
-use Tribe\Utils\Theme_Compatibility;
-
 /**
  * Month View
  *
@@ -62,7 +59,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'event_date_time_color'   => '#141827',
 			'background_color_choice' => 'transparent',
 			'background_color'        => '',
-			'accent_color'            => '',
+			'accent_color'            => '#334aff',
 		];
 	}
 
@@ -195,7 +192,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 *
 	 * @since 5.3.1
 	 *
-	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
+	 * @param string                      $css_template The current CSS template, as produced by the Section.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
 	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
 	 *
@@ -215,19 +212,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
-		$css_template .= ":root{\n";
-
-		// Override placeholders - we'll clean up and concat these at the end.
-		$overrides = [
-			'avada'           => '',
-			'divi'            => '',
-			'enfold'          => '',
-			'genesis'         => '',
-			'twentyseventeen' => '',
-			'twentynineteen'  => '',
-			'twentytwenty'    => '',
-			'twentytwentyone' => '',
-		];
+		$css_template = ":root{\n";
 
 		// Accent color overrides.
 		if ( $this->should_include_setting_css( 'accent_color' ) ) {
@@ -243,58 +228,11 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				--tec-color-accent-primary-background: rgba({$accent_color_rgb},0.07);
 				--tec-color-background-secondary-datepicker: rgba({$accent_color_rgb},0.5);
 				--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;
+				--tec-color-button-primary: <%= global_elements.accent_color %>;
+				--tec-color-button-primary-hover: rgba({$accent_color_rgb},0.8);
+				--tec-color-button-primary-active: rgba({$accent_color_rgb},0.9);
+				--tec-color-button-primary-background: rgba({$accent_color_rgb},0.07);
 			";
-
-			$overrides['twentyseventeen'] .= '
-				/* Accent Color overrides. */
-				--tec-color-background-events: <%= global_elements.background_color %>;
-			';
-
-			$overrides['twentytwenty'] .= '
-				/* Accent Color overrides. */
-				--tec-color-background-events: <%= global_elements.background_color %>;
-			';
-
-
-
-			/*
-				// overrides for common base/full/typography/_ctas.pcss.
-
-				$css_template .= "
-					.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
-					.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
-						background-color: <%= global_elements.accent_color %>;
-					}
-				";
-
-				$css_template .= '
-					.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
-					.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:focus,
-					.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
-					.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
-						background-color: var(--tec-color-accent-primary-hover);
-					}
-				";
-
-				$css_template .= "
-					.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:hover,
-					.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day-cell--selected:focus {
-						background-color: <%= global_elements.accent_color %>;
-					}
-				";
-
-				$css_template .= "
-					.tribe-theme-twentytwenty $tribe_events .tribe-events-calendar-month__day-cell--selected {
-						background-color: <%= global_elements.accent_color %>;
-					}
-				";
-
-				$css_template .= '
-					.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn {
-						background-color: <%= global_elements.accent_color %>;
-					}
-				";
-			*/
 		}
 
 		// Event Title overrides.
@@ -310,11 +248,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		if ( $this->should_include_setting_css( 'background_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'background_color' ) ) {
 				$css_template             .= '
-					/* Background Color overrides. */
-					--tec-color-background-events: <%= global_elements.background_color %>;
-				';
-
-				$overrides['twentytwenty'] .= '
 					/* Background Color overrides. */
 					--tec-color-background-events: <%= global_elements.background_color %>;
 				';
@@ -340,32 +273,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			';
 		}
 
-
 		$css_template .= "\n}";
-
-		// Now for some theme magic...
-		/**
-		 * @var Theme_Compatibility $theme_compatibility
-		 */
-		$theme_compatibility = tribe( Theme_Compatibility::class );
-		$themes = $theme_compatibility->get_active_themes();
-
-		// Wrap each in the appropriate selector.
-		foreach ( $themes as $generation => $theme ) {
-			if ( 'child' === $generation ) {
-				$theme = 'child-' . $theme;
-			}
-
-			if ( ! empty( $overrides[ $theme ] ) ) {
-				$css_template .= "
-					.tribe-theme-$theme .tribe-common {
-						{$overrides[ $theme ]}
-					}
-				";
-			}
-		}
-
-		bdump($css_template);
 
 		return $css_template;
 	}
