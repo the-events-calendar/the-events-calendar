@@ -103,10 +103,17 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      - uses actions/cache@v2
+        if: steps.s3_zip.outcome != 'success'
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       # ------------------------------------------------------------------------------
       # Downgrade composer
       # ------------------------------------------------------------------------------
       - name: Downgrade composer to v1
+        if: steps.s3_zip.outcome != 'success'
         run: |
           sudo composer self-update --1
           sudo chown $USER $HOME/.composer
