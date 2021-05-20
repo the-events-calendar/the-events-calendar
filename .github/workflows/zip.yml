@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: the-events-calendar/tut
-          ref: main
+          ref: feature/update-node-and-gulp
           path: tut
           fetch-depth: 1
       # ------------------------------------------------------------------------------
@@ -103,10 +103,17 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      - uses: actions/cache@v2
+        if: steps.s3_zip.outcome != 'success'
+        id: npm-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
       # ------------------------------------------------------------------------------
       # Downgrade composer
       # ------------------------------------------------------------------------------
       - name: Downgrade composer to v1
+        if: steps.s3_zip.outcome != 'success'
         run: |
           sudo composer self-update --1
           sudo chown $USER $HOME/.composer
