@@ -20,7 +20,6 @@
     "waiting_strings": false
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
@@ -146,8 +145,5 @@
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3",
     "mt-a11y-dialog": "^5.1.1"
-  },
-  "resolutions": {
-    "graceful-fs": "^4.2.4"
   }
 }
