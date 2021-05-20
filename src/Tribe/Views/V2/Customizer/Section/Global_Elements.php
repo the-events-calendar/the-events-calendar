@@ -214,7 +214,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 		// These allow us to continue to _not_ target the shortcode.
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
-		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
+		$tribe_events = $apply_to_shortcode ? '.tribe-events, #tribe-events-pg-template' : '.tribe-events:not( .tribe-events-view--shortcode ), #tribe-events-pg-template';
 
 		$css_template = "$tribe_events {\n";
 
