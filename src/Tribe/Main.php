@@ -84,6 +84,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected $post_type_args = [
 			'public'          => true,
+			'show_in_rest'    => true,
 			'rewrite'         => [ 'slug' => 'event', 'with_front' => false ],
 			'menu_position'   => 6,
 			'supports'        => [
