@@ -84,7 +84,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected $post_type_args = [
 			'public'          => true,
-			'show_in_rest'    => true,
 			'rewrite'         => [ 'slug' => 'event', 'with_front' => false ],
 			'menu_position'   => 6,
 			'supports'        => [
@@ -1018,7 +1017,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
-			$this->post_type_args['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->post_type_args['rewrite']['slug']          = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->post_type_args['show_in_rest']             = current_user_can( 'manage_options' ) ? true : false;
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
