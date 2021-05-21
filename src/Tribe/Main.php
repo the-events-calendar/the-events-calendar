@@ -2184,7 +2184,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'item_link'                => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( '%s Link', 'the-events-calendar' ), $this->singular_event_label
 					),
 					'item_link_description'    => sprintf(
 						// Translators: %s: Event singular.
@@ -2233,7 +2233,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'item_link'         => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( '%s Category Link.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( '%s Category Link', 'the-events-calendar' ), $this->singular_event_label
 					),
 					'item_link_description' => sprintf(
 						// Translators: %s: Event singular.

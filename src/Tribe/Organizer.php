@@ -102,7 +102,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
 			'item_link'                => sprintf(
 				// Translators: %s: Organizer singular.
-				esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_organizer_label
+				esc_html__( '%s Link', 'the-events-calendar' ), $this->singular_organizer_label
 			),
 			'item_link_description'    => sprintf(
 				// Translators: %s: Organizer singular.

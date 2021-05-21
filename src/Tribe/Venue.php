@@ -122,7 +122,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
 			'item_link'                => sprintf(
 				// Translators: %s: Venue singular.
-				esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_venue_label
+				esc_html__( '%s Link', 'the-events-calendar' ), $this->singular_venue_label
 			),
 			'item_link_description'    => sprintf(
 				// Translators: %s: Venue singular.
