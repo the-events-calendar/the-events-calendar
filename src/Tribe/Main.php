@@ -1018,7 +1018,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
 			$this->post_type_args['rewrite']['slug']          = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
-			$this->post_type_args['show_in_rest']             = current_user_can( 'manage_options' ) ? true : false;
+			$this->post_type_args['show_in_rest']             = current_user_can( 'manage_options' );
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
