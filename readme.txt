@@ -19,7 +19,7 @@ https://vimeo.com/425323974
 
 Packed with loads of features, The Events Calendar is ready to go out of the box. It’s also extensible, easy to use, and completely customizable.
 
-= 📅 The #1 Calendar for WordPress  =
+= 📅 The #1 Calendar for WordPress =
 
 See the calendar in action on our [demo experience](https://evnt.is/1ajs). Just getting started? Read through the [New User Primer](https://evnt.is/2d) to get set up.
 
