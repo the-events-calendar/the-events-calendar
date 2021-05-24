@@ -1,0 +1,162 @@
+name: 'Package Zip'
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      final:
+        description: 'Zip type: 0 = dev, 1 = production'
+        required: false
+        default: '0'
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: If a pull_request, set final to 0
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "JOB_FINAL=0" >> $GITHUB_ENV
+          echo "JOB_BRANCH=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+      - name: If a workflow_dispatch, set final based on input
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "JOB_FINAL=${{ github.event.inputs.final }}" >> $GITHUB_ENV
+          branch=$(echo "${{ github.ref }}" | sed -r "s|refs/heads/||" | sed -r "s|refs/tags/||")
+          echo "JOB_BRANCH=${branch}" >> $GITHUB_ENV
+      - name: Setup branch for consumption in subsequent steps
+        id: settings
+        run: |
+          echo "::set-output name=branch::${JOB_BRANCH}"
+      # ------------------------------------------------------------------------------
+      # Setup SSH keys and known_hosts
+      # ------------------------------------------------------------------------------
+      - name: Setup SSH keys and known_hosts
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.GH_ACTIONS_SSH_KEY }}"
+      # ------------------------------------------------------------------------------
+      # Checkout the repo and tric
+      # ------------------------------------------------------------------------------
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1000
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          submodules: recursive
+          ref: ${{ steps.settings.outputs.branch }}
+      - name: Checkout tut
+        uses: actions/checkout@v2
+        with:
+          repository: the-events-calendar/tut
+          ref: main
+          path: tut
+          fetch-depth: 1
+      # ------------------------------------------------------------------------------
+      # Determine if we need to zip
+      # ------------------------------------------------------------------------------
+      - name: Generate Zip Filename
+        id: file_name
+        working-directory: .
+        run: |
+          REPO_ORG=$GITHUB_ACTOR
+          REPO_NAME=$( echo $GITHUB_REPOSITORY | sed "s/the-events-calendar\///")
+          MAIN_FILE=$(jq ".plugins[] | select( .name | test(\"$REPO_NAME\") ) | .main" tut/tut.json | sed 's/"//g' )
+          VERSION_LINE=$(jq ".plugins[] | select( .name | test(\"$REPO_NAME\") ) | .version" tut/tut.json | sed 's/"//g' )
+          ZIP_NAME=$(jq "._zipname" package.json | sed 's/"//g' )
+          VERSION=$(grep -r "$VERSION_LINE" $MAIN_FILE | head -n 1 | sed -r "s/.*${VERSION_LINE}[^']*'([^']*)'.*/\1/")
+          HASH=$(git rev-parse --short=8 HEAD)
+          TIMESTAMP=$(git --no-pager show -s --format=%ct HEAD)
+          FILENAME="${ZIP_NAME}.${VERSION}-dev-${TIMESTAMP}-${HASH}.zip"
+          if [ "${JOB_FINAL}" == "1" ]; then
+            FILENAME="${ZIP_NAME}.${VERSION}.zip"
+          fi
+          echo "::set-output name=value::${FILENAME}"
+          echo $FILENAME
+      - name: Check if zip already exists
+        uses: the-events-calendar/action-s3-utility@main
+        id: s3_zip
+        continue-on-error: true
+        env:
+          S3_BUCKET: ${{ secrets.PACKAGED_ZIP_BUCKET }}
+          S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+          S3_REGION: ${{ secrets.PACKAGED_ZIP_REGION }}
+          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          COMMAND: exists
+          FILE: ${{ steps.file_name.outputs.value }}
+      # ------------------------------------------------------------------------------
+      # Prepare our cache directories
+      # ------------------------------------------------------------------------------
+      - name: Get Composer Cache Directory
+        if: steps.s3_zip.outcome != 'success'
+        id: get-composer-cache-dir
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v2
+        if: steps.s3_zip.outcome != 'success'
+        id: composer-cache
+        with:
+          path: ${{ steps.get-composer-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      # ------------------------------------------------------------------------------
+      # Downgrade composer
+      # ------------------------------------------------------------------------------
+      - name: Downgrade composer to v1
+        run: |
+          sudo composer self-update --1
+          sudo chown $USER $HOME/.composer
+      # ------------------------------------------------------------------------------
+      # Initialize tut
+      # ------------------------------------------------------------------------------
+      - name: Set up tut env vars
+        if: steps.s3_zip.outcome != 'success'
+        run: |
+          echo "TUT_BIN=${GITHUB_WORKSPACE}/tut/tut" >> $GITHUB_ENV
+      - name: Make tut envfile
+        if: steps.s3_zip.outcome != 'success'
+        working-directory: ./tut
+        run: |
+          touch .env
+          echo "GITHUB_USER=${{ secrets.GH_BOT_USER }}" >> .env
+          echo "GITHUB_OAUTH_TOKEN=${{ secrets.GH_BOT_token }}" >> .env
+      - name: Install tut composer dependencies
+        if: steps.s3_zip.outcome != 'success'
+        working-directory: ./tut
+        run: |
+          composer install --no-dev -o --ignore-platform-reqs
+      # ------------------------------------------------------------------------------
+      # Zip
+      # ------------------------------------------------------------------------------
+      - name: Package the plugin into a zip
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        id: zip
+        if: steps.s3_zip.outcome != 'success'
+        working-directory: ../
+        run: |
+          REPO_ORG=$GITHUB_ACTOR
+          REPO_NAME=$( echo $GITHUB_REPOSITORY | sed "s/the-events-calendar\///")
+          mkdir zip
+          if [ "${JOB_FINAL}" == "1" ]; then
+            $TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output="./zip" --final -v
+          else
+            $TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output="./zip" -v
+          fi
+          mv zip ${GITHUB_WORKSPACE}/zip
+      - uses: the-events-calendar/action-s3-utility@main
+        if: steps.s3_zip.outcome != 'success'
+        with:
+          args: --acl public-read --follow-symlinks
+        env:
+          S3_BUCKET: ${{ secrets.PACKAGED_ZIP_BUCKET }}
+          S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+          S3_REGION: ${{ secrets.PACKAGED_ZIP_REGION }}
+          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          COMMAND: sync
+          SOURCE_DIR: /github/workspace/zip
