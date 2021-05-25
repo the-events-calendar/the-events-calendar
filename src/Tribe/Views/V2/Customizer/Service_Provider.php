@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\Customizer;
 
 use Tribe\Events\Views\V2\Customizer;
+use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
 use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 
 /**
@@ -26,7 +27,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_assets();
 
 		tribe_singleton( 'events.views.v2.customizer.month-view', new Month_View() );
+		tribe_singleton( 'events.views.v2.customizer.events-bar', new Events_Bar() );
 		tribe('events.views.v2.customizer.month-view');
+		tribe('events.views.v2.customizer.events-bar');
 	}
 
 	public function register_hooks() {

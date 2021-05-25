@@ -363,13 +363,13 @@ class Customizer {
 			// overrides for common base/full/forms/_toggles.pcss.
 			$css_template .= "
 			$tribe_common .tribe-common-form-control-toggle__input:checked {
-				background-color: <%= global_elements.accent_color %>;
-			}
+					background-color: <%= global_elements.accent_color %>;
+				}
 
-			.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
-				color: <%= global_elements.accent_color %>;
-			}
-		";
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
+					color: <%= global_elements.accent_color %>;
+				}
+			";
 
 			// overrides for the widget view more link
 			$css_template .= '
@@ -453,6 +453,12 @@ class Customizer {
 				}
 			";
 
+			$css_template .= "
+				.tribe-theme-twentytwentyone $tribe_common .tribe-common-c-btn:not(:hover):not(:active) {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			";
+
 			// overrides for common components/full/buttons/_solid.pcss.
 			$css_template .= "
 				$tribe_common .tribe-common-c-btn,
@@ -498,10 +504,10 @@ class Customizer {
 			";
 
 			$css_template .= "
-			.tribe-theme-twentytwenty $tribe_common .tribe-common-c-btn {
-				background-color: <%= global_elements.accent_color %>;
-			}
-		";
+				.tribe-theme-twentytwenty $tribe_common .tribe-common-c-btn {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			";
 
 			$css_template .= "
 				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn:hover,
@@ -564,34 +570,34 @@ class Customizer {
 
 			/* @todo replace this with the variable var(--color-background) when we make those available */
 			$css_template .= "
-			$tribe_events .tribe-events-c-ical__link:hover,
-			$tribe_events .tribe-events-c-ical__link:focus,
-			$tribe_events .tribe-events-c-ical__link:active {
-				color: #fff;
-				background-color: <%= global_elements.accent_color %>;
-				border-color: <%= global_elements.accent_color %>;
-			}
-		";
+				$tribe_events .tribe-events-c-ical__link:hover,
+				$tribe_events .tribe-events-c-ical__link:focus,
+				$tribe_events .tribe-events-c-ical__link:active {
+					color: #fff;
+					background-color: <%= global_elements.accent_color %>;
+					border-color: <%= global_elements.accent_color %>;
+				}
+			";
 
 			// overrides for tec components/full/_view-selector.pcss.
 			$css_template .= "
-			$tribe_events .tribe-events-c-view-selector__button:before {
-				background-color: <%= global_elements.accent_color %>;
-			}
-		";
+				$tribe_events .tribe-events-c-view-selector__button:before {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			";
 
 			// overrides for tec views/full/list/_event.pcss.
 			$css_template .= "
-			$tribe_events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after {
-				background-color: <%= global_elements.accent_color %>;
-			}
-		";
+				$tribe_events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			";
 
 			$css_template .= "
-			.tribe-common--breakpoint-medium$tribe_events .tribe-events-calendar-list__event-datetime-featured-text {
-				color: <%= global_elements.accent_color %>;
-			}
-		";
+				.tribe-common--breakpoint-medium$tribe_events .tribe-events-calendar-list__event-datetime-featured-text {
+					color: <%= global_elements.accent_color %>;
+				}
+			";
 
 			// overrides for tec views/full/month/_calendar-event.pcss.
 			$css_template .= "
