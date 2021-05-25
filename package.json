@@ -82,7 +82,7 @@
     "jest-environment-jsdom-global": "^1.1.0",
     "lerna": "^3.5.0",
     "mini-css-extract-plugin": "^0.4.5",
-    "node-sass": "^4.9.2",
+    "node-sass": "^6.0.0",
     "postcss-hexrgba": "^1.0.0",
     "postcss-import": "^11.0.0",
     "postcss-loader": "2.0.6",
