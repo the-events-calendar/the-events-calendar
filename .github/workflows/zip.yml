@@ -107,8 +107,9 @@ jobs:
         if: steps.s3_zip.outcome != 'success'
         id: npm-cache
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          path: '~/.npm'
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
       # ------------------------------------------------------------------------------
       # Downgrade composer
       # ------------------------------------------------------------------------------
