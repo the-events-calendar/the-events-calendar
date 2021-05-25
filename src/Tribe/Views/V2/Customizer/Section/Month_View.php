@@ -296,6 +296,11 @@ class Month_View extends \Tribe__Customizer__Section {
 			'grid_hover_color'              => [
 				'priority'    => 15,
 				'type'        => 'color',
+				'label'       => esc_html_x(
+					'Day Hover',
+					'Day hover color setting label.',
+					'the-events-calendar'
+				),
 				'description' => esc_html_x(
 					'Bottom border highlight when hovering on a day.',
 					'The grid hover color setting description.',
