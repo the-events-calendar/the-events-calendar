@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.7.0] TBD =
+= [5.7.0] 2021-05-27 =
 
 * Feature - Add new Month View section to the Customizer for v2 views. [TEC-3836]
 * Fix - Apply responsive breakpoints once the page has fully loaded with all JavaScript and Elements on the page [TEC-3797]
