@@ -626,6 +626,15 @@ class View implements View_Interface {
 			$this->setup_the_loop( $repository_args );
 		}
 
+		/**
+		 * Fire new action on the views.
+		 *
+		 * @since TBD
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
+		 */
+		do_action( 'tribe_views_v2_after_setup_loop', $this );
+
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
@@ -2468,6 +2477,22 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function set_url_object( Url $url_object ) {
+		$this->url = $url_object;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function disable_url_management() {
+		$this->should_manage_url = false;
+
+		return $this;
+	}
+
+	/**
 	 * Gets the base object for asset registration.
 	 *
 	 * @since TBD
@@ -2499,5 +2524,7 @@ class View implements View_Interface {
 	 *
 	 * @param \stdClass $object Object to tie registered assets to.
 	 */
-	public static function register_assets( $object ) {}
+	public static function register_assets( $object ) {
+		// Default to a no-op.
+	}
 }
