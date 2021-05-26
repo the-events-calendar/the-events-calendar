@@ -247,6 +247,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add the `tribe_views_v2_after_setup_loop` filter to modify the loop context set up in the View (v2). [ECP-811]
 * Tweak - Add the `tribe_events_views_v2_by_day_view_grid_days` to allow pre-filling Month and Week Views (v2) Events. [ECP-529]
 * Tweak - Add the `tribe_events_views_v2_by_day_view_day_results` to allow fine-grained control over Month and Week Views (v2) Event data. [ECP-529]
+* Language - 27 new strings added, 133 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.6.0] 2021-04-29 =
 
