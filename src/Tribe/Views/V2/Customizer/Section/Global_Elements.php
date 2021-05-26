@@ -145,7 +145,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'priority'    => 25,
 				'type'        => 'radio',
 				'label'       => esc_html__( 'Background Color', 'the-events-calendar' ),
-				'description' => esc_html__( 'All calendar and event pages - fnord', 'the-events-calendar' ),
+				'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
 				'choices'     => [
 					'transparent' => _x(
 						'Transparent.',
@@ -263,7 +263,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			$css_template .= '
 				/* Event Date/Time overrides. */
 				--tec-color-text-event-date: <%= global_elements.event_date_time_color %>;
-				--tec-color-text-secondary-event-date: <%= global_elements.event_date_time_color %>;
+				--tec-color-text-event-date-secondary: <%= global_elements.event_date_time_color %>;
 			';
 		}
 
