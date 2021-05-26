@@ -3,7 +3,7 @@
  * The main service provider for the version 2 of the Views.
  *
  * @package Tribe\Events\Views\V2\Customizer
- * @since   TBD
+ * @since   5.7.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer;
@@ -14,7 +14,7 @@ use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   5.7.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */

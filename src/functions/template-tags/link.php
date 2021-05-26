@@ -143,7 +143,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Gets a view permalink.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param bool|int|null $term
 	 *
