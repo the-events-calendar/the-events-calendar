@@ -9,7 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 5.7.0
  *
  * @var array<string,array<string>> $messages   An array of user-facing messages, managed by the View.
  * @var array<string,mixed>         $attributes A optional map of attributes that should be applied to the wrapper div element.

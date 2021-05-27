@@ -45,7 +45,7 @@ class Manager {
 	/**
 	 * Registration objects for auto-registered views.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @var array
 	 */
@@ -54,7 +54,7 @@ class Manager {
 	/**
 	 * Registers a view such that sensible defaults are registered and hooked.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param string $slug View slug.
 	 * @param string $name View name.
@@ -70,7 +70,7 @@ class Manager {
 	/**
 	 * Gets all generated View_Register objects.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return array
 	 */

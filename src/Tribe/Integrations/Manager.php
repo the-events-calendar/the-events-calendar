@@ -186,7 +186,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads the Hello Elementor theme integration.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 */
 	private function load_hello_elementor_integration() {
 		tribe_register_provider( Hello_Elementor_Integration::class );

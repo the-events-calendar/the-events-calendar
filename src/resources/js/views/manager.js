@@ -53,7 +53,7 @@ tribe.events.views.manager = {};
 	/**
 	 * Object with the details of the last location URL.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @type {{origin: string, pathname: string}}
 	 */

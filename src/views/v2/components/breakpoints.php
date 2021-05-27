@@ -9,7 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 5.7.0
  *
  * @var bool $is_initial_load Boolean on whether view is being loaded for the first time.
  * @var string $breakpoint_pointer String we use as pointer to the current view we are setting up with breakpoints.

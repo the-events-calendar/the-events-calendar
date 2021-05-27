@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.16
-Stable tag: 5.6.0
-Tested up to: 5.7.1
+Stable tag: 5.7.0
+Tested up to: 5.7.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.6.1] TBD =
+= [5.7.0] 2021-05-27 =
 
 * Feature - Add new Month View section to the Customizer for v2 views. [TEC-3836]
 * Fix - Apply responsive breakpoints once the page has fully loaded with all JavaScript and Elements on the page [TEC-3797]
@@ -247,6 +247,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add the `tribe_views_v2_after_setup_loop` filter to modify the loop context set up in the View (v2). [ECP-811]
 * Tweak - Add the `tribe_events_views_v2_by_day_view_grid_days` to allow pre-filling Month and Week Views (v2) Events. [ECP-529]
 * Tweak - Add the `tribe_events_views_v2_by_day_view_day_results` to allow fine-grained control over Month and Week Views (v2) Event data. [ECP-529]
+* Tweak - Added filters: `tribe_customizer_should_print_shortcode_customizer_styles`, `tribe_customizer_should_print_shortcode_customizer_styles`, `tribe_events_views_v2_view_ical_repository_args`, `tribe_events_views_v2_view_{$slug}_asset_origin_object`, `tribe_events_views_v2_by_day_view_grid_days`, `tribe_events_views_v2_by_day_view_day_results`, `tribe_events_views_v2_month_mobile_messages`, `tribe_events_views_v2_view_cached_html`, `tribe_events_views_v2_view_{$this->slug}_cached_html`, `tribe_ical_template_event_ids`, `tribe_get_view_permalink`, `tribe_get_{$slug}_view_permalink`
+* Tweak - Added actions: `tribe_views_v2_after_setup_loop`
+* Tweak - Changed views: `blocks/classic-event-details`, `blocks/parts/details`, `modules/meta/details`, `v2/components/breakpoints`, `v2/components/messages`, `v2/day/time-separator`, `v2/month`, `v2/month/calendar-body/day`, `v2/month/mobile-events`, `v2/month/mobile-events/mobile-day`, `v2/month/mobile-events/mobile-day/day-marker`
+* Language - 27 new strings added, 133 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.6.0] 2021-04-29 =
 

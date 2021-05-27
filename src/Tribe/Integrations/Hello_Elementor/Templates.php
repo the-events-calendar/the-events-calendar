@@ -2,7 +2,7 @@
 /**
  * Handles Elementor templates and their redirection.
  *
- * @since   TBD
+ * @since   5.7.0
  *
  * @package Tribe\Events\Integrations\Hello_Elementor
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Integrations\Hello_Elementor;
 /**
  * Class Templates
  *
- * @since   TBD
+ * @since   5.7.0
  *
  * @package Tribe\Events\Integrations\Hello_Elementor
  */
@@ -20,7 +20,7 @@ class Templates {
 	/**
 	 * Redirects an Elementor location to the correct one, if required.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param string $template The original Elementor location, e.g. `single` or `archive`.
 	 *
@@ -47,7 +47,7 @@ class Templates {
 		 * Note that this filter will allow to both filter the template part and bail
 		 * out of our logic completely by returning an empty value from the filter.
 		 *
-		 * @since TBD
+		 * @since 5.7.0
 		 *
 		 * @param string $template_part The template part path as resolved by our code, on behalf
 		 *                              of Elementor.
