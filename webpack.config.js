@@ -4,10 +4,10 @@
 const { resolve } = require( 'path' );
 const { reduce, zipObject } = require( 'lodash' );
 const merge = require( 'webpack-merge' );
-const common = require( 'product-taskmaster/webpack/common/webpack.config' );
-const { getDirectoryNames, getDirectories } = require( 'product-taskmaster/webpack/utils/directories' );
-const { getJSFileNames, getJSFiles } = require( 'product-taskmaster/webpack/utils/files' );
-const { generateEntries } = require( 'product-taskmaster/webpack/entry/tribe' );
+const common = require( '@the-events-calendar/product-taskmaster/webpack/common/webpack.config' );
+const { getDirectoryNames, getDirectories } = require( '@the-events-calendar/product-taskmaster/webpack/utils/directories' );
+const { getJSFileNames, getJSFiles } = require( '@the-events-calendar/product-taskmaster/webpack/utils/files' );
+const { generateEntries } = require( '@the-events-calendar/product-taskmaster/webpack/entry/tribe' );
 
 const directoryNames = getDirectoryNames( resolve( __dirname, './src/modules' ) );
 const PLUGIN_SCOPE = 'events';
