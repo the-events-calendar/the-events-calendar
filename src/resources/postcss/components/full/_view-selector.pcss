@@ -118,10 +118,6 @@
 
 			.tribe-events-c-view-selector__list-item-link {
 
-				.tribe-common--breakpoint-medium& {
-					background-color: transparent;
-				}
-
 				&:after {
 
 					.tribe-common--breakpoint-medium& {
@@ -181,11 +177,33 @@
 		box-shadow: var(--box-shadow-tooltip);
 	}
 
-	.tribe-events-c-view-selector__list-item--active {
+	.tribe-events-c-view-selector__list-item {
 
-		.tribe-events-c-view-selector__list-item-link {
-			background-color: var(--color-background-secondary);
+		.tribe-common--breakpoint-medium& {
+
+			&.tribe-events-c-view-selector__list-item--active {
+				display: none;
+			}
+
+			&:first-child:nth-last-child(1),
+			&:first-child:nth-last-child(2),
+			&:first-child:nth-last-child(2) ~ li,
+			&:first-child:nth-last-child(3),
+			&:first-child:nth-last-child(3) ~ li {
+				&.tribe-events-c-view-selector__list-item--active {
+					display: block;
+				}
+			}
+
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--color-background-secondary);
+			}
 		}
+	}
+
+	.tribe-events-c-view-selector__list-item--active {
 
 		.tribe-events-c-view-selector__list-item-text {
 			font-weight: var(--font-weight-bold);
@@ -197,6 +215,7 @@
 
 		&:hover,
 		&:focus {
+			background-color: var(--color-background-secondary);
 
 			.tribe-events-c-view-selector__list-item-icon {
 				opacity: var(--opacity-icon-hover);
@@ -211,7 +230,7 @@
 	.tribe-events-c-view-selector__list-item-text {
 		@mixin desktop-body-2;
 	}
-	
+
 	/* -----------------------------------------------------------------------------
 	 *
 	 * View Selector: Theme Overrides
@@ -221,11 +240,11 @@
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-	 
+
 	.tribe-theme-twentyseventeen.colors-dark & {
-		
+
 		.tribe-events-c-view-selector__button {
-			
+
 			&,
 			&:hover,
 			&:focus {
