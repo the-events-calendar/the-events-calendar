@@ -544,7 +544,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Returns a set of messages that will be show to the user in the mobile interaction.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return array<string,array<string|int,string>> A map from message types to messages for
 	 *                                                each type.
@@ -564,7 +564,7 @@ class Month_View extends By_Day_View {
 		/**
 		 * Allows filtering the mobile messages Month view will display to the user depending on the interaction.
 		 *
-		 * @since TBD
+		 * @since 5.7.0
 		 *
 		 * @param array<string,array<string|int,string>> A map from message types to messages for
 		 *                                                each type.

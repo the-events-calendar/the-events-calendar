@@ -86,6 +86,11 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		$customizer = tribe( 'customizer' );
 		$settings = $customizer->get_option( [ $this->ID ] );
 		$background_color_obj = new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );

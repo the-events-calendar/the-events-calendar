@@ -60,7 +60,7 @@ class Customizer {
 		$manager->add_setting(
 			$customizer->get_setting_name( 'event_date_time_color', $section ),
 			[
-				'default'              => '#141827',
+				'default'              => '#5d5d5d',
 				'type'                 => 'option',
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -191,12 +191,12 @@ class Customizer {
 			$css_template .= "
 				/* Accent Color overrides. */
 				--tec-color-accent-primary: <%= global_elements.accent_color %>;
-				--tec-color-accent-primary-hover: rgba({$accent_css_rgb},0.8);
-				--tec-color-accent-primary-multiday: rgba({$accent_css_rgb},0.24);
-				--tec-color-accent-primary-multiday-hover: rgba({$accent_css_rgb},0.34);
-				--tec-color-accent-primary-active: rgba({$accent_css_rgb},0.9);
-				--tec-color-accent-primary-background: rgba({$accent_css_rgb},0.07);
-				--tec-color-background-secondary-datepicker: rgba({$accent_css_rgb},0.5);
+				--tec-color-accent-primary-hover: rgba({$accent_css_rgb}, 0.8);
+				--tec-color-accent-primary-multiday: rgba({$accent_css_rgb}, 0.24);
+				--tec-color-accent-primary-multiday-hover: rgba({$accent_css_rgb}, 0.34);
+				--tec-color-accent-primary-active: rgba({$accent_css_rgb}, 0.9);
+				--tec-color-accent-primary-background: rgba({$accent_css_rgb}, 0.07);
+				--tec-color-background-secondary-datepicker: rgba({$accent_css_rgb}, 0.5);
 				--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;
 			";
 
@@ -205,7 +205,13 @@ class Customizer {
 
 			$css_template .= "
 				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
+				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover {
+					background-color: <%= global_elements.accent_color %>;
+				}
+			";
+
+			$css_template .= "
+				.tribe-theme-twentytwentyone $tribe_common .tribe-common-c-btn:not(:hover):not(:active) {
 					background-color: <%= global_elements.accent_color %>;
 				}
 			";

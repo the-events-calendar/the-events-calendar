@@ -159,7 +159,7 @@
 				}
 			
 				.tribe-theme-twentyseventeen .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
-				.tribe-theme-twentyseventeen .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
+				.tribe-theme-twentyseventeen .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover {
 					background-color: #238923;
 				}
 			

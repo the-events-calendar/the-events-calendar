@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Views\V2\Interfaces;
 
+use Tribe\Events\Views\V2\Url;
+
 /**
  * Interface Url_Provider_Interface
  *
@@ -62,4 +64,14 @@ interface View_Url_Provider_Interface {
 	 * @return \Tribe\Events\Views\V2\Url|null
 	 */
 	public function get_url_object();
+
+	/**
+	 * Updates the View URL object reference.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @param Url $url_object A reference to the the new URL instance
+	 *                        the View should use.
+	 */
+	public function set_url_object( Url $url_object );
 }

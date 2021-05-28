@@ -30,6 +30,11 @@ class Tribe__Events__Customizer__Day_List_View extends Tribe__Customizer__Sectio
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		$customizer = tribe( 'customizer' );
 
 		if ( $customizer->has_option( $this->ID, 'price_bg_color' ) ) {

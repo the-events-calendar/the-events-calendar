@@ -118,10 +118,6 @@
 
 			.tribe-events-c-view-selector__list-item-link {
 
-				.tribe-common--breakpoint-medium& {
-					background-color: transparent;
-				}
-
 				&:after {
 
 					.tribe-common--breakpoint-medium& {
@@ -181,11 +177,37 @@
 		box-shadow: var(--tec-box-shadow-tooltip);
 	}
 
-	.tribe-events-c-view-selector__list-item--active {
+	.tribe-events-c-view-selector__list-item {
 
 		.tribe-events-c-view-selector__list-item-link {
 			background-color: var(--tec-color-background-secondary);
 		}
+
+		.tribe-common--breakpoint-medium& {
+
+			&.tribe-events-c-view-selector__list-item--active {
+				display: none;
+			}
+
+			&:first-child:nth-last-child(1),
+			&:first-child:nth-last-child(2),
+			&:first-child:nth-last-child(2) ~ li,
+			&:first-child:nth-last-child(3),
+			&:first-child:nth-last-child(3) ~ li {
+				&.tribe-events-c-view-selector__list-item--active {
+					display: block;
+				}
+			}
+
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--color-background-secondary);
+			}
+		}
+	}
+
+	.tribe-events-c-view-selector__list-item--active {
 
 		.tribe-events-c-view-selector__list-item-text {
 			font-weight: var(--tec-font-weight-bold);
@@ -197,6 +219,7 @@
 
 		&:hover,
 		&:focus {
+			background-color: var(--color-background-secondary);
 
 			.tribe-events-c-view-selector__list-item-icon {
 				opacity: var(--tec-opacity-icon-hover);

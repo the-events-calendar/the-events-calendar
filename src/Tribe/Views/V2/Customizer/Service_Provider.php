@@ -3,7 +3,7 @@
  * The main service provider for the version 2 of the Views.
  *
  * @package Tribe\Events\Views\V2\Customizer
- * @since   TBD
+ * @since   5.7.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer;
@@ -11,12 +11,13 @@ namespace Tribe\Events\Views\V2\Customizer;
 use Tribe\Events\Views\V2\Customizer;
 use Tribe\Events\Views\V2\Customizer\Section\Global_Elements;
 use Tribe\Events\Views\V2\Customizer\Section\Single_Event;
+use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
 use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   5.7.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
@@ -27,9 +28,10 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		$this->register_assets();
 
-		tribe_singleton( 'tec.customizer.month-view', new Month_View() );
-		tribe_singleton( 'tec.customizer.global-elements', new Global_Elements() );
-		tribe_singleton( 'tec.customizer.single-event', new Single_Event() );
+		tribe_singleton( 'events.views.v2.customizer.month-view', new Month_View() );
+		tribe_singleton( 'events.views.v2.customizer.events-bar', new Events_Bar() );
+		tribe('events.views.v2.customizer.month-view');
+		tribe('events.views.v2.customizer.events-bar');
 	}
 
 	public function register_hooks() {
