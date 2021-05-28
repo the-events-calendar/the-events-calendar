@@ -4,4 +4,4 @@
  */
 var gulp = require( 'gulp' );
 
-require( 'product-taskmaster' )( gulp );
+require( '@the-events-calendar/product-taskmaster' )( gulp );
