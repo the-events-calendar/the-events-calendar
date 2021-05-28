@@ -326,19 +326,23 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
-			$template .= "
-				.tribe-events .tribe-events-c-search__input-control-icon-svg path {
-			";
-
 			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
-				$template .= "\nfill: <%= tec_events_bar.events_bar_icon_color %>;\n";
+				$icon_color = 'tec_events_bar.events_bar_icon_color';
 			} elseif (
 				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
 				&& $this->should_include_setting_css( 'accent_color', 'global_elements' )
 			) {
-				$template .= "\nfill: <%= global_elements.accent_color %>;\n";
+				$icon_color = 'global_elements.accent_color';
 			}
-			$template .= "\n}\n";
+
+			$template .= "
+				.tribe-events .tribe-events-c-search__input-control-icon-svg path,
+				.tribe-events .tribe-events-c-events-bar__search-button-icon-svg path,
+				.tribe-events .tribe-events-c-view-selector__button-icon-svg path,
+				.tribe-events .tribe-events-c-view-selector__list-item-icon-svg path {
+					fill: <%= {$icon_color} %>
+				}
+			";
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_color_choice' ) ) {
