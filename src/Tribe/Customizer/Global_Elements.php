@@ -32,6 +32,11 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		$customizer = tribe( 'customizer' );
 
 		/**
