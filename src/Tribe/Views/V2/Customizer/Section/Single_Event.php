@@ -45,7 +45,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_arguments() {
-		$this->arguments = [
+		return [
 			'priority'	=> 10,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Single Event', 'the-events-calendar' ),
@@ -58,7 +58,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_defaults() {
-		$this->defaults = [
+		return [
 			'post_title_color_choice' => 'default',
 			'post_title_color'        => '#141827',
 			'details_bg_color'        => '#e5e5e5',
@@ -66,7 +66,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	}
 
 	public function setup_content_settings() {
-		$this->content_settings = [
+		return [
 			'post_title_color_choice' => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
@@ -83,7 +83,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	}
 
 	public function setup_content_headings() {
-		$this->content_headings = [
+		return [
 			'font_colors' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
@@ -110,7 +110,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
-		$this->content_controls = [
+		return [
 			'post_title_color_choice' => [
 				'priority' => 5,
 				'type'     => 'radio',

@@ -331,17 +331,17 @@ final class Month_View extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
+		$css_template .= "
+			:root {
+		";
+
 		// These allow us to continue to _not_ target the shortcode.
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
 		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
 
 		if ( $this->should_include_setting_css( 'grid_lines_color' ) ) {
 			$css_template .= "
-				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__body,
-				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__day,
-				$tribe_events.tribe-common--breakpoint-medium .tribe-events-calendar-month__week {
-					border-color: <%= month_view.grid_lines_color %>;
-				}
+				--tec-color-border-secondary-month-grid: <%= month_view.grid_lines_color %>;
 			";
 		}
 
@@ -413,6 +413,10 @@ final class Month_View extends \Tribe__Customizer__Section {
 				";
 			}
 		}
+
+		$css_template .= "
+			}
+		";
 
 		return $css_template;
 	}

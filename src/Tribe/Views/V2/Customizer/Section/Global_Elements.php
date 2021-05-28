@@ -8,7 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
 /**
- * Month View
+ * Global Elements
  *
  * @since TBD
  */
@@ -43,7 +43,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_arguments() {
-		$this->arguments = [
+		return [
 			'priority'	=> 1,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Global Elements', 'the-events-calendar' ),
@@ -54,7 +54,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_defaults() {
-		$this->defaults = [
+		return [
 			'event_title_color'       => '#141827',
 			'event_date_time_color'   => '#141827',
 			'background_color_choice' => 'transparent',
@@ -67,7 +67,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_content_settings() {
-		$this->content_settings = [
+		return [
 			'event_title_color'       => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -92,7 +92,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	}
 
 	public function setup_content_headings() {
-		$this->content_headings = [
+		return [
 			'font_color' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
@@ -115,9 +115,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_content_controls() {
-		$customizer             = tribe( 'customizer' );
-
-		$this->content_controls = [
+		$customizer = tribe( 'customizer' );
+		return [
 			'event_title_color' => [
 				'priority' => 5,
 				'type'     => 'color',
@@ -199,6 +198,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * @return string The filtered CSS template.
 	 */
 	public function get_css_template( $css_template ) {
+		// For sanity's sake.
 		if ( ! tribe_events_views_v2_is_enabled() ) {
 			return $css_template;
 		}
@@ -214,13 +214,15 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 		// These allow us to continue to _not_ target the shortcode.
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
-		$tribe_events = $apply_to_shortcode ? '.tribe-events, #tribe-events-pg-template' : '.tribe-events:not( .tribe-events-view--shortcode ), #tribe-events-pg-template';
+		$tribe_events = $apply_to_shortcode ? ':root' : '.tribe-events:not( .tribe-events-view--shortcode ), #tribe-events-pg-template';
 
-		$css_template = "$tribe_events {\n";
+		$css_template = ":root {\n";
 
 		// Accent color overrides.
 		if ( $this->should_include_setting_css( 'accent_color' ) ) {
-			$accent_color_rgb = $this->to_rgb( $this->get_option( 'accent_color' ) );
+			$accent_color_obj   = new \Tribe__Utils__Color( $this->get_option( 'accent_color' ) );
+			$accent_color_arr   = $accent_color_obj->getRgb();
+			$accent_color_rgb   = $accent_color_arr['R'] . ',' . $accent_color_arr['G'] . ',' . $accent_color_arr['B'];
 
 			$css_template .= "
 				/* Accent Color overrides. */
@@ -238,6 +240,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				--tec-color-button-primary-background: rgba({$accent_color_rgb},0.07);
 			";
 		}
+
 
 		// Event Title overrides.
 		if ( $this->should_include_setting_css( 'event_title_color' ) ) {
