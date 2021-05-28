@@ -47,7 +47,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_defaults() {
-		$this->defaults = [
+		return [
 			'grid_lines_color'				  => '#e4e4e4',
 			'grid_background_color_choice'	  => 'transparent',
 			'grid_background_color'		      => '#FFFFFF',
@@ -64,7 +64,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_arguments() {
-		$this->arguments = [
+		return [
 			'priority'	=> 65,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
@@ -86,7 +86,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_content_headings() {
-		$this->content_headings = [
+		return [
 			'month_view_font_colors' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
@@ -116,7 +116,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_content_settings() {
-		$this->content_settings = [
+		return [
 			'grid_lines_color'				=> [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -161,7 +161,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
-		$this->content_controls = [
+		return [
 			'days_of_week_color'              => [
 				'priority'    => 3,
 				'type'        => 'color',

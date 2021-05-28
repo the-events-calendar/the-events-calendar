@@ -765,20 +765,26 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string Which value we are converting to.
 	 */
 	public function filter_get_stylesheet_option( $value, $key ) {
+		// Bail early if possible. No need to do the shuffle below if
+		if (
+			'stylesheetOption' !== $key
+			&& ( 'stylesheet_mode' !== $key )
+		) {
+			return $value;
+		}
+
 		// Remove this filter so we don't loop infinitely.
 		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10 );
 
 		$default = 'tribe';
 
-		if ( 'stylesheet_mode' === $key && empty( $value ) ) {
+		if ( 'stylesheetOption' === $key ) {
+			$value = tribe_get_option( 'stylesheet_mode', $default );
+		} else if ( 'stylesheet_mode' === $key && empty( $value ) ) {
 			$value = tribe_get_option( 'stylesheetOption', $default );
 			if ( 'full' === $value ) {
 				$value = $default;
 			}
-		}
-
-		if ( 'stylesheetOption' === $key ) {
-			$value = tribe_get_option( 'stylesheet_mode', $default );
 		}
 
 		// Add the filter back

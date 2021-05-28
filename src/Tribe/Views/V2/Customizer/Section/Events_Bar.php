@@ -46,7 +46,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_defaults() {
-		$this->defaults = [
+		return [
 			'events_bar_border_color_choice'        => 'default',
 			'events_bar_border_color'               => '#e4e4e4',
 			'events_bar_icon_color_choice'          => 'default',
@@ -55,8 +55,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'find_events_button_color_choice'       => 'default',
 			'find_events_button_color'              => '#334aff',
 			'find_events_button_text_color'         => '#FFFFFF',
-			'view_selector_background_color_choice' => 'default',
-			'view_selector_background_color'        => '#FFFFFF',
 		];
 	}
 
@@ -64,7 +62,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_arguments() {
-		$this->arguments = [
+		return [
 			'priority'	=> 63,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Events Bar', 'the-events-calendar' ),
@@ -83,38 +81,8 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setup_content_headings() {
-		$this->content_headings = [
-			'events_bar_font_colors' => [
-				'priority'	 => 0,
-				'type'		 => 'heading',
-				'label'		=> esc_html_x(
-					'Set Font Colors',
-					'The header for the font color control section.',
-					'the-events-calendar'
-				),
-			],
-			'events_bar_view_separator-10' => [
-				'priority'	 => 10,
-				'type'		 => 'separator',
-			],
-			'events_bar_appearance' => [
-				'priority'	 => 11, // Should come just after above separator.
-				'type'		 => 'heading',
-				'label'		=> esc_html_x(
-					'Adjust Appearance',
-					'The header for the color control section.',
-					'the-events-calendar'
-				),
-			],
-		];
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function setup_content_settings() {
-		$this->content_settings = [
+		return [
 			'events_bar_border_color_choice'        => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
@@ -147,13 +115,35 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
-			'view_selector_background_color_choice' => [
-				'sanitize_callback'	   => 'sanitize_key',
-				'sanitize_js_callback' => 'sanitize_key',
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setup_content_headings() {
+		return [
+			'events_bar_font_colors' => [
+				'priority'	 => 0,
+				'type'		 => 'heading',
+				'label'		=> esc_html_x(
+					'Set Font Colors',
+					'The header for the font color control section.',
+					'the-events-calendar'
+				),
 			],
-			'view_selector_background_color'        => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			'events_bar_view_separator-10' => [
+				'priority'	 => 10,
+				'type'		 => 'separator',
+			],
+			'events_bar_appearance' => [
+				'priority'	 => 11, // Should come just after above separator.
+				'type'		 => 'heading',
+				'label'		=> esc_html_x(
+					'Adjust Appearance',
+					'The header for the color control section.',
+					'the-events-calendar'
+				),
 			],
 		];
 	}
@@ -163,7 +153,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
-		$this->content_controls = [
+		return [
 			'events_bar_text_color'                 => [
 				'priority'    => 3,
 				'type'        => 'color',
@@ -267,47 +257,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 					return $this->defaults['find_events_button_color_choice'] !== $value;
 				},
 			],
-			'view_selector_background_color_choice' => [
-				'priority'    => 25,
-				'type'        => 'radio',
-				'label'       => esc_html_x(
-					'View Selector Background',
-					'The View Selector background color setting label.',
-					'the-events-calendar'
-				),
-				'choices'     => [
-					'default' => esc_html_x(
-						'Default.',
-						'Label for the default option.',
-						'the-events-calendar'
-					),
-					'global_background'      => sprintf(
-						/* translators: 1: Customizer url. */
-						_x(
-							'Use the <a href="%1$s">Background Color</a>',
-							'Label for option to use the events background color. Links to the background color setting.',
-							'the-events-calendar'
-						),
-						$customizer->get_setting_url(
-							'global_elements',
-							'background_color_choice',
-						)
-					),
-					'custom'	  => esc_html_x(
-						'Custom',
-						'Label for option to set a custom color.',
-						'the-events-calendar'
-					),
-				],
-			],
-			'view_selector_background_color'        => [
-				'priority'    => 26, // Immediately after view_selector_background_color_choice.
-				'type'        => 'color','active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'view_selector_background_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return 'custom' === $value;
-				},
-			],
 			'events_bar_border_color_choice'        => [
 				'priority'    => 30,
 				'type'        => 'radio',
@@ -356,9 +305,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		if ( $this->should_include_setting_css( 'events_bar_text_color' ) ) {
 			// Text color.
 			$template .= "
-				.tribe-common--breakpoint-medium.tribe-common .tribe-events-header__events-bar .tribe-common-form-control-text__input,
-				.tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__filter-button-text,
-				.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector--labels .tribe-events-c-view-selector__button-text {
+				.tribe-common--breakpoint-medium.tribe-common .tribe-events-header__events-bar .tribe-common-form-control-text__input {
 					color: <%= tec_events_bar.events_bar_text_color %>;
 			}";
 
@@ -380,9 +327,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 
 		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
 			$template .= "
-				.tribe-events .tribe-events-c-search__input-control-icon-svg path,
-				.tribe-events .tribe-events-c-events-bar__filter-button-icon path,
-				.tribe-events-c-view-selector__button-icon-caret-svg .tribe-common-c-svgicon__svg-fill {
+				.tribe-events .tribe-events-c-search__input-control-icon-svg path {
 			";
 
 			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
@@ -419,33 +364,10 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			";
 		}
 
-		if ( $this->should_include_setting_css( 'view_selector_background_color_choice' ) ) {
-			$template .= ".tribe-events .tribe-events-c-view-selector__content {
-			";
-
-			if ( 'custom' == $this->get_option( 'view_selector_background_color_choice' ) ) {
-				$template .= "\nbackground-color: <%= tec_events_bar.view_selector_background_color %>;\n";
-			} elseif (
-				'global_background' == $this->get_option( 'view_selector_background_color_choice' )
-				&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
-			) {
-				$template .= "\nbackground-color: <%= global_elements.background_color %>;\n";
-			}
-
-			$template .= "\n}\n";
-		}
-
 		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
 			$template .= "
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-header--has-event-search .tribe-events-header__events-bar,
 				.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-search__input-control {
-					border-color: <%= tec_events_bar.events_bar_border_color %>;
-				}
-			";
-
-			// @todo This belongs in filterbar, but I'm not going to force a release of it just for one style.
-			$template .= "
-				.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container {
 					border-color: <%= tec_events_bar.events_bar_border_color %>;
 				}
 			";
