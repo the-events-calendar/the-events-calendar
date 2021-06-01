@@ -68,17 +68,6 @@ class Month_View extends \Tribe__Customizer__Section {
 			'priority'	=> 65,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
-			/* translators: 1: Customizer url to TEC general section. */
-			'description' => sprintf(
-				_x(
-					'Options selected here will override what was selected in the <a href="%1$s">General</a> section.',
-					'Note about overriding general settings. Contains link HTML.',
-					'the-events-calendar'
-				),
-				tribe( 'customizer' )->get_section_url(
-					'global_elements',
-				)
-			)
 		];
 	}
 
@@ -190,7 +179,7 @@ class Month_View extends \Tribe__Customizer__Section {
 				),
 				'choices'     => [
 					'transparent' => esc_html_x(
-						'Transparent.',
+						'Transparent',
 						'Label for option to leave transparent (default).',
 						'the-events-calendar'
 					),
@@ -220,7 +209,7 @@ class Month_View extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 				'description' => esc_html_x(
-					'Preview display when hovering on an event title.',
+					'Preview display when hovering on an event title',
 					'The grid background color setting description.',
 					'the-events-calendar'
 				),
@@ -269,7 +258,7 @@ class Month_View extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 				'description' => esc_html_x(
-					'For all-day and multi-day events.',
+					'For all-day and multi-day events',
 					'The multiday event bar color setting description.',
 					'the-events-calendar'
 				),
@@ -311,7 +300,7 @@ class Month_View extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 				'description' => esc_html_x(
-					'Bottom border highlight when hovering on a day.',
+					'Bottom border highlight when hovering on a day',
 					'The grid hover color setting description.',
 					'the-events-calendar'
 				),

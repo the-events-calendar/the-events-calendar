@@ -66,15 +66,11 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'priority'	=> 63,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Events Bar', 'the-events-calendar' ),
-			'description' => sprintf(
-				/* translators: 1: Customizer url to TEC general section. */
-				_x(
-					'Options selected here will override what was selected in the <a href="%1$s">General</a> section.',
-					'Note about overriding general settings. Contains link HTML.',
-					'the-events-calendar'
-				),
-				tribe( 'customizer' )->get_section_url( 'global_elements' )
-			)
+			'description' => _x(
+				'These settings control the search and options bar that appears above calendar views.',
+				'Note about what these settings control.',
+				'the-events-calendar'
+			),
 		];
 	}
 
@@ -162,11 +158,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 					'The events bar text color setting label.',
 					'the-events-calendar'
 				),
-				'description' => _x(
-					'This includes search fields, hide/show filters, and views text.',
-					'Description for the events bar text color setting.',
-					'the-events-calendar'
-				),
 			],
 			'find_events_button_text_color'         => [
 				'priority'    => 5,
@@ -188,7 +179,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				),
 				'choices'     => [
 					'default' => esc_html_x(
-						'Default.',
+						'Default',
 						'Label for the default option.',
 						'the-events-calendar'
 					),
