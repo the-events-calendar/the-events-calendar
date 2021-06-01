@@ -32,7 +32,12 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
-		$customizer = Tribe__Customizer::instance();
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
+		$customizer = tribe( 'customizer' );
 
 		/**
 		 * Allows filtering the CSS template with full knowledge of the Global Elements section and the current Customizer instance.
@@ -129,7 +134,10 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 		$description         = $views_v2_is_enabled ? '' : esc_html__( 'Options selected here will override what was selected in the "General Theme" section.', 'the-events-calendar' );
 
 		$this->defaults = [
-			'link_color' => '#141827',
+			'link_color'              => '#141827',
+			'event_title_color'       => '#141827',
+			'event_date_time_color'   => '#141827',
+			'background_color_choice' => 'transparent',
 		];
 
 		$this->arguments = [
@@ -144,12 +152,12 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 	 * Create the Fields/Settings for this sections
 	 *
 	 * @param  WP_Customize_Section $section The WordPress section instance
-	 * @param  WP_Customize_Manager $manager [description]
+	 * @param  WP_Customize_Manager $manager WP_Customize_Manager instance.
 	 *
 	 * @return void
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
-		$customizer = Tribe__Customizer::instance();
+		$customizer = tribe( 'customizer' );
 
 		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(

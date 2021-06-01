@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.6.0';
+		const VERSION             = '5.7.0';
 
 		/**
 		 * Min Pro Addon
@@ -2181,6 +2181,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'item_updated'             => sprintf(
 						esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_event_label
 					),
+					'item_link'                => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link_description'    => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( 'A link to a particular %s.', 'the-events-calendar' ), $this->singular_event_label
+					),
 				]
 			);
 
@@ -2221,6 +2229,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'new_item_name'     => sprintf(
 						esc_html__( 'New %s Category Name', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link'         => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( '%s Category Link.', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'item_link_description' => sprintf(
+						// Translators: %s: Event singular.
+						esc_html__( 'A link to a particular%s category.', 'the-events-calendar' ), $this->singular_event_label
 					),
 				]
 			);
@@ -3013,12 +3029,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'sprop'    => 'website:' . home_url(),
 			];
 
-			$timezone = Tribe__Events__Timezones::get_event_timezone_string( $post->ID );
-			$timezone = Tribe__Events__Timezones::maybe_get_tz_name( $timezone );
+			if ( Tribe__Timezones::is_mode( Tribe__Timezones::SITE_TIMEZONE ) ) {
+				$timezone = Tribe__Timezones::build_timezone_object();
+			} else {
+				$timezone = Tribe__Events__Timezones::get_timezone(
+					Tribe__Events__Timezones::get_event_timezone_string( $post->ID )
+				);
+			}
 
 			// If we have a good timezone string we setup it; UTC doesn't work on Google
-			if ( false !== $timezone ) {
-				$params['ctz'] = urlencode( $timezone );
+			if ( $timezone instanceof DateTimeZone) {
+				$params['ctz'] = urlencode( $timezone->getName() );
 			}
 
 			/**

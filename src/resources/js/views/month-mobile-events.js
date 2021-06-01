@@ -44,6 +44,7 @@ tribe.events.views.monthMobileEvents = {};
 		calendarDaySelectedClass: '.tribe-events-calendar-month__day-cell--selected',
 		mobileEvents: '[data-js="tribe-events-calendar-month-mobile-events"]',
 		mobileEventsMobileDayShowClass: '.tribe-events-calendar-month-mobile-events__mobile-day--show',
+		mobileEventsDefaultNotices: '.tribe-events-header__messages--mobile:not(.tribe-events-header__messages--day)',
 	};
 
 	/**
@@ -73,6 +74,24 @@ tribe.events.views.monthMobileEvents = {};
 
 			obj.closeMobileEvents( $header, $content );
 		} );
+	};
+
+
+	/**
+	 * Handle the display state of the default "No events found in month" messages.
+	 *
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {bool} showDefaultNotices Whether to show or hide the default notices, if no day is selected.
+	 */
+	obj.handleMobileDayClick = function( $container, showDefaultNotices ) {
+		var $defaultNotices = $container.find( obj.selectors.mobileEventsDefaultNotices );
+		var daySelected = $container.find( obj.selectors.mobileEventsMobileDayShowClass ).length > 0;
+
+		if ( showDefaultNotices && ! daySelected ) {
+			$defaultNotices.removeClass( 'tribe-common-a11y-hidden' );
+		} else {
+			$defaultNotices.addClass( 'tribe-common-a11y-hidden' );
+		}
 	};
 
 	/**
@@ -142,8 +161,10 @@ tribe.events.views.monthMobileEvents = {};
 
 		if ( $header.hasClass( obj.selectors.calendarDaySelectedClass.className() ) ) {
 			obj.closeMobileEvents( $header, $content );
+			obj.handleMobileDayClick( $container, true );
 		} else {
 			obj.closeAllEvents( $container );
+			obj.handleMobileDayClick( $container, false );
 			obj.openMobileEvents( $header, $content );
 		}
 	};
@@ -225,11 +246,17 @@ tribe.events.views.monthMobileEvents = {};
 		var containerState = $container.data( 'tribeEventsState' );
 		var isMobile = containerState.isMobile;
 
-		if ( ! isMobile && ! state.desktopInitialized ) {
-			obj.closeAllEvents( $container );
-			state.desktopInitialized = true;
-		} else if ( isMobile && state.desktopInitialized ) {
-			state.desktopInitialized = false;
+		if ( ! isMobile ) {
+			if ( ! state.desktopInitialized ) {
+				obj.closeAllEvents( $container );
+				state.desktopInitialized = true;
+			}
+		} else {
+			obj.handleMobileDayClick( $container, true );
+
+			if ( state.desktopInitialized ) {
+				state.desktopInitialized = false;
+			}
 		}
 
 		$mobileEvents.data( 'tribeEventsState', state );
@@ -273,6 +300,7 @@ tribe.events.views.monthMobileEvents = {};
 			return;
 		}
 
+		obj.handleMobileDayClick( $container, true );
 		obj.initState( $container );
 		obj.bindCalendarEvents( $container );
 		$container

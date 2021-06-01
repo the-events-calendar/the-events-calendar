@@ -30,7 +30,12 @@ class Tribe__Events__Customizer__Day_List_View extends Tribe__Customizer__Sectio
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
-		$customizer = Tribe__Customizer::instance();
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
+		$customizer = tribe( 'customizer' );
 
 		if ( $customizer->has_option( $this->ID, 'price_bg_color' ) ) {
 			$template .= '
@@ -94,7 +99,7 @@ class Tribe__Events__Customizer__Day_List_View extends Tribe__Customizer__Sectio
 	 * @return void
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
-		$customizer = Tribe__Customizer::instance();
+		$customizer = tribe( 'customizer' );
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'price_bg_color', $section ),

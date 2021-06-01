@@ -53,6 +53,7 @@ if ( empty( $disable_event_search ) ) {
 
 		<header <?php tribe_classes( $header_classes ); ?>>
 			<?php $this->template( 'components/messages' ); ?>
+			<?php $this->template( 'components/messages', [ 'classes' => [ 'tribe-events-header__messages--mobile' ] ] ); ?>
 
 			<?php $this->template( 'components/breadcrumbs' ); ?>
 
