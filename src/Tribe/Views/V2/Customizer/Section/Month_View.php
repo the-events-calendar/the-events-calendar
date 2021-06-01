@@ -65,7 +65,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 */
 	public function setup_arguments() {
 		return [
-			'priority'	=> 65,
+			'priority'	=> 15,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Month View', 'the-events-calendar' ),
 		];

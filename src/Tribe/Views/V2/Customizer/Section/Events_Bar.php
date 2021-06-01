@@ -63,7 +63,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 */
 	public function setup_arguments() {
 		return [
-			'priority'	=> 63,
+			'priority'	=> 10,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Events Bar', 'the-events-calendar' ),
 			'description' => _x(

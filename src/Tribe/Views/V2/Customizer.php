@@ -812,7 +812,7 @@ class Customizer {
 		}
 
 		// Use the function from provider.php to check if V2 is not enabled
-		// or the TRIBE_EVENTS_WIDGETS_V2_DISABLED constant is true.
+		// or the TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED constant is true.
 		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}
