@@ -218,7 +218,9 @@ class Customizer {
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
+	public function filter_global_elements_css_template( $css_template, $section ) {
+		$customizer = tribe( 'customizer' );
+
 		$settings = $customizer->get_option( [ $section->ID ] );
 		// These allow us to continue to _not_ target the shortcode.
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
@@ -766,7 +768,9 @@ class Customizer {
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+	public function filter_single_event_css_template( $css_template, $section ) {
+		$customizer = tribe( 'customizer' );
+
 		if (
 			$customizer->has_option( $section->ID, 'post_title_color_choice' )
 			&& 'custom' === $customizer->get_option( [ $section->ID, 'post_title_color_choice' ] )
