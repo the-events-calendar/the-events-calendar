@@ -192,7 +192,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 						),
 						$customizer->get_setting_url(
 							'global_elements',
-							'accent_color',
+							'accent_color'
 						)
 					),
 					'custom'	  => esc_html_x(
@@ -229,7 +229,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 						),
 						$customizer->get_setting_url(
 							'global_elements',
-							'accent_color',
+							'accent_color'
 						)
 					),
 					'custom'	  => esc_html_x(
