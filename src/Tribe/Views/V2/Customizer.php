@@ -792,8 +792,10 @@ class Customizer {
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
 	 * @since 5.4.0
+	 * @deprecated TBD Moved to common assets.
 	 */
 	public function enqueue_customizer_controls_styles() {
+		_deprecated_function( __METHOD__, 'TBD' );
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
 	}
 
