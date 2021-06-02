@@ -1,90 +1,5 @@
 <?php return array (
-  'tribe-events-views-v2-full' => '.single-tribe_events .tribe-events-single-event-title,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:visited,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:visited,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__multiday-event-bar-title,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:visited,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:visited,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:visited,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:visited,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:focus,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:hover,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:focus,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:hover,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:focus,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:hover,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:focus,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:hover,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:focus,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:hover,
-				.tribe-theme-twentyseventeen .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:focus,
-				.tribe-theme-enfold#top .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link,
-				.tribe-theme-enfold#top .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link,
-				.tribe-theme-enfold#top .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link,
-				.tribe-theme-enfold#top .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link,
-				.tribe-theme-enfold#top .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link,
-				.tribe-theme-enfold#top .tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link {
-					color: #141827;
-				}
-
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-title-link:focus,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:active,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:hover,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-title-link:focus {
-					border-color: #141827;
-				}
-			
-				.tribe-events-schedule h2,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-datetime,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-day__event-datetime,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-datetime,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event-tooltip-datetime,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
-				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-latest-past__event-datetime {
-					color: #141827;
-				}
-			
-				.tribe-events-single-event-description a,
+  'tribe-events-views-v2-full' => '.tribe-events-single-event-description a,
 				.tribe-events-event-url a,
 				.tribe-venue-url a,
 				.tribe-organizer-url a,
@@ -95,13 +10,13 @@
 				}
 			
 			.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-form-control-toggle__input:checked {
-				background-color: #238923;
-			}
+					background-color: #238923;
+				}
 
-			.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
-				color: #238923;
-			}
-		
+				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
+					color: #238923;
+				}
+			
 				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
 				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
 				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover {
@@ -163,6 +78,10 @@
 					background-color: #238923;
 				}
 			
+				.tribe-theme-twentytwentyone .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn:not(:hover):not(:active) {
+					background-color: #238923;
+				}
+			
 				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn,
 				.tribe-common:not( .tribe-events-view--shortcode ) a.tribe-common-c-btn {
 					background-color: #238923;
@@ -193,10 +112,10 @@
 					color: #238923;
 				}
 			
-			.tribe-theme-twentytwenty .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn {
-				background-color: #238923;
-			}
-		
+				.tribe-theme-twentytwenty .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn {
+					background-color: #238923;
+				}
+			
 				.tribe-theme-twentyseventeen .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn:hover,
 				.tribe-theme-twentyseventeen .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn:focus,
 				.tribe-theme-twentytwenty .tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-c-btn:hover,
@@ -243,26 +162,26 @@
 					color: #238923;
 				}
 			
-			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:hover,
-			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:focus,
-			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:active {
-				color: #fff;
-				background-color: #238923;
-				border-color: #238923;
-			}
-		
-			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-view-selector__button:before {
-				background-color: #238923;
-			}
-		
-			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after {
-				background-color: #238923;
-			}
-		
-			.tribe-common--breakpoint-medium.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-datetime-featured-text {
-				color: #238923;
-			}
-		
+				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:hover,
+				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:focus,
+				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-ical__link:active {
+					color: #fff;
+					background-color: #238923;
+					border-color: #238923;
+				}
+			
+				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-c-view-selector__button:before {
+					background-color: #238923;
+				}
+			
+				.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after {
+					background-color: #238923;
+				}
+			
+				.tribe-common--breakpoint-medium.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-list__event-datetime-featured-text {
+					color: #238923;
+				}
+			
 			.tribe-events:not( .tribe-events-view--shortcode ) .tribe-events-calendar-month__calendar-event--featured:before {
 					background-color: #238923;
 				}
