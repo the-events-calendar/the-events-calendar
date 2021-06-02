@@ -99,7 +99,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 			],
 			'global_elements_separator' => [
-				'priority'	 => 20,
+				'priority'	 => 15,
 				'type'		 => 'separator',
 			],
 			'adjust_appearance' => [
@@ -107,7 +107,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'type'		 => 'heading',
 				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
 			],
-
 		];
 	}
 
@@ -161,11 +160,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'background_color' => [
 				'priority' => 26, // Should come right after background_color_choice
 				'type'     => 'color',
-				'label'    => esc_html_x(
-					'Event Title',
-					'The event title color setting label.',
-					'the-events-calendar'
-				),
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'background_color_choice', $control->section );
 					$value = $control->manager->get_setting( $setting_name )->value();

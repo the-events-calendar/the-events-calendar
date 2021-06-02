@@ -4,6 +4,8 @@
  *
  * @since   5.3.1
  *
+ * @deprecated TBD
+ *
  * @package Tribe\Events\Views\V2
  */
 

@@ -70,10 +70,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
-
-		// Customizer.
-		add_action( 'tribe_customizer_register_global_elements_settings', [ $this, 'action_include_global_elements_settings' ], 10, 3 );
-		add_action( 'tribe_customizer_register_single_event_settings', [ $this, 'action_include_single_event_settings' ], 15, 3 );
 	}
 
 	/**
@@ -124,14 +120,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
-
-		// Customizer.
-		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
-		add_filter( 'tribe_customizer_section_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 2 );
-		add_filter( 'tribe_customizer_section_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 2 );
-
-		// Register the asset for Customizer controls.
-		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
 
 		// Add filters to change the display of website links on the Single Event template.
 		add_filter( 'tribe_get_event_website_link_label', [ $this, 'filter_single_event_details_event_website_label' ], 10, 2 );
@@ -893,12 +881,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Adds new Global Elements settings via the hook in common.
 	 *
 	 * @since 5.3.1
+	 * @deprecated TBD
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
 	 * @param \Tribe__Customizer          $customizer The Customizer object.
 	 */
 	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
+		_deprecated_function(__METHOD__, 'TBD' );
 		$this->container->make( Customizer::class )->include_global_elements_settings( $section, $manager, $customizer );
 	}
 
@@ -906,12 +896,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Adds new Single Event settings via the hook in common.
 	 *
 	 * @since 5.3.1
+	 * @deprecated TBD
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Single Event Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
 	 * @param \Tribe__Customizer          $customizer The Customizer object.
 	 */
 	public function action_include_single_event_settings( $section, $manager, $customizer ) {
+		_deprecated_function(__METHOD__, 'TBD' );
 		$this->container->make( Customizer::class )->include_single_event_settings( $section, $manager, $customizer );
 	}
 
@@ -919,6 +911,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
 	 * @since 5.3.1
+	 * @deprecated TBD
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
@@ -927,6 +920,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_global_elements_css_template( $css_template, $section ) {
+		_deprecated_function(__METHOD__, 'TBD' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}
@@ -938,6 +932,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
 	 *
 	 * @since 5.3.1
+	 * @deprecated TBD
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Single Event section.
@@ -946,6 +941,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_single_event_css_template( $css_template, $section ) {
+		_deprecated_function(__METHOD__, 'TBD' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}
@@ -957,8 +953,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
 	 * @since 5.4.0
+	 * @deprecated TBD
 	 */
 	public function enqueue_customizer_controls_styles() {
+		_deprecated_function(__METHOD__, 'TBD' );
 		return $this->container->make( Customizer::class )->enqueue_customizer_controls_styles();
 	}
 
