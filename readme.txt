@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility.
+
 = [5.7.0] 2021-05-27 =
 
 * Feature - Add new Month View section to the Customizer for v2 views. [TEC-3836]
