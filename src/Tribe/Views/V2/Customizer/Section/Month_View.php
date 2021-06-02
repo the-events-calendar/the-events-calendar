@@ -198,7 +198,6 @@ class Month_View extends \Tribe__Customizer__Section {
 					$value = $control->manager->get_setting( $setting_name )->value();
 					return $this->defaults['grid_background_color_choice'] !== $value;
 				},
-
 			],
 			'tooltip_background_color'        => [
 				'priority'    => 18, // This should come immediately after 'grid_background_color_choice'.
@@ -228,8 +227,8 @@ class Month_View extends \Tribe__Customizer__Section {
 						),
 						$customizer->get_setting_url(
 							'global_elements',
-							'background_color_choice',
-						),
+							'background_color_choice'
+						)
 					)
 				],
 				'active_callback' => function( $control ) use ( $customizer ) {
@@ -272,8 +271,8 @@ class Month_View extends \Tribe__Customizer__Section {
 						),
 						$customizer->get_setting_url(
 							'global_elements',
-							'accent_color',
-						),
+							'accent_color'
+						)
 					),
 					'custom'  => _x(
 						'Custom',
