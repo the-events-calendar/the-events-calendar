@@ -10,10 +10,7 @@
   "_glotPressUrl": "https://translate.wordpress.org",
   "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": [
-    "po",
-    "mo"
-  ],
+  "_glotPressFormats": ["po", "mo"],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -37,10 +34,7 @@
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
-  "engines": {
-    "node": "10.16.0",
-    "npm": "6.9.0"
-  },
+  "engines": { "node": "10.16.0", "npm": "6.9.0" },
   "devDependencies": {
     "@babel/runtime": "7.0.0-beta.52",
     "@the-events-calendar/product-taskmaster": "^1.0.0",
@@ -103,7 +97,8 @@
     "webpack": "^4.26.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.1.2",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "product-taskmaster": "github:the-events-calendar/product-taskmaster"
   },
   "dependencies": {
     "@moderntribe/common": "file:common/src/modules",
@@ -147,7 +142,5 @@
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
   },
-  "resolutions": {
-    "graceful-fs": "^4.2.4"
-  }
+  "resolutions": { "graceful-fs": "^4.2.4" }
 }

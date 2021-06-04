@@ -21,34 +21,34 @@
 	}
 
 	.tribe-events-calendar-month__multiday-event-bar-inner {
-		background-color: var(--color-accent-primary-multiday);
-		transition: var(--transition-background-color);
+		background-color: var(--tec-color-accent-primary-multiday);
+		transition: var(--tec-transition-background-color);
 
 		&:hover,
 		&:focus {
-			background-color: var(--color-accent-primary-multiday-hover);
+			background-color: var(--tec-color-accent-primary-multiday-hover);
 		}
 	}
 
 	.tribe-events-calendar-month__multiday-event-bar-inner--focus,
 	.tribe-events-calendar-month__multiday-event-bar-inner--hover {
-		background-color: var(--color-accent-primary-multiday-hover);
+		background-color: var(--tec-color-accent-primary-multiday-hover);
 	}
 
 	.tribe-events-calendar-month__multiday-event--past {
 
 		.tribe-events-calendar-month__multiday-event-bar-inner {
-			background-color: var(--color-background-secondary);
+			background-color: var(--tec-color-background-secondary);
 
 			&:hover,
 			&:focus {
-				background-color: var(--color-background-secondary-hover);
+				background-color: var(--tec-color-background-secondary-hover);
 			}
 		}
 
 		.tribe-events-calendar-month__multiday-event-bar-inner--focus,
 		.tribe-events-calendar-month__multiday-event-bar-inner--hover {
-			background-color: var(--color-background-secondary-hover);
+			background-color: var(--tec-color-background-secondary-hover);
 		}
 
 		.tribe-events-calendar-month__multiday-event-bar-featured-icon,
@@ -58,7 +58,8 @@
 	}
 
 	.tribe-events-calendar-month__multiday-event-bar-title {
-		font-weight: var(--font-weight-regular);
+		color: var(--tec-color-text-events-title-month-multiday);
+		font-weight: var(--tec-font-weight-regular);
 		text-overflow: ellipsis;
 	}
 
@@ -68,7 +69,7 @@
 
 	.tribe-theme-avada #main & {
 		.tribe-events-calendar-month__multiday-event-bar-title {
-			font-weight: var(--font-weight-regular);
+			font-weight: var(--tec-font-weight-regular);
 		}
 	}
 }

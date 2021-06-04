@@ -7,16 +7,16 @@
 .tribe-events {
 
 	.tribe-events-header--has-event-search .tribe-events-c-events-bar {
-		
+
 		.tribe-common--breakpoint-medium& {
-			background-color: var(--color-background);
+			background-color: var(--tec-color-background);
 		}
 	}
 
 	.tribe-events-c-events-bar--border {
 
 		.tribe-common--breakpoint-medium& {
-			border: 1px solid var(--color-border-secondary);
+			border: 1px solid var(--tec-color-border-secondary);
 		}
 	}
 
@@ -25,23 +25,23 @@
 
 		&:hover,
 		&:focus {
-			opacity: var(--opacity-icon-hover);
+			opacity: var(--tec-opacity-icon-hover);
 		}
 
 		&:active {
-			opacity: var(--opacity-icon-active);
+			opacity: var(--tec-opacity-icon-active);
 		}
 
 		&:before {
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-accent-primary);
 			content: '';
 			display: none;
 			height: 2px;
 			pointer-events: none;
 			position: absolute;
 			top: 100%;
-			transform: translateY(var(--spacer-0));
-			width: calc(100% - (2 * var(--spacer-0)));
+			transform: translateY(var(--tec-spacer-0));
+			width: calc(100% - (2 * var(--tec-spacer-0)));
 		}
 	}
 
@@ -53,7 +53,7 @@
 	}
 
 	.tribe-events-c-events-bar__search-button-icon-svg path {
-		fill: var(--color-icon-active);
+		fill: var(--tec-color-icon-active);
 	}
 
 	/* -----------------------------------------------------------------------------
@@ -61,15 +61,15 @@
 	 * Events Bar: Theme Overrides
 	 *
 	 * ----------------------------------------------------------------------------- */
-	
+
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-	 
+
 	.tribe-theme-twentyseventeen.colors-dark & {
-		
+
 		.tribe-events-c-events-bar__search-button {
-			
+
 			&,
 			&:hover,
 			&:focus {

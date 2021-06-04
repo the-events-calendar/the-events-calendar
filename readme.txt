@@ -223,7 +223,11 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+<<<<<<< HEAD
 * Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility.
+=======
+* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility. [TCMN-106]
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 
 = [5.7.0] 2021-05-27 =
 

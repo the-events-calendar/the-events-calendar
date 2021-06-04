@@ -46,7 +46,11 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 */
 	public function setup_arguments() {
 		return [
+<<<<<<< HEAD
 			'priority'	=> 20,
+=======
+			'priority'	=> 10,
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Single Event', 'the-events-calendar' ),
 			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section on Single Event views.', 'the-events-calendar' ),
@@ -158,9 +162,13 @@ final class Single_Event extends \Tribe__Customizer__Section {
 			&& $this->should_include_setting_css( 'post_title_color' )
 		) {
 			$css_template .= '
+<<<<<<< HEAD
 				.single-tribe_events .tribe-events-single-event-title {
 					color: <%= single_event.post_title_color %>;
 				}
+=======
+				--tec-color-text-event-title: <%= single_event.post_title_color %>;
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 			';
 		}
 
@@ -174,7 +182,11 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 */
 	public function should_add_single_view_v2_styles() {
 		// Use the function from provider.php to check if V2 is not enabled
+<<<<<<< HEAD
 		// or the TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED constant is true.
+=======
+		// or the TRIBE_EVENTS_WIDGETS_V2_DISABLED constant is true.
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}

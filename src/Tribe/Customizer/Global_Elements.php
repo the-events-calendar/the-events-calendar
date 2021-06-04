@@ -1,4 +1,5 @@
 <?php
+_deprecated_file( __FILE__, 'TBD', 'Tribe\Events\Views\V2\Customizer\Section\Global_Elements' );
 // Don't load directly.
 use Tribe\Customizer\Controls\Heading;
 

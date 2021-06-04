@@ -55,8 +55,11 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_defaults() {
 		return [
+<<<<<<< HEAD
 			'font_size'               => '0',
 			'font_size_base'          => '14',
+=======
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 			'event_title_color'       => '#141827',
 			'event_date_time_color'   => '#141827',
 			'background_color_choice' => 'transparent',
@@ -70,6 +73,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_settings() {
 		return [
+<<<<<<< HEAD
 			'test_toggle'             => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
@@ -90,6 +94,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 			],
+=======
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 			'event_title_color'       => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -115,6 +121,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 	public function setup_content_headings() {
 		return [
+<<<<<<< HEAD
 			'font_size_heading' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
@@ -123,17 +130,30 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'font_color_heading' => [
 				'priority'	 => 10,
 				'type'		 => 'heading',
+=======
+			'font_color' => [
+				'priority'	 => 0,
+				'type'		 => 'heading',
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 			],
 			'global_elements_separator' => [
 				'priority'	 => 20,
 				'type'		 => 'separator',
 			],
+<<<<<<< HEAD
 			'adjust_appearance_heading' => [
+=======
+			'adjust_appearance' => [
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 				'priority'	 => 21,
 				'type'		 => 'heading',
 				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
 			],
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 		];
 	}
 
@@ -143,6 +163,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
 		return [
+<<<<<<< HEAD
 			'test_toggle' => [
 				'priority' => 2,
 				'type'     => 'toggle',
@@ -223,6 +244,10 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			],
 			'event_title_color' => [
 				'priority' => 15,
+=======
+			'event_title_color' => [
+				'priority' => 5,
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Event Title',
@@ -231,7 +256,11 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				),
 			],
 			'event_date_time_color' => [
+<<<<<<< HEAD
 				'priority' => 17,
+=======
+				'priority' => 10,
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Event Date and Time',
@@ -265,6 +294,14 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'background_color' => [
 				'priority' => 26, // Should come right after background_color_choice
 				'type'     => 'color',
+<<<<<<< HEAD
+=======
+				'label'    => esc_html_x(
+					'Event Title',
+					'The event title color setting label.',
+					'the-events-calendar'
+				),
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'background_color_choice', $control->section );
 					$value = $control->manager->get_setting( $setting_name )->value();
@@ -302,17 +339,25 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
+<<<<<<< HEAD
 		// Bail early, and often.
+=======
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 		if (
 			! $this->should_include_setting_css( 'event_title_color' )
 			&& ! $this->should_include_setting_css( 'event_date_time_color' )
 			&& ! $this->should_include_setting_css( 'accent_color' )
+<<<<<<< HEAD
+=======
+			&& ! $this->should_include_setting_css( 'link_color' )
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 		) {
 			return $css_template;
 		}
 
 		// These allow us to continue to _not_ target the shortcode.
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
+<<<<<<< HEAD
 
 		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
 		$tribe_common = $apply_to_shortcode ? '.tribe-common' : '.tribe-common:not( .tribe-events-view--shortcode )';
@@ -755,23 +800,67 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					border-color: <%= global_elements.event_title_color %>;
 				}
 			";
+=======
+		$tribe_events = $apply_to_shortcode ? ':root' : '.tribe-events:not( .tribe-events-view--shortcode ), #tribe-events-pg-template';
+
+		$css_template = ":root {\n";
+
+		// Accent color overrides.
+		if ( $this->should_include_setting_css( 'accent_color' ) ) {
+			$accent_color_obj   = new \Tribe__Utils__Color( $this->get_option( 'accent_color' ) );
+			$accent_color_arr   = $accent_color_obj->getRgb();
+			$accent_color_rgb   = $accent_color_arr['R'] . ',' . $accent_color_arr['G'] . ',' . $accent_color_arr['B'];
+
+			$css_template .= "
+				/* Accent Color overrides. */
+				--tec-color-accent-primary: <%= global_elements.accent_color %>;
+				--tec-color-accent-primary-hover: rgba({$accent_color_rgb},0.8);
+				--tec-color-accent-primary-multiday: rgba({$accent_color_rgb},0.24);
+				--tec-color-accent-primary-multiday-hover: rgba({$accent_color_rgb},0.34);
+				--tec-color-accent-primary-active: rgba({$accent_color_rgb},0.9);
+				--tec-color-accent-primary-background: rgba({$accent_color_rgb},0.07);
+				--tec-color-background-secondary-datepicker: rgba({$accent_color_rgb},0.5);
+				--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;
+				--tec-color-button-primary: <%= global_elements.accent_color %>;
+				--tec-color-button-primary-hover: rgba({$accent_color_rgb},0.8);
+				--tec-color-button-primary-active: rgba({$accent_color_rgb},0.9);
+				--tec-color-button-primary-background: rgba({$accent_color_rgb},0.07);
+			";
+		}
+
+
+		// Event Title overrides.
+		if ( $this->should_include_setting_css( 'event_title_color' ) ) {
+			$css_template .= '
+				/* Event Title overrides. */
+				--tec-color-text-events-title: <%= global_elements.event_title_color %>;
+				--tec-color-text-event-title: <%= global_elements.event_title_color %>;
+			';
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 		}
 
 		// Background color overrides.
 		if ( $this->should_include_setting_css( 'background_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'background_color' ) ) {
+<<<<<<< HEAD
 				$css_template .= '
 					.tribe-events-view:not(.tribe-events-widget),
 					#tribe-events,
 					#tribe-events-pg-template {
 						background-color: <%= global_elements.background_color %>;
 					}
+=======
+				$css_template             .= '
+					/* Background Color overrides. */
+					--tec-color-background-events: <%= global_elements.background_color %>;
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 				';
 			}
 		}
 
 		// Event Date/Time overrides.
 		if ( $this->should_include_setting_css( 'event_date_time_color' ) ) {
+<<<<<<< HEAD
 			// Event Date Time overrides.
 			$css_template .= "
 				.tribe-events-schedule h2,
@@ -787,6 +876,27 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			";
 		}
 
+=======
+			$css_template .= '
+				/* Event Date/Time overrides. */
+				--tec-color-text-event-date: <%= global_elements.event_date_time_color %>;
+				--tec-color-text-event-date-secondary: <%= global_elements.event_date_time_color %>;
+			';
+		}
+
+		// Link color overrides.
+		if ( $this->should_include_setting_css( 'link_color' ) ) {
+			$css_template .= '
+				/* Link Color overrides. */
+				--tec-color-link-primary: <%= global_elements.link_color %>;
+				--tec-color-link-accent: <%= global_elements.link_color %>;
+				--tec-color-link-accent-hover: <%= global_elements.link_color %>CC;
+			';
+		}
+
+		$css_template .= "\n}";
+
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 		return $css_template;
 	}
 }

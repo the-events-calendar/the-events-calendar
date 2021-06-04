@@ -1,13 +1,13 @@
 .tribe-events-widget {
 
 	.tribe-events-widget-events-list__header {
-		margin-bottom: var(--spacer-5);
+		margin-bottom: var(--tec-spacer-5);
 	}
 
 	.tribe-events-widget-events-list__event-row--featured {
 
 		.tribe-events-widget-events-list__event-date-tag-datetime:after {
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-accent-primary);
 			border-radius: 1.5px;
 			content: '';
 			height: 100%;
@@ -21,11 +21,12 @@
 	.tribe-events-widget-events-list__event-date-tag-month {
 		@mixin mobile-body-3;
 
-		color: var(--color-text-secondary);
+		color: var(--tec-color-text-secondary);
 		text-transform: uppercase;
 	}
 
 	.tribe-events-widget-events-list__event-title {
+		color: var(--tec-color-text-events-title-widget-list);
 
 		.tribe-common--breakpoint-xsmall& {
 			@mixin heading-5;
@@ -37,18 +38,18 @@
 	}
 
 	.tribe-events-widget-events-list__view-more-link {
-		color: var(--color-accent-primary);
+		color: var(--tec-color-accent-primary);
 		text-transform: capitalize;
 
 		&:visited {
-			color: var(--color-accent-primary);
+			color: var(--tec-color-accent-primary);
 		}
 
 		&:active,
 		&:focus,
 		&:hover {
-			color: var(--color-accent-primary);
-			border-bottom-color: var(--color-accent-primary);
+			color: var(--tec-color-accent-primary);
+			border-bottom-color: currentColor;
 		}
 	}
 
@@ -63,7 +64,7 @@
 
 			.tribe-events-c-messages__message-icon-svg {
 				display: inline-block;
-				margin-right: var(--spacer-2);
+				margin-right: var(--tec-spacer-2);
 			}
 		}
 
@@ -75,7 +76,7 @@
 		}
 
 		.tribe-events-c-messages__message-list-item-link {
-			font-weight: var(--font-weight-bold);
+			font-weight: var(--tec-font-weight-bold);
 		}
 	}
 
@@ -88,11 +89,11 @@
 	.site-footer .widget-area & {
 
 		.tribe-events-widget-events-list__view-more-link {
-			color: var(--color-accent-primary);
+			color: var(--tec-color-accent-primary);
 
 			&:hover,
 			&:focus {
-				color: var(--color-accent-primary);
+				color: var(--tec-color-accent-primary);
 			}
 		}
 	}
@@ -120,7 +121,7 @@
 
 		.tribe-events-widget-events-list__event-venue-address,
 		.tribe-events-widget-events-list__event-organizer-contact {
-			color: var(--color-text-primary);
+			color: var(--tec-color-text-primary);
 		}
 	}
 
@@ -128,13 +129,13 @@
 	.main_color .sidebar & {
 
 		.tribe-events-widget-events-list__view-more-link {
-			color: var(--color-accent-primary);
+			color: var(--tec-color-accent-primary);
 
 			&:visited,
 			&:hover,
 			&:focus,
 			&:active {
-				color: var(--color-accent-primary);
+				color: var(--tec-color-accent-primary);
 			}
 		}
 	}

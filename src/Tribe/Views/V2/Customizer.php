@@ -3,6 +3,7 @@
  * Handles Views v2 Customizer settings.
  *
  * @since   5.3.1
+ * @deprecated TBD
  *
  * @deprecated TBD
  *
@@ -10,6 +11,9 @@
  */
 
 namespace Tribe\Events\Views\V2;
+
+_deprecated_file( __FILE__, 'TBD', 'Tribe\Events\Views\V2\Customizer' );
+
 use WP_Customize_Color_Control as Color_Control;
 use WP_Customize_Control as Control;
 
@@ -17,6 +21,7 @@ use WP_Customize_Control as Control;
  * Class Customizer
  *
  * @since   5.3.1
+ * @deprecated TBD
  *
  * @package Tribe\Events\Views\V2
  */
@@ -142,75 +147,9 @@ class Customizer {
 	}
 
 	/**
-	 * Adds new settings/controls to the Single Events section via the hook in common.
-	 *
-	 * @since 5.3.1
-	 *
-	 * @param \Tribe__Customizer__Section $section    The Single Events Customizer section.
-	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
-	 */
-	public function include_single_event_settings( $section, $manager, $customizer ) {
-		// Remove the old setting/control to refactor.
-		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ) );
-		$manager->remove_control( $customizer->get_setting_name( 'post_title_color', $section ) );
-
-		// Register new control with option.
-		$manager->add_setting(
-			$customizer->get_setting_name( 'post_title_color_choice', $section ),
-			[
-				'default'              => 'general',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_key',
-				'sanitize_js_callback' => 'sanitize_key',
-			]
-		);
-
-		$manager->add_control(
-			new Control(
-				$manager,
-				$customizer->get_setting_name( 'post_title_color_choice', $section ),
-				[
-					'label'       => esc_html__( 'Event Title', 'the-events-calendar' ),
-					'section'     => $section->id,
-					'type'        => 'radio',
-					'priority'    => 5,
-					'choices'     => [
-						'general' => esc_html__( 'Use General', 'the-events-calendar' ),
-						'custom'  => esc_html__( 'Custom', 'the-events-calendar' ),
-					],
-				]
-			)
-		);
-
-		$manager->add_setting(
-			$customizer->get_setting_name( 'post_title_color', $section ),
-			[
-				'default'              => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
-				'type'                 => 'option',
-				'sanitize_callback'    => 'sanitize_hex_color',
-				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			]
-		);
-
-		$manager->add_control(
-			new Color_Control(
-				$manager,
-				$customizer->get_setting_name( 'post_title_color', $section ),
-				[
-					'label'   => esc_html__( 'Custom Color', 'the-events-calendar' ),
-					'section' => $section->id,
-					'priority'        => 6,
-					'active_callback' => function ( $control ) use ( $customizer, $section ) {
-						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'post_title_color_choice', $section ) )->value();
-					},
-				]
-			)
-		);
-	}
-
-	/**
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
+	 *
+	 * Please note: the order is important for proper cascading overrides!
 	 *
 	 * @since 5.3.1
 	 *
@@ -220,6 +159,7 @@ class Customizer {
 	 *
 	 * @return string The filtered CSS template.
 	 */
+<<<<<<< HEAD
 	public function filter_global_elements_css_template( $css_template, $section ) {
 		$customizer = tribe( 'customizer' );
 
@@ -306,149 +246,54 @@ class Customizer {
 					border-color: <%= global_elements.event_title_color %>;
 				}
 			";
-		}
+=======
+	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
+		$settings    = $customizer->get_option( [ $section->ID ] );
+		$has_options = $customizer->has_option( $section->ID, 'event_title_color' )
+						|| $customizer->has_option( $section->ID, 'accent_color' )
+						|| $customizer->has_option( $section->ID, 'event_date_time_color' )
+						|| $customizer->has_option( $section->ID, 'link_color' );
 
-		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
-			// Event Date Time overrides.
+		if ( $has_options ) {
 			$css_template .= "
-				.tribe-events-schedule h2,
-				$tribe_events .tribe-events-calendar-list__event-datetime,
-				$tribe_events .tribe-events-calendar-day__event-datetime,
-				$tribe_events .tribe-events-calendar-month__calendar-event-datetime,
-				$tribe_events .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-datetime,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
-				$tribe_events .tribe-events-calendar-latest-past__event-datetime {
-					color: <%= global_elements.event_date_time_color %>;
-				}
+			:root{
 			";
+
+			// Override placeholders - we'll clean up and concat these at the end.
+			$overrides = [
+				'avada'           => '',
+				'divi'            => '',
+				'enfold'          => '',
+				'genesis'         => '',
+				'twentyseventeen' => '',
+				'twentynineteen'  => '',
+				'twentytwenty'    => '',
+				'twentytwentyone' => '',
+			];
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 		}
 
-		if ( $customizer->has_option( $section->ID, 'link_color' ) ) {
-			$css_template .= "
-				.tribe-events-single-event-description a,
-				.tribe-events-event-url a,
-				.tribe-venue-url a,
-				.tribe-organizer-url a,
-				.tribe-block__organizer__website a,
-				.tribe-block__venue__website a,
-				$tribe_events p a {
-					color: <%= global_elements.link_color %>;
-				}
-			";
-		}
 
-		if (
-			$customizer->has_option( $section->ID, 'background_color_choice' )
-			&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
-			&& $customizer->has_option( $section->ID, 'background_color' )
-		) {
-			$css_template .= '
-				.tribe-events-view:not(.tribe-events-widget),
-				#tribe-events,
-				#tribe-events-pg-template {
-					background-color: <%= global_elements.background_color %>;
-				}
-			';
-		}
-
+		// Accent color overrides.
 		if ( $customizer->has_option( $section->ID, 'accent_color' ) ) {
 			$accent_color     = new \Tribe__Utils__Color( $settings['accent_color'] );
 			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
 			$accent_css_rgb   = $accent_color_rgb['R'] . ',' . $accent_color_rgb['G'] . ',' . $accent_color_rgb['B'];
 
-			$accent_color_hover          = 'rgba(' . $accent_css_rgb . ',0.8)';
-			$accent_color_active         = 'rgba(' . $accent_css_rgb . ',0.9)';
-			$accent_color_background     = 'rgba(' . $accent_css_rgb . ',0.07)';
-			$accent_color_multiday       = 'rgba(' . $accent_css_rgb . ',0.24)';
-			$accent_color_multiday_hover = 'rgba(' . $accent_css_rgb . ',0.34)';
-			$color_background            = '#ffffff';
-
-			// overrides for common base/full/forms/_toggles.pcss.
 			$css_template .= "
-			$tribe_common .tribe-common-form-control-toggle__input:checked {
-					background-color: <%= global_elements.accent_color %>;
-				}
-
-				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
-					color: <%= global_elements.accent_color %>;
-				}
+				/* Accent Color overrides. */
+				--tec-color-accent-primary: <%= global_elements.accent_color %>;
+				--tec-color-accent-primary-hover: rgba({$accent_css_rgb}, 0.8);
+				--tec-color-accent-primary-multiday: rgba({$accent_css_rgb}, 0.24);
+				--tec-color-accent-primary-multiday-hover: rgba({$accent_css_rgb}, 0.34);
+				--tec-color-accent-primary-active: rgba({$accent_css_rgb}, 0.9);
+				--tec-color-accent-primary-background: rgba({$accent_css_rgb}, 0.07);
+				--tec-color-background-secondary-datepicker: rgba({$accent_css_rgb}, 0.5);
+				--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;
 			";
 
-			// overrides for the widget view more link
-			$css_template .= '
-				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:active,
-				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:focus,
-				.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link:hover {
-					border-bottom-color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// Theme overrides for widget view more link
-			$css_template .= '
-				.tribe-theme-twentyseventeen .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
-				.tribe-theme-twentytwentyone .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
-				.tribe-theme-twentyseventeen .site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link,
-				.site-footer .widget-area .tribe-events-widget .tribe-events-widget-events-list__view-more-link {
-					color: <%= global_elements.accent_color %>;
-				}
-			';
-
-			// Widget featured icon color
-			$css_template .= '
-				.tribe-events-widget .tribe-events-widget-events-list__event-row--featured .tribe-events-widget-events-list__event-date-tag-datetime:after {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			';
-
+			/*
 			// overrides for common base/full/typography/_ctas.pcss.
-			$css_template .= "
-				$tribe_common .tribe-common-cta--alt,
-				$tribe_common .tribe-common-cta--alt:active,
-				$tribe_common .tribe-common-cta--alt:hover,
-				$tribe_common .tribe-common-cta--alt:focus,
-				$tribe_common .tribe-common-cta--thin-alt,
-				$tribe_common .tribe-common-cta--thin-alt:active,
-				$tribe_common .tribe-common-cta--thin-alt:focus,
-				$tribe_common .tribe-common-cta--thin-alt:hover {
-					color: <%= global_elements.accent_color %>;
-					border-bottom-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				$tribe_common .tribe-common-cta--alt:active,
-				$tribe_common .tribe-common-cta--alt:hover,
-				$tribe_common .tribe-common-cta--alt:focus,
-				$tribe_common .tribe-common-cta--thin-alt:active,
-				$tribe_common .tribe-common-cta--thin-alt:hover,
-				$tribe_common .tribe-common-cta--thin-alt:focus,
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-cta--alt:hover,
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-cta--alt:focus,
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-cta--thin-alt:hover,
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-cta--thin-alt:focus {
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// Overrides for common components/full/buttons/_border.pcss.
-			$css_template .= "
-				$tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt),
-				$tribe_common a.tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt) {
-					border-color: <%= global_elements.accent_color %>;
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				$tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
-				$tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover,
-				$tribe_common a.tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
-				$tribe_common a.tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):hover {
-					color: $color_background;
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
 
 			$css_template .= "
 				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn-border:not(.tribe-common-c-btn-border--secondary):not(.tribe-common-c-btn-border--alt):focus,
@@ -463,204 +308,12 @@ class Customizer {
 				}
 			";
 
-			// overrides for common components/full/buttons/_solid.pcss.
-			$css_template .= "
-				$tribe_common .tribe-common-c-btn,
-				$tribe_common a.tribe-common-c-btn {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				$tribe_common .tribe-common-c-btn:focus,
-				$tribe_common .tribe-common-c-btn:hover,
-				$tribe_common a.tribe-common-c-btn:focus,
-				$tribe_common a.tribe-common-c-btn:hover {
-					background-color: $accent_color_hover;
-				}
-			";
-
-			$css_template .= "
-				$tribe_common .tribe-common-c-btn:active,
-				$tribe_common a.tribe-common-c-btn:active {
-					background-color: $accent_color_active;
-				}
-			";
-
-			$css_template .= "
-				$tribe_common .tribe-common-c-btn:disabled,
-				$tribe_common a.tribe-common-c-btn:disabled {
-					background-color: $accent_color_background;
-				}
-			";
-
-			// Override svg icons color.
-			$css_template .= "
-				$tribe_common .tribe-common-c-svgicon {
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				$tribe_common .tribe-events-virtual-virtual-event__icon-svg {
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				.tribe-theme-twentytwenty $tribe_common .tribe-common-c-btn {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn:hover,
-				.tribe-theme-twentyseventeen $tribe_common .tribe-common-c-btn:focus,
-				.tribe-theme-twentytwenty $tribe_common .tribe-common-c-btn:hover,
-				.tribe-theme-twentytwenty $tribe_common .tribe-common-c-btn:focus {
-					background-color: $accent_color_hover;
-				}
-			";
-
-			// overrides for tec components/full/_datepicker.pcss.
-			$css_template .= "
-				$tribe_events .datepicker .day.current,
-				$tribe_events .datepicker .month.current,
-				$tribe_events .datepicker .year.current,
-				$tribe_events .datepicker .day.current:hover,
-				$tribe_events .datepicker .day.current:focus,
-				$tribe_events .datepicker .day.current.focused,
-				$tribe_events .datepicker .month.current:hover,
-				$tribe_events .datepicker .month.current:focus,
-				$tribe_events .datepicker .month.current.focused,
-				$tribe_events .datepicker .year.current:hover,
-				$tribe_events .datepicker .year.current:focus,
-				$tribe_events .datepicker .year.current.focused {
-					background: $accent_color_background;
-				}
-			";
-
-			$css_template .= "
-				$tribe_events .datepicker .day.active,
-				$tribe_events .datepicker .month.active,
-				$tribe_events .datepicker .year.active,
-				$tribe_events .datepicker .day.active:hover,
-				$tribe_events .datepicker .day.active:focus,
-				$tribe_events .datepicker .day.active.focused,
-				$tribe_events .datepicker .month.active:hover,
-				$tribe_events .datepicker .month.active:focus,
-				$tribe_events .datepicker .month.active.focused,
-				$tribe_events .datepicker .year.active:hover,
-				$tribe_events .datepicker .year.active:focus,
-				$tribe_events .datepicker .year.active.focused {
-					background: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// overrides for tec components/full/_events-bar.pcss.
-			$css_template .= "
-				$tribe_events .tribe-events-c-events-bar__search-button:before {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// overrides for tec components/full/_ical-link.pcss.
-			$css_template .= "
-				$tribe_events .tribe-events-c-ical__link {
-					border-color: <%= global_elements.accent_color %>;
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			/* @todo replace this with the variable var(--color-background) when we make those available */
-			$css_template .= "
-				$tribe_events .tribe-events-c-ical__link:hover,
-				$tribe_events .tribe-events-c-ical__link:focus,
-				$tribe_events .tribe-events-c-ical__link:active {
-					color: #fff;
-					background-color: <%= global_elements.accent_color %>;
-					border-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// overrides for tec components/full/_view-selector.pcss.
-			$css_template .= "
-				$tribe_events .tribe-events-c-view-selector__button:before {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// overrides for tec views/full/list/_event.pcss.
-			$css_template .= "
-				$tribe_events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				.tribe-common--breakpoint-medium$tribe_events .tribe-events-calendar-list__event-datetime-featured-text {
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// overrides for tec views/full/month/_calendar-event.pcss.
-			$css_template .= "
-			$tribe_events .tribe-events-calendar-month__calendar-event--featured:before {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			// overrides for tec views/full/month/_day.pcss.
-			$css_template .= "
-				$tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date,
-				$tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link {
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				$tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:hover,
-				$tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:focus {
-					color: $accent_color_hover;
-				}
-			";
-
-			$css_template .= "
-				$tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:active {
-					color: $accent_color_active;
-				}
-			";
-
-			$css_template .= "
-				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__day-cell--selected,
-				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__day-cell--selected:hover,
-				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__day-cell--selected:focus,
-				$tribe_events.tribe-events-widget .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__day-cell--selected,
-				$tribe_events.tribe-events-widget .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__day-cell--selected:hover,
-				$tribe_events.tribe-events-widget .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__day-cell--selected:focus {
-					background-color: <%= global_elements.accent_color %>;
-				}
-
-				$tribe_events .tribe-events-calendar-month__day-cell--selected .tribe-events-calendar-month__day-date {
-					color: $color_background;
-				}
-
-				$tribe_events .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__mobile-events-icon--event,
-				$tribe_events.tribe-events-widget .tribe-events-calendar-month__day:not( .tribe-events-calendar-month__day--past ) .tribe-events-calendar-month__mobile-events-icon--event {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
-			$css_template .= "
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:focus {
-					color: $accent_color_hover;
-				}
-			";
-
-			$css_template .= "
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:active {
-					color: $accent_color_active;
+			$css_template .= '
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:hover,
+				.tribe-theme-twentyseventeen .tribe-common .tribe-common-c-btn:focus,
+				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:hover,
+				.tribe-theme-twentytwenty .tribe-common .tribe-common-c-btn:focus {
+					background-color: var(--tec-color-accent-primary-hover);
 				}
 			";
 
@@ -705,12 +358,6 @@ class Customizer {
 				}
 			";
 
-			$css_template .= "
-				.tribe-common--breakpoint-medium$tribe_events .tribe-events-calendar-day__event-datetime-featured-text {
-					color: <%= global_elements.accent_color %>;
-				}
-			";
-
 			// Single Event styles overrides
 			// This is under filter_global_elements_css_template() in order to have
 			// access to global_elements.accent_color, which is under a different section.
@@ -730,19 +377,8 @@ class Customizer {
 						color: <%= global_elements.accent_color %>;
 					}
 
-					.tribe-events-event-meta a:focus,
-					.tribe-events-event-meta a:hover {
-						color: ' . $accent_color_hover . ';
-					}
-
 					.tribe-events-virtual-link-button {
 						background-color: <%= global_elements.accent_color %>;
-					}
-
-					.tribe-events-virtual-link-button:active,
-					.tribe-events-virtual-link-button:focus,
-					.tribe-events-virtual-link-button:hover {
-						background-color: ' . $accent_color_hover . ';
 					}
 
 					.tribe-events-single-event-description a,
@@ -754,9 +390,149 @@ class Customizer {
 					}
 				';
 			}
+			*/
+		}
+
+		// Event Title overrides.
+		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
+			$css_template .= '
+				/* Event Title overrides. */
+				--tec-color-text-events-title: <%= global_elements.event_title_color %>;
+			';
+		}
+
+		// Background color overrides.
+		if (
+			$customizer->has_option( $section->ID, 'background_color_choice' )
+			&& 'custom' === $customizer->get_option( [ $section->ID, 'background_color_choice' ] )
+			&& $customizer->has_option( $section->ID, 'background_color' )
+		) {
+			$css_template .= '
+				/* Background Color overrides. */
+				--tec-color-background-events: <%= global_elements.background_color %>;
+			';
+			$overrides['twentytwenty'] .= '
+				/* Background Color overrides. */
+				--tec-color-background-events: <%= global_elements.background_color %>;
+			';
+		}
+
+		// Event Date/Time overrides.
+		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
+			$css_template .= '
+				/* Event Date/Time overrides. */
+				--tec-color-text-event-date: <%= global_elements.event_date_time_color %>;
+				--tec-color-text-secondary-event-date: <%= global_elements.event_date_time_color %>;
+			';
+		}
+
+		// Link color overrides.
+		if ( $customizer->has_option( $section->ID, 'link_color' ) ) {
+			$css_template .= '
+				/* Link Color overrides. */
+				--tec-color-link-primary: <%= global_elements.link_color %>;
+				--tec-color-link-accent: <%= global_elements.link_color %>;
+				--tec-color-link-accent-hover: <%= global_elements.link_color %>CC;
+			';
+		}
+
+		if ( $has_options ) {
+			$css_template .= '
+			}
+			';
+		}
+
+		// Now for some magic...
+		/**
+		 * @var Theme_Compatibility $theme_compatibility
+		 */
+		$theme_compatibility = tribe( Theme_Compatibility::class );
+		$themes = $theme_compatibility->get_active_themes();
+
+		// Wrap each in the appropriate selector.
+		foreach ( $themes as $generation => $theme ) {
+			if ( 'child' === $generation ) {
+				$theme = 'child-' . $theme;
+			}
+
+			$css_template .= "
+
+			.tribe-theme-$theme .tribe-common {
+				{$overrides[ $theme ]}
+			}
+
+			";
 		}
 
 		return $css_template;
+	}
+
+	/**
+	 * Adds new settings/controls to the Single Events section via the hook in common.
+	 *
+	 * @since 5.3.1
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Single Events Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
+	public function include_single_event_settings( $section, $manager, $customizer ) {
+		// Remove the old setting/control to refactor.
+		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ) );
+		$manager->remove_control( $customizer->get_setting_name( 'post_title_color', $section ) );
+
+		// Register new control with option.
+		$manager->add_setting(
+			$customizer->get_setting_name( 'post_title_color_choice', $section ),
+			[
+				'default'              => 'general',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			]
+		);
+
+		$manager->add_control(
+			new Control(
+				$manager,
+				$customizer->get_setting_name( 'post_title_color_choice', $section ),
+				[
+					'label'       => esc_html__( 'Event Title', 'the-events-calendar' ),
+					'section'     => $section->id,
+					'type'        => 'radio',
+					'priority'    => 5,
+					'choices'     => [
+						'general' => esc_html__( 'Use General', 'the-events-calendar' ),
+						'custom'  => esc_html__( 'Custom', 'the-events-calendar' ),
+					],
+				]
+			)
+		);
+
+		$manager->add_setting(
+			$customizer->get_setting_name( 'post_title_color', $section ),
+			[
+				'default'              => tribe_events_views_v2_is_enabled() ? '#141827' : '#333',
+				'type'                 => 'option',
+				'sanitize_callback'    => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			]
+		);
+
+		$manager->add_control(
+			new Color_Control(
+				$manager,
+				$customizer->get_setting_name( 'post_title_color', $section ),
+				[
+					'label'   => esc_html__( 'Custom Color', 'the-events-calendar' ),
+					'section' => $section->id,
+					'priority'        => 6,
+					'active_callback' => function ( $control ) use ( $customizer, $section ) {
+						return 'custom' == $control->manager->get_setting( $customizer->get_setting_name( 'post_title_color_choice', $section ) )->value();
+					},
+				]
+			)
+		);
 	}
 
 	/**
@@ -779,15 +555,14 @@ class Customizer {
 			&& $customizer->has_option( $section->ID, 'post_title_color' )
 		) {
 			$css_template .= '
-				.single-tribe_events .tribe-events-single-event-title {
-					color: <%= single_event.post_title_color %>;
-				}
+				--tec-color-text-event-title: <%= single_event.post_title_color %>;
 			';
 		}
 
 		return $css_template;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
@@ -823,4 +598,6 @@ class Customizer {
 
 		return true;
 	}
+=======
+>>>>>>> feature/TEC-3836-theme-compat-common-vars
 }

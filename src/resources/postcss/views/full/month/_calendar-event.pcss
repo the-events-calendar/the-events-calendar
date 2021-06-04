@@ -11,35 +11,35 @@
 		}
 
 		.tribe-events-calendar-month__calendar-event-datetime {
-			color: var(--color-text-primary);
+			color: var(--tec-color-text-event-date);
 			opacity: 0.94; /* This opacity is compounded with the calendar-event opacity above */
 		}
 
 	}
 
 	.tribe-events-calendar-month__calendar-event-featured-image-link {
-		transition: var(--transition-opacity);
+		transition: var(--tec-transition-opacity);
 
 		&:hover,
 		&:focus {
-			opacity: var(--opacity-icon-hover);
+			opacity: var(--tec-opacity-icon-hover);
 		}
 
 		&:active {
-			opacity: var(--opacity-icon-active);
+			opacity: var(--tec-opacity-icon-active);
 		}
 	}
 
 	.tribe-events-calendar-month__calendar-event-datetime {
 		@mixin mobile-body-3;
 
-		color: var(--color-text-secondary);
+		color: var(--tec-color-text-event-date-secondary);
 	}
 
 	.tribe-events-calendar-month__calendar-event--featured {
 
 		&:before {
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-accent-primary);
 			content: '';
 			height: 100%;
 			left: 7px;
@@ -50,9 +50,19 @@
 		&:last-child {
 
 			&:before {
-				height: calc(100% - var(--spacer-3));
+				height: calc(100% - var(--tec-spacer-3));
 			}
 		}
+	}
+
+	.tribe-events-calendar-month__calendar-event-title,
+	.tribe-events-calendar-month__calendar-event-tooltip-title {
+		color: var(--tec-color-text-events-title-month);
+	}
+
+	.tribe-events-calendar-month__calendar-event-title-link,
+	.tribe-events-calendar-month__calendar-event-tooltip-title-link {
+		@mixin event-title-link;
 	}
 
 	/* -----------------------------------------------------------------------------
@@ -60,19 +70,20 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__calendar-event-tooltip-featured-image-link {
-		transition: var(--transition-opacity);
+		transition: var(--tec-transition-opacity);
 
 		&:hover,
 		&:focus {
-			opacity: var(--opacity-icon-hover);
+			opacity: var(--tec-opacity-icon-hover);
 		}
 
 		&:active {
-			opacity: var(--opacity-icon-active);
+			opacity: var(--tec-opacity-icon-active);
 		}
 	}
 
 	.tribe-events-calendar-month__calendar-event-tooltip-datetime {
 		@mixin mobile-body-3;
+		color: var(--tec-color-text-event-date);
 	}
 }
