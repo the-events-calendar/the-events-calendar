@@ -55,6 +55,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_defaults() {
 		return [
+			'font_size'               => '0',
+			'font_size_base'          => '14',
 			'event_title_color'       => '#141827',
 			'event_date_time_color'   => '#141827',
 			'background_color_choice' => 'transparent',
@@ -68,6 +70,26 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_settings() {
 		return [
+			'test_toggle'             => [
+				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			],
+			'toggle_color_choice' => [
+				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			],
+			'toggle_color'        => [
+				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			],
+			'font_size'               => [
+				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			],
+			'font_size_base'          => [
+				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			],
 			'event_title_color'       => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
@@ -93,16 +115,21 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 	public function setup_content_headings() {
 		return [
-			'font_color' => [
+			'font_size_heading' => [
 				'priority'	 => 0,
+				'type'		 => 'heading',
+				'label'    => esc_html__( 'Set Font Size', 'the-events-calendar' ),
+			],
+			'font_color_heading' => [
+				'priority'	 => 10,
 				'type'		 => 'heading',
 				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 			],
 			'global_elements_separator' => [
-				'priority'	 => 15,
+				'priority'	 => 20,
 				'type'		 => 'separator',
 			],
-			'adjust_appearance' => [
+			'adjust_appearance_heading' => [
 				'priority'	 => 21,
 				'type'		 => 'heading',
 				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
@@ -116,8 +143,86 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
 		return [
-			'event_title_color' => [
+			'test_toggle' => [
+				'priority' => 2,
+				'type'     => 'toggle',
+				'label'    => esc_html_x(
+					'Toggle me!',
+					'The font size selector setting label.',
+					'the-events-calendar'
+				),
+			],
+			'toggle_color_choice' => [
+				'priority'    => 3,
+				'type'        => 'toggle',
+				'label'       => esc_html__( 'Toggle Custom Color', 'the-events-calendar' ),
+				'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
+				'choices'     => [
+					'on' => _x(
+						'Default.',
+						'Label for option to leave transparent (default).',
+						'the-events-calendar'
+					),
+					'off'	  => esc_html_x(
+						'Custom Color',
+						'Label for option to set a custom color.',
+						'the-events-calendar'
+					),
+				],
+			],
+			'toggle_color' => [
+				'priority' => 4, // Should come right after toggle_color_choice
+				'type'     => 'color',
+				'active_callback' => function( $control ) use ( $customizer ) {
+					return $this->should_include_setting_css( 'toggle_color_choice' );
+				},
+			],
+			'font_size' => [
 				'priority' => 5,
+				'type'     => 'range-slider',
+				'label'    => esc_html_x(
+					'Font Size',
+					'The font size selector setting label.',
+					'the-events-calendar'
+				),
+				'input_attrs' => [
+					'min'  => -1,
+					'max'  => 1,
+					'step' => 1,
+					'aria-decribed-by' => esc_html_x(
+						'Font Size',
+						'The font size selector setting label.',
+						'the-events-calendar'
+					),
+				],
+				'choices'    => [
+					'small'  => '-1',
+					'medium' => '0',
+					'large'  => '1',
+				],
+			],
+			'font_size_base' => [
+				'priority' => 6,
+				'type'     => 'number',
+				'label'    => esc_html_x(
+					'Base Font Size',
+					'The base font size input setting label.',
+					'the-events-calendar'
+				),
+				'description' => esc_html_x(
+					'Set a base size in pixels to match the theme font size. All event fonts will scale around it. Overrides the above setting',
+					'The description for the base font size setting.',
+					'the-events-calendar'
+				),
+				'input_attrs' => [
+					'min'   => '8',
+					'max'   => '24',
+					'step'  => '1',
+					'style' => 'width: 4em;'
+				]
+			],
+			'event_title_color' => [
+				'priority' => 15,
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Event Title',
@@ -126,7 +231,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				),
 			],
 			'event_date_time_color' => [
-				'priority' => 10,
+				'priority' => 17,
 				'type'     => 'color',
 				'label'    => esc_html_x(
 					'Event Date and Time',
