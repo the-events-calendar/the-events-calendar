@@ -189,8 +189,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * @param \stdClass        $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.
 	 *
-	 * @return \stdClass The post insertion/update payload with an added `meta_input` entry if
-	 *                   the insertion/update of UTC dates is required.
+	 * @return \stdClass The post insertion/update payload.
 	 */
 	public function update_cost( $post_data, $request ) {
 		$post_id = $request->get_param( 'id' );
