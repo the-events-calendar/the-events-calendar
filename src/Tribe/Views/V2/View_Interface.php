@@ -247,7 +247,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	/**
 	 * Disable the url management inside of the current view.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return View_Interface A reference to the View-like that is being directed.
 	 */

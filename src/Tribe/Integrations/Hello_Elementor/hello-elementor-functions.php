@@ -2,7 +2,7 @@
 /**
  * Hello Elementor API functions.
  *
- * @since TBD
+ * @since 5.7.0
  */
 
 use Tribe\Events\Integrations\Hello_Elementor\Templates;
@@ -16,7 +16,7 @@ if ( ! function_exists( 'elementor_theme_do_location' ) ) {
 	 * allows our code to either take charge of handling the template discovery or let
 	 * Elementor go through its own resolution.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param string $template The template that Elementor is currently filtering; e.g.
 	 *                         `single` or `archive`.

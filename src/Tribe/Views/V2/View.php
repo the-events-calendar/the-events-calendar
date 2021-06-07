@@ -629,7 +629,7 @@ class View implements View_Interface {
 		/**
 		 * Fire new action on the views.
 		 *
-		 * @since TBD
+		 * @since 5.7.0
 		 *
 		 * @param View $this A reference to the View instance that is currently setting up the loop.
 		 */
@@ -2495,7 +2495,7 @@ class View implements View_Interface {
 	/**
 	 * Gets the base object for asset registration.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return \stdClass $object Object to tie registered assets to.
 	 */
@@ -2505,7 +2505,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the object used for registering assets.
 		 *
-		 * @since TBD
+		 * @since 5.7.0
 		 *
 		 * @param \stdClass $origin_object Object used for asset registration.
 		 * @param string $slug View slug.
@@ -2520,7 +2520,7 @@ class View implements View_Interface {
 	 *
 	 * Should be overridden if there are assets for the view.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param \stdClass $object Object to tie registered assets to.
 	 */

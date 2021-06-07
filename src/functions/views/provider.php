@@ -4,7 +4,7 @@ use Tribe\Events\Views\V2\Manager;
 /**
  * Registers a view.
  *
- * @since TBD
+ * @since 5.7.0
  *
  * @param string $slug View slug.
  * @param string $name View name.

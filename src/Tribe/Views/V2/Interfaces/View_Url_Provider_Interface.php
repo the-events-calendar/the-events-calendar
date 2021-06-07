@@ -68,7 +68,7 @@ interface View_Url_Provider_Interface {
 	/**
 	 * Updates the View URL object reference.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param Url $url_object A reference to the the new URL instance
 	 *                        the View should use.

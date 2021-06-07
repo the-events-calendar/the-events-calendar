@@ -3,7 +3,7 @@
  * The Events Calendar Customizer Section Class
  * Month View
  *
- * @since TBD
+ * @since 5.7.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
@@ -11,14 +11,14 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
 /**
  * Month View
  *
- * @since TBD
+ * @since 5.7.0
  */
 class Month_View extends \Tribe__Customizer__Section {
 
 	/**
 	 * ID of the section.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @access public
 	 * @var string
@@ -35,7 +35,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * This method will be executed when the Class is Initialized.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 */
 	public function setup() {
 		parent::setup();
@@ -296,6 +296,11 @@ class Month_View extends \Tribe__Customizer__Section {
 			'grid_hover_color'              => [
 				'priority'    => 15,
 				'type'        => 'color',
+				'label'       => esc_html_x(
+					'Day Hover',
+					'Day hover color setting label.',
+					'the-events-calendar'
+				),
 				'description' => esc_html_x(
 					'Bottom border highlight when hovering on a day.',
 					'The grid hover color setting description.',
@@ -308,7 +313,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Gets the link to the a setting in the TEC Customizer Global Elements.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @todo (Stephen): Maybe move this to common? Generalize more or create on for each section?
 	 *
@@ -337,7 +342,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Gets the link to the event background color setting in Customizer.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return string The HTML link element.
 	 */
@@ -353,7 +358,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Gets the link to the event background color setting in Customizer.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return string The HTML link element.
 	 */
@@ -369,7 +374,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Gets the link to the accent color setting in Customizer.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return string The HTML link element.
 	 */

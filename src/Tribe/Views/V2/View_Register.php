@@ -3,7 +3,7 @@
  * The View registration facade.
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   5.7.0
  */
 
 namespace Tribe\Events\Views\V2;
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2;
  * Class View_Register
  *
  * @package Tribe\Events\Views\V2
- * @since   TBD
+ * @since   5.7.0
  */
 class View_Register {
 	/**
@@ -67,7 +67,7 @@ class View_Register {
 	/**
 	 * Adds actions for view registration.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'filter_add_routes' ], 5 );
@@ -76,7 +76,7 @@ class View_Register {
 	/**
 	 * Adds filters for view registration.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 */
 	protected function add_filters() {
 		add_filter( 'tribe_events_views', [ $this, 'filter_events_views' ] );
@@ -88,7 +88,7 @@ class View_Register {
 	/**
 	 * Add rewrite routes for custom PRO stuff and views.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param \Tribe__Events__Rewrite $rewrite The Tribe__Events__Rewrite object
 	 *
@@ -122,7 +122,7 @@ class View_Register {
 	/**
 	 * Add the required bases for the Pro Views
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param array $bases Bases that are already set
 	 *
@@ -138,7 +138,7 @@ class View_Register {
 	/**
 	 * Add the required bases for the Summary View.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param array $bases Bases that are already set.
 	 *
@@ -153,7 +153,7 @@ class View_Register {
 	/**
 	 * Filters the available views.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param array $views An array of available Views.
 	 *
@@ -168,7 +168,7 @@ class View_Register {
 	/**
 	 * Add the view to the views selector in the TEC bar.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param array $views The current array of views registered to the tribe bar.
 	 *

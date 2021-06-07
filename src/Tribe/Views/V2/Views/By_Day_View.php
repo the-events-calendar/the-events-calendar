@@ -145,7 +145,7 @@ abstract class By_Day_View extends View {
 		 * Note: this filter assumes the filtering function will handle any additional filtering criteria
 		 * the View might be required based on the Context.
 		 *
-		 * @since  TBD
+		 * @since  5.7.0
 		 *
 		 * @param array<string,array<int>>|null The View grid days in a map from the day date in `Y-m-d` format to the
 		 *                                      list of Event post IDs matching the search criteria for each day.
@@ -231,7 +231,7 @@ abstract class By_Day_View extends View {
 			 * Allows filtering the formatted day results before the default logic kicks in and after all the
 			 * matching Event post IDs have been found.
 			 *
-			 * @since TBD
+			 * @since 5.7.0
 			 *
 			 * @param null|array<int,\stdClass> $day_results    A map from each event Post ID to the value object that
 			 *                                                  will represent the Event ID, start date, end date and
@@ -687,7 +687,7 @@ abstract class By_Day_View extends View {
 	 *
 	 * The method will fetch the required data in chunks to avoid overloading the database.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param array<int> $view_event_ids    The set of Event Post IDs to build and format the Day
 	 * @param bool       $use_site_timezone Whether to use the site timezone to format the event dates or not. The value

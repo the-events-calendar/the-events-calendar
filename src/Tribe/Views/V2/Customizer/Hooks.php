@@ -10,7 +10,7 @@
  * remove_action( 'some_action', [ tribe( Tribe\Events\Views\V2\Customizer\Hooks::class ), 'some_method' ] );
  * remove_action( 'some_action', [ tribe( 'views.v2.customizer.hooks' ), 'some_method' ] );
  *
- * @since TBD
+ * @since 5.7.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
@@ -20,7 +20,7 @@ namespace Tribe\Events\Views\V2\Customizer;
 /**
  * Class Hooks
  *
- * @since TBD
+ * @since 5.7.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
@@ -29,7 +29,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 */
 	public function register() {
 		$this->add_filters();
@@ -44,7 +44,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Changes the action the Customizer should use to try and print inline styles to print the inline
 	 * styles in the footer.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @return string The action the Customizer should use to print inline styles.
 	 */
