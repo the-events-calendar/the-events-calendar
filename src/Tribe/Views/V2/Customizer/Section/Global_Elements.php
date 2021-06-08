@@ -321,6 +321,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				// For now - we either double or halve the font size.
 				$size_multiplier = 1 === (int) $this->get_option( 'font_size' ) ? $large_font_size : $small_font_size;
 			}
+
 			$css_template .= "\n/* Font Size overrides */\n";
 
 			/**
