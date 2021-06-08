@@ -10,11 +10,6 @@ namespace Tribe\Events\Views\V2\Customizer;
 
 use Tribe\Events\Views\V2\Customizer;
 use Tribe\Events\Views\V2\Customizer\Section\Global_Elements;
-<<<<<<< HEAD
-=======
-use Tribe\Events\Views\V2\Customizer\Section\Single_Event;
-use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
 use Tribe\Events\Views\V2\Customizer\Section\Single_Event;
@@ -33,10 +28,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		$this->register_assets();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 		tribe_singleton( 'events.views.v2.customizer.global-elements', Global_Elements::class );
 		// For backwards-compatibility.
 		tribe_singleton(
@@ -45,29 +36,16 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 				return tribe( 'events.views.v2.customizer.global-elements' );
 			}
 		);
-<<<<<<< HEAD
-
-		tribe('events.views.v2.customizer.global-elements');
-
-		tribe_singleton( 'events.views.v2.customizer.month-view', Month_View::class );
-=======
 		tribe_singleton( 'events.views.v2.customizer.month-view', Month_View::class );
 		tribe_singleton( 'events.views.v2.customizer.events-bar', Events_Bar::class );
 		tribe_singleton( 'events.views.v2.customizer.single-event', Single_Event::class );
 
 		tribe('events.views.v2.customizer.global-elements');
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 		tribe('events.views.v2.customizer.month-view');
 
 		tribe_singleton( 'events.views.v2.customizer.events-bar', Events_Bar::class );
 		tribe('events.views.v2.customizer.events-bar');
-<<<<<<< HEAD
-
-		tribe_singleton( 'events.views.v2.customizer.single-event', Single_Event::class );
-		tribe('events.views.v2.customizer.single-event');
-=======
 		tribe('events.views.v2.customizer.single-event' );
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 	}
 
 	public function register_hooks() {

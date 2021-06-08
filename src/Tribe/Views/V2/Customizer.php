@@ -159,94 +159,6 @@ class Customizer {
 	 *
 	 * @return string The filtered CSS template.
 	 */
-<<<<<<< HEAD
-	public function filter_global_elements_css_template( $css_template, $section ) {
-		$customizer = tribe( 'customizer' );
-
-		$settings = $customizer->get_option( [ $section->ID ] );
-		// These allow us to continue to _not_ target the shortcode.
-		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
-		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
-		$tribe_common = $apply_to_shortcode ? '.tribe-common' : '.tribe-common:not( .tribe-events-view--shortcode )';
-
-		if ( $customizer->has_option( $section->ID, 'event_title_color' ) ) {
-			// Event Title overrides.
-			$css_template .= "
-				.single-tribe_events .tribe-events-single-event-title,
-				$tribe_events .tribe-events-calendar-list__event-title-link,
-				$tribe_events .tribe-events-calendar-list__event-title-link:active,
-				$tribe_events .tribe-events-calendar-list__event-title-link:visited,
-				$tribe_events .tribe-events-calendar-list__event-title-link:hover,
-				$tribe_events .tribe-events-calendar-list__event-title-link:focus,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link:active,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link:visited,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link:hover,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link:focus,
-				$tribe_events .tribe-events-calendar-month__multiday-event-bar-title,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:active,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:visited,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:hover,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:focus,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:active,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:visited,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
-				$tribe_events .tribe-events-calendar-day__event-title-link,
-				$tribe_events .tribe-events-calendar-day__event-title-link:active,
-				$tribe_events .tribe-events-calendar-day__event-title-link:visited,
-				$tribe_events .tribe-events-calendar-day__event-title-link:hover,
-				$tribe_events .tribe-events-calendar-day__event-title-link:focus,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link:active,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link:visited,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link:hover,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link:focus,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-list__event-title-link:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-list__event-title-link:focus,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__calendar-event-title-link:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__calendar-event-title-link:focus,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:focus,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-day__event-title-link:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-day__event-title-link:focus,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-latest-past__event-title-link:hover,
-				.tribe-theme-twentyseventeen $tribe_events .tribe-events-calendar-latest-past__event-title-link:focus,
-				.tribe-theme-enfold#top $tribe_events .tribe-events-calendar-list__event-title-link,
-				.tribe-theme-enfold#top $tribe_events .tribe-events-calendar-month__calendar-event-title-link,
-				.tribe-theme-enfold#top $tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link,
-				.tribe-theme-enfold#top $tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link,
-				.tribe-theme-enfold#top $tribe_events .tribe-events-calendar-day__event-title-link,
-				.tribe-theme-enfold#top $tribe_events .tribe-events-calendar-latest-past__event-title-link {
-					color: <%= global_elements.event_title_color %>;
-				}
-
-				$tribe_events .tribe-events-calendar-list__event-title-link:active,
-				$tribe_events .tribe-events-calendar-list__event-title-link:hover,
-				$tribe_events .tribe-events-calendar-list__event-title-link:focus,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link:active,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link:hover,
-				$tribe_events .tribe-events-calendar-month__calendar-event-title-link:focus,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:active,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:hover,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-title-link:focus,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:active,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:hover,
-				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-title-link:focus,
-				$tribe_events .tribe-events-calendar-day__event-title-link:active,
-				$tribe_events .tribe-events-calendar-day__event-title-link:hover,
-				$tribe_events .tribe-events-calendar-day__event-title-link:focus,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link:active,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link:hover,
-				$tribe_events .tribe-events-calendar-latest-past__event-title-link:focus {
-					border-color: <%= global_elements.event_title_color %>;
-				}
-			";
-=======
 	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
 		$settings    = $customizer->get_option( [ $section->ID ] );
 		$has_options = $customizer->has_option( $section->ID, 'event_title_color' )
@@ -270,7 +182,6 @@ class Customizer {
 				'twentytwenty'    => '',
 				'twentytwentyone' => '',
 			];
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 		}
 
 
@@ -555,49 +466,12 @@ class Customizer {
 			&& $customizer->has_option( $section->ID, 'post_title_color' )
 		) {
 			$css_template .= '
+			:root {
 				--tec-color-text-event-title: <%= single_event.post_title_color %>;
+			}
 			';
 		}
 
 		return $css_template;
 	}
-
-<<<<<<< HEAD
-	/**
-	 * Enqueues Customizer controls styles specific to Views v2 components.
-	 *
-	 * @since 5.4.0
-	 * @deprecated TBD Moved to common assets.
-	 */
-	public function enqueue_customizer_controls_styles() {
-		_deprecated_function( __METHOD__, 'TBD' );
-		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
-	}
-
-	/**
-	 * Check whether the Single Event styles overrides can be applied
-	 *
-	 * @return false/true
-	 */
-	public function should_add_single_view_v2_styles() {
-		// Bail if not Single Event.
-		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
-			return false;
-		}
-
-		// Bail if Block Editor.
-		if ( has_blocks( get_queried_object_id() ) ) {
-			return false;
-		}
-
-		// Use the function from provider.php to check if V2 is not enabled
-		// or the TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED constant is true.
-		if ( ! tribe_events_single_view_v2_is_enabled() ) {
-			return false;
-		}
-
-		return true;
-	}
-=======
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 }

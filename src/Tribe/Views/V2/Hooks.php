@@ -120,14 +120,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
 
-<<<<<<< HEAD
-=======
 		// Customizer.
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
 		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
 		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
 
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 		// Add filters to change the display of website links on the Single Event template.
 		add_filter( 'tribe_get_event_website_link_label', [ $this, 'filter_single_event_details_event_website_label' ], 10, 2 );
 		add_filter( 'tribe_events_get_event_website_title', '__return_empty_string' );
@@ -871,7 +868,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
 		_deprecated_function(__METHOD__, 'TBD' );
-		$this->container->make( Customizer::class )->include_global_elements_settings( $section, $manager, $customizer );
+		tribe( 'customizer' )->include_global_elements_settings( $section, $manager, $customizer );
 	}
 
 	/**
@@ -886,7 +883,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function action_include_single_event_settings( $section, $manager, $customizer ) {
 		_deprecated_function(__METHOD__, 'TBD' );
-		$this->container->make( Customizer::class )->include_single_event_settings( $section, $manager, $customizer );
+		tribe( 'customizer' )->include_single_event_settings( $section, $manager, $customizer );
 	}
 
 	/**
@@ -907,7 +904,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $css_template;
 		}
 
-		return $this->container->make( Customizer::class )->filter_global_elements_css_template( $css_template, $section );
+		return tribe( 'customizer' )->filter_global_elements_css_template( $css_template, $section );
 	}
 
 	/**
@@ -928,24 +925,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $css_template;
 		}
 
-		return $this->container->make( Customizer::class )->filter_single_event_css_template( $css_template, $section );
+		return tribe( 'customizer' )->filter_single_event_css_template( $css_template, $section );
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Enqueues Customizer controls styles specific to Views v2 components.
-	 *
-	 * @since 5.4.0
-	 * @deprecated TBD
-	 */
-	public function enqueue_customizer_controls_styles() {
-		_deprecated_function(__METHOD__, 'TBD' );
-		return $this->container->make( Customizer::class )->enqueue_customizer_controls_styles();
-	}
-
-	/**
-=======
->>>>>>> feature/TEC-3836-theme-compat-common-vars
 	 * Filter the website link label and change it for Single Event Classic Editor.
 	 * Use the following in functions.php to disable:
 	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );

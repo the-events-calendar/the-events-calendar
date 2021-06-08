@@ -37,11 +37,26 @@
 		}
 	}
 
+	.tribe-events-calendar-month__day-date-link,
+	.tribe-events-calendar-month__day-date-daynum {
+		color: var(--tec-color-day-marker-month);
+		transition: var(--tec-transition-color);
+
+		&:hover,
+		&:focus {
+			color: var(--tec-color-day-marker-month-hover);
+		}
+
+		&:active {
+			color: var(--tec-color-day-marker-month-active);
+		}
+	}
+
 	.tribe-events-calendar-month__day--current {
 
 		.tribe-events-calendar-month__day-date,
 		.tribe-events-calendar-month__day-date-link {
-			color: var(--tec-color-accent-primary);
+			color: var(--tec-color-day-marker-current-month);
 			font-weight: var(--tec-font-weight-bold);
 		}
 
@@ -49,12 +64,16 @@
 
 			&:hover,
 			&:focus {
-				color: var(--tec-color-accent-primary-hover);
+				color: var(--tec-color-day-marker-month-current-hover);
 			}
 
 			&:active {
-				color: var(--tec-color-accent-primary-active);
+				color: var(--tec-color-day-marker-month-current-active);
 			}
+		}
+
+		.tribe-events-calendar-month__day-date-daynum {
+			color: inherit;
 		}
 	}
 
@@ -62,6 +81,24 @@
 
 		.tribe-events-calendar-month__day-date {
 			opacity: 0.6;
+		}
+
+		.tribe-events-calendar-month__day-date,
+		.tribe-events-calendar-month__day-date-link {
+			color: var(--tec-color-day-marker-past-month);
+
+			&:hover,
+			&:focus {
+				color: var(--tec-color-day-marker-month-past-hover);
+			}
+
+			&:active {
+				color: var(--tec-color-day-marker-month-past-active);
+			}
+
+			.tribe-events-calendar-month__day-date-daynum {
+				color: inherit;
+			}
 		}
 
 		.tribe-events-calendar-month__mobile-events-icon--event {
@@ -110,20 +147,6 @@
 			.tribe-events-calendar-month__mobile-events-icon-svg path {
 				fill: var(--tec-color-background);
 			}
-		}
-	}
-
-	.tribe-events-calendar-month__day-date-link {
-		color: var(--tec-color-accent-secondary);
-		transition: var(--tec-transition-color);
-
-		&:hover,
-		&:focus {
-			color: var(--tec-color-accent-secondary-hover);
-		}
-
-		&:active {
-			color: var(--tec-color-accent-secondary-active);
 		}
 	}
 
