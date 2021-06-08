@@ -223,6 +223,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.7.1] TBD =
 
+* Tweak - Make custom post types available from the REST API so they can be compatible with the Navigation block. [TEC-3907]
+
 = [5.7.0] 2021-05-27 =
 
 * Feature - Add new Month View section to the Customizer for v2 views. [TEC-3836]
