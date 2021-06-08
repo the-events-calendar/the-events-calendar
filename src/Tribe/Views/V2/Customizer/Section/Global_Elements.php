@@ -265,10 +265,11 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
-		// These allow us to continue to _not_ target the shortcode.
+		// These will allow us to continue to _not_ target the shortcode. Not implemented yet.
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
 		$tribe_events = $apply_to_shortcode ? ':root' : '.tribe-events:not( .tribe-events-view--shortcode ), #tribe-events-pg-template';
 
+		// It's all custom props now, baby...
 		$css_template = ":root {\n";
 
 		// Accent color overrides.

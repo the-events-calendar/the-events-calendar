@@ -293,80 +293,72 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			return $template;
 		}
 
+		// It's all custom props now, baby...
+		$template .= "
+			:root{
+		";
+
 		if ( $this->should_include_setting_css( 'events_bar_text_color' ) ) {
 			// Text color.
 			$template .= "
-				.tribe-common--breakpoint-medium.tribe-common .tribe-events-header__events-bar .tribe-common-form-control-text__input {
-					color: <%= tec_events_bar.events_bar_text_color %>;
-			}";
-
-			$template .= "
-				.tribe-common--breakpoint-medium.tribe-common .tribe-events-header__events-bar .tribe-common-form-control-text__input::placeholder {
-					color: <%= tec_events_bar.events_bar_text_color %>;
-					opacity: .6;
-				}
+				--tec-color-text-events-bar-input: <%= tec_events_bar.events_bar_text_color %>;
+				--tec-color-text-events-bar-input-placeholder: <%= tec_events_bar.events_bar_text_color %>;
+				--tec-opacity-events-bar-input-placeholder: .6;
 			";
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_text_color' ) ) {
 			$template .= "
-				#submit-bar-button {
-					color: <%= tec_events_bar.find_events_button_text_color %>;
-				}
-			";
-		}
-
-		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
-			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
-				$icon_color = 'tec_events_bar.events_bar_icon_color';
-			} elseif (
-				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
-				&& $this->should_include_setting_css( 'accent_color', 'global_elements' )
-			) {
-				$icon_color = 'global_elements.accent_color';
-			}
-
-			$template .= "
-				.tribe-events .tribe-events-c-search__input-control-icon-svg path,
-				.tribe-events .tribe-events-c-events-bar__search-button-icon-svg path,
-				.tribe-events .tribe-events-c-view-selector__button-icon-svg path,
-				.tribe-events .tribe-events-c-view-selector__list-item-icon-svg path {
-					fill: <%= {$icon_color} %>
-				}
+				--tec-color-text-events-bar-submit-button: <%= tec_events_bar.find_events_button_text_color %>;
 			";
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_color_choice' ) ) {
 			$button_color_obj    = new \Tribe__Utils__Color( $this->get_option( 'find_events_button_color' ) );
+			$button_color_hex    = "#" . $button_color_obj->getHex();
 			$button_color        = $button_color_obj->getRgb();
 			$button_color_rgb    = $button_color['R'] . ',' . $button_color['G'] . ',' . $button_color['B'];
 			$button_color_hover  = 'rgba(' . $button_color_rgb . ',0.8)';
 			$button_color_active = 'rgba(' . $button_color_rgb . ',0.9)';
 
 			$template .= "
-				#submit-bar-button {
-					background-color: <%= tec_events_bar.find_events_button_color %>;
-				}
-
-				#submit-bar-button:active {
-					background-color: {$button_color_active};
-				}
-
-				#submit-bar-button:focus,
-				#submit-bar-button:hover {
-					background-color: {$button_color_hover};
-				}
+				--tec-color-background-events-bar-submit-button: {$button_color_hex};
+				--tec-color-background-events-bar-submit-button-hover: {$button_color_hover};
+				--tec-color-background-events-bar-submit-button-active: {$button_color_active};
 			";
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
 			$template .= "
-				.tribe-common--breakpoint-medium.tribe-events .tribe-events-header--has-event-search .tribe-events-header__events-bar,
-				.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-search__input-control {
-					border-color: <%= tec_events_bar.events_bar_border_color %>;
-				}
+				--tec-color-border-events-bar: <%= tec_events_bar.events_bar_border_color %>;
 			";
 		}
+
+		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
+			bdump( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) );
+			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
+				$icon_color = $this->get_option( 'events_bar_icon_color' );
+				bdump(['custom', $icon_color]);
+			} elseif (
+				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
+				&& $this->should_include_setting_css( 'accent_color', 'global_elements' )
+			) {
+				$icon_color = tribe('customizer')->get_option( [ 'accent_color', 'global_elements' ] );
+				bdump(['accent', $icon_color]);
+			}
+
+			if ( ! empty( $icon_color ) ) {
+				$template .= "
+					--tec-color-icon-events-bar: $icon_color;
+					--tec-color-icon-events-bar-hover: $icon_color;
+					--tec-color-icon-events-bar-active: $icon_color;
+				";
+			}
+		}
+
+		$template .= "
+			}
+		";
 
 		return $template;
 	}

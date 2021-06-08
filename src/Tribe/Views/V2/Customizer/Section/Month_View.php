@@ -319,6 +319,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
+		// It's all custom props now, baby...
 		$css_template .= "
 			:root {
 		";
@@ -377,9 +378,11 @@ final class Month_View extends \Tribe__Customizer__Section {
 				$bar_color_hover = 'rgba(' . $bar_color_rgb . ',0.34)';
 
 				$css_template .="
-				--tec-color-background-primary-multiday: $bar_color;
-				--tec-color-background-primary-multiday-hover: $bar_color_hover;
-				--tec-color-background-primary-multiday-active: $bar_color_hover;
+					--tec-color-background-primary-multiday: {$bar_color};
+					--tec-color-background-primary-multiday-hover: {$bar_color_hover};
+					--tec-color-background-primary-multiday-active: {$bar_color_hover};
+					--tec-color-background-secondary-multiday: {$bar_color};
+					--tec-color-background-secondary-multiday-hover: {$bar_color_hover};
 				";
 			}
 		}

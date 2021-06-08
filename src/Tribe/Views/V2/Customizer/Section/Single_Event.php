@@ -157,6 +157,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 			$this->should_include_setting_css( 'post_title_color_choice' )
 			&& $this->should_include_setting_css( 'post_title_color' )
 		) {
+			// It's all custom props now, baby...
 			$css_template .= '
 			:root {
 				--tec-color-text-event-title: <%= single_event.post_title_color %>;
