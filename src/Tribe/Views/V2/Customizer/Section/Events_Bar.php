@@ -335,16 +335,13 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
-			bdump( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) );
 			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
 				$icon_color = $this->get_option( 'events_bar_icon_color' );
-				bdump(['custom', $icon_color]);
 			} elseif (
 				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
 				&& $this->should_include_setting_css( 'accent_color', 'global_elements' )
 			) {
 				$icon_color = tribe('customizer')->get_option( [ 'accent_color', 'global_elements' ] );
-				bdump(['accent', $icon_color]);
 			}
 
 			if ( ! empty( $icon_color ) ) {

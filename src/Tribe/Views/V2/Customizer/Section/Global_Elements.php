@@ -56,7 +56,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	public function setup_defaults() {
 		return [
 			'font_size'               => '0',
-			'font_size_base'          => '14',
+			'font_size_base'          => '16',
 			'event_title_color'       => '#141827',
 			'event_date_time_color'   => '#141827',
 			'background_color_choice' => 'transparent',
@@ -143,8 +143,9 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					'min'  => -1,
 					'max'  => 1,
 					'step' => 1,
-					'aria-decribed-by' => esc_html_x(
-						'Font Size',
+					// Because there is no label for this input - we give screen readers something to work with.
+					'aria-described-by' => esc_html_x(
+						'Font Size selector',
 						'The font size selector setting label.',
 						'the-events-calendar'
 					),
@@ -256,21 +257,109 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
-		// Bail early, and often.
-		if (
-			! $this->should_include_setting_css( 'event_title_color' )
-			&& ! $this->should_include_setting_css( 'event_date_time_color' )
-			&& ! $this->should_include_setting_css( 'accent_color' )
-		) {
-			return $css_template;
-		}
-
-		// These will allow us to continue to _not_ target the shortcode. Not implemented yet.
+		// These will allow us to continue to _not_ target the shortcode. !!! Not implemented yet!!!
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
 		$tribe_events = $apply_to_shortcode ? ':root' : '.tribe-events:not( .tribe-events-view--shortcode ), #tribe-events-pg-template';
 
 		// It's all custom props now, baby...
 		$css_template = ":root {\n";
+
+
+		/**
+		 * It's about to get complicated!
+		 *
+		 * If they set the slider, we  adjust all our font sizes via a pre-defined multiplier.
+		 *
+		 * If they set a base font size, we ignore the font_size slider
+		 * and adjust all our font sizes via a (calculated multiplier).
+		 *
+		 *
+		 * Original font sizes for reference:
+		 * --tec-font-size-0: 11px;
+		 * --tec-font-size-1: 12px;
+		 * --tec-font-size-2: 14px;
+		 * --tec-font-size-3: 16px;
+		 * --tec-font-size-4: 18px;
+		 * --tec-font-size-5: 20px;
+		 * --tec-font-size-6: 22px;
+		 * --tec-font-size-7: 24px;
+		 * --tec-font-size-8: 28px;
+		 * --tec-font-size-9: 32px;
+		 * --tec-font-size-10: 42px;
+		 */
+		if (
+			$this->should_include_setting_css( 'font_size_base' )
+			|| $this->should_include_setting_css( 'font_size' )
+		) {
+			$sizes = [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ];
+			if ( $this->should_include_setting_css( 'font_size_base' ) ) {
+				// Divide the new base by 16 - our original base.
+				$size_multiplier = round( (int) $this->get_option( 'font_size_base' ) / 16, 3 );
+			} else {
+				/**
+				 * Allows users and plugins to change the "small" font size multiplier.
+				 *
+				 * @since TBD
+				 *
+				 * @param int $small_font_size The multiplier for "small" font size.
+				 *
+				 * @return int The multiplier for "small" font size.
+				 */
+				$small_font_size = apply_filters( 'tribe_customizer_small_font_size_multiplier', .5 );
+
+				/**
+				 * Allows users and plugins to change the "large" font size multiplier.
+				 *
+				 * @since TBD
+				 *
+				 * @param int $large_font_size The multiplier for "large" font size.
+				 *
+				 * @return int The multiplier for "large" font size.
+				 */
+				$large_font_size = apply_filters( 'tribe_customizer_large_font_size_multiplier', 2 );
+
+				// For now - we either double or halve the font size.
+				$size_multiplier = 1 === (int) $this->get_option( 'font_size' ) ? $large_font_size : $small_font_size;
+			}
+			$css_template .= "\n/* Font Size overrides */\n";
+
+			/**
+			 * Allows users and plugins to change the minimum font size.
+			 *
+			 * @since TBD
+			 *
+			 * @param int $min_font_size The enforced minimum font size.
+			 *
+			 * @return int The enforced minimum font size.
+			 */
+			$min_font_size = apply_filters( 'tribe_customizer_minimum_font_size', 8 );
+
+			/**
+			 * Allows users and plugins to change the maximum font size.
+			 *
+			 * @since TBD
+			 *
+			 * @param int $min_font_size The enforced maximum font size.
+			 *
+			 * @return int The enforced maximum font size.
+			 */
+			$max_font_size = apply_filters( 'tribe_customizer_maximum_font_size', 72 );
+
+			foreach ( $sizes as $key => $size ) {
+				$font_size = $size_multiplier * (int) $size;
+				// round to whole pixels.
+				$font_size = round( $font_size );
+				// Minimum font size, for sanity.
+				$font_size = max( $font_size, $min_font_size );
+				// Maximum font size, for sanity.
+				$font_size = min( $font_size, $max_font_size );
+
+
+				$css_template .= "--tec-font-size-{$key}: {$font_size}px;\n";
+			}
+
+			$css_template .= "\n";
+		}
 
 		// Accent color overrides.
 		if ( $this->should_include_setting_css( 'accent_color' ) ) {
@@ -298,7 +387,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				--tec-color-day-marker-current-month-active: rgba({$accent_color_rgb},0.9);
 			";
 		}
-
 
 		// Event Title overrides.
 		if ( $this->should_include_setting_css( 'event_title_color' ) ) {
