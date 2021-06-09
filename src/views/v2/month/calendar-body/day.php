@@ -98,10 +98,15 @@ $num_events_label = sprintf(
 			?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				aria-label="<?php echo esc_attr( $has_featured_events_label ); ?>"
 				title="<?php echo esc_attr( $has_featured_events_label ); ?>"
 			>
-				<?php $this->template( 'components/icons/featured', ['classes' => [ 'tribe-events-calendar-month__mobile-events-icon-svg' ] ] ); ?>
+				<?php $this->template(
+					'components/icons/featured',
+					[
+						'classes'    => [ 'tribe-events-calendar-month__mobile-events-icon-svg' ],
+						'icon_title' => esc_html( $has_featured_events_label )
+					]
+				); ?>
 			</em>
 		<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
 			<?php
@@ -110,9 +115,9 @@ $num_events_label = sprintf(
 			?>
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
-				aria-label="<?php echo esc_attr( $has_events_label ); ?>"
 				title="<?php echo esc_attr( $has_events_label ); ?>"
 			>
+				<title><?php echo esc_html( $has_events_label ); ?></title>
 			</em>
 		<?php endif ?>
 	</button>
