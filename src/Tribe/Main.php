@@ -2237,7 +2237,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'item_link_description' => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( 'A link to a particular%s category.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( 'A link to a particular %s category.', 'the-events-calendar' ), $this->singular_event_label
 					),
 				]
 			);
