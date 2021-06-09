@@ -626,6 +626,15 @@ class View implements View_Interface {
 			$this->setup_the_loop( $repository_args );
 		}
 
+		/**
+		 * Fire new action on the views.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
+		 */
+		do_action( 'tribe_views_v2_after_setup_loop', $this );
+
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
@@ -1004,8 +1013,8 @@ class View implements View_Interface {
 		global $wp_query;
 
 		$this->global_backup = [
-			'wp_query'   => $wp_query,
-			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : []
+			'globals::wp_query'   => $wp_query,
+			'server::request_uri' => isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '',
 		];
 
 		$args = wp_parse_args( $args, $this->repository_args );
@@ -1034,8 +1043,11 @@ class View implements View_Interface {
 			return;
 		}
 
-		foreach ( $this->global_backup as $key => $value ) {
-			$GLOBALS[ $key ] = $value;
+		if ( isset( $this->global_backup['globals::wp_query'] ) ) {
+			$GLOBALS['wp_query'] = $this->global_backup['globals::wp_query'];
+		}
+		if ( isset( $this->global_backup['server::request_uri'] ) ) {
+			$_SERVER['REQUEST_URI'] = $this->global_backup['server::request_uri'];
 		}
 
 		wp_reset_postdata();
@@ -2384,7 +2396,7 @@ class View implements View_Interface {
 	 * Initializes the View repository args, if required, and
 	 * applies them to the View repository instance.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 */
 	protected function get_repository_args() {
 		if ( ! empty( $this->repository_args ) ) {
@@ -2398,7 +2410,7 @@ class View implements View_Interface {
 	 * Sets up the View repository args to produce the correct list of Events
 	 * in the context of an iCalendar export.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param int $per_page The number of events per page to show in the iCalendar
 	 *                      export. The value will override whatever events per page
@@ -2416,7 +2428,7 @@ class View implements View_Interface {
 	/**
 	 * Filters the repository arguments that will be used to set up the View repository instance for iCal requests.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param array  $repository_args The repository arguments that will be used to set up the View repository instance.
 	 *
@@ -2426,7 +2438,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the repository args for a View on iCal requests.
 		 *
-		 * @since TBD
+		 * @since 4.6.0
 		 *
 		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
 		 * @param View_Interface  $this            The View that will use the repository arguments.
@@ -2436,7 +2448,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the repository args for a specific View on iCal requests.
 		 *
-		 * @since TBD
+		 * @since 4.6.0
 		 *
 		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
 		 * @param View_Interface  $this            The View that will use the repository arguments.
@@ -2462,5 +2474,57 @@ class View implements View_Interface {
 		$this->repository_args = null;
 
 		return $ids;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_url_object( Url $url_object ) {
+		$this->url = $url_object;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function disable_url_management() {
+		$this->should_manage_url = false;
+
+		return $this;
+	}
+
+	/**
+	 * Gets the base object for asset registration.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @return \stdClass $object Object to tie registered assets to.
+	 */
+	public static function get_asset_origin( $slug ) {
+		$asset_registration_object = tribe( 'tec.main' );
+
+		/**
+		 * Filters the object used for registering assets.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param \stdClass $origin_object Object used for asset registration.
+		 * @param string $slug View slug.
+		 */
+		$asset_registration_object = apply_filters( "tribe_events_views_v2_view_{$slug}_asset_origin_object", $asset_registration_object, $slug );
+
+		return $asset_registration_object;
+	}
+
+	/**
+	 * Registers assets for the view.
+	 *
+	 * Should be overridden if there are assets for the view.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @param \stdClass $object Object to tie registered assets to.
+	 */
+	public static function register_assets( $object ) {
+		// Default to a no-op.
 	}
 }

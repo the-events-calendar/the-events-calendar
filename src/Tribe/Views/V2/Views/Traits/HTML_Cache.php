@@ -35,14 +35,13 @@ trait HTML_Cache {
 	 *                      cached yet.
 	 */
 	public function maybe_get_cached_html() {
-
 		if ( ! $this->should_cache_html() ) {
 			return false;
 		}
 
 		$cache_key = $this->get_cache_html_key();
 
-		$cached_html = tribe( 'cache' )->get_transient( $cache_key, $this->cache_html_triggers() );
+		$cached_html = tribe( 'cache' )->get_chunkable_transient( $cache_key, $this->cache_html_triggers() );
 
 		if ( ! $cached_html ) {
 			return false;
@@ -56,7 +55,7 @@ trait HTML_Cache {
 	/**
 	 * Filters the cached HTML returned for a specific View.
 	 *
-	 * @since TBD
+	 * @since 4.6.0
 	 *
 	 * @param string $cached_html Cached HTML for a view.
 	 *
@@ -66,7 +65,7 @@ trait HTML_Cache {
 		/**
 		 * Filters the cached HTML returned for a View.
 		 *
-		 * @since TBD
+		 * @since 4.6.0
 		 *
 		 * @param string $cached_html  Cached HTML for a view.
 		 * @param View_Interface $this This view instance.
@@ -76,7 +75,7 @@ trait HTML_Cache {
 		/**
 		 * Filters the cached HTML returned for a View.
 		 *
-		 * @since TBD
+		 * @since 4.6.0
 		 *
 		 * @param string $cached_html  Cached HTML for a view.
 		 * @param View_Interface $this This view instance.
@@ -123,7 +122,7 @@ trait HTML_Cache {
 		/** @var Cache $cache */
 		$cache = tribe( 'cache' );
 
-		return $cache->set_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
+		return $cache->set_chunkable_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
 	}
 
 	/**
@@ -203,25 +202,38 @@ trait HTML_Cache {
 	public function get_cache_html_key() {
 		/** @var Context $context */
 		$context = $this->get_context();
-		$args    = $context->to_array();
+		$key     = spl_object_hash( $context ) . '_cache_html_key';
 
-		unset( $args['now'] );
+		$cache = tribe( 'cache' );
 
-		$salts     = wp_json_encode( $this->get_cache_html_key_salts() );
-		$hash      = substr( sha1( wp_json_encode( $args ) . $salts ), 0, 12 ) . ':';
-		$cache_key = 'tribe_views_v2_cache_' . $hash;
+		// Non-persistent caching of the key, per-request.
+		$cache_key = $cache->offsetGet( $key );
 
-		/**
-		 * Filter the cached html key for v2 event views
-		 *
-		 * @since 5.0.0
-		 *
-		 * @param string             $cache_html_key Cache HTML key.
-		 * @param Context            $context        The View current context.
-		 * @param array<string,bool> $salts          An array of salts used to generate the cache key.
-		 * @param HTML_Cache         $this           The object using the trait.
-		 */
-		return apply_filters( 'tribe_events_views_v2_cache_html_key', $cache_key, $context, $this );
+		if ( empty( $cache_key ) ) {
+			$args = $context->to_array();
+
+			unset( $args['now'] );
+
+			$salts     = wp_json_encode( $this->get_cache_html_key_salts() );
+			$hash      = substr( sha1( wp_json_encode( $args ) . $salts ), 0, 12 ) . ':';
+			$cache_key = 'tribe_views_v2_cache_' . $hash;
+
+			/**
+			 * Filter the cached html key for v2 event views
+			 *
+			 * @since 5.0.0
+			 *
+			 * @param string             $cache_html_key Cache HTML key.
+			 * @param Context            $context        The View current context.
+			 * @param array<string,bool> $salts          An array of salts used to generate the cache key.
+			 * @param HTML_Cache         $this           The object using the trait.
+			 */
+			$cache_key = apply_filters( 'tribe_events_views_v2_cache_html_key', $cache_key, $context, $this );
+
+			$cache->offsetSet( $key, $cache_key );
+		}
+
+		return $cache_key;
 	}
 
 	/**

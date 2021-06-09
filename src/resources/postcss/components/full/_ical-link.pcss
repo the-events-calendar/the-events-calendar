@@ -42,7 +42,7 @@
 	 * Theme Overrides - Twenty Seventeen
 	 * ------------------------------------------------------------------------- */
 
-	 .tribe-theme-twentyseventeen & {
+	.tribe-theme-twentyseventeen & {
 
 		.tribe-events-c-ical__link {
 			&:hover,
@@ -51,5 +51,19 @@
 				color: var(--color-background);
 			}
 		}
-	 }
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Twenty One
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentytwentyone & {
+		.tribe-events-c-ical__link {
+			&:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+				color: var(--color-background);
+				background-color: var(--color-accent-primary);
+			}
+		}
+	}
 }
+

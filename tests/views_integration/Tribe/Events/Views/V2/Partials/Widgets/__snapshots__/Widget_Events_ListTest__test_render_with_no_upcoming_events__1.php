@@ -18,12 +18,14 @@
 			</header>
 
 			
-				<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2" >
+				<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
 			<ul class="tribe-events-c-messages__message-list">
-									<li class="tribe-events-c-messages__message-list-item">
-						There are no upcoming events.					</li>
+									<li
+						class="tribe-events-c-messages__message-list-item"
+						 data-key="0" 					>
+					There are no upcoming events.					</li>
 							</ul>
 		</div>
 	</div>
@@ -32,33 +34,50 @@
 	</div>
 </div>
 <script class="tribe-events-breakpoints">
-	(function(){
-		if ( \'undefined\' === typeof window.tribe ) {
-			return;
+	( function () {
+		var completed = false;
+
+		function initBreakpoints() {
+			if ( completed ) {
+				// This was fired already and completed no need to attach to the event listener.
+				document.removeEventListener( \'DOMContentLoaded\', initBreakpoints );
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe ) {
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe.events ) {
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe.events.views ) {
+				return;
+			}
+
+			if ( \'undefined\' === typeof window.tribe.events.views.breakpoints ) {
+				return;
+			}
+
+			if ( \'function\' !== typeof (window.tribe.events.views.breakpoints.setup) ) {
+				return;
+			}
+
+			var container = document.querySelectorAll( \'[data-view-breakpoint-pointer="aabbccddee"]\' );
+			if ( ! container ) {
+				return;
+			}
+
+			window.tribe.events.views.breakpoints.setup( container );
+			completed = true;
+			// This was fired already and completed no need to attach to the event listener.
+			document.removeEventListener( \'DOMContentLoaded\', initBreakpoints );
 		}
 
-		if ( \'undefined\' === typeof window.tribe.events ) {
-			return;
-		}
-
-		if ( \'undefined\' === typeof window.tribe.events.views ) {
-			return;
-		}
-
-		if ( \'undefined\' === typeof window.tribe.events.views.breakpoints ) {
-			return;
-		}
-
-		if ( \'function\' !== typeof( window.tribe.events.views.breakpoints.setup ) ) {
-			return;
-		}
-
-		var container = document.querySelectorAll( \'[data-view-breakpoint-pointer="aabbccddee"]\' );
-		if ( ! container ) {
-			return;
-		}
-
-		window.tribe.events.views.breakpoints.setup( container );
+		// Try to init the breakpoints right away.
+		initBreakpoints();
+		document.addEventListener( \'DOMContentLoaded\', initBreakpoints );
 	})();
 </script>
 ';
