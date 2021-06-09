@@ -55,6 +55,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_defaults() {
 		return [
+			'font_family'             => '',
 			'font_size'               => '0',
 			'font_size_base'          => '16',
 			'event_title_color'       => '#141827',
@@ -70,6 +71,10 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_settings() {
 		return [
+			'font_family'               => [
+				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			],
 			'font_size'               => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
@@ -103,15 +108,20 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 	public function setup_content_headings() {
 		return [
-			'font_size_heading' => [
+			'font_family_heading' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
-				'label'    => esc_html__( 'Set Font Size', 'the-events-calendar' ),
+				'label'      => esc_html__( 'Font Family', 'the-events-calendar' ),
+			],
+			'font_size_heading' => [
+				'priority'	 => 5,
+				'type'		 => 'heading',
+				'label'      => esc_html__( 'Set Font Size', 'the-events-calendar' ),
 			],
 			'font_color_heading' => [
 				'priority'	 => 10,
 				'type'		 => 'heading',
-				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+				'label'      => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 			],
 			'global_elements_separator' => [
 				'priority'	 => 20,
@@ -120,7 +130,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'adjust_appearance_heading' => [
 				'priority'	 => 21,
 				'type'		 => 'heading',
-				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+				'label'      => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
 			],
 		];
 	}
@@ -131,8 +141,19 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
 		return [
-			'font_size' => [
-				'priority' => 5,
+			'font_family'             => [
+				'priority' => 3,
+				'type'     => 'toggle',
+				'choices' => [
+					'on'  => _x(
+						'Use theme fonts.',
+						'Label for option to use theme fonts.',
+						'the-events-calendar'
+					),
+				],
+			],
+			'font_size'               => [
+				'priority' => 6,
 				'type'     => 'range-slider',
 				'label'    => esc_html_x(
 					'Font Size',
@@ -156,8 +177,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					'large'  => '1',
 				],
 			],
-			'font_size_base' => [
-				'priority' => 6,
+			'font_size_base'          => [
+				'priority' => 7,
 				'type'     => 'number',
 				'label'    => esc_html_x(
 					'Base Font Size',
@@ -176,7 +197,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					'style' => 'width: 4em;'
 				]
 			],
-			'event_title_color' => [
+			'event_title_color'       => [
 				'priority' => 15,
 				'type'     => 'color',
 				'label'    => esc_html_x(
@@ -185,7 +206,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					'the-events-calendar'
 				),
 			],
-			'event_date_time_color' => [
+			'event_date_time_color'   => [
 				'priority' => 17,
 				'type'     => 'color',
 				'label'    => esc_html_x(
@@ -217,7 +238,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					),
 				],
 			],
-			'background_color' => [
+			'background_color'        => [
 				'priority' => 26, // Should come right after background_color_choice
 				'type'     => 'color',
 				'active_callback' => function( $control ) use ( $customizer ) {
@@ -226,7 +247,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					return $this->defaults['background_color_choice'] !== $value;
 				},
 			],
-			'accent_color' => [
+			'accent_color'            => [
 				'priority' => 30,
 				'type'     => 'color',
 				'label'    => esc_html_x(
@@ -266,7 +287,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 
 		/**
-		 * It's about to get complicated!
+		 * It's about to get complicated - Font Size overrides!
 		 *
 		 * If they set the slider, we  adjust all our font sizes via a pre-defined multiplier.
 		 *
@@ -305,7 +326,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				 *
 				 * @return int The multiplier for "small" font size.
 				 */
-				$small_font_size = apply_filters( 'tribe_customizer_small_font_size_multiplier', .5 );
+				$small_font_size = apply_filters( 'tribe_customizer_small_font_size_multiplier', .75 );
 
 				/**
 				 * Allows users and plugins to change the "large" font size multiplier.
@@ -316,9 +337,9 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				 *
 				 * @return int The multiplier for "large" font size.
 				 */
-				$large_font_size = apply_filters( 'tribe_customizer_large_font_size_multiplier', 2 );
+				$large_font_size = apply_filters( 'tribe_customizer_large_font_size_multiplier', 1.5 );
 
-				// For now - we either double or halve the font size.
+				// We either grow or shrink the font size.
 				$size_multiplier = 1 === (int) $this->get_option( 'font_size' ) ? $large_font_size : $small_font_size;
 			}
 
@@ -424,6 +445,15 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				--tec-color-link-primary: <%= global_elements.link_color %>;
 				--tec-color-link-accent: <%= global_elements.link_color %>;
 				--tec-color-link-accent-hover: <%= global_elements.link_color %>CC;
+			';
+		}
+
+		// Font family override.
+		if ( $this->should_include_setting_css( 'font_family' ) ) {
+			$css_template .= '
+				/* Font Family overrides. */
+				--tec-font-family-sans-serif: inherit;
+				--tec-font-family-base: inherit;
 			';
 		}
 
