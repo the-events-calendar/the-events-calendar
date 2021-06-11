@@ -308,17 +308,25 @@ class Customizer {
 		}
 
 		if ( $customizer->has_option( $section->ID, 'event_date_time_color' ) ) {
+			$color          = $section->get_option( 'event_date_time_color' );
+			$date_color     = new \Tribe__Utils__Color( $color );
+			$date_color_rgb = $date_color::hexToRgb( $color );
+			$date_css_rgb   = $date_color_rgb['R'] . ',' . $date_color_rgb['G'] . ',' . $date_color_rgb['B'];
+
 			// Event Date Time overrides.
 			$css_template .= "
 				.tribe-events-schedule h2,
 				$tribe_events .tribe-events-calendar-list__event-datetime,
 				$tribe_events .tribe-events-calendar-day__event-datetime,
+				$tribe_events .tribe-events-calendar-latest-past__event-datetime {
+					color: <%= global_elements.event_date_time_color %>;
+				}
+
 				$tribe_events .tribe-events-calendar-month__calendar-event-datetime,
 				$tribe_events .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
 				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-datetime,
-				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
-				$tribe_events .tribe-events-calendar-latest-past__event-datetime {
-					color: <%= global_elements.event_date_time_color %>;
+				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-datetime {
+					color: rgba({$date_css_rgb}, .88);
 				}
 			";
 		}
