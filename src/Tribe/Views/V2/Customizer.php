@@ -325,7 +325,7 @@ class Customizer {
 				$tribe_events .tribe-events-calendar-month__day--past .tribe-events-calendar-month__calendar-event-datetime,
 				$tribe_events .tribe-events-calendar-month__calendar-event-tooltip-datetime,
 				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-datetime {
-					color: rgba($date_css_rgb, .88);
+					color: rgba({$date_css_rgb}, .88);
 				}
 			";
 		}
