@@ -7,7 +7,7 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.7
  *
@@ -16,7 +16,7 @@
 if ( ! tribe_has_organizer() ) {
 	return;
 }
-$attributes = $this->get( 'attributes', array() );
+$attributes = $this->get( 'attributes', [] );
 
 $organizer_ids = tribe_get_organizer_ids();
 $multiple = count( $organizer_ids ) > 1;

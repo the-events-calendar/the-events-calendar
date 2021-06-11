@@ -8,10 +8,12 @@
 	 *   <ul class="tribe-events-c-nav__list">
 	 *     <li class="tribe-events-c-nav__list-item">
 	 *       <a href="#" class="tribe-events-c-nav__prev">
+	 *         <?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 	 *         Previous
 	 *       </a>
 	 *       <a href="#" class="tribe-events-c-nav__next">
 	 *         Next
+	 *         <?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	 *       </a>
 	 *     </li>
 	 *   </ul>
@@ -74,5 +76,10 @@
 		flex: none;
 		flex-wrap: wrap;
 		justify-content: center;
+	}
+
+	.tribe-events-c-nav__prev-icon-svg,
+	.tribe-events-c-nav__next-icon-svg {
+		display: none;
 	}
 }

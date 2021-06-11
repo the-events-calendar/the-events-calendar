@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
- * @version 5.0.0
+ * @version 5.3.0
  *
  * @var string $view_slug            Slug of the current view.
  * @var string $view_label           Label of the current view.
@@ -33,10 +33,13 @@ $view_selector_classes = [
 			class="tribe-events-c-view-selector__button"
 			data-js="tribe-events-view-selector-button"
 		>
-			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon <?php echo sanitize_html_class( "tribe-common-svgicon--{$view_slug}" ); ?>"></span>
+			<span class="tribe-events-c-view-selector__button-icon">
+				<?php $this->template( 'components/icons/' . esc_attr( $view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+			</span>
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $view_label ); ?>
 			</span>
+			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-caret-svg' ] ] ); ?>
 		</button>
 		<?php $this->template( 'components/events-bar/views/list' ); ?>
 	</div>

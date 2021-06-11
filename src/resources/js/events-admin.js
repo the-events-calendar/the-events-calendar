@@ -144,7 +144,7 @@ Date.prototype.format = function( mask, utc ) {
 
 var tribe_datepicker_opts = {};
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
 	$( '.bumpdown-trigger' ).bumpdown();
 
@@ -264,7 +264,7 @@ jQuery( document ).ready( function( $ ) {
 		 */
 		function add_sticky_linked_post_data( post_type, container, fields ) {
 			// Bail if expected global sticky data array is not set
-			if ( 'undefined' === typeof window['tribe_sticky_' + post_type + '_fields'] || ! $.isArray( window['tribe_sticky_' + post_type + '_fields'] ) ) {
+			if ( 'undefined' === typeof window['tribe_sticky_' + post_type + '_fields'] || ! Array.isArray( window['tribe_sticky_' + post_type + '_fields'] ) ) {
 				return;
 			}
 
@@ -472,33 +472,42 @@ jQuery( document ).ready( function( $ ) {
 					object.input.datepicker( 'option', 'maxDate', object.input.data( 'datepicker-max-date' ) );
 				}
 
-				// Capture the datepicker div here; it's dynamically generated so best to grab here instead of elsewhere.
+				// Capture the datepicker div here; it's dynamically generated so best to grab here instead
+				// of elsewhere.
 				$dpDiv = $( object.dpDiv );
 
-				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere with other plugins'/themes'.
+				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere
+				// with other plugins'/themes'.
 				$dpDiv.addClass( 'tribe-ui-datepicker' );
 
 				$event_details.trigger( 'tribe.ui-datepicker-div-beforeshow', [ object ] );
 
-				$dpDiv.attrchange({
-					trackValues : true,
-					callback    : function( attr ) {
+				$dpDiv.attrchange( {
+					trackValues: true,
+					callback: function( attr ) {
 						// This is a non-ideal, but very reliable way to look for the closing of the ui-datepicker box,
 						// since onClose method is often occluded by other plugins, including Events Calender PRO.
 						if (
-							attr.newValue.indexOf( 'display: none' ) >= 0 ||
-							attr.newValue.indexOf( 'display:none' ) >= 0
+							'string' === typeof attr.newValue &&
+							(
+								attr.newValue.indexOf( 'display: none' ) >= 0 ||
+								attr.newValue.indexOf( 'display:none' ) >= 0
+							)
 						) {
 							$dpDiv.removeClass( 'tribe-ui-datepicker' );
 							$event_details.trigger( 'tribe.ui-datepicker-div-closed', [ object ] );
 						}
-					}
-				});
+					},
+				} );
 			},
 			onSelect: function( selected_date, object ) {
 
 				var instance = $( this ).data( 'datepicker' );
-				var date     = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selected_date, instance.settings );
+				var date     = $.datepicker.parseDate(
+					instance.settings.dateFormat || $.datepicker._defaults.dateFormat,
+					selected_date,
+					instance.settings
+				);
 
 				// If the start date was adjusted, then let's modify the minimum acceptable end date
 				if ( this.id === 'EventStartDate' ) {
@@ -513,8 +522,8 @@ jQuery( document ).ready( function( $ ) {
 				}
 
 				// fire the change and blur handlers on the field
-				$( this ).change();
-				$( this ).blur();
+				$( this ).trigger( 'change' );
+				$( this ).trigger( 'blur' );
 			}
 		};
 
@@ -533,9 +542,9 @@ jQuery( document ).ready( function( $ ) {
 			};
 
 			$.each( $els, function( i, el ) {
-				var $el = $(el);
+				var $el = $( el );
 				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
-			})
+			} )
 		}
 
 		var tribeDaysPerMonth = [29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -555,7 +564,7 @@ jQuery( document ).ready( function( $ ) {
 			$( document.getElementById( '31EndDays' ) )
 		];
 
-		$start_end_month.change( function() {
+		$start_end_month.on( 'change', function() {
 			var t = $( this );
 			var startEnd = t.attr( 'name' );
 			// get changed select field
@@ -591,14 +600,14 @@ jQuery( document ).ready( function( $ ) {
 			}
 		} );
 
-		$start_end_month.change();
+		$start_end_month.trigger( 'change' );
 
-		$( 'select[name="EventStartYear"]' ).change( function() {
-			$start_month.change();
+		$( 'select[name="EventStartYear"]' ).on( 'change', function() {
+			$start_month.trigger( 'change' );
 		} );
 
-		$( 'select[name="EventEndYear"]' ).change( function() {
-			$end_month.change();
+		$( 'select[name="EventEndYear"]' ).on( 'change', function() {
+			$end_month.trigger( 'change' );
 		} );
 
 		for ( var i in tribe_events_linked_posts.post_types ) {
@@ -648,15 +657,18 @@ jQuery( document ).ready( function( $ ) {
 	} );
 	overwriteCoordinates.$toggle.trigger( 'change' );
 
-	$( '#EventInfo input, #EventInfo select' ).change( function() {
+	$( '#EventInfo input, #EventInfo select' ).on( 'change', function() {
 		$( '.rec-error' ).hide();
 	} );
 
 	var eventSubmitButton = $( '.wp-admin.events-cal #post #publishing-action input[type="submit"]' );
 
-	eventSubmitButton.click( function() {
-		$( this ).data( 'clicked', true );
-	} );
+	eventSubmitButton.on(
+		'click',
+		function() {
+			$( this ).data( 'clicked', true );
+		}
+	);
 
 	// Workaround for venue & organizer post types when editing or adding
 	// so events parent menu stays open and active

@@ -29,15 +29,15 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event_Slug
 	 * @return array
 	 */
 	public function READ_args() {
-		return array(
-			'slug' => array(
+		return [
+			'slug' => [
 				'in'                => 'path',
 				'type'              => 'string',
 				'description'       => __( 'the event post name', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_event_slug' ),
-			),
-		);
+				'validate_callback' => [ $this->validator, 'is_event_slug' ],
+			],
+		];
 	}
 
 	/**

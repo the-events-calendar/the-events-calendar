@@ -6,7 +6,11 @@
 
 ?>
 
-<p class="tribe-welcome-message"><?php echo esc_html( sprintf( __( 'You are running Version %s and deserve a hug :-)', 'the-events-calendar' ), Tribe__Events__Main::VERSION ) ); ?></p>
+
+<p class="tribe-update-message"><?php
+	/* translators: the placeholder will contain the semantic version of The Events Calenda plugin, e.g. 1.2.3 */
+	echo esc_html( sprintf( __( 'You are running Version %s and deserve a hug :-)', 'the-events-calendar' ), Tribe__Events__Main::VERSION ) );
+	?></p>
 
 <div class="tribe-row">
 	<div class="tribe-half-column">
@@ -54,11 +58,11 @@
 		<div class="tribe-update-links">
 			<h4><?php esc_html_e( 'Looking for Something Special?', 'the-events-calendar' ); ?></h4>
 			<p>
-				<a href="https://m.tri.be/nt" target="_blank"><?php esc_html_e( 'Pro', 'the-events-calendar' ); ?></a><br/>
-				<a href="https://m.tri.be/nu" target="_blank"><?php esc_html_e( 'Tickets', 'the-events-calendar' ); ?></a><br/>
-				<a href="https://m.tri.be/nx" target="_blank"><?php esc_html_e( 'Community Events', 'the-events-calendar' ); ?></a><br/>
-				<a href="https://m.tri.be/nv" target="_blank"><?php esc_html_e( 'Filters', 'the-events-calendar' ); ?></a><br/>
-				<a href="https://m.tri.be/19mo" target="_blank"><?php esc_html_e( 'Imports', 'the-events-calendar' ); ?></a><br/><br/>
+				<a href="https://evnt.is/nt" target="_blank"><?php esc_html_e( 'Pro', 'the-events-calendar' ); ?></a><br/>
+				<a href="https://evnt.is/nu" target="_blank"><?php esc_html_e( 'Tickets', 'the-events-calendar' ); ?></a><br/>
+				<a href="https://evnt.is/nx" target="_blank"><?php esc_html_e( 'Community Events', 'the-events-calendar' ); ?></a><br/>
+				<a href="https://evnt.is/nv" target="_blank"><?php esc_html_e( 'Filters', 'the-events-calendar' ); ?></a><br/>
+				<a href="https://evnt.is/19mo" target="_blank"><?php esc_html_e( 'Imports', 'the-events-calendar' ); ?></a><br/><br/>
 			</p>
 
 			<h4><?php esc_html_e( 'News For Events Users', 'the-events-calendar' ); ?></h4>

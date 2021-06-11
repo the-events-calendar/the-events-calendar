@@ -2,7 +2,7 @@
 /**
  * Handles the manipulation of the featured template title to correctly render it in the context of a Featured Views v2 request.
  *
- * @since   TBD
+ * @since   5.1.5
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -14,7 +14,7 @@ use Tribe__Context as Context;
 /**
  * Class Featured_Title
  *
- * @since   TBD
+ * @since   5.1.5
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -23,7 +23,7 @@ class Featured_Title {
 	/**
 	 * Filter the plural events label for Featured V2 Views.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param string  $label   The plural events label as it's been generated thus far.
 	 * @param Context $context The context used to build the title, it could be the global one, or one externally

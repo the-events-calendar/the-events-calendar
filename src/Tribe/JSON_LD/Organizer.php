@@ -38,12 +38,12 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 	 * @param  array  $args
 	 * @return array
 	 */
-	public function get_data( $post = null, $args = array( 'context' => false ) ) {
+	public function get_data( $post = null, $args = [ 'context' => false ] ) {
 		$data = parent::get_data( $post, $args );
 
 		// If we have an Empty data we just skip
 		if ( empty( $data ) ) {
-			return array();
+			return [];
 		}
 
 		// Fetch first key
@@ -57,7 +57,8 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 		$data->sameAs = tribe_get_organizer_website_url( $post_id );
 
 		$data = $this->apply_object_data_filter( $data, $args, $post );
-		return array( $post_id => $data );
+
+		return [ $post_id => $data ];
 	}
 
 	/**
@@ -70,7 +71,7 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 	 * @return false|string Link to the event or false
 	 */
 	protected function get_link( $post ) {
-		// @TODO Move this logic to Pro once #33734 is handled.
+		// @todo [BTRIA-591]: Move this logic to Pro once #33734 is handled.
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$link = tribe_get_organizer_link( $post, false );
 		} else {

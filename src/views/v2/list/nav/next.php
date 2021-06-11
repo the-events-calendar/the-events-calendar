@@ -7,11 +7,11 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @var string $link The URL to the next page.
  *
- * @version 5.1.1
+ * @version 5.3.0
  *
  */
 
@@ -33,5 +33,6 @@ $events_mobile_friendly_label = sprintf( __( 'Next %1$s', 'the-events-calendar' 
 		<span class="tribe-events-c-nav__next-label">
 			<?php echo wp_kses( $events_mobile_friendly_label, [ 'span' => [ 'class' => [] ] ] ); ?>
 		</span>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	</a>
 </li>

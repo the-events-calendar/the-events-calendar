@@ -2,6 +2,20 @@
 use Tribe\Events\Views\V2\Manager;
 
 /**
+ * Registers a view.
+ *
+ * @since 5.7.0
+ *
+ * @param string $slug View slug.
+ * @param string $name View name.
+ * @param string $class View class.
+ * @param int $priority View registration priority.
+ */
+function tribe_register_view( $slug, $name, $class, $priority = 50 ) {
+	return tribe( Manager::class )->register_view( $slug, $name, $class, $priority );
+}
+
+/**
  * Checks whether v2 of the Views is enabled or not.
  *
  * In order the function will check the `TRIBE_EVENTS_V2_VIEWS` constant,
@@ -37,7 +51,7 @@ function tribe_events_views_v2_is_enabled() {
 /**
  * Checks smart activation of the view v2, is not a function for verification of v2 is active or not.
  *
- * Current only being triggered on plugin actiovation hook.
+ * Current only being triggered on plugin activation hook.
  *
  * @since 4.9.13
  *
@@ -110,4 +124,84 @@ function tribe_events_view_v2_use_period_repository() {
 	 * @param boolean $enabled Whether the Event Period repository should be used or not.
 	 */
 	return (bool) apply_filters( 'tribe_events_views_v2_use_period_repository', $enabled );
+}
+
+/**
+ * Checks whether to disable V2 widgets.
+ *
+ * In order the function will check the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` constant,
+ * the `TRIBE_EVENTS_WIDGETS_V2_DISABLED` environment variable.
+ *
+ * Note the internal logic is inverted, as the name of the function is "...is_enabled"
+ * while the names of the constant/env_var are "...DISABLED".
+ *
+ * @since 5.3.0
+ *
+ * @return bool Whether Widgets v2 should load.
+ */
+function tribe_events_widgets_v2_is_enabled() {
+	// Must have v2 views active.
+	if ( ! tribe_events_views_v2_is_enabled() ) {
+		return false;
+	}
+
+	// If the constant is defined, returns the opposite of the constant.
+	if ( defined( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' ) ) {
+		return (bool) ! TRIBE_EVENTS_WIDGETS_V2_DISABLED;
+	}
+
+	// Allow env_var to short-circuit for testing.
+	$env_var = (bool) getenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED' );
+	if ( false !== $env_var ) {
+		return ! $env_var;
+	}
+
+	/**
+	 * Allows toggling of the v2 widget views via a filter. Defaults to true.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @return boolean Do we enable the widget views?
+	 */
+	return apply_filters( 'tribe_events_widgets_v2_is_enabled', true );
+}
+
+/**
+ * Checks whether to disable V2 Single Event styles overrides.
+ *
+ * In order the function will check the `TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED` constant,
+ * the `TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED` environment variable.
+ *
+ * Note the internal logic is inverted, as the name of the function is "...is_enabled"
+ * while the names of the constant/env_var are "...DISABLED".
+ *
+ * @since 5.5.0
+ *
+ * @return bool Whether Single Event v2 styles overrides should load.
+ */
+function tribe_events_single_view_v2_is_enabled() {
+	// Must have v2 views active.
+	if ( ! tribe_events_views_v2_is_enabled() ) {
+		return false;
+	}
+
+	// If the constant is defined, returns the opposite of the constant.
+	if ( defined( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' ) ) {
+		return (bool) ! TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED;
+	}
+
+	// Allow env_var to short-circuit for testing.
+	$env_var = (bool) getenv( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED' );
+	if ( false !== $env_var ) {
+		return ! $env_var;
+	}
+
+	/**
+	 * Allows toggling of the single event v2 overrides via a filter. Defaults to true.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @return boolean Do we enable the single event styles overrides?
+	 */
+	return apply_filters( 'tribe_events_single_view_v2_is_enabled', true );
 }

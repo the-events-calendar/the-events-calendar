@@ -68,9 +68,6 @@ class Rewrite {
 					continue;
 				}
 
-				// Some function expect, or provide, uppercase encoding chars, some don't. Cope w/ both.
-				$base_group[] = $decoded;
-				$base_group[] = strtoupper( $encoded );
 				$base_group[] = $encoded;
 			}
 
@@ -86,13 +83,13 @@ class Rewrite {
 	 * Detects, in a very specific manner, if the string is urlencoded or not.
 	 *
 	 * Refrain from moving this into a general-purpose function: this detections system makes a number of assumptions
-	 * thare are just wrong in other contexts.
+	 * that are just wrong in other contexts.
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param strin $string The string to check for encoding.
+	 * @param string $string The string to check for encoding.
 	 *
-	 * @return bool Whether the strins is encoded or not.
+	 * @return bool Whether the string is encoded or not.
 	 */
 	protected function is_encoded( $string ) {
 		// We assume no localized slug will contain the `%` char as a legit translation.
@@ -107,7 +104,7 @@ class Rewrite {
 	 * @since 5.0.0
 	 *
 	 * @param string $a The first localized slug to check.
-	 * @param        $b The second localized slug to check.
+	 * @param string $b The second localized slug to check.
 	 *
 	 * @return int The check result, `0` if the positions should not change, `-1` or `1` to move `$a` before `$b` or
 	 *             viceversa.

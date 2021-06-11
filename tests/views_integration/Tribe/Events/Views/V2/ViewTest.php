@@ -79,7 +79,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_print_a_view_html_on_the_page_when_caling_send_html() {
+	public function should_print_a_view_html_on_the_page_when_calling_send_html() {
 		add_filter( 'tribe_events_views', static function () {
 			return [ 'test' => Test_View::class ];
 		} );
@@ -194,11 +194,11 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$page_1_view->set_has_next_event( true );
 		$page_1_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
 
-		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&page=2', $page_1_view->next_url() );
+		$this->assertEquals( home_url() . '?post_type=tribe_events&eventDisplay=test&paged=2', $page_1_view->next_url() );
 
 		$page_2_view = View::make( 'test' );
 		$page_2_view->set_has_next_event( false );
-		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'paged' => 2 ] );
+		$page_2_view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now', 'page' => 2 ] );
 
 		$this->assertEquals( '', $page_2_view->next_url() );
 	}
@@ -274,5 +274,129 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$url_event_date = $template_vars['url_event_date'];
 
 		$this->assertEquals( $expected, $url_event_date );
+	}
+
+	/**
+	 * It should return empty array if View URL is not valid
+	 *
+	 * @test
+	 */
+	public function should_return_empty_array_if_view_url_is_not_valid() {
+		$invalid_url_view = new class extends View {
+			public function get_url( $canonical = false, $force = false ) {
+				return 'not-a-url';
+			}
+		};
+
+		$this->assertEquals( [], $invalid_url_view->get_url_args() );
+	}
+
+	public function get_url_args_data_provider() {
+		return [
+			'no query args'      => [ 'http://wp.test', [] ],
+			'one query arg'      => [ 'http://wp.test?foo=bar', [ 'foo' => 'bar' ] ],
+			'two query args'     => [ 'http://wp.test/?foo=bar&bar=baz', [ 'foo' => 'bar', 'bar' => 'baz' ] ],
+			'eventDisplay month' => [
+				'http://wp.test/?post_type=tribe_events&eventDisplay=month',
+				[ 'post_type' => 'tribe_events', 'eventDisplay' => 'month' ],
+			],
+			'many arguments'     => [
+				'http://wp.test/?post_type=tribe_events&eventDisplay=month&tribe-bar-search=cabbage&tribe_events_cat=test',
+				[ 'post_type' => 'tribe_events', 'eventDisplay' => 'month', 'tribe-bar-search' => 'cabbage', 'tribe_events_cat' => 'test' ],
+			],
+		];
+	}
+
+	/**
+	 * It should return the correct view URL args
+	 *
+	 * @test
+	 * @dataProvider get_url_args_data_provider
+	 */
+	public function should_return_the_correct_view_url_args( string $view_url, array $expected ) {
+		$invalid_url_view = new class( null, $view_url ) extends View {
+			protected $_view_url;
+
+			public function __construct( Messages $messages = null, $view_url ) {
+				parent::__construct( $messages );
+				$this->_view_url = $view_url;
+			}
+
+			public function get_url( $canonical = false, $force = false ) {
+				return $this->_view_url;
+			}
+		};
+
+		$this->assertEquals( $expected, $invalid_url_view->get_url_args() );
+	}
+
+	/**
+	 * It should correctly restore the loop
+	 *
+	 * @test
+	 */
+	public function should_correctly_restore_the_loop() {
+		// Let's register the test view as legit View.
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		// Set up the pre-view render context.
+		global $wp_query;
+		$page_name              = 'some-test-page';
+		$page_id                = static::factory()->post->create( [
+			'post_type' => 'page',
+			'post_name' => $page_name,
+		] );
+		$original_wp_query      = new \WP_Query( [ 'p' => $page_id ] );
+		$wp_query               = $original_wp_query;
+		$original_request_uri   = "/{$page_name}";
+		$_SERVER['REQUEST_URI'] = $original_request_uri;
+
+		$view = View::make( 'list' );
+		$view->setup_the_loop();
+
+		// We do not  care about the specifics, only that it changed.
+		$this->assertNotSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertNotEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+
+		$view->restore_the_loop();
+
+		$this->assertSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+	}
+
+	/**
+	 * It should correctly restore the loop when set up with args
+	 *
+	 * @test
+	 */
+	public function should_correctly_restore_the_loop_when_set_up_with_args() {
+		// Let's register the test view as legit View.
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		// Set up the pre-view render context.
+		global $wp_query;
+		$page_name              = 'some-test-page';
+		$page_id                = static::factory()->post->create( [
+			'post_type' => 'page',
+			'post_name' => $page_name,
+		] );
+		$original_wp_query      = new \WP_Query( [ 'p' => $page_id ] );
+		$wp_query               = $original_wp_query;
+		$original_request_uri   = "/{$page_name}";
+		$_SERVER['REQUEST_URI'] = $original_request_uri;
+
+		$view = View::make( 'list' );
+		$view->setup_the_loop( [ 'eventDate' => '2020-01-01', 'tribe-bar-search' => 'lorem' ] );
+
+		// We do not  care about the specifics, only that it changed.
+		$this->assertNotSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertNotEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+
+		$view->restore_the_loop();
+
+		$this->assertSame( $original_wp_query, $GLOBALS['wp_query'] );
+		$this->assertEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
 	}
 }

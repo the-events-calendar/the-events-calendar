@@ -58,11 +58,6 @@ describe( '[STORE] - Datetime reducer', () => {
 		expect( reducer( DEFAULT_STATE, actions.setTimeZone( 'UTC' ) ) ).toMatchSnapshot();
 	} );
 
-	it( 'Should set the timezone label', () => {
-		expect( reducer( DEFAULT_STATE, actions.setTimeZoneLabel( 'Modern Tribe' ) ) )
-			.toMatchSnapshot();
-	} );
-
 	it( 'Should set the visibility of the timezone', () => {
 		expect( reducer( DEFAULT_STATE, actions.setTimeZoneVisibility( true ) ) ).toMatchSnapshot();
 		expect( reducer( DEFAULT_STATE, actions.setTimeZoneVisibility( false ) ) ).toMatchSnapshot();

@@ -11,7 +11,7 @@
  * @var Tribe\Events\Views\V2\View_Interface $view         The View instance that is being rendered.
  * @var string                               $json_ld_data The View JSON-LD data markup.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 5.0.2
  */

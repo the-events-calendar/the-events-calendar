@@ -1,4 +1,17 @@
 <?php
+/**
+ * The Events Calendar Styles kitchen sink.
+ *
+ * Displays all the styles applied to all UI components.
+ *
+ * @link http://evnt.is/1aiy
+ *
+ * @version 4.2
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
 tribe_asset_enqueue( 'tribe-common-style' );
 ?>
 <div class="tribe-common tribe-events">
@@ -242,11 +255,18 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
 				data-js="tribe-events-events-bar-input-control"
 			>
+				<em
+					class="tribe-events-c-search__input-control-icon"
+					aria-label="Search"
+					title="Search"
+				>
+					<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-search__input-control-icon-svg' ] ] ); ?>
+				</em>
 				<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
 					Keyword
 				</label>
 				<input
-					class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
+					class="tribe-common-form-control-text__input tribe-events-c-search__input"
 					data-js="tribe-events-events-bar-input-control-input"
 					type="text"
 					id="tribe-events-events-bar-keyword"
@@ -259,11 +279,18 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--location"
 				data-js="tribe-events-events-bar-input-control"
 			>
+				<em
+					class="tribe-events-c-search__input-control-icon"
+					aria-label="Search"
+					title="Search"
+				>
+					<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-search__input-control-icon-svg' ] ] ); ?>
+				</em>
 				<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-location">
 					Location
 				</label>
 				<input
-					class="tribe-common-form-control-text__input tribe-events-c-search__input tribe-events-c-search__input--icon"
+					class="tribe-common-form-control-text__input tribe-events-c-search__input"
 					data-js="tribe-events-events-bar-input-control-input"
 					type="text"
 					id="tribe-events-events-bar-location"

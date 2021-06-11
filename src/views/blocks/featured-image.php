@@ -7,12 +7,12 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.7
  *
  */
 
 $event_id = $this->get( 'post_id' );
-?>
-<?php echo tribe_event_featured_image( $event_id, 'full', false );
+
+echo tribe_event_featured_image( $event_id, 'full', false );

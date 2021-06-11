@@ -79,6 +79,15 @@ class View implements View_Interface {
 	protected $template_slug;
 
 	/**
+	 * The template path will be used as a prefix for template slug when locating its template files.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @var string
+	 */
+	protected $template_path = '';
+
+	/**
 	 * The Template instance the view will use to locate, manage and render its template.
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
@@ -249,8 +258,11 @@ class View implements View_Interface {
 			$params['prev_url'] = untrailingslashit( $params['prev_url'] );
 		}
 
-		$slug       = Arr::get( $params, 'view', false );
-		$url_object = Url::from_url_and_params( Arr::get( $params, 'url' ), $params );
+		$slug = Arr::get( $params, 'view', false );
+
+		// Convert the URL to lowercase to make sure the rewrite rules, all lowercase, will match it.
+		$url        = Arr::get( $params, 'url' );
+		$url_object = Url::from_url_and_params( $url, $params );
 
 		$url = $url_object->__toString();
 		$params['url'] = $url;
@@ -259,6 +271,17 @@ class View implements View_Interface {
 		}
 
 		$params = array_merge( $params, $url_object->get_query_args() );
+
+		/**
+		 * Run an action before we start making a new View instance for rest requests.
+		 *
+		 * @since  5.5.0
+		 *
+		 * @param  string            $slug    The current view Slug.
+		 * @param  array             $params  Params so far that will be used to build this view.
+		 * @param  \WP_REST_Request  $request The rest request that generated this call.
+		 */
+		do_action( 'tribe_events_views_v2_before_make_view_for_rest', $slug, $params, $request );
 
 		// Let View data override any other data.
 		if ( isset( $params['view_data'] ) && is_array( $params['view_data'] ) ) {
@@ -324,7 +347,6 @@ class View implements View_Interface {
 			$params = apply_filters( "tribe_events_views_v2_{$slug}_rest_params", $params, $request );
 		}
 
-
 		// Determine context based on the request parameters.
 		$do_not_override = [ 'event_display_mode' ];
 		$not_overridable_params = array_intersect_key( $params, array_combine( $do_not_override, $do_not_override ) );
@@ -344,6 +366,16 @@ class View implements View_Interface {
 
 		// Setup whether this view should manage URL or not, based on the Rest Request Sent.
 		$view->should_manage_url = tribe_is_truthy( Arr::get( $params, 'should_manage_url', true ) );
+
+		/**
+		 * Run an action after we finish making a new View instance for rest requests.
+		 *
+		 * @since  5.5.0
+		 *
+		 * @param  View              $view    The current view Slug.
+		 * @param  \WP_REST_Request  $request Request that generated this view.
+		 */
+		do_action( 'tribe_events_views_v2_after_make_view_for_rest', $view, $request );
 
 		return $view;
 	}
@@ -594,6 +626,15 @@ class View implements View_Interface {
 			$this->setup_the_loop( $repository_args );
 		}
 
+		/**
+		 * Fire new action on the views.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
+		 */
+		do_action( 'tribe_views_v2_after_setup_loop', $this );
+
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 
 		$this->template->set_values( $template_vars, false );
@@ -638,6 +679,13 @@ class View implements View_Interface {
 	 */
 	public function get_slug() {
 		return $this->slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_template_path() {
+		return $this->template_path;
 	}
 
 	/**
@@ -719,6 +767,10 @@ class View implements View_Interface {
 	 */
 	public function get_url( $canonical = false, $force = false ) {
 		$category = $this->context->get( 'event_category', false );
+
+		if ( is_array( $category ) ) {
+			$category = Arr::to_list( reset( $category ) );
+		}
 
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
@@ -961,8 +1013,8 @@ class View implements View_Interface {
 		global $wp_query;
 
 		$this->global_backup = [
-			'wp_query'   => $wp_query,
-			'$_SERVER'   => isset( $_SERVER ) ? $_SERVER : []
+			'globals::wp_query'   => $wp_query,
+			'server::request_uri' => isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '',
 		];
 
 		$args = wp_parse_args( $args, $this->repository_args );
@@ -991,8 +1043,11 @@ class View implements View_Interface {
 			return;
 		}
 
-		foreach ( $this->global_backup as $key => $value ) {
-			$GLOBALS[ $key ] = $value;
+		if ( isset( $this->global_backup['globals::wp_query'] ) ) {
+			$GLOBALS['wp_query'] = $this->global_backup['globals::wp_query'];
+		}
+		if ( isset( $this->global_backup['server::request_uri'] ) ) {
+			$_SERVER['REQUEST_URI'] = $this->global_backup['server::request_uri'];
 		}
 
 		wp_reset_postdata();
@@ -1144,7 +1199,7 @@ class View implements View_Interface {
 
 		add_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 
-		// Set's up category URL for all views.
+		// Sets up category URL for all views.
 		if ( ! empty( $context_arr[ TEC::TAXONOMY ] ) ) {
 			$args[ TEC::TAXONOMY ] = $context_arr[ TEC::TAXONOMY ];
 		}
@@ -1356,12 +1411,13 @@ class View implements View_Interface {
 	 * Sets up the View template variables.
 	 *
 	 * @since 4.9.4
+	 * @since 5.2.1 Add the `rest_method` to the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
 	protected function setup_template_vars() {
 		if ( empty( $this->repository_args ) ) {
-			$this->repository_args = $this->filter_repository_args( $this->setup_repository_args() );
+			$this->repository_args = $this->get_repository_args();
 			$this->repository->by_args( $this->repository_args );
 		}
 
@@ -1393,6 +1449,21 @@ class View implements View_Interface {
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 
+		/*
+		 * Some plugins, like WooCommerce, will modify the UID of logged out users; avoid that filtering here.
+		 *
+		 * @see TEC-3579
+		 */
+		$rest_nonce = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			static function () {
+				return wp_create_nonce( 'wp_rest' );
+			}
+		);
+
+		/** @var Rest_Endpoint $endpoint */
+		$endpoint = tribe( Rest_Endpoint::class );
+
 		$template_vars = [
 			'title'                => $this->get_title( $events ),
 			'events'               => $events,
@@ -1407,8 +1478,9 @@ class View implements View_Interface {
 			'today'                => $today,
 			'now'                  => $this->context->get( 'now', 'now' ),
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
-			'rest_url'             => tribe( Rest_Endpoint::class )->get_url(),
-			'rest_nonce'           => wp_create_nonce( 'wp_rest' ),
+			'rest_url'             => $endpoint->get_url(),
+			'rest_method'          => $endpoint->get_method(),
+			'rest_nonce'           => $rest_nonce,
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
 			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
@@ -1496,13 +1568,22 @@ class View implements View_Interface {
 	 * @return string The View request URI, a value suitable to be used to set the `$_SERVER['REQUEST_URI']` value.
 	 */
 	protected function get_request_uri() {
-		$request_uri = '/' . ltrim(
-				str_replace(
-					home_url(),
-					'',
-					$this->rewrite->get_clean_url( (string) $this->get_url() ) ),
-				'/'
-			);
+		$plain_url   = (string) $this->get_url();
+		$clean_url   = $this->rewrite->get_clean_url( $plain_url );
+		$url_frags   = wp_parse_url( $clean_url );
+		$path        = isset( $url_frags['path'] ) ? trim( $url_frags['path'], '/' ) . '/' : '';
+		$query       = isset( $url_frags['query'] ) ? '?' . $url_frags['query'] : '';
+		$fragment    = isset( $url_frags['fragment'] ) ? '#' . $url_frags['fragment'] : '';
+		$request_uri = '/' . $path . $query . $fragment;
+
+		/**
+		 * Allows filtering the Views request URI that will be used to set up the loop.
+		 *
+		 * @since 5.2.1
+		 *
+		 * @param string $request_uri The parsed request URI.
+		 */
+		$request_uri = apply_filters( 'tribe_events_views_v2_request_uri', $request_uri );
 
 		return $request_uri;
 	}
@@ -1543,6 +1624,13 @@ class View implements View_Interface {
 
 		// Handle the `eventDisplay` query arg due to its particular usage to indicate the mode too.
 		$query_args['eventDisplay'] = $this->slug;
+
+		$category = $this->context->get( 'event_category', false );
+
+		if ( is_array( $category ) ) {
+			$category                       = Arr::to_list( reset( $category ) );
+			$query_args['tribe_events_cat'] = $category;
+		}
 
 		$query_args = $this->filter_query_args( $query_args, $canonical );
 
@@ -1758,9 +1846,10 @@ class View implements View_Interface {
 		if ( empty( $events ) ) {
 			$keyword = $this->context->get( 'keyword', false );
 			if ( $keyword ) {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', trim( $keyword ) ) );
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found_w_keyword', esc_html( trim( $keyword ) ) ) );
 			} else {
-				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( 'no_results_found' ) );
+				$message_key = $this->upcoming_events_count() ? 'no_results_found' : 'no_upcoming_events';
+				$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key ) );
 			}
 		}
 	}
@@ -1787,11 +1876,44 @@ class View implements View_Interface {
 				},
 				ARRAY_FILTER_USE_BOTH
 			);
+
 			if ( ! empty( $bar_data ) ) {
 				$current_url = add_query_arg( $bar_data, $current_url );
 			}
 
-			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, [ 'page', 'paged' ] );
+			/**
+			 * Filters the ignored params for resetting page number the View will do when paginating via AJAX.
+			 *
+			 * @since 5.4.0
+			 *
+			 * @see Url::is_diff()
+			 *
+			 * @param array $page_reset_ignored_params An array of params to be ignored.
+			 * @param View  $this                      The current View instance being rendered.
+			 */
+			$page_reset_ignored_params = apply_filters(
+				'tribe_events_views_v2_view_page_reset_ignored_params',
+				[ 'page', 'paged' ],
+				$this
+			);
+
+			/**
+			 * Filters the ignored params for resetting page number a specific View will do when paginating via AJAX.
+			 *
+			 * @since 5.4.0
+			 *
+			 * @see Url::is_diff()
+			 *
+			 * @param array $page_reset_ignored_params An array of params to be ignored.
+			 * @param View  $this                      The current View instance being rendered.
+			 */
+			$page_reset_ignored_params = apply_filters(
+				"tribe_events_views_v2_view_{$this->slug}_page_reset_ignored_params",
+				$page_reset_ignored_params,
+				$this
+			);
+
+			$this->should_reset_page = Url::is_diff( $prev_url, $current_url, $page_reset_ignored_params );
 		}
 
 		return $this->should_reset_page;
@@ -2081,7 +2203,7 @@ class View implements View_Interface {
 		 * @param string               $view_slug The current view slug.
 		 * @param View                 $instance  The current View object.
 		 */
-		$data = apply_filters( 'tribe_events_views_v2_view_data', [], $this->get_slug(), $this );
+		$data = apply_filters( 'tribe_events_views_v2_view_container_data', [], $this->get_slug(), $this );
 
 		/**
 		 * Filters the data for a specific View top-level container.
@@ -2091,7 +2213,7 @@ class View implements View_Interface {
 		 * @param array<string,string> $data     Associative array of data for the View top-level container.
 		 * @param View                 $instance The current View object.
 		 */
-		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_data", $data, $this );
+		$data = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_view_container_data", $data, $this );
 
 		return $data;
 	}
@@ -2203,7 +2325,7 @@ class View implements View_Interface {
 		// Flatten Views such as Month and Week that have an array values.
 		$first_value = reset( $events );
 		if ( is_array( $first_value ) ) {
-			$events = array_unique( array_merge( ...array_values( $events ) ) );
+			$events = array_unique( array_merge( ...array_values( $events ) ), SORT_REGULAR );
 		}
 
 		/**
@@ -2230,5 +2352,179 @@ class View implements View_Interface {
 			$latest_past_view->set_context( $this->context );
 			$latest_past_view->add_view_filters();
 		}
+	}
+
+	/**
+	 * Returns the number of upcoming events in relation to the "now" time.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @return int The number of upcoming events from "now".
+	 */
+	protected function upcoming_events_count() {
+		$now       = $this->context->get( 'now', Dates::build_date_object()->format( 'Y-m-d H:i:s' ) );
+		$from_date = tribe_beginning_of_day( $now );
+
+		return (int) tribe_events()->where( 'starts_after', $from_date )->found();
+	}
+
+	/**
+	 * Returns the View current URL query arguments, parsed from the View `get_url()` method.
+	 *
+	 * Since there are a number of parties filtering each View URL arguments, this method will
+	 * parse a View URL query arguments from its filtered URL. This will include all the modifications
+	 * done to a View URL by other plugins and add-ons.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @return array<string,mixed> The current View URL args or an empty array if the View URL is empty
+	 *                             or not valid..
+	 */
+	public function get_url_args() {
+		$view_url       = $this->get_url( false );
+		$view_query_str = wp_parse_url( $view_url, PHP_URL_QUERY );
+		if ( empty( $view_query_str ) ) {
+			// This might happen if the URL is too mangled to be parsed.
+			return [];
+		}
+		parse_str( $view_query_str, $view_query_args );
+
+		return (array) $view_query_args;
+	}
+
+	/**
+	 * Initializes the View repository args, if required, and
+	 * applies them to the View repository instance.
+	 *
+	 * @since 4.6.0
+	 */
+	protected function get_repository_args() {
+		if ( ! empty( $this->repository_args ) ) {
+			return $this->repository_args;
+		}
+
+		return $this->filter_repository_args( $this->setup_repository_args() );
+	}
+
+	/**
+	 * Sets up the View repository args to produce the correct list of Events
+	 * in the context of an iCalendar export.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param int $per_page The number of events per page to show in the iCalendar
+	 *                      export. The value will override whatever events per page
+	 *                      setting the View might have.
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->filter_ical_repository_args( $this->get_repository_args() ) );
+		}
+
+		// Overwrites the amount of posts manually for ical.
+		$this->repository->per_page( $per_page );
+	}
+
+	/**
+	 * Filters the repository arguments that will be used to set up the View repository instance for iCal requests.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param array  $repository_args The repository arguments that will be used to set up the View repository instance.
+	 *
+	 * @return array The filtered repository arguments for ical requests.
+	 */
+	protected function filter_ical_repository_args( $repository_args ) {
+		/**
+		 * Filters the repository args for a View on iCal requests.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for all Views.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters( 'tribe_events_views_v2_view_ical_repository_args', $repository_args, $this );
+
+		/**
+		 * Filters the repository args for a specific View on iCal requests.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array           $repository_args An array of repository arguments that will be set for a specific View.
+		 * @param View_Interface  $this            The View that will use the repository arguments.
+		 */
+		$repository_args = apply_filters(
+			"tribe_events_views_v2_view_{$this->slug}_ical_repository_args",
+			$repository_args,
+			$this
+		);
+
+		return $repository_args;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_ical_ids( $per_page ) {
+		$this->setup_ical_repository_args( $per_page );
+
+		$ids = $this->repository->get_ids();
+
+		// Reset the repository args to force a re-initialization of the repository on next run.
+		$this->repository_args = null;
+
+		return $ids;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function set_url_object( Url $url_object ) {
+		$this->url = $url_object;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function disable_url_management() {
+		$this->should_manage_url = false;
+
+		return $this;
+	}
+
+	/**
+	 * Gets the base object for asset registration.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @return \stdClass $object Object to tie registered assets to.
+	 */
+	public static function get_asset_origin( $slug ) {
+		$asset_registration_object = tribe( 'tec.main' );
+
+		/**
+		 * Filters the object used for registering assets.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param \stdClass $origin_object Object used for asset registration.
+		 * @param string $slug View slug.
+		 */
+		$asset_registration_object = apply_filters( "tribe_events_views_v2_view_{$slug}_asset_origin_object", $asset_registration_object, $slug );
+
+		return $asset_registration_object;
+	}
+
+	/**
+	 * Registers assets for the view.
+	 *
+	 * Should be overridden if there are assets for the view.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @param \stdClass $object Object to tie registered assets to.
+	 */
+	public static function register_assets( $object ) {
+		// Default to a no-op.
 	}
 }

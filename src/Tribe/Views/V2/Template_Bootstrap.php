@@ -338,7 +338,25 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initializes the template
 	 */
 	public function filter_template_include( $template ) {
-		$query = tribe_get_global_query_object();
+		$query   = tribe_get_global_query_object();
+		$context = tribe_context();
+
+		/**
+		 * Allows filtering the loading of our proprietary templates.
+		 *
+		 * @since 5.2.1
+		 *
+		 * @param boolean        $load     Whether we should load the theme templates instead of the Tribe templates. Default false.
+		 * @param string         $template The template located by WordPress.
+		 * @param Tribe__Context $context  The singleton, immutable, global object instance.
+		 * @param WP_Query       $query    The global $wp_query, the $wp_the_query if $wp_query empty, null otherwise. From tribe_get_global_query_object() above.
+		 */
+		$load_template = apply_filters( 'tribe_events_views_v2_use_wp_template_hierarchy', false, $template, $context, $query );
+
+		// Let others decide if they want to load our templates or not.
+		if ( (bool) $load_template ) {
+			return $template;
+		}
 
 		// Global 404 needs to be respected.
 		if ( $query->is_404() ) {
@@ -350,7 +368,6 @@ class Template_Bootstrap {
 			return $template;
 		}
 
-		$context   = tribe_context();
 		$view_slug = $context->get( 'view' );
 		$is_embed  = V1_Templates::is_embed() || 'embed' === $view_slug;
 
@@ -378,8 +395,8 @@ class Template_Bootstrap {
 
 		$classes[] = 'page-template-' . sanitize_title( $template );
 
-		if ( ! is_tax() ) {
-			$key = array_search( 'archive', $classes );
+		if ( ! get_queried_object() instanceof \WP_Term ) {
+			$key = array_search( 'archive', $classes, true );
 
 			if ( false !== $key ) {
 				unset( $classes[ $key ] );
@@ -392,7 +409,7 @@ class Template_Bootstrap {
 	/**
 	 * Contains the logic for if this object's classes should be added to the queue.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of body class names to add.
@@ -419,7 +436,7 @@ class Template_Bootstrap {
 	/**
 	 * Add body classes.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @return void
 	 */

@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe\Events\Views\V2\View;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Trait iCal_Data
@@ -58,19 +59,13 @@ trait iCal_Data {
 
 		$link_title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 
-		switch ( $slug ) {
-			case 'month':
-				$url = $this->get_month_view_url();
-				break;
-			default:
-				$url = tribe_get_ical_link();
-				break;
-		}
+		// The View iCalendar export link will be just the View URL with `ical=1` added to it.
+		$url = add_query_arg( [ 'ical' => 1 ], $this->get_url( true ) );
 
-		$ical_data = (object) [
+		$ical_data     = (object) [
 			'display_link' => $display_ical,
 			'link'         => (object) [
-				'url'   => esc_url( $url ),
+				'url' => esc_url( $url ),
 				'text'  => $link_text,
 				'title' => $link_title,
 			],
@@ -107,10 +102,13 @@ trait iCal_Data {
 	 * @return string The iCAl URL for the month view.
 	 */
 	public function get_month_view_url() {
-		$event_date = $this->context->get( 'event_date', 'now' );
+		$event_date = $this->context->get( 'event_date', Dates::build_date_object()->format( Dates::DBYEARMONTHTIMEFORMAT ) );
 
 		// If we don't have a date for some reason, give them the default iCal link.
-		$url = ! empty( $event_date ) ? tribe( 'tec.iCal' )->month_view_ical_link( $event_date ) : tribe( 'tec.iCal' )->get_ical_link();
+		$url = ! empty( $event_date )
+		? tribe( 'tec.iCal' )->month_view_ical_link( $event_date )
+		: tribe( 'tec.iCal' )->get_ical_link();
+
 		return $url;
 	}
 }

@@ -25,7 +25,7 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 			require_once ABSPATH . 'wp-admin/includes/image.php';
 		}
 
-		$query = new WP_Query( array(
+		$query = new WP_Query( [
 			'post_type'      => 'attachment',
 			'post_status'    => 'any',
 
@@ -34,13 +34,13 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 
 			// We only need the ID
 			'fields'         => 'ids',
-			'meta_query'     => array(
-				array(
+			'meta_query'     => [
+				[
 					'key'   => $tribe_aggregator_meta_key,
 					'value' => $image_id,
-				),
-			),
-		) );
+				],
+			],
+		] );
 
 		$upload_dir = wp_upload_dir();
 		$file = new stdClass;
@@ -126,13 +126,13 @@ class Tribe__Events__Aggregator__API__Image extends Tribe__Events__Aggregator__A
 		}
 
 		// create attachment args
-		$attachment = array(
+		$attachment = [
 			'guid'           => $upload_dir['url'] . '/' . $filename,
 			'post_title'     => preg_replace( '/\.[^.]+$/', '', $filename ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
 			'post_mime_type' => $filetype['type'],
-		);
+		];
 
 		// insert the attachment
 		if ( ! $attachment_id = wp_insert_attachment( $attachment, $upload_results['file'] ) ) {

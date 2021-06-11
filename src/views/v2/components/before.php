@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.9.11
  *
@@ -21,4 +21,3 @@ if ( empty( $before_events ) ) {
 <div class="tribe-events-before-html">
 	<?php echo $before_events; ?>
 </div>
-

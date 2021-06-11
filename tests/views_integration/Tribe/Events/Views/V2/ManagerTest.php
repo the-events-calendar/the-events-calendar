@@ -2,9 +2,9 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe\Events\Test\Factories\Event;
-use Tribe__Context as Context;
 
 // Include a Test View Class
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
@@ -132,4 +132,18 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEmpty( $manager->get_publicly_visible_views() );
 	}
 
+	/**
+	 * @test
+	 */
+	public function should_create_view_register_objects_when_registering_a_view() {
+		$manager = $this->make_instance();
+		$manager->register_view( 'test', 'Test View', List_View::class, 10 );
+		$view_register_objects = $manager->get_view_registration_objects();
+
+		$this->assertCount( 1, $view_register_objects );
+		$this->assertEquals( View_Register::class, get_class( reset( $view_register_objects ) ) );
+
+		$registered_views = $manager->get_registered_views();
+		$this->assertContains( 'test', array_keys( $registered_views ) );
+	}
 }

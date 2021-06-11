@@ -93,15 +93,15 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		}
 
 		if ( null != $this->trash_new_date ) {
-			add_action( self::$trash_cron_hook, array( $this, 'move_old_events_to_trash' ), 10, 0 );
+			add_action( self::$trash_cron_hook, [ $this, 'move_old_events_to_trash' ], 10, 0 );
 		}
 
 		if ( null != $this->del_new_date ) {
-			add_action( self::$del_cron_hook, array( $this, 'permanently_delete_old_events' ), 10, 0 );
+			add_action( self::$del_cron_hook, [ $this, 'permanently_delete_old_events' ], 10, 0 );
 		}
 
-		add_action( 'tribe_events_blog_deactivate', array( $this, 'trash_clear_scheduled_task' ) );
-		add_action( 'tribe_events_blog_deactivate', array( $this, 'delete_clear_scheduled_task' ) );
+		add_action( 'tribe_events_blog_deactivate', [ $this, 'trash_clear_scheduled_task' ] );
+		add_action( 'tribe_events_blog_deactivate', [ $this, 'delete_clear_scheduled_task' ] );
 	}
 
 	/**
@@ -110,8 +110,8 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * @since 4.6.13
 	 */
 	public function remove_hooks() {
-		remove_action( self::$trash_cron_hook, array( $this, 'move_old_events_to_trash' ) );
-		remove_action( self::$del_cron_hook, array( $this, 'permanently_delete_old_events' ) );
+		remove_action( self::$trash_cron_hook, [ $this, 'move_old_events_to_trash' ] );
+		remove_action( self::$del_cron_hook, [ $this, 'permanently_delete_old_events' ] );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$posts_with_parents_sql = "
 			SELECT DISTINCT post_parent
 			FROM {$wpdb->posts}
-			WHERE 
+			WHERE
 				post_type= '$event_post_type'
 				AND post_parent <> 0
 		";
@@ -159,7 +159,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			SELECT post_id
 			FROM {$wpdb->posts} AS t1
 			INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
-			WHERE 
+			WHERE
 				t1.post_type = %s
 				AND t2.meta_key = '_EventEndDate'
 				AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
@@ -179,10 +179,10 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
-		$args = array(
+		$args = [
 			'post_type' => $event_post_type,
 			'date'      => $month,
-		);
+		];
 
 		/**
 		 * Filter - Allows users to modify the query's placeholders

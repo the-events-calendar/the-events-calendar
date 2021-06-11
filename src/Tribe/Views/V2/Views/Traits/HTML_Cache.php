@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Views\Traits;
 
+use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Cache as Cache;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Context as Context;
@@ -34,20 +35,52 @@ trait HTML_Cache {
 	 *                      cached yet.
 	 */
 	public function maybe_get_cached_html() {
-
 		if ( ! $this->should_cache_html() ) {
 			return false;
 		}
 
 		$cache_key = $this->get_cache_html_key();
 
-		$cached_html = tribe( 'cache' )->get_transient( $cache_key, $this->cache_html_triggers() );
+		$cached_html = tribe( 'cache' )->get_chunkable_transient( $cache_key, $this->cache_html_triggers() );
 
 		if ( ! $cached_html ) {
 			return false;
 		}
 
 		$cached_html = $this->inject_nonces_into_cached_html( $cached_html );
+
+		return $this->filter_cached_html( $cached_html );
+	}
+
+	/**
+	 * Filters the cached HTML returned for a specific View.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param string $cached_html Cached HTML for a view.
+	 *
+	 * @return string The filtered cached HTML.
+	 */
+	protected function filter_cached_html( $cached_html ) {
+		/**
+		 * Filters the cached HTML returned for a View.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param string $cached_html  Cached HTML for a view.
+		 * @param View_Interface $this This view instance.
+		 */
+		$cached_html = apply_filters( 'tribe_events_views_v2_view_cached_html', $cached_html, $this );
+
+		/**
+		 * Filters the cached HTML returned for a View.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param string $cached_html  Cached HTML for a view.
+		 * @param View_Interface $this This view instance.
+		 */
+		$cached_html = apply_filters( "tribe_events_views_v2_view_{$this->slug}_cached_html", $cached_html, $this );
 
 		return $cached_html;
 	}
@@ -89,7 +122,7 @@ trait HTML_Cache {
 		/** @var Cache $cache */
 		$cache = tribe( 'cache' );
 
-		return $cache->set_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
+		return $cache->set_chunkable_transient( $cache_key, $html, $cache_expiration, $this->cache_html_triggers() );
 	}
 
 	/**
@@ -122,14 +155,12 @@ trait HTML_Cache {
 
 		$context = $this->get_context();
 
-		$cached_views = [
-			'month' => true,
-			'week' => true,
-		];
+		$cached_views = static::get_cached_views( $this );
 
 		$pre_conditions = 0 === $this->get_password_protected_events_count();
 		$should_cache   = $pre_conditions
 		                  && isset( $cached_views[ $this->get_slug() ] )
+		                  && $cached_views[ $this->get_slug() ]
 		                  && $this->should_enable_html_cache( $context );
 
 		/**
@@ -144,6 +175,23 @@ trait HTML_Cache {
 		return (bool) apply_filters( 'tribe_events_views_v2_should_cache_html', $should_cache, $context, $this );
 	}
 
+	public static function get_cached_views( $view = null ) {
+		$views = [
+			'month' => true,
+			'week'  => true,
+		];
+
+		/**
+		 * Allow specifically changing which views get cache.
+		 *
+		 * @since 5.5.0
+		 *
+		 * @param array               $views Should the current view have its HTML cached?
+		 * @param View_Interface|null $view  The object using the trait, or null in case of static usage.
+		 */
+		return (array) apply_filters( 'tribe_events_views_v2_cached_views', $views, $view );
+	}
+
 	/**
 	 * Determine if HTML of the current view needs to be cached.
 	 *
@@ -154,25 +202,38 @@ trait HTML_Cache {
 	public function get_cache_html_key() {
 		/** @var Context $context */
 		$context = $this->get_context();
-		$args    = $context->to_array();
+		$key     = spl_object_hash( $context ) . '_cache_html_key';
 
-		unset( $args['now'] );
+		$cache = tribe( 'cache' );
 
-		$salts     = wp_json_encode( $this->get_cache_html_key_salts() );
-		$hash      = substr( sha1( wp_json_encode( $args ) . $salts ), 0, 12 ) . ':';
-		$cache_key = 'tribe_views_v2_cache_' . $hash;
+		// Non-persistent caching of the key, per-request.
+		$cache_key = $cache->offsetGet( $key );
 
-		/**
-		 * Filter the cached html key for v2 event views
-		 *
-		 * @since 5.0.0
-		 *
-		 * @param string             $cache_html_key Cache HTML key.
-		 * @param Context            $context        The View current context.
-		 * @param array<string,bool> $salts          An array of salts used to generate the cache key.
-		 * @param HTML_Cache         $this           The object using the trait.
-		 */
-		return apply_filters( 'tribe_events_views_v2_cache_html_key', $cache_key, $context, $this );
+		if ( empty( $cache_key ) ) {
+			$args = $context->to_array();
+
+			unset( $args['now'] );
+
+			$salts     = wp_json_encode( $this->get_cache_html_key_salts() );
+			$hash      = substr( sha1( wp_json_encode( $args ) . $salts ), 0, 12 ) . ':';
+			$cache_key = 'tribe_views_v2_cache_' . $hash;
+
+			/**
+			 * Filter the cached html key for v2 event views
+			 *
+			 * @since 5.0.0
+			 *
+			 * @param string             $cache_html_key Cache HTML key.
+			 * @param Context            $context        The View current context.
+			 * @param array<string,bool> $salts          An array of salts used to generate the cache key.
+			 * @param HTML_Cache         $this           The object using the trait.
+			 */
+			$cache_key = apply_filters( 'tribe_events_views_v2_cache_html_key', $cache_key, $context, $this );
+
+			$cache->offsetSet( $key, $cache_key );
+		}
+
+		return $cache_key;
 	}
 
 	/**
@@ -187,7 +248,7 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param  Context $context Context object of the request.
+	 * @param Context $context Context object of the request.
 	 *
 	 * @return bool
 	 */
@@ -202,6 +263,11 @@ trait HTML_Cache {
 		// Default to always caching the current month.
 		if ( ! $event_date ) {
 			return true;
+		}
+
+		// In case we got a invalid value for Date time we dont cache.
+		if ( $event_date instanceof \DateTimeInterface ) {
+			return false;
 		}
 
 		// If the eventDate argument is not in the expected format then do not cache.
@@ -301,7 +367,7 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param string $html  HTML with the nonces to be replaced.
+	 * @param string $html HTML with the nonces to be replaced.
 	 *
 	 * @return string  HTML after replacement is complete.
 	 */
@@ -331,7 +397,7 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param string $html  HTML with the nonces to be replaced.
+	 * @param string $html HTML with the nonces to be replaced.
 	 *
 	 * @return string  HTML after replacement is complete.
 	 */
@@ -356,7 +422,7 @@ trait HTML_Cache {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param string $action  Which action will be used to generate the nonce.
+	 * @param string $action Which action will be used to generate the nonce.
 	 *
 	 * @return string  Nonce based on action passed.
 	 */
@@ -415,7 +481,7 @@ trait HTML_Cache {
 	 *
 	 * @return int The number of password-protected events in the database.
 	 */
-	protected function get_password_protected_events_count(){
+	protected function get_password_protected_events_count() {
 		/** @var \Tribe__Cache $cache */
 		$cache     = tribe( 'cache' );
 		$cache_key = 'tribe_views_v2_cache_pwd_protected_events_count';

@@ -1,5 +1,5 @@
 <?php
-_deprecated_file( __FILE__, 'TBD', 'Tribe__Events__Customizer__Global_Elements' );
+_deprecated_file( __FILE__, '5.1.5', 'Tribe__Events__Customizer__Global_Elements' );
 
 /**
  * The Events Calendar Customizer Section: Text.
@@ -88,23 +88,23 @@ final class Tribe__Events__Customizer__Text extends Tribe__Customizer__Section {
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'link_color', $section ),
-			array(
-				'default'              => $this->get_default( 'link_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'link_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'link_color', $section ),
-				array(
+				[
 					'label'   => esc_html__( 'Link Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 

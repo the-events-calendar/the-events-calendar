@@ -2,72 +2,127 @@
 /**
  * The template that displays the welcome message when the plugin is first activated.
  */
+
+$main = Tribe__Main::instance();
 ?>
 
-<p class="tribe-welcome-version"><?php printf( '<strong>%1$s %2$s</strong>', esc_html__( 'Version', 'the-events-calendar' ), Tribe__Events__Main::VERSION ); ?></p>
+<div class="tribe-events-admin-content-wrapper">
 
-<p class="tribe-welcome-message"><?php esc_html_e( 'The Events Calendar provides the tools you need—like customizable templates, widgets, views, and more—to make sharing your events online a breeze.', 'the-events-calendar' ); ?></p>
+	<img
+		class="tribe-events-admin-graphic tribe-events-admin-graphic--desktop-only"
+		src="<?php echo esc_url( tribe_resource_url( 'images/header/welcome-desktop.jpg', false, null, $main ) ); ?>"
+		alt="<?php esc_attr_e( 'Shapes and lines for visual interest', 'the-events-calendar' ); ?>"
+	/>
 
-<p class="tribe-welcome-message"><?php esc_html_e( 'Check out the resources below for a comprehensive introduction to your new plugin. With just a few quick clicks, you’ll be sharing and promoting your events in no time!', 'the-events-calendar' ); ?></p>
+	<img
+		class="tribe-events-admin-graphic tribe-events-admin-graphic--mobile-only"
+		src="<?php echo esc_url( tribe_resource_url( 'images/header/welcome-mobile.jpg', false, null, $main ) ); ?>"
+		alt="<?php esc_attr_e( 'Shapes and lines for visual interest', 'the-events-calendar' ); ?>"
+	/>
 
-<div class="tribe-row">
+	<div class="tribe-events-admin-title">
+		<img
+			class="tribe-events-admin-title__logo"
+			src="<?php echo esc_url( tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main ) ); ?>"
+			alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
+		/>
+		<h2 class="tribe-events-admin-title__heading"><?php esc_html_e( 'The Events Calendar', 'the-events-calendar' ); ?></h2>
+		<p class="tribe-events-admin-title__description"><?php esc_html_e( 'Thanks for installing The Events Calendar! Here are some handy resources for getting started with our plugins.', 'the-events-calendar' ); ?></p>
+	</div>
 
-	<div class="tribe-half-column">
-		<h4 data-tribe-icon="dashicons-welcome-learn-more"><?php esc_html_e( 'Getting Started', 'the-events-calendar' ); ?></h4>
-		<p><?php esc_html_e( 'Start strong with these helpful resources.', 'the-events-calendar' ); ?></p>
-		<ul>
-			<li><a href="http://m.tri.be/1aa3" target="_blank"><?php esc_html_e( 'New User Primer', 'the-events-calendar' ); ?></a></li>
-			<li><a href="http://m.tri.be/1aa4" target="_blank"><?php esc_html_e( 'Settings Overview', 'the-events-calendar' ); ?></a></li>
-			<li><a href="http://m.tri.be/1aa5" target="_blank"><?php esc_html_e( "Themer's Guide", 'the-events-calendar' ); ?></a></li>
+	<div class="tribe-events-admin-quick-nav">
+		<div class="tribe-events-admin-quick-nav__title"><?php esc_html_e( 'Quick Links:', 'the-events-calendar' ); ?></div>
+		<ul class="tribe-events-admin-quick-nav__links">
+			<li class="tribe-events-admin-quick-nav__link-item"><a href="edit.php?post_type=tribe_events&page=tribe-common" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Configure Settings', 'the-events-calendar' ); ?></a></li>
+			<li class="tribe-events-admin-quick-nav__link-item"><a href="post-new.php?post_type=tribe_events" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Create an Event', 'the-events-calendar' ); ?></a></li>
+			<li class="tribe-events-admin-quick-nav__link-item"><a href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'View My Calendar', 'the-events-calendar' ); ?></a></li>
 		</ul>
 	</div>
 
-	<div class="tribe-half-column">
-		<h4 data-tribe-icon="dashicons-sos"><?php esc_html_e( 'Resources and Support', 'the-events-calendar' ); ?></h4>
-		<p><?php esc_html_e( "We've got your back every step of the way.", 'the-events-calendar' ); ?></p>
-		<ul>
-			<li><a href="http://m.tri.be/1aa6" target="_blank"><?php esc_html_e( 'Search the Knowledgebase', 'the-events-calendar' ); ?></a></li>
-			<li><a href="http://m.tri.be/1aa7" target="_blank"><?php esc_html_e( 'Available Translations', 'the-events-calendar' ); ?></a></li>
-			<li><a href="http://m.tri.be/1ac5" target="_blank"><?php esc_html_e( 'WordPress.org Support Forums', 'the-events-calendar' ); ?></a></li>
-		</ul>
-	</div>
-</div>
+	<h3 class="tribe-events-admin-section-header"><?php esc_html_e( 'Helpful Resources', 'the-events-calendar' ); ?></h3>
 
-<div class="tribe-row">
+	<div class="tribe-events-admin-card-grid">
+		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--first">
+			<img
+				class="tribe-events-admin-card__image"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/guide-book.jpg', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'illustration of a book with The Events Calendar logo', 'the-events-calendar' ); ?>"
+			/>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Getting Started Guide', 'the-events-calendar' ); ?></div>
+			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'New to The Events Calendar? Here\'s everything you need to get started.', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/welcom"><?php esc_html_e( 'Check out the guide', 'the-events-calendar' ); ?></a>
+		</div>
+		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--middle">
+			<img
+				class="tribe-events-admin-card__image"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/knowledgebase.jpg', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'illustration of a thought lightbulb coming from a book', 'the-events-calendar' ); ?>"
+			/>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Knowledgebase', 'the-events-calendar' ); ?></div>
+			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Ready to dig deeper? Our Knowledgebase can help you get the most out of The Events Calendar suite.', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/kb-welcome"><?php esc_html_e( 'Dig deeper', 'the-events-calendar' ); ?></a>
+		</div>
+		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--last">
+			<img
+				class="tribe-events-admin-card__image"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/translations.jpg', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'illustration of characters being translated', 'the-events-calendar' ); ?>"
+			/>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Translations', 'the-events-calendar' ); ?></div>
+			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Need a language other than English? We\'ve got you covered here.', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/language"><?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?></a>
+		</div>
 
-	<div class="tribe-half-column">
-		<h4><?php esc_html_e( 'The Latest and Greatest', 'the-events-calendar' ); ?></h4>
-		<p><?php esc_html_e( 'Frequent maintenance releases keep your ticket sales running smoothly.', 'the-events-calendar' ); ?> <a href="http://m.tri.be/1aa9" target="_blank"><?php esc_html_e( 'View the latest changelog', 'the-events-calendar' ); ?></a>.</p>
-		<p><?php esc_html_e( 'Gearing up with Gutenberg?', 'the-events-calendar' ); ?> <a href="http://m.tri.be/1aaa" target="_blank"><?php esc_html_e( 'Get the latest block editor news', 'the-events-calendar' ); ?></a>.</p>
-	</div>
+		<div class="tribe-events-admin-card tribe-events-admin-card--1up">
+			<img
+				class="tribe-events-admin-card__image"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/virtual-events.jpg', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'illustration of a phone screen with a person\'s face', 'the-events-calendar' ); ?>"
+			/>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Virtual Event Resources', 'the-events-calendar' ); ?></div>
+			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Tips and tools to help with planning online events, webinars, and more on WordPress and beyond.', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/1ame"><?php esc_html_e( 'Get started with online events', 'the-events-calendar' ); ?></a>
+		</div>
 
-	<div class="tribe-half-column">
-		<h4 data-tribe-icon="dashicons-megaphone"><?php esc_html_e( "Don't Miss Out", 'the-events-calendar' ); ?></h4>
-		<p><?php esc_html_e( 'Get the latest on The Events Calendar, occasional discounts, and hilarious gifs delivered straight to your inbox.', 'the-events-calendar' ); ?></p>
+		<div class="tribe-events-admin-card tribe-events-admin-card--2up tribe-events-admin-card--first">
+			<img
+				class="tribe-events-admin-card__image"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/migration.jpg', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'illustration of an event moving from one calendar to another', 'the-events-calendar' ); ?>"
+			/>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Migrating events from another calendar?', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/1amf"><?php esc_html_e( 'We can help with that', 'the-events-calendar' ); ?></a>
+		</div>
+		<div class="tribe-events-admin-card tribe-events-admin-card--2up tribe-events-admin-card--second">
+			<img
+				class="tribe-events-admin-card__image"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/next-level.jpg', false, null, $main ) ); ?>"
+				alt="<?php esc_attr_e( 'book with The Events Calendar logo', 'the-events-calendar' ); ?>"
+			/>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Want to take your events to the next level?', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="edit.php?post_type=tribe_events&page=tribe-app-shop"><?php esc_html_e( 'Check out our suite of add-ons', 'the-events-calendar' ); ?></a>
+		</div>
 
-		<form action="https://support-api.tri.be/mailing-list/subscribe" method="post">
-			<p><input id="fieldEmail" class="regular-text" name="email" type="email" placeholder="<?php esc_attr_e( 'Email', 'the-events-calendar' ); ?>" required /></p>
-			<div>
-				<input id="cm-privacy-consent" name="consent" required type="checkbox" role="checkbox" aria-checked="false" />
-				<label for="cm-privacy-consent"><?php esc_html_e( 'Add me to the list', 'the-events-calendar' ); ?></label>
-			</div>
-			<p>
+		<div class="tribe-events-admin-card tribe-events-admin-card--1up tribe-events-admin-card--promo-blue">
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Want this emailed to you?', 'the-events-calendar' ); ?></div>
+			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Keep this list of links on hand and stay subscribed to receive tips and tricks about The Events Calendar products.', 'the-events-calendar' ); ?></div>
+
+			<form class="tribe-events-admin-card__form" action="https://support-api.tri.be/mailing-list/subscribe" method="post">
+				<input class="tribe-events-admin-card__input" name="email" type="email" placeholder="<?php esc_attr_e( 'Your email', 'the-events-calendar' ); ?>" required />
+
+				<button class="tribe-events-admin-card__button" type="submit"><?php esc_html_e( 'Sign Up', 'the-events-calendar' ); ?></button>
+
 				<input type="hidden" name="list" value="tec-newsletter" />
 				<input type="hidden" name="source" value="plugin:tec" />
-				<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'the-events-calendar' ); ?></button>
-			</p>
-		</form>
-
-	</div>
-</div>
-
-<div class="tribe-row">
-	<div class="tribe-half-column">
-		<h4 data-tribe-icon="dashicons-heart"><?php esc_html_e( 'We Need Your Help', 'the-events-calendar' ); ?></h4>
-		<p><?php esc_html_e( 'Your ratings keep us focused on making our plugins as useful as possible so we can help other WordPress users just like you.', 'the-events-calendar' ); ?></p>
-		<p><strong><?php esc_html_e( 'Rate us today!', 'the-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a></p>
-		<a href="https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a>
+				<input type="hidden" name="consent" value="checked" />
+			</form>
+		</div>
 	</div>
 
-	<div class="tribe-half-column"></div>
+	<img
+		class="tribe-events-admin-footer-logo"
+		src="<?php echo esc_url( tribe_resource_url( 'images/logo/tec-brand.svg', false, null, $main ) ); ?>"
+		alt="<?php esc_attr_e( 'The Events Calendar brand logo', 'the-events-calendar' ); ?>"
+	/>
+
 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use Tribe__Events__Aggregator__Records as Records;
 
 class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 
@@ -29,7 +30,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 */
 	public function remove_duplicate_pending_records_for( Tribe__Events__Aggregator__Record__Abstract $record ) {
 		if ( empty( $record->meta['import_id'] ) ) {
-			return array();
+			return [];
 		}
 
 		$import_id = $record->meta['import_id'];
@@ -37,7 +38,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 
-		$pending_status = Tribe__Events__Aggregator__Records::$status->pending;
+		$pending_status = Records::$status->pending;
 
 		$query = $wpdb->prepare( "SELECT ID
 			FROM {$wpdb->postmeta} pm
@@ -47,7 +48,7 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 			AND p.post_status = %s
 			AND pm.meta_key = '_tribe_aggregator_import_id'
 			AND pm.meta_value = %s
-			ORDER BY p.post_modified_gmt DESC", Tribe__Events__Aggregator__Records::$post_type, $pending_status, $import_id );
+			ORDER BY p.post_modified_gmt DESC", Records::$post_type, $pending_status, $import_id );
 
 		/**
 		 * Filters the query to find duplicate pending import records in respect to an
@@ -63,13 +64,13 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 		$query = apply_filters( 'tribe_aggregator_import_queue_cleaner_query', $query );
 
 		if ( empty( $query ) ) {
-			return array();
+			return [];
 		}
 
 		$records = $wpdb->get_col( $query );
 		array_shift( $records );
 
-		$deleted = array();
+		$deleted = [];
 		foreach ( $records as $to_delete ) {
 			$post = wp_delete_post( $to_delete, true );
 			if ( ! empty( $post ) ) {
@@ -89,8 +90,8 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	 * @return bool If the record status has been set to failed or not.
 	 */
 	public function maybe_fail_stalled_record( Tribe__Events__Aggregator__Record__Abstract $record ) {
-		$pending = Tribe__Events__Aggregator__Records::$status->pending;
-		$failed = Tribe__Events__Aggregator__Records::$status->failed;
+		$pending = Records::$status->pending;
+		$failed  = Records::$status->failed;
 
 		$post_status = $record->post->post_status;
 
@@ -108,16 +109,16 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 			return true;
 		}
 
-		$created = strtotime( $record->post->post_date );
-		$last_updated = strtotime( $record->post->post_modified_gmt );
-		$now = time();
+		$created        = strtotime( $record->post->post_date );
+		$last_updated   = strtotime( $record->post->post_modified_gmt );
+		$now            = time();
 		$since_creation = $now - $created;
-		$pending_for = $now - $last_updated;
+		$pending_for    = $now - $last_updated;
 
-		if ( $pending_for > $this->stall_limit || $since_creation > $this->time_to_live ) {
+		if ( $pending_for > $this->get_stall_limit() || $since_creation > $this->get_time_to_live() ) {
 			tribe( 'logger' )->log_debug( "Record {$record->id} has stalled for too long: deleting it and its queue information", 'Queue_Cleaner' );
 			$failed = Tribe__Events__Aggregator__Records::$status->failed;
-			wp_update_post( array( 'ID' => $id, 'post_status' => $failed ) );
+			wp_update_post( [ 'ID' => $id, 'post_status' => $failed ] );
 			delete_post_meta( $id, '_tribe_aggregator_queue' );
 			Tribe__Post_Transient::instance()->delete( $id, '_tribe_aggregator_queue' );
 
@@ -128,20 +129,62 @@ class Tribe__Events__Aggregator__Record__Queue_Cleaner {
 	}
 
 	/**
+	 * Allow external caller to define the amount of the time to live in seconds.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param int $time_to_live Live time in seconds default to 12 hours.
+	 *
+	 * @return $this
+	 */
+	public function set_time_to_live( $time_to_live ) {
+		$this->time_to_live = (int) $time_to_live;
+
+		return $this;
+	}
+
+	/**
+	 * Get the current value of time to live setting an integer in seconds, default to 12 hours.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @return int The number of time to consider a record alive.
+	 */
+	public function get_time_to_live() {
+		/**
+		 * Allow to define the number of seconds used to define if a record is alive or not.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @return int The number of time to consider a record alive.
+		 */
+		return (int) apply_filters( 'tribe_aggregator_import_queue_cleaner_time_to_live', $this->time_to_live );
+	}
+
+	/**
 	 * Gets the time, in seconds, after which a pending record is considered stalling.
 	 *
-	 * @return int
+	 * @return int The number in seconds for a record to be stalled
 	 */
 	public function get_stall_limit() {
-		return $this->stall_limit;
+		/**
+		 * Allow to define the number of seconds for a record to be considered stalled.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @return int The number in seconds for a record to be stalled
+		 */
+		return (int) apply_filters( 'tribe_aggregator_import_queue_cleaner_stall_limit', $this->stall_limit );
 	}
 
 	/**
 	 * Sets the time, in seconds, after which a pending record is considered stalling.
 	 *
-	 * @param int $stall_limit
+	 * @param int $stall_limit Allow to set the stall limit of a record.
 	 */
 	public function set_stall_limit( $stall_limit ) {
 		$this->stall_limit = $stall_limit;
+
+		return $this;
 	}
 }

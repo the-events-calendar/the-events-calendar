@@ -11,7 +11,7 @@ class Tribe__Events__Privacy {
 	 * @since 4.6.20
 	 */
 	public function hook() {
-		add_action( 'admin_init', array( $this, 'privacy_policy_content' ), 20 );
+		add_action( 'admin_init', [ $this, 'privacy_policy_content' ], 20 );
 	}
 
 	/**

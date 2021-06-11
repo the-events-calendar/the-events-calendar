@@ -17,32 +17,32 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 	 * @return array
 	 */
 	public function CREATE_args() {
-		return array(
-			'name'             => array(
+		return [
+			'name'        => [
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The event category name', 'the-events-calendar' ),
-			),
-			'description'             => array(
+			],
+			'description' => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The event category description', 'the-events-calendar' ),
-			),
-			'slug'             => array(
+			],
+			'slug'        => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The event category slug', 'the-events-calendar' ),
-			),
-			'parent'             => array(
+			],
+			'parent'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_category' ),
+				'validate_callback' => [ $this->validator, 'is_event_category' ],
 				'type'              => 'integer',
 				'description'       => __( 'The event category slug', 'the-events-calendar' ),
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -60,76 +60,76 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
-		$POST_defaults = array( 'in' => 'formData', 'default' => '', 'type' => 'string' );
+		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
+		$POST_defaults = [ 'in' => 'formData', 'default' => '', 'type' => 'string' ];
 		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
 
-		return array(
-			'get'  => array(
+		return [
+			'get'    => [
 				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns the data of the event category with the specified term ID', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Term',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'The event category term ID is missing.', 'the-events-calendar' ),
-					),
-					'404' => array(
+					],
+					'404' => [
 						'description' => __( 'An event category with the specified term ID does not exist.', 'the-events-calendar' ),
-					),
-				),
-			),
-			'post' => array(
-				'consumes' => array( 'application/x-www-form-urlencoded' ),
+					],
+				],
+			],
+			'post'   => [
+				'consumes'   => [ 'application/x-www-form-urlencoded' ],
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns the data of the updated event category', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Term',
-						),
-					),
-					'201' => array(
+						],
+					],
+					'201' => [
 						'description' => __( 'Returns the data of the created event category', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Term',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The user is not authorized to create event categories', 'the-events-calendar' ),
-					),
-				),
-			),
-			'delete'  => array(
+					],
+				],
+			],
+			'delete' => [
 				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Deletes an event category and returns its data', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Term',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'The event category term ID is missing or does not exist.', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The current user cannot delete the event category with the specified term ID.', 'the-events-calendar' ),
-					),
-					'410' => array(
+					],
+					'410' => [
 						'description' => __( 'The event category with the specified term ID has been deleted already.', 'the-events-calendar' ),
-					),
-					'500' => array(
+					],
+					'500' => [
 						'description' => __( 'The event category with the specified term ID could not be deleted.', 'the-events-calendar' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -141,15 +141,15 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 	 * @return array
 	 */
 	public function READ_args() {
-		return array(
-			'id' => array(
+		return [
+			'id' => [
 				'in'                => 'path',
 				'type'              => 'integer',
 				'description'       => __( 'the event category term ID', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_event_category' ),
-			),
-		);
+				'validate_callback' => [ $this->validator, 'is_event_category' ],
+			],
+		];
 	}
 
 	/**

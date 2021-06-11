@@ -6,7 +6,7 @@
  * that fits into a "fresh install".
  * The provider will not hook any filter if The Events Calendar did init already.
  *
- * @since   TBD
+ * @since   5.1.5
  *
  * @package Tribe\Events\Service_Providers
  */
@@ -16,7 +16,7 @@ namespace Tribe\Events\Service_Providers;
 /**
  * Class First_Boot
  *
- * @since   TBD
+ * @since   5.1.5
  *
  * @package Tribe\Events\Service_Providers
  */
@@ -25,7 +25,7 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 	/**
 	 * Hooks the filters required to set up The Events Calendar after a fresh install.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 */
 	public function register() {
 		$options = \Tribe__Settings_Manager::get_options();
@@ -40,7 +40,7 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 		/**
 		 * Fires on The Events Calendar first boot.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 */
 		do_action( 'tribe_events_first_boot' );
 	}
@@ -48,7 +48,7 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 	/**
 	 * Sets up The Events Calendar default options on first boot.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 */
 	public function set_default_options() {
 		$options = \Tribe__Settings_Manager::get_options();

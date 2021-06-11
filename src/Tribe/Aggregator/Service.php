@@ -161,16 +161,38 @@ class Tribe__Events__Aggregator__Service {
 			return $api;
 		}
 
-		// Build the URL
-		$url = "{$api->domain}{$api->path}{$api->version}/{$endpoint}";
-
 		// Enforce Key on the Query Data
 		$data['key'] = $api->key;
 
-		// If we have data we add it
-		$url = add_query_arg( $data, $url );
+		/**
+		 * Allow to filter the variable used to build the URL with `add_query_arg` to insert or change
+		 * values as required.
+		 *
+		 * @since 5.4.0
+		 *
+		 * @param array<string, mixed> $data     An array with the data to build the URL.
+		 * @param string               $endpoint The endpoint used to construct the URL.
+		 *
+		 * @return array<string, mixed> An array with the data used to build the URL.
+		 */
+		$data = apply_filters( 'tribe_aggregator_build_url_data', $data, $endpoint );
 
-		return $url;
+		// If we have data we add it
+		return add_query_arg( $data, $this->base_url( $endpoint, $api ) );
+	}
+
+	/**
+	 * Allow to change the constructed URL used for EA.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param string   $endpoint The path of the endpoint inside of the base url.
+	 * @param stdClass $api      An object representing the properties of the API.
+	 *
+	 * @return string The generated URL.
+	 */
+	private function base_url( $endpoint, stdClass $api ) {
+		return (string) apply_filters( 'tribe_events_aggregator_build_url', "{$api->domain}{$api->path}{$api->version}/{$endpoint}/", $endpoint, $api );
 	}
 
 	/**
@@ -210,7 +232,8 @@ class Tribe__Events__Aggregator__Service {
 			return $response;
 		}
 
-		if ( 403 == wp_remote_retrieve_response_code( $response ) ) {
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( 403 === $code ) {
 			return new WP_Error(
 				'core:aggregator:request-denied',
 				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.', 'the-events-calendar' )
@@ -218,14 +241,17 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		// we know it is not a 404 or 403 at this point
-		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
+		if ( $code >= 300 || $code < 200 ) {
+			tribe( 'logger' )->log_debug( "Invalid response code: {$code} - during the fetch.", 'EA Service' );
+
 			return new WP_Error(
 				'core:aggregator:bad-response',
 				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
 			);
 		}
 
-		if ( isset( $response->data ) && isset( $response->data->status ) && '404' === $response->data->status ) {
+		if ( isset( $response->data ) && isset( $response->data->status ) && 404 === (int) $response->data->status ) {
+			tribe( 'logger' )->log_debug( "Invalid response code: {$code} - during the fetch.", 'EA Service' );
 			return new WP_Error(
 				'core:aggregator:daily-limit-reached',
 				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
@@ -277,6 +303,16 @@ class Tribe__Events__Aggregator__Service {
 		}
 
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
+
+		// we know it is not a 404 or 403 at this point.
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( $code >= 300 || $code < 200 ) {
+			tribe( 'logger' )->log_debug( "Invalid response code: {$code} - during the creation.", 'EA Service' );
+			return new WP_Error(
+				'core:aggregator:bad-response',
+				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
+			);
+		}
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
@@ -529,7 +565,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Update the details of an existing import into EA server.
 	 *
-	 * @since TBD
+	 * @since 5.1.5
 	 *
 	 * @param $import_id string The ID of the import to be updated.
 	 * @param $args      array An key, value array representing the values to update on the EA server.
@@ -548,7 +584,7 @@ class Tribe__Events__Aggregator__Service {
 		 * Allow any external sources (plugins) to add licenses attached to the call to the EA server as part
 		 * of an array on licenses, useful when you have different products accessing EA server.
 		 *
-		 * @since TBD
+		 * @since 5.1.5
 		 *
 		 * @param  bool|string $pue_key PUE key
 		 * @param  array       $args    Arguments to queue the import
@@ -735,8 +771,8 @@ class Tribe__Events__Aggregator__Service {
 		);
 
 		$meetup_api_changes_link = sprintf(
-			'<a href="https://m.tri.be/1afb">%s</a>',
-			esc_html__( 'https://m.tri.be/1afb', 'the-events-calendar' )
+			'<a href="https://evnt.is/1afb">%s</a>',
+			esc_html__( 'https://evnt.is/1afb', 'the-events-calendar' )
 		);
 
 		$this->service_messages = [

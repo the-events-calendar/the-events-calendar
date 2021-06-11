@@ -91,7 +91,7 @@ function tribe_not_php_version_names() {
 	 *
 	 * @param array $names Name of the plugins that are not compatible
 	 */
-	return apply_filters( 'tribe_not_php_version_names', array() );
+	return apply_filters( 'tribe_not_php_version_names', [] );
 }
 
 /**

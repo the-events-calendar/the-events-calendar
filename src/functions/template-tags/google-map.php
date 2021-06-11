@@ -74,7 +74,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( ! empty( $map_link ) ) {
 			$link = sprintf(
-				'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
+				'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank" rel="noreferrer noopener">%s</a>',
 				$map_link,
 				esc_html__( 'Click to view a Google Map', 'the-events-calendar' ),
 				esc_html__( '+ Google Map', 'the-events-calendar' )
@@ -168,10 +168,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$api_key = tribe_get_option( Tribe__Events__Google__Maps_API_Key::$api_key_option_name, Tribe__Events__Google__Maps_API_Key::$default_api_key );
 
-		$embed_url_args = array(
+		$embed_url_args = [
 			'key' => $api_key,
 			'q'   => urlencode( $address_string ),
-		);
+		];
 
 		$embed_url = add_query_arg(
 			/**

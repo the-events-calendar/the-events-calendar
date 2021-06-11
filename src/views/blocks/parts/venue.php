@@ -7,7 +7,7 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 5.0.1
  *
@@ -16,7 +16,7 @@
 if ( ! tribe_get_venue_id() ) {
 	return;
 }
-$attributes = $this->get( 'attributes', array() );
+$attributes = $this->get( 'attributes', [] );
 
 $phone   = tribe_get_phone();
 $website = tribe_get_venue_website_link();

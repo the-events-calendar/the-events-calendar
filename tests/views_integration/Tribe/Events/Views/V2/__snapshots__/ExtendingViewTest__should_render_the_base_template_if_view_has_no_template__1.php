@@ -11,6 +11,13 @@
 					<li>Path: <code>/plugins/the-events-calendar/src/views/v2</code></li>
 				</ul>
 			</li>
+					<li>
+				<ul>
+					<li>Id: <code>common</code></li>
+					<li>Priority: <code>100</code></li>
+					<li>Path: <code>/plugins/the-events-calendar/common/src/views/v2</code></li>
+				</ul>
+			</li>
 			</ul>
 	<p>Template context:</p>
 	<pre>
@@ -20,5 +27,4 @@
 }		</code>
 	</pre>
 </div>
-
 ';

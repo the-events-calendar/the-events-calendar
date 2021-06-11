@@ -270,24 +270,6 @@ describe( 'Event Date time Block sagas', () => {
 		} );
 	} );
 
-	describe( 'onTimeZoneChange', () => {
-		test( 'Set timezone label on timezone change', () => {
-			const action = {
-				payload: {
-					timeZone: 'America/Los_Angeles',
-				},
-			};
-
-			const gen = sagas.onTimeZoneChange( action );
-
-			expect( gen.next().value ).toEqual(
-				put( actions.setTimeZoneLabel( action.payload.timeZone ) )
-			);
-
-			expect( gen.next().done ).toEqual( true );
-		} );
-	} );
-
 	describe( 'handleDateRangeChange', () => {
 		it( 'should update date range', () => {
 			const payload = { from: '2015-01-01', to: '2015-01-10' };
@@ -856,15 +838,6 @@ describe( 'Event Date time Block sagas', () => {
 
 		beforeEach( () => {
 			action = { type: null };
-		} );
-
-		it( 'should handle time zone changes', () => {
-			action.type = types.SET_TIME_ZONE;
-			const gen = sagas.handler( action );
-			expect( gen.next().value ).toEqual(
-				call( sagas.onTimeZoneChange, action )
-			);
-			expect( gen.next().done ).toEqual( true );
 		} );
 
 		it( 'should handle date range changes', () => {

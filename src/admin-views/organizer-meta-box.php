@@ -59,7 +59,7 @@ do_action( 'tribe_events_organizer_after_metabox', $post );
 ?>
 
 <script>
-	jQuery('[name=organizer\\[Organizer\\]]').blur(function () {
+	jQuery('[name=organizer\\[Organizer\\]]').on( 'blur', function () {
 		jQuery.post('<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
 			{
 				action: 'tribe_event_validation',

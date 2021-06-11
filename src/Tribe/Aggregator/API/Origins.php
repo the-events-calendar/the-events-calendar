@@ -25,54 +25,54 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @var array An array of origins that will still be available when EA has
 	 *            been disabled by the user.
 	 */
-	protected $available_when_disabled = array( 'csv' );
+	protected $available_when_disabled = [ 'csv' ];
 
 	public function __construct() {
 		parent::__construct();
 
-		$this->origins = array(
-			'csv' => (object) array(
-				'id' => 'csv',
-				'name' => __( 'CSV File', 'the-events-calendar' ),
+		$this->origins = [
+			'csv'        => (object) [
+				'id'       => 'csv',
+				'name'     => __( 'CSV File', 'the-events-calendar' ),
 				'disabled' => false,
-			),
-			'eventbrite' => (object) array(
-				'id' => 'eventbrite',
-				'name' => __( 'Eventbrite', 'the-events-calendar' ),
+			],
+			'eventbrite' => (object) [
+				'id'       => 'eventbrite',
+				'name'     => __( 'Eventbrite', 'the-events-calendar' ),
 				'disabled' => true,
-				'upsell' => true,
-			),
-			'gcal' => (object) array(
-				'id' => 'gcal',
-				'name' => __( 'Google Calendar', 'the-events-calendar' ),
+				'upsell'   => true,
+			],
+			'gcal'       => (object) [
+				'id'       => 'gcal',
+				'name'     => __( 'Google Calendar', 'the-events-calendar' ),
 				'disabled' => true,
-				'upsell' => true,
-			),
-			'ical' => (object) array(
-				'id' => 'ical',
-				'name' => __( 'iCalendar', 'the-events-calendar' ),
+				'upsell'   => true,
+			],
+			'ical'       => (object) [
+				'id'       => 'ical',
+				'name'     => __( 'iCalendar', 'the-events-calendar' ),
 				'disabled' => true,
-				'upsell' => true,
-			),
-			'ics' => (object) array(
-				'id' => 'ics',
-				'name' => __( 'ICS File', 'the-events-calendar' ),
+				'upsell'   => true,
+			],
+			'ics'        => (object) [
+				'id'       => 'ics',
+				'name'     => __( 'ICS File', 'the-events-calendar' ),
 				'disabled' => true,
-				'upsell' => true,
-			),
-			'meetup' => (object) array(
-				'id' => 'meetup',
-				'name' => __( 'Meetup', 'the-events-calendar' ),
+				'upsell'   => true,
+			],
+			'meetup'     => (object) [
+				'id'       => 'meetup',
+				'name'     => __( 'Meetup', 'the-events-calendar' ),
 				'disabled' => true,
-				'upsell' => true,
-			),
-			'url' => (object) array(
+				'upsell'   => true,
+			],
+			'url'        => (object) [
 				'id'       => 'url',
 				'name'     => __( 'Other URL', 'the-events-calendar' ),
 				'disabled' => true,
 				'upsell'   => true,
-			),
-		);
+			],
+		];
 
 		$this->is_ea_disabled = tribe_get_option( 'tribe_aggregator_disable', false );
 	}
@@ -88,7 +88,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 		}
 
 		$origins = $this->origins;
-		$origins = array_filter( $origins, array( $this, 'is_origin_available' ) );
+		$origins = array_filter( $origins, [ $this, 'is_origin_available' ] );
 
 		/**
 		 * The origins (sources) that EA can import from

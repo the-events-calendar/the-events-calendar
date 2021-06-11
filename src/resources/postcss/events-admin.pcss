@@ -700,7 +700,7 @@ table.eventForm {
 
 	td.label {
 		width: 220px;
-		/* @todo: responsive breakpoint? */
+		/* @todo [BTRIA-615]: responsive breakpoint? */
 	}
 
 	td.label img {
@@ -726,3 +726,48 @@ table.eventForm {
 		color: #f3ae46;
 	}
 }
+
+/* Widget Admin
+=============================================*/
+.widget-content {
+
+	[id*="tribe"] & {
+
+		.tribe-widget-form-control {
+			margin: 1em 0;
+		}
+
+		.tribe-widget-form-control--fieldset {
+			.tribe-widget-form-control {
+				margin: 4px 0;
+			}
+		}
+
+		.tribe-widget-form-control--legend {
+			font-weight: bold;
+			margin: 8px 0;
+		}
+
+		.tribe-widget-form-control--section {
+			clear: both;
+			margin: 1em 0;
+
+			.tribe-widget-form-control--section {
+				margin-top: 0;
+			}
+
+			.tribe-widget-form-control--section-title {
+				margin-top: 0;
+			}
+		}
+
+		.calendar-widget-filters-container {
+			display: none;
+		}
+
+		.calendar-widget-filters-container--show {
+			display: block;
+		}
+	}
+}
+

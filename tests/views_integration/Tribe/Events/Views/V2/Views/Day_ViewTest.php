@@ -164,7 +164,7 @@ class Day_ViewTest extends ViewTestCase {
 			[
 				Messages::TYPE_NOTICE => [
 					Messages::for_key(
-						'day_no_results_found',
+						'no_upcoming_events',
 						date_i18n( tribe_get_date_format( true ), Dates::build_date_object( '2019-09-11' )->getTimestamp() ),
 						null
 					)
@@ -206,5 +206,82 @@ class Day_ViewTest extends ViewTestCase {
 		$view->get_template_vars();
 
 		$this->assertEquals( $expected, $view->get_messages() );
+	}
+
+	public function server_timezone_provider() {
+		return [
+			'UTC'                             => [ 'UTC' ],
+			'America/New_York (same as site)' => [ 'America/New_York' ],
+			'Europe/Paris'                    => [ 'Europe/Paris' ],
+			'Asia/Singapore'                  => [ 'Asia/Singapore' ],
+			'Pacific/Midway'                  => [ 'Pacific/Midway' ],
+		];
+	}
+
+	/**
+	 * should correctly setup day interval
+	 *
+	 * @test
+	 * @dataProvider server_timezone_provider
+	 */
+	public function should_correctly_setup_day_interval( $server_timezone) {
+		// Backup the current server timezone.
+		$this->date_default_timezone = date_default_timezone_get();
+		// Do not check for current dates in templates inputs.
+		remove_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'collect_date_dependent_values' ] );
+		// Site Timezone is America, New York.
+		update_option('timezone_string','America/New_York');
+		// Server timezone is UTC.
+		date_default_timezone_set( $server_timezone );
+		// Set up a fake "now"; this simulates a Day View request done at `2019-09-11 22:00:00`.
+		$date = new \DateTime( '2019-09-11 22:00:00', new \DateTimeZone( 'America/New_York' ) );
+		$now = $date->getTimestamp() ;
+		// Alter the concept of the `now` timestamp to return the timestamp for `2019-09-11 22:00:00` in NY timezone.
+		uopz_set_return( 'strtotime', static function ( $str ) use ( $now ) {
+			return $str === 'now' ? $now : strtotime( $str );
+		}, true );
+		// Make sure that `now` (string) will be resolved to the fake date object.
+		uopz_set_return( Dates::class, 'build_date_object', $date );
+
+		/*
+		 * Given a "now" of 2019-09-11 22:00:00 the beginning of day should be `2019-09-11 00:00:00`,
+		 * while the end of day should be `2019-09-11 00:00:00` w/ default cut-off.
+		 * Although, `2019-09-11 22:00:00` New York time, when translated to UTC is `2019-09-12 02:00:00`;
+		 * 2 AM on the next day. This would generate a beginning of day of `2019-09-12 00:00:00` and a end
+		 * of day of `2019-09-12 23:59:59` which is NOT correct.
+		 */
+		$context = $this->get_mock_context()->alter( [
+			'today'      => '2019-09-11',
+			'now'        => '2019-09-11 22:00:00',
+			'event_date' => 'now',
+		] );
+
+		$view = View::make( Day_View::class, $context );
+		add_filter( 'tribe_events_views_v2_view_repository_args', static function ( $args ) use ( &$repository_args ) {
+			$repository_args = $args;
+
+			return $repository_args;
+		} );
+		$view->get_template_vars();
+
+		$this->assertEquals(
+			'2019-09-11 00:00:00',
+			$repository_args['date_overlaps'][0],
+			"The server timezone should not affect the start of day resolution."
+		);
+		$this->assertEquals(
+			'2019-09-11 23:59:59',
+			$repository_args['date_overlaps'][1],
+			"The server timezone should not affect the end of day resolution."
+		);
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+		if ( isset( $this->date_default_timezone ) ) {
+			date_default_timezone_set( $this->date_default_timezone );
+		}
+		uopz_unset_return( 'strtotime' );
+		uopz_unset_return( Dates::class, 'build_date_object' );
 	}
 }

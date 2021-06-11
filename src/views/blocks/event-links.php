@@ -7,7 +7,7 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.7
  *
@@ -24,8 +24,9 @@ $has_ical       = $this->attr( 'hasiCal' );
 $should_render = $has_google_cal || $has_ical;
 
 remove_filter( 'the_content', 'do_blocks', 9 );
+
+if ( $should_render ) :
 ?>
-<?php if ( $should_render ) : ?>
 	<div class="tribe-block tribe-block__events-link">
 		<?php if ( $has_google_cal ) : ?>
 			<div class="tribe-block__btn--link tribe-block__events-gcal">

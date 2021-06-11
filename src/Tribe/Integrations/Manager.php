@@ -1,6 +1,9 @@
 <?php
-use \Tribe\Events\Integrations\WP_Rocket;
-use \Tribe\Events\Integrations\Beaver_Builder;
+
+use Tribe\Events\Integrations\Beaver_Builder;
+use Tribe\Events\Integrations\Fusion\Service_Provider as Fusion_Integration;
+use Tribe\Events\Integrations\Hello_Elementor\Service_Provider as Hello_Elementor_Integration;
+use Tribe\Events\Integrations\WP_Rocket;
 
 /**
  * Class Tribe__Events__Integrations__Manager
@@ -41,6 +44,8 @@ class Tribe__Events__Integrations__Manager {
 		$this->load_X_theme_integration();
 		$this->load_wp_rocket_integration();
 		$this->load_beaver_builder_integration();
+		$this->load_fusion_integration();
+		$this->load_hello_elementor_integration();
 	}
 
 	/**
@@ -167,5 +172,23 @@ class Tribe__Events__Integrations__Manager {
 		tribe( Beaver_Builder::class )->hook();
 
 		return true;
+	}
+
+	/**
+	 * Loads the Fusion integration if Fusion Core is currently active.
+	 *
+	 * @since 5.5.0
+	 */
+	public function load_fusion_integration() {
+		tribe_register_provider( Fusion_Integration::class );
+	}
+
+	/**
+	 * Loads the Hello Elementor theme integration.
+	 *
+	 * @since 5.7.0
+	 */
+	private function load_hello_elementor_integration() {
+		tribe_register_provider( Hello_Elementor_Integration::class );
 	}
 }

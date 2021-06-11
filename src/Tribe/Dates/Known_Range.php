@@ -41,9 +41,9 @@ class Tribe__Events__Dates__Known_Range {
 		}
 
 		global $wpdb;
-		remove_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
+		remove_action( 'deleted_post', [ $this, 'rebuild_known_range' ] );
 
-		$_stati = array( 'publish', 'private', 'protected' );
+		$_stati = [ 'publish', 'private', 'protected' ];
 		$_stati = apply_filters( 'tribe_events_known_range_stati', $_stati );
 		$stati  = "('" . implode( "','", $_stati ) . "')";
 
@@ -111,8 +111,8 @@ class Tribe__Events__Dates__Known_Range {
 	 * @param int $event_id
 	 */
 	public function update_known_range( $event_id ) {
-		$is_earliest_date_marker = in_array( $event_id, tribe_get_option( 'earliest_date_markers', array() ) );
-		$is_latest_date_marker   = in_array( $event_id, tribe_get_option( 'latest_date_markers', array() ) );
+		$is_earliest_date_marker = in_array( $event_id, tribe_get_option( 'earliest_date_markers', [] ) );
+		$is_latest_date_marker   = in_array( $event_id, tribe_get_option( 'latest_date_markers', [] ) );
 		if ( $is_earliest_date_marker || $is_latest_date_marker ) {
 			$this->rebuild_known_range();
 
@@ -145,13 +145,13 @@ class Tribe__Events__Dates__Known_Range {
 	 */
 	public function maybe_update_known_range( $post_id ) {
 		// If the event isn't going to be visible (perhaps it's been trashed) rebuild dates and bail
-		if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
+		if ( ! in_array( get_post_status( $post_id ), [ 'publish', 'private', 'protected' ] ) ) {
 			$this->rebuild_known_range();
 
 			return;
 		}
 
-		add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ) );
+		add_action( 'tribe_events_update_meta', [ $this, 'update_known_range' ] );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class Tribe__Events__Dates__Known_Range {
 	 */
 	public function maybe_rebuild_known_range( $post_id ) {
 		if ( Tribe__Events__Main::POSTTYPE === get_post_type( $post_id ) ) {
-			add_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
+			add_action( 'deleted_post', [ $this, 'rebuild_known_range' ] );
 		}
 	}
 }

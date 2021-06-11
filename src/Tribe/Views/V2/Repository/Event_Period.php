@@ -116,7 +116,7 @@ class Event_Period implements Core_Read_Interface {
 	 *                    the posts by in the shape [ <key>, <value> ]. * * @return Tribe__Repository__Read_Interface
 	 */
 	public function by_args( array $args ) {
-		// TODO: Implement by_args() method.
+		// @todo [BTRIA-595]: Implement by_args() method.
 	}
 
 	/**
@@ -191,7 +191,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function page( $page ) {
-		// TODO: Implement page() method.
+		// @todo [BTRIA-595]: Implement page() method.
 	}
 
 	/**
@@ -206,7 +206,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function per_page( $per_page ) {
-		// TODO: Implement per_page() method.
+		// @todo [BTRIA-595]: Implement per_page() method.
 	}
 
 	/**
@@ -220,7 +220,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return int
 	 */
 	public function found() {
-		// TODO: Implement found() method.
+		// @todo [BTRIA-595]: Implement found() method.
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return array
 	 */
 	public function all() {
-		// TODO: Implement all() method.
+		// @todo [BTRIA-595]: Implement all() method.
 	}
 
 	/**
@@ -249,7 +249,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function offset( $offset, $increment = false ) {
-		// TODO: Implement offset() method.
+		// @todo [BTRIA-595]: Implement offset() method.
 	}
 
 	/**
@@ -265,7 +265,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function order( $order = 'ASC' ) {
-		// TODO: Implement order() method.
+		// @todo [BTRIA-595]: Implement order() method.
 	}
 
 	/**
@@ -283,7 +283,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function order_by( $order_by, $order = 'DESC' ) {
-		// TODO: Implement order_by() method.
+		// @todo [BTRIA-595]: Implement order_by() method.
 	}
 
 	/**
@@ -299,7 +299,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function fields( $fields ) {
-		// TODO: Implement fields() method.
+		// @todo [BTRIA-595]: Implement fields() method.
 	}
 
 	/**
@@ -314,7 +314,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function in( $post_ids ) {
-		// TODO: Implement in() method.
+		// @todo [BTRIA-595]: Implement in() method.
 	}
 
 	/**
@@ -329,7 +329,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function not_in( $post_ids ) {
-		// TODO: Implement not_in() method.
+		// @todo [BTRIA-595]: Implement not_in() method.
 	}
 
 	/**
@@ -344,7 +344,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function parent( $post_id ) {
-		// TODO: Implement parent() method.
+		// @todo [BTRIA-595]: Implement parent() method.
 	}
 
 	/**
@@ -359,7 +359,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function parent_in( $post_ids ) {
-		// TODO: Implement parent_in() method.
+		// @todo [BTRIA-595]: Implement parent_in() method.
 	}
 
 	/**
@@ -374,7 +374,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function parent_not_in( $post_ids ) {
-		// TODO: Implement parent_not_in() method.
+		// @todo [BTRIA-595]: Implement parent_not_in() method.
 	}
 
 	/**
@@ -389,7 +389,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function search( $search ) {
-		// TODO: Implement search() method.
+		// @todo [BTRIA-595]: Implement search() method.
 	}
 
 	/**
@@ -406,7 +406,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return int
 	 */
 	public function count() {
-		// TODO: Implement count() method.
+		// @todo [BTRIA-595]: Implement count() method.
 	}
 
 	/**
@@ -423,7 +423,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   Tribe__Repository__Read_Interface::per_page()
 	 */
 	public function first() {
-		// TODO: Implement first() method.
+		// @todo [BTRIA-595]: Implement first() method.
 	}
 
 	/**
@@ -440,7 +440,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   Tribe__Repository__Read_Interface::per_page()
 	 */
 	public function last() {
-		// TODO: Implement last() method.
+		// @todo [BTRIA-595]: Implement last() method.
 	}
 
 	/**
@@ -460,7 +460,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   Tribe__Repository__Read_Interface::per_page()
 	 */
 	public function nth( $n ) {
-		// TODO: Implement nth() method.
+		// @todo [BTRIA-595]: Implement nth() method.
 	}
 
 	/**
@@ -477,7 +477,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   Tribe__Repository__Read_Interface::per_page()
 	 */
 	public function take( $n ) {
-		// TODO: Implement take() method.
+		// @todo [BTRIA-595]: Implement take() method.
 	}
 
 	/**
@@ -495,7 +495,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   \wp_list_pluck()
 	 */
 	public function pluck( $field ) {
-		// TODO: Implement pluck() method.
+		// @todo [BTRIA-595]: Implement pluck() method.
 	}
 
 	/**
@@ -518,7 +518,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   \wp_list_filter()
 	 */
 	public function filter( $args = array(), $operator = 'AND' ) {
-		// TODO: Implement filter() method.
+		// @todo [BTRIA-595]: Implement filter() method.
 	}
 
 	/**
@@ -540,7 +540,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   \wp_list_sort()
 	 */
 	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
-		// TODO: Implement sort() method.
+		// @todo [BTRIA-595]: Implement sort() method.
 	}
 
 	/**
@@ -551,7 +551,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @return \Tribe__Utils__Post_Collection
 	 */
 	public function collect() {
-		// TODO: Implement collect() method.
+		// @todo [BTRIA-595]: Implement collect() method.
 	}
 
 	/**
@@ -1063,8 +1063,8 @@ class Event_Period implements Core_Read_Interface {
 		$cache   = tribe( 'cache' );
 		$trigger = Cache_Listener::TRIGGER_SAVE_POST;
 
-		$periods_key      = static::get_cache_key( 'periods' );
-		$cached_periods   = $cache->get_transient( $periods_key, $trigger );
+		$periods_key      = self::get_cache_key( 'periods' );
+		$cached_periods   = (array) $cache->get_transient( $periods_key, $trigger );
 		$cached_periods[] = [ $start->format( Dates::DBDATEFORMAT ), $end->format( Dates::DBDATEFORMAT ) ];
 		$cache->set_transient( $periods_key, $cached_periods, WEEK_IN_SECONDS, $trigger );
 

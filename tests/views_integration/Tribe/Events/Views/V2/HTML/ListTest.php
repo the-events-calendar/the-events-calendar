@@ -9,6 +9,9 @@ class ListTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
+		$this->template->add_template_globals( [
+			'view_slug' => 'list',
+		] );
 		$this->template->set_values(
 			[
 				'show_now'                => true,

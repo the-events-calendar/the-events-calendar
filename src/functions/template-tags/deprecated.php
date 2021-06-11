@@ -1292,7 +1292,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		function tribe_meta_event_cats( $label = null, $separator = null ) {
 			_deprecated_function( __FUNCTION__, '3.0', 'tribe_get_event_categories( $post_id, $args )' );
-			$args = array(
+			$args = [
 				'before'       => '<dd class="tribe-event-categories">',
 				'sep'          => ', ',
 				'after'        => '</dd>',
@@ -1301,7 +1301,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				'label_after'  => '</dt>',
 				'wrap_before'  => '',
 				'wrap_after'   => '',
-			);
+			];
 			echo apply_filters( 'tribe_meta_event_cats', tribe_get_event_categories( get_the_ID(), $args ) );
 		}
 	}
@@ -1445,7 +1445,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array
 	 */
-	function tribe_get_object_property_from_array( $array_objects = array(), $property = null ) {
+	function tribe_get_object_property_from_array( $array_objects = [], $property = null ) {
 		_deprecated_function( __FUNCTION__, '3.0', 'wp_list_pluck()' );
 
 		return wp_list_pluck( $array_objects, $property );

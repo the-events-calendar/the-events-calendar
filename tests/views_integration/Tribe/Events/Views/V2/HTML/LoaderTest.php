@@ -54,8 +54,8 @@ class LoaderTest extends HtmlTestCase {
 		);
 
 		$this->assertTrue(
-			$loader->is( '[aria-live="assertive"]' ),
-			'Loader needs to be aria-live="assertive"'
+			$loader->is( '[aria-live="polite"]' ),
+			'Loader needs to be aria-live="polite"'
 		);
 	}
 

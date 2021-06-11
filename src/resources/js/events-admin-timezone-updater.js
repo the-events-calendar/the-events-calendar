@@ -1,7 +1,7 @@
 /**
  * Handle the timezone updater process.
  */
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	// Do not proceed if tribe_timezone_update is not available
 	if ( "object" !== typeof tribe_timezone_update ) {
 		return;

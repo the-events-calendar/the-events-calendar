@@ -1,7 +1,7 @@
 /**
  * Sets up one or more embedded maps.
  */
-if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
+if ( "function" === typeof jQuery ) jQuery( function( $ ) {
 	var mapHolder,
 	    position,
 	    venueObject,

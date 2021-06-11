@@ -27,11 +27,11 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 	}
 
 	/**
-	 * Hooks the filters and actions neede for this integration to work.
+	 * Hooks the filters and actions needed for this integration to work.
 	 */
 	public function hook() {
-		add_filter( 'template_include', array( $this, 'filter_template_include' ) );
-		add_filter( 'x_get_view', array( $this, 'force_full_content' ), 10, 4 );
+		add_filter( 'template_include', [ $this, 'filter_template_include' ] );
+		add_filter( 'x_get_view', [ $this, 'force_full_content' ], 10, 4 );
 	}
 
 	/**
@@ -65,12 +65,12 @@ class Tribe__Events__Integrations__X_Theme__X_Theme {
 			'framework/views/global/_content' === $view['base']
 			&& 'the-excerpt' === $view['extension']
 		) {
-			remove_filter( 'x_get_view', array( $this, 'force_full_content' ), 10, 4 );
+			remove_filter( 'x_get_view', [ $this, 'force_full_content' ], 10, 4 );
 
 			// Grab the global "content" template with full content.
 			$view = x_get_view( 'global', '_content', 'the-content' );
 
-			add_filter( 'x_get_view', array( $this, 'force_full_content' ), 10, 4 );
+			add_filter( 'x_get_view', [ $this, 'force_full_content' ], 10, 4 );
 		}
 
 		return $view;
