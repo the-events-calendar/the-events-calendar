@@ -298,15 +298,20 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			return $template;
 		}
 
+		// These allow us to continue to _not_ target the shortcode.
+		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
+		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
+		$tribe_common = $apply_to_shortcode ? '.tribe-common' : '.tribe-common:not( .tribe-events-view--shortcode )';
+
 		if ( $this->should_include_setting_css( 'events_bar_text_color' ) ) {
 			// Text color.
 			$template .= "
-				.tribe-common--breakpoint-medium.tribe-common .tribe-events-header__events-bar .tribe-common-form-control-text__input {
+				.tribe-common--breakpoint-medium{$tribe_common} .tribe-events-header__events-bar .tribe-common-form-control-text__input {
 					color: <%= tec_events_bar.events_bar_text_color %>;
 			}";
 
 			$template .= "
-				.tribe-common--breakpoint-medium.tribe-common .tribe-events-header__events-bar .tribe-common-form-control-text__input::placeholder {
+				.tribe-common--breakpoint-medium{$tribe_common} .tribe-events-header__events-bar .tribe-common-form-control-text__input::placeholder {
 					color: <%= tec_events_bar.events_bar_text_color %>;
 					opacity: .6;
 				}
@@ -332,11 +337,16 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			}
 
 			$template .= "
-				.tribe-events .tribe-events-c-search__input-control-icon-svg path,
-				.tribe-events .tribe-events-c-events-bar__search-button-icon-svg path,
-				.tribe-events .tribe-events-c-view-selector__button-icon-svg path,
-				.tribe-events .tribe-events-c-view-selector__list-item-icon-svg path {
-					fill: <%= {$icon_color} %>
+				{$tribe_events} .tribe-events-c-search__input-control-icon-svg path,
+				{$tribe_events} .tribe-events-c-events-bar__search-button-icon-svg path,
+				{$tribe_events} .tribe-events-c-view-selector__button-icon-svg path,
+				{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg:not(.tribe-common-c-svgicon__svg-stroke) path,
+				{$tribe_events} .tribe-events-c-view-selector__button::before {
+					fill: <%= {$icon_color} %>;
+				}
+
+				{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg.tribe-common-c-svgicon__svg-stroke path {
+					stroke: <%= {$icon_color} %>;
 				}
 			";
 		}
@@ -366,8 +376,8 @@ class Events_Bar extends \Tribe__Customizer__Section {
 
 		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
 			$template .= "
-				.tribe-common--breakpoint-medium.tribe-events .tribe-events-header--has-event-search .tribe-events-header__events-bar,
-				.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-search__input-control {
+				.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header--has-event-search .tribe-events-header__events-bar,
+				.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-c-search__input-control {
 					border-color: <%= tec_events_bar.events_bar_border_color %>;
 				}
 			";
