@@ -318,7 +318,8 @@ class Customizer {
 				.tribe-events-schedule h2,
 				$tribe_events .tribe-events-calendar-list__event-datetime,
 				$tribe_events .tribe-events-calendar-day__event-datetime,
-				$tribe_events .tribe-events-calendar-latest-past__event-datetime {
+				$tribe_events .tribe-events-calendar-latest-past__event-datetime,
+				$tribe_events .tribe-events-widget-events-list__event-datetime {
 					color: <%= global_elements.event_date_time_color %>;
 				}
 
