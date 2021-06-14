@@ -340,12 +340,15 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				{$tribe_events} .tribe-events-c-search__input-control-icon-svg path,
 				{$tribe_events} .tribe-events-c-events-bar__search-button-icon-svg path,
 				{$tribe_events} .tribe-events-c-view-selector__button-icon-svg path,
-				{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg:not(.tribe-common-c-svgicon__svg-stroke) path,
-				{$tribe_events} .tribe-events-c-view-selector__button::before {
+				{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg:not(.tribe-common-c-svgicon__svg-stroke) path {
 					fill: <%= {$icon_color} %>;
 				}
 
-				{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg.tribe-common-c-svgicon__svg-stroke path {
+				{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__button::before {
+					background-color: <%= {$icon_color} %>;
+				}
+
+				{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__list-item-icon-svg.tribe-common-c-svgicon__svg-stroke path {
 					stroke: <%= {$icon_color} %>;
 				}
 			";
