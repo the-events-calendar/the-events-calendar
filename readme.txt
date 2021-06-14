@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.7.1] TBD =
 
-* Fix - Resolve a compatibility issue with the new single view and the tickets block when using the `twentynineteen` theme. [TEC-3935]
+* Fix - Resolve a compatibility issue with the new single view and the tickets block when using the `twentynineteen` theme. [TEC-3937]
 
 = [5.7.0] 2021-05-27 =
 
