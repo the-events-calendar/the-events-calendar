@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.7.1] TBD =
 
 * Tweak - Remove aria-labeled attribute from featured icons. [TEC-3396]
+* Tweak - Make custom post types available from the REST API so they can be compatible with the Navigation block. [TEC-3907]
 
 = [5.7.0] 2021-05-27 =
 
