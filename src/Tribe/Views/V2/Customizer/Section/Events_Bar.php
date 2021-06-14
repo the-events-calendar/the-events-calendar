@@ -173,8 +173,13 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				'priority'    => 15,
 				'type'        => 'radio',
 				'label'       => esc_html_x(
-					'Icons',
+					'Icons Color',
 					'The Events Bar icon color setting label.',
+					'the-events-calendar'
+				),
+				'description' => esc_html_x(
+					'Search and Location icons focus state',
+					'Description for the icon color control.',
 					'the-events-calendar'
 				),
 				'choices'     => [
