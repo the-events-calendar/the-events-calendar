@@ -213,7 +213,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				'active_callback' => function( $control ) use ( $customizer ) {
 					$setting_name = $customizer->get_setting_name( 'events_bar_icon_color_choice', $control->section );
 					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['events_bar_icon_color_choice'] !== $value;
+					return 'custom' === $value;
 				},
 			],
 			'find_events_button_color_choice'       => [
