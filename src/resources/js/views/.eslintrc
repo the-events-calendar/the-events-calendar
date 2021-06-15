@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "extends": [
+    "../../../../node_modules/product-taskmaster/config/eslint.es5.js"
+  ],
+  "globals": {
+    "jQuery": true,
+    "tribe": true,
+  }
+}
