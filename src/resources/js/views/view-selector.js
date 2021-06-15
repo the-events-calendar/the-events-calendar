@@ -214,18 +214,22 @@ tribe.events.views.viewSelector = {};
 	 * @return {void}
 	 */
 	obj.handleClick = function( event ) {
-		var isParentViewSelector = Boolean( $( event.target ).closest( obj.selectors.viewSelector ).length );
+		var isParentViewSelector = Boolean(
+			$( event.target ).closest( obj.selectors.viewSelector ).length
+		);
 
 		if ( ! isParentViewSelector ) {
 			var $container = event.data.container;
 			var $viewSelector = $container.find( obj.selectors.viewSelector );
 			var $viewSelectorButton = $viewSelector.find( obj.selectors.viewSelectorButton );
 
+			/* eslint-disable max-len */
 			if ( $viewSelectorButton.hasClass( obj.selectors.viewSelectorButtonActiveClass.className() ) ) {
 				var $viewSelectorListContainer = $viewSelector.find( obj.selectors.viewSelectorListContainer );
 				$viewSelectorButton.removeClass( obj.selectors.viewSelectorButtonActiveClass.className() );
 				tribe.events.views.accordion.closeAccordion( $viewSelectorButton, $viewSelectorListContainer );
 			}
+			/* eslint-enable max-len */
 		}
 	};
 
@@ -274,7 +278,11 @@ tribe.events.views.viewSelector = {};
 
 		$document.on( 'click', { container: $container }, obj.handleClick );
 		$container.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
-		$viewSelectorButton.on( 'click', { target: $viewSelectorButton }, obj.handleViewSelectorButtonClick );
+		$viewSelectorButton.on(
+			'click',
+			{ target: $viewSelectorButton },
+			obj.handleViewSelectorButtonClick
+		);
 	};
 
 	/**
@@ -288,7 +296,7 @@ tribe.events.views.viewSelector = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) {
+	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		obj.deinitViewSelector( $container );
 		obj.unbindEvents( $container );
@@ -307,7 +315,7 @@ tribe.events.views.viewSelector = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) {
+	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
 		var $viewSelector = $container.find( obj.selectors.viewSelector );
 
 		if ( ! $viewSelector.length ) {
@@ -328,7 +336,11 @@ tribe.events.views.viewSelector = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready
