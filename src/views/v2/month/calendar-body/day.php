@@ -116,9 +116,7 @@ $num_events_label = sprintf(
 			<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
 				title="<?php echo esc_attr( $has_events_label ); ?>"
-			>
-				<title><?php echo esc_html( $has_events_label ); ?></title>
-			</em>
+			></em>
 		<?php endif ?>
 	</button>
 
