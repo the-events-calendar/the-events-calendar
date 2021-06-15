@@ -5,6 +5,7 @@
   ],
   "globals": {
     "jQuery": true,
-    "tribe": true,
+    "Qs": true,
+    "tribe": true
   }
 }
