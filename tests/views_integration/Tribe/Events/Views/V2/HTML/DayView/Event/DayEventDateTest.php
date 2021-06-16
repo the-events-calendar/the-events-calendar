@@ -26,7 +26,7 @@ class DayEventDateTest extends HtmlTestCase {
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-day__event-datetime-featured-icon' )->count(),
 			0,
-			'Day Event HTML date shouldnt contain ".tribe-events-calendar-day__event-datetime-featured-icon" class if not featured'
+			'Day Event HTML date should not contain ".tribe-events-calendar-day__event-datetime-featured-icon" class if not featured'
 		);
 
 	}
@@ -39,6 +39,7 @@ class DayEventDateTest extends HtmlTestCase {
 		$event = $this->get_mock_event( 'events/featured/1.json' );
 
 		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
+
 		$html = $this->document->html( $template );
 
 		$featured_icon = $html->find( '.tribe-events-calendar-day__event-datetime-featured-icon' );
@@ -50,15 +51,19 @@ class DayEventDateTest extends HtmlTestCase {
 		);
 
 		$this->assertTrue(
-			$featured_icon->is( '[aria-label="Featured"]' ),
-			'Day calendar event featured icon needs to be aria-label="Featured"'
-		);
-
-		$this->assertTrue(
 			$featured_icon->is( '[title="Featured"]' ),
 			'Day calendar event featured icon needs to be title="Featured"'
 		);
 
-	}
+		$this->assertNotEmpty(
+			$featured_icon->find( 'title' ),
+			'Day calendar event featured icon needs to be contain a title element.'
+		);
 
+		$this->assertStringContainsStringIgnoringCase(
+			$featured_icon->find('title')->text(),
+			'featured',
+			'Day calendar event featured icon title element should contain "featured" by default.'
+		);
+	}
 }

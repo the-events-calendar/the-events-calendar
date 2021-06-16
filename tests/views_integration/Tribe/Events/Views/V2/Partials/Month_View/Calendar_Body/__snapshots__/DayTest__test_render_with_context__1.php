@@ -23,10 +23,12 @@
 		</h3>
 								<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				aria-label="Has featured events"
 				title="Has featured events"
 			>
-				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/></svg>
+				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
+	<title>Has featured events</title>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
+</svg>
 			</em>
 			</button>
 
