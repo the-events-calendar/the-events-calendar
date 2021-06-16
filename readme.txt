@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.7.1] TBD =
 
+* Fix - Properly recalculate event cost when creating events via the Block Editor. [TEC-3141]
 * Fix - Resolve a compatibility issue with the new single view and the tickets block when using the `twentynineteen` theme. [TEC-3937]
 * Tweak - Make custom post types available from the REST API so they can be compatible with the Navigation block. [TEC-3907]
 
