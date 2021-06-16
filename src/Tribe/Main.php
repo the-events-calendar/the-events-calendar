@@ -1017,7 +1017,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
-			$this->post_type_args['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->post_type_args['rewrite']['slug']          = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->post_type_args['show_in_rest']             = current_user_can( 'manage_options' );
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
@@ -2183,7 +2184,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'item_link'                => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( '%s Link', 'the-events-calendar' ), $this->singular_event_label
 					),
 					'item_link_description'    => sprintf(
 						// Translators: %s: Event singular.
@@ -2232,11 +2233,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'item_link'         => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( '%s Category Link.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( '%s Category Link', 'the-events-calendar' ), $this->singular_event_label
 					),
 					'item_link_description' => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( 'A link to a particular%s category.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( 'A link to a particular %s category.', 'the-events-calendar' ), $this->singular_event_label
 					),
 				]
 			);
