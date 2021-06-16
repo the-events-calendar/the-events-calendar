@@ -225,7 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Properly recalculate event cost when creating events via the Block Editor. [TEC-3141]
 * Fix - Resolve a compatibility issue with the new single view and the tickets block when using the `twentynineteen` theme. [TEC-3937]
-* Fix - Resolve a compatibility issue with the Analytify dashboard. [TEC-3946]
+* Fix - Ensure that `view_data` is an array when fetching values from the request. [TEC-3946]
 * Tweak - Make custom post types available from the REST API so they can be compatible with the Navigation block. [TEC-3907]
 * Tweak - Remove aria-labeled attribute from featured icons. [TEC-3396]
 
