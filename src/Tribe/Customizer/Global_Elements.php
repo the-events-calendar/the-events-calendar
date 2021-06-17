@@ -1,6 +1,7 @@
 <?php
 // Don't load directly.
 use Tribe\Customizer\Controls\Heading;
+use Tribe\Customizer\Controls\Separator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -190,11 +191,24 @@ final class Tribe__Events__Customizer__Global_Elements extends Tribe__Customizer
 					'label'       => esc_html__( 'Links', 'the-events-calendar' ),
 					'description' => esc_html__( 'For displayed URLs', 'the-events-calendar' ),
 					'section'     => $section->id,
+					'priority'    => 8,
 				]
 			)
 		);
 
 		$customizer->add_setting_name( $customizer->get_setting_name( 'link_color', $section ) );
+
+		$manager->add_control(
+			new Separator(
+				$manager,
+				$customizer->get_setting_name( 'adjust_appearance_separator', $section ),
+				[
+					'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+					'section'  => $section->id,
+					'priority' => 9,
+				]
+			)
+		);
 
 		// Add an heading that is a Control only in name: it does not, actually, control or save any setting.
 		$manager->add_control(
