@@ -51,6 +51,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 */
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_venue' ], 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_organizer' ], 10, 2 );
+		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_event' ], 10, 2 );
 	}
 
 	/**
@@ -91,6 +92,29 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		}
 
 		return $is_enabled;
+	}
+
+	/**
+	 * Deactivate the blocks editor from the events post type unless explicitly enabled by the user via the settings
+	 * on the events tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool   $is_enabled If blocks editor is enabled or not.
+	 * @param string $post_type  The current post type.
+	 *
+	 * @return false
+	 */
+	public function deactivate_blocks_editor_event( $is_enabled, $post_type ) {
+		if ( Tribe__Events__Main::POSTTYPE !== $post_type ) {
+			return $is_enabled;
+		}
+
+		if ( tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on() ) {
+			return $is_enabled;
+		}
+
+		return false;
 	}
 
 	/**
