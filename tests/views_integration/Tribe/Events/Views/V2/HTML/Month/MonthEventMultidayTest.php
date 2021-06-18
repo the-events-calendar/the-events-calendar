@@ -57,7 +57,7 @@ class MonthEventMultidayTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_a11y_attributes() {
 
-		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->is_multiday( 2 )->get();
+		$event = $this->mock_event( 'events/featured/1.json' )->is_multiday( 2 )->get();
 		$event->starts_this_week = true;
 		$event->ends_this_week   = true;
 
@@ -73,16 +73,22 @@ class MonthEventMultidayTest extends HtmlTestCase {
 		);
 		$html     = $this->document->html( $template );
 		$html     = $html->find( '.tribe-events-calendar-month__multiday-event' );
-		$icon     = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
+		$featured_icon     = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
 
 		$this->assertTrue(
-			$icon->is( '[aria-label="Featured"]' ),
-			'Month multiday featured icon needs to be aria-label="Featured"'
+			$featured_icon->is( '[title="Featured"]' ),
+			'Month multiday featured icon needs to be title="Featured"'
 		);
 
-		$this->assertTrue(
-			$icon->is( '[title="Featured"]' ),
-			'Month multiday featured icon needs to be title="Featured"'
+		$this->assertNotEmpty(
+			$featured_icon->find( 'title' ),
+			'Month multiday featured icon needs to be contain a title element.'
+		);
+
+		$this->assertStringContainsStringIgnoringCase(
+			$featured_icon->find( 'title' )->text(),
+			'featured',
+			'Month multiday featured icon title element should contain "featured" by default.'
 		);
 	}
 }
