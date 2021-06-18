@@ -47,6 +47,8 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 */
 	public function setup_defaults() {
 		return [
+			'events_bar_background_color_choice'    => 'default',
+			'events_bar_background_color'           => '#FFFFFF',
 			'events_bar_border_color_choice'        => 'default',
 			'events_bar_border_color'               => '#e4e4e4',
 			'events_bar_icon_color_choice'          => 'default',
@@ -79,6 +81,14 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_settings() {
 		return [
+			'events_bar_background_color_choice'        => [
+				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_js_callback' => 'sanitize_key',
+			],
+			'events_bar_background_color'               => [
+				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			],
 			'events_bar_border_color_choice'        => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
@@ -177,11 +187,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 					'The Events Bar icon color setting label.',
 					'the-events-calendar'
 				),
-				'description' => esc_html_x(
-					'Search and Location icons focus state',
-					'Description for the icon color control.',
-					'the-events-calendar'
-				),
 				'choices'     => [
 					'default' => esc_html_x(
 						'Default',
@@ -253,6 +258,48 @@ class Events_Bar extends \Tribe__Customizer__Section {
 					return $this->defaults['find_events_button_color_choice'] !== $value;
 				},
 			],
+			'events_bar_background_color_choice'    => [
+				'priority'    => 25,
+				'type'        => 'radio',
+				'label'       => esc_html_x(
+					'Background Color',
+					'The Events Bar background color setting label.',
+					'the-events-calendar'
+				),
+				'choices'     => [
+					'default' => esc_html_x(
+						'Default',
+						'Label for the default option.',
+						'the-events-calendar'
+					),
+					'global_background'      => sprintf(
+						/* translators: 1: Customizer url. */
+						_x(
+							'Use the Calendar <a href="%1$s">Background Color</a>',
+							'Label for option to use the events background color. Links to the background color setting.',
+							'the-events-calendar'
+						),
+						$customizer->get_setting_url(
+							'global_elements',
+							'background_color_choice',
+						)
+					),
+					'custom'	  => esc_html_x(
+						'Custom',
+						'Label for option to set a custom color.',
+						'the-events-calendar'
+					),
+				]
+			],
+			'events_bar_background_color'           => [
+				'priority'    => 26, // Immediately after events_bar_background_color_choice.
+				'type'        => 'color',
+				'active_callback' => function( $control ) use ( $customizer ) {
+					$setting_name = $customizer->get_setting_name( 'events_bar_background_color_choice', $control->section );
+					$value = $control->manager->get_setting( $setting_name )->value();
+					return 'custom' === $value;
+				},
+			],
 			'events_bar_border_color_choice'        => [
 				'priority'    => 30,
 				'type'        => 'radio',
@@ -263,7 +310,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				),
 				'choices'     => [
 					'default' => esc_html_x(
-						'Default.',
+						'Default',
 						'Label for the default option.',
 						'the-events-calendar'
 					),
@@ -289,13 +336,13 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	/**
 	 * Grab the CSS rules template
 	 *
-	 * @param string $template The Customizer CSS string/template.
+	 * @param string $css_template The Customizer CSS string/template.
 	 *
 	 * @return string The Customizer CSS string/template, with v2 Month View styles added.
 	 */
-	public function get_css_template( $template ) {
+	public function get_css_template( $css_template ) {
 		if ( ! tribe_events_views_v2_is_enabled() ) {
-			return $template;
+			return $css_template;
 		}
 
 		// These allow us to continue to _not_ target the shortcode.
@@ -305,12 +352,13 @@ class Events_Bar extends \Tribe__Customizer__Section {
 
 		if ( $this->should_include_setting_css( 'events_bar_text_color' ) ) {
 			// Text color.
-			$template .= "
+			$css_template .= "
 				.tribe-common--breakpoint-medium{$tribe_common} .tribe-events-header__events-bar .tribe-common-form-control-text__input {
 					color: <%= tec_events_bar.events_bar_text_color %>;
-			}";
+				}
+			";
 
-			$template .= "
+			$css_template .= "
 				.tribe-common--breakpoint-medium{$tribe_common} .tribe-events-header__events-bar .tribe-common-form-control-text__input::placeholder {
 					color: <%= tec_events_bar.events_bar_text_color %>;
 					opacity: .6;
@@ -319,7 +367,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_text_color' ) ) {
-			$template .= "
+			$css_template .= "
 				#submit-bar-button {
 					color: <%= tec_events_bar.find_events_button_text_color %>;
 				}
@@ -336,7 +384,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				$icon_color = 'global_elements.accent_color';
 			}
 
-			$template .= "
+			$css_template .= "
 				{$tribe_events} .tribe-events-c-search__input-control-icon-svg path,
 				{$tribe_events} .tribe-events-c-events-bar__search-button-icon-svg path,
 				{$tribe_events} .tribe-events-c-view-selector__button-icon-svg path,
@@ -361,7 +409,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			$button_color_hover  = 'rgba(' . $button_color_rgb . ',0.8)';
 			$button_color_active = 'rgba(' . $button_color_rgb . ',0.9)';
 
-			$template .= "
+			$css_template .= "
 				#submit-bar-button {
 					background-color: <%= tec_events_bar.find_events_button_color %>;
 				}
@@ -378,14 +426,35 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
-			$template .= "
-				.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header--has-event-search .tribe-events-header__events-bar,
+			$css_template .= "
+				.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header .tribe-events-header__events-bar,
 				.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-c-search__input-control {
 					border-color: <%= tec_events_bar.events_bar_border_color %>;
 				}
 			";
 		}
 
-		return $template;
+		if ( $this->should_include_setting_css( 'events_bar_background_color_choice' ) ) {
+			if ( 'custom' == $this->get_option( 'events_bar_background_color_choice' ) ) {
+				$background_color = "tec_events_bar.events_bar_background_color";
+			} elseif (
+				'global_background' == $this->get_option( 'events_bar_background_color_choice' )
+				&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
+			) {
+				$background_color = "global_elements.background_color";
+			}
+
+			if ( ! empty( $background_color ) ) {
+				$css_template .= "
+					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar,
+					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar .tribe-common-form-control-text__input,
+					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container {
+						background-color: <%= {$background_color} %>;
+					}
+				";
+			}
+		}
+
+		return $css_template;
 	}
 }
