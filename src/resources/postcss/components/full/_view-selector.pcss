@@ -184,11 +184,12 @@
 		}
 
 		.tribe-common--breakpoint-medium& {
-
+			/* This hides the active itme from the list */
 			&.tribe-events-c-view-selector__list-item--active {
 				display: none;
 			}
 
+			/* unless it is one of only three - then it's not a drop-down */
 			&:first-child:nth-last-child(1),
 			&:first-child:nth-last-child(2),
 			&:first-child:nth-last-child(2) ~ li,
@@ -205,6 +206,10 @@
 				background-color: var(--color-background-secondary);
 			}
 		}
+	}
+
+	.tribe-events-c-view-selector__list-item-text {
+		@mixin desktop-body-2;
 	}
 
 	.tribe-events-c-view-selector__list-item--active {
@@ -229,10 +234,6 @@
 				color: var(--tec-color-accent-secondary-hover);
 			}
 		}
-	}
-
-	.tribe-events-c-view-selector__list-item-text {
-		@mixin desktop-body-2;
 	}
 
 	/* -----------------------------------------------------------------------------

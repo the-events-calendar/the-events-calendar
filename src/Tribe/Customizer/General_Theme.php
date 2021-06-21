@@ -33,6 +33,10 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return string
 	 */
 	protected function get_button_bg_color( $settings = [] ) {
+		if ( empty( $settings['featured_color_scheme'] ) ) {
+			return '';
+		}
+
 		$scheme = $this->sanitize_featured_color_choice( $settings['featured_color_scheme'] );
 		$schemes = $this->get_featured_color_schemes();
 
@@ -93,7 +97,9 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 
 		$customizer = tribe( 'customizer' );
 		$settings = $customizer->get_option( [ $this->ID ] );
-		$background_color_obj = new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
+		if ( ! empty( $settings['featured_color_scheme'] ) ) {
+			$background_color_obj = new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
+		}
 
 		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
 			$template .= '
@@ -176,7 +182,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				}
 			";
 
-			if ( $background_color_obj->isLight() ) {
+			if ( ! empty( $background_color_obj ) && $background_color_obj->isLight() ) {
 				$template .= '
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left,
