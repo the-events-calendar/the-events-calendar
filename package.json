@@ -20,7 +20,7 @@
     "waiting_strings": false
   },
   "scripts": {
-    "preinstall": "if [ -d node_modules/product-taskmaster ]; then node node_modules/product-taskmaster/scripts/syncPackageJSON.js; fi",
+    "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
@@ -34,9 +34,8 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "TZ=UTC jest --config jest.config.json",
     "test:travis": "npm run test -- --maxWorkers=4",
-    "zip": "node node_modules/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress",
-    "preinstall": "npx npm-force-resolutions"
+    "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
+    "glotpress": "gulp glotpress"
   },
   "engines": {
     "node": "10.16.0",
@@ -44,6 +43,7 @@
   },
   "devDependencies": {
     "@babel/runtime": "7.0.0-beta.52",
+    "@the-events-calendar/product-taskmaster": "^1.0.0",
     "@wordpress/hooks": "^1.3.2",
     "archiver": "^3.0.0",
     "autoprefixer": "6.7.7",
@@ -91,7 +91,6 @@
     "postcss-mixins": "^4.0.1",
     "postcss-nested": "^1.0.0",
     "postcss-preset-env": "^6.0.10",
-    "product-taskmaster": "github:the-events-calendar/product-taskmaster",
     "react-svg-loader": "^2.1.0",
     "react-test-renderer": "16.3.0",
     "redux-devtools-extension": "^2.13.7",
@@ -125,6 +124,7 @@
     "lodash": "^4.17.21",
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
+    "mt-a11y-dialog": "^5.1.1",
     "prop-types": "^15.6.2",
     "querystringify": "^2.0.0",
     "react": "16.3.0",
@@ -145,8 +145,7 @@
     "url-loader": "^0.6.2",
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3",
-    "mt-a11y-dialog": "^5.1.1"
+    "zero-fill": "^2.2.3"
   },
   "resolutions": {
     "graceful-fs": "^4.2.4"
