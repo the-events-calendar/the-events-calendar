@@ -98,7 +98,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Deactivate the blocks editor from the events post type unless explicitly enabled by the user via the settings
 	 * on the events tab.
 	 *
-	 * @since TBD
+	 * @since 5.7.1
 	 *
 	 * @param bool   $is_enabled If blocks editor is enabled or not.
 	 * @param string $post_type  The current post type.

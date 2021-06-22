@@ -184,7 +184,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	/**
 	 * Make sure we allow other plugins and customizations to filter the cost field.
 	 *
-	 * @since TBD
+	 * @since 5.7.1
 	 *
 	 * @param \stdClass        $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.
