@@ -32,12 +32,85 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	public $queue_priority = 15;
 
 	/**
+	 * Placeholder for filtered multiplier for small font size.
+	 *
+	 * @var float
+	 */
+	private $small_font_multiplier = .75;
+
+	/**
+	 * Placeholder for filtered multiplier for large font size.
+	 *
+	 * @var float
+	 */
+	private $large_font_multiplier = 1.5;
+
+	/**
+	 * Placeholder for filtered min font size.
+	 *
+	 * @var float
+	 */
+	private $min_font_size = 8;
+
+	/**
+	 * Placeholder for filtered max font size.
+	 *
+	 * @var float
+	 */
+	private $max_font_size = 172;
+
+	/**
 	 * This method will be executed when the Class is Initialized.
 	 *
 	 * @since TBD
 	 */
 	public function setup() {
 		parent::setup();
+
+
+		/**
+		 * Allows users and plugins to change the "small" font size multiplier.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $small_font_multiplier The multiplier for "small" font size.
+		 *
+		 * @return int The multiplier for "small" font size. This should be less than 1.
+		 */
+		$this->small_font_multiplier = apply_filters( 'tribe_customizer_small_font_size_multiplier', $this->small_font_multiplier );
+
+		/**
+		 * Allows users and plugins to change the "large" font size multiplier.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $large_font_multiplier The multiplier for "large" font size.
+		 *
+		 * @return int The multiplier for "large" font size. This should be greater than 1.
+		 */
+		$this->large_font_multiplier = apply_filters( 'tribe_customizer_large_font_size_multiplier', $this->large_font_multiplier );
+
+		/**
+		 * Allows users and plugins to change the minimum font size.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $min_font_size The enforced minimum font size.
+		 *
+		 * @return int The enforced minimum font size.
+		 */
+		$this->min_font_size = apply_filters( 'tribe_customizer_minimum_font_size', 8 );
+
+		/**
+		 * Allows users and plugins to change the maximum font size.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $min_font_size The enforced maximum font size.
+		 *
+		 * @return int The enforced maximum font size.
+		 */
+		$this->max_font_size = apply_filters( 'tribe_customizer_maximum_font_size', 72 );
 	}
 	/**
 	 * {@inheritdoc}
@@ -139,7 +212,13 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * {@inheritdoc}
 	 */
 	public function setup_content_controls() {
-		$customizer = tribe( 'customizer' );
+		// Because Customizer doesn't show the default value.
+		if ( ! empty( $this->get_option( 'font_size_base' ) ) ) {
+			$font_size_base_value = $this->get_option( 'font_size_base' );
+		} else {
+			$font_size_base_value = $this->defaults[ 'font_size_base' ];
+		}
+
 		return [
 			'font_family'             => [
 				'priority' => 3,
@@ -152,12 +231,38 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					),
 				],
 			],
-			'font_size'               => [
+			'font_size_base'          => [
 				'priority' => 6,
+				'type'     => 'number',
+				'label'    => esc_html_x(
+					'Base Font Size',
+					'The base font size input setting label.',
+					'the-events-calendar'
+				),
+				'description' => esc_html_x(
+					'Set a base size in pixels to match the theme font size. All event fonts will scale around it.',
+					'The description for the base font size setting.',
+					'the-events-calendar'
+				),
+				'input_attrs' => [
+					'min'   => '8',
+					'max'   => '24',
+					'step'  => '1',
+					'style' => 'width: 4em;',
+					'value' => (int) $font_size_base_value,
+				]
+			],
+			'font_size'               => [
+				'priority' => 7,
 				'type'     => 'range-slider',
 				'label'    => esc_html_x(
 					'Font Size',
 					'The font size selector setting label.',
+					'the-events-calendar'
+				),
+				'description' => esc_html_x(
+					'Increase or decrease the base font size based on a multiplier.',
+					'The description for the font size setting.',
 					'the-events-calendar'
 				),
 				'input_attrs' => [
@@ -172,30 +277,10 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					),
 				],
 				'choices'    => [
-					'small'  => '-1',
-					'medium' => '0',
-					'large'  => '1',
+					'small'  => $this->small_font_multiplier,
+					'medium' => '1',
+					'large'  => $this->large_font_multiplier,
 				],
-			],
-			'font_size_base'          => [
-				'priority' => 7,
-				'type'     => 'number',
-				'label'    => esc_html_x(
-					'Base Font Size',
-					'The base font size input setting label.',
-					'the-events-calendar'
-				),
-				'description' => esc_html_x(
-					'Set a base size in pixels to match the theme font size. All event fonts will scale around it. Overrides the above setting',
-					'The description for the base font size setting.',
-					'the-events-calendar'
-				),
-				'input_attrs' => [
-					'min'   => '8',
-					'max'   => '24',
-					'step'  => '1',
-					'style' => 'width: 4em;'
-				]
 			],
 			'event_title_color'       => [
 				'priority' => 15,
@@ -241,11 +326,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'background_color'        => [
 				'priority' => 26, // Should come right after background_color_choice
 				'type'     => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'background_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['background_color_choice'] !== $value;
-				},
 			],
 			'accent_color'            => [
 				'priority' => 30,
@@ -289,11 +369,9 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		/**
 		 * It's about to get complicated - Font Size overrides!
 		 *
-		 * If they set the slider, we  adjust all our font sizes via a pre-defined multiplier.
-		 *
-		 * If they set a base font size, we ignore the font_size slider
-		 * and adjust all our font sizes via a (calculated multiplier).
-		 *
+		 * If they set a base font size, we set the font_size slider to match via js.
+		 * If they set the slider, we set `font_size_base` to match via js.
+		 * So we only have to do calculations based on the `font_size_base` setting.
 		 *
 		 * Original font sizes for reference:
 		 * --tec-font-size-0: 11px;
@@ -310,71 +388,21 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		 */
 		if (
 			$this->should_include_setting_css( 'font_size_base' )
-			|| $this->should_include_setting_css( 'font_size' )
 		) {
-			$sizes = [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ];
-			if ( $this->should_include_setting_css( 'font_size_base' ) ) {
-				// Divide the new base by 16 - our original base.
-				$size_multiplier = round( (int) $this->get_option( 'font_size_base' ) / 16, 3 );
-			} else {
-				/**
-				 * Allows users and plugins to change the "small" font size multiplier.
-				 *
-				 * @since TBD
-				 *
-				 * @param int $small_font_size The multiplier for "small" font size.
-				 *
-				 * @return int The multiplier for "small" font size.
-				 */
-				$small_font_size = apply_filters( 'tribe_customizer_small_font_size_multiplier', .75 );
-
-				/**
-				 * Allows users and plugins to change the "large" font size multiplier.
-				 *
-				 * @since TBD
-				 *
-				 * @param int $large_font_size The multiplier for "large" font size.
-				 *
-				 * @return int The multiplier for "large" font size.
-				 */
-				$large_font_size = apply_filters( 'tribe_customizer_large_font_size_multiplier', 1.5 );
-
-				// We either grow or shrink the font size.
-				$size_multiplier = 1 === (int) $this->get_option( 'font_size' ) ? $large_font_size : $small_font_size;
-			}
+			$sizes           = [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ];
+			$size_multiplier = 1;
+			$size_multiplier = round( (int) $this->get_option( 'font_size_base' ) / 16, 3 );
 
 			$css_template .= "\n/* Font Size overrides */\n";
-
-			/**
-			 * Allows users and plugins to change the minimum font size.
-			 *
-			 * @since TBD
-			 *
-			 * @param int $min_font_size The enforced minimum font size.
-			 *
-			 * @return int The enforced minimum font size.
-			 */
-			$min_font_size = apply_filters( 'tribe_customizer_minimum_font_size', 8 );
-
-			/**
-			 * Allows users and plugins to change the maximum font size.
-			 *
-			 * @since TBD
-			 *
-			 * @param int $min_font_size The enforced maximum font size.
-			 *
-			 * @return int The enforced maximum font size.
-			 */
-			$max_font_size = apply_filters( 'tribe_customizer_maximum_font_size', 72 );
 
 			foreach ( $sizes as $key => $size ) {
 				$font_size = $size_multiplier * (int) $size;
 				// round to whole pixels.
 				$font_size = round( $font_size );
 				// Minimum font size, for sanity.
-				$font_size = max( $font_size, $min_font_size );
+				$font_size = max( $font_size, $this->min_font_size );
 				// Maximum font size, for sanity.
-				$font_size = min( $font_size, $max_font_size );
+				$font_size = min( $font_size, $this->max_font_size );
 
 
 				$css_template .= "--tec-font-size-{$key}: {$font_size}px;\n";

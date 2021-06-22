@@ -215,11 +215,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'events_bar_icon_color'                 => [
 				'priority'    => 16, // Immediately after events_bar_icon_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'events_bar_icon_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return 'custom' === $value;
-				},
 			],
 			'find_events_button_color_choice'       => [
 				'priority'    => 20,
@@ -252,11 +247,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'find_events_button_color'              => [
 				'priority'    => 21, // Immediately after find_events_button_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'find_events_button_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['find_events_button_color_choice'] !== $value;
-				},
 			],
 			'events_bar_background_color_choice'    => [
 				'priority'    => 25,
@@ -294,11 +284,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'events_bar_background_color'           => [
 				'priority'    => 26, // Immediately after events_bar_background_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'events_bar_background_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return 'custom' === $value;
-				},
 			],
 			'events_bar_border_color_choice'        => [
 				'priority'    => 30,
@@ -324,11 +309,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'events_bar_border_color'               => [
 				'priority'    => 31, // Immediately after events_bar_border_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'events_bar_border_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['events_bar_border_color_choice'] !== $value;
-				},
 			],
 		];
 	}

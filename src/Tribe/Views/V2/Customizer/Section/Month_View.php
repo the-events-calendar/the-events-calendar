@@ -193,11 +193,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 			'grid_background_color'           => [
 				'priority'        => 18, // This should come immediately after 'grid_background_color_choice'.
 				'type'            => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'grid_background_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['grid_background_color_choice'] !== $value;
-				},
 			],
 			'tooltip_background_color'        => [
 				'priority'    => 18, // This should come immediately after 'grid_background_color_choice'.
@@ -231,13 +226,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 						)
 					)
 				],
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'grid_background_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					// No point in giving them the option if the background color isn't set to use.
-					return $this->should_include_setting_css( 'background_color_choice', 'global_elements' ) && $this->defaults['grid_background_color_choice'] === $value;
-				},
-
 			],
 			'grid_lines_color'                => [
 				'priority' => 13,
@@ -284,11 +272,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 			'multiday_event_bar_color'        => [
 				'priority'        => 9,
 				'type'    => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'multiday_event_bar_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['multiday_event_bar_color_choice'] !== $value;
-				},
 			],
 			'grid_hover_color'              => [
 				'priority'    => 15,

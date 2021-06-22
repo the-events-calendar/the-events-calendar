@@ -17,6 +17,8 @@
 
 namespace Tribe\Events\Views\V2\Customizer;
 
+use Tribe__Events__Main as TEC;
+
 /**
  * Class Hooks
  *
@@ -32,7 +34,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 5.7.0
 	 */
 	public function register() {
+		$this->add_actions();
 		$this->add_filters();
+	}
+
+	public function add_actions() {
+		add_action( 'customize_controls_enqueue_scripts', [ $this, 'enqueue_customizer_control_scripts'] );
 	}
 
 	public function add_filters() {
@@ -50,6 +57,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function enqueue_customizer_controls_styles() {
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
+	}
+
+	public function enqueue_customizer_control_scripts() {
+		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls-js' );
 	}
 
 	/**

@@ -46,8 +46,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function register() {
 		$this->container->tag( [ Event_Query_Controller::class, ], 'query_controllers' );
 
-		// Register the Views V2 Customizer controls asset.
+		// Register the Views V2 Customizer controls assets.
 		tribe_asset( TEC::instance(), 'tribe-customizer-views-v2-controls', 'customizer-views-v2-controls.css' );
+		tribe_asset( TEC::instance(), 'tribe-customizer-views-v2-controls-js', 'customizer-views-v2-controls.js' );
 
 		$this->add_actions();
 		$this->add_filters();

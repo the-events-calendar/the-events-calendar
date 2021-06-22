@@ -128,6 +128,7 @@
     "tribe_blocks_editor_timezone_html": true,
     "tribe_data_countries": true,
     "tribe_data_us_states": true,
+	"tribeCustomizerControls": true,
     "siteTimezone": true,
     "jest": true,
     "expect": true,
