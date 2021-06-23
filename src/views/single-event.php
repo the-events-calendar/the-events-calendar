@@ -31,7 +31,33 @@ $event_id = get_the_ID();
 	<!-- Notices -->
 	<?php tribe_the_notices() ?>
 
-	<?php the_title( '<h1 class="tribe-events-single-event-title">', '</h1>' ); ?>
+	<?php
+	/**
+	 * Allows filtering of the single event template title.
+	 * Return `false` or remove an array key => value pair and the title won't show.
+	 * Empty strings are OK and will still output though.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|string> $title_parts Array containing the before & after to be included in the call to the_title().
+	 */
+	$title_parts = apply_filters(
+		'',
+		[
+			'before' => '<h1 class="tribe-events-single-event-title">',
+			'after'  => '</h1>'
+		]
+	);
+
+	if (
+		! empty( $title_parts )
+		&& isset( $title_parts['before'] )
+		&& isset( $title_parts['after'] )
+	) {
+		the_title( $title_parts['before'], $title_parts['after'] );
+	}
+
+	?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
