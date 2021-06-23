@@ -27,7 +27,7 @@ class View {
 	 */
 	public static function get_data( $indexes, $default = null ) {
 		$found = Arr::get_first_set(
-			tribe_get_request_var( 'view_data', [] ),
+			(array) tribe_get_request_var( 'view_data', [] ),
 			(array) $indexes,
 			$default
 		);

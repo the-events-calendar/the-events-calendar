@@ -13,6 +13,8 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.editor', 'Tribe__Events__Editor' );
 		$this->container->singleton( 'events.editor.compatibility', 'Tribe__Events__Editor__Compatibility', [ 'hook' ] );
 
+		tribe( 'events.editor' )->hook();
+
 		if (
 			! tribe( 'editor' )->should_load_blocks()
 			|| ! tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on()
@@ -65,8 +67,6 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
-
-		tribe( 'events.editor' )->hook();
 
 		// Register blocks to own own action
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.classic-event-details', 'register' ) );
