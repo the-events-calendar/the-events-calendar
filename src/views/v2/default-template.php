@@ -15,5 +15,21 @@
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 get_header();
+
+/**
+ * Provides an action that allows for the injection of HTML at the top of the template after the header.
+ *
+ * @since TBD
+ */
+do_action( 'tribe_default_events_views_v2_template_after_header' );
+
 echo tribe( Template_Bootstrap::class )->get_view_html();
+
+/**
+ * Provides an action that allows for the injections of HTML at the bottom of the template before the footer.
+ *
+ * @since TBD
+ */
+do_action( 'tribe_default_events_views_v2_template_before_footer' );
+
 get_footer();
