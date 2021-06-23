@@ -29,8 +29,10 @@ get_header();
  * Provides an action that allows for the injection of HTML at the top of the template after the header.
  *
  * @since TBD
+ *
+ * @param string $eventDisplay The string representation (slug) of the displayed view - "month".
  */
-do_action( 'tribe_default_events_template_after_header' );
+do_action( 'tribe_default_events_template_after_header', $eventDisplay );
 ?>
 <main
 	id="tribe-events-pg-template"
@@ -46,7 +48,9 @@ do_action( 'tribe_default_events_template_after_header' );
  * Provides an action that allows for the injections of HTML at the bottom of the template before the footer.
  *
  * @since TBD
+ *
+ * @param string $eventDisplay The string representation (slug) of the displayed view - "month".
  */
-do_action( 'tribe_default_events_template_before_footer' );
+do_action( 'tribe_default_events_template_before_footer', $eventDisplay );
 
 get_footer();
