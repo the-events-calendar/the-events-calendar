@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.7.0",
+  "version": "5.7.1",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -97,8 +97,7 @@
     "webpack": "^4.26.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.1.2",
-    "webpack-merge": "^4.1.4",
-    "product-taskmaster": "github:the-events-calendar/product-taskmaster"
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
     "@moderntribe/common": "file:common/src/modules",
