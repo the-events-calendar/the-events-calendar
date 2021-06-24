@@ -385,33 +385,35 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				$icon_color_obj = new \Tribe__Utils__Color( $option );
 			}
 
-			$icon_color_arr     = $icon_color_obj->getRgb();
-			$icon_color_hex     = '#' . $icon_color_obj->getHex();
-			$icon_color_rgb     = $icon_color_arr['R'] . ',' . $icon_color_arr['G'] . ',' . $icon_color_arr['B'];
-			$icon_color_focus   = 'rgba(' . $icon_color_rgb . ',0.75)';
+			if ( ! empty( $icon_color_obj ) ) {
+				$icon_color_arr     = $icon_color_obj->getRgb();
+				$icon_color_hex     = '#' . $icon_color_obj->getHex();
+				$icon_color_rgb     = $icon_color_arr['R'] . ',' . $icon_color_arr['G'] . ',' . $icon_color_arr['B'];
+				$icon_color_focus   = 'rgba(' . $icon_color_rgb . ',0.75)';
 
 
-			$css_template .= "
-				{$tribe_events} .tribe-events-c-search__input-control-icon-svg path,
-				{$tribe_events} .tribe-events-c-events-bar__search-button-icon-svg path,
-				{$tribe_events} .tribe-events-c-view-selector__button-icon-svg path,
-				{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg:not(.tribe-common-c-svgicon__svg-stroke) path {
-					fill: {$icon_color_focus};
-				}
+				$css_template .= "
+					{$tribe_events} .tribe-events-c-search__input-control-icon-svg path,
+					{$tribe_events} .tribe-events-c-events-bar__search-button-icon-svg path,
+					{$tribe_events} .tribe-events-c-view-selector__button-icon-svg path,
+					{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg:not(.tribe-common-c-svgicon__svg-stroke) path {
+						fill: {$icon_color_focus};
+					}
 
-				{$tribe_events} .tribe-events-c-search__input-control--keyword .tribe-events-c-search__input:focus ~ .tribe-events-c-search__input-control-icon-svg path,
-				{$tribe_events} .tribe-events-c-search__input-control--location .tribe-events-c-search__input:focus ~ .tribe-events-c-search__input-control-icon-svg path {
-					fill: {$icon_color_hex};
-				}
+					{$tribe_events} .tribe-events-c-search__input-control--keyword .tribe-events-c-search__input:focus ~ .tribe-events-c-search__input-control-icon-svg path,
+					{$tribe_events} .tribe-events-c-search__input-control--location .tribe-events-c-search__input:focus ~ .tribe-events-c-search__input-control-icon-svg path {
+						fill: {$icon_color_hex};
+					}
 
-				{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__button::before {
-					background-color: {$icon_color_hex};
-				}
+					{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__button::before {
+						background-color: {$icon_color_hex};
+					}
 
-				{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__list-item-icon-svg.tribe-common-c-svgicon__svg-stroke path {
-					stroke: {$icon_color_hex};
-				}
-			";
+					{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__list-item-icon-svg.tribe-common-c-svgicon__svg-stroke path {
+						stroke: {$icon_color_hex};
+					}
+				";
+			}
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_color_choice' ) ) {
