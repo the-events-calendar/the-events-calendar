@@ -20,6 +20,43 @@ $events_label_plural   = tribe_get_event_label_plural();
 
 $event_id = get_the_ID();
 
+/**
+ * Allows filtering of the single event template title classes.
+ *
+ * @since TBD
+ *
+ * @param array $title_classes List of classes to create the class string from.
+ */
+$title_classes = apply_filters( 'tribe_events_single_event_title_classes', [ 'tribe-events-single-event-title' ] );
+$title_classes =  implode( ' ', tribe_get_classes( $title_classes ) );
+
+/**
+ * Allows filtering of the single event template title before HTML.
+ *
+ * @since TBD
+ *
+ * @param string $before HTML string to display before the title text.
+ */
+$before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 class="' . $title_classes . '">' );
+
+/**
+ * Allows filtering of the single event template title after HTML.
+ *
+ * @since TBD
+ *
+ * @param string $after HTML string to display after the title text.
+ */
+$after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>' );
+
+/**
+ * Allows filtering of the single event template title HTML.
+ *
+ * @since TBD
+ *
+ * @param string $after HTML string to display. Return an empty string to not display the title.
+ */
+$title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after ) );
+
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single">
@@ -31,33 +68,7 @@ $event_id = get_the_ID();
 	<!-- Notices -->
 	<?php tribe_the_notices() ?>
 
-	<?php
-	/**
-	 * Allows filtering of the single event template title.
-	 * Return `false` or remove an array key => value pair and the title won't show.
-	 * Empty strings are OK and will still output though.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string|string> $title_parts Array containing the before & after to be included in the call to the_title().
-	 */
-	$title_parts = apply_filters(
-		'',
-		[
-			'before' => '<h1 class="tribe-events-single-event-title">',
-			'after'  => '</h1>'
-		]
-	);
-
-	if (
-		! empty( $title_parts )
-		&& isset( $title_parts['before'] )
-		&& isset( $title_parts['after'] )
-	) {
-		the_title( $title_parts['before'], $title_parts['after'] );
-	}
-
-	?>
+	<?php echo $title; ?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
