@@ -25,10 +25,11 @@ $event_id = get_the_ID();
  *
  * @since TBD
  *
- * @param array $title_classes List of classes to create the class string from.
+ * @param array  $title_classes List of classes to create the class string from.
+ * @param string $event_id The ID of the displayed event.
  */
-$title_classes = apply_filters( 'tribe_events_single_event_title_classes', [ 'tribe-events-single-event-title' ] );
-$title_classes =  implode( ' ', tribe_get_classes( $title_classes ) );
+$title_classes = apply_filters( 'tribe_events_single_event_title_classes', [ 'tribe-events-single-event-title' ], $event_id );
+$title_classes = implode( ' ', tribe_get_classes( $title_classes ) );
 
 /**
  * Allows filtering of the single event template title before HTML.
@@ -36,8 +37,9 @@ $title_classes =  implode( ' ', tribe_get_classes( $title_classes ) );
  * @since TBD
  *
  * @param string $before HTML string to display before the title text.
+ * @param string $event_id The ID of the displayed event.
  */
-$before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 class="' . $title_classes . '">' );
+$before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 class="' . $title_classes . '">', $event_id );
 
 /**
  * Allows filtering of the single event template title after HTML.
@@ -45,8 +47,9 @@ $before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 cla
  * @since TBD
  *
  * @param string $after HTML string to display after the title text.
+ * @param string $event_id The ID of the displayed event.
  */
-$after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>' );
+$after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $event_id );
 
 /**
  * Allows filtering of the single event template title HTML.
@@ -54,8 +57,9 @@ $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>' );
  * @since TBD
  *
  * @param string $after HTML string to display. Return an empty string to not display the title.
+ * @param string $event_id The ID of the displayed event.
  */
-$title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after ) );
+$title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after ), $event_id );
 
 ?>
 
