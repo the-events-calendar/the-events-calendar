@@ -42,7 +42,6 @@ class Input extends Component {
 	 *
 	 * @param validated {boolean} If this component needs to be validated
 	 * @param required {boolean} If this input is required
-	 *
 	 * @type {{validated: shim, required: shim}}
 	 */
 	static propTypes = {
@@ -73,6 +72,7 @@ class Input extends Component {
 	 * synchronously.
 	 *
 	 * @param {Event} event Event fired by the onChange listener
+	 * @param input
 	 */
 	onChange = ( input ) => {
 		const { onChange, onComplete, validate } = this.props;
@@ -80,7 +80,7 @@ class Input extends Component {
 		const completeCallback = isFunction( onComplete ) ? onComplete : noop;
 
 		if ( validate ) {
-			this.setState( () => ({ isValid: this.validate( input ) }), completeCallback );
+			this.setState( () => ( { isValid: this.validate( input ) } ), completeCallback );
 			callback( input );
 		} else {
 			completeCallback();
@@ -108,11 +108,11 @@ class Input extends Component {
 	 */
 	maybeValidate = ( value ) => {
 		const { type, required } = this.props;
-		
+
 		if ( value.length === 0 ) {
 			return ! required;
 		}
-		
+
 		let isValid = true;
 		switch ( type ) {
 			case 'tel':

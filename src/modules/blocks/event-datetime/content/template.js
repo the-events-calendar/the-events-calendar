@@ -42,8 +42,9 @@ FORMATS.date = settings() && settings().dateWithYearFormat
 /**
  * Renders a separator based on the type called
  *
+ * @param {object} props The props passed to the template
  * @param {string} type - The type of separator
- *
+ * @param {array|string} className The class names for the separator
  * @returns {ReactDOM} A React Dom Element null if none.
  */
 const renderSeparator = ( props, type, className ) => {
@@ -167,15 +168,15 @@ const EventDateTimeContent = ( props ) => {
 		isEditable,
 		setAttributes,
 		isOpen,
-		open
+		open,
 	} = props;
 
 	return (
 		isOpen && isEditable
 			? <HumanReadableInput
-					after={ renderExtras( props ) }
-					setAttributes={ setAttributes }
-				/>
+				after={ renderExtras( props ) }
+				setAttributes={ setAttributes }
+			/>
 			: (
 				<Fragment>
 					<h2 className="tribe-editor__subtitle__headline">

@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { globals } from "@moderntribe/common/utils";
+import { globals } from '@moderntribe/common/utils';
 import { store } from '@moderntribe/common/store';
 import subscribe, {
 	compareBlocks,
@@ -51,7 +51,7 @@ jest.mock( '@moderntribe/common/store', () => {
 								allIds: [ 99 ],
 								byId: { 'organizer-1': 99 },
 							},
-							classic: [ 99 ]
+							classic: [ 99 ],
 						},
 					},
 				},
@@ -96,7 +96,6 @@ jest.mock( '@moderntribe/events/data/blocks/organizers', () => {
 		},
 	};
 } );
-
 
 describe( '[STORE] - Organizers subscribers', () => {
 	afterEach( () => {

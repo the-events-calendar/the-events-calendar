@@ -21,9 +21,9 @@ export default {
 	title: __( 'Event Website', 'the-events-calendar' ),
 	description: __(
 		'Is there another website for this event? Link to it with a button!',
-		'the-events-calendar'
+		'the-events-calendar',
 	),
-	icon: <Website/>,
+	icon: <Website />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 

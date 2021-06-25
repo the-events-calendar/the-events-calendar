@@ -94,7 +94,7 @@ export default class Month extends Component {
 	getSelectedDays = () => {
 		const { withRange, from, to } = this.props;
 		if ( withRange ) {
-			return [ from, { from, to }];
+			return [ from, { from, to } ];
 		}
 		return from;
 	};

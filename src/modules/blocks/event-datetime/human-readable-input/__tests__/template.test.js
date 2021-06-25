@@ -6,7 +6,7 @@ describe( 'Human readable input', () => {
 			<HumanReadableInput
 				onChange={ jest.fn() }
 				naturalLanguageLabel={ 'Initial label' }
-			/>
+			/>,
 		);
 		expect( component.toJSON() ).toMatchSnapshot();
 	} );

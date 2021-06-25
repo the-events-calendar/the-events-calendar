@@ -64,7 +64,7 @@ class FeaturedImage extends Component {
 				instructions={
 					__(
 						'Add a Featured Image from the Document Settings sidebar',
-						'the-events-calendar'
+						'the-events-calendar',
 					)
 				}
 			>

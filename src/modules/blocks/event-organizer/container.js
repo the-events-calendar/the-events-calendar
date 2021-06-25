@@ -8,7 +8,7 @@ import { uniq } from 'lodash';
 /**
  * Internal dependencies
  */
-import { globals } from "@moderntribe/common/utils";
+import { globals } from '@moderntribe/common/utils';
 import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/organizers';

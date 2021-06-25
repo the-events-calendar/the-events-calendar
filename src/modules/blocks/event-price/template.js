@@ -43,7 +43,6 @@ const renderPlaceholder = ( { showCost, currencySymbol, currencyPosition } ) => 
 		? currencySymbol + ' ' + placeholder
 		: placeholder + ' ' + currencySymbol;
 
-
 	return ! showCost && (
 		<span className="tribe-editor__event-price__label">{ placeholder }</span>
 	);
@@ -136,13 +135,13 @@ const renderUI = ( props ) => (
 	</section>
 );
 
-const renderControls = ({
+const renderControls = ( {
 	isSelected,
 	currencySymbol,
 	currencyPosition,
 	setSymbol,
 	setCurrencyPosition,
-}) => (
+} ) => (
 	isSelected && (
 		<InspectorControls key="inspector">
 			<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>

@@ -20,7 +20,7 @@ export default {
 	id: 'event-tags',
 	title: __( 'Tags', 'the-events-calendar' ),
 	description: __( 'Add keywords by displaying linked tags.', 'the-events-calendar' ),
-	icon: <Tags/>,
+	icon: <Tags />,
 	category: 'common',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 

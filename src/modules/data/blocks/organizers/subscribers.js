@@ -6,7 +6,7 @@ import { differenceBy } from 'lodash';
 /**
  * Internal dependencies
  */
-import { globals } from "@moderntribe/common/utils";
+import { globals } from '@moderntribe/common/utils';
 import { editor } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 import { actions as formActions } from '@moderntribe/common/data/forms';
@@ -22,8 +22,7 @@ const { getState, dispatch } = store;
  * Returns criteria for comparing blocks.
  *
  * @exports
- * @param {Object} block Object with block attributes and data.
- *
+ * @param {object} block Object with block attributes and data.
  * @returns {string} Client ID of the block.
  */
 export const compareBlocks = block => block.clientId;
@@ -32,8 +31,7 @@ export const compareBlocks = block => block.clientId;
  * Checks whether the block is the organizer block.
  *
  * @exports
- * @param {Object} block Object with block attributes and data.
- *
+ * @param {object} block Object with block attributes and data.
  * @returns {boolean} Whether the block is the organizer block or not.
  */
 export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organizer';
@@ -42,7 +40,7 @@ export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organiz
  * Handles the block that was added.
  *
  * @exports
- * @param {Object} block Object with block attributes and data.
+ * @param {object} block Object with block attributes and data.
  */
 export const handleBlockAdded = ( block ) => {
 	// only handle event organizer block addition
@@ -62,8 +60,7 @@ export const handleBlockAdded = ( block ) => {
  * Handles the block that was removed.
  *
  * @exports
- * @param {array} currBlocks Array of current blocks in the editor.
- *
+ * @param {Array} currBlocks Array of current blocks in the editor.
  * @returns {Function} Function that handles the block that was removed.
  */
 export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
@@ -125,7 +122,6 @@ export const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
  *
  * @exports
  * @param {Function} selector Selector function to get current blocks.
- *
  * @returns {Function} Listener that subscribes to WP store.
  */
 export const onBlocksChangeListener = ( selector ) => {
@@ -139,7 +135,7 @@ export const onBlocksChangeListener = ( selector ) => {
 			prevBlocks.length !== currBlocks.length ||
 			differenceBy( currBlocks, prevBlocks, compareBlocks ).length
 		) {
-			onBlocksChangeHandler( currBlocks, prevBlocks )
+			onBlocksChangeHandler( currBlocks, prevBlocks );
 		}
 	};
 };
@@ -155,8 +151,8 @@ export const onBlocksChangeListener = ( selector ) => {
 const subscribe = () => {
 	globals.wpData.subscribe(
 		onBlocksChangeListener(
-			globals.wpDataSelectCoreEditor().getBlocks
-		)
+			globals.wpDataSelectCoreEditor().getBlocks,
+		),
 	);
 };
 

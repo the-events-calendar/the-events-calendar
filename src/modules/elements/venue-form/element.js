@@ -60,7 +60,7 @@ export function toVenue( fields ) {
 			_VenueURL: url,
 			_VenueStateProvince: stateProvince,
 		},
-	}
+	};
 }
 
 /**
@@ -187,7 +187,9 @@ export default class VenueForm extends Component {
 					tagName="h3"
 					format="string"
 					value={ title }
-					onChange={ ( value ) => { this.setState( { title: value } ) } }
+					onChange={ ( value ) => {
+						this.setState( { title: value } );
+					} }
 					formattingControls={ [] }
 				/>
 				<div className="tribe-editor__venue__fields">

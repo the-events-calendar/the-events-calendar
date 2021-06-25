@@ -19,7 +19,6 @@ import './style.pcss';
  */
 
 const OrganizerDetails = ( props ) => {
-
 	const maybeEdit = () => {
 		const { volatile, edit } = props;
 		if ( ! volatile ) {
@@ -40,7 +39,7 @@ const OrganizerDetails = ( props ) => {
 				<Dashicon icon="edit" />
 			</button>
 		);
-	}
+	};
 
 	const renderDetails = () => {
 		const { organizer } = props;
@@ -59,7 +58,7 @@ const OrganizerDetails = ( props ) => {
 				{ email && <p>{ email }</p> }
 			</Fragment>
 		);
-	}
+	};
 
 	const renderActions = () => {
 		const { remove, selected } = props;
@@ -78,7 +77,7 @@ const OrganizerDetails = ( props ) => {
 				</button>
 			</div>
 		);
-	}
+	};
 
 	return (
 		<div className="tribe-editor__organizer__details">
