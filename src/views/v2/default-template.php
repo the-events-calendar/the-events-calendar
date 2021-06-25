@@ -16,14 +16,16 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
 
 get_header();
 
+$context_view = tribe_context()->get( 'view', 'default' );
+
 /**
  * Provides an action that allows for the injection of HTML at the top of the template after the header.
  *
  * @since TBD
  *
- * @param string $eventDisplay The string representation (slug) of the displayed view - "month".
+ * @param string $context_view The string representation (slug) of the displayed view - "list".
  */
-do_action( 'tribe_default_events_views_v2_template_after_header', $eventDisplay );
+do_action( 'tribe_default_events_views_v2_template_after_header', $context_view );
 
 echo tribe( Template_Bootstrap::class )->get_view_html();
 
@@ -32,8 +34,8 @@ echo tribe( Template_Bootstrap::class )->get_view_html();
  *
  * @since TBD
  *
- * @param string $eventDisplay The string representation (slug) of the displayed view - "month".
+ * @param string $context_view The string representation (slug) of the displayed view - "list".
  */
-do_action( 'tribe_default_events_views_v2_template_before_footer', $eventDisplay );
+do_action( 'tribe_default_events_views_v2_template_before_footer', $context_view );
 
 get_footer();
