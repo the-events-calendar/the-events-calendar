@@ -31,9 +31,7 @@ if ( ! empty( $event_id ) && function_exists( 'tribe_is_recurring_event' ) ) {
 	<?php if ( $is_recurring ) { ?>
 		<?php $this->template( 'single-event/recurring-description' ); ?>
 	<?php } ?>
-	<?php do_action( 'tribe_events_single_event_block_before_the_content' ) ?>
 	<?php $this->template( 'single-event/content' ); ?>
-	<?php do_action( 'tribe_events_single_event_block_after_the_content' ) ?>
 	<?php $this->template( 'single-event/comments' ); ?>
 	<?php $this->template( 'single-event/footer' ); ?>
 </div>
