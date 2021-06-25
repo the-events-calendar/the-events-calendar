@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -74,7 +75,7 @@ export default {
 
 	edit: ClassicEventDetails,
 
-	save( props ) {
+	save() {
 		return null;
 	},
 };

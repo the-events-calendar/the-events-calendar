@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -33,7 +34,7 @@ export default {
 
 	edit: EventDateTime,
 
-	save( props ) {
+	save() {
 		return null;
 	},
 };

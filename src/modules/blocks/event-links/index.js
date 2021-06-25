@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -51,7 +52,7 @@ export default {
 	},
 
 	edit: EventLinks,
-	save( props ) {
+	save() {
 		return null;
 	},
 };

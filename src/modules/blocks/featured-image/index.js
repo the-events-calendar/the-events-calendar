@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -33,7 +34,7 @@ export default {
 	},
 
 	edit: FeaturedImage,
-	save( props ) {
+	save() {
 		return null;
 	},
 };

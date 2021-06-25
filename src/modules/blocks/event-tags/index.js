@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -32,7 +33,7 @@ export default {
 
 	},
 	edit: EventTags,
-	save( props ) {
+	save() {
 		return null;
 	},
 };

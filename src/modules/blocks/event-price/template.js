@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -102,7 +102,10 @@ const renderDashboard = ( {
 			<Fragment>
 				<section className="tribe-editor__event-price__dashboard">
 					<input
-						className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--price' ) }
+						className={ classNames(
+							'tribe-editor__event-price__input',
+							'tribe-editor__event-price__input--price',
+						) }
 						name="description"
 						type="text"
 						placeholder={ __( 'Fixed Price or Range', 'the-events-calendar' ) }
@@ -110,7 +113,10 @@ const renderDashboard = ( {
 						value={ cost }
 					/>
 					<input
-						className={ classNames( 'tribe-editor__event-price__input', 'tribe-editor__event-price__input--description' ) }
+						className={ classNames(
+							'tribe-editor__event-price__input',
+							'tribe-editor__event-price__input--description',
+						) }
 						name="description"
 						type="text"
 						placeholder={ __( 'Description', 'the-events-calendar' ) }

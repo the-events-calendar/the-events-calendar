@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -34,7 +35,7 @@ export default {
 	attributes: {},
 
 	edit: EventCategory,
-	save( props ) {
+	save() {
 		return null;
 	},
 };
