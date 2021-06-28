@@ -367,9 +367,37 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_text_color' ) ) {
+			$button_color_obj    = new \Tribe__Utils__Color( $this->get_option( 'find_events_button_text_color' ) );
+			$button_color        = $button_color_obj->getRgb();
+			$button_color_rgb    = $button_color['R'] . ',' . $button_color['G'] . ',' . $button_color['B'];
+			$button_color_hover  = 'rgba(' . $button_color_rgb . ',0.5)';
+			$button_color_active = 'rgba(' . $button_color_rgb . ',0.6)';
+
 			$css_template .= "
 				.tribe-events-c-search__button {
 					color: <%= tec_events_bar.find_events_button_text_color %>;
+				}
+
+				.tribe-events-c-search__button:active {
+					color: {$button_color_active};
+				}
+
+				.tribe-events-c-search__button:hover,
+				.tribe-events-c-search__button:focus {
+					color: {$button_color_hover};
+				}
+
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):not(:active) {
+					color: <%= tec_events_bar.find_events_button_text_color %>;
+				}
+
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:active {
+					color: {$button_color_active};
+				}
+
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:hover,
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:focus {
+					color: {$button_color_hover};
 				}
 			";
 		}
@@ -417,24 +445,37 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_color_choice' ) ) {
-			$button_color_obj    = new \Tribe__Utils__Color( $this->get_option( 'find_events_button_color' ) );
-			$button_color        = $button_color_obj->getRgb();
-			$button_color_rgb    = $button_color['R'] . ',' . $button_color['G'] . ',' . $button_color['B'];
-			$button_color_hover  = 'rgba(' . $button_color_rgb . ',0.8)';
-			$button_color_active = 'rgba(' . $button_color_rgb . ',0.9)';
+			$button_text_color_obj    = new \Tribe__Utils__Color( $this->get_option( 'find_events_button_color' ) );
+			$button_text_color        = $button_text_color_obj->getRgb();
+			$button_text_color_rgb    = $button_text_color['R'] . ',' . $button_text_color['G'] . ',' . $button_text_color['B'];
+			$button_text_color_hover  = 'rgba(' . $button_text_color_rgb . ',0.8)';
+			$button_text_color_active = 'rgba(' . $button_text_color_rgb . ',0.9)';
 
 			$css_template .= "
-				.tribe-events-c-search__button {
+				{$tribe_common} .tribe-events-c-search__button {
 					background-color: <%= tec_events_bar.find_events_button_color %>;
 				}
 
-				.tribe-events-c-search__button:active {
-					background-color: {$button_color_active};
+				{$tribe_common} .tribe-events-c-search__button:active {
+					background-color: {$button_text_color_active};
 				}
 
-				.tribe-events-c-search__button:focus,
-				.tribe-events-c-search__button:hover {
-					background-color: {$button_color_hover};
+				{$tribe_common} .tribe-events-c-search__button:focus,
+				{$tribe_common} .tribe-events-c-search__button:hover {
+					background-color: {$button_text_color_hover};
+				}
+
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):not(:active) {
+					background-color: <%= tec_events_bar.find_events_button_color %>;
+				}
+
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):active {
+					background-color: {$button_text_color_active};
+				}
+
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:focus,
+				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:hover {
+					background-color: {$button_text_color_hover};
 				}
 			";
 		}
