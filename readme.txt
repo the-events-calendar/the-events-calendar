@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.16
-Stable tag: 5.7.1
+Stable tag: 5.8.0
 Tested up to: 5.7.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,9 +221,14 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.8.0] TBD =
 
+* Feature - Add new Events bar section to the Customizer for control of the Events Bar styles. [TEC-3672]
+* Fix - Correct instance where the date & time symbols ("@") are not changing color along with the text. [TEC-3883]
+* Tweak - Ensure that the Month view date and time default colors match up with the rest [TEC-3709]
+* Tweak - Ensure the Customizer Accent Color defaults to "royal blue" (#334aff) [TEC-3884]
 * Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility.
+
 
 = [5.7.1] 2021-06-23 =
 
