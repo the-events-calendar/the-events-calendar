@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.16
-Stable tag: 5.7.1
+Stable tag: 5.8.0
 Tested up to: 5.7.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.8.0] TBD =
 
 * Tweak - Add new hooks to the single event templates to allow more third-party control over content without custom templates. [TEC-3948]
 
