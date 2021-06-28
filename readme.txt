@@ -223,6 +223,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.8.0] TBD =
 
+* Tweak - Add new hooks to the single event templates to allow more third-party control over content without custom templates. [TEC-3948]
+
 = [5.7.1] 2021-06-23 =
 
 * Fix - Properly recalculate event cost when creating events via the Block Editor. [TEC-3141]
