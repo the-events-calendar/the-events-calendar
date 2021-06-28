@@ -368,7 +368,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 
 		if ( $this->should_include_setting_css( 'find_events_button_text_color' ) ) {
 			$css_template .= "
-				#submit-bar-button {
+				.tribe-events-c-search__button {
 					color: <%= tec_events_bar.find_events_button_text_color %>;
 				}
 			";
@@ -424,16 +424,16 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			$button_color_active = 'rgba(' . $button_color_rgb . ',0.9)';
 
 			$css_template .= "
-				#submit-bar-button {
+				.tribe-events-c-search__button {
 					background-color: <%= tec_events_bar.find_events_button_color %>;
 				}
 
-				#submit-bar-button:active {
+				.tribe-events-c-search__button:active {
 					background-color: {$button_color_active};
 				}
 
-				#submit-bar-button:focus,
-				#submit-bar-button:hover {
+				.tribe-events-c-search__button:focus,
+				.tribe-events-c-search__button:hover {
 					background-color: {$button_color_hover};
 				}
 			";
