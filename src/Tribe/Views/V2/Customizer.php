@@ -374,7 +374,7 @@ class Customizer {
 
 			// overrides for common base/full/forms/_toggles.pcss.
 			$css_template .= "
-			$tribe_common .tribe-common-form-control-toggle__input:checked {
+				$tribe_common .tribe-common-form-control-toggle__input:checked {
 					background-color: <%= global_elements.accent_color %>;
 				}
 
