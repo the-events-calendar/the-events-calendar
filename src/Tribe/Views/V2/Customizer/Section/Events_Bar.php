@@ -351,6 +351,11 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		$tribe_common = $apply_to_shortcode ? '.tribe-common' : '.tribe-common:not( .tribe-events-view--shortcode )';
 
 		if ( $this->should_include_setting_css( 'events_bar_text_color' ) ) {
+			$text_color_obj     = new \Tribe__Utils__Color( $this->get_option( 'events_bar_text_color' ) );
+			$text_color         = $text_color_obj->getRgb();
+			$text_color_rgb     = $text_color['R'] . ',' . $text_color['G'] . ',' . $text_color['B'];
+			$text_color_hover   = 'rgba(' . $text_color_rgb . ',0.12)';
+
 			// Text color.
 			$css_template .= "
 				.tribe-common--breakpoint-medium{$tribe_common} .tribe-events-header__events-bar .tribe-common-form-control-text__input {
@@ -364,6 +369,26 @@ class Events_Bar extends \Tribe__Customizer__Section {
 					opacity: .6;
 				}
 			";
+
+			$css_template .= "
+				{$tribe_events} .tribe-events-c-view-selector__list-item-text {
+					color: <%= tec_events_bar.events_bar_text_color %>;
+				}
+			";
+
+			$css_template .= "
+				{$tribe_events} .tribe-events-c-view-selector__list-item:hover,
+				{$tribe_events} .tribe-events-c-view-selector__list-item:focus {
+					background-color: $text_color_hover;
+				}
+
+
+				{$tribe_events} .tribe-events-c-view-selector__list-item:focus-within,
+				{$tribe_events} .tribe-events-c-view-selector__list-item-link:hover,
+				{$tribe_events} .tribe-events-c-view-selector__list-item-link:focus {
+					background-color: transparent;
+				}
+			";
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_text_color' ) ) {
@@ -374,16 +399,16 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			$button_color_active = 'rgba(' . $button_color_rgb . ',0.6)';
 
 			$css_template .= "
-				.tribe-events-c-search__button {
+				{$tribe_common} .tribe-events-c-search__button {
 					color: <%= tec_events_bar.find_events_button_text_color %>;
 				}
 
-				.tribe-events-c-search__button:active {
+				{$tribe_common} .tribe-events-c-search__button:active {
 					color: {$button_color_active};
 				}
 
-				.tribe-events-c-search__button:hover,
-				.tribe-events-c-search__button:focus {
+				{$tribe_common} .tribe-events-c-search__button:hover,
+				{$tribe_common} .tribe-events-c-search__button:focus {
 					color: {$button_color_hover};
 				}
 
@@ -465,6 +490,20 @@ class Events_Bar extends \Tribe__Customizer__Section {
 					background-color: {$button_text_color_hover};
 				}
 
+				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button {
+					background-color: <%= tec_events_bar.find_events_button_color %>;
+				}
+
+				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button:active {
+					background-color: {$button_text_color_active};
+				}
+
+				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button:hover,
+				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button:focus {
+					background-color: {$button_text_color_hover};
+				}
+
+
 				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):not(:active) {
 					background-color: <%= tec_events_bar.find_events_button_color %>;
 				}
@@ -504,6 +543,10 @@ class Events_Bar extends \Tribe__Customizer__Section {
 					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar,
 					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar .tribe-common-form-control-text__input,
 					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container {
+						background-color: <%= {$background_color} %>;
+					}
+
+					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-c-view-selector__content {
 						background-color: <%= {$background_color} %>;
 					}
 				";

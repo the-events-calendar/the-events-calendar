@@ -101,6 +101,10 @@
 			}
 		}
 
+		.tribe-events-c-view-selector__list-item--active {
+			display: none;
+		}
+
 		.tribe-events-c-view-selector__list-item-link {
 
 			.tribe-common--breakpoint-medium& {
@@ -148,23 +152,11 @@
 
 			.tribe-common--breakpoint-medium& {
 				padding: 0 var(--spacer-2);
-
-				/* This hides the active itme from the list */
-				&.tribe-events-c-view-selector__list-item--active {
-					display: none;
-				}
-
-				/* unless it is one of only three - then it's not a drop-down */
-				&:first-child:nth-last-child(1),
-				&:first-child:nth-last-child(2),
-				&:first-child:nth-last-child(2) ~ li,
-				&:first-child:nth-last-child(3),
-				&:first-child:nth-last-child(3) ~ li {
-					&.tribe-events-c-view-selector__list-item--active {
-						display: block;
-					}
-				}
 			}
+		}
+
+		.tribe-events-c-view-selector__list-item--active {
+			display: block;
 		}
 
 		.tribe-events-c-view-selector__list-item-link {
