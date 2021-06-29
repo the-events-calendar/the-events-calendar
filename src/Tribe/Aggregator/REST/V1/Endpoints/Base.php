@@ -9,7 +9,7 @@
  */
 abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	/**
-	 * Whether teh current import ID exists and is for a record that needs data.
+	 * Whether the current import ID exists and is for a record that needs data.
 	 *
 	 * @since 4.6.15
 	 *
