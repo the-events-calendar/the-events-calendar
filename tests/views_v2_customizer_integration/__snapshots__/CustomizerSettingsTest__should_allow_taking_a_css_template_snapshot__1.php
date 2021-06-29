@@ -9,7 +9,7 @@
 					color: #238923;
 				}
 			
-			.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-form-control-toggle__input:checked {
+				.tribe-common:not( .tribe-events-view--shortcode ) .tribe-common-form-control-toggle__input:checked {
 					background-color: #238923;
 				}
 
