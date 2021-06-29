@@ -400,7 +400,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 
 			$css_template .= "
 				{$tribe_common} .tribe-events-c-search__button {
-					color: <%= tec_events_bar.find_events_button_text_color %>;
+					color: rgb({$button_color_rgb});
 				}
 
 				{$tribe_common} .tribe-events-c-search__button:active {
@@ -413,7 +413,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				}
 
 				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):not(:active) {
-					color: <%= tec_events_bar.find_events_button_text_color %>;
+					color: rgb({$button_color_rgb});
 				}
 
 				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:active {
