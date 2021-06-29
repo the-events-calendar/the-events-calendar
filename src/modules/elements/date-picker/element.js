@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'React';
 import moment from 'moment';
 import { noop } from 'lodash';
 import { PropTypes } from 'prop-types';
@@ -61,7 +62,7 @@ export default class DatePicker extends Component {
 		return current.isValid() ? current : moment();
 	};
 
-	renderContent = ( { onToggle, isOpen, onClose } ) => {
+	renderContent = ( { onClose } ) => {
 		this.onClose = onClose.bind( this );
 		const { datetime } = this.state;
 
@@ -74,7 +75,7 @@ export default class DatePicker extends Component {
 		);
 	};
 
-	renderToggle = ( { onToggle, isOpen, onClose } ) => {
+	renderToggle = ( { onToggle, isOpen } ) => {
 		const { datetime } = this.state;
 
 		return (

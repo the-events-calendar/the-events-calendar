@@ -1,21 +1,30 @@
 /**
  * External dependencies
  */
-import { get, values, noop, pick } from 'lodash';
+import React from 'react';
+import { get, noop, pick } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { select } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import { Input } from '@moderntribe/events/elements';
-import list, { getCountries, getStates, getCountryCode, getStateCode } from '@moderntribe/events/editor/utils/geo-data';
-import { setDefault, getVenueCountry, getVenueStateProvince } from '@moderntribe/events/data/blocks/venue/utils';
+import list, {
+	getCountries,
+	getStates,
+	getCountryCode,
+	getStateCode,
+} from '@moderntribe/events/editor/utils/geo-data';
+import {
+	setDefault,
+	getVenueCountry,
+	getVenueStateProvince,
+} from '@moderntribe/events/data/blocks/venue/utils';
 import { editorDefaults, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 const { RichText } = wpEditor;

@@ -142,7 +142,10 @@ class OrganizerForm extends Component {
 					{ __( 'Create Organizer' ) }
 				</h3>
 				<p className="description">
-					{ __( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ) }
+					{ __(
+						'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', // eslint-disable-line max-len
+						'the-events-calendar',
+					) }
 				</p>
 				<dl>
 					<dt>

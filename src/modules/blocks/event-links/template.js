@@ -15,7 +15,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { Link as LinkIcon } from '@moderntribe/events/icons';
-import { input } from '@moderntribe/common/utils';
 import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 const { InspectorControls } = wpEditor;

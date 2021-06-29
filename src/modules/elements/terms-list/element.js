@@ -59,7 +59,13 @@ const Empty = ( { renderEmpty = null, id, label } ) => (
 	)
 );
 
-const List = ( { terms = [], termSeparator = ', ', isLoading = false, id = '', className = '' } ) => {
+const List = ( {
+	terms = [],
+	termSeparator = ', ',
+	isLoading = false,
+	id = '',
+	className = '',
+} ) => {
 	if ( isLoading ) {
 		return <Loading id={ id } className={ className } />;
 	}
@@ -103,7 +109,14 @@ const Loading = ( { id = '', className = '' } ) => (
 	</div>
 );
 
-export const TaxonomiesElement = ( { className, slug, label, renderEmpty, isRequesting, ...rest } ) => {
+export const TaxonomiesElement = ( {
+	className,
+	slug,
+	label,
+	renderEmpty,
+	isRequesting,
+	...rest
+} ) => {
 	const terms = getTerms( rest.terms );
 	const key = `tribe-terms-${ slug }`;
 

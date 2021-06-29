@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import React from 'react';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
@@ -47,7 +52,7 @@ export default {
 
 	edit: EventVenue,
 
-	save( props ) {
+	save() {
 		return null;
 	},
 };

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -44,8 +44,8 @@ FORMATS.date = settings() && settings().dateWithYearFormat
  *
  * @param {object} props The props passed to the template
  * @param {string} type - The type of separator
- * @param {array|string} className The class names for the separator
- * @returns {ReactDOM} A React Dom Element null if none.
+ * @param {Array|string} className The class names for the separator
+ * @returns {ReactElement} A React Dom Element null if none.
  */
 const renderSeparator = ( props, type, className ) => {
 	const { separatorDate, separatorTime } = props;
@@ -65,7 +65,9 @@ const renderSeparator = ( props, type, className ) => {
 			);
 		case 'all-day':
 			return (
-				<span className={ classNames( 'tribe-editor__separator', className ) }>{ __( 'All Day', 'the-events-calendar' ) }</span>
+				<span className={ classNames( 'tribe-editor__separator', className ) }>
+					{ __( 'All Day', 'the-events-calendar' ) }
+				</span>
 			);
 		default:
 			return null;
@@ -188,7 +190,10 @@ const EventDateTimeContent = ( props ) => {
 							>
 								{ renderStartDate( props ) }
 								{ renderStartTime( props ) }
-								{ ( multiDay || ( ! allDay && ! sameStartEnd ) ) && renderSeparator( props, 'time-range' ) }
+								{
+									( multiDay || ( ! allDay && ! sameStartEnd ) ) &&
+									renderSeparator( props, 'time-range' )
+								}
 								{ renderEndDate( props ) }
 								{ renderEndTime( props ) }
 								{ allDay && renderSeparator( props, 'all-day' ) }
