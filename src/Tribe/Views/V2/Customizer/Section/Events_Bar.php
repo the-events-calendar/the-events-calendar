@@ -546,7 +546,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 						background-color: <%= {$background_color} %>;
 					}
 
-					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-c-view-selector__content {
+					{$tribe_events} .tribe-events-c-view-selector__content {
 						background-color: <%= {$background_color} %>;
 					}
 				";
