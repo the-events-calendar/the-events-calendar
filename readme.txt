@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.8.0] 2021-07-01 =
 
+* Version - The Events Calendar 5.8.0 is only compatible with Events Calendar PRO 5.8.0 and higher
 * Feature - Add new Events bar section to the Customizer for control of the Events Bar styles. [TEC-3672]
 * Fix - Correct instance where the date & time symbols ("@") are not changing color along with the text. [TEC-3883]
 * Tweak - Ensure that the Month view date and time default colors match up with the rest [TEC-3709]
