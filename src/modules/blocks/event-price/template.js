@@ -75,10 +75,13 @@ const renderLabel = ( props ) => {
 		`tribe-editor__event-price__price--${ currencyPosition }`,
 	);
 
+	/**
+	 * @todo: Change div to button.
+	 */
 	return (
 		<div
 			className={ containerClass }
-			onClick={ open }
+			onClick={ open } // eslint-disable-line
 		>
 			{ renderCurrency( props ) }
 			{ renderPlaceholder( props ) }

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React from 'React';
+import React from 'react';
 import moment from 'moment';
 import { noop } from 'lodash';
 import { PropTypes } from 'prop-types';

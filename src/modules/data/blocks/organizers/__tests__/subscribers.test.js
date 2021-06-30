@@ -2,14 +2,11 @@
  * Internal dependencies
  */
 import { globals } from '@moderntribe/common/utils';
-import { store } from '@moderntribe/common/store';
-import subscribe, {
+import {
 	compareBlocks,
 	isOrganizerBlock,
 	handleBlockAdded,
 	handleBlockRemoved,
-	onBlocksChangeHandler,
-	onBlocksChangeListener,
 } from '@moderntribe/events/data/blocks/organizers/subscribers';
 import { actions as formActions } from '@moderntribe/common/data/forms';
 import {
@@ -18,6 +15,7 @@ import {
 } from '@moderntribe/events/data/blocks/organizers';
 import { selectors as detailSelectors } from '@moderntribe/events/data/details';
 
+/* eslint-disable no-unused-vars */
 jest.mock( '@moderntribe/common/utils', () => {
 	const dispatchModule = {
 		editEntityRecord: jest.fn( ( kind, name, recordId, edits ) => {} ),
@@ -96,6 +94,7 @@ jest.mock( '@moderntribe/events/data/blocks/organizers', () => {
 		},
 	};
 } );
+/* eslint-enable no-unused-vars */
 
 describe( '[STORE] - Organizers subscribers', () => {
 	afterEach( () => {
@@ -115,8 +114,14 @@ describe( '[STORE] - Organizers subscribers', () => {
 	} );
 
 	it( 'Should handle block addition', () => {
-		const organizerBlockWithOrganizer = { name: 'tribe/event-organizer', attributes: { organizer: 99 } };
-		const organizerBlockWithoutOrganizer = { name: 'tribe/event-organizer', attributes: { organizer: 0 } };
+		const organizerBlockWithOrganizer = {
+			name: 'tribe/event-organizer',
+			attributes: { organizer: 99 },
+		};
+		const organizerBlockWithoutOrganizer = {
+			name: 'tribe/event-organizer',
+			attributes: { organizer: 0 },
+		};
 		const priceBlock = { name: 'tribe/event-price' };
 
 		handleBlockAdded( priceBlock );
@@ -181,7 +186,7 @@ describe( '[STORE] - Organizers subscribers', () => {
 		expect( globals.wpData.dispatch( 'core' ).editEntityRecord ).toHaveBeenCalledTimes( 1 );
 	} );
 
-	it( 'Should handle block removal: organizer block has organizer and classic block is in editor', () => {
+	it( 'Should handle block removal: organizer block has organizer and classic block is in editor', () => { // eslint-disable-line max-len
 		const organizerBlockWithOrganizer = {
 			name: 'tribe/event-organizer',
 			clientId: 'organizer-1',

@@ -69,7 +69,9 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		return;
 	}
 
-	const classicBlock = currBlocks.filter( currBlock => currBlock.name === 'tribe/classic-event-details' );
+	const classicBlock = currBlocks.filter( currBlock => (
+		currBlock.name === 'tribe/classic-event-details'
+	) );
 	const organizer = organizerSelectors.getOrganizerByClientId( getState(), block );
 
 	// remove organizer from block state

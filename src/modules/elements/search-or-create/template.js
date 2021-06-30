@@ -78,7 +78,7 @@ class SearchOrCreate extends Component {
 		return (
 			<li
 				key={ id }
-				onClick={ this.props.onItemClick( item ) }
+				onClick={ this.props.onItemClick( item ) } // eslint-disable-line
 			>
 				{ decode( rendered ) }
 			</li>
@@ -102,7 +102,11 @@ class SearchOrCreate extends Component {
 
 		return (
 			<ul className="tribe-editor__soc__results">
-				<li onClick={ onCreateClick }><strong>Create</strong>: { this.props.term }</li>
+				<li
+					onClick={ onCreateClick } // eslint-disable-line
+				>
+					<strong>Create</strong>: { this.props.term }
+				</li>
 				{ posts.map( this.renderItem ) }
 			</ul>
 		);

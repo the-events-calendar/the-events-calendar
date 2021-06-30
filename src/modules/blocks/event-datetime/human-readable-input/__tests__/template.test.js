@@ -1,3 +1,11 @@
+/**
+ * External dependencies
+ */
+import React from 'react';
+
+/**
+ * Internal dependencies
+ */
 import HumanReadableInput from '../template';
 
 describe( 'Human readable input', () => {
