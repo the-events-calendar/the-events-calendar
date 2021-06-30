@@ -221,13 +221,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.7.1] TBD =
+= [5.7.1] 2021-06-23 =
 
 * Fix - Properly recalculate event cost when creating events via the Block Editor. [TEC-3141]
 * Fix - Resolve a compatibility issue with the new single view and the tickets block when using the `twentynineteen` theme. [TEC-3937]
 * Fix - Ensure that `view_data` is an array when fetching values from the request. [TEC-3946]
+* Fix - Ensure that the events block editor is disabled when "Activate Block Editor for Events" is unchecked. [TEC-3964]
 * Tweak - Make custom post types available from the REST API so they can be compatible with the Navigation block. [TEC-3907]
 * Tweak - Remove aria-labeled attribute from featured icons. [TEC-3396]
+* Language - 0 new strings added, 154 updated, 3 fuzzied, and 0 obsoleted
 
 = [5.7.0] 2021-05-27 =
 
