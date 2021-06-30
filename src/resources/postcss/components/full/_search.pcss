@@ -56,19 +56,19 @@
 			}
 		}
 	}
-	
+
 	.tribe-events-c-search__input-control-icon-svg {
-		position: absolute;
-		top: 50%;
-		right: 0;
 		display: block;
+		position: absolute;
+		right: 0;
+		top: 50%;
 		transform: translateY(-50%);
-		
+
 		.tribe-common--breakpoint-medium& {
-			right: auto;
 			left: 16px;
+			right: auto;
 		}
-		
+
 		path {
 			fill: var(--color-icon-primary);
 		}
@@ -78,7 +78,7 @@
 	.tribe-events-c-search__input-control--location {
 
 		.tribe-events-c-search__input {
-		
+
 			&:focus ~ .tribe-events-c-search__input-control-icon-svg path {
 				fill: currentColor;
 			}
@@ -89,13 +89,13 @@
 	.tribe-events-c-search__input-control--location-focus {
 
 		.tribe-events-c-search__input {
-			
+
 			& ~ .tribe-events-c-search__input-control-icon-svg path {
 				fill: currentColor;
 			}
 		}
 	}
-	
+
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search: Theme Overrides
@@ -105,9 +105,9 @@
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-	 
+
 	.tribe-theme-twentyseventeen.colors-dark & {
-		
+
 		.tribe-events-c-search__input {
 			background: var(--background-color);
 		}

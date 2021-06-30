@@ -8,7 +8,6 @@
 
 	.tribe-events-c-ical__link {
 		align-items: center;
-		color: var(--color-accent-primary);
 		background-color: var(--color-background);
 		border: 1px solid var(--color-accent-primary);
 		border-radius: var(--border-radius-default);
@@ -18,8 +17,8 @@
 		&:hover,
 		&:focus,
 		&:active {
-			color: var(--color-background);
 			background-color: var(--color-accent-primary);
+			color: var(--color-background);
 
 			.tribe-events-c-ical__link-icon-svg path {
 				stroke: var(--color-background);
@@ -58,12 +57,13 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-theme-twentytwentyone & {
+
 		.tribe-events-c-ical__link {
+
 			&:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-				color: var(--color-background);
 				background-color: var(--color-accent-primary);
+				color: var(--color-background);
 			}
 		}
 	}
 }
-
