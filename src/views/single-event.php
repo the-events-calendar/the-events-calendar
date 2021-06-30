@@ -59,7 +59,7 @@ $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $
  * @param string $after HTML string to display. Return an empty string to not display the title.
  * @param string $event_id The ID of the displayed event.
  */
-$title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after ), $event_id );
+$title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after, false ), $event_id );
 
 ?>
 
