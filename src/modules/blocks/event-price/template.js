@@ -79,9 +79,9 @@ const renderLabel = ( props ) => {
 	 * @todo: Change div to button.
 	 */
 	return (
-		<div
+		<div // eslint-disable-line
 			className={ containerClass }
-			onClick={ open } // eslint-disable-line
+			onClick={ open }
 		>
 			{ renderCurrency( props ) }
 			{ renderPlaceholder( props ) }

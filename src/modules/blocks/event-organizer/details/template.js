@@ -45,10 +45,17 @@ const OrganizerDetails = ( props ) => {
 		const { organizer } = props;
 		const fields = toFields( organizer );
 		const { title, website, email, phone } = fields;
+
+		/**
+		 * @todo: Set onClick to a button, not h3.
+		 */
 		return (
 			<Fragment>
 				<div className="tribe-editor__organizer__title">
-					<h3 className="tribe-editor__organizer__title-heading" onClick={ maybeEdit }>
+					<h3 // eslint-disable-line
+						className="tribe-editor__organizer__title-heading"
+						onClick={ maybeEdit }
+					>
 						{ decode( title ) }
 					</h3>
 					{ renderEdit() }

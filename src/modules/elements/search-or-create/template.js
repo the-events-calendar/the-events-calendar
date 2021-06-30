@@ -75,10 +75,13 @@ class SearchOrCreate extends Component {
 		const { title = {}, id } = item;
 		const { rendered = '' } = title;
 
+		/**
+		 * @todo: Set onClick to a button, not li.
+		 */
 		return (
-			<li
+			<li // eslint-disable-line
 				key={ id }
-				onClick={ this.props.onItemClick( item ) } // eslint-disable-line
+				onClick={ this.props.onItemClick( item ) }
 			>
 				{ decode( rendered ) }
 			</li>
@@ -100,10 +103,13 @@ class SearchOrCreate extends Component {
 			);
 		}
 
+		/**
+		 * @todo: Set onClick to a button, not li.
+		 */
 		return (
 			<ul className="tribe-editor__soc__results">
-				<li
-					onClick={ onCreateClick } // eslint-disable-line
+				<li // eslint-disable-line
+					onClick={ onCreateClick }
 				>
 					<strong>Create</strong>: { this.props.term }
 				</li>

@@ -136,8 +136,12 @@ export default class VenueForm extends Component {
 			</option>
 		);
 
+		/**
+		 * @todo: figure out what to do about onChange event (accessibility).
+		 */
+
 		return (
-			<select
+			<select // eslint-disable-line
 				value={ country }
 				className="small tribe-editor__venue__select"
 				onChange={ ( event ) => this.setState( { country: event.target.value } ) }
@@ -166,8 +170,13 @@ export default class VenueForm extends Component {
 			);
 		}
 		delete this.fields[ 'venue[stateProvince]' ];
+
+		/**
+		 * @todo: figure out what to do about onChange event (accessibility).
+		 */
+
 		return (
-			<select
+			<select // eslint-disable-line
 				value={ stateProvince }
 				onChange={ ( event ) => this.setState( { stateProvince: event.target.value } ) }
 				className="medium tribe-editor__venue__select"

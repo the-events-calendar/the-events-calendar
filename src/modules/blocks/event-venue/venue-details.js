@@ -77,9 +77,9 @@ export default class VenueDetails extends Component {
 		return (
 			<div className="tribe-editor__venue__name">
 				{ beforeTitle }
-				<h3
+				<h3 // eslint-disable-line
 					className="tribe-editor__venue__name-heading"
-					onClick={ maybeEdit } // eslint-disable-line
+					onClick={ maybeEdit }
 				>
 					{ decode( this.getVenueName() ) }
 				</h3>
