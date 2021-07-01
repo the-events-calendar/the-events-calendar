@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Tweak - Add CSS class to the event tags label on the event details section on the single event page. [TEC-3951]
+
 = [5.7.1] 2021-06-23 =
 
 * Fix - Properly recalculate event cost when creating events via the Block Editor. [TEC-3141]
