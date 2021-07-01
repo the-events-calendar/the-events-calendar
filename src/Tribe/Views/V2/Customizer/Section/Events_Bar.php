@@ -281,7 +281,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 						),
 						$customizer->get_setting_url(
 							'global_elements',
-							'background_color_choice',
+							'background_color_choice'
 						)
 					),
 					'custom'	  => esc_html_x(
