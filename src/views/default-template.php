@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Allows filtering the classes for the main element.
  *
- * @since TBD
+ * @since 5.8.0
  *
  * @param array<string> $classes An (unindexed) array of classes to apply.
  */
@@ -28,7 +28,7 @@ get_header();
 /**
  * Provides an action that allows for the injection of HTML at the top of the template after the header.
  *
- * @since TBD
+ * @since 5.8.0
  *
  * @param string $eventDisplay The string representation (slug) of the displayed view - "month".
  */
@@ -47,7 +47,7 @@ do_action( 'tribe_default_events_template_after_header', $eventDisplay );
 /**
  * Provides an action that allows for the injections of HTML at the bottom of the template before the footer.
  *
- * @since TBD
+ * @since 5.8.0
  *
  * @param string $eventDisplay The string representation (slug) of the displayed view - "month".
  */

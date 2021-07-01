@@ -3,7 +3,7 @@
  * The Events Calendar Customizer Section Class
  * Events Bar
  *
- * @since TBD
+ * @since 5.8.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
@@ -11,7 +11,7 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
 /**
  * Month View
  *
- * @since TBD
+ * @since 5.8.0
  */
 class Events_Bar extends \Tribe__Customizer__Section {
 
@@ -19,7 +19,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 * ID of the section.
 	 * Namespaced to avoid collisions.
 	 *
-	 * @since TBD
+	 * @since 5.8.0
 	 *
 	 * @access public
 	 * @var string
@@ -36,7 +36,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	/**
 	 * This method will be executed when the Class is Initialized.
 	 *
-	 * @since TBD
+	 * @since 5.8.0
 	 */
 	public function setup() {
 		parent::setup();

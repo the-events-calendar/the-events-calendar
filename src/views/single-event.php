@@ -23,7 +23,7 @@ $event_id = get_the_ID();
 /**
  * Allows filtering of the single event template title classes.
  *
- * @since TBD
+ * @since 5.8.0
  *
  * @param array  $title_classes List of classes to create the class string from.
  * @param string $event_id The ID of the displayed event.
@@ -34,7 +34,7 @@ $title_classes = implode( ' ', tribe_get_classes( $title_classes ) );
 /**
  * Allows filtering of the single event template title before HTML.
  *
- * @since TBD
+ * @since 5.8.0
  *
  * @param string $before HTML string to display before the title text.
  * @param string $event_id The ID of the displayed event.
@@ -44,7 +44,7 @@ $before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 cla
 /**
  * Allows filtering of the single event template title after HTML.
  *
- * @since TBD
+ * @since 5.8.0
  *
  * @param string $after HTML string to display after the title text.
  * @param string $event_id The ID of the displayed event.
@@ -54,7 +54,7 @@ $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $
 /**
  * Allows filtering of the single event template title HTML.
  *
- * @since TBD
+ * @since 5.8.0
  *
  * @param string $after HTML string to display. Return an empty string to not display the title.
  * @param string $event_id The ID of the displayed event.

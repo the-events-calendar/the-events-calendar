@@ -3,7 +3,7 @@
  * Add theme compatibility classes.
  *
  * @since 4.9.3
- * @since TBD made an extension of Tribe\Utils\Theme_Compatibility
+ * @since 5.8.0 made an extension of Tribe\Utils\Theme_Compatibility
  *
  * @package Tribe\Events\Views\V2
  */
@@ -18,14 +18,14 @@ class Theme_Compatibility extends Compat {
 	 * Fetches the correct class strings for theme and child theme if available.
 	 *
 	 * @since 4.9.3
-	 * @since TBD made an extension of Tribe\Utils\Theme_Compatibility.
+	 * @since 5.8.0 made an extension of Tribe\Utils\Theme_Compatibility.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.8.0
 	 *
 	 * @return array $classes
 	 */
 	public function get_body_classes() {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Tribe\Utils\Theme_Compatibility::get_compatibility_classes()' );
+		_deprecated_function( __FUNCTION__, '5.8.0', 'Tribe\Utils\Theme_Compatibility::get_compatibility_classes()' );
 		return static::get_compatibility_classes();
 	}
 
@@ -33,7 +33,7 @@ class Theme_Compatibility extends Compat {
 	 * Add the theme to the body class.
 	 *
 	 * @since 4.9.3
-	 * @since TBD now uses static::get_compatibility_classes().
+	 * @since 5.8.0 now uses static::get_compatibility_classes().
 	 *
 	 * @param  array $classes Classes that are been passed to the body.
 	 *
@@ -59,7 +59,7 @@ class Theme_Compatibility extends Compat {
 	 * Contains the logic for if this object's classes should be added to the queue.
 	 *
 	 * @since 5.1.5
-	 * @since TBD now uses static::get_compatibility_classes().
+	 * @since 5.8.0 now uses static::get_compatibility_classes().
 	 *
 	 * @param boolean $add   Whether to add the class to the queue or not.
 	 * @param array   $class The array of body class names to add.
@@ -87,7 +87,7 @@ class Theme_Compatibility extends Compat {
 	 * Add body classes.
 	 *
 	 * @since 5.1.5
-	 * @since TBD now uses static::get_compatibility_classes().
+	 * @since 5.8.0 now uses static::get_compatibility_classes().
 	 *
 	 * @return void
 	 */

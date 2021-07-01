@@ -411,7 +411,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * Gets the link to the a setting in the TEC Customizer Global Elements.
 	 *
 	 * @since 5.7.0
-	 * @deprecated TBD
+	 * @deprecated 5.8.0
 	 *
 	 * @param string $setting    The sting setting "slug" to link to.
 	 * @param string $label_text The translated label text for the link.
@@ -419,7 +419,7 @@ class Month_View extends \Tribe__Customizer__Section {
 	 * @return string The HTML link element.
 	 */
 	public function get_global_element_link( $setting, $label_text ) {
-		_deprecated_function( __METHOD__, 'TBD', "tribe( 'customizer' )->get_setting_link" );
+		_deprecated_function( __METHOD__, '5.8.0', "tribe( 'customizer' )->get_setting_link" );
 		if ( empty( $setting ) ) {
 			// Default to first item if not set.
 			$setting = 'event_title_color';
@@ -431,13 +431,13 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Gets the link to the event background color setting in Customizer.
 	 *
-	 * @since TBD
-	 * @deprecated TBD
+	 * @since 5.8.0
+	 * @deprecated 5.8.0
 	 *
 	 * @return string The HTML link element.
 	 */
 	public function get_general_settings_link() {
-		_deprecated_function( __METHOD__, 'TBD', "tribe( 'customizer' )->get_section_link" );
+		_deprecated_function( __METHOD__, '5.8.0', "tribe( 'customizer' )->get_section_link" );
 
 		$label_text = _x(
 			'General',
@@ -451,13 +451,13 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Gets the link to the event background color setting in Customizer.
 	 *
-	 * @since TBD
-	 * @deprecated TBD
+	 * @since 5.8.0
+	 * @deprecated 5.8.0
 	 *
 	 * @return string The HTML link element.
 	 */
 	public function get_events_background_link() {
-		_deprecated_function( __METHOD__, 'TBD', "tribe( 'customizer' )->get_setting_link" );
+		_deprecated_function( __METHOD__, '5.8.0', "tribe( 'customizer' )->get_setting_link" );
 		$label_text = _x(
 			'General Background Color',
 			'Text used for links to the Event Background Color setting.',
@@ -470,13 +470,13 @@ class Month_View extends \Tribe__Customizer__Section {
 	/**
 	 * Gets the link to the accent color setting in Customizer.
 	 *
-	 * @since TBD
-	 * @deprecated TBD
+	 * @since 5.8.0
+	 * @deprecated 5.8.0
 	 *
 	 * @return string The HTML link element.
 	 */
 	public function get_accent_color_link() {
-		_deprecated_function( __METHOD__, 'TBD', "tribe( 'customizer' )->get_setting_link" );
+		_deprecated_function( __METHOD__, '5.8.0', "tribe( 'customizer' )->get_setting_link" );
 
 		$label_text = _x(
 			'Accent Color',
