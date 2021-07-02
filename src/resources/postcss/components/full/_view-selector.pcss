@@ -70,11 +70,16 @@
 		.tribe-events-c-view-selector__button-icon-caret-svg {
 
 			.tribe-common--breakpoint-medium& {
+				color: var(--tec-color-icon-events-bar);
 				display: block;
 				flex: none;
 				height: 6px;
 				margin-left: var(--tec-spacer-1);
 				width: 10px;
+
+				path {
+					fill: currentColor;
+				}
 			}
 		}
 
@@ -92,6 +97,8 @@
 
 			.tribe-common--breakpoint-medium& {
 				@mixin desktop-body-2-bold;
+
+				color: var(--tec-color-text-view-selector-list-item);
 			}
 		}
 
@@ -173,6 +180,7 @@
 	}
 
 	.tribe-events-c-view-selector__content {
+		background-color: var(--tec-color-background-view-selector);
 		border: 1px solid var(--tec-color-border-secondary);
 		border-radius: var(--tec-border-radius-default);
 		box-shadow: var(--tec-box-shadow-tooltip);
@@ -193,7 +201,7 @@
 	.tribe-events-c-view-selector__list-item-text {
 		@mixin desktop-body-2;
 
-		color: var(--tec-color-background-view-selector-list-item-text);
+		color: var(--tec-color-text-view-selector-list-item);
 	}
 
 	.tribe-events-c-view-selector__list-item--active {
@@ -205,7 +213,7 @@
 
 	.tribe-events-c-view-selector__list-item-link {
 		border-radius: var(--tec-border-radius-default);
-		color: var(--tec-color-background-view-selector-list-item-text);
+		color: var(--tec-color-text-view-selector-list-item);
 
 		&:hover,
 		&:focus {
@@ -215,7 +223,7 @@
 			}
 
 			.tribe-events-c-view-selector__list-item-text {
-				color: var(--tec-color-background-view-selector-list-item-text-hover);
+				color: var(--tec-color-text-view-selector-list-item-hover);
 			}
 		}
 	}

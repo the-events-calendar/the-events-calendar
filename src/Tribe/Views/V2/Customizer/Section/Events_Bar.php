@@ -347,8 +347,8 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				--tec-color-text-events-bar-input: {$text_color_hex};
 				--tec-color-text-events-bar-input-placeholder: {$text_color_hex};
 				--tec-opacity-events-bar-input-placeholder: .6;
-				--tec-color-background-view-selector-list-item-text: {$text_color_hex};
-				--tec-color-background-view-selector-list-item-text-hover: {$text_color_hex};
+				--tec-color-text-view-selector-list-item: {$text_color_hex};
+				--tec-color-text-view-selector-list-item-hover: {$text_color_hex};
 			";
 
 			// Hover background follows text color
