@@ -260,7 +260,19 @@ class Template_Bootstrap {
 			$html = View::make( $view_slug, $context )->get_html();
 		}
 
-		return $html;
+
+		/**
+		 * Filters the HTML for the view before we do any other logic around that.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string          $html      The html to be displayed.
+		 * @param \Tribe__Context $context   Tribe context used to setup the view.
+		 * @param string          $view_slug The slug of the View that we've built,
+		 *                                   based on the context but possibly altered in the build process.
+		 * @param \WP_Query       $query     The current WP Query object.
+		 */
+		return apply_filters( 'tribe_events_views_v2_bootstrap_html', $html, $context, $view_slug, $query );
 	}
 
 	/**

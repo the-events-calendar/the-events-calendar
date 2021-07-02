@@ -344,7 +344,7 @@ class Stack {
 	 *
 	 * @param int|\WP_Post $event The event post object or ID.
 	 *
-	 * @return bool Whether teh event should be part of the stack or not.
+	 * @return bool Whether the event should be part of the stack or not.
 	 */
 	protected function filter_stack_event( $event ) {
 		$post = tribe_get_event( $event );

@@ -379,9 +379,9 @@ class Customizer {
 
 			// overrides for common base/full/forms/_toggles.pcss.
 			$css_template .= "
-			$tribe_common .tribe-common-form-control-toggle__input:checked {
-				background-color: <%= global_elements.accent_color %>;
-			}
+				$tribe_common .tribe-common-form-control-toggle__input:checked {
+					background-color: <%= global_elements.accent_color %>;
+				}
 
 			.tribe-common.tribe-events-widget .tribe-events-widget-events-list__view-more-link {
 				color: <%= global_elements.accent_color %>;
@@ -721,7 +721,7 @@ class Customizer {
 			// Single Event styles overrides
 			// This is under filter_global_elements_css_template() in order to have
 			// access to global_elements.accent_color, which is under a different section.
-			if ( $this->should_add_single_view_v2_styles() ) {
+			if ( tribe( 'events.views.v2.customizer.single-event' )->should_add_single_view_v2_styles() ) {
 				$css_template .= '
 					.tribe-events-cal-links .tribe-events-gcal,
 					.tribe-events-cal-links .tribe-events-ical,

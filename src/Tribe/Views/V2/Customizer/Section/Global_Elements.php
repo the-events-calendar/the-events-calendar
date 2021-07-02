@@ -128,7 +128,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_defaults() {
 		return [
-			'font_family'             => '',
+			'font_family'             => 'default',
 			'font_size'               => '0',
 			'font_size_base'          => '16',
 			'event_title_color'       => '#141827',
@@ -222,13 +222,18 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		return [
 			'font_family'             => [
 				'priority' => 3,
-				'type'     => 'toggle',
+				'type'     => 'radio',
 				'choices' => [
-					'on'  => _x(
-						'Use theme fonts.',
-						'Label for option to use theme fonts.',
+					'default'  => _x(
+						'Default',
+						'Label for option to use default TEC fonts.',
 						'the-events-calendar'
 					),
+					'theme'       => _x(
+						"Inherit theme's fonts",
+						'Label for option to use theme fonts.',
+						'the-events-calendar'
+					)
 				],
 			],
 			'font_size_base'          => [
@@ -411,28 +416,38 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			$css_template .= "\n";
 		}
 
+		// Font family override.
+		if ( $this->should_include_setting_css( 'font_family' ) ) {
+			$css_template .= '
+				/* Font Family overrides. */
+				--tec-font-family-sans-serif: inherit;
+				--tec-font-family-base: inherit;
+			';
+		}
+
 		// Accent color overrides.
 		if ( $this->should_include_setting_css( 'accent_color' ) ) {
 			$accent_color       = $this->get_option( 'accent_color' );
 			$accent_color_obj   = new \Tribe__Utils__Color( $accent_color );
+			$accent_color_hex   = $accent_color_obj->getHexWithHash();
 			$accent_color_arr   = $accent_color_obj->getRgb();
 			$accent_color_rgb   = $accent_color_arr['R'] . ',' . $accent_color_arr['G'] . ',' . $accent_color_arr['B'];
 
 			$css_template .= "
 				/* Accent Color overrides. */
-				--tec-color-accent-primary: <%= global_elements.accent_color %>;
+				--tec-color-accent-primary: {$accent_color_hex};
 				--tec-color-accent-primary-hover: rgba({$accent_color_rgb},0.8);
 				--tec-color-accent-primary-multiday: rgba({$accent_color_rgb},0.24);
 				--tec-color-accent-primary-multiday-hover: rgba({$accent_color_rgb},0.34);
 				--tec-color-accent-primary-active: rgba({$accent_color_rgb},0.9);
 				--tec-color-accent-primary-background: rgba({$accent_color_rgb},0.07);
 				--tec-color-background-secondary-datepicker: rgba({$accent_color_rgb},0.5);
-				--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;
-				--tec-color-button-primary: <%= global_elements.accent_color %>;
+				--tec-color-accent-primary-background-datepicker: {$accent_color_hex};
+				--tec-color-button-primary: {$accent_color_hex};
 				--tec-color-button-primary-hover: rgba({$accent_color_rgb},0.8);
 				--tec-color-button-primary-active: rgba({$accent_color_rgb},0.9);
 				--tec-color-button-primary-background: rgba({$accent_color_rgb},0.07);
-				--tec-color-day-marker-current-month: <%= global_elements.accent_color %>;
+				--tec-color-day-marker-current-month: {$accent_color_hex};
 				--tec-color-day-marker-current-month-hover: rgba({$accent_color_rgb},0.8);
 				--tec-color-day-marker-current-month-active: rgba({$accent_color_rgb},0.9);
 			";
@@ -473,15 +488,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				--tec-color-link-primary: <%= global_elements.link_color %>;
 				--tec-color-link-accent: <%= global_elements.link_color %>;
 				--tec-color-link-accent-hover: <%= global_elements.link_color %>CC;
-			';
-		}
-
-		// Font family override.
-		if ( $this->should_include_setting_css( 'font_family' ) ) {
-			$css_template .= '
-				/* Font Family overrides. */
-				--tec-font-family-sans-serif: inherit;
-				--tec-font-family-base: inherit;
 			';
 		}
 
