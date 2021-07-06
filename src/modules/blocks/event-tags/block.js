@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import React from 'react';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
@@ -6,9 +11,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import './style.pcss';
-
 import { TermsList } from '@moderntribe/events/elements';
+import './style.pcss';
 
 /**
  * Module Code

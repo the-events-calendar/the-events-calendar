@@ -360,7 +360,7 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) {
+	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		var $grid = $container.find( obj.selectors.grid );
 		obj.unbindEvents( $grid );
@@ -379,7 +379,7 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) {
+	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
 		var $grid = $container.find( obj.selectors.grid );
 
 		if ( ! $grid.length ) {
@@ -405,7 +405,11 @@ tribe.events.views.monthGrid = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready

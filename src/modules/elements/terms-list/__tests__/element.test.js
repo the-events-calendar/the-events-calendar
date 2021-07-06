@@ -22,7 +22,7 @@ describe( 'Taxonomies Element', () => {
 
 	it( 'renders spinner when requesting', () => {
 		const tree = renderer.create(
-			<TaxonomiesElement terms={ [] } isRequesting={ true } />
+			<TaxonomiesElement terms={ [] } isRequesting={ true } />,
 		);
 		expect( tree.toJSON() ).toMatchSnapshot();
 	} );
@@ -47,7 +47,7 @@ describe( 'Taxonomies Element', () => {
 			},
 		];
 		const tree = renderer.create(
-			<TaxonomiesElement terms={ items } isRequesting={ false } />
+			<TaxonomiesElement terms={ items } isRequesting={ false } />,
 		);
 		expect( tree.toJSON() ).toMatchSnapshot();
 	} );
