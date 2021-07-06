@@ -17,8 +17,6 @@
 
 namespace Tribe\Events\Views\V2\Customizer;
 
-use Tribe__Events__Main as TEC;
-
 /**
  * Class Hooks
  *
