@@ -38,7 +38,7 @@ tribe.events.views.navigationScroll = {};
 	 *
 	 * @return {void}
 	 */
-	obj.scrollUp = function( event, html, textStatus, qXHR ) {
+	obj.scrollUp = function( event, html, textStatus, qXHR ) { // eslint-disable-line no-unused-vars
 		var $container = $( event.target );
 		var windowTop = $window.scrollTop();
 		var containerOffset = $container.offset();
@@ -57,7 +57,11 @@ tribe.events.views.navigationScroll = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterAjaxSuccess.tribeEvents', tribe.events.views.manager.selectors.container, obj.scrollUp );
+		$document.on(
+			'afterAjaxSuccess.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.scrollUp
+		);
 	};
 
 	// Configure on document ready

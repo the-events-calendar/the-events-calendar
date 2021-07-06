@@ -75,9 +75,9 @@
 	margin: var(--tec-spacer-1) 0 var(--tec-spacer-4);
 
 	@media (--tec-viewport-medium) {
-		margin: var(--tec-spacer-5) 0 var(--tec-spacer-7);
 		align-items: baseline;
 		flex-wrap: nowrap;
+		margin: var(--tec-spacer-5) 0 var(--tec-spacer-7);
 	}
 }
 
@@ -287,28 +287,32 @@
 		}
 	}
 
-	/* RSVP Block */
-	/* TODO: move to ET in the future if still needed, depending on template updates */
+	/**
+	 * RSVP Block
+	 * TODO: move to ET in the future if still needed, depending on template updates
+	 */
 	&.primary + .event-tickets,
 	&.secondary + .event-tickets {
-		margin-top: calc(-1 * var(--tec-spacer-6));
 		margin-bottom: var(--tec-spacer-7);
+		margin-top: calc(-1 * var(--tec-spacer-6));
 
-		@media (--tec-viewport-medium) {
+		@media (--viewport-medium) {
 			margin-bottom: var(--tec-spacer-8);
 		}
 	}
 
-	/* Tickets Block */
-	/* TODO: move to ET in the future if still needed, depending on template updates */
+	/**
+	 * Tickets Block
+	 * TODO: move to ET in the future if still needed, depending on template updates
+	 */
 	&.primary + .event-tickets + .event-tickets,
 	&.secondary + .event-tickets + .event-tickets {
-		margin-top: calc(-1 * var(--tec-spacer-7));
 		margin-bottom: var(--tec-spacer-1);
+		margin-top: calc(-1 * var(--tec-spacer-7));
 
-		@media (--tec-viewport-medium) {
-			margin-top: calc(-1 * var(--tec-spacer-8));
+		@media (--viewport-medium) {
 			margin-bottom: var(--tec-spacer-3);
+			margin-top: calc(-1 * var(--tec-spacer-8));
 		}
 	}
 
@@ -378,8 +382,8 @@
 	/* Make sure the gmap div/iframe has these specific heights */
 	& > div,
 	& > iframe {
-		max-height: 241px;
 		margin-bottom: 0;
+		max-height: 241px;
 
 		@media (--tec-viewport-medium) {
 			max-height: 211px;

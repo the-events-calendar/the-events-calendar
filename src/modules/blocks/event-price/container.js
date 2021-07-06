@@ -20,6 +20,7 @@ import EventPrice from './template';
 /**
  * Module Code
  */
+
 const showCurrencySymbol = ( cost ) => {
 	const parsed = range.parser( cost );
 	return ! isEmpty( trim( parsed ) ) && ! range.isFree( cost );
@@ -60,7 +61,7 @@ export default compose(
 	withStore(),
 	connect(
 		mapStateToProps,
-		mapDispatchToProps
+		mapDispatchToProps,
 	),
 	withBlockCloser,
 )( EventPrice );

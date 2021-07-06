@@ -19,16 +19,16 @@ const Timezone = ( { value, placeholder, className, onChange } ) => (
 		placeholder={ placeholder }
 		onChange={ input.sendValue( onChange ) }
 	/>
-)
+);
 
 Timezone.propTypes = {
 	value: PropTypes.string,
 	placeholder: PropTypes.string,
 	onChange: PropTypes.func,
-	className: PropTypes.oneOfType([
+	className: PropTypes.oneOfType( [
 		PropTypes.string,
 		PropTypes.arrayOf( PropTypes.string ),
-	]),
+	] ),
 };
 
 Timezone.defaultProps = {
@@ -36,6 +36,6 @@ Timezone.defaultProps = {
 	placeholder: '',
 	onChange: noop,
 	className: 'tribe-editor__timezone-input',
-}
+};
 
 export default Timezone;
