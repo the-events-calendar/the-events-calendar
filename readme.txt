@@ -233,6 +233,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure the Customizer Accent Color defaults to "royal blue" (#334aff) [TEC-3884]
 * Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility. [TCMN-106]
 * Tweak - Add new hooks to the single event templates to allow more third-party control over content without custom templates. [TEC-3948]
+* Tweak - Added filters: `tribe_customizer_should_print_shortcode_customizer_styles`, `tribe_events_views_v2_bootstrap_html`, `tribe_default_events_template_classes`, `tribe_events_single_event_title_classes`, `tribe_events_single_event_title_html_before`, `tribe_events_single_event_title_html_after`, `tribe_events_single_event_title_html`
+* Tweak - Removed filters: `tribe_events_views_v2_compatibility_classes`, `tribe_events_views_v2_theme_compatibility_registered`
+* Tweak - Added actions: `tribe_default_events_template_after_header`, `tribe_default_events_template_before_footer`
+* Tweak - Changed views: `default-template`, `single-event`, `v2/default-template`
 * Language - 13 new strings added, 64 updated, 6 fuzzied, and 2 obsoleted
 
 = [5.7.1] 2021-06-23 =
