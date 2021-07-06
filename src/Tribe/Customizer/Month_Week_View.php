@@ -30,6 +30,11 @@ final class Tribe__Events__Customizer__Month_Week_View extends Tribe__Customizer
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		$customizer = tribe( 'customizer' );
 
 		if ( $customizer->has_option( $this->ID, 'table_bg_color' ) ) {

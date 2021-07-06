@@ -39,14 +39,21 @@ class MonthCalendarEventDateTest extends HtmlTestCase {
 		$html     = $this->document->html( $template );
 
 		$featured_icon = $html->find( '.tribe-events-calendar-month__calendar-event-datetime-featured-icon' );
-		$this->assertTrue(
-			$featured_icon->is( '[aria-label="Featured"]' ),
-			'Month calendar event featured icon needs to be aria-label="Featured"'
-		);
 
 		$this->assertTrue(
 			$featured_icon->is( '[title="Featured"]' ),
 			'Month calendar event featured icon needs to be title="Featured"'
+		);
+
+		$this->assertNotEmpty(
+			$featured_icon->find( 'title' ),
+			'Month multiday featured icon needs to be contain a title element.'
+		);
+
+		$this->assertStringContainsStringIgnoringCase(
+			$featured_icon->find( 'title' )->text(),
+			'featured',
+			'Month multiday featured icon title element should contain "featured" by default.'
 		);
 	}
 

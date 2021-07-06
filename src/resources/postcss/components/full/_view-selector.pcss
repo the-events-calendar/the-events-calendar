@@ -118,10 +118,6 @@
 
 			.tribe-events-c-view-selector__list-item-link {
 
-				.tribe-common--breakpoint-medium& {
-					background-color: transparent;
-				}
-
 				&:after {
 
 					.tribe-common--breakpoint-medium& {
@@ -181,11 +177,23 @@
 		box-shadow: var(--box-shadow-tooltip);
 	}
 
-	.tribe-events-c-view-selector__list-item--active {
+	.tribe-events-c-view-selector__list-item {
 
-		.tribe-events-c-view-selector__list-item-link {
-			background-color: var(--color-background-secondary);
+		.tribe-common--breakpoint-medium& {
+
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--color-background-secondary);
+			}
 		}
+	}
+
+	.tribe-events-c-view-selector__list-item-text {
+		@mixin desktop-body-2;
+	}
+
+	.tribe-events-c-view-selector__list-item--active {
 
 		.tribe-events-c-view-selector__list-item-text {
 			font-weight: var(--font-weight-bold);
@@ -197,6 +205,7 @@
 
 		&:hover,
 		&:focus {
+			background-color: var(--color-background-secondary);
 
 			.tribe-events-c-view-selector__list-item-icon {
 				opacity: var(--opacity-icon-hover);
@@ -206,10 +215,6 @@
 				color: var(--color-accent-secondary-hover);
 			}
 		}
-	}
-
-	.tribe-events-c-view-selector__list-item-text {
-		@mixin desktop-body-2;
 	}
 
 	/* -----------------------------------------------------------------------------
