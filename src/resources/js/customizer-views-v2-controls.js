@@ -189,7 +189,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		wp.customize( obj.selectors.fontSize, function( setting ) {
 			wp.customize.control( obj.selectors.fontSizeBase, function( control ) {
 				const fontSizeControl = setting.findControls( obj.selectors.fontSize );
-				const datalist = fontSizeControl[ 0 ].elements[ 0 ].element[ 0 ].previousElementSibling;
+				const datalist = fontSizeControl[ 0 ].elements[ 0 ].element[ 0 ].nextElementSibling;
 
 				const sync = function() {
 					if ( obj.fontSizeChange ) {
