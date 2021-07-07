@@ -1,9 +1,9 @@
 /**
- * File customize-controls.js.
+ * File customizer-views-v2-controls.js.
  *
  * Plugin Customizer enhancements for a better user experience.
  *
- * Contains handlers to make Theme Customizer preview reload changes asynchronously.
+ * Contains handlers to make TEC Customizer controls show/hide asynchronously.
  */
 
 var tribe_customizer_controls = tribe_customizer_controls || {};

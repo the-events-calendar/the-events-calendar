@@ -167,10 +167,12 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'background_color_choice' => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'background_color'        => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'accent_color'            => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
@@ -329,8 +331,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				],
 			],
 			'background_color'        => [
-				'priority' => 26, // Should come right after background_color_choice
-				'type'     => 'color',
+				'priority'  => 26, // Should come right after background_color_choice
+				'type'      => 'color',
 			],
 			'accent_color'            => [
 				'priority' => 30,
