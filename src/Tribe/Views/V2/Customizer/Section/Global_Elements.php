@@ -7,6 +7,8 @@
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
+
+use Tribe\Events\Views\V2\Customizer\Configuration;
 /**
  * Global Elements
  *
@@ -147,6 +149,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'font_family'               => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'font_size'               => [
 				'sanitize_callback'	   => 'sanitize_key',
@@ -366,33 +369,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		}
 
 		$new_styles   = [];
-		$tribe_events = '#tribe-events-pg-template, .tribe-events';
-
-		/**
-		 * Allows filtering to enforce applying Customizer styles to shortcode views.
-		 *
-		 * @since TBD
-		 *
-		 * @param boolean $apply_to_shortcode Whether to apply Customizer styles to shortcodes (default = false).
-		 */
-		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
-
-		if ( ! $apply_to_shortcode ) {
-			$tribe_events .= ':not( .tribe-events-view--shortcode )';
-		}
-
-		/**
-		 * Allows filtering to enforce NOT applying Customizer styles to widgets.
-		 *
-		 * @since TBD
-		 *
-		 * @param boolean $apply_to_widget Whether to apply Customizer styles to widgets (default = true).
-		 */
-		$apply_to_widget = apply_filters( 'tribe_customizer_should_print_widget_customizer_styles', true );
-
-		if ( ! $apply_to_widget ) {
-			$tribe_events .= ':not( .tribe-events-widget )';
-		}
+		$tribe_events = Configuration::get_selector();
 
 		// It's all custom props now, baby...
 
@@ -496,7 +473,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
-		$css_template .= "{$tribe_events} {
+		$css_template .= ":root {
 			";
 
 		$css_template .= implode( "\n", $new_styles );

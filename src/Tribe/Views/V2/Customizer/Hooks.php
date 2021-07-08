@@ -17,6 +17,7 @@
 
 namespace Tribe\Events\Views\V2\Customizer;
 
+use Tribe__Events__Main as TEC;
 /**
  * Class Hooks
  *
@@ -32,6 +33,31 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 5.7.0
 	 */
 	public function register() {
+		// Register the Views V2 Customizer controls assets.
+		tribe_asset(
+			TEC::instance(),
+			'tribe-customizer-views-v2-controls',
+			'customizer-views-v2-controls.css'
+		);
+		tribe_asset(
+			TEC::instance(),
+			'tribe-customizer-views-v2-controls-js',
+			'customizer-views-v2-controls.js'
+		);
+		tribe_asset(
+			TEC::instance(),
+			'tribe-customizer-views-v2-live-preview-js',
+			'customizer-views-v2-live-preview.js',
+			[],
+			'customize_preview_init',
+			[
+				'localize'     => [
+					'name' => 'tribe_events_customizer_live_preview_js_config',
+					'data' => [ $this->container->make( Configuration::class ), 'localize' ],
+				],
+			]
+		);
+
 		$this->add_actions();
 		$this->add_filters();
 	}
