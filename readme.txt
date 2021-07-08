@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Fix - Ensure that the Block Editor saves cost data when submitted. [TEC-3987]
+
 = [5.7.1] 2021-06-23 =
 
 * Fix - Properly recalculate event cost when creating events via the Block Editor. [TEC-3141]
