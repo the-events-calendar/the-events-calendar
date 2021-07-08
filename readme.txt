@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = TBD [TBD] =
 
+* Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
 * Tweak - Add CSS class to the event tags label on the event details section on the single event page. [TEC-3951]
 * Tweak - Correct hte messaging and link for the v1 deprecation notice. [TEC-3958]
 
