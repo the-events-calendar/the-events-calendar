@@ -26,7 +26,7 @@ if ( $view_slug === $public_view_slug ) {
  *
  * @since TBD
  *
- * @param string $view_label  Current label of the view.
+ * @param string $public_view_data->view_label  Current label of the view.
  */
 $view_label = apply_filters( 'tribe_events_views_v2_view_label', $public_view_data->view_label );
 ?>
