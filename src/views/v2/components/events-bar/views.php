@@ -23,6 +23,15 @@ $view_selector_classes = [
 	'tribe-events-c-view-selector--labels' => empty( $disable_event_search ),
 	'tribe-events-c-view-selector--tabs'   => $is_tabs_style,
 ];
+
+/**
+ * Filters the labels for the views.
+ *
+ * @since TBD
+ *
+ * @param string $view_label  Current label of the view.
+ */
+$view_label = apply_filters( 'tribe_events_views_v2_view_label', $view_label );
 ?>
 <div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
