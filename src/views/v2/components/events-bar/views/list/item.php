@@ -20,6 +20,15 @@ $list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-
 if ( $view_slug === $public_view_slug ) {
 	$list_item_classes[] = 'tribe-events-c-view-selector__list-item--active';
 }
+
+/**
+ * Filters the labels for the views.
+ *
+ * @since TBD
+ *
+ * @param string $view_label  Current label of the view.
+ */
+$view_label = apply_filters( 'tribe_events_views_v2_view_label', $public_view_data->view_label );
 ?>
 <li class="<?php echo esc_attr( implode( ' ', $list_item_classes ) ); ?>">
 	<a
@@ -31,7 +40,7 @@ if ( $view_slug === $public_view_slug ) {
 			<?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
 		</span>
 		<span class="tribe-events-c-view-selector__list-item-text">
-			<?php echo esc_html( $public_view_data->view_label ); ?>
+			<?php echo esc_html( $view_label ); ?>
 		</span>
 	</a>
 </li>
