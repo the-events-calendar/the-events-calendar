@@ -4259,7 +4259,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function dashboardWidget() {
 			wp_add_dashboard_widget(
-					'tribe_dashboard_widget', esc_html__( 'News from Modern Tribe', 'the-events-calendar' ),
+					'tribe_dashboard_widget', esc_html__( 'News from The Events Calendar', 'the-events-calendar' ),
 					[
 							$this,
 							'outputDashboardWidget',
