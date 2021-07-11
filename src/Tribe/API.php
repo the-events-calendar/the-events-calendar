@@ -473,6 +473,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 		/**
 		 * Triggers an update of the cost meta data (min <-> max) for an event.
+		 * 
+		 * @since TBD
 		 *
 		 * This is primarily for internal use where an addon needs to update the cost meta
 		 * data for an event (but no other meta fields). To actually add to or modify the
