@@ -6,7 +6,7 @@ class Tribe__Events__Plugin_Register extends Tribe__Abstract_Plugin_Register {
 	protected $main_class         = 'Tribe__Events__Main';
 	protected $dependencies = [
 		'addon-dependencies' => [
-			'Tribe__Events__Pro__Main'                 => '5.6.1-dev',
+			'Tribe__Events__Pro__Main'                 => '5.8.0-dev',
 			'Tribe__Events__Filterbar__View'           => '4.10.0-dev',
 			'Tribe__Events__Tickets__Eventbrite__Main' => '4.6-dev',
 			'Tribe__Events__Community__Main'           => '4.7.0-dev',
