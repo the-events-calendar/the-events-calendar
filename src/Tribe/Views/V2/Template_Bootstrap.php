@@ -290,7 +290,7 @@ class Template_Bootstrap {
 		}
 
 		/**
-		 * Allows filtering if bootstrap should load.
+		 * Allows pre-logic filtering if bootstrap should load.
 		 *
 		 * @since 5.0.0
 		 *
@@ -304,6 +304,7 @@ class Template_Bootstrap {
 			return (bool) $should_load;
 		}
 
+		// @todo This never happens - why is it here? See line 282 above.
 		if ( ! $query instanceof \WP_Query ) {
 			static::$cache['should_load'][ $query->query_vars_hash ] = false;
 
@@ -323,11 +324,34 @@ class Template_Bootstrap {
 		 *
 		 * @see \Tribe__Events__Query::parse_query() where this property is set.
 		 */
-		$should_load = $query->is_main_query() && ! empty( $query->tribe_is_event_query );
+		$should_load = $query->is_main_query() && ! empty( $query->tribe_is_event_query ); // here
+
+		if ( ! $should_load ) {
+			/**
+			 * Sometimes, tribe_is_event_query has not been set when we call this function.
+			 * Typically for shortcodes, and usually when called by a page builder
+			 * OR the query has been filtered by another plugin.
+			 *
+			 * So we test a different way when we can.
+			 */
+			$is_shortcode   = false;
+			if ( $query->is_page ) {
+				$queried_object = $query->queried_object;
+
+				if ( ! empty( $queried_object->post_content ) ) {
+					// Classic Editor
+					$is_shortcode = has_shortcode( 'tribe_events', $queried_object->post_content );
+					// Bollocks
+					$is_shortcode = $is_shortcode || false !== stripos( $queried_object->post_content, '[tribe_events');
+				}
+			}
+
+			$should_load = $should_load || $is_shortcode;
+		}
 
 		static::$cache['should_load'][ $query->query_vars_hash ] = $should_load;
 
-		return $should_load;
+		$should_load;
 	}
 
 	/**
