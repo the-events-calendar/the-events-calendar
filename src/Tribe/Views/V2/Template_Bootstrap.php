@@ -351,11 +351,11 @@ class Template_Bootstrap {
 
 		static::$cache['should_load'][ $query->query_vars_hash ] = $should_load;
 
-		$should_load;
+		return (bool) $should_load;
 	}
 
 	/**
-	 * Filters the `template_include` filter to return the Views router template if required..
+	 * Filters the `template_include` filter to return the Views router template if required.
 	 *
 	 * @since 4.9.2
 	 *
