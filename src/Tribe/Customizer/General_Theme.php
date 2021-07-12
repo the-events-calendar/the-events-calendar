@@ -90,7 +90,8 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	public function get_css_template( $template ) {
 		$customizer = tribe( 'customizer' );
 		$settings = $customizer->get_option( [ $this->ID ] );
-		$background_color_obj = new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
+		$background_color_obj = empty( $settings['featured_color_scheme'] ) ? false
+			: new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
 
 		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
 			$template .= '
