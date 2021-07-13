@@ -482,12 +482,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * leveraged.
 		 *
 		 * @param $event_id
-		 * @param array $default The default cost for the Event.
+		 * @param array $cost The default cost for the Event.
 		 */
-		public static function update_event_cost( $event_id, $default = [] ) {
+		public static function update_event_cost( $event_id, $cost = [] ) {
 			// Loads current event costs, on construct
 			// Tribe__Events__Tickets__Tickets->get_ticket_prices() adds them to this filter
-			$event_cost = (array) apply_filters( 'tribe_events_event_costs', $default, $event_id );
+			$event_cost = (array) apply_filters( 'tribe_events_event_costs', $cost, $event_id );
 
 			// Kill the old cost meta data
 			delete_post_meta( $event_id, '_EventCost' );
