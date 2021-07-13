@@ -197,13 +197,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		// Fetch cost data from the request (if set).
 		$json = $request->get_json_params();
 
-		// Set an appropriate default for the cost.
-		$default = (array) tribe_get_cost( $post_id );
-
-		// If the cost is set in the submitted data, set THAT as the default.
-		if ( isset( $json['meta']['_EventCost'] ) ) {
-			$default = [ $json['meta']['_EventCost'] ];
-		}
+		// If the cost is set in the submitted data, set THAT as the default else set an appropriate default for the cost.
+		$default = isset( $json['meta']['_EventCost'] ) ? [ $json['meta']['_EventCost'] ] : (array) tribe_get_cost( $post_id );
 
 		// Update the cost for the event.
 		\Tribe__Events__API::update_event_cost( $post_id, $default );
