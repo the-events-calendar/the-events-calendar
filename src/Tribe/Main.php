@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.7.1';
+		const VERSION             = '5.8.0';
 
 		/**
 		 * Min Pro Addon
@@ -6087,7 +6087,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.9.2
 		 *
-		 * @return \Tribe__Autoloader Teh singleton common Autoloader instance.
+		 * @return \Tribe__Autoloader The singleton common Autoloader instance.
 		 */
 		public function get_autoloader_instance() {
 			if ( ! class_exists( 'Tribe__Autoloader' ) ) {

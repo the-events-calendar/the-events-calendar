@@ -26,5 +26,24 @@
 		.customize-control .customize-inside-control-row {
 			padding: 3px 0;
 		}
+
+		li.customize-control[id$="_choice"] {
+			background-color: pink;
+		}
+
+		&[id$="_choice"] + [id^="customize-control-tribe_customizer"][id$="_color"] {
+			margin-top: -18px;
+		}
+
+		.button.wp-color-result {
+			border-color: #141827;
+
+			&:active,
+			&:focus,
+			&:hover {
+				border-color: #141827;
+				box-shadow: 0 0 0 0.75px var(--color-text-primary-light);
+			}
+		}
 	}
 }

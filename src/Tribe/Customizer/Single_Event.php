@@ -32,6 +32,11 @@ final class Tribe__Events__Customizer__Single_Event extends Tribe__Customizer__S
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		$customizer = tribe( 'customizer' );
 
 		if ( $customizer->has_option( $this->ID, 'details_bg_color' ) ) {
