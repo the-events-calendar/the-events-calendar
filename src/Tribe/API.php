@@ -492,7 +492,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			 * Allows filtering of the event cost and returns either an int or string 
 			 * depending on whether the event cost is a single value or a price range
 			 *
-			 * @since TBD
+			 * @since 3.9
 			 *
 			 * @param array|string|int $cost Event cost.
 			 * @param int $event_id Event post ID.
