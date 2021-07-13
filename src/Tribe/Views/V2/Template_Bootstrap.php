@@ -210,8 +210,10 @@ class Template_Bootstrap {
 			return $pre_html;
 		}
 
+		$is_single_event = 'single-event' === $view_slug || ( $query->is_singular && $query->tribe_is_event_query );
+
 		$should_display_single = (
-			'single-event' === $view_slug
+			$is_single_event
 			&& ! tribe_is_showing_all()
 			&& ! V1_Templates::is_embed()
 		);
