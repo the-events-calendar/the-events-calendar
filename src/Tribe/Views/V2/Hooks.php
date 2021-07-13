@@ -127,8 +127,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Customizer.
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
-		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
-		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
+		add_filter( 'tribe_customizer_section_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 2 );
+		add_filter( 'tribe_customizer_section_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 2 );
 
 		// Register the asset for Customizer controls.
 		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
@@ -765,20 +765,26 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string Which value we are converting to.
 	 */
 	public function filter_get_stylesheet_option( $value, $key ) {
+		// Bail early if possible. No need to do the shuffle below if
+		if (
+			'stylesheetOption' !== $key
+			&& ( 'stylesheet_mode' !== $key )
+		) {
+			return $value;
+		}
+
 		// Remove this filter so we don't loop infinitely.
 		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ], 10 );
 
 		$default = 'tribe';
 
-		if ( 'stylesheet_mode' === $key && empty( $value ) ) {
+		if ( 'stylesheetOption' === $key ) {
+			$value = tribe_get_option( 'stylesheet_mode', $default );
+		} else if ( 'stylesheet_mode' === $key && empty( $value ) ) {
 			$value = tribe_get_option( 'stylesheetOption', $default );
 			if ( 'full' === $value ) {
 				$value = $default;
 			}
-		}
-
-		if ( 'stylesheetOption' === $key ) {
-			$value = tribe_get_option( 'stylesheet_mode', $default );
 		}
 
 		// Add the filter back
@@ -920,12 +926,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
-		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section && $customizer instanceof \Tribe__Customizer ) ) {
+	public function filter_global_elements_css_template( $css_template, $section ) {
+		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}
 
-		return $this->container->make( Customizer::class )->filter_global_elements_css_template( $css_template, $section, $customizer );
+		return $this->container->make( Customizer::class )->filter_global_elements_css_template( $css_template, $section );
 	}
 
 	/**
@@ -939,12 +945,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
-		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section && $customizer instanceof \Tribe__Customizer ) ) {
+	public function filter_single_event_css_template( $css_template, $section ) {
+		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}
 
-		return $this->container->make( Customizer::class )->filter_single_event_css_template( $css_template, $section, $customizer );
+		return $this->container->make( Customizer::class )->filter_single_event_css_template( $css_template, $section );
 	}
 
 	/**
