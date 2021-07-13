@@ -224,9 +224,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.8.1] TBD =
 
+* Fix - Ensure that the Block Editor saves cost data when submitted. [TEC-3987]
 * Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
 * Tweak - Add CSS class to the event tags label on the event details section on the single event page. [TEC-3951]
-* Tweak - Correct hte messaging and link for the v1 deprecation notice. [TEC-3958]
+* Tweak - Correct the messaging and link for the v1 deprecation notice. [TEC-3958]
 * Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
 
 = [5.8.0] 2021-07-01 =
