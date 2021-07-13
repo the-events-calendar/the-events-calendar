@@ -893,7 +893,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @param float|array $value       The cost to use for the comparison; in the case of `BETWEEN`, `NOT BETWEEN`,
 	 *                                 `IN` and `NOT IN` operators this value should be an array.
-	 * @param string      $operator    Teh comparison operator to use for the comparison, one of `<`, `<=`, `>`, `>=`,
+	 * @param string      $operator    The comparison operator to use for the comparison, one of `<`, `<=`, `>`, `>=`,
 	 *                                 `=`, `BETWEEN`, `NOT BETWEEN`, `IN`, `NOT IN`.
 	 * @param string      $symbol      The desired currency symbol or symbols; this symbol can be a currency ISO code,
 	 *                                 e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".

@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.16
-Stable tag: 5.7.1
+Stable tag: 5.8.0
 Tested up to: 5.7.2
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,13 +221,29 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= TBD [TBD] =
+
+= [5.8.1] TBD =
 
 * Fix - Ensure that the Block Editor saves cost data when submitted. [TEC-3987]
 * Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
-* Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
 * Tweak - Add CSS class to the event tags label on the event details section on the single event page. [TEC-3951]
 * Tweak - Correct the messaging and link for the v1 deprecation notice. [TEC-3958]
+* Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
+
+= [5.8.0] 2021-07-01 =
+
+* Version - The Events Calendar 5.8.0 is only compatible with Events Calendar PRO 5.8.0 and higher
+* Feature - Add new Events bar section to the Customizer for control of the Events Bar styles. [TEC-3672]
+* Fix - Correct instance where the date & time symbols ("@") are not changing color along with the text. [TEC-3883]
+* Tweak - Ensure that the Month view date and time default colors match up with the rest [TEC-3709]
+* Tweak - Ensure the Customizer Accent Color defaults to "royal blue" (#334aff) [TEC-3884]
+* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility.
+* Tweak - Add new hooks to the single event templates to allow more third-party control over content without custom templates. [TEC-3948]
+* Tweak - Added filters: `tribe_customizer_should_print_shortcode_customizer_styles`, `tribe_events_views_v2_bootstrap_html`, `tribe_default_events_template_classes`, `tribe_events_single_event_title_classes`, `tribe_events_single_event_title_html_before`, `tribe_events_single_event_title_html_after`, `tribe_events_single_event_title_html`
+* Tweak - Removed filters: `tribe_events_views_v2_compatibility_classes`, `tribe_events_views_v2_theme_compatibility_registered`
+* Tweak - Added actions: `tribe_default_events_template_after_header`, `tribe_default_events_template_before_footer`
+* Tweak - Changed views: `default-template`, `single-event`, `v2/default-template`
+* Language - 13 new strings added, 64 updated, 6 fuzzied, and 2 obsoleted
 
 = [5.7.1] 2021-06-23 =
 

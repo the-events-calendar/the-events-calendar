@@ -30,6 +30,11 @@ final class Tribe__Events__Customizer__Widget extends Tribe__Customizer__Section
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		$customizer = tribe( 'customizer' );
 
 		if ( ! $customizer->get_option( [ 'widget', 'featured_show_images' ] ) ) {
