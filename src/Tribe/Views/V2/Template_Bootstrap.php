@@ -305,7 +305,7 @@ class Template_Bootstrap {
 			return (bool) $should_load;
 		}
 
-		// @todo This never happens - why is it here? See line 282 above.
+		// @todo This should never happen - why is it here? See line 282 above.
 		if ( ! $query instanceof \WP_Query ) {
 			static::$cache['should_load'][ $query->query_vars_hash ] = false;
 
@@ -325,7 +325,7 @@ class Template_Bootstrap {
 		 *
 		 * @see \Tribe__Events__Query::parse_query() where this property is set.
 		 */
-		$should_load = $query->is_main_query() && ! empty( $query->tribe_is_event_query ); // here
+		$should_load = $query->is_main_query() && ! empty( $query->tribe_is_event_query );
 
 		static::$cache['should_load'][ $query->query_vars_hash ] = $should_load;
 
