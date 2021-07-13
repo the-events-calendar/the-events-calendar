@@ -20,6 +20,47 @@ $events_label_plural   = tribe_get_event_label_plural();
 
 $event_id = get_the_ID();
 
+/**
+ * Allows filtering of the single event template title classes.
+ *
+ * @since 5.8.0
+ *
+ * @param array  $title_classes List of classes to create the class string from.
+ * @param string $event_id The ID of the displayed event.
+ */
+$title_classes = apply_filters( 'tribe_events_single_event_title_classes', [ 'tribe-events-single-event-title' ], $event_id );
+$title_classes = implode( ' ', tribe_get_classes( $title_classes ) );
+
+/**
+ * Allows filtering of the single event template title before HTML.
+ *
+ * @since 5.8.0
+ *
+ * @param string $before HTML string to display before the title text.
+ * @param string $event_id The ID of the displayed event.
+ */
+$before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 class="' . $title_classes . '">', $event_id );
+
+/**
+ * Allows filtering of the single event template title after HTML.
+ *
+ * @since 5.8.0
+ *
+ * @param string $after HTML string to display after the title text.
+ * @param string $event_id The ID of the displayed event.
+ */
+$after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $event_id );
+
+/**
+ * Allows filtering of the single event template title HTML.
+ *
+ * @since 5.8.0
+ *
+ * @param string $after HTML string to display. Return an empty string to not display the title.
+ * @param string $event_id The ID of the displayed event.
+ */
+$title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after, false ), $event_id );
+
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single">
@@ -31,7 +72,7 @@ $event_id = get_the_ID();
 	<!-- Notices -->
 	<?php tribe_the_notices() ?>
 
-	<?php the_title( '<h1 class="tribe-events-single-event-title">', '</h1>' ); ?>
+	<?php echo $title; ?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>

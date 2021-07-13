@@ -88,6 +88,11 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
 		$customizer = tribe( 'customizer' );
 		$settings = $customizer->get_option( [ $this->ID ] );
 		$background_color_obj = empty( $settings['featured_color_scheme'] ) ? false
@@ -174,7 +179,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				}
 			";
 
-			if ( $background_color_obj->isLight() ) {
+			if ( ! empty( $background_color_obj ) && $background_color_obj->isLight() ) {
 				$template .= '
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left,

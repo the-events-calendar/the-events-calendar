@@ -3,7 +3,6 @@ namespace Tribe\Events\Views\V2\Views\Widgets;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\View;
-use Tribe\Events\Views\V2\Widgets\Widget_List;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 
 class Widget_ListTest extends ViewTestCase {
