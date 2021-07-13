@@ -298,6 +298,7 @@ class Template_Bootstrap {
 		 * @param \WP_Query       $query        The current WP Query object.
 		 */
 		$should_load = apply_filters( 'tribe_events_views_v2_bootstrap_pre_should_load', $should_load, $query );
+
 		if ( null !== $should_load ) {
 			static::$cache['should_load'][ $query->query_vars_hash ] = (bool) $should_load;
 
@@ -325,29 +326,6 @@ class Template_Bootstrap {
 		 * @see \Tribe__Events__Query::parse_query() where this property is set.
 		 */
 		$should_load = $query->is_main_query() && ! empty( $query->tribe_is_event_query ); // here
-
-		if ( ! $should_load ) {
-			/**
-			 * Sometimes, tribe_is_event_query has not been set when we call this function.
-			 * Typically for shortcodes, and usually when called by a page builder
-			 * OR the query has been filtered by another plugin.
-			 *
-			 * So we test a different way when we can.
-			 */
-			$is_shortcode   = false;
-			if ( $query->is_page ) {
-				$queried_object = $query->queried_object;
-
-				if ( ! empty( $queried_object->post_content ) ) {
-					// Classic Editor
-					$is_shortcode = has_shortcode( 'tribe_events', $queried_object->post_content );
-					// Bollocks
-					$is_shortcode = $is_shortcode || false !== stripos( $queried_object->post_content, '[tribe_events');
-				}
-			}
-
-			$should_load = $should_load || $is_shortcode;
-		}
 
 		static::$cache['should_load'][ $query->query_vars_hash ] = $should_load;
 
