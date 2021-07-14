@@ -169,9 +169,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 
 					obj.fontSizeChange = true;
 
-					if ( setting.get() < 16 ) {
+					if ( setting.get() < 15 ) {
 						control.setting.set( -1 );
-					} else if ( setting.get() > 16 ) {
+					} else if ( setting.get() > 18 ) {
 						control.setting.set( 1 );
 					} else {
 						control.setting.set( 0 );
@@ -197,19 +197,14 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 					}
 
 					obj.fontSizeBaseChange = true;
-					let multiplier = 1;
 
 					if ( setting.get() < 0 ) {
-						// Slide to small.
-						multiplier = datalist.querySelector( '[label=small]' ).value;
+						control.setting.set( 14 );
 					} else if ( setting.get() > 0 ) {
-						// Slide to large.
-						multiplier = datalist.querySelector( '[label=large]' ).value;
+						control.setting.set( 18 );
+					} else {
+						control.setting.set( 16 );
 					}
-
-					const newVal = 16 * parseFloat( multiplier );
-
-					control.setting.set( newVal );
 
 					obj.fontSizeBaseChange = false;
 				};
