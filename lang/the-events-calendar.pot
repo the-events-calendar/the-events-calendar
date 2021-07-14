@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.7.1\n"
+"Project-Id-Version: The Events Calendar 5.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2021-06-22 20:48:13+00:00\n"
+"POT-Creation-Date: 2021-06-30 21:00:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-06-22 20:48\n"
+"PO-Revision-Date: 2021-06-30 21:00\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1895,181 +1895,182 @@ msgctxt "Cost range separator"
 msgid " – "
 msgstr ""
 
-#: src/Tribe/Customizer/Day_List_View.php:72
-#: src/Tribe/Customizer/Month_Week_View.php:149
-#: src/Tribe/Customizer/Single_Event.php:92 src/Tribe/Customizer/Widget.php:60
+#: src/Tribe/Customizer/Day_List_View.php:77
+#: src/Tribe/Customizer/Month_Week_View.php:154
+#: src/Tribe/Customizer/Single_Event.php:97 src/Tribe/Customizer/Widget.php:65
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" and \"Global Elements\" sections."
 msgstr ""
 
-#: src/Tribe/Customizer/Day_List_View.php:75
+#: src/Tribe/Customizer/Day_List_View.php:80
 msgid ""
 "These settings impact all list-style views, including List View and Day View."
 msgstr ""
 
-#: src/Tribe/Customizer/Day_List_View.php:83
+#: src/Tribe/Customizer/Day_List_View.php:88
 msgid "List-style Views"
 msgstr ""
 
-#: src/Tribe/Customizer/Day_List_View.php:115
+#: src/Tribe/Customizer/Day_List_View.php:120
 msgid "Price Background Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:259
+#: src/Tribe/Customizer/General_Theme.php:270
 msgid "General Theme"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:260
+#: src/Tribe/Customizer/General_Theme.php:271
 msgid "Global configurations for the styling of The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:291
-#: src/Tribe/Customizer/Global_Elements.php:212
+#: src/Tribe/Customizer/General_Theme.php:302
+#: src/Tribe/Customizer/Global_Elements.php:231
 msgid "Accent Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:311
+#: src/Tribe/Customizer/General_Theme.php:322
 msgid "Featured Highlight Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:334
+#: src/Tribe/Customizer/General_Theme.php:345
 msgid ""
 "If the Featured highlight color is set to Custom, the following color will "
 "be used:"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:354
+#: src/Tribe/Customizer/General_Theme.php:365
 msgid "Blue Steel"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:360
+#: src/Tribe/Customizer/General_Theme.php:371
 msgid "Deep Sea"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:366
+#: src/Tribe/Customizer/General_Theme.php:377
 msgid "Default"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:372
+#: src/Tribe/Customizer/General_Theme.php:383
 msgid "Evergreen"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:378
+#: src/Tribe/Customizer/General_Theme.php:389
 msgid "Lagoon"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:384
+#: src/Tribe/Customizer/General_Theme.php:395
 msgid "Malachite"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:390
+#: src/Tribe/Customizer/General_Theme.php:401
 msgid "Skyfall"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:396
+#: src/Tribe/Customizer/General_Theme.php:407
 msgid "Sunshine"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:402
-#: src/Tribe/Views/V2/Customizer.php:178
+#: src/Tribe/Customizer/General_Theme.php:413
+#: src/Tribe/Views/V2/Customizer.php:179
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:128
+#: src/Tribe/Customizer/Global_Elements.php:134
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:128
+#: src/Tribe/Customizer/Global_Elements.php:134
 msgid "Global Elements"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:129
+#: src/Tribe/Customizer/Global_Elements.php:135
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" section."
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:163
-#: src/Tribe/Customizer/Single_Event.php:119
+#: src/Tribe/Customizer/Global_Elements.php:169
+#: src/Tribe/Customizer/Single_Event.php:124
 msgid "Set Font Colors"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:185
+#: src/Tribe/Customizer/Global_Elements.php:191
 msgid "Links"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:186
+#: src/Tribe/Customizer/Global_Elements.php:192
 msgid "For displayed URLs"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:200
-#: src/Tribe/Customizer/Single_Event.php:158
+#: src/Tribe/Customizer/Global_Elements.php:206
+#: src/Tribe/Customizer/Global_Elements.php:219
+#: src/Tribe/Customizer/Single_Event.php:163
 msgid "Adjust Appearance"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:239
+#: src/Tribe/Customizer/Global_Elements.php:258
 msgid "Map Pin"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:268
+#: src/Tribe/Customizer/Global_Elements.php:287
 msgid "Filter Bar Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:291
+#: src/Tribe/Customizer/Global_Elements.php:310
 msgid "Button Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Month_Week_View.php:148
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:68
+#: src/Tribe/Customizer/Month_Week_View.php:153
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:70
 msgid "Month View"
 msgstr ""
 
-#: src/Tribe/Customizer/Month_Week_View.php:183
+#: src/Tribe/Customizer/Month_Week_View.php:188
 msgid "Calendar Table Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Month_Week_View.php:205
+#: src/Tribe/Customizer/Month_Week_View.php:210
 msgid "Calendar Highlight Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:91
+#: src/Tribe/Customizer/Single_Event.php:96
 msgid "These settings control the appearance of the single event pages."
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:97
+#: src/Tribe/Customizer/Single_Event.php:102
 msgid "Single Event"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:143
+#: src/Tribe/Customizer/Single_Event.php:148
 msgid "Event Title Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:144
+#: src/Tribe/Customizer/Single_Event.php:149
 msgid "Post Title Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:180
+#: src/Tribe/Customizer/Single_Event.php:185
 msgid "Event Details Background Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Single_Event.php:181
+#: src/Tribe/Customizer/Single_Event.php:186
 msgid "For classic editor"
 msgstr ""
 
-#: src/Tribe/Customizer/Widget.php:59
+#: src/Tribe/Customizer/Widget.php:64
 msgid "Widgets"
 msgstr ""
 
-#: src/Tribe/Customizer/Widget.php:91
+#: src/Tribe/Customizer/Widget.php:96
 msgid "Calendar Header Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Widget.php:113
+#: src/Tribe/Customizer/Widget.php:118
 msgid "Calendar Date Bar Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Widget.php:132
+#: src/Tribe/Customizer/Widget.php:137
 msgid "Show Featured Event Images"
 msgstr ""
 
@@ -2105,7 +2106,7 @@ msgstr ""
 #: src/Tribe/Template/Single_Event.php:123
 #: src/Tribe/Views/V2/Template_Bootstrap.php:136
 #: src/Tribe/Views/V2/Template_Bootstrap.php:176
-#: src/Tribe/Views/V2/Template_Bootstrap.php:485
+#: src/Tribe/Views/V2/Template_Bootstrap.php:497
 msgid "This %s has passed."
 msgstr ""
 
@@ -2704,9 +2705,9 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.7.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.7.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.0)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Main.php:995 src/Tribe/Main.php:1498 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
@@ -4768,112 +4769,188 @@ msgstr ""
 msgid "Unnamed Venue"
 msgstr ""
 
-#. translators: 1: Customizer link (HTML).
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:75
-msgctxt "Note about overriding general settings. Contains link HTML."
-msgid ""
-"Options selected here will override what was selected in the %1$s section."
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:70
+msgid "Events Bar"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:93
-msgctxt "The header for the date and day color control section."
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:71
+msgctxt "Note about what these settings control."
+msgid ""
+"These settings control the search and options bar that appears above "
+"calendar views."
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:135
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:82
+msgctxt "The header for the font color control section."
 msgid "Set Font Colors"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:106
-msgctxt "The header for the calendar grid color control section."
-msgid "Adjust Grid Colors"
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:148
+msgctxt "The header for the color control section."
+msgid "Adjust Appearance"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:168
-msgctxt "The days of the week text color setting label."
-msgid "Days of the Week"
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:166
+msgctxt "The events bar text color setting label."
+msgid "Text Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:177
-msgctxt "The date marker text color setting label."
-msgid "Date Marker"
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:176
+msgctxt "The \"Find Events\" button text color setting label."
+msgid "Find Events Button Text"
 msgstr ""
 
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:185
+msgctxt "The Events Bar icon color setting label."
+msgid "Icons"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:191
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:270
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:312
+msgctxt "Label for the default option."
+msgid "Default"
+msgstr ""
+
+#. translators: 1: Customizer url.
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:198
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:267
+msgctxt ""
+"Label for option to use the accent color. Links to the accent color setting."
+msgid "Use the <a href=\"%1$s\">Accent Color</a>"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:208
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:245
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:287
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:317
 #: src/Tribe/Views/V2/Customizer/Section/Month_View.php:186
-msgctxt "The grid background color setting label."
-msgid "Grid Background"
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:193
-msgctxt "Label for option to leave transparent (default)."
-msgid "Transparent."
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:199
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:280
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:277
 msgctxt "Label for option to set a custom color."
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:219
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:227
+msgctxt "The \"Find Events\" button color setting label."
+msgid "Find Events Button Color"
+msgstr ""
+
+#. translators: 1: Customizer url.
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:235
+msgctxt ""
+"Label for option to use the accent color (default). Links to the accent "
+"color setting."
+msgid "Use the <a href=\"%1$s\">Accent Color</a>"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:264
+msgctxt "The Events Bar background color setting label."
+msgid "Background Color"
+msgstr ""
+
+#. translators: 1: Customizer url.
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:277
+msgctxt ""
+"Label for option to use the events background color. Links to the background "
+"color setting."
+msgid "Use the Calendar <a href=\"%1$s\">Background Color</a>"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:306
+msgctxt "The Events Bar border color setting label."
+msgid "Border Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:95
+msgctxt "The header for the calendar grid color control section."
+msgid "Adjust Grid Colors"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:157
+msgctxt "The days of the week text color setting label."
+msgid "Days of the Week"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:166
+msgctxt "The date marker text color setting label."
+msgid "Date Marker"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:175
+msgctxt "The grid background color setting label."
+msgid "Grid Background"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:181
+msgctxt "Label for option to leave transparent (default)."
+msgid "Transparent"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:205
 msgctxt "Label for tooltip background color setting."
 msgid "Event Preview Background"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:224
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:210
 msgctxt "The grid background color setting description."
-msgid "Preview display when hovering on an event title."
+msgid "Preview display when hovering on an event title"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:230
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:216
 msgctxt "Label for option to leave white (default)."
 msgid "White"
 msgstr ""
 
-#. translators: 1: Customizer link (HTML).
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:237
-msgctxt "Label for option to use the event background color."
-msgid "Use the %1$s."
+#. translators: 1: Customizer url.
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:223
+msgctxt ""
+"Label for option to use the event background color. Links to the event "
+"background color setting."
+msgid "Use the <a href=\"%1$s\">General Background Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:255
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:245
 msgctxt "The grid lines color setting label."
 msgid "Grid Lines Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:264
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:254
 msgctxt "The multiday event bar color setting label."
 msgid "Event Span"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:269
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:259
 msgctxt "The multiday event bar color setting description."
-msgid "For all-day and multi-day events."
+msgid "For all-day and multi-day events"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:299
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:296
 msgctxt "Day hover color setting label."
 msgid "Day Hover"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:304
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:301
 msgctxt "The grid hover color setting description."
-msgid "Bottom border highlight when hovering on a day."
+msgid "Bottom border highlight when hovering on a day"
 msgstr ""
 
-#. translators: 1: Customizer URL, 2: Passed (already translated) link text.
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:350
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:442
 msgctxt "Text used for links to the General settings section."
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:366
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:461
 msgctxt "Text used for links to the Event Background Color setting."
 msgid "General Background Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:382
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:481
 msgctxt "Text used for links to the Accent Color setting."
 msgid "Accent Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer.php:48 src/Tribe/Views/V2/Customizer.php:172
+#: src/Tribe/Views/V2/Customizer.php:48 src/Tribe/Views/V2/Customizer.php:173
 msgid "Event Title"
 msgstr ""
 
@@ -4901,11 +4978,11 @@ msgstr ""
 msgid "Select Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer.php:177
+#: src/Tribe/Views/V2/Customizer.php:178
 msgid "Use General"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer.php:199
+#: src/Tribe/Views/V2/Customizer.php:200
 msgid "Custom Color"
 msgstr ""
 
@@ -4921,17 +4998,17 @@ msgstr ""
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:978
+#: src/Tribe/Views/V2/Hooks.php:984
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1006
+#: src/Tribe/Views/V2/Hooks.php:1012
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1034
+#: src/Tribe/Views/V2/Hooks.php:1040
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
@@ -7786,13 +7863,13 @@ msgstr[1] ""
 msgid "%s for %s"
 msgstr ""
 
-#: src/views/single-event/back-link.php:18 src/views/single-event.php:28
+#: src/views/single-event/back-link.php:18 src/views/single-event.php:69
 msgctxt "%s Events plural label"
 msgid "All %s"
 msgstr ""
 
-#: src/views/single-event/footer.php:21 src/views/single-event.php:46
-#: src/views/single-event.php:80
+#: src/views/single-event/footer.php:21 src/views/single-event.php:87
+#: src/views/single-event.php:121
 msgid "%s Navigation"
 msgstr ""
 
