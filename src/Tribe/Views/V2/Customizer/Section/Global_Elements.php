@@ -7,8 +7,6 @@
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
-
-use Tribe\Events\Views\V2\Customizer\Configuration;
 /**
  * Global Elements
  *
@@ -154,18 +152,22 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'font_size'               => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'font_size_base'          => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'event_title_color'       => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'event_date_time_color'   => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'background_color_choice' => [
 				'sanitize_callback'	   => 'sanitize_key',
@@ -180,6 +182,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'accent_color'            => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 		];
 	}
@@ -369,7 +372,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		}
 
 		$new_styles   = [];
-		$tribe_events = Configuration::get_selector();
 
 		// It's all custom props now, baby...
 
@@ -439,25 +441,21 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 		// Accent color overrides.
 		if ( $this->should_include_setting_css( 'accent_color' ) ) {
-			$accent_color       = $this->get_option( 'accent_color' );
-			$accent_color_obj   = new \Tribe__Utils__Color( $accent_color );
-			$accent_color_hex   = $accent_color_obj->getHexWithHash();
-			$accent_color_arr   = $accent_color_obj->getRgb();
-			$accent_color_rgb   = $accent_color_arr['R'] . ',' . $accent_color_arr['G'] . ',' . $accent_color_arr['B'];
+			$accent_color_rgb   = $this->get_rgb_color( 'accent_color' );
 
-			$new_styles[] = "--tec-color-accent-primary: {$accent_color_hex};";
+			$new_styles[] = "--tec-color-accent-primary: <%= global_elements.accent_color %>;";
 			$new_styles[] = "--tec-color-accent-primary-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-accent-primary-multiday: rgba({$accent_color_rgb},0.24);";
 			$new_styles[] = "--tec-color-accent-primary-multiday-hover: rgba({$accent_color_rgb},0.34);";
 			$new_styles[] = "--tec-color-accent-primary-active: rgba({$accent_color_rgb},0.9);";
 			$new_styles[] = "--tec-color-accent-primary-background: rgba({$accent_color_rgb},0.07);";
 			$new_styles[] = "--tec-color-background-secondary-datepicker: rgba({$accent_color_rgb},0.5);";
-			$new_styles[] = "--tec-color-accent-primary-background-datepicker: {$accent_color_hex};";
-			$new_styles[] = "--tec-color-button-primary: {$accent_color_hex};";
+			$new_styles[] = "--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;";
+			$new_styles[] = "--tec-color-button-primary: <%= global_elements.accent_color %>;";
 			$new_styles[] = "--tec-color-button-primary-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-button-primary-active: rgba({$accent_color_rgb},0.9);";
 			$new_styles[] = "--tec-color-button-primary-background: rgba({$accent_color_rgb},0.07);";
-			$new_styles[] = "--tec-color-day-marker-current-month: {$accent_color_hex};";
+			$new_styles[] = "--tec-color-day-marker-current-month: <%= global_elements.accent_color %>;";
 			$new_styles[] = "--tec-color-day-marker-current-month-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-day-marker-current-month-active: rgba({$accent_color_rgb},0.9);";
 		}

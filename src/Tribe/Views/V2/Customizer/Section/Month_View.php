@@ -7,9 +7,6 @@
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
-
-use Tribe__Utils__Color;
-
 /**
  * Month View
  *
@@ -109,38 +106,47 @@ final class Month_View extends \Tribe__Customizer__Section {
 			'grid_lines_color'				=> [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'grid_hover_color'				=> [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'grid_background_color_choice'	=> [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'grid_background_color'		   => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'tooltip_background_color'		=> [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'days_of_week_color'			  => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'date_marker_color'			   => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'multiday_event_bar_color_choice' => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'multiday_event_bar_color'		=> [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			]
 		];
 	}
@@ -307,10 +313,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 			:root {
 		";
 
-		// These allow us to continue to _not_ target the shortcode.
-		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
-		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
-
 		if ( $this->should_include_setting_css( 'grid_lines_color' ) ) {
 			$css_template .= "
 				--tec-color-border-secondary-month-grid: <%= month_view.grid_lines_color %>;
@@ -349,14 +351,13 @@ final class Month_View extends \Tribe__Customizer__Section {
 		if ( $this->should_include_setting_css( 'date_marker_color' )  ) {
 			$css_template .="
 				--tec-color-day-marker-month: <%= month_view.date_marker_color %>;
+				--tec-color-day-marker-past-month: <%= month_view.date_marker_color %>;
 			";
 		}
 
 		if ( $this->should_include_setting_css( 'multiday_event_bar_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'multiday_event_bar_color' ) ) {
-				$bar_color_obj   = new Tribe__Utils__Color( $this->get_option( 'multiday_event_bar_color' ) );
-				$bar_color_arr   = $bar_color_obj->getRgb();
-				$bar_color_rgb   = $bar_color_arr['R'] . ',' . $bar_color_arr['G'] . ',' . $bar_color_arr['B'];
+				$bar_color_rgb   = $this->get_rgb_color( 'multiday_event_bar_color' );
 				$bar_color       = 'rgba(' . $bar_color_rgb . ',0.24)';
 				$bar_color_hover = 'rgba(' . $bar_color_rgb . ',0.34)';
 
@@ -438,6 +439,7 @@ final class Month_View extends \Tribe__Customizer__Section {
 
 		return tribe( 'customizer' )->get_setting_link( 'global_elements', 'background_color_choice', $label_text );
 	}
+
 
 	/**
 	 * Gets the link to the accent color setting in Customizer.

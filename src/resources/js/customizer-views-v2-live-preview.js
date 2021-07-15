@@ -1,54 +1,87 @@
 /* global tribe, tribe_events_customizer_live_preview_js_config */
 
 /**
- * File customizer-views-v2-controls.js.
+ * File customizer-views-v2-live-preview.js.
  *
  * Plugin Customizer enhancements for a better user experience.
  *
  * Contains handlers to make TEC Customizer preview reload changes asynchronously.
+ *
+ * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
  */
-//tribe_events_customizer_live_preview_js_config
 
- var tribe_customizer_preview = tribe_customizer_preview || {};
+var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_live_preview_js_config || {};
 
- ( function( $, api, obj ) {
+( function( $, api, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
+
 	obj.selectors = {
-		globalBackgroundColor: 'tribe_customizer[global_elements][background_color]',
-		globalBackgroundColorChoice: 'tribe_customizer[global_elements][background_color_choice]',
+		/* Global Elements */
+		globalFontFamily: 'tribe_customizer[global_elements][font_family]',
 		globalFontSizeBase: 'tribe_customizer[global_elements][font_size_base]',
 		globalEventTitleColor: 'tribe_customizer[global_elements][event_title_color]',
-		globalAccentColor: 'tribe_customizer[global_elements][accent_color]',
 		globalEventDateColor: 'tribe_customizer[global_elements][event_date_time_color]',
-		globalFontFamily: 'tribe_customizer[global_elements][font_family]',
+		globalBackgroundColor: 'tribe_customizer[global_elements][background_color]',
+		globalBackgroundColorChoice: 'tribe_customizer[global_elements][background_color_choice]',
+		globalAccentColor: 'tribe_customizer[global_elements][accent_color]',
 
-
-		eventsBarBackgroundColor: 'tribe_customizer[tec_events_bar][events_bar_background_color]',
-		eventsBarBackgroundColorChoice: 'tribe_customizer[tec_events_bar][events_bar_background_color_choice]',
-		eventsBarBorderColor: 'tribe_customizer[tec_events_bar][events_bar_border_color]',
-		eventsBarBorderColorChoice: 'tribe_customizer[tec_events_bar][events_bar_border_color_choice]',
-		eventsBarButtonColor: 'tribe_customizer[tec_events_bar][find_events_button_color]',
-		eventsBarButtonColorChoice: 'tribe_customizer[tec_events_bar][find_events_button_color_choice]',
-		eventsBarIconColor: 'tribe_customizer[tec_events_bar][events_bar_icon_color]',
+		/* Events Bar */
+		eventsBarTextColor: 'tribe_customizer[tec_events_bar][events_bar_text_color]',
+		eventsBarButtonTextColor: 'tribe_customizer[tec_events_bar][find_events_button_text_color]',
 		eventsBarIconColorChoice: 'tribe_customizer[tec_events_bar][events_bar_icon_color_choice]',
+		eventsBarIconColor: 'tribe_customizer[tec_events_bar][events_bar_icon_color]',
+		eventsBarButtonColorChoice: 'tribe_customizer[tec_events_bar][find_events_button_color_choice]',
+		eventsBarButtonColor: 'tribe_customizer[tec_events_bar][find_events_button_color]',
+		eventsBarBackgroundColorChoice: 'tribe_customizer[tec_events_bar][events_bar_background_color_choice]',
+		eventsBarBackgroundColor: 'tribe_customizer[tec_events_bar][events_bar_background_color]',
+		eventsBarBorderColorChoice: 'tribe_customizer[tec_events_bar][events_bar_border_color_choice]',
+		eventsBarBorderColor: 'tribe_customizer[tec_events_bar][events_bar_border_color]',
 
-		monthGridBackgroundColor: 'tribe_customizer[month_view][grid_background_color]',
-		monthGridBackgroundColorChoice: 'tribe_customizer[month_view][grid_background_color_choice]',
-		monthMultidayEventBar: 'tribe_customizer[month_view][multiday_event_bar_color]',
+		/* Month View */
+		monthDaysOfWeekColor: 'tribe_customizer[month_view][days_of_week_color]',
+		monthDateMarkerColor: 'tribe_customizer[month_view][date_marker_color]',
 		monthMultidayEventBarChoice: 'tribe_customizer[month_view][multiday_event_bar_color_choice]',
+		monthMultidayEventBar: 'tribe_customizer[month_view][multiday_event_bar_color]',
+		monthGridLinesColor: 'tribe_customizer[month_view][tooltip_background_color]',
+		monthGridHoverColor: 'tribe_customizer[month_view][tooltip_background_color]',
+		monthGridBackgroundColorChoice: 'tribe_customizer[month_view][grid_background_color_choice]',
+		monthGridBackgroundColor: 'tribe_customizer[month_view][grid_background_color]',
+		monthTooltipBackgroundColorChoice: 'tribe_customizer[month_view][tooltip_background_color_choice]',
 		monthTooltipBackgroundColor: 'tribe_customizer[month_view][tooltip_background_color]',
+
+		/* Single Event */
+		singleEventTitleColorChoice: 'tribe_customizer[single_event][post_title_color_choice]',
+		singleEventTitleColor: 'tribe_customizer[single_event][post_title_color]'
 	};
 
 	obj.customProps = {
-		globalBackgroundColor: '--tec-color-background-events',
+		/* Global Elements */
+		globalFontFamily: [
+			'--tec-font-family-sans-serif',
+			'--tec-font-family-base',
+		],
+		globalFontSizeBase: [
+			'--tec-font-size-0',
+			'--tec-font-size-1',
+			'--tec-font-size-2',
+			'--tec-font-size-3',
+			'--tec-font-size-4',
+			'--tec-font-size-5',
+			'--tec-font-size-6',
+			'--tec-font-size-7',
+			'--tec-font-size-8',
+			'--tec-font-size-9',
+			'--tec-font-size-10',
+		],
+		globalFontSizeKeys: [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ],
 		globalEventTitleColor: [
 			'--tec-color-text-events-title',
-			'--tec-color-text-event-title',
 		],
 		globalEventDateColor: [
 			'--tec-color-text-event-date',
 			'--tec-color-text-event-date-secondary',
 		],
+		globalBackgroundColor: '--tec-color-background-events',
 		globalAccentColor: [
 			'--tec-color-accent-primary',
 			'--tec-color-accent-primary-hover',
@@ -66,77 +99,577 @@
 			'--tec-color-day-marker-current-month-hover',
 			'--tec-color-day-marker-current-month-active',
 		],
-		globalFontSizeBase: [
-			'--tec-font-family-sans-serif',
-			'--tec-font-family-base',
+
+		/* Events Bar */
+		eventsBarTextColor: [
+			'--tec-color-text-events-bar-input',
+			'--tec-color-text-events-bar-input-placeholder',
+			'--tec-color-text-view-selector-list-item',
+			'--tec-color-text-view-selector-list-item-hover',
 		],
-		globalFontFamily: '',
-		globalFontSizeKeys: [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ],
+		eventsBarButtonTextColor: [
+			'--tec-color-text-events-bar-submit-button',
+			'--tec-color-text-events-bar-submit-button-active',
+			'--tec-color-text-events-bar-submit-button-hover',
+		],
+		eventsBarIconColor: [
+			'--tec-color-icon-events-bar',
+			'--tec-color-icon-events-bar-hover',
+			'--tec-color-icon-events-bar-active',
+		],
+		eventsBarButtonColor: [
+			'--tec-color-background-events-bar-submit-button',
+			'--tec-color-background-events-bar-submit-button-hover',
+			'--tec-color-background-events-bar-submit-button-active',
+		],
+		eventsBarBackgroundColor: [
+			'--tec-color-background-events-bar',
+			'--tec-color-background-events-bar-tabs',
+			'--tec-color-background-view-selector',
+		],
+		eventsBarBackgroundColorOpacity: '--tec-opacity-events-bar-input-placeholder',
+		eventsBarBorderColor: '--tec-color-border-events-bar',
 
-		eventsBarBackgroundColor: '',
-		eventsBarBorderColor: '',
-		eventsBarButtonColor: '',
-		eventsBarIconColor: '',
+		/* Month View */
+		monthDaysOfWeekColor: '--tec-color-text-day-of-week-month',
+		monthDateMarkerColor: [
+			'--tec-color-day-marker-month',
+			'--tec-color-day-marker-past-month',
+		],
+		monthMultidayEventBarColor: [
+			'--tec-color-background-primary-multiday',
+			'--tec-color-background-primary-multiday-hover',
+			'--tec-color-background-primary-multiday-active',
+			'--tec-color-background-secondary-multiday',
+			'--tec-color-background-secondary-multiday-hover',
+		],
+		monthGridLinesColor: '--tec-color-border-secondary-month-grid',
+		monthGridHoverColor: '--tec-color-border-active-month-grid-hover',
+		monthGridBackgroundColor: '--tec-color-background-month-grid',
+		monthTooltipBackgroundColor: '--tec-color-background-tooltip',
 
-		monthGridBackgroundColor: '',
-		monthMultidayEventBar: '',
-		monthTooltipBackgroundColor: '',
+		/* Single Event */
+		singleEventTitleColor: '--tec-color-text-event-title',
 	};
 
-	/* Global Elements */
+	obj.root = document.querySelectorAll( tribe_events_customizer_live_preview_js_config.selector );
 
-	//Update events background color...
-	api( obj.selectors.globalBackgroundColor, function( value ) {
-		// Bind to the value change
-		value.bind( function( to ) {
-			// Grab all affected regions
-			const root = document.querySelectorAll( tribe_events_customizer_live_preview_js_config.selector );
-
-			// Loop through them and set the var for them individually.
-			root.forEach( function( tribeElement ) {
-				tribeElement.style.setProperty( obj.customProps.globalBackgroundColor, to );
-			  } );
-		} );
-	} );
-
-
-	api( obj.selectors.globalBackgroundColorChoice, function( value ) {
-		value.bind( function( to ) {
-			const root = document.querySelectorAll( '.tribe-events, .tribe-common' );
-
-			if ( 'transparent' ===  to) {
-				// Handle the default
-				root.forEach(function( tribeElement ) {
-					tribeElement.style.setProperty( obj.customProps.globalBackgroundColor, to );
-				} );
-			} else {
-				// Handle the switch to "custom" immediately.
-				root.forEach(function(tribeElement) {
-					let backgroundColor =  api( obj.selectors.globalBackgroundColor ).get();
-					tribeElement.style.setProperty( obj.customProps.globalBackgroundColor, backgroundColor );
-				} );
-			}
-		} );
-	} );
+	/*--------- Global Elements ---------*/
 
 	// Font Family
-	api( obj.selectors.globalFontFamily, function( value ) {
-		// Bind to the value change
-		value.bind( function( to ) {
-			// Grab all affected regions
-			const root = document.querySelectorAll( tribe_events_customizer_live_preview_js_config.selector );
+	api(
+		obj.selectors.globalFontFamily,
+		function( value ) {
+			// Bind to the value change
+			value.bind(
+				function( to ) {
+					const fontFamily = 'theme' === to ? 'inherit' : tribe_events_customizer_live_preview_js_config.default_font;
 
-			if ( 'theme' ===  to) {
-				to = 'inherit'
-			} else {
-				to = tribe_events_customizer_live_preview_js_config.default_font;
-			}
+					obj.customProps.globalFontFamily.forEach(
+						function( fontFamilySelector ) {
+							// Note: "inherit" won't work if we put it on 'tribe-events' - it needs to be on :root{}
+							document.documentElement.style.setProperty( fontFamilySelector, fontFamily );
+						}
+					);
+				}
+			);
+		}
+	);
 
-			// Loop through them and set the var for them individually.
-			root.forEach( function( tribeElement ) {
-				tribeElement.style.setProperty( obj.customProps.globalFontFamily, to );
-			  } );
-		} );
-	} );
+	// Font Size
+	api(
+		obj.selectors.globalFontSizeBase,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					const fontSizeMultiplier = parseInt( to ) / 16;
 
-} )( jQuery, wp.customize, tribe_customizer_preview );
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.globalFontSizeBase.forEach(
+								function( fontSizeSelector, index ) {
+									const newSize = fontSizeMultiplier * parseInt( obj.customProps.globalFontSizeKeys[index] );
+									tribeElement.style.setProperty( fontSizeSelector, newSize.toFixed(3) + 'px' );
+								}
+							);
+
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Event Title
+	api(
+		obj.selectors.globalEventTitleColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.globalEventTitleColor.forEach(
+								function( eventTitleSelector ) {
+									tribeElement.style.setProperty( eventTitleSelector, to );
+								}
+							);
+
+							// Event Single Title
+							const singleEventTitleColorChoice = api( obj.selectors.singleEventTitleColorChoice ).get();
+
+							if ( 'default' === singleEventTitleColorChoice ) {
+								obj.customProps.singleEventTitleColor.forEach(
+									function( eventTitleSelector ) {
+										tribeElement.style.setProperty( eventTitleSelector, to );
+									}
+								);
+							}
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Event Date
+	api(
+		obj.selectors.globalEventDateColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.globalEventDateColor.forEach(
+								function( eventDateSelector ) {
+									tribeElement.style.setProperty( eventDateSelector, to );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Background Color Choice
+	api(
+		obj.selectors.globalBackgroundColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let backgroundColor = to;
+
+					if ( 'transparent' !== to ) {
+						backgroundColor = api( obj.selectors.globalBackgroundColor ).get();
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.globalBackgroundColor, backgroundColor );
+
+							const eventsBarBackgroundColorChoice = api( obj.selectors.eventsBarBackgroundColorChoice ).get();
+
+							if  ( 'global_background' === eventsBarBackgroundColorChoice ) {
+								let eventsBarBackgroundColor = 'transparent' === to ? 'var(--tec-color-background)' : backgroundColor;
+								const backgroundColorSelectors = obj.customProps.eventsBarBackgroundColor;
+
+								backgroundColorSelectors.forEach(
+									function( colorSelector ) {
+										tribeElement.style.setProperty( colorSelector, eventsBarBackgroundColor );
+									}
+								);
+							}
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Background Color
+	api(
+		obj.selectors.globalBackgroundColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.globalBackgroundColor, to );
+
+							const eventsBarBackgroundColorChoice = api( obj.selectors.eventsBarBackgroundColorChoice ).get();
+
+							if  ( 'global_background' === eventsBarBackgroundColorChoice ) {
+								const backgroundColorSelectors = obj.customProps.eventsBarBackgroundColor;
+
+								backgroundColorSelectors.forEach(
+									function( colorSelector ) {
+										tribeElement.style.setProperty( colorSelector, to );
+									}
+								);
+							}
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Accent Color
+	api(
+		obj.selectors.globalAccentColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					const accentColor = api( obj.selectors.globalAccentColor ).get();
+					const accentColorSelectors = obj.customProps.globalAccentColor;
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							accentColorSelectors.forEach(
+								function( accentColorSelector ) {
+									tribeElement.style.setProperty( accentColorSelector, accentColor );
+								}
+							);
+
+							// Events Bar "Find Events" button
+							const eventsBarButtonColorChoice = api( obj.selectors.eventsBarButtonColorChoice ).get();
+
+							if ( 'default' === eventsBarButtonColorChoice ) {
+								const eventsBarButtonColor = obj.customProps.eventsBarButtonColor;
+
+								eventsBarButtonColor.forEach(
+									function( eventsBarButtonColorSelector ) {
+										tribeElement.style.setProperty( eventsBarButtonColorSelector, accentColor );
+									}
+								);
+							}
+
+							// Events Bar Icon Color
+							const eventsBarIconColorChoice = api( obj.selectors.eventsBarIconColorChoice ).get();
+							if ( 'accent' === eventsBarIconColorChoice ) {
+								const eventsBarIconColor = obj.customProps.eventsBarIconColor;
+
+								eventsBarIconColor.forEach(
+									function( eventsBarIconColorSelector ) {
+										tribeElement.style.setProperty( eventsBarIconColorSelector, accentColor );
+									}
+								);
+							}
+
+							// @todo: Multiday Event Span?
+						}
+					);
+				}
+			);
+		}
+	);
+
+	/*--------- Events Bar ---------*/
+
+	// Text Color
+	api(
+		obj.selectors.eventsBarTextColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarTextColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, to );
+								}
+							);
+
+							tribeElement.style.setProperty( '--tec-opacity-events-bar-input-placeholder', '0.6' );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Button Text Color
+	api(
+		obj.selectors.eventsBarButtonTextColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarButtonTextColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, to );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Icon Color Choice
+	api(
+		obj.selectors.eventsBarIconColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let iconColor = 'var(--tec-color-icon-primary)';
+
+					if ( 'custom' === to ) {
+						iconColor = api(obj.selectors.eventsBarIconColor ).get();
+					} else if ( 'accent' === to ) {
+						iconColor = api( obj.selectors.globalAccentColor ).get();
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarIconColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, iconColor );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Icon Color
+	api(
+		obj.selectors.eventsBarIconColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarIconColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, to );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Button Background Color Choice
+	api(
+		obj.selectors.eventsBarButtonColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let buttonColor = api( obj.selectors.globalAccentColor ).get();
+
+					if ( 'custom' === to ) {
+						buttonColor = api( obj.selectors.eventsBarButtonColor ).get();
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarButtonColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, buttonColor );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Button Background Color
+	api(
+		obj.selectors.eventsBarButtonColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarButtonColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, to );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Bar Background Color Choice
+	api(
+		obj.selectors.eventsBarBackgroundColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let backgroundColor = '#fff';
+
+					if ( 'custom' === to ) {
+						backgroundColor = api(obj.selectors.eventsBarBackgroundColor ).get();
+					} else if ( 'global_background' === to ) {
+						const globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get();
+						if ( 'transparent' !== globalBackgroundColorChoice ) {
+							backgroundColor = api( obj.selectors.globalBackgroundColor ).get();
+						}
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarBackgroundColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, backgroundColor );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Bar Background Color
+	api(
+		obj.selectors.eventsBarBackgroundColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.eventsBarBackgroundColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, to );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Bar Border Color Choice
+	api(
+		obj.selectors.eventsBarBorderColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let borderColor = 'var(--tec-color-border-secondary)';
+
+					if ( 'custom' === to ) {
+						borderColor = api( obj.selectors.eventsBarBorderColor ).get();
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.eventsBarBorderColor, borderColor );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Bar Border Color
+	api(
+		obj.selectors.eventsBarBorderColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.eventsBarBorderColor, to );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	/*--------- Month View ---------*/
+
+	// Days of Week Color
+	api(
+		obj.selectors.monthDaysOfWeekColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.monthDaysOfWeekColor, to );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Date Marker Color
+	api(
+		obj.selectors.monthDateMarkerColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					const monthDateMarkerColorSelectors = obj.customProps.monthDateMarkerColor;
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							monthDateMarkerColorSelectors.forEach(
+								function( monthDateMarkerColorSelector ) {
+									tribeElement.style.setProperty( monthDateMarkerColorSelector, to );
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+
+	/*--------- Single Event ---------*/
+
+	// Event Single Title Color Choice
+	api(
+		obj.selectors.singleEventTitleColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let eventTitleColor = api( obj.selectors.globalEventTitleColor ).get();
+
+					if ( 'custom' === to ) {
+						eventTitleColor = api( obj.selectors.singleEventTitleColor ).get();
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.singleEventTitleColor, eventTitleColor );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Event Single Title Color
+	api(
+		obj.selectors.singleEventTitleColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.singleEventTitleColor, to );
+						}
+					);
+				}
+			);
+		}
+	);
+
+} )( jQuery, wp.customize, tribe_events_customizer_live_preview_js_config );

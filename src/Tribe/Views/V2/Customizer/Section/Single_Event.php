@@ -65,15 +65,20 @@ final class Single_Event extends \Tribe__Customizer__Section {
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_settings() {
 		return [
 			'post_title_color_choice' => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'post_title_color'        => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'details_bg_color'        => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
@@ -82,6 +87,9 @@ final class Single_Event extends \Tribe__Customizer__Section {
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_headings() {
 		return [
 			'font_colors' => [
@@ -108,6 +116,9 @@ final class Single_Event extends \Tribe__Customizer__Section {
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_controls() {
 		$customizer = tribe( 'customizer' );
 		return [
@@ -156,12 +167,13 @@ final class Single_Event extends \Tribe__Customizer__Section {
 		if (
 			$this->should_include_setting_css( 'post_title_color_choice' )
 			&& $this->should_include_setting_css( 'post_title_color' )
+			&& $this->should_add_single_view_v2_styles()
 		) {
 			// It's all custom props now, baby...
 			$css_template .= '
-			:root {
-				--tec-color-text-event-title: <%= single_event.post_title_color %>;
-			}
+				:root {
+					--tec-color-text-event-title: <%= single_event.post_title_color %>;
+				}
 			';
 		}
 

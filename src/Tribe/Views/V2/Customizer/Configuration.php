@@ -34,7 +34,7 @@ class Configuration {
 	}
 
 	public static function get_selector() {
-		$tribe_events = '#tribe-events-pg-template, .tribe-events';
+		$tribe_events = '#tribe-events-pg-template, .tribe-events, .tribe-common';
 
 		/**
 		 * Allows filtering to enforce applying Customizer styles to shortcode views.

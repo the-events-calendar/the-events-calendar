@@ -26,7 +26,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.views.v2.customizer.provider', $this );
 
 		$this->register_hooks();
-		$this->register_assets();
 
 		tribe_singleton( 'events.views.v2.customizer.global-elements', Global_Elements::class );
 		// For backwards-compatibility.
@@ -42,8 +41,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		tribe('events.views.v2.customizer.global-elements');
 		tribe('events.views.v2.customizer.month-view');
-
-		tribe_singleton( 'events.views.v2.customizer.events-bar', Events_Bar::class );
 		tribe('events.views.v2.customizer.events-bar');
 		tribe('events.views.v2.customizer.single-event' );
 	}
@@ -56,7 +53,5 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Hooks::class, $hooks );
 		$this->container->singleton( 'events.views.v2.customizer.hooks', $hooks );
 	}
-
-	public function register_assets() {}
 
 }
