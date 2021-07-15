@@ -39,10 +39,15 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		tribe_singleton( 'events.views.v2.customizer.events-bar', Events_Bar::class );
 		tribe_singleton( 'events.views.v2.customizer.single-event', Single_Event::class );
 
-		tribe('events.views.v2.customizer.global-elements');
-		tribe('events.views.v2.customizer.month-view');
-		tribe('events.views.v2.customizer.events-bar');
-		tribe('events.views.v2.customizer.single-event' );
+		// Notice for extension incompatibility
+		tribe_singleton( Notice::class, Notice::class, [ 'hook' ] );
+
+		tribe( 'events.views.v2.customizer.global-elements');
+		tribe( 'events.views.v2.customizer.month-view');
+		tribe( 'events.views.v2.customizer.events-bar');
+		tribe( 'events.views.v2.customizer.single-event' );
+		tribe( Notice::class );
+
 	}
 
 	public function register_hooks() {
