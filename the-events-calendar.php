@@ -12,7 +12,7 @@
  */
 
 /**
- * Copyright 2009-2012 by Modern Tribe Inc and the contributors
+ * Copyright 2009-2021 by The Events Calendar and the contributors
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

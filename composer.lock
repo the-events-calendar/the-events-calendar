@@ -6154,7 +6154,7 @@
                     "email": "vendors@theeventscalendar.com"
                 }
             ],
-            "description": "Code sniffing rules for Modern Tribe products",
+            "description": "Code sniffing rules for The Events Calendar products",
             "keywords": [
                 "WordPress",
                 "phpcs",
