@@ -84,52 +84,42 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'events_bar_background_color_choice'        => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
-				'transport'            => 'postMessage',
 			],
 			'events_bar_background_color'               => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-				'transport'            => 'postMessage',
 			],
 			'events_bar_border_color_choice'        => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
-				'transport'            => 'postMessage',
 			],
 			'events_bar_border_color'               => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-				'transport'            => 'postMessage',
 			],
 			'events_bar_icon_color_choice'          => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
-				'transport'            => 'postMessage',
 			],
 			'events_bar_icon_color'                 => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-				'transport'            => 'postMessage',
 			],
 			'events_bar_text_color'                 => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-				'transport'            => 'postMessage',
 			],
 			'find_events_button_color_choice'       => [
 				'sanitize_callback'	   => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
-				'transport'            => 'postMessage',
 			],
 			'find_events_button_color'              => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-				'transport'            => 'postMessage',
 			],
 			'find_events_button_text_color'         => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-				'transport'            => 'postMessage',
 			],
 		];
 	}
@@ -366,7 +356,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			$button_text_color_active = 'rgba(' . $button_text_color_rgb . ',0.6)';
 
 			$css_template .= "
-				--tec-color-text-events-bar-submit-button: <%= tec_events_bar.events_bar_text_color %>;
+				--tec-color-text-events-bar-submit-button: <%= tec_events_bar.find_events_button_text_color %>;
 				--tec-color-text-events-bar-submit-button-active: {$button_text_color_active};
 				--tec-color-text-events-bar-submit-button-hover: {$button_text_color_hover};
 			";
@@ -413,9 +403,12 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				$icon_color = $this->get_option( 'events_bar_icon_color' );
 			} elseif (
 				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
-				&& $this->should_include_setting_css( 'accent_color', 'global_elements' )
 			) {
-				$icon_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
+				if ( $this->should_include_setting_css( 'accent_color', 'global_elements' ) ) {
+					$icon_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
+				} else {
+					$icon_color = 'var(--tec-color-accent-primary)';
+				}
 			}
 
 			if ( ! empty( $icon_color ) ) {

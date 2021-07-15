@@ -46,6 +46,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'customizer-views-v2-controls.js'
 		);
 
+		/* NOT YET
 		tribe_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-live-preview-js',
@@ -59,6 +60,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 				],
 			]
 		);
+		*/
 
 		$this->add_actions();
 		$this->add_filters();

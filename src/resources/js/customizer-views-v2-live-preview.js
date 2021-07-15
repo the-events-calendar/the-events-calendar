@@ -36,17 +36,19 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		eventsBarBackgroundColor: 'tribe_customizer[tec_events_bar][events_bar_background_color]',
 		eventsBarBorderColorChoice: 'tribe_customizer[tec_events_bar][events_bar_border_color_choice]',
 		eventsBarBorderColor: 'tribe_customizer[tec_events_bar][events_bar_border_color]',
+		// Pro-added Control
+		eventsBarViewSelectorBackgroundColorChoice: 'tribe_customizer[tec_events_bar][view_selector_background_color_choice]',
+		eventsBarViewSelectorBackgroundColor: 'tribe_customizer[tec_events_bar][view_selector_background_color]',
 
 		/* Month View */
 		monthDaysOfWeekColor: 'tribe_customizer[month_view][days_of_week_color]',
 		monthDateMarkerColor: 'tribe_customizer[month_view][date_marker_color]',
 		monthMultidayEventBarChoice: 'tribe_customizer[month_view][multiday_event_bar_color_choice]',
 		monthMultidayEventBar: 'tribe_customizer[month_view][multiday_event_bar_color]',
-		monthGridLinesColor: 'tribe_customizer[month_view][tooltip_background_color]',
-		monthGridHoverColor: 'tribe_customizer[month_view][tooltip_background_color]',
+		monthGridLinesColor: 'tribe_customizer[month_view][grid_lines_color]',
+		monthGridHoverColor: 'tribe_customizer[month_view][grid_hover_color]',
 		monthGridBackgroundColorChoice: 'tribe_customizer[month_view][grid_background_color_choice]',
 		monthGridBackgroundColor: 'tribe_customizer[month_view][grid_background_color]',
-		monthTooltipBackgroundColorChoice: 'tribe_customizer[month_view][tooltip_background_color_choice]',
 		monthTooltipBackgroundColor: 'tribe_customizer[month_view][tooltip_background_color]',
 
 		/* Single Event */
@@ -125,10 +127,11 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		eventsBarBackgroundColor: [
 			'--tec-color-background-events-bar',
 			'--tec-color-background-events-bar-tabs',
-			'--tec-color-background-view-selector',
 		],
 		eventsBarBackgroundColorOpacity: '--tec-opacity-events-bar-input-placeholder',
 		eventsBarBorderColor: '--tec-color-border-events-bar',
+		// Pro-added Control
+		eventsBarViewSelectorBackgroundColor:'--tec-color-background-view-selector',
 
 		/* Month View */
 		monthDaysOfWeekColor: '--tec-color-text-day-of-week-month',
@@ -278,6 +281,12 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 										tribeElement.style.setProperty( colorSelector, eventsBarBackgroundColor );
 									}
 								);
+
+								const eventsBarViewSelectorBackgroundColorChoice = api( obj.selectors.eventsBarViewSelectorBackgroundColorChoice ).get();
+
+								if ( 'default' === eventsBarViewSelectorBackgroundColorChoice ) {
+									tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, eventsBarBackgroundColor );
+								}
 							}
 						}
 					);
@@ -508,7 +517,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let backgroundColor = '#fff';
+					let backgroundColor = '#FFFFFF';
 
 					if ( 'custom' === to ) {
 						backgroundColor = api(obj.selectors.eventsBarBackgroundColor ).get();
@@ -526,6 +535,15 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 									tribeElement.style.setProperty( colorSelector, backgroundColor );
 								}
 							);
+
+							const eventsBarViewSelectorBackgroundColorChoice = api( obj.selectors.eventsBarViewSelectorBackgroundColorChoice ).get();
+
+							api( obj.selectors.eventsBarBackgroundColor ).change();
+
+
+							if ( 'default' === eventsBarViewSelectorBackgroundColorChoice ) {
+								//tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, backgroundColor );
+							}
 						}
 					);
 				}
@@ -546,6 +564,44 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 									tribeElement.style.setProperty( colorSelector, to );
 								}
 							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Bar View Selector Background Color Choice
+	api(
+		obj.selectors.eventsBarViewSelectorBackgroundColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					backgroundColor = api(obj.selectors.eventsBarBackgroundColor ).get();
+
+					if ( 'custom' === to ) {
+						backgroundColor = api(obj.selectors.eventsBarViewSelectorBackgroundColor ).get();
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, backgroundColor );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Events Bar View Selector Background Color
+	api(
+		obj.selectors.eventsBarViewSelectorBackgroundColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, to );
 						}
 					);
 				}
@@ -631,6 +687,107 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		}
 	);
 
+	// Grid Lines Color
+	api(
+		obj.selectors.monthGridLinesColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.monthGridLinesColor, to );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Grid Hover Color
+	api(
+		obj.selectors.monthGridHoverColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.monthGridHoverColor, to );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Grid Background Color Choice
+	api(
+		obj.selectors.monthGridBackgroundColorChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let backgroundColor = 'transparent';
+					let tooltipBackgroundColor = api( obj.selectors.globalBackgroundColor ).get();
+
+					if ( 'custom' === to ) {
+						backgroundColor = api( obj.selectors.monthGridBackgroundColor ).get();
+						tooltipBackgroundColor = '#FFFFFF';
+					}
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.monthGridBackgroundColor, backgroundColor );
+						}
+					);
+
+					document.documentElement.style.setProperty( obj.customProps.monthTooltipBackgroundColor, tooltipBackgroundColor );
+				}
+			);
+		}
+	);
+
+	// Grid Background Color
+	api(
+		obj.selectors.monthGridBackgroundColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( obj.customProps.monthGridBackgroundColor, to );
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Tooltip Background Color
+	api(
+		obj.selectors.monthTooltipBackgroundColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					let tooltipBackgroundColor = '#FFFFFF';
+					let monthBackgroundColorChoice = api( obj.selectors.monthGridBackgroundColorChoice ).get();
+					let globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get();
+
+					if ( 'event' === to && 'transparent' === monthBackgroundColorChoice && 'transparent' !== globalBackgroundColorChoice ) {
+						tooltipBackgroundColor = api( obj.selectors.globalBackgroundColor ).get();
+					}
+
+					console.log([
+						tooltipBackgroundColor,
+						monthBackgroundColorChoice,
+						globalBackgroundColorChoice,
+						to
+					]);
+
+					// Tooltips are appended to the body and are not inside a .tribe-events or .tribe-common element!
+					document.documentElement.style.setProperty( obj.customProps.monthTooltipBackgroundColor, tooltipBackgroundColor );
+				}
+			);
+		}
+	);
 
 	/*--------- Single Event ---------*/
 

@@ -29,6 +29,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		eventsBarBorderColor: 'tribe_customizer[tec_events_bar][events_bar_border_color]',
 		eventsBarButtonColorChoice: 'tribe_customizer[tec_events_bar][find_events_button_color_choice]',
 		eventsBarButtonColor: 'tribe_customizer[tec_events_bar][find_events_button_color]',
+		// Pro-added Control
+		eventsBarViewSelectorBackgroundColorChoice: 'tribe_customizer[tec_events_bar][view_selector_background_color_choice]',
+		eventsBarViewSelectorBackgroundColor: 'tribe_customizer[tec_events_bar][view_selector_background_color]',
 
 		monthGridBackgroundColorChoice: 'tribe_customizer[month_view][grid_background_color_choice]',
 		monthGridBackgroundColor: 'tribe_customizer[month_view][grid_background_color]',
@@ -136,6 +139,22 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		} );
 
 		// Only show the events bar background color control when the events bar background color choice is set to custom.
+		wp.customize( obj.selectors.eventsBarViewSelectorBackgroundColorChoice, function( setting ) {
+			wp.customize.control( obj.selectors.eventsBarViewSelectorBackgroundColor, function( control ) {
+				const visibility = function() {
+					if ( 'custom' === setting.get() ) {
+						control.container.slideDown( 180 );
+					} else {
+						control.container.slideUp( 180 );
+					}
+				};
+
+				visibility();
+				setting.bind( visibility );
+			} );
+		} );
+
+		// Only show the events bar view selector background color control when the events bar view selector background color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarBackgroundColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.eventsBarBackgroundColor, function( control ) {
 				const visibility = function() {
