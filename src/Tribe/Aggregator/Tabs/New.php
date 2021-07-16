@@ -507,11 +507,11 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 */
 	public function maybe_display_aggregator_upsell() {
 		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
-			//return;
+			return;
 		}
 
 		if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
-			//return;
+			return;
 		}
 
 		ob_start();
