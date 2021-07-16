@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
 
+use Tribe\Events\Views\V2\Template_Bootstrap as Bootstrap;
 /**
  * Month View
  *
@@ -191,7 +192,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 		}
 
 		// Bail if not Single Event.
-		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+		if ( ! tribe( Bootstrap::class )->is_single_event() ) {
 			return false;
 		}
 
