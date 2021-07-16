@@ -45,9 +45,7 @@ class Notice {
 	 * @return boolean
 	 */
 	public function should_display() {
-		bdump('should_display');
 		if ( ! current_user_can( 'activate_plugins' ) ) {
-			bdump('permissions');
 			return false;
 		}
 
@@ -64,11 +62,9 @@ class Notice {
 
 		// If not a valid screen, don't display.
 		if ( empty( $current_screen->id ) || ! in_array( $current_screen->id, $screens, true ) ) {
-			bdump('bad screen?');
 			return false;
 		}
 
-		bdump( class_exists( 'Tribe\Extensions\InheritThemeFonts\Main' ) );
 		return class_exists( 'Tribe\Extensions\InheritThemeFonts\Main' );
 	}
 
