@@ -18,7 +18,6 @@ jobs:
           - blocks_editor_integration
           - integration
           - muintegration
-          - restv1
           - views_integration
           - views_rest
           - views_settings
