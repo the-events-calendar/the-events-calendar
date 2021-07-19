@@ -116,9 +116,21 @@ class Template_Bootstrap {
 	 * @return bool Whether the current request is for the single event template or not.
 	 */
 	public function is_single_event() {
+		$query      = tribe_get_global_query_object();
+		$view_slug  = tribe_context()->get( 'view' );
 		$conditions = [
 			is_singular( TEC::POSTTYPE ),
-			'single-event' === tribe_context()->get( 'view' ),
+			'single-event' === $view_slug,
+			(
+				// Try to handle too-early queries for the slug to be correct.
+				! tribe_is_showing_all()
+				&& ! V1_Templates::is_embed()
+				&& $query->is_singular
+				&& $query->tribe_is_event_query
+				// But don't get tripped up by our other single views!
+				&& 'organizer' !== $view_slug
+				&& 'venue' !== $view_slug
+			)
 		];
 
 		return in_array( true, $conditions, true );
@@ -210,10 +222,8 @@ class Template_Bootstrap {
 			return $pre_html;
 		}
 
-		$is_single_event = 'single-event' === $view_slug || ( $query->is_singular && $query->tribe_is_event_query );
-
 		$should_display_single = (
-			$is_single_event
+			$this->is_single_event()
 			&& ! tribe_is_showing_all()
 			&& ! V1_Templates::is_embed()
 		);
@@ -231,6 +241,9 @@ class Template_Bootstrap {
 		$should_display_single = apply_filters( 'tribe_events_views_v2_bootstrap_should_display_single', $should_display_single, $view_slug, $query, $context );
 
 		if ( $should_display_single ) {
+			if ( tribe_events_single_view_v2_is_enabled() && ! wp_style_is( 'tribe-events-v2-single-skeleton' ) ) {
+				tribe_asset_enqueue_group( Assets::$single_group_key );
+			}
 			$html = $this->get_v1_single_event_html();
 		} elseif ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
 			$context = [

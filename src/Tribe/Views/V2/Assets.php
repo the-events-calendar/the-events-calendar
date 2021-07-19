@@ -33,6 +33,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 	public static $group_key = 'events-views-v2';
 
 	/**
+	 * Key for this group of assets.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $single_group_key = 'events-views-v2-single';
+
+	/**
 	 * Key for the widget group of assets.
 	 *
 	 * @since 5.3.0
@@ -403,6 +412,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 15,
+				'groups'       => [ static::$single_group_key ],
 				'conditionals' => [
 					[ $this, 'should_enqueue_single_event_styles' ],
 				],
@@ -419,6 +429,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 15,
+				'groups'       => [ static::$single_group_key ],
 				'conditionals' => [
 					'operator' => 'AND',
 					[ $this, 'should_enqueue_single_event_styles' ],
