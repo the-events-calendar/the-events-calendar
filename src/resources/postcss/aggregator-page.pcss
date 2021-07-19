@@ -284,22 +284,25 @@
 		border: 1px solid #F9F7F4;
 		display: flex;
 		justify-content: space-between;
-		padding: 60px 80px 60px 80px;
+		padding: 60px;
+
+		.tribe-notice-tribe-missing-aggregator-license__content {
+			@media screen and (min-width: 1260px) {
+				width: 50%;
+			}
+		}
 
 		.tribe-notice-tribe-missing-aggregator-license__image {
 			background-image: url(../images/aggregator/ea-intro-img-text.png);
-			background-position: top right;
+			background-position: center right;
 			background-repeat: no-repeat;
 			background-size: contain;
 			display: none;
+			margin-left: 30px;
 
 			@media screen and (min-width: 1260px) {
 				display: block;
 				flex: auto;
-			}
-
-			@media screen and (min-width: 1600px) {
-				background-position: center right;
 			}
 		}
 
@@ -323,7 +326,7 @@
 			margin: 28px 0 0;
 
 			@media screen and (min-width: 1260px) {
-				font-size: 78px;
+				font-size: 68px;
 				max-width: 510px;
 			}
 		}
@@ -336,8 +339,8 @@
 			margin: 15px 0 30px;
 
 			@media screen and (min-width: 1260px) {
-				font-size: 28px;
-				width: 730px;
+				font-size: 22px;
+				max-width: 730px;
 			}
 		}
 
@@ -409,12 +412,17 @@
 		background: #334aff;
 		border-color: #334aff;
 		border-radius: 40px;
-		font-size: 19px;
+		font-size: 16px;
 		font-weight: bold;
 		margin-left: 0;
 		margin-top: 6px;
-		padding: 26px 63px;
+		padding: 20px 50px;
 		text-transform: none;
+
+		@media screen and (min-width: 1260px) {
+			font-size: 20px;
+			padding: 26px 63px;
+		}
 	}
 
 	.dataTables_length,
