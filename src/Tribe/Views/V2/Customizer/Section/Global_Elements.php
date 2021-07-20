@@ -450,6 +450,16 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			$new_styles[] = "--tec-color-day-marker-current-month: <%= global_elements.accent_color %>;";
 			$new_styles[] = "--tec-color-day-marker-current-month-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-day-marker-current-month-active: rgba({$accent_color_rgb},0.9);";
+
+			if ( ! $this->should_include_setting_css( 'multiday_event_bar_color_choice', 'month_view' ) ) {
+				$css_template .="
+					--tec-color-background-primary-multiday: rgba({$accent_color_rgb}, 0.24);
+					--tec-color-background-primary-multiday-hover: rgba({$accent_color_rgb}, 0.34);
+					--tec-color-background-primary-multiday-active: rgba({$accent_color_rgb}, 0.34);
+					--tec-color-background-secondary-multiday: rgba({$accent_color_rgb}, 0.24);
+					--tec-color-background-secondary-multiday-hover: rgba({$accent_color_rgb}, 0.34);
+				";
+			}
 		}
 
 		// Link color overrides. This is an old v1 setting, we may be able to remove it?

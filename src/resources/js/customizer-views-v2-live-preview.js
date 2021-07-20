@@ -307,7 +307,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 
 							const eventsBarBackgroundColorChoice = api( obj.selectors.eventsBarBackgroundColorChoice ).get();
 
-							if  ( 'global_background' === eventsBarBackgroundColorChoice ) {
+							if ( 'global_background' === eventsBarBackgroundColorChoice ) {
 								const backgroundColorSelectors = obj.customProps.eventsBarBackgroundColor;
 
 								backgroundColorSelectors.forEach(

@@ -352,16 +352,13 @@ final class Month_View extends \Tribe__Customizer__Section {
 
 		if ( $this->should_include_setting_css( 'multiday_event_bar_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'multiday_event_bar_color' ) ) {
-				$bar_color_rgb   = $this->get_rgb_color( 'multiday_event_bar_color' );
-				$bar_color       = 'rgba(' . $bar_color_rgb . ',0.24)';
-				$bar_color_hover = 'rgba(' . $bar_color_rgb . ',0.34)';
-
+				$bar_color_rgb = $this->get_rgb_color( 'multiday_event_bar_color' );
 				$css_template .="
-					--tec-color-background-primary-multiday: {$bar_color};
-					--tec-color-background-primary-multiday-hover: {$bar_color_hover};
-					--tec-color-background-primary-multiday-active: {$bar_color_hover};
-					--tec-color-background-secondary-multiday: {$bar_color};
-					--tec-color-background-secondary-multiday-hover: {$bar_color_hover};
+					--tec-color-background-primary-multiday: rgba({$bar_color_rgb}, 0.24);
+					--tec-color-background-primary-multiday-hover: rgba({$bar_color_rgb}, 0.34);
+					--tec-color-background-primary-multiday-active: rgba({$bar_color_rgb}, 0.34);
+					--tec-color-background-secondary-multiday: rgba({$bar_color_rgb}, 0.24);
+					--tec-color-background-secondary-multiday-hover: rgba({$bar_color_rgb}, 0.34);
 				";
 			}
 		}
