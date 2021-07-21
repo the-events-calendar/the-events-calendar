@@ -133,6 +133,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'font_size_base'          => '16',
 			'event_title_color'       => '#141827',
 			'event_date_time_color'   => '#141827',
+			'link_color'              => '#141827',
 			'background_color_choice' => 'transparent',
 			'background_color'        => '',
 			'accent_color'            => '#334aff',
@@ -161,6 +162,10 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
 			'event_date_time_color'   => [
+				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+			],
+			'link_color'   => [
 				'sanitize_callback'	   => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
@@ -234,7 +239,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 						'Label for option to use default TEC fonts.',
 						'the-events-calendar'
 					),
-					'theme'       => _x(
+					'theme'    => _x(
 						"Inherit theme font(s)",
 						'Label for option to use theme fonts.',
 						'the-events-calendar'
@@ -302,6 +307,19 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'description' => esc_html_x(
 					'Main date and time display on views and single event pages',
 					'The description for the event date and time color setting.',
+					'the-events-calendar'
+				),
+			],
+			'link_color'              => [
+				'priority'    => 18,
+				'type'        => 'color',
+				'label'       => esc_html_x(
+					'Link Color',
+					'The link color setting label.',
+					'the-events-calendar'
+				),
+				'description' => esc_html__(
+					'For displayed URLs',
 					'the-events-calendar'
 				),
 			],
@@ -409,72 +427,84 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 		// Event Title overrides.
 		if ( $this->should_include_setting_css( 'event_title_color' ) ) {
-			$new_styles[] = "--tec-color-text-events-title: <%= global_elements.event_title_color %>;";
-			$new_styles[] = "--tec-color-text-event-title: <%= global_elements.event_title_color %>;";
+			$title_color = $this->get_option( 'event_title_color' );
+			$new_styles[] = "--tec-color-text-events-title: {$title_color};";
+			$new_styles[] = "--tec-color-text-event-title: {$title_color};";
 		}
 
 		// Event Date/Time overrides.
 		if ( $this->should_include_setting_css( 'event_date_time_color' ) ) {
-			$new_styles[] = "--tec-color-text-event-date: <%= global_elements.event_date_time_color %>;";
-			$new_styles[] = "--tec-color-text-event-date-secondary: <%= global_elements.event_date_time_color %>;";
+			$date_color = $this->get_option( 'event_date_time_color' );
+			$new_styles[] = "--tec-color-text-event-date: {$date_color};";
+			$new_styles[] = "--tec-color-text-event-date-secondary: {$date_color};";
+		}
+
+		// Link color overrides.
+		if ( $this->should_include_setting_css( 'link_color' ) ) {
+			$link_color = $this->get_option( 'link_color' );
+			$link_color_rgb   = $this->get_rgb_color( 'link_color' );
+		} elseif ( $this->should_include_setting_css( 'accent_color' ) )  {
+			$link_color = $this->get_option( 'accent_color' );
+			$link_color_rgb   = $this->get_rgb_color( 'accent_color' );
+		}
+
+		if ( ! empty( $link_color ) ) {
+			$new_styles[] = "--tec-color-link-primary: {$link_color};";
+			$new_styles[] = "--tec-color-link-accent: {$link_color};";
+			$new_styles[] = "--tec-color-link-accent-hover: rgba({$link_color_rgb}, 0.8);";
 		}
 
 		// Background color overrides.
 		if ( $this->should_include_setting_css( 'background_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'background_color' ) ) {
-				$new_styles[] = "--tec-color-background-events: <%= global_elements.background_color %>;";
+				$background_color = $this->get_option( 'background_color' );
+
+				$new_styles[] = "--tec-color-background-events: {$background_color};";
 			}
 		}
 
 		// Accent color overrides.
 		if ( $this->should_include_setting_css( 'accent_color' ) ) {
-			$accent_color_rgb   = $this->get_rgb_color( 'accent_color' );
+			$accent_color     = $this->get_option( 'accent_color' );
+			$accent_color_rgb = $this->get_rgb_color( 'accent_color' );
 
-			$new_styles[] = "--tec-color-accent-primary: <%= global_elements.accent_color %>;";
+			$new_styles[] = "--tec-color-accent-primary: {$accent_color};";
 			$new_styles[] = "--tec-color-accent-primary-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-accent-primary-multiday: rgba({$accent_color_rgb},0.24);";
 			$new_styles[] = "--tec-color-accent-primary-multiday-hover: rgba({$accent_color_rgb},0.34);";
 			$new_styles[] = "--tec-color-accent-primary-active: rgba({$accent_color_rgb},0.9);";
 			$new_styles[] = "--tec-color-accent-primary-background: rgba({$accent_color_rgb},0.07);";
 			$new_styles[] = "--tec-color-background-secondary-datepicker: rgba({$accent_color_rgb},0.5);";
-			$new_styles[] = "--tec-color-accent-primary-background-datepicker: <%= global_elements.accent_color %>;";
-			$new_styles[] = "--tec-color-button-primary: <%= global_elements.accent_color %>;";
+			$new_styles[] = "--tec-color-accent-primary-background-datepicker: {$accent_color};";
+			$new_styles[] = "--tec-color-button-primary: {$accent_color};";
 			$new_styles[] = "--tec-color-button-primary-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-button-primary-active: rgba({$accent_color_rgb},0.9);";
 			$new_styles[] = "--tec-color-button-primary-background: rgba({$accent_color_rgb},0.07);";
-			$new_styles[] = "--tec-color-day-marker-current-month: <%= global_elements.accent_color %>;";
+			$new_styles[] = "--tec-color-day-marker-current-month: {$accent_color};";
 			$new_styles[] = "--tec-color-day-marker-current-month-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-day-marker-current-month-active: rgba({$accent_color_rgb},0.9);";
 
 			if ( ! $this->should_include_setting_css( 'multiday_event_bar_color_choice', 'month_view' ) ) {
-				$css_template .="
-					--tec-color-background-primary-multiday: rgba({$accent_color_rgb}, 0.24);
-					--tec-color-background-primary-multiday-hover: rgba({$accent_color_rgb}, 0.34);
-					--tec-color-background-primary-multiday-active: rgba({$accent_color_rgb}, 0.34);
-					--tec-color-background-secondary-multiday: rgba({$accent_color_rgb}, 0.24);
-					--tec-color-background-secondary-multiday-hover: rgba({$accent_color_rgb}, 0.34);
-				";
+					$new_styles[] = "--tec-color-background-primary-multiday: rgba({$accent_color_rgb}, 0.24);";
+					$new_styles[] = "--tec-color-background-primary-multiday-hover: rgba({$accent_color_rgb}, 0.34);";
+					$new_styles[] = "--tec-color-background-primary-multiday-active: rgba({$accent_color_rgb}, 0.34);";
+					$new_styles[] = "--tec-color-background-secondary-multiday: rgba({$accent_color_rgb}, 0.24);";
+					$new_styles[] = "--tec-color-background-secondary-multiday-hover: rgba({$accent_color_rgb}, 0.34);";
 			}
-		}
-
-		// Link color overrides. This is an old v1 setting, we may be able to remove it?
-		if ( $this->should_include_setting_css( 'link_color' ) ) {
-			$new_styles[] = "--tec-color-link-primary: <%= global_elements.link_color %>;";
-			$new_styles[] = "--tec-color-link-accent: <%= global_elements.link_color %>;";
-			$new_styles[] = "--tec-color-link-accent-hover: <%= global_elements.link_color %>CC;";
 		}
 
 		if ( empty( $new_styles ) ) {
 			return $css_template;
 		}
 
-		$css_template .= ":root {
-			";
+		$new_css = sprintf(
+			':root {
+				/* Customizer-added Global Event styles */
+				%1$s
+			}',
+			implode( "\n", $new_styles )
+		);
 
-		$css_template .= implode( "\n", $new_styles );
-
-		$css_template .= "}";
-
-		return $css_template;
+		return $css_template . $new_css;
 	}
 }

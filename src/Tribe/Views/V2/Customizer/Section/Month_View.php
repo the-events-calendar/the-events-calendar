@@ -299,75 +299,73 @@ final class Month_View extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
+		$new_styles = [];
+
 		// It's all custom props now, baby...
-		$css_template .= "
-			:root {
-		";
 
 		if ( $this->should_include_setting_css( 'grid_lines_color' ) ) {
-			$css_template .= "
-				--tec-color-border-secondary-month-grid: <%= month_view.grid_lines_color %>;
-			";
+			$grid_lines_color = $this->get_option( 'grid_lines_color' );
+			$new_styles[] = "--tec-color-border-secondary-month-grid: {$grid_lines_color};";
 		}
 
 		if ( $this->should_include_setting_css( 'grid_hover_color' ) ) {
-			$css_template .= "
-				--tec-color-border-active-month-grid-hover: <%= month_view.grid_hover_color %>;
-			";
+			$grid_hover_color = $this->get_option( 'grid_hover_color' );
+			$new_styles[] = "--tec-color-border-active-month-grid-hover: {$grid_hover_color};";
 		}
 
 		if ( $this->should_include_setting_css( 'grid_background_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'grid_background_color' ) ) {
-				$css_template .="
-					--tec-color-background-month-grid: <%= month_view.grid_background_color %>;
-				";
+				$grid_background_color = $this->get_option( 'grid_background_color' );
+
 			} else {
-				$css_template .="
-					--tec-color-background-month-grid: #FFFFFF;
-				";
+				$grid_background_color = "#FFFFFF;";
 			}
+			$new_styles[] = "--tec-color-background-month-grid: {$grid_background_color};";
 		} else {
 			if (
 				$this->should_include_setting_css( 'tooltip_background_color' )
 				&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
 			) {
-				$css_template .="
-					--tec-color-background-tooltip: <%= global_elements.background_color %>;
-				";
+				$tooltip_background_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'background_color' ] );
+				$new_styles[] = "--tec-color-background-tooltip: {$tooltip_background_color};";
 			}
 		}
 
 		if ( $this->should_include_setting_css( 'days_of_week_color' )  ) {
-			$css_template .="
-				--tec-color-text-day-of-week-month: <%= month_view.days_of_week_color %>;
-			";
+			$days_of_week_color = $this->get_option( 'days_of_week_color' );
+			$new_styles[] = "--tec-color-text-day-of-week-month: {$days_of_week_color};";
 		}
 
 		if ( $this->should_include_setting_css( 'date_marker_color' )  ) {
-			$css_template .="
-				--tec-color-day-marker-month: <%= month_view.date_marker_color %>;
-				--tec-color-day-marker-past-month: <%= month_view.date_marker_color %>;
-			";
+			$date_marker_color = $this->get_option( 'date_marker_color' );
+			$new_styles[] = "--tec-color-day-marker-month: {$date_marker_color};";
+			$new_styles[] = "--tec-color-day-marker-past-month: {$date_marker_color};";
 		}
 
 		if ( $this->should_include_setting_css( 'multiday_event_bar_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'multiday_event_bar_color' ) ) {
 				$bar_color_rgb = $this->get_rgb_color( 'multiday_event_bar_color' );
-				$css_template .="
-					--tec-color-background-primary-multiday: rgba({$bar_color_rgb}, 0.24);
-					--tec-color-background-primary-multiday-hover: rgba({$bar_color_rgb}, 0.34);
-					--tec-color-background-primary-multiday-active: rgba({$bar_color_rgb}, 0.34);
-					--tec-color-background-secondary-multiday: rgba({$bar_color_rgb}, 0.24);
-					--tec-color-background-secondary-multiday-hover: rgba({$bar_color_rgb}, 0.34);
-				";
+				$new_styles[] = "--tec-color-background-primary-multiday: rgba({$bar_color_rgb}, 0.24);";
+				$new_styles[] = "--tec-color-background-primary-multiday-hover: rgba({$bar_color_rgb}, 0.34);";
+				$new_styles[] = "--tec-color-background-primary-multiday-active: rgba({$bar_color_rgb}, 0.34);";
+				$new_styles[] = "--tec-color-background-secondary-multiday: rgba({$bar_color_rgb}, 0.24);";
+				$new_styles[] = "--tec-color-background-secondary-multiday-hover: rgba({$bar_color_rgb}, 0.34);";
 			}
 		}
 
-		$css_template .= "
-			}
-		";
+		if ( empty( $new_styles ) ) {
+			return $css_template;
+		}
 
-		return $css_template;
+		$new_css = sprintf(
+			':root {
+				/* Customizer-added Month View styles */
+				%1$s
+			}',
+			implode( "\n", $new_styles )
+		);
+
+		return $css_template . $new_css;
 	}
 
 	/* Deprecated */

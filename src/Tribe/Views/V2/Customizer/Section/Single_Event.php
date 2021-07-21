@@ -163,20 +163,46 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 * @return string The filtered CSS template.
 	 */
 	public function get_css_template( $css_template ) {
-		if (
-			$this->should_include_setting_css( 'post_title_color_choice' )
-			&& $this->should_include_setting_css( 'post_title_color' )
-			&& $this->should_add_single_view_v2_styles()
-		) {
-			// It's all custom props now, baby...
-			$css_template .= '
-				:root {
-					--tec-color-text-event-title: <%= single_event.post_title_color %>;
-				}
-			';
+		// For sanity's sake.
+		if ( ! tribe_events_views_v2_is_enabled() ) {
+			return $css_template;
 		}
 
-		return $css_template;
+		if ( ! $this->should_add_single_view_v2_styles() ) {
+			return $css_template;
+		}
+
+		$new_styles = [];
+
+		/**
+		 * Note the pattern here: if a custom color is set it MUST override the general setting -
+		 *  even if it is the default value.
+		 *
+		 * Thus we don't check should_include_setting_css() on post_title_color but we do add a check to make sure
+		 * it's not empty (which could "erase" the custom prop by setting it to an empty string) as a safeguard.
+		 */
+		if (
+			$this->should_include_setting_css( 'post_title_color_choice' )
+			&& ! empty( $this->get_option( 'post_title_color' ) )
+		) {
+			$post_title_color = $this->get_option( 'post_title_color' );
+
+			$new_styles[] = "--tec-color-text-event-title: {$post_title_color};";
+		}
+
+		if ( empty( $new_styles ) ) {
+			return $css_template;
+		}
+
+		$new_css = sprintf(
+			':root {
+				/* Customizer-added Single Event styles */
+				%1$s
+			}',
+			implode( "\n", $new_styles )
+		);
+
+		return $css_template . $new_css;
 	}
 
 	/**
