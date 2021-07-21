@@ -338,14 +338,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * To avoid duplication of our own methods and to provide a underlying system
-		 * Modern Tribe maintains a Library called Common to store a base for our plugins
+		 * The Events Calendar maintains a Library called Common to store a base for our plugins
 		 *
 		 * Currently we will read the File `common/package.json` to determine which version
 		 * of the Common Lib we will pass to the Auto-Loader of PHP.
 		 *
 		 * In the past we used to parse `common/src/Tribe/Main.php` for the Common Lib version.
 		 *
-		 * @link https://github.com/moderntribe/tribe-common
+		 * @link https://github.com/the-events-calendar/tribe-common
 		 * @see  self::init_autoloading
 		 *
 		 * @return void
@@ -4259,7 +4259,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function dashboardWidget() {
 			wp_add_dashboard_widget(
-					'tribe_dashboard_widget', esc_html__( 'News from Modern Tribe', 'the-events-calendar' ),
+					'tribe_dashboard_widget', esc_html__( 'News from The Events Calendar', 'the-events-calendar' ),
 					[
 							$this,
 							'outputDashboardWidget',
