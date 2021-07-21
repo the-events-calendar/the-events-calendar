@@ -184,12 +184,17 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'font_family_heading' => [
 				'priority'	 => 0,
 				'type'		 => 'heading',
-				'label'      => esc_html__( 'Font Family', 'the-events-calendar' ),
+				'label'      => esc_html__( 'Select Font Family', 'the-events-calendar' ),
 			],
 			'font_size_heading' => [
 				'priority'	 => 5,
 				'type'		 => 'heading',
 				'label'      => esc_html__( 'Set Font Size', 'the-events-calendar' ),
+				'description' => esc_html_x(
+					'Choose a base font size. Event text will scale around the selected base size.',
+					'The description for the base font size setting.',
+					'the-events-calendar'
+				),
 			],
 			'font_color_heading' => [
 				'priority'	 => 10,
@@ -230,7 +235,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 						'the-events-calendar'
 					),
 					'theme'       => _x(
-						"Inherit theme's fonts",
+						"Inherit theme font(s)",
 						'Label for option to use theme fonts.',
 						'the-events-calendar'
 					)
@@ -240,13 +245,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'priority' => 6,
 				'type'     => 'number',
 				'label'    => esc_html_x(
-					'Base Font Size',
+					'By Pixel',
 					'The base font size input setting label.',
-					'the-events-calendar'
-				),
-				'description' => esc_html_x(
-					'Set a base size in pixels to match the theme font size. All event fonts will scale around it.',
-					'The description for the base font size setting.',
 					'the-events-calendar'
 				),
 				'input_attrs' => [
@@ -261,13 +261,8 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'priority' => 7,
 				'type'     => 'range-slider',
 				'label'    => esc_html_x(
-					'Font Size',
+					'By Scale',
 					'The font size selector setting label.',
-					'the-events-calendar'
-				),
-				'description' => esc_html_x(
-					'Increase or decrease the base font size based on a multiplier.',
-					'The description for the font size setting.',
 					'the-events-calendar'
 				),
 				'input_attrs' => [

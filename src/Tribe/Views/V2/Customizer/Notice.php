@@ -77,14 +77,14 @@ class Notice {
 	 */
 	public function display_notice() {
 		$path = 'plugins.php#deactivate-the-events-calendar-extension-inherit-theme-fonts';
-		$url = admin_url($path);
-		$link = sprintf(
-			'<a href="%1$s" target="_blank">%2$s</a>',
-			esc_url( $url ),
-			esc_html__( 'Disable the Inherit Theme Fonts extension to prevent conflicts!', 'the-events-calendar' )
-		);
-		$text = __( 'Looks like you are using The Events Calendar Extension: Inherit Theme Fonts on this WordPress installation. %1$s', 'the-events-calendar' );
 
-		return sprintf( $text, $link );
+		return sprintf(
+			__(
+				'You are using the Inherit Theme Fonts extension. Font control is now built into <a href="%1$s" target="_blank">%2$s</a> Please disable the Inherit Theme Fonts extension to prevent conflicts with The Events Calendar.',
+				'the-events-calendar'
+			),
+			'https://evnt.is/1ast',
+			esc_html__( "The Events Calendar's options in the WordPress Customizer.", 'the-events-calendar' )
+		);
 	}
 }

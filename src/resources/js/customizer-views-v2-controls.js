@@ -59,9 +59,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 
 					obj.globalFontSizeChange = true;
 
-					if ( setting.get() < 15 ) {
+					if ( setting.get() <= 14 ) {
 						control.setting.set( -1 );
-					} else if ( setting.get() > 18 ) {
+					} else if ( setting.get() >= 18 ) {
 						control.setting.set( 1 );
 					} else {
 						control.setting.set( 0 );
