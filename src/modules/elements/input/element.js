@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 import { isFunction, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import validator from 'validator';
@@ -42,8 +43,6 @@ class Input extends Component {
 	 *
 	 * @param validated {boolean} If this component needs to be validated
 	 * @param required {boolean} If this input is required
-	 *
-	 * @type {{validated: shim, required: shim}}
 	 */
 	static propTypes = {
 		validate: PropTypes.bool,
@@ -72,7 +71,7 @@ class Input extends Component {
 	 * Callback fired every time the input changes, if the property onChange is passed to the component is called as well
 	 * synchronously.
 	 *
-	 * @param {Event} event Event fired by the onChange listener
+	 * @param {Element} input The input element.
 	 */
 	onChange = ( input ) => {
 		const { onChange, onComplete, validate } = this.props;
@@ -80,7 +79,7 @@ class Input extends Component {
 		const completeCallback = isFunction( onComplete ) ? onComplete : noop;
 
 		if ( validate ) {
-			this.setState( () => ({ isValid: this.validate( input ) }), completeCallback );
+			this.setState( () => ( { isValid: this.validate( input ) } ), completeCallback );
 			callback( input );
 		} else {
 			completeCallback();
@@ -108,11 +107,11 @@ class Input extends Component {
 	 */
 	maybeValidate = ( value ) => {
 		const { type, required } = this.props;
-		
+
 		if ( value.length === 0 ) {
 			return ! required;
 		}
-		
+
 		let isValid = true;
 		switch ( type ) {
 			case 'tel':
@@ -135,7 +134,7 @@ class Input extends Component {
 	/**
 	 * If the component is valid or not based on the validation logic
 	 *
-	 * @returns {boolean}
+	 * @returns {boolean} Whether the state is valid or not.
 	 */
 	isValid() {
 		return this.state.isValid;
@@ -152,7 +151,7 @@ class Input extends Component {
 	 * If the Component is valid is going to Append the class: `is-valid` otherwise if it fails is going to use the
 	 * class `is-invalid`.
 	 *
-	 * @returns {string|*}
+	 * @returns {string|*} The class names.
 	 */
 	getClassName() {
 		const { className, validate } = this.props;
