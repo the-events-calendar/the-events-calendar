@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.8.0';
+		const VERSION             = '5.8.1';
 
 		/**
 		 * Min Pro Addon
@@ -338,7 +338,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * To avoid duplication of our own methods and to provide a underlying system
-		 * Modern Tribe maintains a Library called Common to store a base for our plugins
+		 * The Events Calendar maintains a Library called Common to store a base for our plugins
 		 *
 		 * Currently we will read the File `common/package.json` to determine which version
 		 * of the Common Lib we will pass to the Auto-Loader of PHP.
@@ -4251,7 +4251,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function dashboardWidget() {
 			wp_add_dashboard_widget(
-					'tribe_dashboard_widget', esc_html__( 'News from Modern Tribe', 'the-events-calendar' ),
+					'tribe_dashboard_widget', esc_html__( 'News from The Events Calendar', 'the-events-calendar' ),
 					[
 							$this,
 							'outputDashboardWidget',

@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.16
-Stable tag: 5.8.0
-Tested up to: 5.7.2
+Stable tag: 5.8.1
+Tested up to: 5.8.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -223,6 +223,15 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+= [5.8.1] 2021-07-20 =
+
+* Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
+* Tweak - Add CSS class to the event tags label on the event details section on the single event page. [TEC-3951]
+* Tweak - Correct the messaging and link for the v1 deprecation notice. [TEC-3958]
+* Tweak - Include filter to allow modifications to the Grid query for By Day Views like Month and Week, `tribe_events_views_v2_by_day_view_day_repository`
+* Fix - Ensure that the Block Editor saves cost data when submitted. [TEC-3987]
+* Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
+* Language - 5 new strings added, 26 updated, 2 fuzzied, and 5 obsoleted
 
 = [5.8.0] 2021-07-01 =
 
