@@ -168,10 +168,6 @@ final class Single_Event extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
-		if ( ! $this->should_add_single_view_v2_styles() ) {
-			return $css_template;
-		}
-
 		$new_styles = [];
 
 		/**
@@ -207,6 +203,10 @@ final class Single_Event extends \Tribe__Customizer__Section {
 
 	/**
 	 * Check whether the Single Event styles overrides can be applied
+	 * Deprecated:  The new Customizer applies to both, this function was moved to src/Tribe/Views/V2/Customizer.php
+	 *              for backwards-compatibility.
+	 *
+	 * @deprecated TBD
 	 *
 	 * @return false/true
 	 */

@@ -191,7 +191,7 @@ a.tribe-button,
 
 
 /* = Global & Miscellaneous Styles
-=============================================*/
+============================================= */
 #tribe-events,
 #tribe-events-pg-template,
 .tribe-events-pg-template {
@@ -289,6 +289,7 @@ a.tribe-button,
 /* Links */
 #tribe-events-content a,
 .tribe-events-event-meta a {
+	color: var(--tec-color-link-accent);
 	text-decoration: none;
 }
 
@@ -696,7 +697,7 @@ select.tribe-events-dropdown {
 
 /* = Calendar View & List View Template Styles
    @ Template: month.php & list.php
-=============================================*/
+============================================= */
 #tribe-events-content {
 	margin-bottom: 48px;
 	padding: 2px 0;
@@ -719,7 +720,7 @@ select.tribe-events-dropdown {
 
 /* = List View Template Styles
    @ Template: list.php
-=============================================*/
+============================================= */
 #tribe-events-content.tribe-events-list {
 	margin-bottom: 60px;
 }
@@ -859,7 +860,7 @@ select.tribe-events-dropdown {
 
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
-=============================================*/
+============================================= */
 /* Loop */
 .tribe-events-loop {
 	clear: both;
@@ -925,7 +926,7 @@ select.tribe-events-dropdown {
 
 /* = Single Event Template Styles
    @ Template: single-event.php
-=============================================*/
+============================================= */
 .single-tribe_events .tribe-events-single-event-title {
 	color: var(--tec-color-text-event-title);
 	font-size: 1.7em;
@@ -970,6 +971,10 @@ select.tribe-events-dropdown {
 		font-size: 1.4em;
 		font-weight: bold;
 		margin: 20px 0 10px;
+	}
+
+	a {
+		color: var(--tec-color-link-accent);
 	}
 
 	& + .tribe-events-single-section-title {
@@ -1142,7 +1147,7 @@ select.tribe-events-dropdown {
 
 /* = Day Grid Template Styles
    @ Template: day.php
-=============================================*/
+============================================= */
 .tribe-events-day {
 	.tribe-events-day-time-slot {
 		.tribe-events-day-time-slot-heading {
@@ -1195,7 +1200,7 @@ select.tribe-events-dropdown {
 
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: month.php & widgets/calendar-widget.php
-=============================================*/
+============================================= */
 /* Global Calendar Styles */
 #tribe-events-content {
 	table.tribe-events-calendar {
@@ -1530,7 +1535,7 @@ select.tribe-events-dropdown {
 
 /* = Events List Widget Styles (Sidebar)
    @ Template: widgets/list-widget.php
-=============================================*/
+============================================= */
 
 .tribe-events-list-widget {
 	.tribe-list-widget {
@@ -1579,7 +1584,7 @@ select.tribe-events-dropdown {
 
 /* = Events Navigation Bar
    @ Template: modules/bar.php
-=============================================*/
+============================================= */
 /* Datepicker
    ========================================================================== */
 .datepicker {
@@ -2505,7 +2510,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 
 /* = Events Retina
-=============================================*/
+============================================= */
 @media
 (min--moz-device-pixel-ratio: 2),
 (-o-min-device-pixel-ratio: 2/1),
