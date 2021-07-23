@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Alter the way we add "Event Blocks" category to the editor to make it WP 5.8 compliant. [TBD]
+* Fix - Add a new function to add "Event Blocks" category to the editor for WP >= 5.8. [TBD]
 
 = [5.8.1] 2021-07-20 =
 
