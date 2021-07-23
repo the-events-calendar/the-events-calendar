@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Alter the way we add "Event Blocks" category to the editor to make it WP 5.8 compliant. [TBD]
+
 = [5.8.1] 2021-07-20 =
 
 * Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
