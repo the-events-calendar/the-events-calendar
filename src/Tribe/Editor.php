@@ -38,7 +38,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_action( 'admin_init', [ $this, 'assets' ] );
 
 		// Add Block Categories to Editor
-		add_action( 'block_categories', [ $this, 'block_categories' ], 10, 2 );
+		add_action( 'block_categories_all', [ $this, 'block_categories' ], 10, 2 );
 
 		// Make sure Events supports 'custom-fields'
 		add_action( 'init', [ $this, 'add_event_custom_field_support' ], 11 );
@@ -542,11 +542,36 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Add "Event Blocks" category to the editor
 	 *
 	 * @since 4.7
+	 * @since TBD Modify to cover WP 5.8 change of filter in a backwards-compatible way.
+	 *
+	 * @param array<array<string|string>> $categories An array of categories each an array
+	 *                                                in the format property => value.
+	 * @param WP_Block_Editor_Context     $context    The Block Editor Context object.
+	 *                                                In WP versions prior to 5.8 this was the post object.
 	 *
 	 * @return array
 	 */
-	public function block_categories( $categories, $post ) {
-		if ( Tribe__Events__Main::POSTTYPE !== $post->post_type ) {
+	public function block_categories( $categories, $context ) {
+		global $wp_version;
+
+		// Handle WP version changes.
+		if ( version_compare( $wp_version, '5.8', '<' ) ) {
+			$post = $context;
+		} else {
+			if ( empty( $context->post ) ) {
+				return $categories;
+			}
+
+			$post = $context->post;
+		}
+
+		// Make sure we have the post_type available.
+		if ( empty( $post ) || empty( $post->post_type ) ) {
+			return $categories;
+		}
+
+		// Make sure it's an event post.
+		if ( Tribe__Events__Main::POSTTYPE !== $context->post->post_type ) {
 			return $categories;
 		}
 
