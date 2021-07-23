@@ -38,7 +38,14 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_action( 'admin_init', [ $this, 'assets' ] );
 
 		// Add Block Categories to Editor
-		add_action( 'block_categories_all', [ $this, 'block_categories' ], 10, 2 );
+		global $wp_version;
+		if ( ! class_exists( 'WP_Block_Editor_Context' ) || version_compare( $wp_version, '5.8', '<' ) ) {
+			// WP < 5.8
+			add_action( 'block_categories', [ $this, 'block_categories' ], 10, 2 );
+		} else {
+			// WP >= 5.8
+			add_action( 'block_categories_all', [ $this, 'block_categories_all' ], 10, 2 );
+		}
 
 		// Make sure Events supports 'custom-fields'
 		add_action( 'init', [ $this, 'add_event_custom_field_support' ], 11 );
@@ -542,7 +549,33 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Add "Event Blocks" category to the editor
 	 *
 	 * @since 4.7
-	 * @since TBD Modify to cover WP 5.8 change of filter in a backwards-compatible way.
+	 *
+	 * @param array<array<string|string>> $categories An array of categories each an array
+	 *                                                in the format property => value.
+	 * @param WP_Post                     $post       The post object we're editing.
+	 *
+	 * @return array
+	 */
+	public function block_categories( $categories, $post ) {
+		if ( Tribe__Events__Main::POSTTYPE !== $post->post_type ) {
+			return $categories;
+		}
+
+		return array_merge(
+			$categories,
+			[
+				[
+					'slug'  => 'tribe-events',
+					'title' => __( 'Event Blocks', 'the-events-calendar' ),
+				],
+			]
+		);
+	}
+
+	/**
+	 * Add "Event Blocks" category to the editor
+	 *
+	 * @since TBD block_categories() modified to cover WP 5.8 change of filter in a backwards-compatible way.
 	 *
 	 * @param array<array<string|string>> $categories An array of categories each an array
 	 *                                                in the format property => value.
@@ -551,22 +584,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @return array
 	 */
-	public function block_categories( $categories, $context ) {
-		global $wp_version;
-
-		// Handle WP version changes.
-		if ( version_compare( $wp_version, '5.8', '<' ) ) {
-			$post = $context;
-		} else {
-			if ( empty( $context->post ) ) {
-				return $categories;
-			}
-
-			$post = $context->post;
-		}
-
+	public function block_categories_all( $categories, $context ) {
 		// Make sure we have the post_type available.
-		if ( empty( $post ) || empty( $post->post_type ) ) {
+		if ( empty( $context->post ) || empty( $context->post->post_type ) ) {
 			return $categories;
 		}
 
