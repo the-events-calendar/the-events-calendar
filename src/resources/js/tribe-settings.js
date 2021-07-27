@@ -16,7 +16,7 @@ jQuery( function( $ ) {
 
 } );
 
-( function( $, data ) {
+( function( $, data ) { // eslint-disable-line no-unused-vars
 	"use strict";
 
 	/**
