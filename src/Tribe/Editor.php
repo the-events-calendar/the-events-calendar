@@ -557,6 +557,12 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return array
 	 */
 	public function block_categories( $categories, $post ) {
+		// Handle where someone is using this outside of this object
+		global $wp_version;
+		if ( class_exists( 'WP_Block_Editor_Context' ) || version_compare( $wp_version, '5.8', '>=' ) ) {
+			_deprecated_function( __FUNCTION__, 'TBD', 'block_categories_all' );
+		}
+
 		if ( Tribe__Events__Main::POSTTYPE !== $post->post_type ) {
 			return $categories;
 		}
@@ -585,13 +591,13 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return array
 	 */
 	public function block_categories_all( $categories, $context ) {
-		// Make sure we have the post_type available.
-		if ( empty( $context->post ) || empty( $context->post->post_type ) ) {
+		// Make sure we have the post available.
+		if ( empty( $context->post ) ) {
 			return $categories;
 		}
 
 		// Make sure it's an event post.
-		if ( Tribe__Events__Main::POSTTYPE !== $context->post->post_type ) {
+		if ( ! tribe_is_event( $context->post ) ) {
 			return $categories;
 		}
 
