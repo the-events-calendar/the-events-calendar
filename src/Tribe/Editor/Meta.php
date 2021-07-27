@@ -194,7 +194,16 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	public function update_cost( $post_data, $request ) {
 		$post_id = $request->get_param( 'id' );
 
-		\Tribe__Events__API::update_event_cost( $post_id );
+		// Fetch cost data from the request (if set).
+		$json = $request->get_json_params();
+
+		$meta = Tribe__Utils__Array::get( $json, 'meta', [] );
+
+		// If the cost is set in the submitted data, set THAT as the default else set an appropriate default for the cost.
+		$cost = isset( $meta['_EventCost'] ) ? [ $meta['_EventCost'] ] : (array) tribe_get_cost( $post_id );
+
+		// Update the cost for the event.
+		\Tribe__Events__API::update_event_cost( $post_id, $cost );
 
 		return $post_data;
 	}
