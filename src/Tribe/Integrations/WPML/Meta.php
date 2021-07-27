@@ -151,9 +151,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 				$result = array_merge( $result, wp_list_pluck( (array) $translations, 'element_id' ) );
 			}
 
-			if ( empty( $result ) ) {
-				continue;
-			}
+			// Don't bail here on empty $result!
 
 			$meta_query[ $key ]['value'] = $result;
 			$q->set( 'meta_query', $meta_query );
