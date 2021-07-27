@@ -116,7 +116,12 @@ class Template_Bootstrap {
 	 * @return bool Whether the current request is for the single event template or not.
 	 */
 	public function is_single_event() {
+		if( ! did_action( 'parse_query' ) ) {
+			return false;
+		}
+
 		$conditions = [
+			tribe_context()->get( 'tec_post_type' ),
 			is_singular( TEC::POSTTYPE ),
 			'single-event' === tribe_context()->get( 'view' ),
 		];
@@ -211,7 +216,7 @@ class Template_Bootstrap {
 		}
 
 		$should_display_single = (
-			'single-event' === $view_slug
+			$this->is_single_event()
 			&& ! tribe_is_showing_all()
 			&& ! V1_Templates::is_embed()
 		);
@@ -260,7 +265,19 @@ class Template_Bootstrap {
 			$html = View::make( $view_slug, $context )->get_html();
 		}
 
-		return $html;
+
+		/**
+		 * Filters the HTML for the view before we do any other logic around that.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string          $html      The html to be displayed.
+		 * @param \Tribe__Context $context   Tribe context used to setup the view.
+		 * @param string          $view_slug The slug of the View that we've built,
+		 *                                   based on the context but possibly altered in the build process.
+		 * @param \WP_Query       $query     The current WP Query object.
+		 */
+		return apply_filters( 'tribe_events_views_v2_bootstrap_html', $html, $context, $view_slug, $query );
 	}
 
 	/**

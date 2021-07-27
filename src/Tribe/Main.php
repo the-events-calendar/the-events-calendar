@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.7.1';
+		const VERSION             = '5.8.1';
 
 		/**
 		 * Min Pro Addon
@@ -338,7 +338,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * To avoid duplication of our own methods and to provide a underlying system
-		 * Modern Tribe maintains a Library called Common to store a base for our plugins
+		 * The Events Calendar maintains a Library called Common to store a base for our plugins
 		 *
 		 * Currently we will read the File `common/package.json` to determine which version
 		 * of the Common Lib we will pass to the Auto-Loader of PHP.
@@ -1017,7 +1017,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
-			$this->post_type_args['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->post_type_args['rewrite']['slug']          = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->post_type_args['show_in_rest']             = current_user_can( 'manage_options' );
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
@@ -2183,7 +2184,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'item_link'                => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( '%s Link.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( '%s Link', 'the-events-calendar' ), $this->singular_event_label
 					),
 					'item_link_description'    => sprintf(
 						// Translators: %s: Event singular.
@@ -2232,11 +2233,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'item_link'         => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( '%s Category Link.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( '%s Category Link', 'the-events-calendar' ), $this->singular_event_label
 					),
 					'item_link_description' => sprintf(
 						// Translators: %s: Event singular.
-						esc_html__( 'A link to a particular%s category.', 'the-events-calendar' ), $this->singular_event_label
+						esc_html__( 'A link to a particular %s category.', 'the-events-calendar' ), $this->singular_event_label
 					),
 				]
 			);
@@ -2591,7 +2592,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Returns the default view, providing a fallback if the default is no longer availble.
+		 * Returns the default view, providing a fallback if the default is no longer available.
 		 *
 		 * This can be useful is for instance a view added by another plugin (such as PRO) is
 		 * stored as the default but can no longer be generated due to the plugin being deactivated.
@@ -4258,7 +4259,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function dashboardWidget() {
 			wp_add_dashboard_widget(
-					'tribe_dashboard_widget', esc_html__( 'News from Modern Tribe', 'the-events-calendar' ),
+					'tribe_dashboard_widget', esc_html__( 'News from The Events Calendar', 'the-events-calendar' ),
 					[
 							$this,
 							'outputDashboardWidget',
@@ -6086,7 +6087,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.9.2
 		 *
-		 * @return \Tribe__Autoloader Teh singleton common Autoloader instance.
+		 * @return \Tribe__Autoloader The singleton common Autoloader instance.
 		 */
 		public function get_autoloader_instance() {
 			if ( ! class_exists( 'Tribe__Autoloader' ) ) {

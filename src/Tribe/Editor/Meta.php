@@ -22,6 +22,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		$post_type = Tribe__Events__Main::POSTTYPE;
 		add_filter( "rest_prepare_{$post_type}", [ $this, 'meta_backwards_compatibility' ], 10, 3 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
+		add_filter( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
 		add_filter( 'delete_post_metadata', [ $this, 'filter_allow_meta_delete_non_existent_key' ], 15, 5 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
@@ -178,6 +179,33 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Make sure we allow other plugins and customizations to filter the cost field.
+	 *
+	 * @since 5.7.1
+	 *
+	 * @param \stdClass        $post_data The post insertion/update payload.
+	 * @param \WP_REST_Request $request The current insertion or update request object.
+	 *
+	 * @return \stdClass The post insertion/update payload.
+	 */
+	public function update_cost( $post_data, $request ) {
+		$post_id = $request->get_param( 'id' );
+
+		// Fetch cost data from the request (if set).
+		$json = $request->get_json_params();
+
+		$meta = Tribe__Utils__Array::get( $json, 'meta', [] );
+
+		// If the cost is set in the submitted data, set THAT as the default else set an appropriate default for the cost.
+		$cost = isset( $meta['_EventCost'] ) ? [ $meta['_EventCost'] ] : (array) tribe_get_cost( $post_id );
+
+		// Update the cost for the event.
+		\Tribe__Events__API::update_event_cost( $post_id, $cost );
+
+		return $post_data;
 	}
 
 	/**

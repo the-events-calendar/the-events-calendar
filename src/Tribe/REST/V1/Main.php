@@ -13,7 +13,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * The Events Calendar REST API URL prefix.
 	 *
-	 * This prefx is appended to the Modern Tribe REST API URL ones.
+	 * This prefix is appended to the The Events Calendar REST API URL ones.
 	 *
 	 * @var string
 	 */
