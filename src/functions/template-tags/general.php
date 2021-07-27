@@ -551,7 +551,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$tribe_ecp = Tribe__Events__Main::instance();
-		$list      = get_the_term_list( get_the_ID(), 'post_tag', '<dt>' . $label . '</dt><dd class="tribe-event-tags">', $separator, '</dd>' );
+		$list      = get_the_term_list( get_the_ID(), 'post_tag', '<dt class="tribe-event-tags-label">' . $label . '</dt><dd class="tribe-event-tags">', $separator, '</dd>' );
 		$list      = apply_filters( 'tribe_meta_event_tags', $list, $label, $separator, $echo );
 		if ( $echo ) {
 			echo $list;

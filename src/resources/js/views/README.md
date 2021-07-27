@@ -4,7 +4,7 @@ The Events Calendar uses JavaScript to support the functionalities of the views.
 
 ## Utilities
 
-We have two main utility JavaScript files that are by various other scripts: Viewport and Accordion. These can be extended by other Modern Tribe plugins or custom scripts.
+We have two main utility JavaScript files that are by various other scripts: Viewport and Accordion. These can be extended by other The Events Calendar plugins or custom scripts.
 
 ### Viewport
 
@@ -36,7 +36,7 @@ The second is the `beforeAjaxSuccess.tribeEvents` event. The event fired when an
 
 ## Extendable
 
-Extendable JavaScript files are scripts that can be extended by other Modern Tribe plugins or custom scripts.
+Extendable JavaScript files are scripts that can be extended by other The Events Calendar plugins or custom scripts.
 
 ### Multiday Events
 

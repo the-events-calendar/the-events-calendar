@@ -116,7 +116,12 @@ class Template_Bootstrap {
 	 * @return bool Whether the current request is for the single event template or not.
 	 */
 	public function is_single_event() {
+		if( ! did_action( 'parse_query' ) ) {
+			return false;
+		}
+
 		$conditions = [
+			tribe_context()->get( 'tec_post_type' ),
 			is_singular( TEC::POSTTYPE ),
 			'single-event' === tribe_context()->get( 'view' ),
 		];
@@ -211,7 +216,7 @@ class Template_Bootstrap {
 		}
 
 		$should_display_single = (
-			'single-event' === $view_slug
+			$this->is_single_event()
 			&& ! tribe_is_showing_all()
 			&& ! V1_Templates::is_embed()
 		);
