@@ -99,37 +99,64 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * @param object $q
 	 */
 	public function include_all_languages( $q ) {
-		$keys = [ 'venue', 'organizer' ];
+		$keys       = array( '_eventvenueid_in', '_eventorganizerid_in' );
+		$meta_query = $q->get( 'meta_query' );
+
 		foreach ( $keys as $key ) {
-			if ( ! isset( $q->query_vars[ $key ] ) ) {
+			if ( ! isset( $meta_query[ $key ] ) ) {
 				continue;
 			}
 
-			if ( ! is_int( $q->query_vars[ $key ] ) ) {
+			$vars   = $meta_query[ $key ]['value'];
+			$result = [];
+
+			foreach ( $vars as $var ) {
+				$post_type = get_post_type( $var );
+
+				/**
+				 * Get wpml_element_trid (the ID of the translation group) of a translated element, which is
+				 * required for the  wpml_get_element_translations filter and others which expect this argument.
+				 * @see https://wpml.org/wpml-hook/wpml_element_trid/
+				 *
+				 * @param null|mixed $empty_value     This is usually the value the filter will be modifying.
+				 * @param string|int $var             The ID of the item.
+				 * @param string     $element_type    The type of an element. Can be a post type or taxonomy.
+				 *
+				 * @return bool|mixed|null|string The wpml_element_trid or null if it doesn't exist.
+				 */
+				$wpml_element_trid = apply_filters( 'wpml_element_trid', null, $var, $post_type );
+
+				// No translation ID? Move along.
+				if ( empty( $wpml_element_trid ) ) {
+					continue;
+				}
+
+				/**
+				 * Get the element translations info using wpml_element_trid
+				 * @see https://wpml.org/wpml-hook/wpml_get_element_translations/
+				 *
+				 * @param null|mixed $empty_value     This is usually the value the filter will be modifying.
+				 * @param string|int $var             The ID of the translation group
+				 * @param string     $element_type    The type of an element. Can be a post type or taxonomy.
+				 *
+				 * @return array|bool|mixed The wpml_element_trid or null if it doesn't exist.
+				 */
+				$translations = apply_filters( 'wpml_get_element_translations', null, $wpml_element_trid, $post_type );
+
+				// No translation? Move along.
+				if ( ! is_array( $translations ) ) {
+					continue;
+				}
+
+				$result = array_merge( $result, wp_list_pluck( (array) $translations, 'element_id' ) );
+			}
+
+			if ( empty( $result ) ) {
 				continue;
 			}
 
-			$var = $q->query_vars[ $key ];
-			/**
-			 * Get trid (the ID of the translation group) of a translated element, which is
-			 * required for the  wpml_get_element_translations filter and others which expect this argument.
-			 * https://wpml.org/wpml-hook/wpml_element_trid/
-			 *
-			 * @param mixed   $empty_value     This is usually the value the filter will be modifying.
-			 * @param int     $var             The ID of the item.
-			 * @param string  $element_type    The type of an element.
-			 */
-			$trid = apply_filters( 'wpml_element_trid', null, $var, "post_tribe_{$key}" );
-			/**
-			 * Get the element translations info using trid
-			 * https://wpml.org/wpml-hook/wpml_get_element_translations/
-			 *
-			 * @param mixed   $empty_value     This is usually the value the filter will be modifying.
-			 * @param int     $var             The ID of the translation group
-			 * @param string  $element_type    The type of an element.
-			 */
-			$translations = apply_filters( 'wpml_get_element_translations', null, $trid, "post_tribe_{$key}" );
-			$q->query_vars[ $key ] = wp_list_pluck( $translations, 'element_id' );
+			$meta_query[ $key ]['value'] = $result;
+			$q->set( 'meta_query', $meta_query );
 		}
 	}
 

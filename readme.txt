@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure WPML translated event posts show up on translated venue and organizer pages. (props @dgwatkins)  [TEC-4036]
+
 = [5.8.1] 2021-07-20 =
 
 * Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
