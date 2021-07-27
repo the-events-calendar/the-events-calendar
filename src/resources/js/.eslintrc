@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": [
+    "../../../node_modules/@the-events-calendar/product-taskmaster/config/eslint.es5.js"
+  ],
+  "globals": {
+    "jQuery": true,
+    "Qs": true,
+    "tribe": true
+  }
+}
