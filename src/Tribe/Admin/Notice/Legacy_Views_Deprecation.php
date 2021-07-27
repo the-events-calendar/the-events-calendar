@@ -89,12 +89,12 @@ class Legacy_Views_Deprecation {
 		if ( $this->is_debug() ) {
 			$link = sprintf(
 				'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
-				esc_url( 'https://evnt.is/legacyviews' ),
+				esc_url( 'https://evnt.is/legacy-blog' ),
 				esc_html_x( 'Learn more', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
 			);
 
 			return sprintf(
-				_x( '<b>Your calendar is changing</b><br> The Events Calendar\'s legacy views will no longer be available as of %2$s, %1$s!', 'deprecation of legacy views', 'the-events-calendar' ),
+				_x( '<b>Your calendar is changing</b><br> The Events Calendar\'s legacy views will no longer be supported as of %2$s, %1$s.', 'deprecation of legacy views', 'the-events-calendar' ),
 				$link,
 				esc_html( $this->get_deprecation_date()->format_i18n( 'F d, Y' ) )
 			);
@@ -102,12 +102,12 @@ class Legacy_Views_Deprecation {
 
 		$link = sprintf(
 			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
-			esc_url( 'https://evnt.is/legacyviews' ),
+			esc_url( 'https://evnt.is/legacy-blog' ),
 			esc_html_x( 'Learn more', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
 		);
 
 		return sprintf(
-			_x( '<b>Your calendar is changing</b><br> The Events Calendar\'s legacy views will no longer be available as of %2$s, %1$s!', 'deprecation of legacy views', 'the-events-calendar' ),
+			_x( '<b>Your calendar is changing</b><br> The Events Calendar\'s legacy views will no longer be supported as of %2$s, %1$s.', 'deprecation of legacy views', 'the-events-calendar' ),
 			$link,
 			esc_html( $this->get_deprecation_date()->format_i18n( 'F d, Y' ) )
 		);

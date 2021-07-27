@@ -2,42 +2,42 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.8.0\n"
+"Project-Id-Version: The Events Calendar 5.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2021-06-30 21:00:02+00:00\n"
+"POT-Creation-Date: 2021-07-20 04:15:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-06-30 21:00\n"
+"PO-Revision-Date: 2021-07-20 04:15\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#: src/Tribe/API.php:780
+#: src/Tribe/API.php:793
 msgid ""
 "An event having a post meta value of `%s` meridian is not valid. Make sure "
 "it is either `am` or `pm`, or remove it entirely if using the 24-hour format."
 msgstr ""
 
-#: src/Tribe/API.php:808
+#: src/Tribe/API.php:821
 msgid ""
 "An event having a post meta value of `%s` hour (am/pm) is not valid. Make "
 "sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:825
+#: src/Tribe/API.php:838
 msgid ""
 "An event having a post meta value of `%s` hour (12-hour) is not valid. Make "
 "sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:832
+#: src/Tribe/API.php:845
 msgid ""
 "An event having a post meta value of `%s` hour (24-hour) is not valid. Make "
 "sure it is from 0 to 23."
 msgstr ""
 
-#: src/Tribe/API.php:862 src/Tribe/API.php:873
+#: src/Tribe/API.php:875 src/Tribe/API.php:886
 msgid ""
 "An event having a post meta value of `%s` minutes is not valid. Make sure it "
 "is from 0 to 59."
@@ -89,7 +89,7 @@ msgstr ""
 msgctxt "deprecation of legacy views"
 msgid ""
 "<b>Your calendar is changing</b><br> The Events Calendar's legacy views will "
-"no longer be available as of %2$s, %1$s!"
+"no longer be supported as of %2$s, %1$s."
 msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:49
@@ -1600,40 +1600,40 @@ msgstr ""
 msgid "Unable to save credentials"
 msgstr ""
 
+#: src/Tribe/Aggregator/Tabs/New.php:522
+msgid "Events Aggregator"
+msgstr ""
+
 #: src/Tribe/Aggregator/Tabs/New.php:525
-msgid "Import Using Event Aggregator"
+msgid "Import events with ease"
 msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:527
 msgid ""
-"With Event Aggregator, you can import events from iCalendar, Google, and "
-"Meetup.com in a jiffy."
+"Effortlessly fill your calendar with events from Meetup, Eventbrite, iCal, "
+"Google Calendar, and more."
 msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:530
-msgid "Buy It Now"
+msgid "Learn More"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:532 src/Tribe/Aggregator/Tabs/New.php:539
+#: src/Tribe/Aggregator/Tabs/New.php:532
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:19
 msgid "opens in a new window"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:537
-msgid "Learn More"
-msgstr ""
-
-#: src/Tribe/Aggregator/Tabs/New.php:585
+#: src/Tribe/Aggregator/Tabs/New.php:581
 msgid "Your Event Aggregator license is expired."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:586
+#: src/Tribe/Aggregator/Tabs/New.php:582
 msgid ""
 "Renew your license in order to import events from iCalendar, Google, or "
 "Meetup."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:589
+#: src/Tribe/Aggregator/Tabs/New.php:585
 msgid "Renew your Event Aggregator license"
 msgstr ""
 
@@ -1916,62 +1916,62 @@ msgstr ""
 msgid "Price Background Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:270
+#: src/Tribe/Customizer/General_Theme.php:267
 msgid "General Theme"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:271
+#: src/Tribe/Customizer/General_Theme.php:268
 msgid "Global configurations for the styling of The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:302
+#: src/Tribe/Customizer/General_Theme.php:299
 #: src/Tribe/Customizer/Global_Elements.php:231
 msgid "Accent Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:322
+#: src/Tribe/Customizer/General_Theme.php:319
 msgid "Featured Highlight Color"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:345
+#: src/Tribe/Customizer/General_Theme.php:342
 msgid ""
 "If the Featured highlight color is set to Custom, the following color will "
 "be used:"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:365
+#: src/Tribe/Customizer/General_Theme.php:362
 msgid "Blue Steel"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:371
+#: src/Tribe/Customizer/General_Theme.php:368
 msgid "Deep Sea"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:377
+#: src/Tribe/Customizer/General_Theme.php:374
 msgid "Default"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:383
+#: src/Tribe/Customizer/General_Theme.php:380
 msgid "Evergreen"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:389
+#: src/Tribe/Customizer/General_Theme.php:386
 msgid "Lagoon"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:395
+#: src/Tribe/Customizer/General_Theme.php:392
 msgid "Malachite"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:401
+#: src/Tribe/Customizer/General_Theme.php:398
 msgid "Skyfall"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:407
+#: src/Tribe/Customizer/General_Theme.php:404
 msgid "Sunshine"
 msgstr ""
 
-#: src/Tribe/Customizer/General_Theme.php:413
+#: src/Tribe/Customizer/General_Theme.php:410
 #: src/Tribe/Views/V2/Customizer.php:179
 msgid "Custom"
 msgstr ""
@@ -2104,9 +2104,9 @@ msgstr ""
 
 #: src/Tribe/Editor/Template.php:70 src/Tribe/Template/Embed.php:59
 #: src/Tribe/Template/Single_Event.php:123
-#: src/Tribe/Views/V2/Template_Bootstrap.php:136
-#: src/Tribe/Views/V2/Template_Bootstrap.php:176
-#: src/Tribe/Views/V2/Template_Bootstrap.php:497
+#: src/Tribe/Views/V2/Template_Bootstrap.php:141
+#: src/Tribe/Views/V2/Template_Bootstrap.php:181
+#: src/Tribe/Views/V2/Template_Bootstrap.php:502
 msgid "This %s has passed."
 msgstr ""
 
@@ -2705,9 +2705,9 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.0)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.0)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.1)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Main.php:995 src/Tribe/Main.php:1498 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
@@ -3190,7 +3190,7 @@ msgid "View All Add-Ons"
 msgstr ""
 
 #: src/Tribe/Main.php:4262
-msgid "News from Modern Tribe"
+msgid "News from The Events Calendar"
 msgstr ""
 
 #: src/Tribe/Main.php:4308
@@ -6749,7 +6749,7 @@ msgid ""
 "The Events Calendar suite offers the use of third-party API keys. The "
 "primary functions are to enhance the features we've built in, some of which "
 "use Google Maps, PayPal, Eventbrite, and Meetup. These API keys are not "
-"supplied by Modern Tribe."
+"supplied by The Events Calendar."
 msgstr ""
 
 #: src/admin-views/privacy.php:49
@@ -6790,7 +6790,8 @@ msgstr ""
 
 #: src/admin-views/privacy.php:61
 msgid ""
-"Modern Tribe does not send any user data outside of your website by default."
+"The Events Calendar does not send any user data outside of your website by "
+"default."
 msgstr ""
 
 #: src/admin-views/privacy.php:63
