@@ -120,32 +120,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'timezone'           => '_EventTimezone',
 				'venue'              => '_EventVenueID',
 				'organizer'          => '_EventOrganizerID',
-				'category'           => Tribe__Events__Main::TAXONOMY,
-				'cost'               => '_EventCost',
-				'currency_symbol'    => '_EventCurrencySymbol',
-				'currency_position'  => '_EventCurrencyPosition',
-				'show_map'           => '_EventShowMap',
-				'show_map_link'      => '_EventShowMapLink',
-				'url'                => '_EventURL',
-				'hide_from_upcoming' => '_EventHideFromUpcoming',
-				// Where is "sticky"? It's handled in the meta filtering by setting `menu_order`.
-				'featured'           => '_tribe_featured',
-			]
-		);
-
-
-		$this->update_fields_aliases = array_merge(
-			$this->update_fields_aliases,
-			[
-				'start_date'         => '_EventStartDate',
-				'end_date'           => '_EventEndDate',
-				'start_date_utc'     => '_EventStartDateUTC',
-				'end_date_utc'       => '_EventEndDateUTC',
-				'duration'           => '_EventDuration',
-				'all_day'            => '_EventAllDay',
-				'timezone'           => '_EventTimezone',
-				'venue'              => '_EventVenueID',
-				'organizer'          => '_EventOrganizerID',
 				'category'           => $tribe_events_category,
 				'cost'               => '_EventCost',
 				'currency_symbol'    => '_EventCurrencySymbol',
@@ -216,6 +190,20 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$this->add_simple_tax_schema_entry( $tribe_events_category . '_not_in', $tribe_events_category, 'term_not_in' );
 		$this->add_simple_tax_schema_entry( 'tag', 'post_tag' );
 		$this->add_simple_tax_schema_entry( 'tag_not_in', 'post_tag', 'term_not_in' );
+
+		add_action('pre_get_posts', [ $this, 'ensure_event_post_types' ], 50 );
+	}
+
+	public function ensure_event_post_types( $query ) {
+		if ( ! $query->is_search ) {
+			return $query;
+		}
+
+		if ( 'tribe_events' === $query->query['post_type'] ) {
+			$query->query_vars['post_type'] = 'tribe_events';
+		}
+
+		return $query;
 	}
 
 	/**
