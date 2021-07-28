@@ -19,7 +19,7 @@ This is a guide to help get you up-and-running with tests on your local plugin c
 	composer update
 	```
 6. Database setup (an application like [Sequel Pro](https://www.sequelpro.com/) can be helpful)
-	1. It is highly recommended to use `wp_` for your all your table prefixes (actual site and test databases) because it is the environment's default and Modern Tribe import files use it.
+	1. It is highly recommended to use `wp_` for your all your table prefixes (actual site and test databases) because it is the environment's default and The Events Calendar import files use it.
 	2. Add a new database named `test`
 	3. Acceptance and functional tests might not run correctly unless you have tables in your `test` database so import `the-events-calendar/tests/_data/dump.sql` (it contains the required tables and some bootstrap data)
 7. Duplicate the `.env` file to `.env.testing.local` and edit it for your localhost site's information, matching `wp-config.php` (except needing to use Local by Flywheel's IP address and port for the database host). Example:
