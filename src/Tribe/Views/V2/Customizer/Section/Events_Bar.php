@@ -356,6 +356,28 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			$new_styles[] = "--tec-color-text-events-bar-submit-button-hover: rgba({$button_text_color_rgb},0.6);";
 		}
 
+		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
+			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
+				$icon_color = $this->get_option( 'events_bar_icon_color' );
+			} elseif (
+				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
+			) {
+				if ( $this->should_include_setting_css( 'accent_color', 'global_elements' ) ) {
+					$icon_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
+				}
+
+				/* else {
+					$icon_color = 'var(--tec-color-accent-primary)';
+				} */
+			}
+
+			if ( ! empty( $icon_color ) ) {
+				$new_styles[] = "--tec-color-icon-events-bar: {$icon_color};";
+				$new_styles[] = "--tec-color-icon-events-bar-hover: {$icon_color};";
+				$new_styles[] = "--tec-color-icon-events-bar-active: {$icon_color};";
+			}
+		}
+
 		if ( $this->should_include_setting_css( 'find_events_button_color_choice' ) ) {
 			$button_color     = $this->get_option( 'find_events_button_color' );
 			$button_color_rgb = $this->get_rgb_color( 'find_events_button_color' );
@@ -370,12 +392,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			$new_styles[] = "--tec-color-background-events-bar-submit-button-hover: rgba({$button_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-background-events-bar-submit-button-active: 'rgba({$button_color_rgb},0.9);";
 
-		}
-
-
-		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
-			$border_color = $this->get_option( 'events_bar_border_color' );
-			$new_styles[] = "--tec-color-border-events-bar: {$border_color};";
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_background_color_choice' ) ) {
@@ -398,26 +414,9 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			}
 		}
 
-		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
-			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
-				$icon_color = $this->get_option( 'events_bar_icon_color' );
-			} elseif (
-				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
-			) {
-				if ( $this->should_include_setting_css( 'accent_color', 'global_elements' ) ) {
-					$icon_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
-				}
-
-				/* else {
-					$icon_color = 'var(--tec-color-accent-primary)';
-				} */
-			}
-
-			if ( ! empty( $icon_color ) ) {
-				$new_styles[] = "--tec-color-icon-events-bar: {$icon_color};";
-				$new_styles[] = "--tec-color-icon-events-bar-hover: {$icon_color};";
-				$new_styles[] = "--tec-color-icon-events-bar-active: {$icon_color};";
-			}
+		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
+			$border_color = $this->get_option( 'events_bar_border_color' );
+			$new_styles[] = "--tec-color-border-events-bar: {$border_color};";
 		}
 
 		if ( empty( $new_styles ) ) {
