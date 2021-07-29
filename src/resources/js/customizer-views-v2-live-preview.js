@@ -44,7 +44,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		monthDaysOfWeekColor: 'tribe_customizer[month_view][days_of_week_color]',
 		monthDateMarkerColor: 'tribe_customizer[month_view][date_marker_color]',
 		monthMultidayEventBarChoice: 'tribe_customizer[month_view][multiday_event_bar_color_choice]',
-		monthMultidayEventBar: 'tribe_customizer[month_view][multiday_event_bar_color]',
+		monthMultidayEventBarColor: 'tribe_customizer[month_view][multiday_event_bar_color]',
 		monthGridLinesColor: 'tribe_customizer[month_view][grid_lines_color]',
 		monthGridHoverColor: 'tribe_customizer[month_view][grid_hover_color]',
 		monthGridBackgroundColorChoice: 'tribe_customizer[month_view][grid_background_color_choice]',
@@ -152,7 +152,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		monthTooltipBackgroundColor: '--tec-color-background-tooltip',
 
 		/* Single Event */
-		singleEventTitleColor: '--tec-color-text-event-title',
+		singleEventTitleColor: ['--tec-color-text-event-title'],
 	};
 
 	obj.root = document.querySelectorAll( tribe_events_customizer_live_preview_js_config.selector );
@@ -365,7 +365,16 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 								);
 							}
 
-							// @todo: Multiday Event Span?
+							// Multiday Event Span?
+							const monthMultidayEventBarChoice = api( obj.selectors.monthMultidayEventBarChoice ).get();
+							const rgbString = obj.hexToRGBString( accentColor );
+							if ( 'default' === monthMultidayEventBarChoice ) {
+								tribeElement.style.setProperty( '--tec-color-background-primary-multiday', 'rgba(' + rgbString + ', 0.24)' );
+								tribeElement.style.setProperty( '--tec-color-background-primary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
+								tribeElement.style.setProperty( '--tec-color-background-primary-multiday-active', 'rgba(' + rgbString + ', 0.34)' );
+								tribeElement.style.setProperty( '--tec-color-background-secondary-multiday', 'rgba(' + rgbString + ', 0.24)' );
+								tribeElement.style.setProperty( '--tec-color-background-secondary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
+							}
 						}
 					);
 				}
@@ -535,15 +544,6 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 									tribeElement.style.setProperty( colorSelector, backgroundColor );
 								}
 							);
-
-							const eventsBarViewSelectorBackgroundColorChoice = api( obj.selectors.eventsBarViewSelectorBackgroundColorChoice ).get();
-
-							api( obj.selectors.eventsBarBackgroundColor ).change();
-
-
-							if ( 'default' === eventsBarViewSelectorBackgroundColorChoice ) {
-								//tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, backgroundColor );
-							}
 						}
 					);
 				}
@@ -680,6 +680,55 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 									tribeElement.style.setProperty( monthDateMarkerColorSelector, to );
 								}
 							);
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Multiday Bar Color Choice
+	api(
+		obj.selectors.monthMultidayEventBarChoice,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					const barColor = ( 'custom' === to )
+						? api( obj.selectors.globalAccentColor ).get()
+						: api( obj.selectors.monthMultidayEventBarColor ).get();
+
+					const rgbString = obj.hexToRGBString( barColor );
+					console.log(rgbString);
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( '--tec-color-background-primary-multiday', 'rgba(' + rgbString + ', 0.24)' );
+							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
+							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-active', 'rgba(' + rgbString + ', 0.34)' );
+							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday', 'rgba(' + rgbString + ', 0.24)' );
+							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday-hover', 'rgba(' + rgbString + ', 0.34 )');
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Multiday Bar Color
+	api(
+		obj.selectors.monthMultidayEventBarColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					const rgbString = obj.hexToRGBString( to );
+
+					obj.root.forEach(
+						function( tribeElement ) {
+							tribeElement.style.setProperty( '--tec-color-background-primary-multiday', 'rgba(' + rgbString + ', 0.24)' );
+							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
+							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-active', 'rgba(' + rgbString + ', 0.34)' );
+							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday', 'rgba(' + rgbString + ', 0.24)' );
+							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday-hover', 'rgba(' + rgbString + ', 0.34 )');
 						}
 					);
 				}
@@ -828,5 +877,16 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 			);
 		}
 	);
+
+	// Totally stolen from elsewhere...
+	obj.hexToRGB = function ( hex ) {
+		var hex = parseInt( ( ( hex.indexOf( '#' ) > -1) ? hex.substring( 1 ) : hex ), 16 );
+		return { r: hex >> 16, g: ( hex & 0x00FF00 ) >> 8, b: ( hex & 0x0000FF ) };
+	}
+
+	obj.hexToRGBString = function (hex) {
+		var rgb = obj.hexToRGB( hex );
+		return rgb.r + ', ' + rgb.g +', ' + rgb.b;
+	}
 
 } )( jQuery, wp.customize, tribe_events_customizer_live_preview_js_config );
