@@ -693,13 +693,11 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-				console.log(to);
 					const barColor = ( 'custom' !== to )
 						? api( obj.selectors.globalAccentColor ).get()
 						: api( obj.selectors.monthMultidayEventBarColor ).get();
-				console.log(barColor);
+
 					const rgbString = obj.hexToRGBString( barColor );
-				console.log(rgbString);
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -824,13 +822,6 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 					if ( 'event' === to && 'transparent' === monthBackgroundColorChoice && 'transparent' !== globalBackgroundColorChoice ) {
 						tooltipBackgroundColor = api( obj.selectors.globalBackgroundColor ).get();
 					}
-
-					console.log([
-						tooltipBackgroundColor,
-						monthBackgroundColorChoice,
-						globalBackgroundColorChoice,
-						to
-					]);
 
 					// Tooltips are appended to the body and are not inside a .tribe-events or .tribe-common element!
 					document.documentElement.style.setProperty( obj.customProps.monthTooltipBackgroundColor, tooltipBackgroundColor );
