@@ -693,12 +693,13 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					const barColor = ( 'custom' === to )
+				console.log(to);
+					const barColor = ( 'custom' !== to )
 						? api( obj.selectors.globalAccentColor ).get()
 						: api( obj.selectors.monthMultidayEventBarColor ).get();
-
+				console.log(barColor);
 					const rgbString = obj.hexToRGBString( barColor );
-					console.log(rgbString);
+				console.log(rgbString);
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -878,12 +879,26 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		}
 	);
 
-	// Totally stolen from elsewhere...
+	/**
+	 * Totally stolen from elsewhere...
+	 * Converts a hex string into an RGB object.
+	 *
+	 * @param {string} hex String representation of a hex color.
+	 *
+	 * @returns {object} A custom RGB object.
+	 */
 	obj.hexToRGB = function ( hex ) {
 		var hex = parseInt( ( ( hex.indexOf( '#' ) > -1) ? hex.substring( 1 ) : hex ), 16 );
 		return { r: hex >> 16, g: ( hex & 0x00FF00 ) >> 8, b: ( hex & 0x0000FF ) };
 	}
 
+	/**
+	 * Converts a hex string into an RGB string.
+	 *
+	 * @param {string} hex String representation of a hex color.
+	 *
+	 * @returns {object} An RGB string in the format 'r, g, b'.
+	 */
 	obj.hexToRGBString = function (hex) {
 		var rgb = obj.hexToRGB( hex );
 		return rgb.r + ', ' + rgb.g +', ' + rgb.b;
