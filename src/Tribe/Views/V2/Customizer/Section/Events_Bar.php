@@ -390,7 +390,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 
 			$new_styles[] = "--tec-color-background-events-bar-submit-button: {$button_color};";
 			$new_styles[] = "--tec-color-background-events-bar-submit-button-hover: rgba({$button_color_rgb},0.8);";
-			$new_styles[] = "--tec-color-background-events-bar-submit-button-active: 'rgba({$button_color_rgb},0.9);";
+			$new_styles[] = "--tec-color-background-events-bar-submit-button-active: rgba({$button_color_rgb},0.9);";
 
 		}
 
@@ -406,12 +406,10 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				) {
 					$background_color = tribe('customizer')->get_option( [ 'global_elements', 'background_color' ] );
 				}
-
-
-				$new_styles[] = "--tec-color-background-events-bar: {$background_color};";
-				$new_styles[] = "--tec-color-background-events-bar-tabs: {$background_color};";
-
 			}
+
+			$new_styles[] = "--tec-color-background-events-bar: {$background_color};";
+			$new_styles[] = "--tec-color-background-events-bar-tabs: {$background_color};";
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
