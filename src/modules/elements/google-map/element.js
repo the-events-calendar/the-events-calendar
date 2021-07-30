@@ -69,7 +69,6 @@ const DEFAULT_ZOOM = parseInt( get( mapsAPI(), 'zoom', 14 ), 10 );
  * A wrapper for Google's Static Maps
  *
  * @see https://developers.google.com/maps/documentation/staticmaps/intro#Overview
- *
  * @example: http://staticmapmaker.com/google/
  */
 
@@ -160,8 +159,8 @@ export default class GoogleMap extends Component {
 	 * @todo  We need to not do this Logic over in this template
 	 * @see   https://github.com/moderntribe/events-gutenberg/pull/327#discussion_r219090823
 	 */
-	static getDerivedStateFromProps( nextProps, prevState ) {
 
+	static getDerivedStateFromProps( nextProps, prevState ) {
 		// return if it was rendered already
 		if ( true === prevState.rendered ) {
 			return null;
@@ -169,14 +168,13 @@ export default class GoogleMap extends Component {
 
 		// return if the coordinates haven't changed
 		if (
-			nextProps.coordinates.lat === prevState.coordinates.lat
-			&& nextProps.coordinates.lng === prevState.coordinates.lng
+			nextProps.coordinates.lat === prevState.coordinates.lat &&
+			nextProps.coordinates.lng === prevState.coordinates.lng
 		) {
 			return null;
 		}
 
 		return { rendered: true, loadingMap: false };
-
 	}
 
 	componentDidMount() {
@@ -269,7 +267,10 @@ export default class GoogleMap extends Component {
 		if ( this.tries >= this.MAX_TRIES ) {
 			this.setState( {
 				isLoading: false,
-				error: __( 'Make sure Google Maps Library is included on this page.', 'the-events-calendar' ),
+				error: __(
+					'Make sure Google Maps Library is included on this page.',
+					'the-events-calendar',
+				),
 			} );
 			return;
 		}
@@ -290,8 +291,8 @@ export default class GoogleMap extends Component {
 		let renderMap = this.renderMap();
 
 		if (
-			true === rendered
-			&& true !== loadingMap
+			true === rendered &&
+			true !== loadingMap
 		) {
 			renderMap = this.renderMapUpdate();
 		}
@@ -312,7 +313,6 @@ export default class GoogleMap extends Component {
 	renderMap() {
 		const { isLoading, error, interactive, apiKey, rendered } = this.state;
 
-
 		if ( isLoading ) {
 			return <Spinner />;
 		}
@@ -323,7 +323,9 @@ export default class GoogleMap extends Component {
 
 		if ( ! apiKey ) {
 			return (
-				<h4> { __( 'A Google Map API KEY is required to view the map', 'the-events-calendar' ) }</h4>
+				<h4>
+					{ __( 'A Google Map API KEY is required to view the map', 'the-events-calendar' ) }
+				</h4>
 			);
 		}
 
@@ -377,7 +379,7 @@ export default class GoogleMap extends Component {
 
 		map.instance = new maps.Map(
 			interactiveMapContainer.current,
-			this.getMapConfig()
+			this.getMapConfig(),
 		);
 
 		if ( map.instance ) {

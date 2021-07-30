@@ -9,7 +9,7 @@ const state = {
 		blocks: {
 			price: DEFAULT_STATE,
 		},
-	}
+	},
 };
 
 describe( '[STORE] - Price selectors', () => {

@@ -64,7 +64,7 @@ class FeaturedImage extends Component {
 				instructions={
 					__(
 						'Add a Featured Image from the Document Settings sidebar',
-						'the-events-calendar'
+						'the-events-calendar',
 					)
 				}
 			>
@@ -85,8 +85,8 @@ class FeaturedImage extends Component {
 	}
 }
 
-const applySelect = withSelect( ( select, props ) => {
-	const { getMedia, getPostType } = select( 'core' );
+const applySelect = withSelect( ( select ) => {
+	const { getMedia } = select( 'core' );
 	const { getEditedPostAttribute } = select( 'core/editor' );
 	const featuredImageId = getEditedPostAttribute( 'featured_media' );
 

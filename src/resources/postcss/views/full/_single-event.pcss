@@ -5,7 +5,7 @@
  *
  */
 
- .tribe-events-single {
+.tribe-events-single {
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -32,9 +32,9 @@
 
 /* Notices block (e.g. "This event has passed") */
 .tribe-events-notices {
-	box-shadow: none;
 	border-bottom: 1px solid var(--color-border-secondary);
-	
+	box-shadow: none;
+
 	ul {
 		list-style: none;
 		text-align: left;
@@ -162,6 +162,7 @@
 
 	a {
 		@mixin anchor-thin-alt;
+
 		text-decoration: none;
 	}
 
@@ -170,14 +171,14 @@
 		font-size: var(--font-size-3);
 		line-height: var(--line-height-3);
 	}
-	
+
 	blockquote {
 		quotes: auto;
-		
+
 		&:before {
 			content: open-quote;
 		}
-		
+
 		&:after {
 			content: close-quote;
 		}
@@ -459,7 +460,7 @@
 }
 
 /* removes weird border on the event meta on Avada theme [TEC-3952] */
-.fusion-widget-area .tribe-events-event-meta:before, 
-.fusion-widget-area .tribe-events-event-meta~div:not(.tribe-events-event-meta):not(.event-tickets) {
+.fusion-widget-area .tribe-events-event-meta:before,
+.fusion-widget-area .tribe-events-event-meta ~ div:not(.tribe-events-event-meta):not(.event-tickets) {
 	border: none;
 }

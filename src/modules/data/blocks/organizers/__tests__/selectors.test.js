@@ -21,7 +21,7 @@ const state = {
 				classic: [ 98, 99, 100 ],
 			},
 		},
-	}
+	},
 };
 
 describe( '[STORE] - Organizers selectors', () => {

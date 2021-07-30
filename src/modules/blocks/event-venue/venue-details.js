@@ -70,10 +70,17 @@ export default class VenueDetails extends Component {
 
 	renderVenueName() {
 		const { beforeTitle, afterTitle, maybeEdit } = this.props;
+
+		/**
+		 * @todo: Set onClick to a button, not h3.
+		 */
 		return (
 			<div className="tribe-editor__venue__name">
 				{ beforeTitle }
-				<h3 className="tribe-editor__venue__name-heading" onClick={ maybeEdit }>
+				<h3 // eslint-disable-line
+					className="tribe-editor__venue__name-heading"
+					onClick={ maybeEdit }
+				>
 					{ decode( this.getVenueName() ) }
 				</h3>
 				{ afterTitle }

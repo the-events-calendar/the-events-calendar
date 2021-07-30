@@ -34,8 +34,8 @@ const EventDetailsOrganizer = ( props ) => {
 		volatile,
 		onRemoveClick,
 	} ) => (
-		! ( block || volatile )
-		&& (
+		! ( block || volatile ) &&
+		(
 			<IconButton
 				className="tribe-editor__btn tribe-editor__btn--action"
 				label={ __( 'Remove Organizer', 'the-events-calendar' ) }
@@ -51,13 +51,13 @@ const EventDetailsOrganizer = ( props ) => {
 		<li>
 			{
 				( isLoading || isEmpty( details ) )
-				? <Loading className="tribe-editor__spinner--item" />
-				: (
-					<Fragment>
-						{ getOrganizerName( props.details ) }
-						{ getOrganizerRemoveButton( props ) }
-					</Fragment>
-				)
+					? <Loading className="tribe-editor__spinner--item" />
+					: (
+						<Fragment>
+							{ getOrganizerName( props.details ) }
+							{ getOrganizerRemoveButton( props ) }
+						</Fragment>
+					)
 			}
 		</li>
 	);

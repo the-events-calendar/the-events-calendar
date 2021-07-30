@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.8.1",
+  "version": "5.9.0",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -10,7 +10,10 @@
   "_glotPressUrl": "https://translate.wordpress.org",
   "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": ["po", "mo"],
+  "_glotPressFormats": [
+    "po",
+    "mo"
+  ],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -27,22 +30,29 @@
     "dev": "cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
     "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
-    "lint": "eslint --quiet --parser=babel-eslint 'src/modules/**/*.js'",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "lint:eslint": "npm run lint:eslint:modules && npm run lint:eslint:js && npm run lint:eslint:views",
+    "lint:eslint:js": "gulp eslint --filePath 'src/resources/js/**/*.js' --filePath '!src/resources/js/**/*.min.js' --filePath '!src/resources/js/app/**/*.js' --filePath '!src/resources/js/views/**/*.js' --filePath '!src/resources/js/events-admin.js' --filePath '!src/resources/js/tribe-events-bar.js' --filePath '!src/resources/js/tribe-events.js'",
+    "lint:eslint:modules": "gulp eslint --filePath 'src/modules/**/*.js'",
+    "lint:eslint:views": "gulp eslint --filePath 'src/resources/js/views/**/*.js'",
+    "lint:stylelint": "npm run lint:stylelint:pcss",
+    "lint:stylelint:pcss": "gulp stylelint --filePath 'src/resources/postcss/**/*.pcss' --filePath '!src/resources/postcss/aggregator-page.pcss' --filePath '!src/resources/postcss/events-admin.pcss' --filePath '!src/resources/postcss/freemius.pcss' --filePath '!src/resources/postcss/tribe-events-full-mobile.pcss' --filePath '!src/resources/postcss/tribe-events-full.pcss' --filePath '!src/resources/postcss/tribe-events-skeleton.pcss' --filePath '!src/resources/postcss/tribe-events-theme-mobile.pcss' --filePath '!src/resources/postcss/tribe-events-theme.pcss'",
     "test": "TZ=UTC jest --config jest.config.json",
     "test:travis": "npm run test -- --maxWorkers=4",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
-  "engines": { "node": "10.16.0", "npm": "6.9.0" },
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
   "devDependencies": {
     "@babel/runtime": "7.0.0-beta.52",
-    "@the-events-calendar/product-taskmaster": "^1.0.0",
+    "@the-events-calendar/product-taskmaster": "^1.2.2",
     "@wordpress/hooks": "^1.3.2",
     "archiver": "^3.0.0",
     "autoprefixer": "6.7.7",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
     "babel-jest": "^23.6.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-import-glob": "2.0.0",
@@ -62,11 +72,7 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "enzyme-to-json": "^3.6.1",
-    "eslint": "^4.19.1",
-    "eslint-config-products": "github:the-events-calendar/eslint-config-products#v0.1.1",
-    "eslint-import-resolver-babel-module": "^4.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint": "^7.28.0",
     "gettext-parser": "1.3.0",
     "glob": "~4.0.5",
     "gulp": "^3.9.1",
@@ -141,5 +147,7 @@
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
   },
-  "resolutions": { "graceful-fs": "^4.2.4" }
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
+  }
 }

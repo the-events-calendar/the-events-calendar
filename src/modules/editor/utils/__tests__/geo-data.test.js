@@ -17,8 +17,8 @@ describe( 'Tests for geo-data.js', () => {
 					DC: 'District of Columbia',
 					DE: 'Delaware',
 					FL: 'Florida',
-				}
-			}
+				},
+			},
 		};
 	} );
 

@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.16
-Stable tag: 5.8.1
+Stable tag: 5.9.0
 Tested up to: 5.8.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.9.0] TBD =
 
 * Fix - Add a new function to add "Event Blocks" category to the editor for WP >= 5.8. [TBD]
 

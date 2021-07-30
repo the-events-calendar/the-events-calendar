@@ -258,7 +258,7 @@ tribe.events.views.accordion = {};
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( event, jqXHR, settings ) {
+	obj.unbindEvents = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		obj.unbindAccordionEvents( $container );
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
@@ -276,7 +276,7 @@ tribe.events.views.accordion = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( event, index, $container, data ) {
+	obj.bindEvents = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars, max-len
 		obj.bindAccordionEvents( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.unbindEvents );
 	};
@@ -294,7 +294,11 @@ tribe.events.views.accordion = {};
 			return;
 		}
 
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.bindEvents
+		);
 	};
 
 	// Configure on document ready
