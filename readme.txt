@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependancy. [ECP-739]
+
 = [5.8.1] 2021-07-20 =
 
 * Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
