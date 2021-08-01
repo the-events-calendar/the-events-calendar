@@ -131,9 +131,11 @@ const renderEndTime = ( props ) => {
 
 const renderTimezone = ( props ) => {
 	const { attributes, setAttributes } = props;
-	const { timeZoneLabel, showTimeZone } = attributes;
+	const { start, timeZoneLabel, showTimeZone } = attributes;
 
 	const setTimeZoneLabel = label => setAttributes( { timeZoneLabel: label } );
+
+	var moment = require( 'moment-timezone' );
 
 	return showTimeZone && (
 		<span
@@ -141,8 +143,8 @@ const renderTimezone = ( props ) => {
 			className="tribe-editor__time-zone"
 		>
 			<TimeZone
-				value={ timeZoneLabel }
-				placeholder={ timeZoneLabel }
+				value={ moment( start ).tz( timeZoneLabel ).format( 'z' ) }
+				placeholder={ moment( start ).tz( timeZoneLabel ).format( 'z' ) }
 				onChange={ setTimeZoneLabel }
 			/>
 		</span>
