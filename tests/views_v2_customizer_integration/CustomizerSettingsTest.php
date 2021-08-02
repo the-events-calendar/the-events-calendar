@@ -28,7 +28,7 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_taking_a_css_template_snapshot_if_given_data() {
-
+		// Pass some specific styles via a filter.
 		add_filter(
 			'tribe_customizer_css_template',
 			function() {
@@ -72,6 +72,7 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_allow_taking_a_snapshot_from_database() {
+		// Add Customizer settings to the database.
 		$data = [
 			"global_elements" => [
 				"font_size" => "1",
