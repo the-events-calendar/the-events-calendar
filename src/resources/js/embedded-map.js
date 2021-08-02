@@ -3,11 +3,11 @@
  */
 if ( "function" === typeof jQuery ) jQuery( function( $ ) {
 	var mapHolder,
-	    position,
-	    venueObject,
-	    venueAddress,
-	    venueCoords,
-	    venueTitle;
+		position,
+		venueObject,
+		venueAddress,
+		venueCoords,
+		venueTitle;
 
 	// The tribeEventsSingleMap object must be accessible (as it contains the venue address data etc)
 	if ( 'undefined' === typeof tribeEventsSingleMap ) {
@@ -43,7 +43,7 @@ if ( "function" === typeof jQuery ) jQuery( function( $ ) {
 		geocoder.geocode(
 			{ "address": venueAddress },
 			function ( results, status ) {
-				if ( status == google.maps.GeocoderStatus.OK ) {
+				if ( status == google.maps.GeocoderStatus.OK ) { // eslint-disable-line eqeqeq
 					position = results[0].geometry.location;
 					initialize();
 				}
