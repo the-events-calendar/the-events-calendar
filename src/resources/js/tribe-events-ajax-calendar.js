@@ -49,8 +49,12 @@
 			baseUrl = baseUrl.split("?")[0];
 		}
 
-		if ( $( '.tribe-events-calendar' ).length && $( document.getElementById( 'tribe-events-bar' ) ).length ) {
-			$( document.getElementById( 'tribe-bar-date-day' ) ).val( initialDateInfo.defaultFormattedDate );
+		if (
+			$( '.tribe-events-calendar' ).length &&
+			$( document.getElementById( 'tribe-events-bar' ) ).length
+		) {
+			$( document.getElementById( 'tribe-bar-date-day' ) )
+				.val( initialDateInfo.defaultFormattedDate );
 			$tribedate.val( initialDateInfo.formattedDate );
 		}
 
@@ -81,7 +85,8 @@
 						return;
 					}
 					if ( ts.filter_cats ) {
-						td.cur_url = $( document.getElementById( 'tribe-events-header' ) ).data( 'baseurl' ) + ts.date + '/';
+						td.cur_url = $( document.getElementById( 'tribe-events-header' ) )
+							.data( 'baseurl' ) + ts.date + '/';
 					}
 					else {
 						if ( td.default_permalinks ) {
@@ -201,13 +206,15 @@
 
 		function tribe_mobile_month_setup() {
 
-			var $activeDay       = $wrapper.find( '.mobile-active' );
-			var $mobileTrigger   = $wrapper.find( '.mobile-trigger' );
-			var $tribeGrid       = $wrapper.find( document.getElementById( 'tribe-events-content' ) ).find( '.tribe-events-calendar'  );
+			var $activeDay = $wrapper.find( '.mobile-active' );
+			var $mobileTrigger = $wrapper.find( '.mobile-trigger' );
+			var $tribeGrid = $wrapper
+				.find( document.getElementById( 'tribe-events-content' ) )
+				.find( '.tribe-events-calendar' );
 
 			// If for some reason we don't have a "$activeDay" selected, default to today.
 			if ( ! $activeDay.length ) {
-				var $activeDay = $wrapper.find( '.tribe-events-present' );
+				$activeDay = $wrapper.find( '.tribe-events-present' );
 			}
 
 			if ( ! $( document.getElementById( 'tribe-mobile-container' ) ).length ) {
@@ -275,7 +282,8 @@
 				params = params + '&featured=1';
 			}
 
-			var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
+			var isShortcode = $( document.getElementById( 'tribe-events' ) )
+				.is( '.tribe-events-shortcode' );
 
 			if( ! isShortcode || false !== config.update_urls.shortcode.month ){
 				history.replaceState( {
@@ -368,16 +376,18 @@
 				}
 			} );
 
-		tf.snap( '#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous, #tribe-events-footer .tribe-events-nav-next' );
+		tf.snap( '#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous, #tribe-events-footer .tribe-events-nav-next' ); // eslint-disable-line max-len
 
+		/* eslint-disable max-len */
 		/**
 		 * @function tribe_events_bar_calendar_ajax_actions
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the month view ajax handler.
 		 * @param {event} e The event object.
 		 */
+		/* eslint-enable max-len */
 
 		function tribe_events_bar_calendar_ajax_actions( e ) {
-			if ( tribe_events_bar_action != 'change_view' ) {
+			if ( tribe_events_bar_action != 'change_view' ) { // eslint-disable-line eqeqeq
 				e.preventDefault();
 				if ( ts.ajax_running ) {
 					return;
@@ -389,7 +399,11 @@
 				) {
 					if ( '0' !== ts.datepicker_format ) {
 						let maskKey = ts.datepicker_format.toString();
-						ts.date = tribeUtils.formatDateWithMoment( $tribedate.bootstrapDatepicker( 'getDate' ), "tribeMonthQuery", maskKey );
+						ts.date = tribeUtils.formatDateWithMoment(
+							$tribedate.bootstrapDatepicker( 'getDate' ),
+							"tribeMonthQuery",
+							maskKey
+						);
 					}
 					else {
 						ts.date = $tribedate.val();
@@ -441,6 +455,8 @@
 			}
 			ts.popping = false;
 		} );
+
+		/* eslint-disable max-len */
 		/**
 		 * @function tribe_events_calendar_ajax_post
 		 * @desc The ajax handler for month view.
@@ -448,6 +464,7 @@
 		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_monthView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_monthView_ajaxSuccess' are fired on success.
 		 * Various functions in the events plugins hook into these events. They are triggered on the tribe_ev.events object.
 		 */
+		/* eslint-enable max-len */
 
 		function tribe_events_calendar_ajax_post() {
 
@@ -478,10 +495,10 @@
 				if ( td.default_permalinks ) {
 					// when not using the shorcode
 					if ( ! $wrapper.is( '.tribe-events-shortcode' ) ) {
-						if ( ! ts.url_params.hasOwnProperty( 'post_type' ) ) {
+						if ( ! ts.url_params.hasOwnProperty( 'post_type' ) ) { // eslint-disable-line no-prototype-builtins,max-len
 							ts.url_params['post_type'] = config.events_post_type;
 						}
-						if ( ! ts.url_params.hasOwnProperty( 'eventDisplay' ) ) {
+						if ( ! ts.url_params.hasOwnProperty( 'eventDisplay' ) ) { // eslint-disable-line no-prototype-builtins,max-len
 							ts.url_params['eventDisplay'] = ts.view;
 						}
 					}
@@ -577,8 +594,10 @@
 							}
 						}
 
-						var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
-						var shouldUpdateHistory = ! isShortcode || false !== config.update_urls.shortcode.month;
+						var isShortcode = $( document.getElementById( 'tribe-events' ) )
+							.is( '.tribe-events-shortcode' );
+						var shouldUpdateHistory = ! isShortcode ||
+							false !== config.update_urls.shortcode.month;
 
 
 						if ( ts.do_string && shouldUpdateHistory ) {
@@ -616,9 +635,9 @@
 		}
 
 		// @ifdef DEBUG
-		dbug && tec_debug.info( 'TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished' );
+		dbug && tec_debug.info( 'TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished' ); // eslint-disable-line max-len
 		dbug && tec_debug.timeEnd( 'Tribe JS Init Timer' );
 		// @endif
 	} );
 
-})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_js_config, tribe_debug );
+})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_js_config, tribe_debug ); // eslint-disable-line max-len
