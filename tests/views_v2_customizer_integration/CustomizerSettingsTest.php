@@ -12,54 +12,99 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 	private $collected_inline_styles = [];
 
 	/**
-	 * It should allow taking a CSS template snapshot
+	 * It should return empty with an empty Customizer.
 	 *
 	 * @test
 	 */
-	public function should_allow_taking_a_css_template_snapshot() {
-		$css_template = $this->get_css_template_for_settings( [ 'global_elements' => [ 'accent_color' => '#238923', 'link_color' => '#238923' ] ] );
+	public function should_return_empty_with_an_empty_customizer() {
+		$css_template = tribe('customizer')->get_styles_scripts();
 
 		$this->assertMatchesSnapshot( $css_template );
 	}
 
 	/**
-	 * Emulates a Customizer render where the specified settings, and only those settings, are set to the
-	 * specified values.
+	 * It should allow taking a CSS template snapshot with provided styles.
 	 *
-	 * @since TBD
-	 *
-	 * @param array<string<array<string,int|string|float>> $settings A map of the customizer Sections, each
-	 *                                                               one a map of customizer Settings.
-	 *
-	 * @return array<string,string> A map from each sheet handle to its rendered content.
+	 * @test
 	 */
-	private function get_css_template_for_settings( array $settings = [] ) {
-		add_filter( 'pre_option_tribe_customizer', static function () use ( $settings ) {
-			return $settings;
-		}, PHP_INT_MAX );
-		// All sheets should count as enqueued.
-		add_filter( 'tribe_customizer_inline_stylesheets', static function ( array $sheets ) {
-			global $wp_styles;
-			foreach ( $sheets as $sheet ) {
-				if ( ! isset( $wp_styles->registered[ $sheet ] ) ) {
-					$wp_styles->registered[ $sheet ] = new _WP_Dependency( $sheet, __FILE__, [], '1.0.0', [] );
-					$wp_styles->queue[]              = $sheet;
-				}
+	public function should_allow_taking_a_css_template_snapshot_if_given_data() {
+		// Pass some specific styles via a filter.
+		add_filter(
+			'tribe_customizer_css_template',
+			function() {
+				return ":root {
+						/* Customizer-added Global Event styles */
+						--tec-color-link-primary: #238923;
+					    --tec-color-link-accent: #238923;
+					    --tec-color-link-accent-hover: rgba(35,137,35, 0.8);
+					    --tec-color-accent-primary: #238923;
+					    --tec-color-accent-primary-hover: rgba(35,137,35,0.8);
+					    --tec-color-accent-primary-multiday: rgba(35,137,35,0.24);
+					    --tec-color-accent-primary-multiday-hover: rgba(35,137,35,0.34);
+					    --tec-color-accent-primary-active: rgba(35,137,35,0.9);
+					    --tec-color-accent-primary-background: rgba(35,137,35,0.07);
+					    --tec-color-background-secondary-datepicker: rgba(35,137,35,0.5);
+					    --tec-color-accent-primary-background-datepicker: #238923;
+					    --tec-color-button-primary: #238923;
+					    --tec-color-button-primary-hover: rgba(35,137,35,0.8);
+					    --tec-color-button-primary-active: rgba(35,137,35,0.9);
+					    --tec-color-button-primary-background: rgba(35,137,35,0.07);
+					    --tec-color-day-marker-current-month: #238923;
+					    --tec-color-day-marker-current-month-hover: rgba(35,137,35,0.8);
+					    --tec-color-day-marker-current-month-active: rgba(35,137,35,0.9);
+					    --tec-color-background-primary-multiday: rgba(35,137,35, 0.24);
+					    --tec-color-background-primary-multiday-hover: rgba(35,137,35, 0.34);
+					    --tec-color-background-primary-multiday-active: rgba(35,137,35, 0.34);
+					    --tec-color-background-secondary-multiday: rgba(35,137,35, 0.24);
+					    --tec-color-background-secondary-multiday-hover: rgba(35,137,35, 0.34);
+					}";
 			}
+		);
 
-			return $sheets;
-		}, PHP_INT_MAX );
+		$css_template = tribe('customizer')->get_styles_scripts();
 
-		/** @var Customizer $customizer */
-		$customizer       = tribe( 'customizer' );
-		$styles_collector = function ( string $sheet, string $inline_style ) {
-			$this->collected_inline_styles[ $sheet ] = $inline_style;
-		};
-		add_action( 'tribe_customizer_before_inline_style', $styles_collector, 100, 2 );
-		$customizer->inline_style( $force = true );
-		remove_action( 'tribe_customizer_before_inline_style', $styles_collector, 100 );
+		$this->assertMatchesSnapshot( $css_template );
+	}
 
-		return $this->collected_inline_styles;
+	/**
+	 * It should allow taking a CSS template snapshot from the database.
+	 *
+	 * @test
+	 */
+	public function it_should_allow_taking_a_snapshot_from_database() {
+		// Add Customizer settings to the database.
+		$data = [
+			"global_elements" => [
+				"font_size" => "1",
+				"font_size_base" => "24",
+				"font_family" => "theme"
+			],
+			"tec_events_bar" => [
+				"events_bar_border_color_choice" =>
+				"custom",
+				"events_bar_text_color" => "#8224e3",
+				"find_events_button_color_choice" => "custom",
+				"find_events_button_color" => "#dd3333",
+				"events_bar_border_color" => "#8224e3"
+			],
+			"month_view" => [
+				"grid_background_color_choice" => "custom",
+				"grid_background_color" => "#ddb982",
+				"multiday_event_bar_color_choice" => "custom",
+				"multiday_event_bar_color" => "#c329d1"
+			],
+			"single_event" => [
+				"post_title_color_choice" => "custom",
+				"post_title_color" => "#eeee22"
+			],
+		];
+
+		update_option( 'tribe_customizer', $data, true );
+
+		$css_template = tribe('customizer')->get_styles_scripts();
+
+		$this->assertMatchesSnapshot( $css_template );
+
+		update_option( 'tribe_customizer', '' );
 	}
 }
-
