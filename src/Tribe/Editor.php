@@ -39,7 +39,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		// Add Block Categories to Editor
 		global $wp_version;
-		if ( ! class_exists( 'WP_Block_Editor_Context' ) || version_compare( $wp_version, '5.8', '<' ) ) {
+		if ( version_compare( $wp_version, '5.8', '<' ) ) {
 			// WP version is less then 5.8.
 			add_action( 'block_categories', [ $this, 'block_categories' ], 10, 2 );
 		} else {
@@ -548,6 +548,8 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Add "Event Blocks" category to the editor
 	 *
+	 * @deprecated TBD
+	 *
 	 * @since 4.7
 	 *
 	 * @param array<array<string|string>> $categories An array of categories each an array
@@ -557,6 +559,12 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return array
 	 */
 	public function block_categories( $categories, $post ) {
+		// Handle where someone is using this outside of this object
+		global $wp_version;
+		if ( version_compare( $wp_version, '5.8', '>=' ) ) {
+			_deprecated_function( __FUNCTION__, 'TBD', 'block_categories_all' );
+		}
+
 		if ( Tribe__Events__Main::POSTTYPE !== $post->post_type ) {
 			return $categories;
 		}
@@ -585,8 +593,12 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return array<array<string,string>> The block categories, filtered to add the Event Categories if applicable.
 	 */
 	public function block_categories_all( $categories, $context ) {
-		// Make sure we have the post_type available.
-		if ( empty( $context->post ) || empty( $context->post->post_type ) ) {
+		if ( ! $context instanceof WP_Block_Editor_Context ) {
+			return $categories;
+		}
+
+		// Make sure we have the post available.
+		if ( empty( $context->post ) ) {
 			return $categories;
 		}
 
