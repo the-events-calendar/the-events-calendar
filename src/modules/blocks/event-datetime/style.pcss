@@ -144,3 +144,8 @@
 	display: flex;
 	align-items: center;
 }
+
+// We need to enforce this override the value set by the SelectControl component. [TEC-4029]
+.tribe-editor__date-time__time-zone-setting {
+    height: auto !important;
+}
