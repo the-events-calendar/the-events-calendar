@@ -146,7 +146,6 @@
 }
 
 /* We need to enforce this rule to override the value set by the SelectControl component. [TEC-4029] */
-
-.tribe-editor__date-time__time-zone-setting {
-    height: auto !important;
+.components-select-control[class*="tribe-editor"] { 
+	height: auto;
 }
