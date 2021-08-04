@@ -5,8 +5,6 @@
  * @since   5.3.1
  * @deprecated TBD
  *
- * @deprecated TBD
- *
  * @package Tribe\Events\Views\V2
  */
 
@@ -33,9 +31,13 @@ class Customizer {
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 * @param \Tribe__Customizer|null     $customizer The Customizer object.
 	 */
-	public function include_global_elements_settings( $section, $manager, $customizer ) {
+	public function include_global_elements_settings( $section, $manager, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
+
 		// Event Title.
 		$manager->add_setting(
 			$customizer->get_setting_name( 'event_title_color', $section ),
@@ -154,9 +156,13 @@ class Customizer {
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Single Events Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 * @param \Tribe__Customizer|null     $customizer The Customizer object.
 	 */
-	public function include_single_event_settings( $section, $manager, $customizer ) {
+	public function include_single_event_settings( $section, $manager, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
+
 		// Remove the old setting/control to refactor.
 		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ) );
 		$manager->remove_control( $customizer->get_setting_name( 'post_title_color', $section ) );
@@ -222,11 +228,15 @@ class Customizer {
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 * @param \Tribe__Customizer|null     $customizer   The current Customizer instance.
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
+	public function filter_global_elements_css_template( $css_template, $section, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
+
 		$settings = $customizer->get_option( [ $section->ID ] );
 		// These allow us to continue to _not_ target the shortcode.
 		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
@@ -773,11 +783,15 @@ class Customizer {
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Single Event.
 	 * @param \Tribe__Customizer__Section $section      The Single Event section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 * @param \Tribe__Customizer|null     $customizer   The current Customizer instance.
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+	public function filter_single_event_css_template( $css_template, $section, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
+
 		if (
 			$customizer->has_option( $section->ID, 'post_title_color_choice' )
 			&& 'custom' === $customizer->get_option( [ $section->ID, 'post_title_color_choice' ] )
