@@ -204,7 +204,12 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-dynamic',
 			'events-dynamic.js',
-			[ 'jquery', 'tribe-events-php-date-formatter', 'tribe-moment' ],
+			[
+				'jquery',
+				'tribe-events-php-date-formatter',
+				'tribe-moment',
+				'tribe-moment-locales'
+			],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[
 				'conditionals' => [ $this, 'should_enqueue_on_tribe' ],
@@ -225,6 +230,7 @@ class Tribe__Events__Assets {
 				'tribe-events-jquery-resize',
 				'jquery-placeholder',
 				'tribe-moment',
+				'tribe-moment-locales',
 			],
 			'wp_enqueue_scripts',
 			[
@@ -346,6 +352,7 @@ class Tribe__Events__Assets {
 				'tribe-events-jquery-resize',
 				'jquery-placeholder',
 				'tribe-moment',
+				'tribe-moment-locales',
 			],
 			null,
 			[
