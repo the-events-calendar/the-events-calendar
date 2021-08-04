@@ -18,6 +18,7 @@
 namespace Tribe\Events\Views\V2\Customizer;
 
 use Tribe__Events__Main as TEC;
+
 /**
  * Class Hooks
  *
@@ -46,7 +47,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'customizer-views-v2-controls.js'
 		);
 
-		/* NOT YET
+		/* @todo: this will be part of the next Customizer release.
 		tribe_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-live-preview-js',
@@ -66,10 +67,24 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->add_filters();
 	}
 
+	/**
+	 * Register any actions for the Customizer
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function add_actions() {
 		add_action( 'customize_controls_enqueue_scripts', [ $this, 'enqueue_customizer_control_scripts'] );
 	}
 
+	/**
+	 * Register any filters for the Customizer
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function add_filters() {
 		// Register the assets for Customizer controls.
 		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
@@ -78,6 +93,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
 	}
 
+	/**
+	 * Enqueues the js for our v2 Customizer controls.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function enqueue_customizer_control_scripts() {
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls-js' );
 	}

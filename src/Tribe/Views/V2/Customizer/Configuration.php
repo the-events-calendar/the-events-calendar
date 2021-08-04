@@ -9,9 +9,9 @@
 namespace Tribe\Events\Views\V2\Customizer;
 
 /**
- * Class managing Configuration for the Views V2_1.
+ * Class managing Configuration for the v2 Customizer.
  *
- * @package Tribe\Events\Filterbar\Views\V2_1
+ * @package Tribe\Events\Views\V2\Customizer
  * @since   TBD
  */
 class Configuration {
@@ -24,7 +24,6 @@ class Configuration {
 	 * @return array
 	 */
 	public function localize() {
-
 		$data = [
 			'selector' => self::get_selector(),
 			'default_font' => '"Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif',
@@ -33,6 +32,14 @@ class Configuration {
 		return apply_filters( 'tribe_customizer_live_preview_js_config', $data );
 	}
 
+	/**
+	 * Gets the selector for Customizer styles
+	 * based on filters for applying to shortcodes and widgets.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The selector string.
+	 */
 	public static function get_selector() {
 		$tribe_events = '#tribe-events-pg-template, .tribe-events, .tribe-common';
 
