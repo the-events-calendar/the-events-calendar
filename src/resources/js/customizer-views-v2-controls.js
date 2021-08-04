@@ -1,5 +1,3 @@
-/* global tribe, tribe_customizer_controls */
-
 /**
  * File customizer-views-v2-controls.js.
  *
@@ -15,6 +13,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 ( function( $, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
 
+	/* eslint-disable max-len */
 	obj.selectors = {
 		globalFontSize: 'tribe_customizer[global_elements][font_size]',
 		globalFontSizeBase: 'tribe_customizer[global_elements][font_size_base]',
@@ -42,6 +41,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		singleEventTitleColorChoice: 'tribe_customizer[single_event][post_title_color_choice]',
 		singleEventTitleColor: 'tribe_customizer[single_event][post_title_color]'
 	};
+	/* eslint-enable max-len */
 
 	obj.globalFontSizeChange = false;
 	obj.globalFontSizeBaseChange = false;
@@ -78,8 +78,6 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		// Triggers on change of globalFontSize to keep globalFontSizeBase in sync.
 		wp.customize( obj.selectors.globalFontSize, function( setting ) {
 			wp.customize.control( obj.selectors.globalFontSizeBase, function( control ) {
-				const globalFontSizeControl = setting.findControls( obj.selectors.globalFontSize );
-				const datalist = globalFontSizeControl[ 0 ].elements[ 0 ].element[ 0 ].nextElementSibling;
 
 				const sync = function() {
 					if ( obj.globalFontSizeChange ) {
@@ -140,7 +138,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 
 		// Only show the events bar background color control when the events bar background color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarViewSelectorBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.eventsBarViewSelectorBackgroundColor, function( control ) {
+			wp.customize.control( obj.selectors.eventsBarViewSelectorBackgroundColor, function( control ) { /* eslint-disable-line max-len */
 				const visibility = function() {
 					if ( 'custom' === setting.get() ) {
 						control.container.slideDown( 180 );
@@ -154,7 +152,8 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 			} );
 		} );
 
-		// Only show the events bar view selector background color control when the events bar view selector background color choice is set to custom.
+		// Only show the events bar view selector background color control
+		// when the events bar view selector background color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarBackgroundColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.eventsBarBackgroundColor, function( control ) {
 				const visibility = function() {

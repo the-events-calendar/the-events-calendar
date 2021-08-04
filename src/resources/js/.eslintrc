@@ -34,6 +34,7 @@
     "tribeEventsSingleMap": true,
     "TribeList": true,
     "tribeUtils": true,
-    "typenow": true
+    "typenow": true,
+	"wp": true
   }
 }
