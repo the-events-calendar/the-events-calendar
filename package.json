@@ -141,5 +141,6 @@
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
   },
+  "optionalDependencies": { "fsevents": "^1.0.0" },
   "resolutions": { "graceful-fs": "^4.2.4" }
 }
