@@ -119,7 +119,7 @@ $fields = array_merge(
 		],
 		'addons-box-title' => [
 			'type' => 'html',
-			'html' => '<h2>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h2>',
+			'html' => '<h2>' . esc_html__( 'Integrations', 'the-events-calendar' ) . '</h2>',
 		],
 		'addons-box-description' => [
 			'type' => 'html',
@@ -159,5 +159,5 @@ $addons = apply_filters(
 
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
-	new Tribe__Settings_Tab( 'addons', esc_html__( 'APIs', 'the-events-calendar' ), $addons );
+	new Tribe__Settings_Tab( 'addons', esc_html__( 'Integrations', 'the-events-calendar' ), $addons );
 }
