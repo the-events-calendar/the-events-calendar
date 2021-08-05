@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // this causes tests to fail :(
-// _deprecated_file( __FILE__, 'TBD', 'Tribe\Events\Views\V2\Customizer\Section\Global_Elements' );
+_deprecated_file( __FILE__, 'TBD', 'Tribe\Events\Views\V2\Customizer\Section\Global_Elements' );
 
 use Tribe\Customizer\Controls\Heading;
 use Tribe\Customizer\Controls\Separator;
