@@ -194,6 +194,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		add_action('pre_get_posts', [ $this, 'ensure_event_post_types' ], 50 );
 	}
 
+	/**
+	 * Ensures that if something hooks into `pre_get_posts` and alters the query post type
+	 * the `tribe_events` post type is preserved so event searches don't break.
+	 *
+	 * @since TBD
+	 *
+	 * @param  WP_Query $query
+	 *
+	 * @return  WP_Query modified query
+	 */
 	public function ensure_event_post_types( $query ) {
 		if ( ! $query->is_search ) {
 			return $query;
