@@ -3,11 +3,15 @@
  * Handles Views v2 Customizer settings.
  *
  * @since   5.3.1
+ * @deprecated TBD
  *
  * @package Tribe\Events\Views\V2
  */
 
 namespace Tribe\Events\Views\V2;
+
+_deprecated_file( __FILE__, 'TBD', 'Tribe\Events\Views\V2\Customizer' );
+
 use WP_Customize_Color_Control as Color_Control;
 use WP_Customize_Control as Control;
 
@@ -15,6 +19,7 @@ use WP_Customize_Control as Control;
  * Class Customizer
  *
  * @since   5.3.1
+ * @deprecated TBD
  *
  * @package Tribe\Events\Views\V2
  */
@@ -26,9 +31,13 @@ class Customizer {
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 * @param \Tribe__Customizer|null     $customizer The Customizer object.
 	 */
-	public function include_global_elements_settings( $section, $manager, $customizer ) {
+	public function include_global_elements_settings( $section, $manager, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
+
 		// Event Title.
 		$manager->add_setting(
 			$customizer->get_setting_name( 'event_title_color', $section ),
@@ -147,9 +156,13 @@ class Customizer {
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Single Events Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 * @param \Tribe__Customizer|null     $customizer The Customizer object.
 	 */
-	public function include_single_event_settings( $section, $manager, $customizer ) {
+	public function include_single_event_settings( $section, $manager, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
+
 		// Remove the old setting/control to refactor.
 		$manager->remove_setting( $customizer->get_setting_name( 'post_title_color', $section ) );
 		$manager->remove_control( $customizer->get_setting_name( 'post_title_color', $section ) );
@@ -215,12 +228,14 @@ class Customizer {
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 * @param \Tribe__Customizer|null     $customizer   The current Customizer instance.
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_global_elements_css_template( $css_template, $section ) {
-		$customizer = tribe( 'customizer' );
+	public function filter_global_elements_css_template( $css_template, $section, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
 
 		$settings = $customizer->get_option( [ $section->ID ] );
 		// These allow us to continue to _not_ target the shortcode.
@@ -465,12 +480,6 @@ class Customizer {
 				}
 			";
 
-			$css_template .= "
-				.tribe-theme-twentytwentyone $tribe_common .tribe-common-c-btn:not(:hover):not(:active) {
-					background-color: <%= global_elements.accent_color %>;
-				}
-			";
-
 			// overrides for common components/full/buttons/_solid.pcss.
 			$css_template .= "
 				$tribe_common .tribe-common-c-btn,
@@ -613,7 +622,7 @@ class Customizer {
 
 			// overrides for tec views/full/month/_calendar-event.pcss.
 			$css_template .= "
-			$tribe_events .tribe-events-calendar-month__calendar-event--featured:before {
+				$tribe_events .tribe-events-calendar-month__calendar-event--featured:before {
 					background-color: <%= global_elements.accent_color %>;
 				}
 			";
@@ -687,7 +696,7 @@ class Customizer {
 
 			// overrides for tec views/full/month/_mobile-events.pcss.
 			$css_template .= "
-			$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
+				$tribe_events .tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text {
 					color: <%= global_elements.accent_color %>;
 				}
 			";
@@ -774,12 +783,14 @@ class Customizer {
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Single Event.
 	 * @param \Tribe__Customizer__Section $section      The Single Event section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 * @param \Tribe__Customizer|null     $customizer   The current Customizer instance.
 	 *
 	 * @return string The filtered CSS template.
 	 */
-	public function filter_single_event_css_template( $css_template, $section ) {
-		$customizer = tribe( 'customizer' );
+	public function filter_single_event_css_template( $css_template, $section, $customizer = null ) {
+		if ( null === $customizer ) {
+			$customizer = tribe( 'customizer' );
+		}
 
 		if (
 			$customizer->has_option( $section->ID, 'post_title_color_choice' )
@@ -796,14 +807,7 @@ class Customizer {
 		return $css_template;
 	}
 
-	/**
-	 * Enqueues Customizer controls styles specific to Views v2 components.
-	 *
-	 * @since 5.4.0
-	 */
-	public function enqueue_customizer_controls_styles() {
-		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
-	}
+
 
 	/**
 	 * Check whether the Single Event styles overrides can be applied
@@ -811,19 +815,19 @@ class Customizer {
 	 * @return false/true
 	 */
 	public function should_add_single_view_v2_styles() {
+		// Use the function from provider.php to check if V2 is not enabled
+		// or the TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED constant is true.
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
+			return false;
+		}
+
 		// Bail if not Single Event.
-		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+		if ( ! tribe( Bootstrap::class )->is_single_event() ) {
 			return false;
 		}
 
 		// Bail if Block Editor.
 		if ( has_blocks( get_queried_object_id() ) ) {
-			return false;
-		}
-
-		// Use the function from provider.php to check if V2 is not enabled
-		// or the TRIBE_EVENTS_WIDGETS_V2_DISABLED constant is true.
-		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
 		}
 

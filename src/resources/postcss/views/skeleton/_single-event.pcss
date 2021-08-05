@@ -17,7 +17,7 @@
 #tribe-events-pg-template {
 	margin: 0 auto;
 	max-width: 1048px;
-	padding: var(--spacer-8) var(--spacer-4) var(--spacer-4);
+	padding: var(--tec-spacer-8) var(--tec-spacer-4) var(--tec-spacer-4);
 }
 
 .tribe-events-before-html,
@@ -30,10 +30,10 @@
 
 /* Back navigation block */
 .tribe-events-back {
-	margin-bottom: var(--spacer-5);
+	margin-bottom: var(--tec-spacer-5);
 
 	@media (--viewport-medium) {
-		margin-bottom: var(--spacer-8);
+		margin-bottom: var(--tec-spacer-8);
 	}
 }
 
@@ -51,8 +51,8 @@
 
 /* Notices block (e.g. "This event has passed") */
 .tribe-events-notices {
-	margin-bottom: var(--spacer-4);
-	padding-bottom: var(--spacer-2);
+	margin-bottom: var(--tec-spacer-4);
+	padding-bottom: var(--tec-spacer-2);
 
 	ul,
 	li {
@@ -72,19 +72,19 @@
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
-	margin: var(--spacer-1) 0 var(--spacer-4);
+	margin: var(--tec-spacer-1) 0 var(--tec-spacer-4);
 
 	@media (--viewport-medium) {
 		align-items: baseline;
 		flex-wrap: nowrap;
-		margin: var(--spacer-5) 0 var(--spacer-7);
+		margin: var(--tec-spacer-5) 0 var(--tec-spacer-7);
 	}
 }
 
 /* Datetime block */
 .tribe-events-schedule h2 {
-	margin-bottom: var(--spacer-1);
-	margin-right: var(--spacer-1);
+	margin-bottom: var(--tec-spacer-1);
+	margin-right: var(--tec-spacer-1);
 	order: 0;
 	width: 100%;
 
@@ -97,9 +97,9 @@
 /* Recurring info block */
 .tribe-events-schedule .recurringinfo,
 .tribe-related-event-info .recurringinfo {
-	margin-right: var(--spacer-1);
+	margin-right: var(--tec-spacer-1);
 	order: 2;
-	padding: 0 var(--spacer-1);
+	padding: 0 var(--tec-spacer-1);
 	position: relative;
 
 	&:before {
@@ -118,7 +118,7 @@
 	}
 
 	.event-is-recurring {
-		padding-left: var(--spacer-4);
+		padding-left: var(--tec-spacer-4);
 		visibility: hidden;
 	}
 
@@ -129,13 +129,13 @@
 
 /* Recurring info block */
 .tribe-events-schedule .recurringinfo {
-	margin-right: var(--spacer-1);
+	margin-right: var(--tec-spacer-1);
 	order: 2;
-	padding: 0 var(--spacer-1);
+	padding: 0 var(--tec-spacer-1);
 
 	@media (--viewport-medium) {
-		margin-left: var(--spacer-1);
-		padding: var(--spacer-1) var(--spacer-3);
+		margin-left: var(--tec-spacer-1);
+		padding: var(--tec-spacer-1) var(--tec-spacer-3);
 	}
 
 	&:before {
@@ -153,25 +153,25 @@
 
 /* Cost block */
 .tribe-events-schedule .tribe-events-cost {
-	margin-right: var(--spacer-1);
+	margin-right: var(--tec-spacer-1);
 	order: 1;
 
 	@media (--viewport-medium) {
-		margin: 0 var(--spacer-1);
+		margin: 0 var(--tec-spacer-1);
 	}
 }
 
 /* Featured Image */
 .tribe-events-event-image {
 	align-self: flex-start;
-	margin-bottom: var(--spacer-3);
+	margin-bottom: var(--tec-spacer-3);
 
 	img {
 		display: block;
 	}
 
 	@media (--viewport-medium) {
-		margin-bottom: var(--spacer-7);
+		margin-bottom: var(--tec-spacer-7);
 	}
 }
 
@@ -189,10 +189,10 @@
 	p,
 	ul,
 	ol {
-		margin-bottom: var(--spacer-3);
+		margin-bottom: var(--tec-spacer-3);
 
 		&:last-child {
-			margin-bottom: var(--spacer-6);
+			margin-bottom: var(--tec-spacer-6);
 		}
 	}
 
@@ -206,8 +206,8 @@
 	}
 
 	pre {
-		margin-bottom: var(--spacer-5);
-		padding: var(--spacer-5);
+		margin-bottom: var(--tec-spacer-5);
+		padding: var(--tec-spacer-5);
 	}
 
 	blockquote p {
@@ -217,24 +217,24 @@
 
 /* Cal export links block */
 .tribe-events-cal-links {
-	margin-bottom: var(--spacer-7);
+	margin-bottom: var(--tec-spacer-7);
 
 	@media (--viewport-medium) {
-		margin-bottom: var(--spacer-8);
+		margin-bottom: var(--tec-spacer-8);
 	}
 
 	.tribe-events-gcal {
-		margin-right: var(--spacer-5);
+		margin-right: var(--tec-spacer-5);
 
 		@media (--viewport-medium) {
-			margin-right: var(--spacer-8);
+			margin-right: var(--tec-spacer-8);
 		}
 	}
 
 	.tribe-events-gcal,
 	.tribe-events-ical {
 		display: inline-block;
-		padding-left: var(--spacer-7);
+		padding-left: var(--tec-spacer-7);
 	}
 }
 
@@ -242,25 +242,25 @@
 .tribe-events-event-meta {
 	display: flex;
 	flex-wrap: wrap;
-	margin: 0 0 var(--spacer-7);
+	margin: 0 0 var(--tec-spacer-7);
 
 	@media (--viewport-medium) {
-		margin-bottom: var(--spacer-3);
+		margin-bottom: var(--tec-spacer-3);
 	}
 
 	dl {
-		margin-top: var(--spacer-1);
+		margin-top: var(--tec-spacer-1);
 	}
 
 	dt,
 	dd {
-		margin: 0 0 var(--spacer-0) 0;
+		margin: 0 0 var(--tec-spacer-0) 0;
 		padding: 0;
 	}
 
 	dt:not(:first-child),
 	dd[class$="url"] {
-		margin-top: var(--spacer-3);
+		margin-top: var(--tec-spacer-3);
 	}
 
 	dt[class*="url"] + dd {
@@ -273,9 +273,9 @@
 
 	&.primary,
 	&.secondary {
-		margin-bottom: var(--spacer-1);
+		margin-bottom: var(--tec-spacer-1);
 		order: 2;
-		padding-top: var(--spacer-5);
+		padding-top: var(--tec-spacer-5);
 		position: relative;
 		width: 100%;
 
@@ -293,11 +293,11 @@
 	 */
 	&.primary + .event-tickets,
 	&.secondary + .event-tickets {
-		margin-bottom: var(--spacer-7);
-		margin-top: calc(-1 * var(--spacer-6));
+		margin-bottom: var(--tec-spacer-7);
+		margin-top: calc(-1 * var(--tec-spacer-6));
 
 		@media (--viewport-medium) {
-			margin-bottom: var(--spacer-8);
+			margin-bottom: var(--tec-spacer-8);
 		}
 	}
 
@@ -307,12 +307,12 @@
 	 */
 	&.primary + .event-tickets + .event-tickets,
 	&.secondary + .event-tickets + .event-tickets {
-		margin-bottom: var(--spacer-1);
-		margin-top: calc(-1 * var(--spacer-7));
+		margin-bottom: var(--tec-spacer-1);
+		margin-top: calc(-1 * var(--tec-spacer-7));
 
 		@media (--viewport-medium) {
-			margin-bottom: var(--spacer-3);
-			margin-top: calc(-1 * var(--spacer-8));
+			margin-bottom: var(--tec-spacer-3);
+			margin-top: calc(-1 * var(--tec-spacer-8));
 		}
 	}
 
@@ -332,11 +332,11 @@
 /* Details column */
 .tribe-events-meta-group {
 	flex: 1 0 140px;
-	margin-right: var(--spacer-5);
+	margin-right: var(--tec-spacer-5);
 	order: 0;
 
 	@media (--viewport-medium) {
-		padding: var(--spacer-7) 0 var(--spacer-3);
+		padding: var(--tec-spacer-7) 0 var(--tec-spacer-3);
 		width: 168px;
 	}
 
@@ -351,8 +351,8 @@
 
 	&.tribe-events-meta-group-gmap {
 		flex-basis: 100%;
-		margin-top: var(--spacer-1);
-		padding-top: var(--spacer-5);
+		margin-top: var(--tec-spacer-1);
+		padding-top: var(--tec-spacer-5);
 		width: auto;
 
 		@media (--viewport-medium) {
@@ -363,18 +363,18 @@
 	}
 
 	.tribe-events-single-section-title {
-		margin-bottom: var(--spacer-1);
+		margin-bottom: var(--tec-spacer-1);
 	}
 }
 
 /* Venue block */
 .tribe-events-venue-map {
-	margin: 0 0 var(--spacer-5) 0;
+	margin: 0 0 var(--tec-spacer-5) 0;
 	order: -1;
 	width: 100%;
 
 	@media (--viewport-medium) {
-		margin-top: var(--spacer-7);
+		margin-top: var(--tec-spacer-7);
 		order: 1;
 		width: 211px;
 	}
@@ -398,8 +398,8 @@
 }
 
 .tribe-events-related-events-title {
-	margin-bottom: var(--spacer-5);
-	padding-top: var(--spacer-7);
+	margin-bottom: var(--tec-spacer-5);
+	padding-top: var(--tec-spacer-7);
 	width: 100%;
 }
 
@@ -417,7 +417,7 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		margin-bottom: var(--spacer-6);
+		margin-bottom: var(--tec-spacer-6);
 		padding: 0;
 		width: auto;
 
@@ -426,7 +426,7 @@
 		}
 
 		.tribe-related-events-thumbnail {
-			margin-bottom: var(--spacer-3);
+			margin-bottom: var(--tec-spacer-3);
 			width: 100%;
 
 			/**
@@ -464,28 +464,28 @@
 			width: 100%;
 
 			.tribe-event-date-start {
-				margin: var(--spacer-0) var(--spacer-0) var(--spacer-2) 0;
+				margin: var(--tec-spacer-0) var(--tec-spacer-0) var(--tec-spacer-2) 0;
 			}
 
 			.tribe-event-time {
-				margin-left: var(--spacer-0);
+				margin-left: var(--tec-spacer-0);
 			}
 
 			.recurringinfo {
-				margin: 0 var(--spacer-1) var(--spacer-2) 0;
+				margin: 0 var(--tec-spacer-1) var(--tec-spacer-2) 0;
 			}
 
 			.timezone {
-				margin-left: var(--spacer-0);
+				margin-left: var(--tec-spacer-0);
 			}
 
 			span:last-of-type {
-				margin-right: var(--spacer-1);
+				margin-right: var(--tec-spacer-1);
 			}
 		}
 
 		.tribe-related-events-title {
-			margin-bottom: var(--spacer-1);
+			margin-bottom: var(--tec-spacer-1);
 			width: 100%;
 		}
 	}
@@ -493,10 +493,10 @@
 
 /* Footer Navigation */
 #tribe-events-footer {
-	padding: var(--spacer-4) 0;
+	padding: var(--tec-spacer-4) 0;
 
 	@media (--viewport-medium) {
-		padding: var(--spacer-6) 0;
+		padding: var(--tec-spacer-6) 0;
 	}
 }
 
@@ -520,7 +520,7 @@
 	width: 7px;
 
 	@media (--viewport-medium) {
-		margin-right: var(--spacer-1);
+		margin-right: var(--tec-spacer-1);
 		width: 9px;
 	}
 }
@@ -530,7 +530,7 @@
 	width: 7px;
 
 	@media (--viewport-medium) {
-		margin-left: var(--spacer-1);
+		margin-left: var(--tec-spacer-1);
 		width: 9px;
 	}
 }
@@ -595,15 +595,15 @@
 	}
 
 	.tribe-events-schedule {
-		margin-top: var(--spacer-1);
+		margin-top: var(--tec-spacer-1);
 
 		@media (--viewport-medium) {
-			margin-top: var(--spacer-4);
+			margin-top: var(--tec-spacer-4);
 		}
 	}
 
 	.tribe-events-schedule h3 {
-		margin-right: var(--spacer-1);
+		margin-right: var(--tec-spacer-1);
 	}
 
 	.av-single-event-content,
@@ -625,10 +625,10 @@
 	}
 
 	.tribe-events-meta-group {
-		margin-right: var(--spacer-5);
+		margin-right: var(--tec-spacer-5);
 
 		@media (--viewport-medium) {
-			padding: var(--spacer-7) 0 var(--spacer-3);
+			padding: var(--tec-spacer-7) 0 var(--tec-spacer-3);
 			width: 168px;
 		}
 	}
@@ -637,13 +637,13 @@
 		margin-top: 0;
 
 		@media (--viewport-medium) {
-			margin-top: var(--spacer-5);
+			margin-top: var(--tec-spacer-5);
 		}
 	}
 
 	.tribe-events-venue-map {
 		@media (--viewport-medium) {
-			margin-top: var(--spacer-7);
+			margin-top: var(--tec-spacer-7);
 			width: 211px;
 		}
 	}

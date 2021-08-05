@@ -52,7 +52,7 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 		//determine message to use based on values
 		obj.msg_logic();
 
-		//parse the message and insert into dymanic text div
+		//parse the message and insert into dynamic text div
 		obj.parse_and_display_text();
 	};
 

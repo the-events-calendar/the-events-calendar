@@ -13,17 +13,17 @@
  */
 
 :root {
-	--color-text-primary: #141827;
-	--featured-event-bg: #0ea0d7;
-	--twentynineteen-font--body: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
-	--twentynineteen-font--heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-	--twentynineteen-font--code: Menlo, monaco, Consolas, Lucida Console, monospace;
-	--twentynineteen-font--pre: "Courier 10 Pitch", Courier, monospace;
+	--tec-color-text-primary: #141827;
+	--tec-featured-event-bg: #0ea0d7;
+	--tec-twentynineteen-font--body: "NonBreakingSpaceOverride", "Hoefler Text", "Baskerville Old Face", Garamond, "Times New Roman", serif;
+	--tec-twentynineteen-font--heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	--tec-twentynineteen-font--code: Menlo, monaco, Consolas, Lucida Console, monospace;
+	--tec-twentynineteen-font--pre: "Courier 10 Pitch", Courier, monospace;
 }
 
 @define-mixin featured-list-styles {
 	.tribe-event-featured {
-		background: var(--featured-event-bg);
+		background: var(--tec-featured-event-bg);
 		margin-bottom: 2rem;
 		padding: 0 1.5rem 1rem;
 		@mixin-content;
@@ -50,7 +50,7 @@
 
 		.tribe-events-event-meta {
 			background-color: transparent;
-			color: rgba( 255, 255, 255, .7 );
+			color: rgba(255, 255, 255, .7);
 			font-weight: normal;
 		}
 
@@ -114,7 +114,7 @@
 				font-weight: bold;
 
 				&:hover {
-					color: var(--featured-event-bg);
+					color: var(--tec-featured-event-bg);
 				}
 
 				&:active {
@@ -125,7 +125,7 @@
 
 		.tribe-button {
 			background: #fff;
-			color: var(--featured-event-bg);
+			color: var(--tec-featured-event-bg);
 		}
 	}
 }
@@ -191,10 +191,11 @@ a.tribe-button,
 
 
 /* = Global & Miscellaneous Styles
-=============================================*/
+============================================= */
 #tribe-events,
 #tribe-events-pg-template,
 .tribe-events-pg-template {
+	background-color: var(--tec-color-background-events);
 	padding: 40px 20px 20px;
 }
 
@@ -288,6 +289,7 @@ a.tribe-button,
 /* Links */
 #tribe-events-content a,
 .tribe-events-event-meta a {
+	color: var(--tec-color-link-accent);
 	text-decoration: none;
 }
 
@@ -401,7 +403,7 @@ a.tribe-events-gcal {
 .tribe-events-schedule h2 {
 	display: inline-block;
 	margin-bottom: 0;
-	color: var(--color-text-primary);
+	color: var(--tec-color-text-event-date);
 	font-size: 1.2em;
 	font-style: normal;
 	font-weight: bold;
@@ -695,7 +697,7 @@ select.tribe-events-dropdown {
 
 /* = Calendar View & List View Template Styles
    @ Template: month.php & list.php
-=============================================*/
+============================================= */
 #tribe-events-content {
 	margin-bottom: 48px;
 	padding: 2px 0;
@@ -718,7 +720,7 @@ select.tribe-events-dropdown {
 
 /* = List View Template Styles
    @ Template: list.php
-=============================================*/
+============================================= */
 #tribe-events-content.tribe-events-list {
 	margin-bottom: 60px;
 }
@@ -858,7 +860,7 @@ select.tribe-events-dropdown {
 
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
-=============================================*/
+============================================= */
 /* Loop */
 .tribe-events-loop {
 	clear: both;
@@ -924,9 +926,9 @@ select.tribe-events-dropdown {
 
 /* = Single Event Template Styles
    @ Template: single-event.php
-=============================================*/
+============================================= */
 .single-tribe_events .tribe-events-single-event-title {
-	color: var(--color-text-primary);
+	color: var(--tec-color-text-event-title);
 	font-size: 1.7em;
 	line-height: 1;
 	margin: 0;
@@ -953,11 +955,15 @@ select.tribe-events-dropdown {
 	}
 }
 
-#tribe-events-content .tribe-events-single-event-description  .attachment-post-thumbnail {
+#tribe-events-content .tribe-events-single-event-description .attachment-post-thumbnail {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+.single-tribe_events .tribe-events-single-event-description a {
+	color: var(--tec-color-link-primary);
 }
 
 .tribe-events-meta-group {
@@ -965,6 +971,10 @@ select.tribe-events-dropdown {
 		font-size: 1.4em;
 		font-weight: bold;
 		margin: 20px 0 10px;
+	}
+
+	a {
+		color: var(--tec-color-link-accent);
 	}
 
 	& + .tribe-events-single-section-title {
@@ -1137,7 +1147,7 @@ select.tribe-events-dropdown {
 
 /* = Day Grid Template Styles
    @ Template: day.php
-=============================================*/
+============================================= */
 .tribe-events-day {
 	.tribe-events-day-time-slot {
 		.tribe-events-day-time-slot-heading {
@@ -1190,7 +1200,7 @@ select.tribe-events-dropdown {
 
 /* = Calendar Styles (includes styles for both large & small calendars)
    @ Template: month.php & widgets/calendar-widget.php
-=============================================*/
+============================================= */
 /* Global Calendar Styles */
 #tribe-events-content {
 	table.tribe-events-calendar {
@@ -1203,7 +1213,7 @@ select.tribe-events-dropdown {
 		width: 100%;
 
 		.type-tribe_events.tribe-event-featured {
-			background: var(--featured-event-bg);
+			background: var(--tec-featured-event-bg);
 			margin: 0;
 			padding: 6px 14px; /* This is a failover if the browser doesn't support calc */
 			padding: 6px calc( 5% + 8px );
@@ -1525,7 +1535,7 @@ select.tribe-events-dropdown {
 
 /* = Events List Widget Styles (Sidebar)
    @ Template: widgets/list-widget.php
-=============================================*/
+============================================= */
 
 .tribe-events-list-widget {
 	.tribe-list-widget {
@@ -1548,7 +1558,7 @@ select.tribe-events-dropdown {
 	}
 
 	.tribe-event-featured {
-		background: var(--featured-event-bg);
+		background: var(--tec-featured-event-bg);
 		padding-bottom: .75rem;
 
 		.tribe-event-title {
@@ -1574,7 +1584,7 @@ select.tribe-events-dropdown {
 
 /* = Events Navigation Bar
    @ Template: modules/bar.php
-=============================================*/
+============================================= */
 /* Datepicker
    ========================================================================== */
 .datepicker {
@@ -1615,7 +1625,6 @@ select.tribe-events-dropdown {
 		}
 	}
 }
-
 
 #tribe-events-bar {
 	clear: none;
@@ -2199,8 +2208,9 @@ input[name*='tribe-bar-']:-moz-placeholder {
 ========================================================================== */
 .tribe-theme-twentyfifteen,
 .tribe-theme-parent-twentyfifteen {
+	--tec-color-background-events: var(--tec-color-background);
 	#tribe-events {
-		background: white;
+		background-color: var(--tec-color-background-events);
 		margin: 0 8.333%;
 		padding-top: 8.333%;
 	}
@@ -2224,6 +2234,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 	&.single-tribe_events {
 		#tribe-events {
+			background-color: var(--tec-color-background-events);
 			.tribe_events {
 				box-shadow: none;
 				margin-left: 0;
@@ -2235,6 +2246,10 @@ input[name*='tribe-bar-']:-moz-placeholder {
 				display: inline-block;
 				font-size: 1.2em;
 				margin: 0;
+			}
+
+			p a {
+				color: var(--tec-color-link-primary);
 			}
 		}
 
@@ -2393,7 +2408,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 
 	#tribe-bar-form label {
-		font-family: var(--twentynineteen-font--heading);
+		font-family: var(--tec-twentynineteen-font--heading);
 	}
 
 	.tribe-bar-views-inner {
@@ -2401,7 +2416,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	}
 
 	#tribe-events .tribe-events-button {
-		font-family: var(--twentynineteen-font--heading);
+		font-family: var(--tec-twentynineteen-font--heading);
 	}
 
 	&.single-tribe_events {
@@ -2411,7 +2426,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 			border: 0 none;
 
 			dt {
-				font-family: var(--twentynineteen-font--heading);
+				font-family: var(--tec-twentynineteen-font--heading);
 			}
 
 			.tribe-events-meta-group {
@@ -2458,19 +2473,19 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 	.tribe-bar-views-option,
 	#tribe-bar-views-toggle {
-		font-family: var(--twentynineteen-font--heading);
+		font-family: var(--tec-twentynineteen-font--heading);
 		font-size: 0.75rem;
 	}
 
 	.tribe-events-tooltip {
 
 		.tribe-event-duration {
-			font-family: var(--twentynineteen-font--body);
+			font-family: var(--tec-twentynineteen-font--body);
 			font-size: 0.85rem;
 		}
 
 		.tribe-event-description {
-			font-family: var(--twentynineteen-font--body);
+			font-family: var(--tec-twentynineteen-font--body);
 			font-size: 0.65rem;
 		}
 
@@ -2495,7 +2510,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 
 
 /* = Events Retina
-=============================================*/
+============================================= */
 @media
 (min--moz-device-pixel-ratio: 2),
 (-o-min-device-pixel-ratio: 2/1),

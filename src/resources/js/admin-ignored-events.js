@@ -4,7 +4,7 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 	"use strict";
 
 	/**
-	 * Migration for Lagacy Ignored Event
+	 * Migration for Legacy Ignored Event
 	 */
 	$( function() {
 		$( '#tribe-migrate-legacy-events' ).on( 'click', function() {

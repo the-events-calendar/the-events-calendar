@@ -4,7 +4,7 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-calendar-month__day {
-		border-radius: var(--border-radius-default);
+		border-radius: var(--tec-border-radius-default);
 
 		.tribe-common--breakpoint-medium& {
 			border-radius: 0;
@@ -20,7 +20,7 @@
 				height: 2px;
 				left: -1px;
 				position: absolute;
-				transition: var(--transition-background-color);
+				transition: var(--tec-transition-background-color);
 				width: calc(100% + 2px);
 			}
 		}
@@ -30,29 +30,47 @@
 			&:after {
 
 				.tribe-common--breakpoint-medium& {
-					background-color: var(--color-border-active);
+					background-color: var(--tec-color-border-active-month-grid-hover);
 				}
 			}
 		}
+	}
+
+	.tribe-events-calendar-month__day-date-link {
+		color: var(--tec-color-day-marker-month);
+		transition: var(--tec-transition-color);
+
+		&:hover,
+		&:focus {
+			color: var(--tec-color-day-marker-month-hover);
+		}
+
+		&:active {
+			color: var(--tec-color-day-marker-month-active);
+		}
+	}
+
+	.tribe-events-calendar-month__day-date-daynum {
+		color: var(--tec-color-day-marker-month);
 	}
 
 	.tribe-events-calendar-month__day--current {
 
 		.tribe-events-calendar-month__day-date,
 		.tribe-events-calendar-month__day-date-link {
-			color: var(--color-accent-primary);
-			font-weight: var(--font-weight-bold);
+			color: var(--tec-color-day-marker-current-month);
+			font-weight: var(--tec-font-weight-bold);
 		}
 
 		.tribe-events-calendar-month__day-date-link {
 
 			&:hover,
 			&:focus {
-				color: var(--color-accent-primary-hover);
+				color: var(--tec-color-day-marker-month-current-hover);
 			}
 
 			&:active {
-				color: var(--color-accent-primary-active);
+				color: var(--tec-color-day-marker-month-current-active);
 			}
 		}
 	}
@@ -60,11 +78,29 @@
 	.tribe-events-calendar-month__day--past {
 
 		.tribe-events-calendar-month__day-date {
+			color: var(--tec-color-day-marker-past-month);
 			opacity: 0.6;
 		}
 
+		.tribe-events-calendar-month__day-date-link {
+			color: var(--tec-color-day-marker-past-month);
+
+			&:hover,
+			&:focus {
+				color: var(--tec-color-day-marker-month-past-hover);
+			}
+
+			&:active {
+				color: var(--tec-color-day-marker-month-past-active);
+			}
+
+			.tribe-events-calendar-month__day-date-daynum {
+				color: inherit;
+			}
+		}
+
 		.tribe-events-calendar-month__mobile-events-icon--event {
-			background-color: var(--color-icon-active);
+			background-color: var(--tec-color-icon-active);
 			opacity: 0.6;
 		}
 
@@ -72,7 +108,7 @@
 			opacity: 0.6;
 
 			.tribe-events-calendar-month__mobile-events-icon-svg path {
-				fill: var(--color-icon-active);
+				fill: var(--tec-color-icon-active);
 			}
 		}
 	}
@@ -81,53 +117,39 @@
 
 		&:hover,
 		&:focus {
-			background-color: var(--color-background-secondary);
+			background-color: var(--tec-color-background-secondary);
 		}
 	}
 
 	.tribe-events-calendar-month__day-cell--selected {
-		background-color: var(--color-accent-primary);
+		background-color: var(--tec-color-accent-primary);
 
 		&:hover,
 		&:focus {
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-accent-primary);
 		}
 
 		.tribe-events-calendar-month__day-date {
-			color: var(--color-background);
-			opacity: var(--opacity-default);
+			color: var(--tec-color-background);
+			opacity: var(--tec-opacity-default);
 		}
 
 		.tribe-events-calendar-month__mobile-events-icon--event {
-			background-color: var(--color-background);
-			opacity: var(--opacity-default);
+			background-color: var(--tec-color-background);
+			opacity: var(--tec-opacity-default);
 		}
 
 		.tribe-events-calendar-month__mobile-events-icon--featured {
-			opacity: var(--opacity-default);
+			opacity: var(--tec-opacity-default);
 
 			.tribe-events-calendar-month__mobile-events-icon-svg path {
-				fill: var(--color-background);
+				fill: var(--tec-color-background);
 			}
 		}
 	}
 
-	.tribe-events-calendar-month__day-date-link {
-		color: var(--color-accent-secondary);
-		transition: var(--transition-color);
-
-		&:hover,
-		&:focus {
-			color: var(--color-accent-secondary-hover);
-		}
-
-		&:active {
-			color: var(--color-accent-secondary-active);
-		}
-	}
-
 	.tribe-events-calendar-month__mobile-events-icon--event {
-		background-color: var(--color-accent-primary);
+		background-color: var(--tec-color-accent-primary);
 	}
 
 	.tribe-events-calendar-month__mobile-events-icon--featured {
@@ -153,11 +175,11 @@
 
 				&:hover,
 				&:focus {
-					color: var(--color-accent-primary-hover);
+					color: var(--tec-color-accent-primary-hover);
 				}
 
 				&:active {
-					color: var(--color-accent-primary-active);
+					color: var(--tec-color-accent-primary-active);
 				}
 			}
 		}
@@ -166,7 +188,7 @@
 
 			&:hover,
 			&:focus {
-				background-color: var(--color-accent-primary);
+				background-color: var(--tec-color-accent-primary);
 			}
 		}
 
@@ -174,11 +196,11 @@
 
 			&:hover,
 			&:focus {
-				color: var(--color-accent-secondary-hover);
+				color: var(--tec-color-accent-secondary-hover);
 			}
 
 			&:active {
-				color: var(--color-accent-secondary-active);
+				color: var(--tec-color-accent-secondary-active);
 			}
 		}
 	}
@@ -190,7 +212,7 @@
 	.tribe-theme-twentytwenty & {
 
 		.tribe-events-calendar-month__day-cell--selected {
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-accent-primary);
 		}
 	}
 
@@ -203,7 +225,7 @@
 		.tribe-events-calendar-month__day-cell--selected {
 
 			.tribe-events-calendar-month__day-date {
-				color: var(--color-background);
+				color: var(--tec-color-background-events);
 			}
 		}
 	}
