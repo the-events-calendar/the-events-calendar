@@ -62,9 +62,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 						: control.container.slideUp( 180 );
 				}
 
-			slideFunction();
+				slideFunction();
 
-			setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 		} );
 	}
@@ -233,8 +233,6 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 *
 	 * @since TBD
 	 */
-	wp.customize.bind( 'ready', function() {
-		obj.init();
-	} );
+	wp.customize.bind( 'ready', obj.init );
 
 } )( jQuery, tribe_customizer_controls );

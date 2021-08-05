@@ -344,7 +344,7 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					const accentColor = to;//api( obj.selectors.globalAccentColor ).get();
+					const accentColor = to;
 					const accentColorSelectors = obj.customProps.globalAccentColor;
 
 					obj.root.forEach(
