@@ -76,7 +76,7 @@ var tribe_events_customizer_live_preview_js_config =
 			'--tec-font-size-9',
 			'--tec-font-size-10',
 		],
-		globalFontSizeKeys: [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ],
+		globalFontSizeKeys: [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42 ],
 		globalEventTitleColor: [
 			'--tec-color-text-events-title',
 		],
@@ -199,7 +199,6 @@ var tribe_events_customizer_live_preview_js_config =
 									tribeElement.style.setProperty( fontSizeSelector, newSize.toFixed(3) + 'px' );
 								}
 							);
-
 						}
 					);
 				}
@@ -265,11 +264,9 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let backgroundColor = to;
-
-					if ( 'transparent' !== to ) {
-						backgroundColor = api( obj.selectors.globalBackgroundColor ).get();
-					}
+					const backgroundColor = 'transparent' !== to
+						? api( obj.selectors.globalBackgroundColor ).get()
+						: to;
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -490,11 +487,9 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let buttonColor = api( obj.selectors.globalAccentColor ).get();
-
-					if ( 'custom' === to ) {
-						buttonColor = api( obj.selectors.eventsBarButtonColor ).get();
-					}
+					const buttonColor = 'custom' === to
+						? api( obj.selectors.eventsBarButtonColor ).get()
+						: api( obj.selectors.globalAccentColor ).get();
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -536,7 +531,7 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let backgroundColor = '#FFFFFF';
+					let backgroundColor = '#fff';
 
 					if ( 'custom' === to ) {
 						backgroundColor = api(obj.selectors.eventsBarBackgroundColor ).get();
@@ -641,11 +636,9 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let borderColor = 'var(--tec-color-border-secondary)';
-
-					if ( 'custom' === to ) {
-						borderColor = api( obj.selectors.eventsBarBorderColor ).get();
-					}
+					const borderColor = 'custom' === to
+						? api( obj.selectors.eventsBarBorderColor ).get()
+						: 'var(--tec-color-border-secondary)';
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -751,13 +744,12 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let backgroundColor = 'transparent';
-					let tooltipBackgroundColor = api( obj.selectors.globalBackgroundColor ).get();
-
-					if ( 'custom' === to ) {
-						backgroundColor = api( obj.selectors.monthGridBackgroundColor ).get();
-						tooltipBackgroundColor = '#FFFFFF';
-					}
+					const backgroundColor = 'custom' === to
+						? api( obj.selectors.monthGridBackgroundColor ).get()
+						: 'transparent';
+					const tooltipBackgroundColor = 'custom' === to
+						? '#fff'
+						: api( obj.selectors.globalBackgroundColor ).get();
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -799,7 +791,7 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let tooltipBackgroundColor = '#FFFFFF';
+					let tooltipBackgroundColor = '#fff';
 					let monthBackgroundColorChoice =
 						api( obj.selectors.monthGridBackgroundColorChoice ).get();
 					let globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get();
@@ -830,11 +822,9 @@ var tribe_events_customizer_live_preview_js_config =
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let eventTitleColor = api( obj.selectors.globalEventTitleColor ).get();
-
-					if ( 'custom' === to ) {
-						eventTitleColor = api( obj.selectors.singleEventTitleColor ).get();
-					}
+					const eventTitleColor = 'custom' === to
+						? api( obj.selectors.singleEventTitleColor ).get()
+						: api( obj.selectors.globalEventTitleColor ).get();
 
 					obj.root.forEach(
 						function( tribeElement ) {

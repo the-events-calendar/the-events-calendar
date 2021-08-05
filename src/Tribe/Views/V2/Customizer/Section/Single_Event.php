@@ -10,7 +10,7 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
 
 use Tribe\Events\Views\V2\Template_Bootstrap as Bootstrap;
 /**
- * Month View
+ * Single Event
  *
  * @since TBD
  */
@@ -49,7 +49,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 		return [
 			'priority'	=> 20,
 			'capability'  => 'edit_theme_options',
-			'title'	   => esc_html__( 'Single Event', 'the-events-calendar' ),
+			'title'       => esc_html__( 'Single Event', 'the-events-calendar' ),
 			'description' => esc_html__( 'Options selected here will override what was selected in the "Global Elements" section on Single Event views.', 'the-events-calendar' ),
 		];
 	}
@@ -72,15 +72,15 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	public function setup_content_settings() {
 		return [
 			'post_title_color_choice' => [
-				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 			],
 			'post_title_color'        => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
 			'details_bg_color'        => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 			],
 		];
@@ -92,21 +92,21 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	public function setup_content_headings() {
 		return [
 			'font_colors' => [
-				'priority'	 => 0,
-				'type'		 => 'heading',
+				'priority' => 0,
+				'type'     => 'heading',
 				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 			],
 			'single_view_separator' => [
-				'priority'	 => 10,
-				'type'		 => 'separator',
+				'priority'        => 10,
+				'type'            => 'separator',
 				'active_callback' => function() {
 					// Heading should not show if the new Single View is enabled.
 					return ! tribe_events_single_view_v2_is_enabled();
 				},
 			],
 			'adjust_appearance' => [
-				'priority'	 => 20,
-				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+				'priority'        => 20,
+				'label'           => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
 				'active_callback' => function() {
 					// Heading should not show if the new Single View is enabled.
 					return ! tribe_events_single_view_v2_is_enabled();
@@ -157,8 +157,6 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 * @since 5.3.1
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Single Event.
-	 * @param \Tribe__Customizer__Section $section      The Single Event section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
 	 *
 	 * @return string The filtered CSS template.
 	 */

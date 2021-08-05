@@ -57,6 +57,16 @@
 		}
 	}
 
+	.tribe-common-form-control-text__input {
+		background-color: transparent;
+		color: var(--tec-color-text-events-bar-input);
+	}
+
+	.tribe-common-form-control-text__input::placeholder {
+		color: var(--tec-color-text-events-bar-input-placeholder);
+		opacity: var(--tec-opacity-events-bar-input-placeholder);
+	}
+
 	.tribe-events-c-search__input-control-icon-svg {
 		color: var(--tec-color-icon-events-bar);
 		display: block;
@@ -97,6 +107,22 @@
 		}
 	}
 
+	.tribe-events-c-search__button {
+		background-color: var(--tec-color-background-events-bar-submit-button);
+		color: var(--tec-color-text-events-bar-submit-button);
+
+		&:active {
+			background-color: var(--tec-color-background-events-bar-submit-button-active);
+			color: var(--tec-color-text-events-bar-submit-button-active);
+		}
+
+		&:focus,
+		&:hover {
+			background-color: var(--tec-color-background-events-bar-submit-button-hover);
+			color: var(--tec-color-text-events-bar-submit-button-hover);
+		}
+	}
+
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search: Theme Overrides
@@ -111,6 +137,21 @@
 
 		.tribe-events-c-search__input {
 			background-color: var(--tec-background-color);
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Twentyone
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentytwentyone & {
+
+		.tribe-events-c-search__button {
+
+			&:not(:hover):not(:active) {
+				background-color: var(--tec-color-background-events-bar-submit-button);
+				color: var(--tec-color-text-events-bar-submit-button);
+			}
 		}
 	}
 }

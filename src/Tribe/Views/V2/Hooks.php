@@ -864,7 +864,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @param \Tribe__Customizer          $customizer The Customizer object.
 	 */
 	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, 'TBD' );
 		tribe( 'customizer' )->include_global_elements_settings( $section, $manager, $customizer );
 	}
 
@@ -879,7 +879,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @param \Tribe__Customizer          $customizer The Customizer object.
 	 */
 	public function action_include_single_event_settings( $section, $manager, $customizer ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, 'TBD' );
 		tribe( 'customizer' )->include_single_event_settings( $section, $manager, $customizer );
 	}
 
@@ -896,7 +896,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_global_elements_css_template( $css_template, $section ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, 'TBD' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}
@@ -917,7 +917,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_single_event_css_template( $css_template, $section ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, 'TBD' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}

@@ -314,21 +314,17 @@ final class Month_View extends \Tribe__Customizer__Section {
 		}
 
 		if ( $this->should_include_setting_css( 'grid_background_color_choice' ) ) {
-			if ( $this->should_include_setting_css( 'grid_background_color' ) ) {
-				$grid_background_color = $this->get_option( 'grid_background_color' );
+			$grid_background_color = $this->should_include_setting_css( 'grid_background_color' )
+				? $this->get_option( 'grid_background_color' )
+				: "#fff";
 
-			} else {
-				$grid_background_color = "#FFFFFF;";
-			}
 			$new_styles[] = "--tec-color-background-month-grid: {$grid_background_color};";
-		} else {
-			if (
-				$this->should_include_setting_css( 'tooltip_background_color' )
-				&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
-			) {
-				$tooltip_background_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'background_color' ] );
-				$new_styles[] = "--tec-color-background-tooltip: {$tooltip_background_color};";
-			}
+		} elseif (
+			$this->should_include_setting_css( 'tooltip_background_color' )
+			&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
+		) {
+			$tooltip_background_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'background_color' ] );
+			$new_styles[] = "--tec-color-background-tooltip: {$tooltip_background_color};";
 		}
 
 		if ( $this->should_include_setting_css( 'days_of_week_color' )  ) {
@@ -342,15 +338,16 @@ final class Month_View extends \Tribe__Customizer__Section {
 			$new_styles[] = "--tec-color-day-marker-past-month: {$date_marker_color};";
 		}
 
-		if ( $this->should_include_setting_css( 'multiday_event_bar_color_choice' ) ) {
-			if ( $this->should_include_setting_css( 'multiday_event_bar_color' ) ) {
-				$bar_color_rgb = $this->get_rgb_color( 'multiday_event_bar_color' );
-				$new_styles[] = "--tec-color-background-primary-multiday: rgba({$bar_color_rgb}, 0.24);";
-				$new_styles[] = "--tec-color-background-primary-multiday-hover: rgba({$bar_color_rgb}, 0.34);";
-				$new_styles[] = "--tec-color-background-primary-multiday-active: rgba({$bar_color_rgb}, 0.34);";
-				$new_styles[] = "--tec-color-background-secondary-multiday: rgba({$bar_color_rgb}, 0.24);";
-				$new_styles[] = "--tec-color-background-secondary-multiday-hover: rgba({$bar_color_rgb}, 0.34);";
-			}
+		if (
+			$this->should_include_setting_css( 'multiday_event_bar_color_choice' )
+			&& $this->should_include_setting_css( 'multiday_event_bar_color' )
+		) {
+			$bar_color_rgb = $this->get_rgb_color( 'multiday_event_bar_color' );
+			$new_styles[] = "--tec-color-background-primary-multiday: rgba({$bar_color_rgb}, 0.24);";
+			$new_styles[] = "--tec-color-background-primary-multiday-hover: rgba({$bar_color_rgb}, 0.34);";
+			$new_styles[] = "--tec-color-background-primary-multiday-active: rgba({$bar_color_rgb}, 0.34);";
+			$new_styles[] = "--tec-color-background-secondary-multiday: rgba({$bar_color_rgb}, 0.24);";
+			$new_styles[] = "--tec-color-background-secondary-multiday-hover: rgba({$bar_color_rgb}, 0.34);";
 		}
 
 		if ( empty( $new_styles ) ) {
@@ -429,7 +426,6 @@ final class Month_View extends \Tribe__Customizer__Section {
 
 		return tribe( 'customizer' )->get_setting_link( 'global_elements', 'background_color_choice', $label_text );
 	}
-
 
 	/**
 	 * Gets the link to the accent color setting in Customizer.

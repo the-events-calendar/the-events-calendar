@@ -105,16 +105,15 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		// Only show the background color control when the background color choice is set to custom.
 		wp.customize( obj.selectors.globalBackgroundColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.globalBackgroundColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+						? control.container.slideDown( 180 )
+						: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+			slideFunction();
+
+			setting.bind( slideFunction );
 			} );
 		} );
 
@@ -123,32 +122,30 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		// Only show the icon color control when the icon color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarIconColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.eventsBarIconColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the events bar background color control when the events bar background color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarViewSelectorBackgroundColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.eventsBarViewSelectorBackgroundColor, function( control ) { /* eslint-disable-line max-len */
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 		} );
 
@@ -156,48 +153,45 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		// when the events bar view selector background color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarBackgroundColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.eventsBarBackgroundColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the events bar border color control when the events bar border color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarBorderColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.eventsBarBorderColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the events bar button color control when the events bar button color choice is set to custom.
 		wp.customize( obj.selectors.eventsBarButtonColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.eventsBarButtonColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 		} );
 
@@ -206,16 +200,15 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		// Only show the grid background color control when the grid background color choice is set to custom.
 		wp.customize( obj.selectors.monthGridBackgroundColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.monthGridBackgroundColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 
 			wp.customize.control( obj.selectors.monthTooltipBackgroundColor, function( control ) {
@@ -235,16 +228,15 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		// Only show the event span color control when the event span color choice is set to custom.
 		wp.customize( obj.selectors.monthMultidayEventBarColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.monthMultidayEventBarColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 		} );
 
@@ -253,16 +245,15 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		// Only show the single event title color control when the single event title color choice is set to custom.
 		wp.customize( obj.selectors.singleEventTitleColorChoice, function( setting ) {
 			wp.customize.control( obj.selectors.singleEventTitleColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideDown( 180 );
-					} else {
-						control.container.slideUp( 180 );
-					}
-				};
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+		slideFunction();
+
+		setting.bind( slideFunction );
 			} );
 		} );
 
