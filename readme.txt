@@ -226,7 +226,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
 * Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependancy. [ECP-739]
 * Fix - Ensure we test the value of tribe_events_get_current_month_day() before using it. [ECP-912]
-* Tweak - Change label of API Settings tab to "Integrations" and alter helper text. [TEC_4015]
+* Tweak - Change label of API Settings tab to "Integrations" and alter helper text. [TEC-4015]
 
 = [5.8.1] 2021-07-20 =
 
