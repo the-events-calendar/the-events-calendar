@@ -132,7 +132,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	}
 
 	/**
-	 * Ensures the Google Maps API Key field in Settings > APIs is always populated with TEC's
+	 * Ensures the Google Maps API Key field in Settings > Integrations is always populated with TEC's
 	 * default API key if no user-supplied key is present.
 	 *
 	 * @since 4.6.24
@@ -162,7 +162,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	}
 
 	/**
-	 * Ensures the Google Maps API Key field in Settings > APIs shows the correct tooltip text, especially when
+	 * Ensures the Google Maps API Key field in Settings > Integrations shows the correct tooltip text, especially when
 	 * the auto-populating of the field is done via populate_field_with_default_api_key().
 	 *
 	 * @since 4.6.24
