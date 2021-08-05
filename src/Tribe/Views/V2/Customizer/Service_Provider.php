@@ -8,7 +8,6 @@
 
 namespace Tribe\Events\Views\V2\Customizer;
 
-use Tribe\Events\Views\V2\Customizer;
 use Tribe\Events\Views\V2\Customizer\Section\Global_Elements;
 use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;

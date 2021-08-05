@@ -46,9 +46,36 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	obj.globalFontSizeChange = false;
 	obj.globalFontSizeBaseChange = false;
 
-	wp.customize.bind( 'ready', function() {
-		/*--------- Global Elements ---------*/
+	/**
+	 * Reusable function for when we have a color control that is dependent on a radio.
+	 * Requires the radio option _value_ for the color control is "custom".
+	 *
+	 * @param {string} parent Parent selector.
+	 * @param {string} child  Child selector.
+	 */
+	obj.nestedColorControl = function( parent, child ) {
+		wp.customize( parent, function( setting ) {
+			wp.customize.control( child, function( control ) {
+				const slideFunction = function() {
+					'custom' === setting.get()
+						? control.container.slideDown( 180 )
+						: control.container.slideUp( 180 );
+				}
 
+			slideFunction();
+
+			setting.bind( slideFunction );
+			} );
+		} );
+	}
+
+
+	/**
+	 * Trigger control functions for the Global Elements section.
+	 *
+	 * @since TBD
+	 */
+	obj.handleGlobalElements = function() {
 		// Triggers on change of globalFontSizeBase to keep globalFontSize in sync.
 		wp.customize( obj.controls.globalFontSizeBase, function( setting ) {
 			wp.customize.control( obj.controls.globalFontSize, function( control ) {
@@ -103,158 +130,111 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		} );
 
 		// Only show the background color control when the background color choice is set to custom.
-		wp.customize( obj.controls.globalBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.globalBackgroundColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-						? control.container.slideDown( 180 )
-						: control.container.slideUp( 180 );
-				}
+		obj.nestedColorControl(
+			obj.controls.globalBackgroundColorChoice,
+			obj.controls.globalBackgroundColor
+		);
+	};
 
-			slideFunction();
-
-			setting.bind( slideFunction );
-			} );
-		} );
-
-		/*--------- Events Bar ---------*/
-
+	/**
+	 * Trigger control functions for the Events Bar section.
+	 *
+	 * @since TBD
+	 */
+	obj.handleEventsBar = function() {
 		// Only show the icon color control when the icon color choice is set to custom.
-		wp.customize( obj.controls.eventsBarIconColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.eventsBarIconColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
+		obj.nestedColorControl(
+			obj.controls.eventsBarIconColorChoice,
+			obj.controls.eventsBarIconColor
+		);
 
-			slideFunction();
-
-			setting.bind( slideFunction );
-			} );
-		} );
-
-		// Only show the events bar background color control when the events bar background color choice is set to custom.
-		wp.customize( obj.controls.eventsBarViewSelectorBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.eventsBarViewSelectorBackgroundColor, function( control ) { /* eslint-disable-line max-len */
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
-
-				slideFunction();
-
-				setting.bind( slideFunction );
-			} );
-		} );
+		// Only show the events bar background color control
+		// when the events bar background color choice is set to custom.
+		obj.nestedColorControl(
+			obj.controls.eventsBarViewSelectorBackgroundColorChoice,
+			obj.controls.eventsBarViewSelectorBackgroundColor
+		);
 
 		// Only show the events bar view selector background color control
 		// when the events bar view selector background color choice is set to custom.
-		wp.customize( obj.controls.eventsBarBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.eventsBarBackgroundColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
-
-				slideFunction();
-
-				setting.bind( slideFunction );
-			} );
-		} );
+		obj.nestedColorControl(
+			obj.controls.eventsBarBackgroundColorChoice,
+			obj.controls.eventsBarBackgroundColor
+		);
 
 		// Only show the events bar border color control when the events bar border color choice is set to custom.
-		wp.customize( obj.controls.eventsBarBorderColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.eventsBarBorderColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
-
-				slideFunction();
-
-				setting.bind( slideFunction );
-			} );
-		} );
+		obj.nestedColorControl(
+			obj.controls.eventsBarBorderColorChoice,
+			obj.controls.eventsBarBorderColor
+		);
 
 		// Only show the events bar button color control when the events bar button color choice is set to custom.
-		wp.customize( obj.controls.eventsBarButtonColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.eventsBarButtonColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
+		obj.nestedColorControl(
+			obj.controls.eventsBarButtonColorChoice,
+			obj.controls.eventsBarButtonColor
+		);
+	};
 
-				slideFunction();
-
-				setting.bind( slideFunction );
-			} );
-		} );
-
-		/*--------- Month View ---------*/
-
+	/**
+	 * Trigger control functions for the Month View section.
+	 *
+	 * @since TBD
+	 */
+	obj.handleMonthView = function() {
 		// Only show the grid background color control when the grid background color choice is set to custom.
-		wp.customize( obj.controls.monthGridBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.monthGridBackgroundColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
+		obj.nestedColorControl(
+			obj.controls.monthGridBackgroundColorChoice,
+			obj.controls.monthGridBackgroundColor
+		);
 
-				slideFunction();
-
-				setting.bind( slideFunction );
-			} );
-
-			wp.customize.control( obj.controls.monthTooltipBackgroundColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
-
-				slideFunction();
-
-				setting.bind( slideFunction );
-			} );
-		} );
+		// Only show the tooltip background color control when the grid background color choice is set to custom.
+		obj.nestedColorControl(
+			obj.controls.monthGridBackgroundColorChoice,
+			obj.controls.monthTooltipBackgroundColor
+		);
 
 		// Only show the event span color control when the event span color choice is set to custom.
-		wp.customize( obj.controls.monthMultidayEventBarColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.monthMultidayEventBarColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
+		obj.nestedColorControl(
+			obj.controls.monthMultidayEventBarColorChoice,
+			obj.controls.monthMultidayEventBarColor
+		);
+	};
 
-				slideFunction();
-
-				setting.bind( slideFunction );
-			} );
-		} );
-
-		/*--------- Single Event ---------*/
-
+	/**
+	 * Trigger control functions for the Single Event section.
+	 *
+	 * @since TBD
+	 */
+	obj.handleSingleEvent = function() {
 		// Only show the single event title color control when the single event title color choice is set to custom.
-		wp.customize( obj.controls.singleEventTitleColorChoice, function( setting ) {
-			wp.customize.control( obj.controls.singleEventTitleColor, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-					? control.container.slideDown( 180 )
-					: control.container.slideUp( 180 );
-				}
+		obj.nestedColorControl(
+			obj.controls.singleEventTitleColorChoice,
+			obj.controls.singleEventTitleColor
+		);
+	};
 
-				slideFunction();
+	/**
+	 * Trigger control functions for each section.
+	 *
+	 * @since TBD
+	 */
+	obj.init = function() {
+		obj.handleGlobalElements();
 
-				setting.bind( slideFunction );
-			} );
-		} );
+		obj.handleEventsBar();
 
+		obj.handleMonthView();
+
+		obj.handleSingleEvent();
+	};
+
+	/**
+	 * Trigger our init function when customizer is ready.
+	 *
+	 * @since TBD
+	 */
+	wp.customize.bind( 'ready', function() {
+		obj.init();
 	} );
+
 } )( jQuery, tribe_customizer_controls );
