@@ -17,7 +17,6 @@ class ValidationCest {
 	 * @test
 	 */
 	public function should_reject_data_when_the_import_id_is_not_an_existing_one( Aggregatorv1Tester $I ) {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$not_existing_import_id = md5( 'not-existing-import-id' );
 
 		$I->sendPOST( "import/{$not_existing_import_id}/batch", $this->make_batch_data() );
@@ -35,7 +34,6 @@ class ValidationCest {
 	 * @dataProvider record_statuses_not_needing_data
 	 */
 	public function should_reject_data_when_the_import_id_is_not_one_needing_data( Aggregatorv1Tester $I, Example $example ) {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$status             = $example['status'];
 		$existing_import_id = md5( 'existing-import-id' );
 		$batch_data         = $this->make_batch_data();
@@ -57,7 +55,6 @@ class ValidationCest {
 	 * @dataProvider record_statuses_needing_data
 	 */
 	public function should_reject_data_when_the_batch_hash_is_not_set( Aggregatorv1Tester $I, Example $example ) {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$status             = $example['status'];
 		$existing_import_id = md5( 'existing-import-id' );
 		$batch_data         = $this->make_batch_data();
@@ -80,7 +77,6 @@ class ValidationCest {
 	 * @dataProvider record_statuses_needing_data
 	 */
 	public function should_reject_data_if_batch_hash_is_not_expected( Aggregatorv1Tester $I, Example $example ) {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$status             = $example['status'];
 		$existing_import_id = md5( 'existing-import-id' );
 		$batch_data         = $this->make_batch_data();

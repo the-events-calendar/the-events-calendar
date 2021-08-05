@@ -21,7 +21,6 @@ class ForcedImportStatusCest {
 	 * @dataProvider forceable_stati
 	 */
 	public function should_allow_forcing_the_import_record_to_a_status( Aggregatorv1Tester $I, Example $example ) {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$force_status = $example['status'];
 		$data         = $this->make_status_data( [ 'status' => $force_status ] );
 		$done         = $data['percentage_complete'];
@@ -72,7 +71,6 @@ class ForcedImportStatusCest {
 	 * @dataProvider non_forceable_stati
 	 */
 	public function should_reject_non_force_able_stati( Aggregatorv1Tester $I, Example $example ) {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$force_status = $example['status'];
 		$data         = $this->make_status_data( [ 'status' => $force_status ] );
 		$import_id    = '234324234234234';
@@ -93,7 +91,6 @@ class ForcedImportStatusCest {
 	 * @test
 	 */
 	public function should_allow_to_mark_an_import_as_a_failure_if_no_next_hash_is_present( Aggregatorv1Tester $I ) {
-		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$import_id = '234324234234234';
 
 		$record      = $this->make_manual_record( $import_id, [], 'pending' );
