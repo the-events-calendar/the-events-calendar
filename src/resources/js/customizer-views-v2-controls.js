@@ -14,7 +14,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
 
 	/* eslint-disable max-len */
-	obj.selectors = {
+	obj.controls = {
 		globalFontSize: 'tribe_customizer[global_elements][font_size]',
 		globalFontSizeBase: 'tribe_customizer[global_elements][font_size_base]',
 		globalBackgroundColorChoice: 'tribe_customizer[global_elements][background_color_choice]',
@@ -50,8 +50,8 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		/*--------- Global Elements ---------*/
 
 		// Triggers on change of globalFontSizeBase to keep globalFontSize in sync.
-		wp.customize( obj.selectors.globalFontSizeBase, function( setting ) {
-			wp.customize.control( obj.selectors.globalFontSize, function( control ) {
+		wp.customize( obj.controls.globalFontSizeBase, function( setting ) {
+			wp.customize.control( obj.controls.globalFontSize, function( control ) {
 				const sync = function() {
 					if ( obj.globalFontSizeBaseChange ) {
 						return;
@@ -76,8 +76,8 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		} );
 
 		// Triggers on change of globalFontSize to keep globalFontSizeBase in sync.
-		wp.customize( obj.selectors.globalFontSize, function( setting ) {
-			wp.customize.control( obj.selectors.globalFontSizeBase, function( control ) {
+		wp.customize( obj.controls.globalFontSize, function( setting ) {
+			wp.customize.control( obj.controls.globalFontSizeBase, function( control ) {
 
 				const sync = function() {
 					if ( obj.globalFontSizeChange ) {
@@ -103,8 +103,8 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		} );
 
 		// Only show the background color control when the background color choice is set to custom.
-		wp.customize( obj.selectors.globalBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.globalBackgroundColor, function( control ) {
+		wp.customize( obj.controls.globalBackgroundColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.globalBackgroundColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 						? control.container.slideDown( 180 )
@@ -120,140 +120,139 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		/*--------- Events Bar ---------*/
 
 		// Only show the icon color control when the icon color choice is set to custom.
-		wp.customize( obj.selectors.eventsBarIconColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.eventsBarIconColor, function( control ) {
+		wp.customize( obj.controls.eventsBarIconColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.eventsBarIconColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+			slideFunction();
 
-		setting.bind( slideFunction );
+			setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the events bar background color control when the events bar background color choice is set to custom.
-		wp.customize( obj.selectors.eventsBarViewSelectorBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.eventsBarViewSelectorBackgroundColor, function( control ) { /* eslint-disable-line max-len */
+		wp.customize( obj.controls.eventsBarViewSelectorBackgroundColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.eventsBarViewSelectorBackgroundColor, function( control ) { /* eslint-disable-line max-len */
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+				slideFunction();
 
-		setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the events bar view selector background color control
 		// when the events bar view selector background color choice is set to custom.
-		wp.customize( obj.selectors.eventsBarBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.eventsBarBackgroundColor, function( control ) {
+		wp.customize( obj.controls.eventsBarBackgroundColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.eventsBarBackgroundColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+				slideFunction();
 
-		setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the events bar border color control when the events bar border color choice is set to custom.
-		wp.customize( obj.selectors.eventsBarBorderColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.eventsBarBorderColor, function( control ) {
+		wp.customize( obj.controls.eventsBarBorderColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.eventsBarBorderColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+				slideFunction();
 
-		setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the events bar button color control when the events bar button color choice is set to custom.
-		wp.customize( obj.selectors.eventsBarButtonColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.eventsBarButtonColor, function( control ) {
+		wp.customize( obj.controls.eventsBarButtonColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.eventsBarButtonColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+				slideFunction();
 
-		setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 		} );
 
 		/*--------- Month View ---------*/
 
 		// Only show the grid background color control when the grid background color choice is set to custom.
-		wp.customize( obj.selectors.monthGridBackgroundColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.monthGridBackgroundColor, function( control ) {
+		wp.customize( obj.controls.monthGridBackgroundColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.monthGridBackgroundColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+				slideFunction();
 
-		setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 
-			wp.customize.control( obj.selectors.monthTooltipBackgroundColor, function( control ) {
-				const visibility = function() {
-					if ( 'custom' === setting.get() ) {
-						control.container.slideUp( 180 );
-					} else {
-						control.container.slideDown( 180 );
-					}
-				};
+			wp.customize.control( obj.controls.monthTooltipBackgroundColor, function( control ) {
+				const slideFunction = function() {
+					'custom' === setting.get()
+					? control.container.slideDown( 180 )
+					: control.container.slideUp( 180 );
+				}
 
-				visibility();
-				setting.bind( visibility );
+				slideFunction();
+
+				setting.bind( slideFunction );
 			} );
 		} );
 
 		// Only show the event span color control when the event span color choice is set to custom.
-		wp.customize( obj.selectors.monthMultidayEventBarColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.monthMultidayEventBarColor, function( control ) {
+		wp.customize( obj.controls.monthMultidayEventBarColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.monthMultidayEventBarColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+				slideFunction();
 
-		setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 		} );
 
 		/*--------- Single Event ---------*/
 
 		// Only show the single event title color control when the single event title color choice is set to custom.
-		wp.customize( obj.selectors.singleEventTitleColorChoice, function( setting ) {
-			wp.customize.control( obj.selectors.singleEventTitleColor, function( control ) {
+		wp.customize( obj.controls.singleEventTitleColorChoice, function( setting ) {
+			wp.customize.control( obj.controls.singleEventTitleColor, function( control ) {
 				const slideFunction = function() {
 					'custom' === setting.get()
 					? control.container.slideDown( 180 )
 					: control.container.slideUp( 180 );
 				}
 
-		slideFunction();
+				slideFunction();
 
-		setting.bind( slideFunction );
+				setting.bind( slideFunction );
 			} );
 		} );
 
