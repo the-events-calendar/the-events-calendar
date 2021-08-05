@@ -20,6 +20,7 @@ class IntervalCest {
 	 * @dataProvider intervals
 	 */
 	public function should_allow_filtering_the_batch_interval( Aggregatorv1Tester $I, Example $example ) {
+		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$interval = $example['value'];
 		$expected = $example['expected'];
 

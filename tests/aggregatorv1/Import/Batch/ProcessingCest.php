@@ -19,6 +19,7 @@ class ProcessingCest {
 	 * @test
 	 */
 	public function should_correctly_process_the_first_batch_of_data( Aggregatorv1Tester $I ) {
+		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$posts_table = $I->grabPostsTableName();
 		$event_cpt   = Main::POSTTYPE;
 		$I->assertCount( 0, $I->grabAllFromDatabase( $posts_table, 'ID', [ 'post_type' => $event_cpt ] ) );
@@ -80,6 +81,7 @@ class ProcessingCest {
 	 * @test
 	 */
 	public function should_correctly_process_a_batch_of_data_after_the_first( Aggregatorv1Tester $I ) {
+		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$posts_table = $I->grabPostsTableName();
 		$event_cpt   = Main::POSTTYPE;
 		$I->assertCount( 0, $I->grabAllFromDatabase( $posts_table, 'ID', [ 'post_type' => $event_cpt ] ) );
@@ -141,6 +143,7 @@ class ProcessingCest {
 	 * @test
 	 */
 	public function should_correctly_process_the_last_batch_of_data( Aggregatorv1Tester $I ) {
+		add_filter( 'tribe_events_views_v2_is_enabled', '__return_true' );
 		$posts_table = $I->grabPostsTableName();
 		$event_cpt   = Main::POSTTYPE;
 		$I->assertCount( 0, $I->grabAllFromDatabase( $posts_table, 'ID', [ 'post_type' => $event_cpt ] ) );

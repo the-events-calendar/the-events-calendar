@@ -75,8 +75,7 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 				"font_family" => "theme"
 			],
 			"tec_events_bar" => [
-				"events_bar_border_color_choice" =>
-				"custom",
+				"events_bar_border_color_choice" => "custom",
 				"events_bar_text_color" => "#8224e3",
 				"find_events_button_color_choice" => "custom",
 				"find_events_button_color" => "#dd3333",
