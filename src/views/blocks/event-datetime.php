@@ -35,13 +35,9 @@ $use_yearless_format = apply_filters( 'tribe_events_event_block_datetime_use_yea
 );
 
 $time_format    = tribe_get_time_format();
-$date_format    = tribe_get_date_format( true );
+$date_format    = tribe_get_date_format( ! $use_yearless_format );
 $timezone       = get_post_meta( $event_id, '_EventTimezone', true );
 $show_time_zone = $this->attr( 'showTimeZone' );
-
-if ( $use_yearless_format ) {
-	$date_format = tribe_get_date_format();
-}
 
 if ( is_null( $show_time_zone ) ) {
 	$show_time_zone = tribe_get_option( 'tribe_events_timezones_show_zone', false );
