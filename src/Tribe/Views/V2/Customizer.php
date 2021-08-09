@@ -10,8 +10,6 @@
 
 namespace Tribe\Events\Views\V2;
 
-_deprecated_file( __FILE__, 'TBD', 'Tribe\Events\Views\V2\Customizer' );
-
 use WP_Customize_Color_Control as Color_Control;
 use WP_Customize_Control as Control;
 
