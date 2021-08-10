@@ -224,6 +224,12 @@ Remember to always make a backup of your database and files before updating!
 = [5.9.0] 2021-08-10 =
 
 * Fix - Add a new function to add "Event Blocks" category to the editor for WP >= 5.8. [TEC-4037]
+* Feature - Alter Customizer to leverage the new exposed CSS custom properties. [TCMN-104]
+* Feature - Reduce the CSS load of The Events Calendar Customizer style overrides. [TEC-3011]
+* Feature - Allow easier style overrides by users and third-party themes/plugins. [TEC-3011]
+* Feature - Add new Font Sections to Customizer -> The Events Calendar -> Global Events. [TEC-3872]
+* Feature - Add new font family control to allow The Events Calendar styles to inherit theme fonts. [TEC-3895]
+* Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
 * Language -
 
 = [5.8.1] 2021-07-20 =
