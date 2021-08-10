@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.8.1\n"
+"Project-Id-Version: The Events Calendar 5.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2021-07-20 04:15:47+00:00\n"
+"POT-Creation-Date: 2021-08-10 18:17:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-07-20 04:15\n"
+"PO-Revision-Date: 2021-08-10 18:17\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -47,7 +47,7 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4366
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4359
 #: src/Tribe/Views/V2/Views/Widgets/Widget_View.php:61
 #: src/admin-views/tribe-options-upgrade.php:20
 msgid "View Calendar"
@@ -58,8 +58,8 @@ msgid "Add %s"
 msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:211 src/Tribe/Main.php:2153
-#: src/Tribe/Main.php:5474 src/Tribe/Main.php:5521 src/Tribe/Organizer.php:93
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:211 src/Tribe/Main.php:2146
+#: src/Tribe/Main.php:5467 src/Tribe/Main.php:5514 src/Tribe/Organizer.php:93
 #: src/Tribe/Venue.php:113
 msgid "Edit %s"
 msgstr ""
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4414
+#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4407
 msgid "Settings"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgid ""
 "refresh and try again."
 msgstr ""
 
-#: src/Tribe/Admin_List.php:299 src/Tribe/Main.php:2205
+#: src/Tribe/Admin_List.php:299 src/Tribe/Main.php:2198
 msgid "%s Categories"
 msgstr ""
 
@@ -1925,7 +1925,7 @@ msgid "Global configurations for the styling of The Events Calendar"
 msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:299
-#: src/Tribe/Customizer/Global_Elements.php:231
+#: src/Tribe/Customizer/Global_Elements.php:230
 msgid "Accent Color"
 msgstr ""
 
@@ -1972,57 +1972,64 @@ msgid "Sunshine"
 msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:410
-#: src/Tribe/Views/V2/Customizer.php:179
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:130
+#: src/Tribe/Views/V2/Customizer.php:190
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:134
+#: src/Tribe/Customizer/Global_Elements.php:133
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:134
+#: src/Tribe/Customizer/Global_Elements.php:133
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:122
 msgid "Global Elements"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:135
+#: src/Tribe/Customizer/Global_Elements.php:134
 msgid ""
 "Options selected here will override what was selected in the \"General Theme"
 "\" section."
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:169
+#: src/Tribe/Customizer/Global_Elements.php:168
 #: src/Tribe/Customizer/Single_Event.php:124
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:210
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:97
 msgid "Set Font Colors"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:191
+#: src/Tribe/Customizer/Global_Elements.php:190
 msgid "Links"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:192
+#: src/Tribe/Customizer/Global_Elements.php:191
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:317
 msgid "For displayed URLs"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:206
-#: src/Tribe/Customizer/Global_Elements.php:219
+#: src/Tribe/Customizer/Global_Elements.php:205
+#: src/Tribe/Customizer/Global_Elements.php:218
 #: src/Tribe/Customizer/Single_Event.php:163
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:219
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:109
 msgid "Adjust Appearance"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:258
+#: src/Tribe/Customizer/Global_Elements.php:257
 msgid "Map Pin"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:287
+#: src/Tribe/Customizer/Global_Elements.php:286
 msgid "Filter Bar Color"
 msgstr ""
 
-#: src/Tribe/Customizer/Global_Elements.php:310
+#: src/Tribe/Customizer/Global_Elements.php:309
 msgid "Button Color"
 msgstr ""
 
 #: src/Tribe/Customizer/Month_Week_View.php:153
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:70
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:67
 msgid "Month View"
 msgstr ""
 
@@ -2039,10 +2046,12 @@ msgid "These settings control the appearance of the single event pages."
 msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:102
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:52
 msgid "Single Event"
 msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:148
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:127
 msgid "Event Title Color"
 msgstr ""
 
@@ -2051,6 +2060,7 @@ msgid "Post Title Color"
 msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:185
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:145
 msgid "Event Details Background Color"
 msgstr ""
 
@@ -2110,11 +2120,11 @@ msgstr ""
 msgid "This %s has passed."
 msgstr ""
 
-#: src/Tribe/Editor.php:282 src/Tribe/Editor.php:325
+#: src/Tribe/Editor.php:289 src/Tribe/Editor.php:332
 msgid "Add Description..."
 msgstr ""
 
-#: src/Tribe/Editor.php:558
+#: src/Tribe/Editor.php:575 src/Tribe/Editor.php:613
 msgid "Event Blocks"
 msgstr ""
 
@@ -2705,205 +2715,205 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.8.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.0)  #-#-#-#-#
 #. Author of the plugin/theme
-#: src/Tribe/Main.php:995 src/Tribe/Main.php:1498 src/Tribe/Privacy.php:29
+#: src/Tribe/Main.php:988 src/Tribe/Main.php:1491 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
 #: src/functions/template-tags/general.php:1529 the-events-calendar.php:56
 msgid "The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:1002
+#: src/Tribe/Main.php:995
 msgid "month"
 msgstr ""
 
-#: src/Tribe/Main.php:1003
+#: src/Tribe/Main.php:996
 msgid "list"
 msgstr ""
 
-#: src/Tribe/Main.php:1004
+#: src/Tribe/Main.php:997
 msgid "upcoming"
 msgstr ""
 
-#: src/Tribe/Main.php:1005
+#: src/Tribe/Main.php:998
 msgid "past"
 msgstr ""
 
-#: src/Tribe/Main.php:1006
+#: src/Tribe/Main.php:999
 msgid "day"
 msgstr ""
 
-#: src/Tribe/Main.php:1007
+#: src/Tribe/Main.php:1000
 msgid "today"
 msgstr ""
 
-#: src/Tribe/Main.php:1008
+#: src/Tribe/Main.php:1001
 msgctxt "featured events slug"
 msgid "featured"
 msgstr ""
 
-#: src/Tribe/Main.php:1009
+#: src/Tribe/Main.php:1002
 msgctxt "all events slug"
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:1034
+#: src/Tribe/Main.php:1027
 msgid "Initializing Tribe Events on %s"
 msgstr ""
 
-#: src/Tribe/Main.php:1093 src/Tribe/Main.php:1095
+#: src/Tribe/Main.php:1086 src/Tribe/Main.php:1088
 msgid "Welcome to The Events Calendar!"
 msgstr ""
 
-#: src/Tribe/Main.php:1244
+#: src/Tribe/Main.php:1237
 msgid ""
 "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will "
 "show its calendar in place of the page."
 msgstr ""
 
-#: src/Tribe/Main.php:1247
+#: src/Tribe/Main.php:1240
 msgid "Ask the site administrator to edit the %s slug"
 msgstr ""
 
-#: src/Tribe/Main.php:1249
+#: src/Tribe/Main.php:1242
 msgid "Edit the %s slug"
 msgstr ""
 
-#: src/Tribe/Main.php:1253
+#: src/Tribe/Main.php:1246
 msgid " ask the site administrator to set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Main.php:1258
+#: src/Tribe/Main.php:1251
 msgid "edit Events settings."
 msgstr ""
 
-#: src/Tribe/Main.php:1261
+#: src/Tribe/Main.php:1254
 msgid "%1$s or %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1330
+#: src/Tribe/Main.php:1323
 msgid "Upgrade your calendar views"
 msgstr ""
 
-#: src/Tribe/Main.php:1367
+#: src/Tribe/Main.php:1360
 msgid "Upgrade"
 msgstr ""
 
-#: src/Tribe/Main.php:1418
+#: src/Tribe/Main.php:1411
 msgid "New User Primer"
 msgstr ""
 
-#: src/Tribe/Main.php:1420
+#: src/Tribe/Main.php:1413
 msgid ""
 "We are committed to helping make your calendar spectacular and have a wealth "
 "of resources available, including a handy %s to get your calendar up and "
 "running."
 msgstr ""
 
-#: src/Tribe/Main.php:1431
+#: src/Tribe/Main.php:1424
 msgid "Support for The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:1437
+#: src/Tribe/Main.php:1430
 msgid ""
 "%s: A thorough walkthrough of The Events Calendar and the settings that are "
 "available to you."
 msgstr ""
 
-#: src/Tribe/Main.php:1441
+#: src/Tribe/Main.php:1434
 msgid "Settings overview"
 msgstr ""
 
-#: src/Tribe/Main.php:1445
+#: src/Tribe/Main.php:1438
 msgid ""
 "%s: A complete look at the features you can expect to see right out of the "
 "box as well as how to use them."
 msgstr ""
 
-#: src/Tribe/Main.php:1449
+#: src/Tribe/Main.php:1442
 msgid "Features overview"
 msgstr ""
 
-#: src/Tribe/Main.php:1453
+#: src/Tribe/Main.php:1446
 msgid ""
 "%s: Our most comprehensive outline for customizing the calendar to suit your "
 "needs, including custom layouts and styles."
 msgstr ""
 
-#: src/Tribe/Main.php:1457
+#: src/Tribe/Main.php:1450
 msgid "Themer's Guide"
 msgstr ""
 
-#: src/Tribe/Main.php:1461
+#: src/Tribe/Main.php:1454
 msgid ""
 "%s: An overview of the default templates and styles that are included in the "
 "plugin, as well as how to change them."
 msgstr ""
 
-#: src/Tribe/Main.php:1465
+#: src/Tribe/Main.php:1458
 msgid "Using stylesheets and page templates"
 msgstr ""
 
-#: src/Tribe/Main.php:1469
+#: src/Tribe/Main.php:1462
 msgid ""
 "%s: Do you see an issue with your calendar? Go here first to find where it’s "
 "coming from and how to fix it."
 msgstr ""
 
-#: src/Tribe/Main.php:1473
+#: src/Tribe/Main.php:1466
 msgid "Troubleshooting common problems"
 msgstr ""
 
-#: src/Tribe/Main.php:1477
+#: src/Tribe/Main.php:1470
 msgid ""
 "%s: Code and guides for customizing your calendar in useful and interesting "
 "ways."
 msgstr ""
 
-#: src/Tribe/Main.php:1481
+#: src/Tribe/Main.php:1474
 msgid "Customizing the Events plugins"
 msgstr ""
 
-#: src/Tribe/Main.php:1499
+#: src/Tribe/Main.php:1492
 msgid "Events Tickets"
 msgstr ""
 
-#: src/Tribe/Main.php:1500
+#: src/Tribe/Main.php:1493
 msgid ""
 "If you have tried the above steps and are still having trouble, you can post "
 "a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff "
 "monitors these forums once a week and would be happy to assist you there. "
 msgstr ""
 
-#: src/Tribe/Main.php:1502 src/Tribe/Main.php:1510
+#: src/Tribe/Main.php:1495 src/Tribe/Main.php:1503
 msgid "premium support on our website"
 msgstr ""
 
-#: src/Tribe/Main.php:1503
+#: src/Tribe/Main.php:1496
 msgid ""
 "<strong>Looking for more immediate support?</strong> We offer %s with the "
 "purchase of any of our premium plugins. Pick up a license and you can post "
 "there directly and expect a response within 24-48 hours during weekdays"
 msgstr ""
 
-#: src/Tribe/Main.php:1507
+#: src/Tribe/Main.php:1500
 msgid "open-source forum on WordPress.org"
 msgstr ""
 
-#: src/Tribe/Main.php:1508
+#: src/Tribe/Main.php:1501
 msgid ""
 "If you have tried the above steps and are still having trouble, you can post "
 "a new thread to our %s. Our support staff monitors these forums once a week "
 "and would be happy to assist you there."
 msgstr ""
 
-#: src/Tribe/Main.php:1511
+#: src/Tribe/Main.php:1504
 msgid "Events Calendar PRO"
 msgstr ""
 
-#: src/Tribe/Main.php:1512
+#: src/Tribe/Main.php:1505
 msgid ""
 "<strong>Looking for more immediate support?</strong> We offer %1$s with the "
 "purchase of any of our premium plugins (like %2$s). Pick up a license and "
@@ -2911,113 +2921,113 @@ msgid ""
 "weekdays."
 msgstr ""
 
-#: src/Tribe/Main.php:1516
+#: src/Tribe/Main.php:1509
 msgid "post a thread"
 msgstr ""
 
-#: src/Tribe/Main.php:1517
+#: src/Tribe/Main.php:1510
 msgid ""
 "If you have a valid license for one of our paid plugins, you can %s in our "
 "premium support forums. Our support team monitors the forums and will "
 "respond to your thread within 24-48 hours (during the week)."
 msgstr ""
 
-#: src/Tribe/Main.php:1560
+#: src/Tribe/Main.php:1553
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:208
 #: src/functions/template-tags/general.php:132
 msgid "Events"
 msgstr ""
 
-#: src/Tribe/Main.php:1568 src/admin-views/aggregator/tabs/import-form.php:227
+#: src/Tribe/Main.php:1561 src/admin-views/aggregator/tabs/import-form.php:227
 #: src/admin-views/aggregator/tabs/import-form.php:239
 #: src/functions/template-tags/general.php:76
 msgid "Event"
 msgstr ""
 
-#: src/Tribe/Main.php:1786
+#: src/Tribe/Main.php:1779
 msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
 "your WordPress install."
 msgstr ""
 
-#: src/Tribe/Main.php:1789
+#: src/Tribe/Main.php:1782
 msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
 "about moving you to a newer version of PHP."
 msgstr ""
 
-#: src/Tribe/Main.php:1824
+#: src/Tribe/Main.php:1817
 msgid ""
 "To continue using The Events Calendar, please install the latest version of"
 msgstr ""
 
-#: src/Tribe/Main.php:1826 src/Tribe/Main.php:1827
+#: src/Tribe/Main.php:1819 src/Tribe/Main.php:1820
 msgid "Event Tickets"
 msgstr ""
 
-#: src/Tribe/Main.php:1862
+#: src/Tribe/Main.php:1855
 msgid ""
 "It appears as if the tribe-common libraries cannot be found! The directory "
 "should be in the \"common/\" directory in the events calendar plugin."
 msgstr ""
 
-#: src/Tribe/Main.php:2099 src/Tribe/Main.php:2633
+#: src/Tribe/Main.php:2092 src/Tribe/Main.php:2626
 msgid "category"
 msgstr ""
 
-#: src/Tribe/Main.php:2113 src/Tribe/Main.php:2632
+#: src/Tribe/Main.php:2106 src/Tribe/Main.php:2625
 msgid "tag"
 msgstr ""
 
-#: src/Tribe/Main.php:2148 src/Tribe/Organizer.php:91 src/Tribe/Venue.php:111
+#: src/Tribe/Main.php:2141 src/Tribe/Organizer.php:91 src/Tribe/Venue.php:111
 msgid "Add New"
 msgstr ""
 
-#: src/Tribe/Main.php:2150 src/Tribe/Main.php:2357 src/Tribe/Main.php:2358
+#: src/Tribe/Main.php:2143 src/Tribe/Main.php:2350 src/Tribe/Main.php:2351
 #: src/Tribe/Organizer.php:92 src/Tribe/Venue.php:112
 msgid "Add New %s"
 msgstr ""
 
-#: src/Tribe/Main.php:2156 src/Tribe/Organizer.php:94 src/Tribe/Venue.php:114
+#: src/Tribe/Main.php:2149 src/Tribe/Organizer.php:94 src/Tribe/Venue.php:114
 msgid "New %s"
 msgstr ""
 
-#: src/Tribe/Main.php:2159 src/Tribe/Organizer.php:95 src/Tribe/Venue.php:115
+#: src/Tribe/Main.php:2152 src/Tribe/Organizer.php:95 src/Tribe/Venue.php:115
 #: src/views/month/single-day.php:26
 msgid "View %s"
 msgstr ""
 
-#: src/Tribe/Main.php:2162 src/Tribe/Organizer.php:96 src/Tribe/Venue.php:116
+#: src/Tribe/Main.php:2155 src/Tribe/Organizer.php:96 src/Tribe/Venue.php:116
 msgid "Search %s"
 msgstr ""
 
-#: src/Tribe/Main.php:2165 src/Tribe/Organizer.php:97 src/Tribe/Venue.php:117
+#: src/Tribe/Main.php:2158 src/Tribe/Organizer.php:97 src/Tribe/Venue.php:117
 msgid "No %s found"
 msgstr ""
 
-#: src/Tribe/Main.php:2168 src/Tribe/Organizer.php:98 src/Tribe/Venue.php:118
+#: src/Tribe/Main.php:2161 src/Tribe/Organizer.php:98 src/Tribe/Venue.php:118
 msgid "No %s found in Trash"
 msgstr ""
 
-#: src/Tribe/Main.php:2171 src/Tribe/Main.php:2310 src/Tribe/Main.php:2332
+#: src/Tribe/Main.php:2164 src/Tribe/Main.php:2303 src/Tribe/Main.php:2325
 #: src/Tribe/Organizer.php:99 src/Tribe/Venue.php:119
 msgid "%s published."
 msgstr ""
 
-#: src/Tribe/Main.php:2174 src/Tribe/Organizer.php:100 src/Tribe/Venue.php:120
+#: src/Tribe/Main.php:2167 src/Tribe/Organizer.php:100 src/Tribe/Venue.php:120
 msgid "%s published privately."
 msgstr ""
 
-#: src/Tribe/Main.php:2177 src/Tribe/Organizer.php:101 src/Tribe/Venue.php:121
+#: src/Tribe/Main.php:2170 src/Tribe/Organizer.php:101 src/Tribe/Venue.php:121
 msgid "%s reverted to draft."
 msgstr ""
 
-#: src/Tribe/Main.php:2180 src/Tribe/Organizer.php:102 src/Tribe/Venue.php:122
+#: src/Tribe/Main.php:2173 src/Tribe/Organizer.php:102 src/Tribe/Venue.php:122
 msgid "%s scheduled."
 msgstr ""
 
-#: src/Tribe/Main.php:2183 src/Tribe/Main.php:2266 src/Tribe/Main.php:2302
-#: src/Tribe/Main.php:2305 src/Tribe/Main.php:2324 src/Tribe/Main.php:2327
+#: src/Tribe/Main.php:2176 src/Tribe/Main.php:2259 src/Tribe/Main.php:2295
+#: src/Tribe/Main.php:2298 src/Tribe/Main.php:2317 src/Tribe/Main.php:2320
 #: src/Tribe/Organizer.php:103 src/Tribe/Venue.php:123
 msgid "%s updated."
 msgstr ""
@@ -3025,337 +3035,337 @@ msgstr ""
 #. Translators: %s: Event singular.
 #. Translators: %s: Organizer singular.
 #. Translators: %s: Venue singular.
-#: src/Tribe/Main.php:2187 src/Tribe/Organizer.php:106 src/Tribe/Venue.php:126
+#: src/Tribe/Main.php:2180 src/Tribe/Organizer.php:106 src/Tribe/Venue.php:126
 msgid "%s Link"
 msgstr ""
 
 #. Translators: %s: Event singular.
 #. Translators: %s: Organizer singular.
 #. Translators: %s: Venue singular.
-#: src/Tribe/Main.php:2191 src/Tribe/Organizer.php:110 src/Tribe/Venue.php:130
+#: src/Tribe/Main.php:2184 src/Tribe/Organizer.php:110 src/Tribe/Venue.php:130
 msgid "A link to a particular %s."
 msgstr ""
 
-#: src/Tribe/Main.php:2208
+#: src/Tribe/Main.php:2201
 msgid "%s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:2211
+#: src/Tribe/Main.php:2204
 msgid "Search %s Categories"
 msgstr ""
 
-#: src/Tribe/Main.php:2214
+#: src/Tribe/Main.php:2207
 msgid "All %s Categories"
 msgstr ""
 
-#: src/Tribe/Main.php:2217
+#: src/Tribe/Main.php:2210
 msgid "Parent %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:2220
+#: src/Tribe/Main.php:2213
 msgid "Parent %s Category:"
 msgstr ""
 
-#: src/Tribe/Main.php:2223
+#: src/Tribe/Main.php:2216
 msgid "Edit %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:2226
+#: src/Tribe/Main.php:2219
 msgid "Update %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:2229
+#: src/Tribe/Main.php:2222
 msgid "Add New %s Category"
 msgstr ""
 
-#: src/Tribe/Main.php:2232
+#: src/Tribe/Main.php:2225
 msgid "New %s Category Name"
 msgstr ""
 
 #. Translators: %s: Event singular.
-#: src/Tribe/Main.php:2236
+#: src/Tribe/Main.php:2229
 msgid "%s Category Link"
 msgstr ""
 
 #. Translators: %s: Event singular.
-#: src/Tribe/Main.php:2240
+#: src/Tribe/Main.php:2233
 msgid "A link to a particular %s category."
 msgstr ""
 
-#: src/Tribe/Main.php:2259
+#: src/Tribe/Main.php:2252
 msgid "%1$s updated. %2$sView %1$s%3$s"
 msgstr ""
 
-#: src/Tribe/Main.php:2264 src/Tribe/Main.php:2303 src/Tribe/Main.php:2325
+#: src/Tribe/Main.php:2257 src/Tribe/Main.php:2296 src/Tribe/Main.php:2318
 msgid "Custom field updated."
 msgstr ""
 
-#: src/Tribe/Main.php:2265 src/Tribe/Main.php:2304 src/Tribe/Main.php:2326
+#: src/Tribe/Main.php:2258 src/Tribe/Main.php:2297 src/Tribe/Main.php:2319
 msgid "Custom field deleted."
 msgstr ""
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:2269 src/Tribe/Main.php:2308
+#: src/Tribe/Main.php:2262 src/Tribe/Main.php:2301
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:2272
+#: src/Tribe/Main.php:2265
 msgid "%1$s published. %2$sView %3$s"
 msgstr ""
 
-#: src/Tribe/Main.php:2277 src/Tribe/Main.php:2311 src/Tribe/Main.php:2333
+#: src/Tribe/Main.php:2270 src/Tribe/Main.php:2304 src/Tribe/Main.php:2326
 msgid "%s saved."
 msgstr ""
 
-#: src/Tribe/Main.php:2279
+#: src/Tribe/Main.php:2272
 msgid "%1$s submitted. %2$sPreview %3$s"
 msgstr ""
 
-#: src/Tribe/Main.php:2285
+#: src/Tribe/Main.php:2278
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
 msgstr ""
 
 #. translators: Publish box date format, see http://php.net/date
-#: src/Tribe/Main.php:2288 src/Tribe/Main.php:2317 src/Tribe/Main.php:2339
+#: src/Tribe/Main.php:2281 src/Tribe/Main.php:2310 src/Tribe/Main.php:2332
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: src/Tribe/Main.php:2293
+#: src/Tribe/Main.php:2286
 msgid "%1$s draft updated. %2$sPreview %3$s"
 msgstr ""
 
-#: src/Tribe/Main.php:2312 src/Tribe/Main.php:2334
+#: src/Tribe/Main.php:2305 src/Tribe/Main.php:2327
 msgid "%s submitted."
 msgstr ""
 
-#: src/Tribe/Main.php:2314 src/Tribe/Main.php:2336
+#: src/Tribe/Main.php:2307 src/Tribe/Main.php:2329
 msgid "%1$s scheduled for: %2$s."
 msgstr ""
 
-#: src/Tribe/Main.php:2319 src/Tribe/Main.php:2342
+#: src/Tribe/Main.php:2312 src/Tribe/Main.php:2335
 msgid "%s draft updated."
 msgstr ""
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:2330
+#: src/Tribe/Main.php:2323
 msgid "%s restored to revision from %s"
 msgstr ""
 
-#: src/Tribe/Main.php:2387
+#: src/Tribe/Main.php:2380
 msgid ""
 "Without a defined location your event will not display a %sGoogle Rich "
 "Snippet%s on the search results."
 msgstr ""
 
-#: src/Tribe/Main.php:2634
+#: src/Tribe/Main.php:2627
 msgid "page"
 msgstr ""
 
-#: src/Tribe/Main.php:2635 src/functions/template-tags/general.php:104
+#: src/Tribe/Main.php:2628 src/functions/template-tags/general.php:104
 msgid "event"
 msgstr ""
 
-#: src/Tribe/Main.php:2636 src/functions/template-tags/general.php:160
+#: src/Tribe/Main.php:2629 src/functions/template-tags/general.php:160
 msgid "events"
 msgstr ""
 
-#: src/Tribe/Main.php:2637
+#: src/Tribe/Main.php:2630
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:3019
+#: src/Tribe/Main.php:3012
 msgid " (View Full %1$s Description Here: %2$s)"
 msgstr ""
 
-#: src/Tribe/Main.php:3807 src/Tribe/Main.php:3842
+#: src/Tribe/Main.php:3800 src/Tribe/Main.php:3835
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr ""
 
-#: src/Tribe/Main.php:3884
+#: src/Tribe/Main.php:3877
 msgid "%s Options"
 msgstr ""
 
-#: src/Tribe/Main.php:3893 src/Tribe/Main.php:3906
+#: src/Tribe/Main.php:3886 src/Tribe/Main.php:3899
 msgid "%s Information"
 msgstr ""
 
-#: src/Tribe/Main.php:4238
+#: src/Tribe/Main.php:4231
 msgid "Support"
 msgstr ""
 
-#: src/Tribe/Main.php:4241
+#: src/Tribe/Main.php:4234
 msgid "View All Add-Ons"
 msgstr ""
 
-#: src/Tribe/Main.php:4262
+#: src/Tribe/Main.php:4255
 msgid "News from The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:4308
+#: src/Tribe/Main.php:4301
 msgid "Additional Functionality"
 msgstr ""
 
-#: src/Tribe/Main.php:4313
+#: src/Tribe/Main.php:4306
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
 
-#: src/Tribe/Main.php:4314
+#: src/Tribe/Main.php:4307
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
-#: src/Tribe/Main.php:4415
+#: src/Tribe/Main.php:4408
 msgid "Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:4431
+#: src/Tribe/Main.php:4424
 msgid "List"
 msgstr ""
 
-#: src/Tribe/Main.php:4449
+#: src/Tribe/Main.php:4442
 msgid "Month"
 msgstr ""
 
-#: src/Tribe/Main.php:4466 src/admin-views/aggregator/fields/schedule.php:43
+#: src/Tribe/Main.php:4459 src/admin-views/aggregator/fields/schedule.php:43
 #: src/admin-views/aggregator/fields/schedule.php:61
 msgid "Day"
 msgstr ""
 
-#: src/Tribe/Main.php:4489
+#: src/Tribe/Main.php:4482
 msgid "Search for %s by Keyword."
 msgstr ""
 
-#: src/Tribe/Main.php:4492
+#: src/Tribe/Main.php:4485
 #: src/views/v2/components/events-bar/search-button.php:24
 msgid "Search"
 msgstr ""
 
-#: src/Tribe/Main.php:4493
+#: src/Tribe/Main.php:4486
 msgid "Keyword"
 msgstr ""
 
-#: src/Tribe/Main.php:4510
+#: src/Tribe/Main.php:4503
 msgid "4 digit year hyphen 2 digit month hyphen 2 digit day"
 msgstr ""
 
-#: src/Tribe/Main.php:4511
+#: src/Tribe/Main.php:4504
 msgid "1 digit month slash 1 digit day slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4512
+#: src/Tribe/Main.php:4505
 msgid "2 digit month slash 2 digit day slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4513
+#: src/Tribe/Main.php:4506
 msgid "1 digit day slash 1 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4514
+#: src/Tribe/Main.php:4507
 msgid "2 digit day slash 2 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4515
+#: src/Tribe/Main.php:4508
 msgid "1 digit month hyphen 1 digit day hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4516
+#: src/Tribe/Main.php:4509
 msgid "1 digit month hyphen 2 digit day hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4517
+#: src/Tribe/Main.php:4510
 msgid "1 digit day hyphen 1 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4518
+#: src/Tribe/Main.php:4511
 msgid "2 digit day hyphen 2 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4519
+#: src/Tribe/Main.php:4512
 msgid "4 digit year dot 2 digit month dot 2 digit day"
 msgstr ""
 
-#: src/Tribe/Main.php:4520
+#: src/Tribe/Main.php:4513
 msgid "2 digit month dot 2 digit day dot 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4521
+#: src/Tribe/Main.php:4514
 msgid "2 digit day dot 2 digit month dot 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4525
+#: src/Tribe/Main.php:4518
 msgid "4 digit year hyphen 2 digit month"
 msgstr ""
 
-#: src/Tribe/Main.php:4526 src/Tribe/Main.php:4528
+#: src/Tribe/Main.php:4519 src/Tribe/Main.php:4521
 msgid "1 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4527 src/Tribe/Main.php:4529
+#: src/Tribe/Main.php:4520 src/Tribe/Main.php:4522
 msgid "2 digit month slash 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4530 src/Tribe/Main.php:4531 src/Tribe/Main.php:4532
+#: src/Tribe/Main.php:4523 src/Tribe/Main.php:4524 src/Tribe/Main.php:4525
 msgid "1 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4533
+#: src/Tribe/Main.php:4526
 msgid "2 digit month hyphen 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4534
+#: src/Tribe/Main.php:4527
 msgid "4 digit year dot 2 digit month"
 msgstr ""
 
-#: src/Tribe/Main.php:4535 src/Tribe/Main.php:4536
+#: src/Tribe/Main.php:4528 src/Tribe/Main.php:4529
 msgid "2 digit month dot 4 digit year"
 msgstr ""
 
-#: src/Tribe/Main.php:4565 src/Tribe/Main.php:4602
+#: src/Tribe/Main.php:4558 src/Tribe/Main.php:4595
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
 msgstr ""
 
-#: src/Tribe/Main.php:4567
+#: src/Tribe/Main.php:4560
 msgid "Search for %s by Date. Please use the format %s."
 msgstr ""
 
-#: src/Tribe/Main.php:4580
+#: src/Tribe/Main.php:4573
 msgid "%s In"
 msgstr ""
 
-#: src/Tribe/Main.php:4582
+#: src/Tribe/Main.php:4575
 msgid "Search for %s by month. Please use the format %s."
 msgstr ""
 
-#: src/Tribe/Main.php:4585
+#: src/Tribe/Main.php:4578
 msgid "%s From"
 msgstr ""
 
-#: src/Tribe/Main.php:4588
+#: src/Tribe/Main.php:4581
 msgid "Day Of"
 msgstr ""
 
-#: src/Tribe/Main.php:4668
+#: src/Tribe/Main.php:4661
 msgid "Once Every 30 Mins"
 msgstr ""
 
-#: src/Tribe/Main.php:5406
+#: src/Tribe/Main.php:5399
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
 
-#: src/Tribe/Main.php:5419
+#: src/Tribe/Main.php:5412
 msgid ""
 "The following plugins are out of date: %1$s. All add-ons contain "
 "dependencies on The Events Calendar and will not function properly unless "
 "paired with the right version. %2$sLearn More%3$s."
 msgstr ""
 
-#: src/Tribe/Main.php:5458 src/Tribe/Main.php:5515
+#: src/Tribe/Main.php:5451 src/Tribe/Main.php:5508
 msgid "Use Saved %s:"
 msgstr ""
 
@@ -4769,6 +4779,16 @@ msgstr ""
 msgid "Unnamed Venue"
 msgstr ""
 
+#. translators: 1: opening <a> tag, 2: closing </a> tag.
+#: src/Tribe/Views/V2/Customizer/Notice.php:81
+msgctxt "A link telling users to disable an extension that may conflict."
+msgid ""
+"You are using the Inherit Theme Fonts extension. Font control is now built "
+"into %1$sThe Events Calendar's options in the WordPress Customizer.%2$s "
+"Please disable the Inherit Theme Fonts extension to prevent conflicts with "
+"The Events Calendar."
+msgstr ""
+
 #: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:70
 msgid "Events Bar"
 msgstr ""
@@ -4781,7 +4801,7 @@ msgid ""
 msgstr ""
 
 #: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:135
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:82
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:79
 msgctxt "The header for the font color control section."
 msgid "Set Font Colors"
 msgstr ""
@@ -4807,208 +4827,286 @@ msgid "Icons"
 msgstr ""
 
 #: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:191
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:270
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:312
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:260
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:297
 msgctxt "Label for the default option."
 msgid "Default"
 msgstr ""
 
 #. translators: 1: Customizer url.
 #: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:198
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:267
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:252
 msgctxt ""
 "Label for option to use the accent color. Links to the accent color setting."
 msgid "Use the <a href=\"%1$s\">Accent Color</a>"
 msgstr ""
 
 #: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:208
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:245
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:287
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:317
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:186
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:277
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:240
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:277
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:302
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:183
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:262
 msgctxt "Label for option to set a custom color."
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:227
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:222
 msgctxt "The \"Find Events\" button color setting label."
 msgid "Find Events Button Color"
 msgstr ""
 
 #. translators: 1: Customizer url.
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:235
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:230
 msgctxt ""
 "Label for option to use the accent color (default). Links to the accent "
 "color setting."
 msgid "Use the <a href=\"%1$s\">Accent Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:264
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:254
 msgctxt "The Events Bar background color setting label."
 msgid "Background Color"
 msgstr ""
 
 #. translators: 1: Customizer url.
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:277
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:267
 msgctxt ""
 "Label for option to use the events background color. Links to the background "
 "color setting."
 msgid "Use the Calendar <a href=\"%1$s\">Background Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:306
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:291
 msgctxt "The Events Bar border color setting label."
 msgid "Border Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:95
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:195
+msgid "Select Font Family"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:200
+msgid "Set Font Size"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:201
+msgctxt "The description for the base font size setting."
+msgid ""
+"Choose a base font size. Event text will scale around the selected base size."
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:239
+msgctxt "Label for option to use default TEC fonts."
+msgid "Default"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:244
+msgctxt "Label for option to use theme fonts."
+msgid "Inherit theme font(s)"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:254
+msgctxt "The base font size input setting label."
+msgid "By Pixel"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:270
+msgctxt "The font size selector setting label."
+msgid "By Scale"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:289
+msgctxt "The event title color setting label."
+msgid "Event Title"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:298
+msgctxt "The event title color setting label."
+msgid "Event Date and Time"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:303
+msgctxt "The description for the event date and time color setting."
+msgid "Main date and time display on views and single event pages"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:312
+msgctxt "The link color setting label."
+msgid "Link Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:325
+#: src/Tribe/Views/V2/Customizer.php:102
+msgid "Background Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:326
+#: src/Tribe/Views/V2/Customizer.php:104
+msgid "All calendar and event pages"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:328
+msgctxt "Label for option to leave transparent (default)."
+msgid "Transparent."
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:333
+msgctxt "Label for option to set a custom color."
+msgid "Select Custom Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:347
+msgctxt "The event accent color setting label."
+msgid "Accent Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:92
 msgctxt "The header for the calendar grid color control section."
 msgid "Adjust Grid Colors"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:157
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:154
 msgctxt "The days of the week text color setting label."
 msgid "Days of the Week"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:166
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:163
 msgctxt "The date marker text color setting label."
 msgid "Date Marker"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:175
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:172
 msgctxt "The grid background color setting label."
 msgid "Grid Background"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:181
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:178
 msgctxt "Label for option to leave transparent (default)."
 msgid "Transparent"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:205
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:197
 msgctxt "Label for tooltip background color setting."
 msgid "Event Preview Background"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:210
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:202
 msgctxt "The grid background color setting description."
 msgid "Preview display when hovering on an event title"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:216
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:208
 msgctxt "Label for option to leave white (default)."
 msgid "White"
 msgstr ""
 
 #. translators: 1: Customizer url.
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:223
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:215
 msgctxt ""
 "Label for option to use the event background color. Links to the event "
 "background color setting."
 msgid "Use the <a href=\"%1$s\">General Background Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:245
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:230
 msgctxt "The grid lines color setting label."
 msgid "Grid Lines Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:254
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:239
 msgctxt "The multiday event bar color setting label."
 msgid "Event Span"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:259
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:244
 msgctxt "The multiday event bar color setting description."
 msgid "For all-day and multi-day events"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:296
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:276
 msgctxt "Day hover color setting label."
 msgid "Day Hover"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:301
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:281
 msgctxt "The grid hover color setting description."
 msgid "Bottom border highlight when hovering on a day"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:442
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:402
 msgctxt "Text used for links to the General settings section."
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:461
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:421
 msgctxt "Text used for links to the Event Background Color setting."
 msgid "General Background Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:481
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:441
 msgctxt "Text used for links to the Accent Color setting."
 msgid "Accent Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer.php:48 src/Tribe/Views/V2/Customizer.php:173
-msgid "Event Title"
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:53
+msgid ""
+"Options selected here will override what was selected in the \"Global "
+"Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer.php:71
-msgid "Event Date and Time"
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer.php:72
-msgid "Main date and time display on views and single event pages"
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer.php:95
-msgid "Background Color"
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer.php:97
-msgid "All calendar and event pages"
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer.php:101
-msgid "Transparent"
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer.php:102
-msgid "Select Color"
-msgstr ""
-
-#: src/Tribe/Views/V2/Customizer.php:178
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:129
+#: src/Tribe/Views/V2/Customizer.php:189
 msgid "Use General"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer.php:200
+#: src/Tribe/Views/V2/Customizer.php:55 src/Tribe/Views/V2/Customizer.php:184
+msgid "Event Title"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:78
+msgid "Event Date and Time"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:79
+msgid "Main date and time display on views and single event pages"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:108
+msgid "Transparent"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:109
+msgid "Select Color"
+msgstr ""
+
+#: src/Tribe/Views/V2/Customizer.php:211
 msgid "Custom Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:517
+#: src/Tribe/Views/V2/Hooks.php:506
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:594
+#: src/Tribe/Views/V2/Hooks.php:583
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:609
+#: src/Tribe/Views/V2/Hooks.php:598
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:984
+#: src/Tribe/Views/V2/Hooks.php:947
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1012
+#: src/Tribe/Views/V2/Hooks.php:975
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1040
+#: src/Tribe/Views/V2/Hooks.php:1003
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
