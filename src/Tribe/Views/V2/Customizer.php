@@ -3,7 +3,7 @@
  * Handles Views v2 Customizer settings.
  *
  * @since   5.3.1
- * @deprecated TBD
+ * @deprecated 5.9.0
  *
  * @package Tribe\Events\Views\V2
  */
@@ -17,7 +17,7 @@ use WP_Customize_Control as Control;
  * Class Customizer
  *
  * @since   5.3.1
- * @deprecated TBD
+ * @deprecated 5.9.0
  *
  * @package Tribe\Events\Views\V2
  */

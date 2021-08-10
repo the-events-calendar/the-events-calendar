@@ -228,7 +228,7 @@ abstract class By_Day_View extends View {
 			/**
 			 * Allows modifications to the repository, which allows specific modifications to the grid query.
 			 *
-			 * @since  TBD
+			 * @since  5.9.0
 			 *
 			 * @param \Tribe__Repository__Interface $events_repository The Event repository we are going to filter.
 			 * @param DateTimeInterface             $grid_start        The View grid start date.

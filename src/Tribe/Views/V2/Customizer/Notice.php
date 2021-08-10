@@ -2,7 +2,7 @@
 /**
  * Handles notices having to do with Customizer.
  *
- * TBD
+ * 5.9.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2\Customizer;
 /**
  * Class Notice
  *
- * @since TBD
+ * @since 5.9.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
@@ -21,7 +21,7 @@ class Notice {
 	/**
 	 * Extension hooks and initialization; exits if the extension is not authorized by Tribe Common to run.
 	 *
-	 * @since  TBD
+	 * @since  5.9.0
 	 */
 	public function hook() {
 		tribe_notice(
@@ -40,7 +40,7 @@ class Notice {
 	/**
 	 * Checks if we have the TEC Inherit Theme Fonts Extension active
 	 *
-	 * @since  TBD
+	 * @since  5.9.0
 	 *
 	 * @return boolean
 	 */
@@ -71,7 +71,7 @@ class Notice {
 	/**
 	 * HTML for the notice.
 	 *
-	 * @since  TBD
+	 * @since  5.9.0
 	 *
 	 * @return string
 	 */

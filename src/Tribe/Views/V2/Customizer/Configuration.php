@@ -3,7 +3,7 @@
  * Handles setting up the configuration data for v2 Customizer.
  *
  * @package Tribe\Events\Views\V2\Customizer
- * @since   TBD
+ * @since   5.9.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer;
@@ -12,14 +12,14 @@ namespace Tribe\Events\Views\V2\Customizer;
  * Class managing Configuration for the v2 Customizer.
  *
  * @package Tribe\Events\Views\V2\Customizer
- * @since   TBD
+ * @since   5.9.0
  */
 class Configuration {
 	/**
 	 * Return the variables to be localized.
 	 * localized under `tribe_events_customizer_live_preview_js_config` in Hooks.php
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @return array
 	 */
@@ -36,7 +36,7 @@ class Configuration {
 	 * Gets the selector for Customizer styles
 	 * based on filters for applying to shortcodes and widgets.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @return string The selector string.
 	 */
@@ -46,7 +46,7 @@ class Configuration {
 		/**
 		 * Allows filtering to enforce applying Customizer styles to shortcode views.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param boolean $apply_to_shortcode Whether to apply Customizer styles to shortcodes (default = false).
 		 */
@@ -59,7 +59,7 @@ class Configuration {
 		/**
 		 * Allows filtering to enforce NOT applying Customizer styles to widgets.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param boolean $apply_to_widget Whether to apply Customizer styles to widgets (default = true).
 		 */

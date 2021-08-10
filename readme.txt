@@ -230,7 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add new Font Sections to Customizer -> The Events Calendar -> Global Events. [TEC-3872]
 * Feature - Add new font family control to allow The Events Calendar styles to inherit theme fonts. [TEC-3895]
 * Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
-* Language -
+* Language - 16 new strings added, 206 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.8.1] 2021-07-20 =
 

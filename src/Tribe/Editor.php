@@ -560,7 +560,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		// Handle where someone is using this outside of this object
 		global $wp_version;
 		if ( version_compare( $wp_version, '5.8', '>=' ) ) {
-			_deprecated_function( __FUNCTION__, 'TBD', 'block_categories_all' );
+			_deprecated_function( __FUNCTION__, '5.9.0', 'block_categories_all' );
 		}
 
 		if ( Tribe__Events__Main::POSTTYPE !== $post->post_type ) {
@@ -581,7 +581,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Add "Event Blocks" category to the editor.
 	 *
-	 * @since TBD block_categories() modified to cover WP 5.8 change of filter in a backwards-compatible way.
+	 * @since 5.9.0 block_categories() modified to cover WP 5.8 change of filter in a backwards-compatible way.
 	 *
 	 * @param array<array<string,string>> $categories An array of categories each an array.
 	 *                                                in the format property => value.
