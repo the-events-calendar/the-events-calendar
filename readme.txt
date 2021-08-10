@@ -224,7 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.9.0] 2021-08-10 =
 
 * Fix - Add a new function to add "Event Blocks" category to the editor for WP >= 5.8. [TEC-4037]
-* Language -
+* Language - 16 new strings added, 206 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.8.1] 2021-07-20 =
 
