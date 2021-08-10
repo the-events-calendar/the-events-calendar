@@ -70,7 +70,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register any actions for the Customizer
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @return void
 	 */
@@ -81,7 +81,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register any filters for the Customizer
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @return void
 	 */
@@ -96,7 +96,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Enqueues the js for our v2 Customizer controls.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @return void
 	 */
@@ -107,7 +107,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	public function enqueue_customizer_controls_styles() {
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
