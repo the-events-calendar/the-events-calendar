@@ -5,6 +5,7 @@
  */
 .tribe-block__venue {
 	display: flex;
+	flex-direction: column-reverse;
 	justify-content: space-between;
 	width: 100%;
 	padding: 22.5px 0;
@@ -12,6 +13,7 @@
 	border-top: 1px solid #d5d5d5;
 
 	@media screen and (min-width: 768px) {
+		flex-direction: row;
 		padding: 32px 0;
 	}
 
@@ -24,12 +26,23 @@
 
 		.tribe-block__venue__meta,
 		.tribe-block__venue__map {
-			width: 49%;
-			flex-basis: 49%;
+			width: 100%;
+			flex-basis: 100%;
+
+			@media screen and (min-width: 768px) {
+				width: 49%;
+				flex-basis: 49%;
+			}
 		}
 	}
 
 	.tribe-block__venue__meta {
+		margin-top: 24px;
+
+		@media screen and (min-width: 768px) {
+			margin-top: 0;
+		}
+
 		.tribe-block__venue__name {
 			display: flex;
 			h3 {
