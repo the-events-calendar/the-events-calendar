@@ -33,16 +33,23 @@
 		.tribe-block__venue__name {
 			display: flex;
 			h3 {
-				font-size: 1.3125rem;
-				font-weight: bold;
+				font-size: 1rem;
+				font-weight: normal;
+				line-height: 1.64;
+				letter-spacing: normal;
 				margin: 0 0 4px;
 				width: 100%;
+
+				a {
+					color: #334aff;
+				}
 			}
 		}
 
 		.tribe-block__venue__address {
 			font-style: normal;
 			margin-bottom: 20px;
+			font-size: 100px;
 
 			a {
 				color: #009FD4;
@@ -66,10 +73,11 @@
 		.tribe-block__venue__address,
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
-			color: #545D66;
+			color: #141827;
 			font-size: 1rem;
-			line-height: 1.5;
-			letter-spacing: 0.13px;
+			font-weight: normal;
+			line-height: 1.64;
+			letter-spacing: normal;
 		}
 	}
 
@@ -81,4 +89,30 @@
 		position: relative;
 		min-height: 270px;
 	}
+}
+
+/* Theme specific overrides */
+
+/* Twenty-twenty theme */
+.theme-twentytwenty .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__name h3,
+.theme-twentytwenty .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__address,
+.theme-twentytwenty .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__phone,
+.theme-twentytwenty .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website {
+	font-size: 1.65rem;
+}
+
+/* Divi */
+.theme-Divi .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__name h3,
+.theme-Divi .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__address,
+.theme-Divi .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__phone,
+.theme-Divi .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website  {
+	padding-bottom: 0;
+}
+
+/* Genesis */
+.theme-genesis .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__name h3,
+.theme-genesis .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__address,
+.theme-genesis .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__phone,
+.theme-genesis .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website   {
+	font-size: 1.65rem;
 }
