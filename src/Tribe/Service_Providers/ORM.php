@@ -26,7 +26,7 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_events_has_next_args', [ $this, 'maybe_remove_date_meta_queries' ], 1, 2 );
 		add_filter( 'tribe_events_has_previous_args', [ $this, 'maybe_remove_date_meta_queries' ], 1, 2 );
-		add_action( 'pre_get_posts', [ $this, 'ensure_event_post_types_on_search' ], 50 );
+		add_action( 'tribe_repository_events_pre_get_posts', [ $this, 'ensure_event_post_types_on_search' ], 50 );
 	}
 
 	/**
@@ -80,11 +80,21 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 			return $query;
 		}
 
-		if ( Tribe__Events__Main::POSTTYPE !== $query->query['post_type'] ) {
+		if ( ! in_array( Tribe__Events__Main::POSTTYPE , (array) $query->query['post_type'] ) ) {
 			return $query;
 		}
 
-		$query->query_vars['post_type'] = Tribe__Events__Main::POSTTYPE;
+		$query_post_type = $query->query_vars['post_type'];
+
+		if ( ! is_array( $query_post_type ) ) {
+			// If it's not an array, overwrite it.
+			$query_post_type = Tribe__Events__Main::POSTTYPE;
+		} else {
+			// Else add event.
+			$query_post_type[] = Tribe__Events__Main::POSTTYPE;
+		}
+
+		$query->query_vars['post_type'] = $query_post_type;
 
 		return $query;
 	}
