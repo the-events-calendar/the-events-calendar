@@ -6,6 +6,7 @@
 .tribe-block__events-link {
 	display: flex;
 	flex-wrap: wrap;
+	padding: 20px 0;
 
 	.tribe-block__btn--link {
 		align-items: center;
@@ -15,7 +16,6 @@
 
 		a {
 			align-items: center;
-			background-color: #fff;
 			border: 1px solid #E1E3E6;
 			color: #009fd4;
 			display: inline-flex;
@@ -34,4 +34,11 @@
 		}
 	}
 
+}
+
+/* Theme specific overrides */
+
+/* Twenty-twenty-one theme */ 
+.theme-twentytwentyone .tribe-block__events-link .tribe-block__btn--link a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+	background-color: transparent;
 }
