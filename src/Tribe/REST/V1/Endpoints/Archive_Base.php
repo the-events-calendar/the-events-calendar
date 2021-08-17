@@ -10,7 +10,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
-	protected $supported_query_vars = array();
+	protected $supported_query_vars = [];
 
 	/**
 	 * @var Tribe__Events__REST__Interfaces__Post_Repository
@@ -95,7 +95,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 *
 	 * @return string
 	 */
-	protected function get_current_rest_url( array $args = array(), array $extra_args = array() ) {
+	protected function get_current_rest_url( array $args = [], array $extra_args = [] ) {
 		$url = $this->get_base_rest_url();
 
 		$flipped = array_flip( $this->supported_query_vars );
@@ -134,7 +134,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 * @return string
 	 */
 	protected function get_next_rest_url( $rest_url, $page ) {
-		return add_query_arg( array( 'page' => $page + 1 ), remove_query_arg( 'page', $rest_url ) );
+		return add_query_arg( [ 'page' => $page + 1 ], remove_query_arg( 'page', $rest_url ) );
 	}
 
 	/**
@@ -148,7 +148,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	protected function get_previous_rest_url( $rest_url, $page ) {
 		$rest_url = remove_query_arg( 'page', $rest_url );
 
-		return 2 === $page ? $rest_url : add_query_arg( array( 'page' => $page - 1 ), $rest_url );
+		return 2 === $page ? $rest_url : add_query_arg( [ 'page' => $page - 1 ], $rest_url );
 	}
 
 	/**
@@ -167,7 +167,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 		$post_type_obj = get_post_type_object( $this->post_type );
 
 		if ( ! current_user_can( $post_type_obj->cap->edit_posts ) ) {
-			return $stati === array( 'publish' )
+			return $stati === [ 'publish' ]
 				? $stati
 				: false;
 		}

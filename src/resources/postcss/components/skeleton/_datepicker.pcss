@@ -29,45 +29,20 @@
 		.prev,
 		.next {
 
-			.tribe-common-svgicon {
-				display: block;
-				height: 14px;
-				width: 9px;
-			}
-		}
-
-		.prev {
-
-			&:hover,
-			&:focus,
-			&:active {
-
-				.tribe-common-svgicon {
-					background-image: svg-inline(caret-left-active);
-				}
-			}
-
-			.tribe-common-svgicon {
-				background-image: svg-inline(caret-left-secondary);
+			.tribe-events-c-top-bar__datepicker-nav-icon-svg {
 				margin-right: auto;
+				height: 15px;
+				width: 9px;
+
+				path {
+					fill: currentColor;
+				}
 			}
 		}
 
-		.next {
-
-			&:hover,
-			&:focus,
-			&:active {
-
-				.tribe-common-svgicon {
-					background-image: svg-inline(caret-right-active);
-				}
-			}
-
-			.tribe-common-svgicon {
-				background-image: svg-inline(caret-right-secondary);
-				margin-left: auto;
-			}
+		.next .tribe-events-c-top-bar__datepicker-nav-icon-svg {
+			margin-left: auto;
+			margin-right: 0;
 		}
 
 		.datepicker-months,

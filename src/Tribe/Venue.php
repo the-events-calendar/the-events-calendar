@@ -7,16 +7,16 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * Args for venue post type
 	 * @var array
 	 */
-	public $post_type_args = array(
+	public $post_type_args = [
 		'public'              => false,
-		'rewrite'             => array( 'slug' => 'venue', 'with_front' => false ),
+		'rewrite'             => [ 'slug' => 'venue', 'with_front' => false ],
 		'show_ui'             => true,
 		'show_in_menu'        => 0,
-		'supports'            => array( 'title', 'editor' ),
-		'capability_type'     => array( 'tribe_venue', 'tribe_venues' ),
+		'supports'            => [ 'title', 'editor' ],
+		'capability_type'     => [ 'tribe_venue', 'tribe_venues' ],
 		'map_meta_cap'        => true,
 		'exclude_from_search' => true,
-	);
+	];
 
 	/**
 	 * @var string
@@ -31,7 +31,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * @var array A list of all the valid Venue keys, post fields and custom fields
 	 */
-	public static $valid_venue_keys = array(
+	public static $valid_venue_keys = [
 		'Venue',
 		'Address',
 		'City',
@@ -41,12 +41,12 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		'Province',
 		'Zip',
 		'Phone',
-	);
+	];
 
 	/**
 	 * @var array A list of the valid meta keys for this linked post.
 	 */
-	public static $meta_keys = array(
+	public static $meta_keys = [
 		'Address',
 		'City',
 		'Province',
@@ -55,7 +55,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		'Province',
 		'Zip',
 		'Phone',
-	);
+	];
 
 	/**
 	 * @var string
@@ -96,13 +96,14 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_venue_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
 		$this->post_type_args['public']            = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
+		$this->post_type_args['show_in_rest']      = class_exists( 'Tribe__Events__Pro__Main' ) && current_user_can( 'manage_options' );
 
 		/**
 		 * Provides an opportunity to modify the labels used for the venue post type.
 		 *
 		 * @param array $args Array of arguments for register_post_type labels
 		 */
-		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
+		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', [
 			'name'                     => $this->plural_venue_label,
 			'singular_name'            => $this->singular_venue_label,
 			'singular_name_lowercase'  => $this->singular_venue_label_lowercase,
@@ -120,18 +121,26 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			'item_reverted_to_draft'   => sprintf( esc_html__( '%s reverted to draft.', 'the-events-calendar' ), $this->singular_venue_label ),
 			'item_scheduled'           => sprintf( esc_html__( '%s scheduled.', 'the-events-calendar' ), $this->singular_venue_label ),
 			'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_venue_label ),
-		) );
+			'item_link'                => sprintf(
+				// Translators: %s: Venue singular.
+				esc_html__( '%s Link', 'the-events-calendar' ), $this->singular_venue_label
+			),
+			'item_link_description'    => sprintf(
+				// Translators: %s: Venue singular.
+				esc_html__( 'A link to a particular %s.', 'the-events-calendar' ), $this->singular_venue_label
+			),
+		] );
 
 		$this->register_post_type();
 
-		add_filter( 'tribe_events_linked_post_type_args', array( $this, 'filter_linked_post_type_args' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 4 );
-		add_filter( 'tribe_events_linked_post_meta_box_title', array( $this, 'meta_box_title' ), 5, 2 );
-		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
-		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
+		add_filter( 'tribe_events_linked_post_type_args', [ $this, 'filter_linked_post_type_args' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_id_field_index', [ $this, 'linked_post_id_field_index' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_name_field_index', [ $this, 'linked_post_name_field_index' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_type_container', [ $this, 'linked_post_type_container' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, [ $this, 'save' ], 10, 4 );
+		add_filter( 'tribe_events_linked_post_meta_box_title', [ $this, 'meta_box_title' ], 5, 2 );
+		add_filter( 'tribe_events_linked_post_default', [ $this, 'linked_post_default' ], 10, 2 );
+		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
 	}
 
 	/**
@@ -291,7 +300,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			unset( $data['VenueID'] );
 		}
 
-		return $this->create( $data, $post_status );
+		return $this->create( $data, $post_status, true );
 	}
 
 	/**
@@ -315,7 +324,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		 */
 		do_action( 'tribe_events_venue_save', $venue_id, $data, $venue );
 
-		// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
+		// @todo [BTRIA-609]: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 		if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 			if (
 				isset( $data['State'] ) && $data['State'] != ''
@@ -355,7 +364,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 		foreach ( $data as $key => $var ) {
 			// Prevent these WP_Post object fields from ending up in the meta.
-			if ( in_array( $key, array( 'post_title', 'post_excerpt', 'post_content', 'post_status' ) ) ) {
+			if ( in_array( $key, [ 'post_title', 'post_excerpt', 'post_content', 'post_status' ] ) ) {
 				continue;
 			}
 
@@ -398,7 +407,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 			$data = new Tribe__Data( $data, false );
 
-			$postdata = array(
+			$postdata = [
 				'post_title'    => $title,
 				'post_content'  => $content,
 				'post_name'     => $slug,
@@ -407,7 +416,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				'post_author'   => $data['post_author'],
 				'post_date'     => $data['post_date'],
 				'post_date_gmt' => $data['post_date_gmt'],
-			);
+			];
 
 			$found = false;
 			if ( $avoid_duplicates ) {
@@ -419,8 +428,14 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 				// for the purpose of finding duplicates we skip empty fields
 				$candidate_data = array_filter( $postdata );
+
+				// Set the $post_title to avoid returning false for lack of a post title.
+				if ( ! isset( $candidate_data['post_title'] ) ) {
+					$candidate_data['post_title'] = '';
+				}
+
 				$candidate_data = array_combine(
-					array_map( array( $this, 'prefix_key' ), array_keys( $candidate_data ) ),
+					array_map( [ $this, 'prefix_key' ], array_keys( $candidate_data ) ),
 					array_values( $candidate_data )
 				);
 
@@ -523,7 +538,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 		unset( $data['VenueID'] );
 
-		$args = array_filter( array(
+		$args = array_filter( [
 			'ID'            => $venue_id,
 			'post_title'    => Tribe__Utils__Array::get( $data, 'post_title', $data['Venue'] ),
 			'post_content'  => Tribe__Utils__Array::get( $data, 'post_content', $data['Description'] ),
@@ -532,14 +547,14 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			'post_date'     => $data['post_date'],
 			'post_date_gmt' => $data['post_date_gmt'],
 			'post_status'   => $data['post_status'],
-		) );
+		] );
 
 		if ( count( $args ) > 1 ) {
 			$post_type = Tribe__Events__Main::VENUE_POST_TYPE;
 			$tag       = "save_post_{$post_type}";
-			remove_action( $tag, array( tribe( 'tec.main' ), 'save_venue_data' ), 16 );
+			remove_action( $tag, [ tribe( 'tec.main' ), 'save_venue_data' ], 16 );
 			wp_update_post( $args );
-			add_action( $tag, array( tribe( 'tec.main' ), 'save_venue_data' ), 16, 2 );
+			add_action( $tag, [ tribe( 'tec.main' ), 'save_venue_data' ], 16, 2 );
 		}
 
 		if ( isset( $data['ShowMap'] ) && ! tribe_is_truthy( $data['ShowMap'] ) ) {
@@ -553,11 +568,11 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			$data['ShowMapLink'] = true;
 		}
 
-		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, array(
+		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, [
 			'Venue',
 			'Description',
 			'Excerpt',
-		) );
+		] );
 		$meta        = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
 
 		$this->save_meta( $venue_id, $meta );
@@ -625,11 +640,11 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
 	 */
 	protected function get_duplicate_post_fields() {
-		$fields = array(
-			'post_title'   => array( 'match' => 'same' ),
-			'post_content' => array( 'match' => 'same' ),
-			'post_excerpt' => array( 'match' => 'same' ),
-		);
+		$fields = [
+			'post_title'   => [ 'match' => 'same' ],
+			'post_content' => [ 'match' => 'same' ],
+			'post_excerpt' => [ 'match' => 'same' ],
+		];
 
 		/**
 		 * Filters the post fields that should be used to search for a venue duplicate.
@@ -652,15 +667,15 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
 	 */
 	protected function get_duplicate_custom_fields() {
-		$fields = array(
-			'_VenueAddress'       => array( 'match' => 'like' ),
-			'_VenueCity'          => array( 'match' => 'same' ),
-			'_VenueProvince'      => array( 'match' => 'same' ),
-			'_VenueState'         => array( 'match' => 'same' ),
-			'_VenueStateProvince' => array( 'match' => 'same' ),
-			'_VenueZip'           => array( 'match' => 'same' ),
-			'_VenuePhone'         => array( 'match' => 'same' ),
-		);
+		$fields = [
+			'_VenueAddress'       => [ 'match' => 'like' ],
+			'_VenueCity'          => [ 'match' => 'same' ],
+			'_VenueProvince'      => [ 'match' => 'same' ],
+			'_VenueState'         => [ 'match' => 'same' ],
+			'_VenueStateProvince' => [ 'match' => 'same' ],
+			'_VenueZip'           => [ 'match' => 'same' ],
+			'_VenuePhone'         => [ 'match' => 'same' ],
+		];
 
 		/**
 		 * Filters the custom fields that should be used to search for a venue duplicate.

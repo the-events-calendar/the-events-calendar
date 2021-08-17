@@ -54,7 +54,7 @@
 				<p><?php esc_html_e( 'We\'ve redesigned all of the calendar views to give you and your users a better experience. Beyond a brand new look, we\'ve optimized every design for mobile and introduced key improvements for each view.', 'the-events-calendar' ); ?></p>
 
 				<button type="button"><?php esc_html_e( 'Start your upgrade', 'the-events-calendar' ); ?></button>
-				<a href="http://m.tri.be/updated-views" target="_blank" rel="noopener" class="tribe-upgrade-absolute-text">
+				<a href="http://evnt.is/updated-views" target="_blank" rel="noopener" class="tribe-upgrade-absolute-text">
 					<?php esc_html_e( 'Learn more about the upgrade', 'the-events-calendar' ); ?>
 				</a>
 
@@ -98,7 +98,7 @@
 						<h4><span class="dashicons dashicons-warning"></span>
 						<?php echo sprintf(
 							esc_html__( 'We recommend making this update on a %1$sstaging site%2$s.', 'the-events-calendar' ),
-							'<a href="http://m.tri.be/kb-staging" target="_blank">',
+							'<a href="http://evnt.is/kb-staging" target="_blank">',
 							'</a>'
 						); ?></h4>
 						<p><?php esc_html_e( 'This is especially true if you have made any code customizations to your calendar.', 'the-events-calendar' ); ?></p>

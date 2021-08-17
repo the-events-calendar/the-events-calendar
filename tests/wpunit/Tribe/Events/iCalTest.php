@@ -244,6 +244,32 @@ class iCalTest extends WPTestCase {
 	}
 
 	/**
+	 * Check to make sure that month_view_ical_link function works as expected with no date.
+	 */
+	public function test_get_month_view_ical_link_no_date() {
+		$ical_link_via_object = $this->make_instance()->month_view_ical_link();
+
+		$this->assertNotEmpty( filter_var( $ical_link_via_object, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from object.' );
+
+		$manual_link = untrailingslashit( home_url() ) . '/events/' . \Tribe__Date_Utils::build_date_object()->format( \Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT ) . '/?ical=1';
+
+		$this->assertEquals( $ical_link_via_object, $manual_link, 'Check that the object gets the same results as a manual build.' );
+	}
+
+	/**
+	 * Check to make sure that month_view_ical_link function works as expected with a date supplied.
+	 */
+	public function test_get_month_view_ical_link_with_date() {
+		$ical_link_via_object = $this->make_instance()->month_view_ical_link( '2020-10' );
+
+		$this->assertNotEmpty( filter_var( $ical_link_via_object, FILTER_VALIDATE_URL ), 'Checking that we get back a valid URL from object.' );
+
+		$manual_link = untrailingslashit( home_url() ) . '/events/2020-10/?ical=1';
+
+		$this->assertEquals( $ical_link_via_object, $manual_link, 'Check that the object gets the same results as a manual build.' );
+	}
+
+	/**
 	 * It should generate the iCal content
 	 *
 	 * @dataProvider ical_content_provider
@@ -306,15 +332,49 @@ multiple lines",
 		$event = get_post( $event );
 		$ical = $sut->generate_ical_feed( $event, false );
 
-		$this->assertContains( "SUMMARY:" . $args['post_title'], $ical );
+		$this->assertContains( "SUMMARY:" . wp_strip_all_tags( $args['post_title'] ), $ical );
 
 		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event->post_content ) );
 
 		$content =  str_replace(
 			[  ',', "\n", "\r"  ],
 			[  '\,', '\n', '' ],
-			strip_tags( str_replace( '</p>', '</p> ', $content ) )
+			wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) )
 		);
+
 		$this->assertContains( "DESCRIPTION:" . $content, $ical );
+	}
+
+	public function event_timezones() {
+		return [
+			[ 'UTC' ],
+			[ 'America/New_York' ],
+			[ 'Europe/Paris' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider event_timezones
+	 */
+	public function should_parse_the_event_dates( $timezone_name ) {
+
+		$format = 'Ymd\THis';
+		$event  = $this->factory()->event->starting_on( '2021-01-10 09:00:00' )
+										 ->with_timezone( $timezone_name )
+		                                 ->lasting( 5 * HOUR_IN_SECONDS )
+		                                 ->create();
+
+		$sut   = $this->make_instance();
+		$event = get_post( $event );
+		$ical  = $sut->generate_ical_feed( $event, false );
+
+		$start           = tribe_get_start_date( $event->ID, false, 'U' );
+		$end             = tribe_get_end_date( $event->ID, false, 'U' );
+		$start_timestamp = \Tribe__Date_Utils::build_date_object( $start )->format( $format );
+		$end_timestamp   = \Tribe__Date_Utils::build_date_object( $end )->format( $format );
+
+		$this->assertContains( "DTSTART;TZID={$timezone_name}:{$start_timestamp}", $ical );
+		$this->assertContains( "DTEND;TZID={$timezone_name}:{$end_timestamp}", $ical );
 	}
 }

@@ -1,4 +1,5 @@
 actor: Views_wpunitTester
+boostrap: _bootsrap.php
 modules:
     enabled:
         - \Helper\Views_wpunit

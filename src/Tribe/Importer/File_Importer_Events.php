@@ -5,7 +5,7 @@
  */
 class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Importer__File_Importer {
 
-	protected $required_fields = array( 'event_name', 'event_start_date' );
+	protected $required_fields = [ 'event_name', 'event_start_date' ];
 
 	/**
 	 * Searches the database for an existing event matching the one described
@@ -22,53 +22,53 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$all_day    = $this->get_boolean_value_by_key( $record, 'event_all_day' );
 
 		// Base query - only the meta query will be different
-		$query_args = array(
+		$query_args = [
 			'post_type'        => Tribe__Events__Main::POSTTYPE,
 			'post_title'       => $this->get_value_by_key( $record, 'event_name' ),
 			'fields'           => 'ids',
 			'posts_per_page'   => 1,
 			'suppress_filters' => false,
 			'post_status'      => 'any',
-		);
+		];
 
 		// When trying to find matches for all day events, the comparison should only be against the date
 		// component only since a) the time is irrelevant and b) the time may have been adjusted to match
 		// the eod cutoff setting
 		if ( Tribe__Date_Utils::is_all_day( $all_day ) ) {
-			$meta_query = array(
-				array(
+			$meta_query = [
+				[
 					'key'     => '_EventStartDate',
 					'value'   => $this->get_event_start_date( $record, true ),
 					'compare' => 'LIKE',
-				),
-				array(
-					'key'     => '_EventAllDay',
-					'value'   => 'yes',
-				),
-			);
-		// For regular, non-all day events, use the full date *and* time in the start date comparison
+				],
+				[
+					'key'   => '_EventAllDay',
+					'value' => 'yes',
+				],
+			];
+			// For regular, non-all day events, use the full date *and* time in the start date comparison
 		} else {
-			$meta_query = array(
-				array(
+			$meta_query = [
+				[
 					'key'   => '_EventStartDate',
 					'value' => $start_date,
-				),
-			);
+				],
+			];
 		}
 
 		// Optionally use the end date/time for matching, where available
 		if ( ! empty( $end_date ) && ! $all_day ) {
-			$meta_query[] = array(
+			$meta_query[] = [
 				'key'   => '_EventEndDate',
 				'value' => $end_date,
-			);
+			];
 		}
 
 		$query_args['meta_query'] = $meta_query;
 		$query_args['tribe_remove_date_filters'] = true;
 		$query_args['tribe_suppress_query_filters'] = true;
 
-		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
+		add_filter( 'posts_search', [ $this, 'filter_query_for_title_search' ], 10, 2 );
 
 		/**
 		 * Add an option to change the $matches that are duplicates.
@@ -79,7 +79,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 * @param array $query_args Array with the arguments used to get the posts.
 		 */
 		$matches = (array) apply_filters( 'tribe_events_import_event_duplicate_matches', get_posts( $query_args ), $query_args );
-		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10 );
+		remove_filter( 'posts_search', [ $this, 'filter_query_for_title_search' ], 10 );
 
 		if ( empty( $matches ) ) {
 			return 0;
@@ -203,14 +203,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$post_status_setting = tribe( 'events-aggregator.settings' )->default_post_status( 'csv' );
 		}
 
-		$event = array(
+		$event = [
 			'post_type'             => Tribe__Events__Main::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => $post_status_setting,
-			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
+			'post_content'          => $this->get_post_text_field( $event_id, $record, 'event_description', 'post_content' ),
 			'comment_status'        => $this->get_boolean_value_by_key( $record, 'event_comment_status', 'open', 'closed' ),
 			'ping_status'           => $this->get_boolean_value_by_key( $record, 'event_ping_status', 'open', 'closed' ),
-			'post_excerpt'          => $this->get_post_excerpt( $event_id, $this->get_value_by_key( $record, 'event_excerpt' ) ),
+			'post_excerpt'          => $this->get_post_text_field( $event_id, $record, 'event_excerpt', 'post_excerpt' ),
 			'menu_order'            => $this->get_boolean_value_by_key( $record, 'event_sticky', '-1', '0' ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),
@@ -230,14 +230,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventCurrencyPosition' => $this->get_currency_position( $record ),
 			'EventTimezone'         => $this->get_timezone( $this->get_value_by_key( $record, 'event_timezone' ) ),
 			'feature_event'         => $this->get_boolean_value_by_key( $record, 'feature_event', '1', '' ),
-		);
+		];
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
-			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : array( 'OrganizerID' => $organizer_id );
+			$event['organizer'] = is_array( $organizer_id ) ? $organizer_id : [ 'OrganizerID' => $organizer_id ];
 		}
 
 		if ( $venue_id = $this->find_matching_venue_id( $record ) ) {
-			$event['venue'] = array( 'VenueID' => $venue_id );
+			$event['venue'] = [ 'VenueID' => $venue_id ];
 		}
 
 		$cats = $this->get_value_by_key( $record, 'event_category' );
@@ -266,7 +266,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['EventShowInCalendar'] = 'yes';
 		}
 
-		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', [] );
 
 		if ( ! empty ( $additional_fields ) ) {
 			foreach ( $additional_fields as $key => $csv_column ) {
@@ -302,7 +302,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * @return array
 	 */
 	private function match_organizers( $organizers ) {
-		$matches   = array();
+		$matches   = [];
 		$separator = $this->get_separator(); // We allow this to be filtered
 		$skip      = false; // For concatenation checks
 
@@ -340,10 +340,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		// If we get something outlandish - like no organizers or more organizers than expected, bail
 		if ( empty( $matches ) || count( $matches ) > count( $organizers ) ) {
-			return array();
+			return [];
 		}
 
-		$organizer_ids = array( 'OrganizerID' => array() );
+		$organizer_ids = [ 'OrganizerID' => [] ];
 		foreach ( $matches as $id ) {
 			$organizer_ids[ 'OrganizerID' ][] = $id;
 		}
@@ -415,10 +415,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$matching_post_ids = $this->find_matching_post_id( $organizer, Tribe__Events__Organizer::POSTTYPE, 'any' );
 
 		if ( ! is_array( $matching_post_ids ) ) {
-			$matching_post_ids = array( $matching_post_ids );
+			$matching_post_ids = [ $matching_post_ids ];
 		}
 
-		return array( 'OrganizerID' => $matching_post_ids );
+		return [ 'OrganizerID' => $matching_post_ids ];
 	}
 
 	private function find_matching_venue_id( $record ) {
@@ -443,23 +443,41 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
-	 * Returns the `post_excerpt` to use.
+	 * Get Post Text from Import or Existing Value using the provided field name and post field.
 	 *
-	 * Will return the existing one if present.
+	 * @since 5.1.6
 	 *
-	 * @param int $event_id
-	 * @param string $import_excerpt
+	 * @param int    $event_id   The event id being updated by import.
+	 * @param array  $record     An event record from the import.
+	 * @param string $field      The import field name.
+	 * @param string $post_field The post field name.
 	 *
-	 * @return string
+	 * @return string The description value to update the event with.
 	 */
-	private function get_post_excerpt( $event_id, $import_excerpt ) {
-		if ( $event_id ) {
-			$post_excerpt = get_post( $event_id )->post_excerpt;
+	protected function get_post_text_field( $event_id, $record, $field, $post_field ) {
 
-			return empty( $post_excerpt ) && ! empty( $import_excerpt ) ? $import_excerpt : $post_excerpt;
+		$import_exists = $this->has_value_by_key( $record, $field );
+
+		// If the import field is not being imported and there is no id, return an empty string.
+		if ( ! $import_exists && empty( $event_id ) ) {
+			return '';
 		}
 
-		return $import_excerpt;
+		// If the import field is not being imported and there is an id, return current description.
+		if ( ! $import_exists && $event_id ) {
+
+			$post = get_post( $event_id );
+			if ( ! $post instanceof \WP_Post ) {
+				return '';
+			}
+
+			return $post->{$post_field};
+		}
+
+		$import_description = $this->get_value_by_key( $record, $field );
+
+		// If there is no event id we return the imported description, even if empty.
+		return $import_description;
 	}
 
 	/**
@@ -472,7 +490,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 */
 	private function get_currency_position( array $record ) {
 		$currency_position = $this->get_value_by_key( $record, 'event_currency_position' );
-		$after_aliases     = array( 'suffix', 'after' );
+		$after_aliases     = [ 'suffix', 'after' ];
 
 		foreach ( $after_aliases as $after_alias ) {
 			if ( preg_match( '/' . $after_alias . '/i', $currency_position ) ) {
@@ -481,5 +499,25 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return 'prefix';
+	}
+
+	/**
+	 * Returns the `post_excerpt` to use.
+	 *
+	 * @deprecated5.1.6
+	 *
+	 * @param int    $event_id        The event id being updated by import.
+	 * @param string $import_excerpt The imported excerpt text.
+	 *
+	 * @return string
+	 */
+	private function get_post_excerpt( $event_id, $import_excerpt ) {
+		_deprecated_function(
+			__METHOD__,
+			'5.1.6',
+			'$this->get_post_text_field( $event_id, $record, "event_excerpt", "post_excerpt" )'
+		);
+
+		return '';
 	}
 }

@@ -99,7 +99,6 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		// mark the record creation as a preview record
 		$meta['preview'] = true;
 
-
 		if ( ! empty( $post_data['import_id'] ) ) {
 			$this->handle_import_finalize( $post_data );
 			return;
@@ -169,6 +168,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				$this->messages[ 'error' ][] = $create_schedule_result->get_error_message();
 
 				tribe_notice( 'tribe-aggregator-import-failed', array( $this, 'render_notice_import_failed' ), 'type=error' );
+
+				tribe( 'logger' )->log_debug( 'There was an error while creating the schedule record.', 'EA New' );
 
 				$record->set_status_as_failed( $create_schedule_result );
 				return $create_schedule_result;
@@ -257,7 +258,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			if ( ! empty( $item_updated ) ) {
 				$content_label = 1 === $queue->activity->count( $content_post_type, 'updated' ) ? $content_type : $content_type_plural;
 
-				// @todo: include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>
+				// @todo [BTRIA-589]: Include a part of sentence like: ", including %1$d %2$signored event%3$s.", <a href="/wp-admin/edit.php?post_status=tribe-ignored&post_type=tribe_events">, </a>.
 				$messages['success'][] = sprintf( // add updated event count
 					_n( '%1$d existing %2$s was updated.', '%1$d existing %2$s were updated.', $queue->activity->count( $content_post_type, 'updated' ), 'the-events-calendar' ),
 					$queue->activity->count( $content_post_type, 'updated' ),
@@ -281,6 +282,20 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 				$messages['success'][] = sprintf( // add image import count
 					_n( '%1$d new image was imported.', '%1$d new images were imported.', $queue->activity->count( 'images', 'created' ), 'the-events-calendar' ),
 					$queue->activity->count( 'images', 'created' )
+				);
+			}
+
+			$images_scheduled = $queue->activity->get( 'images', 'scheduled' );
+			if ( ! empty( $images_scheduled ) ) {
+				$messages['success'][] = sprintf(
+						// translators: %1$d is replaced with a number of scheduled images.
+						_n(
+								'%1$d new image was scheduled for import.',
+								'%1$d new images were scheduled for import.',
+								$queue->activity->count( 'images', 'scheduled' ),
+								'the-events-calendar'
+						),
+						$queue->activity->count( 'images', 'scheduled' )
 				);
 			}
 
@@ -502,28 +517,24 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 		ob_start();
 		?>
 		<div class="notice inline notice-info tribe-dependent tribe-notice-tribe-missing-aggregator-license" data-ref="tribe-missing-aggregator-license" data-depends="#tribe-ea-field-origin" data-condition-empty>
+			<div class="tribe-notice-tribe-missing-aggregator-license__content">
+				<div class="upsell-banner">
+					<?php esc_html_e( 'Events Aggregator', 'the-events-calendar' );?>
+				</div>
 
-			<div class="upsell-banner">
-				<img src="<?php echo esc_url( tribe_events_resource_url( 'images/aggregator/upsell-banner.png' ) ) ; ?>">
+				<h3><?php esc_html_e( 'Import events with ease', 'the-events-calendar' ); ?></h3>
+
+				<p><?php esc_html_e( 'Effortlessly fill your calendar with events from Meetup, Eventbrite, iCal, Google Calendar, and more.', 'the-events-calendar' ); ?></p>
+
+				<a href="https://evnt.is/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
+					<?php esc_html_e( 'Learn More', 'the-events-calendar' ); ?>
+					<span class="screen-reader-text">
+						<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
+					</span>
+				</a>
 			</div>
+			<div class="tribe-notice-tribe-missing-aggregator-license__image"></div>
 
-			<h3><?php esc_html_e( 'Import Using Event Aggregator', 'the-events-calendar' ); ?></h3>
-
-			<p><?php esc_html_e( 'With Event Aggregator, you can import events from iCalendar, Google, and Meetup.com in a jiffy.', 'the-events-calendar' ); ?></p>
-
-			<a href="https://m.tri.be/196y" class="tribe-license-link tribe-button tribe-button-primary" target="_blank">
-				<?php esc_html_e( 'Buy It Now', 'the-events-calendar' );?>
-				<span class="screen-reader-text">
-					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
-				</span>
-			</a>
-
-			<a href="https://m.tri.be/196z" class="tribe-license-link tribe-button tribe-button-secondary" target="_blank">
-				<?php esc_html_e( 'Learn More', 'the-events-calendar' ); ?>
-				<span class="screen-reader-text">
-					<?php esc_html_e( 'opens in a new window', 'the-events-calendar' );?>
-				</span>
-			</a>
 		</div>
 		<?php
 

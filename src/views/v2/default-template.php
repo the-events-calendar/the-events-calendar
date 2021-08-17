@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 5.0.0
  */
@@ -15,5 +15,7 @@
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 get_header();
+
 echo tribe( Template_Bootstrap::class )->get_view_html();
+
 get_footer();

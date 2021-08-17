@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @since 5.0.0
  *
@@ -18,9 +18,8 @@
 
 $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__calendar-event' ], $event->ID );
 
-if ( ! empty( $event->featured ) ) {
-	$classes[] = 'tribe-events-calendar-month__calendar-event--featured';
-}
+$classes['tribe-events-calendar-month__calendar-event--featured'] = ! empty( $event->featured );
+$classes['tribe-events-calendar-month__calendar-event--sticky']   = ( -1 === $event->menu_order );
 ?>
 
 <article <?php tribe_classes( $classes ) ?>>

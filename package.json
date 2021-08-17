@@ -1,7 +1,7 @@
 {
   "name": "the-events-calendar",
-  "version": "5.1.2",
-  "repository": "git@github.com:moderntribe/the-events-calendar.git",
+  "version": "5.8.1",
+  "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
   "_resourcepath": "src/resources",
@@ -10,17 +10,14 @@
   "_glotPressUrl": "https://translate.wordpress.org",
   "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": [
-    "po",
-    "mo"
-  ],
+  "_glotPressFormats": ["po", "mo"],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
     "waiting_strings": false
   },
   "scripts": {
-    "preinstall": "if [ -d node_modules/product-taskmaster ]; then node node_modules/product-taskmaster/scripts/syncPackageJSON.js; fi",
+    "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
@@ -34,15 +31,13 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "TZ=UTC jest --config jest.config.json",
     "test:travis": "npm run test -- --maxWorkers=4",
-    "zip": "node node_modules/product-taskmaster/util/zip.js",
+    "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
-  "engines": {
-    "node": "0.10.30",
-    "npm": "1.4.23"
-  },
+  "engines": { "node": "10.16.0", "npm": "6.9.0" },
   "devDependencies": {
     "@babel/runtime": "7.0.0-beta.52",
+    "@the-events-calendar/product-taskmaster": "^1.0.0",
     "@wordpress/hooks": "^1.3.2",
     "archiver": "^3.0.0",
     "autoprefixer": "6.7.7",
@@ -66,8 +61,9 @@
     "css-mqpacker": "^4.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.6.1",
     "eslint": "^4.19.1",
-    "eslint-config-products": "github:moderntribe/eslint-config-products#v0.1.1",
+    "eslint-config-products": "github:the-events-calendar/eslint-config-products#v0.1.1",
     "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.11.1",
@@ -89,9 +85,8 @@
     "postcss-mixins": "^4.0.1",
     "postcss-nested": "^1.0.0",
     "postcss-preset-env": "^6.0.10",
-    "product-taskmaster": "github:moderntribe/product-taskmaster",
     "react-svg-loader": "^2.1.0",
-    "react-test-renderer": "^16.5.2",
+    "react-test-renderer": "16.3.0",
     "redux-devtools-extension": "^2.13.7",
     "redux-mock-store": "^1.5.3",
     "require-dir": "^0.3.0",
@@ -120,14 +115,15 @@
     "google-maps-react": "^1.1.11",
     "he": "^1.2.0",
     "jquery": "3.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
+    "mt-a11y-dialog": "^5.1.1",
     "prop-types": "^15.6.2",
     "querystringify": "^2.0.0",
     "react": "16.3.0",
     "react-day-picker": "^7.2.4",
-    "react-dom": "16.3.3",
+    "react-dom": "16.3.0",
     "react-google-maps": "^9.4.5",
     "react-input-autosize": "^2.2.1",
     "react-places-autocomplete": "^6.1.2",
@@ -144,5 +140,6 @@
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
-  }
+  },
+  "resolutions": { "graceful-fs": "^4.2.4" }
 }

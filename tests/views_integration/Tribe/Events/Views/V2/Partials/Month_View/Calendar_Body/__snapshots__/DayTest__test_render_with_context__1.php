@@ -6,10 +6,9 @@
 >
 
 	<button
-					aria-expanded="true"
-			aria-selected="true"
-			aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
-				 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
+		aria-expanded="true"
+		aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
+		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
 		tabindex="-1"
 	>
 		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -24,9 +23,12 @@
 		</h3>
 								<em
 				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				aria-label="Has featured events"
 				title="Has featured events"
 			>
+				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
+	<title>Has featured events</title>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
+</svg>
 			</em>
 			</button>
 
@@ -69,7 +71,8 @@
 	aria-describedby="tribe-events-tooltip-content-999997"
 >
 		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Test Multi-day Event &#8211; 2018-07-01 11am</h3></a>
+	Test Multi-day Event &#8211; 2018-07-01 11am</h3>
+</a>
 </div>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
 	<div
@@ -112,7 +115,8 @@
 	aria-describedby="tribe-events-tooltip-content-999996"
 >
 		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Test Multi-day Event &#8211; 2018-07-01 1pm</h3></a>
+	Test Multi-day Event &#8211; 2018-07-01 1pm</h3>
+</a>
 </div>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
 	<div

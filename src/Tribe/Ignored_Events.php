@@ -34,40 +34,40 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 		public function action_assets() {
 			$plugin = Tribe__Events__Main::instance();
-			$localize = array();
+			$localize = [];
 
 			if ( ! empty( $_GET['post'] ) && $this->can_ignore( $_GET['post'] ) ) {
 				$post = get_post( $_GET['post'] );
 				if ( self::$ignored_status === $post->post_status ) {
-					$localize['single'] = array(
+					$localize['single'] = [
 						'link_text'   => esc_html__( 'Delete Permanently', 'the-events-calendar' ),
 						'link_title'  => esc_attr__( 'Ignored events that are deleted will be removed permanently. They can be recreated via import.', 'the-events-calendar' ),
 						'link_nonce'  => wp_create_nonce( 'delete-post_' . $post->ID ),
 						'link_post'   => $post->ID,
 						'link_status' => esc_html__( 'Ignored', 'the-events-calendar' ),
-					);
+					];
 				} else {
-					$localize['single'] = array(
+					$localize['single'] = [
 						'link_text'  => esc_html__( 'Hide & Ignore', 'the-events-calendar' ),
 						'link_title' => esc_attr__( 'Ignored events do not show on the calendar but can be updated with future imports', 'the-events-calendar' ),
-					);
+					];
 				}
 			}
 
 			if ( isset( $_GET['post_status'] ) && self::$ignored_status === $_GET['post_status'] ) {
-				$localize['archive'] = array(
+				$localize['archive'] = [
 					'delete_label' => esc_html__( 'Delete Permanently', 'the-events-calendar' ),
-				);
+				];
 			}
 
-			$args = array(
-				'localize' => array(
+			$args = [
+				'localize' => [
 					'name' => 'tribe_ignore_events',
 					'data' => $localize,
-				),
-			);
+				],
+			];
 
-			tribe_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', array( 'jquery' ), 'admin_enqueue_scripts', $args );
+			tribe_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', [ 'jquery' ], 'admin_enqueue_scripts', $args );
 		}
 
 		/**
@@ -78,9 +78,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return  array
 		 */
 		public function filter_bulk_actions( $actions ) {
+
 			if ( ! isset( $_GET['post_status'] ) || self::$ignored_status !== $_GET['post_status'] ) {
 				return $actions;
 			}
+
 
 			$post_type_obj = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 
@@ -118,7 +120,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			$ids           = (array) explode( ',', $_GET['ids'] );
-			$ignored       = array_filter( $ids, array( $this, 'can_ignore' ) );
+			$ignored       = array_filter( $ids, [ $this, 'can_ignore' ] );
 			$count_ignored = count( $ignored );
 
 			if ( 0 >= $count_ignored ) {
@@ -137,11 +139,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				$messages[ Tribe__Events__Main::POSTTYPE ]['trashed'] .= sprintf( _n( 'and %s post moved to Ignored.', 'and %s posts moved to Ignored.', $count_ignored, 'the-events-calendar' ), $count_ignored );
 			}
 
-			$args = array(
+			$args = [
 				'ids'          => preg_replace( '/[^0-9,]/', '', $_REQUEST['ids'] ),
 				'tribe-action' => 'tribe-restore',
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
-			);
+			];
 			$url = wp_nonce_url( add_query_arg( $args, 'edit.php' ), 'tribe-restore' );
 
 			// Cant `esc_url` this URL because it will make sprintf throw a warning on WP code
@@ -213,7 +215,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				$sendback = wp_get_referer();
 			}
 
-			$sendback = remove_query_arg( array( 'trashed', 'untrashed', 'deleted', 'locked', 'ids' ), $sendback );
+			$sendback = remove_query_arg( [ 'trashed', 'untrashed', 'deleted', 'locked', 'ids' ], $sendback );
 
 			if ( isset( $_REQUEST['ids'] ) ) {
 				$post_ids = explode( ',', $_REQUEST['ids'] );
@@ -261,8 +263,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return false;
 			}
 
-			$ids = (array) explode( ',', $_GET['ids'] );
-			$restored = array();
+			$ids      = (array) explode( ',', $_GET['ids'] );
+			$restored = [];
 
 			foreach ( $ids as $id ) {
 				if ( ! current_user_can( 'delete_post', $id ) ) {
@@ -283,11 +285,17 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$message = '<p>' . sprintf( _n( '%s post restored.', '%s posts restored.', $count_restored, 'the-events-calendar' ), $count_restored ) . '</p>';
 
 			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
-				$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tribe-action', '_wpnonce' ), $_SERVER['REQUEST_URI'] );
+				$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'tribe-action', '_wpnonce' ], $_SERVER['REQUEST_URI'] );
 			} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
-				$_REQUEST['_wp_http_referer'] = remove_query_arg( array( 'tribe-action', '_wpnonce' ), $_REQUEST['_wp_http_referer'] );
+				$_REQUEST['_wp_http_referer'] = remove_query_arg(
+					[
+						'tribe-action',
+						'_wpnonce',
+					],
+					$_REQUEST['_wp_http_referer']
+				);
 			} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
-				$_SERVER['HTTP_REFERER'] = remove_query_arg( array( 'tribe-action', '_wpnonce' ), $_SERVER['HTTP_REFERER'] );
+				$_SERVER['HTTP_REFERER'] = remove_query_arg( [ 'tribe-action', '_wpnonce' ], $_SERVER['HTTP_REFERER'] );
 			}
 
 			return tribe_notice( 'restored-events', $message, 'dismiss=1&type=success' );
@@ -309,10 +317,18 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			unset( $columns['author'], $columns['events-cats'], $columns['tags'], $columns['comments'], $columns['recurring'] );
 
 			// Add New Columns backwards
-			$columns = Tribe__Main::array_insert_after_key( 'title', $columns, array( 'source' => esc_html__( 'Source', 'the-events-calendar' ) ) );
+			$columns = Tribe__Main::array_insert_after_key(
+				'title',
+				$columns,
+				[ 'source' => esc_html__( 'Source', 'the-events-calendar' ) ]
+			);
 
 			$info = ' <span class="dashicons dashicons-editor-help" title="' . esc_attr__( 'The last time this event was imported and/or updated via import.', 'the-events-calendar' ) . '"></span>';
-			$columns = Tribe__Main::array_insert_after_key( 'title', $columns, array( 'last-import' => esc_html__( 'Last Import', 'the-events-calendar' ) . $info ) );
+			$columns = Tribe__Main::array_insert_after_key(
+				'title',
+				$columns,
+				[ 'last-import' => esc_html__( 'Last Import', 'the-events-calendar' ) . $info ]
+			);
 
 			return $columns;
 		}
@@ -332,7 +348,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return false;
 			}
 
-			$html = array();
+			$html = [];
 			if ( 'source' === $column ) {
 				$html[] = '<p>' . esc_html_x( 'via ', 'record via origin', 'the-events-calendar' ) . '<strong>' . $record->get_label() . '</strong></p>';
 				if ( 'ea/ics' === $record->post->post_mime_type || 'ea/csv' === $record->post->post_mime_type ) {
@@ -446,7 +462,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return array $views After adding the new Link
 		 */
-		public function filter_views( $views = array() ) {
+		public function filter_views( $views = [] ) {
 			// This will prevent having the Ignored link twice on the Edit Page
 			if ( $this->has_ignored_posts( false ) ) {
 				return $views;
@@ -458,10 +474,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return $views;
 			}
 
-			$args = array(
-				'post_type' => Tribe__Events__Main::POSTTYPE,
+			$args = [
+				'post_type'   => Tribe__Events__Main::POSTTYPE,
 				'post_status' => self::$ignored_status,
-			);
+			];
 
 			$url = add_query_arg( $args, 'edit.php' );
 
@@ -510,7 +526,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return true;
 			}
 
-			$query = $this->get_query( array( 'fields' => 'ids' ) );
+			$query = $this->get_query( [ 'fields' => 'ids' ] );
 
 			return $query->have_posts();
 		}
@@ -522,7 +538,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return array
 		 */
-		public function get( $args = array() ) {
+		public function get( $args = [] ) {
 			$query = $this->get_query( $args );
 
 			return $query->posts;
@@ -535,11 +551,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return WP_Query
 		 */
-		public function get_query( $args = array() ) {
-			$defaults = array(
-				'post_type' => Tribe__Events__Main::POSTTYPE,
+		public function get_query( $args = [] ) {
+			$defaults = [
+				'post_type'   => Tribe__Events__Main::POSTTYPE,
 				'post_status' => self::$ignored_status,
-			);
+			];
 
 			$args = wp_parse_args( $args, $defaults );
 
@@ -554,24 +570,24 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @return array
 		 */
-		public function get_by_id( $data = array(), $args = array() ) {
+		public function get_by_id( $data = [], $args = [] ) {
 			// if there isn't any data, there won't be any results. Bail
 			if ( empty( $data ) ) {
-				return array();
+				return [];
 			}
 
 			// fields we'll look for in objects/arrays
-			$search = array(
+			$search = [
 				'ID',
 				'id',
 				'post_id',
-			);
+			];
 
-			$ids = array();
+			$ids = [];
 
 			// if the passed in data is not an array, turn it into one
 			if ( ! is_array( $data ) ) {
-				$data = array( $data );
+				$data = [ $data ];
 			}
 
 			$first = reset( $data );
@@ -600,7 +616,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			// if there aren't any IDs, let's make sure we don't get any results
 			if ( empty( $ids ) ) {
-				return array();
+				return [];
 			}
 
 			if ( isset( $args['post__in'] ) ) {
@@ -626,11 +642,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			// Update only what we need
-			$arguments = array(
-				'ID' => $event->ID,
-				'post_type' => Tribe__Events__Main::POSTTYPE,
+			$arguments = [
+				'ID'          => $event->ID,
+				'post_type'   => Tribe__Events__Main::POSTTYPE,
 				'post_status' => self::$ignored_status,
-			);
+			];
 
 			// Set the Required Meta to flag it to the Legacy Posts
 			if ( self::$legacy_deleted_post === $event->post_type ) {
@@ -664,15 +680,15 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			// Verify if it's a Legacy Ignore or Tribe Event
-			if ( ! in_array( $event->post_type, array( Tribe__Events__Main::POSTTYPE, self::$legacy_deleted_post ) ) ) {
+			if ( ! in_array( $event->post_type, [ Tribe__Events__Main::POSTTYPE, self::$legacy_deleted_post ] ) ) {
 				return false;
 			}
 
-			$ignored_origins = array(
+			$ignored_origins = [
 				Tribe__Events__Aggregator__Event::$event_origin,
 				'facebook-importer',
 				'ical-importer',
-			);
+			];
 			$origin = get_post_meta( $event->ID, '_EventOrigin', true );
 
 			// Verify the Origin
@@ -718,10 +734,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			// Update only what we need
-			$arguments = array(
-				'ID' => $event->ID,
+			$arguments = [
+				'ID'          => $event->ID,
 				'post_status' => $restore_status,
-			);
+			];
 
 			// Try to update back to the Event CPT
 			$updated = wp_update_post( $arguments );
@@ -740,20 +756,27 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void
 		 */
 		public function register_ignored_post_status() {
-			$arguments = array(
+			$arguments = [
 				'label'                     => esc_html__( 'Ignored', 'the-events-calendar' ),
-				'label_count'               => _n_noop( 'Ignored <span class="count">(%s)</span>', 'Ignored <span class="count">(%s)</span>', 'the-events-calendar' ),
+				'label_count'               => _n_noop(
+					'Ignored <span class="count">(%s)</span>',
+					'Ignored <span class="count">(%s)</span>',
+					'the-events-calendar'
+				),
 				'show_in_admin_all_list'    => false,
 				'show_in_admin_status_list' => true,
 				'public'                    => false,
 				'internal'                  => false,
-			);
+			];
 			register_post_status( self::$ignored_status, $arguments );
 
 			// We need to register this to have the legacy work
-			register_post_type( self::$legacy_deleted_post, array(
-				'public' => false,
-			) );
+			register_post_type(
+				self::$legacy_deleted_post,
+				[
+					'public' => false,
+				]
+			);
 		}
 
 		/**
@@ -852,10 +875,13 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void
 		 */
 		public function ajax_convert_legacy_ignored_events() {
-			$response = (object) array(
+			$response = (object) [
 				'status' => false,
-				'text' => esc_html__( 'Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later.', 'the-events-calendar' ),
-			);
+				'text'   => esc_html__(
+					'Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later.',
+					'the-events-calendar'
+				),
+			];
 
 			$post_type = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 
@@ -873,10 +899,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				wp_send_json( $response );
 			}
 
-			$args = array(
-				'post_type' => self::$legacy_deleted_post,
+			$args  = [
+				'post_type'   => self::$legacy_deleted_post,
 				'post_status' => 'trash',
-			);
+			];
 			$query = new WP_Query( $args );
 
 			foreach ( $query->posts as $event ) {
@@ -942,40 +968,79 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return bool Whether the filters and actions were hooked or not.
 		 */
 		public function hook() {
-			add_action( 'init', array( $this, 'register_ignored_post_status' ) );
-			add_action( 'current_screen', array( $this, 'action_restore_events' ) );
-			add_action( 'current_screen', array( $this, 'action_restore_ignored' ) );
+			add_action( 'init', [ $this, 'register_ignored_post_status' ] );
+			add_action( 'current_screen', [ $this, 'action_restore_events' ] );
+			add_action( 'current_screen', [ $this, 'action_restore_ignored' ] );
 
 			/**
 			 * `pre_delete_post` only exists after WP 4.4
 			 *
 			 * @see https://core.trac.wordpress.org/ticket/12706
 			 */
-			add_filter( 'pre_delete_post', array( $this, 'action_pre_delete_event' ), 10, 3 );
-			add_action( 'trashed_post', array( $this, 'action_from_trash_to_ignored' ) );
-			add_action( 'wp_trash_post', array( $this, 'action_track_previous_status' ) );
+			add_filter( 'pre_delete_post', [ $this, 'action_pre_delete_event' ], 10, 3 );
+			add_action( 'trashed_post', [ $this, 'action_from_trash_to_ignored' ] );
+			add_action( 'wp_trash_post', [ $this, 'action_track_previous_status' ] );
 
-			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_views' ) );
-			add_filter( 'bulk_actions-edit-' . Tribe__Events__Main::POSTTYPE, array( $this, 'filter_bulk_actions' ), 15 );
-			add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
+			add_filter( 'views_edit-' . Tribe__Events__Main::POSTTYPE, [ $this, 'filter_views' ] );
+			add_filter( 'bulk_actions-edit-' . Tribe__Events__Main::POSTTYPE, [ $this, 'filter_bulk_actions' ], 15 );
+			add_filter( 'post_row_actions', [ $this, 'filter_actions' ], 10, 2 );
 
-			add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array( $this, 'filter_columns' ), 100 );
-			add_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array( $this, 'action_column_contents' ), 100, 2 );
+			add_filter(
+				'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns',
+				[ $this, 'filter_columns' ],
+				100
+			);
+			add_action(
+				'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column',
+				[ $this, 'action_column_contents' ],
+				100,
+				2
+			);
 
-			add_action( 'wp_ajax_tribe_convert_legacy_ignored_events', array( $this, 'ajax_convert_legacy_ignored_events' ) );
+			add_action(
+				'wp_ajax_tribe_convert_legacy_ignored_events',
+				[ $this, 'ajax_convert_legacy_ignored_events' ]
+			);
 
 			// Modify Success messages
-			add_filter( 'bulk_post_updated_messages', array( $this, 'filter_updated_messages' ), 10, 2 );
+			add_filter( 'bulk_post_updated_messages', [ $this, 'filter_updated_messages' ], 10, 2 );
 
 			// Register assets
-			add_action( 'init', array( $this, 'action_assets' ) );
+			add_action( 'init', [ $this, 'action_assets' ] );
 
 			/**
 			 * Register Notices
 			 */
-			tribe_notice( 'legacy-ignored-events', array( $this, 'render_notice_legacy' ), 'dismiss=1&type=warning' );
+			tribe_notice( 'legacy-ignored-events', [ $this, 'render_notice_legacy' ], 'dismiss=1&type=warning' );
+
+			add_filter( 'wp_count_posts', [ $this, 'patch_count_posts' ] );
 
 			return true;
+		}
+
+		/**
+		 * Patch post-list-table queries to include ignored status,
+		 * as WP just accesses the stati without checking if they exist.
+		 *
+		 * @see wp-admin/includes/class-wp-posts-list-table.php->get_views()
+		 *
+		 * @since 5.1.5
+		 *
+		 * @param object $counts       An object containing the current post_type's post
+		 *                             counts by status.
+		 *
+		 * @return object $counts       The modified object containing the current post_type's post
+		 *                              counts by status.
+		 */
+		public function patch_count_posts( $counts ) {
+			$status = $this::$ignored_status;
+
+
+			if ( ! isset( $counts->$status ) ) {
+				$counts->$status = 0;
+			}
+
+			return $counts;
 		}
 	}
 }

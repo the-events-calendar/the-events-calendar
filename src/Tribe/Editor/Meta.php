@@ -1,6 +1,7 @@
 <?php
 
 use Tribe__Date_Utils as Date;
+use Tribe__Events__Main as TEC;
 
 /**
  * Initialize Gutenberg Event Meta fields
@@ -19,8 +20,10 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		// Provide backwards compatibility for meta data
 		$post_type = Tribe__Events__Main::POSTTYPE;
-		add_filter( "rest_prepare_{$post_type}", array( $this, 'meta_backwards_compatibility' ), 10, 3 );
-		add_filter( "rest_after_insert_{$post_type}", array( $this, 'add_utc_dates' ), 10, 2 );
+		add_filter( "rest_prepare_{$post_type}", [ $this, 'meta_backwards_compatibility' ], 10, 3 );
+		add_filter( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
+		add_filter( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
+		add_filter( 'delete_post_metadata', [ $this, 'filter_allow_meta_delete_non_existent_key' ], 15, 5 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
 		register_meta( 'post', '_EventTimezone', $this->text() );
@@ -42,9 +45,9 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			'_EventDateTimeSeparator',
 			array_merge(
 				$this->text(),
-				array(
-					'sanitize_callback' => array( $this, 'sanitize_separator' ),
-				)
+				[
+					'sanitize_callback' => [ $this, 'sanitize_separator' ],
+				]
 			)
 		);
 		register_meta(
@@ -52,9 +55,9 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			'_EventTimeRangeSeparator',
 			array_merge(
 				$this->text(),
-				array(
-					'sanitize_callback' => array( $this, 'sanitize_separator' ),
-				)
+				[
+					'sanitize_callback' => [ $this, 'sanitize_separator' ],
+				]
 			)
 		);
 		register_meta(
@@ -62,23 +65,23 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 			'_EventOrganizerID',
 			array_merge(
 				$this->numeric_array(),
-				array(
+				[
 					'description' => __( 'Event Organizers', 'the-events-calendar' ),
-				)
+				]
 			)
 		);
 
 		register_meta(
 			'post',
 			'_EventVenueID',
-			array(
-				'description'       => __( 'Event Organizers', 'the-events-calendar' ),
-				'auth_callback'     => array( $this, 'auth_callback' ),
+			[
+				'description'       => __( 'Event Venue', 'the-events-calendar' ),
+				'auth_callback'     => [ $this, 'auth_callback' ],
 				'sanitize_callback' => 'absint',
 				'type'              => 'integer',
 				'single'            => true,
 				'show_in_rest'      => true,
-			)
+			]
 		);
 
 		// Organizers Meta
@@ -97,6 +100,62 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		register_meta( 'post', '_VenueStateProvince', $this->text() );
 		register_meta( 'post', '_VenueLat', $this->text() );
 		register_meta( 'post', '_VenueLng', $this->text() );
+	}
+
+	/**
+	 * Short-circuits deleting metadata items that dont exist, for compatibility purposes we need to make sure
+	 * WordPress doesn't throw an error when the meta is not present.
+	 *
+	 * @since 5.5.0
+	 * @since 4.6.0 Apply to all Rest Endpoints not only Events.
+	 *
+	 * @param null|bool $delete     Whether to allow metadata deletion of the given type.
+	 * @param int       $object_id  ID of the object metadata is for.
+	 * @param string    $meta_key   Metadata key.
+	 * @param mixed     $meta_value Metadata value. Must be serializable if non-scalar.
+	 * @param bool      $delete_all Whether to delete the matching metadata entries
+	 *                              for all objects, ignoring the specified $object_id.
+	 *                              Default false.
+	 *
+	 * @return bool
+	 */
+	public function filter_allow_meta_delete_non_existent_key( $delete, $object_id, $meta_key, $meta_value, $delete_all ) {
+		if ( ! empty( $meta_value ) ) {
+			return $delete;
+		}
+
+		$meta_keys_to_allow = [
+			'_EventOrganizerID' => true,
+			'_EventVenueID' => true,
+		];
+
+		if ( ! isset( $meta_keys_to_allow[ $meta_key ] ) ) {
+			return $delete;
+		}
+
+		if ( ! function_exists( 'wp_is_json_request' ) || ! wp_is_json_request() ) {
+			return $delete;
+		}
+
+		global $wp;
+
+		$current_url = home_url( $wp->request );
+		$allowed_rest_url = rest_url( 'wp/v2' );
+
+		// Only this overwrite on the Tribe Events Endpoint.
+		if ( false === strpos( $current_url, $allowed_rest_url ) ) {
+			return $delete;
+		}
+
+		$current_value = array_filter( get_post_meta( $object_id, $meta_key ) );
+
+		// Let the WP method run it's course, if we have a value.
+		if ( ! empty( $current_value ) ) {
+			return $delete;
+		}
+
+		// If we got to this point we allow the deletion without caring about the value.
+		return true;
 	}
 
 	/**
@@ -123,6 +182,33 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	}
 
 	/**
+	 * Make sure we allow other plugins and customizations to filter the cost field.
+	 *
+	 * @since 5.7.1
+	 *
+	 * @param \stdClass        $post_data The post insertion/update payload.
+	 * @param \WP_REST_Request $request The current insertion or update request object.
+	 *
+	 * @return \stdClass The post insertion/update payload.
+	 */
+	public function update_cost( $post_data, $request ) {
+		$post_id = $request->get_param( 'id' );
+
+		// Fetch cost data from the request (if set).
+		$json = $request->get_json_params();
+
+		$meta = Tribe__Utils__Array::get( $json, 'meta', [] );
+
+		// If the cost is set in the submitted data, set THAT as the default else set an appropriate default for the cost.
+		$cost = isset( $meta['_EventCost'] ) ? [ $meta['_EventCost'] ] : (array) tribe_get_cost( $post_id );
+
+		// Update the cost for the event.
+		\Tribe__Events__API::update_event_cost( $post_id, $cost );
+
+		return $post_data;
+	}
+
+	/**
 	 * Adds, triggering their updates, the UTC start and end dates to the post insertion or
 	 * update REST payload.
 	 *
@@ -136,7 +222,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 */
 	public function add_utc_dates( $post_data, WP_REST_Request $request ) {
 		$json_params = $request->get_json_params();
-		$meta = Tribe__Utils__Array::get( $json_params, 'meta', array() );
+		$meta = Tribe__Utils__Array::get( $json_params, 'meta', [] );
 
 		// No changes to start or end? No need to update UTC dates.
 		if ( ! ( isset( $meta['_EventStartDate'] ) || isset( $meta['_EventEndDate'] ) ) ) {

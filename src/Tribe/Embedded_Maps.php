@@ -40,7 +40,7 @@ class Tribe__Events__Embedded_Maps {
 	 *
 	 * @var array
 	 */
-	protected $embedded_maps = array();
+	protected $embedded_maps = [];
 
 	/**
 	 * Indicates if the Google Maps API script has been enqueued.
@@ -86,10 +86,10 @@ class Tribe__Events__Embedded_Maps {
 			return apply_filters( 'tribe_get_embedded_map', '' );
 		}
 
-		$this->embedded_maps[] = array(
+		$this->embedded_maps[] = [
 			'address' => $this->address,
 			'title'   => esc_html( get_the_title( $this->venue_id ) ),
-		);
+		];
 
 		end( $this->embedded_maps );
 		$index = key( $this->embedded_maps );
@@ -99,22 +99,30 @@ class Tribe__Events__Embedded_Maps {
 		if ( tribe_is_using_basic_gmaps_api() ) {
 
 			// Get a basic embed that doesn't use the JavaScript API
-			tribe_get_template_part( 'modules/map-basic', null, array(
-				'embed_url'   => tribe_get_basic_gmap_embed_url( $this->address ),
-				'address'     => $this->address,
-				'index'       => $index,
-				'width'       => null === $width  ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
-				'height'      => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
-			) );
+			tribe_get_template_part(
+				'modules/map-basic',
+				null,
+				[
+					'embed_url' => tribe_get_basic_gmap_embed_url( $this->address ),
+					'address'   => $this->address,
+					'index'     => $index,
+					'width'     => null === $width ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
+					'height'    => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
+				]
+			);
 
-		 } else {
+		} else {
 		 	// Generate the HTML used to "house" the JavaScript API-enabled map
-		 	tribe_get_template_part( 'modules/map', null, array(
-		 		'index'  => $index,
-		 		'width'  => null === $width  ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
-		 		'height' => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
-		 	) );
-		 }
+			tribe_get_template_part(
+				'modules/map',
+				null,
+				[
+					'index' => $index,
+					'width' => null === $width ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
+					'height' => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
+				]
+			);
+		}
 
 		$this->setup_scripts();
 
@@ -130,7 +138,7 @@ class Tribe__Events__Embedded_Maps {
 
 	protected function form_address() {
 		$this->address = '';
-		$location_parts = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
+		$location_parts = [ 'address', 'city', 'state', 'province', 'zip', 'country' ];
 
 		// Form the address string for the map
 		foreach ( $location_parts as $val ) {
@@ -151,7 +159,7 @@ class Tribe__Events__Embedded_Maps {
 	}
 
 	public function get_map_data( $map_index ) {
-		return isset( $this->embedded_maps[ $map_index ] ) ? $this->embedded_maps[ $map_index ] : array();
+		return isset( $this->embedded_maps[ $map_index ] ) ? $this->embedded_maps[ $map_index ] : [];
 	}
 
 	public function update_map_data( $map_index, array $data ) {
@@ -165,11 +173,18 @@ class Tribe__Events__Embedded_Maps {
 		}
 
 		// Provide address data
-		wp_localize_script( self::MAP_HANDLE, 'tribeEventsSingleMap', array(
-			'addresses' => $this->embedded_maps,
-			'zoom'      => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
-			'pin_url'   => Tribe__Customizer::instance()->get_option( array( 'global_elements', 'map_pin' ), false ),
-		) );
+		wp_localize_script(
+			self::MAP_HANDLE,
+			'tribeEventsSingleMap',
+			[
+				'addresses' => $this->embedded_maps,
+				'zoom'      => apply_filters(
+					'tribe_events_single_map_zoom_level',
+					(int) tribe_get_option( 'embedGoogleMapsZoom', 8 )
+				),
+				'pin_url'   => tribe( 'customizer' )->get_option( [ 'global_elements', 'map_pin' ], false ),
+			]
+		);
 	}
 
 	protected function enqueue_map_scripts() {

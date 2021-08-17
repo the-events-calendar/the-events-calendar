@@ -3,7 +3,7 @@
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__API__Abstract {
-	public $event_field_map = array(
+	public $event_field_map = [
 		'title'             => 'post_title',
 		'description'       => 'post_content',
 		'start_date'        => 'EventStartDate',
@@ -26,16 +26,16 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		'currency_symbol'   => 'EventCurrencySymbol',
 		'currency_position' => 'EventCurrencyPosition',
 		'cost'              => 'EventCost',
-	);
+	];
 
-	public $organizer_field_map = array(
-		'organizer'   => 'Organizer',
-		'phone'       => 'Phone',
-		'website'     => 'Website',
-		'email'       => 'Email',
-	);
+	public $organizer_field_map = [
+		'organizer' => 'Organizer',
+		'phone'     => 'Phone',
+		'website'   => 'Website',
+		'email'     => 'Email',
+	];
 
-	public $venue_field_map = array(
+	public $venue_field_map = [
 		'venue'                 => 'Venue',
 		'address'               => 'Address',
 		'city'                  => 'City',
@@ -46,7 +46,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		'overwrite_coordinates' => 'OverwriteCoords',
 		'latitude'              => 'Lat',
 		'longitude'             => 'Lng',
-	);
+	];
 
 	public function __construct() {
 		parent::__construct();
@@ -59,21 +59,21 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	 *
 	 * @return stdClass|WP_Error A class containing the service response or a WP_Error if the service could not be reached.
 	 */
-	public function get( $import_id, $data = array() ) {
+	public function get( $import_id, $data = [] ) {
 		$response = $this->service->get_import( $import_id, $data );
 
 		if ( is_wp_error( $response ) ) {
 
 			/** @var WP_Error $response */
 			if ( 'core:aggregator:http_request-limit' === $response->get_error_code() ) {
-				$response = (object) array(
+				$response = (object) [
 					'status'       => 'queued',
 					'message_code' => 'queued',
 					'message'      => tribe( 'events-aggregator.service' )->get_service_message( 'queued' ),
-					'data'         => (object) array(
+					'data'         => (object) [
 						'import_id' => $import_id,
-					),
-				);
+					],
+				];
 			}
 
 			return $response;
@@ -81,8 +81,8 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 
 		// let's try to use the localized version of the message if available
 		if ( ! empty( $response->message_code ) ) {
-			$default = ! empty( $response->message ) ? $response->message : $this->service->get_unknown_message();
-			$message_args = is_array( $response->data ) ? $response->data : array();
+			$default           = ! empty( $response->message ) ? $response->message : $this->service->get_unknown_message();
+			$message_args      = is_array( $response->data ) ? $response->data : [];
 			$response->message = $this->service->get_service_message( $response->message_code, $message_args, $default );
 		}
 
@@ -90,7 +90,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			return $response;
 		}
 
-		$events = array();
+		$events = [];
 
 		foreach ( $response->data->events as $event ) {
 			$events[] = $this->translate_json_to_event( $event );
@@ -107,9 +107,21 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 	 * @return stdClass|WP_Error
 	 */
 	public function create( $args ) {
-		$response = $this->service->post_import( $args );
+		return $this->service->post_import( $args );
+	}
 
-		return $response;
+	/**
+	 * Update the details of an existing import into EA server.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @param $import_id string The ID of the import to be updated.
+	 * @param $args      array An key, value array representing the values to update on the EA server.
+	 *
+	 * @return object|stdClass|string|WP_Error Response from EA server.
+	 */
+	public function update( $import_id, $args ) {
+		return $this->service->update_import( $import_id, $args );
 	}
 
 	/**
@@ -132,7 +144,7 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 			return tribe_error( 'core:aggregator:invalid-event-json' );
 		}
 
-		$event = array();
+		$event = [];
 
 		$event['post_type'] = Tribe__Events__Main::POSTTYPE;
 
@@ -153,14 +165,14 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		}
 
 		if ( ! empty( $json->venue ) ) {
-			$event['Venue'] = array();
+			$event['Venue'] = [];
 
 			if ( ! is_array( $json->venue ) ) {
-				$json->venue = array( $json->venue );
+				$json->venue = [ $json->venue ];
 			}
 
 			foreach ( $json->venue as $venue ) {
-				$venue_data = array();
+				$venue_data = [];
 
 				if ( empty( $venue->venue ) ) {
 					continue;
@@ -179,14 +191,14 @@ class Tribe__Events__Aggregator__API__Import extends Tribe__Events__Aggregator__
 		}
 
 		if ( ! empty( $json->organizer ) ) {
-			$event['Organizer'] = array();
+			$event['Organizer'] = [];
 
 			if ( ! is_array( $json->organizer ) ) {
-				$json->organizer = array( $json->organizer );
+				$json->organizer = [ $json->organizer ];
 			}
 
 			foreach ( $json->organizer as $organizer ) {
-				$organizer_data = array();
+				$organizer_data = [];
 
 				if ( empty( $organizer->organizer ) ) {
 					continue;

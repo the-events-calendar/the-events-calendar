@@ -16,7 +16,7 @@
 	 * dbug = tribe_debug
 	 */
 
-	$( document ).ready( function() {
+	$( function() {
 
 		var $body        = $( 'body' );
 		var $navLink     = $( '[class^="tribe-events-nav-"] a' );
@@ -543,7 +543,7 @@
 						// @endif
 
 						var $theContent = '';
-						if ( $.isFunction( $.fn.parseHTML ) ) {
+						if ( 'function' === typeof $.fn.parseHTML ) {
 							$theContent = $.parseHTML( response.html );
 						} else {
 							$theContent = response.html;

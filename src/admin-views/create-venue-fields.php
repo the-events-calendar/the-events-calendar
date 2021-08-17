@@ -210,10 +210,7 @@ if ( ! $_POST && is_admin() ) {
 
 /**
  * Only show the Google map toggles on the admin screens
- * @since
- * @central #73813
- *
- * @TODO ascertain version number
+ * @since 4.5.4
  *
  */
 if ( ! is_admin() ) {

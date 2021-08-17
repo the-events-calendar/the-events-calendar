@@ -604,11 +604,15 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->collect();
 		codecept_debug( 'Event dates in ASC UTC date order: '
 		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDateUTC' ) ) );
+		codecept_debug( 'Event dates in ASC non-UTC date order: '
+		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDate' ) ) );
 
-		$utc_matches = tribe_events()
+		$tribe____repository___ = tribe_events();
+		$utc_matches            = $tribe____repository___
 			->where( 'on_date', '2018-01-10' )
 			->order_by( 'event_date_utc', 'DESC' )
 			->collect();
+		codecept_debug($tribe____repository___->get_query()->request);
 		$this->assertEquals( [
 			'2018-01-10 14:00:00',
 			'2018-01-10 10:00:00',

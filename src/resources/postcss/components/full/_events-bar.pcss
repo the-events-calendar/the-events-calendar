@@ -6,8 +6,11 @@
 
 .tribe-events {
 
-	.tribe-events-c-events-bar {
-		background-color: var(--color-background);
+	.tribe-events-header--has-event-search .tribe-events-c-events-bar {
+		
+		.tribe-common--breakpoint-medium& {
+			background-color: var(--color-background);
+		}
 	}
 
 	.tribe-events-c-events-bar--border {
@@ -17,14 +20,8 @@
 		}
 	}
 
-	.tribe-events-c-events-bar__filters {
-
-		.tribe-common--breakpoint-medium& {
-			border-right: 1px solid var(--color-border-secondary);
-		}
-	}
-
 	.tribe-events-c-events-bar__search-button {
+		display: flex;
 
 		&:hover,
 		&:focus {
@@ -55,30 +52,8 @@
 		}
 	}
 
-	.tribe-events-c-events-bar__tab {
-		border-radius: var(--border-radius-default);
-
-		&:hover,
-		&:focus,
-		&:active {
-
-			.tribe-events-c-events-bar__tab-text {
-				font-weight: var(--font-weight-bold);
-			}
-		}
-	}
-
-	.tribe-events-c-events-bar__tab--active {
-		background-color: var(--color-background-secondary);
-
-		&:hover,
-		&:focus {
-			background-color: var(--color-background-secondary);
-		}
-
-		.tribe-events-c-events-bar__tab-text {
-			font-weight: var(--font-weight-bold);
-		}
+	.tribe-events-c-events-bar__search-button-icon-svg path {
+		fill: var(--color-icon-active);
 	}
 
 	/* -----------------------------------------------------------------------------
@@ -86,21 +61,20 @@
 	 * Events Bar: Theme Overrides
 	 *
 	 * ----------------------------------------------------------------------------- */
-
+	
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-
-	.tribe-theme-twentyseventeen & {
-
-		.tribe-events-c-events-bar__tab--active {
-			background-color: var(--color-background-secondary);
-
+	 
+	.tribe-theme-twentyseventeen.colors-dark & {
+		
+		.tribe-events-c-events-bar__search-button {
+			
+			&,
 			&:hover,
 			&:focus {
-				background-color: var(--color-background-secondary);
+				background-color: transparent;
 			}
 		}
 	}
-
 }

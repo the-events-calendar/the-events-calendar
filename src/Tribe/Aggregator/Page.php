@@ -51,62 +51,93 @@ class Tribe__Events__Aggregator__Page {
 	private function __construct() {
 		$plugin = Tribe__Events__Main::instance();
 
-		add_action( 'admin_menu', array( $this, 'register_menu_item' ) );
-		add_action( 'current_screen', array( $this, 'action_request' ) );
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'admin_menu', [ $this, 'register_menu_item' ] );
+		add_action( 'current_screen', [ $this, 'action_request' ] );
+		add_action( 'init', [ $this, 'init' ] );
 
 		// check if the license is valid each time the page is accessed
-		add_action( 'tribe_aggregator_page_request', array( $this, 'check_for_license_updates' ) );
+		add_action( 'tribe_aggregator_page_request', [ $this, 'check_for_license_updates' ] );
 
 		// filter the plupload default settings to remove mime type restrictions
-		add_filter( 'plupload_default_settings', array( $this, 'filter_plupload_default_settings' ) );
+		add_filter( 'plupload_default_settings', [ $this, 'filter_plupload_default_settings' ] );
 
 		// Setup Tabs Instance
 		$this->tabs = Tribe__Events__Aggregator__Tabs::instance();
 
-		tribe_notice( 'tribe-aggregator-legacy-import-plugins-active', array( $this, 'notice_legacy_plugins' ), 'type=warning' );
+		tribe_notice(
+			'tribe-aggregator-legacy-import-plugins-active',
+			[
+				$this,
+				'notice_legacy_plugins',
+			],
+			'type=warning'
+		);
 	}
 
 	public function init() {
 		$plugin = Tribe__Events__Main::instance();
 
-		$localize_data = array(
+		$localize_data = [
 			'name' => 'tribe_aggregator',
-			'data' => array(
-				'csv_column_mapping' => array(
-					'events' => get_option( 'tribe_events_import_column_mapping_events', array() ),
-					'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', array() ),
-					'venue' => get_option( 'tribe_events_import_column_mapping_venues', array() ),
-				),
-				'l10n' => array(
-					'all_day' => __( 'All Day', 'the-events-calendar' ),
-					'am' => _x( 'AM', 'Meridian: am', 'the-events-calendar' ),
-					'pm' => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
-					'preview_timeout' => __( 'The preview is taking longer than expected. Please try again in a moment.', 'the-events-calendar' ),
-					'preview_fetch_error_prefix' => __( 'There was an error fetching the results from your import:', 'the-events-calendar' ),
-					'preview_fetch_warning_prefix' => __( 'A warning was generated while fetching the results from your import:', 'the-events-calendar' ),
-					'import_all' => __( 'Import All (%d)', 'the-events-calendar' ),
-					'import_all_no_number' => __( 'Import All', 'the-events-calendar' ),
-					'import_checked' => __( 'Import Checked (%d)', 'the-events-calendar' ),
-					'create_schedule' => __( 'Save Scheduled Import', 'the-events-calendar' ),
-					'edit_save' => __( 'Save Changes', 'the-events-calendar' ),
-					'events_required_for_manual_submit' => __( 'Your import must include at least one event', 'the-events-calendar' ),
-					'no_results' => __( 'Your preview doesn\'t have any records to import.', 'the-events-calendar' ),
-					'verify_schedule_delete' => __( 'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.', 'the-events-calendar' ),
-					'view_filters' => __( 'View Filters', 'the-events-calendar' ),
-					'hide_filters' => __( 'Hide Filters', 'the-events-calendar' ),
-					'preview_polling' => array(
+			'data' => [
+				'csv_column_mapping'   => [
+					'events'    => get_option( 'tribe_events_import_column_mapping_events', [] ),
+					'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', [] ),
+					'venue'     => get_option( 'tribe_events_import_column_mapping_venues', [] ),
+				],
+				'l10n'                 => [
+					'all_day'                           => __( 'All Day', 'the-events-calendar' ),
+					'am'                                => _x( 'AM', 'Meridian: am', 'the-events-calendar' ),
+					'pm'                                => _x( 'PM', 'Meridian: pm', 'the-events-calendar' ),
+					'preview_timeout'                   => __(
+						'The preview is taking longer than expected. Please try again in a moment.',
+						'the-events-calendar'
+					),
+					'preview_fetch_error_prefix'        => __(
+						'There was an error fetching the results from your import:',
+						'the-events-calendar'
+					),
+					'preview_fetch_warning_prefix'      => __(
+						'A warning was generated while fetching the results from your import:',
+						'the-events-calendar'
+					),
+					'import_all'                        => __( 'Import All (%d)', 'the-events-calendar' ),
+					'import_all_no_number'              => __( 'Import All', 'the-events-calendar' ),
+					'import_checked'                    => __( 'Import Checked (%d)', 'the-events-calendar' ),
+					'create_schedule'                   => __( 'Save Scheduled Import', 'the-events-calendar' ),
+					'edit_save'                         => __( 'Save Changes', 'the-events-calendar' ),
+					'events_required_for_manual_submit' => __(
+						'Your import must include at least one event',
+						'the-events-calendar'
+					),
+					'no_results'                        => __(
+						'Your preview doesn\'t have any records to import.',
+						'the-events-calendar'
+					),
+					'verify_schedule_delete'            => __(
+						'Removing this scheduled import will stop automatic imports from the source. No events will be deleted.',
+						'the-events-calendar'
+					),
+					'view_filters'                      => __( 'View Filters', 'the-events-calendar' ),
+					'hide_filters'                      => __( 'Hide Filters', 'the-events-calendar' ),
+					'preview_polling'                   => [
 						__( 'Please wait while your preview is fetched.', 'the-events-calendar' ),
 						__( 'Please continue to wait while your preview is generated.', 'the-events-calendar' ),
-						__( 'If all goes according to plan, you will have your preview in a few moments.', 'the-events-calendar' ),
-						__( 'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.', 'the-events-calendar' ),
-					),
-					'debug' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
-				),
-				'default_settings' => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
+						__(
+							'If all goes according to plan, you will have your preview in a few moments.',
+							'the-events-calendar'
+						),
+						__(
+							'Your preview is taking a bit longer than expected, but it <i>is</i> still being generated.',
+							'the-events-calendar'
+						),
+					],
+					'debug'                             => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
+				],
+				'default_settings'     => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
 				'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
-			),
-		);
+			],
+		];
 
 		/**
 		 * Filters the CSV column mapping output
@@ -123,30 +154,32 @@ class Tribe__Events__Aggregator__Page {
 		$localize_data['data'] = apply_filters( 'tribe_aggregator_localized_data', $localize_data['data'] );
 
 		// Load these on all the pages
-		tribe_assets( $plugin,
-			array(
-				array(
+		tribe_assets(
+			$plugin,
+			[
+				[
 					'tribe-ea-fields',
 					'aggregator-fields.js',
-					array(
+					[
 						'jquery',
 						'tribe-datatables',
 						'underscore',
 						'tribe-bumpdown',
 						'tribe-dependency',
-						'tribe-select2',
 						'tribe-events-admin',
-					),
-				),
-				array( 'tribe-ea-page', 'aggregator-page.css', array( 'datatables-css' ) ),
-			),
+						'tribe-events-bootstrap-datepicker',
+						'tribe-dropdowns',
+					],
+				],
+				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
+			],
 			'admin_enqueue_scripts',
-			array(
-				'conditionals' => array(
-					array( $this, 'is_screen' ),
-				),
-				'localize' => (object) $localize_data,
-			)
+			[
+				'conditionals' => [
+					[ $this, 'is_screen' ],
+				],
+				'localize'     => (object) $localize_data,
+			]
 		);
 	}
 
@@ -166,8 +199,23 @@ class Tribe__Events__Aggregator__Page {
 			return $settings;
 		}
 
-		if ( ! empty( $settings['filters']['mime_types'] ) ) {
-			unset( $settings['filters']['mime_types'] );
+
+		if ( isset( $settings['filters']['mime_types'] ) ) {
+			$extensions = [
+				'csv', // comma-separated values
+				'xls', // Excel 97- Excel 2003 Workbook
+				'xlsx', // Excel Workbook
+			];
+
+			if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
+				$extensions[] = 'ics';
+			}
+
+			$settings['filters']['mime_types'] = [
+				[
+					'extensions' => implode( ',', $extensions ),
+				],
+			];
 		}
 
 		return $settings;
@@ -239,11 +287,11 @@ class Tribe__Events__Aggregator__Page {
 	 *
 	 * @return string
 	 */
-	public function get_url( $args = array(), $relative = false ) {
-		$defaults = array(
-			'page' => self::$slug,
+	public function get_url( $args = [], $relative = false ) {
+		$defaults = [
+			'page'      => self::$slug,
 			'post_type' => Tribe__Events__Main::POSTTYPE,
-		);
+		];
 
 		// Allow the link to be "changed" on the fly
 		$args = wp_parse_args( $args, $defaults );
@@ -294,14 +342,14 @@ class Tribe__Events__Aggregator__Page {
 	 * @return string Page ID on WordPress
 	 */
 	public function register_menu_item() {
-		$cpt = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+		$cpt      = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 		$this->ID = add_submenu_page(
-			$this->get_url( array( 'page' => null ), true ),
+			$this->get_url( [ 'page' => null ], true ),
 			esc_html( $this->get_page_title() ),
 			esc_html( $this->get_menu_label() ),
 			$cpt->cap->publish_posts,
 			self::$slug,
-			array( $this, 'render' )
+			[ $this, 'render' ]
 		);
 
 		return $this->ID;
@@ -310,12 +358,13 @@ class Tribe__Events__Aggregator__Page {
 	/**
 	 * A very simple method to include a Aggregator Template, allowing filtering and additions using hooks.
 	 *
-	 * @param  string  $name Which file we are talking about including
-	 * @param  array   $data Any context data you need to expose to this file
-	 * @param  boolean $echo If we should also print the Template
+	 * @param string  $name Which file we are talking about including-
+	 * @param array   $data Any context data you need to expose to this file.
+	 * @param boolean $echo If we should also print the Template.
+	 *
 	 * @return string        Final Content HTML
 	 */
-	public function template( $name, $data = array(), $echo = true ) {
+	public function template( $name, $data = [], $echo = true ) {
 		// Clean this Variable
 		$name = array_map( 'sanitize_title_with_dashes', (array) explode( '/', $name ) );
 
@@ -325,9 +374,13 @@ class Tribe__Events__Aggregator__Page {
 		/**
 		 * A more Specific Filter that will include the template name
 		 *
-		 * @param string $file     Complete path to include the PHP File
-		 * @param string $name     Template name
-		 * @param array  $data     The Data that will be used on this template
+		 * @since 4.3
+		 *
+		 * @param string $file Complete path to include the PHP File.
+		 * @param array  $name Template name.
+		 * @param array  $data The Data that will be used on this template.
+		 *
+		 * @return string $file Complete path to include the PHP File
 		 */
 		$file = apply_filters( 'tribe_aggregator_template_file', $file, $name, $data );
 
@@ -406,7 +459,7 @@ class Tribe__Events__Aggregator__Page {
 			return false;
 		}
 
-		$active = array();
+		$active = [];
 
 		if ( $facebook_active ) {
 			$active[] = '<b>' . esc_html__( 'Facebook Events', 'the-events-calendar' ) . '</b>';

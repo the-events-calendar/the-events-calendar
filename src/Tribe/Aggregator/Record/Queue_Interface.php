@@ -90,6 +90,15 @@ interface Tribe__Events__Aggregator__Record__Queue_Interface {
 	public function has_errors();
 
 	/**
+	 * Whether the current queue is fetching values from a remote or external source.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @return bool
+	 */
+	public function is_fetching();
+
+	/**
 	 * Returns the queue error message.
 	 *
 	 * @since 4.6.21

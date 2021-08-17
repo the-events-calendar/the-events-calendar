@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 5.1.1
  *
@@ -15,7 +15,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  *
- * @version 5.1.1
+ * @version 5.3.0
  */
 
 if ( empty( $event->featured ) ) {
@@ -23,10 +23,10 @@ if ( empty( $event->featured ) ) {
 }
 ?>
 <em
-	class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon tribe-common-svgicon tribe-common-svgicon--featured"
-	aria-label="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
+	class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon"
 	title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
 >
+	<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg' ] ] ); ?>
 </em>
 <span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
 	<?php esc_html_e( 'Featured', 'the-events-calendar' ); ?>

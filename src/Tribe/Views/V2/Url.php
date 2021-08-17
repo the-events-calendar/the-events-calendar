@@ -285,6 +285,20 @@ class Url {
 			$url = home_url( add_query_arg( [] ) );
 		}
 
+		/*
+		 * Depending on the source of the request the encoded chars might be in uppercase (`%C3`) or lowercase (`%c2j`) format.
+		 * Ensure the format of the encoded chars is consistently lowercase.
+		 */
+		$lowercase_encoded_url = preg_replace_callback(
+			'/%[A-F0-9]{2}/',
+			static function ( array $matches ) {
+				return strtolower( reset( $matches ) );
+			},
+			$url
+		);
+
+		$url = is_string( $lowercase_encoded_url ) ? $lowercase_encoded_url : $url;
+
 		if ( isset( $params['view_data'] ) ) {
 			// If we have it, then use the up-to-date View data to "correct" the URL.
 			$bar_params           = array_intersect_key(
@@ -344,6 +358,15 @@ class Url {
 			// Ignore any argument that should not trigger a reset.
 			$a_args = array_diff_key( $a_args, array_combine( $ignore, $ignore ) );
 			$b_args = array_diff_key( $b_args, array_combine( $ignore, $ignore ) );
+
+			// "Fix" the `eventDisplay` query argument transforming `default` to the actual default view slug.
+			$default_view_slug = tribe_get_option( 'viewOption', 'default' );
+			if ( isset( $a_args['eventDisplay'] ) && $a_args['eventDisplay'] === 'default' ) {
+				$a_args['eventDisplay'] = $default_view_slug;
+			}
+			if ( isset( $b_args['eventDisplay'] ) && $b_args['eventDisplay'] === 'default' ) {
+				$b_args['eventDisplay'] = 'list';
+			}
 
 			// Query vars might just be ordered differently, so we sort them.
 			ksort( $a_args );

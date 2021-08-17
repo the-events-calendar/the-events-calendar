@@ -124,7 +124,9 @@ tribe_aggregator.fields = {
 		obj.importType = $( '#tribe-ea-field-url_import_type' );
 		obj.urlImport = {
 			startDate: $( '#tribe-ea-field-url_start' ),
-			originalMinDate: $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '',
+			originalMinDate: function() {
+				return $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '';
+			},
 		};
 
 		// Setup each type of field
@@ -158,7 +160,7 @@ tribe_aggregator.fields = {
 
 				var importType = $this.val();
 
-				$frequency.val( ( 'schedule' === importType ? 'daily' : '' ) ).change();
+				$frequency.val( ( 'schedule' === importType ? 'daily' : '' ) ).trigger( 'change' );
 
 				// set a data attribute on the form indicating the schedule type
 				obj.$.form.attr( 'data-type', importType );
@@ -266,7 +268,7 @@ tribe_aggregator.fields = {
 				$( '#tribe-ea-field-' + origin + '_source' ).val( value ).trigger( 'change' );
 			} );
 
-		$( '.tribe-dependency' ).change();
+		$( '.tribe-dependency' ).trigger( 'change' );
 
 		// Configure TimePickers
 		tribe_timepickers.setup_timepickers( $( tribe_timepickers.selector.timepicker ) );
@@ -666,7 +668,7 @@ tribe_aggregator.fields = {
 					var column_slug = data.columns[ i ].toLowerCase()
 						.replace( /^\s+|\s+$/g, '' ) // Remove left / right spaces before the word starts
 						.replace( /\s/g, '_' )    // change all spaces inside of words to underscores
-						.replace( /[^a-z0-9_]/, '' );
+						.replace( /[^a-z0-9_]/g, '' ); // Change all character that are not letter, numbers or underscore.
 					$map_row.append( '<th scope="col">' + column_map.replace( 'name="column_map[]"', 'name="aggregator[column_map][' + column + ']" id="column-' + column + '"' ) + '</th>' );
 
 					var $map_select = $map_row.find( '#column-' + column );
@@ -806,7 +808,7 @@ tribe_aggregator.fields = {
 		jqxhr.done( function( response ) {
 			if ( response.success ) {
 				$credentials_form.addClass( 'credentials-entered' );
-				$credentials_form.find( '[name="has-credentials"]' ).val( 1 ).change();
+				$credentials_form.find( '[name="has-credentials"]' ).val( 1 ).trigger( 'change' );
 			}
 		} );
 	};
@@ -867,7 +869,7 @@ tribe_aggregator.fields = {
 
 		$( '.dataTables_scrollBody' ).find( '[name^="aggregator[column_map]"]' ).remove();
 
-		obj.$.form.submit();
+		obj.$.form.trigger( 'submit' );
 	};
 
 	/**
@@ -909,7 +911,6 @@ tribe_aggregator.fields = {
 		var args = {
 			formatResult: upsellFormatter,
 			formatSelection: upsellFormatter,
-			escapeMarkup: function( m ) {return m; },
 		};
 
 		tribe_dropdowns.dropdown( $fields.filter( '.tribe-ea-dropdown' ), args );
@@ -959,7 +960,7 @@ tribe_aggregator.fields = {
 				selection.each( function( attachment ) {
 					$field.data( { id: attachment.attributes.id, text: attachment.attributes.title } );
 					$field.val( attachment.attributes.id );
-					$field.change();
+					$field.trigger( 'change' );
 					$name.html( attachment.attributes.filename );
 					$name.attr( 'title', attachment.attributes.filename );
 				} );
@@ -992,7 +993,7 @@ tribe_aggregator.fields = {
 	 * Triggers a change event on the given field
 	 */
 	obj.events.trigger_field_change = function() {
-		$( this ).change();
+		$( this ).trigger( 'change' );
 	};
 
 	/**
@@ -1076,17 +1077,47 @@ tribe_aggregator.fields = {
 		obj.progress.$.bar       = obj.progress.$.notice.find( '.bar' );
 		obj.progress.data.time   = Date.now();
 
+		obj.progress.hasHeartBeat = 'undefined' !== typeof wp && wp.heartbeat;
+
+		if ( obj.progress.hasHeartBeat ) {
+			wp.heartbeat.interval( 15 );
+		}
+
 		setTimeout( obj.progress.start );
 	};
 
-	obj.progress.start = function() {
-		obj.progress.send_request();
-		obj.progress.update( tribe_aggregator_save.progress, tribe_aggregator_save.progressText );
+	obj.progress.start = function () {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
+		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
+		if ( ! obj.progress.hasHeartBeat ) {
+			obj.progress.send_request();
+		}
 	};
 
+	obj.progress.continue = true;
+	$(document).on('heartbeat-send', function (event, data) {
+		if ( 'object' !== typeof tribe_aggregator_save ) {
+			return;
+		}
+
+		if ( obj.progress.continue ) {
+			data.ea_record = tribe_aggregator_save.record_id;
+		}
+	});
+
+	$(document).on('heartbeat-tick', function (event, data) {
+		// Check for our data, and use it.
+		if (!data.ea_progress) {
+			return;
+		}
+
+		obj.progress.handle_response(data.ea_progress);
+	});
+
 	obj.progress.handle_response = function( data ) {
-		var now     = Date.now();
-		var elapsed = now - obj.progress.data.time;
 
 		if ( data.html ) {
 			obj.progress.data.notice.html( data.html );
@@ -1096,14 +1127,9 @@ tribe_aggregator.fields = {
 			obj.progress.update( data );
 		}
 
-		if ( data.continue ) {
-			// If multiple editors are open for the same event we don't want to hammer the server
-			// and so a min delay of 1/2 sec is introduced between update requests
-			if ( elapsed < 500 ) {
-				setTimeout( obj.progress.send_request, 500 - elapsed  );
-			} else {
-				obj.progress.send_request();
-			}
+		obj.progress.continue = data.continue;
+		if (data.continue && !obj.progress.hasHeartBeat) {
+			setTimeout(obj.progress.send_request, 15000);
 		}
 
 		if ( data.error ) {
@@ -1221,5 +1247,5 @@ tribe_aggregator.fields = {
 	};
 
 	// Run Init on Document Ready
-	$( document ).ready( obj.init );
+	$( obj.init );
 } )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );

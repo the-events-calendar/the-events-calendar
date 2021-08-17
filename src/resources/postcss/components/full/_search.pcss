@@ -43,6 +43,7 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-c-search__input-control {
+		position: relative;
 
 		.tribe-common--breakpoint-medium& {
 			border-right: 1px solid var(--color-border-secondary);
@@ -55,54 +56,46 @@
 			}
 		}
 	}
-
-	.tribe-events-c-search__input--icon {
-		background-repeat: no-repeat;
-		background-position: right center;
-
+	
+	.tribe-events-c-search__input-control-icon-svg {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		display: block;
+		transform: translateY(-50%);
+		
 		.tribe-common--breakpoint-medium& {
-			background-position: 16px center;
+			right: auto;
+			left: 16px;
+		}
+		
+		path {
+			fill: var(--color-icon-primary);
 		}
 	}
 
-	.tribe-events-c-search__input-control--keyword {
-
-		.tribe-events-c-search__input {
-			background-image: svg-inline(search);
-			background-size: 16px;
-
-			&:focus {
-				background-image: svg-inline(search-focus);
-			}
-		}
-	}
-
-	.tribe-events-c-search__input-control--keyword-focus {
-
-		.tribe-events-c-search__input {
-			background-image: svg-inline(search-focus);
-		}
-	}
-
+	.tribe-events-c-search__input-control--keyword,
 	.tribe-events-c-search__input-control--location {
 
 		.tribe-events-c-search__input {
-			background-image: svg-inline(location);
-			background-size: 10px 15px;
-
-			&:focus {
-				background-image: svg-inline(location-focus);
+		
+			&:focus ~ .tribe-events-c-search__input-control-icon-svg path {
+				fill: currentColor;
 			}
 		}
 	}
 
+	.tribe-events-c-search__input-control--keyword-focus,
 	.tribe-events-c-search__input-control--location-focus {
 
 		.tribe-events-c-search__input {
-			background-image: svg-inline(location-focus);
+			
+			& ~ .tribe-events-c-search__input-control-icon-svg path {
+				fill: currentColor;
+			}
 		}
 	}
-
+	
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search: Theme Overrides
@@ -110,57 +103,13 @@
 	 * ----------------------------------------------------------------------------- */
 
 	/* -----------------------------------------------------------------------------
-	 * Theme Overrides - Enfold
+	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-
-	#top.tribe-theme-enfold &,
-	#top .main_color & {
-
-		.tribe-events-c-search__input--icon {
-			background-repeat: no-repeat;
-			background-position: right center;
-		}
-
-		&.tribe-common--breakpoint-medium .tribe-events-c-search__input--icon {
-			background-position: 16px center;
-		}
-
-		.tribe-events-c-search__input-control--keyword {
-
-			.tribe-events-c-search__input {
-				background-image: svg-inline(search);
-				background-size: 16px;
-
-				&:focus {
-					background-image: svg-inline(search-focus);
-				}
-			}
-		}
-
-		.tribe-events-c-search__input-control--keyword-focus {
-
-			.tribe-events-c-search__input {
-				background-image: svg-inline(search-focus);
-			}
-		}
-
-		.tribe-events-c-search__input-control--location {
-
-			.tribe-events-c-search__input {
-				background-image: svg-inline(location);
-				background-size: 10px 15px;
-
-				&:focus {
-					background-image: svg-inline(location-focus);
-				}
-			}
-		}
-
-		.tribe-events-c-search__input-control--location-focus {
-
-			.tribe-events-c-search__input {
-				background-image: svg-inline(location-focus);
-			}
+	 
+	.tribe-theme-twentyseventeen.colors-dark & {
+		
+		.tribe-events-c-search__input {
+			background: var(--background-color);
 		}
 	}
 }

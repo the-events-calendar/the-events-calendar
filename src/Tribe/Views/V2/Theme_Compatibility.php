@@ -1,124 +1,97 @@
 <?php
 /**
- * Add theme compatibility things here.
+ * Add theme compatibility classes.
  *
- * @todo  This is an implementation to set a body class we can use in the common implementation.
- *
- * @since   4.9.3
+ * @since 4.9.3
+ * @since 5.8.0 made an extension of Tribe\Utils\Theme_Compatibility
  *
  * @package Tribe\Events\Views\V2
  */
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Views\V2\Template_Bootstrap;
-use Tribe__Container as Container;
+use Tribe\Utils\Body_Classes;
+use Tribe\Utils\Theme_Compatibility as Compat;
 
-class Theme_Compatibility {
+class Theme_Compatibility extends Compat {
 	/**
-	 * List of themes which have compatibility.
+	 * Fetches the correct class strings for theme and child theme if available.
 	 *
-	 * @since 4.9.4
+	 * @since 4.9.3
+	 * @since 5.8.0 made an extension of Tribe\Utils\Theme_Compatibility.
 	 *
-	 * @var   array
+	 * @deprecated 5.8.0
+	 *
+	 * @return array $classes
 	 */
-	protected $themes = [
-		'avada',
-		'divi',
-		'enfold',
-		'genesis',
-		'twentyseventeen',
-		'twentynineteen',
-		'twentytwenty',
-	];
-
-	/**
-	 * Checks if theme needs a compatibility fix.
-	 *
-	 * @since  4.9.3
-   *
-	 * @return boolean
-	 */
-	public function is_compatibility_required() {
-		$template   = strtolower( get_template() );
-		$stylesheet = strtolower( get_stylesheet() );
-
-		// Prevents empty stylesheet or template
-		if ( empty( $template ) || empty( $stylesheet ) ) {
-			return false;
-		}
-
-		if ( in_array( $template, $this->get_registered_themes() ) ) {
-			return true;
-		}
-
-		return false;
+	public function get_body_classes() {
+		_deprecated_function( __FUNCTION__, '5.8.0', 'Tribe\Utils\Theme_Compatibility::get_compatibility_classes()' );
+		return static::get_compatibility_classes();
 	}
 
 	/**
 	 * Add the theme to the body class.
 	 *
 	 * @since 4.9.3
+	 * @since 5.8.0 now uses static::get_compatibility_classes().
 	 *
 	 * @param  array $classes Classes that are been passed to the body.
+	 *
+	 * @deprecated 5.1.5
 	 *
 	 * @return array $classes
 	 */
 	public function filter_add_body_classes( array $classes ) {
+		_deprecated_function( __FUNCTION__, '5.1.5', 'Theme_Compatibility::add_body_classes()' );
+
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
 			return $classes;
 		}
 
-		if ( ! $this->is_compatibility_required() ) {
+		if ( ! static::is_compatibility_required() ) {
 			return $classes;
 		}
 
-		return array_merge( $classes, $this->get_body_classes() );
+		return array_merge( $classes, static::get_compatibility_classes() );
 	}
 
 	/**
-	 * Fetches the correct class strings for theme and child theme if available.
+	 * Contains the logic for if this object's classes should be added to the queue.
 	 *
-	 * @since 4.9.3
+	 * @since 5.1.5
+	 * @since 5.8.0 now uses static::get_compatibility_classes().
 	 *
-	 * @return array $classes
+	 * @param boolean $add   Whether to add the class to the queue or not.
+	 * @param array   $class The array of body class names to add.
+	 * @param string  $queue The queue we want to get 'admin', 'display', 'all'.
+
+	 * @return boolean Whether body classes should be added or not.
 	 */
-	public function get_body_classes() {
-		$classes      = [];
-		$child_theme  = strtolower( get_stylesheet() );
-		$parent_theme = strtolower( get_template() );
-
-		// Prevents empty stylesheet or template
-		if ( empty( $parent_theme ) || empty( $child_theme ) ) {
-			return $classes;
+	public function should_add_body_class_to_queue( $add, $class, $queue ) {
+		if (
+			'admin' === $queue
+			|| ! tribe( Template_Bootstrap::class )->should_load()
+			|| ! static::is_compatibility_required()
+		) {
+			return $add;
 		}
 
-		$classes[] = sanitize_html_class( "tribe-theme-$parent_theme" );
-
-		// if the 2 options are the same, then there is no child theme.
-		if ( $child_theme !== $parent_theme ) {
-			$classes[] = sanitize_html_class( "tribe-theme-child-$child_theme" );
+		if ( in_array( $class, static::get_compatibility_classes() ) ) {
+			return true;
 		}
 
-		return $classes;
+		return $add;
 	}
 
 	/**
-	 * Returns a list of themes registred for compatibility with our Views.
+	 * Add body classes.
 	 *
-	 * @since  4.9.4
+	 * @since 5.1.5
+	 * @since 5.8.0 now uses static::get_compatibility_classes().
 	 *
-	 * @return array An array of the themes registred.
+	 * @return void
 	 */
-	public function get_registered_themes() {
-		/**
-		 * Filters the list of themes that are registred for compatibility.
-		 *
-		 * @since 4.9.4
-		 *
-		 * @param array $registered An associative array of views in the shape `[ <slug> => <class> ]`.
-		 */
-		$registered = apply_filters( 'tribe_events_views_v2_theme_compatibility_registered', $this->themes );
-
-		return (array) $registered;
+	public function add_body_classes() {
+		tribe( Body_Classes::class )->add_classes( static::get_compatibility_classes() );
 	}
 }

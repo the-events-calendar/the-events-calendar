@@ -42,7 +42,7 @@ const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	},
 } );
 
-// TODO: need to remove the use of "maybe" functions as they hold logic they
+// @todo [BTRIA-619]: need to remove the use of "maybe" functions as they hold logic they
 // ultimately should not.
 const removeVenue = ( dispatch, ownProps ) => () => {
 	const { volatile, maybeRemoveEntry, details } = ownProps;

@@ -14,7 +14,9 @@ class MonthTest extends HtmlTestCase {
 		$this->given_month_data();
 
 		$this->template->add_template_globals( [
-			'the_date' => Dates::build_date_object( '2019-08-01' )
+			'view_slug' => 'month',
+			'the_date' => Dates::build_date_object( '2019-08-01' ),
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		] );
 		$template = $this->template->template( 'month' );
 		$html     = $this->document->html( $template );
@@ -37,7 +39,9 @@ class MonthTest extends HtmlTestCase {
 	public function it_should_contain_a11y_attributes() {
 		$this->given_month_data();
 		$this->template->add_template_globals( [
+			'view_slug' => 'month',
 			'the_date' => Dates::build_date_object( '2019-08-01' ),
+			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		] );
 		$template = $this->template->template( 'month' );
 		$html       = $this->document->html( $template );

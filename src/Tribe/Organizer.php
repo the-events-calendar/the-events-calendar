@@ -17,36 +17,35 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * Args for organizer post type
 	 * @var array
 	 */
-	public $post_type_args = array(
+	public $post_type_args = [
 		'public'              => false,
-		'rewrite'             => array( 'slug' => 'organizer', 'with_front' => false ),
+		'rewrite'             => [ 'slug' => 'organizer', 'with_front' => false ],
 		'show_ui'             => true,
 		'show_in_menu'        => 0,
-		'supports'            => array( 'title', 'editor' ),
-		'capability_type'     => array( 'tribe_organizer', 'tribe_organizers' ),
+		'supports'            => [ 'title', 'editor' ],
+		'capability_type'     => [ 'tribe_organizer', 'tribe_organizers' ],
 		'map_meta_cap'        => true,
 		'exclude_from_search' => true,
-	);
+	];
 
 	/**
 	 * @var array
 	 */
-	public static $valid_keys = array(
+	public static $valid_keys = [
 		'Organizer',
 		'Phone',
 		'Email',
 		'Website',
-	);
+	];
 
 	/**
 	 * @var array A list of the valid meta keys for this linked post.
 	 */
-	public static $meta_keys = array(
+	public static $meta_keys = [
 		'Phone',
 		'Email',
 		'Website',
-	);
-
+	];
 
 	public $singular_organizer_label;
 	public $plural_organizer_label;
@@ -77,13 +76,14 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_organizer_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
 		$this->post_type_args['public']            = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
+		$this->post_type_args['show_in_rest']      = class_exists( 'Tribe__Events__Pro__Main' ) && current_user_can( 'manage_options' );
 
 		/**
 		 * Provides an opportunity to modify the labels used for the organizer post type.
 		 *
 		 * @param array
 		 */
-		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', array(
+		$this->post_type_args['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', [
 			'name'                     => $this->plural_organizer_label,
 			'singular_name'            => $this->singular_organizer_label,
 			'singular_name_lowercase'  => $this->singular_organizer_label_lowercase,
@@ -101,18 +101,34 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			'item_reverted_to_draft'   => sprintf( esc_html__( '%s reverted to draft.', 'the-events-calendar' ), $this->singular_organizer_label ),
 			'item_scheduled'           => sprintf( esc_html__( '%s scheduled.', 'the-events-calendar' ), $this->singular_organizer_label ),
 			'item_updated'             => sprintf( esc_html__( '%s updated.', 'the-events-calendar' ), $this->singular_organizer_label ),
-		) );
+			'item_link'                => sprintf(
+				// Translators: %s: Organizer singular.
+				esc_html__( '%s Link', 'the-events-calendar' ), $this->singular_organizer_label
+			),
+			'item_link_description'    => sprintf(
+				// Translators: %s: Organizer singular.
+				esc_html__( 'A link to a particular %s.', 'the-events-calendar' ), $this->singular_organizer_label
+			),
+		] );
 
 		$this->register_post_type();
 
-		add_filter( 'tribe_events_linked_post_type_args', array( $this, 'filter_linked_post_type_args' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_id_field_index', array( $this, 'linked_post_id_field_index' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_name_field_index', array( $this, 'linked_post_name_field_index' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_type_container', array( $this, 'linked_post_type_container' ), 10, 2 );
-		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, array( $this, 'save' ), 10, 4 );
-		add_filter( 'tribe_events_linked_post_default', array( $this, 'linked_post_default' ), 10, 2 );
-		add_action( 'tribe_events_linked_post_new_form', array( $this, 'linked_post_new_form' ) );
-		add_filter( 'tribe_events_linked_post_meta_values__EventOrganizerID', array( $this, 'filter_out_invalid_organizer_ids' ), 10, 2 );
+		add_filter( 'tribe_events_linked_post_type_args', [ $this, 'filter_linked_post_type_args' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_id_field_index', [ $this, 'linked_post_id_field_index' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_name_field_index', [ $this, 'linked_post_name_field_index' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_type_container', [ $this, 'linked_post_type_container' ], 10, 2 );
+		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, [ $this, 'save' ], 10, 4 );
+		add_filter( 'tribe_events_linked_post_default', [ $this, 'linked_post_default' ], 10, 2 );
+		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
+		add_filter(
+			'tribe_events_linked_post_meta_values__EventOrganizerID',
+			[
+				$this,
+				'filter_out_invalid_organizer_ids',
+			],
+			10,
+			2
+		);
 	}
 
 	/**
@@ -387,7 +403,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 
 			$data = new Tribe__Data( $data, false );
 
-			$postdata = array(
+			$postdata = [
 				'post_title'    => $title,
 				'post_content'  => $content,
 				'post_name'     => $slug,
@@ -396,7 +412,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 				'post_author'   => $data['post_author'],
 				'post_date'     => $data['post_date'],
 				'post_date_gmt' => $data['post_date_gmt'],
-			);
+			];
 
 			$found = false;
 			if ( $avoid_duplicates ) {
@@ -409,7 +425,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 				// for the purpose of finding duplicates we skip empty fields
 				$candidate_data = array_filter( $postdata );
 				$candidate_data = array_combine(
-					array_map( array( $this, 'prefix_key' ), array_keys( $candidate_data ) ),
+					array_map( [ $this, 'prefix_key' ], array_keys( $candidate_data ) ),
 					array_values( $candidate_data )
 				);
 
@@ -486,17 +502,17 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		if ( count( $args ) > 1 ) {
 			$post_type = Tribe__Events__Main::ORGANIZER_POST_TYPE;
 			$tag       = "save_post_{$post_type}";
-			remove_action( $tag, array( tribe( 'tec.main' ), 'save_organizer_data' ), 16 );
+			remove_action( $tag, [ tribe( 'tec.main' ), 'save_organizer_data' ], 16 );
 			wp_update_post( $args );
-			add_action( $tag, array( tribe( 'tec.main' ), 'save_organizer_data' ), 16, 2 );
+			add_action( $tag, [ tribe( 'tec.main' ), 'save_organizer_data' ], 16, 2 );
 		}
 
-		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, array(
+		$post_fields = array_merge( Tribe__Duplicate__Post::$post_table_columns, [
 			'Organizer',
 			'Description',
 			'Excerpt',
-		) );
-		$meta = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
+		] );
+		$meta        = array_diff_key( $data->to_array(), array_combine( $post_fields, $post_fields ) );
 
 		$this->save_meta( $id, $meta );
 
@@ -571,11 +587,11 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
 	 */
 	protected function get_duplicate_post_fields() {
-		$fields = array(
-			'post_title'   => array( 'match' => 'same' ),
-			'post_content' => array( 'match' => 'same' ),
-			'post_excerpt' => array( 'match' => 'same' ),
-		);
+		$fields = [
+			'post_title'   => [ 'match' => 'same' ],
+			'post_content' => [ 'match' => 'same' ],
+			'post_excerpt' => [ 'match' => 'same' ],
+		];
 
 		/**
 		 * Filters the post fields that should be used to search for a organizer duplicate.
@@ -598,11 +614,11 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @see Tribe__Duplicate__Strategy_Factory for supported strategies
 	 */
 	protected function get_duplicate_custom_fields() {
-		$fields = array(
-			'_OrganizerPhone'   => array( 'match' => 'same' ),
-			'_OrganizerEmail'   => array( 'match' => 'same' ),
-			'_OrganizerWebsite' => array( 'match' => 'same' ),
-		);
+		$fields = [
+			'_OrganizerPhone'   => [ 'match' => 'same' ],
+			'_OrganizerEmail'   => [ 'match' => 'same' ],
+			'_OrganizerWebsite' => [ 'match' => 'same' ],
+		];
 
 		/**
 		 * Filters the custom fields that should be used to search for a organizer duplicate.
@@ -618,6 +634,8 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since 5.3.0 Changed the method to return Organizer post objects, not just organizer names.
 	 */
 	public static function get_fetch_callback( $event ) {
 		$event = Tribe__Main::post_id_helper( $event );
@@ -627,11 +645,10 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * Returning a non `null` value here will skip the default logic.
 		 *
-		 * @since 4.9.7
+		 * @since 5.3.0
 		 *
 		 * @param callable|null The fetch callback.
 		 * @param int $event The event post ID.
-		 *
 		 */
 		$callback = apply_filters( 'tribe_events_organizers_fetch_callback', null, $event );
 
@@ -647,12 +664,51 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 				)
 			);
 
-			$organizers    = ! empty( $organizer_ids )
-				? array_map( 'tribe_get_organizer', $organizer_ids )
+			$organizers = ! empty( $organizer_ids )
+				? array_map( 'tribe_get_organizer_object', $organizer_ids )
 				: [];
 
 			return array_filter( $organizers );
 		};
 	}
 
+	/**
+	 * Builds and returns a Closure to lazily fetch an event Organizer names.
+	 *
+	 * @since 5.3.0 Changed the name of this method from `get_fetch_callback` to `get_fetch_names_callback`.
+	 */
+	public static function get_fetch_names_callback( $event ) {
+		$event = Tribe__Main::post_id_helper( $event );
+
+		/**
+		 * Filters the closure that will fetch an Event Organizers.
+		 *
+		 * Returning a non `null` value here will skip the default logic.
+		 *
+		 * @since 4.9.7
+		 *
+		 * @param callable|null The fetch callback.
+		 * @param int $event The event post ID.
+		 */
+		$callback = apply_filters( 'tribe_events_organizers_fetch_names_callback', null, $event );
+
+		if ( null !== $callback ) {
+			return $callback;
+		}
+
+		return static function () use ( $event ) {
+			$organizer_ids = array_filter(
+				array_map(
+					'absint',
+					(array) get_post_meta( $event, '_EventOrganizerID' )
+				)
+			);
+
+			$organizers = ! empty( $organizer_ids )
+				? array_map( 'tribe_get_organizer', $organizer_ids )
+				: [];
+
+			return array_filter( $organizers );
+		};
+	}
 }

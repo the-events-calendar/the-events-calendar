@@ -24,7 +24,7 @@ class File_Importer_Organizers_FeaturedImageTest extends File_Importer_Organizer
 	 * it should import and attach featured image if featured image is ok
 	 */
 	public function it_should_import_and_attach_featured_image_if_featured_image_is_ok() {
-		$image_url     = get_image_url();
+		$image_url     = get_image_path();
 		$attachment_id = $this->factory()->attachment->create_upload_object( $image_url );
 		$this->featured_image_uploader->upload_and_get_attachment_id()->willReturn( $attachment_id );
 

@@ -3,9 +3,9 @@
 namespace Tribe\Events\Views\V2;
 
 use org\bovigo\vfs\vfsStream;
+use tad\FunctionMocker\FunctionMocker as Test;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
-use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe\Test\Products\WPBrowser\Views\V2\TestCase;
 
 require_once codecept_data_dir( 'Views/V2/classes/Test_Template_View.php' );
@@ -22,6 +22,9 @@ class ExtendingViewTest extends TestCase {
 
 			return $views;
 		} );
+
+		// Always return the same value when creating nonces.
+		Test::replace( 'wp_create_nonce', '2ab7cc6b39' );
 	}
 
 	/**
@@ -63,6 +66,7 @@ class ExtendingViewTest extends TestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_the_template_folders() {
+		$this->markTestSkipped( 'Due to changes in common' );
 		$template_folder = vfsStream::setup( 'templates', 0777, [ 'test.php' => '<p>Hay there!</p>' ] );
 		add_filter( 'tribe_template_path_list', static function ( array $folders ) use ( $template_folder ) {
 			$folders[] = [
@@ -117,7 +121,6 @@ class ExtendingViewTest extends TestCase {
 	public function should_render_the_default_view_if_view_not_found() {
 		add_filter( 'tribe_events_views', static function () {
 			return [
-				'reflector' => Reflector_View::class,
 				'list'      => List_View::class,
 				'month'     => Month_View::class,
 			];
@@ -127,7 +130,7 @@ class ExtendingViewTest extends TestCase {
 			'now'   => '2020-01-01 09:00:00'
 		] ) );
 
-		$this->assertInstanceOf( Reflector_View::class, $view );
+		$this->assertInstanceOf( List_View::class, $view );
 		$template = $view->get_template();
 		$this->assertInstanceOf( Template::class, $template );
 		$this->assertNotEquals( $template->get_not_found_template(), $template->get_template_file() );

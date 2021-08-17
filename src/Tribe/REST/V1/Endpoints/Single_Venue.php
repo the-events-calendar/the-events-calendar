@@ -30,7 +30,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		if ( ! ( 'publish' === $venue->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'venue-not-accessible' );
 
-			return new WP_Error( 'venue-not-accessible', $message, array( 'status' => 403 ) );
+			return new WP_Error( 'venue-not-accessible', $message, [ 'status' => 403 ] );
 		}
 
 		$data = $this->post_repository->get_venue_data( $request['id'], 'single' );
@@ -66,7 +66,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-create-venue' );
 
-			return new WP_Error( 'could-not-create-venue', $message, array( 'status' => 400 ) );
+			return new WP_Error( 'could-not-create-venue', $message, [ 'status' => 400 ] );
 		}
 
 		if ( $return_id ) {
@@ -96,79 +96,100 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @since bucket/full-rest-api
 	 */
 	public function get_documentation() {
-		$GET_defaults = $DELETE_defaults = array( 'in' => 'query', 'default' => '', 'type' => 'string' );
-		$POST_defaults = array( 'in' => 'formData', 'default' => '', 'type' => 'string' );
-		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
+		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
+		$POST_defaults = [ 'in' => 'formData', 'default' => '', 'type' => 'string' ];
+		$post_args     = array_merge( $this->READ_args(), $this->CREATE_args() );
 
-		return array(
-			'get' => array(
+		return [
+			'get'    => [
 				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
-				'responses'  => array(
-					'200' => array(
-						'description' => __( 'Returns the data of the venue with the specified post ID', 'the-events-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Venue',
+				'responses'  => [
+					'200' => [
+						'description' => __(
+							'Returns the data of the venue with the specified post ID',
+							'the-events-calendar'
 						),
-					),
-					'400' => array(
+						'schema'      => [
+							'$ref' => '#/definitions/Venue',
+						],
+					],
+					'400' => [
 						'description' => __( 'The venue post ID is missing.', 'the-events-calendar' ),
-					),
-					'403' => array(
-						'description' => __( 'The venue with the specified ID is not accessible.', 'the-events-calendar' ),
-					),
-					'404' => array(
-						'description' => __( 'A venue with the specified post ID does not exist.', 'the-events-calendar' ),
-					),
-				),
-			),
-			'post' => array(
-				'consumes' => array( 'application/x-www-form-urlencoded' ),
+					],
+					'403' => [
+						'description' => __(
+							'The venue with the specified ID is not accessible.',
+							'the-events-calendar'
+						),
+					],
+					'404' => [
+						'description' => __(
+							'A venue with the specified post ID does not exist.',
+							'the-events-calendar'
+						),
+					],
+				],
+			],
+			'post'   => [
+				'consumes'   => [ 'application/x-www-form-urlencoded' ],
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns the data of the updated venue', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Venue',
-						),
-					),
-					'201' => array(
+						],
+					],
+					'201' => [
 						'description' => __( 'Returns the data of the created venue', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Venue',
+						],
+					],
+					'400' => [
+						'description' => __(
+							'A required parameter is missing or an input parameter is in the wrong format',
+							'the-events-calendar'
 						),
-					),
-					'400' => array(
-						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
-					),
-					'403' => array(
+					],
+					'403' => [
 						'description' => __( 'The user is not authorized to create venues', 'the-events-calendar' ),
-					),
-				),
-			),
-			'delete'  => array(
+					],
+				],
+			],
+			'delete' => [
 				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
-				'responses'  => array(
-					'200' => array(
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Deletes a venue and returns its data', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'$ref' => '#/definitions/Venue',
-						),
-					),
-					'400' => array(
+						],
+					],
+					'400' => [
 						'description' => __( 'The venue post ID is missing or does not exist.', 'the-venues-calendar' ),
-					),
-					'403' => array(
-						'description' => __( 'The current user cannot delete the venue with the specified ID.', 'the-venues-calendar' ),
-					),
-					'410' => array(
-						'description' => __( 'The venue with the specified ID has been deleted already.', 'the-venues-calendar' ),
-					),
-					'500' => array(
-						'description' => __( 'The venue with the specified ID could not be deleted.', 'the-venues-calendar' ),
-					),
-				),
-			),
-		);
+					],
+					'403' => [
+						'description' => __(
+							'The current user cannot delete the venue with the specified ID.',
+							'the-venues-calendar'
+						),
+					],
+					'410' => [
+						'description' => __(
+							'The venue with the specified ID has been deleted already.',
+							'the-venues-calendar'
+						),
+					],
+					'500' => [
+						'description' => __(
+							'The venue with the specified ID could not be deleted.',
+							'the-venues-calendar'
+						),
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -180,15 +201,15 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @since bucket/full-rest-api
 	 */
 	public function READ_args() {
-		return array(
-			'id' => array(
+		return [
+			'id' => [
 				'in'                => 'path',
 				'type'              => 'integer',
 				'description'       => __( 'the venue post ID', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_venue_id' ),
-			),
-		);
+				'validate_callback' => [ $this->validator, 'is_venue_id' ],
+			],
+		];
 	}
 
 	/**
@@ -200,129 +221,129 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @since bucket/full-rest-api
 	 */
 	public function CREATE_args() {
-		return array(
+		return [
 			// Post fields
-			'author'        => array(
+			'author'        => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_user_id' ),
+				'validate_callback' => [ $this->validator, 'is_user_id' ],
 				'type'              => 'integer',
 				'description'       => __( 'The venue author ID', 'the-events-calendar' ),
-			),
-			'date'          => array(
+			],
+			'date'          => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'description'       => __( 'The venue publication date', 'the-events-calendar' ),
-			),
-			'date_utc'      => array(
+			],
+			'date_utc'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_time' ),
+				'validate_callback' => [ $this->validator, 'is_time' ],
 				'type'              => 'string',
 				'description'       => __( 'The venue publication date (UTC time zone)', 'the-events-calendar' ),
-			),
-			'venue'         => array(
+			],
+			'venue'         => [
 				'required'          => true,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'type'              => 'string',
 				'description'       => __( 'The venue name', 'the-events-calendar' ),
-			),
-			'description'   => array(
+			],
+			'description'   => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue description', 'the-events-calendar' ),
-			),
-			'status'        => array(
+			],
+			'status'        => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_post_status' ),
+				'validate_callback' => [ $this->validator, 'is_post_status' ],
 				'type'              => 'string',
 				'description'       => __( 'The venue post status', 'the-events-calendar' ),
-			),
+			],
 			// Venue meta fields
-			'show_map'      => array(
+			'show_map'      => [
 				'required'    => false,
 				'type'        => 'string',
 				'default'     => null,
 				'description' => __( 'Whether events linked to the venue should show a map or not', 'the-events-calendar' ),
-			),
-			'show_map_link' => array(
+			],
+			'show_map_link' => [
 				'required'    => false,
 				'type'        => 'string',
 				'default'     => null,
 				'description' => __( 'Whether events linked to the venue should show a map link or not', 'the-events-calendar' ),
-			),
-			'address'       => array(
+			],
+			'address'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue address', 'the-events-calendar' ),
-			),
-			'city'          => array(
+			],
+			'city'          => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue city', 'the-events-calendar' ),
-			),
-			'country'       => array(
+			],
+			'country'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue country', 'the-events-calendar' ),
-			),
-			'province'      => array(
+			],
+			'province'      => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue province', 'the-events-calendar' ),
-			),
-			'state'         => array(
+			],
+			'state'         => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue state', 'the-events-calendar' ),
-			),
-			'zip'           => array(
+			],
+			'zip'           => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue ZIP code', 'the-events-calendar' ),
-			),
-			'phone'         => array(
+			],
+			'phone'         => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue phone number', 'the-events-calendar' ),
-			),
-			'stateprovince' => array(
+			],
+			'stateprovince' => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_string_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue state and province', 'the-events-calendar' ),
-			),
-			'website'       => array(
+			],
+			'website'       => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_url_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_url_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The venue website URL', 'the-events-calendar' ),
-			),
-			'image'         => array(
+			],
+			'image'         => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_image_or_empty' ),
+				'validate_callback' => [ $this->validator, 'is_image_or_empty' ],
 				'type'              => 'string',
 				'default'           => null,
 				'description'       => __( 'The organizer featured image ID or URL', 'the-events-calendar' ),
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -337,7 +358,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
 		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
 
-		$postarr = array(
+		$postarr = [
 			$this->get_id_index() => $request['id'],
 			'post_author'         => $request['author'],
 			'post_date'           => $post_date,
@@ -355,7 +376,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			'Phone'               => $request['phone'],
 			'URL'                 => $request['website'],
 			'FeaturedImage'       => tribe_upload_image( $request['image'] ),
-		);
+		];
 
 		if ( isset( $request['show_map'] ) ) {
 			$postarr['ShowMap'] = tribe_is_truthy( $request['show_map'] ) ? '1' : 'false';
@@ -374,7 +395,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		 */
 		$postarr = apply_filters( 'tribe_events_rest_venue_prepare_postarr', $postarr, $request );
 
-		$postarr = array_filter( $postarr, array( $this->validator, 'is_not_null' ) );
+		$postarr = array_filter( $postarr, [ $this->validator, 'is_not_null' ] );
 
 		return $postarr;
 	}
@@ -428,7 +449,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		if ( 'trash' === $venue->post_status ) {
 			$message = $this->messages->get_message( 'venue-is-in-trash' );
 
-			return new WP_Error( 'venue-is-in-trash', $message, array( 'status' => 410 ) );
+			return new WP_Error( 'venue-is-in-trash', $message, [ 'status' => 410 ] );
 		}
 
 		/**
@@ -449,7 +470,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		if ( false === $deleted ) {
 			$message = $this->messages->get_message( 'could-not-delete-venue' );
 
-			return new WP_Error( 'could-not-delete-venue', $message, array( 'status' => 500 ) );
+			return new WP_Error( 'could-not-delete-venue', $message, [ 'status' => 500 ] );
 		}
 
 		$data = $this->post_repository->get_venue_data( $venue_id );
@@ -496,7 +517,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 		if ( empty( $id ) ) {
 			$message = $this->messages->get_message( 'could-not-update-venue' );
 
-			return new WP_Error( 'could-not-update-venue', $message, array( 'status' => 400 ) );
+			return new WP_Error( 'could-not-update-venue', $message, [ 'status' => 400 ] );
 		}
 
 		$data = $this->post_repository->get_venue_data( $id );
@@ -516,7 +537,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	public function EDIT_args() {
 		// when editing the only required argument is the ID ('id')
 		$create_args = $this->CREATE_args();
-		array_walk( $create_args, array( $this, 'unrequire_arg' ) );
+		array_walk( $create_args, [ $this, 'unrequire_arg' ] );
 
 		return array_merge( $this->READ_args(), $create_args );
 	}

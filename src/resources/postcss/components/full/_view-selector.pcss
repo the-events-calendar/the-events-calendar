@@ -9,12 +9,14 @@
 	 *     class="tribe-events-c-view-selector__button"
 	 *     aria-controls="container-id"
 	 *     aria-expanded="false"
-	 *     aria-selected="false"
 	 *   >
-	 *     <span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *     <span class="tribe-events-c-view-selector__button-icon">
+	 *       <?php $this->template( 'components/icons/' . esc_attr( $view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+	 *     </span>
 	 *     <span class="tribe-events-c-view-selector__button-text">
 	 *       Month
 	 *     </span>
+	 *     <?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-caret-svg' ] ] ); ?>
 	 *   </button>
 	 *   <div
 	 *     class="tribe-events-c-view-selector__content"
@@ -24,7 +26,9 @@
 	 *     <ul class="tribe-events-c-view-selector__list">
 	 *       <li class="tribe-events-c-view-selector__list-item">
 	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
-	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--month"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-icon">
+	 *             <?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
+	 *           </span>
 	 *           <span class="tribe-events-c-view-selector__list-item-text">
 	 *             Month
 	 *           </span>
@@ -32,7 +36,9 @@
 	 *       </li>
 	 *       <li class="tribe-events-c-view-selector__list-item">
 	 *         <a href="#" class="tribe-events-c-view-selector__list-item-link" data-js="tribe-events-view-link">
-	 *           <span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
+	 *           <span class="tribe-events-c-view-selector__list-item-icon">
+	 *             <?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
+	 *           </span>
 	 *           <span class="tribe-events-c-view-selector__list-item-text">
 	 *             List
 	 *           </span>
@@ -59,29 +65,25 @@
 					content: none;
 				}
 			}
+		}
 
-			&:after {
+		.tribe-events-c-view-selector__button-icon-caret-svg {
 
-				.tribe-common--breakpoint-medium& {
-					background-image: svg-inline(caret-down);
-					background-repeat: no-repeat;
-					background-size: contain;
-					content: '';
-					display: block;
-					flex: none;
-					height: 6px;
-					margin-left: var(--spacer-1);
-					width: 10px;
-				}
+			.tribe-common--breakpoint-medium& {
+				display: block;
+				flex: none;
+				height: 6px;
+				margin-left: var(--spacer-1);
+				width: 10px;
 			}
 		}
 
 		.tribe-events-c-view-selector__button--active {
 
-			&:after {
+			.tribe-events-c-view-selector__button-icon-caret-svg {
 
 				.tribe-common--breakpoint-medium& {
-					background-image: svg-inline(caret-up);
+					transform: rotate(180deg);
 				}
 			}
 		}
@@ -115,10 +117,6 @@
 		.tribe-events-c-view-selector__list-item--active {
 
 			.tribe-events-c-view-selector__list-item-link {
-
-				.tribe-common--breakpoint-medium& {
-					background-color: transparent;
-				}
 
 				&:after {
 
@@ -179,11 +177,23 @@
 		box-shadow: var(--box-shadow-tooltip);
 	}
 
-	.tribe-events-c-view-selector__list-item--active {
+	.tribe-events-c-view-selector__list-item {
 
-		.tribe-events-c-view-selector__list-item-link {
-			background-color: var(--color-background-secondary);
+		.tribe-common--breakpoint-medium& {
+
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--color-background-secondary);
+			}
 		}
+	}
+
+	.tribe-events-c-view-selector__list-item-text {
+		@mixin desktop-body-2;
+	}
+
+	.tribe-events-c-view-selector__list-item--active {
 
 		.tribe-events-c-view-selector__list-item-text {
 			font-weight: var(--font-weight-bold);
@@ -195,6 +205,7 @@
 
 		&:hover,
 		&:focus {
+			background-color: var(--color-background-secondary);
 
 			.tribe-events-c-view-selector__list-item-icon {
 				opacity: var(--opacity-icon-hover);
@@ -206,7 +217,25 @@
 		}
 	}
 
-	.tribe-events-c-view-selector__list-item-text {
-		@mixin desktop-body-2;
+	/* -----------------------------------------------------------------------------
+	 *
+	 * View Selector: Theme Overrides
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen.colors-dark & {
+
+		.tribe-events-c-view-selector__button {
+
+			&,
+			&:hover,
+			&:focus {
+				background-color: transparent;
+			}
+		}
 	}
 }

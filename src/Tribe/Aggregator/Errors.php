@@ -36,40 +36,142 @@ class Tribe__Events__Aggregator__Errors {
 	 */
 	private function __construct() {
 		// Prevent Comment Errors from Showing up on normal queries
-		add_action( 'pre_get_comments', array( $this, 'hide_error_comments' ), 10 );
-		add_filter( 'comments_clauses', array( $this, 'hide_error_comments_pre_41' ), 10, 2 );
-		add_filter( 'comment_feed_where', array( $this, 'hide_error_comments_from_feeds' ), 10, 2 );
-		add_filter( 'wp_count_comments', array( $this, 'remove_error_comments_from_wp_counts' ), 10, 2 );
+		add_action( 'pre_get_comments', [ $this, 'hide_error_comments' ], 10 );
+		add_filter( 'comments_clauses', [ $this, 'hide_error_comments_pre_41' ], 10, 2 );
+		add_filter( 'comment_feed_where', [ $this, 'hide_error_comments_from_feeds' ], 10, 2 );
+		add_filter( 'wp_count_comments', [ $this, 'remove_error_comments_from_wp_counts' ], 10, 2 );
 
 		// Create the Errors
-		tribe_register_error( 'core:aggregator:attachment-error', __( 'The image associated with your event could not be attached to the event.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:daily-limit-reached', __( 'The daily limit of %d import requests to the Event Aggregator service has been reached. Please try again later.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:delete-record-failed', __( 'You cannot delete a history record (ID: "%d"). ', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:delete-record-permissions', __( 'You do not have permission to delete this record.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:http_request-limit', __( 'During scheduled import, the limit of HTTP requests was reached and the import was rescheduled.', 'the-events-calendar' ) );
+		tribe_register_error(
+			'core:aggregator:attachment-error',
+			__( 'The image associated with your event could not be attached to the event.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:daily-limit-reached',
+			__(
+				'The daily limit of %d import requests to the Event Aggregator service has been reached. Please try again later.',
+				'the-events-calendar'
+			)
+		);
+		tribe_register_error(
+			'core:aggregator:delete-record-failed',
+			__( 'You cannot delete a history record (ID: "%d"). ', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:delete-record-permissions',
+			__( 'You do not have permission to delete this record.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:http_request-limit',
+			__(
+				'During scheduled import, the limit of HTTP requests was reached and the import was rescheduled.',
+				'the-events-calendar'
+			)
+		);
 
-		tribe_register_error( 'core:aggregator:invalid-create-record-type', __( 'An invalid import type was used when trying to create this import record.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-csv-file', __( 'You must provide a valid CSV file to perform a CSV import.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-csv-parameters', __( 'Invalid data provided for CSV import.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-edit-record-type', __( 'Only scheduled import records can be edited.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-event-id', __( 'Unable to find an event with the ID of %s.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-event-json', __( 'The Event Aggregator API responded with bad data. Please <a href="https://theeventscalendar.com/support/post/" target="_blank">contact support</a>.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-import-id', __( 'Unable to find an import record with the ID of %s.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-image-path', __( 'Unable to attach an image to the event', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-record-frequency', __( 'An invalid frequency was used when trying to create this scheduled import.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-record-object', __( 'Unable to find a matching post.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-record-origin', __( 'The import record is missing the origin.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-record-post_type', __( 'Unable to get a post of the correct type.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-service-key', __( 'You must enter an Event Aggregator license key in Events > Settings > Licenses before using this service.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-service-response', __( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:invalid-json-response', __( 'There is an JSON error with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' ) );
+		tribe_register_error(
+			'core:aggregator:invalid-create-record-type',
+			__( 'An invalid import type was used when trying to create this import record.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-csv-file',
+			__( 'You must provide a valid CSV file to perform a CSV import.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-csv-parameters',
+			__( 'Invalid data provided for CSV import.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-edit-record-type',
+			__( 'Only scheduled import records can be edited.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-event-id',
+			__( 'Unable to find an event with the ID of %s.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-event-json',
+			__(
+				'The Event Aggregator API responded with bad data. Please <a href="https://theeventscalendar.com/support/post/" target="_blank">contact support</a>.',
+				'the-events-calendar'
+			)
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-import-id',
+			__( 'Unable to find an import record with the ID of %s.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-image-path',
+			__( 'Unable to attach an image to the event', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-record-frequency',
+			__( 'An invalid frequency was used when trying to create this scheduled import.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-record-object',
+			__( 'Unable to find a matching post.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-record-origin',
+			__( 'The import record is missing the origin.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-record-post_type',
+			__( 'Unable to get a post of the correct type.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-service-key',
+			__(
+				'You must enter an Event Aggregator license key in Events > Settings > Licenses before using this service.',
+				'the-events-calendar'
+			)
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-service-response',
+			__(
+				'There may be an issue with the Event Aggregator server. Please try your import again later.',
+				'the-events-calendar'
+			)
+		);
+		tribe_register_error(
+			'core:aggregator:invalid-json-response',
+			__(
+				'There is an JSON error with the Event Aggregator server. Please try your import again later.',
+				'the-events-calendar'
+			)
+		);
 
-		tribe_register_error( 'core:aggregator:missing-csv-column-map', __( 'You must map columns from the CSV file to specific fields in order to perform a CSV import.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:missing-csv-file', __( 'The CSV file cannot be found. You may need to re-upload the file.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:record-not-finalized', __( 'Import records must be finalized before posts can be inserted.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:save-child-failed', __( 'Unable to save scheduled import instance. Please try again.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:save-schedule-failed', __( 'Unable to save scheduled import. Please try again.', 'the-events-calendar' ) );
-		tribe_register_error( 'core:aggregator:queue-pending-events', __( 'The records you were attempting to import were still not available when this queue was processed. Please try again.', 'the-events-calendar' ) );
+		tribe_register_error(
+			'core:aggregator:missing-csv-column-map',
+			__(
+				'You must map columns from the CSV file to specific fields in order to perform a CSV import.',
+				'the-events-calendar'
+			)
+		);
+		tribe_register_error(
+			'core:aggregator:missing-csv-file',
+			__( 'The CSV file cannot be found. You may need to re-upload the file.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:record-not-finalized',
+			__( 'Import records must be finalized before posts can be inserted.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:save-child-failed',
+			__( 'Unable to save scheduled import instance. Please try again.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:save-schedule-failed',
+			__( 'Unable to save scheduled import. Please try again.', 'the-events-calendar' )
+		);
+		tribe_register_error(
+			'core:aggregator:queue-pending-events',
+			__(
+				'The records you were attempting to import were still not available when this queue was processed. Please try again.',
+				'the-events-calendar'
+			)
+		);
 	}
 
 	/**
@@ -113,9 +215,9 @@ class Tribe__Events__Aggregator__Errors {
 			return;
 		}
 
-		$types = isset( $query->query_vars['type__not_in'] ) ? $query->query_vars['type__not_in'] : array();
+		$types = isset( $query->query_vars['type__not_in'] ) ? $query->query_vars['type__not_in'] : [];
 		if ( ! is_array( $types ) ) {
-			$types = array( $types );
+			$types = [ $types ];
 		}
 
 		$types[] = self::$comment_type;
@@ -182,7 +284,7 @@ class Tribe__Events__Aggregator__Errors {
 	public function remove_error_comments_from_wp_counts( $stats, $post_id ) {
 		global $wpdb, $pagenow;
 
-		if ( ! in_array( $pagenow, array( 'index.php', 'edit-comments.php' ) ) ) {
+		if ( ! in_array( $pagenow, [ 'index.php', 'edit-comments.php' ] ) ) {
 			return $stats;
 		}
 
@@ -198,7 +300,7 @@ class Tribe__Events__Aggregator__Errors {
 			return $stats;
 		}
 
-		$where = 'WHERE comment_type != "' . self::$comment_type . '"';
+		$where = "WHERE comment_type != '" . self::$comment_type . "'";
 
 		if ( $post_id > 0 ) {
 			$where .= $wpdb->prepare( ' AND comment_post_ID = %d', $post_id );
@@ -207,7 +309,13 @@ class Tribe__Events__Aggregator__Errors {
 		$count = $wpdb->get_results( "SELECT comment_approved, COUNT( * ) AS num_comments FROM {$wpdb->comments} {$where} GROUP BY comment_approved", ARRAY_A );
 
 		$total = 0;
-		$approved = array( '0' => 'moderated', '1' => 'approved', 'spam' => 'spam', 'trash' => 'trash', 'post-trashed' => 'post-trashed' );
+		$approved = [
+			'0'            => 'moderated',
+			'1'            => 'approved',
+			'spam'         => 'spam',
+			'trash'        => 'trash',
+			'post-trashed' => 'post-trashed',
+		];
 		foreach ( (array) $count as $row ) {
 			// Don't count post-trashed toward totals
 			if ( 'post-trashed' != $row['comment_approved'] && 'trash' != $row['comment_approved'] ){
@@ -242,9 +350,7 @@ class Tribe__Events__Aggregator__Errors {
 	 *
 	 * @return string
 	 */
-	public static function build( $message, $args = array() ) {
+	public static function build( $message, $args = [] ) {
 		return vsprintf( $message, $args );
 	}
 }
-
-

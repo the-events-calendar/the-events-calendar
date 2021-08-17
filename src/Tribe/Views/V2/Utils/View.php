@@ -27,7 +27,7 @@ class View {
 	 */
 	public static function get_data( $indexes, $default = null ) {
 		$found = Arr::get_first_set(
-			tribe_get_request_var( 'view_data', [] ),
+			(array) tribe_get_request_var( 'view_data', [] ),
 			(array) $indexes,
 			$default
 		);
@@ -54,4 +54,35 @@ class View {
 		return $event_display_key;
 	}
 
+	/**
+	 * Cleans the View data that will be printed by the `components/data.php` template to avoid its mangling.
+	 *
+	 * By default, the View data is a copy of the View template variables, to avoid the mangling of the JSON data
+	 * some entries of the data might require to be removed, some might require to be formatted or escaped.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @param array<string,string|array> $view_data The initial View data.
+	 *
+	 * @return array<string,string|array> The filtered View data, some entries removed from it to avoid the data script
+	 *                                    being mangled by escaping and texturizing functions running on it.
+	 */
+	public static function clean_data( $view_data ) {
+		if ( ! is_array( $view_data ) ) {
+			return $view_data;
+		}
+
+		/*
+		 * Remove the JSON-LD data, it's already printed by the `components/json-ld-data.php` template. Printing a
+		 * `<script>`, the JSON-LD data, inside a `<script>`, the data, will cause issues.
+		 */
+		$view_data = array_diff_key( $view_data, array_flip( [ 'json_ld_data' ] ) );
+
+		// Remove objects that should not be printed on the page, keep data objects.
+		$view_data = array_filter( $view_data, static function ( $value ) {
+			return ! is_object( $value ) || $value instanceof \stdClass;
+		} );
+
+		return $view_data;
+	}
 }

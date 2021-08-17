@@ -8,7 +8,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 *
 	 * @var array
 	 */
-	protected $types_get_map = array();
+	protected $types_get_map = [];
 
 	/**
 	 * @var Tribe__REST__Messages_Interface

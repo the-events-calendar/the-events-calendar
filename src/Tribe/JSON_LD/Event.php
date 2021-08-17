@@ -65,17 +65,17 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	 *
 	 * @return array
 	 */
-	public function get_data( $posts = null, $args = array() ) {
+	public function get_data( $posts = null, $args = [] ) {
 		// Fetch the global post object if no posts are provided
 		if ( ! is_array( $posts ) && empty( $posts ) ) {
-			$posts = array( $GLOBALS['post'] );
+			$posts = [ $GLOBALS['post'] ];
 		}
 		// If we only received a single post object, wrap it in an array
 		else {
-			$posts = ( $posts instanceof WP_Post ) ? array( $posts ) : (array) $posts;
+			$posts = ( $posts instanceof WP_Post ) ? [ $posts ] : (array) $posts;
 		}
 
-		$return = array();
+		$return = [];
 
 		foreach ( $posts as $i => $post ) {
 			// We may have been passed a post ID - let's ensure we have the post object
@@ -108,7 +108,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$data->startDate = Tribe__Events__Timezones::to_utc( tribe_get_start_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
 			$data->endDate   = Tribe__Events__Timezones::to_utc( tribe_get_end_date( $post_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT ), $tz_string, 'c' );
 
-			// @todo once #90984 is resolved this extra step should not be required
+			// @todo [BTRIA-590]: Once #90984 is resolved this extra step should not be required.
 			if ( ! empty( $tz_string ) ) {
 				$data->startDate = $this->get_localized_iso8601_string( $data->startDate, $tz_string );
 				$data->endDate   = $this->get_localized_iso8601_string( $data->endDate, $tz_string );
@@ -170,9 +170,9 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 		$regex_free  = '/^\\s*' . __( 'Free', 'the-events-calendar' ) . '\\s*$/i';
 
 		// Replace free with 0 (in any language)
-		$map = array(
+		$map = [
 			$regex_free => '0',
-		);
+		];
 
 		foreach ( $map as $normalization_regex => $normalized_price ) {
 			if ( preg_match( $normalization_regex, '' . $price ) ) {

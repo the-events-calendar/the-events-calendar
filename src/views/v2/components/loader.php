@@ -7,20 +7,23 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
- * @version 4.9.10
+ * @version 5.2.0
  *
  */
 ?>
 <div
 	class="tribe-events-view-loader tribe-common-a11y-hidden"
 	role="alert"
-	aria-live="assertive"
+	aria-live="polite"
 >
+	<span class="tribe-events-view-loader__text tribe-common-a11y-visual-hide">
+		<?php esc_html_e( 'Loading view.', 'the-events-calendar' ); ?>
+	</span>
 	<div class="tribe-events-view-loader__dots tribe-common-c-loader">
-		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--first"></div>
-		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--second"></div>
-		<div class="tribe-common-c-loader__dot tribe-common-c-loader__dot--third"></div>
+		<?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot', 'tribe-common-c-loader__dot--first' ] ] ); ?>
+		<?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot', 'tribe-common-c-loader__dot--second' ] ] ); ?>
+		<?php $this->template( 'components/icons/dot', [ 'classes' => [ 'tribe-common-c-loader__dot', 'tribe-common-c-loader__dot--third' ] ] ); ?>
 	</div>
 </div>

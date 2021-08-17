@@ -42,13 +42,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<h3><?php esc_html_e( 'API Keys', 'the-events-calendar' ); ?></h3>
 
-	<p class="privacy-policy-tutorial"><?php esc_html_e( 'The Events Calendar suite offers the use of third-party API keys. The primary functions are to enhance the features we\'ve built in, some of which use Google Maps, PayPal, Eventbrite, and Meetup. These API keys are not supplied by Modern Tribe.', 'the-events-calendar' ); ?></p>
+	<p class="privacy-policy-tutorial"><?php esc_html_e( 'The Events Calendar suite offers the use of third-party API keys. The primary functions are to enhance the features we\'ve built in, some of which use Google Maps, PayPal, Eventbrite, and Meetup. These API keys are not supplied by The Events Calendar.', 'the-events-calendar' ); ?></p>
 
 	<p class="privacy-policy-tutorial"><strong><?php esc_html_e( 'Suggested text:', 'event-tickets' ); ?></strong></p>
 
-	<p><?php esc_html_e( 'We make use of certain API keys, in order to provide specific features.', 'the-events-calendar' ); ?></p>
+	<p><?php esc_html_e( 'We make use of certain APIs, in order to provide specific features.', 'the-events-calendar' ); ?></p>
 
-	<p><?php esc_html_e( 'These API keys may include the following third party services: Google Maps, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret).', 'the-events-calendar' ); ?></p>
+	<p><?php esc_html_e( 'These APIs may include the following third party services: Google Maps (API key), Meetup (OAuth token), PayPal (email, Client ID, Client Secret), Eventbrite (API key, auth URL, Client Secret), and Zoom (email, Client ID, Client Secret).', 'the-events-calendar' ); ?></p>
 
 	<h3 class="privacy-policy-tutorial"><?php esc_html_e( 'How Long You Retain this Data', 'the-events-calendar' ); ?></h3>
 
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<h3 class="privacy-policy-tutorial"><?php esc_html_e( 'Where We Send Your Data', 'the-events-calendar' ); ?></h3>
 
-	<p class="privacy-policy-tutorial"><?php esc_html_e( 'Modern Tribe does not send any user data outside of your website by default.', 'the-events-calendar' ); ?></p>
+	<p class="privacy-policy-tutorial"><?php esc_html_e( 'The Events Calendar does not send any user data outside of your website by default.', 'the-events-calendar' ); ?></p>
 
 	<p class="privacy-policy-tutorial"><?php esc_html_e( 'If you have extended our plugin(s) to send data to a third-party service such as Eventbrite, Google Maps, or PayPal, user information may be passed to these external services. These services may be located abroad.', 'the-events-calendar' ); ?></p>
 

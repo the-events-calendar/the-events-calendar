@@ -9,7 +9,7 @@
  */
 abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	/**
-	 * Whether teh current import ID exists and is for a record that needs data.
+	 * Whether the current import ID exists and is for a record that needs data.
 	 *
 	 * @since 4.6.15
 	 *
@@ -20,7 +20,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	public function is_valid_import_id( $import_id ) {
 		/** @var Tribe__Events__Aggregator__Records $records */
 		$records = tribe( 'events-aggregator.records' );
-		$args    = array( 'post_status' => Tribe__Events__Aggregator__Records::$status->pending );
+		$args    = [ 'post_status' => Tribe__Events__Aggregator__Records::$status->pending ];
 		$record  = $records->get_by_import_id( $import_id, $args );
 
 		$this->current_record = $record;
@@ -37,9 +37,14 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	 *
 	 * @return bool
 	 */
-	public function is_expected_batch_hash( $batch_hash ) {
+	public function is_expected_batch_hash( $batch_hash, WP_REST_Request $request ) {
 		if ( ! $this->current_record instanceof Tribe__Events__Aggregator__Record__Abstract ) {
 			return false;
+		}
+
+		// If the import is going to be marked as failure ignore the next batch validation.
+		if ( 'failed' === $request->get_param( 'status' ) ) {
+			return true;
 		}
 
 		return $this->current_record->meta['next_batch_hash'] === $batch_hash;
@@ -55,7 +60,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	 * @return bool
 	 */
 	public function is_valid_interval( $interval ) {
-		return is_numeric( $interval ) && $interval >= $this->interval_min && $interval <= $this->interval_max;
+		return is_numeric( $interval );
 	}
 
 	/**

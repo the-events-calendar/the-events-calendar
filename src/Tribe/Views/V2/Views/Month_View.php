@@ -241,6 +241,8 @@ class Month_View extends By_Day_View {
 		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
 		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
 
+		$mobile_messages = $this->get_mobile_messages();
+
 		$today                                       = $this->context->get( 'today' );
 		$template_vars['the_date']                   = $grid_date;
 		$template_vars['today_date']                 = Dates::build_date_object( $today )->format( 'Y-m-d' );
@@ -252,6 +254,7 @@ class Month_View extends By_Day_View {
 		$template_vars['prev_label']                 = $prev_month;
 		$template_vars['next_label']                 = $next_month;
 		$template_vars['messages']                   = $this->messages->to_array();
+		$template_vars['mobile_messages']            = $mobile_messages;
 		$template_vars['grid_start_date']            = $grid_start_date;
 
 		return $template_vars;
@@ -288,12 +291,29 @@ class Month_View extends By_Day_View {
 	 */
 	protected function get_days_data( array $grid_days ) {
 		$found_events = $this->get_grid_days_counts();
+		$events_per_day = $this->get_events_per_day();
 
 		// The multi-day stack will contain spacers and post IDs.
 		$day_stacks = $this->build_day_stacks( $grid_days );
 
 		// Let's prepare an array of days more digestible by the templates.
 		$days = [];
+
+		$default_day_url_args = array_merge( $this->get_url_args(), [ 'eventDisplay' => 'day' ] );
+
+		/**
+		 * Allows filtering the base URL arguments that will be added to each "View More" link in Month View.
+		 *
+		 * The URL arguments will be used to build each day "View More" link URL and, while building each day URL,
+		 * the day date will be merged with these default arguments.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param array<string,string|int|float> $default_day_url_args A default set of URL arguments that will be used to build
+		 *                                                             the View More link.
+		 */
+		$default_day_url_args = apply_filters( 'tribe_events_views_v2_month_view_more_url_args', $default_day_url_args, $this );
+
 		foreach ( $grid_days as $day_date => $day_events ) {
 			/**
 			 * This will be used to call `tribe_get_event` in the context of a specific week for each day
@@ -311,6 +331,7 @@ class Month_View extends By_Day_View {
 					: $element;
 			}, Arr::get( $day_stacks, $day_date, [] ) );
 
+			// All non-multiday events.
 			$the_day_events = array_map( 'tribe_get_event',
 				array_filter( $day_events, static function ( $event ) use ( $date_object ) {
 					$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
@@ -319,7 +340,49 @@ class Month_View extends By_Day_View {
 				} )
 			);
 
-			$more_events  = 0;
+			/**
+			 * This is used for determining if a day has featured events - ex: for the mobile icon.
+			 * The events themselves are not used in the template, yet.
+			 */
+			$featured_events = array_map( 'tribe_get_event',
+				array_filter( $day_events,
+					static function ( $event ) use ( $date_object ) {
+						$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
+
+						return $event instanceof \WP_Post && $event->featured;
+					} )
+			);
+
+			usort(
+				$the_day_events,
+				function ( $event_a, $event_b )  {
+					$a = [
+						(int) ( -1 === $event_a->menu_order ),
+						( (int) ( -1 === $event_a->menu_order ) && (int) $event_a->featured  )
+					];
+
+					$b = [
+						(int) ( -1 === $event_b->menu_order ),
+						( (int) ( -1 === $event_b->menu_order ) && (int) $event_b->featured  )
+					];
+
+					if ( $b > $a ) {
+						return 1;
+					}
+
+					if ( $b < $a ) {
+						return -1;
+					}
+
+					return 0;
+				}
+			);
+
+			if ( $events_per_day > -1 ) {
+				$the_day_events = array_slice( array_filter( $the_day_events ), 0, $events_per_day );
+			}
+
+			$more_events      = 0;
 			$day_found_events = Arr::get( $found_events, $day_date, 0 );
 
 			if ( $day_found_events ) {
@@ -335,30 +398,18 @@ class Month_View extends By_Day_View {
 						}
 					)
 				);
+
 				/*
-				 * In the context of the Month View we want to know if there are more events we're not seeing.
-				 * So we exclude the ones we see and the multi-day ones that we're seeing in the multi-day stack.
+				 * In the context of the Month View we want to know if there are more events we're not going to see.
+				 * So we exclude the ones we'll see and the multi-day ones in the multi-day stack.
 				 */
 				$more_events = max( 0, $day_found_events - $stack_events_count - count( $the_day_events ) );
 			}
 
-			$featured_events = array_map( 'tribe_get_event',
-				array_filter( $day_events,
-					static function ( $event ) use ( $date_object ) {
-						$event = tribe_get_event( $event, OBJECT, $date_object->format( 'Y-m-d' ) );
-
-						return $event instanceof \WP_Post && $event->featured;
-					} )
-			);
-
-			$start_of_week = get_option( 'start_of_week', 0 );
-			$is_start_of_week = (int) $start_of_week === (int) $date_object->format( 'w' );
-
-			$day_url = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $day_date ] );
-
-			$day_data = [
+			$day_url_args     = array_merge( $default_day_url_args, [ 'eventDate' => $day_date ] );
+			$day_data         = [
 				'date'             => $day_date,
-				'is_start_of_week' => $is_start_of_week,
+				'is_start_of_week' => (int) get_option( 'start_of_week', 0 ) === (int) $date_object->format( 'w' ),
 				'year_number'      => $date_object->format( 'Y' ),
 				'month_number'     => $date_object->format( 'm' ),
 				'day_number'       => $date_object->format( 'j' ),
@@ -367,7 +418,7 @@ class Month_View extends By_Day_View {
 				'multiday_events'  => $day_stack,
 				'found_events'     => $day_found_events,
 				'more_events'      => $more_events,
-				'day_url'          => $day_url,
+				'day_url'          => tribe_events_get_url( $day_url_args ),
 			];
 
 			$days[ $day_date ] = $day_data;
@@ -447,7 +498,7 @@ class Month_View extends By_Day_View {
 		if ( $keyword ) {
 			$this->messages->insert(
 				Messages::TYPE_NOTICE,
-				Messages::for_key( 'month_no_results_found_w_keyword', trim( $keyword ) )
+				Messages::for_key( 'month_no_results_found_w_keyword', esc_html( trim( $keyword ) ) )
 			);
 
 			return;
@@ -465,10 +516,60 @@ class Month_View extends By_Day_View {
 			return;
 		}
 
+		$message_key = $this->upcoming_events_count() ? 'no_results_found' : 'no_upcoming_events';
 		$this->messages->insert(
 			Messages::TYPE_NOTICE,
-			Messages::for_key( 'no_results_found' ),
+			Messages::for_key( $message_key ),
 			9
 		);
+	}
+
+	/**
+	 * Overrides the base View implementation to limit the results to the View grid.
+	 *
+	 * {@inheritdoc}
+	 */
+	protected function setup_ical_repository_args( $per_page ) {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository->by_args( $this->get_repository_args() );
+		}
+		$this->repository->per_page( $per_page );
+		$event_date = Dates::build_date_object( $this->context->get( 'event_date', 'now' ) );
+		$start_date = tribe_beginning_of_day( $event_date->format( 'Y-m-01' ) );
+		$end_date   = tribe_end_of_day( $event_date->format( 'Y-m-t' ) );
+		$this->repository->where( 'ends_after', $start_date );
+		$this->repository->where( 'starts_before', $end_date );
+	}
+
+	/**
+	 * Returns a set of messages that will be show to the user in the mobile interaction.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @return array<string,array<string|int,string>> A map from message types to messages for
+	 *                                                each type.
+	 */
+	protected function get_mobile_messages() {
+		$mobile_messages = [
+			'notice' =>
+				[
+					'no-events-in-day' => _x(
+						'There are no events on this day.',
+						'A message shown in the mobile version when a day without events is selected.',
+						'the-events-calendar'
+					)
+				]
+		];
+
+		/**
+		 * Allows filtering the mobile messages Month view will display to the user depending on the interaction.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param array<string,array<string|int,string>> A map from message types to messages for
+		 *                                                each type.
+		 * @param Month_View $view                        A reference to the View instance that is filtering its mobile messages.
+		 */
+		return apply_filters( 'tribe_events_views_v2_month_mobile_messages', $mobile_messages, $this );
 	}
 }

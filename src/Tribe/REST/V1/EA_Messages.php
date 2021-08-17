@@ -5,7 +5,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 		parent::__construct();
 
 		// TEC REST v1 messages will all have the `rest-v1:` prefix applied
-		$ea_messages = array(
+		$ea_messages = [
 			'not-tec-rest-api-site'              => __( 'Event Aggregator cannot import events from this site.', 'the-events-calendar' ),
 			'pre-45-tec-site'                    => __( 'Event Aggregator cannot import events because this site is running an outdated version of The Events Calendar.', 'the-events-calendar' ),
 			'tec-rest-api-missing-origin'        => __( 'The Events Calendar is API is not providing the site origin correctly.', 'the-events-calendar' ),
@@ -20,9 +20,9 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			'tec-rest-api-single-event-error'    => __( 'Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the event data.', 'the-events-calendar' ),
 			'tec-rest-api-single-event-empty'    => __( 'Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned empty event data.', 'the-events-calendar' ),
 			'no-results'                         => __( 'The requested URL does not have any upcoming and published events matching the search criteria.', 'the-events-calendar' ),
-		);
+		];
 
-		$learn_more_map = array(
+		$learn_more_map = [
 			'tec-rest-api-unsupported',
 			'tec-rest-api-disabled',
 			'tec-rest-api-bad-data',
@@ -33,7 +33,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			'tec-rest-api-archive-page-empty',
 			'tec-rest-api-single-event-error',
 			'tec-rest-api-single-event-empty',
-		);
+		];
 
 		$learn_more_link = esc_attr( 'https://theeventscalendar.com/knowledgebase/url-import-errors-event-aggregator/' );
 		$learn_more_message = esc_html__( 'Learn more.', 'the-events-calendar' );
@@ -43,7 +43,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			$ea_messages[ $message_code ] .= ' ' . $learn_more_message_html;
 		}
 
-		$adjustable_map = array(
+		$adjustable_map = [
 			'tec-rest-api-bad-data',
 			'tec-rest-api-archive-header-error',
 			'tec-rest-api-archive-missing-total',
@@ -52,7 +52,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			'tec-rest-api-archive-page-empty',
 			'tec-rest-api-single-event-error',
 			'tec-rest-api-single-event-empty',
-		);
+		];
 
 		$adjust_link = esc_attr( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_url_import_range' ) );
 		$adjust_message = esc_html__( 'Try to adjust your import settings and try again.', 'the-events-calendar' );

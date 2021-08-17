@@ -1,6 +1,8 @@
 <?php
 
-// @TODO two functions that do the exact same thing
+/**
+ * @todo [BTRIA-614]: two functions that do the exact same thing
+ */
 if ( ! function_exists( 'tribe_get_single_ical_link' ) ) {
 	/**
 	 * iCal Link (Single)

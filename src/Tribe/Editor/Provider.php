@@ -11,7 +11,9 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	public function register() {
 		// Setup to check if gutenberg is active
 		$this->container->singleton( 'events.editor', 'Tribe__Events__Editor' );
-		$this->container->singleton( 'events.editor.compatibility', 'Tribe__Events__Editor__Compatibility', array( 'hook' ) );
+		$this->container->singleton( 'events.editor.compatibility', 'Tribe__Events__Editor__Compatibility', [ 'hook' ] );
+
+		tribe( 'events.editor' )->hook();
 
 		if (
 			! tribe( 'editor' )->should_load_blocks()
@@ -22,10 +24,10 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 
 		$this->container->singleton( 'events.editor.meta', 'Tribe__Events__Editor__Meta' );
 		$this->container->singleton( 'events.editor.settings', 'Tribe__Events__Editor__Settings' );
-		$this->container->singleton( 'events.editor.i18n', 'Tribe__Events__Editor__I18n', array( 'hook' ) );
+		$this->container->singleton( 'events.editor.i18n', 'Tribe__Events__Editor__I18n', [ 'hook' ] );
 		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
-		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite', array( 'hook' ) );
-		$this->container->singleton( 'events.editor.configuration', 'Tribe__Events__Editor__Configuration', array( 'hook' ) );
+		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite', [ 'hook' ] );
+		$this->container->singleton( 'events.editor.configuration', 'Tribe__Events__Editor__Configuration', [ 'hook' ] );
 
 		$this->container->singleton( 'events.editor.blocks.classic-event-details', 'Tribe__Events__Editor__Blocks__Classic_Event_Details' );
 		$this->container->singleton( 'events.editor.blocks.event-datetime', 'Tribe__Events__Editor__Blocks__Event_Datetime' );
@@ -65,8 +67,6 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
-
-		tribe( 'events.editor' )->hook();
 
 		// Register blocks to own own action
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.classic-event-details', 'register' ) );

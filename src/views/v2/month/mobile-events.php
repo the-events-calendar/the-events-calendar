@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.9.8
  *
@@ -20,11 +20,7 @@
 
 	<?php foreach ( $days as $day_date => $day ) : ?>
 
-		<?php if ( ! empty( $day['found_events'] ) ) : ?>
-
-			<?php $this->template( 'month/mobile-events/mobile-day', [ 'day' => $day, 'day_date' => $day_date ] ); ?>
-
-		<?php endif; ?>
+		<?php $this->template( 'month/mobile-events/mobile-day', [ 'day' => $day, 'day_date' => $day_date ] ); ?>
 
 	<?php endforeach; ?>
 

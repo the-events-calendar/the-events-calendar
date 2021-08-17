@@ -8,13 +8,13 @@
 
 namespace Tribe\Events\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe\Events\Views\V2\Utils;
 
 class List_View extends View {
 	use List_Behavior;
@@ -55,7 +55,7 @@ class List_View extends View {
 		}
 
 		$current_page = (int) $this->context->get( 'page', 1 );
-		$display      = $this->context->get( 'event_display_mode', 'list' );
+		$display      = $this->context->get( 'event_display_mode', $this->slug );
 
 		if ( 'past' === $display ) {
 			$url = parent::next_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
@@ -83,7 +83,7 @@ class List_View extends View {
 		}
 
 		$current_page = (int) $this->context->get( 'page', 1 );
-		$display      = $this->context->get( 'event_display_mode', 'list' );
+		$display      = $this->context->get( 'event_display_mode', $this->slug );
 
 		if ( $this->slug === $display || 'default' === $display ) {
 			$url = parent::next_url( $canonical );
@@ -241,7 +241,12 @@ class List_View extends View {
 
 		if ( 'past' !== $event_display ) {
 			$args['ends_after'] = $date;
+			$args['order']      = 'ASC';
 		} else {
+			$orderby             = Arr::get_first_set( $args, [ 'orderby', 'order_by' ], [] );
+			$orderby             = tribe_normalize_orderby( $orderby );
+			$date_key            = isset( $orderby['event_date_utc'] ) ? 'event_date_utc' : 'event_date';
+			$args['orderby']     = array_merge( $orderby, [ $date_key, 'event_duration' ] );
 			$args['order']       = 'DESC';
 			$args['ends_before'] = $date;
 		}

@@ -2,7 +2,16 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Main as Main;
+
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
+
+	public function setUp() {
+		parent::setUp();
+		// Let's make sure we do not run "second" tests on a cached value.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
+	}
+
 	/**
 	 * @test
 	 */
@@ -220,11 +229,11 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should not filte a 404 template
+	 * It should not filter a 404 template
 	 *
 	 * @test
 	 */
-	public function should_not_filte_a_404_template() {
+	public function should_not_filter_a_404_template() {
 		// Replace the main query with one we control.
 		global $wp_the_query, $wp_query;
 		$wp_the_query = new \WP_Query();
@@ -236,6 +245,61 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$bootstrap = $this->make_instance();
 
 		$this->assertEquals( 'foo/bar.php', $bootstrap->filter_template_include( 'foo/bar.php' ) );
+	}
+
+	/**
+	 * It should return the event template path when unfiltered.
+	 *
+	 * @test
+	 */
+	public function it_should_return_the_event_template_path_when_unfiltered() {
+		$default_events = Main::instance()->plugin_path . 'src/views/v2/default-template.php';
+		// Run our "faked" events query.
+		$this->setup_event_query();
+
+		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
+		$this->assertEquals( $default_events, $template, "Template path should not be 'foo-bar' on the `embed_template` hook when unfiltered." );
+	}
+
+	/**
+	 * It should return the event template path when filtered false.
+	 *
+	 * @test
+	 */
+	public function it_should_return_the_event_template_path_when_filtered_false() {
+		$default_events = Main::instance()->plugin_path . 'src/views/v2/default-template.php';
+		// Run our "faked" events query.
+		$this->setup_event_query();
+
+		add_filter(
+			'tribe_events_views_v2_use_wp_template_hierarchy',
+			'__return_false'
+		);
+
+		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
+		$this->assertEquals( $default_events, $template, "Template path should not be 'foo-bar' on the `embed_template` hook when filtered false." );
+	}
+
+	/**
+	 * It should not return the event template path when filtered true.
+	 *
+	 * @test
+	 */
+	public function it_should_not_return_the_event_template_path_when_filtered_true() {
+		$default_events = Main::instance()->plugin_path . 'src/views/v2/default-template.php';
+
+		// Run our "faked" events query.
+		$this->setup_event_query();
+
+		add_filter(
+			'tribe_events_views_v2_use_wp_template_hierarchy',
+			'__return_true'
+		);
+
+		$template = tribe( Template_Bootstrap::class )->filter_template_include( 'foo-bar' );
+		$this->assertNotEquals( $default_events, $template, "Template path should not be {$default_events} on the `embed_template` hook when filtered true." );
+		// Sanity check
+		$this->assertEquals( 'foo-bar', $template, "Template path should be 'foo-bar' on the `embed_template` hook when filtered true." );
 	}
 
 	public function filter_template_include_data_set() {
@@ -335,10 +399,10 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Sets up filters to simulate a theme with a specific set of templates available.
 	 *
-	 * @param array<string> $whitelist The list of templates available in the theme.
+	 * @param array<string> $safe_list The list of templates available in the theme.
 	 */
-	protected function setup_fake_theme_templates( array $whitelist = [] ) {
-		if ( in_array( 'page', $whitelist ) ) {
+	protected function setup_fake_theme_templates( array $safe_list = [] ) {
+		if ( in_array( 'page', $safe_list ) ) {
 			// Filter the `page` template, to cover `get_page_template`.
 			add_filter( 'page_template', static function () {
 				return codecept_data_dir( 'templates/page.php' );
@@ -349,7 +413,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 			} );
 		}
 
-		if ( in_array( 'singular', $whitelist ) ) {
+		if ( in_array( 'singular', $safe_list ) ) {
 			// Filter the `singular` template, to cover `get_singular_template`.
 			add_filter( 'singular_template', static function () {
 				return codecept_data_dir( 'templates/singular.php' );
@@ -360,7 +424,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 			} );
 		}
 
-		if ( in_array( 'index', $whitelist ) ) {
+		if ( in_array( 'index', $safe_list ) ) {
 			// Filter the `index` template, to cover `get_index_template`.
 			add_filter( 'index_template', static function () {
 				return codecept_data_dir( 'templates/index.php' );
@@ -371,7 +435,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 			} );
 		}
 
-		if ( in_array( 'custom', $whitelist ) ) {
+		if ( in_array( 'custom', $safe_list ) ) {
 			// Filter the `custom` template, to cover `get_custom_template`.
 			add_filter( 'custom_template', static function () {
 				return codecept_data_dir( 'templates/custom.php' );
@@ -381,5 +445,99 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 				return '';
 			} );
 		}
+	}
+
+	/**
+	 * Lets us set the query up manually after setting up hooks.
+	 */
+	protected function setup_event_query() {
+		global $wp_the_query, $wp_query;
+		$wp_the_query = new \WP_Query();
+		$wp_query     = $wp_the_query;
+		// This is an event query, but a 404 one.
+		$wp_the_query->tribe_is_event_query = true;
+	}
+
+	public function page_template_tax_archive_body_classes_provider() {
+		$noop = static function () {
+		};
+
+		return [
+			'empty'                  => [ [], $noop, false ],
+			'post tag archive'       => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->tag->create_and_get();
+				},
+				true
+			],
+			'post category archive'  => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->category->create_and_get();
+				},
+				true
+			],
+			'event category archive' => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = true;
+					$wp_query->queried_object = static::factory()->term->create_and_get( [ 'taxonomy' => Main::TAXONOMY ] );
+				},
+				true
+			],
+			'event tag archive'      => [
+				[ 'archive' ],
+				static function () {
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->tag->create_and_get();
+				},
+				true
+			],
+			'custom tax archive'     => [
+				[ 'archive' ],
+				static function () {
+					register_taxonomy( 'accessibility', Main::POSTTYPE );
+					global $wp_query;
+					$wp_query->is_tax         = true;
+					$wp_query->queried_object = static::factory()->term->create_and_get( [ 'taxonomy' => 'accessibility' ] );
+				},
+				true
+			],
+			'not a taxonomy page' => [
+				['archive']	,
+				static function(){
+					global $wp_query;
+					$wp_query->is_tax         = false;
+					$wp_query->queried_object = static::factory()->post->create_and_get( );
+				},
+				false
+			]
+		];
+	}
+
+	/**
+	 * It should correctly filter body classes for tax archives when using page template
+	 *
+	 * @test
+	 * @dataProvider page_template_tax_archive_body_classes_provider
+	 */
+	public function should_correctly_filter_body_classes_for_tax_archives_when_using_page_template(
+		$initial_body_classes,
+		$setup,
+		$expected
+	) {
+		$setup();
+		$template              = tribe_update_option( 'tribeEventsTemplate', 'page' );
+		$template_bootstrap    = $this->make_instance();
+		$filtered_body_classes = $template_bootstrap->filter_add_body_classes( $initial_body_classes );
+
+		$this->assertEquals( $expected, in_array( 'archive', $filtered_body_classes, true ) );
 	}
 }

@@ -4,13 +4,16 @@
  * Renders our events navigation bar used across our views
  *
  * $filters and $views variables are loaded in and coming from
- * the show funcion in: lib/Bar.php
+ * the show function in: lib/Bar.php
  *
  * Override this template in your own theme by creating a file at:
  *
  *     [your-theme]/tribe-events/modules/bar.php
  *
  * @package  TribeEventsCalendar
+ *
+ * @link http://evnt.is/1aiy
+ *
  * @version 4.6.26
  */
 ?>
@@ -20,7 +23,7 @@
 $filters     = tribe_events_get_filters();
 $views       = tribe_events_get_views();
 $current_url = tribe_events_get_current_filter_url();
-$classes     = array( 'tribe-clearfix' );
+$classes     = [ 'tribe-clearfix' ];
 
 if ( ! empty( $filters ) ) {
 	$classes[] = 'tribe-events-bar--has-filters';

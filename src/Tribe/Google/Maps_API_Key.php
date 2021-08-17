@@ -60,25 +60,25 @@ class Tribe__Events__Google__Maps_API_Key {
 			$tooltip = $this->get_basic_embed_api_tooltip();
 		}
 
-		$gmaps_api_fields = array(
-			'gmaps-js-api-start' => array(
+		$gmaps_api_fields = [
+			'gmaps-js-api-start' => [
 				'type' => 'html',
 				'html' => '<h3>' . esc_html__( 'Google Maps API', 'the-events-calendar' ) . '</h3>',
-			),
+			],
 
-			'gmaps-js-api-info-box' => array(
+			'gmaps-js-api-info-box' => [
 				'type' => 'html',
 				'html' => '<p>' . sprintf(
-					__(
-						'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s.',
-						'the-events-calendar'
-					),
-					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
-					'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Read more', 'the-events-calendar' ) . '</a>'
-				) . '</p>',
-			),
+						__(
+							'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s.',
+							'the-events-calendar'
+						),
+						'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
+						'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Read more', 'the-events-calendar' ) . '</a>'
+					) . '</p>',
+			],
 
-			self::$api_key_option_name => array(
+			self::$api_key_option_name => [
 				'type'            => 'text',
 				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
 				'tooltip'         => $tooltip,
@@ -86,8 +86,8 @@ class Tribe__Events__Google__Maps_API_Key {
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
 				'can_be_empty'    => true,
 				'parent_option'   => Tribe__Events__Main::OPTIONNAME,
-			),
-		);
+			],
+		];
 
 		return array_merge( (array) $addon_fields, $gmaps_api_fields );
 	}
@@ -149,13 +149,13 @@ class Tribe__Events__Google__Maps_API_Key {
 
 		if ( empty( $value_string ) ) {
 
-			remove_filter( 'tribe_field_value', array( $this, 'populate_field_with_default_api_key' ), 10, 2 );
+			remove_filter( 'tribe_field_value', [ $this, 'populate_field_with_default_api_key' ], 10, 2 );
 
 			$value_string = self::$default_api_key;
 
 			tribe_update_option( self::$api_key_option_name, self::$default_api_key );
 
-			add_filter( 'tribe_field_value', array( $this, 'populate_field_with_default_api_key' ), 10, 2 );
+			add_filter( 'tribe_field_value', [ $this, 'populate_field_with_default_api_key' ], 10, 2 );
 		}
 
 		return $value_string;

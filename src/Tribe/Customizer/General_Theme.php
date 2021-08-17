@@ -32,8 +32,10 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @param  array  $settings Section array of settings
 	 * @return string
 	 */
-	protected function get_button_bg_color( $settings = array() ) {
-		$scheme = $this->sanitize_featured_color_choice( $settings['featured_color_scheme'] );
+	protected function get_button_bg_color( $settings = [] ) {
+		$scheme = isset( $settings['featured_color_scheme'] )
+			? $this->sanitize_featured_color_choice( $settings['featured_color_scheme'] )
+			: 'default';
 		$schemes = $this->get_featured_color_schemes();
 
 		if ( 'custom' === $scheme && isset( $settings['featured_color_scheme_custom'] ) ) {
@@ -57,7 +59,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @param  array  $settings Section array of settings
 	 * @return array
 	 */
-	public function create_ghost_settings( $settings = array() ) {
+	public function create_ghost_settings( $settings = [] ) {
 		if ( ! empty( $settings['featured_color_scheme'] ) ) {
 			$settings['button_bg'] = $this->get_button_bg_color( $settings );
 
@@ -86,9 +88,15 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return string
 	 */
 	public function get_css_template( $template ) {
-		$customizer = Tribe__Customizer::instance();
-		$settings = $customizer->get_option( array( $this->ID ) );
-		$background_color_obj = new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
+		// Sanity check.
+		if ( tribe_events_views_v2_is_enabled() ) {
+			return $template;
+		}
+
+		$customizer = tribe( 'customizer' );
+		$settings = $customizer->get_option( [ $this->ID ] );
+		$background_color_obj = empty( $settings['featured_color_scheme'] ) ? false
+			: new Tribe__Utils__Color( $this->get_button_bg_color( $settings ) );
 
 		if ( $customizer->has_option( $this->ID, 'accent_color' ) ) {
 			$template .= '
@@ -171,7 +179,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 				}
 			";
 
-			if ( $background_color_obj->isLight() ) {
+			if ( ! empty( $background_color_obj ) && $background_color_obj->isLight() ) {
 				$template .= '
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost span,
 					.tribe-events-list .tribe-events-loop .tribe-event-featured .tribe-events-event-cost .tribe-tickets-left,
@@ -248,17 +256,17 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	}
 
 	public function setup() {
-		$this->defaults = array(
-			'base_color_scheme' => 'light',
+		$this->defaults = [
+			'base_color_scheme'     => 'light',
 			'featured_color_scheme' => 'default',
-		);
+		];
 
-		$this->arguments = array(
+		$this->arguments = [
 			'priority'    => 10,
 			'capability'  => 'edit_theme_options',
 			'title'       => esc_html__( 'General Theme', 'the-events-calendar' ),
 			'description' => esc_html__( 'Global configurations for the styling of The Events Calendar', 'the-events-calendar' ),
-		);
+		];
 	}
 
 	/**
@@ -270,70 +278,70 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return void
 	 */
 	public function register_settings( WP_Customize_Section $section, WP_Customize_Manager $manager ) {
-		$customizer = Tribe__Customizer::instance();
+		$customizer = tribe( 'customizer' );
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'accent_color', $section ),
-			array(
-				'default'              => $this->get_default( 'accent_color' ),
-				'type'                 => 'option',
+			[
+				'default' => $this->get_default( 'accent_color' ),
+				'type'    => 'option',
 
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'accent_color', $section ),
-				array(
+				[
 					'label'   => esc_html__( 'Accent Color', 'the-events-calendar' ),
 					'section' => $section->id,
-				)
+				]
 			)
 		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'featured_color_scheme', $section ),
-			array(
-				'default'              => $this->get_default( 'featured_color_scheme' ),
-				'sanitize_callback'    => array( $this, 'sanitize_featured_color_choice' ),
-				'type'                 => 'option',
-			)
+			[
+				'default'           => $this->get_default( 'featured_color_scheme' ),
+				'sanitize_callback' => [ $this, 'sanitize_featured_color_choice' ],
+				'type'              => 'option',
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Control(
 				$manager,
 				$customizer->get_setting_name( 'featured_color_scheme', $section ),
-				array(
-					'label'    => __( 'Featured Highlight Color', 'the-events-calendar' ),
-					'section'  => $section->id,
-					'type'     => 'select',
-					'choices'  => $this->get_featured_color_choices(),
-				)
+				[
+					'label'   => __( 'Featured Highlight Color', 'the-events-calendar' ),
+					'section' => $section->id,
+					'type'    => 'select',
+					'choices' => $this->get_featured_color_choices(),
+				]
 			)
 		);
 
 		$manager->add_setting(
 			$customizer->get_setting_name( 'featured_color_scheme_custom', $section ),
-			array(
+			[
 				'default'              => $this->get_default( 'featured_color_scheme_custom' ),
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 				'type'                 => 'option',
-			)
+			]
 		);
 
 		$manager->add_control(
 			new WP_Customize_Color_Control(
 				$manager,
 				$customizer->get_setting_name( 'featured_color_scheme_custom', $section ),
-				array(
+				[
 					'description' => __( 'If the Featured highlight color is set to Custom, the following color will be used:', 'the-events-calendar' ),
-					'section' => $section->id,
-				)
+					'section'     => $section->id,
+				]
 			)
 		);
 
@@ -349,60 +357,60 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	 * @return array
 	 */
 	public function get_featured_color_schemes() {
-		$schemes = array(
-			'blue-steel' => array(
-				'label' => __( 'Blue Steel', 'the-events-calendar' ),
-				'colors' => array(
+		$schemes = [
+			'blue-steel' => [
+				'label'  => __( 'Blue Steel', 'the-events-calendar' ),
+				'colors' => [
 					'#2b474f',
-				),
-			),
-			'deep-sea' => array(
-				'label' => __( 'Deep Sea', 'the-events-calendar' ),
-				'colors' => array(
+				],
+			],
+			'deep-sea'   => [
+				'label'  => __( 'Deep Sea', 'the-events-calendar' ),
+				'colors' => [
 					'#157f9d',
-				),
-			),
-			'default' => array(
-				'label' => __( 'Default', 'the-events-calendar' ),
-				'colors' => array(
+				],
+			],
+			'default'    => [
+				'label'  => __( 'Default', 'the-events-calendar' ),
+				'colors' => [
 					'#0ea0d7',
-				),
-			),
-			'evergreen' => array(
-				'label' => __( 'Evergreen', 'the-events-calendar' ),
-				'colors' => array(
+				],
+			],
+			'evergreen'  => [
+				'label'  => __( 'Evergreen', 'the-events-calendar' ),
+				'colors' => [
 					'#416d53',
-				),
-			),
-			'lagoon' => array(
-				'label' => __( 'Lagoon', 'the-events-calendar' ),
-				'colors' => array(
+				],
+			],
+			'lagoon'     => [
+				'label'  => __( 'Lagoon', 'the-events-calendar' ),
+				'colors' => [
 					'#1ca8c7',
-				),
-			),
-			'malacite' => array(
-				'label' => __( 'Malachite', 'the-events-calendar' ),
-				'colors' => array(
+				],
+			],
+			'malacite'   => [
+				'label'  => __( 'Malachite', 'the-events-calendar' ),
+				'colors' => [
 					'#078e87',
-				),
-			),
-			'skyfall' => array(
-				'label' => __( 'Skyfall', 'the-events-calendar' ),
-				'colors' => array(
+				],
+			],
+			'skyfall'    => [
+				'label'  => __( 'Skyfall', 'the-events-calendar' ),
+				'colors' => [
 					'#2f3750',
-				),
-			),
-			'sunshine' => array(
-				'label' => __( 'Sunshine', 'the-events-calendar' ),
-				'colors' => array(
+				],
+			],
+			'sunshine'   => [
+				'label'  => __( 'Sunshine', 'the-events-calendar' ),
+				'colors' => [
 					'#f4af49',
-				),
-			),
-			'custom' => array(
-				'label' => __( 'Custom', 'the-events-calendar' ),
-				'colors' => array(),
-			),
-		);
+				],
+			],
+			'custom'     => [
+				'label'  => __( 'Custom', 'the-events-calendar' ),
+				'colors' => [],
+			],
+		];
 
 		/**
 		 * Filter the color schemes for featured events
@@ -420,12 +428,12 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	public function get_featured_color_choices() {
 		$schemes = $this->get_featured_color_schemes();
 
-		$choices = array();
+		$choices = [];
 
 		foreach ( $schemes as $scheme => $data ) {
 			// add a divider before the "Custom" choice
 			if ( 'custom' === $scheme ) {
-				$choices[ 'divider' ] = '---';
+				$choices['divider'] = '---';
 			}
 
 			$choices[ $scheme ] = $data['label'];

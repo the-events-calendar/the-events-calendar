@@ -100,4 +100,60 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 5, tribe_organizers()->get_ids() );
 	}
 
+	/**
+	 * @test
+	 */
+	public function should_allow_fetching_organizers_by_has_events() {
+		$organizers = $this->create_organizers_and_events( 4, 3, 0 );
+		$this->assertEqualSets( $organizers['with'] , tribe_organizers()->where( 'has_events', true )->get_ids() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_allow_fetching_organizers_by_has_no_events() {
+		$organizers = $this->create_organizers_and_events( 4, 3, 0 );
+		$this->assertEqualSets( $organizers['without'] , tribe_organizers()->where( 'has_no_events', true )->get_ids() );
+	}
+
+	/**
+	 * Creates a set of organizers and a set of events for half the organizers.
+	 * Also creates a set of "extra" events for "noise"
+	 *
+	 * @since TBD
+	 *
+	 * @param int $organizers   The number of organizers to create.
+	 * @param int $events       The number of events to create per organizer.
+	 * @param int $extra_events The number of extra events to create.
+	 *
+	 * @return array<string,array<int,int>> List of IDs that were created, sorted by with/without events.
+	 */
+	public function create_organizers_and_events( int $organizers = 1, int $events = 1, int $extra_events = 0 ) {
+		$with_events         = ceil( $organizers / 2 );
+		$without_events      = floor( $organizers / 2 );
+		$returned_organizers = [];
+
+		while ( $without_events > 0 ) {
+			$id                               = $this->factory()->organizer->create();
+			$returned_organizers['without'][] = $id;
+			$without_events--;
+		}
+
+		while ( $with_events > 0 ) {
+			$id                            = $this->factory()->organizer->create();
+			$returned_organizers['with'][] = $id;
+
+			$this->factory()->event->create_many( $events, [ 'organizers' => [ $id ] ] );
+
+			$with_events--;
+		}
+
+		while ( $extra_events > 0 ) {
+			$this->factory()->event->create();
+			$extra_events--;
+		}
+
+		return $returned_organizers;
+	}
+
 }

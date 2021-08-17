@@ -77,7 +77,7 @@ class Event extends Base {
 			$multiday = false;
 
 			if ( $all_day ) {
-				$start_end_diff = $start_date_object->diff( $end_date_object );
+				$start_end_diff = $start_date_object->diff( $end_date_object->add( $one_second ) );
 				$is_multiday    = $start_end_diff->days > 1;
 				$multiday       = $is_multiday ? $start_end_diff->days : false;
 			} else {
@@ -163,10 +163,11 @@ class Event extends Base {
 				}
 			}
 
-			$featured        = tribe_is_truthy( isset( $post_meta[ Featured::FEATURED_EVENT_KEY ][0] ) ? $post_meta[ Featured::FEATURED_EVENT_KEY ][0] : null );
-			$sticky          = get_post_field( 'menu_order', $post_id ) === -1;
-			$organizer_fetch = Organizer::get_fetch_callback( $post_id );
-			$venue_fetch     = Venue::get_fetch_callback( $post_id );
+			$featured              = tribe_is_truthy( isset( $post_meta[ Featured::FEATURED_EVENT_KEY ][0] ) ? $post_meta[ Featured::FEATURED_EVENT_KEY ][0] : null );
+			$sticky                = get_post_field( 'menu_order', $post_id ) === - 1;
+			$organizer_names_fetch = Organizer::get_fetch_names_callback( $post_id );
+			$organizer_fetch       = Organizer::get_fetch_callback( $post_id );
+			$venue_fetch           = Venue::get_fetch_callback( $post_id );
 
 			$start_site         = $start_date_object->setTimezone( $site_timezone );
 			$end_site           = $end_date_object->setTimezone( $site_timezone );
@@ -199,28 +200,42 @@ class Event extends Base {
 				'displays_on'            => $displays_on,
 				'featured'               => $featured,
 				'sticky'                 => $sticky,
-				'cost'                   =>  tribe_get_cost( $post_id, true ),
+				'cost'                   => tribe_get_cost( $post_id, true ),
 				'excerpt'                => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) );
 					},
 					false
 				) )->on_resolve( $cache_this ),
-				'organizers'             => ( new Lazy_Collection( $organizer_fetch ) )->on_resolve( $cache_this ),
-				'venues'                 => ( new Lazy_Post_Collection(
+				'organizer_names'        => ( new Lazy_Collection( $organizer_names_fetch ) )->on_resolve( $cache_this ),
+				'organizers'             => (
+				new Lazy_Post_Collection(
+					$organizer_fetch,
+					'tribe_get_organizer_object'
+				)
+				)->on_resolve( $cache_this ),
+				'venues'                 => (
+				new Lazy_Post_Collection(
 					$venue_fetch,
 					'tribe_get_venue_object' )
 				)->on_resolve( $cache_this ),
 				'thumbnail'              => ( new Post_Thumbnail( $post_id ) )->on_resolve( $cache_this ),
 				'permalink'              => ( new Lazy_String(
 					static function () use ( $post_id ) {
-						return get_permalink( $post_id );
+						$permalink = get_permalink( $post_id );
+						return (string) ( empty( $permalink ) ? '' : $permalink );
 					},
 					false
 				) )->on_resolve( $cache_this ),
 				'schedule_details'       => ( new Lazy_String(
 					static function () use ( $post_id ) {
 						return tribe_events_event_schedule_details( $post_id );
+					},
+					false
+				) )->on_resolve( $cache_this ),
+				'short_schedule_details' => ( new Lazy_String(
+					static function () use ( $post_id ) {
+						return tribe_events_event_short_schedule_details( $post_id );
 					},
 					false
 				) )->on_resolve( $cache_this ),
@@ -232,7 +247,8 @@ class Event extends Base {
 				) )->on_resolve( $cache_this ),
 				'title'                  => ( new Lazy_String(
 					static function () use ( $post_id ) {
-						return get_the_title( $post_id );
+						$title = get_the_title( $post_id );
+						return (string) ( empty( $title ) ? '' : $title );
 					},
 					false
 				) )->on_resolve( $cache_this ),

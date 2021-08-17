@@ -35,7 +35,7 @@ class Tribe__Events__Aggregator__Processes__Queue_Control {
 			? $location
 			: remove_query_arg( self::CLEAR_PROCESSES );
 
-		$location = add_query_arg( array( self::CLEAR_RESULT => $cleared ), $location );
+		$location = add_query_arg( [ self::CLEAR_RESULT => $cleared ], $location );
 
 		wp_redirect( $location );
 		tribe_exit();

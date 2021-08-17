@@ -94,13 +94,14 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 
 		// kludge
 		if ( ! empty( $event->_end_date_fixed ) ) {
-			// @todo remove this once we can have all day events without a start / end time
+			// @todo [BTRIA-613]: remove this once we can have all day events without a start / end time.
 			$event_end = date_create( date( Tribe__Date_Utils::DBDATETIMEFORMAT, $event_end ) );
 			$event_end->modify( '+1 day' );
 			$event_end    = $event_end->format( 'U' );
 		}
 
-		/* note:
+		/*
+		 * Note:
 		 * events that start exactly on the EOD cutoff will count on the following day
 		 * events that end exactly on the EOD cutoff will count on the previous day
 		 */

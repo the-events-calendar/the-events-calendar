@@ -7,7 +7,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	/**
 	 * @var array An array mapping the REST request supported query vars to the args used in a TEC WP_Query.
 	 */
-	protected $supported_query_vars = array(
+	protected $supported_query_vars = [
 		'page'               => 'paged',
 		'per_page'           => 'posts_per_page',
 		'search'             => 's',
@@ -15,7 +15,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		'has_events'         => 'has_events',
 		'only_with_upcoming' => 'only_with_upcoming',
 		'status'             => 'post_status',
-	);
+	];
 
 	/**
 	 * Tribe__Events__REST__V1__Endpoints__Archive_Organizer constructor.
@@ -48,27 +48,27 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		return array(
-			'get' => array(
-				'parameters' => $this->swaggerize_args( $this->READ_args(), array( 'in' => 'query', 'default' => '' ) ),
-				'responses'  => array(
-					'200' => array(
+		return [
+			'get' => [
+				'parameters' => $this->swaggerize_args( $this->READ_args(), [ 'in' => 'query', 'default' => '' ] ),
+				'responses'  => [
+					'200' => [
 						'description' => __( 'Returns all the organizers matching the search criteria', 'the-events-calendar' ),
-						'schema'      => array(
+						'schema'      => [
 							'title' => 'organizers',
 							'type'  => 'array',
-							'items' => array( '$ref' => '#/definitions/Organizer' ),
-						),
-					),
-					'400' => array(
+							'items' => [ '$ref' => '#/definitions/Organizer' ],
+						],
+					],
+					'400' => [
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
-					),
-					'404' => array(
+					],
+					'404' => [
 						'description' => __( 'The requested page was not found.', 'the-events-calendar' ),
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -81,13 +81,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * @since 4.6
 	 */
 	public function get( WP_REST_Request $request ) {
-		$args = array(
+		$args = [
 			'posts_per_page' => $request['per_page'],
 			'paged'          => $request['page'],
 			's'              => $request['search'],
 			'event'          => $request['event'],
 			'has_events'     => $request['has_events'],
-		);
+		];
 
 		if ( null === $request['status'] ) {
 			$cap                 = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_posts;
@@ -113,7 +113,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			if ( ! is_string( $args['s'] ) ) {
 				$message = $this->messages->get_message( 'archive-bad-search-string' );
 
-				return new WP_Error( 'archive-bad-search-string', $message, array( 'status' => 400 ) );
+				return new WP_Error( 'archive-bad-search-string', $message, [ 'status' => 400 ] );
 			}
 
 			/** @var Tribe__Events__Organizer $linked_post */
@@ -124,25 +124,26 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			if ( ! empty( $matches ) ) {
 				$args['post__in'] = $matches;
 			} else {
-				$organizers = array();
+				$organizers = [];
 			}
 		}
 
+		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
+
 		/** @var Tribe__Cache $cache */
 		$cache     = tribe( 'cache' );
-		$cache_key = 'rest_get_organizers_data_' . get_current_user_id() . '_' . wp_json_encode( $args );
+		$cache_key = 'rest_get_organizers_data_' . get_current_user_id() . '_' . wp_json_encode( $args ) . '_' . $only_with_upcoming . '_' . $posts_per_page;
 
 		$data = $cache->get( $cache_key, 'save_post' );
 
 		if ( ! is_array( $data ) ) {
-			$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 			$organizers = isset( $organizers ) ? $organizers : tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
 
 			unset( $args['fields'] );
 
 			$ids = wp_list_pluck( $organizers, 'ID' );
 
-			$data = array( 'organizers' => array() );
+			$data = [ 'organizers' => [] ];
 
 			foreach ( $ids as $organizer_id ) {
 				$organizer = $this->repository->get_organizer_data( $organizer_id );
@@ -159,7 +160,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			if ( empty( $organizers ) && (int) $page > 1 ) {
 				$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
 
-				return new WP_Error( 'organizer-archive-page-not-found', $message, array( 'status' => 404 ) );
+				return new WP_Error( 'organizer-archive-page-not-found', $message, [ 'status' => 404 ] );
 			}
 
 			if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
@@ -195,53 +196,53 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * @since 4.5
 	 */
 	public function READ_args() {
-		return array(
-			'page'               => array(
+		return [
+			'page'               => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_positive_int' ),
+				'validate_callback' => [ $this->validator, 'is_positive_int' ],
 				'default'           => 1,
 				'description'       => __( 'The archive page to return', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'per_page'           => array(
+			],
+			'per_page'           => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_positive_int' ),
-				'sanitize_callback' => array( $this, 'sanitize_per_page' ),
+				'validate_callback' => [ $this->validator, 'is_positive_int' ],
+				'sanitize_callback' => [ $this, 'sanitize_per_page' ],
 				'default'           => $this->get_default_posts_per_page(),
 				'description'       => __( 'The number of organizers to return on each page', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'search'             => array(
+			],
+			'search'             => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_string' ),
+				'validate_callback' => [ $this->validator, 'is_string' ],
 				'description'       => __( 'Organizers should contain the specified string in the title, description or custom fields', 'the-events-calendar' ),
 				'type'              => 'string',
-			),
-			'event'              => array(
+			],
+			'event'              => [
 				'required'          => false,
-				'validate_callback' => array( $this->validator, 'is_event_id' ),
+				'validate_callback' => [ $this->validator, 'is_event_id' ],
 				'description'       => __( 'Organizers should be related to this event', 'the-events-calendar' ),
 				'type'              => 'integer',
-			),
-			'has_events'         => array(
+			],
+			'has_events'         => [
 				'required'     => false,
 				'description'  => __( 'Organizers should have events associated to them', 'the-events-calendar' ),
 				'swagger_type' => 'boolean',
-			),
-			'only_with_upcoming' => array(
+			],
+			'only_with_upcoming' => [
 				'required'     => false,
 				'description'  => __( 'Organizers should have upcoming events associated to them', 'the-events-calendar' ),
 				'swagger_type' => 'boolean',
 				'default'      => false,
-			),
-			'status'             => array(
+			],
+			'status'             => [
 				'required'          => false,
-				'validate_callback' => array( $this, 'filter_post_status_list' ),
+				'validate_callback' => [ $this, 'filter_post_status_list' ],
 				'swagger_type'      => 'string',
 				'format'            => 'string',
 				'description'       => __( 'The organizer post status', 'the-events-calendar' ),
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -273,12 +274,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	protected function get_total( $args, $only_with_upcoming = false ) {
 		unset( $args['posts_per_page'] );
 
-		$this->total = tribe_get_organizers( $only_with_upcoming, - 1, true,
-			array_merge( $args, array(
-				'found_posts' => true,
+		$this->total = tribe_get_organizers( $only_with_upcoming, -1, true,
+			array_merge( $args, [
+				'found_posts'            => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
-			) ) );
+			] ) );
 
 		$this->total = is_array( $this->total ) ? count( $this->total ) : $this->total;
 
@@ -311,12 +312,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * @since 4.6
 	 */
 	protected function has_next( $args, $page, $only_with_upcoming ) {
-		$overrides = array(
+		$overrides = [
 			'paged'                  => $page + 1,
 			'fields'                 => 'ids',
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
-		);
+		];
 
 		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );
@@ -338,12 +339,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * @since 4.5
 	 */
 	protected function has_previous( $page, $args, $only_with_upcoming ) {
-		$overrides = array(
+		$overrides = [
 			'paged'                  => $page - 1,
 			'fields'                 => 'ids',
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
-		);
+		];
 
 		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );

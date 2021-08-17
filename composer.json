@@ -1,12 +1,12 @@
 {
-  "name": "moderntribe/the-events-calendar",
-  "description": "The Events Calendar WordPress plugin by Modern Tribe",
+  "name": "the-events-calendar/the-events-calendar",
+  "description": "The Events Calendar WordPress plugin by The Events Calendar",
   "type": "wordpress-plugin",
   "keywords": [
     "wordpress",
     "events"
   ],
-  "homepage": "http://tri.be/shop/wordpress-events-calendar/",
+  "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "require-dev": {
     "automattic/vipwpcs": "^2.0",
@@ -21,16 +21,15 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
-    "lucatume/wp-browser": "^2.2.37",
+    "lucatume/wp-browser": "^2.6.17",
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
-    "moderntribe/tribalscents": "dev-master",
-    "moderntribe/tribe-testing-facilities": "dev-master",
+    "the-events-calendar/tribalscents": "dev-master",
+    "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "wp-coding-standards/wpcs": "^2.1",
-    "xamin/handlebars.php": "^0.10.3",
     "vlucas/phpdotenv": "^4.1"
   },
   "minimum-stability": "stable",
@@ -54,15 +53,15 @@
   },
   "repositories": [
     {
-      "name": "moderntribe/tribe-testing-facilities",
+      "name": "the-events-calendar/tec-testing-facilities",
       "type": "github",
-      "url": "https://github.com/moderntribe/tribe-testing-facilities",
+      "url": "https://github.com/the-events-calendar/tec-testing-facilities",
       "no-api": true
     },
     {
-      "name": "moderntribe/TribalScents",
+      "name": "the-events-calendar/TribalScents",
       "type": "github",
-      "url": "https://github.com/moderntribe/TribalScents",
+      "url": "https://github.com/the-events-calendar/TribalScents",
       "no-api": true
     }
   ],

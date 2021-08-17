@@ -101,41 +101,71 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		$this->create_args['post_type'] = Tribe__Events__Main::POSTTYPE;
-		$this->taxonomies               = array(
-			Tribe__Events__Main::TAXONOMY,
+		$tribe_events_category          = Tribe__Events__Main::TAXONOMY;
+		$this->taxonomies               = [
+			$tribe_events_category,
 			'post_tag',
-		);
+		];
 
 		// Add event specific aliases.
-		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, array(
-			'start_date'         => '_EventStartDate',
-			'end_date'           => '_EventEndDate',
-			'start_date_utc'     => '_EventStartDateUTC',
-			'end_date_utc'       => '_EventEndDateUTC',
-			'duration'           => '_EventDuration',
-			'all_day'            => '_EventAllDay',
-			'timezone'           => '_EventTimezone',
-			'venue'              => '_EventVenueID',
-			'organizer'          => '_EventOrganizerID',
-			'category'           => Tribe__Events__Main::TAXONOMY,
-			'cost'               => '_EventCost',
-			'currency_symbol'    => '_EventCurrencySymbol',
-			'currency_position'  => '_EventCurrencyPosition',
-			'show_map'           => '_EventShowMap',
-			'show_map_link'      => '_EventShowMapLink',
-			'url'                => '_EventURL',
-			'hide_from_upcoming' => '_EventHideFromUpcoming',
-			// Where is "sticky"? It's handled in the meta filtering by setting `menu_order`.
-			'featured'           => '_tribe_featured',
-		) );
+		$this->update_fields_aliases = array_merge(
+			$this->update_fields_aliases,
+			[
+				'start_date'         => '_EventStartDate',
+				'end_date'           => '_EventEndDate',
+				'start_date_utc'     => '_EventStartDateUTC',
+				'end_date_utc'       => '_EventEndDateUTC',
+				'duration'           => '_EventDuration',
+				'all_day'            => '_EventAllDay',
+				'timezone'           => '_EventTimezone',
+				'venue'              => '_EventVenueID',
+				'organizer'          => '_EventOrganizerID',
+				'category'           => Tribe__Events__Main::TAXONOMY,
+				'cost'               => '_EventCost',
+				'currency_symbol'    => '_EventCurrencySymbol',
+				'currency_position'  => '_EventCurrencyPosition',
+				'show_map'           => '_EventShowMap',
+				'show_map_link'      => '_EventShowMapLink',
+				'url'                => '_EventURL',
+				'hide_from_upcoming' => '_EventHideFromUpcoming',
+				// Where is "sticky"? It's handled in the meta filtering by setting `menu_order`.
+				'featured'           => '_tribe_featured',
+			]
+		);
 
-		$this->default_args = array(
+
+		$this->update_fields_aliases = array_merge(
+			$this->update_fields_aliases,
+			[
+				'start_date'         => '_EventStartDate',
+				'end_date'           => '_EventEndDate',
+				'start_date_utc'     => '_EventStartDateUTC',
+				'end_date_utc'       => '_EventEndDateUTC',
+				'duration'           => '_EventDuration',
+				'all_day'            => '_EventAllDay',
+				'timezone'           => '_EventTimezone',
+				'venue'              => '_EventVenueID',
+				'organizer'          => '_EventOrganizerID',
+				'category'           => $tribe_events_category,
+				'cost'               => '_EventCost',
+				'currency_symbol'    => '_EventCurrencySymbol',
+				'currency_position'  => '_EventCurrencyPosition',
+				'show_map'           => '_EventShowMap',
+				'show_map_link'      => '_EventShowMapLink',
+				'url'                => '_EventURL',
+				'hide_from_upcoming' => '_EventHideFromUpcoming',
+				// Where is "sticky"? It's handled in the meta filtering by setting `menu_order`.
+				'featured'           => '_tribe_featured',
+			]
+		);
+
+		$this->default_args = [
 			'post_type'                    => Tribe__Events__Main::POSTTYPE,
 			'order'                        => 'ASC',
 			'order_by'                     => 'event_date',
 			// We'll be handling the dates, let's mark the query as a non-filtered one.
 			'tribe_suppress_query_filters' => true,
-		);
+		];
 
 		$this->schema = array_merge(
 			$this->schema,
@@ -178,8 +208,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$this->add_simple_meta_schema_entry( 'website', '_EventURL' );
 
-		$this->add_simple_tax_schema_entry( 'event_category', Tribe__Events__Main::TAXONOMY );
-		$this->add_simple_tax_schema_entry( 'event_category_not_in', Tribe__Events__Main::TAXONOMY, 'term_not_in' );
+		$this->add_simple_tax_schema_entry( 'event_category', $tribe_events_category );
+		$this->add_simple_tax_schema_entry( 'event_category_not_in', $tribe_events_category, 'term_not_in' );
+		$this->add_simple_tax_schema_entry( 'category', $tribe_events_category );
+		$this->add_simple_tax_schema_entry( 'category_not_in', $tribe_events_category, 'term_not_in' );
+		$this->add_simple_tax_schema_entry( $tribe_events_category, $tribe_events_category );
+		$this->add_simple_tax_schema_entry( $tribe_events_category . '_not_in', $tribe_events_category, 'term_not_in' );
 		$this->add_simple_tax_schema_entry( 'tag', 'post_tag' );
 		$this->add_simple_tax_schema_entry( 'tag_not_in', 'post_tag', 'term_not_in' );
 	}
@@ -219,23 +253,23 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			return null;
 		}
 
-		return array(
-			'meta_query' => array(
-				'by-all-day' => array(
-					'not-exists' => array(
+		return [
+			'meta_query' => [
+				'by-all-day' => [
+					'not-exists' => [
 						'key'     => '_EventAllDay',
 						'compare' => 'NOT EXISTS',
 						'value'   => '#',
-					),
+					],
 					'relation'   => 'OR',
-					'is-not-yes' => array(
+					'is-not-yes' => [
 						'key'     => '_EventAllDay',
 						'compare' => 'NOT IN',
 						'value'   => [ 'yes', '1' ],
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -255,16 +289,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
-		return array(
-			'meta_query' => array(
-				'starts-before' => array(
+		return [
+			'meta_query' => [
+				'starts-before' => [
 					'key'     => $this->start_meta_key,
 					'compare' => '<',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
@@ -284,16 +318,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
-		return array(
-			'meta_query' => array(
-				'ends-before' => array(
+		return [
+			'meta_query' => [
+				'ends-before' => [
 					'key'     => $this->end_meta_key,
 					'compare' => '<=',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
@@ -342,16 +376,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
-		return array(
-			'meta_query' => array(
-				'starts-after' => array(
+		return [
+			'meta_query' => [
+				'starts-after' => [
 					'key'     => $this->start_meta_key,
 					'compare' => '>',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
@@ -371,16 +405,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
-		return array(
-			'meta_query' => array(
-				'starts-after' => array(
+		return [
+			'meta_query' => [
+				'starts-after' => [
 					'key'     => $this->start_meta_key,
 					'compare' => '>=',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
@@ -400,16 +434,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
-		return array(
-			'meta_query' => array(
-				'ends-after' => array(
+		return [
+			'meta_query' => [
+				'ends-after' => [
 					'key'     => $this->end_meta_key,
 					'compare' => '>',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
@@ -460,10 +494,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
 		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
 
-		$this->by( 'meta_between', $this->start_meta_key, array(
-			$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
-			$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
-		), 'DATETIME' );
+		$this->by(
+			'meta_between',
+			$this->start_meta_key,
+			[
+				$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+				$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+			],
+			'DATETIME'
+		);
 	}
 
 	/**
@@ -485,10 +524,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
 		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
 
-		$this->by( 'meta_between', $this->end_meta_key, array(
-			$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
-			$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
-		), 'DATETIME' );
+		$this->by(
+			'meta_between',
+			$this->end_meta_key,
+			[
+				$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+				$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
+			],
+			'DATETIME'
+		);
 	}
 
 	/**
@@ -591,43 +635,43 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                               ->setTimezone( $this->normal_timezone )
 		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
-		return array(
-			'meta_query' => array(
-				'runs-between' => array(
-					'starts'   => array(
-						'after-the-start' => array(
+		return [
+			'meta_query' => [
+				'runs-between' => [
+					'starts'   => [
+						'after-the-start' => [
 							'key'     => $this->start_meta_key,
 							'value'   => $start_date,
 							'compare' => '>=',
 							'type'    => 'DATETIME',
-						),
+						],
 						'relation'        => 'AND',
-						'before-the-end'  => array(
+						'before-the-end'  => [
 							'key'     => $this->start_meta_key,
 							'value'   => $end_date,
 							'compare' => '<=',
 							'type'    => 'DATETIME',
-						),
-					),
+						],
+					],
 					'relation' => 'OR',
-					'ends'     => array(
-						'after-the-start' => array(
+					'ends'     => [
+						'after-the-start' => [
 							'key'     => $this->end_meta_key,
 							'value'   => $start_date,
 							'compare' => '>=',
 							'type'    => 'DATETIME',
-						),
+						],
 						'relation'        => 'AND',
-						'before-the-end'  => array(
+						'before-the-end'  => [
 							'key'     => $this->end_meta_key,
 							'value'   => $end_date,
 							'compare' => '<=',
 							'type'    => 'DATETIME',
-						),
-					),
-				),
-			),
-		);
+						],
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -649,25 +693,25 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$is_utc = preg_match( '/^UTC((\\+|-)0)*$/i', $timezone );
 
 		if ( $is_utc ) {
-			return array(
-				'meta_query' => array(
-					'by-timezone' => array(
+			return [
+				'meta_query' => [
+					'by-timezone' => [
 						'key'     => '_EventTimezone',
 						'compare' => 'IN',
-						'value'   => array( 'UTC', 'UTC+0', 'UTC-0' ),
-					),
-				),
-			);
+						'value'   => [ 'UTC', 'UTC+0', 'UTC-0' ],
+					],
+				],
+			];
 		}
 
-		return array(
-			'meta_query' => array(
-				'by-timezone' => array(
+		return [
+			'meta_query' => [
+				'by-timezone' => [
 					'key'   => '_EventTimezone',
 					'value' => $timezone,
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
@@ -695,27 +739,27 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                               ->setTimezone( $this->normal_timezone )
 		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
-		$interval = array( $start_date, $end_date );
+		$interval = [ $start_date, $end_date ];
 
-		return array(
-			'meta_query' => array(
-				'starts-ends-between' => array(
-					'starts-between' => array(
+		return [
+			'meta_query' => [
+				'starts-ends-between' => [
+					'starts-between' => [
 						'key'     => $this->start_meta_key,
 						'value'   => $interval,
 						'compare' => 'BETWEEN',
 						'type'    => 'DATETIME',
-					),
+					],
 					'relation'       => 'AND',
-					'ends-between'   => array(
+					'ends-between'   => [
 						'key'     => $this->end_meta_key,
 						'value'   => $interval,
 						'compare' => 'BETWEEN',
 						'type'    => 'DATETIME',
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 	}
 
 	/**
@@ -762,7 +806,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	public function filter_by_linked_post( $linked_post_meta_key, $linked_post ) {
 		$linked_posts = (array) $linked_post;
 
-		$post_ids = array_map( array( 'Tribe__Main', 'post_id_helper' ), $linked_posts );
+		$post_ids = array_map( [ 'Tribe__Main', 'post_id_helper' ], $linked_posts );
 		$post_ids = array_filter( $post_ids );
 		$post_ids = array_unique( $post_ids );
 
@@ -778,7 +822,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_sticky( $sticky = true ) {
 		// Support negative menu_order lookups.
-		add_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
+		add_action( 'pre_get_posts', [ $this, 'support_negative_menu_order' ] );
 
 		$this->menu_order = (bool) $sticky ? - 1 : 0;
 
@@ -806,7 +850,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$query->query_vars['menu_order'] = (int) $this->menu_order;
 
 		// Remove hook.
-		remove_action( 'pre_get_posts', array( $this, 'support_negative_menu_order' ) );
+		remove_action( 'pre_get_posts', [ $this, 'support_negative_menu_order' ] );
 	}
 
 	/**
@@ -822,7 +866,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @param float|array $value       The cost to use for the comparison; in the case of `BETWEEN`, `NOT BETWEEN`,
 	 *                                 `IN` and `NOT IN` operators this value should be an array.
-	 * @param string      $operator    Teh comparison operator to use for the comparison, one of `<`, `<=`, `>`, `>=`,
+	 * @param string      $operator    The comparison operator to use for the comparison, one of `<`, `<=`, `>`, `>=`,
 	 *                                 `=`, `BETWEEN`, `NOT BETWEEN`, `IN`, `NOT IN`.
 	 * @param string      $symbol      The desired currency symbol or symbols; this symbol can be a currency ISO code,
 	 *                                 e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
@@ -835,29 +879,45 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *                                        `NOT BETWEEN` operators without passing a two element array `$value`.
 	 */
 	public function filter_by_cost( $value, $operator = '=', $symbol = null ) {
-		if ( ! in_array( $operator, array(
-			'<',
-			'<=',
-			'>',
-			'>=',
-			'=',
-			'!=',
-			'BETWEEN',
-			'NOT BETWEEN',
-			'IN',
-			'NOT IN',
-		) ) ) {
-			throw Tribe__Repository__Usage_Error::because_this_comparison_operator_is_not_supported( $operator, 'filter_by_cost' );
-		}
-
-		if ( in_array( $operator, array(
+		if ( ! in_array(
+			$operator,
+			[
+				'<',
+				'<=',
+				'>',
+				'>=',
+				'=',
+				'!=',
 				'BETWEEN',
 				'NOT BETWEEN',
-			) ) && ! ( is_array( $value ) && 2 === count( $value ) ) ) {
-			throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_an_value_of_type( $operator, 'filter_by_cost', 'array' );
+				'IN',
+				'NOT IN',
+			]
+		) ) {
+			throw Tribe__Repository__Usage_Error::because_this_comparison_operator_is_not_supported(
+				$operator,
+				'filter_by_cost'
+			);
 		}
 
-		if ( in_array( $operator, array( 'IN', 'NOT IN' ) ) ) {
+		if (
+			in_array(
+			     $operator,
+			     [
+				     'BETWEEN',
+				     'NOT BETWEEN',
+			     ]
+		     )
+			&& ! ( is_array( $value ) && 2 === count( $value ) )
+		) {
+			throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_an_value_of_type(
+				$operator,
+				'filter_by_cost',
+				'array'
+			);
+		}
+
+		if ( in_array( $operator, [ 'IN', 'NOT IN' ] ) ) {
 			$value = array_map( 'floatval', (array) $value );
 		}
 
@@ -865,20 +925,20 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$meta_query_key = 'by-cost-' . $operator_name;
 
 		// Do not add ANY spacing in the type: WordPress will only accept this format!
-		$meta_query_entry = array(
-			$meta_query_key => array(
+		$meta_query_entry = [
+			$meta_query_key => [
 				'key'     => '_EventCost',
 				'value'   => is_array( $value ) ? $value : (float) $value,
 				'compare' => $operator,
 				'type'    => 'DECIMAL(10,5)',
-			),
-		);
+			],
+		];
 
 		if ( null !== $symbol ) {
 			$meta_query_entry = array_merge( $meta_query_entry, $this->filter_by_cost_currency_symbol( $symbol )['meta_query'] );
 		}
 
-		return array( 'meta_query' => $meta_query_entry );
+		return [ 'meta_query' => $meta_query_entry ];
 	}
 
 	/**
@@ -895,15 +955,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array An array of arguments that will be added to the current query.
 	 */
 	public function filter_by_cost_currency_symbol( $symbol ) {
-		return array(
-			'meta_query' => array(
-				'by-cost-currency-symbol' => array(
+		return [
+			'meta_query' => [
+				'by-cost-currency-symbol' => [
 					'key'     => '_EventCurrencySymbol',
 					'value'   => array_unique( (array) $symbol ),
 					'compare' => 'IN',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	/**
@@ -923,7 +983,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
 	public function filter_by_cost_between( $low, $high, $symbol = null ) {
-		return $this->by( 'cost', array( $low, $high ), 'BETWEEN', $symbol );
+		return $this->by( 'cost', [ $low, $high ], 'BETWEEN', $symbol );
 	}
 
 	/**
@@ -1004,7 +1064,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array
 	 */
 	protected function update_date_meta( array $postarr, $post_id = null ) {
-		set_error_handler( array( $this, 'cast_error_to_exception' ) );
+		set_error_handler( [ $this, 'cast_error_to_exception' ] );
 
 		$was_all_day = (bool) get_post_meta( $post_id, '_EventAllDay', true );
 		$is_all_day  = false;
@@ -1027,17 +1087,17 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			// Empty strings will use the site timezone.
 			$input_timezone = $input_timezone ?: $current_event_timezone_string;
 
-			$timezone                      = Tribe__Timezones::build_timezone_object( $input_timezone );
-			$timezone_changed              = $input_timezone !== $current_event_timezone_string;
-			$utc                           = $this->normal_timezone;
-			$dates_changed                 = array();
+			$timezone         = Tribe__Timezones::build_timezone_object( $input_timezone );
+			$timezone_changed = $input_timezone !== $current_event_timezone_string;
+			$utc              = $this->normal_timezone;
+			$dates_changed    = [];
 
 			/**
 			 * If both local date/time and UTC date/time are provided then the local one overrides the UTC one.
 			 * If only one is provided the other one will be calculated and updated.
 			 */
 			$datetime_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
-			foreach ( array( 'Start', 'End' ) as $check ) {
+			foreach ( [ 'Start', 'End' ] as $check ) {
 				if ( isset( $meta[ "_Event{$check}Date" ] ) ) {
 					$meta_value = $meta[ "_Event{$check}Date" ];
 
@@ -1198,14 +1258,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array The filtered event post array.
 	 */
 	protected function update_linked_post_meta( array $postarr ) {
-		// @todo crete linked posts here?! Using ORM?
+		// @todo [BTRIA-592]: Create linked posts here?! Using ORM?
 		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
 			unset( $postarr['meta_input']['_EventVenueID'] );
 		}
 
 		if ( isset( $postarr['meta_input']['_EventOrganizerID'] ) ) {
 			$postarr['meta_input']['_EventOrganizerID'] = (array) $postarr['meta_input']['_EventOrganizerID'];
-			$valid                                      = array();
+			$valid                                      = [];
 			foreach ( $postarr['meta_input']['_EventOrganizerID'] as $organizer ) {
 				if ( ! tribe_is_organizer( $organizer ) ) {
 					continue;
@@ -1215,6 +1275,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			if ( ! count( $valid ) ) {
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 			} else {
+				$this->unpack_meta_on_update( '_EventOrganizerID' );
+				// Pass this to the function to have this value passed to the closure later.
 				$postarr['meta_input']['_EventOrganizerID'] = $valid;
 			}
 		}
@@ -1236,14 +1298,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$postarr['meta_input']['_EventOrigin'] = 'events-calendar';
 
 		// Set the map-related settings, default to `true` for new events.
-		foreach ( array( '_EventShowMap', '_EventShowMapLink' ) as $meta_key ) {
+		foreach ( [ '_EventShowMap', '_EventShowMapLink' ] as $meta_key ) {
 			$new_value = tribe_is_truthy( $this->get_from_postarr_or_meta( $postarr, $meta_key, $post_id, true ) );
 			if ( $new_value !== tribe_is_truthy( get_post_meta( $post_id, $meta_key, true ) ) ) {
 				$postarr['meta_input'][ $meta_key ] = $new_value;
 			}
 		}
 
-		$currency_symbol_positions = array( 'prefix', 'postfix' );
+		$currency_symbol_positions = [ 'prefix', 'postfix' ];
 		if ( isset( $postarr['meta_input']['_EventCurrencyPosition'] )
 		     && ! in_array( $postarr['meta_input']['_EventCurrencyPosition'], $currency_symbol_positions, true )
 		) {
@@ -1305,7 +1367,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array The filtered list of filters that are leveraging the event start and/or end dates
 	 */
 	public function get_date_filters() {
-		$date_filters = array(
+		$date_filters = [
 			'starts_before',
 			'starts_after',
 			'starts_between',
@@ -1315,7 +1377,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			'starts_and_ends_between',
 			'runs_between',
 			'start_date',
-		);
+		];
 
 		/**
 		 * Filters the list of filters that should be considered related to an event start and/or end
@@ -1442,23 +1504,28 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$loop  = 0;
 
 		foreach ( $check_orderby as $key => $value ) {
-			$loop++;
 			$order_by      = is_numeric( $key ) ? $value : $key;
-			$order         = is_numeric( $key ) ? 'ASC' : $value;
 			$default_order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
+			$order         = is_numeric( $key ) ? $default_order : $value;
+
+			// Let the first applied ORDER BY clause override the existing ones, then stack the ORDER BY clauses.
+			$override = $loop === 0;
 
 			switch ( $order_by ) {
 				case 'event_date':
-					$this->order_by_date( false, $after );
+					$this->order_by_date( false, $order, $after, $override );
 					break;
 				case 'event_date_utc':
-					$this->order_by_date( true, $after );
+					$this->order_by_date( true, $order, $after, $override );
+					break;
+				case 'event_duration':
+					$this->order_by_duration( $order, $after, $override );
 					break;
 				case 'organizer':
-					$this->order_by_organizer( $after );
+					$this->order_by_organizer( $order, $after, $override );
 					break;
 				case 'venue':
-					$this->order_by_venue( $after );
+					$this->order_by_venue( $order, $after, $override );
 					break;
 				case $timestamp_key:
 					$this->filter_query->orderby( [ $timestamp_key => $default_order ], null, null, $after );
@@ -1514,11 +1581,15 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9.7
 	 * @since 4.9.11 Added the `$after` parameter.
 	 *
-	 * @param bool $use_utc      Whether to use the events UTC start dates or their localized dates.
-	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 * @param bool   $use_utc    Whether to use the events UTC start dates or their localized dates.
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses or not; default to `true` to override
+	 *                           existing ORDER BY clauses.
 	 */
-	protected function order_by_date( $use_utc, $after = false ) {
+	protected function order_by_date( $use_utc, $order = null, $after = false, $override = true ) {
 		global $wpdb;
 
 		$meta_alias = 'event_date';
@@ -1574,9 +1645,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			true
 		);
 
-		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
-		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, true, $after );
-		$this->filter_query->fields( "MIN( {$postmeta_table}.meta_value ) AS {$meta_alias}", $filter_id, true );
+		$order = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
+		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DATETIME ) AS {$meta_alias}", $filter_id, $override );
 	}
 
 	/**
@@ -1585,10 +1658,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9.7
 	 * @since 4.9.11 Added the `$after` parameter.
 	 *
-	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses with this one or not; default to
+	 *                           `true` to override existing ORDER BY clauses.
 	 */
-	protected function order_by_organizer( $after = false ) {
+	protected function order_by_organizer( $order = null, $after = false, $override = true ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_organizer_meta';
@@ -1612,10 +1689,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_organizer';
+		$order     = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
 
-		$order = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
-		$this->filter_query->orderby( [ 'organizer' => $order ], $filter_id, true, $after );
-		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, true );
+		$this->filter_query->orderby( [ 'organizer' => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, $override );
 	}
 
 	/**
@@ -1624,10 +1703,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9.7
 	 * @since 4.9.11 Added the `$after` parameter.
 	 *
-	 * @param bool $after        Whether to append the order by clause to the ones managed by WordPress or not.
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the order by clause to the ones managed by WordPress or not.
 	 *                           Defaults to `false`,to prepend them to the ones managed by WordPress.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses with this one or not; default to
+	 *                           `true` to override existing ORDER BY clauses.
 	 */
-	protected function order_by_venue( $after = false ) {
+	protected function order_by_venue( $order = null,$after = false, $override = true ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_venue_meta';
@@ -1651,9 +1734,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_venue';
-		$order     = Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
-		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, true, $after );
-		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, true );
+		$order     = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
+
+		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, $override );
 	}
 
 	/**
@@ -1691,5 +1777,50 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		}
 
 		$this->by( 'meta_not_exists', '_EventHideFromUpcoming' );
+	}
+
+	/**
+	 * Sets up the query filters to order events by the duration (`_EventDuration`) custom field.
+	 *
+	 * @since 5.1.5
+	 *
+	 * @param string $order      The order direction, either `ASC` or `DESC`; defaults to `null` to use the order
+	 *                           specified in the current query or default arguments.
+	 * @param bool   $after      Whether to append the duration ORDER BY clause to the existing clauses or not;
+	 *                           defaults to `false` to prepend the duration clause to the existing ORDER BY
+	 *                           clauses.
+	 * @param bool   $override   Whether to override existing ORDER BY clauses with this one or not; default to
+	 *                           `true` to override existing ORDER BY clauses.
+	 */
+	protected function order_by_duration( $order = null, $after = false, $override = true ) {
+		global $wpdb;
+
+		$meta_alias = 'event_duration';
+		$meta_key   = '_EventDuration';
+
+		$postmeta_table = "orderby_{$meta_alias}_meta";
+
+		$filter_id = 'order_by_duration';
+
+		$this->filter_query->join(
+			$wpdb->prepare(
+				"
+				LEFT JOIN {$wpdb->postmeta} AS {$postmeta_table}
+					ON (
+						{$postmeta_table}.post_id = {$wpdb->posts}.ID
+						AND {$postmeta_table}.meta_key = %s
+					)
+				",
+				$meta_key
+			),
+			$filter_id,
+			true
+		);
+
+		$order = $order === null
+			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
+			: $order;
+		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, $override, $after );
+		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DECIMAL ) AS {$meta_alias}", $filter_id, $override );
 	}
 }

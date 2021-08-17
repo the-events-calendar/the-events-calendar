@@ -1,6 +1,6 @@
 # Vendor dependencies - ignore all by default...
 vendor
-# ...but do not ignore the ones below; add to the whitelist as the need arises
+# ...but do not ignore the ones below; add to the safe list as the need arises
 !vendor/bootstrap-datepicker
 !vendor/chosen
 !vendor/jquery
@@ -39,7 +39,4 @@ lang/*.mo
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
-
-# tric configuration files
-*.tric
-*.tric.*
+files/

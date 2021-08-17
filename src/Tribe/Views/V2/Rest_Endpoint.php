@@ -48,19 +48,38 @@ class Rest_Endpoint {
 	protected static $did_rest_authentication_errors;
 
 	/**
-	 * Returns the final REST URL for the HTML
+	 * Returns the URL View will use to fetch their content.
+	 *
+	 * Depending on whether the REST API is enabled or not on the site, the URL might be a REST API one or an
+	 * admin AJAX one.
 	 *
 	 * @since   4.9.2
+	 * @since   5.2.1 Add filtering to the URL.
 	 *
-	 * @return  string
+	 * @return  string The URL of the backend endpoint Views will use to fetch their content.
 	 */
 	public function get_url() {
-		if ( ! $this->is_available() ) {
+		$rest_available = $this->is_available();
+
+		if ( ! $rest_available ) {
 			$url = admin_url( 'admin-ajax.php' );
-			return add_query_arg( [ 'action' => static::$ajax_action ], $url );
+			$url = add_query_arg( [ 'action' => static::$ajax_action ], $url );
+		} else {
+			$url = get_rest_url( null, static::ROOT_NAMESPACE . '/html' );
 		}
 
-		return get_rest_url( null, static::ROOT_NAMESPACE . '/html' );
+		/**
+		 * Filters the URL Views should use to fetch their contents from the backend.
+		 *
+		 * @since 5.2.1
+		 *
+		 * @param string $url            The View endpoint URL, either a REST API URL or a admin-ajax.php fallback URL if REST API
+		 *                               is not available.
+		 * @param bool   $rest_available Whether the REST API endpoing URL is available on the current site or not.
+		 */
+		$url = apply_filters( 'tribe_events_views_v2_endpoint_url', $url, $rest_available );
+
+		return $url;
 	}
 
 	/**
@@ -140,31 +159,34 @@ class Rest_Endpoint {
 	 * Register the endpoint if available.
 	 *
 	 * @since  4.9.7
+	 * @since 5.2.1 Add support for the POST method.
 	 *
 	 * @return boolean If we registered the endpoint.
 	 */
 	public function register() {
 		return register_rest_route( static::ROOT_NAMESPACE, '/html', [
-			'methods'             => Server::READABLE,
-			 // @todo  Make sure we do proper handling of cache longer then 12h.
+			// Support both GET and POST HTTP methods: we originally used GET.
+			'methods'             => [ Server::READABLE, Server::CREATABLE ],
+			 // @todo [BTRIA-600]: Make sure we do proper handling of caches longer then 12h.
 			'permission_callback' => static function ( Request $request ) {
 
 				/*
 				 * Since WordPress 4.7 the REST API cannot be disabled completely.
 				 * The "disabling" happens by returning falsy or error values from the `rest_authentication_errors`
 				 * filter.
-				 * If that is the case we follow through and and do not authorize the callback.
+				 * If false or error, we follow through and and do not authorize the callback.
+				 * If null, the site is using alternate authentication such as SAML
 				 */
 				$auth = apply_filters( 'rest_authentication_errors', null );
 
-				return $auth
+				return ( $auth || is_null( $auth ) )
 				       && ! is_wp_error( $auth )
 				       && wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
 			},
-			'callback' => static function ( Request $request ) {
+			'callback'            => static function ( Request $request ) {
 				View::make_for_rest( $request )->send_html();
 			},
-			'args' => $this->get_request_arguments(),
+			'args'                => $this->get_request_arguments(),
 		] );
 	}
 
@@ -187,13 +209,14 @@ class Rest_Endpoint {
 	 * the REST API still have the Views V2 working.
 	 *
 	 * @since  4.9.7
+	 * @since 5.2.1 Changed the mock request HTTP method to POST (was GET).
 	 *
 	 * @param  array $params Associative array with the params that will be used on this mocked request
 	 *
 	 * @return Request The mocked request.
 	 */
 	public function get_mocked_rest_request( array $params ) {
-		$request = new Request( 'GET', static::ROOT_NAMESPACE . '/html' );
+		$request   = new Request( 'POST', static::ROOT_NAMESPACE . '/html' );
 		$arguments = $this->get_request_arguments();
 
 		foreach ( $params as $key => $value ) {
@@ -223,11 +246,12 @@ class Rest_Endpoint {
 	 * and use the same method behind the scenes to make sure we have consistency.
 	 *
 	 * @since  4.9.7
-	 *
-	 * @return void
+	 * @since 5.2.1 Look up the POST data before the GET one to process the request.
 	 */
 	public function handle_ajax_request() {
-		$request = $this->get_mocked_rest_request( $_GET );
+		// Use the POST method data, if set; else fallback on the GET data.
+		$source  = isset( $_POST ) ? $_POST : $_GET;
+		$request = $this->get_mocked_rest_request( $source );
 		if ( is_wp_error( $request ) ) {
 			/**
 			 * @todo  Once we have a error handling on the new view we need to throw it here.
@@ -298,5 +322,28 @@ class Rest_Endpoint {
 		static::$did_rest_authentication_errors = true;
 
 		return $errors;
+	}
+
+	/**
+	 * Returns the filtered HTTP method Views should use to fetch their content from the backend endpoint.
+	 *
+	 * @since 5.2.1
+	 *
+	 * @return string The filtered HTTP method Views should use to fetch their content from the back-end endpoint.
+	 */
+	public function get_method() {
+		/**
+		 * Filters the HTTP method Views should use to fetch their contents calling the back-end endpoint.
+		 *
+		 * @since 5.2.1
+		 *
+		 * @param string $method The HTTP method Views will use to fetch their content. Either `POST` (default) or
+		 *                       `GET`. Invalid values will be set to the default `POST`.
+		 */
+		$method = strtoupper( (string) apply_filters( 'tribe_events_views_v2_endpoint_method', 'POST' ) );
+
+		$method = in_array( $method, [ 'POST', 'GET' ], true ) ? $method : 'POST';
+
+		return $method;
 	}
 }

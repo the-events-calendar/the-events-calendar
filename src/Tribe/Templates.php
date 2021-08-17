@@ -40,12 +40,12 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		/*
 		 * List of templates which have compatibility fixes
 		 */
-		public static $themes_with_compatibility_fixes = array(
+		public static $themes_with_compatibility_fixes = [
 			'twentysixteen',
 			'twentyfifteen',
 			'twentyfourteen',
 			'twentythirteen',
-		);
+		];
 
 		/**
 		 * Initialize the Template Yumminess!
@@ -53,34 +53,34 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		public static function init() {
 
 			// Choose the wordpress theme template to use
-			add_filter( 'template_include', array( __CLASS__, 'templateChooser' ) );
+			add_filter( 'template_include', [ __CLASS__, 'templateChooser' ] );
 
 			// include our view class
 			add_action( 'template_redirect', 'tribe_initialize_view' );
 
 			// make sure we enter the loop by always having some posts in $wp_query
-			add_action( 'wp_head', array( __CLASS__, 'maybeSpoofQuery' ), 100 );
+			add_action( 'wp_head', [ __CLASS__, 'maybeSpoofQuery' ], 100 );
 
 			// maybe modify the global post object to blank out the title
-			add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'maybe_modify_global_post_title' ) );
+			add_action( 'tribe_tec_template_chooser', [ __CLASS__, 'maybe_modify_global_post_title' ] );
 
 			// don't query the database for the spoofed post
 			wp_cache_set( self::spoofed_post()->ID, self::spoofed_post(), 'posts' );
-			wp_cache_set( self::spoofed_post()->ID, array( true ), 'post_meta' );
+			wp_cache_set( self::spoofed_post()->ID, [ true ], 'post_meta' );
 
 			// there's no template redirect on ajax, so we include the template class right before the view is included
 			if ( tribe_is_ajax_view_request() ) {
 				add_action( 'admin_init', 'tribe_initialize_view' );
 			}
 
-			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished' ), 999 );
+			add_action( 'wp_head', [ __CLASS__, 'wpHeadFinished' ], 999 );
 
 			// add the theme name to the body class when needed
 			if ( self::needs_compatibility_fix() ) {
-				add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
+				add_filter( 'body_class', [ __CLASS__, 'theme_body_class' ] );
 			}
 
-			add_filter( 'get_post_time', array( __CLASS__, 'event_date_to_pubDate' ), 10, 3 );
+			add_filter( 'get_post_time', [ __CLASS__, 'event_date_to_pubDate' ], 10, 3 );
 		}
 
 		/**
@@ -115,15 +115,15 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			// add the theme slug to the body class
-			add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
+			add_filter( 'body_class', [ __CLASS__, 'theme_body_class' ] );
 
 			// add the template name to the body class
-			add_filter( 'body_class', array( __CLASS__, 'template_body_class' ) );
+			add_filter( 'body_class', [ __CLASS__, 'template_body_class' ] );
 
 			// user has selected a page/custom page template
 			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
 				if ( ! is_single() || ! post_password_required() ) {
-					add_action( 'loop_start', array( __CLASS__, 'setup_ecp_template' ) );
+					add_action( 'loop_start', [ __CLASS__, 'setup_ecp_template' ] );
 				}
 
 				$template = tribe_get_option( 'tribeEventsTemplate', 'default' ) !== 'default'
@@ -136,9 +136,9 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 				// remove singular body class if sidebar-page.php
 				if ( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
-					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+					add_filter( 'body_class', [ __CLASS__, 'remove_singular_body_class' ] );
 				} else {
-					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
+					add_filter( 'body_class', [ __CLASS__, 'add_singular_body_class' ] );
 				}
 			} else {
 				$template = self::getTemplateHierarchy( 'default-template' );
@@ -286,16 +286,16 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			if ( self::is_main_loop( $query ) && self::$wpHeadComplete ) {
 				// on loop start, unset the global post so that template tags don't work before the_content()
-				add_action( 'the_post', array( __CLASS__, 'spoof_the_post' ) );
+				add_action( 'the_post', [ __CLASS__, 'spoof_the_post' ] );
 
 				// on the_content, load our events template
-				add_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ) );
+				add_filter( 'the_content', [ __CLASS__, 'load_ecp_into_page_template' ] );
 
 				// remove the comments template
-				add_filter( 'comments_template', array( __CLASS__, 'load_ecp_comments_page_template' ) );
+				add_filter( 'comments_template', [ __CLASS__, 'load_ecp_comments_page_template' ] );
 
 				// only do this once
-				remove_action( 'loop_start', array( __CLASS__, 'setup_ecp_template' ) );
+				remove_action( 'loop_start', [ __CLASS__, 'setup_ecp_template' ] );
 			}
 		}
 
@@ -305,7 +305,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 **/
 		public static function spoof_the_post() {
 			$GLOBALS['post'] = self::spoofed_post();
-			remove_action( 'the_post', array( __CLASS__, 'spoof_the_post' ) );
+			remove_action( 'the_post', [ __CLASS__, 'spoof_the_post' ] );
 		}
 
 
@@ -339,8 +339,8 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			// Wait until late in the wp_title|document_title_parts hook to actually make a change - this should allow single event titles
 			// to be used within the title element itself
-			add_filter( 'document_title_parts', array( __CLASS__, 'modify_global_post_title' ), 1000 );
-			add_filter( 'wp_title', array( __CLASS__, 'modify_global_post_title' ), 1000 );
+			add_filter( 'document_title_parts', [ __CLASS__, 'modify_global_post_title' ], 1000 );
+			add_filter( 'wp_title', [ __CLASS__, 'modify_global_post_title' ], 1000 );
 		}
 
 		/**
@@ -368,7 +368,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			$post->post_title          = apply_filters( 'tribe_set_global_post_title', '' );
 
 			// Restore as soon as we're ready to display one of our own views
-			add_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );
+			add_action( 'tribe_pre_get_view', [ __CLASS__, 'restore_global_post_title' ] );
 
 			// Now return the title unmodified
 			return $title;
@@ -383,7 +383,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		public static function restore_global_post_title() {
 			global $post;
 			$post->post_title = self::$original_post_title;
-			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );
+			remove_action( 'tribe_pre_get_view', [ __CLASS__, 'restore_global_post_title' ] );
 		}
 
 
@@ -398,12 +398,12 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			// list view
 			if ( tribe_is_list_view() ) {
-				$template = self::getTemplateHierarchy( 'list', array( 'disable_view_check' => true ) );
+				$template = self::getTemplateHierarchy( 'list', [ 'disable_view_check' => true ] );
 			}
 
 			// month view
 			if ( tribe_is_month() ) {
-				$template = self::getTemplateHierarchy( 'month', array( 'disable_view_check' => true ) );
+				$template = self::getTemplateHierarchy( 'month', [ 'disable_view_check' => true ] );
 			}
 
 			// day view
@@ -421,7 +421,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				&& ! tribe_is_showing_all()
 				&& ! Tribe__Templates::is_embed()
 			) {
-				$template = self::getTemplateHierarchy( 'single-event', array( 'disable_view_check' => true ) );
+				$template = self::getTemplateHierarchy( 'single-event', [ 'disable_view_check' => true ] );
 			}
 
 			// apply filters
@@ -472,7 +472,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		public static function load_ecp_into_page_template( $contents = '' ) {
 			// only run once!!!
-			remove_filter( 'the_content', array( __CLASS__, 'load_ecp_into_page_template' ) );
+			remove_filter( 'the_content', [ __CLASS__, 'load_ecp_into_page_template' ] );
 
 			self::restoreQuery();
 
@@ -497,7 +497,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 		public static function load_ecp_comments_page_template( $template ) {
 
-			remove_filter( 'comments_template', array( __CLASS__, 'load_ecp_comments_page_template' ) );
+			remove_filter( 'comments_template', [ __CLASS__, 'load_ecp_comments_page_template' ] );
 			if ( ! is_single() || tribe_is_showing_all() || ( tribe_get_option( 'showComments', false ) === false ) ) {
 				return Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/no-comments.php';
 			}
@@ -516,11 +516,10 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			if ( ! is_admin() && tribe_get_option( 'showInLoops' ) && ( $query->is_home() || $query->is_tag ) && empty( $query->query_vars['post_type'] ) && false == $query->query_vars['suppress_filters'] ) {
 
-				// @todo remove
-				// 3.3 know-how for main query check
+				// @todo [BTRIA-608]: Remove - 3.3 know-how for main query check.
 				if ( self::is_main_loop( $query ) ) {
 					self::$isMainLoop = true;
-					$post_types       = array( 'post', Tribe__Events__Main::POSTTYPE );
+					$post_types       = [ 'post', Tribe__Events__Main::POSTTYPE ];
 					$query->set( 'post_type', $post_types );
 				}
 			}
@@ -541,11 +540,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 *
 		 * @return template path
 		 **/
-		public static function getTemplateHierarchy( $template, $args = array() ) {
+		public static function getTemplateHierarchy( $template, $args = [] ) {
 			if ( ! is_array( $args ) ) {
 				$passed        = func_get_args();
-				$args          = array();
-				$backwards_map = array( 'namespace', 'plugin_path' );
+				$args          = [];
+				$backwards_map = [ 'namespace', 'plugin_path' ];
 				$count = count( $passed );
 
 				if ( $count > 1 ) {
@@ -556,11 +555,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			$args = wp_parse_args(
-				$args, array(
+				$args, [
 					'namespace'          => '/',
 					'plugin_path'        => '',
 					'disable_view_check' => false,
-				)
+				]
 			);
 			/**
 			 * @var string $namespace
@@ -602,7 +601,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			*/
 
 			// check if there are overrides at all
-			if ( locate_template( array( 'tribe-events/' ) ) ) {
+			if ( locate_template( [ 'tribe-events/' ] ) ) {
 				$overrides_exist = true;
 			} else {
 				$overrides_exist = false;
@@ -610,11 +609,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			if ( $overrides_exist ) {
 				// check the theme for specific file requested
-				$file = locate_template( array( 'tribe-events/' . $template ), false, false );
+				$file = locate_template( [ 'tribe-events/' . $template ], false, false );
 				if ( ! $file ) {
 					// if not found, it could be our plugin requesting the file with the namespace,
 					// so check the theme for the path without the namespace
-					$files = array();
+					$files = [];
 					foreach ( array_keys( $template_base_paths ) as $namespace ) {
 						if ( ! empty( $namespace ) && ! is_numeric( $namespace ) ) {
 							$files[] = 'tribe-events' . str_replace( $namespace, '', $template );
@@ -727,7 +726,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 * @return object
 		 */
 		private static function spoofed_post() {
-			$spoofed_post = array(
+			return (object) [
 				'ID'                    => 0,
 				'post_status'           => 'draft',
 				'post_author'           => 0,
@@ -756,9 +755,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				'is_single'             => false,
 				'is_archive'            => false,
 				'is_tax'                => false,
-			);
-
-			return ( object ) $spoofed_post;
+			];
 		}
 
 

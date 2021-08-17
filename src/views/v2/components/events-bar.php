@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
- * @version 4.9.11
+ * @version 5.2.0
  *
  * @var bool $display_events_bar   Boolean on whether to display the events bar.
  * @var bool $disable_event_search Boolean on whether to disable the event search.
@@ -41,15 +41,11 @@ if ( empty( $disable_event_search ) ) {
 		<?php $this->template( 'components/events-bar/search-button' ); ?>
 
 		<div
-			class="tribe-events-c-events-bar__search-filters-container"
-			id="tribe-events-search-filters-container"
-			data-js="tribe-events-search-filters-container"
+			class="tribe-events-c-events-bar__search-container"
+			id="tribe-events-search-container"
+			data-js="tribe-events-search-container"
 		>
-			<?php $this->template( 'components/events-bar/tabs' ); ?>
-
 			<?php $this->template( 'components/events-bar/search' ); ?>
-
-			<?php $this->template( 'components/events-bar/filters' ); ?>
 		</div>
 	<?php endif; ?>
 

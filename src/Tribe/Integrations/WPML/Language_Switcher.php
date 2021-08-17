@@ -1,6 +1,5 @@
 <?php
 
-
 class Tribe__Events__Integrations__WPML__Language_Switcher {
 
 	/**
@@ -32,7 +31,9 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 	 *
 	 * @return array The languages with maybe updated URLs
 	 */
-	public function filter_icl_ls_languages( array $languages = array() ) {
+	public function filter_icl_ls_languages( array $languages = [] ) {
+		global $wp_query;
+
 		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return $languages;
 		}
@@ -41,21 +42,25 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 			return $languages;
 		}
 
-		$root_folder = parse_url( home_url(), PHP_URL_PATH );
-		$request_uri = $_SERVER['REQUEST_URI'];
-
-		if ( ! empty( $root_folder ) ) {
-			$request_uri = str_replace( $root_folder, '', $request_uri );
+		$view = get_query_var('eventDisplay');
+		if ( empty( $view ) ) {
+			return $languages;
 		}
 
-		$current_url = home_url( $request_uri );
+		$tec = Tribe__Events__Main::instance();
 
 		/** @var SitePress $sitepress */
 		global $sitepress;
 
+		$current_language = $sitepress->get_current_language();
 		foreach ( $languages as &$language ) {
-			$language['url'] = $sitepress->convert_url( $current_url, $language['code'] );
+			$sitepress->switch_lang( $language['code'] );
+			$language['url'] = $sitepress->convert_url(
+				$tec->getLink( $view, __( $view, 'the-events-calendar' ) ),
+				$language['code']
+			);
 		}
+		$sitepress->switch_lang( $current_language );
 
 		return $languages;
 	}

@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
- * @version 5.0.1
+ * @version 5.3.0
  *
  */
 ?>
@@ -20,6 +20,7 @@
 		title="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
 		disabled
 	>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<?php esc_html_e( 'Previous Day', 'the-events-calendar' ); ?>
 	</button>
 </li>

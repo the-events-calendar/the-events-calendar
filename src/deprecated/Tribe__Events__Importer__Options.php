@@ -5,10 +5,10 @@ _deprecated_file( __FILE__, '4.5', 'CSV Import settings moved to Event Aggregato
  *
  */
 class Tribe__Events__Importer__Options {
-	public static $options = array(
+	public static $options = [
 		'imported_post_status',
 		'imported_encoding_status',
-	);
+	];
 
 	public static function process_general_form_submission() {
 		if ( ! empty( $_POST[ 'tribe-import-general-settings' ] ) && wp_verify_nonce( $_POST[ 'tribe-import-general-settings' ], 'tribe-import-general-settings' ) ) {
@@ -44,7 +44,7 @@ class Tribe__Events__Importer__Options {
 			 */
 			do_action( 'tribe_import_options_updated', $options );
 
-			add_action( 'tribe_import_under_heading', array( __CLASS__, 'settings_saved_message' ) );
+			add_action( 'tribe_import_under_heading', [ __CLASS__, 'settings_saved_message' ] );
 		}
 	}
 
@@ -102,7 +102,7 @@ class Tribe__Events__Importer__Options {
 	 * @return mixed|void
 	 */
 	public static function get_default_post_status( $type = 'csv' ) {
-		$options = self::getOption( 'imported_post_status', array( $type => 'publish' ) );
+		$options = self::getOption( 'imported_post_status', [ $type => 'publish' ] );
 
 		// Legacy for Facebook Status
 		if ( 'facebook' === $type && empty( $options['facebook'] ) ){
@@ -111,7 +111,7 @@ class Tribe__Events__Importer__Options {
 
 		// A way to handle the legacy `imported_post_status`
 		if ( is_string( $options ) ) {
-			$options = array( $type => $options );
+			$options = [ $type => $options ];
 		}
 
 		if ( ! isset( $options[ $type ] ) ) {
@@ -130,11 +130,11 @@ class Tribe__Events__Importer__Options {
 	 * @return mixed|void
 	 */
 	public static function get_possible_stati() {
-		$stati = array(
-			'publish' => __( 'Published', 'the-events-calendar' ),
-			'pending' => __( 'Pending', 'the-events-calendar' ),
-			'draft'   => __( 'Draft', 'the-events-calendar' ),
-		);
+		$stati = [
+				'publish' => __( 'Published', 'the-events-calendar' ),
+				'pending' => __( 'Pending', 'the-events-calendar' ),
+				'draft'   => __( 'Draft', 'the-events-calendar' ),
+		];
 
 		return apply_filters( 'tribe_import_possible_stati', $stati );
 	}
@@ -148,7 +148,7 @@ class Tribe__Events__Importer__Options {
 	 */
 	public static function get_default_encoding_status( $type = 'csv' ) {
 
-		$options = self::getOption( 'imported_encoding_status', array( $type => 'encode' ) );
+		$options = self::getOption( 'imported_encoding_status', [ $type => 'encode' ] );
 
 		if ( ! isset( $options[ $type ] ) ) {
 			/**
@@ -179,10 +179,11 @@ class Tribe__Events__Importer__Options {
 	 * @return mixed|void
 	 */
 	public static function get_encoding_status() {
-		$status = array(
-			'encode' => __( 'Encode contents', 'the-events-calendar' ),
-			'none' => __( 'Do Not Encode Contents', 'the-events-calendar' ),
-		);
+		$status = [
+				'encode' => __( 'Encode contents', 'the-events-calendar' ),
+				'none'   => __( 'Do Not Encode Contents', 'the-events-calendar' ),
+		];
+
 		/**
 		 * Filter Encoding Dropdown Options
 		 *

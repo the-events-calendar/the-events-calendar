@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Events\I18n;
+
 
 class Tribe__Events__Integrations__WPML__Filters {
 
@@ -58,7 +60,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 		// Get the strings on multiple Domains and Languages
 		// remove WPML filter to avoid the locale being set to the default one
-		remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
+		remove_filter( 'locale', [ $sitepress, 'locale_filter' ] );
 
 		/*
 		 * Translate only the English version of the bases to ensure the order of the translations.
@@ -66,13 +68,13 @@ class Tribe__Events__Integrations__WPML__Filters {
 		$untranslated_bases = array_combine( array_keys( $bases ), array_column( $bases, 0 ) );
 
 		$translated_bases = tribe( 'tec.i18n' )
-			->get_i18n_strings( $untranslated_bases, $languages, $domains, $current_locale );
+			->get_i18n_strings( $untranslated_bases, $languages, $domains, $current_locale, I18n::COMPILE_STRTOLOWER );
 
 		// Prepend the WPML-translated bases to the set of bases.
 		$bases = array_merge_recursive( $translated_bases, $bases );
 
 		// re-hook WPML filter
-		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
+		add_filter( 'locale', [ $sitepress, 'locale_filter' ] );
 
 		$string_translation_active = function_exists( 'wpml_st_load_slug_translation' );
 		$post_slug_translation_on  = ! empty( $sitepress_settings['posts_slug_translation']['on'] );
@@ -92,7 +94,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 	protected function translate_single_slugs( array $bases ) {
 		global $sitepress_settings;
 
-		$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
+		$supported_post_types = [ Tribe__Events__Main::POSTTYPE ];
 
 		foreach ( $supported_post_types as $post_type ) {
 			// check that translations are active for this CPT
