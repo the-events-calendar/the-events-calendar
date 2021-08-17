@@ -69,7 +69,7 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 	 *
 	 * @todo: investigate if we need this for organizers/venues as well.
 	 *
-	 * @since TBD
+	 * @since 5.8.2
 	 *
 	 * @param  WP_Query $query
 	 *
