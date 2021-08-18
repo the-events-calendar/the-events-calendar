@@ -84,7 +84,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	/**
-	 * Sets up the data for the meta box.
+	 * Sets up the default data for the meta box.
 	 * 
 	 * @since TBD
 	 */
