@@ -16,16 +16,23 @@
 
 		a {
 			align-items: center;
-			color: #009fd4;
+			color: #334aff;
 			display: inline-flex;
 			font-size: 1rem;
 			justify-content: center;
 			margin: 10px 30px 10px 0;
+			position: relative;
+
+			&::before {
+				content: '+';
+				left: 30px;
+				position: absolute;				
+			}
 		}
 
 		img {
 			flex: none;
-			margin-right: 7px;
+			margin-right: 18px;
 			margin-bottom: 2px;
 		}
 	}
@@ -42,4 +49,14 @@
 /* Twenty-twenty theme */
 .theme-twentytwenty .tribe-block__events-link .tribe-block__btn--link a {
 	font-size: 1.65rem;
+}
+
+/* Genesis */
+.theme-genesis .tribe-block__events-link .tribe-block__btn--link a {
+	font-size: 1.65rem;
+}
+
+/* Avada */
+.theme-Avada .tribe-block__events-link .tribe-block__btn--link a::before {
+	content: '';
 }
