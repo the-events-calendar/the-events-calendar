@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - remove unused template file to avoid confusion.
+
 = [5.8.2] 2021-08-17 =
 
 * Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
