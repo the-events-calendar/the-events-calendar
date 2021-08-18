@@ -295,7 +295,7 @@
 </div>
 
 	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-89 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-89 tribe_events type-tribe_events status-publish hentry" >
 			
 			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
 
@@ -340,7 +340,7 @@
 </div>
 
 	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-23 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-23 tribe_events type-tribe_events status-publish hentry" >
 			
 			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
 
