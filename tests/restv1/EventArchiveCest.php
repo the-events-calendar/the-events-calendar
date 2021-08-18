@@ -15,7 +15,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
 
-		$I->assertCount( 0, $response->events );
+		$I->assertCount( 0, $response->events, 'Post count should be 0, ' . count( $response->events ) . ' found!' );
 		$I->assertEquals( 0, $response->total );
 		$I->assertEquals( 0, $response->total_pages );
 		$I->seeHttpHeader( 'X-TEC-Total', 0 );
@@ -37,7 +37,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 5, $response->events );
+		$I->assertCount( 5, $response->events, 'Post count should be 5, ' . count( $response->events ) . ' found!' );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 5, $response->events );
+		$I->assertCount( 5, $response->events, 'Post count should be 5, ' . count( $response->events ) . ' found!' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 7, $response->events );
+		$I->assertCount( 7, $response->events, 'Post count should be 7, ' . count( $response->events ) . ' found!' );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 50, $response->events );
+		$I->assertCount( 50, $response->events, 'Post count should be 50, ' . count( $response->events ) . ' found!'  );
 	}
 
 	/**
@@ -175,7 +175,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 6, $response->events );
+		$I->assertCount( 6, $response->events, 'Post count should be 6, ' . count( $response->events ) . ' found!' );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 5, $response->events );
+		$I->assertCount( 5, $response->events, 'Post count should be 5, ' . count( $response->events ) . ' found!' );
 	}
 
 	/**
@@ -274,7 +274,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 3, $response->events );
+		$I->assertCount( 3, $response->events, 'Post count should be 3, ' . count( $response->events ) . ' found!' );
 	}
 
 	/**
@@ -293,7 +293,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response   = json_decode( $I->grabResponse() );
 		$foo_events = $response->events;
-		$I->assertCount( 10, $foo_events );
+		$I->assertCount( 10, $foo_events, 'Post count should be 10, ' . count( $foo_events ) . ' found!' );
 
 		$I->sendGET( $this->events_url, array( 'search' => 'bar' ) );
 
@@ -301,7 +301,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseIsJson();
 		$response   = json_decode( $I->grabResponse() );
 		$bar_events = $response->events;
-		$I->assertCount( 10, $bar_events );
+		$I->assertCount( 10, $bar_events, 'Post count should be 10, ' . count( $bar_events ) . ' found!' );
 
 		$ƒ = function ( $event ) {
 			return $event->id;
@@ -347,7 +347,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$response = json_decode( $I->grabResponse(), true );
 
-		$I->assertCount( 3, $response['events'] );
+		$I->assertCount( 3, $response['events'], 'Post count should be 3, ' . count( $response['events'] ) . ' found!' );
 		$I->assertEquals( $published, array_column( $response['events'], 'id' ) );
 
 		$I->sendGET( $this->events_url, [ 'status' => 'publish, draft' ] );
@@ -356,7 +356,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$response = json_decode( $I->grabResponse(), true );
 
-		$I->assertCount( 6, $response['events'] );
+		$I->assertCount( 6, $response['events'], 'Post count should be 6, ' . count( $response['events'] ) . ' found!' );
 		$I->assertEquals( array_merge( $published, $draft ), array_column( $response['events'], 'id' ) );
 
 		$I->sendGET( $this->events_url, [ 'status' => [ 'publish', 'draft', 'pending' ] ] );
@@ -365,7 +365,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$response = json_decode( $I->grabResponse(), true );
 
-		$I->assertCount( 9, $response['events'] );
+		$I->assertCount( 9, $response['events'], 'Post count should be 9, ' . count( $response['events'] ) . ' found!' );
 		$I->assertEquals( array_merge( $published, $draft, $pending ), array_column( $response['events'], 'id' ) );
 	}
 
@@ -411,7 +411,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$response = json_decode( $I->grabResponse(), true );
 
-		$I->assertCount( 3, $response['events'] );
+		$I->assertCount( 3, $response['events'], 'Post count should be 3, ' . count( $response['events'] ) . ' found!' );
 		$I->assertEquals( $published, array_column( $response['events'], 'id' ) );
 
 		$I->sendGET( $this->events_url, [ 'status' => 'publish, draft' ] );

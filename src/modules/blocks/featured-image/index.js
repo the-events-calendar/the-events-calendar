@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -20,7 +21,7 @@ export default {
 	id: 'featured-image',
 	title: __( 'Featured Image', 'the-events-calendar' ),
 	description: __( 'Display the featured image in the post content.', 'the-events-calendar' ),
-	icon: <FeaturedImageIcon/>,
+	icon: <FeaturedImageIcon />,
 	category: 'common',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 
@@ -33,7 +34,7 @@ export default {
 	},
 
 	edit: FeaturedImage,
-	save( props ) {
+	save() {
 		return null;
 	},
 };

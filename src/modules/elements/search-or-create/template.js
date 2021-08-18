@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
 import { isEmpty, noop } from 'lodash';
@@ -74,8 +75,11 @@ class SearchOrCreate extends Component {
 		const { title = {}, id } = item;
 		const { rendered = '' } = title;
 
+		/**
+		 * @todo: Set onClick to a button, not li.
+		 */
 		return (
-			<li
+			<li // eslint-disable-line
 				key={ id }
 				onClick={ this.props.onItemClick( item ) }
 			>
@@ -99,9 +103,16 @@ class SearchOrCreate extends Component {
 			);
 		}
 
+		/**
+		 * @todo: Set onClick to a button, not li.
+		 */
 		return (
 			<ul className="tribe-editor__soc__results">
-				<li onClick={ onCreateClick }><strong>Create</strong>: { this.props.term }</li>
+				<li // eslint-disable-line
+					onClick={ onCreateClick }
+				>
+					<strong>Create</strong>: { this.props.term }
+				</li>
 				{ posts.map( this.renderItem ) }
 			</ul>
 		);

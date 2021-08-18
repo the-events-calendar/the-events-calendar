@@ -1,4 +1,3 @@
-/* globals jQuery, tribe */
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
@@ -134,7 +133,7 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) {
+	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		obj.unbindEvents( event.data.container );
 	};
 

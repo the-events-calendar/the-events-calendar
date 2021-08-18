@@ -67,7 +67,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 			dispatch( dateTimeActions.setEndTimeInput( e.target.value ) )
 		),
 		onEndTimePickerClick: ( value, onClose ) => {
-			dispatch( dateTimeActions.setEndTime( value, meta ) )
+			dispatch( dateTimeActions.setEndTime( value, meta ) );
 			onClose();
 		},
 		onMultiDayToggleChange: ( isMultiDay ) => (

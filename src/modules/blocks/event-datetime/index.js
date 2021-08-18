@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -21,9 +22,9 @@ export default {
 	title: __( 'Event Date Time', 'the-events-calendar' ),
 	description: __(
 		'Define the date, time, and duration for your event.',
-		'the-events-calendar'
+		'the-events-calendar',
 	),
-	icon: <DateTime/>,
+	icon: <DateTime />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 
@@ -33,7 +34,7 @@ export default {
 
 	edit: EventDateTime,
 
-	save( props ) {
+	save() {
 		return null;
 	},
 };

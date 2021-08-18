@@ -18,5 +18,5 @@ export const getMappedOrganizers = createSelector(
 			id,
 			block: difference( [ id ], blocks ).length === 0,
 		} ) );
-	}
+	},
 );

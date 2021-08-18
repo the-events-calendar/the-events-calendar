@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import React from 'react';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
@@ -15,7 +20,7 @@ export default {
 	id: 'event-organizer',
 	title: __( 'Event Organizer', 'events-gutenberg' ),
 	description: __( 'List a host or coordinator for this event.', 'events-gutenberg' ),
-	icon: <OrganizerIcon/>,
+	icon: <OrganizerIcon />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 

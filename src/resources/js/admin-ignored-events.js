@@ -4,7 +4,7 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 	"use strict";
 
 	/**
-	 * Migration for Lagacy Ignored Event
+	 * Migration for Legacy Ignored Event
 	 */
 	$( function() {
 		$( '#tribe-migrate-legacy-events' ).on( 'click', function() {
@@ -21,7 +21,7 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 				data: {
 					action: 'tribe_convert_legacy_ignored_events'
 				},
-				success: function ( response, status ) {
+				success: function ( response, status ) { // eslint-disable-line no-unused-vars
 					if ( response.status ) {
 						$container.html( response.text );
 						setTimeout( function () {
@@ -48,7 +48,11 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 		}
 
 		// We are not on the correct Page
-		if ( 'edit-tribe_events' !== pagenow || 'tribe_events' !== typenow || 'edit-php' !== adminpage ) {
+		if (
+			'edit-tribe_events' !== pagenow ||
+			'tribe_events' !== typenow ||
+			'edit-php' !== adminpage
+		) {
 			return false;
 		}
 
@@ -86,9 +90,9 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 
 		$( '.submitdelete' ).attr( 'title', data.single.link_title ).html( data.single.link_text );
 		if ( 'undefined' !== typeof data.single.link_nonce ) {
-			$( '#post_status' ).append( $( '<option>', { 'value': 'ignored', 'text' : data.single.link_status } ).prop( 'selected', true ) );
+			$( '#post_status' ).append( $( '<option>', { 'value': 'ignored', 'text' : data.single.link_status } ).prop( 'selected', true ) ); // eslint-disable-line max-len
 			$( '#post-status-display' ).html( data.single.link_status );
-			$( '.submitdelete' ).attr( 'href', 'post.php?action=delete&post=' + data.single.link_post + '&_wpnonce=' + data.single.link_nonce );
+			$( '.submitdelete' ).attr( 'href', 'post.php?action=delete&post=' + data.single.link_post + '&_wpnonce=' + data.single.link_nonce ); // eslint-disable-line max-len
 		}
 	} );
 

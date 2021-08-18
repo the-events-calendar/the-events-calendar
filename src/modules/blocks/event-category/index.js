@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -21,9 +22,9 @@ export default {
 	title: __( 'Event Categories', 'the-events-calendar' ),
 	description: __(
 		'Show assigned event categories as links to their respective archives.',
-		'the-events-calendar'
+		'the-events-calendar',
 	),
-	icon: <Categories/>,
+	icon: <Categories />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 
@@ -34,7 +35,7 @@ export default {
 	attributes: {},
 
 	edit: EventCategory,
-	save( props ) {
+	save() {
 		return null;
 	},
 };

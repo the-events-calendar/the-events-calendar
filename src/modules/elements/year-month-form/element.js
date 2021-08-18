@@ -25,9 +25,12 @@ const YearMonthForm = ( { today, date, localeUtils, onChange } ) => {
 		onChange( new Date( year.value, month.value ) );
 	};
 
+	/**
+	 * @todo: figure out what to do about onChange event (accessibility).
+	 */
 	return (
 		<form className="tribe-editor__year-month-form">
-			<select
+			<select // eslint-disable-line
 				className="tribe-editor__year-month-form__month"
 				name="month"
 				onChange={ handleChange }
@@ -49,7 +52,7 @@ const YearMonthForm = ( { today, date, localeUtils, onChange } ) => {
 					);
 				} ) }
 			</select>
-			<select
+			<select // eslint-disable-line
 				className="tribe-editor__year-month-form__year"
 				name="year"
 				onChange={ handleChange }
