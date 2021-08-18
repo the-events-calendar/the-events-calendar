@@ -26,6 +26,7 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_events_has_next_args', [ $this, 'maybe_remove_date_meta_queries' ], 1, 2 );
 		add_filter( 'tribe_events_has_previous_args', [ $this, 'maybe_remove_date_meta_queries' ], 1, 2 );
+		add_action( 'tribe_repository_events_pre_get_posts', [ $this, 'ensure_event_post_types_on_search' ], 50 );
 	}
 
 	/**
@@ -60,5 +61,41 @@ class Tribe__Events__Service_Providers__ORM extends tad_DI52_ServiceProvider {
 		);
 
 		return $args;
+	}
+
+	/**
+	 * Ensures that if something hooks into `pre_get_posts` and alters the query post type
+	 * the `tribe_events` post type is preserved so event searches don't break.
+	 *
+	 * @todo: investigate if we need this for organizers/venues as well.
+	 *
+	 * @since 5.8.2
+	 *
+	 * @param  WP_Query $query
+	 *
+	 * @return  WP_Query modified query
+	 */
+	public function ensure_event_post_types_on_search( $query ) {
+		if ( ! $query->is_search ) {
+			return $query;
+		}
+
+		if ( ! in_array( Tribe__Events__Main::POSTTYPE , (array) $query->query['post_type'] ) ) {
+			return $query;
+		}
+
+		$query_post_type = $query->query_vars['post_type'];
+
+		if ( ! is_array( $query_post_type ) ) {
+			// If it's not an array, overwrite it.
+			$query_post_type = Tribe__Events__Main::POSTTYPE;
+		} else {
+			// Else add event.
+			$query_post_type[] = Tribe__Events__Main::POSTTYPE;
+		}
+
+		$query->query_vars['post_type'] = $query_post_type;
+
+		return $query;
 	}
 }

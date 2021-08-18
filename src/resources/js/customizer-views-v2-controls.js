@@ -96,7 +96,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	/**
 	 * Trigger control functions for the Global Elements section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	obj.handleGlobalElements = function() {
 		// Triggers on change of globalFontSizeBase to keep globalFontSize in sync.
@@ -162,7 +162,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	/**
 	 * Trigger control functions for the Events Bar section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	obj.handleEventsBar = function() {
 		// Only show the icon color control when the icon color choice is set to custom.
@@ -201,7 +201,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	/**
 	 * Trigger control functions for the Month View section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	obj.handleMonthView = function() {
 		// Only show the grid background color control when the grid background color choice is set to custom.
@@ -226,7 +226,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	/**
 	 * Trigger control functions for the Single Event section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	obj.handleSingleEvent = function() {
 		// Only show the single event title color control when the single event title color choice is set to custom.
@@ -239,7 +239,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	/**
 	 * Trigger control functions for each section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	obj.init = function() {
 		obj.handleGlobalElements();
@@ -254,7 +254,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	/**
 	 * Trigger our init function when customizer is ready.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	wp.customize.bind( 'ready', obj.init );
 

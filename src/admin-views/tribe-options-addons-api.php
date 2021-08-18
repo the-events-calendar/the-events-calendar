@@ -119,11 +119,11 @@ $fields = array_merge(
 		],
 		'addons-box-title' => [
 			'type' => 'html',
-			'html' => '<h2>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h2>',
+			'html' => '<h2>' . esc_html__( 'Integrations', 'the-events-calendar' ) . '</h2>',
 		],
 		'addons-box-description' => [
 			'type' => 'html',
-			'html' => '<p>' . __( 'Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source.', 'the-events-calendar' ) . '</p>',
+			'html' => '<p>' . __( 'The Events Calendar and its add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations.', 'the-events-calendar' ) . '</p>',
 		],
 		'addons-box-end' => [
 			'type' => 'html',
@@ -159,5 +159,5 @@ $addons = apply_filters(
 
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
-	new Tribe__Settings_Tab( 'addons', esc_html__( 'APIs', 'the-events-calendar' ), $addons );
+	new Tribe__Settings_Tab( 'addons', esc_html__( 'Integrations', 'the-events-calendar' ), $addons );
 }

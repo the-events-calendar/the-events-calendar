@@ -3,21 +3,21 @@
  * The Events Calendar Customizer Section Class
  * Global Elements
  *
- * @since TBD
+ * @since 5.9.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
 /**
  * Global Elements
  *
- * @since TBD
+ * @since 5.9.0
  */
 final class Global_Elements extends \Tribe__Customizer__Section {
 
 	/**
 	 * ID of the section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @access public
 	 * @var string
@@ -62,7 +62,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	/**
 	 * This method will be executed when the Class is Initialized.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	public function setup() {
 		parent::setup();
@@ -70,7 +70,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		/**
 		 * Allows users and plugins to change the "small" font size multiplier.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param int $small_font_multiplier The multiplier for "small" font size.
 		 *
@@ -81,7 +81,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		/**
 		 * Allows users and plugins to change the "large" font size multiplier.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param int $large_font_multiplier The multiplier for "large" font size.
 		 *
@@ -92,7 +92,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		/**
 		 * Allows users and plugins to change the minimum font size.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param int $min_font_size The enforced minimum font size.
 		 *
@@ -103,7 +103,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		/**
 		 * Allows users and plugins to change the maximum font size.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param int $max_font_size The enforced maximum font size.
 		 *

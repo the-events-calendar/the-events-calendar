@@ -3,7 +3,7 @@
  * The Events Calendar Customizer Section Class
  * Single Event
  *
- * @since TBD
+ * @since 5.9.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
@@ -12,14 +12,14 @@ use Tribe\Events\Views\V2\Template_Bootstrap as Bootstrap;
 /**
  * Single Event
  *
- * @since TBD
+ * @since 5.9.0
  */
 final class Single_Event extends \Tribe__Customizer__Section {
 
 	/**
 	 * ID of the section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @access public
 	 * @var string
@@ -36,7 +36,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	/**
 	 * This method will be executed when the Class is Initialized.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	public function setup() {
 		parent::setup();
@@ -204,7 +204,7 @@ final class Single_Event extends \Tribe__Customizer__Section {
 	 * Deprecated:  The new Customizer applies to both, this function was moved to src/Tribe/Views/V2/Customizer.php
 	 *              for backwards-compatibility.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.9.0
 	 *
 	 * @return false/true
 	 */
