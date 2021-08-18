@@ -1,4 +1,6 @@
 <?php
+use Tribe__Date_Utils as Dates;
+
 /**
  * Sets up and renders the main event meta box used in the event editor.
  */
@@ -81,12 +83,60 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		}
 	}
 
+	/**
+	 * Sets up the default data for the meta box.
+	 * 
+	 * @since TBD
+	 */
+	protected function setup_default_vars() {
+		// Pull the variables from the class prop.
+		$vars = $this->vars;
+
+		$start_date = tribe_get_request_var( 'tribe-start-date', $vars['_EventStartDate'] );
+		if ( $start_date ) {
+			$start_date = Dates::build_date_object( $start_date, null, false );
+
+			if ( $start_date ) {
+				$vars['_EventStartDate'] = $start_date->format( Dates::DBDATEFORMAT );
+			}
+		}
+
+		$end_date = tribe_get_request_var( 'tribe-end-date', $vars['_EventEndDate'] );
+		if ( $end_date ) {
+			$end_date = Dates::build_date_object( $end_date, null, false );
+			if ( $end_date ) {
+				$vars['_EventEndDate'] = $end_date->format( Dates::DBDATEFORMAT );
+			}
+		}
+
+		if ( $start_date && ! $end_date ) {
+			$vars['_EventEndDate'] = $start_date->format( Dates::DBDATEFORMAT );
+		}
+
+		/**
+		 * Allows filtering of the variables right before including the template.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $vars     Current set of variables that will be used to setup the meta box.
+		 * @param self  $meta_box Instance of the meta box that we are using.
+		 */
+		$this->vars = apply_filters( 'tribe_events_meta_box_default_vars', $vars, $this );
+	}
+
+	/**
+	 * Sets up the data for the meta box.
+	 * 
+	 * @since TBD
+	 */
 	protected function setup_data() {
 		$this->vars['timepicker_round'] = $this->get_timepicker_round();
 
 		$this->get_existing_event_vars();
 		$this->get_existing_organizer_vars();
 		$this->get_existing_venue_vars();
+
+		$this->setup_default_vars();
 
 		$this->eod_correction();
 		$this->set_all_day();
@@ -323,6 +373,16 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected function do_meta_box() {
 		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
 		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
+
+		/**
+		 * Allows filtering of the variables right before including the template.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $vars     Current set of variables that will be used to setup the meta box.
+		 * @param self  $meta_box Instance of the meta box that we are using.
+		 */
+		$this->vars = apply_filters( 'tribe_events_meta_box_vars', $this->vars, $this );
 
 		extract( $this->vars );
 		$event = $this->event;

@@ -1,18 +1,15 @@
 <?php
 /**
- * View: Month View - Day
+ * View: Month View - Day Date Extras
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/month/calendar-body/day.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/date-extras.php
  *
  * See more documentation about our views templating system.
  *
  * @link http://evnt.is/1aiy
  *
  * @version TBD
- *
- * @since TBD Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
- * @since 5.3.0 Introduced.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -36,24 +33,31 @@
  *                              the day
  *      }
  */
-$day_classes = [ 'tribe-events-calendar-month__day' ];
-$day_id = 'tribe-events-calendar-day-' . $day_date;
 
-if ( $today_date === $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--current';
-}
-
-if ( $today_date > $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--past';
-}
+$events_label_plural   = tribe_get_event_label_plural_lowercase();
 ?>
 
-<div
-	<?php tribe_classes( $day_classes ); ?>
-	role="gridcell"
-	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
-	data-js="tribe-events-month-grid-cell"
->
-	<?php $this->template( 'month/calendar-body/day/date', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-	<?php $this->template( 'month/calendar-body/day/cell', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-</div>
+<?php if ( ! empty( $day['featured_events'] ) ): ?>
+	<?php
+	/* translators: %s: Events (plural). */
+	$has_featured_events_label = sprintf( __( 'Has featured %s', 'the-events-calendar' ), $events_label_plural );
+	?>
+	<em
+		class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+		aria-label="<?php echo esc_attr( $has_featured_events_label ); ?>"
+		title="<?php echo esc_attr( $has_featured_events_label ); ?>"
+	>
+		<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-month__mobile-events-icon-svg' ] ] ); ?>
+	</em>
+<?php elseif ( ! empty( $day['found_events'] ) ) : ?>
+	<?php
+	/* translators: %s: Events (plural). */
+	$has_events_label = sprintf( __( 'Has %s', 'the-events-calendar' ), $events_label_plural );
+	?>
+	<em
+		class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
+		aria-label="<?php echo esc_attr( $has_events_label ); ?>"
+		title="<?php echo esc_attr( $has_events_label ); ?>"
+	>
+	</em>
+<?php endif ?>

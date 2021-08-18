@@ -1,18 +1,15 @@
 <?php
 /**
- * View: Month View - Day
+ * View: Month View - Day Cell Title
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/month/calendar-body/day.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/cell-title.php
  *
  * See more documentation about our views templating system.
  *
  * @link http://evnt.is/1aiy
  *
  * @version TBD
- *
- * @since TBD Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
- * @since 5.3.0 Introduced.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -36,24 +33,39 @@
  *                              the day
  *      }
  */
-$day_classes = [ 'tribe-events-calendar-month__day' ];
-$day_id = 'tribe-events-calendar-day-' . $day_date;
 
-if ( $today_date === $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--current';
-}
+$day_number = $day['day_number'];
 
-if ( $today_date > $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--past';
-}
+$events_label_singular = tribe_get_event_label_singular_lowercase();
+$events_label_plural   = tribe_get_event_label_plural_lowercase();
+
+$num_events_label = sprintf(
+	/* translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). */
+	_n( '%1$s %2$s', '%1$s %3$s', $day['found_events'], 'the-events-calendar' ),
+	number_format_i18n( $day['found_events'] ),
+	$events_label_singular,
+	$events_label_plural
+);
 ?>
 
-<div
-	<?php tribe_classes( $day_classes ); ?>
-	role="gridcell"
-	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
-	data-js="tribe-events-month-grid-cell"
->
-	<?php $this->template( 'month/calendar-body/day/date', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-	<?php $this->template( 'month/calendar-body/day/cell', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-</div>
+<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+	<span class="tribe-common-a11y-visual-hide">
+		<?php echo esc_html( $num_events_label ); ?>,
+	</span>
+	<time
+		class="tribe-events-calendar-month__day-date-daynum"
+		datetime="<?php echo esc_attr( $day['date'] ); ?>"
+	>
+		<?php if ( ! empty( $day['found_events'] ) ) : ?>
+			<a
+				href="<?php echo esc_url( $day['day_url'] ); ?>"
+				class="tribe-events-calendar-month__day-date-link"
+				data-js="tribe-events-view-link"
+			>
+				<?php echo esc_html( $day_number ); ?>
+			</a>
+		<?php else : ?>
+			<?php echo esc_html( $day_number ); ?>
+		<?php endif; ?>
+	</time>
+</h3>
