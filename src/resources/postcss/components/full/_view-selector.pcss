@@ -70,11 +70,16 @@
 		.tribe-events-c-view-selector__button-icon-caret-svg {
 
 			.tribe-common--breakpoint-medium& {
+				color: var(--tec-color-icon-events-bar);
 				display: block;
 				flex: none;
 				height: 6px;
-				margin-left: var(--spacer-1);
+				margin-left: var(--tec-spacer-1);
 				width: 10px;
+
+				path {
+					fill: currentColor;
+				}
 			}
 		}
 
@@ -92,13 +97,15 @@
 
 			.tribe-common--breakpoint-medium& {
 				@mixin desktop-body-2-bold;
+
+				color: var(--tec-color-text-view-selector-list-item);
 			}
 		}
 
 		.tribe-events-c-view-selector__content {
 
 			.tribe-common--breakpoint-medium& {
-				box-shadow: var(--box-shadow-default);
+				box-shadow: var(--tec-box-shadow-default);
 			}
 		}
 	}
@@ -106,6 +113,7 @@
 	.tribe-events-c-view-selector--tabs {
 
 		.tribe-events-c-view-selector__content {
+			background-color: transparent;
 
 			.tribe-common--breakpoint-medium& {
 				border: 0;
@@ -121,7 +129,7 @@
 				&:after {
 
 					.tribe-common--breakpoint-medium& {
-						background-color: var(--color-accent-secondary);
+						background-color: var(--tec-color-accent-secondary);
 						bottom: -1px;
 						content: '';
 						display: block;
@@ -139,27 +147,27 @@
 
 		&:hover,
 		&:focus {
-			opacity: var(--opacity-icon-hover);
+			opacity: var(--tec-opacity-icon-hover);
 		}
 
 		&:active {
-			opacity: var(--opacity-icon-active);
+			opacity: var(--tec-opacity-icon-active);
 		}
 
 		&:before {
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-accent-primary);
 			content: '';
 			display: none;
 			height: 2px;
 			pointer-events: none;
 			position: absolute;
 			top: 100%;
-			transform: translateY(var(--spacer-0));
-			width: calc(100% - (2 * var(--spacer-0)));
+			transform: translateY(var(--tec-spacer-0));
+			width: calc(100% - (2 * var(--tec-spacer-0)));
 
 			.tribe-common--breakpoint-medium& {
-				width: calc(100% - (2 * var(--spacer-1)));
 				transform: none;
+				width: calc(100% - (2 * var(--tec-spacer-1)));
 			}
 		}
 	}
@@ -172,9 +180,10 @@
 	}
 
 	.tribe-events-c-view-selector__content {
-		border: 1px solid var(--color-border-secondary);
-		border-radius: var(--border-radius-default);
-		box-shadow: var(--box-shadow-tooltip);
+		background-color: var(--tec-color-background-view-selector);
+		border: 1px solid var(--tec-color-border-secondary);
+		border-radius: var(--tec-border-radius-default);
+		box-shadow: var(--tec-box-shadow-tooltip);
 	}
 
 	.tribe-events-c-view-selector__list-item {
@@ -184,35 +193,37 @@
 			&:hover,
 			&:focus,
 			&:focus-within {
-				background-color: var(--color-background-secondary);
+				background-color: var(--tec-color-background-view-selector-list-item-hover);
 			}
 		}
 	}
 
 	.tribe-events-c-view-selector__list-item-text {
 		@mixin desktop-body-2;
+
+		color: var(--tec-color-text-view-selector-list-item);
 	}
 
 	.tribe-events-c-view-selector__list-item--active {
 
 		.tribe-events-c-view-selector__list-item-text {
-			font-weight: var(--font-weight-bold);
+			font-weight: var(--tec-font-weight-bold);
 		}
 	}
 
 	.tribe-events-c-view-selector__list-item-link {
-		border-radius: var(--border-radius-default);
+		border-radius: var(--tec-border-radius-default);
+		color: var(--tec-color-text-view-selector-list-item);
 
 		&:hover,
 		&:focus {
-			background-color: var(--color-background-secondary);
 
 			.tribe-events-c-view-selector__list-item-icon {
-				opacity: var(--opacity-icon-hover);
+				opacity: var(--tec-opacity-icon-hover);
 			}
 
 			.tribe-events-c-view-selector__list-item-text {
-				color: var(--color-accent-secondary-hover);
+				color: var(--tec-color-text-view-selector-list-item-hover);
 			}
 		}
 	}

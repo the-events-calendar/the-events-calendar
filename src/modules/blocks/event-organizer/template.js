@@ -29,7 +29,6 @@ import { toFields } from '@moderntribe/events/elements/organizer-form/utils';
 const { InspectorControls } = wpEditor;
 
 class EventOrganizer extends PureComponent {
-
 	static propTypes = {
 		details: PropTypes.object,
 		create: PropTypes.bool,
@@ -173,7 +172,6 @@ class EventOrganizer extends PureComponent {
 			this.renderSettings(),
 		];
 	}
-
 }
 
 export default EventOrganizer;

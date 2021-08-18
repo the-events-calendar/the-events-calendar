@@ -243,7 +243,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Checks type of $postId to determine if it is an Event
 	 *
 	 * @category Events
-	 * @param int $postId (optional)
+	 * @param int|WP_Post The event/post id or object. (optional)
 	 *
 	 * @return bool true if this post is an Event post type
 	 */
@@ -252,7 +252,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Filter: 'tribe_is_event'.
 		 *
 		 * @param bool $is_event
-		 * @param int $postId
+		 * @param int|WP_Post The event/post id or object. (optional)
 		 */
 		return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 	}

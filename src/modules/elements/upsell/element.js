@@ -22,7 +22,7 @@ const Upsell = () => (
 		<p className="tribe-editor__subtitle__footer-upsell-text">
 			{ __(
 				'Turbocharge your events with our premium calendar and ticketing add-ons. ',
-				'the-events-calendar'
+				'the-events-calendar',
 			) }
 			<a
 				href="http://evnt.is/1a8q"

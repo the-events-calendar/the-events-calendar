@@ -13,7 +13,7 @@ describe( 'EditLink element', () => {
 	beforeAll( () => {
 		window.tribe_js_config = {
 			admin_url: 'http://localhost//wp-admin/',
-		}
+		};
 	} );
 
 	it( 'Should not render with missing required props', () => {
@@ -38,5 +38,5 @@ describe( 'EditLink element', () => {
 
 	afterAll( () => {
 		delete window.tribe_js_config;
-	});
+	} );
 } );

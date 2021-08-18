@@ -28,7 +28,6 @@ const { PlainText, InspectorControls } = wpEditor;
 const { toMoment, toDate, toTime } = momentUtil;
 
 const ClassicEventDetails = ( props ) => {
-
 	const renderTitle = () => {
 		const { attributes, setAttributes } = props;
 		const setDetailsTitle = ( e ) => setAttributes( { detailsTitle: e.target.value } );

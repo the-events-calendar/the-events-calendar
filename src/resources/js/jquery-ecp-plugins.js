@@ -5,14 +5,14 @@ jQuery( function( $ ) {
 			.on( {
 				'focus': function() {
 					var input = $( this );
-					if ( input.val() == input.attr( 'placeholder' ) ) {
+					if ( input.val() == input.attr( 'placeholder' ) ) { // eslint-disable-line eqeqeq
 						input.val( '' );
 						input.removeClass( 'placeholder' );
 					}
 				},
 				'blur': function() {
 					var input = $( this );
-					if ( input.val() == '' || input.val() == input.attr( 'placeholder' ) ) {
+					if ( input.val() == '' || input.val() == input.attr( 'placeholder' ) ) { // eslint-disable-line eqeqeq,max-len
 						input.addClass( 'placeholder' );
 						input.val( input.attr( 'placeholder' ) );
 					}
@@ -24,7 +24,7 @@ jQuery( function( $ ) {
 				function() {
 					$( this ).find( '[placeholder]' ).each( function() {
 						var input = $( this );
-						if ( input.val() == input.attr( 'placeholder' ) ) {
+						if ( input.val() == input.attr( 'placeholder' ) ) { // eslint-disable-line eqeqeq
 							input.val( '' );
 						}
 					} );
