@@ -479,7 +479,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * range of cost values the tribe_events_event_costs filter hook should be
 		 * leveraged.
 		 *
-		 * @since 5.9.0
+		 * @since 5.8.2
 		 * @param array|string|int $cost Event cost.
 		 * @param int $event_id Event post ID.
 		 *

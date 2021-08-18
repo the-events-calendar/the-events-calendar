@@ -35,7 +35,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Key for this group of assets.
 	 *
-	 * @since 5.9.0
+	 * @since 5.8.2
 	 *
 	 * @var string
 	 */
