@@ -3,8 +3,8 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 4.9.16
-Stable tag: 5.8.1
+Requires at least: 4.9.18
+Stable tag: 5.8.2
 Tested up to: 5.8.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.8.2] 2021-08-17 =
 
 * Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
 * Fix - Try to ensure that when we do an event search the query post type remains `tribe_events`. [TEC-4012]
@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure we test the value of tribe_events_get_current_month_day() before using it. [ECP-912]
 * Fix - Add a new function to add "Event Blocks" category to the editor for WP >= 5.8. [TEC-4037]
 * Tweak - Change label of API Settings tab to "Integrations" and alter helper text. [TEC-4015]
+* Language - 2 new strings added, 251 updated, 1 fuzzied, and 18 obsoleted
 
 = [5.8.1] 2021-07-20 =
 
