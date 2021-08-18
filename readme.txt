@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.9.0] TBD =
 
+* Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
 * Feature - Alter Customizer to leverage the new exposed CSS custom properties. [TCMN-104]
 * Feature - Reduce the CSS load of The Events Calendar Customizer style overrides. [TEC-3011]
 * Feature - Allow easier style overrides by users and third-party themes/plugins. [TEC-3011]
