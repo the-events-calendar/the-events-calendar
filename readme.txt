@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.18
-Stable tag: 5.8.2
+Stable tag: 5.9.0
 Tested up to: 5.8.0
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,9 +221,17 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.9.0] TBD =
 
+* Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
+* Feature - Alter Customizer to leverage the new exposed CSS custom properties. [TCMN-104]
+* Feature - Reduce the CSS load of The Events Calendar Customizer style overrides. [TEC-3011]
+* Feature - Allow easier style overrides by users and third-party themes/plugins. [TEC-3011]
+* Feature - Add new Font Sections to Customizer -> The Events Calendar -> Global Events. [TEC-3872]
+* Feature - Add new font family control to allow The Events Calendar styles to inherit theme fonts. [TEC-3895]
+* Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
 * Tweak - remove unused template file to avoid confusion.
+* Language - 16 new strings added, 206 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.8.2] 2021-08-17 =
 
@@ -255,7 +263,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct instance where the date & time symbols ("@") are not changing color along with the text. [TEC-3883]
 * Tweak - Ensure that the Month view date and time default colors match up with the rest [TEC-3709]
 * Tweak - Ensure the Customizer Accent Color defaults to "royal blue" (#334aff) [TEC-3884]
-* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility.
+* Tweak - Stop doing all the work here and leverage the new tribe-common Theme_Compatibility. [TCMN-106]
 * Tweak - Add new hooks to the single event templates to allow more third-party control over content without custom templates. [TEC-3948]
 * Tweak - Added filters: `tribe_customizer_should_print_shortcode_customizer_styles`, `tribe_events_views_v2_bootstrap_html`, `tribe_default_events_template_classes`, `tribe_events_single_event_title_classes`, `tribe_events_single_event_title_html_before`, `tribe_events_single_event_title_html_after`, `tribe_events_single_event_title_html`
 * Tweak - Removed filters: `tribe_events_views_v2_compatibility_classes`, `tribe_events_views_v2_theme_compatibility_registered`

@@ -4,12 +4,12 @@
 import * as actions from './actions';
 import * as selectors from './selectors';
 import {
-	middlewares
+	middlewares,
 } from '@moderntribe/common/store';
 
 const { request: {
-	actions:requestActions,
-	utils:requestUtils,
+	actions: requestActions,
+	utils: requestUtils,
 } } = middlewares;
 
 // @todo [BTRIA-617]: There is a lot of logic in this thunk that should be moved into

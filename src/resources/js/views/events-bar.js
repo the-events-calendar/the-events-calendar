@@ -228,7 +228,7 @@ tribe.events.views.eventsBar = {};
 	obj.handleClick = function( event ) {
 		var $target = $( event.target );
 		var isParentSearchButton = Boolean( $target.closest( obj.selectors.searchButton ).length );
-		var isParentSearchContainer = Boolean( $target.closest( obj.selectors.searchContainer ).length );
+		var isParentSearchContainer = Boolean( $target.closest( obj.selectors.searchContainer ).length ); // eslint-disable-line max-len
 
 		if ( ! ( isParentSearchButton || isParentSearchContainer ) ) {
 			var $container = event.data.container;
@@ -282,7 +282,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) {
+	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		obj.deinitEventsBar( $container );
 		obj.unbindEvents( $container );
@@ -301,7 +301,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) {
+	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
 		var $eventsBar = $container.find( obj.selectors.eventsBar );
 
 		if ( ! $eventsBar.length ) {
@@ -322,7 +322,11 @@ tribe.events.views.eventsBar = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready

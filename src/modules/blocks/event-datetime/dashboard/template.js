@@ -186,7 +186,10 @@ const EventDateTimeDashboard = ( props ) => {
 							{ renderStartTimePicker( props ) }
 							{
 								( multiDay || ! allDay ) && (
-									<span className={ classNames( 'tribe-editor__separator', 'tribe-editor__time-picker__separator' ) }>
+									<span className={ classNames(
+										'tribe-editor__separator',
+										'tribe-editor__time-picker__separator',
+									) }>
 										{ ` ${ separatorTime } ` }
 									</span>
 								)

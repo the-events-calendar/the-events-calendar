@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -21,9 +22,9 @@ export default {
 	title: __( 'Event Sharing', 'the-events-calendar' ),
 	description: __(
 		'Encourage visitors to add your event to their calendars with handy sharing buttons.',
-		'the-events-calendar'
+		'the-events-calendar',
 	),
-	icon: <Sharing/>,
+	icon: <Sharing />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 
@@ -51,7 +52,7 @@ export default {
 	},
 
 	edit: EventLinks,
-	save( props ) {
+	save() {
 		return null;
 	},
 };

@@ -15,7 +15,7 @@
 function tribe_array_unique( array $original ) {
 	$unique = [];
 
-	foreach( $original as $inner ) {
+	foreach ( $original as $inner ) {
 		$unique[ join( '|', $inner ) ] = $inner;
 	}
 

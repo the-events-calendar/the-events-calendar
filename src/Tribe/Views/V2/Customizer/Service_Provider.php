@@ -8,9 +8,10 @@
 
 namespace Tribe\Events\Views\V2\Customizer;
 
-use Tribe\Events\Views\V2\Customizer;
-use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
+use Tribe\Events\Views\V2\Customizer\Section\Global_Elements;
 use Tribe\Events\Views\V2\Customizer\Section\Month_View;
+use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
+use Tribe\Events\Views\V2\Customizer\Section\Single_Event;
 
 /**
  * Class Service_Provider
@@ -24,12 +25,28 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.views.v2.customizer.provider', $this );
 
 		$this->register_hooks();
-		$this->register_assets();
 
-		tribe_singleton( 'events.views.v2.customizer.month-view', new Month_View() );
-		tribe_singleton( 'events.views.v2.customizer.events-bar', new Events_Bar() );
-		tribe('events.views.v2.customizer.month-view');
-		tribe('events.views.v2.customizer.events-bar');
+		tribe_singleton( 'events.views.v2.customizer.global-elements', Global_Elements::class );
+		// For backwards-compatibility.
+		tribe_singleton(
+			'tec.customizer.global-elements',
+			static function() {
+				return tribe( 'events.views.v2.customizer.global-elements' );
+			}
+		);
+		tribe_singleton( 'events.views.v2.customizer.month-view', Month_View::class );
+		tribe_singleton( 'events.views.v2.customizer.events-bar', Events_Bar::class );
+		tribe_singleton( 'events.views.v2.customizer.single-event', Single_Event::class );
+
+		// Notice for extension incompatibility
+		tribe_singleton( Notice::class, Notice::class, [ 'hook' ] );
+
+		tribe( 'events.views.v2.customizer.global-elements');
+		tribe( 'events.views.v2.customizer.month-view');
+		tribe( 'events.views.v2.customizer.events-bar');
+		tribe( 'events.views.v2.customizer.single-event' );
+		tribe( Notice::class );
+
 	}
 
 	public function register_hooks() {
@@ -40,7 +57,5 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Hooks::class, $hooks );
 		$this->container->singleton( 'events.views.v2.customizer.hooks', $hooks );
 	}
-
-	public function register_assets() {}
 
 }

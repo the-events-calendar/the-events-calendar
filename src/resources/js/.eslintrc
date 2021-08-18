@@ -1,0 +1,40 @@
+{
+  "root": true,
+  "extends": [
+    "../../../node_modules/@the-events-calendar/product-taskmaster/config/eslint.es5.js"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "es5/no-block-scoping": 0
+  },
+  "globals": {
+    "adminpage": true,
+    "ajaxurl": true,
+    "DateFormatter": true,
+    "google": true,
+    "jQuery": true,
+    "moment": true,
+    "pagenow": true,
+    "Qs": true,
+    "tec_debug": true,
+    "tribe": true,
+    "tribe_debug": true,
+    "tribe_dynamic_help_text": true,
+    "tribe_ev": true,
+    "tribe_events_bar_action": true,
+    "tribe_js_config": true,
+    "tribe_timezone_update": true,
+    "tribe_tmpl": true,
+    "tribe_upgrade": true,
+    "TribeCalendar": true,
+    "tribeDateFormat": true,
+    "tribeEventsSingleMap": true,
+    "TribeList": true,
+    "tribeUtils": true,
+    "typenow": true,
+	"wp": true
+  }
+}

@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { wpData, postObjects } from "@moderntribe/common/utils/globals";
+import { wpData, postObjects } from '@moderntribe/common/utils/globals';
 import { editor } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 import {
@@ -31,11 +31,10 @@ const {
  * Set meta for given key.
  *
  * @exports
- * @param {Object}   map      Map of state key to meta key.
+ * @param {object}   map      Map of state key to meta key.
  * @param {string}   mapKey   State key for map.
  * @param {Function} selector Selector to get block state.
- *
- * @returns {Object} Object of post meta to be saved.
+ * @returns {object} Object of post meta to be saved.
  */
 export const setMeta = ( map, mapKey, selector ) => {
 	const metaKey = map[ mapKey ];
@@ -46,10 +45,9 @@ export const setMeta = ( map, mapKey, selector ) => {
 /**
  * Set meta for given block.
  *
- * @param {Object} blockToMapAndSelectorMap Map of block to state and meta map and selector.
+ * @param {object} blockToMapAndSelectorMap Map of block to state and meta map and selector.
  * @param {string} blockKey                 Block key for map.
- *
- * @returns {Object} Object of post meta to be saved for given block.
+ * @returns {object} Object of post meta to be saved for given block.
  */
 export const setBlockMeta = ( blockToMapAndSelectorMap, blockKey ) => {
 	const [ map, selector ] = blockToMapAndSelectorMap[ blockKey ];

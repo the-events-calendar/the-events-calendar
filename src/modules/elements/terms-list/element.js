@@ -27,7 +27,7 @@ const getTerms = ( terms, parentId = null ) => {
 	}
 
 	return terms.filter( ( term ) => term.parent === parentId );
-}
+};
 
 const getTermListClassName = ( level = 0 ) => (
 	`tribe-editor__terms__list tribe-editor__terms__list--level-${ level }`
@@ -41,7 +41,7 @@ const termName = ( term = {} ) => {
 	return term.name
 		? unescape( term.name ).trim()
 		: __( '(Untitled)', 'the-events-calendar' );
-}
+};
 
 const Label = ( { text } ) => (
 	<strong className="tribe-editor__terms__label" key="terms-label">
@@ -59,7 +59,13 @@ const Empty = ( { renderEmpty = null, id, label } ) => (
 	)
 );
 
-const List = ( { terms = [], termSeparator = ', ', isLoading = false, id = '', className = '' } ) => {
+const List = ( {
+	terms = [],
+	termSeparator = ', ',
+	isLoading = false,
+	id = '',
+	className = '',
+} ) => {
 	if ( isLoading ) {
 		return <Loading id={ id } className={ className } />;
 	}
@@ -94,7 +100,7 @@ const Item = ( { separator, term, isLast } ) => {
 			<Separator delimiter={ separator } isLast={ isLast } />
 		</li>
 	);
-}
+};
 
 const Loading = ( { id = '', className = '' } ) => (
 	<div key={ id } className={ `tribe-editor__terms__spinner ${ className }` }>
@@ -103,17 +109,24 @@ const Loading = ( { id = '', className = '' } ) => (
 	</div>
 );
 
-export const TaxonomiesElement = ( { className, slug, label, renderEmpty, isRequesting, ...rest } ) => {
+export const TaxonomiesElement = ( {
+	className,
+	slug,
+	label,
+	renderEmpty,
+	isRequesting,
+	...rest
+} ) => {
 	const terms = getTerms( rest.terms );
 	const key = `tribe-terms-${ slug }`;
 
 	if ( ! terms.length && ! isRequesting ) {
-		return <Empty id={ key } renderEmpty={ renderEmpty } label={ label }/>;
+		return <Empty id={ key } renderEmpty={ renderEmpty } label={ label } />;
 	}
 
 	return (
 		<div key={ key } className={ `tribe-editor__terms ${ className }` }>
-			<Label text={ label }/>
+			<Label text={ label } />
 			<div key="terms" className="tribe-editor__terms__list-wrapper">
 				<List terms={ terms } className={ className } id={ key } isLoading={ isRequesting } />
 			</div>
@@ -144,7 +157,7 @@ const applySelect = withSelect( ( select, props ) => {
 		orderby: 'count',
 		order: 'desc',
 		include: ids,
-	}
+	};
 
 	return {
 		terms: getEntityRecords( 'taxonomy', slug, query ),
