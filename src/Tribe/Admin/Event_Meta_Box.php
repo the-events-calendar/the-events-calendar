@@ -85,19 +85,20 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 	/**
 	 * Sets up the default data for the meta box.
-	 * 
+	 *
 	 * @since TBD
 	 */
 	protected function setup_default_vars() {
 		// Pull the variables from the class prop.
 		$vars = $this->vars;
+		$utc_timezone = new \DateTimeZone( 'UTC' );
 
 		$start_date = tribe_get_request_var( 'tribe-start-date', $vars['_EventStartDate'] );
 		if ( $start_date ) {
 			$start_date = Dates::build_date_object( $start_date, null, false );
 
 			if ( $start_date ) {
-				$vars['_EventStartDate'] = $start_date->format( Dates::DBDATEFORMAT );
+				$vars['_EventStartDate'] = $start_date->format( Dates::DBDATETIMEFORMAT );
 			}
 		}
 
@@ -105,12 +106,21 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		if ( $end_date ) {
 			$end_date = Dates::build_date_object( $end_date, null, false );
 			if ( $end_date ) {
-				$vars['_EventEndDate'] = $end_date->format( Dates::DBDATEFORMAT );
+				$vars['_EventEndDate'] = $end_date->format( Dates::DBDATETIMEFORMAT );
 			}
 		}
 
 		if ( $start_date && ! $end_date ) {
-			$vars['_EventEndDate'] = $start_date->format( Dates::DBDATEFORMAT );
+			$end_date = $start_date;
+			$vars['_EventEndDate'] = $start_date->format( Dates::DBDATETIMEFORMAT );
+		}
+
+		// Start/End dates are set. Let's set the UTC equivalents.
+		if ( $start_date && $end_date ) {
+			$start_date_utc             = $start_date->setTimezone( $utc_timezone );
+			$end_date_utc               = $end_date->setTimezone( $utc_timezone );
+			$vars['_EventStartDateUTC'] = $start_date_utc->format( Dates::DBDATETIMEFORMAT );
+			$vars['_EventEndDateUTC']   = $end_date_utc->format( Dates::DBDATETIMEFORMAT );
 		}
 
 		/**
@@ -126,7 +136,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 	/**
 	 * Sets up the data for the meta box.
-	 * 
+	 *
 	 * @since TBD
 	 */
 	protected function setup_data() {
