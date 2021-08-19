@@ -37,18 +37,18 @@
 	}
 
 	.tribe-events-widget-events-list__view-more-link {
-		color: var(--tec-color-accent-primary);
+		color: var(--tec-color-link-accent);
 		text-transform: capitalize;
 
 		&:visited {
-			color: var(--tec-color-accent-primary);
+			color: var(--tec-color-link-accent);
 		}
 
 		&:active,
 		&:focus,
 		&:hover {
-			border-bottom-color: var(--tec-color-accent-primary);
-			color: var(--tec-color-accent-primary);
+			border-bottom-color: var(--tec-color-link-accent);
+			color: var(--tec-color-link-accent);
 		}
 	}
 
@@ -88,11 +88,17 @@
 	.site-footer .widget-area & {
 
 		.tribe-events-widget-events-list__view-more-link {
-			color: var(--tec-color-accent-primary);
 
-			&:hover,
-			&:focus {
-				color: var(--tec-color-accent-primary);
+			&,
+			&:visited {
+				color: var(--tec-color-link-accent);
+			}
+
+			&:active,
+			&:focus,
+			&:hover {
+				border-bottom-color: var(--tec-color-link-accent);
+				color: var(--tec-color-link-accent);
 			}
 		}
 	}
@@ -128,13 +134,17 @@
 	.main_color .sidebar & {
 
 		.tribe-events-widget-events-list__view-more-link {
-			color: var(--tec-color-accent-primary);
 
-			&:visited,
-			&:hover,
+			&,
+			&:visited {
+				color: var(--tec-color-link-accent);
+			}
+
+			&:active,
 			&:focus,
-			&:active {
-				color: var(--tec-color-accent-primary);
+			&:hover {
+				border-bottom-color: var(--tec-color-link-accent);
+				color: var(--tec-color-link-accent);
 			}
 		}
 	}
