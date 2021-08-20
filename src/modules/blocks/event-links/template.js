@@ -15,7 +15,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { Link as LinkIcon } from '@moderntribe/events/icons';
-import { input } from '@moderntribe/common/utils';
 import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 const { InspectorControls } = wpEditor;
@@ -27,7 +26,7 @@ const { InspectorControls } = wpEditor;
 const googleCalendarPlaceholder = __( 'Google Calendar', 'the-events-calendar' );
 const iCalExportPlaceholder = __( 'iCal Export', 'the-events-calendar' );
 
-const renderPlaceholder= ( label ) => (
+const renderPlaceholder = ( label ) => (
 	<button className="tribe-editor__btn--link tribe-editor__btn--placeholder" disabled>
 		<LinkIcon />
 		{ label }

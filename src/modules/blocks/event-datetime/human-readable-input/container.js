@@ -22,7 +22,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	onChange: ( event ) => {
 		dispatch( dateTimeActions.setNaturalLanguageLabel(
 			event.target.value,
-			{ setAttributes: ownProps.setAttributes }
+			{ setAttributes: ownProps.setAttributes },
 		) );
 	},
 } );

@@ -8,12 +8,12 @@ export const blockSelector = ( state, props ) => state.events.search[ props.name
 
 export const getSearchPostType = createSelector(
 	[ blockSelector ],
-	( block ) => block ? block.postType : DEFAULT_STATE.postType
+	( block ) => block ? block.postType : DEFAULT_STATE.postType,
 );
 
 export const getSearchTerm = createSelector(
 	[ blockSelector ],
-	( block ) => block ? block.term : DEFAULT_STATE.term
+	( block ) => block ? block.term : DEFAULT_STATE.term,
 );
 
 export const getIsLoading = createSelector(

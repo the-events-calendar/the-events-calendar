@@ -243,7 +243,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Checks type of $postId to determine if it is an Event
 	 *
 	 * @category Events
-	 * @param int $postId (optional)
+	 * @param int|WP_Post The event/post id or object. (optional)
 	 *
 	 * @return bool true if this post is an Event post type
 	 */
@@ -252,7 +252,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Filter: 'tribe_is_event'.
 		 *
 		 * @param bool $is_event
-		 * @param int $postId
+		 * @param int|WP_Post The event/post id or object. (optional)
 		 */
 		return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 	}
@@ -551,7 +551,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$tribe_ecp = Tribe__Events__Main::instance();
-		$list      = get_the_term_list( get_the_ID(), 'post_tag', '<dt>' . $label . '</dt><dd class="tribe-event-tags">', $separator, '</dd>' );
+		$list      = get_the_term_list( get_the_ID(), 'post_tag', '<dt class="tribe-event-tags-label">' . $label . '</dt><dd class="tribe-event-tags">', $separator, '</dd>' );
 		$list      = apply_filters( 'tribe_meta_event_tags', $list, $label, $separator, $echo );
 		if ( $echo ) {
 			echo $list;
@@ -1374,9 +1374,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 				$category_classes = tribe_events_event_classes( $event->ID, false );
 				$day              = tribe_events_get_current_month_day();
-				$event_id         = "{$event->ID}-{$day['date']}";
-
-				$json['eventId']         = $event_id;
+				// tribe_events_get_current_month_day() can return boolean false.
+				$json['eventId']         = isset($day['date']) ? "{$event->ID}-{$day['date']}" : "{$event->ID}";
 				$json['title']           = wp_kses_post( apply_filters( 'the_title', $event->post_title, $event->ID ) );
 				$json['permalink']       = tribe_get_event_link( $event->ID );
 				$json['imageSrc']        = $image_src;

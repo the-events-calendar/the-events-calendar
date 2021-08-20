@@ -5,6 +5,10 @@
  *
  */
 
+#tribe-events-pg-template {
+	background-color: var(--tec-color-background-events);
+}
+
 .tribe-events-single {
 	-webkit-font-smoothing: antialiased;
 }
@@ -24,17 +28,17 @@
 	&:visited {
 		@mixin body;
 
-		font-size: var(--font-size-3);
-		font-weight: var(--font-weight-bold);
+		font-size: var(--tec-font-size-3);
+		font-weight: var(--tec-font-weight-bold);
 		text-decoration: none;
 	}
 }
 
 /* Notices block (e.g. "This event has passed") */
 .tribe-events-notices {
+	border-bottom: 1px solid var(--tec-color-border-secondary);
 	box-shadow: none;
-	border-bottom: 1px solid var(--color-border-secondary);
-	
+
 	ul {
 		list-style: none;
 		text-align: left;
@@ -46,6 +50,8 @@
 .tribe-events-single-event-title {
 	@mixin heading;
 	@mixin mobile-heading-2;
+
+	color: var(--tec-color-text-event-title);
 
 	@media (--viewport-medium) {
 		@mixin desktop-heading-1;
@@ -63,7 +69,8 @@
 	@mixin heading;
 	@mixin mobile-heading-6;
 
-	font-weight: var(--font-weight-regular);
+	color: var(--tec-color-text-event-date);
+	font-weight: var(--tec-font-weight-regular);
 
 	@media (--viewport-medium) {
 		@mixin desktop-heading-6;
@@ -76,7 +83,7 @@
 	@mixin heading;
 	@mixin heading-8;
 
-	background-color: var(--color-background-secondary);
+	background-color: var(--tec-color-background-secondary);
 	border-radius: 40px;
 
 	.event-is-recurring {
@@ -84,8 +91,8 @@
 	}
 
 	a {
-		color: var(--color-accent-primary);
-		font-weight: var(--font-weight-regular);
+		color: var(--tec-color-accent-primary);
+		font-weight: var(--tec-font-weight-regular);
 		letter-spacing: normal;
 		line-height: 20px;
 		text-decoration: none;
@@ -97,7 +104,7 @@
 	@mixin heading;
 	@mixin heading-8;
 
-	background-color: var(--color-background-secondary);
+	background-color: var(--tec-color-background-secondary);
 	border-radius: 40px;
 
 	@media (--viewport-medium) {
@@ -116,7 +123,7 @@
 	@mixin heading;
 	@mixin mobile-heading-6;
 
-	color: var(--color-text-primary);
+	color: var(--tec-color-text-primary);
 	text-transform: uppercase;
 
 	@media (--viewport-medium) {
@@ -142,12 +149,12 @@
 	p,
 	ul,
 	ol {
-		font-size: var(--font-size-3);
-		line-height: var(--line-height-3);
+		font-size: var(--tec-font-size-3);
+		line-height: var(--tec-line-height-3);
 
 		@media (--viewport-medium) {
-			font-size: var(--font-size-4);
-			line-height: var(--line-height-2);
+			font-size: var(--tec-font-size-4);
+			line-height: var(--tec-line-height-2);
 		}
 	}
 
@@ -162,22 +169,23 @@
 
 	a {
 		@mixin anchor-thin-alt;
+
 		text-decoration: none;
 	}
 
 	pre {
-		background-color: var(--color-background-secondary-transparent);
-		font-size: var(--font-size-3);
-		line-height: var(--line-height-3);
+		background-color: var(--tec-color-background-secondary-transparent);
+		font-size: var(--tec-font-size-3);
+		line-height: var(--tec-line-height-3);
 	}
-	
+
 	blockquote {
 		quotes: auto;
-		
+
 		&:before {
 			content: open-quote;
 		}
-		
+
 		&:after {
 			content: close-quote;
 		}
@@ -191,10 +199,10 @@
 	.tribe-events-gcal,
 	.tribe-events-ical {
 		background: svg-inline(cal-export) 0 / 24px no-repeat;
-		color: var(--color-accent-primary);
-		font-size: var(--font-size-2);
-		font-weight: var(--font-weight-regular);
-		line-height: var(--line-height-3);
+		color: var(--tec-color-link-accent);
+		font-size: var(--tec-font-size-2);
+		font-weight: var(--tec-font-weight-regular);
+		line-height: var(--tec-line-height-3);
 		text-decoration: none;
 	}
 }
@@ -203,18 +211,18 @@
 .tribe-events-event-meta {
 	@mixin body;
 
-	font-size: var(--font-size-2);
+	font-size: var(--tec-font-size-2);
 
 	a {
 
 		&,
 		&:visited {
-			color: var(--color-accent-primary);
+			color: var(--tec-color-link-accent);
 		}
 
 		&:focus,
 		&:hover {
-			color: var(--color-accent-primary-hover);
+			color: var(--tec-color-link-accent-hover);
 		}
 	}
 
@@ -224,7 +232,7 @@
 	}
 
 	dt {
-		line-height: var(--line-height-3);
+		line-height: var(--tec-line-height-3);
 	}
 
 	.tribe-events-address {
@@ -236,7 +244,7 @@
 	/* depending on template updates */
 	&:before,
 	& ~ div:not(.tribe-events-event-meta, .event-tickets) {
-		border-top: 1px solid var(--color-border-secondary);
+		border-top: 1px solid var(--tec-color-border-secondary);
 	}
 
 	&.secondary:before {
@@ -248,7 +256,7 @@
 	/* We don't want the Customizer's overrides applied here */
 	.single-tribe_events .tribe-events-single & {
 		background-color: transparent;
-		color: var(--color-text-primary);
+		color: var(--tec-color-text-primary);
 	}
 }
 
@@ -256,16 +264,20 @@
 .tribe-events-meta-group {
 
 	.tribe-events-single-section-title {
-		color: var(--color-text-primary);
-		font-size: var(--font-size-2);
-		font-weight: var(--font-weight-bold);
+		color: var(--tec-color-text-primary);
+		font-size: var(--tec-font-size-2);
+		font-weight: var(--tec-font-weight-bold);
 		letter-spacing: 1px;
 		text-transform: uppercase;
 	}
 
+	a {
+		color: var(--tec-color-link-accent);
+	}
+
 	/* Scenario where all the details are in the same container */
 	&.tribe-events-meta-group-gmap {
-		border-top: 1px solid var(--color-border-secondary);
+		border-top: 1px solid var(--tec-color-border-secondary);
 	}
 }
 
@@ -280,7 +292,7 @@
 	@mixin heading;
 	@mixin mobile-heading-3;
 
-	border-top: 1px solid var(--color-border-secondary);
+	border-top: 1px solid var(--tec-color-border-secondary);
 
 	@media (--viewport-medium) {
 		@mixin desktop-heading-3;
@@ -297,7 +309,7 @@
 			@mixin heading-7;
 
 			a {
-				color: var(--color-accent-primary);
+				color: var(--tec-color-link-primary);
 			}
 		}
 	}
@@ -305,22 +317,22 @@
 
 /* Footer Navigation */
 #tribe-events-footer {
-	border-top: 1px solid var(--color-border-secondary);
+	border-top: 1px solid var(--tec-color-border-secondary);
 }
 
 .tribe-events-single .tribe-events-sub-nav {
 	@mixin body;
 
-	font-size: var(--font-size-1);
+	font-size: var(--tec-font-size-1);
 	list-style: none;
 
 	@media (--viewport-medium) {
-		font-size: var(--font-size-3);
+		font-size: var(--tec-font-size-3);
 	}
 
 	.tribe-events-nav-previous a,
 	.tribe-events-nav-next a {
-		color: var(--color-text-secondary);
+		color: var(--tec-color-text-secondary);
 		text-decoration: none;
 		vertical-align: middle;
 
@@ -335,7 +347,7 @@
 
 		&:hover,
 		&:focus {
-			color: var(--color-text-primary);
+			color: var(--tec-color-text-primary);
 		}
 	}
 
@@ -432,6 +444,8 @@
 		@mixin heading;
 		@mixin mobile-heading-2;
 
+		color: var(--tec-color-text-event-title);
+
 		@media (--viewport-medium) {
 			@mixin desktop-heading-1;
 		}
@@ -441,7 +455,8 @@
 		@mixin heading;
 		@mixin mobile-heading-6;
 
-		font-weight: var(--font-weight-regular);
+		color: var(--tec-color-text-event-date);
+		font-weight: var(--tec-font-weight-regular);
 
 		@media (--viewport-medium) {
 			@mixin desktop-heading-6;
@@ -456,4 +471,10 @@
 	.av-single-event-meta-bar-inner {
 		border: 0;
 	}
+}
+
+/* removes weird border on the event meta on Avada theme [TEC-3952] */
+.fusion-widget-area .tribe-events-event-meta:before,
+.fusion-widget-area .tribe-events-event-meta ~ div:not(.tribe-events-event-meta):not(.event-tickets) {
+	border: none;
 }

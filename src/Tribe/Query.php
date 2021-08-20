@@ -157,7 +157,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			$types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : [] );
 
-			// check if any possiblity of this being an event query
+			// check if any possibility of this being an event query
 			$query->tribe_is_event = ( in_array( Tribe__Events__Main::POSTTYPE, $types ) && count( $types ) < 2 )
 				? true // it was an event query
 				: false;
@@ -170,7 +170,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->set( 'eventDisplay', Tribe__Events__Main::instance()->default_view() );
 			}
 
-			// check if any possiblity of this being an event category
+			// check if any possibility of this being an event category
 			$query->tribe_is_event_category = ! empty ( $query->query_vars[ Tribe__Events__Main::TAXONOMY ] )
 				? true // it was an event category
 				: false;

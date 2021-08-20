@@ -225,6 +225,18 @@ abstract class By_Day_View extends View {
 				->per_page( - 1 )
 				->order_by( $order_by, $order );
 
+			/**
+			 * Allows modifications to the repository, which allows specific modifications to the grid query.
+			 *
+			 * @since  5.8.2
+			 *
+			 * @param \Tribe__Repository__Interface $events_repository The Event repository we are going to filter.
+			 * @param DateTimeInterface             $grid_start        The View grid start date.
+			 * @param DateTimeInterface             $grid_end          The View grid end date.
+			 * @param By_Day_View                   $this              A reference to the View instance that has fired this filter.
+			 */
+			$events_repository = apply_filters( 'tribe_events_views_v2_by_day_view_day_repository', $events_repository, $grid_start, $grid_end, $this );
+
 			$view_event_ids = $events_repository->all();
 
 			/**
@@ -248,8 +260,8 @@ abstract class By_Day_View extends View {
 		}
 
 		$all_day_event_ids = [];
-		$site_timezone = Timezones::build_timezone_object();
-		$utc = Timezones::build_timezone_object( 'UTC' );
+		$site_timezone     = Timezones::build_timezone_object();
+		$utc               = Timezones::build_timezone_object( 'UTC' );
 
 		// phpcs:ignore
 		/** @var \Tribe\Utils\Date_I18n $day */
@@ -257,7 +269,7 @@ abstract class By_Day_View extends View {
 			$day_string = $day->format( 'Y-m-d' );
 
 			if ( $using_period_repository && isset( $repository ) ) {
-				$day_results = $repository->by_date( $day_string )->get_set();
+				$day_results   = $repository->by_date( $day_string )->get_set();
 				$day_event_ids = [];
 
 				$event_ids = [];
@@ -495,12 +507,12 @@ abstract class By_Day_View extends View {
 					// * convert it to the current site timezone
 					// * check if the event fits into the day, given shifted start and end of day
 					$event_localized_start_date = Dates::build_date_object( $event->start_date, $utc )
-						->setTimezone( $site_timezone );
+					                                   ->setTimezone( $site_timezone );
 					$event_localized_end_date   = Dates::build_date_object( $event->end_date, $utc )
-						->setTimezone( $site_timezone );
+					                                   ->setTimezone( $site_timezone );
 
 					$should_backfill = $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
-					&& $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) >= $start;
+					                   && $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) >= $start;
 				}
 
 				if ( $should_backfill && ! in_array( $event_id, $this->grid_days_cache[ $event_day_string ], true ) ) {
@@ -595,13 +607,13 @@ abstract class By_Day_View extends View {
 					$this_week_duration    = 7;
 
 					if ( $starts_this_week && $ends_this_week ) {
-						$this_week_duration = $occurrences['count'][ $event ];
+						$this_week_duration      = $occurrences['count'][ $event ];
 						$displays_on[ $event ][] = $occurrences['first'][ $event ];
 					} elseif ( $starts_this_week ) {
-						$this_week_duration = Dates::date_diff( $week_end, $occurrences['first'][ $event ] ) + 1;
+						$this_week_duration      = Dates::date_diff( $week_end, $occurrences['first'][ $event ] ) + 1;
 						$displays_on[ $event ][] = $occurrences['first'][ $event ];
 					} elseif ( $ends_this_week ) {
-						$this_week_duration = Dates::date_diff( $occurrences['last'][ $event ], $week_start ) + 1;
+						$this_week_duration      = Dates::date_diff( $occurrences['last'][ $event ], $week_start ) + 1;
 						$displays_on[ $event ][] = $week_start;
 					}
 

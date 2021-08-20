@@ -279,32 +279,69 @@
 	}
 
 	.tribe-notice-tribe-missing-aggregator-license {
-		background: url(../images/aggregator/ea-upsell-bkg.svg) transparent no-repeat;
-		background-size: cover;
-		border: none;
-		padding: 60px 0;
-		text-align: center;
+		background-color: #F9F7F4;
+		border-radius: 16px;
+		border: 1px solid #F9F7F4;
+		display: flex;
+		justify-content: space-between;
+		padding: 60px;
+
+		.tribe-notice-tribe-missing-aggregator-license__content {
+			@media screen and (min-width: 1260px) {
+				width: 50%;
+			}
+		}
+
+		.tribe-notice-tribe-missing-aggregator-license__image {
+			background-image: url(../images/aggregator/ea-intro-img-text.png);
+			background-position: center right;
+			background-repeat: no-repeat;
+			background-size: contain;
+			display: none;
+			margin-left: 30px;
+
+			@media screen and (min-width: 1260px) {
+				display: block;
+				flex: auto;
+			}
+		}
 
 		.upsell-banner {
-			margin-bottom: 30px;
-			margin-left: auto;
-			margin-right: auto;
+			background: url(../images/aggregator/EventAggregator-icon.svg) transparent no-repeat;
+			background-position: left;
+			background-size: contain;
+			font-family: apercu-mono-bold, monospace;
+			height: 43px;
+			line-height: 43px;
+			margin: 0 auto 30px;
+			padding-left: 60px;
 		}
 
 		h3 {
-			color: #fff;
-			font-size: 22px;
-			font-weight: normal;
+			color: #141827;
+			font-size: 40px;
+			font-weight: bold;
 			letter-spacing: 1.5px;
+			line-height: 1.2;
+			margin: 28px 0 0;
+
+			@media screen and (min-width: 1260px) {
+				font-size: 68px;
+				max-width: 510px;
+			}
 		}
 
 		p {
-			color: #fff;
+			color: #141827;
 			font-size: 16px;
 			font-weight: 300;
-			letter-spacing: 1px;
-			margin: 0 auto 30px;
-			width: 50%;
+			letter-spacing: 2px;
+			margin: 15px 0 30px;
+
+			@media screen and (min-width: 1260px) {
+				font-size: 22px;
+				max-width: 730px;
+			}
 		}
 
 		a:not(.tribe-button) {
@@ -315,6 +352,10 @@
 				color: #cbe1e8;
 			}
 		}
+	}
+
+	.tribe-notice-tribe-missing-aggregator-license.tribe-dependent.tribe-active {
+		display: flex;
 	}
 
 	.tribe-banner {
@@ -368,9 +409,20 @@
 	}
 
 	.tribe-button-secondary {
-		background: transparent;
-		border-color: #fff;
-		margin-left: 10px;
+		background: #334aff;
+		border-color: #334aff;
+		border-radius: 40px;
+		font-size: 16px;
+		font-weight: bold;
+		margin-left: 0;
+		margin-top: 6px;
+		padding: 20px 50px;
+		text-transform: none;
+
+		@media screen and (min-width: 1260px) {
+			font-size: 20px;
+			padding: 26px 63px;
+		}
 	}
 
 	.dataTables_length,

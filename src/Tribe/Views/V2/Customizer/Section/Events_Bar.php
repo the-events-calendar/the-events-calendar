@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
  *
  * @since 5.8.0
  */
-class Events_Bar extends \Tribe__Customizer__Section {
+final class Events_Bar extends \Tribe__Customizer__Section {
 
 	/**
 	 * ID of the section.
@@ -65,7 +65,7 @@ class Events_Bar extends \Tribe__Customizer__Section {
 	 */
 	public function setup_arguments() {
 		return [
-			'priority'	=> 63,
+			'priority'	=> 10,
 			'capability'  => 'edit_theme_options',
 			'title'	   => esc_html__( 'Events Bar', 'the-events-calendar' ),
 			'description' => _x(
@@ -215,11 +215,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'events_bar_icon_color'                 => [
 				'priority'    => 16, // Immediately after events_bar_icon_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'events_bar_icon_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return 'custom' === $value;
-				},
 			],
 			'find_events_button_color_choice'       => [
 				'priority'    => 20,
@@ -252,11 +247,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'find_events_button_color'              => [
 				'priority'    => 21, // Immediately after find_events_button_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'find_events_button_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['find_events_button_color_choice'] !== $value;
-				},
 			],
 			'events_bar_background_color_choice'    => [
 				'priority'    => 25,
@@ -294,11 +284,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'events_bar_background_color'           => [
 				'priority'    => 26, // Immediately after events_bar_background_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'events_bar_background_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return 'custom' === $value;
-				},
 			],
 			'events_bar_border_color_choice'        => [
 				'priority'    => 30,
@@ -324,11 +309,6 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			'events_bar_border_color'               => [
 				'priority'    => 31, // Immediately after events_bar_border_color_choice.
 				'type'        => 'color',
-				'active_callback' => function( $control ) use ( $customizer ) {
-					$setting_name = $customizer->get_setting_name( 'events_bar_border_color_choice', $control->section );
-					$value = $control->manager->get_setting( $setting_name )->value();
-					return $this->defaults['events_bar_border_color_choice'] !== $value;
-				},
 			],
 		];
 	}
@@ -345,214 +325,114 @@ class Events_Bar extends \Tribe__Customizer__Section {
 			return $css_template;
 		}
 
-		// These allow us to continue to _not_ target the shortcode.
-		$apply_to_shortcode = apply_filters( 'tribe_customizer_should_print_shortcode_customizer_styles', false );
-		$tribe_events = $apply_to_shortcode ? '.tribe-events' : '.tribe-events:not( .tribe-events-view--shortcode )';
-		$tribe_common = $apply_to_shortcode ? '.tribe-common' : '.tribe-common:not( .tribe-events-view--shortcode )';
+		$new_styles   = [];
 
+		// It's all custom props now, baby...
 		if ( $this->should_include_setting_css( 'events_bar_text_color' ) ) {
-			$text_color_obj     = new \Tribe__Utils__Color( $this->get_option( 'events_bar_text_color' ) );
-			$text_color         = $text_color_obj->getRgb();
-			$text_color_rgb     = $text_color['R'] . ',' . $text_color['G'] . ',' . $text_color['B'];
-			$text_color_hover   = 'rgba(' . $text_color_rgb . ',0.12)';
-
+			$text_color = $this->get_option( 'events_bar_text_color' );
 			// Text color.
-			$css_template .= "
-				.tribe-common--breakpoint-medium{$tribe_common} .tribe-events-header__events-bar .tribe-common-form-control-text__input {
-					color: <%= tec_events_bar.events_bar_text_color %>;
-				}
-			";
 
-			$css_template .= "
-				.tribe-common--breakpoint-medium{$tribe_common} .tribe-events-header__events-bar .tribe-common-form-control-text__input::placeholder {
-					color: <%= tec_events_bar.events_bar_text_color %>;
-					opacity: .6;
-				}
-			";
+			if ( ! empty( $text_color ) ) {
+				$new_styles[] = "--tec-color-text-events-bar-input: {$text_color};";
+				$new_styles[] = "--tec-color-text-events-bar-input-placeholder: {$text_color};";
+				$new_styles[] = "--tec-opacity-events-bar-input-placeholder: 0.6;";
+				$new_styles[] = "--tec-color-text-view-selector-list-item: {$text_color};";
+				$new_styles[] = "--tec-color-text-view-selector-list-item-hover: {$text_color};";
+			}
 
-			$css_template .= "
-				{$tribe_events} .tribe-events-c-view-selector__list-item-text {
-					color: <%= tec_events_bar.events_bar_text_color %>;
-				}
-			";
-
-			$css_template .= "
-				{$tribe_events} .tribe-events-c-view-selector__list-item:hover,
-				{$tribe_events} .tribe-events-c-view-selector__list-item:focus {
-					background-color: $text_color_hover;
-				}
-
-
-				{$tribe_events} .tribe-events-c-view-selector__list-item:focus-within,
-				{$tribe_events} .tribe-events-c-view-selector__list-item-link:hover,
-				{$tribe_events} .tribe-events-c-view-selector__list-item-link:focus {
-					background-color: transparent;
-				}
-			";
+			// Hover background follows text color
+			$text_color_rgb = $this->get_rgb_color( 'events_bar_text_color' );
+			if ( ! empty( $text_color_rgb ) ) {
+				$new_styles[]   = "--tec-color-background-view-selector-list-item-hover: rgba({$text_color_rgb}, 0.12);";
+			}
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_text_color' ) ) {
-			$button_color_obj    = new \Tribe__Utils__Color( $this->get_option( 'find_events_button_text_color' ) );
-			$button_color        = $button_color_obj->getRgb();
-			$button_color_rgb    = $button_color['R'] . ',' . $button_color['G'] . ',' . $button_color['B'];
-			$button_color_hover  = 'rgba(' . $button_color_rgb . ',0.5)';
-			$button_color_active = 'rgba(' . $button_color_rgb . ',0.6)';
+			$button_text_color     = $this->get_option( 'find_events_button_text_color' );
+			$button_text_color_rgb = $this->get_rgb_color( 'find_events_button_text_color' );
+		}
 
-			$css_template .= "
-				{$tribe_common} .tribe-events-c-search__button {
-					color: rgb({$button_color_rgb});
-				}
-
-				{$tribe_common} .tribe-events-c-search__button:active {
-					color: {$button_color_active};
-				}
-
-				{$tribe_common} .tribe-events-c-search__button:hover,
-				{$tribe_common} .tribe-events-c-search__button:focus {
-					color: {$button_color_hover};
-				}
-
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):not(:active) {
-					color: rgb({$button_color_rgb});
-				}
-
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:active {
-					color: {$button_color_active};
-				}
-
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:hover,
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:focus {
-					color: {$button_color_hover};
-				}
-			";
+		if ( ! empty( $button_text_color ) ) {
+			$new_styles[] = "--tec-color-text-events-bar-submit-button: {$button_text_color};";
+		}
+		if ( ! empty( $button_text_color_rgb ) ) {
+			$new_styles[] = "--tec-color-text-events-bar-submit-button-active: rgba({$button_text_color_rgb}, 0.5);";
+			$new_styles[] = "--tec-color-text-events-bar-submit-button-hover: rgba({$button_text_color_rgb}, 0.6);";
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
 			if ( 'custom' === $this->get_option( 'events_bar_icon_color_choice' ) ) {
-				$icon_color_obj = new \Tribe__Utils__Color( $this->get_option( 'events_bar_icon_color' ) );
+				$icon_color = $this->get_option( 'events_bar_icon_color' );
 			} elseif (
 				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
 				&& $this->should_include_setting_css( 'accent_color', 'global_elements' )
 			) {
-				$option = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ], false );
-				$icon_color_obj = new \Tribe__Utils__Color( $option );
+				$icon_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
 			}
 
-			if ( ! empty( $icon_color_obj ) ) {
-				$icon_color_arr     = $icon_color_obj->getRgb();
-				$icon_color_hex     = '#' . $icon_color_obj->getHex();
-				$icon_color_rgb     = $icon_color_arr['R'] . ',' . $icon_color_arr['G'] . ',' . $icon_color_arr['B'];
-				$icon_color_focus   = 'rgba(' . $icon_color_rgb . ',0.75)';
-
-
-				$css_template .= "
-					{$tribe_events} .tribe-events-c-search__input-control-icon-svg path,
-					{$tribe_events} .tribe-events-c-events-bar__search-button-icon-svg path,
-					{$tribe_events} .tribe-events-c-view-selector__button-icon-svg path,
-					{$tribe_events} .tribe-events-c-view-selector__list-item-icon-svg:not(.tribe-common-c-svgicon__svg-stroke) path {
-						fill: {$icon_color_focus};
-					}
-
-					{$tribe_events} .tribe-events-c-search__input-control--keyword .tribe-events-c-search__input:focus ~ .tribe-events-c-search__input-control-icon-svg path,
-					{$tribe_events} .tribe-events-c-search__input-control--location .tribe-events-c-search__input:focus ~ .tribe-events-c-search__input-control-icon-svg path {
-						fill: {$icon_color_hex};
-					}
-
-					{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__button::before {
-						background-color: {$icon_color_hex};
-					}
-
-					{$tribe_events} .tribe-events-c-events-bar .tribe-events-c-view-selector__list-item-icon-svg.tribe-common-c-svgicon__svg-stroke path {
-						stroke: {$icon_color_hex};
-					}
-				";
+			if ( ! empty( $icon_color ) ) {
+				$new_styles[] = "--tec-color-icon-events-bar: {$icon_color};";
+				$new_styles[] = "--tec-color-icon-events-bar-hover: {$icon_color};";
+				$new_styles[] = "--tec-color-icon-events-bar-active: {$icon_color};";
 			}
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_color_choice' ) ) {
-			$button_text_color_obj    = new \Tribe__Utils__Color( $this->get_option( 'find_events_button_color' ) );
-			$button_text_color        = $button_text_color_obj->getRgb();
-			$button_text_color_rgb    = $button_text_color['R'] . ',' . $button_text_color['G'] . ',' . $button_text_color['B'];
-			$button_text_color_hover  = 'rgba(' . $button_text_color_rgb . ',0.8)';
-			$button_text_color_active = 'rgba(' . $button_text_color_rgb . ',0.9)';
-
-			$css_template .= "
-				{$tribe_common} .tribe-events-c-search__button {
-					background-color: <%= tec_events_bar.find_events_button_color %>;
-				}
-
-				{$tribe_common} .tribe-events-c-search__button:active {
-					background-color: {$button_text_color_active};
-				}
-
-				{$tribe_common} .tribe-events-c-search__button:focus,
-				{$tribe_common} .tribe-events-c-search__button:hover {
-					background-color: {$button_text_color_hover};
-				}
-
-				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button {
-					background-color: <%= tec_events_bar.find_events_button_color %>;
-				}
-
-				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button:active {
-					background-color: {$button_text_color_active};
-				}
-
-				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button:hover,
-				.tribe-theme-twentytwenty {$tribe_common}:not(.tribe-events-view--shortcode) .tribe-common-c-btn.tribe-events-c-search__button:focus {
-					background-color: {$button_text_color_hover};
-				}
-
-
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):not(:active) {
-					background-color: <%= tec_events_bar.find_events_button_color %>;
-				}
-
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:not(:hover):active {
-					background-color: {$button_text_color_active};
-				}
-
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:focus,
-				.tribe-theme-twentytwentyone {$tribe_common} .tribe-common-c-btn.tribe-events-c-search__button:hover {
-					background-color: {$button_text_color_hover};
-				}
-			";
+			$button_color     = $this->get_option( 'find_events_button_color' );
+			$button_color_rgb = $this->get_rgb_color( 'find_events_button_color' );
+		} elseif ( $this->should_include_setting_css( 'accent_color', 'global_elements' ) ) {
+			$button_color     = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
+			$button_color_rgb = $this->get_rgb_color( 'accent_color', 'global_elements' );
 		}
 
-		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
-			$css_template .= "
-				.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header .tribe-events-header__events-bar,
-				.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-c-search__input-control {
-					border-color: <%= tec_events_bar.events_bar_border_color %>;
-				}
-			";
+		if ( ! empty( $button_color ) ) {
+			$new_styles[] = "--tec-color-background-events-bar-submit-button: {$button_color};";
+		}
+
+		if ( ! empty( $button_color_rgb ) ) {
+			$new_styles[] = "--tec-color-background-events-bar-submit-button-hover: rgba({$button_color_rgb}, 0.8);";
+			$new_styles[] = "--tec-color-background-events-bar-submit-button-active: rgba({$button_color_rgb}, 0.9);";
+
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_background_color_choice' ) ) {
-			if ( 'custom' == $this->get_option( 'events_bar_background_color_choice' ) ) {
-				$background_color = "tec_events_bar.events_bar_background_color";
-			} elseif (
-				'global_background' == $this->get_option( 'events_bar_background_color_choice' )
-				&& $this->should_include_setting_css( 'background_color_choice', 'global_elements' )
-			) {
-				$background_color = "global_elements.background_color";
+			if ( $this->should_include_setting_css( 'events_bar_background_color' ) ) {
+				if ( 'custom' == $this->get_option( 'events_bar_background_color_choice' ) ) {
+					$background_color = $this->get_option( 'events_bar_background_color' );
+				} elseif (
+					'global_background' == $this->get_option( 'events_bar_background_color_choice' )
+					&& $this->should_include_setting_css( 'background_color', 'global_elements' )
+				) {
+					$background_color = tribe('customizer')->get_option( [ 'global_elements', 'background_color' ] );
+				}
 			}
 
 			if ( ! empty( $background_color ) ) {
-				$css_template .= "
-					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar,
-					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar .tribe-common-form-control-text__input,
-					.tribe-common--breakpoint-medium{$tribe_events} .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container {
-						background-color: <%= {$background_color} %>;
-					}
-
-					{$tribe_events} .tribe-events-c-view-selector__content {
-						background-color: <%= {$background_color} %>;
-					}
-				";
+				$new_styles[] = "--tec-color-background-events-bar: {$background_color};";
+				$new_styles[] = "--tec-color-background-events-bar-tabs: {$background_color};";
 			}
 		}
 
-		return $css_template;
+		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
+			$border_color = $this->get_option( 'events_bar_border_color' );
+
+			if ( ! empty( $border_color ) ) {
+				$new_styles[] = "--tec-color-border-events-bar: {$border_color};";
+			}
+		}
+
+		if ( empty( $new_styles ) ) {
+			return $css_template;
+		}
+
+		$new_css = sprintf(
+			':root {
+				/* Customizer-added Events Bar styles */
+				%1$s
+			}',
+			implode( "\n", $new_styles )
+		);
+
+		return $css_template . $new_css;
 	}
 }
