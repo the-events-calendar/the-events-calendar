@@ -69,6 +69,29 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		} );
 	}
 
+	/**
+	 * Reusable function for when we have a color control that is dependent on a radio.
+	 * Requires the radio option _value_ for the color control is "custom".
+	 *
+	 * @param {string} parent Parent selector.
+	 * @param {string} child  Child selector.
+	 */
+	obj.invertedNestedColorControl = function( parent, child ) {
+		wp.customize( parent, function( setting ) {
+			wp.customize.control( child, function( control ) {
+				const slideFunction = function() {
+					'custom' !== setting.get()
+						? control.container.slideDown( 180 )
+						: control.container.slideUp( 180 );
+				}
+
+				slideFunction();
+
+				setting.bind( slideFunction );
+			} );
+		} );
+	}
+
 
 	/**
 	 * Trigger control functions for the Global Elements section.
@@ -187,8 +210,8 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 			obj.controls.monthGridBackgroundColor
 		);
 
-		// Only show the tooltip background color control when the grid background color choice is set to custom.
-		obj.nestedColorControl(
+		// Only show the tooltip background color control when the grid background color choice is set to default.
+		obj.invertedNestedColorControl(
 			obj.controls.monthGridBackgroundColorChoice,
 			obj.controls.monthTooltipBackgroundColor
 		);
