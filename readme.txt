@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.9.0] 2021-08-23 =
+= [5.9.0] 2021-08-24 =
 
 * Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
 * Feature - Alter Customizer to leverage the new exposed CSS custom properties. [TCMN-104]
