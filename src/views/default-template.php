@@ -27,7 +27,7 @@ $classes = apply_filters( 'tribe_default_events_template_classes', [ 'tribe-even
  * Set this to an empty string in case it is not defined.
  * Specifically for the two hooks below.
  *
- * @since TBD
+ * @since 5.9.0
  */
 $eventDisplay = isset( $eventDisplay ) ? $eventDisplay : '';
 
