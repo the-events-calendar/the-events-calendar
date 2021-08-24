@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.9.0] TBD =
+= [5.9.0] 2021-08-23 =
 
 * Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
 * Feature - Alter Customizer to leverage the new exposed CSS custom properties. [TCMN-104]
@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add new font family control to allow The Events Calendar styles to inherit theme fonts. [TEC-3895]
 * Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
 * Tweak - Support optionally passing start dates to the Event Edit page so targeted event creation can be triggered by The Events Calendar Pro's Event Manager.
-* Language - 16 new strings added, 206 updated, 0 fuzzied, and 0 obsoleted
+* Language - 16 new strings added, 429 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.8.2] 2021-08-17 =
 
