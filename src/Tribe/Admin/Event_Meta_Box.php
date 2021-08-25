@@ -86,7 +86,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	/**
 	 * Sets up the default data for the meta box.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	protected function setup_default_vars() {
 		// Pull the variables from the class prop.
@@ -126,7 +126,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		/**
 		 * Allows filtering of the variables right before including the template.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param array $vars     Current set of variables that will be used to setup the meta box.
 		 * @param self  $meta_box Instance of the meta box that we are using.
@@ -137,7 +137,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	/**
 	 * Sets up the data for the meta box.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	protected function setup_data() {
 		$this->vars['timepicker_round'] = $this->get_timepicker_round();
@@ -387,7 +387,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		/**
 		 * Allows filtering of the variables right before including the template.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param array $vars     Current set of variables that will be used to setup the meta box.
 		 * @param self  $meta_box Instance of the meta box that we are using.
