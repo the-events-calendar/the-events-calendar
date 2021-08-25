@@ -3,7 +3,7 @@
 		
 							<li class="tribe-events-c-breadcrumbs__list-item">
 	<a
-		href="https://test.tri.be/events/list"
+		href="http://test.tri.be/events/"
 		class="tribe-events-c-breadcrumbs__list-item-link"
 		data-js="tribe-events-view-link"
 	>
