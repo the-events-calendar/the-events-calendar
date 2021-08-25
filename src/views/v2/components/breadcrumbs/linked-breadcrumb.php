@@ -16,7 +16,7 @@
 ?>
 <li class="tribe-events-c-breadcrumbs__list-item">
 	<a
-		href="<?php echo esc_url( $breadcrumb['link'] ); ?>"
+		href="<?php echo esc_url( tribe_get_events_link() ); ?>"
 		class="tribe-events-c-breadcrumbs__list-item-link"
 		data-js="tribe-events-view-link"
 	>
