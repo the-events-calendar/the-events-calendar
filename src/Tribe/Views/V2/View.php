@@ -1965,7 +1965,7 @@ class View implements View_Interface {
 				$label = $term->name;
 
 				$breadcrumbs[] = [
-					'link'  => tribe_get_events_link(),
+					'link'  => tribe_events_get_url(),
 					'label' => tribe_get_event_label_plural(),
 				];
 				$breadcrumbs[] = [
