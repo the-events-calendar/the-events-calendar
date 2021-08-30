@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-* Fix - Ensure that the venue state is displayed next to the city in list view. [TEC-3332]
+* Fix - Ensure that venue state or province are displayed next to the city in list view. [TEC-3332]
 
 = [5.9.0] 2021-08-24 =
 
