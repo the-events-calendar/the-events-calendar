@@ -32,12 +32,12 @@ $address              = $venue->address . ( $venue->address && $append_after_add
 	<span class="tribe-events-calendar-list__event-venue-address">
 		<?php echo esc_html( $address ); ?>
 
-		<?php if ( $venue->city ) : ?>
-			<?php echo esc_html( $venue->city . $separator ) ?>
+		<?php if ( ! empty( $venue->city ) ) : ?>
+			<?php echo esc_html( $venue->city . $separator ); ?>
 		<?php endif; ?>
 		
 		<?php if ( $append_after_address ) : ?>
-			<?php echo esc_html( reset( $append_after_address ) ) ?>
+			<?php echo esc_html( reset( $append_after_address ) ); ?>
 		<?php endif; ?>
 	</span>
 </address>
