@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Fix - Ensure the category archive event breadcrumb links to the main events page. [TEC-3330]
+
 = [5.9.0] 2021-08-24 =
 
 * Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
