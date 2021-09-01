@@ -41,3 +41,218 @@
 .tribe-theme-genesis .tribe-block__event-website a {
 	font-size: 1.65rem;
 }
+
+/* = Venue block view styles
+=============================================*/
+
+ .tribe-block__venue {
+    border-top: 1px solid #d5d5d5;
+	flex-direction: column-reverse;
+	justify-content: flex-start;
+	padding: 22.5px 0;
+
+    @media screen and (min-width: 768px) {
+		flex-direction: row;
+		padding: 32px 0;
+	}
+
+	&__meta {
+        max-width: 45%;
+
+        @media screen and (min-width: 768px) {
+			max-width: 25%;
+		}
+	}
+
+	&.tribe-block__venue--has-map {
+
+		.tribe-block__venue__meta,
+		.tribe-block__venue__map {
+			flex-basis: 100%;
+			width: 100%;
+
+			@media screen and (min-width: 768px) {
+				flex-basis: 49%;
+				width: 49%;
+			}
+		}
+
+        .tribe-block__venue__meta {
+			max-width: 45%;
+
+			@media screen and (min-width: 768px) {
+				margin-right: 30px;
+				max-width: 25%;
+			}
+		}
+
+		.tribe-block__venue__map {
+
+			@media screen and (min-width: 768px) {
+				max-width: 30%;
+			}
+		}
+	}
+
+	.tribe-block__venue__meta {
+        margin-top: 24px;
+
+		@media screen and (min-width: 768px) {
+			margin-top: 0;
+		}
+
+		.tribe-block__venue__name {
+
+			h3 {
+				font-size: 1rem;
+				font-weight: normal;
+				letter-spacing: normal;
+				line-height: 1.64;
+			}
+		}
+
+		.tribe-block__venue__address {
+			margin-bottom: 0;
+
+			a {
+				color: var(--tec-color-link-accent);
+                margin-top: 17px;
+			}
+
+            .tribe-region.tribe-events-abbr {
+				text-decoration: none;
+			}
+		}
+
+		.tribe-block__venue__phone {
+			margin-bottom: 0;
+		}
+
+		.tribe-block__venue__address,
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			color: #141827;
+            font-weight: normal;
+			line-height: 1.64;
+			letter-spacing: normal;
+		}
+	}
+}
+
+/* Theme specific overrides */
+
+/* Twenty-twenty-one theme */ 
+.tribe-theme-twentytwentyone .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
+	color: var(--tec-color-link-accent);
+}
+
+/* Twenty-twenty theme */
+.tribe-theme-twentytwenty {
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__address,
+			.tribe-block__venue__address a,
+			.tribe-block__venue__phone,
+			.tribe-block__venue__website {
+				font-size: 1.65rem;
+			}
+
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+}
+
+/* Twenty Seventeen */
+.tribe-theme-twentyseventeen {
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);     
+			}
+		}
+	}
+}
+
+/* Divi */
+.tribe-theme-divi {
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__address,
+			.tribe-block__venue__phone,
+			.tribe-block__venue__website {
+				padding-bottom: 0; 
+			}
+
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+}
+
+/* Genesis */
+.tribe-theme-genesis {
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__address,
+			.tribe-block__venue__phone,
+			.tribe-block__venue__website {
+				font-size: 1.65rem;  
+			}
+
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+}
+
+/* Avada */
+.tribe-theme-avada {
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			max-width: 80%;
+
+			@media screen and (min-width: 768px) {
+				max-width: 40%;
+			}
+
+			.tribe-block__venue__name {
+				.fusion-responsive-typography-calculated {
+					font-size: 1.2rem;
+					font-weight: normal;
+					letter-spacing: normal;    
+				}
+			}
+
+			.tribe-block__venue__address a,
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);  
+			}
+		}
+
+		.tribe-block__venue__map {
+			@media screen and (min-width: 768px) {
+				max-width: 70%;
+			}
+		}
+	}
+}
+
+/* Enfold */
+.tribe-theme-enfold {
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);     
+			}
+		}
+	}
+}
