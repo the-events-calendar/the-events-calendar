@@ -3,102 +3,53 @@
  *
  * @since  0.2.4-alpha
  */
-.tribe-block__venue {
-	border-top: 1px solid #d5d5d5;
+ .tribe-block__venue {
 	display: flex;
-	flex-direction: column-reverse;
-	padding: 22.5px 0;
-	position: relative;
+	justify-content: space-between;
 	width: 100%;
-
-	@media screen and (min-width: 768px) {
-		flex-direction: row;
-		padding: 32px 0;
-	}
+	position: relative;
 
 	&__meta {
+		width: 100%;
 		flex-basis: 100%;
-		max-width: 45%;
-
-		@media screen and (min-width: 768px) {
-			max-width: 25%;
-		}
 	}
 
 	&.tribe-block__venue--has-map {
 
 		.tribe-block__venue__meta,
 		.tribe-block__venue__map {
-			flex-basis: 100%;
-			width: 100%;
-
-			@media screen and (min-width: 768px) {
-				flex-basis: 49%;
-				width: 49%;
-			}
-		}
-
-		.tribe-block__venue__meta {
-			max-width: 45%;
-
-			@media screen and (min-width: 768px) {
-				margin-right: 30px;
-				max-width: 25%;
-			}
-		}
-
-		.tribe-block__venue__map {
-
-			@media screen and (min-width: 768px) {
-				max-width: 30%;
-			}
+			width: 49%;
+			flex-basis: 49%;
 		}
 	}
 
 	.tribe-block__venue__meta {
-		margin-top: 24px;
-
-		@media screen and (min-width: 768px) {
-			margin-top: 0;
-		}
-
 		.tribe-block__venue__name {
 			display: flex;
 			h3 {
-				font-size: 1rem;
-				font-weight: normal;
-				letter-spacing: normal;
-				line-height: 1.64;
+				font-size: 1.3125rem;
+				font-weight: bold;
 				margin: 0 0 4px;
 				width: 100%;
-
-				a {
-					color: #334aff;
-				}
 			}
 		}
 
 		.tribe-block__venue__address {
 			font-style: normal;
-			margin-bottom: 0;
+			margin-bottom: 20px;
 
 			a {
-				color: #334aff;
+				color: #009FD4;
 				display: block;
-				margin-top: 17px;
 
 				&:hover {
 					text-decoration: none;
 				}
 			}
-
-			.tribe-region.tribe-events-abbr {
-				text-decoration: none;
-			}
 		}
 
 		.tribe-block__venue__phone {
-			margin-bottom: 0;
+			margin-bottom: 20px;
 		}
 
 		.tribe-block__venue__phone,
@@ -109,11 +60,10 @@
 		.tribe-block__venue__address,
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
-			color: #141827;
+			color: #545D66;
 			font-size: 1rem;
-			font-weight: normal;
-			letter-spacing: normal;
-			line-height: 1.64;
+			line-height: 1.5;
+			letter-spacing: 0.13px;
 		}
 	}
 
@@ -124,123 +74,5 @@
 		text-align: center;
 		position: relative;
 		min-height: 270px;
-	}
-}
-
-/* Theme specific overrides */
-
-/* Twenty-twenty-one theme */ 
-.tribe-theme-twentytwentyone .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
-	color: #334aff;
-}
-
-/* Twenty-twenty theme */
-.tribe-theme-twentytwenty {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__address a,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				font-size: 1.65rem;
-			}
-
-			.tribe-block__venue__website a {
-				color: #334aff;
-			}
-		}
-	}
-}
-
-/* Twenty-seventeen theme */
-.tribe-theme-twentyseventeen {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__website a {
-				color: #334aff;     
-			}
-		}
-	}
-}
-
-/* Divi */
-.tribe-theme-divi {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				padding-bottom: 0; 
-			}
-
-			.tribe-block__venue__website a {
-				color: #334aff;
-			}
-		}
-	}
-}
-
-/* Genesis */
-.tribe-theme-genesis {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				font-size: 1.65rem;  
-			}
-
-			.tribe-block__venue__website a {
-				color: #334aff;
-			}
-		}
-	}
-}
-
-/* Avada */
-.tribe-theme-avada {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			max-width: 80%;
-
-			@media screen and (min-width: 768px) {
-				max-width: 40%;
-			}
-
-			.tribe-block__venue__name {
-				.fusion-responsive-typography-calculated {
-					font-size: 1.2rem;
-					font-weight: normal;
-					letter-spacing: normal;    
-				}
-			}
-
-			.tribe-block__venue__address a,
-			.tribe-block__venue__website a {
-				color: #334aff;  
-			}
-		}
-
-		.tribe-block__venue__map {
-			@media screen and (min-width: 768px) {
-				max-width: 70%;
-			}
-		}
-	}
-}
-
-/* Enfold */
-.tribe-theme-enfold {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__website a {
-				color: #334aff;     
-			}
-		}
 	}
 }
