@@ -137,7 +137,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Translates, fetching all the available translations, one element using WPML.
 	 *
-	 * @since TBD
+	 * @since 5.8.2
 	 *
 	 * @param     string $element_type The post element type as WPML expects it: `post_<post_type>`.
 	 * @param int $element_id The ID of the linked post (element) to translate.
@@ -172,7 +172,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Finds all the meta query keys matching a criteria for linked a custom post type.
 	 *
-	 * @since TBD
+	 * @since 5.8.2
 	 *
 	 * @param array<string,mixed> $meta_query The meta query array representation, in the format used by WordPress.
 	 * @param string              $target_key The linked post type meta key used to store, on the Event side, the
@@ -195,7 +195,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	/**
 	 * Translates a set of elements IDs using WPMl.
 	 *
-	 * @since TBD
+	 * @since 5.8.2
 	 *
 	 * @param string     $post_type The post type of the elements to translate.
 	 * @param array<int> $elements  A list of IDs of elements to translate.
