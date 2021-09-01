@@ -35,7 +35,8 @@ describe( '[STORE] - Datetime reducer', () => {
 	} );
 
 	it( 'Should set the end', () => {
-		expect( reducer( DEFAULT_STATE, actions.setEndDateTime( 'June 25, 2018 4:00 pm' ) ) ).toMatchSnapshot();
+		expect( reducer( DEFAULT_STATE, actions.setEndDateTime( 'June 25, 2018 4:00 pm' ) ) )
+			.toMatchSnapshot();
 	} );
 
 	it( 'Should set the start time input', () => {

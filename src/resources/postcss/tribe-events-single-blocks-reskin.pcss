@@ -5,23 +5,23 @@
  */
 
 /* = Website block view styles
-=============================================*/
+============================================= */
 .tribe-block__event-website {
-    padding: 20px 0;
+	padding: 20px 0;
 
-    a {
-        border: none;
-        background-color: var(--tec-color-link-accent);
-        border-radius: 4px;
-        font-size: 1.125rem;
-        font-weight: bold;
-        min-height: 40px;
-        padding: 0 20px;
+	a {
+		background-color: var(--tec-color-link-accent);
+		border: none;
+		border-radius: 4px;
+		font-size: 1.125rem;
+		font-weight: bold;
+		min-height: 40px;
+		padding: 0 20px;
 	}
 }
 
 #tribe-events-content .tribe-block__event-website a {
-	color: #fff;
+	color: var(--tec-color-text-events-bar-submit-button);
 }
 
 /* Theme specific overrides */
@@ -42,22 +42,22 @@
 }
 
 /* = Venue block view styles
-=============================================*/
+============================================= */
 .tribe-block__venue {
-    border-top: 1px solid #d5d5d5;
+	border-top: 1px solid #d5d5d5;
 	flex-direction: column-reverse;
 	justify-content: flex-start;
 	padding: 22.5px 0;
 
-    @media screen and (min-width: 768px) {
+	@media screen and (min-width: 768px) {
 		flex-direction: row;
 		padding: 32px 0;
 	}
 
 	&__meta {
-        max-width: 45%;
+		max-width: 45%;
 
-        @media screen and (min-width: 768px) {
+		@media screen and (min-width: 768px) {
 			max-width: 25%;
 		}
 	}
@@ -75,7 +75,7 @@
 			}
 		}
 
-        .tribe-block__venue__meta {
+		.tribe-block__venue__meta {
 			max-width: 45%;
 
 			@media screen and (min-width: 768px) {
@@ -85,7 +85,6 @@
 		}
 
 		.tribe-block__venue__map {
-
 			@media screen and (min-width: 768px) {
 				max-width: 30%;
 			}
@@ -93,7 +92,7 @@
 	}
 
 	.tribe-block__venue__meta {
-        margin-top: 24px;
+		margin-top: 24px;
 
 		@media screen and (min-width: 768px) {
 			margin-top: 0;
@@ -114,10 +113,10 @@
 
 			a {
 				color: var(--tec-color-link-accent);
-                margin-top: 17px;
+				margin-top: 17px;
 			}
 
-            .tribe-region.tribe-events-abbr {
+			.tribe-region.tribe-events-abbr {
 				text-decoration: none;
 			}
 		}
@@ -130,16 +129,16 @@
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
 			color: #141827;
-            font-weight: normal;
-			line-height: 1.64;
+			font-weight: normal;
 			letter-spacing: normal;
+			line-height: 1.64;
 		}
 	}
 }
 
 /* Theme specific overrides */
 
-/* Twenty-twenty-one theme */ 
+/* Twenty-twenty-one theme */
 .tribe-theme-twentytwentyone .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
 	color: var(--tec-color-link-accent);
 }
@@ -169,7 +168,7 @@
 		.tribe-block__venue__meta {
 			.tribe-block__venue__name h3,
 			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);     
+				color: var(--tec-color-link-accent);
 			}
 		}
 	}
@@ -183,7 +182,7 @@
 			.tribe-block__venue__address,
 			.tribe-block__venue__phone,
 			.tribe-block__venue__website {
-				padding-bottom: 0; 
+				padding-bottom: 0;
 			}
 
 			.tribe-block__venue__website a {
@@ -201,7 +200,7 @@
 			.tribe-block__venue__address,
 			.tribe-block__venue__phone,
 			.tribe-block__venue__website {
-				font-size: 1.65rem;  
+				font-size: 1.65rem;
 			}
 
 			.tribe-block__venue__website a {
@@ -225,13 +224,13 @@
 				.fusion-responsive-typography-calculated {
 					font-size: 1.2rem;
 					font-weight: normal;
-					letter-spacing: normal;    
+					letter-spacing: normal;
 				}
 			}
 
 			.tribe-block__venue__address a,
 			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);  
+				color: var(--tec-color-link-accent);
 			}
 		}
 
@@ -249,7 +248,7 @@
 		.tribe-block__venue__meta {
 			.tribe-block__venue__name h3,
 			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);     
+				color: var(--tec-color-link-accent);
 			}
 		}
 	}

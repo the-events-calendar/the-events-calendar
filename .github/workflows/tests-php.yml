@@ -1,13 +1,6 @@
 name: 'Codeception Tests'
 on:
   pull_request:
-    paths:
-      - 'src/**.php'
-      - 'tests/**'
-      - '*.php'
-      - 'composer.json'
-      - 'codeception.*.yml'
-      - '.github/workflows/tests-php.yml'
 jobs:
   test:
     strategy:

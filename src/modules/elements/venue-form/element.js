@@ -1,21 +1,30 @@
 /**
  * External dependencies
  */
-import { get, values, noop, pick } from 'lodash';
+import React from 'react';
+import { get, noop, pick } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { select } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import { Input } from '@moderntribe/events/elements';
-import list, { getCountries, getStates, getCountryCode, getStateCode } from '@moderntribe/events/editor/utils/geo-data';
-import { setDefault, getVenueCountry, getVenueStateProvince } from '@moderntribe/events/data/blocks/venue/utils';
+import list, {
+	getCountries,
+	getStates,
+	getCountryCode,
+	getStateCode,
+} from '@moderntribe/events/editor/utils/geo-data';
+import {
+	setDefault,
+	getVenueCountry,
+	getVenueStateProvince,
+} from '@moderntribe/events/data/blocks/venue/utils';
 import { editorDefaults, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 const { RichText } = wpEditor;
@@ -60,7 +69,7 @@ export function toVenue( fields ) {
 			_VenueURL: url,
 			_VenueStateProvince: stateProvince,
 		},
-	}
+	};
 }
 
 /**
@@ -127,8 +136,12 @@ export default class VenueForm extends Component {
 			</option>
 		);
 
+		/**
+		 * @todo: figure out what to do about onChange event (accessibility).
+		 */
+
 		return (
-			<select
+			<select // eslint-disable-line
 				value={ country }
 				className="small tribe-editor__venue__select"
 				onChange={ ( event ) => this.setState( { country: event.target.value } ) }
@@ -157,8 +170,13 @@ export default class VenueForm extends Component {
 			);
 		}
 		delete this.fields[ 'venue[stateProvince]' ];
+
+		/**
+		 * @todo: figure out what to do about onChange event (accessibility).
+		 */
+
 		return (
-			<select
+			<select // eslint-disable-line
 				value={ stateProvince }
 				onChange={ ( event ) => this.setState( { stateProvince: event.target.value } ) }
 				className="medium tribe-editor__venue__select"
@@ -187,7 +205,9 @@ export default class VenueForm extends Component {
 					tagName="h3"
 					format="string"
 					value={ title }
-					onChange={ ( value ) => { this.setState( { title: value } ) } }
+					onChange={ ( value ) => {
+						this.setState( { title: value } );
+					} }
 					formattingControls={ [] }
 				/>
 				<div className="tribe-editor__venue__fields">

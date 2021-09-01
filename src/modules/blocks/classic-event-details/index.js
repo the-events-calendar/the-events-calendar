@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -21,9 +22,9 @@ export default {
 	title: __( 'Event Details Classic', 'the-events-calendar' ),
 	description: __(
 		'Display your event info together in one place — just like in the Classic Editor.',
-		'the-events-calendar'
+		'the-events-calendar',
 	),
-	icon: <Classic/>,
+	icon: <Classic />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 
@@ -74,7 +75,7 @@ export default {
 
 	edit: ClassicEventDetails,
 
-	save( props ) {
+	save() {
 		return null;
 	},
 };

@@ -1,6 +1,7 @@
 /**
- * Import external dependencies
+ * External dependencies
  */
+import React from 'react';
 import { omit, noop } from 'lodash';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import PropTypes from 'prop-types';
@@ -94,7 +95,7 @@ export default class Month extends Component {
 	getSelectedDays = () => {
 		const { withRange, from, to } = this.props;
 		if ( withRange ) {
-			return [ from, { from, to }];
+			return [ from, { from, to } ];
 		}
 		return from;
 	};
@@ -117,7 +118,7 @@ export default class Month extends Component {
 	};
 
 	renderCaption = ( date, localeUtils ) => (
-		<div className={ 'tribe-editor__daypicker-caption' } role="heading">
+		<div className={ 'tribe-editor__daypicker-caption' }>
 			<div>
 				{ localeUtils.formatMonthTitle( date ) }
 			</div>

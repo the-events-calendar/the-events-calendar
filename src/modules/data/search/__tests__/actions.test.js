@@ -63,7 +63,7 @@ describe( '[STORE] - Search thunk actions', () => {
 						postType: 'tribe_events',
 					},
 				},
-			}
+			},
 		} );
 		store.dispatch( thunks.search( 'post', { term: 'Modern' } ) );
 		expect( store.getActions() ).toMatchSnapshot();
@@ -73,7 +73,7 @@ describe( '[STORE] - Search thunk actions', () => {
 		const initialState = {
 			events: {
 				search: {},
-			}
+			},
 		};
 		const store = mockStore( initialState );
 		const searchParams = {

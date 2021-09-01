@@ -87,7 +87,7 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( $container ) {
+	obj.unbindEvents = function( $container ) { // eslint-disable-line no-unused-vars
 		$window.off( 'resize', obj.handleResize );
 	};
 
@@ -115,7 +115,7 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) {
+	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		obj.unbindEvents( $container );
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
@@ -133,7 +133,7 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) {
+	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
 		obj.bindEvents( $container );
 		obj.setViewport( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
@@ -147,7 +147,11 @@ tribe.events.views.viewport = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready
