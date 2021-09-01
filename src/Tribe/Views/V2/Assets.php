@@ -437,6 +437,19 @@ class Assets extends \tad_DI52_ServiceProvider {
 				],
 			]
 		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-blocks-reskin',
+			'tribe-events-single-blocks-reskin.css',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_single_event_styles' ],
+				'groups'       => [ static::$single_group_key ],
+			]
+		);
 	}
 
 	/**

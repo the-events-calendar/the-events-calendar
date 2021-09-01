@@ -3,6 +3,10 @@
  */
 import * as types from './types';
 
+export const DEFAULT_STATE = {
+	url: '',
+};
+
 export const defaultStateToMetaMap = {
 	url: '_EventURL',
 };
@@ -16,10 +20,6 @@ export const setInitialState = ( data ) => {
 			DEFAULT_STATE[ key ] = meta[ metaKey ];
 		}
 	} );
-};
-
-export const DEFAULT_STATE = {
-	url: '',
 };
 
 export default ( state = DEFAULT_STATE, action ) => {

@@ -75,7 +75,7 @@ class EventVenue extends Component {
 		/**
 		 * @todo move this into the Store
 		 */
-		this.state = { coords: { lat: null, lng: null } }
+		this.state = { coords: { lat: null, lng: null } };
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -104,7 +104,7 @@ class EventVenue extends Component {
 			isLoading,
 			submit,
 			volatile,
-			editVenue
+			editVenue,
 		} = this.props;
 
 		const idle = edit || create || isLoading || submit;
@@ -199,7 +199,7 @@ class EventVenue extends Component {
 			create,
 			isLoading,
 			submit,
-			removeVenue
+			removeVenue,
 		} = this.props;
 
 		if ( ! this.hasVenue() || ! isSelected || edit || create || isLoading || submit ) {
@@ -261,10 +261,10 @@ class EventVenue extends Component {
 							onChange={ toggleVenueMap }
 						/>
 					) }
-				<EditLink
-					postId={ venue }
-					label={ __( 'Edit Venue', 'the-events-calendar' ) }
-				/>
+					<EditLink
+						postId={ venue }
+						label={ __( 'Edit Venue', 'the-events-calendar' ) }
+					/>
 				</PanelBody>
 			</InspectorControls>
 		);
@@ -279,8 +279,7 @@ class EventVenue extends Component {
 	 * be moved to the container. withDetails should be decoupled from state.
 	 *
 	 * @todo  this hasVenue is coupled to the existence of details, not the venue ID.
-	 *
-	 * @return {Boolean}
+	 * @return {boolean}
 	 */
 	hasVenue() {
 		const { details } = this.props;
@@ -291,7 +290,6 @@ class EventVenue extends Component {
 	 * Once withDetails is decoupled from state, this should move to container.
 	 *
 	 * @todo this function cannot be moved to container as it depends on hasVenue().
-	 *
 	 * @return {void}
 	 */
 	maybeEdit = () => {
@@ -307,14 +305,12 @@ class EventVenue extends Component {
 	 *
 	 * @todo  We need to save the data into Meta Fields to avoid redoing the Geocode
 	 * @todo  Move the Maps into Pro
-	 *
 	 * @param  {object} details Information to pass along to the geocoder
-	 *
 	 * @return {void}
 	 */
-	getCoordinates = ( details )  => {
-		const { maps }       = google();
-		const geocoder       = new maps.Geocoder();
+	getCoordinates = ( details ) => {
+		const { maps } = google();
+		const geocoder = new maps.Geocoder();
 		const { getAddress } = utils;
 
 		const address = addressToMapString( getAddress( details ) );
@@ -322,12 +318,12 @@ class EventVenue extends Component {
 		/**
 		 * @todo Need to move this out of the template
 		 */
-		geocoder.geocode( { 'address' : address }, ( results, status ) => {
+		geocoder.geocode( { address: address }, ( results, status ) => {
 			if ( 'OK' !== status ) {
 				return;
 			}
 
-			const { location } = results[0].geometry;
+			const { location } = results[ 0 ].geometry;
 
 			this.setState( { coords: { lat: location.lat(), lng: location.lng() } } );
 			return;

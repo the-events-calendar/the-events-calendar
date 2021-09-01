@@ -46,31 +46,29 @@
 		position: relative;
 
 		.tribe-common--breakpoint-medium& {
-			border-right: 1px solid var(--color-border-secondary);
-		}
+			border-right: 1px solid var(--tec-color-border-events-bar);
 
-		&:last-child {
-
-			.tribe-common--breakpoint-medium& {
+			&:last-child {
 				border-right: 0;
 			}
 		}
 	}
-	
+
 	.tribe-events-c-search__input-control-icon-svg {
-		position: absolute;
-		top: 50%;
-		right: 0;
+		color: var(--tec-color-icon-events-bar);
 		display: block;
+		position: absolute;
+		right: 0;
+		top: 50%;
 		transform: translateY(-50%);
-		
+
 		.tribe-common--breakpoint-medium& {
-			right: auto;
 			left: 16px;
+			right: auto;
 		}
-		
+
 		path {
-			fill: var(--color-icon-primary);
+			fill: currentColor;
 		}
 	}
 
@@ -78,7 +76,7 @@
 	.tribe-events-c-search__input-control--location {
 
 		.tribe-events-c-search__input {
-		
+
 			&:focus ~ .tribe-events-c-search__input-control-icon-svg path {
 				fill: currentColor;
 			}
@@ -89,13 +87,29 @@
 	.tribe-events-c-search__input-control--location-focus {
 
 		.tribe-events-c-search__input {
-			
+
 			& ~ .tribe-events-c-search__input-control-icon-svg path {
 				fill: currentColor;
 			}
 		}
 	}
-	
+
+	.tribe-events-c-search__button {
+		background-color: var(--tec-color-background-events-bar-submit-button);
+		color: var(--tec-color-text-events-bar-submit-button);
+
+		&:focus,
+		&:hover {
+			background-color: var(--tec-color-background-events-bar-submit-button-hover);
+			color: var(--tec-color-text-events-bar-submit-button-hover);
+		}
+
+		&:active {
+			background-color: var(--tec-color-background-events-bar-submit-button-active);
+			color: var(--tec-color-text-events-bar-submit-button-active);
+		}
+	}
+
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search: Theme Overrides
@@ -105,11 +119,69 @@
 	/* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ----------------------------------------------------------------------------- */
-	 
+
 	.tribe-theme-twentyseventeen.colors-dark & {
-		
+
 		.tribe-events-c-search__input {
-			background: var(--background-color);
+			background-color: var(--tec-background-color);
+		}
+
+		.tribe-events-c-search__button {
+			background-color: var(--tec-color-background-events-bar-submit-button);
+			color: var(--tec-color-text-events-bar-submit-button);
+
+			&:focus,
+			&:hover {
+				background-color: var(--tec-color-background-events-bar-submit-button-hover);
+				color: var(--tec-color-text-events-bar-submit-button-hover);
+			}
+
+			&:active {
+				background-color: var(--tec-color-background-events-bar-submit-button-active);
+				color: var(--tec-color-text-events-bar-submit-button-active);
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Twenty
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentytwenty & {
+
+		.tribe-events-c-search__input {
+			background-color: var(--tec-background-color);
+		}
+
+		.tribe-events-c-search__button {
+			background-color: var(--tec-color-background-events-bar-submit-button);
+			color: var(--tec-color-text-events-bar-submit-button);
+
+			&:focus,
+			&:hover {
+				background-color: var(--tec-color-background-events-bar-submit-button-hover);
+				color: var(--tec-color-text-events-bar-submit-button-hover);
+			}
+
+			&:active {
+				background-color: var(--tec-color-background-events-bar-submit-button-active);
+				color: var(--tec-color-text-events-bar-submit-button-active);
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Twentyone
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentytwentyone & {
+
+		.tribe-events-c-search__button {
+
+			&:not(:hover):not(:active) {
+				background-color: var(--tec-color-background-events-bar-submit-button);
+				color: var(--tec-color-text-events-bar-submit-button);
+			}
 		}
 	}
 }

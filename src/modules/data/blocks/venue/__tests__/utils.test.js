@@ -5,7 +5,7 @@ import {
 	getAddress,
 	getCoordinates,
 	getVenueCountry,
-	getVenueStateProvince
+	getVenueStateProvince,
 } from '@moderntribe/events/data/blocks/venue/utils';
 
 jest.mock( '@moderntribe/common/utils/globals', () => ( {

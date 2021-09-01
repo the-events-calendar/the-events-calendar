@@ -27,7 +27,8 @@ export const directions = {
  *   <AnyComponent></AnyComponent>
  * </Dashboard
  */
-const Dashboard = ({ className, direction, isOpen, children }) => {
+
+const Dashboard = ( { className, direction, isOpen, children } ) => {
 	const containerClasses = classNames(
 		'tribe-editor__dashboard__container',
 		`tribe-editor__dashboard__container--${ direction }`,
@@ -42,7 +43,7 @@ const Dashboard = ({ className, direction, isOpen, children }) => {
 			</div>
 		</div>
 	);
-}
+};
 
 Dashboard.defaultProps = {
 	isOpen: false,

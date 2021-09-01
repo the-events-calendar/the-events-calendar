@@ -4,7 +4,6 @@
 import reducer, { actions } from '@moderntribe/events/data/search';
 import search, { DEFAULT_STATE } from '@moderntribe/events/data/search/reducers/search';
 
-
 jest.mock( '@moderntribe/events/data/search/reducers/search', () => {
 	const original = require.requireActual( '@moderntribe/events/data/search/reducers/search' );
 	return {

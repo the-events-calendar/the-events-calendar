@@ -27,7 +27,7 @@ class OrganizerForm extends Component {
 	static defaultProps = {
 		postType: 'tribe_organizer',
 	};
-	
+
 	state = {
 		title: null,
 		phone: '',
@@ -36,12 +36,12 @@ class OrganizerForm extends Component {
 		organizer: null,
 		isValid: true,
 	};
-	
+
 	fields = {};
 
 	isCreating = () => {
 		const { organizer } = this.state;
-		
+
 		if ( ! organizer ) {
 			return false;
 		}
@@ -72,11 +72,11 @@ class OrganizerForm extends Component {
 			},
 		} );
 	}
-	
+
 	onInputChange = ( key ) => ( value ) => {
 		this.setState( { [ key ]: value } );
 	}
-	
+
 	onInputComplete = () => {
 		this.setState( { isValid: this.isValid() } );
 	}
@@ -142,7 +142,10 @@ class OrganizerForm extends Component {
 					{ __( 'Create Organizer' ) }
 				</h3>
 				<p className="description">
-					{ __( 'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', 'the-events-calendar' ) }
+					{ __(
+						'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', // eslint-disable-line max-len
+						'the-events-calendar',
+					) }
 				</p>
 				<dl>
 					<dt>
@@ -154,7 +157,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[name]"
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('title') }
+							onChange={ this.onInputChange( 'title' ) }
 							validate
 						/>
 					</dd>
@@ -167,7 +170,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[phone]"
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('phone') }
+							onChange={ this.onInputChange( 'phone' ) }
 							validate
 							data-testid="organizer-form-input-phone"
 						/>
@@ -180,7 +183,7 @@ class OrganizerForm extends Component {
 							type="url"
 							ref={ this.saveRef }
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('website') }
+							onChange={ this.onInputChange( 'website' ) }
 							name="organizer[website]"
 							validate
 						/>
@@ -194,7 +197,7 @@ class OrganizerForm extends Component {
 							ref={ this.saveRef }
 							name="organizer[email]"
 							onComplete={ this.onInputComplete }
-							onChange={ this.onInputChange('email') }
+							onChange={ this.onInputChange( 'email' ) }
 							validate
 						/>
 					</dd>

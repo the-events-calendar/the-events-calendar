@@ -16,5 +16,5 @@ import EventDetailsOrganizer from './template';
 
 export default compose(
 	withStore(),
-	withDetails( 'organizerId' )
+	withDetails( 'organizerId' ),
 )( EventDetailsOrganizer );

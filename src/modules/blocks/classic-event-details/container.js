@@ -83,8 +83,8 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 		}
 
 		const dateTimeButton = document
-			.querySelector( `[data-block="${ filteredBlocks[0].clientId }"]` )
-			.getElementsByClassName( 'tribe-editor__subtitle__headline-button' )[0];
+			.querySelector( `[data-block="${ filteredBlocks[ 0 ].clientId }"]` )
+			.getElementsByClassName( 'tribe-editor__subtitle__headline-button' )[ 0 ];
 
 		if ( ! dateTimeButton ) {
 			return;

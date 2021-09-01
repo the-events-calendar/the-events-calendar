@@ -8,14 +8,14 @@ import { uniq } from 'lodash';
  */
 import * as types from './../types';
 
+export const DEFAULT_STATE = [];
+
 export const setInitialState = ( data ) => {
 	const { meta } = data;
 	if ( meta.hasOwnProperty( '_EventOrganizerID' ) ) {
 		DEFAULT_STATE.push( ...meta._EventOrganizerID );
 	}
 };
-
-export const DEFAULT_STATE = [];
 
 export default ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {

@@ -603,7 +603,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		}
 
 		// Make sure it's an event post.
-		if ( Tribe__Events__Main::POSTTYPE !== $context->post->post_type ) {
+		if ( ! tribe_is_event( $context->post ) ) {
 			return $categories;
 		}
 

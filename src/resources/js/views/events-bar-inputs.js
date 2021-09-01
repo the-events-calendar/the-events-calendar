@@ -97,7 +97,9 @@ tribe.events.views.eventsBarInputs = {};
 		$container
 			.find( obj.selectors.inputWrapper )
 			.each( function( index, wrapper ) {
-				var inputWrapperClass = wrapper.className.match( /tribe-events-c-search__input-control--[a-z]+/ );
+				var inputWrapperClass = wrapper
+					.className
+					.match( /tribe-events-c-search__input-control--[a-z]+/ );
 
 				if ( ! inputWrapperClass ) {
 					return;
@@ -114,7 +116,11 @@ tribe.events.views.eventsBarInputs = {};
 
 				$wrapper.toggleClass( inputWrapperFocus, '' !== $input.val().trim() );
 
-				$input.on( 'change', { target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus }, obj.handleInputChange );
+				$input.on(
+					'change',
+					{ target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus },
+					obj.handleInputChange
+				);
 			} );
 	};
 
@@ -129,7 +135,7 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( event, jqXHR, settings ) {
+	obj.unbindEvents = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		obj.unbindInputEvents( $container );
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
@@ -147,7 +153,7 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( event, index, $container, data ) {
+	obj.bindEvents = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars, max-len
 		var $inputWrapper = $container.find( obj.selectors.inputWrapper );
 
 		if ( ! $inputWrapper.length ) {
@@ -166,7 +172,11 @@ tribe.events.views.eventsBarInputs = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.bindEvents
+		);
 	};
 
 	// Configure on document ready
