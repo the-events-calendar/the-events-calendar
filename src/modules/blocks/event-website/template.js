@@ -30,7 +30,7 @@ const renderUrlInput = ( { isSelected, url, setWebsite } ) => (
 		<div key="tribe-events-website-url" className="tribe-editor__event-website__url">
 			<Dashicon icon="admin-links" />
 			<URLInput
-				autoFocus={ false }
+				autoFocus={ false } // eslint-disable-line jsx-a11y/no-autofocus
 				value={ url }
 				onChange={ setWebsite }
 			/>

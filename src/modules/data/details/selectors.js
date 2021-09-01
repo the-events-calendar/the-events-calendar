@@ -14,7 +14,7 @@ export const blockSelector = ( state, props ) => state.events.details[ props.nam
 
 export const getPostType = createSelector(
 	[ blockSelector ],
-	( block ) => block ? block.postType : DEFAULT_STATE.postType
+	( block ) => block ? block.postType : DEFAULT_STATE.postType,
 );
 
 export const getIsLoading = createSelector(
@@ -35,5 +35,5 @@ export const getVolatile = createSelector(
 		}
 		// Check if details.id is present on volatileGroup
 		return difference( [ details.id ], volatileGroup ).length === 0;
-	}
+	},
 );

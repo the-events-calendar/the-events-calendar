@@ -52,7 +52,7 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 		//determine message to use based on values
 		obj.msg_logic();
 
-		//parse the message and insert into dymanic text div
+		//parse the message and insert into dynamic text div
 		obj.parse_and_display_text();
 	};
 
@@ -92,27 +92,27 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 */
 	obj.msg_logic = function () {
 
-		if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) {
+		if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) { // eslint-disable-line eqeqeq,max-len
 			//single date, different start and end time
 			obj.dynamic_text = obj.text[0];
 
-		} else if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) {
+		} else if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) { // eslint-disable-line eqeqeq,max-len
 			//single date, same start and end time
 			obj.dynamic_text = obj.text[1];
 
-		} else if ( obj.start_date == obj.end_date && obj.all_day ) {
+		} else if ( obj.start_date == obj.end_date && obj.all_day ) { // eslint-disable-line eqeqeq
 			//single date, all day
 			obj.dynamic_text = obj.text[2];
 
-		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) {
+		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) { // eslint-disable-line eqeqeq,max-len
 			//different date, different start and end time
 			obj.dynamic_text = obj.text[3];
 
-		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) {
+		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) { // eslint-disable-line eqeqeq,max-len
 			//different date, same start and end time
 			obj.dynamic_text = obj.text[4];
 
-		} else if ( obj.start_date != obj.end_date && obj.all_day ) {
+		} else if ( obj.start_date != obj.end_date && obj.all_day ) { // eslint-disable-line eqeqeq
 			//different date, all day
 			obj.dynamic_text = obj.text[5];
 		}
@@ -125,10 +125,22 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 
 		obj.dynamic_text = obj.dynamic_text.replace( "%%starttime%%", obj.start_time );
 		obj.dynamic_text = obj.dynamic_text.replace( "%%endtime%%", obj.end_time );
-		obj.dynamic_text = obj.dynamic_text.replace( "%%startdatewithyear%%", obj.date_formatter( obj.start_date, obj.datepicker_format, obj.date_with_year ) );
-		obj.dynamic_text = obj.dynamic_text.replace( "%%enddatewithyear%%", obj.date_formatter( obj.end_date, obj.datepicker_format, obj.date_with_year ) );
-		obj.dynamic_text = obj.dynamic_text.replace( "%%startdatenoyear%%", obj.date_formatter( obj.start_date, obj.datepicker_format, obj.date_no_year ) );
-		obj.dynamic_text = obj.dynamic_text.replace( "%%enddatenoyear%%", obj.date_formatter( obj.end_date, obj.datepicker_format, obj.date_no_year ) );
+		obj.dynamic_text = obj.dynamic_text.replace(
+			"%%startdatewithyear%%",
+			obj.date_formatter( obj.start_date, obj.datepicker_format, obj.date_with_year )
+		);
+		obj.dynamic_text = obj.dynamic_text.replace(
+			"%%enddatewithyear%%",
+			obj.date_formatter( obj.end_date, obj.datepicker_format, obj.date_with_year )
+		);
+		obj.dynamic_text = obj.dynamic_text.replace(
+			"%%startdatenoyear%%",
+			obj.date_formatter( obj.start_date, obj.datepicker_format, obj.date_no_year )
+		);
+		obj.dynamic_text = obj.dynamic_text.replace(
+			"%%enddatenoyear%%",
+			obj.date_formatter( obj.end_date, obj.datepicker_format, obj.date_no_year )
+		);
 
 		$( obj.field_class ).html( obj.dynamic_text );
 	};
@@ -150,9 +162,10 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 */
 	obj.event_date_change = function () {
 
-		$( '#EventStartDate, #EventStartTime, #EventEndDate, #EventEndTime, #allDayCheckbox' ).on( 'change', function () {
-			obj.setup_and_display_text();
-		} );
+		$( '#EventStartDate, #EventStartTime, #EventEndDate, #EventEndTime, #allDayCheckbox' )
+			.on( 'change', function () {
+				obj.setup_and_display_text();
+			} );
 	};
 
 	/**

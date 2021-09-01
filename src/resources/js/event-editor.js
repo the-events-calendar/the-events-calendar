@@ -6,7 +6,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 jQuery( function( $ ) {
 	var obj = tribe_events_event_editor,
 		$sticky_in_month_view_checkbox = $( 'input[name="EventShowInCalendar"]' ),
-	    $featured_event_checkbox = $( 'input[name="feature_event"]' );
+		$featured_event_checkbox = $( 'input[name="feature_event"]' );
 
 	/**
 	 * If the 'feature event' box is checked, automatically check the

@@ -31,10 +31,10 @@ describe( 'Event Date time Block sagas', () => {
 					types.SET_MULTI_DAY,
 					types.SET_TIME_ZONE,
 					types.SET_NATURAL_LANGUAGE_LABEL,
-				] )
+				] ),
 			);
 			expect( gen.next( {} ).value ).toEqual(
-				call( sagas.handler, {} )
+				call( sagas.handler, {} ),
 			);
 			expect( gen.next().done ).toEqual( false );
 		} );
@@ -48,13 +48,13 @@ describe( 'Event Date time Block sagas', () => {
 				all( {
 					start: select( selectors.getStart ),
 					end: select( selectors.getEnd ),
-				} )
+				} ),
 			);
 			expect( gen.next( { start: 1, end: 2 } ).value ).toEqual(
 				all( {
 					start: call( momentUtil.toMoment, 1 ),
 					end: call( momentUtil.toMoment, 2 ),
-				} )
+				} ),
 			);
 		} );
 	} );
@@ -63,7 +63,7 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.deriveSecondsFromDates();
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 
 			const moments = {
@@ -75,14 +75,14 @@ describe( 'Event Date time Block sagas', () => {
 				all( {
 					start: call( momentUtil.toDatabaseTime, moments.start ),
 					end: call( momentUtil.toDatabaseTime, moments.end ),
-				} )
+				} ),
 			);
 
 			expect( gen.next( { start: '01:00:00', end: '02:00:00' } ).value ).toEqual(
 				all( {
 					start: call( timeUtil.toSeconds, '01:00:00' ),
 					end: call( timeUtil.toSeconds, '02:00:00' ),
-				} )
+				} ),
 			);
 		} );
 	} );
@@ -103,7 +103,7 @@ describe( 'Event Date time Block sagas', () => {
 		} );
 
 		test( 'Custom data is provided', () => {
-			const dates =  {
+			const dates = {
 				start: moment( '12-25-2017', 'MM-DD-YYYY' ),
 				end: moment( '12-25-2018', 'MM-DD-YYYY' ),
 			};
@@ -139,7 +139,7 @@ describe( 'Event Date time Block sagas', () => {
 			);
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.setHumanReadableLabel, { end: undefined, start: '2018-12-25 00:00:00' } )
+				call( sagas.setHumanReadableLabel, { end: undefined, start: '2018-12-25 00:00:00' } ),
 			);
 
 			expect( gen.next().done ).toBe( true );
@@ -149,13 +149,13 @@ describe( 'Event Date time Block sagas', () => {
 			const formated = toDateTime( moment( '12-25-2018', 'MM-DD-YYYY' ) );
 			const gen = sagas.setHumanReadableFromDate( actions.setEndDateTime( formated ) );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getStart )
+				select( selectors.getStart ),
 			);
 			expect( gen.next().value ).toEqual(
 				select( selectors.getEnd ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setHumanReadableLabel, { start: undefined, end: '2018-12-25 00:00:00' } )
+				call( sagas.setHumanReadableLabel, { start: undefined, end: '2018-12-25 00:00:00' } ),
 			);
 			expect( gen.next().done ).toBe( true );
 		} );
@@ -194,15 +194,15 @@ describe( 'Event Date time Block sagas', () => {
 				const label = { start: null, end: null };
 
 				expect( gen.next().value ).toEqual(
-					select( selectors.getNaturalLanguageLabel )
+					select( selectors.getNaturalLanguageLabel ),
 				);
 
 				expect( gen.next( label ).value ).toEqual(
-					call( dateUtil.labelToDate, label )
+					call( dateUtil.labelToDate, label ),
 				);
 
 				expect( gen.next( label ).value ).toEqual(
-					call( sagas.resetNaturalLanguageLabel )
+					call( sagas.resetNaturalLanguageLabel ),
 				);
 
 				expect( gen.next().done ).toEqual( true );
@@ -219,33 +219,33 @@ describe( 'Event Date time Block sagas', () => {
 				};
 
 				expect( gen.next().value ).toEqual(
-					select( selectors.getNaturalLanguageLabel )
+					select( selectors.getNaturalLanguageLabel ),
 				);
 
 				expect( gen.next( label ).value ).toEqual(
-					call( dateUtil.labelToDate, label )
+					call( dateUtil.labelToDate, label ),
 				);
 
 				expect( gen.next( label ).value ).toEqual(
 					all( {
 						start: call( momentUtil.toMoment, label.start ),
 						end: call( momentUtil.toMoment, label.end || label.start ),
-					} )
+					} ),
 				);
 
 				expect( gen.next( dates ).value ).toEqual(
-					call( momentUtil.adjustStart, dates.start, dates.end )
+					call( momentUtil.adjustStart, dates.start, dates.end ),
 				);
 
 				expect( gen.next( dates ).value ).toEqual(
-					call( momentUtil.isSameDay, dates.start, dates.end )
+					call( momentUtil.isSameDay, dates.start, dates.end ),
 				);
 
 				expect( gen.next( true ).value ).toEqual(
 					all( {
 						start: call( momentUtil.toDateTime, dates.start ),
 						end: call( momentUtil.toDateTime, dates.end ),
-					} )
+					} ),
 				);
 
 				expect( gen.next( dates ).value ).toEqual(
@@ -253,7 +253,7 @@ describe( 'Event Date time Block sagas', () => {
 						call( action.meta.setAttributes, { start: dates.start } ),
 						call( action.meta.setAttributes, { end: dates.end } ),
 						call( action.meta.setAttributes, { allDay: false } ),
-					] )
+					] ),
 				);
 
 				expect( gen.next().value ).toEqual(
@@ -262,7 +262,7 @@ describe( 'Event Date time Block sagas', () => {
 						put( actions.setEndDateTime( dates.end ) ),
 						put( actions.setMultiDay( false ) ),
 						put( actions.setAllDay( false ) ),
-					] )
+					] ),
 				);
 
 				expect( gen.next().done ).toEqual( true );
@@ -287,41 +287,41 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleDateRangeChange( action );
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
 					from: call( momentUtil.toMoment, payload.from ),
 					to: call( momentUtil.toMoment, payload.to || payload.from ),
-				} )
+				} ),
 			);
 
 			expect( gen.next( moments ).value ).toMatchSnapshot();
 
 			expect( gen.next().value ).toEqual(
-				call( momentUtil.adjustStart, moments.start, moments.end )
+				call( momentUtil.adjustStart, moments.start, moments.end ),
 			);
 
 			expect( gen.next( dates ).value ).toEqual(
 				all( {
 					start: call( momentUtil.toDateTime, dates.start ),
 					end: call( momentUtil.toDateTime, dates.end ),
-				} )
+				} ),
 			);
 
 			expect( gen.next( dates ).value ).toEqual(
 				all( [
 					call( action.meta.setAttributes, { start: dates.start } ),
 					call( action.meta.setAttributes, { end: dates.end } ),
-				] )
+				] ),
 			);
 
 			expect( gen.next().value ).toEqual(
 				all( [
 					put( actions.setStartDateTime( dates.start ) ),
 					put( actions.setEndDateTime( dates.end ) ),
-				] )
+				] ),
 			);
 
 			expect( gen.next().done ).toEqual( true );
@@ -350,7 +350,7 @@ describe( 'Event Date time Block sagas', () => {
 		it( 'should do nothing when multiday', () => {
 			const gen = sagas.preventEndTimeBeforeStartTime( action );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getMultiDay )
+				select( selectors.getMultiDay ),
 			);
 			expect( gen.next( true ).done ).toEqual( true );
 		} );
@@ -359,13 +359,13 @@ describe( 'Event Date time Block sagas', () => {
 
 			const gen = sagas.preventEndTimeBeforeStartTime( action );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getMultiDay )
+				select( selectors.getMultiDay ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveSecondsFromDates )
+				call( sagas.deriveSecondsFromDates ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( [ Object, 'assign' ], seconds, action.payload )
+				call( [ Object, 'assign' ], seconds, action.payload ),
 			);
 
 			expect( gen.next().done ).toEqual( true );
@@ -373,16 +373,16 @@ describe( 'Event Date time Block sagas', () => {
 		it( 'should adjust time when end time is before start time', () => {
 			const gen = sagas.preventEndTimeBeforeStartTime( action );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getMultiDay )
+				select( selectors.getMultiDay ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveSecondsFromDates )
+				call( sagas.deriveSecondsFromDates ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( [ Object, 'assign' ], seconds, action.payload )
+				call( [ Object, 'assign' ], seconds, action.payload ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 
 			const moments = { start: 1, end: 2 };
@@ -390,25 +390,25 @@ describe( 'Event Date time Block sagas', () => {
 				all( {
 					start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
 					end: call( momentUtil.setTimeInSeconds, moments.end, seconds.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
 					start: call( momentUtil.toDateTime, moments.start ),
 					end: call( momentUtil.toDateTime, moments.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
 					call( action.meta.setAttributes, { start: moments.start } ),
 					call( action.meta.setAttributes, { end: moments.end } ),
-				] )
+				] ),
 			);
 			expect( gen.next().value ).toEqual(
 				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
-				] )
+				] ),
 			);
 
 			expect( gen.next().done ).toEqual( true );
@@ -418,16 +418,16 @@ describe( 'Event Date time Block sagas', () => {
 
 			const gen = sagas.preventEndTimeBeforeStartTime( action );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getMultiDay )
+				select( selectors.getMultiDay ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveSecondsFromDates )
+				call( sagas.deriveSecondsFromDates ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( [ Object, 'assign' ], seconds, action.payload )
+				call( [ Object, 'assign' ], seconds, action.payload ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 
 			const moments = { start: 1, end: 2 };
@@ -435,25 +435,25 @@ describe( 'Event Date time Block sagas', () => {
 				all( {
 					start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
 					end: call( momentUtil.setTimeInSeconds, moments.end, seconds.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
 					start: call( momentUtil.toDateTime, moments.start ),
 					end: call( momentUtil.toDateTime, moments.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
 					call( action.meta.setAttributes, { start: moments.start } ),
 					call( action.meta.setAttributes, { end: moments.end } ),
-				] )
+				] ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
-				] )
+				] ),
 			);
 
 			expect( gen.next().done ).toEqual( true );
@@ -481,23 +481,23 @@ describe( 'Event Date time Block sagas', () => {
 		it( 'should do nothing when multiday', () => {
 			const gen = sagas.preventStartTimeAfterEndTime( action );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getMultiDay )
+				select( selectors.getMultiDay ),
 			);
 			expect( gen.next( true ).done ).toEqual( true );
 		} );
 		it( 'should adjust time when start and end time are the same', () => {
 			const gen = sagas.preventStartTimeAfterEndTime( action );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getMultiDay )
+				select( selectors.getMultiDay ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveSecondsFromDates )
+				call( sagas.deriveSecondsFromDates ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( [ Object, 'assign' ], seconds, action.payload )
+				call( [ Object, 'assign' ], seconds, action.payload ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 
 			const moments = { start: 1, end: 2 };
@@ -505,25 +505,25 @@ describe( 'Event Date time Block sagas', () => {
 				all( {
 					start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
 					end: call( momentUtil.setTimeInSeconds, moments.end, seconds.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
 					start: call( momentUtil.toDateTime, moments.start ),
 					end: call( momentUtil.toDateTime, moments.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
 					call( action.meta.setAttributes, { start: moments.start } ),
 					call( action.meta.setAttributes, { end: moments.end } ),
-				] )
+				] ),
 			);
 			expect( gen.next().value ).toEqual(
 				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
-				] )
+				] ),
 			);
 
 			expect( gen.next().done ).toEqual( true );
@@ -531,16 +531,16 @@ describe( 'Event Date time Block sagas', () => {
 		it( 'should handle when start time would be on previous day', () => {
 			const gen = sagas.preventStartTimeAfterEndTime( action );
 			expect( gen.next().value ).toEqual(
-				select( selectors.getMultiDay )
+				select( selectors.getMultiDay ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveSecondsFromDates )
+				call( sagas.deriveSecondsFromDates ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( [ Object, 'assign' ], seconds, action.payload )
+				call( [ Object, 'assign' ], seconds, action.payload ),
 			);
 			expect( gen.next( seconds ).value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 
 			const moments = { start: 1, end: 2 };
@@ -548,25 +548,25 @@ describe( 'Event Date time Block sagas', () => {
 				all( {
 					start: call( momentUtil.setTimeInSeconds, moments.start, seconds.start ),
 					end: call( momentUtil.setTimeInSeconds, moments.end, seconds.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
 					start: call( momentUtil.toDateTime, moments.start ),
 					end: call( momentUtil.toDateTime, moments.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
 					call( action.meta.setAttributes, { start: moments.start } ),
 					call( action.meta.setAttributes, { end: moments.end } ),
-				] )
+				] ),
 			);
 			expect( gen.next().value ).toEqual(
 				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
-				] )
+				] ),
 			);
 
 			expect( gen.next().done ).toEqual( true );
@@ -584,21 +584,21 @@ describe( 'Event Date time Block sagas', () => {
 			const moments = { start: 1, end: 2 };
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
 					start: call( momentUtil.setTimeInSeconds, moments.start, 0 ),
 					end: call( momentUtil.setTimeInSeconds, moments.end, 86399 ),
-				} )
+				} ),
 			);
 
 			expect( gen.next().value ).toEqual(
 				all( {
 					start: call( momentUtil.toDateTime, moments.start ),
 					end: call( momentUtil.toDateTime, moments.end ),
-				} )
+				} ),
 			);
 
 			expect( gen.next( moments ).value ).toEqual(
@@ -606,7 +606,7 @@ describe( 'Event Date time Block sagas', () => {
 					call( action.meta.setAttributes, { start: moments.start } ),
 					call( action.meta.setAttributes, { end: moments.end } ),
 					call( action.meta.setAttributes, { allDay: true } ),
-				] )
+				] ),
 			);
 
 			expect( gen.next().value ).toEqual(
@@ -614,7 +614,7 @@ describe( 'Event Date time Block sagas', () => {
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
 					put( actions.setAllDay( true ) ),
-				] )
+				] ),
 			);
 		} );
 	} );
@@ -638,22 +638,22 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleMultiDay( action );
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
-				call( applyFilters, 'tec.datetime.defaultRange', 3 )
+				call( applyFilters, 'tec.datetime.defaultRange', 3 ),
 			);
 			expect( gen.next( 3 ).value ).toEqual(
-				call( [ moments.end, 'add' ], 3, 'days' )
+				call( [ moments.end, 'add' ], 3, 'days' ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( momentUtil.toDateTime, moments.end )
+				call( momentUtil.toDateTime, moments.end ),
 			);
 			expect( gen.next( 5 ).value ).toEqual(
-				call( action.meta.setAttributes, { end: 5 } )
+				call( action.meta.setAttributes, { end: 5 } ),
 			);
 			expect( gen.next().value ).toEqual(
-				put( actions.setEndDateTime( 5 ) )
+				put( actions.setEndDateTime( 5 ) ),
 			);
 		} );
 		it( 'it should handle when not multi day', () => {
@@ -662,31 +662,31 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleMultiDay( action );
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
-				call( momentUtil.replaceDate, moments.end, moments.start )
+				call( momentUtil.replaceDate, moments.end, moments.start ),
 			);
 			expect( gen.next( 3 ).value ).toEqual(
-				call( momentUtil.adjustStart, moments.start, 3 )
+				call( momentUtil.adjustStart, moments.start, 3 ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
 					start: call( momentUtil.toDateTime, moments.start ),
 					end: call( momentUtil.toDateTime, moments.end ),
-				} )
+				} ),
 			);
 			expect( gen.next( moments ).value ).toEqual(
 				all( [
 					call( action.meta.setAttributes, { start: moments.start } ),
 					call( action.meta.setAttributes, { end: moments.end } ),
-				] )
+				] ),
 			);
 			expect( gen.next().value ).toEqual(
 				all( [
 					put( actions.setStartDateTime( moments.start ) ),
 					put( actions.setEndDateTime( moments.end ) ),
-				] )
+				] ),
 			);
 		} );
 	} );
@@ -704,7 +704,7 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleStartTimeChange( action );
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.setAllDay, action )
+				call( sagas.setAllDay, action ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -720,25 +720,25 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleStartTimeChange( action );
 
 			expect( gen.next().value ).toEqual(
-				call( action.meta.setAttributes, { allDay: false } )
+				call( action.meta.setAttributes, { allDay: false } ),
 			);
 			expect( gen.next().value ).toEqual(
-				put( actions.setAllDay( false ) )
+				put( actions.setAllDay( false ) ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 			expect( gen.next( { start: 55000 } ).value ).toEqual(
-				call( momentUtil.setTimeInSeconds, 55000, action.payload.start )
+				call( momentUtil.setTimeInSeconds, 55000, action.payload.start ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( momentUtil.toDateTime, 55000 )
+				call( momentUtil.toDateTime, 55000 ),
 			);
 			expect( gen.next( '2017-01-01' ).value ).toEqual(
-				call( action.meta.setAttributes, { start: '2017-01-01' } )
+				call( action.meta.setAttributes, { start: '2017-01-01' } ),
 			);
 			expect( gen.next().value ).toEqual(
-				put( actions.setStartDateTime( '2017-01-01' ) )
+				put( actions.setStartDateTime( '2017-01-01' ) ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -757,7 +757,7 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleEndTimeChange( action );
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.setAllDay, action )
+				call( sagas.setAllDay, action ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -773,25 +773,25 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.handleEndTimeChange( action );
 
 			expect( gen.next().value ).toEqual(
-				call( action.meta.setAttributes, { allDay: false } )
+				call( action.meta.setAttributes, { allDay: false } ),
 			);
 			expect( gen.next().value ).toEqual(
-				put( actions.setAllDay( false ) )
+				put( actions.setAllDay( false ) ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 			expect( gen.next( { end: 55000 } ).value ).toEqual(
-				call( momentUtil.setTimeInSeconds, 55000, action.payload.end )
+				call( momentUtil.setTimeInSeconds, 55000, action.payload.end ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( momentUtil.toDateTime, 55000 )
+				call( momentUtil.toDateTime, 55000 ),
 			);
 			expect( gen.next( '2017-01-01' ).value ).toEqual(
-				call( action.meta.setAttributes, { end: '2017-01-01' } )
+				call( action.meta.setAttributes, { end: '2017-01-01' } ),
 			);
 			expect( gen.next().value ).toEqual(
-				put( actions.setEndDateTime( '2017-01-01' ) )
+				put( actions.setEndDateTime( '2017-01-01' ) ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -803,13 +803,13 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.setStartTimeInput();
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 			expect( gen.next( { start } ).value ).toEqual(
-				call( momentUtil.toTime, start )
+				call( momentUtil.toTime, start ),
 			);
 			expect( gen.next( start ).value ).toEqual(
-				put( actions.setStartTimeInput( start ) )
+				put( actions.setStartTimeInput( start ) ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -821,13 +821,13 @@ describe( 'Event Date time Block sagas', () => {
 			const gen = sagas.setEndTimeInput();
 
 			expect( gen.next().value ).toEqual(
-				call( sagas.deriveMomentsFromDates )
+				call( sagas.deriveMomentsFromDates ),
 			);
 			expect( gen.next( { end } ).value ).toEqual(
-				call( momentUtil.toTime, end )
+				call( momentUtil.toTime, end ),
 			);
 			expect( gen.next( end ).value ).toEqual(
-				put( actions.setEndTimeInput( end ) )
+				put( actions.setEndTimeInput( end ) ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -844,10 +844,10 @@ describe( 'Event Date time Block sagas', () => {
 			action.type = types.SET_DATE_RANGE;
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
-				call( sagas.handleDateRangeChange, action )
+				call( sagas.handleDateRangeChange, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.resetNaturalLanguageLabel )
+				call( sagas.resetNaturalLanguageLabel ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -856,10 +856,10 @@ describe( 'Event Date time Block sagas', () => {
 			action.type = types.SET_START_DATE_TIME;
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
-				call( sagas.preventEndTimeBeforeStartTime, action )
+				call( sagas.preventEndTimeBeforeStartTime, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setHumanReadableFromDate, action )
+				call( sagas.setHumanReadableFromDate, action ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -868,10 +868,10 @@ describe( 'Event Date time Block sagas', () => {
 			action.type = types.SET_END_DATE_TIME;
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
-				call( sagas.preventStartTimeAfterEndTime, action )
+				call( sagas.preventStartTimeAfterEndTime, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setHumanReadableFromDate, action )
+				call( sagas.setHumanReadableFromDate, action ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -880,19 +880,19 @@ describe( 'Event Date time Block sagas', () => {
 			action.type = types.SET_START_TIME;
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
-				call( sagas.handleStartTimeChange, action )
+				call( sagas.handleStartTimeChange, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.preventEndTimeBeforeStartTime, action )
+				call( sagas.preventEndTimeBeforeStartTime, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setStartTimeInput )
+				call( sagas.setStartTimeInput ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setEndTimeInput )
+				call( sagas.setEndTimeInput ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.resetNaturalLanguageLabel )
+				call( sagas.resetNaturalLanguageLabel ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -901,19 +901,19 @@ describe( 'Event Date time Block sagas', () => {
 			action.type = types.SET_END_TIME;
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
-				call( sagas.handleEndTimeChange, action )
+				call( sagas.handleEndTimeChange, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.preventStartTimeAfterEndTime, action )
+				call( sagas.preventStartTimeAfterEndTime, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setEndTimeInput )
+				call( sagas.setEndTimeInput ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setStartTimeInput )
+				call( sagas.setStartTimeInput ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.resetNaturalLanguageLabel )
+				call( sagas.resetNaturalLanguageLabel ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -922,16 +922,16 @@ describe( 'Event Date time Block sagas', () => {
 			action.type = types.SET_MULTI_DAY;
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
-				call( sagas.handleMultiDay, action )
+				call( sagas.handleMultiDay, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setStartTimeInput )
+				call( sagas.setStartTimeInput ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setEndTimeInput )
+				call( sagas.setEndTimeInput ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.resetNaturalLanguageLabel )
+				call( sagas.resetNaturalLanguageLabel ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );
@@ -940,13 +940,13 @@ describe( 'Event Date time Block sagas', () => {
 			action.type = types.SET_NATURAL_LANGUAGE_LABEL;
 			const gen = sagas.handler( action );
 			expect( gen.next().value ).toEqual(
-				call( sagas.onHumanReadableChange, action )
+				call( sagas.onHumanReadableChange, action ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setStartTimeInput )
+				call( sagas.setStartTimeInput ),
 			);
 			expect( gen.next().value ).toEqual(
-				call( sagas.setEndTimeInput )
+				call( sagas.setEndTimeInput ),
 			);
 			expect( gen.next().done ).toEqual( true );
 		} );

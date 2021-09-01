@@ -14,7 +14,7 @@ const state = {
 				naturalLanguageLabel: 'July 19 2018 at 8:00 am - 5:00 pm',
 			},
 		},
-	}
+	},
 };
 
 describe( '[STORE] - Datetime selectors', () => {

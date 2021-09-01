@@ -28,13 +28,13 @@ describe( '[STORE] - Organizer byId reducer', () => {
 
 	it( 'Should add organizer block', () => {
 		expect( byId( {}, actions.addOrganizerInBlock( 99, 1 ) ) ).toMatchSnapshot();
-		expect( byId( { '99': 1 }, actions.addOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
+		expect( byId( { 99: 1 }, actions.addOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should remove organizer block', () => {
 		expect( byId( {}, actions.removeOrganizerInBlock( 102, 3 ) ) ).toMatchSnapshot();
-		expect( byId( { '99': 1, '100': 2 }, actions.removeOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
-		expect( byId( { '99': 1 }, actions.removeOrganizerInBlock( 99, 1 ) ) ).toMatchSnapshot();
+		expect( byId( { 99: 1, 100: 2 }, actions.removeOrganizerInBlock( 100, 2 ) ) ).toMatchSnapshot();
+		expect( byId( { 99: 1 }, actions.removeOrganizerInBlock( 99, 1 ) ) ).toMatchSnapshot();
 	} );
 } );
 
