@@ -31,15 +31,15 @@ $address              = $venue->address . ( $venue->address && $append_after_add
 	</span>
 	<span class="tribe-events-calendar-list__event-venue-address">
 		<?php 
-			echo esc_html( $address ); 
+		echo esc_html( $address ); 
 
-			if ( ! empty( $venue->city ) ) : 
-				echo esc_html( $venue->city . $separator ); 
-		 	endif;
-		
-		 	if ( $append_after_address ) : 
-				echo esc_html( reset( $append_after_address ) ); 
-		 	endif; 
+		if ( ! empty( $venue->city ) ) : 
+			echo esc_html( $venue->city . $separator ); 
+		endif;
+
+		if ( $append_after_address ) : 
+			echo esc_html( reset( $append_after_address ) ); 
+		endif; 
 		?>
 	</span>
 </address>
