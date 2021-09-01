@@ -1,0 +1,32 @@
+name: 'npm lint'
+on:
+  pull_request:
+    paths:
+      - 'src/modules/**.js'
+      - 'src/resources/js/**.js'
+      - 'src/resources/postcss/**.pcss'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          submodules: recursive
+      - name: Set node version
+        run: |
+          . ~/.nvm/nvm.sh && nvm install $(cat .nvmrc) && nvm use
+      - name: Get npm cache
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: '~/.npm'
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
+      - name: Install node modules
+        run: |
+          . ~/.nvm/nvm.sh && nvm use && npm ci
+      - name: Run linting tasks
+        run: |
+          . ~/.nvm/nvm.sh && nvm use && npm run lint

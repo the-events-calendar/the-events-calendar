@@ -9,7 +9,7 @@ const state = {
 		blocks: {
 			website: DEFAULT_STATE,
 		},
-	}
+	},
 };
 
 describe( '[STORE] - Website selectors', () => {

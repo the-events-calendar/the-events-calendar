@@ -25,7 +25,7 @@ describe( 'OrganizerForm', () => {
 
 	test( 'should show a spinner while creating', () => {
 		const component = shallow(
-			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
+			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />,
 		);
 		component.instance().isCreating = jest.fn( () => true );
 		component.instance().forceUpdate();
@@ -34,7 +34,7 @@ describe( 'OrganizerForm', () => {
 
 	test( 'should be set as invalid when any field validation fails', () => {
 		const component = shallow(
-			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
+			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />,
 		);
 		const input = component.find( '[data-testid="organizer-form-input-phone"]' );
 		const instance = component.instance();
@@ -69,7 +69,7 @@ describe( 'OrganizerForm', () => {
 		};
 
 		const component = shallow(
-			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
+			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />,
 		);
 		component.setState( state );
 		const spyRequest = jest.spyOn( wp, 'apiRequest' );

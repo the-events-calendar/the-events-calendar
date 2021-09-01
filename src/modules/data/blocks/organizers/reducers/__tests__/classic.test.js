@@ -1,7 +1,9 @@
 /**
  * Internal dependencies
  */
-import classic, { setInitialState } from '@moderntribe/events/data/blocks/organizers/reducers/classic';
+import classic, {
+	setInitialState,
+} from '@moderntribe/events/data/blocks/organizers/reducers/classic';
 import { actions } from '@moderntribe/events/data/blocks/organizers';
 
 const data = {

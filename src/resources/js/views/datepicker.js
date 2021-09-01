@@ -1,4 +1,3 @@
-/* globals tribe, jQuery */
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
@@ -194,9 +193,8 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.submitRequest = function( $container, value ) {
-		var viewData = {
-			[ 'tribe-bar-date' ]: value,
-		};
+		var viewData = {};
+		viewData[ 'tribe-bar-date' ] = value,
 
 		obj.request( viewData, $container );
 	};
@@ -324,7 +322,9 @@ tribe.events.views.datepicker = {};
 		var state = $datepickerButton.data( 'tribeEventsState' );
 
 		if ( 'touchstart' === event.type ) {
-			var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
+			var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() )
+				? 'hide'
+				: 'show';
 			var tapHide = 'hide' === method;
 			state.isTarget = false;
 
@@ -353,7 +353,9 @@ tribe.events.views.datepicker = {};
 		var $input = event.data.input;
 		var $datepickerButton = event.data.target;
 		var state = $datepickerButton.data( 'tribeEventsState' );
-		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
+		var method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() )
+			? 'hide'
+			: 'show';
 		var tapHide = $datepickerButton.data( 'tribeTapHide' );
 
 		if ( tapHide ) {
@@ -393,8 +395,8 @@ tribe.events.views.datepicker = {};
 		 *
 		 * @return {void}
 		 */
-		return function( mutationsList, observer ) {
-			for ( var mutation of mutationsList ) {
+		return function( mutationsList, observer ) { // eslint-disable-line no-unused-vars
+			mutationsList.forEach( function( mutation ) {
 				// if datepicker switches months via prev/next arrows or by selecting a month on month picker
 				if (
 					'childList' === mutation.type &&
@@ -403,7 +405,7 @@ tribe.events.views.datepicker = {};
 				) {
 					$container.trigger( 'handleMutationMonthChange.tribeEvents' );
 				}
-			}
+			} );
 		};
 	};
 
@@ -628,8 +630,14 @@ tribe.events.views.datepicker = {};
 		var datepickerI18n = tribeL10nDatatables.datepicker || {};
 		var nextText = datepickerI18n.nextText || 'Next';
 		var prevText = datepickerI18n.prevText || 'Prev';
-		obj.options.templates.leftArrow = $prevIcon + '<span class="tribe-common-a11y-visual-hide">' + prevText + '</span>';
-		obj.options.templates.rightArrow = $nextIcon + '<span class="tribe-common-a11y-visual-hide">' + nextText + '</span>';
+		obj.options.templates.leftArrow = $prevIcon
+			+ '<span class="tribe-common-a11y-visual-hide">'
+			+ prevText
+			+ '</span>';
+		obj.options.templates.rightArrow = $nextIcon
+			+ '<span class="tribe-common-a11y-visual-hide">'
+			+ nextText
+			+ '</span>';
 		obj.options.beforeShowDay = obj.filterDayCells;
 		obj.options.beforeShowMonth = obj.filterMonthCells;
 		obj.options.beforeShowYear = obj.filterYearCells;
@@ -638,7 +646,11 @@ tribe.events.views.datepicker = {};
 			.bootstrapDatepicker( obj.options )
 			.on( changeEvent, { container: $container }, changeHandler )
 			.on( 'show', { datepickerButton: $datepickerButton }, obj.handleShow )
-			.on( 'hide', { datepickerButton: $datepickerButton, input: $input, observer: obj.observer }, obj.handleHide );
+			.on(
+				'hide',
+				{ datepickerButton: $datepickerButton, input: $input, observer: obj.observer },
+				obj.handleHide
+			);
 
 		if ( isMonthView ) {
 			$input
@@ -652,7 +664,11 @@ tribe.events.views.datepicker = {};
 			.data( 'tribeEventsState', state );
 
 		// deinit datepicker and event handlers before success
-		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container, viewSlug: viewSlug }, obj.deinit );
+		$container.on(
+			'beforeAjaxSuccess.tribeEvents',
+			{ container: $container, viewSlug: viewSlug },
+			obj.deinit
+		);
 
 		$container.trigger( 'afterDatepickerInit.tribeEvents', [ index, $container, data ] );
 	};
@@ -712,7 +728,11 @@ tribe.events.views.datepicker = {};
 		obj.initDatepicker();
 
 		if ( obj.state.initialized ) {
-			$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+			$document.on(
+				'afterSetup.tribeEvents',
+				tribe.events.views.manager.selectors.container,
+				obj.init
+			);
 		}
 	};
 

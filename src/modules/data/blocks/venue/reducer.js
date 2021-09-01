@@ -4,6 +4,12 @@
 import * as types from './types';
 import { editorDefaults, mapsAPI } from '@moderntribe/common/utils/globals';
 
+export const DEFAULT_STATE = {
+	venue: editorDefaults().venue ? editorDefaults().venue : 0,
+	showMap: mapsAPI().embed,
+	showMapLink: mapsAPI().embed,
+};
+
 export const defaultStateToMetaMap = {
 	venue: '_EventVenueID',
 	showMap: '_EventShowMap',
@@ -19,12 +25,6 @@ export const setInitialState = ( data ) => {
 			DEFAULT_STATE[ key ] = meta[ metaKey ];
 		}
 	} );
-};
-
-export const DEFAULT_STATE = {
-	venue: editorDefaults().venue ? editorDefaults().venue : 0,
-	showMap: mapsAPI().embed,
-	showMapLink: mapsAPI().embed,
 };
 
 export default ( state = DEFAULT_STATE, action ) => {

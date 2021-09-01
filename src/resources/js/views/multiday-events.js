@@ -140,14 +140,18 @@ tribe.events.views.multidayEvents = {};
 
 		$hiddenMultidayEvents.each( function( hiddenIndex, hiddenMultidayEvent ) {
 			var $hiddenMultidayEvent = $( hiddenMultidayEvent );
-			var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $container, $hiddenMultidayEvent );
+			var $visibleMultidayEvents = obj.findVisibleMultidayEvents( $container, $hiddenMultidayEvent ); // eslint-disable-line max-len
 
 			$visibleMultidayEvents.each( function( visibleIndex, visibleMultidayEvent ) {
 				var $visibleMultidayEvent = $( visibleMultidayEvent );
-				var $visiblemultidayEventBarInner = $visibleMultidayEvent.find( obj.selectors.multidayEventBarInner );
+				var $visiblemultidayEventBarInner = $visibleMultidayEvent.find( obj.selectors.multidayEventBarInner ); // eslint-disable-line max-len
 
 				$hiddenMultidayEvent
-					.on( 'mouseenter mouseleave', { target: $visiblemultidayEventBarInner }, obj.toggleHoverClass )
+					.on(
+						'mouseenter mouseleave',
+						{ target: $visiblemultidayEventBarInner },
+						obj.toggleHoverClass
+					)
 					.on( 'focus blur', { target: $visiblemultidayEventBarInner }, obj.toggleFocusClass );
 			} );
 		} );
@@ -194,7 +198,7 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( event, jqXHR, settings ) {
+	obj.unbindEvents = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		obj.deinitSelectors();
 		obj.unbindMultidayEvents( $container );
@@ -267,7 +271,11 @@ tribe.events.views.multidayEvents = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready

@@ -17,6 +17,7 @@
 if ( empty( $breadcrumbs ) ) {
 	return;
 }
+$fonrd = '';
 ?>
 <div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
 	<ol class="tribe-events-c-breadcrumbs__list">

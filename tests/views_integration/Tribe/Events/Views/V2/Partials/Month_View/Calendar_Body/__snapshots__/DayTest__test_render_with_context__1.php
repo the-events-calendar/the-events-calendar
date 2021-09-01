@@ -4,57 +4,59 @@
 	aria-labelledby="tribe-events-calendar-day-2019-07-01"
 	data-js="tribe-events-month-grid-cell"
 >
-
-	<button
-		aria-expanded="true"
-		aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
-		 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 		data-js="tribe-events-calendar-month-day-cell-mobile"
-		tabindex="-1"
+	
+<button
+	aria-expanded="true"
+	aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
+	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 	data-js="tribe-events-calendar-month-day-cell-mobile"
+	tabindex="-1"
+>
+	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			6 events,
+		</span>
+		<time
+			class="tribe-events-calendar-month__day-date-daynum"
+			datetime="2019-07-01"
+		>
+			1		</time>
+	</h3>
+	
+		<em
+		class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
+		aria-label="Has featured events"
+		title="Has featured events"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-			<span class="tribe-common-a11y-visual-hide">
-				6 events,
-			</span>
-			<time
-				class="tribe-events-calendar-month__day-date-daynum"
-				datetime="2019-07-01"
-			>
-				1			</time>
-		</h3>
-								<em
-				class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-				title="Has featured events"
-			>
-				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Has featured events</title>
+		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
+	<title>Featured</title>
 	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
 </svg>
-			</em>
-			</button>
-
-	<div
-		id="tribe-events-calendar-day-2019-07-01"
-		class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
+	</em>
+</button>
+	
+<div
+	id="tribe-events-calendar-day-2019-07-01"
+	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
+>
+	
+<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+	<span class="tribe-common-a11y-visual-hide">
+		6 events,
+	</span>
+	<time
+		class="tribe-events-calendar-month__day-date-daynum"
+		datetime="2019-07-01"
 	>
-		<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
-			<span class="tribe-common-a11y-visual-hide">
-				6 events,
-			</span>
-			<time
-				class="tribe-events-calendar-month__day-date-daynum"
-				datetime="2019-07-01"
+					<a
+				href="http://tribe.tests/events/2019-07-01"
+				class="tribe-events-calendar-month__day-date-link"
+				data-js="tribe-events-view-link"
 			>
-									<a
-						href="http://tribe.tests/events/2019-07-01"
-						class="tribe-events-calendar-month__day-date-link"
-						data-js="tribe-events-view-link"
-					>
-						1					</a>
-							</time>
-		</h3>
-
-		<div class="tribe-events-calendar-month__events">
-			
+				1			</a>
+			</time>
+</h3>
+	<div class="tribe-events-calendar-month__events">
+		
 	<div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article  class="tribe-events-calendar-month__multiday-event"  data-event-id="999997">
 		<div class="tribe-events-calendar-month__multiday-event-hidden">
@@ -143,7 +145,7 @@
 </div>
 
 
-			
+		
 	
 	
 <article  class="tribe-events-calendar-month__calendar-event" >
@@ -250,9 +252,9 @@
 
 </article>
 
-		</div>
+	</div>
 
-		
+	
 <div class="tribe-events-calendar-month__more-events">
 	<a
 		href="http://tribe.tests/events/2019-07-01"
@@ -262,7 +264,6 @@
 		+ 2 More	</a>
 </div>
 
-	</div>
-
+</div>
 </div>
 ';

@@ -1,3 +1,11 @@
+/**
+ * External dependencies
+ */
+import React from 'react';
+
+/**
+ * Internal dependencies
+ */
 import HumanReadableInput from '../template';
 
 describe( 'Human readable input', () => {
@@ -6,7 +14,7 @@ describe( 'Human readable input', () => {
 			<HumanReadableInput
 				onChange={ jest.fn() }
 				naturalLanguageLabel={ 'Initial label' }
-			/>
+			/>,
 		);
 		expect( component.toJSON() ).toMatchSnapshot();
 	} );

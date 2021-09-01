@@ -17,33 +17,6 @@ import * as types from './types';
 
 const { parseFormats, toTime } = momentUtil;
 
-export const defaultStateToMetaMap = {
-	start: '_EventStartDate',
-	end: '_EventEndDate',
-	dateTimeSeparator: '_EventDateTimeSeparator',
-	timeRangeSeparator: '_EventTimeRangeSeparator',
-	allDay: '_EventAllDay',
-	timeZone: '_EventTimezone',
-};
-
-export const setInitialState = ( data ) => {
-	const { meta } = data;
-
-	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
-		const metaKey = defaultStateToMetaMap[ key ];
-		if ( meta.hasOwnProperty( metaKey ) ) {
-			DEFAULT_STATE[ key ] = meta[ metaKey ];
-		}
-	} );
-
-	const { start, end } = DEFAULT_STATE;
-
-	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
-	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
-	DEFAULT_STATE.naturalLanguageLabel = date.rangeToNaturalLanguage( start, end );
-	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay( momentUtil.toMoment( start ), momentUtil.toMoment( end ) );
-};
-
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
 const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM_SS );
@@ -69,9 +42,41 @@ export const DEFAULT_STATE = {
 		: __( '-', 'the-events-calendar' ),
 	allDay: false,
 	multiDay: false,
-	timeZone: globals.timezone().timeZone ? globals.timezone().timeZone : date.FORMATS.TIMEZONE.string,
+	timeZone: globals.timezone().timeZone
+		? globals.timezone().timeZone
+		: date.FORMATS.TIMEZONE.string,
 	showTimeZone: false,
 	isEditable: true,
+};
+
+export const defaultStateToMetaMap = {
+	start: '_EventStartDate',
+	end: '_EventEndDate',
+	dateTimeSeparator: '_EventDateTimeSeparator',
+	timeRangeSeparator: '_EventTimeRangeSeparator',
+	allDay: '_EventAllDay',
+	timeZone: '_EventTimezone',
+};
+
+export const setInitialState = ( data ) => {
+	const { meta } = data;
+
+	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
+		const metaKey = defaultStateToMetaMap[ key ];
+		if ( meta.hasOwnProperty( metaKey ) ) {
+			DEFAULT_STATE[ key ] = meta[ metaKey ];
+		}
+	} );
+
+	const { start, end } = DEFAULT_STATE;
+
+	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
+	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
+	DEFAULT_STATE.naturalLanguageLabel = date.rangeToNaturalLanguage( start, end );
+	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay(
+		momentUtil.toMoment( start ),
+		momentUtil.toMoment( end ),
+	);
 };
 
 export default ( state = DEFAULT_STATE, action ) => {

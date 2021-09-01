@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import React from 'react';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
@@ -17,9 +22,9 @@ export default {
 	title: __( 'Event Venue', 'the-events-calendar' ),
 	description: __(
 		'Where is this event happening? Select or create a location.',
-		'the-events-calendar'
+		'the-events-calendar',
 	),
-	icon: <Venue/>,
+	icon: <Venue />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
 
@@ -47,7 +52,7 @@ export default {
 
 	edit: EventVenue,
 
-	save( props ) {
+	save() {
 		return null;
 	},
 };
