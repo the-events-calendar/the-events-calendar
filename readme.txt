@@ -221,6 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Fix - Ensure that venue state or province are displayed next to the city in list view. [TEC-3332]
 * Fix - Ensure the category archive event breadcrumb links to the main events page. [TEC-3330]
 
 = [5.9.0] 2021-08-24 =
