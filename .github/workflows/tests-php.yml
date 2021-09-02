@@ -24,7 +24,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          fetch-depth: 1000
           submodules: recursive
       # ------------------------------------------------------------------------------
       # Check if any PHP files have changed
@@ -32,8 +32,10 @@ jobs:
       - name: Check changed files
         id: skip
         run: |
-          num_php_files=$(git diff $GITHUB_BASE_REF HEAD --name-only | grep .php | wc -l)
-          if [[ "$num_php_files" == "0" ]]; then
+          num_php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -P "\.php" | wc -l)
+          if [[ -z "$num_php_files" ]]; then
+            echo "::set-output name=value::1"
+          elif [[ "$num_php_files" == "0" || "$num_php_files" == "" ]]; then
             echo "::set-output name=value::1"
           else
             echo "::set-output name=value::0"
