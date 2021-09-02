@@ -43,10 +43,10 @@ if ( is_null( $show_time_zone ) ) {
 	$show_time_zone = tribe_get_option( 'tribe_events_timezones_show_zone', false );
 }
 
-$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? $time_zone_label = Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time ) : $this->attr( 'timeZoneLabel' );
+$time_zone_label = $this->attr( 'timeZoneLabel' );
 
 if ( is_null( $time_zone_label ) ) {
-	$time_zone_label = Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
+	$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? $time_zone_label = Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
 }
 
 
