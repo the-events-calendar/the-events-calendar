@@ -7,22 +7,25 @@
 .tribe-events {
 
 	.tribe-events-c-ical__link {
-		align-items: center;
-		color: var(--color-accent-primary);
-		background-color: var(--color-background);
-		border: 1px solid var(--color-accent-primary);
-		border-radius: var(--border-radius-default);
-		color: var(--color-accent-primary);
-		font-weight: var(--font-weight-bold);
+
+		&,
+		&:visited {
+			align-items: center;
+			background-color: var(--tec-color-background);
+			border: 1px solid var(--tec-color-accent-primary);
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-color-accent-primary);
+			font-weight: var(--tec-font-weight-bold);
+		}
 
 		&:hover,
 		&:focus,
 		&:active {
-			color: var(--color-background);
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-accent-primary);
+			color: var(--tec-color-background);
 
 			.tribe-events-c-ical__link-icon-svg path {
-				stroke: var(--color-background);
+				stroke: var(--tec-color-background);
 			}
 		}
 	}
@@ -30,7 +33,7 @@
 	.tribe-events-c-ical__link-icon-svg {
 		display: block;
 		flex: none;
-		margin-right: var(--spacer-1);
+		margin-right: var(--tec-spacer-1);
 		width: 10px;
 
 		path {
@@ -48,7 +51,7 @@
 			&:hover,
 			&:focus,
 			&:active {
-				color: var(--color-background);
+				color: var(--tec-color-background);
 			}
 		}
 	}
@@ -58,12 +61,13 @@
 	 * ----------------------------------------------------------------------------- */
 
 	.tribe-theme-twentytwentyone & {
+
 		.tribe-events-c-ical__link {
+
 			&:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-				color: var(--color-background);
-				background-color: var(--color-accent-primary);
+				background-color: var(--tec-color-accent-primary);
+				color: var(--tec-color-background);
 			}
 		}
 	}
 }
-

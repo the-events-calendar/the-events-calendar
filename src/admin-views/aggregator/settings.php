@@ -379,7 +379,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'type'            => 'html',
 			'html'            => '<p>' . sprintf(
 				esc_html__(
-					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > APIs%2$s',
+					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > Integrations%2$s',
 					'the-events-calendar'
 				),
 				'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',

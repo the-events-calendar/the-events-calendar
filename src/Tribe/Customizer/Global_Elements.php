@@ -1,12 +1,11 @@
 <?php
 // Don't load directly.
-use Tribe\Customizer\Controls\Heading;
-use Tribe\Customizer\Controls\Separator;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe\Customizer\Controls\Heading;
+use Tribe\Customizer\Controls\Separator;
 /**
  * The Events Calendar Customizer Section Class
  * Global Elements

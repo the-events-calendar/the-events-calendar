@@ -19,7 +19,7 @@ jQuery( function( $ ) {
 		}
 
 		// "Soft failure"?
-		if ( 0 == response ) {
+		if ( 0 == response ) { // eslint-disable-line eqeqeq
 			failure();
 			return;
 		}
