@@ -98,7 +98,7 @@ extends Tribe__Editor__Blocks__Abstract {
 				],
 				'timeZoneLabel' => [
 					'type'    => 'string',
-					'default' => class_exists( 'Tribe__Timezones' ) ? Tribe__Timezones::wp_timezone_string() : get_option( 'timezone_string', 'UTC' ),
+					'default' => class_exists( 'Tribe__Timezones' ) ? Tribe__Events__Timezones::get_event_timezone_abbr( $event_id ) : get_option( 'timezone_string', 'UTC' ),
 				],
 				// Only available for classic users.
 				'cost'          => [
