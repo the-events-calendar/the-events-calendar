@@ -943,6 +943,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $label;
 		}
 
+		if ( 'Website' !== $label ) {
+			return $label;
+		}
+
 		return sprintf(
 			_x(
 				'View %s Website',
