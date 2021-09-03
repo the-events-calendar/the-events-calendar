@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [RBE] RBE = Switch this to TBD once b21.foret-noire goes live
+
+
+
 = [TBD] TBD =
 
 * Fix - Ensure that venue state or province are displayed next to the city in list view. [TEC-3332]
