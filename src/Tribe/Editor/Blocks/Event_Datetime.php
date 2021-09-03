@@ -55,10 +55,12 @@ extends Tribe__Editor__Blocks__Abstract {
 	 * Returns the block data for the block editor.
 	 *
 	 * @since 5.1.1
+	 * 
+	 * @param int $event_id The event post ID. Defaults to the current event.
 	 *
 	 * @return array<string,mixed> The block data for the editor.
 	 */
-	public function block_data() {
+	public function block_data( $event_id = null ) {
 		$block_data = [
 			'id'         => $this->slug(),
 			'attributes' => [
@@ -98,7 +100,7 @@ extends Tribe__Editor__Blocks__Abstract {
 				],
 				'timeZoneLabel' => [
 					'type'    => 'string',
-					'default' => class_exists( 'Tribe__Timezones' ) ? Tribe__Timezones::wp_timezone_string() : get_option( 'timezone_string', 'UTC' ),
+					'default' => class_exists( 'Tribe__Timezones' ) ? Tribe__Events__Timezones::get_event_timezone_abbr( $event_id ) : get_option( 'timezone_string', 'UTC' ),
 				],
 				// Only available for classic users.
 				'cost'          => [
