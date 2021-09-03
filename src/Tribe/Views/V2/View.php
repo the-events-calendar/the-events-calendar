@@ -1778,7 +1778,7 @@ class View implements View_Interface {
 		 */
 		$title = apply_filters( "tribe_events_views_v2_view_{$slug}_title", $title, $this );
 
-		return html_entity_decode($title, ENT_QUOTES);
+		return html_entity_decode( $title, ENT_QUOTES );
 	}
 
 	/**
