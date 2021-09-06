@@ -33,23 +33,6 @@
 	}
 }
 
-/* Theme specific overrides */
-
-/* Twenty-twenty-one theme */
-.tribe-theme-twentytwentyone .tribe-block__event-website a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-	background-color: var(--tec-color-link-accent);
-}
-
-/* Twenty-twenty theme */
-.tribe-theme-twentytwenty .tribe-block__event-website a {
-	font-size: 1.65rem;
-}
-
-/* Genesis */
-.tribe-theme-genesis .tribe-block__event-website a {
-	font-size: 1.65rem;
-}
-
 /* = Venue block view styles
 ============================================= */
 .tribe-block__venue {
@@ -122,124 +105,6 @@
 	}
 }
 
-/* Theme specific overrides */
-
-/* Twenty-twenty-one theme */
-.tribe-theme-twentytwentyone .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
-	color: var(--tec-color-link-accent);
-}
-
-/* Twenty-twenty theme */
-.tribe-theme-twentytwenty {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__address a,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				font-size: 1.65rem;
-			}
-
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
-		}
-	}
-}
-
-/* Twenty Seventeen */
-.tribe-theme-twentyseventeen {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
-		}
-	}
-}
-
-/* Divi */
-.tribe-theme-divi {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				padding-bottom: 0;
-			}
-
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
-		}
-	}
-}
-
-/* Genesis */
-.tribe-theme-genesis {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				font-size: 1.65rem;
-			}
-
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
-		}
-	}
-}
-
-/* Avada */
-.tribe-theme-avada {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			max-width: 80%;
-
-			@media screen and (min-width: 768px) {
-				max-width: 40%;
-			}
-
-			.tribe-block__venue__name {
-				.fusion-responsive-typography-calculated {
-					font-size: 1.2rem;
-					font-weight: normal;
-					letter-spacing: normal;
-				}
-			}
-
-			.tribe-block__venue__address a,
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
-		}
-
-		.tribe-block__venue__map {
-			@media screen and (min-width: 768px) {
-				max-width: 70%;
-			}
-		}
-	}
-}
-
-/* Enfold */
-.tribe-theme-enfold {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
-		}
-	}
-}
-
 /* = Organizer block view styles
 ============================================= */
 .tribe-block__organizer__details {
@@ -267,43 +132,6 @@
 		letter-spacing: normal;
 		line-height: 1.64;
 	}
-}
-
-/* Theme specific overrides */
-
-/* Twenty-twenty theme */
-.tribe-theme-twentytwenty {
-	.tribe-block__organizer__details {
-		h3,
-		p {
-			font-size: 1.65rem;
-		}
-	}
-}
-
-/* Divi */
-.tribe-theme-divi {
-	.tribe-block__organizer__details {
-		h3,
-		p {
-			padding-bottom: 0;
-		}
-	}
-}
-
-/* Genesis */
-.tribe-theme-genesis {
-	.tribe-block__organizer__details {
-		h3,
-		p {
-			font-size: 1.65rem;
-		}
-	}
-}
-
-/* Enfold */
-.tribe-theme-enfold .tribe-block__organizer__details h3 {
-	color: #334aff;
 }
 
 /* = Sharing block view styles
@@ -341,19 +169,189 @@
 	}
 }
 
-/* Theme specific overrides */
+/* = Theme specific overrides
+============================================= */
 
 /* Twenty-twenty-one theme */
-.tribe-theme-twentytwentyone .tribe-block__events-link .tribe-block__btn--link a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-	background-color: transparent;
+.tribe-theme-twentytwentyone {
+	/* Website block view styles */
+	.tribe-block__event-website a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+		background-color: var(--tec-color-link-accent);
+	}
+
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
+		color: var(--tec-color-link-accent);
+	}
+
+	/* Sharing block view styles */
+	.tribe-block__events-link .tribe-block__btn--link a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+		background-color: transparent;
+	}
 }
 
 /* Twenty-twenty theme */
-.tribe-theme-twentytwenty .tribe-block__events-link .tribe-block__btn--link a {
-	font-size: 1.65rem;
+.tribe-theme-twentytwenty {
+	/* Website block view styles */
+	.tribe-block__event-website a {
+		font-size: 1.65rem;
+	}
+
+	/* Venue block view styles */
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__address,
+			.tribe-block__venue__address a,
+			.tribe-block__venue__phone,
+			.tribe-block__venue__website {
+				font-size: 1.65rem;
+			}
+
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			font-size: 1.65rem;
+		}
+	}
+
+	/* Sharing block view styles */
+	.tribe-block__events-link .tribe-block__btn--link a {
+		font-size: 1.65rem;
+	}
 }
 
-/* Genesis */
-.tribe-theme-genesis .tribe-block__events-link .tribe-block__btn--link a {
-	font-size: 1.65rem;
+/* Twenty-seventeen theme */
+.tribe-theme-twentyseventeen {
+	/* Venue block view styles */
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+}
+
+/* Genesis theme */
+.tribe-theme-genesis {
+	/* Website block view styles */
+	.tribe-block__event-website a {
+		font-size: 1.65rem;
+	}
+
+	/* Venue block view styles */
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__address,
+			.tribe-block__venue__phone,
+			.tribe-block__venue__website {
+				font-size: 1.65rem;
+			}
+
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			font-size: 1.65rem;
+		}
+	}
+
+	/* Sharing block view styles */
+	.tribe-block__events-link .tribe-block__btn--link a {
+		font-size: 1.65rem;
+	}
+}
+
+/* Divi theme */
+.tribe-theme-divi {
+	/* Venue block view styles */
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__address,
+			.tribe-block__venue__phone,
+			.tribe-block__venue__website {
+				padding-bottom: 0;
+			}
+
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			padding-bottom: 0;
+		}
+	}
+}
+
+/* Avada theme */
+.tribe-theme-avada {
+	/* Venue block view styles */
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			max-width: 80%;
+
+			@media screen and (min-width: 768px) {
+				max-width: 40%;
+			}
+
+			.tribe-block__venue__name {
+				.fusion-responsive-typography-calculated {
+					font-size: 1.2rem;
+					font-weight: normal;
+					letter-spacing: normal;
+				}
+			}
+
+			.tribe-block__venue__address a,
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+
+		.tribe-block__venue__map {
+			@media screen and (min-width: 768px) {
+				max-width: 70%;
+			}
+		}
+	}
+}
+
+/* Enfold theme */
+.tribe-theme-enfold {
+	/* Venue block view styles */
+	.tribe-block__venue {
+		.tribe-block__venue__meta {
+			.tribe-block__venue__name h3,
+			.tribe-block__venue__website a {
+				color: var(--tec-color-link-accent);
+			}
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details h3 {
+		color: #334aff;
+	}
 }
