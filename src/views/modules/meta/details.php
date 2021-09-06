@@ -17,7 +17,7 @@ $event_id             = Tribe__Main::post_id_helper();
 $time_format          = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
 $time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
 $show_time_zone       = tribe_get_option( 'tribe_events_timezones_show_zone', false );
-$time_zone_label      = Tribe__Events__Timezones::is_mode( 'site' ) ? $time_zone_label = Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
+$time_zone_label      = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
 
 $start_datetime = tribe_get_start_date();
 $start_date = tribe_get_start_date( null, false );
