@@ -223,7 +223,14 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Updated swagger docs generated from swagger 2.0 to openapi 3.0.0
+* Feature - Updated swagger docs generated from swagger 2.0 to openapi 3.0.0
+* Fix - Ensure the correct timezone label is being displayed on the Classic and Block editors when site-wide timezone is set. [TEC-3791]
+* Fix - Ensure that venue state or province are displayed next to the city in list view. [TEC-3332]
+* Fix - Ensure the category archive event breadcrumb links to the main events page. [TEC-3330]
+* Fix - Ensure that the page title does not encode (em)dashes before passing it on. [TEC-4049]
+* Fix - Ensure that the page title does not encode apostrophes before passing it on. [TEC-4058]
+* Fix - Ensure that filter_single_event_details_event_website_label() only filters the label for the website field. [ECP-921]
+* Tweak - remove unused template file to avoid confusion.
 
 = [5.9.0] 2021-08-24 =
 
@@ -236,6 +243,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
 * Tweak - Support optionally passing start dates to the Event Edit page so targeted event creation can be triggered by The Events Calendar Pro's Event Manager.
 * Language - 16 new strings added, 429 updated, 0 fuzzied, and 0 obsoleted
+
 
 = [5.8.2] 2021-08-17 =
 

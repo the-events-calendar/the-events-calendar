@@ -1778,7 +1778,7 @@ class View implements View_Interface {
 		 */
 		$title = apply_filters( "tribe_events_views_v2_view_{$slug}_title", $title, $this );
 
-		return htmlspecialchars_decode($title);
+		return html_entity_decode( $title, ENT_QUOTES );
 	}
 
 	/**
@@ -1965,7 +1965,7 @@ class View implements View_Interface {
 				$label = $term->name;
 
 				$breadcrumbs[] = [
-					'link'  => $this->get_today_url( true ),
+					'link'  => tribe_events_get_url(),
 					'label' => tribe_get_event_label_plural(),
 				];
 				$breadcrumbs[] = [
