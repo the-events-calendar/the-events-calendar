@@ -437,6 +437,21 @@ class Assets extends \tad_DI52_ServiceProvider {
 				],
 			]
 		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-v2-single-blocks-reskin',
+			'tribe-events-single-blocks-reskin.css',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'groups'       => [ static::$single_group_key ],
+				'conditionals' => [
+					[ $this, 'should_enqueue_block_editor_single_event_reskin_styles' ],
+				],
+			]
+		);
 	}
 
 	/**
@@ -560,6 +575,32 @@ class Assets extends \tad_DI52_ServiceProvider {
 			tribe( 'editor' )->is_events_using_blocks()
 			&& has_blocks( get_queried_object_id() )
 		) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks if we are on V2, on Event Single and if we are using the Block Editor in order to enqueue the block editor reskin styles for Single Event.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public function should_enqueue_block_editor_single_event_reskin_styles() {
+		// Bail if not Single Event V2.
+		if ( ! tribe_events_single_view_v2_is_enabled() ) {
+			return false;
+		}
+
+		// Bail if not Single Event.
+		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
+			return false;
+		}
+
+		// Bail if not Block Editor.
+		if ( ! tribe( 'editor' )->is_events_using_blocks() && ! has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
 
