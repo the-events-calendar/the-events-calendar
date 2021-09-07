@@ -106,9 +106,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
-		$POST_defaults = [ 'in' => 'formData', 'default' => '', 'type' => 'string' ];
-		$post_args = array_merge( $this->READ_args(), $this->CREATE_args() );
+		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'type' => 'string' ];
+		$post_args = $this->CREATE_args();
 
 		return [
 			'get'    => [
@@ -116,8 +115,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns the data of the event with the specified post ID', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Event',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Event',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -132,19 +135,27 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				],
 			],
 			'post'   => [
-				'consumes'   => [ 'application/x-www-form-urlencoded' ],
-				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), [] ),
+				'requestBody' => $this->swaggerize_post_args( 'application/x-www-form-urlencoded', $post_args ),
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns the data of the updated event', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Event',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Event',
+								]
+							]
 						],
 					],
 					'201' => [
 						'description' => __( 'Returns the data of the created event', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Event',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Event',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -160,8 +171,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Deletes an event and returns its data', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Event',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Event',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -329,12 +344,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'required'     => false,
 				'default'      => null,
 				'swagger_type' => 'array',
+				'items'        => [ 'type' => 'integer' ],
 				'description'  => __( 'The event category ID or name', 'the-events-calendar' ),
 			],
 			'tags'               => [
 				'required'     => false,
 				'default'      => null,
 				'swagger_type' => 'array',
+				'items'        => [ 'type' => 'integer' ],
 				'description'  => __( 'The event tag ID or name', 'the-events-calendar' ),
 			],
 			// Linked Posts

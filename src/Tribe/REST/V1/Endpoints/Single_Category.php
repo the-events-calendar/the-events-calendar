@@ -70,8 +70,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns the data of the event category with the specified term ID', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Term',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Term',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -83,19 +87,27 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 				],
 			],
 			'post'   => [
-				'consumes'   => [ 'application/x-www-form-urlencoded' ],
-				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), [] ),
+				'requestBody' => $this->swaggerize_post_args( 'application/x-www-form-urlencoded', $post_args ),
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns the data of the updated event category', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Term',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Term',
+								]
+							]
 						],
 					],
 					'201' => [
 						'description' => __( 'Returns the data of the created event category', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Term',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Term',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -111,8 +123,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Category
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Deletes an event category and returns its data', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Term',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Term',
+								]
+							]
 						],
 					],
 					'400' => [

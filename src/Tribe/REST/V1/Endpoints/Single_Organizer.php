@@ -120,7 +120,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 */
 	public function get_documentation() {
 		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
-		$POST_defaults = [ 'in' => 'formData', 'default' => '', 'type' => 'string' ];
 		$post_args     = array_merge( $this->READ_args(), $this->CREATE_args() );
 
 		return [
@@ -129,8 +128,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns the data of the organizer with the specified post ID', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Organizer',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Organizer',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -145,13 +148,17 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				],
 			],
 			'post'   => [
-				'consumes'   => [ 'application/x-www-form-urlencoded' ],
-				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), [] ),
+				'requestBody' => $this->swaggerize_post_args( 'application/x-www-form-urlencoded', $post_args ),
 				'responses'  => [
 					'201' => [
 						'description' => __( 'Returns the data of the created organizer', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Organizer',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Organizer',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -167,8 +174,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Deletes an organizer and returns its data', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Organizer',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Organizer',
+								]
+							]
 						],
 					],
 					'400' => [
