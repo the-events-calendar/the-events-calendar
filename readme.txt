@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Updated swagger docs generated from swagger 2.0 to openapi 3.0.0
+
 = [5.9.0] 2021-08-24 =
 
 * Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
