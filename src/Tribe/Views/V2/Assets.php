@@ -442,7 +442,9 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-v2-single-blocks',
 			'tribe-events-single-blocks.css',
-			[],
+			[
+				'tribe-common-full-style'
+			],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
