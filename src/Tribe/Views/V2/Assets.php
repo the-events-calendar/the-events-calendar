@@ -440,15 +440,15 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-v2-single-blocks-reskin',
-			'tribe-events-single-blocks-reskin.css',
+			'tribe-events-v2-single-blocks',
+			'tribe-events-single-blocks.css',
 			[],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
 				'groups'       => [ static::$single_group_key ],
 				'conditionals' => [
-					[ $this, 'should_enqueue_block_editor_single_event_reskin_styles' ],
+					[ $this, 'should_enqueue_single_event_block_editor_styles' ],
 				],
 			]
 		);
@@ -588,7 +588,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return boolean
 	 */
-	public function should_enqueue_block_editor_single_event_reskin_styles() {
+	public function should_enqueue_single_event_block_editor_styles() {
 		// Bail if not Single Event V2.
 		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
@@ -600,7 +600,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		}
 
 		// Bail if not Block Editor.
-		if ( ! tribe( 'editor' )->is_events_using_blocks() && ! has_blocks( get_queried_object_id() ) ) {
+		if ( ! has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
 
