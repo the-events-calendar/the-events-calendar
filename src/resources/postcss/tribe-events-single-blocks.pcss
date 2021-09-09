@@ -1,0 +1,47 @@
+/**
+ * Block editor event single v2 reskin
+ *
+ * @since TBD
+ */
+
+/* = Website block view styles
+============================================= */
+.tribe-block__event-website {
+	padding: 20px 0;
+
+	a {
+		background-color: var(--tec-color-link-accent);
+		border: none;
+		border-radius: 4px;
+		font-size: 1.125rem;
+		font-weight: var(--tec-font-weight-bold);
+		min-height: 40px;
+		padding: 0 20px;
+
+		#tribe-events-content & {
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				color: var(--tec-color-background);
+			}
+		}
+	}
+}
+
+/* Theme specific overrides */
+
+/* Twenty-twenty-one theme */
+.tribe-theme-twentytwentyone .tribe-block__event-website a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+	background-color: var(--tec-color-link-accent);
+}
+
+/* Twenty-twenty theme */
+.tribe-theme-twentytwenty .tribe-block__event-website a {
+	font-size: 1.65rem;
+}
+
+/* Genesis */
+.tribe-theme-genesis .tribe-block__event-website a {
+	font-size: 1.65rem;
+}
