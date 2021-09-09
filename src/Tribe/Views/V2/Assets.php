@@ -602,7 +602,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		}
 
 		// Bail if not Block Editor.
-		if ( ! has_blocks( get_queried_object_id() ) ) {
+		if ( ! tribe( 'editor' )->is_events_using_blocks() && ! has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
 
