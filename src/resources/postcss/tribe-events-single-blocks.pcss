@@ -63,11 +63,10 @@
 
 		.tribe-block__venue__meta,
 		.tribe-block__venue__map {
-			flex-basis: 100%;
+			flex: none;
 			width: 100%;
 
-			@media screen and (min-width: 768px) {
-				flex: none;
+			@media screen and (min-width: 768px) {				
 				width: 50%;
 			}
 		}
@@ -110,7 +109,7 @@
 		.tribe-block__venue__address,
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
-			color: #141827;
+			color: var(--tec-color-text-primary);
 			font-weight: normal;
 			letter-spacing: normal;
 			line-height: 1.64;
