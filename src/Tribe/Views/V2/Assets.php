@@ -444,7 +444,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-single-blocks.css',
 			[
 				'tec-variables-full',
-				'tec-variables-skeleton'
+				'tec-variables-skeleton',
 			],
 			'wp_enqueue_scripts',
 			[
