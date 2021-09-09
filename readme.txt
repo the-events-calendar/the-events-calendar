@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Tweak - Improve the look and feel of the single events page when using the block editor. [TEC-3979]
+
 = [5.9.0] 2021-08-24 =
 
 * Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
