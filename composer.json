@@ -9,6 +9,7 @@
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "require-dev": {
+    "bordoni/phpass": "dev-main",
     "automattic/vipwpcs": "^2.0",
     "codeception/module-asserts": "^1.0",
     "codeception/module-cli": "^1.0",
