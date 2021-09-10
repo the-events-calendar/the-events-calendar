@@ -443,7 +443,8 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'tribe-events-v2-single-blocks',
 			'tribe-events-single-blocks.css',
 			[
-				'tribe-common-full-style'
+				'tec-variables-full',
+				'tec-variables-skeleton',
 			],
 			'wp_enqueue_scripts',
 			[
@@ -602,7 +603,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		}
 
 		// Bail if not Block Editor.
-		if ( ! has_blocks( get_queried_object_id() ) ) {
+		if ( ! tribe( 'editor' )->is_events_using_blocks() && ! has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
 
