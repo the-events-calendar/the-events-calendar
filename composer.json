@@ -64,6 +64,12 @@
       "type": "github",
       "url": "https://github.com/the-events-calendar/TribalScents",
       "no-api": true
+    },
+    {
+      "name": "bordoni/phpass",
+      "type": "github",
+      "url": "https://github.com/bordoni/phpass",
+      "no-api": true
     }
   ],
   "require": {
