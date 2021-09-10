@@ -21,7 +21,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
-    "lucatume/wp-browser": "^2.6.17",
+    "lucatume/wp-browser": "^3.0.9",
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
     "the-events-calendar/tribalscents": "dev-master",
@@ -32,7 +32,7 @@
     "wp-coding-standards/wpcs": "^2.1",
     "vlucas/phpdotenv": "^4.1"
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist",
@@ -62,6 +62,12 @@
       "name": "the-events-calendar/TribalScents",
       "type": "github",
       "url": "https://github.com/the-events-calendar/TribalScents",
+      "no-api": true
+    },
+    {
+      "name": "bordoni/phpass",
+      "type": "github",
+      "url": "https://github.com/bordoni/phpass",
       "no-api": true
     }
   ],
