@@ -119,12 +119,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @since bucket/full-rest-api
 	 */
 	public function get_documentation() {
-		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
+		$get_defaults  = $delete_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
 		$post_args     = array_merge( $this->READ_args(), $this->CREATE_args() );
 
 		return [
 			'get'    => [
-				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), $get_defaults ),
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns the data of the organizer with the specified post ID', 'the-events-calendar' ),
@@ -170,7 +170,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				],
 			],
 			'delete' => [
-				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
+				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $delete_defaults ),
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Deletes an organizer and returns its data', 'the-events-calendar' ),

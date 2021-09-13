@@ -24,8 +24,10 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 	/**
 	 * Returns a swagger structured array for the `requestBody` field.
+	 *
 	 * @param string $contentType The Content-Type header.
 	 * @param array $args
+	 * @since TBD
 	 *
 	 * @return array
 	 */
