@@ -34,21 +34,20 @@ $use_yearless_format = apply_filters( 'tribe_events_event_block_datetime_use_yea
 	$event
 );
 
-$time_format    = tribe_get_time_format();
-$date_format    = tribe_get_date_format( ! $use_yearless_format );
-$timezone       = get_post_meta( $event_id, '_EventTimezone', true );
-$show_time_zone = $this->attr( 'showTimeZone' );
+$time_format      = tribe_get_time_format();
+$date_format      = tribe_get_date_format( ! $use_yearless_format );
+$timezone         = get_post_meta( $event_id, '_EventTimezone', true );
+$show_time_zone   = $this->attr( 'showTimeZone' );
+$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
+$time_zone_label  = $this->attr( 'timeZoneLabel' );
 
 if ( is_null( $show_time_zone ) ) {
 	$show_time_zone = tribe_get_option( 'tribe_events_timezones_show_zone', false );
 }
 
-$time_zone_label = $this->attr( 'timeZoneLabel' );
-
 if ( is_null( $time_zone_label ) ) {
 	$time_zone_label = Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
 }
-
 
 $formatted_start_date = tribe_get_start_date( $event_id, false, $date_format );
 $formatted_start_time = tribe_get_start_time( $event_id, $time_format );
