@@ -4,6 +4,13 @@
  * @since TBD
  */
 
+/* = Event title
+============================================= */
+.single-tribe_events .tribe-blocks-editor .tribe-events-single-event-title {
+	font-size: revert;
+	line-height: revert;
+}
+
 /* = Website block view styles
 ============================================= */
 .tribe-block__event-website {
@@ -27,23 +34,6 @@
 			}
 		}
 	}
-}
-
-/* Theme specific overrides */
-
-/* Twenty-twenty-one theme */
-.tribe-theme-twentytwentyone .tribe-block__event-website a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-	background-color: var(--tec-color-link-accent);
-}
-
-/* Twenty-twenty theme */
-.tribe-theme-twentytwenty .tribe-block__event-website a {
-	font-size: 1.65rem;
-}
-
-/* Genesis */
-.tribe-theme-genesis .tribe-block__event-website a {
-	font-size: 1.65rem;
 }
 
 /* = Venue block view styles
@@ -117,88 +107,243 @@
 	}
 }
 
-/* Theme specific overrides */
+/* = Organizer block view styles
+============================================= */
+.tribe-block__organizer__details {
+	border-top: 1px solid var(--tec-color-border-default);
+	padding: 22.5px 0;
+
+	@media screen and (min-width: 768px) {
+		padding: 32px 0;
+	}
+
+	h3 {
+		font-size: 1rem;
+		font-weight: normal;
+		letter-spacing: normal;
+		line-height: 1.64;
+
+		a {
+			color: var(--tec-color-link-accent);
+		}
+	}
+
+	p {
+		color: var(--tec-color-text-primary);
+		font-size: 1rem;
+		letter-spacing: normal;
+		line-height: 1.64;
+	}
+}
+
+/* = Sharing block view styles
+============================================= */
+.tribe-block__events-link {
+	padding: 20px 0;
+
+	.tribe-block__btn--link {
+
+		&:before {
+			content: url("data:image/svg+xml,%3Csvg width='25' height='19' viewBox='0 0 25 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0.431057V17.5689C0 17.807 0.162753 18 0.363518 18H17.6365C17.8372 18 18 17.807 18 17.5689V13.0039H18.0005V8.01562H18V0.431057C18 0.192991 17.8372 0 17.6365 0H0.363518C0.162753 0 0 0.192991 0 0.431057ZM18 8.01562H16.9855V4.6875H0.990723V16.7571H16.9855V13.0039H18V8.01562ZM0.990723 1.23926H16.9855V3.55366H0.990723V1.23926Z' fill='%23141827'/%3E%3Cpath d='M22.918 10.5003L9.2067 10.5002' stroke='%23141827' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M20.6947 7.24467L23.9466 10.5174L20.7341 13.73' stroke='%23141827' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+			margin: 5px 5px 0 0;
+		}
+
+		a {
+			background-color: transparent;
+			border: none;
+			color: var(--tec-color-link-accent);
+			font-weight: normal;
+			margin: 10px 15px 10px 0;
+			min-height: revert;
+			padding: 0;
+
+			&:before {
+				color: var(--tec-color-link-accent);
+				content: '+';
+				margin-right: 3px;
+			}
+		}
+
+		img {
+			display: none;
+		}
+	}
+}
+
+/* = Price block view styles
+============================================= */
+.tribe-block__event-price {
+	padding: 20px 0 10px;
+}
+
+/* = Theme specific overrides
+============================================= */
 
 /* Twenty-twenty-one theme */
-.tribe-theme-twentytwentyone .tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
-	color: var(--tec-color-link-accent);
+.tribe-theme-twentytwentyone {
+	/* Website block view styles */
+	.tribe-block__event-website a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+		background-color: var(--tec-color-link-accent);
+	}
+
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
+		color: var(--tec-color-link-accent);
+	}
+
+	/* Sharing block view styles */
+	.tribe-block__events-link .tribe-block__btn--link a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+		background-color: transparent;
+	}
+
+	/* Price block view styles */
+	.tribe-block__event-price .tribe-block__event-price__description {
+		font-size: 1.2rem;
+	}
 }
 
 /* Twenty-twenty theme */
 .tribe-theme-twentytwenty {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__address a,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				font-size: 1.65rem;
-			}
+	/* Website block view styles */
+	.tribe-block__event-website a {
+		font-size: 1.65rem;
+	}
 
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta {
+		.tribe-block__venue__name h3,
+		.tribe-block__venue__address,
+		.tribe-block__venue__address a,
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			font-size: 1.65rem;
+		}
+
+		.tribe-block__venue__website a {
+			color: var(--tec-color-link-accent);
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			font-size: 1.65rem;
+		}
+	}
+
+	/* Sharing block view styles */
+	.tribe-block__events-link .tribe-block__btn--link a {
+		font-size: 1.65rem;
+	}
+
+	/* Price block view styles */
+	.tribe-block__event-price {
+		.tribe-block__event-price__cost {
+			font-size: 1.65rem;
+		}
+
+		.tribe-block__event-price__description {
+			font-size: 1.65rem;
 		}
 	}
 }
 
-/* Twenty Seventeen */
+/* Twenty-seventeen theme */
 .tribe-theme-twentyseventeen {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta {
+		.tribe-block__venue__name h3,
+		.tribe-block__venue__website a {
+			color: var(--tec-color-link-accent);
 		}
 	}
 }
 
-/* Divi */
-.tribe-theme-divi {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				padding-bottom: 0;
-			}
-
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
-		}
-	}
-}
-
-/* Genesis */
+/* Genesis theme */
 .tribe-theme-genesis {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__address,
-			.tribe-block__venue__phone,
-			.tribe-block__venue__website {
-				font-size: 1.65rem;
-			}
+	/* Website block view styles */
+	.tribe-block__event-website a {
+		font-size: 1.65rem;
+	}
 
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta {
+		.tribe-block__venue__name h3,
+		.tribe-block__venue__address,
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			font-size: 1.65rem;
+		}
+
+		.tribe-block__venue__website a {
+			color: var(--tec-color-link-accent);
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			font-size: 1.65rem;
+		}
+	}
+
+	/* Sharing block view styles */
+	.tribe-block__events-link .tribe-block__btn--link a {
+		font-size: 1.65rem;
+	}
+
+	/* Price block view styles */
+	.tribe-block__event-price {
+
+		.tribe-block__event-price__cost {
+			font-size: 1.65rem;
+		}
+
+		.tribe-block__event-price__description {
+			font-size: 1.65rem;
+		}
+	}
+}
+
+/* Divi theme */
+.tribe-theme-divi {
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta {
+		.tribe-block__venue__name h3,
+		.tribe-block__venue__address,
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			padding-bottom: 0;
+		}
+
+		.tribe-block__venue__website a {
+			color: var(--tec-color-link-accent);
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			padding-bottom: 0;
 		}
 	}
 }
 
 /* Enfold */
 .tribe-theme-enfold {
-	.tribe-block__venue {
-		.tribe-block__venue__meta {
-			.tribe-block__venue__name h3,
-			.tribe-block__venue__website a {
-				color: var(--tec-color-link-accent);
-			}
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta {
+		.tribe-block__venue__name h3,
+		.tribe-block__venue__website a {
+			color: var(--tec-color-link-accent);
 		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details h3 {
+		color: var(--tec-color-accent-primary);
 	}
 }
