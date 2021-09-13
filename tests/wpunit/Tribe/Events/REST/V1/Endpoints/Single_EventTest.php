@@ -293,7 +293,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			[
 				'name'        => 'id',
 				'in'          => 'path',
-				'schema'      => ['type' => 'integer'],
+				'schema'      => [ 'type' => 'integer' ],
 				'description' => 'No description',
 				'required'    => true,
 			],

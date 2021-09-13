@@ -23,8 +23,8 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
-	 * Returns a swagger structured array for the `requestBody` field
-	 * @param string $contentType The Content-Type header
+	 * Returns a swagger structured array for the `requestBody` field.
+	 * @param string $contentType The Content-Type header.
 	 * @param array $args
 	 *
 	 * @return array
@@ -44,7 +44,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			}
 
 			$type = $this->convert_type( $type );
-			$read = [ 'type' => $type];
+			$read = [ 'type' => $type ];
 
 			if(isset( $arg['description'] )) {
 				$read['description'] = $arg['description'];
@@ -115,12 +115,12 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 				'required'         => isset( $info['required'] ) ? $info['required'] : false,
 			];
 
-			if(isset( $info['items'] )) {
+			if ( isset( $info['items'] ) ) {
 				$read['schema']['items'] = $info['items'];
 			}
 
-			if(isset($info['collectionFormat']) && $info['collectionFormat'] === 'csv') {
-				$read['style'] = 'form';
+			if ( isset( $info['collectionFormat'] ) && $info['collectionFormat'] === 'csv' ) {
+				$read['style']   = 'form';
 				$read['explode'] = false;
 			}
 
@@ -130,9 +130,9 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 			// Copy in case we need to mutate default values for this field in args
 			$defaultsCopy = $defaults;
-			unset($defaultsCopy['default']);
-			unset($defaultsCopy['items']);
-			unset($defaultsCopy['type']);
+			unset( $defaultsCopy['default'] );
+			unset( $defaultsCopy['items'] );
+			unset( $defaultsCopy['type'] );
 
 			$swaggerized[] = array_merge( $defaultsCopy, array_filter( $read ) );
 		}

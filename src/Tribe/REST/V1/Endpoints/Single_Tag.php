@@ -80,7 +80,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 				],
 			],
 			'post'   => [
-				'parameters' => $this->swaggerize_args( $this->READ_args(), [] ),
+				'parameters'  => $this->swaggerize_args( $this->READ_args(), [] ),
 				'requestBody' => $this->swaggerize_post_args( 'application/x-www-form-urlencoded', $post_args ),
 				'responses'  => [
 					'200' => [

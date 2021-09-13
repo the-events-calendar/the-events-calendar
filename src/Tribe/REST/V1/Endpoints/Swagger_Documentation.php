@@ -64,7 +64,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 		$documentation = [
 			'openapi'     => $this->swagger_version,
 			'info'        => $this->get_api_info(),
-			'components' => ['schemas' => $this->get_definitions()],
+			'components'  => ['schemas' => $this->get_definitions()],
 			'servers'     => [
 				[
 					'url' => $scheme."://".parse_url( home_url(), PHP_URL_HOST ).str_replace( home_url(), '', tribe_events_rest_url() ),

@@ -302,7 +302,7 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 			[
 				'name'        => 'slug',
 				'in'          => 'path',
-				'schema'      => ['type'        => 'string'],
+				'schema'      => [ 'type' => 'string' ],
 				'description' => 'No description',
 				'required'    => true,
 			],

@@ -106,7 +106,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
-		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'type' => 'string' ];
+		$get_defaults  = $delete_defaults = [ 'in' => 'query', 'type' => 'string' ];
 		$post_args = $this->CREATE_args();
 
 		return [
@@ -135,7 +135,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				],
 			],
 			'post'   => [
-				'parameters' => $this->swaggerize_args( $this->READ_args(), [] ),
+				'parameters'  => $this->swaggerize_args( $this->READ_args(), [] ),
 				'requestBody' => $this->swaggerize_post_args( 'application/x-www-form-urlencoded', $post_args ),
 				'responses'  => [
 					'200' => [
