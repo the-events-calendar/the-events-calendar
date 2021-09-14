@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.18
-Stable tag: 5.9.0
-Tested up to: 5.8.0
+Stable tag: 5.9.1
+Tested up to: 5.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.9.1] 2021-09-14 =
 
 * Fix - Initialize $local_time_zone to ensure we don't have notices displayed in the frontend. [TEC-3791]
 * Fix - Ensure the correct timezone label is being displayed on the Classic and Block editors when site-wide timezone is set. [TEC-3791]
@@ -230,7 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the page title does not encode (em)dashes before passing it on. [TEC-4049]
 * Fix - Ensure that the page title does not encode apostrophes before passing it on. [TEC-4058]
 * Fix - Ensure that filter_single_event_details_event_website_label() only filters the label for the website field. [ECP-921]
-* Tweak - remove unused template file to avoid confusion.
+* Tweak - Remove unused template file to avoid confusion.
 
 = [5.9.0] 2021-08-24 =
 
