@@ -155,6 +155,10 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	private function bind_implementations() {
+		// Register this provider to make it easy to get hold of it.
+		$this->container->singleton( 'tec.custom-tables.v1.provider', $this );
+		$this->container->singleton( self::class, self::class );
+
 		$this->container->singleton( Tables::class, Tables::class );
 		$this->container->singleton( Migration::class, Migration::class );
 		$this->container->singleton( Notices::class, Notices::class );
