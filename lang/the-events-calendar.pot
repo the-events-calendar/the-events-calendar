@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.9.0\n"
+"Project-Id-Version: The Events Calendar 5.9.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2021-08-24 02:35:49+00:00\n"
+"POT-Creation-Date: 2021-09-14 04:33:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-08-24 02:35\n"
+"PO-Revision-Date: 2021-09-14 04:33\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -776,8 +776,8 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/List_Table.php:548
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:48
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:80
-#: src/views/blocks/parts/details.php:77 src/views/blocks/parts/details.php:103
-#: src/views/modules/meta/details.php:71 src/views/modules/meta/details.php:96
+#: src/views/blocks/parts/details.php:78 src/views/blocks/parts/details.php:104
+#: src/views/modules/meta/details.php:72 src/views/modules/meta/details.php:97
 msgid "Start:"
 msgstr ""
 
@@ -2715,13 +2715,13 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.0)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.0)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.1)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Main.php:988 src/Tribe/Main.php:1491 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
-#: src/functions/template-tags/general.php:1528 the-events-calendar.php:56
+#: src/functions/template-tags/general.php:1528 the-events-calendar.php:55
 msgid "The Events Calendar"
 msgstr ""
 
@@ -5096,17 +5096,17 @@ msgstr ""
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:947
+#: src/Tribe/Views/V2/Hooks.php:951
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:975
+#: src/Tribe/Views/V2/Hooks.php:979
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1003
+#: src/Tribe/Views/V2/Hooks.php:1007
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
@@ -6560,7 +6560,7 @@ msgstr ""
 #: src/functions/template-tags/link.php:456
 #: src/functions/template-tags/organizer.php:480
 #: src/functions/template-tags/venue.php:817
-#: src/views/blocks/parts/details.php:173
+#: src/views/blocks/parts/details.php:174
 #: src/views/blocks/parts/organizer.php:80
 msgid "Website:"
 msgstr ""
@@ -6716,8 +6716,8 @@ msgid "After cost"
 msgstr ""
 
 #: src/admin-views/events-meta-box.php:261
-#: src/views/blocks/parts/details.php:144
-#: src/views/modules/meta/details.php:138
+#: src/views/blocks/parts/details.php:145
+#: src/views/modules/meta/details.php:139
 msgid "Cost:"
 msgstr ""
 
@@ -7597,22 +7597,22 @@ msgstr ""
 
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:57
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:89
-#: src/views/blocks/parts/details.php:83 src/views/blocks/parts/details.php:111
-#: src/views/modules/meta/details.php:76 src/views/modules/meta/details.php:104
+#: src/views/blocks/parts/details.php:84 src/views/blocks/parts/details.php:112
+#: src/views/modules/meta/details.php:77 src/views/modules/meta/details.php:105
 msgid "End:"
 msgstr ""
 
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:68
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:100
-#: src/views/blocks/parts/details.php:93 src/views/blocks/parts/details.php:124
-#: src/views/modules/meta/details.php:86 src/views/modules/meta/details.php:117
+#: src/views/blocks/parts/details.php:94 src/views/blocks/parts/details.php:125
+#: src/views/modules/meta/details.php:87 src/views/modules/meta/details.php:118
 msgid "Date:"
 msgstr ""
 
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:111
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:122
 #: src/views/blocks/classic-event-details.php:52
-#: src/views/blocks/parts/details.php:53 src/views/modules/meta/details.php:53
+#: src/views/blocks/parts/details.php:54 src/views/modules/meta/details.php:54
 msgid "Time:"
 msgstr ""
 
@@ -7858,7 +7858,7 @@ msgctxt "Address separator"
 msgid ", "
 msgstr ""
 
-#: src/views/blocks/event-datetime.php:87
+#: src/views/blocks/event-datetime.php:86
 #: src/views/v2/month/mobile-events/mobile-day/mobile-event/date.php:30
 msgid "All day"
 msgstr ""
@@ -7867,13 +7867,13 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: src/views/blocks/parts/details.php:62 src/views/modules/meta/details.php:61
+#: src/views/blocks/parts/details.php:63 src/views/modules/meta/details.php:62
 msgid "Details"
 msgstr ""
 
 #. Translators: %s: Event (singular)
-#: src/views/blocks/parts/details.php:166
-#: src/views/modules/meta/details.php:160
+#: src/views/blocks/parts/details.php:167
+#: src/views/modules/meta/details.php:161
 msgid "%s Tags:"
 msgstr ""
 
