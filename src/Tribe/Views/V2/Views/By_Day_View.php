@@ -10,7 +10,6 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use DateTimeInterface;
-use iCalTec\Views\V2\By_Day_View_Compatibility;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Utils\Stack;
@@ -249,7 +248,7 @@ abstract class By_Day_View extends View {
 			 *                                                  will represent the Event ID, start date, end date and
 			 *                                                  timezone.
 			 * @param array<int>                $view_event_ids The set of Event Post IDs to build and format the Day
-			 * @param By_Day_View_Compatibility $this           A reference to the `By_Day_View` instance that is applying the
+			 * @param By_Day_View               $this           A reference to the `By_Day_View` instance that is applying the
 			 *                                                  filter.
 			 */
 			$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
