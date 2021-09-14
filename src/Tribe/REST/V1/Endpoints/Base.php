@@ -25,10 +25,12 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	/**
 	 * Returns a swagger structured array for the `requestBody` field.
 	 *
-	 * @param string $contentType The Content-Type header.
-	 * @param array $args The Tribe__REST__Endpoints__READ_Endpoint_Interface structured args
+	 * @param string              $contentType The Content-Type header.
+	 * @param array<string|mixed> $args The provided post args.
+	 *
 	 * @since TBD
-	 * @return array The transformed swagger `requestBody` array
+	 *
+	 * @return array<string|mixed> The array of arguments for the swagger `requestBody` field.
 	 */
 	public function swaggerize_post_args( $contentType, array $args ) {
 
