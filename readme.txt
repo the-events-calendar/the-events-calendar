@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the page title does not encode apostrophes before passing it on. [TEC-4058]
 * Fix - Ensure that filter_single_event_details_event_website_label() only filters the label for the website field. [ECP-921]
 * Tweak - Remove unused template file to avoid confusion.
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.9.0] 2021-08-24 =
 
@@ -243,7 +244,6 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
 * Tweak - Support optionally passing start dates to the Event Edit page so targeted event creation can be triggered by The Events Calendar Pro's Event Manager.
 * Language - 16 new strings added, 429 updated, 0 fuzzied, and 0 obsoleted
-
 
 = [5.8.2] 2021-08-17 =
 
