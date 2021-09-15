@@ -46,7 +46,7 @@ if ( is_null( $show_time_zone ) ) {
 }
 
 if ( is_null( $time_zone_label ) ) {
-	$time_zone_label = Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
+	$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
 }
 
 $formatted_start_date = tribe_get_start_date( $event_id, false, $date_format );
