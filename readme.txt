@@ -232,7 +232,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the page title does not encode (em)dashes before passing it on. [TEC-4049]
 * Fix - Ensure that the page title does not encode apostrophes before passing it on. [TEC-4058]
 * Fix - Ensure that filter_single_event_details_event_website_label() only filters the label for the website field. [ECP-921]
-* Tweak - remove unused template file to avoid confusion.
 * Tweak - Remove unused template file to avoid confusion.
 * Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted
 
