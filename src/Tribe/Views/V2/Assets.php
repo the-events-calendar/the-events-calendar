@@ -447,7 +447,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			],
 			'wp_enqueue_scripts',
 			[
-				'priority'     => 10,
+				'priority'     => 15,
 				'groups'       => [ static::$single_group_key ],
 				'conditionals' => [
 					[ $this, 'should_enqueue_single_event_block_editor_styles' ],
