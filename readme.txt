@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.18
-Stable tag: 5.9.0
-Tested up to: 5.8.0
+Stable tag: 5.9.1
+Tested up to: 5.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,15 +221,20 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [RBE] RBE = Switch this to TBD once b21.foret-noire goes live
+= [RBE] RBE = Switch this to TBD once we're close to release.
 
 
+= [5.9.1] 2021-09-14 =
 
-= [TBD] TBD =
-
+* Fix - Initialize $local_time_zone to ensure we don't have notices displayed in the frontend. [TEC-3791]
+* Fix - Ensure the correct timezone label is being displayed on the Classic and Block editors when site-wide timezone is set. [TEC-3791]
 * Fix - Ensure that venue state or province are displayed next to the city in list view. [TEC-3332]
 * Fix - Ensure the category archive event breadcrumb links to the main events page. [TEC-3330]
-* Tweak - remove unused template file to avoid confusion.
+* Fix - Ensure that the page title does not encode (em)dashes before passing it on. [TEC-4049]
+* Fix - Ensure that the page title does not encode apostrophes before passing it on. [TEC-4058]
+* Fix - Ensure that filter_single_event_details_event_website_label() only filters the label for the website field. [ECP-921]
+* Tweak - Remove unused template file to avoid confusion.
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.9.0] 2021-08-24 =
 
@@ -242,7 +247,6 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
 * Tweak - Support optionally passing start dates to the Event Edit page so targeted event creation can be triggered by The Events Calendar Pro's Event Manager.
 * Language - 16 new strings added, 429 updated, 0 fuzzied, and 0 obsoleted
-
 
 = [5.8.2] 2021-08-17 =
 
