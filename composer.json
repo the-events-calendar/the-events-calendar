@@ -9,6 +9,7 @@
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "require-dev": {
+    "bordoni/phpass": "dev-main",
     "automattic/vipwpcs": "^2.0",
     "codeception/module-asserts": "^1.0",
     "codeception/module-cli": "^1.0",
@@ -62,6 +63,12 @@
       "name": "the-events-calendar/TribalScents",
       "type": "github",
       "url": "https://github.com/the-events-calendar/TribalScents",
+      "no-api": true
+    },
+    {
+      "name": "bordoni/phpass",
+      "type": "github",
+      "url": "https://github.com/bordoni/phpass",
       "no-api": true
     }
   ],
