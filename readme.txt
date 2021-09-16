@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Tweak - Improve the look and feel of the single events page when using the block editor. [TEC-3979]
+
 = [5.9.1] 2021-09-14 =
 
 * Fix - Initialize $local_time_zone to ensure we don't have notices displayed in the frontend. [TEC-3791]
