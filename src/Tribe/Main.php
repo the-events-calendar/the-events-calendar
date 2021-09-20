@@ -593,9 +593,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Purge Expired events
 			tribe_singleton( 'tec.event-cleaner', new Tribe__Events__Event_Cleaner() );
 
-			// Gutenberg Extension
-			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', [ 'hook' ] );
-
 			// Admin Notices
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', [ 'hook' ] );
@@ -963,7 +960,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.assets' );
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
-			tribe( 'tec.gutenberg' );
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
@@ -3868,7 +3864,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'normal',
 					'high',
 					[
-							'__back_compat_meta_box' => tribe( 'tec.gutenberg' )->should_display() || ! class_exists( 'Tribe__Events__Pro__Main' ),
+							'__back_compat_meta_box' => ! class_exists( 'Tribe__Events__Pro__Main' ),
 					]
 			);
 

@@ -16,7 +16,6 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'admin_init', [ $this, 'deactivate_gutenberg_extension_plugin' ] );
 		add_action( 'tribe_editor_classic_is_active', [ $this, 'filter_is_classic_editor' ] );
 	}
 
@@ -26,9 +25,12 @@ class Tribe__Events__Editor__Compatibility {
 	 *
 	 * @since 4.7
 	 *
+	 * @deprecated TBD
+	 *
 	 * @return void
 	 */
 	public function deactivate_gutenberg_extension_plugin() {
+		_deprecated_function( __METHOD__, 'TBD', 'This extension has been integrated into TEC/Common' );
 		if ( ! class_exists( 'Tribe__Gutenberg__Plugin' ) ) {
 			return false;
 		}

@@ -46,10 +46,10 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 	do_action( 'tribe_events_eventform_top', $event->ID );
 	?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
-		<?php if ( tribe( 'tec.gutenberg' )->should_display() || tribe( 'tec.gutenberg' )->is_classic_editor_page() ) : ?>
+		<?php if ( ! tribe( 'editor' )->should_load_blocks() ) : ?>
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<div class="tribe_sectionheader" style="">
+				<div class="tribe_sectionheader">
 					<h4><?php esc_html_e( 'Time &amp; Date', 'the-events-calendar' ); ?></h4></div>
 			</td>
 		</tr>
@@ -72,7 +72,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 						<td colspan='2'><?php printf( esc_html__( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'the-events-calendar' ), $events_label_singular_lowercase, $events_label_plural_lowercase ); ?></td>
 					</tr>
 
-					<?php if ( tribe( 'tec.gutenberg' )->should_display() || tribe( 'tec.gutenberg' )->is_classic_editor_page()  ) : ?>
+					<?php if ( ! tribe( 'editor' )->should_load_blocks()  ) : ?>
 
 					<tr>
 						<td class="tribe-datetime-label"><?php esc_html_e( 'Start/End:', 'the-events-calendar' ); ?></td>
@@ -177,7 +177,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 		</tr>
 	</table>
 
-	<?php if ( tribe( 'tec.gutenberg' )->should_display() || tribe( 'tec.gutenberg' )->is_classic_editor_page()  ) : ?>
+	<?php if ( ! tribe( 'editor' )->should_load_blocks()  ) : ?>
 
 	<?php Tribe__Events__Linked_Posts::instance()->render_meta_box_sections( $event ); ?>
 
