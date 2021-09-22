@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Improve the look and feel of the single events page when using the block editor. [TEC-3979]
+* Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
 
 = [5.9.1] 2021-09-14 =
 
