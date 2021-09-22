@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure that the proper spacing is applied for the venue address in list view. [BTRIA-1006]
+
 = [5.9.1] 2021-09-14 =
 
 * Fix - Initialize $local_time_zone to ensure we don't have notices displayed in the frontend. [TEC-3791]
