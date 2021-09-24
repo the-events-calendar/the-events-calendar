@@ -14,13 +14,14 @@
 /* = Website block view styles
 ============================================= */
 .tribe-block__event-website {
+	font-family: var(--tec-font-family-sans-serif);
 	padding: 20px 0;
 
 	a {
 		background-color: var(--tec-color-accent-primary);
 		border: none;
 		border-radius: 4px;
-		font-size: 1.125rem;
+		font-size: var(--tec-font-size-3);
 		font-weight: var(--tec-font-weight-bold);
 		min-height: 40px;
 		padding: 0 20px;
@@ -41,6 +42,7 @@
 .tribe-block__venue {
 	border-top: 1px solid var(--tec-color-border-default);
 	flex-direction: column-reverse;
+	font-family: var(--tec-font-family-sans-serif);
 	justify-content: flex-start;
 	padding: 22.5px 0;
 
@@ -63,6 +65,7 @@
 
 		.tribe-block__venue__meta {
 			@media screen and (min-width: 1200px) {
+				margin-right: 20px;
 				width: 35%;
 			}
 		}
@@ -78,7 +81,7 @@
 		.tribe-block__venue__name {
 
 			h3 {
-				font-size: 1rem;
+				font-size: var(--tec-font-size-3);
 				font-weight: normal;
 				letter-spacing: normal;
 				line-height: 1.64;
@@ -117,6 +120,7 @@
 ============================================= */
 .tribe-block__organizer__details {
 	border-top: 1px solid var(--tec-color-border-default);
+	font-family: var(--tec-font-family-sans-serif);
 	padding: 22.5px 0;
 
 	@media screen and (min-width: 768px) {
@@ -124,7 +128,7 @@
 	}
 
 	h3 {
-		font-size: 1rem;
+		font-size: var(--tec-font-size-3);
 		font-weight: normal;
 		letter-spacing: normal;
 		line-height: 1.64;
@@ -136,7 +140,7 @@
 
 	p {
 		color: var(--tec-color-text-primary);
-		font-size: 1rem;
+		font-size: var(--tec-font-size-3);
 		letter-spacing: normal;
 		line-height: 1.64;
 	}
@@ -145,6 +149,7 @@
 /* = Sharing block view styles
 ============================================= */
 .tribe-block__events-link {
+	font-family: var(--tec-font-family-sans-serif);
 	padding: 20px 0;
 
 	.tribe-block__btn--link {
@@ -180,7 +185,16 @@
 /* = Price block view styles
 ============================================= */
 .tribe-block__event-price {
+	font-family: var(--tec-font-family-sans-serif);
 	padding: 20px 0 10px;
+
+	.tribe-block__event-price__cost {
+		font-size: var(--tec-font-size-3);
+	}
+
+	.tribe-block__event-price__description {
+		font-size: var(--tec-font-size-3);
+	}
 }
 
 /* = Recurring event label
@@ -189,6 +203,7 @@
 	background-color: var(--tec-color-background-secondary);
 	border-radius: 40px;
 	display: inline-flex;
+	font-family: var(--tec-font-family-sans-serif);
 	min-height: 40px;
 	padding: 0 13px 0 10px;
 	position: relative;
@@ -210,14 +225,14 @@
 
 	span {
 		color: var(--tec-color-text-primary);
-		font-size: 1rem;
+		font-size: var(--tec-font-size-3);
 		font-weight: 700;
 		padding-left: 30px;
 	}
 
 	a {
 		color: var(--tec-color-link-accent);
-		font-size: 1rem;
+		font-size: var(--tec-font-size-3);
 	}
 }
 
@@ -227,31 +242,12 @@
 /* Twenty-twenty-one theme */
 .tribe-theme-twentytwentyone {
 	/* Website block view styles */
-	.tribe-block__event-website a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-		background-color: var(--tec-color-link-accent);
-	}
-
-	/* Venue block view styles */
-	.tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
-		color: var(--tec-color-link-accent);
-	}
-
-	/* Sharing block view styles */
-	.tribe-block__events-link .tribe-block__btn--link a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-		background-color: transparent;
-	}
-
-	/* Price block view styles */
-	.tribe-block__event-price .tribe-block__event-price__description {
-		font-size: 1.2rem;
-	}
-}
-
-/* Twenty-twenty theme */
-.tribe-theme-twentytwenty {
-	/* Website block view styles */
 	.tribe-block__event-website a {
-		font-size: 1.65rem;
+		font-size: var(--tec-font-size-4);
+
+		&:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+			background-color: var(--tec-color-accent-primary);
+		}
 	}
 
 	/* Venue block view styles */
@@ -261,7 +257,7 @@
 		.tribe-block__venue__address a,
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
-			font-size: 1.65rem;
+			font-size: var(--tec-font-size-4);
 		}
 
 		.tribe-block__venue__website a {
@@ -273,32 +269,71 @@
 	.tribe-block__organizer__details {
 		h3,
 		p {
-			font-size: 1.65rem;
+			font-size: var(--tec-font-size-4);
 		}
 	}
 
 	/* Sharing block view styles */
 	.tribe-block__events-link .tribe-block__btn--link a {
-		font-size: 1.65rem;
+		font-size: var(--tec-font-size-4);
+
+		&:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+			background-color: transparent;
+		}
 	}
 
 	/* Price block view styles */
-	.tribe-block__event-price {
-		.tribe-block__event-price__cost {
-			font-size: 1.65rem;
+	.tribe-block__event-price__cost {
+		font-size: var(--tec-font-size-4);
+	}
+
+	.tribe-block__event-price__description {
+		font-size: var(--tec-font-size-4);
+	}
+}
+
+/* Twenty-twenty theme */
+.tribe-theme-twentytwenty {
+	/* Website block view styles */
+	.tribe-block__event-website a {
+		font-size: var(--tec-font-size-4);
+	}
+
+	/* Venue block view styles */
+	.tribe-block__venue .tribe-block__venue__meta {
+		.tribe-block__venue__name h3,
+		.tribe-block__venue__address,
+		.tribe-block__venue__address a,
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			font-size: var(--tec-font-size-4);
 		}
 
-		.tribe-block__event-price__description {
-			font-size: 1.65rem;
+		.tribe-block__venue__website a {
+			color: var(--tec-color-link-accent);
 		}
 	}
 
-	/* Recurring event label */
-	.tribe-blocks-editor .tribe-events-single-event-recurrence-description {
-		span,
-		a {
-			font-size: 1.65rem;
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			font-size: var(--tec-font-size-4);
 		}
+	}
+
+	/* Sharing block view styles */
+	.tribe-block__events-link .tribe-block__btn--link a {
+		font-size: var(--tec-font-size-4);
+	}
+
+	/* Price block view styles */
+	.tribe-block__event-price__cost {
+		font-size: var(--tec-font-size-4);
+	}
+
+	.tribe-block__event-price__description {
+		font-size: var(--tec-font-size-4);
 	}
 }
 
@@ -317,7 +352,7 @@
 .tribe-theme-genesis {
 	/* Website block view styles */
 	.tribe-block__event-website a {
-		font-size: 1.65rem;
+		font-size: var(--tec-font-size-4);
 	}
 
 	/* Venue block view styles */
@@ -326,7 +361,7 @@
 		.tribe-block__venue__address,
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
-			font-size: 1.65rem;
+			font-size: var(--tec-font-size-4);
 		}
 
 		.tribe-block__venue__website a {
@@ -338,33 +373,22 @@
 	.tribe-block__organizer__details {
 		h3,
 		p {
-			font-size: 1.65rem;
+			font-size: var(--tec-font-size-4);
 		}
 	}
 
 	/* Sharing block view styles */
 	.tribe-block__events-link .tribe-block__btn--link a {
-		font-size: 1.65rem;
+		font-size: var(--tec-font-size-4);
 	}
 
 	/* Price block view styles */
-	.tribe-block__event-price {
-
-		.tribe-block__event-price__cost {
-			font-size: 1.65rem;
-		}
-
-		.tribe-block__event-price__description {
-			font-size: 1.65rem;
-		}
+	.tribe-block__event-price__cost {
+		font-size: var(--tec-font-size-4);
 	}
 
-	/* Recurring event label */
-	.tribe-blocks-editor .tribe-events-single-event-recurrence-description {
-		span,
-		a {
-			font-size: 1.65rem;
-		}
+	.tribe-block__event-price__description {
+		font-size: var(--tec-font-size-4);
 	}
 }
 
