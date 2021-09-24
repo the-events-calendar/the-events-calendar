@@ -65,6 +65,7 @@
 
 		.tribe-block__venue__meta {
 			@media screen and (min-width: 1200px) {
+				margin-right: 20px;
 				width: 35%;
 			}
 		}
@@ -241,18 +242,53 @@
 /* Twenty-twenty-one theme */
 .tribe-theme-twentytwentyone {
 	/* Website block view styles */
-	.tribe-block__event-website a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-		background-color: var(--tec-color-accent-primary);
+	.tribe-block__event-website a {
+		font-size: var(--tec-font-size-4);
+
+		&:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+			background-color: var(--tec-color-accent-primary);
+		}
 	}
 
 	/* Venue block view styles */
-	.tribe-block__venue .tribe-block__venue__meta .tribe-block__venue__website a {
-		color: var(--tec-color-link-accent);
+	.tribe-block__venue .tribe-block__venue__meta {
+		.tribe-block__venue__name h3,
+		.tribe-block__venue__address,
+		.tribe-block__venue__address a,
+		.tribe-block__venue__phone,
+		.tribe-block__venue__website {
+			font-size: var(--tec-font-size-4);
+		}
+
+		.tribe-block__venue__website a {
+			color: var(--tec-color-link-accent);
+		}
+	}
+
+	/* Organizer block view styles */
+	.tribe-block__organizer__details {
+		h3,
+		p {
+			font-size: var(--tec-font-size-4);
+		}
 	}
 
 	/* Sharing block view styles */
-	.tribe-block__events-link .tribe-block__btn--link a:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
-		background-color: transparent;
+	.tribe-block__events-link .tribe-block__btn--link a {
+		font-size: var(--tec-font-size-4);
+
+		&:focus:not(.wp-block-button__link):not(.wp-block-file__button) {
+			background-color: transparent;
+		}
+	}
+
+	/* Price block view styles */
+	.tribe-block__event-price__cost {
+		font-size: var(--tec-font-size-4);
+	}
+
+	.tribe-block__event-price__description {
+		font-size: var(--tec-font-size-4);
 	}
 }
 
