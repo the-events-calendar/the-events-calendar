@@ -7,6 +7,15 @@
 class Tribe__Events__Editor__Compatibility {
 
 	/**
+	 * Key we store the toggle under in the tribe_events_calendar_options array.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $blocks_editor_key = 'toggle_blocks_editor';
+
+	/**
 	 * Any hooking any class needs happen here.
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
@@ -153,5 +162,4 @@ class Tribe__Events__Editor__Compatibility {
 
 		return Tribe__Main::array_insert_before_key( $insert_before, $fields, $insert_data );
 	}
-
 }

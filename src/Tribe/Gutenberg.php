@@ -1,5 +1,5 @@
 <?php
-
+_deprecated_file( __FILE__, 'TBD', 'Tribe__Editor' );
 
 class Tribe__Events__Gutenberg {
 	/**
@@ -17,7 +17,7 @@ class Tribe__Events__Gutenberg {
 		}
 
 		// Bail if Gutenberg is not active
-		if ( ! tribe( 'editor' )->is_gutenberg_active() || ! tribe( 'editor' )->is_blocks_editor_active() ) {
+		if ( ! tribe( 'editor' )->should_load_blocks() ) {
 			return;
 		}
 	}
@@ -82,7 +82,7 @@ class Tribe__Events__Gutenberg {
 	public function should_display() {
 		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor instead.' );
 		// Hide when all of these three are active
-		return ! ( tribe( 'editor' )->is_gutenberg_active() && $this->is_extension_active() && tribe( 'editor' )->is_blocks_editor_active() );
+		return ! ( tribe( 'editor' )->should_load_blocks() );
 	}
 
 	/**
