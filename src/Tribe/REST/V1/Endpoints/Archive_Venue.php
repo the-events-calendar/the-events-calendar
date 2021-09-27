@@ -56,7 +56,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 								'schema' => [
 									'title' => 'venues',
 									'type'  => 'array',
-									'items' => ['$ref' => '#/components/schemas/Venue'],
+									'items' => [ '$ref' => '#/components/schemas/Venue' ],
 								]
 							]
 						],

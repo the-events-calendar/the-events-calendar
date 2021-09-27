@@ -49,14 +49,14 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			$type = $this->convert_type( $type );
 			$read = [ 'type' => $type ];
 
-			if(isset( $arg['description'] )) {
+			if ( isset( $arg['description'] ) ) {
 				$read['description'] = $arg['description'];
 			}
-			if(isset( $arg['items'] )) {
+			if ( isset( $arg['items'] ) ) {
 				$read['items'] = $arg['items'];
 			}
 
-			$swaggerized[$name] = array_merge( $defaults,  $read );
+			$swaggerized[ $name ] = array_merge( $defaults,  $read );
 		}
 
 		return [
