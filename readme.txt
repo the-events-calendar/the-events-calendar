@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Improve the look and feel of the single events page when using the block editor. [TEC-3979]
+* Tweak - Improve the look and feel of the single events page when using the block editor. These changes can be bypassed by adding the following constant to the wp-config file, define( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED', true ); [TEC-3979]
 
 = [5.9.1] 2021-09-14 =
 
