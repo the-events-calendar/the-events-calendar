@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Ensure the day view on mobile displays the not found message when no events are present on mobile layout. [TEC-3944]
 * Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
 
 = [5.9.1] 2021-09-14 =
