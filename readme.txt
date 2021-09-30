@@ -228,6 +228,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.9.1] 2021-09-14 =
 
+* Feature - Updated swagger docs generated from swagger 2.0 to openapi 3.0.0
 * Fix - Initialize $local_time_zone to ensure we don't have notices displayed in the frontend. [TEC-3791]
 * Fix - Ensure the correct timezone label is being displayed on the Classic and Block editors when site-wide timezone is set. [TEC-3791]
 * Fix - Ensure that venue state or province are displayed next to the city in list view. [TEC-3332]
