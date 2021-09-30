@@ -6,6 +6,7 @@ import { values, noop, isArray, isEmpty, get } from 'lodash';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Iframe from 'react-iframe';
 
 /**
  * WordPress dependencies
@@ -333,8 +334,8 @@ export default class GoogleMap extends Component {
 			return this.renderInteractive();
 		}
 
-		if ( interactive ) {
-			return this.renderInteractive();
+		if ( ! interactive ) {
+			return this.renderIframe();
 		}
 
 		return this.renderImage();
@@ -364,6 +365,16 @@ export default class GoogleMap extends Component {
 					<Spinner />
 				</div>
 			</section>
+		);
+	}
+
+	renderIframe() {
+		return (
+			<Iframe 
+				url="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d65369183.36050215!2d0!3d0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1633005420084!5m2!1sen!2sus"
+				width="450px"
+				height="300px"
+			/>
 		);
 	}
 
