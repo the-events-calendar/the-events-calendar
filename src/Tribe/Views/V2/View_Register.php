@@ -151,13 +151,14 @@ class View_Register {
 	 * Add the required bases for the Summary View.
 	 *
 	 * @since 5.7.0
+	 * @since TBD Using the decoupled route slug.
 	 *
 	 * @param array $bases Bases that are already set.
 	 *
 	 * @return array         The modified version of the array of bases.
 	 */
 	public function filter_add_matchers_to_query_vars_map( $matchers = [], $rewrite = null ) {
-		$matchers[ $this->slug ] = 'eventDisplay';
+		$matchers[ $this->route_slug ] = 'eventDisplay';
 
 		return $matchers;
 	}
