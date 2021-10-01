@@ -96,21 +96,24 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @since bucket/full-rest-api
 	 */
 	public function get_documentation() {
-		$GET_defaults  = $DELETE_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
-		$POST_defaults = [ 'in' => 'formData', 'default' => '', 'type' => 'string' ];
-		$post_args     = array_merge( $this->READ_args(), $this->CREATE_args() );
+		$get_defaults  = $delete_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
+		$post_args     = $this->CREATE_args();
 
 		return [
 			'get'    => [
-				'parameters' => $this->swaggerize_args( $this->READ_args(), $GET_defaults ),
+				'parameters' => $this->swaggerize_args( $this->READ_args(), $get_defaults ),
 				'responses'  => [
 					'200' => [
 						'description' => __(
 							'Returns the data of the venue with the specified post ID',
 							'the-events-calendar'
 						),
-						'schema'      => [
-							'$ref' => '#/definitions/Venue',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Venue',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -131,19 +134,27 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 				],
 			],
 			'post'   => [
-				'consumes'   => [ 'application/x-www-form-urlencoded' ],
-				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
+				'parameters'  => $this->swaggerize_args( $this->READ_args(), [] ),
+				'requestBody' => $this->swaggerize_post_args( 'application/x-www-form-urlencoded', $post_args ),
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns the data of the updated venue', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Venue',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Venue',
+								]
+							]
 						],
 					],
 					'201' => [
 						'description' => __( 'Returns the data of the created venue', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Venue',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Venue',
+								]
+							]
 						],
 					],
 					'400' => [
@@ -158,12 +169,16 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 				],
 			],
 			'delete' => [
-				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $DELETE_defaults ),
+				'parameters' => $this->swaggerize_args( $this->DELETE_args(), $delete_defaults ),
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Deletes a venue and returns its data', 'the-events-calendar' ),
-						'schema'      => [
-							'$ref' => '#/definitions/Venue',
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'$ref' => '#/components/schemas/Venue',
+								]
+							]
 						],
 					],
 					'400' => [
