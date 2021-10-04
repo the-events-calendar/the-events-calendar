@@ -283,7 +283,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$args = [
 			'id' => [
 				'in'                => 'path',
-				'swagger_type'              => 'integer',
+				'swagger_type'      => 'integer',
 				'required'          => true,
 				'validate_callback' => [ $this->validator, 'is_event_id' ]
 			],
@@ -293,14 +293,13 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			[
 				'name'        => 'id',
 				'in'          => 'path',
-				'type'        => 'integer',
+				'schema'      => [ 'type' => 'integer' ],
 				'description' => 'No description',
 				'required'    => true,
-				'default'     => 'foo',
 			],
 		];
 
-		$this->assertEqualSets( $expected, $sut->swaggerize_args( $args, [ 'description' => 'No description', 'default' => 'foo' ] ) );
+		$this->assertEqualSets( $expected, $sut->swaggerize_args( $args, [ 'description' => 'No description' ] ) );
 	}
 
 	/**

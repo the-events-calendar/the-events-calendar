@@ -184,6 +184,9 @@ class Rest_Endpoint {
 				       && wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
 			},
 			'callback'            => static function ( Request $request ) {
+				if ( ! headers_sent() ) {
+					header( 'Content-Type: text/html; charset=' . esc_attr( get_bloginfo( 'charset' ) ) );
+				}
 				View::make_for_rest( $request )->send_html();
 			},
 			'args'                => $this->get_request_arguments(),

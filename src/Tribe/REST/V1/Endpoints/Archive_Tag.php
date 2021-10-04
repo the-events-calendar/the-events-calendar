@@ -43,10 +43,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Tag
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns all the event tags matching the search criteria', 'the-events-calendar' ),
-						'schema'      => [
-							'title' => $this->get_data_key(),
-							'type'  => 'array',
-							'items' => [ '$ref' => '#/definitions/Term' ],
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'title' => $this->get_data_key(),
+									'type'  => 'array',
+									'items' => [ '$ref' => '#/components/schemas/Term' ],
+								]
+							]
 						],
 					],
 					'400' => [
