@@ -17,13 +17,13 @@
 				/* Customizer-added Events Bar styles */
 				--tec-color-text-events-bar-input: #8224e3;
 --tec-color-text-events-bar-input-placeholder: #8224e3;
---tec-opacity-events-bar-input-placeholder: .6;
+--tec-opacity-events-bar-input-placeholder: 0.6;
 --tec-color-text-view-selector-list-item: #8224e3;
 --tec-color-text-view-selector-list-item-hover: #8224e3;
---tec-color-background-view-selector-list-item-hover: rgba(130,36,227,0.12);
+--tec-color-background-view-selector-list-item-hover: rgba(130,36,227, 0.12);
 --tec-color-background-events-bar-submit-button: #dd3333;
---tec-color-background-events-bar-submit-button-hover: rgba(221,51,51,0.8);
---tec-color-background-events-bar-submit-button-active: rgba(221,51,51,0.9);
+--tec-color-background-events-bar-submit-button-hover: rgba(221,51,51, 0.8);
+--tec-color-background-events-bar-submit-button-active: rgba(221,51,51, 0.9);
 --tec-color-border-events-bar: #8224e3;
 			}:root {
 				/* Customizer-added Single Event styles */
@@ -55,13 +55,13 @@
 				/* Customizer-added Events Bar styles */
 				--tec-color-text-events-bar-input: #8224e3;
 --tec-color-text-events-bar-input-placeholder: #8224e3;
---tec-opacity-events-bar-input-placeholder: .6;
+--tec-opacity-events-bar-input-placeholder: 0.6;
 --tec-color-text-view-selector-list-item: #8224e3;
 --tec-color-text-view-selector-list-item-hover: #8224e3;
---tec-color-background-view-selector-list-item-hover: rgba(130,36,227,0.12);
+--tec-color-background-view-selector-list-item-hover: rgba(130,36,227, 0.12);
 --tec-color-background-events-bar-submit-button: #dd3333;
---tec-color-background-events-bar-submit-button-hover: rgba(221,51,51,0.8);
---tec-color-background-events-bar-submit-button-active: rgba(221,51,51,0.9);
+--tec-color-background-events-bar-submit-button-hover: rgba(221,51,51, 0.8);
+--tec-color-background-events-bar-submit-button-active: rgba(221,51,51, 0.9);
 --tec-color-border-events-bar: #8224e3;
 			}:root {
 				/* Customizer-added Single Event styles */

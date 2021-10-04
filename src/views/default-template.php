@@ -23,8 +23,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $classes = apply_filters( 'tribe_default_events_template_classes', [ 'tribe-events-pg-template' ] );
 
-get_header();
+/**
+ * Set this to an empty string in case it is not defined.
+ * Specifically for the two hooks below.
+ *
+ * @since 5.9.0
+ */
+$eventDisplay = isset( $eventDisplay ) ? $eventDisplay : '';
 
+
+get_header();
 /**
  * Provides an action that allows for the injection of HTML at the top of the template after the header.
  *

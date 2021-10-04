@@ -51,11 +51,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns all the venues matching the search criteria', 'the-events-calendar' ),
-						'schema'      => array(
-							'title' => 'venues',
-							'type'  => 'array',
-							'items' => array( '$ref' => '#/definitions/Venue' ),
-						),
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'title' => 'venues',
+									'type'  => 'array',
+									'items' => [ '$ref' => '#/components/schemas/Venue' ],
+								]
+							]
+						],
 					),
 					'400' => array(
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),

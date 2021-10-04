@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 4.9.16
-Stable tag: 5.9.0
-Tested up to: 5.8.0
+Requires at least: 4.9.18
+Stable tag: 5.9.1
+Tested up to: 5.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,18 +221,56 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.9.0] TBD =
+= [TBD] TBD =
 
+* Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
 
+= [5.9.1] 2021-09-14 =
+
+* Feature - Updated swagger docs generated from swagger 2.0 to openapi 3.0.0
+* Fix - Initialize $local_time_zone to ensure we don't have notices displayed in the frontend. [TEC-3791]
+* Fix - Ensure the correct timezone label is being displayed on the Classic and Block editors when site-wide timezone is set. [TEC-3791]
+* Fix - Ensure that venue state or province are displayed next to the city in list view. [TEC-3332]
+* Fix - Ensure the category archive event breadcrumb links to the main events page. [TEC-3330]
+* Fix - Ensure that the page title does not encode (em)dashes before passing it on. [TEC-4049]
+* Fix - Ensure that the page title does not encode apostrophes before passing it on. [TEC-4058]
+* Fix - Ensure that filter_single_event_details_event_website_label() only filters the label for the website field. [ECP-921]
+* Tweak - Remove unused template file to avoid confusion.
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.9.0] 2021-08-24 =
+
+* Fix - Ensure that $eventDisplay is defined before we use it in the default template. [TEC-4060]
+* Feature - Alter Customizer to leverage the new exposed CSS custom properties. [TCMN-104]
+* Feature - Reduce the CSS load of The Events Calendar Customizer style overrides. [TEC-3011]
+* Feature - Allow easier style overrides by users and third-party themes/plugins. [TEC-3011]
+* Feature - Add new Font Sections to Customizer -> The Events Calendar -> Global Events. [TEC-3872]
+* Feature - Add new font family control to allow The Events Calendar styles to inherit theme fonts. [TEC-3895]
+* Feature - Add new font size controls for accessibility and to allow users to more closely match the font sizes of their theme. [TEC-3891]
+* Tweak - Support optionally passing start dates to the Event Edit page so targeted event creation can be triggered by The Events Calendar Pro's Event Manager.
+* Language - 16 new strings added, 429 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.8.2] 2021-08-17 =
+
+* Feature - Redesign In-App help and troubleshooting pages. [TEC-3741]
+* Fix - Try to ensure that when we do an event search the query post type remains `tribe_events`. [TEC-4012]
+* Fix - Ensure the year is displayed in the block editor event single page for events that are occurring in a different year from the current one. [TEC-3740]
+* Fix - Fix the issue of the Event Date Time block Timezone dropdown taking up a lot of space. [TEC-4029]
+* Fix - Ensure WPML translated event posts show up on translated venue and organizer pages. (props @NicoX13) [TEC-4036]
+* Fix - Fix issue of month names not being translatable. This was caused by a missing moment js localization dependency. [ECP-739]
+* Fix - Ensure we test the value of tribe_events_get_current_month_day() before using it. [ECP-912]
+* Fix - Add a new function to add "Event Blocks" category to the editor for WP >= 5.8. [TEC-4037]
+* Tweak - Change label of API Settings tab to "Integrations" and alter helper text. [TEC-4015]
+* Language - 2 new strings added, 251 updated, 1 fuzzied, and 18 obsoleted
 
 = [5.8.1] 2021-07-20 =
 
+* Fix - Ensure that the Block Editor saves cost data when submitted. [TEC-3987]
+* Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
 * Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
 * Tweak - Add CSS class to the event tags label on the event details section on the single event page. [TEC-3951]
 * Tweak - Correct the messaging and link for the v1 deprecation notice. [TEC-3958]
 * Tweak - Include filter to allow modifications to the Grid query for By Day Views like Month and Week, `tribe_events_views_v2_by_day_view_day_repository`
-* Fix - Ensure that the Block Editor saves cost data when submitted. [TEC-3987]
-* Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
 * Language - 5 new strings added, 26 updated, 2 fuzzied, and 5 obsoleted
 
 = [5.8.0] 2021-07-01 =

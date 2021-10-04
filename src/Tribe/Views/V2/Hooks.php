@@ -857,14 +857,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Adds new Global Elements settings via the hook in common.
 	 *
 	 * @since 5.3.1
-	 * @deprecated TBD
+	 * @deprecated 5.9.0
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
 	 * @param \Tribe__Customizer          $customizer The Customizer object.
 	 */
 	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '5.9.0' );
 		tribe( 'customizer' )->include_global_elements_settings( $section, $manager, $customizer );
 	}
 
@@ -872,14 +872,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Adds new Single Event settings via the hook in common.
 	 *
 	 * @since 5.3.1
-	 * @deprecated TBD
+	 * @deprecated 5.9.0
 	 *
 	 * @param \Tribe__Customizer__Section $section    The Single Event Customizer section.
 	 * @param WP_Customize_Manager        $manager    The settings manager.
 	 * @param \Tribe__Customizer          $customizer The Customizer object.
 	 */
 	public function action_include_single_event_settings( $section, $manager, $customizer ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '5.9.0' );
 		tribe( 'customizer' )->include_single_event_settings( $section, $manager, $customizer );
 	}
 
@@ -887,7 +887,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
 	 * @since 5.3.1
-	 * @deprecated TBD
+	 * @deprecated 5.9.0
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
@@ -896,7 +896,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_global_elements_css_template( $css_template, $section ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '5.9.0' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}
@@ -908,7 +908,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
 	 *
 	 * @since 5.3.1
-	 * @deprecated TBD
+	 * @deprecated 5.9.0
 	 *
 	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
 	 * @param \Tribe__Customizer__Section $section      The Single Event section.
@@ -917,7 +917,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_single_event_css_template( $css_template, $section ) {
-		_deprecated_function(__METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '5.9.0' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
 			return $css_template;
 		}
@@ -940,6 +940,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function filter_single_event_details_event_website_label( $label, $post_id = null ) {
 		// If not V2 or not Classic Editor, return the website url.
 		if ( $this->is_v1_or_blocks( $post_id ) ) {
+			return $label;
+		}
+
+		if ( 'Website' !== $label ) {
 			return $label;
 		}
 

@@ -2,7 +2,7 @@
 /**
  * Handles notices having to do with Customizer.
  *
- * TBD
+ * 5.9.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2\Customizer;
 /**
  * Class Notice
  *
- * @since TBD
+ * @since 5.9.0
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
@@ -21,7 +21,7 @@ class Notice {
 	/**
 	 * Extension hooks and initialization; exits if the extension is not authorized by Tribe Common to run.
 	 *
-	 * @since  TBD
+	 * @since  5.9.0
 	 */
 	public function hook() {
 		tribe_notice(
@@ -40,7 +40,7 @@ class Notice {
 	/**
 	 * Checks if we have the TEC Inherit Theme Fonts Extension active
 	 *
-	 * @since  TBD
+	 * @since  5.9.0
 	 *
 	 * @return boolean
 	 */
@@ -71,20 +71,20 @@ class Notice {
 	/**
 	 * HTML for the notice.
 	 *
-	 * @since  TBD
+	 * @since  5.9.0
 	 *
 	 * @return string
 	 */
 	public function display_notice() {
-		$path = 'plugins.php#deactivate-the-events-calendar-extension-inherit-theme-fonts';
-
+		/* translators: 1: opening <a> tag, 2: closing </a> tag. */
 		return sprintf(
-			__(
-				'You are using the Inherit Theme Fonts extension. Font control is now built into <a href="%1$s" target="_blank">%2$s</a> Please disable the Inherit Theme Fonts extension to prevent conflicts with The Events Calendar.',
+			esc_html_x(
+				'You are using the Inherit Theme Fonts extension. Font control is now built into %1$sThe Events Calendar\'s options in the WordPress Customizer.%2$s Please disable the Inherit Theme Fonts extension to prevent conflicts with The Events Calendar.',
+				'A link telling users to disable an extension that may conflict.',
 				'the-events-calendar'
 			),
-			'https://evnt.is/1ast',
-			esc_html__( "The Events Calendar's options in the WordPress Customizer.", 'the-events-calendar' )
-		);
+			'<a href="https://evnt.is/1ast" target="_blank">',
+			'</a>'
+);
 	}
 }

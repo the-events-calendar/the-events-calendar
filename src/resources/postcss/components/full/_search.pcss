@@ -47,11 +47,8 @@
 
 		.tribe-common--breakpoint-medium& {
 			border-right: 1px solid var(--tec-color-border-events-bar);
-		}
 
-		&:last-child {
-
-			.tribe-common--breakpoint-medium& {
+			&:last-child {
 				border-right: 0;
 			}
 		}
@@ -97,6 +94,22 @@
 		}
 	}
 
+	.tribe-events-c-search__button {
+		background-color: var(--tec-color-background-events-bar-submit-button);
+		color: var(--tec-color-text-events-bar-submit-button);
+
+		&:focus,
+		&:hover {
+			background-color: var(--tec-color-background-events-bar-submit-button-hover);
+			color: var(--tec-color-text-events-bar-submit-button-hover);
+		}
+
+		&:active {
+			background-color: var(--tec-color-background-events-bar-submit-button-active);
+			color: var(--tec-color-text-events-bar-submit-button-active);
+		}
+	}
+
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search: Theme Overrides
@@ -111,6 +124,64 @@
 
 		.tribe-events-c-search__input {
 			background-color: var(--tec-background-color);
+		}
+
+		.tribe-events-c-search__button {
+			background-color: var(--tec-color-background-events-bar-submit-button);
+			color: var(--tec-color-text-events-bar-submit-button);
+
+			&:focus,
+			&:hover {
+				background-color: var(--tec-color-background-events-bar-submit-button-hover);
+				color: var(--tec-color-text-events-bar-submit-button-hover);
+			}
+
+			&:active {
+				background-color: var(--tec-color-background-events-bar-submit-button-active);
+				color: var(--tec-color-text-events-bar-submit-button-active);
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Twenty
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentytwenty & {
+
+		.tribe-events-c-search__input {
+			background-color: var(--tec-background-color);
+		}
+
+		.tribe-events-c-search__button {
+			background-color: var(--tec-color-background-events-bar-submit-button);
+			color: var(--tec-color-text-events-bar-submit-button);
+
+			&:focus,
+			&:hover {
+				background-color: var(--tec-color-background-events-bar-submit-button-hover);
+				color: var(--tec-color-text-events-bar-submit-button-hover);
+			}
+
+			&:active {
+				background-color: var(--tec-color-background-events-bar-submit-button-active);
+				color: var(--tec-color-text-events-bar-submit-button-active);
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Twentyone
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-theme-twentytwentyone & {
+
+		.tribe-events-c-search__button {
+
+			&:not(:hover):not(:active) {
+				background-color: var(--tec-color-background-events-bar-submit-button);
+				color: var(--tec-color-text-events-bar-submit-button);
+			}
 		}
 	}
 }

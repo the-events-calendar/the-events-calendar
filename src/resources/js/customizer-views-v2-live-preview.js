@@ -1,5 +1,3 @@
-/* global tribe, tribe_events_customizer_live_preview_js_config */
-
 /**
  * File customizer-views-v2-live-preview.js.
  *
@@ -10,11 +8,13 @@
  * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
  */
 
-var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_live_preview_js_config || {};
+var tribe_events_customizer_live_preview_js_config =
+	tribe_events_customizer_live_preview_js_config || {};
 
 ( function( $, api, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
 
+	/* eslint-disable max-len */
 	obj.selectors = {
 		/* Global Elements */
 		globalFontFamily: 'tribe_customizer[global_elements][font_family]',
@@ -55,6 +55,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		singleEventTitleColorChoice: 'tribe_customizer[single_event][post_title_color_choice]',
 		singleEventTitleColor: 'tribe_customizer[single_event][post_title_color]'
 	};
+	/* eslint-enable max-len */
 
 	obj.customProps = {
 		/* Global Elements */
@@ -75,7 +76,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 			'--tec-font-size-9',
 			'--tec-font-size-10',
 		],
-		globalFontSizeKeys: [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ],
+		globalFontSizeKeys: [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42 ],
 		globalEventTitleColor: [
 			'--tec-color-text-events-title',
 		],
@@ -166,7 +167,9 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 			// Bind to the value change
 			value.bind(
 				function( to ) {
-					const fontFamily = 'theme' === to ? 'inherit' : tribe_events_customizer_live_preview_js_config.default_font;
+					const fontFamily = 'theme' === to
+						? 'inherit'
+						: tribe_events_customizer_live_preview_js_config.default_font;
 
 					obj.customProps.globalFontFamily.forEach(
 						function( fontFamilySelector ) {
@@ -191,11 +194,11 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 						function( tribeElement ) {
 							obj.customProps.globalFontSizeBase.forEach(
 								function( fontSizeSelector, index ) {
-									const newSize = fontSizeMultiplier * parseInt( obj.customProps.globalFontSizeKeys[index] );
+									const newSize =
+										fontSizeMultiplier * parseInt( obj.customProps.globalFontSizeKeys[index] );
 									tribeElement.style.setProperty( fontSizeSelector, newSize.toFixed(3) + 'px' );
 								}
 							);
-
 						}
 					);
 				}
@@ -218,7 +221,8 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 							);
 
 							// Event Single Title
-							const singleEventTitleColorChoice = api( obj.selectors.singleEventTitleColorChoice ).get();
+							const singleEventTitleColorChoice =
+								api( obj.selectors.singleEventTitleColorChoice ).get();
 
 							if ( 'default' === singleEventTitleColorChoice ) {
 								obj.customProps.singleEventTitleColor.forEach(
@@ -260,20 +264,26 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let backgroundColor = to;
-
-					if ( 'transparent' !== to ) {
-						backgroundColor = api( obj.selectors.globalBackgroundColor ).get();
-					}
+					const backgroundColor = 'transparent' !== to
+						? api( obj.selectors.globalBackgroundColor ).get()
+						: to;
 
 					obj.root.forEach(
 						function( tribeElement ) {
-							tribeElement.style.setProperty( obj.customProps.globalBackgroundColor, backgroundColor );
+							tribeElement.style.setProperty(
+								obj.customProps.globalBackgroundColor,
+								backgroundColor
+							);
 
-							const eventsBarBackgroundColorChoice = api( obj.selectors.eventsBarBackgroundColorChoice ).get();
+							const eventsBarBackgroundColorChoice =
+								api( obj.selectors.eventsBarBackgroundColorChoice ).get();
 
 							if  ( 'global_background' === eventsBarBackgroundColorChoice ) {
-								let eventsBarBackgroundColor = 'transparent' === to ? 'var(--tec-color-background)' : backgroundColor;
+								let eventsBarBackgroundColor =
+									'transparent' === to
+										? 'var(--tec-color-background)'
+										: backgroundColor;
+
 								const backgroundColorSelectors = obj.customProps.eventsBarBackgroundColor;
 
 								backgroundColorSelectors.forEach(
@@ -282,10 +292,14 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 									}
 								);
 
-								const eventsBarViewSelectorBackgroundColorChoice = api( obj.selectors.eventsBarViewSelectorBackgroundColorChoice ).get();
+								const eventsBarViewSelectorBackgroundColorChoice =
+									api( obj.selectors.eventsBarViewSelectorBackgroundColorChoice ).get();
 
 								if ( 'default' === eventsBarViewSelectorBackgroundColorChoice ) {
-									tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, eventsBarBackgroundColor );
+									tribeElement.style.setProperty(
+										obj.customProps.eventsBarViewSelectorBackgroundColor,
+										eventsBarBackgroundColor
+									);
 								}
 							}
 						}
@@ -305,7 +319,8 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 						function( tribeElement ) {
 							tribeElement.style.setProperty( obj.customProps.globalBackgroundColor, to );
 
-							const eventsBarBackgroundColorChoice = api( obj.selectors.eventsBarBackgroundColorChoice ).get();
+							const eventsBarBackgroundColorChoice =
+								api( obj.selectors.eventsBarBackgroundColorChoice ).get();
 
 							if ( 'global_background' === eventsBarBackgroundColorChoice ) {
 								const backgroundColorSelectors = obj.customProps.eventsBarBackgroundColor;
@@ -329,7 +344,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					const accentColor = api( obj.selectors.globalAccentColor ).get();
+					const accentColor = to;
 					const accentColorSelectors = obj.customProps.globalAccentColor;
 
 					obj.root.forEach(
@@ -341,7 +356,8 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 							);
 
 							// Events Bar "Find Events" button
-							const eventsBarButtonColorChoice = api( obj.selectors.eventsBarButtonColorChoice ).get();
+							const eventsBarButtonColorChoice =
+								api( obj.selectors.eventsBarButtonColorChoice ).get();
 
 							if ( 'default' === eventsBarButtonColorChoice ) {
 								const eventsBarButtonColor = obj.customProps.eventsBarButtonColor;
@@ -366,14 +382,32 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 							}
 
 							// Multiday Event Span?
-							const monthMultidayEventBarChoice = api( obj.selectors.monthMultidayEventBarChoice ).get();
 							const rgbString = obj.hexToRGBString( accentColor );
-							if ( 'default' === monthMultidayEventBarChoice ) {
-								tribeElement.style.setProperty( '--tec-color-background-primary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-								tribeElement.style.setProperty( '--tec-color-background-primary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
-								tribeElement.style.setProperty( '--tec-color-background-primary-multiday-active', 'rgba(' + rgbString + ', 0.34)' );
-								tribeElement.style.setProperty( '--tec-color-background-secondary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-								tribeElement.style.setProperty( '--tec-color-background-secondary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
+							if ( 'default' === api( obj.selectors.monthMultidayEventBarChoice ).get() ) {
+								tribeElement.style.setProperty(
+									'--tec-color-background-primary-multiday',
+									'rgba(' + rgbString + ', 0.24)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-primary-multiday-hover',
+									'rgba(' + rgbString + ', 0.34)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-primary-multiday-active',
+									'rgba(' + rgbString + ', 0.34)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-secondary-multiday',
+									'rgba(' + rgbString + ', 0.24)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-secondary-multiday-hover',
+									'rgba(' + rgbString + ', 0.34)'
+								);
 							}
 						}
 					);
@@ -480,11 +514,9 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let buttonColor = api( obj.selectors.globalAccentColor ).get();
-
-					if ( 'custom' === to ) {
-						buttonColor = api( obj.selectors.eventsBarButtonColor ).get();
-					}
+					const buttonColor = 'custom' === to
+						? api( obj.selectors.eventsBarButtonColor ).get()
+						: api( obj.selectors.globalAccentColor ).get();
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -526,12 +558,12 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let backgroundColor = '#FFFFFF';
+					let backgroundColor = '#fff';
 
 					if ( 'custom' === to ) {
 						backgroundColor = api(obj.selectors.eventsBarBackgroundColor ).get();
 					} else if ( 'global_background' === to ) {
-						const globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get();
+						const globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get(); /* eslint-disable-line max-len */
 						if ( 'transparent' !== globalBackgroundColorChoice ) {
 							backgroundColor = api( obj.selectors.globalBackgroundColor ).get();
 						}
@@ -577,7 +609,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					backgroundColor = api(obj.selectors.eventsBarBackgroundColor ).get();
+					let backgroundColor = api(obj.selectors.eventsBarBackgroundColor ).get();
 
 					if ( 'custom' === to ) {
 						backgroundColor = api(obj.selectors.eventsBarViewSelectorBackgroundColor ).get();
@@ -585,7 +617,10 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 
 					obj.root.forEach(
 						function( tribeElement ) {
-							tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, backgroundColor );
+							tribeElement.style.setProperty(
+								obj.customProps.eventsBarViewSelectorBackgroundColor,
+								backgroundColor
+							);
 						}
 					);
 				}
@@ -601,7 +636,10 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 				function( to ) {
 					obj.root.forEach(
 						function( tribeElement ) {
-							tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, to );
+							tribeElement.style.setProperty(
+								obj.customProps.eventsBarViewSelectorBackgroundColor,
+								to
+							);
 						}
 					);
 				}
@@ -615,11 +653,9 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let borderColor = 'var(--tec-color-border-secondary)';
-
-					if ( 'custom' === to ) {
-						borderColor = api( obj.selectors.eventsBarBorderColor ).get();
-					}
+					const borderColor = 'custom' === to
+						? api( obj.selectors.eventsBarBorderColor ).get()
+						: 'var(--tec-color-border-secondary)';
 
 					obj.root.forEach(
 						function( tribeElement ) {
@@ -701,11 +737,30 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 
 					obj.root.forEach(
 						function( tribeElement ) {
-							tribeElement.style.setProperty( '--tec-color-background-primary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
-							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-active', 'rgba(' + rgbString + ', 0.34)' );
-							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday-hover', 'rgba(' + rgbString + ', 0.34 )');
+							tribeElement.style.setProperty(
+								'--tec-color-background-primary-multiday',
+								'rgba(' + rgbString + ', 0.24)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-primary-multiday-hover',
+								'rgba(' + rgbString + ', 0.34)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-primary-multiday-active',
+								'rgba(' + rgbString + ', 0.34)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-secondary-multiday',
+								'rgba(' + rgbString + ', 0.24)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-secondary-multiday-hover',
+								'rgba(' + rgbString + ', 0.34 )'
+							);
 						}
 					);
 				}
@@ -723,11 +778,30 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 
 					obj.root.forEach(
 						function( tribeElement ) {
-							tribeElement.style.setProperty( '--tec-color-background-primary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
-							tribeElement.style.setProperty( '--tec-color-background-primary-multiday-active', 'rgba(' + rgbString + ', 0.34)' );
-							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-							tribeElement.style.setProperty( '--tec-color-background-secondary-multiday-hover', 'rgba(' + rgbString + ', 0.34 )');
+							tribeElement.style.setProperty(
+								'--tec-color-background-primary-multiday',
+								'rgba(' + rgbString + ', 0.24)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-primary-multiday-hover',
+								'rgba(' + rgbString + ', 0.34)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-primary-multiday-active',
+								'rgba(' + rgbString + ', 0.34)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-secondary-multiday',
+								'rgba(' + rgbString + ', 0.24)'
+							);
+
+							tribeElement.style.setProperty(
+								'--tec-color-background-secondary-multiday-hover',
+								'rgba(' + rgbString + ', 0.34 )'
+							);
 						}
 					);
 				}
@@ -773,21 +847,26 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let backgroundColor = 'transparent';
-					let tooltipBackgroundColor = api( obj.selectors.globalBackgroundColor ).get();
-
-					if ( 'custom' === to ) {
-						backgroundColor = api( obj.selectors.monthGridBackgroundColor ).get();
-						tooltipBackgroundColor = '#FFFFFF';
-					}
+					const backgroundColor = 'custom' === to
+						? api( obj.selectors.monthGridBackgroundColor ).get()
+						: 'transparent';
+					const tooltipBackgroundColor = 'custom' === to
+						? '#fff'
+						: api( obj.selectors.globalBackgroundColor ).get();
 
 					obj.root.forEach(
 						function( tribeElement ) {
-							tribeElement.style.setProperty( obj.customProps.monthGridBackgroundColor, backgroundColor );
+							tribeElement.style.setProperty(
+								obj.customProps.monthGridBackgroundColor,
+								backgroundColor
+							);
 						}
 					);
 
-					document.documentElement.style.setProperty( obj.customProps.monthTooltipBackgroundColor, tooltipBackgroundColor );
+					document.documentElement.style.setProperty(
+						obj.customProps.monthTooltipBackgroundColor,
+						tooltipBackgroundColor
+					);
 				}
 			);
 		}
@@ -815,16 +894,24 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let tooltipBackgroundColor = '#FFFFFF';
-					let monthBackgroundColorChoice = api( obj.selectors.monthGridBackgroundColorChoice ).get();
+					let tooltipBackgroundColor = '#fff';
+					let monthBackgroundColorChoice =
+						api( obj.selectors.monthGridBackgroundColorChoice ).get();
 					let globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get();
 
-					if ( 'event' === to && 'transparent' === monthBackgroundColorChoice && 'transparent' !== globalBackgroundColorChoice ) {
+					if (
+						'event' === to
+						&& 'transparent' === monthBackgroundColorChoice
+						&& 'transparent' !== globalBackgroundColorChoice
+					) {
 						tooltipBackgroundColor = api( obj.selectors.globalBackgroundColor ).get();
 					}
 
 					// Tooltips are appended to the body and are not inside a .tribe-events or .tribe-common element!
-					document.documentElement.style.setProperty( obj.customProps.monthTooltipBackgroundColor, tooltipBackgroundColor );
+					document.documentElement.style.setProperty(
+						obj.customProps.monthTooltipBackgroundColor,
+						tooltipBackgroundColor
+					);
 				}
 			);
 		}
@@ -838,15 +925,16 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		function( value ) {
 			value.bind(
 				function( to ) {
-					let eventTitleColor = api( obj.selectors.globalEventTitleColor ).get();
-
-					if ( 'custom' === to ) {
-						eventTitleColor = api( obj.selectors.singleEventTitleColor ).get();
-					}
+					const eventTitleColor = 'custom' === to
+						? api( obj.selectors.singleEventTitleColor ).get()
+						: api( obj.selectors.globalEventTitleColor ).get();
 
 					obj.root.forEach(
 						function( tribeElement ) {
-							tribeElement.style.setProperty( obj.customProps.singleEventTitleColor, eventTitleColor );
+							tribeElement.style.setProperty(
+								obj.customProps.singleEventTitleColor,
+								eventTitleColor
+							);
 						}
 					);
 				}
@@ -879,7 +967,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 	 * @returns {object} A custom RGB object.
 	 */
 	obj.hexToRGB = function ( hex ) {
-		var hex = parseInt( ( ( hex.indexOf( '#' ) > -1) ? hex.substring( 1 ) : hex ), 16 );
+		hex = parseInt( ( ( hex.indexOf( '#' ) > -1) ? hex.substring( 1 ) : hex ), 16 );
 		return { r: hex >> 16, g: ( hex & 0x00FF00 ) >> 8, b: ( hex & 0x0000FF ) };
 	}
 

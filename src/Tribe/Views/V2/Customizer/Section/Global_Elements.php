@@ -3,21 +3,21 @@
  * The Events Calendar Customizer Section Class
  * Global Elements
  *
- * @since TBD
+ * @since 5.9.0
  */
 
 namespace Tribe\Events\Views\V2\Customizer\Section;
 /**
  * Global Elements
  *
- * @since TBD
+ * @since 5.9.0
  */
 final class Global_Elements extends \Tribe__Customizer__Section {
 
 	/**
 	 * ID of the section.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 *
 	 * @access public
 	 * @var string
@@ -48,30 +48,29 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	/**
 	 * Placeholder for filtered min font size.
 	 *
-	 * @var float
+	 * @var int
 	 */
 	private $min_font_size = 8;
 
 	/**
 	 * Placeholder for filtered max font size.
 	 *
-	 * @var float
+	 * @var int
 	 */
-	private $max_font_size = 172;
+	private $max_font_size = 72;
 
 	/**
 	 * This method will be executed when the Class is Initialized.
 	 *
-	 * @since TBD
+	 * @since 5.9.0
 	 */
 	public function setup() {
 		parent::setup();
 
-
 		/**
 		 * Allows users and plugins to change the "small" font size multiplier.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param int $small_font_multiplier The multiplier for "small" font size.
 		 *
@@ -82,7 +81,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		/**
 		 * Allows users and plugins to change the "large" font size multiplier.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param int $large_font_multiplier The multiplier for "large" font size.
 		 *
@@ -93,33 +92,34 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		/**
 		 * Allows users and plugins to change the minimum font size.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
 		 * @param int $min_font_size The enforced minimum font size.
 		 *
 		 * @return int The enforced minimum font size.
 		 */
-		$this->min_font_size = apply_filters( 'tribe_customizer_minimum_font_size', 8 );
+		$this->min_font_size = apply_filters( 'tribe_customizer_minimum_font_size', $this->min_font_size );
 
 		/**
 		 * Allows users and plugins to change the maximum font size.
 		 *
-		 * @since TBD
+		 * @since 5.9.0
 		 *
-		 * @param int $min_font_size The enforced maximum font size.
+		 * @param int $max_font_size The enforced maximum font size.
 		 *
 		 * @return int The enforced maximum font size.
 		 */
-		$this->max_font_size = apply_filters( 'tribe_customizer_maximum_font_size', 72 );
+		$this->max_font_size = apply_filters( 'tribe_customizer_maximum_font_size', $this->max_font_size );
 	}
+
 	/**
 	 * {@inheritdoc}
 	 */
 	public function setup_arguments() {
 		return [
-			'priority'	=> 1,
-			'capability'  => 'edit_theme_options',
-			'title'	   => esc_html__( 'Global Elements', 'the-events-calendar' ),
+			'priority'   => 1,
+			'capability' => 'edit_theme_options',
+			'title'      => esc_html__( 'Global Elements', 'the-events-calendar' ),
 		];
 	}
 
@@ -145,84 +145,87 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_settings() {
 		return [
-			'font_family'               => [
-				'sanitize_callback'	   => 'sanitize_key',
+			'font_family'             => [
+				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 				'transport'            => 'postMessage',
 			],
 			'font_size'               => [
-				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 				'transport'            => 'postMessage',
 			],
 			'font_size_base'          => [
-				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 				'transport'            => 'postMessage',
 			],
 			'event_title_color'       => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 				'transport'            => 'postMessage',
 			],
 			'event_date_time_color'   => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 				'transport'            => 'postMessage',
 			],
-			'link_color'   => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
+			'link_color'              => [
+				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 				'transport'            => 'postMessage',
 			],
 			'background_color_choice' => [
-				'sanitize_callback'	   => 'sanitize_key',
+				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
 				'transport'            => 'postMessage',
 			],
 			'background_color'        => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 				'transport'            => 'postMessage',
 			],
 			'accent_color'            => [
-				'sanitize_callback'	   => 'sanitize_hex_color',
+				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
 				'transport'            => 'postMessage',
 			],
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setup_content_headings() {
 		return [
-			'font_family_heading' => [
-				'priority'	 => 0,
-				'type'		 => 'heading',
-				'label'      => esc_html__( 'Select Font Family', 'the-events-calendar' ),
+			'font_family_heading'       => [
+				'priority' => 0,
+				'type'     => 'heading',
+				'label'    => esc_html__( 'Select Font Family', 'the-events-calendar' ),
 			],
-			'font_size_heading' => [
-				'priority'	 => 5,
-				'type'		 => 'heading',
-				'label'      => esc_html__( 'Set Font Size', 'the-events-calendar' ),
+			'font_size_heading'         => [
+				'priority'    => 5,
+				'type'        => 'heading',
+				'label'       => esc_html__( 'Set Font Size', 'the-events-calendar' ),
 				'description' => esc_html_x(
 					'Choose a base font size. Event text will scale around the selected base size.',
 					'The description for the base font size setting.',
 					'the-events-calendar'
 				),
 			],
-			'font_color_heading' => [
-				'priority'	 => 10,
-				'type'		 => 'heading',
-				'label'      => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
+			'font_color_heading'        => [
+				'priority' => 10,
+				'type'     => 'heading',
+				'label'    => esc_html__( 'Set Font Colors', 'the-events-calendar' ),
 			],
 			'global_elements_separator' => [
-				'priority'	 => 20,
-				'type'		 => 'separator',
+				'priority' => 20,
+				'type'     => 'separator',
 			],
 			'adjust_appearance_heading' => [
-				'priority'	 => 21,
-				'type'		 => 'heading',
-				'label'      => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
+				'priority' => 21,
+				'type'     => 'heading',
+				'label'    => esc_html__( 'Adjust Appearance', 'the-events-calendar' ),
 			],
 		];
 	}
@@ -232,23 +235,22 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 */
 	public function setup_content_controls() {
 		// Because Customizer doesn't show the default value.
-		if ( ! empty( $this->get_option( 'font_size_base' ) ) ) {
-			$font_size_base_value = $this->get_option( 'font_size_base' );
-		} else {
-			$font_size_base_value = $this->defaults[ 'font_size_base' ];
-		}
+		$font_size_base_value = ! empty( $this->get_option( 'font_size_base' ) )
+			? $this->get_option( 'font_size_base' )
+			: $this->defaults[ 'font_size_base' ];
+
 
 		return [
 			'font_family'             => [
 				'priority' => 3,
 				'type'     => 'radio',
 				'choices' => [
-					'default'  => _x(
+					'default'  => esc_html_x(
 						'Default',
 						'Label for option to use default TEC fonts.',
 						'the-events-calendar'
 					),
-					'theme'    => _x(
+					'theme'    => esc_html_x(
 						"Inherit theme font(s)",
 						'Label for option to use theme fonts.',
 						'the-events-calendar'
@@ -283,12 +285,6 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 					'min'  => -1,
 					'max'  => 1,
 					'step' => 1,
-					// Because there is no label for this input - we give screen readers something to work with.
-					'aria-described-by' => esc_html_x(
-						'Font Size selector',
-						'The font size selector setting label.',
-						'the-events-calendar'
-					),
 				],
 				'choices'    => [
 					'small'  => $this->small_font_multiplier,
@@ -338,12 +334,12 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 				'label'       => esc_html__( 'Background Color', 'the-events-calendar' ),
 				'description' => esc_html__( 'All calendar and event pages', 'the-events-calendar' ),
 				'choices'     => [
-					'transparent' => _x(
+					'transparent' => esc_html_x(
 						'Transparent.',
 						'Label for option to leave transparent (default).',
 						'the-events-calendar'
 					),
-					'custom'	  => esc_html_x(
+					'custom'   => esc_html_x(
 						'Select Custom Color',
 						'Label for option to set a custom color.',
 						'the-events-calendar'
@@ -416,7 +412,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		 * --tec-font-size-10: 42px;
 		 */
 		if ( $this->should_include_setting_css( 'font_size_base' ) ) {
-			$sizes           = [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42, ];
+			$sizes           = [ 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 42 ];
 			$size_multiplier = 1;
 			$size_multiplier = round( (int) $this->get_option( 'font_size_base' ) / 16, 3 );
 
@@ -436,25 +432,25 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 
 		// Event Title overrides.
 		if ( $this->should_include_setting_css( 'event_title_color' ) ) {
-			$title_color = $this->get_option( 'event_title_color' );
+			$title_color  = $this->get_option( 'event_title_color' );
 			$new_styles[] = "--tec-color-text-events-title: {$title_color};";
 			$new_styles[] = "--tec-color-text-event-title: {$title_color};";
 		}
 
 		// Event Date/Time overrides.
 		if ( $this->should_include_setting_css( 'event_date_time_color' ) ) {
-			$date_color = $this->get_option( 'event_date_time_color' );
+			$date_color   = $this->get_option( 'event_date_time_color' );
 			$new_styles[] = "--tec-color-text-event-date: {$date_color};";
 			$new_styles[] = "--tec-color-text-event-date-secondary: {$date_color};";
 		}
 
 		// Link color overrides.
 		if ( $this->should_include_setting_css( 'link_color' ) ) {
-			$link_color = $this->get_option( 'link_color' );
-			$link_color_rgb   = $this->get_rgb_color( 'link_color' );
+			$link_color     = $this->get_option( 'link_color' );
+			$link_color_rgb = $this->get_rgb_color( 'link_color' );
 		} elseif ( $this->should_include_setting_css( 'accent_color' ) )  {
-			$link_color = $this->get_option( 'accent_color' );
-			$link_color_rgb   = $this->get_rgb_color( 'accent_color' );
+			$link_color     = $this->get_option( 'accent_color' );
+			$link_color_rgb = $this->get_rgb_color( 'accent_color' );
 		}
 
 		if ( ! empty( $link_color ) ) {
@@ -467,8 +463,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		if ( $this->should_include_setting_css( 'background_color_choice' ) ) {
 			if ( $this->should_include_setting_css( 'background_color' ) ) {
 				$background_color = $this->get_option( 'background_color' );
-
-				$new_styles[] = "--tec-color-background-events: {$background_color};";
+				$new_styles[]     = "--tec-color-background-events: {$background_color};";
 			}
 		}
 
@@ -494,11 +489,11 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			$new_styles[] = "--tec-color-day-marker-current-month-active: rgba({$accent_color_rgb},0.9);";
 
 			if ( ! $this->should_include_setting_css( 'multiday_event_bar_color_choice', 'month_view' ) ) {
-					$new_styles[] = "--tec-color-background-primary-multiday: rgba({$accent_color_rgb}, 0.24);";
-					$new_styles[] = "--tec-color-background-primary-multiday-hover: rgba({$accent_color_rgb}, 0.34);";
-					$new_styles[] = "--tec-color-background-primary-multiday-active: rgba({$accent_color_rgb}, 0.34);";
-					$new_styles[] = "--tec-color-background-secondary-multiday: rgba({$accent_color_rgb}, 0.24);";
-					$new_styles[] = "--tec-color-background-secondary-multiday-hover: rgba({$accent_color_rgb}, 0.34);";
+				$new_styles[] = "--tec-color-background-primary-multiday: rgba({$accent_color_rgb}, 0.24);";
+				$new_styles[] = "--tec-color-background-primary-multiday-hover: rgba({$accent_color_rgb}, 0.34);";
+				$new_styles[] = "--tec-color-background-primary-multiday-active: rgba({$accent_color_rgb}, 0.34);";
+				$new_styles[] = "--tec-color-background-secondary-multiday: rgba({$accent_color_rgb}, 0.24);";
+				$new_styles[] = "--tec-color-background-secondary-multiday-hover: rgba({$accent_color_rgb}, 0.34);";
 			}
 		}
 
