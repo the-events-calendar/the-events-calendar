@@ -131,6 +131,7 @@
     "react-day-picker": "^7.2.4",
     "react-dom": "16.3.0",
     "react-google-maps": "^9.4.5",
+    "react-iframe": "^1.8.0",
     "react-input-autosize": "^2.2.1",
     "react-places-autocomplete": "^6.1.2",
     "react-redux": "^5.0.7",
