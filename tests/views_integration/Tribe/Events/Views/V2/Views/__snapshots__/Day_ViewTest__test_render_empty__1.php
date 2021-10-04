@@ -1,10 +1,10 @@
 <?php return '<div
 	 class="tribe-common tribe-events tribe-events-view tribe-events-view--day" 	data-js="tribe-events-view"
-	data-view-rest-nonce="eeec027d34"
+	data-view-rest-nonce="bbe51d7ef1"
 	data-view-rest-url="http://wordpress.test/index.php?rest_route=/tribe/views/v2/html"
 	data-view-rest-method="POST"
 	data-view-manage-url="1"
-				data-view-breakpoint-pointer="be30b41c-d2ce-40d7-b205-89855d1bfa9f"
+				data-view-breakpoint-pointer="ef03a0ab-2e19-4fc0-9871-d5685b61a1e8"
 	>
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<div
@@ -23,7 +23,7 @@
 
 		
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"day","prev_url":"http:\\/\\/wordpress.test\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[],"url":"http:\\/\\/wordpress.test\\/events\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/wordpress.test\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"eeec027d34","should_manage_url":true,"today_url":"http:\\/\\/wordpress.test\\/events\\/today\\/","prev_label":"2018-12-31","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/wordpress.test\\/events\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"be30b41c-d2ce-40d7-b205-89855d1bfa9f","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/wordpress.test\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/wordpress.test\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/wordpress.test\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"day","prev_url":"http:\\/\\/wordpress.test\\/events\\/2018-12-31\\/","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[],"url":"http:\\/\\/wordpress.test\\/events\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/wordpress.test\\/index.php?rest_route=\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"bbe51d7ef1","should_manage_url":true,"today_url":"http:\\/\\/wordpress.test\\/events\\/today\\/","prev_label":"2018-12-31","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/wordpress.test\\/events\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"ef03a0ab-2e19-4fc0-9871-d5685b61a1e8","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/wordpress.test\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/wordpress.test\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/wordpress.test\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
 		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
@@ -73,7 +73,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="eeec027d34" /><input type="hidden" name="_wp_http_referer" value="/events/today/" />		<input type="hidden" name="tribe-events-views[url]" value="http://wordpress.test/events/today/" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="bbe51d7ef1" /><input type="hidden" name="_wp_http_referer" value="/events/today/" />		<input type="hidden" name="tribe-events-views[url]" value="http://wordpress.test/events/today/" />
 
 		<div class="tribe-events-c-search__input-group">
 			<div
@@ -355,7 +355,7 @@ http://evnt.is/18wn
 				return;
 			}
 
-			var container = document.querySelectorAll( \'[data-view-breakpoint-pointer="be30b41c-d2ce-40d7-b205-89855d1bfa9f"]\' );
+			var container = document.querySelectorAll( \'[data-view-breakpoint-pointer="ef03a0ab-2e19-4fc0-9871-d5685b61a1e8"]\' );
 			if ( ! container ) {
 				return;
 			}
