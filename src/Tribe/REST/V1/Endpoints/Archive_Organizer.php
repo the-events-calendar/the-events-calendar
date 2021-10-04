@@ -54,10 +54,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns all the organizers matching the search criteria', 'the-events-calendar' ),
-						'schema'      => [
-							'title' => 'organizers',
-							'type'  => 'array',
-							'items' => [ '$ref' => '#/definitions/Organizer' ],
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'title' => 'organizers',
+									'type'  => 'array',
+									'items' => [ '$ref' => '#/components/schemas/Organizer' ],
+								]
+							]
 						],
 					],
 					'400' => [
