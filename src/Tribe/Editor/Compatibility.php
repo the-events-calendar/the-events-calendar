@@ -73,6 +73,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return boolean
 	 */
 	public function filter_is_classic_editor( $is_classic_editor = false ) {
+		// TEC blocks are off, return true == classic editor.
 		if ( ! $this->is_blocks_editor_toggled_on() ) {
 			return true;
 		}
