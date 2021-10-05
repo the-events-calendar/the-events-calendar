@@ -302,14 +302,13 @@ class Single_Event_SlugTest extends \Codeception\TestCase\WPRestApiTestCase {
 			[
 				'name'        => 'slug',
 				'in'          => 'path',
-				'type'        => 'string',
+				'schema'      => [ 'type' => 'string' ],
 				'description' => 'No description',
 				'required'    => true,
-				'default'     => 'foo',
 			],
 		];
 
-		$this->assertEqualSets( $expected, $sut->swaggerize_args( $args, [ 'description' => 'No description', 'default' => 'foo' ] ) );
+		$this->assertEqualSets( $expected, $sut->swaggerize_args( $args, [ 'description' => 'No description' ] ) );
 	}
 
 	/**

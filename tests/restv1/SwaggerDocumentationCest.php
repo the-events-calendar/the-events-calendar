@@ -22,13 +22,11 @@ class SwaggerDocumentationCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = (array) json_decode( $I->grabResponse() );
-		$I->assertArrayHasKey( 'swagger', $response );
+		$I->assertArrayHasKey( 'openapi', $response );
 		$I->assertArrayHasKey( 'info', $response );
-		$I->assertArrayHasKey( 'host', $response );
-		$I->assertArrayHasKey( 'basePath', $response );
-		$I->assertArrayHasKey( 'schemes', $response );
-		$I->assertArrayHasKey( 'consumes', $response );
-		$I->assertArrayHasKey( 'produces', $response );
+		$I->assertArrayHasKey( 'servers', $response );
+		$I->assertArrayHasKey( 'components', $response );
+		$I->assertArrayHasKey( 'paths', $response );
 	}
 
 	/**
@@ -61,7 +59,7 @@ class SwaggerDocumentationCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = (array) json_decode( $I->grabResponse() );
-		$I->assertArrayHasKey( 'host', $response );
+		$I->assertArrayHasKey( 'servers', $response );
 	}
 
 	/**
@@ -73,9 +71,10 @@ class SwaggerDocumentationCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
-		$response = (array) json_decode( $I->grabResponse() );
-		$I->assertArrayHasKey( 'basePath', $response );
-		$I->assertEquals( str_replace( $I->grabSiteUrl(), '', $this->rest_url ), $response['basePath'] );
+		$response = (array) json_decode( $I->grabResponse(), true );
+		$server = $response['servers'][0]; // accepts array of server definitions, including the base url relative to the paths in the `paths` object
+		$I->assertArrayHasKey( 'servers', $response );
+		$I->assertEquals( $this->rest_url, $server['url'] );
 	}
 
 	/**

@@ -79,7 +79,7 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 				'image'             => [
 					'type'        => 'string',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/Image',
+					'$ref'        => '#/components/schemas/Image',
 				],
 				'phone'             => [
 					'type'        => 'string',
