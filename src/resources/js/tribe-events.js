@@ -631,7 +631,7 @@ Date.prototype.format = function( mask, utc ) {
 	$.fn.tribe_spin = function() {
 		var $loadingImg = $( '.tribe-events-ajax-loading:first' ).clone().addClass( 'tribe-events-active-spinner' );
 		$loadingImg.prependTo( document.getElementById( 'tribe-events-content' ) );
-		$( this ).addClass( 'tribe-events-loading' ).css( 'opacity', .25 )
+		$( this ).addClass( 'tribe-events-loading' ).css( 'opacity', .25 );
 	};
 
 	if ( "undefined" !== typeof $.fn.datepicker && "undefined" !== typeof $.fn.datepicker.noConflict ) {
