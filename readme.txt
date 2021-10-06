@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Ensure a map preview is displayed on the venue block in the admin area when using TEC's default Google API Key. [TEC-3042]
 * Fix - Add some missing text domains for string translation. [TEC-3908]
+* Fix - Correct block use checks around the Classic Editor plugin. [TEC-4099]
 * Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
 
 = [5.9.1] 2021-09-14 =
