@@ -7,11 +7,6 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 
 	/**
-	 * @var array<string,string>
-	 */
-	private $collected_inline_styles = [];
-
-	/**
 	 * It should return empty with an empty Customizer.
 	 *
 	 * @test

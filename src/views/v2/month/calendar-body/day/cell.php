@@ -1,18 +1,15 @@
 <?php
 /**
- * View: Month View - Day
+ * View: Month View - Day cell
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/month/calendar-body/day.php
+ * [your-theme]/tribe/events/v2/month/calendar-body/day/cell.php
  *
  * See more documentation about our views templating system.
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.9.0
- *
- * @since 5.9.0 Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
- * @since 5.3.0 Introduced.
+ * @version 5.3.0
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -36,24 +33,26 @@
  *                              the day
  *      }
  */
-$day_classes = [ 'tribe-events-calendar-month__day' ];
+
 $day_id = 'tribe-events-calendar-day-' . $day_date;
-
-if ( $today_date === $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--current';
-}
-
-if ( $today_date > $day_date ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--past';
-}
 ?>
 
 <div
-	<?php tribe_classes( $day_classes ); ?>
-	role="gridcell"
-	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
-	data-js="tribe-events-month-grid-cell"
+	id="<?php echo esc_attr( $day_id ); ?>"
+	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
-	<?php $this->template( 'month/calendar-body/day/date', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-	<?php $this->template( 'month/calendar-body/day/cell', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
+	<?php $this->template( 'month/calendar-body/day/cell-title', [ 'day' => $day, ] ); ?>
+
+	<div class="tribe-events-calendar-month__events">
+		<?php $this->template( 'month/calendar-body/day/multiday-events', [
+			'day_date'         => $day['date'],
+			'multiday_events'  => $day['multiday_events'],
+			'is_start_of_week' => $day['is_start_of_week'],
+		] ); ?>
+
+		<?php $this->template( 'month/calendar-body/day/calendar-events', [ 'day_events' => $day['events'], ] ); ?>
+	</div>
+
+	<?php $this->template( 'month/calendar-body/day/more-events', [ 'more_events' => $day['more_events'], 'more_url' => $day['day_url'] ] ); ?>
+
 </div>

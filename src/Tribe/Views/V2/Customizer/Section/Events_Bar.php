@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2\Customizer\Section;
  *
  * @since 5.8.0
  */
-class Events_Bar extends \Tribe__Customizer__Section {
+final class Events_Bar extends \Tribe__Customizer__Section {
 
 	/**
 	 * ID of the section.
@@ -338,21 +338,23 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		$new_styles   = [];
 
 		// It's all custom props now, baby...
-
-
 		if ( $this->should_include_setting_css( 'events_bar_text_color' ) ) {
 			$text_color = $this->get_option( 'events_bar_text_color' );
 			// Text color.
 
-			$new_styles[] = "--tec-color-text-events-bar-input: {$text_color};";
-			$new_styles[] = "--tec-color-text-events-bar-input-placeholder: {$text_color};";
-			$new_styles[] = "--tec-opacity-events-bar-input-placeholder: .6;";
-			$new_styles[] = "--tec-color-text-view-selector-list-item: {$text_color};";
-			$new_styles[] = "--tec-color-text-view-selector-list-item-hover: {$text_color};";
+			if ( ! empty( $text_color ) ) {
+				$new_styles[] = "--tec-color-text-events-bar-input: {$text_color};";
+				$new_styles[] = "--tec-color-text-events-bar-input-placeholder: {$text_color};";
+				$new_styles[] = "--tec-opacity-events-bar-input-placeholder: 0.6;";
+				$new_styles[] = "--tec-color-text-view-selector-list-item: {$text_color};";
+				$new_styles[] = "--tec-color-text-view-selector-list-item-hover: {$text_color};";
+			}
 
 			// Hover background follows text color
 			$text_color_rgb = $this->get_rgb_color( 'events_bar_text_color' );
-			$new_styles[]   = "--tec-color-background-view-selector-list-item-hover: rgba({$text_color_rgb},0.12);";
+			if ( ! empty( $text_color_rgb ) ) {
+				$new_styles[]   = "--tec-color-background-view-selector-list-item-hover: rgba({$text_color_rgb}, 0.12);";
+			}
 		}
 
 		if ( $this->should_include_setting_css( 'find_events_button_text_color' ) ) {
@@ -362,8 +364,10 @@ class Events_Bar extends \Tribe__Customizer__Section {
 
 		if ( ! empty( $button_text_color ) ) {
 			$new_styles[] = "--tec-color-text-events-bar-submit-button: {$button_text_color};";
-			$new_styles[] = "--tec-color-text-events-bar-submit-button-active: rgba({$button_text_color_rgb},0.5);";
-			$new_styles[] = "--tec-color-text-events-bar-submit-button-hover: rgba({$button_text_color_rgb},0.6);";
+		}
+		if ( ! empty( $button_text_color_rgb ) ) {
+			$new_styles[] = "--tec-color-text-events-bar-submit-button-active: rgba({$button_text_color_rgb}, 0.5);";
+			$new_styles[] = "--tec-color-text-events-bar-submit-button-hover: rgba({$button_text_color_rgb}, 0.6);";
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_icon_color_choice' ) ) {
@@ -371,14 +375,9 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				$icon_color = $this->get_option( 'events_bar_icon_color' );
 			} elseif (
 				'accent' === $this->get_option( 'events_bar_icon_color_choice' )
+				&& $this->should_include_setting_css( 'accent_color', 'global_elements' )
 			) {
-				if ( $this->should_include_setting_css( 'accent_color', 'global_elements' ) ) {
-					$icon_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
-				}
-
-				/* else {
-					$icon_color = 'var(--tec-color-accent-primary)';
-				} */
+				$icon_color = tribe( 'customizer' )->get_option( [ 'global_elements', 'accent_color' ] );
 			}
 
 			if ( ! empty( $icon_color ) ) {
@@ -397,16 +396,16 @@ class Events_Bar extends \Tribe__Customizer__Section {
 		}
 
 		if ( ! empty( $button_color ) ) {
-
 			$new_styles[] = "--tec-color-background-events-bar-submit-button: {$button_color};";
-			$new_styles[] = "--tec-color-background-events-bar-submit-button-hover: rgba({$button_color_rgb},0.8);";
-			$new_styles[] = "--tec-color-background-events-bar-submit-button-active: rgba({$button_color_rgb},0.9);";
+		}
+
+		if ( ! empty( $button_color_rgb ) ) {
+			$new_styles[] = "--tec-color-background-events-bar-submit-button-hover: rgba({$button_color_rgb}, 0.8);";
+			$new_styles[] = "--tec-color-background-events-bar-submit-button-active: rgba({$button_color_rgb}, 0.9);";
 
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_background_color_choice' ) ) {
-			$background_color = $this->defaults[ 'events_bar_background_color' ];
-
 			if ( $this->should_include_setting_css( 'events_bar_background_color' ) ) {
 				if ( 'custom' == $this->get_option( 'events_bar_background_color_choice' ) ) {
 					$background_color = $this->get_option( 'events_bar_background_color' );
@@ -418,13 +417,18 @@ class Events_Bar extends \Tribe__Customizer__Section {
 				}
 			}
 
-			$new_styles[] = "--tec-color-background-events-bar: {$background_color};";
-			$new_styles[] = "--tec-color-background-events-bar-tabs: {$background_color};";
+			if ( ! empty( $background_color ) ) {
+				$new_styles[] = "--tec-color-background-events-bar: {$background_color};";
+				$new_styles[] = "--tec-color-background-events-bar-tabs: {$background_color};";
+			}
 		}
 
 		if ( $this->should_include_setting_css( 'events_bar_border_color_choice' ) ) {
 			$border_color = $this->get_option( 'events_bar_border_color' );
-			$new_styles[] = "--tec-color-border-events-bar: {$border_color};";
+
+			if ( ! empty( $border_color ) ) {
+				$new_styles[] = "--tec-color-border-events-bar: {$border_color};";
+			}
 		}
 
 		if ( empty( $new_styles ) ) {

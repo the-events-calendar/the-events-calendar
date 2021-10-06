@@ -20,7 +20,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 		<div class="tribe-field-wrap">
 			<?php
 			if ( $missing_meetup_credentials ) {
-				echo '<p>' . esc_html__( 'You need to connect to Meetup for Event Aggregator to work properly' ) . '</p>';
+				echo '<p>' . esc_html__( 'You need to connect to Meetup for Event Aggregator to work properly', 'the-events-calendar' ) . '</p>';
 				$meetup_button_label = __( 'Connect to Meetup', 'the-events-calendar' );
 			} else {
 				$meetup_button_label     = __( 'Refresh your connection to Meetup', 'the-events-calendar' );
@@ -73,7 +73,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 		<div class="tribe-field-wrap">
 			<?php
 			if ( $missing_eb_credentials ) {
-				echo '<p>' . esc_html__( 'You need to connect to Eventbrite for Event Aggregator to work properly' ) . '</p>';
+				echo '<p>' . esc_html__( 'You need to connect to Eventbrite for Event Aggregator to work properly', 'the-events-calendar' ) . '</p>';
 				$eventbrite_button_label = __( 'Connect to Eventbrite', 'the-events-calendar' );
 			} else {
 				$eventbrite_button_label     = __( 'Refresh your connection to Eventbrite', 'the-events-calendar' );
@@ -119,11 +119,11 @@ $fields = array_merge(
 		],
 		'addons-box-title' => [
 			'type' => 'html',
-			'html' => '<h2>' . esc_html__( 'APIs', 'the-events-calendar' ) . '</h2>',
+			'html' => '<h2>' . esc_html__( 'Integrations', 'the-events-calendar' ) . '</h2>',
 		],
 		'addons-box-description' => [
 			'type' => 'html',
-			'html' => '<p>' . __( 'Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source.', 'the-events-calendar' ) . '</p>',
+			'html' => '<p>' . __( 'The Events Calendar and its add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations.', 'the-events-calendar' ) . '</p>',
 		],
 		'addons-box-end' => [
 			'type' => 'html',
@@ -159,5 +159,5 @@ $addons = apply_filters(
 
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
-	new Tribe__Settings_Tab( 'addons', esc_html__( 'APIs', 'the-events-calendar' ), $addons );
+	new Tribe__Settings_Tab( 'addons', esc_html__( 'Integrations', 'the-events-calendar' ), $addons );
 }

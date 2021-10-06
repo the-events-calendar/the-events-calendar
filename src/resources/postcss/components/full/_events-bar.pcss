@@ -13,6 +13,19 @@
 		}
 	}
 
+	.tribe-events-c-events-bar {
+
+		.tribe-common-form-control-text__input {
+			background-color: transparent;
+			color: var(--tec-color-text-events-bar-input);
+
+			&::placeholder {
+				color: var(--tec-color-text-events-bar-input-placeholder);
+				opacity: var(--tec-opacity-events-bar-input-placeholder);
+			}
+		}
+	}
+
 	.tribe-events-c-events-bar--border {
 
 		.tribe-common--breakpoint-medium& {
@@ -20,20 +33,8 @@
 		}
 	}
 
-	.tribe-common-c-btn.tribe-events-c-search__button {
-		background-color: var(--tec-color-background-events-bar-submit-button);
-		color: var(--tec-color-text-events-bar-submit-button);
-
-		&:active {
-			background-color: var(--tec-color-background-events-bar-submit-button-active);
-			color: var(--tec-color-text-events-bar-submit-button-active);
-		}
-
-		&:focus,
-		&:hover {
-			background-color: var(--tec-color-background-events-bar-submit-button-hover);
-			color: var(--tec-color-text-events-bar-submit-button-hover);
-		}
+	.tribe-events-c-events-bar__search-container {
+		background-color: var(--tec-color-background-events-bar);
 	}
 
 	.tribe-events-c-events-bar__search-button {
@@ -90,21 +91,6 @@
 			&:hover,
 			&:focus {
 				background-color: transparent;
-			}
-		}
-	}
-
-	/* -----------------------------------------------------------------------------
-	 * Theme Overrides - Twenty Twentyone
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-theme-twentytwentyone & {
-
-		.tribe-events-c-search__button {
-
-			&:not(:hover):not(:active) {
-				background-color: var(--tec-color-background-events-bar-submit-button);
-				color: var(--tec-color-text-events-bar-submit-button);
 			}
 		}
 	}

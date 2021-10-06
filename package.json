@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.9.0",
+  "version": "5.9.1",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -125,6 +125,7 @@
     "react-day-picker": "^7.2.4",
     "react-dom": "16.3.0",
     "react-google-maps": "^9.4.5",
+    "react-iframe": "^1.8.0",
     "react-input-autosize": "^2.2.1",
     "react-places-autocomplete": "^6.1.2",
     "react-redux": "^5.0.7",
@@ -141,5 +142,6 @@
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
   },
+  "optionalDependencies": { "fsevents": "^1.0.0" },
   "resolutions": { "graceful-fs": "^4.2.4" }
 }

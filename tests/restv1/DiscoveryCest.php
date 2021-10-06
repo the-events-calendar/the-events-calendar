@@ -32,7 +32,11 @@ class DiscoveryCest extends BaseRestCest {
 	 * it should return disabled header if TEC REST API is disabled via option
 	 */
 	public function it_should_return_disabled_header_if_tec_rest_api_is_disabled_via_option( Restv1Tester $I ) {
-		$I->haveOptionInDatabase( $this->tec_option, [ $this->rest_disable_option => true ] );
+		$current = (array) $I->grabOptionFromDatabase( $this->tec_option );
+		$I->haveOptionInDatabase(
+			$this->tec_option,
+			array_merge( $current, [ $this->rest_disable_option => true ]
+			) );
 
 		$I->sendHEAD( $this->site_url );
 

@@ -38,7 +38,14 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_action( 'admin_init', [ $this, 'assets' ] );
 
 		// Add Block Categories to Editor
-		add_action( 'block_categories', [ $this, 'block_categories' ], 10, 2 );
+		global $wp_version;
+		if ( version_compare( $wp_version, '5.8', '<' ) ) {
+			// WP version is less then 5.8.
+			add_action( 'block_categories', [ $this, 'block_categories' ], 10, 2 );
+		} else {
+			// WP version is 5.8 or above.
+			add_action( 'block_categories_all', [ $this, 'block_categories_all' ], 10, 2 );
+		}
 
 		// Make sure Events supports 'custom-fields'
 		add_action( 'init', [ $this, 'add_event_custom_field_support' ], 11 );
@@ -55,7 +62,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-	 * For now we dont use Blocks editor on the Post Type for Organizers
+	 * For now we don't use Blocks editor on the Post Type for Organizers
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
@@ -75,7 +82,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-	 * For now we dont use Blocks editor on the Post Type for Venues
+	 * For now we don't use Blocks editor on the Post Type for Venues
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
@@ -106,10 +113,17 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return false
 	 */
 	public function deactivate_blocks_editor_event( $is_enabled, $post_type ) {
+		// Not an event post type.
 		if ( Tribe__Events__Main::POSTTYPE !== $post_type ) {
 			return $is_enabled;
 		}
 
+		// Classic editor plugin is overriding.
+		if ( tribe( 'events.editor' )->is_classic_option_active() ) {
+			return false;
+		}
+
+		// Blocks aren't toggled on.
 		if ( tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on() ) {
 			return $is_enabled;
 		}
@@ -541,12 +555,62 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Add "Event Blocks" category to the editor
 	 *
+	 * @deprecated 5.8.2
+	 *
 	 * @since 4.7
+	 *
+	 * @param array<array<string|string>> $categories An array of categories each an array
+	 *                                                in the format property => value.
+	 * @param WP_Post                     $post       The post object we're editing.
 	 *
 	 * @return array
 	 */
 	public function block_categories( $categories, $post ) {
+		// Handle where someone is using this outside of this object
+		global $wp_version;
+		if ( version_compare( $wp_version, '5.8', '>=' ) ) {
+			_deprecated_function( __FUNCTION__, '5.8.2', 'block_categories_all' );
+		}
+
 		if ( Tribe__Events__Main::POSTTYPE !== $post->post_type ) {
+			return $categories;
+		}
+
+		return array_merge(
+			$categories,
+			[
+				[
+					'slug'  => 'tribe-events',
+					'title' => __( 'Event Blocks', 'the-events-calendar' ),
+				],
+			]
+		);
+	}
+
+	/**
+	 * Add "Event Blocks" category to the editor.
+	 *
+	 * @since 5.8.2 block_categories() modified to cover WP 5.8 change of filter in a backwards-compatible way.
+	 *
+	 * @param array<array<string,string>> $categories An array of categories each an array.
+	 *                                                in the format property => value.
+	 * @param WP_Block_Editor_Context     $context    The Block Editor Context object.
+	 *                                                In WP versions prior to 5.8 this was the post object.
+	 *
+	 * @return array<array<string,string>> The block categories, filtered to add the Event Categories if applicable.
+	 */
+	public function block_categories_all( $categories, $context ) {
+		if ( ! $context instanceof WP_Block_Editor_Context ) {
+			return $categories;
+		}
+
+		// Make sure we have the post available.
+		if ( empty( $context->post ) ) {
+			return $categories;
+		}
+
+		// Make sure it's an event post.
+		if ( ! tribe_is_event( $context->post ) ) {
 			return $categories;
 		}
 
