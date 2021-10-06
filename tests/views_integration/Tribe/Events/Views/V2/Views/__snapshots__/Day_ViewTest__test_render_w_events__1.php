@@ -246,7 +246,8 @@
 	</div>
 
 </div>
-		</header>
+
+					</header>
 
 		
 		<div class="tribe-events-calendar-day">
