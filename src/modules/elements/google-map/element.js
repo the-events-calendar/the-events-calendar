@@ -334,6 +334,10 @@ export default class GoogleMap extends Component {
 			return this.renderInteractive();
 		}
 
+		if ( interactive ) {
+			return this.renderInteractive();
+		}
+
 		if ( ! interactive ) {
 			return this.renderIframe();
 		}
