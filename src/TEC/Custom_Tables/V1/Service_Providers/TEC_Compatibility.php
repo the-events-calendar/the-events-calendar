@@ -10,7 +10,6 @@
 namespace TEC\Custom_Tables\V1\Service_Providers;
 
 use TEC\Custom_Tables\V1\Views\V2;
-use TEC\Pro\Custom_Tables\V1\Edits;
 use Tribe__Events__Admin_List;
 use Tribe__Events__Main as TEC;
 
@@ -45,8 +44,6 @@ class TEC_Compatibility extends \tad_DI52_ServiceProvider {
 		} else {
 			add_action( 'current_screen', [ $this, 'remove_admin_filters' ] );
 		}
-
-		$this->container->register( Edits\Provider::class );
 	}
 
 	/**

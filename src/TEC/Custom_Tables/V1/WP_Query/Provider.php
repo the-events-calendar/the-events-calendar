@@ -11,13 +11,13 @@
 namespace TEC\Custom_Tables\V1\WP_Query;
 
 use Serializable;
+use TEC\Custom_Tables\V1\Edits\Event\Unstable_Occurrence;
 use TEC\Custom_Tables\V1\Models\Provisional_Post;
 use TEC\Custom_Tables\V1\Models\Provisional_Post_Cache;
 use TEC\Custom_Tables\V1\Service_Providers\Controllable_Service_Provider;
 use TEC\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
 use TEC\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
 use TEC\Custom_Tables\V1\WP_Query\Repository\Custom_Tables_Query_Filters;
-use TEC\Pro\Custom_Tables\V1\Edits\Event\Unstable_Occurrence;
 use Tribe__Repository as Repository;
 use WP_Query;
 

@@ -102,7 +102,6 @@ class Provider extends Service_Provider {
 			$this->container->register( Events\Provisional\Provider::class );
 			$this->container->register( TEC_Compatibility::class );
 			$this->container->register( WP_Query\Provider::class );
-			$this->container->register( \TEC\Pro\Custom_Tables\V1\Editors\Block\Provider::class );
 
 			/*
 			 * Integrations with 3rd party code are registered last to
