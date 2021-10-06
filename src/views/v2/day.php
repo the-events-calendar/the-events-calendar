@@ -59,6 +59,8 @@ if ( empty( $disable_event_search ) ) {
 			<?php $this->template( 'components/events-bar' ); ?>
 
 			<?php $this->template( 'day/top-bar' ); ?>
+
+			<?php $this->template( 'components/messages', [ 'classes' => [ 'tribe-events-header__messages--mobile' ] ] ); ?>
 		</header>
 
 		<?php $this->template( 'components/filter-bar' ); ?>
