@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Ensure the day view on mobile displays the not found message when no events are present. [TEC-3944]
 * Fix - Ensure a map preview is displayed on the venue block in the admin area when using TEC's default Google API Key. [TEC-3042]
 * Fix - Add some missing text domains for string translation. [TEC-3908]
 * Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
