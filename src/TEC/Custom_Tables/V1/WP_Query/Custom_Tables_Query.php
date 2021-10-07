@@ -123,6 +123,15 @@ class Custom_Tables_Query extends WP_Query {
 		$this->set( 'tribe_include_date_meta', false );
 		$this->tribe_include_date_meta = false;
 
+		/**
+		 * Fires before The Events Calendar queries for Events on the
+		 * custom tables (v1).
+		 *
+		 * @since TBD
+		 *
+		 * @param Custom_Tables_Query $this A reference to the Custom Tables (v1) Query object
+		 *                                  that will fetch the data.
+		 */
 		do_action( 'tec_events_icaltec_custom_tables_query_pre_get_posts', $this );
 
 		$results = parent::get_posts();
