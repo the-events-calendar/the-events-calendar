@@ -382,14 +382,35 @@ var tribe_events_customizer_live_preview_js_config =
 							}
 
 							// Multiday Event Span?
+							/* eslint-disable-next-line max-len */
 							const monthMultidayEventBarChoice = api( obj.selectors.monthMultidayEventBarChoice ).get();
 							const rgbString = obj.hexToRGBString( accentColor );
 							if ( 'default' === monthMultidayEventBarChoice ) {
-								tribeElement.style.setProperty( '--tec-color-background-primary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-								tribeElement.style.setProperty( '--tec-color-background-primary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
-								tribeElement.style.setProperty( '--tec-color-background-primary-multiday-active', 'rgba(' + rgbString + ', 0.34)' );
-								tribeElement.style.setProperty( '--tec-color-background-secondary-multiday', 'rgba(' + rgbString + ', 0.24)' );
-								tribeElement.style.setProperty( '--tec-color-background-secondary-multiday-hover', 'rgba(' + rgbString + ', 0.34)' );
+								tribeElement.style.setProperty(
+									'--tec-color-background-primary-multiday',
+									'rgba(' + rgbString + ', 0.24)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-primary-multiday-hover',
+									'rgba(' + rgbString + ', 0.34)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-primary-multiday-active',
+									'rgba(' + rgbString + ', 0.34)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-secondary-multiday',
+									'rgba(' + rgbString + ', 0.24)'
+								);
+
+								tribeElement.style.setProperty(
+									'--tec-color-background-secondary-multiday-hover',
+									'rgba(' + rgbString + ', 0.34)'
+								);
+
 							}
 						}
 					);
