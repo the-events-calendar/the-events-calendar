@@ -455,6 +455,22 @@ class Assets extends \tad_DI52_ServiceProvider {
 				],
 			]
 		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-admin-v2-single-blocks',
+			'tribe-admin-single-blocks.css',
+			[ 
+				'tec-variables-full',
+				'tec-variables-skeleton',
+			],
+			[ 'admin_enqueue_scripts' ],
+			[
+				'conditionals' => [
+					[ $this, 'should_enqueue_admin' ]
+				],
+			]
+		);
 	}
 
 	/**
@@ -608,5 +624,20 @@ class Assets extends \tad_DI52_ServiceProvider {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks whether we should enqueue files on the admin area.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_admin() {
+		if ( is_admin() ) {
+			return true;
+		}
+
+		return false;
 	}
 }
