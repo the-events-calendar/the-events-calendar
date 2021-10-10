@@ -337,3 +337,50 @@
 		line-height: 1.64;
 	}
 }
+
+/* = Recurring event label
+============================================= */
+.tribe-editor__events-pro__recurrence-description {
+	color: #141827;
+	background-color: #f7f6f6;
+	border-radius: 40px;
+	display: inline-flex;
+	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+	font-size: 18px;
+	min-height: 40px;
+	padding: 0 20px 0 35px;
+	position: relative;
+
+	&:before {
+		background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.333 3.826c0 .065 0 .13-.02.174 0 .022-.02.065-.02.087a.9.9 0 0 1-.197.37L10.45 7.37a.797.797 0 0 1-.592.26.797.797 0 0 1-.593-.26c-.316-.348-.316-.935 0-1.305l1.225-1.348H6.3c-2.547 0-4.64 2.283-4.64 5.11 0 1.369.474 2.651 1.363 3.608.316.348.316.935 0 1.304A.797.797 0 0 1 2.43 15a.797.797 0 0 1-.593-.26C.652 13.434 0 11.695 0 9.847c0-3.826 2.825-6.935 6.301-6.935h4.208L9.284 1.565c-.316-.348-.316-.935 0-1.304.316-.348.85-.348 1.185 0l2.647 2.913a.952.952 0 0 1 .198.37c0 .021.02.065.02.086v.196zM20 10.152c0 3.826-2.825 6.935-6.301 6.935H9.49l1.225 1.348c.336.348.336.935 0 1.304a.797.797 0 0 1-.593.261.83.83 0 0 1-.592-.26l-2.627-2.936a.948.948 0 0 1-.198-.37c0-.021-.02-.064-.02-.086-.02-.065-.02-.109-.02-.174 0-.065 0-.13.02-.174 0-.022.02-.065.02-.087a.9.9 0 0 1 .198-.37L9.55 12.63c.316-.347.849-.347 1.185 0 .336.348.336.935 0 1.305L9.51 15.283h4.208c2.548 0 4.641-2.283 4.641-5.11 0-1.369-.474-2.651-1.362-3.608a.97.97 0 0 1 0-1.304c.316-.348.849-.348 1.185 0C19.348 6.543 20 8.283 20 10.152z'/%3E%3C/svg%3E") 0/12px no-repeat;
+		content: '';
+		height: 20px;
+		left: 20px;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 20px;
+	}
+
+	svg {
+		display: none;
+	}
+
+	span {
+		color: #141827;
+		font-size: 18px;
+		font-weight: 700;
+		padding-left: 30px;
+	}
+
+	a {
+		color: #334aff;
+		font-size: 16px;
+		text-decoration: none;
+	}
+}
+
+.tribe-editor__events-pro__recurrence-description > a {
+	margin: 0;
+	padding: 0;
+}
