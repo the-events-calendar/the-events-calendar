@@ -9,7 +9,6 @@
 
 namespace TEC\Custom_Tables\V1\WP_Query\Modifiers;
 
-use TEC\Custom_Tables\V1\Models\Provisional_Post;
 use TEC\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
 use Tribe__Events__Main as TEC;
@@ -25,26 +24,6 @@ use WP_Query;
  */
 class Events_Only_Modifier extends Base_Modifier {
 	use With_WP_Query_Introspection;
-
-	/**
-	 * Reference to the provisional post.
-	 *
-	 * @since TBD
-	 *
-	 * @var Provisional_Post provisional_post
-	 */
-	private $provisional_post;
-
-	/**
-	 * Events_Only_Modifier constructor.
-	 *
-	 * @since TBD
-	 *
-	 * @param  Provisional_Post  $provisional_post
-	 */
-	public function __construct( Provisional_Post $provisional_post ) {
-		$this->provisional_post = $provisional_post;
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -102,8 +81,6 @@ class Events_Only_Modifier extends Base_Modifier {
 			$id = $post instanceof WP_Post ? $post->ID : $post;
 			return $id > 0;
 		} );
-
-		$this->provisional_post->hydrate_caches( $posts );
 
 		$this->done_filters[ current_filter() ] = array_map( 'get_post', $posts );
 

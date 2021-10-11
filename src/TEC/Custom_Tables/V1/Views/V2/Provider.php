@@ -33,7 +33,6 @@ class Provider extends tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
-		// @todo find out why we need this, fix and remove it.
 		add_filter( 'tribe_events_views_v2_by_day_view_day_results', [
 			$this,
 			'prepare_by_day_view_day_results',
@@ -64,7 +63,8 @@ class Provider extends tad_DI52_ServiceProvider {
 	 * @return array<int,stdClass> The prepared day results.
 	 */
 	public function prepare_by_day_view_day_results( array $day_results = null, array $event_ids = [] ) {
-		return $this->container->make( By_Day_View_Compatibility::class )->prepare_day_results( $event_ids );
+		return $this->container->make( By_Day_View_Compatibility::class )
+		                       ->prepare_day_results( $event_ids );
 	}
 
 	/**

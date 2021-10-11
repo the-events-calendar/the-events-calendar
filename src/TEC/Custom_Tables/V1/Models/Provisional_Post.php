@@ -12,7 +12,7 @@ namespace TEC\Custom_Tables\V1\Models;
 use TEC\Custom_Tables\V1\Edits\Event\Unstable_Occurrence;
 use TEC\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Custom_Tables\V1\Traits\With_Core_Tables;
-use TEC\Custom_Tables\V1\WP_Query\Provider as WP_Queries;
+use TEC\Pro\Custom_Tables\V1\WP_Query\Provider as WP_Queries;
 
 /**
  * Class Provisional_Post

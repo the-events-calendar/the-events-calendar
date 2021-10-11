@@ -10,10 +10,9 @@
 
 namespace TEC\Custom_Tables\V1\WP_Query\Repository;
 
-use TEC\Custom_Tables\V1\Events\Provisional\ID_Generator as Provisional_ID_Generator;
 use TEC\Custom_Tables\V1\Models\Occurrence;
-use TEC\Custom_Tables\V1\Models\Provisional_Post;
 use TEC\Custom_Tables\V1\Tables\Occurrences;
+use TEC\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
 use Tribe__Repository__Query_Filters as Query_Filters;
 use WP_Query;
 
@@ -209,10 +208,11 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 		}
 
 		$this->redirect();
+
 		if ( count( $this->redirects ) === 0 ) {
 			/*
 			 * Whether meta is being actually redirected or not, there should always be a JOIN on the Occurrences
-			 * table as that is the only way to represent Occurrences by mean of their Provisional Post ID.
+			 * table as that is the only way to represent Occurrences.
 			 */
 			global $wpdb;
 			$occurrences                = Occurrences::table_name( true );
@@ -275,18 +275,16 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 		// Do not get the `ID` column from the `posts` table, but the `occurrence_id` column from the Occurrences table.
 		global $wpdb;
 
-		$occurrence_id = sprintf(
-			'(%1$s.%2$s + %3$d) as %2$s',
-			Occurrences::table_name( true ),
-			Occurrences::uid_column(),
-			tribe( Provisional_ID_Generator::class )->current()
-		);
+		$wp_post_fields = $wpdb->posts . '.ID';
 
-		return str_replace(
-			$wpdb->posts . '.ID',
-			$occurrence_id,
-			$input
-		);
+		/**
+		 * @since TBD
+		 * @see   Custom_Tables_Query::redirect_posts_fields() for this filter documentation.
+		 */
+		$select_fields = apply_filters( 'tec_custom_tables_v1_occurrence_select_fields', $wp_post_fields, 'ids' );
+
+
+		return str_replace( $wp_post_fields, $select_fields, $input );
 	}
 
 	/**
@@ -360,9 +358,10 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			$where_clause,
 			$m );
 
+		// TODO: Move into PRO?
 		if ( $is_in_series_where && isset( $m['id'] ) ) {
 			$occurrences   = Occurrences::table_name( true );
-			$occurrence_id = tribe( Provisional_Post::class )->normalize_provisional_post_id( absint( $m['id'] ) );
+			$occurrence_id = Occurrence::normalize_id( absint( $m['id'] ) );
 			$occurrence    = Occurrence::find( $occurrence_id, 'occurrence_id' );
 
 			if ( ! $occurrence instanceof Occurrence ) {

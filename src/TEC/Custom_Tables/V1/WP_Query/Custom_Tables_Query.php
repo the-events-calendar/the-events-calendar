@@ -9,7 +9,6 @@
 
 namespace TEC\Custom_Tables\V1\WP_Query;
 
-use TEC\Custom_Tables\V1\Events\Provisional\ID_Generator as Provisional_ID_Generator;
 use TEC\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
 use TEC\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
@@ -124,17 +123,25 @@ class Custom_Tables_Query extends WP_Query {
 		$this->tribe_include_date_meta = false;
 
 		/**
-		 * Fires before The Events Calendar queries for Events on the
-		 * custom tables (v1).
+		 * Fires before the Custom Tables query runs.
 		 *
 		 * @since TBD
 		 *
-		 * @param Custom_Tables_Query $this A reference to the Custom Tables (v1) Query object
-		 *                                  that will fetch the data.
+		 * @param Custom_Tables_Query $this A reference to this Custom Tables query.
 		 */
-		do_action( 'tec_events_icaltec_custom_tables_query_pre_get_posts', $this );
+		do_action( 'tec_custom_tables_v1_custom_tables_query_pre_get_posts', $this );
 
 		$results = parent::get_posts();
+
+		/**
+		 * Fires after the Custom Tables Query ran.
+		 *
+		 * @since TBD
+		 *
+		 * @param array|object|null   $results The query results.
+		 * @param Custom_Tables_Query $this    A reference to this Custom Tables query.
+		 */
+		do_action( 'tec_custom_tables_v1_custom_tables_query_results', $results, $this );
 
 		if (
 			$this->wp_query instanceof WP_Query
@@ -197,46 +204,31 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string         $fields  The original `SELECT` SQL.
-	 * @param  WP_Query|null  $query   A reference to the `WP_Query` instance currently being
+	 * @param  string        $request_fields The original `SELECT` SQL.
+	 * @param  WP_Query|null $query          A reference to the `WP_Query` instance currently being
 	 *                                 filtered.
 	 *
 	 * @return string The filtered `SELECT` clause.
 	 */
-	public function redirect_posts_fields( $fields, WP_Query $query = null ) {
+	public function redirect_posts_fields( $request_fields, WP_Query $query = null ) {
 		if ( $this !== $query ) {
-			return $fields;
+			return $request_fields;
 		}
 
 		remove_filter( 'posts_fields', [ $this, 'redirect_posts_fields' ] );
 
-		$occurrences_table            = Occurrences::table_name( true );
-		$occurrences_table_uid_column = Occurrences::uid_column();
-		global $wpdb;
+		/**
+		 * Filters the table field, including the table name, that should be
+		 * used to identify distinct Occurrences results in the context
+		 * of a Custom Tables Query.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $request_fields The Query fields request, e.g. `ids`.
+		 */
+		$request_fields = apply_filters( 'tec_custom_tables_v1_occurrence_select_fields', $request_fields );
 
-		$occurrence_id = sprintf(
-			'(%1$s.%2$s + %3$d) as %2$s',
-			$occurrences_table,
-			$occurrences_table_uid_column,
-			tribe( Provisional_ID_Generator::class )->current()
-		);
-
-		// @todo here hook to fetch the entire row and store it.
-		switch ( $fields ) {
-			case 'ids':
-				$fields = $occurrence_id;
-				break;
-			case 'id=>parent':
-				// @todo revisit this: series? post?
-				$fields .= "{$occurrence_id}, {$wpdb->posts}.post_parent";
-				break;
-			default:
-				// All queries should be ID-based.
-				$fields = $occurrence_id;
-				break;
-		}
-
-		return $fields;
+		return $request_fields;
 	}
 
 	/**

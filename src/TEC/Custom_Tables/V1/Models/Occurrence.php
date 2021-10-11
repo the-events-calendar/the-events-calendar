@@ -114,6 +114,30 @@ class Occurrence extends Model {
 	];
 
 	/**
+	 * Filters the Occurrence post ID to normalize it.
+	 *
+	 * By default the Occurrence post ID will not be modified.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $occurrence_id The Occurrence post ID to normalize.
+	 *
+	 * @return int The normalized Occurrence post ID.
+	 */
+	public static function normalize_id( $occurrence_id ) {
+		/**
+		 * Filters the Occurrence post ID to normalize it.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $occurrence_id The Occurrence post ID to normalize.
+		 */
+		$normalized_id = apply_filters( 'tec_custom_tables_v1_normalize_occurrence_id', $occurrence_id );
+
+		return $normalized_id;
+	}
+
+	/**
 	 * Method to save the occurrences from an event.
 	 *
 	 * @since TBD
@@ -420,14 +444,7 @@ class Occurrence extends Model {
 			return null;
 		}
 
-		$provisional_post = tribe( Provisional_Post::class );
-
-		if ( $provisional_post->is_provisional_post_id( $id ) ) {
-			return static::find(
-				$provisional_post->normalize_provisional_post_id( $id ),
-				'occurrence_id'
-			);
-		}
+		$id = self::normalize_id( $id );
 
 		return static::find( $id, 'post_id' );
 	}
