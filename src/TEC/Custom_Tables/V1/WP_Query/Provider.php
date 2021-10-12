@@ -36,7 +36,6 @@ class Provider extends \tad_DI52_ServiceProvider implements Controllable_Service
 		if ( ! $this->container->isBound( static::class ) ) {
 			// Avoid re-bindings on Service Provider control.
 			$this->container->singleton( __CLASS__, $this );
-			$this->container->singleton( Replace_Results::class, Replace_Results::class );
 			$this->container->singleton( WP_Query_Monitor::class, WP_Query_Monitor::class );
 			$this->container->singleton( Custom_Tables_Query_Monitor::class, Custom_Tables_Query_Monitor::class );
 		}
