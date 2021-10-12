@@ -9,7 +9,6 @@
 
 namespace TEC\Custom_Tables\V1;
 
-use TEC\Custom_Tables\V1\Events\Provisional\Provider as Provisional_Post_Provider;
 use TEC\Custom_Tables\V1\Tables\Provider as Tables;
 
 /**
@@ -79,10 +78,8 @@ class Activation {
 		$services = tribe();
 
 		$services->register( Tables::class );
-		$services->register( Provisional_Post_Provider::class );
 
 		$services->make( Tables::class )->update_tables();
-		$services->make( Provisional_Post_Provider::class )->on_activation();
 	}
 
 	/**
@@ -96,6 +93,5 @@ class Activation {
 		$services->register( Tables::class );
 
 		$services->make( Tables::class )->clean();
-		$services->make( Provisional_Post_Provider::class )->on_deactivation();
 	}
 }

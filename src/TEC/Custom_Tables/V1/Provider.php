@@ -99,7 +99,6 @@ class Provider extends Service_Provider {
 			$this->container->singleton( 'tec.custom-tables.v1.provider', self::class );
 
 			$this->container->register( Tables\Provider::class );
-			$this->container->register( Events\Provisional\Provider::class );
 			$this->container->register( TEC_Compatibility::class );
 			$this->container->register( WP_Query\Provider::class );
 			$this->container->register( Edits\Provider::class );

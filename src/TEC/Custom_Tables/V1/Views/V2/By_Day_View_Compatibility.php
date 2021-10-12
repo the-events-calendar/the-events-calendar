@@ -28,13 +28,13 @@ class By_Day_View_Compatibility {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<int> $provisional_ids A list of the Event post IDs to prepare the day results
-	 *                                    for.
+	 * @param array<int> $ids A list of the Event post IDs to prepare the day results
+	 *                        for.
 	 *
 	 * @return array<int,stdClass> The prepared day results.
 	 */
-	public function prepare_day_results( array $provisional_ids = [] ) {
-		if ( empty( $provisional_ids ) ) {
+	public function prepare_day_results( array $ids = [] ) {
+		if ( empty( $ids ) ) {
 			return [];
 		}
 
@@ -47,7 +47,7 @@ class By_Day_View_Compatibility {
 		/** @var Occurrence $occurrence */
 		foreach (
 			Occurrence::order_by( $start_date_prop, 'ASC' )
-			          ->find_all( $provisional_ids, 'post_id' ) as $occurrence
+			          ->find_all( $ids, 'post_id' ) as $occurrence
 		) {
 			$prepared[ $occurrence->post_id ] = (object) [
 				'ID'         => $occurrence->post_id,
