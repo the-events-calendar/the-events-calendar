@@ -14,7 +14,8 @@ namespace TEC\Custom_Tables\V1;
 
 use tad_DI52_Container as Container;
 use tad_DI52_ServiceProvider as Service_Provider;
-use TEC\Custom_Tables\V1\Service_Providers\TEC_Compatibility;
+use Tribe__Events__Main as TEC;
+use Tribe__Events__Admin_List as TEC_Admin_List;
 
 /**
  * Class Provider
@@ -99,9 +100,18 @@ class Provider extends Service_Provider {
 			$this->container->singleton( 'tec.custom-tables.v1.provider', self::class );
 
 			$this->container->register( Tables\Provider::class );
-			$this->container->register( TEC_Compatibility::class );
 			$this->container->register( WP_Query\Provider::class );
 			$this->container->register( Edits\Provider::class );
+
+			if ( tribe_events_views_v2_is_enabled() ) {
+				$this->container->register( Views\V2\Provider::class );
+			}
+
+			if ( tribe( 'context' )->doing_ajax() ) {
+				add_action( 'admin_init', [ $this, 'remove_admin_filters' ] );
+			} else {
+				add_action( 'current_screen', [ $this, 'remove_admin_filters' ] );
+			}
 
 			/*
 			 * Integrations with 3rd party code are registered last to
@@ -234,5 +244,15 @@ class Provider extends Service_Provider {
 		}
 
 		return $removed;
+	}
+
+	/**
+	 * Remove the base admin filters added by TEC.
+	 *
+	 * @since TBD
+	 */
+	public function remove_admin_filters() {
+		remove_filter( 'views_edit-' . TEC::POSTTYPE, [ TEC_Admin_List::class, 'update_event_counts' ] );
+		remove_action( 'manage_posts_custom_column', [ TEC_Admin_List::class, 'custom_columns' ] );
 	}
 }
