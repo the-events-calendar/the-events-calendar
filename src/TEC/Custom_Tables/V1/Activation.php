@@ -33,25 +33,6 @@ class Activation {
 	 * @since TBD
 	 */
 	public static function activate() {
-		// @todo remove this block when merged into TEC.
-		if ( ! ( class_exists( 'Tribe__Events__Main' ) ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-			deactivate_plugins( TEC_CUSTOM_TABLES_V1_FILE, true );
-			$message = __(
-				'To use Recurring Events 2.0 Alpha, you must activate the latest versions of The Events ' .
-				'Calendar and The Events Calendar Pro.',
-				'ical-tec'
-			);
-
-			if ( ! defined( 'WP_CLI' ) ) {
-				wp_die( $message );
-			} else {
-				\WP_CLI::error( $message );
-			}
-
-			return;
-		}
-
 		// Delete the transient to make sure the activation code will run again.
 		delete_transient( self::ACTIVATION_TRANSIENT );
 
@@ -79,7 +60,7 @@ class Activation {
 
 		$services->register( Tables::class );
 
-		$services->make( Tables::class )->update_tables();
+		$services->make( Tables::class )->update_tables( true );
 	}
 
 	/**
