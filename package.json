@@ -146,6 +146,5 @@
     "zero-fill": "^2.2.3",
     "react-google-maps": "^9.4.5"
   },
-  "optionalDependencies": { "fsevents": "^1.0.0" },
-  "resolutions": { "graceful-fs": "^4.2.4" }
+  "optionalDependencies": { "fsevents": "^1.0.0" }
 }
