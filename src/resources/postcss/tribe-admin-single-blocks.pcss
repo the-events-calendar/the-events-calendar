@@ -12,7 +12,7 @@
 ============================================= */
 .editor-styles-wrapper .tribe-editor__organizer__details {
 	border-top: 1px solid #d5d5d5;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+	font-family: var(--tec-font-family-sans-serif);
 	padding: 22.5px 0;
 
 	@media screen and (min-width: 768px) {
@@ -20,8 +20,8 @@
 	}
 
 	h3.tribe-editor__organizer__title-heading {
-		color: #334aff;
-		font-size: 18px;
+		color: var(--tec-color-accent-primary);
+		font-size: var(--tec-font-size-4);
 		font-weight: normal;
 		letter-spacing: normal;
 		line-height: 1.64;
@@ -30,8 +30,8 @@
 	}
 
 	p {
-		color: #141827;
-		font-size: 18px;
+		color: var(--tec-color-text-primary);
+		font-size: var(--tec-font-size-4);
 		letter-spacing: normal;
 		line-height: 1.64;
 	}
@@ -42,7 +42,7 @@
 .tribe-editor__venue {
 	border-top: 1px solid #d5d5d5;
 	flex-direction: column-reverse;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+	font-family: var(--tec-font-family-sans-serif);
 	justify-content: flex-start;
 	padding: 22.5px 0;
 
@@ -81,8 +81,8 @@
 		.tribe-editor__venue__name {
 
 			h3 {
-				color: #334aff;
-				font-size: 18px;
+				color: var(--tec-color-accent-primary);
+				font-size: var(--tec-font-size-4);
 				font-weight: normal;
 				letter-spacing: normal;
 				line-height: 1.64;
@@ -93,7 +93,7 @@
 			margin-bottom: 17px;
 
 			a {
-				color: #334aff;
+				color: var(--tec-color-accent-primary);
 				text-decoration: none;
 			}
 
@@ -109,8 +109,8 @@
 		.tribe-editor__venue__address,
 		.tribe-editor__venue__phone,
 		.tribe-editor__venue__website {
-			color: #141827;
-			font-size: 18px;
+			color: var(--tec-color-text-primary);
+			font-size: var(--tec-font-size-4);
 			font-weight: normal;
 			letter-spacing: normal;
 			line-height: 1.64;
@@ -121,7 +121,7 @@
 /* = Sharing block view styles
 ============================================= */
 .tribe-editor__events-link {
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+	font-family: var(--tec-font-family-sans-serif);
 	padding: 20px 0;
 
 	.tribe-editor__btn--link {
@@ -134,23 +134,23 @@
 		}
 
 		.tribe-editor__btn-input {
-			color: #334aff;
+			color: var(--tec-color-accent-primary);
 			display: block;
-			font-size: 18px;
+			font-size: var(--tec-font-size-4);
 			font-weight: normal;
 			margin: 10px 15px 10px 0;
 			min-height: revert;
 			padding: 0;
 
 			&:before {
-				color: #334aff;
+				color: var(--tec-color-accent-primary);
 				content: '+';
 				margin-right: 3px;
 			}
 
 			input {
-				color: #334aff;
-				font-size: 18px;
+				color: var(--tec-color-accent-primary);
+				font-size: var(--tec-font-size-4);
 				font-weight: normal;
 			}
 		}
@@ -164,13 +164,13 @@
 /* = Price block view styles
 ============================================= */
 .tribe-editor__event-price {
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+	font-family: var(--tec-font-family-sans-serif);
 	padding: 20px 0 10px;
 
 	.tribe-editor__event-price__currency,
 	.tribe-editor__event-price__cost,
 	.tribe-editor__event-price__description {
-		font-size: 18px;
+		font-size: var(--tec-font-size-4);
 	}
 }
 
@@ -181,9 +181,9 @@
 	.tribe-editor__btn--label,
 	.tribe-editor__subtitle__headline-date,
 	.tribe-editor__subtitle__headline-content {
-		color: #141827;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 18px;
+		color: var(--tec-color-text-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-4);
 		font-weight: 400;
 		letter-spacing: normal;
 		line-height: 1.63;
@@ -197,9 +197,9 @@
 	.components-placeholder.components-placeholder .tribe-editor__event-virtual {
 
 		h3 {
-			color: #334aff;
-			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-size: 18px;
+			color: var(--tec-color-accent-primary);
+			font-family: var(--tec-font-family-sans-serif);
+			font-size: var(--tec-font-size-4);
 			font-weight: 400;
 			letter-spacing: normal;
 			line-height: 1.64;
@@ -208,9 +208,9 @@
 		}
 
 		.components-placeholder__instructions {
-			color: #141827;
-			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-size: 18px;
+			color: var(--tec-color-text-primary);
+			font-family: var(--tec-font-family-sans-serif);
+			font-size: var(--tec-font-size-4);
 			letter-spacing: normal;
 			line-height: 1.64;
 			margin: 0;
@@ -223,8 +223,8 @@
 .tribe-editor__event-details {
 	background: transparent;
     border: none;
-	font-size: 16px;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+	font-size: var(--tec-font-size-3);
+	font-family: var(--tec-font-family-sans-serif);
 	letter-spacing: normal;
 	line-height: 1.64;
 
@@ -234,8 +234,8 @@
 	}
 
 	::placeholder {
-		color: #141827;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		color: var(--tec-color-text-primary);
+		font-family: var(--tec-font-family-sans-serif);
 		font-size: 17px;
 		font-weight: bold;
 		letter-spacing: normal;
@@ -253,15 +253,15 @@
 
 	.tribe-editor__terms__list,
 	.tribe-editor__organizer__list {
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 18px;
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-4);
 		margin: 0;
 		padding: 0;
 
 		a {
-			color: #334aff;
-			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-			font-size: 18px;
+			color: var(--tec-color-accent-primary);
+			font-family: var(--tec-font-family-sans-serif);
+			font-size: var(--tec-font-size-4);
 			text-decoration: none;
 		}
 	}
@@ -272,9 +272,9 @@
 .tribe-editor__related-events {
 	
 	.tribe-editor__related-events__title-text input {
-		color: #334aff;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 18px;
+		color: var(--tec-color-accent-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-4);
 		font-weight: 400;
 		letter-spacing: normal;
 		line-height: 1.64;
@@ -284,9 +284,9 @@
 	}
 
 	.tribe-editor__related-events__warning {
-		color: #141827;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 16px;
+		color: var(--tec-color-text-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-3);
 		letter-spacing: normal;
 		line-height: 1.64;
 		margin: 0;
@@ -299,11 +299,11 @@
 	font-family: var(--tec-font-family-sans-serif);
 
 	.tribe-editor__event-website__label-text input {
-		background-color: #334aff;
+		background-color: var(--tec-color-accent-primary);
 		border: none;
 		border-radius: 4px;
 		color: #fff;
-		font-size: 18px;
+		font-size: var(--tec-font-size-4);
 		font-weight: bold;
 		min-height: 40px;
 		padding: 0 20px;
@@ -315,9 +315,9 @@
 	}
 
 	.block-editor-url-input input[type=text], .components-popover .block-editor-url-input input[type=text], .block-editor-url-input input[type=text] {
-		color: #334aff;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 18px;
+		color: var(--tec-color-accent-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-4);
 		letter-spacing: normal;
 		line-height: 1.64;
 	}
@@ -336,9 +336,9 @@
 ============================================= */
 .post-type-tribe_events {
 	p.wp-block-paragraph {
-		color: #141827;
-		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-		font-size: 18px;
+		color: var(--tec-color-text-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-4);
 		letter-spacing: normal;
 		line-height: 1.64;
 	}
@@ -347,12 +347,12 @@
 /* = Recurring event label
 ============================================= */
 .tribe-editor__events-pro__recurrence-description {
-	color: #141827;
+	color: var(--tec-color-text-primary);
 	background-color: #f7f6f6;
 	border-radius: 40px;
 	display: inline-flex;
-	font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-	font-size: 18px;
+	font-family: var(--tec-font-family-sans-serif);
+	font-size: var(--tec-font-size-4);
 	min-height: 40px;
 	padding: 0 20px 0 35px;
 	position: relative;
@@ -373,15 +373,15 @@
 	}
 
 	span {
-		color: #141827;
-		font-size: 18px;
+		color: var(--tec-color-text-primary);
+		font-size: var(--tec-font-size-4);
 		font-weight: 700;
 		padding-left: 30px;
 	}
 
 	a {
-		color: #334aff;
-		font-size: 16px;
+		color: var(--tec-color-accent-primary);
+		font-size: var(--tec-font-size-3);
 		text-decoration: none;
 	}
 }
@@ -403,7 +403,7 @@
 	}
 
 	.editor-styles-wrapper .wp-block.editor-post-title__block .editor-post-title__input {
-		color: #141827;
+		color: var(--tec-color-text-primary);
 		font-size: 50px;
 		font-weight: bold;
 		padding-left: 50px;
