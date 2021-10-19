@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Ensure that the proper spacing is applied for the venue address in list view. [BTRIA-1006]
+* Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 
 = [5.9.1] 2021-09-14 =
 
