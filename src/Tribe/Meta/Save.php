@@ -103,7 +103,7 @@ class Tribe__Events__Meta__Save {
 		$editor = tribe( 'editor' );
 		/** @var Tribe__Events__Editor__Compatibility $compatibility */
 		$compatibility = tribe( 'events.editor.compatibility' );
-		$has_gutenberg_editor = $compatibility->is_blocks_editor_toggled_on() && ! $editor->is_classic_plugin_active();
+		$has_gutenberg_editor = $compatibility->is_blocks_editor_toggled_on() && $editor->should_load_blocks();
 
 		// Save only the meta that does not have blocks when the Gutenberg editor is present.
 		if ( $has_gutenberg_editor ) {

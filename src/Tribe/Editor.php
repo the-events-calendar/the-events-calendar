@@ -163,7 +163,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		$editor = tribe( 'editor' );
 
 		// Bail if in classic editor
-		if ( $editor->is_classic_editor() ) {
+		if ( ! $editor->should_load_blocks() ) {
 			return false;
 		}
 

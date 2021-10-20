@@ -25,7 +25,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return void
 	 */
 	public function hook() {
-		add_action( 'tribe_editor_classic_is_active', [ $this, 'filter_is_classic_editor' ] );
+		add_filter( 'tribe_editor_classic_is_active', [ $this, 'filter_is_classic_editor' ] );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return string
 	 */
 	public function get_toggle_blocks_editor_key() {
-		return 'toggle_blocks_editor';
+		return $this->blocks_editor_key;
 	}
 
 	/**
