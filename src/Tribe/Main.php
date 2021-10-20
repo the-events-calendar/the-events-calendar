@@ -639,8 +639,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'db-lock', DB_Lock::class );
 
 			// Custom tables v1 implementation.
-			if ( class_exists( '\\TEC\\Custom_Tables\\V1\\Provider' ) ) {
-				tribe_register_provider( '\\TEC\\Custom_Tables\\V1\\Provider' );
+			if ( class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' ) ) {
+				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
 		}
 
