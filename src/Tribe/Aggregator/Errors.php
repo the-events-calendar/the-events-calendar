@@ -202,14 +202,16 @@ class Tribe__Events__Aggregator__Errors {
 			return;
 		}
 
+		$type_in = isset( $query->query_vars['type__in'] ) ? $query->query_vars['type__in'] : null;
+
 		if (
 			( // If We have passed type__in as string and we have the comment type, bail
-				is_string( $query->query_vars['type__in'] ) &&
-				false !== strpos( $query->query_vars['type__in'], self::$comment_type )
+				is_string( $type_in ) &&
+				false !== strpos( $type_in, self::$comment_type )
 			) ||
 			( // If we passed type__in as array and we have the comment type, bail
-				is_array( $query->query_vars['type__in'] ) &&
-				in_array( self::$comment_type, $query->query_vars['type__in'])
+				is_array( $type_in ) &&
+				in_array( self::$comment_type, $type_in )
 			)
 		) {
 			return;
