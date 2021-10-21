@@ -18,17 +18,6 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should return empty with an empty Customizer.
-	 *
-	 * @test
-	 */
-	public function should_return_empty_with_an_empty_customizer() {
-		$css_template = tribe('customizer')->get_styles_scripts();
-
-		$this->assertMatchesSnapshot( $css_template );
-	}
-
-	/**
 	 * It should allow taking a CSS template snapshot with provided styles.
 	 *
 	 * @test

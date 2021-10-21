@@ -382,8 +382,10 @@ var tribe_events_customizer_live_preview_js_config =
 							}
 
 							// Multiday Event Span?
+							/* eslint-disable-next-line max-len */
+							const monthMultidayEventBarChoice = api( obj.selectors.monthMultidayEventBarChoice ).get();
 							const rgbString = obj.hexToRGBString( accentColor );
-							if ( 'default' === api( obj.selectors.monthMultidayEventBarChoice ).get() ) {
+							if ( 'default' === monthMultidayEventBarChoice ) {
 								tribeElement.style.setProperty(
 									'--tec-color-background-primary-multiday',
 									'rgba(' + rgbString + ', 0.24)'
