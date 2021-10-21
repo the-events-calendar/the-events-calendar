@@ -971,7 +971,7 @@ var tribe_events_customizer_live_preview_js_config =
 	obj.hexToRGB = function ( hex ) {
 		hex = parseInt( ( ( hex.indexOf( '#' ) > -1) ? hex.substring( 1 ) : hex ), 16 );
 		return { r: hex >> 16, g: ( hex & 0x00FF00 ) >> 8, b: ( hex & 0x0000FF ) };
-	}
+	};
 
 	/**
 	 * Converts a hex string into an RGB string.
@@ -980,9 +980,9 @@ var tribe_events_customizer_live_preview_js_config =
 	 *
 	 * @returns {object} An RGB string in the format 'r, g, b'.
 	 */
-	obj.hexToRGBString = function (hex) {
+	obj.hexToRGBString = function ( hex ) {
 		var rgb = obj.hexToRGB( hex );
 		return rgb.r + ', ' + rgb.g +', ' + rgb.b;
-	}
+	};
 
 } )( jQuery, wp.customize, tribe_events_customizer_live_preview_js_config );
