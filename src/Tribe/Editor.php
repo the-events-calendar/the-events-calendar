@@ -62,7 +62,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-	 * For now we dont use Blocks editor on the Post Type for Organizers
+	 * For now we don't use Blocks editor on the Post Type for Organizers
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
@@ -82,7 +82,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-	 * For now we dont use Blocks editor on the Post Type for Venues
+	 * For now we don't use Blocks editor on the Post Type for Venues
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
@@ -113,10 +113,17 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return false
 	 */
 	public function deactivate_blocks_editor_event( $is_enabled, $post_type ) {
+		// Not an event post type.
 		if ( Tribe__Events__Main::POSTTYPE !== $post_type ) {
 			return $is_enabled;
 		}
 
+		// Classic editor plugin is overriding.
+		if ( tribe( 'events.editor' )->is_classic_option_active() ) {
+			return false;
+		}
+
+		// Blocks aren't toggled on.
 		if ( tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on() ) {
 			return $is_enabled;
 		}

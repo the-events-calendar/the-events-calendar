@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.18
-Stable tag: 5.9.1
+Stable tag: 5.9.2
 Tested up to: 5.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -223,9 +223,16 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Ensure a map preview is displayed on the venue block in the admin area when using TEC's default Google API Key. [TEC-3042]
-* Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
 * Tweak - Change some of the block tests to adapt to the new Editor compatibility in common. [TEC-4016]
+
+= [5.9.2] 2021-10-12 =
+
+* Fix - Ensure the day view on mobile displays the not found message when no events are present. [TEC-3944]
+* Fix - Ensure a map preview is displayed on the venue block in the admin area when using TEC's default Google API Key. [TEC-3042]
+* Fix - Add some missing text domains for string translation. [TEC-3908]
+* Fix - Correct block use checks around the Classic Editor plugin. [TEC-4099]
+* Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
+* Language - 0 new strings added, 164 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.9.1] 2021-09-14 =
 
