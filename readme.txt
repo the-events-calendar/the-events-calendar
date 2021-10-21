@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add live preview to the TEC customizer screens. [TEC-4055]
+
 = [5.9.2] 2021-10-12 =
 
 * Fix - Ensure the day view on mobile displays the not found message when no events are present. [TEC-3944]
