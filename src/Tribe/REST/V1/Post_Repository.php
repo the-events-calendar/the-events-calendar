@@ -89,7 +89,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return new WP_Error( 'event-not-found', $this->messages->get_message( 'event-not-found' ) );
 		}
 
-		$meta = array_map( 'reset', get_post_custom( $event_id ) );
+		$meta = array_map( function ( $item ) {
+			reset( $item );
+		}, get_post_custom( $event_id ) );
 
 		$venue     = $this->get_venue_data( $event_id, $context );
 		$organizer = $this->get_organizer_data( $event_id, $context );
@@ -210,7 +212,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			return new WP_Error( 'venue-not-found', $this->messages->get_message( 'venue-not-found' ) );
 		}
 
-		$meta = array_map( 'reset', get_post_custom( $venue->ID ) );
+		$meta = array_map( function ( $item ) {
+			reset( $item );
+		}, get_post_custom( $venue->ID ) );
 
 		$data = array(
 			'id'            => $venue->ID,
@@ -414,7 +418,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				continue;
 			}
 
-			$meta = array_map( 'reset', get_post_custom( $organizer->ID ) );
+			$meta = array_map( function ( $item ) {
+				reset( $item );
+			}, get_post_custom( $organizer->ID ) );
 
 			$this_data = array(
 				'id'           => $organizer->ID,
