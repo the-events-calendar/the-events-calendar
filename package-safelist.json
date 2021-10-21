@@ -18,7 +18,7 @@
   "src/resources/icons/**/*",
   "src/resources/deprecated/**/*",
   "src/Tribe/**/*",
-  "src/TEC/**/*",
+  "src/Events/**/*",
   "src/views/**/*",
   "the-events-calendar.php",
   "vendor/autoload.php",
