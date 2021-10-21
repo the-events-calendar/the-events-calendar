@@ -397,11 +397,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns all the upcoming events matching the search criteria', 'the-events-calendar' ),
-						'schema'      => [
-							'title' => 'events',
-							'type'  => 'array',
-							'items' => [ '$ref' => '#/definitions/Event' ],
-						],
+						'content' => [
+							'application/json' => [
+								'schema' => [
+									'title' => 'events',
+									'type'  => 'array',
+									'items' => [ '$ref' => '#/components/schemas/Event' ],
+								],
+							]
+						]
 					],
 					'400' => [
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
