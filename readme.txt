@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Ensure a map preview is displayed on the venue block in the admin area when using TEC's default Google API Key. [TEC-3042]
 * Tweak - Set the appropriate Content-Type for REST responses that return just HTML during view partial requests. [TEC-4087]
+* Tweak - Change some of the block tests to adapt to the new Editor compatibility in common. [TEC-4016]
 
 = [5.9.1] 2021-09-14 =
 
