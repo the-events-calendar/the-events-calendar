@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] =
+
+* Fix - Resolved `Warning: reset(): Argument #1 ($array) must be passed by reference...` error that was displayed on the Events, Organizers and Venue REST endpoints in PHP v8. [TEC-4097]
+
 = [5.9.2] 2021-10-12 =
 
 * Fix - Ensure the day view on mobile displays the not found message when no events are present. [TEC-3944]
