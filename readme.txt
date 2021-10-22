@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] =
+
+* Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
+
 = [5.9.2] 2021-10-12 =
 
 * Fix - Ensure the day view on mobile displays the not found message when no events are present. [TEC-3944]
