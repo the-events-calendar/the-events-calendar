@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] =
 
 * Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
+* Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 
 = [5.9.2] 2021-10-12 =
 
