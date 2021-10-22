@@ -90,7 +90,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		}
 
 		$meta = array_map( function ( $item ) {
-			reset( $item );
+			return reset( $item );
 		}, get_post_custom( $event_id ) );
 
 		$venue     = $this->get_venue_data( $event_id, $context );
@@ -213,7 +213,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		}
 
 		$meta = array_map( function ( $item ) {
-			reset( $item );
+			return reset( $item );
 		}, get_post_custom( $venue->ID ) );
 
 		$data = array(
@@ -419,7 +419,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			}
 
 			$meta = array_map( function ( $item ) {
-				reset( $item );
+				return reset( $item );
 			}, get_post_custom( $organizer->ID ) );
 
 			$this_data = array(
