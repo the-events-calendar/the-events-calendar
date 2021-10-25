@@ -950,7 +950,7 @@ class Tribe__Events__Aggregator__Service {
 		if ( $is_other_url ) {
 			$limit_type = 'range';
 		} else {
-			$limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', false );
+			$limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', 'count' );
 		}
 
 		/** @var \Tribe__Events__Aggregator__Settings $settings */
