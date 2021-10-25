@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 = [TBD] TBD =
-
+* Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 * Tweak - Change some of the block tests to adapt to the new Editor compatibility in common. [TEC-4016]
 
 = [5.9.2] 2021-10-12 =
