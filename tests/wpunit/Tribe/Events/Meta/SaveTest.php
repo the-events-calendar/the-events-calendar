@@ -4,6 +4,8 @@ namespace Tribe\Events\Meta;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Meta__Context as Context;
 use Tribe__Events__Meta__Save as Save;
+use Tribe__Editor as Editor;
+use Tribe\Editor\Compatibility\Classic_Editor as Classic_Editor;
 
 class SaveTest extends \Codeception\TestCase\WPTestCase {
 
@@ -202,6 +204,27 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @return Classic_Editor
+	 */
+	protected function make_classic_instance() {
+		return new Classic_Editor();
+	}
+
+	/**
+	 * This tells Editor the option is active via the filter.
+	 * Since we aren't installing the actual plugin.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function mock_classic_editor() {
+		add_filter( 'tribe_editor_classic_is_active', function() {
+			return $this->classic_editor::is_classic_option_active();
+		} );
+	}
+
+	/**
 	 * It should save events when classic editor and gutenberg blocks are activated
 	 *
 	 * @test
@@ -212,7 +235,8 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		// Enable checkbox value
 		\Tribe__Settings_Manager::set_option( $compatibility->get_toggle_blocks_editor_key(), true );
 		// Fake classic editor plugin is active.
-		add_filter( 'tribe_is_classic_editor_plugin_active', '__return_true' );
+		$this->classic_editor = $this->make_classic_instance();
+		$this->mock_classic_editor();
 		// Make sure user is logged in so we have an admin with permissions to create events.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
