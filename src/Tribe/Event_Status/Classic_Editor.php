@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the rendering of the event status metabox.
+ * Handles the rendering of the event status classic editor metabox.
  *
  * @since   TBD
  *
@@ -15,16 +15,16 @@ use Tribe__Utils__Array as Arr;
 use WP_Post;
 
 /**
- * Class Metabox
+ * Class Classic_Editor
  *
  * @since   TBD
  *
  * @package Tribe\Events\Event_Status
  */
-class Metabox {
+class Classic_Editor {
 
 	/**
-	 * ID for the metabox in WP.
+	 * ID for the Classic_Editor in WP.
 	 *
 	 * @since TBD
 	 *
@@ -90,11 +90,6 @@ class Metabox {
 		if ( ! $event instanceof WP_Post ) {
 			return '';
 		}
-
-		$args   = [
-			'metabox' => $this,
-			'event'   => $event,
-		];
 
 		return $this->admin_template->template(
 			'metabox/event-status',

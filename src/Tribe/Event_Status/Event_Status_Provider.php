@@ -101,7 +101,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function on_init() {
-		$this->container->make( Metabox::class )->register_fields();
+		$this->container->make( Classic_Editor::class )->register_fields();
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 * @param int $post_id  The post ID of the event we are interested in.
 	 */
 	public function register_metabox( $post_id ) {
-		echo $this->container->make( Metabox::class )->register_metabox( $post_id ); /* phpcs:ignore */
+		echo $this->container->make( Classic_Editor::class )->register_metabox( $post_id ); /* phpcs:ignore */
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 * @param boolean $update  If we are updating the post or not.
 	 */
 	public function on_save_post( $post_id, $post, $update ) {
-		$this->container->make( Metabox::class )->save( $post_id, $post, $update );
+		$this->container->make( Classic_Editor::class )->save( $post_id, $post, $update );
 	}
 
 	/**
@@ -159,7 +159,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	public function filter_context_locations( array $context_locations ) {
 		$context_locations['events_status_data'] = [
 			'read' => [
-				Context::REQUEST_VAR => [ Metabox::$id ],
+				Context::REQUEST_VAR => [ Classic_Editor::$id ],
 			],
 		];
 
@@ -167,25 +167,25 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	public function filter_event_statuses( $statuses, $event ) {
-		$statuses[] = [
-			'text'     => _x( 'Scheduled', 'Event status default option', 'the-events-calendar' ),
-			'id'       => 'scheduled',
-			'value'    => 'scheduled',
-			'selected' => 'scheduled' === $event->event_status ? true : false,
-		];
-
-		$statuses[] = [
-			'text'     => _x( 'Canceled', 'Event status of being canceled in the select field', 'the-events-calendar' ),
-			'id'       => 'canceled',
-			'value'    => 'canceled',
-			'selected' => 'canceled' === $event->event_status ? true : false,
-		];
-
-		$statuses[] = [
-			'text'     => _x( 'Postponed', 'Event status of being postponed in the select field', 'the-events-calendar' ),
-			'id'       => 'postponed',
-			'value'    => 'postponed',
-			'selected' => 'postponed' === $event->event_status ? true : false,
+		$statuses = [
+			[
+				'text'     => _x( 'Scheduled', 'Event status default option', 'the-events-calendar' ),
+				'id'       => 'scheduled',
+				'value'    => 'scheduled',
+				'selected' => 'scheduled' === $event->event_status ? true : false,
+			],
+			[
+				'text'     => _x( 'Canceled', 'Event status of being canceled in the select field', 'the-events-calendar' ),
+				'id'       => 'canceled',
+				'value'    => 'canceled',
+				'selected' => 'canceled' === $event->event_status ? true : false,
+			],
+			[
+				'text'     => _x( 'Postponed', 'Event status of being postponed in the select field', 'the-events-calendar' ),
+				'id'       => 'postponed',
+				'value'    => 'postponed',
+				'selected' => 'postponed' === $event->event_status ? true : false,
+			]
 		];
 
 		return $statuses;

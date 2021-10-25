@@ -20,10 +20,10 @@
  */
 ?>
 <div
-	class="tribe-events-virtual-meetings-control tribe-events-virtual-meetings-control--select"
+	class="tribe-events--control tribe-events-control--select"
 >
 	<label
-		class="screen-reader-text tribe-events-virtual-meetings-control__label"
+		class="screen-reader-text tribe-events-control__label"
 		for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>

@@ -36,6 +36,24 @@ class Event_Meta {
 	public static $key_status_reason = '_tribe_events_control_status_reason';
 
 	/**
+	 * Meta Key for Canceled reason field used for migration from extension.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $key_status_canceled_reason = '_tribe_events_control_status_canceled_reason';
+
+	/**
+	 * Meta Key for Postponed reason field used for migration from extension.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $key_status_postponed_reason = '_tribe_events_control_status_postponed_reason';
+
+	/**
 	 * All the meta keys, in a set.
 	 *
 	 * @since TBD

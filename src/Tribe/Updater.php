@@ -1,5 +1,6 @@
 <?php
 
+use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
 
 /**
  * Run schema updates on plugin activation or updates
@@ -84,6 +85,7 @@ class Tribe__Events__Updater {
 			'3.10a5' => [ $this, 'remove_30_min_eod_cutoffs' ],
 			'4.2'    => [ $this, 'migrate_import_option' ],
 			'4.6.23' => [ $this, 'migrate_wordpress_custom_field_option' ],
+			'5.9.2'  => [ $this, 'migrate_event_status_reason_field' ],
 		];
 	}
 
@@ -276,6 +278,54 @@ class Tribe__Events__Updater {
 			tribe_update_option( 'disable_metabox_custom_fields', true );
 		} elseif ( 'hide' === $show_box ) {
 			tribe_update_option( 'disable_metabox_custom_fields', false );
+		}
+	}
+
+	/**
+	 * Update Event Status reason field from extension to a central field for both.
+	 *
+	 * @since TBD
+	 */
+	public function migrate_event_status_reason_field() {
+		$args = [
+			'posts_per_page' => 500,
+			'meta_query' => [
+				[
+					'relation' => 'OR',
+					[
+						'key'     => Event_Status_Meta::$key_status,
+						'value'   => [ 'canceled', 'postponed' ],
+						'compare' => 'IN',
+					],
+				],
+			],
+		];
+
+		$events = tribe_events()->by_args( $args )->get_ids();
+
+		foreach ( $events as $event_id ) {
+			$event = tribe_get_event( $event_id );
+
+			// Safety check.
+			if ( empty( $event->event_status ) ) {
+				continue;
+			}
+
+			$reason = '';
+			if ( 'canceled' === $event->event_status ) {
+				$reason = get_post_meta( $event->ID, Event_Status_Meta::$key_status_canceled_reason, true );
+			}
+
+			if ( 'postponed' === $event->event_status ) {
+				$reason = get_post_meta( $event->ID, Event_Status_Meta::$key_status_postponed_reason, true );
+			}
+
+			if ( empty( $reason ) ) {
+				continue;
+			}
+
+			// Update reason to central source.
+			update_post_meta( $event_id, Event_Status_Meta::$key_status_reason, $reason );
 		}
 	}
 }
