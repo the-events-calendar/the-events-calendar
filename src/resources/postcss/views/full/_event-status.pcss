@@ -1,0 +1,107 @@
+/* -----------------------------------------------------------------------------
+* Event Status.
+* ----------------------------------------------------------------------------- */
+
+.tribe-ext-events-control-text,
+.tribe-common .tribe-ext-events-control-text {
+	color: #141827;
+	font-weight: 400;
+	line-height: 1.38;
+}
+
+.tribe-ext-events-control-text--bold,
+.tribe-common .tribe-ext-events-control-text--bold {
+	font-weight: 700;
+}
+
+.tribe-ext-events-control-text--red,
+.tribe-common .tribe-ext-events-control-text--red {
+	color: #DA394D;
+}
+
+.tribe-ext-events-control-text--blue,
+.tribe-common .tribe-ext-events-control-text--blue {
+	color: #334AFF;
+}
+
+.tribe-ext-events-control-text--alert-icon  {
+	align-items: center;
+	display: inline-flex;
+}
+
+.tribe-ext-events-control-text--alert-icon::before,
+.tribe-common .tribe-ext-events-control-text--alert-icon::before {
+	background-image: url('../images/alert.svg');
+	background-repeat: no-repeat;
+	background-size: 15px;
+	content: '';
+	display: inline-block;
+	height: 15px;
+	margin-right: 8px;
+	min-width: 15px;
+}
+
+.tribe-common .tribe-ext-events-control-status-archive-container {
+	display: inline-block;
+}
+
+.tribe-common .tribe-ext-events-control-icon {
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: inline-block;
+	margin-right: 8px;
+}
+
+/* -----------------------------------------------------------------------------
+ * Event Status (Canceled, Postponed)
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-ext-events-control-status-label {
+	color: #DA394D;
+}
+
+/* -----------------------------------------------------------------------------
+* List.
+* ----------------------------------------------------------------------------- */
+
+.tribe-events-calendar-day .tribe-common-g-row,
+.tribe-common-g-row.tribe-events-calendar-list__event-row {
+	position: relative;
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-happening-now--single.tribe-ext-events-happening-now .tribe-events-calendar-list__event-row {
+	border-left: 4px solid #334AFF;
+}
+
+.tribe-ext-events-happening-now--single .tribe-events-c-small-cta {
+	margin-top: 12px;
+}
+
+.tribe-common--breakpoint-medium.tribe-ext-events-happening-now--single .tribe-events-c-small-cta {
+	margin-top: 16px;
+}
+
+/* -----------------------------------------------------------------------------
+* Single.
+* ----------------------------------------------------------------------------- */
+.tribe-ext-events-control-single-notice {
+	border: 1px solid #D5D5D5;
+	font-size: 14px;
+	margin-bottom: 20px;
+	padding: 12px 20px;
+}
+
+.tribe-ext-events-control-single-notice--postponed,
+.tribe-ext-events-control-single-notice--canceled {
+	border-left-color: #DA394D;
+	border-left-width: 4px;
+}
+
+.tribe-ext-events-control-single-notice-description {
+	margin-bottom: 10px;
+	padding-left: 23px;
+}
+
+.tribe-ext-events-control-single-notice-description:last-child {
+	margin-bottom: 0;
+}
