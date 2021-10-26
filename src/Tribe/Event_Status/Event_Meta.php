@@ -24,7 +24,7 @@ class Event_Meta {
 	 *
 	 * @var string
 	 */
-	public static $key_status = '_tribe_events_control_status';
+	public static $key_status = '_tribe_events_status';
 
 	/**
 	 * Meta Key for Canceled reason field.
@@ -33,7 +33,7 @@ class Event_Meta {
 	 *
 	 * @var string
 	 */
-	public static $key_status_reason = '_tribe_events_control_status_reason';
+	public static $key_status_reason = '_tribe_events_status_reason';
 
 	/**
 	 * Meta Key for Canceled reason field used for migration from extension.
@@ -42,7 +42,7 @@ class Event_Meta {
 	 *
 	 * @var string
 	 */
-	public static $key_status_canceled_reason = '_tribe_events_control_status_canceled_reason';
+	public static $key_status_canceled_reason = '_tribe_events_status_canceled_reason';
 
 	/**
 	 * Meta Key for Postponed reason field used for migration from extension.
@@ -51,7 +51,7 @@ class Event_Meta {
 	 *
 	 * @var string
 	 */
-	public static $key_status_postponed_reason = '_tribe_events_control_status_postponed_reason';
+	public static $key_status_postponed_reason = '_tribe_events_status_postponed_reason';
 
 	/**
 	 * All the meta keys, in a set.
@@ -61,7 +61,7 @@ class Event_Meta {
 	 * @var array<string>
 	 */
 	public static $event_status_keys = [
-		'_tribe_events_control_status',
-		'_tribe_events_control_status_reason',
+		'_tribe_events_status',
+		'_tribe_events_status_reason',
 	];
 }

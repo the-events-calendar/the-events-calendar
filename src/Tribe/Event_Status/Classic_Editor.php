@@ -30,7 +30,7 @@ class Classic_Editor {
 	 *
 	 * @var string
 	 */
-	public static $id = 'tribe-events-control';
+	public static $id = 'tribe-events-status';
 
 	/**
 	 * Action name used for the nonce on saving the metabox.
@@ -39,7 +39,7 @@ class Classic_Editor {
 	 *
 	 * @var string
 	 */
-	public static $nonce_action = 'tribe-event-control-nonce';
+	public static $nonce_action = 'tribe-events-status-nonce';
 
 	/**
 	 * Stores the template class used.
