@@ -230,6 +230,8 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_save_events_when_classic_editor_and_gutenberg_blocks_are_activated() {
+		global $post_data;
+
 		/** @var \Tribe__Events__Editor__Compatibility $compatibility */
 		$compatibility = tribe( 'events.editor.compatibility' );
 		// Enable checkbox value
@@ -246,8 +248,6 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 			'post_status' => 'publish',
 		] );
 
-		$event = get_post( $id );
-
 		$values = [
 			'EventStartDate'     => '2020-01-01',
 			'EventEndDate'       => '2020-01-03',
@@ -262,8 +262,11 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		];
 		// Fake values on $_POST when the hook is fired.
 		foreach ( $values as $key => $value ) {
-			$_POST[ $key ] = $value;
+			$_POST[ $key ]     = $value;
+			$_GET[ $key ]     = $value;
+			$post_data[ $key ] = $value;
 		}
+		$event = get_post( $id );
 
 		// Fire action on the post.
 		do_action( 'save_post', $id, $event, false );
