@@ -5,7 +5,7 @@ use Tribe\Events\Views\V2\Manager;
  * Registers a view.
  *
  * @since 5.7.0
- * @since TBD Added route slug parameter that is decoupled from the slug view param.
+ * @since 5.10.0 Added route slug parameter that is decoupled from the slug view param.
  *
  * @param string $slug Slug for locating the view file.
  * @param string $name View name.

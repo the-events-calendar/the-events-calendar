@@ -28,7 +28,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 * @param string              $contentType The Content-Type header.
 	 * @param array<string|mixed> $args The provided post args.
 	 *
-	 * @since TBD
+	 * @since 5.10.0
 	 *
 	 * @return array<string|mixed> The array of arguments for the swagger `requestBody` field.
 	 */
