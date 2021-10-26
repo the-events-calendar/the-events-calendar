@@ -1,4 +1,4 @@
-<?php return '<div class="tribe-events-control-metabox-container" style="margin-top: 24px;">
+<?php return '<div class="tribe-events-control-metabox-container">
 	<input type="hidden" id="tribe-events-control[nonce]" name="tribe-events-control[nonce]" value="123123" /><input type="hidden" name="_wp_http_referer" value="" />
 	<label for="tribe-events-control-status">
 		Set status:	</label>

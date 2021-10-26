@@ -72,7 +72,7 @@ class Classic_Editor {
 	 * @return string
 	 */
 	public function get_title() {
-		return esc_html_x( 'Events Status NEW TITLE', 'Meta box title for the Event Status', 'the-events-calendar' );
+		return esc_html_x( 'Events Status', 'Meta box title for the Event Status', 'the-events-calendar' );
 	}
 
 	/**

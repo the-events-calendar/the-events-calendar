@@ -30,7 +30,7 @@ namespace  Tribe\Extensions\EventsControl;
 $statuses = (array) apply_filters( 'tribe_events_event_statuses', [], $event );
 
 ?>
-<div class="tribe-events-control-metabox-container" style="margin-top: 24px;">
+<div class="tribe-events-control-metabox-container">
 	<?php wp_nonce_field( $metabox::$nonce_action, "{$metabox::$id}[nonce]" ); ?>
 
 	<label for="<?php echo esc_attr( "{$metabox::$id}-status" ); ?>">
