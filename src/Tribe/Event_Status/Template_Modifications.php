@@ -2,6 +2,7 @@
 namespace Tribe\Events\Event_Status;
 
 use Tribe__Events__Main as Events_Plugin;
+use Tribe__Utils__Array as Arr;
 use WP_Post;
 
 /**
@@ -20,42 +21,6 @@ class Template_Modifications {
 	 * @var Template
 	 */
 	protected $template;
-
-	/**
-	 * File name and template insert to regex map.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-/*	protected $file_template_to_regex_map = [
-		// List View
-		'list/event/title:status-label'                                                     => '/(<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
-		// List View
-		'day/event/title:status-label'                                                      => '/(<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
-		// Month View
-		'month/calendar-body/day/calendar-events/calendar-event/date:online-event'          => '/(<divclass="tribe-events-calendar-month__calendar-event-datetime">)/',
-		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date:online-event'  => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
-		'month/calendar-body/day/multiday-events/multiday-event:online-event'               => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
-		'month/mobile-events/mobile-day/mobile-event/date:online-event'                     => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
-		'month/calendar-body/day/calendar-events/calendar-event/title:status-label'         => '/(<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">)/',
-		'month/calendar-body/day/calendar-events/calendar-event/tooltip/title:status-label' => '/(<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">)/',
-		'month/calendar-body/day/multiday-events/multiday-event:status-label'               => '/(<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">)/',
-		'month/mobile-events/mobile-day/mobile-event/title:status-label'                    => '/(<h3 class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7">)/',
-		// Photo View
-		'photo/event/title:status-label'                                                    => '/(<h3 class="tribe-events-pro-photo__event-title tribe-common-h6">)/',
-		// Map View
-		'map/event-cards/event-card/event/title:status-label'                               => '/(<h3 class="tribe-events-pro-map__event-title tribe-common-h8 tribe-common-h7--min-medium">)/',
-		'map/event-cards/event-card/tooltip/title:status-label'                             => '/(<h3 class="tribe-events-pro-map__event-tooltip-title tribe-common-h7">)/',
-		// Week View
-		'week/grid-body/events-day/event/date:online-event'                                 => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
-		'week/grid-body/events-day/event/tooltip/date:online-event'                         => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
-		'week/grid-body/multiday-events-day/multiday-event:online-event'                    => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
-		'week/grid-body/events-day/event/title:status-label'                                => '/(<h3 class="tribe-events-pro-week-grid__event-title tribe-common-h8 tribe-common-h--alt">)/',
-		'week/grid-body/events-day/event/tooltip/title:status-label'                        => '/(<h3 class="tribe-events-pro-week-grid__event-tooltip-title tribe-common-h7">)/',
-		'week/grid-body/multiday-events-day/multiday-event:status-label'                    => '/(<h3 class="tribe-events-pro-week-grid__multiday-event-bar-title tribe-common-h8 tribe-common-h--alt">)/',
-		'week/mobile-events/day/event/title:status-label'                                   => '/(<h3 class="tribe-events-pro-week-mobile-events__event-title tribe-common-h6 tribe-common-h5--min-medium">)/',
-	];*/
 
 	/**
 	 * Tempalte Modification constructor.
@@ -98,7 +63,7 @@ class Template_Modifications {
 
 		$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
 		if ( $status ) {
-			$classes[] = 'tribe-ext-events-control-list-event--' . sanitize_html_class( $status );
+			$classes[] = 'tribe-events-status-list-event--' . sanitize_html_class( $status );
 		}
 
 		return $classes;
@@ -127,41 +92,21 @@ class Template_Modifications {
 	}
 
 	/**
-	 * Inserts HTML after regex match.
+	 * Inserts Status Label.
 	 *
 	 * @since TBD
 	 *
-	 * @param string   $template_name Template name to insert into the html.
-	 * @param string   $html          HTML to be modified.
-	 * @param string   $file          Complete path to include the PHP File.
-	 * @param array    $name          Template name.
-	 * @param Template $template      Current instance of the Template.
-	 *
-	 * @return string
+	 * @param string   $hook_name        For which template include this entry point belongs.
+	 * @param string   $entry_point_name Which entry point specifically we are triggering.
+	 * @param Template $template         Current instance of the Template.
 	 */
-	public function insert_status_label( $template_name, $html, $file, $name, $template ) {
-		$key = implode( '/', $name ) . ":$template_name";
-
-		if ( ! array_key_exists( $key, $this->file_template_to_regex_map ) ) {
-			return $html;
+	public function insert_status_label( $hook_name, $entry_point_name, $template ) {
+		$context = $template->get_values();
+		$event   = Arr::get( $context, 'event', null );
+		if ( ! $event instanceof WP_Post ) {
+			return;
 		}
 
-		$regex       = $this->file_template_to_regex_map[ $key ];
-		$replacement = '$1' . $template->template( $template_name, [], false );
-
-		return preg_replace( $regex, $replacement, $html );
+		$this->template->template( 'status-label', [ 'event' => $event ] );
 	}
-
-	/*	public function regex_insert_template( $template_name, $html, $file, $name, $template ) {
-		$key = implode( '/', $name ) . ":$template_name";
-
-		if ( ! array_key_exists( $key, $this->file_template_to_regex_map ) ) {
-			return $html;
-		}
-
-		$regex       = $this->file_template_to_regex_map[ $key ];
-		$replacement = '$1' . $template->template( $template_name, [], false );
-
-		return preg_replace( $regex, $replacement, $html );
-	}*/
 }

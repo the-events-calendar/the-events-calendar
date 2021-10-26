@@ -172,19 +172,19 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	public function filter_event_statuses( $statuses, $event ) {
 		$statuses = [
 			[
-				'text'     => _x( 'Scheduled', 'Event status default option', 'the-events-calendar' ),
+				'text'     => $this->get_scheduled_label(),
 				'id'       => 'scheduled',
 				'value'    => 'scheduled',
 				'selected' => 'scheduled' === $event->event_status ? true : false,
 			],
 			[
-				'text'     => _x( 'Canceled', 'Event status of being canceled in the select field', 'the-events-calendar' ),
+				'text'     => $this->get_canceled_label(),
 				'id'       => 'canceled',
 				'value'    => 'canceled',
 				'selected' => 'canceled' === $event->event_status ? true : false,
 			],
 			[
-				'text'     => _x( 'Postponed', 'Event status of being postponed in the select field', 'the-events-calendar' ),
+				'text'     => $this->get_postponed_label(),
 				'id'       => 'postponed',
 				'value'    => 'postponed',
 				'selected' => 'postponed' === $event->event_status ? true : false,
@@ -195,17 +195,75 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Add the control classes for the views v2 elements
+	 * Get the scheduled status label.
 	 *
 	 * @since TBD
 	 *
-	 * @param string|string[]  $classes   Space-separated string or array of class names to add to the class list.
-	 * @param int|WP_Post      $post      Post ID or post object.
+	 * @return string The label for the scheduled status.
+	 */
+	public function get_scheduled_label() {
+
+		/**
+		 * Filter the scheduled label for event status.
+		 *
+		 * @since
+		 *
+		 * @param string The default label for the scheduled status.
+		 */
+		return apply_filters( 'tribe_events_status_scheduled_label', _x( 'Scheduled', 'Scheduled label.', 'the-events-calendar' ) );
+	}
+
+	/**
+	 * Get the canceled status label.
 	 *
-	 * @return string[]
+	 * @since TBD
+	 *
+	 * @return string The label for the canceled status.
+	 */
+	public function get_canceled_label() {
+
+		/**
+		 * Filter the canceled label for event status.
+		 *
+		 * @since
+		 *
+		 * @param string The default label for the canceled status.
+		 */
+		return apply_filters( 'tribe_events_status_canceled_label', _x( 'Canceled', 'Canceled label.', 'the-events-calendar' ) );
+	}
+
+	/**
+	 * Get the postponed status label.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The label for the postponed status.
+	 */
+	public function get_postponed_label() {
+
+		/**
+		 * Filter the postponed label for event status.
+		 *
+		 * @since
+		 *
+		 * @param string The default label for the postponed status.
+		 */
+		return apply_filters( 'tribe_events_status_postponed_label', _x( 'Postponed', 'Postponed label', 'the-events-calendar' ) );
+	}
+
+	/**
+	 * Add the status classes for the views v2 elements
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|string> $classes Space-separated string or array of class names to add to the class list.
+	 * @param int|WP_Post          $post    Post ID or post object.
+	 *
+	 * @return array<string|string> An array of post classes with the status added.
 	 */
 	public function filter_add_post_class( $classes, $class, $post ) {
 		$new_classes = $this->container->make( Template_Modifications::class )->get_post_classes( $post );
+
 		return array_merge( $classes, $new_classes );
 	}
 
@@ -217,12 +275,6 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	protected function add_templates() {
 
 		// "Classic" Event Single.
-/*		add_action(
-			'tribe_events_single_event_after_the_content',
-			[ $this, 'action_add_event_single_video_embed' ],
-			15,
-			0
-		);*/
 		add_filter(
 			'tribe_the_notices',
 			[ $this, 'filter_include_single_control_markers' ],
@@ -231,11 +283,11 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		);
 
 		// List View
-		add_filter(
-			'tribe_template_html:events/v2/list/event/title',
+		add_action(
+			'tribe_template_entry_point:events/v2/list/event/title:after_container_open',
 			[ $this, 'filter_insert_status_label' ],
 			15,
-			4
+			3
 		);
 
 	}
@@ -245,8 +297,8 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $notices_html  Previously set HTML.
-	 * @param  array   $notices       Array of notices added previously.
+	 * @param string $notices_html Previously set HTML.
+	 * @param array  $notices      Array of notices added previously.
 	 *
 	 * @return string  Before event html with the new markers.
 	 */
@@ -255,17 +307,15 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Insert the status label for the archive pages.
+	 * Inserts Status Label.
 	 *
-	 * @param string   $html      HTML of the template.
-	 * @param string   $file      Complete path to include the PHP File.
-	 * @param array    $name      Template name.
-	 * @param Template $template  Current instance of the Template.
+	 * @since TBD
 	 *
-	 * @return string
+	 * @param string   $hook_name        For which template include this entry point belongs.
+	 * @param string   $entry_point_name Which entry point specifically we are triggering.
+	 * @param Template $template         Current instance of the Template.
 	 */
-	public function filter_insert_status_label( $html, $file, $name, $template ) {
-		return $html;
-		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'status-label', $html, $file, $name, $template );
+	public function filter_insert_status_label( $hook_name, $entry_point_name, $template ) {
+		return $this->container->make( Template_Modifications::class )->insert_status_label( $hook_name, $entry_point_name, $template );
 	}
 }
