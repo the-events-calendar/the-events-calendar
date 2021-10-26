@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.18
-Stable tag: 5.9.2
+Stable tag: 5.10.0
 Tested up to: 5.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -222,6 +222,11 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
+
+= [5.10.0] 2021-10-19 =
+
+* Tweak - Improve the look and feel of the single events page when using the block editor. These changes can be bypassed by defining the following constant to your wp-config.php file: `define( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED', true );` [TEC-3979]
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.9.2] 2021-10-12 =
 
