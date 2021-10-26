@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 
 = [5.10.0] 2021-10-19 =
