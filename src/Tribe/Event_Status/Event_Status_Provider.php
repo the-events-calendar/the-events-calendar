@@ -35,6 +35,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 
 		$this->add_actions();
 		$this->add_filters();
+		$this->add_templates();
 	}
 
 	/**
@@ -93,6 +94,8 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 
 		// Add Event statuses.
 		add_filter( 'tribe_events_event_statuses', [ $this, 'filter_event_statuses' ], 10, 2 );
+
+		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
 	}
 
 	/**
@@ -189,5 +192,80 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		];
 
 		return $statuses;
+	}
+
+	/**
+	 * Add the control classes for the views v2 elements
+	 *
+	 * @since TBD
+	 *
+	 * @param string|string[]  $classes   Space-separated string or array of class names to add to the class list.
+	 * @param int|WP_Post      $post      Post ID or post object.
+	 *
+	 * @return string[]
+	 */
+	public function filter_add_post_class( $classes, $class, $post ) {
+		$new_classes = $this->container->make( Template_Modifications::class )->get_post_classes( $post );
+		return array_merge( $classes, $new_classes );
+	}
+
+	/**
+	 * Adds the templates for event status.
+	 *
+	 * @since TBD
+	 */
+	protected function add_templates() {
+
+		// "Classic" Event Single.
+/*		add_action(
+			'tribe_events_single_event_after_the_content',
+			[ $this, 'action_add_event_single_video_embed' ],
+			15,
+			0
+		);*/
+		add_filter(
+			'tribe_the_notices',
+			[ $this, 'filter_include_single_control_markers' ],
+			15,
+			2
+		);
+
+		// List View
+		add_filter(
+			'tribe_template_html:events/v2/list/event/title',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			4
+		);
+
+	}
+
+	/**
+	 * Include the control markers for the single pages.
+	 *
+	 * @since TBD
+	 *
+	 * @param  string  $notices_html  Previously set HTML.
+	 * @param  array   $notices       Array of notices added previously.
+	 *
+	 * @return string  Before event html with the new markers.
+	 */
+	public function filter_include_single_control_markers( $notices_html, $notices ) {
+		return $this->container->make( Template_Modifications::class )->add_single_control_markers( $notices_html, $notices );
+	}
+
+	/**
+	 * Insert the status label for the archive pages.
+	 *
+	 * @param string   $html      HTML of the template.
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param array    $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return string
+	 */
+	public function filter_insert_status_label( $html, $file, $name, $template ) {
+		return $html;
+		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'status-label', $html, $file, $name, $template );
 	}
 }
