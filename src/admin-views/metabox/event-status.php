@@ -59,7 +59,7 @@ $statuses = (array) apply_filters( 'tribe_events_event_statuses', [], $event );
 	>
 		<p>
 			<label for="<?php echo esc_attr( "{$metabox::$id}-status-reason" ); ?>">
-				<?php echo esc_html_x( 'Reason (optional)', 'Label for event status reason field', 'tribe-ext-events-control' ); ?>.
+				<?php echo esc_html_x( 'Reason (optional)', 'Label for event status reason field', 'the-events-calendar' ); ?>.
 			</label>
 			<textarea
 				class="components-textarea-control__input"
