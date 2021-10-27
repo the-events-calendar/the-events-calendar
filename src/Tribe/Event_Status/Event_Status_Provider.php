@@ -169,8 +169,18 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		return $context_locations;
 	}
 
+	/**
+	 * Add the event statuses to select for an event.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|mixed> $statuses The event status options for an event.
+	 * @param WP_Post $event The event post object.
+	 *
+	 * @return array<string|mixed> The event status options for an event.
+	 */
 	public function filter_event_statuses( $statuses, $event ) {
-		$statuses = [
+		$default_statuses = [
 			[
 				'text'     => $this->get_scheduled_label(),
 				'id'       => 'scheduled',
@@ -190,6 +200,8 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 				'selected' => 'postponed' === $event->event_status ? true : false,
 			]
 		];
+
+		$statuses = array_merge($statuses, $default_statuses );
 
 		return $statuses;
 	}
