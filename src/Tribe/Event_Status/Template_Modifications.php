@@ -23,14 +23,25 @@ class Template_Modifications {
 	protected $template;
 
 	/**
-	 * Tempalte Modification constructor.
+	 * Status Labels.
 	 *
 	 * @since TBD
 	 *
-	 * @param Template $template An instance of the plugin template handler. 	one.
+	 * @var Status_Labels
 	 */
-	public function __construct( Template $template ) {
-		$this->template = $template;
+	protected $status_labels;
+
+	/**
+	 * Template Modification constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Template $template      An instance of the plugin template handler.
+	 * @param Status_Labels $status_labels An instance of the statuses handler.
+	 */
+	public function __construct( Template $template, Status_Labels $status_labels ) {
+		$this->template      = $template;
+		$this->status_labels = $status_labels;
 	}
 
 	/**
@@ -79,13 +90,14 @@ class Template_Modifications {
 	 *
 	 * @return string  New Before with the control markers appended.
 	 */
-	public function add_single_control_markers( $notices_html, $notices ) {
+	public function add_single_status_reason( $notices_html, $notices ) {
 		if ( ! is_singular( Events_Plugin::POSTTYPE ) ) {
 			return $notices_html;
 		}
 
 		$args = [
-			'event' => tribe_get_event( get_the_ID() ),
+			'event'         => tribe_get_event( get_the_ID() ),
+			'status_labels' => $this->status_labels,
 		];
 
 		return $notices_html . $this->template->template( 'single/post-statuses', $args, false );
@@ -107,6 +119,11 @@ class Template_Modifications {
 			return;
 		}
 
-		$this->template->template( 'status-label', [ 'event' => $event ] );
+		$args = [
+			'event'         => $event,
+			'status_labels' => $this->status_labels,
+		];
+
+		$this->template->template( 'status-label', $args );
 	}
 }

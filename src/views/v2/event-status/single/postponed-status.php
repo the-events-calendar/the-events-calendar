@@ -7,21 +7,22 @@
  *
  * See more documentation about our views templating system.
  *
- * @link http://evnt.is/1aiy
+ * @link    http://evnt.is/1aiy
  *
  * @version TBD
  *
- * @var \WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var \WP_Post      $event         The event post object with properties added by the `tribe_get_event` function.
+ * @var Status_Labels $status_labels An instance of the statuses handler.
  *
- * @see tribe_get_event() For the format of the event object.
+ * @see     tribe_get_event() For the format of the event object.
  */
 namespace Tribe\Events\Event_Status;
 
-$status           = get_post_meta( $event->ID, Event_Meta::$key_status, true );
-$postponed_reason = get_post_meta( $event->ID, Event_Meta::$key_status_postponed_reason, true );
-
-// Don't print anything when status for this event is not
 if ( 'postponed' !== $event->event_status ) {
+	return;
+}
+
+if ( empty( $event->event_status_reason ) ) {
 	return;
 }
 
@@ -30,13 +31,11 @@ if ( 'postponed' !== $event->event_status ) {
 	<div class="tribe-events-status-text">
 
 		<div class="tribe-events-status-single-notice-header tribe-events-status-text--red tribe-events-status-text--bold tribe-events-status-text--alert-icon">
-			<?php echo esc_html_x( 'Postponed', 'Text next to the date to display postponed', 'the-events-calendar' ); ?>
+			<?php echo esc_html( $status_labels->get_postponed_label() ); ?>
 		</div>
 
-		<?php if ( $event->event_status_reason ) : ?>
-			<div class="tribe-events-status-single-notice-description">
-				<?php echo wp_kses_post( $event->event_status_reason ); ?>
-			</div>
-		<?php endif; ?>
+		<div class="tribe-events-status-single-notice-description">
+			<?php echo wp_kses_post( $event->event_status_reason ); ?>
+		</div>
 	</div>
 </div>

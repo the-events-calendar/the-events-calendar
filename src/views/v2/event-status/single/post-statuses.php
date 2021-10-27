@@ -1,30 +1,34 @@
 <?php
 /**
- * Link for an online event.
+ * Event Status Container.
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/v2/events-status/single/post-statuses.php
  *
  * See more documentation about our views templating system.
  *
- * @link http://evnt.is/1aiy
+ * @link    http://evnt.is/1aiy
  *
  * @version TBD
  *
- * @var \WP_Post $event The event post object with properties added by the `tribe_get_event` function.
- * @var string $post_statuses The statuses to output.
+ * @var \WP_Post      $event         The event post object with properties added by the `tribe_get_event` function.
+ * @var Status_Labels $status_labels An instance of the statuses handler.
  *
- * @see tribe_get_event() For the format of the event object.
+ * @see     tribe_get_event() For the format of the event object.
  */
 namespace Tribe\Events\Event_Status;
 
-// Dont print anything when there are no statuses for this event.
-if ( ! $event ) {
+// Return if no event status.
+if ( empty( $event->event_status ) ) {
+	return;
+}
+
+// Return if no event status reason.
+if ( empty( $event->event_status_reason ) ) {
 	return;
 }
 
 ?>
 <div class="tribe-common-b2 tribe-events-status-single-container">
-	<?php $this->template( 'single/canceled-status' ); ?>
-	<?php $this->template( 'single/postponed-status' ); ?>
+	<?php $this->template( "single/{$event->event_status}-status" ); ?>
 </div>

@@ -180,87 +180,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 * @return array<string|mixed> The event status options for an event.
 	 */
 	public function filter_event_statuses( $statuses, $event ) {
-		$default_statuses = [
-			[
-				'text'     => $this->get_scheduled_label(),
-				'id'       => 'scheduled',
-				'value'    => 'scheduled',
-				'selected' => 'scheduled' === $event->event_status ? true : false,
-			],
-			[
-				'text'     => $this->get_canceled_label(),
-				'id'       => 'canceled',
-				'value'    => 'canceled',
-				'selected' => 'canceled' === $event->event_status ? true : false,
-			],
-			[
-				'text'     => $this->get_postponed_label(),
-				'id'       => 'postponed',
-				'value'    => 'postponed',
-				'selected' => 'postponed' === $event->event_status ? true : false,
-			]
-		];
-
-		$statuses = array_merge($statuses, $default_statuses );
-
-		return $statuses;
-	}
-
-	/**
-	 * Get the scheduled status label.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The label for the scheduled status.
-	 */
-	public function get_scheduled_label() {
-
-		/**
-		 * Filter the scheduled label for event status.
-		 *
-		 * @since
-		 *
-		 * @param string The default label for the scheduled status.
-		 */
-		return apply_filters( 'tribe_events_status_scheduled_label', _x( 'Scheduled', 'Scheduled label.', 'the-events-calendar' ) );
-	}
-
-	/**
-	 * Get the canceled status label.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The label for the canceled status.
-	 */
-	public function get_canceled_label() {
-
-		/**
-		 * Filter the canceled label for event status.
-		 *
-		 * @since
-		 *
-		 * @param string The default label for the canceled status.
-		 */
-		return apply_filters( 'tribe_events_status_canceled_label', _x( 'Canceled', 'Canceled label.', 'the-events-calendar' ) );
-	}
-
-	/**
-	 * Get the postponed status label.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The label for the postponed status.
-	 */
-	public function get_postponed_label() {
-
-		/**
-		 * Filter the postponed label for event status.
-		 *
-		 * @since
-		 *
-		 * @param string The default label for the postponed status.
-		 */
-		return apply_filters( 'tribe_events_status_postponed_label', _x( 'Postponed', 'Postponed label', 'the-events-calendar' ) );
+		return $this->container->make( Status_Labels::class )->filter_event_statuses( $statuses, $event );
 	}
 
 	/**
@@ -289,7 +209,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		// "Classic" Event Single.
 		add_filter(
 			'tribe_the_notices',
-			[ $this, 'filter_include_single_control_markers' ],
+			[ $this, 'filter_include_single_status_reason' ],
 			15,
 			2
 		);
@@ -301,21 +221,20 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 			15,
 			3
 		);
-
 	}
 
 	/**
-	 * Include the control markers for the single pages.
+	 * Include the status reason for the single pages.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $notices_html Previously set HTML.
 	 * @param array  $notices      Array of notices added previously.
 	 *
-	 * @return string  Before event html with the new markers.
+	 * @return string  Before event html with the status reason.
 	 */
-	public function filter_include_single_control_markers( $notices_html, $notices ) {
-		return $this->container->make( Template_Modifications::class )->add_single_control_markers( $notices_html, $notices );
+	public function filter_include_single_status_reason( $notices_html, $notices ) {
+		return $this->container->make( Template_Modifications::class )->add_single_status_reason( $notices_html, $notices );
 	}
 
 	/**

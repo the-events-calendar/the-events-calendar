@@ -19,7 +19,44 @@ use WP_Post;
  *
  * @package Tribe\Events\Event_Status
  */
-class Statuses {
+class Status_Labels {
+
+	/**
+	 * Add the event statuses to select for an event.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|mixed> $statuses The event status options for an event.
+	 * @param WP_Post $event The event post object.
+	 *
+	 * @return array<string|mixed> The event status options for an event.
+	 */
+	public function filter_event_statuses( $statuses, $event ) {
+		$default_statuses = [
+			[
+				'text'     => $this->get_scheduled_label(),
+				'id'       => 'scheduled',
+				'value'    => 'scheduled',
+				'selected' => 'scheduled' === $event->event_status ? true : false,
+			],
+			[
+				'text'     => $this->get_canceled_label(),
+				'id'       => 'canceled',
+				'value'    => 'canceled',
+				'selected' => 'canceled' === $event->event_status ? true : false,
+			],
+			[
+				'text'     => $this->get_postponed_label(),
+				'id'       => 'postponed',
+				'value'    => 'postponed',
+				'selected' => 'postponed' === $event->event_status ? true : false,
+			]
+		];
+
+		$statuses = array_merge($statuses, $default_statuses );
+
+		return $statuses;
+	}
 
 	/**
 	 * Get the scheduled status label.
