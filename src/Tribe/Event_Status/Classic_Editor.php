@@ -142,7 +142,7 @@ class Classic_Editor {
 	/**
 	 * Saves the metabox, which will be triggered in `save_post`.
 	 *
-	 * @since 1.0.0
+	 * @since TBD
 	 *
 	 * @param int     $post_id Which post ID we are dealing with when saving.
 	 * @param WP_Post $post    WP Post instance we are saving.

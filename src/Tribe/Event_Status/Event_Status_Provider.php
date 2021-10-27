@@ -150,7 +150,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add, to the Context, the locations used by the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since TBD
 	 *
 	 * @param array<string,array> $context_locations The current Context locations.
 	 *
