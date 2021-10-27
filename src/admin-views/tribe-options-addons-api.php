@@ -20,7 +20,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 		<div class="tribe-field-wrap">
 			<?php
 			if ( $missing_meetup_credentials ) {
-				echo '<p>' . esc_html__( 'You need to connect to Meetup for Event Aggregator to work properly' ) . '</p>';
+				echo '<p>' . esc_html__( 'You need to connect to Meetup for Event Aggregator to work properly', 'the-events-calendar' ) . '</p>';
 				$meetup_button_label = __( 'Connect to Meetup', 'the-events-calendar' );
 			} else {
 				$meetup_button_label     = __( 'Refresh your connection to Meetup', 'the-events-calendar' );
@@ -73,7 +73,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 		<div class="tribe-field-wrap">
 			<?php
 			if ( $missing_eb_credentials ) {
-				echo '<p>' . esc_html__( 'You need to connect to Eventbrite for Event Aggregator to work properly' ) . '</p>';
+				echo '<p>' . esc_html__( 'You need to connect to Eventbrite for Event Aggregator to work properly', 'the-events-calendar' ) . '</p>';
 				$eventbrite_button_label = __( 'Connect to Eventbrite', 'the-events-calendar' );
 			} else {
 				$eventbrite_button_label     = __( 'Refresh your connection to Eventbrite', 'the-events-calendar' );
