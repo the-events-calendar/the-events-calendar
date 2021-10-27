@@ -8,7 +8,6 @@ putenv( 'TRIBE_EVENTS_V2_VIEWS=1' );
 
 // Register needed providers.
 tribe_register_provider( Service_Provider::class );
-tribe_register_provider( Event_Status_Provider::class );
 
 // Let's make sure to set rewrite rules.
 global $wp_rewrite;
