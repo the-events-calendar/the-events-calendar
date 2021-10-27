@@ -180,7 +180,7 @@ class Google_Form_Feedback implements Feedback_Interface {
 	 */
 	public function get_notice_contents() {
 		return sprintf(
-			'<p>Found an issue with Recurring Events + Series Alpha? <a target="_blank" href="%s">Let us know.</a></p>',
+			'<p>Found an issue with the beta or have feedback to share? <a target="_blank" href="%s">Let us know.</a></p>',
 			$this->get_form_prefilled_url()
 		);
 	}
