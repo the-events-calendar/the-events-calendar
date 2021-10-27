@@ -8,7 +8,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	/**
 	 * @var string
 	 */
-	protected $swagger_version = '2.0';
+	protected $swagger_version = '3.0.0';
 
 	/**
 	 * @var string
@@ -60,16 +60,17 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation() {
+		$scheme = is_ssl() ? 'https' : 'http';
 		$documentation = [
-			'swagger'     => $this->swagger_version,
+			'openapi'     => $this->swagger_version,
 			'info'        => $this->get_api_info(),
-			'host'        => parse_url( home_url(), PHP_URL_HOST ),
-			'basePath'    => str_replace( home_url(), '', tribe_events_rest_url() ),
-			'schemes'     => is_ssl() ? [ 'https', 'http' ] : [ 'http' ],
-			'consumes'    => [ 'application/json' ],
-			'produces'    => [ 'application/json' ],
-			'paths'       => $this->get_paths(),
-			'definitions' => $this->get_definitions(),
+			'components'  => [ 'schemas' => $this->get_definitions() ],
+			'servers'     => [
+				[
+					'url' => $scheme . '://' . parse_url( home_url(), PHP_URL_HOST ) . str_replace( home_url(), '', tribe_events_rest_url() ),
+				]
+			], 
+			'paths'       => $this->get_paths()
 		];
 
 		/**

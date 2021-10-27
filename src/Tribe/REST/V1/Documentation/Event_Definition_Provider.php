@@ -83,7 +83,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'image'                  => [
 					'type'        => 'object',
 					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/Image',
+					'$ref'        => '#/components/schemas/Image',
 				],
 				'all_day'                => [
 					'type'        => 'boolean',
@@ -96,7 +96,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'start_date_details'     => [
 					'type'        => 'array',
 					'description' => __( 'An array of each component of the event start date', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/DateDetails',
+					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
 				],
 				'end_date'               => [
 					'type'        => 'string',
@@ -105,7 +105,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'end_date_details'       => [
 					'type'        => 'array',
 					'description' => __( 'An array of each component of the event end date', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/DateDetails',
+					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
 				],
 				'utc_start_date'         => [
 					'type'        => 'string',
@@ -114,7 +114,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'utc_start_date_details' => [
 					'type'        => 'array',
 					'description' => __( 'An array of each component of the event start date in UTC time', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/DateDetails',
+					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
 				],
 				'utc_end_date'           => [
 					'type'        => 'string',
@@ -123,7 +123,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'utc_end_date_details'   => [
 					'type'        => 'array',
 					'description' => __( 'An array of each component of the event end date in UTC time', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/DateDetails',
+					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
 				],
 				'timezone'               => [
 					'type'        => 'string',
@@ -140,7 +140,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'cost_details'           => [
 					'type'        => 'array',
 					'description' => __( 'The event cost details', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/CostDetails',
+					'items'       => [ '$ref' => '#/components/schemas/CostDetails' ],
 				],
 				'website'                => [
 					'type'        => 'string',
@@ -169,22 +169,22 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'categories'             => [
 					'type'        => 'array',
 					'description' => __( 'The event categories', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/Term',
+					'items'       => [ '$ref' => '#/components/schemas/Term' ],
 				],
 				'tags'                   => [
 					'type'        => 'array',
 					'description' => __( 'The event tags', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/Term',
+					'items'       => [ '$ref' => '#/components/schemas/Term' ],
 				],
 				'venue'                  => [
 					'type'        => 'object',
 					'description' => __( 'The event venue', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/Venue',
+					'$ref'        => '#/components/schemas/Venue',
 				],
 				'organizer'              => [
 					'type'        => 'array',
 					'description' => __( 'The event organizers', 'the-events-calendar' ),
-					'$ref'        => '#/definitions/Organizer',
+					'items'       => [ '$ref' => '#/components/schemas/Organizer' ],
 				],
 			],
 		];

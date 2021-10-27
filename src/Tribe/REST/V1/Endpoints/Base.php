@@ -23,6 +23,55 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
+	 * Returns a swagger structured array for the `requestBody` field.
+	 *
+	 * @param string              $contentType The Content-Type header.
+	 * @param array<string|mixed> $args The provided post args.
+	 *
+	 * @since 5.10.0
+	 *
+	 * @return array<string|mixed> The array of arguments for the swagger `requestBody` field.
+	 */
+	public function swaggerize_post_args( $contentType, array $args ) {
+
+		$defaults = [
+			'description' => __( 'No description provided', 'the-events-calendar' ),
+		];
+
+		$swaggerized = [];
+		foreach ( $args as $name => $arg ) {
+			if ( isset( $arg['swagger_type'] ) ) {
+				$type = $arg['swagger_type'];
+			} else {
+				$type = isset( $arg['type'] ) ? $arg['type'] : 'string';
+			}
+
+			$type = $this->convert_type( $type );
+			$read = [ 'type' => $type ];
+
+			if ( isset( $arg['description'] ) ) {
+				$read['description'] = $arg['description'];
+			}
+			if ( isset( $arg['items'] ) ) {
+				$read['items'] = $arg['items'];
+			}
+
+			$swaggerized[ $name ] = array_merge( $defaults,  $read );
+		}
+
+		return [
+			'content' => [
+				$contentType => [
+					'schema' => [
+						'type' => 'object',
+						'properties' => $swaggerized,
+					]
+				]
+			]
+		];
+	}
+
+	/**
 	 * Converts an array of arguments suitable for the WP REST API to the Swagger format.
 	 *
 	 * @param array $args
@@ -38,10 +87,11 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 		$no_description = __( 'No description provided', 'the-events-calendar' );
 		$defaults = array_merge( [
 			'in'          => 'body',
-			'type'        => 'string',
+			'schema' => [
+				'type'        => 'string',
+			],
 			'description' => $no_description,
 			'required'    => false,
-			'default'     => '',
 			'items'       => [
 				'type' => 'integer',
 			],
@@ -61,23 +111,33 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			$read = [
 				'name'             => $name,
 				'in'               => isset( $info['in'] ) ? $info['in'] : false,
-				'collectionFormat' => isset( $info['collectionFormat'] ) ? $info['collectionFormat'] : false,
 				'description'      => isset( $info['description'] ) ? $info['description'] : false,
-				'type'             => $type,
-				'items'            => isset( $info['items'] ) ? $info['items'] : false,
+				'schema' => [
+					'type'         => $type,
+				],
 				'required'         => isset( $info['required'] ) ? $info['required'] : false,
-				'default'          => isset( $info['default'] ) ? $info['default'] : false,
 			];
 
+			if ( isset( $info['items'] ) ) {
+				$read['schema']['items'] = $info['items'];
+			}
+
+			if ( isset( $info['collectionFormat'] ) && $info['collectionFormat'] === 'csv' ) {
+				$read['style']   = 'form';
+				$read['explode'] = false;
+			}
+
 			if ( isset( $info['swagger_type'] ) ) {
-				$read['type'] = $info['swagger_type'];
+				$read['schema']['type'] = $info['swagger_type'];
 			}
 
-			if ( $read['type'] !== 'array' ) {
-				unset( $defaults['items'] );
-			}
+			// Copy in case we need to mutate default values for this field in args
+			$defaultsCopy = $defaults;
+			unset( $defaultsCopy['default'] );
+			unset( $defaultsCopy['items'] );
+			unset( $defaultsCopy['type'] );
 
-			$swaggerized[] = array_merge( $defaults, array_filter( $read ) );
+			$swaggerized[] = array_merge( $defaultsCopy, array_filter( $read ) );
 		}
 
 		return $swaggerized;

@@ -13,10 +13,11 @@ namespace Tribe\Events\Views\V2;
  *
  * @package Tribe\Events\Views\V2
  * @since   5.7.0
+ * @since   5.10.0 Added feature to define the route slug used for this view, decoupled from the view slug.
  */
 class View_Register {
 	/**
-	 * Slug for the view.
+	 * Slug for locating the view file.
 	 *
 	 * @var string
 	 */
@@ -44,18 +45,27 @@ class View_Register {
 	protected $priority;
 
 	/**
+	 * The slug applied to the route for this view.
+	 *
+	 * @var string
+	 */
+	protected $route_slug;
+
+	/**
 	 * View_Register constructor.
 	 *
-	 * @param string $slug Slug for the view.
+	 * @param string $slug Slug for locating the view file.
 	 * @param string $name Name for the view.
 	 * @param string $class Class name for the view.
 	 * @param int $priority Priority order for the view registration.
+	 * @param string $route_slug The slug applied to the route for this view.
 	 */
-	public function __construct( $slug, $name, $class, $priority = 40 ) {
-		$this->slug     = $slug;
-		$this->name     = $name;
-		$this->class    = $class;
-		$this->priority = $priority;
+	public function __construct( $slug, $name, $class, $priority = 40, $route_slug = null ) {
+		$this->slug       = $slug;
+		$this->route_slug = $route_slug ? $route_slug : $slug;
+		$this->name       = $name;
+		$this->class      = $class;
+		$this->priority   = $priority;
 
 		$this->add_actions();
 		$this->add_filters();
@@ -89,6 +99,7 @@ class View_Register {
 	 * Add rewrite routes for custom PRO stuff and views.
 	 *
 	 * @since 5.7.0
+	 * @since 5.10.0 Adds optional decoupling of view name to route slug
 	 *
 	 * @param \Tribe__Events__Rewrite $rewrite The Tribe__Events__Rewrite object
 	 *
@@ -97,32 +108,33 @@ class View_Register {
 	public function filter_add_routes( $rewrite ) {
 		// Setup base rewrite rules
 		$rewrite
-			->archive( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%1' ] )
-			->archive( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%1' ] )
-			->archive( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] )
-			->archive( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->archive( [ '{{ ' . $this->slug . ' }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1' ] )
-			->archive( [ '{{ ' . $this->slug . ' }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1', 'featured' => true ] );
+			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%1' ] )
+			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%1' ] )
+			->archive( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] )
+			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->archive( [ '{{ ' . $this->route_slug . ' }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1' ] )
+			->archive( [ '{{ ' . $this->route_slug . ' }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1', 'featured' => true ] );
 
 		// Setup taxonomy based rewrite rules.
 		$rewrite
-			->tax( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
-			->tax( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
-			->tax( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->tax( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
+			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
+			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
+			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->tax( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
 
 		// Setup post_tag rewrite rules.
 		$rewrite
-			->tag( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
-			->tag( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
-			->tag( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->tag( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
+			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
+			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
+			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->tag( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
 	}
 
 	/**
 	 * Add the required bases for the Pro Views
 	 *
 	 * @since 5.7.0
+	 * @since 5.10.0 Using the decoupled route slug.
 	 *
 	 * @param array $bases Bases that are already set
 	 *
@@ -130,7 +142,7 @@ class View_Register {
 	 */
 	public function filter_add_base_slugs( $bases = [] ) {
 		// Support the original and translated forms for added robustness
-		$bases[ $this->slug ] = [  $this->slug , $this->slug ];
+		$bases[ $this->route_slug ] = [  $this->route_slug , $this->route_slug ];
 
 		return $bases;
 	}
@@ -139,13 +151,14 @@ class View_Register {
 	 * Add the required bases for the Summary View.
 	 *
 	 * @since 5.7.0
+	 * @since 5.10.0 Using the decoupled route slug.
 	 *
 	 * @param array $bases Bases that are already set.
 	 *
 	 * @return array         The modified version of the array of bases.
 	 */
 	public function filter_add_matchers_to_query_vars_map( $matchers = [], $rewrite = null ) {
-		$matchers[ $this->slug ] = 'eventDisplay';
+		$matchers[ $this->route_slug ] = 'eventDisplay';
 
 		return $matchers;
 	}
@@ -169,6 +182,7 @@ class View_Register {
 	 * Add the view to the views selector in the TEC bar.
 	 *
 	 * @since 5.7.0
+	 * @since 5.10.0 Using the route slug to build the `url` element.
 	 *
 	 * @param array $views The current array of views registered to the tribe bar.
 	 *
@@ -179,7 +193,7 @@ class View_Register {
 			'displaying'     => $this->slug,
 			'anchor'         => $this->name,
 			'event_bar_hook' => 'tribe_events_before_template',
-			'url'            => \tribe_get_view_permalink( $this->slug ),
+			'url'            => \tribe_get_view_permalink( $this->route_slug ),
 		];
 
 		return $views;

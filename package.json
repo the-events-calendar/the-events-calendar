@@ -81,7 +81,8 @@
     "webpack": "^4.26.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.1.2",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "clean-webpack-plugin": "^0.1.19"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
@@ -108,6 +109,7 @@
     "react": "16.3.0",
     "react-day-picker": "^7.2.4",
     "react-dom": "16.3.0",
+    "react-iframe": "^1.8.0",
     "react-input-autosize": "^2.2.1",
     "react-places-autocomplete": "^6.1.2",
     "react-redux": "^5.0.7",
@@ -122,7 +124,8 @@
     "url-loader": "^0.6.2",
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3"
+    "zero-fill": "^2.2.3",
+    "react-google-maps": "^9.4.5"
   },
   "browserslist": [
     "last 2 Chrome versions",
