@@ -16,6 +16,7 @@
  * @var string               $class    Class attribute for the dropdown input.
  * @var string               $name     Name attribute for the dropdown input.
  * @var string|int           $selected The selected option id.
+ * @var array<string,string> $options  Associative array of options for the dropdown.
  * @var array<string,string> $attrs    Associative array of attributes of the dropdown.
  */
 ?>
@@ -36,5 +37,8 @@
 		style="width: 100%;" <?php /* This is required for selectWoo styling to prevent select box overflow */ ?>
 		<?php tribe_attributes( $attrs ) ?>
 	>
+		<?php foreach ( $options as $option ) : ?>
+			<option value="<?php echo esc_attr( $option['value'] ); ?>" <?php selected( $option['value'], $selected ); ?>><?php echo esc_html( $option['text'] ); ?></option>
+		<?php endforeach; ?>
 	</select>
 </div>

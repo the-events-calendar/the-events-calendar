@@ -42,6 +42,7 @@ $statuses = (array) apply_filters( 'tribe_events_event_statuses', [], $event );
 		'id'       => "{$metabox::$id}-status",
 		'name'     => "{$metabox::$id}[status]",
 		'class'    => 'tribe-events-status__status-select',
+		'options'  => $statuses,
 		'selected' => $event->event_status,
 		'attrs'    => [
 			'data-placeholder'   => _x( 'Select an Event Status', 'The placeholder for the event status select.', 'the-events-calendar' ),
