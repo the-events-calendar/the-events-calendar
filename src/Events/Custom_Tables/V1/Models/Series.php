@@ -56,6 +56,11 @@ class Series implements Post_Model {
 					continue;
 				}
 
+				wp_update_post([
+					'ID' => $maybe_series_post->ID,
+					'post_status' => $create_overrides['post_status']
+				]);
+
 				$return[] = $maybe_series_post->ID;
 			} else {
 				// Never allow the post type to be different from the Series one.
