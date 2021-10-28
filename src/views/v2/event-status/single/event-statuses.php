@@ -3,7 +3,7 @@
  * Event Status Container.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/events-status/single/post-statuses.php
+ * [your-theme]/tribe/events/v2/events-status/single/event-statuses.php
  *
  * See more documentation about our views templating system.
  *
@@ -30,5 +30,5 @@ if ( empty( $event->event_status_reason ) ) {
 
 ?>
 <div class="tribe-common-b2 tribe-events-status-single-container">
-	<?php $this->template( "single/{$event->event_status}-status" ); ?>
+	<?php $this->template( "event-status/single/{$event->event_status}-status" ); ?>
 </div>
