@@ -72,9 +72,8 @@ class Template_Modifications {
 
 		$event = tribe_get_event( $event );
 
-		$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
-		if ( $status ) {
-			$classes[] = 'tribe-events-status-list-event--' . sanitize_html_class( $status );
+		if ( $event->event_status ) {
+			$classes[] = 'tribe-events-status-list-event--' . sanitize_html_class( $event->event_status );
 		}
 
 		return $classes;
