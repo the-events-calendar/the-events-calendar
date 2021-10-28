@@ -100,7 +100,7 @@ class Template_Modifications {
 			'status_labels' => $this->status_labels,
 		];
 
-		return $notices_html . $this->template->template( 'single/post-statuses', $args, false );
+		return $notices_html . $this->template->template( 'single/event-statuses', $args, false );
 	}
 
 	/**
