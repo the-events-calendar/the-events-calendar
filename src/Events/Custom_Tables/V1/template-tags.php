@@ -75,7 +75,7 @@ function tec_event_series( $event_post_id ) {
 }
 
 /**
- * Determines if we should show the event title in the series marker.
+ * Determines if we should show the series title in the series marker.
  *
  * @since TBD
  *
@@ -84,7 +84,7 @@ function tec_event_series( $event_post_id ) {
  *
  * @return boolean
  */
-function should_show_series_event_title( $series = null, $event = null ) {
+function tec_should_show_series_title( $series = null, $event = null ) {
 	$show_title = false;
 	if ( is_numeric( $series ) ) {
 		$series = get_post( $series );
@@ -92,11 +92,11 @@ function should_show_series_event_title( $series = null, $event = null ) {
 
 	// If we have the series, check and see if the editor checkbox has been toggled.
 	if ( ! empty( $series->ID ) ) {
-		$show_title = get_post_meta( $series->ID, '_tec-series-show-title', true );
+		$show_title = (bool) get_post_meta( $series->ID, '_tec-series-show-title', true );
 	}
 
 	/**
-	 * Allows .
+	 * Allows filtering whether to show the series event title in the series marker.
 	 *
 	 * @TBD
 	 *
@@ -104,27 +104,27 @@ function should_show_series_event_title( $series = null, $event = null ) {
 	 * @param Series|int|null  $series The post object or ID of the series the event belongs to.
 	 * @param WP_Post|int|null $event  The post object or ID of the event we're displaying.
 	 */
-	return apply_filters( 'tec_hide_series_marker_title', $show_title, $event, $series );
+	return apply_filters( 'tec_custom_tables_v1_show_series_title', $show_title, $series, $event );
 }
 
 /**
- * Generates a list of classes for the marker title.
+ * Generates a list of classes for the marker label.
  *
  * @since TBD
  *
  * @param Series|int|null  $series The post object or ID of the series the event belongs to.
  * @param WP_Post|int|null $event  The post object or ID of the event we're displaying.
  *
- * @return array<string> $classes A list of classes for the marker title.
+ * @return array<string> $classes A list of classes for the marker label.
  */
 function tec_get_series_marker_label_classes( $series = null, $event = null  ) {
-	$classes    = [ 'tec_series_marker__title' ];
+	$classes = [ 'tec_series_marker__title' ];
 
 	/**
 	 * If this returns false, we  hide the series marker event title.
 	 * (via the `tribe-common-a11y-visual-hide` class which leaves the title for screen readers for additional context.)
 	 */
-	if ( ! should_show_series_event_title( $series, $event ) ) {
+	if ( ! tec_should_show_series_title( $series, $event ) ) {
 		$classes[] = 'tribe-common-a11y-visual-hide';
 	}
 
@@ -137,5 +137,5 @@ function tec_get_series_marker_label_classes( $series = null, $event = null  ) {
 	 * @param Series|int|null  $series The post object or ID of the series the event belongs to.
 	 * @param WP_Post|int|null $event  The post object or ID of the event we're displaying.
 	 */
-	return apply_filters( 'tec_series_marker_title_classes', $classes, $series, $event );
+	return apply_filters( 'tec_custom_tables_v1_series_marker_label_classes', $classes, $series, $event );
 }
