@@ -32,6 +32,8 @@ if ( $should_render ) :
 			<div class="tribe-block__btn--link tribe-block__events-gcal">
 				<a
 					href="<?php echo Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ); ?>"
+					target="_blank"
+					rel="noopener noreferrer"
 					title="<?php esc_attr_e( 'Add to Google Calendar', 'the-events-calendar' ); ?>"
 				>
 					<img src="<?php echo Tribe__Main::instance()->plugin_url  . 'src/modules/icons/link.svg'; ?>" />
