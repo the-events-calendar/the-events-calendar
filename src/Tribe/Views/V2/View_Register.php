@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2;
  *
  * @package Tribe\Events\Views\V2
  * @since   5.7.0
- * @since   TBD Added feature to define the route slug used for this view, decoupled from the view slug.
+ * @since   5.10.0 Added feature to define the route slug used for this view, decoupled from the view slug.
  */
 class View_Register {
 	/**
@@ -99,7 +99,7 @@ class View_Register {
 	 * Add rewrite routes for custom PRO stuff and views.
 	 *
 	 * @since 5.7.0
-	 * @since TBD Adds optional decoupling of view name to route slug
+	 * @since 5.10.0 Adds optional decoupling of view name to route slug
 	 *
 	 * @param \Tribe__Events__Rewrite $rewrite The Tribe__Events__Rewrite object
 	 *
@@ -134,7 +134,7 @@ class View_Register {
 	 * Add the required bases for the Pro Views
 	 *
 	 * @since 5.7.0
-	 * @since TBD Using the decoupled route slug.
+	 * @since 5.10.0 Using the decoupled route slug.
 	 *
 	 * @param array $bases Bases that are already set
 	 *
@@ -151,7 +151,7 @@ class View_Register {
 	 * Add the required bases for the Summary View.
 	 *
 	 * @since 5.7.0
-	 * @since TBD Using the decoupled route slug.
+	 * @since 5.10.0 Using the decoupled route slug.
 	 *
 	 * @param array $bases Bases that are already set.
 	 *
@@ -182,7 +182,7 @@ class View_Register {
 	 * Add the view to the views selector in the TEC bar.
 	 *
 	 * @since 5.7.0
-	 * @since TBD Using the route slug to build the `url` element.
+	 * @since 5.10.0 Using the route slug to build the `url` element.
 	 *
 	 * @param array $views The current array of views registered to the tribe bar.
 	 *
