@@ -11,6 +11,11 @@
   "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
   "_glotPressFormats": ["po", "mo"],
+  "_glotPressFilter": {
+    "translation_sets": false,
+    "minimum_percentage": 30,
+    "waiting_strings": false
+  },
   "_filePath": {
     "eslint": [
       "src/modules/**/*.js",
@@ -34,11 +39,6 @@
       "!src/resources/postcss/tribe-events-theme-mobile.pcss",
       "!src/resources/postcss/tribe-events-theme.pcss"
     ]
-  },
-  "_glotPressFilter": {
-    "translation_sets": false,
-    "minimum_percentage": 30,
-    "waiting_strings": false
   },
   "scripts": {
     "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
