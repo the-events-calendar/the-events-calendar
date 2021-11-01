@@ -23,6 +23,6 @@ if ( 'postponed' !== $event->event_status ) {
 }
 
 ?>
-<span class="tribe-events-status-label tribe-events-status-label--postponed">
+<span class="tribe-events-status__label tribe-events-status-__label-postponed">
 	<?php echo esc_html( $status_labels->get_postponed_label() ); ?>
 </span>

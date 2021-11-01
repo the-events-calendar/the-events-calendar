@@ -214,9 +214,76 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 			2
 		);
 
-		// List View
+		// List View.
 		add_action(
 			'tribe_template_entry_point:events/v2/list/event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// Month View.
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/calendar-events/calendar-event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/bar/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/mobile-events/mobile-day/mobile-event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// Day View.
+		add_action(
+			'tribe_template_entry_point:events/v2/day/event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// Latest Past Events View.
+		add_action(
+			'tribe_template_entry_point:events/v2/latest-past/event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// List Widget.
+		add_action(
+			'tribe_template_entry_point:events/v2/widgets/widget-events-list/event/title:after_container_open',
 			[ $this, 'filter_insert_status_label' ],
 			15,
 			3

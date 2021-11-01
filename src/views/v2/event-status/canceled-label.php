@@ -23,6 +23,6 @@ if ( 'canceled' !== $event->event_status ) {
 }
 
 ?>
-<span class="tribe-events-status-label tribe-events-status-label--canceled">
+<span class="tribe-events-status__label tribe-events-status__label-canceled">
 	<?php echo esc_html( $status_labels->get_canceled_label() ); ?>
 </span>
