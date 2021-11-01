@@ -22,20 +22,17 @@ if ( 'postponed' !== $event->event_status ) {
 	return;
 }
 
-if ( empty( $event->event_status_reason ) ) {
-	return;
-}
-
 ?>
 <div class="tribe-events-status-single__notice tribe-events-status-single__notice-postponed">
-	<div class="tribe-events-status-text">
+	<div class="tribe-events-status__text">
 
-		<div class="tribe-events-status-single__notice-header tribe-events-status-text--red tribe-events-status-text--bold tribe-events-status-text--alert-icon">
+		<div class="tribe-events-status-single__notice-header tribe-events-status__text-red tribe-events-status__text-bold tribe-events-status__text-alert-icon">
 			<?php echo esc_html( $status_labels->get_postponed_label() ); ?>
 		</div>
-
-		<div class="tribe-events-status-single__notice-description">
-			<?php echo wp_kses_post( $event->event_status_reason ); ?>
-		</div>
+		<?php if ( $event->event_status_reason ) { ?>
+			<div class="tribe-events-status-single__notice-description">
+				<?php echo wp_kses_post( $event->event_status_reason ); ?>
+			</div>
+		<?php } ?>
 	</div>
 </div>
