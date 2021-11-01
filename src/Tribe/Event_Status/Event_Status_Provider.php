@@ -238,6 +238,13 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		);
 
 		add_action(
+			'tribe_template_entry_point:events/v2/month/mobile-events/mobile-day/mobile-event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
 			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/bar/title:after_container_open',
 			[ $this, 'filter_insert_status_label' ],
 			15,
@@ -245,21 +252,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		);
 
 		add_action(
-			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
-
-		add_action(
 			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
-
-		add_action(
-			'tribe_template_entry_point:events/v2/month/mobile-events/mobile-day/mobile-event/title:after_container_open',
 			[ $this, 'filter_insert_status_label' ],
 			15,
 			3
