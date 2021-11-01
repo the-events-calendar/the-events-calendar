@@ -21,7 +21,7 @@
  */
 ?>
 <div
-	class="tribe-events-status tribe-events-status--select"
+	class="tribe-events-status tribe-events-status__select"
 >
 	<label
 		class="screen-reader-text tribe-events-status__label"

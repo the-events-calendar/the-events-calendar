@@ -2,35 +2,26 @@
 * Event Status.
 * ----------------------------------------------------------------------------- */
 
-.tribe-events-status-text,
-.tribe-common .tribe-events-status-text {
+.tribe-events-status__text {
 	color: var(--tec-color-text-primary);
 	font-weight: var(--tec-font-weight-regular);
 	line-height: var(--tec-line-height-0);
 }
 
-.tribe-events-status-text--bold,
-.tribe-common .tribe-events-status-text--bold {
+.tribe-events-status__text--bold {
 	font-weight: var(--tec-font-weight-bold);
 }
 
-.tribe-events-status-text--red,
-.tribe-common .tribe-events-status-text--red {
+.tribe-events-status__text--red {
 	color: var(--tec-color-icon-error);
 }
 
-.tribe-events-status-text--blue,
-.tribe-common .tribe-events-status-text--blue {
-	color: var(--tec-color-accent-primary);
-}
-
-.tribe-events-status-text--alert-icon {
+.tribe-events-status__text--alert-icon {
 	align-items: center;
 	display: inline-flex;
 }
 
-.tribe-events-status-text--alert-icon:before,
-.tribe-common .tribe-events-status-text--alert-icon:before {
+.tribe-events-status__text--alert-icon:before {
 	background-image: url('../images/alert.svg');
 	background-repeat: no-repeat;
 	background-size: var(--tec-spacer-3);
@@ -41,22 +32,11 @@
 	min-width: var(--tec-spacer-3);
 }
 
-.tribe-common .tribe-events-status-archive-container {
-	display: inline-block;
-}
-
-.tribe-common .tribe-events-status-icon {
-	background-repeat: no-repeat;
-	background-size: contain;
-	display: inline-block;
-	margin-right: var(--tec-spacer-1);
-}
-
 /* -----------------------------------------------------------------------------
  * Event Status (Canceled, Postponed)
  * ----------------------------------------------------------------------------- */
 
-.tribe-events .tribe-events-status-label {
+.tribe-events .tribe-events-status__label {
 	color: var(--tec-color-icon-error);
 }
 
@@ -69,39 +49,27 @@
 	position: relative;
 }
 
-.tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-happening-now--single.tribe-ext-events-happening-now .tribe-events-calendar-list__event-row {
-	border-left: 4px solid var(--tec-color-accent-primary);
-}
-
-.tribe-ext-events-happening-now--single .tribe-events-c-small-cta {
-	margin-top: var(--tec-spacer-2);
-}
-
-.tribe-common--breakpoint-medium.tribe-ext-events-happening-now--single .tribe-events-c-small-cta {
-	margin-top: var(--tec-spacer-3);
-}
-
 /* -----------------------------------------------------------------------------
 * Single.
 * ----------------------------------------------------------------------------- */
-.tribe-events-status-single-notice {
+.tribe-events-status-single__notice {
 	border: 1px solid var(--tec-color-border-default);
 	font-size: var(--tec-font-size-2);
 	margin-bottom: var(--tec-spacer-4);
 	padding: var(--tec-spacer-2) var(--tec-spacer-4);
 }
 
-.tribe-events-status-single-notice--postponed,
-.tribe-events-status-single-notice--canceled {
+.tribe-events-status-single__notice-postponed,
+.tribe-events-status-single__notice-canceled {
 	border-left-color: var(--tec-color-icon-error);
 	border-left-width: var(--tec-spacer-0);
 }
 
-.tribe-events-status-single-notice-description {
+.tribe-events-status-single__notice-description {
 	margin-bottom: var(--tec-spacer-2);
 	padding-left: var(--tec-spacer-4);
 }
 
-.tribe-events-status-single-notice-description:last-child {
+.tribe-events-status-single__notice-description:last-child {
 	margin-bottom: 0;
 }
