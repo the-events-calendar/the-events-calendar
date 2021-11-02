@@ -1,6 +1,6 @@
 <?php
 /**
- * The Event Status service provider.
+ * The Event Status Labels.
  *
  * @package Tribe\Events\Event_Status
  * @since   TBD
@@ -8,8 +8,6 @@
 
 namespace Tribe\Events\Event_Status;
 
-use Tribe__Events__Main as Events_Plugin;
-use Tribe__Context as Context;
 use WP_Post;
 
 /**
