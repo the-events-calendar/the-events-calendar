@@ -3,9 +3,15 @@
 * ----------------------------------------------------------------------------- */
 .tribe-events {
 
-	.tribe-events-status-single__header {
-		color: var(--tec-color-text-primary);
+	.tribe-events-status-label__text {
+		color: var(--tec-color-icon-error);
 	}
+}
+
+/* -----------------------------------------------------------------------------
+* Single.
+* ----------------------------------------------------------------------------- */
+.tribe-events-single {
 
 	.tribe-events-status-single__header {
 		color: var(--tec-color-icon-error);
@@ -22,24 +28,13 @@
 		min-width: var(--tec-spacer-3);
 	}
 
-	/* -----------------------------------------------------------------------------
-	 * Event Status (Canceled, Postponed)
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-events-status-label__text {
-		color: var(--tec-color-icon-error);
-	}
-
-	/* -----------------------------------------------------------------------------
-	* Single.
-	* ----------------------------------------------------------------------------- */
-
 	.tribe-events-status-single {
 		border: 1px solid var(--tec-color-border-default);
+		border-left-width: var(--tec-spacer-0);
+		border-left-color: var(--tec-color-icon-error);
 	}
 
-	.tribe-events-status-single__notice-postponed,
-	.tribe-events-status-single__notice-canceled {
-		border-left-color: var(--tec-color-icon-error);
+	.tribe-events-status-single__description {
+		color: var(--tec-color-text-primary);
 	}
 }
