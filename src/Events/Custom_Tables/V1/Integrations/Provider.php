@@ -30,10 +30,5 @@ class Provider extends tad_DI52_ServiceProvider {
 		if ( class_exists( '\\TEC\\Event_Tickets\\Custom_Tables\\V1\\Provider' ) ) {
 			$this->container->register( \TEC\Tickets\Custom_Tables\V1\Provider::class );
 		}
-
-		// Class defined by the GitHub Updater plugin.
-		if ( class_exists( '\\Fragen\\Git_Updater\\Plugin' ) ) {
-			$this->container->register( GH_Updater\Provider::class );
-		}
 	}
 }
