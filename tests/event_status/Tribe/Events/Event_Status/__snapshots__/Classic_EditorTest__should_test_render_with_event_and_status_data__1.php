@@ -3,10 +3,10 @@
 	<label for="tribe-events-status-status">
 		Set status:	</label>
 	<div
-	class="tribe-events-status tribe-events-status__select"
+	class="tribe-events-status tribe-events-status-select"
 >
 	<label
-		class="screen-reader-text tribe-events-status__label"
+		class="screen-reader-text tribe-events-status-label__text"
 		for="tribe-events-status-status"
 	>
 		Set status:	</label>

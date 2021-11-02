@@ -3,7 +3,7 @@
  * Reason container for a canceled event.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/events-status/canceled-label.php
+ * [your-theme]/tribe/events/v2/events-status/status-label/canceled-label.php
  *
  * See more documentation about our views templating system.
  *
@@ -23,6 +23,6 @@ if ( 'canceled' !== $event->event_status ) {
 }
 
 ?>
-<span class="tribe-events-status__label tribe-events-status__label-canceled">
+<span class="tribe-events-status-label__text tribe-events-status-label__text--canceled">
 	<?php echo esc_html( $status_labels->get_canceled_label() ); ?>
 </span>

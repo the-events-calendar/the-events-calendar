@@ -2,8 +2,8 @@
 /**
  * The Event Status Labels.
  *
- * @package Tribe\Events\Event_Status
  * @since   TBD
+ * @package Tribe\Events\Event_Status
  */
 
 namespace Tribe\Events\Event_Status;
@@ -25,7 +25,7 @@ class Status_Labels {
 	 * @since TBD
 	 *
 	 * @param array<string|mixed> $statuses The event status options for an event.
-	 * @param WP_Post $event The event post object.
+	 * @param WP_Post             $event    The event post object.
 	 *
 	 * @return array<string|mixed> The event status options for an event.
 	 */
@@ -51,7 +51,7 @@ class Status_Labels {
 			]
 		];
 
-		$statuses = array_merge($statuses, $default_statuses );
+		$statuses = array_merge( $statuses, $default_statuses );
 
 		return $statuses;
 	}

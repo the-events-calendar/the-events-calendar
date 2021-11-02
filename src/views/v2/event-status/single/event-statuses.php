@@ -24,6 +24,6 @@ if ( empty( $event->event_status ) ) {
 }
 
 ?>
-<div class="tribe-common-b2 tribe-events-status-single__container">
-	<?php $this->template( "event-status/single/{$event->event_status}-status" ); ?>
+<div class="tribe-common-b2 tribe-events-status-single-notice">
+	<?php $this->template( "event-status/single/event-statuses/{$event->event_status}-status" ); ?>
 </div>

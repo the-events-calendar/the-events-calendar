@@ -1,5 +1,5 @@
-<?php return '<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium"><span class="tribe-events-status__label-wrapper">
-	<span class="tribe-events-status__label tribe-events-status__label-canceled">
+<?php return '<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium"><span class="tribe-events-status-label">
+	<span class="tribe-events-status-label__text tribe-events-status-label__text--canceled">
 	Canceled</span>
 </span>
 
