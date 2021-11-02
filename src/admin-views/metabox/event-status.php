@@ -17,8 +17,6 @@
  * @var Metabox  $metabox The metabox instance.
  */
 
-namespace  Tribe\Extensions\EventsControl;
-
 /**
  * Allow filtering of the event statuses.
  *

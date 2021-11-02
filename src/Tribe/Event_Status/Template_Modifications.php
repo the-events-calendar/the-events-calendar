@@ -123,6 +123,6 @@ class Template_Modifications {
 			'status_labels' => $this->status_labels,
 		];
 
-		$this->template->template( 'status-label', $args );
+		$this->template->template( 'event-status/status-label', $args );
 	}
 }

@@ -19,11 +19,15 @@
  */
 namespace Tribe\Events\Event_Status;
 
+$h = 1;
+
+$b = $h;
+
 if ( ! in_array( $event->event_status, [ 'canceled', 'postponed' ] ) ) {
 	return;
 }
 
 ?>
 <span class="tribe-events-status__label-wrapper">
-	<?php $this->template( "{$event->event_status}-label" ); ?>
+	<?php $this->template( "event-status/{$event->event_status}-label" ); ?>
 </span>

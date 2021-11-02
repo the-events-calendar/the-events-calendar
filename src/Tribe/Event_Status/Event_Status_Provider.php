@@ -33,6 +33,8 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		// Register the SP on the container
 		$this->container->singleton( 'events.status.provider', $this );
 
+		$this->container->register( Compatibility\Events_Control_Extension\Service_Provider::class );
+
 		$this->add_actions();
 		$this->add_filters();
 		$this->add_templates();
@@ -96,6 +98,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_event_statuses', [ $this, 'filter_event_statuses' ], 10, 2 );
 
 		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
+		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 10, 3 );
 	}
 
 	/**
@@ -197,6 +200,21 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		$new_classes = $this->container->make( Template_Modifications::class )->get_post_classes( $post );
 
 		return array_merge( $classes, $new_classes );
+	}
+
+	/**
+	 * Modifiers to the JSON LD object we use.
+	 *
+	 * @since TBD
+	 *
+	 * @param object  $data The JSON-LD object.
+	 * @param array   $args The arguments used to get data.
+	 * @param WP_Post $post The post object.
+	 *
+	 * @return object JSON LD object after modifications.
+	 */
+	public function filter_json_ld_modifiers( $data, $args, $post ) {
+		return $this->container->make( JSON_LD::class )->modify_event( $data, $args, $post );
 	}
 
 	/**
