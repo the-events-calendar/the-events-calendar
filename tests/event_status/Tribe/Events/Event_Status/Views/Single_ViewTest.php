@@ -9,7 +9,7 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 class Single_ViewTest extends HtmlPartialTestCase {
 	use With_Post_Remapping;
 
-	protected $partial_path = 'event-status/single/event-statuses';
+	protected $partial_path = 'event-status/single/event-statuses-container';
 
 	/**
 	 * @test
@@ -36,8 +36,32 @@ class Single_ViewTest extends HtmlPartialTestCase {
 	/**
 	 * @test
 	 */
+	public function it_should_render_single_canceled_name_no_reason_and_html() {
+		$event = $this->get_mock_event( 'events/single/canceled_status.json' );
+		$event->event_status_reason = '';
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'event' => $event,
+			'status_labels' => new Status_Labels(),
+		] ) );
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_render_single_postponed_name_reason_and_html() {
 		$event = $this->get_mock_event( 'events/single/postponed_status.json' );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'event' => $event,
+			'status_labels' => new Status_Labels(),
+		] ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_render_single_postponed_name_no_reason_and_html() {
+		$event = $this->get_mock_event( 'events/single/postponed_status.json' );
+		$event->event_status_reason = '';
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'event' => $event,
 			'status_labels' => new Status_Labels(),

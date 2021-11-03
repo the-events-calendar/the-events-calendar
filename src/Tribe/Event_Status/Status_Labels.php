@@ -1,15 +1,13 @@
 <?php
 /**
- * The Event Status service provider.
+ * The Event Status Labels.
  *
- * @package Tribe\Events\Event_Status
  * @since   TBD
+ * @package Tribe\Events\Event_Status
  */
 
 namespace Tribe\Events\Event_Status;
 
-use Tribe__Events__Main as Events_Plugin;
-use Tribe__Context as Context;
 use WP_Post;
 
 /**
@@ -27,7 +25,7 @@ class Status_Labels {
 	 * @since TBD
 	 *
 	 * @param array<string|mixed> $statuses The event status options for an event.
-	 * @param WP_Post $event The event post object.
+	 * @param WP_Post             $event    The event post object.
 	 *
 	 * @return array<string|mixed> The event status options for an event.
 	 */
@@ -53,7 +51,7 @@ class Status_Labels {
 			]
 		];
 
-		$statuses = array_merge($statuses, $default_statuses );
+		$statuses = array_merge( $statuses, $default_statuses );
 
 		return $statuses;
 	}
@@ -70,9 +68,9 @@ class Status_Labels {
 		/**
 		 * Filter the scheduled label for event status.
 		 *
-		 * @since
+		 * @since TBD
 		 *
-		 * @param string The default label for the scheduled status.
+		 * @param string The default translated label for the scheduled status.
 		 */
 		return apply_filters( 'tec_event_status_scheduled_label', _x( 'Scheduled', 'Scheduled label.', 'the-events-calendar' ) );
 	}
@@ -89,9 +87,9 @@ class Status_Labels {
 		/**
 		 * Filter the canceled label for event status.
 		 *
-		 * @since
+		 * @since TBD
 		 *
-		 * @param string The default label for the canceled status.
+		 * @param string The default translated label for the canceled status.
 		 */
 		return apply_filters( 'tec_event_status_canceled_label', _x( 'Canceled', 'Canceled label.', 'the-events-calendar' ) );
 	}
@@ -108,9 +106,9 @@ class Status_Labels {
 		/**
 		 * Filter the postponed label for event status.
 		 *
-		 * @since
+		 * @since TBD
 		 *
-		 * @param string The default label for the postponed status.
+		 * @param string The default translated label for the postponed status.
 		 */
 		return apply_filters( 'tec_event_status_postponed_label', _x( 'Postponed', 'Postponed label', 'the-events-calendar' ) );
 	}

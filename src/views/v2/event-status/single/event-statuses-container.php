@@ -1,9 +1,9 @@
 <?php
 /**
- * Reason container for a canceled event.
+ * Event Status Container.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/events-status/canceled-label.php
+ * [your-theme]/tribe/events/v2/events-status/single/event-statuses-container.php
  *
  * See more documentation about our views templating system.
  *
@@ -18,11 +18,12 @@
  */
 namespace Tribe\Events\Event_Status;
 
-if ( 'canceled' !== $event->event_status ) {
+// Return if no event status.
+if ( empty( $event->event_status ) ) {
 	return;
 }
 
 ?>
-<span class="tribe-events-status__label tribe-events-status__label-canceled">
-	<?php echo esc_html( $status_labels->get_canceled_label() ); ?>
-</span>
+<div class="tribe-common-b2 tribe-events-status-single-notice">
+	<?php $this->template( "event-status/single/event-statuses/{$event->event_status}-status", [ 'status_labels' => $status_labels ] ); ?>
+</div>

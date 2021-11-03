@@ -3,7 +3,7 @@
  * Reason container for a postponed event.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/events-status/postponed-label.php
+ * [your-theme]/tribe/events/v2/events-status/status-label/postponed-label.php
  *
  * See more documentation about our views templating system.
  *
@@ -23,6 +23,6 @@ if ( 'postponed' !== $event->event_status ) {
 }
 
 ?>
-<span class="tribe-events-status__label tribe-events-status-__label-postponed">
+<span class="tribe-events-status-label__text tribe-events-status-label__text--postponed">
 	<?php echo esc_html( $status_labels->get_postponed_label() ); ?>
 </span>

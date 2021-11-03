@@ -4,8 +4,6 @@
 
 		<div class="tribe-events-status-single__header tribe-events-status-single__header--bold tribe-events-status-single__header--alert-icon">
 			Postponed		</div>
-					<div class="tribe-events-status-single__description">
-				This event is postponed because.			</div>
 			</div>
 </div>
 </div>

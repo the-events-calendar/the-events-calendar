@@ -4,8 +4,6 @@
 
 		<div class="tribe-events-status-single__notice-header tribe-events-status-single__header tribe-events-status-single__header--bold tribe-events-status-single__header--alert-icon">
 			Canceled		</div>
-					<div class="tribe-events-status-single__description">
-				This event is canceled because.			</div>
 			</div>
 </div>
 </div>
