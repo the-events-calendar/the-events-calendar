@@ -32,7 +32,7 @@ class Google_Form_Feedback implements Feedback_Interface {
 	 */
 	public function render_classic_editor_version() {
 		?>
-		<div class="notice notice-warning icaltec-feedback__container"
+		<div class="notice notice-warning tec-custom-tables-v1-feedback__container"
 		     style="
 		     background: #fff;
 		     border: 1px solid #c3c4c7;
@@ -85,10 +85,6 @@ class Google_Form_Feedback implements Feedback_Interface {
 				'entry_id' => 'entry.1707232830',
 				'value'    => PHP_OS,
 			],
-			'icaltec_version' => [
-				'entry_id' => 'entry.88103736',
-				'value'    => TEC_CUSTOM_TABLES_VERSION,
-			],
 			'theme'           => [
 				'entry_id' => 'entry.1216644610',
 				'value'    => sprintf( 'template: %s, stylesheet: %s', get_template(), get_stylesheet() ),
@@ -133,10 +129,6 @@ class Google_Form_Feedback implements Feedback_Interface {
 		}
 
 		foreach ( wp_get_active_and_valid_plugins() as $plugin_file ) {
-			if ( $plugin_file === TEC_CUSTOM_TABLES_V1_FILE ) {
-				continue;
-			}
-
 			$plugin_data = get_plugin_data( $plugin_file );
 
 			if ( ! isset( $plugin_data['Name'], $plugin_data['Version'] ) ) {
@@ -160,11 +152,11 @@ class Google_Form_Feedback implements Feedback_Interface {
 	 * @return array<string,mixed> The modified plugin configuration.
 	 */
 	public function filter_editor_config( array $config = [] ) {
-		if ( ! isset( $config['icaltec'] ) ) {
-			$config['icaltec'] = [];
+		if ( ! isset( $config['tec-custom-tables-v1'] ) ) {
+			$config['tec-custom-tables-v1'] = [];
 		}
 
-		$config['icaltec']['feedbackNoticeText'] = $this->get_notice_contents();
+		$config['tec-custom-tables-v1']['feedbackNoticeText'] = $this->get_notice_contents();
 
 		return $config;
 	}
