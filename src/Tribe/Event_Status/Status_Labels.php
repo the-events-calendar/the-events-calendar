@@ -68,9 +68,9 @@ class Status_Labels {
 		/**
 		 * Filter the scheduled label for event status.
 		 *
-		 * @since
+		 * @since TBD
 		 *
-		 * @param string The default label for the scheduled status.
+		 * @param string The default translated label for the scheduled status.
 		 */
 		return apply_filters( 'tribe_events_status_scheduled_label', _x( 'Scheduled', 'Scheduled label.', 'the-events-calendar' ) );
 	}
@@ -87,9 +87,9 @@ class Status_Labels {
 		/**
 		 * Filter the canceled label for event status.
 		 *
-		 * @since
+		 * @since TBD
 		 *
-		 * @param string The default label for the canceled status.
+		 * @param string The default translated label for the canceled status.
 		 */
 		return apply_filters( 'tribe_events_status_canceled_label', _x( 'Canceled', 'Canceled label.', 'the-events-calendar' ) );
 	}
@@ -106,9 +106,9 @@ class Status_Labels {
 		/**
 		 * Filter the postponed label for event status.
 		 *
-		 * @since
+		 * @since TBD
 		 *
-		 * @param string The default label for the postponed status.
+		 * @param string The default translated label for the postponed status.
 		 */
 		return apply_filters( 'tribe_events_status_postponed_label', _x( 'Postponed', 'Postponed label', 'the-events-calendar' ) );
 	}

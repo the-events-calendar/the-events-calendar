@@ -60,9 +60,9 @@ class Template_Modifications {
 	 *
 	 * @since TBD
 	 *
-	 * @param int|WP_Post      $event      Post ID or post object.
+	 * @param int|WP_Post $event Post ID or post object.
 	 *
-	 * @return string[]
+	 * @return array<string|string> An array of post classes.
 	 */
 	public function get_post_classes( $event ) {
 		$classes = [];
@@ -80,14 +80,14 @@ class Template_Modifications {
 	}
 
 	/**
-	 * Include the control markers to the single page.
+	 * Include the event status label and reason to the single page notices.
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $notices_html  Previously set HTML.
-	 * @param  array   $notices       Array of notices added previously.
+	 * @param string               $notices_html Previously set HTML of notices.
+	 * @param array<string|string> $notices      Array of notices added previously.
 	 *
-	 * @return string  New Before with the control markers appended.
+	 * @return string  HTML for existing notices if any plus the optional status and reason.
 	 */
 	public function add_single_status_reason( $notices_html, $notices ) {
 		if ( ! is_singular( Events_Plugin::POSTTYPE ) ) {
@@ -99,7 +99,7 @@ class Template_Modifications {
 			'status_labels' => $this->status_labels,
 		];
 
-		return $notices_html . $this->template->template( 'single/event-statuses', $args, false );
+		return $notices_html . $this->template->template( 'single/event-statuses-container', $args, false );
 	}
 
 	/**

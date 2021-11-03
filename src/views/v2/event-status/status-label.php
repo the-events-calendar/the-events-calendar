@@ -25,5 +25,5 @@ if ( ! in_array( $event->event_status, [ 'canceled', 'postponed' ] ) ) {
 
 ?>
 <span class="tribe-events-status-label">
-	<?php $this->template( "event-status/status-label/{$event->event_status}-label" ); ?>
+	<?php $this->template( "event-status/status-label/{$event->event_status}-label", [ 'status_labels' => $status_labels ] ); ?>
 </span>
