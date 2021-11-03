@@ -20,14 +20,22 @@ use WP_Post;
  * @package Tribe\Events\Event_Status
  */
 class Event_Status_Provider extends \tad_DI52_ServiceProvider {
+
+	/**
+	 * The constant to disable the event status coding.
+	 *
+	 * @since TBD
+	 */
 	const DISABLED = 'TEC_EVENT_STATUS_DISABLED';
 
 	/**
 	 * Binds and sets up implementations.
+	 *
+	 * @since TBD
 	 */
 	public function register() {
 		if ( ! self::is_active() ) {
-			return false;
+			return;
 		}
 
 		// Register the SP on the container
