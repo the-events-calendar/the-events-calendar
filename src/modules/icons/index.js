@@ -11,4 +11,4 @@ export { default as Tags } from './tags.svg';
 export { default as Sharing } from './sharing.svg';
 export { default as Venue } from './venue.svg';
 export { default as Website } from './website.svg';
-
+export { default as EventsListIcon } from './eventsList.svg';
