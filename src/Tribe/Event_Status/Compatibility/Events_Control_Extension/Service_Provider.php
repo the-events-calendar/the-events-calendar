@@ -204,15 +204,17 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @param string               $found_file The template file found for the template name.
 	 * @param array<string>|string $name       The name, or name fragments, of the requested template.
 	 * @param \Tribe__Template     $template   The template instance that is currently handling the template location
+	 *
+	 * @return string An empty string or the HTML of the mark online template.
 	 */
 	public function replace_metabox_template( $found_file, $name, \Tribe__Template $template ) {
 		if ( ! class_exists( Events_Control_Main::class ) ) {
-			return;
+			return '';
 		}
 
 		// Only add mark as an online event if Virtual Events is not found.
 		if ( class_exists( Events_Virtual_Plugin::class ) ) {
-			return;
+			return '';
 		}
 
 		// Setup vars for the mark online compatibility template.
@@ -223,7 +225,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		];
 		$metabox = tribe( Metabox::class );
 
-		$template->template(
+		return $template->template(
 			'/metabox/compatibility/events-control-extension/mark-online',
 			[
 				'fields' => $fields,
