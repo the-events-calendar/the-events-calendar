@@ -55,7 +55,7 @@ class Manager {
 	 * Registers a view such that sensible defaults are registered and hooked.
 	 *
 	 * @since 5.7.0
-	 * @since TBD Added optional route slug parameter to decouple from the view slug.
+	 * @since 5.10.0 Added optional route slug parameter to decouple from the view slug.
 	 *
 	 * @param string $slug View slug for locating the view file.
 	 * @param string $name View name.
