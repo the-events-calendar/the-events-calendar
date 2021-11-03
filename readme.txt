@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.18
-Stable tag: 5.10.0
+Stable tag: 5.10.1
 Tested up to: 5.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -220,6 +220,11 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.10.1] 2021-11-04 =
+
+* Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
+* Tweak - Update Black Friday banner. [TCMN-126]
 
 = [5.10.0] 2021-10-19 =
 
