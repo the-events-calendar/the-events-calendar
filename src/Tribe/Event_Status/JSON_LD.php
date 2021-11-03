@@ -69,14 +69,14 @@ class JSON_LD {
 		 * @param array   $args            The arguments used to get data.
 		 * @param WP_Post $post            The post object.
 		 */
-		$attendance_mode = apply_filters( 'tribe_events_status_default_single_event_online_status', static::OFFLINE_EVENT_ATTENDANCE_MODE, $data, $args, $post );
+		$attendance_mode = apply_filters( 'tec_event_status_default_single_event_online_status', static::OFFLINE_EVENT_ATTENDANCE_MODE, $data, $args, $post );
 
 		$data->eventAttendanceMode = $attendance_mode;
 
 		// Update event status schema.
 		if ( 'canceled' === $event->event_status ) {
 			$data->eventStatus = static::CANCELED_SCHEMA;
-		} elseif ( 'postponded' === $event->event_status ) {
+		} elseif ( 'postponed' === $event->event_status ) {
 			$data->eventStatus = static::POSTPONED_SCHEMA;
 		}
 

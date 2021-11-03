@@ -58,66 +58,44 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			10
 		);
 
-		// List View.
-		remove_action(
-			'tribe_template_after_include:events/v2/list/event/venue',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
 
-		// Day View.
-		remove_action(
-			'tribe_template_after_include:events/v2/day/event/description',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
+		$templates = [
+			// List View.
+			'events/v2/list/event/venue',
+			// Day View.
+			'events/v2/day/event/description',
+			'events/v2/day/event/venue',
+			// Photo View.
+			'events-pro/v2/photo/event/date-time',
+			// Map View.
+			'events-pro/v2/photo/event/date-time',
+			'events-pro/v2/map/event-cards/event-card/tooltip/venue',
+			// Week View.
+			'events-pro/v2/week/mobile-events/day/event/venue',
+			'events-pro/v2/week/grid-body/events-day/event/tooltip/description',
+		];
 
-		remove_action(
-			'tribe_template_after_include:events/v2/day/event/venue',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
+		/**
+		 * Filters the list of templates to remove from event status control extension by action.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $label_templates The array of template names for each view to add the status label.
+		 */
+		$templates = apply_filters( 'tec_event_status_compatibility_remove_extension_templates_by_action', $templates );
 
-		// Photo View.
-		remove_action(
-			'tribe_template_before_include:events-pro/v2/photo/event/date-time',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
+		foreach ( $templates as $template ) {
+		    if ( ! is_string( $template ) ) {
+	            continue;
+	        }
 
-		// Map View.
-		remove_action(
-			'tribe_template_before_include:events-pro/v2/photo/event/date-time',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
-
-		remove_action(
-			'tribe_template_after_include:events-pro/v2/map/event-cards/event-card/tooltip/venue',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
-
-		// Week View.
-		remove_action(
-			'tribe_template_after_include:events-pro/v2/week/mobile-events/day/event/venue',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
-
-		remove_action(
-			'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description',
-			[ $extension_hooks, 'action_add_online_event' ],
-			15,
-			3
-		);
+			remove_action(
+				'tribe_template_after_include:' . $template,
+				[ $extension_hooks, 'action_add_online_event' ],
+				15,
+				3
+			);
+		}
 	}
 
 	/**
@@ -156,102 +134,49 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			3
 		);
 
-		// List View.
-		remove_filter(
-			'tribe_template_html:events/v2/list/event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
+		$templates = [
+			// List View.
+			'events/v2/list/event/title',
+			// Month View.
+			'events/v2/month/calendar-body/day/calendar-events/calendar-event/title',
+			'events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title',
+			'events/v2/month/calendar-body/day/multiday-events/multiday-event',
+			'events/v2/month/mobile-events/mobile-day/mobile-event/title',
+			// Day View.
+			'events/v2/day/event/title',
+			// Photo View.
+			'events-pro/v2/photo/event/title',
+			// Map View.
+			'events-pro/v2/map/event-cards/event-card/event/title',
+			'events-pro/v2/map/event-cards/event-card/tooltip/title',
+			// Week View.
+			'events-pro/v2/week/grid-body/events-day/event/title',
+			'events-pro/v2/week/grid-body/events-day/event/tooltip/title',
+			'events-pro/v2/week/grid-body/multiday-events-day/multiday-event',
+			'events-pro/v2/week/mobile-events/day/event/title',
+		];
 
-		// Month View.
-		remove_filter(
-			'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
+		/**
+		 * Filters the list of templates to remove from event status control extension by filter.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $label_templates The array of template names for each view to add the status label.
+		 */
+		$templates = apply_filters( 'tec_event_status_compatibility_remove_extension_templates_by_filter', $templates );
 
-		remove_filter(
-			'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
+		foreach ( $templates as $template ) {
+		    if ( ! is_string( $template ) ) {
+	            continue;
+	        }
 
-		remove_filter(
-			'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		remove_filter(
-			'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		// Day View.
-		remove_filter(
-			'tribe_template_html:events/v2/day/event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		// Photo View.
-		remove_filter(
-			'tribe_template_html:events-pro/v2/photo/event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		// Map View.
-		remove_filter(
-			'tribe_template_html:events-pro/v2/map/event-cards/event-card/event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		remove_filter(
-			'tribe_template_html:events-pro/v2/map/event-cards/event-card/tooltip/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		// Week View.
-		remove_filter(
-			'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		remove_filter(
-			'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		remove_filter(
-			'tribe_template_html:events-pro/v2/week/grid-body/multiday-events-day/multiday-event',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
-
-		remove_filter(
-			'tribe_template_html:events-pro/v2/week/mobile-events/day/event/title',
-			[ $extension_hooks, 'filter_insert_status_label' ],
-			15,
-			4
-		);
+			remove_filter(
+				'tribe_template_html:' . $template,
+				[ $extension_hooks, 'filter_insert_status_label' ],
+				15,
+				4
+			);
+		}
 	}
 
 	/**

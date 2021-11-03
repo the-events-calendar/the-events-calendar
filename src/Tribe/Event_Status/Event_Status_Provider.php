@@ -103,7 +103,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_context_locations', [ $this, 'filter_context_locations' ] );
 
 		// Add Event statuses.
-		add_filter( 'tribe_events_event_statuses', [ $this, 'filter_event_statuses' ], 10, 2 );
+		add_filter( 'tec_event_statuses', [ $this, 'filter_event_statuses' ], 10, 2 );
 
 		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
 		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 10, 3 );
@@ -240,73 +240,44 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 			2
 		);
 
-		// List View.
-		add_action(
-			'tribe_template_entry_point:events/v2/list/event/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
+		$label_templates = [
+			// List View.
+			'events/v2/list/event/title:after_container_open',
+			// Month View.
+			'events/v2/month/calendar-body/day/calendar-events/calendar-event/title:after_container_open',
+			'events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title:after_container_open',
+			'events/v2/month/mobile-events/mobile-day/mobile-event/title:after_container_open',
+			'events/v2/month/calendar-body/day/multiday-events/multiday-event/bar/title:after_container_open',
+			'events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/title:after_container_open',
+			// Day View.
+			'events/v2/day/event/title:after_container_open',
+			// Latest Past Events View.
+			'events/v2/latest-past/event/title:after_container_open',
+			// List Widget.
+			'events/v2/widgets/widget-events-list/event/title:after_container_open',
+		];
 
-		// Month View.
-		add_action(
-			'tribe_template_entry_point:events/v2/month/calendar-body/day/calendar-events/calendar-event/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
+		/**
+		 * Filters the list of template where the event status label is added.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $label_templates The array of template names for each view to add the status label.
+		 */
+		$label_templates = apply_filters( 'tec_event_status_templates', $label_templates );
 
-		add_action(
-			'tribe_template_entry_point:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
+		foreach ( $label_templates as $template ) {
+		    if ( ! is_string( $template ) ) {
+	            continue;
+	        }
 
-		add_action(
-			'tribe_template_entry_point:events/v2/month/mobile-events/mobile-day/mobile-event/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
-
-		add_action(
-			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/bar/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
-
-		add_action(
-			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
-
-		// Day View.
-		add_action(
-			'tribe_template_entry_point:events/v2/day/event/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
-
-		// Latest Past Events View.
-		add_action(
-			'tribe_template_entry_point:events/v2/latest-past/event/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
-
-		// List Widget.
-		add_action(
-			'tribe_template_entry_point:events/v2/widgets/widget-events-list/event/title:after_container_open',
-			[ $this, 'filter_insert_status_label' ],
-			15,
-			3
-		);
+			add_filter(
+				'tribe_template_entry_point:' . $template,
+				[ $this, 'filter_insert_status_label' ],
+				15,
+				3
+			);
+		}
 	}
 
 	/**

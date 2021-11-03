@@ -74,7 +74,7 @@ class Status_Labels {
 		 *
 		 * @param string The default label for the scheduled status.
 		 */
-		return apply_filters( 'tribe_events_status_scheduled_label', _x( 'Scheduled', 'Scheduled label.', 'the-events-calendar' ) );
+		return apply_filters( 'tec_event_status_scheduled_label', _x( 'Scheduled', 'Scheduled label.', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Status_Labels {
 		 *
 		 * @param string The default label for the canceled status.
 		 */
-		return apply_filters( 'tribe_events_status_canceled_label', _x( 'Canceled', 'Canceled label.', 'the-events-calendar' ) );
+		return apply_filters( 'tec_event_status_canceled_label', _x( 'Canceled', 'Canceled label.', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -112,6 +112,6 @@ class Status_Labels {
 		 *
 		 * @param string The default label for the postponed status.
 		 */
-		return apply_filters( 'tribe_events_status_postponed_label', _x( 'Postponed', 'Postponed label', 'the-events-calendar' ) );
+		return apply_filters( 'tec_event_status_postponed_label', _x( 'Postponed', 'Postponed label', 'the-events-calendar' ) );
 	}
 }

@@ -25,7 +25,7 @@
  * @param array<string|string> An array of video sources.
  * @param \WP_Post $event The current event post object, as decorated by the `tribe_get_event` function.
  */
-$statuses = (array) apply_filters( 'tribe_events_event_statuses', [], $event );
+$statuses = (array) apply_filters( 'tec_event_statuses', [], $event );
 
 ?>
 <div class="tribe-events-status_metabox__container">
