@@ -75,7 +75,7 @@ class Event {
 	 *
 	 * @param WP_Post $event Event ID.
 	 *
-	 * @return string The event's status reason or empty string if none.
+	 * @return string The event's status reason, or empty string if none or scheduled status.
 	 */
 	public function get_reason( $event ) {
 		if ( ! $event instanceof WP_Post ) {
