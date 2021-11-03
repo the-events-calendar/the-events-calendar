@@ -73,3 +73,90 @@ Tribe__Events__Main::instance();
 
 register_activation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'activate' ) );
 register_deactivation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'deactivate' ) );
+
+/**
+ * TODO: Move this method to an appropriare directory. This is just a temporary solution.
+ *
+ * Enable the legacy widget blocks on post types.
+ *
+ * @since TBD
+ */
+function enable_wp_legacy_widget_blocks_on_post_types() {
+
+	/**
+	 * Ensure that any styles and scripts required by the legacy widgets are
+	 * loaded onto the page.
+	 */
+	add_action( 'admin_print_styles', function() {
+		if ( get_current_screen()->is_block_editor() ) {
+			do_action( 'admin_print_styles-widgets.php' );
+		}
+	} );
+
+	add_action( 'admin_print_scripts', function() {
+		if ( get_current_screen()->is_block_editor() ) {
+			do_action( 'load-widgets.php' );
+			do_action( 'widgets.php' );
+			do_action( 'sidebar_admin_setup' );
+			do_action( 'admin_print_scripts-widgets.php' );
+		}
+	} );
+
+	add_action( 'admin_print_footer_scripts', function() {
+		if ( get_current_screen()->is_block_editor() ) {
+			do_action( 'admin_print_footer_scripts-widgets.php' );
+		}
+	} );
+
+	add_action( 'admin_footer', function() {
+		if ( get_current_screen()->is_block_editor() ) {
+			do_action( 'admin_footer-widgets.php' );
+		}
+	} );
+}
+
+add_action( 'admin_init', 'enable_wp_legacy_widget_blocks_on_post_types' );
+
+/**
+ * TODO: Move this method to an appropriare directory. This is just a temporary solution.
+ *
+ * Enqueue some missing assets that are required by the legacy widget block.
+ *
+ * @since TBD
+ */
+function enqueue_missing_assets() {
+	wp_enqueue_style(
+		'wp-widgets'
+	);
+
+	wp_enqueue_style(
+		'wp-edit-widgets'
+	);
+
+	wp_enqueue_script(
+		'wp-widgets'
+	);
+
+	wp_enqueue_script(
+		'wp-edit-widgets'
+	);
+
+	wp_enqueue_script(
+		'admin-widgets'
+	);
+
+	wp_enqueue_script(
+		'legacy-widget',
+		'legacy-widget.js',
+		'',
+		Tribe__Events__Main::VERSION,
+		true
+	);
+
+	wp_add_inline_script( 
+		'legacy-widget', 
+		'wp.widgets.registerLegacyWidgetBlock()' 
+	);
+}
+
+add_action( 'enqueue_block_editor_assets', 'enqueue_missing_assets' );

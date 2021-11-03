@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Feature - Add an `Events List` block that is based on the `Events List` widget to the block editor which users can drag around to any position they want it to appear. [ECP-989]
+
 = [5.10.0] 2021-10-19 =
 
 * Tweak - Improve the look and feel of the single events page when using the block editor. These changes can be bypassed by defining the following constant to your wp-config.php file: `define( 'TRIBE_EVENTS_SINGLE_VIEW_V2_DISABLED', true );` [TEC-3979]
