@@ -56,8 +56,8 @@ class Classic_Editor {
 	 * @since TBD
 	 *
 	 * @param Admin_Template $admin_template An instance of the plugin template handler.
-	 * @param Context|null   $context        The instance of the Context the metabox should use, or `null` to use the global
-	 *                                       one.
+	 * @param Context|null   $context        The instance of the Context the metabox should use
+	 *                                       or `null` to use the global one.
 	 */
 	public function __construct( Admin_Template $admin_template, Context $context = null ) {
 		$this->context        = null !== $context ? $context : tribe_context();
@@ -69,7 +69,7 @@ class Classic_Editor {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return string The translated metabox title for Event Status.
 	 */
 	public function get_title() {
 		return esc_html_x( 'Events Status', 'Meta box title for the Event Status', 'the-events-calendar' );
@@ -82,7 +82,7 @@ class Classic_Editor {
 	 *
 	 * @param WP_Post $post Which post we are using here.
 	 *
-	 * @return false|string
+	 * @return string The metabox template for event status or an empty string if not an event.
 	 */
 	public function render( $post ) {
 		$event = tribe_get_event( $post );
@@ -188,6 +188,16 @@ class Classic_Editor {
 			return;
 		}
 
+		/**
+		 * Fires before the Metabox saved the data from the current request.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $post_id The post ID of the event currently being saved.
+		 * @param array<string,mixed> The whole data received by the metabox.
+		 */
+		do_action( 'tribe_events_event_status_before_metabox_save', $post_id, $data );
+
 		$status = Arr::get( $data, 'status' );
 		if ( 'scheduled' !== $status ) {
 			$this->update_fields( $post_id, $data );
@@ -203,7 +213,7 @@ class Classic_Editor {
 		 * @param int $post_id The post ID of the event currently being saved.
 		 * @param array<string,mixed> The whole data received by the metabox.
 		 */
-		do_action( 'tribe_events_event_status_metabox_save', $post_id, $data );
+		do_action( 'tribe_events_event_status_after_metabox_save', $post_id, $data );
 	}
 
 	/**
