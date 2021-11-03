@@ -532,6 +532,17 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
+			'tec-widget-blocks-styles',
+			'app/widgets.css',
+			[],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-block-editor',
 			'app/editor.css',
 			[],

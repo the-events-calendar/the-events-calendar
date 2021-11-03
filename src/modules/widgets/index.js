@@ -8,6 +8,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import EventsList from '@moderntribe/events/widgets/events-list';
 import { initStore } from '@moderntribe/events/data';
+import './style.pcss';
 
 const blocks = [
 	EventsList,
