@@ -6,11 +6,11 @@ import { registerBlockType } from '@wordpress/blocks';
 /**
  * Internal Dependencies
  */
-import eventList from '@moderntribe/events/widgets/events-list';
+import EventsList from '@moderntribe/events/widgets/events-list';
 import { initStore } from '@moderntribe/events/data';
 
 const blocks = [
-	eventList,
+	EventsList,
 ];
 
 blocks.forEach( block => {
