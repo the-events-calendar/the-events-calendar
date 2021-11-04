@@ -390,6 +390,23 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
+	 * Check whether the current page is the `widgets.php` page.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_not_widgets_page() {
+		global $pagenow;
+
+		if( $pagenow === 'widgets.php' ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * @todo   Move this into the Block PHP files
 	 *
 	 * @since 4.7
@@ -544,6 +561,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'in_footer'    => false,
 				'localize'     => [],
 				'priority'     => 106,
+				'conditionals' => [ $this, 'is_not_widgets_page' ],
 			]
 		);
 
@@ -555,6 +573,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			'enqueue_block_editor_assets',
 			[
 				'in_footer'    => false,
+				'conditionals' => [ $this, 'is_not_widgets_page' ],
 			]
 		);
 
