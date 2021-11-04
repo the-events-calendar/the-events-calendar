@@ -74,14 +74,17 @@ final class Single_Event extends \Tribe__Customizer__Section {
 			'post_title_color_choice' => [
 				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'post_title_color'        => [
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'details_bg_color'        => [
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 		];
 	}
