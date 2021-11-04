@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.10.1] TBD =
 
+* Feature - Add event status options of scheduled, canceled, and postponed with a ability to add and display a reason for the latter two. [TEC-3465]
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 
 = [5.10.0] 2021-10-19 =
