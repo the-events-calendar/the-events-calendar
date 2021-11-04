@@ -227,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolved `Warning: reset(): Argument #1 ($array) must be passed by reference...` error that was displayed on the Events, Organizers and Venue REST endpoints in PHP v8. [TEC-4097]
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 * Tweak - Update the google calendar export button to open in a new tab on the event single page for both the classic and block editors. [TEC-4084]
+* Tweak - Add supplied organizer url to JSON-LD for the event->organizer. Props @cmenon12 for the notification and code! [TEC-4095]
 
 = [5.10.0] 2021-10-19 =
 
