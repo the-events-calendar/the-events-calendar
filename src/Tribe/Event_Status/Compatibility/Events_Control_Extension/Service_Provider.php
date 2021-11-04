@@ -134,6 +134,14 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			3
 		);
 
+		// Single View.
+		remove_filter(
+			'tribe_the_notices',
+			[ $extension_hooks, 'filter_include_single_control_markers' ],
+			15,
+			2
+		);
+
 		$templates = [
 			// List View.
 			'events/v2/list/event/title',
