@@ -125,20 +125,12 @@ add_action( 'admin_init', 'enable_wp_legacy_widget_blocks_on_post_types' );
  * @since TBD
  */
 function enqueue_missing_assets() {
-	wp_enqueue_style(
-		'wp-widgets'
-	);
-
-	wp_enqueue_style(
-		'wp-edit-widgets'
-	);
-
 	wp_enqueue_script(
 		'wp-widgets'
 	);
 
-	wp_enqueue_script(
-		'wp-edit-widgets'
+	wp_enqueue_style(
+		'wp-widgets'
 	);
 
 	wp_enqueue_script(
