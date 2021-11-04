@@ -192,7 +192,7 @@ class EventArchiveCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse() );
-		$I->assertCount( 5, $response->events, 'Post count should be 5, ' . count( $response->events ) . ' found!' );
+		$I->assertCount( 4, $response->events, 'Post count should be 4, ' . count( $response->events ) . ' found!' );
 	}
 
 	/**
