@@ -65,7 +65,7 @@ class JSON_LD {
 		 */
 		$online = apply_filters( 'tec_single_event_online_status', $online, $data, $args, $post );
 
-		// Bail on modifications for non canceled events.
+		// Bail on modifications for non-online events.
 		if ( ! $online ) {
 			return $data;
 		}
