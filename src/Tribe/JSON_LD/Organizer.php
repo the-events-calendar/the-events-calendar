@@ -53,8 +53,9 @@ class Tribe__Events__JSON_LD__Organizer extends Tribe__JSON_LD__Abstract {
 		$data = reset( $data );
 
 		$data->telephone = tribe_get_organizer_phone( $post_id );
-		$data->email = tribe_get_organizer_email( $post_id );
-		$data->sameAs = tribe_get_organizer_website_url( $post_id );
+		$data->email     = tribe_get_organizer_email( $post_id );
+		$data->url       = tribe_get_organizer_website_url( $post_id );
+		$data->sameAs    = tribe_get_organizer_website_url( $post_id );
 
 		$data = $this->apply_object_data_filter( $data, $args, $post );
 
