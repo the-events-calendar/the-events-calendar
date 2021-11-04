@@ -4,7 +4,6 @@
   "lang/*.txt",
   "lang/*.mo",
   "lang/*.pot",
-  "site_owner_data_collection_statement.html",
   "src/admin-views/**/*",
   "src/deprecated/**/*",
   "src/functions/**/*",
