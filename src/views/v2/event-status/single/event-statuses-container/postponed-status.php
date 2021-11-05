@@ -1,9 +1,9 @@
 <?php
 /**
- * Status for a Canceled Event.
+ * Status for a Postponed Event.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/events-status/single/event-statuses/canceled-status.php
+ * [your-theme]/tribe/events/v2/events-status/single/event-statuses-container/postponed-status.php
  *
  * See more documentation about our views templating system.
  *
@@ -18,16 +18,16 @@
  */
 namespace Tribe\Events\Event_Status;
 
-if ( 'canceled' !== $event->event_status ) {
+if ( 'postponed' !== $event->event_status ) {
 	return;
 }
 
 ?>
-<div class="tribe-events-status-single tribe-events-status-single--canceled">
+<div class="tribe-events-status-single tribe-events-status-single--postponed">
 	<div class="tribe-events-status-single__header">
 
-		<div class="tribe-events-status-single__notice-header tribe-events-status-single__header tribe-events-status-single__header--bold tribe-events-status-single__header--alert-icon">
-			<?php echo esc_html( $status_labels->get_canceled_label() ); ?>
+		<div class="tribe-events-status-single__header tribe-events-status-single__header--bold tribe-events-status-single__header--alert-icon">
+			<?php echo esc_html( $status_labels->get_postponed_label() ); ?>
 		</div>
 		<?php if ( $event->event_status_reason ) { ?>
 			<div class="tribe-events-status-single__description">
