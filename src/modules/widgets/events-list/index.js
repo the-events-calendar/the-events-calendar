@@ -17,17 +17,13 @@ const { InnerBlocks } = wp.editor;
  */
 export default {
 	id: 'events-list',
-	title: __( 'Events List', 'tribe-events-calendar-pro' ),
-	description: __( 'Display events list', 'tribe-events-calendar-pro' ),
+	title: __( 'Events List', 'the-events-calendar' ),
+	description: __( 'Display events list', 'the-events-calendar' ),
 	icon: <EventsListIcon />,
 	category: 'tribe-events',
-	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
+	keywords: [ 'event', 'events list', 'list', 'events-gutenberg', 'tribe' ],
 
 	edit: EventsList,
-	save: () => {
-		return (
-			<InnerBlocks.Content />
-		);
-	},
+	save: () => <InnerBlocks.Content />,
 };
 
