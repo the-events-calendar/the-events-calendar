@@ -13,6 +13,7 @@ namespace TEC\Events\Custom_Tables\V1\WP_Query\Repository;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
+use Tribe__Events__Main as TEC;
 use Tribe__Repository__Query_Filters as Query_Filters;
 use WP_Query;
 
@@ -203,7 +204,11 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * {@inheritdoc}
 	 */
 	public function filter_posts_join( $join, WP_Query $query ) {
-		if ( $this->current_query !== $query || false === $this->query_vars_mask['join'] ) {
+		if (
+			(array) $query->get( 'post_type', [] ) !== [ TEC::POSTTYPE ]
+			|| $this->current_query !== $query
+			|| false === $this->query_vars_mask['join']
+		) {
 			return $join;
 		}
 
