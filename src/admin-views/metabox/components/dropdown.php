@@ -21,10 +21,10 @@
  */
 ?>
 <div
-	class="tribe-events-status tribe-events-status--select"
+	class="tribe-events-status tribe-events-status-select"
 >
 	<label
-		class="screen-reader-text tribe-events-status__label"
+		class="screen-reader-text tribe-events-status-label__text"
 		for="<?php echo esc_attr( $id ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>

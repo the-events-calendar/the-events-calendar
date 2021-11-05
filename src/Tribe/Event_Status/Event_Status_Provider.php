@@ -43,6 +43,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 
 		$this->add_actions();
 		$this->add_filters();
+		$this->add_templates();
 	}
 
 	/**
@@ -101,6 +102,8 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 
 		// Add Event statuses.
 		add_filter( 'tribe_events_event_statuses', [ $this, 'filter_event_statuses' ], 10, 2 );
+
+		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
 	}
 
 	/**
@@ -185,29 +188,133 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 * @return array<string|mixed> The event status options for an event.
 	 */
 	public function filter_event_statuses( $statuses, $event ) {
-		$default_statuses = [
-			[
-				'text'     => _x( 'Scheduled', 'Event status default option', 'the-events-calendar' ),
-				'id'       => 'scheduled',
-				'value'    => 'scheduled',
-				'selected' => 'scheduled' === $event->event_status ? true : false,
-			],
-			[
-				'text'     => _x( 'Canceled', 'Event status of being canceled in the select field', 'the-events-calendar' ),
-				'id'       => 'canceled',
-				'value'    => 'canceled',
-				'selected' => 'canceled' === $event->event_status ? true : false,
-			],
-			[
-				'text'     => _x( 'Postponed', 'Event status of being postponed in the select field', 'the-events-calendar' ),
-				'id'       => 'postponed',
-				'value'    => 'postponed',
-				'selected' => 'postponed' === $event->event_status ? true : false,
-			]
-		];
+		return $this->container->make( Status_Labels::class )->filter_event_statuses( $statuses, $event );
+	}
 
-		$statuses = array_merge($statuses, $default_statuses );
+	/**
+	 * Add the status classes for the views v2 elements
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|string> $classes Space-separated string or array of class names to add to the class list.
+	 * @param int|WP_Post          $post    Post ID or post object.
+	 *
+	 * @return array<string|string> An array of post classes with the status added.
+	 */
+	public function filter_add_post_class( $classes, $class, $post ) {
+		$new_classes = $this->container->make( Template_Modifications::class )->get_post_classes( $post );
 
-		return $statuses;
+		return array_merge( $classes, $new_classes );
+	}
+
+	/**
+	 * Adds the templates for event status.
+	 *
+	 * @since TBD
+	 */
+	protected function add_templates() {
+
+		// "Classic" Event Single.
+		add_filter(
+			'tribe_the_notices',
+			[ $this, 'filter_include_single_status_reason' ],
+			15,
+			2
+		);
+
+		// List View.
+		add_action(
+			'tribe_template_entry_point:events/v2/list/event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// Month View.
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/calendar-events/calendar-event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/mobile-events/mobile-day/mobile-event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/bar/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		add_action(
+			'tribe_template_entry_point:events/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// Day View.
+		add_action(
+			'tribe_template_entry_point:events/v2/day/event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// Latest Past Events View.
+		add_action(
+			'tribe_template_entry_point:events/v2/latest-past/event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+
+		// List Widget.
+		add_action(
+			'tribe_template_entry_point:events/v2/widgets/widget-events-list/event/title:after_container_open',
+			[ $this, 'filter_insert_status_label' ],
+			15,
+			3
+		);
+	}
+
+	/**
+	 * Include the status reason for the single pages.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $notices_html Previously set HTML.
+	 * @param array  $notices      Array of notices added previously.
+	 *
+	 * @return string  Before event html with the status reason.
+	 */
+	public function filter_include_single_status_reason( $notices_html, $notices ) {
+		return $this->container->make( Template_Modifications::class )->add_single_status_reason( $notices_html, $notices );
+	}
+
+	/**
+	 * Inserts Status Label.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $hook_name        For which template include this entry point belongs.
+	 * @param string   $entry_point_name Which entry point specifically we are triggering.
+	 * @param Template $template         Current instance of the Template.
+	 */
+	public function filter_insert_status_label( $hook_name, $entry_point_name, $template ) {
+		return $this->container->make( Template_Modifications::class )->insert_status_label( $hook_name, $entry_point_name, $template );
 	}
 }

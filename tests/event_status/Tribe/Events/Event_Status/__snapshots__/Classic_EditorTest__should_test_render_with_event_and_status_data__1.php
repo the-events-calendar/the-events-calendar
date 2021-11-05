@@ -1,12 +1,12 @@
-<?php return '<div class="tribe-events-status-metabox-container">
+<?php return '<div class="tribe-events-status_metabox__container">
 	<input type="hidden" id="tribe-events-status[nonce]" name="tribe-events-status[nonce]" value="123123" /><input type="hidden" name="_wp_http_referer" value="" />
 	<label for="tribe-events-status-status">
 		Set status:	</label>
 	<div
-	class="tribe-events-status tribe-events-status--select"
+	class="tribe-events-status tribe-events-status-select"
 >
 	<label
-		class="screen-reader-text tribe-events-status__label"
+		class="screen-reader-text tribe-events-status-label__text"
 		for="tribe-events-status-status"
 	>
 		Set status:	</label>
