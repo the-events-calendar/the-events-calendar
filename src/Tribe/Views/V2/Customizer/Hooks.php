@@ -47,7 +47,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'customizer-views-v2-controls.js'
 		);
 
-		/* @todo: this will be part of the next Customizer release.
 		tribe_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-live-preview-js',
@@ -61,7 +60,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 				],
 			]
 		);
-		*/
 
 		$this->add_actions();
 		$this->add_filters();
@@ -102,6 +100,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function enqueue_customizer_control_scripts() {
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls-js' );
+		tribe_asset_enqueue( 'tribe-customizer-views-v2-live-preview-js' );
+
 	}
 
 	/**
