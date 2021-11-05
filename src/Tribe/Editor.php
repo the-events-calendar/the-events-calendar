@@ -399,11 +399,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	public function is_not_widgets_page() {
 		global $pagenow;
 
-		if( $pagenow === 'widgets.php' ) {
-			return false;
-		}
-
-		return true;
+		return 'widgets.php' !== $pagenow;
 	}
 
 	/**
