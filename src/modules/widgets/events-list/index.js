@@ -9,11 +9,7 @@ import React from 'react';
 import EventsList from './template';
 import { EventsListIcon } from '@moderntribe/events/icons';
 
-/**
- * WordPress dependencies
- */
-import { __ } from '@wordpress/i18n';
-
+const { __ } = wp.i18n;
 const { InnerBlocks } = wp.editor;
 
 /**
