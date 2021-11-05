@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Feature - Add event status options of scheduled, canceled, and postponed with a ability to add and display a reason for the latter two. [TEC-3465]
+* Feature - Add event status options of scheduled, canceled, and postponed with the ability to add and display a reason for the latter two. [TEC-3465]
 * Feature - Add live preview to the TEC customizer screens. [TEC-4055]
 * Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
 * Fix - Resolved `Warning: reset(): Argument #1 ($array) must be passed by reference...` error that was displayed on the Events, Organizers and Venue REST endpoints in PHP v8. [TEC-4097]
