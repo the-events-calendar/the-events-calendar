@@ -3,9 +3,6 @@
  */
 import React from 'react';
 
-/**
- * WordPress dependencies
- */
 const { InnerBlocks } = wp.editor;
 
 const EVENTS_LIST_TEMPLATE = [
