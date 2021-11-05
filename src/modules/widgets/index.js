@@ -1,13 +1,10 @@
 /**
- * External Dependencies
- */
-import { registerBlockType } from '@wordpress/blocks';
-
-/**
  * Internal Dependencies
  */
 import EventsList from '@moderntribe/events/widgets/events-list';
 import './style.pcss';
+
+const { registerBlockType } = wp.blocks;
 
 const blocks = [
 	EventsList,
