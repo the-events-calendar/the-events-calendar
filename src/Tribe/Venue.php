@@ -8,7 +8,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * @var array
 	 */
 	public $post_type_args = [
-		'public'              => false,
+		'public'              => true,
 		'rewrite'             => [ 'slug' => 'venue', 'with_front' => false ],
 		'show_ui'             => true,
 		'show_in_menu'        => 0,
