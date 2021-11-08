@@ -13,7 +13,7 @@ class Tribe__Events__Editor__Compatibility {
 	 *
 	 * @var string
 	 */
-	public $blocks_editor_key = 'toggle_blocks_editor';
+	public static $blocks_editor_key = 'toggle_blocks_editor';
 
 	/**
 	 * Any hooking any class needs happen here.
@@ -111,7 +111,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return string
 	 */
 	public function get_toggle_blocks_editor_key() {
-		return $this->blocks_editor_key;
+		return static::$blocks_editor_key;
 	}
 
 	/**
