@@ -541,6 +541,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'wp-api',
 				'wp-api-request',
 				'wp-blocks',
+				'wp-widgets',
 				'wp-i18n',
 				'wp-element',
 				'wp-editor',

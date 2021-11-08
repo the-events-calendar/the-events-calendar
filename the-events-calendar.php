@@ -144,11 +144,6 @@ function enqueue_missing_assets() {
 		Tribe__Events__Main::VERSION,
 		true
 	);
-
-	wp_add_inline_script( 
-		'legacy-widget', 
-		'wp.widgets.registerLegacyWidgetBlock()' 
-	);
 }
 
 add_action( 'enqueue_block_editor_assets', 'enqueue_missing_assets' );
