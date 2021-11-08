@@ -390,16 +390,16 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-	 * Check whether the current page is the `widgets.php` page.
+	 * Check whether the current page is an edit post type page.
 	 *
 	 * @since TBD
 	 *
 	 * @return bool
 	 */
-	public function is_not_widgets_page() {
-		global $pagenow;
+	public function is_edit_screen() {
+		$current_screen = get_current_screen();
 
-		return 'widgets.php' !== $pagenow;
+		return 'post' === $current_screen->base;
 	}
 
 	/**
@@ -557,7 +557,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'in_footer'    => false,
 				'localize'     => [],
 				'priority'     => 106,
-				'conditionals' => [ $this, 'is_not_widgets_page' ],
+				'conditionals' => [ $this, 'is_edit_screen' ],
 			]
 		);
 
@@ -569,7 +569,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			'enqueue_block_editor_assets',
 			[
 				'in_footer'    => false,
-				'conditionals' => [ $this, 'is_not_widgets_page' ],
+				'conditionals' => [ $this, 'is_edit_screen' ],
 			]
 		);
 
