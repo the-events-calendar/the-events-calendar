@@ -48,6 +48,8 @@ use WP_Post;
  * @property string hash
  */
 class Event extends Model {
+	use Model_Date_Attributes;
+
 	/**
 	 * {@inheritdoc }
 	 */

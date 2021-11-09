@@ -54,6 +54,8 @@ use Tribe__Timezones as Timezones;
  * @property bool   has_recurrence (ECP only)
  */
 class Occurrence extends Model {
+	use Model_Date_Attributes;
+
 	/**
 	 * {@inheritdoc }
 	 */
@@ -447,5 +449,21 @@ class Occurrence extends Model {
 		$id = self::normalize_id( $id );
 
 		return static::find( $id, 'post_id' );
+	}
+
+	/**
+	 * Returns the Model instance `updated_at` attribute in string format.
+	 *
+	 * This method will be internally called when trying to access the `updated_at`
+	 * property of the Model instance.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The Model instance `updated_at` attribute in string format.
+	 */
+	public function get_updated_at_attribute() {
+		return $this->data['updated_at'] instanceof DateTimeInterface ?
+			$this->data['updated_at']->format( Dates::DBDATETIMEFORMAT )
+			: $this->data['updated_at'];
 	}
 }
