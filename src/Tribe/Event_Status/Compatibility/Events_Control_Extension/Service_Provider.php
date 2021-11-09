@@ -35,8 +35,29 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( self::class, $this );
 		$this->container->singleton( 'events.compatibility.tribe-ext-events-control', $this );
 
+		add_action( 'tribe_plugins_loaded', [ $this, 'handle_actions' ], 20 );
 		add_action( 'tribe_plugins_loaded', [ $this, 'handle_filters' ], 20 );
 		add_filter( 'tribe_template_done', [ $this, 'short_circuit_templates' ], 10, 2 );
+	}
+
+	/**
+	 * Un-hooks the extension actions that deal with events with canceled or postponed status.
+	 *
+	 * @since TBD
+	 */
+	public function handle_actions() {
+		if ( ! class_exists( Events_Control_Main::class ) ) {
+			return;
+		}
+
+		$extension_hooks = tribe( Events_Control_Extension_Hooks::class );
+
+		// Metabox.
+		remove_action(
+			'add_meta_boxes',
+			[ $extension_hooks, 'action_add_metabox' ],
+			10
+		);
 	}
 
 	/**
