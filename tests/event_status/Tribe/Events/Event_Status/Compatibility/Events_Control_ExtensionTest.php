@@ -21,7 +21,6 @@ class Events_Control_ExtensionTest extends \Codeception\TestCase\WPTestCase {
 
 		// Simulate the `tribe_plugins_loaded` action to ensure all the provider methods are hooked.
 		$this->service_provider->handle_filters();
-		$this->service_provider->handle_actions();
 
 		$this->uopz_set_return( 'wp_create_nonce', '123123' );
 	}
