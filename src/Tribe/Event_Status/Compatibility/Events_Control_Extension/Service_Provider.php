@@ -35,68 +35,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( self::class, $this );
 		$this->container->singleton( 'events.compatibility.tribe-ext-events-control', $this );
 
-		add_action( 'tribe_plugins_loaded', [ $this, 'handle_actions' ], 20 );
 		add_action( 'tribe_plugins_loaded', [ $this, 'handle_filters' ], 20 );
 		add_filter( 'tribe_template_done', [ $this, 'short_circuit_templates' ], 10, 2 );
-	}
-
-	/**
-	 * Un-hooks the extension actions that deal with events with canceled or postponed status.
-	 *
-	 * @since TBD
-	 */
-	public function handle_actions() {
-		if ( ! class_exists( Events_Control_Main::class ) ) {
-			return;
-		}
-
-		$extension_hooks = tribe( Events_Control_Extension_Hooks::class );
-
-		// Metabox.
-		remove_action(
-			'add_meta_boxes',
-			[ $extension_hooks, 'action_add_metabox' ],
-			10
-		);
-
-
-		$templates = [
-			// List View.
-			'events/v2/list/event/venue',
-			// Day View.
-			'events/v2/day/event/description',
-			'events/v2/day/event/venue',
-			// Photo View.
-			'events-pro/v2/photo/event/date-time',
-			// Map View.
-			'events-pro/v2/photo/event/date-time',
-			'events-pro/v2/map/event-cards/event-card/tooltip/venue',
-			// Week View.
-			'events-pro/v2/week/mobile-events/day/event/venue',
-			'events-pro/v2/week/grid-body/events-day/event/tooltip/description',
-		];
-
-		/**
-		 * Filters the list of templates to remove from event status control extension by action.
-		 *
-		 * @since TBD
-		 *
-		 * @param array<string> $label_templates The array of template names for each view to add the status label.
-		 */
-		$templates = apply_filters( 'tec_event_status_compatibility_remove_extension_templates_by_action', $templates );
-
-		foreach ( $templates as $template ) {
-		    if ( ! is_string( $template ) ) {
-	            continue;
-	        }
-
-/*			remove_action(
-				'tribe_template_after_include:' . $template,
-				[ $extension_hooks, 'action_add_online_event' ],
-				15,
-				3
-			);*/
-		}
 	}
 
 	/**
