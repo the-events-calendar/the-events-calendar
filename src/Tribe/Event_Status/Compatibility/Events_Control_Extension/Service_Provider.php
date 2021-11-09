@@ -37,6 +37,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		add_action( 'tribe_plugins_loaded', [ $this, 'handle_actions' ], 20 );
 		add_action( 'tribe_plugins_loaded', [ $this, 'handle_filters' ], 20 );
+		add_filter( 'tribe_template_done', [ $this, 'short_circuit_templates' ], 10, 2 );
 	}
 
 	/**
@@ -89,12 +90,12 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	            continue;
 	        }
 
-			remove_action(
+/*			remove_action(
 				'tribe_template_after_include:' . $template,
 				[ $extension_hooks, 'action_add_online_event' ],
 				15,
 				3
-			);
+			);*/
 		}
 	}
 
@@ -132,14 +133,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			[ $this, 'filter_json_ld_modifiers' ],
 			14,
 			3
-		);
-
-		// Single View.
-		remove_filter(
-			'tribe_the_notices',
-			[ $extension_hooks, 'filter_include_single_control_markers' ],
-			15,
-			2
 		);
 
 		$templates = [
@@ -200,6 +193,26 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_json_ld_modifiers( $data, $args, $post ) {
 		return $this->container->make( JSON_LD::class )->modify_online_event( $data, $args, $post );
+	}
+
+	/**
+	 * Short-circuits the templates the extension would load for event status.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool|null    $done A flag to indicate whether the template request has been handled or not.
+	 * @param string|array $name The name, or name fragments, of the requested template.
+	 *
+	 * @return bool|null Either the original `$done` value if the template is not one of the target ones, or `true` if
+	 *                   the template is one of the target ones and should not be printed.
+	 */
+	public function short_circuit_templates( $done, $name ) {
+		$targets = [
+			'single/canceled-status',
+			'single/postponed-status',
+		];
+
+		return in_array( $name, $targets, true ) ? true : $done;
 	}
 
 	/**

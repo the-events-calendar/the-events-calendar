@@ -293,7 +293,7 @@ class Tribe__Events__Updater {
 				[
 					'relation' => 'OR',
 					[
-						'key'     => Event_Status_Meta::$key_status,
+						'key'     => Event_Status_Meta::$key_control_status,
 						'value'   => [ 'canceled', 'postponed' ],
 						'compare' => 'IN',
 					],
@@ -306,17 +306,17 @@ class Tribe__Events__Updater {
 		foreach ( $events as $event_id ) {
 			$event = tribe_get_event( $event_id );
 
-			// Safety check.
-			if ( empty( $event->event_status ) ) {
-				continue;
-			}
+			$status = get_post_meta( $event_id, Event_Status_Meta::$key_control_status, true );
+
+			// Update event status to TEC field.
+			update_post_meta( $event_id, Event_Status_Meta::$key_status, $status );
 
 			$reason = '';
-			if ( 'canceled' === $event->event_status ) {
+			if ( 'canceled' === $status ) {
 				$reason = get_post_meta( $event->ID, Event_Status_Meta::$key_status_canceled_reason, true );
 			}
 
-			if ( 'postponed' === $event->event_status ) {
+			if ( 'postponed' === $status ) {
 				$reason = get_post_meta( $event->ID, Event_Status_Meta::$key_status_postponed_reason, true );
 			}
 
