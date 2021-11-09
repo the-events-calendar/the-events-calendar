@@ -185,13 +185,13 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|mixed> $statuses The event status options for an event.
-	 * @param WP_Post $event The event post object.
+	 * @param array<string|mixed> $statuses       The event status options for an event.
+	 * @param string              $current_status The current event status for the event or empty string if none.
 	 *
 	 * @return array<string|mixed> The event status options for an event.
 	 */
-	public function filter_event_statuses( $statuses, $event ) {
-		return $this->container->make( Status_Labels::class )->filter_event_statuses( $statuses, $event );
+	public function filter_event_statuses( $statuses, $current_status ) {
+		return $this->container->make( Status_Labels::class )->filter_event_statuses( $statuses, $current_status );
 	}
 
 	/**
