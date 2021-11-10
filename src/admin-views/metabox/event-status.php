@@ -17,15 +17,16 @@
  * @var Metabox  $metabox The metabox instance.
  */
 
+$current_status = empty( $event->event_status ) ? '' : $event->event_status;
 /**
  * Allow filtering of the event statuses.
  *
  * @since TBD
  *
- * @param array<string|string> An array of video sources.
- * @param \WP_Post $event The current event post object, as decorated by the `tribe_get_event` function.
+ * @param array<string|string> 					An array of video sources.
+ * @param string 				$current_status The current event status for the event or empty string if none.
  */
-$statuses = (array) apply_filters( 'tec_event_statuses', [], $event );
+$statuses = (array) apply_filters( 'tec_event_statuses', [], $current_status );
 
 ?>
 <div class="tribe-events-status_metabox__container">
@@ -41,13 +42,13 @@ $statuses = (array) apply_filters( 'tec_event_statuses', [], $event );
 		'name'     => "{$metabox::$id}[status]",
 		'class'    => 'tribe-events-status__status-select',
 		'options'  => $statuses,
-		'selected' => $event->event_status,
+		'selected' => $current_status,
 		'attrs'    => [
 			'data-placeholder'   => _x( 'Select an Event Status', 'The placeholder for the event status select.', 'the-events-calendar' ),
 			'data-hide-search'   => true,
 			'data-prevent-clear' => true,
 			'data-options'       => json_encode( $statuses ),
-			'data-selected'      => $event->event_status,
+			'data-selected'      => $current_status,
 		]
 	] );
 	?>

@@ -8,8 +8,6 @@
 
 namespace Tribe\Events\Event_Status;
 
-use WP_Post;
-
 /**
  * Class Statuses
  *
@@ -24,18 +22,12 @@ class Status_Labels {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string|mixed> $statuses The event status options for an event.
-	 * @param WP_Post             $event    The event post object.
+	 * @param array<string|mixed> $statuses       The event status options for an event.
+	 * @param string              $current_status The current event status for the event or empty string if none.
 	 *
 	 * @return array<string|mixed> The event status options for an event.
 	 */
-	public function filter_event_statuses( $statuses, $event ) {
-
-		$current_status = '';
-		if ( ! empty( $event->event_status ) ) {
-			$current_status = $event->event_status;
-		}
-
+	public function filter_event_statuses( $statuses, $current_status ) {
 		$default_statuses = [
 			[
 				'text'     => $this->get_scheduled_label(),

@@ -20,7 +20,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$event   = static::factory()->event->create( [
 			'when'       => '+1 week',
 			'meta_input' => [
-				Event_Meta::$key_status                 => $status,
+				Event_Meta::$key_control_status         => $status,
 				Event_Meta::$key_status_canceled_reason => $reason,
 			],
 		] );
@@ -30,7 +30,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$event_2  = static::factory()->event->create( [
 			'when'       => '+1 week',
 			'meta_input' => [
-				Event_Meta::$key_status                  => $status_2,
+				Event_Meta::$key_control_status          => $status_2,
 				Event_Meta::$key_status_postponed_reason => $reason_2,
 			],
 		] );
@@ -41,7 +41,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$event_3           = static::factory()->event->create( [
 			'when'       => '+1 week',
 			'meta_input' => [
-				Event_Meta::$key_status                  => $status_3,
+				Event_Meta::$key_control_status          => $status_3,
 				Event_Meta::$key_status_canceled_reason  => $reason_canceled_3,
 				Event_Meta::$key_status_postponed_reason => $reason_3,
 			],

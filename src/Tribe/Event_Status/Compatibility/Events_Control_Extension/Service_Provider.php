@@ -37,6 +37,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		add_action( 'tribe_plugins_loaded', [ $this, 'handle_actions' ], 20 );
 		add_action( 'tribe_plugins_loaded', [ $this, 'handle_filters' ], 20 );
+		add_filter( 'tribe_template_done', [ $this, 'short_circuit_templates' ], 10, 2 );
 	}
 
 	/**
@@ -57,45 +58,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			[ $extension_hooks, 'action_add_metabox' ],
 			10
 		);
-
-
-		$templates = [
-			// List View.
-			'events/v2/list/event/venue',
-			// Day View.
-			'events/v2/day/event/description',
-			'events/v2/day/event/venue',
-			// Photo View.
-			'events-pro/v2/photo/event/date-time',
-			// Map View.
-			'events-pro/v2/photo/event/date-time',
-			'events-pro/v2/map/event-cards/event-card/tooltip/venue',
-			// Week View.
-			'events-pro/v2/week/mobile-events/day/event/venue',
-			'events-pro/v2/week/grid-body/events-day/event/tooltip/description',
-		];
-
-		/**
-		 * Filters the list of templates to remove from event status control extension by action.
-		 *
-		 * @since TBD
-		 *
-		 * @param array<string> $label_templates The array of template names for each view to add the status label.
-		 */
-		$templates = apply_filters( 'tec_event_status_compatibility_remove_extension_templates_by_action', $templates );
-
-		foreach ( $templates as $template ) {
-		    if ( ! is_string( $template ) ) {
-	            continue;
-	        }
-
-			remove_action(
-				'tribe_template_after_include:' . $template,
-				[ $extension_hooks, 'action_add_online_event' ],
-				15,
-				3
-			);
-		}
 	}
 
 	/**
@@ -132,14 +94,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			[ $this, 'filter_json_ld_modifiers' ],
 			14,
 			3
-		);
-
-		// Single View.
-		remove_filter(
-			'tribe_the_notices',
-			[ $extension_hooks, 'filter_include_single_control_markers' ],
-			15,
-			2
 		);
 
 		$templates = [
@@ -200,6 +154,26 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_json_ld_modifiers( $data, $args, $post ) {
 		return $this->container->make( JSON_LD::class )->modify_online_event( $data, $args, $post );
+	}
+
+	/**
+	 * Short-circuits the templates the extension would load for event status.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool|null    $done A flag to indicate whether the template request has been handled or not.
+	 * @param string|array $name The name, or name fragments, of the requested template.
+	 *
+	 * @return bool|null Either the original `$done` value if the template is not one of the target ones, or `true` if
+	 *                   the template is one of the target ones and should not be printed.
+	 */
+	public function short_circuit_templates( $done, $name ) {
+		$targets = [
+			'single/canceled-status',
+			'single/postponed-status',
+		];
+
+		return in_array( $name, $targets, true ) ? true : $done;
 	}
 
 	/**

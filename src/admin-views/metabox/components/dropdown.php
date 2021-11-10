@@ -34,7 +34,6 @@
 		name="<?php echo esc_attr( $name ); ?>"
 		class="tribe-dropdown <?php echo esc_attr( $class ); ?>"
 		value="<?php echo esc_attr( $selected ); ?>"
-		style="width: 100%;" <?php /* This is required for selectWoo styling to prevent select box overflow */ ?>
 		<?php tribe_attributes( $attrs ) ?>
 	>
 		<?php foreach ( $options as $option ) : ?>
