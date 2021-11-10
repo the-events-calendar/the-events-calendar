@@ -51,7 +51,7 @@ class Occurrences extends Base_Custom_Table {
 			`end_date_utc` DATETIME NOT NULL,
 			`duration` MEDIUMINT(30) DEFAULT 7200,
 			`hash` VARCHAR(40) NOT NULL,
-			`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			`updated_at` VARCHAR(40) DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY  (`occurrence_id`)
 			) {$charset_collate};";
 	}

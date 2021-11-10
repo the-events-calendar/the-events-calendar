@@ -18,6 +18,7 @@ use TEC\Events\Custom_Tables\V1\Events\Occurrences\Occurrences_Generator;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Integer_Key_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Numeric_Formatter;
+use TEC\Events\Custom_Tables\V1\Models\Formatters\Precise_Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Text_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Duration;
 use TEC\Events\Custom_Tables\V1\Models\Validators\End_Date;
@@ -85,7 +86,7 @@ class Occurrence extends Model {
 		'end_date_utc'   => Date_Formatter::class,
 		'duration'       => Numeric_Formatter::class,
 		'hash'           => Text_Formatter::class,
-		'updated_at'     => Date_Formatter::class,
+		'updated_at'     => Precise_Date_Formatter::class,
 	];
 
 	/**
@@ -170,10 +171,11 @@ class Occurrence extends Model {
 	 * @return bool The result of the operation
 	 */
 	public function purge_recurrences( DateTimeInterface $now ) {
+		$precisely_now =  $now->format( 'Y-m-d H:i:s.u' );
 		$event = $this->event;
 		$done    = self::where( 'post_id', $event->post_id )
 		               ->where( 'event_id', $event->event_id )
-		               ->where( 'updated_at', '<', $now->format( Dates::DBDATETIMEFORMAT ) )
+		               ->where( 'updated_at', '<', $precisely_now )
 		               ->delete();
 
 		$this->align_event_meta( $event );

@@ -52,7 +52,8 @@ class Occurrences_Generator {
 	 * @return Occurrence The Single Event Occurrence instance.
 	 */
 	protected function get_single_event_row( Event $event ) {
-		$occurrence = new Occurrence( [
+		$updated_at = (new \DateTime( 'now', new DateTimeZone( 'utc' ) ))->format('Y-m-d H:i:s.u');
+		$occurrence          = new Occurrence( [
 			'event_id'       => $event->event_id,
 			'post_id'        => $event->post_id,
 			'start_date'     => $event->start_date,
@@ -60,7 +61,7 @@ class Occurrences_Generator {
 			'start_date_utc' => $event->start_date_utc,
 			'end_date_utc'   => $event->end_date_utc,
 			'duration'       => $event->duration,
-			'updated_at'     => new DateTimeImmutable( 'now', new DateTimeZone( 'utc' ) ),
+			'updated_at'     => $updated_at,
 		] );
 
 		$occurrence->hash = $occurrence->generate_hash();
