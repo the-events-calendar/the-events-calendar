@@ -289,6 +289,29 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Intercept appropriate order by fields and map to our new occurrence fields.
+	 *
+	 * @since TBD
+	 *
+	 * @inheritDoc
+	 */
+	protected function parse_orderby( $orderby ) {
+		// Convert our order by `meta_value` to `start_date` when we are using the appropriate `meta_key`.
+		if ( isset( $this->query['meta_key'] ) && $this->query['meta_key'] === '_EventStartDate' ) {
+			switch ( $orderby ) {
+				case 'meta_value':
+					return sprintf(
+						'%1$s.%2$s',
+						Occurrences::table_name( true ),
+						'start_date'
+					);
+			}
+		}
+
+		return parent::parse_orderby( $orderby );
+	}
+
+	/**
 	 * Updates the `WHERE` statements to ensure any Event Query is date-bound.
 	 *
 	 * @since TBD
