@@ -26,11 +26,14 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	use Concatenated_Value_Handling;
 
 	/**
-	 * Value checked for "all" filter.
-	 *
-	 * @since TBD
+	 * Value checked for canceled events.
 	 */
-	const EXPLICITLY_ALL = 'all';
+	const CANCELED = 'canceled';
+
+	/**
+	 * Value checked for postponed events.
+	 */
+	const POSTPONED = 'postponed';
 
 	/**
 	 * @var string The table alias that will be used for the postmeta table.
@@ -44,7 +47,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	 *
 	 * @var string
 	 */
-	public $type = 'select';
+	public $type = 'checkbox';
 
 	/**
 	 * The filter slug.
@@ -114,25 +117,26 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	 * @return array
 	 */
 	protected function get_values() {
+
+		$default_values = [
+			'canceled'     => [
+				'name'  => _x( 'Hide canceled events', 'Canceled label for filter bar to hide canceled events.', 'the-events-calendar' ),
+				'value' => self::CANCELED,
+			],
+			'postponed' => [
+				'name'  => _x( 'Hide postponed events', 'Postponed label for filter bar to hide postponed events.', 'the-events-calendar' ),
+				'value' => self::POSTPONED,
+			],
+		];
+
 		/**
-		 * Allow filtering of the event statuses.
+		 * Allow filtering of the event statuses values that show in Filter Bar.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string|string> An array of video sources.
-		 * @param \WP_Post $event The current event post object, as decorated by the `tribe_get_event` function.
+		 * @param array<string|string> $default_values An array of filter values.
 		 */
-		$statuses = (array) apply_filters( 'tec_event_statuses', [], [] );
-
-		$filter_statuses = [];
-		foreach ( $statuses as $status ) {
-			$filter_statuses[ $status['value'] ] = [
-				'name'  => $status['text'],
-				'value' => $status['value'],
-			];
-		}
-
-		return $filter_statuses;
+		return (array) apply_filters( 'tec_event_status_filterbar_values', $default_values );
 	}
 
 	/**
@@ -160,23 +164,51 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 
+		$clauses = $hide_clauses = [];
+
+		// Standard clauses to include so all events except for the selected ones to hide will be included.
+		$clauses[] = " {$this->alias}.meta_value = '' ";
+		$clauses[] = " {$this->alias}.meta_value IS NULL ";
+
 		if ( is_array( $this->currentValue ) ) {
 			$event_status_ids = implode( ',', array_map( 'esc_sql', $this->currentValue ) );
 		} else {
 			$event_status_ids = "'" . esc_sql( (string) $this->currentValue ) . "'";
 		}
-		$clauses = [];
 
-		$clauses[] = $wpdb->prepare(
-			" {$this->alias}.meta_value IN (%s) ",
+		$hide_clauses[] = $wpdb->prepare(
+			" {$this->alias}.meta_value NOT IN (%s) ",
 			$event_status_ids,
 		);
 
-		if ( 'scheduled' === $this->currentValue || in_array( 'scheduled', $this->currentValue ) ) {
-			$clauses[] = " {$this->alias}.meta_value = '' ";
-			$clauses[] = " {$this->alias}.meta_value IS NULL ";
+		/**
+		 * Allow filtering of the event statuses where clause.
+		 *
+		 * @since TBD
+		 *
+		 * @param string                      $where_clause  The empty where clause to filter.
+		 * @param string|array<string|string> $current_value A string or array of the current values selected for the filter.
+		 * @param string                      $alias         The table alias that will be used for the postmeta table.
+		 * @param array<string|string>        $hide_clauses  The hide clauses on whether to hide canceled and postponed events.
+		 * @param array<string|string>        $clauses       The standard clauses to get all events.
+		 */
+		$where_clause = apply_filters( 'tec_event_status_filterbar_where_clause', '', $this->currentValue, $this->alias, $hide_clauses, $clauses );
+		if ( $where_clause ) {
+			$this->whereClause = $where_clause;
+
+			return;
 		}
 
-		$this->whereClause = ' AND (' . implode( ' OR ', $clauses ) . ') ';
+
+		// If hiding multiple values, format the where clause and return.
+		if ( is_array( $this->currentValue ) && count( $this->currentValue ) > 1 ) {
+			$this->whereClause = ' AND ( ( ' . implode( ' AND ', $hide_clauses ) . '  ) AND ' . implode( ' OR ', $clauses ) . ') ';
+
+			return;
+		}
+
+		// merge arrays and use this where clause when only one hide value is selected.
+		$clauses = array_merge( $hide_clauses, $clauses );
+		$this->whereClause = ' AND ( ' . implode( ' OR ', $clauses ) . ') ';
 	}
 }
