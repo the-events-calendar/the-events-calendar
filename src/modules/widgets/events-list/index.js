@@ -18,7 +18,7 @@ const { InnerBlocks } = wp.editor;
 export default {
 	id: 'events-list',
 	title: __( 'Events List', 'the-events-calendar' ),
-	description: __( 'Display events list', 'the-events-calendar' ),
+	description: __( 'Shows a list of upcoming events.', 'the-events-calendar' ),
 	icon: <EventsListIcon />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events list', 'list', 'events-gutenberg', 'tribe' ],
