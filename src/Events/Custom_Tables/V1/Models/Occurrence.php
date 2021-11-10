@@ -54,6 +54,8 @@ use Tribe__Timezones as Timezones;
  * @property bool   has_recurrence (ECP only)
  */
 class Occurrence extends Model {
+	use Model_Date_Attributes;
+
 	/**
 	 * {@inheritdoc }
 	 */
@@ -323,27 +325,32 @@ class Occurrence extends Model {
 	 *
 	 * @since TBD
 	 *
-	 * @param Event|null $event A reference to the Event Model instance to update.
+	 * @param Event|null      $event A reference to the Event Model instance to update.
+	 * @param Occurrence|null $first A reference to the first Occurrence of the Event to
+	 *                               align the meta for, or `null` to try and fetch the first
+	 *                               Occurrence from the current database state.
+	 * @param Occurrence|null $last  A reference to the last Occurrence of the Event to
+	 *                               align the meta for, or `null` to try and fetch the last
+	 *                               Occurrence from the current database state.
 	 *
 	 * @return bool Whether the updates were applicable and correctly applied or not.
 	 */
-	private function align_event_meta( Event $event = null ) {
+	private function align_event_meta( Event $event = null, Occurrence $first = null, Occurrence $last = null ) {
 		if ( null === $event ) {
 			return false;
 		}
 
 		$post_id = $event->post_id;
 
-		/** @var Occurrence $first */
-		$first = self::where( 'post_id', '=', $post_id )
+		$first = $first ?: self::where( 'post_id', '=', $post_id )
 		             ->order_by( 'start_date', 'ASC' )
 		             ->first();
 
-		$last  = self::where( 'post_id', '=', $post_id )
+		$last  = $last ?: self::where( 'post_id', '=', $post_id )
 		             ->order_by( 'start_date', 'DESC' )
 		             ->first();
 
-		if ( ! ( $first instanceof self && $last instanceof self ) ) {
+		if ( ! ( null !== $first && null !== $last ) ) {
 			return false;
 		}
 
@@ -424,7 +431,12 @@ class Occurrence extends Model {
 			$insertions[] = $result->toArray();
 		}
 
-		$this->align_event_meta( $this->event );
+		if ( count( $insertions ) ) {
+			// If we have insertions, then re-align the meta using those.
+			$first = new Occurrence( reset( $insertions ) );
+			$last  = new Occurrence( end( $insertions ) );
+			$this->align_event_meta( $this->event, $first, $last );
+		}
 
 		return $insertions;
 	}
@@ -447,5 +459,21 @@ class Occurrence extends Model {
 		$id = self::normalize_id( $id );
 
 		return static::find( $id, 'post_id' );
+	}
+
+	/**
+	 * Returns the Model instance `updated_at` attribute in string format.
+	 *
+	 * This method will be internally called when trying to access the `updated_at`
+	 * property of the Model instance.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The Model instance `updated_at` attribute in string format.
+	 */
+	public function get_updated_at_attribute() {
+		return $this->data['updated_at'] instanceof DateTimeInterface ?
+			$this->data['updated_at']->format( Dates::DBDATETIMEFORMAT )
+			: $this->data['updated_at'];
 	}
 }
