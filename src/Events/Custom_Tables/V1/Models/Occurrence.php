@@ -58,6 +58,15 @@ class Occurrence extends Model {
 	use Model_Date_Attributes;
 
 	/**
+	 * A map from post IDs to the cutoff times that should be used to purge recurrences.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<int,string>
+	 */
+	private static $cutoffs = [];
+
+	/**
 	 * {@inheritdoc }
 	 */
 	protected $validations = [
@@ -171,16 +180,12 @@ class Occurrence extends Model {
 	 * @return bool The result of the operation
 	 */
 	public function purge_recurrences( DateTimeInterface $now ) {
-		$precisely_now =  $now->format( 'Y-m-d H:i:s.u' );
-		$event = $this->event;
-		$done    = self::where( 'post_id', $event->post_id )
-		               ->where( 'event_id', $event->event_id )
-		               ->where( 'updated_at', '<', $precisely_now )
-		               ->delete();
+		if ( ! has_action( 'shutdown', [ $this, 'late_purge_recurrences' ] ) ) {
+			// Run the purge once per request per Event.
+			add_action( 'shutdown', [ $this, 'late_purge_recurrences' ], PHP_INT_MIN );
+		}
 
-		$this->align_event_meta( $event );
-
-		return $done;
+		return true;
 	}
 
 	/**
@@ -420,13 +425,20 @@ class Occurrence extends Model {
 			$generator             = $occurrences_generator->generate_from_event( $this->event );
 		}
 
+		$post_id = $this->event->post_id;
+		if ( ! isset( static::$cutoffs[ $post_id ] ) ) {
+			static::$cutoffs[ $post_id ] = PHP_INT_MAX;
+		}
+
 		$insertions = [];
 		$utc        = new DateTimeZone( 'UTC' );
 		foreach ( $generator as $result ) {
 			$occurrence = self::where( 'hash', $result->generate_hash() )->first();
 			if ( $occurrence instanceof self ) {
-				$result->occurrence_id = $occurrence->occurrence_id;
-				$result->updated_at    = new DateTime( 'now', $utc );
+				$result->occurrence_id       = $occurrence->occurrence_id;
+				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s.u' );
+				$result->updated_at          = $updated_at;
+				static::$cutoffs[ $post_id ] = min( static::$cutoffs[ $post_id ], $updated_at );
 				$result->update();
 				continue;
 			}
@@ -439,6 +451,11 @@ class Occurrence extends Model {
 			$last  = new Occurrence( end( $insertions ) );
 			$this->align_event_meta( $this->event, $first, $last );
 		}
+
+		static::$cutoffs[ $post_id ] = min(
+			static::$cutoffs[ $post_id ],
+			...wp_list_pluck( $insertions, 'updated_at' )
+		);
 
 		return $insertions;
 	}
@@ -477,5 +494,30 @@ class Occurrence extends Model {
 		return $this->data['updated_at'] instanceof DateTimeInterface ?
 			$this->data['updated_at']->format( Dates::DBDATETIMEFORMAT )
 			: $this->data['updated_at'];
+	}
+
+	/**
+	 * Actually purge Occurrences removing any whose update time is lower than
+	 * the one that started the request.
+	 *
+	 * @since TBD
+	 */
+	public function late_purge_recurrences() {
+		// @todo make this method static and run all updates at once.
+
+		$post_id = $this->event->post_id;
+
+		if ( ! isset( static::$cutoffs[ $post_id ] ) ) {
+			return;
+		}
+
+		$cutoff = static::$cutoffs[ $post_id ];
+
+		self::where( 'post_id', $post_id )
+		    ->where( 'event_id', $this->event->event_id )
+		    ->where( 'updated_at', '<', $cutoff )
+		    ->delete();
+
+		$this->align_event_meta( $this->event );
 	}
 }
