@@ -7,7 +7,7 @@ import React from 'react';
  * Internal dependencies
  */
 import EventsList from './template';
-import { EventsListIcon } from '@moderntribe/events/icons';
+import { EventsList as EventsListIcon } from '@moderntribe/events/icons';
 
 const { __ } = wp.i18n;
 const { InnerBlocks } = wp.editor;
