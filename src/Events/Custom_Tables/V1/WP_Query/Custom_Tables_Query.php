@@ -294,21 +294,23 @@ class Custom_Tables_Query extends WP_Query {
 	 * @since TBD
 	 *
 	 * @inheritDoc
+	 *
+	 * @return string The redirected ORDER clause, if required.
 	 */
 	protected function parse_orderby( $orderby ) {
-		// Convert our order by `meta_value` to `start_date` when we are using the appropriate `meta_key`.
-		if ( isset( $this->query['meta_key'] ) && $this->query['meta_key'] === '_EventStartDate' ) {
-			switch ( $orderby ) {
-				case 'meta_value':
-					return sprintf(
-						'%1$s.%2$s',
-						Occurrences::table_name( true ),
-						'start_date'
-					);
-			}
+		if ( 'meta_value' !== $orderby || ! isset( $this->query['meta_key'] ) ) {
+			return parent::parse_orderby( $orderby );
 		}
 
-		return parent::parse_orderby( $orderby );
+		$map = Redirection_Schema::get_filtered_meta_key_redirection_map();
+
+		if ( ! isset( $map[ $this->query['meta_key'] ] ) ) {
+			return parent::parse_orderby( $orderby );
+		}
+
+		$redirection = $map[ $this->query['meta_key'] ];
+
+		return sprintf( '%1$s.%2$s', $redirection['table'], $redirection['column'] );
 	}
 
 	/**
