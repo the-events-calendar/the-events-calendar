@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Events\Occurrences;
 
-use DateTimeImmutable;
+use DateTime;
 use DateTimeZone;
 use Generator;
 use TEC\Events\Custom_Tables\V1\Models\Event;
@@ -52,7 +52,6 @@ class Occurrences_Generator {
 	 * @return Occurrence The Single Event Occurrence instance.
 	 */
 	protected function get_single_event_row( Event $event ) {
-		$updated_at = (new \DateTime( 'now', new DateTimeZone( 'utc' ) ))->format('Y-m-d H:i:s.u');
 		$occurrence          = new Occurrence( [
 			'event_id'       => $event->event_id,
 			'post_id'        => $event->post_id,
@@ -61,7 +60,7 @@ class Occurrences_Generator {
 			'start_date_utc' => $event->start_date_utc,
 			'end_date_utc'   => $event->end_date_utc,
 			'duration'       => $event->duration,
-			'updated_at'     => $updated_at,
+			'updated_at'     => new DateTime( 'now', new DateTimeZone( 'utc' ) ),
 		] );
 
 		$occurrence->hash = $occurrence->generate_hash();

@@ -18,7 +18,6 @@ use TEC\Events\Custom_Tables\V1\Events\Occurrences\Occurrences_Generator;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Integer_Key_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Numeric_Formatter;
-use TEC\Events\Custom_Tables\V1\Models\Formatters\Precise_Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Text_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Duration;
 use TEC\Events\Custom_Tables\V1\Models\Validators\End_Date;
@@ -95,7 +94,7 @@ class Occurrence extends Model {
 		'end_date_utc'   => Date_Formatter::class,
 		'duration'       => Numeric_Formatter::class,
 		'hash'           => Text_Formatter::class,
-		'updated_at'     => Precise_Date_Formatter::class,
+		'updated_at'     => Date_Formatter::class,
 	];
 
 	/**
@@ -436,7 +435,7 @@ class Occurrence extends Model {
 			$occurrence = self::where( 'hash', $result->generate_hash() )->first();
 			if ( $occurrence instanceof self ) {
 				$result->occurrence_id       = $occurrence->occurrence_id;
-				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s.u' );
+				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
 				$result->updated_at          = $updated_at;
 				static::$cutoffs[ $post_id ] = min( static::$cutoffs[ $post_id ], $updated_at );
 				$result->update();
