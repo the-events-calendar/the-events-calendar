@@ -10,6 +10,9 @@
 
 namespace TEC\Events\Custom_Tables\V1\Models;
 
+use DateTimeInterface;
+use Tribe__Date_Utils as Dates;
+
 /**
  * Trait Model_Date_Attributes
  *
