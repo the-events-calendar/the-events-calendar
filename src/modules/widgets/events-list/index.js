@@ -22,6 +22,7 @@ export default {
 	icon: <EventsListIcon />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events list', 'list', 'events-gutenberg', 'tribe' ],
+	example: {},
 
 	edit: EventsList,
 	save: () => <InnerBlocks.Content />,
