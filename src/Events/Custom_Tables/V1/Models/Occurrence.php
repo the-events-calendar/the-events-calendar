@@ -445,16 +445,16 @@ class Occurrence extends Model {
 		}
 
 		if ( count( $insertions ) ) {
+			static::$cutoffs[ $post_id ] = min(
+				static::$cutoffs[ $post_id ],
+				...wp_list_pluck( $insertions, 'updated_at' )
+			);
+
 			// If we have insertions, then re-align the meta using those.
 			$first = new Occurrence( reset( $insertions ) );
 			$last  = new Occurrence( end( $insertions ) );
 			$this->align_event_meta( $this->event, $first, $last );
 		}
-
-		static::$cutoffs[ $post_id ] = min(
-			static::$cutoffs[ $post_id ],
-			...wp_list_pluck( $insertions, 'updated_at' )
-		);
 
 		return $insertions;
 	}
