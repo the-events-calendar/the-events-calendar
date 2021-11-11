@@ -534,7 +534,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			$plugin,
 			'tec-widget-blocks',
 			'app/widgets.js',
-			array(
+			[
 				'react',
 				'react-dom',
 				'wp-components',
@@ -552,7 +552,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'tribe-common-gutenberg-hoc',
 				'tribe-common-gutenberg-elements',
 				'tribe-common-gutenberg-components',
-			),
+			],
 			'enqueue_block_editor_assets',
 			[
 				'in_footer'    => false,
@@ -564,9 +564,26 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
+			'legacy-widget',
+			'legacy-widget.js',
+			[
+				'admin-widgets',
+				'wp-widgets',
+			],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => true,
+				'conditionals' => [ $this, 'is_edit_screen' ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tec-widget-blocks-styles',
 			'app/widgets.css',
-			[],
+			[
+				'wp-widgets',
+			],
 			'enqueue_block_editor_assets',
 			[
 				'in_footer'    => false,
