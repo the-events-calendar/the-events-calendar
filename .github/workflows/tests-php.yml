@@ -8,6 +8,7 @@ jobs:
           - acceptance
           - aggregatorv1
           - blocks_editor_integration
+          - event_status
           - integration
           - muintegration
           - restv1
