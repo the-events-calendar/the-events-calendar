@@ -19,7 +19,7 @@
 		.tribe-widget-form-control__section-title {
 			font-size: 24px;
 			line-height: 1;
-			margin: 16px 0;
+			margin: 18px 0 12px;
 		}
 
 		.tribe-widget-form-control--multiselect {
@@ -34,6 +34,18 @@
 		.calendar-widget-filter-item {
 			font-size: 16px;
 			line-height: 1;
+		}
+
+		.tribe-widget-form-control.tribe-widget-form-control--fieldset {
+			&.tribe-common-form-control-checkbox-checkbox-group,
+			&.tribe-common-form-control-checkbox-radio-group {
+				padding: 15px 30px;
+			}
+		}
+
+		/* Hide Avada widget options button on the blocks. */
+		.fusion-menu-options-container {
+			display: none;
 		}
 	}
 }
