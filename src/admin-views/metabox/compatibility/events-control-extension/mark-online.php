@@ -22,7 +22,7 @@
  */
 
 ?>
-<div class="tribe-events-control-metabox-container" style="margin-top: 24px;">
+<div class="tribe-events-control-metabox-container" style="margin-top: 18px;">
 	<?php wp_nonce_field( $metabox::$nonce_action, "{$metabox::$id}[nonce]" ); ?>
 	<div>
 		<p>
@@ -43,7 +43,10 @@
 			data-condition-checked
 		>
 			<p>
-				<label for="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>">
+				<label
+					class="tribe-events-status-components-online-url__label"
+					for="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
+				>
 					<?php echo esc_html_x( 'Live Stream URL', 'Label for live stream URL field', 'the-events-calendar' ); ?>
 				</label>
 				<input

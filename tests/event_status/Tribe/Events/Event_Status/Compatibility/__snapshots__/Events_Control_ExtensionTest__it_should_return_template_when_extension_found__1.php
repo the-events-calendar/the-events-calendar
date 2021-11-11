@@ -1,4 +1,4 @@
-<?php return '<div class="tribe-events-control-metabox-container" style="margin-top: 24px;">
+<?php return '<div class="tribe-events-control-metabox-container" style="margin-top: 18px;">
 	<input type="hidden" id="tribe-events-control[nonce]" name="tribe-events-control[nonce]" value="123123" /><input type="hidden" name="_wp_http_referer" value="" />	<div>
 		<p>
 			<label for="tribe-events-control-online">
@@ -16,7 +16,10 @@
 			data-condition-checked
 		>
 			<p>
-				<label for="tribe-events-control-online-url">
+				<label
+					class="tribe-events-status-components-online-url__label"
+					for="tribe-events-control-online-url"
+				>
 					Live Stream URL				</label>
 				<input
 					id="tribe-events-control-online-url"
