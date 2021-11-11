@@ -26,16 +26,19 @@
 		data-depends="#tribe-events-status-status"
 		data-condition=\'["canceled", "postponed"]\'
 	>
-		<p>
-			<label for="tribe-events-status-status-reason">
+		<div class="tribe-events-status-components-textarea-control__container">
+			<label
+				class="tribe-events-status-components-textarea-control__label"
+				for="tribe-events-status-status-reason"
+			>
 				Reason (optional).
 			</label>
 			<textarea
-				class="components-textarea-control__input"
+				class="tribe-events-status-components-textarea-control__input"
 				id="tribe-events-status-status-reason"
 				name="tribe-events-status[status-reason]"
 			></textarea>
-		</p>
+		</div>
 	</div>
 </div>
 ';
