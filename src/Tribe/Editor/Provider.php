@@ -65,8 +65,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 			return false;
 		}
 
-		$hooks = new \Tribe\Events\Editor\Hooks;
-		$hooks->register();
+		$this->container->register( \Tribe\Events\Editor\Hooks::class )
 
 		// Allow Hooks to be removed, by having the them registred to the container
 		$this->container->singleton( \Tribe\Events\Editor\Hooks::class, $hooks );
