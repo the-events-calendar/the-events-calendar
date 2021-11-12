@@ -57,15 +57,18 @@ $statuses = (array) apply_filters( 'tec_event_statuses', [], $current_status );
 		data-depends="#<?php echo esc_attr( "{$metabox::$id}-status" ); ?>"
 		data-condition='["canceled", "postponed"]'
 	>
-		<p>
-			<label for="<?php echo esc_attr( "{$metabox::$id}-status-reason" ); ?>">
+		<div class="tribe-events-status-components-textarea-control__container">
+			<label
+				class="tribe-events-status-components-textarea-control__label"
+				for="<?php echo esc_attr( "{$metabox::$id}-status-reason" ); ?>"
+			>
 				<?php echo esc_html_x( 'Reason (optional)', 'Label for event status reason field', 'the-events-calendar' ); ?>.
 			</label>
 			<textarea
-				class="components-textarea-control__input"
+				class="tribe-events-status-components-textarea-control__input"
 				id="<?php echo esc_attr( "{$metabox::$id}-status-reason" ); ?>"
 				name="<?php echo esc_attr( "{$metabox::$id}[status-reason]" ); ?>"
 			><?php echo esc_textarea( $event->event_status_reason ) ?></textarea>
-		</p>
+		</div>
 	</div>
 </div>
