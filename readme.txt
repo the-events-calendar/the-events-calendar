@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 4.9.18
-Stable tag: 5.10.0
+Stable tag: 5.11.0
 Tested up to: 5.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.11.0] TBD =
 
 * Feature - Add an `Events List` block that is based on the `Events List` widget to the block editor which users can drag around to any position they want it to appear. [ECP-989]
 * Feature - Add event status options of scheduled, canceled, and postponed with the ability to add and display a reason for the latter two. [TEC-3465]
