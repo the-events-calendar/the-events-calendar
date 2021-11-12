@@ -42,6 +42,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 		tribe_register_provider( Widgets\Service_Provider::class );
 		tribe_register_provider( Customizer\Service_Provider::class );
+		tribe_register_provider( iCalendar\Subscribe::class );
 
 		$this->register_hooks();
 		$this->register_assets();

@@ -41,6 +41,80 @@
 		}
 	}
 
+	.tec-subscribe-dropdown {
+		display: flex;
+		margin-bottom: var(--tec-spacer-7);
+		margin-top: var(--tec-spacer-7);
+		position: relative;
+
+		.tec-subscribe-dropdown__selector {
+			margin-left: auto;
+			position: relative;
+		}
+
+		.tec-subscribe-dropdown__button-icon-caret-svg {
+			color: var(--tec-color-background);
+			display: inline-block;
+			height: 6px;
+			margin-left: var(--tec-spacer-1);
+			vertical-align: middle;
+			width: 10px;
+		}
+
+		.tec-subscribe-dropdown__selector-button--active {
+			.tec-subscribe-dropdown__button-icon-caret-svg {
+				transform: rotate(180deg);
+			}
+		}
+
+		.tec-subscribe-dropdown__selector-content {
+			background-color: var(--tec-color-background-view-selector);
+			border: 1px solid var(--tec-color-border-secondary);
+			border-radius: var(--tec-border-radius-default);
+			box-shadow: var(--tec-box-shadow-default);
+			display: none;
+			padding: var(--tec-spacer-1);
+			position: absolute;
+			right: 0;
+			top: 100%;
+			transform: translateY(var(--tec-spacer-1));
+			width: 100%;
+			z-index: var(--tec-z-index-dropdown);
+
+			.tec-subscribe-dropdown__selector-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+
+				.tec-subscribe-dropdown__selector-list-item:hover {
+					background-color: var(--tec-color-background-secondary);
+				}
+
+				.tec-subscribe-dropdown__selector-list-item .tec-subscribe-dropdown__selector-list-item-link {
+					align-items: center;
+					border-radius: var(--tec-border-radius-default);
+					color: var(--tec-color-text-primary);
+					display: flex;
+					outline: 0;
+					padding: var(--tec-spacer-0) var(--tec-spacer-7) var(--tec-spacer-0) var(--tec-spacer-3);
+					text-decoration: none;
+				}
+
+				.tec-subscribe-dropdown__selector-list-item .tec-subscribe-dropdown__selector-list-item-link .tec-subscribe-dropdown__selector-list-item-text {
+					color: var(--tec-color-text-primary);
+					font-family: var(--tec-font-family-sans-serif);
+					font-size: var(--tec-font-size-2);
+					font-weight: var(--tec-font-weight-regular);
+					line-height: var(--tec-line-height-3);
+				}
+			}
+
+			.tec-subscribe-dropdown__selector-list-item:hover .tec-subscribe-dropdown__selector-list-item-link .tec-subscribe-dropdown__selector-list-item-text {
+				font-weight: 700;
+			}
+		}
+	}
+
 	/* -------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Seventeen
 	 * ------------------------------------------------------------------------- */
