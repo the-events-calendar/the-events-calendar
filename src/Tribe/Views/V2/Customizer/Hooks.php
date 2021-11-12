@@ -93,6 +93,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'body_class', [ $this, 'body_class' ] );
 	}
 
+	/**
+	 * Add an identifying class to the body - but only when inside the Customizer preview.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $classes The list of body classes to be applied.
+	 *
+	 * @return array<string> $classes The modified list of body classes to be applied.
+	 */
 	public function body_class( $classes ) {
 		if ( is_customize_preview() ) {
 			$classes[] = 'tec-customizer';
