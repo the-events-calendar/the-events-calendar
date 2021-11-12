@@ -54,6 +54,17 @@ use Tribe__Timezones as Timezones;
  * @property bool   has_recurrence (ECP only)
  */
 class Occurrence extends Model {
+	use Model_Date_Attributes;
+
+	/**
+	 * A map from post IDs to the cutoff times that should be used to purge recurrences.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<int,string>
+	 */
+	private static $cutoffs = [];
+
 	/**
 	 * {@inheritdoc }
 	 */
@@ -168,15 +179,12 @@ class Occurrence extends Model {
 	 * @return bool The result of the operation
 	 */
 	public function purge_recurrences( DateTimeInterface $now ) {
-		$event = $this->event;
-		$done    = self::where( 'post_id', $event->post_id )
-		               ->where( 'event_id', $event->event_id )
-		               ->where( 'updated_at', '<', $now->format( Dates::DBDATETIMEFORMAT ) )
-		               ->delete();
+		if ( ! has_action( 'shutdown', [ $this, 'late_purge_recurrences' ] ) ) {
+			// Run the purge once per request per Event.
+			add_action( 'shutdown', [ $this, 'late_purge_recurrences' ], PHP_INT_MIN );
+		}
 
-		$this->align_event_meta( $event );
-
-		return $done;
+		return true;
 	}
 
 	/**
@@ -323,27 +331,32 @@ class Occurrence extends Model {
 	 *
 	 * @since TBD
 	 *
-	 * @param Event|null $event A reference to the Event Model instance to update.
+	 * @param Event|null      $event A reference to the Event Model instance to update.
+	 * @param Occurrence|null $first A reference to the first Occurrence of the Event to
+	 *                               align the meta for, or `null` to try and fetch the first
+	 *                               Occurrence from the current database state.
+	 * @param Occurrence|null $last  A reference to the last Occurrence of the Event to
+	 *                               align the meta for, or `null` to try and fetch the last
+	 *                               Occurrence from the current database state.
 	 *
 	 * @return bool Whether the updates were applicable and correctly applied or not.
 	 */
-	private function align_event_meta( Event $event = null ) {
+	private function align_event_meta( Event $event = null, Occurrence $first = null, Occurrence $last = null ) {
 		if ( null === $event ) {
 			return false;
 		}
 
 		$post_id = $event->post_id;
 
-		/** @var Occurrence $first */
-		$first = self::where( 'post_id', '=', $post_id )
+		$first = $first ?: self::where( 'post_id', '=', $post_id )
 		             ->order_by( 'start_date', 'ASC' )
 		             ->first();
 
-		$last  = self::where( 'post_id', '=', $post_id )
+		$last  = $last ?: self::where( 'post_id', '=', $post_id )
 		             ->order_by( 'start_date', 'DESC' )
 		             ->first();
 
-		if ( ! ( $first instanceof self && $last instanceof self ) ) {
+		if ( ! ( null !== $first && null !== $last ) ) {
 			return false;
 		}
 
@@ -411,20 +424,37 @@ class Occurrence extends Model {
 			$generator             = $occurrences_generator->generate_from_event( $this->event );
 		}
 
+		$post_id = $this->event->post_id;
+		if ( ! isset( static::$cutoffs[ $post_id ] ) ) {
+			static::$cutoffs[ $post_id ] = PHP_INT_MAX;
+		}
+
 		$insertions = [];
 		$utc        = new DateTimeZone( 'UTC' );
 		foreach ( $generator as $result ) {
 			$occurrence = self::where( 'hash', $result->generate_hash() )->first();
 			if ( $occurrence instanceof self ) {
-				$result->occurrence_id = $occurrence->occurrence_id;
-				$result->updated_at    = new DateTime( 'now', $utc );
+				$result->occurrence_id       = $occurrence->occurrence_id;
+				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
+				$result->updated_at          = $updated_at;
+				static::$cutoffs[ $post_id ] = min( static::$cutoffs[ $post_id ], $updated_at );
 				$result->update();
 				continue;
 			}
 			$insertions[] = $result->toArray();
 		}
 
-		$this->align_event_meta( $this->event );
+		if ( count( $insertions ) ) {
+			static::$cutoffs[ $post_id ] = min(
+				static::$cutoffs[ $post_id ],
+				...wp_list_pluck( $insertions, 'updated_at' )
+			);
+
+			// If we have insertions, then re-align the meta using those.
+			$first = new Occurrence( reset( $insertions ) );
+			$last  = new Occurrence( end( $insertions ) );
+			$this->align_event_meta( $this->event, $first, $last );
+		}
 
 		return $insertions;
 	}
@@ -447,5 +477,46 @@ class Occurrence extends Model {
 		$id = self::normalize_id( $id );
 
 		return static::find( $id, 'post_id' );
+	}
+
+	/**
+	 * Returns the Model instance `updated_at` attribute in string format.
+	 *
+	 * This method will be internally called when trying to access the `updated_at`
+	 * property of the Model instance.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The Model instance `updated_at` attribute in string format.
+	 */
+	public function get_updated_at_attribute() {
+		return $this->data['updated_at'] instanceof DateTimeInterface ?
+			$this->data['updated_at']->format( Dates::DBDATETIMEFORMAT )
+			: $this->data['updated_at'];
+	}
+
+	/**
+	 * Actually purge Occurrences removing any whose update time is lower than
+	 * the one that started the request.
+	 *
+	 * @since TBD
+	 */
+	public function late_purge_recurrences() {
+		// @todo make this method static and run all updates at once.
+
+		$post_id = $this->event->post_id;
+
+		if ( ! isset( static::$cutoffs[ $post_id ] ) ) {
+			return;
+		}
+
+		$cutoff = static::$cutoffs[ $post_id ];
+
+		self::where( 'post_id', $post_id )
+		    ->where( 'event_id', $this->event->event_id )
+		    ->where( 'updated_at', '<', $cutoff )
+		    ->delete();
+
+		$this->align_event_meta( $this->event );
 	}
 }

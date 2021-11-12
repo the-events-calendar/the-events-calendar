@@ -289,6 +289,31 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Intercept appropriate order by fields and map to our new occurrence fields.
+	 *
+	 * @since TBD
+	 *
+	 * @inheritDoc
+	 *
+	 * @return string The redirected ORDER clause, if required.
+	 */
+	protected function parse_orderby( $orderby ) {
+		if ( 'meta_value' !== $orderby || ! isset( $this->query['meta_key'] ) ) {
+			return parent::parse_orderby( $orderby );
+		}
+
+		$map = Redirection_Schema::get_filtered_meta_key_redirection_map();
+
+		if ( ! isset( $map[ $this->query['meta_key'] ] ) ) {
+			return parent::parse_orderby( $orderby );
+		}
+
+		$redirection = $map[ $this->query['meta_key'] ];
+
+		return sprintf( '%1$s.%2$s', $redirection['table'], $redirection['column'] );
+	}
+
+	/**
 	 * Updates the `WHERE` statements to ensure any Event Query is date-bound.
 	 *
 	 * @since TBD
