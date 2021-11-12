@@ -7,7 +7,7 @@ namespace Tribe\Events\Editor;
  *
  * @since TBD
  */
-class Hooks {
+class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
