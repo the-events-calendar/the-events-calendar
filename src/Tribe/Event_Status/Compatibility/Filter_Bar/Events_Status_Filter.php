@@ -10,7 +10,6 @@
 namespace Tribe\Events\Event_Status\Compatibility\Filter_Bar;
 
 use Tribe\Events\Event_Status\Status_Labels;
-use Tribe\Events\Filterbar\Views\V2\Filters\Concatenated_Value_Handling;
 use Tribe\Events\Filterbar\Views\V2\Filters\Context_Filter;
 use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
 
@@ -23,7 +22,6 @@ use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
  */
 class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	use Context_Filter;
-	use Concatenated_Value_Handling;
 
 	/**
 	 * Value checked for canceled events.
