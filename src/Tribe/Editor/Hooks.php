@@ -68,7 +68,7 @@ class Hooks {
 		}
 
 		if ( ! did_action( 'widgets.php' ) ) {
-			do_action('widgets.php');
+			do_action( 'widgets.php' );
 		}
 
 		if ( ! did_action( 'sidebar_admin_setup' ) ) {
