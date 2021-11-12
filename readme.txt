@@ -205,7 +205,7 @@ If you want to let users sell tickets for the events they submit, check out [Com
 
 = I have a feature idea. What's the best way to tell you about it? =
 
-We've got a [UserVoice page](https://tribe.uservoice.com/forums/195723-feature-ideas) where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
+We've got an [ideas page](https://app.loopedin.io/the-events-calendar-suite-roadmap#/ideas) where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape [our roadmap](https://app.loopedin.io/the-events-calendar-suite-roadmap#/roadmap).
 
 = I've still got questions. Where can I find answers? =
 
@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Feature - Add an `Events List` block that is based on the `Events List` widget to the block editor which users can drag around to any position they want it to appear. [ECP-989]
+* Feature - Add event status options of scheduled, canceled, and postponed with the ability to add and display a reason for the latter two. [TEC-3465]
 * Feature - Add live preview to the TEC customizer screens. [TEC-4055]
 * Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
 * Fix - Resolved `Warning: reset(): Argument #1 ($array) must be passed by reference...` error that was displayed on the Events, Organizers and Venue REST endpoints in PHP v8. [TEC-4097]
