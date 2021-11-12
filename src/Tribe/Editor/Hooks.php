@@ -14,6 +14,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
+		// Allow Hooks to be removed, by having the them registered to the container.
+		$this->container->singleton( static::class, $this );
+		
 		$this->add_actions();
 	}
 
