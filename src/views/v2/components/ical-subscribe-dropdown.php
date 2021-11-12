@@ -23,21 +23,20 @@
 			<span class="tec-subscribe-dropdown__selector-button-text">
 				<?php echo esc_html__( 'Subscribe to calendar', 'the-events-calendar' ); ?>
 			</span>
-			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tec-subscribe-dropdown__button-icon-caret-svg' ] ] ); ?>
-			</svg>
+			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tec-subscribe-dropdown__button-icon' ] ] ); ?>
+			<div class="tec-subscribe-dropdown__selector-content" tabindex="-1">
+				<ul class="tec-subscribe-dropdown__selector-list">
+					<?php foreach ( $subscribe_links as $subscribe_link ) : ?>
+						<li class="tec-subscribe-dropdown__selector-list-item">
+							<a href="<?php echo esc_url( $subscribe_link['uri'] ); ?>"class="tec-subscribe-dropdown__selector-list-item-link">
+								<span class="tec-subscribe-dropdown__selector-list-item-text">
+									<?php echo esc_html( $subscribe_link['label'] ); ?>
+								</span>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
 		</button>
-		<div class="tec-subscribe-dropdown__selector-content">
-			<ul class="tec-subscribe-dropdown__selector-list">
-				<?php foreach ( $subscribe_links as $subscribe_link ) : ?>
-					<li class="tec-subscribe-dropdown__selector-list-item">
-						<a href="<?php echo esc_url( $subscribe_link['uri'] ); ?>"class="tec-subscribe-dropdown__selector-list-item-link">
-							<span class="tec-subscribe-dropdown__selector-list-item-text">
-								<?php echo esc_html( $subscribe_link['label'] ); ?>
-							</span>
-						</a>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-		</div>
 	</div>
 </div>
