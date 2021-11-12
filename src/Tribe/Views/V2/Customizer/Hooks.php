@@ -89,6 +89,16 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// Register assets for Customizer styles.
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
+
+		add_filter( 'body_class', [ $this, 'body_class' ] );
+	}
+
+	public function body_class( $classes ) {
+		if ( is_customize_preview() ) {
+			$classes[] = 'tec-customizer';
+		}
+
+		return $classes;
 	}
 
 	/**
