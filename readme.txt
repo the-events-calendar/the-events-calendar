@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.11.0] 2021-11-17 =
 
 * Feature - Add event status options of scheduled, canceled, and postponed with the ability to add and display a reason for the latter two. [TEC-3465]
 * Feature - Add live preview to the TEC customizer screens. [TEC-4055]
@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 * Tweak - Update the google calendar export button to open in a new tab on the event single page for both the classic and block editors. [TEC-4084]
 * Tweak - Add supplied organizer url to JSON-LD for the event->organizer. Props @cmenon12 for the notification and code! [TEC-4095]
+* Language - 10 new strings added, 55 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.10.1] 2021-11-04 =
 

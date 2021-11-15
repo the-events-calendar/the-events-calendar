@@ -2,7 +2,7 @@
 /**
  * Handles the event status meta.
  *
- * @since TBD
+ * @since 5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Event_Status;
 /**
  * Class Event_Meta
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -20,7 +20,7 @@ class Event_Meta {
 	/**
 	 * Meta Key for Status field.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var string
 	 */
@@ -29,7 +29,7 @@ class Event_Meta {
 	/**
 	 * Meta Key for Canceled reason field.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ class Event_Meta {
 	/**
 	 * Meta Key for event status field used for migration from extension.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var string
 	 */
@@ -47,7 +47,7 @@ class Event_Meta {
 	/**
 	 * Meta Key for Canceled reason field used for migration from extension.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var string
 	 */
@@ -56,7 +56,7 @@ class Event_Meta {
 	/**
 	 * Meta Key for Postponed reason field used for migration from extension.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var string
 	 */
@@ -65,7 +65,7 @@ class Event_Meta {
 	/**
 	 * All the meta keys, in a set.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var array<string>
 	 */

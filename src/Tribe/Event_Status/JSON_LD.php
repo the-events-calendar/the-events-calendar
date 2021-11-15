@@ -3,7 +3,7 @@
  * The Event Status JSON LD modifier.
  *
  * @package Tribe\Events\Event_Status
- * @since   TBD
+ * @since   5.11.0
  */
 
 namespace Tribe\Events\Event_Status;
@@ -13,7 +13,7 @@ use WP_Post;
 /**
  * Class JSON_LD.
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -22,21 +22,21 @@ class JSON_LD {
 	/**
 	 * The reference schema URL for an offline event attendance mode.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	const OFFLINE_EVENT_ATTENDANCE_MODE = 'https://schema.org/OfflineEventAttendanceMode';
 
 	/**
 	 * The reference schema URL for a canceled event attendance mode.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	const CANCELED_SCHEMA = 'https://schema.org/EventCancelled';
 
 	/**
 	 * The reference schema URL for a postponed event attendance mode.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	const POSTPONED_SCHEMA = 'https://schema.org/EventPostponed';
 
@@ -44,7 +44,7 @@ class JSON_LD {
 	/**
 	 * Modifiers to the JSON LD event object.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param object  $data The JSON-LD object.
 	 * @param array   $args The arguments used to get data.
@@ -62,7 +62,7 @@ class JSON_LD {
 		/**
 		 * Filters the default attendance mode.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param string  $attendance_mode The default attendance mode.
 		 * @param object  $data            The JSON-LD object.

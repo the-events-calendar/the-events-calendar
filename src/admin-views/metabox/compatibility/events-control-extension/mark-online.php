@@ -10,9 +10,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @since   TBD
+ * @since   5.11.0
  *
- * @version TBD
+ * @version 5.11.0
  *
  * @link    http://evnt.is/1aiy
  *

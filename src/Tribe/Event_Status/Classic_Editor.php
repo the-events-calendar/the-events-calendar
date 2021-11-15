@@ -2,7 +2,7 @@
 /**
  * Handles the rendering of the event status classic editor metabox.
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -17,7 +17,7 @@ use WP_Post;
 /**
  * Class Classic_Editor
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -26,7 +26,7 @@ class Classic_Editor {
 	/**
 	 * ID for the Classic_Editor in WP.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Classic_Editor {
 	/**
 	 * Action name used for the nonce on saving the metabox.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Classic_Editor {
 	/**
 	 * Stores the template class used.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var Admin_Template
 	 */
@@ -53,7 +53,7 @@ class Classic_Editor {
 	/**
 	 * Metabox constructor.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param Admin_Template $admin_template An instance of the plugin template handler.
 	 * @param Context|null   $context        The instance of the Context the metabox should use
@@ -67,7 +67,7 @@ class Classic_Editor {
 	/**
 	 * Fetches the Metabox title.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @return string The translated metabox title for Event Status.
 	 */
@@ -78,7 +78,7 @@ class Classic_Editor {
 	/**
 	 * Render the metabox contents.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param WP_Post $post Which post we are using here.
 	 *
@@ -104,7 +104,7 @@ class Classic_Editor {
 	/**
 	 * Register the metabox in WP system.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function register_metabox() {
 		add_meta_box(
@@ -120,7 +120,7 @@ class Classic_Editor {
 	/**
 	 * Register all the fields in the Rest API for event status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function register_fields() {
 		foreach ( Event_Meta::$event_status_keys as $key ) {
@@ -142,7 +142,7 @@ class Classic_Editor {
 	/**
 	 * Saves the metabox, which will be triggered in `save_post`.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param int     $post_id Which post ID we are dealing with when saving.
 	 * @param WP_Post $post    WP Post instance we are saving.
@@ -191,7 +191,7 @@ class Classic_Editor {
 		/**
 		 * Fires before the Metabox saved the data from the current request.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param int $post_id The post ID of the event currently being saved.
 		 * @param array<string,mixed> The whole data received by the metabox.
@@ -208,7 +208,7 @@ class Classic_Editor {
 		/**
 		 * Fires after the Metabox saved the data from the current request.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param int $post_id The post ID of the event currently being saved.
 		 * @param array<string,mixed> The whole data received by the metabox.
@@ -219,7 +219,7 @@ class Classic_Editor {
 	/**
 	 * Update event status meta fields.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param int   $post_id Which post ID we are dealing with when saving.
 	 * @param array $data    An array of meta field values.
@@ -231,7 +231,7 @@ class Classic_Editor {
 		/**
 		 * Allows extensions and compatibilities to save their associated meta.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param int   $post_id ID of the post we're saving.
 		 * @param array $data    The meta data we're trying to save.
@@ -242,7 +242,7 @@ class Classic_Editor {
 	/**
 	 * Delete event status meta fields.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param int   $post_id Which post ID we are dealing with when saving.
 	 * @param array $data    An array of meta field values.
