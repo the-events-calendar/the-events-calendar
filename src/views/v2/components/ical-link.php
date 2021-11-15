@@ -14,18 +14,14 @@
  * @var object $ical Object containing iCal data
  */
 
-if ( empty( $ical->display_link ) ) {
-	return;
-}
+use Tribe\Events\Views\V2\iCalendar\Subscribe;
 
-?>
-<div class="tribe-events-c-ical tribe-common-b2 tribe-common-b3--min-medium">
-	<a
-		class="tribe-events-c-ical__link"
-		title="<?php echo esc_attr( $ical->link->title ); ?>"
-		href="<?php echo esc_url( $ical->link->url ); ?>"
-	>
-		<?php $this->template( 'components/icons/plus', [ 'classes' => [ 'tribe-events-c-ical__link-icon-svg' ] ] ); ?>
-		<?php echo esc_html( $ical->link->text ); ?>
-	</a>
-</div>
+$subscribe = tribe( Subscribe::class );
+$count     = array_filter( wp_list_pluck( $subscribe_links, 'display' ) );
+
+if ( ! $subscribe->use_subscribe_links() || 1 === count( $count ) ) : ?>
+	<?php $key = array_keys( $count )[0]; ?>
+	<?php $this->template( 'components/subscribe-links/single', [ 'item' => $subscribe_links[ $key ] ] ); ?>
+<?php else : ?>
+	<?php $this->template( 'components/subscribe-links/dropdown', [ 'items' => $subscribe_links ] ); ?>
+<?php endif; ?>

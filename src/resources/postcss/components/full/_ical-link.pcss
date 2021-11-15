@@ -1,11 +1,9 @@
-/* -----------------------------------------------------------------------------
- *
- * iCal Link
- *
- * ----------------------------------------------------------------------------- */
-
 .tribe-events {
-
+	/* -----------------------------------------------------------------------------
+ 	 *
+ 	 * iCal Link
+ 	 *
+ 	 * ----------------------------------------------------------------------------- */
 	.tribe-events-c-ical__link {
 
 		&,
@@ -42,6 +40,11 @@
 		}
 	}
 
+	/* -----------------------------------------------------------------------------
+	 *
+	 * iCal Subscribe Dropdown
+	 *
+	 * ----------------------------------------------------------------------------- */
 	.tec-subscribe-dropdown {
 		display: flex;
 		margin-bottom: var(--tec-spacer-7);
@@ -100,17 +103,25 @@
 				}
 			}
 
+			/* Enhance visibility of the link text when it's focused. */
+			.tec-subscribe-dropdown__selector-list-item:active,
 			.tec-subscribe-dropdown__selector-list-item:hover,
 			.tec-subscribe-dropdown__selector-list-item:focus,
 			.tec-subscribe-dropdown__selector-list-item:focus-within {
-				background-color: var(--tec-color-accent-primary-background);
+				background-color: pink;/* var(--tec-color-accent-primary-background); */
+			}
 
+			.tec-subscribe-dropdown__selector-list-item-link:active,
+			.tec-subscribe-dropdown__selector-list-item-link:hover,
+			.tec-subscribe-dropdown__selector-list-item-link:focus,
+			.tec-subscribe-dropdown__selector-list-item-link:focus-within {
 				.tec-subscribe-dropdown__selector-list-item-text {
 					font-weight: 700;
 				}
 			}
 		}
 
+		/* Icon rotate on hover/focus */
 		.tec-subscribe-dropdown__selector-button:hover,
 		.tec-subscribe-dropdown__selector-button:focus,
 		.tec-subscribe-dropdown__selector-button:focus-within {
@@ -119,11 +130,23 @@
 			}
 		}
 
+		/* Show the submenu when we are focused anywhere inside the selector. */
 		.tec-subscribe-dropdown__selector:hover,
 		.tec-subscribe-dropdown__selector:focus,
 		.tec-subscribe-dropdown__selector:focus-within {
 			.tec-subscribe-dropdown__selector-content {
 				display: block;
+			}
+
+			/* This continues the hover color change of the button while we're in the submenu... */
+			.tec-subscribe-dropdown__selector-button {
+				background-color: var(--tec-color-accent-primary);
+				color: var(--tec-color-background);
+			}
+
+			/* ...and the icon rotate */
+			.tec-subscribe-dropdown__button-icon {
+				transform: rotate(180deg);
 			}
 		}
 	}

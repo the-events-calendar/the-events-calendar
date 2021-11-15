@@ -17,17 +17,6 @@ namespace Tribe\Events\Views\V2\iCalendar;
  * @package Tribe\Events\Views\V2\iCalendar
  */
 class Subscribe extends \tad_DI52_ServiceProvider {
-
-	/**
-	 * A placeholder for the option to keep
-	 * "legacy" export links vs. the new subscription links.
-	 *
-	 * @since TBD
-	 *
-	 * @var boolean
-	 */
-	protected static $toggle;
-
 	/**
 	 * Template slug for legacy export template.
 	 *
@@ -47,43 +36,18 @@ class Subscribe extends \tad_DI52_ServiceProvider {
 	public static $subscribe_template = 'ical-subscribe-dropdown';
 
 	public function register() {
-		static::$toggle = apply_filters( 'tec_use_subscribe_links', true );
+		$this->container->singleton( static::class, $this );
+		add_action( 'after_setup_theme', [ $this, 'register_hooks' ]);
+	}
 
-		if ( static::$toggle ) {
-			$this->register_hooks();
-		}
+	public function use_subscribe_links() {
+		return apply_filters( 'tec_use_subscribe_links', true );
 	}
 
 	public function register_hooks() {
-		add_filter( 'tribe_template_file', [ $this, 'replace_export_links' ], 10, 3 );
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'template_vars' ], 10, 2 );
 		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 11 );
 		add_filter( 'tribe_ical_properties', [ $this, 'ical_properties' ] );
-	}
-
-	/**
-	 * This method will replace the "The Events Calendar Extension: Events Control" ical-link template
-	 * with a dropdown that includes subscribe links.
-	 *
-	 * @since TBD
-	 *
-	 * @param string               $file       The template file found for the template name.
-	 * @param array<string>|string $name       The name, or name fragments, of the requested template.
-	 * @param \Tribe__Template     $template   The template instance that is currently handling the template location
-	 *                                                                                                     request.
-	 *
-	 * @return string The path to the template to load.
-	 */
-	public function replace_export_links( $file, $name, \Tribe__Template $template ) {
-		if ( is_string( $name ) && static::$export_template !== $name ) {
-			return $file;
-		}
-
-		if ( is_array( $name ) && ! in_array( static::$export_template, $name ) ) {
-			return $file;
-		}
-
-		return str_replace( static::$export_template, static::$subscribe_template, $file );
 	}
 
 	/**
@@ -102,11 +66,13 @@ class Subscribe extends \tad_DI52_ServiceProvider {
 	 */
 	public function template_vars( $template_vars, \Tribe\Events\Views\V2\View $view ) {
 		$template_vars['subscribe_links'] = [
-			[
+			'google' => [
+				'display' => $this->use_subscribe_links(),
 				'label' => __( 'Google Calendar', 'the-events-calendar' ),
 				'uri'   => static::get_gcal_uri( $view ),
 			],
-			[
+			'ical' => [
+				'display' => $this->use_subscribe_links(),
 				'label' => __( 'iCalendar', 'the-events-calendar' ),
 				'uri'   => static::get_ical_uri( $view ),
 			],
@@ -119,14 +85,15 @@ class Subscribe extends \tad_DI52_ServiceProvider {
 		 *
 		 * @see Tribe\Events\Views\V2\Views\Traits\iCal_Data
 		 */
-		if ( isset( $template_vars['ical'] ) && $template_vars['ical']->display_link ) {
-			$template_vars['subscribe_links'][] = [
-				'label' => __( 'Download as .ICS', 'the-events-calendar' ),
-				'uri'   => $template_vars['ical']->link->url,
-			];
-		}
+		$has_ical = isset( $template_vars['ical'] ) && $template_vars['ical']->display_link;
+		$template_vars['subscribe_links'][ 'ics' ] = [
+			'display' => $has_ical,
+			'label' => __( 'Export Events', 'the-events-calendar' ),
+			'uri'   => $has_ical ? $template_vars['ical']->link->url : '',
+		];
 
-		return $template_vars;
+
+		return apply_filters( 'tec_views_v2_subscribe_links' , $template_vars );
 	}
 
 	/**
@@ -146,10 +113,13 @@ class Subscribe extends \tad_DI52_ServiceProvider {
 	 * @return string The altered link content.
 	 */
 	public function single_event_links( $calendar_links ) {
+		if ( ! $this->use_subscribe_links() ) {
+			return;
+		}
+
 		$single_ical_link = tribe_get_single_ical_link();
 
-		$view = new class extends \Tribe\Events\Views\V2\View {
-		};
+		$view = new class extends \Tribe\Events\Views\V2\View {};
 		$view->set_url( [] );
 		$view->set_context( tribe_context()->alter( [
 			'single_ical_link' => $single_ical_link,
