@@ -96,7 +96,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add an identifying class to the body - but only when inside the Customizer preview.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param array<string> $classes The list of body classes to be applied.
 	 *

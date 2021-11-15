@@ -284,7 +284,7 @@ class Tribe__Events__Updater {
 	/**
 	 * Update Event Status reason field from extension to a central field for both.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function migrate_event_status_reason_field() {
 		$args = [
