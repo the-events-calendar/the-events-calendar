@@ -27,14 +27,12 @@ if( ! $item::is_visible( $view ) ) {
 }
 ?>
 
-<li class="tec-subscribe-dropdown__selector-list-item">
+<li class="tec-subscribe-dropdown__selector-list-item"">
 	<a
 		href="<?php echo esc_url( $item->get_uri( $view ) ); ?>"
 		class="tec-subscribe-dropdown__selector-list-item-link"
 		tabindex="0"
 	>
-		<span class="tec-subscribe-dropdown__selector-list-item-text">
-			<?php echo esc_html( $item::get_label( $view ) ); ?>
-		</span>
+		<?php echo esc_html( $item::get_label( $view ) ); ?>
 	</a>
 </li>

@@ -26,7 +26,7 @@ class iCalendar_Export extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function filter_tec_views_v2_single_subscribe_links( $links, $view) {
-		// No-op, we don't add a download link - now.
+		// No-op, we don't add a download link to the Single Event view - now.
 		return $links;
 	}
 

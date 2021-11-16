@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
+use Tribe__Date_Utils as Dates;
+
 /**
  * Class Abstract_Link
  *
@@ -16,12 +18,38 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
  */
 abstract class Link_Abstract implements Link_Interface {
 
+	/**
+	 * The (translated) text/label for the link.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public static $label;
 
+	/**
+	 * Whether to display the link or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var boolean
+	 */
 	public static $display = true;
 
+	/**
+	 * the link provider slug.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public static $slug;
 
+	/**
+	 * Registers the objects and filters required by the provider to manage subscribe links.
+	 *
+	 * @since TBD
+	 */
 	public function register() {
 		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links'], 10, 2 );
 		add_filter( 'tec_views_v2_single_subscribe_links', [ $this, 'filter_tec_views_v2_single_subscribe_links' ], 10, 2 );
@@ -88,7 +116,12 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_uri( \Tribe\Events\Views\V2\View $view ) {
-		$feed_url = $this->get_canonical_ics_feed_url( $view );
+		// If we're on a Single Event view, let's bypass the canonical function call and logic.
+		$feed_url = $view->get_context()->get( 'single_ical_link', false );
+
+		if ( ! $feed_url  ) {
+			$feed_url = $this->get_canonical_ics_feed_url( $view );
+		}
 
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
 
@@ -121,15 +154,6 @@ abstract class Link_Abstract implements Link_Interface {
 	 * @return string The iCal Feed URI.
 	 */
 	protected function get_canonical_ics_feed_url( \Tribe\Events\Views\V2\View $view ) {
-		if ( $single_ical_link = $view->get_context()->get( 'single_ical_link' ) ) {
-			/**
-			 * This is not really canonical. As single event views are not actually
-			 * Views\V2\View instances we pass them out as is. A lot of extra fundamental
-			 * things need to happen before we can actually canonicalize single iCal links.
-			 */
-			return $single_ical_link;
-		}
-
 		$view_url_args = $view->get_url_args();
 
 		// Clean query params to only contain canonical arguments.
@@ -141,8 +165,11 @@ abstract class Link_Abstract implements Link_Interface {
 			}
 		}
 
-		$view_url_args['tribe-bar-date'] = date( 'Y-m-d' ); // Subscribe from today.
-		$view_url_args['ical'] = 1; // iCalendarize!
+		// Subscribe from today.
+		$view_url_args['tribe-bar-date'] = Dates::build_date_object()->format( Dates::DBDATEFORMAT );
+
+		// iCalendarize!
+		$view_url_args['ical'] = 1;
 
 		return add_query_arg( urlencode_deep( $view_url_args ), home_url( '/' ) );
 	}

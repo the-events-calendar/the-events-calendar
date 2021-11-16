@@ -48,25 +48,25 @@
 	.tec-subscribe-dropdown {
 		display: flex;
 		justify-content: flex-end;
-		margin-bottom: var(--tec-spacer-7);
-		margin-top: var(--tec-spacer-7);
-		position: relative;
+		margin: var(--tec-spacer-7) 0;
 
 		.tec-subscribe-dropdown__button-icon {
-			color: var(--tec-color-background);
+			color: currentColor;
 			display: inline-block;
 			height: 6px;
 			margin-left: var(--tec-spacer-1);
+			stroke: currentColor;
 			vertical-align: middle;
 			width: 10px;
 		}
 
-		.tec-subscribe-dropdown__selector-content {
+		.tec-subscribe-dropdown__selector-list {
 			background-color: var(--tec-color-background-view-selector);
 			border: 1px solid var(--tec-color-border-secondary);
 			border-radius: var(--tec-border-radius-default);
 			box-shadow: var(--tec-box-shadow-default);
 			display: none;
+			list-style: none;
 			margin-top: var(--tec-spacer-0);
 			padding: var(--tec-spacer-1);
 			position: absolute;
@@ -75,76 +75,47 @@
 			width: 100%;
 			z-index: var(--tec-z-index-dropdown);
 
-			.tec-subscribe-dropdown__selector-list {
-				list-style: none;
-				margin: 0;
-				padding: 0;
+			.tec-subscribe-dropdown__selector-list-item {
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-text-primary);
+				font-family: var(--tec-font-family-sans-serif);
+				font-weight: var(--tec-font-weight-regular);
+				outline: 0;
+				padding: var(--tec-spacer-0) var(--tec-spacer-7) var(--tec-spacer-0) var(--tec-spacer-3);
+				text-align: left;
 
-				.tec-subscribe-dropdown__selector-list-item-link {
-					align-items: center;
-					border-radius: var(--tec-border-radius-default);
-					color: var(--tec-color-text-primary);
-					display: flex;
-					outline: 0;
-					padding: var(--tec-spacer-0) var(--tec-spacer-7) var(--tec-spacer-0) var(--tec-spacer-3);
-					text-decoration: none;
-				}
-
-				.tec-subscribe-dropdown__selector-list-item-text {
-					color: var(--tec-color-text-primary);
-					font-family: var(--tec-font-family-sans-serif);
-					font-size: var(--tec-font-size-2);
-					font-weight: var(--tec-font-weight-regular);
-					line-height: var(--tec-line-height-3);
-				}
-			}
-
-			/* Enhance visibility of the link text when it's focused. */
-			.tec-subscribe-dropdown__selector-list-item:active,
-			.tec-subscribe-dropdown__selector-list-item:hover,
-			.tec-subscribe-dropdown__selector-list-item:focus,
-			.tec-subscribe-dropdown__selector-list-item:focus-within {
-				background-color: var(--tec-color-background-secondary-datepicker);
-			}
-
-			.tec-subscribe-dropdown__selector-list-item-link:active,
-			.tec-subscribe-dropdown__selector-list-item-link:hover,
-			.tec-subscribe-dropdown__selector-list-item-link:focus,
-			.tec-subscribe-dropdown__selector-list-item-link:focus-within {
-				.tec-subscribe-dropdown__selector-list-item-text {
+				&:active,
+				&:hover,
+				&:focus,
+				&:focus-within {
+					background-color: var(--tec-color-background-secondary-datepicker);
 					font-weight: 700;
+
+					a {
+						color: var(--tec-color-background);
+					}
 				}
 			}
 		}
 
-		/* Icon rotate on hover/focus */
-		.tec-subscribe-dropdown__selector-button:hover,
-		.tec-subscribe-dropdown__selector-button:focus,
-		.tec-subscribe-dropdown__selector-button:focus-within {
-			.tec-subscribe-dropdown__button-icon {
-				transform: rotate(180deg);
-			}
-		}
+		.tec-subscribe-dropdown__selector-button {
+			position: relative;
 
-		/* Show the submenu when we are focused anywhere inside the selector. */
-		&:active,
-		&:hover,
-		&:focus,
-		&:focus-within {
-			.tec-subscribe-dropdown__selector-content {
-				display: block;
-			}
-
-			/* This continues the hover color change of the button while we're in the submenu... */
-			.tec-subscribe-dropdown__selector-button {
+			&:hover,
+			&:focus,
+			&:focus-within {
 				background-color: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
-				position: relative;
-			}
 
-			/* ...and the icon rotate */
-			.tec-subscribe-dropdown__button-icon {
-				transform: rotate(180deg);
+				/* Show the submenu when we are focused anywhere inside the "button". */
+				.tec-subscribe-dropdown__selector-list {
+					display: block;
+				}
+
+				/* ...and the icon rotate */
+				.tec-subscribe-dropdown__button-icon {
+					transform: rotate(180deg);
+				}
 			}
 		}
 	}
@@ -176,6 +147,13 @@
 				background-color: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
 			}
+		}
+
+		.tec-subscribe-dropdown__selector-list-item a:active,
+		.tec-subscribe-dropdown__selector-list-item a:hover,
+		.tec-subscribe-dropdown__selector-list-item a:focus,
+		.tec-subscribe-dropdown__selector-list-item a:focus-within {
+			background-color: transparent !important;
 		}
 	}
 }

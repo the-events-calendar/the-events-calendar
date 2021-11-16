@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles Google_Calendar export/subscribe links.
+ * Handles Google Calendar export/subscribe links.
  *
  * @since   TBD
  *
