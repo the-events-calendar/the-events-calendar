@@ -14,9 +14,9 @@
  * @var object $ical Object containing iCal data
  */
 
-use Tribe\Events\Views\V2\iCalendar\Subscribe;
+use Tribe\Events\Views\V2\iCalendar\Service_Provider;
 
-$subscribe = tribe( Subscribe::class );
+$subscribe = tribe( Service_Provider::class );
 $count     = array_filter( wp_list_pluck( $subscribe_links, 'display' ) );
 
 if ( ! $subscribe->use_subscribe_links() || 1 === count( $count ) ) : ?>
