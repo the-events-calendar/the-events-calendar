@@ -14,26 +14,62 @@ use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export;
 
 /**
- * Class Service_Provider
+ * Class iCalendar_Handler
  *
  * @since   TBD
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
-	public function register() {
-		$this->container->singleton( static::class, $this );
-		$this->container->singleton( Google_Calendar::class, Google_Calendar::class );
-		$this->container->singleton( iCal::class, iCal::class );
-		$this->container->singleton( iCalendar_Export::class, iCalendar_Export::class );
+class iCalendar_Handler extends \tad_DI52_ServiceProvider {
+	/**
+	 * Which classes we will load for links by default.
+	 *
+	 * @since TBD
+	 *
+	 * @var string[]
+	 */
+	protected $default_feeds = [
+		Google_Calendar::class,
+		iCal::class,
+		iCalendar_Export::class,
+	];
 
+	/**
+	 * Register singletons and main hook.
+	 *
+	 * @since TBD
+	 */
+	public function register() {
+		foreach ( $this->default_feeds as $feed_class ) {
+			// Spawn the new instance.
+			$feed = new $feed_class;
+
+			// Register as a singleton for internal ease of use.
+			$this->container->singleton( $feed_class, $feed );
+		}
+
+		$this->container->singleton( static::class, $this );
+
+		// This cannot run earlier than this hook.
 		add_action( 'after_setup_theme', [ $this, 'register_hooks' ]);
 	}
 
+	/**
+	 * Allow toggling off the new subscribe link list via a hook.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean Wether to use the new subscribe link list.
+	 */
 	public function use_subscribe_links() {
 		return apply_filters( 'tec_views_v2_use_subscribe_links', true );
 	}
 
+	/**
+	 * Register all our hooks here.
+	 *
+	 * @since TBD
+	 */
 	public function register_hooks() {
 		tribe( Google_Calendar::class )->register();
 		tribe( iCal::class )->register();
@@ -60,7 +96,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function template_vars( $template_vars, \Tribe\Events\Views\V2\View $view ) {
 		// Set up the section of the $template vars for the links.
+		$subscribe_links = [];
 		$template_vars['subscribe_links'] = [];
+
 		return apply_filters( 'tec_views_v2_subscribe_links', $template_vars, $view );
 	}
 

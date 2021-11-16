@@ -47,14 +47,10 @@
 	 * ----------------------------------------------------------------------------- */
 	.tec-subscribe-dropdown {
 		display: flex;
+		justify-content: flex-end;
 		margin-bottom: var(--tec-spacer-7);
 		margin-top: var(--tec-spacer-7);
 		position: relative;
-
-		.tec-subscribe-dropdown__selector {
-			margin-left: auto;
-			position: relative;
-		}
 
 		.tec-subscribe-dropdown__button-icon {
 			color: var(--tec-color-background);
@@ -131,9 +127,10 @@
 		}
 
 		/* Show the submenu when we are focused anywhere inside the selector. */
-		.tec-subscribe-dropdown__selector:hover,
-		.tec-subscribe-dropdown__selector:focus,
-		.tec-subscribe-dropdown__selector:focus-within {
+		&:active,
+		&:hover,
+		&:focus,
+		&:focus-within {
 			.tec-subscribe-dropdown__selector-content {
 				display: block;
 			}
@@ -142,6 +139,7 @@
 			.tec-subscribe-dropdown__selector-button {
 				background-color: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
+				position: relative;
 			}
 
 			/* ...and the icon rotate */

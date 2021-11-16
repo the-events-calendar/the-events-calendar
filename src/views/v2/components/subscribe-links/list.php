@@ -1,6 +1,6 @@
 <?php
 /**
- * Component: Subscribe To Calendar Dropdown
+ * Component: Subscribe To Calendar List
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/v2/components/subscribe-links/dropdown.php
@@ -9,15 +9,14 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 1.0.0
+ * @version TBD
  *
- * @var array $subscribe_links Array containing subscribe/export labels and links
+ * @var array<Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract> $items Array containing subscribe/export objects.
  *
  */
 
 ?>
 <div class="tec-subscribe-dropdown">
-	<div class="tec-subscribe-dropdown__selector">
 		<div class="tribe-common-c-btn-border tec-subscribe-dropdown__selector-button" tabindex="0">
 			<span class="tec-subscribe-dropdown__selector-button-text">
 				<?php echo esc_html__( 'Subscribe to calendar', 'the-events-calendar' ); ?>
@@ -30,6 +29,5 @@
 					<?php endforeach; ?>
 				</ul>
 			</div>
-		</button>
-	</div>
+		</div>
 </div>

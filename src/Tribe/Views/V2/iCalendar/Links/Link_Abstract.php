@@ -14,43 +14,86 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
  * @package Tribe\Events\Views\V2\iCalendar
  * @since TBD
  */
-abstract class Abstract_Link {
+abstract class Link_Abstract implements Link_Interface {
+
+	public static $label;
+
+	public static $display = true;
+
+	public static $slug;
+
 	public function register() {
-		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'add_subscribe_link'], 10, 2 );
-		add_filter( 'tec_views_v2_single_subscribe_links', [ $this, 'add_single_subscribe_link' ], 10, 2 );
+		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links'], 10, 2 );
+		add_filter( 'tec_views_v2_single_subscribe_links', [ $this, 'filter_tec_views_v2_single_subscribe_links' ], 10, 2 );
 	}
 
 	/**
-	 * Adds a subscribe link and associated data to the list of links.
-	 * In the format:
-	 *		['subscribe_links']['provider_slug'] = [
-	 *			'display' => true,
-	 *			'label'   => string,
-	 *			'uri'     => string,
-	 *		]
-	 *
-	 * Setting 'display' to false will "opt out" of displaying that link in the drop-down.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $template_vars The template variables.
-	 * @param \Tribe\Events\Views\V2\View $view The View implementation.
-	 *
-	 * @return array $template_vars The modified vars.
+	 * {@inheritDoc}
 	 */
-	public function add_subscribe_link( $template_vars, $view ) {}
+	public function filter_tec_views_v2_subscribe_links( $template_vars, $view ) {
+		$template_vars['subscribe_links'][static::get_slug()] = $this;
+
+		return $template_vars;
+	}
 
 	/**
-	 * Adds a link to those displayed on the single event view.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string>               $links The current list of links.
-	 * @param \Tribe\Events\Views\V2\View $view  The View implementation.
-	 *
-	 * @return array<string> $links The modified list of links.
+	 * {@inheritDoc}
 	 */
-	public function add_single_subscribe_link( $links, $view ) {}
+	public function filter_tec_views_v2_single_subscribe_links( $links, $view ) {
+		$class = sanitize_html_class( 'tribe-events-' . static::get_slug() );
+		$links[] = '<a class="tribe-events-button ' . $class
+				. '" href="' . esc_url( $this->get_uri( $view ) )
+				. '" title="' . esc_attr( static::get_single_label( $view ) )
+				. '">+ ' . esc_html( static::get_single_label( $view ) ) . '</a>';
+
+		return $links;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function is_visible( $view ) {
+		return static::$display;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_label( $view ) {
+		return static::$label;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_single_label( $view ) {
+		return static::get_label( $view );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_slug() {
+		return static::$slug;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function set_visibility( bool $visible ) {
+		static::$display = $visible;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_uri( \Tribe\Events\Views\V2\View $view ) {
+		$feed_url = $this->get_canonical_ics_feed_url( $view );
+
+		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
+
+		return $feed_url;
+	}
 
 	/**
 	 * Retrieve the iCal Feed URL with current context parameters.
@@ -77,7 +120,7 @@ abstract class Abstract_Link {
 	 *
 	 * @return string The iCal Feed URI.
 	 */
-	public static function get_canonical_ics_feed_url( \Tribe\Events\Views\V2\View $view ) {
+	protected function get_canonical_ics_feed_url( \Tribe\Events\Views\V2\View $view ) {
 		if ( $single_ical_link = $view->get_context()->get( 'single_ical_link' ) ) {
 			/**
 			 * This is not really canonical. As single event views are not actually

@@ -11,23 +11,30 @@
  *
  * @version TBD
  *
- * @var array $item Array containing subscribe/export label and url.
+ * @var Link_Abstract $item Object containing subscribe/export label and url.
  *
  */
+use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
 
-if( empty( $item['display'] ) ) {
+if ( ! $item instanceof Link_Abstract ) {
+	return;
+}
+
+$view = $this->get_view();
+
+if( ! $item::is_visible( $view ) ) {
 	return;
 }
 ?>
 
 <li class="tec-subscribe-dropdown__selector-list-item">
 	<a
-		href="<?php echo esc_url( $item['uri'] ); ?>"
+		href="<?php echo esc_url( $item->get_uri( $view ) ); ?>"
 		class="tec-subscribe-dropdown__selector-list-item-link"
 		tabindex="0"
 	>
 		<span class="tec-subscribe-dropdown__selector-list-item-text">
-			<?php echo esc_html( $item['label'] ); ?>
+			<?php echo esc_html( $item::get_label( $view ) ); ?>
 		</span>
 	</a>
 </li>

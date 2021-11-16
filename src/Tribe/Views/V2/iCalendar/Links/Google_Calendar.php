@@ -9,8 +9,6 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
-use Tribe\Events\Views\V2\iCalendar\Service_Provider;
-
 /**
  * Class Google_Calendar
  *
@@ -18,48 +16,34 @@ use Tribe\Events\Views\V2\iCalendar\Service_Provider;
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
-class Google_Calendar extends Abstract_Link {
+class Google_Calendar extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function add_subscribe_link( $template_vars, $view ) {
-		$template_vars['subscribe_links']['google'] = [
-			'display' => tribe( Service_Provider::class)->use_subscribe_links(),
-			'label' => __( 'Google Calendar', 'the-events-calendar' ),
-			'uri'   => static::get_gcal_uri( $view ),
-		];
+	public static $slug = 'gcal';
 
-		return $template_vars;
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_label( $view ) {
+		return __( 'Google Calendar', 'the-events-calendar' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function add_single_subscribe_link( $links, $view ) {
-		$label = __( 'Subscribe via Google Calendar', 'the-events-calendar' );
-		$links[] = '<a class="tribe-events-gcal tribe-events-button" href="' . esc_url( static::get_gcal_uri( $view ) ) . '" title="' . esc_attr( $label ) . '">+ ' . esc_html( $label ) . '</a>';
-
-		return $links;
+	public static function get_single_label( $view ) {
+		return __( 'Subscribe via Google Calendar', 'the-events-calendar' );
 	}
 
 	/**
-	 * Retrieve the Google Calendar URI.
-	 *
-	 * Clicking this link will open up Google Calendar.
-	 *
-	 * @since TBD
-	 *
-	 * @param \Tribe\Events\Views\V2\View $view The View we're being called from.
-	 *
-	 * @return string The Google Calendar URI.
+	 * {@inheritDoc}
 	 */
-	public static function get_gcal_uri( \Tribe\Events\Views\V2\View $view ) {
-		$canonical_ics_feed_url = static::get_canonical_ics_feed_url( $view );
-
-		$canonical_ics_feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $canonical_ics_feed_url );
+	public function get_uri( $view ) {
+		$feed_url = parent::get_uri( $view );
 
 		return add_query_arg(
-			[ 'cid' => urlencode( $canonical_ics_feed_url ) ],
+			[ 'cid' => urlencode( $feed_url ) ],
 			'https://www.google.com/calendar/render?cid='
 		);
 	}
