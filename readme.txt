@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 * Tweak - Update the google calendar export button to open in a new tab on the event single page for both the classic and block editors. [TEC-4084]
 * Tweak - Add supplied organizer url to JSON-LD for the event->organizer. Props @cmenon12 for the notification and code! [TEC-4095]
+* Tweak - Add a link to the Customizer in the admin menu and in Events->Settings->Display for folks running a FSE theme. [TEC-4126]
 * Language - 10 new strings added, 55 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.10.1] 2021-11-04 =
