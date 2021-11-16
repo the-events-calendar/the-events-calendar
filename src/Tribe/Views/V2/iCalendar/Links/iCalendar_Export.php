@@ -35,7 +35,7 @@ class iCalendar_Export extends Abstract_Link {
 			'label' => __( 'Export Events', 'the-events-calendar' ),
 			'uri'   => $has_ical ? $template_vars['ical']->link->url : '',
 		];
-bdump($template_vars);
+
 		return $template_vars;
 	}
 

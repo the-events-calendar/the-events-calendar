@@ -10,8 +10,9 @@
  * @link http://evnt.is/1aiy
  *
  * @version 5.3.0
+ * @since TBD Alter template to handle multiple links.
  *
- * @var object $ical Object containing iCal data
+ * @var array $subscribe_links List of links to display with associated data.
  */
 
 use Tribe\Events\Views\V2\iCalendar\Service_Provider;
