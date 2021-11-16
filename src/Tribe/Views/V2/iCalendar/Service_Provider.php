@@ -119,6 +119,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * X-PUBLISHED-TTL (Recommended update interval for subscription to the calendar via extension, used by Microsoft):
 	 * https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcical/1fc7b244-ecd1-4d28-ac0c-2bb4df855a1f
 	 *
+	 * X-Robots-Tag (keep robots from indexing the downloads pages):
+	 * https://developers.google.com/search/docs/advanced/crawling/block-indexing
+	 *
 	 * Note: PT1H means Once per hour.
 	 *
 	 * @see `tribe_ical_properties` filter.
@@ -131,6 +134,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function ical_properties( $content ) {
 		$content .= "REFRESH-INTERVAL;VALUE=DURATION:PT1H\r\n";
+		$content .= "X-Robots-Tag:noindex\r\n";
 		return $content . "X-PUBLISHED-TTL:PT1H\r\n";
 	}
 }
