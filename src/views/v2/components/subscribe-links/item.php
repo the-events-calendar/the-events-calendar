@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 1.0.0
+ * @version TBD
  *
- * @var array $subscribe_links Array containing subscribe/export labels and links
+ * @var array $item Array containing subscribe/export label and url.
  *
  */
 
