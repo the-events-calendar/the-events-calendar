@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add new subscribe options to the "Export Events" link at the bottom of calendar views and single Event view [TEC-4131]
+
 = [5.10.1] 2021-11-04 =
 
 * Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
