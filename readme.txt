@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.11.0] 2021-11-17 =
 
+* Feature - Add an `Events List` block that is based on the `Events List` widget to the block editor which users can drag around to any position they want it to appear. [ECP-989]
 * Feature - Add event status options of scheduled, canceled, and postponed with the ability to add and display a reason for the latter two. [TEC-3465]
 * Feature - Add live preview to the TEC customizer screens. [TEC-4055]
 * Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
