@@ -40,6 +40,10 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
+		if ( ! $this->use_subscribe_links() ) {
+			return;
+		}
+
 		foreach ( $this->default_feeds as $feed_class ) {
 			// Spawn the new instance.
 			$feed = new $feed_class;
@@ -89,7 +93,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $template_vars The vars.
+	 * @param array<string,mixed>         $template_vars The View template variables.
 	 * @param \Tribe\Events\Views\V2\View $view The View implementation.
 	 *
 	 * @return array The filtered template variables.
@@ -97,9 +101,20 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	public function template_vars( $template_vars, \Tribe\Events\Views\V2\View $view ) {
 		// Set up the section of the $template vars for the links.
 		$subscribe_links = [];
-		$template_vars['subscribe_links'] = [];
 
-		return apply_filters( 'tec_views_v2_subscribe_links', $template_vars, $view );
+		/**
+		 * Allows each link type to dynamically add itself to the list.
+		 *
+		 * @since TBD
+		 *
+		 * @param array <string|object>       $subscribe_links The array of links.
+		 * @param \Tribe\Events\Views\V2\View $view The View implementation.
+		 * @param array<string,mixed>         $template_vars The View template variables (for use in internal logic).
+		 */
+		$subscribe_links = apply_filters( 'tec_views_v2_subscribe_links', $subscribe_links, $view, $template_vars );
+		$template_vars['subscribe_links'] = $subscribe_links;
+
+		return $template_vars;
 	}
 
 	/**

@@ -58,10 +58,10 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_tec_views_v2_subscribe_links( $template_vars, $view ) {
-		$template_vars['subscribe_links'][static::get_slug()] = $this;
+	public function filter_tec_views_v2_subscribe_links( $subscribe_links, $view ) {
+		$subscribe_links[static::get_slug()] = $this;
 
-		return $template_vars;
+		return $subscribe_links;
 	}
 
 	/**
