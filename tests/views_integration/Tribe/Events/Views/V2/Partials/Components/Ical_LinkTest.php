@@ -6,6 +6,7 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export;
+use Tribe\Events\Views\V2\iCalendar\iCalendar_Handler as Handler;
 
 class Ical_LinkTest extends HtmlPartialTestCase
 {
@@ -31,6 +32,10 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		add_filter( 'tec_views_v2_use_subscribe_links', '__return_false' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'ical' => (object) [ 'display_link' => false ] ] ) );
 		remove_filter( 'tec_views_v2_use_subscribe_links', '__return_false' );
+	}
+
+	public function test_render_empty() {
+		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 
 	public function test_render_with_all() {
@@ -95,9 +100,5 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		$subsc['ical']->set_visibility( false );
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'subscribe_links' => $subsc ] ) );
-	}
-
-	public function test_render_empty() {
-		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 }

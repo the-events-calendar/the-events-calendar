@@ -43,10 +43,6 @@ $view  = $this->get_view();
 $count = array_filter(
 	$subscribe_links,
 	static function( Link_Abstract $link_obj ) use ( $view ) {
-		bdump([
-			$link_obj::$slug,
-			(int) $link_obj->is_visible( $view )
-		]);
 		return $link_obj->is_visible( $view );
 	}
 );
