@@ -14,6 +14,10 @@
  *
  * @var array $subscribe_links List of links to display with associated data.
  */
+if ( empty( $subscribe_links ) ) {
+	return;
+}
+
 
 use Tribe\Events\Views\V2\iCalendar\iCalendar_Handler;
 use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
