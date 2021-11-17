@@ -44,11 +44,11 @@ interface Link_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe\Events\Views\V2\View $view The current View object.
+	 * @param \Tribe\Events\Views\V2\View|null $view The current View object.
 	 *
 	 * @return boolean
 	 */
-	public static function is_visible( \Tribe\Events\Views\V2\View $view );
+	public function is_visible( $view );
 
 	/**
 	 * Setter function for the display property.
@@ -57,7 +57,7 @@ interface Link_Interface {
 	 *
 	 * @param boolean $visible
 	 */
-	public static function set_visibility( bool $visible );
+	public function set_visibility( bool $visible );
 
 	/**
 	 * Getter function for the label property.

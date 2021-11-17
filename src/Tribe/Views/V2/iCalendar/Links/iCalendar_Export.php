@@ -40,7 +40,7 @@ class iCalendar_Export extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function is_visible(  $view  ) {
+	public function is_visible( $view ) {
 		$template_vars = $view->get_template_vars();
 
 		if ( ! isset( $template_vars['ical'] ) ) {
@@ -51,7 +51,7 @@ class iCalendar_Export extends Link_Abstract {
 			return false;
 		}
 
-		return true;
+		return $this->display;
 	}
 
 	/**

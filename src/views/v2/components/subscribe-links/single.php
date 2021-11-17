@@ -24,7 +24,7 @@ if ( ! $item instanceof Link_Abstract ) {
 
 $view = $this->get_view();
 
-if( ! $item::is_visible( $view ) ) {
+if( ! $item->is_visible( $view ) ) {
 	return;
 }
 ?>

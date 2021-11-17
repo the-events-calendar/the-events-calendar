@@ -34,7 +34,7 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * @var boolean
 	 */
-	public static $display = true;
+	public $display = true;
 
 	/**
 	 * the link provider slug.
@@ -80,8 +80,8 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function is_visible( $view ) {
-		return static::$display;
+	public function is_visible( $view ) {
+		return $this->display;
 	}
 
 	/**
@@ -108,8 +108,8 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function set_visibility( bool $visible ) {
-		static::$display = $visible;
+	public function set_visibility( bool $visible ) {
+		$this->display = $visible;
 	}
 
 	/**
