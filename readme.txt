@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
 Stable tag: 5.11.0
-Tested up to: 5.8.1
+Tested up to: 5.8.2
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 * Tweak - Update the google calendar export button to open in a new tab on the event single page for both the classic and block editors. [TEC-4084]
 * Tweak - Add supplied organizer url to JSON-LD for the event->organizer. Props @cmenon12 for the notification and code! [TEC-4095]
+* Tweak - Add a link to the Customizer in the admin menu and in Events->Settings->Display for folks running a FSE theme. [TEC-4126]
 * Language - 10 new strings added, 55 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.10.1] 2021-11-04 =
