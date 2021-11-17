@@ -123,7 +123,8 @@
     "url-loader": "^0.6.2",
     "validator": "^9.4.1",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3"
+    "zero-fill": "^2.2.3",
+    "intro.js": "^3.4.0"
   },
   "browserslist": [
     "last 2 Chrome versions",
