@@ -56,7 +56,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_wordpress = '4.7';
+		protected $min_wordpress = '5.6';
 
 		/**
 		 * Min Version of PHP

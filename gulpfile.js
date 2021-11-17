@@ -3,5 +3,6 @@
  * Whee.
  */
 var gulp = require( 'gulp' );
+var pkg = require( './package.json' );
 
-require( '@the-events-calendar/product-taskmaster' )( gulp );
+require( '@the-events-calendar/product-taskmaster' )( gulp, pkg );

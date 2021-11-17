@@ -47,7 +47,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'customizer-views-v2-controls.js'
 		);
 
-		/* @todo: this will be part of the next Customizer release.
 		tribe_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-live-preview-js',
@@ -61,7 +60,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 				],
 			]
 		);
-		*/
 
 		$this->add_actions();
 		$this->add_filters();
@@ -91,6 +89,25 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// Register assets for Customizer styles.
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
+
+		add_filter( 'body_class', [ $this, 'body_class' ] );
+	}
+
+	/**
+	 * Add an identifying class to the body - but only when inside the Customizer preview.
+	 *
+	 * @since 5.11.0
+	 *
+	 * @param array<string> $classes The list of body classes to be applied.
+	 *
+	 * @return array<string> $classes The modified list of body classes to be applied.
+	 */
+	public function body_class( $classes ) {
+		if ( is_customize_preview() ) {
+			$classes[] = 'tec-customizer';
+		}
+
+		return $classes;
 	}
 
 	/**
@@ -102,6 +119,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function enqueue_customizer_control_scripts() {
 		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls-js' );
+		tribe_asset_enqueue( 'tribe-customizer-views-v2-live-preview-js' );
+
 	}
 
 	/**

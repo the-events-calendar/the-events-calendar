@@ -3,10 +3,10 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 4.9.18
+Requires at least: 5.6
 Stable tag: 6.0.0-RBE-Beta2
-Tested up to: 5.8.1
-Requires PHP: 5.6
+Tested up to: 5.8.2
+Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -205,7 +205,7 @@ If you want to let users sell tickets for the events they submit, check out [Com
 
 = I have a feature idea. What's the best way to tell you about it? =
 
-We've got a [UserVoice page](https://tribe.uservoice.com/forums/195723-feature-ideas) where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
+We've got an [ideas page](https://app.loopedin.io/the-events-calendar-suite-roadmap#/ideas) where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape [our roadmap](https://app.loopedin.io/the-events-calendar-suite-roadmap#/roadmap).
 
 = I've still got questions. Where can I find answers? =
 
@@ -225,8 +225,22 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+= [5.11.0] 2021-11-17 =
+
+* Feature - Add event status options of scheduled, canceled, and postponed with the ability to add and display a reason for the latter two. [TEC-3465]
+* Feature - Add live preview to the TEC customizer screens. [TEC-4055]
+* Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
+* Fix - Resolved `Warning: reset(): Argument #1 ($array) must be passed by reference...` error that was displayed on the Events, Organizers and Venue REST endpoints in PHP v8. [TEC-4097]
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
 * Tweak - Update the google calendar export button to open in a new tab on the event single page for both the classic and block editors. [TEC-4084]
+* Tweak - Add supplied organizer url to JSON-LD for the event->organizer. Props @cmenon12 for the notification and code! [TEC-4095]
+* Tweak - Add a link to the Customizer in the admin menu and in Events->Settings->Display for folks running a FSE theme. [TEC-4126]
+* Language - 10 new strings added, 55 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.10.1] 2021-11-04 =
+
+* Feature - Added Black Friday promo to the General Settings panel. [TCMN-127]
+* Tweak - Update Black Friday banner. [TCMN-126]
 
 = [5.10.0] 2021-10-19 =
 
