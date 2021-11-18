@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 == TBD ==
-* Tweak - Ensure the `Hide location search` setting doesn't get applied on the Event Manager page. [ECP-948]
+* Tweak - Ensure the `Disable the Event Search Bar` setting doesn't get applied on the Event Manager page. [ECP-948]
 
 = [5.11.0] 2021-11-17 =
 
