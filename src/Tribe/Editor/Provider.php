@@ -65,6 +65,8 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 			return false;
 		}
 
+		$this->container->register( \Tribe\Events\Editor\Hooks::class );
+
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
 
