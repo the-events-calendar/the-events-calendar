@@ -81,8 +81,14 @@
 				font-family: var(--tec-font-family-sans-serif);
 				font-weight: var(--tec-font-weight-regular);
 				outline: 0;
-				padding: var(--tec-spacer-0) var(--tec-spacer-7) var(--tec-spacer-0) var(--tec-spacer-3);
+				padding: var(--tec-spacer-0);
 				text-align: left;
+
+				a {
+					display: inline-block;
+					padding: 0 var(--tec-spacer-3);
+					width: 100%;
+				}
 
 				&:active,
 				&:hover,
@@ -117,6 +123,10 @@
 					transform: rotate(180deg);
 				}
 			}
+		}
+
+		.tec-subscribe-dropdown__selector-button-text {
+			cursor: pointer;
 		}
 	}
 
