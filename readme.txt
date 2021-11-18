@@ -221,6 +221,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+== TBD ==
+* Tweak - Ensure the `Hide location search` setting doesn't get applied on the Event Manager page. [ECP-948]
+
 = [5.11.0] 2021-11-17 =
 
 * Feature - Add an `Events List` block that is based on the `Events List` widget to the block editor which users can drag around to any position they want it to appear. [ECP-989]
