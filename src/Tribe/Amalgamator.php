@@ -1,5 +1,5 @@
 <?php
-
+_deprecated_file( __FILE__, 'TBD', 'No replacement.' );
 /**
  * Merge pre-3.0 duplicate venues and organizers
  */

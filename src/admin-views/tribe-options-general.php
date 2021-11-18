@@ -154,10 +154,6 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'default'         => false,
 			'validation_type' => 'boolean',
 		],
-		'amalgamateDuplicates'          => [
-			'type'        => 'html',
-			'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'Duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="tribe-field-indent description">' . esc_html__( 'You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
-		],
 		tribe( 'tec.event-cleaner' )->key_trash_events  => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Move to trash events older than', 'the-events-calendar' ),
