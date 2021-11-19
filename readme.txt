@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == TBD ==
 
-* Fix - Ensure the date selected when creating a new event from the Event Manager is applied on the block editor. [ECP-954]
+* Fix - Ensure the date selected when creating a new event from the Event Manager is applied to the block editor. [ECP-954]
 
 = [5.11.0] 2021-11-17 =
 
