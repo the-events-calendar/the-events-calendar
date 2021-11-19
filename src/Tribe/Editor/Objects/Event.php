@@ -59,6 +59,10 @@ class Event implements Editor_Object_Interface {
 				'is_new_post' => true,
 			];
 
+			/**
+			 * Grabs the tribe-start-date query param from the url if it exists 
+			 * then adds to to the global window object.
+			 */
 			if ( isset( $_GET['tribe-start-date'] ) ) {
 				$this->data = [
 					'is_new_post'      => true,
