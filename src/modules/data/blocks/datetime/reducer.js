@@ -27,9 +27,10 @@ export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTim
 
 const defaultStartDateTime = momentUtil.toDateTime( defaultStartMoment );
 const defaultEndDateTime = momentUtil.toDateTime( defaultEndMoment );
+const queryStartDate = globals.postObjects().tribe_events.tribe_start_date;
 
 export const DEFAULT_STATE = {
-	start: defaultStartDateTime,
+	start: queryStartDate ? queryStartDate : defaultStartDateTime,
 	end: defaultEndDateTime,
 	startTimeInput: momentUtil.toTime( defaultStartMoment ),
 	endTimeInput: momentUtil.toTime( defaultEndMoment ),

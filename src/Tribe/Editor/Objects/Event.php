@@ -59,6 +59,13 @@ class Event implements Editor_Object_Interface {
 				'is_new_post' => true,
 			];
 
+			if ( isset( $_GET['tribe-start-date'] ) ) {
+				$this->data = [
+					'is_new_post'      => true,
+					'tribe_start_date' => $_GET['tribe-start-date'],
+				];
+			}
+
 			if ( $this->post instanceof \WP_Post && TEC::POSTTYPE === $this->post->post_type ) {
 				$meta = Arr::flatten( (array) \get_post_meta( $this->post->ID ) );
 				$post_id = $this->post->ID;
