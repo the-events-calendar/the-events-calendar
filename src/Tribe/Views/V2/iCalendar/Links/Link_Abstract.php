@@ -156,17 +156,23 @@ abstract class Link_Abstract implements Link_Interface {
 	protected function get_canonical_ics_feed_url( \Tribe\Events\Views\V2\View $view ) {
 		$view_url_args = $view->get_url_args();
 
+		// Some date magic.
+		if ( isset( $view_url_args['eventDate'] ) ) {
+			// Subscribe from the calendar date (pagination, shortcode calendars, etc).
+			$view_url_args['tribe-bar-date'] = $view_url_args['eventDate'];
+		} else {
+			// Subscribe from today (default calendar view).
+			$view_url_args['tribe-bar-date'] = Dates::build_date_object()->format( Dates::DBDATEFORMAT );
+		}
+
 		// Clean query params to only contain canonical arguments.
-		$canonical_args = [ 'post_type', 'tribe_events_cat' ];
+		$canonical_args = [ 'post_type', 'tribe_events_cat', 'tribe-bar-date' ];
 
 		foreach ( $view_url_args as $arg => $value ) {
 			if ( ! in_array( $arg, $canonical_args, true ) ) {
 				unset( $view_url_args[ $arg ] );
 			}
 		}
-
-		// Subscribe from today.
-		$view_url_args['tribe-bar-date'] = Dates::build_date_object()->format( Dates::DBDATEFORMAT );
 
 		// iCalendarize!
 		$view_url_args['ical'] = 1;
