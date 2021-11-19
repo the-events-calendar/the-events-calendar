@@ -119,7 +119,7 @@ abstract class Link_Abstract implements Link_Interface {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
 		$feed_url = $view->get_context()->get( 'single_ical_link', false );
 
-		if ( ! $feed_url  ) {
+		if ( empty( $feed_url )  ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
@@ -143,11 +143,11 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * We strip some of the things that we don't need for subscriptions
 	 * like end dates, view types, etc., ignores pagination and always returns
-	 * fresh future events. Subscriptions to past events is pointless.
+	 * fresh future events.
 	 *
 	 * The URL generated is also inert to the Permalink and Rewrite Rule settings
-	 * in WordPress, so will work out of the box on any website, even if
-	 * the settings are changes or break.
+	 * in WordPress, so it will work out of the box on any website, even if
+	 * the settings are changed or break.
 	 *
 	 * @param \Tribe\Events\Views\V2\View $view The View we're being called from.
 	 *
@@ -169,7 +169,8 @@ abstract class Link_Abstract implements Link_Interface {
 		$canonical_args = [ 'post_type', 'tribe_events_cat', 'tribe-bar-date' ];
 
 		/**
-		 * Allows other plugins to alter what gets passed to the subscribe link.
+		 * Allows other plugins (I'm looking at you, Filter Bar!)
+		 * to alter what gets passed to the subscribe link.
 		 *
 		 * @since TBD
 		 *
