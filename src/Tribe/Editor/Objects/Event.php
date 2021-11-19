@@ -63,10 +63,10 @@ class Event implements Editor_Object_Interface {
 			 * Grabs the tribe-start-date query param from the url 
 			 * if it exists then adds it to the global window object.
 			 */
-			if ( isset( $_GET['tribe-start-date'] ) ) {
+			if ( tribe_get_request_var( 'tribe-start-date' ) ) {
 				$this->data = [
 					'is_new_post'      => true,
-					'tribe_start_date' => $_GET['tribe-start-date'],
+					'tribe_start_date' => tribe_get_request_var( 'tribe-start-date' ),
 				];
 			}
 
