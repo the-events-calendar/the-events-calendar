@@ -33,6 +33,7 @@ if( ! $item->is_visible( $view ) ) {
 		class="tec-subscribe-dropdown__selector-list-item-link"
 		tabindex="0"
 		target="_blank"
+		rel="noopener noreferrer"
 	>
 		<?php echo esc_html( $item::get_label( $view ) ); ?>
 	</a>

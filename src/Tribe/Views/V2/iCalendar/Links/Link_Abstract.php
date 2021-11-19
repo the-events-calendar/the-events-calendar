@@ -168,6 +168,18 @@ abstract class Link_Abstract implements Link_Interface {
 		// Clean query params to only contain canonical arguments.
 		$canonical_args = [ 'post_type', 'tribe_events_cat', 'tribe-bar-date' ];
 
+		/**
+		 * Allows other plugins to alter what gets passed to the subscribe link.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $canonical_args A list of "passthrough" argument keys.
+		 * @param \Tribe\Events\Views\V2\View $view The View we're being called from.
+		 *
+		 * @return array<string> $canonical_args The modified list of "passthrough" argument keys.
+		 */
+		$canonical_args = apply_filters( 'tec_views_v2_subscribe_links_canonical_args', $canonical_args, $view );
+
 		foreach ( $view_url_args as $arg => $value ) {
 			if ( ! in_array( $arg, $canonical_args, true ) ) {
 				unset( $view_url_args[ $arg ] );
