@@ -5,14 +5,16 @@ use Tribe\Events\Views\V2\Manager;
  * Registers a view.
  *
  * @since 5.7.0
+ * @since 5.10.0 Added route slug parameter that is decoupled from the slug view param.
  *
- * @param string $slug View slug.
+ * @param string $slug Slug for locating the view file.
  * @param string $name View name.
  * @param string $class View class.
  * @param int $priority View registration priority.
+ * @param string $route_slug The slug applied to the route for this view.
  */
-function tribe_register_view( $slug, $name, $class, $priority = 50 ) {
-	return tribe( Manager::class )->register_view( $slug, $name, $class, $priority );
+function tribe_register_view( $slug, $name, $class, $priority = 50, $route_slug = null) {
+	return tribe( Manager::class )->register_view( $slug, $name, $class, $priority, $route_slug );
 }
 
 /**

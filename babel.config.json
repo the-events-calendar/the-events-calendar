@@ -1,0 +1,3 @@
+{
+	"extends": "./node_modules/@the-events-calendar/product-taskmaster/config/babelrc.json"
+}

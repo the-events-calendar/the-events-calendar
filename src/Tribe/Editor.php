@@ -62,7 +62,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-	 * For now we dont use Blocks editor on the Post Type for Organizers
+	 * For now we don't use Blocks editor on the Post Type for Organizers
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
@@ -82,7 +82,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
-	 * For now we dont use Blocks editor on the Post Type for Venues
+	 * For now we don't use Blocks editor on the Post Type for Venues
 	 *
 	 * @todo  see https://core.trac.wordpress.org/ticket/45275
 	 *
@@ -113,10 +113,17 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return false
 	 */
 	public function deactivate_blocks_editor_event( $is_enabled, $post_type ) {
+		// Not an event post type.
 		if ( Tribe__Events__Main::POSTTYPE !== $post_type ) {
 			return $is_enabled;
 		}
 
+		// Classic editor plugin is overriding.
+		if ( tribe( 'events.editor' )->is_classic_option_active() ) {
+			return false;
+		}
+
+		// Blocks aren't toggled on.
 		if ( tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on() ) {
 			return $is_enabled;
 		}
@@ -383,6 +390,19 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
+	 * Check whether the current page is an edit post type page.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_edit_screen() {
+		$current_screen = get_current_screen();
+
+		return 'post' === $current_screen->base;
+	}
+
+	/**
 	 * @todo   Move this into the Block PHP files
 	 *
 	 * @since 4.7
@@ -507,6 +527,67 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'localize'     => [],
 				'conditionals' => [ $this, 'is_events_post_type' ],
 				'priority'     => 106,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tec-widget-blocks',
+			'app/widgets.js',
+			[
+				'react',
+				'react-dom',
+				'wp-components',
+				'wp-api',
+				'wp-api-request',
+				'wp-blocks',
+				'wp-widgets',
+				'wp-i18n',
+				'wp-element',
+				'wp-editor',
+				'tribe-common-gutenberg-data',
+				'tribe-common-gutenberg-utils',
+				'tribe-common-gutenberg-store',
+				'tribe-common-gutenberg-icons',
+				'tribe-common-gutenberg-hoc',
+				'tribe-common-gutenberg-elements',
+				'tribe-common-gutenberg-components',
+			],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'localize'     => [],
+				'priority'     => 106,
+				'conditionals' => [ $this, 'is_edit_screen' ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'legacy-widget',
+			'legacy-widget.js',
+			[
+				'admin-widgets',
+				'wp-widgets',
+			],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => true,
+				'conditionals' => [ $this, 'is_edit_screen' ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tec-widget-blocks-styles',
+			'app/widgets.css',
+			[
+				'wp-widgets',
+			],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'conditionals' => [ $this, 'is_edit_screen' ],
 			]
 		);
 

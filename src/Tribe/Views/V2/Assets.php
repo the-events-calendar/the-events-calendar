@@ -603,7 +603,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Checks if we are on V2, on Event Single and if we are using the Block Editor in order to enqueue the block editor reskin styles for Single Event.
 	 *
-	 * @since TBD
+	 * @since 5.10.0
 	 *
 	 * @return boolean
 	 */

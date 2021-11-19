@@ -148,38 +148,47 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			'font_family'             => [
 				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'font_size'               => [
 				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'font_size_base'          => [
 				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'event_title_color'       => [
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'event_date_time_color'   => [
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'link_color'              => [
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'background_color_choice' => [
 				'sanitize_callback'    => 'sanitize_key',
 				'sanitize_js_callback' => 'sanitize_key',
+				'transport'            => 'postMessage',
 			],
 			'background_color'        => [
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 			'accent_color'            => [
 				'sanitize_callback'    => 'sanitize_hex_color',
 				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
 			],
 		];
 	}

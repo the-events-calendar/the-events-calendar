@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.9.1\n"
+"Project-Id-Version: The Events Calendar 5.11.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2021-09-14 04:33:37+00:00\n"
+"POT-Creation-Date: 2021-11-15 16:58:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-09-14 04:33\n"
+"PO-Revision-Date: 2021-11-15 16:58\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -1972,7 +1972,7 @@ msgid "Sunshine"
 msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:410
-#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:130
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:133
 #: src/Tribe/Views/V2/Customizer.php:190
 msgid "Custom"
 msgstr ""
@@ -1994,8 +1994,8 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:168
 #: src/Tribe/Customizer/Single_Event.php:124
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:210
-#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:97
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:219
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:100
 msgid "Set Font Colors"
 msgstr ""
 
@@ -2004,15 +2004,15 @@ msgid "Links"
 msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:191
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:317
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:326
 msgid "For displayed URLs"
 msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:205
 #: src/Tribe/Customizer/Global_Elements.php:218
 #: src/Tribe/Customizer/Single_Event.php:163
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:219
-#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:109
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:228
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:112
 msgid "Adjust Appearance"
 msgstr ""
 
@@ -2051,7 +2051,7 @@ msgid "Single Event"
 msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:148
-#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:127
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:130
 msgid "Event Title Color"
 msgstr ""
 
@@ -2060,7 +2060,7 @@ msgid "Post Title Color"
 msgstr ""
 
 #: src/Tribe/Customizer/Single_Event.php:185
-#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:145
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:148
 msgid "Event Details Background Color"
 msgstr ""
 
@@ -2120,12 +2120,32 @@ msgstr ""
 msgid "This %s has passed."
 msgstr ""
 
-#: src/Tribe/Editor.php:289 src/Tribe/Editor.php:332
+#: src/Tribe/Editor.php:296 src/Tribe/Editor.php:339
 msgid "Add Description..."
 msgstr ""
 
-#: src/Tribe/Editor.php:577 src/Tribe/Editor.php:615
+#: src/Tribe/Editor.php:584 src/Tribe/Editor.php:622
 msgid "Event Blocks"
+msgstr ""
+
+#: src/Tribe/Event_Status/Classic_Editor.php:75
+msgctxt "Meta box title for the Event Status"
+msgid "Events Status"
+msgstr ""
+
+#: src/Tribe/Event_Status/Status_Labels.php:73
+msgctxt "Scheduled label."
+msgid "Scheduled"
+msgstr ""
+
+#: src/Tribe/Event_Status/Status_Labels.php:92
+msgctxt "Canceled label."
+msgid "Canceled"
+msgstr ""
+
+#: src/Tribe/Event_Status/Status_Labels.php:111
+msgctxt "Postponed label"
+msgid "Postponed"
 msgstr ""
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:38
@@ -2715,9 +2735,9 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.11.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.9.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.11.0)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Main.php:988 src/Tribe/Main.php:1491 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
@@ -3454,7 +3474,7 @@ msgid "The event short description"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:81
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:244
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:259
 msgid "The event slug"
 msgstr ""
 
@@ -3517,7 +3537,7 @@ msgid "The event cost details"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:147
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:299
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:314
 msgid "The event website URL"
 msgstr ""
 
@@ -3601,7 +3621,7 @@ msgid "The URL to the organizer page"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:65
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:248
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:259
 msgid "The organizer name"
 msgstr ""
 
@@ -3618,12 +3638,12 @@ msgid "The organizer slug"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:86
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:270
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:281
 msgid "The organizer phone number"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:90
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:277
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:288
 msgid "The organizer website"
 msgstr ""
 
@@ -3668,7 +3688,7 @@ msgid "The URL to the venue page"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:65
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:248
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:263
 msgid "The venue name"
 msgstr ""
 
@@ -3693,42 +3713,42 @@ msgid "Whether the map link should be shown for the venue or not"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:94
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:281
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:296
 msgid "The venue address"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:98
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:288
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:303
 msgid "The venue city"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:102
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:295
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:310
 msgid "The venue country"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:106
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:302
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:317
 msgid "The venue province"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:110
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:309
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:324
 msgid "The venue state"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:114
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:316
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:331
 msgid "The venue ZIP code"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:118
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:323
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:338
 msgid "The venue phone number"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:122
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:337
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:352
 msgid "The venue website URL"
 msgstr ""
 
@@ -3842,81 +3862,81 @@ msgstr ""
 msgid "Returns all the event categories matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:36
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:407
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:64
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:53
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:61
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:40
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:411
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:68
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:57
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:65
 msgid "One or more of the specified query variables has a bad format"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:39
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:410
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:67
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:64
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:43
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:414
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:71
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:68
 msgid "The requested page was not found."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:93
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:429
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:204
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:110
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:203
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:97
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:433
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:208
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:114
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:207
 msgid "The archive page to return"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:101
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:105
 msgid "The number of event categories to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:107
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:124
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:111
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:128
 msgid "Limit results to those matching a string"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:113
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:130
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:117
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:134
 msgid "Ensure result set exclude specific IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:120
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:137
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:124
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:141
 msgid "Limit result set to specific IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:127
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:144
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:131
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:148
 msgid "Order sort attribute ascending or descending"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:133
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:150
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:137
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:154
 msgid "Sort collection by term attribute"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:138
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:155
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:142
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:159
 msgid "Whether to hide terms not assigned to any posts"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:145
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:149
 msgid "Limit result set to terms assigned to a specific parent"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:151
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:162
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:155
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:166
 msgid "Limit result set to terms assigned to a specific post"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:157
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:168
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:161
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:172
 msgid ""
 "Limit result set to terms assigned to a specific event (an alias of the "
 "\"post\" parameter)"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:164
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:175
+#: src/Tribe/REST/V1/Endpoints/Archive_Category.php:168
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:179
 msgid "Limit result set to terms with a specific slug"
 msgstr ""
 
@@ -3924,72 +3944,72 @@ msgstr ""
 msgid "Returns all the upcoming events matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:437
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:441
 msgid "The number of events to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:444
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:448
 msgid "Events should start after the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:451
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:455
 msgid "Events should start before the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:457
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:461
 msgid "Events should contain the specified string in the title or description"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:463
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:467
 msgid "Events should be assigned one of the specified categories slugs or IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:471
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:475
 msgid "Events should be assigned one of the specified tags slugs or IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:479
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:483
 msgid "Events should be assigned one of the specified venue IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:487
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:491
 msgid "Events should be assigned one of the specified organizer IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:495
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:499
 msgid "Events should be filtered by their featured status"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:502
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:256
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:506
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:271
 msgid "The event post status"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:507
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:511
 msgid ""
 "Requires Events Calendar Pro. Events should be filtered by whether their "
 "venue has geolocation data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:513
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:517
 msgid ""
 "Requires Events Calendar Pro. Events should be filtered by their venue "
 "latitude location, must also provide geoloc_lng"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:519
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:523
 msgid ""
 "Requires Events Calendar Pro. Events should be filtered by their venue "
 "longitude location, must also provide geoloc_lat"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:523
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:527
 msgid ""
 "Include events with one of the post IDs specified in the array of CSV list, "
 "date filters will be ignored."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:533
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:537
 msgid "Events should be filtered by their post_parent being the specified one."
 msgstr ""
 
@@ -3997,31 +4017,31 @@ msgstr ""
 msgid "Returns all the organizers matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:212
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:216
 msgid "The number of organizers to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:218
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:222
 msgid ""
 "Organizers should contain the specified string in the title, description or "
 "custom fields"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:224
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:228
 msgid "Organizers should be related to this event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:229
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:233
 msgid "Organizers should have events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:234
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:238
 msgid "Organizers should have upcoming events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:243
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:242
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:262
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:247
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:246
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:273
 msgid "The organizer post status"
 msgstr ""
 
@@ -4029,11 +4049,11 @@ msgstr ""
 msgid "Returns all the event tags matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:56
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:60
 msgid "No event tags match the query or the requested page was not found."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:118
+#: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:122
 msgid "The number of event tags to return on each page"
 msgstr ""
 
@@ -4041,29 +4061,30 @@ msgstr ""
 msgid "Returns all the venues matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:211
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:215
 msgid "The number of venues to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:217
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:221
 msgid ""
 "Venues should contain the specified string in the title, description or "
 "custom fields"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:223
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:227
 msgid "Venues should be related to this event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:228
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:232
 msgid "Venues should have events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:233
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:237
 msgid "Venues should have upcoming events associated to them"
 msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Base.php:38
+#: src/Tribe/REST/V1/Endpoints/Base.php:87
 msgid "No description provided"
 msgstr ""
 
@@ -4080,197 +4101,197 @@ msgstr ""
 msgid "The event category slug"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:72
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:71
 msgid "Returns the data of the event category with the specified term ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:78
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:81
 msgid "The event category term ID is missing."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:81
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:84
 msgid "An event category with the specified term ID does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:90
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:93
 msgid "Returns the data of the updated event category"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:96
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:103
 msgid "Returns the data of the created event category"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:102
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:151
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:158
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:96
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:150
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:113
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:162
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:165
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:107
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:161
 msgid ""
 "A required parameter is missing or an input parameter is in the wrong format"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:105
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:116
 msgid "The user is not authorized to create event categories"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:113
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:124
 msgid "Deletes an event category and returns its data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:119
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:134
 msgid "The event category term ID is missing or does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:122
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:137
 msgid ""
 "The current user cannot delete the event category with the specified term ID."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:125
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:140
 msgid "The event category with the specified term ID has been deleted already."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:128
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:143
 msgid "The event category with the specified term ID could not be deleted."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Category.php:148
+#: src/Tribe/REST/V1/Endpoints/Single_Category.php:163
 msgid "the event category term ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:118
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:117
 msgid "Returns the data of the event with the specified post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:124
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:127
 msgid "The event post ID is missing."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:127
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:130
 msgid "The event with the specified ID is not accessible."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:130
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:133
 msgid "An event with the specified ID does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:139
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:142
 msgid "Returns the data of the updated event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:145
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:152
 msgid "Returns the data of the created event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:154
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:165
 msgid "The user is not authorized to create events"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:162
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:173
 msgid "Deletes an event and returns its data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:168
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:183
 msgid "The event post ID is missing or does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:171
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:186
 msgid "The current user cannot delete the event with the specified ID."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:174
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:189
 msgid "The event with the specified ID has been deleted already."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:177
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:192
 msgid "The event with the specified ID could not be deleted."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:194
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:209
 msgid "the event post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:214
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:229
 msgid "The event author ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:220
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:235
 msgid "The event publication date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:226
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:241
 msgid "The event publication date (UTC time zone)"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:232
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:247
 msgid "The event title"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:238
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:253
 msgid "The event description"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:250
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:265
 msgid "The event excerpt"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:263
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:278
 msgid "The event time zone"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:269
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:284
 msgid "Whether the event lasts the whole day or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:275
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:290
 msgid "The event start date and time"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:281
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:296
 msgid "The event end date and time"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:287
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:302
 msgid "The event featured image ID or URL"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:292
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:307
 msgid "The event cost"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:305
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:320
 msgid "Whether the event should show a map or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:310
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:325
 msgid "Whether the event should show a map link or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:315
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:330
 msgid "Whether events should be hidden in the calendar view or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:320
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:335
 msgid "Whether the event should be sticky in the calendar view or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:325
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:340
 msgid "Whether the event should be featured on the site or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:332
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:348
 msgid "The event category ID or name"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:338
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:355
 msgid "The event tag ID or name"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:347
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:364
 msgid "The event venue ID or data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:355
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:372
 msgid "The event organizer IDs or data"
 msgstr ""
 
@@ -4278,76 +4299,76 @@ msgstr ""
 msgid "the event post name"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:131
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:130
 msgid "Returns the data of the organizer with the specified post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:137
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:140
 msgid "The organizer post ID is missing."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:140
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "The organizer with the specified ID is not accessible."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:146
 msgid "An organizer with the specified event does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:152
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:155
 msgid "Returns the data of the created organizer"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:161
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:168
 msgid "The user is not authorized to create organizers"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:169
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:176
 msgid "Deletes an organizer and returns its data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:175
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:186
 msgid "The organizer post ID is missing or does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:178
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:189
 msgid "The current user cannot delete the organizer with the specified ID."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:181
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:192
 msgid "The organizer with the specified ID has been deleted already."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:184
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:195
 msgid "The organizer with the specified ID could not be deleted."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:204
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:215
 msgid "the organizer post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:227
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:238
 msgid "The organizer author ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:234
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:245
 msgid "The organizer publication date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:241
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:252
 msgid "The organizer publication date (UTC time zone)"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:255
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:266
 msgid "The organizer description"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:284
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:295
 msgid "The organizer e-mail address"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:291
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:344
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:302
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:359
 msgid "The organizer featured image ID or URL"
 msgstr ""
 
@@ -4367,136 +4388,136 @@ msgstr ""
 msgid "The event tag slug"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:66
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:65
 msgid "Returns the data of the event tag with the specified term ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:72
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:75
 msgid "The event tag term ID is missing."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:75
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:78
 msgid "An event tag with the specified term ID does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:84
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:87
 msgid "Returns the data of the updated event tag"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:90
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:97
 msgid "Returns the data of the created event tag"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:99
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:110
 msgid "The user is not authorized to create event tags"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:107
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:118
 msgid "Deletes an event tag and returns its data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:113
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:128
 msgid "The event tag term ID is missing or does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:116
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:131
 msgid ""
 "The current user cannot delete the event tag with the specified term ID."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:119
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:134
 msgid "The event tag with the specified term ID has been deleted already."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:122
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:137
 msgid "The event tag with the specified term ID could not be deleted."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:142
+#: src/Tribe/REST/V1/Endpoints/Single_Tag.php:157
 msgid "the event tag term ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:108
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:107
 msgid "Returns the data of the venue with the specified post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:117
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:120
 msgid "The venue post ID is missing."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:120
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:123
 msgid "The venue with the specified ID is not accessible."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:126
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:129
 msgid "A venue with the specified post ID does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:138
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:141
 msgid "Returns the data of the updated venue"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:144
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:151
 msgid "Returns the data of the created venue"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:156
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:167
 msgid "The user is not authorized to create venues"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:164
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:175
 msgid "Deletes a venue and returns its data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:170
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:185
 msgid "The venue post ID is missing or does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:173
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:188
 msgid "The current user cannot delete the venue with the specified ID."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:179
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:194
 msgid "The venue with the specified ID has been deleted already."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:185
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:200
 msgid "The venue with the specified ID could not be deleted."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:208
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:223
 msgid "the venue post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:230
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:245
 msgid "The venue author ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:236
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:251
 msgid "The venue publication date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:242
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:257
 msgid "The venue publication date (UTC time zone)"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:255
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:270
 msgid "The venue description"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:261
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:276
 msgid "The venue post status"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:268
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:283
 msgid "Whether events linked to the venue should show a map or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:274
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:289
 msgid "Whether events linked to the venue should show a map link or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:330
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:345
 msgid "The venue state and province"
 msgstr ""
 
@@ -4504,17 +4525,17 @@ msgstr ""
 msgid "the venue post name"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:91
+#: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:92
 msgid "The Events Calendar REST API"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:92
+#: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:93
 msgid ""
 "The Events Calendar REST API allows accessing upcoming events information "
 "easily and conveniently."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:126
+#: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:127
 msgid ""
 "Returns the documentation for The Events Calendar REST API in Swagger "
 "consumable format."
@@ -4800,163 +4821,163 @@ msgid ""
 "calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:135
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:145
 #: src/Tribe/Views/V2/Customizer/Section/Month_View.php:79
 msgctxt "The header for the font color control section."
 msgid "Set Font Colors"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:148
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:158
 msgctxt "The header for the color control section."
 msgid "Adjust Appearance"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:166
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:176
 msgctxt "The events bar text color setting label."
 msgid "Text Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:176
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:186
 msgctxt "The \"Find Events\" button text color setting label."
 msgid "Find Events Button Text"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:185
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:195
 msgctxt "The Events Bar icon color setting label."
 msgid "Icons"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:191
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:260
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:297
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:201
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:270
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:307
 msgctxt "Label for the default option."
 msgid "Default"
 msgstr ""
 
 #. translators: 1: Customizer url.
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:198
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:252
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:208
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:261
 msgctxt ""
 "Label for option to use the accent color. Links to the accent color setting."
 msgid "Use the <a href=\"%1$s\">Accent Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:208
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:240
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:277
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:302
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:183
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:262
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:218
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:250
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:287
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:312
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:192
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:271
 msgctxt "Label for option to set a custom color."
 msgid "Custom"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:222
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:232
 msgctxt "The \"Find Events\" button color setting label."
 msgid "Find Events Button Color"
 msgstr ""
 
 #. translators: 1: Customizer url.
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:230
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:240
 msgctxt ""
 "Label for option to use the accent color (default). Links to the accent "
 "color setting."
 msgid "Use the <a href=\"%1$s\">Accent Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:254
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:264
 msgctxt "The Events Bar background color setting label."
 msgid "Background Color"
 msgstr ""
 
 #. translators: 1: Customizer url.
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:267
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:277
 msgctxt ""
 "Label for option to use the events background color. Links to the background "
 "color setting."
 msgid "Use the Calendar <a href=\"%1$s\">Background Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:291
+#: src/Tribe/Views/V2/Customizer/Section/Events_Bar.php:301
 msgctxt "The Events Bar border color setting label."
 msgid "Border Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:195
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:204
 msgid "Select Font Family"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:200
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:209
 msgid "Set Font Size"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:201
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:210
 msgctxt "The description for the base font size setting."
 msgid ""
 "Choose a base font size. Event text will scale around the selected base size."
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:239
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:248
 msgctxt "Label for option to use default TEC fonts."
 msgid "Default"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:244
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:253
 msgctxt "Label for option to use theme fonts."
 msgid "Inherit theme font(s)"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:254
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:263
 msgctxt "The base font size input setting label."
 msgid "By Pixel"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:270
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:279
 msgctxt "The font size selector setting label."
 msgid "By Scale"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:289
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:298
 msgctxt "The event title color setting label."
 msgid "Event Title"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:298
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:307
 msgctxt "The event title color setting label."
 msgid "Event Date and Time"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:303
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:312
 msgctxt "The description for the event date and time color setting."
 msgid "Main date and time display on views and single event pages"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:312
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:321
 msgctxt "The link color setting label."
 msgid "Link Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:325
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:334
 #: src/Tribe/Views/V2/Customizer.php:102
 msgid "Background Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:326
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:335
 #: src/Tribe/Views/V2/Customizer.php:104
 msgid "All calendar and event pages"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:328
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:337
 msgctxt "Label for option to leave transparent (default)."
 msgid "Transparent."
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:333
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:342
 msgctxt "Label for option to set a custom color."
 msgid "Select Custom Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:347
+#: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:356
 msgctxt "The event accent color setting label."
 msgid "Accent Color"
 msgstr ""
@@ -4966,85 +4987,85 @@ msgctxt "The header for the calendar grid color control section."
 msgid "Adjust Grid Colors"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:154
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:163
 msgctxt "The days of the week text color setting label."
 msgid "Days of the Week"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:163
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:172
 msgctxt "The date marker text color setting label."
 msgid "Date Marker"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:172
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:181
 msgctxt "The grid background color setting label."
 msgid "Grid Background"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:178
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:187
 msgctxt "Label for option to leave transparent (default)."
 msgid "Transparent"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:197
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:206
 msgctxt "Label for tooltip background color setting."
 msgid "Event Preview Background"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:202
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:211
 msgctxt "The grid background color setting description."
 msgid "Preview display when hovering on an event title"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:208
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:217
 msgctxt "Label for option to leave white (default)."
 msgid "White"
 msgstr ""
 
 #. translators: 1: Customizer url.
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:215
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:224
 msgctxt ""
 "Label for option to use the event background color. Links to the event "
 "background color setting."
 msgid "Use the <a href=\"%1$s\">General Background Color</a>"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:230
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:239
 msgctxt "The grid lines color setting label."
 msgid "Grid Lines Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:239
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:248
 msgctxt "The multiday event bar color setting label."
 msgid "Event Span"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:244
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:253
 msgctxt "The multiday event bar color setting description."
 msgid "For all-day and multi-day events"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:276
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:285
 msgctxt "Day hover color setting label."
 msgid "Day Hover"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:281
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:290
 msgctxt "The grid hover color setting description."
 msgid "Bottom border highlight when hovering on a day"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:402
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:411
 msgctxt "Text used for links to the General settings section."
 msgid "General"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:421
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:430
 msgctxt "Text used for links to the Event Background Color setting."
 msgid "General Background Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:441
+#: src/Tribe/Views/V2/Customizer/Section/Month_View.php:450
 msgctxt "Text used for links to the Accent Color setting."
 msgid "Accent Color"
 msgstr ""
@@ -5055,7 +5076,7 @@ msgid ""
 "Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:129
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:132
 #: src/Tribe/Views/V2/Customizer.php:189
 msgid "Use General"
 msgstr ""
@@ -5305,11 +5326,11 @@ msgstr ""
 msgid "%1$s %2$s iCal Feed"
 msgstr ""
 
-#: src/Tribe/iCal.php:132 src/views/blocks/event-links.php:35
+#: src/Tribe/iCal.php:132 src/views/blocks/event-links.php:37
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: src/Tribe/iCal.php:133 src/views/blocks/event-links.php:46
+#: src/Tribe/iCal.php:133 src/views/blocks/event-links.php:48
 msgid "Download .ics file"
 msgstr ""
 
@@ -5850,20 +5871,20 @@ msgstr ""
 msgid "Upload an ICS File"
 msgstr ""
 
-#: src/admin-views/aggregator/origins/limit.php:19
+#: src/admin-views/aggregator/origins/limit.php:14
+msgid ""
+"Event Aggregator will try to fetch %s events starting from the current date "
+"or the specified date;"
+msgstr ""
+
+#: src/admin-views/aggregator/origins/limit.php:27
 #: src/admin-views/aggregator/origins/url.php:95
 msgid ""
 "Event Aggregator will try to fetch events starting within the next %s from "
 "the current date or the specified date;"
 msgstr ""
 
-#: src/admin-views/aggregator/origins/limit.php:20
-msgid ""
-"Event Aggregator will try to fetch %s events starting from the current date "
-"or the specified date;"
-msgstr ""
-
-#: src/admin-views/aggregator/origins/limit.php:22
+#: src/admin-views/aggregator/origins/limit.php:37
 #: src/admin-views/aggregator/origins/url.php:97
 msgid "you can modify this setting here."
 msgstr ""
@@ -6734,6 +6755,36 @@ msgstr ""
 #: src/admin-views/linked-post-meta-box.php:49
 #: src/admin-views/organizer-meta-box.php:75
 msgid "%s Name Already Exists"
+msgstr ""
+
+#: src/admin-views/metabox/compatibility/events-control-extension/mark-online.php:37
+msgctxt "Event State of being Online only checkbox label"
+msgid "Mark as an online event"
+msgstr ""
+
+#: src/admin-views/metabox/compatibility/events-control-extension/mark-online.php:50
+msgctxt "Label for live stream URL field"
+msgid "Live Stream URL"
+msgstr ""
+
+#: src/admin-views/metabox/event-status.php:36
+msgctxt "Event status label the select field"
+msgid "Set status:"
+msgstr ""
+
+#: src/admin-views/metabox/event-status.php:40
+msgctxt "The label of the event status select."
+msgid "Set status:"
+msgstr ""
+
+#: src/admin-views/metabox/event-status.php:47
+msgctxt "The placeholder for the event status select."
+msgid "Select an Event Status"
+msgstr ""
+
+#: src/admin-views/metabox/event-status.php:65
+msgctxt "Label for event status reason field"
+msgid "Reason (optional)"
 msgstr ""
 
 #: src/admin-views/privacy.php:13
