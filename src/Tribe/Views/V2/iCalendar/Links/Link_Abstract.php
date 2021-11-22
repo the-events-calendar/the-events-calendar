@@ -10,6 +10,8 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe__Date_Utils as Dates;
 
+use Tribe\Events\Pro\Views\V2\Shortcodes\Tribe_Events;
+
 /**
  * Class Abstract_Link
  *
@@ -165,6 +167,8 @@ abstract class Link_Abstract implements Link_Interface {
 			$view_url_args['tribe-bar-date'] = Dates::build_date_object()->format( Dates::DBDATEFORMAT );
 		}
 
+
+
 		// Clean query params to only contain canonical arguments.
 		$canonical_args = [ 'post_type', 'tribe_events_cat', 'tribe-bar-date' ];
 
@@ -174,22 +178,38 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string> $canonical_args A list of "passthrough" argument keys.
-		 * @param \Tribe\Events\Views\V2\View $view The View we're being called from.
+		 * @param array<string>               $canonical_args A list of "passthrough" argument keys.
+		 * @param \Tribe\Events\Views\V2\View $view           The View we're being called from.
 		 *
 		 * @return array<string> $canonical_args The modified list of "passthrough" argument keys.
 		 */
 		$canonical_args = apply_filters( 'tec_views_v2_subscribe_links_canonical_args', $canonical_args, $view );
 
+		// This array will become the args we pass to `add_query_arg()`
+		$passthrough_args = [];
+
 		foreach ( $view_url_args as $arg => $value ) {
-			if ( ! in_array( $arg, $canonical_args, true ) ) {
-				unset( $view_url_args[ $arg ] );
+			if ( in_array( $arg, $canonical_args, true ) ) {
+				$passthrough_args[ $arg ] = $view_url_args[ $arg ];
 			}
 		}
 
 		// iCalendarize!
-		$view_url_args['ical'] = 1;
+		$passthrough_args['ical'] = 1;
 
-		return add_query_arg( urlencode_deep( $view_url_args ), home_url( '/' ) );
+		/**
+		 * Allows other plugins to alter the query args that get passed to the subscribe link.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string|mixed>         $passthrough_args The arguments used to build the ical links.
+		 * @param array<string>               $canonical_args   A list of allowed argument keys.
+		 * @param \Tribe\Events\Views\V2\View $view             The View we're being called from.
+		 *
+		 * @return array<string|mixed>        $passthrough_args The modified list of arguments used to build the ical links.
+		 */
+		$passthrough_args = apply_filters( 'tec_views_v2_subscribe_links_url_args', $passthrough_args, $view );
+
+		return add_query_arg( urlencode_deep( $passthrough_args ), home_url( '/' ) );
 	}
 }
