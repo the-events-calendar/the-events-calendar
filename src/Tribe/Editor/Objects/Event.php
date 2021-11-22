@@ -66,7 +66,7 @@ class Event implements Editor_Object_Interface {
 			if ( tribe_get_request_var( 'tribe-start-date' ) && strtotime( tribe_get_request_var( 'tribe-start-date' ) ) ) {
 				$this->data = [
 					'is_new_post'      => true,
-					'tribe_start_date' => tribe_get_request_var( 'tribe-start-date' ),
+					'tribe_start_date' => tribe_get_request_var( 'tribe-start-date' ) . ' 08:00:00',
 				];
 			}
 
