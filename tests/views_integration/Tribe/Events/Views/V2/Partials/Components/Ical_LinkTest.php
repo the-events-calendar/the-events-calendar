@@ -6,12 +6,23 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export;
-use Tribe\Events\Views\V2\iCalendar\iCalendar_Handler as Handler;
 
 class Ical_LinkTest extends HtmlPartialTestCase
 {
 
 	protected $partial_path = 'components/ical-link';
+
+	/**
+	 * Trims out the date-based parts for snapshots.
+	 *
+	 * @since 5.12.0
+	 *
+	 * @param string $html
+	 * @return string $html
+	 */
+	public function trim_snapshot( $html ) {
+		return preg_replace('/tribe-bar-date\S*(ical)/', 'ical', $html );
+	}
 
 	public function test_render_legacy_with_context() {
 		add_filter( 'tec_views_v2_use_subscribe_links', '__return_false' );
@@ -24,18 +35,31 @@ class Ical_LinkTest extends HtmlPartialTestCase
 			],
 		];
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'ical' => (object) $ical ] ) );
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html( [ 'ical' => (object) $ical ] )
+			)
+		);
+
 		remove_filter( 'tec_views_v2_use_subscribe_links', '__return_false' );
 	}
 
 	public function test_render_legacy_empty() {
 		add_filter( 'tec_views_v2_use_subscribe_links', '__return_false' );
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'ical' => (object) [ 'display_link' => false ] ] ) );
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html( [ 'ical' => (object) [ 'display_link' => false ] ] )
+				)
+		);
 		remove_filter( 'tec_views_v2_use_subscribe_links', '__return_false' );
 	}
 
 	public function test_render_empty() {
-		$this->assertMatchesSnapshot( $this->get_partial_html() );
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html()
+				)
+		);
 	}
 
 	public function test_render_with_all() {
@@ -43,13 +67,17 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		$ical = new iCal;
 		$ics  = new iCalendar_Export;
 
-		$subsc = [
+		$subs = [
 			'gcal' => $gcal,
 			'ical' => $ical,
 			'ics'  => $ics,
 		];
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'subscribe_links' => $subsc ] ) );
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html( [ 'subscribe_links' => $subs ] )
+				)
+		);
 	}
 
 	public function test_render_with_gcal_only() {
@@ -57,16 +85,20 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		$ical = new iCal;
 		$ics  = new iCalendar_Export;
 
-		$subsc = [
+		$subs = [
 			'gcal' => $gcal,
 			'ical' => $ical,
 			'ics'  => $ics,
 		];
 
-		$subsc['ical']->set_visibility( false );
-		$subsc['ics']->set_visibility( false );
+		$subs['ical']->set_visibility( false );
+		$subs['ics']->set_visibility( false );
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'subscribe_links' => $subsc ] ) );
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html( [ 'subscribe_links' => $subs ] )
+				)
+		);
 	}
 
 	public function test_render_with_ical_only() {
@@ -74,16 +106,20 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		$ical = new iCal;
 		$ics  = new iCalendar_Export;
 
-		$subsc = [
+		$subs = [
 			'gcal' => $gcal,
 			'ical' => $ical,
 			'ics'  => $ics,
 		];
 
-		$subsc['gcal']->set_visibility( false );
-		$subsc['ics']->set_visibility( false );
+		$subs['gcal']->set_visibility( false );
+		$subs['ics']->set_visibility( false );
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'subscribe_links' => $subsc ] ) );
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html( [ 'subscribe_links' => $subs ] )
+				)
+		);
 	}
 
 	public function test_render_with_icalendar_export_only() {
@@ -91,14 +127,18 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		$ical = new iCal;
 		$ics  = new iCalendar_Export;
 
-		$subsc = [
+		$subs = [
 			'gcal' => $gcal,
 			'ical' => $ical,
 			'ics'  => $ics,
 		];
-		$subsc['gcal']->set_visibility( false );
-		$subsc['ical']->set_visibility( false );
+		$subs['gcal']->set_visibility( false );
+		$subs['ical']->set_visibility( false );
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'subscribe_links' => $subsc ] ) );
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html( [ 'subscribe_links' => $subs ] )
+				)
+		);
 	}
 }
