@@ -221,9 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-== TBD ==
+= TBD =
 
 * Fix - Ensure the date selected when creating a new event from the Event Manager is applied to the block editor. [ECP-954]
+* Tweak - Ensure the `related events title` and `event titles` within the single event page for the block editor make use the customizer font settings. [TEC-4125]
 
 = [5.11.0] 2021-11-17 =
 
