@@ -2,7 +2,7 @@
 /**
  * Handles the JSON LD compatibility with the Events Control extension.
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status\Compatibility\Events_Control_Extension
  */
@@ -17,7 +17,7 @@ use WP_Post;
 /**
  * Class JSON_LD
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status\Compatibility\Events_Control_Extension
  */
@@ -28,7 +28,7 @@ class JSON_LD {
 	/**
 	 * Modifiers to the JSON LD event object for online attendance events if the extension is active.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param object  $data The JSON-LD object.
 	 * @param array   $args The arguments used to get data.
@@ -56,7 +56,7 @@ class JSON_LD {
 		/**
 		 * Filters if an Event is Considered Online.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param boolean $online If an event is considered online.
 		 * @param object  $data   The JSON-LD object.
@@ -85,7 +85,7 @@ class JSON_LD {
 	 * Get the Online URL for an Event Trying the Online URL, the Website URL, and using the Permalink if nothing found.
 	 * A URL is required when using VirtualLocation.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param WP_Post $post The post object to use to get the online url for an event.
 	 *

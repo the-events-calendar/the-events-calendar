@@ -2,7 +2,7 @@
 /**
  * Handles the compatibility with the Events Control extension.
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status\Compatibility\Events_Control_Extension
  */
@@ -19,7 +19,7 @@ use WP_Post;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status\Compatibility\Events_Control_Extension
  */
@@ -28,7 +28,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the bindings and filters used to ensure compatibility with the Events Control extension.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function register() {
 
@@ -43,7 +43,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Un-hooks the extension actions that deal with events with canceled or postponed status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function handle_actions() {
 		if ( ! class_exists( Events_Control_Main::class ) ) {
@@ -63,7 +63,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Handles the filters hooked by the extension by short-circuiting or removing them.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function handle_filters() {
 		if ( ! class_exists( Events_Control_Main::class ) ) {
@@ -121,7 +121,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filters the list of templates to remove from event status control extension by filter.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param array<string> $label_templates The array of template names for each view to add the status label.
 		 */
@@ -144,7 +144,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Modifiers to the JSON LD object we use.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param object  $data The JSON-LD object.
 	 * @param array   $args The arguments used to get data.
@@ -159,7 +159,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Short-circuits the templates the extension would load for event status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param bool|null    $done A flag to indicate whether the template request has been handled or not.
 	 * @param string|array $name The name, or name fragments, of the requested template.
@@ -181,7 +181,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * only when the events control extension is active and virtual event is not.
 	 * The extension continues to handle the saving and display of the field.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param string               $found_file The template file found for the template name.
 	 * @param array<string>|string $name       The name, or name fragments, of the requested template.

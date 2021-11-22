@@ -2,7 +2,7 @@
 /**
  * The Event Status Labels.
  *
- * @since   TBD
+ * @since   5.11.0
  * @package Tribe\Events\Event_Status
  */
 
@@ -11,7 +11,7 @@ namespace Tribe\Events\Event_Status;
 /**
  * Class Statuses
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -20,7 +20,7 @@ class Status_Labels {
 	/**
 	 * Add the event statuses to select for an event.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param array<string|mixed> $statuses       The event status options for an event.
 	 * @param string              $current_status The current event status for the event or empty string if none.
@@ -76,7 +76,7 @@ class Status_Labels {
 	/**
 	 * Get the scheduled status label.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @return string The label for the scheduled status.
 	 */
@@ -85,7 +85,7 @@ class Status_Labels {
 		/**
 		 * Filter the scheduled label for event status.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param string The default translated label for the scheduled status.
 		 */
@@ -95,7 +95,7 @@ class Status_Labels {
 	/**
 	 * Get the canceled status label.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @return string The label for the canceled status.
 	 */
@@ -104,7 +104,7 @@ class Status_Labels {
 		/**
 		 * Filter the canceled label for event status.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param string The default translated label for the canceled status.
 		 */
@@ -114,7 +114,7 @@ class Status_Labels {
 	/**
 	 * Get the postponed status label.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @return string The label for the postponed status.
 	 */
@@ -123,7 +123,7 @@ class Status_Labels {
 		/**
 		 * Filter the postponed label for event status.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param string The default translated label for the postponed status.
 		 */

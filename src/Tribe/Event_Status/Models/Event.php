@@ -2,7 +2,7 @@
 /**
  * Handles the modifications to the event model returned by the `tribe_get_event` function.
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status\Model
  */
@@ -15,7 +15,7 @@ use WP_Post;
 /**
  * Class Event
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status\Model
  */
@@ -24,7 +24,7 @@ class Event {
 	/**
 	 * Filters the object returned by the `tribe_get_event` function to add to it properties related to event status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param WP_Post $event The event post object.
 	 *
@@ -37,7 +37,7 @@ class Event {
 		/**
 		 * Fires after the event object has been decorated with properties related to event status.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param \WP_Post $event The event post object as decorated by the `tribe_get_event` function, with event
 		 *                        status related properties added.
@@ -50,7 +50,7 @@ class Event {
 	/**
 	 * Retrieves an event's status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param WP_Post $event Event post object.
 	 *
@@ -71,7 +71,7 @@ class Event {
 	/**
 	 * Retrieves an event's status reason.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param WP_Post $event Event ID.
 	 *

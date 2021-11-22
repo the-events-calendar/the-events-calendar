@@ -8,7 +8,7 @@ use WP_Post;
 /**
  * Class Template_Modifications
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -16,7 +16,7 @@ class Template_Modifications {
 	/**
 	 * Stores the template class used.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var Template
 	 */
@@ -25,7 +25,7 @@ class Template_Modifications {
 	/**
 	 * Status Labels.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @var Status_Labels
 	 */
@@ -34,7 +34,7 @@ class Template_Modifications {
 	/**
 	 * Template Modification constructor.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param Template $template      An instance of the plugin template handler.
 	 * @param Status_Labels $status_labels An instance of the statuses handler.
@@ -47,7 +47,7 @@ class Template_Modifications {
 	/**
 	 * Gets the instance of template class set for the metabox.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @return Template Instance of the template we are using to render this metabox.
 	 */
@@ -58,7 +58,7 @@ class Template_Modifications {
 	/**
 	 * Add the control classes for the views v2 elements
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param int|WP_Post $event Post ID or post object.
 	 *
@@ -82,7 +82,7 @@ class Template_Modifications {
 	/**
 	 * Include the event status label and reason to the single page notices.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param string               $notices_html Previously set HTML of notices.
 	 * @param array<string|string> $notices      Array of notices added previously.
@@ -105,7 +105,7 @@ class Template_Modifications {
 	/**
 	 * Inserts Status Label.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param string   $hook_name        For which template include this entry point belongs.
 	 * @param string   $entry_point_name Which entry point specifically we are triggering.

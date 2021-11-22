@@ -3,7 +3,7 @@
  * The Event Status service provider.
  *
  * @package Tribe\Events\Event_Status
- * @since   TBD
+ * @since   5.11.0
  */
 
 namespace Tribe\Events\Event_Status;
@@ -15,7 +15,7 @@ use WP_Post;
 /**
  * Class Event_Status_Provider
  *
- * @since   TBD
+ * @since   5.11.0
  *
  * @package Tribe\Events\Event_Status
  */
@@ -24,14 +24,14 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * The constant to disable the event status coding.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	const DISABLED = 'TEC_EVENT_STATUS_DISABLED';
 
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function register() {
 		if ( ! self::is_active() ) {
@@ -50,7 +50,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Returns whether the event status should register, thus activate, or not.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @return bool Whether the event status should register or not.
 	 */
@@ -71,7 +71,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		 * Note: this filter will only apply if the disable constant or env var
 		 * are not set or are set to falsy values.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param bool $activate Defaults to `true`.
 		 */
@@ -81,7 +81,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the actions required for event status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	protected function add_actions() {
 		add_action( 'init', [ $this, 'on_init' ] );
@@ -92,7 +92,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the filters required by the plugin.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	protected function add_filters() {
 		// Filter event object properties to add the ones related to event status.
@@ -122,7 +122,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register the metabox fields in the correct action.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	public function on_init() {
 		$this->container->make( Classic_Editor::class )->register_fields();
@@ -131,7 +131,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Renders the metabox template.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param int $post_id  The post ID of the event we are interested in.
 	 */
@@ -142,7 +142,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register the metabox fields in the correct action.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param int     $post_id Which post ID we are dealing with when saving.
 	 * @param WP_Post $post    WP Post instance we are saving.
@@ -155,7 +155,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the object returned by the `tribe_get_event` function to add to it properties related to event status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param WP_Post $post The events post object to be modified.
 	 *
@@ -174,7 +174,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add, to the Context, the locations used by the plugin.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param array<string,array> $context_locations The current Context locations.
 	 *
@@ -193,7 +193,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add the event statuses to select for an event.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param array<string|mixed> $statuses       The event status options for an event.
 	 * @param string              $current_status The current event status for the event or empty string if none.
@@ -207,7 +207,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add the status classes for the views v2 elements
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param array<string|string> $classes Space-separated string or array of class names to add to the class list.
 	 * @param int|WP_Post          $post    Post ID or post object.
@@ -223,7 +223,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Modifiers to the JSON LD object we use.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param object  $data The JSON-LD object.
 	 * @param array   $args The arguments used to get data.
@@ -238,7 +238,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the templates for event status.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 */
 	protected function add_templates() {
 
@@ -270,7 +270,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filters the list of template where the event status label is added.
 		 *
-		 * @since TBD
+		 * @since 5.11.0
 		 *
 		 * @param array<string> $label_templates The array of template names for each view to add the status label.
 		 */
@@ -293,7 +293,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the status reason for the single pages.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param string $notices_html Previously set HTML.
 	 * @param array  $notices      Array of notices added previously.
@@ -307,7 +307,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Inserts Status Label.
 	 *
-	 * @since TBD
+	 * @since 5.11.0
 	 *
 	 * @param string   $hook_name        For which template include this entry point belongs.
 	 * @param string   $entry_point_name Which entry point specifically we are triggering.
