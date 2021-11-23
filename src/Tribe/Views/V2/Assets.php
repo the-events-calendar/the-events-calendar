@@ -237,6 +237,22 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
+			'tribe-events-views-v2-ical-links',
+			'views/ical-links.js',
+			[
+				'jquery',
+				'tribe-common',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-events-views-v2-navigation-scroll',
 			'views/navigation-scroll.js',
 			[
