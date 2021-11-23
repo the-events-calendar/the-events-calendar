@@ -33,6 +33,6 @@ class Detect {
 		 *
 		 * @param boolean Whether or not the constant is defined.
 		 */
-		return (boolean) apply_filters( 'tec_event_status_filterbar_values', defined( 'TRIBE_EVENTS_FILTERBAR_FILE' ) );
+		return (boolean) apply_filters( 'tec_event_status_detect_filterbar_constant', defined( 'TRIBE_EVENTS_FILTERBAR_FILE' ) );
 	}
 }
