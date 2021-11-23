@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Event_Status;
 
+use Tribe\Events\Event_Status\Compatibility\Filter_Bar\Detect;
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Context as Context;
 use WP_Post;
@@ -336,7 +337,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function handle_filter_bar() {
-		if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
+		if ( ! tribe( Detect::class )::is_active() ) {
 			return;
 		}
 

@@ -29,7 +29,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( self::class, $this );
 		$this->container->singleton( 'tec.compatibility.tribe-filter-bar', $this );
 
-		if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
+		if ( ! tribe( Detect::class )::is_active() ) {
 			// For whatever reason the plugin is not active but we still got here, bail.
 			return;
 		}

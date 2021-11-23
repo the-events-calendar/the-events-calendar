@@ -25,15 +25,23 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 
 	/**
 	 * Value checked for canceled events.
+	 *
+	 * @since   TBD
 	 */
 	const CANCELED = 'canceled';
 
 	/**
 	 * Value checked for postponed events.
+	 *
+	 * @since   TBD
 	 */
 	const POSTPONED = 'postponed';
 
 	/**
+	 * Event Status Table Alias.
+	 *
+	 * @since   TBD
+	 *
 	 * @var string The table alias that will be used for the postmeta table.
 	 */
 	protected $alias = 'tribe_event_status_filterbar_alias';
@@ -59,6 +67,8 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Name for the Filter.
 	 *
+	 * @since   TBD
+	 *
 	 * @var string
 	 */
 	public $name = 'event_status';
@@ -75,9 +85,11 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Constructor.
 	 *
+	 * @since   TBD
+	 *
 	 * @param Status_Labels $status_labels An instance of the statuses handler.
 	 */
-	public function __construct( Status_Labels $status_labels) {
+	public function __construct( Status_Labels $status_labels ) {
 		$this->status_labels = $status_labels;
 		$name = $this->status_labels->get_event_status_label();
 
@@ -86,6 +98,8 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 
 	/**
 	 * Returns the admin form HTML.
+	 *
+	 * @since   TBD
 	 *
 	 * @return string
 	 */
@@ -99,7 +113,8 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	 * @since TBD
 	 *
 	 * @param string $name The individual name for the individual control (ie radio button).
-	 * @return string
+	 *
+	 * @return string The admin field input name.
 	 */
 	protected function get_admin_field_name( $name ) {
 		return "tribe_filter_options[{$this->slug}][{$name}]";
@@ -108,16 +123,13 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Returns the value supported by this filter.
 	 *
-	 * One actually.
-	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @param array<string|mixed> An array of values.
 	 */
 	protected function get_values() {
-
 		$default_values = [
-			'canceled'     => [
+			'canceled'  => [
 				'name'  => _x( 'Hide canceled events', 'Canceled label for filter bar to hide canceled events.', 'the-events-calendar' ),
 				'value' => self::CANCELED,
 			],
