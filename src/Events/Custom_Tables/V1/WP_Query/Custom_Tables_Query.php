@@ -129,7 +129,7 @@ class Custom_Tables_Query extends WP_Query {
 		 *
 		 * @param Custom_Tables_Query $this A reference to this Custom Tables query.
 		 */
-		do_action( 'tec_custom_tables_v1_custom_tables_query_pre_get_posts', $this );
+		do_action( 'tec_events_custom_tables_v1_custom_tables_query_pre_get_posts', $this );
 
 		$results = parent::get_posts();
 
@@ -141,7 +141,7 @@ class Custom_Tables_Query extends WP_Query {
 		 * @param array|object|null   $results The query results.
 		 * @param Custom_Tables_Query $this    A reference to this Custom Tables query.
 		 */
-		do_action( 'tec_custom_tables_v1_custom_tables_query_results', $results, $this );
+		do_action( 'tec_events_custom_tables_v1_custom_tables_query_results', $results, $this );
 
 		if (
 			$this->wp_query instanceof WP_Query
@@ -226,7 +226,7 @@ class Custom_Tables_Query extends WP_Query {
 		 *
 		 * @param string $request_fields The Query fields request, e.g. `ids`.
 		 */
-		$request_fields = apply_filters( 'tec_custom_tables_v1_occurrence_select_fields', $request_fields );
+		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields );
 
 		return $request_fields;
 	}

@@ -104,7 +104,7 @@ function tec_should_show_series_title( $series = null, $event = null ) {
 	 * @param Series|int|null  $series The post object or ID of the series the event belongs to.
 	 * @param WP_Post|int|null $event  The post object or ID of the event we're displaying.
 	 */
-	return apply_filters( 'tec_custom_tables_v1_show_series_title', $show_title, $series, $event );
+	return apply_filters( 'tec_events_custom_tables_v1_show_series_title', $show_title, $series, $event );
 }
 
 /**
@@ -137,5 +137,5 @@ function tec_get_series_marker_label_classes( $series = null, $event = null  ) {
 	 * @param Series|int|null  $series The post object or ID of the series the event belongs to.
 	 * @param WP_Post|int|null $event  The post object or ID of the event we're displaying.
 	 */
-	return apply_filters( 'tec_custom_tables_v1_series_marker_label_classes', $classes, $series, $event );
+	return apply_filters( 'tec_events_custom_tables_v1_series_marker_label_classes', $classes, $series, $event );
 }

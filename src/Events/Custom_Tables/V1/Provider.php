@@ -126,7 +126,7 @@ class Provider extends Service_Provider {
 			 *
 			 * @param \Throwable $t The thrown error.
 			 */
-			do_action( 'tec_custom_tables_v1_error', $t );
+			do_action( 'tec_events_custom_tables_v1_error', $t );
 		} catch ( \Exception $e ) {
 			// PHP 5.6 compatible code.
 
@@ -139,7 +139,7 @@ class Provider extends Service_Provider {
 			 *
 			 * @param \Exception $e The thrown error.
 			 */
-			do_action( 'tec_custom_tables_v1_error', $e );
+			do_action( 'tec_events_custom_tables_v1_error', $e );
 		}
 
 		return true;
@@ -175,7 +175,7 @@ class Provider extends Service_Provider {
 		 *
 		 * @param bool $activate Defaults to `true`.
 		 */
-		return (bool) apply_filters( 'tec_custom_tables_v1_enabled', true );
+		return (bool) apply_filters( 'tec_events_custom_tables_v1_enabled', true );
 	}
 
 	/**

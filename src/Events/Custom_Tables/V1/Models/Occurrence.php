@@ -143,7 +143,7 @@ class Occurrence extends Model {
 		 *
 		 * @param int $occurrence_id The Occurrence post ID to normalize.
 		 */
-		$normalized_id = apply_filters( 'tec_custom_tables_v1_normalize_occurrence_id', $occurrence_id );
+		$normalized_id = apply_filters( 'tec_events_custom_tables_v1_normalize_occurrence_id', $occurrence_id );
 
 		return $normalized_id;
 	}
@@ -416,7 +416,7 @@ class Occurrence extends Model {
 		 * @param Event $event                             A reference to the Event object Occurrences should be
 		 *                                                 generated for.
 		 */
-		$generator = apply_filters( 'tec_custom_tables_v1_occurrences_generator', null, $this->event, ...$args );
+		$generator = apply_filters( 'tec_events_custom_tables_v1_occurrences_generator', null, $this->event, ...$args );
 
 		if ( ! $generator instanceof Generator ) {
 			// If no generator was provided, then use the default one.
