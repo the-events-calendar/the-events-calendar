@@ -54,8 +54,6 @@
 	 * @return {void}
 	 */
 	obj.handleIcalLinksButtonClick = function( event ) {
-		console.log('handleIcalLinksButtonClick');
-		console.log( event.target );
 		$( event.target ).toggleClass( obj.selectors.icalLinksButtonActiveClass );
 	};
 
@@ -68,10 +66,7 @@
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( $container ) {
-		console.log('bindEvents');
-		var $icalLinksButton = $container.find( obj.selectors.icalLinksButton );
-
+	obj.bindEvents = function( $container ) { // eslint-disable-line no-unused-vars
 		$( document ).on(
 			'click focus focus-within',
 			obj.selectors.icalLinksButton,
@@ -123,11 +118,9 @@
 	 * @return {void}
 	 */
 	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
-		console.log('init');
 		var $icalLinks = $container.find( obj.selectors.icalLinks );
 
 		if ( ! $icalLinks.length ) {
-			console.log('no links!');
 			return;
 		}
 
