@@ -16,6 +16,9 @@
  * @version 5.0.2
  */
 
+if ( isset( $jsonld_enable ) && ! $jsonld_enable ) {
+	return;
+}
 
 /**
  * Filters the JSON-LD data markup that will be printed for the View.
