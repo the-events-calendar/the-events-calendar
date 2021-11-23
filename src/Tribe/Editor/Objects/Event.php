@@ -67,7 +67,7 @@ class Event implements Editor_Object_Interface {
 			 * if it exists then adds it to the global window object.
 			 */
 			if ( $startDate && strtotime( $startDate ) ) {
-				$this->data['tribe_start_date'] = Dates::build_date_object( $startDate )->format( Dates::DBDATEFORMAT ) . ' 08:00:00';
+				$this->data['tribe_start_date'] = Dates::build_date_object( $startDate )->format( Dates::DBDATEFORMAT );
 			}
 
 			if ( $this->post instanceof \WP_Post && TEC::POSTTYPE === $this->post->post_type ) {
