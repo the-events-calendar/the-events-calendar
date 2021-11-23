@@ -11,6 +11,7 @@ namespace Tribe\Events\Editor\Objects;
 
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Event
@@ -68,7 +69,7 @@ class Event implements Editor_Object_Interface {
 			if ( $startDate && strtotime( $startDate ) ) {
 				$this->data = [
 					'is_new_post'      => true,
-					'tribe_start_date' => $startDate . ' 08:00:00',
+					'tribe_start_date' => Dates::build_date_object( $startDate )->format( Dates::DBDATEFORMAT ) . ' 08:00:00',
 				];
 			}
 
