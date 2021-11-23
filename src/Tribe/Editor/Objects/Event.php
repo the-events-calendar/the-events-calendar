@@ -59,7 +59,7 @@ class Event implements Editor_Object_Interface {
 				'is_new_post' => true,
 			];
 
-		$startDate = tribe_get_request_var( 'tribe-start-date' );
+			$startDate = tribe_get_request_var( 'tribe-start-date' );
 
 			/**
 			 * Grabs the tribe-start-date query param from the url 
