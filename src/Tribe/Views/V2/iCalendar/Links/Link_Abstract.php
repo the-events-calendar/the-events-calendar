@@ -170,7 +170,7 @@ abstract class Link_Abstract implements Link_Interface {
 
 
 		// Clean query params to only contain canonical arguments.
-		$canonical_args = [ 'post_type', 'tribe_events_cat', 'tribe-bar-date' ];
+		$canonical_args = [ 'post_type', 'tribe-bar-date', 'tribe_events_cat', 'post_tag' ];
 
 		/**
 		 * Allows other plugins (I'm looking at you, Filter Bar!)
