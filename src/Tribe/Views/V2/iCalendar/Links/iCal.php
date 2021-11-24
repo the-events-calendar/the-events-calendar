@@ -33,6 +33,6 @@ class iCal extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public static function get_single_label( $view ) {
-		return __( 'Subscribe via iCalendar', 'the-events-calendar' );
+		return __( 'Add to iCalendar', 'the-events-calendar' );
 	}
 }

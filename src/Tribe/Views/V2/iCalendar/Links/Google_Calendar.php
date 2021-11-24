@@ -33,7 +33,7 @@ class Google_Calendar extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public static function get_single_label( $view ) {
-		return __( 'Subscribe via Google Calendar', 'the-events-calendar' );
+		return __( 'Add to Google Calendar', 'the-events-calendar' );
 	}
 
 	/**
