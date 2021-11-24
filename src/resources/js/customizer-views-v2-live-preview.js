@@ -24,6 +24,7 @@ var tribe_events_customizer_live_preview_js_config =
 		globalBackgroundColor: 'tribe_customizer[global_elements][background_color]',
 		globalBackgroundColorChoice: 'tribe_customizer[global_elements][background_color_choice]',
 		globalAccentColor: 'tribe_customizer[global_elements][accent_color]',
+		globalLinkColor: 'tribe_customizer[global_elements][link_color]',
 
 		/* Events Bar */
 		eventsBarTextColor: 'tribe_customizer[tec_events_bar][events_bar_text_color]',
@@ -101,6 +102,11 @@ var tribe_events_customizer_live_preview_js_config =
 			'--tec-color-day-marker-current-month',
 			'--tec-color-day-marker-current-month-hover',
 			'--tec-color-day-marker-current-month-active',
+		],
+		globalLinkColor: [
+			'--tec-color-link-primary',
+			'--tec-color-link-accent',
+			'--tec-color-link-accent-hover',
 		],
 
 		/* Events Bar */
@@ -411,6 +417,26 @@ var tribe_events_customizer_live_preview_js_config =
 									'rgba(' + rgbString + ', 0.34)'
 								);
 							}
+						}
+					);
+				}
+			);
+		}
+	);
+
+	// Link Color
+	api(
+		obj.selectors.globalLinkColor,
+		function( value ) {
+			value.bind(
+				function( to ) {
+					obj.root.forEach(
+						function( tribeElement ) {
+							obj.customProps.globalLinkColor.forEach(
+								function( colorSelector ) {
+									tribeElement.style.setProperty( colorSelector, to );
+								}
+							);
 						}
 					);
 				}

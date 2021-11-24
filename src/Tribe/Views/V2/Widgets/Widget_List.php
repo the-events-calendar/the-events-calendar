@@ -78,7 +78,7 @@ class Widget_List extends Widget_Abstract {
 	 */
 	public static function get_default_widget_options() {
 		return [
-			'description' => esc_html_x( 'A widget that displays upcoming events.', 'The description of the List Widget.', 'the-events-calendar' ),
+			'description' => esc_html_x( 'Shows a list of upcoming events.', 'The description of the List Widget.', 'the-events-calendar' ),
 		];
 	}
 
