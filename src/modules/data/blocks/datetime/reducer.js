@@ -23,7 +23,7 @@ const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORM
 const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_HH_MM_SS );
 const queryStartDate = globals.postObjects().tribe_events.tribe_start_date;
 
-export const defaultStartMoment = queryStartDate ? moment( queryStartDate ).seconds( defaultStartTimeSeconds ) : moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
+export const defaultStartMoment = queryStartDate ? moment( queryStartDate ).seconds( defaultStartTimeSeconds ) : moment().startOf( 'day' ).seconds( defaultStartTimeSeconds ); // eslint-disable-line max-len
 export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
 const defaultStartDateTime = momentUtil.toDateTime( defaultStartMoment );
