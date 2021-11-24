@@ -60,14 +60,18 @@ class Event implements Editor_Object_Interface {
 				'is_new_post' => true,
 			];
 
-			$startDate = tribe_get_request_var( 'tribe-start-date' );
+			$start_date = tribe_get_request_var( 'tribe-start-date' );
 
 			/**
-			 * Grabs the tribe-start-date query param from the url 
-			 * if it exists then adds it to the global window object.
+			 * Grabs the tribe-start-date query param from the url if it exists
+			 * and if its a valid date then adds it to the global window object.
 			 */
-			if ( $startDate && strtotime( $startDate ) ) {
-				$this->data['tribe_start_date'] = Dates::build_date_object( $startDate )->format( Dates::DBDATEFORMAT );
+			if ( $start_date ) {	
+				$start_date = Dates::build_date_object( $start_date, null, false );
+
+				if ( $start_date ) {
+					$this->data['tribe_start_date'] = $start_date->format( Dates::DBDATETIMEFORMAT );
+				}
 			}
 
 			if ( $this->post instanceof \WP_Post && TEC::POSTTYPE === $this->post->post_type ) {
