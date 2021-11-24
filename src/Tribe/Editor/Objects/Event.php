@@ -70,7 +70,7 @@ class Event implements Editor_Object_Interface {
 				$start_date = Dates::build_date_object( $start_date, null, false );
 
 				if ( $start_date ) {
-					$this->data['tribe_start_date'] = $start_date->format( Dates::DBDATETIMEFORMAT );
+					$this->data['tribe_start_date'] = $start_date->format( Dates::DBDATEFORMAT );
 				}
 			}
 
