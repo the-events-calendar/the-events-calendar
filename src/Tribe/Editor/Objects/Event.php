@@ -66,7 +66,7 @@ class Event implements Editor_Object_Interface {
 			 * Grabs the tribe-start-date query param from the url if it exists
 			 * and if its a valid date then adds it to the global window object.
 			 */
-			if ( $start_date ) {	
+			if ( $start_date ) {
 				$start_date = Dates::build_date_object( $start_date, null, false );
 
 				if ( $start_date ) {
