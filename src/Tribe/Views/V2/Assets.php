@@ -627,14 +627,14 @@ class Assets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Checks whether we should enqueue files on the admin area.
+	 * Load assets on the add or edit pages of the block editor only.
 	 *
 	 * @since  TBD
 	 *
 	 * @return bool
 	 */
 	public function should_enqueue_admin() {
-		if ( is_admin() ) {
+		if ( is_admin() && get_current_screen()->is_block_editor ) {
 			return true;
 		}
 
