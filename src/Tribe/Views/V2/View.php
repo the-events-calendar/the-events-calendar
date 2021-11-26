@@ -25,7 +25,6 @@ use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
-use Tribe__Admin__Helpers as Admin_Helpers;
 
 /**
  * Class View
@@ -1499,7 +1498,7 @@ class View implements View_Interface {
 			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
 			'after_events'         => tribe( Advanced_Display::class )->get_after_events_html( $this ),
 			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
-			'disable_event_search' => Admin_Helpers::instance()->is_screen( 'tribe-admin-manager' ) ? false : tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) ),
+			'disable_event_search' => tribe_is_truthy( tribe_get_option( 'tribeDisableTribeBar', false ) && apply_filters( 'tribe_apply_settings_on_event_manager_page', false ) ),
 			'live_refresh'         => tribe_is_truthy( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ),
 			'ical'                 => $this->get_ical_data(),
 			'container_classes'    => $this->get_html_classes(),
