@@ -62,7 +62,7 @@
 				width: 50%;
 			}
 		}
-		
+
 		.tribe-editor__venue--current {
 			@media screen and (min-width: 1200px) {
 				margin-right: 100px;
@@ -193,7 +193,7 @@
 /* = Virtual event block view styles
 ============================================= */
 .wp-block[data-type="tribe/virtual-event"] {
-	
+
 	.components-placeholder.components-placeholder .tribe-editor__event-virtual {
 
 		h3 {
@@ -222,9 +222,9 @@
 ============================================= */
 .tribe-editor__event-details {
 	background: transparent;
-    border: none;
-	font-size: var(--tec-font-size-3);
+	border: none;
 	font-family: var(--tec-font-family-sans-serif);
+	font-size: var(--tec-font-size-3);
 	letter-spacing: normal;
 	line-height: 1.64;
 
@@ -270,7 +270,7 @@
 /* = Related events block view styles
 ============================================= */
 .tribe-editor__related-events {
-	
+
 	.tribe-editor__related-events__title-text input {
 		color: var(--tec-color-accent-primary);
 		font-family: var(--tec-font-family-sans-serif);
@@ -315,10 +315,11 @@
 
 	.tribe-editor__event-website__label-text input::placeholder {
 		color: #fff;
-		opacity: .5;
+		opacity: 0.5;
 	}
 
-	.block-editor-url-input input[type=text], .components-popover .block-editor-url-input input[type=text], .block-editor-url-input input[type=text] {
+	.components-popover .block-editor-url-input input[type=text],
+	.block-editor-url-input input[type=text] {
 		color: var(--tec-color-accent-primary);
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: var(--tec-font-size-4);
@@ -327,18 +328,15 @@
 	}
 }
 
-/* = Event title
+/* = Event title and paragraph
 ============================================= */
 .post-type-tribe_events {
-	.editor-post-title__block .editor-post-title__input, .editor-styles-wrapper .wp-block h1 {
+	.editor-post-title__block .editor-post-title__input,
+	.editor-styles-wrapper .wp-block h1 {
 		font-size: 50px;
 		text-align: left;
 	}
-}
 
-/* = Event paragraph
-============================================= */
-.post-type-tribe_events {
 	p.wp-block-paragraph {
 		color: var(--tec-color-text-primary);
 		font-family: var(--tec-font-family-sans-serif);
@@ -351,9 +349,9 @@
 /* = Recurring event label
 ============================================= */
 .tribe-editor__events-pro__recurrence-description {
-	color: var(--tec-color-text-primary);
 	background-color: #f7f6f6;
 	border-radius: 40px;
+	color: var(--tec-color-text-primary);
 	display: inline-flex;
 	font-family: var(--tec-font-family-sans-serif);
 	font-size: var(--tec-font-size-4);
