@@ -26,4 +26,82 @@
 	.tribe-events-c-ical__link-icon-svg {
 		display: none;
 	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * iCal Subscribe Dropdown
+	 *
+	 * ----------------------------------------------------------------------------- */
+	.tribe-events-c-subscribe-dropdown {
+		display: flex;
+		flex-flow: column;
+		font-size: var(--tec-font-size-2);
+		justify-content: flex-end;
+		margin: var(--tec-spacer-7) 0;
+
+		@media (--viewport-medium) {
+			float: right;
+		}
+
+		.tribe-events-c-subscribe-dropdown__button {
+			position: relative;
+		}
+
+		.tribe-events-c-subscribe-dropdown__button-icon {
+			display: inline-block;
+			height: 6px;
+			margin-left: var(--tec-spacer-1);
+			vertical-align: middle;
+			width: 10px;
+		}
+
+		.tribe-events-c-subscribe-dropdown__content {
+			display: none;
+		}
+
+		.tribe-events-c-subscribe-dropdown__list {
+			list-style: none;
+			padding: var(--tec-spacer-1);
+			transform: translateY(var(--tec-spacer-1));
+			width: auto;
+			z-index: var(--tec-z-index-dropdown);
+		}
+
+		.tribe-events-c-subscribe-dropdown__list-item {
+			border-radius: var(--tec-border-radius-default);
+			outline: 0;
+			padding: var(--tec-spacer-0);
+			text-align: left;
+
+			a {
+				display: inline-block;
+				padding: 0 var(--tec-spacer-3);
+				width: 100%;
+			}
+		}
+
+		&:focus,
+		&:focus-within {
+			/* Show the submenu when we are focused anywhere inside. */
+			.tribe-events-c-subscribe-dropdown__content {
+				display: block;
+			}
+
+			/* ...and the icon rotate */
+			.tribe-events-c-subscribe-dropdown__button-icon {
+				transform: rotate(180deg);
+			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__button--active {
+			+.tribe-events-c-subscribe-dropdown__content {
+				display: block;
+			}
+
+			/* ...and the icon rotate */
+			.tribe-events-c-subscribe-dropdown__button-icon {
+				transform: rotate(180deg);
+			}
+		}
+	}
 }
