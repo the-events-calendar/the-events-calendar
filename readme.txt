@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = TBD =
 
+* Fix - Add a valid rel value to the link tag for TEC REST API support in order to improve HTML 5 and WCAG 2.1 compliance. [TEC-4129]
 * Fix - Ensure the date selected when creating a new event from the Event Manager is applied to the block editor. [ECP-954]
 * Tweak - Ensure the `related events title` and `event titles` within the single event page for the block editor make use the customizer font settings. [TEC-4125]
 
