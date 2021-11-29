@@ -10,8 +10,6 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe__Date_Utils as Dates;
 
-use Tribe\Events\Pro\Views\V2\Shortcodes\Tribe_Events;
-
 /**
  * Class Abstract_Link
  *
@@ -173,8 +171,7 @@ abstract class Link_Abstract implements Link_Interface {
 		$canonical_args = [ 'post_type', 'tribe-bar-date', 'tribe_events_cat', 'post_tag' ];
 
 		/**
-		 * Allows other plugins (I'm looking at you, Filter Bar!)
-		 * to alter what gets passed to the subscribe link.
+		 * Allows other plugins to alter what gets passed to the subscribe link.
 		 *
 		 * @since TBD
 		 *
@@ -196,6 +193,9 @@ abstract class Link_Abstract implements Link_Interface {
 
 		// iCalendarize!
 		$passthrough_args['ical'] = 1;
+
+		// Tidy.
+		$passthrough_args = array_filter( $passthrough_args );
 
 		/**
 		 * Allows other plugins to alter the query args that get passed to the subscribe link.

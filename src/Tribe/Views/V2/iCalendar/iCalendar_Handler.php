@@ -80,7 +80,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		tribe( iCalendar_Export::class )->register();
 
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'template_vars' ], 10, 2 );
-		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 11 );
+		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 20 );
 		add_filter( 'tribe_ical_properties', [ $this, 'ical_properties' ] );
 	}
 
@@ -103,7 +103,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		$subscribe_links = [];
 
 		/**
-		 * Allows each link type to dynamically add itself to the list.
+		 * Allows each link type to dynamically add itself to the list for Calendar views.
 		 *
 		 * @since TBD
 		 *
@@ -134,9 +134,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 * @return string The altered link content.
 	 */
 	public function single_event_links( $calendar_links ) {
-		if ( ! $this->use_subscribe_links() ) {
-			return $calendar_links;
-		}
+		$calendar_links = '<div class="tribe-events-cal-links">';
 
 		$single_ical_link = tribe_get_single_ical_link();
 
@@ -147,9 +145,15 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		] ) );
 
 		$links = [];
+		/**
+		 * Allows each link type to add itself to the links on the Event Single views.
+		 *
+		 * @since TBD
+		 *
+		 * @param array <string|object>       $subscribe_links The array of link objects.
+		 * @param \Tribe\Events\Views\V2\View $view The current View implementation.
+		 */
 		$links = apply_filters( 'tec_views_v2_single_subscribe_links', $links, $view );
-
-		$calendar_links = '<div class="tribe-events-cal-links">';
 
 		foreach( $links as $link ) {
 			$calendar_links .= $link;

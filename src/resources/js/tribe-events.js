@@ -1681,9 +1681,11 @@ Date.prototype.format = function( mask, utc ) {
 
 		/**
 		 * @function tribe_ical_url
-		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'ajax-success.tribe' also.
+		 * @desc tribe_ical_url This function adds required params to the ical url.
+		 *                       Runs on doc ready, and hooks into 'ajax-success.tribe' also.
+		 * @deprecated TBD
 		 */
-		function tribe_ical_url() {
+		function tribe_ical_url() { // eslint-disable-line no-unused-vars
 			var should_overwrite = true;
 
 			// If the "force filtered iCal link" option is set, we should not overwrite.
@@ -1704,12 +1706,6 @@ Date.prototype.format = function( mask, utc ) {
 				$( 'a.tribe-events-ical' ).attr( 'href', new_link );
 			}
 		}
-
-		$( te ).on( 'tribe_ev_ajaxSuccess', function() {
-			tribe_ical_url();
-		} );
-
-		tribe_ical_url();
 
 		$( window ).on(
 			'resize',
