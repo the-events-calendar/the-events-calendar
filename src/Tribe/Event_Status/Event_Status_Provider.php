@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Event_Status;
 
+use Tribe\Extensions\EventsControl\Main as Events_Control_Main;
 use Tribe\Events\Event_Status\Compatibility\Filter_Bar\Detect;
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Context as Context;
@@ -324,7 +325,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function handle_events_control_extension() {
-		if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
+		if ( ! class_exists( Events_Control_Main::class ) ) {
 			return;
 		}
 
