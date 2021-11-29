@@ -11,6 +11,7 @@ namespace Tribe\Events\Editor\Objects;
 
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Event
@@ -58,6 +59,20 @@ class Event implements Editor_Object_Interface {
 			$this->data = [
 				'is_new_post' => true,
 			];
+
+			$start_date = tribe_get_request_var( 'tribe-start-date' );
+
+			/**
+			 * Grabs the tribe-start-date query param from the url if it exists
+			 * and if its a valid date then adds it to the global window object.
+			 */
+			if ( $start_date ) {
+				$start_date = Dates::build_date_object( $start_date, null, false );
+
+				if ( $start_date ) {
+					$this->data['tribe_start_date'] = $start_date->format( Dates::DBDATEFORMAT );
+				}
+			}
 
 			if ( $this->post instanceof \WP_Post && TEC::POSTTYPE === $this->post->post_type ) {
 				$meta = Arr::flatten( (array) \get_post_meta( $this->post->ID ) );
