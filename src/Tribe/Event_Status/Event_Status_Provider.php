@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Event_Status;
 
+use Tribe\Extensions\EventsControl\Main as Events_Control_Main;
+use Tribe\Events\Event_Status\Compatibility\Filter_Bar\Detect;
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Context as Context;
 use WP_Post;
@@ -41,11 +43,10 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 		// Register the SP on the container
 		$this->container->singleton( 'events.status.provider', $this );
 
-		$this->container->register( Compatibility\Events_Control_Extension\Service_Provider::class );
-
 		$this->add_actions();
 		$this->add_filters();
 		$this->add_templates();
+		$this->handle_compatibility();
 	}
 
 	/**
@@ -107,6 +108,17 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
 		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 10, 3 );
+	}
+
+	/**
+	 * Handle compatibility with external plugins and extensions for event status.
+	 *
+	 * @since TBD
+	 *
+	 */
+	protected function handle_compatibility() {
+		add_action( 'tribe_common_loaded', [ $this, 'handle_events_control_extension' ], 99 );
+		add_action( 'tribe_common_loaded', [ $this, 'handle_filter_bar' ], 99 );
 	}
 
 	/**
@@ -305,5 +317,31 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_insert_status_label( $hook_name, $entry_point_name, $template ) {
 		return $this->container->make( Template_Modifications::class )->insert_status_label( $hook_name, $entry_point_name, $template );
+	}
+
+	/**
+	 * Handles the compatibility with the "The Events Calendar Extension: Events Control" plugin.
+	 *
+	 * @since TBD
+	 */
+	public function handle_events_control_extension() {
+		if ( ! class_exists( Events_Control_Main::class ) ) {
+			return;
+		}
+
+		$this->container->register( Compatibility\Events_Control_Extension\Service_Provider::class );
+	}
+
+	/**
+	 * Handles the compatibility with the Filter Bar plugin.
+	 *
+	 * @since TBD
+	 */
+	public function handle_filter_bar() {
+		if ( ! tribe( Detect::class )::is_active() ) {
+			return;
+		}
+
+		$this->container->register( Compatibility\Filter_Bar\Service_Provider::class );
 	}
 }
