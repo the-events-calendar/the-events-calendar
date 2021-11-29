@@ -35,6 +35,6 @@ if( ! $item->is_visible( $view ) ) {
 		target="_blank"
 		rel="noopener noreferrer nofollow"
 	>
-		<?php echo esc_html( $item::get_label( $view ) ); ?>
+		<?php echo esc_html( $item->get_label( $view ) ); ?>
 	</a>
 </li>

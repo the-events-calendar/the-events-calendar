@@ -68,7 +68,7 @@ interface Link_Interface {
 	 *
 	 * @return string The translated link text/label.
 	 */
-	public static function get_label( \Tribe\Events\Views\V2\View $view );
+	public function get_label( \Tribe\Events\Views\V2\View $view );
 
 	/**
 	 * Getter function for the single label property.
@@ -79,7 +79,7 @@ interface Link_Interface {
 	 *
 	 * @return string The translated link text/label for the single event view.
 	 */
-	public static function get_single_label( \Tribe\Events\Views\V2\View $view );
+	public function get_single_label( \Tribe\Events\Views\V2\View $view );
 
 	/**
 	 * Getter function for the uri property.

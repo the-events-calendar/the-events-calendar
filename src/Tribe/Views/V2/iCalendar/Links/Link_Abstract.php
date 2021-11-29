@@ -25,7 +25,16 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * @var string
 	 */
-	public static $label;
+	public $label;
+
+	/**
+	 * The (translated) text/label for the link.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $single_label;
 
 	/**
 	 * Whether to display the link or not.
@@ -87,15 +96,15 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function get_label( $view ) {
-		return static::$label;
+	public function get_label( $view ) {
+		return apply_filters( 'tec_views_v2_subscribe_links_' . self::get_slug() . '_label', $this->label );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function get_single_label( $view ) {
-		return static::get_label( $view );
+	public function get_single_label( $view ) {
+		return apply_filters( 'tec_views_v2_single_subscribe_links_' . self::get_slug() . '_single_label', $this->single_label );
 	}
 
 	/**

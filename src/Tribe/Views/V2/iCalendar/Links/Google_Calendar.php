@@ -25,15 +25,11 @@ class Google_Calendar extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function get_label( $view ) {
-		return __( 'Google Calendar', 'the-events-calendar' );
-	}
+	public function register() {
+		parent::register();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public static function get_single_label( $view ) {
-		return __( 'Add to Google Calendar', 'the-events-calendar' );
+		$this->label = __( 'Google Calendar', 'the-events-calendar' );
+		$this->single_label = __( 'Add to Google Calendar', 'the-events-calendar' );
 	}
 
 	/**

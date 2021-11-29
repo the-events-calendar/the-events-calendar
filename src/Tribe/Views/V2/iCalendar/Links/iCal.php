@@ -25,14 +25,10 @@ class iCal extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function get_label( $view ) {
-		return __( 'iCalendar', 'the-events-calendar' );
-	}
+	public function register() {
+		parent::register();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public static function get_single_label( $view ) {
-		return __( 'Add to iCalendar', 'the-events-calendar' );
+		$this->label = __( 'iCalendar', 'the-events-calendar' );
+		$this->single_label = __( 'Add to iCalendar', 'the-events-calendar' );
 	}
 }

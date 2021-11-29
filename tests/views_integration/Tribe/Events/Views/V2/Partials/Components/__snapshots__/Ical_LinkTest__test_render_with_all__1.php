@@ -13,9 +13,9 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer"
+		rel="noopener noreferrer nofollow"
 	>
-		Google Calendar	</a>
+			</a>
 </li>
 					
 <li class="tribe-events-c-subscribe-dropdown__list-item"">
@@ -24,9 +24,9 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer"
+		rel="noopener noreferrer nofollow"
 	>
-		iCalendar	</a>
+			</a>
 </li>
 					
 <li class="tribe-events-c-subscribe-dropdown__list-item"">
@@ -35,9 +35,9 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer"
+		rel="noopener noreferrer nofollow"
 	>
-		Export .ics file	</a>
+			</a>
 </li>
 			</ul>
 </div>

@@ -25,16 +25,19 @@ class iCalendar_Export extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_tec_views_v2_single_subscribe_links( $links, $view) {
-		// No-op, we don't add a download link to the Single Event view - now.
-		return $links;
+	public function register() {
+		parent::register();
+
+		$this->label = __( 'Export .ics file', 'the-events-calendar' );
+		$this->single_label = $this->label;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function get_label( $view ) {
-		return __( 'Export .ics file', 'the-events-calendar' );
+	public function filter_tec_views_v2_single_subscribe_links( $links, $view) {
+		// No-op, we don't add a download link to the Single Event view - now.
+		return $links;
 	}
 
 	/**
