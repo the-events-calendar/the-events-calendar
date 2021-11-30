@@ -9,8 +9,7 @@
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe__Date_Utils as Dates;
-
-use Tribe\Events\Pro\Views\V2\Shortcodes\Tribe_Events;
+use \Tribe\Events\Views\V2\View as View;
 
 /**
  * Class Abstract_Link
@@ -27,7 +26,16 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * @var string
 	 */
-	public static $label;
+	public $label;
+
+	/**
+	 * The (translated) text/label for the link.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $single_label;
 
 	/**
 	 * Whether to display the link or not.
@@ -89,15 +97,33 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function get_label( $view ) {
-		return static::$label;
+	public function get_label( $view ) {
+		/**
+		 * Allows filtering of the labels for the Calendar view labels.
+		 *
+		 * @param string                      $label    The label that will be displayed.
+		 * @param Link_Abstract               $link_obj The link object the label is for.
+		 * @param \Tribe\Events\Views\V2\View $view     The current View object.
+		 *
+		 * @return string $label The label that will be displayed.
+		 */
+		return apply_filters( 'tec_views_v2_subscribe_links_' . self::get_slug() . '_label', $this->label, $this, $view );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function get_single_label( $view ) {
-		return static::get_label( $view );
+	public function get_single_label( $view ) {
+		/**
+		 * Allows filtering of the labels for the Single Event view labels.
+		 *
+		 * @param string                      $label    The label that will be displayed.
+		 * @param Link_Abstract               $link_obj The link object the label is for.
+		 * @param \Tribe\Events\Views\V2\View $view     The current View object.
+		 *
+		 * @return string $label The label that will be displayed.
+		 */
+		return apply_filters( 'tec_views_v2_single_subscribe_links_' . self::get_slug() . '_label', $this->single_label, $this, $view );
 	}
 
 	/**
@@ -117,7 +143,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_uri( \Tribe\Events\Views\V2\View $view ) {
+	public function get_uri( View $view ) {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
 		$feed_url = $view->get_context()->get( 'single_ical_link', false );
 
@@ -155,7 +181,7 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * @return string The iCal Feed URI.
 	 */
-	protected function get_canonical_ics_feed_url( \Tribe\Events\Views\V2\View $view ) {
+	protected function get_canonical_ics_feed_url( View $view ) {
 		$view_url_args = $view->get_url_args();
 
 		// Some date magic.
@@ -173,8 +199,7 @@ abstract class Link_Abstract implements Link_Interface {
 		$canonical_args = [ 'post_type', 'tribe-bar-date', 'tribe_events_cat', 'post_tag' ];
 
 		/**
-		 * Allows other plugins (I'm looking at you, Filter Bar!)
-		 * to alter what gets passed to the subscribe link.
+		 * Allows other plugins to alter what gets passed to the subscribe link.
 		 *
 		 * @since TBD
 		 *
@@ -196,6 +221,9 @@ abstract class Link_Abstract implements Link_Interface {
 
 		// iCalendarize!
 		$passthrough_args['ical'] = 1;
+
+		// Tidy.
+		$passthrough_args = array_filter( $passthrough_args );
 
 		/**
 		 * Allows other plugins to alter the query args that get passed to the subscribe link.
