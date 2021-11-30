@@ -228,6 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure the `Disable the Event Search Bar` setting doesn't get applied on the Event Manager page. [ECP-948]
 * Tweak - Ensure the `related events title` and `event titles` within the single event page for the block editor make use the customizer font settings. [TEC-4125]
 
+
 = [5.11.0] 2021-11-17 =
 
 * Feature - Add an `Events List` block that is based on the `Events List` widget to the block editor which users can drag around to any position they want it to appear. [ECP-989]
