@@ -98,14 +98,32 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_label( $view ) {
-		return apply_filters( 'tec_views_v2_subscribe_links_' . self::get_slug() . '_label', $this->label );
+		/**
+		 * Allows filtering of the labels for the Calendar view labels.
+		 *
+		 * @param string                      $label    The label that will be displayed.
+		 * @param Link_Abstract               $link_obj The link object the label is for.
+		 * @param \Tribe\Events\Views\V2\View $view     The current View object.
+		 *
+		 * @return string $label The label that will be displayed.
+		 */
+		return apply_filters( 'tec_views_v2_subscribe_links_' . self::get_slug() . '_label', $this->label, $this, $view );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function get_single_label( $view ) {
-		return apply_filters( 'tec_views_v2_single_subscribe_links_' . self::get_slug() . '_single_label', $this->single_label );
+		/**
+		 * Allows filtering of the labels for the Single Event view labels.
+		 *
+		 * @param string                      $label    The label that will be displayed.
+		 * @param Link_Abstract               $link_obj The link object the label is for.
+		 * @param \Tribe\Events\Views\V2\View $view     The current View object.
+		 *
+		 * @return string $label The label that will be displayed.
+		 */
+		return apply_filters( 'tec_views_v2_single_subscribe_links_' . self::get_slug() . '_single_label', $this->single_label, $this, $view );
 	}
 
 	/**
