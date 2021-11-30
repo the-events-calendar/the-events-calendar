@@ -683,17 +683,13 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			return $categories;
 		}
 
-		// Make sure it's an event post.
-		if ( ! tribe_is_event( $context->post ) ) {
-			return $categories;
-		}
-
 		return array_merge(
 			$categories,
 			[
 				[
 					'slug'  => 'tribe-events',
 					'title' => __( 'Event Blocks', 'the-events-calendar' ),
+					'icon'  => 'calendar-alt',
 				],
 			]
 		);
