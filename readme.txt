@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Bypass caching of the event when dealing with the admin event list table. [BTRIA-1072]
+* Fix - Bypass caching of the event when dealing with the admin event list table. [TEC-4156]
 
 = [5.11.0] 2021-11-17 =
 
