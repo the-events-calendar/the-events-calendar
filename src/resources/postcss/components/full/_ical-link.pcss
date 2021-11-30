@@ -1,11 +1,9 @@
-/* -----------------------------------------------------------------------------
- *
- * iCal Link
- *
- * ----------------------------------------------------------------------------- */
-
 .tribe-events {
-
+	/* -----------------------------------------------------------------------------
+ 	 *
+ 	 * iCal Link
+ 	 *
+ 	 * ----------------------------------------------------------------------------- */
 	.tribe-events-c-ical__link {
 
 		&,
@@ -20,6 +18,7 @@
 
 		&:hover,
 		&:focus,
+		&:focus-within,
 		&:active {
 			background-color: var(--tec-color-accent-primary);
 			color: var(--tec-color-background);
@@ -38,6 +37,115 @@
 
 		path {
 			stroke: currentColor;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * iCal Subscribe Dropdown
+	 *
+	 * ----------------------------------------------------------------------------- */
+	.tribe-events-c-subscribe-dropdown {
+		display: flex;
+		flex-flow: column;
+		font-size: var(--tec-font-size-2);
+		justify-content: flex-end;
+		margin: var(--tec-spacer-7) 0;
+
+		@media (--viewport-medium) {
+			float: right;
+		}
+
+		.tribe-events-c-subscribe-dropdown__button {
+			position: relative;
+
+			&:hover,
+			&:focus,
+			&:focus-within,
+			&.tribe-events-c-subscribe-dropdown__button--active {
+				background-color: var(--tec-color-accent-primary);
+				color: var(--tec-color-background);
+			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__button-text {
+			cursor: pointer;
+		}
+
+		.tribe-events-c-subscribe-dropdown__button-icon {
+			color: currentColor;
+			display: inline-block;
+			height: 6px;
+			margin-left: var(--tec-spacer-1);
+			stroke: currentColor;
+			vertical-align: middle;
+			width: 10px;
+
+			path {
+				fill: currentColor;
+			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__content {
+			display: none;
+		}
+
+		.tribe-events-c-subscribe-dropdown__list {
+			background-color: var(--tec-color-background);
+			border: 1px solid var(--tec-color-border-secondary);
+			border-radius: var(--tec-border-radius-default);
+			box-shadow: var(--tec-box-shadow-default);
+			list-style: none;
+			padding: var(--tec-spacer-1);
+			transform: translateY(var(--tec-spacer-1));
+			width: auto;
+			z-index: var(--tec-z-index-dropdown);
+		}
+
+		.tribe-events-c-subscribe-dropdown__list-item {
+			border-radius: var(--tec-border-radius-default);
+			color: var(--tec-color-text-primary);
+			font-family: var(--tec-font-family-sans-serif);
+			outline: 0;
+			padding: var(--tec-spacer-0);
+			text-align: left;
+
+			a {
+				display: inline-block;
+				padding: 0 var(--tec-spacer-3);
+				width: 100%;
+			}
+
+			&:active,
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--tec-color-background-subscribe-list-item-hover);
+			}
+		}
+
+		&:focus,
+		&:focus-within {
+			/* Show the submenu when we are focused anywhere inside. */
+			.tribe-events-c-subscribe-dropdown__content {
+				display: block;
+			}
+
+			/* ...and the icon rotate */
+			.tribe-events-c-subscribe-dropdown__button-icon {
+				transform: rotate(180deg);
+			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__button--active {
+			+.tribe-events-c-subscribe-dropdown__content {
+				display: block;
+			}
+
+			/* ...and the icon rotate */
+			.tribe-events-c-subscribe-dropdown__button-icon {
+				transform: rotate(180deg);
+			}
 		}
 	}
 
@@ -68,6 +176,12 @@
 				background-color: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
 			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__list-item a:hover,
+		.tribe-events-c-subscribe-dropdown__list-item a:focus,
+		.tribe-events-c-subscribe-dropdown__list-item a:focus-within {
+			background-color: transparent !important;
 		}
 	}
 }

@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.11.0
+Stable tag: 5.12.0
 Tested up to: 5.8.2
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -221,8 +221,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.12.0] TBD =
 
+* Feature - Add new subscribe options to the "Export Events" link at the bottom of calendar views and single Event view [TEC-4131]
 * Fix - Bypass caching of the event when dealing with the admin event list table. [TEC-4156]
 
 = [5.11.0] 2021-11-17 =
