@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\iCalendar;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export;
+use \Tribe\Events\Views\V2\View as View;
 
 /**
  * Class iCalendar_Handler
@@ -98,7 +99,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array The filtered template variables.
 	 */
-	public function template_vars( $template_vars, \Tribe\Events\Views\V2\View $view ) {
+	public function template_vars( $template_vars, View $view ) {
 		// Set up the section of the $template vars for the links.
 		$subscribe_links = [];
 
@@ -138,7 +139,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 
 		$single_ical_link = tribe_get_single_ical_link();
 
-		$view = new class extends \Tribe\Events\Views\V2\View {};
+		$view = new class extends View {};
 		$view->set_url( [] );
 		$view->set_context( tribe_context()->alter( [
 			'single_ical_link' => $single_ical_link,

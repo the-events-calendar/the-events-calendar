@@ -9,6 +9,7 @@
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe__Date_Utils as Dates;
+use \Tribe\Events\Views\V2\View as View;
 
 /**
  * Class Abstract_Link
@@ -124,7 +125,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_uri( \Tribe\Events\Views\V2\View $view ) {
+	public function get_uri( View $view ) {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
 		$feed_url = $view->get_context()->get( 'single_ical_link', false );
 
@@ -162,7 +163,7 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * @return string The iCal Feed URI.
 	 */
-	protected function get_canonical_ics_feed_url( \Tribe\Events\Views\V2\View $view ) {
+	protected function get_canonical_ics_feed_url( View $view ) {
 		$view_url_args = $view->get_url_args();
 
 		// Some date magic.

@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
+use \Tribe\Events\Views\V2\View as View;
+
 /**
  * Class Link_Interface
  *
@@ -68,7 +70,7 @@ interface Link_Interface {
 	 *
 	 * @return string The translated link text/label.
 	 */
-	public function get_label( \Tribe\Events\Views\V2\View $view );
+	public function get_label( View $view );
 
 	/**
 	 * Getter function for the single label property.
@@ -79,7 +81,7 @@ interface Link_Interface {
 	 *
 	 * @return string The translated link text/label for the single event view.
 	 */
-	public function get_single_label( \Tribe\Events\Views\V2\View $view );
+	public function get_single_label( View $view );
 
 	/**
 	 * Getter function for the uri property.
@@ -90,5 +92,5 @@ interface Link_Interface {
 	 *
 	 * @return string The url for the link calendar subscription "feed", or download.
 	 */
-	public function get_uri( \Tribe\Events\Views\V2\View $view );
+	public function get_uri( View $view );
 }

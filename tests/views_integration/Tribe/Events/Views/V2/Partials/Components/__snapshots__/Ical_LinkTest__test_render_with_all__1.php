@@ -15,7 +15,7 @@
 		target="_blank"
 		rel="noopener noreferrer nofollow"
 	>
-			</a>
+		Google Calendar	</a>
 </li>
 					
 <li class="tribe-events-c-subscribe-dropdown__list-item"">
@@ -26,7 +26,7 @@
 		target="_blank"
 		rel="noopener noreferrer nofollow"
 	>
-			</a>
+		iCalendar	</a>
 </li>
 					
 <li class="tribe-events-c-subscribe-dropdown__list-item"">
@@ -37,7 +37,7 @@
 		target="_blank"
 		rel="noopener noreferrer nofollow"
 	>
-			</a>
+		Export .ics file	</a>
 </li>
 			</ul>
 </div>
