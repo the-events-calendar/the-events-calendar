@@ -1686,6 +1686,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * @deprecated TBD
 		 */
 		function tribe_ical_url() { // eslint-disable-line no-unused-vars
+			console.info( 'Method deprecated with no replacement.' ); // eslint-disable-line no-console, max-len
 			var should_overwrite = true;
 
 			// If the "force filtered iCal link" option is set, we should not overwrite.
