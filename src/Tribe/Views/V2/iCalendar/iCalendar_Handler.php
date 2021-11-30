@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\iCalendar;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export;
+use \Tribe\Events\Views\V2\View as View;
 
 /**
  * Class iCalendar_Handler
@@ -80,7 +81,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		tribe( iCalendar_Export::class )->register();
 
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'template_vars' ], 10, 2 );
-		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 11 );
+		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 20 );
 		add_filter( 'tribe_ical_properties', [ $this, 'ical_properties' ] );
 	}
 
@@ -98,12 +99,12 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array The filtered template variables.
 	 */
-	public function template_vars( $template_vars, \Tribe\Events\Views\V2\View $view ) {
+	public function template_vars( $template_vars, View $view ) {
 		// Set up the section of the $template vars for the links.
 		$subscribe_links = [];
 
 		/**
-		 * Allows each link type to dynamically add itself to the list.
+		 * Allows each link type to dynamically add itself to the list for Calendar views.
 		 *
 		 * @since TBD
 		 *
@@ -134,22 +135,26 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 * @return string The altered link content.
 	 */
 	public function single_event_links( $calendar_links ) {
-		if ( ! $this->use_subscribe_links() ) {
-			return $calendar_links;
-		}
+		$calendar_links = '<div class="tribe-events-cal-links">';
 
 		$single_ical_link = tribe_get_single_ical_link();
 
-		$view = new class extends \Tribe\Events\Views\V2\View {};
+		$view = new class extends View {};
 		$view->set_url( [] );
 		$view->set_context( tribe_context()->alter( [
 			'single_ical_link' => $single_ical_link,
 		] ) );
 
 		$links = [];
+		/**
+		 * Allows each link type to add itself to the links on the Event Single views.
+		 *
+		 * @since TBD
+		 *
+		 * @param array <string|object>       $subscribe_links The array of link objects.
+		 * @param \Tribe\Events\Views\V2\View $view The current View implementation.
+		 */
 		$links = apply_filters( 'tec_views_v2_single_subscribe_links', $links, $view );
-
-		$calendar_links = '<div class="tribe-events-cal-links">';
 
 		foreach( $links as $link ) {
 			$calendar_links .= $link;

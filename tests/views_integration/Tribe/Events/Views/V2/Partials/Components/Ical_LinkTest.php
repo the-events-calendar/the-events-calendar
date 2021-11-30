@@ -12,6 +12,10 @@ class Ical_LinkTest extends HtmlPartialTestCase
 
 	protected $partial_path = 'components/ical-link';
 
+	public $gcal;
+	public $ical;
+	public $ics;
+
 	/**
 	 * Trims out the date-based parts for snapshots.
 	 *
@@ -22,6 +26,24 @@ class Ical_LinkTest extends HtmlPartialTestCase
 	 */
 	public function trim_snapshot( $html ) {
 		return preg_replace('/tribe-bar-date\S*(ical)/', 'ical', $html );
+	}
+
+	public function setup_subs() {
+		$gcal = new Google_Calendar;
+		$ical = new iCal;
+		$ics  = new iCalendar_Export;
+
+		$gcal->register();
+		$ical->register();
+		$ics->register();
+
+		$subs = [
+			'gcal' => $gcal,
+			'ical' => $ical,
+			'ics'  => $ics,
+		];
+
+		return $subs;
 	}
 
 	public function test_render_legacy_with_context() {
@@ -63,15 +85,7 @@ class Ical_LinkTest extends HtmlPartialTestCase
 	}
 
 	public function test_render_with_all() {
-		$gcal = new Google_Calendar;
-		$ical = new iCal;
-		$ics  = new iCalendar_Export;
-
-		$subs = [
-			'gcal' => $gcal,
-			'ical' => $ical,
-			'ics'  => $ics,
-		];
+		$subs = $this->setup_subs();
 
 		$this->assertMatchesSnapshot(
 			$this->trim_snapshot(
@@ -81,15 +95,7 @@ class Ical_LinkTest extends HtmlPartialTestCase
 	}
 
 	public function test_render_with_gcal_only() {
-		$gcal = new Google_Calendar;
-		$ical = new iCal;
-		$ics  = new iCalendar_Export;
-
-		$subs = [
-			'gcal' => $gcal,
-			'ical' => $ical,
-			'ics'  => $ics,
-		];
+		$subs = $this->setup_subs();
 
 		$subs['ical']->set_visibility( false );
 		$subs['ics']->set_visibility( false );
@@ -102,15 +108,7 @@ class Ical_LinkTest extends HtmlPartialTestCase
 	}
 
 	public function test_render_with_ical_only() {
-		$gcal = new Google_Calendar;
-		$ical = new iCal;
-		$ics  = new iCalendar_Export;
-
-		$subs = [
-			'gcal' => $gcal,
-			'ical' => $ical,
-			'ics'  => $ics,
-		];
+		$subs = $this->setup_subs();
 
 		$subs['gcal']->set_visibility( false );
 		$subs['ics']->set_visibility( false );
@@ -123,15 +121,8 @@ class Ical_LinkTest extends HtmlPartialTestCase
 	}
 
 	public function test_render_with_icalendar_export_only() {
-		$gcal = new Google_Calendar;
-		$ical = new iCal;
-		$ics  = new iCalendar_Export;
+		$subs = $this->setup_subs();
 
-		$subs = [
-			'gcal' => $gcal,
-			'ical' => $ical,
-			'ics'  => $ics,
-		];
 		$subs['gcal']->set_visibility( false );
 		$subs['ical']->set_visibility( false );
 
