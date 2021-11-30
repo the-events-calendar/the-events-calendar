@@ -123,7 +123,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @return string $label The label that will be displayed.
 		 */
-		return apply_filters( 'tec_views_v2_single_subscribe_links_' . self::get_slug() . '_single_label', $this->single_label, $this, $view );
+		return apply_filters( 'tec_views_v2_single_subscribe_links_' . self::get_slug() . '_label', $this->single_label, $this, $view );
 	}
 
 	/**
