@@ -152,7 +152,7 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
-		bdump($feed_url);
+
 		return $feed_url;
 	}
 
