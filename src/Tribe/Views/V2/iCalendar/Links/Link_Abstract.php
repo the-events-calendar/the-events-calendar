@@ -81,8 +81,8 @@ abstract class Link_Abstract implements Link_Interface {
 		$class = sanitize_html_class( 'tribe-events-' . static::get_slug() );
 		$links[] = '<a class="tribe-events-button ' . $class
 				. '" href="' . esc_url( $this->get_uri( $view ) )
-				. '" title="' . esc_attr( static::get_single_label( $view ) )
-				. '">+ ' . esc_html( static::get_single_label( $view ) ) . '</a>';
+				. '" title="' . esc_attr( $this->get_single_label( $view ) )
+				. '">+ ' . esc_html( $this->get_single_label( $view ) ) . '</a>';
 
 		return $links;
 	}
@@ -143,11 +143,11 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_uri( View $view ) {
+	public function get_uri( $view ) {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
-		$feed_url = $view->get_context()->get( 'single_ical_link', false );
+		$feed_url = empty( $view ) ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
 
-		if ( empty( $feed_url )  ) {
+		if ( empty( $feed_url ) && ! empty( $view ) ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 

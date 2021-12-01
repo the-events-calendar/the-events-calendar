@@ -32,15 +32,23 @@
 	 * iCal Subscribe Dropdown
 	 *
 	 * ----------------------------------------------------------------------------- */
+
 	.tribe-events-c-subscribe-dropdown {
 		display: flex;
 		flex-flow: column;
 		font-size: var(--tec-font-size-2);
 		justify-content: flex-end;
 		margin: var(--tec-spacer-7) 0;
+		width: auto;
 
-		@media (--viewport-medium) {
+		.tribe-common--breakpoint-medium& {
 			float: right;
+			margin-left: auto;
+		}
+
+		/* Fix for a FBAR style bug */
+		.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium& {
+			width: auto;
 		}
 
 		.tribe-events-c-subscribe-dropdown__button {
