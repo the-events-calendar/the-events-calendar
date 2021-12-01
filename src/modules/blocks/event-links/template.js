@@ -107,7 +107,7 @@ const renderControls = ( {
 						onChange={ toggleGoogleCalendar }
 					/>
 					<ToggleControl
-						label={ __( 'iCal', 'the-events-calendar' ) }
+						label={ __( 'iCalendar', 'the-events-calendar' ) }
 						checked={ hasiCal }
 						onChange={ toggleIcalLabel }
 					/>
