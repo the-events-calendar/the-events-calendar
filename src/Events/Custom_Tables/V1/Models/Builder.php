@@ -287,7 +287,11 @@ class Builder {
 		$this->queries[] = $SQL;
 
 		if ( $this->execute_queries ) {
-			$wpdb->query( $SQL );
+			/*
+			 * Depending on the db implementation, it could not run updates and return `0`.
+			 * We need to make sure it does not return exactly boolean `false`.
+			 */
+			return false !== $wpdb->query( $SQL );
 		}
 
 		return true;
