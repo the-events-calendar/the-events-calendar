@@ -22,12 +22,12 @@ interface Link_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param array                       $template_vars The template variables.
-	 * @param \Tribe\Events\Views\V2\View $view          The current View object.
+	 * @param array                       $subscribe_links The list of subscribe links.
+	 * @param \Tribe\Events\Views\V2\View $view            The current View object.
 	 *
-	 * @return array $template_vars The modified vars.
+	 * @return array $subscribe_links The modified list of links.
 	 */
-	public function filter_tec_views_v2_subscribe_links( $template_vars, $view );
+	public function filter_tec_views_v2_subscribe_links( $subscribe_links, $view );
 
 	/**
 	 * Adds a link to those displayed on the single event view.
@@ -92,5 +92,5 @@ interface Link_Interface {
 	 *
 	 * @return string The url for the link calendar subscription "feed", or download.
 	 */
-	public function get_uri( View $view );
+	public function get_uri( $view );
 }

@@ -80,9 +80,16 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		tribe( iCal::class )->register();
 		tribe( iCalendar_Export::class )->register();
 
-		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'template_vars' ], 10, 2 );
+		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_template_vars' ], 10, 2 );
 		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 20 );
 		add_filter( 'tribe_ical_properties', [ $this, 'ical_properties' ] );
+		add_filter( 'tribe_template_context:events/blocks/event-links', [ $this, 'filter_template_context' ], 10, 4 );
+	}
+
+	public function filter_template_context( $context, $file, $name, $template ) {
+		$context['subscribe_links'] = $this->get_subscribe_links();
+
+		return $context;
 	}
 
 	/**
@@ -99,8 +106,24 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array The filtered template variables.
 	 */
-	public function template_vars( $template_vars, View $view ) {
+	public function filter_template_vars( $template_vars, View $view ) {
 		// Set up the section of the $template vars for the links.
+		$subscribe_links                  = $this->get_subscribe_links( $view );
+		$template_vars['subscribe_links'] = $subscribe_links;
+
+		return $template_vars;
+	}
+
+	/**
+	 * Builds the subscribe links in a separate process.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe\Events\Views\V2\View $view
+	 * @return void
+	 */
+	public function get_subscribe_links( $view = null ) {
+		// Set up the list of links.
 		$subscribe_links = [];
 
 		/**
@@ -112,10 +135,9 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		 * @param \Tribe\Events\Views\V2\View $view The View implementation.
 		 * @param array<string,mixed>         $template_vars The View template variables (for use in internal logic).
 		 */
-		$subscribe_links = apply_filters( 'tec_views_v2_subscribe_links', $subscribe_links, $view, $template_vars );
-		$template_vars['subscribe_links'] = $subscribe_links;
+		$subscribe_links = apply_filters( 'tec_views_v2_subscribe_links', $subscribe_links, $view );
 
-		return $template_vars;
+		return $subscribe_links;
 	}
 
 	/**
