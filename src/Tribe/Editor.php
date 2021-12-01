@@ -689,7 +689,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				[
 					'slug'  => 'tribe-events',
 					'title' => __( 'Event Blocks', 'the-events-calendar' ),
-					'icon'  => 'calendar-alt',
+					'icon'  => 'tec-horns',
 				],
 			]
 		);
