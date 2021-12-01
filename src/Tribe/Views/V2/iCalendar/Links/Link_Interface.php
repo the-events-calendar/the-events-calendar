@@ -3,7 +3,7 @@
  * The base implementation for the Views v2 query controllers.
  *
  * @package Tribe\Events\Views\V2\iCalendar
- * @since TBD
+ * @since 5.12.0
  */
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
@@ -14,13 +14,13 @@ use \Tribe\Events\Views\V2\View as View;
  * Class Link_Interface
  *
  * @package Tribe\Events\Views\V2\iCalendar
- * @since TBD
+ * @since 5.12.0
  */
 interface Link_Interface {
 	/**
 	 * Adds a subscribe link object to the list of links for template consumption.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param array                       $subscribe_links The list of subscribe links.
 	 * @param \Tribe\Events\Views\V2\View $view            The current View object.
@@ -32,7 +32,7 @@ interface Link_Interface {
 	/**
 	 * Adds a link to those displayed on the single event view.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param array<string>               $links The current list of links.
 	 * @param \Tribe\Events\Views\V2\View $view  The current View object.
@@ -44,7 +44,7 @@ interface Link_Interface {
 	/**
 	 * Getter function for the display property.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param \Tribe\Events\Views\V2\View|null $view The current View object.
 	 *
@@ -55,7 +55,7 @@ interface Link_Interface {
 	/**
 	 * Setter function for the display property.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param boolean $visible
 	 */
@@ -64,7 +64,7 @@ interface Link_Interface {
 	/**
 	 * Getter function for the label property.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param \Tribe\Events\Views\V2\View $view The current View object.
 	 *
@@ -75,7 +75,7 @@ interface Link_Interface {
 	/**
 	 * Getter function for the single label property.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param \Tribe\Events\Views\V2\View $view The current View object.
 	 *
@@ -86,7 +86,7 @@ interface Link_Interface {
 	/**
 	 * Getter function for the uri property.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param \Tribe\Events\Views\V2\View $view The current View object.
 	 *

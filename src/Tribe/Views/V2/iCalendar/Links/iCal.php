@@ -2,7 +2,7 @@
 /**
  * Handles iCal export/subscribe links.
  *
- * @since   TBD
+ * @since   5.12.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 /**
  * Class iCal
  *
- * @since   TBD
+ * @since   5.12.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */

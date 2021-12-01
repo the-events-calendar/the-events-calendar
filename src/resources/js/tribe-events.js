@@ -1683,7 +1683,7 @@ Date.prototype.format = function( mask, utc ) {
 		 * @function tribe_ical_url
 		 * @desc tribe_ical_url This function adds required params to the ical url.
 		 *                       Runs on doc ready, and hooks into 'ajax-success.tribe' also.
-		 * @deprecated TBD
+		 * @deprecated 5.12.0
 		 */
 		function tribe_ical_url() { // eslint-disable-line no-unused-vars
 			console.info( 'Method deprecated with no replacement.' ); // eslint-disable-line no-console, max-len

@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 5.12.0
  *
  * @type   {PlainObject}
  */
@@ -11,7 +11,7 @@
  /**
   * Configures Views Object in the Global Tribe variable
   *
-  * @since TBD
+  * @since 5.12.0
   *
   * @type   {PlainObject}
   */
@@ -20,7 +20,7 @@
  /**
   * Initializes in a Strict env the code that manages the Event Views
   *
-  * @since TBD
+  * @since 5.12.0
   *
   * @param  {PlainObject} $   jQuery
   * @param  {PlainObject} obj tribe.events.views.icalLinks
@@ -33,7 +33,7 @@
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @type {PlainObject}
 	 */
@@ -47,7 +47,7 @@
 	/**
 	 * Toggles active class on view selector button
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param {Event} event event object for click event
 	 *
@@ -60,7 +60,7 @@
 	/**
 	 * Binds events for container
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param  {jQuery} $container jQuery object of view container
 	 *
@@ -91,7 +91,7 @@
 	/**
 	 * Deinitialize ical links JS
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
 	 * @param  {jqXHR}       jqXHR    Request object
@@ -108,7 +108,7 @@
 	/**
 	 * Initialize view selector JS
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
@@ -131,7 +131,7 @@
 	/**
 	 * Handles the initialization of the view selector when Document is ready
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @return {void}
 	 */

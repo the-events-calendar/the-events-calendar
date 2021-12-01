@@ -10,7 +10,7 @@
  * @link http://evnt.is/1aiy
  *
  * @version 5.3.0
- * @since TBD Alter template to handle multiple links.
+ * @since 5.12.0 Alter template to handle multiple links.
  *
  * @var array $subscribe_links List of links to display with associated data.
  *

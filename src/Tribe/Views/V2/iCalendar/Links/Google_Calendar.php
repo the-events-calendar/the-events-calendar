@@ -2,7 +2,7 @@
 /**
  * Handles Google Calendar export/subscribe links.
  *
- * @since   TBD
+ * @since   5.12.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 /**
  * Class Google_Calendar
  *
- * @since   TBD
+ * @since   5.12.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */

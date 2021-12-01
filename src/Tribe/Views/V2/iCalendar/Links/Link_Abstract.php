@@ -3,7 +3,7 @@
  * The base implementation for the Views v2 query controllers.
  *
  * @package Tribe\Events\Views\V2\iCalendar
- * @since TBD
+ * @since 5.12.0
  */
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
@@ -15,14 +15,14 @@ use \Tribe\Events\Views\V2\View as View;
  * Class Abstract_Link
  *
  * @package Tribe\Events\Views\V2\iCalendar
- * @since TBD
+ * @since 5.12.0
  */
 abstract class Link_Abstract implements Link_Interface {
 
 	/**
 	 * The (translated) text/label for the link.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @var string
 	 */
@@ -31,7 +31,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * The (translated) text/label for the link.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * Whether to display the link or not.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @var boolean
 	 */
@@ -49,7 +49,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * the link provider slug.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @var string
 	 */
@@ -58,7 +58,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * Registers the objects and filters required by the provider to manage subscribe links.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function register() {
 		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links'], 10, 2 );
@@ -201,7 +201,7 @@ abstract class Link_Abstract implements Link_Interface {
 		/**
 		 * Allows other plugins to alter what gets passed to the subscribe link.
 		 *
-		 * @since TBD
+		 * @since 5.12.0
 		 *
 		 * @param array<string>               $canonical_args A list of "passthrough" argument keys.
 		 * @param \Tribe\Events\Views\V2\View $view           The View we're being called from.
@@ -228,7 +228,7 @@ abstract class Link_Abstract implements Link_Interface {
 		/**
 		 * Allows other plugins to alter the query args that get passed to the subscribe link.
 		 *
-		 * @since TBD
+		 * @since 5.12.0
 		 *
 		 * @param array<string|mixed>         $passthrough_args The arguments used to build the ical links.
 		 * @param array<string>               $canonical_args   A list of allowed argument keys.

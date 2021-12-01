@@ -17,7 +17,7 @@ use \Tribe\Events\Views\V2\View as View;
 /**
  * Class iCalendar_Handler
  *
- * @since   TBD
+ * @since   5.12.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -25,7 +25,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Which classes we will load for links by default.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @var string[]
 	 */
@@ -38,7 +38,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register singletons and main hook.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function register() {
 		if ( ! $this->use_subscribe_links() ) {
@@ -62,7 +62,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Allow toggling off the new subscribe link list via a hook.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @return boolean Wether to use the new subscribe link list.
 	 */
@@ -73,7 +73,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register all our hooks here.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function register_hooks() {
 		tribe( Google_Calendar::class )->register();
@@ -99,7 +99,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 *
 	 * @see `tribe_events_views_v2_view_template_vars` filter.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param array<string,mixed>         $template_vars The View template variables.
 	 * @param \Tribe\Events\Views\V2\View $view The View implementation.
@@ -117,7 +117,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Builds the subscribe links in a separate process.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param Tribe\Events\Views\V2\View $view
 	 * @return void
@@ -129,7 +129,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows each link type to dynamically add itself to the list for Calendar views.
 		 *
-		 * @since TBD
+		 * @since 5.12.0
 		 *
 		 * @param array <string|object>       $subscribe_links The array of links.
 		 * @param \Tribe\Events\Views\V2\View $view The View implementation.
@@ -150,7 +150,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 *
 	 * @see `tribe_events_ical_single_event_links` filter.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param string $calendar_links The link content.
 	 *
@@ -171,7 +171,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		/**
 		 * Allows each link type to add itself to the links on the Event Single views.
 		 *
-		 * @since TBD
+		 * @since 5.12.0
 		 *
 		 * @param array <string|object>       $subscribe_links The array of link objects.
 		 * @param \Tribe\Events\Views\V2\View $view The current View implementation.
@@ -206,7 +206,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 *
 	 * @see `tribe_ical_properties` filter.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @param string $content The iCal content.
 	 *
