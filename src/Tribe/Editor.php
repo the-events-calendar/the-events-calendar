@@ -593,6 +593,18 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
+			'tec-blocks-category-icon-styles',
+			'tribe-admin-block-category-icons.css',
+			[],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'conditionals' => [ $this, 'is_edit_screen' ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-block-editor',
 			'app/editor.css',
 			[],
