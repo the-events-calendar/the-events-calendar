@@ -268,7 +268,7 @@ class Builder {
 				continue;
 			}
 			$value    = $with_alias ? "new.{$column}" : $column;
-			$upsert[] = "{$column}=VALUES({$value})";
+			$upsert[] = "{$column}={$value}";
 		}
 		$upsert = implode( ',', $upsert );
 
