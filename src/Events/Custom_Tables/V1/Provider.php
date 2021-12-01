@@ -99,7 +99,12 @@ class Provider extends Service_Provider {
 
 			$this->container->register( Tables\Provider::class );
 			$this->container->register( WP_Query\Provider::class );
-			$this->container->register( Edits\Provider::class );
+
+			if ( ! defined( 'TEC_CUSTOM_TABLES_V1_ALT_UPDATE_FLOW' ) ) {
+				$this->container->register( Edits\Provider::class );
+			} else {
+				$this->container->register( Updates\Provider::class );
+			}
 
 			if ( tribe_events_views_v2_is_enabled() ) {
 				$this->container->register( Views\V2\Provider::class );

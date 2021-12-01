@@ -1,13 +1,13 @@
 <?php
 /**
- * ${CARET}
+ * Handles the custom tables updates integrating with the normal WordPress flow.
  *
  * @since   TBD
  *
- * @package TEC\Events_Pro\Updates
+ * @package TEC\Events\Custom_Tables\V1\Updates
  */
 
-namespace TEC\Events_Pro\Updates;
+namespace TEC\Events\Custom_Tables\V1\Updates;
 
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provider_Contract;
@@ -16,16 +16,28 @@ use WP_Post;
 use WP_REST_Request;
 use WP_REST_Server;
 
+/**
+ * Class Provider
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Custom_Tables\V1\Updates
+ */
 class Provider extends Service_Provider implements Provider_Contract {
 	public function register() {
 		// Make this provider available in the Service Locator by class and slug.
 		$this->container->singleton( self::class, $this );
 		$this->container->singleton( 'tec.events.custom-tables-v1.updates', $this );
+
+		/*
+		 * We need this to be a singleton to keep track of the Events to update in the WRITE phase
+		 * of the request and update them before the READ phase of the request.
+		 */
 		$this->container->singleton( Updater::class, Updater::class );
 
 		$this->hook_to_redirect_post_udpates();
 		$this->hook_to_watch_for_post_updates();
-		$this->hook_to_update_custom_tables();
+		$this->hook_to_commit_post_updates();
 	}
 
 	/**
@@ -36,7 +48,10 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	private function hook_to_redirect_post_udpates() {
 		/*
-		 * First intercept updates coming from the Classic Editor context.
+		 * Classic Editor updates will come through the `wp-admin/post.php` file.
+		 * This includes Trash and Delete requests.
+		 * What will differ is the HTTP method used: POST for updates, GET for Trash and Delete requests.
+		 * In both instances, this is a good place to hook before WordPress identifies the update target.
 		 */
 		if ( ! has_action( 'load-post.php', [ $this, 'redirect_classic_editor_post_id' ] ) ) {
 			add_action( 'load-post.php', [ $this, 'redirect_classic_editor_post_id' ] );
@@ -77,7 +92,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 *
 	 */
-	private function hook_to_update_custom_tables() {
+	private function hook_to_commit_post_updates() {
 		/*
 		 * Performing updates on `shutdown` will work for any Event that was updated programmatically
 		 * by means of a function like `wp_insert_post`. It's too late for any post that is the object
@@ -89,7 +104,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 * This action fires in the context of the `wp-includes/post.php` file and will
 		 * fire after the post has been updated (WRITE) and before it's redirected (READ).
 		 */
-		add_filter( 'redirect_post_location', [ $this, 'commit_and_redirect_classic_editor' ] );
+		add_filter( 'redirect_post_location', [ $this, 'commit_and_redirect_classic_editor' ], 10, 2 );
 
 		/*
 		 * This action is documented in wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php
@@ -109,10 +124,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 *
+	 * This plugin will, by default, not redirect the post ID at all.
+	 * It will, instead, fire an action allowing other plugins to
+	 * intervene and redirect the post ID.
 	 *
 	 * @since TBD
-	 *
 	 */
 	public function redirect_classic_editor_post_id() {
 		/**
@@ -204,12 +220,16 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Commits custom tables updates for an Event post that might require it in the
 	 * context of a Classic Editor request.
 	 *
+	 * The filter is used as an action, the input `$location` value is not changed.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $location The location the post will be redirected to. Unused by the method.
 	 * @param int    $post_id  The post ID of the post that is being updated.
 	 */
 	public function commit_and_redirect_classic_editor( $location, $post_id ) {
-		$this->container->make( Updater::class )->commit_post_updates( $post_id );
+		$this->container->make( Updater::class )->commit_post_updates( $post_id, Requests::from_http_request() );
+
+		return $location;
 	}
 }
