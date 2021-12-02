@@ -38,8 +38,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->hook_to_redirect_post_udpates();
 		$this->hook_to_watch_for_post_updates();
 		$this->hook_to_commit_post_updates();
-
-		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ], 10, 2 );
+		$this->hook_to_delete_post_data();
 	}
 
 	/**
@@ -246,5 +245,15 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
 		$this->container->make( Updater::class )->delete_custom_tables_data( $post_id, $post );
+	}
+
+	/**
+	 * Hooks on the actions that will be fired when a post is deleted (NOT trashed)
+	 * from the database to, then, remove the custom tables data.
+	 *
+	 * @since TBD
+	 */
+	private function hook_to_delete_post_data() {
+		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ], 10, 2 );
 	}
 }
