@@ -1,7 +1,6 @@
 <?php
 /**
- * Watches the meta modeling an Event as such, and updates the custom tables
- * information.
+ * Handles the update of the Events custom tables information.
  *
  * @since   TBD
  *
@@ -247,7 +246,7 @@ class Updater {
 		}
 
 		try {
-			$event->occurrences()->save_occurrences( '' );
+			$event->occurrences()->save_occurrences();
 		} catch ( \Exception $e ) {
 			do_action( 'tribe_log', 'error', __CLASS__, [
 				'message' => 'Event Occurrence update failed.',
