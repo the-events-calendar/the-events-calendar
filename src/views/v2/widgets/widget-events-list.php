@@ -12,7 +12,7 @@
  * @since 5.3.0
  * @since 5.4.0   Remove passed vars - rely on widget object in view more template.
  *
- * @version 5.4.0
+ * @version 5.12.0
  *
  * @var array<\WP_Post>      $events                     The array containing the events.
  * @var string               $rest_url                   The REST URL.
@@ -53,11 +53,13 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 
 			<?php $this->template( 'components/data' ); ?>
 
+			<?php if ( ! empty( $widget_title ) ) : ?>
 			<header class="tribe-events-widget-events-list__header">
 				<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
 					<?php echo esc_html( $widget_title ); ?>
 				</h2>
 			</header>
+			<?php endif; ?>
 
 			<?php if ( ! empty( $events ) ) : ?>
 

@@ -1,4 +1,5 @@
 <?php
+
 use Tribe\Events\Aggregator\Record\Batch_Queue;
 
 // Don't load directly.
@@ -425,9 +426,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Preps post arguments for create/save
 	 *
-	 * @param string  $type Type of record to create - manual or schedule
-	 * @param object  $args Post type args
-	 * @param array   $meta Post meta
+	 * @param string $type Type of record to create - manual or schedule
+	 * @param object $args Post type args
+	 * @param array  $meta Post meta
 	 *
 	 * @return array
 	 */
@@ -645,7 +646,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @param array $meta Meta to add to the post
 	 */
 	public function maybe_add_meta_via_pre_wp_44_method( $id, $meta ) {
-		if ( -1 !== version_compare( get_bloginfo( 'version' ), '4.4' ) ) {
+		if ( - 1 !== version_compare( get_bloginfo( 'version' ), '4.4' ) ) {
 			return;
 		}
 
@@ -657,11 +658,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Queues the import on the Aggregator service
 	 *
+	 * @see Tribe__Events__Aggregator__API__Import::create()
+	 *
 	 * @return stdClass|WP_Error|int A response object, a `WP_Error` instance on failure or a record
 	 *                               post ID if the record had to be re-scheduled due to HTTP request
 	 *                               limit.
-	 * @see Tribe__Events__Aggregator__API__Import::create()
-	 *
 	 */
 	public function queue_import( $args = [] ) {
 		$aggregator = tribe( 'events-aggregator.main' );
@@ -991,7 +992,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return WP_Query|WP_Error|bool
 	 */
-	public function get_child_record_by_status( $status = 'success', $qty = -1, array $args = [] ) {
+	public function get_child_record_by_status( $status = 'success', $qty = - 1, array $args = [] ) {
 		$statuses = Records::$status;
 
 		if ( ! isset( $statuses->{$status} ) && 'trash' !== $status ) {
@@ -1034,6 +1035,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @return bool
 	 */
 	public function log_error( WP_Error $error ) {
+		/**
+		 * Allow switching the logging of errors from EA off.
+		 *
+		 * Please dont turn this particular filter off without knowing what you are doing, it might cause problems and
+		 * will cause Support to likely be trying to help you without the information they might need.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool     $should_log_errors If we should log the errors or not.
+		 * @param WP_Error $error             Which error we are logging.
+		 */
+		$should_log_errors = tribe_is_truthy( apply_filters( 'tec_aggregator_records_should_log_error', true, $error ) );
+		if ( ! $should_log_errors ) {
+			return false;
+		}
+
 		$today = getdate();
 		$args  = [
 			'number'     => 1,
@@ -1112,7 +1129,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$next    = $last + $this->frequency->interval;
 
 		// let's add some randomization of -5 to 0 minutes (this makes sure we don't push a schedule beyond when it should fire off)
-		$next += ( mt_rand( -5, 0 ) * 60 );
+		$next += ( mt_rand( - 5, 0 ) * 60 );
 
 		// Only do anything if we have one of these metas
 		if ( ! empty( $this->meta['schedule_day'] ) || ! empty( $this->meta['schedule_time'] ) ) {
@@ -1535,7 +1552,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			if ( $should_import_settings && isset( $event['sticky'] ) ) {
 				if ( $event['sticky'] == true ) {
 					$event['EventShowInCalendar'] = 'yes';
-					$event['menu_order']          = -1;
+					$event['menu_order']          = - 1;
 				}
 				unset( $event['sticky'] );
 			}
