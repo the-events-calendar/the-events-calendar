@@ -54,11 +54,11 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 			<?php $this->template( 'components/data' ); ?>
 
 			<?php if ( ! empty( $widget_title ) ) : ?>
-			<header class="tribe-events-widget-events-list__header">
-				<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
-					<?php echo esc_html( $widget_title ); ?>
-				</h2>
-			</header>
+				<header class="tribe-events-widget-events-list__header">
+					<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">
+						<?php echo esc_html( $widget_title ); ?>
+					</h2>
+				</header>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $events ) ) : ?>
