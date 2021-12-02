@@ -115,6 +115,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ], 100, 2 );
 	}
 
+	/**
+	 * Unregisters, from the Filters API, the actions and filters added by this provider.
+	 *
+	 * @since TBD
+	 */
 	public function unregister() {
 		remove_action( 'updated_postmeta', [ $this, 'mark_for_update' ] );
 		remove_action( 'added_post_meta', [ $this, 'mark_for_update' ] );
