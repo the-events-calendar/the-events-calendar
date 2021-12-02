@@ -97,7 +97,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_label( $view ) {
+	public function get_label( View $view ) {
 		/**
 		 * Allows filtering of the labels for the Calendar view labels.
 		 *
@@ -113,7 +113,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_single_label( $view ) {
+	public function get_single_label( View $view ) {
 		/**
 		 * Allows filtering of the labels for the Single Event view labels.
 		 *
