@@ -9,6 +9,9 @@
 
 namespace TEC\Events\Custom_Tables\V1\Models;
 
+use DateTime;
+use DateTimeZone;
+use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\End_Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Integer_Key_Formatter;
@@ -194,14 +197,28 @@ class Event extends Model {
 
 		$post_id = $post->ID;
 
+		$start_date_utc = get_post_meta( $post_id, '_EventStartDateUTC', true );
+		$end_date_utc = get_post_meta( $post_id, '_EventEndDateUTC', true );
+		$duration = get_post_meta( $post_id, '_EventDuration', true );
+
+		try {
+			if ( ! empty( $start_date_utc ) && ! empty( $end_date_utc ) ) {
+				$utc      = new DateTimeZone( 'UTC' );
+				$duration = ( new DateTime( $end_date_utc, $utc ) )->format( 'U' )
+				            - ( new DateTime( $start_date_utc, $utc ) )->format( 'U' );
+			}
+		} catch ( Exception $e ) {
+			// Ok, we tried.
+		}
+
 		return [
 			'post_id'        => $post_id,
 			'start_date'     => get_post_meta( $post_id, '_EventStartDate', true ),
 			'end_date'       => get_post_meta( $post_id, '_EventEndDate', true ),
 			'timezone'       => get_post_meta( $post_id, '_EventTimezone', true ),
-			'duration'       => get_post_meta( $post_id, '_EventDuration', true ),
-			'start_date_utc' => get_post_meta( $post_id, '_EventStartDateUTC', true ),
-			'end_date_utc'   => get_post_meta( $post_id, '_EventEndDateUTC', true ),
+			'duration'       => $duration,
+			'start_date_utc' => $start_date_utc,
+			'end_date_utc'   => $end_date_utc,
 			'hash'           => '',
 		];
 	}

@@ -38,6 +38,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->hook_to_redirect_post_udpates();
 		$this->hook_to_watch_for_post_updates();
 		$this->hook_to_commit_post_updates();
+
+		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ], 10, 2 );
 	}
 
 	/**
@@ -104,14 +106,14 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 * This action fires in the context of the `wp-includes/post.php` file and will
 		 * fire after the post has been updated (WRITE) and before it's redirected (READ).
 		 */
-		add_filter( 'redirect_post_location', [ $this, 'commit_and_redirect_classic_editor' ], 10, 2 );
+		add_filter( 'redirect_post_location', [ $this, 'commit_and_redirect_classic_editor' ], 100, 2 );
 
 		/*
 		 * This action is documented in wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php
 		 * It fires after the post has been updated (WRITE) following the REST request, and before the
 		 * response is returned (READ).
 		 */
-		add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ], 10, 2 );
+		add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ], 100, 2 );
 	}
 
 	public function unregister() {
@@ -231,5 +233,18 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->make( Updater::class )->commit_post_updates( $post_id, Requests::from_http_request() );
 
 		return $location;
+	}
+
+	/**
+	 * Hooked on the post delete action, this method will clear all the custom
+	 * tables information related to the Event.
+	 *
+	 * @since TBD
+	 *
+	 * @param int     $post_id The deleted Event post ID.
+	 * @param WP_Post $post    A reference to the post object that is going to be deleted.
+	 */
+	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
+		$this->container->make( Updater::class )->delete_custom_tables_data( $post_id, $post );
 	}
 }

@@ -182,12 +182,12 @@ class Updater {
 		$updated = apply_filters( 'tec_events_custom_tables_v1_commit_post_updates', null, $post_id, $request );
 
 		if ( null === $updated ) {
-			return $this->update_custom_tables( $post_id, $updated );
+			$updated = $this->update_custom_tables( $post_id, $updated );
 		}
 
 		if ( $updated ) {
 			// Remove the post ID from the list of post IDs still to update.
-			$this->booked_ids = array_diff( $this->booked_ids, $post_id );
+			$this->booked_ids = array_diff( $this->booked_ids, [ $post_id ] );
 		}
 
 		return true;
@@ -227,14 +227,11 @@ class Updater {
 	 * @return bool Whether the update was successful or not.
 	 */
 	private function update_custom_tables( int $post_id ): bool {
-		$upserted = Event::upsert( [ 'post_id' ], Event::data_from_post( $post_id ) );
+		$event_data = Event::data_from_post( $post_id );
+		$upserted   = Event::upsert( [ 'post_id' ], $event_data );
 
 		if ( ! $upserted ) {
-			do_action( 'tribe_log', 'error', __CLASS__, [
-				'message' => 'Event upsert failed.',
-				'post_id' => $post_id,
-			] );
-
+			// At this stage the data might just be missing: it's fine.
 			return false;
 		}
 
@@ -262,5 +259,43 @@ class Updater {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Deletes an Event custom tables information.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The deleted Event post ID.
+	 *
+	 * @return int|false Either the number of affected rows, or `false` on failure.
+	 */
+	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
+		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
+			// Not an Event post.
+			return false;
+		}
+
+		$affected = (int) Event::where( 'post_id', (int) $post_id )->delete();
+		$affected += (int) Occurrence::where( 'post_id', $post_id )->delete();
+
+		/**
+		 * Fires after the Event custom tables data has been removed from the database.
+		 *
+		 * By the time this action fires, the Event post has not yet been removed from
+		 * the posts tables.
+		 *
+		 * @since TBD
+		 *
+		 * @param int     $affected The number of affected rows, across all custom tables.
+		 *                          Keep in mind db-level deletions will not be counted in
+		 *                          this value!
+		 * @param int     $post_id  The Event post ID.
+		 * @param WP_Post $post     A reference to the deleted Event post.
+		 *
+		 */
+		$affected = apply_filters( 'tec_events_custom_tables_v1_delete_post', $affected, $post_id, $post );
+
+		return $affected;
 	}
 }
