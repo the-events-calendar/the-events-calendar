@@ -121,7 +121,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		remove_action( 'deleted_post_meta', [ $this, 'mark_for_update' ] );
 		remove_action( 'load-post.php', [ $this, 'redirect_classic_editor_post_id' ] );
 		remove_filter( 'rest_pre_dispatch', [ $this, 'redirect_rest_request_post_id' ], 5 );
-		remove_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ] );
+		remove_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ], 100 );
+		remove_action( 'delete_post', [ $this, 'delete_custom_tables_data' ] );
 	}
 
 	/**
