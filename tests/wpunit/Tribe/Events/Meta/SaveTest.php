@@ -235,7 +235,7 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		/** @var \Tribe__Events__Editor__Compatibility $compatibility */
 		$compatibility = tribe( 'events.editor.compatibility' );
 		// Enable checkbox value
-		\Tribe__Settings_Manager::set_option( $compatibility->get_toggle_blocks_editor_key(), true );
+		\Tribe__Settings_Manager::set_option( $compatibility::$blocks_editor_key, true );
 		// Fake classic editor plugin is active.
 		$this->classic_editor = $this->make_classic_instance();
 		$this->mock_classic_editor();
@@ -279,7 +279,7 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEmpty( $event->post_content );
 
 		// Cleanup
-		\Tribe__Settings_Manager::set_option( $compatibility->get_toggle_blocks_editor_key(), null );
+		\Tribe__Settings_Manager::set_option( $compatibility::$blocks_editor_key, null );
 		foreach ( $values as $key => $value ) {
 			unset( $_POST[ $key ] );
 		}

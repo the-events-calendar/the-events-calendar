@@ -17,7 +17,6 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 
 		if (
 			! tribe( 'editor' )->should_load_blocks()
-			|| ! tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on()
 		) {
 			return;
 		}

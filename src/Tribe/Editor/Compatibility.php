@@ -16,6 +16,15 @@ class Tribe__Events__Editor__Compatibility {
 	public static $blocks_editor_key = 'toggle_blocks_editor';
 
 	/**
+	 * Key for the Hidden Field of toggling blocks editor.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $blocks_editor_hidden_field_key = 'toggle_blocks_editor_hidden_field';
+
+	/**
 	 * Any hooking any class needs happen here.
 	 *
 	 * In place of delegating the hooking responsibility to the single classes they are all hooked here.
@@ -25,7 +34,102 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return void
 	 */
 	public function hook() {
-		add_filter( 'tribe_editor_classic_is_active', [ $this, 'filter_is_classic_editor' ] );
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 100 );
+	}
+
+	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
+		if ( $this->is_blocks_editor_toggled_on() ) {
+			return false;
+		}
+
+		return $should_load_blocks;
+	}
+
+	/**
+	 * Gets if user toggled blocks editor on the settings
+	 *
+	 * @since 4.7
+	 *
+	 * @return bool
+	 */
+	public function is_blocks_editor_toggled_on() {
+		$is_on = tribe_get_option( static::$blocks_editor_key, false );
+
+		/**
+		 * Filters whether the Blocks Editor is on or not.
+		 *
+		 * @since 5.1.1
+		 *
+		 * @param bool $is_on Whether the Blocks Editor is on or not.
+		 */
+		$is_on = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
+
+		return tribe_is_truthy( $is_on );
+	}
+
+	/**
+	 * Inserts the Toggle and Hidden Field for the Activation of Blocks Editor
+	 *
+	 * @since 4.7
+	 *
+	 * @param array $fields Fields from Options General
+	 *
+	 * @return array
+	 */
+	public function insert_toggle_blocks_editor_field( $fields = [] ) {
+		if ( ! tribe( 'editor' )->is_wp_version() ) {
+			return $fields;
+		}
+
+		$read_more_url  = 'https://theeventscalendar.com/gutenberg-block-editor-news/?utm_source=tec&utm_medium=eventscalendarapp&utm_term=adminnotice&utm_campaign=gutenbergrelease&utm_content=ebook-gutenberg&cid=tec_eventscalendarapp_adminnotice_gutenbergrelease_ebook-gutenberg';
+		$read_more_link = sprintf( ' <a href="%2$s" target="_blank">%1$s</a>.', esc_html__( 'Read more', 'the-events-calendar' ), esc_url( $read_more_url ) );
+
+		$insert_before = 'showComments';
+		$insert_data = [
+			static::$blocks_editor_key        => [
+				'type'            => 'checkbox_bool',
+				'label'           => esc_html__( 'Activate Block Editor for Events', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Enable the Gutenberg block editor interface for creating events.', 'the-events-calendar' ) . $read_more_link,
+				'default'         => false,
+				'validation_type' => 'boolean',
+				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-field' ],
+			],
+			static::$blocks_editor_hidden_field_key => [
+				'type'            => 'checkbox_bool',
+				'label'           => esc_html__( 'Hidden Blocks Editor Config', 'the-events-calendar' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
+				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-hidden-field' ],
+			],
+		];
+
+		return Tribe__Main::array_insert_before_key( $insert_before, $fields, $insert_data );
+	}
+
+	/**
+	 * Gets the option key for toggling Blocks Editor active
+	 *
+	 * @since 4.7
+	 * @deprecated TBD
+	 *
+	 * @return string
+	 */
+	public function get_toggle_blocks_editor_key() {
+		_deprecated_function( __METHOD__, 'TBD', 'use static::$blocks_editor_key' );
+		return static::$blocks_editor_key;
+	}
+
+	/**
+	 * Gets the option key for the Hidden Field of toggling blocks editor
+	 *
+	 * @since 4.7
+	 * @deprecated TBD
+	 *
+	 * @return string
+	 */
+	public function get_toggle_blocks_editor_hidden_key() {
+		_deprecated_function( __METHOD__, 'TBD', 'use static::$blocks_editor_hidden_field_key' );
+		return 'toggle_blocks_editor_hidden_field';
 	}
 
 	/**
@@ -73,94 +177,12 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return boolean
 	 */
 	public function filter_is_classic_editor( $is_classic_editor = false ) {
+		_deprecated_function( __METHOD__, 'TBD', 'See Tribe__Editor->should_load_blocks()' );
 		// TEC blocks are off, return true == classic editor.
 		if ( ! $this->is_blocks_editor_toggled_on() ) {
 			return true;
 		}
 
 		return $is_classic_editor;
-	}
-
-	/**
-	 * Gets if user toggled blocks editor on the settings
-	 *
-	 * @since 4.7
-	 *
-	 * @return bool
-	 */
-	public function is_blocks_editor_toggled_on() {
-		$is_on = tribe_get_option( $this->get_toggle_blocks_editor_key(), false );
-
-		/**
-		 * Filters whether the Blocks Editor is on or not.
-		 *
-		 * @since 5.1.1
-		 *
-		 * @param bool $is_on Whether the Blocks Editor is on or not.
-		 */
-		$is_on = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
-
-		return tribe_is_truthy( $is_on );
-	}
-
-	/**
-	 * Gets the option key for toggling Blocks Editor active
-	 *
-	 * @since 4.7
-	 *
-	 * @return string
-	 */
-	public function get_toggle_blocks_editor_key() {
-		return static::$blocks_editor_key;
-	}
-
-	/**
-	 * Gets the option key for the Hidden Field of toggling blocks editor
-	 *
-	 * @since 4.7
-	 *
-	 * @return string
-	 */
-	public function get_toggle_blocks_editor_hidden_key() {
-		return 'toggle_blocks_editor_hidden_field';
-	}
-
-	/**
-	 * Inserts the Toggle and Hidden Field for the Activation of Blocks Editor
-	 *
-	 * @since 4.7
-	 *
-	 * @param array $fields Fields from Options General
-	 *
-	 * @return array
-	 */
-	public function insert_toggle_blocks_editor_field( $fields = [] ) {
-		if ( ! tribe( 'editor' )->is_wp_version() ) {
-			return $fields;
-		}
-
-		$read_more_url  = 'https://theeventscalendar.com/gutenberg-block-editor-news/?utm_source=tec&utm_medium=eventscalendarapp&utm_term=adminnotice&utm_campaign=gutenbergrelease&utm_content=ebook-gutenberg&cid=tec_eventscalendarapp_adminnotice_gutenbergrelease_ebook-gutenberg';
-		$read_more_link = sprintf( ' <a href="%2$s" target="_blank">%1$s</a>.', esc_html__( 'Read more', 'the-events-calendar' ), esc_url( $read_more_url ) );
-
-		$insert_before = 'showComments';
-		$insert_data = [
-			$this->get_toggle_blocks_editor_key()        => [
-				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Activate Block Editor for Events', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Enable the Gutenberg block editor interface for creating events.', 'the-events-calendar' ) . $read_more_link,
-				'default'         => false,
-				'validation_type' => 'boolean',
-				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-field' ],
-			],
-			$this->get_toggle_blocks_editor_hidden_key() => [
-				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Hidden Blocks Editor Config', 'the-events-calendar' ),
-				'default'         => false,
-				'validation_type' => 'boolean',
-				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-hidden-field' ],
-			],
-		];
-
-		return Tribe__Main::array_insert_before_key( $insert_before, $fields, $insert_data );
 	}
 }
