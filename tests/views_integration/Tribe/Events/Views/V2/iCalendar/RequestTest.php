@@ -299,15 +299,15 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 			$expected_events[] = $events_indexed[ $event_index ];
 		}
 
-		$this->assertEquals( $expected_events, $event_ids );
+		$this->assertEqualsCanonicalizing( $expected_events, $event_ids );
 	}
 
 	/**
-	 * It should return the single event request ID when creating expor for single-event
+	 * It should return the single event request ID when creating export for single-event
 	 *
 	 * @test
 	 */
-	public function should_return_the_single_event_request_id_when_creating_expor_for_single_event() {
+	public function should_return_the_single_event_request_id_when_creating_export_for_single_event() {
 		$post_id = ( new Event() )->create();
 		$context = tribe_context()->alter( [
 			'view'    => 'single-event',

@@ -854,78 +854,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Adds new Global Elements settings via the hook in common.
-	 *
-	 * @since 5.3.1
-	 * @deprecated 5.9.0
-	 *
-	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
-	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
-	 */
-	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
-		_deprecated_function( __METHOD__, '5.9.0' );
-		tribe( 'customizer' )->include_global_elements_settings( $section, $manager, $customizer );
-	}
-
-	/**
-	 * Adds new Single Event settings via the hook in common.
-	 *
-	 * @since 5.3.1
-	 * @deprecated 5.9.0
-	 *
-	 * @param \Tribe__Customizer__Section $section    The Single Event Customizer section.
-	 * @param WP_Customize_Manager        $manager    The settings manager.
-	 * @param \Tribe__Customizer          $customizer The Customizer object.
-	 */
-	public function action_include_single_event_settings( $section, $manager, $customizer ) {
-		_deprecated_function( __METHOD__, '5.9.0' );
-		tribe( 'customizer' )->include_single_event_settings( $section, $manager, $customizer );
-	}
-
-	/**
-	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
-	 *
-	 * @since 5.3.1
-	 * @deprecated 5.9.0
-	 *
-	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
-	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
-	 *
-	 * @return string The filtered CSS template.
-	 */
-	public function filter_global_elements_css_template( $css_template, $section ) {
-		_deprecated_function( __METHOD__, '5.9.0' );
-		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
-			return $css_template;
-		}
-
-		return tribe( 'customizer' )->filter_global_elements_css_template( $css_template, $section );
-	}
-
-	/**
-	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
-	 *
-	 * @since 5.3.1
-	 * @deprecated 5.9.0
-	 *
-	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
-	 * @param \Tribe__Customizer__Section $section      The Single Event section.
-	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
-	 *
-	 * @return string The filtered CSS template.
-	 */
-	public function filter_single_event_css_template( $css_template, $section ) {
-		_deprecated_function( __METHOD__, '5.9.0' );
-		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
-			return $css_template;
-		}
-
-		return tribe( 'customizer' )->filter_single_event_css_template( $css_template, $section );
-	}
-
-	/**
 	 * Filter the website link label and change it for Single Event Classic Editor.
 	 * Use the following in functions.php to disable:
 	 * remove_filter( 'tribe_get_venue_website_link_label', [ tribe( 'events.views.v2.hooks' ), 'filter_single_event_details_website_label' ] );
@@ -1051,5 +979,79 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( iCalendar\Request::class )->get_event_ids();
+	}
+
+	/* DEPRECATED */
+
+	/**
+	 * Adds new Global Elements settings via the hook in common.
+	 *
+	 * @since 5.3.1
+	 * @deprecated 5.9.0
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Global Elements Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
+	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
+		_deprecated_function( __METHOD__, '5.9.0' );
+		tribe( 'customizer' )->include_global_elements_settings( $section, $manager, $customizer );
+	}
+
+	/**
+	 * Adds new Single Event settings via the hook in common.
+	 *
+	 * @since 5.3.1
+	 * @deprecated 5.9.0
+	 *
+	 * @param \Tribe__Customizer__Section $section    The Single Event Customizer section.
+	 * @param WP_Customize_Manager        $manager    The settings manager.
+	 * @param \Tribe__Customizer          $customizer The Customizer object.
+	 */
+	public function action_include_single_event_settings( $section, $manager, $customizer ) {
+		_deprecated_function( __METHOD__, '5.9.0' );
+		tribe( 'customizer' )->include_single_event_settings( $section, $manager, $customizer );
+	}
+
+	/**
+	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
+	 *
+	 * @since 5.3.1
+	 * @deprecated 5.9.0
+	 *
+	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
+	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
+	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 *
+	 * @return string The filtered CSS template.
+	 */
+	public function filter_global_elements_css_template( $css_template, $section ) {
+		_deprecated_function( __METHOD__, '5.9.0' );
+		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
+			return $css_template;
+		}
+
+		return tribe( 'customizer' )->filter_global_elements_css_template( $css_template, $section );
+	}
+
+	/**
+	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
+	 *
+	 * @since 5.3.1
+	 * @deprecated 5.9.0
+	 *
+	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
+	 * @param \Tribe__Customizer__Section $section      The Single Event section.
+	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 *
+	 * @return string The filtered CSS template.
+	 */
+	public function filter_single_event_css_template( $css_template, $section ) {
+		_deprecated_function( __METHOD__, '5.9.0' );
+		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section ) ) {
+			return $css_template;
+		}
+
+		return tribe( 'customizer' )->filter_single_event_css_template( $css_template, $section );
 	}
 }
