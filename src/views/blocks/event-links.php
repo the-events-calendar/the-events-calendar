@@ -23,6 +23,18 @@ $has_ical       = $this->attr( 'hasiCal' );
 
 $should_render = $has_google_cal || $has_ical;
 
+if ( $should_render ) {
+	$subscribe_links = empty( $this->context['subscribe_links'] ) ? false : $this->context['subscribe_links'];
+}
+
+if ( $has_google_cal ) {
+	$google_cal_link = $subscribe_links ? $subscribe_links[ 'gcal' ]->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
+}
+
+if ( $has_ical ) {
+	$ical_link = $subscribe_links ? $subscribe_links[ 'ical' ]->get_uri( null ) : tribe_get_single_ical_link();
+}
+
 remove_filter( 'the_content', 'do_blocks', 9 );
 
 if ( $should_render ) :
@@ -31,9 +43,9 @@ if ( $should_render ) :
 		<?php if ( $has_google_cal ) : ?>
 			<div class="tribe-block__btn--link tribe-block__events-gcal">
 				<a
-					href="<?php echo Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ); ?>"
+					href="<?php echo esc_url( $google_cal_link ); ?>"
 					target="_blank"
-					rel="noopener noreferrer"
+					rel="noopener noreferrer nofollow"
 					title="<?php esc_attr_e( 'Add to Google Calendar', 'the-events-calendar' ); ?>"
 				>
 					<img src="<?php echo Tribe__Main::instance()->plugin_url  . 'src/modules/icons/link.svg'; ?>" />
@@ -44,8 +56,9 @@ if ( $should_render ) :
 		<?php if ( $has_ical ) : ?>
 			<div class="tribe-block__btn--link tribe-block__-events-ical">
 				<a
-					href="<?php echo esc_url( tribe_get_single_ical_link() ); ?>"
-					title="<?php esc_attr_e( 'Download .ics file', 'the-events-calendar' ); ?>"
+					href="<?php echo esc_url( $ical_link ); ?>"
+					rel="noopener noreferrer nofollow"
+					title="<?php esc_attr_e( 'Add to iCalendar', 'the-events-calendar' ); ?>"
 				>
 					<img src="<?php echo Tribe__Main::instance()->plugin_url  . 'src/modules/icons/link.svg'; ?>" />
 					<?php echo esc_html( $this->attr( 'iCalLabel' ) ) ?>

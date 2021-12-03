@@ -5,25 +5,25 @@ namespace Tribe\Events\Editor;
 /**
  * Events block editor hooks.
  *
- * @since TBD
+ * @since 5.12.0
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function register() {
 		// Allow Hooks to be removed, by having the them registered to the container.
 		$this->container->singleton( static::class, $this );
-		
+
 		$this->add_actions();
 	}
 
 	/**
 	 * Adds the actions required by each Views v2 component.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	protected function add_actions() {
 		add_action( 'current_screen', [ $this, 'add_widget_resources' ] );
@@ -34,7 +34,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * We trigger this action so that we only need to do the is_block_editor() check once.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function add_widget_resources() {
 		if ( ! get_current_screen()->is_block_editor() ) {
@@ -50,7 +50,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Triggers the print styles action for widgets in the block editor.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function admin_print_widget_styles() {
 		if ( did_action( 'admin_print_styles-widgets.php' ) ) {
@@ -63,7 +63,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Triggers the print scripts action for widgets in the block editor.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function admin_print_widget_scripts() {
 		if ( ! did_action( 'load-widgets.php' ) ) {
@@ -86,7 +86,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Triggers the print footer scripts action for widgets in the block editor.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function admin_print_footer_widget_scripts() {
 		if ( did_action( 'admin_print_footer_scripts-widgets.php' ) ) {
@@ -99,7 +99,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Triggers the admin footer widgets action in the block editor.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 */
 	public function admin_footer_widgets() {
 		if ( did_action( 'admin_footer-widgets.php' ) ) {
