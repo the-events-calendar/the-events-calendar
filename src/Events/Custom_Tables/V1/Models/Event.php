@@ -211,7 +211,7 @@ class Event extends Model {
 			// Ok, we tried.
 		}
 
-		return [
+		$data = [
 			'post_id'        => $post_id,
 			'start_date'     => get_post_meta( $post_id, '_EventStartDate', true ),
 			'end_date'       => get_post_meta( $post_id, '_EventEndDate', true ),
@@ -221,5 +221,16 @@ class Event extends Model {
 			'end_date_utc'   => $end_date_utc,
 			'hash'           => '',
 		];
+
+		/**
+		 * Filters the data that will be returned to hydrate an Event model.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $data     The data for the Event, as prepared by The
+		 *                                      Events Calendar and previous filters.
+		 * @param int                 $event_id The Event post ID.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_event_data_from_post', $data, $event_id );
 	}
 }
