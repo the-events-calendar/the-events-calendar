@@ -21,8 +21,11 @@ const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().s
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
 const defaultStartTimeSeconds = time.toSeconds( defaultStartTime, time.TIME_FORMAT_HH_MM_SS );
 const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_HH_MM_SS );
+const queryStartDate = globals.postObjects().tribe_events.tribe_start_date;
 
-export const defaultStartMoment = moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
+export const defaultStartMoment = queryStartDate
+	? moment( queryStartDate ).seconds( defaultStartTimeSeconds )
+	: moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
 export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
 const defaultStartDateTime = momentUtil.toDateTime( defaultStartMoment );

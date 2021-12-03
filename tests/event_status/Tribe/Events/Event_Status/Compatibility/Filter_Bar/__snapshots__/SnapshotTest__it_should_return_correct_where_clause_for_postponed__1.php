@@ -1,0 +1,1 @@
+<?php return ' AND (  tribe_event_status_filterbar_alias.meta_value NOT IN (\'postponed\')  OR  tribe_event_status_filterbar_alias.meta_value = \'\'  OR  tribe_event_status_filterbar_alias.meta_value IS NULL ) ';
