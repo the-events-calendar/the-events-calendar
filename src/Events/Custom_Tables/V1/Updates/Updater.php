@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Updates;
 use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_REST_Request;
@@ -68,7 +69,7 @@ class Updater {
 			return;
 		}
 
-		$tracked_meta_keys = $this->get_tracked_meta_keys();
+		$tracked_meta_keys = $this->get_tracked_meta_keys( $object_id );
 
 		if ( ! in_array( $meta_key, $tracked_meta_keys, true ) ) {
 			// Not a meta key we track.
@@ -91,17 +92,12 @@ class Updater {
 	 *
 	 * @since TBD
 	 *
+	 * @param int $id  The ID of the object (could not be an Event post!)
+	 *                 the filters are being applied for.
+	 *
 	 * @return array<string> The filtered set of tracked meta keys.
 	 */
-	private function get_tracked_meta_keys() {
-		if ( did_action( 'init' ) ) {
-			/*
-			 * Filtering of this value should happen before, or during, the `init` action.
-			 * After that let's avoid running the Filter API on each call.
-			 */
-			return $this->tracked_meta_keys;
-		}
-
+	private function get_tracked_meta_keys( $id ) {
 		/**
 		 * Allows filtering the list of meta keys that, when modified, should trigger
 		 * an update to the custom tables' data.
@@ -112,13 +108,16 @@ class Updater {
 		 * @since TBD
 		 *
 		 * @param array<string> The list of tracked meta keys.
+		 * @param int $id  The ID of the object (could not be an Event post!)
+		 *                 the filters are being applied for.
 		 */
-		$this->tracked_meta_keys = apply_filters(
+		$tracked_meta_keys = apply_filters(
 			'tec_events_custom_tables_v1_tracked_meta_keys',
-			$this->tracked_meta_keys
+			$this->tracked_meta_keys,
+			$id
 		);
 
-		return $this->tracked_meta_keys;
+		return $tracked_meta_keys;
 	}
 
 	/**
@@ -249,7 +248,8 @@ class Updater {
 		}
 
 		try {
-			$event->occurrences()->save_occurrences();
+			$occurrences = $event->occurrences();
+			$occurrences->save_occurrences();
 		} catch ( Exception $e ) {
 			do_action( 'tribe_log', 'error', __CLASS__, [
 				'message' => 'Event Occurrence update failed.',
