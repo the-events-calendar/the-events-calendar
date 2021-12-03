@@ -163,11 +163,19 @@ class Occurrence extends Model {
 	public function save_occurrences( ...$args ) {
 		$insertions = $this->get_occurrences( ...$args );
 
-		if ( ! count( $insertions ) ) {
-			return;
+		if ( count( $insertions ) ) {
+			self::insert( $insertions );
 		}
 
-		self::insert( $insertions );
+		/**
+		 * Fires after Occurrences for an Event have been inserted, or updated, in
+		 * the custom tables.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
+		 */
+		do_action( 'tec_events_custom_tables_v1_after_save', $this->event->post_id );
 	}
 
 	/**
@@ -180,10 +188,10 @@ class Occurrence extends Model {
 	 * @return bool The result of the operation
 	 */
 	public function purge_recurrences( DateTimeInterface $now ) {
-		if ( ! has_action( 'shutdown', [ $this, 'late_purge_recurrences' ] ) ) {
-			// Run the purge once per request per Event.
-			add_action( 'shutdown', [ $this, 'late_purge_recurrences' ], PHP_INT_MIN );
-		}
+		 if ( ! has_action( 'shutdown', [ $this, 'late_purge_recurrences' ] ) ) {
+			 // Run the purge once per request per Event.
+			 add_action( 'shutdown', [ $this, 'late_purge_recurrences' ], PHP_INT_MIN );
+		 }
 
 		return true;
 	}
