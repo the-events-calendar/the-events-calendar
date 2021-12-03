@@ -14,7 +14,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.2
+ * @version TBD
  */
 
 if ( isset( $jsonld_enable ) && ! $jsonld_enable ) {
