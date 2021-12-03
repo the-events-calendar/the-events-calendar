@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
 * Fix - Add a valid rel value to the link tag for TEC REST API support in order to improve HTML 5 and WCAG 2.1 compliance. [TEC-4129]
 * Fix - Ensure the date selected when creating a new event from the Event Manager is applied to the block editor. [ECP-954]
 * Fix - Properly observe the disabling of JSON-LD output on widget blocks in the block editor. [TEC-4077]
