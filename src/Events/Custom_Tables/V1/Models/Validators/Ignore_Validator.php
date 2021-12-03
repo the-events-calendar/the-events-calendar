@@ -12,13 +12,13 @@ namespace TEC\Events\Custom_Tables\V1\Models\Validators;
 use TEC\Events\Custom_Tables\V1\Models\Model;
 
 /**
- * Class Ignore_validator
+ * Class Ignore_Validator
  *
  * @since   TBD
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Ignore_validator extends Validation {
+class Ignore_Validator extends Validation {
 	/**
 	 * Consider any input as valid.
 	 *
