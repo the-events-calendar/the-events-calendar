@@ -15,6 +15,9 @@
  * @link http://evnt.is/1aiy
  *
  * @version TBD
+ *
+ * @since 5.0.2
+ * @since TBD Add and observe the $jsonld_enable variable.
  */
 
 if ( isset( $jsonld_enable ) && ! $jsonld_enable ) {
