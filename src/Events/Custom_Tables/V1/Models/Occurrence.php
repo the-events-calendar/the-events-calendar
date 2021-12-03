@@ -52,6 +52,7 @@ use Tribe__Timezones as Timezones;
  * @property string hash
  * @property string updated_at
  * @property bool   has_recurrence (ECP only)
+ * @property int    sequence  (ECP only)
  */
 class Occurrence extends Model {
 	use Model_Date_Attributes;
