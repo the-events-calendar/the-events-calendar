@@ -1,11 +1,9 @@
-/* -----------------------------------------------------------------------------
- *
- * iCal Link
- *
- * ----------------------------------------------------------------------------- */
-
 .tribe-events {
-
+	/* -----------------------------------------------------------------------------
+ 	 *
+ 	 * iCal Link
+ 	 *
+ 	 * ----------------------------------------------------------------------------- */
 	.tribe-events-c-ical__link {
 
 		&,
@@ -20,6 +18,7 @@
 
 		&:hover,
 		&:focus,
+		&:focus-within,
 		&:active {
 			background-color: var(--tec-color-accent-primary);
 			color: var(--tec-color-background);
@@ -38,6 +37,55 @@
 
 		path {
 			stroke: currentColor;
+		}
+	}
+
+	/* -----------------------------------------------------------------------------
+	 *
+	 * iCal Subscribe Dropdown
+	 *
+	 * ----------------------------------------------------------------------------- */
+	.tribe-events-c-subscribe-dropdown {
+		.tribe-events-c-subscribe-dropdown__button {
+			&:hover,
+			&:focus,
+			&:focus-within,
+			&.tribe-events-c-subscribe-dropdown__button--active {
+				background-color: var(--tec-color-accent-primary);
+				color: var(--tec-color-background);
+			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__button-text {
+			cursor: pointer;
+		}
+
+		.tribe-events-c-subscribe-dropdown__button-icon {
+			color: currentColor;
+			stroke: currentColor;
+
+			path {
+				fill: currentColor;
+			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__list {
+			background-color: var(--tec-color-background);
+			border: 1px solid var(--tec-color-border-secondary);
+			border-radius: var(--tec-border-radius-default);
+			box-shadow: var(--tec-box-shadow-default);
+		}
+
+		.tribe-events-c-subscribe-dropdown__list-item {
+			color: var(--tec-color-text-primary);
+			font-family: var(--tec-font-family-sans-serif);
+
+			&:active,
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--tec-color-background-subscribe-list-item-hover);
+			}
 		}
 	}
 
@@ -68,6 +116,12 @@
 				background-color: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
 			}
+		}
+
+		.tribe-events-c-subscribe-dropdown__list-item a:hover,
+		.tribe-events-c-subscribe-dropdown__list-item a:focus,
+		.tribe-events-c-subscribe-dropdown__list-item a:focus-within {
+			background-color: transparent !important;
 		}
 	}
 }

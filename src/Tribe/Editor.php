@@ -392,7 +392,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Check whether the current page is an edit post type page.
 	 *
-	 * @since TBD
+	 * @since 5.12.0
 	 *
 	 * @return bool
 	 */

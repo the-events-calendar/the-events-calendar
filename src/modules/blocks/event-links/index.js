@@ -35,11 +35,11 @@ export default {
 	attributes: {
 		googleCalendarLabel: {
 			type: 'html',
-			default: __( 'Google Calendar', 'the-events-calendar' ),
+			default: __( 'Add to Google Calendar', 'the-events-calendar' ),
 		},
 		iCalLabel: {
 			type: 'html',
-			default: __( 'iCal Export', 'the-events-calendar' ),
+			default: __( 'Add to iCalendar', 'the-events-calendar' ),
 		},
 		hasiCal: {
 			type: 'html',
@@ -56,4 +56,3 @@ export default {
 		return null;
 	},
 };
-
