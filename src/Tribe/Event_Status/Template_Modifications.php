@@ -70,7 +70,11 @@ class Template_Modifications {
 			return $classes;
 		}
 
-		$event = tribe_get_event( $event );
+		/**
+		 * We're specifically forcing here (last param) as otherwise
+		 * this runs into issues with the event list table in the admin.
+		 */
+		$event = tribe_get_event( $event, OBJECT, 'raw', true );
 
 		if ( $event->event_status ) {
 			$classes[] = 'tribe-events-status__list-event-' . sanitize_html_class( $event->event_status );
