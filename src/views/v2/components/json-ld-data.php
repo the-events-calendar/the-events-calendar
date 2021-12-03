@@ -10,6 +10,7 @@
  * @var string                               $view_slug    The slug of the view currently being rendered.
  * @var Tribe\Events\Views\V2\View_Interface $view         The View instance that is being rendered.
  * @var string                               $json_ld_data The View JSON-LD data markup.
+ * @var boolean                              $jsonld_enable Whether the JSON-LD data output is enabled or not.
  *
  * @link http://evnt.is/1aiy
  *
