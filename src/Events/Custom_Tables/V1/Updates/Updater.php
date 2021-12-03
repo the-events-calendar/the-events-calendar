@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
+use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -153,6 +154,8 @@ class Updater {
 	 *
 	 * @param int             $post_id      The post ID, not guaranteed to be an Event post ID if this
 	 *                                      method is not called from this class!
+	 *
+	 * @return bool Whether the post updates were correctly applied or not.
 	 */
 	public function commit_post_updates( $post_id, WP_REST_Request $request ) {
 		if ( ! in_array( (int) $post_id, $this->booked_ids ) ) {
@@ -181,7 +184,7 @@ class Updater {
 		$updated = apply_filters( 'tec_events_custom_tables_v1_commit_post_updates', null, $post_id, $request );
 
 		if ( null === $updated ) {
-			$updated = $this->update_custom_tables( $post_id, $updated );
+			$updated = $this->update_custom_tables( $post_id );
 		}
 
 		if ( $updated ) {
@@ -213,7 +216,7 @@ class Updater {
 			return false;
 		}
 
-		$this->commit_post_updates( $post->ID, $request );
+		return $this->commit_post_updates( $post->ID, $request );
 	}
 
 	/**
@@ -225,11 +228,11 @@ class Updater {
 	 *
 	 * @return bool Whether the update was successful or not.
 	 */
-	private function update_custom_tables( int $post_id ): bool {
+	private function update_custom_tables( $post_id ) {
 		$event_data = Event::data_from_post( $post_id );
-		$upserted   = Event::upsert( [ 'post_id' ], $event_data );
+		$upsert     = Event::upsert( [ 'post_id' ], $event_data );
 
-		if ( ! $upserted ) {
+		if ( ! $upsert ) {
 			// At this stage the data might just be missing: it's fine.
 			return false;
 		}
@@ -247,7 +250,7 @@ class Updater {
 
 		try {
 			$event->occurrences()->save_occurrences();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			do_action( 'tribe_log', 'error', __CLASS__, [
 				'message' => 'Event Occurrence update failed.',
 				'post_id' => $post_id,
@@ -275,8 +278,8 @@ class Updater {
 			return false;
 		}
 
-		$affected = (int) Event::where( 'post_id', (int) $post_id )->delete();
-		$affected += (int) Occurrence::where( 'post_id', $post_id )->delete();
+		$affected = Event::where( 'post_id', (int) $post_id )->delete();
+		$affected += Occurrence::where( 'post_id', $post_id )->delete();
 
 		/**
 		 * Fires after the Event custom tables data has been removed from the database.
@@ -293,8 +296,6 @@ class Updater {
 		 * @param WP_Post $post     A reference to the deleted Event post.
 		 *
 		 */
-		$affected = apply_filters( 'tec_events_custom_tables_v1_delete_post', $affected, $post_id, $post );
-
-		return $affected;
+		return apply_filters( 'tec_events_custom_tables_v1_delete_post', $affected, $post_id, $post );
 	}
 }
