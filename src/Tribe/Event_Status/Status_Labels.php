@@ -55,6 +55,25 @@ class Status_Labels {
 	}
 
 	/**
+	 * Get the event status label.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The label for the event status.
+	 */
+	public function get_event_status_label() {
+
+		/**
+		 * Filter the label for event status.
+		 *
+		 * @since TBD
+		 *
+		 * @param string The default translated label for the event status.
+		 */
+		return apply_filters( 'tec_event_status_label', _x( 'Event Status', 'Event status label.', 'the-events-calendar' ) );
+	}
+
+	/**
 	 * Get the scheduled status label.
 	 *
 	 * @since 5.11.0

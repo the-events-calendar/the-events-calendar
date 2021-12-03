@@ -66,7 +66,6 @@ class Deprecated_Test extends \Codeception\TestCase\WPTestCase {
 			array( 'TribeSettings' ),
 			array( 'TribeSettingsTab' ),
 			array( 'TribeValidate' ),
-			array( 'Tribe_Amalgamator' ),
 			array( 'Tribe_Events_Day_Template' ),
 			array( 'Tribe_Events_List_Template' ),
 			array( 'Tribe_Events_Month_Template' ),
