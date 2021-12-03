@@ -1,16 +1,23 @@
 <?php
 /**
+ * A validator that will always validate.
  *
+ * @since   TBD
  *
- *
- * @since TBD
+ * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
 
 namespace TEC\Events\Custom_Tables\V1\Models\Validators;
 
-
 use TEC\Events\Custom_Tables\V1\Models\Model;
 
+/**
+ * Class Ignore_validator
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Custom_Tables\V1\Models\Validators
+ */
 class Ignore_validator extends Validation {
 	/**
 	 * Consider any input as valid.
