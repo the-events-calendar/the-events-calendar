@@ -56,16 +56,6 @@ class Tribe__Events__Amalgamator {
 					'_OrganizerEmail'   => get_post_meta( $id, '_OrganizerEmail', true ),
 				];
 
-				/**
-				 * Allow filtering of the data used to determine if two organizers are identical.
-				 * Use with caution - ex: the possibility of duplicated post titles is high!
-				 *
-				 * @since TBD
-				 *
-				 * @param array<string|mixed> $data The array of data points to use for comparison.
-				 */
-				$data = apply_filters( 'tec_merge_identical_organizers_data', $data );
-
 				$hash = md5( serialize( $data ) );
 
 				if ( ! isset( $buckets[ $hash ] ) ) {
@@ -113,16 +103,6 @@ class Tribe__Events__Amalgamator {
 					'_VenuePhone'    => get_post_meta( $id, '_VenuePhone', true ),
 					'_VenueURL'      => get_post_meta( $id, '_VenueURL', true ),
 				];
-
-				/**
-				 * Allow filtering of the data used to determine if two venues are identical.
-				 * Use with caution - ex: the possibility of duplicated post titles is high!
-				 *
-				 * @since TBD
-				 *
-				 * @param array<string|mixed> $data The array of data points to use for comparison.
-				 */
-				$data = apply_filters( 'tec_merge_identical_venues_data', $data );
 
 				$hash = md5( serialize( $data ) );
 
