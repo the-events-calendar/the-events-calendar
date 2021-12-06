@@ -35,8 +35,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 */
 		$this->container->singleton( Updater::class, Updater::class );
 
-		$this->hook_to_redirect_post_udpates();
 		$this->hook_to_watch_for_post_updates();
+		$this->hook_to_redirect_post_udpates();
 		$this->hook_to_commit_post_updates();
 		$this->hook_to_delete_post_data();
 	}
@@ -178,7 +178,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 * @param WP_REST_Server  $server  A reference to the REST Server instance
 		 *                                 currently handling the request.
 		 */
-		do_action( 'tec_events_custom_tables_v1_redirect_rest_event_post_id', $request, $server );
+		do_action( 'tec_events_custom_tables_v1_redirect_rest_event_post', $request, $server );
 
 		return $result;
 	}
@@ -241,6 +241,16 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
+	 * Hooks on the actions that will be fired when a post is deleted (NOT trashed)
+	 * from the database to, then, remove the custom tables data.
+	 *
+	 * @since TBD
+	 */
+	private function hook_to_delete_post_data() {
+		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ], 10, 2 );
+	}
+
+	/**
 	 * Hooked on the post delete action, this method will clear all the custom
 	 * tables information related to the Event.
 	 *
@@ -251,15 +261,5 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
 		$this->container->make( Updater::class )->delete_custom_tables_data( $post_id, $post );
-	}
-
-	/**
-	 * Hooks on the actions that will be fired when a post is deleted (NOT trashed)
-	 * from the database to, then, remove the custom tables data.
-	 *
-	 * @since TBD
-	 */
-	private function hook_to_delete_post_data() {
-		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ], 10, 2 );
 	}
 }
