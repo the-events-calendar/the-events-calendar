@@ -88,6 +88,7 @@ class Widget_ListTest extends ViewTestCase {
 			'now'                => $this->mock_date_value,
 			'event_date'         => $this->mock_date_value,
 			'events_per_page'    => 2,
+			'jsonld_enable'      => true,
 		] );
 
 		$widget_list_view->set_context( $context );
@@ -140,7 +141,8 @@ class Widget_ListTest extends ViewTestCase {
 			'now'             => $this->mock_date_value,
 			'event_date'      => $this->mock_date_value,
 			'events_per_page' => 5,
-			'featured'        => true
+			'featured'        => true,
+			'jsonld_enable'   => true,
 		] );
 		$widget_list_view = View::make( Widget_List_View::class, $context );
 		$html             = $widget_list_view->get_html();

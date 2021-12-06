@@ -35,7 +35,7 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	 */
 	function tribe_get_display_end_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
 		$timestamp = tribe_get_end_date( $event, true, 'U', $timezone );
-		$beginning_of_day = tribe_beginning_of_day( $timestamp );
+		$beginning_of_day = tribe_beginning_of_day( date( Tribe__Date_Utils::DBDATETIMEFORMAT, (int) $timestamp ) );
 
 		if ( tribe_event_is_multiday( $event ) && $timestamp < strtotime( $beginning_of_day ) ) {
 			$timestamp -= DAY_IN_SECONDS;
