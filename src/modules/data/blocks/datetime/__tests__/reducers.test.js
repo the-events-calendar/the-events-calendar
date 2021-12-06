@@ -9,7 +9,7 @@ import reducer, {
 } from '@moderntribe/events/data/blocks/datetime/reducer';
 
 jest.mock( 'moment', () => () => {
-	const moment = require.requireActual( 'moment' );
+	const moment = jest.requireActual( 'moment' );
 	return moment( 'July 19, 2018 7:30 pm', 'MMMM D, Y h:mm a' );
 } );
 
