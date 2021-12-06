@@ -3,7 +3,7 @@
  * Component: Subscribe To Calendar List
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/components/subscribe-links/dropdown.php
+ * [your-theme]/tribe/events/v2/components/subscribe-links/list.php
  *
  * See more documentation about our views templating system.
  *
