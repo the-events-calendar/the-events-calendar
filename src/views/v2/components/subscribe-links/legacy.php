@@ -3,7 +3,7 @@
  * Component: Legacy iCal Link
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/components/ical-link.php
+ * [your-theme]/tribe/events/v2/components/subscribe-links/legacy.php
  *
  * See more documentation about our views templating system.
  *
