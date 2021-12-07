@@ -13,7 +13,13 @@ jest.mock( 'moment', () => {
 	return {
 		__esModule: true,
 		...original,
-		default: () => {
+		default: ( date, format ) => {
+			if ( date && format ) {
+				return original( date, format );
+			} else if ( date ) {
+				return original( date );
+			}
+
 			return original( 'July 19, 2018 7:30 pm', 'MMMM D, Y h:mm a' );
 		},
 	};
@@ -29,10 +35,6 @@ const data = {
 		_EventTimezone: 'UTC+8',
 	},
 };
-
-afterAll( () => {
-	jest.unmock( 'moment' );
-} );
 
 describe( '[STORE] - Datetime reducer', () => {
 	it( 'Should set the default state', () => {
