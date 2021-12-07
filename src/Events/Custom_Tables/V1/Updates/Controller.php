@@ -33,6 +33,14 @@ class Controller {
 	 * @var Meta_Watcher
 	 */
 	private $meta_watcher;
+	/**
+	 * A reference to the current Request Factory implementation.
+	 *
+	 * @since TBD
+	 *
+	 * @var Requests
+	 */
+	private $request_factory;
 
 	/**
 	 * Controller constructor.
@@ -41,8 +49,9 @@ class Controller {
 	 *
 	 * @param Meta_Watcher $meta_watcher A reference to the current Meta Watcher service implementation.
 	 */
-	public function __construct(Meta_Watcher $meta_watcher){
+	public function __construct(Meta_Watcher $meta_watcher, Requests $request_factory){
 		$this->meta_watcher = $meta_watcher;
+		$this->request_factory = $request_factory;
 	}
 
 	/**
@@ -56,7 +65,7 @@ class Controller {
 			return;
 		}
 
-		$request = Requests::from_http_request();
+		$request = $this->request_factory->from_http_request();
 
 		foreach ( $this->meta_watcher->get_marked_ids() as $booked_id ) {
 			$this->commit_post_updates( $booked_id, $request );
@@ -72,16 +81,21 @@ class Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request      A reference to the object modeling the current request,
-	 *                                      if any. Mind the WP_REST_Request class can be used to
-	 *                                      model a non-REST API request too!
+	 * @param WP_REST_Request|null $request A reference to the object modeling the current request,
+	 *                                      or `null` to build a request from the current HTTP data.
+	 *                                      Mind the WP_REST_Request class can be used to
+	 *                                      model a non-REST API request too|
 	 *
-	 * @param int             $post_id      The post ID, not guaranteed to be an Event post ID if this
+	 * @param int                  $post_id The post ID, not guaranteed to be an Event post ID if this
 	 *                                      method is not called from this class!
 	 *
 	 * @return bool Whether the post updates were correctly applied or not.
 	 */
-	public function commit_post_updates( $post_id, WP_REST_Request $request ) {
+	public function commit_post_updates( $post_id, WP_REST_Request $request = null ) {
+		if ( null === $request ) {
+			$request = $this->request_factory->from_http_request();
+		}
+
 		if ( ! $this->meta_watcher->is_tracked( $post_id ) ) {
 			// The post relevant meta was not changed, do nothing.
 			return false;

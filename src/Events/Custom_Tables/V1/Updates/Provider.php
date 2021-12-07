@@ -41,6 +41,9 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 */
 		$this->container->singleton( Meta_Watcher::class, Meta_Watcher::class );
 
+		// Other bindings are bound as singletons to save some resources.
+		$this->container->singleton( Requests::class, Requests::class );
+
 		$this->hook_to_watch_for_post_updates();
 		$this->hook_to_redirect_post_udpates();
 		$this->hook_to_commit_post_updates();
@@ -241,7 +244,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @param int    $post_id  The post ID of the post that is being updated.
 	 */
 	public function commit_and_redirect_classic_editor( $location, $post_id ) {
-		$this->container->make( Controller::class )->commit_post_updates( $post_id, Requests::from_http_request() );
+		$this->container->make( Controller::class )->commit_post_updates( $post_id );
 
 		return $location;
 	}
