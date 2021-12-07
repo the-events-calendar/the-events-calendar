@@ -33,7 +33,13 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 * We need this to be a singleton to keep track of the Events to update in the WRITE phase
 		 * of the request and update them before the READ phase of the request.
 		 */
-		$this->container->singleton( Updater::class, Updater::class );
+		$this->container->singleton( Controller::class, Controller::class );
+
+		/*
+		 * For the whole life cycle of any request, not only explicit update ones, watch for meta updates
+		 * using an object that will need to be the same from the start to the end of the request.
+		 */
+		$this->container->singleton( Meta_Watcher::class, Meta_Watcher::class );
 
 		$this->hook_to_watch_for_post_updates();
 		$this->hook_to_redirect_post_udpates();
@@ -75,9 +81,9 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	private function hook_to_watch_for_post_updates() {
-		add_action( 'updated_postmeta', [ $this, 'mark_for_update' ], 10, 3 );
-		add_action( 'added_post_meta', [ $this, 'mark_for_update' ], 10, 3 );
-		add_action( 'deleted_post_meta', [ $this, 'mark_for_update' ], 10, 3 );
+		add_action( 'updated_postmeta', [ $this, 'watch_for_meta_updates' ], 10, 3 );
+		add_action( 'added_post_meta', [ $this, 'watch_for_meta_updates' ], 10, 3 );
+		add_action( 'deleted_post_meta', [ $this, 'watch_for_meta_updates' ], 10, 3 );
 	}
 
 	/**
@@ -121,9 +127,9 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	public function unregister() {
-		remove_action( 'updated_postmeta', [ $this, 'mark_for_update' ] );
-		remove_action( 'added_post_meta', [ $this, 'mark_for_update' ] );
-		remove_action( 'deleted_post_meta', [ $this, 'mark_for_update' ] );
+		remove_action( 'updated_postmeta', [ $this, 'watch_for_meta_updates' ] );
+		remove_action( 'added_post_meta', [ $this, 'watch_for_meta_updates' ] );
+		remove_action( 'deleted_post_meta', [ $this, 'watch_for_meta_updates' ] );
 		remove_action( 'load-post.php', [ $this, 'redirect_classic_editor_post_id' ] );
 		remove_filter( 'rest_pre_dispatch', [ $this, 'redirect_rest_request_post_id' ], 5 );
 		remove_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ], 100 );
@@ -194,8 +200,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @param int       $post_id  The id of the post that is being updated.
 	 * @param string    $meta_key The meta key that is being updated.
 	 */
-	public function mark_for_update( $meta_ids, $post_id, $meta_key ) {
-		$this->container->make( Updater::class )->mark_for_update( $post_id, $meta_key );
+	public function watch_for_meta_updates( $meta_ids, $post_id, $meta_key ) {
+		$this->container->make( Meta_Watcher::class )->mark_for_update( $post_id, $meta_key );
 	}
 
 	/**
@@ -205,7 +211,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	public function commit_updates() {
-		$this->container->make( Updater::class )->commit_updates();
+		$this->container->make( Controller::class )->commit_updates();
 	}
 
 	/**
@@ -220,7 +226,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *                                       processed.
 	 */
 	public function commit_rest_update( WP_Post $post, WP_REST_Request $request ) {
-		$this->container->make( Updater::class )->commit_post_rest_update( $post, $request );
+		$this->container->make( Controller::class )->commit_post_rest_update( $post, $request );
 	}
 
 	/**
@@ -235,7 +241,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @param int    $post_id  The post ID of the post that is being updated.
 	 */
 	public function commit_and_redirect_classic_editor( $location, $post_id ) {
-		$this->container->make( Updater::class )->commit_post_updates( $post_id, Requests::from_http_request() );
+		$this->container->make( Controller::class )->commit_post_updates( $post_id, Requests::from_http_request() );
 
 		return $location;
 	}
@@ -260,6 +266,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @param WP_Post $post    A reference to the post object that is going to be deleted.
 	 */
 	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
-		$this->container->make( Updater::class )->delete_custom_tables_data( $post_id, $post );
+		$this->container->make( Controller::class )->delete_custom_tables_data( $post_id, $post );
 	}
 }

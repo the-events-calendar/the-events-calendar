@@ -20,6 +20,7 @@ jobs:
           - views_widgets
           - views_wpunit
           - wpunit
+          - ct1_integration
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository

@@ -28,7 +28,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$updater = Tribe__Events__Main::instance()->updater();
 		$version_from_updater = $updater->get_version_from_db();
 
-		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Updater' );
+		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Controller' );
 	}
 
 	public function test_update_version_option() {

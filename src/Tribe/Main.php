@@ -1054,7 +1054,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Updater object accessor method
+		 * Controller object accessor method
 		 */
 		public function updater() {
 			static $updater;
