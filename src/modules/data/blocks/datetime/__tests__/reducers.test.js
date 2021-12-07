@@ -8,9 +8,15 @@ import reducer, {
 	setInitialState,
 } from '@moderntribe/events/data/blocks/datetime/reducer';
 
-jest.mock( 'moment', () => () => {
-	const moment = jest.requireActual( 'moment' );
-	return moment( 'July 19, 2018 7:30 pm', 'MMMM D, Y h:mm a' );
+jest.mock( 'moment', () => {
+	const original = jest.requireActual( 'moment' );
+	return {
+		__esModule: true,
+		...original,
+		default: () => {
+			return original( 'July 19, 2018 7:30 pm', 'MMMM D, Y h:mm a' );
+		}
+	};
 } );
 
 const data = {
