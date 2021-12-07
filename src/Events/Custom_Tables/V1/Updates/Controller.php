@@ -9,10 +9,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
-use Exception;
-use TEC\Events\Custom_Tables\V1\Models\Event;
-use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_REST_Request;
 
@@ -41,6 +37,10 @@ class Controller {
 	 * @var Requests
 	 */
 	private $request_factory;
+	/**
+	 * @var Models
+	 */
+	private $models;
 
 	/**
 	 * Controller constructor.
@@ -49,9 +49,10 @@ class Controller {
 	 *
 	 * @param Meta_Watcher $meta_watcher A reference to the current Meta Watcher service implementation.
 	 */
-	public function __construct(Meta_Watcher $meta_watcher, Requests $request_factory){
+	public function __construct( Meta_Watcher $meta_watcher, Requests $request_factory, Models $models ) {
 		$this->meta_watcher = $meta_watcher;
 		$this->request_factory = $request_factory;
+		$this->models = $models;
 	}
 
 	/**
@@ -167,13 +168,7 @@ class Controller {
 	 * @return int|false Either the number of affected rows, or `false` on failure.
 	 */
 	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
-		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
-			// Not an Event post.
-			return false;
-		}
-
-		$affected = Event::where( 'post_id', (int) $post_id )->delete();
-		$affected += Occurrence::where( 'post_id', $post_id )->delete();
+		$affected = $this->models->delete($post_id);
 
 		/**
 		 * Fires after the Event custom tables data has been removed from the database.
@@ -204,38 +199,8 @@ class Controller {
 	 * @return bool Whether the update was successful or not.
 	 */
 	private function update_custom_tables( $post_id ) {
-		$event_data = Event::data_from_post( $post_id );
-		$upsert     = Event::upsert( [ 'post_id' ], $event_data );
+		return	$this->models->update($post_id);
 
-		if ( ! $upsert ) {
-			// At this stage the data might just be missing: it's fine.
-			return false;
-		}
-
-		$event = Event::find( $post_id, 'post_id' );
-
-		if ( ! $event instanceof Event ) {
-			do_action( 'tribe_log', 'error', __CLASS__, [
-				'message' => 'Event fetching after insertion failed.',
-				'post_id' => $post_id,
-			] );
-
-			return false;
-		}
-
-		try {
-			$occurrences = $event->occurrences();
-			$occurrences->save_occurrences();
-		} catch ( Exception $e ) {
-			do_action( 'tribe_log', 'error', __CLASS__, [
-				'message' => 'Event Occurrence update failed.',
-				'post_id' => $post_id,
-				'error'   => $e->getMessage(),
-			] );
-
-			return false;
-		}
-
-		return true;
+		// @todo do_action here
 	}
 }
