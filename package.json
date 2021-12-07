@@ -44,6 +44,7 @@
     ]
   },
   "scripts": {
+    "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
     "analyze": "webpack-bundle-analyzer -m static stats.json",
     "bootstrap": "./scripts/linkDependencies",
     "build:webpack": "cross-env NODE_ENV=production webpack -p",
@@ -57,15 +58,13 @@
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
-    "test": "TZ=UTC jest --config jest.config.json",
-    "test:travis": "npm run test -- --maxWorkers=4",
     "jest": "gulp jest",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
   "engines": { "node": "16.6.1", "npm": "7.20.3" },
   "devDependencies": {
-    "@the-events-calendar/product-taskmaster": "git+https://github.com/the-events-calendar/product-taskmaster.git#task/jest-tests",
+    "@the-events-calendar/product-taskmaster": "^2.1.0",
     "@wordpress/hooks": "^1.3.2",
     "cross-env": "^5.2.0",
     "enzyme": "^3.7.0",
