@@ -77,6 +77,16 @@ class Tribe__Events__Amalgamator {
 					'_OrganizerWebsite' => get_post_meta( $id, '_OrganizerWebsite', true ),
 					'_OrganizerEmail'   => get_post_meta( $id, '_OrganizerEmail', true ),
 				];
+				
+				/**
+				 * Filter the fields that should be compared when checking for duplicates.
+				 *
+				 * @since TBD
+				 *
+				 * @param array $data The array of fields with values to be checked.
+				 */
+				$data = apply_filters( 'tribe_merge_identical_organizers_fields', $data );
+
 				$hash = md5( serialize( $data ) );
 				if ( ! isset( $buckets[ $hash ] ) ) {
 					$buckets[ $hash ] = [];
@@ -119,6 +129,16 @@ class Tribe__Events__Amalgamator {
 					'_VenuePhone'    => get_post_meta( $id, '_VenuePhone', true ),
 					'_VenueURL'      => get_post_meta( $id, '_VenueURL', true ),
 				];
+				
+				/**
+				 * Filter the fields that should be compared when checking for duplicates.
+				 *
+				 * @since TBD
+				 *
+				 * @param array $data The array of fields with values to be checked.
+				 */
+				$data = apply_filters( 'tribe_merge_identical_venues_fields', $data );
+
 				$hash = md5( serialize( $data ) );
 				if ( ! isset( $buckets[ $hash ] ) ) {
 					$buckets[ $hash ] = [];
