@@ -36,12 +36,6 @@ if ( ! function_exists( 'tribe_get_ical_link' ) ) {
 
 		/**
 		 * Filters the "Export Events" iCal link.
-		 *
-		 * Please note that tribe-events.js dynamically sets the iCal link in most contexts. To
-		 * override this behavior so that a custom link from the tribe_get_ical_link filter is the
-		 * one that's always used, please also use the tribe_events_force_filtered_ical_link filter.
-		 *
-		 * @see tribe_events_force_filtered_ical_link
 		 * @param string $output The "Export Events" iCal link URL.
 		 */
 		return apply_filters( 'tribe_get_ical_link', $output );
