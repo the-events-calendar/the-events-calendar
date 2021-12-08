@@ -3,6 +3,6 @@ var pkg = require( './package.json' );
 
 module.exports = {
 	...sharedConfig,
-	displayName: 'common',
+	displayName: 'events',
 	testMatch: pkg._filePath.jest.map( ( path ) => `<rootDir>/${ path }` ),
 };
