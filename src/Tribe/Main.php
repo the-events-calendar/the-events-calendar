@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.12.0';
+		const VERSION             = '5.12.1';
 
 		/**
 		 * Min Pro Addon
@@ -831,6 +831,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				10,
 				0
 			);
+
 			add_action( 'tribe_settings_after_save', [ $this, 'flushRewriteRules' ] );
 
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'fix_all_day_events' ], 10, 2 );
