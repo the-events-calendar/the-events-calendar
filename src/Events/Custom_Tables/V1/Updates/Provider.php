@@ -258,7 +258,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	private function hook_to_delete_post_data() {
-		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ], 10, 2 );
+		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ] );
 	}
 
 	/**
@@ -268,9 +268,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 *
 	 * @param int     $post_id The deleted Event post ID.
-	 * @param WP_Post $post    A reference to the post object that is going to be deleted.
 	 */
-	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
-		$this->container->make( Controller::class )->delete_custom_tables_data( $post_id, $post );
+	public function delete_custom_tables_data( $post_id ) {
+		$this->container->make( Controller::class )->delete_custom_tables_data( $post_id );
 	}
 }

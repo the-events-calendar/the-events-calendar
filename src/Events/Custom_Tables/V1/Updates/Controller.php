@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the update of the Events custom tables information.
+ * Acts on WordPress update flow phases to update the Events and their custom tables data.
  *
  * @since   TBD
  *
@@ -38,9 +38,13 @@ class Controller {
 	 */
 	private $request_factory;
 	/**
-	 * @var Models
+	 * A reference to the Event, and related models, repository.
+	 *
+	 * @since TBD
+	 *
+	 * @var Events
 	 */
-	private $models;
+	private $events;
 
 	/**
 	 * Controller constructor.
@@ -49,10 +53,10 @@ class Controller {
 	 *
 	 * @param Meta_Watcher $meta_watcher A reference to the current Meta Watcher service implementation.
 	 */
-	public function __construct( Meta_Watcher $meta_watcher, Requests $request_factory, Event_Manager $models ) {
-		$this->meta_watcher = $meta_watcher;
+	public function __construct( Meta_Watcher $meta_watcher, Requests $request_factory, Events $models ) {
+		$this->meta_watcher    = $meta_watcher;
 		$this->request_factory = $request_factory;
-		$this->models = $models;
+		$this->events          = $models;
 	}
 
 	/**
@@ -102,6 +106,37 @@ class Controller {
 			return false;
 		}
 
+		$updated = $this->update_custom_tables( $post_id, $request );
+
+		if ( $updated ) {
+			// Remove the post ID from the list of post IDs still to update.
+			$this->meta_watcher->remove( $post_id );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Updates the custom tables with the data for an Event post.
+	 *
+	 * @since TBD
+	 *
+	 * @param int             $post_id The Even post ID.
+	 * @param WP_REST_Request $request A reference to the request object triggering the update.
+	 *
+	 * @return bool Whether the update was successful or not.
+	 */
+	private function update_custom_tables( $post_id, WP_REST_Request $request ) {
+		/**
+		 * Fires before an Event custom tables data is updated.
+		 *
+		 * @since TBD
+		 *
+		 * @param int             $post_id The post ID of the Event being updated.
+		 * @param WP_REST_Request $request A reference to the request object triggering the update.
+		 */
+		do_action( 'tec_events_custom_tables_v1_update_post', $post_id, $request );
+
 		/**
 		 * Fires before the default The Events Calendar logic to update an Event custom tables
 		 * information is applied.
@@ -118,20 +153,25 @@ class Controller {
 		 *                                      if any. Mind the WP_REST_Request class can be used to
 		 *                                      model a non-REST API request too!
 		 *
-		 * @return bool Whether the custom tables' updates were correctly applied or not.
+		 * @return bool|null Whether the custom tables' updates were correctly applied or not.
 		 */
 		$updated = apply_filters( 'tec_events_custom_tables_v1_commit_post_updates', null, $post_id, $request );
 
 		if ( null === $updated ) {
-			$updated = $this->update_custom_tables( $post_id );
+			// Apply the default logic.
+			$updated = $this->events->update( $post_id );
 		}
 
-		if ( $updated ) {
-			// Remove the post ID from the list of post IDs still to update.
-			$this->meta_watcher->remove( $post_id );
-		}
-
-		return true;
+		/**
+		 * Filters whether an Event custom tables data has been correctly updated or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool            $updated Whether the previous update operation was correctly performed or not.
+		 * @param int             $post_id The post ID of the Event being updated.
+		 * @param WP_REST_Request $request A reference to the request object triggering the update.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_updated_post', $updated, $post_id, $request );
 	}
 
 	/**
@@ -163,44 +203,45 @@ class Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id The deleted Event post ID.
+	 * @param int                  $post_id The deleted Event post ID.
+	 * @param WP_REST_Request|null $request A reference to the request object triggering the deletion, if any.
 	 *
 	 * @return int|false Either the number of affected rows, or `false` on failure.
 	 */
-	public function delete_custom_tables_data( $post_id, WP_Post $post ) {
-		$affected = $this->models->delete($post_id);
+	public function delete_custom_tables_data( $post_id, WP_REST_Request $request = null ) {
+		if ( null === $request ) {
+			$request = $this->request_factory->from_http_request();
+		}
+
+		/**
+		 * Fires before an Event custom tables data is removed.
+		 *
+		 * By the time this action fires, the Event post has not yet been removed from
+		 * the WordPress posts tables.
+		 *
+		 * @since TBD
+		 *
+		 * @param int             $post_id The Event post ID.
+		 * @param WP_REST_Request $request A reference to the request object triggering the update.
+		 */
+		do_action( 'tec_events_custom_tables_v1_delete_post', $post_id, $request );
+
+		$affected = $this->events->delete( $post_id );
 
 		/**
 		 * Fires after the Event custom tables data has been removed from the database.
 		 *
 		 * By the time this action fires, the Event post has not yet been removed from
-		 * the posts tables.
+		 * the WordPress posts tables.
 		 *
 		 * @since TBD
 		 *
-		 * @param int     $affected The number of affected rows, across all custom tables.
-		 *                          Keep in mind db-level deletions will not be counted in
-		 *                          this value!
-		 * @param int     $post_id  The Event post ID.
-		 * @param WP_Post $post     A reference to the deleted Event post.
-		 *
+		 * @param int             $affected The number of affected rows, across all custom tables.
+		 *                                  Keep in mind db-level deletions will not be counted in
+		 *                                  this value!
+		 * @param int             $post_id  The Event post ID.
+		 * @param WP_REST_Request $request  A reference to the request object triggering the update.
 		 */
-		return apply_filters( 'tec_events_custom_tables_v1_delete_post', $affected, $post_id, $post );
-	}
-
-
-	/**
-	 * Updates the custom tables with the data for an Event post.
-	 *
-	 * @since TBD
-	 *
-	 * @param int $post_id The Even post ID.
-	 *
-	 * @return bool Whether the update was successful or not.
-	 */
-	private function update_custom_tables( $post_id ) {
-		return	$this->models->update($post_id);
-
-		// @todo do_action here
+		return apply_filters( 'tec_events_custom_tables_v1_deleted_post', $affected, $post_id, $request );
 	}
 }

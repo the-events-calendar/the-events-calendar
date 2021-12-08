@@ -176,7 +176,7 @@ class Occurrence extends Model {
 		 *
 		 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
 		 */
-		do_action( 'tec_events_custom_tables_v1_after_save', $this->event->post_id );
+		do_action( 'tec_events_custom_tables_v1_after_save_occurrences', $this->event->post_id );
 	}
 
 	/**
