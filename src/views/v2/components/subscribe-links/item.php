@@ -27,7 +27,7 @@ if( ! $item->is_visible( $view ) ) {
 }
 ?>
 
-<li class="tribe-events-c-subscribe-dropdown__list-item"">
+<li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="<?php echo esc_url( $item->get_uri( $view ) ); ?>"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"

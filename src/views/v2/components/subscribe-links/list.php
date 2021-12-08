@@ -26,6 +26,7 @@ if ( empty( $items ) ) {
 		<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-subscribe-dropdown__button-icon' ] ] ); ?>
 	</div>
 	<div class="tribe-events-c-subscribe-dropdown__content">
+	</div>
 	<ul class="tribe-events-c-subscribe-dropdown__list" tabindex="0">
 		<?php foreach ( $items as $item ) : ?>
 			<?php $this->template( 'components/subscribe-links/item', [ 'item' => $item ] ); ?>
