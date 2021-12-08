@@ -1,9 +1,8 @@
 var sharedConfig = require( '@the-events-calendar/product-taskmaster/config/jest.config.js' );
+var pkg = require( './package.json' );
 
 module.exports = {
 	...sharedConfig,
 	displayName: 'common',
-	testMatch: [
-		'**/data/**/__tests__/**/*.js',
-	],
+	testMatch: pkg._filePath.jest.map( ( path ) => `<rootDir>/${ path }` ),
 };
