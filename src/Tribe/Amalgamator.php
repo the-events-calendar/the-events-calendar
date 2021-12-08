@@ -202,7 +202,45 @@ class Tribe__Events__Amalgamator {
 		}
 		global $wpdb;
 		array_map( 'intval', $venue_ids );
-		$keep    = array_shift( $venue_ids );
+		
+		/**
+		 * Filter the venue ID that should be kept.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool|array Array of the post IDs to keep or boolean false if not defined.
+		 */
+		$keep = apply_filters( 'tribe_amalgamate_venues_keep_venue', false );
+
+		// If false or not array or empty array, then use the default.
+		if (
+			! $keep
+			|| ! is_array( $keep )
+			|| empty ( $keep )
+		) {
+			$keep = array_shift( $venue_ids );
+		} else {
+			// Check if any of the venue IDs is in the $keep.
+			$intersect = array_intersect( $keep, $venue_ids );
+
+			if ( ! empty( $intersect ) ) {
+				// Sort the array to get the lowest post ID.
+				sort( $intersect );
+
+				// If we found the venue ID, then grab it.
+				// If there are more matches we only want the first.
+				$keep = array_shift( $intersect );
+
+				// Check where the $keep is in the venue array and remove it.
+				if ( ( $key = array_search( $keep, $venue_ids ) ) !== false ) {
+					unset( $venue_ids[ $key ] );
+				}
+			} else {
+				// If nothing found in the $keep, then use the default.
+				$keep = array_shift( $venue_ids );
+			}
+		}
+
 		$old_ids = implode( ',', $venue_ids );
 		$sql     = "UPDATE {$wpdb->postmeta} SET meta_value=%d WHERE meta_key=%s AND meta_value IN($old_ids)";
 		$sql     = $wpdb->prepare( $sql, $keep, '_EventVenueID' );
@@ -224,7 +262,47 @@ class Tribe__Events__Amalgamator {
 		}
 		global $wpdb;
 		array_map( 'intval', $organizer_ids );
-		$keep    = array_shift( $organizer_ids );
+		
+		/**
+		 * Filter the organizer ID that should be kept.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool|array Array of the post IDs to keep or boolean false if not defined.
+		 */
+		$keep = apply_filters( 'tribe_amalgamate_organizers_keep_organizer', false );
+
+		// If false or not array or empty array, then use the default.
+		if (
+			! $keep
+			|| ! is_array( $keep )
+			|| empty ( $keep )
+		) {
+			$keep = array_shift( $organizer_ids );
+		}
+		else {
+			// Check if any of the organizer IDs should be kept.
+			$intersect = array_intersect( $keep, $organizer_ids );
+
+			if ( ! empty( $intersect ) ) {
+				// Sort the array to get the lowest post ID.
+				sort( $intersect );
+
+				// If we found the organizer ID, then grab it.
+				// If there are more matches we only want the first, which will be the one with the lowest ID.
+				$keep = array_shift( $intersect );
+
+				// Check where the $keep is in the organizer array and remove it.
+				if ( ( $key = array_search( $keep, $organizer_ids ) ) !== false ) {
+					unset( $organizer_ids[ $key ] );
+				}
+			}
+			else {
+				// If nothing found in the $keep, then use the default.
+				$keep = array_shift( $organizer_ids );
+			}
+		}
+
 		$old_ids = implode( ',', $organizer_ids );
 		$sql     = "UPDATE {$wpdb->postmeta} SET meta_value=%d WHERE meta_key=%s AND meta_value IN($old_ids)";
 		$sql     = $wpdb->prepare( $sql, $keep, '_EventOrganizerID' );
