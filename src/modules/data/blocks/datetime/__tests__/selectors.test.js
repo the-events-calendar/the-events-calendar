@@ -1,8 +1,21 @@
 /**
  * Internal dependencies
  */
-import { selectors } from '@moderntribe/events/data/blocks/datetime';
+import * as selectors from '@moderntribe/events/data/blocks/datetime/selectors';
 import { DEFAULT_STATE } from '@moderntribe/events/data/blocks/datetime/reducer';
+
+jest.mock( '@moderntribe/common/utils/globals', () => {
+	const original = jest.requireActual( '@moderntribe/common/utils/globals' );
+	return {
+		__esModule: true,
+		...original,
+		postObjects: () => ( {
+			tribe_events: {
+				tribe_start_date: '',
+			},
+		} ),
+	}
+} );
 
 const state = {
 	events: {
