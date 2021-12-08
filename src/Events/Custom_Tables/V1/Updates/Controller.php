@@ -36,7 +36,7 @@ class Controller {
 	 *
 	 * @var Requests
 	 */
-	private $request_factory;
+	private $requests;
 	/**
 	 * A reference to the Event, and related models, repository.
 	 *
@@ -52,11 +52,13 @@ class Controller {
 	 * @since TBD
 	 *
 	 * @param Meta_Watcher $meta_watcher A reference to the current Meta Watcher service implementation.
+	 * @param Requests     $requests     A reference to the curret Request factory and repository implementation.
+	 * @param Events       $events       A reference to the current Events implementation.
 	 */
-	public function __construct( Meta_Watcher $meta_watcher, Requests $request_factory, Events $models ) {
-		$this->meta_watcher    = $meta_watcher;
-		$this->request_factory = $request_factory;
-		$this->events          = $models;
+	public function __construct( Meta_Watcher $meta_watcher, Requests $requests, Events $events ) {
+		$this->meta_watcher = $meta_watcher;
+		$this->requests     = $requests;
+		$this->events       = $events;
 	}
 
 	/**
@@ -64,17 +66,22 @@ class Controller {
 	 * meta was updated during the request.
 	 *
 	 * @since TBD
+	 *
+	 * @return int The number of updated Events.
 	 */
 	public function commit_updates() {
 		if ( empty( $this->meta_watcher->get_marked_ids() ) ) {
 			return;
 		}
 
-		$request = $this->request_factory->from_http_request();
+		$request = $this->requests->from_http_request();
 
+		$updated = 0;
 		foreach ( $this->meta_watcher->get_marked_ids() as $booked_id ) {
-			$this->commit_post_updates( $booked_id, $request );
+			$updated += $this->commit_post_updates( $booked_id, $request );
 		}
+
+		return $updated;
 	}
 
 	/**
@@ -98,7 +105,7 @@ class Controller {
 	 */
 	public function commit_post_updates( $post_id, WP_REST_Request $request = null ) {
 		if ( null === $request ) {
-			$request = $this->request_factory->from_http_request();
+			$request = $this->requests->from_http_request();
 		}
 
 		if ( ! $this->meta_watcher->is_tracked( $post_id ) ) {
@@ -210,7 +217,7 @@ class Controller {
 	 */
 	public function delete_custom_tables_data( $post_id, WP_REST_Request $request = null ) {
 		if ( null === $request ) {
-			$request = $this->request_factory->from_http_request();
+			$request = $this->requests->from_http_request();
 		}
 
 		/**
