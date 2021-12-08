@@ -32,6 +32,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Occurrence
@@ -527,5 +528,18 @@ class Occurrence extends Model {
 		    ->delete();
 
 		$this->align_event_meta( $this->event );
+	}
+
+	/**
+	 * @since TBD
+	 *
+	 * @param $id Provisional or other ID that we want to validate against the database as a valid Occurrence ID.
+	 *
+	 * @return bool
+	 */
+	public static function is_valid_occurrence_id( $id ) {
+		$post_id = Occurrence::normalize_id( (int) $id );
+
+		return TEC::POSTTYPE === get_post_type( $post_id );
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * ${CARET}
+ * Class responsible for top level database transactions, regarding changes to Events and their related database entries/tables.
  *
  * @since   TBD
  *
@@ -13,7 +13,7 @@ use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
 
-class Models {
+class Event_Manager {
 
 	public function update( $post_id ) {
 		$event_data = Event::data_from_post( $post_id );

@@ -49,7 +49,7 @@ class Controller {
 	 *
 	 * @param Meta_Watcher $meta_watcher A reference to the current Meta Watcher service implementation.
 	 */
-	public function __construct( Meta_Watcher $meta_watcher, Requests $request_factory, Models $models ) {
+	public function __construct( Meta_Watcher $meta_watcher, Requests $request_factory, Event_Manager $models ) {
 		$this->meta_watcher = $meta_watcher;
 		$this->request_factory = $request_factory;
 		$this->models = $models;

@@ -106,10 +106,7 @@ class Meta_Watcher {
 			return;
 		}
 
-		$post_id = Occurrence::normalize_id( $object_id );
-
-		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
-			// Not an Event.
+		if ( ! Occurrence::is_valid_occurrence_id( $object_id ) ) {
 			return;
 		}
 
@@ -155,7 +152,7 @@ class Meta_Watcher {
 	 * @param int $id The post ID to add in the last position of the FIFO queue.
 	 */
 	public function push( $id ) {
-		if ( TEC::POSTTYPE !== get_post_type( $id ) || in_array( (int) $id, $this->marked_ids, true ) ) {
+		if ( ! Occurrence::is_valid_occurrence_id( $id ) || in_array( (int) $id, $this->marked_ids, true ) ) {
 			return;
 		}
 		$this->marked_ids[] = (int) $id;
