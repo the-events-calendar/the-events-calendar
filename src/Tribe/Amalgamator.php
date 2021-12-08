@@ -28,8 +28,31 @@ class Tribe__Events__Amalgamator {
 	 *
 	 */
 	public function merge_duplicates() {
-		$this->merge_identical_organizers();
-		$this->merge_identical_venues();
+		/**
+		 * Whether or not duplicate organizers should be merged.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $merge_organizers (true) Whether or not duplicate organizers should be merged.
+		 */
+		$merge_organizers = (bool) apply_filters( 'tribe_merge_identical_organizers_enabled', true );
+
+		if ( tribe_is_truthy( $merge_organizers ) ) {
+			$this->merge_identical_organizers();
+		}
+
+		/**
+		 * Whether or not duplicate venues should be merged.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $merge_venues (true) Whether or not duplicate venues should be merged.
+		 */
+		$merge_venues = (bool) apply_filters( 'tribe_merge_identical_venues_enabled', true );
+
+		if ( tribe_is_truthy( $merge_venues ) ) {
+			$this->merge_identical_venues();
+		}
 
 		$events = Tribe__Events__Main::instance();
 		wp_cache_flush();
