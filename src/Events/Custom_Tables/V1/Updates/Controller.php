@@ -71,7 +71,7 @@ class Controller {
 	 */
 	public function commit_updates() {
 		if ( empty( $this->meta_watcher->get_marked_ids() ) ) {
-			return;
+			return 0;
 		}
 
 		$request = $this->requests->from_http_request();
