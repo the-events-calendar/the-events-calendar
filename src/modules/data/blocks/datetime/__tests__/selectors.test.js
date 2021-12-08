@@ -14,7 +14,7 @@ jest.mock( '@moderntribe/common/utils/globals', () => {
 				tribe_start_date: '',
 			},
 		} ),
-	}
+	};
 } );
 
 const state = {
