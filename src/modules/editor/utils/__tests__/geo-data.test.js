@@ -45,9 +45,9 @@ describe( 'Tests for geo-data.js', () => {
 
 	test( 'getCountryCode', () => {
 		expect( geo.getCountryCode( 'Liechtenstein' ) ).toEqual( 'LI' );
-		expect( geo.getCountryCode( 'MX' ) ).toEqual( 'US' );
-		expect( geo.getCountryCode( 'Unknown' ) ).toEqual( 'US' );
-		expect( geo.getCountryCode() ).toEqual( 'US' );
+		expect( geo.getCountryCode( 'United States' ) ).toEqual( 'US' );
+		expect( geo.getCountryCode( 'Unknown' ) ).toEqual( '' );
+		expect( geo.getCountryCode() ).toEqual( '' );
 	} );
 
 	test( 'getStates', () => {

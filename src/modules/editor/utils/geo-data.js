@@ -55,7 +55,7 @@ export function getStateName( countryCode, code ) {
 export function getStates( countryCode ) {
 	switch ( countryCode ) {
 		case 'US':
-			return toObject( list().usStates );
+			return toObject( list().us_states );
 		default:
 			return [];
 	}
