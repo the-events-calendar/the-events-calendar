@@ -79,7 +79,7 @@ class Tribe__Events__Amalgamator {
 				];
 				
 				/**
-				 * Filter the fields that should be compared when checking for duplicates.
+				 * Filter the fields that should be used for comparison when checking for duplicates.
 				 *
 				 * @since TBD
 				 *
@@ -131,7 +131,7 @@ class Tribe__Events__Amalgamator {
 				];
 				
 				/**
-				 * Filter the fields that should be compared when checking for duplicates.
+				 * Filter the fields that should be used for comparison when checking for duplicates.
 				 *
 				 * @since TBD
 				 *
@@ -204,7 +204,7 @@ class Tribe__Events__Amalgamator {
 		array_map( 'intval', $venue_ids );
 		
 		/**
-		 * Filter the venue ID that should be kept.
+		 * Filter the venue IDs that should be kept.
 		 *
 		 * @since TBD
 		 *
@@ -264,7 +264,7 @@ class Tribe__Events__Amalgamator {
 		array_map( 'intval', $organizer_ids );
 		
 		/**
-		 * Filter the organizer ID that should be kept.
+		 * Filter the organizer IDs that should be kept.
 		 *
 		 * @since TBD
 		 *
