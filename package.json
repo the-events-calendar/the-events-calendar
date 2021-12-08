@@ -58,7 +58,7 @@
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
-    "jest": "gulp jest",
+    "jest": "TZ=UTC gulp jest",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
