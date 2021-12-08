@@ -27,6 +27,7 @@ class Deprecated_Test extends \Codeception\TestCase\WPTestCase {
 			array( 'Tribe__Events__Support' ),
 			array( 'Tribe__Events__Template_Part_Cache' ),
 			array( 'Tribe__Events__Validate' ),
+			array( 'Tribe_Amalgamator' ),
 			array( 'Tribe__Events__View_Helpers' ),
 		);
 	}
