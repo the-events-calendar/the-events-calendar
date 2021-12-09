@@ -46,7 +46,6 @@ class EventsTest extends WPTestCase {
 		}, 10, 2 );
 
 		$events = new Events;
-		$events->update( $event_id );
 		$updated = $events->update( $event_id );
 
 		$this->assertFalse( $updated );
@@ -128,20 +127,6 @@ class EventsTest extends WPTestCase {
 		$this->assertCount( 0, $this->get_log_records() );
 		$this->assertInstanceOf( Event::class, Event::find( $event_id, 'post_id' ) );
 		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $event_id )->count() );
-	}
-
-	/**
-	 * It should not delete if not Event post
-	 *
-	 * @test
-	 */
-	public function should_not_delete_if_not_event_post() {
-		$post_id = static::factory()->post->create();
-
-		$events  = new Events();
-		$updated = $events->update( $post_id );
-
-		$this->assertFalse( $updated );
 	}
 
 	/**
