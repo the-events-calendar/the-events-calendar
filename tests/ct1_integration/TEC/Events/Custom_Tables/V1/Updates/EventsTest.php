@@ -46,7 +46,6 @@ class EventsTest extends WPTestCase {
 		}, 10, 2 );
 
 		$events = new Events;
-		$events->update( $event_id );
 		$updated = $events->update( $event_id );
 
 		$this->assertFalse( $updated );
