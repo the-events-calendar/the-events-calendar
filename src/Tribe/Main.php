@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.11.0';
+		const VERSION             = '5.12.1';
 
 		/**
 		 * Min Pro Addon
@@ -821,6 +821,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'wp_dashboard_setup', [ $this, 'dashboardWidget' ] );
 				add_action( 'tribe_events_cost_table', [ $this, 'maybeShowMetaUpsell' ] );
 			}
+
+			add_action(
+				'load-tribe_events_page_' . Tribe__Settings::$parent_slug,
+				[
+					'Tribe__Events__Amalgamator',
+					'listen_for_migration_button',
+				],
+				10,
+				0
+			);
 
 			add_action( 'tribe_settings_after_save', [ $this, 'flushRewriteRules' ] );
 
