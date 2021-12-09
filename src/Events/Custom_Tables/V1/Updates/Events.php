@@ -34,6 +34,9 @@ class Events {
 	 * @return bool Whether the update was correctly performed or not.
 	 */
 	public function update( $post_id ) {
+		// Make sure to update the real thing.
+		$post_id = Occurrence::normalize_id( $post_id );
+
 		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
 			return false;
 		}
