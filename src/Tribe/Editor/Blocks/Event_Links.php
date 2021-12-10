@@ -22,8 +22,8 @@ extends Tribe__Editor__Blocks__Abstract {
 	 */
 	public function default_attributes() {
 		return [
-			'googleCalendarLabel' => esc_html__( 'Google Calendar', 'the-events-calendar' ),
-			'iCalLabel'           => esc_html__( 'iCal Export', 'the-events-calendar' ),
+			'googleCalendarLabel' => esc_html__( 'Add to Google Calendar', 'the-events-calendar' ),
+			'iCalLabel'           => esc_html__( 'Add to iCalendar', 'the-events-calendar' ),
 			'hasiCal'             => true,
 			'hasGoogleCalendar'   => true,
 		];

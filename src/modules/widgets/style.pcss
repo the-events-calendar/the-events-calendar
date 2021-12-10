@@ -1,0 +1,55 @@
+/**
+ * TEC block based widget styles.
+ *
+ * @since 5.12.0
+ */
+
+.block-editor-block-list__block {
+	.wp-block-legacy-widget__edit-form {
+		.wp-block-legacy-widget__edit-form-title {
+			font-size: 24px;
+			line-height: 1;
+			margin: 10px 0;
+		}
+
+		.tribe-widget-form-control--text {
+			margin-bottom: 16px;
+		}
+
+		.tribe-widget-form-control__section-title {
+			font-size: 24px;
+			line-height: 1;
+			margin: 18px 0 12px;
+		}
+
+		.tribe-widget-form-control--multiselect {
+			margin: 15px 0;
+		}
+
+		.select2-selection__rendered {
+			font-size: 14px;
+			line-height: 1;
+		}
+
+		.calendar-widget-filter-item {
+			font-size: 16px;
+			line-height: 1;
+		}
+
+		.tribe-widget-form-control.tribe-widget-form-control--fieldset {
+			&.tribe-common-form-control-checkbox-checkbox-group,
+			&.tribe-common-form-control-checkbox-radio-group {
+				padding: 15px 30px;
+			}
+		}
+
+		/* Hide Avada widget options button on the blocks. */
+		.fusion-menu-options-container {
+			display: none;
+		}
+	}
+}
+
+[aria-label="Legacy Widget"].components-button.block-editor-block-switcher__no-switcher-icon {
+	display: none;
+}

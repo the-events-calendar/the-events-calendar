@@ -225,8 +225,18 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+= [5.12.0] 2021-12-02 =
+
+* Feature - Add new subscribe options to the "Export Events" link at the bottom of calendar views and single Event view [TEC-4131]
+* Fix - Bypass caching of the event when dealing with the admin event list table. [TEC-4156]
+* Fix - Event List Widget will not print the H3 tag related to the title when that is empty. [BTRIA-1075]
+* Tweak - Allow bypassing of the Aggregator logging function by using the `tec_aggregator_records_should_log_error` filter. [BTRIA-1074]
+* Tweak - Removed the `tribe_events_force_filtered_ical_link` filter and the associated js function that recreates the subscribe link on v1 and Single Event views. [TEC-4131]
+* Language - 4 new strings added, 52 updated, 0 fuzzied, and 2 obsoleted
+
 = [5.11.0] 2021-11-17 =
 
+* Feature - Add an `Events List` block that is based on the `Events List` widget to the block editor which users can drag around to any position they want it to appear. [ECP-989]
 * Feature - Add event status options of scheduled, canceled, and postponed with the ability to add and display a reason for the latter two. [TEC-3465]
 * Feature - Add live preview to the TEC customizer screens. [TEC-4055]
 * Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
