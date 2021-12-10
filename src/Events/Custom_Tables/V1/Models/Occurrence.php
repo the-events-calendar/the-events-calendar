@@ -441,12 +441,23 @@ class Occurrence extends Model {
 		$insertions = [];
 		$utc        = new DateTimeZone( 'UTC' );
 		foreach ( $generator as $result ) {
-			$occurrence = self::where( 'post_id', '=', $post_id )
-			                  ->where( 'start_date', '=', $result->start_date )
-			                  ->where( 'end_date', '=', $result->end_date )
-			                  ->where( 'start_date_utc', '=', $result->start_date_utc )
-			                  ->where( 'end_date_utc', '=', $result->end_date_utc )
-			                  ->first();
+			/**
+			 * Filters the Occurrence that should be returned to match the requested new Occurrence.
+			 *
+			 * @since TBD
+			 *
+			 * @param Occurrence|null $occurrence The Occurrence instance as returned by TEC or other
+			 *                                    filtering functions.
+			 * @param Occurrence      $result     A reference to the Occurrence model instance that should be inserted
+			 *                                    for which a match is being searched among the existing Occurrences.
+			 * @param int             $post_id    The ID of the Event post the match is being searched for.
+			 */
+			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', null, $result, $post_id );
+
+			if ( null === $occurrence ) {
+				// TEC only handles single Occurrence Events: keep reusing the existing one.
+				$occurrence = self::where( 'post_id', '=', $post_id )->first();
+			}
 
 			if ( $occurrence instanceof self ) {
 				$result->occurrence_id       = $occurrence->occurrence_id;
