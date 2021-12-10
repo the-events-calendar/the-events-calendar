@@ -31,8 +31,8 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use Tribe__Date_Utils as Dates;
-use Tribe__Timezones as Timezones;
 use Tribe__Events__Main as TEC;
+use Tribe__Timezones as Timezones;
 
 /**
  * Class Occurrence
@@ -117,7 +117,6 @@ class Occurrence extends Model {
 	 * @var string[] hashed_keys
 	 */
 	protected $hashed_keys = [
-		'event_id',
 		'post_id',
 		'start_date',
 		'end_date',
@@ -442,7 +441,13 @@ class Occurrence extends Model {
 		$insertions = [];
 		$utc        = new DateTimeZone( 'UTC' );
 		foreach ( $generator as $result ) {
-			$occurrence = self::where( 'hash', $result->generate_hash() )->first();
+			$occurrence = self::where( 'post_id', '=', $post_id )
+			                  ->where( 'start_date', '=', $result->start_date )
+			                  ->where( 'end_date', '=', $result->end_date )
+			                  ->where( 'start_date_utc', '=', $result->start_date_utc )
+			                  ->where( 'end_date_utc', '=', $result->end_date_utc )
+			                  ->first();
+
 			if ( $occurrence instanceof self ) {
 				$result->occurrence_id       = $occurrence->occurrence_id;
 				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
