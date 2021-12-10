@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure the `Disable the Event Search Bar` setting doesn't get applied on the Event Manager page. [ECP-948]
 * Tweak - Ensure the `related events title` and `event titles` within the single event page for the block editor make use the customizer font settings. [TEC-4125]
 * Tweak - Update the description text for the "Merge Duplicates" action. Add filters for data sets usd for comparison. [TEC-3018]
+* Tweak - Adjust the Subscribe to Calendar dropdown styling to better accommodate themes with sidebars. [TBD]
 
 = [5.12.0] 2021-12-02 =
 
