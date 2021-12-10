@@ -252,36 +252,29 @@ class Builder {
 			return false;
 		}
 
-		global $wpdb;
-		/**
-		 * The use of VALUES() to refer to the new row and columns is deprecated beginning with MySQL 8.0.20, and is
-		 * subject to removal in a future version of MySQL. Instead, use row and column aliases, as described in
-		 * the next few paragraphs of this section.
-		 *
-		 * @link https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html
-		 */
-		$with_alias = version_compare( $wpdb->db_version(), '8.0.20', '>=' );
-
-		$upsert = [];
-		foreach ( $formatted_data as $column => $value ) {
-			if ( in_array( $column, $unique_by, true ) ) {
-				continue;
-			}
-			$value    = $with_alias ? "new.{$column}" : $column;
-			$upsert[] = "{$column}=VALUES({$value})";
-		}
-		$upsert = implode( ',', $upsert );
-
-		$alias = $with_alias ? 'AS new' : '';
-
-		$columns            = implode( ',', array_keys( $formatted_data ) );
 		$placeholder_values = $this->create_placeholders( $formatted_data, $format );
 
 		if ( empty( $placeholder_values ) ) {
 			return false;
 		}
 
-		$SQL = "INSERT INTO {$wpdb->prefix}{$this->model->table_name()} ($columns) VALUES($placeholder_values) {$alias} ON DUPLICATE KEY update {$upsert}";
+		global $wpdb;
+
+		$update_sql         = [];
+		$update_value       = [];
+		foreach ( $formatted_data as $column => $value ) {
+			if ( in_array( $column, $unique_by, true ) ) {
+				continue;
+			}
+			$value_placeholder = isset( $format[ $column ] ) ? $format[ $column ] : '%s';
+			$update_sql[]   = "{$column}={$value_placeholder}";
+			$update_value[] = $value;
+		}
+		$update_assignment_list = $wpdb->prepare( implode( ', ', $update_sql ), ...$update_value );
+
+		$columns = implode( ',', array_keys( $formatted_data ) );
+
+		$SQL = "INSERT INTO {$wpdb->prefix}{$this->model->table_name()} ($columns) VALUES($placeholder_values) ON DUPLICATE KEY update {$update_assignment_list}";
 		$SQL = $wpdb->prepare( $SQL, ...$this->create_replacements_values( $formatted_data ) );
 
 		$this->queries[] = $SQL;
