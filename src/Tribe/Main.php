@@ -822,6 +822,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'tribe_events_cost_table', [ $this, 'maybeShowMetaUpsell' ] );
 			}
 
+			add_action(
+				'load-tribe_events_page_' . Tribe__Settings::$parent_slug,
+				[
+					'Tribe__Events__Amalgamator',
+					'listen_for_migration_button',
+				],
+				10,
+				0
+			);
+
 			add_action( 'tribe_settings_after_save', [ $this, 'flushRewriteRules' ] );
 
 			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'fix_all_day_events' ], 10, 2 );

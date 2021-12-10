@@ -224,12 +224,15 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
+* Feature - Add Event Status filter options when Filter Bar is active. [FBAR-92]
 * Fix - Add a valid rel value to the link tag for TEC REST API support in order to improve HTML 5 and WCAG 2.1 compliance. [TEC-4129]
 * Fix - Ensure the date selected when creating a new event from the Event Manager is applied to the block editor. [ECP-954]
 * Fix - Properly observe the disabling of JSON-LD output on widget blocks in the block editor. [TEC-4077]
 * Fix - Prevent PHP warning in some cases when fetching the date from `tribe_get_display_end_date()`. (props to @huubl for the fix!) [TEC-4161]
+* Fix - Close a div in the new subscribe dropdown that was left open. Props to @whoisuncle for bringing this to our attention! [BTRIA-1077]
 * Tweak - Ensure the `Disable the Event Search Bar` setting doesn't get applied on the Event Manager page. [ECP-948]
 * Tweak - Ensure the `related events title` and `event titles` within the single event page for the block editor make use the customizer font settings. [TEC-4125]
+* Tweak - Update the description text for the "Merge Duplicates" action. Add filters for data sets usd for comparison. [TEC-3018]
 
 = [5.12.0] 2021-12-02 =
 
