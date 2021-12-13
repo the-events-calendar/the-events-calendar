@@ -9,7 +9,7 @@
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "require-dev": {
-    "bordoni/phpass": "dev-main",
+    "bordoni/phpass": "0.3.5",
     "automattic/vipwpcs": "^2.0",
     "codeception/module-asserts": "^1.0",
     "codeception/module-cli": "^1.0",
@@ -22,7 +22,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
-    "lucatume/wp-browser": "^2.6.17",
+    "lucatume/wp-browser": "^3.0.14",
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
     "the-events-calendar/tribalscents": "dev-master",
@@ -63,12 +63,6 @@
       "name": "the-events-calendar/TribalScents",
       "type": "github",
       "url": "https://github.com/the-events-calendar/TribalScents",
-      "no-api": true
-    },
-    {
-      "name": "bordoni/phpass",
-      "type": "github",
-      "url": "https://github.com/bordoni/phpass",
       "no-api": true
     }
   ],

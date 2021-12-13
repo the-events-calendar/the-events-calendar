@@ -26,9 +26,8 @@ exports[`Taxonomies Element Should render the list of items 1`] = `
           modern
         </a>
         <span>
-           
+          , 
         </span>
-         
       </li>
       <li
         className="tribe-editor__terms__list-item tribe-editor__terms__list-item--level-0"
@@ -40,10 +39,7 @@ exports[`Taxonomies Element Should render the list of items 1`] = `
         >
           tribe
         </a>
-        <span>
-           
-        </span>
-         
+        
       </li>
     </ul>
   </div>

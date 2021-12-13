@@ -7,7 +7,9 @@ import { applyFilters } from '@wordpress/hooks';
 /**
  * Internal Dependencies
  */
-import { types, actions, selectors } from '@moderntribe/events/data/blocks/datetime';
+import * as types from '@moderntribe/events/data/blocks/datetime/types';
+import * as actions from '@moderntribe/events/data/blocks/datetime/actions';
+import * as selectors from '@moderntribe/events/data/blocks/datetime/selectors';
 import watchers, * as sagas from '@moderntribe/events/data/blocks/datetime/sagas';
 import moment from 'moment';
 import { toDateTime } from '@moderntribe/common/utils/moment';
