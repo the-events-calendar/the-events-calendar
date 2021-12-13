@@ -113,7 +113,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Handle compatibility with external plugins and extensions for event status.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 */
 	protected function handle_compatibility() {
@@ -322,7 +322,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Handles the compatibility with the "The Events Calendar Extension: Events Control" plugin.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 */
 	public function handle_events_control_extension() {
 		if ( ! class_exists( Events_Control_Main::class ) ) {
@@ -335,7 +335,7 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Handles the compatibility with the Filter Bar plugin.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 */
 	public function handle_filter_bar() {
 		if ( ! tribe( Detect::class )::is_active() ) {

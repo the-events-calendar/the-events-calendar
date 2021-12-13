@@ -2,7 +2,7 @@
 /**
  * Handles detecting if the Filter Bar Plugin this there.
  *
- * @since   TBD
+ * @since   5.12.1
  *
  * @package Tribe\Events\Event_Status\Compatibility\Filter_Bar
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Event_Status\Compatibility\Filter_Bar;
 /**
  * Class Detect
  *
- * @since   TBD
+ * @since   5.12.1
  *
  * @package Tribe\Events\Event_Status\Compatibility\Filter_Bar
  */
@@ -21,7 +21,7 @@ class Detect {
 	/**
 	 * Detects if the Filter Bar constant is defined and thus active.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @return bool  Whether the constant is defined.
 	 */
@@ -29,7 +29,7 @@ class Detect {
 		/**
 		 * Allow filtering whether Filter Bar is active for Event Status Filter.
 		 *
-		 * @since TBD
+		 * @since 5.12.1
 		 *
 		 * @param boolean Whether or not the constant is defined.
 		 */
