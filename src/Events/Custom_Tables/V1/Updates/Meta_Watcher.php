@@ -47,6 +47,7 @@ class Meta_Watcher {
 		'_EventEndDateUTC',
 		'_EventDuration',
 		'_EventTimezone',
+		'_EventAllDay',
 	];
 
 	/**
