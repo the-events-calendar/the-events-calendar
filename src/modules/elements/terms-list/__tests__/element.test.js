@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 /**
  * Internal dependencies
  */
-import { TaxonomiesElement } from './../element';
+import { TaxonomiesElement } from '../element';
 
 describe( 'Taxonomies Element', () => {
 	it( 'renders empty when items is empty', () => {
