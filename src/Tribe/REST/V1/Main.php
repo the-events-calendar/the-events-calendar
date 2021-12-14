@@ -329,7 +329,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * @return string
 	 */
 	public function get_reference_url() {
-		return esc_attr( 'https://theeventscalendar.com/' );
+		return esc_html( 'alternate' );
 	}
 
 	/**

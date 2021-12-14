@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { actions } from '@moderntribe/events/data/blocks/datetime';
+import * as actions from '@moderntribe/events/data/blocks/datetime/actions';
 
 describe( '[STORE] - Datetime actions', () => {
 	test( 'Action to set the start time', () => {

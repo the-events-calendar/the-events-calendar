@@ -11,8 +11,10 @@ import { EditLink } from '@moderntribe/events/elements';
 
 describe( 'EditLink element', () => {
 	beforeAll( () => {
-		window.tribe_js_config = {
-			admin_url: 'http://localhost//wp-admin/',
+		window.tribe_editor_config = {
+			common: {
+				adminUrl: 'http://localhost/wp-admin/',
+			},
 		};
 	} );
 
@@ -37,6 +39,6 @@ describe( 'EditLink element', () => {
 	} );
 
 	afterAll( () => {
-		delete window.tribe_js_config;
+		delete window.tribe_editor_config;
 	} );
 } );

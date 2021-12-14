@@ -27,6 +27,7 @@ class Deprecated_Test extends \Codeception\TestCase\WPTestCase {
 			array( 'Tribe__Events__Support' ),
 			array( 'Tribe__Events__Template_Part_Cache' ),
 			array( 'Tribe__Events__Validate' ),
+			array( 'Tribe_Amalgamator' ),
 			array( 'Tribe__Events__View_Helpers' ),
 		);
 	}
@@ -66,7 +67,6 @@ class Deprecated_Test extends \Codeception\TestCase\WPTestCase {
 			array( 'TribeSettings' ),
 			array( 'TribeSettingsTab' ),
 			array( 'TribeValidate' ),
-			array( 'Tribe_Amalgamator' ),
 			array( 'Tribe_Events_Day_Template' ),
 			array( 'Tribe_Events_List_Template' ),
 			array( 'Tribe_Events_Month_Template' ),
