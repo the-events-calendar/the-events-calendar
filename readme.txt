@@ -235,9 +235,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the description text for the "Merge Duplicates" action. Add filters for data sets usd for comparison. [TEC-3018]
 * Tweak - Adjust the Subscribe to Calendar dropdown styling to better accommodate themes with sidebars. [TEC-4166]
 * Tweak - Add the Event List and Mini-Calendar widgets to the Event Blocks category. [TEC-4151]
-* TWeak - Correct some incorrect template paths in docblocks. [TEC-4111]
-
-* Tweak
+* Tweak - Correct some incorrect template paths in docblocks. [TEC-4111]
 * Language - 4 new strings added, 159 updated, 0 fuzzied, and 1 obsoleted
 
 = [5.12.0] 2021-12-02 =
