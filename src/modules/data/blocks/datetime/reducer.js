@@ -7,15 +7,13 @@ import moment from 'moment/moment';
 /**
  * Internal dependencies
  */
-import {
-	globals,
-	date,
-	moment as momentUtil,
-	time,
-} from '@moderntribe/common/utils';
+import * as globals from '@moderntribe/common/utils/globals';
+import * as date from '@moderntribe/common/utils/date';
+import * as momentUtil from '@moderntribe/common/utils/moment';
+import * as time from '@moderntribe/common/utils/time';
 import * as types from './types';
 
-const { parseFormats, toTime } = momentUtil;
+const { isSameDay, parseFormats, toDateTime, toMoment, toTime } = momentUtil;
 
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
@@ -28,14 +26,14 @@ export const defaultStartMoment = queryStartDate
 	: moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
 export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
-const defaultStartDateTime = momentUtil.toDateTime( defaultStartMoment );
-const defaultEndDateTime = momentUtil.toDateTime( defaultEndMoment );
+const defaultStartDateTime = toDateTime( defaultStartMoment );
+const defaultEndDateTime = toDateTime( defaultEndMoment );
 
 export const DEFAULT_STATE = {
 	start: defaultStartDateTime,
 	end: defaultEndDateTime,
-	startTimeInput: momentUtil.toTime( defaultStartMoment ),
-	endTimeInput: momentUtil.toTime( defaultEndMoment ),
+	startTimeInput: toTime( defaultStartMoment ),
+	endTimeInput: toTime( defaultEndMoment ),
 	naturalLanguageLabel: date.rangeToNaturalLanguage( defaultStartDateTime, defaultEndDateTime ),
 	dateTimeSeparator: globals.settings().dateTimeSeparator
 		? globals.settings().dateTimeSeparator
@@ -76,9 +74,9 @@ export const setInitialState = ( data ) => {
 	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
 	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
 	DEFAULT_STATE.naturalLanguageLabel = date.rangeToNaturalLanguage( start, end );
-	DEFAULT_STATE.multiDay = ! momentUtil.isSameDay(
-		momentUtil.toMoment( start ),
-		momentUtil.toMoment( end ),
+	DEFAULT_STATE.multiDay = ! isSameDay(
+		toMoment( start ),
+		toMoment( end ),
 	);
 };
 
