@@ -38,7 +38,7 @@ class Tribe__Events__Editor__Compatibility {
 	}
 
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
-		if ( $this->is_blocks_editor_toggled_on() ) {
+		if ( ! $this->is_blocks_editor_toggled_on() ) {
 			return false;
 		}
 
@@ -105,6 +105,8 @@ class Tribe__Events__Editor__Compatibility {
 
 		return Tribe__Main::array_insert_before_key( $insert_before, $fields, $insert_data );
 	}
+
+	/* DEPRECATED */
 
 	/**
 	 * Gets the option key for toggling Blocks Editor active

@@ -1019,7 +1019,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
-			tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
+
+			if ( ! tribe( 'editor' )->should_load_blocks() ) {
+				tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
+			}
+
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
@@ -3854,16 +3858,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			$blocks = tribe( 'editor' )->should_load_blocks();
+			if ( ! $blocks ) {
+				return;
+			}
+
 			add_meta_box(
-					'tribe_events_event_details',
-					$this->plugin_name,
-					[ $this, 'EventsChooserBox' ],
-					self::POSTTYPE,
-					'normal',
-					'high',
-					[
-							'__back_compat_meta_box' => ! class_exists( 'Tribe__Events__Pro__Main' ),
-					]
+				'tribe_events_event_details',
+				$this->plugin_name,
+				[ $this, 'EventsChooserBox' ],
+				self::POSTTYPE,
+				'normal',
+				'high',
+				[
+						'__back_compat_meta_box' => ! class_exists( 'Tribe__Events__Pro__Main' ),
+				]
 			);
 
 			add_meta_box(
