@@ -253,10 +253,17 @@ trait HTML_Cache {
 	 * @return bool
 	 */
 	protected function should_enable_html_cache( $context ) {
+		global $post;
+
 		$event_date = $context->get( 'event_date' );
 
 		// Respect the month view caching setting.
 		if ( ! tribe_get_option( 'enable_month_view_cache', true ) ) {
+			return false;
+		}
+
+		// Don't cache pages using the `tribe_this_week` shortcode to allow the layout setting to be applied.
+		if ( has_shortcode( $post->post_content, 'tribe_this_week' ) ) {
 			return false;
 		}
 

@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Disable caching on pages using the `tribe_this_week` shortcode to allow the layout setting to be applied. [ECP-967]
+
 = [5.12.1] 2021-12-14 =
 
 * Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
