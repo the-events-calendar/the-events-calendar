@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
+use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_REST_Request;
 
@@ -142,7 +143,7 @@ class Controller {
 		 * @param int             $post_id The post ID of the Event being updated.
 		 * @param WP_REST_Request $request A reference to the request object triggering the update.
 		 */
-		do_action( 'tec_events_custom_tables_v1_update_post', $post_id, $request );
+		do_action( 'tec_events_custom_tables_v1_update_post_before', $post_id, $request );
 
 		/**
 		 * Fires before the default The Events Calendar logic to update an Event custom tables
@@ -178,7 +179,19 @@ class Controller {
 		 * @param int             $post_id The post ID of the Event being updated.
 		 * @param WP_REST_Request $request A reference to the request object triggering the update.
 		 */
-		return apply_filters( 'tec_events_custom_tables_v1_updated_post', $updated, $post_id, $request );
+		$updated = apply_filters( 'tec_events_custom_tables_v1_updated_post', $updated, $post_id, $request );
+
+		/**
+		 * Fires after an Event custom tables data is updated.
+		 *
+		 * @since TBD
+		 *
+		 * @param int             $post_id The post ID of the Event being updated.
+		 * @param WP_REST_Request $request A reference to the request object triggering the update.
+		 */
+		do_action( 'tec_events_custom_tables_v1_update_post_after', $post_id, $request );
+
+		return $updated;
 	}
 
 	/**
@@ -250,5 +263,36 @@ class Controller {
 		 * @param WP_REST_Request $request  A reference to the request object triggering the update.
 		 */
 		return apply_filters( 'tec_events_custom_tables_v1_deleted_post', $affected, $post_id, $request );
+	}
+
+	/**
+	 * Filters the location a post should be redirected to.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $location The post redirection location, as worked out
+	 *                         by WordPress and previous filtering methods.
+	 * @param int $post_id The
+	 *
+	 * @return mixed|void
+	 */
+	public function redirect_post_location( $location, $post_id ){
+		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
+			return $location;
+		}
+
+		/**
+		 * Filters the location the Event post should be redirected to in the context of a Classic Editor
+		 * Request.
+		 *
+		 * The Events Calendar plugin will not redirect the post location, by default.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $location The original location to redirect the post provided by WordPress
+		 *                         and filtered by other intervening methods.
+		 * @param int    $post_id  The post ID to redirect the location for.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_redirect_post_location', $location, $post_id );
 	}
 }

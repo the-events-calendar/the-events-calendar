@@ -246,9 +246,10 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @param int    $post_id  The post ID of the post that is being updated.
 	 */
 	public function commit_and_redirect_classic_editor( $location, $post_id ) {
-		$this->container->make( Controller::class )->commit_post_updates( $post_id );
+		$controller = $this->container->make( Controller::class );
+		$controller->commit_post_updates( $post_id );
 
-		return $location;
+		return $controller->redirect_post_location( $location, $post_id );
 	}
 
 	/**
