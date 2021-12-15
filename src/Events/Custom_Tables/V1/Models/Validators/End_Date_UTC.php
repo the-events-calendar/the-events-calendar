@@ -98,7 +98,7 @@ class End_Date_UTC extends Validation {
 			return false;
 		}
 
-		if ( $this->range_dates->compare( $model->start_date_utc, $value ) ) {
+		if ( ! $model->start_date_utc || $this->range_dates->compare( $model->start_date_utc, $value ) ) {
 			return true;
 		}
 
