@@ -27,7 +27,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Validator;
  * @method static Model|null find( mixed $value, string $column = null ) Find a record based on the $value and column provided
  * @method static Builder set_batch_size( int $size ) Sets the size of the batch the Builder should use to fetch models in unbound query methods like `find_all`.
  * @method static Generator find_all( mixed $value, string $column = null ) Find all the records based one the $value and column provided.
- * @method static bool delete() Run a delete operation
+ * @method bool delete() Run a delete operation
  * @method static array get() An array with the result of a select constructed out with the current filters.
  * @method static int insert( array $data ) All the data than is going to be inserted.
  * @method static Builder where_in( string $column, array $in_values ) A list of all the records that match the query.
