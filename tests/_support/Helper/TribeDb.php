@@ -17,9 +17,9 @@ class TribeDb extends \Codeception\Module {
 	protected $locations
 		= [
 			'new_york' => [
-				'_VenueAddress	'   => '939 Lexington Ave',
-				'_VenueCity	'      => 'New York',
-				'_VenueCountry	'   => 'United States',
+				'_VenueAddress'       => '939 Lexington Ave',
+				'_VenueCity'          => 'New York',
+				'_VenueCountry'       => 'United States',
 				'_VenueProvince'      => '',
 				'_VenueState'         => 'NY',
 				'_VenueZip'           => '10065',
