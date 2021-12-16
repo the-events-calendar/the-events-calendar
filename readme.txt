@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
+
 = [5.12.1] 2021-12-14 =
 
 * Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
