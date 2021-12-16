@@ -140,7 +140,7 @@ class Title {
 		}
 
 		$term = $context->get( TEC::TAXONOMY, false );
-		if ( false !== $term && $depth ) {
+		if ( false !== $term && $depth = true ) {
 			$cat = get_term_by( 'slug', $term, TEC::TAXONOMY );
 
 			if ( $cat instanceof \WP_Term ) {
@@ -366,7 +366,7 @@ class Title {
 	 * @return string The built category archive title.
 	 */
 	protected function build_category_title( $title, $cat ) {
-		$new_title = '<a href="' . esc_url( tribe_get_events_link() ) . '">' . $title . '</a>';
+		$new_title = $title;
 		$new_title .= ' &#8250; ' . $cat->name;
 
 		/**
