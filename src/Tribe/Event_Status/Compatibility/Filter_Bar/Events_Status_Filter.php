@@ -188,7 +188,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 
 		$hide_clauses[] = $wpdb->prepare(
 			" {$this->alias}.meta_value NOT IN (%s) ",
-			$event_status_ids,
+			$event_status_ids
 		);
 
 		/**
