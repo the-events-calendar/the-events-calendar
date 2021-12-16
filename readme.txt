@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Fix - Prevent Fatal from happening when Filterbar Plugin is active with PHP 7.3 or less. [FBAR-252]
+
 = [5.12.1] 2021-12-14 =
 
 * Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
