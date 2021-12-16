@@ -116,7 +116,7 @@
     "reselect": "^3.0.1",
     "uniqid": "^5.0.3",
     "url-loader": "^0.6.2",
-    "validator": "^9.4.1",
+    "validator": "^13.7.0",
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
   },
