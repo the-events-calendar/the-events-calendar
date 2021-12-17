@@ -263,7 +263,7 @@ trait HTML_Cache {
 		}
 
 		// Don't cache pages using the `tribe_this_week` shortcode to allow the layout setting to be applied.
-		if ( has_shortcode( $post->post_content, 'tribe_this_week' ) ) {
+		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'tribe_this_week' ) ) {
 			return false;
 		}
 
