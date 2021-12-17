@@ -2,7 +2,7 @@
 	<a
 		class="tribe-events-c-ical__link"
 		title="Add to iCalendar"
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1"
+		href=""
 		target="_blank"
 		rel="noopener noreferrer nofollow"
 	>

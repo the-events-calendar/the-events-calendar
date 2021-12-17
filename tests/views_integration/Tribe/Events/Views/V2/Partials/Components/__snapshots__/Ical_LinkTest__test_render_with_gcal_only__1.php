@@ -2,7 +2,7 @@
 	<a
 		class="tribe-events-c-ical__link"
 		title="Add to Google Calendar"
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1"
+		href="https://www.google.com/calendar/render?cid"
 		target="_blank"
 		rel="noopener noreferrer nofollow"
 	>
