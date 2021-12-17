@@ -429,10 +429,11 @@ abstract class Model implements Serializable {
 	/**
 	 * Getter to retrieve all currently stored model values.
 	 *
-	 * @return array
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The model data, in array format.
 	 */
 	public function get_values() {
-
 		return $this->data;
 	}
 
