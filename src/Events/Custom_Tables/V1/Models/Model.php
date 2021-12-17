@@ -427,6 +427,16 @@ abstract class Model implements Serializable {
 	}
 
 	/**
+	 * Getter to retrieve all currently stored model values.
+	 *
+	 * @return array
+	 */
+	public function get_values() {
+
+		return $this->data;
+	}
+
+	/**
 	 * Make sure when using `isset` or `empty` with a model the value reviews the dynamic properties instead.
 	 *
 	 * @since TBD
