@@ -8,6 +8,7 @@
  */
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
+use Tribe\Events\Views\V2\View;
 
 /**
  * Class iCal
@@ -26,8 +27,6 @@ class iCalendar_Export extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		parent::register();
-
 		$this->label = __( 'Export .ics file', 'the-events-calendar' );
 		$this->single_label = $this->label;
 	}
@@ -35,15 +34,11 @@ class iCalendar_Export extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_tec_views_v2_single_subscribe_links( $links, $view) {
-		// No-op, we don't add a download link to the Single Event view - now.
-		return $links;
-	}
+	public function is_visible( View $view = null ) {
+		if ( null === $view ) {
+			return false;
+		}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function is_visible( $view ) {
 		$template_vars = $view->get_template_vars();
 
 		if ( ! isset( $template_vars['ical'] ) ) {
@@ -60,7 +55,11 @@ class iCalendar_Export extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_uri( $view ) {
+	public function get_uri( View $view = null ) {
+		if ( null === $view ) {
+			return '';
+		}
+
 		$template_vars = $view->get_template_vars();
 
 		if ( ! isset( $template_vars['ical'] ) ) {
