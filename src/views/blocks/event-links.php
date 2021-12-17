@@ -20,24 +20,23 @@ if ( post_password_required() ) {
 
 $has_google_cal = $this->attr( 'hasGoogleCalendar' );
 $has_ical       = $this->attr( 'hasiCal' );
+$is_backend = defined('REST_REQUEST') && true === REST_REQUEST && 'edit' === filter_input( INPUT_GET, 'context', FILTER_SANITIZE_STRING );
 
-$should_render = $has_google_cal || $has_ical;
-
-if ( $should_render ) {
-	$subscribe_links = empty( $this->context['subscribe_links'] ) ? false : $this->context['subscribe_links'];
-}
-
-if ( $has_google_cal ) {
-	$google_cal_link = $subscribe_links ? $subscribe_links[ 'gcal' ]->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
-}
-
-if ( $has_ical ) {
-	$ical_link = $subscribe_links ? $subscribe_links[ 'ical' ]->get_uri( null ) : tribe_get_single_ical_link();
-}
-
-remove_filter( 'the_content', 'do_blocks', 9 );
+$should_render = ! $is_backend && ( $has_google_cal || $has_ical );
 
 if ( $should_render ) :
+
+	remove_filter( 'the_content', 'do_blocks', 9 );
+	$subscribe_links = empty( $this->context['subscribe_links'] ) ? false : $this->context['subscribe_links'];
+
+	if ( $has_google_cal ) {
+		$google_cal_link = $subscribe_links ? $subscribe_links[ 'gcal' ]->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
+	}
+
+	if ( $has_ical ) {
+		$ical_link = $subscribe_links ? $subscribe_links[ 'ical' ]->get_uri( null ) : tribe_get_single_ical_link();
+	}
+
 ?>
 	<div class="tribe-block tribe-block__events-link">
 		<?php if ( $has_google_cal ) : ?>
@@ -66,6 +65,7 @@ if ( $should_render ) :
 			</div>
 		<?php endif; ?>
 	</div>
-<?php endif; ?>
 
-<?php add_filter( 'the_content', 'do_blocks', 9 );
+	<?php add_filter( 'the_content', 'do_blocks', 9 );
+
+endif;

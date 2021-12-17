@@ -168,11 +168,6 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Replace the default single event links with subscription links.
 	 *
-	 * As single calendars are not really a View\V2\View we have to emulate one.
-	 * We use `tribe_get_single_ical_link` to figure out what the feed URI
-	 * should be for this pseudo-View.
-	 * Fun.
-	 *
 	 * @see   `tribe_events_ical_single_event_links` filter.
 	 *
 	 * @since 5.12.0
