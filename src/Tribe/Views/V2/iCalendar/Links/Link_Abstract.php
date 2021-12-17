@@ -194,7 +194,7 @@ abstract class Link_Abstract implements Link_Interface {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
 		$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
 
-		if ( empty( $feed_url ) && null === $view ) {
+		if ( empty( $feed_url ) && null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
