@@ -221,6 +221,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.12.2] 2021-12-20 =
+
+* Fix - Remove trialing comma that can cause fatals on older versions of PHP. [FBAR-252]
+* Fix - Prevent infinite loops in the block editor when including the links block. [TEC-4190]
+
 = [5.12.1] 2021-12-14 =
 
 * Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
