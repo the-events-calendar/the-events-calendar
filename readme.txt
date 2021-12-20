@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Remove trialing comma that can cause fatals on older versions of PHP. [FBAR-252]
 * Fix - Prevent infinite loops in the block editor when including the links block. [TEC-4190]
+* Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
 
 = [5.12.1] 2021-12-14 =
 
