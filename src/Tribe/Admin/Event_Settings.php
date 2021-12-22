@@ -1,0 +1,298 @@
+<?php
+
+/**
+ * Manages the admin settings UI in relation to events configuration.
+ */
+use Tribe__Events__Main as Plugin;
+use Tribe\Admin\Troubleshooting as Troubleshooting;
+
+
+class Tribe__Events__Admin__Event_Settings {
+
+	/**
+	 * The Events Calendar settings page slug.
+	 *
+	 * @var string
+	 */
+	public static $settings_page_id = 'tec-events-settings';
+
+	/**
+	 * Sets up the display of timezone-related settings and listeners to deal with timezone-update
+	 * requests (which are initiated from within the settings screen).
+	 */
+	public function __construct() {
+		add_action( 'tribe_settings_do_tabs', [ $this, 'settings_ui' ] );
+		add_action( 'admin_menu', [ $this, 'add_admin_pages' ] );
+
+		add_filter( 'tribe_settings_page_title', [ $this, 'settings_page_title' ] );
+		add_filter( 'tec_settings_tab_url', [ $this, 'filter_settings_tab_url' ], 50, 3 );
+		add_filter( 'tec_admin_pages_with_tabs', [ $this, 'add_to_pages_with_tabs' ], 20, 1 );
+	}
+
+	/**
+	 * Adds The Events Calendar settings page to the pages configuration.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $pages An array containing the slug of the pages with tabs.
+	 *
+	 * @return array $pages The modified array containing the pages with tabs.
+	 */
+	public function add_to_pages_with_tabs( $pages ) {
+		$pages[] = self::$settings_page_id;
+
+		return $pages;
+	}
+
+	/**
+	 * Filter the Event Tickets Settings page title
+	 *
+	 * @param string $title The title of the settings page.
+	 *
+	 * @return string The modified title of the settings page..
+	 */
+	public function settings_page_title( $title ) {
+		if ( ! $this->is_tec_events_settings() ) {
+			return $title;
+		}
+
+		return sprintf(
+			// Translators: %s is the `Events` in plural.
+			__( '%s Settings', 'the-events-calendar' ),
+			tribe_get_event_label_plural( 'tec_events_settings_title' )
+		);
+	}
+
+	/**
+	 * Defines wether the current page is the Event Tickets Settings page.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public function is_tec_events_settings() {
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
+
+		return ! empty( $admin_page ) && self::$settings_page_id === $admin_page;
+	}
+
+	/**
+	 * Get the slug for The Events Calendar page/menu item.
+	 *
+	 * @return void
+	 */
+	public function get_tec_events_menu_slug() {
+		// If the `tribe_events` post type is not registered, return generic slug.
+		if ( ! post_type_exists( Plugin::POSTTYPE ) ) {
+			return 'tec-events';
+		}
+
+		$menu_slug = add_query_arg(
+			[
+				'post_type' => Plugin::POSTTYPE,
+			],
+			'edit.php'
+		);
+
+		return $menu_slug;
+	}
+
+	/**
+	 * Adds the menu and pages for The Events Calendar.
+	 *
+	 * @since TBD
+	 */
+	public function add_admin_pages() {
+		$admin_pages = tribe( 'admin.pages' );
+
+		if (
+			! is_multisite()
+			|| ( is_multisite() && '0' == Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) )
+		{
+
+		}
+
+		$this->maybe_register_events_menu();
+
+		$admin_pages->register_page(
+			[
+				'id'       => self::$settings_page_id,
+				'parent'   => $this->get_tec_events_menu_slug(),
+				'title'    => esc_html__( 'Settings', 'tribe-common' ),
+				'path'     => self::$settings_page_id,
+				'callback' => [
+					tribe( 'settings' ),
+					'generatePage'
+				],
+			]
+		);
+
+		$admin_pages->register_page(
+			[
+				'id'       => 'tec-events-help',
+				'parent'   => $this->get_tec_events_menu_slug(),
+				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
+				'path'     => 'tec-events-help',
+				'callback' => [
+					tribe( 'settings.manager' ),
+					'do_help_tab',
+				],
+			]
+		);
+		$this->maybe_add_troubleshooting();
+		$this->maybe_add_app_shop();
+	}
+
+	/**
+	 * Maybe add troubleshooting page for The Events Calendar
+	 *
+	 * @since TBD
+	 */
+	public function maybe_add_troubleshooting() {
+		$admin_pages = tribe( 'admin.pages' );
+
+		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
+			return;
+		}
+
+		$troubleshooting = tribe( Troubleshooting::class );
+
+		$admin_pages->register_page(
+			[
+				'id'         => $troubleshooting::MENU_SLUG,
+				'parent'     => $this->get_tec_events_menu_slug(),
+				'title'      => esc_html__( 'Troubleshooting', 'event-tickets' ),
+				'path'       => $troubleshooting::MENU_SLUG,
+				'capability' => $troubleshooting->get_required_capability(),
+				'callback'   => [
+					$troubleshooting,
+					'do_menu_page',
+				],
+			]
+		);
+	}
+
+	/**
+	 * Maybe add troubleshooting page for The Events Calendar
+	 *
+	 * @since TBD
+	 */
+	public function maybe_add_app_shop() {
+		$admin_pages = tribe( 'admin.pages' );
+
+		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
+			return;
+		}
+
+		$app_shop = tribe( Tribe__App_Shop::class );
+
+		$admin_pages->register_page(
+			[
+				'id'         => $app_shop::MENU_SLUG,
+				'parent'     => $this->get_tec_events_menu_slug(),
+				'title'      => esc_html__( 'Event Add-Ons', 'event-tickets' ),
+				'path'       => $app_shop::MENU_SLUG,
+				'capability' => 'install_plugins', //$app_shop->get_required_capability(),
+				'callback'   => [
+					$app_shop,
+					'do_menu_page',
+				],
+			]
+		);
+	}
+
+	/**
+	 * Filters the settings tab URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL of the settings tab.
+	 * @param string $page The slug of the page.
+	 * @param string $tab The slug of the settings tab.
+	 *
+	 * @return string $url The modified URL of the tab.
+	 */
+	public function filter_settings_tab_url( $url, $page, $tab ) {
+		// Bail if `tribe_events` doesn't exist.
+		if ( ! post_type_exists( Plugin::POSTTYPE ) ) {
+			return $url;
+		}
+
+		if ( self::$settings_page_id !== $page ) {
+			return $url;
+		}
+
+		$current_page = admin_url( 'edit.php' );
+		$url          = add_query_arg(
+			[
+				'post_type' => Plugin::POSTTYPE,
+				'page'      => $page,
+				'tab'       => $tab,
+			],
+			$current_page
+		);
+
+		return $url;
+	}
+
+	/**
+	 * Maybe register the events menu.
+	 *
+	 * @return void
+	 */
+	public function maybe_register_events_menu() {
+		// Bail if the `tribe_events` post type exists.
+		if ( post_type_exists( Plugin::POSTTYPE ) ) {
+			return;
+		}
+
+		$admin_pages = tribe( 'admin.pages' );
+
+		$admin_pages->register_page(
+			[
+				'id'       => 'tec-events', // @todo: this to constant (?)
+				'path'     => $this->get_tec_events_menu_slug(), //'tec-events',
+				'title'    => tribe_get_event_label_plural( 'tec_events_settings_menu' ),
+				'icon'     => 'dashicons-calendar',
+				'position' => 6,
+			]
+		);
+	}
+
+	/**
+	 * TBD
+	 *
+	 * @since TBD
+	 */
+	public function settings_ui( $admin_page ) {
+		if ( ! empty( $admin_page ) && self::$settings_page_id !== $admin_page ) {
+			return;
+		}
+
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
+		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
+
+		//$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
+
+		new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
+		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
+
+		//$this->do_licenses_tab();
+	}
+
+	/**
+	 * TBD
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_settings_array() {
+		$plugin_path = Tribe__Tickets__Main::instance()->plugin_path;
+		include $plugin_path . 'src/admin-views/tribe-options-tickets.php';
+
+		/** @var array $tickets_tab Set in the file included above*/
+		return $tickets_tab;
+	}
+}

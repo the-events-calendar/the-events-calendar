@@ -325,8 +325,15 @@ class Tribe__Events__Aggregator__Settings {
 		return true;
 	}
 
-	public function do_import_settings_tab() {
-		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/settings.php';
+	public function do_import_settings_tab( $admin_page ) {
+		$tec                  = Tribe__Events__Main::instance();
+		$tec_settings_page_id = $tec->settings()::$settings_page_id;
+
+		if ( ! empty( $admin_page ) && $tec_settings_page_id !== $admin_page ) {
+			return;
+		}
+
+		include_once $tec->plugin_path . 'src/admin-views/aggregator/settings.php';
 	}
 
 	public function get_all_default_settings() {

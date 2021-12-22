@@ -1025,10 +1025,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->registerPostType();
 			tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
 
+			$this->settings();
+
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
 
 			$this->run_scheduler();
+		}
+
+		/**
+		 * Settings page object accessor.
+		 *
+		 * @since TBD
+		 */
+		public function settings() {
+			static $settings;
+
+			if ( ! $settings ) {
+				$settings = new Tribe__Events__Admin__Event_Settings;
+			}
+
+			return $settings;
 		}
 
 		/**
@@ -1258,9 +1275,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Initialize the addons api settings tab
+		 * Initialize the addons api settings tab.
+		 *
+		 * @since TBD Added check to see if we are on TEC settings page.
 		 */
-		public function do_addons_api_settings_tab() {
+		public function do_addons_api_settings_tab( $admin_page ) {
+			// Bail if we're not on TEC settings.
+			if ( ! empty( $admin_page ) && $this->settings()::$settings_page_id !== $admin_page ) {
+				return;
+			}
+
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
 		}
 
@@ -1304,8 +1328,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Create the upgrade tab
 		 *
 		 * @since 4.9.12
+		 * @since TBD Added check to see if we are on TEC settings page.
 		 */
-		public function do_upgrade_tab() {
+		public function do_upgrade_tab( $admin_page ) {
+			// Bail if we're not on TEC settings.
+			if ( ! empty( $admin_page ) && $this->settings()::$settings_page_id !== $admin_page ) {
+				return;
+			}
+
 			if ( ! $this->show_upgrade() ) {
 				return;
 			}
