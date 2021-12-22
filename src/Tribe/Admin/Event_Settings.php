@@ -45,7 +45,7 @@ class Tribe__Events__Admin__Event_Settings {
 	}
 
 	/**
-	 * Filter the Event Tickets Settings page title
+	 * Filter The Events CAlendar Settings page title
 	 *
 	 * @param string $title The title of the settings page.
 	 *
@@ -64,7 +64,7 @@ class Tribe__Events__Admin__Event_Settings {
 	}
 
 	/**
-	 * Defines wether the current page is the Event Tickets Settings page.
+	 * Defines wether the current page is The Events Calendar Settings page.
 	 *
 	 * @since TBD
 	 *
