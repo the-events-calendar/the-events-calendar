@@ -2591,11 +2591,35 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * This can be useful is for instance a view added by another plugin (such as PRO) is
 		 * stored as the default but can no longer be generated due to the plugin being deactivated.
 		 *
-		 * @return string
+		 * @since 3.3
+		 * @since TBD - Add a filter to the default view determination.
+		 *
+		 * @return string $view The slug of the default view.
 		 */
 		public function default_view() {
 			// Compare the stored default view option to the list of available views
-			$default         = Tribe__Settings_Manager::instance()->get_option( 'viewOption', 'month' );
+			$default = Tribe__Settings_Manager::instance()->get_option( 'viewOption', 'month' );
+
+			/**
+			 * Allows other plugins (and v2 views) to hook in and alter the default view determined here.
+			 *
+			 * @since TBD
+			 *
+			 * @param string      $default The slug of the default view.
+			 * @param string|null $type    The type of default View to return, either 'desktop' or 'mobile'.
+			 *                             @see Tribe\Events\Views\V2\Manager get_default_view_option()
+			 */
+			$default = apply_filters( 'tec_events_default_view', $default, null );
+
+			/**
+			 * Allows other plugins (and v2 views) to hook in and alter the available views.
+			 *
+			 * @since 3.3
+			 *
+			 * @param array $available_views The array of available views.
+			 * @param bool  $visible         Should the array only list the "visible" views - enabled in settings
+			 *                               @see $this->remove_hidden_views() for use of the second param.
+			 */
 			$available_views = (array) apply_filters( 'tribe-events-bar-views', [], false );
 
 			foreach ( $available_views as $view ) {
@@ -2603,13 +2627,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					return $default;
 				}
 			}
-
-			// If the stored option is no longer available, pick the first available one instead
-			$first_view = array_shift( $available_views );
-			$view       = $first_view['displaying'];
-
-			// Update the saved option
-			Tribe__Settings_Manager::instance()->set_option( 'viewOption', $view );
 
 			return $view;
 		}
