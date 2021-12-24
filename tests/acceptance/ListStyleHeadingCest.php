@@ -99,9 +99,15 @@ class ListStyleHeadingCest {
 	 * @test
 	 */
 	public function renders_the_dates_ranges_if_there_are_multiple_pages_of_events_with_date_filtering( AcceptanceTester $I ) {
-		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ] );
+		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ], 24 );
 		$last_occurrence_of_first_page = $ids[11]; // Last element on the first page of a 12 events per page setup.
-		$format                        = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
+
+		// Account for year-end.
+		$now  = (int) Tribe__Date_Utils::build_date_object()->format('Y');
+		$then = (int) tribe_get_start_date( $last_occurrence_of_first_page, false, 'Y' );
+		$default_format = ( $then === $now ) ? 'F j' : 'F j, Y';
+
+		$format                        = tribe_get_date_option( 'dateWithoutYearFormat', $default_format );
 		$start_date                    = tribe_get_start_date( $ids[0], false, $format );
 		$end_date                      = tribe_get_start_date( $last_occurrence_of_first_page, false, $format );
 
@@ -120,10 +126,16 @@ class ListStyleHeadingCest {
 	 * @test
 	 */
 	public function display_onwards_when_visiting_the_last_page_of_events_and_the_date_picker_has_been_used( AcceptanceTester $I ) {
-		$ids                          = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ] );
+		$ids                          = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ], 24 );
 		$first_occurrence_second_page = $ids[12]; // First element on the second page of events
-		$format                       = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
-		$start_date                   = tribe_get_start_date( $first_occurrence_second_page, false, $format );
+
+		// Account for year-end.
+		$now  = (int) Tribe__Date_Utils::build_date_object()->format('Y');
+		$then = (int) tribe_get_start_date( $first_occurrence_second_page, false, 'Y' );
+		$default_format = ( $then === $now ) ? 'F j' : 'F j, Y';
+
+		$format     = tribe_get_date_option( 'dateWithoutYearFormat', $default_format );
+		$start_date = tribe_get_start_date( $first_occurrence_second_page, false, $format );
 
 		$I->amOnPage( '/events/list/page/2/?tribe-bar-date=' . tribe_get_start_date( $ids[0], false, Tribe__Date_Utils::DBDATEFORMAT ) );
 		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 1 );
