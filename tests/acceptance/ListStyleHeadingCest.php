@@ -105,9 +105,13 @@ class ListStyleHeadingCest {
 		// Account for year-end.
 		$now  = (int) Tribe__Date_Utils::build_date_object()->format('Y');
 		$then = (int) tribe_get_start_date( $last_occurrence_of_first_page, false, 'Y' );
-		$default_format = ( $then === $now ) ? 'F j' : 'F j, Y';
 
-		$format                        = tribe_get_date_option( 'dateWithoutYearFormat', $default_format );
+		if ( $then === $now ) {
+			$format = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
+		} else {
+			$format = tribe_get_date_option( 'dateWithYearFormat', 'F j, Y' );
+		}
+
 		$start_date                    = tribe_get_start_date( $ids[0], false, $format );
 		$end_date                      = tribe_get_start_date( $last_occurrence_of_first_page, false, $format );
 
@@ -132,9 +136,13 @@ class ListStyleHeadingCest {
 		// Account for year-end.
 		$now  = (int) Tribe__Date_Utils::build_date_object()->format('Y');
 		$then = (int) tribe_get_start_date( $first_occurrence_second_page, false, 'Y' );
-		$default_format = ( $then === $now ) ? 'F j' : 'F j, Y';
 
-		$format     = tribe_get_date_option( 'dateWithoutYearFormat', $default_format );
+		if ( $then === $now ) {
+			$format = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
+		} else {
+			$format = tribe_get_date_option( 'dateWithYearFormat', 'F j, Y' );
+		}
+
 		$start_date = tribe_get_start_date( $first_occurrence_second_page, false, $format );
 
 		$I->amOnPage( '/events/list/page/2/?tribe-bar-date=' . tribe_get_start_date( $ids[0], false, Tribe__Date_Utils::DBDATEFORMAT ) );
