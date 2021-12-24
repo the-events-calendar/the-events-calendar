@@ -43,7 +43,7 @@ class ListStyleHeadingCest {
 	 * @test
 	 */
 	public function i_do_see_the_dates_header_on_the_first_page_when_there_are_more_than_one_page_of_results( AcceptanceTester $I ) {
-		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ] );
+		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ], 24 );
 		$last_occurrence_of_first_page = $ids[11]; // 12th event, 0 based index.
 		$date                          = tribe_get_start_date( $last_occurrence_of_first_page, false, tribe_get_date_option( 'dateWithoutYearFormat', 'F j' ) );
 
@@ -63,7 +63,7 @@ class ListStyleHeadingCest {
 	 * @test
 	 */
 	public function should_render_the_onwards_label_on_the_last_page_of_results( AcceptanceTester $I ) {
-		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ] );
+		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ], 24 );
 		$last_occurrence_of_first_page = $ids[12]; // 13th event
 		$date                          = tribe_get_start_date( $last_occurrence_of_first_page, false, tribe_get_date_option( 'dateWithoutYearFormat', 'F j' ) );
 
@@ -81,7 +81,7 @@ class ListStyleHeadingCest {
 	 * @test
 	 */
 	public function only_has_a_single_page_of_events_and_filters_by_date( AcceptanceTester $I ) {
-		$ids                           = $I->haveManyEventsInDatabase( 10, [ 'when' => 'tomorrow' ] );
+		$ids                           = $I->haveManyEventsInDatabase( 10, [ 'when' => 'tomorrow' ], 24 );
 		$last_occurrence_of_first_page = reset( $ids );
 		$date                          = tribe_get_start_date( $last_occurrence_of_first_page, false, tribe_get_date_option( 'dateWithoutYearFormat', 'F j' ) );
 
