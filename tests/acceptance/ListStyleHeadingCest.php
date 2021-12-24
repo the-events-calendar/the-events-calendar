@@ -65,7 +65,18 @@ class ListStyleHeadingCest {
 	public function should_render_the_onwards_label_on_the_last_page_of_results( AcceptanceTester $I ) {
 		$ids                           = $I->haveManyEventsInDatabase( 14, [ 'when' => 'tomorrow' ], 24 );
 		$last_occurrence_of_first_page = $ids[12]; // 13th event
-		$date                          = tribe_get_start_date( $last_occurrence_of_first_page, false, tribe_get_date_option( 'dateWithoutYearFormat', 'F j' ) );
+
+		// Account for year-end.
+		$now  = (int) Tribe__Date_Utils::build_date_object()->format('Y');
+		$then = (int) tribe_get_start_date( $last_occurrence_of_first_page, false, 'Y' );
+
+		if ( $then === $now ) {
+			$format = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
+		} else {
+			$format = tribe_get_date_option( 'dateWithYearFormat', 'F j, Y' );
+		}
+
+		$date = tribe_get_start_date( $last_occurrence_of_first_page, false, $format );
 
 		$I->amOnPage( '/events/list/page/2/' );
 		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 1 );
