@@ -221,6 +221,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
 = [5.12.2] 2021-12-20 =
 
 * Fix - Remove trailing comma that can cause fatals on older versions of PHP. [FBAR-252]
