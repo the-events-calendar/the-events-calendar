@@ -221,6 +221,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3862]
+* Tweak - Move handling of mobile view to ECP. [TEC-3862]
+
 = [5.12.1] 2021-12-14 =
 
 * Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
