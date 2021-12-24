@@ -71,8 +71,7 @@ class ListStyleHeadingCest {
 		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 1 );
 		$I->dontSeeElement( '.tribe-events-c-top-bar__datepicker-separator' );
 
-		codecept_debug( "Looking for label: '{$date} onwards'" );
-		$I->see( "{$date} onwards", \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
+		$I->see( "{$date} onwards", \Codeception\Util\Locator::firstElement( '.tribe-events-c-top-bar__datepicker-desktop' ) );
 	}
 
 	/**
@@ -89,8 +88,7 @@ class ListStyleHeadingCest {
 		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 1 );
 		$I->dontSeeElement( '.tribe-events-c-top-bar__datepicker-separator' );
 
-		codecept_debug( "Looking for label: '{$date} onwards'" );
-		$I->see( "{$date} onwards", \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
+		$I->see( "{$date} onwards", \Codeception\Util\Locator::firstElement( '.tribe-events-c-top-bar__datepicker-desktop' ) );
 	}
 
 	/**
