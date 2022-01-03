@@ -26,8 +26,6 @@ class iCal extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		parent::register();
-
 		$this->label = __( 'iCalendar', 'the-events-calendar' );
 		$this->single_label = __( 'Add to iCalendar', 'the-events-calendar' );
 	}
