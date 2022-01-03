@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.12.1';
+		const VERSION             = '5.12.2';
 
 		/**
 		 * Min Pro Addon
@@ -2796,7 +2796,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
-			$url_args = wp_parse_args( $url_query, [] );
+			if ( null === $url_query ) {
+				$url_args = [];
+			} else {
+				$url_args = wp_parse_args( $url_query, [] );
+			}
 
 			// Remove the "args"
 			if ( ! empty( $url_query ) ) {
