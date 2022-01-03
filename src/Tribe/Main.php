@@ -2594,22 +2594,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 3.3
 		 * @since TBD - Add a filter to the default view determination.
 		 *
+		 * @todo Once we deprecate v1, this should use the slug from Tribe\Events\Views\V2\Views\Month_View instead of the string 'month'.
+		 *
 		 * @return string $view The slug of the default view.
 		 */
 		public function default_view() {
 			// Compare the stored default view option to the list of available views
 			$default = Tribe__Settings_Manager::instance()->get_option( 'viewOption', 'month' );
-
-			/**
-			 * Allows other plugins (and v2 views) to hook in and alter the default view determined here.
-			 *
-			 * @since TBD
-			 *
-			 * @param string      $default The slug of the default view.
-			 * @param string|null $type    The type of default View to return, either 'desktop' or 'mobile'.
-			 *                             @see Tribe\Events\Views\V2\Manager get_default_view_option()
-			 */
-			$default = apply_filters( 'tec_events_default_view', $default, null );
 
 			/**
 			 * Allows other plugins (and v2 views) to hook in and alter the available views.
@@ -2622,13 +2613,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$available_views = (array) apply_filters( 'tribe-events-bar-views', [], false );
 
-			foreach ( $available_views as $view ) {
-				if ( $default === $view['displaying'] ) {
-					return $default;
-				}
+			$available_view_slugs = wp_list_pluck( $available_views, 'displaying' );
+
+			// If the saved view is not available, set the default view to month.
+			if ( ! in_array( $default, $available_view_slugs ) ) {
+				$default = 'month';
 			}
 
-			return $default;
+			/**
+			 * Allows other plugins (and v2 views) to hook in and alter the default view determined here.
+			 *
+			 * @since TBD
+			 *
+			 * @param string      $default The slug of the default view.
+			 * @param string|null $type    The type of default View to return, either 'desktop' or 'mobile'.
+			 *                             @see Tribe\Events\Views\V2\Manager get_default_view_option()
+			 */
+			return apply_filters( 'tec_events_default_view', $default, null );
 		}
 
 		public function setup_l10n_strings() {
