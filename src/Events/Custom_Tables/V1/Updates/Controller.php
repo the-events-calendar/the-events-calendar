@@ -129,15 +129,27 @@ class Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param $post_id
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request A reference to the Request object modeling the context of the check.
+	 * @param int             $post_id The ID of the post the check is being made for.
 	 *
-	 * @return bool
+	 * @return bool Whether custom tables should be updated or not.
 	 */
 	protected function should_update_custom_tables( $post_id, WP_REST_Request $request ) {
-		$should_update = $this->meta_watcher->is_tracked( $post_id );
+		$update = $this->meta_watcher->is_tracked( $post_id );
 
-		return apply_filters( 'tec_events_custom_tables_v1_should_update_custom_tables', $should_update, $post_id, $request );
+		/**
+		 * Filters whether custom tables should be updated or not after the default logic
+		 * has run.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool            $update        Whether the custom tables should be updated or not, by
+		 *                                       default, the initial value will be based on whether a
+		 *                                       post relevant and watched meta was updated or not.
+		 * @param int             $post_id       The ID of the post that is currently being updated.
+		 * @param WP_REST_Request $request       A reference to the object modeling the current request.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_should_update_custom_tables', $update, $post_id, $request );
 	}
 
 	/**
