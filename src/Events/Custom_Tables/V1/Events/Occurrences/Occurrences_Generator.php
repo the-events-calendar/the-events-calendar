@@ -51,7 +51,7 @@ class Occurrences_Generator {
 	 *
 	 * @return Occurrence The Single Event Occurrence instance.
 	 */
-	protected function get_single_event_row( Event $event ) {
+	public function get_single_event_row( Event $event ) {
 		$occurrence          = new Occurrence( [
 			'event_id'       => $event->event_id,
 			'post_id'        => $event->post_id,

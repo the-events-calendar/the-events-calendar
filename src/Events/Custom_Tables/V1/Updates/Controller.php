@@ -109,7 +109,7 @@ class Controller {
 			$request = $this->requests->from_http_request();
 		}
 
-		if ( ! $this->meta_watcher->is_tracked( $post_id ) ) {
+		if ( ! $this->should_update_custom_tables( $post_id, $request ) ) {
 			// The post relevant meta was not changed, do nothing.
 			return false;
 		}
@@ -122,6 +122,22 @@ class Controller {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks if we are watching a meta key or leverage the filter to see if other situation to update CT.
+	 *
+	 * @since TBD
+	 *
+	 * @param $post_id
+	 * @param WP_REST_Request $request
+	 *
+	 * @return bool
+	 */
+	protected function should_update_custom_tables( $post_id, WP_REST_Request $request ) {
+		$should_update = $this->meta_watcher->is_tracked( $post_id );
+
+		return apply_filters( 'tec_events_custom_tables_v1_should_update_custom_tables', $should_update, $post_id, $request );
 	}
 
 	/**
