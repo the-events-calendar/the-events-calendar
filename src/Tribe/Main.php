@@ -2628,7 +2628,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 			}
 
-			return $view;
+			return $default;
 		}
 
 		public function setup_l10n_strings() {
