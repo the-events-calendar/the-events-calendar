@@ -134,7 +134,7 @@ class Controller {
 	 *
 	 * @return bool Whether custom tables should be updated or not.
 	 */
-	protected function should_update_custom_tables( $post_id, WP_REST_Request $request ) {
+	private function should_update_custom_tables( $post_id, WP_REST_Request $request ) {
 		$update = $this->meta_watcher->is_tracked( $post_id );
 
 		/**
