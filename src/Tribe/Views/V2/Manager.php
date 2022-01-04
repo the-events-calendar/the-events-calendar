@@ -37,6 +37,7 @@ class Manager {
 	 * The name of the Tribe option the default mobile Views v2 slug will live in.
 	 *
 	 * @since 4.9.11 Use v1 option.
+	 * @deprecated TBD Moved to ECP.
 	 *
 	 * @var string
 	 */
@@ -113,31 +114,27 @@ class Manager {
 	}
 
 	/**
-	 * Get the class name for the default registered view.
-	 *
-	 * The use of the `wp_is_mobile` function is not about screen width, but about payloads and how "heavy" a page is.
-	 * All the Views are responsive, what we want to achieve here is serving users a version of the View that is
-	 * less "heavy" on mobile devices (limited CPU and connection capabilities).
-	 * This allows users to, as an example, serve the Month View to desktop users and the day view to mobile users.
+	 * Get the slug for the default registered view.
 	 *
 	 * @since  4.9.4
 	 *
-	 * @param string|null $type The type of default View to return, either 'desktop' or 'mobile'; defaults to `mobile`.
+	 * @param string|null $type The type of default View to return, either 'desktop' or 'mobile'.
 	 *
-	 * @return string The default View slug, this value could be different depending on the requested `$type` or
-	 *                the context.
+	 * @return string The default View slug.
 	 *
-	 * @see wp_is_mobile()
-	 * @link https://developer.wordpress.org/reference/functions/wp_is_mobile/
 	 */
 	public function get_default_view_option( $type = null ) {
-		if ( null === $type ) {
-			$type = wp_is_mobile() ? 'mobile' : 'desktop';
-		}
+		$default_view = tribe_get_option( static::$option_default, 'default' );
 
-		return ( 'mobile' === $type )
-			? (string) tribe_get_option( static::$option_mobile_default, 'default' )
-			: (string) tribe_get_option( static::$option_default, 'default' );
+		/**
+		 * Allow others to hook in and alter the default view - ECP does so to allow a different view for mobile.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $default_view The view slug for the default view.
+		 * @param string|null $type The type of default View to return, either 'desktop' or 'mobile'.
+		 */
+		return apply_filters( 'tec_events_default_view', $default_view, $type );
 	}
 
 	/**
