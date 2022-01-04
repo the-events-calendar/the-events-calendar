@@ -140,7 +140,7 @@ class Title {
 		}
 
 		$term = $context->get( TEC::TAXONOMY, false );
-		if ( false !== $term && $depth = true ) {
+		if ( false !== $term && $depth === true ) {
 			$cat = get_term_by( 'slug', $term, TEC::TAXONOMY );
 
 			if ( $cat instanceof \WP_Term ) {
