@@ -224,12 +224,15 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
+* Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3862]
+* Tweak - Move handling of mobile view to ECP. [TEC-3862]
 
 = [5.12.2] 2021-12-20 =
 
 * Fix - Remove trailing comma that can cause fatals on older versions of PHP. [FBAR-252]
 * Fix - Prevent infinite loops in the block editor when including the links block. [TEC-4190]
 * Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
+
 
 = [5.12.1] 2021-12-14 =
 
