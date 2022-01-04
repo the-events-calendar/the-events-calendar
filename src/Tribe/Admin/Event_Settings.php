@@ -27,6 +27,7 @@ class Tribe__Events__Admin__Event_Settings {
 		add_filter( 'tribe_settings_page_title', [ $this, 'settings_page_title' ] );
 		add_filter( 'tec_settings_tab_url', [ $this, 'filter_settings_tab_url' ], 50, 3 );
 		add_filter( 'tec_admin_pages_with_tabs', [ $this, 'add_to_pages_with_tabs' ], 20, 1 );
+		add_filter( 'tribe_settings_page_url', [ $this, 'filter_settings_page_url' ], 50, 3 );
 	}
 
 	/**
@@ -214,6 +215,40 @@ class Tribe__Events__Admin__Event_Settings {
 	 * @return string $url The modified URL of the tab.
 	 */
 	public function filter_settings_tab_url( $url, $page, $tab ) {
+		// Bail if `tribe_events` doesn't exist.
+		if ( ! post_type_exists( Plugin::POSTTYPE ) ) {
+			return $url;
+		}
+
+		if ( self::$settings_page_id !== $page ) {
+			return $url;
+		}
+
+		$current_page = admin_url( 'edit.php' );
+		$url          = add_query_arg(
+			[
+				'post_type' => Plugin::POSTTYPE,
+				'page'      => $page,
+				'tab'       => $tab,
+			],
+			$current_page
+		);
+
+		return $url;
+	}
+
+	/**
+	 * Filters the settings page URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The URL of the settings page.
+	 * @param string $page The slug of the page.
+	 * @param string $tab The slug of the settings tab.
+	 *
+	 * @return string $url The modified URL of the settings.
+	 */
+	public function filter_settings_page_url( $url, $page, $tab ) {
 		// Bail if `tribe_events` doesn't exist.
 		if ( ! post_type_exists( Plugin::POSTTYPE ) ) {
 			return $url;
