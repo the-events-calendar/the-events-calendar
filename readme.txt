@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
 * Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3862]
+* Tweak - Boost SEO for category archive pages by fixing the title tag. [TEC-4110]
 * Tweak - Move handling of mobile view to ECP. [TEC-3862]
 
 = [5.12.2] 2021-12-20 =
