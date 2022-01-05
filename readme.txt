@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.12.2
+Stable tag: 5.12.3
 Tested up to: 5.8.2
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -221,10 +221,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.12.3] TBD =
 
 * Fix - Disable caching on pages using the `tribe_this_week` shortcode to allow the layout setting to be applied. [ECP-967]
+* Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
 * Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3862]
+* Tweak - Boost SEO for category archive pages by fixing the title tag. [TEC-4110]
 * Tweak - Move handling of mobile view to ECP. [TEC-3862]
 
 = [5.12.2] 2021-12-20 =
