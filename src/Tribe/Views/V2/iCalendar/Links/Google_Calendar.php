@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
+use Tribe\Events\Views\V2\View;
+
 /**
  * Class Google_Calendar
  *
@@ -26,8 +28,6 @@ class Google_Calendar extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		parent::register();
-
 		$this->label = __( 'Google Calendar', 'the-events-calendar' );
 		$this->single_label = __( 'Add to Google Calendar', 'the-events-calendar' );
 	}
@@ -35,7 +35,7 @@ class Google_Calendar extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_uri( $view ) {
+	public function get_uri( View $view = null ) {
 		$feed_url = parent::get_uri( $view );
 
 		return add_query_arg(

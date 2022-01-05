@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.12.1';
+		const VERSION             = '5.12.3';
 
 		/**
 		 * Min Pro Addon
@@ -2591,27 +2591,45 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * This can be useful is for instance a view added by another plugin (such as PRO) is
 		 * stored as the default but can no longer be generated due to the plugin being deactivated.
 		 *
-		 * @return string
+		 * @since 3.3
+		 * @since TBD - Add a filter to the default view determination.
+		 *
+		 * @todo Once we deprecate v1, this should use the slug from Tribe\Events\Views\V2\Views\Month_View instead of the string 'month'.
+		 *
+		 * @return string $view The slug of the default view.
 		 */
 		public function default_view() {
 			// Compare the stored default view option to the list of available views
-			$default         = Tribe__Settings_Manager::instance()->get_option( 'viewOption', 'month' );
+			$default = Tribe__Settings_Manager::instance()->get_option( 'viewOption', 'month' );
+
+			/**
+			 * Allows other plugins (and v2 views) to hook in and alter the available views.
+			 *
+			 * @since 3.3
+			 *
+			 * @param array $available_views The array of available views.
+			 * @param bool  $visible         Should the array only list the "visible" views - enabled in settings
+			 *                               @see $this->remove_hidden_views() for use of the second param.
+			 */
 			$available_views = (array) apply_filters( 'tribe-events-bar-views', [], false );
 
-			foreach ( $available_views as $view ) {
-				if ( $default === $view['displaying'] ) {
-					return $default;
-				}
+			$available_view_slugs = wp_list_pluck( $available_views, 'displaying' );
+
+			// If the saved view is not available, set the default view to month.
+			if ( ! in_array( $default, $available_view_slugs ) ) {
+				$default = 'month';
 			}
 
-			// If the stored option is no longer available, pick the first available one instead
-			$first_view = array_shift( $available_views );
-			$view       = $first_view['displaying'];
-
-			// Update the saved option
-			Tribe__Settings_Manager::instance()->set_option( 'viewOption', $view );
-
-			return $view;
+			/**
+			 * Allows other plugins (and v2 views) to hook in and alter the default view determined here.
+			 *
+			 * @since TBD
+			 *
+			 * @param string      $default The slug of the default view.
+			 * @param string|null $type    The type of default View to return, either 'desktop' or 'mobile'.
+			 *                             @see Tribe\Events\Views\V2\Manager get_default_view_option()
+			 */
+			return apply_filters( 'tec_events_default_view', $default, null );
 		}
 
 		public function setup_l10n_strings() {
@@ -2796,7 +2814,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
-			$url_args = wp_parse_args( $url_query, [] );
+			if ( null === $url_query ) {
+				$url_args = [];
+			} else {
+				$url_args = wp_parse_args( $url_query, [] );
+			}
 
 			// Remove the "args"
 			if ( ! empty( $url_query ) ) {

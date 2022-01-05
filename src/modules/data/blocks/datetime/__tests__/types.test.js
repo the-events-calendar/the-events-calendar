@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { types } from '@moderntribe/events/data/blocks/datetime';
+import * as types from '@moderntribe/events/data/blocks/datetime/types';
 
 describe( '[STORE] - Datetime types', () => {
 	it( 'Should return the types values', () => {

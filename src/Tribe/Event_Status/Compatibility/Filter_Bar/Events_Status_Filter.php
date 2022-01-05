@@ -2,7 +2,7 @@
 /**
  * Handles the compatibility with the Filter Bar plugin.
  *
- * @since   TBD
+ * @since   5.12.1
  *
  * @package Tribe\Events\Event_Status\Compatibility\Filter_Bar
  */
@@ -16,7 +16,7 @@ use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
 /**
  * Class Events_Status_Filter.
  *
- * @since   TBD
+ * @since   5.12.1
  *
  * @package Tribe\Events\Event_Status\Compatibility\Filter_Bar
  */
@@ -26,21 +26,21 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Value checked for canceled events.
 	 *
-	 * @since   TBD
+	 * @since   5.12.1
 	 */
 	const CANCELED = 'canceled';
 
 	/**
 	 * Value checked for postponed events.
 	 *
-	 * @since   TBD
+	 * @since   5.12.1
 	 */
 	const POSTPONED = 'postponed';
 
 	/**
 	 * Event Status Table Alias.
 	 *
-	 * @since   TBD
+	 * @since   5.12.1
 	 *
 	 * @var string The table alias that will be used for the postmeta table.
 	 */
@@ -49,7 +49,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * The control type.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @var string
 	 */
@@ -58,7 +58,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * The filter slug.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @var string
 	 */
@@ -67,7 +67,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Name for the Filter.
 	 *
-	 * @since   TBD
+	 * @since   5.12.1
 	 *
 	 * @var string
 	 */
@@ -76,7 +76,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Status Labels.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @var Status_Labels
 	 */
@@ -85,7 +85,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Constructor.
 	 *
-	 * @since   TBD
+	 * @since   5.12.1
 	 *
 	 * @param Status_Labels $status_labels An instance of the statuses handler.
 	 */
@@ -99,7 +99,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Returns the admin form HTML.
 	 *
-	 * @since   TBD
+	 * @since   5.12.1
 	 *
 	 * @return string
 	 */
@@ -110,7 +110,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Get the name for the admin field.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @param string $name The individual name for the individual control (ie radio button).
 	 *
@@ -123,7 +123,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Returns the value supported by this filter.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @param array<string|mixed> An array of values.
 	 */
@@ -142,7 +142,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		/**
 		 * Allow filtering of the event statuses values that show in Filter Bar.
 		 *
-		 * @since TBD
+		 * @since 5.12.1
 		 *
 		 * @param array<string|string> $default_values An array of filter values.
 		 */
@@ -152,7 +152,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Sets up our join clause for the query.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 */
 	protected function setup_join_clause() {
 		/** @var \wpdb $wpdb */
@@ -168,7 +168,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Sets up our where clause for the query.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 */
 	protected function setup_where_clause() {
 		/** @var \wpdb $wpdb */
@@ -188,13 +188,13 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 
 		$hide_clauses[] = $wpdb->prepare(
 			" {$this->alias}.meta_value NOT IN (%s) ",
-			$event_status_ids,
+			$event_status_ids
 		);
 
 		/**
 		 * Allow filtering of the event statuses where clause.
 		 *
-		 * @since TBD
+		 * @since 5.12.1
 		 *
 		 * @param string                      $where_clause  The empty where clause to filter.
 		 * @param string|array<string|string> $current_value A string or array of the current values selected for the filter.

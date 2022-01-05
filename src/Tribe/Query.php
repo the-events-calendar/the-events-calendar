@@ -167,7 +167,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				: false;
 
 			if ( 'default' === $query->get( 'eventDisplay' ) ) {
-				$query->set( 'eventDisplay', Tribe__Events__Main::instance()->default_view() );
+				$default_view = Tribe__Events__Main::instance()->default_view();
+
+				/**
+				 * Allows other plugins (and v2 views) to hook in and alter this before we change the query.
+				 *
+				 * @since TBD
+				 *
+				 * @param string $default_view The slug of the default view to pass to the query.
+				 */
+				$default_view = apply_filters( 'tec_events_query_default_view', $default_view );
+
+				$query->set( 'eventDisplay', $default_view );
 			}
 
 			// check if any possibility of this being an event category

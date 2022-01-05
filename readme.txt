@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.12.1
+Stable tag: 5.12.3
 Tested up to: 5.8.2
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -221,18 +221,36 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.12.3] TBD =
+
+* Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
+* Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3862]
+* Tweak - Boost SEO for category archive pages by fixing the title tag. [TEC-4110]
+* Tweak - Move handling of mobile view to ECP. [TEC-3862]
+
+= [5.12.2] 2021-12-20 =
+
+* Fix - Remove trailing comma that can cause fatals on older versions of PHP. [FBAR-252]
+* Fix - Prevent infinite loops in the block editor when including the links block. [TEC-4190]
+* Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
+
+
+= [5.12.1] 2021-12-14 =
 
 * Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
 * Feature - Add Event Status filter options when Filter Bar is active. [FBAR-92]
-* Fix - Add a valid rel value to the link tag for TEC REST API support in order to improve HTML 5 and WCAG 2.1 compliance. [TEC-4129]
+* Fix - Add a valid rel value to the link tag for TEC REST API support in order to improve HTML 5 and WCAG 2.1 compliance. (props to @gabyrau for the fix!) [TEC-4129]
 * Fix - Ensure the date selected when creating a new event from the Event Manager is applied to the block editor. [ECP-954]
 * Fix - Properly observe the disabling of JSON-LD output on widget blocks in the block editor. [TEC-4077]
 * Fix - Prevent PHP warning in some cases when fetching the date from `tribe_get_display_end_date()`. (props to @huubl for the fix!) [TEC-4161]
-* Fix - Close a div in the new subscribe dropdown that was left open. Props to @whoisuncle for bringing this to our attention! [BTRIA-1077]
+* Fix - Close a div in the new subscribe dropdown that was left open. Props to @whoisuncle for bringing this to our attention! [TEC-4166]
 * Tweak - Ensure the `Disable the Event Search Bar` setting doesn't get applied on the Event Manager page. [ECP-948]
 * Tweak - Ensure the `related events title` and `event titles` within the single event page for the block editor make use the customizer font settings. [TEC-4125]
 * Tweak - Update the description text for the "Merge Duplicates" action. Add filters for data sets usd for comparison. [TEC-3018]
+* Tweak - Adjust the Subscribe to Calendar dropdown styling to better accommodate themes with sidebars. [TEC-4166]
+* Tweak - Add the Event List and Mini-Calendar widgets to the Event Blocks category. [TEC-4151]
+* Tweak - Correct some incorrect template paths in docblocks. [TEC-4111]
+* Language - 4 new strings added, 159 updated, 0 fuzzied, and 1 obsoleted
 
 = [5.12.0] 2021-12-02 =
 

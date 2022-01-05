@@ -27,6 +27,7 @@
     "it": true,
     "mount": true,
     "shallow": true,
-    "renderer": true
+    "renderer": true,
+    "React": true
   }
 }
