@@ -383,7 +383,7 @@ class Title {
 		 * @param string      $title The input title.
 		 * @param  \WP_Term   $cat   The category term to use to build the title.
 		 */
-		$depth = apply_filters( 'tec_display_tax_hierarchy_in_title', $depth, $title, $cat );
+		$depth = apply_filters( 'tec_events_views_v2_display_tax_hierarchy_in_title', $depth, $title, $cat );
 
 		// This list includes the child taxonomy!
 		if ( $depth ) {
