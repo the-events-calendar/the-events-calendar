@@ -13,6 +13,8 @@ namespace TEC\Events\Custom_Tables\V1\Updates;
 use Tribe__Utils__Array as Arr;
 use WP_REST_Request;
 use WP_REST_Server;
+use Tribe__Date_Utils as Dates;
+use Tribe__Timezones as Timezones;
 
 /**
  * Class Requests
@@ -102,5 +104,34 @@ class Requests {
 			       in_array( $request->get_method(), self::$update_http_methods, true )
 			       || in_array( $request->get_param( 'action' ), [ 'trash', 'delete' ], true )
 		       );
+	}
+
+	/**
+	 * Models the current HTTP request using a WP REST Request object and updates the
+	 * request parameters related to the definition of an Event start, end and timezone
+	 * to match the parameters.
+	 *
+	 * @since TBD
+	 * @param mixed $start The description, timestamp or `DateTime` object representing
+	 *                     the Event start date and time.
+	 * @param mixed $end   The description, timestamp or `DateTime` object representing
+	 *                     the Event end date and time.
+	 * @param mixed|null The timezone string, object or `null` to use the default timezone.
+	 *
+	 * @return WP_REST_Request A reference to an instance of the WP_Rest_Request
+	 *                         set up to provide information about the current HTTP request.
+	 */
+	public function from_http_request_with_dates( $start, $end, $timezone = null ) {
+		$timezone = Timezones::build_timezone_object( $timezone );
+		$start    = Dates::immutable( $start, $timezone );
+		$end      = Dates::immutable( $end, $timezone );
+		$request  = $this->from_http_request();
+		$request->set_param( 'EventStartDate', $start->format( Dates::DBDATEFORMAT ) );
+		$request->set_param( 'EventStartTime', $start->format( Dates::DBTIMEFORMAT ) );
+		$request->set_param( 'EventEndDate', $end->format( Dates::DBDATEFORMAT ) );
+		$request->set_param( 'EventEndTime', $end->format( Dates::DBTIMEFORMAT ) );
+		$request->set_param( 'EventTimezone', $timezone->getName() );
+
+		return $request;
 	}
 }
