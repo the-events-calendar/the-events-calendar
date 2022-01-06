@@ -763,7 +763,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe-events-bar-views', [ $this, 'remove_hidden_views' ], 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
-			add_action( 'admin_menu', [ $this, 'addEventBox' ] );
+			if ( ! tribe( 'editor' )->should_load_blocks() ) {
+				add_action( 'admin_menu', [ $this, 'addEventBox' ] );
+			}
+
 			add_action( 'wp_insert_post', [ $this, 'addPostOrigin' ], 10, 2 );
 			add_action( 'save_post', [ $this, 'addEventMeta' ], 15, 2 );
 
@@ -3880,11 +3883,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
-			$blocks = tribe( 'editor' )->should_load_blocks();
-			if ( ! $blocks ) {
-				return;
-			}
-
 			add_meta_box(
 				'tribe_events_event_details',
 				$this->plugin_name,

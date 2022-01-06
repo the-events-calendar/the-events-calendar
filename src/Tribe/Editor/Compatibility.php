@@ -35,14 +35,45 @@ class Tribe__Events__Editor__Compatibility {
 	 */
 	public function hook() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 100 );
+		add_filter( 'classic_editor_enabled_editors_for_post_type', [ $this, 'filter_classic_editor_enabled_editors_for_post_type' ], 10, 2 );
 	}
 
+	/**
+	 * Filters tribe_editor_should_load_blocks to disable blocks if the admin toggle is off.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $should_load_blocks Whether the editor should use the classic or blocks UI.
+	 *
+	 * @return boolean $should_load_blocks Whether the editor should use the classic or blocks UI.
+	 */
 	public function filter_tribe_editor_should_load_blocks( $should_load_blocks ) {
 		if ( ! $this->is_blocks_editor_toggled_on() ) {
 			return false;
 		}
 
 		return $should_load_blocks;
+	}
+
+	/**
+	 * Compatibility specific to the Classic Editor plugin.
+	 * This ensures we allow blocks when default is classic but user switching is on.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|boolean> $editors   An array of editors and if they are enabled.
+	 * @param string                $post_type The post type we are checking against.
+	 *
+	 * @return array<string|boolean> $editors   AThe modified array of editors and if they are enabled.
+	 */
+	public function filter_classic_editor_enabled_editors_for_post_type( $editors, $post_type ) {
+		if ( Tribe__Events__Main::POSTTYPE !== $post_type ) {
+			return $editors;
+		}
+
+		$editors['block_editor'] = $this->is_blocks_editor_toggled_on();
+
+		return $editors;
 	}
 
 	/**
