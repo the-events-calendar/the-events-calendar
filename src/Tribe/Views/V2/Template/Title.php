@@ -232,7 +232,7 @@ class Title {
 		$sep       = apply_filters( 'document_title_separator', '-' );
 		$the_title = $title['title'];
 
-		$new_title = $this->build_title( $title['title'], false );
+		$new_title = $this->build_title( $title['title'] );
 
 		/**
 		 * Filters the page title built for event single or archive pages.
@@ -374,6 +374,18 @@ class Title {
 	protected function build_category_title( $title, $cat, $depth = true, $separator = ' &#8250; ' ) {
 		$separator = is_null( $separator ) ? ' &#8250; ' : $separator;
 
+		/**
+		 * Allow folks to hook in and alter the option to show parent taxonomies in the title.
+		 *
+		 * @since TBD
+		 *
+	 	 * @param boolean     $depth Whether to display the taxonomy hierarchy as part of the title.
+		 * @param string      $title The input title.
+		 * @param  \WP_Term   $cat   The category term to use to build the title.
+		 */
+		$depth = apply_filters( 'tec_display_tax_hierarchy_in_title', $depth, $title, $cat );
+
+		// This list includes the child taxonomy!
 		if ( $depth ) {
 			$term_parents = get_term_parents_list(
 				$cat->term_id,
@@ -386,10 +398,10 @@ class Title {
 		}
 
 		if ( empty( $term_parents ) || is_wp_error( $term_parents ) ) {
-			$term_parents = '';
+			$term_parents = $cat->name;
 		}
 
-		$new_title =  $title . $separator . $term_parents . $cat->name;
+		$new_title =  $title . $separator . $term_parents;
 
 		/**
 		 * Filters the Event Category Archive title.
