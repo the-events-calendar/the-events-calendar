@@ -58,7 +58,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * Determines if this instance of the class has it's actions and filters hooked.
 	 *
-	 * @since TBD
+	 * @since 5.12.3
 	 *
 	 * @var bool
 	 */
@@ -67,7 +67,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * Link_Abstract constructor.
 	 *
-	 * @since TBD
+	 * @since 5.12.3
 	 */
 	public function __construct() {
 		$this->register();
@@ -76,7 +76,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * Sets the hooked param for flagging if the hooks were created.
 	 *
-	 * @since TBD
+	 * @since 5.12.3
 	 *
 	 * @param bool $hooked What to save in the hooked var.
 	 */
@@ -87,7 +87,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * Hooks this instance actions and filters.
 	 *
-	 * @since TBD
+	 * @since 5.12.3
 	 */
 	public function hook() {
 		if ( true === $this->hooked ) {

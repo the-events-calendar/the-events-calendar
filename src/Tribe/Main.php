@@ -2592,7 +2592,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * stored as the default but can no longer be generated due to the plugin being deactivated.
 		 *
 		 * @since 3.3
-		 * @since TBD - Add a filter to the default view determination.
+		 * @since 5.12.3 - Add a filter to the default view determination.
 		 *
 		 * @todo Once we deprecate v1, this should use the slug from Tribe\Events\Views\V2\Views\Month_View instead of the string 'month'.
 		 *
@@ -2623,7 +2623,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allows other plugins (and v2 views) to hook in and alter the default view determined here.
 			 *
-			 * @since TBD
+			 * @since 5.12.3
 			 *
 			 * @param string      $default The slug of the default view.
 			 * @param string|null $type    The type of default View to return, either 'desktop' or 'mobile'.

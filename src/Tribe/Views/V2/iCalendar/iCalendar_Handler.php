@@ -39,7 +39,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Which classes we will load for links by default.
 	 *
-	 * @since TBD
+	 * @since 5.12.3
 	 *
 	 * @var Link_Abstract[]
 	 */
@@ -48,7 +48,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	/**
 	 * Initializes, sets the internal feeds array and returns it.
 	 *
-	 * @since TBD
+	 * @since 5.12.3
 	 *
 	 * @return array
 	 */

@@ -37,7 +37,7 @@ class Manager {
 	 * The name of the Tribe option the default mobile Views v2 slug will live in.
 	 *
 	 * @since 4.9.11 Use v1 option.
-	 * @deprecated TBD Moved to ECP.
+	 * @deprecated 5.12.3 Moved to ECP.
 	 *
 	 * @var string
 	 */
@@ -129,7 +129,7 @@ class Manager {
 		/**
 		 * Allow others to hook in and alter the default view - ECP does so to allow a different view for mobile.
 		 *
-		 * @since TBD
+		 * @since 5.12.3
 		 *
 		 * @param string $default_view The view slug for the default view.
 		 * @param string|null $type The type of default View to return, either 'desktop' or 'mobile'.

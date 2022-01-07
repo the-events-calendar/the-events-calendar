@@ -362,7 +362,7 @@ class Title {
 	 * Builds, wrapping the current title, the Event Category archive title.
 	 *
 	 * @since 4.9.10
-	 * @since TBD Added params, refined logic around category archive titles.
+	 * @since 5.12.3 Added params, refined logic around category archive titles.
 	 *
 	 * @param string      $title     The input title.
 	 * @param  \WP_Term   $cat       The category term to use to build the title.
@@ -377,7 +377,7 @@ class Title {
 		/**
 		 * Allow folks to hook in and alter the option to show parent taxonomies in the title.
 		 *
-		 * @since TBD
+		 * @since 5.12.3
 		 *
 	 	 * @param boolean     $depth Whether to display the taxonomy hierarchy as part of the title.
 		 * @param string      $title The input title.
