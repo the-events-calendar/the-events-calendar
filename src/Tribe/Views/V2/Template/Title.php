@@ -63,12 +63,13 @@ class Title {
 	 * @since 4.9.10
 	 *
 	 * @param string      $title The page title built so far.
-	 * @param null|string $sep   The separator sequence to separate the title components..
+	 * @param null|string $sep   The separator sequence to separate the title components.
+	 * @param boolean     $depth Whether to display the taxonomy hierarchy as part of the title.
 	 *
 	 * @return string the filtered page title.
 	 */
-	public function filter_wp_title( $title, $sep = null ) {
-		$new_title = $this->build_title( $title, false );
+	public function filter_wp_title( $title, $sep = null, $depth = false ) {
+		$new_title = $this->build_title( $title, $depth, $sep );
 
 		/**
 		 * Filters the page title built for event single or archive pages.
@@ -79,7 +80,7 @@ class Title {
 		 * @param string      $title     The original title.
 		 * @param null|string $sep       The separator sequence to separate the title components.
 		 */
-		$the_title = apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep );
+		$the_title = apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep, $depth );
 
 		return $the_title;
 	}
@@ -93,12 +94,13 @@ class Title {
 	 * @since 4.9.10
 	 * @since 5.1.5 - Add filter for plural events label and move featured label to a method.
 	 *
-	 * @param string $current_title Current Title used on the page.
-	 * @param bool   $depth         Whether to use depth to build the taxonomy archive title, or not.
+	 * @param string      $current_title Current Title used on the page.
+	 * @param boolean     $depth         Whether to display the taxonomy hierarchy as part of the title.
+	 * @param null|string $sep           The separator sequence to separate the title components.
 	 *
 	 * @return string The page title.
 	 */
-	public function build_title( $current_title = '', $depth = true ) {
+	public function build_title( $current_title = '', $depth = true, $sep = null ) {
 		$context = $this->context ?: tribe_context();
 		$posts   = $this->get_posts();
 
@@ -140,11 +142,12 @@ class Title {
 		}
 
 		$term = $context->get( TEC::TAXONOMY, false );
-		if ( false !== $term && $depth ) {
+
+		if ( false !== $term ) {
 			$cat = get_term_by( 'slug', $term, TEC::TAXONOMY );
 
 			if ( $cat instanceof \WP_Term ) {
-				$title = $this->build_category_title( $title, $cat );
+				$title = $this->build_category_title( $title, $cat, $depth, $sep );
 			}
 		}
 
@@ -229,7 +232,7 @@ class Title {
 		$sep       = apply_filters( 'document_title_separator', '-' );
 		$the_title = $title['title'];
 
-		$new_title = $this->build_title( $title['title'], false );
+		$new_title = $this->build_title( $title['title'] );
 
 		/**
 		 * Filters the page title built for event single or archive pages.
@@ -356,18 +359,49 @@ class Title {
 }
 
 	/**
-	 * Builds, wrapping the current  title, the Event Category archive title.
+	 * Builds, wrapping the current title, the Event Category archive title.
 	 *
 	 * @since 4.9.10
+	 * @since TBD Added params, refined logic around category archive titles.
 	 *
-	 * @param string $title The input title.
-	 * @param  \WP_Term $cat The category term to use to build the title.
+	 * @param string      $title     The input title.
+	 * @param  \WP_Term   $cat       The category term to use to build the title.
+	 * @param boolean     $depth     Whether to display the taxonomy hierarchy as part of the title.
+	 * @param null|string $separator The separator sequence to separate the title components.
 	 *
 	 * @return string The built category archive title.
 	 */
-	protected function build_category_title( $title, $cat ) {
-		$new_title = '<a href="' . esc_url( tribe_get_events_link() ) . '">' . $title . '</a>';
-		$new_title .= ' &#8250; ' . $cat->name;
+	protected function build_category_title( $title, $cat, $depth = true, $separator = ' &#8250; ' ) {
+		$separator = is_null( $separator ) ? ' &#8250; ' : $separator;
+
+		/**
+		 * Allow folks to hook in and alter the option to show parent taxonomies in the title.
+		 *
+		 * @since TBD
+		 *
+	 	 * @param boolean     $depth Whether to display the taxonomy hierarchy as part of the title.
+		 * @param string      $title The input title.
+		 * @param  \WP_Term   $cat   The category term to use to build the title.
+		 */
+		$depth = apply_filters( 'tec_events_views_v2_display_tax_hierarchy_in_title', $depth, $title, $cat );
+
+		// This list includes the child taxonomy!
+		if ( $depth ) {
+			$term_parents = get_term_parents_list(
+				$cat->term_id,
+				$cat->taxonomy,
+				[
+					'link'      => false,
+					'separator' => $separator
+				]
+			);
+		}
+
+		if ( empty( $term_parents ) || is_wp_error( $term_parents ) ) {
+			$term_parents = $cat->name;
+		}
+
+		$new_title =  $title . $separator . $term_parents;
 
 		/**
 		 * Filters the Event Category Archive title.
@@ -375,10 +409,12 @@ class Title {
 		 * @since 4.9.10
 		 *
 		 *
-		 * @param string $new_title The Event Category archive title.
-		 * @param string $title     The original title.
-		 * @param \WP_Term The Event Category term used to build the title.
+		 * @param string    $new_title The Event Category archive title.
+		 * @param string    $title     The original title.
+		 * @param \WP_Term  $cat       The Event Category term used to build the title.
+		 * @param boolean   $depth     Whether to display the taxonomy hierarchy as part of the title.
+		 * @param string    $separator The separator character for the title parts.
 		 */
-		return apply_filters( 'tribe_events_views_v2_category_title', $new_title, $title, $cat );
+		return apply_filters( 'tribe_events_views_v2_category_title', $new_title, $title, $cat, $depth, $separator );
 	}
 }
