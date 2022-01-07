@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.12.3] TBD =
+= [5.12.3] 2022-01-12 =
 
 * Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3862]
 * Tweak - Move handling of mobile view to ECP. [TEC-3862]
