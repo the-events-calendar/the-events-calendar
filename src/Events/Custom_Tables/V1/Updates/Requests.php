@@ -123,14 +123,25 @@ class Requests {
 	 */
 	public function from_http_request_with_dates( $start, $end, $timezone = null ) {
 		$timezone = Timezones::build_timezone_object( $timezone );
+		$utc      = Timezones::build_timezone_object( 'UTC' );
 		$start    = Dates::immutable( $start, $timezone );
 		$end      = Dates::immutable( $end, $timezone );
+
 		$request  = $this->from_http_request();
+
+		// Set up params as the Classic Editor request would.
 		$request->set_param( 'EventStartDate', $start->format( Dates::DBDATEFORMAT ) );
 		$request->set_param( 'EventStartTime', $start->format( Dates::DBTIMEFORMAT ) );
 		$request->set_param( 'EventEndDate', $end->format( Dates::DBDATEFORMAT ) );
 		$request->set_param( 'EventEndTime', $end->format( Dates::DBTIMEFORMAT ) );
 		$request->set_param( 'EventTimezone', $timezone->getName() );
+
+		// Set up params as the Blocks Editor would.
+		$request->set_param( '_EventStartDate', $start->format( Dates::DBDATETIMEFORMAT ) );
+		$request->set_param( '_EventStartDateUTC', $start->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ) );
+		$request->set_param( '_EventEndDate', $end->format( Dates::DBDATETIMEFORMAT ) );
+		$request->set_param( '_EventEndDateUTC', $end->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ) );
+		$request->set_param( '_EventTimezone', $timezone->getName() );
 
 		return $request;
 	}
