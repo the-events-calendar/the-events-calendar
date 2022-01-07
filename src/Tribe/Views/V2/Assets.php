@@ -643,7 +643,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Load assets on the add or edit pages of the block editor only
+	 * Load assets on the add or edit pages of the block editor only.
 	 *
 	 * @since  TBD
 	 *
