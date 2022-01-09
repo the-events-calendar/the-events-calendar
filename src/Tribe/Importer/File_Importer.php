@@ -242,6 +242,8 @@ abstract class Tribe__Events__Importer__File_Importer {
 			$post_thumbnail_process->dispatch();
 		}
 
+		do_action( 'tec_csv_importer_post_update', $id, $record, $this );
+
 		return $id;
 	}
 
