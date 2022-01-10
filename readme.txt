@@ -225,6 +225,16 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+= [5.12.3] 2022-01-12 =
+
+* Version - The Events Calendar 5.12.3 is only compatible with Events Calendar PRO 5.11.2 and higher
+* Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
+* Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3826]
+* Tweak - Boost SEO for category archive pages by fixing the title tag. [TEC-4110]
+* Tweak - Add filter to allow users to choose if the taxonomy should show parent categories [TEC-4110]
+* Tweak - Move handling of mobile view to ECP. Add filter to allow overriding default view. [TEC-3826]
+* Language - 0 new strings added, 71 updated, 0 fuzzied, and 0 obsoleted
+
 = [5.12.2] 2021-12-20 =
 
 * Fix - Remove trailing comma that can cause fatals on older versions of PHP. [FBAR-252]

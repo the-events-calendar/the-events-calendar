@@ -134,6 +134,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
+
+		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
 	}
 
 	/**
@@ -939,6 +941,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			),
 			tribe_get_organizer_label_singular()
 		);
+	}
+
+	public function filter_tec_events_query_default_view( $default_view ) {
+		return tribe( Manager::class )->get_default_view();
 	}
 
 	/**
