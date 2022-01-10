@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.12.3] 2022-01-12 =
+= [5.12.3] 2022-01-10 =
 
 * Version - The Events Calendar 5.12.3 is only compatible with Events Calendar PRO 5.11.2 and higher
 * Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
