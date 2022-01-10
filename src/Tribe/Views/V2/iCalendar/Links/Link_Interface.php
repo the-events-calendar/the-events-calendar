@@ -20,7 +20,7 @@ interface Link_Interface {
 	/**
 	 * Registers the objects and filters required by the provider to manage subscribe links.
 	 *
-	 * @since TBD
+	 * @since 5.12.3
 	 */
 	public function register();
 
