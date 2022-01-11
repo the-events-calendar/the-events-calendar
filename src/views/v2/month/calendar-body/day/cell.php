@@ -35,32 +35,6 @@
  */
 
 $day_id = 'tribe-events-calendar-day-' . $day_date;
-
-// Get the cap - here we're getting it from the month view admin setting.
-$cap = (int) tribe_get_option( 'monthEventAmount', 3 );
-
-// Let's trim some arrays!
-if ( $cap < $day['found_events'] ) {
-	$diff = 5;//$cap - $day['found_events'];
-
-	while ( $diff < 0 ) {
-		if ( ! empty( $day['events'] ) ) {
-			array_pop( $day['events'] );
-		} else {
-			if ( ! empty( $day['featured_events'] ) ) {
-				array_pop( $day['featured_events'] );
-			} else {
-				if ( ! empty( $day['multiday_events'] ) ) {
-					array_pop( $day['multiday_events'] );
-				} else {
-					// out of events.
-					break;
-				}
-			}
-		}
-		$diff++;
-	}
-}
 ?>
 
 <div
