@@ -1041,7 +1041,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		 * Please dont turn this particular filter off without knowing what you are doing, it might cause problems and
 		 * will cause Support to likely be trying to help you without the information they might need.
 		 *
-		 * @since TBD
+		 * @since 5.12.1
 		 *
 		 * @param bool     $should_log_errors If we should log the errors or not.
 		 * @param WP_Error $error             Which error we are logging.

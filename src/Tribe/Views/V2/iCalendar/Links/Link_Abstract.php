@@ -2,20 +2,20 @@
 /**
  * The base implementation for the Views v2 query controllers.
  *
+ * @since   5.12.0
  * @package Tribe\Events\Views\V2\iCalendar
- * @since 5.12.0
  */
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe__Date_Utils as Dates;
-use \Tribe\Events\Views\V2\View as View;
+use \Tribe\Events\Views\V2\View;
 
 /**
  * Class Abstract_Link
  *
+ * @since   5.12.0
  * @package Tribe\Events\Views\V2\iCalendar
- * @since 5.12.0
  */
 abstract class Link_Abstract implements Link_Interface {
 
@@ -56,20 +56,55 @@ abstract class Link_Abstract implements Link_Interface {
 	public static $slug;
 
 	/**
-	 * Registers the objects and filters required by the provider to manage subscribe links.
+	 * Determines if this instance of the class has it's actions and filters hooked.
 	 *
-	 * @since 5.12.0
+	 * @since 5.12.3
+	 *
+	 * @var bool
 	 */
-	public function register() {
-		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links'], 10, 2 );
+	protected $hooked = false;
+
+	/**
+	 * Link_Abstract constructor.
+	 *
+	 * @since 5.12.3
+	 */
+	public function __construct() {
+		$this->register();
+	}
+
+	/**
+	 * Sets the hooked param for flagging if the hooks were created.
+	 *
+	 * @since 5.12.3
+	 *
+	 * @param bool $hooked What to save in the hooked var.
+	 */
+	public function set_hooked( bool $hooked = true ) {
+		$this->hooked = $hooked;
+	}
+
+	/**
+	 * Hooks this instance actions and filters.
+	 *
+	 * @since 5.12.3
+	 */
+	public function hook() {
+		if ( true === $this->hooked ) {
+			return;
+		}
+
+		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links' ], 10 );
 		add_filter( 'tec_views_v2_single_subscribe_links', [ $this, 'filter_tec_views_v2_single_subscribe_links' ], 10, 2 );
+
+		$this->set_hooked();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_tec_views_v2_subscribe_links( $subscribe_links, $view ) {
-		$subscribe_links[static::get_slug()] = $this;
+	public function filter_tec_views_v2_subscribe_links( $subscribe_links ) {
+		$subscribe_links[ static::get_slug() ] = $this;
 
 		return $subscribe_links;
 	}
@@ -77,12 +112,12 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function filter_tec_views_v2_single_subscribe_links( $links, $view ) {
-		$class = sanitize_html_class( 'tribe-events-' . static::get_slug() );
+	public function filter_tec_views_v2_single_subscribe_links( $links ) {
+		$class   = sanitize_html_class( 'tribe-events-' . static::get_slug() );
 		$links[] = '<a class="tribe-events-button ' . $class
-				. '" href="' . esc_url( $this->get_uri( $view ) )
-				. '" title="' . esc_attr( $this->get_single_label( $view ) )
-				. '">+ ' . esc_html( $this->get_single_label( $view ) ) . '</a>';
+		           . '" href="' . esc_url( $this->get_uri( null ) )
+		           . '" title="' . esc_attr( $this->get_single_label( null ) )
+		           . '">+ ' . esc_html( $this->get_single_label( null ) ) . '</a>';
 
 		return $links;
 	}
@@ -90,44 +125,56 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function is_visible( $view ) {
+	public function is_visible( View $view = null ) {
 		return $this->display;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_label( View $view ) {
+	public function get_label( View $view = null ) {
+		$slug = self::get_slug();
+
 		/**
 		 * Allows filtering of the labels for the Calendar view labels.
 		 *
-		 * @param string                      $label    The label that will be displayed.
-		 * @param Link_Abstract               $link_obj The link object the label is for.
-		 * @param \Tribe\Events\Views\V2\View $view     The current View object.
+		 * @since 5.12.0
+		 *
+		 * @param string        $label    The label that will be displayed.
+		 * @param Link_Abstract $link_obj The link object the label is for.
+		 * @param View          $view     The current View object.
 		 *
 		 * @return string $label The label that will be displayed.
 		 */
-		return apply_filters( 'tec_views_v2_subscribe_links_' . self::get_slug() . '_label', $this->label, $this, $view );
+		return apply_filters( "tec_views_v2_subscribe_links_{$slug}_label", $this->label, $this, $view );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_single_label( View $view ) {
+	public function get_single_label( View $view = null ) {
+		$slug = self::get_slug();
+
 		/**
 		 * Allows filtering of the labels for the Single Event view labels.
 		 *
-		 * @param string                      $label    The label that will be displayed.
-		 * @param Link_Abstract               $link_obj The link object the label is for.
-		 * @param \Tribe\Events\Views\V2\View $view     The current View object.
+		 * @since 5.12.0
+		 *
+		 * @param string        $label    The label that will be displayed.
+		 * @param Link_Abstract $link_obj The link object the label is for.
+		 * @param View          $view     The current View object.
 		 *
 		 * @return string $label The label that will be displayed.
 		 */
-		return apply_filters( 'tec_views_v2_single_subscribe_links_' . self::get_slug() . '_label', $this->single_label, $this, $view );
+		return apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_label", $this->single_label, $this, $view );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Fetches the slug of this particular instance of the Link.
+	 *
+	 * @since 5.12.0
+	 *
+	 * @return string
 	 */
 	public static function get_slug() {
 		return static::$slug;
@@ -143,11 +190,11 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_uri( $view ) {
+	public function get_uri( View $view = null ) {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
-		$feed_url = empty( $view ) ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
+		$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
 
-		if ( empty( $feed_url ) && ! empty( $view ) ) {
+		if ( empty( $feed_url ) && null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
@@ -177,11 +224,15 @@ abstract class Link_Abstract implements Link_Interface {
 	 * in WordPress, so it will work out of the box on any website, even if
 	 * the settings are changed or break.
 	 *
-	 * @param \Tribe\Events\Views\V2\View $view The View we're being called from.
+	 * @param View $view The View we're being called from.
 	 *
 	 * @return string The iCal Feed URI.
 	 */
-	protected function get_canonical_ics_feed_url( View $view ) {
+	protected function get_canonical_ics_feed_url( View $view = null ) {
+		if ( null === $view ) {
+			return '';
+		}
+
 		$view_url_args = $view->get_url_args();
 
 		// Some date magic.
@@ -194,7 +245,6 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 
-
 		// Clean query params to only contain canonical arguments.
 		$canonical_args = [ 'post_type', 'tribe-bar-date', 'tribe_events_cat', 'post_tag' ];
 
@@ -203,8 +253,8 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @since 5.12.0
 		 *
-		 * @param array<string>               $canonical_args A list of "passthrough" argument keys.
-		 * @param \Tribe\Events\Views\V2\View $view           The View we're being called from.
+		 * @param array<string> $canonical_args A list of "passthrough" argument keys.
+		 * @param View|null     $view           The View we're being called from.
 		 *
 		 * @return array<string> $canonical_args The modified list of "passthrough" argument keys.
 		 */
@@ -230,9 +280,9 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @since 5.12.0
 		 *
-		 * @param array<string|mixed>         $passthrough_args The arguments used to build the ical links.
-		 * @param array<string>               $canonical_args   A list of allowed argument keys.
-		 * @param \Tribe\Events\Views\V2\View $view             The View we're being called from.
+		 * @param array<string|mixed> $passthrough_args The arguments used to build the ical links.
+		 * @param array<string>       $canonical_args   A list of allowed argument keys.
+		 * @param View                $view             The View we're being called from.
 		 *
 		 * @return array<string|mixed>        $passthrough_args The modified list of arguments used to build the ical links.
 		 */

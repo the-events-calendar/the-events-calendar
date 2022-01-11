@@ -7,11 +7,9 @@ import { applyFilters } from '@wordpress/hooks';
 /**
  * Internal dependencies
  */
-import {
-	types,
-	selectors,
-	actions,
-} from '@moderntribe/events/data/blocks/datetime';
+import * as types from '@moderntribe/events/data/blocks/datetime/types';
+import * as actions from '@moderntribe/events/data/blocks/datetime/actions';
+import * as selectors from '@moderntribe/events/data/blocks/datetime/selectors';
 import {
 	date as dateUtil,
 	moment as momentUtil,

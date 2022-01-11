@@ -2,7 +2,7 @@
 /**
  * Handles the compatibility with the Filter Bar plugin.
  *
- * @since   TBD
+ * @since   5.12.1
  *
  * @package Tribe\Events\Event_Status\Compatibility\Filter_Bar
  */
@@ -14,7 +14,7 @@ use Tribe\Events\Event_Status\Status_Labels;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since   5.12.1
  *
  * @package Tribe\Events\Event_Status\Compatibility\Filter_Bar
  */
@@ -23,7 +23,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register the bindings and filters required to ensure compatibility w/Filter Bar.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 */
 	public function register() {
 		$this->container->singleton( self::class, $this );
@@ -46,7 +46,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Includes the custom filter class and creates an instance of it.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 */
 	public function create_filter() {
 		return $this->container->make( Events_Status_Filter::class );
@@ -55,7 +55,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the map of filters available on the front-end to include one for event status.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @param array<string,string> $map A map relating the filter slugs to their respective classes.
 	 *
@@ -70,7 +70,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the list of default Filter Bar filters to add the ones provided by the plugin.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @param array<string,string> $map A map relating the filter classes to their default names.
 	 *
@@ -85,7 +85,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the Context locations to let the Context know how to fetch the value of the filter from a request.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @param array<string,array> $locations A map of the locations the Context supports and is able to read from and write
 	 *                                       to.

@@ -57,7 +57,7 @@ class Status_Labels {
 	/**
 	 * Get the event status label.
 	 *
-	 * @since TBD
+	 * @since 5.12.1
 	 *
 	 * @return string The label for the event status.
 	 */
@@ -66,7 +66,7 @@ class Status_Labels {
 		/**
 		 * Filter the label for event status.
 		 *
-		 * @since TBD
+		 * @since 5.12.1
 		 *
 		 * @param string The default translated label for the event status.
 		 */

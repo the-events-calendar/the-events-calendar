@@ -18,6 +18,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 *
 	 * @param bool $volatile If `true` the class will not define and read real constants.
 	 */
+	#[\ReturnTypeWillChange]
 	public function __construct( $volatile = false ) {
 		$this->volatile        = $volatile;
 		$this->volatile_values = [];
@@ -30,6 +31,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 *
 	 * @return bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		return $this->volatile ? isset( $this->volatile_values[ $offset ] ) : defined( $offset );
 	}
@@ -41,6 +43,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 *
 	 * @return mixed
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return $this->volatile ? $this->volatile_values[ $offset ] : constant( $offset );
 	}
@@ -51,6 +54,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 * @param string $offset
 	 * @param mixed $value
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		if ( $this->volatile && ! isset( $this->volatile_values[ $offset ] ) ) {
 			$this->volatile_values[ $offset ] = $value;
@@ -66,6 +70,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 *
 	 * @param string $offset
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		if ( $this->volatile ) {
 			$this->volatile_values = array_diff( $this->volatile_values, [ $offset ] );
