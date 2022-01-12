@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.13] TBD =
+
+* Tweak - Add hook to CSV importer to enable add-on plugins to support their fields during import. [VE-387]
+
 = [5.12.3] 2022-01-10 =
 
 * Version - The Events Calendar 5.12.3 is only compatible with Events Calendar PRO 5.11.2 and higher
