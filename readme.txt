@@ -223,6 +223,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.12.4] 2022-01-17 =
 
+* Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
+
 = [5.12.3] 2022-01-10 =
 
 * Version - The Events Calendar 5.12.3 is only compatible with Events Calendar PRO 5.11.2 and higher
