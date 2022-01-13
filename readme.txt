@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
 * Tweak - Add hook to CSV importer to enable add-on plugins to support their fields during import. [VE-387]
+* Fix - Prevent Onboarding assets from loading on the admin when not needed.
 
 = [5.12.3] 2022-01-10 =
 
