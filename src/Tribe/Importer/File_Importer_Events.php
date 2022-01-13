@@ -326,7 +326,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 *
 		 * @return array<string|mixed> An array of the autodetect results.
 		 */
-		return apply_filters( 'tribe_events_csv_import_event_meta', $event, $record, $this );
+		return apply_filters( 'tec_events_csv_import_event_meta', $event, $record, $this );
 	}
 
 	/**

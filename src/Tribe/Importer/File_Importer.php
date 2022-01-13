@@ -251,7 +251,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		 * @param array<string|mixed>                    $record An event record from the import.
 		 * @param Tribe__Events__Importer__File_Importer $this   An instance of the Tribe__Events__Importer__File_Importer class.
 		 */
-		do_action( 'tec_csv_importer_post_update', $id, $record, $this );
+		do_action( 'tec_events_csv_importer_post_update', $id, $record, $this );
 
 		return $id;
 	}
