@@ -228,6 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Included new filter `tec_system_information` allowing better control over the Troubleshooting Help page.
 * Tweak - Included a Views V2 Status on the Troubleshooting page system info section to help with clarity for support.
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
+* Fix - Remove CSS attributes targeting `aria-labels` to prevent inconsistent styling for different languages. [TEC-4227]
 
 = [5.12.3] 2022-01-10 =
 
