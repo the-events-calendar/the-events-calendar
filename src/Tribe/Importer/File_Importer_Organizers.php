@@ -98,29 +98,6 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 
 		/**
 		 * Allows filtering of record values before import.
-		 * Deprecated to match filter naming conventions.
-		 *
-		 * @since 4.2
-		 * @deprecated5.1.6
-		 *
-		 * @param array $organizer The array of organizer data we're modifying.
-		 * @param array $record The event record from the import.
-		 * @param int   $organizer_id The ID of the organizer we're currently importing.
-		 */
-		$organizer = apply_filters_deprecated(
-			'tribe_events_csv_import_organizer_fields',
-			[
-				$organizer,
-				$record,
-				$organizer_id,
-				$this,
-			],
-			'5.1.6',
-			'tribe_events_importer_organizer_fields'
-		);
-
-		/**
-		 * Allows filtering of record values before import.
 		 *
 		 * @since 5.1.6
 		 *
