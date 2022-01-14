@@ -23,6 +23,8 @@ class Tribe__Events__Admin__Event_Settings {
 	public function __construct() {
 		add_action( 'tribe_settings_do_tabs', [ $this, 'settings_ui' ] );
 		add_action( 'admin_menu', [ $this, 'add_admin_pages' ] );
+		add_action( 'network_admin_menu', [ $this, 'maybe_add_network_settings_page' ] );
+		add_action( 'tribe_settings_do_tabs', [ $this, 'do_network_settings_tab' ], 400 );
 
 		add_filter( 'tribe_settings_page_title', [ $this, 'settings_page_title' ] );
 		add_filter( 'tec_settings_tab_url', [ $this, 'filter_settings_tab_url' ], 50, 3 );
@@ -141,8 +143,37 @@ class Tribe__Events__Admin__Event_Settings {
 				],
 			]
 		);
+
 		$this->maybe_add_troubleshooting();
 		$this->maybe_add_app_shop();
+	}
+
+	/**
+	 * Maybe add network settings page for The Events Calendar.
+	 *
+	 * @since TBD
+	 */
+	public function maybe_add_network_settings_page() {
+		$admin_pages = tribe( 'admin.pages' );
+		$settings    = Tribe__Settings::instance();
+
+		if ( ! $settings->should_setup_network_pages() ) {
+			return;
+		}
+
+		$admin_pages->register_page(
+			[
+				'id'         => self::$settings_page_id,
+				'parent'     => 'settings.php',
+				'title'      => esc_html__( 'Event Settings', 'the-events-calendar' ),
+				'path'       => self::$settings_page_id,
+				'capability' => $admin_pages->get_capability(),
+				'callback'   => [
+					$settings,
+					'generatePage',
+				],
+			]
+		);
 	}
 
 	/**
@@ -163,7 +194,7 @@ class Tribe__Events__Admin__Event_Settings {
 			[
 				'id'         => $troubleshooting::MENU_SLUG,
 				'parent'     => $this->get_tec_events_menu_slug(),
-				'title'      => esc_html__( 'Troubleshooting', 'event-tickets' ),
+				'title'      => esc_html__( 'Troubleshooting', 'the-events-calendar' ),
 				'path'       => $troubleshooting::MENU_SLUG,
 				'capability' => $troubleshooting->get_required_capability(),
 				'callback'   => [
@@ -224,7 +255,7 @@ class Tribe__Events__Admin__Event_Settings {
 			return $url;
 		}
 
-		$current_page = admin_url( 'edit.php' );
+		$current_page = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 		$url          = add_query_arg(
 			[
 				'post_type' => Plugin::POSTTYPE,
@@ -249,8 +280,8 @@ class Tribe__Events__Admin__Event_Settings {
 	 * @return string $url The modified URL of the settings.
 	 */
 	public function filter_settings_page_url( $url, $page, $tab ) {
-		// Bail if `tribe_events` doesn't exist.
-		if ( ! post_type_exists( Plugin::POSTTYPE ) ) {
+		// Bail if `tribe_events` doesn't exist or if we're on the network settings page.
+		if ( ! post_type_exists( Plugin::POSTTYPE ) || is_network_admin() ) {
 			return $url;
 		}
 
@@ -329,5 +360,20 @@ class Tribe__Events__Admin__Event_Settings {
 
 		/** @var array $tickets_tab Set in the file included above*/
 		return $tickets_tab;
+	}
+
+	/**
+	 * Generate network settings page for The Events Calendar.
+	 *
+	 * @since TBD
+	 */
+	public function do_network_settings_tab( $admin_page ) {
+		if ( ! empty( $admin_page ) && self::$settings_page_id !== $admin_page ) {
+			return;
+		}
+
+		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/tribe-options-network.php';
+
+		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
 	}
 }
