@@ -1547,7 +1547,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 						$normalized = [];
 
 						if ( ! is_array( $this->query_args['orderby'] ) ) {
-							$this->query_args['orderby'] = [ $order_by ];
+							$this->query_args['orderby'] = [
+								$this->query_args['orderby'] => $this->query_args['order']
+							];
 						}
 
 						foreach ( $this->query_args['orderby'] as $k => $v ) {
