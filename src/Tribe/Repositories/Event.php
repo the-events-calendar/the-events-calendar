@@ -1538,7 +1538,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				default:
 					$after = $after || 1 === $loop;
 					if ( empty( $this->query_args['orderby'] ) ) {
-						$this->query_args['orderby'] = [ $order_by => $order ];
+						// In some versions of WP, [ $order_by, $order ] doesn't work as expected. Using explict value setting instead.
+						$this->query_args['orderby'] = $order_by;
+						$this->query_args['order']   = $order;
 					} else {
 						$add = [ $order_by => $order ];
 						// Make sure all `orderby` clauses have the shape `<orderby> => <order>`.
