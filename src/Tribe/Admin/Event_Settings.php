@@ -167,7 +167,7 @@ class Tribe__Events__Admin__Event_Settings {
 				'parent'     => 'settings.php',
 				'title'      => esc_html__( 'Event Settings', 'the-events-calendar' ),
 				'path'       => self::$settings_page_id,
-				'capability' => $admin_pages->get_capability(),
+				'capability' => $admin_pages->get_capability( 'manage_network_options' ),
 				'callback'   => [
 					$settings,
 					'generatePage',
