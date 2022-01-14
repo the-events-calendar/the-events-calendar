@@ -11,7 +11,7 @@ jobs:
           - event_status
           - integration
           - muintegration
-          #- restv1
+          - restv1
           - views_integration
           - views_rest
           - views_settings
