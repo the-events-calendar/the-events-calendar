@@ -224,8 +224,11 @@ Remember to always make a backup of your database and files before updating!
 = [5.12.4] 2022-01-17 =
 
 * Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
-* Fix - Remove CSS attributes targeting `aria-labels` to prevent inconsistent styling for different languages. [TEC-4227]
+* Tweak - Add hook to CSV importer to enable add-on plugins to support their fields during import. [VE-387]
+* Tweak - Included new filter `tec_system_information` allowing better control over the Troubleshooting Help page.
+* Tweak - Included a Views V2 Status on the Troubleshooting page system info section to help with clarity for support.
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
+* Fix - Remove CSS attributes targeting `aria-labels` to prevent inconsistent styling for different languages. [TEC-4227]
 
 = [5.12.3] 2022-01-10 =
 
