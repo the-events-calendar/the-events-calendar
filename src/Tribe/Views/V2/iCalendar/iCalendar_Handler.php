@@ -190,6 +190,9 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		 */
 		$links = apply_filters( 'tec_views_v2_single_subscribe_links', $links, null );
 
+		// Remove any that are empty post-filtering.
+		$links = array_filter( $links );
+
 		foreach ( $links as $link ) {
 			$calendar_links .= $link;
 		}
@@ -227,7 +230,8 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	public function ical_properties( $content ) {
 		$content .= "REFRESH-INTERVAL;VALUE=DURATION:PT1H\r\n";
 		$content .= "X-Robots-Tag:noindex\r\n";
+		$content .= "X-PUBLISHED-TTL:PT1H\r\n";
 
-		return $content . "X-PUBLISHED-TTL:PT1H\r\n";
+		return $content;
 	}
 }
