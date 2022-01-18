@@ -85,7 +85,7 @@ class Google_Calendar extends Link_Abstract {
 		$base_url =  'https://www.google.com/calendar/r/eventedit';
 		$pieces   = [
 			'action'   => 'TEMPLATE',
-     		'dates'    => $event->dates->start_utc->format( 'Ymd\THis\Z' ) . '/' . $event->dates->end_utc->format( 'Ymd\THis\Z' ),
+     		'dates'    => $event->dates->start->format( 'Ymd\THis' ) . '/' . $event->dates->end->format( 'Ymd\THis' ),
      		'text'     => urlencode( get_the_title( $event ) ),
 			'details'  => empty( $event->description ) ? urlencode( $event->description ) : 'Test Event Description',
 			'location' => self::generate_string_address( $event ),
