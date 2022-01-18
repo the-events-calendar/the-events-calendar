@@ -15,7 +15,7 @@ class Full_Site_Editor {
 	 */
 	public function hook() {
 		tribe_notice(
-			'full-site-editor-widgets',
+			'full-site-editor-incompatibility',
 			[ $this, 'incompatibility_display' ],
 			[
 				'type'     => 'error',
