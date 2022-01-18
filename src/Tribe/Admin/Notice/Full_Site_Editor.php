@@ -16,14 +16,14 @@ class Full_Site_Editor {
 	public function hook() {
 		tribe_notice(
 			'full-site-editor-widgets',
-			[ $this, 'widgets_display' ],
+			[ $this, 'incompatibility_display' ],
 			[
-				'type'     => 'warning',
+				'type'     => 'error',
 				'dismiss'  => 1,
 				'priority' => - 1,
 				'wrap'     => 'p',
 			],
-			[ $this, 'widgets_should_display' ]
+			[ $this, 'incompatibility_should_display' ]
 		);
 	}
 
@@ -34,7 +34,7 @@ class Full_Site_Editor {
 	 *
 	 * @return boolean
 	 */
-	public function widgets_should_display() {
+	public function incompatibility_should_display() {
 		global $current_screen;
 		$screens = [
 			'tribe_events_page_tribe-app-shop', // App shop.
@@ -61,8 +61,8 @@ class Full_Site_Editor {
 	 *
 	 * @return string
 	 */
-	public function widgets_display() {
-		$html     = esc_html__( 'The Event List widget is not yet supported for themes using the Full Site Editor.', 'the-events-calendar' );
+	public function incompatibility_display() {
+		$html     = esc_html__( 'The Events Calendar is not yet supported for themes using the Full Site Editor.', 'the-events-calendar' );
 		$html .= ' <a target="_blank" href="https://evnt.is/fse-compatibility">' . esc_html__( 'Read more.', 'the-events-calendar' ) . '</a>';
 
 		/**
