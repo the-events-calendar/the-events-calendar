@@ -39,7 +39,19 @@ class Google_Calendar extends Link_Abstract {
 	public function get_uri( View $view = null ) {
 		if ( null === $view || is_single() ) {
 			// Try to construct it for the event single.
-			return $this->generate_single_uri( $view );
+
+			/**
+			 * Allows "turning off" the single event link for Google Calendar.
+			 *
+			 * @since TBD
+			 *
+			 * @param boolean $use_single_uri Use the single event uri for single event views. Default true.
+			 */
+			$use_single_uri = apply_filters( 'tec_views_v2_subscribe_links_gcal_single_uri', true, );
+
+			if ( $use_single_uri ) {
+				return $this->generate_single_uri();
+			}
 		}
 
 		$feed_url = parent::get_uri( $view );
@@ -93,6 +105,11 @@ class Google_Calendar extends Link_Abstract {
 		];
 
 		$pieces = array_filter( $pieces );
+
+		// Missing required info - bail.
+		if ( empty( $pieces[ 'action' ] ) || empty( $pieces[ 'dates' ] ) || empty( $pieces[ 'text' ] ) ) {
+			return '';
+		}
 
 		$uri = add_query_arg( $pieces, $base_url );
 
