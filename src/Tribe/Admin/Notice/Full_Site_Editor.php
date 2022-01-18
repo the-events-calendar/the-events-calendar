@@ -63,7 +63,7 @@ class Full_Site_Editor {
 	 */
 	public function widgets_display() {
 		$html     = esc_html__( 'The Event List widget is not yet supported for themes using the Full Site Editor.', 'the-events-calendar' );
-		$html .= ' <a target="_blank" href="https://evnt.is/wp5-7">' . esc_html__( 'Read more.', 'the-events-calendar' ) . '</a>';
+		$html .= ' <a target="_blank" href="https://evnt.is/fse-compatibility">' . esc_html__( 'Read more.', 'the-events-calendar' ) . '</a>';
 
 		/**
 		 * Allows the modification of the notice for FSE widgets incompatibility.
