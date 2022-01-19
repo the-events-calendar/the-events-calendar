@@ -132,7 +132,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug       = 'featured';
 
 		/**
-		 * @deprecated 4.5.8 use `Tribe__Events__Pro__Main::instance()->all_slug` instead
+		 * @deprecated TBD use Tribe__Events__Venue::$valid_venue_keys instead.
+		*/
+		public $valid_venue_keys = [];
+
+		/**
+		 * @deprecated 4.5.8 use `Tribe__Events__Pro__Main::instance()->all_slug` instead.
 		 *
 		 * @var string
 		 */
@@ -148,7 +153,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $timezone_settings;
 
 		/**
-		 * A Stored version of the Welcome and Update Pages
+		 * A Stored version of the Welcome and Update Pages.
 		 * @var Tribe__Admin__Activation_Page
 		 */
 		public $activation_page;
@@ -439,7 +444,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.9.3.2
 		 */
 		public function maybe_bail_if_invalid_wp_or_php() {
-			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
+			if ( $this->supportedVersion( 'wordpress' ) && $this->supportedVersion( 'php' ) ) {
 				return;
 			}
 
@@ -763,9 +768,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe-events-bar-views', [ $this, 'remove_hidden_views' ], 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
-			if ( ! tribe( 'editor' )->should_load_blocks() ) {
-				add_action( 'admin_menu', [ $this, 'addEventBox' ] );
-			}
+			/* edit-post metaboxes */
+			add_action( 'admin_menu', [ $this, 'addEventBox' ] );
+			add_action( 'admin_menu', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
+			add_action( 'admin_menu', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
 
 			add_action( 'wp_insert_post', [ $this, 'addPostOrigin' ], 10, 2 );
 			add_action( 'save_post', [ $this, 'addEventMeta' ], 15, 2 );
@@ -1581,7 +1587,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * query makes a decision to add a noindex meta tag based on whether events were returned
 		 * in the query results or not.
 		 *
-		 * Disabling this behaviour always is possible with:
+		 * Disabling this behavior always is possible with:
 		 *
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_false' );
 		 *
@@ -1779,10 +1785,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Display a WordPress or PHP incompatibility error
 		 */
 		public function notSupportedError() {
-			if ( ! self::supportedVersion( 'wordpress' ) ) {
+			if ( ! $this->supportedVersion( 'wordpress' ) ) {
 				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', 'the-events-calendar' ), $this->min_wordpress ) . '</p></div>';
 			}
-			if ( ! self::supportedVersion( 'php' ) ) {
+			if ( ! $this->supportedVersion( 'php' ) ) {
 				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), $this->min_php ) . '</p></div>';
 			}
 		}
@@ -3590,7 +3596,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return $data['OrganizerID'];
 			}
 
-			if ( $post->post_type == Tribe__Events__Organizer::POSTTYPE && $post->ID ) {
+			if ( ! is_null( $post) && $post->post_type == Tribe__Events__Organizer::POSTTYPE && $post->ID ) {
 				$data['OrganizerID'] = $post->ID;
 			}
 
@@ -3883,6 +3889,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			if ( tribe( 'editor' )->should_load_blocks() ) {
+				return;
+			}
+
 			add_meta_box(
 				'tribe_events_event_details',
 				$this->plugin_name,
@@ -3904,27 +3914,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'default'
 			);
 
-			add_meta_box(
-					'tribe_events_venue_details',
-					sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ),
-					[ $this, 'VenueMetaBox' ],
-					Tribe__Events__Venue::POSTTYPE,
-					'normal',
-					'high'
-			);
-
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				remove_meta_box( 'slugdiv', Tribe__Events__Venue::POSTTYPE, 'normal' );
 			}
-
-			add_meta_box(
-					'tribe_events_organizer_details',
-					sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ),
-					[ $this, 'OrganizerMetaBox' ],
-					Tribe__Events__Organizer::POSTTYPE,
-					'normal',
-					'high'
-			);
 		}
 
 		/**
