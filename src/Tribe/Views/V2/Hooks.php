@@ -1065,7 +1065,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add the views v2 status in a more prominent way in the Troubleshooting page system info panel.
 	 *
-	 * @since TBD
+	 * @since 5.12.4
 	 *
 	 * @param array $info Existing information that will be displayed.
 	 *
