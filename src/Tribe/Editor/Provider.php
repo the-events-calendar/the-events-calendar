@@ -1,4 +1,5 @@
 <?php
+use \Tribe\Events\Editor\Blocks;
 
 class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 
@@ -39,6 +40,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.editor.blocks.event-tags', 'Tribe__Events__Editor__Blocks__Event_Tags' );
 		$this->container->singleton( 'events.editor.blocks.event-website', 'Tribe__Events__Editor__Blocks__Event_Website' );
 		$this->container->singleton( 'events.editor.blocks.featured-image', 'Tribe__Events__Editor__Blocks__Featured_Image' );
+		$this->container->singleton( Blocks\Archive_Events::class, Blocks\Archive_Events::class );
 
 		$this->hook();
 
@@ -81,6 +83,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-tags', 'register' ) );
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-website', 'register' ) );
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.featured-image', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', [ $this->container->make( Blocks\Archive_Events::class ), 'register' ] );
 	}
 
 	/**

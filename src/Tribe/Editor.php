@@ -59,17 +59,64 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_venue' ], 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_organizer' ], 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_event' ], 10, 2 );
+
+		add_filter( 'get_block_templates', [ $this, 'include_archive_events' ], 25, 3 );
+	}
+
+	/**
+	 * Modify the available Templates so that people can edit the template.
+	 *
+	 * @since TBD
+	 *
+	 * @param array     $query_result
+	 * @param \WP_Query $query
+	 * @param string    $template_type Which kind of template we are talking about.
+	 *
+	 * @return array
+	 */
+	public function include_archive_events( $query_result, $query, $template_type ) {
+		$template_slug = 'archive-' . Tribe__Events__Main::POSTTYPE;
+
+		if ( 'wp_template' !== $template_type ) {
+			return $query_result;
+		}
+
+		// If we are not querying for all or the specific one we want we bail.
+		if ( ! empty( $query['slug__in'] ) && ! in_array( $template_slug, $query['slug__in'], true ) ) {
+			return $query_result;
+		}
+
+		$template                 = new WP_Block_Template();
+		$template->id             = 'the-events-calendar//archive-events';
+		$template->theme          = 'The Events Calendar';
+		$template->content        = _inject_theme_attribute_in_block_template_content( '
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+<!-- wp:tribe/archive-events {} /-->
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+		' );
+		$template->slug           = $template_slug;
+		$template->source         = 'theme';
+		$template->theme          = wp_get_theme()->get_stylesheet();
+		$template->type           = $template_type;
+		$template->title          = esc_html__( 'Events Archive', 'the-events-calendar' );
+		$template->status         = 'publish';
+		$template->has_theme_file = true;
+		$template->is_custom      = true;
+
+		$query_result[] = $template;
+
+		return $query_result;
 	}
 
 	/**
 	 * For now we don't use Blocks editor on the Post Type for Organizers
 	 *
-	 * @todo  see https://core.trac.wordpress.org/ticket/45275
+	 * @todo   see https://core.trac.wordpress.org/ticket/45275
 	 *
 	 * @since  4.7
 	 *
-	 * @param  boolean $is_enabled
-	 * @param  string  $post_type
+	 * @param boolean $is_enabled
+	 * @param string  $post_type
 	 *
 	 * @return boolean
 	 */
@@ -84,12 +131,12 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * For now we don't use Blocks editor on the Post Type for Venues
 	 *
-	 * @todo  see https://core.trac.wordpress.org/ticket/45275
+	 * @todo   see https://core.trac.wordpress.org/ticket/45275
 	 *
 	 * @since  4.7
 	 *
-	 * @param  boolean $is_enabled
-	 * @param  string  $post_type
+	 * @param boolean $is_enabled
+	 * @param string  $post_type
 	 *
 	 * @return boolean
 	 */
@@ -134,7 +181,8 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * When Gutenberg is active do not care about custom-fields as a metabox, but as part o the Rest API
 	 *
-	 * Code is located at: https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
+	 * Code is located at:
+	 * https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
 	 *
 	 * @todo  Block that option once the user has Gutenberg active
 	 *
@@ -201,7 +249,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			 *
 			 * @since 4.7
 			 *
-			 * @param  int $post Which post is getting updated
+			 * @param int $post Which post is getting updated
 			 */
 			do_action( 'tribe_blocks_editor_flag_post_classic_editor', $post );
 		}
@@ -214,12 +262,12 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @since 4.7
 	 *
-	 * @param  int $post Which post we will migrate
+	 * @param int $post Which post we will migrate
 	 *
 	 * @return bool
 	 */
 	public function update_post_content_to_blocks( $post ) {
-		$post    = get_post( $post );
+		$post = get_post( $post );
 
 		$blocks  = $this->get_classic_template();
 		$content = [];
@@ -232,11 +280,11 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			 *
 			 * @since 4.7
 			 *
-			 * @param mixed $params Either array if set to values or slug string
-			 * @param string $slug Name of the block edited
-			 * @param WP_Post $post Post that is being affected
+			 * @param mixed   $params Either array if set to values or slug string
+			 * @param string  $slug   Name of the block edited
+			 * @param WP_Post $post   Post that is being affected
 			 */
-			$params = apply_filters( 'tribe_blocks_editor_update_classic_content_params', end( $block_param ), $slug, $post );
+			$params     = apply_filters( 'tribe_blocks_editor_update_classic_content_params', end( $block_param ), $slug, $post );
 			$json_param = false;
 
 			// Checks for Params to attach to the tag
@@ -265,9 +313,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 *
 		 * @since 4.7
 		 *
-		 * @param  string  $content Content that will be updated
-		 * @param  WP_Post $post    Which post we will migrate
-		 * @param  array   $blocks  Which blocks we are updating with
+		 * @param string  $content Content that will be updated
+		 * @param WP_Post $post    Which post we will migrate
+		 * @param array   $blocks  Which blocks we are updating with
 		 */
 		$content = apply_filters( 'tribe_blocks_editor_update_classic_content', $content, $post, $blocks );
 
@@ -305,7 +353,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 *
 		 * @since 4.7
 		 *
-		 * @param  array   $template   Array of all the templates used by default
+		 * @param array $template Array of all the templates used by default
 		 *
 		 */
 		$template = apply_filters( 'tribe_events_editor_default_classic_template', $template );
@@ -318,14 +366,14 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @since 4.7
 	 *
-	 * @param  array $args Arguments used to setup the CPT template
+	 * @param array $args Arguments used to setup the CPT template
 	 *
 	 * @return array
 	 */
 	public function add_event_template_blocks( $args = [] ) {
 		$template = [];
 
-		$post = tribe_get_request_var( 'post' );
+		$post              = tribe_get_request_var( 'post' );
 		$is_classic_editor = ! empty( $post ) && is_numeric( $post ) && ! has_blocks( $post );
 
 		// Basically setups up a different template if is a classic event
@@ -351,14 +399,14 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 *
 		 * @since 4.7
 		 *
-		 * @param  array   $template   Array of all the templates used by default
-		 * @param  string  $post_type  Which post type we are filtering
-		 * @param  array   $args       Array of configurations for the post type
+		 * @param array  $template  Array of all the templates used by default
+		 * @param string $post_type Which post type we are filtering
+		 * @param array  $args      Array of configurations for the post type
 		 *
 		 */
 		$args['template'] = apply_filters( 'tribe_events_editor_default_template', $template, Tribe__Events__Main::POSTTYPE, $args );
 
- 		return $args;
+		return $args;
 	}
 
 	/**
@@ -403,9 +451,20 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	}
 
 	/**
+	 * Check whether the current page is the Full Site editor.
+	 *
+	 * @since 5.13.0
+	 *
+	 * @return bool
+	 */
+	public function is_full_site_editor() {
+		return Tribe__Admin__Helpers::instance()->is_screen( 'site-editor' );
+	}
+
+	/**
 	 * @todo   Move this into the Block PHP files
 	 *
-	 * @since 4.7
+	 * @since  4.7
 	 *
 	 * @return void
 	 */
@@ -530,6 +589,48 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
+
+		tribe_asset(
+			$plugin,
+			'tec-events-iframe-content-resizer',
+			'node_modules/iframe-resizer/js/iframeResizer.contentWindow.js',
+			[],
+			null,
+			[
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tec-events-full-site',
+			'app/full-site.js',
+			[
+				'react',
+				'react-dom',
+				'wp-components',
+				'wp-api',
+				'wp-api-request',
+				'wp-blocks',
+				'wp-i18n',
+				'wp-element',
+				'wp-editor',
+				'tribe-common-gutenberg-data',
+				'tribe-common-gutenberg-utils',
+				'tribe-common-gutenberg-store',
+				'tribe-common-gutenberg-icons',
+				'tribe-common-gutenberg-hoc',
+				'tribe-common-gutenberg-elements',
+				'tribe-common-gutenberg-components',
+			],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'localize'     => [],
+				'conditionals' => [ $this, 'is_full_site_editor' ],
+				'priority'     => 106,
+			]
+		);
+
 		tribe_asset(
 			$plugin,
 			'tec-widget-blocks',
@@ -641,9 +742,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Add "Event Blocks" category to the editor
 	 *
-	 * @deprecated 5.8.2
+	 * @since      4.7
 	 *
-	 * @since 4.7
+	 * @deprecated 5.8.2
 	 *
 	 * @param array<array<string|string>> $categories An array of categories each an array
 	 *                                                in the format property => value.
@@ -715,10 +816,10 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	/**
 	 * Adds the required blocks into the Events Post Type
 	 *
-	 * @since 4.7
+	 * @since      4.7
 	 * @deprecated 0.1.3-alpha
 	 *
-	 * @param  array $args Arguments used to setup the CPT template
+	 * @param array $args Arguments used to setup the CPT template
 	 *
 	 * @return array
 	 */
@@ -732,9 +833,10 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * This is something should be addressed on TEC as is affecting any new user installing the plugin.
 	 *
-	 * Code is located at: https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
+	 * Code is located at:
+	 * https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
 	 *
-	 * @since 4.7
+	 * @since      4.7
 	 * @deprecated 0.3.2-alpha
 	 *
 	 * @param $value

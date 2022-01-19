@@ -17,10 +17,12 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Views\V2\Assets as Event_Assets;
 use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
+use Tribe\Events\Views\V2\Template\Full_Site_Editor;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils\View as View_Utils;
 use Tribe__Context as Context;
@@ -68,6 +70,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
+
+		add_action( 'wp_ajax_nopriv_tec_events_iframe_full_site_editor', [ $this, 'render_iframe_fse_block' ] );
+		add_action( 'wp_ajax_tec_events_iframe_full_site_editor', [ $this, 'render_iframe_fse_block' ] );
 	}
 
 	/**
@@ -197,6 +202,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function on_wp_head() {
+		// Bail on FSE themes.
+		if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
+			return;
+		}
+
 		$this->container->make( Template\Page::class )->maybe_hijack_main_query();
 	}
 
@@ -221,6 +231,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The template file to include, depending on the query and settings.
 	 */
 	public function filter_template_include( $template ) {
+		// Bail when dealing with a FSE theme.
+		if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
+			return $template;
+		}
+
 		return $this->container->make( Template_Bootstrap::class )
 		                       ->filter_template_include( $template );
 	}
@@ -1076,5 +1091,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'Views V2 Status' => tribe_events_views_v2_is_enabled() ? esc_html__( 'Enabled', 'the-events-calendar' ) : esc_html__( 'Disabled', 'the-events-calendar' ),
 		];
 		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $views_v2_status );
+	}
+
+	public function render_iframe_fse_block() {
+		$this->container->make( Full_Site_Editor::class )->render_iframe();
 	}
 }
