@@ -28,6 +28,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validation;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Timezone;
 use TEC\Events\Custom_Tables\V1\Tables\Events;
+use Tribe\Events\Models\Post_Types\Event as TribeEvent;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 
@@ -180,7 +181,7 @@ class Event extends Model {
 	 * @return bool Whether an Event is multi-day or not.
 	 */
 	public function is_multiday() {
-		return tribe_event_is_multiday( $this->post_id );
+		return TribeEvent::from_post( $this->post_id )->to_post()->multiday;
 	}
 
 	/**
