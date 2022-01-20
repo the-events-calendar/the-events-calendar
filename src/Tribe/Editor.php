@@ -96,7 +96,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		' );
 		$template->slug           = $template_slug;
 		$template->source         = 'theme';
-		$template->theme          = wp_get_theme()->get_stylesheet();
+		$template->theme          = 'The Events Calendar';
 		$template->type           = $template_type;
 		$template->title          = esc_html__( 'Events Archive', 'the-events-calendar' );
 		$template->status         = 'publish';
