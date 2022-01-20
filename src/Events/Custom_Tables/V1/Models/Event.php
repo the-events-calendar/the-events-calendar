@@ -177,7 +177,7 @@ class Event extends Model {
 	 *
 	 * $since TBD
 	 *
-	 * @return bool
+	 * @return bool Whether an Event is multi-day or not.
 	 */
 	public function is_multiday() {
 		return tribe_event_is_multiday( $this->post_id );
