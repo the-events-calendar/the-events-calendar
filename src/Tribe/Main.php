@@ -3663,8 +3663,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Adds a style chooser to the write post page
+		 * Adds a venue chooser to the write post page
 		 *
+		 * @todo Move to Tribe__Events__Venue
 		 */
 		public function VenueMetaBox() {
 			global $post;
@@ -3695,13 +3696,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			?>
-			<style type="text/css">
-				#EventInfo {
-					border: none;
-				}
-			</style>
-			<div id='eventDetails' class="inside eventForm">
-				<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
+			<div id='venue-details' class="inside eventForm venue-form">
+				<table cellspacing="0" cellpadding="0" id="venue-info" class="venue-info">
 					<?php
 					$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $this->plugin_path . 'src/admin-views/venue-meta-box.php' );
 					if ( ! empty( $venue_meta_box_template ) ) {
@@ -3714,8 +3710,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Adds a style chooser to the write post page
+		 * Adds a organizer chooser to the write post page
 		 *
+		 * @todo Move to Tribe__Events__Organizer
 		 */
 		public function OrganizerMetaBox() {
 			global $post;

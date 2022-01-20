@@ -720,6 +720,11 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @since TBD
 	 */
 	public static function add_post_type_metabox() {
+		$request_vars = tribe_get_request_vars();
+		if ( empty( $request_vars['post'] ) || ! tribe_is_organizer( $request_vars['post'] ) ) {
+			return;
+		}
+
 		$self = new Tribe__Events__Organizer;
 		add_meta_box(
 			'tribe_events_organizer_details',

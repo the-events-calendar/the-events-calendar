@@ -273,6 +273,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * @since TBD
 	 */
 	public static function add_post_type_metabox() {
+		$request_vars = tribe_get_request_vars();
+		if ( empty( $request_vars['post'] ) || ! tribe_is_venue( $request_vars['post'] ) ) {
+			return;
+		}
 		$self = new Tribe__Events__Venue;
 
 		add_meta_box(

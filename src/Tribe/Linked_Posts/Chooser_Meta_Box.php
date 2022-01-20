@@ -43,7 +43,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Work with the specifed event object or else use a placeholder if in the middle of creating a new event.
+	 * Work with the specified event object or else use a placeholder if in the middle of creating a new event.
 	 *
 	 * @param mixed $event
 	 */
