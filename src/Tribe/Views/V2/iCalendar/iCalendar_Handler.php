@@ -185,7 +185,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 5.12.0
 		 *
-		 * @param array<string|object> $subscribe_links The array of link objects.
+		 * @param array<string|string> $subscribe_links The array of link objects.
 		 * @param View|null            $view            The current View implementation.
 		 */
 		$links = apply_filters( 'tec_views_v2_single_subscribe_links', $links, null );
