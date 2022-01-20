@@ -173,6 +173,17 @@ class Event extends Model {
 	}
 
 	/**
+	 * Check if the event is a multi-day event.
+	 *
+	 * $since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_multiday() {
+		return tribe_event_is_multiday( $this->post_id );
+	}
+
+	/**
 	 * Builds and returns, if possible, the data that should be used to hydrate an Event
 	 * Model instance from the existing Event Post, from the posts table.
 	 *
