@@ -221,6 +221,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] =
+
+* Fix - Ensure that the tec_views_v2_use_subscribe_links filter applies to the single event view. [TEC-4219]
+* Fix - Hide the "Export to .ics file" link by default, allow showing it via a filter. Also ensure the link is correct. [TEC-4214]
+* Tweak - Correct documentation around the subscribe link filters. Add link slug as array keys for `tec_views_v2_single_subscribe_links` filter. [TEC-4215]
+
 = [5.12.3] 2022-01-10 =
 
 * Version - The Events Calendar 5.12.3 is only compatible with Events Calendar PRO 5.11.2 and higher
