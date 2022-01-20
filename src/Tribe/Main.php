@@ -601,6 +601,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', [ 'hook' ] );
 			tribe_singleton( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, [ 'hook' ] );
+			tribe_singleton( Tribe\Events\Admin\Notice\Full_Site_Editor::class, Tribe\Events\Admin\Notice\Full_Site_Editor::class, [ 'hook' ] );
+
 
 			// GDPR Privacy
 			tribe_singleton( 'tec.privacy', 'Tribe__Events__Privacy', [ 'hook' ] );
@@ -974,6 +976,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
+			tribe( Tribe\Events\Admin\Notice\Full_Site_Editor::class );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
 		}
