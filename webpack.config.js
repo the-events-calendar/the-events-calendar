@@ -7,9 +7,7 @@ const merge = require( 'webpack-merge' );
 const common = require( '@the-events-calendar/product-taskmaster/webpack/common/webpack.config' );
 const { getDirectoryNames, getDirectories } = require( '@the-events-calendar/product-taskmaster/webpack/utils/directories' );
 const { getJSFileNames, getJSFiles } = require( '@the-events-calendar/product-taskmaster/webpack/utils/files' );
-const { generateEntries } = require( '@the-events-calendar/product-taskmaster/webpack/entry/tribe' );
 
-const directoryNames = getDirectoryNames( resolve( __dirname, './src/modules' ) );
 const PLUGIN_SCOPE = 'events';
 
 //
@@ -19,7 +17,25 @@ const PLUGIN_SCOPE = 'events';
 //
 
 const config = merge( common, {
-	entry: generateEntries( __dirname, directoryNames ),
+	entry: {
+		main: resolve( __dirname, './src/modules/index.js' ),
+	},
+	output: {
+		path: __dirname,
+		library: [ 'tribe', PLUGIN_SCOPE ],
+	},
+} );
+
+//
+// ────────────────────────────────────────────────────────────────────────────────────── II ──────────
+//   :::::: G E N E R A T E   W I D G E T S   P L U G I N : :  :   :    :     :        :          :
+// ────────────────────────────────────────────────────────────────────────────────────────────────
+//
+
+const widgetsConfig = merge( common, {
+	entry: {
+		widgets: resolve( __dirname, './src/modules/widgets/index.js' ),
+	},
 	output: {
 		path: __dirname,
 		library: [ 'tribe', PLUGIN_SCOPE, '[name]' ],
@@ -27,7 +43,7 @@ const config = merge( common, {
 } );
 
 //
-// ──────────────────────────────────────────────────────────────────────────────────────────── II ──────────
+// ──────────────────────────────────────────────────────────────────────────────────────────── III ──────────
 //   :::::: G E N E R A T E   S T Y L E S   F R O M   V I E W S : :  :   :    :     :        :          :
 // ──────────────────────────────────────────────────────────────────────────────────────────────────────
 //
@@ -64,5 +80,6 @@ const styleConfig = merge( common, {
 
 module.exports = [
 	config,
+	widgetsConfig,
 	styleConfig,
 ];
