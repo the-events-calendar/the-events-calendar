@@ -4,14 +4,14 @@ namespace Tribe\Events\Admin\Notice;
 /**
  * Class Full_Site_Editor
  *
- * @since TBD
+ * @since 5.12.4
  *
  */
 class Full_Site_Editor {
 	/**
 	 * Register the notices related to Full Site Editor.
 	 *
-	 * @since TBD
+	 * @since 5.12.4
 	 */
 	public function hook() {
 		tribe_notice(
@@ -30,7 +30,7 @@ class Full_Site_Editor {
 	/**
 	 * Whether the FSE Widgets notice should display.
 	 *
-	 * @since TBD
+	 * @since 5.12.4
 	 *
 	 * @return boolean
 	 */
@@ -57,7 +57,7 @@ class Full_Site_Editor {
 	 *
 	 * @see   https://evnt.is/wp5-7
 	 *
-	 * @since TBD
+	 * @since 5.12.4
 	 *
 	 * @return string
 	 */
@@ -68,7 +68,7 @@ class Full_Site_Editor {
 		/**
 		 * Allows the modification of the notice for FSE widgets incompatibility.
 		 *
-		 * @since TBD
+		 * @since 5.12.4
 		 */
 		return apply_filters( 'tec_events_admin_notice_full_site_editor_widget_html', $html, $this );
 	}

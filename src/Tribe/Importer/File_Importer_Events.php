@@ -320,7 +320,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		/**
 		 * Filter the csv event import event meta.
 		 *
-		 * @since TBD
+		 * @since 5.12.4
 		 *
 		 * @param array<string|mixed> $event        An array event meta fields.
 		 *
