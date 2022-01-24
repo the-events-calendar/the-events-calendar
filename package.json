@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.12.3",
+  "version": "5.12.4",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -39,9 +39,7 @@
       "!src/resources/postcss/tribe-events-theme-mobile.pcss",
       "!src/resources/postcss/tribe-events-theme.pcss"
     ],
-    "jest": [
-      "src/modules/**/__tests__/**/*.js"
-    ]
+    "jest": ["src/modules/**/__tests__/**/*.js"]
   },
   "scripts": {
     "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
@@ -118,7 +116,8 @@
     "url-loader": "^0.6.2",
     "validator": "^13.7.0",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3"
+    "zero-fill": "^2.2.3",
+    "intro.js": "^3.4.0"
   },
   "browserslist": [
     "last 2 Chrome versions",

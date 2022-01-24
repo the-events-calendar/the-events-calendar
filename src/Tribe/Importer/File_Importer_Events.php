@@ -88,6 +88,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return reset( $matches );
 	}
 
+	/**
+	 * Update an event with the imported information.
+	 *
+	 * @param integer             $post_id The event ID to update.
+	 * @param array<string|mixed> $record  An event record from the import.
+	 *
+	 * @return false False if the update authority is set to retain or void if the update completes.
+	 */
 	protected function update_post( $post_id, array $record ) {
 		$update_authority_setting = tribe( 'events-aggregator.settings' )->default_update_authority( 'csv' );
 
@@ -133,6 +141,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		remove_filter( 'tribe_tracker_enabled', '__return_false' );
 	}
 
+	/**
+	 * Create an event with the imported information.
+	 *
+	 * @param array<string|mixed> $record An event record from the import.
+	 *
+	 * @return integer The new event's post id.
+	 */
 	protected function create_post( array $record ) {
 		$this->watch_term_creation();
 
@@ -158,6 +173,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $id;
 	}
 
+	/**
+	 * Get the event start date from the import record.
+	 *
+	 * @param array<string|mixed> $record    An event record from the import.
+	 * @param boolean             $date_only An optional setting to incude the date only and no time.
+	 *
+	 * @return string $start_date The start date time string.
+	 */
 	private function get_event_start_date( array $record, $date_only = false ) {
 		$start_date = $this->get_value_by_key( $record, 'event_start_date' );
 		$start_time = $this->get_value_by_key( $record, 'event_start_time' );
@@ -173,6 +196,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $start_date;
 	}
 
+	/**
+	 * Get the event end date from the import record.
+	 *
+	 * @param array<string|mixed> $record    An event record from the import.
+	 *
+	 * @return string $end_date The end date time string.
+	 */
 	private function get_event_end_date( array $record ) {
 		$start_date = $this->get_event_start_date( $record );
 		$end_date   = $this->get_value_by_key( $record, 'event_end_date' );
@@ -193,6 +223,14 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $end_date;
 	}
 
+	/**
+	 * Build an event array from import record.
+	 *
+	 * @param integer             $post_id The event ID to update.
+	 * @param array<string|mixed> $record  An event record from the import.
+	 *
+	 * @return array<string|mixed> An array of information to save or update an event.
+	 */
 	private function build_event_array( $event_id, array $record ) {
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
@@ -279,7 +317,16 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			}
 		}
 
-		return $event;
+		/**
+		 * Filter the csv event import event meta.
+		 *
+		 * @since 5.12.4
+		 *
+		 * @param array<string|mixed> $event        An array event meta fields.
+		 *
+		 * @return array<string|mixed> An array of the autodetect results.
+		 */
+		return apply_filters( 'tec_events_csv_import_event_meta', $event, $record, $this );
 	}
 
 	/**
@@ -499,25 +546,5 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		return 'prefix';
-	}
-
-	/**
-	 * Returns the `post_excerpt` to use.
-	 *
-	 * @deprecated5.1.6
-	 *
-	 * @param int    $event_id        The event id being updated by import.
-	 * @param string $import_excerpt The imported excerpt text.
-	 *
-	 * @return string
-	 */
-	private function get_post_excerpt( $event_id, $import_excerpt ) {
-		_deprecated_function(
-			__METHOD__,
-			'5.1.6',
-			'$this->get_post_text_field( $event_id, $record, "event_excerpt", "post_excerpt" )'
-		);
-
-		return '';
 	}
 }
