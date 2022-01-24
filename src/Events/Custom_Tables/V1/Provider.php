@@ -100,9 +100,7 @@ class Provider extends Service_Provider {
 			$this->container->register( WP_Query\Provider::class );
 			$this->container->register( Updates\Provider::class );
 
-			if ( tribe_events_views_v2_is_enabled() ) {
-				$this->container->register( Views\V2\Provider::class );
-			}
+			$this->container->register( Views\V2\Provider::class );
 
 			/*
 			 * Integrations with 3rd party code are registered last to

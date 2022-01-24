@@ -644,6 +644,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' ) ) {
 				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
+
+			tribe_register_provider( \TEC\Events\Legacy\Views\V1\Provider::class );
 		}
 
 		/**
