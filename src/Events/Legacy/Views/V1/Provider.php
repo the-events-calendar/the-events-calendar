@@ -46,6 +46,7 @@ class Provider extends Service_Provider {
 			'tribe-events/month.php',
 			'tribe-events/pro/map/',
 			'tribe-events/pro/map.php',
+			'tribe-events/pro/map-basic.php',
 			'tribe-events/pro/photo/',
 			'tribe-events/pro/photo.php',
 			'tribe-events/pro/week/',
