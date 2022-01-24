@@ -129,6 +129,3 @@
 	?>
 
 </div>
-
-<?php
-include_once Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/filterbar/banners/filterbar-upsell.php';

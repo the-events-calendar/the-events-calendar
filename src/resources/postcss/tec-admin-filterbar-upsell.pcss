@@ -5,24 +5,42 @@
  */
 
 .tec-filterbar-upsell {
-    align-items: center;
+    align-items: flex-end;
     background: #F9F9F9;
     border: 1px solid #CCCCCC;
     box-sizing: border-box;
     border-radius: 4px;
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
-    padding: 30px;
+    padding: 30px 25px 50px;
+
+    @media only screen and (min-width: 480px) {
+        align-items: center;
+        flex-direction: row;
+        padding: 40px;
+    }
 }
 
 .tec-filterbar-upsell__content {
-    max-width: 65%;
+
+    @media only screen and (min-width: 480px) {
+        max-width: 100%;
+    }
+
+    @media only screen and (min-width: 768px) {
+        max-width: 75%;
+    }
 }
 
 .tec-filterbar-upsell__content p {
     color: #3D4349;
-    font-size: 24px;
+    font-size: 16px;
     line-height: 1.5;
+
+    @media only screen and (min-width: 480px) {
+        font-size: 20px;
+    }
 }
 
 .tec-filterbar-upsell__title {
@@ -45,9 +63,13 @@
 
 .tec-filterbar-upsell__icon img {
     height: auto;
-    margin-left: 40px;
     object-fit: contain;
-    width: 240px;
+    width: 100px;
+
+    @media only screen and (min-width: 480px) {
+        margin-left: 40px;
+        width: 240px;
+    }
 }
 
 .tec-filterbar-upsell__btn {
