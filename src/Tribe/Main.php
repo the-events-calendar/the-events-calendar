@@ -6141,6 +6141,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since TBD
 		 */
 		public function do_filterbar_upsell_tab() {
+			// Bail if Filter Bar is already installed.
+			if ( class_exists( 'Tribe__Events__Filterbar__View' ) ) {
+				return;
+			}
 
 			ob_start();
 			include_once $this->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
