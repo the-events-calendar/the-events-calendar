@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TDB] TBD =
 
-* Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active.
+* Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
 
 = [5.12.4] 2022-01-19 =
 
