@@ -887,6 +887,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_display_settings_tab_fields', [ $this, 'display_settings_tab_fields' ] );
 			add_filter( 'tribe_settings_url', [ $this, 'tribe_settings_url' ] );
 			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
+			add_action( 'tribe_settings_do_tabs', [ $this, 'do_filterbar_upsell_tab' ] );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', [ $this, 'add_help_section_feature_box_content' ] );
@@ -6132,6 +6133,44 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			];
 
 			$this->get_autoloader_instance()->register_prefixes( $prefixes );
+		}
+
+		/**
+		 * Create a Filter Bar upsell tab.
+		 * 
+		 * @since TBD
+		 */
+		public function do_filterbar_upsell_tab() {
+
+			ob_start();
+			include_once $this->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
+			$filterbar_upsell_tab_html = ob_get_clean();
+
+			$filterbar_upsell_tab = [
+				'info-box-description' => [
+					'type' => 'html',
+					'html' => $filterbar_upsell_tab_html,
+				],
+			];
+			
+			/**
+			* Allows the fields displayed in the Filter Bar upsell tab to be modified.
+			*
+			* @since TBD
+			*
+			* @param array $filterbar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
+			*/
+			$filterbar_upsell_fields = apply_filters( 'tribe_upgrade_fields', $filterbar_upsell_tab );
+			
+			new Tribe__Settings_Tab(
+				'filterbar', esc_html__( 'Filters', 'the_events_calendar' ),
+				[
+					'priority'      => 40,
+					'fields'        => $filterbar_upsell_fields,
+					'network_admin' => is_network_admin(),
+					'show_save'     => false,
+				]
+			);
 		}
 	}
 } // end if !class_exists Tribe__Events__Main
