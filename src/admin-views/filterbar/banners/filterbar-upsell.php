@@ -20,7 +20,7 @@
             <?php esc_html_e( 'Looking for front-end Event Filters so that your website visitors can find exactly the event they are looking for?', 'the-events-calendar' ); ?>
         </p>
         <div class="tec-filterbar-upsell__btn">
-            <a href="https://evnt.is/19o6" target="_blank" rel="noopener noreferrer">
+            <a href="https://evnt.is/1b31" target="_blank" rel="noopener noreferrer">
                 <?php esc_html_e( 'Check out our Filter Bar add-on', 'the-events-calendar' ); ?>
             </a>
         </div>
