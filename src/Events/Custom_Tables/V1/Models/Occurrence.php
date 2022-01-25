@@ -156,6 +156,16 @@ class Occurrence extends Model {
 
 		if ( count( $insertions ) ) {
 			self::insert( $insertions );
+			/**
+			 * Fires after Occurrences for an Event have been inserted.
+			 *
+			 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
+			 * @param array $insertions The inserted Occurrences.
+			 *
+			 * @since TBD
+			 *
+			 */
+			do_action( 'tec_events_custom_tables_v1_after_insert_occurrences', $this->event->post_id, $insertions );
 		}
 
 		/**
@@ -347,6 +357,7 @@ class Occurrence extends Model {
 		$post_id = $this->event->post_id;
 
 		$insertions = [];
+		$updates = [];
 		$utc        = new DateTimeZone( 'UTC' );
 		foreach ( $generator as $result ) {
 			/**
@@ -372,9 +383,23 @@ class Occurrence extends Model {
 				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
 				$result->updated_at          = $updated_at;
 				$result->update();
+				$updates[] = $result;
 				continue;
 			}
 			$insertions[] = $result->toArray();
+		}
+
+		if ( count( $updates ) ) {
+			/**
+			 * Fires after Occurrences for an Event have been updated.
+			 *
+			 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
+			 * @param array $updates The updated Occurrences.
+			 *
+			 * @since TBD
+			 *
+			 */
+			do_action( 'tec_events_custom_tables_v1_after_update_occurrences', $this->event->post_id, $updates );
 		}
 
 		return $insertions;
