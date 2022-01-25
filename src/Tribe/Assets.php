@@ -393,20 +393,6 @@ class Tribe__Events__Assets {
 				],
 			]
 		);
-
-		tribe_assets(
-			$plugin,
-			[
-				[
-					'tec-admin-filterbar-upsell',
-					'tec-admin-filterbar-upsell.css',
-				],
-			],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_enqueue_admin' ],
-			]
-		);
 	}
 
 	/**

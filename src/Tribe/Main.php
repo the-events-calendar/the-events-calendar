@@ -6146,6 +6146,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
+			tribe_assets(
+				self::instance(),
+				[
+					[
+						'tec-admin-filterbar-upsell',
+						'tec-admin-filterbar-upsell.css',
+					],
+				],
+				'admin_enqueue_scripts',
+			);
+
 			ob_start();
 			include_once $this->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
 			$fbar_upsell_tab_html = ob_get_clean();
