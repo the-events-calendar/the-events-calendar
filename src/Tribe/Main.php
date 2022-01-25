@@ -887,7 +887,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_display_settings_tab_fields', [ $this, 'display_settings_tab_fields' ] );
 			add_filter( 'tribe_settings_url', [ $this, 'tribe_settings_url' ] );
 			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
-			add_action( 'tribe_settings_do_tabs', [ $this, 'do_filterbar_upsell_tab' ] );
+			add_action( 'tribe_settings_do_tabs', [ $this, 'do_fbar_upsell_tab' ] );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', [ $this, 'add_help_section_feature_box_content' ] );
@@ -6140,7 +6140,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * 
 		 * @since TBD
 		 */
-		public function do_filterbar_upsell_tab() {
+		public function do_fbar_upsell_tab() {
 			// Bail if Filter Bar is already installed.
 			if ( class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 				return;
@@ -6148,12 +6148,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			ob_start();
 			include_once $this->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
-			$filterbar_upsell_tab_html = ob_get_clean();
+			$fbar_upsell_tab_html = ob_get_clean();
 
-			$filterbar_upsell_tab = [
+			$fbar_upsell_tab = [
 				'info-box-description' => [
 					'type' => 'html',
-					'html' => $filterbar_upsell_tab_html,
+					'html' => $fbar_upsell_tab_html,
 				],
 			];
 			
@@ -6162,15 +6162,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			*
 			* @since TBD
 			*
-			* @param array $filterbar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
+			* @param array $fbar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
 			*/
-			$filterbar_upsell_fields = apply_filters( 'tribe_upgrade_fields', $filterbar_upsell_tab );
+			$fbar_upsell_fields = apply_filters( 'tribe_upgrade_fields', $fbar_upsell_tab );
 			
 			new Tribe__Settings_Tab(
-				'filterbar', esc_html__( 'Filters', 'the_events_calendar' ),
+				'filter-view', esc_html__( 'Filters', 'the_events_calendar' ),
 				[
 					'priority'      => 40,
-					'fields'        => $filterbar_upsell_fields,
+					'fields'        => $fbar_upsell_fields,
 					'network_admin' => is_network_admin(),
 					'show_save'     => false,
 				]
