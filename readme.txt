@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TDB] TBD =
+
+* Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active.
+
 = [5.12.4] 2022-01-19 =
 
 * Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
