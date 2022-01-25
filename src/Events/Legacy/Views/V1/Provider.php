@@ -16,6 +16,7 @@ use Tribe__Utils__Array as Arr;
  * Class Provider
  *
  * @since   TBD
+ 
  * @package TEC\Events\Legacy\Views\V1
  */
 class Provider extends Service_Provider {
