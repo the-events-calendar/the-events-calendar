@@ -156,14 +156,14 @@ class Occurrence extends Model {
 
 		if ( count( $insertions ) ) {
 			self::insert( $insertions );
+
 			/**
 			 * Fires after Occurrences for an Event have been inserted.
 			 *
-			 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
-			 * @param array $insertions The inserted Occurrences.
-			 *
 			 * @since TBD
 			 *
+			 * @param int   $post_id    The ID of the Event post the Occurrences are being saved for.
+			 * @param array $insertions The inserted Occurrences.
 			 */
 			do_action( 'tec_events_custom_tables_v1_after_insert_occurrences', $this->event->post_id, $insertions );
 		}
@@ -393,11 +393,10 @@ class Occurrence extends Model {
 			/**
 			 * Fires after Occurrences for an Event have been updated.
 			 *
-			 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
-			 * @param array $updates The updated Occurrences.
-			 *
 			 * @since TBD
 			 *
+			 * @param array $updates The updated Occurrences.
+			 * @param int   $post_id The ID of the Event post the Occurrences are being saved for.
 			 */
 			do_action( 'tec_events_custom_tables_v1_after_update_occurrences', $this->event->post_id, $updates );
 		}
