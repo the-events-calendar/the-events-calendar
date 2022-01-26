@@ -182,9 +182,7 @@ export default class GoogleMap extends Component {
 	}
 
 	loadMap() {
-		console.log('loadMap');
 		if ( ! google() ) {
-			console.log('noGoogle');
 			this.tryAgain();
 			return;
 		}
@@ -192,16 +190,13 @@ export default class GoogleMap extends Component {
 		const { maps } = google();
 		// Try to fetch the library 0.5 seconds later
 		if ( ! maps ) {
-			console.log('noMaps');
 			this.tryAgain();
 			return;
 		}
 
 		// There's no valid coordinates, fallback to the image map.
 		if ( this.invalidLocation() ) {
-			console.log('invalidLocation');
 			const { address } = this.props;
-			console.log(this.props);
 
 			if ( isEmpty( address ) ) {
 				this.setState( {
@@ -403,8 +398,6 @@ export default class GoogleMap extends Component {
 	}
 
 	get mapUrl() {
-		console.log('mapUrl');
-		console.log(this.props);
 		const {
 			zoom,
 			size,

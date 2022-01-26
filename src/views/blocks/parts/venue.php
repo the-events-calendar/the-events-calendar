@@ -29,7 +29,7 @@ $website = tribe_get_venue_website_link();
 	</div>
 
 	<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
-	<?php $foo = ''; ?>
+
 	<?php if ( tribe_address_exists() ) : ?>
 		<address class="tribe-block__venue__address">
 			<?php echo tribe_get_full_address(); ?>
