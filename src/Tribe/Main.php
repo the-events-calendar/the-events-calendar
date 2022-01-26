@@ -6146,7 +6146,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			tribe_assets(
+			tribe_asset(
 				self::instance(),
 				[
 					[
