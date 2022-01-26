@@ -3,6 +3,7 @@ namespace Tribe\Events\Admin;
 
 use Tribe__Events__Main;
 use Tribe__Settings_Tab;
+use Tribe__Admin__Helpers;
 
 /**
  * Class Filter_Bar_Upsell
@@ -37,6 +38,9 @@ class Filter_Bar_Upsell {
 			'tec-admin-filterbar-upsell.css',
 			[],
 			'admin_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'should_enqueue_admin' ],
+			]
 		);
 
 		ob_start();
@@ -68,5 +72,16 @@ class Filter_Bar_Upsell {
 				'show_save'     => false,
 			]
 		);
+	}
+
+	/**
+	 * Checks whether we are on the correct admin page to enqueue admin.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_admin() {
+		return Tribe__Admin__Helpers::instance()->is_screen();
 	}
 }
