@@ -6146,14 +6146,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			tribe_assets(
+			tribe_asset(
 				self::instance(),
-				[
-					[
-						'tec-admin-filterbar-upsell',
-						'tec-admin-filterbar-upsell.css',
-					],
-				],
+				'tec-admin-filterbar-upsell',
+				'tec-admin-filterbar-upsell.css',
+				[],
 				'admin_enqueue_scripts',
 			);
 
