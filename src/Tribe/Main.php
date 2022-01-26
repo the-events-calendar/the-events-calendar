@@ -6146,7 +6146,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			tribe_asset(
+			tribe_assets(
 				self::instance(),
 				[
 					[
@@ -6159,12 +6159,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			ob_start();
 			include_once $this->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
-			$fbar_upsell_tab_html = ob_get_clean();
+			$tec_events_fbar_upsell_tab_html = ob_get_clean();
 
-			$fbar_upsell_tab = [
+			$tec_events_fbar_upsell_tab = [
 				'info-box-description' => [
 					'type' => 'html',
-					'html' => $fbar_upsell_tab_html,
+					'html' => $tec_events_fbar_upsell_tab_html,
 				],
 			];
 			
@@ -6173,15 +6173,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			*
 			* @since TBD
 			*
-			* @param array $fbar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
+			* @param array $tec_events_fbar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
 			*/
-			$fbar_upsell_fields = apply_filters( 'tribe_upgrade_fields', $fbar_upsell_tab );
+			$tec_events_fbar_upsell_fields = apply_filters( 'tribe_upgrade_fields', $tec_events_fbar_upsell_tab );
 			
 			new Tribe__Settings_Tab(
 				'filter-view', esc_html__( 'Filters', 'the_events_calendar' ),
 				[
 					'priority'      => 40,
-					'fields'        => $fbar_upsell_fields,
+					'fields'        => $tec_events_fbar_upsell_fields,
 					'network_admin' => is_network_admin(),
 					'show_save'     => false,
 				]
