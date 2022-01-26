@@ -6155,7 +6155,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			ob_start();
-			include_once $this->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
+			include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
 			$tec_events_fbar_upsell_tab_html = ob_get_clean();
 
 			$tec_events_fbar_upsell_tab = [
