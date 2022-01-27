@@ -639,7 +639,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Database locks.
 			tribe_singleton( 'db-lock', DB_Lock::class );
 
-			// FBar Upsell
+			// Filter Bar.
 			tribe_singleton( Tribe\Events\Admin\Filter_Bar_Upsell::class, Tribe\Events\Admin\Filter_Bar_Upsell::class, [ 'hook' ] );
 		}
 
