@@ -24,12 +24,11 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		}
 
 		/**
-		 * Create a Filter Bar upsell tab.
+		 * Register Assets.
 		 * 
 		 * @since TBD
 		 */
-		public function do_filter_bar_upsell_tab() {
-
+		public function add_assets() {
 			tribe_asset(
 				Tribe__Events__Main::instance(),
 				'tec-admin-filterbar-upsell',
@@ -40,6 +39,14 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 					'conditionals' => [ $this, 'should_enqueue_admin' ],
 				]
 			);
+		}
+
+		/**
+		 * Create a Filter Bar upsell tab.
+		 * 
+		 * @since TBD
+		 */
+		public function do_filter_bar_upsell_tab() {
 
 			ob_start();
 			include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';

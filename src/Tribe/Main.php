@@ -640,7 +640,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'db-lock', DB_Lock::class );
 
 			// Filter Bar.
-			tribe_singleton( Tribe\Events\Admin\Filter_Bar\Provider::class, Tribe\Events\Admin\Filter_Bar\Provider::class, [ 'add_actions' ] );
+			tribe_singleton( Tribe\Events\Admin\Filter_Bar\Provider::class, Tribe\Events\Admin\Filter_Bar\Provider::class, [ 'add_actions', 'add_assets' ] );
 		}
 
 		/**
