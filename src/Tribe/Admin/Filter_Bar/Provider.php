@@ -13,7 +13,18 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 	 * @since TBD
 	 *
 	 */
-	class Provider {
+	class Provider extends \tad_DI52_ServiceProvider {
+
+		/**
+		 * Binds and sets up implementations.
+		 *
+		 * @since TBD
+		 */
+		public function register() {
+			$this->add_actions();
+			$this->add_assets();
+		}
+
 		/**
 		 * Add actions.
 		 *
