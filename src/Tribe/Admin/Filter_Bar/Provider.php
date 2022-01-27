@@ -1,17 +1,17 @@
 <?php
-namespace Tribe\Events\Admin;
+namespace Tribe\Events\Admin\Filter_Bar;
 
 use Tribe__Events__Main;
 use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;
 
 /**
- * Class Filter_Bar_Upsell
+ * Class Provider
  *
  * @since TBD
  *
  */
-class Filter_Bar_Upsell {
+class Provider {
 	/**
 	 * Add filters and actions.
 	 *

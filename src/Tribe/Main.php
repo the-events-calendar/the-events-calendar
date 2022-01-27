@@ -640,7 +640,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'db-lock', DB_Lock::class );
 
 			// Filter Bar.
-			tribe_singleton( Tribe\Events\Admin\Filter_Bar_Upsell::class, Tribe\Events\Admin\Filter_Bar_Upsell::class, [ 'hook' ] );
+			tribe_singleton( Tribe\Events\Admin\Filter_Bar\Provider::class, Tribe\Events\Admin\Filter_Bar\Provider::class, [ 'hook' ] );
 		}
 
 		/**
@@ -976,7 +976,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( Tribe\Events\Admin\Notice\Full_Site_Editor::class );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
-			tribe( Tribe\Events\Admin\Filter_Bar_Upsell::class );
+			tribe( Tribe\Events\Admin\Filter_Bar\Provider::class );
 		}
 
 		/**
