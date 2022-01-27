@@ -15,11 +15,11 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 	 */
 	class Provider {
 		/**
-		 * Add filters and actions.
+		 * Add actions.
 		 *
 		 * @since TBD
 		 */
-		public function hook() {
+		public function add_actions() {
 			add_action( 'tribe_settings_do_tabs', [ $this, 'do_filter_bar_upsell_tab' ] );
 		}
 
