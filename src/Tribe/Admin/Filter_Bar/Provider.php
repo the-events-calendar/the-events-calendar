@@ -20,7 +20,7 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		 * @since TBD
 		 */
 		public function add_actions() {
-			add_action( 'tribe_settings_do_tabs', [ $this, 'do_filter_bar_upsell_tab' ] );
+			add_action( 'tribe_settings_do_tabs', [ $this, 'add_tab' ] );
 		}
 
 		/**
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		 *
 		 * @return Tribe__Template
 		 */
-		public function get_html( $context = [], $echo = false ) {
+		public function get_upsell_html( $context = [], $echo = false ) {
 			
 			return $this->get_template()->template( 'upsell', wp_parse_args( $context ), $echo );
 		}
@@ -89,12 +89,12 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		 * 
 		 * @since TBD
 		 */
-		public function do_filter_bar_upsell_tab() {
+		public function add_tab() {
 
 			$tec_events_filter_bar_upsell_tab = [
 				'filter_bar-upsell-info-box-description' => [
 					'type' => 'html',
-					'html' => $this->get_html(),
+					'html' => $this->get_upsell_html(),
 				],
 			];
 			
