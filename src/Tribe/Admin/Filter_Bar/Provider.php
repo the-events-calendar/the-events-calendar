@@ -42,20 +42,59 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		}
 
 		/**
+		 * Stores the instance of the template engine that we will use for rendering the elements.
+		 *
+		 * @since TBD
+		 *
+		 * @var Tribe__Template
+		 */
+		protected $template;
+
+		/**
+		 * Gets the template instance used to setup the rendering html.
+		 *
+		 * @since TBD
+		 *
+		 * @return Tribe__Template
+		 */
+		public function get_template() {
+			if ( empty( $this->template ) ) {
+				$this->template = new \Tribe__Template();
+				$this->template->set_template_origin( \Tribe__Events__Main::instance() );
+				$this->template->set_template_folder( 'src/admin-views/filter_bar' );
+				$this->template->set_template_context_extract( true );
+				$this->template->set_template_folder_lookup( false );
+			}
+
+			return $this->template;
+		}
+
+		/**
+		 * Returns html of the Filter Bar upsell banner.
+		 *
+		 * @since TBD
+		 * 
+		 * @param array   $context Context of template.
+		 * @param boolean $echo    Whether or not to output the HTML or just return it.
+		 *
+		 * @return Tribe__Template
+		 */
+		public function get_html( $context = [], $echo = false ) {
+			
+			return $this->get_template()->template( 'upsell', wp_parse_args( $context ), $echo );
+		}
+
+		/**
 		 * Create a Filter Bar upsell tab.
 		 * 
 		 * @since TBD
 		 */
 		public function do_filter_bar_upsell_tab() {
 
-			ob_start();
-			include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/filterbar/banners/filterbar-upsell.php';
-			$tec_events_filter_bar_upsell_tab_html = ob_get_clean();
-
 			$tec_events_filter_bar_upsell_tab = [
 				'filter_bar-upsell-info-box-description' => [
 					'type' => 'html',
-					'html' => $tec_events_filter_bar_upsell_tab_html,
+					'html' => $this->get_html(),
 				],
 			];
 			
