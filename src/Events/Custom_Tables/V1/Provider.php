@@ -20,7 +20,7 @@ use tad_DI52_ServiceProvider as Service_Provider;
  *
  * @since   TBD
  *
- * @package TEC\Events\Custom_Tables\V1\Repository
+ * @package TEC\Events\Custom_Tables\V1
  */
 class Provider extends Service_Provider {
 	const DISABLED = 'TEC_CUSTOM_TABLES_V1_DISABLED';
@@ -99,7 +99,6 @@ class Provider extends Service_Provider {
 			$this->container->register( Tables\Provider::class );
 			$this->container->register( WP_Query\Provider::class );
 			$this->container->register( Updates\Provider::class );
-			$this->container->register( Repository\Provider::class );
 
 			$this->container->register( Views\V2\Provider::class );
 
