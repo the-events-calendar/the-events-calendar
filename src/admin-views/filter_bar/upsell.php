@@ -4,6 +4,7 @@
  * 
  * @since TBD
  */
+$main = Tribe__Events__Main::instance();
 ?>
 <div class="tec-filterbar-upsell">
     <div class="tec-filterbar-upsell__content">
