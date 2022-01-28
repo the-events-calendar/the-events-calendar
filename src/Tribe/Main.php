@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.12.3';
+		const VERSION             = '5.13.0';
 
 		/**
 		 * Min Pro Addon
@@ -602,6 +602,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', [ 'hook' ] );
 			tribe_singleton( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, [ 'hook' ] );
+			tribe_singleton( Tribe\Events\Admin\Notice\Full_Site_Editor::class, Tribe\Events\Admin\Notice\Full_Site_Editor::class, [ 'hook' ] );
+
 
 			// GDPR Privacy
 			tribe_singleton( 'tec.privacy', 'Tribe__Events__Privacy', [ 'hook' ] );
@@ -973,6 +975,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
+			tribe( Tribe\Events\Admin\Notice\Full_Site_Editor::class );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
 		}
@@ -2601,7 +2604,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * stored as the default but can no longer be generated due to the plugin being deactivated.
 		 *
 		 * @since 3.3
-		 * @since TBD - Add a filter to the default view determination.
+		 * @since 5.12.3 - Add a filter to the default view determination.
 		 *
 		 * @todo Once we deprecate v1, this should use the slug from Tribe\Events\Views\V2\Views\Month_View instead of the string 'month'.
 		 *
@@ -2632,7 +2635,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allows other plugins (and v2 views) to hook in and alter the default view determined here.
 			 *
-			 * @since TBD
+			 * @since 5.12.3
 			 *
 			 * @param string      $default The slug of the default view.
 			 * @param string|null $type    The type of default View to return, either 'desktop' or 'mobile'.

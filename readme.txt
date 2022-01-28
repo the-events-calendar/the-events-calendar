@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.12.3
-Tested up to: 5.8.2
+Stable tag: 5.13.0
+Tested up to: 5.8.3
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,20 +221,32 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.12.3] TBD =
+= [5.12.4] 2022-01-19 =
 
+* Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
+* Tweak - Add hook to CSV importer to enable add-on plugins to support their fields during import. [VE-387]
+* Tweak - Included new filter `tec_system_information` allowing better control over the Troubleshooting Help page.
+* Tweak - Included a Views V2 Status on the Troubleshooting page system info section to help with clarity for support.
+* Tweak - Add notice for Themes using Full Site Editor incompatibility with Widgets. [TEC-4233]
+* Fix - Prevent Onboarding assets from loading on the admin when not needed.
+* Fix - Remove CSS attributes targeting `aria-labels` to prevent inconsistent styling for different languages. [TEC-4227]
+* Fix - Resolve sorting problems when using orderby with the Event repository when no other orderby values are specified. [TEC-4232]
+
+= [5.12.3] 2022-01-10 =
+
+* Version - The Events Calendar 5.12.3 is only compatible with Events Calendar PRO 5.11.2 and higher
 * Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
 * Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3826]
 * Tweak - Boost SEO for category archive pages by fixing the title tag. [TEC-4110]
 * Tweak - Add filter to allow users to choose if the taxonomy should show parent categories [TEC-4110]
 * Tweak - Move handling of mobile view to ECP. Add filter to allow overriding default view. [TEC-3826]
+* Language - 0 new strings added, 71 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.12.2] 2021-12-20 =
 
 * Fix - Remove trailing comma that can cause fatals on older versions of PHP. [FBAR-252]
 * Fix - Prevent infinite loops in the block editor when including the links block. [TEC-4190]
 * Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
-
 
 = [5.12.1] 2021-12-14 =
 

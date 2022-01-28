@@ -172,7 +172,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				/**
 				 * Allows other plugins (and v2 views) to hook in and alter this before we change the query.
 				 *
-				 * @since TBD
+				 * @since 5.12.3
 				 *
 				 * @param string $default_view The slug of the default view to pass to the query.
 				 */
