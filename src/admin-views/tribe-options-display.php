@@ -220,22 +220,6 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 	]
 );
 
-if ( tribe( 'tec.main' )->show_upgrade() ) {
-	$display_tab_fields = Tribe__Main::array_insert_before_key(
-		'tribeEventsDateFormatSettingsTitle',
-		$display_tab_fields,
-		[
-			'views_v2_enabled' => [
-				'type'            => 'checkbox_bool',
-				'label'           => __( 'Use updated calendar designs', 'the-events-calendar' ),
-				'tooltip'         => __( 'Enable updated designs for all calendar views', 'the-events-calendar' ),
-				'validation_type' => 'boolean',
-				'default'         => false,
-			],
-		]
-	);
-}
-
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
 	$display_tab_fields,
