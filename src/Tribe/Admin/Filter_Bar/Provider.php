@@ -116,7 +116,7 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			*
 			* @param array $tec_events_filter_bar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
 			*/
-			$tec_events_admin_filter_bar_upsell_fields = apply_filters( 'tribe_upgrade_fields', $tec_events_filter_bar_upsell_tab );
+			$tec_events_admin_filter_bar_upsell_fields = apply_filters( 'tec_events_filterbar_upgrade_content', $tec_events_filter_bar_upsell_tab );
 			
 			new Tribe__Settings_Tab(
 				'filter-view', esc_html__( 'Filters', 'the_events_calendar' ),
