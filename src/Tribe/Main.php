@@ -3064,10 +3064,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			/**
 			 * Allow users to Filter our Google Calendar Link params
+			 *
+			 * @deprecated TBD Moved generic hook to something more specific and appropriate.
+			 *
 			 * @var array Params used in the add_query_arg
 			 * @var int   Event ID
 			 */
-			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $post->ID );
+			$params = apply_filters_deprecated(
+				'tribe_google_calendar_parameters',
+				[ $params, $post->ID ],
+				'TBD',
+				'tec_views_v2_single_event_gcal_link_parameters',
+				'Moved generic hook to something more specific and appropriate while moving function.'
+			);
 
 			$base_url = 'https://www.google.com/calendar/event';
 			$url    = add_query_arg( $params, $base_url );

@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main;
+use WP_Post;
 
 /**
  * Class Google_Calendar
@@ -45,12 +46,12 @@ class Google_Calendar extends Link_Abstract {
 			 *
 			 * @since TBD
 			 *
-			 * @param boolean $use_single_uri Use the single event uri for single event views. Default true.
+			 * @param boolean $use_single_url Use the single event url for single event views. Default true.
 			 */
-			$use_single_uri = apply_filters( 'tec_views_v2_subscribe_links_gcal_single_uri', true, );
+			$use_single_url = apply_filters( 'tec_views_v2_subscribe_links_gcal_single_url', true, );
 
-			if ( $use_single_uri ) {
-				return $this->generate_single_uri();
+			if ( $use_single_url ) {
+				return $this->generate_single_url();
 			}
 		}
 
@@ -83,7 +84,7 @@ class Google_Calendar extends Link_Abstract {
 	 *
 	 * @return string                  URL string. Empty string if post not found or post is not an event.
 	 */
-	public function generate_single_uri( $post = null ) {
+	public function generate_single_url( $post = null ) {
 		if ( empty( $post ) ) {
 			$post = get_the_ID();
 		}
@@ -94,15 +95,64 @@ class Google_Calendar extends Link_Abstract {
 			return '';
 		}
 
-		$base_url =  'https://www.google.com/calendar/r/eventedit';
+		$base_url =  'https://www.google.com/calendar/event';
+
+		/**
+		 * Allow users to Filter our Google Calendar Link base URL before constructing the URL.
+		 * After this filter, the list will be trimmed to remove any empty values and discarded if any required params are missing.
+		 *
+		 * @since TBD
+		 *
+		 * @var array   $base_url The base url used in the add_query_arg.
+		 * @var WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
+		 */
+		$base_url = apply_filters( 'tec_views_v2_single_event_gcal_link_base_url', $base_url, $event );
+
+		$event_details = empty( $event->description ) ? urlencode( $event->description ) : '';
+
+		if ( ! empty( $event_details ) ) {
+
+			//Truncate Event Description and add permalink if greater than 996 characters
+			$event_details = $this->format_event_details_for_url( $event_details, $event, 996 );
+		}
+
 		$pieces   = [
 			'action'   => 'TEMPLATE',
      		'dates'    => $event->dates->start->format( 'Ymd\THis' ) . '/' . $event->dates->end->format( 'Ymd\THis' ),
      		'text'     => urlencode( get_the_title( $event ) ),
-			'details'  => empty( $event->description ) ? urlencode( $event->description ) : 'Test Event Description',
+			'details'  => $event_details,
 			'location' => self::generate_string_address( $event ),
+			'trp'      => 'false',
 			'ctz'      => $event->dates->start->format( 'e' ),
+			'sprop'    => 'website:' . home_url(),
 		];
+
+		/**
+		 * Allow users to Filter our Google Calendar Link params
+		 *
+		 * @deprecated TBD Moved generic hook to something more specific and appropriate.
+		 *
+		 * @var array Params used in the add_query_arg
+		 * @var int   Event ID
+		 */
+	   $pieces = apply_filters_deprecated(
+		   'tribe_google_calendar_parameters',
+		   [ $pieces, $event->ID ],
+		   'TBD',
+		   'tec_views_v2_single_event_gcal_link_parameters',
+		   'Moved generic hook to something more specific and appropriate while moving function.'
+		);
+
+		/**
+		 * Allow users to Filter our Google Calendar Link params before constructing the URL.
+		 * After this filter, the list will be trimmed to remove any empty values and discarded if any required params are missing.
+		 *
+		 * @since TBD
+		 *
+		 * @var array   $pieces   The params used in the add_query_arg.
+		 * @var WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
+		 */
+		$params = apply_filters( 'tec_views_v2_single_event_gcal_link_parameters', $pieces, $event );
 
 		$pieces = array_filter( $pieces );
 
@@ -111,10 +161,55 @@ class Google_Calendar extends Link_Abstract {
 			return '';
 		}
 
-		$uri = add_query_arg( $pieces, $base_url );
+		$url = add_query_arg( $pieces, $base_url );
 
-		return apply_filters( 'tec_views_v2_single_gcal_subscribe_link', $uri, $event );
+		/**
+		 * Allow users to Filter our Google Calendar Link URL - after all params have been applied to the URL.
+		 *
+		 * @since TBD
+		 *
+		 * @var array   $url   The url to use.
+		 * @var WP_Post $event The Event the link is for. As decorated by tribe_get_event().
+		 */
+		return apply_filters( 'tec_views_v2_single_gcal_subscribe_link', $url, $event );
 
+	}
+
+	/**
+	 * Truncate Event Description and add permalink if greater than $length characters.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $event_details The event description.
+	 * @param WP_Post|int $post_id The event post or ID.
+	 * @param int         $length The max length for the description before adding a "read more" link.
+	 *
+	 * @return string The possibly modified event description.
+	 */
+	public function format_event_details_for_url( $event_details, $post, int $length = 0 ) {
+		// Hack: Add space after paragraph
+		// Normally Google Cal understands the newline character %0a
+		// And that character will automatically replace newlines on urlencode()
+		$event_details = str_replace ( '</p>', '</p> ', $event_details );
+		$event_details = strip_tags( $event_details );
+
+		if ( strlen( $event_details ) <= 996 ) {
+			return $event_details;
+		}
+
+		$event_details = substr( $event_details, 0, 996 );
+
+		$event_url     = get_permalink( $post );
+
+		//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits.
+		if ( strlen( $event_url ) > 900 ) {
+			return $event_details;
+		}
+
+		// Append the "read more" link.
+		$event_details .= sprintf( esc_html__( ' (View Full %1$s Description Here: %2$s)', 'the-events-calendar' ), $this->singular_event_label, $event_url );
+
+		return $event_details;
 	}
 
 	public static function generate_string_address( $event = null ) {
@@ -135,7 +230,7 @@ class Google_Calendar extends Link_Abstract {
 
 		$tec     = Tribe__Events__Main::instance();
 		$address = $tec->fullAddressString( $event );
-		// The above includes the venue name,
+		// The above includes the venue name.
 
 		return $address;
 	}
