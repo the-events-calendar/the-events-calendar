@@ -10,6 +10,11 @@
  * @since   4.6.19
  *
  */
+
+if ( tec_events_views_v1_should_display_deprecated_notice() ) {
+	_deprecated_file( __FILE__, 'TBD', null, 'Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
+}
+
 ?>
 
 <div class="tribe-events-title-bar">
