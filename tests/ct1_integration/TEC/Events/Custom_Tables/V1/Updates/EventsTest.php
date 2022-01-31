@@ -176,7 +176,9 @@ class EventsTest extends WPTestCase {
 		$events  = new Events();
 		$updated = $events->rebuild_known_range();
 
-		$this->assertFalse( $updated );
+		$this->assertContains( wp_date( 'Y-m-d' ), tribe_get_option( 'earliest_date' ) );
+		$this->assertContains( wp_date( 'Y-m-d' ), tribe_get_option( 'latest_date' ) );
+		$this->assertTrue( $updated );
 	}
 
 	/**
@@ -237,5 +239,44 @@ class EventsTest extends WPTestCase {
 		$this->assertTrue( $updated );
 		$this->assertEquals( '2020-01-01 08:00:00', tribe_get_option( 'earliest_date' ) );
 		$this->assertEquals( '2020-03-01 12:00:00', tribe_get_option( 'latest_date' ) );
+	}
+
+
+	/**
+	 * It should correctly fetch earliest and latest dates
+	 *
+	 * @test
+	 */
+	public function should_correctly_fetch_earliest_and_latest_dates() {
+		$events = new Events();
+
+		$this->assertEquals( wp_date( 'Y-m-d' ), $events->get_earliest_date()->format( 'Y-m-d' ) );
+		$this->assertEquals( wp_date( 'Y-m-d' ), $events->get_latest_date()->format( 'Y-m-d' ) );
+
+		$this->given_an_event_with_status_and_dates( 'publish', '2020-01-01 08:00:00', '2020-01-01 12:00:00' );
+		$this->given_an_event_with_status_and_dates( 'private', '2021-01-01 08:00:00', '2021-01-01 12:00:00' );
+		$this->given_an_event_with_status_and_dates( 'draft', '2022-01-01 08:00:00', '2022-01-01 12:00:00' );
+		$this->given_an_event_with_status_and_dates( 'protected', '2023-01-01 08:00:00', '2023-01-01 12:00:00' );
+
+		$this->assertEquals( '2020-01-01 08:00:00', $events->get_earliest_date()->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2023-01-01 12:00:00', $events->get_latest_date()->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2020-01-01 08:00:00', $events->get_earliest_date( 'publish' )->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2020-01-01 12:00:00', $events->get_latest_date( 'publish' )->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2020-01-01 08:00:00', $events->get_earliest_date( [ 'publish','draft' ] )->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2022-01-01 12:00:00', $events->get_latest_date( [
+			'publish',
+			'draft'
+		] )->format( 'Y-m-d H:i:s' ) );
+	}
+
+	private function given_an_event_with_status_and_dates( $post_status, $start_date, $end_date ) {
+		$published = tribe_events()->set_args( [
+			'title'      => 'Test',
+			'start_date' => $start_date,
+			'end_date'   => $end_date,
+			'status'     => $post_status,
+		] )->create();
+		$this->assertInstanceOf( WP_Post::class, $published );
+		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $published->ID )->count() );
 	}
 }

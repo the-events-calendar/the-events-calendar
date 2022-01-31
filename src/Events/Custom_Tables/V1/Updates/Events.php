@@ -13,7 +13,9 @@ namespace TEC\Events\Custom_Tables\V1\Updates;
 use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use Tribe__Events__Main as TEC;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Events
@@ -106,20 +108,70 @@ class Events {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the values were updated or not. They will not be updated
-	 *              if no Occurrences are found in the database.
+	 * @return true To indicate the earliest and latest Event dates were updated.
 	 */
-	public function rebuild_known_range(){
-		$first = Occurrence::order_by( 'start_date_utc', 'ASC' )->first();
-		$last  = Occurrence::order_by( 'end_date_utc', 'DESC' )->first();
-
-		if ( ! ( $first instanceof Occurrence && $last instanceof Occurrence ) ) {
-			return false;
-		}
-
-		tribe_update_option( 'earliest_date', $first->start_date );
-		tribe_update_option( 'latest_date', $last->end_date );
+	public function rebuild_known_range() {
+		tribe_update_option( 'earliest_date', $this->get_earliest_date()->format( Dates::DBDATETIMEFORMAT ) );
+		tribe_update_option( 'latest_date', $this->get_latest_date()->format( Dates::DBDATETIMEFORMAT ) );
 
 		return true;
+	}
+
+	/**
+	 * Fetches an aggregate date value from the database.
+	 *
+	 * @since TBD
+	 * @param string            $aggregate The SQL aggregate function to use, e.g. `MIN` or `MAX`.
+	 * @param string            $column    The column to use the aggregate function on.
+	 * @param array|string|null $stati     An array of post statuses to return the aggregate column for.
+	 *
+	 * @return \DateTime|false|\Tribe\Utils\Date_I18n
+	 */
+	private function get_boundary_date( $aggregate, $column, $stati = null ) {
+		global $wpdb;
+		$occurrences = Occurrences::table_name( true );
+		if ( empty( $stati ) ) {
+			/**
+			 * @see \Tribe__Events__Dates__Known_Range::rebuild_known_range() for documentation.
+			 */
+			$stati = apply_filters( 'tribe_events_known_range_stati', [ 'publish', 'private', 'protected' ] );
+		}
+		$statuses = $wpdb->prepare( implode( ',', array_fill( 0, count( (array) $stati ), '%s' ) ), (array) $stati );
+		$date     = $wpdb->get_var( "SELECT {$aggregate}(o.{$column}) FROM $occurrences o
+			JOIN $wpdb->posts p ON p.ID = o.post_id
+			WHERE p.post_status IN ($statuses)"
+		);
+
+		return Dates::build_date_object( $date, new \DateTimeZone( 'UTC' ) );
+	}
+
+	/**
+	 * Returns the earliest Event start date in the database.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array|null $stati A post status, or a set of post statuses, to fetch
+	 *                                 the earliest date for; or `null` to use the default
+	 *                                 set of statuses.
+	 *
+	 * @return \DateTime The earliest start time object, in the site timezone.
+	 */
+	public function get_earliest_date( $stati = null ) {
+		return $this->get_boundary_date( 'MIN', 'start_date_utc', $stati );
+	}
+
+	/**
+	 * Returns the latest Event start date in the database.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|array|null $stati A post status, or a set of post statuses, to fetch
+	 *                                 the latest date for; or `null` to use the default
+	 *                                 set of statuses.
+	 *
+	 * @return \DateTime The latest start time object, in the site timezone.
+	 */
+	public function get_latest_date( $stati = null ) {
+		return $this->get_boundary_date( 'MAX', 'end_date_utc', $stati );
 	}
 }
