@@ -109,7 +109,7 @@ class Provider extends Service_Provider {
 		}
 
 		foreach ( $data['paths'] as $path => $template_path ) {
-			_deprecated_file( $path, 'TBD', null, 'Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
+			_deprecated_file( $path, 'TBD', null, 'On version 6.0.0 this file will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
 		}
 
 		set_transient( 'tec_events_legacy_views_v1_removed_paths_checked', $data, DAY_IN_SECONDS );
