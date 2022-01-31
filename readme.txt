@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.12.0
-Tested up to: 5.8.2
+Stable tag: 5.12.4
+Tested up to: 5.8.3
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -220,6 +220,50 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.12.4] 2022-01-19 =
+
+* Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
+* Tweak - Add hook to CSV importer to enable add-on plugins to support their fields during import. [VE-387]
+* Tweak - Included new filter `tec_system_information` allowing better control over the Troubleshooting Help page.
+* Tweak - Included a Views V2 Status on the Troubleshooting page system info section to help with clarity for support.
+* Tweak - Add notice for Themes using Full Site Editor incompatibility with Widgets. [TEC-4233]
+* Fix - Prevent Onboarding assets from loading on the admin when not needed.
+* Fix - Remove CSS attributes targeting `aria-labels` to prevent inconsistent styling for different languages. [TEC-4227]
+* Fix - Resolve sorting problems when using orderby with the Event repository when no other orderby values are specified. [TEC-4232]
+
+= [5.12.3] 2022-01-10 =
+
+* Version - The Events Calendar 5.12.3 is only compatible with Events Calendar PRO 5.11.2 and higher
+* Fix - Ensure the modifications made through the `tribe_events_views_v2_category_title` are respected. [TEC-4110]
+* Fix - Correct issue where mobile default view does not load correctly when homepage set to Events Main. [TEC-3826]
+* Tweak - Boost SEO for category archive pages by fixing the title tag. [TEC-4110]
+* Tweak - Add filter to allow users to choose if the taxonomy should show parent categories [TEC-4110]
+* Tweak - Move handling of mobile view to ECP. Add filter to allow overriding default view. [TEC-3826]
+* Language - 0 new strings added, 71 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.12.2] 2021-12-20 =
+
+* Fix - Remove trailing comma that can cause fatals on older versions of PHP. [FBAR-252]
+* Fix - Prevent infinite loops in the block editor when including the links block. [TEC-4190]
+* Fix - Initial steps to make The Events Calendar compatible with PHP 8.1
+
+= [5.12.1] 2021-12-14 =
+
+* Feature - Add TEC widget based blocks to the `Event Blocks` custom block category. [TEC-4151]
+* Feature - Add Event Status filter options when Filter Bar is active. [FBAR-92]
+* Fix - Add a valid rel value to the link tag for TEC REST API support in order to improve HTML 5 and WCAG 2.1 compliance. (props to @gabyrau for the fix!) [TEC-4129]
+* Fix - Ensure the date selected when creating a new event from the Event Manager is applied to the block editor. [ECP-954]
+* Fix - Properly observe the disabling of JSON-LD output on widget blocks in the block editor. [TEC-4077]
+* Fix - Prevent PHP warning in some cases when fetching the date from `tribe_get_display_end_date()`. (props to @huubl for the fix!) [TEC-4161]
+* Fix - Close a div in the new subscribe dropdown that was left open. Props to @whoisuncle for bringing this to our attention! [TEC-4166]
+* Tweak - Ensure the `Disable the Event Search Bar` setting doesn't get applied on the Event Manager page. [ECP-948]
+* Tweak - Ensure the `related events title` and `event titles` within the single event page for the block editor make use the customizer font settings. [TEC-4125]
+* Tweak - Update the description text for the "Merge Duplicates" action. Add filters for data sets usd for comparison. [TEC-3018]
+* Tweak - Adjust the Subscribe to Calendar dropdown styling to better accommodate themes with sidebars. [TEC-4166]
+* Tweak - Add the Event List and Mini-Calendar widgets to the Event Blocks category. [TEC-4151]
+* Tweak - Correct some incorrect template paths in docblocks. [TEC-4111]
+* Language - 4 new strings added, 159 updated, 0 fuzzied, and 1 obsoleted
 
 = [5.12.0] 2021-12-02 =
 

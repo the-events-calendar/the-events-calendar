@@ -593,6 +593,18 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
+			'tec-blocks-category-icon-styles',
+			'tribe-admin-block-category-icons.css',
+			[],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'conditionals' => [ $this, 'is_edit_screen' ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
 			'tribe-block-editor',
 			'app/editor.css',
 			[],
@@ -680,11 +692,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		// Make sure we have the post available.
 		if ( empty( $context->post ) ) {
-			return $categories;
-		}
-
-		// Make sure it's an event post.
-		if ( ! tribe_is_event( $context->post ) ) {
 			return $categories;
 		}
 
