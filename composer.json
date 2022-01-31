@@ -43,7 +43,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Tribe\\Events\\" : "src/Tribe"
+      "Tribe\\Events\\" : "src/Tribe",
+      "TEC\\Events\\" : "src/Events"
     }
   },
   "autoload-dev": {
