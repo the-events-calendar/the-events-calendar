@@ -100,6 +100,7 @@ class Google_Calendar extends Link_Abstract {
 		/**
 		 * Allow users to Filter our Google Calendar Link base URL before constructing the URL.
 		 * After this filter, the list will be trimmed to remove any empty values and discarded if any required params are missing.
+		 * Returning an empty/falsy value here will short-circuit the function to bail out now with an empty string.
 		 *
 		 * @since TBD
 		 *
@@ -108,10 +109,13 @@ class Google_Calendar extends Link_Abstract {
 		 */
 		$base_url = apply_filters( 'tec_views_v2_single_event_gcal_link_base_url', $base_url, $event );
 
+		if ( empty( $base_url ) ) {
+			return '';
+		}
+
 		$event_details = empty( $event->description ) ? urlencode( $event->description ) : '';
 
 		if ( ! empty( $event_details ) ) {
-
 			//Truncate Event Description and add permalink if greater than 996 characters
 			$event_details = $this->format_event_details_for_url( $event_details, $event, 996 );
 		}
@@ -119,7 +123,7 @@ class Google_Calendar extends Link_Abstract {
 		$pieces   = [
 			'action'   => 'TEMPLATE',
      		'dates'    => $event->dates->start->format( 'Ymd\THis' ) . '/' . $event->dates->end->format( 'Ymd\THis' ),
-     		'text'     => urlencode( get_the_title( $event ) ),
+     		'text'     => rawurlencode( get_the_title( $event ) ),
 			'details'  => $event_details,
 			'location' => self::generate_string_address( $event ),
 			'trp'      => 'false',
