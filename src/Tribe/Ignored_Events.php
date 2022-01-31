@@ -65,6 +65,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 					'name' => 'tribe_ignore_events',
 					'data' => $localize,
 				],
+				'conditionals' => static function() {
+					/** @var Tribe__Admin__Helpers $admin_helpers */
+					$admin_helpers = tribe( 'admin.helpers' );
+					return $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen();
+				}
 			];
 
 			tribe_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', [ 'jquery' ], 'admin_enqueue_scripts', $args );
