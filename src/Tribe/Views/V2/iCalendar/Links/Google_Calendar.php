@@ -38,7 +38,7 @@ class Google_Calendar extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function get_uri( View $view = null ) {
-		if ( null === $view || is_single() ) {
+		if ( null === $view || is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 			// Try to construct it for the event single.
 
 			/**
