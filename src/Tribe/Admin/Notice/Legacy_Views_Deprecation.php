@@ -98,7 +98,7 @@ class Legacy_Views_Deprecation {
 		);
 
 		return sprintf(
-			_x( 'The legacy calendar views are deprecated and will be fully removed in an upcoming release. You should %2$s now to prevent issues when The Events Calendar 6.0 is released. %1$s.', 'deprecation of legacy views', 'the-events-calendar' ),
+			_x( 'The legacy calendar views are deprecated and will be fully removed in an upcoming release. You should %1$s now to prevent issues when The Events Calendar 6.0 is released. %2$s.', 'deprecation of legacy views', 'the-events-calendar' ),
 			$link,
 			$link_two
 		);
