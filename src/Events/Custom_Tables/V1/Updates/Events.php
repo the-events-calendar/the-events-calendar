@@ -99,4 +99,27 @@ class Events {
 
 		return $affected;
 	}
+
+	/**
+	 * Rebuilds the known Events dates range setting the values of the options
+	 * used to track the earliest Event start date and the latest Event end date.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the values were updated or not. They will not be updated
+	 *              if no Occurrences are found in the database.
+	 */
+	public function rebuild_known_range(){
+		$first = Occurrence::order_by( 'start_date_utc', 'ASC' )->first();
+		$last  = Occurrence::order_by( 'end_date_utc', 'DESC' )->first();
+
+		if ( ! ( $first instanceof Occurrence && $last instanceof Occurrence ) ) {
+			return false;
+		}
+
+		tribe_update_option( 'earliest_date', $first->start_date );
+		tribe_update_option( 'latest_date', $last->end_date );
+
+		return true;
+	}
 }

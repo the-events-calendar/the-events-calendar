@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_REST_Request;
@@ -120,6 +121,8 @@ class Controller {
 			// Remove the post ID from the list of post IDs still to update.
 			$this->meta_watcher->remove( $post_id );
 		}
+
+		$this->events->rebuild_known_range();
 
 		return true;
 	}

@@ -10,6 +10,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Test\Factories\Event as Event_Factory;
 use Tribe\Tests\Traits\With_Log_Recording;
 use Tribe\Tests\Traits\With_Uopz;
+use WP_Post;
 
 class EventsTest extends WPTestCase {
 	use With_Uopz;
@@ -161,5 +162,80 @@ class EventsTest extends WPTestCase {
 
 		$this->assertEquals( 2, $affected );
 		$this->assertCount( 0, $this->get_log_records() );
+	}
+
+	/**
+	 * It should not update know range when no Occurrences are found in database
+	 *
+	 * @test
+	 */
+	public function should_not_update_know_range_when_no_occurrences_are_found_in_database() {
+		Occurrence::where( 'post_id', '!=', 0 )->delete();
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '!=', 0 )->count() );
+
+		$events  = new Events();
+		$updated = $events->rebuild_known_range();
+
+		$this->assertFalse( $updated );
+	}
+
+	/**
+	 * It should update known range when only one Occurrence is found in database
+	 *
+	 * @test
+	 */
+	public function should_update_known_range_when_only_one_occurrence_is_found_in_database() {
+		Occurrence::where( 'post_id', '!=', 0 )->delete();
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '!=', 0 )->count() );
+		$post = tribe_events()->set_args( [
+			'title'      => 'First',
+			'start_date' => '2020-01-01 08:00:00',
+			'end_date'   => '2020-01-01 12:00:00',
+			'status'     => 'publish',
+		] )->create();
+		$this->assertInstanceOf( WP_Post::class, $post );
+		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+
+		$events  = new Events();
+		$updated = $events->rebuild_known_range();
+
+		$this->assertTrue( $updated );
+		$this->assertEquals( '2020-01-01 08:00:00', tribe_get_option( 'earliest_date' ) );
+		$this->assertEquals( '2020-01-01 12:00:00', tribe_get_option( 'latest_date' ) );
+	}
+
+	/**
+	 * It should update known range when there are many events
+	 *
+	 * @test
+	 */
+	public function should_update_known_range_when_there_are_many_events() {
+		Occurrence::where( 'post_id', '!=', 0 )->delete();
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '!=', 0 )->count() );
+		foreach (
+			[
+				[ '2020-01-01 08:00:00', '2020-01-01 12:00:00' ],
+				[ '2020-02-01 08:00:00', '2020-02-01 12:00:00' ],
+				[ '2020-03-01 08:00:00', '2020-03-01 12:00:00' ],
+			] as list(
+			$start_date, $end_date
+		)
+		) {
+			$post = tribe_events()->set_args( [
+				'title'      => 'First',
+				'start_date' => $start_date,
+				'end_date'   => $end_date,
+				'status'     => 'publish',
+			] )->create();
+			$this->assertInstanceOf( WP_Post::class, $post );
+			$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+		}
+
+		$events  = new Events();
+		$updated = $events->rebuild_known_range();
+
+		$this->assertTrue( $updated );
+		$this->assertEquals( '2020-01-01 08:00:00', tribe_get_option( 'earliest_date' ) );
+		$this->assertEquals( '2020-03-01 12:00:00', tribe_get_option( 'latest_date' ) );
 	}
 }

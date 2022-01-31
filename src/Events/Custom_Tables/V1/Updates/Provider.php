@@ -124,6 +124,12 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 * response is returned (READ).
 		 */
 		add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ], 100, 2 );
+
+		/**
+		 * Hook into the logic that would rebuidl the known range, setting the `earliest_date`
+		 * and `latest_date` options, to parse Occurrences, not Events.
+		 */
+		add_filter( 'tribe_events_rebuild_known_range', [ $this, 'rebuild_known_range' ] );
 	}
 
 	/**
@@ -272,5 +278,16 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function delete_custom_tables_data( $post_id ) {
 		$this->container->make( Controller::class )->delete_custom_tables_data( $post_id );
+	}
+
+	/**
+	 * Rebuild the known range of Events from the Occurrences information.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the method did take care of rebuilding the known range or not.
+	 */
+	public function rebuild_known_range() {
+		return $this->container->make( Events::class )->rebuild_known_range();
 	}
 }
