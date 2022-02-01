@@ -641,6 +641,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Database locks.
 			tribe_singleton( 'db-lock', DB_Lock::class );
+
+			// Filter Bar.
+			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 		}
 
 		/**
@@ -976,6 +979,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( Tribe\Events\Admin\Notice\Full_Site_Editor::class );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
+			tribe( Tribe\Events\Admin\Filter_Bar\Provider::class );
 		}
 
 		/**
