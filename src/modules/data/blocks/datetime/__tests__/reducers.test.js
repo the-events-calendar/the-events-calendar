@@ -1,16 +1,41 @@
 /**
  * Internal dependencies
  */
-import { actions } from '@moderntribe/events/data/blocks/datetime';
+import * as actions from '@moderntribe/events/data/blocks/datetime/actions';
 import reducer, {
 	DEFAULT_STATE,
 	defaultStateToMetaMap,
 	setInitialState,
 } from '@moderntribe/events/data/blocks/datetime/reducer';
 
-jest.mock( 'moment', () => () => {
-	const moment = require.requireActual( 'moment' );
-	return moment( 'July 19, 2018 7:30 pm', 'MMMM D, Y h:mm a' );
+jest.mock( 'moment', () => {
+	const original = jest.requireActual( 'moment' );
+	return {
+		__esModule: true,
+		...original,
+		default: ( date, format ) => {
+			if ( date && format ) {
+				return original( date, format );
+			} else if ( date ) {
+				return original( date );
+			}
+
+			return original( 'July 19, 2018 7:30 pm', 'MMMM D, Y h:mm a' );
+		},
+	};
+} );
+
+jest.mock( '@moderntribe/common/utils/globals', () => {
+	const original = jest.requireActual( '@moderntribe/common/utils/globals' );
+	return {
+		__esModule: true,
+		...original,
+		postObjects: () => ( {
+			tribe_events: {
+				tribe_start_date: '',
+			},
+		} ),
+	};
 } );
 
 const data = {

@@ -301,6 +301,8 @@ class Tribe__Events__Aggregator__Errors {
 		if ( false !== $stats ){
 			return $stats;
 		}
+		// PHP 8.1 no longer converts from false to array.
+		$stats = [];
 
 		$where = "WHERE comment_type != '" . self::$comment_type . "'";
 

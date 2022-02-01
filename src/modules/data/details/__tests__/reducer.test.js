@@ -6,8 +6,10 @@ import { details } from '@moderntribe/events/data/details/reducers';
 import { DEFAULT_STATE } from '@moderntribe/events/data/details/reducers/details';
 
 jest.mock( '@moderntribe/events/data/details/reducers', () => {
-	const original = require.requireActual( '@moderntribe/events/data/details/reducers/details' );
+	const original = jest.requireActual( '@moderntribe/events/data/details/reducers/details' );
 	return {
+		__esModule: true,
+		...original,
 		details: jest.fn( ( state = original.DEFAULT_STATE ) => state ),
 	};
 } );
