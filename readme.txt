@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Make the look and feel of the block editor similar to the frontend for the single events page. [TEC-4250]
+
 = [5.13.0] 2022-01-31 =
 
 * Deprecation - All files from Legacy Views will throw deprecated notices, refer to `https://evnt.is/v1-removal` for extra information.
