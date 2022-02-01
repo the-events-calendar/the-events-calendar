@@ -156,7 +156,7 @@ class Google_Calendar extends Link_Abstract {
 		 * @var array   $pieces   The params used in the add_query_arg.
 		 * @var WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
 		 */
-		$params = apply_filters( 'tec_views_v2_single_event_gcal_link_parameters', $pieces, $event );
+		$pieces = apply_filters( 'tec_views_v2_single_event_gcal_link_parameters', $pieces, $event );
 
 		$pieces = array_filter( $pieces );
 
