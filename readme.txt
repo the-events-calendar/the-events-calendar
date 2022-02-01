@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
 Stable tag: 5.13.0
-Tested up to: 5.8.3
+Tested up to: 5.9.0
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -224,6 +224,11 @@ Remember to always make a backup of your database and files before updating!
 = [TDB] TBD =
 
 * Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
+
+= [5.13.0] 2022-01-31 =
+
+* Deprecation - All files from Legacy Views will throw deprecated notices, refer to `https://evnt.is/v1-removal` for extra information.
+* Deprecation - Template functions `tribe_initialize_view`, `tribe_get_view` and `tribe_show_month` were deprecated, refer to `https://evnt.is/v1-removal` for extra information.
 
 = [5.12.4] 2022-01-19 =
 
