@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Make the look and feel of the block editor similar to the frontend for the single events page. [TEC-4250]
+* Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
 
 = [5.13.0] 2022-01-31 =
 
