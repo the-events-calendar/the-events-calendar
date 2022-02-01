@@ -21,10 +21,12 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		// Bail if Filter Bar is already installed.
-		if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
-			$this->add_actions();
-			$this->add_assets();
+		if ( class_exists( 'Tribe__Events__Filterbar__View' ) ) {
+			return;
 		}
+
+		$this->add_actions();
+		$this->add_assets();
 	}
 
 	/**
