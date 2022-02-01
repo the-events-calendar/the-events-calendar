@@ -171,13 +171,16 @@ class Google_Form_Feedback implements Feedback_Interface {
 	 * @return string The notice HTML contents.
 	 */
 	public function get_notice_contents() {
+		if ( defined( 'TEC_CUSTOM_TABLES_V1_DISABLED' ) ) {
+			return sprintf(
+					'<p>Testing your site with the upgraded V2 views and need help? <a target="_blank" href="%s">Reach out to support.</a></p>',
+					'https://theeventscalendar.com/support/'
+			);
+		}
+
 		return sprintf(
-			'<p>Found an issue with the new recurring events, Series, or duplicate event features or have feedback to share? <a target="_blank" href="%s">Let us know.</a></p>',
-			$this->get_form_prefilled_url()
-		) .
-		sprintf(
-			'<p>Testing your site with the upgraded V2 views and need help? <a target="_blank" href="%s">Reach out to support.</a></p>',
-			'https://theeventscalendar.com/support/'
+				'<p>Found an issue with the new recurring events, Series, or duplicate event features or have feedback to share? <a target="_blank" href="%s">Let us know.</a></p>',
+				$this->get_form_prefilled_url()
 		);
 	}
 }

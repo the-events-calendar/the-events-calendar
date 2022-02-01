@@ -52,6 +52,9 @@ class Provider extends Service_Provider {
 	 * @return bool Whether the Provider did register or not.
 	 */
 	public function register() {
+		// Register the alpha/beta feedback collector service provider.
+		$this->container->register( Feedback\Provider::class );
+
 		if ( ! self::is_active() ) {
 			return false;
 		}
@@ -108,9 +111,6 @@ class Provider extends Service_Provider {
 			 * state of the container.
 			 */
 			$this->container->register( Integrations\Provider::class );
-
-			// Register the alpha/beta feedback collector service provider.
-			$this->container->register( Feedback\Provider::class );
 		} catch ( \Throwable $t ) {
 			// This code will never fire on PHP 5.6, but will do in PHP 7.0+.
 
