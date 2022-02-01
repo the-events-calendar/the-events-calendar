@@ -14,6 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+if ( tec_events_views_v1_should_display_deprecated_notice() ) {
+	_deprecated_file( __FILE__, '5.13.0', null, 'On version 6.0.0 this file will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
+}
+
 do_action( 'tribe_events_before_template' );
 ?>
 
