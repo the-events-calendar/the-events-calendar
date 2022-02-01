@@ -22,16 +22,6 @@ use TEC\Events\Custom_Tables\V1\WP_Query\Provider_Contract;
  * @package TEC\Events\Custom_Tables\V1\Repository
  */
 class Provider extends Service_Provider implements Provider_Contract {
-
-	/**
-	 * A reference to the callback that will handle the creation and update of Events.
-	 *
-	 * @since TBD
-	 *
-	 * @var callable
-	 */
-	private $update_callback;
-
 	/**
 	 * Hooks on the filters used in the Repository to handle the creation and update of custom
 	 * tables data.
@@ -40,9 +30,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function register() {
 		$this->container->singleton( self::class, $this );
-		$this->update_callback = $this->container->callback( Events::class, 'update_callback' );
-		add_filter( 'tribe_repository_events_create_callback', $this->update_callback, 10, 2 );
-		add_filter( 'tribe_repository_events_update_callback', $this->update_callback, 10, 2 );
+		add_filter( 'tribe_repository_events_create_callback', [ $this, 'update_callback' ], 10, 2 );
+		add_filter( 'tribe_repository_events_update_callback', [ $this, 'update_callback' ], 10, 2 );
 	}
 
 	/**
@@ -51,7 +40,23 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	public function unregister() {
-		remove_filter( 'tribe_repository_events_create_callback', $this->update_callback );
-		remove_filter( 'tribe_repository_events_update_callback', $this->update_callback );
+		remove_filter( 'tribe_repository_events_create_callback', [ $this, 'update_callback' ] );
+		remove_filter( 'tribe_repository_events_update_callback', [ $this, 'update_callback' ] );
+	}
+
+	/**
+	 * Replaces the default Event Repository create and update callback with one that will operate on
+	 * custom tables.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable            $repository_callback The default repository callback.
+	 * @param array<string,mixed> $postarr             An array of datat to create or update the Event.
+	 *
+	 * @return callable The callback that will handle upsertions of an Event custom tables data
+	 *                  in the context of a repository call.
+	 */
+	public function update_callback( $repository_callback, array $postarr = [] ) {
+		return $this->container->make( Events::class )->update_callback( $repository_callback, $postarr );
 	}
 }
