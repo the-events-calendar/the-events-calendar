@@ -33,6 +33,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Validator;
  * @method static Builder where_in( string $column, array $in_values ) A list of all the records that match the query.
  * @method static Builder where_not_in( string $column, array $not_in_values ) A list of values that shouldn't match the query.
  * @method static Builder where( string $column, string $operator = null, string $value = null ) Set a where clause to filter the results.
+ * @method static Builder where_raw( string $where, mixed ...$args ) Prepare and set a custom WHERE clause to filter the results.
  * @method static Builder limit( int $limit ) Sets the limit clause on the Query.
  * @method static Builder offset( int $offset ) Set the OFFSET clause on the Query.
  * @method static Builder order_by( string $column = null, string $order = 'ASC' ) Set the order by clause on the Query.

@@ -1216,4 +1216,22 @@ class Builder {
 
 		return $results;
 	}
+
+	/**
+	 * Adds a raw WHERE clause to the SQL statement being built.
+	 *
+	 * @since TBD
+	 * @param string $query   The SQL clause to be prepared using the `wpdb::prepare()`
+	 *                        method and placeholder format.
+	 * @param mixed  ...$args A set of arguments that should be used to prepare the SQL
+	 *                        statement.
+	 *
+	 * @return $this A reference to the query builder object, for chaining purposes.
+	 */
+	public function where_raw( $query, ...$args ) {
+		global $wpdb;
+		$this->wheres[] = '(' . $wpdb->prepare( $query, ...$args ) . ')';
+
+		return $this;
+	}
 }
