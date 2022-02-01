@@ -11,6 +11,8 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main;
+use Tribe__Timezones;
+use Tribe__Events__Timezones;
 use WP_Post;
 
 /**
@@ -120,6 +122,12 @@ class Google_Calendar extends Link_Abstract {
 			$event_details = $this->format_event_details_for_url( $event_details, $event, 996 );
 		}
 
+		if ( Tribe__Timezones::is_mode( Tribe__Timezones::SITE_TIMEZONE ) ) {
+			$ctz = Tribe__Timezones::build_timezone_object()->getName();
+		} else {
+			$ctz = Tribe__Events__Timezones::get_event_timezone_string( $event->ID );
+		}
+
 		$pieces   = [
 			'action'   => 'TEMPLATE',
      		'dates'    => $event->dates->start->format( 'Ymd\THis' ) . '/' . $event->dates->end->format( 'Ymd\THis' ),
@@ -127,7 +135,7 @@ class Google_Calendar extends Link_Abstract {
 			'details'  => $event_details,
 			'location' => self::generate_string_address( $event ),
 			'trp'      => 'false',
-			'ctz'      => $event->dates->start->format( 'e' ),
+			'ctz'      => $ctz,
 			'sprop'    => 'website:' . home_url(),
 		];
 
