@@ -221,10 +221,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+
 = [TBD] TBD =
 
-* Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
 * Tweak - Move and deprecate some methods specific to the Google Calendar link from Main to the new Google_Calendar class. [TEC-4235]
+* Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
+* Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
+
 
 = [5.13.0] 2022-01-31 =
 
