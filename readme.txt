@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
 Stable tag: 6.0.0-RBE-Beta2.2
-Tested up to: 5.8.2
+Tested up to: 5.9.0
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -225,6 +225,16 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Tweak - Move and deprecate some methods specific to the Google Calendar link from Main to the new Google_Calendar class. [TEC-4235]
+* Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
+* Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
+
+
+= [5.13.0] 2022-01-31 =
+
+* Deprecation - All files from Legacy Views will throw deprecated notices, refer to `https://evnt.is/v1-removal` for extra information.
+* Deprecation - Template functions `tribe_initialize_view`, `tribe_get_view` and `tribe_show_month` were deprecated, refer to `https://evnt.is/v1-removal` for extra information.
+
 = [5.12.4] 2022-01-19 =
 
 * Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
@@ -286,6 +296,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
 * Fix - Resolved `Warning: reset(): Argument #1 ($array) must be passed by reference...` error that was displayed on the Events, Organizers and Venue REST endpoints in PHP v8. [TEC-4097]
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
+* Tweak - Change some of the block tests to adapt to the new Editor compatibility in common. [TEC-4016]
 * Tweak - Update the google calendar export button to open in a new tab on the event single page for both the classic and block editors. [TEC-4084]
 * Tweak - Add supplied organizer url to JSON-LD for the event->organizer. Props @cmenon12 for the notification and code! [TEC-4095]
 * Tweak - Add a link to the Customizer in the admin menu and in Events->Settings->Display for folks running a FSE theme. [TEC-4126]

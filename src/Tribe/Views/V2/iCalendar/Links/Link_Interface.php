@@ -50,12 +50,11 @@ interface Link_Interface {
 	 * Getter function for the display property.
 	 *
 	 * @since 5.12.0
-	 *
-	 * @param View|null $view The current View object.
+	 * @since TBD Removed unused view param.
 	 *
 	 * @return bool
 	 */
-	public function is_visible( View $view = null );
+	public function is_visible();
 
 	/**
 	 * Setter function for the display property.
