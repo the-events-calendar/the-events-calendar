@@ -101,12 +101,10 @@ class Tribe__Events__Meta__Save {
 	public function save() {
 		/** @var Tribe__Editor $editor */
 		$editor = tribe( 'editor' );
-		/** @var Tribe__Events__Editor__Compatibility $compatibility */
-		$compatibility = tribe( 'events.editor.compatibility' );
-		$has_gutenberg_editor = $compatibility->is_blocks_editor_toggled_on() && ! $editor->is_classic_plugin_active();
+		$has_gutenberg_editor = $editor->should_load_blocks();
 
 		// Save only the meta that does not have blocks when the Gutenberg editor is present.
-		if ( tribe( 'tec.gutenberg' )->should_display() && $has_gutenberg_editor ) {
+		if ( $has_gutenberg_editor ) {
 			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
 		}
 
@@ -130,7 +128,6 @@ class Tribe__Events__Meta__Save {
 		 */
 		$this->manage_preview_metapost( 'venue', $this->post_id );
 		$this->manage_preview_metapost( 'organizer', $this->post_id );
-
 		Tribe__Events__API::saveEventMeta( $this->post_id, $_POST, $this->post );
 
 		return true;

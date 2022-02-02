@@ -96,6 +96,8 @@ export default class VenueDetails extends Component {
 	}
 
 	renderAddress() {
+		console.log('renderAddress');
+		console.log( this.props );
 		const { address = {} } = this.props;
 		if ( isEmpty( address ) ) {
 			return null;

@@ -194,7 +194,7 @@ export default class GoogleMap extends Component {
 			return;
 		}
 
-		// There's no valid coordinatees fallback to the image map.
+		// There's no valid coordinates, fallback to the image map.
 		if ( this.invalidLocation() ) {
 			const { address } = this.props;
 
