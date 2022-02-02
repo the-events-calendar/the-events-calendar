@@ -4,6 +4,8 @@ namespace Tribe\Events\Meta;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Meta__Context as Context;
 use Tribe__Events__Meta__Save as Save;
+use Tribe__Editor as Editor;
+use Tribe\Editor\Compatibility\Classic_Editor as Classic_Editor;
 
 class SaveTest extends \Codeception\TestCase\WPTestCase {
 
@@ -202,17 +204,26 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @return Classic_Editor
+	 */
+	protected function make_classic_instance() {
+		return new Classic_Editor();
+	}
+
+	/**
 	 * It should save events when classic editor and gutenberg blocks are activated
 	 *
 	 * @test
 	 */
 	public function should_save_events_when_classic_editor_and_gutenberg_blocks_are_activated() {
+		global $post_data;
+
 		/** @var \Tribe__Events__Editor__Compatibility $compatibility */
 		$compatibility = tribe( 'events.editor.compatibility' );
 		// Enable checkbox value
-		\Tribe__Settings_Manager::set_option( $compatibility->get_toggle_blocks_editor_key(), true );
+		\Tribe__Settings_Manager::set_option( $compatibility::$blocks_editor_key, true );
 		// Fake classic editor plugin is active.
-		add_filter( 'tribe_is_classic_editor_plugin_active', '__return_true' );
+		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 		// Make sure user is logged in so we have an admin with permissions to create events.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
@@ -221,8 +232,6 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 			'post_type' => \Tribe__Events__Main::POSTTYPE,
 			'post_status' => 'publish',
 		] );
-
-		$event = get_post( $id );
 
 		$values = [
 			'EventStartDate'     => '2020-01-01',
@@ -238,8 +247,12 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		];
 		// Fake values on $_POST when the hook is fired.
 		foreach ( $values as $key => $value ) {
-			$_POST[ $key ] = $value;
+			$_POST[ $key ]     = $value;
+			$_GET[ $key ]      = $value;
+			$post_data[ $key ] = $value;
 		}
+
+		$event = get_post( $id );
 
 		// Fire action on the post.
 		do_action( 'save_post', $id, $event, false );
@@ -252,9 +265,11 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEmpty( $event->post_content );
 
 		// Cleanup
-		\Tribe__Settings_Manager::set_option( $compatibility->get_toggle_blocks_editor_key(), null );
+		\Tribe__Settings_Manager::set_option( $compatibility::$blocks_editor_key, null );
 		foreach ( $values as $key => $value ) {
 			unset( $_POST[ $key ] );
 		}
+
+		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 	}
 }

@@ -4,7 +4,7 @@
  *
  * @since   5.1.0
  *
- * @package Tribe\Events\Editory\Objects
+ * @package Tribe\Events\Editor\Objects
  */
 
 namespace Tribe\Events\Editor\Objects;
@@ -18,7 +18,7 @@ use Tribe__Date_Utils as Dates;
  *
  * @since   5.1.0
  *
- * @package Tribe\Events\Editory\Objects
+ * @package Tribe\Events\Editor\Objects
  */
 class Event implements Editor_Object_Interface {
 	/**
