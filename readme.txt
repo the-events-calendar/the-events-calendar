@@ -246,7 +246,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
 * Fix - Remove CSS attributes targeting `aria-labels` to prevent inconsistent styling for different languages. [TEC-4227]
 * Fix - Resolve sorting problems when using orderby with the Event repository when no other orderby values are specified. [TEC-4232]
-
+* Fix - Prevent unwanted notice on single-event and embed views from legacy views deprecation
 
 = [5.12.3] 2022-01-10 =
 
