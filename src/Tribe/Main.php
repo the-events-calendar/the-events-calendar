@@ -132,7 +132,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug       = 'featured';
 
 		/**
-		 * @deprecated 4.5.8 use `Tribe__Events__Pro__Main::instance()->all_slug` instead
+		 * @deprecated TBD use Tribe__Events__Venue::$valid_venue_keys instead.
+		*/
+		public $valid_venue_keys = [];
+
+		/**
+		 * @deprecated 4.5.8 use `Tribe__Events__Pro__Main::instance()->all_slug` instead.
 		 *
 		 * @var string
 		 */
@@ -148,7 +153,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $timezone_settings;
 
 		/**
-		 * A Stored version of the Welcome and Update Pages
+		 * A Stored version of the Welcome and Update Pages.
 		 * @var Tribe__Admin__Activation_Page
 		 */
 		public $activation_page;
@@ -439,7 +444,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.9.3.2
 		 */
 		public function maybe_bail_if_invalid_wp_or_php() {
-			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
+			if ( $this->supportedVersion( 'wordpress' ) && $this->supportedVersion( 'php' ) ) {
 				return;
 			}
 
@@ -595,9 +600,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Purge Expired events
 			tribe_singleton( 'tec.event-cleaner', new Tribe__Events__Event_Cleaner() );
-
-			// Gutenberg Extension
-			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', [ 'hook' ] );
 
 			// Admin Notices
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
@@ -774,7 +776,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe-events-bar-views', [ $this, 'remove_hidden_views' ], 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
+			/* edit-post metaboxes */
 			add_action( 'admin_menu', [ $this, 'addEventBox' ] );
+			add_action( 'admin_menu', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
+			add_action( 'admin_menu', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
+
 			add_action( 'wp_insert_post', [ $this, 'addPostOrigin' ], 10, 2 );
 			add_action( 'save_post', [ $this, 'addEventMeta' ], 15, 2 );
 
@@ -972,7 +978,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.assets' );
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
-			tribe( 'tec.gutenberg' );
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
@@ -1033,7 +1038,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
-			tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
+
+			if ( ! tribe( 'editor' )->should_load_blocks() ) {
+				tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
+			}
+
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
@@ -1588,7 +1597,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * query makes a decision to add a noindex meta tag based on whether events were returned
 		 * in the query results or not.
 		 *
-		 * Disabling this behaviour always is possible with:
+		 * Disabling this behavior always is possible with:
 		 *
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_false' );
 		 *
@@ -1786,10 +1795,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Display a WordPress or PHP incompatibility error
 		 */
 		public function notSupportedError() {
-			if ( ! self::supportedVersion( 'wordpress' ) ) {
+			if ( ! $this->supportedVersion( 'wordpress' ) ) {
 				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install.', 'the-events-calendar' ), $this->min_wordpress ) . '</p></div>';
 			}
-			if ( ! self::supportedVersion( 'php' ) ) {
+			if ( ! $this->supportedVersion( 'php' ) ) {
 				echo '<div class="error"><p>' . sprintf( esc_html__( 'Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP.', 'the-events-calendar' ), $this->min_php ) . '</p></div>';
 			}
 		}
@@ -3232,9 +3241,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				require_once $plugin_path . '/src/Tribe/Editor/Compatibility.php';
 			}
 
-			$editor_compatibility = new Tribe__Events__Editor__Compatibility();
-			$editor_compatibility->deactivate_gutenberg_extension_plugin();
-
 			if ( ! is_network_admin()  ) {
 				// We set with a string to avoid having to include a file here.
 				set_transient( '_tribe_events_delayed_flush_rewrite_rules', 'yes', 0 );
@@ -3614,7 +3620,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return $data['OrganizerID'];
 			}
 
-			if ( $post->post_type == Tribe__Events__Organizer::POSTTYPE && $post->ID ) {
+			if ( ! is_null( $post) && $post->post_type == Tribe__Events__Organizer::POSTTYPE && $post->ID ) {
 				$data['OrganizerID'] = $post->ID;
 			}
 
@@ -3681,8 +3687,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Adds a style chooser to the write post page
+		 * Adds a venue chooser to the write post page
 		 *
+		 * @todo Move to Tribe__Events__Venue
 		 */
 		public function VenueMetaBox() {
 			global $post;
@@ -3713,13 +3720,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			?>
-			<style type="text/css">
-				#EventInfo {
-					border: none;
-				}
-			</style>
-			<div id='eventDetails' class="inside eventForm">
-				<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
+			<div id='venue-details' class="inside eventForm venue-form">
+				<table cellspacing="0" cellpadding="0" id="venue-info" class="venue-info">
 					<?php
 					$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $this->plugin_path . 'src/admin-views/venue-meta-box.php' );
 					if ( ! empty( $venue_meta_box_template ) ) {
@@ -3732,8 +3734,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Adds a style chooser to the write post page
+		 * Adds a organizer chooser to the write post page
 		 *
+		 * @todo Move to Tribe__Events__Organizer
 		 */
 		public function OrganizerMetaBox() {
 			global $post;
@@ -3907,16 +3910,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			if ( tribe( 'editor' )->should_load_blocks() ) {
+				return;
+			}
+
 			add_meta_box(
-					'tribe_events_event_details',
-					$this->plugin_name,
-					[ $this, 'EventsChooserBox' ],
-					self::POSTTYPE,
-					'normal',
-					'high',
-					[
-							'__back_compat_meta_box' => tribe( 'tec.gutenberg' )->should_display() || ! class_exists( 'Tribe__Events__Pro__Main' ),
-					]
+				'tribe_events_event_details',
+				$this->plugin_name,
+				[ $this, 'EventsChooserBox' ],
+				self::POSTTYPE,
+				'normal',
+				'high',
+				[
+						'__back_compat_meta_box' => ! class_exists( 'Tribe__Events__Pro__Main' ),
+				]
 			);
 
 			add_meta_box(
@@ -3928,27 +3935,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'default'
 			);
 
-			add_meta_box(
-					'tribe_events_venue_details',
-					sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_venue_label ),
-					[ $this, 'VenueMetaBox' ],
-					Tribe__Events__Venue::POSTTYPE,
-					'normal',
-					'high'
-			);
-
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				remove_meta_box( 'slugdiv', Tribe__Events__Venue::POSTTYPE, 'normal' );
 			}
-
-			add_meta_box(
-					'tribe_events_organizer_details',
-					sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $this->singular_organizer_label ),
-					[ $this, 'OrganizerMetaBox' ],
-					Tribe__Events__Organizer::POSTTYPE,
-					'normal',
-					'high'
-			);
 		}
 
 		/**
