@@ -211,20 +211,6 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * This tells Editor the option is active via the filter.
-	 * Since we aren't installing the actual plugin.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function mock_classic_editor() {
-		add_filter( 'tribe_editor_classic_is_active', function() {
-			return $this->classic_editor::is_classic_option_active();
-		} );
-	}
-
-	/**
 	 * It should save events when classic editor and gutenberg blocks are activated
 	 *
 	 * @test
@@ -237,8 +223,7 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		// Enable checkbox value
 		\Tribe__Settings_Manager::set_option( $compatibility::$blocks_editor_key, true );
 		// Fake classic editor plugin is active.
-		$this->classic_editor = $this->make_classic_instance();
-		$this->mock_classic_editor();
+		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 		// Make sure user is logged in so we have an admin with permissions to create events.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
@@ -263,9 +248,10 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		// Fake values on $_POST when the hook is fired.
 		foreach ( $values as $key => $value ) {
 			$_POST[ $key ]     = $value;
-			$_GET[ $key ]     = $value;
+			$_GET[ $key ]      = $value;
 			$post_data[ $key ] = $value;
 		}
+
 		$event = get_post( $id );
 
 		// Fire action on the post.
@@ -283,5 +269,7 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $values as $key => $value ) {
 			unset( $_POST[ $key ] );
 		}
+
+		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 	}
 }
