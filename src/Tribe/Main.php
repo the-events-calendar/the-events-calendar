@@ -3158,6 +3158,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 *  Returns a string version of the full address of an event
 		 *
+		 * @todo Deprecate and move to Tribe__Events__Venue since it is totally a function of (and dependent on) the venue.
+		 *
 		 * @param int|WP_Post The post object or post id.
 		 *
 		 * @return string The event's address.

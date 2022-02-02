@@ -69,14 +69,14 @@ class Google_Calendar extends Link_Abstract {
 	 * Generate a link that will import a single event into Google Calendar.
 	 *
 	 *	Required link items:
-     *	action=TEMPLATE
-     *	text=[the title of the event]
-     *	dates= in YYYYMMDDHHMMSS format. start datetime / end datetime
+	 *	action=TEMPLATE
+	 *	text=[the title of the event]
+	 *	dates= in YYYYMMDDHHMMSS format. start datetime / end datetime
 	 *
 	 *	Optional link items:
-     *	ctz=[time zone]
-     *	details=[event details]
-     *	location=[event location]
+	 *	ctz=[time zone]
+	 *	details=[event details]
+	 *	location=[event location]
 	 *
 	 * URL format: https://www.google.com/calendar/render?action=TEMPLATE&text=Title&dates=20190227/20190228
 	 *
@@ -130,8 +130,8 @@ class Google_Calendar extends Link_Abstract {
 
 		$pieces   = [
 			'action'   => 'TEMPLATE',
-     		'dates'    => $event->dates->start->format( 'Ymd\THis' ) . '/' . $event->dates->end->format( 'Ymd\THis' ),
-     		'text'     => rawurlencode( get_the_title( $event ) ),
+			'dates'    => $event->dates->start->format( 'Ymd\THis' ) . '/' . $event->dates->end->format( 'Ymd\THis' ),
+			'text'     => rawurlencode( get_the_title( $event ) ),
 			'details'  => $event_details,
 			'location' => self::generate_string_address( $event ),
 			'trp'      => 'false',
@@ -224,6 +224,18 @@ class Google_Calendar extends Link_Abstract {
 		return $event_details;
 	}
 
+	/**
+	 *  Returns a string version of the full address of an event.
+	 *
+	 * @since TBD
+	 *
+	 * @todo This should really live in Tribe__Events__Venue, so move it there at some point
+	 * @see Tribe__Events__Main->fullAddressString()
+	 *
+	 * @param int|WP_Post|null The post object or post id.
+	 *
+	 * @return string The event venue's address. Empty string if the event or venue isn't found.
+	 */
 	public static function generate_string_address( $event = null ) {
 		if ( empty( $event ) ) {
 			$event = get_the_ID();
