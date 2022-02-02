@@ -102,7 +102,7 @@ class Provider extends Service_Provider {
 			$this->container->register( Tables\Provider::class );
 			$this->container->register( WP_Query\Provider::class );
 			$this->container->register( Updates\Provider::class );
-
+			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
 
 			/*
