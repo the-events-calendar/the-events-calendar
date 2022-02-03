@@ -41,7 +41,6 @@ namespace PHPSTORM_META {
 		'tec.shortcodes.event-details'                  => \Tribe__Events__Shortcode__Event_Details::class,
 		'tec.ignored-events'                            => \Tribe__Events__Ignored_Events::class,
 		'tec.assets'                                    => \Tribe__Events__Assets::class,
-		'tec.bar'                                       => \Tribe__Events__Bar::class,
 		'tec.iCal'                                      => \Tribe__Events__iCal::class,
 		'tec.rest-v1.main'                              => \Tribe__Events__REST__V1__Main::class,
 		'tec.integrations.twenty-seventeen'             => \Tribe__Events__Integrations__Twenty_Seventeen::class,

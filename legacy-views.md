@@ -3,9 +3,7 @@
 ## Files Removed
 
 * `src/functions/template-tags/widgets.php`
-
 * `src/admin-views/widget-admin-list.php`
-
 * `src/views/widgets/list-widget.php`
 * `src/views/widgets/calendar-widget.php`
 * `src/views/day.php`
@@ -73,7 +71,64 @@
 * `Tribe_Template_Factory`
 * `TribeEventsQuery`
 * `TribeEventsTemplates`
-
+* `TribeRecurringEventCleanup`
+* `Tribe__Events__Recurring_Event_Cleanup`
+* `TribeEventsBar`
+* `Tribe__Events__Bar`
+  * [ ] `tec.bar` in Events Pro
+* `Tribe__Events__Backcompat`
+* `Tribe\Events\Views\V2\V1_Compat`
+* `Tribe__Events__Admin__Front_Page_View`
+* `Tribe__Events__Admin__Notices__Base_Notice`
+* `Tribe__Events__Admin__Notices__Notice_Interface`
+* `Tribe__Events__Admin__Organizer_Chooser_Meta_Box`
+* `Tribe__Events__Advanced_Functions__Register_Meta`
+* `Tribe__Events__Aggregator__Record__Facebook`
+* `Tribe__Events__Customizer__Front_Page_View`
+* `Tribe__Events__Customizer__Text`
+* `Tribe__Events__Google_Data_Markup`
+* `Tribe__Events__Google_Data_Markup__Event`
+* `Tribe__Events__Importer__Admin_Page`
+* `Tribe__Events__Importer__Options`
+* `Tribe__Events__Importer__Plugin`
+* `Tribe__Events__Meta_Factory`
+* `Tribe__Events__PUE__Checker`
+* `Tribe__Events__PUE__Plugin_Info`
+* `Tribe__Events__PUE__Utility`
+* `Tribe_Amalgamator`
+* `Tribe_Events_Single_Event_Template`
+* `Tribe_Meta_Factory`
+* `Tribe_PU_PluginInfo`
+* `Tribe_Register_Meta`
+* `TribeAppShop`
+* `TribeDateUtils`
+* `TribeEvents`
+* `TribeEvents_EmbeddedMaps`
+* `TribeEventsAdminList`
+* `TribeEventsAPI`
+* `TribeEventsCache`
+* `TribeEventsCacheListener`
+* `TribeEventsImporter_AdminPage`
+* `TribeEventsImporter_ColumnMapper`
+* `TribeEventsImporter_FileImporter`
+* `TribeEventsImporter_FileImporter_Events`
+* `TribeEventsImporter_FileImporter_Organizers`
+* `TribeEventsImporter_FileImporter_Venues`
+* `TribeEventsImporter_FileReader`
+* `TribeEventsImporter_FileUploader`
+* `TribeEventsImporter_Plugin`
+* `TribeEventsOptionsException`
+* `TribeEventsPostException`
+* `TribeEventsSupport`
+* `TribeEventsUpdate`
+* `TribeEventsViewHelpers`
+* `TribeField`
+* `TribeiCal`
+* `TribePluginUpdateEngineChecker`
+* `TribePluginUpdateUtility`
+* `TribeSettings`
+* `TribeSettingsTab`
+* `TribeValidate`
 
 ## Functions/Methods Removed
 
@@ -81,8 +136,49 @@
 * `Tribe__Events__Main::register_list_widget`
 * `Tribe__Events__Main::init_day_view` - [BTRIA-620]
 * `Tribe__Events__Main::setDisplay`
-  * [ ] Investigate Tribe__Events__Main->displaying
+  * [ ] Investigate `Tribe__Events__Main->displaying`
 * `Tribe__Events__Main::eventQueryVars`
+* `Tribe__Events__Main::issue_noindex`
+* `Tribe__Events__Query::init`
+* `Tribe__Events__Query::parse_query`
+  * [ ] `WP_Query->tribe_is_event`
+  * [ ] `WP_Query->tribe_is_multi_posttype`
+  * [ ] `WP_Query->eventDisplay`
+  * [ ] `WP_Query->tribe_is_event_category`
+  * [ ] `WP_Query->tribe_is_event_venue`
+  * [ ] `WP_Query->tribe_is_event_organizer`
+  * [ ] `WP_Query->tribe_is_event_query`
+  * [ ] `WP_Query->tribe_is_past`
+* `Tribe__Events__Query::pre_get_posts`
+  * [ ] `WP_Query->tribe_suppress_query_filters`
+* `Tribe__Events__Query::default_page_on_front`
+* `Tribe__Events__Query::multi_type_posts_fields`
+* `Tribe__Events__Query::posts_join`
+* `Tribe__Events__Query::posts_fields`
+* `Tribe__Events__Query::posts_results`
+* `Tribe__Events__Query::posts_where`
+* `Tribe__Events__Query::posts_orderby_venue_organizer`
+* `Tribe__Events__Query::posts_join_venue_organizer`
+* `Tribe__Events__Query::posts_distinct`
+* `Tribe__Events__Query::posts_orderby`
+* `Tribe__Events__Query::set_orderby`
+* `Tribe__Events__Query::set_order`
+* `Tribe__Events__Query::getHideFromUpcomingEvents`
+* `Tribe__Events__Query::getEventCounts`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::postmeta_table`
+* `Tribe__Events__Query::can_inject_date_field`
+* `Tribe__Events__Query::should_remove_date_filters`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+* `Tribe__Events__Query::last_found_events`
+
 * `Tribe\Events\Views\V2\Widgets\Service_Provider::unregister_list_widget`
 * `tribe_is_ajax_view_request`
 * `tribe_include_view_list`
@@ -119,7 +215,7 @@
 * `Tribe__Events__Templates::spoof_the_post`
 * `Tribe__Events__Templates::showInLoops`
 * `Tribe__Events__Templates::theme_body_class`
-  * [ ] Community Events usees this method
+  * [ ] Community Events uses this method
 * `Tribe__Events__Templates::needs_compatibility_fix`
 * `Tribe__Events__Templates::wpHeadFinished`
 * `Tribe__Events__Templates::remove_singular_body_class`

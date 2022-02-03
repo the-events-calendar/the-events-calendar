@@ -576,9 +576,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Assets loader
 			tribe_singleton( 'tec.assets', 'Tribe__Events__Assets', [ 'register', 'hook' ] );
 
-			// Tribe Bar
-			tribe_singleton( 'tec.bar', 'Tribe__Events__Bar', [ 'hook' ] );
-
 			// iCal
 			tribe_singleton( 'tec.iCal', 'Tribe__Events__iCal', [ 'hook' ] );
 
@@ -829,7 +826,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'template_redirect', [ $this, 'template_redirect' ] );
 
-			add_action( 'wp', [ $this, 'issue_noindex' ] );
 			add_action( 'plugin_row_meta', [ $this, 'addMetaLinks' ], 10, 2 );
 			// organizer and venue
 			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ) {
@@ -874,8 +870,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_filter( 'wp_import_post_data_raw', [ $this, 'filter_wp_import_data_before' ], 10, 1 );
 				add_filter( 'wp_import_post_data_processed', [ $this, 'filter_wp_import_data_after' ], 10, 1 );
 			}
-
-			tribe( 'tec.bar' );
 
 			add_action( 'init', [ $this, 'filter_cron_schedules' ] );
 
@@ -1030,7 +1024,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
 
-			Tribe__Events__Query::init();
 			Tribe__Events__Backcompat::init();
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
@@ -1472,46 +1465,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function get_event_label_singular() {
 			return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
-		}
-
-		/**
-		 * Runs on the "wp" action. Inspects the main query object and if it relates to an events
-		 * query makes a decision to add a noindex meta tag based on whether events were returned
-		 * in the query results or not.
-		 *
-		 * Disabling this behavior always is possible with:
-		 *
-		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_false' );
-		 *
-		 *  Enabling it for all event views is possible with:
-		 *
-		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
-		 */
-		public function issue_noindex() {
-
-			if ( ! $wp_query = tribe_get_global_query_object() ) {
-				return;
-			}
-
-			if ( empty( $wp_query->tribe_is_event_query ) ) {
-				return;
-			}
-
-			// By default, we add a noindex tag for all month view requests and any other
-			// event views that are devoid of events
-			$event_display = get_query_var( 'eventDisplay' );
-			$add_noindex   = ( ! $wp_query->have_posts() || 'month' === $event_display );
-
-			/**
-			 * Determines if a noindex meta tag will be set for the current event view.
-			 *
-			 * @var bool $add_noindex
-			 */
-			$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex );
-
-			if ( $add_noindex ) {
-				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
-			}
 		}
 
 		/**
