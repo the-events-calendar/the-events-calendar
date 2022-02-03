@@ -31,6 +31,15 @@ class Builder {
 	protected $batch_size = 100;
 
 	/**
+	 * The type of output that should be used to format the result set elements.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $output_format;
+
+	/**
 	 * An instance to the Model that is using this builder class.
 	 *
 	 * @since TBD
@@ -645,10 +654,10 @@ class Builder {
 
 		global $wpdb;
 		$SQL           = "SELECT * FROM {$wpdb->prefix}{$this->model->table_name()} WHERE `{$column}` {$operator} ({$compare}) {$orderBy} LIMIT %d";
+
 		$batch_size    = min( absint( $this->batch_size ), 1000 );
 		$semi_prepared = $wpdb->prepare( $SQL, array_merge( (array) $data, [ $batch_size ] ) );
 		$model_class   = get_class( $this->model );
-
 		// Start with no results.
 		$results = [];
 		$offset  = 0;
@@ -817,6 +826,14 @@ class Builder {
 			);
 		}
 
+		if ( ARRAY_A === $this->output_format ) {
+			return $results;
+		}
+
+		if ( ARRAY_N === $this->output_format ) {
+			return array_map( 'array_values', $results );
+		}
+
 		return $this->create_collection( $results );
 	}
 
@@ -893,8 +910,6 @@ class Builder {
 
 			return "WHERE " . implode( ' AND ', $this->wheres );
 		}
-
-		$this->invalid = true;
 
 		return '';
 	}
@@ -1233,5 +1248,58 @@ class Builder {
 		$this->wheres[] = '(' . $wpdb->prepare( $query, ...$args ) . ')';
 
 		return $this;
+	}
+
+	/**
+	 * Sets the output format that should be used to format the result(s) of a SELECT
+	 * Model query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $output One of `OBJECT`, `ARRAY_A` or `ARRAY_N`. Note that `OBJECT`
+	 *                       will build and return instances of the Model.
+	 *
+	 * @return $this A reference to the query builder object, for chaining purposes.
+	 */
+	public function output( $output = OBJECT ) {
+		if ( ! in_array( $output, [ OBJECT, ARRAY_A, ARRAY_N ], true ) ) {
+			throw new InvalidArgumentException( 'Output not supported, use one of ARRAY_A, ARRAY_N or OBJECT.' );
+		}
+
+		$this->output_format = $output;
+
+		return $this;
+	}
+
+	/**
+	 * Fetches all the matching results for the query.
+	 *
+	 * The method will handle querying the database in batches, running bound queries
+	 * to support unbound fetching.
+	 *
+	 * @since TBD
+	 *
+	 * @return Generator<Model|array> A generator of either this Model instances or arrays, depending on
+	 *                                the selected output format.
+	 */
+	public function all() {
+		$query_offset   = (int) $this->offset;
+		$query_limit    = $this->limit ?: PHP_INT_MAX;
+		$running_offset = $query_offset;
+		$running_limit  = $query_limit;
+		$running_tally  = 0;
+
+		do {
+			$this->limit    = min( $this->batch_size, $running_limit );
+			$this->offset   = $running_offset;
+			$running_limit  -= $this->batch_size;
+			$running_offset += $this->batch_size;
+			$batch_results  = $this->get();
+			$found          = count( $batch_results );
+			foreach ( $batch_results as $batch_result ) {
+				// Yields with a set key to avoid calls to `iterator_to_array` overriding the values on each pass.
+				yield $running_tally ++ => $batch_result;
+			}
+		} while ( $found === $this->batch_size );
 	}
 }

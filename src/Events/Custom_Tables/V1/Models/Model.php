@@ -41,6 +41,8 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Validator;
  * @method static Builder count( string $column_name = null ) Count all the records that match the query.
  * @method static bool exists() If the SQL Query has at least one result on the Database.
  * @method static Builder join( string $table_name, string $left_column, string $right_column ) Creates an INNER JOIN statement.
+ * @method static Builder output( string $output ) Sets the format that should be used to format results in SELECT queries.
+ * @method static Builder all( ) Find all the records based on the built query.
  */
 abstract class Model implements Serializable {
 	/**

@@ -152,10 +152,14 @@ class Occurrence extends Model {
 	 * @throws Exception If there's an issue in the format or coherency of the additional data.
 	 */
 	public function save_occurrences( ...$args ) {
+		error_log('Getting occurrences ...');
 		$insertions = $this->get_occurrences( ...$args );
+		error_log('Got occurrences.');
 
 		if ( count( $insertions ) ) {
+			error_log('Inserting occurrences ...');
 			self::insert( $insertions );
+			error_log('Inserted occurrences.');
 
 			/**
 			 * Fires after Occurrences for an Event have been inserted.
@@ -359,6 +363,8 @@ class Occurrence extends Model {
 		$insertions = [];
 		$updates = [];
 		$utc        = new DateTimeZone( 'UTC' );
+		$first_occurrence = self::where( 'post_id', '=', $post_id )->first();
+
 		foreach ( $generator as $result ) {
 			/**
 			 * Filters the Occurrence that should be returned to match the requested new Occurrence.
@@ -373,9 +379,11 @@ class Occurrence extends Model {
 			 */
 			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', null, $result, $post_id );
 
-			if ( null === $occurrence ) {
-				// TEC only handles single Occurrence Events: keep reusing the existing one.
-				$occurrence = self::where( 'post_id', '=', $post_id )->first();
+			if ( null === $occurrence && isset( $first_occurrence ) && $first_occurrence instanceof self ) {
+				// TEC only handles single Occurrence Events: reuse the existing one.
+				$occurrence = $first_occurrence;
+				// Unset the first occurrence to avoid it being re-used more than once.
+				unset( $first_occurrence );
 			}
 
 			if ( $occurrence instanceof self ) {
