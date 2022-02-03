@@ -52,7 +52,7 @@ class Custom_Tables_Query extends WP_Query {
 		// Initialize a new instance of the query.
 		$ct_query = new self();
 		$ct_query->init();
-		$ct_query->query      = wp_parse_args( (array) $override_args, $wp_query->query );
+		$ct_query->query      = self::filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
 		$ct_query->query_vars = $ct_query->query;
 
 		// Keep a reference to the original `WP_Query` instance.
@@ -81,6 +81,21 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Adds an opportunity to filter the query_vars that will be used
+	 * in the newly constructed instance of this object.
+	 *
+	 * @since TBD
+	 *
+	 * @param $query_vars array
+	 *
+	 * @return mixed|void
+	 */
+	public static function filter_query_vars( $query_vars ) {
+
+		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_vars', $query_vars );
+	}
+
+	/**
 	 * Overrides the base method to replace the Meta Query with one that will redirect
 	 * to the plugin custom tables.
 	 *
@@ -104,6 +119,7 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ], 10, 2 );
 		add_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_by_date' ], 10, 2 );
+		add_filter( 'posts_where', [ $this, 'filter_where' ], 10, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
 
 		// This "parallel" query should not be manipulated by the WP_Query_Monitor.
@@ -311,6 +327,22 @@ class Custom_Tables_Query extends WP_Query {
 		$redirection = $map[ $this->query['meta_key'] ];
 
 		return sprintf( '%1$s.%2$s', $redirection['table'], $redirection['column'] );
+	}
+
+	/**
+	 * Adds a filter for TEC custom queries in order to further parse the `WHERE` statements.
+	 *
+	 * @since TBD
+	 *
+	 * @param string        $where          The input `WHERE` clause, as built by the `WP_Query`
+	 *                                      class code.
+	 * @param WP_Query|null $query          A reference to the `WP_Query` instance currently being filtered.
+	 *
+	 * @return string The `WHERE` SQL clause, modified to be date-bound, if required.
+	 */
+	public function filter_where( $where, WP_Query $query ) {
+
+		return apply_filters('tec_events_custom_tables_v1_custom_tables_query_where', $where, $query);
 	}
 
 	/**
