@@ -152,14 +152,10 @@ class Occurrence extends Model {
 	 * @throws Exception If there's an issue in the format or coherency of the additional data.
 	 */
 	public function save_occurrences( ...$args ) {
-		error_log('Getting occurrences ...');
 		$insertions = $this->get_occurrences( ...$args );
-		error_log('Got occurrences.');
 
 		if ( count( $insertions ) ) {
-			error_log('Inserting occurrences ...');
 			self::insert( $insertions );
-			error_log('Inserted occurrences.');
 
 			/**
 			 * Fires after Occurrences for an Event have been inserted.
