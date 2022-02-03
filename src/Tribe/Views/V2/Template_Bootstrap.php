@@ -57,8 +57,6 @@ class Template_Bootstrap {
 	/**
 	 * Disables the Views V1 implementation of a Template Hijack
 	 *
-	 * @todo   use a better method to remove Views V1 from been initialized
-	 *
 	 * @since  4.9.2
 	 *
 	 * @return void
@@ -66,7 +64,6 @@ class Template_Bootstrap {
 	public function disable_v1() {
 		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
 		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
-		remove_action( 'plugins_loaded', [ V1_Event_Templates::class, 'init' ] );
 	}
 
 	/**

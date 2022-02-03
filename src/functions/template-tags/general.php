@@ -13,22 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Tribe__Timezones as Timezones;
 
 if ( class_exists( 'Tribe__Events__Main' ) ) {
-
-	/**
-	 * Instantiate the template class, preparing a view file for use. If no name is passed, defaults to the class for the current view
-	 *
-	 * @param bool|string $class Classname you want to instantiate
-	 *
-	 * @uses Tribe__Events__Templates::instantiate_template_class()
-	 **/
-	function tribe_initialize_view( $class = false ) {
-		if ( tec_events_views_v1_should_display_deprecated_notice() ) {
-			_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
-		}
-		do_action( 'tribe_pre_initialize_view' );
-		Tribe__Events__Templates::instantiate_template_class( $class );
-	}
-
 	/**
 	 * Includes a view file, runs hooks around the view
 	 *
@@ -36,9 +20,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 **/
 	function tribe_get_view( $view = false ) {
-		if ( tec_events_views_v1_should_display_deprecated_notice() ) {
-			_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
-		}
 		do_action( 'tribe_pre_get_view' );
 
 		if ( ! $view ) {
@@ -211,35 +192,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
-	}
-
-	/**
-	 * Check if the current request is for a tribe view via ajax
-	 *
-	 * @category Events
-	 * @param bool $view
-	 * @return bool
-	 */
-	function tribe_is_ajax_view_request( $view = false ) {
-		$is_ajax_view_request = false;
-		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && ! empty( $_REQUEST['action'] ) ) {
-			switch ( $view ) {
-				case false:
-					$is_ajax_view_request = ( ! empty( $_REQUEST['tribe_event_display'] ) || ! empty( $_REQUEST['eventDate'] ) || ! empty( $_REQUEST['tribe-bar-date'] ) || ! empty( $_REQUEST['tribe_paged'] ) );
-					break;
-				case 'month' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Month::AJAX_HOOK );
-					break;
-				case 'list' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK );
-					break;
-				case 'day' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Day::AJAX_HOOK );
-					break;
-			}
-		}
-
-		return apply_filters( 'tribe_is_ajax_view_request', $is_ajax_view_request, $view );
 	}
 
 	/**
@@ -612,7 +564,40 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string Page template
 	 */
 	function tribe_get_current_template() {
-		return apply_filters( 'tribe_get_current_template', Tribe__Events__Templates::get_current_page_template() );
+		$template = '';
+
+		// list view
+		if ( tribe_is_list_view() ) {
+			$template = Tribe__Events__Templates::getTemplateHierarchy( 'list', [ 'disable_view_check' => true ] );
+		}
+
+		// month view
+		if ( tribe_is_month() ) {
+			$template = Tribe__Events__Templates::getTemplateHierarchy( 'month', [ 'disable_view_check' => true ] );
+		}
+
+		// day view
+		if ( tribe_is_day() ) {
+			$template = Tribe__Events__Templates::getTemplateHierarchy( 'day' );
+		}
+
+		if ( Tribe__Templates::is_embed() ) {
+			$template = Tribe__Events__Templates::getTemplateHierarchy( 'embed' );
+		}
+
+		// single event view
+		if (
+			is_singular( Tribe__Events__Main::POSTTYPE )
+			&& ! tribe_is_showing_all()
+			&& ! Tribe__Templates::is_embed()
+		) {
+			$template = Tribe__Events__Templates::getTemplateHierarchy( 'single-event', [ 'disable_view_check' => true ] );
+		}
+
+		// apply filters
+		$template = apply_filters( 'tribe_events_current_view_template', $template );
+
+		return apply_filters( 'tribe_get_current_template', $template );
 	}
 
 	/**
@@ -1416,55 +1401,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$json = tribe_prepare_for_json_deep( $json );
 
 		return json_encode( $json );
-	}
-
-	/**
-	 * Include the List view
-	 *
-	 * Accepts an array of query arguments, retrieves them, and returns the html for those events in list view
-	 *
-	 * Optional inline example:
-	 * < code >
-	 * <?php
-	 * echo myfunction();
-	 * ?>
-	 * </ code >
-	 *
-	 * @category Events
-	 *
-	 * @param array $args       Args to be passed to Tribe__Events__Query::getEvents()
-	 * @param bool  $initialize Whether the list view template class needs to be included and initialized
-	 *
-	 * @return string
-	 **/
-	function tribe_include_view_list( $args = null, $initialize = true ) {
-
-		global $wp_query;
-
-		// hijack the main query to load the events via provided $args
-		if ( ! is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
-			$reset_q  = $wp_query;
-			$wp_query = Tribe__Events__Query::getEvents( $args, true );
-		}
-
-		// single-event notices are jumping in on this init when loading as a module
-		Tribe__Notices::remove_notice( 'event-past' );
-
-		// get the list view template
-		ob_start();
-		if ( $initialize ) {
-			tribe_initialize_view( 'Tribe__Events__Template__List' );
-		}
-		tribe_get_view( 'list/content' );
-		$list_view_html = ob_get_clean();
-
-		// fix the error of our ways
-		if ( ! empty( $reset_q ) ) {
-			$wp_query = $reset_q;
-		}
-
-		// return the parsed template
-		return $list_view_html;
 	}
 
 	/**

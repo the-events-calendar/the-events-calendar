@@ -62,11 +62,7 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 		$tec_bar           = tribe( 'tec.bar' );
 
 		$filters_to_remove = [
-			'query_vars'                       => [
-				[ 'callback' => [ TEC::instance(), 'eventQueryVars' ] ],
-			],
 			'parse_query'                      => [
-				[ 'callback' => [ TEC::instance(), 'setDisplay' ], 'priority' => 51 ],
 				[ 'callback' => [ $backcompat, 'change_qv_to_list' ], 'priority' => 45 ],
 				[ 'callback' => [ V1_Query::class, 'parse_query' ], 'priority' => 50 ],
 			],

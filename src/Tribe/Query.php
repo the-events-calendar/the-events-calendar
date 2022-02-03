@@ -207,8 +207,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			if ( $query->is_main_query() && $past_requested ) {
 				$query->tribe_is_past = true;
-			} elseif ( tribe_is_ajax_view_request() && ( $display_past || $past_requested ) ) {
-				$query->tribe_is_past = true;
 			} elseif ( $query->get( 'tribe_is_past' ) ) {
 				$query->tribe_is_past = true;
 			} else {
@@ -351,7 +349,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// the query explicity requests they be exposed
 				$maybe_hide_events = (bool) $query->get( 'hide_upcoming', true );
 
-				$skip_event_display_filters = is_admin() && $query->is_main_query() && ! tribe_is_ajax_view_request();
+				$skip_event_display_filters = is_admin() && $query->is_main_query();
 
 				// @todo  [BTRIA-607]: Stop calling EOD cutoff transformations all over the place.
 				if ( ! empty( $query->query_vars['eventDisplay'] ) && ! $skip_event_display_filters ) {

@@ -676,6 +676,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/template-tags/query.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/month.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/day.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/loop.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/google-map.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/event.php';
@@ -683,7 +684,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/template-tags/venue.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/link.php';
-			require_once $this->plugin_path . 'src/functions/template-tags/widgets.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 			require_once $this->plugin_path . 'src/deprecated/functions.php';
 
@@ -760,8 +760,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 
 			add_filter( 'post_type_archive_link', [ $this, 'event_archive_link' ], 10, 2 );
-			add_filter( 'query_vars', [ $this, 'eventQueryVars' ] );
-			add_action( 'parse_query', [ $this, 'setDisplay' ], 51, 1 );
 			add_filter( 'bloginfo_rss', [ $this, 'add_space_to_rss' ] );
 			add_filter( 'post_updated_messages', [ $this, 'updatePostMessage' ] );
 
@@ -789,9 +787,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'wp_insert_post', [ $this, 'addPostOrigin' ], 10, 2 );
 			add_action( 'save_post', [ $this, 'addEventMeta' ], 15, 2 );
-
-			/* Registers the list widget */
-			add_action( 'widgets_init', [ $this, 'register_list_widget' ], 90 );
 
 			add_action( 'save_post_' . Tribe__Events__Venue::POSTTYPE, [ $this, 'save_venue_data' ], 16, 2 );
 			add_action( 'save_post_' . Tribe__Events__Organizer::POSTTYPE, [ $this, 'save_organizer_data' ], 16, 2 );
@@ -880,9 +875,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_filter( 'wp_import_post_data_processed', [ $this, 'filter_wp_import_data_after' ], 10, 1 );
 			}
 
-			add_action( 'plugins_loaded', [ $this, 'init_day_view' ], 2 );
-
-			add_action( 'plugins_loaded', [ 'Tribe__Events__Templates', 'init' ] );
 			tribe( 'tec.bar' );
 
 			add_action( 'init', [ $this, 'filter_cron_schedules' ] );
@@ -1480,17 +1472,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function get_event_label_singular() {
 			return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
-		}
-
-		/**
-		 * Load the day view template tags
-		 * Loaded late due to potential upgrade conflict since moving them from pro
-		 *
-		 * @todo [BTRIA-620]: move this require to be with the rest of the template tag includes in 3.9
-		 */
-		public function init_day_view() {
-			// load day view functions
-			require_once $this->plugin_path . 'src/functions/template-tags/day.php';
 		}
 
 		/**
@@ -2456,56 +2437,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Set the displaying class property.
-		 *
-		 */
-		public function setDisplay( $query = null ) {
-			// If we didn't get a Query Instance we fetch from the globals
-			if ( ! $query instanceof WP_Query ) {
-				$query = $GLOBALS['wp_query'];
-			}
-
-			// If we are in Admin and Not inside of the Default WP AJAX request
-			if ( is_admin() && ! tribe( 'context' )->doing_ajax() ) {
-				$this->displaying = 'admin';
-				return;
-			}
-
-			// Bail if we are not dealing with the main WP Query or a non-event Query
-			if ( ! $query->is_main_query() || empty( $query->tribe_is_event_query ) ) {
-				return;
-			}
-
-			// If we have an embed we just set it and bail
-			$embed = $query->get( 'embed' );
-			if ( ! empty( $embed ) ) {
-				$this->displaying = 'embed';
-				return;
-			}
-
-			// Fetch what ever display we have so far
-			$display = $query->get( 'eventDisplay', false );
-
-			// If we don't have a Permalink structure we see if we have something on the _GET param
-			if ( ! get_option( 'permalink_structure' ) ) {
-				$display = Tribe__Utils__Array::get( $_GET, 'tribe_event_display', $display );
-			}
-
-			// Fetch the default if we have nothing
-			if ( false === $display ) {
-				$display = tribe_get_option( 'viewOption', 'list' );
-			}
-
-			// If single and not All for Recurring events From Pro
-			if ( $query->is_single() && 'all' !== $display ) {
-				$display = 'single-event';
-			}
-
-			// Only do this by the end
-			$this->displaying = filter_var( $display, FILTER_SANITIZE_STRING );
-		}
-
-		/**
 		 * Returns the default view, providing a fallback if the default is no longer available.
 		 *
 		 * This can be useful is for instance a view added by another plugin (such as PRO) is
@@ -2614,28 +2545,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return ( self::POSTTYPE === $post_type )
 				? tribe_get_events_link()
 				: $link;
-		}
-
-		/**
-		 * Adds the event specific query vars to WordPress
-		 *
-		 * @param array $qvars
-		 *
-		 * @link https://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
-		 * @return mixed array of query variables that this plugin understands
-		 */
-		public function eventQueryVars( $qvars ) {
-			$qvars[] = 'eventDisplay';
-			$qvars[] = 'eventDate';
-			$qvars[] = 'eventSequence';
-			$qvars[] = 'ical';
-			$qvars[] = 'start_date';
-			$qvars[] = 'end_date';
-			$qvars[] = 'featured';
-			$qvars[] = self::TAXONOMY;
-			$qvars[] = 'tribe_remove_date_filters';
-
-			return $qvars;
 		}
 
 		/**
@@ -4664,17 +4573,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $post;
-		}
-
-		/**
-		 * Registers the list widget
-		 */
-		public function register_list_widget() {
-			if ( tribe_events_widgets_v2_is_enabled() ) {
-				return;
-			}
-
-			register_widget( 'Tribe__Events__List_Widget' );
 		}
 
 		/**

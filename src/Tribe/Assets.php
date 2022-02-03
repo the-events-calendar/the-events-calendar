@@ -185,13 +185,10 @@ class Tribe__Events__Assets {
 				]
 			);
 
-			// Setup our own script used to initialize each map
-			$embedded_map_url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
-
 			tribe_asset(
 				$plugin,
 				Tribe__Events__Embedded_Maps::MAP_HANDLE,
-				$embedded_map_url,
+				'embedded-map.js',
 				[ 'tribe-events-google-maps' ],
 				null,
 				[
