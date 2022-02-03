@@ -360,6 +360,8 @@ class Occurrence extends Model {
 		$updates = [];
 		$utc        = new DateTimeZone( 'UTC' );
 		$first_occurrence = self::where( 'post_id', '=', $post_id )->first();
+		// Clear the cache to start fresh on this upsert cycle.
+		wp_cache_delete( $post_id, 'tec_occurrence_matches' );
 
 		foreach ( $generator as $result ) {
 			/**
