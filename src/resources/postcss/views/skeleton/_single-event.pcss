@@ -223,21 +223,20 @@
 		margin-bottom: var(--tec-spacer-8);
 	}
 
-	.tribe-events-gcal {
-		margin-right: var(--tec-spacer-5);
-
-		@media (--viewport-medium) {
-			margin-right: var(--tec-spacer-8);
-		}
-	}
-
-	.tribe-events-gcal,
-	.tribe-events-ical {
+	a {
 		display: inline-block;
 		padding-left: var(--tec-spacer-7);
 
 		.single-tribe_events & {
 			padding-left: var(--tec-spacer-7);
+		}
+	}
+
+	a:not(:last-of-type) {
+		margin-right: var(--tec-spacer-5);
+
+		@media (--viewport-medium) {
+			margin-right: var(--tec-spacer-8);
 		}
 	}
 }

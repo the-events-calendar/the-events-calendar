@@ -275,6 +275,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		call_user_func_array( [ $this, $method ], [] );
 
 		$events_indexed = wp_list_pluck( static::$events, 'ID' );
+		/*
 		codecept_debug(
 			array_combine(
 				array_keys( static::$events ),
@@ -283,6 +284,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		);
 		codecept_debug( $events_indexed );
 		codecept_debug( $expected_events_index );
+		*/
 
 		add_filter( 'tribe_ical_feed_posts_per_page', static function () {
 			return 4;

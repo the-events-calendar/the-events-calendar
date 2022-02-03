@@ -46,23 +46,6 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	protected $feeds = [];
 
 	/**
-	 * Initializes, sets the internal feeds array and returns it.
-	 *
-	 * @since 5.12.3
-	 *
-	 * @return array
-	 */
-	public function get_feeds() {
-		if ( empty( $this->feeds ) ) {
-			$this->feeds = array_map( static function ( $feed_class ) {
-				return tribe( $feed_class );
-			}, $this->default_feeds );
-		}
-
-		return $this->feeds;
-	}
-
-	/**
 	 * Register singletons and main hook.
 	 *
 	 * @since 5.12.0
@@ -80,6 +63,20 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( static::class, $this );
 
 		$this->register_hooks();
+	}
+
+	/**
+	 * Register all our hooks here.
+	 *
+	 * @since 5.12.0
+	 */
+	public function register_hooks() {
+		add_action( 'tribe_events_views_v2_before_make_view', [ $this, 'get_feeds' ] );
+
+		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_template_vars' ], 10, 2 );
+		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 20 );
+		add_filter( 'tribe_ical_properties', [ $this, 'ical_properties' ] );
+		add_filter( 'tribe_template_context:events/blocks/event-links', [ $this, 'filter_template_context' ], 10, 4 );
 	}
 
 	/**
@@ -101,17 +98,20 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Register all our hooks here.
+	 * Initializes, sets the internal feeds array and returns it.
 	 *
-	 * @since 5.12.0
+	 * @since 5.12.3
+	 *
+	 * @return array
 	 */
-	public function register_hooks() {
-		add_action( 'tribe_events_views_v2_before_make_view', [ $this, 'get_feeds' ] );
+	public function get_feeds() {
+		if ( empty( $this->feeds ) ) {
+			$this->feeds = array_map( static function ( $feed_class ) {
+				return tribe( $feed_class );
+			}, $this->default_feeds );
+		}
 
-		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_template_vars' ], 10, 2 );
-		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 20 );
-		add_filter( 'tribe_ical_properties', [ $this, 'ical_properties' ] );
-		add_filter( 'tribe_template_context:events/blocks/event-links', [ $this, 'filter_template_context' ], 10, 4 );
+		return $this->feeds;
 	}
 
 	public function filter_template_context( $context, $file, $name, $template ) {
@@ -166,7 +166,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Replace the default single event links with subscription links.
+	 * Replace (overwrite) the default single event links with subscription links.
 	 *
 	 * @see   `tribe_events_ical_single_event_links` filter.
 	 *
@@ -177,6 +177,11 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 * @return string The altered link content.
 	 */
 	public function single_event_links( $calendar_links ) {
+		// If someone has opted out of the new subscribe links - don't change anything!
+		if ( ! $this->use_subscribe_links() ) {
+			return $calendar_links;
+		}
+
 		$calendar_links = '<div class="tribe-events-cal-links">';
 
 		$links = [];
@@ -185,10 +190,13 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since 5.12.0
 		 *
-		 * @param array<string|object> $subscribe_links The array of link objects.
+		 * @param array<string|string> $subscribe_links The array of link objects.
 		 * @param View|null            $view            The current View implementation.
 		 */
 		$links = apply_filters( 'tec_views_v2_single_subscribe_links', $links, null );
+
+		// Remove any that are empty post-filtering.
+		$links = array_filter( $links );
 
 		foreach ( $links as $link ) {
 			$calendar_links .= $link;
@@ -227,7 +235,8 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	public function ical_properties( $content ) {
 		$content .= "REFRESH-INTERVAL;VALUE=DURATION:PT1H\r\n";
 		$content .= "X-Robots-Tag:noindex\r\n";
+		$content .= "X-PUBLISHED-TTL:PT1H\r\n";
 
-		return $content . "X-PUBLISHED-TTL:PT1H\r\n";
+		return $content;
 	}
 }
