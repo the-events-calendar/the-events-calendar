@@ -169,16 +169,6 @@
 * `Tribe__Events__Query::postmeta_table`
 * `Tribe__Events__Query::can_inject_date_field`
 * `Tribe__Events__Query::should_remove_date_filters`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-* `Tribe__Events__Query::last_found_events`
-
 * `Tribe\Events\Views\V2\Widgets\Service_Provider::unregister_list_widget`
 * `tribe_is_ajax_view_request`
 * `tribe_include_view_list`
