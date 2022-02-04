@@ -91,7 +91,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return array<string,mixed> The filtered query variables.
 	 */
-	public function filter_query_vars( $query_vars ) {
+	private function filter_query_vars( $query_vars ) {
 		/**
 		 * Filters the query variables that will be used to build the Custom Tables Query.
 		 *
@@ -430,10 +430,26 @@ class Custom_Tables_Query extends WP_Query {
 		return $join;
 	}
 
+	/**
+	 * Implementation of the magic method to check if a property is set on this object or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The property to check for.
+	 *
+	 * @return bool Whether a property is set on this object or not.
+	 */
 	public function __isset( $name ) {
 		return parent::__isset( $name );
 	}
 
+	/**
+	 * Returns a reference to the `WP_Query` instance this instance is wrapping.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query|null A reference to the `WP_Query` instance this object is wrapping.
+	 */
 	public function get_wp_query() {
 		return $this->wp_query;
 	}
