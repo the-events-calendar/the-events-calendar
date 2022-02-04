@@ -2074,7 +2074,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if (
 				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
 				! $venue_id &&
-				tribe_is_community_edit_event_page()
+				function_exists( 'tribe_is_community_edit_event_page' ) && tribe_is_community_edit_event_page()
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
