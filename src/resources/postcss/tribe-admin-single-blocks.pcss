@@ -145,6 +145,7 @@
 			}
 
 			input {
+				background: transparent;
 				color: var(--tec-color-accent-primary);
 				font-size: var(--tec-font-size-4);
 				font-weight: normal;
@@ -272,6 +273,7 @@
 .tribe-editor__related-events {
 
 	.tribe-editor__related-events__title-text input {
+		background: transparent;
 		color: var(--tec-color-accent-primary);
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: var(--tec-font-size-4);
@@ -328,7 +330,7 @@
 	}
 }
 
-/* = Event title and paragraph
+/* = Generic fields
 ============================================= */
 .post-type-tribe_events {
 	.wp-block.wp-block-post-title {
@@ -342,6 +344,12 @@
 		font-size: var(--tec-font-size-4);
 		letter-spacing: normal;
 		line-height: 1.64;
+	}
+
+	.tribe-editor__event-details .tribe-editor__meta-group .tribe-editor__events-section__headline input,
+	#tribe-event-url,
+	.tribe-editor__event-cost__value {
+		background: transparent;
 	}
 }
 
