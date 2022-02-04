@@ -377,12 +377,17 @@ class Occurrence extends Model {
 			 */
 			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', null, $result, $post_id );
 
-			if ( null === $occurrence && isset( $first_occurrence ) && $first_occurrence instanceof self ) {
+			if (
+				null === $occurrence
+				&& isset( $first_occurrence )
+				&& $first_occurrence instanceof self
+			) {
 				// TEC only handles single Occurrence Events: reuse the existing one.
 				$occurrence = $first_occurrence;
-				// Unset the first occurrence to avoid it being re-used more than once.
-				unset( $first_occurrence );
 			}
+
+			// Unset the first occurrence to avoid it being re-used more than once.
+			unset( $first_occurrence );
 
 			if ( $occurrence instanceof self ) {
 				$result->occurrence_id       = $occurrence->occurrence_id;
@@ -392,6 +397,7 @@ class Occurrence extends Model {
 				$updates[] = $result;
 				continue;
 			}
+
 			$insertions[] = $result->toArray();
 		}
 
