@@ -12,7 +12,7 @@ class Tribe__Events__Query {
 	 * @var array The WP_Query arguments used in the last `getEvents` method
 	 *            query.
 	 */
-	protected static $last_result = [];\
+	protected static $last_result = [];
 
 	/**
 	 * Set any query flags
