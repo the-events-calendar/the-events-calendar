@@ -13,6 +13,8 @@
  */
 
 // don't show on password protected posts
+use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
+
 if ( post_password_required() ) {
 	return;
 }
@@ -28,12 +30,12 @@ if ( ! $should_render ) {
 remove_filter( 'the_content', 'do_blocks', 9 );
 $subscribe_links = empty( $this->context['subscribe_links'] ) ? false : $this->context['subscribe_links'];
 
-if ( $has_google_cal ) {
-	$google_cal_link = $subscribe_links ? $subscribe_links[ 'gcal' ]->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
+if ( $has_google_cal && ! empty( $subscribe_links['gcal']  ) {
+	$google_cal_link = $subscribe_links && $subscribe_links['gcal'] instanceof Link_Abstract ? $subscribe_links['gcal']->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
 }
 
-if ( $has_ical ) {
-	$ical_link = $subscribe_links ? $subscribe_links[ 'ical' ]->get_uri( null ) : tribe_get_single_ical_link();
+if ( $has_ical && ! empty( $subscribe_links['ical'] ) ) {
+	$ical_link = $subscribe_links && $subscribe_links['ical'] instanceof Link_Abstract ? $subscribe_links['ical']->get_uri( null ) : tribe_get_single_ical_link();
 }
 
 ?>
