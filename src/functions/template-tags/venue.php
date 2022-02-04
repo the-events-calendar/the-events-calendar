@@ -309,6 +309,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$venue_id  = tribe_get_venue_id( $postId );
 		$tec       = Tribe__Events__Main::instance();
 
+		global $post;
+		if ( ! is_null( $post_id ) ) {
+			$tmp_post = $post;
+			$post     = get_post( $post_id );
+		}
+		ob_start();
+		tribe_get_template_part( 'modules/address' );
+		$address = ob_get_contents();
+		ob_end_clean();
+		if ( ! empty( $tmp_post ) ) {
+			$post = $tmp_post;
+		}
+
 		/**
 		 * Allows customization of the venue's full address.
 		 *
@@ -319,7 +332,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param int $venue_id The venue ID.
 		 * @param bool $includeVenueName To include the venue name or not.
 		 */
-		return apply_filters( 'tribe_get_full_address', $tec->fullAddress( $venue_id, $includeVenueName ), $venue_id, $includeVenueName );
+		return apply_filters( 'tribe_get_full_address', $address, $venue_id, $includeVenueName );
 	}
 
 	/**

@@ -138,7 +138,97 @@
 * `Tribe__Events__Main::setDisplay`
   * [ ] Investigate `Tribe__Events__Main->displaying`
 * `Tribe__Events__Main::eventQueryVars`
+* `Tribe__Events__Main::ecpActive`
+* `Tribe__Events__Main::dateHelper`
+* `Tribe__Events__Main::dateToTimeStamp`
+* `Tribe__Events__Main::defaultValueReplaceEnabled`
+* `Tribe__Events__Main::addHelpAdminMenuItem`
+* `Tribe__Events__Main::getNotices`
+* `Tribe__Events__Main::removeNotice`
+* `Tribe__Events__Main::isNotice`
+* `Tribe__Events__Main::setNotice`
+* `Tribe__Events__Main::renderDebug`
+* `Tribe__Events__Main::debug`
+* `Tribe__Events__Main::truncate`
+* `Tribe__Events__Main::saveAllTabsHidden`
+* `Tribe__Events__Main::doNetworkSettingTab`
+* `Tribe__Events__Main::addNetworkOptionsPage`
+* `Tribe__Events__Main::setNetworkOptions`
+* `Tribe__Events__Main::getNetworkOption`
+* `Tribe__Events__Main::getNetworkOptions`
+* `Tribe__Events__Main::setOption`
+* `Tribe__Events__Main::setOptions`
+* `Tribe__Events__Main::getOption`
+* `Tribe__Events__Main::getOptions`
+* `Tribe__Events__Main::getTagRewriteSlug`
+* `Tribe__Events__Main::getTaxRewriteSlug`
+* `Tribe__Events__Main::doHelpTab`
+* `Tribe__Events__Main::doSettingTabs`
+* `Tribe__Events__Main::array_insert_before_key`
+* `Tribe__Events__Main::array_insert_after_key`
+* `Tribe__Events__Main::add_post_type_to_edit_term_link`
+* `Tribe__Events__Main::prepare_to_fix_tagcloud_links`
+* `Tribe__Events__Main::saved_organizers_dropdown`
+* `Tribe__Events__Main::saved_venues_dropdown`
+* `Tribe__Events__Main::set_meta_factory_global`
+* `Tribe__Events__Main::initOptions`
+* `Tribe__Events__Main::loadTextDomain`
+* `Tribe__Events__Main::common`
 * `Tribe__Events__Main::issue_noindex`
+* `Tribe__Events__Main::displayEventOrganizerDropdown`
+* `Tribe__Events__Main::displayEventVenueDropdown`
+* `Tribe__Events__Main::checkAddOnCompatibility`
+* `Tribe__Events__Main::maybe_delay_activation_if_outdated_common`
+* `Tribe__Events__Main::is_delayed_activation`
+* `Tribe__Events__Main::getDateStringShortened`
+* `Tribe__Events__Main::get_event_link`
+* `Tribe__Events__Main::get_closest_event`
+* `Tribe__Events__Main::setPostExceptionThrown`
+* `Tribe__Events__Main::getPostExceptionThrown`
+* `Tribe__Events__Main::manage_preview_metapost`
+* `Tribe__Events__Main::setDashicon`
+* `Tribe__Events__Main::printLocalizedAdmin`
+* `Tribe__Events__Main::localizeAdmin`
+* `Tribe__Events__Main::asset_fixes`
+* `Tribe__Events__Main::add_admin_assets`
+* `Tribe__Events__Main::loadStyle`
+* `Tribe__Events__Main::enqueue_wp_admin_menu_style`
+* `Tribe__Events__Main::nextMonth`
+  * [ ] Pro makes use of this method
+* `Tribe__Events__Main::previousMonth`
+  * [ ] Pro makes use of this method
+* `Tribe__Events__Main::get_closest_event_where`
+* `Tribe__Events__Main::setup_listview_in_bar`
+* `Tribe__Events__Main::setup_gridview_in_bar`
+* `Tribe__Events__Main::setup_dayview_in_bar`
+* `Tribe__Events__Main::setup_date_search_in_bar`
+* `Tribe__Events__Main::remove_hidden_views`
+* `Tribe__Events__Main::setup_keyword_search_in_bar`
+* `Tribe__Events__Main::OrganizerMetaBox`
+* `Tribe__Events__Main::VenueMetaBox`
+* `Tribe__Events__Main::EventsChooserBox`
+* `Tribe__Events__Main::add_new_organizer`
+* `Tribe__Events__Main::normalize_organizer_submission`
+* `Tribe__Events__Main::get_i18n_strings_for_domains`
+* `Tribe__Events__Main::googleMapLink`
+* `Tribe__Events__Main::googleCalendarLink`
+* `Tribe__Events__Main::fullAddress`
+* `Tribe__Events__Main::fullAddressString`
+* `Tribe__Events__Main::get_i18n_strings`
+* `Tribe__Events__Main::monthNames`
+* `Tribe__Events__Main::default_view`
+  * [ ] Pro makes use of this method
+* `Tribe__Events__Main::redirect_past_upcoming_view_urls`
+* `Tribe__Events__Main::getPostTypes`
+  * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
+* `Tribe__Events__Main::getOrganizerPostTypeArgs`
+* `Tribe__Events__Main::getVenuePostTypeArgs`
+  * [ ] Pro makes use of this method, replace with `Tribe__Events__Venue::instance()->post_type_args`
+* `Tribe__Events__Main::disable_pro`
+* `Tribe__Events__Main::template_redirect`
+* `Tribe__Events__Main::handle_submit_bar_redirect`
+* `Tribe__Events__Main::print_noindex_meta`
+  * [ ] Confirm why we might have removed this from our Views.
 * `Tribe__Events__Query::init`
 * `Tribe__Events__Query::parse_query`
   * [ ] `WP_Query->tribe_is_event`
@@ -181,6 +271,10 @@
 * `tribe_events_have_month_days`
 * `tribe_show_month`
 * `tribe_get_dropdown_link_prefix`
+* `tribe_events_get_filters`
+  * [ ] Pro make use of this
+* `tribe_events_get_views`
+  * [ ] Pro make use of this
 * `Tribe__Events__Template_Factory::asset_package`
 * `Tribe__Events__Template_Factory::setup_meta`
 * `Tribe__Events__Template_Factory::get_asset_factory_instance`

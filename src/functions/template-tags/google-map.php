@@ -51,9 +51,29 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return string A fully qualified link to https://maps.google.com/ for this event
 	 */
-	function tribe_get_map_link( $postId = null ) {
-		$tec    = Tribe__Events__Main::instance();
-		$output = esc_url( $tec->googleMapLink( $postId ) );
+	function tribe_get_map_link( $post_id = null ) {
+		if ( $post_id === null || ! is_numeric( $post_id ) ) {
+			global $post;
+			$post_id = $post->ID;
+		}
+
+		$locationMetaSuffixes = [ 'address', 'city', 'region', 'zip', 'country' ];
+		$to_encode = '';
+		$url = '';
+
+		foreach ( $locationMetaSuffixes as $val ) {
+			$metaVal = call_user_func( 'tribe_get_' . $val, $post_id );
+			if ( $metaVal ) {
+				$to_encode .= $metaVal . ' ';
+			}
+		}
+
+		if ( $to_encode ) {
+			$url = 'https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=' . urlencode( trim( $to_encode ) );
+		}
+
+		$url = apply_filters( 'tribe_events_google_map_link', $url, $post_id );
+		$output = esc_url( $url );
 
 		return apply_filters( 'tribe_get_map_link', $output );
 	}
