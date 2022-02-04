@@ -12,7 +12,150 @@ class Tribe__Events__Query {
 	 * @var array The WP_Query arguments used in the last `getEvents` method
 	 *            query.
 	 */
-	protected static $last_result = [];
+	protected static $last_result = [];\
+
+	/**
+	 * Set any query flags
+	 *
+	 * @param WP_Query $query
+	 */
+	public static function parse_query( $query ) {
+		// If this is set then the class will bail out of any filtering.
+		if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+			return $query;
+		}
+
+		$helper = Tribe__Admin__Helpers::instance();
+
+		// set paged
+		if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
+			$query->set( 'paged', absint( tribe_get_request_var( 'tribe_paged' ) ) );
+		}
+
+		// Return early as we don't want to change a post that is not part of the valid group of event post types.
+		$valid_post_types = [
+			Tribe__Events__Main::POSTTYPE,
+			Tribe__Events__Venue::POSTTYPE,
+			Tribe__Events__Organizer::POSTTYPE,
+		];
+		if (
+			$query->is_main_query()
+			&& $query->is_single()
+			// Make sure we are not in a Post Type declared by the plugin.
+			&& false === in_array( $query->get( 'post_type' ), $valid_post_types )
+		)  {
+			return $query;
+		}
+
+		// Don't change query on pages as we might be ina shortcode.
+		if ( $query->is_main_query() && $query->is_page() ) {
+			return $query;
+		}
+
+		// Add tribe events post type to tag queries only in tag archives
+		if (
+			$query->is_tag
+			&& (array) $query->get( 'post_type' ) != [ Tribe__Events__Main::POSTTYPE ]
+			&& ! $helper->is_post_type_screen( 'post' )
+		) {
+			$types = $query->get( 'post_type' );
+
+			if ( empty( $types ) ) {
+				$types = [ 'post' ];
+			}
+
+			if ( is_array( $types ) && $query->is_main_query() ) {
+				$types[] = Tribe__Events__Main::POSTTYPE;
+			} elseif ( $query->is_main_query() ) {
+				if ( is_string( $types ) ) {
+					$types = [ $types, Tribe__Events__Main::POSTTYPE ];
+				} else {
+					if ( $types != 'any' ) {
+						$types = [ 'post', Tribe__Events__Main::POSTTYPE ];
+					}
+				}
+			}
+
+			$query->set( 'post_type', $types );
+		}
+
+		$types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : [] );
+
+		// check if any possibility of this being an event query
+		$query->tribe_is_event = ( in_array( Tribe__Events__Main::POSTTYPE, $types ) && count( $types ) < 2 )
+			? true // it was an event query
+			: false;
+
+		$query->tribe_is_multi_posttype = ( in_array( Tribe__Events__Main::POSTTYPE, $types ) && count( $types ) >= 2 || in_array( 'any', $types ) )
+			? true // it's a query for multiple post types, events post type included
+			: false;
+
+		if ( 'default' === $query->get( 'eventDisplay' ) ) {
+
+			/**
+			 * Allows other plugins (and v2 views) to hook in and alter this before we change the query.
+			 *
+			 * @since 5.12.3
+			 *
+			 * @param string $default_view The slug of the default view to pass to the query.
+			 */
+			$default_view = apply_filters( 'tec_events_query_default_view', null );
+
+			$query->set( 'eventDisplay', $default_view );
+		}
+
+		// check if any possibility of this being an event category
+		$query->tribe_is_event_category = ! empty ( $query->query_vars[ Tribe__Events__Main::TAXONOMY ] )
+			? true // it was an event category
+			: false;
+
+		$query->tribe_is_event_venue = ( in_array( Tribe__Events__Main::VENUE_POST_TYPE, $types ) )
+			? true // it was an event venue
+			: false;
+
+		$query->tribe_is_event_organizer = ( in_array( Tribe__Events__Main::ORGANIZER_POST_TYPE, $types ) )
+			? true // it was an event organizer
+			: false;
+
+		$query->tribe_is_event_query = ( $query->tribe_is_event
+		                                 || $query->tribe_is_event_category
+		                                 || $query->tribe_is_event_venue
+		                                 || $query->tribe_is_event_organizer )
+			? true // this is an event query of some type
+			: false; // move along, this is not the query you are looking for
+
+		// is the query pulling posts from the past?
+		$past_requested = ! empty( $_REQUEST['tribe_event_display'] ) && 'past' === $_REQUEST['tribe_event_display'];
+		$display_past   = 'past' === $query->get( 'eventDisplay' );
+
+		if ( $query->is_main_query() && $past_requested ) {
+			$query->tribe_is_past = true;
+		}elseif ( $query->get( 'tribe_is_past' ) ) {
+			$query->tribe_is_past = true;
+		} else {
+			$query->tribe_is_past = isset( $query->tribe_is_past ) ? $query->tribe_is_past : false;
+		}
+
+		// never allow 404 on month view
+		if (
+			$query->is_main_query()
+			&& 'month' === $query->get( 'eventDisplay' )
+			&& ! $query->is_tax
+			&& ! $query->tribe_is_event_category
+		) {
+			$query->is_post_type_archive = true;
+			$query->queried_object       = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+			$query->queried_object_id    = 0;
+		}
+
+		if ( tribe_is_events_front_page() ) {
+			$query->is_home = true;
+		} elseif ( $query->tribe_is_event_query ) {
+			// fixing is_home param
+			$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
+			do_action( 'tribe_events_parse_query', $query );
+		}
+	}
 
 	/**
 	 * Customized WP_Query wrapper to setup event queries with default arguments.

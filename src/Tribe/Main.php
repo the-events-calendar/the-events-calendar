@@ -726,6 +726,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Add filters and actions
 		 */
 		protected function addHooks() {
+
+			add_action( 'parse_query', [ Tribe__Events__Query::class, 'parse_query' ], 50 );
 			/**
 			 * It's important that anything related to Text Domain happens at `init`
 			 * because of the way $wp_locale works
@@ -760,8 +762,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/* Add nav menu item - thanks to https://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . self::POSTTYPE, [ $this, 'add_events_checkbox_to_menu' ], null, 3 );
 			add_filter( 'wp_nav_menu_objects', [ $this, 'add_current_menu_item_class_to_events' ], null, 2 );
-
-			add_action( 'template_redirect', [ $this, 'redirect_past_upcoming_view_urls' ], 9 );
 
 			/* edit-post metaboxes */
 			add_action( 'admin_menu', [ $this, 'addEventBox' ] );

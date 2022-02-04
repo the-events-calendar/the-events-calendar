@@ -465,12 +465,12 @@ class Month_View extends By_Day_View {
 		}
 
 		try {
-			$date = new DateTime( $month );
-			$date = new DateTime( $date->format( 'Y-m-01' ) );
+			$date = new \DateTime( $month );
+			$date = new \DateTime( $date->format( 'Y-m-01' ) );
 			$date->modify( "$diff days" );
 
 			return $date->format( Dates::DBDATEFORMAT );
-		} catch ( Exception $e ) {
+		} catch ( \Exception $e ) {
 			return false;
 		}
 	}
@@ -505,12 +505,12 @@ class Month_View extends By_Day_View {
 		}
 
 		try {
-			$date = new DateTime( $month );
-			$date = new DateTime( $date->format( 'Y-m-t' ) );
+			$date = new \DateTime( $month );
+			$date = new \DateTime( $date->format( 'Y-m-t' ) );
 			$date->modify( "$diff days" );
 
 			return $date->format( Dates::DBDATEFORMAT );
-		} catch ( Exception $e ) {
+		} catch ( \Exception $e ) {
 			return false;
 		}
 	}

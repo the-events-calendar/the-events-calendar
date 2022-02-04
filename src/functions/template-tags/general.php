@@ -707,6 +707,40 @@ function tribe_events_event_classes( $event = 0, $echo = true ) {
 }
 
 /**
+ * Return an array with the days of the week, numbered with respect to the start_of_week WP option
+ *
+ * @category Events
+ * @param string $format the display format for the days of the week
+ *
+ * @return array Days of the week.
+ **/
+function tribe_events_get_days_of_week( $format = null ) {
+
+	switch ( $format ) {
+		case 'min' :
+			$days_of_week = Tribe__Events__Main::instance()->daysOfWeekMin;
+			break;
+
+		case 'short' :
+			$days_of_week = Tribe__Events__Main::instance()->daysOfWeekShort;
+			break;
+
+		default:
+			$days_of_week = Tribe__Events__Main::instance()->daysOfWeek;
+			break;
+	}
+
+	$start_of_week = get_option( 'start_of_week', 0 );
+	for ( $i = 0; $i < $start_of_week; $i ++ ) {
+		$day = $days_of_week[ $i ];
+		unset( $days_of_week[ $i ] );
+		$days_of_week[ $i ] = $day;
+	}
+
+	return apply_filters( 'tribe_events_get_days_of_week', $days_of_week );
+}
+
+/**
  * Prints out data attributes used in the template header tags
  *
  * @category Events
