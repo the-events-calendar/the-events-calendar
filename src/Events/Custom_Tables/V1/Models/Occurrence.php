@@ -364,6 +364,16 @@ class Occurrence extends Model {
 		wp_cache_delete( $post_id, 'tec_occurrence_matches' );
 
 		foreach ( $generator as $result ) {
+			$occurrence = null;
+
+			if ( isset( $first_occurrence ) && $first_occurrence instanceof self ) {
+				// TEC only handles single Occurrence Events: reuse the existing one.
+				$occurrence = $first_occurrence;
+			}
+
+			// Unset the first occurrence to avoid it being re-used more than once.
+			unset( $first_occurrence );
+
 			/**
 			 * Filters the Occurrence that should be returned to match the requested new Occurrence.
 			 *
@@ -375,19 +385,7 @@ class Occurrence extends Model {
 			 *                                    for which a match is being searched among the existing Occurrences.
 			 * @param int             $post_id    The ID of the Event post the match is being searched for.
 			 */
-			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', null, $result, $post_id );
-
-			if (
-				null === $occurrence
-				&& isset( $first_occurrence )
-				&& $first_occurrence instanceof self
-			) {
-				// TEC only handles single Occurrence Events: reuse the existing one.
-				$occurrence = $first_occurrence;
-			}
-
-			// Unset the first occurrence to avoid it being re-used more than once.
-			unset( $first_occurrence );
+			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', $occurrence, $result, $post_id );
 
 			if ( $occurrence instanceof self ) {
 				$result->occurrence_id       = $occurrence->occurrence_id;
