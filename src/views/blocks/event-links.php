@@ -30,7 +30,7 @@ if ( ! $should_render ) {
 remove_filter( 'the_content', 'do_blocks', 9 );
 $subscribe_links = empty( $this->context['subscribe_links'] ) ? false : $this->context['subscribe_links'];
 
-if ( $has_google_cal && ! empty( $subscribe_links['gcal']  ) {
+if ( $has_google_cal && ! empty( $subscribe_links['gcal'] ) ) {
 	$google_cal_link = $subscribe_links && $subscribe_links['gcal'] instanceof Link_Abstract ? $subscribe_links['gcal']->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
 }
 
