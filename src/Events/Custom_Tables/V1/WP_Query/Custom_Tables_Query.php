@@ -52,7 +52,7 @@ class Custom_Tables_Query extends WP_Query {
 		// Initialize a new instance of the query.
 		$ct_query = new self();
 		$ct_query->init();
-		$ct_query->query      = self::filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
+		$ct_query->query      = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
 		$ct_query->query_vars = $ct_query->query;
 
 		// Keep a reference to the original `WP_Query` instance.
@@ -86,13 +86,23 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since TBD
 	 *
-	 * @param $query_vars array
+	 * @param $query_vars array<string,mixed> The query variables, as created by WordPress or previous filtering
+	 *                                        methods.
 	 *
-	 * @return mixed|void
+	 * @return array<string,mixed> The filtered query variables.
 	 */
-	public static function filter_query_vars( $query_vars ) {
-
-		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_vars', $query_vars );
+	public function filter_query_vars( $query_vars ) {
+		/**
+		 * Filters the query variables that will be used to build the Custom Tables Query.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $query_vars The query variables as set up by the Custom
+		 *                                        Tables Query.
+		 * @param Custom_Tables_Query $query A reference to the Custom Tables Query object that
+		 *                                   is applying the filter.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_vars', $query_vars, $this );
 	}
 
 	/**
@@ -341,8 +351,17 @@ class Custom_Tables_Query extends WP_Query {
 	 * @return string The `WHERE` SQL clause, modified to be date-bound, if required.
 	 */
 	public function filter_where( $where, WP_Query $query ) {
-
-		return apply_filters('tec_events_custom_tables_v1_custom_tables_query_where', $where, $query);
+		/**
+		 * Filters the `WHERE` statement produced by the Custom Tables Query.
+		 *
+		 * @since TBD
+		 *
+		 * @param string              $where    The `WHERE` statement produced by the Custom Tables Query.
+		 * @param WP_Query            $query    The query object being filtered.
+		 * @param Custom_Tables_Query $ct_query A reference to the Custom Tables Query instance that is appplying
+		 *                                      the filter.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_where', $where, $query, $this );
 	}
 
 	/**
