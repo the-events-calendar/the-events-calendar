@@ -957,7 +957,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
 
-			Tribe__Events__Backcompat::init();
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
@@ -3376,7 +3375,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function is_post_type_screen_post_types( $post_types ) {
-			foreach ( self::getPostTypes() as $post_type ) {
+			foreach ( Tribe__Main::get_post_types() as $post_type ) {
 				$post_types[] = $post_type;
 			}
 

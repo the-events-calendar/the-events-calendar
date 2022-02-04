@@ -50,8 +50,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		$this->register_assets();
 
-		$this->register_v1_compat();
-
 		// Register the SP on the container
 		$this->container->singleton( 'events.views.v2.provider', $this );
 
