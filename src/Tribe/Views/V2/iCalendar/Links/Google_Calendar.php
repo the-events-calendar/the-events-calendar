@@ -252,7 +252,7 @@ class Google_Calendar extends Link_Abstract {
 			return '';
 		}
 
-		$address = Tribe__Events__Venue::get_address_full_string( $event );
+		$address = \Tribe__Events__Venue::get_address_full_string( $event );
 		// The above includes the venue name.
 
 		return $address;

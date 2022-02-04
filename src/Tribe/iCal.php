@@ -695,7 +695,7 @@ class Tribe__Events__iCal {
 		$item['URL'] = 'URL:' . get_permalink( $event_post->ID );
 
 		// Add location if available.
-		$location = Tribe__Events__Venue::get_address_full_string( $event_post->ID );
+		$location = \Tribe__Events__Venue::get_address_full_string( $event_post->ID );
 		if ( ! empty( $location ) ) {
 			$str_location = $this->replace( $location, [ ',', "\n" ], [ '\,', '\n' ] );
 
