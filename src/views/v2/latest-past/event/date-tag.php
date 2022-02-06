@@ -24,7 +24,7 @@ $event_year      = $event->dates->start_display->format_i18n( 'Y' );
 $event_date_attr = $event->dates->start_display->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-latest-past__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>" aria-hidden="true">
 		<span class="tribe-events-calendar-latest-past__event-date-tag-month">
 			<?php echo esc_html( $event_month ); ?>
 		</span>
