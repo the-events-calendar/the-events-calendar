@@ -737,7 +737,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	}
 
 	/**
-	 * Adds a organizer chooser to the write post page
+	 * Adds the Meta box for Organizers to the Events Post Type.
 	 *
 	 * @since TBD
 	 */

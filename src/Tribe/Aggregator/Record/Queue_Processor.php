@@ -191,6 +191,10 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	public function next_waiting_record( $interactive_only = false, $cache = false ) {
 		if ( true === $cache ) {
+			$interactive_only_suffix = '';
+			if ( $interactive_only ) {
+				$interactive_only_suffix = '_interactive_only';
+			}
 			$transient_key       = 'tribe-event-aggregator-next_waiting_record' . ( ! $interactive_only ?: '_interactive_only' );
 			$next_waiting_record = get_transient( $transient_key );
 
