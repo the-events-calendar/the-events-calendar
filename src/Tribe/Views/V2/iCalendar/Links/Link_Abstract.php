@@ -44,7 +44,7 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * @var boolean
 	 */
-	public $display = true;
+	public $visible = true;
 
 	/**
 	 * the link provider slug.
@@ -104,7 +104,12 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function filter_tec_views_v2_subscribe_links( $subscribe_links ) {
-		$subscribe_links[ static::get_slug() ] = $this;
+		// Bail early if we're not supposed to show this link.
+		if ( ! $this->is_visible() ) {
+			return $subscribe_links;
+		}
+
+		$subscribe_links[ self::get_slug() ] = $this;
 
 		return $subscribe_links;
 	}
@@ -113,11 +118,24 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function filter_tec_views_v2_single_subscribe_links( $links ) {
-		$class   = sanitize_html_class( 'tribe-events-' . static::get_slug() );
-		$links[] = '<a class="tribe-events-button ' . $class
-		           . '" href="' . esc_url( $this->get_uri( null ) )
-		           . '" title="' . esc_attr( $this->get_single_label( null ) )
-		           . '">+ ' . esc_html( $this->get_single_label( null ) ) . '</a>';
+		// Bail early if we're not supposed to show this link.
+		if ( ! $this->is_visible() ) {
+			return $links;
+		}
+
+		$label   = $this->get_single_label( null );
+		$uri     = $this->get_uri( null );
+
+		// Don't add invalid or "invisible" links.
+		if ( empty( $label ) || empty( $uri ) ) {
+			return $links;
+		}
+
+		$class   = sanitize_html_class( 'tribe-events-' . self::get_slug() );
+		$links[ self::get_slug() ] = '<a class="tribe-events-button ' . $class
+		           . '" href="' . esc_url( $uri )
+		           . '" title="' . esc_attr( $label )
+		           . '">+ ' . esc_html( $label ) . '</a>';
 
 		return $links;
 	}
@@ -125,8 +143,36 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function is_visible( View $view = null ) {
-		return $this->display;
+	public function is_visible() {
+		$visible = $this->visible;
+
+		/**
+		 * Allows filtering of the visibility for the links.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $visible Whether to display the link.
+		 *
+		 * @return boolean $visible Whether to display the link.
+		 */
+		$visible = (boolean) apply_filters( 'tec_views_v2_subscribe_link_visibility', $visible );
+
+		/**
+		 * Allows link-specific filtering of the visibility.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $visible Whether to display the link.
+		 *
+		 * @return boolean $visible Whether to display the link.
+		 */
+		$visible = (boolean) apply_filters( 'tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility', $visible );
+
+		// Set the object property to the filtered value.
+		$this->set_visibility( $visible );
+
+		// Return
+		return $visible;
 	}
 
 	/**
@@ -184,7 +230,7 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function set_visibility( bool $visible ) {
-		$this->display = $visible;
+		$this->visible = $visible;
 	}
 
 	/**

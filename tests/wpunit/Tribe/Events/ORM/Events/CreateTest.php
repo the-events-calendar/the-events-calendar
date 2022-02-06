@@ -292,8 +292,9 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'           => '2018-03-06 11:00:00',
 			'timezone'           => 'Australia/Darwin',
 			'title'              => 'A test event',
-			'hide_from_upcoming' => true
+			'hide_from_upcoming' => 'yes'
 		];
+
 		$event = tribe_events()->set_args( $args )->create();
 
 		$this->assertEquals( 'yes', get_post_meta( $event->ID, '_EventHideFromUpcoming', true ) );
@@ -310,7 +311,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
-			'sticky'        => true,
+			'sticky'     => 'yes',
 		];
 		$event = tribe_events()->set_args( $args )->create();
 
@@ -328,7 +329,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
-			'featured'        => true,
+			'featured'   => 'yes',
 		];
 		$event = tribe_events()->set_args( $args )->create();
 
