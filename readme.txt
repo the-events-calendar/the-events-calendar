@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
 * Tweak - Correct documentation around the subscribe link filters. Add link slug as array keys for `tec_views_v2_single_subscribe_links` filter. [TEC-4215]
 * Tweak - Move and deprecate some methods specific to the Google Calendar link from Main to the new Google_Calendar class. [TEC-4235]
+* Tweak - Remove the `wp.editor.InnerBlocks` gutenberg component in favor of `wp.blockEditor.InnerBlocks` which was deprecated since version 5.3. [TEC-4178]
 * Fix - Ensure that the tec_views_v2_use_subscribe_links filter applies to the single event view. [TEC-4219]
 * Fix - Hide the "Export to .ics file" link by default, allow showing it via a filter. Also ensure the link is correct. [TEC-4214]
 * Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
