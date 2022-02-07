@@ -16,6 +16,14 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->organizer = new Organizer();
 		// To support taxonomy term creation and assignment.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
+			unset( tribe( 'cache' )['option_gmt_offset'] );
+		}
+
+		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
+			unset( tribe( 'cache' )['option_timezone_string'] );
+		}
 	}
 
 	/**
@@ -418,6 +426,14 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 
 		if ( null !== $input_timezone ) {
 			$args['timezone'] = $input_timezone;
+		}
+
+		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
+			unset( tribe( 'cache' )['option_gmt_offset'] );
+		}
+
+		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
+			unset( tribe( 'cache' )['option_timezone_string'] );
 		}
 
 		$event = tribe_events()->set_args( $args )->create();

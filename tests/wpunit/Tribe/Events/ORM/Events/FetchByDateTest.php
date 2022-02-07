@@ -15,7 +15,15 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		// your set up methods here
 		$this->factory()->event = new Event();
 		// Explicitly set the timezone mode to use the site-wide setting.
-		tribe_update_option('tribe_events_timezone_mode', 'site');
+		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
+
+		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
+			unset( tribe( 'cache' )['option_gmt_offset'] );
+		}
+
+		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
+			unset( tribe( 'cache' )['option_timezone_string'] );
+		}
 	}
 
 	/**
@@ -662,6 +670,14 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_overriding_the_timezone_settings() {
 		$site_timezone = 'Europe/Paris';
 		update_option( 'timezone_string', $site_timezone );
+
+		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
+			unset( tribe( 'cache' )['option_gmt_offset'] );
+		}
+
+		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
+			unset( tribe( 'cache' )['option_timezone_string'] );
+		}
 
 		extract( $this->create_events_from_dates( [
 			'paris_nine_event' => [ '2019-04-09 10:00:00', 2 * HOUR_IN_SECONDS ],
