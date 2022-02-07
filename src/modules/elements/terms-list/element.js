@@ -141,30 +141,28 @@ TaxonomiesElement.defaultProps = {
 	isRequesting: false,
 };
 
-const applySelect = withSelect( ( select, props ) => {
-	const { getEntityRecords } = select( 'core' );
-	const { isResolving } = select( 'core/data' );
-	const { slug } = props;
-	// post_tags are stored as 'tags' in the editor attributes
-	const attributeName = slug === 'post_tag' ? 'tags' : slug;
-	const ids = select( 'core/editor' ).getEditedPostAttribute( attributeName );
-
-	if ( ! ids || ids.length === 0 ) {
-		return { terms: [], isRequesting: false };
-	}
-
-	const query = {
-		orderby: 'count',
-		order: 'desc',
-		include: ids,
-	};
-
-	return {
-		terms: getEntityRecords( 'taxonomy', slug, query ),
-		isRequesting: isResolving( 'core', 'getEntityRecords', [ 'taxonomy', slug, query ] ),
-	};
-} );
-
 export default compose(
-	applySelect,
+	withSelect( ( select, props ) => {
+		const { getEntityRecords } = select( 'core' );
+		const { isResolving } = select( 'core/data' );
+		const { slug } = props;
+		// post_tags are stored as 'tags' in the editor attributes
+		const attributeName = slug === 'post_tag' ? 'tags' : slug;
+		const ids = select( 'core/editor' ).getEditedPostAttribute( attributeName );
+
+		if ( ! ids || ids.length === 0 ) {
+			return { terms: [], isRequesting: false };
+		}
+
+		const query = {
+			orderby: 'count',
+			order: 'desc',
+			include: ids,
+		};
+
+		return {
+			terms: getEntityRecords( 'taxonomy', slug, query ),
+			isRequesting: isResolving( 'core', 'getEntityRecords', [ 'taxonomy', slug, query ] ),
+		};
+	} ),
 )( TaxonomiesElement );
