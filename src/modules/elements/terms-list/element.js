@@ -9,7 +9,7 @@ import { unescape } from 'lodash';
  * WordPress dependencies
  */
 import { Spinner } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { select, withSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
