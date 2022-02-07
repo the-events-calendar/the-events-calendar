@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the tec_views_v2_use_subscribe_links filter applies to the single event view. [TEC-4219]
 * Fix - Hide the "Export to .ics file" link by default, allow showing it via a filter. Also ensure the link is correct. [TEC-4214]
 * Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
+* Fix - Improve theme CSS compatibility on View container by making sure our views take 100% of the width available (props @askwpgirl) [TEC-4257]
 
 = [5.13.0] 2022-01-31 =
 
