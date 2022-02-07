@@ -230,6 +230,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Performance improvements around Block Asset loading and redundancy.
 * Tweak - Internal caching of values to reduce `get_option()` call count.
 * Tweak - Switch from `sanitize_title_with_dashes` to `sanitize_key` in a couple instances for performance gains.
+* Tweak - Remove the `wp.editor.InnerBlocks` gutenberg component in favor of `wp.blockEditor.InnerBlocks` which was deprecated since version 5.3. [TEC-4178]
 * Fix - Ensure that the tec_views_v2_use_subscribe_links filter applies to the single event view. [TEC-4219]
 * Fix - Hide the "Export to .ics file" link by default, allow showing it via a filter. Also ensure the link is correct. [TEC-4214]
 * Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
