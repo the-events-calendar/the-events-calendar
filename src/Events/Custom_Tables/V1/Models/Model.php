@@ -43,6 +43,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Validator;
  * @method static Builder join( string $table_name, string $left_column, string $right_column ) Creates an INNER JOIN statement.
  * @method static Builder output( string $output ) Sets the format that should be used to format results in SELECT queries.
  * @method static Builder all( ) Find all the records based on the built query.
+ * @method static int upsert_set( array $data ) Update or Insert a multiple records into the table.
  */
 abstract class Model implements Serializable {
 	/**
@@ -459,7 +460,7 @@ abstract class Model implements Serializable {
 	 * @since TBD
 	 * @return array An array with the result of the data associated with this model.
 	 */
-	public function toArray() {
+	public function to_array() {
 		$result = [];
 
 		foreach ( $this->data as $key => $value ) {
@@ -491,7 +492,7 @@ abstract class Model implements Serializable {
 	 * @return string The string representing the object.
 	 */
 	public function serialize() {
-		$encode = wp_json_encode( $this->toArray() );
+		$encode = wp_json_encode( $this->to_array() );
 
 		return is_string( $encode ) ? $encode : '';
 	}

@@ -388,18 +388,19 @@ class Occurrence extends Model {
 			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', $occurrence, $result, $post_id );
 
 			if ( $occurrence instanceof self ) {
-				$result->occurrence_id       = $occurrence->occurrence_id;
-				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
-				$result->updated_at          = $updated_at;
-				$result->update();
-				$updates[] = $result;
+				$result->occurrence_id             = $occurrence->occurrence_id;
+				$updated_at                        = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
+				$result->updated_at                = $updated_at;
+				$updates[ $result->occurrence_id ] = $result->to_array();
 				continue;
 			}
 
-			$insertions[] = $result->toArray();
+			$insertions[] = $result->to_array();
 		}
 
 		if ( count( $updates ) ) {
+			Occurrence::upsert_set( array_values( $updates ) );
+
 			/**
 			 * Fires after Occurrences for an Event have been updated.
 			 *
