@@ -31,6 +31,14 @@ class GoogleCalendarTest extends WPTestCase {
 		tribe_update_option( 'tribe_events_timezone_mode', Timezones::EVENT_TIMEZONE );
 		update_option( 'timezone_string', 'America/Los_Angeles' );
 
+		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
+			unset( tribe( 'cache' )['option_gmt_offset'] );
+		}
+
+		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
+			unset( tribe( 'cache' )['option_timezone_string'] );
+		}
+
 		$event_id = ( new Event() )->create_object( [ 'timezone' => 'America/Mexico_City' ] );
 
 		$this->assertSame(
@@ -47,6 +55,14 @@ class GoogleCalendarTest extends WPTestCase {
 	public function should_generate_the_event_with_the_global_timezone_when_the_timezone_mode_is_site() {
 		tribe_update_option( 'tribe_events_timezone_mode', Timezones::SITE_TIMEZONE );
 		update_option( 'timezone_string', 'America/Los_Angeles' );
+
+		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
+			unset( tribe( 'cache' )['option_gmt_offset'] );
+		}
+
+		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
+			unset( tribe( 'cache' )['option_timezone_string'] );
+		}
 
 		$event_id = ( new Event() )->create_object( [ 'timezone' => 'America/Mexico_City' ] );
 
