@@ -27,6 +27,8 @@ if ( ! $event->thumbnail->exists ) {
 		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-latest-past__event-featured-image-link"
+		tabindex="-1"
+		aria-hidden="true"
 	>
 		<img
 			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
