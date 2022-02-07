@@ -27,18 +27,15 @@ class Events_Only_Modifier extends Base_Modifier {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @since TBD
-	 *
-	 * @param  WP_Query|null  $query
-	 *
-	 * @return bool
 	 */
 	public function applies_to( WP_Query $query = null ) {
-		return $query instanceof WP_Query
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			return false;
+		}
+
+		return $query !== null
 		       && ! $query instanceof Custom_Tables_Query
-		       && $this->is_query_for_post_type( $query, TEC::POSTTYPE )
-		       && ! is_admin();
+		       && $this->is_query_for_post_type( $query, TEC::POSTTYPE );
 	}
 
 	/**
