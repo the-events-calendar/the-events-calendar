@@ -7,6 +7,7 @@ use Tribe__Events__JSON_LD__Event as JSON_LD__Event;
 class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $event;
+	protected $free_event;
 	protected $venue;
 	protected $organizer;
 
@@ -80,6 +81,22 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 					'_EventURL'              => 'http://elclasico.com',
 				],
 			] );
+
+
+		$this->free_event = $this->factory()->post->create_and_get( [
+			'post_type'  => Main::POSTTYPE,
+			'post_title' => 'Barcelona vs. Real Madrid',
+			'meta_input' => [
+				'_EventStartDate'        => $start_date,
+				'_EventEndDate'          => $end_date,
+				'_EventCost'             => 'FREE',
+				'_EventCurrencySymbol'   => '$',
+				'_EventCurrencyPosition' => 'prefix',
+				'_EventVenueID'          => $this->venue->ID,
+				'_EventOrganizerID'      => $this->organizer->ID,
+				'_EventURL'              => 'http://elclasico.com',
+			],
+		] );
 	}
 
 	/**
@@ -155,6 +172,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 		// Event assertions
 		$this->assertEquals( $json_ld->name, get_the_title( $event_id ) );
 		$this->assertEquals( $json_ld->{ '@type' }, 'Event' );
+		$this->assertEquals( $json_ld->offers->price, '100' );
 
 		// Venue assertions
 		$this->assertEquals( $json_ld->location->{ '@type' }, 'Place' );
@@ -174,6 +192,28 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $json_ld->organizer->name, get_the_title( $organizer_id ) );
 		$this->assertEquals( $json_ld->organizer->telephone, tribe_get_organizer_phone( $organizer_id ) );
 		$this->assertEquals( $json_ld->organizer->sameAs, tribe_get_organizer_website_url( $organizer_id ) );
+
+	}
+
+	/**
+	 * @test
+	 * Check that the data for the JSON_LD is populated correctly
+	 *
+	 * @since TBD
+	 */
+	public function it_should_return_correct_data_for_free_event() {
+
+		$sut          = $this->make_instance();
+		$event_id     = $this->free_event->ID;
+		// We don't need Organizer/Venue for this test.
+
+		$data    = $sut->get_data( $event_id );
+		$json_ld = $data[ $event_id ];
+
+		// Event assertions
+		$this->assertEquals( $json_ld->name, get_the_title( $event_id ) );
+		$this->assertEquals( $json_ld->{ '@type' }, 'Event' );
+		$this->assertEquals( $json_ld->offers->price, 0 );
 
 	}
 
