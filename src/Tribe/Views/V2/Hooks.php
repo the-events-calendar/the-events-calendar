@@ -90,7 +90,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		// Append the customizer styles to the single block stylesheet
-		add_filter( 'tribe_customizer_inline_stylesheets', function( $sheets ) {
+		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
 			$sheets[] = 'tribe-admin-v2-single-blocks';
 
 			return $sheets;
