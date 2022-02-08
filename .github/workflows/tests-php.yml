@@ -100,7 +100,6 @@ jobs:
           ${TRIC_BIN} debug on
           ${TRIC_BIN} info
           ${TRIC_BIN} config
-          ${TRIC_BIN} cli theme install twentytwenty --activate
       - name: Start the Chrome container
         if: steps.skip.outputs.value != 1
         run: ${TRIC_BIN} up chrome
