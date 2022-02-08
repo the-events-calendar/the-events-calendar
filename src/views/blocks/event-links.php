@@ -20,21 +20,23 @@ if ( post_password_required() ) {
 
 $has_google_cal = $this->attr( 'hasGoogleCalendar' );
 $has_ical       = $this->attr( 'hasiCal' );
-$should_render  = $has_google_cal || $has_ical;
+
+
+remove_filter( 'the_content', 'do_blocks', 9 );
+$subscribe_links = empty( $this->context['subscribe_links'] ) ? false : $this->context['subscribe_links'];
+
+$should_render  = $subscribe_links && ( $has_google_cal || $has_ical );
 
 if ( ! $should_render ) {
 	return;
 }
 
-remove_filter( 'the_content', 'do_blocks', 9 );
-$subscribe_links = empty( $this->context['subscribe_links'] ) ? false : $this->context['subscribe_links'];
-
 if ( $has_google_cal ) {
-	$google_cal_link = $subscribe_links ? $subscribe_links[ 'gcal' ]->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
+	$google_cal_link = ! empty( $subscribe_links[ 'gcal' ] ) ? $subscribe_links[ 'gcal' ]->get_uri( null ) : Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
 }
 
 if ( $has_ical ) {
-	$ical_link = $subscribe_links ? $subscribe_links[ 'ical' ]->get_uri( null ) : tribe_get_single_ical_link();
+	$ical_link = ! empty( $subscribe_links[ 'ical' ] ) ? $subscribe_links[ 'ical' ]->get_uri( null ) : tribe_get_single_ical_link();
 }
 
 ?>
