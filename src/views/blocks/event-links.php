@@ -41,7 +41,7 @@ if ( $has_ical ) {
 
 ?>
 <div class="tribe-block tribe-block__events-link">
-	<?php if ( $has_google_cal ) : ?>
+	<?php if ( $has_google_cal && ! empty( $google_cal_link ) ) : ?>
 		<div class="tribe-block__btn--link tribe-block__events-gcal">
 			<a
 				href="<?php echo esc_url( $google_cal_link ); ?>"
@@ -54,7 +54,7 @@ if ( $has_ical ) {
 			</a>
 		</div>
 	<?php endif; ?>
-	<?php if ( $has_ical ) : ?>
+	<?php if ( $has_ical && ! empty( $ical_link ) ) : ?>
 		<div class="tribe-block__btn--link tribe-block__-events-ical">
 			<a
 				href="<?php echo esc_url( $ical_link ); ?>"
