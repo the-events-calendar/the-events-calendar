@@ -3910,6 +3910,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			add_meta_box(
+				'tribe_events_event_options',
+				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
+				[ $this, 'eventMetaBox' ],
+				self::POSTTYPE,
+				'side',
+				'default'
+			);
+
 			if ( tribe( 'editor' )->should_load_blocks() ) {
 				return;
 			}
@@ -3924,15 +3933,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				[
 						'__back_compat_meta_box' => ! class_exists( 'Tribe__Events__Pro__Main' ),
 				]
-			);
-
-			add_meta_box(
-					'tribe_events_event_options',
-					sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
-					[ $this, 'eventMetaBox' ],
-					self::POSTTYPE,
-					'side',
-					'default'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
