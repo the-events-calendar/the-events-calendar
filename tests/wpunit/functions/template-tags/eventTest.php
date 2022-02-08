@@ -285,6 +285,7 @@ class eventTest extends WPTestCase {
 		$friday                  = '2019-07-12';
 
 		update_option( 'start_of_week', $monday_start_of_week );
+		tribe( 'cache' )->reset();
 
 		$event = static::factory()->event->create( [
 			'when'     => $wednesday,
@@ -302,6 +303,7 @@ class eventTest extends WPTestCase {
 		$this->assertTrue( $got->ends_this_week );
 
 		update_option( 'start_of_week', $wednesday_start_of_week );
+		tribe( 'cache' )->reset();
 
 		$got = tribe_get_event( $event, OBJECT, $friday );
 
@@ -309,6 +311,7 @@ class eventTest extends WPTestCase {
 		$this->assertTrue( $got->ends_this_week );
 
 		update_option( 'start_of_week', $saturday_start_of_week );
+		tribe( 'cache' )->reset();
 
 		$got = tribe_get_event( $event, OBJECT, $friday );
 

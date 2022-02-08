@@ -23,13 +23,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		// snapshots
 		$this->driver = new WPHtmlOutputDriver( home_url(), 'http://tribe.dev' );
 
-		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
-			unset( tribe( 'cache' )['option_gmt_offset'] );
-		}
-
-		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
-			unset( tribe( 'cache' )['option_timezone_string'] );
-		}
+		tribe( 'cache' )->reset();
 	}
 
 	/**
@@ -49,13 +43,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		// Sitewide timezone everywhere
 		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 
-		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
-			unset( tribe( 'cache' )['option_gmt_offset'] );
-		}
-
-		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
-			unset( tribe( 'cache' )['option_timezone_string'] );
-		}
+		tribe( 'cache' )->reset();
 
 		$output = Timezones::append_timezone( '', $event_id );
 
@@ -79,13 +67,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		// Local event timezone
 		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
 
-		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
-			unset( tribe( 'cache' )['option_gmt_offset'] );
-		}
-
-		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
-			unset( tribe( 'cache' )['option_timezone_string'] );
-		}
+		tribe( 'cache' )->reset();
 
 		$output = Timezones::append_timezone( '', $event_id );
 
@@ -110,13 +92,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		// Site-wide general event time zone setting
 		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 
-		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
-			unset( tribe( 'cache' )['option_gmt_offset'] );
-		}
-
-		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
-			unset( tribe( 'cache' )['option_timezone_string'] );
-		}
+		tribe( 'cache' )->reset();
 
 		$event_tz_string = Timezones::get_event_timezone_string( $event_id );
 
@@ -141,13 +117,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		// Local event timezone
 		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
 
-		if ( isset( tribe( 'cache' )['option_gmt_offset'] ) ) {
-			unset( tribe( 'cache' )['option_gmt_offset'] );
-		}
-
-		if ( isset( tribe( 'cache' )['option_timezone_string'] ) ) {
-			unset( tribe( 'cache' )['option_timezone_string'] );
-		}
+		tribe( 'cache' )->reset();
 
 		$event_tz_string = Timezones::get_event_timezone_string( $event_id );
 
