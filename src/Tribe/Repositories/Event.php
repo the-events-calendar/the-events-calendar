@@ -1090,7 +1090,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 			$timezone         = Tribe__Timezones::build_timezone_object( $input_timezone );
 			$timezone_changed = $input_timezone !== $current_event_timezone_string;
-			$utc              = $this->normal_timezone;
+			$utc              = new DateTimezone('UTC');
 			$dates_changed    = [];
 
 			/**
