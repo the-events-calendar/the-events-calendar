@@ -64,7 +64,7 @@ class Events {
 		}
 
 		try {
-			$event = $this->upsert_event( $event_id, $data );
+			$event = $this->upsert_event( $event_id );
 			$this->save_occurrences( $event );
 		} catch ( \Exception $e ) {
 			do_action( 'tribe_log', 'error', $e->getMessage(), [
