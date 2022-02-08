@@ -109,6 +109,16 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return null;
 		}
 
+		if ( ! isset( $cache['option_start_of_week'] ) ) {
+			$cache['option_start_of_week'] = get_option( 'start_of_week' );
+		}
+		if ( ! isset( $cache['option_timezone_string'] ) ) {
+			$cache['option_timezone_string'] = get_option( 'timezone_string' );
+		}
+		if ( ! isset( $cache['option_gmt_offset'] ) ) {
+			$cache['option_gmt_offset'] = get_option( 'gmt_offset' );
+		}
+
 		$key_fields = [
 			$cache_post->ID,
 			$cache_post->post_modified,
@@ -117,9 +127,9 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			// We must include options on cache key, because options influence the hydrated data on the Event object.
 			wp_json_encode( Tribe__Settings_Manager::get_options() ),
 			wp_json_encode( [
-				get_option( 'start_of_week' ),
-				get_option( 'timezone_string' ),
-				get_option( 'gmt_offset' )
+				$cache['option_start_of_week'],
+				$cache['option_timezone_string'],
+				$cache['option_gmt_offset']
 			] ),
 			$output,
 			$filter,

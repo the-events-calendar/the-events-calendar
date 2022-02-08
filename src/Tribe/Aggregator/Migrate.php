@@ -39,7 +39,18 @@ class Tribe__Events__Aggregator__Migrate {
 		tribe_notice( 'tribe-aggregator-migrate-legacy-settings', array( $this, 'notice' ), 'type=warning' );
 
 		// Register Assets
-		tribe_asset( $plugin, 'tribe-migrate-legacy-settings', 'aggregator-admin-legacy-settings.js', array( 'jquery' ), 'admin_enqueue_scripts' );
+		tribe_asset(
+			$plugin,
+			'tribe-migrate-legacy-settings',
+			'aggregator-admin-legacy-settings.js',
+			array( 'jquery' ),
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => static function() {
+					return ! static::instance()->is_ical_migrated() && static::instance()->has_ical_setting();
+				}
+			]
+		);
 	}
 
 	/**

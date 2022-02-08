@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\Events;
 
 use tad\WP\Snapshots\WPHtmlOutputDriver;
@@ -6,67 +7,72 @@ use Tribe__Events__Timezones as Timezones;
 use Tribe\Events\Test\Factories\Event;
 use Spatie\Snapshots\MatchesSnapshots;
 
-class TimezonesTest extends \Codeception\TestCase\WPTestCase
-{
+class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 
-    use MatchesSnapshots;
+	use MatchesSnapshots;
 
-    public function setUp() {
-        // before
-        parent::setUp();
+	public function setUp() {
+		// before
+		parent::setUp();
 
-        tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
 
-        // your set up methods here
-        $this->factory()->event = new Event();
+		// your set up methods here
+		$this->factory()->event = new Event();
 
-        // snapshots
-        $this->driver = new WPHtmlOutputDriver( home_url(), 'http://tribe.dev' );
-    }
+		// snapshots
+		$this->driver = new WPHtmlOutputDriver( home_url(), 'http://tribe.dev' );
 
-    /**
-     *
-     */
-    public function test_append_timzeone_should_append_correct_abbreviation_in_sitewide_mode() {
+		tribe( 'cache' )->reset();
+	}
 
-        $event_id = $this->factory()->event->create( [
-            'when'       => '2018-05-01 08:00:00',
-            'meta_input' => [
-                '_EventTimezoneAbbr' => 'CEST'
-            ]
-        ] );
+	/**
+	 *
+	 */
+	public function test_append_timzeone_should_append_correct_abbreviation_in_sitewide_mode() {
 
-        update_option( 'timezone_string', 'America/New_York' );
+		$event_id = $this->factory()->event->create( [
+			'when'       => '2018-05-01 08:00:00',
+			'meta_input' => [
+				'_EventTimezoneAbbr' => 'CEST'
+			]
+		] );
 
-        // Sitewide timezone everywhere
-        tribe_update_option( 'tribe_events_timezone_mode', 'site' );
+		update_option( 'timezone_string', 'America/New_York' );
 
-        $output = Timezones::append_timezone( '', $event_id );
+		// Sitewide timezone everywhere
+		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 
-        $this->assertMatchesSnapshot( $output, $this->driver );
-    }
+		tribe( 'cache' )->reset();
 
-    /**
-     *
-     */
-    public function test_append_timzeone_should_append_correct_abbreviation_in_event_mode() {
+		$output = Timezones::append_timezone( '', $event_id );
 
-        $event_id = $this->factory()->event->create( [
-            'when'       => '2018-05-01 08:00:00',
-            'meta_input' => [
-                '_EventTimezoneAbbr' => 'CEST'
-            ]
-        ] );
+		$this->assertMatchesSnapshot( $output, $this->driver );
+	}
 
-        update_option( 'timezone_string', 'America/New_York' );
+	/**
+	 *
+	 */
+	public function test_append_timzeone_should_append_correct_abbreviation_in_event_mode() {
 
-        // Local event timezone
-        tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+		$event_id = $this->factory()->event->create( [
+			'when'       => '2018-05-01 08:00:00',
+			'meta_input' => [
+				'_EventTimezoneAbbr' => 'CEST'
+			]
+		] );
 
-        $output = Timezones::append_timezone( '', $event_id );
+		update_option( 'timezone_string', 'America/New_York' );
 
-        $this->assertMatchesSnapshot( $output, $this->driver );
-    }
+		// Local event timezone
+		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+
+		tribe( 'cache' )->reset();
+
+		$output = Timezones::append_timezone( '', $event_id );
+
+		$this->assertMatchesSnapshot( $output, $this->driver );
+	}
 
 	/**
 	 * Event time zone string should be returned, not site-wide time zone.
@@ -85,6 +91,8 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase
 
 		// Site-wide general event time zone setting
 		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
+
+		tribe( 'cache' )->reset();
 
 		$event_tz_string = Timezones::get_event_timezone_string( $event_id );
 
@@ -108,6 +116,8 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase
 
 		// Local event timezone
 		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+
+		tribe( 'cache' )->reset();
 
 		$event_tz_string = Timezones::get_event_timezone_string( $event_id );
 
