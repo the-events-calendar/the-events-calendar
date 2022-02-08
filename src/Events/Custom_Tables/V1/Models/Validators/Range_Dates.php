@@ -22,7 +22,7 @@ use Tribe__Date_Utils as Dates;
 class Range_Dates {
 
 	/**
-	 * Compares the Start Date and End Date of an event to make sure the End Date is after the Start Date.
+	 * Compares the Start Date and End Date of an event to make sure the End Date is equal to or after the Start Date.
 	 *
 	 * @since TBD
 	 *
@@ -35,6 +35,6 @@ class Range_Dates {
 		$start = Dates::build_date_object( $start );
 		$end   = Dates::build_date_object( $end );
 
-		return $end > $start;
+		return $end >= $start;
 	}
 }
