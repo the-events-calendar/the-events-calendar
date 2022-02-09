@@ -22,18 +22,46 @@ abstract class Validation implements Validator {
 	 *
 	 * @since TBD
 	 *
-	 * @var string The error message if the validation fails.
+	 * @var array The error message if the validation fails.
 	 */
-	protected $error_message = '';
+	protected $error_messages = [];
 
 	/**
 	 * Get the validation error message.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The validation error message.
+	 * @return array The validation error messages.
 	 */
-	public function message() {
-		return $this->error_message;
+	public function get_error_messages() {
+		return $this->error_messages;
+	}
+
+	/**
+	 * Adds an error message to the list of errors.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $message The error message to save.
+	 *                        
+	 * @return $this
+	 */
+	public function add_error_message( $message ) {
+		$this->error_messages[] = $message;
+
+		return $this;
+	}
+
+	/**
+	 * Clears all the currently stored error messages.
+	 *
+	 * @since TBD
+	 *
+	 * @return $this
+	 */
+	public function clear_error_messages() {
+		$this->error_messages = [];
+
+		return $this;
 	}
 }

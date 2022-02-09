@@ -232,7 +232,7 @@ abstract class Model implements Serializable {
 				continue;
 			}
 
-			$this->errors[ $name ] = $validator->message();
+			$this->errors[ $name ] = implode( " : ", $validator->get_error_messages() );
 		}
 
 		// No errors were found.

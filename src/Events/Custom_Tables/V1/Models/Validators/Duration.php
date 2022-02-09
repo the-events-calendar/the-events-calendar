@@ -41,10 +41,9 @@ class Duration extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
-		// Duration cannot be 0
+		// Duration cannot be negative
 		if ( ! $this->whole_number_validator->validate( $model, 'duration', $value ) ) {
-			$this->error_message = 'Duration must be a positive integer';
+			$this->add_error_message( 'Duration must be a positive integer' );
 
 			return false;
 		}
@@ -54,7 +53,7 @@ class Duration extends Validation {
 		if ( $model->start_date && $model->end_date ) {
 			// If possible, validate against the entry Start and End Dates.
 			if ( ! $this->check_against_dates( $model->start_date, $model->end_date, $duration ) ) {
-				$this->error_message = "The {$duration} is greater than the duration of the event";
+				$this->add_error_message( "The {$duration} is greater than the duration of the event" );
 
 				return false;
 			}
@@ -63,7 +62,7 @@ class Duration extends Validation {
 		if ( $model->start_date_utc && $model->end_date_utc ) {
 			// If possible, validate against the entry Start and End Dates.
 			if ( ! $this->check_against_dates( $model->start_date_utc, $model->end_date_utc, $duration ) ) {
-				$this->error_message = "The {$duration} is greater than the duration of the event";
+				$this->add_error_message( "The {$duration} is greater than the duration of the event" );
 
 				return false;
 			}

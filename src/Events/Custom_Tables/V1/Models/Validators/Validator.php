@@ -33,9 +33,30 @@ interface Validator {
 	public function validate( Model $model, $name, $value );
 
 	/**
-	 * Get the validation error message.
+	 * Get the validation error messages.
 	 *
-	 * @return string The validation error message.
+	 * @since TBD
+	 *
+	 * @return array The validation error messages.
 	 */
-	public function message();
+	public function get_error_messages();
+
+	/**
+	 * Adds an error message to the list of errors retrieved by get_error_messages().
+	 *
+	 * @since TBD
+	 *
+	 * @param string $message The error message to store.
+	 *
+	 * @return $this
+	 */
+	public function add_error_message( $message );
+
+	/**
+	 * Clears any stored error messages.
+	 *
+	 * @since TBD
+	 * @return $this
+	 */
+	public function clear_error_messages();
 }

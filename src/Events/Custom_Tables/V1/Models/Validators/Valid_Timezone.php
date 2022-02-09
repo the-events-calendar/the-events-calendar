@@ -32,7 +32,7 @@ class Valid_Timezone extends Validation {
 		$is_valid_timezone = Timezones::is_valid_timezone( $value );
 
 		if ( ! $is_valid_timezone ) {
-			$this->error_message = 'The provided timezone is not a valid timezone.';
+			$this->add_error_message( 'The provided timezone is not a valid timezone.' );
 		}
 
 		return $is_valid_timezone;

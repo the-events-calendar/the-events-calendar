@@ -21,13 +21,12 @@ class Present extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		if ( isset( $model->{$name} ) ) {
 			return true;
 		}
 
-		$this->error_message = "Make sure {$name} is part of the original entry.";
+		$this->add_error_message( "Make sure {$name} is part of the original entry." );
 
 		return false;
 	}

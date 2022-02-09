@@ -24,7 +24,6 @@ class Valid_Date extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		if ( empty( $value ) ) {
 			return true;
@@ -36,7 +35,7 @@ class Valid_Date extends Validation {
 		}
 
 		if ( ! is_string( $value ) ) {
-			$this->error_message = "If the value is not a \DateTimeInterface it must be a string.";
+			$this->add_error_message( "If the value is not a \DateTimeInterface it must be a string." );
 
 			return false;
 		}
@@ -45,7 +44,7 @@ class Valid_Date extends Validation {
 			return true;
 		}
 
-		$this->error_message = "The provided value is not a valid date.";
+		$this->add_error_message( "The provided value is not a valid date." );
 
 		return false;
 	}

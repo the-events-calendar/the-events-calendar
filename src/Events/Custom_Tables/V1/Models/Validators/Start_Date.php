@@ -38,10 +38,9 @@ class Start_Date extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		if ( ! $this->date_validator->validate( $model, 'start_date', $value ) ) {
-			$this->error_message = 'The start_date is not a valid date.';
+			$this->add_error_message( 'The start_date is not a valid date.' );
 
 			return false;
 		}
@@ -60,7 +59,7 @@ class Start_Date extends Validation {
 			return true;
 		}
 
-		$this->error_message = 'The start_date should happen before the end_date';
+		$this->add_error_message( 'The start_date should happen before the end_date' );
 
 		return false;
 	}

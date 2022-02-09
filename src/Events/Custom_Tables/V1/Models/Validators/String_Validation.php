@@ -41,10 +41,9 @@ class String_Validation extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		if ( ! $this->present->validate( $model, $name, $value ) ) {
-			$this->error_message = $this->present->message();
+			$this->add_error_message( $this->present->message() );
 
 			return false;
 		}
@@ -53,7 +52,7 @@ class String_Validation extends Validation {
 			return true;
 		}
 
-		$this->error_message = "The key '{$name}' must be a string.";
+		$this->add_error_message( "The key '{$name}' must be a string." );
 
 		return false;
 	}

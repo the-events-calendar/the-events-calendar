@@ -23,7 +23,7 @@ class Whole_Number extends Validation {
 			return true;
 		}
 
-		$this->error_message = 'The provided value is not a whole number.';
+		$this->add_error_message( 'The provided value is not a whole number.' );
 
 		return false;
 	}
