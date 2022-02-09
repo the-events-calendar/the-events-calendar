@@ -20,7 +20,7 @@ use Tribe__Date_Utils as Dates;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Duration extends Validation {
+class Duration extends Validator {
 	/**
 	 * @var Whole_Number
 	 */

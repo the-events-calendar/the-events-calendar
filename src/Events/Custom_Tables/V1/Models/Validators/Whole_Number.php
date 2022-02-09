@@ -7,7 +7,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
 /**
  * Model validator for whole numbers.
  */
-class Whole_Number extends Validation {
+class Whole_Number extends Validator {
 
 	/**
 	 * {@inheritDoc}

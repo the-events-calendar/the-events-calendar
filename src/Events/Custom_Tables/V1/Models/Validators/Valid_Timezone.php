@@ -19,7 +19,7 @@ use Tribe__Timezones as Timezones;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Valid_Timezone extends Validation {
+class Valid_Timezone extends Validator {
 	/**
 	 * {@inheritDoc}
 	 */

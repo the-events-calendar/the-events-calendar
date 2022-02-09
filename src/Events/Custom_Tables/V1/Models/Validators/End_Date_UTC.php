@@ -20,7 +20,7 @@ use Tribe__Timezones as Timezones;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class End_Date_UTC extends Validation {
+class End_Date_UTC extends Validator {
 	/**
 	 * A Dates validator instance.
 	 *

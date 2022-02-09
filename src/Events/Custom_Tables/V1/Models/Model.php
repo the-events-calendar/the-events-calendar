@@ -14,7 +14,7 @@ use Generator;
 use Serializable;
 use tad_DI52_Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
-use TEC\Events\Custom_Tables\V1\Models\Validators\Validator;
+use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
 
 /**
  * Class Model
@@ -59,8 +59,7 @@ abstract class Model implements Serializable {
 	 * A map relating the columns of this model with a validation class.
 	 *
 	 * @since TBD
-	 *
-	 * @var array<string,Validator>
+	 * @var array<string,ValidatorInterface>
 	 */
 	protected $validations = [];
 
@@ -223,7 +222,7 @@ abstract class Model implements Serializable {
 
 			$validator = $this->container->make( $this->validations[ $name ] );
 
-			if ( ! $validator instanceof Validator ) {
+			if ( ! $validator instanceof ValidatorInterface ) {
 				continue;
 			}
 

@@ -16,9 +16,9 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Positive_Integer extends Validation {
+class Positive_Integer extends Validator {
 	/**
-	 * @var Validator
+	 * @var ValidatorInterface
 	 */
 	private $present;
 

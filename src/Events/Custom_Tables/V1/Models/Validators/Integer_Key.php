@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Integer_Key extends Validation {
+class Integer_Key extends Validator {
 	/**
 	 * Variable reference to the positive integer validator.
 	 *

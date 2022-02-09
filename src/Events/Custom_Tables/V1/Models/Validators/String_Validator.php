@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class String_Validation extends Validation {
+class String_Validator extends Validator {
 	/**
 	 * Variable with a reference to the present validator.
 	 *

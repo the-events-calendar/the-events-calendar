@@ -19,7 +19,7 @@ use Tribe__Date_Utils as Dates;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Valid_Date extends Validation {
+class Valid_Date extends Validator {
 	/**
 	 * {@inheritDoc}
 	 */

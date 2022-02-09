@@ -24,7 +24,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\End_Date_UTC;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Integer_Key;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date_UTC;
-use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validation;
+use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validator;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Timezone;
 use TEC\Events\Custom_Tables\V1\Tables\Events;
@@ -66,7 +66,7 @@ class Event extends Model {
 		'duration'       => Duration::class,
 		'start_date_utc' => Start_Date_UTC::class,
 		'end_date_utc'   => End_Date_UTC::class,
-		'hash'           => String_Validation::class,
+		'hash'           => String_Validator::class,
 	];
 
 	/**

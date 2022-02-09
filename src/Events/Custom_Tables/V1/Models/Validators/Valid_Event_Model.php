@@ -19,7 +19,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Valid_Event_Model extends Validation{
+class Valid_Event_Model extends Validator{
 
 	/**
 	 * {@inheritdoc}

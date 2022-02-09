@@ -18,7 +18,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class End_Date extends Validation {
+class End_Date extends Validator {
 
 	/**
 	 * A Date Validator instance.
