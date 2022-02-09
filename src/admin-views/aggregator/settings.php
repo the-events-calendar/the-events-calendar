@@ -124,7 +124,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		__( 'If you want to stop and clear current asynchronous import processes %1$s.', 'the-events-calendar' ),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
-				add_query_arg( [ Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ] ),
+				esc_url( add_query_arg( [ Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ] ) ),
 				esc_html__( 'click here', 'the-events-calendar' )
 		)
 	);
