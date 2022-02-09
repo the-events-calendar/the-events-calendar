@@ -474,6 +474,8 @@
 
 ## Hooks Removed
 
+* `tribe-events-bar-views`
+  * This is kind important, because previously that was the way to check which views were active. We should now use `tribe( \Tribe\Events\Views\V2\Manager::class )->get_publicly_visible_views()`
 * `tribe_events_list_widget_before_the_event_image`
 * `tribe_events_list_widget_thumbnail_size`
 * `tribe_events_list_widget_featured_image_link`

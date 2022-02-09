@@ -1,4 +1,6 @@
 <?php
+use \Tribe\Events\Views\V2\Manager;
+
 $tec = Tribe__Events__Main::instance();
 
 $template_options = [
@@ -57,35 +59,8 @@ if ( tribe_events_views_v2_is_enabled() ) {
 	$stylesheet_option = [ 'type' => 'html' ];
 }
 
-
-
-/**
- * Filter the array of views that are registered for the tribe bar
- * @param array array() {
- *     Array of views, where each view is itself represented by an associative array consisting of these keys:
- *
- *     @type string $displaying         slug for the view
- *     @type string $anchor             display text (i.e. "List" or "Month")
- *     @type string $event_bar_hook     not used
- *     @type string $url                url to the view
- * }
- * @param boolean
- */
-$views = apply_filters( 'tribe-events-bar-views', [], false );
-
-$enabled_views = tribe_get_option( 'tribeEnableViews', [] );
-
-$views_options         = [];
-$enabled_views_options = [];
-
-foreach ( $views as $view ) {
-	// Only include the enabled views on the default views array
-	if ( in_array( $view['displaying'], $enabled_views ) ) {
-		$enabled_views_options[ $view['displaying'] ] = $view['anchor'];
-	}
-
-	$views_options[ $view['displaying'] ] = $view['anchor'];
-}
+$views = tribe( Manager::class )->get_publicly_visible_views( false );
+$enabled_views = tribe( Manager::class )->get_publicly_visible_views();
 
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribe-form-content-start',
@@ -213,8 +188,10 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'type'            => 'checkbox_list',
 			'label'           => __( 'Enable event views', 'the-events-calendar' ),
 			'tooltip'         => $tribe_enable_views_tooltip,
-			'default'         => array_keys( $views_options ),
-			'options'         => $views_options,
+			'default'         => array_keys( $enabled_views ),
+			'options'         => array_map( static function( $view ) {
+				return tribe( Manager::class )->get_view_label_by_class( $view );
+			}, $views ),
 			'validation_type' => 'options_multi',
 		],
 	]
@@ -230,7 +207,9 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 			'validation_type' => 'not_empty',
 			'size'            => 'small',
 			'default'         => 'month',
-			'options'         => $enabled_views_options,
+			'options'         => array_map( static function( $view ) {
+				return tribe( Manager::class )->get_view_label_by_class( $view );
+			}, $enabled_views ),
 		],
 		'tribeDisableTribeBar'    => [
 			'type'            => 'checkbox_bool',
