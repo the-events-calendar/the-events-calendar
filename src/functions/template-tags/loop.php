@@ -56,23 +56,22 @@ function tribe_is_upcoming() {
  *
  * Returns true if the query is set to show all events, false otherwise
  *
+ * @todo  move to ECP
+ * @since 6.0.0 Using tribe context.
+ *
  * @return bool
- * @todo move to ECP
  */
-function tribe_is_showing_all() {
-	$tribe_ecp            = Tribe__Events__Main::instance();
-	$tribe_is_showing_all = ( $tribe_ecp->displaying == 'all' ) ? true : false;
-
-	if ( $tribe_is_showing_all ) {
-		add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
-	}
+function tribe_is_showing_all() : bool {
+	$is_all_view = 'all' === tribe_context()->get( 'view' );
 
 	/**
 	 * Allows for customization of the result of whether the current view shows all events.
 	 *
-	 * @param bool $tribe_is_showing_all Whether the current view shows all events or not.
+	 * @since 6.0.0 Using tribe context.
+	 *
+	 * @param bool $is_all_view Whether the current view shows all events or not.
 	 */
-	return apply_filters( 'tribe_is_showing_all', $tribe_is_showing_all );
+	return (bool) apply_filters( 'tribe_is_showing_all', $is_all_view );
 }
 
 /**
@@ -85,6 +84,7 @@ function tribe_is_showing_all() {
 function tribe_is_by_date() {
 	$tribe_ecp        = Tribe__Events__Main::instance();
 	$tribe_is_by_date = ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
+
 	/**
 	 * Allows for customization of the result of whether or not a "bydate" view is being viewed.
 	 *
@@ -105,7 +105,7 @@ function tribe_events_title( $depth = true ) {
 	 * Allows for customization of the title on the main "Events" page.
 	 *
 	 * @param string $title The events title as a result of the tribe_get_events_title() template tag.
-	 * @param bool $depth Whether to include the linked title or not.
+	 * @param bool   $depth Whether to include the linked title or not.
 	 */
 	echo apply_filters( 'tribe_events_title', tribe_get_events_title( $depth ), $depth );
 }
@@ -115,10 +115,11 @@ function tribe_events_title( $depth = true ) {
  *
  * Return an event's title with pseudo-breadcrumb if on a category
  *
+ * @todo move logic to template classes
+ *
  * @param bool $depth include linked title
  *
  * @return string title
- * @todo move logic to template classes
  */
 function tribe_get_events_title( $depth = true ) {
 
@@ -129,7 +130,7 @@ function tribe_get_events_title( $depth = true ) {
 	$events_label_plural = tribe_get_event_label_plural();
 
 	if ( $wp_query->get( 'featured' ) ) {
-		$events_label_plural = sprintf( _x( 'Featured %s', 'featured events title', 'the-events-calendar'), $events_label_plural );
+		$events_label_plural = sprintf( _x( 'Featured %s', 'featured events title', 'the-events-calendar' ), $events_label_plural );
 	}
 
 	$tribe_ecp = Tribe__Events__Main::instance();
@@ -177,7 +178,7 @@ function tribe_get_events_title( $depth = true ) {
 	}
 
 	if ( is_tax( $tribe_ecp->get_event_taxonomy() ) && $depth ) {
-		$cat = get_queried_object();
+		$cat   = get_queried_object();
 		$title = '<a href="' . esc_url( tribe_get_events_link() ) . '">' . $title . '</a>';
 		$title .= ' &#8250; ' . $cat->name;
 	}
@@ -186,7 +187,7 @@ function tribe_get_events_title( $depth = true ) {
 	 * Allows for customization of the "Events" page title.
 	 *
 	 * @param string $title The "Events" page title as it's been generated thus far.
-	 * @param bool $depth Whether to include the linked title or not.
+	 * @param bool   $depth Whether to include the linked title or not.
 	 */
 	return apply_filters( 'tribe_get_events_title', $title, $depth );
 }
@@ -211,26 +212,30 @@ function tribe_get_upcoming_link() {
  * @return bool
  */
 function tribe_has_previous_event() {
-	$wp_query = tribe_get_global_query_object();
+	$wp_query     = tribe_get_global_query_object();
 	$has_previous = false;
 
 	if ( null === $wp_query ) {
 		return apply_filters( 'tribe_has_previous_event', $has_previous );
 	}
 
-	$past         = tribe_is_past();
-	$upcoming     = ! $past;
-	$cur_page     = (int) $wp_query->get( 'paged' );
-	$max_pages    = (int) $wp_query->max_num_pages;
-	$page_1       = 0 === $cur_page || 1 === $cur_page;
+	$past      = tribe_is_past();
+	$upcoming  = ! $past;
+	$cur_page  = (int) $wp_query->get( 'paged' );
+	$max_pages = (int) $wp_query->max_num_pages;
+	$page_1    = 0 === $cur_page || 1 === $cur_page;
 
 	// if we are on page "0" or 1, consider it page 1. Otherwise, consider it the current page. This
 	// is used for determining which navigation items to show
 	$effective_page = $page_1 ? 1 : $cur_page;
 
 	// Simple tests based on pagination properties
-	if ( $upcoming && $effective_page > 1 ) $has_previous = true;
-	if ( $past && $effective_page < $max_pages ) $has_previous = true;
+	if ( $upcoming && $effective_page > 1 ) {
+		$has_previous = true;
+	}
+	if ( $past && $effective_page < $max_pages ) {
+		$has_previous = true;
+	}
 
 	// Test for past events (on first page of upcoming list only)
 	if ( $upcoming && $page_1 && ! $has_previous ) {
@@ -249,8 +254,8 @@ function tribe_has_previous_event() {
 		 *
 		 * @since 4.9
 		 *
-		 * @param array $args An array of arguments that will be used to check if a previous page/event
-		 *                    is present.
+		 * @param array    $args     An array of arguments that will be used to check if a previous page/event
+		 *                           is present.
 		 * @param WP_Query $wp_query The query object, if any, the query arguments have been taken from.
 		 */
 		$args = apply_filters( 'tribe_events_has_previous_args', $args, $wp_query );
@@ -270,7 +275,7 @@ function tribe_has_previous_event() {
 function tribe_has_next_event() {
 
 	$wp_query = tribe_get_global_query_object();
-	$has_next  = false;
+	$has_next = false;
 
 	if ( null === $wp_query ) {
 		return apply_filters( 'tribe_has_next_event', $has_next );
@@ -287,8 +292,12 @@ function tribe_has_next_event() {
 	$effective_page = $page_1 ? 1 : $cur_page;
 
 	// Simple tests based on pagination properties
-	if ( $upcoming && $effective_page < $max_pages ) $has_next = true;
-	if ( $past && $effective_page > 1 ) $has_next = true;
+	if ( $upcoming && $effective_page < $max_pages ) {
+		$has_next = true;
+	}
+	if ( $past && $effective_page > 1 ) {
+		$has_next = true;
+	}
 
 	// Test for future events (on first page of the past events list only)
 	if ( $past && $page_1 && ! $has_next ) {
@@ -296,8 +305,8 @@ function tribe_has_next_event() {
 		$args = (array) $wp_query->query;
 
 		// Make some efficiency savings
-		$args['no_paging'] = true;
-		$args['no_found_rows'] = true;
+		$args['no_paging']      = true;
+		$args['no_found_rows']  = true;
 		$args['posts_per_page'] = 1;
 
 		/**
@@ -305,8 +314,8 @@ function tribe_has_next_event() {
 		 *
 		 * @since 4.9
 		 *
-		 * @param array $args An array of arguments that will be used to check if a next page/event
-		 *                    is present.
+		 * @param array    $args     An array of arguments that will be used to check if a next page/event
+		 *                           is present.
 		 * @param WP_Query $wp_query The query object the query arguments have been taken from.
 		 */
 		$args = apply_filters( 'tribe_events_has_next_args', $args, $wp_query );
@@ -348,6 +357,7 @@ function tribe_is_in_main_loop() {
  */
 function tribe_is_list_view() {
 	$is_list_view = 'list' == Tribe__Events__Main::instance()->displaying ? true : false;
+
 	return apply_filters( 'tribe_is_list_view', $is_list_view );
 }
 
@@ -372,8 +382,8 @@ function tribe_events_list_the_date_headers() {
 		$month_year_format = tribe_get_date_option( 'monthAndYearFormat', 'F Y' );
 
 		if ( $wp_query->current_post > 0 ) {
-			$prev_post = $wp_query->posts[ $wp_query->current_post - 1 ];
-			$prev_event_year = tribe_get_start_date( $prev_post, false, 'Y' );
+			$prev_post        = $wp_query->posts[ $wp_query->current_post - 1 ];
+			$prev_event_year  = tribe_get_start_date( $prev_post, false, 'Y' );
 			$prev_event_month = tribe_get_start_date( $prev_post, false, 'm' );
 		}
 
