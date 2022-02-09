@@ -252,6 +252,12 @@ class Builder {
 		}
 
 		if ( $model->is_invalid() ) {
+			do_action( 'tribe_log', 'error', implode( ' : ', $model->errors() ), [
+				'method' => __METHOD__,
+				'line'   => __LINE__,
+				'model'  => get_class( $model )
+			] );
+
 			return false;
 		}
 
