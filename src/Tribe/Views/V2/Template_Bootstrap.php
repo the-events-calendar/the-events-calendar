@@ -215,7 +215,7 @@ class Template_Bootstrap {
 		$should_display_single = (
 			$this->is_single_event()
 			&& ! tribe_is_showing_all()
-			&& ! V1_Templates::is_embed()
+			&& ! is_embed()
 		);
 
 		/**
@@ -382,8 +382,7 @@ class Template_Bootstrap {
 			return $template;
 		}
 
-		$view_slug = $context->get( 'view' );
-		$is_embed  = V1_Templates::is_embed() || 'embed' === $view_slug;
+		$is_embed  = is_embed() || 'embed' === $context->get( 'view' );
 
 		if ( $is_embed ) {
 			return $this->get_v1_embed_template_path();

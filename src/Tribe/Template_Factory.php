@@ -48,16 +48,8 @@ class Tribe__Events__Template_Factory {
 	 *
 	 **/
 	protected function hooks() {
-
-		$current_class = get_class( $this );
-		$ajax_hook     = constant( $current_class . '::AJAX_HOOK' );
-
 		// set up queries, vars, etc that needs to be used in this view
 		add_action( 'tribe_events_before_view', [ $this, 'setup_view' ], 10 );
-
-		// ajax requests
-		add_action( 'wp_ajax_' . $ajax_hook, [ $this, 'ajax_response' ] );
-		add_action( 'wp_ajax_nopriv_' . $ajax_hook, [ $this, 'ajax_response' ] );
 
 		// set notices
 		add_action( 'tribe_events_before_view', [ $this, 'set_notices' ], 15 );

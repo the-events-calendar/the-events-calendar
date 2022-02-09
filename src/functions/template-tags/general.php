@@ -16,11 +16,7 @@ use Tribe__Timezones as Timezones;
 function tribe_get_view( $view = false ) {
 	do_action( 'tribe_pre_get_view' );
 
-	if ( ! $view ) {
-		$template_file = tribe_get_current_template();
-	} else {
-		$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, [ 'disable_view_check' => true ] );
-	}
+	$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, [ 'disable_view_check' => true ] );
 
 	if ( file_exists( $template_file ) ) {
 		do_action( 'tribe_events_before_view', $template_file );
@@ -544,7 +540,7 @@ function tribe_get_event_meta( $postId = null, $meta = false, $single = true ) {
 function tribe_get_current_template() {
 	$template = '';
 
-	if ( Tribe__Templates::is_embed() ) {
+	if ( is_embed() ) {
 		$template = Tribe__Events__Templates::getTemplateHierarchy( 'embed' );
 	}
 
@@ -552,7 +548,7 @@ function tribe_get_current_template() {
 	if (
 		is_singular( Tribe__Events__Main::POSTTYPE )
 		&& ! tribe_is_showing_all()
-		&& ! Tribe__Templates::is_embed()
+		&& ! is_embed()
 	) {
 		$template = Tribe__Events__Templates::getTemplateHierarchy( 'single-event', [ 'disable_view_check' => true ] );
 	}
