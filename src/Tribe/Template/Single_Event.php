@@ -11,16 +11,6 @@
  */
 class Tribe__Events__Template__Single_Event extends Tribe__Events__Template_Factory {
 
-	/**
-	 * The path to the template file used for the view.
-	 * This value is used in Shortcodes/Tribe_Events.php to
-	 * locate the correct template file for each shortcode
-	 * view.
-	 *
-	 * @var string
-	 */
-	public $view_path = 'single-event';
-
 	protected $body_class = 'events-single';
 
 	public function hooks() {
