@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.12.4
-Tested up to: 5.8.3
+Stable tag: 5.14.0
+Tested up to: 5.9.0
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,6 +221,26 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.14.0] TBD =
+
+* Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
+* Tweak - Correct documentation around the subscribe link filters. Add link slug as array keys for `tec_views_v2_single_subscribe_links` filter. [TEC-4215]
+* Tweak - Move and deprecate some methods specific to the Google Calendar link from Main to the new Google_Calendar class. [TEC-4235]
+* Tweak - Prevent scripts from loading on all Admin pages, only load on pages needed.
+* Tweak - Performance improvements around Block Asset loading and redundancy.
+* Tweak - Internal caching of values to reduce `get_option()` call count.
+* Tweak - Switch from `sanitize_title_with_dashes` to `sanitize_key` in a couple instances for performance gains.
+* Tweak - Remove the `wp.editor.InnerBlocks` gutenberg component in favor of `wp.blockEditor.InnerBlocks` which was deprecated since version 5.3. [TEC-4178]
+* Fix - Ensure that the tec_views_v2_use_subscribe_links filter applies to the single event view. [TEC-4219]
+* Fix - Hide the "Export to .ics file" link by default, allow showing it via a filter. Also ensure the link is correct. [TEC-4214]
+* Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
+* Fix - Improve theme CSS compatibility on View container by making sure our views take 100% of the width available (props @askwpgirl) [TEC-4257]
+
+= [5.13.0] 2022-01-31 =
+
+* Deprecation - All files from Legacy Views will throw deprecated notices, refer to `https://evnt.is/v1-removal` for extra information.
+* Deprecation - Template functions `tribe_initialize_view`, `tribe_get_view` and `tribe_show_month` were deprecated, refer to `https://evnt.is/v1-removal` for extra information.
+
 = [5.12.4] 2022-01-19 =
 
 * Tweak - Minor CSS tweaks to align with the new shortcode based blocks in ECP. [ECP-1016]
@@ -231,6 +251,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent Onboarding assets from loading on the admin when not needed.
 * Fix - Remove CSS attributes targeting `aria-labels` to prevent inconsistent styling for different languages. [TEC-4227]
 * Fix - Resolve sorting problems when using orderby with the Event repository when no other orderby values are specified. [TEC-4232]
+* Fix - Prevent unwanted notice on single-event and embed views from legacy views deprecation
 
 = [5.12.3] 2022-01-10 =
 
@@ -282,6 +303,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - When accessing comments there could be situations where an undefined array key was accessed, and in PHP 8 it is a promoted Warning error for undefined array access. [TEC-4093]
 * Fix - Resolved `Warning: reset(): Argument #1 ($array) must be passed by reference...` error that was displayed on the Events, Organizers and Venue REST endpoints in PHP v8. [TEC-4097]
 * Fix - Ensure that the proper spacing is applied for the venue address in list view. [TEC-4089]
+* Tweak - Change some of the block tests to adapt to the new Editor compatibility in common. [TEC-4016]
 * Tweak - Update the google calendar export button to open in a new tab on the event single page for both the classic and block editors. [TEC-4084]
 * Tweak - Add supplied organizer url to JSON-LD for the event->organizer. Props @cmenon12 for the notification and code! [TEC-4095]
 * Tweak - Add a link to the Customizer in the admin menu and in Events->Settings->Display for folks running a FSE theme. [TEC-4126]

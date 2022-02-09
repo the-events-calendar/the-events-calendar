@@ -1,30 +1,25 @@
 <?php
+_deprecated_file( __FILE__, 'TBD', 'Tribe__Editor' );
+
 class Tribe__Events__Gutenberg {
 	/**
 	 * Extension hooks and initialization; exits if the extension is not authorized by Tribe Common to run.
 	 *
 	 * @since  4.6.13
+	 *
+	 * @deprecated TBD
 	 */
 	public function hook() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor instead.' );
 		// Bail if we already have the extension
 		if ( $this->is_extension_active() ) {
 			return;
 		}
 
 		// Bail if Gutenberg is not active
-		if ( ! $this->is_gutenberg_active() || ! $this->is_blocks_editor_active() ) {
+		if ( ! tribe( 'editor' )->should_load_blocks() ) {
 			return;
 		}
-
-		tribe_notice(
-			'gutenberg-extension',
-			[ $this, 'notice' ],
-			[
-				'type'    => 'warning',
-				'dismiss' => 1,
-				'wrap'    => 'p',
-			]
-		);
 	}
 
 	/**
@@ -32,9 +27,12 @@ class Tribe__Events__Gutenberg {
 	 *
 	 * @since  4.6.13
 	 *
+	 * @deprecated TBD
+	 *
 	 * @return boolean
 	 */
 	public function is_extension_active() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor functionality instead.' );
 		return class_exists( 'Tribe__Gutenberg__Plugin' );
 	}
 
@@ -46,9 +44,12 @@ class Tribe__Events__Gutenberg {
 	 *
 	 * @since  4.6.13
 	 *
+	 * @deprecated TBD
+	 *
 	 * @return boolean
 	 */
 	public function is_gutenberg_active() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor instead.' );
 		return function_exists( 'the_gutenberg_project' );
 	}
 
@@ -57,9 +58,12 @@ class Tribe__Events__Gutenberg {
 	 *
 	 * @since  4.6.13
 	 *
+	 * @deprecated TBD
+	 *
 	 * @return boolean
 	 */
 	public function is_blocks_editor_active() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor functionality instead.' );
 		return function_exists( 'register_block_type' ) && function_exists( 'unregister_block_type' );
 	}
 
@@ -71,11 +75,14 @@ class Tribe__Events__Gutenberg {
 	 *
 	 * @since  4.6.25
 	 *
+	 * @deprecated TBD
+	 *
 	 * @return boolean
 	 */
 	public function should_display() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor instead.' );
 		// Hide when all of these three are active
-		return ! ( $this->is_gutenberg_active() && $this->is_extension_active() && $this->is_blocks_editor_active() );
+		return ! ( tribe( 'editor' )->should_load_blocks() );
 	}
 
 	/**
@@ -86,6 +93,7 @@ class Tribe__Events__Gutenberg {
 	 * @return boolean
 	 */
 	public function is_classic_editor_page() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor functionality instead.' );
 		$on_classic_editor_page = tribe_get_request_var( 'classic-editor', false );
 
 		// Bail if in classic editor
@@ -101,9 +109,12 @@ class Tribe__Events__Gutenberg {
 	 *
 	 * @since  4.6.13
 	 *
+	 * @deprecated TBD
+	 *
 	 * @return string
 	 */
 	public function notice() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use Tribe__Editor instead.' );
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return false;
 		}

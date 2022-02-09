@@ -1,7 +1,7 @@
 <?php return '<div  class="tribe-common-g-row tribe-events-calendar-latest-past__event-row" >
 
 	<div class="tribe-events-calendar-latest-past__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="2019-06-20">
+	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="2019-06-20" aria-hidden="true">
 		<span class="tribe-events-calendar-latest-past__event-date-tag-month">
 			Jun		</span>
 		<span class="tribe-events-calendar-latest-past__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
@@ -12,7 +12,7 @@
 </div>
 
 	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-8 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-8 tribe_events type-tribe_events status-publish hentry" >
 			
 			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
 

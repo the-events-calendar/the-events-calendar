@@ -66,7 +66,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	/**
-	 * Work with the specifed event object or else use a placeholder if we are in
+	 * Work with the specified event object or else use a placeholder if we are in
 	 * the middle of creating a new event.
 	 *
 	 * @param null $event
@@ -411,6 +411,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 */
 	public function display_wp_custom_fields_metabox() {
 		$show_box = tribe_get_option( 'disable_metabox_custom_fields' );
+
 		if ( ! tribe_is_truthy( $show_box ) ) {
 			remove_post_type_support( Tribe__Events__Main::POSTTYPE, 'custom-fields' );
 		}
