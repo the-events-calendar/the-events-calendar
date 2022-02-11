@@ -48,6 +48,32 @@ class Tribe__Events__Editor__Compatibility {
 	}
 
 	/**
+	 * Gets if user toggled blocks editor on the settings
+	 *
+	 * @since 4.7
+	 *
+	 * @return bool
+	 */
+	public function is_blocks_editor_toggled_on() {
+		if ( null !== static::$blocks_editor_value ) {
+			return static::$blocks_editor_value;
+		}
+
+		$is_on = tribe_get_option( static::$blocks_editor_key, false );
+
+		/**
+		 * Filters whether the Blocks Editor is on or not.
+		 *
+		 * @since 5.1.1
+		 *
+		 * @param bool $is_on Whether the Blocks Editor is on or not.
+		 */
+		static::$blocks_editor_value = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
+
+		return tribe_is_truthy( static::$blocks_editor_value );
+	}
+
+	/**
 	 * Filters tribe_editor_should_load_blocks to disable blocks if the admin toggle is off.
 	 *
 	 * @since TBD
@@ -83,32 +109,6 @@ class Tribe__Events__Editor__Compatibility {
 		$editors['block_editor'] = $this->is_blocks_editor_toggled_on();
 
 		return $editors;
-	}
-
-	/**
-	 * Gets if user toggled blocks editor on the settings
-	 *
-	 * @since 4.7
-	 *
-	 * @return bool
-	 */
-	public function is_blocks_editor_toggled_on() {
-		if ( null !== static::$blocks_editor_value ) {
-			return static::$blocks_editor_value;
-		}
-
-		$is_on = tribe_get_option( static::$blocks_editor_key, false );
-
-		/**
-		 * Filters whether the Blocks Editor is on or not.
-		 *
-		 * @since 5.1.1
-		 *
-		 * @param bool $is_on Whether the Blocks Editor is on or not.
-		 */
-		static::$blocks_editor_value = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
-
-		return tribe_is_truthy( static::$blocks_editor_value );
 	}
 
 	/**
