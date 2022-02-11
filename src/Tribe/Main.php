@@ -748,6 +748,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Trigger smart activation of V2 after we triggered the Update version on Init@P10.
 			add_action( 'init', 'tribe_events_views_v2_smart_activation', 25 );
 
+			// Initialize default settings on activation
+			add_action( 'init', 'tribe_events_settings_defaults_initializer', 25 );
+
 			add_action( 'init', [ $this, 'init' ], 10 );
 			add_action( 'admin_init', [ $this, 'admin_init' ] );
 

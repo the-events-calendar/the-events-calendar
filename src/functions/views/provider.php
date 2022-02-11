@@ -46,6 +46,52 @@ function tribe_events_views_v2_is_enabled() {
 }
 
 /**
+ * Checks add loads default options for our settings.
+ *
+ * Current only being triggered on plugin activation hook.
+ *
+ * @since TBD
+ *
+ * @return bool  Whether initializer ran or not.
+ */
+function tribe_events_settings_defaults_initializer() {
+	/**
+	 * Allows filtering of the settings defaults on activation
+	 *
+	 * @since  TBD
+	 *
+	 * @param boolean $enabled Determining if we want to initialize
+	 */
+	$should_activate = apply_filters( 'tribe_events_settings_should_defaults_initialize', true );
+
+	if ( ! $should_activate ) {
+		return false;
+	}
+
+	// Seems to only check if we have had a previous version installed
+	if ( ! tribe_events_is_new_install() ) {
+		return false;
+	}
+
+	$default_options = [
+		'dateWithYearFormat' => 'F j, Y',
+	];
+
+	$options = Tribe__Settings_Manager::get_options();
+	foreach ($default_options as $field => $default_value) {
+		// Only update when value is not set
+		if ( isset($options[$field]) ) {
+			continue;
+		}
+
+		// Save our default
+		tribe_update_option( $field, $default_value );
+	}
+
+	return true;
+}
+
+/**
  * Checks smart activation of the view v2, is not a function for verification of v2 is active or not.
  *
  * Current only being triggered on plugin activation hook.
