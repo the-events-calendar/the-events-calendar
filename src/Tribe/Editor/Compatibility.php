@@ -16,6 +16,15 @@ class Tribe__Events__Editor__Compatibility {
 	public static $blocks_editor_key = 'toggle_blocks_editor';
 
 	/**
+	 * Key we store the toggle under in the tribe_events_calendar_options array.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $blocks_editor_value = null;
+
+	/**
 	 * Key for the Hidden Field of toggling blocks editor.
 	 *
 	 * @since TBD
@@ -36,6 +45,32 @@ class Tribe__Events__Editor__Compatibility {
 	public function hook() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 100 );
 		add_filter( 'classic_editor_enabled_editors_for_post_type', [ $this, 'filter_classic_editor_enabled_editors_for_post_type' ], 10, 2 );
+	}
+
+	/**
+	 * Gets if user toggled blocks editor on the settings
+	 *
+	 * @since 4.7
+	 *
+	 * @return bool
+	 */
+	public function is_blocks_editor_toggled_on() {
+		if ( null !== static::$blocks_editor_value ) {
+			return static::$blocks_editor_value;
+		}
+
+		$is_on = tribe_get_option( static::$blocks_editor_key, false );
+
+		/**
+		 * Filters whether the Blocks Editor is on or not.
+		 *
+		 * @since 5.1.1
+		 *
+		 * @param bool $is_on Whether the Blocks Editor is on or not.
+		 */
+		static::$blocks_editor_value = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
+
+		return tribe_is_truthy( static::$blocks_editor_value );
 	}
 
 	/**
@@ -74,28 +109,6 @@ class Tribe__Events__Editor__Compatibility {
 		$editors['block_editor'] = $this->is_blocks_editor_toggled_on();
 
 		return $editors;
-	}
-
-	/**
-	 * Gets if user toggled blocks editor on the settings
-	 *
-	 * @since 4.7
-	 *
-	 * @return bool
-	 */
-	public function is_blocks_editor_toggled_on() {
-		$is_on = tribe_get_option( static::$blocks_editor_key, false );
-
-		/**
-		 * Filters whether the Blocks Editor is on or not.
-		 *
-		 * @since 5.1.1
-		 *
-		 * @param bool $is_on Whether the Blocks Editor is on or not.
-		 */
-		$is_on = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
-
-		return tribe_is_truthy( $is_on );
 	}
 
 	/**
