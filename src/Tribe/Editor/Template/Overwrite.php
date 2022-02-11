@@ -58,7 +58,7 @@ class Tribe__Events__Editor__Template__Overwrite {
 	public function silence( $file ) {
 		$post_id = get_the_ID();
 
-		// Prevent overwrite for posts that doens't have Blocks
+		// Prevent overwrite for posts that don't have Blocks
 		if ( ! has_blocks( $post_id ) ) {
 			return $file;
 		}
@@ -145,4 +145,3 @@ class Tribe__Events__Editor__Template__Overwrite {
 	}
 
 }
-

@@ -99,12 +99,8 @@ class Tribe__Events__Meta__Save {
 	 * @return bool `true` if event meta was updated, `false` otherwise.
 	 */
 	public function save() {
-		/** @var Tribe__Editor $editor */
-		$editor = tribe( 'editor' );
-		$has_gutenberg_editor = $editor->should_load_blocks();
-
 		// Save only the meta that does not have blocks when the Gutenberg editor is present.
-		if ( $has_gutenberg_editor ) {
+		if ( tribe( 'editor' )->should_load_blocks() && has_blocks( $this->post_id ) ) {
 			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
 		}
 

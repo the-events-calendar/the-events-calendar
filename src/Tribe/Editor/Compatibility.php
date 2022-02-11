@@ -16,6 +16,15 @@ class Tribe__Events__Editor__Compatibility {
 	public static $blocks_editor_key = 'toggle_blocks_editor';
 
 	/**
+	 * Key we store the toggle under in the tribe_events_calendar_options array.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $blocks_editor_value = null;
+
+	/**
 	 * Key for the Hidden Field of toggling blocks editor.
 	 *
 	 * @since TBD
@@ -84,6 +93,10 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return bool
 	 */
 	public function is_blocks_editor_toggled_on() {
+		if ( null !== static::$blocks_editor_value ) {
+			return static::$blocks_editor_value;
+		}
+
 		$is_on = tribe_get_option( static::$blocks_editor_key, false );
 
 		/**
@@ -93,9 +106,9 @@ class Tribe__Events__Editor__Compatibility {
 		 *
 		 * @param bool $is_on Whether the Blocks Editor is on or not.
 		 */
-		$is_on = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
+		static::$blocks_editor_value = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
 
-		return tribe_is_truthy( $is_on );
+		return tribe_is_truthy( static::$blocks_editor_value );
 	}
 
 	/**
