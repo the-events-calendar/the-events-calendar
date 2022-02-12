@@ -47,40 +47,42 @@ function tribe_events_views_v2_is_enabled() {
 
 /**
  * Checks add loads default options for our settings.
- *
  * Current only being triggered on plugin activation hook.
  *
  * @since TBD
- *
+ *        
  * @return bool  Whether initializer ran or not.
  */
 function tribe_events_settings_defaults_initializer() {
-	/**
-	 * Allows filtering of the settings defaults on activation
-	 *
-	 * @since  TBD
-	 *
-	 * @param boolean $enabled Determining if we want to initialize
-	 */
-	$should_activate = apply_filters( 'tribe_events_settings_should_defaults_initialize', true );
-
-	if ( ! $should_activate ) {
-		return false;
-	}
-
 	// Seems to only check if we have had a previous version installed
 	if ( ! tribe_events_is_new_install() ) {
 		return false;
 	}
 
 	$default_options = [
-		'dateWithYearFormat' => 'F j, Y',
+		'dateWithYearFormat'       => 'F j, Y',
+		'recurrenceMaxMonthsAfter' => 24,
 	];
 
+	$default_options[ Tribe__Events__Google__Maps_API_Key::$api_key_option_name ] = Tribe__Events__Google__Maps_API_Key::$default_api_key;
+
+	/**
+	 * Allows filtering of the settings defaults on activation.
+	 *
+	 * @since  TBD
+	 *
+	 * @param array $default_options
+	 */
+	$default_options = apply_filters( 'tribe_events_settings_default_fields_initializer', $default_options );
+
+	if ( empty( $default_options ) ) {
+		return false;
+	}
+
 	$options = Tribe__Settings_Manager::get_options();
-	foreach ($default_options as $field => $default_value) {
+	foreach ( $default_options as $field => $default_value ) {
 		// Only update when value is not set
-		if ( isset($options[$field]) ) {
+		if ( isset( $options[ $field ] ) ) {
 			continue;
 		}
 
