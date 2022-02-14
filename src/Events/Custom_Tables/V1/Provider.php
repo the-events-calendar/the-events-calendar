@@ -104,6 +104,8 @@ class Provider extends Service_Provider {
 			$this->container->register( Updates\Provider::class );
 			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
+			// @todo re-enable when ready.
+			// $this->container->register( Migration\Provider::class );
 
 			/*
 			 * Integrations with 3rd party code are registered last to

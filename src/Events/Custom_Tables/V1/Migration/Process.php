@@ -1,0 +1,237 @@
+<?php
+/**
+ * Handles the background processing the migration will use to migrate
+ * events independently of the cron and user intervention.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Custom_Tables\V1\Migration;
+ */
+
+namespace TEC\Events\Custom_Tables\V1\Migration;
+
+/**
+ * Class Process.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Custom_Tables\V1\Migration;
+ */
+class Process {
+
+	/**
+	 * The full name of the action that will be fired to signal one
+	 * Event should be migrated, or have its migration previewed.
+	 */
+	const ACTION_PROCESS = 'tec_events_custom_tables_v1_migration_process';
+	/**
+	 * The full name of the action that will be fired to signal one
+	 * Event should be canceled.
+	 */
+	const ACTION_CANCEL = 'tec_events_custom_tables_v1_migration_cancel';
+	/**
+	 * The full name of the action that will be fired to signal one
+	 * Event should be undone.
+	 */
+	const ACTION_UNDO = 'tec_events_custom_tables_v1_migration_cancel';
+	/**
+	 * A reference to the current Events' migration repository.
+	 *
+	 * @since TBD
+	 *
+	 * @var Events
+	 */
+	private $events;
+
+	/**
+	 * Process constructor.
+	 *
+	 * since TBD
+	 *
+	 * @param Events $events A reference to the current Events' migration repository.
+	 */
+	public function __construct( Events $events ) {
+		$this->events = $events;
+	}
+
+	/**
+	 * Processes an Event migration.
+	 *
+	 * @since TBD
+	 * @param int  $post_id The post ID of the Evente to migrate.
+	 * @param bool $dry_run Whether the migration should commit or just preview
+	 *                      the changes.
+	 *
+	 * @return Event_Report A reference to the migration report object produced by the
+	 *                      migration.
+	 */
+	public function migrate_event( $post_id, $dry_run = false ) {
+		/**
+		 * Filters the migration strategy that should be used to migrate an Event.
+		 *
+		 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
+		 * here will prevent TEC from using the default one.
+		 *
+		 * @since TBD
+		 *
+		 * @param Strategy_Interface A reference to the migration strategy that should be used.
+		 *                          Initially `null`.
+		 * @param int  $post_id     The post ID of the Event to migrate.
+		 * @param bool $dry_run     Whether the strategy should be provided for a real migration
+		 *                          or its preview.
+		 */
+		$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_strategy', null, $post_id, $dry_run );
+
+		if ( ! $strategy instanceof Strategy_Interface ) {
+			$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
+		}
+
+		$report = $strategy->apply();
+
+		$post_id = $this->events->get_id_to_process();
+
+		if ( $post_id ) {
+			// Enqueue a new (Action Scheduler) action to import another Event.
+			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, $post_id, $dry_run );
+
+			//@todo check action ID here and log on failure.
+		}
+
+		return $report;
+	}
+
+	/**
+	 * Cancels an Event migration.
+	 *
+	 * @since TBD
+	 * @param int $post_id The post ID of the Event to cancel the migration for.
+	 *
+	 * @return Event_Report A reference to the migration report object produced by the
+	 *                      cancellation.
+	 */
+	public function cancel_event_migration( $post_id ) {
+		/**
+		 * Filters the migration strategy that should be used to cancel an Event migration.
+		 *
+		 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
+		 * here will prevent TEC from using the default one.
+		 *
+		 * @since TBD
+		 *
+		 * @param Strategy_Interface A reference to the migration strategy that should be used.
+		 *                           Initially `null`.
+		 * @param int $post_id       The post ID of the Event to cancel the migration for.
+		 */
+		$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_cancel_strategy', null, $post_id );
+
+		if ( ! $strategy instanceof Strategy_Interface ) {
+			$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
+		}
+
+		$report = $strategy->cancel();
+
+		$post_id = $this->events->get_id_to_cancel();
+
+		if ( $post_id ) {
+			// Enqueue a new (Action Scheduler) action to cancel another Event migration.
+			$action_id = as_enqueue_async_action( self::ACTION_UNDO, $post_id );
+
+			//@todo check action ID here and log on failure.
+		}
+
+		return $report;
+	}
+
+	/**
+	 * Undoes an Event migration.
+	 *
+	 * @since TBD
+	 * @param int $post_id The post ID of the Event to undo the migration for.
+	 *
+	 * @return Event_Report A reference to the migration report object produced by the
+	 *                      migration undoing.
+	 */
+	public function undo_event_migration( $post_id ) {
+		/**
+		 * Filters the migration strategy that should be used to undo an Event migration.
+		 *
+		 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
+		 * here will prevent TEC from using the default one.
+		 *
+		 * @since TBD
+		 *
+		 * @param Strategy_Interface A reference to the migration strategy that should be used.
+		 *                           Initially `null`.
+		 * @param int $post_id       The post ID of the Event to undo the migration for.
+		 */
+		$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_undo_strategy', null, $post_id );
+
+		if ( ! $strategy instanceof Strategy_Interface ) {
+			$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
+		}
+
+		$report = $strategy->undo();
+
+		$post_id = $this->events->get_id_to_undo();
+
+		if ( $post_id ) {
+			// Enqueue a new (Action Scheduler) action to undo another Event migration.
+			$action_id = as_enqueue_async_action( self::ACTION_UNDO, $post_id );
+
+			//@todo check action ID here and log on failure.
+		}
+
+		return $report;
+	}
+
+	/**
+	 * Starts the migration enqueueing the first set of Events to process.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The number of Events queued for migration.
+	 */
+	public function start() {
+		$action_ids = [];
+
+		foreach ( $this->events->get_ids_to_process( 50 ) as $post_id ) {
+			$action_ids[] = as_enqueue_async_action( self::ACTION_PROCESS, $post_id, $dry_run );
+		}
+
+		return count( array_filter( $action_ids ) );
+	}
+
+	/**
+	 * Starts the migration cancellation.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the cancellation was correctly started or not.
+	 */
+	public function cancel() {
+		$action_ids = [];
+
+		foreach ( $this->events->get_ids_to_cancel( 50 ) as $post_id ) {
+			$action_ids[] = as_enqueue_async_action( self::ACTION_CANCEL, $post_id, $dry_run );
+		}
+
+		return count( array_filter( $action_ids ) );
+	}
+
+	/**
+	 * Starts the migration undoing process.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the migration undoing was  correctly started or not.
+	 */
+	public function undo() {
+		$action_ids = [];
+
+		foreach ( $this->events->get_ids_to_undo( 50 ) as $post_id ) {
+			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, $post_id, $dry_run );
+		}
+
+		return count( array_filter( $action_ids ) );
+	}
+}
