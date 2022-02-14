@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.14.0] TBD =
+= [5.14.0] 2022-02-14 =
 
 * Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
 * Tweak - Correct documentation around the subscribe link filters. Add link slug as array keys for `tec_views_v2_single_subscribe_links` filter. [TEC-4215]
@@ -231,10 +231,16 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Internal caching of values to reduce `get_option()` call count.
 * Tweak - Switch from `sanitize_title_with_dashes` to `sanitize_key` in a couple instances for performance gains.
 * Tweak - Remove the `wp.editor.InnerBlocks` gutenberg component in favor of `wp.blockEditor.InnerBlocks` which was deprecated since version 5.3. [TEC-4178]
+* Tweak - Prevent asset loading from repeating calls to plugin URL and path, resulting in some minor performance gains.
+* Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
+* Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
+* Fix - Fixed troubleshooting page styles for standalone Event Tickets setup [ET-1382]
+* Fix - Remove singleton created from a deprecated class.
 * Fix - Ensure that the tec_views_v2_use_subscribe_links filter applies to the single event view. [TEC-4219]
 * Fix - Hide the "Export to .ics file" link by default, allow showing it via a filter. Also ensure the link is correct. [TEC-4214]
 * Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
 * Fix - Improve theme CSS compatibility on View container by making sure our views take 100% of the width available (props @askwpgirl) [TEC-4257]
+* Language - 9 new strings added, 277 updated, 1 fuzzied, and 1 obsoleted
 
 = [5.13.0] 2022-01-31 =
 
