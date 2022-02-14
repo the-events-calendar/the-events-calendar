@@ -132,7 +132,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug       = 'featured';
 
 		/**
-		 * @deprecated TBD use Tribe__Events__Venue::$valid_venue_keys instead.
+		 * @deprecated 5.14.0 use Tribe__Events__Venue::$valid_venue_keys instead.
 		*/
 		public $valid_venue_keys = [];
 
@@ -3000,7 +3000,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Returns the GCal export link for a given event id.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 5.14.0
 		 * @todo Add deprecated notice.
 		 *
 		 * @param int|WP_Post|null $post The Event Post Object or ID, if left empty will give get the current post.
@@ -3084,7 +3084,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allow users to Filter our Google Calendar Link params
 			 *
-			 * @deprecated TBD Moved generic hook to something more specific and appropriate.
+			 * @deprecated 5.14.0 Moved generic hook to something more specific and appropriate.
 			 *
 			 * @var array Params used in the add_query_arg
 			 * @var int   Event ID
@@ -3092,7 +3092,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$params = apply_filters_deprecated(
 				'tribe_google_calendar_parameters',
 				[ $params, $post->ID ],
-				'TBD',
+				'5.14.0',
 				'tec_views_v2_single_event_gcal_link_parameters',
 				'Moved generic hook to something more specific and appropriate while moving function.'
 			);

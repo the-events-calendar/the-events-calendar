@@ -9,7 +9,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Key we store the toggle under in the tribe_events_calendar_options array.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @var string
 	 */
@@ -18,7 +18,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Key for the Hidden Field of toggling blocks editor.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Filters tribe_editor_should_load_blocks to disable blocks if the admin toggle is off.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @param boolean $should_load_blocks Whether the editor should use the classic or blocks UI.
 	 *
@@ -59,7 +59,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * Compatibility specific to the Classic Editor plugin.
 	 * This ensures we allow blocks when default is classic but user switching is on.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @param array<string|boolean> $editors   An array of editors and if they are enabled.
 	 * @param string                $post_type The post type we are checking against.
@@ -143,12 +143,12 @@ class Tribe__Events__Editor__Compatibility {
 	 * Gets the option key for toggling Blocks Editor active
 	 *
 	 * @since 4.7
-	 * @deprecated TBD
+	 * @deprecated 5.14.0
 	 *
 	 * @return string
 	 */
 	public function get_toggle_blocks_editor_key() {
-		_deprecated_function( __METHOD__, 'TBD', 'use static::$blocks_editor_key' );
+		_deprecated_function( __METHOD__, '5.14.0', 'use static::$blocks_editor_key' );
 		return static::$blocks_editor_key;
 	}
 
@@ -156,12 +156,12 @@ class Tribe__Events__Editor__Compatibility {
 	 * Gets the option key for the Hidden Field of toggling blocks editor
 	 *
 	 * @since 4.7
-	 * @deprecated TBD
+	 * @deprecated 5.14.0
 	 *
 	 * @return string
 	 */
 	public function get_toggle_blocks_editor_hidden_key() {
-		_deprecated_function( __METHOD__, 'TBD', 'use static::$blocks_editor_hidden_field_key' );
+		_deprecated_function( __METHOD__, '5.14.0', 'use static::$blocks_editor_hidden_field_key' );
 		return 'toggle_blocks_editor_hidden_field';
 	}
 
@@ -171,12 +171,12 @@ class Tribe__Events__Editor__Compatibility {
 	 *
 	 * @since 4.7
 	 *
-	 * @deprecated TBD
+	 * @deprecated 5.14.0
 	 *
 	 * @return void
 	 */
 	public function deactivate_gutenberg_extension_plugin() {
-		_deprecated_function( __METHOD__, 'TBD', 'This extension has been integrated into TEC/Common' );
+		_deprecated_function( __METHOD__, '5.14.0', 'This extension has been integrated into TEC/Common' );
 		if ( ! class_exists( 'Tribe__Gutenberg__Plugin' ) ) {
 			return false;
 		}
@@ -210,7 +210,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return boolean
 	 */
 	public function filter_is_classic_editor( $is_classic_editor = false ) {
-		_deprecated_function( __METHOD__, 'TBD', 'See Tribe__Editor->should_load_blocks()' );
+		_deprecated_function( __METHOD__, '5.14.0', 'See Tribe__Editor->should_load_blocks()' );
 		// TEC blocks are off, return true == classic editor.
 		if ( ! $this->is_blocks_editor_toggled_on() ) {
 			return true;

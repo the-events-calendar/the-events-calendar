@@ -37,7 +37,7 @@ class iCalendar_Export extends Link_Abstract {
 	/**
 	 * Filters the is_visible() function to not display on single events.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @param boolean $visible Whether to display the link.
 	 * @param View    $view     The current View object.

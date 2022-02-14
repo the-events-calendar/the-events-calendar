@@ -46,7 +46,7 @@ class Google_Calendar extends Link_Abstract {
 			/**
 			 * Allows "turning off" the single event link for Google Calendar.
 			 *
-			 * @since TBD
+			 * @since 5.14.0
 			 *
 			 * @param boolean $use_single_url Use the single event url for single event views. Default true.
 			 */
@@ -80,7 +80,7 @@ class Google_Calendar extends Link_Abstract {
 	 *
 	 * URL format: https://www.google.com/calendar/render?action=TEMPLATE&text=Title&dates=20190227/20190228
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @param string|int|WP_post $post The ID or post object the rui is for, defaults to the current post.
 	 *
@@ -104,7 +104,7 @@ class Google_Calendar extends Link_Abstract {
 		 * After this filter, the list will be trimmed to remove any empty values and discarded if any required params are missing.
 		 * Returning an empty/falsy value here will short-circuit the function to bail out now with an empty string.
 		 *
-		 * @since TBD
+		 * @since 5.14.0
 		 *
 		 * @var array   $base_url The base url used in the add_query_arg.
 		 * @var WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
@@ -142,7 +142,7 @@ class Google_Calendar extends Link_Abstract {
 		/**
 		 * Allow users to Filter our Google Calendar Link params
 		 *
-		 * @deprecated TBD Moved generic hook to something more specific and appropriate.
+		 * @deprecated 5.14.0 Moved generic hook to something more specific and appropriate.
 		 *
 		 * @var array Params used in the add_query_arg
 		 * @var int   Event ID
@@ -150,7 +150,7 @@ class Google_Calendar extends Link_Abstract {
 	   $pieces = apply_filters_deprecated(
 		   'tribe_google_calendar_parameters',
 		   [ $pieces, $event->ID ],
-		   'TBD',
+		   '5.14.0',
 		   'tec_views_v2_single_event_gcal_link_parameters',
 		   'Moved generic hook to something more specific and appropriate while moving function.'
 		);
@@ -159,7 +159,7 @@ class Google_Calendar extends Link_Abstract {
 		 * Allow users to Filter our Google Calendar Link params before constructing the URL.
 		 * After this filter, the list will be trimmed to remove any empty values and discarded if any required params are missing.
 		 *
-		 * @since TBD
+		 * @since 5.14.0
 		 *
 		 * @var array   $pieces   The params used in the add_query_arg.
 		 * @var WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
@@ -178,7 +178,7 @@ class Google_Calendar extends Link_Abstract {
 		/**
 		 * Allow users to Filter our Google Calendar Link URL - after all params have been applied to the URL.
 		 *
-		 * @since TBD
+		 * @since 5.14.0
 		 *
 		 * @var array   $url   The url to use.
 		 * @var WP_Post $event The Event the link is for. As decorated by tribe_get_event().
@@ -190,7 +190,7 @@ class Google_Calendar extends Link_Abstract {
 	/**
 	 * Truncate Event Description and add permalink if greater than $length characters.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @param string      $event_details The event description.
 	 * @param WP_Post|int $post_id The event post or ID.
@@ -227,7 +227,7 @@ class Google_Calendar extends Link_Abstract {
 	/**
 	 *  Returns a string version of the full address of an event.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @todo This should really live in Tribe__Events__Venue, so move it there at some point
 	 * @see Tribe__Events__Main->fullAddressString()
