@@ -24,7 +24,25 @@ interface Strategy_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return Event_Report
+	 * @return Event_Report A reference to the report for the Event migration.
 	 */
 	public function apply();
+
+	/**
+	 * Cancels the migration for an Event.
+	 *
+	 * @since TBD
+	 *
+	 * @return Event_Report A reference to the report for the Event migration cancellation.
+	 */
+	public function cancel();
+
+	/**
+	 * Undoes an Event migration.
+	 *
+	 * @since TBD
+	 *
+	 * @return Event_Report A reference to the report for the Event migration undoing.
+	 */
+	public function undo();
 }

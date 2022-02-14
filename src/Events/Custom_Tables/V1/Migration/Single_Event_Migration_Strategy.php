@@ -38,4 +38,18 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	public function apply() {
 		// TODO: Implement apply() method.
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function cancel() {
+		// TODO: Implement cancel() method.
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function undo() {
+		// TODO: Implement undo() method.
+	}
 }
