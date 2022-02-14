@@ -462,7 +462,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tec-variables-full',
 				'tec-variables-skeleton',
 			],
-			'enqueue_block_editor_assets',
+			'enqueue_block_assets',
 			[
 				'priority'     => 15,
 				'groups'       => [ static::$single_group_key ],
