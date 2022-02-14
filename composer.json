@@ -68,6 +68,7 @@
     }
   ],
   "require": {
+    "woocommerce/action-scheduler": "^3.4.0"
   },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
