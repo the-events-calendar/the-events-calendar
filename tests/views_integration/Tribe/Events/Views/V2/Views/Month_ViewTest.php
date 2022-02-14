@@ -20,6 +20,7 @@ class Month_ViewTest extends ViewTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		tribe( 'cache' )->reset();
 
 		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
 
@@ -39,6 +40,8 @@ class Month_ViewTest extends ViewTestCase {
 
 		update_option( 'permalink_structure', '/%postname%/' );
 		flush_rewrite_rules();
+
+		tribe( 'cache' )->reset();
 	}
 
 	/**

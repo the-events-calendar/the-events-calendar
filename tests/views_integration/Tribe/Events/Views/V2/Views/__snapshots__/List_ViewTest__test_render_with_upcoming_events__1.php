@@ -255,13 +255,13 @@
 		<div class="tribe-events-calendar-list">
 
 							
-				<div class="tribe-events-calendar-list__month-separator">
+				<h2 class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
 		datetime="2019-06"
 	>
 		June 2019	</time>
-</div>
+</h2>
 
 				<div  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
 
