@@ -558,6 +558,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Aggregator__REST__V1__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__CLI__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__Processes__Service_Provider' );
+
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
 
 			// @todo After version 6.0.0 this needs to move to the Events folder provider.
@@ -1039,10 +1040,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
-			if ( ! tribe( 'editor' )->should_load_blocks() ) {
-				tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
-			}
-
+			tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
@@ -3918,6 +3916,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'side',
 				'default'
 			);
+
 
 			if ( tribe( 'editor' )->should_load_blocks() ) {
 				return;
