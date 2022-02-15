@@ -71,7 +71,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 			add_action( 'admin_footer', [ $this, 'inject_v2_disable_modal' ] );
 			$phase_callback = $this->container->callback( Admin\Upgrade_Tab::class, 'add_phase_content' );
 			add_filter( 'tribe_upgrade_fields', $phase_callback );
-			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
+			// @todo this should be the entry point since the Views v2 upgrade tab was removed ...
+			add_action( 'tribe_settings_do_tabs', [ $this, 'show_upgrade_tab' ] );
 		}
 	}
 
@@ -198,7 +199,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Filters whether or not the upgrade tab should show.
+	 * Filters whether the upgrade tab should show.
 	 *
 	 * @param bool $should_show Show tab state.
 	 *
