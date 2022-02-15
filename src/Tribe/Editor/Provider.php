@@ -70,6 +70,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
 
+		// Register blocks to own own action
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.classic-event-details' ),  'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-datetime' ), 'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-venue' ), 'register' ] );
@@ -80,6 +81,8 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-tags' ), 'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-website' ), 'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.featured-image' ), 'register' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this->container->make( Blocks\Archive_Events::class ), 'register' ] );
+
 	}
 
 	/**

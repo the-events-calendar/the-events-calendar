@@ -60,7 +60,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_organizer' ], 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_event' ], 10, 2 );
 
-		add_filter( 'get_block_templates', [ $this, 'include_archive_events' ], 25, 3 );
+		if ( ! is_admin() ) {
+			add_filter( 'get_block_templates', [ $this, 'include_archive_events' ], 25, 3 );
+		}
 	}
 
 	/**
@@ -95,7 +97,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
 		' );
 		$template->slug           = $template_slug;
-		$template->source         = 'theme';
+		$template->source         = 'custom';
 		$template->theme          = 'The Events Calendar';
 		$template->type           = $template_type;
 		$template->title          = esc_html__( 'Events Archive', 'the-events-calendar' );
