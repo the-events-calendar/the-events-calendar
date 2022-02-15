@@ -28,6 +28,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 **/
 	function tribe_show_month( $args = [], $template_path = 'month/content' ) {
+		if ( tec_events_views_v1_should_display_deprecated_notice() ) {
+			_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
+		}
 
 		// temporarily unset the tribe bar params so they don't apply
 		$hold_tribe_bar_args = [];
