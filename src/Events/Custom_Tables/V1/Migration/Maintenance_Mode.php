@@ -71,7 +71,6 @@ class Maintenance_Mode {
 		add_filter( 'tribe_aggregator_batch_data_processing_enabled', '__return_false' );
 		add_filter( 'tribe_aggregator_remote_status_enabled', '__return_false' );
 
-		// @todo in ECP hook into this to handle ECP, ET, ET+ et al stuff.
 		/**
 		 * Fires an action to signal TEC requires putting the site in maintenance
 		 * mode while the migration completes.
