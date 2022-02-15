@@ -31,6 +31,14 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @return void
 	 */
 	public function register() {
+		if ( ! (
+			defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_ENABLED' )
+			&& TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_ENABLED
+		) ) {
+			// @todo remove this feature flag once the Migration work is completed.
+			return;
+		}
+
 		// Register the provider in the container.
 		$this->container->singleton( self::class, $this );
 
