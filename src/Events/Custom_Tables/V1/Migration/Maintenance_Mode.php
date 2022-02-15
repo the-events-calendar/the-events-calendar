@@ -18,7 +18,6 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Maintenance_Mode {
-
 	/**
 	 * A reference to the current migration state provider.
 	 *
@@ -66,7 +65,11 @@ class Maintenance_Mode {
 	 * @return void
 	 */
 	private function add_filters() {
-		// @todo look at ECP migration code and disable only TEC stuff here.
+		// Turn off Aggregator cron.
+		add_filter( 'tribe_get_option', [ $this, 'filter_aggregator_disable' ], 10, 2 );
+		// Disable REST endpoints for Event Aggregator by setting the permission check to false.
+		add_filter( 'tribe_aggregator_batch_data_processing_enabled', '__return_false' );
+		add_filter( 'tribe_aggregator_remote_status_enabled', '__return_false' );
 
 		// @todo in ECP hook into this to handle ECP, ET, ET+ et al stuff.
 		/**
@@ -76,5 +79,22 @@ class Maintenance_Mode {
 		 * @since TBD
 		 */
 		do_action( 'tec_events_custom_tables_v1_migration_maintenance_mode' );
+	}
+
+	/**
+	 * Disable Events Aggregator.
+	 *
+	 * @param mixed  $value  The `tribe_option` value.
+	 * @param string $option The `tribe_option` name.
+	 *
+	 * @return mixed The filtered option value, `true` when the option
+	 *               being filtered is the one to disable Events Aggregator.
+	 */
+	public function filter_aggregator_disable( $value, $option ) {
+		if ( 'tribe_aggregator_disable' !== $option ) {
+			return $value;
+		}
+
+		return true;
 	}
 }
