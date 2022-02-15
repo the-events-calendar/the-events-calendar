@@ -55,7 +55,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Process::ACTION_CANCEL, [ $this, 'cancel_event_migration' ] );
 		add_action( Process::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
 
-		// @todo is `init` too late? Too early? Look into ECP prev. migration code.
 		// Activate maintenance mode, if required.
 		add_action( 'init', [ $this, 'activate_maintenance_mode' ] );
 
