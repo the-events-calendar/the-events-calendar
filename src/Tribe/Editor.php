@@ -60,9 +60,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_organizer' ], 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_event' ], 10, 2 );
 
-		if ( ! is_admin() ) {
-			add_filter( 'get_block_templates', [ $this, 'include_archive_events' ], 25, 3 );
-		}
+		add_filter( 'get_block_templates', [ $this, 'include_archive_events' ], 25, 3 );
 	}
 
 	/**
@@ -77,6 +75,10 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @return array
 	 */
 	public function include_archive_events( $query_result, $query, $template_type ) {
+		if ( is_admin() ) {
+			return $query_result;
+		}
+
 		$template_slug = 'archive-' . Tribe__Events__Main::POSTTYPE;
 
 		if ( 'wp_template' !== $template_type ) {

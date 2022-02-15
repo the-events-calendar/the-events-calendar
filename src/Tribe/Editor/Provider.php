@@ -44,7 +44,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.editor.blocks.event-tags', Tribe__Events__Editor__Blocks__Event_Tags::class, [ 'load' ] );
 		$this->container->singleton( 'events.editor.blocks.event-website', Tribe__Events__Editor__Blocks__Event_Website::class, [ 'load' ] );
 		$this->container->singleton( 'events.editor.blocks.featured-image', Tribe__Events__Editor__Blocks__Featured_Image::class, [ 'load' ] );
-		$this->container->singleton( Blocks\Archive_Events::class, Blocks\Archive_Events::class );
+		$this->container->singleton( Blocks\Archive_Events::class, Blocks\Archive_Events::class, [ 'load' ] );
 	}
 
 	public function call_singletons() {

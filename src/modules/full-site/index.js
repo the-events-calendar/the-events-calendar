@@ -12,7 +12,7 @@ const blocks = [
 
 blocks.forEach( block => {
 	const blockName = `tribe/${ block.id }`;
-	registerBlockType( blockName, block );
+	// registerBlockType( blockName, block );
 } );
 
 

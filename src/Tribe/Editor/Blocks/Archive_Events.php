@@ -23,8 +23,7 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	 */
 	public function default_attributes() {
 
-		return [
-		];
+		return [];
 	}
 
 	/**
