@@ -647,6 +647,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
+
+			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
 		}
 
 		/**
