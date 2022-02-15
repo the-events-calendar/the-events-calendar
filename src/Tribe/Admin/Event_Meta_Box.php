@@ -410,6 +410,10 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * @since 4.6.23
 	 */
 	public function display_wp_custom_fields_metabox() {
+		if ( tribe( 'editor' )->should_load_blocks() ) {
+			return;
+		}
+
 		$show_box = tribe_get_option( 'disable_metabox_custom_fields' );
 
 		if ( ! tribe_is_truthy( $show_box ) ) {

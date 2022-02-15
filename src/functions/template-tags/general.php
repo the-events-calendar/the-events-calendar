@@ -36,7 +36,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 **/
 	function tribe_get_view( $view = false ) {
-		if ( tec_events_views_v1_should_display_deprecated_notice() ) {
+		if (
+			! in_array( $view, [ 'single-event', 'embed' ] )
+			&& tec_events_views_v1_should_display_deprecated_notice()
+		) {
 			_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
 		}
 		do_action( 'tribe_pre_get_view' );

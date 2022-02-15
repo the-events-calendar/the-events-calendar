@@ -1,16 +1,16 @@
 <?php
 /**
  * Filter bar upsell banner.
- * 
- * @since TBD
+ *
+ * @since 5.14.0
  */
 $main = Tribe__Events__Main::instance();
 ?>
 <div class="tec-filterbar-upsell">
     <div class="tec-filterbar-upsell__content">
         <div class="tec-filterbar-upsell__title">
-            <img 
-                src="<?php echo esc_url( tribe_resource_url( 'icons/filterbar.svg', false, null, $main ) ); ?>" 
+            <img
+                src="<?php echo esc_url( tribe_resource_url( 'icons/filterbar.svg', false, null, $main ) ); ?>"
                 alt="<?php esc_attr_e( 'Filter Bar Icon', 'the-events-calendar' ); ?>"
             >
             <h3>
@@ -28,8 +28,8 @@ $main = Tribe__Events__Main::instance();
     </div>
 
     <div class="tec-filterbar-upsell__icon">
-        <img 
-            src="<?php echo esc_url( tribe_resource_url( 'icons/filterbar-banner.png', false, null, $main ) ); ?>" 
+        <img
+            src="<?php echo esc_url( tribe_resource_url( 'icons/filterbar-banner.png', false, null, $main ) ); ?>"
             alt="<?php esc_attr_e( 'Filter Bar Banner Icon', 'the-events-calendar' ); ?>"
         >
     </div>

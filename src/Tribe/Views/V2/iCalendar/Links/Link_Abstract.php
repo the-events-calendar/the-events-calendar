@@ -132,7 +132,7 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		$class   = sanitize_html_class( 'tribe-events-' . self::get_slug() );
-		$links[] = '<a class="tribe-events-button ' . $class
+		$links[ self::get_slug() ] = '<a class="tribe-events-button ' . $class
 		           . '" href="' . esc_url( $uri )
 		           . '" title="' . esc_attr( $label )
 		           . '">+ ' . esc_html( $label ) . '</a>';
@@ -149,7 +149,7 @@ abstract class Link_Abstract implements Link_Interface {
 		/**
 		 * Allows filtering of the visibility for the links.
 		 *
-		 * @since TBD
+		 * @since 5.14.0
 		 *
 		 * @param boolean $visible Whether to display the link.
 		 *
@@ -160,7 +160,7 @@ abstract class Link_Abstract implements Link_Interface {
 		/**
 		 * Allows link-specific filtering of the visibility.
 		 *
-		 * @since TBD
+		 * @since 5.14.0
 		 *
 		 * @param boolean $visible Whether to display the link.
 		 *

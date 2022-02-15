@@ -133,7 +133,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug       = 'featured';
 
 		/**
-		 * @deprecated TBD use Tribe__Events__Venue::$valid_venue_keys instead.
+		 * @deprecated 5.14.0 use Tribe__Events__Venue::$valid_venue_keys instead.
 		*/
 		public $valid_venue_keys = [];
 
@@ -559,6 +559,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Aggregator__REST__V1__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__CLI__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__Processes__Service_Provider' );
+
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
 
 			// @todo After version 6.0.0 this needs to move to the Events folder provider.
@@ -1047,10 +1048,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
-			if ( ! tribe( 'editor' )->should_load_blocks() ) {
-				tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
-			}
-
+			tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
@@ -2904,7 +2902,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Returns the GCal export link for a given event id.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 5.14.0
 		 * @todo Add deprecated notice.
 		 *
 		 * @param int|WP_Post|null $post The Event Post Object or ID, if left empty will give get the current post.
@@ -2988,7 +2986,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Allow users to Filter our Google Calendar Link params
 			 *
-			 * @deprecated TBD Moved generic hook to something more specific and appropriate.
+			 * @deprecated 5.14.0 Moved generic hook to something more specific and appropriate.
 			 *
 			 * @var array Params used in the add_query_arg
 			 * @var int   Event ID
@@ -2996,7 +2994,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$params = apply_filters_deprecated(
 				'tribe_google_calendar_parameters',
 				[ $params, $post->ID ],
-				'TBD',
+				'5.14.0',
 				'tec_views_v2_single_event_gcal_link_parameters',
 				'Moved generic hook to something more specific and appropriate while moving function.'
 			);
@@ -3814,6 +3812,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			add_meta_box(
+				'tribe_events_event_options',
+				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
+				[ $this, 'eventMetaBox' ],
+				self::POSTTYPE,
+				'side',
+				'default'
+			);
+
+
 			if ( tribe( 'editor' )->should_load_blocks() ) {
 				return;
 			}
@@ -3828,15 +3836,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				[
 						'__back_compat_meta_box' => ! class_exists( 'Tribe__Events__Pro__Main' ),
 				]
-			);
-
-			add_meta_box(
-					'tribe_events_event_options',
-					sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
-					[ $this, 'eventMetaBox' ],
-					self::POSTTYPE,
-					'side',
-					'default'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
