@@ -64,8 +64,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
 
-		// @todo support the same actions ^^^ by query var
-
 		// @todo page from ECP migration code
 	}
 
