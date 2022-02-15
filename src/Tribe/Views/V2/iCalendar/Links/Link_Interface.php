@@ -50,7 +50,7 @@ interface Link_Interface {
 	 * Getter function for the display property.
 	 *
 	 * @since 5.12.0
-	 * @since TBD Removed unused view param.
+	 * @since 5.14.0 Removed unused view param.
 	 *
 	 * @return bool
 	 */

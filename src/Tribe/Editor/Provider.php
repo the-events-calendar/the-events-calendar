@@ -17,10 +17,16 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 
 		tribe( 'events.editor' )->hook();
 
-		if ( ! tribe( 'editor' )->should_load_blocks() || ! tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on() ) {
+		if ( ! tribe( 'editor' )->should_load_blocks() ) {
 			return;
 		}
 
+		$this->register_singletons();
+		$this->hook();
+		$this->call_singletons();
+	}
+
+	public function register_singletons() {
 		$this->container->singleton( 'events.editor.meta', 'Tribe__Events__Editor__Meta' );
 		$this->container->singleton( 'events.editor.settings', 'Tribe__Events__Editor__Settings' );
 		$this->container->singleton( 'events.editor.i18n', 'Tribe__Events__Editor__I18n', [ 'hook' ] );
@@ -38,10 +44,11 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.editor.blocks.event-tags', Tribe__Events__Editor__Blocks__Event_Tags::class, [ 'load' ] );
 		$this->container->singleton( 'events.editor.blocks.event-website', Tribe__Events__Editor__Blocks__Event_Website::class, [ 'load' ] );
 		$this->container->singleton( 'events.editor.blocks.featured-image', Tribe__Events__Editor__Blocks__Featured_Image::class, [ 'load' ] );
+
 		$this->container->singleton( Blocks\Archive_Events::class, Blocks\Archive_Events::class );
+	}
 
-		$this->hook();
-
+	public function call_singletons() {
 		/**
 		 * Call all the Singletons that need to be setup/hooked
 		 */
@@ -59,12 +66,6 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 	 *
 	 */
 	protected function hook() {
-		// Prevents loading of blocks if gutenberg plugin is active
-		// We wil deactivate this plugin right after after `admin_init`
-		if ( class_exists( 'Tribe__Gutenberg__Plugin' ) ) {
-			return false;
-		}
-
 		$this->container->register( \Tribe\Events\Editor\Hooks::class );
 
 		// Setup the Meta registration

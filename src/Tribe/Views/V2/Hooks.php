@@ -975,7 +975,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function is_v1_or_blocks( $post_id = null ) {
 		return is_null( $post_id )
 				|| ! tribe_events_single_view_v2_is_enabled()
-				|| has_blocks( $post_id );
+				|| tribe( 'editor' )->should_load_blocks() && has_blocks( $post_id );
 	}
 
 	/**
