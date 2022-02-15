@@ -64,7 +64,15 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
 
-		// @todo page from ECP migration code
+		if ( is_admin() ) {
+			// @todo delegate this to upgrade tab class
+			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
+			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
+			add_action( 'admin_footer', [ $this, 'inject_v2_disable_modal' ] );
+			$phase_callback = $this->container->callback( Admin\Upgrade_Tab::class, 'add_phase_content' );
+			add_filter( 'tribe_upgrade_fields', $phase_callback );
+			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
+		}
 	}
 
 	/**
@@ -100,12 +108,12 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param int  $post_id The post ID of the Event to cancel the migration for.
+	 * @param int $post_id The post ID of the Event to cancel the migration for.
 	 *
 	 * @return void The method does not return any value but will trigger the action
 	 *              that will cancel the Event migration.
 	 */
-	public function cancel_event_migration( $post_id) {
+	public function cancel_event_migration( $post_id ) {
 		$this->container->make( Process::class )->cancel_event_migration( $post_id );
 	}
 
@@ -114,12 +122,12 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param int  $post_id The post ID of the Event to undo the migration for.
+	 * @param int $post_id The post ID of the Event to undo the migration for.
 	 *
 	 * @return void The method does not return any value but will trigger the action
 	 *              that will undo the Event migration.
 	 */
-	public function undo_event_migration( $post_id) {
+	public function undo_event_migration( $post_id ) {
 		$this->container->make( Process::class )->undo_event_migration( $post_id );
 	}
 
@@ -145,7 +153,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              of echoing a JSON format string back for the Migration UI JS component
 	 *              to consume.
 	 */
-	public function start_migration(  ) {
+	public function start_migration() {
 		$this->container->make( Ajax::class )->start_migration();
 	}
 
@@ -158,7 +166,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              of echoing a JSON format string back for the Migration UI JS component
 	 *              to consume.
 	 */
-	public function cancel_migration(  ) {
+	public function cancel_migration() {
 		$this->container->make( Ajax::class )->cancel_migration();
 	}
 
@@ -171,7 +179,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              of echoing a JSON format string back for the Migration UI JS component
 	 *              to consume.
 	 */
-	public function undo_migration(  ) {
+	public function undo_migration() {
 		$this->container->make( Ajax::class )->undo_migration();
 	}
 
@@ -187,5 +195,56 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function activate_maintenance_mode() {
 		$this->container->make( Maintenance_Mode::class )->activate();
+	}
+
+	/**
+	 * Filters whether or not the upgrade tab should show.
+	 *
+	 * @param bool $should_show Show tab state.
+	 *
+	 * @return bool
+	 */
+	public function show_upgrade_tab( $should_show ) {
+		// @todo review this logic and move to Upgrade_Tab
+		if ( $should_show ) {
+			return $should_show;
+		}
+
+		$upgrade_tab = $this->container->make( Admin\Upgrade_Tab::class );
+
+		return $upgrade_tab->should_show();
+	}
+
+	/**
+	 * Inject the content and data of the Admin\Progress_Modal.
+	 *
+	 * @since TBD
+	 */
+	public function inject_progress_modal() {
+		// @todo should this stay here?
+		$modal = $this->container->make( Admin\Progress_Modal::class );
+		echo $modal->render_modal();
+	}
+
+	/**
+	 * Inject the content and data of the Admin\V2_Disable_Modal.
+	 *
+	 * @since TBD
+	 */
+	public function inject_v2_disable_modal() {
+		// @todo should this stay at all?
+		$modal = $this->container->make( Admin\V2_Disable_Modal::class );
+		echo $modal->render_modal();
+	}
+
+	/**
+	 * Inject the Admin\Progress_Modal trigger that pops open the modal.
+	 *
+	 * @since TBD
+	 */
+	public function inject_progress_modal_js_trigger() {
+		// @todo should this stay here?
+		$modal = $this->container->make( Admin\Progress_Modal::class );
+		echo $modal->get_modal_auto_trigger();
 	}
 }
