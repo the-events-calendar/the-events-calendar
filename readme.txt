@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Improve updated views CSS overwrites for buttons and view selector.
+
 = [5.14.0.1] 2022-02-15 =
 
 * Fix - Prevent parse error due to trailing comma on a method call, PHP 7.1 compatibility required. Props @kzeni
