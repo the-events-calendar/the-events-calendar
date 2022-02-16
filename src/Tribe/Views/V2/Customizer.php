@@ -825,7 +825,7 @@ class Customizer {
 		}
 
 		// Bail if Block Editor.
-		if ( has_blocks( get_queried_object_id() ) ) {
+		if ( tribe( 'editor' )->should_load_blocks() && has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
 

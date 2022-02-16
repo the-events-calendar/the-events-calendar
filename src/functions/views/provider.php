@@ -207,3 +207,23 @@ function tribe_events_single_view_v2_is_enabled() {
 	 */
 	return apply_filters( 'tribe_events_single_view_v2_is_enabled', true );
 }
+
+/**
+ * For legacy usage of the Views V1 we allow removing all notices related to V1 before of Version 6.0.0.
+ *
+ * @since 5.13.0
+ *
+ * @todo Once version 6.0.0 is launched this method will be deprecated since all v1 code will be REMOVED.
+ *
+ * @return bool
+ */
+function tec_events_views_v1_should_display_deprecated_notice() {
+	/**
+	 * Allows toggling notices for V1 deprecation via a filter. Defaults to true.
+	 *
+	 * @since 5.13.0
+	 *
+	 * @return boolean Disable showing the
+	 */
+	return (bool) apply_filters( 'tec_events_views_v1_should_display_deprecated_notice', true );
+}

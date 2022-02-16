@@ -346,26 +346,19 @@ ul.tribe-events-sub-nav,
 }
 
 /* Calendar Add Buttons */
-a.tribe-events-ical,
-a.tribe-events-gcal {
+.tribe-events-cal-links a {
 	clear: both;
 	color: #fff;
-	float: right;
 	font-size: 10px;
 	font-weight: normal;
 	line-height: 18px;
 	margin-top: 21px;
 	padding: 0 6px;
 	text-decoration: none;
-}
 
-.tribe-events-gcal {
-	margin-right: 9px;
-}
-
-.single-tribe_events a.tribe-events-ical,
-.single-tribe_events a.tribe-events-gcal {
-	float: none;
+	&:not(:last-of-type) {
+		margin-right: 9px;
+	}
 }
 
 /* Google Maps */

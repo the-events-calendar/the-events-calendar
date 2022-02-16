@@ -89,7 +89,7 @@ class Tribe__Events__Importer__Column_Mapper {
 		/**
 		 * Filters the Event column names that will be shown to the user.
 		 *
-		 * @param array $column_names
+		 * @param array<string|string> $column_names An array of column names for event import.
 		 */
 		return apply_filters( 'tribe_events_importer_event_column_names', $column_names );
 	}
@@ -112,7 +112,7 @@ class Tribe__Events__Importer__Column_Mapper {
 		/**
 		 * Filters the Venue column names that will be shown to the user.
 		 *
-		 * @param array $column_names
+		 * @param array<string|string> $column_names An array of column names for venue import.
 		 */
 		return apply_filters( 'tribe_events_importer_venue_column_names', $column_names );
 	}
@@ -130,7 +130,7 @@ class Tribe__Events__Importer__Column_Mapper {
 		/**
 		 * Filters the Organizer column names that will be shown to the user.
 		 *
-		 * @param array $column_names
+		 * @param array<string|string> $column_names An array of column names for organizer import.
 		 */
 		return apply_filters( 'tribe_events_importer_organizer_column_names', $column_names );
 	}

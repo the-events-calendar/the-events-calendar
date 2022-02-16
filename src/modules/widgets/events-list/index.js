@@ -10,7 +10,7 @@ import EventsList from './template';
 import { EventsList as EventsListIcon } from '@moderntribe/events/icons';
 
 const { __ } = wp.i18n;
-const { InnerBlocks } = wp.editor;
+const { InnerBlocks } = wp.blockEditor;
 
 /**
  * Module Code

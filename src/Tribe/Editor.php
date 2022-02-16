@@ -118,17 +118,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			return $is_enabled;
 		}
 
-		// Classic editor plugin is overriding.
-		if ( tribe( 'events.editor' )->is_classic_option_active() ) {
-			return false;
-		}
-
-		// Blocks aren't toggled on.
-		if ( tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on() ) {
-			return $is_enabled;
-		}
-
-		return false;
+		return tribe( 'editor' )->should_load_blocks();
 	}
 
 	/**
@@ -170,7 +160,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		$editor = tribe( 'editor' );
 
 		// Bail if in classic editor
-		if ( $editor->is_classic_editor() ) {
+		if ( ! $editor->should_load_blocks() ) {
 			return false;
 		}
 
@@ -611,7 +601,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				[
 					'slug'  => 'tribe-events',
 					'title' => __( 'Event Blocks', 'the-events-calendar' ),
-					'icon'  => 'tec-horns',
 				],
 			]
 		);
@@ -645,7 +634,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				[
 					'slug'  => 'tribe-events',
 					'title' => __( 'Event Blocks', 'the-events-calendar' ),
-					'icon'  => 'tec-horns',
 				],
 			]
 		);
