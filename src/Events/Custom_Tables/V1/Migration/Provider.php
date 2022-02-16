@@ -80,13 +80,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 			add_action( 'admin_footer', [ $this, 'inject_v2_disable_modal' ] );
 		}
 	}
-	/**
-	 * Hooks actions for Assets.
-	 *
-	 * @since TBD
-	 */
-	private function hook_actions() {
-	}
 
 	/**
 	 * Registers the scripts required by the service provider.
