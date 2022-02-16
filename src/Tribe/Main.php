@@ -908,6 +908,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_general_settings_tab_fields', [ $this, 'general_settings_tab_fields' ] );
 			add_filter( 'tribe_display_settings_tab_fields', [ $this, 'display_settings_tab_fields' ] );
 			add_filter( 'tribe_settings_url', [ $this, 'tribe_settings_url' ] );
+			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', [ $this, 'add_help_section_feature_box_content' ] );
@@ -1287,6 +1288,94 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function do_addons_api_settings_tab() {
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
+		}
+
+		/**
+		 * should we show the upgrade nags?
+		 *
+		 * @since 4.9.12
+		 *
+		 * @return boolean
+		 */
+		public function show_upgrade() {
+			$show_tab = current_user_can( 'activate_plugins' );
+
+			/**
+			 * Provides an opportunity to override the decision to show or hide the upgrade tab
+			 *
+			 * Normally it will only show if the current user has the "activate_plugins" capability
+			 * and there are some currently-activated premium plugins.
+			 *
+			 * @since 4.9.12
+			 *
+			 * @param bool $show_tab True or False for showing the Upgrade Tab.
+			 */
+			if ( ! apply_filters( 'tribe_events_show_upgrade_tab', $show_tab ) ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		/**
+		 * Create the upgrade tab
+		 *
+		 * @since 4.9.12
+		 */
+		public function do_upgrade_tab() {
+			if ( ! $this->show_upgrade() ) {
+				return;
+			}
+
+			tribe_asset(
+				self::instance(),
+				'tribe-admin-upgrade-page',
+				'admin-upgrade-page.js',
+				[ 'tribe-common' ],
+				'admin_enqueue_scripts',
+				[
+					'localize' => [
+						'name' => 'tribe_upgrade',
+						'data' => [
+							'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
+							'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
+						],
+					],
+				]
+			);
+
+			/**
+			 * Get Upgrade tab template.
+			 */
+			ob_start();
+			include_once $this->plugin_path . 'src/admin-views/tribe-options-upgrade.php';
+			$upgrade_tab_html = ob_get_clean();
+
+			$upgrade_tab = [
+				'info-box-description' => [
+					'type' => 'html',
+					'html' => $upgrade_tab_html,
+				],
+			];
+
+			/**
+			 * Allows the fields displayed in the upgrade tab to be modified.
+			 *
+			 * @since 4.9.12
+			 *
+			 * @param array $upgrade_tab Array of fields used to setup the Upgrade Tab.
+			 */
+			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
+
+			new Tribe__Settings_Tab(
+				'upgrade', esc_html__( 'Upgrade', 'tribe-common' ),
+				[
+					'priority'      => 100,
+					'fields'        => $upgrade_fields,
+					'network_admin' => is_network_admin(),
+					'show_save'     => true,
+				]
+			);
 		}
 
 		/**

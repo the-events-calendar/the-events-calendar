@@ -14,6 +14,15 @@ use Tribe__Dependency as Plugins;
 
 class Upgrade_Tab {
 	/**
+	 * The absolute path, without trailing slash, to the root directory used for the templates.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $template_path;
+
+	/**
 	 * A reference to the current migration state handler.
 	 *
 	 * @since TBD
@@ -39,8 +48,9 @@ class Upgrade_Tab {
 	 * @param Plugins $plugins A reference to the current plugin dependencies handler.
 	 */
 	public function __construct( State $state, Plugins $plugins ) {
-		$this->state   = $state;
-		$this->plugins = $plugins;
+		$this->state         = $state;
+		$this->plugins       = $plugins;
+		$this->template_path = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
 	}
 
 	/**
@@ -48,10 +58,10 @@ class Upgrade_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool
+	 * @return bool Whether the upgrade tab should show or not.
 	 */
 	public function should_show() {
-		return $this->state->is_running() || $this->state->is_required();
+		return $this->state->is_required();
 	}
 
 	/**
@@ -64,12 +74,12 @@ class Upgrade_Tab {
 	 * @return mixed
 	 */
 	public function add_phase_content( $upgrade_fields ) {
-		$path               = EVENTS_CALENDAR_PRO_DIR . '/src/admin-views/custom-tables-v1/recurrence/migration/';
 		$phase              = $this->state->get_phase();
 		$migration_addendum = $this->get_migration_prompt_addendum();
+		$template_path      = $this->template_path;
 
 		ob_start();
-		include_once $path . '/upgrade-box.php';
+		include_once $this->template_path . '/upgrade-box.php';
 		$phase_html = ob_get_clean();
 
 		$upgrade_fields['recurrence_migration'] = [

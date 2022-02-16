@@ -11,7 +11,9 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provider_Contract;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Provider.
@@ -65,15 +67,52 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
 
 		if ( is_admin() ) {
-			// @todo delegate this to upgrade tab class
+			// Hook into the Upgrade tab to show it and customize its contents.
+			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
+			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
+
+			add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ], 10 );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 11 );
+
+			// @todo delegate this to upgrade tab class?
 			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
 			add_action( 'admin_footer', [ $this, 'inject_v2_disable_modal' ] );
-			$phase_callback = $this->container->callback( Admin\Upgrade_Tab::class, 'add_phase_content' );
-			add_filter( 'tribe_upgrade_fields', $phase_callback );
-			// @todo this should be the entry point since the Views v2 upgrade tab was removed ...
-			add_action( 'tribe_settings_do_tabs', [ $this, 'show_upgrade_tab' ] );
 		}
+	}
+
+	/**
+	 * Registers the scripts required by the service provider.
+	 *
+	 * @since TBD
+	 */
+	public function register_scripts() {
+		wp_register_style(
+			'tec-recurrence-upgrade-admin-css',
+			TEC::instance()->plugin_url .'src/resources/css/custom-tables-v1/ct1-upgrade.css'
+		);
+		wp_register_script(
+			'tec-recurrence-upgrade-admin-js',
+			TEC::instance()->plugin_url . 'src/resources/js/custom-tables-v1/ct1-upgrade.js'
+		);
+	}
+
+	/**
+	 * Enqueues the scripts required by the service provider.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_scripts() {
+		if ( ! isset( $_GET['page'] ) ) {
+			return;
+		}
+
+		if ( $_GET['page'] !== tribe( 'settings' )->adminSlug ) {
+			return;
+		}
+
+		wp_enqueue_style( 'tec-recurrence-upgrade-admin-css' );
+		wp_enqueue_script( 'tec-recurrence-upgrade-admin-js' );
 	}
 
 	/**
@@ -199,24 +238,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Filters whether the upgrade tab should show.
-	 *
-	 * @param bool $should_show Show tab state.
-	 *
-	 * @return bool
-	 */
-	public function show_upgrade_tab( $should_show ) {
-		// @todo review this logic and move to Upgrade_Tab
-		if ( $should_show ) {
-			return $should_show;
-		}
-
-		$upgrade_tab = $this->container->make( Admin\Upgrade_Tab::class );
-
-		return $upgrade_tab->should_show();
-	}
-
-	/**
 	 * Inject the content and data of the Admin\Progress_Modal.
 	 *
 	 * @since TBD
@@ -247,5 +268,34 @@ class Provider extends Service_Provider implements Provider_Contract {
 		// @todo should this stay here?
 		$modal = $this->container->make( Admin\Progress_Modal::class );
 		echo $modal->get_modal_auto_trigger();
+	}
+
+	/**
+	 * Filters whether the Upgrade tab, hosting the migration report, should show or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $show_tab The initial value as worked out by TEC and other plugins.
+	 *
+	 * @return bool Whether the Upgrade tab should show or not. A logic OR on the input
+	 *              value depending on the Migration state.
+	 */
+	public function show_upgrade_tab( $show_tab ) {
+		return $show_tab || $this->container->make( Upgrade_Tab::class )->should_show();
+	}
+
+	/**
+	 * Filters the Upgrade tab fields to add the ones dedicated to the Migration.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $upgrade_fields The Upgrade page fields, as set up
+	 *                                            by The Events Calendar and other plugins.
+	 *
+	 * @return array<string,mixed> The filtered Upgrade tab fields, including the fields
+	 *                             dedicated to Migration.
+	 */
+	public function add_phase_callback( $upgrade_fields ) {
+		return $this->container->make( Upgrade_Tab::class )->add_phase_content( $upgrade_fields );
 	}
 }
