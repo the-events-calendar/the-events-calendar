@@ -11,8 +11,18 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use Tribe__Dependency as Plugins;
+use Tribe__Settings_Tab as Settings_Tab;
 
 class Upgrade_Tab {
+	/**
+	 * The absolute path, without trailing slash, to the root directory used for the templates.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $template_path;
+
 	/**
 	 * A reference to the current migration state handler.
 	 *
@@ -39,8 +49,9 @@ class Upgrade_Tab {
 	 * @param Plugins $plugins A reference to the current plugin dependencies handler.
 	 */
 	public function __construct( State $state, Plugins $plugins ) {
-		$this->state   = $state;
-		$this->plugins = $plugins;
+		$this->state         = $state;
+		$this->plugins       = $plugins;
+		$this->template_path = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
 	}
 
 	/**
@@ -50,8 +61,8 @@ class Upgrade_Tab {
 	 *
 	 * @return bool
 	 */
-	public function should_show() {
-		return $this->state->is_running() || $this->state->is_required();
+	private function should_show() {
+		return $this->state->is_required();
 	}
 
 	/**
@@ -64,12 +75,11 @@ class Upgrade_Tab {
 	 * @return mixed
 	 */
 	public function add_phase_content( $upgrade_fields ) {
-		$path               = EVENTS_CALENDAR_PRO_DIR . '/src/admin-views/custom-tables-v1/recurrence/migration/';
 		$phase              = $this->state->get_phase();
 		$migration_addendum = $this->get_migration_prompt_addendum();
 
 		ob_start();
-		include_once $path . '/upgrade-box.php';
+		include_once $this->template_path . '/upgrade-box.php';
 		$phase_html = ob_get_clean();
 
 		$upgrade_fields['recurrence_migration'] = [
@@ -127,5 +137,60 @@ class Upgrade_Tab {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Renders the migration/upgrade tab, if required by the current migration state.
+	 *
+	 * @since TBD
+	 *
+	 * @return void The method will not return any value, and will have the side effect
+	 *              of setting up the Migration tab.
+	 */
+	public function render() {
+		if ( ! $this->should_show() ) {
+			return '';
+		}
+
+		ob_start();
+		$this->template_path . '/tab.php';
+		$upgrade_tab_html = ob_get_clean();
+
+		$upgrade_tab = [
+			'info-box-description' => [
+				'type' => 'html',
+				'html' => $upgrade_tab_html,
+			],
+			'views_v2_enabled'     => [
+				'type'            => 'checkbox_bool',
+				'default'         => true,
+				'value'           => true,
+				'validation_type' => 'boolean',
+				'conditional'     => true,
+			],
+		];
+
+		$phase              = $this->state->get_phase();
+		$migration_addendum = $this->get_migration_prompt_addendum();
+
+		ob_start();
+		$template_path = $this->template_path;
+		include_once $this->template_path . '/upgrade-box.php';
+		$phase_html = ob_get_clean();
+
+		$upgrade_fields['recurrence_migration'] = [
+			'type' => 'html',
+			'html' => $phase_html,
+		];
+
+		new Settings_Tab(
+			'upgrade', esc_html__( 'Upgrade', 'tribe-common' ),
+			[
+				'priority'      => 100,
+				'fields'        => $upgrade_fields,
+				'network_admin' => is_network_admin(),
+				'show_save'     => true,
+			]
+		);
 	}
 }

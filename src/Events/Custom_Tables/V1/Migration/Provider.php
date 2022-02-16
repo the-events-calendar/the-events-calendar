@@ -69,10 +69,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
 			add_action( 'admin_footer', [ $this, 'inject_v2_disable_modal' ] );
-			$phase_callback = $this->container->callback( Admin\Upgrade_Tab::class, 'add_phase_content' );
-			add_filter( 'tribe_upgrade_fields', $phase_callback );
-			// @todo this should be the entry point since the Views v2 upgrade tab was removed ...
-			add_action( 'tribe_settings_do_tabs', [ $this, 'show_upgrade_tab' ] );
+			// Render the Migration tab in the context of Events > Settings.
+			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
 		}
 	}
 
@@ -199,21 +197,13 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Filters whether the upgrade tab should show.
+	 * Shows the upgrade tab in the Settings section, if required.
 	 *
-	 * @param bool $should_show Show tab state.
-	 *
-	 * @return bool
+	 * @return void The method does not return any value and will output the migration content
+	 *              tab to the page.
 	 */
-	public function show_upgrade_tab( $should_show ) {
-		// @todo review this logic and move to Upgrade_Tab
-		if ( $should_show ) {
-			return $should_show;
-		}
-
-		$upgrade_tab = $this->container->make( Admin\Upgrade_Tab::class );
-
-		return $upgrade_tab->should_show();
+	public function do_upgrade_tab() {
+		echo $this->container->make( Admin\Upgrade_Tab::class )->render();
 	}
 
 	/**

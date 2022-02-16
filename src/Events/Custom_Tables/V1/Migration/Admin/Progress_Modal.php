@@ -110,7 +110,7 @@ class Progress_Modal {
 	public function get_modal_content( $args = [] ) {
 		$state = tribe( State::class );
 		$phase = $state->get_phase();
-		$path  = EVENTS_CALENDAR_PRO_DIR . '/src/admin-views/custom-tables-v1/recurrence/migration';
+		$path  = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
 
 		ob_start();
 		include_once $path . '/upgrade-logo.php';
