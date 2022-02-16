@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Events\Custom_Tables\V1\Migration\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 $state = tribe( State::class );

@@ -1314,15 +1314,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return false;
 			}
 
-			/**
-			 * This constant was introduced in the View Alpha
-			 * for agencies or others who'd like to hide the V2 Views upgrade prompt.
-			 * Let them set a constant in wp-config that will be respected.
-			 */
-			if ( defined( 'TRIBE_HIDE_V2_VIEWS_UPGRADE' ) ) {
-				return false;
-			}
-
 			return true;
 		}
 
@@ -1364,13 +1355,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'info-box-description' => [
 					'type' => 'html',
 					'html' => $upgrade_tab_html,
-				],
-				'views_v2_enabled' => [
-					'type'            => 'checkbox_bool',
-					'default'         => true,
-					'value'           => true,
-					'validation_type' => 'boolean',
-					'conditional'     => true,
 				],
 			];
 

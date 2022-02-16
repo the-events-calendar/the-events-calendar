@@ -11,7 +11,6 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use Tribe__Dependency as Plugins;
-use Tribe__Settings_Tab as Settings_Tab;
 
 class Upgrade_Tab {
 	/**
@@ -59,9 +58,9 @@ class Upgrade_Tab {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool
+	 * @return bool Whether the upgrade tab should show or not.
 	 */
-	private function should_show() {
+	public function should_show() {
 		return $this->state->is_required();
 	}
 
@@ -77,6 +76,7 @@ class Upgrade_Tab {
 	public function add_phase_content( $upgrade_fields ) {
 		$phase              = $this->state->get_phase();
 		$migration_addendum = $this->get_migration_prompt_addendum();
+		$template_path      = $this->template_path;
 
 		ob_start();
 		include_once $this->template_path . '/upgrade-box.php';
@@ -137,60 +137,5 @@ class Upgrade_Tab {
 		}
 
 		return '';
-	}
-
-	/**
-	 * Renders the migration/upgrade tab, if required by the current migration state.
-	 *
-	 * @since TBD
-	 *
-	 * @return void The method will not return any value, and will have the side effect
-	 *              of setting up the Migration tab.
-	 */
-	public function render() {
-		if ( ! $this->should_show() ) {
-			return '';
-		}
-
-		ob_start();
-		$this->template_path . '/tab.php';
-		$upgrade_tab_html = ob_get_clean();
-
-		$upgrade_tab = [
-			'info-box-description' => [
-				'type' => 'html',
-				'html' => $upgrade_tab_html,
-			],
-			'views_v2_enabled'     => [
-				'type'            => 'checkbox_bool',
-				'default'         => true,
-				'value'           => true,
-				'validation_type' => 'boolean',
-				'conditional'     => true,
-			],
-		];
-
-		$phase              = $this->state->get_phase();
-		$migration_addendum = $this->get_migration_prompt_addendum();
-
-		ob_start();
-		$template_path = $this->template_path;
-		include_once $this->template_path . '/upgrade-box.php';
-		$phase_html = ob_get_clean();
-
-		$upgrade_fields['recurrence_migration'] = [
-			'type' => 'html',
-			'html' => $phase_html,
-		];
-
-		new Settings_Tab(
-			'upgrade', esc_html__( 'Upgrade', 'tribe-common' ),
-			[
-				'priority'      => 100,
-				'fields'        => $upgrade_fields,
-				'network_admin' => is_network_admin(),
-				'show_save'     => true,
-			]
-		);
 	}
 }

@@ -11,6 +11,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provider_Contract;
 
 /**
@@ -65,12 +66,14 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
 
 		if ( is_admin() ) {
-			// @todo delegate this to upgrade tab class
+			// Hook into the Upgrade tab to show it and customize its contents.
+			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
+			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
+
+			// @todo delegate this to upgrade tab class?
 			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
 			add_action( 'admin_footer', [ $this, 'inject_v2_disable_modal' ] );
-			// Render the Migration tab in the context of Events > Settings.
-			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
 		}
 	}
 
@@ -197,16 +200,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Shows the upgrade tab in the Settings section, if required.
-	 *
-	 * @return void The method does not return any value and will output the migration content
-	 *              tab to the page.
-	 */
-	public function do_upgrade_tab() {
-		echo $this->container->make( Admin\Upgrade_Tab::class )->render();
-	}
-
-	/**
 	 * Inject the content and data of the Admin\Progress_Modal.
 	 *
 	 * @since TBD
@@ -237,5 +230,34 @@ class Provider extends Service_Provider implements Provider_Contract {
 		// @todo should this stay here?
 		$modal = $this->container->make( Admin\Progress_Modal::class );
 		echo $modal->get_modal_auto_trigger();
+	}
+
+	/**
+	 * Filters whether the Upgrade tab, hosting the migration report, should show or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $show_tab The initial value as worked out by TEC and other plugins.
+	 *
+	 * @return bool Whether the Upgrade tab should show or not. A logic OR on the input
+	 *              value depending on the Migration state.
+	 */
+	public function show_upgrade_tab( $show_tab ) {
+		return $show_tab || $this->container->make( Upgrade_Tab::class )->should_show();
+	}
+
+	/**
+	 * Filters the Upgrade tab fields to add the ones dedicated to the Migration.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $upgrade_fields The Upgrade page fields, as set up
+	 *                                            by The Events Calendar and other plugins.
+	 *
+	 * @return array<string,mixed> The filtered Upgrade tab fields, including the fields
+	 *                             dedicated to Migration.
+	 */
+	public function add_phase_callback( $upgrade_fields ) {
+		return $this->container->make( Upgrade_Tab::class )->add_phase_content( $upgrade_fields );
 	}
 }
