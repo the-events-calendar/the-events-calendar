@@ -24,13 +24,18 @@ class Templates {
 	 *
 	 * @since TBD
 	 *
-	 * @param array     $query_result
-	 * @param \WP_Query $query
-	 * @param string    $template_type Which kind of template we are talking about.
+	 * @param WP_Block_Template[] $query_result Array of found block templates.
+	 * @param array  $query {
+	 *     Optional. Arguments to retrieve templates.
+	 *
+	 *     @type array  $slug__in List of slugs to include.
+	 *     @type int    $wp_id Post ID of customized template.
+	 * }
+	 * @param string $template_type wp_template or wp_template_part.
 	 *
 	 * @return array
 	 */
-	public function add_events_archive( array $query_result, \WP_Query $query, string $template_type ) {
+	public function add_events_archive( array $query_result, $query, string $template_type ) {
 		if ( is_admin() ) {
 			return $query_result;
 		}
