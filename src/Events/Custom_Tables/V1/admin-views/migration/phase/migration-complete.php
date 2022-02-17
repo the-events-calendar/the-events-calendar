@@ -1,5 +1,6 @@
 <div class="tec-ct1-upgrade__row">
 	<div class="image-container">
+		<?php // @todo add the correct screenshot here. ?>
 		<img class="screenshot" src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
 	</div>
 
