@@ -17,16 +17,15 @@
 			?>
 		</p>
 
-		<?php include_once __DIR__ . '/report-data.php'; ?>
-
 		<p class="tec-upgrade__alert">
 			<i class="tec-upgrade__alert-icon">!</i>
 			<?php
 			echo sprintf(
-				esc_html( 'From this preview, we estimate that the full migration process will take approximately %3$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.', 'ical-tec' ),
+				esc_html( 'From this preview, we estimate that the full migration process will take approximately %3$s...%4$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.', 'ical-tec' ),
 				'<strong>',
 				'</strong>',
-				$report->estimated_time_in_hours
+				'<span data-migration="estimated_time_in_hours">',
+					'</span>'
 			);
 
 			if ( $addendum = tribe( \TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
@@ -59,8 +58,9 @@
 	?>
 		<em
 			class="tribe-events-pro-map__event-datetime-recurring-icon"
-			title="<?php esc_attr_e( 'Recurring', 'tribe-events-calendar-pro' ) ?>"
+			title="<?php esc_attr_e( 'Re-run preview', 'ical-tec' ) ?>"
 		>
+			<?php // @todo why? php file for simple svg? ?>
 			<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
 		</em>
 		<a href=""><?php esc_html_e( 'Re-run preview', 'ical-tec' ); ?></a>
@@ -73,16 +73,8 @@
 <div class="tec-upgrade-recurrence__row">
 	<div class="content-container">
 		<button type="button"><?php esc_html_e( 'Start migration', 'ical-tec' ); ?></button>
-		<i>
-			<?php
-			if ( 1 === $report->estimated_time_in_hours ) {
-				$message = esc_html( '(Estimated time: %1$s hour)', 'ical-tec' );
-			} else {
-				$message = esc_html( '(Estimated time: %1$s hours)', 'ical-tec' );
-			}
-
-			echo sprintf( $message, $report->estimated_time_in_hours );
-			?>
+		<i data-migration="estimated_time_in_hours_text">
+			...
 		</i>
 	</div>
 </div>
