@@ -87,17 +87,21 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report The method will either `wp_send_json` the report, or return it
-	 *                     in string format if `$echo` is `true` (`false` by default).
+	 * @return Site_Report The generated report.
 	 */
-	public function get_report( $echo = false ) {
+	public function get_report( ) {
 		$report = $this->reports->build();
 
-		if ( $echo ) {
-			wp_send_json( $report );
-		}
-
 		return $report;
+	}
+
+	/**
+	 * Sends the report as JSON data.
+	 *
+	 * @since TBD
+	 */
+	public function send_report() {
+		wp_send_json( $this->get_report() );
 	}
 
 	/**
