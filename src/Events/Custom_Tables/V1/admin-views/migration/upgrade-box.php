@@ -32,8 +32,7 @@
 	do_action( 'tec_events_custom_tables_v1_upgrade_after' );
 	?>
 </div>
-<a href="<?php echo esc_url( add_query_arg( 'phase', 'view-upgrade-needed', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">View Upgrade Needed</a>
-| <a href="<?php echo esc_url( add_query_arg( 'phase', 'preview-prompt', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview Prompt</a>
+<a href="<?php echo esc_url( add_query_arg( 'phase', 'preview-prompt', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview Prompt</a>
 | <a href="<?php echo esc_url( add_query_arg( 'phase', 'preview-in-progress', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview In Progress</a>
 | <a href="<?php echo esc_url( add_query_arg( 'phase', 'migration-prompt', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration Prompt</a>
 | <a href="<?php echo esc_url( add_query_arg( 'phase', 'migration-in-progress', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration In Progress</a>
