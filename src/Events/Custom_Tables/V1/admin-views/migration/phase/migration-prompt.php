@@ -57,8 +57,6 @@
 	ob_start();
 	?>
 		<em
-			<?php // @todo we cannot use this here as this is an ECP resource that will not style in TEC. ?>
-			class="tribe-events-pro-map__event-datetime-recurring-icon"
 			title="<?php esc_attr_e( 'Re-run preview', 'ical-tec' ) ?>"
 		>
 			<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
