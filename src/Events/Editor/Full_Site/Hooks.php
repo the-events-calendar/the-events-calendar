@@ -56,6 +56,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @param string $template_type wp_template or wp_template_part.
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
+		// Don't load this template in the admin - so it's not editable by users.
+		if ( is_admin() ) {
+			return $query_result;
+		}
+
 		return $this->container->make( Templates::class )->add_events_archive( $query_result, $query, $template_type );
 	}
 }
