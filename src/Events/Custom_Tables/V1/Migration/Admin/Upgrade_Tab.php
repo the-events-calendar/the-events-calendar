@@ -82,7 +82,7 @@ class Upgrade_Tab {
 		include_once $this->template_path . '/upgrade-box.php';
 		$phase_html = ob_get_clean();
 
-		$upgrade_fields['recurrence_migration'] = [
+		$upgrade_fields['ct1_migration'] = [
 			'type' => 'html',
 			'html' => $phase_html,
 		];

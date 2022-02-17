@@ -11,7 +11,7 @@ if ( $state->is_completed() ) {
 	$report_meta = $state->get( 'preview' );
 }
 ?>
-<div class="tec-upgrade-recurrence__row">
+<div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<h3>
 			<?php echo $logo; ?>

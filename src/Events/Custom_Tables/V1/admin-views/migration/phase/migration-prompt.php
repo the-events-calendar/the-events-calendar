@@ -1,4 +1,4 @@
-<div class="tec-upgrade-recurrence__row">
+<div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<h3>
 			<?php use TEC\Events_Pro\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
@@ -17,8 +17,8 @@
 			?>
 		</p>
 
-		<p class="tec-upgrade__alert">
-			<i class="tec-upgrade__alert-icon">!</i>
+		<p class="tec-ct1-upgrade__alert">
+			<i class="tec-ct1-upgrade__alert-icon">!</i>
 			<?php
 			echo sprintf(
 				esc_html( 'From this preview, we estimate that the full migration process will take approximately %3$s...%4$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.', 'ical-tec' ),
@@ -50,17 +50,17 @@
 	</div>
 </div>
 
-<div class="tec-upgrade-recurrence__row">
+<div class="tec-ct1-upgrade__row">
 	<?php
 	$datetime_heading = __( 'Previewed Date/Time:', 'ical-tec' );
 	$total_heading    = __( 'Total Events Previewed:', 'ical-tec' );
 	ob_start();
 	?>
 		<em
+			<?php // @todo we cannot use this here as this is an ECP resource that will not style in TEC. ?>
 			class="tribe-events-pro-map__event-datetime-recurring-icon"
 			title="<?php esc_attr_e( 'Re-run preview', 'ical-tec' ) ?>"
 		>
-			<?php // @todo why? php file for simple svg? ?>
 			<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
 		</em>
 		<a href=""><?php esc_html_e( 'Re-run preview', 'ical-tec' ); ?></a>
@@ -70,7 +70,7 @@
 	?>
 </div>
 
-<div class="tec-upgrade-recurrence__row">
+<div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<button type="button"><?php esc_html_e( 'Start migration', 'ical-tec' ); ?></button>
 		<i data-migration="estimated_time_in_hours_text">

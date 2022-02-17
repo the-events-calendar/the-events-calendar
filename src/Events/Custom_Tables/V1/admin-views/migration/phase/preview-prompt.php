@@ -1,4 +1,8 @@
-<div class="tec-upgrade-recurrence__row">
+<?php
+// @todo either split and filter this to allow ECP to add some copy, or remove mention of recurring Events from here.
+?>
+
+<div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<span><?php esc_html_e( 'Get ready for the new recurring events!', 'ical-tec' ); ?></span>
 

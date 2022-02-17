@@ -1,4 +1,4 @@
-<div class="tec-upgrade-recurrence__row">
+<div class="tec-ct1-upgrade__row">
 	<div class="image-container">
 		<img class="screenshot" src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
 	</div>
@@ -10,6 +10,7 @@
 		</h3>
 
 		<p>
+			<?php // @todo change this code to allow ECP filtering, or change the copy to remove mention of recurring events. ?>
 			<?php echo esc_html( 'Your site is now using the upgraded recurring events system. See the report below to learn how your events may have been adjusted during the migration process.', 'ical-tec' ); ?>
 		</p>
 
@@ -29,13 +30,13 @@
 	</div>
 </div>
 
-<div class="tec-upgrade-recurrence__row">
+<div class="tec-ct1-upgrade__row">
 	<?php
 	$datetime_heading = __( 'Migration Date/Time:', 'ical-tec' );
 	$total_heading    = __( 'Total Events Migrated:', 'ical-tec' );
 	ob_start();
 	?>
-	<a href="" class="tec-upgrade-recurrence__link-danger"><?php esc_html_e( 'Reverse Migration', 'ical-tec' ); ?></a>
+	<a href="" class="tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Reverse Migration', 'ical-tec' ); ?></a>
 	<?php
 	$heading_action = ob_get_clean();
 	include_once __DIR__ . '/report.php';

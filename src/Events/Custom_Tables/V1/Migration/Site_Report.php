@@ -44,6 +44,7 @@ class Site_Report {
 				continue;
 			}
 
+			// @todo move this to ECP as the notion of Recurring Events should live there, filter from here.
 			$this->events[ $i ]->actions_message = '';
 			foreach ( $event->actions_taken as $action ) {
 				if ( 'split' === $action ) {

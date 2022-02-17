@@ -23,7 +23,7 @@ use RuntimeException;
  */
 class Events {
 	/**
-	 * Returns the callback that should be used to create recurrences in the context of
+	 * Returns the callback that should be used to update Events in the context of
 	 * the Repository.
 	 *
 	 * @since TBD
@@ -46,14 +46,14 @@ class Events {
 	}
 
 	/**
-	 * Creates the database values for the recurring event.
+	 * Creates the database values for the Event.
 	 *
 	 * @since TBD
 	 *
 	 * @param int|\WP_Post        $event_id The Event post ID, or a reference to the Event post object.
 	 * @param array<string,mixed> $data     The data, all of it, used to upsert the Event.
 	 *
-	 * @return int|null If successfully created recurrence data for this event, return the event, else `null`.
+	 * @return int|null Either the updated Event post ID, or `null` if the Event could not be created.
 	 */
 	public function update( $event_id, $data ) {
 		$event_post = get_post( $event_id );

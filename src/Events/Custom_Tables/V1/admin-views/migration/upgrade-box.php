@@ -9,14 +9,14 @@
  */
 ?>
 
-<div class="tec-upgrade tec-upgrade-recurrence tec-upgrade-recurrence--<?php echo esc_attr( $phase ); ?>">
+<div class="tec-ct1-upgrade tec-ct1-upgrade tec-ct1-upgrade--<?php echo esc_attr( $phase ); ?>">
 	<?php
 	/**
-	 * Fires at the top of the upgrade step 1 on Settings > Upgrade
+	 * Fires at the top of the upgrade step 1 on Settings > Upgrade.
 	 *
 	 * @since TBD
 	 */
-	do_action( 'tribe_upgrade_recurrence_migration_before' );
+	do_action( 'tec_events_custom_tables_v1_upgrade_before' );
 
 	ob_start();
 	include_once $template_path . '/upgrade-logo.php';
@@ -25,11 +25,11 @@
 	include_once $template_path . '/phase/' . $phase . '.php';
 
 	/**
-	 * Fires at the bottom of the upgrade step 1 on Settings > Upgrade
+	 * Fires at the bottom of the upgrade step 1 on Settings > Upgrade.
 	 *
 	 * @since TBD
 	 */
-	do_action( 'tribe_upgrade_recurrence_migration_after' );
+	do_action( 'tec_events_custom_tables_v1_upgrade_after' );
 	?>
 </div>
 <a href="<?php echo esc_url( add_query_arg( 'phase', 'view-upgrade-needed', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">View Upgrade Needed</a>

@@ -2,11 +2,11 @@ let Ct1Upgrade = {};
 
 ( function( $, obj ) {
 	obj.selectors = {
-		v2DisableDialog: '#tec-recurrence-migration__v2-disable-dialog',
+		v2DisableDialog: '#tec-ct1-migration__v2-disable-dialog',
 		v2Enabled: 'input[name="views_v2_enabled"]',
-		alertOkButton: '.tec-upgrade-recurrence__modal-container--v2-disable-dialog .tribe-alert__continue',
-		alertCloseButton: '.tec-upgrade-recurrence__modal-container--v2-disable-dialog .tribe-modal__close-button',
-		rootReportNode: '.tec-upgrade-recurrence--migration-prompt',
+		alertOkButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-alert__continue',
+		alertCloseButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-modal__close-button',
+		rootReportNode: '.tec-ct1-upgrade--migration-prompt',
 	};
 	obj.report_poll_interval = 5000;
 	obj.poll_timeout = null;
@@ -16,8 +16,9 @@ let Ct1Upgrade = {};
 		$.ajax({
 			type : "GET",
 			dataType : "json",
+			// @todo remove this hard-coded URL and use the one localized from the back-end
 			url : "/wp-admin/admin-ajax.php",
-			data : {action: tec_recurrence_upgrade_admin.actions.get_report},
+			data : {action: tecCt1Upgrade.actions.get_report},
 			success: successCallback
 		});
 	}
@@ -35,15 +36,17 @@ let Ct1Upgrade = {};
 		});
 
 		if(has_changes) {
-			$(rs+' .tec-upgrade__report-pre-message p').html('<strong>Changes to events!</strong> The following events will be modified during the migration process:');
+			// @todo localize from backend.
+			$(rs+' .tec-ct1-upgrade__report-pre-message p').html('<strong>Changes to events!</strong> The following events will be modified during the migration process:');
 		} else {
-			$(rs+' .tec-upgrade__report-pre-message p').html('<strong>Events can migrate with no changes!</strong>');
+			// @todo localize from backend.
+			$(rs+' .tec-ct1-upgrade__report-pre-message p').html('<strong>Events can migrate with no changes!</strong>');
 		}
 		// Clear events
-		$(rs+' .tec-upgrade__report-events-list').text('');
+		$(rs+' .tec-ct1-upgrade__report-events-list').text('');
 		// @todo Get this working - break out into function?
 		events.forEach(function(event){
-			$(rs+' .tec-upgrade__report-events-list').append(
+			$(rs+' .tec-ct1-upgrade__report-events-list').append(
 				`<li><a href="${event.events[event.source_event_post_id].permalink}">${event.events[event.source_event_post_id].post_title}</a> - ${event.actions_message}</li>`
 			);
 		})

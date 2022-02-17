@@ -88,11 +88,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function register_scripts() {
 		wp_register_style(
-			'tec-recurrence-upgrade-admin-css',
+			'tec-ct1-upgrade-admin-css',
 			TEC::instance()->plugin_url .'src/resources/css/custom-tables-v1/ct1-upgrade.css'
 		);
 		wp_register_script(
-			'tec-recurrence-upgrade-admin-js',
+			'tec-ct1-upgrade-admin-js',
 			TEC::instance()->plugin_url . 'src/resources/js/custom-tables-v1/ct1-upgrade.js'
 		);
 	}
@@ -111,10 +111,10 @@ class Provider extends Service_Provider implements Provider_Contract {
 			return;
 		}
 
-		wp_enqueue_style( 'tec-recurrence-upgrade-admin-css' );
-		wp_enqueue_script( 'tec-recurrence-upgrade-admin-js' );
-		wp_localize_script( 'tec-recurrence-upgrade-admin-js',
-			'tec_recurrence_upgrade_admin',
+		wp_enqueue_style( 'tec-ct1-upgrade-admin-css' );
+		wp_enqueue_script( 'tec-ct1-upgrade-admin-js' );
+		wp_localize_script( 'tec-ct1-upgrade-admin-js',
+			'tecCt1Upgrade',
 			[
 				'actions' => [
 					'get_report'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),

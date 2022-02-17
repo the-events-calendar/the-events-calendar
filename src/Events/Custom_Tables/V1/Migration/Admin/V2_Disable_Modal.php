@@ -20,7 +20,7 @@ class V2_Disable_Modal {
 	 *
 	 * @var string
 	 */
-	public static $modal_id = 'tec-recurrence-migration__v2-disable-dialog';
+	public static $modal_id = 'tec-ct1-upgrade__v2-disable-dialog';
 
 	/**
 	 * Modal target.
@@ -29,7 +29,7 @@ class V2_Disable_Modal {
 	 *
 	 * @var string
 	 */
-	public static $modal_target = 'tec-recurrence-migration__v2-disable-dialog';
+	public static $modal_target = 'tec-ct1-upgrade-disable-dialog';
 
 	/**
 	 * Check if we should render the modal.
@@ -66,7 +66,7 @@ class V2_Disable_Modal {
 			return;
 		}
 
-		wp_enqueue_style( 'tec-recurrence-upgrade-admin-css' );
+		wp_enqueue_style( 'tec-ct1-upgrade-admin-css' );
 
 		// Render the modal contents.
 		echo $this->get_modal_content();
@@ -88,7 +88,7 @@ class V2_Disable_Modal {
 		$default_args = [
 			'append_target'           => '#' . static::$modal_target,
 			'close_button_classes'    => 'tribe-dialog__close-button tribe-modal__close-button',
-			'trigger'                 => 'trigger-dialog-tec-recurrence-migration__v2-disable-dialog',
+			'trigger'                 => 'trigger-dialog-tec-ct1-upgrade__v2-disable-dialog',
 			'title'                   => __( 'Heads up!', 'ical-tec' ),
 			'overlay_click_closes'    => true,
 		];
@@ -117,8 +117,8 @@ class V2_Disable_Modal {
 		$dialog_view->render_alert( $content, $args, static::$modal_id );
 		$modal_content = ob_get_clean();
 
-		$modal  = '<div class="tribe-common tec-upgrade-recurrence__modal-container tec-upgrade-recurrence__modal-container--v2-disable-dialog">';
-		$modal .= '<span id="' . esc_attr( static::$modal_target ) . '" data-js="trigger-dialog-tec-recurrence-migration__v2-disable-dialog" data-content="dialog-content-tec-recurrence-migration__v2-disable-dialog"></span>';
+		$modal  = '<div class="tribe-common tec-ct1-upgrade__modal-container tec-ct1-upgrade__modal-container--v2-disable-dialog">';
+		$modal .= '<span id="' . esc_attr( static::$modal_target ) . '" data-js="trigger-dialog-tec-ct1-upgrade-disable-dialog" data-content="dialog-content-tect-ct1-upgrade-disable-dialog"></span>';
 		$modal .= $modal_content;
 		$modal .= '</div>';
 
