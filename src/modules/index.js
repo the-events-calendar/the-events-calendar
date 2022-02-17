@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import * as blocks from './blocks';
 import * as data from './data';
 import * as editor from './editor';
