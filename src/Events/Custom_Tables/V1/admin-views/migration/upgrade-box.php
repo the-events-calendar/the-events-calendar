@@ -7,6 +7,9 @@
  * @var string $phase The current Migration phase the site is in.
  * @var string $template_path The absolute path to the Migration template root directory.
  */
+
+use TEC\Events\Custom_Tables\V1\Migration\State;
+
 ?>
 
 <div class="tec-ct1-upgrade tec-ct1-upgrade tec-ct1-upgrade--<?php echo esc_attr( $phase ); ?>">
@@ -32,8 +35,8 @@
 	do_action( 'tec_events_custom_tables_v1_upgrade_after' );
 	?>
 </div>
-<a href="<?php echo esc_url( add_query_arg( 'phase', 'preview-prompt', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview Prompt</a>
-| <a href="<?php echo esc_url( add_query_arg( 'phase', 'preview-in-progress', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview In Progress</a>
-| <a href="<?php echo esc_url( add_query_arg( 'phase', 'migration-prompt', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration Prompt</a>
-| <a href="<?php echo esc_url( add_query_arg( 'phase', 'migration-in-progress', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration In Progress</a>
-| <a href="<?php echo esc_url( add_query_arg( 'phase', 'migration-complete', admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration Complete</a>
+<a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_PREVIEW_PROMPT, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview Prompt</a>
+| <a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_PREVIEW_IN_PROGRESS, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview In Progress</a>
+| <a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_MIGRATION_PROMPT, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration Prompt</a>
+| <a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_MIGRATION_IN_PROGRESS, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration In Progress</a>
+| <a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_MIGRATION_COMPLETE, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration Complete</a>

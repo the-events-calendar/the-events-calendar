@@ -1,6 +1,7 @@
 <?php
 
 
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 $state = tribe( State::class );
@@ -26,7 +27,7 @@ if ( $state->is_completed() ) {
 				'</strong>'
 			);
 
-			if ( $addendum = tribe( Migration\Admin\Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
+			if ( $addendum = tribe( Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
 				?>
 				<strong><?php echo esc_html( $addendum ); ?></strong>
 				<?php
@@ -48,9 +49,7 @@ if ( $state->is_completed() ) {
 		$progress = 30;
 		?>
 		<div class="tribe-update-bar">
-			<div class="progress" title="<?php echo esc_attr( $percent ); ?>">
-				<div class="bar" style="width: <?php echo esc_attr( $progress ); ?>%"></div>
-			</div>
+			<div class="progress" title="<?php echo esc_attr( $percent ); ?>"> <div class="bar" style="width: <?php echo esc_attr( $progress ); ?>%"></div> </div>
 			<div class="tribe-update-bar__summary">
 				<div class="tribe-update-bar__summary-progress-text">
 					<?php

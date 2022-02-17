@@ -21,14 +21,13 @@ use Tribe__Utils__Array as Arr;
 class State {
 
 	const PHASE_PREVIEW_PROMPT = 'preview-prompt';
-	const PHASE_PREVIEW_RUNNING = 'preview-running';
-	const PHASE_PREVIEW_COMPLETE = 'preview-running';
+	const PHASE_PREVIEW_IN_PROGRESS = 'preview-in-progress';
 	const PHASE_MIGRATION_PROMPT = 'migration-prompt';
-	const PHASE_MIGRATION_RUNNING = 'migration-running';
-	const PHASE_MIGRATION_COMPLETE = 'migration-completed';
-	const PHASE_CANCELLATION_RUNNING = 'cancellation-running';
-	const PHASE_CANCELLATION_COMPLETE = 'cancellation-completed';
-	const PHASE_UNDO_RUNNING = 'undo-running';
+	const PHASE_MIGRATION_IN_PROGRESS = 'migration-in-progress';
+	const PHASE_MIGRATION_COMPLETE = 'migration-complete';
+	const PHASE_CANCELLATION_RUNNING = 'cancellation-in-progress';
+	const PHASE_CANCELLATION_COMPLETE = 'cancellation-complete';
+	const PHASE_UNDO_RUNNING = 'undo-in-progress';
 	const PHASE_UNDO_COMPLETE = 'undo-completed';
 
 	/**
@@ -115,8 +114,13 @@ class State {
 	 * @return string The current migration phase the site is in.
 	 */
 	public function get_phase() {
+		// @todo remove this as it will be used only during development.
+		if ( isset( $_REQUEST['tec_ct1_phase'] ) ) {
+			return filter_var( $_REQUEST['tec_ct1_phase'], FILTER_SANITIZE_STRING );
+		}
+
 		// @todo this is hard-coded, it should not be, of course.
-		return self::PHASE_MIGRATION_PROMPT;
+		return self::PHASE_PREVIEW_PROMPT;
 	}
 
 	/**

@@ -1,20 +1,28 @@
 <?php
-// @todo either split and filter this to allow ECP to add some copy, or remove mention of recurring Events from here.
+use TEC\Events\Custom_Tables\V1\Migration\Strings;
+
+$strings = tribe( Strings::class );
 ?>
 
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
-		<span><?php esc_html_e( 'Get ready for the new recurring events!', 'the-events-calendar' ); ?></span>
+		<span>
+			<?php echo esc_html( $strings->get( 'preview-prompt-get-ready' ) ); ?>
+		</span>
 
 		<h3>
 			<?php echo $logo; ?>
-			<?php esc_html_e( 'Upgrade your recurring events.', 'the-events-calendar' ); ?>
+			<?php echo esc_html( $strings->get( 'preview-prompt-upgrade-cta' ) ); ?>
 		</h3>
 
-		<p><?php esc_html_e( 'Faster event editing. Smarter save options. More flexibility. Events Calendar 6.0  is full of features to make managing recurring and connected events better than ever. Before you get started, we need to migrate your existing events into the new system.', 'the-events-calendar' ); ?></p>
+		<p>
+			<?php echo esc_html( $strings->get( 'preview-prompt-features' ) ); ?>
+		</p>
 
 		<p>
-			<strong><?php esc_html_e('Ready to go? The first step is a migration preview.', 'the-events-calendar' ); ?></strong>
+			<strong>
+				<?php echo esc_html($strings->get('preview-prompt-ready')); ?>
+			</strong>
 			<?php esc_html_e( 'We\'ll scan all existing events and let you know what to expect from the migration process. You\'ll also get an idea of how long your migration will take. The preview runs in the background, so you’ll be able to continue using your site.', 'the-events-calendar' ); ?>
 		</p>
 

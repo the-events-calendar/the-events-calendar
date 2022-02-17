@@ -1,7 +1,17 @@
+<?php
+
+use TEC\Events\Custom_Tables\V1\Migration\Reports;
+use TEC\Events\Custom_Tables\V1\Migration\Strings;
+
+$strings = tribe( Strings::class );
+?>
+
 <div class="tec-ct1-upgrade__row">
 	<div class="image-container">
-		<?php // @todo add the correct screenshot here. ?>
-		<img class="screenshot" src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
+		<img class="screenshot"
+			 src="<?php echo esc_url( $strings->get( 'migration-completed-screenshot-url' ) ); ?>"
+			 alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>"
+		/>
 	</div>
 
 	<div class="content-container">
@@ -11,8 +21,7 @@
 		</h3>
 
 		<p>
-			<?php // @todo change this code to allow ECP filtering, or change the copy to remove mention of recurring events. ?>
-			<?php echo esc_html__( 'Your site is now using the upgraded recurring events system. See the report below to learn how your events may have been adjusted during the migration process.', 'the-events-calendar' ); ?>
+			<?php echo esc_html( $strings->get( 'migration-completed-site-upgraded' ) ); ?>
 		</p>
 
 		<p>
@@ -27,7 +36,7 @@
 			?>
 		</p>
 
-		<?php include_once __DIR__ . '/report-data.php'; ?>
+		<?php $report = tribe(Reports::class)->build(); ?>
 	</div>
 </div>
 

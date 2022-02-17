@@ -44,6 +44,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		// Register the provider in the container.
 		$this->container->singleton( self::class, $this );
 
+		$this->container->singleton( Strings::class, Strings::class );
 		$this->container->singleton( State::class, State::class );
 		$this->container->singleton( Reports::class, Reports::class );
 		$this->container->singleton( Events::class, Events::class );
