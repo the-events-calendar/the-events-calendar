@@ -77,7 +77,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 			// @todo delegate this to upgrade tab class?
 			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
-			add_action( 'admin_footer', [ $this, 'inject_v2_disable_modal' ] );
 		}
 	}
 
@@ -256,17 +255,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function inject_progress_modal() {
 		// @todo should this stay here?
 		$modal = $this->container->make( Admin\Progress_Modal::class );
-		echo $modal->render_modal();
-	}
-
-	/**
-	 * Inject the content and data of the Admin\V2_Disable_Modal.
-	 *
-	 * @since TBD
-	 */
-	public function inject_v2_disable_modal() {
-		// @todo should this stay at all?
-		$modal = $this->container->make( Admin\V2_Disable_Modal::class );
 		echo $modal->render_modal();
 	}
 
