@@ -78,6 +78,5 @@ class Site_Report {
 				}
 			}
 		}
-
 	}
 }
