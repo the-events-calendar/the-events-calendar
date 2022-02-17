@@ -46,7 +46,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		$this->container->singleton( State::class, State::class );
 		$this->container->singleton( Reports::class, Reports::class );
-		$this->container->singleton( Events::class, Reports::class );
+		$this->container->singleton( Events::class, Events::class );
 		$this->container->singleton( Page::class, Page::class );
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
 		$this->container->singleton( Process::class, Process::class );
@@ -113,6 +113,17 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		wp_enqueue_style( 'tec-recurrence-upgrade-admin-css' );
 		wp_enqueue_script( 'tec-recurrence-upgrade-admin-js' );
+		wp_localize_script( 'tec-recurrence-upgrade-admin-js',
+			'tec_recurrence_upgrade_admin',
+			[
+				'actions' => [
+					'get_report'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
+					'start_migration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
+					'cancel_migration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
+					'undo_migration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_UNDO ),
+				]
+			]
+		);
 	}
 
 	/**
@@ -181,7 +192,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              to consume.
 	 */
 	public function send_report() {
-		$this->container->make( Ajax::class )->get_report();
+		return $this->container->make( Ajax::class )->send_report();
 	}
 
 	/**
