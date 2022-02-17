@@ -15,13 +15,13 @@ if ( $state->is_completed() ) {
 	<div class="content-container">
 		<h3>
 			<?php echo $logo; ?>
-			<?php esc_html_e( 'Migration in progress', 'ical-tec' ); ?>
+			<?php esc_html_e( 'Migration in progress', 'the-events-calendar' ); ?>
 		</h3>
 
 		<p>
 			<?php
 			echo sprintf(
-				esc_html( 'Your events are being migrated to the new system. During this migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar is still visible on your site. ', 'ical-tec' ),
+				esc_html__( 'Your events are being migrated to the new system. During this migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar is still visible on your site. ', 'the-events-calendar' ),
 				'<strong>',
 				'</strong>'
 			);
@@ -33,7 +33,7 @@ if ( $state->is_completed() ) {
 			}
 
 			echo sprintf(
-				esc_html( '%1$s%3$sLearn more about the migration%4$s.%2$s', 'ical-tec' ),
+				esc_html__( '%1$s%3$sLearn more about the migration%4$s.%2$s', 'the-events-calendar' ),
 				'<strong>',
 				'</strong>',
 				'<a href="https://evnt.is/recurrence-2-0" target="_blank" rel="noopener">',
@@ -58,7 +58,7 @@ if ( $state->is_completed() ) {
 						_x(
 							'%1$s%2$d%3$s events migrated',
 							'Number of events migrated',
-							'ical-tec'
+							'the-events-calendar'
 						),
 						'<strong>',
 						$total_previewed_events,
@@ -72,7 +72,7 @@ if ( $state->is_completed() ) {
 						_x(
 							'%1$s%2$d%3$s remaining',
 							'Number of events awaiting migration',
-							'ical-tec'
+							'the-events-calendar'
 						),
 						'<strong>',
 						$remaining_events,

@@ -10,6 +10,8 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
  * @package TEC\Events\Custom_Tables\V1\Migration\Admin
  *
  * @since TBD
+ *
+ * @todo is this whole class still required at all after Views v1 deprecation?
  */
 class V2_Disable_Modal {
 
@@ -89,7 +91,7 @@ class V2_Disable_Modal {
 			'append_target'           => '#' . static::$modal_target,
 			'close_button_classes'    => 'tribe-dialog__close-button tribe-modal__close-button',
 			'trigger'                 => 'trigger-dialog-tec-ct1-upgrade__v2-disable-dialog',
-			'title'                   => __( 'Heads up!', 'ical-tec' ),
+			'title'                   => __( 'Heads up!', 'the-events-calendar' ),
 			'overlay_click_closes'    => true,
 		];
 
@@ -107,7 +109,7 @@ class V2_Disable_Modal {
 	 */
 	public function get_modal_content( $args = [] ) {
 		$state   = tribe( State::class );
-		$content = __( 'Switching to the legacy calendar views may impact recurring events and Series.', 'ical-tec' );
+		$content = __( 'Switching to the legacy calendar views may impact recurring events and Series.', 'the-events-calendar' );
 
 		$args = $this->get_modal_args( $args );
 

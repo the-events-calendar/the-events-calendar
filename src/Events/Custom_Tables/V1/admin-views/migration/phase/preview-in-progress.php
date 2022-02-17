@@ -14,10 +14,10 @@ if ( $state->is_completed() ) {
 	<div class="content-container">
 		<h3>
 			<?php echo $logo; ?>
-			<?php esc_html_e( 'Migration preview in progress', 'ical-tec' ); ?>
+			<?php esc_html_e( 'Migration preview in progress', 'the-events-calendar' ); ?>
 		</h3>
 
-		<p><?php esc_html_e( 'We\'re scanning your existing events so you’ll know what to expect from the migration process. You can keep using your site and managing events. Check back later for a full preview report and the next steps for migration.', 'ical-tec' ); ?></p>
+		<p><?php esc_html_e( 'We\'re scanning your existing events so you’ll know what to expect from the migration process. You can keep using your site and managing events. Check back later for a full preview report and the next steps for migration.', 'the-events-calendar' ); ?></p>
 		<?php
 		$remaining_events = 138;
 		$total_previewed_events = $state->get( 'events', 'total' ) - $remaining_events;
@@ -35,7 +35,7 @@ if ( $state->is_completed() ) {
 						_x(
 							'%1$s%2$d%3$s events previewed',
 							'Number of events previewed',
-							'ical-tec'
+							'the-events-calendar'
 						),
 						'<strong>',
 						$total_previewed_events,
@@ -49,7 +49,7 @@ if ( $state->is_completed() ) {
 						_x(
 							'%1$s%2$d%3$s remaining',
 							'Number of events awaiting preview',
-							'ical-tec'
+							'the-events-calendar'
 						),
 						'<strong>',
 						$remaining_events,

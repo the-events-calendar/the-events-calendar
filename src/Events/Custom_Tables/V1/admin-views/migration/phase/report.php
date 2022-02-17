@@ -22,7 +22,7 @@
 		</div>
 		<footer class="tec-ct1-upgrade__report-body-footer">
 			<a href="http://evnt.is/recurrence-2-0-report" target="_blank" rel="noopener">
-				<?php esc_html_e( 'Learn more about your migration preview report', 'ical-tec' ); ?>
+				<?php esc_html_e( 'Learn more about your migration preview report', 'the-events-calendar' ); ?>
 			</a>
 		</footer>
 	</div>

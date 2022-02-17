@@ -31,9 +31,9 @@ class Site_Report {
 
 		// @todo Should we generate all of the dynamic il8n messages on backend?
 		if ( $this->estimated_time_in_hours <= 1 ) {
-			$this->estimated_time_in_hours_text = esc_html( '(Estimated time: %1$s hour)', 'ical-tec' );
+			$this->estimated_time_in_hours_text = esc_html__( '(Estimated time: %1$s hour)', 'the-events-calendar' );
 		} else {
-			$this->estimated_time_in_hours_text = esc_html( '(Estimated time: %1$s hours)', 'ical-tec' );
+			$this->estimated_time_in_hours_text = esc_html__( '(Estimated time: %1$s hours)', 'the-events-calendar' );
 		}
 
 		// @todo Put this in a function.
@@ -49,21 +49,21 @@ class Site_Report {
 			foreach ( $event->actions_taken as $action ) {
 				if ( 'split' === $action ) {
 					$this->events[ $i ]->actions_message .= sprintf(
-						                                        esc_html( 'This event will be %1$ssplit into %2$s recurring events%3$s with identical content.', 'ical-tec' ),
+						                                        esc_html__( 'This event will be %1$ssplit into %2$s recurring events%3$s with identical content.', 'the-events-calendar' ),
 						                                        '<strong>',
 						                                        count( $event->events ),
 						                                        '</strong>'
 					                                        ) . ' ';
 
 					$this->events[ $i ]->actions_message .= sprintf(
-						                                        esc_html( 'The events will be part of a new %1$s.', 'ical-tec' ),
+						                                        esc_html__( 'The events will be part of a new %1$s.', 'the-events-calendar' ),
 						                                        $event->series->post_title
 					                                        ) . ' ';
 				}
 
 				if ( 'modified-exclusions' === $action ) {
 					$this->events[ $i ]->actions_message .= sprintf(
-						                                        esc_html( '%1$sOne or more exclusion rules will be modified%2$s, but no occurrences will be added or removed.', 'ical-tec' ),
+						                                        esc_html__( '%1$sOne or more exclusion rules will be modified%2$s, but no occurrences will be added or removed.', 'the-events-calendar' ),
 						                                        '<strong>',
 						                                        '</strong>'
 					                                        ) . ' ';
@@ -71,7 +71,7 @@ class Site_Report {
 
 				if ( 'modified-rules' === $action ) {
 					$this->events[ $i ]->actions_message .= sprintf(
-						                                        esc_html( '%1$sOne or more recurrence rules will be modified%2$s, but no occurrences will be added or removed.', 'ical-tec' ),
+						                                        esc_html__( '%1$sOne or more recurrence rules will be modified%2$s, but no occurrences will be added or removed.', 'the-events-calendar' ),
 						                                        '<strong>',
 						                                        '</strong>'
 					                                        ) . ' ';

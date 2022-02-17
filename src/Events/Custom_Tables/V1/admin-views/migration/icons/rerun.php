@@ -10,7 +10,7 @@
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--rerun' ];
 
 if ( empty( $icon_title ) ) {
-	$icon_title = __( 'Re-run preview', 'ical-tec' );
+	$icon_title = __( 'Re-run preview', 'the-events-calendar' );
 }
 ?>
 <svg <?php tribe_classes( $svg_classes ); ?> width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

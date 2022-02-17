@@ -45,8 +45,20 @@ class Provider extends tad_DI52_ServiceProvider {
 		], 10, 3 );
 	}
 
+	/**
+	 * Filters the template origin namespace to add templates provided by the Custom Tables v1 implementation.
+	 *
+	 * @since TBD
+	 * @param array<string,mixed> $namespace_map A map from template path providers to paths.
+	 * @param string              $path          The absolute path
+	 * @param Tribe__Template     $template      A reference to the template handler filtering the values.
+	 *
+	 * @return array<string,string> A map from template path providers to paths.
+	 *
+	 * @todo is this still required?
+	 */
 	public function filter_add_template_origin_namespace( $namespace_map, $path, Tribe__Template $template ) {
-		$namespace_map['ical-tec'] = trailingslashit( TEC_CUSTOM_TABLES_V1_ROOT );
+		$namespace_map['the-events-calendar-custom-tables-v1'] = trailingslashit( TEC_CUSTOM_TABLES_V1_ROOT );
 
 		return $namespace_map;
 	}
