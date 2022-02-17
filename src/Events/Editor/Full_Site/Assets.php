@@ -23,15 +23,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		tribe_asset(
 			$plugin,
-			'tec-events-iframe-content-resizer',
-			'node_modules/iframe-resizer/js/iframeResizer.contentWindow.js',
-			[],
-			null,
-			[]
-		);
-
-		tribe_asset(
-			$plugin,
 			'tec-events-full-site',
 			'app/full-site.js',
 			[
