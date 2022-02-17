@@ -11,12 +11,12 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 		'upsell-heading'                => [
 			'type'        => 'heading',
 			'label'       => esc_html__( 'Finding & extending your calendar.', 'the-events-calendar' ),
-			'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
+			'conditional' => ( ! tec_hide_upsell() ),
 		],
 		'finding-heading'               => [
 			'type'        => 'heading',
 			'label'       => esc_html__( 'Finding your calendar.', 'the-events-calendar' ),
-			'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
+			'conditional' => ( tec_hide_upsell() ),
 		],
 		'view-calendar-link'            => [
 			'type' => 'html',

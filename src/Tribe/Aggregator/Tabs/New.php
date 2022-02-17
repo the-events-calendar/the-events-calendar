@@ -506,7 +506,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * @return string
 	 */
 	public function maybe_display_aggregator_upsell() {
-		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+		if ( tec_hide_upsell() ) {
 			return;
 		}
 
@@ -549,7 +549,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * @return string
 	 */
 	public function maybe_display_eventbrite_upsell() {
-		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+		if ( tec_hide_upsell() ) {
 			return;
 		}
 

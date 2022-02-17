@@ -20,6 +20,10 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.14.0
 	 */
 	public function register() {
+		if ( tec_hide_upsell() ) {
+			return;
+		}
+
 		// Bail if Filter Bar is already installed.
 		if ( class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			return;
