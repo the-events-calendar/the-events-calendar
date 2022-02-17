@@ -59,14 +59,14 @@ class Templates {
 
 
 	public function get_template_events_archive() {
+		$template_content = file_get_contents(
+			dirname( \Tribe__Main::instance()->plugin_path ) . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
+		);
+
 		$template                 = new WP_Block_Template();
 		$template->id             = 'the-events-calendar//archive-events';
 		$template->theme          = 'The Events Calendar';
-		$template->content        = Template_Utils::inject_theme_attribute_in_content( '
-<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
-<!-- wp:tribe/archive-events {} /-->
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
-		' );
+		$template->content        = Template_Utils::inject_theme_attribute_in_content( $template_content );
 		$template->slug           = static::$archive_slug;
 		$template->source         = 'custom';
 		$template->theme          = 'The Events Calendar';

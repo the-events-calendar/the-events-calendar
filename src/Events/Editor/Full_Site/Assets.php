@@ -20,5 +20,49 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		$plugin = Events_Main::instance();
+
+		tribe_asset(
+			$plugin,
+			'tec-events-iframe-content-resizer',
+			'node_modules/iframe-resizer/js/iframeResizer.contentWindow.js',
+			[],
+			null,
+			[]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tec-events-full-site',
+			'app/full-site.js',
+			[
+				'react',
+				'react-dom',
+				'wp-components',
+				'wp-api',
+				'wp-api-request',
+				'wp-blocks',
+				'wp-i18n',
+				'wp-element',
+				'wp-editor',
+				'tribe-common-gutenberg-data',
+				'tribe-common-gutenberg-utils',
+				'tribe-common-gutenberg-store',
+				'tribe-common-gutenberg-icons',
+				'tribe-common-gutenberg-hoc',
+				'tribe-common-gutenberg-elements',
+				'tribe-common-gutenberg-components',
+			],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'localize'     => [],
+				'conditionals' => [ $this, 'is_full_site_editor' ],
+				'priority'     => 106,
+			]
+		);
+	}
+
+	public function is_full_site_editor() {
+		return tec_is_full_site_editor();
 	}
 }

@@ -2,6 +2,8 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
+use Tribe\Events\Editor\Blocks\Archive_Events;
+
 /**
  * Class Hooks
  *
@@ -26,11 +28,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	protected function add_actions(): void {
-
+		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
 	}
 
 	/**
-	 * Adds the archive template ot the array of block templates.
+	 * Registers the Events Archive template.
+	 *
+	 * @since TBD
+	 */
+	public function action_register_archive_template() {
+		return $this->container->make( Archive_Events::class )->register();
+	}
+
+	/**
+	 * Adds the archive template to the array of block templates.
 	 *
 	 * @since TBD
 	 *

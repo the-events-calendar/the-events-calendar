@@ -2,6 +2,8 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
+use Tribe\Events\Editor\Blocks\Archive_Events;
+
 /**
  * Class Provider
  *
@@ -22,6 +24,9 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 		$this->container->singleton( Templates::class );
 
+		// Register singletons.
+		$this->register_singletons();
+
 		// Register the Service Provider for Hooks.
 		$this->register_hooks();
 
@@ -30,6 +35,10 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 		// Register the service provider itself on the container.
 		$this->container->singleton( static::class, $this );
+	}
+
+	protected function register_singletons() {
+		$this->container->singleton( Archive_Events::class, Archive_Events::class, [ 'load' ] );
 	}
 
 	/**
