@@ -103,12 +103,15 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			->set_status( 'success' )
 			->add_strategy( $strategy );
 
-		$data['estimated_time_in_hours'] = 1.3;
-		$data['total_events']            = 1234;
-		$data['event_reports']           = [ $event_report1, $event_report2 ];
-		$data['migration_phase']         = State::PHASE_MIGRATION_IN_PROGRESS;
-		$data['is_completed']            = true;
-		$data['is_running']              = false;
+		$data['estimated_time_in_hours']  = 1.3;
+		$data['total_events']             = 1234;
+		$data['total_events_migrated']    = 33;
+		$data['total_events_in_progress'] = 55;
+		$data['total_events_remaining']   = $data['total_events'] - $data['total_events_migrated']
+		$data['event_reports']            = [ $event_report1, $event_report2 ];
+		$data['migration_phase']          = State::PHASE_MIGRATION_IN_PROGRESS;
+		$data['is_completed']             = true;
+		$data['is_running']               = false;
 
 		$site_report = new Site_Report( $data );
 		$object      = json_decode( json_encode( $site_report ) );
@@ -116,6 +119,9 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( count( $data['event_reports'] ), $object->event_reports );
 		$this->assertEquals( $data['estimated_time_in_hours'], $object->estimated_time_in_hours );
 		$this->assertEquals( $data['total_events'], $object->total_events );
+		$this->assertEquals( $data['total_events_migrated'], $object->total_events_migrated );
+		$this->assertEquals( $data['total_events_in_progress'], $object->total_events_in_progress );
+		$this->assertEquals( $data['total_events_remaining'], $object->total_events_remaining );
 		$this->assertEquals( State::PHASE_MIGRATION_IN_PROGRESS, $object->migration_phase );
 		$this->assertTrue( $object->has_changes );
 		$this->assertTrue( $object->is_completed );

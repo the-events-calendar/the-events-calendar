@@ -28,6 +28,8 @@ class Site_Report implements JsonSerializable {
 		'estimated_time_in_hours' => 0,
 		'date_completed'          => null,
 		'total_events'            => null,
+		'total_events_migrated' => null,
+		'total_events_in_progress' => null,
 		'has_changes'             => false,
 		'event_reports'           => [],
 		'migration_phase'         => null,
@@ -43,13 +45,16 @@ class Site_Report implements JsonSerializable {
 	 * @param array <string,mixed> $data The report data in array format.
 	 */
 	public function __construct( array $data ) {
-		$this->data['estimated_time_in_hours'] = $data['estimated_time_in_hours'];
-		$this->data['total_events']            = $data['total_events'];
-		$this->data['has_changes']             = ! empty( $data['event_reports'] );
-		$this->data['event_reports']           = $data['event_reports'];
-		$this->data['migration_phase']         = $data['migration_phase'];
-		$this->data['is_completed']            = $data['is_completed'];
-		$this->data['is_running']              = $data['is_running'];
+		$this->data['estimated_time_in_hours']  = $data['estimated_time_in_hours'];
+		$this->data['total_events']             = $data['total_events'];
+		$this->data['total_events_remaining']   = $data['total_events_remaining'];
+		$this->data['total_events_in_progress'] = $data['total_events_in_progress'];
+		$this->data['total_events_migrated']    = $data['total_events_migrated'];
+		$this->data['has_changes']              = ! empty( $data['event_reports'] );
+		$this->data['event_reports']            = $data['event_reports'];
+		$this->data['migration_phase']          = $data['migration_phase'];
+		$this->data['is_completed']             = $data['is_completed'];
+		$this->data['is_running']               = $data['is_running'];
 	}
 
 	/**
@@ -103,36 +108,62 @@ class Site_Report implements JsonSerializable {
 	 * @return Site_Report A reference to the site migration report instance.
 	 */
 	public static function build( $page = - 1, $count = 20 ) {
-
 		global $wpdb;
+		// Total TEC events
+		$total_cnt_query = sprintf(
+			"SELECT COUNT(*)
+			FROM {$wpdb->posts} p
+			WHERE p.post_type = '%s'",
+			TEC::POSTTYPE
+		);
+		$total_events    = $wpdb->get_var( $total_cnt_query );
 
-		$cnt_query     = sprintf( "SELECT COUNT(*) FROM {$wpdb->posts} p
-    INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
-    WHERE p.post_type = '%s'",
-			Event_Report::META_KEY_REPORT_DATA,
+		// Total done with migration
+		$total_migrated_query  = sprintf(
+			"SELECT COUNT(DISTINCT `ID`)
+			FROM {$wpdb->posts} p
+			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
+			WHERE p.post_type = '%s'",
+			Event_Report::META_KEY_SUCCESS,
+			Event_Report::META_KEY_FAILURE,
+			TEC::POSTTYPE
+		);
+		$total_events_migrated = $wpdb->get_var( $total_migrated_query );
+
+		// Total in progress or done with migration
+		$total_in_progress_query  = sprintf(
+			"SELECT COUNT(DISTINCT `ID`)
+			FROM {$wpdb->posts} p
+			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '%s'
+			WHERE p.post_type = '%s'",
 			Event_Report::META_KEY_IN_PROGRESS,
-			TEC::POSTTYPE );
-		$total_flagged = $wpdb->get_var( $cnt_query );
+			TEC::POSTTYPE
+		);
+		$total_events_in_progress = $wpdb->get_var( $total_in_progress_query );
 
 		// Get in progress / complete events
-		if ( $page === - 1 || $total_flagged == 0 || $count > $total_flagged ) {
-			$query = sprintf( "SELECT DISTINCT ID from {$wpdb->posts} p
-    INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
-    WHERE p.post_type = '%s' ",
+		if ( $page === - 1 || $total_events_migrated == 0 || $count > $total_events_migrated ) {
+			$query = sprintf(
+				"SELECT DISTINCT ID
+				FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
+				WHERE p.post_type = '%s' ",
 				Event_Report::META_KEY_REPORT_DATA,
 				Event_Report::META_KEY_IN_PROGRESS,
 				TEC::POSTTYPE
 			);
 		} else {
-			$total_pages = $total_flagged / $count;
+			$total_pages = $total_events_migrated / $count;
 			if ( $page > $total_pages ) {
 				$page = $total_pages;
 			}
 			$start = ( $page - 1 ) * $count;
 
-			$query = sprintf( "SELECT DISTINCT ID FROM {$wpdb->posts} p
-    INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
-    WHERE p.post_type = '%s' ORDER BY ID ASC LIMIT %d, %d",
+			$query = sprintf(
+				"SELECT DISTINCT ID
+				FROM {$wpdb->posts} p
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
+				WHERE p.post_type = '%s' ORDER BY ID ASC LIMIT %d, %d",
 				Event_Report::META_KEY_REPORT_DATA,
 				Event_Report::META_KEY_IN_PROGRESS,
 				TEC::POSTTYPE,
@@ -153,14 +184,17 @@ class Site_Report implements JsonSerializable {
 		$report_meta = [ 'complete_timestamp' => strtotime( 'yesterday 4pm' ) ];
 
 		$data = [
-			'estimated_time_in_hours' => $state->get( 'migrate', 'estimated_time_in_seconds' ) * 60 * 60,
-			'date_completed'          => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
-			'total_events'            => $total_flagged,
-			'has_changes'             => ! ! count( $event_reports ),
-			'event_reports'           => $event_reports,
-			'migration_phase'         => $state->get_phase(),
-			'is_completed'            => $state->is_completed(),
-			'is_running'              => $state->is_running(),
+			'estimated_time_in_hours'  => $state->get( 'migrate', 'estimated_time_in_seconds' ) * 60 * 60,
+			'date_completed'           => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
+			'total_events_in_progress' => $total_events_in_progress,
+			'total_events_migrated'    => $total_events_migrated,
+			'total_events'             => $total_events,
+			'total_events_remaining' => $total_events - $total_events_migrated,
+			'has_changes'              => ! ! count( $event_reports ),
+			'event_reports'            => $event_reports,
+			'migration_phase'          => $state->get_phase(),
+			'is_completed'             => $state->is_completed(),
+			'is_running'               => $state->is_running(),
 		];
 
 		return new Site_Report( $data );
