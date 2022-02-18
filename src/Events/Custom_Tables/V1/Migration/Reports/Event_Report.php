@@ -18,10 +18,27 @@ use JsonSerializable;
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Event_Report implements JsonSerializable {
-	const META_KEY_IN_PROGRESS = '_tec_ct1_migrating';
-	const META_KEY_COMPLETE = '_tec_ct1_migrated';
 
 	/**
+	 * Key used to flag this event is in progress and already assigned
+	 * to a strategy worker.
+	 */
+	const META_KEY_IN_PROGRESS = '_tec_ct1_migrating';
+	/**
+	 * Key used to store the Event_Report data.
+	 */
+	const META_KEY_REPORT_DATA = '_tec_ct1_migrated_report';
+	/**
+	 * Key used to flag the migration succeeded.
+	 */
+	const META_KEY_SUCCESS = '_tec_ct1_migration_success';
+	/**
+	 * Key used to flag the migration failed.
+	 */
+	const META_KEY_FAILURE = '_tec_ct1_migration_failure';
+
+	/**
+	 * @since TBD
 	 * @var array Report data.
 	 */
 	protected $data = [
@@ -39,6 +56,10 @@ class Event_Report implements JsonSerializable {
 	];
 
 	/**
+	 * Construct and hydrate the Event_Report for this WP_Post
+	 *
+	 * @since TBD
+	 *
 	 * @param WP_Post $source_post
 	 */
 	public function __construct( WP_Post $source_post ) {
@@ -51,6 +72,7 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return array
 	 */
 	public function get_data() {
@@ -59,27 +81,32 @@ class Event_Report implements JsonSerializable {
 
 	/**
 	 * Will fetch its data from the database and populate it's internal state.
+	 *
+	 * @since TBD
+	 * @return Event_Report
 	 */
 	public function hydrate() {
 		$source_post = $this->get_source_event_post();
-		$data        = get_post_meta( $source_post->ID, self::META_KEY_IN_PROGRESS );
-		if ( empty( $data ) ) {
-			$data = get_post_meta( $source_post->ID, self::META_KEY_COMPLETE );
-		}
+		$data        = get_post_meta( $source_post->ID, self::META_KEY_REPORT_DATA );
 		if ( empty( $data ) ) {
 			$data = [];
 		}
 		$this->data = array_merge( $this->data, $data );
+
+		return $this;
 	}
 
 	/**
-	 * @return array
+	 * @since TBD
+	 * @return array<array>
 	 */
 	public function get_created_events() {
 		return $this->data['created_events'];
 	}
 
 	/**
+	 * @since TBD
+	 *
 	 * @param WP_Post $post
 	 * @param         $occurrences_generated
 	 *
@@ -98,6 +125,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * When you start the migration process, will set appropriate state.
 	 *
+	 * @since TBD
 	 * @return $this
 	 */
 	public function start_event_migration() {
@@ -109,15 +137,17 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * When finished will update appropriate state.
 	 *
+	 * @since TBD
 	 * @return $this
 	 */
-	public function end_event_migration() {
+	protected function end_event_migration() {
 		$this->data['end_timestamp'] = microtime( true );
 
 		return $this;
 	}
 
 	/**
+	 * @since TBD
 	 * @return null|float
 	 */
 	public function get_end_timestamp() {
@@ -125,6 +155,7 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return null|float
 	 */
 	public function get_start_timestamp() {
@@ -132,6 +163,7 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return array
 	 */
 	public function get_series() {
@@ -139,6 +171,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
+	 *
 	 * @param bool $is_recurring
 	 *
 	 * @return $this
@@ -150,6 +184,7 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return bool
 	 */
 	public function get_is_recurring() {
@@ -157,6 +192,7 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return mixed
 	 */
 	public function get_source_event_post() {
@@ -164,12 +200,20 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return null
 	 */
 	public function get_error() {
 		return $this->data['error'];
 	}
 
+	/**
+	 * @since TBD
+	 *
+	 * @param string $reason
+	 *
+	 * @return $this
+	 */
 	public function set_error( string $reason ) {
 		$this->data['error'] = $reason;
 
@@ -177,18 +221,33 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return string
 	 */
 	public function get_status() {
 		return $this->data['status'];
 	}
 
+	/**
+	 * @since TBD
+	 *
+	 * @param string $status
+	 *
+	 * @return $this
+	 */
 	public function set_status( string $status ) {
 		$this->data['status'] = $status;
 
 		return $this;
 	}
 
+	/**
+	 * @since TBD
+	 *
+	 * @param WP_Post $post
+	 *
+	 * @return $this
+	 */
 	public function add_series( WP_Post $post ) {
 		$this->data['series'][] = (object) [
 			'ID'         => $post->ID,
@@ -199,31 +258,49 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * @since TBD
 	 * @return array
 	 */
 	public function get_strategies_applied() {
 		return $this->data['strategies_applied'];
 	}
 
-
+	/**
+	 * @since TBD
+	 *
+	 * @param string $strategy
+	 *
+	 * @return $this
+	 */
 	public function add_strategy( string $strategy ) {
 		$this->data['strategies_applied'][] = $strategy;
 
 		return $this;
 	}
 
-
 	/**
+	 * @since TBD
 	 * @return string
 	 */
 	public function get_tickets_provider() {
 		return $this->data['tickets_provider'];
 	}
 
+	/**
+	 * @since TBD
+	 * @return mixed
+	 */
 	public function get_has_tickets() {
 		return $this->data['has_tickets'];
 	}
 
+	/**
+	 * @since TBD
+	 *
+	 * @param string $tickets_provider
+	 *
+	 * @return $this
+	 */
 	public function set_tickets_provider( string $tickets_provider ) {
 		$this->data['has_tickets']      = (bool) $tickets_provider;
 		$this->data['tickets_provider'] = $tickets_provider;
@@ -231,20 +308,54 @@ class Event_Report implements JsonSerializable {
 		return $this;
 	}
 
+	/**
+	 * @since TBD
+	 * @return array
+	 */
 	public function jsonSerialize() {
 		return $this->data;
 	}
 
-	public function save() {
-		// Done?
-		if ( $this->get_end_timestamp() ) {
-			update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_COMPLETE, $this->data );
-			delete_post_meta( $this->get_source_event_post()->ID, self::META_KEY_IN_PROGRESS );
+	/**
+	 * Mark this event migration as a success, and save in the database.
+	 *
+	 * @since TBD
+	 * @return Event_Report
+	 */
+	public function success() {
+		update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_SUCCESS, 1 );
+		delete_post_meta( $this->get_source_event_post()->ID, self::META_KEY_FAILURE );
 
-			return $this;
-		}
-		// In progress
-		update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_IN_PROGRESS, $this->data );
+		return $this->end_event_migration()
+		            ->save();
+	}
+
+	/**
+	 * Mark this event migration as a failure, and save in database with a reason.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $reason
+	 *
+	 * @return Event_Report
+	 */
+	public function failed( string $reason ) {
+		update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_FAILURE, 1 );
+		delete_post_meta( $this->get_source_event_post()->ID, self::META_KEY_SUCCESS );
+
+		return $this->set_error( $reason )
+		            ->end_event_migration()
+		            ->save();
+	}
+
+	/**
+	 * Stores current state in the meta table.
+	 *
+	 * @since TBD
+	 * @return $this
+	 */
+	protected function save() {
+		update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_REPORT_DATA, $this->data );
 
 		return $this;
 	}
