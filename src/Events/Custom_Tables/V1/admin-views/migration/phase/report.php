@@ -6,7 +6,7 @@
 		</div>
 		<div class="tec-ct1-upgrade__report-header-section tec-ct1-upgrade__report-header-section--total">
 			<?php echo $total_heading; ?>
-			<strong data-migration="event_total">...</strong>
+			<strong data-migration="total_events_migrated">...</strong>
 		</div>
 		<div class="tec-ct1-upgrade__report-header-section tec-ct1-upgrade__report-header-section--rerun">
 			<?php echo $heading_action; ?>
