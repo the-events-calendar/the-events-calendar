@@ -25,6 +25,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 	protected function add_filters(): void {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
+		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
+		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
+
+		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option'], 10, 2 );
 	}
 
 	protected function add_actions(): void {
@@ -62,5 +66,59 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( Templates::class )->add_events_archive( $query_result, $query, $template_type );
+	}
+
+	/**
+	 * If we're using a FSE theme, we always use the full styling.
+	 *
+	 * @since TBD
+	 * @param string  $value The value of the option.
+	 * @return string $value The original value, or an empty string if FSE is active.
+	 */
+	public function filter_events_template_setting_option( $value ) {
+		return tec_is_full_site_editor() ? '' : $value;
+	}
+
+
+	/**
+	 * Override the get_single_option to return the default event template when FSE is active.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $option      Results of option query.
+	 * @param string $default     The default value.
+	 * @param string $option_name Name of the option.
+	 *
+	 * @return mixed results of option query.
+	 */
+	public function filter_tribe_get_single_option( $option, $default, $option_name ) {
+		if ( 'tribeEventsTemplate' !== $option_name ) {
+			return $option;
+		}
+
+		if ( tec_is_full_site_editor() ) {
+			return '';
+		}
+
+		return $option;
+	}
+
+	/**
+	 * Overwrite the template option on save if FSE is active.
+	 * We only support the default events template for now.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, mixed> $options   The array of values to save. In the format option key => value.
+	 * @param string               $option_id The main option ID.
+	 *
+	 * @return array<string, mixed> $options   The array of values to save. In the format option key => value.
+	 */
+	public function filter_tribe_save_template_option( $options, $option_id ) {
+		if ( tec_is_full_site_editor() ) {
+			$options[ 'tribeEventsTemplate' ] = '';
+		}
+
+		return $options;
 	}
 }
