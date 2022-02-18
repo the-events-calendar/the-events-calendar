@@ -6,7 +6,9 @@ let Ct1Upgrade = {};
 		v2Enabled: 'input[name="views_v2_enabled"]',
 		alertOkButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-alert__continue',
 		alertCloseButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-modal__close-button',
-		rootReportNode: '.tec-ct1-upgrade--migration-prompt',
+		rootReportNode: '.tec-ct1-upgrade__row', // Used to constrain some selectors
+		barsSelector: '.tec-ct1-upgrade-bar .bar',
+		barsProgressSelector: '.tec-ct1-upgrade-bar .progress'
 	};
 	obj.report_poll_interval = 5000;
 	obj.poll_timeout = null;
@@ -27,9 +29,19 @@ let Ct1Upgrade = {};
 		$(rs+' [data-migration="'+key+'"]')
 			.text(value);
 	}
+	obj.bar_progress = function(completed, total) {
+		const percent = Math.round(completed / total);
+		// Leave on default if we have less than 1 percent
+		if(percent > 1) {
+			$(obj.selectors.barsSelector).css('width', percent+'%');
+		}
+		$(obj.selectors.barsProgressSelector).attr('title', percent+'%');
+	}
 	obj.handle_report_data = function(data) {
-		const {has_changes, event_reports} = data;
+		const {has_changes, total_events_migrated, total_events, event_reports} = data;
 		const rs = obj.selectors.rootReportNode;
+		// Update bars
+		obj.bar_progress(total_events_migrated, total_events);
 		// Sync all "listeners" with the data we have received.
 		Object.keys(data).forEach(function (key){
 			obj.data_migration_on_dom(key, data[key])
