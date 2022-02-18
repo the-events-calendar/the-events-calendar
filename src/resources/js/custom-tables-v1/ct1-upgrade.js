@@ -28,7 +28,7 @@ let Ct1Upgrade = {};
 			.text(value);
 	}
 	obj.handle_report_data = function(data) {
-		const {has_changes, events} = data;
+		const {has_changes, event_reports} = data;
 		const rs = obj.selectors.rootReportNode;
 		// Sync all "listeners" with the data we have received.
 		Object.keys(data).forEach(function (key){
@@ -45,7 +45,7 @@ let Ct1Upgrade = {};
 		// Clear events
 		$(rs+' .tec-ct1-upgrade__report-events-list').text('');
 		// @todo Get this working - break out into function?
-		events.forEach(function(event){
+		event_reports.forEach(function(event){
 			$(rs+' .tec-ct1-upgrade__report-events-list').append(
 				`<li><a href="${event.events[event.source_event_post_id].permalink}">${event.events[event.source_event_post_id].post_title}</a> - ${event.actions_message}</li>`
 			);

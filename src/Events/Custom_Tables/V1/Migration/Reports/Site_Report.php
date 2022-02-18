@@ -145,7 +145,6 @@ class Site_Report implements JsonSerializable {
 
 		$report_meta = [ 'complete_timestamp' => strtotime( 'yesterday 4pm' ) ];
 
-
 		$data = [
 			'estimated_time_in_hours' => $state->get( 'migrate', 'estimated_time_in_seconds' ) * 60 * 60,
 			'date_completed'          => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
