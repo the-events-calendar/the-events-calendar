@@ -3,6 +3,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events_Pro\Custom_Tables\V1\Event_Factory;
 use WP_Post;
 
@@ -105,12 +106,20 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$data['estimated_time_in_hours'] = 1.3;
 		$data['total_events']            = 1234;
 		$data['event_reports']           = [ $event_report1, $event_report2 ];
-		$site_report                     = new Site_Report( $data );
-		$object                          = json_decode( json_encode( $site_report ) );
+		$data['migration_phase']         = State::PHASE_MIGRATION_IN_PROGRESS;
+		$data['is_completed']            = true;
+		$data['is_running']              = false;
+
+		$site_report = new Site_Report( $data );
+		$object      = json_decode( json_encode( $site_report ) );
+
 		$this->assertCount( count( $data['event_reports'] ), $object->event_reports );
 		$this->assertEquals( $data['estimated_time_in_hours'], $object->estimated_time_in_hours );
 		$this->assertEquals( $data['total_events'], $object->total_events );
+		$this->assertEquals( State::PHASE_MIGRATION_IN_PROGRESS, $object->migration_phase );
 		$this->assertTrue( $object->has_changes );
+		$this->assertTrue( $object->is_completed );
+		$this->assertFalse( $object->is_running );
 	}
 
 

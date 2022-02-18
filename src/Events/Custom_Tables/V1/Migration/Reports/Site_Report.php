@@ -30,6 +30,9 @@ class Site_Report implements JsonSerializable {
 		'total_events'            => null,
 		'has_changes'             => false,
 		'event_reports'           => [],
+		'migration_phase'         => null,
+		'is_completed'            => false,
+		'is_running'              => false,
 	];
 
 	/**
@@ -44,6 +47,9 @@ class Site_Report implements JsonSerializable {
 		$this->data['total_events']            = $data['total_events'];
 		$this->data['has_changes']             = ! empty( $data['event_reports'] );
 		$this->data['event_reports']           = $data['event_reports'];
+		$this->data['migration_phase']         = $data['migration_phase'];
+		$this->data['is_completed']            = $data['is_completed'];
+		$this->data['is_running']              = $data['is_running'];
 	}
 
 	/**
@@ -99,6 +105,7 @@ class Site_Report implements JsonSerializable {
 	public static function build( $page = - 1, $count = 20 ) {
 
 		global $wpdb;
+
 		$cnt_query     = sprintf( "SELECT COUNT(*) FROM {$wpdb->posts} p
     INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
     WHERE p.post_type = '%s'",
@@ -140,7 +147,7 @@ class Site_Report implements JsonSerializable {
 			$event_reports[] = new Event_Report( get_post( $post_id ) );
 		}
 
-		// @todo State - what goes in here vs polled realtime? Like total events? Is State going to do realtime data...?
+
 		$state = tribe( State::class );
 
 		$report_meta = [ 'complete_timestamp' => strtotime( 'yesterday 4pm' ) ];
@@ -150,7 +157,10 @@ class Site_Report implements JsonSerializable {
 			'date_completed'          => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
 			'total_events'            => $total_flagged,
 			'has_changes'             => ! ! count( $event_reports ),
-			'event_reports'           => $event_reports
+			'event_reports'           => $event_reports,
+			'migration_phase'         => $state->get_phase(),
+			'is_completed'            => $state->is_completed(),
+			'is_running'              => $state->is_running(),
 		];
 
 		return new Site_Report( $data );
