@@ -9,11 +9,12 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+
 /**
  * Class Single_Event_Migration_Strategy.
  *
  * @since   TBD
- *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Single_Event_Migration_Strategy implements Strategy_Interface {
@@ -35,7 +36,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function apply() {
+	public function apply(Event_Report $event_report) {
 		// TODO: Implement apply() method.
 	}
 
