@@ -219,48 +219,6 @@ class Tribe__Events__Assets {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-calendar-script',
-			'tribe-events.js',
-			[
-				'jquery',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-				'tribe-moment',
-				'tribe-moment-locales',
-			],
-			'wp_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'in_footer'    => false,
-				'localize'     => [
-					'name' => 'tribe_js_config',
-					'data' => [ $this, 'get_js_calendar_script_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-bar',
-			'tribe-events-bar.js',
-			[
-				'jquery',
-				'tribe-events-dynamic',
-				'tribe-events-calendar-script',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-			],
-			'wp_enqueue_scripts',
-			[
-				'in_footer'    => false,
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
 			'tribe-events-calendar-mobile-style',
 			'tribe-events-theme-mobile.css',
 			[ 'tribe-events-calendar-style', 'tribe-accessibility-css' ],
@@ -334,60 +292,6 @@ class Tribe__Events__Assets {
 			[
 				'groups'       => [ 'events-styles' ],
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
-
-		// Register AJAX views assets
-		tribe_asset(
-			$plugin,
-			'the-events-calendar',
-			'tribe-events-ajax-calendar.js',
-			[
-				'jquery',
-				'tribe-events-calendar-script',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-				'tribe-moment',
-				'tribe-moment-locales',
-			],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeCalendar',
-					'data' => [ $this, 'get_ajax_url_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-ajax-day',
-			'tribe-events-ajax-day.js',
-			[ 'jquery', 'tribe-events-calendar-script' ],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeCalendar',
-					'data' => [ $this, 'get_ajax_url_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-list',
-			'tribe-events-ajax-list.js',
-			[ 'jquery', 'tribe-events-calendar-script' ],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeList',
-					'data' => [
-						'ajaxurl'     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-						'tribe_paged' => absint( tribe_get_request_var( 'tribe_paged', 0 ) ),
-					],
-				],
 			]
 		);
 	}

@@ -30,6 +30,12 @@
 * `src/views/month/single-event.php`
 * `src/views/month/title-bar.php`
 * `src/views/month/tooltip.php`
+* `src/resources/js/tribe-events-ajax-list.js`
+* `src/resources/js/tribe-events-ajax-day.js`
+* `src/resources/js/tribe-events-ajax-calendar.js`
+* `src/resources/js/tribe-events-bar.js`
+* `src/resources/js/tribe-events-calendar-script.js`
+  * Filterbar usage of `tribe-events-calendar-script`
 
 ## Classes Removed
 
