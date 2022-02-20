@@ -15,6 +15,12 @@ use Tribe__Timezones as Timezones;
  **/
 function tribe_get_view( $view = false ) {
 	do_action( 'tribe_pre_get_view' );
+	if (
+		! in_array( $view, [ 'single-event', 'embed' ] )
+		&& tec_events_views_v1_should_display_deprecated_notice()
+	) {
+		_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
+	}
 
 	$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, [ 'disable_view_check' => true ] );
 
@@ -141,12 +147,13 @@ function tribe_get_event_label_plural_lowercase() {
  * Includes a template part, similar to the WP get template part, but looks
  * in the correct directories for Tribe Events templates
  *
- * @param string      $slug
- * @param null|string $name
- * @param array       $data optional array of vars to inject into the template part
- *
  * @uses Tribe__Templates::getTemplateHierarchy
- **/
+ **@param null|string $name
+ *
+ * @param array  $data optional array of vars to inject into the template part
+ *
+ * @param string $slug
+ */
 function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 	// Execute code for this part
@@ -189,10 +196,10 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
  *
  * Checks type of $postId to determine if it is an Event
  *
- * @category Events
  * @param int|WP_Post The event/post id or object. (optional)
  *
  * @return bool true if this post is an Event post type
+ * @category Events
  */
 function tribe_is_event( $postId = null ) {
 	/**
@@ -209,32 +216,32 @@ function tribe_is_event( $postId = null ) {
  *
  * Queries the events using WordPress get_posts() by setting the post type and sorting by event date.
  *
- * @category Events
+ * @link     http://codex.wordpress.org/Template_Tags/get_posts
+ * @link     http://codex.wordpress.org/Function_Reference/get_post
  *
- * @link http://codex.wordpress.org/Template_Tags/get_posts
- * @link http://codex.wordpress.org/Function_Reference/get_post
- *
- * @uses get_posts()
- *
- * @param array $args {
- *		Optional. Array of Query parameters.
- *
- *		@type string    $start_date      Minimum start date of the Event.
- *		@type string    $end_date        Maximum end date of the Event.
- *		@type string    $eventDate       A specific Event date for the Query.
- *		@type bool      $hide_upcoming   Hide events that are not on eventDate, internal usage
- *		@type int       $venue           Select events from a specific Venue
- *		@type int       $organizer       Select events from a specific Organizer
- *		@type string    $eventDisplay    How to display the Events, internal usage
- *
- *		@see  get_posts()  for more params
+ * @see      get_posts()  for more params
  * }
  *
- * @param bool $full Whether to return an array of event posts (default) or the query object
- *                   to fetch them.
+ * @uses     get_posts()
+ *
+ * @param array $args          {
+ *                             Optional. Array of Query parameters.
+ *
+ * @type string $start_date    Minimum start date of the Event.
+ * @type string $end_date      Maximum end date of the Event.
+ * @type string $eventDate     A specific Event date for the Query.
+ * @type bool   $hide_upcoming Hide events that are not on eventDate, internal usage
+ * @type int    $venue         Select events from a specific Venue
+ * @type int    $organizer     Select events from a specific Organizer
+ * @type string $eventDisplay  How to display the Events, internal usage
+ *
+ * @param bool  $full          Whether to return an array of event posts (default) or the query object
+ *                             to fetch them.
  *
  * @return array|WP_Query A list of event posts matching the query arguments or a WP_Query instance
  *                        if the `$full` argument is set to `true`.
+ * @category Events
+ *
  */
 function tribe_get_events( $args = [], $full = false ) {
 	if ( empty ( $args['eventDisplay'] ) ) {
@@ -250,9 +257,10 @@ function tribe_get_events( $args = [], $full = false ) {
  * Optionally the post object or ID of an event can be passed in and,
  * again, the event post object will be returned if possible.
  *
- * @category Events
  * @param $event
+ *
  * @return null|WP_Post
+ * @category Events
  */
 function tribe_events_get_event( $event = null ) {
 	global $post;
@@ -281,10 +289,10 @@ function tribe_events_get_event( $event = null ) {
  *
  * Returns true if the event is an all day event
  *
- * @category Events
  * @param int $postId (optional)
  *
  * @return bool
+ * @category Events
  */
 function tribe_event_is_all_day( $postId = null ) {
 	$output = Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $postId, '_EventAllDay', true ) );
@@ -297,10 +305,10 @@ function tribe_event_is_all_day( $postId = null ) {
  *
  * Returns true if the event spans multiple days
  *
- * @category Events
  * @param int $postId (optional)
  *
  * @return bool true if event spans multiple days
+ * @category Events
  */
 function tribe_event_is_multiday( $postId = null ) {
 	$postId = Tribe__Events__Main::postIdHelper( $postId );
@@ -334,7 +342,7 @@ function tribe_is_past_event( $event = null ) {
 		? Tribe__Events__Timezones::get_event_timezone_string( $event->ID )
 		: Tribe__Events__Timezones::wp_timezone_string();
 
-	$format = 'Y-m-d G:i';
+	$format   = 'Y-m-d G:i';
 	$end_date = tribe_get_end_date( $event, false, $format );
 
 	// Try to create a a current and end date with the timezone to avoid using the WP timezone if is not the setup case.
@@ -342,9 +350,9 @@ function tribe_is_past_event( $event = null ) {
 		$timezone = Timezones::build_timezone_object( $timezone_name );
 		$current  = date_create( 'now', $timezone );
 		$end      = date_create( $end_date, $timezone );
-	} catch( Exception $exception ) {
+	} catch ( Exception $exception ) {
 		$current = false;
-		$end = false;
+		$end     = false;
 	}
 
 	// If date_create throws an error or was not created correctly we fallback to the original solution
@@ -363,8 +371,8 @@ function tribe_is_past_event( $event = null ) {
  *
  * Display the event category ID as a class for events wrapper
  *
+ * @uses     wp_get_object_terms()
  * @category Events
- * @uses wp_get_object_terms()
  */
 function tribe_get_event_cat_ids( $post_id = 0 ) {
 	$post_id = Tribe__Events__Main::postIdHelper( $post_id );
@@ -378,8 +386,8 @@ function tribe_get_event_cat_ids( $post_id = 0 ) {
  *
  * Display the event category ID as a class for events wrapper
  *
+ * @uses     wp_get_object_terms()
  * @category Events
- * @uses wp_get_object_terms()
  */
 function tribe_get_event_cat_slugs( $post_id = 0 ) {
 	$post_id = Tribe__Events__Main::postIdHelper( $post_id );
@@ -400,16 +408,16 @@ function tribe_get_event_cat_slugs( $post_id = 0 ) {
  *
  * Get the term list by taxonomy (default categories) for a single event
  *
- * @category Events
- * @param  int   $post_id
- * @param  array $args
+ * @param int   $post_id
+ * @param array $args
  *
  * @return string HTML string of taxonomy terms
+ * @category Events
  */
 function tribe_get_event_taxonomy( $post_id = null, $args = [] ) {
 	$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
 	$tribe_ecp = Tribe__Events__Main::instance();
-	$defaults = [
+	$defaults  = [
 		'taxonomy' => $tribe_ecp->get_event_taxonomy(),
 		'before'   => '<li>',
 		'sep'      => '</li><li>',
@@ -427,7 +435,6 @@ function tribe_get_event_taxonomy( $post_id = null, $args = [] ) {
  *
  * Display the event categories with display param
  *
- * @category Events
  * @uses     tribe_get_event_taxonomy()
  * @replaces tribe_meta_event_cats()
  *
@@ -435,12 +442,13 @@ function tribe_get_event_taxonomy( $post_id = null, $args = [] ) {
  * @param array $args
  *
  * @return string $html (echo if provided in $args)
+ * @category Events
  */
 function tribe_get_event_categories( $post_id = null, $args = [] ) {
 	$events_label_singular = tribe_get_event_label_singular();
 
 	$post_id    = is_null( $post_id ) ? get_the_ID() : $post_id;
-	$defaults = [
+	$defaults   = [
 		'echo'         => false,
 		'label'        => null,
 		'label_before' => '<div>',
@@ -452,15 +460,14 @@ function tribe_get_event_categories( $post_id = null, $args = [] ) {
 	$categories = tribe_get_event_taxonomy( $post_id, $args );
 
 	// check for the occurrences of links in the returned string
-	if ( null === $args[ 'label' ] ) {
+	if ( null === $args['label'] ) {
 		$label = sprintf(
-			/* translators: %s is the singular translation of "Event" */
+		/* translators: %s is the singular translation of "Event" */
 			_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'the-events-calendar' ),
 			$events_label_singular
 		);
-	}
-	else {
-		$label = $args[ 'label' ];
+	} else {
+		$label = $args['label'];
 	}
 
 	$html = ! empty( $categories ) ? sprintf(
@@ -484,13 +491,15 @@ function tribe_get_event_categories( $post_id = null, $args = [] ) {
  *
  * Display the event tags
  *
- * @category Events
- * @param null|string $label
+ * @uses     the_terms()
+ *
  * @param string      $separator
  * @param bool        $echo
  *
+ * @param null|string $label
+ *
  * @return array
- * @uses the_terms()
+ * @category Events
  */
 function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true ) {
 	if ( ! $label ) {
@@ -512,12 +521,12 @@ function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true )
  *
  * Get event post meta.
  *
- * @category Events
  * @param int|null    $postId (optional)
  * @param string|bool $meta   name of the meta_key
  * @param bool        $single determines if the results should be a single item or an array of items.
  *
  * @return mixed meta value(s)
+ * @category Events
  */
 function tribe_get_event_meta( $postId = null, $meta = false, $single = true ) {
 	$postId    = Tribe__Events__Main::postIdHelper( $postId );
@@ -532,10 +541,10 @@ function tribe_get_event_meta( $postId = null, $meta = false, $single = true ) {
  *
  * Get the current page template that we are on
  *
- * @since 6.0.0 Only relevant for single and embed
+ * @since    6.0.0 Only relevant for single and embed
  *
- * @category Events
  * @return string Page template
+ * @category Events
  */
 function tribe_get_current_template() {
 	$template = '';
@@ -564,10 +573,10 @@ function tribe_get_current_template() {
  *
  * Checks type of $postId to determine if it is a Venue
  *
- * @category Venues
  * @param int $postId (optional)
  *
  * @return bool True if post type id Venue
+ * @category Venues
  */
 function tribe_is_venue( $postId = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
@@ -580,10 +589,10 @@ function tribe_is_venue( $postId = null ) {
  *
  * Checks type of $postId to determine if it is a Organizer
  *
- * @category Organizers
  * @param int $postId (optional)
  *
  * @return bool True if post type id Venue
+ * @category Organizers
  */
 function tribe_is_organizer( $postId = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
@@ -633,11 +642,11 @@ function tribe_events_after_html() {
 /**
  * Prints out or returns classes on an event wrapper
  *
- * @category Events
  * @param $event |0 post id or object
  * @param $echo  |true
  *
- **/
+ **@category Events
+ */
 function tribe_events_event_classes( $event = 0, $echo = true ) {
 	global $post, $wp_query;
 
@@ -705,11 +714,11 @@ function tribe_events_event_classes( $event = 0, $echo = true ) {
 /**
  * Return an array with the days of the week, numbered with respect to the start_of_week WP option
  *
- * @category Events
  * @param string $format the display format for the days of the week
  *
  * @return array Days of the week.
- **/
+ **@category Events
+ */
 function tribe_events_get_days_of_week( $format = null ) {
 
 	switch ( $format ) {
@@ -739,10 +748,10 @@ function tribe_events_get_days_of_week( $format = null ) {
 /**
  * Prints out data attributes used in the template header tags
  *
- * @category Events
  * @param string|null $current_view
  *
- **/
+ **@category Events
+ */
 function tribe_events_the_header_attributes( $current_view = null ) {
 
 	if ( ! $wp_query = tribe_get_global_query_object() ) {
@@ -782,7 +791,7 @@ function tribe_events_the_header_attributes( $current_view = null ) {
 			break;
 		case 'list.php' :
 			$attrs['data-startofweek'] = get_option( 'start_of_week' );
-			$attrs['data-view'] = 'list';
+			$attrs['data-view']        = 'list';
 			if ( tribe_is_upcoming() ) {
 				$attrs['data-baseurl'] = tribe_get_listview_link( $term );
 			} elseif ( tribe_is_past() ) {
@@ -807,8 +816,8 @@ function tribe_events_the_header_attributes( $current_view = null ) {
  *
  * Conditional tag to determine if the cost field should be shown in the admin editors.
  *
- * @category Cost
  * @return bool
+ * @category Cost
  */
 function tribe_events_admin_show_cost_field() {
 	$modules = null;
@@ -818,12 +827,12 @@ function tribe_events_admin_show_cost_field() {
 	}
 
 	$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
-	$show_cost = empty( $modules ) ||
-				 class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ||
-				 in_array(
-					 $event_origin,
-					 apply_filters( 'tribe_events_admin_show_cost_field_origin', [ 'community-events' ] )
-				 );
+	$show_cost    = empty( $modules ) ||
+	                class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ||
+	                in_array(
+		                $event_origin,
+		                apply_filters( 'tribe_events_admin_show_cost_field_origin', [ 'community-events' ] )
+	                );
 
 	return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
 }
@@ -831,18 +840,18 @@ function tribe_events_admin_show_cost_field() {
 /**
  * Get an event's cost
  *
- * @category Cost
- * @param null|int $post_id             (optional)
+ * @param null|int $post_id              (optional)
  * @param bool     $with_currency_symbol Include the currency symbol
  *
  * @return string Cost of the event.
+ * @category Cost
  */
 function tribe_get_cost( $post_id = null, $with_currency_symbol = false ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
-	$post_id    = Tribe__Events__Main::postIdHelper( $post_id );
+	$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
 
 	$cost_utils = tribe( 'tec.cost-utils' );
-	$cost = $cost_utils->get_formatted_event_cost( $post_id, $with_currency_symbol );
+	$cost       = $cost_utils->get_formatted_event_cost( $post_id, $with_currency_symbol );
 
 	return apply_filters( 'tribe_get_cost', $cost, $post_id, $with_currency_symbol );
 }
@@ -853,10 +862,10 @@ function tribe_get_cost( $post_id = null, $with_currency_symbol = false ) {
  * Essentially an alias of tribe_get_cost(), as if called with the $withCurrencySymbol
  * argument set to true. Useful for callbacks.
  *
- * @category Cost
  * @param null $postId
  *
  * @return mixed|void
+ * @category Cost
  */
 function tribe_get_formatted_cost( $postId = null ) {
 	return apply_filters( 'tribe_get_formatted_cost', tribe_get_cost( $postId, true ) );
@@ -865,8 +874,8 @@ function tribe_get_formatted_cost( $postId = null ) {
 /**
  * Get the minimum cost of all events.
  *
- * @category Cost
  * @return int the minimum cost.
+ * @category Cost
  */
 function tribe_get_minimum_cost() {
 	return tribe( 'tec.cost-utils' )->get_minimum_cost();
@@ -875,8 +884,8 @@ function tribe_get_minimum_cost() {
 /**
  * Get the maximum cost of all events.
  *
- * @category Cost
  * @return int the maximum cost.
+ * @category Cost
  */
 function tribe_get_maximum_cost() {
 	return tribe( 'tec.cost-utils' )->get_maximum_cost();
@@ -897,11 +906,11 @@ function tribe_has_uncosted_events() {
  *
  * Returns true if the event is in the specified category slug
  *
- * @category Events
  * @param string $event_cat_slug
  * @param int    $event_id
  *
  * @return bool
+ * @category Events
  */
 function tribe_event_in_category( $event_cat_slug, $event_id = null ) {
 
@@ -931,14 +940,14 @@ function tribe_event_in_category( $event_cat_slug, $event_id = null ) {
  * the two final and optional parameters to false, however, it is possible to retrieve only
  * the image URL itself.
  *
- * @category Events
- *
  * @param int    $post_id
  * @param string $size
  * @param bool   $link
  * @param bool   $wrapper
  *
  * @return string
+ * @category Events
+ *
  */
 function tribe_event_featured_image( $post_id = null, $size = 'full', $link = true, $wrapper = true ) {
 	if ( is_null( $post_id ) ) {
@@ -958,7 +967,7 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
 		: wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size, false );
 
 	if ( is_array( $featured_image ) ) {
-		$featured_image = $featured_image[ 0 ];
+		$featured_image = $featured_image[0];
 	}
 
 	/**
@@ -1011,15 +1020,15 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
  * The resulting string can also be caught and manipulated, or completely overridden, using the
  * 'tribe_events_event_schedule_details' filter, should none of the above settings be sufficient.
  *
- * @category Events
- * @todo [BTRIA-644]: Use tribe_get_datetime_format() and related functions if possible.
+ * @todo     [BTRIA-644]: Use tribe_get_datetime_format() and related functions if possible.
  *
- * @param int|null $event The event post ID, or `null` to use the global event.
- * @param string $before A string to prepend before the schedule details.
- * @param string $after A string to append after the schedule details.
- * @param bool $html Whether to use HTML elements in the output string or not; defaults to `true`.
+ * @param int|null $event  The event post ID, or `null` to use the global event.
+ * @param string   $before A string to prepend before the schedule details.
+ * @param string   $after  A string to append after the schedule details.
+ * @param bool     $html   Whether to use HTML elements in the output string or not; defaults to `true`.
  *
  * @return string The human-readable event schedule details formatted according to the current settings.
+ * @category Events
  */
 function tribe_events_event_schedule_details( $event = null, $before = '', $after = '', $html = true ) {
 	static $cache_var_name = __FUNCTION__;
@@ -1038,8 +1047,8 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 		return '';
 	}
 
-	$cache_details = tribe_get_var( $cache_var_name, [] );
-	$cache_details_key    = "{$event->ID}:{$before}:{$after}:{$html}";
+	$cache_details     = tribe_get_var( $cache_var_name, [] );
+	$cache_details_key = "{$event->ID}:{$before}:{$after}:{$html}";
 
 	if ( ! isset( $cache_details[ $cache_details_key ] ) ) {
 		$inner                    = $html ? '<span class="tribe-event-date-start">' : '';
@@ -1097,7 +1106,7 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 				$inner .= ( $html ? '</span>' : '' ) . $time_range_separator;
 				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 
-				$end_date_full = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
+				$end_date_full           = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
 				$end_date_full_timestamp = strtotime( $end_date_full );
 
 				// if the end date is <= the beginning of the day, consider it the previous day
@@ -1110,7 +1119,7 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 				$inner .= $end_date;
 			} else {
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-				$inner .= ( $html ? '</span>' : '' )  . $time_range_separator;
+				$inner .= ( $html ? '</span>' : '' ) . $time_range_separator;
 				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 				$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
 			}
@@ -1137,8 +1146,8 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 	 * Provides an opportunity to modify the *inner* schedule details HTML (ie before it is
 	 * wrapped).
 	 *
-	 * @param string $inner_html  the output HTML
-	 * @param int    $event_id    post ID of the event we are interested in
+	 * @param string $inner_html the output HTML
+	 * @param int    $event_id   post ID of the event we are interested in
 	 */
 	$inner = apply_filters( 'tribe_events_event_schedule_details_inner', $cache_details[ $cache_details_key ], $event->ID );
 
@@ -1149,10 +1158,10 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 	 * Provides an opportunity to modify the schedule details HTML for a specific event after
 	 * it has been wrapped in the before and after markup.
 	 *
-	 * @param string $schedule  the output HTML
-	 * @param int    $event_id  post ID of the event we are interested in
-	 * @param string $before    part of the HTML wrapper that was prepended
-	 * @param string $after     part of the HTML wrapper that was appended
+	 * @param string $schedule the output HTML
+	 * @param int    $event_id post ID of the event we are interested in
+	 * @param string $before   part of the HTML wrapper that was prepended
+	 * @param string $after    part of the HTML wrapper that was appended
 	 */
 	return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after );
 }
@@ -1249,12 +1258,12 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
 /**
  * Display the Events Calendar promo banner
  *
- * @category Events
- *
  * @param bool $echo Whether or not to echo the banner, if false, it's returned
  *
  * @return string
- **/
+ **@category Events
+ *
+ */
 function tribe_events_promo_banner( $echo = true ) {
 	if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
 		$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( esc_html__( 'Calendar powered by %s', 'the-events-calendar' ), '<a class="tribe-common-anchor-thin vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>' ) );
@@ -1276,6 +1285,7 @@ function tribe_events_get_current_filter_url() {
 	global $wp;
 
 	$url = esc_url( add_query_arg( $wp->query_string, '', home_url( $wp->request ) ) );
+
 	return apply_filters( 'tribe_events_get_current_filter_url', $url );
 }
 
@@ -1304,13 +1314,14 @@ function tribe_events_tab_index() {
  * may not have been registered by the time our ajax responses are generated. To avoid leaving unparsed
  * shortcodes in our excerpts then we strip out anything that looks like one.
  *
- * @category Events
- *
- * @param WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
- * @param array $allowed_html The wp_kses compatible array
- * @param boolean $skip_postdata_manipulation Optional. Defaults to false. When true, the resetting of global $post variable is disabled. (Useful for some contexts like month view.)
+ * @param WP_Post|int|null $post                       The Post Object|ID, if null defaults to `get_the_ID()`
+ * @param array            $allowed_html               The wp_kses compatible array
+ * @param boolean          $skip_postdata_manipulation Optional. Defaults to false. When true, the resetting of global $post variable is disabled. (Useful for
+ *                                                     some contexts like month view.)
  *
  * @return string|null Will return null on Bad Post Instances
+ * @category Events
+ *
  */
 function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip_postdata_manipulation = false ) {
 	static $cache_var_name = __FUNCTION__;
@@ -1363,10 +1374,11 @@ function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip
 	/**
 	 * Allow developers to filter what are the allowed HTML on the Excerpt
 	 *
-	 * @param array Must be compatible to wp_kses structure.
+	 * @link https://codex.wordpress.org/Function_Reference/wp_kses
+	 *
 	 * @param WP_Post $post The current post object.
 	 *
-	 * @link https://codex.wordpress.org/Function_Reference/wp_kses
+	 * @param array Must be compatible to wp_kses structure.
 	 */
 	$allowed_html = apply_filters( 'tribe_events_excerpt_allowed_html', $allowed_html, $post );
 
@@ -1385,8 +1397,8 @@ function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param bool $remove_shortcodes Whether shortcodes content should be removed from the excerpt or not.
-	 * @param WP_Post $post The current post object.
+	 * @param bool    $remove_shortcodes Whether shortcodes content should be removed from the excerpt or not.
+	 * @param WP_Post $post              The current post object.
 	 */
 	$remove_shortcodes = apply_filters( 'tribe_events_excerpt_shortcode_removal', true, $post );
 
@@ -1396,13 +1408,13 @@ function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip
 	 * If truthy then block whose content does not belong in the excerpt, will be removed.
 	 * This removal is done using WordPress Core `excerpt_remove_blocks` function.
 	 *
+	 * @see   excerpt_remove_blocks() The WordPress Core function that will handle the block removal from the excerpt.
 	 * @since 5.1.0
 	 *
-	 * @param bool $remove_blocks Whether blocks whose content should not be part of the excerpt should be removed
-	 *                            or not from the excerpt.
-	 * @param WP_Post $post The current post object.
+	 * @param WP_Post $post          The current post object.
 	 *
-	 * @see   excerpt_remove_blocks() The WordPress Core function that will handle the block removal from the excerpt.
+	 * @param bool    $remove_blocks Whether blocks whose content should not be part of the excerpt should be removed
+	 *                               or not from the excerpt.
 	 */
 	$remove_blocks = (bool) apply_filters( 'tribe_events_excerpt_blocks_removal', true, $post );
 
@@ -1440,7 +1452,7 @@ function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip
 
 		if ( ! has_excerpt( $post->ID ) ) {
 			// Temporarily alter the global post in preparation for our filters.
-			$global_post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
+			$global_post     = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
 			$GLOBALS['post'] = $post;
 
 			// We will only trim Excerpt if it comes from Post Content
@@ -1496,11 +1508,11 @@ function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip
  *
  * If this is impossible to determine it will return boolean false.
  *
- * @category Events
- *
  * @param string $format
  *
  * @return mixed bool|string
+ * @category Events
+ *
  */
 function tribe_events_latest_date( $format = Tribe__Date_Utils::DBDATETIMEFORMAT ) {
 	// Check if the latest end date is already known
@@ -1525,11 +1537,11 @@ function tribe_events_latest_date( $format = Tribe__Date_Utils::DBDATETIMEFORMAT
  *
  * If this is impossible to determine it will return boolean false.
  *
- * @category Events
- *
  * @param string $format
  *
  * @return mixed bool|string
+ * @category Events
+ *
  */
 function tribe_events_earliest_date( $format = Tribe__Date_Utils::DBDATETIMEFORMAT ) {
 	// Check if the earliest start date is already known
@@ -1552,12 +1564,13 @@ function tribe_events_earliest_date( $format = Tribe__Date_Utils::DBDATETIMEFORM
  * Get the default value for a field
  *
  * @param string $field
+ *
  * @return mixed
  */
 function tribe_get_default_value( $field ) {
-	$field = strtolower( $field );
+	$field    = strtolower( $field );
 	$defaults = Tribe__Events__Main::instance()->defaults();
-	$value = call_user_func( [ $defaults, $field ] );
+	$value    = call_user_func( [ $defaults, $field ] );
 
 	return $value;
 }
@@ -1566,6 +1579,7 @@ function tribe_get_default_value( $field ) {
  * Gets the render context of the given query
  *
  * @param WP_Query $query Query object
+ *
  * @return string
  */
 function tribe_get_render_context( $query = null ) {
@@ -1586,13 +1600,13 @@ function tribe_get_render_context( $query = null ) {
 /**
  * Returns or echoes a url to a file in the Events Calendar plugin resources directory
  *
- * @category Events
  * @param string $resource the filename of the resource
  * @param bool   $echo     whether or not to echo the url
  * @param string $root_dir directory to hunt for resource files (src or common)
  *
  * @return string
- **/
+ **@category Events
+ */
 function tribe_events_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
 	$extension = pathinfo( $resource, PATHINFO_EXTENSION );
 
@@ -1603,13 +1617,13 @@ function tribe_events_resource_url( $resource, $echo = false, $root_dir = 'src' 
 	$resources_path = $root_dir . '/resources/';
 	switch ( $extension ) {
 		case 'css':
-			$resource_path = $resources_path .'css/';
+			$resource_path = $resources_path . 'css/';
 			break;
 		case 'js':
-			$resource_path = $resources_path .'js/';
+			$resource_path = $resources_path . 'js/';
 			break;
 		case 'scss':
-			$resource_path = $resources_path .'scss/';
+			$resource_path = $resources_path . 'scss/';
 			break;
 		default:
 			$resource_path = $resources_path;
@@ -1670,6 +1684,7 @@ function tribe_is_events_front_page() {
 	$wp_query = tribe_get_global_query_object();
 
 	$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
+
 	// If the reading option has an events page as front page and we are on that page is on the home of events.
 	return (
 		$wp_query->is_main_query()

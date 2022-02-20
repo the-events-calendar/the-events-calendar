@@ -33,14 +33,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.0-RBE-Beta2.2';
+		const VERSION             = '6.0.0-RBE-Beta2.3';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-RBE-Beta2.2';
+		const MIN_ADDON_VERSION   = '6.0.0-RBE-Beta2.3';
 
 		/**
 		 * Min Common
@@ -133,7 +133,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug       = 'featured';
 
 		/**
-		 * @deprecated TBD use Tribe__Events__Venue::$valid_venue_keys instead.
+		 * @deprecated 5.14.0 use Tribe__Events__Venue::$valid_venue_keys instead.
 		*/
 		public $valid_venue_keys = [];
 
@@ -556,6 +556,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Aggregator__REST__V1__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__CLI__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__Processes__Service_Provider' );
+
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
 
 			// @todo After version 6.0.0 this needs to move to the Events folder provider.
@@ -744,6 +745,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Trigger smart activation of V2 after we triggered the Update version on Init@P10.
 			add_action( 'init', 'tribe_events_views_v2_smart_activation', 25 );
 
+			// Initialize default settings on activation
+			add_action( 'init', 'tribe_events_settings_defaults_initializer', 25 );
+
 			add_action( 'init', [ $this, 'init' ], 10 );
 			add_action( 'admin_init', [ $this, 'admin_init' ] );
 
@@ -850,6 +854,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_general_settings_tab_fields', [ $this, 'general_settings_tab_fields' ] );
 			add_filter( 'tribe_display_settings_tab_fields', [ $this, 'display_settings_tab_fields' ] );
 			add_filter( 'tribe_settings_url', [ $this, 'tribe_settings_url' ] );
+			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', [ $this, 'add_help_section_feature_box_content' ] );
@@ -961,10 +966,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
-			if ( ! tribe( 'editor' )->should_load_blocks() ) {
-				tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
-			}
-
+			tribe( 'tec.admin.event-meta-box' )->display_wp_custom_fields_metabox();
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
@@ -1203,6 +1205,94 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function do_addons_api_settings_tab() {
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
+		}
+
+		/**
+		 * should we show the upgrade nags?
+		 *
+		 * @since 4.9.12
+		 *
+		 * @return boolean
+		 */
+		public function show_upgrade() {
+			$show_tab = current_user_can( 'activate_plugins' );
+
+			/**
+			 * Provides an opportunity to override the decision to show or hide the upgrade tab
+			 *
+			 * Normally it will only show if the current user has the "activate_plugins" capability
+			 * and there are some currently-activated premium plugins.
+			 *
+			 * @since 4.9.12
+			 *
+			 * @param bool $show_tab True or False for showing the Upgrade Tab.
+			 */
+			if ( ! apply_filters( 'tribe_events_show_upgrade_tab', $show_tab ) ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		/**
+		 * Create the upgrade tab
+		 *
+		 * @since 4.9.12
+		 */
+		public function do_upgrade_tab() {
+			if ( ! $this->show_upgrade() ) {
+				return;
+			}
+
+			tribe_asset(
+				self::instance(),
+				'tribe-admin-upgrade-page',
+				'admin-upgrade-page.js',
+				[ 'tribe-common' ],
+				'admin_enqueue_scripts',
+				[
+					'localize' => [
+						'name' => 'tribe_upgrade',
+						'data' => [
+							'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
+							'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
+						],
+					],
+				]
+			);
+
+			/**
+			 * Get Upgrade tab template.
+			 */
+			ob_start();
+			include_once $this->plugin_path . 'src/admin-views/tribe-options-upgrade.php';
+			$upgrade_tab_html = ob_get_clean();
+
+			$upgrade_tab = [
+				'info-box-description' => [
+					'type' => 'html',
+					'html' => $upgrade_tab_html,
+				],
+			];
+
+			/**
+			 * Allows the fields displayed in the upgrade tab to be modified.
+			 *
+			 * @since 4.9.12
+			 *
+			 * @param array $upgrade_tab Array of fields used to setup the Upgrade Tab.
+			 */
+			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
+
+			new Tribe__Settings_Tab(
+				'upgrade', esc_html__( 'Upgrade', 'tribe-common' ),
+				[
+					'priority'      => 100,
+					'fields'        => $upgrade_fields,
+					'network_admin' => is_network_admin(),
+					'show_save'     => true,
+				]
+			);
 		}
 
 		/**
@@ -2487,7 +2577,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		* Custom Escape for gCal Description to keep spacing characters in the url
 		*
-		* @return sanitized url
+		* @return string sanitized url
 		*/
 		public function esc_gcal_url( $url ) {
 			$url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
@@ -2905,6 +2995,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			add_meta_box(
+				'tribe_events_event_options',
+				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
+				[ $this, 'eventMetaBox' ],
+				self::POSTTYPE,
+				'side',
+				'default'
+			);
+
+
 			if ( tribe( 'editor' )->should_load_blocks() ) {
 				return;
 			}
@@ -2919,15 +3019,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				[
 						'__back_compat_meta_box' => ! class_exists( 'Tribe__Events__Pro__Main' ),
 				]
-			);
-
-			add_meta_box(
-					'tribe_events_event_options',
-					sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
-					[ $this, 'eventMetaBox' ],
-					self::POSTTYPE,
-					'side',
-					'default'
 			);
 
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {

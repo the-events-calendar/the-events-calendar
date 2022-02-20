@@ -52,7 +52,7 @@ class Custom_Tables_Query extends WP_Query {
 		// Initialize a new instance of the query.
 		$ct_query = new self();
 		$ct_query->init();
-		$ct_query->query      = wp_parse_args( (array) $override_args, $wp_query->query );
+		$ct_query->query      = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
 		$ct_query->query_vars = $ct_query->query;
 
 		// Keep a reference to the original `WP_Query` instance.
@@ -81,6 +81,31 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Adds an opportunity to filter the query_vars that will be used
+	 * in the newly constructed instance of this object.
+	 *
+	 * @since TBD
+	 *
+	 * @param $query_vars array<string,mixed> The query variables, as created by WordPress or previous filtering
+	 *                                        methods.
+	 *
+	 * @return array<string,mixed> The filtered query variables.
+	 */
+	private function filter_query_vars( $query_vars ) {
+		/**
+		 * Filters the query variables that will be used to build the Custom Tables Query.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $query_vars The query variables as set up by the Custom
+		 *                                        Tables Query.
+		 * @param Custom_Tables_Query $query A reference to the Custom Tables Query object that
+		 *                                   is applying the filter.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_vars', $query_vars, $this );
+	}
+
+	/**
 	 * Overrides the base method to replace the Meta Query with one that will redirect
 	 * to the plugin custom tables.
 	 *
@@ -104,6 +129,7 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ], 10, 2 );
 		add_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_by_date' ], 10, 2 );
+		add_filter( 'posts_where', [ $this, 'filter_where' ], 10, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
 
 		// This "parallel" query should not be manipulated by the WP_Query_Monitor.
@@ -314,6 +340,31 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Adds a filter for TEC custom queries in order to further parse the `WHERE` statements.
+	 *
+	 * @since TBD
+	 *
+	 * @param string        $where          The input `WHERE` clause, as built by the `WP_Query`
+	 *                                      class code.
+	 * @param WP_Query|null $query          A reference to the `WP_Query` instance currently being filtered.
+	 *
+	 * @return string The `WHERE` SQL clause, modified to be date-bound, if required.
+	 */
+	public function filter_where( $where, WP_Query $query ) {
+		/**
+		 * Filters the `WHERE` statement produced by the Custom Tables Query.
+		 *
+		 * @since TBD
+		 *
+		 * @param string              $where    The `WHERE` statement produced by the Custom Tables Query.
+		 * @param WP_Query            $query    The query object being filtered.
+		 * @param Custom_Tables_Query $ct_query A reference to the Custom Tables Query instance that is appplying
+		 *                                      the filter.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_where', $where, $query, $this );
+	}
+
+	/**
 	 * Updates the `WHERE` statements to ensure any Event Query is date-bound.
 	 *
 	 * @since TBD
@@ -379,10 +430,26 @@ class Custom_Tables_Query extends WP_Query {
 		return $join;
 	}
 
+	/**
+	 * Implementation of the magic method to check if a property is set on this object or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $name The property to check for.
+	 *
+	 * @return bool Whether a property is set on this object or not.
+	 */
 	public function __isset( $name ) {
 		return parent::__isset( $name );
 	}
 
+	/**
+	 * Returns a reference to the `WP_Query` instance this instance is wrapping.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Query|null A reference to the `WP_Query` instance this object is wrapping.
+	 */
 	public function get_wp_query() {
 		return $this->wp_query;
 	}

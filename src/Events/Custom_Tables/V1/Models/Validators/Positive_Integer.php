@@ -16,9 +16,9 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Positive_Integer extends Validation {
+class Positive_Integer extends Validator {
 	/**
-	 * @var Validator
+	 * @var ValidatorInterface
 	 */
 	private $present;
 
@@ -37,7 +37,6 @@ class Positive_Integer extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		$valid = $this->present->validate( $model, $name, $value )
 		         && is_numeric( $value )
@@ -49,7 +48,7 @@ class Positive_Integer extends Validation {
 			return true;
 		}
 
-		$this->error_message = 'The provided value was not a valid positive integer.';
+		$this->add_error_message( 'The provided value was not a valid positive integer.' );
 
 		return false;
 	}

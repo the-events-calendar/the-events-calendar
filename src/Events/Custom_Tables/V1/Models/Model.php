@@ -14,7 +14,7 @@ use Generator;
 use Serializable;
 use tad_DI52_Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
-use TEC\Events\Custom_Tables\V1\Models\Validators\Validator;
+use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
 
 /**
  * Class Model
@@ -41,6 +41,9 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Validator;
  * @method static Builder count( string $column_name = null ) Count all the records that match the query.
  * @method static bool exists() If the SQL Query has at least one result on the Database.
  * @method static Builder join( string $table_name, string $left_column, string $right_column ) Creates an INNER JOIN statement.
+ * @method static Builder output( string $output ) Sets the format that should be used to format results in SELECT queries.
+ * @method static Builder all( ) Find all the records based on the built query.
+ * @method static int upsert_set( array $data ) Update or Insert a multiple records into the table.
  */
 abstract class Model implements Serializable {
 	/**
@@ -56,8 +59,7 @@ abstract class Model implements Serializable {
 	 * A map relating the columns of this model with a validation class.
 	 *
 	 * @since TBD
-	 *
-	 * @var array<string,Validator>
+	 * @var array<string,ValidatorInterface>
 	 */
 	protected $validations = [];
 
@@ -220,7 +222,7 @@ abstract class Model implements Serializable {
 
 			$validator = $this->container->make( $this->validations[ $name ] );
 
-			if ( ! $validator instanceof Validator ) {
+			if ( ! $validator instanceof ValidatorInterface ) {
 				continue;
 			}
 
@@ -229,7 +231,7 @@ abstract class Model implements Serializable {
 				continue;
 			}
 
-			$this->errors[ $name ] = $validator->message();
+			$this->errors[ $name ] = implode( " : ", $validator->get_error_messages() );
 		}
 
 		// No errors were found.
@@ -457,7 +459,7 @@ abstract class Model implements Serializable {
 	 * @since TBD
 	 * @return array An array with the result of the data associated with this model.
 	 */
-	public function toArray() {
+	public function to_array() {
 		$result = [];
 
 		foreach ( $this->data as $key => $value ) {
@@ -489,7 +491,7 @@ abstract class Model implements Serializable {
 	 * @return string The string representing the object.
 	 */
 	public function serialize() {
-		$encode = wp_json_encode( $this->toArray() );
+		$encode = wp_json_encode( $this->to_array() );
 
 		return is_string( $encode ) ? $encode : '';
 	}

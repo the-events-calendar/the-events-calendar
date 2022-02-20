@@ -19,17 +19,16 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Valid_Event extends Validation {
+class Valid_Event extends Validator {
 	/**
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		$is_valid_event = tribe_is_event( $value );
 
 		if ( ! $is_valid_event ) {
-			$this->error_message = 'The provided input is not a valid Event type.';
+			$this->add_error_message( 'The provided input is not a valid Event type.' );
 		}
 
 		return $is_valid_event;

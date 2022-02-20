@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Integer_Key extends Validation {
+class Integer_Key extends Validator {
 	/**
 	 * Variable reference to the positive integer validator.
 	 *
@@ -51,7 +51,6 @@ class Integer_Key extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		// Move forward this model does not have the key yet, so an insert should take place.
 		if ( ! $this->present->validate( $model, $name, $value ) ) {
@@ -68,7 +67,7 @@ class Integer_Key extends Validation {
 			return true;
 		}
 
-		$this->error_message = 'The provided value was not a valid positive integer.';
+		$this->add_error_message( 'The provided value was not a valid positive integer.' );
 
 		return false;
 	}

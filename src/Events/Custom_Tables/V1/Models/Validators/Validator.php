@@ -9,33 +9,59 @@
 
 namespace TEC\Events\Custom_Tables\V1\Models\Validators;
 
-use TEC\Events\Custom_Tables\V1\Models\Model;
-
 /**
- * Interface Validator
+ * Class Validation
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-interface Validator {
+abstract class Validator implements ValidatorInterface {
 	/**
-	 * Validates an input value with an optional context.
+	 * The error message if the validation fails.
 	 *
 	 * @since TBD
 	 *
-	 * @param  Model   $model  An optional context to use for the validation.
-	 * @param  string  $name   The name of the parameter being modified.
-	 * @param  mixed   $value  The actual value being saved.
-	 *
-	 * @return bool Whether the input value is valid or not.
+	 * @var array The error message if the validation fails.
 	 */
-	public function validate( Model $model, $name, $value );
+	protected $error_messages = [];
 
 	/**
 	 * Get the validation error message.
 	 *
-	 * @return string The validation error message.
+	 * @since TBD
+	 *
+	 * @return array The validation error messages.
 	 */
-	public function message();
+	public function get_error_messages() {
+		return $this->error_messages;
+	}
+
+	/**
+	 * Adds an error message to the list of errors.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $message The error message to save.
+	 *
+	 * @return $this
+	 */
+	public function add_error_message( $message ) {
+		$this->error_messages[] = $message;
+
+		return $this;
+	}
+
+	/**
+	 * Clears all the currently stored error messages.
+	 *
+	 * @since TBD
+	 *
+	 * @return $this
+	 */
+	public function clear_error_messages() {
+		$this->error_messages = [];
+
+		return $this;
+	}
 }

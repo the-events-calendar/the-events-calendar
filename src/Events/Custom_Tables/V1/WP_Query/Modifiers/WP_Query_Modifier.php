@@ -79,7 +79,8 @@ interface WP_Query_Modifier {
 	 *
 	 * @since TBD
 	 *
-	 * @param  WP_Query|null  $query
+	 * @param  WP_Query|null  $query A reference to the query object
+	 *                               the modifier should be applied to.
 	 *
 	 * @return bool If the current modifier should be applied or not.
 	 */

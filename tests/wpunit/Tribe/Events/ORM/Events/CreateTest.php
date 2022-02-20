@@ -16,6 +16,8 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->organizer = new Organizer();
 		// To support taxonomy term creation and assignment.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		tribe( 'cache' )->reset();
 	}
 
 	/**
@@ -419,6 +421,8 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		if ( null !== $input_timezone ) {
 			$args['timezone'] = $input_timezone;
 		}
+
+		tribe( 'cache' )->reset();
 
 		$event = tribe_events()->set_args( $args )->create();
 		$this->assertEquals( $expected, get_post_meta( $event->ID, '_EventTimezone', true ) );

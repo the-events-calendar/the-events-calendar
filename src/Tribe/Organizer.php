@@ -717,7 +717,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Include the organizer editor meta box.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 */
 	public static function add_post_type_metabox() {
 		$request_vars = tribe_get_request_vars();

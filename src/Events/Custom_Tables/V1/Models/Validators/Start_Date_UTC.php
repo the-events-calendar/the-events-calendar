@@ -20,7 +20,7 @@ use Tribe__Timezones as Timezones;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Start_Date_UTC extends Validation {
+class Start_Date_UTC extends Validator {
 
 	/**
 	 * An instance of the Date validator.
@@ -56,16 +56,15 @@ class Start_Date_UTC extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		if ( empty( $model->start_date_utc ) ) {
-			$this->error_message = 'The start_date_utc requires a value.';
+			$this->add_error_message( 'The start_date_utc requires a value.' );
 
 			return false;
 		}
 
 		if ( ! $this->date_validator->validate( $model, 'start_date_utc', $value ) ) {
-			$this->error_message = 'The value of start_date_utc is not a valid date.';
+			$this->add_error_message( 'The value of start_date_utc is not a valid date.' );
 
 			return false;
 		}
@@ -82,7 +81,7 @@ class Start_Date_UTC extends Validation {
 				return true;
 			}
 
-			$this->error_message = 'The start_date and start_date_utc has a conflict when using the timezone of the event.';
+			$this->add_error_message( 'The start_date and start_date_utc has a conflict when using the timezone of the event.' );
 
 			return false;
 		}
@@ -91,7 +90,7 @@ class Start_Date_UTC extends Validation {
 			return true;
 		}
 
-		$this->error_message = 'The start_date_utc should before the end_date_utc';
+		$this->add_error_message( 'The start_date_utc should before the end_date_utc' );
 
 		return false;
 	}

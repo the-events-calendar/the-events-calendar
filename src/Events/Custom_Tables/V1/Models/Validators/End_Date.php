@@ -18,7 +18,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class End_Date extends Validation {
+class End_Date extends Validator {
 
 	/**
 	 * A Date Validator instance.
@@ -55,13 +55,11 @@ class End_Date extends Validation {
 	 * {@inheritDoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
-
 		if (
 			( empty ( $model->start_date ) && ! $model->has_single_validation( 'end_date' ) )
 			|| ! $this->date_validator->validate( $model, 'start_date', $value )
 		) {
-			$this->error_message = 'The start_date should be a valid date.';
+			$this->add_error_message( 'The start_date should be a valid date.' );
 
 			return false;
 		}
@@ -77,7 +75,7 @@ class End_Date extends Validation {
 
 		// The end date exists but is not valid.
 		if ( ! $this->date_validator->validate( $model, 'end_date', $model->end_date ) ) {
-			$this->error_message = 'The end_date should be a valid date.';
+			$this->add_error_message( 'The end_date should be a valid date.' );
 
 			return false;
 		}
@@ -86,7 +84,7 @@ class End_Date extends Validation {
 			return true;
 		}
 
-		$this->error_message = 'The end_date should happen after the start_date';
+		$this->add_error_message( 'The end_date should happen after the start_date' );
 
 		return false;
 	}

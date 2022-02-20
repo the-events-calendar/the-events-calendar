@@ -9,6 +9,7 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Generator;
 use InvalidArgumentException;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 
 /**
  * Class Builder
@@ -28,7 +29,16 @@ class Builder {
 	 *
 	 * @var int
 	 */
-	protected $batch_size = 100;
+	protected $batch_size = 1000;
+
+	/**
+	 * The type of output that should be used to format the result set elements.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $output_format;
 
 	/**
 	 * An instance to the Model that is using this builder class.
@@ -137,7 +147,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  Model  $model  The model using this builder.
+	 * @param Model $model The model using this builder.
 	 */
 	public function __construct( Model $model ) {
 		$this->model = $model;
@@ -181,7 +191,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  bool  $execute_queries  If the query should be executed or not against the Database.
+	 * @param bool $execute_queries If the query should be executed or not against the Database.
 	 */
 	public function enable_query_execution( $execute_queries = true ) {
 		$this->execute_queries = $execute_queries;
@@ -194,7 +204,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  int  $size  The size of the batch the Builder should use to fetch
+	 * @param int $size    The size of the batch the Builder should use to fetch
 	 *                     Models in unbound query methods like `find_all`.
 	 *
 	 * @return Builder The instance to the current class.
@@ -210,8 +220,8 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array<string>  $unique_by  A list of columns that are marked as UNIQUE on the database.
-	 * @param  array<string,mixed>|null  $data  The data to be inserted or updated into the table.
+	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
+	 * @param array<string,mixed>|null $data      The data to be inserted or updated into the table.
 	 *
 	 * @return bool If the operation was completed correctly or not.
 	 */
@@ -242,6 +252,12 @@ class Builder {
 		}
 
 		if ( $model->is_invalid() ) {
+			do_action( 'tribe_log', 'error', implode( ' : ', $model->errors() ), [
+				'method' => __METHOD__,
+				'line'   => __LINE__,
+				'model'  => get_class( $model )
+			] );
+
 			return false;
 		}
 
@@ -260,15 +276,15 @@ class Builder {
 
 		global $wpdb;
 
-		$update_sql         = [];
-		$update_value       = [];
+		$update_sql   = [];
+		$update_value = [];
 		foreach ( $formatted_data as $column => $value ) {
 			if ( in_array( $column, $unique_by, true ) ) {
 				continue;
 			}
 			$value_placeholder = isset( $format[ $column ] ) ? $format[ $column ] : '%s';
-			$update_sql[]   = "{$column}={$value_placeholder}";
-			$update_value[] = $value;
+			$update_sql[]      = "{$column}={$value_placeholder}";
+			$update_value[]    = $value;
 		}
 		$update_assignment_list = $wpdb->prepare( implode( ', ', $update_sql ), ...$update_value );
 
@@ -295,13 +311,14 @@ class Builder {
 	 * be set here as an array of key => value pairs, where the key is the column being saved and the value is the
 	 * value intended to be saved.
 	 *
-	 * A bulk insert is also supported, only rows of the same size can be inserted, an array of arrays representing each
-	 * the column to be inserted, all rows should be the same length of columns and values as the rest of the rows inside
-	 * of the data, otherwise the operation is won't complete.
+	 * A bulk insert is also supported, only rows of the same size can be inserted, an array of arrays representing
+	 * each
+	 * the column to be inserted, all rows should be the same length of columns and values as the rest of the rows
+	 * inside of the data, otherwise the operation is won't complete.
 	 *
 	 * @since TBD
 	 *
-	 * @param  array<string, mixed>|array<array<string,mixed>  $data  The data that is being inserted.
+	 * @param array<string, mixed>|array<array<string,mixed> $data The data that is being inserted.
 	 *
 	 * @return int The number of affected rows.
 	 */
@@ -317,7 +334,7 @@ class Builder {
 		}
 
 		// @todo make this filterable?
-		$insert_batch_size = 1000;
+		$insert_batch_size = $this->batch_size;
 		$result            = 0;
 		global $wpdb;
 
@@ -352,7 +369,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array|null  $data  If the data is null the data of the model would be used to set an update, otherwise
+	 * @param array|null $data    If the data is null the data of the model would be used to set an update, otherwise
 	 *                            an array of `column => value` are used to construct the series of updates to perform
 	 *                            against this model.
 	 *
@@ -462,8 +479,8 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  mixed|array<mixed>  $value  The value, or values, of the column we are looking for.
-	 * @param  string|null  $column  The name of the column used to compare against, primary key if not defined.
+	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
+	 * @param string|null        $column The name of the column used to compare against, primary key if not defined.
 	 *
 	 * @return Model|null Returns a single record where if the model is found, `null` otherwise.
 	 */
@@ -478,8 +495,8 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $column  The column name to look for.
-	 * @param  array<mixed>  $in_values  An array of values to test against the database.
+	 * @param string       $column    The column name to look for.
+	 * @param array<mixed> $in_values An array of values to test against the database.
 	 *
 	 * @return Builder
 	 */
@@ -507,8 +524,8 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $column  The name of the column to compare against.
-	 * @param  array<mixed>  $not_in_values  The list of values used in the comparison.
+	 * @param string       $column        The name of the column to compare against.
+	 * @param array<mixed> $not_in_values The list of values used in the comparison.
 	 *
 	 * @return $this
 	 */
@@ -536,10 +553,11 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $column  The name of the column we are validating.
-	 * @param  array<mixed>  $list_values  An array with the values that are compared against this model column.
+	 * @param string       $column      The name of the column we are validating.
+	 * @param array<mixed> $list_values An array with the values that are compared against this model column.
 	 *
-	 * @return array<array<string>, array<mixed>> An associative array with the placeholders and values generated from the validations.
+	 * @return array<array<string>, array<mixed>> An associative array with the placeholders and values generated from
+	 *                              the validations.
 	 */
 	private function prepare_list_of_values( $column, $list_values ) {
 		$placeholders  = [];
@@ -578,8 +596,8 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  mixed|array<mixed>  $value  The value, or values, of the column we are looking for.
-	 * @param  string|null  $column  The name of the column used to compare against, primary key if not defined.
+	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
+	 * @param string|null        $column The name of the column used to compare against, primary key if not defined.
 	 *
 	 * @return array<mixed>|false Either an array containing the column, data and format, in this order; or `false` to
 	 *                            indicate the value and column are not coherent and valid. The data and format values
@@ -621,8 +639,8 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  mixed|array<mixed>  $value  The value, or values, to find the matches for.
-	 * @param  string|null  $column  The column to search the Models by, or `null` to use the Model
+	 * @param mixed|array<mixed> $value     The value, or values, to find the matches for.
+	 * @param string|null        $column    The column to search the Models by, or `null` to use the Model
 	 *                                      primary column.
 	 *
 	 * @return Generator<Model>|null A generator that will return all matching Model instances
@@ -644,11 +662,11 @@ class Builder {
 		$orderBy  = ! empty( $this->order ) ? 'ORDER BY `' . $this->order['column'] . '` ' . $this->order['order'] : '';
 
 		global $wpdb;
-		$SQL           = "SELECT * FROM {$wpdb->prefix}{$this->model->table_name()} WHERE `{$column}` {$operator} ({$compare}) {$orderBy} LIMIT %d";
-		$batch_size    = min( absint( $this->batch_size ), 1000 );
+		$SQL = "SELECT * FROM {$wpdb->prefix}{$this->model->table_name()} WHERE `{$column}` {$operator} ({$compare}) {$orderBy} LIMIT %d";
+
+		$batch_size    = min( absint( $this->batch_size ), 5000 );
 		$semi_prepared = $wpdb->prepare( $SQL, array_merge( (array) $data, [ $batch_size ] ) );
 		$model_class   = get_class( $this->model );
-
 		// Start with no results.
 		$results = [];
 		$offset  = 0;
@@ -698,7 +716,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string|null  $column_name  The name of the column used for the count, '*` otherwise.
+	 * @param string|null $column_name The name of the column used for the count, '*` otherwise.
 	 *
 	 * @return int
 	 */
@@ -767,9 +785,9 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $table_name  The name of the table to join.
-	 * @param  string  $left_column  The field on the table to join.
-	 * @param  string  $current_model_column  The field on the current model to join against with.
+	 * @param string $table_name           The name of the table to join.
+	 * @param string $left_column          The field on the table to join.
+	 * @param string $current_model_column The field on the current model to join against with.
 	 *
 	 * @return $this
 	 */
@@ -815,6 +833,14 @@ class Builder {
 				$SQL,
 				ARRAY_A
 			);
+		}
+
+		if ( ARRAY_A === $this->output_format ) {
+			return $results;
+		}
+
+		if ( ARRAY_N === $this->output_format ) {
+			return array_map( 'array_values', $results );
 		}
 
 		return $this->create_collection( $results );
@@ -894,8 +920,6 @@ class Builder {
 			return "WHERE " . implode( ' AND ', $this->wheres );
 		}
 
-		$this->invalid = true;
-
 		return '';
 	}
 
@@ -904,9 +928,9 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $column  The name of the column
-	 * @param  string|null  $operator  The operator to use against to compare or the value
-	 * @param  string|null  $value  The value to compare against with.
+	 * @param string      $column   The name of the column
+	 * @param string|null $operator The operator to use against to compare or the value
+	 * @param string|null $value    The value to compare against with.
 	 *
 	 * @return $this
 	 */
@@ -962,7 +986,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $operator  The operator to compare against with.
+	 * @param string $operator The operator to compare against with.
 	 *
 	 * @return bool If the operator is invalid or not.
 	 */
@@ -975,8 +999,8 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string|null  $column  The name of the column to order by, if not provided fallback to the primary key name
-	 * @param  string  $order  The type of order for the results.
+	 * @param string|null $column The name of the column to order by, if not provided fallback to the primary key name
+	 * @param string      $order  The type of order for the results.
 	 *
 	 * @return $this
 	 */
@@ -996,7 +1020,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  int  $limit  The limit to apply to the current query.
+	 * @param int $limit The limit to apply to the current query.
 	 *
 	 * @return $this Instance to the current class.
 	 */
@@ -1015,7 +1039,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  int  $offset  The offset applied to the current query.
+	 * @param int $offset The offset applied to the current query.
 	 *
 	 * @return $this Instance to the current class.
 	 */
@@ -1033,8 +1057,10 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array<string, mixed>  $data  An associative array where the keys represent the columns and the value the expected value to be saved.
-	 * @param  array<string,string>  $format  An array with the key as the column and the value as the format of the column.
+	 * @param array<string, mixed> $data   An associative array where the keys represent the columns and the value the
+	 *                                     expected value to be saved.
+	 * @param array<string,string> $format An array with the key as the column and the value as the format of the
+	 *                                     column.
 	 *
 	 * @return string
 	 */
@@ -1066,7 +1092,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array  $data
+	 * @param array $data
 	 *
 	 * @return array
 	 */
@@ -1087,7 +1113,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array<array<string, mixed>>  $data  The data to be validated.
+	 * @param array<array<string, mixed>> $data The data to be validated.
 	 *
 	 * @return array<string, mixed> An array with the columns, placeholders and values to be inserted.
 	 */
@@ -1171,7 +1197,7 @@ class Builder {
 			$this->model->reset();
 		}
 
-		foreach ( $model->toArray() as $column => $value ) {
+		foreach ( $model->to_array() as $column => $value ) {
 			$this->model->{$column} = $value;
 		}
 	}
@@ -1181,12 +1207,12 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array<string, mixed>  $data  An array that is going to be used to setup the data of a model.
+	 * @param array<string, mixed> $data An array that is going to be used to setup the data of a model.
 	 *
 	 * @return   Model  An instance of a model
 	 */
 	private function set_data_to_model( array $data = [] ) {
-		$data        = array_merge( $this->model->toArray(), $data );
+		$data        = array_merge( $this->model->to_array(), $data );
 		$model_class = get_class( $this->model );
 
 		return new $model_class( $data );
@@ -1197,7 +1223,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @param  array|null  $raw  The result from a `$wpdb->get_results` call.
+	 * @param array|null $raw The result from a `$wpdb->get_results` call.
 	 *
 	 * @return array<Model> An array with the models with the raw results.
 	 */
@@ -1233,5 +1259,127 @@ class Builder {
 		$this->wheres[] = '(' . $wpdb->prepare( $query, ...$args ) . ')';
 
 		return $this;
+	}
+
+	/**
+	 * Sets the output format that should be used to format the result(s) of a SELECT
+	 * Model query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $output One of `OBJECT`, `ARRAY_A` or `ARRAY_N`. Note that `OBJECT`
+	 *                       will build and return instances of the Model.
+	 *
+	 * @return $this A reference to the query builder object, for chaining purposes.
+	 */
+	public function output( $output = OBJECT ) {
+		if ( ! in_array( $output, [ OBJECT, ARRAY_A, ARRAY_N ], true ) ) {
+			throw new InvalidArgumentException( 'Output not supported, use one of ARRAY_A, ARRAY_N or OBJECT.' );
+		}
+
+		$this->output_format = $output;
+
+		return $this;
+	}
+
+	/**
+	 * Fetches all the matching results for the query.
+	 *
+	 * The method will handle querying the database in batches, running bound queries
+	 * to support unbound fetching.
+	 *
+	 * @since TBD
+	 *
+	 * @return Generator<Model|array> A generator of either this Model instances or arrays, depending on
+	 *                                the selected output format.
+	 */
+	public function all() {
+		$query_offset   = (int) $this->offset;
+		$query_limit    = $this->limit ?: PHP_INT_MAX;
+		$running_offset = $query_offset;
+		$running_limit  = $query_limit;
+		$running_tally  = 0;
+
+		do {
+			$this->limit    = min( $this->batch_size, $running_limit );
+			$this->offset   = $running_offset;
+			$running_limit  -= $this->batch_size;
+			$running_offset += $this->batch_size;
+			$batch_results  = $this->get();
+			$found          = count( $batch_results );
+			foreach ( $batch_results as $batch_result ) {
+				// Yields with a set key to avoid calls to `iterator_to_array` overriding the values on each pass.
+				yield $running_tally ++ => $batch_result;
+			}
+		} while ( $found === $this->batch_size );
+	}
+
+	/**
+	 * Bulk updates instances of the Model.
+	 *
+	 * Since MySQL does not come with a bulk update feature, this code will actually
+	 * delete the exising model entries and re-insert them, by primary key, using the
+	 * updated data.
+	 *
+	 * @since TBD
+	 * @param array<Model>|array<array<string,mixed>> $models Either a list of Model
+	 *                                                        instances to update, or a
+	 *                                                        set of models in array format.
+	 *
+	 * @return int The number of updated rows.
+	 */
+	public function upsert_set( array $models = [] ) {
+		if ( ! count( $models ) ) {
+			return 0;
+		}
+
+		global $wpdb;
+		$table          = $wpdb->prefix . $this->model->table_name();
+		$primary_key    = $this->model->primary_key_name();
+		$expected_count = count( $models );
+		$keys           = wp_list_pluck( $models, $primary_key );
+
+		$deleted = 0;
+		do {
+			$batch         = array_splice( $keys, 0, $this->batch_size );
+			$keys_interval = implode( ',', array_map( 'absint', $batch ) );
+			$deleted       += $wpdb->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
+		} while ( count( $keys ) );
+
+		if ( $deleted !== $expected_count ) {
+			// There might be legit reasons, like another process running on the same table, but let's log it.
+			do_action( 'tribe_log', 'warning', 'Mismatching number of deletions.', [
+				'source'      => __CLASS__,
+				'slug'        => 'delete-in-upsert-set',
+				'table'       => $table,
+				'primary_key' => $primary_key,
+				'expected'    => $expected_count,
+				'deleted'     => $inserted,
+			] );
+		}
+
+		$updates = $models;
+		// Here we make the assumptions the models will not be mixed bag, but either all arrays or all Models.
+		if ( ! is_array( reset( $models ) ) ) {
+			$updates = array_map( static function ( Model $model ) {
+				return $model->to_array();
+			}, $models );
+		}
+
+		$inserted = $this->insert( $updates );
+
+		if ( $inserted !== $expected_count ) {
+			// There might be legit reasons, like another process running on the same table, but let's log it.
+			do_action( 'tribe_log', 'warning', 'Mismatching number of insertions.', [
+				'source'      => __CLASS__,
+				'slug'        => 'delete-in-upsert-set',
+				'table'       => $table,
+				'primary_key' => $primary_key,
+				'expected'    => $expected_count,
+				'inserted'    => $inserted,
+			] );
+		}
+
+		return $inserted;
 	}
 }

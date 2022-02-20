@@ -26,7 +26,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Integer_Key;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Positive_Integer;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date_UTC;
-use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validation;
+use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validator;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
@@ -70,7 +70,7 @@ class Occurrence extends Model {
 		'start_date_utc' => Start_Date_UTC::class,
 		'end_date_utc'   => End_Date_UTC::class,
 		'duration'       => Duration::class,
-		'hash'           => String_Validation::class,
+		'hash'           => String_Validator::class,
 		'updated_at'     => Valid_Date::class,
 	];
 
@@ -359,7 +359,21 @@ class Occurrence extends Model {
 		$insertions = [];
 		$updates = [];
 		$utc        = new DateTimeZone( 'UTC' );
+		$first_occurrence = self::where( 'post_id', '=', $post_id )->first();
+		// Clear the cache to start fresh on this upsert cycle.
+		wp_cache_delete( $post_id, 'tec_occurrence_matches' );
+
 		foreach ( $generator as $result ) {
+			$occurrence = null;
+
+			if ( isset( $first_occurrence ) && $first_occurrence instanceof self ) {
+				// TEC only handles single Occurrence Events: reuse the existing one.
+				$occurrence = $first_occurrence;
+			}
+
+			// Unset the first occurrence to avoid it being re-used more than once.
+			unset( $first_occurrence );
+
 			/**
 			 * Filters the Occurrence that should be returned to match the requested new Occurrence.
 			 *
@@ -371,25 +385,22 @@ class Occurrence extends Model {
 			 *                                    for which a match is being searched among the existing Occurrences.
 			 * @param int             $post_id    The ID of the Event post the match is being searched for.
 			 */
-			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', null, $result, $post_id );
-
-			if ( null === $occurrence ) {
-				// TEC only handles single Occurrence Events: keep reusing the existing one.
-				$occurrence = self::where( 'post_id', '=', $post_id )->first();
-			}
+			$occurrence = apply_filters( 'tec_custom_tables_v1_get_occurrence_match', $occurrence, $result, $post_id );
 
 			if ( $occurrence instanceof self ) {
-				$result->occurrence_id       = $occurrence->occurrence_id;
-				$updated_at                  = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
-				$result->updated_at          = $updated_at;
-				$result->update();
-				$updates[] = $result;
+				$result->occurrence_id             = $occurrence->occurrence_id;
+				$updated_at                        = ( new DateTime( 'now', $utc ) )->format( 'Y-m-d H:i:s' );
+				$result->updated_at                = $updated_at;
+				$updates[ $result->occurrence_id ] = $result->to_array();
 				continue;
 			}
-			$insertions[] = $result->toArray();
+
+			$insertions[] = $result->to_array();
 		}
 
 		if ( count( $updates ) ) {
+			Occurrence::upsert_set( array_values( $updates ) );
+
 			/**
 			 * Fires after Occurrences for an Event have been updated.
 			 *

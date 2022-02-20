@@ -9,7 +9,7 @@ use Tribe__Admin__Helpers;
 /**
  * Class Provider
  *
- * @since TBD
+ * @since 5.14.0
  *
  */
 class Provider extends \tad_DI52_ServiceProvider {
@@ -17,7 +17,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 */
 	public function register() {
 		// Bail if Filter Bar is already installed.
@@ -32,7 +32,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add actions.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 */
 	public function add_actions() {
 		add_action( 'tribe_settings_do_tabs', [ $this, 'add_tab' ] );
@@ -40,8 +40,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Register Assets.
-	 * 
-	 * @since TBD
+	 *
+	 * @since 5.14.0
 	 */
 	public function add_assets() {
 		tribe_asset(
@@ -59,7 +59,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the elements.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @var Tribe__Template
 	 */
@@ -68,7 +68,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Gets the template instance used to setup the rendering html.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @return Tribe__Template
 	 */
@@ -87,22 +87,22 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Returns html of the Filter Bar upsell banner.
 	 *
-	 * @since TBD
-	 * 
+	 * @since 5.14.0
+	 *
 	 * @param array   $context Context of template.
 	 * @param boolean $echo    Whether or not to output the HTML or just return it.
 	 *
 	 * @return Tribe__Template
 	 */
 	public function get_upsell_html( $context = [], $echo = false ) {
-		
+
 		return $this->get_template()->template( 'upsell', wp_parse_args( $context ), $echo );
 	}
 
 	/**
 	 * Create a Filter Bar upsell tab.
-	 * 
-	 * @since TBD
+	 *
+	 * @since 5.14.0
 	 */
 	public function add_tab() {
 
@@ -112,16 +112,16 @@ class Provider extends \tad_DI52_ServiceProvider {
 				'html' => $this->get_upsell_html(),
 			],
 		];
-		
+
 		/**
 		* Allows the fields displayed in the Filter Bar upsell tab to be modified.
 		*
-		* @since TBD
+		* @since 5.14.0
 		*
 		* @param array $tec_events_filter_bar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
 		*/
 		$tec_events_admin_filter_bar_upsell_fields = apply_filters( 'tec_events_filterbar_upgrade_content', $tec_events_filter_bar_upsell_tab );
-		
+
 		new Tribe__Settings_Tab(
 			'filter-view', esc_html__( 'Filters', 'the_events_calendar' ),
 			[
@@ -136,7 +136,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Checks whether we are on the correct admin page to enqueue admin.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @return bool
 	 */

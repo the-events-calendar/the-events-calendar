@@ -19,13 +19,12 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class Valid_Event_Model extends Validation{
+class Valid_Event_Model extends Validator{
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate( Model $model, $name, $value ) {
-		$this->error_message = '';
 
 		if ( empty( $value ) ) {
 			return false;
@@ -40,7 +39,7 @@ class Valid_Event_Model extends Validation{
 		$event = Event::find( $abs_value, 'event_id' );
 
 		if ( ! $event instanceof Event ) {
-			$this->error_message = 'The provided value is not a valid Event ID.';
+			$this->add_error_message( 'The provided value is not a valid Event ID.' );
 
 			return false;
 		}

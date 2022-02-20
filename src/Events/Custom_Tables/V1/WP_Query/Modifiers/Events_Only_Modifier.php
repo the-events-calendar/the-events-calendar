@@ -27,18 +27,15 @@ class Events_Only_Modifier extends Base_Modifier {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @since TBD
-	 *
-	 * @param  WP_Query|null  $query
-	 *
-	 * @return bool
 	 */
 	public function applies_to( WP_Query $query = null ) {
-		return $query instanceof WP_Query
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			return false;
+		}
+
+		return $query !== null
 		       && ! $query instanceof Custom_Tables_Query
-		       && $this->is_query_for_post_type( $query, TEC::POSTTYPE )
-		       && ! is_admin();
+		       && $this->is_query_for_post_type( $query, TEC::POSTTYPE );
 	}
 
 	/**
@@ -53,13 +50,13 @@ class Events_Only_Modifier extends Base_Modifier {
 	/**
 	 * Pre-fills the query posts with results fetched from the custom tables.
 	 *
+	 * @since TBD
+	 *
+	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 	 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
 	 *                                             plugins at this stage.
-	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 	 *
 	 * @return null|array<WP_Post|int> The filtered value of the posts, injected before the query actually runs.
-	 *@since TBD
-	 *
 	 */
 	public function filter_posts_pre_query( $posts = null, WP_Query $wp_query = null ) {
 		if ( ! $this->is_target_query( $wp_query ) ) {

@@ -20,7 +20,7 @@ use Tribe__Timezones as Timezones;
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
-class End_Date_UTC extends Validation {
+class End_Date_UTC extends Validator {
 	/**
 	 * A Dates validator instance.
 	 *
@@ -69,14 +69,14 @@ class End_Date_UTC extends Validation {
 			( empty( $model->start_date_utc ) && ! $model->has_single_validation( 'end_date_utc' ) )
 			|| ! $this->date_validator->validate( $model, 'start_date_utc', $model->start_date_utc )
 		) {
-			$this->error_message = 'The start_date_utc should be a valid date.';
+			$this->add_error_message( 'The start_date_utc should be a valid date.' );
 
 			return false;
 		}
 
 		// The end date is not a valid date.
 		if ( ! $this->date_validator->validate( $model, 'end_date_utc', $model->end_date_utc ) ) {
-			$this->error_message = 'The end_date_utc should be a valid date.';
+			$this->add_error_message( 'The end_date_utc should be a valid date.' );
 
 			return false;
 		}
@@ -93,7 +93,7 @@ class End_Date_UTC extends Validation {
 				return true;
 			}
 
-			$this->error_message = 'The end_date_utc does not match the value of end_date with the timezone.';
+			$this->add_error_message( 'The end_date_utc does not match the value of end_date with the timezone.' );
 
 			return false;
 		}
@@ -102,7 +102,7 @@ class End_Date_UTC extends Validation {
 			return true;
 		}
 
-		$this->error_message = 'The end_date_utc should happen after the start_date_utc';
+		$this->add_error_message( 'The end_date_utc should happen after the start_date_utc' );
 
 		return false;
 	}

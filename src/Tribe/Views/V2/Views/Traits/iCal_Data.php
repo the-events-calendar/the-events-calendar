@@ -37,35 +37,36 @@ trait iCal_Data {
 		 * A filter to control whether the "iCal Import" link shows up or not.
 		 *
 		 * @since unknown
-		 * @deprecated TBD
+		 *
+		 * @deprecated 5.14.0 Changed to a more generic filter name and deprecated for the new subscribe to calendar links.
 		 *
 		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
 		 */
 		$display_ical = apply_filters_deprecated(
 			'tribe_events_list_show_ical_link',
 			[$display_ical],
-			'TBD',
-			'tribe_events_show_ical_link',
-			'Changed to a more generic filter name, see also tribe_events_{$this->slug}_show_ical_link below for a view-specific filter.'
+			'5.14.0',
+			'tec_events_show_ical_link',
+			'Changed to a more generic filter name and deprecated for the new subscribe to calendar links, see also tribe_events_{$slug}_show_ical_link below for a view-specific filter.'
 		);
 
 		/**
 		 * A filter to control whether the "iCal Import" link shows up or not.
 		 *
-		 * @since TBD
+		 * @since 5.14.0
 		 *
 		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
 		 */
-		$display_ical = apply_filters( 'tribe_events_show_ical_link', $display_ical );
+		$display_ical = apply_filters( 'tec_events_show_ical_link', $display_ical );
 
 		/**
 		 * A view-specific filter to control whether the "iCal Import" link shows up or not.
 		 *
-		 * @since TBD
+		 * @since 5.14.0
 		 *
 		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
 		 */
-		$display_ical = apply_filters( "tribe_events_{$this->slug}_show_ical_link", $display_ical );
+		$display_ical = apply_filters( "tec_events_{$slug}_show_ical_link", $display_ical );
 
 		/**
 		 * Allow for customization of the iCal export link "Export Events" text.

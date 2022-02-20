@@ -45,12 +45,6 @@ class Provider extends tad_DI52_ServiceProvider {
 		], 10, 3 );
 	}
 
-	public function filter_add_template_origin_namespace( $namespace_map, $path, Tribe__Template $template ) {
-		$namespace_map['ical-tec'] = trailingslashit( TEC_CUSTOM_TABLES_V1_ROOT );
-
-		return $namespace_map;
-	}
-
 	/**
 	 * Returns the prepared `By_Day_View` day results.
 	 *
