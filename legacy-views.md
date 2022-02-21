@@ -36,6 +36,12 @@
 * `src/resources/js/tribe-events-bar.js`
 * `src/resources/js/tribe-events-calendar-script.js`
   * Filterbar usage of `tribe-events-calendar-script`
+* `src/resources/postcss/tribe-events-pro-full.pcss`
+* `src/resources/postcss/tribe-events-pro-full-mobile.pcss`
+* `src/resources/postcss/tribe-events-pro-skeleton.pcss`
+* `src/resources/postcss/tribe-events-pro-theme.pcss`
+* `src/resources/postcss/tribe-events-pro-theme-mobile.pcss`
+
 
 ## Classes Removed
 
