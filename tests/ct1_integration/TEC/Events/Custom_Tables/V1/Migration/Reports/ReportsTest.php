@@ -107,7 +107,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$data['total_events']             = 1234;
 		$data['total_events_migrated']    = 33;
 		$data['total_events_in_progress'] = 55;
-		$data['total_events_remaining']   = $data['total_events'] - $data['total_events_migrated']
+		$data['total_events_remaining']   = $data['total_events'] - $data['total_events_migrated'];
 		$data['event_reports']            = [ $event_report1, $event_report2 ];
 		$data['migration_phase']          = State::PHASE_MIGRATION_IN_PROGRESS;
 		$data['is_completed']             = true;
@@ -185,7 +185,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$some_error = uniqid();
+		$some_error = uniqid( 'test_', true );
 
 		// Fail the report
 		$event_report1 = ( new Event_Report( $post1 ) )

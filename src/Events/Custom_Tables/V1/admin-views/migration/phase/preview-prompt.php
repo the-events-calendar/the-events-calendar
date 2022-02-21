@@ -21,7 +21,7 @@ $strings = tribe( Strings::class );
 
 		<p>
 			<strong>
-				<?php echo esc_html($strings->get('preview-prompt-ready')); ?>
+				<?php echo esc_html( $strings->get( 'preview-prompt-ready' ) ); ?>
 			</strong>
 			<?php esc_html_e( 'We\'ll scan all existing events and let you know what to expect from the migration process. You\'ll also get an idea of how long your migration will take. The preview runs in the background, so you’ll be able to continue using your site.', 'the-events-calendar' ); ?>
 		</p>

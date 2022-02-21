@@ -10,6 +10,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
 use JsonSerializable;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events_Pro\Custom_Tables\V1\EventRecurrence_Factory;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -17,6 +18,17 @@ use Tribe__Events__Main as TEC;
  *
  * @since   TBD
  * @package TEC\Events\Custom_Tables\V1\Migration;
+ *
+ * @property int                 estimated_time_in_hours
+ * @property string              date_completed
+ * @property int                 total_events
+ * @property int                 total_events_migrated
+ * @property int                 total_events_in_progress
+ * @property bool                has_changes
+ * @property array<Event_Report> event_reports
+ * @property string              migration_phase
+ * @property bool                is_completed
+ * @property bool                is_running
  */
 class Site_Report implements JsonSerializable {
 
@@ -190,7 +202,7 @@ class Site_Report implements JsonSerializable {
 			'total_events_migrated'    => $total_events_migrated,
 			'total_events'             => $total_events,
 			'total_events_remaining' => $total_events - $total_events_migrated,
-			'has_changes'              => ! ! count( $event_reports ),
+			'has_changes'              => (bool) count( $event_reports ),
 			'event_reports'            => $event_reports,
 			'migration_phase'          => $state->get_phase(),
 			'is_completed'             => $state->is_completed(),
@@ -198,5 +210,9 @@ class Site_Report implements JsonSerializable {
 		];
 
 		return new Site_Report( $data );
+	}
+
+	public function __get( $prop ) {
+		return isset( $this->data[ $prop ] ) ? $this->data[ $prop ] : null;
 	}
 }

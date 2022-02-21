@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provider_Contract;
 use Tribe__Events__Main as TEC;
 
@@ -46,7 +47,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		$this->container->singleton( Strings::class, Strings::class );
 		$this->container->singleton( State::class, State::class );
-		$this->container->singleton( Reports::class, Reports::class );
+		$this->container->singleton( Site_Report::class, Site_Report::class );
 		$this->container->singleton( Events::class, Events::class );
 		$this->container->singleton( Page::class, Page::class );
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
@@ -116,6 +117,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		wp_localize_script( 'tec-ct1-upgrade-admin-js',
 			'tecCt1Upgrade',
 			[
+				'ajaxUrl' => admin_url()  . 'admin-ajax.php',
 				'actions' => [
 					'get_report'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
 					'start_migration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
