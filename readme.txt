@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.14.0.2] 2022-02-21 =
 
 * Fix - Correct conditional in Filter Bar upsell banner. [TEC-4284]
 
