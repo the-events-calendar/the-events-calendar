@@ -21,7 +21,7 @@ if ( empty( $items ) ) {
 <div class="tribe-events-c-subscribe-dropdown__container">
 	<div class="tribe-events-c-subscribe-dropdown">
 		<div class="tribe-common-c-btn-border tribe-events-c-subscribe-dropdown__button" tabindex="0">
-			<button class="tribe-events-c-subscribe-dropdown__button-text">
+			<button class="tribe-events-c-subscribe-dropdown__button-text tribe-common-c-btn__clear">
 				<?php echo esc_html__( 'Subscribe to calendar', 'the-events-calendar' ); ?>
 			</button>
 			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-subscribe-dropdown__button-icon' ] ] ); ?>
