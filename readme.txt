@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Correct conditional in Filter Bar upsell banner. [TEC-4284]
+
 = [5.14.0.1] 2022-02-15 =
 
 * Fix - Prevent parse error due to trailing comma on a method call, PHP 7.1 compatibility required. Props @kzeni
