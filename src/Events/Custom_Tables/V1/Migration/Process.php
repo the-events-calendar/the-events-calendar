@@ -10,11 +10,10 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-/**
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;/**
  * Class Process.
  *
  * @since   TBD
- *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Process {
@@ -66,27 +65,44 @@ class Process {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
-		/**
-		 * Filters the migration strategy that should be used to migrate an Event.
-		 *
-		 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
-		 * here will prevent TEC from using the default one.
-		 *
-		 * @since TBD
-		 *
-		 * @param Strategy_Interface A reference to the migration strategy that should be used.
-		 *                          Initially `null`.
-		 * @param int  $post_id     The post ID of the Event to migrate.
-		 * @param bool $dry_run     Whether the strategy should be provided for a real migration
-		 *                          or its preview.
-		 */
-		$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_strategy', null, $post_id, $dry_run );
+		try {
+			/**
+			 * Filters the migration strategy that should be used to migrate an Event.
+			 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
+			 * here will prevent TEC from using the default one.
+			 *
+			 * @since TBD
+			 *
+			 * @param Strategy_Interface A reference to the migration strategy that should be used.
+			 *                          Initially `null`.
+			 * @param int  $post_id     The post ID of the Event to migrate.
+			 * @param bool $dry_run     Whether the strategy should be provided for a real migration
+			 *                          or its preview.
+			 *
+			 * @todo
+			 */
+			$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_strategy', null, $post_id, $dry_run );
 
-		if ( ! $strategy instanceof Strategy_Interface ) {
-			$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
+			if ( ! $strategy instanceof Strategy_Interface ) {
+				$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
+			}
+
+			// Get our Event_Report ready for the strategy.
+			$event_report = new Event_Report( get_post( $post_id ) );
+			$event_report->start_event_migration();
+
+			// Apply strategy, use Event_Report to flag any pertinent details and mark done.
+			$strategy->apply( $event_report );
+
+		} catch (\Throwable $e) {
+			$event_report->failed($e->getMessage());
+		} catch (\Exception $e) {
+			$event_report->failed($e->getMessage());
 		}
-
-		$report = $strategy->apply();
+		//@todo Must flag Done in strategy?
+		if(!$event_report->get_end_timestamp()) {
+			$event_report->failed("Strategy did not mark complete...?");
+		}
 
 		$post_id = $this->events->get_id_to_process();
 
@@ -97,7 +113,7 @@ class Process {
 			//@todo check action ID here and log on failure.
 		}
 
-		return $report;
+		return $event_report;
 	}
 
 	/**

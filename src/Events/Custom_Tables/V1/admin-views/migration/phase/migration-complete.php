@@ -35,8 +35,6 @@ $strings = tribe( Strings::class );
 			);
 			?>
 		</p>
-
-		<?php $report = tribe(Reports::class)->build(); ?>
 	</div>
 </div>
 

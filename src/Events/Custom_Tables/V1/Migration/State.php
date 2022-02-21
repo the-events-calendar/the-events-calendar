@@ -25,9 +25,9 @@ class State {
 	const PHASE_MIGRATION_PROMPT = 'migration-prompt';
 	const PHASE_MIGRATION_IN_PROGRESS = 'migration-in-progress';
 	const PHASE_MIGRATION_COMPLETE = 'migration-complete';
-	const PHASE_CANCELLATION_RUNNING = 'cancellation-in-progress';
+	const PHASE_CANCELLATION_IN_PROGRESS = 'cancellation-in-progress';
 	const PHASE_CANCELLATION_COMPLETE = 'cancellation-complete';
-	const PHASE_UNDO_RUNNING = 'undo-in-progress';
+	const PHASE_UNDO_IN_PROGRESS = 'undo-in-progress';
 	const PHASE_UNDO_COMPLETE = 'undo-completed';
 
 	/**
@@ -58,7 +58,6 @@ class State {
 		// @todo remove this data mock.
 		$this->data = [
 			'complete_timestamp' => strtotime( 'yesterday 4pm' ),
-			'events'             => [ 'total' => 23 ],
 		];
 	}
 
@@ -70,7 +69,14 @@ class State {
 	 * @return bool Whether the migration is completed or not.
 	 */
 	public function is_completed() {
-		return false;
+		// @todo This what we want to check here...? Being used in Site_Report
+		$completed_states = [
+			self::PHASE_MIGRATION_COMPLETE,
+			self::PHASE_CANCELLATION_COMPLETE,
+			self::PHASE_UNDO_COMPLETE,
+		];
+
+		return in_array( $this->get_phase(), $completed_states );
 	}
 
 	/**
@@ -92,7 +98,15 @@ class State {
 	 * @return bool Whether the migration is running or not.
 	 */
 	public function is_running() {
-		return false;
+		// @todo This what we want to check here...? Being used in Site_Report
+		$in_progress_states = [
+			self::PHASE_MIGRATION_IN_PROGRESS,
+			self::PHASE_PREVIEW_IN_PROGRESS,
+			self::PHASE_UNDO_IN_PROGRESS,
+			self::PHASE_CANCELLATION_IN_PROGRESS
+		];
+
+		return in_array( $this->get_phase(), $in_progress_states );
 	}
 
 	/**

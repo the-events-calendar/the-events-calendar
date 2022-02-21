@@ -8,12 +8,12 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 
 /**
  * Interface StrategyInterface.
  *
  * @since   TBD
- *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 interface Strategy_Interface {
@@ -24,9 +24,11 @@ interface Strategy_Interface {
 	 *
 	 * @since TBD
 	 *
+	 * @param Event_Report
+	 *
 	 * @return Event_Report A reference to the report for the Event migration.
 	 */
-	public function apply();
+	public function apply(Event_Report $event_report);
 
 	/**
 	 * Cancels the migration for an Event.

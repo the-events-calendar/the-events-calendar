@@ -13,11 +13,10 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-/**
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;/**
  * Class Ajax.
  *
  * @since   TBD
- *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Ajax {
@@ -73,11 +72,9 @@ class Ajax {
 	 *
 	 * since TBD
 	 *
-	 * @param Reports $reports A reference to the current reports repository implementation.
 	 * @param Process $process A reference to the current background processing handler.
 	 */
-	public function __construct( Reports $reports, Process $process ) {
-		$this->reports = $reports;
+	public function __construct(  Process $process ) {
 		$this->process = $process;
 	}
 
@@ -90,7 +87,8 @@ class Ajax {
 	 * @return Site_Report The generated report.
 	 */
 	public function get_report( ) {
-		$report = $this->reports->build();
+		// @todo Add pagination?
+		$report = Site_Report::build();
 
 		return $report;
 	}
@@ -113,7 +111,8 @@ class Ajax {
 	 * @return Site_Report A report about the migration start process.
 	 */
 	public function start_migration( $echo = true ) {
-		$report = $this->reports->build();
+		// @todo This should have state with the process starting?
+		$report = Site_Report::build();
 		$this->process->start();
 
 		if ( $echo ) {
@@ -132,7 +131,8 @@ class Ajax {
 	 * @return Site_Report A report about the migration cancel process.
 	 */
 	public function cancel_migration( $echo = true ) {
-		$report = $this->reports->build();
+		// @todo This should have state with the process canceling?
+		$report = Site_Report::build();
 		$this->process->cancel();
 
 		if ( $echo ) {
@@ -151,7 +151,8 @@ class Ajax {
 	 * @return Site_Report A report about the migration undo process.
 	 */
 	public function undo_migration( $echo = true ) {
-		$report = $this->reports->build();
+		// @todo This should have state with the process undoing?
+		$report = Site_Report::build();
 		$this->process->undo();
 
 		if ( $echo ) {

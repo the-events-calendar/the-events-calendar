@@ -54,7 +54,7 @@ class Progress_Modal {
 		$state  = tribe( State::class );
 		$phase  = $state->get_phase();
 
-		return State::PHASE_CANCELLATION_RUNNING === $phase;
+		return State::PHASE_CANCELLATION_IN_PROGRESS === $phase;
 	}
 
 	/**

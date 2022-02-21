@@ -18,27 +18,20 @@ if ( $state->is_completed() ) {
 		</h3>
 
 		<p><?php esc_html_e( 'We\'re scanning your existing events so you’ll know what to expect from the migration process. You can keep using your site and managing events. Check back later for a full preview report and the next steps for migration.', 'the-events-calendar' ); ?></p>
-		<?php
-		$remaining_events = 138;
-		$total_previewed_events = $state->get( 'events', 'total' ) - $remaining_events;
-		$percent = '30%';
-		$progress = 30;
-		?>
-		<div class="tribe-update-bar">
-			<div class="progress" title="<?php echo esc_attr( $percent ); ?>">
-				<div class="bar" style="width: <?php echo esc_attr( $progress ); ?>%"></div>
+		<div class="tribe-update-bar tec-ct1-upgrade-bar">
+			<div class="progress" title="Checking...">
+				<div class="bar"></div>
 			</div>
 			<div class="tribe-update-bar__summary">
 				<div class="tribe-update-bar__summary-progress-text">
 					<?php
 					echo sprintf(
 						_x(
-							'%1$s%2$d%3$s events previewed',
+							'%1$s...%2$s events previewed',
 							'Number of events previewed',
 							'the-events-calendar'
 						),
-						'<strong>',
-						$total_previewed_events,
+						'<strong data-migration="total_events_migrated">',
 						'</strong>'
 					);
 					?>
@@ -47,12 +40,11 @@ if ( $state->is_completed() ) {
 					<?php
 					echo sprintf(
 						_x(
-							'%1$s%2$d%3$s remaining',
+							'%1$s...%2$s remaining',
 							'Number of events awaiting preview',
 							'the-events-calendar'
 						),
-						'<strong>',
-						$remaining_events,
+						'<strong data-migration="total_events_remaining">',
 						'</strong>'
 					);
 					?>
