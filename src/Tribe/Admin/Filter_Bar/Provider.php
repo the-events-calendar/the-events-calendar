@@ -20,8 +20,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.14.0
 	 */
 	public function register() {
-		// Bail if Filter Bar is already installed.
-		if ( class_exists( 'Tribe__Events__Filterbar__View' ) ) {
+		// Bail if Filter Bar is already installed/registered.
+		if ( has_action( 'tribe_common_loaded', 'tribe_register_filterbar' ) ) {
 			return;
 		}
 

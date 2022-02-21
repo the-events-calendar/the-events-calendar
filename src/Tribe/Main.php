@@ -636,17 +636,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// First boot.
 			tribe_register_provider( Tribe\Events\Service_Providers\First_Boot::class );
 
+			// Filter Bar upsell.
+			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
+			 *
+			 * DO NOT put anything after this unless you _need to_ and know the implications!
 			 */
 			do_action( 'tribe_events_bound_implementations' );
 
 			// Database locks.
 			tribe_singleton( 'db-lock', DB_Lock::class );
-
-			// Filter Bar.
-			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 		}
 
 		/**
