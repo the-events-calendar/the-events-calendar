@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.14.0.2] 2022-02-22 =
 
 * Fix - Correct conditional in Filter Bar upsell banner. [TEC-4284]
+* Fix - Un-deprecate `tribe_initialize_view()` as it is used in some new views.
 
 = [5.14.0.1] 2022-02-15 =
 
