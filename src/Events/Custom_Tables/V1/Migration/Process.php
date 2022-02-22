@@ -57,6 +57,7 @@ class Process {
 	 * Processes an Event migration.
 	 *
 	 * @since TBD
+	 *
 	 * @param int  $post_id The post ID of the Evente to migrate.
 	 * @param bool $dry_run Whether the migration should commit or just preview
 	 *                      the changes.
@@ -79,7 +80,6 @@ class Process {
 			 * @param bool $dry_run     Whether the strategy should be provided for a real migration
 			 *                          or its preview.
 			 *
-			 * @todo
 			 */
 			$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_strategy', null, $post_id, $dry_run );
 
@@ -120,6 +120,7 @@ class Process {
 	 * Cancels an Event migration.
 	 *
 	 * @since TBD
+	 *
 	 * @param int $post_id The post ID of the Event to cancel the migration for.
 	 *
 	 * @return Event_Report A reference to the migration report object produced by the
@@ -205,13 +206,15 @@ class Process {
 	 *
 	 * @since TBD
 	 *
+	 * @param bool $dry_run Whether to do a preview or finalize the migration operations.
+	 *
 	 * @return int The number of Events queued for migration.
 	 */
-	public function start() {
+	public function start( $dry_run = true ) {
 		$action_ids = [];
 
 		foreach ( $this->events->get_ids_to_process( 50 ) as $post_id ) {
-			$action_ids[] = as_enqueue_async_action( self::ACTION_PROCESS, $post_id, $dry_run );
+			$action_ids[] = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
 		}
 
 		return count( array_filter( $action_ids ) );
@@ -222,13 +225,15 @@ class Process {
 	 *
 	 * @since TBD
 	 *
+	 * @param bool $dry_run Whether to do a preview or finalize the migration operations.
+	 *
 	 * @return bool Whether the cancellation was correctly started or not.
 	 */
-	public function cancel() {
+	public function cancel( $dry_run = true ) {
 		$action_ids = [];
 
 		foreach ( $this->events->get_ids_to_cancel( 50 ) as $post_id ) {
-			$action_ids[] = as_enqueue_async_action( self::ACTION_CANCEL, $post_id, $dry_run );
+			$action_ids[] = as_enqueue_async_action( self::ACTION_CANCEL, [ $post_id, $dry_run ] );
 		}
 
 		return count( array_filter( $action_ids ) );

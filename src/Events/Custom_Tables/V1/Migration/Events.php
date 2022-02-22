@@ -8,7 +8,8 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
-
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use Tribe__Events__Main as TEC;
 /**
  * Class Events.
  *
@@ -37,17 +38,44 @@ class Events {
 	 * for operation.
 	 *
 	 * @since TBD
+	 *
 	 * @param int $limit The max number of Event post IDs to return
 	 *
 	 * @return array<int> An array of claimed and locked Event post IDs.
 	 */
 	public function get_ids_to_process( $limit ) {
 		global $wpdb;
-		// @todo query from doc, LIMIT $limit
-		$query  = '';
-		$locked = $wpdb->query( $query );
 
-		return $locked;
+		// Batch locking
+		$batch_uid = uniqid( 'tec_ct1_action', true ); // Should be pretty unique.
+
+		// Atomic query.
+		$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+	    SELECT p.ID, '%s','%s'
+	    FROM {$wpdb->posts} p
+	    LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
+	    WHERE p.post_type = '%s' AND pm.meta_value IS NULL
+	    LIMIT %d";
+		$lock_query = sprintf( $lock_query,
+			Event_Report::META_KEY_IN_PROGRESS,
+			$batch_uid,
+			Event_Report::META_KEY_IN_PROGRESS,
+			Event_Report::META_KEY_REPORT_DATA,
+			TEC::POSTTYPE,
+			$limit
+		);
+		$wpdb->query( $lock_query );
+
+		if ( ! $wpdb->rows_affected ) {
+			return [];
+		}
+
+
+		// Let’s claim the prize.
+		$fetch_query = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '%s' AND meta_value = '%s'";
+		$fetch_query = sprintf( $fetch_query, Event_Report::META_KEY_IN_PROGRESS, $batch_uid );
+
+		return $wpdb->get_col( $fetch_query );
 	}
 
 	public function get_ids_to_cancel( $int ) {

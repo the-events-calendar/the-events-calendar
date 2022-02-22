@@ -26,7 +26,7 @@ $strings = tribe( Strings::class );
 			<?php esc_html_e( 'We\'ll scan all existing events and let you know what to expect from the migration process. You\'ll also get an idea of how long your migration will take. The preview runs in the background, so you’ll be able to continue using your site.', 'the-events-calendar' ); ?>
 		</p>
 
-		<button type="button"><?php esc_html_e( 'Start migration preview', 'the-events-calendar' ); ?></button>
+		<button class="tec-ct1-upgrade-start-migration-preview" type="button"><?php esc_html_e( 'Start migration preview', 'the-events-calendar' ); ?></button>
 		<a href="http://evnt.is/recurrence-2-0" target="_blank" rel="noopener">
 			<?php esc_html_e( 'Learn more about the migration', 'the-events-calendar' ); ?>
 		</a>
