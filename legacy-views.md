@@ -174,6 +174,7 @@
 ## Functions/methods refactored
 
 * `tribe_is_ajax_view_request` - switched to use tribe_context() and the Manager
+* `tribe_meta_event_category_name` - refactored to use tribe_context()
 
 ## Functions/Methods Removed
 
@@ -485,7 +486,6 @@
 * `tribe_map_cost_array_callback`
 * `tribe_events_get_days_of_week`
   * [ ] Pro make use of this
-* `tribe_meta_event_category_name`
 * `tribe_events_is_view_enabled`
   * [ ] Pro make use of this
 * `tribe_is_community_edit_event_page`

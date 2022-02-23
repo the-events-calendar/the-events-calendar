@@ -572,6 +572,29 @@ function tribe_get_event_meta( $postId = null, $meta = false, $single = true ) {
 	return apply_filters( 'tribe_get_event_meta', $output, $postId, $meta, $single );
 }
 
+if ( ! function_exists( 'tribe_meta_event_category_name' ) ) {
+	/**
+	 * Event Category Name
+	 *
+	 * Return the current event category name based the url.
+	 *
+	 * @category Events
+	 * @return null|string Name of the Event Category
+	 */
+	function tribe_meta_event_category_name() {
+		$context     = tribe_context();
+		$current_cat = $context->get( 'event_category', null );
+
+		if ( ! $current_cat ) {
+			return;
+		}
+
+		$term_info = get_term_by( 'slug', $current_cat, \Tribe__Events__Main::TAXONOMY );
+
+		return apply_filters( 'tribe_meta_event_category_name', $term_info->name, $current_cat, $term_info );
+	}
+}
+
 /**
  * Current Template
  *
