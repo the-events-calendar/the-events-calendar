@@ -3248,6 +3248,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Get the date string (shortened).
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param string $date The date.
+		 *
+		 * @return string The pretty (and shortened) date.
+		 */
+		public function getDateStringShortened( $date ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Use standard PHP date functions' );
+
+			$monthNames = $this->monthNames();
+			$dateParts  = explode( '-', $date );
+			$timestamp  = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
+
+			return $monthNames[ date( 'F', $timestamp ) ];
+		}
+
+		/**
 		 * Return the next tab index
 		 *
 		 */

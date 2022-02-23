@@ -152,6 +152,7 @@
   * [ ] Pro makes use of this method
 * `Tribe__Events__Main::fullAddress`
 * `Tribe__Events__Main::fullAddressString`
+* `Tribe__Events__Main::getDateStringShortened`
 * `Tribe__Events__Main::getPostTypes`
   * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
 * `Tribe__Events__Main::googleCalendarLink`
@@ -216,7 +217,6 @@
 * `Tribe__Events__Main::checkAddOnCompatibility`
 * `Tribe__Events__Main::maybe_delay_activation_if_outdated_common`
 * `Tribe__Events__Main::is_delayed_activation`
-* `Tribe__Events__Main::getDateStringShortened`
 * `Tribe__Events__Main::get_event_link`
 * `Tribe__Events__Main::get_closest_event`
 * `Tribe__Events__Main::setPostExceptionThrown`
