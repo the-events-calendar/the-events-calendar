@@ -149,6 +149,8 @@
 
 * `Tribe__Events__Main::getPostTypes`
   * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
+* `Tribe__Events__Main::setDisplay`
+  * [ ] Investigate `Tribe__Events__Main->displaying`
 
 ## Functions moved to `src/functions/template-tags/deprecated`
 
@@ -159,8 +161,6 @@
 * `tribe_get_list_widget_events`
 * `Tribe__Events__Main::register_list_widget`
 * `Tribe__Events__Main::init_day_view` - [BTRIA-620]
-* `Tribe__Events__Main::setDisplay`
-  * [ ] Investigate `Tribe__Events__Main->displaying`
 * `Tribe__Events__Main::eventQueryVars`
 * `Tribe__Events__Main::ecpActive`
 * `Tribe__Events__Main::dateHelper`

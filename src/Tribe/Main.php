@@ -2284,6 +2284,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Set the displaying class property.
+		 *
+		 * @deprecated 6.0.0
+		 */
+		public function setDisplay( $query = null ) {
+			_deprecated_function( __METHOD__, '6.0.0' );
+		}
+
+		/**
 		 * An event can have one or more start dates. This gives
 		 * the earliest of those.
 		 *
