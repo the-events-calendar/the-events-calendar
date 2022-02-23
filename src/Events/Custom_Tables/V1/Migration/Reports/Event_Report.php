@@ -16,6 +16,17 @@ use JsonSerializable;
  *
  * @since   TBD
  * @package TEC\Events\Custom_Tables\V1\Migration;
+ * @property object      source_event_post
+ * @property array       strategies_applied
+ * @property array       series
+ * @property null|string error
+ * @property string      status
+ * @property array       created_events
+ * @property bool        is_recurring
+ * @property string      tickets_provider
+ * @property bool        has_tickets
+ * @property null|float  end_timestamp
+ * @property null|float  start_timestamp
  */
 class Event_Report implements JsonSerializable {
 
@@ -23,19 +34,32 @@ class Event_Report implements JsonSerializable {
 	 * Key used to flag this event is in progress and already assigned
 	 * to a strategy worker.
 	 */
-	const META_KEY_IN_PROGRESS = '_tec_ct1_migrating';
+	const META_KEY_MIGRATION_LOCK_HASH = '_tec_ct1_migration_lock_uid';
 	/**
 	 * Key used to store the Event_Report data.
 	 */
 	const META_KEY_REPORT_DATA = '_tec_ct1_migrated_report';
 	/**
-	 * Key used to flag the migration succeeded.
+	 * Flag to store the various reportable phases for an event.
 	 */
-	const META_KEY_SUCCESS = '_tec_ct1_migration_success';
+	const META_KEY_MIGRATION_PHASE = '_tec_ct1_current_migration_phase';
 	/**
-	 * Key used to flag the migration failed.
+	 * Flag for undo in progress.
 	 */
-	const META_KEY_FAILURE = '_tec_ct1_migration_failure';
+	const META_VALUE_MIGRATION_PHASE_UNDO_IN_PROGRESS = 'UNDO_IN_PROGRESS';
+	/**
+	 * Flag for migration in progress.
+	 */
+	const META_VALUE_MIGRATION_PHASE_MIGRATION_IN_PROGRESS = 'MIGRATION_IN_PROGRESS';
+	/**
+	 * Flag for migration completed successfully.
+	 */
+	const META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS = 'MIGRATION_SUCCESS';
+	/**
+	 * Flag for migration completed with a failure.
+	 */
+	const META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE = 'MIGRATION_FAILURE';
+
 
 	/**
 	 * Status flags for a particular operation. This is not tied to the action,
@@ -67,7 +91,7 @@ class Event_Report implements JsonSerializable {
 		'tickets_provider'   => '',
 		'is_recurring'       => false,
 		'created_events'     => [],
-		'status'             => '',
+		'status'             => '', // @todo Do we really need this? This could be handled by the meta phase...
 		'error'              => null,
 		'series'             => [],
 		'strategies_applied' => [],
@@ -140,7 +164,21 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	public function start_event_migration() {
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_IN_PROGRESS );
+
 		return $this->set_start_timestamp();
+	}
+
+	/**
+	 * When you start the undo process, will set appropriate state.
+	 * 
+	 * @since TBD
+	 * @return $this
+	 */
+	public function start_event_undo_migration() {
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_UNDO_IN_PROGRESS );
+
+		return $this;
 	}
 
 	/**
@@ -259,13 +297,26 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 * @return Event_Report
+	 * @todo  Do we need undo failure?
 	 */
 	public function undo_success() {
 		// We clear our meta data when we are done.
-		delete_post_meta( $this->source_event_post->ID, self::META_KEY_FAILURE );
-		delete_post_meta( $this->source_event_post->ID, self::META_KEY_SUCCESS );
+		$this->clear_meta();
+		$this->data = [];
+
+		return $this;
+	}
+
+	/**
+	 * Removes all of the migration meta data.
+	 *
+	 * @since TBD
+	 * @return $this
+	 */
+	public function clear_meta() {
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE );
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA );
-		delete_post_meta( $this->source_event_post->ID, self::META_KEY_IN_PROGRESS );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_LOCK_HASH );
 
 		return $this;
 	}
@@ -279,8 +330,7 @@ class Event_Report implements JsonSerializable {
 	public function migration_success() {
 		// Track time immediately
 		$this->set_end_timestamp();
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_SUCCESS, 1 );
-		delete_post_meta( $this->source_event_post->ID, self::META_KEY_FAILURE );
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
 
 		return $this
 			->set_status( self::SUCCESS_STATUS )
@@ -299,8 +349,7 @@ class Event_Report implements JsonSerializable {
 	public function migration_failed( string $reason ) {
 		// Track time immediately
 		$this->set_end_timestamp();
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_FAILURE, 1 );
-		delete_post_meta( $this->source_event_post->ID, self::META_KEY_SUCCESS );
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 
 		return $this->set_error( $reason )
 		            ->set_status( self::FAILURE_STATUS )

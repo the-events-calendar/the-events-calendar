@@ -57,9 +57,9 @@ class Events {
 	    WHERE p.post_type = '%s' AND pm.meta_value IS NULL
 	    LIMIT %d";
 		$lock_query = sprintf( $lock_query,
-			Event_Report::META_KEY_IN_PROGRESS,
+			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 			$batch_uid,
-			Event_Report::META_KEY_IN_PROGRESS,
+			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 			Event_Report::META_KEY_REPORT_DATA,
 			TEC::POSTTYPE,
 			$limit
@@ -73,7 +73,7 @@ class Events {
 
 		// Let’s claim the prize.
 		$fetch_query = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '%s' AND meta_value = '%s'";
-		$fetch_query = sprintf( $fetch_query, Event_Report::META_KEY_IN_PROGRESS, $batch_uid );
+		$fetch_query = sprintf( $fetch_query, Event_Report::META_KEY_MIGRATION_LOCK_HASH, $batch_uid );
 
 		return $wpdb->get_col( $fetch_query );
 	}

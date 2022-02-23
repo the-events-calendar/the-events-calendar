@@ -156,9 +156,9 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1->migration_success();
 
 		// Assert it is saved properly
-		$meta   = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
-		$truthy = get_post_meta( $post1->ID, Event_Report::META_KEY_SUCCESS, true );
-		$this->assertTrue( (bool) $truthy );
+		$meta  = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
+		$phase = get_post_meta( $post1->ID, Event_Report::META_KEY_MIGRATION_PHASE, true );
+		$this->assertEquals( Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS, $phase );
 		$this->assertEquals( $event_report1->get_data(), $meta );
 		$this->assertNotEmpty( $meta['end_timestamp'] );
 	}
@@ -195,7 +195,9 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1->migration_failed( $some_error );
 
 		// Assert it is saved properly
-		$meta = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
+		$meta  = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
+		$phase = get_post_meta( $post1->ID, Event_Report::META_KEY_MIGRATION_PHASE, true );
+		$this->assertEquals( Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE, $phase );
 		$this->assertEquals( $event_report1->get_data(), $meta );
 		$this->assertEquals( $some_error, $meta['error'] );
 		$this->assertNotEmpty( $meta['end_timestamp'] );
@@ -319,10 +321,9 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 0, $site_report->event_reports );
 
 		// Meta should be gone, too - clean slate
-		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_FAILURE, true ) );
-		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_SUCCESS, true ) );
+		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_MIGRATION_PHASE, true ) );
 		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true ) );
-		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_IN_PROGRESS, true ) );
+		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_MIGRATION_LOCK_HASH, true ) );
 	}
 
 }
