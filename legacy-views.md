@@ -145,6 +145,11 @@
 * `TribeSettingsTab`
 * `TribeValidate`
 
+## Methods marked as deprecated
+
+* `Tribe__Events__Main::getPostTypes`
+  * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
+
 ## Functions moved to `src/functions/template-tags/deprecated`
 
 * `tribe_events_the_header_attributes` - logic stripped out.
@@ -238,8 +243,6 @@
 * `Tribe__Events__Main::default_view`
   * [ ] Pro makes use of this method
 * `Tribe__Events__Main::redirect_past_upcoming_view_urls`
-* `Tribe__Events__Main::getPostTypes`
-  * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
 * `Tribe__Events__Main::getOrganizerPostTypeArgs`
 * `Tribe__Events__Main::getVenuePostTypeArgs`
   * [ ] Pro makes use of this method, replace with `Tribe__Events__Venue::instance()->post_type_args`

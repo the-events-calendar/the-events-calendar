@@ -2272,6 +2272,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Get the post types that are associated with TEC.
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @return array The post types associated with this plugin
+		 */
+		public static function getPostTypes() {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Main::get_post_types()' );
+			return apply_filters( 'tribe_events_post_types', Tribe__Main::get_post_types() );
+		}
+
+		/**
 		 * An event can have one or more start dates. This gives
 		 * the earliest of those.
 		 *
