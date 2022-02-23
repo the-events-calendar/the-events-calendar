@@ -2666,6 +2666,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Returns a link to google maps for the given event. This link can be filtered
+		 * using the tribe_events_google_map_link hook.
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param int|null $post_id
+		 *
+		 * @return string a fully qualified link to https://maps.google.com/ for this event
+		 */
+		public function googleMapLink( $post_id = null ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'tribe_get_map_link( $post_id )' );
+			return tribe_get_map_link( $post_id );
+		}
+
+		/**
 		 * plugin activation callback
 		 * @see register_deactivation_hook()
 		 *
