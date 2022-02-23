@@ -83,6 +83,28 @@ let Ct1Upgrade = {};
 		obj.poll_report_data();
 	}
 
+	obj.handle_start_preview = function () {
+// @todo cleanup
+		$('.tec-ct1-upgrade-start-migration-preview')
+			.off('click', obj.handle_start_preview);
+		$('.tec-ct1-upgrade-start-migration-preview').attr('disabled', 'disabled');
+
+		$.ajax({
+			type : "GET",
+			dataType : "json",
+			// @todo remove this hard-coded URL and use the one localized from the back-end
+			url : "/wp-admin/admin-ajax.php",
+			data : {action: tecCt1Upgrade.actions.cancel_migration},
+			success: function (response) {console.log(response)}
+		});
+	}
+
+	obj.bind_listeners = function () {
+		// @todo cleanup
+		$('.tec-ct1-upgrade-start-migration-preview')
+			.on('click', obj.handle_start_preview);
+	}
+
 	obj.init = function() {
 		$( document ).on( 'change', obj.selectors.v2Enabled, function() {
 			if ( $( this ).is( ':checked' ) ) {
@@ -99,7 +121,8 @@ let Ct1Upgrade = {};
 		obj.upgradeBoxElement = document.getElementById(obj.selectors.upgradeBox.substr(1));
 
 		// Initialize our report - heartbeat polling
-		obj.start_report_polling();
+	//@todo	obj.start_report_polling();
+		obj.bind_listeners();
 	};
 
 	$( obj.init );

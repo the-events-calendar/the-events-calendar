@@ -117,49 +117,6 @@ class Process {
 	}
 
 	/**
-	 * Cancels an Event migration.
-	 *
-	 * @since TBD
-	 *
-	 * @param int $post_id The post ID of the Event to cancel the migration for.
-	 *
-	 * @return Event_Report A reference to the migration report object produced by the
-	 *                      cancellation.
-	 */
-	public function cancel_event_migration( $post_id ) {
-		/**
-		 * Filters the migration strategy that should be used to cancel an Event migration.
-		 *
-		 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
-		 * here will prevent TEC from using the default one.
-		 *
-		 * @since TBD
-		 *
-		 * @param Strategy_Interface A reference to the migration strategy that should be used.
-		 *                           Initially `null`.
-		 * @param int $post_id       The post ID of the Event to cancel the migration for.
-		 */
-		$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_cancel_strategy', null, $post_id );
-
-		if ( ! $strategy instanceof Strategy_Interface ) {
-			$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
-		}
-
-		$report = $strategy->cancel();
-
-		$post_id = $this->events->get_id_to_cancel();
-
-		if ( $post_id ) {
-			// Enqueue a new (Action Scheduler) action to cancel another Event migration.
-			$action_id = as_enqueue_async_action( self::ACTION_UNDO, $post_id );
-
-			//@todo check action ID here and log on failure.
-		}
-
-		return $report;
-	}
-
-	/**
 	 * Undoes an Event migration.
 	 *
 	 * @since TBD
@@ -169,25 +126,38 @@ class Process {
 	 *                      migration undoing.
 	 */
 	public function undo_event_migration( $post_id ) {
-		/**
-		 * Filters the migration strategy that should be used to undo an Event migration.
-		 *
-		 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
-		 * here will prevent TEC from using the default one.
-		 *
-		 * @since TBD
-		 *
-		 * @param Strategy_Interface A reference to the migration strategy that should be used.
-		 *                           Initially `null`.
-		 * @param int $post_id       The post ID of the Event to undo the migration for.
-		 */
-		$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_undo_strategy', null, $post_id );
+		try {
+			/**
+			 * Filters the migration strategy that should be used to undo an Event migration.
+			 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
+			 * here will prevent TEC from using the default one.
+			 *
+			 * @since TBD
+			 *
+			 * @param Strategy_Interface A reference to the migration strategy that should be used.
+			 *                           Initially `null`.
+			 * @param int $post_id       The post ID of the Event to undo the migration for.
+			 */
+			$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_undo_strategy', null, $post_id );
 
-		if ( ! $strategy instanceof Strategy_Interface ) {
-			$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
+			if ( ! $strategy instanceof Strategy_Interface ) {
+				$strategy = new Single_Event_Migration_Strategy( $post_id, false );
+			}
+
+			// Get our Event_Report ready for the strategy.
+			$event_report = new Event_Report( get_post( $post_id ) );
+			$event_report->start_event_undo();
+
+			$event_report = $strategy->undo($event_report);
+		} catch (\Throwable $e) {
+			$event_report->failed($e->getMessage());
+		} catch (\Exception $e) {
+			$event_report->failed($e->getMessage());
 		}
-
-		$report = $strategy->undo();
+		// If we were successful, clear our report
+		if(!$event_report->is_undone()) {
+			$event_report->delete();
+		}
 
 		$post_id = $this->events->get_id_to_undo();
 
@@ -198,7 +168,7 @@ class Process {
 			//@todo check action ID here and log on failure.
 		}
 
-		return $report;
+		return $event_report;
 	}
 
 	/**
@@ -227,16 +197,14 @@ class Process {
 	 *
 	 * @param bool $dry_run Whether to do a preview or finalize the migration operations.
 	 *
-	 * @return bool Whether the cancellation was correctly started or not.
+	 * @return int The number of Events queued for undo.
 	 */
-	public function cancel( $dry_run = true ) {
-		$action_ids = [];
+	public function cancel( ) {
+		// This will target all of our processing actions
+		as_unschedule_all_actions( self::ACTION_PROCESS );
 
-		foreach ( $this->events->get_ids_to_cancel( 50 ) as $post_id ) {
-			$action_ids[] = as_enqueue_async_action( self::ACTION_CANCEL, [ $post_id, $dry_run ] );
-		}
-
-		return count( array_filter( $action_ids ) );
+		// Now kick-off the undo
+		return $this->undo();
 	}
 
 	/**
@@ -244,13 +212,13 @@ class Process {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the migration undoing was  correctly started or not.
+	 * @return int The number of Events queued for undo.
 	 */
 	public function undo() {
 		$action_ids = [];
 
 		foreach ( $this->events->get_ids_to_undo( 50 ) as $post_id ) {
-			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, $post_id, $dry_run );
+			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, [$post_id]) ;
 		}
 
 		return count( array_filter( $action_ids ) );

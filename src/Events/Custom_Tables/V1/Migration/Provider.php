@@ -157,20 +157,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Executes one step of the migration process to cancel the migration of one Event.
-	 *
-	 * @since TBD
-	 *
-	 * @param int $post_id The post ID of the Event to cancel the migration for.
-	 *
-	 * @return void The method does not return any value but will trigger the action
-	 *              that will cancel the Event migration.
-	 */
-	public function cancel_event_migration( $post_id ) {
-		$this->container->make( Process::class )->cancel_event_migration( $post_id );
-	}
-
-	/**
 	 * Executes one step of the migration process to undo the migration of one Event.
 	 *
 	 * @since TBD

@@ -78,15 +78,35 @@ class Events {
 		return $wpdb->get_col( $fetch_query );
 	}
 
-	public function get_ids_to_cancel( $int ) {
-		// @todo
-	}
+	/**
+	 * @param $limit
+	 *
+	 * @return numeric[] The post IDs
+	 */
+	public function get_ids_to_undo( $limit ) {
+		global $wpdb;
+		// @todo Do we need some sanity check in case a migration worker is in flight when the fetch happens and the undo ends? Race condition?
+		// Fetch all our possible "done" entities.
+		$fetch_query = "
+	    SELECT DISTINCT p.ID
+	    FROM {$wpdb->posts} p
+	    INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s', '%s')
+	    WHERE p.post_type = '%s'
+	    LIMIT %d";
+		$fetch_query = sprintf( $fetch_query,
+			Event_Report::META_KEY_FAILURE, // @todo Not sure we want to try to undo failures? Will failures potentially have changes committed?
+			Event_Report::META_KEY_SUCCESS,
+			Event_Report::META_KEY_REPORT_DATA, // In case we failed to report failure/success?
+			TEC::POSTTYPE,
+			$limit
+		);
 
-	public function get_ids_to_undo( $int ) {
-		// @todo
+		return $wpdb->get_col( $fetch_query );
 	}
 
 	public function get_id_to_undo() {
-		// @todo
+		$ids = $this->get_ids_to_undo( 1 );
+
+		return count( $ids ) ? reset( $ids ) : false;
 	}
 }

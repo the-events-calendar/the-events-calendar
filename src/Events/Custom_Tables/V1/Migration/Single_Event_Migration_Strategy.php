@@ -38,13 +38,8 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	 */
 	public function apply(Event_Report $event_report) {
 		// TODO: Implement apply() method.
-	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function cancel() {
-		// TODO: Implement cancel() method.
+		return $event_report;
 	}
 
 	/**
