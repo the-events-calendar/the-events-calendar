@@ -46,12 +46,19 @@ class Event_Report implements JsonSerializable {
 		'failure'
 	];
 
+	/**
+	 * Status for failed migration.
+	 */
 	const FAILURE_STATUS = 'failure';
+
+	/**
+	 * Status for successful migration.
+	 */
 	const SUCCESS_STATUS = 'success';
 
 	/**
 	 * @since TBD
-	 * @var array Report data.
+	 * @var array<string, mixed> Report data.
 	 */
 	protected $data = [
 		'start_timestamp'    => null,
@@ -85,7 +92,7 @@ class Event_Report implements JsonSerializable {
 
 	/**
 	 * @since TBD
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_data() {
 		return $this->data;
@@ -136,6 +143,12 @@ class Event_Report implements JsonSerializable {
 		return $this->set_start_timestamp();
 	}
 
+	/**
+	 * Setup the microtime for when the migration starts.
+	 *
+	 * @since TBD
+	 * @return $this
+	 */
 	protected function set_start_timestamp() {
 		$this->data['start_timestamp'] = microtime( true );
 
@@ -143,7 +156,7 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
-	 * When finished will update appropriate state.
+	 * Setup the microtime for when the migration ends.
 	 *
 	 * @since TBD
 	 * @return $this
@@ -241,6 +254,21 @@ class Event_Report implements JsonSerializable {
 		return $this;
 	}
 
+	/**
+	 * Mark this event undo migration as a success, and save in the database.
+	 *
+	 * @since TBD
+	 * @return Event_Report
+	 */
+	public function undo_success() {
+		// We clear our meta data when we are done.
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_FAILURE );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_SUCCESS );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_IN_PROGRESS );
+
+		return $this;
+	}
 
 	/**
 	 * Mark this event migration as a success, and save in the database.

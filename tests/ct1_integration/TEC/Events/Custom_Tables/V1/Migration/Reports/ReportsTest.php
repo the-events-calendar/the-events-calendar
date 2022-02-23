@@ -260,4 +260,69 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 2, $site_report->total_events_remaining );
 		$this->assertCount( 1, $site_report->event_reports );
 	}
+
+	/**
+	 * Ensure we clean up when we undo a migration.
+	 *
+	 * @test
+	 */
+	public function should_successfully_undo_migration_report() {
+		// Setup some faux state
+		$post1         = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+		$post2         = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+		$post3         = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+		$post4         = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+		$event_report1 = ( new Event_Report( $post1 ) )
+			->start_event_migration()
+			->set_tickets_provider( 'woocommerce' )
+			->set_is_recurring( true )
+			->add_created_event( $post2, 1 )
+			->add_strategy( 'split' );
+		$event_report1->migration_success();
+		$event_report2 = ( new Event_Report( $post3 ) )
+			->start_event_migration()
+			->set_tickets_provider( 'woocommerce' )
+			->add_created_event( $post4, 1 )
+			->add_strategy( 'split' );
+		$event_report2->migration_failed( 'Something broked.' );
+
+		// Now undo the Event Reports above
+		$event_report1->undo_success();
+		$event_report2->undo_success();
+
+		// Report should reflect changes
+		$site_report = Site_Report::build();
+		$this->assertEquals( 4, $site_report->total_events );
+		$this->assertEquals( 0, $site_report->total_events_in_progress );
+		$this->assertEquals( 0, $site_report->total_events_migrated );
+		$this->assertEquals( 4, $site_report->total_events_remaining );
+		$this->assertCount( 0, $site_report->event_reports );
+
+		// Meta should be gone, too - clean slate
+		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_FAILURE, true ) );
+		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_SUCCESS, true ) );
+		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true ) );
+		$this->assertEmpty( get_post_meta( $post1->ID, Event_Report::META_KEY_IN_PROGRESS, true ) );
+	}
+
 }
