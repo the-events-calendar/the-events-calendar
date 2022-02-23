@@ -149,6 +149,8 @@
 
 * `Tribe__Events__Main::default_view`
   * [ ] Pro makes use of this method
+* `Tribe__Events__Main::fullAddress`
+* `Tribe__Events__Main::fullAddressString`
 * `Tribe__Events__Main::getPostTypes`
   * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
 * `Tribe__Events__Main::googleCalendarLink`
@@ -239,8 +241,6 @@
 * `Tribe__Events__Main::add_new_organizer`
 * `Tribe__Events__Main::normalize_organizer_submission`
 * `Tribe__Events__Main::get_i18n_strings_for_domains`
-* `Tribe__Events__Main::fullAddress`
-* `Tribe__Events__Main::fullAddressString`
 * `Tribe__Events__Main::get_i18n_strings`
 * `Tribe__Events__Main::redirect_past_upcoming_view_urls`
 * `Tribe__Events__Main::getOrganizerPostTypeArgs`

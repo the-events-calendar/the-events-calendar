@@ -2681,6 +2681,31 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 *  Returns the full address of an event along with HTML markup.  It
+		 *  loads the address template to generate the HTML
+		 *
+		 * @deprecated 6.0.0
+		 */
+		public function fullAddress( $post_id = null, $includeVenueName = false ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Events__Venue::get_address_full_string( $post_id )' );
+			return \Tribe__Events__Venue::get_address_full_string( $post_id );
+		}
+
+		/**
+		 *  Returns a string version of the full address of an event
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param int|WP_Post The post object or post id.
+		 *
+		 * @return string The event's address.
+		 */
+		public function fullAddressString( $post_id = null ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Events__Venue::get_address_full_string( $post_id )' );
+			return \Tribe__Events__Venue::get_address_full_string( $post_id );
+		}
+
+		/**
 		 * plugin activation callback
 		 * @see register_deactivation_hook()
 		 *
