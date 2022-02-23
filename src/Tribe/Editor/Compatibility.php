@@ -18,7 +18,7 @@ class Tribe__Events__Editor__Compatibility {
 	/**
 	 * Key we store the toggle under in the tribe_events_calendar_options array.
 	 *
-	 * @since TBD
+	 * @since 15.4.0
 	 *
 	 * @var string
 	 */

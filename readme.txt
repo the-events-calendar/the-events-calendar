@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.14.0.1
+Stable tag: 5.14.0.2
 Tested up to: 5.9.0
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -220,6 +220,11 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.14.0.2] 2022-02-22 =
+
+* Fix - Correct conditional in Filter Bar upsell banner. [TEC-4284]
+* Fix - Un-deprecate `tribe_initialize_view()` as it is used in some new views.
 
 = [5.14.0.1] 2022-02-15 =
 
