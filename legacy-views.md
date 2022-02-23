@@ -171,6 +171,10 @@
 * `tribe_get_next_day_date`
 * `tribe_get_previous_day_date`
 
+## Functions/methods refactored
+
+* `tribe_is_ajax_view_request` - switched to use tribe_context() and the Manager
+
 ## Functions/Methods Removed
 
 * `tribe_get_list_widget_events`
@@ -284,7 +288,6 @@
 * `Tribe__Events__Query::can_inject_date_field`
 * `Tribe__Events__Query::should_remove_date_filters`
 * `Tribe\Events\Views\V2\Widgets\Service_Provider::unregister_list_widget`
-* `tribe_is_ajax_view_request`
 * `tribe_include_view_list`
 * `tribe_events_month_has_events_filtered`
 * `tribe_events_the_month_single_event_classes`

@@ -191,6 +191,42 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 	do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
 }
 
+if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
+		/**
+	 * Check if the current request is for a tribe view via ajax
+	 *
+	 * @since 6.0.0 Refactored to use tribe_context().
+	 *
+	 * @category Events
+	 * @param bool|string $view View slug.
+	 * @return bool
+	 */
+	function tribe_is_ajax_view_request( $view = false ) {
+		$context              = tribe_context();
+		$is_ajax_view_request = true;
+
+		if ( ! $context->doing_ajax() ) {
+			$is_ajax_view_request = false;
+		}
+
+		$view_slug = tribe_context()->get( 'view', null );
+
+		if ( empty( $view_slug ) ) {
+			$is_ajax_view_request = false;
+		} else {
+			if ( 'default' === $view_slug ) {
+				$view_slug = tribe( \Tribe\Events\Views\V2\Manager::class )->get_default_view_slug();
+			}
+
+			if ( $view !== $view_slug ) {
+				$is_ajax_view_request = false;
+			}
+		}
+
+		return apply_filters( 'tribe_is_ajax_view_request', $is_ajax_view_request, $view );
+	}
+}
+
 /**
  * Event Type Test
  *
