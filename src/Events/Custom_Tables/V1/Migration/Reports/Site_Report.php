@@ -18,7 +18,6 @@ use Tribe__Events__Main as TEC;
  *
  * @since   TBD
  * @package TEC\Events\Custom_Tables\V1\Migration;
- *
  * @property int                 estimated_time_in_hours
  * @property string              date_completed
  * @property int                 total_events
@@ -37,16 +36,16 @@ class Site_Report implements JsonSerializable {
 	 * @var array<mixed> The report data.
 	 */
 	protected $data = [
-		'estimated_time_in_hours' => 0,
-		'date_completed'          => null,
-		'total_events'            => null,
-		'total_events_migrated' => null,
+		'estimated_time_in_hours'  => 0,
+		'date_completed'           => null,
+		'total_events'             => null,
+		'total_events_migrated'    => null,
 		'total_events_in_progress' => null,
-		'has_changes'             => false,
-		'event_reports'           => [],
-		'migration_phase'         => null,
-		'is_completed'            => false,
-		'is_running'              => false,
+		'has_changes'              => false,
+		'event_reports'            => [],
+		'migration_phase'          => null,
+		'is_completed'             => false,
+		'is_running'               => false,
 	];
 
 	/**
@@ -67,46 +66,6 @@ class Site_Report implements JsonSerializable {
 		$this->data['migration_phase']          = $data['migration_phase'];
 		$this->data['is_completed']             = $data['is_completed'];
 		$this->data['is_running']               = $data['is_running'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return null|string
-	 */
-	public function get_date_completed() {
-		return $this->data['date_completed'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return int
-	 */
-	public function get_estimated_time_in_hours() {
-		return $this->data['estimated_time_in_hours'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return array<Event_Report>
-	 */
-	public function get_event_reports() {
-		return $this->data['event_reports'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return int|null
-	 */
-	public function get_total_events() {
-		return $this->data['total_events'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return array<mixed>
-	 */
-	public function jsonSerialize() {
-		return $this->data;
 	}
 
 	/**
@@ -201,7 +160,7 @@ class Site_Report implements JsonSerializable {
 			'total_events_in_progress' => $total_events_in_progress,
 			'total_events_migrated'    => $total_events_migrated,
 			'total_events'             => $total_events,
-			'total_events_remaining' => $total_events - $total_events_migrated,
+			'total_events_remaining'   => $total_events - $total_events_migrated,
 			'has_changes'              => (bool) count( $event_reports ),
 			'event_reports'            => $event_reports,
 			'migration_phase'          => $state->get_phase(),
@@ -212,7 +171,30 @@ class Site_Report implements JsonSerializable {
 		return new Site_Report( $data );
 	}
 
+	/**
+	 * @since TBD
+	 * @return mixed[]
+	 */
+	public function get_data() {
+		return $this->data;
+	}
+
+	/**
+	 * @since TBD
+	 *
+	 * @param $prop
+	 *
+	 * @return mixed|null
+	 */
 	public function __get( $prop ) {
 		return isset( $this->data[ $prop ] ) ? $this->data[ $prop ] : null;
+	}
+
+	/**
+	 * @since TBD
+	 * @return array<mixed>
+	 */
+	public function jsonSerialize() {
+		return $this->data;
 	}
 }

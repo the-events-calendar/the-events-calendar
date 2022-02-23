@@ -38,6 +38,18 @@ class Event_Report implements JsonSerializable {
 	const META_KEY_FAILURE = '_tec_ct1_migration_failure';
 
 	/**
+	 * Status flags for a particular operation. This is not tied to the action,
+	 * it should denote a high level failure.
+	 */
+	const ALLOWED_STATUSES = [
+		'success',
+		'failure'
+	];
+
+	const FAILURE_STATUS = 'failure';
+	const SUCCESS_STATUS = 'success';
+
+	/**
 	 * @since TBD
 	 * @var array Report data.
 	 */
@@ -86,7 +98,7 @@ class Event_Report implements JsonSerializable {
 	 * @return Event_Report
 	 */
 	public function hydrate() {
-		$source_post = $this->get_source_event_post();
+		$source_post = $this->source_event_post;
 		$data        = get_post_meta( $source_post->ID, self::META_KEY_REPORT_DATA );
 		if ( empty( $data ) ) {
 			$data = [];
@@ -94,14 +106,6 @@ class Event_Report implements JsonSerializable {
 		$this->data = array_merge( $this->data, $data );
 
 		return $this;
-	}
-
-	/**
-	 * @since TBD
-	 * @return array<array>
-	 */
-	public function get_created_events() {
-		return $this->data['created_events'];
 	}
 
 	/**
@@ -129,6 +133,10 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	public function start_event_migration() {
+		return $this->set_start_timestamp();
+	}
+
+	protected function set_start_timestamp() {
 		$this->data['start_timestamp'] = microtime( true );
 
 		return $this;
@@ -140,34 +148,10 @@ class Event_Report implements JsonSerializable {
 	 * @since TBD
 	 * @return $this
 	 */
-	protected function end_event_migration() {
+	protected function set_end_timestamp() {
 		$this->data['end_timestamp'] = microtime( true );
 
 		return $this;
-	}
-
-	/**
-	 * @since TBD
-	 * @return null|float
-	 */
-	public function get_end_timestamp() {
-		return $this->data['end_timestamp'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return null|float
-	 */
-	public function get_start_timestamp() {
-		return $this->data['start_timestamp'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return array
-	 */
-	public function get_series() {
-		return $this->data['series'];
 	}
 
 	/**
@@ -178,33 +162,10 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	public function set_is_recurring( bool $is_recurring ) {
+		//@todo Should we infer this from the created_events data...? Or statically apply / require being applied?
 		$this->data['is_recurring'] = $is_recurring;
 
 		return $this;
-	}
-
-	/**
-	 * @since TBD
-	 * @return bool
-	 */
-	public function get_is_recurring() {
-		return $this->data['is_recurring'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return mixed
-	 */
-	public function get_source_event_post() {
-		return $this->data['source_event_post'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return null
-	 */
-	public function get_error() {
-		return $this->data['error'];
 	}
 
 	/**
@@ -214,18 +175,10 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function set_error( string $reason ) {
+	protected function set_error( string $reason ) {
 		$this->data['error'] = $reason;
 
 		return $this;
-	}
-
-	/**
-	 * @since TBD
-	 * @return string
-	 */
-	public function get_status() {
-		return $this->data['status'];
 	}
 
 	/**
@@ -235,7 +188,10 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function set_status( string $status ) {
+	protected function set_status( string $status ) {
+		if ( ! in_array( $status, self::ALLOWED_STATUSES ) ) {
+			throw \Exception( "Invalid status applied: $status" );
+		}
 		$this->data['status'] = $status;
 
 		return $this;
@@ -259,39 +215,16 @@ class Event_Report implements JsonSerializable {
 
 	/**
 	 * @since TBD
-	 * @return array
-	 */
-	public function get_strategies_applied() {
-		return $this->data['strategies_applied'];
-	}
-
-	/**
-	 * @since TBD
 	 *
 	 * @param string $strategy
 	 *
 	 * @return $this
 	 */
 	public function add_strategy( string $strategy ) {
+		// @todo validate strategies applied? Don't care in case of third party?
 		$this->data['strategies_applied'][] = $strategy;
 
 		return $this;
-	}
-
-	/**
-	 * @since TBD
-	 * @return string
-	 */
-	public function get_tickets_provider() {
-		return $this->data['tickets_provider'];
-	}
-
-	/**
-	 * @since TBD
-	 * @return mixed
-	 */
-	public function get_has_tickets() {
-		return $this->data['has_tickets'];
 	}
 
 	/**
@@ -308,13 +241,6 @@ class Event_Report implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * @since TBD
-	 * @return array
-	 */
-	public function jsonSerialize() {
-		return $this->data;
-	}
 
 	/**
 	 * Mark this event migration as a success, and save in the database.
@@ -322,12 +248,15 @@ class Event_Report implements JsonSerializable {
 	 * @since TBD
 	 * @return Event_Report
 	 */
-	public function success() {
-		update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_SUCCESS, 1 );
-		delete_post_meta( $this->get_source_event_post()->ID, self::META_KEY_FAILURE );
+	public function migration_success() {
+		// Track time immediately
+		$this->set_end_timestamp();
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_SUCCESS, 1 );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_FAILURE );
 
-		return $this->end_event_migration()
-		            ->save();
+		return $this
+			->set_status( self::SUCCESS_STATUS )
+			->save();
 	}
 
 	/**
@@ -339,12 +268,14 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @return Event_Report
 	 */
-	public function failed( string $reason ) {
-		update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_FAILURE, 1 );
-		delete_post_meta( $this->get_source_event_post()->ID, self::META_KEY_SUCCESS );
+	public function migration_failed( string $reason ) {
+		// Track time immediately
+		$this->set_end_timestamp();
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_FAILURE, 1 );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_SUCCESS );
 
 		return $this->set_error( $reason )
-		            ->end_event_migration()
+		            ->set_status( self::FAILURE_STATUS )
 		            ->save();
 	}
 
@@ -355,8 +286,28 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	protected function save() {
-		update_post_meta( $this->get_source_event_post()->ID, self::META_KEY_REPORT_DATA, $this->data );
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA, $this->data );
 
 		return $this;
 	}
+
+	/**
+	 * @since TBD
+	 *
+	 * @param $prop
+	 *
+	 * @return mixed|null
+	 */
+	public function __get( $prop ) {
+		return isset( $this->data[ $prop ] ) ? $this->data[ $prop ] : null;
+	}
+
+	/**
+	 * @since TBD
+	 * @return array
+	 */
+	public function jsonSerialize() {
+		return $this->data;
+	}
+
 }

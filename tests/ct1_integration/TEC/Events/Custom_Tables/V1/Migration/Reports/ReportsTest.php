@@ -43,18 +43,17 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			->set_is_recurring( true )
 			->add_created_event( $faux_post2, 1 )
 			->add_created_event( $faux_post3, 1 )
-			->set_status( 'success' )
 			->add_strategy( $strategy );
 
 		$object = json_decode( json_encode( $event_report ) );
 
-		$this->assertEquals( $event_report->get_is_recurring(), $object->is_recurring );
-		$this->assertEquals( $event_report->get_has_tickets(), $object->has_tickets );
-		$this->assertEquals( $event_report->get_tickets_provider(), $object->tickets_provider );
-		$this->assertEquals( $event_report->get_status(), $object->status );
+		$this->assertEquals( $event_report->is_recurring, $object->is_recurring );
+		$this->assertEquals( $event_report->has_tickets, $object->has_tickets );
+		$this->assertEquals( $event_report->tickets_provider, $object->tickets_provider );
+		$this->assertEquals( $event_report->status, $object->status );
 		$this->assertContains( $strategy, $object->strategies_applied );
 		$this->assertGreaterThan( $past_microtime, $object->start_timestamp );
-		$this->assertEquals( $event_report->get_created_events(), $object->created_events );
+		$this->assertEquals( $event_report->created_events, $object->created_events );
 		$this->assertEquals( $faux_post1->ID, $object->source_event_post->ID );
 		$this->assertEquals( $faux_post1->post_title, $object->source_event_post->post_title );
 	}
@@ -92,7 +91,6 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			->set_is_recurring( true )
 			->add_created_event( $faux_post2, 1 )
 			->add_created_event( $faux_post3, 1 )
-			->set_status( 'success' )
 			->add_strategy( $strategy );
 		$event_report2 = ( new Event_Report( $faux_post1 ) )
 			->start_event_migration()
@@ -100,7 +98,6 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			->set_is_recurring( true )
 			->add_created_event( $faux_post2, 1 )
 			->add_created_event( $faux_post3, 1 )
-			->set_status( 'success' )
 			->add_strategy( $strategy );
 
 		$data['estimated_time_in_hours']  = 1.3;
@@ -155,12 +152,13 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			->set_tickets_provider( 'woocommerce' )
 			->set_is_recurring( true )
 			->add_created_event( $post2, 1 )
-			->set_status( 'success' )
 			->add_strategy( 'split' );
-		$event_report1->success();
+		$event_report1->migration_success();
 
 		// Assert it is saved properly
-		$meta = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
+		$meta   = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
+		$truthy = get_post_meta( $post1->ID, Event_Report::META_KEY_SUCCESS, true );
+		$this->assertTrue( (bool) $truthy );
 		$this->assertEquals( $event_report1->get_data(), $meta );
 		$this->assertNotEmpty( $meta['end_timestamp'] );
 	}
@@ -193,9 +191,8 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			->set_tickets_provider( 'woocommerce' )
 			->set_is_recurring( true )
 			->add_created_event( $post2, 1 )
-			->set_status( 'success' )
 			->add_strategy( 'split' );
-		$event_report1->failed( $some_error );
+		$event_report1->migration_failed( $some_error );
 
 		// Assert it is saved properly
 		$meta = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
@@ -240,23 +237,21 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 			->set_tickets_provider( 'woocommerce' )
 			->set_is_recurring( true )
 			->add_created_event( $post2, 1 )
-			->set_status( 'success' )
 			->add_strategy( 'split' );
-		$event_report1->success();
+		$event_report1->migration_success();
 		$event_report1 = ( new Event_Report( $post3 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
 			->add_created_event( $post4, 1 )
-			->set_status( 'success' )
 			->add_strategy( 'split' );
-		$event_report1->failed( 'Something broked.' );
+		$event_report1->migration_failed( 'Something broked.' );
 
 		$site_report = Site_Report::build();
-		$this->assertEquals( 2, $site_report->get_total_events() );
-		$this->assertCount( 2, $site_report->get_event_reports() );
+		$this->assertEquals( 4, $site_report->total_events );
+		$this->assertCount( 2, $site_report->event_reports );
 
 		$site_report = Site_Report::build( 1, 1 );
-		$this->assertEquals( 2, $site_report->get_total_events() );
-		$this->assertCount( 1, $site_report->get_event_reports() );
+		$this->assertEquals( 4, $site_report->total_events );
+		$this->assertCount( 1, $site_report->event_reports );
 	}
 }
