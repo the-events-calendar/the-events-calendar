@@ -173,8 +173,10 @@
 
 ## Functions/methods refactored
 
-* `tribe_is_ajax_view_request` - switched to use tribe_context() and the Manager
-* `tribe_meta_event_category_name` - refactored to use tribe_context()
+* `tribe_events_is_view_enabled` - refactored to use Views\V2\Manager.
+  * [ ] Pro make use of this
+* `tribe_is_ajax_view_request` - switched to use tribe_context() and the Manager.
+* `tribe_meta_event_category_name` - refactored to use tribe_context().
 
 ## Functions/Methods Removed
 
@@ -485,8 +487,6 @@
 * `tribe_get_ticket_form`
 * `tribe_map_cost_array_callback`
 * `tribe_events_get_days_of_week`
-  * [ ] Pro make use of this
-* `tribe_events_is_view_enabled`
   * [ ] Pro make use of this
 * `tribe_is_community_edit_event_page`
   * [ ] Community Events and community tickets uses this method

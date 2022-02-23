@@ -1300,6 +1300,26 @@ function tribe_events_tab_index() {
 	echo tribe_events_get_tab_index();
 }
 
+if ( ! function_exists( 'tribe_events_is_view_enabled' ) ) {
+	/**
+	 * Check if a particular view is enabled
+	 *
+	 * @since 6.0.0 Updated to use \Tribe\Events\Views\V2\Manager.
+	 *
+	 * @param string $view Slug of view to check.
+	 *
+	 * @return bool
+	 **/
+	function tribe_events_is_view_enabled( $view ) {
+		$manager = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$public_views = $manager->get_publicly_visible_views();
+
+		$enabled = isset( $public_views[ $view ] );
+
+		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, array_keys( $public_views ) );
+	}
+}
+
 /**
  * A Excerpt method used across the board on our Events Plugin Suite.
  *
