@@ -4,6 +4,7 @@
  */
 
 use Tribe\DB_Lock;
+use Tribe\Events\Views\V2;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -2290,6 +2291,26 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setDisplay( $query = null ) {
 			_deprecated_function( __METHOD__, '6.0.0' );
+		}
+
+				/**
+		 * Returns the default view, providing a fallback if the default is no longer available.
+		 *
+		 * This can be useful is for instance a view added by another plugin (such as PRO) is
+		 * stored as the default but can no longer be generated due to the plugin being deactivated.
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @since 3.3
+		 * @since 5.12.3 - Add a filter to the default view determination.
+		 * @since 6.0.0  - Deprecated.
+		 *
+		 * @return string $view The slug of the default view.
+		 */
+		public function default_view() {
+			_deprecated_function( __METHOD__, '6.0.0', 'tribe( \Tribe\Events\Views\V2\Manager::class )->get_default_view_slug()' );
+
+			return tribe( V2\Manager::class )->get_default_view_slug();
 		}
 
 		/**

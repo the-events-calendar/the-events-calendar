@@ -166,6 +166,23 @@ class Manager {
 	}
 
 	/**
+	 * Get the slug for the default registered view.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @return string
+	 */
+	public function get_default_view_slug() {
+		$view = $this->get_default_view();
+
+		if ( ! $view ) {
+			return 'month';
+		}
+
+		return tribe( $view )->get_slug();
+	}
+
+	/**
 	 * Returns an associative array of Views currently registered that are publicly visible.
 	 *
 	 * @since  4.9.4
