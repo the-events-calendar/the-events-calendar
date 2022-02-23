@@ -168,6 +168,8 @@
 ## Functions moved to `src/functions/template-tags/deprecated`
 
 * `tribe_events_the_header_attributes` - logic stripped out.
+* `tribe_get_next_day_date`
+* `tribe_get_previous_day_date`
 
 ## Functions/Methods Removed
 
