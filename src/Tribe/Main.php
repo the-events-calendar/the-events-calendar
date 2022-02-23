@@ -2387,6 +2387,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Helper method to return an array of translated month names or short month names
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param bool $short
+		 *
+		 * @return array Translated month names
+		 */
+		public function monthNames( $short = false ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Date_Utils::get_localized_months_short() or Tribe__Date__Utils::get_localized_months_full()' );
+
+			if ( $short ) {
+				return Tribe__Date_Utils::get_localized_months_short();
+			}
+
+			return Tribe__Date_Utils::get_localized_months_full();
+		}
+
+		/**
 		 * Flush rewrite rules to support custom links
 		 *
 		 * @todo This is only registering the events post type, not the meta types

@@ -151,6 +151,7 @@
   * [ ] Pro makes use of this method
 * `Tribe__Events__Main::getPostTypes`
   * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
+* `Tribe__Events__Main::monthNames`
 * `Tribe__Events__Main::setDisplay`
   * [ ] Investigate `Tribe__Events__Main->displaying`
 
@@ -241,7 +242,6 @@
 * `Tribe__Events__Main::fullAddress`
 * `Tribe__Events__Main::fullAddressString`
 * `Tribe__Events__Main::get_i18n_strings`
-* `Tribe__Events__Main::monthNames`
 * `Tribe__Events__Main::redirect_past_upcoming_view_urls`
 * `Tribe__Events__Main::getOrganizerPostTypeArgs`
 * `Tribe__Events__Main::getVenuePostTypeArgs`
