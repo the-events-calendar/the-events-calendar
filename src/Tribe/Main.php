@@ -3126,6 +3126,84 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Given a date (YYYY-MM-DD), returns the first of the next month
+		 * hat tip to Dan Bernadict for method cleanup
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param string $date
+		 *
+		 * @return string Next month's date
+		 * @throws OverflowException
+		 */
+		public function nextMonth( $date ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Use standard PHP date functions' );
+
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date( 'Y-m-d', strtotime( $date ) ) > '2037-11-30' ) {
+					throw new OverflowException( esc_html__( 'Date out of range.', 'the-events-calendar' ) );
+				}
+			}
+
+			// Create a new date object: a badly formed date can trigger an exception - in such
+			// a scenario try again and default to the current time instead
+			try {
+			$date = new DateTime( $date );
+			}
+			catch ( Exception $e ) {
+				$date = new DateTime;
+			}
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// add a month
+			$date->modify( '+1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
+		}
+
+		/**
+		 * Given a date (YYYY-MM-DD), return the first of the previous month
+		 * hat tip to Dan Bernadict for method cleanup
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param string $date
+		 *
+		 * @return string Previous month's date
+		 * @throws OverflowException
+		 */
+		public function previousMonth( $date ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Use standard PHP date functions' );
+
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date( 'Y-m-d', strtotime( $date ) ) < '1902-02-01' ) {
+					throw new OverflowException( esc_html__( 'Date out of range.', 'the-events-calendar' ) );
+				}
+			}
+
+			// Create a new date object: a badly formed date can trigger an exception - in such
+			// a scenario try again and default to the current time instead
+			try {
+			$date = new DateTime( $date );
+			}
+			catch ( Exception $e ) {
+				$date = new DateTime;
+			}
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// subtract a month
+			$date->modify( '-1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
+		}
+
+		/**
 		 * Callback for adding the Meta box to the admin page
 		 *
 		 */

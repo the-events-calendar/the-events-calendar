@@ -157,6 +157,10 @@
 * `Tribe__Events__Main::googleCalendarLink`
 * `Tribe__Events__Main::googleMapLink`
 * `Tribe__Events__Main::monthNames`
+* `Tribe__Events__Main::nextMonth`
+  * [ ] Pro makes use of this method
+* `Tribe__Events__Main::previousMonth`
+  * [ ] Pro makes use of this method
 * `Tribe__Events__Main::setDisplay`
   * [ ] Investigate `Tribe__Events__Main->displaying`
 
@@ -225,10 +229,6 @@
 * `Tribe__Events__Main::add_admin_assets`
 * `Tribe__Events__Main::loadStyle`
 * `Tribe__Events__Main::enqueue_wp_admin_menu_style`
-* `Tribe__Events__Main::nextMonth`
-  * [ ] Pro makes use of this method
-* `Tribe__Events__Main::previousMonth`
-  * [ ] Pro makes use of this method
 * `Tribe__Events__Main::get_closest_event_where`
 * `Tribe__Events__Main::setup_listview_in_bar`
 * `Tribe__Events__Main::setup_gridview_in_bar`
