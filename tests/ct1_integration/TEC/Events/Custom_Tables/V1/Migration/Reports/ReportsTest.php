@@ -248,10 +248,16 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 
 		$site_report = Site_Report::build();
 		$this->assertEquals( 4, $site_report->total_events );
+		$this->assertEquals( 0, $site_report->total_events_in_progress );
+		$this->assertEquals( 2, $site_report->total_events_migrated );
+		$this->assertEquals( 2, $site_report->total_events_remaining );
 		$this->assertCount( 2, $site_report->event_reports );
 
 		$site_report = Site_Report::build( 1, 1 );
 		$this->assertEquals( 4, $site_report->total_events );
+		$this->assertEquals( 0, $site_report->total_events_in_progress );
+		$this->assertEquals( 2, $site_report->total_events_migrated );
+		$this->assertEquals( 2, $site_report->total_events_remaining );
 		$this->assertCount( 1, $site_report->event_reports );
 	}
 }

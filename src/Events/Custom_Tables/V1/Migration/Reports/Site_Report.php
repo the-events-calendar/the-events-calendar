@@ -23,6 +23,7 @@ use Tribe__Events__Main as TEC;
  * @property int                 total_events
  * @property int                 total_events_migrated
  * @property int                 total_events_in_progress
+ * @property int                 total_events_remaining
  * @property bool                has_changes
  * @property array<Event_Report> event_reports
  * @property string              migration_phase
