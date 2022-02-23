@@ -2640,6 +2640,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Returns the GCal export link for a given event id.
+		 *
+		 * @deprecated 5.14.0
+		 *
+		 * @param int|WP_Post|null $post The Event Post Object or ID, if left empty will give get the current post.
+		 *
+		 * @return string The URL for the GCal export link.
+		 */
+		public function googleCalendarLink( $post = null ) {
+			_deprecated_function( __METHOD__, '5.14.0', 'tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $post_id )' );
+			return tribe( V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $post );
+		}
+
+		/**
 		* Custom Escape for gCal Description to keep spacing characters in the url
 		*
 		* @return string sanitized url
