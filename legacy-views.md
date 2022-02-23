@@ -42,10 +42,11 @@
 * `src/resources/postcss/tribe-events-pro-theme.pcss`
 * `src/resources/postcss/tribe-events-pro-theme-mobile.pcss`
 
+## Classes moved to `src/deprecated`
 
+* `Tribe__Events__List_Widget` - modified to extend the new List Widget and deprecate publicly accessible methods.
 ## Classes Removed
 
-* `Tribe__Events__List_Widget`
 * `TribeEventsListWidget`
 * `Tribe__Events__Asset__Abstract_Asset`
 * `Tribe__Events__Asset__Abstract_Events_Css`
@@ -143,6 +144,10 @@
 * `TribeSettings`
 * `TribeSettingsTab`
 * `TribeValidate`
+
+## Functions moved to `src/functions/template-tags/deprecated`
+
+* `tribe_events_the_header_attributes` - logic stripped out.
 
 ## Functions/Methods Removed
 
