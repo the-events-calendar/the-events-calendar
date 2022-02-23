@@ -147,6 +147,7 @@
 
 ## Methods marked as deprecated
 
+* `Tribe__Events__Main::add_new_organizer`
 * `Tribe__Events__Main::default_view`
   * [ ] Pro makes use of this method
 * `Tribe__Events__Main::fullAddress`
@@ -238,7 +239,6 @@
 * `Tribe__Events__Main::OrganizerMetaBox`
 * `Tribe__Events__Main::VenueMetaBox`
 * `Tribe__Events__Main::EventsChooserBox`
-* `Tribe__Events__Main::add_new_organizer`
 * `Tribe__Events__Main::normalize_organizer_submission`
 * `Tribe__Events__Main::get_i18n_strings_for_domains`
 * `Tribe__Events__Main::get_i18n_strings`

@@ -3031,6 +3031,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Add a new Organizer
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param      $data
+		 * @param null $post
+		 *
+		 * @return int|WP_Error
+		 */
+		public function add_new_organizer( $data, $post = null ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'tribe( \'tec.linked-posts.organizer\' )->create( [ \'Organizer\' => $data ] )' );
+
+			return tribe( 'tec.linked-posts.organizer' )->create( [ 'Organizer' => $data ] );
+		}
+
+		/**
 		 * Get Organizer info.
 		 *
 		 * @param int $p          post id
