@@ -2161,9 +2161,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
 			if (
-				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
-				! $venue_id &&
-				function_exists( 'tribe_is_community_edit_event_page' ) && tribe_is_community_edit_event_page()
+				(
+					! $post_id
+					|| get_post_status( $post_id ) === 'auto-draft'
+				)
+				&& ! $venue_id
+				&& function_exists( 'tribe_is_community_edit_event_page' )
+				&& tribe_is_community_edit_event_page()
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
