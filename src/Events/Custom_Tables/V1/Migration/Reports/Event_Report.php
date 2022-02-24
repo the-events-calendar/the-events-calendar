@@ -158,7 +158,7 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
-	 * When you start the migration process, will set appropriate state.
+	 * When you start the migration process set the appropriate state.
 	 *
 	 * @since TBD
 	 * @return $this
@@ -170,8 +170,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
-	 * When you start the undo process, will set appropriate state.
-	 * 
+	 * When you start the undo process set the appropriate state.
+	 *
 	 * @since TBD
 	 * @return $this
 	 */
@@ -331,6 +331,7 @@ class Event_Report implements JsonSerializable {
 		// Track time immediately
 		$this->set_end_timestamp();
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
+		$this->unlock_event();
 
 		return $this
 			->set_status( self::SUCCESS_STATUS )
@@ -350,10 +351,22 @@ class Event_Report implements JsonSerializable {
 		// Track time immediately
 		$this->set_end_timestamp();
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+		$this->unlock_event();
 
 		return $this->set_error( $reason )
 		            ->set_status( self::FAILURE_STATUS )
 		            ->save();
+	}
+
+	/**
+	 * Will remove the lock from this Event.
+	 *
+	 * @return $this
+	 */
+	public function unlock_event() {
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_LOCK_HASH );
+
+		return $this;
 	}
 
 	/**

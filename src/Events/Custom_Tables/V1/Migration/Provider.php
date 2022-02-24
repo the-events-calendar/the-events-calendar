@@ -56,14 +56,13 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
 		add_action( Process::ACTION_PROCESS, [ $this, 'migrate_event' ] );
-		add_action( Process::ACTION_CANCEL, [ $this, 'cancel_event_migration' ] );
 		add_action( Process::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
 
 		// Activate maintenance mode, if required.
 		add_action( 'init', [ $this, 'activate_maintenance_mode' ] );
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
-		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
+		add_action( Ajax::ACTION_REPORT, [ $this, 'get_report' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );

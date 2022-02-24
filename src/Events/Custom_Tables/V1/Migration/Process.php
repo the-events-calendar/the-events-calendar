@@ -4,13 +4,14 @@
  * events independently of the cron and user intervention.
  *
  * @since   TBD
- *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;/**
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+
+/**
  * Class Process.
  *
  * @since   TBD
@@ -37,14 +38,12 @@ class Process {
 	 * A reference to the current Events' migration repository.
 	 *
 	 * @since TBD
-	 *
 	 * @var Events
 	 */
 	private $events;
 
 	/**
 	 * Process constructor.
-	 *
 	 * since TBD
 	 *
 	 * @param Events $events A reference to the current Events' migration repository.
@@ -79,7 +78,6 @@ class Process {
 			 * @param int  $post_id     The post ID of the Event to migrate.
 			 * @param bool $dry_run     Whether the strategy should be provided for a real migration
 			 *                          or its preview.
-			 *
 			 */
 			$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_strategy', null, $post_id, $dry_run );
 
@@ -94,14 +92,14 @@ class Process {
 			// Apply strategy, use Event_Report to flag any pertinent details and mark done.
 			$strategy->apply( $event_report );
 
-		} catch (\Throwable $e) {
-			$event_report->failed($e->getMessage());
-		} catch (\Exception $e) {
-			$event_report->failed($e->getMessage());
+		} catch ( \Throwable $e ) {
+			$event_report->failed( $e->getMessage() );
+		} catch ( \Exception $e ) {
+			$event_report->failed( $e->getMessage() );
 		}
 		//@todo Must flag Done in strategy?
-		if(!$event_report->get_end_timestamp()) {
-			$event_report->failed("Strategy did not mark complete...?");
+		if ( ! $event_report->get_end_timestamp() ) {
+			$event_report->failed( "Strategy did not mark complete...?" );
 		}
 
 		$post_id = $this->events->get_id_to_process();
@@ -120,6 +118,7 @@ class Process {
 	 * Undoes an Event migration.
 	 *
 	 * @since TBD
+	 *
 	 * @param int $post_id The post ID of the Event to undo the migration for.
 	 *
 	 * @return Event_Report A reference to the migration report object produced by the
@@ -148,15 +147,15 @@ class Process {
 			$event_report = new Event_Report( get_post( $post_id ) );
 			$event_report->start_event_undo();
 
-			$event_report = $strategy->undo($event_report);
-		} catch (\Throwable $e) {
-			$event_report->failed($e->getMessage());
-		} catch (\Exception $e) {
-			$event_report->failed($e->getMessage());
+			$event_report = $strategy->undo( $event_report );
+		} catch ( \Throwable $e ) {
+			$event_report->failed( $e->getMessage() );
+		} catch ( \Exception $e ) {
+			$event_report->failed( $e->getMessage() );
 		}
 		// If we were successful, clear our report
-		if(!$event_report->is_undone()) {
-			$event_report->delete();
+		if ( ! $event_report->error ) {
+			$event_report->undo_success();
 		}
 
 		$post_id = $this->events->get_id_to_undo();
@@ -199,7 +198,7 @@ class Process {
 	 *
 	 * @return int The number of Events queued for undo.
 	 */
-	public function cancel( ) {
+	public function cancel() {
 		// This will target all of our processing actions
 		as_unschedule_all_actions( self::ACTION_PROCESS );
 
@@ -211,14 +210,13 @@ class Process {
 	 * Starts the migration undoing process.
 	 *
 	 * @since TBD
-	 *
 	 * @return int The number of Events queued for undo.
 	 */
 	public function undo() {
 		$action_ids = [];
 
-		foreach ( $this->events->get_ids_to_undo( 50 ) as $post_id ) {
-			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, [$post_id]) ;
+		foreach ( $this->events->get_ids_to_process( 50 , true) as $post_id ) {
+			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, [ $post_id ] );
 		}
 
 		return count( array_filter( $action_ids ) );

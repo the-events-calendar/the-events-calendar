@@ -114,15 +114,6 @@ class Ajax {
 	}
 
 	/**
-	 * Sends the report as JSON data.
-	 *
-	 * @since TBD
-	 */
-	public function send_report() {
-		wp_send_json( $this->get_report() );
-	}
-
-	/**
 	 * Handles the request from the Admin UI to start the migration and returns
 	 * a first report about its progress.
 	 *
