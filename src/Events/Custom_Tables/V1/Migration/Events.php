@@ -56,15 +56,15 @@ class Events {
 		if ( $has_been_migrated ) {
 			// Fetch only those that were previously touched
 			$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
-	    SELECT p.ID, '%s','%s'
+	    SELECT p.ID, %s, %s
 	    FROM {$wpdb->posts} p
-			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '%s'
+			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 			INNER JOIN {$wpdb->postmeta} pm_exists ON p.ID = pm_exists.post_id
-	    WHERE p.post_type = '%s' AND pm.meta_value IS NULL
-	    	AND pm_exists.meta_key ='%s'
-	    	AND pm_exists.meta_value IN ('%s', '%s')
+	    WHERE p.post_type = %s AND pm.meta_value IS NULL
+	    	AND pm_exists.meta_key =%s
+	    	AND pm_exists.meta_value IN (%s, %s)
 	    LIMIT %d";
-			$lock_query = sprintf( $lock_query,
+			$lock_query = $wpdb->prepare( $lock_query,
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				$batch_uid,
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
@@ -77,12 +77,12 @@ class Events {
 		} else {
 			//  Fetch only those that were NOT previously touched.
 			$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
-	    SELECT p.ID, '%s','%s'
+	    SELECT p.ID, %s,%s
 	    FROM {$wpdb->posts} p
-			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN('%s', '%s')
-	    WHERE p.post_type = '%s' AND pm.meta_value IS NULL
+			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN(%s, %s)
+	    WHERE p.post_type = %s AND pm.meta_value IS NULL
 	    LIMIT %d";
-			$lock_query = sprintf( $lock_query,
+			$lock_query = $wpdb->prepare( $lock_query,
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				$batch_uid,
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
@@ -99,8 +99,8 @@ class Events {
 		}
 
 		// Let’s claim the prize.
-		$fetch_query = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '%s' AND meta_value = '%s'";
-		$fetch_query = sprintf( $fetch_query, Event_Report::META_KEY_MIGRATION_LOCK_HASH, $batch_uid );
+		$fetch_query = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s";
+		$fetch_query = $wpdb->prepare( $fetch_query, Event_Report::META_KEY_MIGRATION_LOCK_HASH, $batch_uid );
 
 		return $wpdb->get_col( $fetch_query );
 	}

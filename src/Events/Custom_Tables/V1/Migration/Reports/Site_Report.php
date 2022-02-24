@@ -82,21 +82,21 @@ class Site_Report implements JsonSerializable {
 	public static function build( $page = - 1, $count = 20 ) {
 		global $wpdb;
 		// Total TEC events
-		$total_cnt_query = sprintf(
+		$total_cnt_query = $wpdb->prepare(
 			"SELECT COUNT(*)
 			FROM {$wpdb->posts} p
-			WHERE p.post_type = '%s'",
+			WHERE p.post_type = %s",
 			TEC::POSTTYPE
 		);
 		$total_events    = $wpdb->get_var( $total_cnt_query );
 
 		// Total done with migration
-		$total_migrated_query  = sprintf(
+		$total_migrated_query  = $wpdb->prepare(
 			"SELECT COUNT(DISTINCT `ID`)
 			FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '%s'
-			WHERE p.post_type = '%s'
-			AND pm.meta_value IN('%s', '%s')",
+			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
+			WHERE p.post_type = %s
+			AND pm.meta_value IN(%s, %s)",
 			Event_Report::META_KEY_MIGRATION_PHASE,
 			TEC::POSTTYPE,
 			Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
@@ -105,11 +105,11 @@ class Site_Report implements JsonSerializable {
 		$total_events_migrated = $wpdb->get_var( $total_migrated_query );
 
 		// Total in progress or done with migration
-		$total_in_progress_query  = sprintf(
+		$total_in_progress_query  = $wpdb->prepare(
 			"SELECT COUNT(DISTINCT `ID`)
 			FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '%s'
-			WHERE p.post_type = '%s'",
+			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
+			WHERE p.post_type = %s",
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 			TEC::POSTTYPE
 		);
@@ -117,11 +117,11 @@ class Site_Report implements JsonSerializable {
 
 		// Get in progress / complete events
 		if ( $page === - 1 || $total_events_migrated == 0 || $count > $total_events_migrated ) {
-			$query = sprintf(
+			$query = $wpdb->prepare(
 				"SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
-				WHERE p.post_type = '%s' ",
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s, %s)
+				WHERE p.post_type = %s",
 				Event_Report::META_KEY_REPORT_DATA,
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				TEC::POSTTYPE
@@ -133,11 +133,11 @@ class Site_Report implements JsonSerializable {
 			}
 			$start = ( $page - 1 ) * $count;
 
-			$query = sprintf(
+			$query = $wpdb->prepare(
 				"SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( '%s', '%s')
-				WHERE p.post_type = '%s' ORDER BY ID ASC LIMIT %d, %d",
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s, %s)
+				WHERE p.post_type = %s ORDER BY ID ASC LIMIT %d, %d",
 				Event_Report::META_KEY_REPORT_DATA,
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				TEC::POSTTYPE,
