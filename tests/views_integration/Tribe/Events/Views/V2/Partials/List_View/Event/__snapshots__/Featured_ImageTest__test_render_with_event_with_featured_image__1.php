@@ -4,6 +4,7 @@
 		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-featured-image-link"
+		tabindex="-1"
 	>
 		<img
 			src="http://test.tri.be/wp-content/uploads/2018/08/featured-image.jpg"

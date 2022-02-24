@@ -462,7 +462,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'tec-variables-full',
 				'tec-variables-skeleton',
 			],
-			'wp_enqueue_scripts',
+			'enqueue_block_assets',
 			[
 				'priority'     => 15,
 				'groups'       => [ static::$single_group_key ],
@@ -498,13 +498,22 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 */
 	public function disable_v1() {
 		// Don't disable V1:
-		// - on Single Event page
-		// - using the Block Editor OR using the Classic editor but with the V2 overrides disabled.
+		// - on Single Event page with the V2 overrides disabled.
 		if (
 			tribe( Template_Bootstrap::class )->is_single_event() &&
-			( has_blocks( get_queried_object_id() ) || ! tribe_events_single_view_v2_is_enabled() )
+			! tribe_events_single_view_v2_is_enabled()
 		) {
 			return;
+		}
+
+		// Don't disable V1:
+		// - on Single Event page while using the Block Editor.
+		if (
+			tribe( Template_Bootstrap::class )->is_single_event() &&
+			tribe( 'editor' )->should_load_blocks() &&
+			has_blocks( get_queried_object_id() )
+		) {
+				return;
 		}
 
 		add_filter( 'tribe_asset_enqueue_tribe-events-calendar-script', '__return_false' );
@@ -607,7 +616,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		// Bail if Block Editor.
 		if (
-			tribe( 'editor' )->is_events_using_blocks()
+			tribe( 'editor' )->should_load_blocks()
 			&& has_blocks( get_queried_object_id() )
 		) {
 			return false;
@@ -635,7 +644,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		}
 
 		// Bail if not Block Editor.
-		if ( ! tribe( 'editor' )->is_events_using_blocks() && ! has_blocks( get_queried_object_id() ) ) {
+		if ( ! tribe( 'editor' )->should_load_blocks() && ! has_blocks( get_queried_object_id() ) ) {
 			return false;
 		}
 

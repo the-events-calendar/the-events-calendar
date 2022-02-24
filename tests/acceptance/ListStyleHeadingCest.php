@@ -51,8 +51,6 @@ class ListStyleHeadingCest {
 		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 2 );
 		$I->seeNumberOfElements( '.tribe-events-c-top-bar__datepicker-separator', 1 );
 
-		codecept_debug( "Looking for label: 'Now - {$date}'" );
-
 		$I->see( 'Now', \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
 		$I->see( $date, \Codeception\Util\Locator::elementAt( 'time.tribe-events-c-top-bar__datepicker-time', 2 ) );
 	}
@@ -128,7 +126,6 @@ class ListStyleHeadingCest {
 		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 2 );
 		$I->seeNumberOfElements( '.tribe-events-c-top-bar__datepicker-separator', 1 );
 
-		codecept_debug( "Looking for label: '{$start_date} {$end_date}'" );
 		$I->see( $start_date, \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
 		$I->see( $end_date, \Codeception\Util\Locator::elementAt( 'time.tribe-events-c-top-bar__datepicker-time', 2 ) );
 	}
@@ -158,7 +155,6 @@ class ListStyleHeadingCest {
 		$I->seeNumberOfElements( 'time.tribe-events-c-top-bar__datepicker-time', 1 );
 		$I->dontSeeElement( '.tribe-events-c-top-bar__datepicker-separator' );
 
-		codecept_debug( "Looking for label: '{$start_date} onwards'" );
 		$I->see( "{$start_date} onwards", \Codeception\Util\Locator::firstElement( 'time.tribe-events-c-top-bar__datepicker-time' ) );
 	}
 }

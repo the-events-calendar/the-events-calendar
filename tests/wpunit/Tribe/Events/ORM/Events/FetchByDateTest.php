@@ -15,7 +15,9 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		// your set up methods here
 		$this->factory()->event = new Event();
 		// Explicitly set the timezone mode to use the site-wide setting.
-		tribe_update_option('tribe_events_timezone_mode', 'site');
+		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
+
+		tribe( 'cache' )->reset();
 	}
 
 	/**
@@ -602,17 +604,18 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->per_page( - 1 )
 			->order_by( 'event_date', 'ASC' )
 			->collect();
+			/*
 		codecept_debug( 'Event dates in ASC UTC date order: '
 		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDateUTC' ) ) );
 		codecept_debug( 'Event dates in ASC non-UTC date order: '
 		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDate' ) ) );
-
+		*/
 		$tribe____repository___ = tribe_events();
 		$utc_matches            = $tribe____repository___
 			->where( 'on_date', '2018-01-10' )
 			->order_by( 'event_date_utc', 'DESC' )
 			->collect();
-		codecept_debug($tribe____repository___->get_query()->request);
+
 		$this->assertEquals( [
 			'2018-01-10 14:00:00',
 			'2018-01-10 10:00:00',
@@ -627,26 +630,26 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 				->format( 'Y-m-d H:i:s' );
 		};
 
-		codecept_debug( 'Event dates in ASC Asia/Taipei date order: '
-		                . implode( PHP_EOL, $events->map( $to_taipei_tz ) ) );
+		/* codecept_debug( 'Event dates in ASC Asia/Taipei date order: '
+		                . implode( PHP_EOL, $events->map( $to_taipei_tz ) ) ); */
 
 		$taipei_matches = tribe_events()
 			->where( 'on_date', '2018-01-10', 'Asia/Taipei' )
 			->order_by( 'event_date', 'ASC' )->collect();
-		codecept_debug( 'Asia/Taipei UTC Matches: ' . json_encode( $taipei_matches->pluck_meta( '_EventStartDateUTC' ) ) );
+		/* codecept_debug( 'Asia/Taipei UTC Matches: ' . json_encode( $taipei_matches->pluck_meta( '_EventStartDateUTC' ) ) ); */
 		$this->assertEquals( [
 			'2018-01-09 23:00:00',
 			'2018-01-10 10:00:00',
 		], $taipei_matches->pluck_meta( '_EventStartDate' ) );
 
-		codecept_debug( 'Event dates in ASC America/New_York date order: '
-		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDate' ) ) );
+		/* codecept_debug( 'Event dates in ASC America/New_York date order: '
+		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDate' ) ) ); */
 
 		$ny_matches = tribe_events()
 			->where( 'on_date', '2018-01-10', 'America/New_York' )
 			->order_by( 'event_date', 'ASC' )
 			->collect();
-		codecept_debug( 'America/New_York UTC Matches: ' . json_encode( $ny_matches->pluck_meta( '_EventStartDateUTC' ) ) );
+		/* codecept_debug( 'America/New_York UTC Matches: ' . json_encode( $ny_matches->pluck_meta( '_EventStartDateUTC' ) ) ); */
 		$this->assertEquals( [
 			'2018-01-10 10:00:00',
 			'2018-01-10 14:00:00',
@@ -661,6 +664,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_overriding_the_timezone_settings() {
 		$site_timezone = 'Europe/Paris';
 		update_option( 'timezone_string', $site_timezone );
+
+		tribe( 'cache' )->reset();
 
 		extract( $this->create_events_from_dates( [
 			'paris_nine_event' => [ '2019-04-09 10:00:00', 2 * HOUR_IN_SECONDS ],
@@ -679,9 +684,11 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->order_by( 'event_date', 'ASC' )
 			->collect();
 
+		/*
 		codecept_debug(
 			'4/9 events UTC dates: ' . implode( PHP_EOL, $nine_events->pluck_meta( '_EventStartDateUTC' ) )
 		);
+		*/
 
 		$this->assertEquals(
 			[
@@ -699,9 +706,12 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->where( 'on_date', '2019-04-10' )
 			->order_by( 'event_date', 'ASC' )
 			->collect();
+
+		/*
 		codecept_debug(
 			'4/10 events UTC dates: ' . implode( PHP_EOL, $ten_events->pluck_meta( '_EventStartDateUTC' ) )
 		);
+		*/
 
 		$this->assertEquals( [
 			'2019-04-10 11:00:00',
@@ -717,6 +727,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->where( 'on_date', '2019-04-10' )
 			->order_by( 'event_date', 'ASC' )
 			->collect();
+
+		/*
 		codecept_debug(
 			'4/10 events Europe/Paris dates: ' . implode( PHP_EOL, array_map( function ( $utc_date ) {
 				return ( new \DateTime( $utc_date, new \DateTimeZone( 'UTC' ) ) )
@@ -724,6 +736,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 					->format( 'Y-m-d H:i:s' );
 			}, $ten_events->pluck_meta( '_EventStartDateUTC' ) ) )
 		);
+		*/
 
 		$this->assertEquals( [
 			'2019-04-09 16:30:00',
