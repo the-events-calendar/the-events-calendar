@@ -59,7 +59,10 @@ class Event_Report implements JsonSerializable {
 	 * Flag for migration completed with a failure.
 	 */
 	const META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE = 'MIGRATION_FAILURE';
-
+	/**
+	 * Flag for undo completed with a failure.
+	 */
+	const META_VALUE_MIGRATION_PHASE_UNDO_FAILURE = 'UNDO_FAILURE';
 
 	/**
 	 * Status flags for a particular operation. This is not tied to the action,
@@ -178,7 +181,7 @@ class Event_Report implements JsonSerializable {
 	public function start_event_undo_migration() {
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_UNDO_IN_PROGRESS );
 
-		return $this;
+		return $this->set_start_timestamp();
 	}
 
 	/**
@@ -306,6 +309,27 @@ class Event_Report implements JsonSerializable {
 
 		return $this;
 	}
+
+	/**
+	 * Mark this event migration as a failure, and save in database with a reason.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $reason
+	 *
+	 * @return Event_Report
+	 */
+	public function undo_failed( string $reason ) {
+		// Track time immediately
+		$this->set_end_timestamp();
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_UNDO_FAILURE );
+		$this->unlock_event();
+
+		return $this->set_error( $reason )
+		            ->set_status( self::FAILURE_STATUS )
+		            ->save();
+	}
+
 
 	/**
 	 * Removes all of the migration meta data.

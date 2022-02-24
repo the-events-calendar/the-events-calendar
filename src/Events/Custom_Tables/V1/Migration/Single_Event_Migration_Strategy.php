@@ -45,7 +45,8 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function undo() {
+	public function undo(Event_Report $event_report) {
 		// TODO: Implement undo() method.
+		return $event_report;
 	}
 }

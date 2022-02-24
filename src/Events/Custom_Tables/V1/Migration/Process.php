@@ -89,24 +89,24 @@ class Process {
 			$event_report = new Event_Report( get_post( $post_id ) );
 			$event_report->start_event_migration();
 
-			// Apply strategy, use Event_Report to flag any pertinent details and mark done.
+			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $event_report );
-
 		} catch ( \Throwable $e ) {
-			$event_report->failed( $e->getMessage() );
+			$event_report->migration_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
-			$event_report->failed( $e->getMessage() );
+			$event_report->migration_failed( $e->getMessage() );
 		}
-		//@todo Must flag Done in strategy?
-		if ( ! $event_report->get_end_timestamp() ) {
-			$event_report->failed( "Strategy did not mark complete...?" );
+
+		// If no error, mark successful.
+		if ( ! $event_report->error ) {
+			$event_report->migration_success();
 		}
 
 		$post_id = $this->events->get_id_to_process();
 
 		if ( $post_id ) {
 			// Enqueue a new (Action Scheduler) action to import another Event.
-			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, $post_id, $dry_run );
+			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
 
 			//@todo check action ID here and log on failure.
 		}
@@ -145,20 +145,21 @@ class Process {
 
 			// Get our Event_Report ready for the strategy.
 			$event_report = new Event_Report( get_post( $post_id ) );
-			$event_report->start_event_undo();
+			$event_report->start_event_undo_migration();
 
 			$event_report = $strategy->undo( $event_report );
 		} catch ( \Throwable $e ) {
-			$event_report->failed( $e->getMessage() );
+			$event_report->undo_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
-			$event_report->failed( $e->getMessage() );
+			$event_report->undo_failed( $e->getMessage() );
 		}
-		// If we were successful, clear our report
+
+		// If we were successful, clear our report.
 		if ( ! $event_report->error ) {
 			$event_report->undo_success();
 		}
 
-		$post_id = $this->events->get_id_to_undo();
+		$post_id = $this->events->get_id_to_process(true);
 
 		if ( $post_id ) {
 			// Enqueue a new (Action Scheduler) action to undo another Event migration.
@@ -194,8 +195,6 @@ class Process {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $dry_run Whether to do a preview or finalize the migration operations.
-	 *
 	 * @return int The number of Events queued for undo.
 	 */
 	public function cancel() {
@@ -210,6 +209,7 @@ class Process {
 	 * Starts the migration undoing process.
 	 *
 	 * @since TBD
+	 *
 	 * @return int The number of Events queued for undo.
 	 */
 	public function undo() {

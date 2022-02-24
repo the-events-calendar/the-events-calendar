@@ -23,11 +23,13 @@ class Events {
 	 * Returns an Event post ID, claimed and locked to process.
 	 *
 	 * @since TBD
+	 * @param bool $has_been_migrated Whether to limit results to only those that have been previously touched by
+	 *                                migration.
 	 * @return int|false Either an Event post ID, or `false` if no
 	 *                   Event post ID could be claimed and locked.
 	 */
-	public function get_id_to_process() {
-		$locked = $this->get_ids_to_process( 1 );
+	public function get_id_to_process($has_been_migrated = false) {
+		$locked = $this->get_ids_to_process( 1 , $has_been_migrated);
 
 		return count( $locked ) ? reset( $locked ) : false;
 	}
@@ -86,12 +88,5 @@ class Events {
 		$fetch_query = sprintf( $fetch_query, Event_Report::META_KEY_MIGRATION_LOCK_HASH, $batch_uid );
 
 		return $wpdb->get_col( $fetch_query );
-	}
-
-
-	public function get_id_to_undo() {
-		$ids = $this->get_ids_to_undo( 1 );
-
-		return count( $ids ) ? reset( $ids ) : false;
 	}
 }
