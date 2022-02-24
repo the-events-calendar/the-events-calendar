@@ -152,18 +152,23 @@ class Site_Report implements JsonSerializable {
 			$event_reports[] = new Event_Report( get_post( $post_id ) );
 		}
 
-
 		$state = tribe( State::class );
-
 		$report_meta = [ 'complete_timestamp' => strtotime( 'yesterday 4pm' ) ];
+		$total_events_remaining = $total_events - $total_events_migrated;
+
+		// @todo Move this and determine how we want to calculate this - potential algorithm here
+		// Half a second per event? Async queue, batch lock queries, and worker operations to be considered.
+		$time_per_event            = 0.5;
+		$estimated_time_in_seconds = $total_events_remaining * $time_per_event;
+		$estimated_time_in_hours   = round( $estimated_time_in_seconds / 60 / 60, 2 );
 
 		$data = [
-			'estimated_time_in_hours'  => $state->get( 'migrate', 'estimated_time_in_seconds' ) * 60 * 60,
+			'estimated_time_in_hours'  => $estimated_time_in_hours,
 			'date_completed'           => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
 			'total_events_in_progress' => $total_events_in_progress,
 			'total_events_migrated'    => $total_events_migrated,
 			'total_events'             => $total_events,
-			'total_events_remaining'   => $total_events - $total_events_migrated,
+			'total_events_remaining'   => $total_events_remaining,
 			'has_changes'              => (bool) count( $event_reports ),
 			'event_reports'            => $event_reports,
 			'migration_phase'          => $state->get_phase(),
