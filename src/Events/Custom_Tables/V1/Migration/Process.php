@@ -159,11 +159,11 @@ class Process {
 			$event_report->undo_success();
 		}
 
-		$post_id = $this->events->get_id_to_process(true);
+		$post_id = $this->events->get_id_to_process( true );
 
 		if ( $post_id ) {
 			// Enqueue a new (Action Scheduler) action to undo another Event migration.
-			$action_id = as_enqueue_async_action( self::ACTION_UNDO, $post_id );
+			$action_id = as_enqueue_async_action( self::ACTION_UNDO, [ $post_id ] );
 
 			//@todo check action ID here and log on failure.
 		}
@@ -194,7 +194,6 @@ class Process {
 	 * Starts the migration cancellation.
 	 *
 	 * @since TBD
-	 *
 	 * @return int The number of Events queued for undo.
 	 */
 	public function cancel() {
@@ -209,13 +208,12 @@ class Process {
 	 * Starts the migration undoing process.
 	 *
 	 * @since TBD
-	 *
 	 * @return int The number of Events queued for undo.
 	 */
 	public function undo() {
 		$action_ids = [];
 
-		foreach ( $this->events->get_ids_to_process( 50 , true) as $post_id ) {
+		foreach ( $this->events->get_ids_to_process( 50, true ) as $post_id ) {
 			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, [ $post_id ] );
 		}
 
