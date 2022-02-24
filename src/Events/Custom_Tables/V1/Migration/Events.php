@@ -52,30 +52,45 @@ class Events {
 		// Batch locking
 		$batch_uid = uniqid( 'tec_ct1_action', true ); // Should be pretty unique.
 
-		$extra_where = '';
-		$extra_join  = '';
-		// Fetch only those that were previously touched?
+		// Atomic query.
 		if ( $has_been_migrated ) {
-			$extra_join  = "INNER JOIN {$wpdb->postmeta} pm_exists ON p.ID = pm_exists.post_id";
-			$extra_where = sprintf( "AND pm_exists.meta_key ='%s'", Event_Report::META_KEY_MIGRATION_PHASE );
-		}
-
-		// Atomic query. Grab those that are not locked.
-		$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+			// Fetch only those that were previously touched
+			$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
 	    SELECT p.ID, '%s','%s'
 	    FROM {$wpdb->posts} p
-	    LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '%s'
-		{$extra_join}
+			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '%s'
+			INNER JOIN {$wpdb->postmeta} pm_exists ON p.ID = pm_exists.post_id
 	    WHERE p.post_type = '%s' AND pm.meta_value IS NULL
-	    {$extra_where}
+	    	AND pm_exists.meta_key ='%s'
+	    	AND pm_exists.meta_value IN ('%s', '%s')
 	    LIMIT %d";
-		$lock_query = sprintf( $lock_query,
-			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-			$batch_uid,
-			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-			TEC::POSTTYPE,
-			$limit
-		);
+			$lock_query = sprintf( $lock_query,
+				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
+				$batch_uid,
+				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
+				TEC::POSTTYPE,
+				Event_Report::META_KEY_MIGRATION_PHASE,
+				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE,
+				$limit
+			);
+		} else {
+			//  Fetch only those that were NOT previously touched.
+			$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+	    SELECT p.ID, '%s','%s'
+	    FROM {$wpdb->posts} p
+			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN('%s', '%s')
+	    WHERE p.post_type = '%s' AND pm.meta_value IS NULL
+	    LIMIT %d";
+			$lock_query = sprintf( $lock_query,
+				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
+				$batch_uid,
+				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
+				Event_Report::META_KEY_MIGRATION_PHASE,
+				TEC::POSTTYPE,
+				$limit
+			);
+		}
 
 		$wpdb->query( $lock_query );
 

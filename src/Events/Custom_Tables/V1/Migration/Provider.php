@@ -55,7 +55,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Ajax::class, Ajax::class );
 
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
-		add_action( Process::ACTION_PROCESS, [ $this, 'migrate_event' ] );
+		add_action( Process::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
 		add_action( Process::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
 
 		// Activate maintenance mode, if required.
