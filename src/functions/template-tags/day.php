@@ -5,7 +5,6 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 	 *
 	 * Returns true if the query is set for single day, false otherwise
 	 *
-	 * @category Events
 	 * @return bool
 	 */
 	function tribe_is_day() {
@@ -23,16 +22,25 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 
 if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	/**
-	 * Link Event Day
+	 * Link Event Day.
 	 *
-	 * @category Events
-	 * @param string $date
+	 * @param string $date Which date was passed to build the URL.
 	 *
-	 * @return string URL
+	 * @return string URL.
 	 */
 	function tribe_get_day_link( $date = null ) {
-		$tribe_ecp = Tribe__Events__Main::instance();
+		$date_obj = Tribe__Date_Utils::build_date_object( $date );
+		$url      = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $date_obj->format( Tribe__Date_Utils::DBDATEFORMAT ) ] );
 
-		return apply_filters( 'tribe_get_day_link', $tribe_ecp->getLink( 'day', $date ), $date );
+		/**
+		 * Allows the filtering of a given day link to our views.
+		 *
+		 * @since ??
+		 * @since 6.0.0 Uses Views V2 link structure.
+		 *
+		 * @param string $url  Which URL we are using.
+		 * @param string $date Which date was passed to build the URL.
+		 */
+		return (string) apply_filters( 'tribe_get_day_link', $url, $date );
 	}
 }
