@@ -51,6 +51,7 @@ class State {
 	 */
 	private $data = [];
 
+
 	public function __construct() {
 		// @todo remove this data mock.
 		$this->default_data = [

@@ -143,10 +143,9 @@ class Events {
 			$query = $wpdb->prepare(
 				"SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s, %s)
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s )
 				WHERE p.post_type = %s",
 				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				TEC::POSTTYPE
 			);
 		} else {
@@ -159,10 +158,9 @@ class Events {
 			$query = $wpdb->prepare(
 				"SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s, %s)
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s)
 				WHERE p.post_type = %s ORDER BY ID ASC LIMIT %d, %d",
 				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				TEC::POSTTYPE,
 				$start,
 				$count
@@ -252,13 +250,33 @@ class Events {
 	 * @return float|int
 	 */
 	public function calculate_time_to_completion() {
-		$total_events_remaining = $this->get_total_events_remaining();
-
-		// @todo Move this and determine how we want to calculate this - potential algorithm here
+		// @todo Refine calculation
 		// Half a second per event? Async queue, batch lock queries, and worker operations to be considered.
-		$time_per_event            = 0.5;
-		$estimated_time_in_seconds = $total_events_remaining * $time_per_event;
+		$time_per_event         = 0.5;
+		$total_events_remaining = $this->get_total_events_remaining();
+		// So we can get an estimate based on real data.
+		$post_ids = $this->get_events_migrated( 1, 50 );
+		// We may not have data yet, if we do let's adjust our average time per event.
+		if ( count( $post_ids ) ) {
+			$total_time = 0;
+			$count      = count( $post_ids );
+			foreach ( $post_ids as $post_id ) {
+				$event_report = new Event_Report( get_post( $post_id ) );
+				// Did we get both times?
+				if ( $event_report->start_timestamp && $event_report->end_timestamp ) {
+					$duration   = $event_report->end_timestamp - $event_report->start_timestamp;
+					$total_time += $duration;
+				} else {
+					// Remove from average.
+					$count --;
+				}
+			}
+			// Get average.
+			if ( $count ) {
+				$time_per_event = ( $total_time / $count );
+			}
+		}
 
-		return $estimated_time_in_seconds;
+		return $total_events_remaining * $time_per_event;
 	}
 }

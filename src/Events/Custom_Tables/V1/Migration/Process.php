@@ -111,6 +111,14 @@ class Process {
 			//@todo check action ID here and log on failure.
 		}
 
+		// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
+		$events_repo = tribe( Events::class );
+		if ( $events_repo->get_total_events_remaining() === 0 ) {
+			$state = tribe( State::class );
+			$state->set( 'migration', 'estimated_time_in_seconds', $events_repo->calculate_time_to_completion() );
+			$state->save();
+		}
+
 		return $event_report;
 	}
 
