@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.14.0.3] 2022-02-25 =
+
+* Fix - Ensure the Venue and Organizer metaboxes load when creating a new post of that type. [BTRIA-1152]
+
 = [5.14.0.2] 2022-02-22 =
 
 * Fix - Correct conditional in Filter Bar upsell banner. [TEC-4284]
