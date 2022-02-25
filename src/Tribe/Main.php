@@ -831,6 +831,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Upgrade material.
 			add_action( 'init', [ $this, 'run_updates' ], 0, 0 );
 
+			// Include a noindex.
+			add_action( 'wp', [ $this, 'issue_noindex' ] );
+
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', [ $this, 'filter_wp_import_data_before' ], 10, 1 );
 				add_filter( 'wp_import_post_data_processed', [ $this, 'filter_wp_import_data_after' ], 10, 1 );
@@ -1488,6 +1491,62 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function get_event_label_singular() {
 			return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
+		}
+
+		/**
+		 * Runs on the "wp" action. Inspects the main query object and if it relates to an events
+		 * query makes a decision to add a noindex meta tag based on whether events were returned
+		 * in the query results or not.
+		 *
+		 * @since ??
+		 * @since 6.0.0 Relies on √2 code.
+		 *
+		 * Disabling this behavior always is possible with:
+		 *
+		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_false' );
+		 *
+		 *  Enabling it for all event views is possible with:
+		 *
+		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
+		 */
+		public function issue_noindex() {
+
+			if ( ! $wp_query = tribe_get_global_query_object() ) {
+				return;
+			}
+
+			$context = tribe_context();
+
+			if ( $context->is( 'tec_post_type' ) ) {
+				return;
+			}
+
+			// By default, we add a noindex tag for all month view requests and any other
+			// event views that are devoid of events
+			$add_noindex   = ( ! $wp_query->have_posts() || 'month' === $context->get( 'view' ) );
+
+			/**
+			 * Determines if a noindex meta tag will be set for the current event view.
+			 *
+			 * @since  ??
+			 *
+			 * @var bool $add_noindex
+			 */
+			$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex );
+
+			if ( $add_noindex ) {
+				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
+			}
+		}
+
+		/**
+		 * Prints a "noindex,follow" robots tag.
+		 *
+		 * @since ??
+		 *
+		 */
+		public function print_noindex_meta() {
+			echo ' <meta name="robots" content="noindex,follow" />' . "\n";
 		}
 
 		/**
