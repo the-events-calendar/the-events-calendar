@@ -9,6 +9,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
 use JsonSerializable;
+use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events_Pro\Custom_Tables\V1\EventRecurrence_Factory;
 use Tribe__Events__Main as TEC;
@@ -80,90 +81,32 @@ class Site_Report implements JsonSerializable {
 	 * @return Site_Report A reference to the site migration report instance.
 	 */
 	public static function build( $page = - 1, $count = 20 ) {
-		global $wpdb;
+		$event_repo = tribe(Events::class);
+		$state = tribe( State::class );
+
 		// Total TEC events
-		$total_cnt_query = $wpdb->prepare(
-			"SELECT COUNT(*)
-			FROM {$wpdb->posts} p
-			WHERE p.post_type = %s",
-			TEC::POSTTYPE
-		);
-		$total_events    = $wpdb->get_var( $total_cnt_query );
+		$total_events = $event_repo->get_total_events();
 
 		// Total done with migration
-		$total_migrated_query  = $wpdb->prepare(
-			"SELECT COUNT(DISTINCT `ID`)
-			FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-			WHERE p.post_type = %s
-			AND pm.meta_value IN(%s, %s)",
-			Event_Report::META_KEY_MIGRATION_PHASE,
-			TEC::POSTTYPE,
-			Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-			Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE,
-		);
-		$total_events_migrated = $wpdb->get_var( $total_migrated_query );
+		$total_events_migrated = $event_repo->get_total_events_migrated();
 
-		// Total in progress or done with migration
-		$total_in_progress_query  = $wpdb->prepare(
-			"SELECT COUNT(DISTINCT `ID`)
-			FROM {$wpdb->posts} p
-			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-			WHERE p.post_type = %s",
-			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-			TEC::POSTTYPE
-		);
-		$total_events_in_progress = $wpdb->get_var( $total_in_progress_query );
+		// Total in progress
+		$total_events_in_progress = $event_repo->get_total_events_in_progress();
 
-		// Get in progress / complete events
-		if ( $page === - 1 || $total_events_migrated == 0 || $count > $total_events_migrated ) {
-			$query = $wpdb->prepare(
-				"SELECT DISTINCT ID
-				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s, %s)
-				WHERE p.post_type = %s",
-				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-				TEC::POSTTYPE
-			);
-		} else {
-			$total_pages = $total_events_migrated / $count;
-			if ( $page > $total_pages ) {
-				$page = $total_pages;
-			}
-			$start = ( $page - 1 ) * $count;
+		// How many events have not been migrated yet
+		$total_events_remaining = $event_repo->get_total_events_remaining();
 
-			$query = $wpdb->prepare(
-				"SELECT DISTINCT ID
-				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s, %s)
-				WHERE p.post_type = %s ORDER BY ID ASC LIMIT %d, %d",
-				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-				TEC::POSTTYPE,
-				$start,
-				$count
-			);
-		}
-
-		$rows          = $wpdb->get_col( $query );
+		// Get all the events that have been touched by migration
+		$post_ids = $event_repo->get_events_migrated($page, $count);
 		$event_reports = [];
-		foreach ( $rows as $post_id ) {
+		foreach ( $post_ids as $post_id ) {
 			$event_reports[] = new Event_Report( get_post( $post_id ) );
 		}
 
-		$state = tribe( State::class );
 		$report_meta = [ 'complete_timestamp' => strtotime( 'yesterday 4pm' ) ];
-		$total_events_remaining = $total_events - $total_events_migrated;
-
-		// @todo Move this and determine how we want to calculate this - potential algorithm here
-		// Half a second per event? Async queue, batch lock queries, and worker operations to be considered.
-		$time_per_event            = 0.5;
-		$estimated_time_in_seconds = $total_events_remaining * $time_per_event;
-		$estimated_time_in_hours   = round( $estimated_time_in_seconds / 60 / 60, 2 );
 
 		$data = [
-			'estimated_time_in_hours'  => $estimated_time_in_hours,
+			'estimated_time_in_hours'  => round( $state->get( 'migrate', 'estimated_time_in_seconds' ) / 60 / 60, 2 ),
 			'date_completed'           => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
 			'total_events_in_progress' => $total_events_in_progress,
 			'total_events_migrated'    => $total_events_migrated,
