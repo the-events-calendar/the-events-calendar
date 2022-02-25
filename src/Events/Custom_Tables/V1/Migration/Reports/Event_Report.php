@@ -129,11 +129,12 @@ class Event_Report implements JsonSerializable {
 	 * Will fetch its data from the database and populate it's internal state.
 	 *
 	 * @since TBD
+	 *
 	 * @return Event_Report
 	 */
 	public function hydrate() {
 		$source_post = $this->source_event_post;
-		$data        = get_post_meta( $source_post->ID, self::META_KEY_REPORT_DATA );
+		$data        = get_post_meta( $source_post->ID, self::META_KEY_REPORT_DATA, true );
 		if ( empty( $data ) ) {
 			$data = [];
 		}
