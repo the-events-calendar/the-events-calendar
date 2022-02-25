@@ -780,8 +780,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			/* edit-post metaboxes */
 			add_action( 'admin_menu', [ $this, 'addEventBox' ] );
-			add_action( 'admin_menu', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
-			add_action( 'admin_menu', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
+			add_action( 'add_meta_boxes', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
+			add_action( 'add_meta_boxes', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
 
 			add_action( 'wp_insert_post', [ $this, 'addPostOrigin' ], 10, 2 );
 			add_action( 'save_post', [ $this, 'addEventMeta' ], 15, 2 );
