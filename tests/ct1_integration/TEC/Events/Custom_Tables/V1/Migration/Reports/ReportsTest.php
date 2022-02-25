@@ -125,6 +125,46 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $object->is_running );
 	}
 
+	/**
+	 * Should save a successful Event_Report with appropriate values.
+	 *
+	 * @test
+	 */
+	public function should_hydrate_event_report() {
+		// Setup some faux state
+		$post1 = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+		$post2 = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+
+		// Success the report
+		$event_report1 = ( new Event_Report( $post1 ) )
+			->start_event_migration()
+			->set_tickets_provider( 'woocommerce' )
+			->set_is_recurring( true )
+			->add_created_event( $post2, 1 )
+			->add_strategy( 'split' );
+		$event_report1->migration_success();
+		$fields = array_keys( $event_report1->get_data() );
+
+		// Fetch in new object to see if hydration succeeded
+		$event_report2 = new Event_Report( $post1 );
+
+		// Assert all fields have hydrated properly
+		$this->assertNotEmpty( $event_report2->get_data() );
+		foreach ( $fields as $field ) {
+			$this->assertEquals( $event_report1->$field, $event_report2->$field );
+		}
+		$this->assertEquals( $event_report1->get_data(), $event_report2->get_data() );
+	}
 
 	/**
 	 * Should save a successful Event_Report with appropriate values.
