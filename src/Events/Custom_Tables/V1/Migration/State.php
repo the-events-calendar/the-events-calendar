@@ -29,7 +29,7 @@ class State {
 	const PHASE_CANCELLATION_COMPLETE = 'cancellation-complete';
 	const PHASE_UNDO_IN_PROGRESS = 'undo-in-progress';
 	const PHASE_UNDO_COMPLETE = 'undo-completed';
-
+	const STATE_OPTION_KEY = 'ct1_migration_state';
 	/**
 	 * An array of default data the migration state will be hydrated with if no
 	 * corresponding option is set.
@@ -51,14 +51,14 @@ class State {
 	 */
 	private $data = [];
 
-	public function __construct() {
-		// @todo set up the correct format and the actually fetch from information.
-		// $this->data = tribe_get_option('ct1_migration_state',$this->default_data);
 
+	public function __construct() {
 		// @todo remove this data mock.
-		$this->data = [
+		$this->default_data = [
 			'complete_timestamp' => strtotime( 'yesterday 4pm' ),
 		];
+
+		$this->data = tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
 	}
 
 	/**
@@ -141,6 +141,7 @@ class State {
 	 * Returns a value for a specific data key or nested data key.
 	 *
 	 * @since TBD
+	 *
 	 * @param string ...$keys A set of one or more indexes to get the
 	 *                        value of.
 	 *
@@ -149,5 +150,25 @@ class State {
 	 */
 	public function get( ...$keys ) {
 		return Arr::get( $this->data, $keys, null );
+	}
+
+	/**
+	 * Set a value for the migration state.
+	 *
+	 * @since TBD
+	 *
+	 * @param ...$keys string The key(s) of the value to store.
+	 * @param $value   mixed The value to store.
+	 */
+	public function set( ...$keys ) {
+		$value      = array_pop( $keys );
+		$this->data = Arr::set( $this->data, $keys, $value );
+	}
+
+	/**
+	 * Save our current state.
+	 */
+	public function save() {
+		tribe_update_option(self::STATE_OPTION_KEY, $this->data);
 	}
 }

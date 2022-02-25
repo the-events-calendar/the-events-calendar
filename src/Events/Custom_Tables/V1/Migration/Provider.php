@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provider_Contract;
 use Tribe__Events__Main as TEC;
 
@@ -46,7 +47,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		$this->container->singleton( Strings::class, Strings::class );
 		$this->container->singleton( State::class, State::class );
-		$this->container->singleton( Reports::class, Reports::class );
+		$this->container->singleton( Site_Report::class, Site_Report::class );
 		$this->container->singleton( Events::class, Events::class );
 		$this->container->singleton( Page::class, Page::class );
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
@@ -54,15 +55,14 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Ajax::class, Ajax::class );
 
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
-		add_action( Process::ACTION_PROCESS, [ $this, 'migrate_event' ] );
-		add_action( Process::ACTION_CANCEL, [ $this, 'cancel_event_migration' ] );
+		add_action( Process::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
 		add_action( Process::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
 
 		// Activate maintenance mode, if required.
 		add_action( 'init', [ $this, 'activate_maintenance_mode' ] );
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
-		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
+		add_action( Ajax::ACTION_REPORT, [ $this, 'get_report' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
@@ -116,6 +116,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		wp_localize_script( 'tec-ct1-upgrade-admin-js',
 			'tecCt1Upgrade',
 			[
+				'ajaxUrl' => admin_url()  . 'admin-ajax.php',
 				'actions' => [
 					'get_report'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
 					'start_migration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
@@ -152,20 +153,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
 		$this->container->make( Process::class )->migrate_event( $post_id, $dry_run );
-	}
-
-	/**
-	 * Executes one step of the migration process to cancel the migration of one Event.
-	 *
-	 * @since TBD
-	 *
-	 * @param int $post_id The post ID of the Event to cancel the migration for.
-	 *
-	 * @return void The method does not return any value but will trigger the action
-	 *              that will cancel the Event migration.
-	 */
-	public function cancel_event_migration( $post_id ) {
-		$this->container->make( Process::class )->cancel_event_migration( $post_id );
 	}
 
 	/**

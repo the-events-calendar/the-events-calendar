@@ -13,7 +13,11 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;/**
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
+
+/**
  * Class Ajax.
  *
  * @since   TBD
@@ -49,14 +53,6 @@ class Ajax {
 	 */
 	const ACTION_UNDO = 'wp_ajax_tec_events_custom_tables_v1_migration_undo';
 
-	/**
-	 * A reference to the current reports repository implementation.
-	 *
-	 * @since TBD
-	 *
-	 * @var Reports
-	 */
-	private $reports;
 
 	/**
 	 * A reference to the current background processing handler.
@@ -66,6 +62,14 @@ class Ajax {
 	 * @var Process
 	 */
 	private $process;
+	/**
+	 * A reference to the current progress modal handler.
+	 *
+	 * @since TBD
+	 *
+	 * @var Progress_Modal
+	 */
+	private $progress_modal;
 
 	/**
 	 * Ajax constructor.
@@ -74,8 +78,9 @@ class Ajax {
 	 *
 	 * @param Process $process A reference to the current background processing handler.
 	 */
-	public function __construct(  Process $process ) {
-		$this->process = $process;
+	public function __construct( Process $process, Progress_Modal $progress_modal ) {
+		$this->process        = $process;
+		$this->progress_modal = $progress_modal;
 	}
 
 	/**
@@ -84,22 +89,28 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report The generated report.
+	 * @return string The JSON-encoded data for the front-end.
 	 */
-	public function get_report( ) {
+	public function get_report( $echo = true ) {
 		// @todo Add pagination?
-		$report = Site_Report::build();
+		$page   = 1;
+		$count  = 20;
+		$report = Site_Report::build( $page, $count );
 
-		return $report;
-	}
+		$html = tribe( Upgrade_Tab::class )->get_phase_inner_html();
+		$response      = [
+			// 'has_changes' => $report->has_changes,
+			// @todo remove this hard-coded value used for testing.
+			'has_changes' => true,
+			'report_html' => $html,
+		];
 
-	/**
-	 * Sends the report as JSON data.
-	 *
-	 * @since TBD
-	 */
-	public function send_report() {
-		wp_send_json( $this->get_report() );
+		if ( $echo ) {
+			wp_send_json( $response );
+			die();
+		}
+
+		return wp_json_encode( $response );
 	}
 
 	/**

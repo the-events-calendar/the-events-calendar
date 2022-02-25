@@ -74,13 +74,7 @@ class Upgrade_Tab {
 	 * @return mixed
 	 */
 	public function add_phase_content( $upgrade_fields ) {
-		$phase              = $this->state->get_phase();
-		$migration_addendum = $this->get_migration_prompt_addendum();
-		$template_path      = $this->template_path;
-
-		ob_start();
-		include_once $this->template_path . '/upgrade-box.php';
-		$phase_html = ob_get_clean();
+		$phase_html = $this->get_phase_html();
 
 		$upgrade_fields['ct1_migration'] = [
 			'type' => 'html',
@@ -137,5 +131,36 @@ class Upgrade_Tab {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Renders and returns the current phase HTML code.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The current phase HTML code.
+	 */
+	public function get_phase_html() {
+		$phase              = $this->state->get_phase();
+		$migration_addendum = $this->get_migration_prompt_addendum();
+		$template_path      = $this->template_path;
+
+		ob_start();
+		include_once $this->template_path . '/upgrade-box.php';
+		$phase_html = ob_get_clean();
+
+		return (string)$phase_html;
+	}
+
+	public function get_phase_inner_html(  ) {
+		$phase              = $this->state->get_phase();
+		$migration_addendum = $this->get_migration_prompt_addendum();
+		$template_path      = $this->template_path;
+
+		ob_start();
+		include_once $this->template_path . '/upgrade-box-contents.php';
+		$phase_html = ob_get_clean();
+
+		return (string)$phase_html;
 	}
 }

@@ -107,7 +107,7 @@ class ValidatorTest extends \Codeception\TestCase\WPTestCase {
 					$this->add_error_message( "Must be an integer" );
 					$valid = false;
 				}
-				if ( $value < 100 ) {
+				if ( (int)$value < 100 ) {
 					$this->add_error_message( "Must be more than 100" );
 					$valid = false;
 				}

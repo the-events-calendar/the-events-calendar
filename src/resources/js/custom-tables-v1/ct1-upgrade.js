@@ -8,8 +8,10 @@ let Ct1Upgrade = {};
 		alertCloseButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-modal__close-button',
 		rootReportNode: '.tec-ct1-upgrade__row', // Used to constrain some selectors
 		barsSelector: '.tec-ct1-upgrade-bar .bar',
-		barsProgressSelector: '.tec-ct1-upgrade-bar .progress'
+		barsProgressSelector: '.tec-ct1-upgrade-bar .progress',
+		upgradeBox: '#tec-ct1-upgrade-box',
 	};
+	obj.upgradeBoxElement = null;
 	obj.report_poll_interval = 5000;
 	obj.poll_timeout = null;
 	obj.get_report = function(successCallback) {
@@ -18,8 +20,7 @@ let Ct1Upgrade = {};
 		$.ajax({
 			type : "GET",
 			dataType : "json",
-			// @todo remove this hard-coded URL and use the one localized from the back-end
-			url : "/wp-admin/admin-ajax.php",
+			url : tecCt1Upgrade.ajaxUrl,
 			data : {action: tecCt1Upgrade.actions.get_report},
 			success: successCallback
 		});
@@ -38,31 +39,13 @@ let Ct1Upgrade = {};
 		$(obj.selectors.barsProgressSelector).attr('title', percent+'%');
 	}
 	obj.handle_report_data = function(data) {
-		const {has_changes, total_events_migrated, total_events, event_reports} = data;
-		const rs = obj.selectors.rootReportNode;
-		// Update bars
-		obj.bar_progress(total_events_migrated, total_events);
-		// Sync all "listeners" with the data we have received.
-		Object.keys(data).forEach(function (key){
-			obj.data_migration_on_dom(key, data[key])
-		});
-
-		if(has_changes) {
-			// @todo localize from backend.
-			$(rs+' .tec-ct1-upgrade__report-pre-message p').html('<strong>Changes to events!</strong> The following events will be modified during the migration process:');
-		} else {
-			// @todo localize from backend.
-			$(rs+' .tec-ct1-upgrade__report-pre-message p').html('<strong>Events can migrate with no changes!</strong>');
+		const {has_changes: hasChanges, report_html: reportHtml} = data;
+		if(!(hasChanges && obj.upgradeBoxElement instanceof Element) ){
+			// Nothing to update.
+			return;
 		}
-		// Clear events
-		$(rs+' .tec-ct1-upgrade__report-events-list').text('');
-		// @todo Get this working - break out into function?
-		event_reports.forEach(function(event){
-			$(rs+' .tec-ct1-upgrade__report-events-list').append(
-				`<li><a href="${event.events[event.source_event_post_id].permalink}">${event.events[event.source_event_post_id].post_title}</a> - ${event.actions_message}</li>`
-			);
-		})
 
+		obj.upgradeBoxElement.innerHTML = reportHtml;
 	}
 	/**
 	 * Fetches the report data, and delegates to the dom handlers
@@ -100,6 +83,28 @@ let Ct1Upgrade = {};
 		obj.poll_report_data();
 	}
 
+	obj.handle_start_preview = function () {
+// @todo cleanup
+		$('.tec-ct1-upgrade-start-migration-preview')
+			.off('click', obj.handle_start_preview);
+		$('.tec-ct1-upgrade-start-migration-preview').attr('disabled', 'disabled');
+
+		$.ajax({
+			type : "GET",
+			dataType : "json",
+			// @todo remove this hard-coded URL and use the one localized from the back-end
+			url : "/wp-admin/admin-ajax.php",
+			data : {action: tecCt1Upgrade.actions.cancel_migration},
+			success: function (response) {console.log(response)}
+		});
+	}
+
+	obj.bind_listeners = function () {
+		// @todo cleanup
+		$('.tec-ct1-upgrade-start-migration-preview')
+			.on('click', obj.handle_start_preview);
+	}
+
 	obj.init = function() {
 		$( document ).on( 'change', obj.selectors.v2Enabled, function() {
 			if ( $( this ).is( ':checked' ) ) {
@@ -113,8 +118,11 @@ let Ct1Upgrade = {};
 			$( obj.selectors.alertCloseButton ).click();
 		} );
 
+		obj.upgradeBoxElement = document.getElementById(obj.selectors.upgradeBox.substr(1));
+
 		// Initialize our report - heartbeat polling
-		obj.start_report_polling();
+	//@todo	obj.start_report_polling();
+		obj.bind_listeners();
 	};
 
 	$( obj.init );
