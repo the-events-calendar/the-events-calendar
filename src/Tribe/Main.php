@@ -4,6 +4,7 @@
  */
 
 use Tribe\DB_Lock;
+use Tribe\Events\Views\V2;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -2161,9 +2162,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
 			if (
-				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
-				! $venue_id &&
-				function_exists( 'tribe_is_community_edit_event_page' ) && tribe_is_community_edit_event_page()
+				(
+					! $post_id
+					|| get_post_status( $post_id ) === 'auto-draft'
+				)
+				&& ! $venue_id
+				&& function_exists( 'tribe_is_community_edit_event_page' )
+				&& tribe_is_community_edit_event_page()
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
@@ -2268,6 +2273,47 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Get the post types that are associated with TEC.
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @return array The post types associated with this plugin
+		 */
+		public static function getPostTypes() {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Main::get_post_types()' );
+			return apply_filters( 'tribe_events_post_types', Tribe__Main::get_post_types() );
+		}
+
+		/**
+		 * Set the displaying class property.
+		 *
+		 * @deprecated 6.0.0
+		 */
+		public function setDisplay( $query = null ) {
+			_deprecated_function( __METHOD__, '6.0.0' );
+		}
+
+				/**
+		 * Returns the default view, providing a fallback if the default is no longer available.
+		 *
+		 * This can be useful is for instance a view added by another plugin (such as PRO) is
+		 * stored as the default but can no longer be generated due to the plugin being deactivated.
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @since 3.3
+		 * @since 5.12.3 - Add a filter to the default view determination.
+		 * @since 6.0.0  - Deprecated.
+		 *
+		 * @return string $view The slug of the default view.
+		 */
+		public function default_view() {
+			_deprecated_function( __METHOD__, '6.0.0', 'tribe( \Tribe\Events\Views\V2\Manager::class )->get_default_view_slug()' );
+
+			return tribe( V2\Manager::class )->get_default_view_slug();
+		}
+
+		/**
 		 * An event can have one or more start dates. This gives
 		 * the earliest of those.
 		 *
@@ -2338,6 +2384,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			__( 'event', 'the-events-calendar' );
 			__( 'events', 'the-events-calendar' );
 			__( 'all', 'the-events-calendar' );
+		}
+
+		/**
+		 * Helper method to return an array of translated month names or short month names
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param bool $short
+		 *
+		 * @return array Translated month names
+		 */
+		public function monthNames( $short = false ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Date_Utils::get_localized_months_short() or Tribe__Date__Utils::get_localized_months_full()' );
+
+			if ( $short ) {
+				return Tribe__Date_Utils::get_localized_months_short();
+			}
+
+			return Tribe__Date_Utils::get_localized_months_full();
 		}
 
 		/**
@@ -2575,6 +2640,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Returns the GCal export link for a given event id.
+		 *
+		 * @deprecated 5.14.0
+		 *
+		 * @param int|WP_Post|null $post The Event Post Object or ID, if left empty will give get the current post.
+		 *
+		 * @return string The URL for the GCal export link.
+		 */
+		public function googleCalendarLink( $post = null ) {
+			_deprecated_function( __METHOD__, '5.14.0', 'tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $post_id )' );
+			return tribe( V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $post );
+		}
+
+		/**
 		* Custom Escape for gCal Description to keep spacing characters in the url
 		*
 		* @return string sanitized url
@@ -2584,6 +2663,46 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$url = esc_url( $url );
 			$url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
 			return $url;
+		}
+
+		/**
+		 * Returns a link to google maps for the given event. This link can be filtered
+		 * using the tribe_events_google_map_link hook.
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param int|null $post_id
+		 *
+		 * @return string a fully qualified link to https://maps.google.com/ for this event
+		 */
+		public function googleMapLink( $post_id = null ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'tribe_get_map_link( $post_id )' );
+			return tribe_get_map_link( $post_id );
+		}
+
+		/**
+		 *  Returns the full address of an event along with HTML markup.  It
+		 *  loads the address template to generate the HTML
+		 *
+		 * @deprecated 6.0.0
+		 */
+		public function fullAddress( $post_id = null, $includeVenueName = false ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Events__Venue::get_address_full_string( $post_id )' );
+			return \Tribe__Events__Venue::get_address_full_string( $post_id );
+		}
+
+		/**
+		 *  Returns a string version of the full address of an event
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param int|WP_Post The post object or post id.
+		 *
+		 * @return string The event's address.
+		 */
+		public function fullAddressString( $post_id = null ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Tribe__Events__Venue::get_address_full_string( $post_id )' );
+			return \Tribe__Events__Venue::get_address_full_string( $post_id );
 		}
 
 		/**
@@ -2912,6 +3031,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Add a new Organizer
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param      $data
+		 * @param null $post
+		 *
+		 * @return int|WP_Error
+		 */
+		public function add_new_organizer( $data, $post = null ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'tribe( \'tec.linked-posts.organizer\' )->create( [ \'Organizer\' => $data ] )' );
+
+			return tribe( 'tec.linked-posts.organizer' )->create( [ 'Organizer' => $data ] );
+		}
+
+		/**
 		 * Get Organizer info.
 		 *
 		 * @param int $p          post id
@@ -2991,6 +3126,84 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Given a date (YYYY-MM-DD), returns the first of the next month
+		 * hat tip to Dan Bernadict for method cleanup
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param string $date
+		 *
+		 * @return string Next month's date
+		 * @throws OverflowException
+		 */
+		public function nextMonth( $date ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Use standard PHP date functions' );
+
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date( 'Y-m-d', strtotime( $date ) ) > '2037-11-30' ) {
+					throw new OverflowException( esc_html__( 'Date out of range.', 'the-events-calendar' ) );
+				}
+			}
+
+			// Create a new date object: a badly formed date can trigger an exception - in such
+			// a scenario try again and default to the current time instead
+			try {
+			$date = new DateTime( $date );
+			}
+			catch ( Exception $e ) {
+				$date = new DateTime;
+			}
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// add a month
+			$date->modify( '+1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
+		}
+
+		/**
+		 * Given a date (YYYY-MM-DD), return the first of the previous month
+		 * hat tip to Dan Bernadict for method cleanup
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param string $date
+		 *
+		 * @return string Previous month's date
+		 * @throws OverflowException
+		 */
+		public function previousMonth( $date ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Use standard PHP date functions' );
+
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date( 'Y-m-d', strtotime( $date ) ) < '1902-02-01' ) {
+					throw new OverflowException( esc_html__( 'Date out of range.', 'the-events-calendar' ) );
+				}
+			}
+
+			// Create a new date object: a badly formed date can trigger an exception - in such
+			// a scenario try again and default to the current time instead
+			try {
+			$date = new DateTime( $date );
+			}
+			catch ( Exception $e ) {
+				$date = new DateTime;
+			}
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// subtract a month
+			$date->modify( '-1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
+		}
+
+		/**
 		 * Callback for adding the Meta box to the admin page
 		 *
 		 */
@@ -3032,6 +3245,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function eventMetaBox() {
 			include( $this->plugin_path . 'src/admin-views/event-sidebar-options.php' );
+		}
+
+		/**
+		 * Get the date string (shortened).
+		 *
+		 * @deprecated 6.0.0
+		 *
+		 * @param string $date The date.
+		 *
+		 * @return string The pretty (and shortened) date.
+		 */
+		public function getDateStringShortened( $date ) {
+			_deprecated_function( __METHOD__, '6.0.0', 'Use standard PHP date functions' );
+
+			$monthNames = $this->monthNames();
+			$dateParts  = explode( '-', $date );
+			$timestamp  = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
+
+			return $monthNames[ date( 'F', $timestamp ) ];
 		}
 
 		/**

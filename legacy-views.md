@@ -42,10 +42,11 @@
 * `src/resources/postcss/tribe-events-pro-theme.pcss`
 * `src/resources/postcss/tribe-events-pro-theme-mobile.pcss`
 
+## Classes moved to `src/deprecated`
 
+* `Tribe__Events__List_Widget` - modified to extend the new List Widget and deprecate publicly accessible methods.
 ## Classes Removed
 
-* `Tribe__Events__List_Widget`
 * `TribeEventsListWidget`
 * `Tribe__Events__Asset__Abstract_Asset`
 * `Tribe__Events__Asset__Abstract_Events_Css`
@@ -144,13 +145,44 @@
 * `TribeSettingsTab`
 * `TribeValidate`
 
+## Methods marked as deprecated
+
+* `Tribe__Events__Main::add_new_organizer`
+* `Tribe__Events__Main::default_view`
+  * [ ] Pro makes use of this method
+* `Tribe__Events__Main::fullAddress`
+* `Tribe__Events__Main::fullAddressString`
+* `Tribe__Events__Main::getDateStringShortened`
+* `Tribe__Events__Main::getPostTypes`
+  * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
+* `Tribe__Events__Main::googleCalendarLink`
+* `Tribe__Events__Main::googleMapLink`
+* `Tribe__Events__Main::monthNames`
+* `Tribe__Events__Main::nextMonth`
+  * [ ] Pro makes use of this method
+* `Tribe__Events__Main::previousMonth`
+  * [ ] Pro makes use of this method
+* `Tribe__Events__Main::setDisplay`
+  * [ ] Investigate `Tribe__Events__Main->displaying`
+
+## Functions moved to `src/functions/template-tags/deprecated`
+
+* `tribe_events_the_header_attributes` - logic stripped out.
+* `tribe_get_next_day_date`
+* `tribe_get_previous_day_date`
+
+## Functions/methods refactored
+
+* `tribe_events_is_view_enabled` - refactored to use Views\V2\Manager.
+  * [ ] Pro make use of this
+* `tribe_is_ajax_view_request` - switched to use tribe_context() and the Manager.
+* `tribe_meta_event_category_name` - refactored to use tribe_context().
+
 ## Functions/Methods Removed
 
 * `tribe_get_list_widget_events`
 * `Tribe__Events__Main::register_list_widget`
 * `Tribe__Events__Main::init_day_view` - [BTRIA-620]
-* `Tribe__Events__Main::setDisplay`
-  * [ ] Investigate `Tribe__Events__Main->displaying`
 * `Tribe__Events__Main::eventQueryVars`
 * `Tribe__Events__Main::ecpActive`
 * `Tribe__Events__Main::dateHelper`
@@ -194,7 +226,6 @@
 * `Tribe__Events__Main::checkAddOnCompatibility`
 * `Tribe__Events__Main::maybe_delay_activation_if_outdated_common`
 * `Tribe__Events__Main::is_delayed_activation`
-* `Tribe__Events__Main::getDateStringShortened`
 * `Tribe__Events__Main::get_event_link`
 * `Tribe__Events__Main::get_closest_event`
 * `Tribe__Events__Main::setPostExceptionThrown`
@@ -207,10 +238,6 @@
 * `Tribe__Events__Main::add_admin_assets`
 * `Tribe__Events__Main::loadStyle`
 * `Tribe__Events__Main::enqueue_wp_admin_menu_style`
-* `Tribe__Events__Main::nextMonth`
-  * [ ] Pro makes use of this method
-* `Tribe__Events__Main::previousMonth`
-  * [ ] Pro makes use of this method
 * `Tribe__Events__Main::get_closest_event_where`
 * `Tribe__Events__Main::setup_listview_in_bar`
 * `Tribe__Events__Main::setup_gridview_in_bar`
@@ -221,20 +248,10 @@
 * `Tribe__Events__Main::OrganizerMetaBox`
 * `Tribe__Events__Main::VenueMetaBox`
 * `Tribe__Events__Main::EventsChooserBox`
-* `Tribe__Events__Main::add_new_organizer`
 * `Tribe__Events__Main::normalize_organizer_submission`
 * `Tribe__Events__Main::get_i18n_strings_for_domains`
-* `Tribe__Events__Main::googleMapLink`
-* `Tribe__Events__Main::googleCalendarLink`
-* `Tribe__Events__Main::fullAddress`
-* `Tribe__Events__Main::fullAddressString`
 * `Tribe__Events__Main::get_i18n_strings`
-* `Tribe__Events__Main::monthNames`
-* `Tribe__Events__Main::default_view`
-  * [ ] Pro makes use of this method
 * `Tribe__Events__Main::redirect_past_upcoming_view_urls`
-* `Tribe__Events__Main::getPostTypes`
-  * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
 * `Tribe__Events__Main::getOrganizerPostTypeArgs`
 * `Tribe__Events__Main::getVenuePostTypeArgs`
   * [ ] Pro makes use of this method, replace with `Tribe__Events__Venue::instance()->post_type_args`
@@ -274,7 +291,6 @@
 * `Tribe__Events__Query::can_inject_date_field`
 * `Tribe__Events__Query::should_remove_date_filters`
 * `Tribe\Events\Views\V2\Widgets\Service_Provider::unregister_list_widget`
-* `tribe_is_ajax_view_request`
 * `tribe_include_view_list`
 * `tribe_events_month_has_events_filtered`
 * `tribe_events_the_month_single_event_classes`
@@ -471,9 +487,6 @@
 * `tribe_get_ticket_form`
 * `tribe_map_cost_array_callback`
 * `tribe_events_get_days_of_week`
-  * [ ] Pro make use of this
-* `tribe_meta_event_category_name`
-* `tribe_events_is_view_enabled`
   * [ ] Pro make use of this
 * `tribe_is_community_edit_event_page`
   * [ ] Community Events and community tickets uses this method

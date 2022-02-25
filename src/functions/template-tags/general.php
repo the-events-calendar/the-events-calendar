@@ -191,6 +191,42 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 	do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
 }
 
+if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
+		/**
+	 * Check if the current request is for a tribe view via ajax
+	 *
+	 * @since 6.0.0 Refactored to use tribe_context().
+	 *
+	 * @category Events
+	 * @param bool|string $view View slug.
+	 * @return bool
+	 */
+	function tribe_is_ajax_view_request( $view = false ) {
+		$context              = tribe_context();
+		$is_ajax_view_request = true;
+
+		if ( ! $context->doing_ajax() ) {
+			$is_ajax_view_request = false;
+		}
+
+		$view_slug = tribe_context()->get( 'view', null );
+
+		if ( empty( $view_slug ) ) {
+			$is_ajax_view_request = false;
+		} else {
+			if ( 'default' === $view_slug ) {
+				$view_slug = tribe( \Tribe\Events\Views\V2\Manager::class )->get_default_view_slug();
+			}
+
+			if ( $view !== $view_slug ) {
+				$is_ajax_view_request = false;
+			}
+		}
+
+		return apply_filters( 'tribe_is_ajax_view_request', $is_ajax_view_request, $view );
+	}
+}
+
 /**
  * Event Type Test
  *
@@ -536,6 +572,29 @@ function tribe_get_event_meta( $postId = null, $meta = false, $single = true ) {
 	return apply_filters( 'tribe_get_event_meta', $output, $postId, $meta, $single );
 }
 
+if ( ! function_exists( 'tribe_meta_event_category_name' ) ) {
+	/**
+	 * Event Category Name
+	 *
+	 * Return the current event category name based the url.
+	 *
+	 * @category Events
+	 * @return null|string Name of the Event Category
+	 */
+	function tribe_meta_event_category_name() {
+		$context     = tribe_context();
+		$current_cat = $context->get( 'event_category', null );
+
+		if ( ! $current_cat ) {
+			return;
+		}
+
+		$term_info = get_term_by( 'slug', $current_cat, \Tribe__Events__Main::TAXONOMY );
+
+		return apply_filters( 'tribe_meta_event_category_name', $term_info->name, $current_cat, $term_info );
+	}
+}
+
 /**
  * Current Template
  *
@@ -743,72 +802,6 @@ function tribe_events_get_days_of_week( $format = null ) {
 	}
 
 	return apply_filters( 'tribe_events_get_days_of_week', $days_of_week );
-}
-
-/**
- * Prints out data attributes used in the template header tags
- *
- * @param string|null $current_view
- *
- **@category Events
- */
-function tribe_events_the_header_attributes( $current_view = null ) {
-
-	if ( ! $wp_query = tribe_get_global_query_object() ) {
-		return;
-	}
-
-	$attrs        = [];
-	$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
-	$term         = false;
-	$term_name    = get_query_var( Tribe__Events__Main::TAXONOMY );
-
-	if ( ! empty( $term_name ) ) {
-		$term_obj = get_term_by( 'slug', $term_name, Tribe__Events__Main::TAXONOMY );
-	}
-
-	if ( ! empty( $term_obj ) ) {
-		$term = 0 < $term_obj->term_id ? $term_obj->term_id : false;
-	}
-
-	// wp_title was deprecated in WordPress 4.4. Fetch the document title with the new function (added in 4.4) if available
-	if ( function_exists( 'wp_get_document_title' ) ) {
-		$attrs['data-title'] = wp_get_document_title();
-	} else {
-		$attrs['data-title'] = wp_title( '|', false, 'right' );
-	}
-
-	$attrs['data-viewtitle'] = tribe_get_events_title( true );
-
-	switch ( $current_view ) {
-		case 'month.php' :
-			$attrs['data-view']    = 'month';
-			$attrs['data-date']    = date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
-			$attrs['data-baseurl'] = tribe_get_gridview_link( false );
-			break;
-		case 'day.php' :
-			$attrs['data-startofweek'] = get_option( 'start_of_week' );
-			break;
-		case 'list.php' :
-			$attrs['data-startofweek'] = get_option( 'start_of_week' );
-			$attrs['data-view']        = 'list';
-			if ( tribe_is_upcoming() ) {
-				$attrs['data-baseurl'] = tribe_get_listview_link( $term );
-			} elseif ( tribe_is_past() ) {
-				$attrs['data-view']    = 'past';
-				$attrs['data-baseurl'] = tribe_get_listview_past_link( $term );
-			}
-			break;
-	}
-
-	if ( has_filter( 'tribe_events_mobile_breakpoint' ) ) {
-		$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
-	}
-
-	$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );
-	foreach ( $attrs as $attr => $value ) {
-		echo " $attr=" . '"' . esc_attr( $value ) . '"';
-	}
 }
 
 /**
@@ -1305,6 +1298,26 @@ function tribe_events_get_tab_index() {
  */
 function tribe_events_tab_index() {
 	echo tribe_events_get_tab_index();
+}
+
+if ( ! function_exists( 'tribe_events_is_view_enabled' ) ) {
+	/**
+	 * Check if a particular view is enabled
+	 *
+	 * @since 6.0.0 Updated to use \Tribe\Events\Views\V2\Manager.
+	 *
+	 * @param string $view Slug of view to check.
+	 *
+	 * @return bool
+	 **/
+	function tribe_events_is_view_enabled( $view ) {
+		$manager = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$public_views = $manager->get_publicly_visible_views();
+
+		$enabled = isset( $public_views[ $view ] );
+
+		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, array_keys( $public_views ) );
+	}
 }
 
 /**
