@@ -178,8 +178,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              of echoing a JSON format string back for the Migration UI JS component
 	 *              to consume.
 	 */
-	public function send_report() {
-		return $this->container->make( Ajax::class )->send_report();
+	public function get_report() {
+		return $this->container->make( Ajax::class )->get_report();
 	}
 
 	/**
