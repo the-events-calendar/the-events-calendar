@@ -122,9 +122,13 @@ class Ajax {
 	 * @return Site_Report A report about the migration start process.
 	 */
 	public function start_migration( $echo = true ) {
-		// @todo This should have state with the process starting?
+		// @todo
+		$dry_run = true;
+		$state   = tribe( State::class );
+		$state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );
+		$state->save();
+		$this->process->start( $dry_run );
 		$report = Site_Report::build();
-		$this->process->start();
 
 		if ( $echo ) {
 			wp_send_json( $report );

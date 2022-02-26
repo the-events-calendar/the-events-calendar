@@ -59,10 +59,10 @@ class Site_Report implements JsonSerializable {
 	 */
 	public function __construct( array $data ) {
 		$this->data['estimated_time_in_hours']  = $data['estimated_time_in_hours'];
-		$this->data['total_events']             = $data['total_events'];
-		$this->data['total_events_remaining']   = $data['total_events_remaining'];
-		$this->data['total_events_in_progress'] = $data['total_events_in_progress'];
-		$this->data['total_events_migrated']    = $data['total_events_migrated'];
+		$this->data['total_events']             = (int) $data['total_events'];
+		$this->data['total_events_remaining']   = (int) $data['total_events_remaining'];
+		$this->data['total_events_in_progress'] = (int) $data['total_events_in_progress'];
+		$this->data['total_events_migrated']    = (int) $data['total_events_migrated'];
 		$this->data['has_changes']              = ! empty( $data['event_reports'] );
 		$this->data['event_reports']            = $data['event_reports'];
 		$this->data['migration_phase']          = $data['migration_phase'];

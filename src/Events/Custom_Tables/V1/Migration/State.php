@@ -22,6 +22,7 @@ class State {
 
 	const PHASE_PREVIEW_PROMPT = 'preview-prompt';
 	const PHASE_PREVIEW_IN_PROGRESS = 'preview-in-progress';
+	const PHASE_PREVIEW_COMPLETE = 'preview-complete';
 	const PHASE_MIGRATION_PROMPT = 'migration-prompt';
 	const PHASE_MIGRATION_IN_PROGRESS = 'migration-in-progress';
 	const PHASE_MIGRATION_COMPLETE = 'migration-complete';
@@ -56,6 +57,7 @@ class State {
 		// @todo remove this data mock.
 		$this->default_data = [
 			'complete_timestamp' => strtotime( 'yesterday 4pm' ),
+			'phase' => self::PHASE_PREVIEW_PROMPT,
 		];
 
 		$this->data = tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
@@ -133,8 +135,7 @@ class State {
 			return filter_var( $_REQUEST['tec_ct1_phase'], FILTER_SANITIZE_STRING );
 		}
 
-		// @todo this is hard-coded, it should not be, of course.
-		return self::PHASE_PREVIEW_PROMPT;
+		return $this->data['phase'];
 	}
 
 	/**
@@ -169,6 +170,6 @@ class State {
 	 * Save our current state.
 	 */
 	public function save() {
-		tribe_update_option(self::STATE_OPTION_KEY, $this->data);
+		tribe_update_option( self::STATE_OPTION_KEY, $this->data );
 	}
 }
