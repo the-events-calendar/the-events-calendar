@@ -11,6 +11,7 @@ let Ct1Upgrade = {};
 		barsProgressSelector: '.tec-ct1-upgrade-bar .progress',
 		upgradeBox: '#tec-ct1-upgrade-box',
 	};
+	obj.currentViewState = {};
 	obj.upgradeBoxElement = null;
 	obj.report_poll_interval = 5000;
 	obj.poll_timeout = null;
@@ -38,14 +39,41 @@ let Ct1Upgrade = {};
 		}
 		$(obj.selectors.barsProgressSelector).attr('title', percent+'%');
 	}
-	obj.handle_report_data = function(data) {
-		const {has_changes: hasChanges, report_html: reportHtml} = data;
-		if(!(hasChanges && obj.upgradeBoxElement instanceof Element) ){
-			// Nothing to update.
-			return;
+
+	obj.is_node_diff = (searchKey,  searchHash) => {
+		const {nodes} = obj.currentViewState;
+		if(!nodes) {
+			return true;
+		}
+		const node = nodes.find(
+			({key}) => key === searchKey
+		);
+
+		if(!node) {
+			return true;
 		}
 
-		obj.upgradeBoxElement.innerHTML = reportHtml;
+		return node.hash !== searchHash;
+	}
+
+	obj.handle_report_data = function (data) {
+		const {nodes, key, html} = data;
+		const {currentViewState} = obj;
+		// Write our HTML if we are new
+		if(!currentViewState.key || currentViewState.key !== key) {
+			obj.upgradeBoxElement.innerHTML = html;
+		}
+		// Iterate on nodes
+		nodes.forEach(
+			(node) => {
+				if(obj.is_node_diff(node.key, node.hash)) {
+					// Write new content
+					$(node.target).html(node.html);
+				}
+			}
+		)
+		// Store changes locally for next request
+		obj.currentViewState = data;
 	}
 	/**
 	 * Fetches the report data, and delegates to the dom handlers
@@ -121,8 +149,8 @@ let Ct1Upgrade = {};
 		obj.upgradeBoxElement = document.getElementById(obj.selectors.upgradeBox.substr(1));
 
 		// Initialize our report - heartbeat polling
-	//@todo	obj.start_report_polling();
-		obj.bind_listeners();
+		obj.start_report_polling();
+// @todo		obj.bind_listeners();
 	};
 
 	$( obj.init );

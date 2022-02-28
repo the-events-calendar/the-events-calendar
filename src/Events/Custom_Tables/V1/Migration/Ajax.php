@@ -105,6 +105,43 @@ class Ajax {
 			'report_html' => $html,
 		];
 
+		// @todo Hard coded proposed change for testing with
+		// @todo Binding to be figured out... should we just use onclick="localizedObject.function()" ?
+		// Frontend completely decoupled from this shape. Will render anything we throw at it.
+		$phase = State::PHASE_PREVIEW_PROMPT;
+		// Gives initial context / shape for other nodes to dynamically be added.
+		$container_html = '<div class="container"><div class="html1"></div></div>';
+		// Static content with a nested target
+		$html1 = '<div><h1>HTML 1</h1><p>Content</p><div class="html2"></div></div>';
+		// Static content with a double nested target
+		$html2 = '<div><h3>HTML 2</h3><p>Dynamic content: <b class="html3"></b></p></div>';
+		// Dynamic content
+		$html3    = date( "Y-m-d H:i:s" );
+		$response = [
+			'key'   => $phase, // Used to know when we re-render the entire report UI
+			'html'  => $container_html,
+			'nodes' => [ // Order matters here. Rendered in order of array.
+				[
+					'key'    => 'html1', // Key used for hash diff
+					'hash'   => sha1( $html1 ), // Did we change?
+					'target' => '.container .html1', // Target of our HTML
+					'html'   => $html1, // The rendered HTML
+				],
+				[
+					'key'    => 'html2',
+					'hash'   => sha1( $html2 ),
+					'target' => '.container .html1 .html2',
+					'html'   => $html2,
+				],
+				[
+					'key'    => 'html3',
+					'hash'   => sha1( $html3 ),
+					'target' => '.container .html1 .html2 .html3',
+					'html'   => $html3,
+				]
+			]
+		];
+
 		if ( $echo ) {
 			wp_send_json( $response );
 			die();
