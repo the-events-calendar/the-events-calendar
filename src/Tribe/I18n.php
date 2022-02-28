@@ -148,7 +148,7 @@ class I18n {
 		foreach ( $strings as $key => $value ) {
 			$strings[ $key ] = array_filter(
 				array_unique(
-					array_map( 'sanitize_title_with_dashes', (array) $value )
+					array_map( 'sanitize_key', (array) $value )
 				)
 			);
 		}

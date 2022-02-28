@@ -34,7 +34,7 @@ $event_day_num   = $display_date->format_i18n( 'j' );
 $event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>" aria-hidden="true">
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
 			<?php echo esc_html( $event_week_day ); ?>
 		</span>

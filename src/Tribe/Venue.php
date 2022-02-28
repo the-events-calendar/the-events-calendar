@@ -57,6 +57,22 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		'Phone',
 	];
 
+
+
+	public $venueTags = [
+		'_VenueCountry',
+		'_VenueAddress',
+		'_VenueCity',
+		'_VenueStateProvince',
+		'_VenueState',
+		'_VenueProvince',
+		'_VenueZip',
+		'_VenuePhone',
+		'_VenueURL',
+		'_VenueShowMap',
+		'_VenueShowMapLink',
+	];
+
 	/**
 	 * @var string
 	 */
@@ -249,6 +265,28 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		}
 
 		return $title;
+	}
+
+	/**
+	 * Include the venue editor meta box.
+	 *
+	 * @since 5.14.0
+	 */
+	public static function add_post_type_metabox() {
+
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+			return;
+		}
+
+		add_meta_box(
+			'tribe_events_venue_details',
+			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), tribe( 'tec.linked-posts.venue' )->get_venue_label_singular() ),
+			[ Tribe__Events__Main::instance(), 'VenueMetaBox' ],
+			self::POSTTYPE,
+			'normal',
+			'high'
+		);
+
 	}
 
 	/**

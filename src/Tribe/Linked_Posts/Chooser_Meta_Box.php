@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__Linked_Posts__Chooser_Meta_Box
  *
- * Handles the Organizer section inside the Events meta box
+ * Handles the Venue and Organizer sections inside the Events meta box
  */
 class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
@@ -43,7 +43,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Work with the specifed event object or else use a placeholder if in the middle of creating a new event.
+	 * Work with the specified event object or else use a placeholder if in the middle of creating a new event.
 	 *
 	 * @param mixed $event
 	 */
@@ -68,7 +68,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
-	 * Render the organizer chooser section for the events meta box
+	 * Render the chooser section for the events meta box
 	 */
 	public function render() {
 		$this->render_dropdowns();
@@ -128,9 +128,8 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		 */
 		$current_linked_posts = (array) apply_filters( 'tribe_display_event_linked_post_dropdown_id', $current_linked_posts, $this->post_type );
 
-		/* if the user can't create organizers, then remove any empty values
-		   from the $current_organizers array. This prevents the automatic
-		   selection of an organizer every time the event is edited. */
+		/* if the user can't create posts of the linked type, then remove any empty values from the $current_linked_posts
+		   array. This prevents the automatic selection of a post every time the event is edited. */
 		$linked_post_pto = get_post_type_object( $this->post_type );
 
 		if ( ! current_user_can( $linked_post_pto->cap->create_posts ) ) {
@@ -220,16 +219,18 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 */
 	protected function use_default_post( $current_posts ) {
 		if ( ! empty( $current_posts ) ) {
-			return false; // the event already has organizers
+			return false; // the event already has linked post(s)
 		}
+
 		if ( ! empty( $this->event->ID ) && get_post_status( $this->event->ID ) != 'auto-draft' ) {
 			return false; // the event has already been saved
 		}
+
 		if ( is_admin() ) {
 			return Tribe__Admin__Helpers::instance()->is_action( 'add' );
-		} else {
-			return true; // a front-end submission form (e.g., community)
 		}
+
+		return true; // a front-end submission form (e.g., community)
 	}
 
 	/**

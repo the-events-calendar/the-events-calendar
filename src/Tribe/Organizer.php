@@ -711,4 +711,24 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			return array_filter( $organizers );
 		};
 	}
+
+	/**
+	 * Include the organizer editor meta box.
+	 *
+	 * @since 5.14.0
+	 */
+	public static function add_post_type_metabox() {
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+			return;
+		}
+
+		add_meta_box(
+			'tribe_events_organizer_details',
+			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), tribe( 'tec.linked-posts.organizer' )->get_organizer_label_singular() ),
+			[ Tribe__Events__Main::instance(), 'OrganizerMetaBox' ],
+			self::POSTTYPE,
+			'normal',
+			'high'
+		);
+	}
 }

@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.13.0",
+  "version": "5.14.0",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -100,7 +100,7 @@
     "querystringify": "^2.0.0",
     "react": "16.3.0",
     "react-day-picker": "^7.2.4",
-    "react-dom": "16.3.3",
+    "react-dom": "16.3.0",
     "react-iframe": "^1.8.0",
     "react-input-autosize": "^2.2.1",
     "react-places-autocomplete": "^6.1.2",
