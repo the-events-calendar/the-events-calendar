@@ -258,7 +258,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Serve a single event import url for Google Calendar on the single event view. [TEC-4235]
 * Fix - Improve theme CSS compatibility on View container by making sure our views take 100% of the width available (props @askwpgirl) [TEC-4257]
 * Language - 9 new strings added, 277 updated, 1 fuzzied, and 1 obsoleted
->>>>>>> release/B22.lattice
 
 = [5.13.0] 2022-01-31 =
 
