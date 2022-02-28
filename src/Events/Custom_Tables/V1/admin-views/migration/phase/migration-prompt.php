@@ -17,15 +17,16 @@
 			?>
 		</p>
 
+		<?php include_once __DIR__ . '/report-data.php'; ?>
+
 		<p class="tec-ct1-upgrade__alert">
 			<i class="tec-ct1-upgrade__alert-icon">!</i>
 			<?php
 			echo sprintf(
-				esc_html__( 'From this preview, we estimate that the full migration process will take approximately %3$s...%4$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.', 'the-events-calendar' ),
+				esc_html( 'From this preview, we estimate that the full migration process will take approximately %3$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.', 'the-events-calendar' ),
 				'<strong>',
 				'</strong>',
-				'<span data-migration="estimated_time_in_hours">',
-					'</span>'
+				$report->estimated_time_in_hours
 			);
 
 			if ( $addendum = tribe( \TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
@@ -71,8 +72,16 @@
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<button type="button"><?php esc_html_e( 'Start migration', 'the-events-calendar' ); ?></button>
-		<i data-migration="estimated_time_in_hours_text">
-			...
+		<i>
+			<?php
+			if ( 1 === $report->estimated_time_in_hours ) {
+				$message = esc_html( '(Estimated time: %1$s hour)', 'ical-tec' );
+			} else {
+				$message = esc_html( '(Estimated time: %1$s hours)', 'ical-tec' );
+			}
+
+			echo sprintf( $message, $report->estimated_time_in_hours );
+			?>
 		</i>
 	</div>
 </div>
