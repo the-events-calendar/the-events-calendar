@@ -10,6 +10,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use TEC\Events\Custom_Tables\V1\Migration\AssetLoader;
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
@@ -53,6 +54,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
 		$this->container->singleton( Process::class, Process::class );
 		$this->container->singleton( Ajax::class, Ajax::class );
+		$this->container->singleton( AssetLoader::class, AssetLoader::class );
+		$this->container->register( AssetLoader::class );
 
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
 		add_action( Process::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
@@ -72,61 +75,15 @@ class Provider extends Service_Provider implements Provider_Contract {
 			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
 			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
 
-			add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ], 10 );
-			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 11 );
-
 			// @todo delegate this to upgrade tab class?
 			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
 		}
 	}
 
-	/**
-	 * Registers the scripts required by the service provider.
-	 *
-	 * @since TBD
-	 */
-	public function register_scripts() {
-		wp_register_style(
-			'tec-ct1-upgrade-admin-css',
-			TEC::instance()->plugin_url .'src/resources/css/custom-tables-v1/ct1-upgrade.css'
-		);
-		wp_register_script(
-			'tec-ct1-upgrade-admin-js',
-			TEC::instance()->plugin_url . 'src/resources/js/custom-tables-v1/ct1-upgrade.js'
-		);
-	}
 
-	/**
-	 * Enqueues the scripts required by the service provider.
-	 *
-	 * @since TBD
-	 */
-	public function enqueue_scripts() {
-		if ( ! isset( $_GET['page'] ) ) {
-			return;
-		}
 
-		if ( $_GET['page'] !== tribe( 'settings' )->adminSlug ) {
-			return;
-		}
 
-		wp_enqueue_style( 'tec-ct1-upgrade-admin-css' );
-		wp_enqueue_script( 'tec-ct1-upgrade-admin-js' );
-		wp_localize_script( 'tec-ct1-upgrade-admin-js',
-			'tecCt1Upgrade',
-			[
-				'ajaxUrl' => admin_url()  . 'admin-ajax.php',
-				'pollInterval' => 5000,
-				'actions' => [
-					'get_report'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
-					'start_migration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
-					'cancel_migration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
-					'undo_migration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_UNDO ),
-				]
-			]
-		);
-	}
 
 	/**
 	 * Unhooks the hooks set by the Provider in the `register` method.
