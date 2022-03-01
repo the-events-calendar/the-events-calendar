@@ -12,12 +12,8 @@ namespace TEC\Events\Custom_Tables\V1\Views\V2;
 use Exception;
 use stdClass;
 use tad_DI52_ServiceProvider;
-use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use TEC\Events_Pro\Custom_Tables\V1\Models\Provisional_Post;
 use Tribe__Customizer as Customizer;
 use Tribe__Customizer__Section as Customizer_Section;
-use Tribe__Utils__Color;
-use Tribe__Events__Main as TEC;
 
 /**
  * Class Provider
@@ -47,49 +43,6 @@ class Provider extends tad_DI52_ServiceProvider {
 			$this,
 			'update_global_customizer_styles',
 		], 10, 3 );
-
-		// Filters the unique post slug generate for an Occurrence.
-		add_filter( 'wp_unique_post_slug', [ $this, 'unique_post_slug_for_occurrence' ], 10, 6 );
-	}
-
-	/**
-	 * Checks if this occurrence has a unique post slug.
-	 *
-	 * @since TBD
-	 *
-	 * @param $slug
-	 * @param $post_ID
-	 * @param $post_status
-	 * @param $post_type
-	 * @param $post_parent
-	 * @param $original_slug
-	 *
-	 * @return mixed
-	 */
-	public function unique_post_slug_for_occurrence( $slug, $post_ID, $post_status, $post_type, $post_parent, $original_slug ) {
-		global $wpdb;
-		if ( TEC::POSTTYPE !== $post_type ) {
-			return $slug;
-		}
-		$provisional_post = tribe( Provisional_Post::class );
-		if ( ! $provisional_post->is_provisional_post_id( $post_ID ) ) {
-			return $slug;
-		}
-		$occurrence_id = $provisional_post->normalize_provisional_post_id( $post_ID );
-		if ( ! ( $occurrence = Occurrence::find( $occurrence_id ) ) ) {
-			return $slug;
-		}
-
-		$real_post_id    = $occurrence->post_id;
-		$check_sql       = "SELECT post_name FROM $wpdb->posts WHERE post_name = %s AND post_type = %s AND ID != %d LIMIT 1";
-		$post_name_check = $wpdb->get_var( $wpdb->prepare( $check_sql, $original_slug, $post_type, $real_post_id ) );
-
-		// Unique title?
-		if ( $post_name_check ) {
-			return $slug;
-		}
-
-		return $original_slug;
 	}
 
 	/**
