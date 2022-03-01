@@ -13,7 +13,7 @@
 namespace TEC\Events\Custom_Tables\V1\Repository;
 
 use tad_DI52_ServiceProvider as Service_Provider;
-use TEC\Events\Custom_Tables\V1\WP_Query\Provider_Contract;
+use TEC\Events\Custom_Tables\V1\Provider_Contract;
 
 /** * Class Provider.
  *
