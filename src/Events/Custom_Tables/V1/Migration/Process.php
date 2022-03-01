@@ -65,6 +65,8 @@ class Process {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
+		// @todo Add error handler and shutdown callback (to catch some of our errors).
+
 		try {
 			/**
 			 * Filters the migration strategy that should be used to migrate an Event.
@@ -91,36 +93,37 @@ class Process {
 
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $event_report );
+			// If no error, mark successful.
+			if ( ! $event_report->error ) {
+				$event_report->migration_success();
+			}
+
+			$post_id = $this->events->get_id_to_process();
+
+			if ( $post_id ) {
+				// Enqueue a new (Action Scheduler) action to import another Event.
+				$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
+
+				//@todo check action ID here and log on failure.
+			}
+
+			$events_repo = tribe( Events::class );
+			$state       = tribe( State::class );
+			// Transition phase
+			// @todo This how we want to do this?
+			// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
+			if ( $events_repo->get_total_events_remaining() === 0 && $state->is_running() && $state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS ) {
+				$state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_COMPLETE : State::PHASE_MIGRATION_COMPLETE );
+				$state->set( 'migration', 'estimated_time_in_seconds', $events_repo->calculate_time_to_completion() );
+				$state->save();
+			}
 		} catch ( \Throwable $e ) {
 			$event_report->migration_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
 			$event_report->migration_failed( $e->getMessage() );
 		}
 
-		// If no error, mark successful.
-		if ( ! $event_report->error ) {
-			$event_report->migration_success();
-		}
-
-		$post_id = $this->events->get_id_to_process();
-
-		if ( $post_id ) {
-			// Enqueue a new (Action Scheduler) action to import another Event.
-			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
-
-			//@todo check action ID here and log on failure.
-		}
-
-		$events_repo = tribe( Events::class );
-		$state       = tribe( State::class );
-		// Transition phase
-		// @todo This how we want to do this?
-		// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
-		if ( $events_repo->get_total_events_remaining() === 0 && $state->is_running() && $state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS ) {
-			$state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_COMPLETE : State::PHASE_MIGRATION_COMPLETE );
-			$state->set( 'migration', 'estimated_time_in_seconds', $events_repo->calculate_time_to_completion() );
-			$state->save();
-		}
+		// @todo Remove the error + shutdown hooks
 
 		return $event_report;
 	}
@@ -136,6 +139,11 @@ class Process {
 	 *                      migration undoing.
 	 */
 	public function undo_event_migration( $post_id ) {
+
+		// @todo - This should be refactored to be a recursive single worker.
+		// @todo - Worker watches current state, if there are in progress queue itself to check later. If none, process undo operation.
+		// @todo - Undo operation should simply drop all custom tables, delete all meta values.
+
 		try {
 			/**
 			 * Filters the migration strategy that should be used to undo an Event migration.
@@ -172,6 +180,7 @@ class Process {
 
 		$post_id = $this->events->get_id_to_process( true );
 
+
 		if ( $post_id ) {
 			// Enqueue a new (Action Scheduler) action to undo another Event migration.
 			$action_id = as_enqueue_async_action( self::ACTION_UNDO, [ $post_id ] );
@@ -193,7 +202,7 @@ class Process {
 	 */
 	public function start( $dry_run = true ) {
 		$action_ids = [];
-
+		// @todo Move phase
 		foreach ( $this->events->get_ids_to_process( 50 ) as $post_id ) {
 			$action_ids[] = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
 		}
@@ -210,6 +219,8 @@ class Process {
 	public function cancel() {
 		// This will target all of our processing actions
 		as_unschedule_all_actions( self::ACTION_PROCESS );
+
+		// @todo Grab in prog - flag
 
 		// Now kick-off the undo
 		return $this->undo();
