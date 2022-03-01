@@ -117,6 +117,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 			'tecCt1Upgrade',
 			[
 				'ajaxUrl' => admin_url()  . 'admin-ajax.php',
+				'pollInterval' => 5000,
 				'actions' => [
 					'get_report'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
 					'start_migration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
