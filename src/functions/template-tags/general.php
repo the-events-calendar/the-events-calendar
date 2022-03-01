@@ -22,9 +22,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @uses Tribe__Events__Templates::instantiate_template_class()
 	 **/
 	function tribe_initialize_view( $class = false ) {
-		if ( tec_events_views_v1_should_display_deprecated_notice() ) {
-			_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
-		}
 		do_action( 'tribe_pre_initialize_view' );
 		Tribe__Events__Templates::instantiate_template_class( $class );
 	}
