@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.14.0.4] 2022-03-01 =
+
+* Tweak - Update version of Freemius to 2.4.3.
+
 = [5.14.0.3] 2022-02-25 =
 
 * Fix - Ensure the Venue and Organizer metaboxes load when creating a new post of that type. [BTRIA-1152]
