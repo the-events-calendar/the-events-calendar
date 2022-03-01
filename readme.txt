@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-* Fix - Prevent error around Free regular expression for JSON-LD on updated views.
+* Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon
 
 = [5.14.0.1] 2022-02-15 =
 
