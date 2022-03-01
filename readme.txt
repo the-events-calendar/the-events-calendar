@@ -220,6 +220,9 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+=[TBD] TBD =
+
+* Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TBD]
 
 * Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon
 
