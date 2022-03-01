@@ -42,13 +42,13 @@ class Provider extends tad_DI52_ServiceProvider {
 			'prepare_by_day_view_day_results',
 		], 10, 2 );
 
-		// Customizer
+		// Handle Customizer styles.
 		add_filter( 'tribe_customizer_global_elements_css_template', [
 			$this,
 			'update_global_customizer_styles',
 		], 10, 3 );
 
-		// Setup the correct post slug
+		// Filters the unique post slug generate for an Occurrence.
 		add_filter( 'wp_unique_post_slug', [ $this, 'unique_post_slug_for_occurrence' ], 10, 6 );
 	}
 
