@@ -2,6 +2,8 @@ let upgradeBoxElement = null;
 let localizedData = null;
 let ajaxUrl = null;
 let pollInterval = 5000;
+let pollTimeoutId = null;
+let currentViewState = {};
 
 export const selectors = {
 	// @todo review these and remove the ones we do not need anymore.
@@ -15,23 +17,29 @@ export const selectors = {
 	upgradeBox: '#tec-ct1-upgrade-box',
 };
 
-export const ajaxGet = (url, onSuccess, onFailure, onError) => {
+export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 	if (!url) {
 		return;
 	}
-	const request = new XMLHttpRequest();
-	request.open('GET', url, true);
-
-	request.onload = function() {
-		if (this.status >= 200 && this.status < 400) {
-			onSuccess && onSuccess(this.response);
+	let params = typeof data == 'string' ? data : Object.keys(data).map(
+		function (k) {
+			return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
 		}
-		else {
+	).join('&');
+	let compiledUrl = params ? url + '?' + params : url;
+
+	const request = new XMLHttpRequest();
+	request.open('GET', compiledUrl, true);
+
+	request.onload = function () {
+		if (this.status >= 200 && this.status < 400) {
+			onSuccess && onSuccess(JSON.parse(this.response));
+		} else {
 			onFailure && onFailure(this.response);
 		}
 	};
 
-	request.onerror = function() {
+	request.onerror = function () {
 		onError && onError();
 	};
 
@@ -57,10 +65,76 @@ export const onFailure = () => {
 export const onError = () => {
 
 };
-
-const pollForReport = () => {
-	setTimeout(ajaxGet, pollInterval, onSuccess, onFailure, onError);
+export const recursePollForReport = () => {
+	syncReportData(
+		pollForReport
+	);
+}
+export const pollForReport = () => {
+	// Start polling
+	pollTimeoutId = setTimeout(recursePollForReport, pollInterval);
 };
+export const handleReportData = function (data) {
+	const {nodes, key, html} = data;
+
+	// Write our HTML if we are new
+	if (!currentViewState.key || currentViewState.key !== key) {
+		upgradeBoxElement.innerHTML = html;
+	}
+	// Iterate on nodes
+	nodes.forEach(
+		(node) => {
+			if (isNodeDiff(node.key, node.hash)) {
+				// Write new content
+				let element;
+				if (element = document.querySelector(node.target)) {
+					element.innerHTML = node.html;
+				}
+			}
+		}
+	)
+	// Store changes locally for next request
+	currentViewState = data;
+}
+export const isNodeDiff = (searchKey, searchHash) => {
+	const {nodes} = currentViewState;
+	if (!nodes) {
+		return true;
+	}
+	const node = nodes.find(
+		({key}) => key === searchKey
+	);
+
+	if (!node) {
+		return true;
+	}
+
+	return node.hash !== searchHash;
+}
+
+/**
+ * Fetches the report data, and delegates to the handlers
+ *
+ * @param successCallback
+ */
+export const syncReportData = function (successCallback) {
+	getReport(
+		function (response) {
+			handleReportData(response);
+			if (successCallback) {
+				successCallback(response);
+			}
+		}
+	);
+}
+
+export const getReport = function (successCallback) {
+	ajaxGet(
+		tecCt1Upgrade.ajaxUrl,
+		{action: tecCt1Upgrade.actions.get_report},
+		successCallback
+	)
+}
 
 export const init = () => {
 	localizedData = window.tecCt1Upgrade;
@@ -77,6 +151,9 @@ export const init = () => {
 		return;
 	}
 
+	// Get initial report data immediately
+	syncReportData();
+
 	// Initialize our report - heartbeat polling.
 	pollForReport();
 };
@@ -84,7 +161,6 @@ export const init = () => {
 // On DOM ready, init.
 if (document.readyState !== 'loading') {
 	init();
-}
-else {
+} else {
 	document.addEventListener('DOMContentLoaded', init);
 }

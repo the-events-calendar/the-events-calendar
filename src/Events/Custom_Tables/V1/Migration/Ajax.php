@@ -13,6 +13,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Phase_View_Renderer;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
@@ -98,25 +99,29 @@ class Ajax {
 		$report = Site_Report::build( $page, $count );
 
 		$html = tribe( Upgrade_Tab::class )->get_phase_inner_html();
-		$response      = [
-			// 'has_changes' => $report->has_changes,
-			// @todo remove this hard-coded value used for testing.
-			'has_changes' => true,
-			'report_html' => $html,
-		];
+		$state = tribe(State::class);
 
-		// @todo Hard coded proposed change for testing with
+		// What phase are we in?
+		$phase = $state->get_phase();
+
+		$renderer = new Phase_View_Renderer(State::PHASE_PREVIEW_IN_PROGRESS,
+			TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/upgrade-box-contents.php', [
+			'phase' => State::PHASE_PREVIEW_IN_PROGRESS,
+				'template_path' => TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration'
+		]);
+		$renderer->register_node( 'progress-bar',
+			'.tribe-update-bar-container',
+			TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/partials/progress-bar.php'
+		);
+		// Get that phase "template(s)" container HTML
+		// Get it's child nodes (separated by dynamic context)
+		// Get that key
+
+
 		// @todo Binding to be figured out... should we just use onclick="localizedObject.function()" ?
-		// Frontend completely decoupled from this shape. Will render anything we throw at it.
-		$phase = State::PHASE_PREVIEW_PROMPT;
-		// Gives initial context / shape for other nodes to dynamically be added.
-		$container_html = '<div class="container"><div class="html1"></div></div>';
-		// Static content with a nested target
-		$html1 = '<div><h1>HTML 1</h1><p>Content</p><div class="html2"></div></div>';
-		// Static content with a double nested target
-		$html2 = '<div><h3>HTML 2</h3><p>Dynamic content: <b class="html3"></b></p></div>';
+
 		// Dynamic content
-		$html3    = date( "Y-m-d H:i:s" );
+		$html3    = $html;
 		$response = [
 			'key'   => $phase, // Used to know when we re-render the entire report UI
 			'html'  => $container_html,
@@ -141,7 +146,7 @@ class Ajax {
 				]
 			]
 		];
-
+		$response = $renderer->compile();
 		if ( $echo ) {
 			wp_send_json( $response );
 			die();

@@ -6,10 +6,7 @@ import {
 	init,
 	getUpgradeBoxElement,
 	selectors,
-	ajaxGet,
-	onSuccess,
-	onFailure,
-	onError,
+	recursePollForReport,
 } from '../ct1-upgrade-remake';
 
 const upgradeBoxId = selectors.upgradeBox.substr(1);
@@ -32,6 +29,7 @@ describe('CT1 Upgrade UI', () => {
 	window.tecCt1Upgrade = {
 		ajaxUrl: '/admin-ajax.php',
 		pollInterval: 2300,
+		actions:{get_report:'test'}
 	};
 
 	it('should correctly initialize', () => {
@@ -40,7 +38,7 @@ describe('CT1 Upgrade UI', () => {
 		expect(getUpgradeBoxElement()).toBeInstanceOf(Element);
 		expect(setTimeout).toHaveBeenCalledTimes(1);
 		expect(setTimeout).
-				toHaveBeenLastCalledWith(ajaxGet, 2300, onSuccess, onFailure, onError);
+				toHaveBeenLastCalledWith(recursePollForReport, 2300);
 	});
 
 	describe('ajaxGet', () => {
