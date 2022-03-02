@@ -54,6 +54,24 @@ export const buildQueryString = (data = {}) => {
 	return queryString ? '?' + queryString : '';
 };
 
+/**
+ * Sends an AJAX GET request to the specified URL.
+ *
+ * @since TBD
+ *
+ * @param {string} url The URL to send the GET request to.
+ * @param {string|Object|null} data The data object or string, it will be
+ * 																  URL-encoded.
+ * @param {function|null} onSuccess The function that will be called on a
+ * 																	successful  request, it will be passed the
+ * 																	JSON parsed response data.
+ * @param {function|null} onFailure The function that will be called if the
+ * 													        request fails, it will be passed the raw
+ * 													        response body.
+ * @param {function|null} onError   The function that will be called if there's
+ * 																  an error with the request or if there's an
+ * 																  error	parsing the response JSON.
+ */
 export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 	if (!url) {
 		return;
