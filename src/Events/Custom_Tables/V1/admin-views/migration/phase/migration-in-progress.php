@@ -15,7 +15,7 @@ if ( $state->is_completed() ) {
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<h3>
-			<?php echo $logo; ?>
+			<?php include $template_directory . '/upgrade-logo.php'; ?>
 			<?php esc_html_e( 'Migration in progress', 'the-events-calendar' ); ?>
 		</h3>
 
@@ -42,19 +42,26 @@ if ( $state->is_completed() ) {
 			);
 			?>
 		</p>
-		<div class="tribe-update-bar tec-ct1-upgrade-bar">
-			<div class="progress" title="Checking..."> <div class="bar"></div> </div>
+		<?php
+		$remaining_events = 138;
+		$total_previewed_events = $state->get( 'events', 'total' ) - $remaining_events;
+		$percent = '30%';
+		$progress = 30;
+		?>
+		<div class="tribe-update-bar">
+			<div class="progress" title="<?php echo esc_attr( $percent ); ?>"> <div class="bar" style="width: <?php echo esc_attr( $progress ); ?>%"></div> </div>
 			<div class="tribe-update-bar__summary">
 				<div class="tribe-update-bar__summary-progress-text">
 					<?php
 					echo sprintf(
 						_x(
-							'%1$s...%2$s events migrated',
+							'%1$s%2$d%3$s events migrated',
 							'Number of events migrated',
 							'the-events-calendar'
 						),
-							'<strong data-migration="total_events_migrated">',
-							'</strong>'
+						'<strong>',
+						$total_previewed_events,
+						'</strong>'
 					);
 					?>
 				</div>
@@ -62,12 +69,13 @@ if ( $state->is_completed() ) {
 					<?php
 					echo sprintf(
 						_x(
-							'%1$s...%2$s remaining',
+							'%1$s%2$d%3$s remaining',
 							'Number of events awaiting migration',
 							'the-events-calendar'
 						),
-							'<strong data-migration="total_events_remaining">',
-							'</strong>'
+						'<strong>',
+						$remaining_events,
+						'</strong>'
 					);
 					?>
 				</div>

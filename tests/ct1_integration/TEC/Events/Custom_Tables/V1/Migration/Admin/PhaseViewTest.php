@@ -104,7 +104,6 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Should render HTML from Migration In Progress templates.
 	 *
-	 * @skip 
 	 * @test
 	 */
 	public function should_render_migration_in_progress_ok() {
@@ -120,7 +119,6 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertEmpty( $output['nodes'] );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
 		$this->assertContains( 'tribe-update-bar__summary-progress-text', $output['html'] );
