@@ -39,4 +39,26 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 		}
 	}
 
+	/**
+	 * Should render HTML from Preview In Progress templates.
+	 *
+	 * @test
+	 */
+	public function should_render_preview_in_progress_ok() {
+		// Preview In Progress templates.
+		$renderer = new Phase_View_Renderer( State::PHASE_PREVIEW_IN_PROGRESS, '/upgrade-box-contents.php' );
+		$renderer->register_node( 'progress-bar',
+			'.tribe-update-bar-container',
+			'/partials/progress-bar.php'
+		);
+
+		$output = $renderer->compile();
+		$node   = array_pop( $output['nodes'] );
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . State::PHASE_PREVIEW_IN_PROGRESS, $output['html'] );
+		$this->assertContains( 'tribe-update-bar-container', $output['html'] );
+		$this->assertContains( 'tribe-update-bar__summary-progress-text', $node['html'] );
+	}
 }

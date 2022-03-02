@@ -10,8 +10,10 @@ class Phase_View_Renderer {
 	public function __construct( $key, $file_path, $vars = [] ) {
 		$this->key           = $key;
 		$this->template_path = $file_path;
-		$this->vars          = $vars;
-		$this->templates_directory = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
+		// Our root template directory for all migration templates.
+		$this->template_directory = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
+		// Add the vars we already have, in case template relies on it.
+		$this->vars = array_merge( [ 'phase' => $key, 'template_directory' => $this->template_directory ], $vars );
 	}
 
 	public function register_node( $key, $selector, $template, $vars = [] ) {
@@ -47,7 +49,7 @@ class Phase_View_Renderer {
 	protected function get_template_html( $template, $vars = [] ) {
 		extract( $vars );
 		ob_start();
-		include $this->templates_directory.$template;
+		include $this->template_directory.$template;
 
 		return ob_get_clean();
 	}

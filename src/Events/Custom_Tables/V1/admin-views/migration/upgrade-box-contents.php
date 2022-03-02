@@ -5,7 +5,7 @@
  * @since TBD
  *
  * @var string $phase The current Migration phase the site is in.
- * @var string $template_path The absolute path to the Migration template root directory.
+ * @var string $template_directory The absolute path to the Migration template root directory.
  */
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
@@ -19,11 +19,8 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 	 */
 	do_action( 'tec_events_custom_tables_v1_upgrade_before' );
 
-	ob_start();
-	include_once $template_path . '/upgrade-logo.php';
-	$logo = ob_get_clean();
 	// @todo Check if valid phase for added security
-	include_once $template_path . '/phase/' . $phase . '.php';
+	include $template_directory . '/phase/' . $phase . '.php';
 
 	/**
 	 * Fires at the bottom of the upgrade step 1 on Settings > Upgrade.
