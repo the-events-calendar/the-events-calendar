@@ -7,7 +7,7 @@ import {
 	getUpgradeBoxElement,
 	ajaxGet,
 	selectors,
-	recursePollForReport, buildDataString,
+	recursePollForReport, buildQueryString,
 } from '../ct1-upgrade-remake';
 
 const upgradeBoxId = selectors.upgradeBox.substr(1);
@@ -41,27 +41,36 @@ describe('CT1 Upgrade UI', () => {
 				toHaveBeenLastCalledWith(recursePollForReport, 2300);
 	});
 
-	describe('buildDataString', () => {
+	describe('buildQueryString', () => {
+
+		it('should throw if data is not string or object',()=>{
+			expect(() => {buildQueryString(['foo', 'bar']);}).toThrowError();
+		});
 
 		it('should correctly build on empty object', () => {
-			const built = buildDataString({});
+			const built = buildQueryString({});
 			expect(built).toBe('');
 		});
 
 		it('should correctly build on one prop object', () => {
-			const built = buildDataString({action: 'do-something'});
-			expect(built).toBe('action=do-something');
+			const built = buildQueryString({action: 'do-something'});
+			expect(built).toBe('?action=do-something');
 		});
 
 		it('should correctly build on many props object', () => {
-			const built = buildDataString({
+			const built = buildQueryString({
 				action: 'do-something',
 				url: '/foo/bar?and-then=some&non-utf=é',
 				méh: '<-this should be encoded',
 			});
 			expect(built).
 					toBe(
-							'action=do-something&url=%2Ffoo%2Fbar%3Fand-then%3Dsome%26non-utf%3D%C3%A9&m%C3%A9h=%3C-this%20should%20be%20encoded');
+							'?action=do-something&url=%2Ffoo%2Fbar%3Fand-then%3Dsome%26non-utf%3D%C3%A9&m%C3%A9h=%3C-this%20should%20be%20encoded');
+		});
+
+		it('should correctly encode non-encoded string', () => {
+			const built = buildQueryString('léh=Düsseldorf&foo=bar');
+			expect(built).toBe('?l%C3%A9h=D%C3%BCsseldorf&foo=bar');
 		});
 	});
 

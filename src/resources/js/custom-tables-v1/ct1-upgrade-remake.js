@@ -17,12 +17,41 @@ export const selectors = {
 	upgradeBox: '#tec-ct1-upgrade-box',
 };
 
-export const buildDataString = (data = {}) => {
-	return Object.keys(data).map(
+/**
+ * Builds a URL-encoded query string from an object or string.
+ *
+ * @param {Object|string} data The data object, or string, to convert to query
+ * 												     string.
+ *
+ * @returns {string} The data converted to a URL-encoded query string, including
+ * 									 the leading `?`.
+ *
+ * @throws {Error} If the data is not a string or an object.
+ */
+export const buildQueryString = (data = {}) => {
+	if (!(
+			(data instanceof Object && !Array.isArray(data))
+			|| typeof data === 'string')
+	) {
+		throw new Error('data must be an object or a string');
+	}
+
+	if ('string' === typeof data) {
+		const extractedData = {};
+		data.split('&').map((keyAndValue) => {
+			const [key, value] = keyAndValue.split('=', 2);
+			extractedData[key] = value;
+		});
+		data = extractedData;
+	}
+
+	const queryString =  Object.keys(data).map(
 			function(k) {
 				return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
 			},
 	).join('&');
+
+	return queryString ? '?' + queryString : '';
 };
 
 export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
@@ -30,21 +59,20 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 		return;
 	}
 
-	const params = typeof data == 'string' ? data : buildDataString(data);
-	const compiledUrl = params ? url + '?' + params : url;
-
+	const compiledUrl = url + buildQueryString(data);
 	const request = new XMLHttpRequest();
 	request.open('GET', compiledUrl, true);
 
-	request.onload = function () {
+	request.onload = function() {
 		if (this.status >= 200 && this.status < 400) {
 			onSuccess && onSuccess(JSON.parse(this.response));
-		} else {
+		}
+		else {
 			onFailure && onFailure(this.response);
 		}
 	};
 
-	request.onerror = function () {
+	request.onerror = function() {
 		onError && onError();
 	};
 
@@ -73,7 +101,7 @@ export const onError = () => {
 
 export const recursePollForReport = () => {
 	syncReportData(
-		pollForReport
+			pollForReport,
 	);
 };
 
@@ -82,7 +110,7 @@ export const pollForReport = () => {
 	pollTimeoutId = setTimeout(recursePollForReport, pollInterval);
 };
 
-export const handleReportData = function (data) {
+export const handleReportData = function(data) {
 	const {nodes, key, html} = data;
 
 	// Write our HTML if we are new
@@ -91,26 +119,26 @@ export const handleReportData = function (data) {
 	}
 	// Iterate on nodes
 	nodes.forEach(
-		(node) => {
-			if (isNodeDiff(node.key, node.hash)) {
-				// Write new content
-				let element;
-				if (element = document.querySelector(node.target)) {
-					element.innerHTML = node.html;
+			(node) => {
+				if (isNodeDiff(node.key, node.hash)) {
+					// Write new content
+					let element;
+					if (element = document.querySelector(node.target)) {
+						element.innerHTML = node.html;
+					}
 				}
-			}
-		}
-	)
+			},
+	);
 	// Store changes locally for next request
 	currentViewState = data;
-}
+};
 export const isNodeDiff = (searchKey, searchHash) => {
 	const {nodes} = currentViewState;
 	if (!nodes) {
 		return true;
 	}
 	const node = nodes.find(
-		({key}) => key === searchKey
+			({key}) => key === searchKey,
 	);
 
 	if (!node) {
@@ -118,31 +146,31 @@ export const isNodeDiff = (searchKey, searchHash) => {
 	}
 
 	return node.hash !== searchHash;
-}
+};
 
 /**
  * Fetches the report data, and delegates to the handlers
  *
  * @param successCallback
  */
-export const syncReportData = function (successCallback) {
+export const syncReportData = function(successCallback) {
 	getReport(
-		function (response) {
-			handleReportData(response);
-			if (successCallback) {
-				successCallback(response);
-			}
-		}
+			function(response) {
+				handleReportData(response);
+				if (successCallback) {
+					successCallback(response);
+				}
+			},
 	);
-}
+};
 
-export const getReport = function (successCallback) {
+export const getReport = function(successCallback) {
 	ajaxGet(
-		tecCt1Upgrade.ajaxUrl,
-		{action: tecCt1Upgrade.actions.get_report},
-		successCallback
-	)
-}
+			tecCt1Upgrade.ajaxUrl,
+			{action: tecCt1Upgrade.actions.get_report},
+			successCallback,
+	);
+};
 
 export const init = () => {
 	localizedData = window.tecCt1Upgrade;
@@ -169,6 +197,7 @@ export const init = () => {
 // On DOM ready, init.
 if (document.readyState !== 'loading') {
 	init();
-} else {
+}
+else {
 	document.addEventListener('DOMContentLoaded', init);
 }
