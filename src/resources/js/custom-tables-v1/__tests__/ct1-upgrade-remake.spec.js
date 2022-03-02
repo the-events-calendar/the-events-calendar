@@ -16,7 +16,7 @@ const upgradeBoxId = selectors.upgradeBox.substr(1);
 let XHRMockOnreadystatechange, XHRMockOnload, XHRMockOnerror,
 		XHRMockSetRequestHeader;
 
-function createXHRmock(status = 200, response = {}) {
+function createXHRmock(status = 200, response = '') {
 	const open = jest.fn();
 	XHRMockSetRequestHeader = jest.fn();
 
@@ -41,7 +41,7 @@ function createXHRmock(status = 200, response = {}) {
 			send: send,
 			status: status,
 			setRequestHeader: XHRMockSetRequestHeader,
-			response: JSON.stringify(response),
+			response: response
 		};
 	};
 
@@ -110,7 +110,7 @@ describe('CT1 Upgrade UI', () => {
 
 	describe('ajaxGet', () => {
 		it('should not send request on missing URL', () => {
-			const {open, send} = createXHRmock(200, {foo: 'bar'});
+			const {open, send} = createXHRmock();
 			const callback = jest.fn();
 
 			ajaxGet('', {}, callback, callback, callback);
@@ -120,7 +120,7 @@ describe('CT1 Upgrade UI', () => {
 		});
 
 		it('should open and send a request when provided URL', () => {
-			const {open, send} = createXHRmock(200, {foo: 'bar'});
+			const {open, send} = createXHRmock();
 			const callback = jest.fn();
 
 			ajaxGet('/some-url.php', {}, callback, callback, callback);
@@ -130,7 +130,8 @@ describe('CT1 Upgrade UI', () => {
 		});
 
 		it('should call onSuccess on success', () => {
-			createXHRmock(200, {hello: 'there'});
+			const mockResponse = {hello: "there"};
+			createXHRmock(200, JSON.stringify(mockResponse));
 			const successCallback = jest.fn();
 			const failureCallback = jest.fn();
 			const errorCallback = jest.fn();
@@ -140,7 +141,70 @@ describe('CT1 Upgrade UI', () => {
 
 			XHRMockOnreadystatechange();
 
-			expect(successCallback).toHaveBeenCalledWith('hello there');
+			expect(successCallback).toHaveBeenCalledWith(mockResponse);
+			expect(failureCallback).not.toHaveBeenCalled();
+			expect(errorCallback).not.toHaveBeenCalled();
+		});
+
+		it('should call onError if response JSON cannot be parsed', ()=>{
+			const mockResponse = [23, 89];
+			createXHRmock(200, mockResponse);
+			const successCallback = jest.fn();
+			const failureCallback = jest.fn();
+			const errorCallback = jest.fn();
+
+			ajaxGet('/some-url.php', {}, successCallback, failureCallback,
+					errorCallback);
+
+			XHRMockOnreadystatechange();
+
+			expect(successCallback).not.toHaveBeenCalled();
+			expect(failureCallback).not.toHaveBeenCalled();
+			expect(errorCallback).toHaveBeenCalledWith(mockResponse);
+		});
+
+		it('should call onError on error',()=>{
+			const mockResponse = {error: 'not authorized'};
+			createXHRmock(403, mockResponse);
+			const successCallback = jest.fn();
+			const failureCallback = jest.fn();
+			const errorCallback = jest.fn();
+
+			ajaxGet('/some-url.php', {}, successCallback, failureCallback,
+					errorCallback);
+
+			XHRMockOnreadystatechange();
+
+			expect(successCallback).not.toHaveBeenCalled();
+			expect(failureCallback).toHaveBeenCalledWith(mockResponse);
+			expect(errorCallback).not.toHaveBeenCalled();
+		});
+
+		it('should not call onSuccess if not defined', () => {
+			const mockResponse = {someValue: 23};
+			createXHRmock(200, mockResponse);
+
+			ajaxGet('/some-url.php', {});
+
+			XHRMockOnreadystatechange();
+		});
+
+		it('should not call onFailure if not defined', () => {
+			const mockResponse = {error: 'for reasons'};
+			createXHRmock(400, mockResponse);
+
+			ajaxGet('/some-url.php', {});
+
+			XHRMockOnreadystatechange();
+		});
+
+		it('should not call onError if not defined', () => {
+			const mockResponse = {hello: 'there'};
+			createXHRmock(200, mockResponse);
+
+			ajaxGet('/some-url.php', {});
+
+			XHRMockOnerror();
 		});
 	});
 });

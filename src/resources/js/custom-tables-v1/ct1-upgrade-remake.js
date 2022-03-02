@@ -68,7 +68,11 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 		if (request.readyState === XMLHttpRequest.DONE) {
 			const status = request.status;
 			if (status === 0 || (status >= 200 && status < 400)) {
-				onSuccess && onSuccess(JSON.parse(this.response));
+				try {
+					onSuccess && onSuccess(JSON.parse(this.response));
+				} catch (e) {
+					onError && onError(this.response);
+				}
 			} else {
 				onFailure && onFailure(this.response);
 			}
