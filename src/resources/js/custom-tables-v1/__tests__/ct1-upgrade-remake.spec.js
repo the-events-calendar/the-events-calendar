@@ -7,7 +7,7 @@ import {
 	getUpgradeBoxElement,
 	ajaxGet,
 	selectors,
-	recursePollForReport,
+	recursePollForReport, buildDataString,
 } from '../ct1-upgrade-remake';
 
 const upgradeBoxId = selectors.upgradeBox.substr(1);
@@ -29,7 +29,7 @@ describe('CT1 Upgrade UI', () => {
 	window.tecCt1Upgrade = {
 		ajaxUrl: '/admin-ajax.php',
 		pollInterval: 2300,
-		actions:{get_report:'test'}
+		actions: {get_report: 'test'},
 	};
 
 	it('should correctly initialize', () => {
@@ -41,6 +41,30 @@ describe('CT1 Upgrade UI', () => {
 				toHaveBeenLastCalledWith(recursePollForReport, 2300);
 	});
 
+	describe('buildDataString', () => {
+
+		it('should correctly build on empty object', () => {
+			const built = buildDataString({});
+			expect(built).toBe('');
+		});
+
+		it('should correctly build on one prop object', () => {
+			const built = buildDataString({action: 'do-something'});
+			expect(built).toBe('action=do-something');
+		});
+
+		it('should correctly build on many props object', () => {
+			const built = buildDataString({
+				action: 'do-something',
+				url: '/foo/bar?and-then=some&non-utf=é',
+				méh: '<-this should be encoded',
+			});
+			expect(built).
+					toBe(
+							'action=do-something&url=%2Ffoo%2Fbar%3Fand-then%3Dsome%26non-utf%3D%C3%A9&m%C3%A9h=%3C-this%20should%20be%20encoded');
+		});
+	});
+
 	describe('ajaxGet', () => {
 		it('should not send request on missing URL', () => {
 			mockXMLHttpRequest({
@@ -49,7 +73,7 @@ describe('CT1 Upgrade UI', () => {
 			});
 			const callback = jest.fn();
 
-			ajaxGet('', {},callback, callback, callback);
+			ajaxGet('', {}, callback, callback, callback);
 
 			expect(mockOpen).not.toHaveBeenCalled();
 			expect(callback).not.toHaveBeenCalled();
@@ -62,7 +86,7 @@ describe('CT1 Upgrade UI', () => {
 			});
 			const callback = jest.fn();
 
-			ajaxGet('/some-url.php',{}, callback, callback, callback);
+			ajaxGet('/some-url.php', {}, callback, callback, callback);
 
 			expect(mockOpen).toHaveBeenCalledWith('GET', '/some-url.php', true);
 			expect(mockSend).toHaveBeenCalled();
@@ -79,7 +103,8 @@ describe('CT1 Upgrade UI', () => {
 				response: 'hello there',
 			});
 
-			ajaxGet('/some-url.php',{}, successCallback, failureCallback, errorCallback);
+			ajaxGet('/some-url.php', {}, successCallback, failureCallback,
+					errorCallback);
 
 			expect(successCallback).toHaveBeenCalledWith('hello there');
 		});

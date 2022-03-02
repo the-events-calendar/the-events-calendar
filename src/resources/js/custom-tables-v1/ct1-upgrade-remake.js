@@ -17,16 +17,21 @@ export const selectors = {
 	upgradeBox: '#tec-ct1-upgrade-box',
 };
 
+export const buildDataString = (data = {}) => {
+	return Object.keys(data).map(
+			function(k) {
+				return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+			},
+	).join('&');
+};
+
 export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 	if (!url) {
 		return;
 	}
-	let params = typeof data == 'string' ? data : Object.keys(data).map(
-		function (k) {
-			return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
-		}
-	).join('&');
-	let compiledUrl = params ? url + '?' + params : url;
+
+	const params = typeof data == 'string' ? data : buildDataString(data);
+	const compiledUrl = params ? url + '?' + params : url;
 
 	const request = new XMLHttpRequest();
 	request.open('GET', compiledUrl, true);
