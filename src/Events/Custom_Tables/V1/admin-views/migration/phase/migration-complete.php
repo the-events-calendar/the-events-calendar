@@ -4,8 +4,11 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports;
 use TEC\Events\Custom_Tables\V1\Migration\Strings;
 
 $strings = tribe( Strings::class );
-?>
 
+/**
+ * @var string $template_directory The absolute path to the Migration template root directory.
+ */
+?>
 <div class="tec-ct1-upgrade__row">
 	<div class="image-container">
 		<img class="screenshot"
@@ -16,7 +19,7 @@ $strings = tribe( Strings::class );
 
 	<div class="content-container">
 		<h3>
-			<?php echo $logo; ?>
+			<?php include $template_directory . '/upgrade-logo.php'; ?>
 			<?php esc_html_e( 'Migration complete!', 'the-events-calendar' ); ?>
 		</h3>
 
@@ -47,6 +50,7 @@ $strings = tribe( Strings::class );
 	<a href="" class="tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Reverse Migration', 'the-events-calendar' ); ?></a>
 	<?php
 	$heading_action = ob_get_clean();
-	include_once __DIR__ . '/report.php';
+	include __DIR__ . '/report-data.php';
+	include __DIR__ . '/report.php';
 	?>
 </div>

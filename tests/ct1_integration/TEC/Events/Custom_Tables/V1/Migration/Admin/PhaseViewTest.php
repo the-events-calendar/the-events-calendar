@@ -116,12 +116,30 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 		);
 
 		$output = $renderer->compile();
+		$node   = array_pop( $output['nodes'] );
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
-		$this->assertContains( 'tribe-update-bar__summary-progress-text', $output['html'] );
+		$this->assertContains( 'tribe-update-bar__summary-progress-text', $node['html'] );
 	}
 
+	/**
+	 * Should render HTML from Migration Complete templates.
+	 *
+	 * @test
+	 */
+	public function should_render_migration_complete_ok() {
+		// Setup templates.
+		$phase    = State::PHASE_MIGRATION_COMPLETE;
+		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( 'tec-ct1-upgrade__link-danger', $output['html'] );
+	}
 }

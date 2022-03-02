@@ -42,44 +42,8 @@ if ( $state->is_completed() ) {
 			);
 			?>
 		</p>
-		<?php
-		$remaining_events = 138;
-		$total_previewed_events = $state->get( 'events', 'total' ) - $remaining_events;
-		$percent = '30%';
-		$progress = 30;
-		?>
-		<div class="tribe-update-bar">
-			<div class="progress" title="<?php echo esc_attr( $percent ); ?>"> <div class="bar" style="width: <?php echo esc_attr( $progress ); ?>%"></div> </div>
-			<div class="tribe-update-bar__summary">
-				<div class="tribe-update-bar__summary-progress-text">
-					<?php
-					echo sprintf(
-						_x(
-							'%1$s%2$d%3$s events migrated',
-							'Number of events migrated',
-							'the-events-calendar'
-						),
-						'<strong>',
-						$total_previewed_events,
-						'</strong>'
-					);
-					?>
-				</div>
-				<div class="tribe-update-bar__summary-remaining-text">
-					<?php
-					echo sprintf(
-						_x(
-							'%1$s%2$d%3$s remaining',
-							'Number of events awaiting migration',
-							'the-events-calendar'
-						),
-						'<strong>',
-						$remaining_events,
-						'</strong>'
-					);
-					?>
-				</div>
-			</div>
+
+		<div class="tec-ct1-upgrade-update-bar-container">
 		</div>
 	</div>
 	<div class="image-container">
