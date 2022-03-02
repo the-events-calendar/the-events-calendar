@@ -81,10 +81,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 		}
 	}
 
-
-
-
-
 	/**
 	 * Unhooks the hooks set by the Provider in the `register` method.
 	 *
