@@ -22,7 +22,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 	ob_start();
 	include_once $template_path . '/upgrade-logo.php';
 	$logo = ob_get_clean();
-
+	// @todo Check if valid phase for added security
 	include_once $template_path . '/phase/' . $phase . '.php';
 
 	/**
