@@ -2,8 +2,11 @@
 use TEC\Events\Custom_Tables\V1\Migration\Strings;
 
 $strings = tribe( Strings::class );
-?>
 
+/**
+ * @var string $template_directory The absolute path to the Migration template root directory.
+ */
+?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<span>
@@ -11,7 +14,7 @@ $strings = tribe( Strings::class );
 		</span>
 
 		<h3>
-			<?php echo $logo; ?>
+			<?php include $template_directory . '/upgrade-logo.php';; ?>
 			<?php echo esc_html( $strings->get( 'preview-prompt-upgrade-cta' ) ); ?>
 		</h3>
 

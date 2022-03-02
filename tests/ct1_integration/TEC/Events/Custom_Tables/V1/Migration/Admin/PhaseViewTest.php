@@ -15,7 +15,7 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 		// Setup with some known templates.
 		$renderer = new Phase_View_Renderer( State::PHASE_PREVIEW_IN_PROGRESS, '/phase/preview-in-progress.php' );
 		$renderer->register_node( 'progress-bar',
-			'.tribe-update-bar-container',
+			'.tec-ct1-upgrade-update-bar-container',
 			'/partials/progress-bar.php'
 		);
 
@@ -40,15 +40,34 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Should render HTML from Preview Prompt templates.
+	 *
+	 * @test
+	 */
+	public function should_render_preview_prompt_ok() {
+		// Setup templates.
+		$phase    = State::PHASE_PREVIEW_PROMPT;
+		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertEmpty( $output['nodes'] );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( 'tec-ct1-upgrade-start-migration-preview', $output['html'] );
+	}
+
+	/**
 	 * Should render HTML from Preview In Progress templates.
 	 *
 	 * @test
 	 */
 	public function should_render_preview_in_progress_ok() {
-		// Preview In Progress templates.
+		// Setup templates.
 		$renderer = new Phase_View_Renderer( State::PHASE_PREVIEW_IN_PROGRESS, '/upgrade-box-contents.php' );
 		$renderer->register_node( 'progress-bar',
-			'.tribe-update-bar-container',
+			'.tec-ct1-upgrade-update-bar-container',
 			'/partials/progress-bar.php'
 		);
 
@@ -58,7 +77,53 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . State::PHASE_PREVIEW_IN_PROGRESS, $output['html'] );
-		$this->assertContains( 'tribe-update-bar-container', $output['html'] );
+		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
 		$this->assertContains( 'tribe-update-bar__summary-progress-text', $node['html'] );
 	}
+
+	/**
+	 * Should render HTML from Migration Prompt templates.
+	 *
+	 * @test
+	 */
+	public function should_render_migration_prompt_ok() {
+		// Setup templates.
+		$phase    = State::PHASE_MIGRATION_PROMPT;
+		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertEmpty( $output['nodes'] );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( 'tec-ct1-upgrade__alert', $output['html'] );
+		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Migration In Progress templates.
+	 *
+	 * @skip 
+	 * @test
+	 */
+	public function should_render_migration_in_progress_ok() {
+		// Setup templates.
+		$phase    = State::PHASE_MIGRATION_IN_PROGRESS;
+		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+		$renderer->register_node( 'progress-bar',
+			'.tec-ct1-upgrade-update-bar-container',
+			'/partials/progress-bar.php'
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertEmpty( $output['nodes'] );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
+		$this->assertContains( 'tribe-update-bar__summary-progress-text', $output['html'] );
+	}
+
 }

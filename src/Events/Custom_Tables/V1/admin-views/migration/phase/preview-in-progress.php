@@ -8,12 +8,12 @@
 		<h3>
 			<?php
 			include $template_directory . '/upgrade-logo.php';
+			esc_html_e( 'Migration preview in progress', 'the-events-calendar' );
 			?>
-			<?php esc_html_e( 'Migration preview in progress', 'the-events-calendar' ); ?>
 		</h3>
 
 		<p><?php esc_html_e( 'We\'re scanning your existing events so you’ll know what to expect from the migration process. You can keep using your site and managing events. Check back later for a full preview report and the next steps for migration.', 'the-events-calendar' ); ?></p>
-		<div class="tribe-update-bar-container">
+		<div class="tec-ct1-upgrade-update-bar-container">
 
 		</div>
 	</div>

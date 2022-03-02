@@ -1,9 +1,15 @@
+<?php
+/**
+ * @var string $template_directory The absolute path to the Migration template root directory.
+ */
+?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<h3>
 			<?php use TEC\Events_Pro\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 
-			echo $logo; ?>
+			include $template_directory . '/upgrade-logo.php';
+			?>
 			<?php esc_html_e( 'Preview complete', 'the-events-calendar' ); ?>
 		</h3>
 
@@ -17,7 +23,7 @@
 			?>
 		</p>
 
-		<?php include_once __DIR__ . '/report-data.php'; ?>
+		<?php include __DIR__ . '/report-data.php'; ?>
 
 		<p class="tec-ct1-upgrade__alert">
 			<i class="tec-ct1-upgrade__alert-icon">!</i>
