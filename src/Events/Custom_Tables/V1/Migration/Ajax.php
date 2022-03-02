@@ -99,7 +99,8 @@ class Ajax {
 	 * @return string The JSON-encoded data for the front-end.
 	 */
 	public function get_report( $echo = true ) {
-		if(!check_ajax_referer(self::NONCE_ACTION))
+		check_ajax_referer( self::NONCE_ACTION );
+
 		// @todo Add pagination?
 		$page   = 1;
 		$count  = 20;
