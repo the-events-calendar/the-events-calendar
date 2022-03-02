@@ -5,6 +5,7 @@
 import {
 	init,
 	getUpgradeBoxElement,
+	ajaxGet,
 	selectors,
 	recursePollForReport,
 } from '../ct1-upgrade-remake';
@@ -22,7 +23,6 @@ describe('CT1 Upgrade UI', () => {
 	// Replace setTimeout to control it.
 	jest.useFakeTimers();
 	jest.spyOn(global, 'setTimeout');
-	// Replace the XMLHttpRequest built-in class to intercept requests.
 	// Setup the DOM as it should should look.
 	document.body.innerHTML = `<div id="${upgradeBoxId}"></div>`;
 	// Mock the localized data.
@@ -49,7 +49,7 @@ describe('CT1 Upgrade UI', () => {
 			});
 			const callback = jest.fn();
 
-			ajaxGet('', callback, callback, callback);
+			ajaxGet('', {},callback, callback, callback);
 
 			expect(mockOpen).not.toHaveBeenCalled();
 			expect(callback).not.toHaveBeenCalled();
@@ -62,7 +62,7 @@ describe('CT1 Upgrade UI', () => {
 			});
 			const callback = jest.fn();
 
-			ajaxGet('/some-url.php', callback, callback, callback);
+			ajaxGet('/some-url.php',{}, callback, callback, callback);
 
 			expect(mockOpen).toHaveBeenCalledWith('GET', '/some-url.php', true);
 			expect(mockSend).toHaveBeenCalled();
@@ -79,7 +79,7 @@ describe('CT1 Upgrade UI', () => {
 				response: 'hello there',
 			});
 
-			ajaxGet('/some-url.php', successCallback, failureCallback, errorCallback);
+			ajaxGet('/some-url.php',{}, successCallback, failureCallback, errorCallback);
 
 			expect(successCallback).toHaveBeenCalledWith('hello there');
 		});

@@ -23,7 +23,7 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 	}
 	let params = typeof data == 'string' ? data : Object.keys(data).map(
 		function (k) {
-			return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+			return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
 		}
 	).join('&');
 	let compiledUrl = params ? url + '?' + params : url;
@@ -65,15 +65,18 @@ export const onFailure = () => {
 export const onError = () => {
 
 };
+
 export const recursePollForReport = () => {
 	syncReportData(
 		pollForReport
 	);
-}
+};
+
 export const pollForReport = () => {
 	// Start polling
 	pollTimeoutId = setTimeout(recursePollForReport, pollInterval);
 };
+
 export const handleReportData = function (data) {
 	const {nodes, key, html} = data;
 
