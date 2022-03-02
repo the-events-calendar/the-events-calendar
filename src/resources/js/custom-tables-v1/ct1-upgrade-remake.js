@@ -189,10 +189,13 @@ export const syncReportData = function(successCallback) {
 	);
 };
 
-export const getReport = function(successCallback) {
+export const getReport = (successCallback) => {
 	ajaxGet(
 			tecCt1Upgrade.ajaxUrl,
-			{action: tecCt1Upgrade.actions.get_report},
+			{
+				action: tecCt1Upgrade.actions.getReport,
+				_ajax_nonce: tecCt1Upgrade.nonce,
+			},
 			successCallback,
 	);
 };

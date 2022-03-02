@@ -7,7 +7,7 @@ import {
 	getUpgradeBoxElement,
 	ajaxGet,
 	selectors,
-	recursePollForReport, buildQueryString,
+	recursePollForReport, buildQueryString, getReport,
 } from '../ct1-upgrade-remake';
 
 const upgradeBoxId = selectors.upgradeBox.substr(1);
@@ -41,7 +41,7 @@ function createXHRmock(status = 200, response = '') {
 			send: send,
 			status: status,
 			setRequestHeader: XHRMockSetRequestHeader,
-			response: response
+			response: response,
 		};
 	};
 
@@ -62,8 +62,14 @@ describe('CT1 Upgrade UI', () => {
 	// Mock the localized data.
 	window.tecCt1Upgrade = {
 		ajaxUrl: '/admin-ajax.php',
+		nonce: '123456789',
 		pollInterval: 2300,
-		actions: {get_report: 'test'},
+		actions: {
+			getReport: 'get_report',
+			startMigration: 'start_migration',
+			cancelMigration: 'cancel_migration',
+			undoMigration: 'undo_migration',
+		},
 	};
 
 	it('should correctly initialize', () => {
@@ -130,7 +136,7 @@ describe('CT1 Upgrade UI', () => {
 		});
 
 		it('should call onSuccess on success', () => {
-			const mockResponse = {hello: "there"};
+			const mockResponse = {hello: 'there'};
 			createXHRmock(200, JSON.stringify(mockResponse));
 			const successCallback = jest.fn();
 			const failureCallback = jest.fn();
@@ -146,7 +152,7 @@ describe('CT1 Upgrade UI', () => {
 			expect(errorCallback).not.toHaveBeenCalled();
 		});
 
-		it('should call onError if response JSON cannot be parsed', ()=>{
+		it('should call onError if response JSON cannot be parsed', () => {
 			const mockResponse = [23, 89];
 			createXHRmock(200, mockResponse);
 			const successCallback = jest.fn();
@@ -163,7 +169,7 @@ describe('CT1 Upgrade UI', () => {
 			expect(errorCallback).toHaveBeenCalledWith(mockResponse);
 		});
 
-		it('should call onError on error',()=>{
+		it('should call onError on error', () => {
 			const mockResponse = {error: 'not authorized'};
 			createXHRmock(403, mockResponse);
 			const successCallback = jest.fn();
@@ -205,6 +211,25 @@ describe('CT1 Upgrade UI', () => {
 			ajaxGet('/some-url.php', {});
 
 			XHRMockOnerror();
+		});
+	});
+
+	describe('getReport', () => {
+		it('should run success callback on success', () => {
+			const {open} = createXHRmock(200, {foo: 'bar'});
+			const onSuccess = jest.fn();
+
+			getReport(onSuccess);
+
+			expect(open).toHaveBeenCalledWith(
+					'GET',
+					tecCt1Upgrade.ajaxUrl + `?action=${tecCt1Upgrade.actions.getReport}&_ajax_nonce=${tecCt1Upgrade.nonce}`,
+					true,
+			);
+
+			XHRMockOnreadystatechange();
+
+			expect(onSuccess).toHaveBeenCalled();
 		});
 	});
 });
