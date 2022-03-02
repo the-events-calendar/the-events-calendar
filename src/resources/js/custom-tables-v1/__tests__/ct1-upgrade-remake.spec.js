@@ -12,12 +12,46 @@ import {
 
 const upgradeBoxId = selectors.upgradeBox.substr(1);
 
-const mockOpen = jest.fn();
-const mockSend = jest.fn();
+// Let the vars here to make sure they will not be overwritten in the mock.
+let XHRMockOnreadystatechange, XHRMockOnload, XHRMockOnerror,
+		XHRMockSetRequestHeader;
 
-const mockXMLHttpRequest = (mocks) => {
-	window.XMLHttpRequest = jest.fn().mockImplementation(() => mocks);
-};
+function createXHRmock(status = 200, response = {}) {
+	const open = jest.fn();
+	XHRMockSetRequestHeader = jest.fn();
+
+	// At `send` time, bind `this` to the functions that will require it.
+	// Use `function` to get the correct `this` reference (the request).
+	const send = jest.fn(function() {
+		if (typeof this.onload === 'function') {
+			XHRMockOnload = this.onload.bind(this);
+		}
+		if (typeof this.onreadystatechange === 'function') {
+			XHRMockOnreadystatechange = this.onreadystatechange.bind(this);
+		}
+		if (typeof this.onerror === 'function') {
+			XHRMockOnerror = this.onerror.bind(this);
+		}
+		XHRMockSetRequestHeader = this.setRequestHeader.bind(this);
+	});
+
+	const xhrMockClass = function() {
+		return {
+			open: open,
+			send: send,
+			status: status,
+			setRequestHeader: XHRMockSetRequestHeader,
+			response: JSON.stringify(response),
+		};
+	};
+
+	window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass);
+
+	return {
+		open,
+		send,
+	};
+}
 
 describe('CT1 Upgrade UI', () => {
 	// Replace setTimeout to control it.
@@ -43,7 +77,7 @@ describe('CT1 Upgrade UI', () => {
 
 	describe('buildQueryString', () => {
 
-		it('should throw if data is not string or object',()=>{
+		it('should throw if data is not string or object', () => {
 			expect(() => {buildQueryString(['foo', 'bar']);}).toThrowError();
 		});
 
@@ -76,44 +110,35 @@ describe('CT1 Upgrade UI', () => {
 
 	describe('ajaxGet', () => {
 		it('should not send request on missing URL', () => {
-			mockXMLHttpRequest({
-				open: mockOpen,
-				send: mockSend,
-			});
+			const {open, send} = createXHRmock(200, {foo: 'bar'});
 			const callback = jest.fn();
 
 			ajaxGet('', {}, callback, callback, callback);
 
-			expect(mockOpen).not.toHaveBeenCalled();
-			expect(callback).not.toHaveBeenCalled();
+			expect(open).not.toHaveBeenCalled();
+			expect(send).not.toHaveBeenCalled();
 		});
 
 		it('should open and send a request when provided URL', () => {
-			mockXMLHttpRequest({
-				open: mockOpen,
-				send: mockSend,
-			});
+			const {open, send} = createXHRmock(200, {foo: 'bar'});
 			const callback = jest.fn();
 
 			ajaxGet('/some-url.php', {}, callback, callback, callback);
 
-			expect(mockOpen).toHaveBeenCalledWith('GET', '/some-url.php', true);
-			expect(mockSend).toHaveBeenCalled();
+			expect(open).toHaveBeenCalledWith('GET', '/some-url.php', true);
+			expect(send).toHaveBeenCalled();
 		});
 
 		it('should call onSuccess on success', () => {
+			createXHRmock(200, {hello: 'there'});
 			const successCallback = jest.fn();
 			const failureCallback = jest.fn();
 			const errorCallback = jest.fn();
-			mockXMLHttpRequest({
-				open: mockOpen,
-				send: mockSend,
-				status: 200,
-				response: 'hello there',
-			});
 
 			ajaxGet('/some-url.php', {}, successCallback, failureCallback,
 					errorCallback);
+
+			XHRMockOnreadystatechange();
 
 			expect(successCallback).toHaveBeenCalledWith('hello there');
 		});

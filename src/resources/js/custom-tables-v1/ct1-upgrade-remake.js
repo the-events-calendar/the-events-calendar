@@ -63,12 +63,15 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 	const request = new XMLHttpRequest();
 	request.open('GET', compiledUrl, true);
 
-	request.onload = function() {
-		if (this.status >= 200 && this.status < 400) {
-			onSuccess && onSuccess(JSON.parse(this.response));
-		}
-		else {
-			onFailure && onFailure(this.response);
+	request.onreadystatechange = function() {
+		// In local files, status is 0 upon success in Mozilla Firefox
+		if (request.readyState === XMLHttpRequest.DONE) {
+			const status = request.status;
+			if (status === 0 || (status >= 200 && status < 400)) {
+				onSuccess && onSuccess(JSON.parse(this.response));
+			} else {
+				onFailure && onFailure(this.response);
+			}
 		}
 	};
 
