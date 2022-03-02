@@ -11,6 +11,7 @@ class Phase_View_Renderer {
 		$this->key           = $key;
 		$this->template_path = $file_path;
 		$this->vars          = $vars;
+		$this->templates_directory = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
 	}
 
 	public function register_node( $key, $selector, $template, $vars = [] ) {
@@ -21,7 +22,7 @@ class Phase_View_Renderer {
 		// Base on what nodes are registered, compile and return the structured data
 		$nodes = [];
 		foreach ( $this->nodes as $node ) {
-			$html    = self::get_template_html( $node['template'] );
+			$html    = $this->get_template_html( $node['template'], $node['vars'] );
 			$nodes[] = [
 				'html'   => $html,
 				'hash'   => sha1( $html ),
@@ -38,15 +39,15 @@ class Phase_View_Renderer {
 		return [
 			'key'   => $this->key,
 			// Based on what is registered, render the parent template
-			'html'  => self::get_template_html( $this->template_path, $this->vars ),
+			'html'  => $this->get_template_html( $this->template_path, $this->vars ),
 			'nodes' => $this->compile_nodes()
 		];
 	}
 
-	protected static function get_template_html( $template, $vars = [] ) {
+	protected function get_template_html( $template, $vars = [] ) {
 		extract( $vars );
 		ob_start();
-		include $template;
+		include $this->templates_directory.$template;
 
 		return ob_get_clean();
 	}
