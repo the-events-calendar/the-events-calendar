@@ -10,7 +10,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use TEC\Events\Custom_Tables\V1\Migration\AssetLoader;
+use TEC\Events\Custom_Tables\V1\Migration\Asset_Loader;
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
@@ -54,8 +54,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
 		$this->container->singleton( Process::class, Process::class );
 		$this->container->singleton( Ajax::class, Ajax::class );
-		$this->container->singleton( AssetLoader::class, AssetLoader::class );
-		$this->container->register( AssetLoader::class );
+		$this->container->singleton( Asset_Loader::class, Asset_Loader::class );
 
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
 		add_action( Process::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
@@ -71,6 +70,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
 
 		if ( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', $this->container->callback( Asset_Loader::class, 'enqueue_scripts' ) );
 			// Hook into the Upgrade tab to show it and customize its contents.
 			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
 			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
