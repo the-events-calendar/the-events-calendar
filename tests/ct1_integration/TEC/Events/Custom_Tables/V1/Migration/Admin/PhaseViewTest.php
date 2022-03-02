@@ -141,5 +141,6 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__link-danger', $output['html'] );
+		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
 	}
 }
