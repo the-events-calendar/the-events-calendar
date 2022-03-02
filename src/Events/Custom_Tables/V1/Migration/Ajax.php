@@ -101,59 +101,24 @@ class Ajax {
 	public function get_report( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
 
-		// @todo Add pagination?
-		$page   = 1;
-		$count  = 20;
-		$report = Site_Report::build( $page, $count );
-
-		$html = tribe( Upgrade_Tab::class )->get_phase_inner_html();
-		$state = tribe(State::class);
-
 		// What phase are we in?
+		$state = tribe( State::class );
 		$phase = $state->get_phase();
 
-		$renderer = new Phase_View_Renderer(State::PHASE_PREVIEW_IN_PROGRESS,
-			TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/upgrade-box-contents.php', [
-			'phase' => State::PHASE_PREVIEW_IN_PROGRESS,
-				'template_path' => TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration'
-		]);
-		$renderer->register_node( 'progress-bar',
-			'.tribe-update-bar-container',
-			TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/partials/progress-bar.php'
-		);
-		// Get that phase "template(s)" container HTML
-		// Get it's child nodes (separated by dynamic context)
-		// Get that key
+		/**
+		 * Filters the Phase_View_Renderer being constructed for this phase.
+		 *
+		 * @since TBD
+		 *
+		 * @param Phase_View_Renderer A reference to the Phase_View_Renderer that should be used.
+		 *                           Initially `null`.
+		 * @param string $phase      The current phase we are in.
+		 */
+		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
+		if ( ! $renderer instanceof Phase_View_Renderer ) {
+			$renderer = $this->get_renderer_for_phase( $phase );
+		}
 
-
-		// @todo Binding to be figured out... should we just use onclick="localizedObject.function()" ?
-
-		// Dynamic content
-		$html3    = $html;
-		$response = [
-			'key'   => $phase, // Used to know when we re-render the entire report UI
-			'html'  => $container_html,
-			'nodes' => [ // Order matters here. Rendered in order of array.
-				[
-					'key'    => 'html1', // Key used for hash diff
-					'hash'   => sha1( $html1 ), // Did we change?
-					'target' => '.container .html1', // Target of our HTML
-					'html'   => $html1, // The rendered HTML
-				],
-				[
-					'key'    => 'html2',
-					'hash'   => sha1( $html2 ),
-					'target' => '.container .html1 .html2',
-					'html'   => $html2,
-				],
-				[
-					'key'    => 'html3',
-					'hash'   => sha1( $html3 ),
-					'target' => '.container .html1 .html2 .html3',
-					'html'   => $html3,
-				]
-			]
-		];
 		$response = $renderer->compile();
 		if ( $echo ) {
 			wp_send_json( $response );
@@ -161,6 +126,41 @@ class Ajax {
 		}
 
 		return wp_json_encode( $response );
+	}
+
+	/**
+	 * Will construct the appropriate templates and nodes to be compiled, for this phase in the migration.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase of the migration.
+	 *
+	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
+	 */
+	protected function get_renderer_for_phase( $phase ) {
+		// @todo flesh out more for our updated UI and other dynamic sections...
+		// @todo Add pagination + live report (still have mocked data in templates)...
+		$page   = 1;
+		$count  = 20;
+		$report = Site_Report::build( $page, $count );
+
+		switch ( $phase ) {
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_MIGRATION_COMPLETE:
+			case State::PHASE_MIGRATION_PROMPT:
+				$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+				break;
+			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_IN_PROGRESS:
+				$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+				$renderer->register_node( 'progress-bar',
+					'.tec-ct1-upgrade-update-bar-container',
+					'/partials/progress-bar.php'
+				);
+				break;
+		}
+
+		return $renderer;
 	}
 
 	/**
