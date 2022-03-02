@@ -131,22 +131,22 @@ export const recursePollForReport = () => {
 };
 
 export const pollForReport = () => {
-	// Start polling
+	// Start polling.
 	pollTimeoutId = setTimeout(recursePollForReport, pollInterval);
 };
 
 export const handleReportData = function(data) {
 	const {nodes, key, html} = data;
 
-	// Write our HTML if we are new
+	// Write our HTML if we are new.
 	if (!currentViewState.key || currentViewState.key !== key) {
 		upgradeBoxElement.innerHTML = html;
 	}
-	// Iterate on nodes
+	// Iterate on nodes.
 	nodes.forEach(
 			(node) => {
 				if (isNodeDiff(node.key, node.hash)) {
-					// Write new content
+					// Write new content.
 					let element;
 					if (element = document.querySelector(node.target)) {
 						element.innerHTML = node.html;
@@ -154,7 +154,7 @@ export const handleReportData = function(data) {
 				}
 			},
 	);
-	// Store changes locally for next request
+	// Store changes locally for next request.
 	currentViewState = data;
 };
 export const isNodeDiff = (searchKey, searchHash) => {
@@ -174,7 +174,7 @@ export const isNodeDiff = (searchKey, searchHash) => {
 };
 
 /**
- * Fetches the report data, and delegates to the handlers
+ * Fetches the report data, and delegates to the handlers.
  *
  * @param successCallback
  */
@@ -212,7 +212,7 @@ export const init = () => {
 		return;
 	}
 
-	// Get initial report data immediately
+	// Get initial report data immediately.
 	syncReportData();
 
 	// Initialize our report - heartbeat polling.
