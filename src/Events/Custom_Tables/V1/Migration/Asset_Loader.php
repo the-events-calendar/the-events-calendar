@@ -60,12 +60,13 @@ class Asset_Loader {
 			'tecCt1Upgrade',
 			[
 				'ajaxUrl'      => admin_url() . 'admin-ajax.php',
+				'nonce'        => wp_create_nonce( Ajax::NONCE_ACTION ),
 				'pollInterval' => 5000,
 				'actions'      => [
-					'get_report'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
-					'start_migration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
-					'cancel_migration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
-					'undo_migration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_UNDO ),
+					'getReport'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
+					'startMigration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
+					'cancelMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
+					'undoMigration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_UNDO ),
 				]
 			]
 		);

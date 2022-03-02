@@ -54,6 +54,12 @@ class Ajax {
 	 */
 	const ACTION_UNDO = 'wp_ajax_tec_events_custom_tables_v1_migration_undo';
 
+	/**
+	 * The name of the action that will be used to create the nonce used by
+	 * all requests that will start, cancel, undo or get a report about
+	 * the migration process.
+	 */
+	const NONCE_ACTION = 'tec-ct1-upgrade';
 
 	/**
 	 * A reference to the current background processing handler.
@@ -93,6 +99,7 @@ class Ajax {
 	 * @return string The JSON-encoded data for the front-end.
 	 */
 	public function get_report( $echo = true ) {
+		if(!check_ajax_referer(self::NONCE_ACTION))
 		// @todo Add pagination?
 		$page   = 1;
 		$count  = 20;
