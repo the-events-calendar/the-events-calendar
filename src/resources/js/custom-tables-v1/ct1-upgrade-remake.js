@@ -16,6 +16,8 @@ export const selectors = {
 	barsProgressSelector: '.tec-ct1-upgrade-bar .progress',
 	upgradeBox: '#tec-ct1-upgrade-dynamic',
 	startPreviewButton: '.tec-ct1-upgrade-start-migration-preview',
+	startMigrationButton: '.tec-ct1-upgrade-start-migration',
+	cancelMigrationButton: '.tec-ct1-upgrade-cancel-migration',
 };
 
 /**
@@ -165,18 +167,49 @@ export const bindNodes = (key) => {
 	// @todo Reference localized vars for these?
 	switch(key) {
 		case 'preview-prompt':
+			// Start preview button.
 			element = document.querySelector(selectors.startPreviewButton);
 			if (element) {
 				element.addEventListener('click', handleStartMigration(true));
 			}
 			break;
 		case 'migration-prompt':
+			// We have a re-run preview button.
+			element = document.querySelector(selectors.startPreviewButton);
+			if (element) {
+				element.addEventListener('click', handleStartMigration(true));
+			}
+			// Start migration button.
 			element = document.querySelector(selectors.startMigrationButton);
 			if (element) {
 				element.addEventListener('click', handleStartMigration(false));
 			}
 			break;
+		case 'migration-in-progress':
+			// We have a re-run preview button.
+			element = document.querySelector(selectors.cancelMigrationButton);
+			if (element) {
+				element.addEventListener('click', handleCancelMigration);
+			}
+			break;
 	}
+}
+export const handleCancelMigration = (e) => {
+	e.preventDefault();
+	// Stop our render check momentarily.
+	// We will have a new state immediately after our cancel migration finishes.
+	cancelReportPoll();
+	ajaxGet(
+		tecCt1Upgrade.ajaxUrl,
+		{
+			action: tecCt1Upgrade.actions.cancelMigration,
+			_ajax_nonce: tecCt1Upgrade.nonce,
+		},
+		() => {
+			// Sync + Restart polling, now we will have a new view.
+			syncReportData(pollForReport)
+		}
+	);
 }
 export const handleStartMigration = (isPreview) => (e) => {
 	e.preventDefault();

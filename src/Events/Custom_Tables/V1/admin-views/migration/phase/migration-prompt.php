@@ -10,8 +10,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<h3>
-			<?php use TEC\Events_Pro\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
-
+			<?php
 			include $template_directory . '/upgrade-logo.php';
 			?>
 			<?php esc_html_e( 'Preview complete', 'the-events-calendar' ); ?>
@@ -70,7 +69,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 		>
 			<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
 		</em>
-		<a href=""><?php esc_html_e( 'Re-run preview', 'the-events-calendar' ); ?></a>
+		<a class="tec-ct1-upgrade-start-migration-preview" href="#"><?php esc_html_e( 'Re-run preview', 'the-events-calendar' ); ?></a>
 	<?php
 	$heading_action = ob_get_clean();
 	include_once __DIR__ . '/report.php';
@@ -79,7 +78,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
-		<button type="button"><?php esc_html_e( 'Start migration', 'the-events-calendar' ); ?></button>
+		<button class="tec-ct1-upgrade-start-migration" type="button"><?php esc_html_e( 'Start migration', 'the-events-calendar' ); ?></button>
 		<i>
 			<?php
 			if ( 1 === $report->estimated_time_in_hours ) {

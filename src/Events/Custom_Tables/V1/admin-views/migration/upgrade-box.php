@@ -18,7 +18,7 @@ $state->save();*/
 		<?php // @todo Do we want a spinner here? ?>
 		<div class="tec-ct1-upgrade__row">
 			<div class="content-container">
-				<p>Loading...</p>
+				<p><?php echo __( 'Loading...', 'the-events-calendar' )?></p>
 			</div>
 		</div>
 	</div>

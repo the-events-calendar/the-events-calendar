@@ -1,16 +1,10 @@
 <?php
 
-
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
-use TEC\Events\Custom_Tables\V1\Migration\State;
 
-$state = tribe( State::class );
-
-if ( $state->is_completed() ) {
-	$report_meta = $state->get( 'migration' );
-} else {
-	$report_meta = $state->get( 'preview' );
-}
+/**
+ * @var $template_directory string The base migration template directory.
+ */
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
@@ -43,7 +37,9 @@ if ( $state->is_completed() ) {
 			?>
 		</p>
 
-		<div class="tec-ct1-upgrade-update-bar-container">
+		<div class="tec-ct1-upgrade-update-bar-container"><p><?php echo __( 'Loading...', 'the-events-calendar' );?></p></div>
+		<div>
+			<a href="#" class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Cancel Migration', 'the-events-calendar' ); ?></a>
 		</div>
 	</div>
 	<div class="image-container">
