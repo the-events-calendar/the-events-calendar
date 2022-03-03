@@ -68,6 +68,9 @@ class Process {
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
 		// @todo Add error handler and shutdown callback (to catch some of our errors).
+		// Get our Event_Report ready for the strategy.
+		// This is also used in our error catching, so needs to be defined outside that block.
+		$event_report = new Event_Report( get_post( $post_id ) );
 
 		try {
 			/**
@@ -89,8 +92,6 @@ class Process {
 				$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
 			}
 
-			// Get our Event_Report ready for the strategy.
-			$event_report = new Event_Report( get_post( $post_id ) );
 			$event_report->start_event_migration();
 
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
