@@ -91,9 +91,43 @@ class Phase_View_Renderer {
 		return [
 			'key'   => $this->key,
 			// Based on what is registered, render the parent template
-			'html'  => $this->get_template_html( $this->template_path, $this->vars ),
+			'html'  => $this->pre_post_content( $this->get_template_html( $this->template_path, $this->vars ) ),
 			'nodes' => $this->compile_nodes()
 		];
+	}
+
+	/**
+	 * Prepends and appends any custom HTML content to the output.
+	 *
+	 * @since TBD
+	 *
+	 * @param $html string The HTML to be surrounded.
+	 *
+	 * @return string The HTML content with any generated pre post HTML added.
+	 */
+	protected function pre_post_content( $html ) {
+
+		/**
+		 * Fires at the top of the upgrade step 1 on Settings > Upgrade.
+		 *
+		 * @since TBD
+		 *
+		 * @param string Opening HTML tag surrounding content.
+		 * @param string The key for this phase of migration.
+		 */
+		$pre = (string) apply_filters( 'tec_events_custom_tables_v1_upgrade_before', "<div class='tec-ct1-upgrade--" . esc_attr( $this->key ) . "'>", $this->key );
+
+		/**
+		 * Fires at the bottom of the upgrade step 1 on Settings > Upgrade.
+		 *
+		 * @since TBD
+		 *
+		 * @param string Opening HTML tag surrounding content.
+		 * @param string The key for this phase of migration.
+		 */
+		$post = (string) apply_filters( 'tec_events_custom_tables_v1_upgrade_after', "</div>", $this->key );
+
+		return $pre . $html . $post;
 	}
 
 	/**
