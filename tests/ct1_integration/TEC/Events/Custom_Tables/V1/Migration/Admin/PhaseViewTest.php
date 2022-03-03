@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
@@ -13,10 +14,12 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_compile_view() {
 		// Setup with some known templates.
-		$renderer = new Phase_View_Renderer( State::PHASE_PREVIEW_IN_PROGRESS, '/phase/preview-in-progress.php' );
+		$phase    = State::PHASE_PREVIEW_IN_PROGRESS;
+		$renderer = new Phase_View_Renderer( $phase, '/phase/preview-in-progress.php' );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
-			'/partials/progress-bar.php'
+			'/partials/progress-bar.php',
+			[ 'report' => Site_Report::build(), 'phase' => $phase ]
 		);
 
 		$output = $renderer->compile();
@@ -47,7 +50,7 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	public function should_render_preview_prompt_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_PREVIEW_PROMPT;
-		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 
 		$output = $renderer->compile();
 
@@ -65,10 +68,12 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_render_preview_in_progress_ok() {
 		// Setup templates.
-		$renderer = new Phase_View_Renderer( State::PHASE_PREVIEW_IN_PROGRESS, '/upgrade-box-contents.php' );
+		$phase    = State::PHASE_PREVIEW_IN_PROGRESS;
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
-			'/partials/progress-bar.php'
+			'/partials/progress-bar.php',
+			[ 'report' => Site_Report::build(), 'phase' => $phase ]
 		);
 
 		$output = $renderer->compile();
@@ -89,7 +94,7 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	public function should_render_migration_prompt_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_MIGRATION_PROMPT;
-		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 
 		$output = $renderer->compile();
 
@@ -109,10 +114,11 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	public function should_render_migration_in_progress_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_MIGRATION_IN_PROGRESS;
-		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
-			'/partials/progress-bar.php'
+			'/partials/progress-bar.php',
+			[ 'report' => Site_Report::build(), 'phase' => $phase ]
 		);
 
 		$output = $renderer->compile();
@@ -133,7 +139,7 @@ class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
 	public function should_render_migration_complete_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_MIGRATION_COMPLETE;
-		$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 
 		$output = $renderer->compile();
 

@@ -1,21 +1,17 @@
 <?php
 
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+/**
+ * @var Site_Report $report
+ * @var $phase
+ */
 
-$state = tribe( State::class );
-
-if ( $state->is_completed() ) {
-	$report_meta = $state->get( 'migrate' );
-} else {
-	$report_meta = $state->get( 'preview' );
-}
-
-$remaining_events       = 138;
-$total_previewed_events = $state->get( 'events', 'total' ) - $remaining_events;
-$percent                = '30%';
-$progress               = 30;
-
-if($state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS) {
+$remaining_events       = $report->total_events_remaining;
+$total_previewed_events = $report->total_events_migrated;
+$progress               = $report->progress_percent;
+$percent                = "$progress%";
+if($phase === State::PHASE_PREVIEW_IN_PROGRESS) {
 	$progress_text  = sprintf(
 			_x(
 					'%1$s%2$d%3$s events previewed',

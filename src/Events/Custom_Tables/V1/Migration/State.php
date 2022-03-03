@@ -20,16 +20,28 @@ use Tribe__Utils__Array as Arr;
  */
 class State {
 
+	/**
+	 * @var string First step.
+	 */
 	const PHASE_PREVIEW_PROMPT = 'preview-prompt';
+	/**
+	 * @var string Second step.
+	 */
 	const PHASE_PREVIEW_IN_PROGRESS = 'preview-in-progress';
-	const PHASE_PREVIEW_COMPLETE = 'preview-complete';
+	/**
+	 * @var string Third step.
+	 */
 	const PHASE_MIGRATION_PROMPT = 'migration-prompt';
+	/**
+	 * @var string Fourth step.
+	 */
 	const PHASE_MIGRATION_IN_PROGRESS = 'migration-in-progress';
+	/**
+	 * @var string Final step.
+	 */
 	const PHASE_MIGRATION_COMPLETE = 'migration-complete';
 	const PHASE_CANCELLATION_IN_PROGRESS = 'cancellation-in-progress';
-	const PHASE_CANCELLATION_COMPLETE = 'cancellation-complete';
 	const PHASE_UNDO_IN_PROGRESS = 'undo-in-progress';
-	const PHASE_UNDO_COMPLETE = 'undo-completed';
 	const STATE_OPTION_KEY = 'ct1_migration_state';
 	/**
 	 * An array of default data the migration state will be hydrated with if no
@@ -74,8 +86,7 @@ class State {
 		// @todo This what we want to check here...? Being used in Site_Report
 		$completed_states = [
 			self::PHASE_MIGRATION_COMPLETE,
-			self::PHASE_CANCELLATION_COMPLETE,
-			self::PHASE_UNDO_COMPLETE,
+			self::PHASE_MIGRATION_PROMPT, // AKA preview complete
 		];
 
 		return in_array( $this->get_phase(), $completed_states );
@@ -105,7 +116,6 @@ class State {
 			self::PHASE_MIGRATION_IN_PROGRESS,
 			self::PHASE_PREVIEW_IN_PROGRESS,
 			self::PHASE_UNDO_IN_PROGRESS,
-			self::PHASE_CANCELLATION_IN_PROGRESS
 		];
 
 		return in_array( $this->get_phase(), $in_progress_states );

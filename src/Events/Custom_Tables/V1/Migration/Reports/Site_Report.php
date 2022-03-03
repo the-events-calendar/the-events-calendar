@@ -30,6 +30,7 @@ use Tribe__Events__Main as TEC;
  * @property string              migration_phase
  * @property bool                is_completed
  * @property bool                is_running
+ * @property int                 progress_percent
  */
 class Site_Report implements JsonSerializable {
 
@@ -48,6 +49,7 @@ class Site_Report implements JsonSerializable {
 		'migration_phase'          => null,
 		'is_completed'             => false,
 		'is_running'               => false,
+		'progress_percent'         => 0,
 	];
 
 	/**
@@ -68,6 +70,7 @@ class Site_Report implements JsonSerializable {
 		$this->data['migration_phase']          = $data['migration_phase'];
 		$this->data['is_completed']             = $data['is_completed'];
 		$this->data['is_running']               = $data['is_running'];
+		$this->data['progress_percent']         = $data['progress_percent'];
 	}
 
 	/**
@@ -105,6 +108,8 @@ class Site_Report implements JsonSerializable {
 
 		$report_meta = [ 'complete_timestamp' => strtotime( 'yesterday 4pm' ) ];
 
+		$progress_percent = ( $total_events ) ? round( ( $total_events_migrated / $total_events ) * 100 ) : 0;
+
 		$data = [
 			'estimated_time_in_hours'  => round( $state->get( 'migrate', 'estimated_time_in_seconds' ) / 60 / 60, 2 ),
 			'date_completed'           => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
@@ -117,6 +122,7 @@ class Site_Report implements JsonSerializable {
 			'migration_phase'          => $state->get_phase(),
 			'is_completed'             => $state->is_completed(),
 			'is_running'               => $state->is_running(),
+			'progress_percent'         => $progress_percent,
 		];
 
 		return new Site_Report( $data );

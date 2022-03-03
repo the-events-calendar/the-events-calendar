@@ -14,7 +14,7 @@ export const selectors = {
 	rootReportNode: '.tec-ct1-upgrade__row', // Used to constrain some selectors
 	barsSelector: '.tec-ct1-upgrade-bar .bar',
 	barsProgressSelector: '.tec-ct1-upgrade-bar .progress',
-	upgradeBox: '#tec-ct1-upgrade-box',
+	upgradeBox: '#tec-ct1-upgrade-dynamic',
 };
 
 /**

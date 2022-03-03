@@ -109,6 +109,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$data['migration_phase']          = State::PHASE_MIGRATION_IN_PROGRESS;
 		$data['is_completed']             = true;
 		$data['is_running']               = false;
+		$data['progress_percent']         = 0;
 
 		$site_report = new Site_Report( $data );
 		$object      = json_decode( json_encode( $site_report ) );

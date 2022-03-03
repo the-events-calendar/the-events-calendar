@@ -140,22 +140,24 @@ class Ajax {
 	protected function get_renderer_for_phase( $phase ) {
 		// @todo flesh out more for our updated UI and other dynamic sections...
 		// @todo Add pagination + live report (still have mocked data in templates)...
-		$page   = 1;
-		$count  = 20;
-		$report = Site_Report::build( $page, $count );
+		$page  = 1;
+		$count = 20;
+
+		// @todo State::PHASE_UNDO_IN_PROGRESS State::PHASE_PREVIEW_COMPLETE
 
 		switch ( $phase ) {
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
-				$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+				$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
-				$renderer = new Phase_View_Renderer( $phase, '/upgrade-box-contents.php' );
+				$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 				$renderer->register_node( 'progress-bar',
 					'.tec-ct1-upgrade-update-bar-container',
-					'/partials/progress-bar.php'
+					'/partials/progress-bar.php',
+					[ 'report' => Site_Report::build( $page, $count ) ]
 				);
 				break;
 		}

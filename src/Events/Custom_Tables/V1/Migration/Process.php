@@ -113,7 +113,7 @@ class Process {
 			// @todo This how we want to do this?
 			// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
 			if ( $events_repo->get_total_events_remaining() === 0 && $state->is_running() && $state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS ) {
-				$state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_COMPLETE : State::PHASE_MIGRATION_COMPLETE );
+				$state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
 				$state->set( 'migration', 'estimated_time_in_seconds', $events_repo->calculate_time_to_completion() );
 				$state->save();
 			}
