@@ -118,6 +118,7 @@ class Process {
 			if ( $events_repo->get_total_events_remaining() === 0 && $state->is_running() && $state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS ) {
 				$state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
 				$state->set( 'migration', 'estimated_time_in_seconds', $events_repo->calculate_time_to_completion() );
+				$state->set( 'complete_timestamp', time() );
 				$state->save();
 			}
 		} catch ( \Throwable $e ) {
