@@ -88,28 +88,4 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		return $event_report->add_strategy( self::get_slug() )
 		                    ->migration_success();
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function undo( Event_Report $event_report ) {
-		global $wpdb;
-		$events_table      = EventsSchema::table_name( true );
-		$occurrences_table = OccurrencesSchema::table_name( true );
-
-		// Delete Event and Occurrences
-		$delete_events_query = $wpdb->prepare( "DELETE FROM {$events_table} WHERE post_id = %s", $this->post_id );
-		$wpdb->query( $delete_events_query );
-		$delete_occurrences_query = $wpdb->prepare( "DELETE FROM {$occurrences_table} WHERE post_id = %s", $this->post_id );
-		$wpdb->query( $delete_occurrences_query );
-
-		// @todo Add failure tracking
-		// @todo More to delete? Metadata?
-		$meta_keys = [];
-		foreach ( $meta_keys as $meta_key ) {
-			delete_post_meta( $this->post_id, $meta_key );
-		}
-
-		return $event_report;
-	}
 }

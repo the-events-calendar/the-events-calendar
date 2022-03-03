@@ -44,15 +44,4 @@ interface Strategy_Interface {
 	 * @throws Migration_Exception If there's any issue during the migration process.
 	 */
 	public function apply( Event_Report $event_report );
-
-	/**
-	 * Undoes an Event migration.
-	 *
-	 * @since TBD
-	 *
-	 * @param Event_Report
-	 *
-	 * @return Event_Report A reference to the report for the Event migration undoing.
-	 */
-	public function undo( Event_Report $event_report );
 }
