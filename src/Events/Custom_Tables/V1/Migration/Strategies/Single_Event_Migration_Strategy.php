@@ -10,10 +10,13 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
+use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
-use TEC\Events\Custom_Tables\V1\Updates\Events;
+use TEC\Events\Custom_Tables\V1\Models\Event;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Single_Event_Migration_Strategy.
@@ -32,16 +35,22 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 
 	/**
 	 * Single_Event_Migration_Strategy constructor.
-	 * since TBD
+	 *
+	 * @since TBD
 	 *
 	 * @param int  $post_id The post ID of the Event to migrate.
 	 * @param bool $dry_run Whether the migration should actually commit information,
 	 *                      or run in dry-run mode.
 	 *
 	 * @return Event_Report A reference to the report for the Event migration.
+	 *
+	 * @throws Migration_Exception If the post is not of the Event type.
 	 */
 	public function __construct( $post_id, $dry_run ) {
 		$this->post_id = $post_id;
+		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
+			throw new Migration_Exception( 'Post is not an Event.' );
+		}
 		$this->dry_run = $dry_run;
 	}
 
@@ -49,36 +58,34 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	 * {@inheritDoc}
 	 */
 	public function apply( Event_Report $event_report ) {
-		// @todo Add dry run logic
-		// @todo Review - missing anything?
-		$events_repository = tribe( Events::class );
-		$events_repository->update( $this->post_id );
+		$upserted = Event::upsert( [ 'post_id' ], Event::data_from_post( $this->post_id ) );
 
-		// @todo how do we determine if there are tickets?
-		return $event_report->add_strategy( self::get_slug() );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function undo( Event_Report $event_report ) {
-		global $wpdb;
-		$events_table      = EventsSchema::table_name( true );
-		$occurrences_table = OccurrencesSchema::table_name( true );
-
-		// Delete Event and Occurrences
-		$delete_events_query = $wpdb->prepare( "DELETE FROM {$events_table} WHERE post_id = %s", $this->post_id );
-		$wpdb->query( $delete_events_query );
-		$delete_occurrences_query = $wpdb->prepare( "DELETE FROM {$occurrences_table} WHERE post_id = %s", $this->post_id );
-		$wpdb->query( $delete_occurrences_query );
-
-		// @todo Add failure tracking
-		// @todo More to delete? Metadata?
-		$meta_keys = [];
-		foreach ( $meta_keys as $meta_key ) {
-			delete_post_meta( $this->post_id, $meta_key );
+		if ( ! $upserted ) {
+			throw new Migration_Exception( 'Event model could not be upserted.' );
 		}
 
-		return $event_report;
+		$event_model = Event::find( $this->post_id, 'post_id' );
+
+		if ( ! $event_model instanceof Event ) {
+			throw new Migration_Exception( 'Event model could not be found.' );
+		}
+
+		$event_model->occurrences()->save_occurrences();
+
+		$occurrences = Occurrence::where('post_id','=',$this->post_id)
+			->count();
+
+		if ( $occurrences !== 1 ) {
+			throw new Migration_Exception(
+				sprintf(
+					'Unexpected number of Occurrences found: expected 1, found %d.',
+					$occurrences
+				)
+			);
+		}
+
+		// @todo how do we determine if there are tickets?
+		return $event_report->add_strategy( self::get_slug() )
+		                    ->migration_success();
 	}
 }

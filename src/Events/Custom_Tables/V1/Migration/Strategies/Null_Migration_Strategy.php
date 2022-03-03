@@ -39,8 +39,4 @@ class Null_Migration_Strategy implements Strategy_Interface {
 		$event_report->migration_success();
 		return $event_report;
 	}
-
-	public function undo( Event_Report $event_report ) {
-		// TODO: Implement undo() method.
-	}
 }
