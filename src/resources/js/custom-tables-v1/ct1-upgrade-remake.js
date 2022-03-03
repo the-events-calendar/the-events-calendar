@@ -15,6 +15,7 @@ export const selectors = {
 	barsSelector: '.tec-ct1-upgrade-bar .bar',
 	barsProgressSelector: '.tec-ct1-upgrade-bar .progress',
 	upgradeBox: '#tec-ct1-upgrade-dynamic',
+	startPreviewButton: '.tec-ct1-upgrade-start-migration-preview',
 };
 
 /**
@@ -141,15 +142,17 @@ export const handleReportData = function(data) {
 	// Write our HTML if we are new.
 	if (!currentViewState.key || currentViewState.key !== key) {
 		upgradeBoxElement.innerHTML = html;
+		bindNodes(key);
 	}
 	// Iterate on nodes.
 	nodes.forEach(
 			(node) => {
 				if (isNodeDiff(node.key, node.hash)) {
 					// Write new content.
-					let element;
-					if (element = document.querySelector(node.target)) {
+					let element = document.querySelector(node.target);
+					if (element) {
 						element.innerHTML = node.html;
+						bindNodes(node.key);
 					}
 				}
 			},
@@ -157,6 +160,45 @@ export const handleReportData = function(data) {
 	// Store changes locally for next request.
 	currentViewState = data;
 };
+export const bindNodes = (key) => {
+	let element;
+	// @todo Reference localized vars for these?
+	switch(key) {
+		case 'preview-prompt':
+			element = document.querySelector(selectors.startPreviewButton);
+			if (element) {
+				element.addEventListener('click', handleStartMigration(true));
+			}
+			break;
+		case 'migration-prompt':
+			element = document.querySelector(selectors.startMigrationButton);
+			if (element) {
+				element.addEventListener('click', handleStartMigration(false));
+			}
+			break;
+	}
+}
+export const handleStartMigration = (isPreview) => (e) => {
+	e.preventDefault();
+	// Stop our render check momentarily.
+	// We will have a new state immediately after our start migration finishes.
+	cancelReportPoll();
+	ajaxGet(
+		tecCt1Upgrade.ajaxUrl,
+		{
+			action: tecCt1Upgrade.actions.startMigration,
+			tec_events_custom_tables_v1_migration_dry_run: isPreview ? 1 : 0,
+			_ajax_nonce: tecCt1Upgrade.nonce,
+		},
+		() => {
+			// Sync + Restart polling, now we will have a new view.
+			syncReportData(pollForReport)
+		}
+	);
+}
+export const cancelReportPoll = () => {
+	clearTimeout(pollTimeoutId);
+}
 export const isNodeDiff = (searchKey, searchHash) => {
 	const {nodes} = currentViewState;
 	if (!nodes) {

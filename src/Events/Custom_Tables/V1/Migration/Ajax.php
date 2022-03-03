@@ -143,12 +143,11 @@ class Ajax {
 		$page  = 1;
 		$count = 20;
 
-		// @todo State::PHASE_UNDO_IN_PROGRESS State::PHASE_PREVIEW_COMPLETE
-
 		switch ( $phase ) {
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
+			case State::PHASE_UNDO_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
@@ -174,8 +173,8 @@ class Ajax {
 	 * @return Site_Report A report about the migration start process.
 	 */
 	public function start_migration( $echo = true ) {
-		// @todo
-		$dry_run = true;
+		// @todo Some review / cleanup. Maybe move some of this inside the process->start()
+		$dry_run = ! empty( $_REQUEST['tec_events_custom_tables_v1_migration_dry_run'] );
 		$state   = tribe( State::class );
 		$state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );
 		$state->save();
