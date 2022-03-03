@@ -22,7 +22,7 @@ use JsonSerializable;
  * @property null|string error
  * @property string      status
  * @property array       created_events
- * @property bool        is_recurring
+ * @property bool        is_single
  * @property string      tickets_provider
  * @property bool        has_tickets
  * @property null|float  end_timestamp
@@ -76,12 +76,12 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Status for failed migration.
 	 */
-	const FAILURE_STATUS = 'failure';
+	const STATUS_FAILURE = 'failure';
 
 	/**
 	 * Status for successful migration.
 	 */
-	const SUCCESS_STATUS = 'success';
+	const STATUS_SUCCESS = 'success';
 
 	/**
 	 * @since TBD
@@ -92,7 +92,7 @@ class Event_Report implements JsonSerializable {
 		'end_timestamp'      => null,
 		'has_tickets'        => false,
 		'tickets_provider'   => '',
-		'is_recurring'       => false,
+		'is_single'          => true,
 		'created_events'     => [],
 		'status'             => '', // @todo Do we really need this? This could be handled by the meta phase...
 		'error'              => null,
@@ -210,15 +210,17 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Sets a key in the report data.
+	 *
 	 * @since TBD
 	 *
-	 * @param bool $is_recurring
+	 * @param string     $key   The key to set in the report data.
+	 * @param mixed|null $value The value to set for the key.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining purposes.
 	 */
-	public function set_is_recurring( bool $is_recurring ) {
-		//@todo Should we infer this from the created_events data...? Or statically apply / require being applied?
-		$this->data['is_recurring'] = $is_recurring;
+	public function set( $key, $value = null ) {
+		$this->data[ $key ] = $value;
 
 		return $this;
 	}
@@ -327,7 +329,7 @@ class Event_Report implements JsonSerializable {
 		$this->unlock_event();
 
 		return $this->set_error( $reason )
-		            ->set_status( self::FAILURE_STATUS )
+		            ->set_status( self::STATUS_FAILURE )
 		            ->save();
 	}
 
@@ -359,7 +361,7 @@ class Event_Report implements JsonSerializable {
 		$this->unlock_event();
 
 		return $this
-			->set_status( self::SUCCESS_STATUS )
+			->set_status( self::STATUS_SUCCESS )
 			->save();
 	}
 
@@ -379,7 +381,7 @@ class Event_Report implements JsonSerializable {
 		$this->unlock_event();
 
 		return $this->set_error( $reason )
-		            ->set_status( self::FAILURE_STATUS )
+		            ->set_status( self::STATUS_FAILURE )
 		            ->save();
 	}
 
@@ -389,6 +391,7 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	public function unlock_event() {
+		// @todo this seems a bit off-place here.
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_LOCK_HASH );
 
 		return $this;

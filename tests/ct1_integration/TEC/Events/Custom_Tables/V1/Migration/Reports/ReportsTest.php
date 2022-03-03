@@ -40,14 +40,14 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report   = ( new Event_Report( $faux_post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $faux_post2, 1 )
 			->add_created_event( $faux_post3, 1 )
 			->add_strategy( $strategy );
 
 		$object = json_decode( json_encode( $event_report ) );
 
-		$this->assertEquals( $event_report->is_recurring, $object->is_recurring );
+		$this->assertEquals( $event_report->is_single, $object->is_single );
 		$this->assertEquals( $event_report->has_tickets, $object->has_tickets );
 		$this->assertEquals( $event_report->tickets_provider, $object->tickets_provider );
 		$this->assertEquals( $event_report->status, $object->status );
@@ -88,14 +88,14 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1 = ( new Event_Report( $faux_post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $faux_post2, 1 )
 			->add_created_event( $faux_post3, 1 )
 			->add_strategy( $strategy );
 		$event_report2 = ( new Event_Report( $faux_post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $faux_post2, 1 )
 			->add_created_event( $faux_post3, 1 )
 			->add_strategy( $strategy );
@@ -150,7 +150,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1 = ( new Event_Report( $post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
 		$event_report1->migration_success();
@@ -191,7 +191,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1 = ( new Event_Report( $post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
 		$event_report1->migration_success();
@@ -230,7 +230,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1 = ( new Event_Report( $post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
 		$event_report1->migration_failed( $some_error );
@@ -278,7 +278,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1 = ( new Event_Report( $post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
 		$event_report1->migration_success();
@@ -338,7 +338,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$event_report1 = ( new Event_Report( $post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
-			->set_is_recurring( true )
+			->set( 'is_single', false )
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
 		$event_report1->migration_success();

@@ -10,6 +10,8 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
+use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 
 /**
  * Class Process.

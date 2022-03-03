@@ -22,7 +22,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
-    "lucatume/wp-browser": "^3.0.14",
+    "lucatume/wp-browser": "^3.1.4",
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
     "the-events-calendar/tribalscents": "dev-master",

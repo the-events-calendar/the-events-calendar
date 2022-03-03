@@ -1,12 +1,14 @@
 <?php
 /**
- * ${CARET}
+ * The strategy used by The Events Calendar to migrate a Single Event, an Event
+ * occurring once, to the Custom Tables v1 data format and tables.
  *
  * @since   TBD
- * @package TEC\Events\Custom_Tables\V1\Migration;
+ *
+ * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
 
-namespace TEC\Events\Custom_Tables\V1\Migration;
+namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Updates\Events;
@@ -17,9 +19,16 @@ use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
  * Class Single_Event_Migration_Strategy.
  *
  * @since   TBD
- * @package TEC\Events\Custom_Tables\V1\Migration;
+ *
+ * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
 class Single_Event_Migration_Strategy implements Strategy_Interface {
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_slug() {
+		return 'tec-single-event-strategy';
+	}
 
 	/**
 	 * Single_Event_Migration_Strategy constructor.
@@ -46,8 +55,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		$events_repository->update( $this->post_id );
 
 		// @todo how do we determine if there are tickets?
-		return $event_report->add_strategy( 'single-event' )
-		                    ->set_is_recurring( false );
+		return $event_report->add_strategy( self::get_slug() );
 	}
 
 	/**
