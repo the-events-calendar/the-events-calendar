@@ -5,7 +5,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
-class PhaseViewTest extends \Codeception\TestCase\WPTestCase {
+class Phase_View_RendererTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * Should find and structure the templates with their metadata.
