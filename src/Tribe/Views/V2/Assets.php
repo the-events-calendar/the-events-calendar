@@ -528,9 +528,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 			return $this->should_enqueue_frontend;
 		}
 
-		// Detect plugin. For frontend only
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
 		/**
 		 * Checks whether the page is being viewed in Elementor preview mode.
 		 * 
@@ -538,7 +535,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		 * 
 		 * @return bool $should_enqueue Should the frontend assets be enqueued.
 		 */
-		if ( is_plugin_active( 'elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+		if ( ! ( ! defined( 'ELEMENTOR_PATH' ) || empty( ELEMENTOR_PATH ) ) && \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
 			return $this->should_enqueue = true;
 		}
 
