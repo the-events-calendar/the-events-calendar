@@ -8,6 +8,10 @@
  * @var string $template_path The absolute path to the Migration template root directory.
  */
 use TEC\Events\Custom_Tables\V1\Migration\State;
+// @todo remove
+/*$state = tribe(State::class);
+$state->set('phase', State::PHASE_PREVIEW_PROMPT);
+$state->save();*/
 ?>
 <div id="tec-ct1-upgrade-box" >
 	<div id="tec-ct1-upgrade-dynamic" class="tec-ct1-upgrade">

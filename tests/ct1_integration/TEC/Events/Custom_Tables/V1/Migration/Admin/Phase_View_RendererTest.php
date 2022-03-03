@@ -93,10 +93,14 @@ class Phase_View_RendererTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_render_migration_prompt_ok() {
 		// Setup templates.
-		$phase    = State::PHASE_MIGRATION_PROMPT;
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
-
-		$output = $renderer->compile();
+		$phase = State::PHASE_MIGRATION_PROMPT;
+		$state = tribe( State::class );
+		$time  = time();
+		$state->set( 'complete_timestamp', $time );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php",
+			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ) ]
+		);
+		$output   = $renderer->compile();
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
@@ -104,6 +108,7 @@ class Phase_View_RendererTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__alert', $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
+		$this->assertContains( date( 'F j, Y, g:i a', $time ), $output['html'] );
 	}
 
 	/**

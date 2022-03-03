@@ -1,6 +1,10 @@
 <?php
+
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
+
 /**
- * @var string $template_directory The absolute path to the Migration template root directory.
+ * @var string      $template_directory The absolute path to the Migration template root directory.
+ * @var Site_Report $report             The report details.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
@@ -22,8 +26,6 @@
 			);
 			?>
 		</p>
-
-		<?php include __DIR__ . '/report-data.php'; ?>
 
 		<p class="tec-ct1-upgrade__alert">
 			<i class="tec-ct1-upgrade__alert-icon">!</i>

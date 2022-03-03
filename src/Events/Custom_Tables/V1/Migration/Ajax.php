@@ -146,9 +146,14 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_COMPLETE:
-			case State::PHASE_MIGRATION_PROMPT:
 			case State::PHASE_UNDO_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
+				break;
+			case State::PHASE_MIGRATION_PROMPT:
+				$renderer = new Phase_View_Renderer( $phase,
+					"/phase/$phase.php",
+					[ 'state' => tribe( State::class ), 'report' => Site_Report::build( $page, $count ) ]
+				);
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
