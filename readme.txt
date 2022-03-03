@@ -222,7 +222,8 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 =[TBD] TBD =
 
-* Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TBD]
+* Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TEC-4263]
+* Fix - Correct Month View ics export so it begins on the current day rather than the 1st. [TEC-4223]
 
 = [5.14.0.3] 2022-02-25 =
 
