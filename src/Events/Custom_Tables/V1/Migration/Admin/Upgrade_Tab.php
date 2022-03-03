@@ -151,16 +151,4 @@ class Upgrade_Tab {
 
 		return (string)$phase_html;
 	}
-
-	public function get_phase_inner_html(  ) {
-		$phase              = $this->state->get_phase();
-		$migration_addendum = $this->get_migration_prompt_addendum();
-		$template_path      = $this->template_path;
-
-		ob_start();
-		include_once $this->template_path . '/upgrade-box-contents.php';
-		$phase_html = ob_get_clean();
-
-		return (string)$phase_html;
-	}
 }
