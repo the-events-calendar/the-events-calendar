@@ -659,10 +659,14 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return bool
 	 */
 	public function should_enqueue_admin() {
-		if ( is_admin() && get_current_screen()->is_block_editor ) {
-			return true;
+		if ( ! is_admin() ) {
+			return false;
 		}
 
-		return false;
+		if ( ! get_current_screen()->is_block_editor ) {
+			return false;
+		}
+
+		return true;
 	}
 }
