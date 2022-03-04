@@ -64,7 +64,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( 'init', [ $this, 'activate_maintenance_mode' ] );
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
-		add_action( Ajax::ACTION_REPORT, [ $this, 'get_report' ] );
+		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
@@ -132,8 +132,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              of echoing a JSON format string back for the Migration UI JS component
 	 *              to consume.
 	 */
-	public function get_report() {
-		return $this->container->make( Ajax::class )->get_report();
+	public function send_report() {
+		return $this->container->make( Ajax::class )->send_report();
 	}
 
 	/**

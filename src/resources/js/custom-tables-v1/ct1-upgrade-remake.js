@@ -205,9 +205,10 @@ export const handleCancelMigration = (e) => {
 			action: tecCt1Upgrade.actions.cancelMigration,
 			_ajax_nonce: tecCt1Upgrade.nonce,
 		},
-		() => {
+		(response) => {
 			// Sync + Restart polling, now we will have a new view.
-			syncReportData(pollForReport)
+			handleReportData(response);
+			pollForReport();
 		}
 	);
 }
@@ -223,9 +224,10 @@ export const handleStartMigration = (isPreview) => (e) => {
 			tec_events_custom_tables_v1_migration_dry_run: isPreview ? 1 : 0,
 			_ajax_nonce: tecCt1Upgrade.nonce,
 		},
-		() => {
+		(response) => {
 			// Sync + Restart polling, now we will have a new view.
-			syncReportData(pollForReport)
+			handleReportData(response);
+			pollForReport();
 		}
 	);
 }

@@ -45,13 +45,22 @@ class Process {
 	private $events;
 
 	/**
+	 * A reference to the migration state object.
+	 *
+	 * @var State;
+	 */
+	private $state;
+	/**
 	 * Process constructor.
-	 * since TBD
+	 *
+	 * @since TBD
 	 *
 	 * @param Events $events A reference to the current Events' migration repository.
+	 * @param State $state A reference to the migration state data.
 	 */
-	public function __construct( Events $events ) {
+	public function __construct( Events $events, State $state ) {
 		$this->events = $events;
+		$this->state = $state;
 	}
 
 	/**
@@ -110,16 +119,14 @@ class Process {
 				//@todo check action ID here and log on failure.
 			}
 
-			$events_repo = tribe( Events::class );
-			$state       = tribe( State::class );
 			// Transition phase
 			// @todo This how we want to do this?
 			// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
-			if ( $events_repo->get_total_events_remaining() === 0 && $state->is_running() && $state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS ) {
-				$state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
-				$state->set( 'migration', 'estimated_time_in_seconds', $events_repo->calculate_time_to_completion() );
-				$state->set( 'complete_timestamp', time() );
-				$state->save();
+			if ( $this->events->get_total_events_remaining() === 0 && $this->state->is_running() && $this->state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS ) {
+				$this->state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
+				$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
+				$this->state->set( 'complete_timestamp', time() );
+				$this->state->save();
 			}
 		} catch ( \Throwable $e ) {
 			$event_report->migration_failed( $e->getMessage() );
@@ -206,7 +213,11 @@ class Process {
 	 */
 	public function start( $dry_run = true ) {
 		$action_ids = [];
-		// @todo Move phase
+
+		// Flag our new phase.
+		$this->state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );
+		$this->state->save();
+
 		foreach ( $this->events->get_ids_to_process( 50 ) as $post_id ) {
 			$action_ids[] = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
 		}
@@ -238,6 +249,10 @@ class Process {
 	 */
 	public function undo() {
 		$action_ids = [];
+
+		// Flag our new phase.
+		$this->state->set( 'phase', State::PHASE_UNDO_IN_PROGRESS );
+		$this->state->save();
 
 		foreach ( $this->events->get_ids_to_process( 50, true ) as $post_id ) {
 			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, [ $post_id ] );

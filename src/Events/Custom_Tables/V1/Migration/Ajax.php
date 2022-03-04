@@ -96,10 +96,31 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return string The JSON-encoded data for the front-end.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
+	 *
 	 */
-	public function get_report( $echo = true ) {
+	public function send_report( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
+
+		$response = $this->get_report();
+		if ( $echo ) {
+			wp_send_json( $response );
+			die();
+		}
+
+		return wp_json_encode( $response );
+	}
+
+	/**
+	 * Builds the structured report HTML.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function get_report() {
 
 		// What phase are we in?
 		$state = tribe( State::class );
@@ -119,13 +140,7 @@ class Ajax {
 			$renderer = $this->get_renderer_for_phase( $phase );
 		}
 
-		$response = $renderer->compile();
-		if ( $echo ) {
-			wp_send_json( $response );
-			die();
-		}
-
-		return wp_json_encode( $response );
+		return $renderer->compile();
 	}
 
 	/**
@@ -175,22 +190,22 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report A report about the migration start process.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
 	 */
 	public function start_migration( $echo = true ) {
-		// @todo Some review / cleanup. Maybe move some of this inside the process->start()
+		check_ajax_referer( self::NONCE_ACTION );
 		$dry_run = ! empty( $_REQUEST['tec_events_custom_tables_v1_migration_dry_run'] );
-		$state   = tribe( State::class );
-		$state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );
-		$state->save();
 		$this->process->start( $dry_run );
-		$report = Site_Report::build();
 
+		$response = $this->get_report();
 		if ( $echo ) {
-			wp_send_json( $report );
+			wp_send_json( $response );
+			die();
 		}
 
-		return $report;
+		return wp_json_encode( $response );
 	}
 
 	/**
@@ -199,18 +214,21 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report A report about the migration cancel process.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
+	 *
 	 */
 	public function cancel_migration( $echo = true ) {
-		// @todo This should have state with the process canceling?
-		$report = Site_Report::build();
+		check_ajax_referer( self::NONCE_ACTION );
 		$this->process->cancel();
-
+		$response = $this->get_report();
 		if ( $echo ) {
-			wp_send_json( $report );
+			wp_send_json( $response );
+			die();
 		}
 
-		return $report;
+		return wp_json_encode( $response );
 	}
 
 	/**
@@ -219,17 +237,19 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report A report about the migration undo process.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
 	 */
 	public function undo_migration( $echo = true ) {
-		// @todo This should have state with the process undoing?
-		$report = Site_Report::build();
+		check_ajax_referer( self::NONCE_ACTION );
 		$this->process->undo();
-
+		$response = $this->get_report();
 		if ( $echo ) {
-			wp_send_json( $report );
+			wp_send_json( $response );
+			die();
 		}
 
-		return $report;
+		return wp_json_encode( $response );
 	}
 }
