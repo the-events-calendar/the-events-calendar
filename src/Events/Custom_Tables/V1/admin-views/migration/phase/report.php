@@ -2,7 +2,7 @@
 	<header class="tec-ct1-upgrade__report-header">
 		<div class="tec-ct1-upgrade__report-header-section tec-ct1-upgrade__report-header-section--timestamp">
 			<?php echo $datetime_heading; ?>
-			<strong><?php echo esc_html( date( 'F j, Y, g:i a', $state->get( 'complete_timestamp' ) ) ); ?></strong>
+			<strong><?php echo esc_html( $report->date_completed ); ?></strong>
 		</div>
 		<div class="tec-ct1-upgrade__report-header-section tec-ct1-upgrade__report-header-section--total">
 			<?php echo $total_heading; ?>

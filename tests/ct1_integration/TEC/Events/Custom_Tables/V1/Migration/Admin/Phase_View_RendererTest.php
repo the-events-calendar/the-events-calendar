@@ -97,8 +97,10 @@ class Phase_View_RendererTest extends \Codeception\TestCase\WPTestCase {
 		$state = tribe( State::class );
 		$time  = time();
 		$state->set( 'complete_timestamp', $time );
+		$state->save();
+
 		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php",
-			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ) ]
+			[ 'report' => Site_Report::build( 1, 20 ) ]
 		);
 		$output   = $renderer->compile();
 

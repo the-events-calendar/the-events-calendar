@@ -171,7 +171,7 @@ class Ajax {
 			case State::PHASE_MIGRATION_PROMPT:
 				$renderer = new Phase_View_Renderer( $phase,
 					"/phase/$phase.php",
-					[ 'state' => tribe( State::class ), 'report' => Site_Report::build( $page, $count ) ]
+					[ 'report' => Site_Report::build( $page, $count ) ]
 				);
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:

@@ -71,6 +71,7 @@ class Site_Report implements JsonSerializable {
 		$this->data['is_completed']             = $data['is_completed'];
 		$this->data['is_running']               = $data['is_running'];
 		$this->data['progress_percent']         = $data['progress_percent'];
+		$this->data['date_completed']           = $data['date_completed'];
 	}
 
 	/**
@@ -106,13 +107,11 @@ class Site_Report implements JsonSerializable {
 			$event_reports[] = new Event_Report( get_post( $post_id ) );
 		}
 
-		$report_meta = [ 'complete_timestamp' => strtotime( 'yesterday 4pm' ) ];
-
 		$progress_percent = ( $total_events ) ? round( ( $total_events_migrated / $total_events ) * 100 ) : 0;
 
 		$data = [
-			'estimated_time_in_hours'  => round( $state->get( 'migrate', 'estimated_time_in_seconds' ) / 60 / 60, 2 ),
-			'date_completed'           => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $report_meta['complete_timestamp'] ) ) )->format( 'F j, Y, g:i a' ),
+			'estimated_time_in_hours'  => round( $state->get( 'migration', 'estimated_time_in_seconds' ) / 60 / 60, 2 ),
+			'date_completed'           => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $state->get('complete_timestamp') ) ) )->format( 'F j, Y, g:i a' ),
 			'total_events_in_progress' => $total_events_in_progress,
 			'total_events_migrated'    => $total_events_migrated,
 			'total_events'             => $total_events,
