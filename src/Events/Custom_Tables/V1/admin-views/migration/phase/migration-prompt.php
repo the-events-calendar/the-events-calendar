@@ -28,6 +28,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 
 		<p class="tec-ct1-upgrade__alert">
 			<i class="tec-ct1-upgrade__alert-icon">!</i>
+			<span>
 			<?php
 			echo sprintf(
 				esc_html( 'From this preview, we estimate that the full migration process will take approximately %3$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.', 'the-events-calendar' ),
@@ -41,7 +42,9 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 				<strong><?php echo esc_html( $addendum ); ?></strong>
 				<?php
 			}
-
+			?>
+			</span>
+			<?php
 			echo sprintf(
 				esc_html__( '%1$s%3$sLearn more about the migration%4$s.%2$s', 'the-events-calendar' ),
 				'<strong>',
