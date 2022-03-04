@@ -49,8 +49,7 @@ $strings = tribe( Strings::class );
 	?>
 	<a href="" class="tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Reverse Migration', 'the-events-calendar' ); ?></a>
 	<?php
-	$heading_action = ob_get_clean();
-	include __DIR__ . '/report-data.php';
+	$heading_action = ob_get_clean(); 
 	include __DIR__ . '/report.php';
 	?>
 </div>

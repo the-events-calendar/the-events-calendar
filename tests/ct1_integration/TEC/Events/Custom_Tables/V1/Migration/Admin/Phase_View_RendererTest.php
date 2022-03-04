@@ -144,7 +144,11 @@ class Phase_View_RendererTest extends \Codeception\TestCase\WPTestCase {
 	public function should_render_migration_complete_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_MIGRATION_COMPLETE;
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
+		$state    = tribe( State::class );
+		$renderer = new Phase_View_Renderer( $phase,
+			"/phase/$phase.php",
+			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ) ]
+		);
 
 		$output = $renderer->compile();
 
