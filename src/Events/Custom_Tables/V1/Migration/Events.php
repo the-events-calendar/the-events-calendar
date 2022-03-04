@@ -61,9 +61,9 @@ class Events {
 		$batch_uid = uniqid( 'tec_ct1_action', true ); // Should be pretty unique.
 
 		// Atomic query.
-		if ( $has_been_migrated ) {
+		if ( $has_been_migrated ) { // @todo remove - this was for undo, not needed anymore
 			// Fetch only those that were previously touched
-			$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+			$lock_query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
 	    SELECT p.ID, %s, %s
 	    FROM {$wpdb->posts} p
 			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
@@ -84,7 +84,7 @@ class Events {
 			);
 		} else {
 			//  Fetch only those that were NOT previously touched.
-			$lock_query = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+			$lock_query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
 	    SELECT p.ID, %s,%s
 	    FROM {$wpdb->posts} p
 			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN(%s, %s)
