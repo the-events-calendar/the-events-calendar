@@ -33,7 +33,7 @@ class Process_Test extends \Codeception\TestCase\WPTestCase {
 			return $strategy;
 		}, 10, 3 );
 
-		$process = new Process( new Events );
+		$process = new Process( new Events, new State );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
 		$this->assertEquals( '', $report->error );
@@ -56,7 +56,7 @@ class Process_Test extends \Codeception\TestCase\WPTestCase {
 			};
 		} );
 
-		$process = new Process( new Events );
+		$process = new Process( new Events, new State );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
 		$this->assertEquals( 'for reasons', $report->error );
