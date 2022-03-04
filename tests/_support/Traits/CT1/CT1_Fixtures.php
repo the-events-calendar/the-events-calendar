@@ -4,7 +4,9 @@ namespace Tribe\Events\Test\Traits\CT1;
 
 use TEC\Events\Custom_Tables\V1\Models\Event as Event_Model;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence as Occurrence_Model;
-use Tribe\Events\Test\Factories\Event as Event_Factory;
+use Tribe__Date_Utils as Dates;
+use Tribe__Timezones as Timezones;
+use Tribe__Events__Main as TEC;
 
 trait CT1_Fixtures {
 	/**
@@ -12,7 +14,23 @@ trait CT1_Fixtures {
 	 */
 	private function given_a_non_migrated_single_event() {
 		// Create an Event.
-		$post_id = ( new Event_Factory )->create();
+		$timezone  = new \DateTimeZone( 'Europe/Paris' );
+		$utc       = new \DateTimeZone( 'UTC' );
+		$now       = new \DateTimeImmutable( 'now', $timezone );
+		$two_hours = new \DateInterval( 'PT2H' );
+		$post_id   = ( new \WP_UnitTest_Factory_For_Post() )->create( [
+			'post_type'   => TEC::POSTTYPE,
+			'meta_input'  => [
+				'_EventStartDate'    => $now->format( Dates::DBDATETIMEFORMAT ),
+				'_EventEndDate'      => $now->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventStartDateUTC' => $now->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventEndDateUTC'   => $now->setTimezone( $utc )->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventDuration'     => 7200,
+				'_EventTimezone'     => $timezone->getName(),
+				'_EventTimezoneAbbr' => Timezones::abbr( $now, $timezone ),
+			],
+			'post_status' => 'publish',
+		] );
 		// Make sure no models are present in the custom tables for it.
 		Occurrence_Model::where( 'post_id', '=', $post_id )
 		                ->delete();

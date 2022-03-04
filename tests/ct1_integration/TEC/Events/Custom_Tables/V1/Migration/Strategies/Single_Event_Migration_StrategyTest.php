@@ -111,5 +111,26 @@ class Single_Event_Migration_StrategyTest extends \Codeception\TestCase\WPTestCa
 		$strategy->apply( $report );
 	}
 
-	// @todo preview
+	/**
+	 * It should throw if more than one occurrence is created
+	 *
+	 * @test
+	 */
+	public function should_throw_if_more_than_one_occurrence_is_created() {
+		$post    = $this->given_a_non_migrated_single_event();
+		$report  = new Event_Report( $post );
+		$post_id = $post->ID;
+		// Right after the Occurrences have been crated, add 2 more.
+		add_filter( 'tec_events_custom_tables_v1_after_insert_occurrences', static function ( $post_is_param, $insertions ) use ( $post_id ) {
+			if ( $post_is_param === $post_id ) {
+				$proto = $insertions[0];
+				Occurrence::insert( array_merge( $proto, [ 'hash' => sha1( microtime() ) ] ) );
+				Occurrence::insert( array_merge( $proto, [ 'hash' => sha1( microtime() ) ] ) );
+			}
+		}, 10, 2 );
+		$this->expectException( Migration_Exception::class );
+
+		$strategy = new Strategy( $post_id, false );
+		$strategy->apply( $report );
+	}
 }
