@@ -1,6 +1,6 @@
 [submodule "vendor/php-date-formatter"]
 	path = vendor/php-date-formatter
-	url = git://github.com/kartik-v/php-date-formatter
+	url = git@github.com:kartik-v/php-date-formatter
 [submodule "common"]
 	path = common
 	url = git@github.com:the-events-calendar/tribe-common.git

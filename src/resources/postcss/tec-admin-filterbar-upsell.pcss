@@ -1,0 +1,97 @@
+/**
+ * Filter Bar upsell admin banner.
+ *
+ * @since 5.14.0
+ */
+
+.tec-filterbar-upsell {
+	align-items: flex-end;
+	background: #f9f9f9;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-between;
+	margin-top: 20px;
+	padding: 30px 25px 50px;
+
+	@media only screen and (min-width: 480px) {
+		align-items: center;
+		flex-direction: row;
+		padding: 40px;
+	}
+}
+
+.tec-filterbar-upsell__content {
+	@media only screen and (min-width: 480px) {
+		max-width: 100%;
+	}
+
+	@media only screen and (min-width: 768px) {
+		max-width: 75%;
+	}
+}
+
+.tec-filterbar-upsell__content p {
+	color: #3d4349;
+	font-size: 16px;
+	line-height: 1.5;
+
+	@media only screen and (min-width: 480px) {
+		font-size: 20px;
+	}
+}
+
+.tec-filterbar-upsell__title {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.tec-filterbar-upsell__title img {
+	height: 19.34px;
+	object-fit: contain;
+	width: 19.47px;
+}
+
+.tec-filterbar-upsell__title h3 {
+	color: #1e2327;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0 5px;
+}
+
+.tec-filterbar-upsell__icon img {
+	height: auto;
+	object-fit: contain;
+	width: 100px;
+
+	@media only screen and (min-width: 480px) {
+		margin-left: 40px;
+		width: 240px;
+	}
+}
+
+.tec-filterbar-upsell__btn {
+	margin-top: 50px;
+}
+
+.tec-filterbar-upsell__btn a {
+	background: #334aff;
+	border: 2px #334aff solid;
+	border-radius: 5px;
+	color: #f9f9f9;
+	font-size: 16px;
+	font-weight: 500;
+	padding: 15px 20px;
+	text-decoration: none;
+}
+
+.tec-filterbar-upsell__btn a:hover,
+.tec-filterbar-upsell__btn a:active,
+.tec-filterbar-upsell__btn a:focus {
+	background: transparent;
+	box-shadow: none;
+	color: #334aff;
+	outline: none;
+}

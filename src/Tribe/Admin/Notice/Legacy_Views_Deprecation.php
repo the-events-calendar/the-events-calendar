@@ -86,30 +86,21 @@ class Legacy_Views_Deprecation {
 	 * @return string
 	 */
 	public function notice() {
-		if ( $this->is_debug() ) {
-			$link = sprintf(
-				'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
-				esc_url( 'https://evnt.is/legacy-blog' ),
-				esc_html_x( 'Learn more', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
-			);
-
-			return sprintf(
-				_x( '<b>Your calendar is changing</b><br> The Events Calendar\'s legacy views will no longer be supported as of %2$s, %1$s.', 'deprecation of legacy views', 'the-events-calendar' ),
-				$link,
-				esc_html( $this->get_deprecation_date()->format_i18n( 'F d, Y' ) )
-			);
-		}
-
 		$link = sprintf(
 			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
-			esc_url( 'https://evnt.is/legacy-blog' ),
-			esc_html_x( 'Learn more', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
+			esc_url( 'https://evnt.is/1b3c' ),
+			esc_html_x( 'test and prepare your site', 'Prepare deprecation of legacy views.', 'the-events-calendar' )
+		);
+		$link_two = sprintf(
+			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+			esc_url( 'https://evnt.is/v1-removal' ),
+			esc_html_x( 'Read more', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
 		);
 
 		return sprintf(
-			_x( '<b>Your calendar is changing</b><br> The Events Calendar\'s legacy views will no longer be supported as of %2$s, %1$s.', 'deprecation of legacy views', 'the-events-calendar' ),
+			_x( 'The legacy calendar views are deprecated and will be fully removed in an upcoming release. You should %1$s now to prevent issues when The Events Calendar 6.0 is released. %2$s.', 'deprecation of legacy views', 'the-events-calendar' ),
 			$link,
-			esc_html( $this->get_deprecation_date()->format_i18n( 'F d, Y' ) )
+			$link_two
 		);
 	}
 }

@@ -67,6 +67,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
+		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 	}
 
 	/**
@@ -75,9 +76,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	protected function add_filters() {
+		add_filter( 'tec_system_information', [ $this, 'filter_system_information' ] );
 		add_filter( 'wp_redirect', [ $this, 'filter_redirect_canonical' ], 10, 2 );
 		add_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ], 10, 2 );
-		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
@@ -959,7 +960,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function is_v1_or_blocks( $post_id = null ) {
 		return is_null( $post_id )
 				|| ! tribe_events_single_view_v2_is_enabled()
-				|| has_blocks( $post_id );
+				|| tribe( 'editor' )->should_load_blocks() && has_blocks( $post_id );
 	}
 
 	/**
@@ -1059,5 +1060,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return tribe( 'customizer' )->filter_single_event_css_template( $css_template, $section );
+	}
+
+	/**
+	 * Add the views v2 status in a more prominent way in the Troubleshooting page system info panel.
+	 *
+	 * @since 5.12.4
+	 *
+	 * @param array $info Existing information that will be displayed.
+	 *
+	 * @return array
+	 */
+	public function filter_system_information( array $info = [] ) {
+		$views_v2_status = [
+			'Views V2 Status' => tribe_events_views_v2_is_enabled() ? esc_html__( 'Enabled', 'the-events-calendar' ) : esc_html__( 'Disabled', 'the-events-calendar' ),
+		];
+		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $views_v2_status );
 	}
 }
