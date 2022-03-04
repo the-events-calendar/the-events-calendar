@@ -246,7 +246,7 @@ class Process {
 	 * Starts the migration cancellation.
 	 *
 	 * @since TBD
-	 * @return int The number of Events queued for undo.
+	 * @return int|false The number of Events queued for undo or false if undo already started.
 	 */
 	public function cancel() {
 		// This will target all of our processing actions
@@ -262,10 +262,14 @@ class Process {
 	 * Starts the migration undoing process.
 	 *
 	 * @since TBD
-	 * @return int The number of Events queued for undo.
+	 * @return int|false The number of Events queued for undo or false if undo already started.
 	 */
 	public function undo() {
 		$action_ids = [];
+		// Check if we are already doing this action?
+		if ( $this->state->get_phase() === State::PHASE_UNDO_IN_PROGRESS ) {
+			return false;
+		}
 
 		// Flag our new phase.
 		$this->state->set( 'phase', State::PHASE_UNDO_IN_PROGRESS );
