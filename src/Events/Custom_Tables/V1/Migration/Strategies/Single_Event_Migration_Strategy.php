@@ -58,6 +58,10 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	 * {@inheritDoc}
 	 */
 	public function apply( Event_Report $event_report ) {
+		if ( $this->dry_run ) {
+			$this->start_transaction();
+		}
+
 		$upserted = Event::upsert( [ 'post_id' ], Event::data_from_post( $this->post_id ) );
 
 		if ( ! $upserted ) {
@@ -84,8 +88,20 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 			);
 		}
 
+		if ( $this->dry_run ) {
+			$this->rollback_transaction();
+		}
+
 		// @todo how do we determine if there are tickets?
 		return $event_report->add_strategy( self::get_slug() )
 		                    ->migration_success();
+	}
+
+	private function start_transaction() {
+		// @todo
+	}
+
+	private function rollback_transaction() {
+		// @todo
 	}
 }
