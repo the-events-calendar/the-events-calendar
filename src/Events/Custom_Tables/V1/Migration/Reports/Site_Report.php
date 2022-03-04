@@ -108,10 +108,11 @@ class Site_Report implements JsonSerializable {
 		}
 
 		$progress_percent = ( $total_events ) ? round( ( $total_events_migrated / $total_events ) * 100 ) : 0;
+		$date_completed   = ( new \DateTime( 'now', wp_timezone() ) )->setTimestamp( $state->get( 'complete_timestamp' ) );
 
 		$data = [
 			'estimated_time_in_hours'  => round( $state->get( 'migration', 'estimated_time_in_seconds' ) / 60 / 60, 2 ),
-			'date_completed'           => ( new \DateTimeImmutable( date( 'Y-m-d H:i:s', $state->get('complete_timestamp') ) ) )->format( 'F j, Y, g:i a' ),
+			'date_completed'           => $date_completed->format( 'F j, Y, g:i a' ),
 			'total_events_in_progress' => $total_events_in_progress,
 			'total_events_migrated'    => $total_events_migrated,
 			'total_events'             => $total_events,
