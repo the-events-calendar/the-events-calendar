@@ -198,17 +198,12 @@ class Ajax {
 	public function start_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
 
-		// @todo Do we want to do this at all? This resets our state for a new migration...
-		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_PHASE, '', true );
-		delete_metadata( 'post', 0, Event_Report::META_KEY_REPORT_DATA, '', true );
-
 		$dry_run = ! empty( $_REQUEST['tec_events_custom_tables_v1_migration_dry_run'] );
 		$this->process->start( $dry_run );
 
 		$response = $this->get_report();
 		if ( $echo ) {
 			wp_send_json( $response );
-			die();
 		}
 
 		return wp_json_encode( $response );

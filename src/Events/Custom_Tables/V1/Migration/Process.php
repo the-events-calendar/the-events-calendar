@@ -214,6 +214,10 @@ class Process {
 	public function start( $dry_run = true ) {
 		$action_ids = [];
 
+		// Remove what migration phase flags might have been set by previous previews or migrations.
+		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_PHASE, '', true );
+		delete_metadata( 'post', 0, Event_Report::META_KEY_REPORT_DATA, '', true );
+
 		// Flag our new phase.
 		$this->state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );
 		$this->state->save();
