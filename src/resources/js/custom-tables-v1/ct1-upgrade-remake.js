@@ -99,6 +99,14 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 	request.send();
 };
 
+/**
+ * Return the main node that wraps our dynamic content.
+ *
+ * @since TBD
+ *
+ * @param {boolean} refresh Fetch from cache of the node or reselect it.
+ *
+ */
 export const getUpgradeBoxElement = (refresh) => {
 	if (refresh || !(upgradeBoxElement instanceof Element)) {
 		upgradeBoxElement = document.getElementById(selectors.upgradeBox.substr(1));
@@ -119,17 +127,34 @@ export const onError = () => {
 
 };
 
+/**
+ * Recursively sync and poll report data.
+ *
+ * @since TBD
+ */
 export const recursePollForReport = () => {
 	syncReportData(
 			pollForReport,
 	);
 };
 
+/**
+ * Start the recursive poll for report changes.
+ *
+ * @since TBD
+ */
 export const pollForReport = () => {
 	// Start polling.
 	pollTimeoutId = setTimeout(recursePollForReport, pollInterval);
 };
 
+/**
+ * Handles the response from the report request.
+ *
+ * @since TBD
+ *
+ * @param {object} data The response object with the compiled report data.
+ */
 export const handleReportData = function(data) {
 	const {nodes, key, html} = data;
 
@@ -154,6 +179,14 @@ export const handleReportData = function(data) {
 	// Store changes locally for next request.
 	currentViewState = data;
 };
+
+/**
+ * Binds the dynamic nodes with their listeners.
+ *
+ * @since TBD
+ *
+ * @param {string} key The node key.
+ */
 export const bindNodes = (key) => {
 	let element;
 
@@ -175,6 +208,14 @@ export const bindNodes = (key) => {
 		element.addEventListener('click', handleCancelMigration);
 	}
 }
+
+/**
+ * Handle the cancel migration action.
+ *
+ * @since TBD
+ *
+ * @param e
+ */
 export const handleCancelMigration = (e) => {
 	e.preventDefault();
 	// Stop our render check momentarily.
@@ -193,6 +234,16 @@ export const handleCancelMigration = (e) => {
 		}
 	);
 }
+
+/**
+ * Handle the start migration action.
+ *
+ * @since TBD
+ *
+ * @param {boolean} isPreview Flag to denote if we are doing a dry run or a real migration.
+ *
+ * @returns {(function(*): void)|*}
+ */
 export const handleStartMigration = (isPreview) => (e) => {
 	e.preventDefault();
 	// Stop our render check momentarily.
@@ -212,9 +263,25 @@ export const handleStartMigration = (isPreview) => (e) => {
 		}
 	);
 }
+/**
+ * Cancel our report polling.
+ *
+ * @since TBD
+ */
 export const cancelReportPoll = () => {
 	clearTimeout(pollTimeoutId);
 }
+
+/**
+ * Checks if the node changed in the poll intervals.
+ *
+ * @since TBD
+ *
+ * @param {string} searchKey The node key to reference if changes.
+ * @param {string} searchHash The hash that might change for a particular node key.
+ *
+ * @returns {boolean} True if the node changed, false if not.
+ */
 export const isNodeDiff = (searchKey, searchHash) => {
 	const {nodes} = currentViewState;
 	if (!nodes) {
@@ -234,7 +301,9 @@ export const isNodeDiff = (searchKey, searchHash) => {
 /**
  * Fetches the report data, and delegates to the handlers.
  *
- * @param successCallback
+ * @since TBD
+ *
+ * @param {function} successCallback Callback fired on success.
  */
 export const syncReportData = function(successCallback) {
 	getReport(
@@ -247,6 +316,13 @@ export const syncReportData = function(successCallback) {
 	);
 };
 
+/**
+ * Get the report data from the backend.
+ *
+ * @since TBD
+ *
+ * @param {function} successCallback Callback fired on success.
+ */
 export const getReport = (successCallback) => {
 	ajaxGet(
 			tecCt1Upgrade.ajaxUrl,
@@ -258,6 +334,11 @@ export const getReport = (successCallback) => {
 	);
 };
 
+/**
+ * Kick off the CT1 upgrade loop and node updates.
+ *
+ * @since TBD
+ */
 export const init = () => {
 	localizedData = window.tecCt1Upgrade;
 
