@@ -1,6 +1,5 @@
 <?php
 
-use TEC\Events\Custom_Tables\V1\Migration\Reports;
 use TEC\Events\Custom_Tables\V1\Migration\Strings;
 
 $strings = tribe( Strings::class );
@@ -47,9 +46,9 @@ $strings = tribe( Strings::class );
 	$total_heading    = __( 'Total Events Migrated:', 'the-events-calendar' );
 	ob_start();
 	?>
-	<a href="" class="tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Reverse Migration', 'the-events-calendar' ); ?></a>
+	<a href="#" class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Reverse Migration', 'the-events-calendar' ); ?></a>
 	<?php
-	$heading_action = ob_get_clean(); 
+	$heading_action = ob_get_clean();
 	include __DIR__ . '/report.php';
 	?>
 </div>

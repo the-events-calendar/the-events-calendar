@@ -122,7 +122,12 @@ class Process {
 			// Transition phase
 			// @todo This how we want to do this?
 			// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
-			if ( $this->events->get_total_events_remaining() === 0 && $this->state->is_running() && $this->state->get_phase() === State::PHASE_PREVIEW_IN_PROGRESS ) {
+			if ( $this->events->get_total_events_remaining() === 0
+			     && $this->state->is_running()
+			     && in_array( $this->state->get_phase(), [
+					State::PHASE_MIGRATION_IN_PROGRESS,
+					State::PHASE_PREVIEW_IN_PROGRESS
+				] ) ) {
 				$this->state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
 				$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
 				$this->state->set( 'complete_timestamp', time() );

@@ -6,14 +6,6 @@ let pollTimeoutId = null;
 let currentViewState = {};
 
 export const selectors = {
-	// @todo review these and remove the ones we do not need anymore.
-	v2DisableDialog: '#tec-ct1-migration__v2-disable-dialog',
-	v2Enabled: 'input[name="views_v2_enabled"]',
-	alertOkButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-alert__continue',
-	alertCloseButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-modal__close-button',
-	rootReportNode: '.tec-ct1-upgrade__row', // Used to constrain some selectors
-	barsSelector: '.tec-ct1-upgrade-bar .bar',
-	barsProgressSelector: '.tec-ct1-upgrade-bar .progress',
 	upgradeBox: '#tec-ct1-upgrade-dynamic',
 	startPreviewButton: '.tec-ct1-upgrade-start-migration-preview',
 	startMigrationButton: '.tec-ct1-upgrade-start-migration',
@@ -164,34 +156,23 @@ export const handleReportData = function(data) {
 };
 export const bindNodes = (key) => {
 	let element;
-	// @todo Reference localized vars for these?
-	switch(key) {
-		case 'preview-prompt':
-			// Start preview button.
-			element = document.querySelector(selectors.startPreviewButton);
-			if (element) {
-				element.addEventListener('click', handleStartMigration(true));
-			}
-			break;
-		case 'migration-prompt':
-			// We have a re-run preview button.
-			element = document.querySelector(selectors.startPreviewButton);
-			if (element) {
-				element.addEventListener('click', handleStartMigration(true));
-			}
-			// Start migration button.
-			element = document.querySelector(selectors.startMigrationButton);
-			if (element) {
-				element.addEventListener('click', handleStartMigration(false));
-			}
-			break;
-		case 'migration-in-progress':
-			// We have a re-run preview button.
-			element = document.querySelector(selectors.cancelMigrationButton);
-			if (element) {
-				element.addEventListener('click', handleCancelMigration);
-			}
-			break;
+
+	// Start preview button.
+	element = document.querySelector(selectors.startPreviewButton);
+	if (element) {
+		element.addEventListener('click', handleStartMigration(true));
+	}
+
+	// Start migration button.
+	element = document.querySelector(selectors.startMigrationButton);
+	if (element) {
+		element.addEventListener('click', handleStartMigration(false));
+	}
+
+	// Revert migration button.
+	element = document.querySelector(selectors.cancelMigrationButton);
+	if (element) {
+		element.addEventListener('click', handleCancelMigration);
 	}
 }
 export const handleCancelMigration = (e) => {
