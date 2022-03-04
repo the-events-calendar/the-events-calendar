@@ -17,6 +17,18 @@ class Process_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Should lock the processing when attempting to run the same action.
+	 *
+	 * @test
+	 */
+	public function should_lock_action() {
+		$this->given_a_non_migrated_single_event();
+		$process = new Process( new Events, new State );
+		$this->assertEquals( 1, $process->start() );
+		$this->assertFalse( $process->start() );
+	}
+
+	/**
 	 * It should provide correct parameters to migration strategies
 	 *
 	 * @test

@@ -214,9 +214,17 @@ class Process {
 	 *
 	 * @param bool $dry_run Whether to do a preview or finalize the migration operations.
 	 *
-	 * @return int The number of Events queued for migration.
+	 * @return int|false The number of Events queued for migration or false if migration already started.
 	 */
 	public function start( $dry_run = true ) {
+		// Check if we are already doing this action?
+		if ( in_array( $this->state->get_phase(), [
+			State::PHASE_PREVIEW_IN_PROGRESS,
+			State::PHASE_MIGRATION_IN_PROGRESS
+		] ) ) {
+			return false;
+		}
+
 		$action_ids = [];
 
 		// Remove what migration phase flags might have been set by previous previews or migrations.
