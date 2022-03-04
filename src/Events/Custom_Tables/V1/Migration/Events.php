@@ -250,10 +250,9 @@ class Events {
 	 * @return float|int
 	 */
 	public function calculate_time_to_completion() {
-		// @todo Refine calculation
 		// Half a second per event? Async queue, batch lock queries, and worker operations to be considered.
 		$time_per_event         = 0.5;
-		$total_events_remaining = $this->get_total_events_remaining();
+		$total_events = $this->get_total_events();
 		// So we can get an estimate based on real data.
 		$post_ids = $this->get_events_migrated( 1, 50 );
 		// We may not have data yet, if we do let's adjust our average time per event.
@@ -277,6 +276,6 @@ class Events {
 			}
 		}
 
-		return $total_events_remaining * $time_per_event;
+		return $total_events * $time_per_event;
 	}
 }
