@@ -37,7 +37,7 @@ class Process_Test extends \Codeception\TestCase\WPTestCase {
 		$post = $this->given_a_non_migrated_single_event();
 		update_post_meta($post->ID, Event_Report::META_KEY_MIGRATION_PHASE, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
 		$process = new Process( new Events, new State );
-		$this->assertEquals( 1, $process->undo() );
+		$this->assertTrue( $process->undo() );
 		$this->assertFalse( $process->undo() );
 	}
 

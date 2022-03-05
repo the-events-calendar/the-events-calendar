@@ -149,62 +149,31 @@ class Process {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id The post ID of the Event to undo the migration for.
+	 * @param array<string, mixed> The metadata we pass to ourselves.
 	 *
-	 * @return Event_Report A reference to the migration report object produced by the
-	 *                      migration undoing.
 	 */
-	public function undo_event_migration( $post_id ) {
+	public function undo_event_migration( $meta ) {
 
 		// @todo - This should be refactored to be a recursive single worker.
 		// @todo - Worker watches current state, if there are in progress queue itself to check later. If none, process undo operation.
 		// @todo - Undo operation should simply drop all custom tables, delete all meta values.
+		// @todo Review - missing anything? Better way?
 
-		try {
-			/**
-			 * Filters the migration strategy that should be used to undo an Event migration.
-			 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
-			 * here will prevent TEC from using the default one.
-			 *
-			 * @since TBD
-			 *
-			 * @param Strategy_Interface A reference to the migration strategy that should be used.
-			 *                           Initially `null`.
-			 * @param int $post_id       The post ID of the Event to undo the migration for.
-			 */
-			$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_undo_strategy', null, $post_id );
-
-			if ( ! $strategy instanceof Strategy_Interface ) {
-				$strategy = new Single_Event_Migration_Strategy( $post_id, false );
-			}
-
-			// Get our Event_Report ready for the strategy.
-			$event_report = new Event_Report( get_post( $post_id ) );
-			$event_report->start_event_undo_migration();
-
-			$event_report = $strategy->undo( $event_report );
-		} catch ( \Throwable $e ) {
-			$event_report->undo_failed( $e->getMessage() );
-		} catch ( \Exception $e ) {
-			$event_report->undo_failed( $e->getMessage() );
+		if ( ! isset( $meta['started_timestamp'] ) ) {
+			$meta['started_timestamp'] = time();
 		}
 
-		// If we were successful, clear our report.
-		if ( ! $event_report->error ) {
-			$event_report->undo_success();
+		$seconds_to_wait  = 60 * 2; // 2 minutes
+		$max_time_reached = ( time() - $meta['started_timestamp'] ) > $seconds_to_wait;
+
+		// Are we still processing some events? If so, recurse and wait to do the undo operation.
+		if ( ! $max_time_reached && $this->events->get_total_events_in_progress() ) {
+			as_enqueue_async_action( self::ACTION_UNDO, [ $meta ] );
+
+			return;
 		}
 
-		$post_id = $this->events->get_id_to_process( true );
-
-
-		if ( $post_id ) {
-			// Enqueue a new (Action Scheduler) action to undo another Event migration.
-			$action_id = as_enqueue_async_action( self::ACTION_UNDO, [ $post_id ] );
-
-			//@todo check action ID here and log on failure.
-		}
-
-		return $event_report;
+		// The undo operation.
 	}
 
 	/**
@@ -262,10 +231,10 @@ class Process {
 	 * Starts the migration undoing process.
 	 *
 	 * @since TBD
-	 * @return int|false The number of Events queued for undo or false if undo already started.
+	 *
+	 * @return boolean False if undo already started.
 	 */
 	public function undo() {
-		$action_ids = [];
 		// Check if we are already doing this action?
 		if ( $this->state->get_phase() === State::PHASE_UNDO_IN_PROGRESS ) {
 			return false;
@@ -275,10 +244,8 @@ class Process {
 		$this->state->set( 'phase', State::PHASE_UNDO_IN_PROGRESS );
 		$this->state->save();
 
-		foreach ( $this->events->get_ids_to_process( 50, true ) as $post_id ) {
-			$action_ids[] = as_enqueue_async_action( self::ACTION_UNDO, [ $post_id ] );
-		}
+		as_enqueue_async_action( self::ACTION_UNDO );
 
-		return count( array_filter( $action_ids ) );
+		return true;
 	}
 }

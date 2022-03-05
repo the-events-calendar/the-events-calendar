@@ -114,13 +114,13 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id The post ID of the Event to undo the migration for.
+	 * @param array<string,mixed> The metadata the worker passes itself to track state.
 	 *
 	 * @return void The method does not return any value but will trigger the action
 	 *              that will undo the Event migration.
 	 */
-	public function undo_event_migration( $post_id ) {
-		$this->container->make( Process::class )->undo_event_migration( $post_id );
+	public function undo_event_migration( $meta = [] ) {
+		$this->container->make( Process::class )->undo_event_migration( $meta );
 	}
 
 	/**
