@@ -10,6 +10,7 @@ use function tad\WPBrowser\importDumpWithMysqlBin;
 
 // Since we do not drop and import the DB dump after each test, let's do a lighter cleanup here.
 $clean_after_test = static function () {
+	codecept_debug( 'TEST_AFTER::clean_after_test::start' );
 	global $wpdb;
 	$last_error        = $wpdb->last_error;
 	$occurrences_table = Occurrences::table_name( true );
@@ -48,5 +49,6 @@ $clean_after_test = static function () {
 			$wpdb->query( 'TRUNCATE TABLE ' . $table );
 		}
 	}
+	codecept_debug( 'TEST_AFTER::clean_after_test::end' );
 };
 addListener( Codeception\Events::TEST_AFTER, $clean_after_test );
