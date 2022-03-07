@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.14.0.3
+Stable tag: 5.14.0.4
 Tested up to: 5.9.0
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -222,7 +222,12 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 =[TBD] TBD =
 
-* Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TBD]
+* Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TEC-4263]
+* Fix - Correct Month View ics export so it begins on the current day rather than the 1st. [TEC-4223]
+
+= [5.14.0.4] 2022-03-01 =
+
+* Tweak - Update version of Freemius to 2.4.3.
 
 = [5.14.0.3] 2022-02-25 =
 
