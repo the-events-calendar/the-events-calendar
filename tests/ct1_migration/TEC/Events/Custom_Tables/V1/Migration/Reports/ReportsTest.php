@@ -2,12 +2,9 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
-use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
-use TEC\Events_Pro\Custom_Tables\V1\Event_Factory;
-use WP_Post;
 
-class ReportsTest extends \Codeception\TestCase\WPTestCase {
+class ReportsTest extends \CT1_Migration_Test_Case {
 
 	/**
 	 * Our Event_Report needs to be JSON compatible for storage/frontend consumption.
@@ -110,6 +107,7 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 		$data['is_completed']             = true;
 		$data['is_running']               = false;
 		$data['progress_percent']         = 0;
+		$data['date_completed']           = null;
 
 		$site_report = new Site_Report( $data );
 		$object      = json_decode( json_encode( $site_report ) );
@@ -311,31 +309,32 @@ class ReportsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_successfully_undo_migration_report() {
 		// Setup some faux state
-		$post1         = tribe_events()->set_args( [
+		$tribe____repository____update = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] );
+		$post1                         = $tribe____repository____update->create();
+		$post2                         = tribe_events()->set_args( [
 			'title'      => "Event " . rand( 1, 999 ),
 			'start_date' => date( 'Y-m-d H:i:s' ),
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$post2         = tribe_events()->set_args( [
+		$post3                         = tribe_events()->set_args( [
 			'title'      => "Event " . rand( 1, 999 ),
 			'start_date' => date( 'Y-m-d H:i:s' ),
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$post3         = tribe_events()->set_args( [
+		$post4                         = tribe_events()->set_args( [
 			'title'      => "Event " . rand( 1, 999 ),
 			'start_date' => date( 'Y-m-d H:i:s' ),
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$post4         = tribe_events()->set_args( [
-			'title'      => "Event " . rand( 1, 999 ),
-			'start_date' => date( 'Y-m-d H:i:s' ),
-			'duration'   => 2 * HOUR_IN_SECONDS,
-			'status'     => 'publish',
-		] )->create();
-		$event_report1 = ( new Event_Report( $post1 ) )
+		$event_report1                 = ( new Event_Report( $post1 ) )
 			->start_event_migration()
 			->set_tickets_provider( 'woocommerce' )
 			->set( 'is_single', false )

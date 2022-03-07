@@ -5,7 +5,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
-class Phase_View_RendererTest extends \Codeception\TestCase\WPTestCase {
+class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 	/**
 	 * Should find and structure the templates with their metadata.
@@ -110,7 +110,7 @@ class Phase_View_RendererTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__alert', $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
-		$this->assertContains( date( 'F j, Y, g:i a', $time ), $output['html'] );
+		$this->assertContains( wp_date( 'F j, Y, g:i a', $time ), $output['html'] );
 	}
 
 	/**

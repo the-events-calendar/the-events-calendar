@@ -5,7 +5,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
-class Null_Migration_StrategyTest extends \Codeception\TestCase\WPTestCase {
+class Null_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
 
 	/**
