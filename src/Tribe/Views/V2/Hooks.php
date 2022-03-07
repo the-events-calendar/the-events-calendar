@@ -82,6 +82,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
 			return;
 		}
+		
+		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
+			return;
+		}
 
 		global $post;
 		// Make sure we're editing an Event post.
