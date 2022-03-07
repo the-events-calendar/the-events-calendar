@@ -40,5 +40,13 @@ $clean_after_test = static function () {
 
 	// Leverage the `options` only dump.
 	importDumpWithMysqlBin( __DIR__ . '/../_data/ct1_migration/options_dump.sql', DB_NAME, DB_USER, DB_PASSWORD, DB_HOST );
+
+	// Empty all Action Scheduler tables.
+	$all_tables = (array) $wpdb->get_col( 'SHOW TABLES' );
+	foreach ( $all_tables as $table ) {
+		if ( 0 === strpos( $table, $wpdb->prefix . 'actionscheduler_' ) ) {
+			$wpdb->query( 'TRUNCATE TABLE ' . $table );
+		}
+	}
 };
 addListener( Codeception\Events::TEST_AFTER, $clean_after_test );
