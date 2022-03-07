@@ -132,7 +132,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param $action_id numeric The action scheduler action ID.
+	 * @param numeric $action_id The action scheduler action ID.
 	 */
 	public function cancel_async_action( $action_id ) {
 		$this->container->make( Process::class )->cancel_async_action( $action_id );
@@ -143,7 +143,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param $action_id array A list of the action scheduler action IDs.
+	 * @param array $action_id A list of the action scheduler action IDs.
 	 */
 	public function cancel_async_actions( array $action_ids ) {
 		$this->container->make( Process::class )->cancel_async_actions( $action_ids );

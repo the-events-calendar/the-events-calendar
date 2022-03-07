@@ -164,17 +164,11 @@ class Process {
 	 *
 	 */
 	public function undo_event_migration( $meta ) {
-
-		// @todo - This should be refactored to be a recursive single worker.
-		// @todo - Worker watches current state, if there are in progress queue itself to check later. If none, process undo operation.
-		// @todo - Undo operation should simply drop all custom tables, delete all meta values.
-		// @todo Review - missing anything? Better way?
-
 		if ( ! isset( $meta['started_timestamp'] ) ) {
 			$meta['started_timestamp'] = time();
 		}
 
-		$seconds_to_wait  = 60 * 2; // 2 minutes
+		$seconds_to_wait  = 60 * 5; // 5 minutes
 		$max_time_reached = ( time() - $meta['started_timestamp'] ) > $seconds_to_wait;
 
 		// Are we still processing some events? If so, recurse and wait to do the undo operation.
@@ -184,7 +178,12 @@ class Process {
 			return;
 		}
 
-		// The undo operation.
+		// @todo The undo operation.
+		// @todo - Undo operation should simply drop all custom tables, delete all meta values.
+		// @todo Review - missing anything? Better way?
+		// @todo when done flip state
+		$this->state->set('phase', State::PHASE_MIGRATION_PROMPT);
+		$this->state->save();
 	}
 
 	/**
