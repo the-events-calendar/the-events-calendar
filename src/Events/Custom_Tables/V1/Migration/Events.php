@@ -110,8 +110,7 @@ class Events {
 	 * @return array<numeric>
 	 */
 	public function get_events_migrated( $page, $count ) {
-		global $wpdb;
-		$total_events_migrated = $this->get_total_events_migrated();
+		global $wpdb; $total_events_migrated = $this->get_total_events_migrated();
 		// @todo do we want to query for "locked" and "event reported" events?
 		// Get in progress / complete events
 		if ( $page === - 1 || $total_events_migrated == 0 || $count > $total_events_migrated ) {
@@ -153,8 +152,11 @@ class Events {
 	 * @return int
 	 */
 	public function get_total_events_in_progress() {
-		global $wpdb;
-		if ( ! isset( $this->_cache[ __FUNCTION__ ] ) ) {
+		$cache       = tribe( 'cache' );
+		$in_progress = $cache[ __METHOD__ ];
+
+		if ( false === $in_progress ) {
+			global $wpdb;
 			$total_in_progress_query = $wpdb->prepare(
 				"SELECT COUNT(DISTINCT `ID`)
 			FROM {$wpdb->posts} p
@@ -163,11 +165,11 @@ class Events {
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				TEC::POSTTYPE
 			);
-
-			$this->_cache[ __FUNCTION__ ] = $wpdb->get_var( $total_in_progress_query );
+			$in_progress             = $wpdb->get_var( $total_in_progress_query );
+			$cache[ __METHOD__ ]     = $in_progress;
 		}
 
-		return $this->_cache[ __FUNCTION__ ];
+		return $in_progress;
 	}
 
 	/**
@@ -178,9 +180,12 @@ class Events {
 	 * @return int
 	 */
 	public function get_total_events_migrated() {
-		global $wpdb;
-		if ( ! isset( $this->_cache[ __FUNCTION__ ] ) ) {
-			$total_migrated_query         = $wpdb->prepare(
+		$cache    = tribe( 'cache' );
+		$migrated = $cache[ __METHOD__ ];
+
+		if ( false === $migrated ) {
+			global $wpdb;
+			$total_migrated_query = $wpdb->prepare(
 				"SELECT COUNT(DISTINCT `ID`)
 			FROM {$wpdb->posts} p
 			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
@@ -191,10 +196,11 @@ class Events {
 				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
 				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE,
 			);
-			$this->_cache[ __FUNCTION__ ] = $wpdb->get_var( $total_migrated_query );
+			$migrated             = (int) $wpdb->get_var( $total_migrated_query );
+			$cache[ __METHOD__ ]  = $migrated;
 		}
 
-		return $this->_cache[ __FUNCTION__ ];
+		return $migrated;
 	}
 
 	/**
@@ -205,18 +211,21 @@ class Events {
 	 * @return int
 	 */
 	public function get_total_events() {
-		global $wpdb;
-		if ( ! isset( $this->_cache[ __FUNCTION__ ] ) ) {
-			$total_cnt_query              = $wpdb->prepare(
-				"SELECT COUNT(*)
-			FROM {$wpdb->posts} p
-			WHERE p.post_type = %s",
-				TEC::POSTTYPE
+		$cache        = tribe( 'cache' );
+		$total_events = $cache[ __METHOD__ ];
+
+		if ( false === $total_events ) {
+			global $wpdb;
+			$total_events = (int) $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT COUNT(ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND post_parent = 0",
+					TEC::POSTTYPE
+				)
 			);
-			$this->_cache[ __FUNCTION__ ] = $wpdb->get_var( $total_cnt_query );
+			$cache[ __METHOD__ ] = $total_events;
 		}
 
-		return $this->_cache[ __FUNCTION__ ];
+		return $total_events;
 	}
 
 	/**
@@ -226,8 +235,8 @@ class Events {
 	 */
 	public function calculate_time_to_completion() {
 		// Half a second per event? Async queue, batch lock queries, and worker operations to be considered.
-		$time_per_event         = 0.5;
-		$total_events = $this->get_total_events();
+		$time_per_event = 0.5;
+		$total_events   = $this->get_total_events();
 		// So we can get an estimate based on real data.
 		$post_ids = $this->get_events_migrated( 1, 50 );
 		// We may not have data yet, if we do let's adjust our average time per event.
