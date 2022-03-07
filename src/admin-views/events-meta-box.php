@@ -252,6 +252,20 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 					</td>
 				</tr>
 				<tr>
+					<td><?php esc_html_e( 'ISO Currency Code:', 'the-events-calendar' ); ?></td>
+					<td>
+						<input
+							tabindex="<?php tribe_events_tab_index(); ?>"
+							type='text'
+							id='EventCurrencyCode'
+							name='EventCurrencyCode'
+							size='2'
+							value='<?php echo isset( $_EventCurrencyCode ) ? esc_attr( $_EventCurrencyCode ) : tribe_get_option( 'defaultCurrencyCode', 'USD' ); ?>'
+							class='alignleft'
+						/>
+					</td>
+				</tr>
+				<tr>
 					<td><?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?></td>
 					<td>
 						<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo ( isset( $_EventCost ) ) ? esc_attr( $_EventCost ) : ''; ?>' />
