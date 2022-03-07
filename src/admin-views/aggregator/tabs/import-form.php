@@ -1,6 +1,6 @@
 <?php
 $has_license_key = tribe( 'events-aggregator.main' )->is_service_active();
-$hide_upsell     = tec_hide_upsell();
+$hide_upsell     = tec_should_hide_upsell();
 
 if ( 'edit' === $aggregator_action ) {
 	$default_post_status = get_post_meta( $record->post->ID, Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . 'post_status', true );

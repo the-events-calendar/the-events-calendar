@@ -20,7 +20,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.14.0
 	 */
 	public function register() {
-		if ( tec_hide_upsell() ) {
+		if ( tec_should_hide_upsell() ) {
 			return;
 		}
 
