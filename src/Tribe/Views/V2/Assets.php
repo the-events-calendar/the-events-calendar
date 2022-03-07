@@ -666,6 +666,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 		if ( ! get_current_screen()->is_block_editor ) {
 			return false;
 		}
+		
+		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
+			return false;
+		}
 
 		return true;
 	}
