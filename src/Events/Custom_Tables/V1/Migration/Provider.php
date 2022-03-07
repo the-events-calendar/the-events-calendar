@@ -70,6 +70,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
+		add_action( 'action_scheduler_bulk_cancel_actions', [ $this, 'cancel_async_actions' ]  );
+		add_action( 'action_scheduler_canceled_action', [ $this, 'cancel_async_action' ]  );
 
 		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', $this->container->callback( Asset_Loader::class, 'enqueue_scripts' ) );
@@ -123,6 +125,28 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function undo_event_migration( $meta = [] ) {
 		$this->container->make( Process::class )->undo_event_migration( $meta );
+	}
+
+	/**
+	 * Respond to canceled Action Scheduler actions.
+	 *
+	 * @since TBD
+	 *
+	 * @param $action_id numeric The action scheduler action ID.
+	 */
+	public function cancel_async_action( $action_id ) {
+		$this->container->make( Process::class )->cancel_async_action( $action_id );
+	}
+
+	/**
+	 * Respond to bulk canceled Action Scheduler actions.
+	 *
+	 * @since TBD
+	 *
+	 * @param $action_id array A list of the action scheduler action IDs.
+	 */
+	public function cancel_async_actions( array $action_ids ) {
+		$this->container->make( Process::class )->cancel_async_actions( $action_ids );
 	}
 
 	/**

@@ -225,7 +225,8 @@ class Ajax {
 	 */
 	public function cancel_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
-		$this->process->cancel();
+		// A cancel action is identical to an undo.
+		$this->process->undo();
 		$response = $this->get_report();
 		if ( $echo ) {
 			wp_send_json( $response );

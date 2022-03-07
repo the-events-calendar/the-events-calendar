@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use ActionScheduler;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
@@ -82,6 +83,16 @@ class Process {
 		$event_report = new Event_Report( get_post( $post_id ) );
 
 		try {
+			// Check if we are still in migration phase.
+			if ( ! in_array( $this->state->get_phase(), [
+				State::PHASE_PREVIEW_IN_PROGRESS,
+				State::PHASE_MIGRATION_IN_PROGRESS
+			] ) ) {
+				$event_report->migration_failed( 'Canceled.' );
+
+				return $event_report;
+			}
+
 			/**
 			 * Filters the migration strategy that should be used to migrate an Event.
 			 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
@@ -212,19 +223,36 @@ class Process {
 	}
 
 	/**
-	 * Starts the migration cancellation.
+	 * Clean up when a queued migration worker is canceled.
 	 *
 	 * @since TBD
-	 * @return int|false The number of Events queued for undo or false if undo already started.
+	 *
+	 * @param $action_id numeric The action scheduler action ID
 	 */
-	public function cancel() {
-		// This will target all of our processing actions
-		as_unschedule_all_actions( self::ACTION_PROCESS );
+	public function cancel_async_action( $action_id ) {
+		$store  = ActionScheduler::store();
+		$action = $store->fetch_action( $action_id );
+		if ( $action->get_hook() !== self::ACTION_PROCESS ) {
+			return;
+		}
+		$args    = $action->get_args();
+		$post_id = $args[0];
+		// Clear our migration state metadata so we are freed up for other operations.
+		$event_report = new Event_Report( get_post( $post_id ) );
+		$event_report->clear_meta();
+	}
 
-		// @todo Grab in prog - flag
-
-		// Now kick-off the undo
-		return $this->undo();
+	/**
+	 * Clean up when our queued migration workers are canceled.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $action_ids List of action IDs.
+	 */
+	public function cancel_async_actions( array $action_ids ) {
+		foreach ( $action_ids as $action_id ) {
+			$this->cancel_async_action( $action_id );
+		}
 	}
 
 	/**
@@ -244,6 +272,10 @@ class Process {
 		$this->state->set( 'phase', State::PHASE_UNDO_IN_PROGRESS );
 		$this->state->save();
 
+		// Clear all of our queued migration workers.
+		as_unschedule_all_actions( self::ACTION_PROCESS );
+
+		// Now queue our undo loop.
 		as_enqueue_async_action( self::ACTION_UNDO );
 
 		return true;
