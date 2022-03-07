@@ -18,10 +18,10 @@ modules:
           tablePrefix: '%WP_TABLE_PREFIX%'
           waitlock: 10
         WPLoader:
-          # just load WordPress using the same db as WPDb
+          # Just load WordPress using the same db as WPDb.
           loadOnly: true
           wpRootFolder: %WP_ROOT_FOLDER%
-          dbName: %WP_TEST_DB_NAME%
-          dbHost: %WP_TEST_DB_HOST%
-          dbUser: %WP_TEST_DB_USER%
-          dbPassword: %WP_TEST_DB_PASSWORD%
+          dbName: %WP_DB_NAME%
+          dbHost: %WP_DB_HOST%
+          dbUser: %WP_DB_USER%
+          dbPassword: %WP_DB_PASSWORD%
