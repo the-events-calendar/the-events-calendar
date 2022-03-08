@@ -16,6 +16,7 @@ use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
+use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -26,6 +27,8 @@ use Tribe__Events__Main as TEC;
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
 class Single_Event_Migration_Strategy implements Strategy_Interface {
+	use With_Database_Transactions;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -97,11 +100,4 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		                    ->migration_success();
 	}
 
-	private function start_transaction() {
-		// @todo
-	}
-
-	private function rollback_transaction() {
-		// @todo
-	}
 }
