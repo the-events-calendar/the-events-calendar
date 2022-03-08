@@ -138,4 +138,20 @@ abstract class Base_Custom_Table implements Custom_Table_Interface {
 
 		return count( $wpdb->get_col( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) ) === 1;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function drop_table() {
+		if ( ! $this->exists() ) {
+
+			return false;
+		}
+
+		$this_table = static::table_name( true );
+
+		global $wpdb;
+
+		return (bool) $wpdb->query( "drop table {$this_table}" );
+	}
 }
