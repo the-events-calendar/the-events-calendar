@@ -28,6 +28,10 @@
 						<a target="_blank" href="<?php echo get_edit_post_link( $event->source_event_post->ID ,false )  ?>"><?php echo esc_html( $event->source_event_post->post_title ); ?></a>
 						—
 						<?php
+						if (  $event->error  ) {
+							echo esc_html( $event->error, 'ical-tec' );
+						}
+
 						foreach ( $event->strategies_applied as $action ) {
 							if ( 'split' === $action ) {
 								echo sprintf(

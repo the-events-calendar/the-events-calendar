@@ -232,13 +232,15 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
 		$event_report1->migration_failed( $some_error );
+		$event_report = new Event_Report( $post1 );
 
 		// Assert it is saved properly
 		$meta  = get_post_meta( $post1->ID, Event_Report::META_KEY_REPORT_DATA, true );
 		$phase = get_post_meta( $post1->ID, Event_Report::META_KEY_MIGRATION_PHASE, true );
 		$this->assertEquals( Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE, $phase );
-		$this->assertEquals( $event_report1->get_data(), $meta );
+		$this->assertEquals( $event_report->get_data(), $meta );
 		$this->assertEquals( $some_error, $meta['error'] );
+		$this->assertEquals( $some_error, $event_report->error );
 		$this->assertNotEmpty( $meta['end_timestamp'] );
 	}
 
