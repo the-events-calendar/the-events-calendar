@@ -10,9 +10,12 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use ActionScheduler;
+use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
+use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
 
 /**
  * Class Process.
@@ -27,11 +30,6 @@ class Process {
 	 * Event should be migrated, or have its migration previewed.
 	 */
 	const ACTION_PROCESS = 'tec_events_custom_tables_v1_migration_process';
-	/**
-	 * The full name of the action that will be fired to signal one
-	 * Event should be canceled.
-	 */
-	const ACTION_CANCEL = 'tec_events_custom_tables_v1_migration_cancel';
 	/**
 	 * The full name of the action that will be fired to signal one
 	 * Event should be undone.
@@ -164,6 +162,8 @@ class Process {
 	 *
 	 */
 	public function undo_event_migration( $meta ) {
+		global $wpdb;
+
 		if ( ! isset( $meta['started_timestamp'] ) ) {
 			$meta['started_timestamp'] = time();
 		}
@@ -177,13 +177,42 @@ class Process {
 
 			return;
 		}
-
-		// @todo The undo operation.
-		// @todo - Undo operation should simply drop all custom tables, delete all meta values.
+		// @todo Move this to a centralized rollback (in the schema objects, with hooks?)
 		// @todo Review - missing anything? Better way?
-		// @todo when done flip state
-		$this->state->set('phase', State::PHASE_MIGRATION_PROMPT);
+		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
+		$tables_to_drop = [
+			OccurrencesSchema::table_name( true ),
+			EventsSchema::table_name( true )
+		];
+		$tables_to_drop = apply_filters( 'tec_events_custom_tables_v1_migration_drop_tables', $tables_to_drop );
+
+		// Drop custom tables.
+		foreach ( $tables_to_drop as $table ) {
+			$delete_table_query = "DROP TABLE IF EXISTS {$table}";
+			$wpdb->query( $delete_table_query );
+		}
+
+		// Clear meta values.
+		$meta_keys = [
+			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
+			Event_Report::META_KEY_REPORT_DATA,
+			Event_Report::META_KEY_MIGRATION_PHASE,
+
+		];
+		// @todo Name of filter...?
+		$meta_keys = apply_filters( 'tec_events_custom_tables_v1_migration_delete_meta_keys', $meta_keys );
+
+		foreach ( $meta_keys as $meta_key ) {
+			delete_metadata( 'post', 0, $meta_key, '', true );
+		}
+
+		// @todo This will just cause the tables to be recreated - we need something to handle create/destroy operations properly...
+		delete_transient( Activation::ACTIVATION_TRANSIENT );
+
+		$this->state->set( 'phase', State::PHASE_MIGRATION_PROMPT );
 		$this->state->save();
+
+		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
 	}
 
 	/**
