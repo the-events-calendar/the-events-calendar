@@ -15,27 +15,27 @@ $clean_after_test = static function () {
 	$last_error        = $wpdb->last_error;
 	$occurrences_table = Occurrences::table_name( true );
 	$wpdb->query( "TRUNCATE TABLE {$occurrences_table}" );
-	if ( $wpdb->last_error !== $last_error ) {
+	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
 		throw new RuntimeException( "There was an issue cleaning the Occurrences table: $wpdb->last_error" );
 	}
 	$events_table = Events::table_name( true );
 	$wpdb->query( "DELETE FROM {$events_table}" ); // To skip FOREIGN KEY constraints.
-	if ( $wpdb->last_error !== $last_error ) {
+	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
 		throw new RuntimeException( "There was an issue cleaning the Events table: $wpdb->last_error" );
 	}
 	$wpdb->query( "TRUNCATE TABLE $wpdb->postmeta" );
-	if ( $wpdb->last_error !== $last_error ) {
+	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
 		throw new RuntimeException( "There was an issue cleaning the postmeta table: $wpdb->last_error" );
 	}
 
 	$wpdb->query( "TRUNCATE TABLE $wpdb->posts" );
-	if ( $wpdb->last_error !== $last_error ) {
+	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
 		throw new RuntimeException( "There was an issue cleaning the posts table: $wpdb->last_error" );
 	}
 
 	// Drop and re-import the options table.
 	$wpdb->query( "TRUNCATE TABLE $wpdb->options" );
-	if ( $wpdb->last_error !== $last_error ) {
+	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
 		throw new RuntimeException( "There was an issue cleaning the options table: $wpdb->last_error" );
 	}
 
