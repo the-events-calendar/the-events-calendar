@@ -9,7 +9,8 @@ use TEC\Events\Custom_Tables\V1\Tables\Events;
 class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Should successfully drop custom tables.
-	 *
+	 * 
+	 * @skip
 	 * @test
 	 */
 	public function should_drop_custom_tables() {
@@ -38,6 +39,7 @@ class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 	 * Should filter the tables being dropped.
 	 *
 	 * @test
+	 * @skip
 	 */
 	public function should_filter_custom_table_drop() {
 		global $wpdb;
