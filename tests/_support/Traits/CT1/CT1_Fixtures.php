@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Test\Traits\CT1;
 
+use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Models\Event as Event_Model;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence as Occurrence_Model;
 use Tribe__Date_Utils as Dates;
@@ -44,5 +45,11 @@ trait CT1_Fixtures {
 		delete_post_meta( $post_id, '_tribe_blocks_recurrence_description' );
 
 		return get_post( $post_id );
+	}
+
+	private function given_the_current_migration_phase_is( $phase ) {
+		$state          = tribe_get_option( State::STATE_OPTION_KEY, [] );
+		$state['phase'] = $phase;
+		tribe_update_option( State::STATE_OPTION_KEY, $state );
 	}
 }

@@ -48,6 +48,7 @@ class ProcessTest extends \CT1_Migration_Test_Case {
 	 * @dataProvider dry_run_flags_provider
 	 */
 	public function should_provide_correct_parameters_to_migration_strategies( $dry_run ) {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
 		$post_id  = $this->given_a_non_migrated_single_event();
 		$strategy = new Null_Migration_Strategy();
 		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function ( $strategy_param, $post_id_param, $dry_run_param ) use ( $strategy, $dry_run, $post_id ) {
@@ -71,6 +72,7 @@ class ProcessTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_correctly_handle_throwing_migration_strategy() {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
 		$post_id = $this->given_a_non_migrated_single_event()->ID;
 		$dry_run = null;
 		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function () {
