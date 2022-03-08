@@ -36,7 +36,7 @@ class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * Should filter the tables being dropped.
-	 * 
+	 *
 	 * @test
 	 */
 	public function should_filter_custom_table_drop() {
@@ -51,7 +51,7 @@ class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 		// Should filter to only drop Occurrences.
 		add_filter( 'tec_events_custom_tables_v1_tables_to_drop',
 			function ( array $ct1_tables ) {
-				return [ tribe( Occurrences::class ) ];
+				return [ Occurrences::class ];
 			}
 		);
 		tribe( Provider::class )->drop_tables();

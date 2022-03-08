@@ -27,19 +27,19 @@ trait Custom_Tables_Provider {
 	 */
 	public function drop_tables() {
 		do_action( 'tec_events_custom_tables_v1_pre_drop_tables' );
-		$table_objects = $this->table_classes;
+		$table_classes = $this->table_classes;
 		/**
 		 * Filters the tables to be dropped.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<Custom_Table_Interface> $table_objects A list of Custom_Table_Interface objects that will have their tables dropped.
+		 * @param array<Custom_Table_Interface> $table_classes A list of Custom_Table_Interface objects that will have their tables dropped.
 		 */
-		$table_objects = apply_filters( 'tec_events_custom_tables_v1_tables_to_drop', $table_objects );
+		$table_classes = apply_filters( 'tec_events_custom_tables_v1_tables_to_drop', $table_classes );
 
-		foreach ( $table_objects as $table_object ) {
-			do_action( "tec_events_custom_tables_v1_dropping_table", $table_object );
-			$table_object->drop_table();
+		foreach ( $table_classes as $table_class ) {
+			do_action( "tec_events_custom_tables_v1_dropping_table", $table_class );
+			tribe($table_class)->drop_table();
 		}
 		do_action( 'tec_events_custom_tables_v1_post_drop_tables' );
 	}

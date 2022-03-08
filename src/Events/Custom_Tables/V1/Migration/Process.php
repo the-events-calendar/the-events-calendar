@@ -16,6 +16,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Stra
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
+use TEC\Events\Custom_Tables\V1\Tables\Provider;
 
 /**
  * Class Process.
@@ -127,21 +128,6 @@ class Process {
 
 				//@todo check action ID here and log on failure.
 			}
-
-			// Transition phase
-			// @todo This how we want to do this?
-			// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
-			if ( $this->events->get_total_events_remaining() === 0
-			     && $this->state->is_running()
-			     && in_array( $this->state->get_phase(), [
-					State::PHASE_MIGRATION_IN_PROGRESS,
-					State::PHASE_PREVIEW_IN_PROGRESS
-				] ) ) {
-				$this->state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
-				$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
-				$this->state->set( 'complete_timestamp', time() );
-				$this->state->save();
-			}
 		} catch ( \Throwable $e ) {
 			$event_report->migration_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
@@ -149,6 +135,21 @@ class Process {
 		}
 
 		// @todo Remove the error + shutdown hooks
+
+		// Transition phase.
+		// @todo This how we want to do this?
+		// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
+		if ( $this->events->get_total_events_remaining() === 0
+		     && $this->state->is_running()
+		     && in_array( $this->state->get_phase(), [
+				State::PHASE_MIGRATION_IN_PROGRESS,
+				State::PHASE_PREVIEW_IN_PROGRESS
+			] ) ) {
+			$this->state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
+			$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
+			$this->state->set( 'complete_timestamp', time() );
+			$this->state->save();
+		}
 
 		return $event_report;
 	}
@@ -180,28 +181,24 @@ class Process {
 		// @todo Move this to a centralized rollback (in the schema objects, with hooks?)
 		// @todo Review - missing anything? Better way?
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
-		$tables_to_drop = [
-			OccurrencesSchema::table_name( true ),
-			EventsSchema::table_name( true )
-		];
-		$tables_to_drop = apply_filters( 'tec_events_custom_tables_v1_migration_drop_tables', $tables_to_drop );
 
-		// Drop custom tables.
-		foreach ( $tables_to_drop as $table ) {
-			$delete_table_query = "DROP TABLE IF EXISTS {$table}";
-			$wpdb->query( $delete_table_query );
-		}
+		tribe( Provider::class )->drop_tables();
 
 		// Clear meta values.
 		$meta_keys = [
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 			Event_Report::META_KEY_REPORT_DATA,
 			Event_Report::META_KEY_MIGRATION_PHASE,
-
 		];
-		// @todo Name of filter...?
-		$meta_keys = apply_filters( 'tec_events_custom_tables_v1_migration_delete_meta_keys', $meta_keys );
 
+		/**
+		 * Filters the list of post meta keys to be removed during a migration cancel.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $meta_keys List of keys to delete.
+		 */
+		$meta_keys = apply_filters( 'tec_events_custom_tables_v1_delete_meta_keys', $meta_keys );
 		foreach ( $meta_keys as $meta_key ) {
 			delete_metadata( 'post', 0, $meta_key, '', true );
 		}
