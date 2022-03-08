@@ -4,6 +4,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy as Strategy;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
@@ -14,6 +15,13 @@ use Tribe\Events\Test\Traits\With_Uopz;
 class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
 	use With_Uopz;
+
+	/**
+	 * @before
+	 */
+	public function set_migration_phase() {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+	}
 
 	/**
 	 * It should correctly migrate a single event
@@ -140,6 +148,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_correctly_preview_an_event_migration() {
+		$this->given_the_current_migration_phase_is( State::PHASE_PREVIEW_IN_PROGRESS );
 		$post    = $this->given_a_non_migrated_single_event();
 		$report  = new Event_Report( $post );
 		$post_id = $post->ID;
