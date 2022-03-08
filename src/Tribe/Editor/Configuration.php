@@ -67,6 +67,7 @@ class Tribe__Events__Editor__Configuration implements Tribe__Editor__Configurati
 			'timezoneHTML'  => tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ),
 			'priceSettings' => [
 				'defaultCurrencySymbol'   => tribe_get_option( 'defaultCurrencySymbol', '$' ),
+				'defaultCurrencyCode'   => tribe_get_option( 'defaultCurrencyCode', 'USD' ),
 				'defaultCurrencyPosition' => (
 				tribe_get_option( 'reverseCurrencyPosition', false ) ? 'suffix' : 'prefix'
 				),

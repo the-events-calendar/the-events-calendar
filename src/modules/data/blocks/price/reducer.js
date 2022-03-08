@@ -62,6 +62,11 @@ export default ( state = DEFAULT_STATE, action ) => {
 				...state,
 				symbol: action.payload.symbol,
 			};
+		case types.SET_PRICE_CODE:
+			return {
+				...state,
+				symbol: action.payload.code,
+			};
 		default:
 			return state;
 	}

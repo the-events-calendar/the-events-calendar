@@ -134,6 +134,7 @@ const ClassicEventDetails = ( props ) => {
 		currencySymbol,
 		currencyCode,
 		setSymbol,
+		setCode,
 		setAttributes,
 	} = props;
 

@@ -149,7 +149,6 @@ const renderControls = ( {
 	currencySymbol,
 	currencyCode,
 	currencyPosition,
-	setSymbol,
 	setCurrencyPosition,
 } ) => (
 	isSelected && (
@@ -196,6 +195,7 @@ EventPrice.propTypes = {
 	isFree: PropTypes.bool,
 	setCost: PropTypes.func,
 	setSymbol: PropTypes.func,
+	setCode: PropTypes.func,
 	setCurrencyPosition: PropTypes.func,
 	onKeyDown: PropTypes.func,
 	onClick: PropTypes.func,
