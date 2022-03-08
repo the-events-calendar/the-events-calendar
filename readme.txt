@@ -233,6 +233,10 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Ensure the Venue and Organizer metaboxes load when creating a new post of that type. [BTRIA-1152]
 
+= [TBD] TBD =
+
+* Fix - Load the assets required by the `Event View` Elementor widget in preview mode. [ECP-1065]
+
 = [5.14.0.2] 2022-02-22 =
 
 * Fix - Correct conditional in Filter Bar upsell banner. [TEC-4284]
