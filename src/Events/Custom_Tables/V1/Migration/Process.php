@@ -85,7 +85,7 @@ class Process {
 			if ( ! in_array( $this->state->get_phase(), [
 				State::PHASE_PREVIEW_IN_PROGRESS,
 				State::PHASE_MIGRATION_IN_PROGRESS
-			] ) ) {
+			], true ) ) {
 				$event_report->migration_failed( 'Canceled.' );
 
 				return $event_report;
