@@ -150,6 +150,8 @@ const renderControls = ( {
 	currencyCode,
 	currencyPosition,
 	setCurrencyPosition,
+	setCode,
+	setSymbol,
 } ) => (
 	isSelected && (
 		<InspectorControls key="inspector">
