@@ -207,6 +207,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCurrencySymbol',
+			'_EventCurrencyCode',
 			'_EventCurrencyPosition',
 			'_EventCost',
 			'_EventCostMin',
