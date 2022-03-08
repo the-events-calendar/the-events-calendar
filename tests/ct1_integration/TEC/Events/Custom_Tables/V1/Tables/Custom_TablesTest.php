@@ -33,4 +33,34 @@ class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotContains( Events::table_name( true ), $tables );
 	}
 
+
+	/**
+	 * Should filter the tables being dropped.
+	 * 
+	 * @test
+	 */
+	public function should_filter_custom_table_drop() {
+		global $wpdb;
+		// Should have our custom tables.
+		$q      = 'show tables';
+		$tables = $wpdb->get_col( $q );
+
+		$this->assertContains( Occurrences::table_name( true ), $tables );
+		$this->assertContains( Events::table_name( true ), $tables );
+
+		// Should filter to only drop Occurrences.
+		add_filter( 'tec_events_custom_tables_v1_tables_to_drop',
+			function ( array $ct1_tables ) {
+				return [ tribe( Occurrences::class ) ];
+			}
+		);
+		tribe( Provider::class )->drop_tables();
+
+		// One table should be gone.
+		$q      = 'show tables';
+		$tables = $wpdb->get_col( $q );
+		$this->assertNotContains( Occurrences::table_name( true ), $tables );
+		$this->assertContains( Events::table_name( true ), $tables );
+	}
+
 }
