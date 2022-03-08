@@ -85,9 +85,9 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 		<i>
 			<?php
 			if ( 1 === $report->estimated_time_in_hours ) {
-				$message = esc_html( '(Estimated time: %1$s hour)', 'ical-tec' );
+				$message = esc_html( '(Estimated time: %1$s hour)', 'the-events-calendar' );
 			} else {
-				$message = esc_html( '(Estimated time: %1$s hours)', 'ical-tec' );
+				$message = esc_html( '(Estimated time: %1$s hours)', 'the-events-calendar' );
 			}
 
 			echo sprintf( $message, $report->estimated_time_in_hours );

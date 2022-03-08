@@ -15,11 +15,11 @@
 	<div class="tec-ct1-upgrade__report-body">
 		<div class="tec-ct1-upgrade__report-body-content">
 			<?php if ( $report->has_changes ) : ?>
-				<strong><?php esc_html_e( 'Changes to events!', 'ical-tec' ); ?></strong>
-				<?php esc_html_e( 'The following events will be modified during the migration process:', 'ical-tec' ); ?>
+				<strong><?php esc_html_e( 'Changes to events!', 'the-events-calendar' ); ?></strong>
+				<?php esc_html_e( 'The following events will be modified during the migration process:', 'the-events-calendar' ); ?>
 			<?php else: ?>
 				<p>
-					<strong><?php esc_html_e( 'Events can migrate with no changes!', 'ical-tec' ); ?></strong>
+					<strong><?php esc_html_e( 'Events can migrate with no changes!', 'the-events-calendar' ); ?></strong>
 				</p>
 			<?php endif; ?>
 			<ul>
@@ -29,36 +29,36 @@
 						—
 						<?php
 						if (  $event->error  ) {
-							echo esc_html( $event->error, 'ical-tec' );
+							echo esc_html( $event->error, 'the-events-calendar' );
 						}
 
 						foreach ( $event->strategies_applied as $action ) {
 							if ( 'split' === $action ) {
 								echo sprintf(
-										esc_html( 'This event will be %1$ssplit into %2$s recurring events%3$s with identical content.', 'ical-tec' ),
+										esc_html( 'This event will be %1$ssplit into %2$s recurring events%3$s with identical content.', 'the-events-calendar' ),
 										'<strong>',
 										count( $event->created_events ),
 										'</strong>'
 								);
 
 								echo sprintf(
-										esc_html( 'The events will be part of a new %1$s.', 'ical-tec' ),
+										esc_html( 'The events will be part of a new %1$s.', 'the-events-calendar' ),
 										$event->series[0]->post_title // @todo This ok?
 								);
 							} else if ( 'modified-exclusions' === $action ) {
 								echo sprintf(
-										esc_html( '%1$sOne or more exclusion rules will be modified%2$s, but no occurrences will be added or removed.', 'ical-tec' ),
+										esc_html( '%1$sOne or more exclusion rules will be modified%2$s, but no occurrences will be added or removed.', 'the-events-calendar' ),
 										'<strong>',
 										'</strong>'
 								);
 							} else if ( 'modified-rules' === $action ) {
 								echo sprintf(
-										esc_html( '%1$sOne or more recurrence rules will be modified%2$s, but no occurrences will be added or removed.', 'ical-tec' ),
+										esc_html( '%1$sOne or more recurrence rules will be modified%2$s, but no occurrences will be added or removed.', 'the-events-calendar' ),
 										'<strong>',
 										'</strong>'
 								);
 							} else {
-								echo esc_html( 'Unknown strategy applied to this event.', 'ical-tec' );
+								echo esc_html( 'Unknown strategy applied to this event.', 'the-events-calendar' );
 							}
 						}
 						?>
