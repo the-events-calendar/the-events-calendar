@@ -1,7 +1,5 @@
 <?php
 
-use Automattic\WooCommerce\Vendor\League\Container\Argument\ClassName;
-
 class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_organizer';
 
@@ -720,15 +718,13 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @since 5.14.0
 	 */
 	public static function add_post_type_metabox() {
-		$request_vars = tribe_get_request_vars();
-		if ( empty( $request_vars['post'] ) || ! tribe_is_organizer( $request_vars['post'] ) ) {
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
 			return;
 		}
 
-		$self = new Tribe__Events__Organizer;
 		add_meta_box(
 			'tribe_events_organizer_details',
-			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $self->get_organizer_label_singular() ),
+			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), tribe( 'tec.linked-posts.organizer' )->get_organizer_label_singular() ),
 			[ Tribe__Events__Main::instance(), 'OrganizerMetaBox' ],
 			self::POSTTYPE,
 			'normal',
