@@ -1,24 +1,26 @@
 <?php
 
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
+use TEC\Events\Custom_Tables\V1\Migration\Strings;
 
 /**
- * @var $template_directory string The base migration template directory.
+ * @var string  $template_directory The absolute path to the Migration template root directory.
+ * @var Strings $text               The text dictionary.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<h3>
 			<?php include $template_directory . '/upgrade-logo.php'; ?>
-			<?php esc_html_e( 'Migration in progress', 'the-events-calendar' ); ?>
+			<?php echo esc_html( $text->get( 'migration-in-progress' ) ); ?>
 		</h3>
 
 		<p>
 			<?php
 			echo sprintf(
-				esc_html__( 'Your events are being migrated to the new system. During this migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar is still visible on your site. ', 'the-events-calendar' ),
-				'<strong>',
-				'</strong>'
+					$text->get( 'migration-in-progress-paragraph' ),
+					'<strong>',
+					'</strong>'
 			);
 
 			if ( $addendum = tribe( Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
@@ -26,23 +28,23 @@ use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 				<strong><?php echo esc_html( $addendum ); ?></strong>
 				<?php
 			}
-
-			echo sprintf(
-				esc_html__( '%1$s%3$sLearn more about the migration%4$s.%2$s', 'the-events-calendar' ),
-				'<strong>',
-				'</strong>',
-				'<a href="https://evnt.is/recurrence-2-0" target="_blank" rel="noopener">',
-				'</a>'
-			);
 			?>
+			<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
+				<strong><?php echo esc_html( $text->get( 'learn-more-button' ) ); ?></strong>
+			</a>
 		</p>
 
-		<div class="tec-ct1-upgrade-update-bar-container"><p><?php echo __( 'Loading...', 'the-events-calendar' );?></p></div>
+		<div class="tec-ct1-upgrade-update-bar-container">
+			<p><?php echo esc_html( $text->get( 'loading-message' ) ); ?></p>
+		</div>
 		<div>
-			<a href="#" class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Cancel Migration', 'the-events-calendar' ); ?></a>
+			<a href="#"
+			   class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'cancel-migration-button' ) ); ?></a>
 		</div>
 	</div>
 	<div class="image-container">
-		<img class="screenshot" src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
+		<img class="screenshot"
+			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>

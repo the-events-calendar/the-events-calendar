@@ -170,4 +170,27 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertContains( 'tec-ct1-upgrade__link-danger', $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
 	}
+
+	/**
+	 * Should render HTML from Undo In Progress templates.
+	 *
+	 * @test
+	 */
+	public function should_render_undo_in_progress_ok() {
+		// Setup templates.
+		$phase = State::PHASE_UNDO_IN_PROGRESS;
+		$state = tribe( State::class );
+		$text  = tribe( Strings::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/phase/$phase.php",
+			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+	}
 }

@@ -150,6 +150,159 @@ class Strings {
 				'(Estimated time: %1$s hours)',
 				'the-events-calendar'
 			),
+			'migration-in-progress'          => __(
+				'Migration in progress',
+				'the-events-calendar'
+			),
+			'migration-in-progress-paragraph'          => __(
+				'Your events are being migrated to the new system. During this migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar is still visible on your site.',
+				'the-events-calendar'
+			),
+			'loading-message'          => __(
+				'Loading...',
+				'the-events-calendar'
+			),
+			'cancel-migration-button'          => __(
+				'Cancel Migration',
+				'the-events-calendar'
+			),
+			'migration-complete'          => __(
+				'Migration complete!',
+				'the-events-calendar'
+			),
+			'migration-complete-paragraph'          => __(
+				'Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more about the new features of Events Calendar PRO 6.0%2$s.',
+				'the-events-calendar'
+			),
+			'migration-date-heading'          => __(
+				'Migration Date/Time:',
+				'the-events-calendar'
+			),
+			'migration-total-heading'          => __(
+				'Total Events Migrated:',
+				'the-events-calendar'
+			),
+			'reverse-migration-button'          => __(
+				'Reverse Migration',
+				'the-events-calendar'
+			),
+			'reverse-migration-in-progress'          => __(
+				'Reverse migration in progress',
+				'the-events-calendar'
+			),
+			'reverse-migration-in-progress-paragraph'          => __(
+				'We are reversing your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+			'_'          => __(
+				'_',
+				'the-events-calendar'
+			),
+
 		] );
 	}
 

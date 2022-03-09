@@ -2,34 +2,32 @@
 
 use TEC\Events\Custom_Tables\V1\Migration\Strings;
 
-$strings = tribe( Strings::class );
-
 /**
- * @var string $template_directory The absolute path to the Migration template root directory.
+ * @var string  $template_directory The absolute path to the Migration template root directory.
+ * @var Strings $text               The text dictionary.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="image-container">
 		<img class="screenshot"
-			 src="<?php echo esc_url( $strings->get( 'completed-screenshot-url' ) ); ?>"
-			 alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>"
-		/>
+			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
 	</div>
 
 	<div class="content-container">
 		<h3>
 			<?php include $template_directory . '/upgrade-logo.php'; ?>
-			<?php esc_html_e( 'Migration complete!', 'the-events-calendar' ); ?>
+			<?php echo esc_html( $text->get( 'migration-complete' ) ); ?>
 		</h3>
 
 		<p>
-			<?php echo esc_html( $strings->get( 'completed-site-upgraded' ) ); ?>
+			<?php echo esc_html( $text->get( 'completed-site-upgraded' ) ); ?>
 		</p>
 
 		<p>
 			<?php
 			echo sprintf(
-					esc_html__( 'Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more about the new features of Events Calendar PRO 6.0%2$s.', 'the-events-calendar' ),
+					esc_html( $text->get( 'migration-complete-paragraph' ) ),
 					'<a href="' . esc_url( admin_url( 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE ) ) . '">',
 					'</a>',
 					'<a href="' . esc_url( tribe_events_get_url() ) . '">',
@@ -42,12 +40,12 @@ $strings = tribe( Strings::class );
 
 <div class="tec-ct1-upgrade__row">
 	<?php
-	$datetime_heading = __( 'Migration Date/Time:', 'the-events-calendar' );
-	$total_heading    = __( 'Total Events Migrated:', 'the-events-calendar' );
+	$datetime_heading = $text->get( 'migration-date-heading' );
+	$total_heading    = $text->get( 'migration-total-heading' );
 	ob_start();
 	?>
 	<a href="#"
-	   class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php esc_html_e( 'Reverse Migration', 'the-events-calendar' ); ?></a>
+	   class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'reverse-migration-button' ) ); ?></a>
 	<?php
 	$heading_action = ob_get_clean();
 	include __DIR__ . '/report.php';
