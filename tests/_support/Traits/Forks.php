@@ -70,7 +70,7 @@ trait Forks {
 	 * @return array<int> The pcntl_status of each completed fork, to be used as input
 	 *                    to `pcntl_wifexited` and similar functions.
 	 */
-	private function fork_loop( \Generator $forks_generator, $parallelism = 1 ) {
+	private function fork_loop_wait( \Generator $forks_generator, $parallelism = 1 ) {
 		$forks_generator->rewind();
 		$pids      = [];
 		$completed = [];

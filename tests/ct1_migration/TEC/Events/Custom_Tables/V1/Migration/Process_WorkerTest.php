@@ -114,7 +114,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$this->assertEquals( 0, $migrated_events );
 
 		// ACT
-		$this->fork_loop( $generate_workers_for( $post_ids ), $parallelism );
+		$this->fork_loop_wait( $generate_workers_for( $post_ids ), $parallelism );
 
 		// ASSERT
 		global $wpdb;
