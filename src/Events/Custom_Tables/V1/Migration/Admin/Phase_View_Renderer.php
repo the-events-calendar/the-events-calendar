@@ -2,29 +2,57 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
+use TEC\Events\Custom_Tables\V1\Migration\Strings;
+
 class Phase_View_Renderer {
 	/**
-	 * @var string $key Our template key.
+	 * Our template key.
+	 *
+	 * @since TBD
+	 *
+	 * @var string $key
 	 */
-	protected $key;
-	/**
-	 * @var string $template_path Path to the primary template.
-	 */
-	protected $template_path;
-	/**
-	 * @var string Path to the base migration view directory.
-	 */
-	protected $template_directory;
-	/**
-	 * @var array<string,mixed> Vars we need to pass down to the primary template.
-	 */
-	protected $vars = [];
-	/**
-	 * @var array List of node definitions.
-	 */
-	protected $nodes = [];
+	private $key;
 
 	/**
+	 * Path to the primary template.
+	 *
+	 * @since TBD
+	 *
+	 * @var string $template_path
+	 */
+	private $template_path;
+
+	/**
+	 * Path to the base migration view directory.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $template_directory;
+
+	/**
+	 * Vars we need to pass down to the primary template.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,mixed>
+	 */
+	private $vars = [];
+
+	/**
+	 * List of node definitions.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,mixed>
+	 */
+	private $nodes = [];
+
+	/**
+	 * Phase_View_Renderer constructor.
+	 *
 	 * @since TBD
 	 *
 	 * @param string              $key       Our template key.
@@ -37,7 +65,11 @@ class Phase_View_Renderer {
 		// Our root template directory for all migration templates.
 		$this->template_directory = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
 		// Add the vars we already have, in case template relies on it.
-		$this->vars = array_merge( [ 'phase' => $key, 'template_directory' => $this->template_directory ], $vars );
+		$this->vars = array_merge( [
+			'phase'              => $key,
+			'template_directory' => $this->template_directory,
+			'text'               => tribe( Strings::class ),
+		], $vars );
 	}
 
 	/**
