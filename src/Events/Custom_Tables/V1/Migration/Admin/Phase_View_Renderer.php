@@ -78,11 +78,11 @@ class Phase_View_Renderer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key           Our node key.
-	 * @param string $selector      The selector used to target where this node will be rendered. Often
-	 *                              will be a target in the primary template.
-	 * @param string $template      Path to the node template.
-	 * @param array  $vars
+	 * @param string              $key      Our node key.
+	 * @param string              $selector The selector used to target where this node will be rendered. Often
+	 *                                      will be a target in the primary template.
+	 * @param string              $template Path to the node template.
+	 * @param array<string,mixed> $vars     A map from context variable names to their values.
 	 */
 	public function register_node( $key, $selector, $template, $vars = [] ) {
 		$this->nodes[] = [ 'target' => $selector, 'template' => $template, 'key' => $key, 'vars' => $vars ];
@@ -173,7 +173,7 @@ class Phase_View_Renderer {
 	 * @return false|string
 	 */
 	protected function get_template_html( $template, $vars = [] ) {
-		extract( $vars );
+		extract( $vars, EXTR_OVERWRITE );
 		ob_start();
 		include $this->template_directory . $template;
 
