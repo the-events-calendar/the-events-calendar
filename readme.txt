@@ -221,6 +221,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure that the State/Province field saves for non-US venues. [TEC-4309]
+
 = [5.14.0.4] 2022-03-01 =
 
 * Tweak - Update version of Freemius to 2.4.3.
