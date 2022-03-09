@@ -4,6 +4,7 @@ exports[`[STORE] - Price selectors Should return price position 1`] = `"prefix"`
 
 exports[`[STORE] - Price selectors Should return the price block 1`] = `
 Object {
+  "code": "USD",
   "cost": "",
   "position": "prefix",
   "symbol": "$",

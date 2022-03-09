@@ -2,6 +2,7 @@
 
 exports[`[STORE] - Price reducer Should return the default state to meta map 1`] = `
 Object {
+  "code": "_EventCurrencyCode",
   "cost": "_EventCost",
   "position": "_EventCurrencyPosition",
   "symbol": "_EventCurrencySymbol",
@@ -10,6 +11,7 @@ Object {
 
 exports[`[STORE] - Price reducer Should set the cost 1`] = `
 Object {
+  "code": "USD",
   "cost": 10,
   "position": "prefix",
   "symbol": "$",
@@ -27,6 +29,7 @@ Object {
 
 exports[`[STORE] - Price reducer Should set the cost symbol 1`] = `
 Object {
+  "code": "USD",
   "cost": "",
   "position": "prefix",
   "symbol": "€",
@@ -35,6 +38,7 @@ Object {
 
 exports[`[STORE] - Price reducer Should set the initial state 1`] = `
 Object {
+  "code": "EUR",
   "cost": "15",
   "position": "prefix",
   "symbol": "€",
@@ -43,6 +47,7 @@ Object {
 
 exports[`[STORE] - Price reducer Should set the symbol position 1`] = `
 Object {
+  "code": "USD",
   "cost": "",
   "position": "prefix",
   "symbol": "$",
