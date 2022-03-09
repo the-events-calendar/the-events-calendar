@@ -82,10 +82,10 @@ use TEC\Events\Custom_Tables\V1\Migration\Strings;
 				type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
 		<i>
 			<?php
-			if ( $report->estimated_time_in_hours > 1 ) {
-				$message = esc_html( $text->get( 'estimated-time-plural' ) );
-			} else {
+			if ( $report->estimated_time_in_hours === 1 ) {
 				$message = esc_html( $text->get( 'estimated-time-singular' ) );
+			} else {
+				$message = esc_html( $text->get( 'estimated-time-plural' ) );
 			}
 
 			echo sprintf( $message, $report->estimated_time_in_hours );
