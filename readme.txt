@@ -225,6 +225,10 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TEC-4263]
 * Fix - Correct Month View ics export so it begins on the current day rather than the 1st. [TEC-4223]
 
+= [TBD] TBD =
+
+* Fix - Ensure that the State/Province field saves for non-US venues. [TEC-4309]
+
 = [5.14.0.4] 2022-03-01 =
 
 * Tweak - Update version of Freemius to 2.4.3.

@@ -120,7 +120,6 @@ do_action( 'tribe_events_venue_before_metabox', $post );
 	<td>
 		<input
 			id="StateProvinceText"
-			name=''
 			name="venue[Province]"
 			size='25'
 			tabindex="<?php tribe_events_tab_index(); ?>"
