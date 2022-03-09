@@ -7,7 +7,7 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
-
+ 
 use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
@@ -73,10 +73,23 @@ class ProcessWorker {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
-		// @todo Add error handler and shutdown callback (to catch some of our errors).
 		// Get our Event_Report ready for the strategy.
 		// This is also used in our error catching, so needs to be defined outside that block.
 		$event_report = new Event_Report( get_post( $post_id ) );
+
+		// Watch for any errors that may occur and store in our Event_Report.
+		set_error_handler(
+			function ( $errno, $errstr, $errfile, $errline ) {
+				// Delegate to our try/catch handler.
+				throw new Migration_Exception( $errstr, $errno );
+			}
+		);
+
+		// Catch unexpected shutdown.
+		$shutdown_function = function () use ( $event_report ) {
+			$event_report->migration_failed( 'Unknown error occurred, shutting down.' );
+		};
+		add_action( 'shutdown', $shutdown_function );
 
 		try {
 			// Check if we are still in migration phase.
@@ -130,12 +143,12 @@ class ProcessWorker {
 		} catch ( \Exception $e ) {
 			$event_report->migration_failed( $e->getMessage() );
 		}
-
-		// @todo Remove the error + shutdown hooks
+		// Restore error handling.
+		restore_error_handler();
+		// Remove shutdown hook.
+		remove_action( 'shutdown', $shutdown_function );
 
 		// Transition phase.
-		// @todo This how we want to do this?
-		// @todo Doing these State checks here is likely going to slow the processing by an order of magnitude. Better place?
 		if ( $this->events->get_total_events_remaining() === 0
 		     && $this->state->is_running()
 		     && in_array( $this->state->get_phase(), [
