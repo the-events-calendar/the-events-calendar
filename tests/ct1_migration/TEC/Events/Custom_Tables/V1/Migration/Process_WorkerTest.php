@@ -5,9 +5,13 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Null_Migration_Strategy;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
+use Tribe\Events\Test\Traits\Forks;
 
 class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
+	use Forks;
+
+	private $uopz_allow_exit_ini_value;
 
 	public function dry_run_flags_provider() {
 		return [
@@ -63,5 +67,64 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 
 		$this->assertEquals( 'for reasons', $report->error );
 		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
+	}
+
+	public function concurrency_settings_provider() {
+		return [
+			'10 Events, 3 Workers' => [ 10, 3 ]
+		];
+	}
+
+	/**
+	 * It should handle concurrency
+	 *
+	 * @test
+	 * @dataProvider concurrency_settings_provider
+	 */
+	public function should_handle_concurrency( $event_set_size, $parallelism ) {
+		if ( ! function_exists( 'pcntl_fork' ) ) {
+			$this->markTestSkipped( 'The pcntl_fork function is required to run this test.' );
+		}
+
+		// ARRANGE.
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post_ids = array_map( function () {
+			return $this->given_a_non_migrated_single_event()->ID;
+		}, range( 1, $event_set_size ) );
+		$this->assertCount( $event_set_size, $post_ids );
+
+		$generate_workers_for = static function ( $post_ids ) {
+			foreach ( $post_ids as $post_id ) {
+				yield static function () use ( $post_id ) {
+					$worker = new Process_Worker( new Events, new State );
+					$worker->migrate_event( $post_id );
+				};
+			}
+		};
+
+		// Let's make sure there are no migrated events to begin with.
+		global $wpdb;
+		$migrated_events = $wpdb->get_var(
+			$wpdb->prepare(
+				"select count(post_id) from $wpdb->postmeta where meta_key = %s and meta_value = %s",
+				Event_Report::META_KEY_MIGRATION_PHASE,
+				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
+			)
+		);
+		$this->assertEquals( 0, $migrated_events );
+
+		// ACT
+		$this->fork_loop( $generate_workers_for( $post_ids ), $parallelism );
+
+		// ASSERT
+		global $wpdb;
+		$migrated_events = $wpdb->get_var(
+			$wpdb->prepare(
+				"select count(post_id) from $wpdb->postmeta where meta_key = %s and meta_value = %s",
+				Event_Report::META_KEY_MIGRATION_PHASE,
+				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
+			)
+		);
+		$this->assertEquals( $event_set_size, $migrated_events );
 	}
 }
