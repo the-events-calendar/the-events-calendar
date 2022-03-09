@@ -38,6 +38,15 @@ interface Custom_Table_Interface {
 	public function empty_table();
 
 	/**
+	 * Drop the custom table.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean `true` if successful operation, `false` to indicate a failure.
+	 */
+	public function drop_table();
+
+	/**
 	 * Creates, or updates, the custom table.
 	 *
 	 * @since TBD

@@ -86,6 +86,30 @@ class Strings {
 				'[@todo TEC]Ready to go? The first step is a migration preview.',
 				'the-events-calendar'
 			),
+			'preview-prompt-scan-events' => __(
+				'We\'ll scan all existing events and let you know what to expect from the migration process. You\'ll also get an idea of how long your migration will take. The preview runs in the background, so you’ll be able to continue using your site.',
+				'the-events-calendar'
+			),
+			'learn-more-button' => __(
+				'Learn more about the migration',
+				'the-events-calendar'
+			),
+			'start-migration-preview-button' => __(
+				'Start migration preview',
+				'the-events-calendar'
+			),
+			'updated-views-screenshot-alt' => __(
+				'screenshot of updated calendar views',
+				'the-events-calendar'
+			),
+			'migration-preview-in-progress' => __(
+				'Migration preview in progress',
+				'the-events-calendar'
+			),
+			'migration-preview-scanning-events' => __(
+				'We\'re scanning your existing events so you’ll know what to expect from the migration process. You can keep using your site and managing events. Check back later for a full preview report and the next steps for migration.',
+				'the-events-calendar'
+			),
 		] );
 	}
 
