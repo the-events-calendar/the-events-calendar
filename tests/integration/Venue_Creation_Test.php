@@ -104,7 +104,7 @@ class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'Wellington St', get_post_meta( $post->ID, '_VenueAddress', true ) );
 		$this->assertEquals( 'Ottawa', get_post_meta( $post->ID, '_VenueCity', true ) );
 		$this->assertEquals( 'Canada', get_post_meta( $post->ID, '_VenueCountry', true ) );
-		$this->assertEquals( 'Ontario', get_post_meta( $post->ID, '_VenueState', true ) );
+		$this->assertEquals( 'Ontario', get_post_meta( $post->ID, '_VenueProvince', true ) );
 		$this->assertEquals( 'K1A 0A9', get_post_meta( $post->ID, '_VenueZip', true ) );
 		$this->assertEquals( '+1 613-992-4793', get_post_meta( $post->ID, '_VenuePhone', true ) );
 	}
