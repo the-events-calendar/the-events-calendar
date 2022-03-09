@@ -16,6 +16,15 @@ Object {
 }
 `;
 
+exports[`[STORE] - Price reducer Should set the cost code 1`] = `
+Object {
+  "code": "EUR",
+  "cost": "",
+  "position": "prefix",
+  "symbol": "$",
+}
+`;
+
 exports[`[STORE] - Price reducer Should set the cost symbol 1`] = `
 Object {
   "cost": "",

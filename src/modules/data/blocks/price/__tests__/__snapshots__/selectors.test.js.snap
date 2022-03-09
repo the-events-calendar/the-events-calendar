@@ -10,6 +10,8 @@ Object {
 }
 `;
 
+exports[`[STORE] - Price selectors Should return the price code 1`] = `"USD"`;
+
 exports[`[STORE] - Price selectors Should return the price symbol 1`] = `"$"`;
 
 exports[`[STORE] - Price selectors Should return the price value 1`] = `""`;
