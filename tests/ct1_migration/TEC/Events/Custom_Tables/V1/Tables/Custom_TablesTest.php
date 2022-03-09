@@ -2,10 +2,21 @@
 
 namespace TEC\Events\Custom_Tables\V1\Tables;
 
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
-use TEC\Events\Custom_Tables\V1\Tables\Events;
+class Custom_TablesTest extends \CT1_Migration_Test_Case {
+	/**
+	 * @after each test make sure the custom tables will be there for the following ones.
+	 */
+	public function recreate_custom_tables() {
+		$events_updated = ( new Events )->update();
+		if ( ! $events_updated ) {
+			throw new \RuntimeException( 'Failed to create Events custom table.' );
+		}
+		$occurrences_updated = ( new Occurrences() )->update();
+		if ( ! $occurrences_updated ) {
+			throw new \RuntimeException( 'Failed to create Events custom table.' );
+		}
+	}
 
-class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Should successfully drop custom tables.
 	 *
@@ -32,7 +43,6 @@ class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotContains( Occurrences::table_name( true ), $tables );
 		$this->assertNotContains( Events::table_name( true ), $tables );
 	}
-
 
 	/**
 	 * Should filter the tables being dropped.
@@ -63,5 +73,4 @@ class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotContains( Occurrences::table_name( true ), $tables );
 		$this->assertContains( Events::table_name( true ), $tables );
 	}
-
 }
