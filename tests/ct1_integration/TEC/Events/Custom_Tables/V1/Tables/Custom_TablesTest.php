@@ -2,14 +2,13 @@
 
 namespace TEC\Events\Custom_Tables\V1\Tables;
 
-use WP_Post;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\Tables\Events;
 
 class Custom_TablesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Should successfully drop custom tables.
-	 * 
+	 *
 	 * @skip
 	 * @test
 	 */

@@ -4,6 +4,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Migration\Strings;
 
 class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
@@ -19,7 +20,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
 			'/partials/progress-bar.php',
-			[ 'report' => Site_Report::build(), 'phase' => $phase ]
+			[ 'report' => Site_Report::build(), 'phase' => $phase, 'text' => tribe( Strings::class ) ]
 		);
 
 		$output = $renderer->compile();
@@ -50,7 +51,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	public function should_render_preview_prompt_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_PREVIEW_PROMPT;
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => tribe( Strings::class ) ] );
 
 		$output = $renderer->compile();
 
@@ -69,7 +70,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	public function should_render_preview_in_progress_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_PREVIEW_IN_PROGRESS;
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => tribe( Strings::class ) ] );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
 			'/partials/progress-bar.php',

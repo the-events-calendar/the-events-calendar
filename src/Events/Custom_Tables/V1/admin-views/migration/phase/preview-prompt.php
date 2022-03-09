@@ -1,40 +1,43 @@
 <?php
-use TEC\Events\Custom_Tables\V1\Migration\Strings;
-
-$strings = tribe( Strings::class );
 
 /**
  * @var string $template_directory The absolute path to the Migration template root directory.
+ * @var \TEC\Events\Custom_Tables\V1\Migration\Strings $text The text dictionary.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<span>
-			<?php echo esc_html( $strings->get( 'preview-prompt-get-ready' ) ); ?>
+			<?php echo esc_html( $text->get( 'preview-prompt-get-ready' ) ); ?>
 		</span>
 
 		<h3>
 			<?php include $template_directory . '/upgrade-logo.php';; ?>
-			<?php echo esc_html( $strings->get( 'preview-prompt-upgrade-cta' ) ); ?>
+			<?php echo esc_html( $text->get( 'preview-prompt-upgrade-cta' ) ); ?>
 		</h3>
 
 		<p>
-			<?php echo esc_html( $strings->get( 'preview-prompt-features' ) ); ?>
+			<?php echo esc_html( $text->get( 'preview-prompt-features' ) ); ?>
 		</p>
 
 		<p>
 			<strong>
-				<?php echo esc_html( $strings->get( 'preview-prompt-ready' ) ); ?>
+				<?php echo esc_html( $text->get( 'preview-prompt-ready' ) ); ?>
 			</strong>
-			<?php esc_html_e( 'We\'ll scan all existing events and let you know what to expect from the migration process. You\'ll also get an idea of how long your migration will take. The preview runs in the background, so you’ll be able to continue using your site.', 'the-events-calendar' ); ?>
+			<?php echo esc_html( $text->get( 'preview-prompt-scan-events' ) ); ?>
 		</p>
 
-		<button class="tec-ct1-upgrade-start-migration-preview" type="button"><?php esc_html_e( 'Start migration preview', 'the-events-calendar' ); ?></button>
+		<button class="tec-ct1-upgrade-start-migration-preview"
+				type="button">
+			<?php echo esc_html( $text->get( 'start-migration-preview-button' ) ); ?>
+		</button>
 		<a href="http://evnt.is/recurrence-2-0" target="_blank" rel="noopener">
-			<?php esc_html_e( 'Learn more about the migration', 'the-events-calendar' ); ?>
+			<?php echo esc_html( $text->get( 'learn-more-button' ) ); ?>
 		</a>
 	</div>
 	<div class="image-container">
-		<img class="screenshot" src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
+		<img class="screenshot"
+			 src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>"
+			 alt="<?php esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>

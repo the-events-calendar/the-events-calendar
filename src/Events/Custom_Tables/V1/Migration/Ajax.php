@@ -164,14 +164,17 @@ class Ajax {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_UNDO_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase,
-					"/phase/$phase.php" ,
-					[ 'state' => tribe( State::class ), 'report' => Site_Report::build( $page, $count ) ]
+					"/phase/$phase.php",
+					[ 'state'  => tribe( State::class ),
+					  'report' => Site_Report::build( $page, $count ),
+					  'text'   => tribe( Strings::class )
+					]
 				);
 				break;
 			case State::PHASE_MIGRATION_PROMPT:
 				$renderer = new Phase_View_Renderer( $phase,
 					"/phase/$phase.php",
-					[ 'report' => Site_Report::build( $page, $count ) ]
+					[ 'report' => Site_Report::build( $page, $count ), 'text' => tribe( Strings::class ) ]
 				);
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
@@ -180,7 +183,7 @@ class Ajax {
 				$renderer->register_node( 'progress-bar',
 					'.tec-ct1-upgrade-update-bar-container',
 					'/partials/progress-bar.php',
-					[ 'report' => Site_Report::build( $page, $count ) ]
+					[ 'report' => Site_Report::build( $page, $count ), 'text' => tribe( Strings::class ) ]
 				);
 				break;
 		}
