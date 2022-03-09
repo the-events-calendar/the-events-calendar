@@ -528,6 +528,23 @@ class Assets extends \tad_DI52_ServiceProvider {
 			return $this->should_enqueue_frontend;
 		}
 
+		/**
+		 * Checks whether the page is being viewed in Elementor preview mode.
+		 * 
+		 * @since TBD
+		 * 
+		 * @return bool $should_enqueue Should the frontend assets be enqueued.
+		 */
+		if (
+			defined( 'ELEMENTOR_PATH' )
+
+			&& ! empty( ELEMENTOR_PATH )
+		
+			&& isset( $_GET[ 'elementor-preview' ] )
+		) {
+			return $this->should_enqueue = true;
+		}
+
 		$should_enqueue = tribe( Template_Bootstrap::class )->should_load();
 
 		/**
