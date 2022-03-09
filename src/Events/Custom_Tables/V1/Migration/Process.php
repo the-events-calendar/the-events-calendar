@@ -84,7 +84,7 @@ class Process {
 		$this->state->save();
 
 		foreach ( $this->events->get_ids_to_process( 50 ) as $post_id ) {
-			$action_ids[] = as_enqueue_async_action( ProcessWorker::ACTION_PROCESS, [ $post_id, $dry_run ] );
+			$action_ids[] = as_enqueue_async_action( Process_Worker::ACTION_PROCESS, [ $post_id, $dry_run ] );
 		}
 
 		return count( array_filter( $action_ids ) );
@@ -108,10 +108,10 @@ class Process {
 		$this->state->save();
 
 		// Clear all of our queued migration workers.
-		as_unschedule_all_actions( ProcessWorker::ACTION_PROCESS );
+		as_unschedule_all_actions( Process_Worker::ACTION_PROCESS );
 
 		// Now queue our undo loop.
-		as_enqueue_async_action( ProcessWorker::ACTION_UNDO );
+		as_enqueue_async_action( Process_Worker::ACTION_UNDO );
 
 		return true;
 	}
@@ -126,7 +126,7 @@ class Process {
 	public function cancel_async_action( $action_id ) {
 		$store  = ActionScheduler::store();
 		$action = $store->fetch_action( $action_id );
-		if ( $action->get_hook() !== ProcessWorker::ACTION_PROCESS ) {
+		if ( $action->get_hook() !== Process_Worker::ACTION_PROCESS ) {
 			return;
 		}
 		$args    = $action->get_args();

@@ -15,12 +15,12 @@ use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Tables\Provider;
 
 /**
- * Class ProcessWorker. Handles the migration and undo operations.
+ * Class Process_Worker. Handles the migration and undo operations.
  *
  * @since   TBD
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
-class ProcessWorker {
+class Process_Worker {
 
 	/**
 	 * The full name of the action that will be fired to signal one
@@ -48,7 +48,7 @@ class ProcessWorker {
 	private $state;
 
 	/**
-	 * ProcessWorker constructor.
+	 * Process_Worker constructor.
 	 *
 	 * @since TBD
 	 *

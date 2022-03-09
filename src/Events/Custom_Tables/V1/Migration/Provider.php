@@ -59,8 +59,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->load_action_scheduler();
 
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
-		add_action( ProcessWorker::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
-		add_action( ProcessWorker::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
+		add_action( Process_Worker::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
+		add_action( Process_Worker::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
 
 		// Activate maintenance mode, if required.
 		add_action( 'init', [ $this, 'activate_maintenance_mode' ] );
@@ -110,7 +110,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              that will migrate the Event.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
-		$this->container->make( ProcessWorker::class )->migrate_event( $post_id, $dry_run );
+		$this->container->make( Process_Worker::class )->migrate_event( $post_id, $dry_run );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              that will undo the Event migration.
 	 */
 	public function undo_event_migration( $meta = [] ) {
-		$this->container->make( ProcessWorker::class )->undo_event_migration( $meta );
+		$this->container->make( Process_Worker::class )->undo_event_migration( $meta );
 	}
 
 	/**
