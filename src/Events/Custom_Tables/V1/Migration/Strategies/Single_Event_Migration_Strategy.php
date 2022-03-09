@@ -62,7 +62,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	 */
 	public function apply( Event_Report $event_report ) {
 		if ( $this->dry_run ) {
-			$this->start_transaction();
+			$this->transaction_start();
 		}
 
 		$upserted = Event::upsert( [ 'post_id' ], Event::data_from_post( $this->post_id ) );
@@ -92,7 +92,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		}
 
 		if ( $this->dry_run ) {
-			$this->rollback_transaction();
+			$this->transaction_rollback();
 		}
 
 		// @todo how do we determine if there are tickets?
