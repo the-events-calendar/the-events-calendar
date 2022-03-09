@@ -1,8 +1,10 @@
 <?php
 
+use TEC\Events\Custom_Tables\V1\Migration\Strings;
+
 /**
- * @var string $template_directory The absolute path to the Migration template root directory.
- * @var \TEC\Events\Custom_Tables\V1\Migration\Strings $text The text dictionary.
+ * @var string  $template_directory The absolute path to the Migration template root directory.
+ * @var Strings $text               The text dictionary.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
@@ -31,13 +33,13 @@
 				type="button">
 			<?php echo esc_html( $text->get( 'start-migration-preview-button' ) ); ?>
 		</button>
-		<a href="http://evnt.is/recurrence-2-0" target="_blank" rel="noopener">
+		<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
 			<?php echo esc_html( $text->get( 'learn-more-button' ) ); ?>
 		</a>
 	</div>
 	<div class="image-container">
 		<img class="screenshot"
-			 src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>"
-			 alt="<?php esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
+			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>

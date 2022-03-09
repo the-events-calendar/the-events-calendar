@@ -19,8 +19,11 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$renderer = new Phase_View_Renderer( $phase, '/phase/preview-in-progress.php' );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
-			'/partials/progress-bar.php',
-			[ 'report' => Site_Report::build(), 'phase' => $phase, 'text' => tribe( Strings::class ) ]
+			'/partials/progress-bar.php', [
+				'report' => Site_Report::build(),
+				'phase'  => $phase,
+				'text'   => tribe( Strings::class )
+			]
 		);
 
 		$output = $renderer->compile();
@@ -51,7 +54,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	public function should_render_preview_prompt_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_PREVIEW_PROMPT;
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => tribe( Strings::class ) ] );
+		$text     = tribe( Strings::class );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => $text ] );
 
 		$output = $renderer->compile();
 
@@ -59,6 +63,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertNotEmpty( $output );
 		$this->assertEmpty( $output['nodes'] );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'start-migration-preview-button' ), $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade-start-migration-preview', $output['html'] );
 	}
 
@@ -70,11 +75,12 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	public function should_render_preview_in_progress_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_PREVIEW_IN_PROGRESS;
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => tribe( Strings::class ) ] );
+		$text     = tribe( Strings::class );
+		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => $text ] );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
 			'/partials/progress-bar.php',
-			[ 'report' => Site_Report::build(), 'phase' => $phase ]
+			[ 'report' => Site_Report::build(), 'phase' => $phase ,  'text' => $text ]
 		);
 
 		$output = $renderer->compile();
@@ -83,6 +89,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . State::PHASE_PREVIEW_IN_PROGRESS, $output['html'] );
+		$this->assertContains( $text->get( 'preview-in-progress' ), $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
 		$this->assertContains( 'tribe-update-bar__summary-progress-text', $node['html'] );
 	}
@@ -96,12 +103,13 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Setup templates.
 		$phase = State::PHASE_MIGRATION_PROMPT;
 		$state = tribe( State::class );
+		$text     = tribe( Strings::class );
 		$time  = time();
 		$state->set( 'complete_timestamp', $time );
 		$state->save();
 
 		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php",
-			[ 'report' => Site_Report::build( 1, 20 ) ]
+			[ 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
 		);
 		$output   = $renderer->compile();
 
@@ -110,6 +118,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertEmpty( $output['nodes'] );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__alert', $output['html'] );
+		$this->assertContains( $text->get( 'start-migration-button' ), $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
 		$this->assertContains( wp_date( 'F j, Y, g:i a', $time ), $output['html'] );
 	}
@@ -126,7 +135,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
 			'/partials/progress-bar.php',
-			[ 'report' => Site_Report::build(), 'phase' => $phase ]
+			[ 'report' => Site_Report::build(), 'phase' => $phase, 'text' => tribe( Strings::class ) ]
 		);
 
 		$output = $renderer->compile();
@@ -150,7 +159,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$state    = tribe( State::class );
 		$renderer = new Phase_View_Renderer( $phase,
 			"/phase/$phase.php",
-			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ) ]
+			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => tribe( Strings::class ) ]
 		);
 
 		$output = $renderer->compile();
