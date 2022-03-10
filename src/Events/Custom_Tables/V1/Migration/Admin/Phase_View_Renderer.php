@@ -2,7 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
-use TEC\Events\Custom_Tables\V1\Migration\Strings;
+use TEC\Events\Custom_Tables\V1\Migration\StringDictionary;
 
 class Phase_View_Renderer {
 	/**
@@ -68,7 +68,7 @@ class Phase_View_Renderer {
 		$this->vars = array_merge( [
 			'phase'              => $key,
 			'template_directory' => $this->template_directory,
-			'text'               => tribe( Strings::class ),
+			'text'               => tribe( StringDictionary::class ),
 		], $vars );
 	}
 

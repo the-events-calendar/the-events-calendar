@@ -1,12 +1,12 @@
 <?php
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
-use TEC\Events\Custom_Tables\V1\Migration\Strings;
+use TEC\Events\Custom_Tables\V1\Migration\StringDictionary;
 
 /**
- * @var string      $template_directory The absolute path to the Migration template root directory.
- * @var Site_Report $report             The report details.
- * @var Strings     $text               Our text dictionary.
+ * @var string           $template_directory The absolute path to the Migration template root directory.
+ * @var Site_Report      $report             The report details.
+ * @var StringDictionary $text               Our text dictionary.
  */
 ?>
 <div class="tec-ct1-upgrade__row">

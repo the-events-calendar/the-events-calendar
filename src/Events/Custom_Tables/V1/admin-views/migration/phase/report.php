@@ -1,15 +1,15 @@
 <?php
 
-use TEC\Events\Custom_Tables\V1\Migration\Strings;
+use TEC\Events\Custom_Tables\V1\Migration\StringDictionary;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 
 /**
- * @var string      $template_directory The absolute path to the Migration template root directory.
- * @var Strings     $text               The text dictionary.
- * @var string      $datetime_heading   The heading for the date of completion.
- * @var string      $total_heading      The heading for the total events.
- * @var string      $heading_action     The action bar relevant for this phase.
- * @var Site_Report $report             The site report data.
+ * @var string           $template_directory The absolute path to the Migration template root directory.
+ * @var StringDictionary $text               The text dictionary.
+ * @var string           $datetime_heading   The heading for the date of completion.
+ * @var string           $total_heading      The heading for the total events.
+ * @var string           $heading_action     The action bar relevant for this phase.
+ * @var Site_Report      $report             The site report data.
  *
  * @todo we don't handle language for migration complete vs preview complete...
  */
