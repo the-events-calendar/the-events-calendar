@@ -147,6 +147,19 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'size'            => 'small',
 			'default'         => '$',
 		],
+		'defaultCurrencyCode'         => [
+			'type'            => 'text',
+			'label'           => esc_html__( 'Default currency code', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Set the default currency ISO-4217 code for event costs. This is a three-letter code and is mainly used for data/SEO purposes.', 'the-events-calendar' ),
+			'validation_type' => 'textarea',
+			'size'            => 'small',
+			'default'         => 'USD',
+			'attributes'      => [
+				'minlength'   => 3,
+				'maxlength'   => 3,
+				'placeholder' => __( 'Three-letter ISO currency code.', 'the-events-calendar' ),
+			],
+		],
 		'reverseCurrencyPosition'       => [
 			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Currency symbol follows value', 'the-events-calendar' ),

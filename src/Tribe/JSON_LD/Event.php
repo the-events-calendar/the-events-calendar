@@ -129,10 +129,9 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 			$price = tribe_get_cost( $post_id );
 			$price = $this->normalize_price( $price );
 			if ( '' !== $price ) {
-
 				// The currency has to be in ISO 4217
-				$event_currency = get_post_meta( $post_id, '_EventCurrencySymbol', true );
-				$currency       = ( '' !== $event_currency ) ? $event_currency : 'USD';
+				$event_currency = get_post_meta( $post_id, '_EventCurrencyCode', true );
+				$currency       = ( '' !== $event_currency ) ? $event_currency : tribe_get_option( 'defaultCurrencyCode', 'USD' );
 
 				// Manually Include the Price for non Event Tickets
 				$data->offers = (object) [
