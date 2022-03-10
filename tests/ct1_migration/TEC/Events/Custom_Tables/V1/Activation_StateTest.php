@@ -27,27 +27,6 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
-	 * Reset the activation flags, and remove CT1 tables. We want to simulate no activation having been done yet.
-	 */
-	public function given_a_reset_activation() {
-		global $wpdb;
-		// Ditch our CT1 schema.
-		tribe( Provider::class )->drop_tables();
-
-		// Reset state in the db.
-		delete_transient( Activation::ACTIVATION_TRANSIENT );
-		$state = tribe( State::class );
-		$state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
-		$state->save();
-
-		// Sanity check.
-		$q      = 'show tables';
-		$tables = $wpdb->get_col( $q );
-		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
-		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
-	}
-
-	/**
 	 * Should be in the correct state for a migration to begin.
 	 *
 	 * @test

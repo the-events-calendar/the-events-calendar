@@ -2,14 +2,40 @@
 
 namespace Tribe\Events\Test\Traits\CT1;
 
+use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Models\Event as Event_Model;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence as Occurrence_Model;
+use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
+use TEC\Events\Custom_Tables\V1\Tables\Provider;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Events__Main as TEC;
 
 trait CT1_Fixtures {
+
+	/**
+	 * Reset the activation flags, and remove CT1 tables. We want to simulate no activation having been done yet.
+	 */
+	public function given_a_reset_activation() {
+		global $wpdb;
+		// Ditch our CT1 schema.
+		tribe( Provider::class )->drop_tables();
+
+		// Reset state in the db.
+		delete_transient( Activation::ACTIVATION_TRANSIENT );
+		$state = tribe( State::class );
+		$state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
+		$state->save();
+
+		// Sanity check.
+		$q      = 'show tables';
+		$tables = $wpdb->get_col( $q );
+		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
+		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
+	}
+	
 	/**
 	 * @return \WP_Post
 	 */
