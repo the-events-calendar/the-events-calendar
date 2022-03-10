@@ -240,6 +240,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
 * Fix - Load the assets required by the `Event View` Elementor widget in preview mode. [ECP-1065]
 
 = [5.14.0.2] 2022-02-22 =
