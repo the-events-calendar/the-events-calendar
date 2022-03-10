@@ -4,7 +4,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
-use TEC\Events\Custom_Tables\V1\Migration\StringDictionary;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
@@ -22,7 +22,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 			'/partials/progress-bar.php', [
 				'report' => Site_Report::build(),
 				'phase'  => $phase,
-				'text'   => tribe( StringDictionary::class )
+				'text'   => tribe( String_Dictionary::class )
 			]
 		);
 
@@ -54,7 +54,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	public function should_render_preview_prompt_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_PREVIEW_PROMPT;
-		$text     = tribe( StringDictionary::class );
+		$text     = tribe( String_Dictionary::class );
 		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => $text ] );
 
 		$output = $renderer->compile();
@@ -75,7 +75,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	public function should_render_preview_in_progress_ok() {
 		// Setup templates.
 		$phase    = State::PHASE_PREVIEW_IN_PROGRESS;
-		$text     = tribe( StringDictionary::class );
+		$text     = tribe( String_Dictionary::class );
 		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php", [ 'text' => $text ] );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
@@ -103,7 +103,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Setup templates.
 		$phase = State::PHASE_MIGRATION_PROMPT;
 		$state = tribe( State::class );
-		$text  = tribe( StringDictionary::class );
+		$text  = tribe( String_Dictionary::class );
 		$time  = time();
 		$state->set( 'complete_timestamp', $time );
 		$state->save();
@@ -132,7 +132,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Setup templates.
 		$phase    = State::PHASE_MIGRATION_IN_PROGRESS;
 		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
-		$text     = tribe( StringDictionary::class );
+		$text     = tribe( String_Dictionary::class );
 		$renderer->register_node( 'progress-bar',
 			'.tec-ct1-upgrade-update-bar-container',
 			'/partials/progress-bar.php',
@@ -159,7 +159,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Setup templates.
 		$phase    = State::PHASE_MIGRATION_COMPLETE;
 		$state    = tribe( State::class );
-		$text     = tribe( StringDictionary::class );
+		$text     = tribe( String_Dictionary::class );
 		$renderer = new Phase_View_Renderer( $phase,
 			"/phase/$phase.php",
 			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
@@ -184,7 +184,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Setup templates.
 		$phase = State::PHASE_UNDO_IN_PROGRESS;
 		$state = tribe( State::class );
-		$text  = tribe( StringDictionary::class );
+		$text  = tribe( String_Dictionary::class );
 
 		$renderer = new Phase_View_Renderer( $phase,
 			"/phase/$phase.php",

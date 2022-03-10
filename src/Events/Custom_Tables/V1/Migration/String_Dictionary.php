@@ -16,7 +16,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
-class StringDictionary {
+class String_Dictionary {
 	/**
 	 * Whether the strings have been initialized or not.
 	 *
