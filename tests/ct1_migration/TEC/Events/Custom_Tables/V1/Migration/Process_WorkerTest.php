@@ -20,6 +20,12 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		];
 	}
 
+	public function concurrency_settings_provider() {
+		return [
+			'10 Events, 3 Workers' => [ 10, 3 ]
+		];
+	}
+
 	/**
 	 * It should provide correct parameters to migration strategies
 	 *
@@ -102,14 +108,18 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	 * It should correctly handle impromptu die in migration strategy
 	 *
 	 * @test
-	 * @skip
-	 * @todo Need to add concurrency to this...
+	 * @dataProvider concurrency_settings_provider
 	 */
-	public function should_correctly_handle_die_migration_strategy() {
-		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
-		$post_id = $this->given_a_non_migrated_single_event()->ID;
+	public function should_correctly_handle_die_migration_strategy( $event_set_size, $parallelism ) {
+		if ( ! function_exists( 'pcntl_fork' ) ) {
+			$this->markTestSkipped( 'The pcntl_fork function is required to run this test.' );
+		}
 
-		$dry_run = false;
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post_ids = array_map( function () {
+			return $this->given_a_non_migrated_single_event()->ID;
+		}, range( 1, $event_set_size ) );
+
 		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function () {
 			return new class extends Null_Migration_Strategy {
 				public function apply( Event_Report $event_report ) {
@@ -118,18 +128,26 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			};
 		} );
 
-		$process = new Process_Worker( new Events, new State );
-		$report  = $process->migrate_event( $post_id, $dry_run );
+		$generate_workers_for = static function ( $post_ids ) {
+			foreach ( $post_ids as $post_id ) {
+				yield static function () use ( $post_id ) {
+					$worker = new Process_Worker( new Events, new State );
+					$worker->migrate_event( $post_id );
+				};
+			}
+		};
 
-		$this->assertNotEmpty( $report->error );
-		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
+		// ACT
+		$this->fork_loop_wait( $generate_workers_for( $post_ids ), $parallelism );
+
+		// Should have transitioned phase and all events should have failed.
+		foreach ( $post_ids as $post_id ) {
+			$event_report = new Event_Report( get_post( $post_id ) );
+			$this->assertNotEmpty( $event_report->error );
+			$this->assertEquals( Event_Report::STATUS_FAILURE, $event_report->status );
+		}
+
 		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $this->get_phase() );
-	}
-
-	public function concurrency_settings_provider() {
-		return [
-			'10 Events, 3 Workers' => [ 10, 3 ]
-		];
 	}
 
 	/**
