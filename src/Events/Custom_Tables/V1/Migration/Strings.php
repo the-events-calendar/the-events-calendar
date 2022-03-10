@@ -194,115 +194,42 @@ class Strings {
 				'We are reversing your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-changes-to-events'          => __(
+				'Changes to events!',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-events-modified'          => __(
+				'The following events will be modified during the migration process:',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-no-changes-to-events'          => __(
+				'Events can migrate with no changes!',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-strategy-split'          => __(
+				'This event will be %1$ssplit into %2$s recurring events%3$s with identical content.',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-strategy-split-new-series'          => __(
+				'The events will be part of a new %1$s.',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-strategy-modified-exclusions'          => __(
+				'%1$sOne or more exclusion rules will be modified%2$s, but no occurrences will be added or removed.',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-strategy-modified-rules'          => __(
+				'%1$sOne or more recurrence rules will be modified%2$s, but no occurrences will be added or removed.',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-unknown-strategy'          => __(
+				'Unknown strategy applied to this event.',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
+			'migration-prompt-learn-about-report-button'          => __(
+				'Learn more about your migration preview report',
 				'the-events-calendar'
 			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-			'_'          => __(
-				'_',
-				'the-events-calendar'
-			),
-
 		] );
 	}
 
