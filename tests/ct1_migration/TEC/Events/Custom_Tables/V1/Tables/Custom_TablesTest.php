@@ -20,7 +20,6 @@ class Custom_TablesTest extends \CT1_Migration_Test_Case {
 	/**
 	 * Should successfully drop custom tables.
 	 *
-	 * @skip
 	 * @test
 	 */
 	public function should_drop_custom_tables() {
@@ -47,7 +46,6 @@ class Custom_TablesTest extends \CT1_Migration_Test_Case {
 	/**
 	 * Should filter the tables being dropped.
 	 *
-	 * @test
 	 * @skip
 	 */
 	public function should_filter_custom_table_drop() {
