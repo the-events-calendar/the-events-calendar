@@ -259,7 +259,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							type='text'
 							id='EventCurrencyCode'
 							name='EventCurrencyCode'
-							size='2'
+							size='3'
 							value='<?php echo isset( $_EventCurrencyCode ) ? esc_attr( $_EventCurrencyCode ) : tribe_get_option( 'defaultCurrencyCode', 'USD' ); ?>'
 							class='alignleft'
 						/>
