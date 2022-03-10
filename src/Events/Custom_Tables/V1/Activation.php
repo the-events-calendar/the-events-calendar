@@ -9,6 +9,8 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
+use TEC\Events\Custom_Tables\V1\Migration\Events;
+use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
 
 /**
@@ -56,11 +58,20 @@ class Activation {
 
 		set_transient( self::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
 
-		$services = tribe();
+		// @todo Is this where this activation logic belongs? Move logic up?
+		// Check if we have not "migrated", then attempt to activate.
+		$state = tribe( State::class );
+		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE ) {
+			$services = tribe();
+			$services->register( Tables::class );
+			$services->make( Tables::class )->update_tables( true );
 
-		$services->register( Tables::class );
-
-		$services->make( Tables::class )->update_tables( true );
+			// Check if we have any events to migrate.
+			if ( tribe( Events::class )->get_total_events() === 0 ) {
+				$state->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
+				$state->save();
+			}
+		}
 	}
 
 	/**
@@ -72,7 +83,7 @@ class Activation {
 		$services = tribe();
 
 		$services->register( Tables::class );
-
+		// @todo Should we drop the tables here, gracefully, if no data was generated?
 		$services->make( Tables::class )->clean();
 	}
 }

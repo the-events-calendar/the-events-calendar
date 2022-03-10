@@ -46,7 +46,7 @@ class Custom_TablesTest extends \CT1_Migration_Test_Case {
 	/**
 	 * Should filter the tables being dropped.
 	 *
-	 * @skip
+	 * @test
 	 */
 	public function should_filter_custom_table_drop() {
 		global $wpdb;

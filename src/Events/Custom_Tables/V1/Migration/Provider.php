@@ -62,6 +62,9 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Process_Worker::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
 		add_action( Process_Worker::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
 
+		// Initial state setup.
+		add_action( 'init', [ $this, 'activate' ] );
+
 		// Activate maintenance mode, if required.
 		add_action( 'init', [ $this, 'activate_maintenance_mode' ] );
 
@@ -82,6 +85,16 @@ class Provider extends Service_Provider implements Provider_Contract {
 			// @todo delegate this to upgrade tab class?
 			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
+		}
+	}
+
+	/**
+	 * Set our state appropriately.
+	 */
+	public function activate() {
+		$state = tribe( State::class );
+		if ( ! $state->get_phase() ) {
+			$state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
 		}
 	}
 
