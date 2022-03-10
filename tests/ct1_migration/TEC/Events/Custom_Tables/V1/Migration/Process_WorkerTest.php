@@ -202,8 +202,4 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		);
 		$this->assertEquals( $event_set_size, $migrated_events );
 	}
-
-
-
-
 }
