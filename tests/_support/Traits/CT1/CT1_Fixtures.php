@@ -52,4 +52,11 @@ trait CT1_Fixtures {
 		$state['phase'] = $phase;
 		tribe_update_option( State::STATE_OPTION_KEY, $state );
 	}
+
+
+	protected function get_phase() {
+		$state = tribe_get_option( State::STATE_OPTION_KEY, [] );
+
+		return $state['phase'];
+	}
 }

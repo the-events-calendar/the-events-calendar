@@ -67,6 +67,63 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 
 		$this->assertEquals( 'for reasons', $report->error );
 		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
+		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $this->get_phase() );
+	}
+
+	/**
+	 * It should correctly handle error in migration strategy
+	 *
+	 * @test
+	 */
+	public function should_correctly_handle_error_migration_strategy() {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post_id = $this->given_a_non_migrated_single_event()->ID;
+
+		$dry_run = false;
+		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function () {
+			return new class extends Null_Migration_Strategy {
+				public function apply( Event_Report $event_report ) {
+					trigger_error( "Random error" );
+					// Should fail on first error.
+					trigger_error( "Should not hit this error" );
+				}
+			};
+		} );
+
+		$process = new Process_Worker( new Events, new State );
+		$report  = $process->migrate_event( $post_id, $dry_run );
+
+		$this->assertEquals( "Random error", $report->error );
+		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
+		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $this->get_phase() );
+	}
+
+	/**
+	 * It should correctly handle impromptu die in migration strategy
+	 *
+	 * @test
+	 * @skip
+	 * @todo Need to add concurrency to this...
+	 */
+	public function should_correctly_handle_die_migration_strategy() {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post_id = $this->given_a_non_migrated_single_event()->ID;
+
+		$dry_run = false;
+		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function () {
+			return new class extends Null_Migration_Strategy {
+				public function apply( Event_Report $event_report ) {
+					die();
+				}
+			};
+		} );
+
+		$process = new Process_Worker( new Events, new State );
+		$report  = $process->migrate_event( $post_id, $dry_run );
+
+		$this->assertNotEmpty( $report->error );
+		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
+		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $this->get_phase() );
 	}
 
 	public function concurrency_settings_provider() {
@@ -127,4 +184,8 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		);
 		$this->assertEquals( $event_set_size, $migrated_events );
 	}
+
+
+
+
 }
