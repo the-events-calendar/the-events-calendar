@@ -157,7 +157,7 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'attributes'      => [
 				'minlength'   => 3,
 				'maxlength'   => 3,
-				'placeholder' => __( 'Three-letter ISO currency code.', 'the-events-calendar' ),
+				'placeholder' => __( 'USD', 'the-events-calendar' ),
 			],
 		],
 		'reverseCurrencyPosition'       => [
