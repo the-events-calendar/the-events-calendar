@@ -46,9 +46,30 @@ class Events {
 		$event_data = Event::data_from_post( $post_id );
 		$upsert     = Event::upsert( [ 'post_id' ], $event_data );
 
-		if ( ! $upsert ) {
+		if ( $upsert === false ) {
 			// At this stage the data might just be missing: it's fine.
 			return false;
+		}
+
+		// Show when an event is updated versus inserted
+		if ( $upsert === 1 ) {
+			/**
+			 * When we have created a new event, fire this action with the post ID.
+			 *
+			 * @since TBD
+			 *
+			 * @param numeric $post_id The event post ID.
+			 */
+			do_action( 'tec_events_custom_tables_v1_after_insert_event', $post_id );
+		} else {
+			/**
+			 * When we have updated an existing event, fire this action with the post ID.
+			 *
+			 * @since TBD
+			 *
+			 * @param numeric $post_id The event post ID.
+			 */
+			do_action( 'tec_events_custom_tables_v1_after_update_event', $post_id );
 		}
 
 		$event = Event::find( $post_id, 'post_id' );

@@ -223,7 +223,7 @@ class Builder {
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
 	 * @param array<string,mixed>|null $data      The data to be inserted or updated into the table.
 	 *
-	 * @return bool If the operation was completed correctly or not.
+	 * @return false|int The rows affected flag or false on failure.
 	 */
 	public function upsert( array $unique_by, array $data = null ) {
 		if ( empty( $unique_by ) ) {
@@ -300,10 +300,10 @@ class Builder {
 			 * Depending on the db implementation, it could not run updates and return `0`.
 			 * We need to make sure it does not return exactly boolean `false`.
 			 */
-			return false !== $wpdb->query( $SQL );
+			return $wpdb->query( $SQL );
 		}
 
-		return true;
+		return 0;
 	}
 
 	/**
