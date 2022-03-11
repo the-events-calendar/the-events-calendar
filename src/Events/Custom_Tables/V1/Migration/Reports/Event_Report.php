@@ -118,7 +118,10 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Get all of the report data.
+	 *
 	 * @since TBD
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function get_data() {
@@ -144,6 +147,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Add each WP_Post for events that will be created for this migration strategy.
+	 *
 	 * @since TBD
 	 *
 	 * @param WP_Post $post
@@ -165,6 +170,7 @@ class Event_Report implements JsonSerializable {
 	 * When you start the migration process set the appropriate state.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	public function start_event_migration() {
@@ -177,6 +183,7 @@ class Event_Report implements JsonSerializable {
 	 * When you start the undo process set the appropriate state.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	public function start_event_undo_migration() {
@@ -189,6 +196,7 @@ class Event_Report implements JsonSerializable {
 	 * Setup the microtime for when the migration starts.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	protected function set_start_timestamp() {
@@ -201,6 +209,7 @@ class Event_Report implements JsonSerializable {
 	 * Setup the microtime for when the migration ends.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	protected function set_end_timestamp() {
@@ -226,6 +235,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Set the error message for migration failure events.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $reason
@@ -239,6 +250,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Set the status flag for this report.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $status
@@ -255,6 +268,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Add each WP_Post for series that will be created for this migration strategy.
+	 *
 	 * @since TBD
 	 *
 	 * @param WP_Post $post
@@ -271,6 +286,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Add each strategy applied for this migration.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $strategy
@@ -285,6 +302,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Set the ticket provider, when an ET event.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $tickets_provider
@@ -298,46 +317,12 @@ class Event_Report implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Mark this event undo migration as a success, and save in the database.
-	 *
-	 * @since TBD
-	 * @return Event_Report
-	 * @todo  Do we need undo failure?
-	 */
-	public function undo_success() {
-		// We clear our meta data when we are done.
-		$this->clear_meta();
-		$this->data = [];
-
-		return $this;
-	}
 
 	/**
-	 * Mark this event migration as a failure, and save in database with a reason.
+	 * Removes all of the migration metadata.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $reason
-	 *
-	 * @return Event_Report
-	 */
-	public function undo_failed( string $reason ) {
-		// Track time immediately
-		$this->set_end_timestamp();
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_UNDO_FAILURE );
-		$this->unlock_event();
-
-		return $this->set_error( $reason )
-		            ->set_status( self::STATUS_FAILURE )
-		            ->save();
-	}
-
-
-	/**
-	 * Removes all of the migration meta data.
-	 *
-	 * @since TBD
 	 * @return $this
 	 */
 	public function clear_meta() {
@@ -352,6 +337,7 @@ class Event_Report implements JsonSerializable {
 	 * Mark this event migration as a success, and save in the database.
 	 *
 	 * @since TBD
+	 *
 	 * @return Event_Report
 	 */
 	public function migration_success() {
@@ -401,6 +387,7 @@ class Event_Report implements JsonSerializable {
 	 * Stores current state in the meta table.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	protected function save() {
@@ -410,9 +397,11 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Getter for the report data.
+	 *
 	 * @since TBD
 	 *
-	 * @param $prop
+	 * @param string $prop The property key.
 	 *
 	 * @return mixed|null
 	 */
@@ -421,7 +410,10 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * The JSON serializer logic.
+	 *
 	 * @since TBD
+	 *
 	 * @return array
 	 */
 	public function jsonSerialize() {
