@@ -5,10 +5,12 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Null_Migration_Strategy;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
+use Tribe\Events\Test\Traits\CT1\CT1_Test_Utils;
 use Tribe\Events\Test\Traits\Forks;
 
 class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
+	use CT1_Test_Utils;
 	use Forks;
 
 	private $uopz_allow_exit_ini_value;
@@ -111,7 +113,6 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	 * @dataProvider concurrency_settings_provider
 	 */
 	public function should_correctly_handle_die_migration_strategy( $event_set_size, $parallelism ) {
-		$this->markTestSkipped();
 		if ( ! function_exists( 'pcntl_fork' ) ) {
 			$this->markTestSkipped( 'The pcntl_fork function is required to run this test.' );
 		}
@@ -148,6 +149,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			$this->assertEquals( Event_Report::STATUS_FAILURE, $event_report->status );
 		}
 
+		// The option will have been updated in a fork, the local cache will be not up-to-date.
 		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $this->get_phase() );
 	}
 
@@ -199,7 +201,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 				"select count(post_id) from $wpdb->postmeta where meta_key = %s and meta_value = %s",
 				Event_Report::META_KEY_MIGRATION_PHASE,
 				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
- 			)
+			)
 		);
 		$this->assertEquals( $event_set_size, $migrated_events );
 	}

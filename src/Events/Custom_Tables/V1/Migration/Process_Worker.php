@@ -12,6 +12,7 @@ use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
+use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Tables\Provider;
 
 /**
@@ -32,6 +33,7 @@ class Process_Worker {
 	 * Event should be undone.
 	 */
 	const ACTION_UNDO = 'tec_events_custom_tables_v1_migration_cancel';
+
 	/**
 	 * A reference to the current Events' migration repository.
 	 *
@@ -48,16 +50,45 @@ class Process_Worker {
 	private $state;
 
 	/**
+	 * A reference to the current event report, the one associated
+	 * to the Event that is being migrated.
+	 *
+	 * @since TBD
+	 *
+	 * @var Event_Report|null
+	 */
+	private $event_report;
+
+	/**
+	 * A flag property used to keep track of whether a started
+	 * migration completed or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool|null
+	 */
+	private $migration_completed;
+
+	/**
+	 * Whether the current event migration is running in dry-run mode or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool|null
+	 */
+	private $dry_run;
+
+	/**
 	 * Process_Worker constructor.
 	 *
 	 * @since TBD
 	 *
 	 * @param Events $events A reference to the current Events' migration repository.
-	 * @param State $state A reference to the migration state data.
+	 * @param State  $state  A reference to the migration state data.
 	 */
 	public function __construct( Events $events, State $state ) {
 		$this->events = $events;
-		$this->state = $state;
+		$this->state  = $state;
 	}
 
 	/**
@@ -73,23 +104,29 @@ class Process_Worker {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
-		// Get our Event_Report ready for the strategy.
-		// This is also used in our error catching, so needs to be defined outside that block.
-		$event_report = new Event_Report( get_post( $post_id ) );
+		$this->dry_run = $dry_run;
 
-		// Watch for any errors that may occur and store in our Event_Report.
-		set_error_handler(
-			function ( $errno, $errstr, $errfile, $errline ) {
-				// Delegate to our try/catch handler.
-				throw new Migration_Exception( $errstr, $errno );
-			}
-		);
+		/*
+		 * Get our Event_Report ready for the strategy.
+		 * This is also used in our error catching, so needs to be defined outside that block.
+		 */
+		$this->event_report = new Event_Report( get_post( $post_id ) );
 
-		// Catch unexpected shutdown.
-		$shutdown_function = function () use ( $event_report ) {
-			$event_report->migration_failed( 'Unknown error occurred, shutting down.' );
-		};
-		add_action( 'shutdown', $shutdown_function );
+		// Set our dead-man switch.
+		$this->migration_completed = false;
+
+		// Watch for any errors that may occur and store them in the Event_Report.
+		set_error_handler( [ $this, 'error_handler' ] );
+
+		// Set this as a fallback: we'll remove it later if everything goes fine.
+		add_action( 'shutdown', [ $this, 'shutdown_handler' ] );
+
+		/*
+		 * If some calls `die` or `exit` during the migration PHP might not trigger
+		 * shutdown. For that purpose let's buffer and try to capture the event and
+		 * the reason for it.
+		 */
+		ob_start( [ $this, 'ob_flush_handler' ] );
 
 		try {
 			// Check if we are still in migration phase.
@@ -97,9 +134,10 @@ class Process_Worker {
 				State::PHASE_PREVIEW_IN_PROGRESS,
 				State::PHASE_MIGRATION_IN_PROGRESS
 			], true ) ) {
-				$event_report->migration_failed( 'Canceled.' );
+				$this->event_report->migration_failed( 'Canceled.' );
+				$this->migration_completed = true;
 
-				return $event_report;
+				return $this->event_report;
 			}
 
 			/**
@@ -121,13 +159,14 @@ class Process_Worker {
 				$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
 			}
 
-			$event_report->start_event_migration();
+			$this->event_report->start_event_migration();
 
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
-			$strategy->apply( $event_report );
+			$strategy->apply( $this->event_report );
+
 			// If no error, mark successful.
-			if ( ! $event_report->error ) {
-				$event_report->migration_success();
+			if ( ! $this->event_report->error ) {
+				$this->event_report->migration_success();
 			}
 
 			$post_id = $this->events->get_id_to_process();
@@ -139,27 +178,25 @@ class Process_Worker {
 				//@todo check action ID here and log on failure.
 			}
 		} catch ( \Throwable $e ) {
-			$event_report->migration_failed( $e->getMessage() );
+			$this->event_report->migration_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
-			$event_report->migration_failed( $e->getMessage() );
+			$this->event_report->migration_failed( $e->getMessage() );
 		}
+
+		$this->migration_completed = true;
+
 		// Restore error handling.
 		restore_error_handler();
 		// Remove shutdown hook.
-		remove_action( 'shutdown', $shutdown_function );
+		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
+		// Close the output buffer.
+		ob_end_clean();
 
-		// Transition phase.
-		if ( $this->events->get_total_events_remaining() === 0
-		     && $this->state->is_running()
-		     && in_array( $this->state->get_phase(), [
-				State::PHASE_MIGRATION_IN_PROGRESS,
-				State::PHASE_PREVIEW_IN_PROGRESS
-			] ) ) {
-			$this->state->set( 'phase', $dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE );
-			$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
-			$this->state->set( 'complete_timestamp', time() );
-			$this->state->save();
-		}
+		$this->update_phase();
+
+		// Do not hold a reference to the Report once the worker is done.
+		$event_report       = $this->event_report;
+		$this->event_report = null;
 
 		return $event_report;
 	}
@@ -221,5 +258,91 @@ class Process_Worker {
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
 	}
 
+	/**
+	 * Handles non-fatal errors that might be triggered during the migration.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $errno   The error code.
+	 * @param string $errstr  The error message.
+	 * @param string $errfile The path to the file the error was triggered from.
+	 * @param int    $errline The file line the error was triggered from.
+	 *
+	 * @return void The method never returns and will always throw when encountering
+	 *              an error during the migration.
+	 *
+	 * @throws Migration_Exception A reference to an exception wrapping the error.
+	 */
+	public function error_handler( $errno, $errstr, $errfile, $errline ) {
+		// Delegate to our try/catch handler.
+		throw new Migration_Exception( $errstr, $errno );
+	}
 
+	/**
+	 * Hooked to the WordPress `shutdown` hook.
+	 * This method should be removed during a successful migration
+	 * or one that is properly handled. If not, then this method is
+	 * an attempt to log the failure.
+	 *
+	 * @since TBD
+	 */
+	public function shutdown_handler(  ) {
+		// If we're here, the migration failed.
+		$this->event_report->migration_failed( 'Unknown error occurred, shutting down.' );
+
+		$this->update_phase();
+	}
+
+	/**
+	 * Updates the migration phase depending on the current status of the database.
+	 *
+	 * This is an idem-potent method that will only ste the migration state to done
+	 * when done; two or more concurrent workers doing the same will not break the
+	 * logic.
+	 */
+	private function update_phase( ) {
+		$migration_completed = $this->events->get_total_events_remaining() === 0
+		                       && $this->state->is_running()
+		                       && in_array(
+			                       $this->state->get_phase(), [
+			                       State::PHASE_MIGRATION_IN_PROGRESS,
+			                       State::PHASE_PREVIEW_IN_PROGRESS
+		                       ], true );
+
+		if ( ! $migration_completed ) {
+			return;
+		}
+
+		$phase = $this->dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE;
+		$this->state->set( 'phase', $phase );
+		$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
+		$this->state->set( 'complete_timestamp', time() );
+		$this->state->save();
+	}
+
+	/**
+	 * Hooked to the `ob_start` function, this method will run consistenly
+	 * across PHP versions when the `die` or `exit` function is called during
+	 * the migration process.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $buffer A string buffer that will contain all the output
+	 *                       produced by the PHP code before the `die` or `exit`
+	 *                       call.
+	 */
+	public function ob_flush_handler( $buffer ) {
+		if ( $this->migration_completed ) {
+			// If we set the switch flag, then we already handled possible errors.
+
+			return;
+		}
+
+		// If we're here, some code called `die` or `exit`.
+		$this->event_report->migration_failed(
+			'The "die" or "exit" function was called during the migration process; output: ' . $buffer
+		);
+
+		$this->update_phase();
+	}
 }

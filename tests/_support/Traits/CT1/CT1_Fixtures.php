@@ -10,6 +10,7 @@ use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Provider;
 use Tribe__Date_Utils as Dates;
+use Tribe__Settings_Manager as Options;
 use Tribe__Timezones as Timezones;
 use Tribe__Events__Main as TEC;
 
@@ -35,7 +36,7 @@ trait CT1_Fixtures {
 		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
 		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
 	}
-	
+
 	/**
 	 * @return \WP_Post
 	 */
@@ -77,12 +78,5 @@ trait CT1_Fixtures {
 		$state          = tribe_get_option( State::STATE_OPTION_KEY, [] );
 		$state['phase'] = $phase;
 		tribe_update_option( State::STATE_OPTION_KEY, $state );
-	}
-
-
-	protected function get_phase() {
-		$state = tribe_get_option( State::STATE_OPTION_KEY, [] );
-
-		return $state['phase'];
 	}
 }

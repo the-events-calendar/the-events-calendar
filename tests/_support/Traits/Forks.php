@@ -43,7 +43,9 @@ trait Forks {
 			// Child process.
 
 			// Buffer everything and avoid Codeception 'COMMAND DID NOT FINISH PROPERLY' message.
-			ob_start( static function ( $string ) {
+			ob_start( static function () {
+				global $wpdb;
+				$wpdb->close();
 			} );
 
 			// Close and re-open the db connection as resources are not shared in forks.
