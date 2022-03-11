@@ -338,9 +338,16 @@ class Process_Worker {
 			return;
 		}
 
+		/**
+		 * Since we're storing output of arbitrary length in the database, let's
+		 * trim it down to something that should not go over the `mysql_max_packet`
+		 * size.
+		 */
+		$trimmed_buffer = substr( $buffer, 0, 1024 );
+
 		// If we're here, some code called `die` or `exit`.
 		$this->event_report->migration_failed(
-			'The "die" or "exit" function was called during the migration process; output: ' . $buffer
+			'The "die" or "exit" function was called during the migration process; output: ' . $trimmed_buffer
 		);
 
 		$this->update_phase();
