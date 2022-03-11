@@ -134,11 +134,11 @@ trait Custom_Tables_Provider {
 		global $wpdb;
 
 		foreach ( $this->table_classes as $class ) {
-			$no_prefix_table_name          = call_user_func( [ $class, 'table_name' ], false );
-			$prefixed_tale_name            = call_user_func( [ $class, 'table_name' ] );
+			$no_prefix_table_name = call_user_func( [ $class, 'table_name' ], false );
+			$prefixed_tale_name   = call_user_func( [ $class, 'table_name' ], true );
 			$wpdb->{$no_prefix_table_name} = $prefixed_tale_name;
 			if ( ! in_array( $wpdb->{$no_prefix_table_name}, $wpdb->tables, true ) ) {
-				$wpdb->tables[] = $wpdb->{$no_prefix_table_name};
+				$wpdb->tables[] = $no_prefix_table_name;
 			}
 		}
 	}
