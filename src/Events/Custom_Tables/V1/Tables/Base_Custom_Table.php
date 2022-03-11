@@ -152,6 +152,6 @@ abstract class Base_Custom_Table implements Custom_Table_Interface {
 
 		global $wpdb;
 
-		return (bool) $wpdb->query( "drop table {$this_table}" );
+		return (bool) $wpdb->query( "DROP TABLE {$this_table}" );
 	}
 }
