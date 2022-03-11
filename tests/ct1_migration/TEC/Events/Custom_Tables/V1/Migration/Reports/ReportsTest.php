@@ -61,7 +61,6 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_serialize_site_report() {
-// Setup some faux state
 		$faux_post1 = tribe_events()->set_args( [
 			'title'      => "Event " . rand( 1, 999 ),
 			'start_date' => date( 'Y-m-d H:i:s' ),

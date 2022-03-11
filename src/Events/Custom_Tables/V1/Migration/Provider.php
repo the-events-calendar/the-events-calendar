@@ -58,15 +58,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		$this->load_action_scheduler();
 
+		add_action( 'init', [ $this, 'init' ] );
+		
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
 		add_action( Process_Worker::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
 		add_action( Process_Worker::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
-
-		// Initial state setup.
-		add_action( 'init', [ $this, 'activate' ] );
-
-		// Activate maintenance mode, if required.
-		add_action( 'init', [ $this, 'activate_maintenance_mode' ] );
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
 		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
@@ -91,11 +87,22 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Set our state appropriately.
 	 */
-	public function activate() {
-		$state = tribe( State::class );
+	public function init_migration_state() {
+		$state = $this->container->make( State::class );
 		if ( ! $state->get_phase() ) {
 			$state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
 		}
+	}
+
+	/**
+	 * Run actions on WordPress 'init' action.
+	 */
+	public function init() {
+		// Initial state setup.
+		$this->init_migration_state();
+
+		// Activate maintenance mode, if required.
+		$this->activate_maintenance_mode();
 	}
 
 	/**
