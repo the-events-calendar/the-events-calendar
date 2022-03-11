@@ -26,8 +26,16 @@ trait Custom_Tables_Provider {
 	 * @since TBD
 	 */
 	public function drop_tables() {
+		/**
+		 * Runs before the custom tables are dropped by The Events Calendar.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tec_events_custom_tables_v1_pre_drop_tables' );
-		$table_classes = $this->table_classes;
+
+		// We list, and create, the tables from required to dependent; drop them in reverse order.
+		$table_classes = array_reverse( $this->table_classes );
+
 		/**
 		 * Filters the tables to be dropped.
 		 *
@@ -38,9 +46,14 @@ trait Custom_Tables_Provider {
 		$table_classes = apply_filters( 'tec_events_custom_tables_v1_tables_to_drop', $table_classes );
 
 		foreach ( $table_classes as $table_class ) {
-			do_action( "tec_events_custom_tables_v1_dropping_table", $table_class );
-			tribe($table_class)->drop_table();
+			tribe( $table_class )->drop_table();
 		}
+
+		/**
+		 * Runs after the custom tables have been dropped by The Events Calendar.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tec_events_custom_tables_v1_post_drop_tables' );
 	}
 
