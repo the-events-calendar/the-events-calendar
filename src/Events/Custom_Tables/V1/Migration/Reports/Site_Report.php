@@ -35,7 +35,10 @@ use Tribe__Events__Main as TEC;
 class Site_Report implements JsonSerializable {
 
 	/**
+	 * Site report data.
+	 *
 	 * @since TBD
+	 *
 	 * @var array<mixed> The report data.
 	 */
 	protected $data = [
@@ -129,17 +132,22 @@ class Site_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Get all of the site report data.
+	 *
 	 * @since TBD
-	 * @return mixed[]
+	 *
+	 * @return array<string,mixed>
 	 */
 	public function get_data() {
 		return $this->data;
 	}
 
 	/**
+	 * Getter for site report data.
+	 *
 	 * @since TBD
 	 *
-	 * @param $prop
+	 * @param string $prop The key of the data.
 	 *
 	 * @return mixed|null
 	 */
@@ -148,8 +156,11 @@ class Site_Report implements JsonSerializable {
 	}
 
 	/**
+	 * The JSON serializer.
+	 *
 	 * @since TBD
-	 * @return array<mixed>
+	 *
+	 * @return array<string,mixed>
 	 */
 	public function jsonSerialize() {
 		return $this->data;
