@@ -19,6 +19,23 @@ use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
  * @package TEC\Events\Custom_Tables\V1\Models
  */
 class Builder {
+
+	/**
+	 * @var int Flag to validate the Builder::upsert was an insert. Note - This is dependent on whether the MySQL
+	 *      CLIENT_FOUND_ROWS flag is set or not.
+	 */
+	const UPSERT_DID_INSERT = 1;
+	/**
+	 * @var int Flag to validate the Builder::upsert was an update. Note - This is dependent on whether the MySQL
+	 *      CLIENT_FOUND_ROWS flag is set or not.
+	 */
+	const UPSERT_DID_UPDATE = 2;
+	/**
+	 * @var int Flag to validate the Builder::upsert made no changes. Note - This is dependent on whether the MySQL
+	 *      CLIENT_FOUND_ROWS flag is set or not.
+	 */
+	const UPSERT_DID_NOT_CHANGE = 0;
+
 	/**
 	 * The size of the batch the Builder should use to fetch
 	 * Models in unbound query methods like `find_all`.

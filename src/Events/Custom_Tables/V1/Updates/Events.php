@@ -11,6 +11,7 @@
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
 use Exception;
+use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
@@ -52,7 +53,7 @@ class Events {
 		}
 
 		// Show when an event is updated versus inserted
-		if ( $upsert === 1 ) {
+		if ( $upsert === Builder::UPSERT_DID_INSERT ) {
 			/**
 			 * When we have created a new event, fire this action with the post ID.
 			 *
