@@ -220,15 +220,17 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
 =[TBD] TBD =
 
+* Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
 * Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TEC-4263]
 * Fix - Correct Month View ics export so it begins on the current day rather than the 1st. [TEC-4223]
-* Fix - Add ISO Currency Code field to admin to set code sent via JSON-LD. Was sending symbol. [TEC-4212]
-
-= [TBD] TBD =
-
+* Fix - Add ISO Currency Code field to admin to set code sent via JSON-LD. TEC was incorrectly sending symbol. [TEC-4212]
+* Fix - Ensure that the full styles custom properties require the skeleton style custom properties. [TEC-4308]
 * Fix - Ensure that the State/Province field saves for non-US venues. [TEC-4309]
+* Fix - Correct duplicated text in wpadminbar Events Menu. [TEC-4310]
+* Fix - Load the assets required by the `Event View` Elementor widget in preview mode. [ECP-1065]
 
 = [5.14.0.4] 2022-03-01 =
 
@@ -236,12 +238,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.14.0.3] 2022-02-25 =
 
-* Fix - Ensure the Venue and Organizer metaboxes load when creating a new post of that type. [BTRIA-1152]
-
-= [TBD] TBD =
-
-* Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
-* Fix - Load the assets required by the `Event View` Elementor widget in preview mode. [ECP-1065]
+* Fix - Ensure the Venue and Organizer metaboxes load when creating a new post of that type. [TEC-4303]
 
 = [5.14.0.2] 2022-02-22 =
 
