@@ -2,53 +2,40 @@
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+
 /**
- * @var Site_Report $report
- * @var $phase
+ * @var Site_Report       $report Our migration site report.
+ * @var string            $phase  The current migration phase.
+ * @var String_Dictionary $text   The text dictionary.
  */
 
 $remaining_events       = $report->total_events_remaining;
 $total_previewed_events = $report->total_events_migrated;
 $progress               = $report->progress_percent;
 $percent                = "$progress%";
-if($phase === State::PHASE_PREVIEW_IN_PROGRESS) {
+if ( $phase === State::PHASE_PREVIEW_IN_PROGRESS ) {
 	$progress_text  = sprintf(
-			_x(
-					'%1$s%2$d%3$s events previewed',
-					'Number of events previewed',
-					'the-events-calendar'
-			),
+			$text->get( 'preview-progress-bar-events-done' ),
 			'<strong>',
 			$total_previewed_events,
 			'</strong>'
 	);
 	$remaining_text = sprintf(
-			_x(
-					'%1$s%2$d%3$s remaining',
-					'Number of events awaiting preview',
-					'the-events-calendar'
-			),
+			$text->get( 'preview-progress-bar-events-remaining' ),
 			'<strong>',
 			$remaining_events,
 			'</strong>'
 	);
 } else {
 	$progress_text  = sprintf(
-			_x(
-					'%1$s%2$d%3$s events migrated',
-					'Number of events migrated',
-					'the-events-calendar'
-			),
+			$text->get( 'migration-progress-bar-events-done' ),
 			'<strong>',
 			$total_previewed_events,
 			'</strong>'
 	);
 	$remaining_text = sprintf(
-			_x(
-					'%1$s%2$d%3$s remaining',
-					'Number of events awaiting migration',
-					'the-events-calendar'
-			),
+			$text->get( 'migration-progress-bar-events-remaining' ),
 			'<strong>',
 			$remaining_events,
 			'</strong>'
