@@ -20,7 +20,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.14.0
 	 */
 	public function register() {
-		if ( defined( 'TRIBE_HIDE_UPSELL' ) && tribe_is_truthy( TRIBE_HIDE_UPSELL ) ) {
+		if ( tec_should_hide_upsell() ) {
 			return;
 		}
 

@@ -471,6 +471,22 @@ class Assets extends \tad_DI52_ServiceProvider {
 				],
 			]
 		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-admin-v2-single-blocks',
+			'tribe-admin-single-blocks.css',
+			[ 
+				'tec-variables-full',
+				'tec-variables-skeleton',
+			],
+			[ 'admin_enqueue_scripts' ],
+			[
+				'conditionals' => [
+					[ $this, 'should_enqueue_admin' ]
+				],
+			]
+		);
 	}
 
 	/**
@@ -526,6 +542,23 @@ class Assets extends \tad_DI52_ServiceProvider {
 	public function should_enqueue_frontend() {
 		if ( null !== $this->should_enqueue_frontend ) {
 			return $this->should_enqueue_frontend;
+		}
+
+		/**
+		 * Checks whether the page is being viewed in Elementor preview mode.
+		 * 
+		 * @since TBD
+		 * 
+		 * @return bool $should_enqueue Should the frontend assets be enqueued.
+		 */
+		if (
+			defined( 'ELEMENTOR_PATH' )
+
+			&& ! empty( ELEMENTOR_PATH )
+		
+			&& isset( $_GET[ 'elementor-preview' ] )
+		) {
+			return $this->should_enqueue = true;
 		}
 
 		$should_enqueue = tribe( Template_Bootstrap::class )->should_load();
@@ -629,6 +662,29 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		// Bail if not Block Editor.
 		if ( ! tribe( 'editor' )->should_load_blocks() && ! has_blocks( get_queried_object_id() ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Load assets on the add or edit pages of the block editor only.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_admin() {
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		if ( ! get_current_screen()->is_block_editor ) {
+			return false;
+		}
+		
+		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
 			return false;
 		}
 
