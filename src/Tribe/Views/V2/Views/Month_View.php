@@ -536,7 +536,8 @@ class Month_View extends By_Day_View {
 
 		$this->repository->per_page( $per_page );
 
-		$context_date = $this->context->get( 'event_date', 'now' );
+		$now = Dates::build_date_object( 'now' );
+		$context_date = $this->context->get( 'event_date', $now->format( 'Y-m-d') );
 		$event_date   = Dates::build_date_object( $context_date );
 
 		/**
@@ -548,9 +549,9 @@ class Month_View extends By_Day_View {
 		 */
 		$start_today = apply_filters( 'tribe_events_views_v2_month_ics_start_today', true );
 
-		// If we're dealing with the current month, use the current day, otherwise use the 1st.
+		// If we're dealing with the current year & month, use the current day, otherwise use the 1st.
 		// Affected by the filter above. If it returns `false` we'll go straight to 'Y-m-01' (the first).
-		$start_format = $start_today && 'now' === $context_date ? 'Y-m-d' : 'Y-m-01';
+		$start_format = $start_today && $now->format( 'Y-m') === $event_date->format( 'Y-m' ) ? 'Y-m-d' : 'Y-m-01';
 
 		$start_date   = tribe_beginning_of_day( $event_date->format( $start_format ) );
 		$end_date     = tribe_end_of_day( $event_date->format( 'Y-m-t' ) );
