@@ -63,7 +63,7 @@ class GoogleCalendarTest extends WPTestCase {
 	/**
 	 * Extract the timezone from the generated gcal link.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param $event_id
 	 *

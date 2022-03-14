@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.14.0.4
+Stable tag: 5.14.1
 Tested up to: 5.9.0
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -221,7 +221,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-=[TBD] TBD =
+= [5.14.1] 2022-03-17 =
 
 * Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
 * Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TEC-4263]
