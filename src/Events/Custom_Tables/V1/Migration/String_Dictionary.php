@@ -67,23 +67,23 @@ class String_Dictionary {
 				TRIBE_EVENTS_FILE
 			),
 			'completed-site-upgraded'        => __(
-				'[@todo TEC]Your site is now using the upgraded recurring events system. See the report below to learn ' .
+				'Your site is now using the upgraded recurring events system. See the report below to learn ' .
 				'how your events may have been adjusted during the migration process.',
 				'the-events-calendar'
 			),
 			'preview-prompt-get-ready'       => __(
-				'[@todo TEC]Get ready for the new recurring events!',
+				'Get ready for the new recurring events!',
 				'the-events-calendar'
 			),
-			'preview-prompt-upgrade-cta'     => __( '[@todo TEC]Upgrade your recurring events.', 'the-events-calendar' ),
+			'preview-prompt-upgrade-cta'     => __( 'Upgrade your recurring events.', 'the-events-calendar' ),
 			'preview-prompt-features'        => __(
-				'[@todo TEC]Faster event editing. Smarter save options. More flexibility. Events Calendar 6.0  ' .
+				'Faster event editing. Smarter save options. More flexibility. Events Calendar 6.0  ' .
 				'is full of features to make managing recurring and connected events better than ever. ' .
 				'Before you get started, we need to migrate your existing events into the new system.',
 				'the-events-calendar'
 			),
 			'preview-prompt-ready'           => __(
-				'[@todo TEC]Ready to go? The first step is a migration preview.',
+				'Ready to go? The first step is a migration preview.',
 				'the-events-calendar'
 			),
 			'preview-prompt-scan-events'     => __(
