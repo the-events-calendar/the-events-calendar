@@ -58,7 +58,6 @@ class Activation {
 
 		set_transient( self::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
 
-		// @todo Is this where this activation logic belongs? Move logic up?
 		// Check if we have not "migrated", then attempt to activate.
 		$state = tribe( State::class );
 		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE ) {

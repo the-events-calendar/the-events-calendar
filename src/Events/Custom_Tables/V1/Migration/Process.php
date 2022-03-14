@@ -73,6 +73,9 @@ class Process {
 			return false;
 		}
 
+		// Ensure we have our database setup.
+		Activation::activate();
+
 		$action_ids = [];
 
 		// Remove what migration phase flags might have been set by previous previews or migrations.

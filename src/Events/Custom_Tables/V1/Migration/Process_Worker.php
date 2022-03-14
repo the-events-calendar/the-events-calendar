@@ -224,7 +224,7 @@ class Process_Worker {
 
 			return;
 		}
-		// @todo Move this to a centralized rollback (in the schema objects, with hooks?)
+
 		// @todo Review - missing anything? Better way?
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
 
@@ -247,10 +247,7 @@ class Process_Worker {
 		$meta_keys = apply_filters( 'tec_events_custom_tables_v1_delete_meta_keys', $meta_keys );
 		foreach ( $meta_keys as $meta_key ) {
 			delete_metadata( 'post', 0, $meta_key, '', true );
-		}
-
-		// @todo This will just cause the tables to be recreated - we need something to handle create/destroy operations properly...
-		delete_transient( Activation::ACTIVATION_TRANSIENT );
+		} 
 
 		$this->state->set( 'phase', State::PHASE_MIGRATION_PROMPT );
 		$this->state->save();
