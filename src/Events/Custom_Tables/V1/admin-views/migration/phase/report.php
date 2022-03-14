@@ -68,16 +68,18 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 											$event->series[0]->post_title // @todo This ok?
 									);
 									break;
-								case 'modified-exclusions':
-								case 'modified-rules':
-									echo sprintf(
+								default:
+									// Do we have language for this strategy?
+									$output = sprintf(
 											esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
 											'<strong>',
 											'</strong>'
 									);
-									break;
-								default:
-									echo esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
+									if ( $output ) {
+										echo $output;
+									} else {
+										echo esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
+									}
 									break;
 							}
 						}

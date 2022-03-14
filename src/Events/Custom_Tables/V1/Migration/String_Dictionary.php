@@ -61,191 +61,195 @@ class String_Dictionary {
 		 *                             version.
 		 */
 		$this->map = apply_filters( 'tec_events_custom_tables_v1_migration_strings', [
-			'completed-screenshot-url'                      => plugins_url(
+			'completed-screenshot-url'                            => plugins_url(
 			// @todo correct screenshot here
 				'src/resources/images/upgrade-views-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'completed-site-upgraded'                       => __(
+			'completed-site-upgraded'                             => __(
 				'Your site is now using the upgraded recurring events system. See the report below to learn ' .
 				'how your events may have been adjusted during the migration process.',
 				'the-events-calendar'
 			),
-			'preview-prompt-get-ready'                      => __(
+			'preview-prompt-get-ready'                            => __(
 				'Get ready for the new recurring events!',
 				'the-events-calendar'
 			),
-			'preview-prompt-upgrade-cta'                    => __( 'Upgrade your recurring events.', 'the-events-calendar' ),
-			'preview-prompt-features'                       => __(
+			'preview-prompt-upgrade-cta'                          => __( 'Upgrade your recurring events.', 'the-events-calendar' ),
+			'preview-prompt-features'                             => __(
 				'Faster event editing. Smarter save options. More flexibility. Events Calendar 6.0  ' .
 				'is full of features to make managing recurring and connected events better than ever. ' .
 				'Before you get started, we need to migrate your existing events into the new system.',
 				'the-events-calendar'
 			),
-			'preview-prompt-ready'                          => __(
+			'preview-prompt-ready'                                => __(
 				'Ready to go? The first step is a migration preview.',
 				'the-events-calendar'
 			),
-			'preview-prompt-scan-events'                    => __(
+			'preview-prompt-scan-events'                          => __(
 				'We\'ll scan all existing events and let you know what to expect from the migration process. You\'ll also get an idea of how long your migration will take. The preview runs in the background, so you’ll be able to continue using your site.',
 				'the-events-calendar'
 			),
-			'learn-more-button-url'                         => __(
+			'learn-more-button-url'                               => __(
 				'https://evnt.is/recurrence-2-0',
 				'the-events-calendar'
 			),
-			'learn-more-button'                             => __(
+			'learn-more-button'                                   => __(
 				'Learn more about the migration',
 				'the-events-calendar'
 			),
-			'start-migration-preview-button'                => __(
+			'start-migration-preview-button'                      => __(
 				'Start migration preview',
 				'the-events-calendar'
 			),
-			'updated-views-screenshot-alt'                  => __(
+			'updated-views-screenshot-alt'                        => __(
 				'screenshot of updated calendar views',
 				'the-events-calendar'
 			),
-			'preview-in-progress'                           => __(
+			'preview-in-progress'                                 => __(
 				'Migration preview in progress',
 				'the-events-calendar'
 			),
-			'preview-scanning-events'                       => __(
+			'preview-scanning-events'                             => __(
 				'We\'re scanning your existing events so you’ll know what to expect from the migration process. You can keep using your site and managing events. Check back later for a full preview report and the next steps for migration.',
 				'the-events-calendar'
 			),
-			'preview-complete'                              => __(
+			'preview-complete'                                    => __(
 				'Preview complete',
 				'the-events-calendar'
 			),
-			'preview-complete-paragraph'                    => __(
+			'preview-complete-paragraph'                          => __(
 				'The migration preview is done and ready for your review. No changes have been made to your events, but this report shows what adjustments will be made during the migration to the new system. If you have any questions, please %1$sreach out to our support team%2$s.',
 				'the-events-calendar'
 			),
-			'preview-estimate'                              => __(
+			'preview-estimate'                                    => __(
 				'From this preview, we estimate that the full migration process will take approximately %3$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.',
 				'the-events-calendar'
 			),
-			'previewed-date-heading'                        => __(
+			'previewed-date-heading'                              => __(
 				'Previewed Date/Time:',
 				'the-events-calendar'
 			),
-			'previewed-total-heading'                       => __(
+			'previewed-total-heading'                             => __(
 				'Total Events Previewed:',
 				'the-events-calendar'
 			),
-			're-run-preview-button'                         => __(
+			're-run-preview-button'                               => __(
 				'Re-run preview',
 				'the-events-calendar'
 			),
-			'start-migration-button'                        => __(
+			'start-migration-button'                              => __(
 				'Start migration',
 				'the-events-calendar'
 			),
-			'estimated-time-singular'                       => __(
+			'estimated-time-singular'                             => __(
 				'(Estimated time: %1$s hour)',
 				'the-events-calendar'
 			),
-			'estimated-time-plural'                         => __(
+			'estimated-time-plural'                               => __(
 				'(Estimated time: %1$s hours)',
 				'the-events-calendar'
 			),
-			'migration-in-progress'                         => __(
+			'migration-in-progress'                               => __(
 				'Migration in progress',
 				'the-events-calendar'
 			),
-			'migration-in-progress-paragraph'               => __(
+			'migration-in-progress-paragraph'                     => __(
 				'Your events are being migrated to the new system. During this migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar is still visible on your site.',
 				'the-events-calendar'
 			),
-			'loading-message'                               => __(
+			'loading-message'                                     => __(
 				'Loading...',
 				'the-events-calendar'
 			),
-			'cancel-migration-button'                       => __(
+			'cancel-migration-button'                             => __(
 				'Cancel Migration',
 				'the-events-calendar'
 			),
-			'migration-complete'                            => __(
+			'migration-complete'                                  => __(
 				'Migration complete!',
 				'the-events-calendar'
 			),
-			'migration-complete-paragraph'                  => __(
+			'migration-complete-paragraph'                        => __(
 				'Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more about the new features of Events Calendar PRO 6.0%2$s.',
 				'the-events-calendar'
 			),
-			'migration-date-heading'                        => __(
+			'migration-date-heading'                              => __(
 				'Migration Date/Time:',
 				'the-events-calendar'
 			),
-			'migration-total-heading'                       => __(
+			'migration-total-heading'                             => __(
 				'Total Events Migrated:',
 				'the-events-calendar'
 			),
-			'reverse-migration-button'                      => __(
+			'reverse-migration-button'                            => __(
 				'Reverse Migration',
 				'the-events-calendar'
 			),
-			'reverse-migration-in-progress'                 => __(
+			'reverse-migration-in-progress'                       => __(
 				'Reverse migration in progress',
 				'the-events-calendar'
 			),
-			'reverse-migration-in-progress-paragraph'       => __(
+			'reverse-migration-in-progress-paragraph'             => __(
 				'We are reversing your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
-			'migration-prompt-changes-to-events'            => __(
+			'migration-prompt-changes-to-events'                  => __(
 				'Changes to events!',
 				'the-events-calendar'
 			),
-			'migration-prompt-events-modified'              => __(
+			'migration-prompt-events-modified'                    => __(
 				'The following events will be modified during the migration process:',
 				'the-events-calendar'
 			),
-			'migration-prompt-no-changes-to-events'         => __(
+			'migration-prompt-no-changes-to-events'               => __(
 				'Events can migrate with no changes!',
 				'the-events-calendar'
 			),
-			'migration-prompt-strategy-split'               => __(
+			'migration-prompt-strategy-split'                     => __(
 				'This event will be %1$ssplit into %2$s recurring events%3$s with identical content.',
 				'the-events-calendar'
 			),
-			'migration-prompt-strategy-split-new-series'    => __(
+			'migration-prompt-strategy-tec-single-event-strategy' => __(
+				'This single event will be updated with identical content.',
+				'the-events-calendar'
+			),
+			'migration-prompt-strategy-split-new-series'          => __(
 				'The events will be part of a new %1$s.',
 				'the-events-calendar'
 			),
-			'migration-prompt-strategy-modified-exclusions' => __(
+			'migration-prompt-strategy-modified-exclusions'       => __(
 				'%1$sOne or more exclusion rules will be modified%2$s, but no occurrences will be added or removed.',
 				'the-events-calendar'
 			),
-			'migration-prompt-strategy-modified-rules'      => __(
+			'migration-prompt-strategy-modified-rules'            => __(
 				'%1$sOne or more recurrence rules will be modified%2$s, but no occurrences will be added or removed.',
 				'the-events-calendar'
 			),
-			'migration-prompt-unknown-strategy'             => __(
+			'migration-prompt-unknown-strategy'                   => __(
 				'Unknown strategy applied to this event.',
 				'the-events-calendar'
 			),
-			'migration-prompt-learn-about-report-button'    => __(
+			'migration-prompt-learn-about-report-button'          => __(
 				'Learn more about your migration preview report',
 				'the-events-calendar'
 			),
-			'preview-progress-bar-events-done'              => _x(
+			'preview-progress-bar-events-done'                    => _x(
 				'%1$s%2$d%3$s events previewed',
 				'Number of events previewed',
 				'the-events-calendar'
 			),
-			'preview-progress-bar-events-remaining'         => _x(
+			'preview-progress-bar-events-remaining'               => _x(
 				'%1$s%2$d%3$s remaining',
 				'Number of events awaiting preview',
 				'the-events-calendar'
 			),
-			'migration-progress-bar-events-done'            => _x(
+			'migration-progress-bar-events-done'                  => _x(
 				'%1$s%2$d%3$s events migrated',
 				'Number of events migrated',
 				'the-events-calendar'
 			),
-			'migration-progress-bar-events-remaining'       => _x(
+			'migration-progress-bar-events-remaining'             => _x(
 				'%1$s%2$d%3$s remaining',
 				'Number of events awaiting migration',
 				'the-events-calendar'

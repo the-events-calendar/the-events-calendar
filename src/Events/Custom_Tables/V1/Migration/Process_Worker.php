@@ -247,7 +247,7 @@ class Process_Worker {
 		$meta_keys = apply_filters( 'tec_events_custom_tables_v1_delete_meta_keys', $meta_keys );
 		foreach ( $meta_keys as $meta_key ) {
 			delete_metadata( 'post', 0, $meta_key, '', true );
-		} 
+		}
 
 		$this->state->set( 'phase', State::PHASE_MIGRATION_PROMPT );
 		$this->state->save();
