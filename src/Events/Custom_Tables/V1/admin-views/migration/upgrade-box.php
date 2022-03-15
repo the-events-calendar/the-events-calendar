@@ -11,7 +11,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 $text = tribe( String_Dictionary::class );
- 
+
 ?>
 <div id="tec-ct1-upgrade-box" >
 	<div id="tec-ct1-upgrade-dynamic" class="tec-ct1-upgrade">
@@ -22,20 +22,5 @@ $text = tribe( String_Dictionary::class );
 			</div>
 		</div>
 	</div>
-	<a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_PREVIEW_PROMPT, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview
-		Prompt</a>
-	|
-	<a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_PREVIEW_IN_PROGRESS, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Preview
-		In Progress</a>
-	|
-	<a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_MIGRATION_PROMPT, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration
-		Prompt</a>
-	|
-	<a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_MIGRATION_IN_PROGRESS, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration
-		In Progress</a>
-	|
-	<a href="<?php echo esc_url( add_query_arg( 'tec_ct1_phase', State::PHASE_MIGRATION_COMPLETE, admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) ) ); ?>">Migration
-		Complete</a>
-
 </div>
 
