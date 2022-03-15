@@ -58,15 +58,15 @@ class Activation {
 
 		set_transient( self::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
 
-		// Check if we have not "migrated", then attempt to activate.
-		$state = tribe( State::class );
-		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE ) {
-			$services = tribe();
-			$services->register( Tables::class );
-			$services->make( Tables::class )->update_tables( true );
+		$services = tribe();
+		$services->register( Tables::class );
+		$services->make( Tables::class )->update_tables( true );
 
+		// Check if we have not "migrated", then attempt to activate.
+		$state = $services->make( State::class );
+		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE ) {
 			// Check if we have any events to migrate.
-			if ( tribe( Events::class )->get_total_events() === 0 ) {
+			if ( $services->make( Events::class )->get_total_events() === 0 ) {
 				$state->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
 				$state->save();
 			}

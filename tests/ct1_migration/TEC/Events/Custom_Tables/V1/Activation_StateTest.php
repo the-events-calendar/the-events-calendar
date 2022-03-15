@@ -6,7 +6,6 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
-use TEC\Events\Custom_Tables\V1\Tables\Provider;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
 class Activation_StateTest extends \CT1_Migration_Test_Case {
@@ -56,7 +55,10 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_be_ready_to_migrate_with_no_events() {
 		global $wpdb;
-		// Given a normal activation, with no events.
+		$this->given_a_site_with_no_events();
+		// Reset state.
+		$this->given_a_reset_activation();
+
 		// Activate.
 		Activation::init();
 
@@ -65,6 +67,33 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $state->get_phase() );
 		$q      = 'show tables';
 		$tables = $wpdb->get_col( $q );
+		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
+		$this->assertContains( EventsSchema::table_name( true ), $tables );
+	}
+
+	/**
+	 * It should not subordinate table updates to migration phase
+	 *
+	 * This method will inherit the custom tables created and a migration
+	 * state of complete from the previous test.
+	 *
+	 * @test
+	 * @depends should_be_ready_to_migrate_with_no_events
+	 */
+	public function should_not_subordinate_table_updates_to_migration_phase() {
+		// Drop the custom tables to be able to assert those will be re-created.
+		$this->given_the_custom_tables_do_not_exist();
+		$this->given_the_initialization_transient_expired();
+
+		global $wpdb;
+		$tables = $wpdb->get_col( 'show tables' );
+		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
+		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
+
+		Activation::init();
+
+		// Validate expected state.
+		$tables = $wpdb->get_col( 'show tables' );
 		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
 		$this->assertContains( EventsSchema::table_name( true ), $tables );
 	}

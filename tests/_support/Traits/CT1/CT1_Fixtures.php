@@ -8,9 +8,8 @@ use TEC\Events\Custom_Tables\V1\Models\Event as Event_Model;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence as Occurrence_Model;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
-use TEC\Events\Custom_Tables\V1\Tables\Provider;
+use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
 use Tribe__Date_Utils as Dates;
-use Tribe__Settings_Manager as Options;
 use Tribe__Timezones as Timezones;
 use Tribe__Events__Main as TEC;
 
@@ -22,7 +21,7 @@ trait CT1_Fixtures {
 	public function given_a_reset_activation() {
 		global $wpdb;
 		// Ditch our CT1 schema.
-		tribe( Provider::class )->drop_tables();
+		tribe( Tables::class )->drop_tables();
 
 		// Reset state in the db.
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
@@ -78,5 +77,32 @@ trait CT1_Fixtures {
 		$state          = tribe_get_option( State::STATE_OPTION_KEY, [] );
 		$state['phase'] = $phase;
 		tribe_update_option( State::STATE_OPTION_KEY, $state );
+	}
+
+	private function given_a_site_with_no_events() {
+		global $wpdb;
+		// Delete all Event post meta.
+		$wpdb->query(
+			$wpdb->prepare(
+				"delete from $wpdb->postmeta
+				where post_id in (select ID from $wpdb->posts where post_type = %s)",
+				TEC::POSTTYPE
+			)
+		);
+		// Delete all Event posts.
+		$wpdb->query(
+			$wpdb->prepare(
+				"delete from $wpdb->posts where post_type = %s",
+				TEC::POSTTYPE
+			)
+		);
+	}
+
+	private function given_the_custom_tables_do_not_exist() {
+		tribe()->make( Tables::class )->drop_tables();
+	}
+
+	private function given_the_initialization_transient_expired() {
+		delete_transient( Activation::ACTIVATION_TRANSIENT );
 	}
 }
