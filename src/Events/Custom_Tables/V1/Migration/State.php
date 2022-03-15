@@ -64,12 +64,16 @@ class State {
 	 */
 	private $data = [];
 
-
+	/**
+	 * State constructor.
+	 *
+	 * @since TBD
+	 */
 	public function __construct() {
-		// @todo remove this data mock.
+		// By default, the migration did not complete and the phase is the one to start a migration preview.
 		$this->default_data = [
-			'complete_timestamp' => strtotime( 'yesterday 4pm' ),
-			'phase' => self::PHASE_PREVIEW_PROMPT,
+			'complete_timestamp' => null,
+			'phase'              => self::PHASE_PREVIEW_PROMPT,
 		];
 
 		$this->data = tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
