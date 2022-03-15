@@ -76,7 +76,8 @@ class State {
 			'phase'              => self::PHASE_PREVIEW_PROMPT,
 		];
 
-		$this->data = tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
+		$option_data = (array) tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
+		$this->data  = wp_parse_args( $option_data, $this->default_data );
 	}
 
 	/**
