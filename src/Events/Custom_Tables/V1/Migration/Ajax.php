@@ -162,20 +162,33 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_COMPLETE:
+				$renderer = new Phase_View_Renderer( $phase,
+					"/phase/$phase.php",
+					[
+						'state'  => tribe( State::class ),
+						'report' => Site_Report::build( $page, $count ),
+						'text'   => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( false );
+				break;
 			case State::PHASE_UNDO_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase,
 					"/phase/$phase.php",
-					[ 'state'  => tribe( State::class ),
-					  'report' => Site_Report::build( $page, $count ),
-					  'text'   => tribe( String_Dictionary::class )
+					[
+						'state'  => tribe( State::class ),
+						'report' => Site_Report::build( $page, $count ),
+						'text'   => tribe( String_Dictionary::class )
 					]
 				);
+				$renderer->should_poll( true );
 				break;
 			case State::PHASE_MIGRATION_PROMPT:
 				$renderer = new Phase_View_Renderer( $phase,
 					"/phase/$phase.php",
 					[ 'report' => Site_Report::build( $page, $count ), 'text' => tribe( String_Dictionary::class ) ]
 				);
+				$renderer->should_poll( false );
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
@@ -185,6 +198,7 @@ class Ajax {
 					'/partials/progress-bar.php',
 					[ 'report' => Site_Report::build( $page, $count ), 'text' => tribe( String_Dictionary::class ) ]
 				);
+				$renderer->should_poll( true );
 				break;
 		}
 

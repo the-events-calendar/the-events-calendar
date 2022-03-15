@@ -3,7 +3,9 @@ let localizedData = null;
 let ajaxUrl = null;
 let pollInterval = 5000;
 let pollTimeoutId = null;
-let currentViewState = {};
+let currentViewState = {
+	poll: true,
+};
 
 export const selectors = {
 	upgradeBox: '#tec-ct1-upgrade-dynamic',
@@ -138,12 +140,19 @@ export const recursePollForReport = () => {
 	);
 };
 
+export const shouldPoll = () => {
+	return currentViewState.poll;
+};
+
 /**
  * Start the recursive poll for report changes.
  *
  * @since TBD
  */
 export const pollForReport = () => {
+	if (!shouldPoll()) {
+		return;
+	}
 	// Start polling.
 	pollTimeoutId = setTimeout(recursePollForReport, pollInterval);
 };
@@ -178,6 +187,12 @@ export const handleReportData = function(data) {
 	);
 	// Store changes locally for next request.
 	currentViewState = data;
+
+	if(shouldPoll()){
+		pollForReport();
+	} else {
+		cancelReportPoll();
+	}
 };
 
 /**
@@ -240,7 +255,8 @@ export const handleCancelMigration = (e) => {
  *
  * @since TBD
  *
- * @param {boolean} isPreview Flag to denote if we are doing a dry run or a real migration.
+ * @param {boolean} isPreview Flag to denote if we are doing a dry run or a
+ *     real migration.
  *
  * @returns {(function(*): void)|*}
  */
@@ -278,7 +294,8 @@ export const cancelReportPoll = () => {
  * @since TBD
  *
  * @param {string} searchKey The node key to reference if changes.
- * @param {string} searchHash The hash that might change for a particular node key.
+ * @param {string} searchHash The hash that might change for a particular node
+ *     key.
  *
  * @returns {boolean} True if the node changed, false if not.
  */
@@ -303,9 +320,9 @@ export const isNodeDiff = (searchKey, searchHash) => {
  *
  * @since TBD
  *
- * @param {function} successCallback Callback fired on success.
+ * @param {function|null} successCallback Callback fired on success.
  */
-export const syncReportData = function(successCallback) {
+export const syncReportData = function(successCallback = null) {
 	getReport(
 			function(response) {
 				handleReportData(response);

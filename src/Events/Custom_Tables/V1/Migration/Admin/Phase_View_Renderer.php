@@ -51,6 +51,16 @@ class Phase_View_Renderer {
 	private $nodes = [];
 
 	/**
+	 * A flag variable indicating whether the JS code receiving the data should
+	 * start, or keep, polling the backend for data or not.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	private $poll = false;
+
+	/**
 	 * Phase_View_Renderer constructor.
 	 *
 	 * @since TBD
@@ -124,7 +134,8 @@ class Phase_View_Renderer {
 			'key'   => $this->key,
 			// Based on what is registered, render the parent template
 			'html'  => $this->pre_post_content( $this->get_template_html( $this->template_path, $this->vars ) ),
-			'nodes' => $this->compile_nodes()
+			'nodes' => $this->compile_nodes(),
+			'poll' => $this->poll,
 		];
 	}
 
@@ -178,5 +189,18 @@ class Phase_View_Renderer {
 		include $this->template_directory . $template;
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * Sets the flag value indicating whether this renderer should tell
+	 * the JS code to keep polling or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $should_poll Whether this rendered instance should tell
+	 *                          the JS code to start, or keep, polling or not.
+	 */
+	public function should_poll( $should_poll ) {
+		$this->poll = (bool) $should_poll;
 	}
 }
