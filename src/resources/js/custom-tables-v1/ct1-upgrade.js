@@ -187,12 +187,6 @@ export const handleReportData = function(data) {
 	);
 	// Store changes locally for next request.
 	currentViewState = data;
-// @todo should be moved - handle data should only be responsible for syncing data given, the "start poll" logic should be outside this.. this is called in various scenarios, can't assume this logic applies
-	if(shouldPoll()){
-		pollForReport();
-	} else {
-		cancelReportPoll();
-	}
 };
 
 /**
