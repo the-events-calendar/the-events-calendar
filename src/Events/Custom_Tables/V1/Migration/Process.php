@@ -76,6 +76,9 @@ class Process {
 		// Ensure we have our database setup.
 		Activation::activate();
 
+		// Ensure Action Scheduler tables are there.
+		ActionScheduler::store()->init();
+
 		$action_ids = [];
 
 		// Remove what migration phase flags might have been set by previous previews or migrations.
@@ -109,6 +112,9 @@ class Process {
 		// Flag our new phase.
 		$this->state->set( 'phase', State::PHASE_UNDO_IN_PROGRESS );
 		$this->state->save();
+
+		// Ensure Action Scheduler tables are there.
+		ActionScheduler::store()->init();
 
 		// Clear all of our queued migration workers.
 		as_unschedule_all_actions( Process_Worker::ACTION_PROCESS );
