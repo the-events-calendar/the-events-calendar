@@ -117,6 +117,7 @@ class State {
 			self::PHASE_MIGRATION_IN_PROGRESS,
 			self::PHASE_PREVIEW_IN_PROGRESS,
 			self::PHASE_UNDO_IN_PROGRESS,
+			self::PHASE_MIGRATION_PROMPT
 		];
 
 		return in_array( $this->get_phase(), $in_progress_states );
