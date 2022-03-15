@@ -194,7 +194,7 @@ class Events {
 				Event_Report::META_KEY_MIGRATION_PHASE,
 				TEC::POSTTYPE,
 				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE,
+				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE
 			);
 			$migrated             = (int) $wpdb->get_var( $total_migrated_query );
 			$cache[ __METHOD__ ]  = $migrated;
