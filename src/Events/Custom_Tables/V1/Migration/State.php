@@ -140,11 +140,6 @@ class State {
 	 * @return string The current migration phase the site is in.
 	 */
 	public function get_phase() {
-		// @todo remove this as it will be used only during development.
-		if ( isset( $_REQUEST['tec_ct1_phase'] ) ) {
-			return filter_var( $_REQUEST['tec_ct1_phase'], FILTER_SANITIZE_STRING );
-		}
-
 		return $this->data['phase'];
 	}
 
