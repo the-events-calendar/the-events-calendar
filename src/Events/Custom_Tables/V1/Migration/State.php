@@ -51,9 +51,11 @@ class State {
 	 *
 	 * @var array<string,mixed>
 	 */
-	protected $default_data = [
-		// @todo set this up.
+	private $default_data = [
+		'complete_timestamp' => null,
+		'phase'              => self::PHASE_PREVIEW_PROMPT,
 	];
+
 	/**
 	 * An array that will contain the migration state as hydrated from the database values,
 	 * or from the default values.
@@ -70,12 +72,6 @@ class State {
 	 * @since TBD
 	 */
 	public function __construct() {
-		// By default, the migration did not complete and the phase is the one to start a migration preview.
-		$this->default_data = [
-			'complete_timestamp' => null,
-			'phase'              => self::PHASE_PREVIEW_PROMPT,
-		];
-
 		$option_data = (array) tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
 		$this->data  = wp_parse_args( $option_data, $this->default_data );
 	}
