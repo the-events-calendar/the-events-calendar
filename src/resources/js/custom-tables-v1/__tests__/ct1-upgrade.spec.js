@@ -8,7 +8,7 @@ import {
 	ajaxGet,
 	selectors,
 	recursePollForReport, buildQueryString, getReport,
-} from '../ct1-upgrade-remake';
+} from '../ct1-upgrade';
 
 const upgradeBoxId = selectors.upgradeBox.substr(1);
 

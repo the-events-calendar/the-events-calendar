@@ -91,7 +91,7 @@ class Asset_Loader {
 		);
 		wp_register_script(
 			'tec-ct1-upgrade-admin-js',
-			TEC::instance()->plugin_url . 'src/resources/js/custom-tables-v1/ct1-upgrade-remake.js'
+			TEC::instance()->plugin_url . 'src/resources/js/custom-tables-v1/ct1-upgrade.js'
 		);
 
 		// We want to make sure the main JS file will be loaded as an ES6 module.
