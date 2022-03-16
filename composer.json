@@ -28,7 +28,7 @@
     "the-events-calendar/tribalscents": "dev-master",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
-    "scotteh/php-dom-wrapper": "^1.0.10",
+    "scotteh/php-dom-wrapper": "0.7.3",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "wp-coding-standards/wpcs": "^2.1",
     "vlucas/phpdotenv": "^4.1"
