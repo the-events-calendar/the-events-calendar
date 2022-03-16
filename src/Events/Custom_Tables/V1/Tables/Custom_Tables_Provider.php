@@ -210,4 +210,26 @@ trait Custom_Tables_Provider {
 			WP_CLI::add_hook( 'after_invoke:site empty', [ $this, 'empty_custom_tables' ] );
 		}
 	}
+
+	/**
+	 * Whether all the custom tables exist or not.
+	 *
+	 * Note: the method will return `false` if even one table is missing.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether all custom tables exist or not.
+	 */
+	public function exist() {
+		global $wpdb;
+		foreach ( $this->table_classes as $class ) {
+			$table  = call_user_func( [ $class, 'table_name' ], true );
+			$result = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+			if ( empty( $result ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
