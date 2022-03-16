@@ -227,6 +227,7 @@ export const bindNodes = (key) => {
  */
 export const handleCancelMigration = (e) => {
 	e.preventDefault();
+	e.target.setAttribute('disabled', 'disabled');
 	// Stop our render check momentarily.
 	// We will have a new state immediately after our cancel migration finishes.
 	cancelReportPoll();
@@ -256,6 +257,7 @@ export const handleCancelMigration = (e) => {
  */
 export const handleStartMigration = (isPreview) => (e) => {
 	e.preventDefault();
+	e.target.setAttribute('disabled', 'disabled');
 	// Stop our render check momentarily.
 	// We will have a new state immediately after our start migration finishes.
 	cancelReportPoll();
