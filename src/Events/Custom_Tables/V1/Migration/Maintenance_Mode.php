@@ -9,6 +9,7 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 
 /**
  * Class Maintenance_Mode.
@@ -34,8 +35,9 @@ class Maintenance_Mode {
 	 *
 	 * @param State $state A reference to the current migration state provider.
 	 */
-	public function __construct( State $state ) {
+	public function __construct( State $state, Progress_Modal $progress_modal ) {
 		$this->migration_state = $state;
+		$this->progress_modal = $progress_modal;
 	}
 
 	/**
@@ -71,6 +73,10 @@ class Maintenance_Mode {
 		add_filter( 'tribe_aggregator_batch_data_processing_enabled', '__return_false' );
 		add_filter( 'tribe_aggregator_remote_status_enabled', '__return_false' );
 
+		// @todo delegate this to upgrade tab class?
+		add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
+		add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
+
 		/**
 		 * Fires an action to signal TEC requires putting the site in maintenance
 		 * mode while the migration completes.
@@ -95,5 +101,25 @@ class Maintenance_Mode {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Inject the content and data of the Admin\Progress_Modal.
+	 *
+	 * @since TBD
+	 */
+	public function inject_progress_modal() {
+		// @todo should this stay here?
+		echo $this->progress_modal->render_modal();
+	}
+
+	/**
+	 * Inject the Admin\Progress_Modal trigger that pops open the modal.
+	 *
+	 * @since TBD
+	 */
+	public function inject_progress_modal_js_trigger() {
+		// @todo should this stay here?
+		echo $this->progress_modal->get_modal_auto_trigger();
 	}
 }

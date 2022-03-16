@@ -68,7 +68,7 @@ class Activation {
 
 		// Check if we have not "migrated", then attempt to activate.
 		$state = $services->make( State::class );
-		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE ) {
+		if ( ! in_array( $state->get_phase(), [ State::PHASE_MIGRATION_COMPLETE, State::PHASE_MIGRATION_PROMPT ] ) ) {
 			$tables->update_tables( true );
 
 			// Check if we have any events to migrate.

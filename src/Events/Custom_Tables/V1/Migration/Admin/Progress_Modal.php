@@ -51,10 +51,8 @@ class Progress_Modal {
 			return false;
 		}
 
-		$state  = tribe( State::class );
-		$phase  = $state->get_phase();
 
-		return State::PHASE_CANCELLATION_IN_PROGRESS === $phase;
+		return tribe( State::class )->is_running();
 	}
 
 	/**
@@ -144,4 +142,5 @@ class Progress_Modal {
 	public function get_modal_auto_trigger() {
 		return '<script>jQuery( function() { jQuery( "#' . static::$modal_target . '" ).click(); } );</script>';
 	}
+
 }

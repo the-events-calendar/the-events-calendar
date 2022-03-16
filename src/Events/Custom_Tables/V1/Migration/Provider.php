@@ -79,9 +79,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
 			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
 
-			// @todo delegate this to upgrade tab class?
-			add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
-			add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
 		}
 	}
 
@@ -247,28 +244,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function activate_maintenance_mode() {
 		$this->container->make( Maintenance_Mode::class )->activate();
-	}
-
-	/**
-	 * Inject the content and data of the Admin\Progress_Modal.
-	 *
-	 * @since TBD
-	 */
-	public function inject_progress_modal() {
-		// @todo should this stay here?
-		$modal = $this->container->make( Admin\Progress_Modal::class );
-		echo $modal->render_modal();
-	}
-
-	/**
-	 * Inject the Admin\Progress_Modal trigger that pops open the modal.
-	 *
-	 * @since TBD
-	 */
-	public function inject_progress_modal_js_trigger() {
-		// @todo should this stay here?
-		$modal = $this->container->make( Admin\Progress_Modal::class );
-		echo $modal->get_modal_auto_trigger();
 	}
 
 	/**
