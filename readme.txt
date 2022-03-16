@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure that the State/Province field saves for non-US venues. [TEC-4309]
 * Fix - Correct duplicated text in wpadminbar Events Menu. [TEC-4310]
 * Fix - Load the assets required by the `Event View` Elementor widget in preview mode. [ECP-1065]
+* Language - 4 new strings added, 144 updated, 0 fuzzied, and 0 obsoleted.
 
 = [5.14.0.4] 2022-03-01 =
 
