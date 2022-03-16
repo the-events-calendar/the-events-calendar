@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57432b93adf6c68550e6ef9c14fb4f6c",
+    "content-hash": "ac324048c5d56000a9b8ce35445dcc8b",
     "packages": [],
     "packages-dev": [
         {
@@ -3432,33 +3432,33 @@
         },
         {
             "name": "scotteh/php-dom-wrapper",
-            "version": "0.7.3",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scotteh/php-dom-wrapper.git",
-                "reference": "ac4bd7035c50e4d7494c7b1307cd997b31403f71"
+                "reference": "f627c9369e57b7cb0607f9713b6a22b7e46cb7e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scotteh/php-dom-wrapper/zipball/ac4bd7035c50e4d7494c7b1307cd997b31403f71",
-                "reference": "ac4bd7035c50e4d7494c7b1307cd997b31403f71",
+                "url": "https://api.github.com/repos/scotteh/php-dom-wrapper/zipball/f627c9369e57b7cb0607f9713b6a22b7e46cb7e4",
+                "reference": "f627c9369e57b7cb0607f9713b6a22b7e46cb7e4",
                 "shasum": ""
             },
             "require": {
                 "ext-libxml": "*",
                 "ext-mbstring": "*",
                 "lib-libxml": ">=2.7.7",
-                "php": ">=5.5.9",
+                "php": ">=7.1.0",
                 "symfony/css-selector": "^3.1"
             },
             "require-dev": {
-                "phpdocumentor/phpdocumentor": "2.8.*",
-                "phpunit/phpunit": "4.6.*"
+                "phpdocumentor/phpdocumentor": "^2.9",
+                "phpunit/phpunit": "^6.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.7-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -3485,7 +3485,7 @@
                 "parser",
                 "wrapper"
             ],
-            "time": "2017-11-15T10:42:40+00:00"
+            "time": "2018-02-15T06:11:58+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -5740,12 +5740,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
