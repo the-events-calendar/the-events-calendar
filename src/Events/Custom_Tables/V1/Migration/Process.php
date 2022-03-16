@@ -119,6 +119,9 @@ class Process {
 		// Clear all of our queued migration workers.
 		as_unschedule_all_actions( Process_Worker::ACTION_PROCESS );
 
+		// Clear all of our queued state check workers.
+		as_unschedule_all_actions( Process_Worker::ACTION_CHECK_PHASE );
+
 		// Now queue our undo loop.
 		as_enqueue_async_action( Process_Worker::ACTION_UNDO );
 

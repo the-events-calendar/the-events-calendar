@@ -59,10 +59,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->load_action_scheduler();
 
 		add_action( 'init', [ $this, 'init' ] );
-		
+
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
 		add_action( Process_Worker::ACTION_PROCESS, [ $this, 'migrate_event' ], 10, 2 );
 		add_action( Process_Worker::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
+		add_action( Process_Worker::ACTION_CHECK_PHASE, [ $this, 'check_migration_phase' ], 10, 2 );
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
 		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
@@ -131,6 +132,19 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
 		$this->container->make( Process_Worker::class )->migrate_event( $post_id, $dry_run );
+	}
+
+	/**
+	 * Executes a check on the current migration phase state to transition it to the correct
+	 * one if no Worker took care of that.
+	 *
+	 * @since TBD
+	 *
+	 * @return void The method does not return any value and will have the side-effect of
+	 *              updating the phase, if completed.
+	 */
+	public function check_migration_phase() {
+		$this->container->make( Process_Worker::class )->check_phase_complete();
 	}
 
 	/**
