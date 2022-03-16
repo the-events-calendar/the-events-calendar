@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac324048c5d56000a9b8ce35445dcc8b",
+    "content-hash": "57432b93adf6c68550e6ef9c14fb4f6c",
     "packages": [],
     "packages-dev": [
         {
@@ -1233,12 +1233,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1291,12 +1291,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Promise\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1380,12 +1380,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Psr7\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1530,12 +1530,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Illuminate\\Support\\": ""
-                },
                 "files": [
                     "helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Illuminate\\Support\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1741,13 +1741,13 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "tad\\FunctionMocker": "src"
-                },
                 "files": [
                     "src/shims.php",
                     "src/functions.php"
-                ]
+                ],
+                "psr-0": {
+                    "tad\\FunctionMocker": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1816,14 +1816,14 @@
                 "_hash": "484f861f69198089cab0e642f27e5653"
             },
             "autoload": {
-                "psr-4": {
-                    "Codeception\\": "src/Codeception",
-                    "tad\\": "src/tad"
-                },
                 "files": [
                     "src/tad/WPBrowser/utils.php",
                     "src/tad/WPBrowser/wp-polyfills.php"
-                ]
+                ],
+                "psr-4": {
+                    "tad\\": "src/tad",
+                    "Codeception\\": "src/Codeception"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2118,12 +2118,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                },
                 "files": [
                     "src/DeepCopy/deep_copy.php"
-                ]
+                ],
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2445,12 +2445,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Facebook\\WebDriver\\": "lib/"
-                },
                 "files": [
                     "lib/Exception/TimeoutException.php"
-                ]
+                ],
+                "psr-4": {
+                    "Facebook\\WebDriver\\": "lib/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3432,33 +3432,33 @@
         },
         {
             "name": "scotteh/php-dom-wrapper",
-            "version": "1.0.2",
+            "version": "0.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scotteh/php-dom-wrapper.git",
-                "reference": "f627c9369e57b7cb0607f9713b6a22b7e46cb7e4"
+                "reference": "ac4bd7035c50e4d7494c7b1307cd997b31403f71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scotteh/php-dom-wrapper/zipball/f627c9369e57b7cb0607f9713b6a22b7e46cb7e4",
-                "reference": "f627c9369e57b7cb0607f9713b6a22b7e46cb7e4",
+                "url": "https://api.github.com/repos/scotteh/php-dom-wrapper/zipball/ac4bd7035c50e4d7494c7b1307cd997b31403f71",
+                "reference": "ac4bd7035c50e4d7494c7b1307cd997b31403f71",
                 "shasum": ""
             },
             "require": {
                 "ext-libxml": "*",
                 "ext-mbstring": "*",
                 "lib-libxml": ">=2.7.7",
-                "php": ">=7.1.0",
+                "php": ">=5.5.9",
                 "symfony/css-selector": "^3.1"
             },
             "require-dev": {
-                "phpdocumentor/phpdocumentor": "^2.9",
-                "phpunit/phpunit": "^6.3"
+                "phpdocumentor/phpdocumentor": "2.8.*",
+                "phpunit/phpunit": "4.6.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "0.7-dev"
                 }
             },
             "autoload": {
@@ -3485,7 +3485,7 @@
                 "parser",
                 "wrapper"
             ],
-            "time": "2018-02-15T06:11:58+00:00"
+            "time": "2017-11-15T10:42:40+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -4787,12 +4787,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4866,12 +4866,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Idn\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Idn\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4948,12 +4948,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                },
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -5029,12 +5029,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5104,12 +5104,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php70\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php70\\": ""
+                },
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -5180,12 +5180,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php72\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php72\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5436,12 +5436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-events-calendar/tec-testing-facilities",
-                "reference": "aaae6bba800ac8ceb314830227784b7238241f0f"
+                "reference": "b827bbe40743ff8b3e4232042d0331b0927ac424"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/aaae6bba800ac8ceb314830227784b7238241f0f",
-                "reference": "aaae6bba800ac8ceb314830227784b7238241f0f",
+                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/b827bbe40743ff8b3e4232042d0331b0927ac424",
+                "reference": "b827bbe40743ff8b3e4232042d0331b0927ac424",
                 "shasum": ""
             },
             "require": {
@@ -5505,7 +5505,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2021-10-28T17:45:13+00:00"
+            "time": "2022-01-12T16:49:42+00:00"
         },
         {
             "name": "the-events-calendar/tribalscents",
@@ -5811,12 +5811,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Mustangostang\\": "src/"
-                },
                 "files": [
                     "includes/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "Mustangostang\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5851,12 +5851,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "cli": "lib/"
-                },
                 "files": [
                     "lib/cli/cli.php"
-                ]
+                ],
+                "psr-0": {
+                    "cli": "lib/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
