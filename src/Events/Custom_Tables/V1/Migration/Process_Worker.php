@@ -311,9 +311,10 @@ class Process_Worker {
 	 * @return bool Whether the migration, or its preview, is completed or not.
 	 */
 	public function check_phase( ) {
+		$phase               = $this->state->get_phase();
 		$migration_completed = $this->state->is_running()
 		                       && in_array(
-			                       $this->state->get_phase(), [
+			                       $phase, [
 			                       State::PHASE_MIGRATION_IN_PROGRESS,
 			                       State::PHASE_PREVIEW_IN_PROGRESS
 		                       ], true )
@@ -324,8 +325,10 @@ class Process_Worker {
 			return false;
 		}
 
-		$phase = $this->dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE;
-		$this->state->set( 'phase', $phase );
+		$next_phase = $phase === State::PHASE_PREVIEW_IN_PROGRESS ?
+			State::PHASE_MIGRATION_PROMPT
+			: State::PHASE_MIGRATION_COMPLETE;
+		$this->state->set( 'phase', $next_phase );
 		$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
 		$this->state->set( 'complete_timestamp', time() );
 		$this->state->save();
