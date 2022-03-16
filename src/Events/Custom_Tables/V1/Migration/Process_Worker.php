@@ -35,6 +35,12 @@ class Process_Worker {
 	const ACTION_UNDO = 'tec_events_custom_tables_v1_migration_cancel';
 
 	/**
+	 * The full name of the action that will be fired to signal the background
+	 * operation the phase should be checked.
+	 */
+	const ACTION_CHECK_PHASE = 'tec_events_custom_tables_v1_migration_check_state';
+
+	/**
 	 * A reference to the current Events' migration repository.
 	 *
 	 * @since TBD
@@ -104,13 +110,18 @@ class Process_Worker {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
-		$this->dry_run = $dry_run;
-
 		/*
 		 * Get our Event_Report ready for the strategy.
 		 * This is also used in our error catching, so needs to be defined outside that block.
 		 */
 		$this->event_report = new Event_Report( get_post( $post_id ) );
+
+		if ( $this->check_phase() ) {
+			// We're done, the migration is complete and there is no more work to do.
+			return $this->event_report;
+		}
+
+		$this->dry_run = $dry_run;
 
 		// Set our dead-man switch.
 		$this->migration_completed = false;
@@ -174,7 +185,9 @@ class Process_Worker {
 			if ( $post_id ) {
 				// Enqueue a new (Action Scheduler) action to import another Event.
 				$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
-
+				//@todo check action ID here and log on failure.
+			} else {
+				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
 				//@todo check action ID here and log on failure.
 			}
 		} catch ( \Throwable $e ) {
@@ -191,8 +204,6 @@ class Process_Worker {
 		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
 		// Close the output buffer.
 		ob_end_clean();
-
-		$this->update_phase();
 
 		// Do not hold a reference to the Report once the worker is done.
 		$event_report       = $this->event_report;
@@ -286,39 +297,47 @@ class Process_Worker {
 	public function shutdown_handler(  ) {
 		// If we're here, the migration failed.
 		$this->event_report->migration_failed( 'Unknown error occurred, shutting down.' );
-
-		$this->update_phase();
 	}
 
 	/**
-	 * Updates the migration phase depending on the current status of the database.
+	 * Checks and updates the migration phase depending on the current status of the database.
 	 *
 	 * This is an idem-potent method that will only ste the migration state to done
 	 * when done; two or more concurrent workers doing the same will not break the
 	 * logic.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the migration, or its preview, is completed or not.
 	 */
-	private function update_phase( ) {
-		$migration_completed = $this->events->get_total_events_remaining() === 0
-		                       && $this->state->is_running()
+	public function check_phase( ) {
+		$phase               = $this->state->get_phase();
+		$migration_completed = $this->state->is_running()
 		                       && in_array(
-			                       $this->state->get_phase(), [
+			                       $phase, [
 			                       State::PHASE_MIGRATION_IN_PROGRESS,
 			                       State::PHASE_PREVIEW_IN_PROGRESS
-		                       ], true );
+		                       ], true )
+		                       && $this->events->get_total_events_remaining() === 0
+		                       && $this->events->get_total_events_in_progress() === 0;
 
 		if ( ! $migration_completed ) {
-			return;
+			return false;
 		}
 
-		$phase = $this->dry_run ? State::PHASE_MIGRATION_PROMPT : State::PHASE_MIGRATION_COMPLETE;
-		$this->state->set( 'phase', $phase );
+		$next_phase = $phase === State::PHASE_PREVIEW_IN_PROGRESS ?
+			State::PHASE_MIGRATION_PROMPT
+			: State::PHASE_MIGRATION_COMPLETE;
+		$this->state->set( 'phase', $next_phase );
 		$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
 		$this->state->set( 'complete_timestamp', time() );
 		$this->state->save();
+
+		return true;
 	}
 
 	/**
-	 * Hooked to the `ob_start` function, this method will run consistenly
+	 * Hooked to the `ob_start` function, this method will run consistently
 	 * across PHP versions when the `die` or `exit` function is called during
 	 * the migration process.
 	 *
@@ -346,7 +365,29 @@ class Process_Worker {
 		$this->event_report->migration_failed(
 			'The "die" or "exit" function was called during the migration process; output: ' . $trimmed_buffer
 		);
+	}
 
-		$this->update_phase();
+	/**
+	 * Checks if the current phase is completed or not,
+	 * else queue another action to run the same check.
+	 *
+	 * @since TBD
+	 *
+	 * @return int The ID of the new Action scheduled to check
+	 *             on the migration phase, `0` if no new Action
+	 *             was queued.
+	 */
+	public function check_phase_complete() {
+		$completed = ! $this->state->is_running() || $this->check_phase();
+
+		if ( $completed ) {
+			// Clear all of our queued state check workers.
+			as_unschedule_all_actions( self::ACTION_CHECK_PHASE );
+
+			return 0;
+		}
+
+		// Check again.
+		return as_enqueue_async_action( self::ACTION_CHECK_PHASE );
 	}
 }
