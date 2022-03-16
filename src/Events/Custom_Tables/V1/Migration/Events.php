@@ -165,7 +165,7 @@ class Events {
 				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 				TEC::POSTTYPE
 			);
-			$in_progress             = $wpdb->get_var( $total_in_progress_query );
+			$in_progress             = (int) $wpdb->get_var( $total_in_progress_query );
 			$cache[ __METHOD__ ]     = $in_progress;
 		}
 
