@@ -120,7 +120,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 * Creates a set of organizers and a set of events for half the organizers.
 	 * Also creates a set of "extra" events for "noise"
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @param int $organizers   The number of organizers to create.
 	 * @param int $events       The number of events to create per organizer.
