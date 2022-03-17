@@ -36,6 +36,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		register_meta( 'post', '_EventCost', $this->text() );
 		register_meta( 'post', '_EventCostDescription', $this->text() );
 		register_meta( 'post', '_EventCurrencySymbol', $this->text() );
+		register_meta( 'post', '_EventCurrencyCode', $this->text() );
 		register_meta( 'post', '_EventCurrencyPosition', $this->text() );
 
 		// Use sanitize_textarea_field to allow whitespaces

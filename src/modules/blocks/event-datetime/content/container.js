@@ -26,6 +26,7 @@ const mapStateToProps = ( state ) => ( {
 	cost: priceSelectors.getPrice( state ),
 	currencyPosition: priceSelectors.getPosition( state ),
 	currencySymbol: priceSelectors.getSymbol( state ),
+	currencyCode: priceSelectors.getCode( state ),
 	end: dateTimeSelectors.getEnd( state ),
 	isEditable: dateTimeSelectors.isEditable( state ),
 	multiDay: dateTimeSelectors.getMultiDay( state ),
