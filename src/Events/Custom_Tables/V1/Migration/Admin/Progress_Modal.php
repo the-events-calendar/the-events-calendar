@@ -81,7 +81,7 @@ class Progress_Modal {
 			'append_target'           => '#' . static::$modal_target,
 			'trigger'                 => 'trigger-dialog-tec-recurrence-migration__progress-dialog',
 			'button_display'          => false,
-			'content_wrapper_classes' => 'tribe-dialog__wrapper tec-upgrade-recurrence tec-upgrade-recurrence--' . $phase,
+			'content_wrapper_classes' => 'tribe-dialog__wrapper tec-ct1-dialog-wrapper tec-upgrade-recurrence--' . $phase,
 			'title'                   => '',
 			'overlay_click_closes'    => false,
 		];
@@ -111,7 +111,7 @@ class Progress_Modal {
 		$dialog_view->render_modal( $content, $args, static::$modal_id );
 		$modal_content = ob_get_clean();
 
-		$modal  = '<div class="tribe-common tec-upgrade-recurrence__modal-container tec-upgrade-recurrence__modal-container--progress-dialog">';
+		$modal  = '<div class="tribe-common tec-ct1-dialog-wrapper tec-upgrade-recurrence__modal-container--progress-dialog">';
 		$modal .= '<span id="' . esc_attr( static::$modal_target ) . '" data-js="trigger-dialog-tec-recurrence-migration__progress-dialog" data-content="dialog-content-tec-recurrence-migration__progress-dialog"></span>';
 		$modal .= $modal_content;
 		$modal .= '</div>';
