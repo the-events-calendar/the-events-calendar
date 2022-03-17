@@ -156,8 +156,7 @@ class Ajax {
 	protected function get_renderer_for_phase( $phase ) {
 		// @todo flesh out more for our updated UI and other dynamic sections...
 		// @todo Add pagination + live report (still have mocked data in templates)...
-		$page  = 1;
-		$count = 20;
+		$page  = -1;
 
 		switch ( $phase ) {
 			case State::PHASE_PREVIEW_PROMPT:
@@ -166,7 +165,7 @@ class Ajax {
 					"/phase/$phase.php",
 					[
 						'state'  => tribe( State::class ),
-						'report' => Site_Report::build( $page, $count ),
+						'report' => Site_Report::build( $page ),
 						'text'   => tribe( String_Dictionary::class )
 					]
 				);
@@ -177,7 +176,7 @@ class Ajax {
 					"/phase/$phase.php",
 					[
 						'state'  => tribe( State::class ),
-						'report' => Site_Report::build( $page, $count ),
+						'report' => Site_Report::build( $page ),
 						'text'   => tribe( String_Dictionary::class )
 					]
 				);
@@ -188,7 +187,7 @@ class Ajax {
 					"/phase/$phase.php",
 					[
 						'phase' => $phase,
-						'report' => Site_Report::build( $page, $count ),
+						'report' => Site_Report::build( $page ),
 						'text' => tribe( String_Dictionary::class )
 					]
 				);
@@ -202,7 +201,7 @@ class Ajax {
 					'/partials/progress-bar.php',
 					[
 						'phase' => $phase,
-						'report' => Site_Report::build( $page, $count ),
+						'report' => Site_Report::build( $page ),
 						'text' => tribe( String_Dictionary::class )
 					]
 				);
