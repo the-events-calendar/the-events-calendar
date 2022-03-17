@@ -20,7 +20,7 @@ class Progress_Modal {
 	 *
 	 * @var string
 	 */
-	public static $modal_id = 'tec-ct1-upgrade__progress-dialog';
+	public static $modal_id = 'tec-recurrence-migration__progress-dialog';
 
 	/**
 	 * Modal target.
@@ -29,7 +29,7 @@ class Progress_Modal {
 	 *
 	 * @var string
 	 */
-	public static $modal_target = 'tec-ct1-upgrade__progress-dialog';
+	public static $modal_target = 'tec-recurrence-migration__progress-dialog';
 
 	/**
 	 * Check if we should render the modal.
@@ -86,9 +86,9 @@ class Progress_Modal {
 
 		$default_args = [
 			'append_target'           => '#' . static::$modal_target,
-			'trigger'                 => 'trigger-dialog-tec-ct1-upgrade-dialog',
+			'trigger'                 => 'trigger-dialog-tec-recurrence-migration__progress-dialog',
 			'button_display'          => false,
-			'content_wrapper_classes' => 'tribe-dialog__wrapper tec-ct1-upgrade tec-ct1-upgrade--' . $phase,
+			'content_wrapper_classes' => 'tribe-dialog__wrapper tec-upgrade-recurrence tec-upgrade-recurrence--' . $phase,
 			'title'                   => '',
 			'overlay_click_closes'    => false,
 		];
@@ -118,8 +118,8 @@ class Progress_Modal {
 		$dialog_view->render_modal( $content, $args, static::$modal_id );
 		$modal_content = ob_get_clean();
 
-		$modal  = '<div class="tribe-common tec-ct1-upgrade__modal-container tec-ct1-upgrade__modal-container--progress-dialog">';
-		$modal .= '<span id="' . esc_attr( static::$modal_target ) . '" data-js="trigger-dialog-tec-ct1-upgrade-dialog" data-content="dialog-content-tec-ct1-upgrade-dialog"></span>';
+		$modal  = '<div class="tribe-common tec-upgrade-recurrence__modal-container tec-upgrade-recurrence__modal-container--progress-dialog">';
+		$modal .= '<span id="' . esc_attr( static::$modal_target ) . '" data-js="trigger-dialog-tec-recurrence-migration__progress-dialog" data-content="dialog-content-tec-recurrence-migration__progress-dialog"></span>';
 		$modal .= $modal_content;
 		$modal .= '</div>';
 
