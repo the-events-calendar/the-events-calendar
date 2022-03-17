@@ -75,14 +75,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Enqueue Customizer styles for the single event block editor screen.
 	 *
-	 * @since TBD
+	 * @since 5.14.1
 	 */
 	public function enqueue_customizer_in_block_editor() {
 		// Make sure we're on the block edit screen
 		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
 			return;
 		}
-		
+
 		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
 			return;
 		}

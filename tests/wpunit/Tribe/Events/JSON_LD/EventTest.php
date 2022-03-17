@@ -199,7 +199,7 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * Check that the data for the JSON_LD is populated correctly
 	 *
-	 * @since TBD
+	 * @since 5.14.1
 	 */
 	public function it_should_return_correct_data_for_free_event() {
 

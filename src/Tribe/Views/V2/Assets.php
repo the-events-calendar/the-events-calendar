@@ -476,7 +476,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-admin-v2-single-blocks',
 			'tribe-admin-single-blocks.css',
-			[ 
+			[
 				'tec-variables-full',
 				'tec-variables-skeleton',
 			],
@@ -546,16 +546,16 @@ class Assets extends \tad_DI52_ServiceProvider {
 
 		/**
 		 * Checks whether the page is being viewed in Elementor preview mode.
-		 * 
-		 * @since TBD
-		 * 
+		 *
+		 * @since 5.14.1
+		 *
 		 * @return bool $should_enqueue Should the frontend assets be enqueued.
 		 */
 		if (
 			defined( 'ELEMENTOR_PATH' )
 
 			&& ! empty( ELEMENTOR_PATH )
-		
+
 			&& isset( $_GET[ 'elementor-preview' ] )
 		) {
 			return $this->should_enqueue = true;
@@ -671,7 +671,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Load assets on the add or edit pages of the block editor only.
 	 *
-	 * @since  TBD
+	 * @since  5.14.1
 	 *
 	 * @return bool
 	 */
@@ -683,7 +683,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		if ( ! get_current_screen()->is_block_editor ) {
 			return false;
 		}
-		
+
 		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
 			return false;
 		}

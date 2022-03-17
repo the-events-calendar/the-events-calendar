@@ -543,7 +543,7 @@ class Month_View extends By_Day_View {
 		/**
 		 * Allows filtering between starting the ics export on the 1st of the month or the current day.
 		 *
-		 * @since TBD
+		 * @since 5.14.1
 		 *
 		 * @param bool $start_today Whether to start from the current day (true) or the first of the month (false).
 		 */
