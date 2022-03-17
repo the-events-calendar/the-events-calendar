@@ -39,7 +39,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 		</div>
 		<div>
 			<a href="#"
-			   class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'cancel-migration-button' ) ); ?></a>
+			   class="tec-ct1-action-container tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'cancel-migration-button' ) ); ?></a>
 		</div>
 	</div>
 	<div class="image-container">

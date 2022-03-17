@@ -28,14 +28,15 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			</strong>
 			<?php echo esc_html( $text->get( 'preview-prompt-scan-events' ) ); ?>
 		</p>
-
-		<button class="tec-ct1-upgrade-start-migration-preview"
-				type="button">
-			<?php echo esc_html( $text->get( 'start-migration-preview-button' ) ); ?>
-		</button>
-		<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
-			<?php echo esc_html( $text->get( 'learn-more-button' ) ); ?>
-		</a>
+		<div class="tec-ct1-action-container">
+			<button class="tec-ct1-upgrade-start-migration-preview"
+					type="button">
+				<?php echo esc_html( $text->get( 'start-migration-preview-button' ) ); ?>
+			</button>
+			<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
+				<?php echo esc_html( $text->get( 'learn-more-button' ) ); ?>
+			</a>
+		</div>
 	</div>
 	<div class="image-container">
 		<img class="screenshot"

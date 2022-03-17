@@ -312,8 +312,7 @@ class Process_Worker {
 	 */
 	public function check_phase( ) {
 		$phase               = $this->state->get_phase();
-		$migration_completed = $this->state->is_running()
-		                       && in_array(
+		$migration_completed = in_array(
 			                       $phase, [
 			                       State::PHASE_MIGRATION_IN_PROGRESS,
 			                       State::PHASE_PREVIEW_IN_PROGRESS

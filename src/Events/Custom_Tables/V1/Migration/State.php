@@ -105,22 +105,36 @@ class State {
 	}
 
 	/**
-	 * Returns whether the migration is running or not.
+	 * Returns whether there is work being done. Does not only check for an in progress migration.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the migration is running or not.
+	 * @return bool Whether some worker actions are in flight.
 	 */
 	public function is_running() {
-		// @todo This what we want to check here...? Being used in Site_Report
-		$in_progress_states = [
+		$states = [
 			self::PHASE_MIGRATION_IN_PROGRESS,
 			self::PHASE_PREVIEW_IN_PROGRESS,
 			self::PHASE_UNDO_IN_PROGRESS,
-			self::PHASE_MIGRATION_PROMPT
 		];
 
-		return in_array( $this->get_phase(), $in_progress_states );
+		return in_array( $this->get_phase(), $states, true );
+	}
+
+	/**
+	 * Checks the phases we want to lock out access to certain features.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether we should lock the site for maintenance mode.
+	 */
+	public function should_lock_for_maintenance() {
+		$states = [
+			self::PHASE_MIGRATION_IN_PROGRESS,
+			self::PHASE_UNDO_IN_PROGRESS,
+		];
+
+		return in_array( $this->get_phase(), $states, true );
 	}
 
 	/**

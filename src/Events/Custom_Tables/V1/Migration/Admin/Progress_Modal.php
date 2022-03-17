@@ -52,7 +52,7 @@ class Progress_Modal {
 		}
 
 
-		return tribe( State::class )->is_running();
+		return tribe( State::class )->should_lock_for_maintenance();
 	}
 
 	public function render_modal() {

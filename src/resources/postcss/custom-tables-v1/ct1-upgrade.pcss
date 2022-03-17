@@ -204,36 +204,47 @@
 }
 
 /*========= Modal =========*/
-.tribe-common .tribe-dialog__wrapper.tec-ct1-upgrade {
+
+.tribe-common .tribe-dialog__wrapper .tec-ct1-action-container {
+	display: none;
+}
+
+.tribe-common .tribe-dialog__wrapper .tec-ct1-upgrade {
+	background: transparent;
+	border: none;
+}
+.tribe-common .tribe-dialog__wrapper.tec-upgrade-recurrence {
 	overflow-y: auto;
 	width: 660px;
 }
 
-.tribe-common .tec-ct1-upgrade .tribe-dialog__close-button {
+.tribe-common .tec-upgrade-recurrence .tribe-dialog__close-button {
 	display: none;
 }
 
-.tribe-dialog__wrapper.tec-ct1-upgrade .image-container {
+.tribe-dialog__wrapper.tec-upgrade-recurrence .image-container {
 	display: none;
 }
 
-.tec-ct1-upgrade__modal-container {
+.tec-upgrade-recurrence__modal-container {
 	z-index: 2000;
 	position: absolute;
 }
 
-.tec-ct1-upgrade__modal-container button {
+.tec-upgrade-recurrence__modal-container button {
 	padding: 10px;
 }
 
-.tribe-common.tec-ct1-upgrade__modal-container--v2-disable-dialog .tribe-dialog__wrapper {
+/** @todo */
+.tribe-common.tec-upgrade-recurrence__modal-container--v2-disable-dialog .tribe-dialog__wrapper {
 	overflow-y: auto;
 }
-
-.tribe-common.tec-ct1-upgrade__modal-container--v2-disable-dialog .tribe-dialog__overlay {
+/** @todo */
+.tribe-common.tec-upgrade-recurrence__modal-container--v2-disable-dialog .tribe-dialog__overlay {
 	background-color: var(--tribe-modal-overlay-color);
 }
-
-.tribe-common.tec-ct1-upgrade__modal-container--v2-disable-dialog .tribe-dialog__close-button {
+/** @todo */
+.tribe-common.tec-upgrade-recurrence__modal-container--v2-disable-dialog .tribe-dialog__close-button {
 	border: 0;
 }
+
