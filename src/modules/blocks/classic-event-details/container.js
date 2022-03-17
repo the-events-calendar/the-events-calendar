@@ -43,6 +43,7 @@ const mapStateToProps = ( state ) => ( {
 	cost: priceSelectors.getPrice( state ),
 	currencyPosition: priceSelectors.getPosition( state ),
 	currencySymbol: priceSelectors.getSymbol( state ),
+	currencyCode: priceSelectors.getCode( state ),
 	url: websiteSelectors.getUrl( state ),
 	organizers: organizerSelectors.getOrganizersInClassic( state ),
 } );
@@ -64,6 +65,10 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	setSymbol: ( symbol ) => {
 		ownProps.setAttributes( { currencySymbol: symbol } );
 		dispatch( priceActions.setSymbol( symbol ) );
+	},
+	setCode: ( code ) => {
+		ownProps.setAttributes( { currencyCode: code } );
+		dispatch( priceActions.setCode( code ) );
 	},
 	setWebsite: ( url ) => {
 		ownProps.setAttributes( { url } );

@@ -2,7 +2,7 @@
 /**
  * Mock event meta class used in tests.
  *
- * @since TBD
+ * @since 5.11.0
  *
  * @package Tribe\Extensions\EventsControl
  */
@@ -13,7 +13,7 @@ namespace Tribe\Extensions\EventsControl;
 /**
  * Class Event_Meta
  *
- * @since TBD
+ * @since 5.11.0
  *
  * @package Tribe\Extensions\EventsControl
  */

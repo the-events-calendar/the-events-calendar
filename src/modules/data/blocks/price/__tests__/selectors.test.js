@@ -28,4 +28,8 @@ describe( '[STORE] - Price selectors', () => {
 	it( 'Should return the price symbol', () => {
 		expect( selectors.getSymbol( state ) ).toMatchSnapshot();
 	} );
+
+	it( 'Should return the price code', () => {
+		expect( selectors.getCode( state ) ).toMatchSnapshot();
+	} );
 } );
