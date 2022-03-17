@@ -106,21 +106,13 @@ class Progress_Modal {
 	 * @return string The modal content.
 	 */
 	public function get_modal_content( $args = [] ) {
-		$state = tribe( State::class );
-		$phase = $state->get_phase();
-		$path  = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
-
-		ob_start();
-		include_once $path . '/upgrade-logo.php';
-		$logo = ob_get_clean();
-
-		ob_start();
-		include $path . '/phase/' . $phase . '.php';
-		$content = ob_get_clean();
-
+		$template_path = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
+		$dialog_view = tribe( 'dialog.view' );
 		$args = $this->get_modal_args( $args );
 
-		$dialog_view = tribe( 'dialog.view' );
+		ob_start();
+		include $template_path.'/upgrade-box.php';
+		$content = ob_get_clean();
 
 		ob_start();
 		$dialog_view->render_modal( $content, $args, static::$modal_id );

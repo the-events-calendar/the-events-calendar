@@ -29,11 +29,21 @@ class Maintenance_Mode {
 	private $migration_state;
 
 	/**
+	 * A reference to the progress modal displayed to lock several pages.
+	 *
+	 * @since TBD
+	 *
+	 * @var Progress_Modal
+	 */
+	private $progress_modal;
+
+	/**
 	 * Maintenance_Mode constructor.
 	 *
-	 * since TBD
+	 * @since TBD
 	 *
 	 * @param State $state A reference to the current migration state provider.
+	 * @param Progress_Modal $progress_modal A reference to the progress modal displayed to lock several pages.
 	 */
 	public function __construct( State $state, Progress_Modal $progress_modal ) {
 		$this->migration_state = $state;
@@ -69,11 +79,12 @@ class Maintenance_Mode {
 	private function add_filters() {
 		// Turn off Aggregator cron.
 		add_filter( 'tribe_get_option', [ $this, 'filter_aggregator_disable' ], 10, 2 );
+
 		// Disable REST endpoints for Event Aggregator by setting the permission check to false.
 		add_filter( 'tribe_aggregator_batch_data_processing_enabled', '__return_false' );
 		add_filter( 'tribe_aggregator_remote_status_enabled', '__return_false' );
 
-		// @todo delegate this to upgrade tab class?
+		// Modal that locks events access, to be rendered on several pages.
 		add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 		add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
 

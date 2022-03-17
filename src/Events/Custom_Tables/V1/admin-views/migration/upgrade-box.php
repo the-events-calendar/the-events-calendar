@@ -7,7 +7,6 @@
  * @var string $phase The current Migration phase the site is in.
  * @var string $template_path The absolute path to the Migration template root directory.
  */
-use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 $text = tribe( String_Dictionary::class );
