@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.14.1] 2022-03-17 =
 
 * Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
+* Tweak - Added filters: `tribe_events_views_v2_month_ics_start_today`
 * Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TEC-4263]
 * Fix - Correct Month View ics export so it begins on the current day rather than the 1st. [TEC-4223]
 * Fix - Add ISO Currency Code field to admin to set code sent via JSON-LD. TEC was incorrectly sending symbol. [TEC-4212]
