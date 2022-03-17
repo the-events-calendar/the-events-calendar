@@ -55,17 +55,10 @@ class Progress_Modal {
 		return tribe( State::class )->is_running();
 	}
 
-	/**
-	 * Render the Manual Attendees modal.
-	 *
-	 * @since TBD
-	 */
 	public function render_modal() {
 		if ( ! $this->should_render() ) {
 			return;
 		}
-
-		wp_enqueue_style( 'tec-ct1-upgrade-admin-css' );
 
 		// Render the modal contents.
 		echo $this->get_modal_content();

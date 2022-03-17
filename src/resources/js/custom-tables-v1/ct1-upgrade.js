@@ -109,12 +109,8 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
  * @param {boolean} refresh Fetch from cache of the node or reselect it.
  *
  */
-export const getUpgradeBoxElement = (refresh) => {
-	if (refresh || !(upgradeBoxElement instanceof Element)) {
-		upgradeBoxElement = document.getElementById(selectors.upgradeBox.substr(1));
-	}
-
-	return upgradeBoxElement;
+export const getUpgradeBoxElement = () => {
+	return document.getElementById(selectors.upgradeBox.substr(1));
 };
 
 export const onSuccess = () => {
@@ -169,7 +165,7 @@ export const handleReportData = function(data) {
 
 	// Write our HTML if we are new.
 	if (!currentViewState.key || currentViewState.key !== key) {
-		upgradeBoxElement.innerHTML = html;
+		getUpgradeBoxElement().innerHTML = html;
 		bindNodes(key);
 	}
 	// Iterate on nodes.

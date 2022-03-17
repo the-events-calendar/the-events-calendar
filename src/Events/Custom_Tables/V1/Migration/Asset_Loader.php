@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -44,16 +45,17 @@ class Asset_Loader {
 	 * @since TBD
 	 */
 	public function enqueue_scripts() {
-		if ( ! isset( $_GET['page'] ) ) {
-			return;
-		}
+		$on_settings_page       = isset( $_GET['page'] )
+		                          && $_GET['page'] === tribe( 'settings' )->adminSlug;
+		$on_progress_modal_page = tribe( Progress_Modal::class )->should_render();
 
-		if ( $_GET['page'] !== tribe( 'settings' )->adminSlug ) {
+		if ( ! $on_settings_page && ! $on_progress_modal_page ) {
 			return;
 		}
 
 		$this->register_scripts();
 
+		// @todo different flags depending on page
 		wp_enqueue_style( 'tec-ct1-upgrade-admin-css' );
 		wp_enqueue_script( 'tec-ct1-upgrade-admin-js' );
 		wp_localize_script( 'tec-ct1-upgrade-admin-js',

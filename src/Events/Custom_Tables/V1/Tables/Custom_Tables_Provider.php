@@ -126,7 +126,7 @@ trait Custom_Tables_Provider {
 		}
 
 		$results = [];
-
+// @todo Bug here - when pro is active, we are not creating pro tables.
 		foreach ( $this->table_classes as $custom_table_class ) {
 			/** @var Custom_Table_Interface $custom_table */
 			$custom_table                               = $this->container->make( $custom_table_class );
