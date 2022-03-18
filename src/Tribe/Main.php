@@ -1116,6 +1116,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page(
 					[
 						'slug'                  => 'the-events-calendar',
+						'admin_page'            => 'tribe_events_page_tec-events-settings',
 						'activation_transient'  => '_tribe_events_activation_redirect',
 						'version'               => self::VERSION,
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
