@@ -8,7 +8,7 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
-
+use Tribe__Dependency as Plugins;
 /**
  * Class Strings.
  *
@@ -33,6 +33,25 @@ class String_Dictionary {
 	 * @var array
 	 */
 	private $map = [];
+	/**
+	 * A reference to the current plugin dependencies handler.
+	 *
+	 * @since TBD
+	 *
+	 * @var Plugins
+	 */
+	private $plugins;
+
+	/**
+	 * String_Dictionary constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Plugins $plugins A reference to the current plugin dependencies handler.
+	 */
+	public function __construct( Plugins $plugins ) {
+		$this->plugins = $plugins;
+	}
 
 	/**
 	 * Initializes the strings map filtering it.
@@ -254,7 +273,65 @@ class String_Dictionary {
 				'Number of events awaiting migration',
 				'the-events-calendar'
 			),
+			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),
 		] );
+	}
+
+	/**
+	 * Gets the migration prompt trailing message based on plugin activation state.
+	 *
+	 * Note this code will sense around for both .org and premium plugins: it's by
+	 * design and meant to keep the logic lean.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_plugin_state_migration_addendum() {
+		// Free plugins.
+		$et_active = $this->plugins->is_plugin_active( 'Tribe__Tickets__Main' );
+		$ea_active = tribe( 'events-aggregator.main' )->has_license_key();
+		// Premium plugins.
+		$ce_active = $this->plugins->is_plugin_active( 'Tribe__Events__Community__Main' );
+		$eb_active = $this->plugins->is_plugin_active( 'Tribe__Events__Tickets__Eventbrite__Main' );
+		$text      = '';
+
+		if ( $et_active && $ce_active && ( $ea_active || $eb_active ) ) {
+			$text = __( 'Ticket sales, RSVPs, event submissions, and event imports will be paused until migration is complete.', 'the-events-calendar' );
+		}
+
+		if ( $et_active && ( $ea_active || $eb_active ) ) {
+			$text = __( 'Ticket sales, RSVPs, and event imports will be paused until migration is complete.', 'the-events-calendar' );
+		}
+
+		if ( $ce_active && ( $ea_active || $eb_active ) ) {
+			$text = __( 'Event submissions and event imports will be paused until migration is complete.', 'the-events-calendar' );
+		}
+
+		if ( $et_active && $ce_active ) {
+			$text = __( 'Ticket sales, RSVPs, and event submissions will be paused until migration is complete.', 'the-events-calendar' );
+		}
+
+		if ( $et_active ) {
+			$text = __( 'Ticket sales and RSVPs will be paused until migration is complete.', 'the-events-calendar' );
+		}
+
+		if ( $ce_active ) {
+			$text = __( 'Event submissions will be paused until migration is complete.', 'the-events-calendar' );
+		}
+
+		if ( $ea_active || $eb_active ) {
+			$text = __( 'Event imports will be paused until migration is complete.', 'the-events-calendar' );
+		}
+
+		/**
+		 * The messaging around the active plugins and the effects on each plugin during a migration.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $text The messaging text.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_migration_get_plugin_state_migration_addendum', $text );
 	}
 
 	/**

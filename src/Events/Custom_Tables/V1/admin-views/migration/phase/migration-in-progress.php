@@ -1,6 +1,4 @@
 <?php
-
-use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 /**
@@ -23,7 +21,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 					'</strong>'
 			);
 
-			if ( $addendum = tribe( Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
+			if ( $addendum = $text->get( 'migration-prompt-plugin-state-addendum' ) ) {
 				?>
 				<strong><?php echo esc_html( $addendum ); ?></strong>
 				<?php

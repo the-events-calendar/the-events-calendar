@@ -10,7 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
-use Tribe__Dependency as Plugins;
+
 
 class Upgrade_Tab {
 	/**
@@ -30,14 +30,6 @@ class Upgrade_Tab {
 	 * @var State
 	 */
 	private $state;
-	/**
-	 * A reference to the current plugin dependencies handler.
-	 *
-	 * @since TBD
-	 *
-	 * @var Plugins
-	 */
-	private $plugins;
 
 	/**
 	 * Upgrade_Tab constructor.
@@ -45,11 +37,9 @@ class Upgrade_Tab {
 	 * since TBD
 	 *
 	 * @param State   $state   A reference to the current migration state handler.
-	 * @param Plugins $plugins A reference to the current plugin dependencies handler.
 	 */
-	public function __construct( State $state, Plugins $plugins ) {
+	public function __construct( State $state ) {
 		$this->state         = $state;
-		$this->plugins       = $plugins;
 		$this->template_path = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
 	}
 
@@ -84,54 +74,7 @@ class Upgrade_Tab {
 		return $upgrade_fields;
 	}
 
-	/**
-	 * Gets the migration prompt trailing message based on plugin activation state.
-	 *
-	 * Note this code will sense around for both .org and premium plugins: it's by
-	 * design and meant to keep the logic lean.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function get_migration_prompt_addendum() {
-		// Free plugins.
-		$et_active = $this->plugins->is_plugin_active( 'Tribe__Tickets__Main' );
-		$ea_active = tribe( 'events-aggregator.main' )->has_license_key();
-		// Premium plugins.
-		$ce_active = $this->plugins->is_plugin_active( 'Tribe__Events__Community__Main' );
-		$eb_active = $this->plugins->is_plugin_active( 'Tribe__Events__Tickets__Eventbrite__Main' );
 
-		if ( $et_active && $ce_active && ( $ea_active || $eb_active ) ) {
-			return __( 'Ticket sales, RSVPs, event submissions, and event imports will be paused until migration is complete.', 'the-events-calendar' );
-		}
-
-		if ( $et_active && ( $ea_active || $eb_active ) ) {
-			return __( 'Ticket sales, RSVPs, and event imports will be paused until migration is complete.', 'the-events-calendar' );
-		}
-
-		if ( $ce_active && ( $ea_active || $eb_active ) ) {
-			return __( 'Event submissions and event imports will be paused until migration is complete.', 'the-events-calendar' );
-		}
-
-		if ( $et_active && $ce_active ) {
-			return __( 'Ticket sales, RSVPs, and event submissions will be paused until migration is complete.', 'the-events-calendar' );
-		}
-
-		if ( $et_active ) {
-			return __( 'Ticket sales and RSVPs will be paused until migration is complete.', 'the-events-calendar' );
-		}
-
-		if ( $ce_active ) {
-			return __( 'Event submissions will be paused until migration is complete.', 'the-events-calendar' );
-		}
-
-		if ( $ea_active || $eb_active ) {
-			return __( 'Event imports will be paused until migration is complete.', 'the-events-calendar' );
-		}
-
-		return '';
-	}
 
 	/**
 	 * Renders and returns the current phase HTML code.
@@ -142,7 +85,6 @@ class Upgrade_Tab {
 	 */
 	public function get_phase_html() {
 		$phase              = $this->state->get_phase();
-		$migration_addendum = $this->get_migration_prompt_addendum();
 		$template_path      = $this->template_path;
 
 		ob_start();
