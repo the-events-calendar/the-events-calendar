@@ -49,7 +49,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         with:
           repository: the-events-calendar/tric
-          ref: 0.5.29
+          ref: main
           path: tric
           fetch-depth: 1
       # ------------------------------------------------------------------------------
