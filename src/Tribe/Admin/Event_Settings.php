@@ -33,6 +33,37 @@ class Tribe__Events__Admin__Event_Settings {
 	}
 
 	/**
+	 * Returns the main admin settings URL.
+	 *
+	 * @param array $args Arguments to pass to the URL.
+	 *
+	 * @return string
+	 */
+	public function get_url( array $args = [] ) {
+		$defaults = [
+			'page'      => self::$settings_page_id,
+			'post_type' => Plugin::POSTTYPE,
+		];
+
+		// Allow the link to be "changed" on the fly.
+		$args = wp_parse_args( $args, $defaults );
+
+		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
+
+		// Keep the resulting URL args clean.
+		$url = add_query_arg( $args, $wp_url );
+
+		/**
+		 * Filters the admin settings URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The admin settings URL.
+		 */
+		return apply_filters( 'tec_events_settings_url', $url );
+	}
+
+	/**
 	 * Adds The Events Calendar settings page to the pages configuration.
 	 *
 	 * @since TBD

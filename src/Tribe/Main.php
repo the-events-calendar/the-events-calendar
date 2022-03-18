@@ -1117,6 +1117,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					[
 						'slug'                  => 'the-events-calendar',
 						'admin_page'            => 'tribe_events_page_tec-events-settings',
+						'admin_url'             => $this->settings()->get_url(),
 						'activation_transient'  => '_tribe_events_activation_redirect',
 						'version'               => self::VERSION,
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
