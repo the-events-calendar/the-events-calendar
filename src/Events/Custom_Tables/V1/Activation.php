@@ -65,14 +65,20 @@ class Activation {
 		$services->register( Tables::class );
 		$tables = $services->make( Tables::class );
 
+		// Sync any schema changes we may have.
 		if ( $tables->exist() ) {
 			$tables->update_tables( true );
+
+			return;
 		}
 
-		// Check if we have not "migrated", then attempt to activate.
+		// Create and sync our tables.
+		// Check if we have not "migrated" or canceled the upgrade, then attempt to activate.
+		// If this is a fresh activation, this should always pass through and activate.
 		$state = $services->make( State::class );
-		// @todo this will fail after an undo - need to track something else
-		if ( ! in_array( $state->get_phase(), [ State::PHASE_MIGRATION_COMPLETE ], true ) ) {
+		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE
+		     && ! $state->get( 'locked_by_undo' )
+		) {
 			$tables->update_tables( true );
 
 			// Check if we have any events to migrate.

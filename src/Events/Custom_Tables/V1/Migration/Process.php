@@ -72,7 +72,11 @@ class Process {
 		] ) ) {
 			return false;
 		}
-
+		// Reset our undo state.
+		if ( $this->state->get( 'locked_by_undo' ) ) {
+			$this->state->set( 'locked_by_undo', null );
+			$this->state->save();
+		}
 		// Ensure we have our database setup.
 		Activation::activate();
 
@@ -111,6 +115,7 @@ class Process {
 
 		// Flag our new phase.
 		$this->state->set( 'phase', State::PHASE_UNDO_IN_PROGRESS );
+		$this->state->set( 'locked_by_undo', true );
 		$this->state->save();
 
 		// Ensure Action Scheduler tables are there.
