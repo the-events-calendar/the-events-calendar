@@ -47,6 +47,7 @@ class Progress_Modal {
 			"edit-{$post_type}" !== $screen->id
 			&& $post_type !== $screen->id
 			&& 'tribe_events_page_aggregator' !== $screen->id
+			&& 'tribe_events_page_tribe-admin-manager' !== $screen->id
 		) {
 			return false;
 		}
