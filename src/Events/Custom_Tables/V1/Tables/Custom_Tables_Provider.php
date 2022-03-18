@@ -34,7 +34,7 @@ trait Custom_Tables_Provider {
 		do_action( 'tec_events_custom_tables_v1_pre_drop_tables' );
 
 		// We list, and create, the tables from required to dependent; drop them in reverse order.
-		$table_classes = array_reverse( $this->table_classes );
+		$table_classes = array_reverse( $this->get_custom_table_handlers() );
 
 		/**
 		 * Filters the tables to be dropped.
