@@ -273,7 +273,7 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return string The Settings page path.
 	 */
 	public function get_settings_path() {
-		return sprintf( 'edit.php?post_type=%s&page=%s', Tribe__Events__Main::POSTTYPE, $this->page );
+		return Tribe__Events__Main::instance()->settings()->get_url();
 	}
 
 	/**
