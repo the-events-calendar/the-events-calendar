@@ -284,7 +284,7 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return string The welcome page URL.
 	 */
 	public function get_welcome_url() {
-		return Tribe__Settings::instance()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] );
+		return Tribe__Events__Main::instance()->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] );
 	}
 
 	/**

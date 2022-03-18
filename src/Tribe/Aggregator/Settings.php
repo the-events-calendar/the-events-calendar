@@ -63,7 +63,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_eb_credentials();
 
 		wp_redirect(
-			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
+			Tribe__Events__Main::instance()->settings()->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -202,7 +202,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_meetup_credentials();
 
 		wp_redirect(
-			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
+			Tribe__Events__Main::instance()->settings()->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -769,7 +769,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_fb_credentials();
 
 		wp_redirect(
-			Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] )
+			Tribe__Events__Main::instance()->settings()->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
