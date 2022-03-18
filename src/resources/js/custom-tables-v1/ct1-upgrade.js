@@ -137,7 +137,7 @@ export const recursePollForReport = () => {
 };
 
 export const shouldPoll = () => {
-	return currentViewState.poll;
+	return currentViewState.poll || tecCt1Upgrade.forcePolling;
 };
 
 /**
