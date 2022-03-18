@@ -37,6 +37,9 @@ class Activation {
 	public static function activate() {
 		// Delete the transient to make sure the activation code will run again.
 		delete_transient( self::ACTIVATION_TRANSIENT );
+		// Transient will still be found, ensure it is truthy false.
+		// @todo better way to do this? we deleting it wrong?
+		wp_cache_set( self::ACTIVATION_TRANSIENT, null, 'options' );
 
 		self::init();
 	}
@@ -68,7 +71,8 @@ class Activation {
 
 		// Check if we have not "migrated", then attempt to activate.
 		$state = $services->make( State::class );
-		if ( ! in_array( $state->get_phase(), [ State::PHASE_MIGRATION_COMPLETE, State::PHASE_MIGRATION_PROMPT ] ) ) {
+		// @todo this will fail after an undo - need to track something else
+		if ( ! in_array( $state->get_phase(), [ State::PHASE_MIGRATION_COMPLETE ], true ) ) {
 			$tables->update_tables( true );
 
 			// Check if we have any events to migrate.

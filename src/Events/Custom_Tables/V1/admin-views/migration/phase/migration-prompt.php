@@ -39,7 +39,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 					$report->estimated_time_in_hours
 			);
 
-			if ( $addendum = tribe( \TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
+			if ( $addendum = $text->get( 'migration-prompt-plugin-state-addendum' ) ) {
 				?>
 				<strong><?php echo esc_html( $addendum ); ?></strong>
 				<?php

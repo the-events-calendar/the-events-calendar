@@ -51,10 +51,14 @@ class Progress_Modal {
 			return false;
 		}
 
-
 		return tribe( State::class )->should_lock_for_maintenance();
 	}
 
+	/**
+	 * Outputs the maintenance modal markup.
+	 *
+	 * @since TBD
+	 */
 	public function render_modal() {
 		if ( ! $this->should_render() ) {
 			return;

@@ -126,8 +126,10 @@ trait Custom_Tables_Provider {
 		}
 
 		$results = [];
-// @todo Bug here - when pro is active, we are not creating pro tables.
-		foreach ( $this->table_classes as $custom_table_class ) {
+
+		// Get all registered table classes.
+		$table_classes = $this->get_custom_table_handlers();
+		foreach ( $table_classes as $custom_table_class ) {
 			/** @var Custom_Table_Interface $custom_table */
 			$custom_table                               = $this->container->make( $custom_table_class );
 			$results[ $custom_table->get_table_name() ] = $custom_table->update();
@@ -157,6 +159,46 @@ trait Custom_Tables_Provider {
 	}
 
 	/**
+	 * Add ourselves to the list of table handlers.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $table_handlers Filtered list of table classes.
+	 *
+	 * @return array<string> The table classes that handle schema updates.
+	 */
+	public function add_table_handlers( array $table_handlers ) {
+		return array_unique( array_merge( $table_handlers, $this->table_classes ) );
+	}
+
+	/**
+	 * Runs the `tec_events_custom_tables_v1_table_handlers` filter to retrieve all registered table handlers.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> The table classes that handle schema updates.
+	 */
+	public function get_custom_table_handlers() {
+		/**
+		 * This filter will retrieve all registered table handlers.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> The list of table handlers.
+		 */
+		return (array) apply_filters( 'tec_events_custom_tables_v1_table_handlers', [] );
+	}
+
+	/**
+	 * Register ourselves with the `tec_events_custom_tables_v1_table_handlers` list.
+	 *
+	 * @since TBD
+	 */
+	public function register_custom_table_handlers() {
+		add_filter( 'tec_events_custom_tables_v1_table_handlers', [ $this, 'add_table_handlers' ] );
+	}
+
+	/**
 	 * Empties the plugin custom tables.
 	 *
 	 * @since TBD
@@ -180,6 +222,7 @@ trait Custom_Tables_Provider {
 		$this->container->singleton( Provider::class, $this );
 
 		$this->register_custom_tables_names();
+		$this->register_custom_table_handlers();
 		$this->register_wpcli_support();
 
 		if ( is_multisite() ) {
