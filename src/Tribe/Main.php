@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.14.0.4';
+		const VERSION             = '5.14.1';
 
 		/**
 		 * Min Pro Addon
@@ -207,6 +207,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCurrencySymbol',
+			'_EventCurrencyCode',
 			'_EventCurrencyPosition',
 			'_EventCost',
 			'_EventCostMin',
@@ -833,7 +834,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'wp', [ $this, 'issue_noindex' ] );
 			add_action( 'plugin_row_meta', [ $this, 'addMetaLinks' ], 10, 2 );
 			// organizer and venue
-			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ) {
+			if ( ! tec_should_hide_upsell() ) {
 				add_action( 'wp_dashboard_setup', [ $this, 'dashboardWidget' ] );
 				add_action( 'tribe_events_cost_table', [ $this, 'maybeShowMetaUpsell' ] );
 			}

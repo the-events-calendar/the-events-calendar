@@ -197,7 +197,7 @@ class FetchTest extends \Codeception\TestCase\WPTestCase {
 	 * Creates a set of venues and a set of events for half the venues.
 	 * Also creates a set of "extra" events for "noise"
 	 *
-	 * @since TBD
+	 * @since 5.5.0
 	 *
 	 * @param int $venues       The number of venues to create.
 	 * @param int $events       The number of events to create per venue.
