@@ -19,13 +19,6 @@ use Tribe__Events__Main as TEC;
  */
 class Events {
 	/**
-	 * A place to store various data sets to avoid repeating expensive queries.
-	 *
-	 * @var array<string, mixed>
-	 */
-	protected $_cache = [];
-
-	/**
 	 * Returns an Event post ID, claimed and locked to process.
 	 *
 	 * @since TBD
@@ -89,11 +82,11 @@ class Events {
 	}
 
 	/**
-	 * Calculate how many events are remaining in migration.
+	 * Calculate how many events are remaining to migrate.
 	 *
 	 * @since TBD
 	 *
-	 * @return int
+	 * @return int The total number of Events that are not migrated or migrating.
 	 */
 	public function get_total_events_remaining() {
 		return $this->get_total_events() - $this->get_total_events_migrated();
@@ -152,22 +145,16 @@ class Events {
 	 * @return int
 	 */
 	public function get_total_events_in_progress() {
-		$cache       = tribe( 'cache' );
-		$in_progress = $cache[ __METHOD__ ];
-
-		if ( false === $in_progress ) {
-			global $wpdb;
-			$total_in_progress_query = $wpdb->prepare(
-				"SELECT COUNT(DISTINCT `ID`)
+		global $wpdb;
+		$total_in_progress_query = $wpdb->prepare(
+			"SELECT COUNT(DISTINCT `ID`)
 			FROM {$wpdb->posts} p
 			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 			WHERE p.post_type = %s",
-				Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-				TEC::POSTTYPE
-			);
-			$in_progress             = (int) $wpdb->get_var( $total_in_progress_query );
-			$cache[ __METHOD__ ]     = $in_progress;
-		}
+			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
+			TEC::POSTTYPE
+		);
+		$in_progress             = (int) $wpdb->get_var( $total_in_progress_query );
 
 		return $in_progress;
 	}
@@ -180,25 +167,19 @@ class Events {
 	 * @return int
 	 */
 	public function get_total_events_migrated() {
-		$cache    = tribe( 'cache' );
-		$migrated = $cache[ __METHOD__ ];
-
-		if ( false === $migrated ) {
-			global $wpdb;
-			$total_migrated_query = $wpdb->prepare(
-				"SELECT COUNT(DISTINCT `ID`)
+		global $wpdb;
+		$total_migrated_query = $wpdb->prepare(
+			"SELECT COUNT(DISTINCT `ID`)
 			FROM {$wpdb->posts} p
 			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 			WHERE p.post_type = %s
 			AND pm.meta_value IN(%s, %s)",
-				Event_Report::META_KEY_MIGRATION_PHASE,
-				TEC::POSTTYPE,
-				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-				Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE
-			);
-			$migrated             = (int) $wpdb->get_var( $total_migrated_query );
-			$cache[ __METHOD__ ]  = $migrated;
-		}
+			Event_Report::META_KEY_MIGRATION_PHASE,
+			TEC::POSTTYPE,
+			Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE
+		);
+		$migrated             = (int) $wpdb->get_var( $total_migrated_query );
 
 		return $migrated;
 	}
@@ -208,22 +189,16 @@ class Events {
 	 *
 	 * @since TBD
 	 *
-	 * @return int
+	 * @return int The total number of Events in the database, migrated or not.
 	 */
-	public function get_total_events() {
-		$cache        = tribe( 'cache' );
-		$total_events = $cache[ __METHOD__ ];
-
-		if ( false === $total_events ) {
-			global $wpdb;
-			$total_events = (int) $wpdb->get_var(
-				$wpdb->prepare(
-					"SELECT COUNT(ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND post_parent = 0",
-					TEC::POSTTYPE
-				)
-			);
-			$cache[ __METHOD__ ] = $total_events;
-		}
+	public function get_total_events(  ) {
+		global $wpdb;
+		$total_events = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND post_parent = 0",
+				TEC::POSTTYPE
+			)
+		);
 
 		return $total_events;
 	}
