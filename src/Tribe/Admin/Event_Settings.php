@@ -191,7 +191,7 @@ class Tribe__Events__Admin__Event_Settings {
 		$admin_pages = tribe( 'admin.pages' );
 		$settings    = Tribe__Settings::instance();
 
-		if ( ! $settings->should_setup_network_pages() ) {
+		if ( ! is_plugin_active_for_network( 'the-events-calendar/the-events-calendar.php' ) ) {
 			return;
 		}
 
