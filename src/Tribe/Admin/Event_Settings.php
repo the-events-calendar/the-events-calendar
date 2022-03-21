@@ -30,6 +30,7 @@ class Tribe__Events__Admin__Event_Settings {
 		add_filter( 'tec_settings_tab_url', [ $this, 'filter_settings_tab_url' ], 50, 3 );
 		add_filter( 'tec_admin_pages_with_tabs', [ $this, 'add_to_pages_with_tabs' ], 20, 1 );
 		add_filter( 'tribe_settings_page_url', [ $this, 'filter_settings_page_url' ], 50, 3 );
+		add_filter( 'tec_admin_footer_text', [ $this, 'admin_footer_text_settings' ] );
 	}
 
 	/**
@@ -409,5 +410,35 @@ class Tribe__Events__Admin__Event_Settings {
 		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/tribe-options-network.php';
 
 		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
+	}
+
+	/**
+	 * Add The Events Calendar admin footer text.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $footer_text The admin footer text.
+	 * @param string $footer_text The admin footer text, maybe modified.
+	 */
+	public function admin_footer_text_settings( $footer_text ) {
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
+
+		if ( ! empty( $admin_page ) && self::$settings_page_id !== $admin_page ) {
+			return $footer_text;
+		}
+
+		// Translators: %1$s: Opening `<a>` to The Events Calendar rating page. %2$s: Closing `</a>` tag. %3$s: Five stars.
+		$review_text = esc_html__( 'Rate %1$sThe Events Calendar%2$s %3$s', 'the-events-calendar' );
+		$review_url  = 'https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5';
+
+		$footer_text = sprintf(
+			$review_text,
+			'<strong>',
+			'</strong>',
+			'<a href="' . $review_url . '" target="_blank" rel="noopener noreferrer" class="tribe-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+		);
+
+		return $footer_text;
 	}
 }
