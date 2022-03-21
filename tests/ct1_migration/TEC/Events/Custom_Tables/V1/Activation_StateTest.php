@@ -81,11 +81,10 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 * @depends should_be_ready_to_migrate_with_no_events
 	 */
 	public function should_not_subordinate_table_updates_to_migration_phase() {
-		$this->markTestSkipped( 'Activation still a WiP' );
-
 		// Drop the custom tables to be able to assert those will be re-created.
 		$this->given_the_custom_tables_do_not_exist();
 		$this->given_the_initialization_transient_expired();
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_PROMPT );
 
 		global $wpdb;
 		$tables = $wpdb->get_col( 'show tables' );

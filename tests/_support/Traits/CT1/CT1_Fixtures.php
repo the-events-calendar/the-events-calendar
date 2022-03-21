@@ -77,6 +77,8 @@ trait CT1_Fixtures {
 		$state          = tribe_get_option( State::STATE_OPTION_KEY, [] );
 		$state['phase'] = $phase;
 		tribe_update_option( State::STATE_OPTION_KEY, $state );
+		// @todo This gets cached in the singleton, need to update it too. Better way?
+		tribe( State::class )->set( 'phase', $phase );
 	}
 
 	private function given_a_site_with_no_events() {

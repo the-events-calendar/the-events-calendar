@@ -265,10 +265,11 @@ trait Custom_Tables_Provider {
 	 */
 	public function exist() {
 		global $wpdb;
-		foreach ( $this->table_classes as $class ) {
-			$table  = call_user_func( [ $class, 'table_name' ], true );
-			$result = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
-			if ( empty( $result ) ) {
+		$table_classes = $this->get_custom_table_handlers();
+		$result        = $wpdb->get_col( 'SHOW TABLES' );
+		foreach ( $table_classes as $class ) {
+			$table = call_user_func( [ $class, 'table_name' ], true );
+			if ( ! in_array( $table, $result, true ) ) {
 				return false;
 			}
 		}
