@@ -320,7 +320,6 @@ class Event_Report implements JsonSerializable {
 		return $this;
 	}
 
-
 	/**
 	 * Removes all of the migration metadata.
 	 *
