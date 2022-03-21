@@ -65,7 +65,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function () {
 			return new class extends Null_Migration_Strategy {
 				public function apply( Event_Report $event_report ) {
-					throw    new \RuntimeException( 'for reasons' );
+					throw new \RuntimeException( 'for reasons' );
 				}
 			};
 		} );

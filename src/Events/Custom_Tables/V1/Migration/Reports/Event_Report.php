@@ -8,6 +8,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
+use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use WP_Post;
 use JsonSerializable;
 
@@ -254,13 +255,16 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $status
+	 * @param string $status The status to set the migration state to, should be
+	 *                       one of the `ALLOWED_STATUSES` constant.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining.
+	 *
+	 * @throws Migration_Exception If the input status is not allowed.
 	 */
-	protected function set_status( string $status ) {
+	protected function set_status( $status ) {
 		if ( ! in_array( $status, self::ALLOWED_STATUSES ) ) {
-			throw \Exception( "Invalid status applied: $status" );
+			throw new Migration_Exception( "Invalid status applied: $status" );
 		}
 		$this->data['status'] = $status;
 
@@ -290,12 +294,11 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $strategy
+	 * @param string $strategy The slug of the applied migration strategy.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining.
 	 */
-	public function add_strategy( string $strategy ) {
-		// @todo validate strategies applied? Don't care in case of third party?
+	public function add_strategy( $strategy ) {
 		$this->data['strategies_applied'][] = $strategy;
 
 		return $this;
@@ -306,11 +309,11 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $tickets_provider
+	 * @param string $tickets_provider The slug of the tickets provider, if any.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining.
 	 */
-	public function set_tickets_provider( string $tickets_provider ) {
+	public function set_tickets_provider( $tickets_provider ) {
 		$this->data['has_tickets']      = (bool) $tickets_provider;
 		$this->data['tickets_provider'] = $tickets_provider;
 
