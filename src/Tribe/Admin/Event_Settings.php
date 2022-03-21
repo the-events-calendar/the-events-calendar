@@ -41,9 +41,12 @@ class Tribe__Events__Admin__Event_Settings {
 	 */
 	public function get_url( array $args = [] ) {
 		$defaults = [
-			'page'      => self::$settings_page_id,
-			'post_type' => Plugin::POSTTYPE,
+			'page' => self::$settings_page_id,
 		];
+
+		if ( ! is_network_admin() ) {
+			$defaults['post_type'] = Plugin::POSTTYPE;
+		}
 
 		// Allow the link to be "changed" on the fly.
 		$args = wp_parse_args( $args, $defaults );

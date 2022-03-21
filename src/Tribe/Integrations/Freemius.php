@@ -273,7 +273,7 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return string The Settings page path.
 	 */
 	public function get_settings_path() {
-		return Tribe__Events__Main::instance()->settings()->get_url();
+		return str_replace( get_admin_url(), '', Tribe__Events__Main::instance()->settings()->get_url() );
 	}
 
 	/**
