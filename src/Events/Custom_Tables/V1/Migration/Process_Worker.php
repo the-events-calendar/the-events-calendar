@@ -185,10 +185,18 @@ class Process_Worker {
 			if ( $post_id ) {
 				// Enqueue a new (Action Scheduler) action to import another Event.
 				$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
-				//@todo check action ID here and log on failure.
+
+				if ( empty( $action_id ) ) {
+					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
+					$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $post_id." );
+				}
 			} else {
 				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
-				//@todo check action ID here and log on failure.
+
+				if ( empty( $action_id ) ) {
+					// The migration might have technically completed, but we cannot know for sure and will be conservative.
+					$this->event_report->migration_failed( "Cannot enqueue action to check migration status." );
+				}
 			}
 		} catch ( \Throwable $e ) {
 			$this->event_report->migration_failed( $e->getMessage() );
