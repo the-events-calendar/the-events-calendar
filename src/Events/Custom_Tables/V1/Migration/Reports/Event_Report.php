@@ -356,11 +356,12 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $reason
+	 * @param string $reason A human-readable description of why the migration failed.
 	 *
-	 * @return Event_Report
+	 * @return Event_Report A reference to the Event Report object for the specific
+	 *                      that is being processed.
 	 */
-	public function migration_failed( string $reason ) {
+	public function migration_failed( $reason ) {
 		// Track time immediately
 		$this->set_end_timestamp();
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
