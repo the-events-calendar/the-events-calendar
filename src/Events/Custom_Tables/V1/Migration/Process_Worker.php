@@ -190,7 +190,7 @@ class Process_Worker {
 					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
 					$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $post_id." );
 				}
-			} else {
+			} else if ( ! $this->check_phase() ) {
 				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
 
 				if ( empty( $action_id ) ) {
@@ -216,6 +216,8 @@ class Process_Worker {
 		// Do not hold a reference to the Report once the worker is done.
 		$event_report       = $this->event_report;
 		$this->event_report = null;
+
+		$this->check_phase();
 
 		return $event_report;
 	}
