@@ -374,6 +374,12 @@ class Process_Worker {
 		$this->event_report->migration_failed(
 			'The "die" or "exit" function was called during the migration process; output: ' . $trimmed_buffer
 		);
+
+		/*
+		 * This method might be the last executing before a hard `die` or `exit` call, let's check the phase.
+		 * If we could not queue further actions to process more Events or check the phase, let's do it now.
+		 */
+		$this->check_phase();
 	}
 
 	/**

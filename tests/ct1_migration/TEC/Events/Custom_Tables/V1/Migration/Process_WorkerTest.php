@@ -143,6 +143,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$this->fork_loop_wait( $generate_workers_for( $post_ids ), $parallelism );
 
 		// Make sure the db connection is fine.
+		// Make sure the db connection is fine.
 		global $wpdb;
 		$wpdb->check_connection( false );
 
