@@ -142,6 +142,10 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		// ACT
 		$this->fork_loop_wait( $generate_workers_for( $post_ids ), $parallelism );
 
+		// Make sure the db connection is fine.
+		global $wpdb;
+		$wpdb->check_connection( false );
+
 		// Should have transitioned phase and all events should have failed.
 		foreach ( $post_ids as $post_id ) {
 			$event_report = new Event_Report( get_post( $post_id ) );
@@ -194,8 +198,11 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		// ACT
 		$this->fork_loop_wait( $generate_workers_for( $post_ids ), $parallelism );
 
+
 		// ASSERT
 		global $wpdb;
+		// Make sure the db connection is fine.
+		$wpdb->check_connection( false );
 		$migrated_events = $wpdb->get_var(
 			$wpdb->prepare(
 				"select count(post_id) from $wpdb->postmeta where meta_key = %s and meta_value = %s",
