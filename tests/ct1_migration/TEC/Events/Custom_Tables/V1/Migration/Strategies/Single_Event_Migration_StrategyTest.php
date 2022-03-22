@@ -148,8 +148,6 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_correctly_preview_an_event_migration() {
-		$this->markTestIncomplete( 'Preview functionality is WiP' );
-
 		$this->given_the_current_migration_phase_is( State::PHASE_PREVIEW_IN_PROGRESS );
 		$post    = $this->given_a_non_migrated_single_event();
 		$report  = new Event_Report( $post );
@@ -160,7 +158,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 
 		$event = Event::find( $post_id, 'post_id' );
 
-		$this->assertNull( Event::class, $event, 'No Event model should have been inserted during preview.' );
+		$this->assertNull( $event, 'No Event model should have been inserted during preview.' );
 
 		$occurrences = Occurrence::where( 'post_id', '=', $post_id )
 		                         ->get();

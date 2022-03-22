@@ -68,7 +68,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		$upserted = Event::upsert( [ 'post_id' ], Event::data_from_post( $this->post_id ) );
 
 		if ( $upserted === false ) {
-			throw new Migration_Exception( 'Event model could not be upserted.' );
+			throw new Migration_Exception( 'Event model could not be upserted. Could have failed locating required data for insertion.' );
 		}
 
 		$event_model = Event::find( $this->post_id, 'post_id' );

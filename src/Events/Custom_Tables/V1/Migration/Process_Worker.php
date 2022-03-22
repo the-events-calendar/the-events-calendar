@@ -179,25 +179,6 @@ class Process_Worker {
 			if ( ! $this->event_report->error ) {
 				$this->event_report->migration_success();
 			}
-
-			$post_id = $this->events->get_id_to_process();
-
-			if ( $post_id ) {
-				// Enqueue a new (Action Scheduler) action to import another Event.
-				$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
-
-				if ( empty( $action_id ) ) {
-					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
-					$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $post_id." );
-				}
-			} else if ( ! $this->check_phase() ) {
-				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
-
-				if ( empty( $action_id ) ) {
-					// The migration might have technically completed, but we cannot know for sure and will be conservative.
-					$this->event_report->migration_failed( "Cannot enqueue action to check migration status." );
-				}
-			}
 		} catch ( \Throwable $e ) {
 			$this->event_report->migration_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
@@ -212,6 +193,26 @@ class Process_Worker {
 		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
 		// Close the output buffer.
 		ob_end_clean();
+
+		// Get next event to process.
+		$post_id = $this->events->get_id_to_process();
+
+		if ( $post_id ) {
+			// Enqueue a new (Action Scheduler) action to import another Event.
+			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
+
+			if ( empty( $action_id ) ) {
+				// If we cannot migrate the next Event we need to migrate, then the migration has failed.
+				$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $post_id." );
+			}
+		} else if ( ! $this->check_phase() ) {
+			$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
+
+			if ( empty( $action_id ) ) {
+				// The migration might have technically completed, but we cannot know for sure and will be conservative.
+				$this->event_report->migration_failed( "Cannot enqueue action to check migration status." );
+			}
+		}
 
 		// Do not hold a reference to the Report once the worker is done.
 		$event_report       = $this->event_report;
