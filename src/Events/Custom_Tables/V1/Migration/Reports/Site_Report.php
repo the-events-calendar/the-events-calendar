@@ -109,12 +109,6 @@ class Site_Report implements JsonSerializable {
 		foreach ( $post_ids as $post_id ) {
 			$event_reports[] = new Event_Report( get_post( $post_id ) );
 		}
-		// Sort with errors on top.
-		$event_reports = array_sort( $event_reports,
-			function ( $a, $b ) {
-				return $a->error ? 0 : 1;
-			}
-		);
 
 		$progress_percent = ( $total_events ) ? round( ( $total_events_migrated / $total_events ) * 100 ) : 0;
 		$date_completed   = ( new \DateTime( 'now', wp_timezone() ) )->setTimestamp( $state->get( 'complete_timestamp' ) );

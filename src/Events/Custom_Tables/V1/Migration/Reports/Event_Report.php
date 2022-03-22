@@ -32,6 +32,10 @@ use JsonSerializable;
 class Event_Report implements JsonSerializable {
 
 	/**
+	 * Key used to store a weighted numeric value for sorting report results.
+	 */
+	const META_KEY_ORDER_WEIGHT = '_tec_ct1_report_order_weight';
+	/**
 	 * Key used to flag this event is in progress and already assigned
 	 * to a strategy worker.
 	 */
@@ -60,10 +64,27 @@ class Event_Report implements JsonSerializable {
 	 * Flag for migration completed with a failure.
 	 */
 	const META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE = 'MIGRATION_FAILURE';
+
 	/**
-	 * Flag for undo completed with a failure.
+	 * The weight to add to our `report_order_weight` when we see a migration failure.
 	 */
-	const META_VALUE_MIGRATION_PHASE_UNDO_FAILURE = 'UNDO_FAILURE';
+	const SORT_WEIGHT_WHEN_FAILED = 100;
+	/**
+	 * The weight to add to our `report_order_weight` when we see a recurring event with tickets.
+	 */
+	const SORT_WEIGHT_WHEN_RECURRING_TICKETS = 90;
+	/**
+	 * The weight to add to our `report_order_weight` when we see a recurring event with 2 RRULEs.
+	 */
+	const SORT_WEIGHT_WHEN_TWO_RRULES = 80;
+	/**
+	 * The weight to add to our `report_order_weight` when we see a recurring event with 1 RRULEs.
+	 */
+	const SORT_WEIGHT_WHEN_ONE_RRULES = 70;
+	/**
+	 * The weight to add to our `report_order_weight` when we see a single event.
+	 */
+	const SORT_WEIGHT_WHEN_SINGLE_EVENT = 60;
 
 	/**
 	 * Status flags for a particular operation. This is not tied to the action,
@@ -86,6 +107,14 @@ class Event_Report implements JsonSerializable {
 
 	/**
 	 * @since TBD
+	 *
+	 * @var int Sort order weight.
+	 */
+	protected $report_order_weight = 0;
+
+	/**
+	 * @since TBD
+	 *
 	 * @var array<string, mixed> Report data.
 	 */
 	protected $data = [
@@ -109,11 +138,14 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @param WP_Post $source_post
 	 */
-	public function __construct( WP_Post $source_post ) {
-		$this->data['source_event_post'] = (object) [
-			'ID'         => $source_post->ID,
-			'post_title' => $source_post->post_title,
-		];
+	public function __construct( $source_post ) {
+		// @todo Construct override ? Allow for passing report data directly..?
+		if($source_post instanceof WP_Post) {
+			$this->data['source_event_post'] = (object) [
+				'ID'         => $source_post->ID,
+				'post_title' => $source_post->post_title,
+			];
+		}
 
 		$this->hydrate();
 	}
@@ -148,6 +180,22 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * This will increment a weight on top of the current `report_order_weight` set. Allows for blind incrementing
+	 * based on specific context.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $weight The weight to increment the report order by.
+	 *
+	 * @return $this
+	 */
+	public function add_report_order_weight( $weight ) {
+		$this->report_order_weight += $weight;
+
+		return $this;
+	}
+
+	/**
 	 * Add each WP_Post for events that will be created for this migration strategy.
 	 *
 	 * @since TBD
@@ -176,19 +224,6 @@ class Event_Report implements JsonSerializable {
 	 */
 	public function start_event_migration() {
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_IN_PROGRESS );
-
-		return $this->set_start_timestamp();
-	}
-
-	/**
-	 * When you start the undo process set the appropriate state.
-	 *
-	 * @since TBD
-	 *
-	 * @return $this
-	 */
-	public function start_event_undo_migration() {
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_UNDO_IN_PROGRESS );
 
 		return $this->set_start_timestamp();
 	}
@@ -331,6 +366,7 @@ class Event_Report implements JsonSerializable {
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE );
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA );
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_LOCK_HASH );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT );
 
 		return $this;
 	}
@@ -366,6 +402,7 @@ class Event_Report implements JsonSerializable {
 	public function migration_failed( $reason ) {
 		// Track time immediately
 		$this->set_end_timestamp();
+		$this->add_report_order_weight( self::SORT_WEIGHT_WHEN_FAILED );
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
 
@@ -395,6 +432,7 @@ class Event_Report implements JsonSerializable {
 	 */
 	protected function save() {
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA, $this->data );
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT, $this->report_order_weight );
 
 		return $this;
 	}

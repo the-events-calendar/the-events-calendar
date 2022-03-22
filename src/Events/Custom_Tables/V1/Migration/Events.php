@@ -106,13 +106,16 @@ class Events {
 		global $wpdb; $total_events_migrated = $this->get_total_events_migrated();
 		// @todo do we want to query for "locked" and "event reported" events?
 		// Get in progress / complete events
-		if ( $page === - 1 || $total_events_migrated == 0 || $count > $total_events_migrated ) {
+		if ( $page === - 1 || $count > $total_events_migrated ) {
 			$query = $wpdb->prepare(
 				"SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s )
-				WHERE p.post_type = %s",
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
+				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
+				WHERE p.post_type = %s
+				ORDER BY pm_o.meta_value DESC, p.post_title, p.ID",
 				Event_Report::META_KEY_REPORT_DATA,
+				Event_Report::META_KEY_ORDER_WEIGHT,
 				TEC::POSTTYPE
 			);
 		} else {
@@ -125,9 +128,13 @@ class Events {
 			$query = $wpdb->prepare(
 				"SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN( %s)
-				WHERE p.post_type = %s ORDER BY ID ASC LIMIT %d, %d",
+				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
+				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
+				WHERE p.post_type = %s
+				ORDER BY pm_o.meta_value DESC, p.post_title, p.ID
+				LIMIT %d, %d",
 				Event_Report::META_KEY_REPORT_DATA,
+				Event_Report::META_KEY_ORDER_WEIGHT,
 				TEC::POSTTYPE,
 				$start,
 				$count
