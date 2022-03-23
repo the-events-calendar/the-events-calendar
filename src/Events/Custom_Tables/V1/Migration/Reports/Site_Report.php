@@ -48,7 +48,6 @@ class Site_Report implements JsonSerializable {
 		'total_events_migrated'    => null,
 		'total_events_in_progress' => null,
 		'has_changes'              => false,
-		'event_reports'            => [],
 		'migration_phase'          => null,
 		'is_completed'             => false,
 		'is_running'               => false,
@@ -68,8 +67,7 @@ class Site_Report implements JsonSerializable {
 		$this->data['total_events_remaining']   = (int) $data['total_events_remaining'];
 		$this->data['total_events_in_progress'] = (int) $data['total_events_in_progress'];
 		$this->data['total_events_migrated']    = (int) $data['total_events_migrated'];
-		$this->data['has_changes']              = ! empty( $data['event_reports'] );
-		$this->data['event_reports']            = $data['event_reports'];
+		$this->data['has_changes']              = (boolean) $data['has_changes'];
 		$this->data['migration_phase']          = $data['migration_phase'];
 		$this->data['is_completed']             = $data['is_completed'];
 		$this->data['is_running']               = $data['is_running'];
@@ -82,12 +80,9 @@ class Site_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $page
-	 * @param int $count
-	 *
 	 * @return Site_Report A reference to the site migration report instance.
 	 */
-	public static function build( $page = - 1, $count = 20 ) {
+	public static function build() {
 		$event_repo = tribe(Events::class);
 		$state = tribe( State::class );
 
@@ -103,13 +98,6 @@ class Site_Report implements JsonSerializable {
 		// How many events have not been migrated yet
 		$total_events_remaining = $event_repo->get_total_events_remaining();
 
-		// Get all the events that have been touched by migration
-		$post_ids = $event_repo->get_events_migrated($page, $count);
-		$event_reports = [];
-		foreach ( $post_ids as $post_id ) {
-			$event_reports[] = new Event_Report( get_post( $post_id ) );
-		}
-
 		$progress_percent = ( $total_events ) ? round( ( $total_events_migrated / $total_events ) * 100 ) : 0;
 		$date_completed   = ( new \DateTime( 'now', wp_timezone() ) )->setTimestamp( $state->get( 'complete_timestamp' ) );
 
@@ -120,8 +108,7 @@ class Site_Report implements JsonSerializable {
 			'total_events_migrated'    => $total_events_migrated,
 			'total_events'             => $total_events,
 			'total_events_remaining'   => $total_events_remaining,
-			'has_changes'              => (bool) count( $event_reports ),
-			'event_reports'            => $event_reports,
+			'has_changes'              => $total_events_migrated > 0,
 			'migration_phase'          => $state->get_phase(),
 			'is_completed'             => $state->is_completed(),
 			'is_running'               => $state->is_running(),
@@ -129,6 +116,29 @@ class Site_Report implements JsonSerializable {
 		];
 
 		return new Site_Report( $data );
+	}
+
+	/**
+	 * Retrieves a sorted list of Event_Report objects.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $page  The page to retrieve in a pagination request. If -1, it will retrieve all reports in the
+	 *                   database.
+	 * @param int $count The number of event reports to retrieve. If $page is -1 this will be ignored.
+	 *
+	 * @return array<Event_Report> A sorted list of Event_Report objects.
+	 */
+	public function get_event_reports( $page = - 1, $count = 20 ) {
+		$event_repo = tribe( Events::class );
+		// Get all the events that have been touched by migration
+		$post_ids      = $event_repo->get_events_migrated( $page, $count );
+		$event_reports = [];
+		foreach ( $post_ids as $post_id ) {
+			$event_reports[] = new Event_Report( get_post( $post_id ) );
+		}
+
+		return $event_reports;
 	}
 
 	/**

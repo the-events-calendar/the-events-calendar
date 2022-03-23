@@ -107,9 +107,14 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$time  = time();
 		$state->set( 'complete_timestamp', $time );
 		$state->save();
-
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php",
-			[ 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
+		$site_report = Site_Report::build();
+		$renderer    = new Phase_View_Renderer( $phase,
+			"/phase/$phase.php",
+			[
+				'report'        => $site_report,
+				'text'          => $text,
+				'event_reports' => $site_report->get_event_reports( 1, 20 )
+			]
 		);
 		$output   = $renderer->compile();
 
@@ -157,12 +162,18 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_migration_complete_ok() {
 		// Setup templates.
-		$phase    = State::PHASE_MIGRATION_COMPLETE;
-		$state    = tribe( State::class );
-		$text     = tribe( String_Dictionary::class );
-		$renderer = new Phase_View_Renderer( $phase,
+		$phase       = State::PHASE_MIGRATION_COMPLETE;
+		$state       = tribe( State::class );
+		$text        = tribe( String_Dictionary::class );
+		$site_report = Site_Report::build();
+		$renderer    = new Phase_View_Renderer( $phase,
 			"/phase/$phase.php",
-			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
+			[
+				'state'         => $state,
+				'report'        => $site_report,
+				'text'          => $text,
+				'event_reports' => $site_report->get_event_reports( 1, 20 )
+			]
 		);
 
 		$output = $renderer->compile();

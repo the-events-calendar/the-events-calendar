@@ -1,15 +1,17 @@
 <?php
 
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 
 /**
- * @var string            $template_directory The absolute path to the Migration template root directory.
- * @var String_Dictionary $text               The text dictionary.
- * @var string            $datetime_heading   The heading for the date of completion.
- * @var string            $total_heading      The heading for the total events.
- * @var string            $heading_action     The action bar relevant for this phase.
- * @var Site_Report       $report             The site report data.
+ * @var string              $template_directory The absolute path to the Migration template root directory.
+ * @var String_Dictionary   $text               The text dictionary.
+ * @var string              $datetime_heading   The heading for the date of completion.
+ * @var string              $total_heading      The heading for the total events.
+ * @var string              $heading_action     The action bar relevant for this phase.
+ * @var Site_Report         $report             The site report data.
+ * @var array<Event_Report> $event_reports      A list of the event report data.
  *
  * @todo we don't handle language for migration complete vs preview complete...
  */
@@ -44,7 +46,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 				</p>
 			<?php endif; ?>
 			<ul>
-				<?php foreach ( $report->event_reports as $event ) : ?>
+				<?php foreach ( $event_reports as $event ) : ?>
 					<li>
 						<a target="_blank"
 						   href="<?php echo get_edit_post_link( $event->source_event_post->ID, false ) ?>"><?php echo esc_html( $event->source_event_post->post_title ); ?></a>

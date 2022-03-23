@@ -156,17 +156,29 @@ class Ajax {
 	protected function get_renderer_for_phase( $phase ) {
 		// @todo flesh out more for our updated UI and other dynamic sections...
 		// @todo Add pagination + live report (still have mocked data in templates)...
-		$page  = -1;
+		$page        = - 1;
+		$site_report = Site_Report::build();
 
 		switch ( $phase ) {
 			case State::PHASE_PREVIEW_PROMPT:
-			case State::PHASE_MIGRATION_COMPLETE:
 				$renderer = new Phase_View_Renderer( $phase,
 					"/phase/$phase.php",
 					[
 						'state'  => tribe( State::class ),
-						'report' => Site_Report::build( $page ),
+						'report' => $site_report,
 						'text'   => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( false );
+				break;
+			case State::PHASE_MIGRATION_COMPLETE:
+				$renderer = new Phase_View_Renderer( $phase,
+					"/phase/$phase.php",
+					[
+						'state'         => tribe( State::class ),
+						'report'        => $site_report,
+						'event_reports' => $site_report->get_event_reports( $page ),
+						'text'          => tribe( String_Dictionary::class )
 					]
 				);
 				$renderer->should_poll( false );
@@ -176,7 +188,7 @@ class Ajax {
 					"/phase/$phase.php",
 					[
 						'state'  => tribe( State::class ),
-						'report' => Site_Report::build( $page ),
+						'report' => $site_report,
 						'text'   => tribe( String_Dictionary::class )
 					]
 				);
@@ -186,9 +198,10 @@ class Ajax {
 				$renderer = new Phase_View_Renderer( $phase,
 					"/phase/$phase.php",
 					[
-						'phase' => $phase,
-						'report' => Site_Report::build( $page ),
-						'text' => tribe( String_Dictionary::class )
+						'phase'         => $phase,
+						'report'        => $site_report,
+						'event_reports' => $site_report->get_event_reports( $page ),
+						'text'          => tribe( String_Dictionary::class )
 					]
 				);
 				$renderer->should_poll( false );
@@ -200,9 +213,9 @@ class Ajax {
 					'.tec-ct1-upgrade-update-bar-container',
 					'/partials/progress-bar.php',
 					[
-						'phase' => $phase,
-						'report' => Site_Report::build( $page ),
-						'text' => tribe( String_Dictionary::class )
+						'phase'  => $phase,
+						'report' => $site_report,
+						'text'   => tribe( String_Dictionary::class )
 					]
 				);
 				$renderer->should_poll( true );
