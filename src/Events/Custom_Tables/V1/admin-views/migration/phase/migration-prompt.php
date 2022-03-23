@@ -79,6 +79,12 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 <div class="tec-ct1-upgrade__row tec-ct1-action-container">
 	<div class="content-container">
 		<button class="tec-ct1-upgrade-start-migration"
+				<?php
+				if ( $report->has_errors ) { // @todo Do we want to block migration like this?
+					?>
+					disabled="disabled"
+					title="Migration is blocked due to errors found during preview."
+				<?php } ?>
 				type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
 		<i>
 			<?php
