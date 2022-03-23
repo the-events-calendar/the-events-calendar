@@ -15,7 +15,9 @@ The Events Calendar is the number one calendar plugin for WordPress. Easily crea
 == Description ==
 Easily create and manage an events calendar on your WordPress site with [The Events Calendar](https://evnt.is/mj) free plugin. Whether your events are in-person or virtual events, this WordPress calendar plugin boasts professional features backed by our world-class team of developers and designers.
 
-[caption id="youtube-caption" align="aligncenter"]https://vimeo.com/425323974 [See more videos on our YouTube channel](https://evnt.is/1b4-)[/caption]
+https://vimeo.com/425323974 
+
+[See more videos on our YouTube channel](https://evnt.is/1b4-)
 
 Packed with loads of features, The Events Calendar is ready to go out of the box. It’s also extensible, easy to use, and completely customizable.
 
