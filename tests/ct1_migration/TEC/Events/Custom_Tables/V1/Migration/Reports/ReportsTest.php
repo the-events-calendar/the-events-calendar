@@ -105,14 +105,17 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 		$data['is_completed']             = true;
 		$data['has_changes']              = $data['total_events_migrated'] > 0;
 		$data['is_running']               = false;
+		$data['total_events_failed']      = 0;
+		$data['has_errors']               = $data['total_events_failed'] > 0;
 		$data['progress_percent']         = 0;
 		$data['date_completed']           = null;
 
 		$site_report = new Site_Report( $data );
 		$object      = json_decode( json_encode( $site_report ) );
- 
+
 		$this->assertEquals( $data['estimated_time_in_hours'], $object->estimated_time_in_hours );
 		$this->assertEquals( $data['total_events'], $object->total_events );
+		$this->assertEquals( $data['has_errors'], $object->has_errors );
 		$this->assertEquals( $data['total_events_migrated'], $object->total_events_migrated );
 		$this->assertEquals( $data['total_events_in_progress'], $object->total_events_in_progress );
 		$this->assertEquals( $data['total_events_remaining'], $object->total_events_remaining );
@@ -292,13 +295,9 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 		$this->assertEquals( 0, $site_report->total_events_in_progress );
 		$this->assertEquals( 2, $site_report->total_events_migrated );
 		$this->assertEquals( 2, $site_report->total_events_remaining );
+		$this->assertEquals( 1, $site_report->total_events_failed );
+		$this->assertTrue( $site_report->has_errors );
 		$this->assertCount( 2, $site_report->get_event_reports() );
-
-		$site_report = Site_Report::build();
-		$this->assertEquals( 4, $site_report->total_events );
-		$this->assertEquals( 0, $site_report->total_events_in_progress );
-		$this->assertEquals( 2, $site_report->total_events_migrated );
-		$this->assertEquals( 2, $site_report->total_events_remaining );
 		$this->assertCount( 1, $site_report->get_event_reports( 1, 1 ) );
 	}
 
