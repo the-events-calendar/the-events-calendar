@@ -167,6 +167,30 @@ class Events {
 	}
 
 	/**
+	 * Total number of events that are flagged with a failure.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_total_events_with_failure() {
+		global $wpdb;
+		$query = $wpdb->prepare(
+			"SELECT COUNT(DISTINCT `ID`)
+			FROM {$wpdb->posts} p
+			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
+			WHERE p.post_type = %s
+			AND pm.meta_value = %s",
+			Event_Report::META_KEY_MIGRATION_PHASE,
+			TEC::POSTTYPE,
+			Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE
+		);
+		$total = (int) $wpdb->get_var( $query );
+
+		return $total;
+	}
+
+	/**
 	 * How many events have been migrated (failure and success).
 	 *
 	 * @since TBD

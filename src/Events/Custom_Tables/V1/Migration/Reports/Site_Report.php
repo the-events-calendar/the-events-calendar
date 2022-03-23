@@ -19,18 +19,19 @@ use Tribe__Events__Main as TEC;
  *
  * @since   TBD
  * @package TEC\Events\Custom_Tables\V1\Migration;
- * @property int                 estimated_time_in_hours
- * @property string              date_completed
- * @property int                 total_events
- * @property int                 total_events_migrated
- * @property int                 total_events_in_progress
- * @property int                 total_events_remaining
- * @property bool                has_changes
- * @property array<Event_Report> event_reports
- * @property string              migration_phase
- * @property bool                is_completed
- * @property bool                is_running
- * @property int                 progress_percent
+ * @property int    estimated_time_in_hours
+ * @property string date_completed
+ * @property int    total_events
+ * @property int    total_events_migrated
+ * @property int    total_events_in_progress
+ * @property int    total_events_remaining
+ * @property bool   has_changes
+ * @property bool   has_errors
+ * @property string migration_phase
+ * @property bool   is_completed
+ * @property bool   is_running
+ * @property int    progress_percent
+ * @property int    total_events_failed
  */
 class Site_Report implements JsonSerializable {
 
@@ -51,7 +52,9 @@ class Site_Report implements JsonSerializable {
 		'migration_phase'          => null,
 		'is_completed'             => false,
 		'is_running'               => false,
+		'has_errors'               => false,
 		'progress_percent'         => 0,
+		'total_events_failed'      => null,
 	];
 
 	/**
@@ -68,11 +71,13 @@ class Site_Report implements JsonSerializable {
 		$this->data['total_events_in_progress'] = (int) $data['total_events_in_progress'];
 		$this->data['total_events_migrated']    = (int) $data['total_events_migrated'];
 		$this->data['has_changes']              = (boolean) $data['has_changes'];
+		$this->data['has_errors']               = (boolean) $data['has_errors'];
 		$this->data['migration_phase']          = $data['migration_phase'];
 		$this->data['is_completed']             = $data['is_completed'];
 		$this->data['is_running']               = $data['is_running'];
 		$this->data['progress_percent']         = $data['progress_percent'];
 		$this->data['date_completed']           = $data['date_completed'];
+		$this->data['total_events_failed']      = $data['total_events_failed'];
 	}
 
 	/**
@@ -95,6 +100,9 @@ class Site_Report implements JsonSerializable {
 		// Total in progress
 		$total_events_in_progress = $event_repo->get_total_events_in_progress();
 
+		// Total migrations that had some error.
+		$total_events_with_failure = $event_repo->get_total_events_with_failure();
+
 		// How many events have not been migrated yet
 		$total_events_remaining = $event_repo->get_total_events_remaining();
 
@@ -108,11 +116,13 @@ class Site_Report implements JsonSerializable {
 			'total_events_migrated'    => $total_events_migrated,
 			'total_events'             => $total_events,
 			'total_events_remaining'   => $total_events_remaining,
+			'total_events_failed'      => $total_events_with_failure,
 			'has_changes'              => $total_events_migrated > 0,
 			'migration_phase'          => $state->get_phase(),
 			'is_completed'             => $state->is_completed(),
 			'is_running'               => $state->is_running(),
 			'progress_percent'         => $progress_percent,
+			'has_errors'               => $total_events_with_failure > 0
 		];
 
 		return new Site_Report( $data );
