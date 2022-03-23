@@ -14,6 +14,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Stra
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Tables\Provider;
+use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 
 /**
  * Class Process_Worker. Handles the migration and undo operations.
@@ -22,6 +23,7 @@ use TEC\Events\Custom_Tables\V1\Tables\Provider;
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Process_Worker {
+	use With_Database_Transactions;
 
 	/**
 	 * The full name of the action that will be fired to signal one
@@ -172,6 +174,10 @@ class Process_Worker {
 
 			$this->event_report->start_event_migration();
 
+			if($this->dry_run) {
+				$this->transaction_start();
+			}
+
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $this->event_report );
 
@@ -180,8 +186,16 @@ class Process_Worker {
 				$this->event_report->migration_success();
 			}
 		} catch ( \Throwable $e ) {
+			// In case we fail above, release transaction.
+			if ( $this->dry_run ) {
+				$this->transaction_rollback();
+			}
 			$this->event_report->migration_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
+			// In case we fail above, release transaction.
+			if ( $this->dry_run ) {
+				$this->transaction_rollback();
+			}
 			$this->event_report->migration_failed( $e->getMessage() );
 		}
 
@@ -306,6 +320,10 @@ class Process_Worker {
 	 * @since TBD
 	 */
 	public function shutdown_handler(  ) {
+		// In case we fail above, release transaction.
+		if ( $this->dry_run ) {
+			$this->transaction_rollback();
+		}
 		// If we're here, the migration failed.
 		$this->event_report->migration_failed( 'Unknown error occurred, shutting down.' );
 	}
@@ -362,6 +380,10 @@ class Process_Worker {
 			// If we set the switch flag, then we already handled possible errors.
 
 			return;
+		}
+		// In case we fail above, release transaction.
+		if ( $this->dry_run ) {
+			$this->transaction_rollback();
 		}
 
 		/**
