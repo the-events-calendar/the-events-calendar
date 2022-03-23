@@ -156,7 +156,8 @@ class Ajax {
 	protected function get_renderer_for_phase( $phase ) {
 		// @todo flesh out more for our updated UI and other dynamic sections...
 		// @todo Add pagination + live report (still have mocked data in templates)...
-		$page        = - 1;
+		$page        = -1;
+		$count       = 1000;
 		$site_report = Site_Report::build();
 
 		switch ( $phase ) {
@@ -177,7 +178,7 @@ class Ajax {
 					[
 						'state'         => tribe( State::class ),
 						'report'        => $site_report,
-						'event_reports' => $site_report->get_event_reports( $page ),
+						'event_reports' => $site_report->get_event_reports( $page, $count ),
 						'text'          => tribe( String_Dictionary::class )
 					]
 				);
@@ -200,7 +201,7 @@ class Ajax {
 					[
 						'phase'         => $phase,
 						'report'        => $site_report,
-						'event_reports' => $site_report->get_event_reports( $page ),
+						'event_reports' => $site_report->get_event_reports( $page, $count ),
 						'text'          => tribe( String_Dictionary::class )
 					]
 				);
