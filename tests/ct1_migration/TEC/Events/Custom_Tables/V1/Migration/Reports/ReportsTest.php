@@ -300,5 +300,4 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 		$this->assertCount( 2, $site_report->get_event_reports() );
 		$this->assertCount( 1, $site_report->get_event_reports( 1, 1 ) );
 	}
-
 }

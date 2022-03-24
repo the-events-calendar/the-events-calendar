@@ -66,27 +66,6 @@ class Event_Report implements JsonSerializable {
 	const META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE = 'MIGRATION_FAILURE';
 
 	/**
-	 * The weight to add to our `report_order_weight` when we see a migration failure.
-	 */
-	const SORT_WEIGHT_WHEN_FAILED = 100;
-	/**
-	 * The weight to add to our `report_order_weight` when we see a recurring event with tickets.
-	 */
-	const SORT_WEIGHT_WHEN_RECURRING_TICKETS = 90;
-	/**
-	 * The weight to add to our `report_order_weight` when we see a recurring event with 2 RRULEs.
-	 */
-	const SORT_WEIGHT_WHEN_TWO_RRULES = 80;
-	/**
-	 * The weight to add to our `report_order_weight` when we see a recurring event with 1 RRULEs.
-	 */
-	const SORT_WEIGHT_WHEN_ONE_RRULES = 70;
-	/**
-	 * The weight to add to our `report_order_weight` when we see a single event.
-	 */
-	const SORT_WEIGHT_WHEN_SINGLE_EVENT = 60;
-
-	/**
 	 * Status flags for a particular operation. This is not tied to the action,
 	 * it should denote a high level failure.
 	 */
@@ -106,18 +85,33 @@ class Event_Report implements JsonSerializable {
 	const STATUS_SUCCESS = 'success';
 
 	/**
+	 * The report key used to indicate whether the migration of an Event is a failure or not.
+	 */
+	const REPORT_KEY_FAILURE = 'report_failure';
+
+	/**
+	 * The report key used to indicate whether an Event is single and has tickets or not.
+	 */
+	const REPORT_KEY_SINGLE_WITH_TICKETS = 'report_single_event_with_tickets';
+
+	/**
+	 * The report key used to indicate whether an Event is single or not.
+	 */
+	const REPORT_KEY_SINGLE_EVENT = 'report_is_single_even';
+
+	/**
 	 * @since TBD
 	 *
 	 * @var int Sort order weight.
 	 */
-	protected $report_order_weight = 0;
+	private $report_order_weight = 0;
 
 	/**
 	 * @since TBD
 	 *
 	 * @var array<string, mixed> Report data.
 	 */
-	protected $data = [
+	private $data = [
 		'start_timestamp'    => null,
 		'end_timestamp'      => null,
 		'has_tickets'        => false,
@@ -132,6 +126,16 @@ class Event_Report implements JsonSerializable {
 	];
 
 	/**
+	 * A map from the supported report keys to their assigned weight.
+	 * Initialized in the `__construct` method.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,int>
+	 */
+	private $report_weights_map = [];
+
+	/**
 	 * Construct and hydrate the Event_Report for this WP_Post
 	 *
 	 * @since TBD
@@ -140,12 +144,18 @@ class Event_Report implements JsonSerializable {
 	 */
 	public function __construct( $source_post ) {
 		// @todo Construct override ? Allow for passing report data directly..?
-		if($source_post instanceof WP_Post) {
+		if ( $source_post instanceof WP_Post ) {
 			$this->data['source_event_post'] = (object) [
 				'ID'         => $source_post->ID,
 				'post_title' => $source_post->post_title,
 			];
 		}
+
+		$this->report_weights_map = [
+			self::REPORT_KEY_FAILURE             => 10 ** 5,
+			self::REPORT_KEY_SINGLE_WITH_TICKETS => 10 ** 4,
+			self::REPORT_KEY_SINGLE_EVENT        => 10 ** 3,
+		];
 
 		$this->hydrate();
 	}
@@ -184,24 +194,31 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param boolean $has_error   Whether the report has an error.
-	 * @param int     $rrule_count The number of RRULEs.
-	 * @param boolean $has_tickets If this event has any tickets.
+	 * @param array<string,int> $key_bits A map from weight report entries to a base value
+	 *                                    that has not been weighted yet.
 	 *
-	 * @return $this
+	 * @return $this A reference to this objec, for chaining.
 	 */
-	public function set_report_order_weight( $has_error, $rrule_count, $has_tickets ) {
-		$first  = 0;
-		$second = $rrule_count;
-		$third  = 0;
-		if ( $has_error ) {
-			$first = 1;
+	public function set_report_order_weight( array $key_bits = []) {
+		/**
+		 * Filters the report weights map to allow other plugins to manipulate the order
+		 * the reports should be sorted by.
+		 *
+		 * @param array<string,int> A map from report weight keys to their weight.
+		 *
+		 * @since TBD
+		 *
+		 */
+		$report_weights_map = apply_filters( 'tec_events_custom_tables_v1_event_report_weights_map', $this->report_weights_map );
+
+		$acc = 0;
+		foreach ( $key_bits as $report_key => $bit ) {
+			$report_key_weight = isset( $report_weights_map[ $report_key ] )
+				? $report_weights_map[ $report_key ]
+				: 0;
+			$acc               += $bit * $report_key_weight;
 		}
-		// @todo Don't think this is correct ordering: https://docs.google.com/spreadsheets/d/1SsGyl2VeRcWftBPB780e4cmCLsCnJRMVzt9t7J1hrAA/edit#gid=2104597917
-		if ( $has_tickets ) {
-			$third = 1;
-		}
-		$this->report_order_weight = $first . $second . $third;
+		$this->report_order_weight = $acc;
 
 		return $this;
 	}
@@ -234,8 +251,6 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	public function start_event_migration() {
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_IN_PROGRESS );
-
 		return $this->set_start_timestamp();
 	}
 
@@ -441,14 +456,28 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	protected function save() {
-		// Detect what we are to store our sort weight.
-		$recurrence  = get_post_meta( $this->source_event_post->ID, '_EventRecurrence', true );
-		$rrule_count = 0;
-		if ( isset( $recurrence['rules'] ) ) {
-			$rrule_count = count( $recurrence['rules'] );
-		}
+		$post_id = $this->source_event_post->ID;
+
 		// @todo Not fully implemented. How do we detect tickets?
-		$this->set_report_order_weight( ! empty( $this->data['error'] ), $rrule_count, false );
+
+		$report_weights = [
+			self::REPORT_KEY_FAILURE             => ! empty( $this->data['error'] ),
+			self::REPORT_KEY_SINGLE_WITH_TICKETS => 0,
+			self::REPORT_KEY_SINGLE_EVENT        => 1,
+		];
+
+		/**
+		 * Filters the elements and bits associated with each report weight.
+		 *
+		 * @since TBD
+		 *
+		 * @param  array<string,int> A map from the report weight keys to their "bit", either 0 or 1.
+		 * @param array<string,mixed>  $data The data of this migration report.
+		 * @param int $post_id The post ID of the Event object of this report.
+		 */
+		$report_weights = apply_filters( 'tec_events_custom_tables_v1_event_report_element_weights', $report_weights, $this->data, $post_id );
+
+		$this->set_report_order_weight( $report_weights );
 
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA, $this->data );
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT, $this->report_order_weight );
