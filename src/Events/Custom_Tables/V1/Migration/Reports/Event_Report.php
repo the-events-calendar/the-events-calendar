@@ -180,17 +180,28 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
-	 * This will increment a weight on top of the current `report_order_weight` set. Allows for blind incrementing
-	 * based on specific context.
+	 * This will set a weight on the current `report_order_weight`.
 	 *
 	 * @since TBD
 	 *
-	 * @param int $weight The weight to increment the report order by.
+	 * @param boolean $has_error   Whether the report has an error.
+	 * @param int     $rrule_count The number of RRULEs.
+	 * @param boolean $has_tickets If this event has any tickets.
 	 *
 	 * @return $this
 	 */
-	public function add_report_order_weight( $weight ) {
-		$this->report_order_weight += $weight;
+	public function set_report_order_weight( $has_error, $rrule_count, $has_tickets ) {
+		$first  = 0;
+		$second = $rrule_count;
+		$third  = 0;
+		if ( $has_error ) {
+			$first = 1;
+		}
+		// @todo Don't think this is correct ordering: https://docs.google.com/spreadsheets/d/1SsGyl2VeRcWftBPB780e4cmCLsCnJRMVzt9t7J1hrAA/edit#gid=2104597917
+		if ( $has_tickets ) {
+			$third = 1;
+		}
+		$this->report_order_weight = $first . $second . $third;
 
 		return $this;
 	}
@@ -402,7 +413,6 @@ class Event_Report implements JsonSerializable {
 	public function migration_failed( $reason ) {
 		// Track time immediately
 		$this->set_end_timestamp();
-		$this->add_report_order_weight( self::SORT_WEIGHT_WHEN_FAILED );
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
 
@@ -431,6 +441,15 @@ class Event_Report implements JsonSerializable {
 	 * @return $this
 	 */
 	protected function save() {
+		// Detect what we are to store our sort weight.
+		$recurrence  = get_post_meta( $this->source_event_post->ID, '_EventRecurrence', true );
+		$rrule_count = 0;
+		if ( isset( $recurrence['rules'] ) ) {
+			$rrule_count = count( $recurrence['rules'] );
+		}
+		// @todo Not fully implemented. How do we detect tickets?
+		$this->set_report_order_weight( ! empty( $this->data['error'] ), $rrule_count, false );
+
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA, $this->data );
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT, $this->report_order_weight );
 

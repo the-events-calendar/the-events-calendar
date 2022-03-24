@@ -97,7 +97,6 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 
 		// @todo how do we determine if there are tickets?
 		return $event_report->add_strategy( self::get_slug() )
-		                    ->add_report_order_weight( Event_Report::SORT_WEIGHT_WHEN_SINGLE_EVENT )
 		                    ->migration_success();
 	}
 
