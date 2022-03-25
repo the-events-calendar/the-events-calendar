@@ -44,14 +44,14 @@ interface Table_Schema_Interface {
 	 *
 	 * @return boolean `true` if successful operation, `false` to indicate a failure.
 	 */
-	public function drop_table();
+	public function drop();
 
 	/**
 	 * Creates, or updates, the custom table.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the creation, or update, was successful or not.
+	 * @return boolean `true` if successful operation, `false` to indicate a failure.
 	 */
 	public function update();
 
@@ -60,13 +60,10 @@ interface Table_Schema_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param  bool  $with_prefix  Whether to include the current `wpdb` prefix or not.
-	 *
 	 * @return string The custom table name, prefixed by the current `wpdb` prefix,
 	 *                if required.
 	 */
-	public static function table_name( $with_prefix = false );
-
+	public static function table_name();
 
 	/**
 	 * Returns the custom table name.

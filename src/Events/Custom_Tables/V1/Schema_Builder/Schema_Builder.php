@@ -90,7 +90,7 @@ class Schema_Builder {
 		$table_classes = apply_filters( 'tec_events_custom_tables_v1_tables_to_drop', $table_classes );
 
 		foreach ( $table_classes as $table_class ) {
-			$table_class ->drop_table();
+			$table_class ->drop();
 		}
 
 		/**

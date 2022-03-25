@@ -4,7 +4,7 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Custom_Tables\V1\Tables
+ * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
 
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
@@ -14,7 +14,7 @@ namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
  *
  * @since   TBD
  *
- * @package TEC\Events\Custom_Tables\V1\Tables
+ * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
 abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	/**
@@ -29,6 +29,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 		$this_table = static::table_name( true );
 
 		global $wpdb;
+
 		return $wpdb->query( "DELETE FROM {$this_table} WHERE 1=1" );
 	}
 
@@ -96,14 +97,14 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $index The name of the index to check for.
+	 * @param string      $index      The name of the index to check for.
 	 * @param string|null $table_name The table name to search the index for, or `null`
 	 *                                to use this table name.
 	 *
 	 * @return bool Whether the table already has an index or not.
 	 */
 	protected function has_index( $index, $table_name = null ) {
-		$table_name = $table_name ?: static::table_name(true);
+		$table_name = $table_name ?: static::table_name( true );
 		global $wpdb;
 
 		return (int) $wpdb->get_var(
@@ -120,14 +121,12 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param string|null $table_name The table name to check, or `null` to use this table name.
-	 *
 	 * @return bool Whether a table exists in the database or not.
 	 */
-	protected function exists( $table_name = null ) {
+	public function exists() {
 		global $wpdb;
 
-		$table_name = $table_name ?: static::table_name( true );
+		$table_name = static::table_name( true );
 
 		return count( $wpdb->get_col( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) ) === 1;
 	}
@@ -135,7 +134,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function drop_table() {
+	public function drop() {
 		if ( ! $this->exists() ) {
 
 			return false;
@@ -145,6 +144,6 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 
 		global $wpdb;
 
-		return (bool) $wpdb->query( "DROP TABLE {$this_table}" );
+		return (bool) $wpdb->query( "DROP TABLE `{$this_table}`" );
 	}
 }

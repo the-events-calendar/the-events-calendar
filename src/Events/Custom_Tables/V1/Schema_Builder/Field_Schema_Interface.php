@@ -6,7 +6,6 @@
  *
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
-
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
 /**
@@ -14,7 +13,7 @@ namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
  *
  * @since   TBD
  *
- * @package TEC\Events\Custom_Tables\V1\Tables
+ * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
 interface Field_Schema_Interface {
 	/**
@@ -22,7 +21,7 @@ interface Field_Schema_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean `true` if successful operation, `false` to indicate a failure.
+	 * @return bool `true` if successful operation, `false` to indicate a failure.
 	 */
 	public function drop();
 
@@ -31,7 +30,7 @@ interface Field_Schema_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the creation, or update, was successful or not.
+	 * @return bool `true` if successful operation, `false` to indicate a failure.
 	 */
 	public function update();
 

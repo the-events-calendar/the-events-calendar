@@ -52,7 +52,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	 *
 	 * @test
 	 */
-	public function should_up_down_table_schema() { 
+	public function should_up_down_table_schema() {
 		$schema_builder = tribe(Schema_Builder::class);
 
 		// Activate.
@@ -76,9 +76,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	public function should_up_down_field_schema() {
 		$schema_builder = tribe( Schema_Builder::class );
 		$field_schema   = tribe( Test_Schema_Field::class );
-		add_filter( 'tec_events_custom_tables_v1_field_schemas', function ( $fields ) use ( $field_schema ) {
-			return array_merge( $fields, [ $field_schema ] );
-		} );
+		$this->given_a_field_schema_exists($field_schema);
 		// Activate.
 		$schema_builder->up();
 
@@ -103,6 +101,31 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		foreach ( $field_schema->fields() as $field ) {
 			$this->assertNotContains( $field, $rows );
 		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_field_exists() {
+		$schema_builder = tribe( Schema_Builder::class );
+		$field_schema   = tribe( Test_Schema_Field::class );
+		$this->given_a_field_schema_exists($field_schema);
+		// Keep our table - validate the field changes.
+		add_filter( 'tec_events_custom_tables_v1_table_schemas', function ( $fields )  {
+			return [];
+		} ,999);
+		$schema_builder->up();
+
+		$this->assertTrue($field_schema->exists());
+		$schema_builder->down();
+
+		$this->assertFalse($field_schema->exists());
+	}
+
+	public function given_a_field_schema_exists( $field_schema ) {
+		add_filter( 'tec_events_custom_tables_v1_field_schemas', function ( $fields ) use ( $field_schema ) {
+			return array_merge( $fields, [ $field_schema ] );
+		} );
 	}
 
 	/**

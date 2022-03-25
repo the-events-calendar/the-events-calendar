@@ -6,10 +6,8 @@
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
-
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
-use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Provider_Interface;
 use tad_DI52_ServiceProvider as Service_Provider;
 
 /**

@@ -1,6 +1,19 @@
 <?php
+/**
+ * Interface for registering the Table and Field handlers.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Custom_Tables\V1\Schema_Builder
+ */
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
-
+/**
+ * Interface Schema_Provider_Interface
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Custom_Tables\V1\Schema_Builder
+ */
 interface Schema_Provider_Interface {
 	/**
 	 * Handles registering this providers table and field Schema_Builder hooks.

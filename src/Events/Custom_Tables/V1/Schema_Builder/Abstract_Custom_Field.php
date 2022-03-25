@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Groups the base methods and functions used by all custom field implementations.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Custom_Tables\V1\Schema_Builder
+ */
 
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
@@ -26,12 +32,12 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	}
 
 	/**
-	 * Returns the table creation SQL in the format supported
+	 * Returns the table creation SQL for the fields being created in the format supported
 	 * by the `dbDelta` function.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The table creation SQL, in the format supported
+	 * @return string The table creation SQL for the fields being created, in the format supported
 	 *                by the `dbDelta` function.
 	 */
 	abstract protected function get_update_sql();
@@ -53,7 +59,6 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 		return $results;
 	}
 
-
 	/**
 	 * Returns whether a fields' schema definition exists in the table or not.
 	 *
@@ -61,12 +66,26 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 *
 	 * @return bool Whether a set of fields exists in the database or not.
 	 */
-	protected function exists( ) {
+	public function exists() {
 		global $wpdb;
-// @todo
-		$table_name =  $this->table_schema()::table_name(true);
+		$table_name = $this->table_schema()::table_name( true );
+		$q          = 'select `column_name` from information_schema.columns
+					where table_schema = database()
+					and `table_name` = %s';
+		$rows       = $wpdb->get_results( $wpdb->prepare( $q, $table_name ) );
+		$fields     = $this->fields();
+		$rows       = array_map( function ( $row ) {
+			return $row->column_name;
+		}, $rows );
 
-		return count( $wpdb->get_col( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) ) === 1;
+		foreach ( $fields as $field ) {
+			if ( ! in_array( $field, $rows, true ) ) {
+
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
