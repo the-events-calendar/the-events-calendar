@@ -32,7 +32,7 @@ class Occurrences extends Abstract_Custom_Table {
 	 * @inheritDoc
 	 */
 	public static function base_table_name() {
-		return 'tec_events';
+		return 'tec_occurrences';
 	}
 
 	/**

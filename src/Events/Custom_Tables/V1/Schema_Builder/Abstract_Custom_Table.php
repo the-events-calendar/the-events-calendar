@@ -30,7 +30,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 
 		global $wpdb;
 
-		return $wpdb->query( "DELETE FROM {$this_table} WHERE 1=1" );
+		return $wpdb->query( "TRUNCATE {$this_table}" );
 	}
 
 	/**
@@ -38,9 +38,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 */
 	public function update() {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-
 		$results = (array) dbDelta( $this->get_update_sql() );
-
 		$results = $this->after_update( $results );
 
 		return $results;

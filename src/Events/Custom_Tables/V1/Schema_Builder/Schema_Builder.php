@@ -188,6 +188,7 @@ class Schema_Builder {
 	 */
 	public function up( $force = false ) {
 		global $wpdb;
+
 		//phpcs:ignore
 		$wpdb->get_results( "SELECT 1 FROM {$wpdb->posts} LIMIT 1" );
 		$posts_table_exists = '' === $wpdb->last_error;
@@ -204,6 +205,7 @@ class Schema_Builder {
 			/** @var Table_Schema_Interface $table_schema */
 			$results[ $table_schema::table_name() ] = $table_schema->update();
 		}
+
 
 		$field_schemas =  $force ? $this->get_registered_field_schemas() : $this->get_field_schemas_that_need_updates();
 		// Get all registered table classes.
