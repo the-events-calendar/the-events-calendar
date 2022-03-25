@@ -141,7 +141,15 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 		$this_table = static::table_name( true );
 
 		global $wpdb;
+		// Disable foreign key checks so we can drop without issues.
+		$key_check = $wpdb->get_row( "show variables like 'foreign_key_checks'" );
+		if ( strtolower( $key_check->Value ) === 'on' ) {
+			$wpdb->query( "SET foreign_key_checks = 'OFF'" );
+		}
+		$result = $wpdb->query( "DROP TABLE `{$this_table}`" );
+		// Put setting back to original value.
+		$wpdb->query( $wpdb->prepare( "SET foreign_key_checks = %s", $key_check->Value ) );
 
-		return (bool) $wpdb->query( "DROP TABLE `{$this_table}`" );
+		return $result;
 	}
 }

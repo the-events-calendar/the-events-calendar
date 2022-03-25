@@ -10,33 +10,35 @@ class Schema_Builder {
 
 	public function get_table_schemas_that_need_updates() {
 		$handlers = $this->get_registered_table_schemas();
+
 // @todo
 		return $handlers;
 	}
 
 	public function get_field_schemas_that_need_updates() {
 		$handlers = $this->get_registered_field_schemas();
+
 // @todo
 		return $handlers;
 	}
 
 	public function is_schema_current() {
 		// Grab versions from all handlers, and check against our stored version.
-		$handlers = array_merge($this->get_registered_table_schemas(), $this->get_registered_field_schemas());
+		$handlers = array_merge( $this->get_registered_table_schemas(), $this->get_registered_field_schemas() );
 		$versions = get_option( self::SCHEMA_VERSIONS_KEY );
 		// No versions registered yet.
-		if(empty($versions) || !is_array($versions)) {
+		if ( empty( $versions ) || ! is_array( $versions ) ) {
 
 			return false;
 		}
-		foreach ($handlers as $table) {
+		foreach ( $handlers as $table ) {
 			// Not even stored yet?
-			if(!isset($versions[$table])) {
+			if ( ! isset( $versions[ $table ] ) ) {
 
 				return false;
 			}
 			// Compare our stored versions.
-			if(!version_compare( $table::VERSION, $versions[$table], '==' )) {
+			if ( ! version_compare( $table::VERSION, $versions[ $table ], '==' ) ) {
 
 				return false;
 			}
@@ -46,22 +48,24 @@ class Schema_Builder {
 	}
 
 
-	public static function get_table_schemas() {}
+	public static function get_table_schemas() {
+	}
 
-	public static function get_fields_schemas() {}
+	public static function get_fields_schemas() {
+	}
 
 	/**
 	 * @return array<Table_Schema_Interface>
 	 */
 	public function get_registered_table_schemas() {
-		return apply_filters('tec_events_custom_tables_v1_table_schemas', []);
+		return apply_filters( 'tec_events_custom_tables_v1_table_schemas', [] );
 	}
 
 	/**
 	 * @return array<Field_Schema_Interface>
 	 */
 	public function get_registered_field_schemas() {
-		return apply_filters('tec_events_custom_tables_v1_field_schemas',[]);
+		return apply_filters( 'tec_events_custom_tables_v1_field_schemas', [] );
 	}
 ////// @todo
 
@@ -78,7 +82,7 @@ class Schema_Builder {
 		 */
 		do_action( 'tec_events_custom_tables_v1_pre_drop_tables' );
 
-		$table_classes = $this->get_registered_table_schemas( );
+		$table_classes = $this->get_registered_table_schemas();
 
 		/**
 		 * Filters the tables to be dropped.
@@ -90,7 +94,7 @@ class Schema_Builder {
 		$table_classes = apply_filters( 'tec_events_custom_tables_v1_tables_to_drop', $table_classes );
 
 		foreach ( $table_classes as $table_class ) {
-			$table_class ->drop();
+			$table_class->drop();
 		}
 
 		/**
@@ -107,7 +111,7 @@ class Schema_Builder {
 		 */
 		do_action( 'tec_events_custom_tables_v1_pre_drop_fields' );
 
-		$field_classes = $this->get_registered_field_schemas( );
+		$field_classes = $this->get_registered_field_schemas();
 
 		/**
 		 * Filters the fields to be dropped.
@@ -135,7 +139,7 @@ class Schema_Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @todo ? Name mismatch?
+	 * @todo  ? Name mismatch?
 	 */
 	public function clean() {
 		delete_option( self::VERSION_OPTION );
@@ -153,7 +157,7 @@ class Schema_Builder {
 	public function filter_tables_list( $tables ) {
 		$schemas = $this->get_registered_table_schemas();
 		foreach ( $schemas as $class ) {
-			$table_name            = $class::table_name(true);
+			$table_name            = $class::table_name( true );
 			$tables[ $table_name ] = $table_name;
 		}
 
@@ -197,8 +201,8 @@ class Schema_Builder {
 			return [];
 		}
 
-		$results = [];
-		$table_schemas =  $force ? $this->get_registered_table_schemas() : $this->get_table_schemas_that_need_updates();
+		$results       = [];
+		$table_schemas = $force ? $this->get_registered_table_schemas() : $this->get_table_schemas_that_need_updates();
 
 		// Get all registered table classes.
 		foreach ( $table_schemas as $table_schema ) {
@@ -207,7 +211,7 @@ class Schema_Builder {
 		}
 
 
-		$field_schemas =  $force ? $this->get_registered_field_schemas() : $this->get_field_schemas_that_need_updates();
+		$field_schemas = $force ? $this->get_registered_field_schemas() : $this->get_field_schemas_that_need_updates();
 		// Get all registered table classes.
 		foreach ( $field_schemas as $field_schema ) {
 			/** @var Field_Schema_Interface $field_schema */
@@ -228,8 +232,8 @@ class Schema_Builder {
 		$schemas = $this->get_registered_table_schemas();
 
 		foreach ( $schemas as $class ) {
-			$no_prefix_table_name = $class::table_name(false);
-			$prefixed_tale_name   = $class::table_name(true);
+			$no_prefix_table_name          = $class::table_name( false );
+			$prefixed_tale_name            = $class::table_name( true );
 			$wpdb->{$no_prefix_table_name} = $prefixed_tale_name;
 			if ( ! in_array( $wpdb->{$no_prefix_table_name}, $wpdb->tables, true ) ) {
 				$wpdb->tables[] = $no_prefix_table_name;
@@ -291,15 +295,15 @@ class Schema_Builder {
 	}
 
 	/**
-	 * Whether all the custom tables exist or not.
+	 * Whether all the custom tables exist or not. Does not check custom fields.
 	 *
 	 * Note: the method will return `false` if even one table is missing.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether all custom tables exist or not.
+	 * @return bool Whether all custom tables exist or not. Does not check custom fields.
 	 */
-	public function exist() {
+	public function all_tables_exist() {
 		global $wpdb;
 		$table_classes = $this->get_registered_table_schemas();
 		$result        = $wpdb->get_col( 'SHOW TABLES' );

@@ -12,6 +12,7 @@ use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Events__Main as TEC;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 
 trait CT1_Fixtures {
 
@@ -21,7 +22,7 @@ trait CT1_Fixtures {
 	public function given_a_reset_activation() {
 		global $wpdb;
 		// Ditch our CT1 schema.
-		tribe( Tables::class )->drop_tables();
+		tribe( Schema_Builder::class )->down();
 
 		// Reset state in the db.
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
@@ -101,7 +102,7 @@ trait CT1_Fixtures {
 	}
 
 	private function given_the_custom_tables_do_not_exist() {
-		tribe()->make( Tables::class )->drop_tables();
+		tribe()->make( Schema_Builder::class )->down();
 	}
 
 	private function given_the_initialization_transient_expired() {

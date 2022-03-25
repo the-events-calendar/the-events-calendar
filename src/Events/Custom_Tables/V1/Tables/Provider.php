@@ -25,8 +25,8 @@ class Provider extends Abstract_Schema_Provider {
 	 */
 	public static function get_table_schemas() {
 		return [
-			tribe(Events::class),
-			tribe(Occurrences::class),
+			tribe( Events::class ),
+			tribe( Occurrences::class ),
 		];
 	}
 }

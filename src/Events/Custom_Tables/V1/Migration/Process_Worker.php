@@ -13,6 +13,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Event;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Tables\Provider;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 
@@ -264,7 +265,7 @@ class Process_Worker {
 		// @todo Review - missing anything? Better way?
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
 
-		tribe( Provider::class )->drop_tables();
+		tribe( Schema_Builder::class )->down();
 
 		// Clear meta values.
 		$meta_keys = [
