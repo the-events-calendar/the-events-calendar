@@ -35,8 +35,4 @@ interface Field_Schema_Interface {
 	 */
 	public function update();
 
-	/**
-	 * @todo ...
-	 */
-	public function get_table_name( $with_prefix = false );
 }

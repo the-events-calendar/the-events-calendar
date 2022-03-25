@@ -209,7 +209,7 @@ class Schema_Builder {
 		// Get all registered table classes.
 		foreach ( $field_schemas as $field_schema ) {
 			/** @var Field_Schema_Interface $field_schema */
-			$results[ $field_schema::table_name() ] = $field_schema->update();
+			$results[ $field_schema->table_schema()::table_name() ] = $field_schema->update();
 		}
 
 // @todo Results...? What do we use this for?
