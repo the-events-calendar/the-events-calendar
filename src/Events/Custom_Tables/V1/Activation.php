@@ -11,6 +11,7 @@ namespace TEC\Events\Custom_Tables\V1;
 
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
 
 /**
@@ -62,12 +63,12 @@ class Activation {
 		set_transient( self::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
 
 		$services = tribe();
-		$services->register( Tables::class );
-		$tables = $services->make( Tables::class );
-
+		//$services->register( Schema_Builder::class );
+		$schema_builder = $services->make( Schema_Builder::class );
+  // @todo
 		// Sync any schema changes we may have.
-		if ( $tables->exist() ) {
-			$tables->update_tables( true );
+		if ( $schema_builder->all_tables_exist() ) {
+			$schema_builder->up( true );
 
 			return;
 		}
@@ -79,7 +80,7 @@ class Activation {
 		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE
 		     && ! $state->get( 'locked_by_undo' )
 		) {
-			$tables->update_tables( true );
+			$schema_builder->up( true );
 
 			// Check if we have any events to migrate.
 			if ( $services->make( Events::class )->get_total_events() === 0 ) {

@@ -2,6 +2,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Tables;
 
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+
 class Custom_TablesTest extends \CT1_Migration_Test_Case {
 	/**
 	 * @after each test make sure the custom tables will be there for the following ones.
@@ -33,8 +35,8 @@ class Custom_TablesTest extends \CT1_Migration_Test_Case {
 		// Should drop successfully.
 		$occurrence_table = tribe( Occurrences::class );
 		$event_table      = tribe( Events::class );
-		$this->assertTrue( $occurrence_table->drop_table() );
-		$this->assertTrue( $event_table->drop_table() );
+		$this->assertTrue( $occurrence_table->drop() );
+		$this->assertTrue( $event_table->drop() );
 
 		// Tables should be gone.
 		$q      = 'show tables';
@@ -60,10 +62,10 @@ class Custom_TablesTest extends \CT1_Migration_Test_Case {
 		// Should filter to only drop Occurrences.
 		add_filter( 'tec_events_custom_tables_v1_tables_to_drop',
 			function ( array $ct1_tables ) {
-				return [ Occurrences::class ];
+				return [ tribe( Occurrences::class ) ];
 			}
 		);
-		tribe( Provider::class )->drop_tables();
+		tribe( Schema_Builder::class )->down();
 
 		// One table should be gone.
 		$q      = 'show tables';

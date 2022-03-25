@@ -154,8 +154,7 @@ class Ajax {
 	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
 	 */
 	protected function get_renderer_for_phase( $phase ) {
-		// @todo flesh out more for our updated UI and other dynamic sections...
-		// @todo Add pagination + live report (still have mocked data in templates)...
+		// @todo flesh out pagination more
 		$page        = -1;
 		$count       = 1000;
 		$site_report = Site_Report::build();
