@@ -24,7 +24,7 @@ interface Field_Schema_Interface {
 	 *
 	 * @return boolean `true` if successful operation, `false` to indicate a failure.
 	 */
-	public function drop_fields();
+	public function drop();
 
 	/**
 	 * Creates, or updates, the custom fields.

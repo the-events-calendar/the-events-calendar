@@ -11,7 +11,7 @@ use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 class Test_Schema_Field extends Abstract_Custom_Field {
 
 	public function fields() {
-		return ['rset'];
+		return ['bob', 'frank'];
 	}
 	public function table_schema() {
 		return tribe(EventsSchema::class);
@@ -23,7 +23,8 @@ class Test_Schema_Field extends Abstract_Custom_Field {
 		$charset_collate = $wpdb->get_charset_collate();
 
 		return "CREATE TABLE `{$table_name}` (
-			`rset` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+			`bob` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+			`frank` TINYINT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
 			) {$charset_collate};";
 	}
 }
@@ -51,56 +52,81 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	 *
 	 * @test
 	 */
-	public function should_up_schema() {
-		global $wpdb;
+	public function should_up_down_table_schema() { 
 		$schema_builder = tribe(Schema_Builder::class);
 
 		// Activate.
-		$up = $schema_builder->up();
+		$schema_builder->up();
 
 		// Validate expected state.
-		$q      = 'show tables';
-		$tables = $wpdb->get_col( $q );
+		$tables = $this->get_tables();
 		$this->assertContains( EventsSchema::table_name( true ), $tables );
-		//$this->assertNotEmpty($up);
+
+		$schema_builder->down();
+
+		// Validate expected state.
+		$tables = $this->get_tables();
+		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
 	}
+
 
 	/**
 	 * @test
 	 */
-	public function should_down_schema() {
-		global $wpdb;
-		$schema_builder = tribe(Schema_Builder::class);
+	public function should_up_down_field_schema() {
+		$schema_builder = tribe( Schema_Builder::class );
+		$field_schema   = tribe( Test_Schema_Field::class );
+		add_filter( 'tec_events_custom_tables_v1_field_schemas', function ( $fields ) use ( $field_schema ) {
+			return array_merge( $fields, [ $field_schema ] );
+		} );
+		// Activate.
+		$schema_builder->up();
+
+		// Validate expected state.
+		$rows = $this->get_table_fields( $field_schema->table_schema()::table_name( true ) );
+
+		foreach ( $field_schema->fields() as $field ) {
+			$this->assertContains( $field, $rows );
+		}
+
+		// Keep our table.
+		add_filter( 'tec_events_custom_tables_v1_table_schemas', function ( $fields )  {
+			return [];
+		} ,999);
 
 		// Activate.
 		$schema_builder->down();
 
 		// Validate expected state.
-		$q      = 'show tables';
-		$tables = $wpdb->get_col( $q );
-		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
+		$rows = $this->get_table_fields( $field_schema->table_schema()::table_name( true ) );
+
+		foreach ( $field_schema->fields() as $field ) {
+			$this->assertNotContains( $field, $rows );
+		}
 	}
 
 	/**
-	 * @test
+	 * @param $table
+	 *
+	 * @return array
 	 */
-	public function should_up_field_schema() {
+	public function get_table_fields( $table ) {
 		global $wpdb;
-		$schema_builder = tribe(Schema_Builder::class);
-		$field_schema = tribe(Test_Schema_Field::class);
-		add_filter('tec_events_custom_tables_v1_field_schemas', function($fields) use ($field_schema) {
-			return array_merge($fields, [$field_schema]);
-		});
-		// Activate.
-		$schema_builder->up();
+		$q    = 'select `column_name` from information_schema.columns
+					where table_schema = database()
+					and `table_name`=%s';
+		$rows = $wpdb->get_results( $wpdb->prepare( $q, $table ) );
 
-		// Validate expected state.
-		$q      = 'show create table '.$field_schema->table_schema()::table_name(true);
-		$table = $wpdb->get_row( $q );
-		$table_def = $table->{'Create Table'};
-		foreach ($field_schema->fields() as $field) {
-			$this->assertContains( $field, $table_def );
-		}
+		return array_map( function ( $row ) {
+			return $row->column_name;
+		}, $rows );
+	}
+
+	public function get_tables() {
+		global $wpdb;
+		$q      = 'show tables';
+
+		return $wpdb->get_col( $q );
 	}
 
 }

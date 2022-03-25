@@ -63,7 +63,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 */
 	protected function exists( ) {
 		global $wpdb;
-
+// @todo
 		$table_name =  $this->table_schema()::table_name(true);
 
 		return count( $wpdb->get_col( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) ) === 1;
@@ -72,31 +72,17 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function drop_fields() {
+	public function drop() {
 		if ( ! $this->exists() ) {
 
 			return false;
 		}
 		global $wpdb;
-/*ALTER TABLE table_name
-DROP COLUMN column_name_1,
-DROP COLUMN column_name_2,		*/
+		$this_table   = $this->table_schema()::table_name( true );
+		$drop_columns = 'DROP COLUMN `' . implode( '`, DROP COLUMN `', $this->fields() ) . '`';
 
-		$this_table = $this->table_schema()::table_name(true);
-		// @todo
-		$drop_columns = rtrim('DROP COLUMN `', 'DROP COLUMN `'.implode('`, DROP COLUMN `', $this->fields()));
-		dd($drop_columns);
-
-
-		return  $wpdb->query( $wpdb->prepare("ALTER TABLE %s %s" , $this_table, $drop_columns));
+		return $wpdb->query( sprintf( "ALTER TABLE %s %s", $this_table, $drop_columns ) );
 	}
-
-	/**
-	 * @since TBD
-	 *
-	 * @return Table_Schema_Interface
-	 */
-	abstract public function table_schema();
 
 	/**
 	 * @since TBD
