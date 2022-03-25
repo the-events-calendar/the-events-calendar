@@ -10,12 +10,14 @@ class Schema_Builder {
 
 	public function get_table_schemas_that_need_updates() {
 		$handlers = $this->get_registered_table_schemas();
-		foreach ($handlers as $table_handler) {
-			$this->container->make($table_handler);
-			// @todo
-		}
+// @todo
+		return $handlers;
+	}
 
-		return true;
+	public function get_field_schemas_that_need_updates() {
+		$handlers = $this->get_registered_field_schemas();
+// @todo
+		return $handlers;
 	}
 
 	public function is_schema_current() {

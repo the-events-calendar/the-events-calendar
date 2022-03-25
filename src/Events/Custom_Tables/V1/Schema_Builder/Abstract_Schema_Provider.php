@@ -32,14 +32,14 @@ abstract class Abstract_Schema_Provider extends Service_Provider implements Sche
 	 * @inheritDoc
 	 */
 	public function filter_table_schemas( $schemas ) {
-		return array_merge( self::get_table_schemas(), $schemas );
+		return array_merge( static::get_table_schemas(), $schemas );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function filter_field_schemas( $schemas ) {
-		return array_merge( self::get_field_schemas(), $schemas );
+		return array_merge( static::get_field_schemas(), $schemas );
 	}
 
 	/**

@@ -64,7 +64,7 @@ class Activation {
 		$services = tribe();
 		$services->register( Tables::class );
 		$tables = $services->make( Tables::class );
-
+return; // @todo
 		// Sync any schema changes we may have.
 		if ( $tables->exist() ) {
 			$tables->update_tables( true );
