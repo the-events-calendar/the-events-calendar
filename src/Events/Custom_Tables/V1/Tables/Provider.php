@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Tables;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Schema_Provider;
 
 /**
  * Class Provider
@@ -17,34 +17,16 @@ use tad_DI52_ServiceProvider as Service_Provider;
  * @since   TBD
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
-class Provider extends Service_Provider {
-	use Custom_Tables_Provider;
+class Provider extends Abstract_Schema_Provider {
+
 
 	/**
-	 * The Custom Tables version.
-	 * This is NOT the same as the plugin version.
-	 *
-	 * @since TBD
+	 * @inheritDoc
 	 */
-	const VERSION = '1.0.0';
-
-	/**
-	 * The name of the option that will store the version of the Custom Tables
-	 * for the plugin.
-	 *
-	 * @since TBD
-	 */
-	const VERSION_OPTION = 'tec_custom_tables_v1_version';
-
-	/**
-	 * A list of the table classes this provider will handle the registration for.
-	 *
-	 * @since TBD
-	 *
-	 * @var array<string>
-	 */
-	private $table_classes = [
-		Events::class,
-		Occurrences::class,
-	];
+	public static function get_table_schemas() {
+		return [
+			tribe(Events::class),
+			tribe(Occurrences::class),
+		];
+	}
 }
