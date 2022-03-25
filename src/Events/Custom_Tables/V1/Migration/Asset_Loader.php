@@ -89,7 +89,7 @@ class Asset_Loader {
 		}
 
 		// @todo use asset facility here
-		$min = defined( 'SCRIPT_DEBUG' ) ? '' : '.min';
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_style(
 			'tec-ct1-upgrade-admin-css',
 			TEC::instance()->plugin_url . "src/resources/css/custom-tables-v1/ct1-upgrade{$min}.css"
