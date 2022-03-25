@@ -88,13 +88,15 @@ class Asset_Loader {
 			return;
 		}
 
+		// @todo use asset facility here
+		$min = defined( 'SCRIPT_DEBUG' ) ? '' : '.min';
 		wp_register_style(
 			'tec-ct1-upgrade-admin-css',
-			TEC::instance()->plugin_url . 'src/resources/css/custom-tables-v1/ct1-upgrade.css'
+			TEC::instance()->plugin_url . "src/resources/css/custom-tables-v1/ct1-upgrade{$min}.css"
 		);
 		wp_register_script(
 			'tec-ct1-upgrade-admin-js',
-			TEC::instance()->plugin_url . 'src/resources/js/custom-tables-v1/ct1-upgrade.js'
+			TEC::instance()->plugin_url . "src/resources/js/custom-tables-v1/ct1-upgrade{$min}.js"
 		);
 
 		// We want to make sure the main JS file will be loaded as an ES6 module.
