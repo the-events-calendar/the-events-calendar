@@ -34,4 +34,12 @@ interface Field_Schema_Interface {
 	 */
 	public function update();
 
+	/**
+	 * References our stored version versus the version defined in the class.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether our latest schema has been applied.
+	 */
+	public function is_schema_current();
 }

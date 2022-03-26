@@ -17,6 +17,9 @@ namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
 abstract class Abstract_Custom_Table implements Table_Schema_Interface {
+	const SCHEMA_VERSION_OPTION = null;
+	const SCHEMA_VERSION = null;
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -39,6 +42,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	public function update() {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		$results = (array) dbDelta( $this->get_update_sql() );
+		$this->sync_stored_version();
 		$results = $this->after_update( $results );
 
 		return $results;
@@ -149,7 +153,37 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 		$result = $wpdb->query( "DROP TABLE `{$this_table}`" );
 		// Put setting back to original value.
 		$wpdb->query( $wpdb->prepare( "SET foreign_key_checks = %s", $key_check->Value ) );
+		$this->clear_stored_version();
 
 		return $result;
+	}
+
+	/**
+	 * Update our stored version with what we have defined.
+	 */
+	protected function sync_stored_version() {
+		if ( ! add_option( static::SCHEMA_VERSION_OPTION, static::SCHEMA_VERSION ) ) {
+			update_option( static::SCHEMA_VERSION_OPTION, static::SCHEMA_VERSION );
+		}
+	}
+
+	/**
+	 * Clear our stored version.
+	 */
+	protected function clear_stored_version() {
+		delete_option( static::SCHEMA_VERSION_OPTION );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function is_schema_current() {
+		if ( ! static::SCHEMA_VERSION || ! static::SCHEMA_VERSION_OPTION ) {
+			// @todo Error?
+		}
+		$version_applied = get_option( static::SCHEMA_VERSION_OPTION );
+		$current_version = static::SCHEMA_VERSION;
+
+		return version_compare( $version_applied, $current_version, '==' );
 	}
 }

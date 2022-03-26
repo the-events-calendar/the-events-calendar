@@ -8,50 +8,27 @@ use WP_CLI;
 
 class Schema_Builder {
 
+	/**
+	 * @param array<Field_Schema_Interface, Table_Schema_Interface> $handlers
+	 *
+	 * @return array
+	 */
+	protected function filter_for_version($handlers) {
+		return array_filter($handlers, function($handler) {
+			// Checks this handler version.
+			return !$handler->is_schema_current();
+		});
+	}
+
 	public function get_table_schemas_that_need_updates() {
-		$handlers = $this->get_registered_table_schemas();
 
 // @todo
-		return $handlers;
+		return $this->filter_for_version($this->get_registered_table_schemas());
 	}
 
 	public function get_field_schemas_that_need_updates() {
-		$handlers = $this->get_registered_field_schemas();
 
-// @todo
-		return $handlers;
-	}
-
-	public function is_schema_current() {
-		// Grab versions from all handlers, and check against our stored version.
-		$handlers = array_merge( $this->get_registered_table_schemas(), $this->get_registered_field_schemas() );
-		$versions = get_option( self::SCHEMA_VERSIONS_KEY );
-		// No versions registered yet.
-		if ( empty( $versions ) || ! is_array( $versions ) ) {
-
-			return false;
-		}
-		foreach ( $handlers as $table ) {
-			// Not even stored yet?
-			if ( ! isset( $versions[ $table ] ) ) {
-
-				return false;
-			}
-			// Compare our stored versions.
-			if ( ! version_compare( $table::VERSION, $versions[ $table ], '==' ) ) {
-
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-
-	public static function get_table_schemas() {
-	}
-
-	public static function get_fields_schemas() {
+		return $this->filter_for_version($this->get_registered_field_schemas());
 	}
 
 	/**
@@ -67,7 +44,7 @@ class Schema_Builder {
 	public function get_registered_field_schemas() {
 		return apply_filters( 'tec_events_custom_tables_v1_field_schemas', [] );
 	}
-////// @todo
+
 
 	/**
 	 * Trigger actions to drop the custom tables.
@@ -209,7 +186,6 @@ class Schema_Builder {
 			/** @var Table_Schema_Interface $table_schema */
 			$results[ $table_schema::table_name() ] = $table_schema->update();
 		}
-
 
 		$field_schemas = $force ? $this->get_registered_field_schemas() : $this->get_field_schemas_that_need_updates();
 		// Get all registered table classes.

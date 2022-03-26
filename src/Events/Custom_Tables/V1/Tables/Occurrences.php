@@ -19,6 +19,9 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Custom_Table;
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
 class Occurrences extends Abstract_Custom_Table {
+	const SCHEMA_VERSION_OPTION = 'tec_ct1_occurrences_table_schema_version';
+	const SCHEMA_VERSION = '1.0.0';
+
 	/**
 	 * The table name, without prefix.
 	 *

@@ -73,4 +73,13 @@ interface Table_Schema_Interface {
 	 * @return string The base custom table name.
 	 */
 	public static function base_table_name();
+
+	/**
+	 * References our stored version versus the version defined in the class.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether our latest schema has been applied.
+	 */
+	public function is_schema_current();
 }

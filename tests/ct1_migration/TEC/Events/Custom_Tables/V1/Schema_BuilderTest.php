@@ -36,7 +36,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		$schema_builder = tribe( Schema_Builder::class );
 
 		// Activate.
-		$schema_builder->up();
+		$schema_builder->up( true );
 
 		// Validate expected state.
 		$tables = $this->get_tables();
@@ -62,7 +62,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		$field_schema   = $this->custom_field_schema();
 		$this->given_a_field_schema_exists( $field_schema );
 		// Activate.
-		$schema_builder->up();
+		$schema_builder->up( true );
 
 		// Validate expected state.
 		$rows = $this->get_table_fields( $field_schema->table_schema()::table_name( true ) );
@@ -100,7 +100,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		add_filter( 'tec_events_custom_tables_v1_table_schemas', function ( $fields ) {
 			return [];
 		}, 999 );
-		$schema_builder->up();
+		$schema_builder->up( true );
 
 		$this->assertTrue( $field_schema->exists() );
 		$schema_builder->down();
