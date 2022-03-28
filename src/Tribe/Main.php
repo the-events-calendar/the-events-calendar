@@ -1298,19 +1298,33 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return boolean
 		 */
 		public function show_upgrade() {
-			$show_tab = current_user_can( 'activate_plugins' );
+			$can_show_tab = current_user_can( 'activate_plugins' );
 
 			/**
-			 * Provides an opportunity to override the decision to show or hide the upgrade tab
+			 * Provides an opportunity to override the decision to show or hide the upgrade tab.
 			 *
 			 * Normally it will only show if the current user has the "activate_plugins" capability
 			 * and there are some currently-activated premium plugins.
 			 *
 			 * @since 4.9.12
+			 * @since TBD This filter now controls only the capability to show the Upgrade tab.
 			 *
 			 * @param bool $show_tab True or False for showing the Upgrade Tab.
 			 */
-			if ( ! apply_filters( 'tribe_events_show_upgrade_tab', $show_tab ) ) {
+			$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
+
+			if ( ! $can_show_tab ) {
+				return false;
+			}
+
+			/**
+			 * Filters whether the Upgrade Tab has actually any content to show or not.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool $has_content Whether the tab has any content to show or not.
+			 */
+			if ( ! apply_filters( 'tec_events_upgrade_tab_has_content', false ) ) {
 				return false;
 			}
 
