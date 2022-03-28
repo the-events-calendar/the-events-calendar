@@ -17,7 +17,14 @@ namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
 abstract class Abstract_Custom_Table implements Table_Schema_Interface {
+	/**
+	 * @var string The option key used to store the SCHEMA_VERSION.
+	 */
 	const SCHEMA_VERSION_OPTION = null;
+
+	/**
+	 * @var string The version number for this schema definition.
+	 */
 	const SCHEMA_VERSION = null;
 
 	/**
