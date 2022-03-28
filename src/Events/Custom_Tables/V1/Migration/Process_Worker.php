@@ -8,13 +8,10 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
-use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
-use TEC\Events\Custom_Tables\V1\Tables\Provider;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 
 /**
@@ -286,7 +283,7 @@ class Process_Worker {
 			delete_metadata( 'post', 0, $meta_key, '', true );
 		}
 
-		$this->state->set( 'phase', State::PHASE_MIGRATION_PROMPT );
+		$this->state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
 		$this->state->save();
 
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
