@@ -42,6 +42,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		$tables = $this->get_tables();
 		$this->assertContains( EventsSchema::table_name( true ), $tables );
 		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
+		$this->assertTrue( $schema_builder->all_tables_exist() );
 
 		$schema_builder->down();
 
@@ -49,6 +50,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		$tables = $this->get_tables();
 		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
 		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
+		$this->assertFalse( $schema_builder->all_tables_exist() );
 	}
 
 
@@ -109,6 +111,31 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
+	 * The state of the stored version should be stored and removed when we up/down the schema.
+	 *
+	 * @test
+	 */
+	public function should_sync_version() {
+		$field_schema = $this->custom_field_schema();
+		$this->given_a_field_schema_exists( $field_schema );
+
+		$schema_builder = tribe( Schema_Builder::class );
+		$schema_builder->up();
+		// Is version there?
+		$occurrence_version = get_option( OccurrencesSchema::SCHEMA_VERSION_OPTION );
+		$field_version      = get_option( $field_schema::SCHEMA_VERSION_OPTION );
+		$this->assertEquals( OccurrencesSchema::SCHEMA_VERSION, $occurrence_version );
+		$this->assertEquals( $field_schema::SCHEMA_VERSION, $field_version );
+
+		// Is version gone?
+		$schema_builder->down();
+		$occurrence_version = get_option( OccurrencesSchema::SCHEMA_VERSION_OPTION );
+		$field_version      = get_option( $field_schema::SCHEMA_VERSION_OPTION );
+		$this->assertNotEquals( OccurrencesSchema::SCHEMA_VERSION, $occurrence_version );
+		$this->assertNotEquals( $field_schema::SCHEMA_VERSION, $field_version );
+	}
+
+	/**
 	 * Add this schema to the registered list.
 	 *
 	 * @param Field_Schema_Interface $field_schema
@@ -151,6 +178,8 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	 */
 	public function custom_field_schema() {
 		return new class extends Abstract_Custom_Field {
+			const SCHEMA_VERSION = '1.0.0';
+			const SCHEMA_VERSION_OPTION = 'tec_ct1_custom_field_version_key';
 
 			public function fields() {
 				return [ 'bob', 'frank' ];
