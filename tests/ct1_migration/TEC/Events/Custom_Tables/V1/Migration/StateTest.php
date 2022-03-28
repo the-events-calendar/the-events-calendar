@@ -2,7 +2,11 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
+
 class StateTest extends \CT1_Migration_Test_Case {
+	use CT1_Fixtures;
+
 	public function bad_option_values() {
 		return [
 			'null'         => [ null ],
@@ -24,6 +28,62 @@ class StateTest extends \CT1_Migration_Test_Case {
 	public function should_correctly_initialize_on_bad_option_values( $option_value ) {
 		tribe_update_option( State::STATE_OPTION_KEY, $option_value );
 
-		new State();
+		new State( new Events );
+	}
+
+	/**
+	 * It should not require migration if there are no events
+	 *
+	 * @test
+	 */
+	public function should_not_require_migration_if_there_are_no_events() {
+		$this->given_the_current_migration_phase_is( null );
+		$events = new Events;
+		$this->assertEquals( 0, $events->get_total_events() );
+
+		$state       = new State( $events );
+		$is_required = $state->is_required();
+
+		$this->assertFalse( $is_required );
+
+		$this->assertEquals( State::PHASE_MIGRATION_NOT_REQUIRED, $state->get_phase() );
+
+		// Run a new fetch to make sure the status "sticks".
+		$state       = new State( $events );
+		$is_required = $state->is_required();
+
+		$this->assertFalse( $is_required );
+	}
+
+	/**
+	 * It should require migration if migration is running
+	 *
+	 * @test
+	 */
+	public function should_require_migration_if_migration_is_running() {
+		$this->given_the_current_migration_phase_is( State::PHASE_PREVIEW_IN_PROGRESS );
+		$this->given_a_non_migrated_single_event();
+
+		$events      = new Events;
+		$state       = new State( $events );
+		$is_required = $state->is_required();
+
+		$this->assertTrue( $is_required );
+	}
+
+	/**
+	 * It should not require migration if
+	 *
+	 * @test
+	 */
+	public function should_not_require_migration_if_completed() {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_COMPLETE );
+		$this->given_a_migrated_single_event();
+
+		$events      = new Events;
+		$state       = new State( $events );
+		$is_required = $state->is_required();
+
+		$this->assertFalse( $is_required );
 	}
 }

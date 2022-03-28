@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -19,30 +20,78 @@ use Tribe__Utils__Array as Arr;
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class State {
+	/**
+	 * Indicates the migration is not required at all.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const PHASE_MIGRATION_NOT_REQUIRED = 'migration_not_required';
 
 	/**
-	 * @var string First step.
+	 * Indicates the migration preview is ready to start.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
 	 */
 	const PHASE_PREVIEW_PROMPT = 'preview-prompt';
+
 	/**
-	 * @var string Second step.
+	 * Indicates the migration preview is in progress.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
 	 */
 	const PHASE_PREVIEW_IN_PROGRESS = 'preview-in-progress';
+
 	/**
-	 * @var string Third step.
+	 * Indicates the migration is ready to start and waiting for user confirmation.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
 	 */
 	const PHASE_MIGRATION_PROMPT = 'migration-prompt';
+
 	/**
-	 * @var string Fourth step.
+	 * Indicates the migration is in progress.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
 	 */
 	const PHASE_MIGRATION_IN_PROGRESS = 'migration-in-progress';
+
 	/**
-	 * @var string Final step.
+	 * Indicates the migration is complete.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
 	 */
 	const PHASE_MIGRATION_COMPLETE = 'migration-complete';
-	const PHASE_CANCELLATION_IN_PROGRESS = 'cancellation-in-progress';
+
+	/**
+	 * Indicates the migration is in progress.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	const PHASE_UNDO_IN_PROGRESS = 'undo-in-progress';
+
+	/**
+	 * The key used in the calendar options to store the current state.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	const STATE_OPTION_KEY = 'ct1_migration_state';
+
 	/**
 	 * An array of default data the migration state will be hydrated with if no
 	 * corresponding option is set.
@@ -67,13 +116,23 @@ class State {
 	private $data = [];
 
 	/**
+	 * A reference to the Migration Events repository handler.
+	 *
+	 * @since TBD
+	 *
+	 * @var Events
+	 */
+	private $events;
+
+	/**
 	 * State constructor.
 	 *
 	 * @since TBD
 	 */
-	public function __construct() {
+	public function __construct(Events $events) {
 		$option_data = (array) tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
 		$this->data  = wp_parse_args( $option_data, $this->default_data );
+		$this->events = $events;
 	}
 
 	/**
@@ -145,6 +204,19 @@ class State {
 	 * @return bool Whether the migration is required or not.
 	 */
 	public function is_required() {
+		$phase = $this->get_phase();
+
+		if ( in_array( $phase, [ self::PHASE_MIGRATION_NOT_REQUIRED, self::PHASE_MIGRATION_COMPLETE ], true ) ) {
+			return false;
+		}
+
+		if ( 0 === $this->events->get_total_events() && ! $this->is_running() ) {
+			$this->set( 'phase', self::PHASE_MIGRATION_NOT_REQUIRED );
+			$this->save();
+
+			return false;
+		}
+
 		return true;
 	}
 

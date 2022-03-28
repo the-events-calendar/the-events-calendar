@@ -51,7 +51,9 @@ class Upgrade_Tab {
 	 * @return bool Whether the upgrade tab should show or not.
 	 */
 	public function should_show() {
-		return $this->state->is_required();
+		return $this->state->is_required()
+		       || $this->state->is_running()
+		       || $this->state->is_completed();
 	}
 
 	/**

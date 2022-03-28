@@ -4,7 +4,9 @@ namespace Tribe\Events\Test\Traits\CT1;
 
 use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Event as Event_Model;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence as Occurrence_Model;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
@@ -74,7 +76,7 @@ trait CT1_Fixtures {
 		return get_post( $post_id );
 	}
 
-	private function given_the_current_migration_phase_is( $phase ) {
+	private function given_the_current_migration_phase_is( $phase = null ) {
 		$state          = tribe_get_option( State::STATE_OPTION_KEY, [] );
 		$state['phase'] = $phase;
 		tribe_update_option( State::STATE_OPTION_KEY, $state );
@@ -107,5 +109,16 @@ trait CT1_Fixtures {
 
 	private function given_the_initialization_transient_expired() {
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
+	}
+
+	private function given_a_migrated_single_event(){
+		$post = $this->given_a_non_migrated_single_event();
+		Event::upsert( [ 'post_id' ], Event::data_from_post( $post ) );
+		$event = Event::find( $post->ID, 'post_id' );
+		$this->assertInstanceOf( Event::class, $event );
+		$event->occurrences()->save_occurrences();
+		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+
+		return $post;
 	}
 }

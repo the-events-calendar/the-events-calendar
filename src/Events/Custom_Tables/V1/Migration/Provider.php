@@ -46,10 +46,16 @@ class Provider extends Service_Provider implements Provider_Contract {
 		// Register the provider in the container.
 		$this->container->singleton( self::class, $this );
 
-		$this->container->singleton( String_Dictionary::class, String_Dictionary::class );
-		$this->container->singleton( State::class, State::class );
-		$this->container->singleton( Site_Report::class, Site_Report::class );
 		$this->container->singleton( Events::class, Events::class );
+		$this->container->singleton( State::class, State::class );
+
+		// The migration might not be required at all, bail if so.
+		if ( ! $this->container->make( State::class )->is_required() ) {
+			return;
+		}
+
+		$this->container->singleton( String_Dictionary::class, String_Dictionary::class );
+		$this->container->singleton( Site_Report::class, Site_Report::class );
 		$this->container->singleton( Page::class, Page::class );
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
 		$this->container->singleton( Process::class, Process::class );
@@ -76,7 +82,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', $this->container->callback( Asset_Loader::class, 'enqueue_scripts' ) );
 			// Hook into the Upgrade tab to show it and customize its contents.
-			add_filter( 'tribe_events_show_upgrade_tab', [ $this, 'show_upgrade_tab' ] );
+			add_filter( 'tec_events_upgrade_tab_has_content', [ $this, 'show_upgrade_tab' ] );
 			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
 
 		}
