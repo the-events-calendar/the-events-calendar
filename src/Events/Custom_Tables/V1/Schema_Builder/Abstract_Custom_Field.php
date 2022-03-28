@@ -94,6 +94,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 * {@inheritdoc}
 	 */
 	public function drop() {
+		$this->clear_stored_version();
 		if ( ! $this->exists() ) {
 
 			return false;
@@ -102,7 +103,6 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 		global $wpdb;
 		$this_table   = $this->table_schema()::table_name( true );
 		$drop_columns = 'DROP COLUMN `' . implode( '`, DROP COLUMN `', $this->fields() ) . '`';
-		$this->clear_stored_version();
 
 		return $wpdb->query( sprintf( "ALTER TABLE %s %s", $this_table, $drop_columns ) );
 	}
@@ -130,7 +130,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	protected function clear_stored_version() {
 		delete_option( static::SCHEMA_VERSION_OPTION );
 	}
- 
+
 	/**
 	 * @inheritDoc
 	 */
