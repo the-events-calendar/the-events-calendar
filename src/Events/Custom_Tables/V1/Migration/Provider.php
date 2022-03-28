@@ -48,12 +48,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		$this->container->singleton( Events::class, Events::class );
 		$this->container->singleton( State::class, State::class );
-
-		// The migration might not be required at all, bail if so.
-		if ( ! $this->container->make( State::class )->is_required() ) {
-			return;
-		}
-
 		$this->container->singleton( String_Dictionary::class, String_Dictionary::class );
 		$this->container->singleton( Site_Report::class, Site_Report::class );
 		$this->container->singleton( Page::class, Page::class );
@@ -61,6 +55,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Process::class, Process::class );
 		$this->container->singleton( Ajax::class, Ajax::class );
 		$this->container->singleton( Asset_Loader::class, Asset_Loader::class );
+
+		// The migration might not be required at all, bail if so.
+		if ( ! $this->container->make( State::class )->is_required() ) {
+			return;
+		}
 
 		$this->load_action_scheduler();
 
