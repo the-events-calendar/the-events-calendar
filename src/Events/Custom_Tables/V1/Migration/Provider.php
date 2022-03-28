@@ -56,11 +56,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Ajax::class, Ajax::class );
 		$this->container->singleton( Asset_Loader::class, Asset_Loader::class );
 
-		// The migration might not be required at all, bail if so.
-		if ( ! $this->container->make( State::class )->is_required() ) {
-			return;
-		}
-
 		$this->load_action_scheduler();
 
 		add_action( 'init', [ $this, 'init' ] );
@@ -83,7 +78,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 			// Hook into the Upgrade tab to show it and customize its contents.
 			add_filter( 'tec_events_upgrade_tab_has_content', [ $this, 'show_upgrade_tab' ] );
 			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
-
 		}
 	}
 
