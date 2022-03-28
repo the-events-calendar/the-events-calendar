@@ -18,8 +18,6 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Schema_Provider;
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
 class Provider extends Abstract_Schema_Provider {
-
-
 	/**
 	 * @inheritDoc
 	 */

@@ -9,29 +9,50 @@ use WP_CLI;
 class Schema_Builder {
 
 	/**
-	 * @param array<Field_Schema_Interface, Table_Schema_Interface> $handlers
+	 * Helper to filter out the schema updates that are already current.
 	 *
-	 * @return array
+	 * @since TBD
+	 *
+	 * @param array<Field_Schema_Interface|Table_Schema_Interface> $handlers
+	 *
+	 * @return array<Field_Schema_Interface|Table_Schema_Interface>
 	 */
-	protected function filter_for_version($handlers) {
-		return array_filter($handlers, function($handler) {
+	protected function filter_for_version( $handlers ) {
+		return array_filter( $handlers, function ( $handler ) {
 			// Checks this handler version.
-			return !$handler->is_schema_current();
-		});
-	}
-
-	public function get_table_schemas_that_need_updates() {
-
-// @todo
-		return $this->filter_for_version($this->get_registered_table_schemas());
-	}
-
-	public function get_field_schemas_that_need_updates() {
-
-		return $this->filter_for_version($this->get_registered_field_schemas());
+			return ! $handler->is_schema_current();
+		} );
 	}
 
 	/**
+	 * Get the registered table handlers that need updates.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<Table_Schema_Interface>
+	 */
+	public function get_table_schemas_that_need_updates() {
+
+		return $this->filter_for_version( $this->get_registered_table_schemas() );
+	}
+
+	/**
+	 * Get the registered field handlers that need updates.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<Field_Schema_Interface>
+	 */
+	public function get_field_schemas_that_need_updates() {
+
+		return $this->filter_for_version( $this->get_registered_field_schemas() );
+	}
+
+	/**
+	 * Get the registered table handlers.
+	 *
+	 * @since TBD
+	 *
 	 * @return array<Table_Schema_Interface>
 	 */
 	public function get_registered_table_schemas() {
@@ -39,6 +60,10 @@ class Schema_Builder {
 	}
 
 	/**
+	 * Get the registered field handlers.
+	 *
+	 * @since TBD
+	 *
 	 * @return array<Field_Schema_Interface>
 	 */
 	public function get_registered_field_schemas() {
@@ -109,17 +134,6 @@ class Schema_Builder {
 		 * @since TBD
 		 */
 		do_action( 'tec_events_custom_tables_v1_post_drop_fields' );
-	}
-
-	/**
-	 * Removes the table option from the database on deactivation.
-	 *
-	 * @since TBD
-	 *
-	 * @todo  ? Name mismatch?
-	 */
-	public function clean() {
-		delete_option( self::VERSION_OPTION );
 	}
 
 	/**

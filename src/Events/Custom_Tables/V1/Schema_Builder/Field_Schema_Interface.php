@@ -42,4 +42,13 @@ interface Field_Schema_Interface {
 	 * @return bool Whether our latest schema has been applied.
 	 */
 	public function is_schema_current();
+
+	/**
+	 * A reference to the table definition we are modifying with new fields.
+	 *
+	 * @since TBD
+	 *
+	 * @return Abstract_Custom_Table
+	 */
+	public function table_schema();
 }
