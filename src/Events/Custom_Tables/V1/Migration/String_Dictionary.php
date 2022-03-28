@@ -8,7 +8,9 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
+
 use Tribe__Dependency as Plugins;
+
 /**
  * Class Strings.
  *
@@ -86,8 +88,7 @@ class String_Dictionary {
 				TRIBE_EVENTS_FILE
 			),
 			'completed-site-upgraded'                             => __(
-				'Your site is now using the upgraded recurring events system. See the report below to learn ' .
-				'how your events may have been adjusted during the migration process.',
+				'Your site is now using the upgraded event data storage system.',
 				'the-events-calendar'
 			),
 			'preview-prompt-get-ready'                            => __(
@@ -114,7 +115,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'learn-more-button'                                   => __(
-				'Learn more about the migration',
+				'Learn more about the migration.',
 				'the-events-calendar'
 			),
 			'start-migration-preview-button'                      => __(
@@ -142,15 +143,15 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'preview-estimate'                                    => __(
-				'From this preview, we estimate that the full migration process will take approximately %3$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.',
+				'From this preview, we estimate that the full migration process will take approximately %3$s hour(s). During this time, %1$syou will not be able to create, edit, or manage your events.%2$s Your calendar will still be visible on your site.',
 				'the-events-calendar'
 			),
 			'previewed-date-heading'                              => __(
-				'Previewed Date/Time:',
+				'Preview completed',
 				'the-events-calendar'
 			),
 			'previewed-total-heading'                             => __(
-				'Total Events Previewed:',
+				'Total events previewed:',
 				'the-events-calendar'
 			),
 			're-run-preview-button'                               => __(
@@ -174,7 +175,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-in-progress-paragraph'                     => __(
-				'Your events are being migrated to the new system. During this migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar is still visible on your site.',
+				'Your events are being migrated to the new system. During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on the frontend.',
 				'the-events-calendar'
 			),
 			'loading-message'                                     => __(
@@ -190,19 +191,19 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-complete-paragraph'                        => __(
-				'Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more about the new features of Events Calendar PRO 6.0%2$s.',
+				'Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more%2$s.',
 				'the-events-calendar'
 			),
 			'migration-date-heading'                              => __(
-				'Migration Date/Time:',
+				'Migration completed',
 				'the-events-calendar'
 			),
 			'migration-total-heading'                             => __(
-				'Total Events Migrated:',
+				'Total events migrated:',
 				'the-events-calendar'
 			),
 			'reverse-migration-button'                            => __(
-				'Reverse Migration',
+				'Reverse migration',
 				'the-events-calendar'
 			),
 			'reverse-migration-in-progress'                       => __(
@@ -297,15 +298,15 @@ class String_Dictionary {
 		$text      = '';
 
 		if ( $et_active && $ce_active && ( $ea_active || $eb_active ) ) {
-			$text = __( 'Ticket sales, RSVPs, event submissions, and event imports will be paused until migration is complete.', 'the-events-calendar' );
+			$text = __( 'Ticket sales, RSVPs, event submissions, and automatic imports will be paused until migration is complete.', 'the-events-calendar' );
 		}
 
 		if ( $et_active && ( $ea_active || $eb_active ) ) {
-			$text = __( 'Ticket sales, RSVPs, and event imports will be paused until migration is complete.', 'the-events-calendar' );
+			$text = __( 'Ticket sales, RSVPs, and automatic imports will be paused until migration is complete.', 'the-events-calendar' );
 		}
 
 		if ( $ce_active && ( $ea_active || $eb_active ) ) {
-			$text = __( 'Event submissions and event imports will be paused until migration is complete.', 'the-events-calendar' );
+			$text = __( 'Event submissions and automatic imports will be paused until migration is complete.', 'the-events-calendar' );
 		}
 
 		if ( $et_active && $ce_active ) {
@@ -321,7 +322,7 @@ class String_Dictionary {
 		}
 
 		if ( $ea_active || $eb_active ) {
-			$text = __( 'Event imports will be paused until migration is complete.', 'the-events-calendar' );
+			$text = __( 'Automatic imports will be paused until migration is complete.', 'the-events-calendar' );
 		}
 
 		/**
