@@ -3,6 +3,7 @@
 namespace Tribe\Events\Test\Traits\CT1;
 
 use TEC\Events\Custom_Tables\V1\Activation;
+use TEC\Events\Custom_Tables\V1\Migration\Provider;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Event as Event_Model;
@@ -120,5 +121,9 @@ trait CT1_Fixtures {
 		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
 
 		return $post;
+	}
+
+	private function given_action_scheduler_is_loaded() {
+		tribe( Provider::class )->load_action_scheduler_late();
 	}
 }

@@ -46,7 +46,8 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			return $strategy;
 		}, 10, 3 );
 
-		$process = new Process_Worker( new Events, new State );
+		$events = new Events;
+		$process = new Process_Worker( $events, new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
 		$this->assertEquals( '', $report->error );
@@ -70,7 +71,8 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			};
 		} );
 
-		$process = new Process_Worker( new Events, new State );
+		$events = new Events;
+		$process = new Process_Worker( $events , new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
 		$this->assertEquals( 'for reasons', $report->error );
@@ -98,7 +100,8 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			};
 		} );
 
-		$process = new Process_Worker( new Events, new State );
+		$events = new Events;
+		$process = new Process_Worker( $events, new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
 		$this->assertEquals( "Random error", $report->error );
@@ -133,7 +136,8 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$generate_workers_for = static function ( $post_ids ) {
 			foreach ( $post_ids as $post_id ) {
 				yield static function () use ( $post_id ) {
-					$worker = new Process_Worker( new Events, new State );
+					$events = new Events;
+					$worker = new Process_Worker( $events, new State( $events ) );
 					$worker->migrate_event( $post_id );
 				};
 			}
@@ -179,7 +183,8 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$generate_workers_for = static function ( $post_ids ) {
 			foreach ( $post_ids as $post_id ) {
 				yield static function () use ( $post_id ) {
-					$worker = new Process_Worker( new Events, new State );
+					$events = new Events;
+					$worker = new Process_Worker( $events , new State( $events ) );
 					$worker->migrate_event( $post_id );
 				};
 			}
