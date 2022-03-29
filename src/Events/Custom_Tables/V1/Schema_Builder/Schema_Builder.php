@@ -205,9 +205,8 @@ class Schema_Builder {
 		// Get all registered table classes.
 		foreach ( $field_schemas as $field_schema ) {
 			/** @var Field_Schema_Interface $field_schema */
-			$custom_table           = $field_schema->table_schema();
-			$table_name             = call_user_func( [ get_class( $custom_table ), 'table_name' ] );
-			$results[ $table_name ] = $field_schema->update();
+			$custom_table                           = $field_schema->table_schema();
+			$results[ $custom_table::table_name() ] = $field_schema->update();
 		}
 
 		return array_merge( ...array_values( $results ) );
