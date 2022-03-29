@@ -292,11 +292,25 @@ class Schema_Builder {
 	 *
 	 * @since TBD
 	 *
+	 * @param string|null $group An optional group name to restrict the check to.
+	 *
 	 * @return bool Whether all custom tables exist or not. Does not check custom fields.
 	 */
-	public function all_tables_exist() {
+	public function all_tables_exist( $group = null ) {
 		global $wpdb;
 		$table_classes = $this->get_registered_table_schemas();
+
+		if ( null !== $group ) {
+			$table_classes = array_filter( $table_classes, static function ( $class ) use ( $group ) {
+				return $class::group_name() === $group;
+			} );
+		}
+
+		if ( empty( $table_classes ) ) {
+			// No table class was even found.
+			return false;
+		}
+
 		$result        = $wpdb->get_col( 'SHOW TABLES' );
 		foreach ( $table_classes as $class ) {
 			if ( ! in_array( $class::table_name(), $result, true ) ) {

@@ -193,4 +193,15 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 
 		return version_compare( $version_applied, $current_version, '==' );
 	}
+
+	/**
+	 * Returns the name of the group the table belongs to.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The name of the group the table belongs to.
+	 */
+	public static function group_name() {
+		return '';
+	}
 }

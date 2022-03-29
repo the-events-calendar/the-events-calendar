@@ -27,7 +27,7 @@ interface Schema_Provider_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array<Table_Schema_Interface>
+	 * @return array<Field_Schema_Interface> A list of table schemas.
 	 */
 	public static function get_table_schemas();
 
@@ -37,7 +37,7 @@ interface Schema_Provider_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array<Field_Schema_Interface>
+	 * @return array<Field_Schema_Interface> A list of field schemas.
 	 */
 	public static function get_field_schemas();
 
@@ -46,7 +46,7 @@ interface Schema_Provider_Interface {
 	 *
 	 * @param array<Table_Schema_Interface> $schemas
 	 *
-	 * @return array<Table_Schema_Interface>
+	 * @return array<Field_Schema_Interface> A list of table schemas.
 	 */
 	public function filter_table_schemas( $schemas );
 
@@ -55,7 +55,7 @@ interface Schema_Provider_Interface {
 	 *
 	 * @param array<Field_Schema_Interface> $schemas
 	 *
-	 * @return array<Field_Schema_Interface>
+	 * @return array<Field_Schema_Interface> A list of field schemas.
 	 */
 	public function filter_field_schemas( $schemas );
 }

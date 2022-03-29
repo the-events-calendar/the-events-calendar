@@ -37,6 +37,13 @@ class Occurrences extends Abstract_Custom_Table {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public static function group_name() {
+		return 'tec';
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public static function uid_column() {

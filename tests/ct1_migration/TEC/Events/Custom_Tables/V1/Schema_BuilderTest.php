@@ -5,6 +5,7 @@ namespace TEC\Events\Custom_Tables\V1;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Custom_Field;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Field_Schema_Interface;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Table_Schema_Interface;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
@@ -200,5 +201,112 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 			) {$charset_collate};";
 			}
 		};
+	}
+
+	/**
+	 * It should support group when checking for all tables existence
+	 *
+	 * @test
+	 */
+	public function should_support_group_when_checking_for_all_tables_existence() {
+		add_filter('query',static function($query){
+			if ( $query !== 'SHOW TABLES' ) {
+				return $query;
+			}
+
+			return 'SELECT "fodz" UNION ALL SELECT "klutz" UNION ALL SELECT "zorps"';
+		});
+		$fodz_table = new class implements Table_Schema_Interface{
+			public static function uid_column() {
+			}
+
+			public function empty_table() {
+			}
+
+			public function drop() {
+			}
+
+			public function update() {
+			}
+
+			public static function table_name() {
+				return 'fodz';
+			}
+
+			public static function base_table_name() {
+			}
+
+			public function is_schema_current() {
+			}
+
+			public static function group_name() {
+				return 'one';
+			}
+		};
+		$klutz_table = new class implements Table_Schema_Interface{
+			public static function uid_column() {
+			}
+
+			public function empty_table() {
+			}
+
+			public function drop() {
+			}
+
+			public function update() {
+			}
+
+			public static function table_name() {
+				return 'klutz';
+			}
+
+			public static function base_table_name() {
+			}
+
+			public function is_schema_current() {
+			}
+
+			public static function group_name() {
+				return 'one';
+			}
+		};
+		$zorps_table = new class implements Table_Schema_Interface{
+			public static function uid_column() {
+			}
+
+			public function empty_table() {
+			}
+
+			public function drop() {
+			}
+
+			public function update() {
+			}
+
+			public static function table_name() {
+				return 'zorps';
+			}
+
+			public static function base_table_name() {
+			}
+
+			public function is_schema_current() {
+			}
+
+			public static function group_name() {
+				return 'two';
+			}
+		};
+		$tables = [ $fodz_table, $klutz_table, $zorps_table ];
+		add_filter( 'tec_events_custom_tables_v1_table_schemas', static function () use ( $tables ) {
+			return $tables;
+		} );
+
+		$schema_builder   = new Schema_Builder;
+
+		$this->assertTrue( $schema_builder->all_tables_exist() );
+		$this->assertTrue( $schema_builder->all_tables_exist('one') );
+		$this->assertTrue( $schema_builder->all_tables_exist('two') );
+		$this->assertFalse( $schema_builder->all_tables_exist('three') );
 	}
 }

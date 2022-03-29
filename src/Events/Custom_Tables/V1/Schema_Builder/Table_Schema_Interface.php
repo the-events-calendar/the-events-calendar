@@ -82,4 +82,13 @@ interface Table_Schema_Interface {
 	 * @return bool Whether our latest schema has been applied.
 	 */
 	public function is_schema_current();
+
+	/**
+	 * Returns the name of the group the table belongs to.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The name of the group the table belongs to.
+	 */
+	public static function group_name();
 }
