@@ -241,11 +241,10 @@ class Process_Worker {
 			// Start a recursive check, but only if we are not already doing so.
 			if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
 				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
-			}
-
-			if ( empty( $action_id ) ) {
-				// The migration might have technically completed, but we cannot know for sure and will be conservative.
-				$this->event_report->migration_failed( "Cannot enqueue action to check migration status." );
+				if ( empty( $action_id ) ) {
+					// The migration might have technically completed, but we cannot know for sure and will be conservative.
+					$this->event_report->migration_failed( "Cannot enqueue action to check migration status." );
+				}
 			}
 		}
 
