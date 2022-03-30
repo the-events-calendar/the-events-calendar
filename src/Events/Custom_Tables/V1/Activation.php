@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables_Provider;
 
 /**
  * Class Activation
@@ -37,9 +38,12 @@ class Activation {
 	public static function activate() {
 		// Delete the transient to make sure the activation code will run again.
 		delete_transient( self::ACTIVATION_TRANSIENT );
+
 		// Transient will still be found, ensure it is truthy false.
-		// @todo better way to do this? we deleting it wrong?
 		wp_cache_set( self::ACTIVATION_TRANSIENT, null, 'options' );
+
+		// Register the provider to add the required schemas.
+		tribe_register_provider( Tables_Provider::class );
 
 		self::init();
 	}

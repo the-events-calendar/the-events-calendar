@@ -3249,6 +3249,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
+
+			if (
+					class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Activation' )
+					&& ! ( defined( 'TEC_CUSTOM_TABLES_V1_DISABLED' ) && TEC_CUSTOM_TABLES_V1_DISABLED )
+			) {
+				// Register the Custom Tables V1 provider, if defined, to set up the custom tables.
+				TEC\Events\Custom_Tables\V1\Activation::activate();
+			}
 		}
 
 		/**
