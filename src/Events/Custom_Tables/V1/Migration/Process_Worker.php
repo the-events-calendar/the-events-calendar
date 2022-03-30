@@ -179,6 +179,7 @@ class Process_Worker {
 
 			$this->event_report->start_event_migration();
 
+			// In case we have an error in the strategy, and we are forced to exit early, lets start the transaction here.
 			if($this->dry_run) {
 				$this->transaction_start();
 			}
@@ -225,7 +226,10 @@ class Process_Worker {
 				$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $next_post_id." );
 			}
 		} else if ( ! $this->check_phase() ) {
-			$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
+			// Start a recursive check, but only if we are not already doing so.
+			if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
+				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
+			}
 
 			if ( empty( $action_id ) ) {
 				// The migration might have technically completed, but we cannot know for sure and will be conservative.
@@ -446,6 +450,11 @@ class Process_Worker {
 			// Clear all of our queued state check workers.
 			as_unschedule_all_actions( self::ACTION_CHECK_PHASE );
 
+			return 0;
+		}
+
+		// We may already have one scheduled, bail if we do.
+		if ( as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
 			return 0;
 		}
 
