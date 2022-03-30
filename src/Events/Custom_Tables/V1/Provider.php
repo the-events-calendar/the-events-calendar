@@ -89,7 +89,6 @@ class Provider extends Service_Provider {
 		 */
 		try {
 			$this->bind_implementations();
-			$this->add_filters();
 
 			require_once __DIR__ . '/functions.php';
 			require_once __DIR__ . '/template-tags.php';
@@ -105,6 +104,8 @@ class Provider extends Service_Provider {
 			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
 			$this->container->register( Migration\Provider::class );
+
+			$this->add_filters();
 
 			/*
 			 * Integrations with 3rd party code are registered last to
