@@ -97,7 +97,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * The report key used to indicate whether an Event is single or not.
 	 */
-	const REPORT_KEY_SINGLE_EVENT = 'report_is_single_even';
+	const REPORT_KEY_SINGLE_EVENT = 'report_is_single_event';
 
 	/**
 	 * @since TBD
