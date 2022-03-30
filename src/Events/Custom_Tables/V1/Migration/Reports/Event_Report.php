@@ -430,7 +430,7 @@ class Event_Report implements JsonSerializable {
 		$this->set_end_timestamp();
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
-
+ 
 		return $this->set_error( $reason )
 		            ->set_status( self::STATUS_FAILURE )
 		            ->save();
@@ -438,6 +438,8 @@ class Event_Report implements JsonSerializable {
 
 	/**
 	 * Will remove the lock from this Event.
+	 *
+	 * @since TBD
 	 *
 	 * @return $this
 	 */

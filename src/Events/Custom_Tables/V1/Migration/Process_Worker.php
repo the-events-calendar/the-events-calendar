@@ -187,6 +187,18 @@ class Process_Worker {
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $this->event_report );
 
+			if ( $this->dry_run ) {
+				$this->transaction_rollback();
+				// Our event report state would have been rolled back too, so try and reapply what was set locally.
+				// Clear our cache, since it reflects local state and not aware of transaction rollbacks.
+				wp_cache_delete( $post_id, 'post_meta' );
+				if ( $this->event_report->error ) {
+					$this->event_report->migration_failed( $this->event_report->error );
+				} else {
+					$this->event_report->migration_success();
+				}
+			}
+
 			// If no error, mark successful.
 			if ( ! $this->event_report->error ) {
 				$this->event_report->migration_success();
