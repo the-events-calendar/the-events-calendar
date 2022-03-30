@@ -111,7 +111,7 @@ class Process_Worker {
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
 		// Log our worker starting
-		do_action( 'tribe_log', 'error', 'Worker: Migrate event:start', [
+		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:start', [
 			'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 			'post_id' => $post_id,
 			'dry_run' => $dry_run
@@ -240,7 +240,7 @@ class Process_Worker {
 		$this->check_phase();
 
 		// Log our worker ending
-		do_action( 'tribe_log', 'error', 'Worker: Migrate event:end', [
+		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:end', [
 			'source'       => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 			'post_id'      => $post_id,
 			'next_post_id' => $next_post_id,
@@ -261,7 +261,7 @@ class Process_Worker {
 	 */
 	public function undo_event_migration( $meta ) {
 		// Log our worker starting
-		do_action( 'tribe_log', 'error', 'Worker: Undo event migration:start', [
+		do_action( 'tribe_log', 'debug', 'Worker: Undo event migration:start', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 			'meta'   => $meta,
 		] );
@@ -309,7 +309,7 @@ class Process_Worker {
 
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
 		// Log our worker ending
-		do_action( 'tribe_log', 'error', 'Worker: Undo event migration:end', [
+		do_action( 'tribe_log', 'debug', 'Worker: Undo event migration:end', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 			'meta'   => $meta,
 		] );
