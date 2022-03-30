@@ -54,35 +54,35 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 						<?php
 						if ( $event->error ) {
 							esc_html_e( $event->error, 'the-events-calendar' );
-						}
-
-						foreach ( $event->strategies_applied as $action ) {
-							switch ( $action ) {
-								case 'split':
-									echo sprintf(
-											esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
-											'<strong>',
-											count( $event->created_events ),
-											'</strong>'
-									);
-									echo sprintf(
-											esc_html( $text->get( "migration-prompt-strategy-$action-new-series" ) ),
-											$event->series[0]->post_title // @todo This ok?
-									);
-									break;
-								default:
-									// Do we have language for this strategy?
-									$output = sprintf(
-											esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
-											'<strong>',
-											'</strong>'
-									);
-									if ( $output ) {
-										echo $output;
-									} else {
-										echo esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
-									}
-									break;
+						} else {
+							foreach ( $event->strategies_applied as $action ) {
+								switch ( $action ) {
+									case 'split':
+										echo sprintf(
+												esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
+												'<strong>',
+												count( $event->created_events ),
+												'</strong>'
+										);
+										echo sprintf(
+												esc_html( $text->get( "migration-prompt-strategy-$action-new-series" ) ),
+												$event->series[0]->post_title // @todo This ok?
+										);
+										break;
+									default:
+										// Do we have language for this strategy?
+										$output = sprintf(
+												esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
+												'<strong>',
+												'</strong>'
+										);
+										if ( $output ) {
+											echo $output;
+										} else {
+											echo esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
+										}
+										break;
+								}
 							}
 						}
 						?>
