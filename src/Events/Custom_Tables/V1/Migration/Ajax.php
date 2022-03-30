@@ -222,6 +222,12 @@ class Ajax {
 				break;
 		}
 
+		// Log our poll status
+		do_action( 'tribe_log', 'error', 'Ajax: Migration report poll renderer', [
+			'source'             => __CLASS__.' '.__METHOD__.' '.__LINE__,
+			'report'   => $site_report,
+		] );
+
 		return $renderer;
 	}
 
@@ -239,6 +245,11 @@ class Ajax {
 		check_ajax_referer( self::NONCE_ACTION );
 
 		$dry_run = ! empty( $_REQUEST['tec_events_custom_tables_v1_migration_dry_run'] );
+		// Log our start
+		do_action( 'tribe_log', 'error', 'Ajax: Start migration', [
+			'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'dry_run' => $dry_run,
+		] );
 		$this->process->start( $dry_run );
 
 		$response = $this->get_report();
@@ -262,6 +273,10 @@ class Ajax {
 	 */
 	public function cancel_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
+		// Log our start
+		do_action( 'tribe_log', 'error', 'Ajax: Cancel migration', [
+			'source'       => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+		] );
 		// A cancel action is identical to an undo.
 		$this->process->undo();
 		$response = $this->get_report();
@@ -285,6 +300,10 @@ class Ajax {
 	 */
 	public function undo_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
+		// Log our start
+		do_action( 'tribe_log', 'error', 'Ajax: Undo migration', [
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+		] );
 		$this->process->undo();
 		$response = $this->get_report();
 		if ( $echo ) {

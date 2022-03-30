@@ -110,6 +110,13 @@ class Process_Worker {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
+		// Log our worker starting
+		do_action( 'tribe_log', 'error', 'Worker: Migrate event:start', [
+			'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'post_id' => $post_id,
+			'dry_run' => $dry_run
+		] );
+
 		/*
 		 * Get our Event_Report ready for the strategy.
 		 * This is also used in our error catching, so needs to be defined outside that block.
@@ -207,15 +214,15 @@ class Process_Worker {
 		ob_end_clean();
 
 		// Get next event to process.
-		$post_id = $this->events->get_id_to_process();
+		$next_post_id = $this->events->get_id_to_process();
 
-		if ( $post_id ) {
+		if ( $next_post_id ) {
 			// Enqueue a new (Action Scheduler) action to import another Event.
-			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $post_id, $dry_run ] );
+			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $next_post_id, $dry_run ] );
 
 			if ( empty( $action_id ) ) {
 				// If we cannot migrate the next Event we need to migrate, then the migration has failed.
-				$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $post_id." );
+				$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $next_post_id." );
 			}
 		} else if ( ! $this->check_phase() ) {
 			$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
@@ -232,6 +239,15 @@ class Process_Worker {
 
 		$this->check_phase();
 
+		// Log our worker ending
+		do_action( 'tribe_log', 'error', 'Worker: Migrate event:end', [
+			'source'       => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'post_id'      => $post_id,
+			'next_post_id' => $next_post_id,
+			'dry_run'      => $dry_run,
+			'event_report' => $event_report,
+		] );
+
 		return $event_report;
 	}
 
@@ -244,6 +260,11 @@ class Process_Worker {
 	 *
 	 */
 	public function undo_event_migration( $meta ) {
+		// Log our worker starting
+		do_action( 'tribe_log', 'error', 'Worker: Undo event migration:start', [
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'meta'   => $meta,
+		] );
 
 		if ( ! isset( $meta['started_timestamp'] ) ) {
 			$meta['started_timestamp'] = time();
@@ -287,6 +308,11 @@ class Process_Worker {
 		$this->state->save();
 
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
+		// Log our worker ending
+		do_action( 'tribe_log', 'error', 'Worker: Undo event migration:end', [
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'meta'   => $meta,
+		] );
 	}
 
 	/**
