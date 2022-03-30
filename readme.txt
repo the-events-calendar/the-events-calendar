@@ -17,6 +17,8 @@ Easily create and manage an events calendar on your WordPress site with [The Eve
 
 https://vimeo.com/425323974
 
+[See more videos on our YouTube channel](https://evnt.is/1b4-)
+
 Packed with loads of features, The Events Calendar is ready to go out of the box. It’s also extensible, easy to use, and completely customizable.
 
 = 📅 The #1 Calendar for WordPress =
