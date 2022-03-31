@@ -147,9 +147,11 @@ const renderUI = ( props ) => (
 const renderControls = ( {
 	isSelected,
 	currencySymbol,
+	currencyCode,
 	currencyPosition,
-	setSymbol,
 	setCurrencyPosition,
+	setCode,
+	setSymbol,
 } ) => (
 	isSelected && (
 		<InspectorControls key="inspector">
@@ -160,6 +162,13 @@ const renderControls = ( {
 					value={ currencySymbol }
 					placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 					onChange={ setSymbol }
+				/>
+				<TextControl
+					className="tribe-editor__event-price__currency-code-setting"
+					label={ __( ' Currency Code', 'the-events-calendar' ) }
+					value={ currencyCode }
+					placeholder={ __( 'E.g.: USD', 'the-events-calendar' ) }
+					onChange={ setCode }
 				/>
 				<CheckboxControl
 					label={ __( 'Currency symbol follows price', 'the-events-calendar' ) }
@@ -181,12 +190,14 @@ EventPrice.propTypes = {
 	cost: PropTypes.string,
 	currencyPosition: PropTypes.oneOf( [ 'prefix', 'suffix', '' ] ),
 	currencySymbol: PropTypes.string,
+	currencyCode: PropTypes.string,
 	showCurrencySymbol: PropTypes.bool,
 	showCost: PropTypes.bool,
 	showCostDescription: PropTypes.bool,
 	isFree: PropTypes.bool,
 	setCost: PropTypes.func,
 	setSymbol: PropTypes.func,
+	setCode: PropTypes.func,
 	setCurrencyPosition: PropTypes.func,
 	onKeyDown: PropTypes.func,
 	onClick: PropTypes.func,

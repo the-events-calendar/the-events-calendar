@@ -208,6 +208,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCurrencySymbol',
+			'_EventCurrencyCode',
 			'_EventCurrencyPosition',
 			'_EventCost',
 			'_EventCostMin',
@@ -637,9 +638,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// First boot.
 			tribe_register_provider( Tribe\Events\Service_Providers\First_Boot::class );
 
+			// Filter Bar upsell.
+			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
+			 *
+			 * DO NOT put anything after this unless you _need to_ and know the implications!
 			 */
 			do_action( 'tribe_events_bound_implementations' );
 
@@ -788,8 +793,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			/* edit-post metaboxes */
 			add_action( 'admin_menu', [ $this, 'addEventBox' ] );
-			add_action( 'admin_menu', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
-			add_action( 'admin_menu', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
+			add_action( 'add_meta_boxes', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
+			add_action( 'add_meta_boxes', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
 
 			add_action( 'wp_insert_post', [ $this, 'addPostOrigin' ], 10, 2 );
 			add_action( 'save_post', [ $this, 'addEventMeta' ], 15, 2 );
@@ -841,7 +846,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'wp', [ $this, 'issue_noindex' ] );
 			add_action( 'plugin_row_meta', [ $this, 'addMetaLinks' ], 10, 2 );
 			// organizer and venue
-			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ) {
+			if ( ! tec_should_hide_upsell() ) {
 				add_action( 'wp_dashboard_setup', [ $this, 'dashboardWidget' ] );
 				add_action( 'tribe_events_cost_table', [ $this, 'maybeShowMetaUpsell' ] );
 			}

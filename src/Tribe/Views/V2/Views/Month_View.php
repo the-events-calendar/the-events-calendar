@@ -533,10 +533,29 @@ class Month_View extends By_Day_View {
 		if ( empty( $this->repository_args ) ) {
 			$this->repository->by_args( $this->get_repository_args() );
 		}
+
 		$this->repository->per_page( $per_page );
-		$event_date = Dates::build_date_object( $this->context->get( 'event_date', 'now' ) );
-		$start_date = tribe_beginning_of_day( $event_date->format( 'Y-m-01' ) );
-		$end_date   = tribe_end_of_day( $event_date->format( 'Y-m-t' ) );
+
+		$now = Dates::build_date_object( 'now' );
+		$context_date = $this->context->get( 'event_date', $now->format( 'Y-m-d') );
+		$event_date   = Dates::build_date_object( $context_date );
+
+		/**
+		 * Allows filtering between starting the ics export on the 1st of the month or the current day.
+		 *
+		 * @since 5.14.1
+		 *
+		 * @param bool $start_today Whether to start from the current day (true) or the first of the month (false).
+		 */
+		$start_today = apply_filters( 'tribe_events_views_v2_month_ics_start_today', true );
+
+		// If we're dealing with the current year & month, use the current day, otherwise use the 1st.
+		// Affected by the filter above. If it returns `false` we'll go straight to 'Y-m-01' (the first).
+		$start_format = $start_today && $now->format( 'Y-m') === $event_date->format( 'Y-m' ) ? 'Y-m-d' : 'Y-m-01';
+
+		$start_date   = tribe_beginning_of_day( $event_date->format( $start_format ) );
+		$end_date     = tribe_end_of_day( $event_date->format( 'Y-m-t' ) );
+
 		$this->repository->where( 'ends_after', $start_date );
 		$this->repository->where( 'starts_before', $end_date );
 	}
