@@ -254,6 +254,10 @@ class String_Dictionary {
 				'Learn more about your migration preview report',
 				'the-events-calendar'
 			),
+			'migration-is-blocked'          => __(
+				'Migration is blocked due to errors found during preview.',
+				'the-events-calendar'
+			),
 			'preview-progress-bar-events-done'                    => _x(
 				'%1$s%2$d%3$s events previewed',
 				'Number of events previewed',

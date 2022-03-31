@@ -32,17 +32,21 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			<i class="tec-ct1-upgrade__alert-icon">!</i>
 			<span>
 			<?php
-			echo sprintf(
-					esc_html( $text->get( 'preview-estimate' ) ),
-					'<strong>',
-					'</strong>',
-					$report->estimated_time_in_hours
-			);
+			if ( $report->has_errors ) {
+				echo esc_html( $text->get( 'migration-is-blocked' ) );
+			} else {
+				echo sprintf(
+						esc_html( $text->get( 'preview-estimate' ) ),
+						'<strong>',
+						'</strong>',
+						$report->estimated_time_in_hours
+				);
 
-			if ( $addendum = $text->get( 'migration-prompt-plugin-state-addendum' ) ) {
-				?>
-				<strong><?php echo esc_html( $addendum ); ?></strong>
-				<?php
+				if ( $addendum = $text->get( 'migration-prompt-plugin-state-addendum' ) ) {
+					?>
+					<strong><?php echo esc_html( $addendum ); ?></strong>
+					<?php
+				}
 			}
 			?>
 			</span>
@@ -83,7 +87,6 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 				if ( $report->has_errors ) { // @todo Do we want to block migration like this?
 					?>
 					disabled="disabled"
-					title="Migration is blocked due to errors found during preview."
 				<?php } ?>
 				type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
 		<i>
