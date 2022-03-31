@@ -209,7 +209,7 @@ class Schema_Builder {
 			$results[ $custom_table::table_name() ] = $field_schema->update();
 		}
 
-		return array_merge( ...array_values( $results ) );
+		return count( $results ) ? array_merge( ...array_values( $results ) ) : [];
 	}
 
 	/**
