@@ -10,10 +10,12 @@ use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
+use Tribe\Events\Test\Traits\CT1\CT1_Test_Utils;
 use Tribe\Events\Test\Traits\With_Uopz;
 
 class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
+	use CT1_Test_Utils;
 	use With_Uopz;
 
 	/**
@@ -30,21 +32,33 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_correctly_migrate_a_single_event() {
 		$post    = $this->given_a_non_migrated_single_event();
-		$report  = new Event_Report( $post );
 		$post_id = $post->ID;
 
-		$strategy = new Strategy( $post_id, false );
-		$strategy->apply( $report );
+		$strategy     = new Strategy( $post_id, false );
+		$event_report = $this->apply_strategy_to( $strategy, $post->ID, false );
 
-		$event = Event::find( $post_id, 'post_id' );
+		$this->assertInstanceOf( Event_Report::class, $event_report );
+		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( 1, Event::where( 'post_id', '=', $post_id )->count() );
+		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post_id )->count() );
+	}
 
-		$this->assertInstanceOf( Event::class, $event );
+	/**
+	 * It should correctly preview a single event migration
+	 *
+	 * @test
+	 */
+	public function should_correctly_preview_a_single_event_migration() {
+		$post    = $this->given_a_non_migrated_single_event();
+		$post_id = $post->ID;
 
-		$occurrences = Occurrence::where( 'post_id', '=', $post_id )
-		                         ->get();
+		$strategy     = new Strategy( $post_id, false );
+		$event_report = $this->apply_strategy_to( $strategy, $post->ID, true );
 
-		$this->assertCount( 1, $occurrences );
-		$this->assertContainsOnlyInstancesOf( Occurrence::class, $occurrences );
+		$this->assertInstanceOf( Event_Report::class, $event_report );
+		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( 0, Event::where( 'post_id', '=', $post_id )->count() );
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post_id )->count() );
 	}
 
 	/**
@@ -77,6 +91,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$this->expectException( Migration_Exception::class );
 
 		$strategy = new Strategy( $post_id, false );
+
 		$strategy->apply( $report );
 	}
 
@@ -149,14 +164,12 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_support_non_transaction_based_preview() {
 		add_filter( 'tec_events_custom_tables_v1_db_transactions_supported', '__return_false' );
-		// Set by the Process Worker.
-		Builder::class_enable_query_execution( false );
 		$post    = $this->given_a_non_migrated_single_event();
 		$post_id = $post->ID;
 		$report  = new Event_Report( $post );
 
 		$strategy     = new Strategy( $post_id, true );
-		$event_report = $strategy->apply( $report );
+		$event_report = $this->apply_strategy_to( $strategy, $post->ID, true );
 
 		$this->assertInstanceOf( Event_Report::class, $event_report );
 		$this->assertEquals( 'success', $event_report->status );

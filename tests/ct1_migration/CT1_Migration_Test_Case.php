@@ -1,6 +1,11 @@
 <?php
 
 use tad\WPBrowser\Module\WPLoader\FactoryStore;
+use TEC\Events\Custom_Tables\V1\Migration\Events;
+use TEC\Events\Custom_Tables\V1\Migration\Process_Worker;
+use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
+use TEC\Events_Pro\Custom_Tables\V1\Migration\Strategy\Single_Rule_Event_Migration_StrategyTest;
 
 class CT1_Migration_Test_Case extends \Codeception\Test\Unit {
 	protected static $factory;
