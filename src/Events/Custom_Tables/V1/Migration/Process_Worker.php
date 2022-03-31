@@ -11,6 +11,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
+use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 
@@ -102,7 +103,7 @@ class Process_Worker {
 	 *
 	 * @since TBD
 	 *
-	 * @param int  $post_id The post ID of the Evente to migrate.
+	 * @param int  $post_id The post ID of the Event to migrate.
 	 * @param bool $dry_run Whether the migration should commit or just preview
 	 *                      the changes.
 	 *
@@ -181,22 +182,28 @@ class Process_Worker {
 
 			// In case we have an error in the strategy, and we are forced to exit early, lets start the transaction here.
 			if ( $this->dry_run ) {
-				$this->transaction_start();
+				$this->start_transaction();
 			}
 
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $this->event_report );
 
 			if ( $this->dry_run ) {
-				$this->transaction_rollback();
-				// Our event report state would have been rolled back too, so try and reapply what was set locally.
-				// Clear our cache, since it reflects local state and not aware of transaction rollbacks.
+				$this->rollback_transaction();
+
+				/*
+				 * Our event report state would have been rolled back too, so try and reapply what was set locally.
+				 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
+				 */
 				clean_post_cache( $post_id );
+
 				if ( $this->event_report->error ) {
 					$this->event_report->migration_failed( $this->event_report->error );
 				} else {
 					$this->event_report->migration_success();
 				}
+			} else {
+				$this->transaction_commit();
 			}
 
 			// If no error, mark successful.
@@ -206,14 +213,15 @@ class Process_Worker {
 		} catch ( \Throwable $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
-				$this->transaction_rollback();
+				$this->rollback_transaction();
 			}
 			$this->event_report->migration_failed( $e->getMessage() );
 		} catch ( \Exception $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
-				$this->transaction_rollback();
+				$this->rollback_transaction();
 			}
+
 			$this->event_report->migration_failed( $e->getMessage() );
 		}
 
@@ -225,6 +233,7 @@ class Process_Worker {
 		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
 		// Close the output buffer.
 		ob_end_clean();
+
 
 		// Get next event to process.
 		$next_post_id = $this->events->get_id_to_process();
@@ -469,5 +478,32 @@ class Process_Worker {
 
 		// Check again.
 		return as_enqueue_async_action( self::ACTION_CHECK_PHASE );
+	}
+
+	/**
+	 * Start a transaction with fallback on no-op queries if not supported.
+	 *
+	 * @since TBD
+	 */
+	private function start_transaction() {
+		$this->transaction_started = $this->transaction_start();
+
+		if ( ! $this->transaction_started ) {
+			// Transactions might be not supported or blocked: do not actually execute queries.
+			Builder::class_enable_query_execution( false );
+		}
+	}
+
+	/**
+	 * Rolls back a transaction with fallback on no-op queries if not supported.
+	 *
+	 * @since TBD
+	 */
+	private function rollback_transaction() {
+		if ( $this->transaction_started ) {
+			$this->transaction_rollback();
+		} else {
+			Builder::class_enable_query_execution( true );
+		}
 	}
 }

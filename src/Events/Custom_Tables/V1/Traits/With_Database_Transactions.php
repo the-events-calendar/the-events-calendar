@@ -62,11 +62,16 @@ trait With_Database_Transactions {
 	 *
 	 * @since TBD
 	 *
+	 * @param string|null The table prefix to check for, or `null` to use
+	 *                    the current one.
+	 *
 	 * @return bool Whether database transactions are supported or not.
 	 */
-	private function transactions_supported( $table_prefix ) {
-		$cache = tribe( 'cache' );
-		$check = $cache[ __METHOD__ . '_' . $table_prefix ];
+	private function transactions_supported( $table_prefix = null ) {
+		global $wpdb;
+		$table_prefix = null === $table_prefix ? $wpdb->prefix : $table_prefix;
+		$cache        = tribe( 'cache' );
+		$check        = $cache[ __METHOD__ . '_' . $table_prefix ];
 
 		if ( false === $check ) {
 			$posts_table                               = $table_prefix . 'posts';

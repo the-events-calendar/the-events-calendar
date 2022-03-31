@@ -37,6 +37,16 @@ class Builder {
 	const UPSERT_DID_NOT_CHANGE = 0;
 
 	/**
+	 * A class-wide query execution toggle that will prevent the execution
+	 * of SQL queries across all instances of the the Builder.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	private static $class_execute_queries = true;
+
+	/**
 	 * The size of the batch the Builder should use to fetch
 	 * Models in unbound query methods like `find_all`.
 	 *
@@ -168,6 +178,22 @@ class Builder {
 	 */
 	public function __construct( Model $model ) {
 		$this->model = $model;
+	}
+
+	/**
+	 * Sets the class-wide queries execution toggle that will enable or
+	 * disable the execution of queries overriding the per-instance value of the
+	 * `$execute_queries` flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $class_execute_queries Whether to enable or disable the execution
+	 *                                    of queries class-wide.
+	 *
+	 * @see Builder::enable_query_execution() to set the flag on a per-instance basis
+	 */
+	public static function class_enable_query_execution( $class_execute_queries ) {
+		self::$class_execute_queries = $class_execute_queries;
 	}
 
 	/**
@@ -312,7 +338,7 @@ class Builder {
 
 		$this->queries[] = $SQL;
 
-		if ( $this->execute_queries ) {
+		if ( $this->execute_queries && self::$class_execute_queries ) {
 			/*
 			 * Depending on the db implementation, it could not run updates and return `0`.
 			 * We need to make sure it does not return exactly boolean `false`.

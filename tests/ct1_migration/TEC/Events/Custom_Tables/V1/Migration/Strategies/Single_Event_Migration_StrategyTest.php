@@ -141,4 +141,26 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$strategy = new Strategy( $post_id, false );
 		$strategy->apply( $report );
 	}
+
+	/**
+	 * It should support non-transaction based preview
+	 *
+	 * @test
+	 */
+	public function should_support_non_transaction_based_preview() {
+		add_filter( 'tec_events_custom_tables_v1_db_transactions_supported', '__return_false' );
+		// Set by the Process Worker.
+		Builder::class_enable_query_execution( false );
+		$post    = $this->given_a_non_migrated_single_event();
+		$post_id = $post->ID;
+		$report  = new Event_Report( $post );
+
+		$strategy     = new Strategy( $post_id, true );
+		$event_report = $strategy->apply( $report );
+
+		$this->assertInstanceOf( Event_Report::class, $event_report );
+		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( 0, Event::where( 'post_id', '=', $post_id )->count() );
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post_id )->count() );
+	}
 }

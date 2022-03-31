@@ -4,6 +4,9 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Null_Migration_Strategy;
+use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
+use TEC\Events\Custom_Tables\V1\Models\Event;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use Tribe\Events\Test\Traits\CT1\CT1_Test_Utils;
 use Tribe\Events\Test\Traits\Forks;
@@ -46,7 +49,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			return $strategy;
 		}, 10, 3 );
 
-		$events = new Events;
+		$events  = new Events;
 		$process = new Process_Worker( $events, new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
@@ -71,8 +74,8 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			};
 		} );
 
-		$events = new Events;
-		$process = new Process_Worker( $events , new State( $events ) );
+		$events  = new Events;
+		$process = new Process_Worker( $events, new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
 		$this->assertEquals( 'for reasons', $report->error );
@@ -100,7 +103,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			};
 		} );
 
-		$events = new Events;
+		$events  = new Events;
 		$process = new Process_Worker( $events, new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
@@ -184,7 +187,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			foreach ( $post_ids as $post_id ) {
 				yield static function () use ( $post_id ) {
 					$events = new Events;
-					$worker = new Process_Worker( $events , new State( $events ) );
+					$worker = new Process_Worker( $events, new State( $events ) );
 					$worker->migrate_event( $post_id );
 				};
 			}
@@ -217,5 +220,53 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 			)
 		);
 		$this->assertEquals( $event_set_size, $migrated_events );
+	}
+
+	/**
+	 * It should handle missing transaction support in preview
+	 *
+	 * @test
+	 */
+	public function should_handle_missing_transaction_support_in_preview() {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post = $this->given_a_non_migrated_single_event();
+		add_filter( 'tec_events_custom_tables_v1_db_transactions_supported', '__return_false' );
+		$this->assertEquals( 0, Event::where( 'post_id', '=', $post->ID )->count() );
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+
+		$events = new Events;
+		$worker = new Process_Worker( $events, new State( $events ) );
+
+		$event_report = $worker->migrate_event( $post->ID, true );
+
+		$this->assertInstanceOf( Event_Report::class, $event_report );
+		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( [ Single_Event_Migration_Strategy::get_slug() ], $event_report->strategies_applied );
+		$this->assertEquals( 0, Event::where( 'post_id', '=', $post->ID )->count() );
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+	}
+
+	/**
+	 * It should handle missing transaction support in migration
+	 *
+	 * @test
+	 */
+	public function should_handle_missing_transaction_support_in_migration() {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post = $this->given_a_non_migrated_single_event();
+		add_filter( 'tec_events_custom_tables_v1_db_transactions_supported', '__return_false' );
+		$this->assertEquals( 0, Event::where( 'post_id', '=', $post->ID )->count() );
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+
+		$events = new Events;
+		$worker = new Process_Worker( $events, new State( $events ) );
+
+		$event_report = $worker->migrate_event( $post->ID, false );
+
+		$this->assertInstanceOf( Event_Report::class, $event_report );
+		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( [ Single_Event_Migration_Strategy::get_slug() ], $event_report->strategies_applied );
+		$this->assertEquals( 1, Event::where( 'post_id', '=', $post->ID )->count() );
+		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
 	}
 }

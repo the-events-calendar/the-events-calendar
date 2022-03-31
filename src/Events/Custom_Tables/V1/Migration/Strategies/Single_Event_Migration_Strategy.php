@@ -12,8 +12,10 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -24,6 +26,7 @@ use Tribe__Events__Main as TEC;
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
 class Single_Event_Migration_Strategy implements Strategy_Interface {
+	use With_Database_Transactions;
 
 	/**
 	 * {@inheritDoc}
@@ -61,6 +64,12 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 
 		if ( $upserted === false ) {
 			throw new Migration_Exception( 'Event model could not be upserted. Could have failed locating required data for insertion.' );
+		}
+
+		if ( $this->dry_run && $upserted === 0 && ! $this->transactions_supported() ) {
+			// Transactions are not supported, it did not explode: enough preview.
+			return $event_report->add_strategy( self::get_slug() )
+			                    ->migration_success();
 		}
 
 		$event_model = Event::find( $this->post_id, 'post_id' );
