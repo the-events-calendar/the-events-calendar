@@ -141,28 +141,4 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$strategy = new Strategy( $post_id, false );
 		$strategy->apply( $report );
 	}
-
-	/**
-	 * It should correctly preview an event migration
-	 *
-	 * @test
-	 */
-	public function should_correctly_preview_an_event_migration() {
-		$this->given_the_current_migration_phase_is( State::PHASE_PREVIEW_IN_PROGRESS );
-		$post    = $this->given_a_non_migrated_single_event();
-		$report  = new Event_Report( $post );
-		$post_id = $post->ID;
-
-		$strategy = new Strategy( $post_id, true );
-		$strategy->apply( $report );
-
-		$event = Event::find( $post_id, 'post_id' );
-
-		$this->assertNull( $event, 'No Event model should have been inserted during preview.' );
-
-		$occurrences = Occurrence::where( 'post_id', '=', $post_id )
-		                         ->get();
-
-		$this->assertCount( 0, $occurrences, 'No Occurrence models should have been inserted during preview.' );
-	}
 }
