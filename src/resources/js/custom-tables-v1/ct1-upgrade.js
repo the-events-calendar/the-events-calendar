@@ -198,13 +198,13 @@ export const bindNodes = (key) => {
 	// Start preview button.
 	element = document.querySelector(selectors.startPreviewButton);
 	if (element) {
-		element.addEventListener('click', handleStartMigration(true));
+		element.addEventListener('click', handleStartMigrationWithPreview);
 	}
 
 	// Start migration button.
 	element = document.querySelector(selectors.startMigrationButton);
 	if (element) {
-		element.addEventListener('click', handleStartMigration(false));
+		element.addEventListener('click', handleStartMigration);
 	}
 
 	// Revert migration button.
@@ -219,11 +219,13 @@ export const bindNodes = (key) => {
  *
  * @since TBD
  *
- * @param e
+ * @param {Event} e
  */
 export const handleCancelMigration = (e) => {
 	e.preventDefault();
 	e.target.setAttribute('disabled', 'disabled');
+	e.target.removeEventListener('click', handleCancelMigration);
+
 	// Stop our render check momentarily.
 	// We will have a new state immediately after our cancel migration finishes.
 	cancelReportPoll();
@@ -242,18 +244,43 @@ export const handleCancelMigration = (e) => {
 }
 
 /**
- * Handle the start migration action.
+ * Handle the start migration preview click event.
+ *
+ * @since TBD
+ *
+ * @param {Event} e
+ */
+export const handleStartMigrationWithPreview = (e) => {
+	e.preventDefault();
+	e.target.setAttribute('disabled', 'disabled');
+	e.target.removeEventListener('click', handleStartMigrationWithPreview);
+	startMigration(true);
+}
+
+/**
+ * Handle the start migration click event.
+ *
+ * @since TBD
+ *
+ * @param {Event}
+ */
+export const handleStartMigration = (e) => {
+	e.preventDefault();
+	e.target.setAttribute('disabled', 'disabled');
+	e.target.removeEventListener('click', handleStartMigration);
+	startMigration(false);
+
+}
+
+/**
+ * Will start either a preview or migration, sending a request to the backend to queue workers.
  *
  * @since TBD
  *
  * @param {boolean} isPreview Flag to denote if we are doing a dry run or a
  *     real migration.
- *
- * @returns {(function(*): void)|*}
  */
-export const handleStartMigration = (isPreview) => (e) => {
-	e.preventDefault();
-	e.target.setAttribute('disabled', 'disabled');
+export const startMigration = (isPreview) => {
 	// Stop our render check momentarily.
 	// We will have a new state immediately after our start migration finishes.
 	cancelReportPoll();
@@ -271,6 +298,7 @@ export const handleStartMigration = (isPreview) => (e) => {
 		}
 	);
 }
+
 /**
  * Cancel our report polling.
  *
