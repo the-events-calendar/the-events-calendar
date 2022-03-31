@@ -180,7 +180,7 @@ class Process_Worker {
 			$this->event_report->start_event_migration();
 
 			// In case we have an error in the strategy, and we are forced to exit early, lets start the transaction here.
-			if($this->dry_run) {
+			if ( $this->dry_run ) {
 				$this->transaction_start();
 			}
 
@@ -191,7 +191,7 @@ class Process_Worker {
 				$this->transaction_rollback();
 				// Our event report state would have been rolled back too, so try and reapply what was set locally.
 				// Clear our cache, since it reflects local state and not aware of transaction rollbacks.
-				wp_cache_delete( $post_id, 'post_meta' );
+				clean_post_cache( $post_id );
 				if ( $this->event_report->error ) {
 					$this->event_report->migration_failed( $this->event_report->error );
 				} else {
@@ -335,17 +335,15 @@ class Process_Worker {
 	 *
 	 * @since TBD
 	 *
-	 * @param int    $errno   The error code.
-	 * @param string $errstr  The error message.
-	 * @param string $errfile The path to the file the error was triggered from.
-	 * @param int    $errline The file line the error was triggered from.
+	 * @param int    $errno  The error code.
+	 * @param string $errstr The error message.
 	 *
 	 * @return void The method never returns and will always throw when encountering
 	 *              an error during the migration.
 	 *
 	 * @throws Migration_Exception A reference to an exception wrapping the error.
 	 */
-	public function error_handler( $errno, $errstr, $errfile, $errline ) {
+	public function error_handler( $errno, $errstr ) {
 		// Delegate to our try/catch handler.
 		throw new Migration_Exception( $errstr, $errno );
 	}
