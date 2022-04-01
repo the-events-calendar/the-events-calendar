@@ -153,6 +153,17 @@ class State {
 	}
 
 	/**
+	 * Returns whether the migration has been performed and has been successfully completed.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_migrated() {
+		return $this->get_phase() === static::PHASE_MIGRATION_COMPLETE;
+	}
+
+	/**
 	 * Returns whether the migration process can be undone or not.
 	 *
 	 * @since TBD
