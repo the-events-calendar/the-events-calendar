@@ -23,12 +23,11 @@ $networkTab = [
 				'html' => '</div>',
 			],
 			'hideSettingsTabs'     => [
-				'type'            => 'checkbox_list',
-				'label'           => esc_html__( 'Hide the following settings tabs on every site:', 'tribe-common' ),
-				'default'         => false,
-				'options'         => $allTabs,
-				'validation_type' => 'options_multi',
-				'can_be_empty'    => true,
+				'type'         => 'checkbox_list',
+				'label'        => esc_html__( 'Hide the following settings tabs on every site:', 'tribe-common' ),
+				'default'      => false,
+				'options'      => $allTabs,
+				'can_be_empty' => true,
 			],
 		]
 	),

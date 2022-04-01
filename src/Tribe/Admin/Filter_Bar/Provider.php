@@ -136,6 +136,14 @@ class Provider extends \tad_DI52_ServiceProvider {
 				'show_save'     => false,
 			]
 		);
+
+		add_filter(
+			'tec_events_settings_tabs_ids',
+			function( $tabs ) {
+				$tabs[] = 'filter-view';
+				return $tabs;
+			}
+		);
 	}
 
 	/**

@@ -31,6 +31,7 @@ class Tribe__Events__Admin__Event_Settings {
 		add_filter( 'tec_admin_pages_with_tabs', [ $this, 'add_to_pages_with_tabs' ], 20, 1 );
 		add_filter( 'tribe_settings_page_url', [ $this, 'filter_settings_page_url' ], 50, 3 );
 		add_filter( 'tec_admin_footer_text', [ $this, 'admin_footer_text_settings' ] );
+		add_filter( 'tribe-events-save-network-options', [ $this, 'maybe_hijack_save_network_settings' ], 10, 2 );
 	}
 
 	/**
@@ -374,12 +375,8 @@ class Tribe__Events__Admin__Event_Settings {
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
 
-		//$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
-
 		new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
 		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
-
-		//$this->do_licenses_tab();
 	}
 
 	/**
@@ -440,5 +437,58 @@ class Tribe__Events__Admin__Event_Settings {
 		);
 
 		return $footer_text;
+	}
+
+	/**
+	 * Get Events settings tab IDs.
+	 *
+	 * @since TBD
+	 *
+	 * @return array $tabs Array of tabs IDs for the Events settings page.
+	 */
+	public function get_events_settings_tabs_ids() {
+		$tabs = [
+			'general',
+			'display',
+		];
+
+		/**
+		 * Filters the events settings tab IDs.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $tabs Array of tabs IDs for the Events settings page.
+		 */
+		return apply_filters( 'tec_events_settings_tabs_ids', $tabs );
+	}
+
+	/**
+	 * Maybe hijack the saving for the network settings page, when not in TEC network settings.
+	 * The purpose is to merge the settings between plugins.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $options Formatted the same as from get_options().
+	 * @param string $admin_page The admin page being saved.
+	 *
+	 * @return array $options Formatted the same as from get_options(), maybe modified.
+	 */
+	public function maybe_hijack_save_network_settings( $options, $admin_page ) {
+		// If we're saving the network settings page for TEC, bail.
+		if ( ! empty( $admin_page ) && self::$settings_page_id == $admin_page ) {
+			return $options;
+		}
+
+		$tec_tabs = $this->get_events_settings_tabs_ids();
+
+		// Iterate over the TEC settings tab ids and merge the network settings.
+		foreach ( $tec_tabs as $tab => $key ) {
+			if ( in_array( $key, $options['hideSettingsTabs'] ) ) {
+				$_POST['hideSettingsTabs'][] = $key;
+				$options['hideSettingsTabs'] = $key;
+			}
+		}
+
+		return $options;
 	}
 }

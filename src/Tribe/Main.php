@@ -1417,6 +1417,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'show_save'     => true,
 				]
 			);
+
+			add_filter(
+				'tec_events_settings_tabs_ids',
+				function( $tabs ) {
+					$tabs[] = 'upgrade';
+					return $tabs;
+				}
+			);
 		}
 
 		/**
