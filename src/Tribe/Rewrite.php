@@ -740,7 +740,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		$flags           = I18n::COMPILE_STRTOLOWER;
 		$localized_bases = tribe( 'tec.i18n' )
-			->get_i18n_strings_for_domains( $bases, [ $locale ], $domains, $flags );
+			->get_i18n_url_strings_for_domains( $bases, [ $locale ], $domains, $flags );
 
 		$return = array_filter(
 			array_map(
