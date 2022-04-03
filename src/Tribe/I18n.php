@@ -157,6 +157,40 @@ class I18n {
 	}
 
 	/**
+	 * This function is same as above one, but instead of sanitzie with 'sanitize_key' function which removes also '%', 
+	 * it's using 'sanitiz_title' function for url usage.
+	 */
+	public function get_i18n_url_strings_for_domains( $strings, $languages, $domains = [ 'default' ], $flags = 7 ) {
+		sort( $languages );
+		$strings_buffer = [ $strings ];
+
+		foreach ( $languages as $language ) {
+			// Override the current locale w/ the one we need to compile the translations.
+			$language_strings = $this->with_locale(
+				$language,
+				[ $this, 'compile_translations' ],
+				[ $strings, $domains, $flags ]
+			);
+			$strings_buffer[] = $language_strings;
+		}
+
+		$strings = count( $strings_buffer ) > 1
+			? array_merge_recursive( ... $strings_buffer )
+			: reset( $strings_buffer );
+
+		// Prevent empty strings and duplicates.
+		foreach ( $strings as $key => $value ) {
+			$strings[ $key ] = array_filter(
+				array_unique(
+					array_map( 'sanitize_title', (array) $value )
+				)
+			);
+		}
+
+		return $strings;
+	}
+		
+	/**
 	 * Executes a callback ensuring the `current_locale` will be set to the specified language code.
 	 *
 	 * The method will backup and detach the functions and methods currently filtering the `locale` filter to execute
