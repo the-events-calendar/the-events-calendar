@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
 Stable tag: 6.0.0-RBE-Beta2.3
-Tested up to: 5.9.0
+Tested up to: 5.9.2
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -16,6 +16,8 @@ The Events Calendar is the number one calendar plugin for WordPress. Easily crea
 Easily create and manage an events calendar on your WordPress site with [The Events Calendar](https://evnt.is/mj) free plugin. Whether your events are in-person or virtual events, this WordPress calendar plugin boasts professional features backed by our world-class team of developers and designers.
 
 https://vimeo.com/425323974
+
+[See more videos on our YouTube channel](https://evnt.is/1b4-)
 
 Packed with loads of features, The Events Calendar is ready to go out of the box. It’s also extensible, easy to use, and completely customizable.
 
@@ -222,6 +224,36 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 = [RBE] RBE = Switch this to TBD once we're close to release.
+
+= [5.14.1] 2022-03-17 =
+
+* Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
+* Tweak - Added filters: `tribe_events_views_v2_month_ics_start_today`
+* Fix - Correct a regex typo that was breaking proper JSON-LD data around event cost. [TEC-4263]
+* Fix - Correct Month View ics export so it begins on the current day rather than the 1st. [TEC-4223]
+* Fix - Add ISO Currency Code field to admin to set code sent via JSON-LD. TEC was incorrectly sending symbol. [TEC-4212]
+* Fix - Ensure that the full styles custom properties require the skeleton style custom properties. [TEC-4308]
+* Fix - Ensure that the State/Province field saves for non-US venues. [TEC-4309]
+* Fix - Correct duplicated text in wpadminbar Events Menu. [TEC-4310]
+* Fix - Load the assets required by the `Event View` Elementor widget in preview mode. [ECP-1065]
+* Language - 4 new strings added, 144 updated, 0 fuzzied, and 0 obsoleted.
+
+= [5.14.0.4] 2022-03-01 =
+
+* Tweak - Update version of Freemius to 2.4.3.
+
+= [5.14.0.3] 2022-02-25 =
+
+* Fix - Ensure the Venue and Organizer metaboxes load when creating a new post of that type. [TEC-4303]
+
+= [5.14.0.2] 2022-02-22 =
+
+* Fix - Correct conditional in Filter Bar upsell banner. [TEC-4284]
+* Fix - Un-deprecate `tribe_initialize_view()` as it is used in some new views.
+
+= [5.14.0.1] 2022-02-15 =
+
+* Fix - Prevent parse error due to trailing comma on a method call, PHP 7.1 compatibility required. Props @kzeni
 
 = [5.14.0] 2022-02-15 =
 

@@ -16,9 +16,9 @@ class Tribe__Events__Editor__Compatibility {
 	public static $blocks_editor_key = 'toggle_blocks_editor';
 
 	/**
-	 * Key we store the toggle under in the tribe_events_calendar_options array.
+	 * Key for the Hidden Field of toggling blocks editor.
 	 *
-	 * @since TBD
+	 * @since 5.14.0
 	 *
 	 * @var string
 	 */

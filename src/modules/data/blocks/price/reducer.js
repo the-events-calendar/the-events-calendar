@@ -21,12 +21,16 @@ export const DEFAULT_STATE = {
 	symbol: priceSettings() && priceSettings().defaultCurrencySymbol
 		? priceSettings().defaultCurrencySymbol
 		: __( '$', 'the-events-calendar' ),
+	code: priceSettings() && priceSettings().defaultCurrencyCode
+		? priceSettings().defaultCurrencyCode
+		: __( 'USD', 'the-events-calendar' ),
 	cost: '',
 };
 
 export const defaultStateToMetaMap = {
 	position: '_EventCurrencyPosition',
 	symbol: '_EventCurrencySymbol',
+	code: '_EventCurrencyCode',
 	cost: '_EventCost',
 };
 
@@ -57,6 +61,11 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return {
 				...state,
 				symbol: action.payload.symbol,
+			};
+		case types.SET_PRICE_CODE:
+			return {
+				...state,
+				code: action.payload.code,
 			};
 		default:
 			return state;
