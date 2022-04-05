@@ -145,13 +145,6 @@ class Tribe__Events__Admin__Event_Settings {
 	public function add_admin_pages() {
 		$admin_pages = tribe( 'admin.pages' );
 
-		if (
-			! is_multisite()
-			|| ( is_multisite() && '0' == Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) )
-		{
-
-		}
-
 		$this->maybe_register_events_menu();
 
 		$admin_pages->register_page(
@@ -261,7 +254,7 @@ class Tribe__Events__Admin__Event_Settings {
 				'parent'     => $this->get_tec_events_menu_slug(),
 				'title'      => esc_html__( 'Event Add-Ons', 'event-tickets' ),
 				'path'       => $app_shop::MENU_SLUG,
-				'capability' => 'install_plugins', //$app_shop->get_required_capability(),
+				'capability' => 'install_plugins',
 				'callback'   => [
 					$app_shop,
 					'do_menu_page',

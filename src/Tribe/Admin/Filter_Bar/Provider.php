@@ -108,8 +108,15 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * Create a Filter Bar upsell tab.
 	 *
 	 * @since 5.14.0
+	 * @since TBD Early bail if we're not on TEC settings.
 	 */
-	public function add_tab() {
+	public function add_tab( $admin_page ) {
+		$tec                  = Tribe__Events__Main::instance();
+		$tec_settings_page_id = $tec->settings()::$settings_page_id;
+
+		if ( ! empty( $admin_page ) && $tec_settings_page_id !== $admin_page ) {
+			return;
+		}
 
 		$tec_events_filter_bar_upsell_tab = [
 			'filter_bar-upsell-info-box-description' => [
