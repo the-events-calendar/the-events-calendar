@@ -26,11 +26,11 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
-	 * Should be in the correct state for a migration to begin.
+	 * Should not create schema.
 	 *
 	 * @test
 	 */
-	public function should_be_ready_to_migrate_with_events() {
+	public function should_not_init_schema_with_events() {
 		global $wpdb;
 		$this->given_a_non_migrated_single_event();
 		// Reset state.
@@ -44,8 +44,8 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		$this->assertNotEquals( State::PHASE_MIGRATION_COMPLETE, $state->get_phase() );
 		$q      = 'show tables';
 		$tables = $wpdb->get_col( $q );
-		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
-		$this->assertContains( EventsSchema::table_name( true ), $tables );
+		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
+		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 *
 	 * @test
 	 */
-	public function should_be_ready_to_migrate_with_no_events() {
+	public function should_init_schema_with_no_events() {
 		global $wpdb;
 		$this->given_a_site_with_no_events();
 		// Reset state.
@@ -64,7 +64,7 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 
 		// Validate expected state.
 		$state = tribe( State::class );
-		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $state->get_phase() );
+		$this->assertEquals( State::PHASE_MIGRATION_NOT_REQUIRED, $state->get_phase() );
 		$q      = 'show tables';
 		$tables = $wpdb->get_col( $q );
 		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
@@ -72,29 +72,23 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
-	 * It should not subordinate table updates to migration phase
-	 *
-	 * This method will inherit the custom tables created and a migration
-	 * state of complete from the previous test.
-	 *
+	 * We should be able to force activation of the tables.
 	 * @test
-	 * @depends should_be_ready_to_migrate_with_no_events
 	 */
-	public function should_not_subordinate_table_updates_to_migration_phase() {
-		// Drop the custom tables to be able to assert those will be re-created.
-		$this->given_the_custom_tables_do_not_exist();
-		$this->given_the_initialization_transient_expired();
-		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_PROMPT );
-
+	public function should_activate_schema() {
 		global $wpdb;
-		$tables = $wpdb->get_col( 'show tables' );
-		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
-		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
+		$this->given_a_site_with_no_events();
+		// Reset state.
+		$this->given_a_reset_activation();
 
-		Activation::init();
+		// Activate.
+		Activation::activate();
 
 		// Validate expected state.
-		$tables = $wpdb->get_col( 'show tables' );
+		$state = tribe( State::class );
+		$this->assertEquals( null, $state->get_phase() );
+		$q      = 'show tables';
+		$tables = $wpdb->get_col( $q );
 		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
 		$this->assertContains( EventsSchema::table_name( true ), $tables );
 	}

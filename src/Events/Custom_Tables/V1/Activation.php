@@ -36,27 +36,22 @@ class Activation {
 	 * @since TBD
 	 */
 	public static function activate() {
-		// Delete the transient to make sure the activation code will run again.
-		delete_transient( self::ACTIVATION_TRANSIENT );
-
-		// Transient will still be found, ensure it is truthy false.
-		wp_cache_set( self::ACTIVATION_TRANSIENT, null, 'options' );
-
-		// Register the provider to add the required schemas.
-		tribe_register_provider( Tables_Provider::class );
-
-		self::init();
+		$schema_builder = tribe( Schema_Builder::class);
+		$schema_builder->up();
 	}
 
 	/**
-	 * Initializes the custom tables required by the feature to work.
+	 * Checks the state to determine if whether we can create custom tables.
 	 *
-	 * This method will run once a day (using transients) and is idem-potent
-	 * in the context of the same day.
+	 * This method will run once a day (using transients).
 	 *
 	 * @since TBD
 	 */
 	public static function init() {
+		// Register the provider to add the required schemas.
+		tribe_register_provider( Tables_Provider::class );
+
+		// Check if we ran recently.
 		$initialized = get_transient( self::ACTIVATION_TRANSIENT );
 
 		if ( $initialized ) {
@@ -65,7 +60,7 @@ class Activation {
 
 		set_transient( self::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
 
-		$services = tribe();
+		$services       = tribe();
 		$schema_builder = $services->make( Schema_Builder::class );
 
 		// Sync any schema changes we may have.
@@ -75,20 +70,13 @@ class Activation {
 			return;
 		}
 
-		// Create and sync our tables.
-		// Check if we have not "migrated" or canceled the upgrade, then attempt to activate.
-		// If this is a fresh activation, this should always pass through and activate.
 		$state = $services->make( State::class );
-		if ( $state->get_phase() !== State::PHASE_MIGRATION_COMPLETE
-		     && ! $state->get( 'locked_by_undo' )
-		) {
-			$schema_builder->up();
 
-			// Check if we have any events to migrate.
-			if ( $services->make( Events::class )->get_total_events() === 0 ) {
-				$state->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
-				$state->save();
-			}
+		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
+		if ( $services->make( Events::class )->get_total_events() === 0 && $state->get_phase() === null ) {
+			$schema_builder->up();
+			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
+			$state->save();
 		}
 	}
 

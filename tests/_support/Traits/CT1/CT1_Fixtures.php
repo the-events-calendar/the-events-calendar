@@ -30,7 +30,7 @@ trait CT1_Fixtures {
 		// Reset state in the db.
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
 		$state = tribe( State::class );
-		$state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
+		$state->set( 'phase', null );
 		$state->save();
 
 		// Sanity check.
