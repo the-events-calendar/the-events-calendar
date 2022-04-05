@@ -58,6 +58,7 @@ class Events {
 	    FROM {$wpdb->posts} p
 			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN(%s, %s)
 	    WHERE p.post_type = %s AND pm.meta_value IS NULL
+	    	AND p.post_status != 'auto-draft'
 	    LIMIT %d";
 		$lock_query = $wpdb->prepare( $lock_query,
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
@@ -226,7 +227,7 @@ class Events {
 		global $wpdb;
 		$total_events = (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND post_parent = 0",
+				"SELECT COUNT(ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND post_parent = 0 AND p.post_status != 'auto-draft'",
 				TEC::POSTTYPE
 			)
 		);
