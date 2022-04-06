@@ -223,24 +223,27 @@ export const bindNodes = (key) => {
  */
 export const handleCancelMigration = (e) => {
 	e.preventDefault();
-	e.target.setAttribute('disabled', 'disabled');
-	e.target.removeEventListener('click', handleCancelMigration);
+	// @todo Do we have a JS library for this?
+	if (confirm("Are you sure you want to revert the migration?")) {
+		e.target.setAttribute('disabled', 'disabled');
+		e.target.removeEventListener('click', handleCancelMigration);
 
-	// Stop our render check momentarily.
-	// We will have a new state immediately after our cancel migration finishes.
-	cancelReportPoll();
-	ajaxGet(
-		tecCt1Upgrade.ajaxUrl,
-		{
-			action: tecCt1Upgrade.actions.cancelMigration,
-			_ajax_nonce: tecCt1Upgrade.nonce,
-		},
-		(response) => {
-			// Sync + Restart polling, now we will have a new view.
-			handleReportData(response);
-			pollForReport();
-		}
-	);
+		// Stop our render check momentarily.
+		// We will have a new state immediately after our cancel migration finishes.
+		cancelReportPoll();
+		ajaxGet(
+			tecCt1Upgrade.ajaxUrl,
+			{
+				action: tecCt1Upgrade.actions.cancelMigration,
+				_ajax_nonce: tecCt1Upgrade.nonce,
+			},
+			(response) => {
+				// Sync + Restart polling, now we will have a new view.
+				handleReportData(response);
+				pollForReport();
+			}
+		);
+	}
 }
 
 /**
