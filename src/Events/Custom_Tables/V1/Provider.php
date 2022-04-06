@@ -101,6 +101,8 @@ class Provider extends Service_Provider {
 			$this->container->singleton( 'tec.custom-tables.v1.provider', self::class );
 			$this->container->register( Tables\Provider::class );
 			$this->container->register( Migration\Provider::class );
+			// *NOTE* - Ensure only adding providers that are always required in here,
+			// versus most features that should go in the `Full_Activation_Provider`.
 
 			$schema_builder = $this->container->make( Schema_Builder::class );
 			// Should we fully activate?
