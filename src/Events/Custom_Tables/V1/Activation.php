@@ -12,7 +12,6 @@ namespace TEC\Events\Custom_Tables\V1;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
-use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables_Provider;
 
 /**
  * Class Activation
@@ -48,9 +47,6 @@ class Activation {
 	 * @since TBD
 	 */
 	public static function init() {
-		// Register the provider to add the required schemas.
-		tribe_register_provider( Tables_Provider::class );
-
 		// Check if we ran recently.
 		$initialized = get_transient( self::ACTIVATION_TRANSIENT );
 
