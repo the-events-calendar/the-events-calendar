@@ -96,24 +96,26 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			->add_created_event( $faux_post3, 1 )
 			->add_strategy( $strategy );
 
-		$data['estimated_time_in_hours']  = 1.3;
-		$data['total_events']             = 1234;
-		$data['total_events_migrated']    = 33;
-		$data['total_events_in_progress'] = 55;
-		$data['total_events_remaining']   = $data['total_events'] - $data['total_events_migrated'];
-		$data['migration_phase']          = State::PHASE_MIGRATION_IN_PROGRESS;
-		$data['is_completed']             = true;
-		$data['has_changes']              = $data['total_events_migrated'] > 0;
-		$data['is_running']               = false;
-		$data['total_events_failed']      = 0;
-		$data['has_errors']               = $data['total_events_failed'] > 0;
-		$data['progress_percent']         = 0;
-		$data['date_completed']           = null;
+		$data['estimated_time_in_seconds'] = 130;
+		$data['estimated_time_in_minutes'] = round( $data['estimated_time_in_seconds'] / 60, 0 );
+		$data['total_events']              = 1234;
+		$data['total_events_migrated']     = 33;
+		$data['total_events_in_progress']  = 55;
+		$data['total_events_remaining']    = $data['total_events'] - $data['total_events_migrated'];
+		$data['migration_phase']           = State::PHASE_MIGRATION_IN_PROGRESS;
+		$data['is_completed']              = true;
+		$data['has_changes']               = $data['total_events_migrated'] > 0;
+		$data['is_running']                = false;
+		$data['total_events_failed']       = 0;
+		$data['has_errors']                = $data['total_events_failed'] > 0;
+		$data['progress_percent']          = 0;
+		$data['date_completed']            = null;
 
 		$site_report = new Site_Report( $data );
 		$object      = json_decode( json_encode( $site_report ) );
 
-		$this->assertEquals( $data['estimated_time_in_hours'], $object->estimated_time_in_hours );
+		$this->assertEquals( $data['estimated_time_in_seconds'], $object->estimated_time_in_seconds );
+		$this->assertEquals( $data['estimated_time_in_minutes'], $object->estimated_time_in_minutes );
 		$this->assertEquals( $data['total_events'], $object->total_events );
 		$this->assertEquals( $data['has_errors'], $object->has_errors );
 		$this->assertEquals( $data['total_events_migrated'], $object->total_events_migrated );

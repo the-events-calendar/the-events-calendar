@@ -19,7 +19,8 @@ use Tribe__Events__Main as TEC;
  *
  * @since   TBD
  * @package TEC\Events\Custom_Tables\V1\Migration;
- * @property int    estimated_time_in_hours
+ * @property float  estimated_time_in_seconds
+ * @property float  estimated_time_in_minutes
  * @property string date_completed
  * @property int    total_events
  * @property int    total_events_migrated
@@ -43,7 +44,8 @@ class Site_Report implements JsonSerializable {
 	 * @var array<mixed> The report data.
 	 */
 	protected $data = [
-		'estimated_time_in_hours'  => 0,
+		'estimated_time_in_seconds'  => 0,
+		'estimated_time_in_minutes' => 0,
 		'date_completed'           => null,
 		'total_events'             => null,
 		'total_events_migrated'    => null,
@@ -65,19 +67,20 @@ class Site_Report implements JsonSerializable {
 	 * @param array <string,mixed> $data The report data in array format.
 	 */
 	public function __construct( array $data ) {
-		$this->data['estimated_time_in_hours']  = $data['estimated_time_in_hours'];
-		$this->data['total_events']             = (int) $data['total_events'];
-		$this->data['total_events_remaining']   = (int) $data['total_events_remaining'];
-		$this->data['total_events_in_progress'] = (int) $data['total_events_in_progress'];
-		$this->data['total_events_migrated']    = (int) $data['total_events_migrated'];
-		$this->data['has_changes']              = (boolean) $data['has_changes'];
-		$this->data['has_errors']               = (boolean) $data['has_errors'];
-		$this->data['migration_phase']          = $data['migration_phase'];
-		$this->data['is_completed']             = $data['is_completed'];
-		$this->data['is_running']               = $data['is_running'];
-		$this->data['progress_percent']         = $data['progress_percent'];
-		$this->data['date_completed']           = $data['date_completed'];
-		$this->data['total_events_failed']      = $data['total_events_failed'];
+		$this->data['estimated_time_in_seconds'] = $data['estimated_time_in_seconds'];
+		$this->data['estimated_time_in_minutes'] = $data['estimated_time_in_minutes'];
+		$this->data['total_events']              = (int) $data['total_events'];
+		$this->data['total_events_remaining']    = (int) $data['total_events_remaining'];
+		$this->data['total_events_in_progress']  = (int) $data['total_events_in_progress'];
+		$this->data['total_events_migrated']     = (int) $data['total_events_migrated'];
+		$this->data['has_changes']               = (boolean) $data['has_changes'];
+		$this->data['has_errors']                = (boolean) $data['has_errors'];
+		$this->data['migration_phase']           = $data['migration_phase'];
+		$this->data['is_completed']              = $data['is_completed'];
+		$this->data['is_running']                = $data['is_running'];
+		$this->data['progress_percent']          = $data['progress_percent'];
+		$this->data['date_completed']            = $data['date_completed'];
+		$this->data['total_events_failed']       = $data['total_events_failed'];
 	}
 
 	/**
@@ -106,23 +109,25 @@ class Site_Report implements JsonSerializable {
 		// How many events have not been migrated yet
 		$total_events_remaining = $event_repo->get_total_events_remaining();
 
-		$progress_percent = ( $total_events ) ? round( ( $total_events_migrated / $total_events ) * 100 ) : 0;
-		$date_completed   = ( new \DateTime( 'now', wp_timezone() ) )->setTimestamp( $state->get( 'complete_timestamp' ) );
+		$progress_percent          = ( $total_events ) ? round( ( $total_events_migrated / $total_events ) * 100 ) : 0;
+		$date_completed            = ( new \DateTime( 'now', wp_timezone() ) )->setTimestamp( $state->get( 'complete_timestamp' ) );
+		$estimated_time_in_seconds = $state->get( 'migration', 'estimated_time_in_seconds' ) + ( 60 * 5 );
 
 		$data = [
-			'estimated_time_in_hours'  => round( $state->get( 'migration', 'estimated_time_in_seconds' ) / 60 / 60, 2 ),
-			'date_completed'           => $date_completed->format( 'F j, Y, g:i a' ),
-			'total_events_in_progress' => $total_events_in_progress,
-			'total_events_migrated'    => $total_events_migrated,
-			'total_events'             => $total_events,
-			'total_events_remaining'   => $total_events_remaining,
-			'total_events_failed'      => $total_events_with_failure,
-			'has_changes'              => $total_events_migrated > 0,
-			'migration_phase'          => $state->get_phase(),
-			'is_completed'             => $state->is_completed(),
-			'is_running'               => $state->is_running(),
-			'progress_percent'         => $progress_percent,
-			'has_errors'               => $total_events_with_failure > 0
+			'estimated_time_in_seconds' => $estimated_time_in_seconds,
+			'estimated_time_in_minutes' => round( $estimated_time_in_seconds / 60, 0 ),
+			'date_completed'            => $date_completed->format( 'F j, Y, g:i a' ),
+			'total_events_in_progress'  => $total_events_in_progress,
+			'total_events_migrated'     => $total_events_migrated,
+			'total_events'              => $total_events,
+			'total_events_remaining'    => $total_events_remaining,
+			'total_events_failed'       => $total_events_with_failure,
+			'has_changes'               => $total_events_migrated > 0,
+			'migration_phase'           => $state->get_phase(),
+			'is_completed'              => $state->is_completed(),
+			'is_running'                => $state->is_running(),
+			'progress_percent'          => $progress_percent,
+			'has_errors'                => $total_events_with_failure > 0
 		];
 
 		return new Site_Report( $data );

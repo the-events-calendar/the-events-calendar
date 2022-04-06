@@ -39,7 +39,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 						esc_html( $text->get( 'preview-estimate' ) ),
 						'<strong>',
 						'</strong>',
-						$report->estimated_time_in_hours
+						$report->estimated_time_in_minutes
 				);
 
 				if ( $addendum = $text->get( 'migration-prompt-plugin-state-addendum' ) ) {
@@ -91,13 +91,13 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 				type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
 		<i>
 			<?php
-			if ( $report->estimated_time_in_hours === 1 ) {
+			if ( $report->estimated_time_in_minutes === 1 ) {
 				$message = esc_html( $text->get( 'estimated-time-singular' ) );
 			} else {
 				$message = esc_html( $text->get( 'estimated-time-plural' ) );
 			}
 
-			echo sprintf( $message, $report->estimated_time_in_hours );
+			echo sprintf( $message, $report->estimated_time_in_minutes );
 			?>
 		</i>
 	</div>

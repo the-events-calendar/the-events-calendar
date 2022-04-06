@@ -143,7 +143,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'preview-estimate'                                    => __(
-				'From this preview, we estimate that the full migration process will take approximately %3$s hour(s). During this time, %1$syou will not be able to create, edit, or manage your events.%2$s Your calendar will still be visible on your site.',
+				'From this preview, we estimate that the full migration process will take approximately %3$d minutes. During this time, %1$syou will not be able to create, edit, or manage your events.%2$s Your calendar will still be visible on your site.',
 				'the-events-calendar'
 			),
 			'previewed-date-heading'                              => __(
@@ -163,11 +163,11 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'estimated-time-singular'                             => __(
-				'(Estimated time: %1$s hour)',
+				'(Estimated time: %1$s minute)',
 				'the-events-calendar'
 			),
 			'estimated-time-plural'                               => __(
-				'(Estimated time: %1$s hours)',
+				'(Estimated time: %1$s minutes)',
 				'the-events-calendar'
 			),
 			'migration-in-progress'                               => __(
