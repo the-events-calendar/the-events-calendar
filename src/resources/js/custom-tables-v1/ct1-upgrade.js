@@ -223,8 +223,7 @@ export const bindNodes = (key) => {
  */
 export const handleCancelMigration = (e) => {
 	e.preventDefault();
-	// @todo Do we have a JS library for this?
-	if (confirm("Are you sure you want to revert the migration?")) {
+	if (confirm(tecCt1Upgrade.text_dictionary.confirm_cancel_migration)) {
 		e.target.setAttribute('disabled', 'disabled');
 		e.target.removeEventListener('click', handleCancelMigration);
 

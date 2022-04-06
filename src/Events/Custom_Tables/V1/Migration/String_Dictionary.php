@@ -82,6 +82,10 @@ class String_Dictionary {
 		 *                             version.
 		 */
 		$this->map = apply_filters( 'tec_events_custom_tables_v1_migration_strings', [
+			'confirm_cancel_migration'                            => __(
+				"Are you sure you want to revert the migration?",
+				'the-events-calendar'
+			),
 			'completed-screenshot-url'                            => plugins_url(
 			// @todo correct screenshot here
 				'src/resources/images/upgrade-views-screenshot.png',
@@ -254,7 +258,7 @@ class String_Dictionary {
 				'Learn more about your migration preview report',
 				'the-events-calendar'
 			),
-			'migration-is-blocked'          => __(
+			'migration-is-blocked'                                => __(
 				'Migration is blocked due to errors found during preview.',
 				'the-events-calendar'
 			),

@@ -55,22 +55,25 @@ class Asset_Loader {
 
 		$this->register_scripts();
 
-		// @todo different flags depending on page
+		$text = tribe( String_Dictionary::class );
 		wp_enqueue_style( 'tec-ct1-upgrade-admin-css' );
 		wp_enqueue_script( 'tec-ct1-upgrade-admin-js' );
 		wp_localize_script( 'tec-ct1-upgrade-admin-js',
 			'tecCt1Upgrade',
 			[
-				'ajaxUrl'      => admin_url() . 'admin-ajax.php',
-				'nonce'        => wp_create_nonce( Ajax::NONCE_ACTION ),
-				'pollInterval' => 5000,
-				'actions'      => [
+				'ajaxUrl'         => admin_url() . 'admin-ajax.php',
+				'nonce'           => wp_create_nonce( Ajax::NONCE_ACTION ),
+				'pollInterval'    => 5000,
+				'text_dictionary' => [
+					'confirm_cancel_migration' => $text->get( 'confirm_cancel_migration' )
+				],
+				'actions'         => [
 					'getReport'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
 					'startMigration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
 					'cancelMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
 					'undoMigration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_UNDO ),
 				],
-				'forcePolling' => $on_progress_modal_page
+				'forcePolling'    => $on_progress_modal_page
 			]
 		);
 	}
