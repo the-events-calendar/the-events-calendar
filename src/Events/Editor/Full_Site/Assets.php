@@ -9,7 +9,7 @@ use \Tribe__Events__Main as Events_Main;
  *
  * @since   TBD
  *
- * @package TEC\Editor\Full_Site
+ * @package TEC\Events\Editor\Full_Site
  */
 class Assets extends \tad_DI52_ServiceProvider {
 

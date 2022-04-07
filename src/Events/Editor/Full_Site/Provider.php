@@ -9,7 +9,7 @@ use Tribe\Events\Editor\Blocks\Archive_Events;
  *
  * @since TBD
  *
- * @package
+ * @package TEC\Events\Editor\Full_Site
  */
 class Provider extends \tad_DI52_ServiceProvider {
 	/**

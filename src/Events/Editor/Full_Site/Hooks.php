@@ -9,7 +9,7 @@ use Tribe\Events\Editor\Blocks\Archive_Events;
  *
  * @since   TBD
  *
- * @package TEC\Editor\Full_Site
+ * @package TEC\Events\Editor\Full_Site
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 
