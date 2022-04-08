@@ -91,19 +91,13 @@ class String_Dictionary {
 				'src/resources/images/upgrade-views-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'completed-site-upgraded'                             => __(
-				'Your site is now using the upgraded event data storage system.',
-				'the-events-calendar'
-			),
 			'preview-prompt-get-ready'                            => __(
 				'Get ready for the new recurring events!',
 				'the-events-calendar'
 			),
-			'preview-prompt-upgrade-cta'                          => __( 'Upgrade your recurring events.', 'the-events-calendar' ),
+			'preview-prompt-upgrade-cta'                          => __( 'Upgrade your event data storage system.', 'the-events-calendar' ),
 			'preview-prompt-features'                             => __(
-				'Faster event editing. Smarter save options. More flexibility. Events Calendar 6.0  ' .
-				'is full of features to make managing recurring and connected events better than ever. ' .
-				'Before you get started, we need to migrate your existing events into the new system.',
+				"We've completely revamped the way event information is stored on your site's database. Upgrade now to take advantage of faster calendar load times and improved performance.",
 				'the-events-calendar'
 			),
 			'preview-prompt-ready'                                => __(
@@ -111,7 +105,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'preview-prompt-scan-events'                          => __(
-				'We\'ll scan all existing events and let you know what to expect from the migration process. You\'ll also get an idea of how long your migration will take. The preview runs in the background, so you’ll be able to continue using your site.',
+				"We'll scan your events and let you know how long your migration will take. The preview runs in the background, so you'll be able to continue using your site.",
 				'the-events-calendar'
 			),
 			'learn-more-button-url'                               => __(
@@ -135,7 +129,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'preview-scanning-events'                             => __(
-				'We\'re scanning your existing events so you’ll know what to expect from the migration process. You can keep using your site and managing events. Check back later for a full preview report and the next steps for migration.',
+				"We're scanning your existing events so you'll know what to expect from the migration process. You can keep using your site and managing events. Check back later for the next step of migration.",
 				'the-events-calendar'
 			),
 			'preview-complete'                                    => __(
@@ -195,7 +189,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-complete-paragraph'                        => __(
-				'Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more%2$s.',
+				'Your site is now using the upgraded event data storage system. Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more%2$s.',
 				'the-events-calendar'
 			),
 			'migration-date-heading'                              => __(
@@ -215,7 +209,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'reverse-migration-in-progress-paragraph'             => __(
-				'We are reversing your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
+				'We are reversing your site\'s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
 			'migration-prompt-changes-to-events'                  => __(

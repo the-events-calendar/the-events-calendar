@@ -19,11 +19,6 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			<?php include $template_directory . '/upgrade-logo.php'; ?>
 			<?php echo esc_html( $text->get( 'migration-complete' ) ); ?>
 		</h3>
-
-		<p>
-			<?php echo esc_html( $text->get( 'completed-site-upgraded' ) ); ?>
-		</p>
-
 		<p>
 			<?php
 			echo sprintf(
