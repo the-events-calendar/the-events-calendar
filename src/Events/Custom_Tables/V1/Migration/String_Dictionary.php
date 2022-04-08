@@ -83,6 +83,7 @@ class String_Dictionary {
 		 */
 		$this->map = apply_filters( 'tec_events_custom_tables_v1_migration_strings', [
 			'confirm_cancel_migration'                            => __(
+				// @todo We need to update the copy and UI, likely with more translations
 				"Are you sure you want to revert the migration?",
 				'the-events-calendar'
 			),
