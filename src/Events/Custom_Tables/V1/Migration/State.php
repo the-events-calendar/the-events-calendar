@@ -176,7 +176,7 @@ class State {
 	 *
 	 * @throws \Exception
 	 */
-	public function should_allow_reverse_migration() { 
+	public function should_allow_reverse_migration() {
 		// If we have not migrated yet, don't block reversing.
 		if ( ! $this->is_migrated() ) {
 
@@ -196,18 +196,7 @@ class State {
 
 		// If time for our reverse migration has expired
 		return ( $current_date->format( 'U' ) - $expires_in_seconds ) < $date_completed->format( 'U' );
-	}
-
-	/**
-	 * Returns whether the migration process can be undone or not.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the migration process can be undone or not.
-	 */
-	public function can_be_undone() {
-		return false;
-	}
+	} 
 
 	/**
 	 * Returns whether there is work being done. Does not only check for an in progress migration.
