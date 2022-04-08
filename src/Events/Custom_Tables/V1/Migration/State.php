@@ -160,7 +160,10 @@ class State {
 	 * @return bool
 	 */
 	public function is_migrated() {
-		return $this->get_phase() === static::PHASE_MIGRATION_COMPLETE;
+		return in_array( $this->get_phase(), [
+			static::PHASE_MIGRATION_NOT_REQUIRED,
+			static::PHASE_MIGRATION_COMPLETE
+		] );
 	}
 
 	/**
