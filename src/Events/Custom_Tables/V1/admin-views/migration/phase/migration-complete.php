@@ -1,10 +1,12 @@
 <?php
 
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
  * @var string            $template_directory The absolute path to the Migration template root directory.
  * @var String_Dictionary $text               The text dictionary.
+ * @var State             $state              The migration state.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
@@ -37,12 +39,15 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 	<?php
 	$datetime_heading = $text->get( 'migration-date-heading' );
 	$total_heading    = $text->get( 'migration-total-heading' );
-	ob_start();
-	?>
-	<a href="#"
-	   class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'reverse-migration-button' ) ); ?></a>
-	<?php
-	$heading_action = ob_get_clean();
+	$heading_action   = '';
+	if ( $state->should_allow_reverse_migration() ) {
+		ob_start();
+		?>
+		<a href="#"
+		   class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'reverse-migration-button' ) ); ?></a>
+		<?php
+		$heading_action = ob_get_clean();
+	}
 	include __DIR__ . '/report.php';
 	?>
 </div>

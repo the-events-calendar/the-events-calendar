@@ -26,9 +26,11 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 			<?php echo $total_heading; ?>
 			<strong><?php echo esc_html( $report->total_events ); ?></strong>
 		</div>
-		<div class="tec-ct1-action-container tec-ct1-upgrade__report-header-section tec-ct1-upgrade__report-header-section--rerun">
-			<?php echo $heading_action; ?>
-		</div>
+		<?php if ( $heading_action ) { ?>
+			<div class="tec-ct1-action-container tec-ct1-upgrade__report-header-section tec-ct1-upgrade__report-header-section--rerun">
+				<?php echo $heading_action; ?>
+			</div>
+		<?php } ?>
 	</header>
 	<div class="tec-ct1-upgrade__report-body">
 		<div class="tec-ct1-upgrade__report-body-content">

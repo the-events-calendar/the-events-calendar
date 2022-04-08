@@ -12,11 +12,6 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 use ActionScheduler;
 use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
-use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
-use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
-use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
-use TEC\Events\Custom_Tables\V1\Tables\Provider;
 
 /**
  * Class Process. Responsible for overseeing some phase management, and delegating workers.
@@ -112,6 +107,10 @@ class Process {
 	public function undo() {
 		// Check if we are already doing this action?
 		if ( $this->state->get_phase() === State::PHASE_UNDO_IN_PROGRESS ) {
+			return false;
+		}
+		// Check if we are allowed.
+		if ( ! $this->state->should_allow_reverse_migration() ) {
 			return false;
 		}
 

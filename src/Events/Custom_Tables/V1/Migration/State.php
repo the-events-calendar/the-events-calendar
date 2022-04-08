@@ -167,6 +167,38 @@ class State {
 	}
 
 	/**
+	 * Check if we should allow a reverse migration action to occur. There is an expiration period of time for how long
+	 * we allow someone to reverse.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 *
+	 * @throws \Exception
+	 */
+	public function should_allow_reverse_migration() { 
+		// If we have not migrated yet, don't block reversing.
+		if ( ! $this->is_migrated() ) {
+
+			return true;
+		}
+
+		// Missing our timestamp for some reason?
+		if ( ! $this->get( 'complete_timestamp' ) ) {
+
+			return true;
+		}
+
+		$current_date   = ( new \DateTime( 'now', wp_timezone() ) );
+		$date_completed = ( new \DateTime( 'now', wp_timezone() ) )->setTimestamp( $this->get( 'complete_timestamp' ) );
+		// 8 day old expiration
+		$expires_in_seconds = 8 * 24 * 60 * 60;
+
+		// If time for our reverse migration has expired
+		return ( $current_date->format( 'U' ) - $expires_in_seconds ) < $date_completed->format( 'U' );
+	}
+
+	/**
 	 * Returns whether the migration process can be undone or not.
 	 *
 	 * @since TBD
