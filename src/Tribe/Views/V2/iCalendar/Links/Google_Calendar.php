@@ -115,7 +115,8 @@ class Google_Calendar extends Link_Abstract {
 			return '';
 		}
 
-		$event_details = empty( $event->description ) ? urlencode( $event->description ) : '';
+		$event_details = ! empty( $event->description ) ? $event->description : $event->post_content;
+		$event_details = urlencode( $event_details );
 
 		if ( ! empty( $event_details ) ) {
 			//Truncate Event Description and add permalink if greater than 996 characters
