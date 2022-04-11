@@ -78,15 +78,16 @@ class Tribe__Events__Amalgamator {
 					'_OrganizerWebsite' => get_post_meta( $id, '_OrganizerWebsite', true ),
 					'_OrganizerEmail'   => get_post_meta( $id, '_OrganizerEmail', true ),
 				];
-				
+
 				/**
 				 * Filter the fields that should be used for comparison when checking for duplicates.
 				 *
 				 * @since TBD
 				 *
-				 * @param array $data The array of fields with values to be checked.
+				 * @param array<string|string> $data The array of fields with values to be checked.
+				 * @param integer              $id   The post id of the organizer being merged.
 				 */
-				$data = apply_filters( 'tribe_merge_identical_organizers_fields', $data );
+				$data = apply_filters( 'tribe_merge_identical_organizers_fields', $data, $id );
 
 				$hash = md5( serialize( $data ) );
 
@@ -135,7 +136,7 @@ class Tribe__Events__Amalgamator {
 					'_VenuePhone'    => get_post_meta( $id, '_VenuePhone', true ),
 					'_VenueURL'      => get_post_meta( $id, '_VenueURL', true ),
 				];
-				
+
 				/**
 				 * Filter the fields that should be used for comparison when checking for duplicates.
 				 *
@@ -206,54 +207,78 @@ class Tribe__Events__Amalgamator {
 	 *
 	 */
 	private function amalgamate_venues( $venue_ids ) {
-		if ( empty( $venue_ids ) || count( $venue_ids ) < 2 ) {
+		if (
+			empty( $venue_ids )
+			|| count( $venue_ids ) < 2
+		) {
 			return;
 		}
-		global $wpdb;
+
 		array_map( 'intval', $venue_ids );
-		
+
 		/**
 		 * Filter the venue IDs that should be kept.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool|array Array of the post IDs to keep or boolean false if not defined.
+		 * @param array<string|integer> An Array of the post IDs to keep or an empty array.
+		 * @param array<string|integer> $venue_ids An Array of venue ids to merge.
 		 */
-		$keep = apply_filters( 'tribe_amalgamate_venues_keep_venue', false );
+		$keep = (array) apply_filters( 'tribe_amalgamate_venues_keep_venue', [], $venue_ids );
 
-		// If false or not array or empty array, then use the default.
+		// If not an array or empty, run the default venues amalgamate.
 		if (
-			! $keep
-			|| ! is_array( $keep )
-			|| empty ( $keep )
-		) {
+			! is_array( $keep )
+			|| empty( $keep )
+		){
+			$this->run_amalgamate_venues( $venue_ids, [] );
+
+			return;
+		}
+
+		// Check if any of the venue IDs is in $keep.
+		$intersect = array_intersect( $keep, $venue_ids );
+		if ( empty( $intersect ) ) {
+			$this->run_amalgamate_venues( $venue_ids, [] );
+
+			return;
+		}
+
+		// Remove all the venue ids that match.
+		$intersect_keys = array_keys( $intersect );
+		$venue_ids = array_filter( $venue_ids, function ( $venue_id ) use ( $intersect_keys )  {
+			return isset( $intersect_keys[ $venue_id ] );
+		} );
+
+		// Sort the array to get the lowest post ID.
+		sort( $intersect );
+		// Get only the first venue id as like in Highlander there can only be one venue that everything is amalgamated to.
+		$keep = array_shift( $intersect );
+
+		$this->run_amalgamate_venues( $venue_ids, $keep );
+	}
+
+	/**
+	 * Run the Venue amalgamation, by default it keeps the lowest venue_id.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string|integer> $venue_ids An Array of venue ids to merge.
+	 * @param array<string|integer> $keep      An Array of the post IDs to keep or an empty array.
+	 */
+	public function run_amalgamate_venues( $venue_ids, $keep = [] ) {
+		global $wpdb;
+
+		// If $keep is empty, then use the first venue id in the array..
+		if ( empty( $keep ) ) {
 			$keep = array_shift( $venue_ids );
-		} else {
-			// Check if any of the venue IDs is in the $keep.
-			$intersect = array_intersect( $keep, $venue_ids );
-
-			if ( ! empty( $intersect ) ) {
-				// Sort the array to get the lowest post ID.
-				sort( $intersect );
-
-				// If we found the venue ID, then grab it.
-				// If there are more matches we only want the first.
-				$keep = array_shift( $intersect );
-
-				// Check where the $keep is in the venue array and remove it.
-				if ( ( $key = array_search( $keep, $venue_ids ) ) !== false ) {
-					unset( $venue_ids[ $key ] );
-				}
-			} else {
-				// If nothing found in the $keep, then use the default.
-				$keep = array_shift( $venue_ids );
-			}
 		}
 
 		$old_ids = implode( ',', $venue_ids );
 		$sql     = "UPDATE {$wpdb->postmeta} SET meta_value=%d WHERE meta_key=%s AND meta_value IN($old_ids)";
 		$sql     = $wpdb->prepare( $sql, $keep, '_EventVenueID' );
 		$wpdb->query( $sql );
+
 		$this->update_default_venues( $keep, $venue_ids );
 		$this->delete_posts( $venue_ids );
 	}
@@ -270,15 +295,16 @@ class Tribe__Events__Amalgamator {
 		}
 		global $wpdb;
 		array_map( 'intval', $organizer_ids );
-		
+
 		/**
 		 * Filter the organizer IDs that should be kept.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool|array Array of the post IDs to keep or boolean false if not defined.
-		 */
-		$keep = apply_filters( 'tribe_amalgamate_organizers_keep_organizer', false );
+		 * @param array<string|integer> An Array of the post IDs to keep or an empty array if not defined.
+		 * @param array<string|integer> An Array of organizer ids to merge.
+         */
+		$keep = apply_filters( 'tribe_amalgamate_organizers_keep_organizer', [], $organizer_ids );
 
 		// If false or not array or empty array, then use the default.
 		if (
