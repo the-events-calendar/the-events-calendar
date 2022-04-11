@@ -102,7 +102,7 @@ class State {
 	 */
 	private $default_data = [
 		'complete_timestamp' => null,
-		'phase'              => self::PHASE_PREVIEW_PROMPT,
+		'phase'              => null,
 	];
 
 	/**
@@ -196,7 +196,7 @@ class State {
 
 		// If time for our reverse migration has expired
 		return ( $current_date->format( 'U' ) - $expires_in_seconds ) < $date_completed->format( 'U' );
-	} 
+	}
 
 	/**
 	 * Returns whether there is work being done. Does not only check for an in progress migration.
