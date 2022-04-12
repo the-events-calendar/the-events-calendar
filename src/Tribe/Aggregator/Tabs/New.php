@@ -649,7 +649,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$url_map = array(
 			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
-			'settings' => Tribe__Events__Main::instance()->settings()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
+			'settings' => tribe( 'tec.main' )->settings()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
 		);
 
 		if ( ! isset( $url_map[ $type ] ) ) {

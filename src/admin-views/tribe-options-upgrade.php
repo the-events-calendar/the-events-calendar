@@ -106,7 +106,7 @@
 				</ul>
 
 				<button type="submit"><?php esc_html_e( 'Let\'s go!', 'the-events-calendar' ); ?></button>
-				<a href="<?php echo esc_url( Tribe__Events__Main::instance()->settings()->get_url() ); ?>" rel="noopener"><?php esc_html_e( 'I\'m not ready', 'the-events-calendar' ); ?></a>
+				<a href="<?php echo esc_url( tribe( 'tec.main' )->settings()->get_url() ); ?>" rel="noopener"><?php esc_html_e( 'I\'m not ready', 'the-events-calendar' ); ?></a>
 
 				<div class="step"><?php esc_html_e( 'Step 2 of 2', 'the-events-calendar' ); ?></div>
 			</div>

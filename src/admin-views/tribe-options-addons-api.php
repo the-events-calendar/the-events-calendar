@@ -5,7 +5,7 @@
  */
 $internal = [];
 
-$current_url = Tribe__Events__Main::instance()->settings()->get_url( [ 'tab' => 'addons' ] );
+$current_url = tribe( 'tec.main' )->settings()->get_url( [ 'tab' => 'addons' ] );
 
 // if there's an Event Aggregator license key, add the Meetup.com API fields
 if ( get_option( 'pue_install_key_event_aggregator' ) ) {

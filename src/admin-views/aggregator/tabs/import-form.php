@@ -334,7 +334,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			<?php echo sprintf(
 				'%1$s %2$s%3$s%4$s %5$s',
 					esc_html__( 'Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar\'s', 'the-events-calendar' ),
-				'<a href="' . esc_url( Tribe__Events__Main::instance()->settings()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
+				'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
 					esc_html__( 'timezone settings', 'the-events-calendar' ),
 					'</a>',
 					esc_html__( 'to change how the actual time is displayed on your calendar.', 'the-events-calendar' )
@@ -354,7 +354,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			<?php echo sprintf(
 				'%1$s %2$s%3$s%4$s',
 					esc_html__( 'Events will be imported with the time zone defined by the source. If no time zone is specified, events will be assigned your site\'s default time zone ( see', 'the-events-calendar' ),
-				'<a href="' . esc_url( Tribe__Events__Main::instance()->settings()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
+				'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
 					esc_html__( 'Settings > General', 'the-events-calendar' ),
 					'</a> ).'
 				);

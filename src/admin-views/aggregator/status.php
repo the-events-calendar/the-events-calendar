@@ -33,7 +33,7 @@ $show_third_party_accounts = ! is_network_admin();
 				$notes .= '</a>';
 			} else {
 				$text  = __( 'Your license is invalid', 'the-events-calendar' );
-				$notes = '<a href="' . esc_url( Tribe__Events__Main::instance()->settings()->get_url( [ 'tab' => 'licenses' ] ) ) . '">' . esc_html__( 'Check your license key', 'the-events-calendar' ) . '</a>';
+				$notes = '<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url( [ 'tab' => 'licenses' ] ) ) . '">' . esc_html__( 'Check your license key', 'the-events-calendar' ) . '</a>';
 			}
 		}
 		?>
