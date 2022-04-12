@@ -203,10 +203,11 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge all venues in the given list into one post (keeping the first)
 	 *
-	 * @param array $venue_ids
+	 * @since TBD - Change to public method.
 	 *
+	 * @param array $venue_ids
 	 */
-	private function amalgamate_venues( $venue_ids ) {
+	public function amalgamate_venues( $venue_ids ) {
 		if (
 			empty( $venue_ids )
 			|| count( $venue_ids ) < 2
@@ -214,7 +215,12 @@ class Tribe__Events__Amalgamator {
 			return;
 		}
 
-		array_map( 'intval', $venue_ids );
+		$venue_ids = array_map( function ( $item ) {
+			return intval( absint( $item ) );
+		}, $venue_ids );
+
+		// Sort the array to get the lowest post id.
+		sort( $venue_ids );
 
 		/**
 		 * Filter the venue ids that should be kept.
@@ -244,10 +250,10 @@ class Tribe__Events__Amalgamator {
 			return;
 		}
 
-		// Remove all the venue ids that match.
-		$intersect_keys = array_keys( $intersect );
+		// Return all the venue ids that match.
+		$intersect_keys = array_flip( $intersect );
 		$venue_ids = array_filter( $venue_ids, function ( $venue_id ) use ( $intersect_keys )  {
-			return isset( $intersect_keys[ $venue_id ] );
+			return ! isset( $intersect_keys[ $venue_id ] );
 		} );
 
 		// Sort the array to get the lowest post id.
@@ -299,8 +305,13 @@ class Tribe__Events__Amalgamator {
 		if ( empty( $organizer_ids ) || count( $organizer_ids ) < 2 ) {
 			return;
 		}
-		global $wpdb;
-		array_map( 'intval', $organizer_ids );
+
+		$organizer_ids = array_map( function ( $item ) {
+			return intval( absint( $item ) );
+		}, $organizer_ids );
+
+		// Sort the array to get the lowest post id.
+		sort( $organizer_ids );
 
 		/**
 		 * Filter the organizer IDs that should be kept.
@@ -310,7 +321,7 @@ class Tribe__Events__Amalgamator {
 		 * @param array<string|integer> An Array of the post IDs to keep or an empty array if not defined.
 		 * @param array<string|integer> An Array of organizer ids to merge.
          */
-		$keep = apply_filters( 'tribe_amalgamate_organizers_keep_organizer', [], $organizer_ids );
+		$keep = (array) apply_filters( 'tribe_amalgamate_organizers_keep_organizer', [], $organizer_ids );
 
 		// If not an array or empty, run the default venues amalgamate.
 		if (
@@ -330,10 +341,10 @@ class Tribe__Events__Amalgamator {
 			return;
 		}
 
-		// Remove all the organizer ids that match.
-		$intersect_keys = array_keys( $intersect );
+		// Return all the organizer ids that match.
+		$intersect_keys = array_flip( $intersect );
 		$organizer_ids = array_filter( $organizer_ids, function ( $organizer_id ) use ( $intersect_keys )  {
-			return isset( $intersect_keys[ $organizer_id ] );
+			return ! isset( $intersect_keys[ $organizer_id ] );
 		} );
 
 		// Sort the array to get the lowest post id.
