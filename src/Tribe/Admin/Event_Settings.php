@@ -39,7 +39,7 @@ class Tribe__Events__Admin__Event_Settings {
 	 *
 	 * @param array $args Arguments to pass to the URL.
 	 *
-	 * @return string
+	 * @return string The URL to the admin settings page.
 	 */
 	public function get_url( array $args = [] ) {
 		$defaults = [
@@ -88,7 +88,7 @@ class Tribe__Events__Admin__Event_Settings {
 	 *
 	 * @param string $title The title of the settings page.
 	 *
-	 * @return string The modified title of the settings page..
+	 * @return string The modified title of the settings page.
 	 */
 	public function settings_page_title( $title ) {
 		if ( ! $this->is_tec_events_settings() ) {
@@ -107,7 +107,7 @@ class Tribe__Events__Admin__Event_Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean
+	 * @return boolean Whether the current page is The Events Calendar Settings page.
 	 */
 	public function is_tec_events_settings() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -119,7 +119,9 @@ class Tribe__Events__Admin__Event_Settings {
 	/**
 	 * Get the slug for The Events Calendar page/menu item.
 	 *
-	 * @return void
+	 * @since TBD
+	 *
+	 * @return string $menu_slug The slug for the The Events Calendar page/menu item.
 	 */
 	public function get_tec_events_menu_slug() {
 		// If the `tribe_events` post type is not registered, return generic slug.
@@ -155,7 +157,7 @@ class Tribe__Events__Admin__Event_Settings {
 				'path'     => self::$settings_page_id,
 				'callback' => [
 					tribe( 'settings' ),
-					'generatePage'
+					'generatePage',
 				],
 			]
 		);
@@ -346,8 +348,8 @@ class Tribe__Events__Admin__Event_Settings {
 
 		$admin_pages->register_page(
 			[
-				'id'       => 'tec-events', // @todo: this to constant (?)
-				'path'     => $this->get_tec_events_menu_slug(), //'tec-events',
+				'id'       => 'tec-events',
+				'path'     => $this->get_tec_events_menu_slug(),
 				'title'    => tribe_get_event_label_plural( 'tec_events_settings_menu' ),
 				'icon'     => 'dashicons-calendar',
 				'position' => 6,
@@ -356,9 +358,11 @@ class Tribe__Events__Admin__Event_Settings {
 	}
 
 	/**
-	 * TBD
+	 * Do the basic main settings page.
 	 *
 	 * @since TBD
+	 *
+	 * @param string $admin_page The slug of the admin page.
 	 */
 	public function settings_ui( $admin_page ) {
 		if ( ! empty( $admin_page ) && self::$settings_page_id !== $admin_page ) {
@@ -373,24 +377,11 @@ class Tribe__Events__Admin__Event_Settings {
 	}
 
 	/**
-	 * TBD
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	protected function get_settings_array() {
-		$plugin_path = Tribe__Tickets__Main::instance()->plugin_path;
-		include $plugin_path . 'src/admin-views/tribe-options-tickets.php';
-
-		/** @var array $tickets_tab Set in the file included above*/
-		return $tickets_tab;
-	}
-
-	/**
 	 * Generate network settings page for The Events Calendar.
 	 *
 	 * @since TBD
+	 *
+	 * @param string $admin_page The slug of the admin page.
 	 */
 	public function do_network_settings_tab( $admin_page ) {
 		if ( ! empty( $admin_page ) && self::$settings_page_id !== $admin_page ) {
@@ -408,7 +399,7 @@ class Tribe__Events__Admin__Event_Settings {
 	 * @since TBD
 	 *
 	 * @param string $footer_text The admin footer text.
-	 * @param string $footer_text The admin footer text, maybe modified.
+	 * @return string $footer_text The admin footer text, maybe modified.
 	 */
 	public function admin_footer_text_settings( $footer_text ) {
 		$admin_pages = tribe( 'admin.pages' );
