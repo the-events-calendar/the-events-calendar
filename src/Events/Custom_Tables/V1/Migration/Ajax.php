@@ -160,7 +160,9 @@ class Ajax {
 		$site_report = Site_Report::build();
 
 		switch ( $phase ) {
+			case null;
 			case State::PHASE_PREVIEW_PROMPT:
+				$phase = State::PHASE_PREVIEW_PROMPT;
 				$renderer = new Phase_View_Renderer( $phase,
 					"/phase/$phase.php",
 					[
