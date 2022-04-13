@@ -4,6 +4,8 @@ namespace Tribe\Events\Admin;
 class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register implementations.
+	 *
+	 * @since TBD
 	 */
 	public function register() {
 		tribe_singleton( Events\Settings::class, Events\Settings::class );
@@ -13,6 +15,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Add hooks.
+	 *
+	 * @since TBD
 	 */
 	public function add_hooks() {
 		add_action( 'tribe_settings_do_tabs', tribe_callback( Events\Settings::class, 'settings_ui' ) );
