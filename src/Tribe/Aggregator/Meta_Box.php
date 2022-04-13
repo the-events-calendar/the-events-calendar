@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Admin\Events\Settings;
+use Tribe\Events\Admin\Settings;
 
 class Tribe__Events__Aggregator__Meta_Box {
 	/**

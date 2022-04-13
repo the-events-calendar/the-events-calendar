@@ -3,7 +3,7 @@
  * Main Tribe Events Calendar class.
  */
 use Tribe\DB_Lock;
-use Tribe\Events\Admin\Events\Settings;
+use Tribe\Events\Admin\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );

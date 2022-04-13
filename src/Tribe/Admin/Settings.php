@@ -1,5 +1,5 @@
 <?php
-namespace Tribe\Events\Admin\Events;
+namespace Tribe\Events\Admin;
 
 /**
  * Manages the admin settings UI in relation to events configuration.

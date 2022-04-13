@@ -1,7 +1,7 @@
 <?php
 // Don't load directly
 
-use Tribe\Events\Admin\Events\Settings;
+use Tribe\Events\Admin\Settings;
 
 defined( 'WPINC' ) or die;
 

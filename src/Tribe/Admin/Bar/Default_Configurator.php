@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Admin\Events\Settings;
+use Tribe\Events\Admin\Settings;
 
 class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__Admin__Bar__Configurator_Interface {
 

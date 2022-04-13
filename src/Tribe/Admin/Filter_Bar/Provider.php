@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events\Admin\Filter_Bar;
 
-use Tribe\Events\Admin\Events\Settings;
+use Tribe\Events\Admin\Settings;
 use Tribe__Events__Main;
 use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;

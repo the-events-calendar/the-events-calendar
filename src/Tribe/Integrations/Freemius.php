@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Admin\Events\Settings;
+use Tribe\Events\Admin\Settings;
 
 /**
  * Facilitates smoother integration with the Freemius.
