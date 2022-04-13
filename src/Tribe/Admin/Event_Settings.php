@@ -1,13 +1,16 @@
 <?php
+namespace Tribe\Events\Admin;
 
 /**
  * Manages the admin settings UI in relation to events configuration.
  */
+use Tribe__App_Shop;
+use Tribe__Settings;
+use Tribe__Settings_Tab;
 use Tribe__Events__Main as Plugin;
 use Tribe\Admin\Troubleshooting as Troubleshooting;
 
-
-class Tribe__Events__Admin__Event_Settings {
+class Event_Settings {
 
 	/**
 	 * The Events Calendar settings page slug.
@@ -17,22 +20,9 @@ class Tribe__Events__Admin__Event_Settings {
 	public static $settings_page_id = 'tec-events-settings';
 
 	/**
-	 * Sets up the display of timezone-related settings and listeners to deal with timezone-update
-	 * requests (which are initiated from within the settings screen).
+	 * Settings tabs
 	 */
-	public function __construct() {
-		add_action( 'tribe_settings_do_tabs', [ $this, 'settings_ui' ] );
-		add_action( 'admin_menu', [ $this, 'add_admin_pages' ] );
-		add_action( 'network_admin_menu', [ $this, 'maybe_add_network_settings_page' ] );
-		add_action( 'tribe_settings_do_tabs', [ $this, 'do_network_settings_tab' ], 400 );
-
-		add_filter( 'tribe_settings_page_title', [ $this, 'settings_page_title' ] );
-		add_filter( 'tec_settings_tab_url', [ $this, 'filter_settings_tab_url' ], 50, 3 );
-		add_filter( 'tec_admin_pages_with_tabs', [ $this, 'add_to_pages_with_tabs' ], 20, 1 );
-		add_filter( 'tribe_settings_page_url', [ $this, 'filter_settings_page_url' ], 50, 3 );
-		add_filter( 'tec_admin_footer_text', [ $this, 'admin_footer_text_settings' ] );
-		add_filter( 'tribe-events-save-network-options', [ $this, 'maybe_hijack_save_network_settings' ], 10, 2 );
-	}
+	public $tabs = [];
 
 	/**
 	 * Returns the main admin settings URL.
@@ -43,7 +33,7 @@ class Tribe__Events__Admin__Event_Settings {
 	 */
 	public function get_url( array $args = [] ) {
 		$defaults = [
-			'page' => self::$settings_page_id,
+			'page' => static::$settings_page_id,
 		];
 
 		if ( ! is_network_admin() ) {
@@ -78,7 +68,7 @@ class Tribe__Events__Admin__Event_Settings {
 	 * @return array $pages The modified array containing the pages with tabs.
 	 */
 	public function add_to_pages_with_tabs( $pages ) {
-		$pages[] = self::$settings_page_id;
+		$pages[] = static::$settings_page_id;
 
 		return $pages;
 	}
@@ -113,7 +103,7 @@ class Tribe__Events__Admin__Event_Settings {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
-		return ! empty( $admin_page ) && self::$settings_page_id === $admin_page;
+		return ! empty( $admin_page ) && static::$settings_page_id === $admin_page;
 	}
 
 	/**
@@ -151,10 +141,10 @@ class Tribe__Events__Admin__Event_Settings {
 
 		$admin_pages->register_page(
 			[
-				'id'       => self::$settings_page_id,
+				'id'       => static::$settings_page_id,
 				'parent'   => $this->get_tec_events_menu_slug(),
 				'title'    => esc_html__( 'Settings', 'tribe-common' ),
-				'path'     => self::$settings_page_id,
+				'path'     => static::$settings_page_id,
 				'callback' => [
 					tribe( 'settings' ),
 					'generatePage',
@@ -194,10 +184,10 @@ class Tribe__Events__Admin__Event_Settings {
 
 		$admin_pages->register_page(
 			[
-				'id'         => self::$settings_page_id,
+				'id'         => static::$settings_page_id,
 				'parent'     => 'settings.php',
 				'title'      => esc_html__( 'Event Settings', 'the-events-calendar' ),
-				'path'       => self::$settings_page_id,
+				'path'       => static::$settings_page_id,
 				'capability' => $admin_pages->get_capability( 'manage_network_options' ),
 				'callback'   => [
 					$settings,
@@ -215,7 +205,7 @@ class Tribe__Events__Admin__Event_Settings {
 	public function maybe_add_troubleshooting() {
 		$admin_pages = tribe( 'admin.pages' );
 
-		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
+		if ( ! tribe( 'settings' )->should_setup_pages() ) {
 			return;
 		}
 
@@ -244,7 +234,7 @@ class Tribe__Events__Admin__Event_Settings {
 	public function maybe_add_app_shop() {
 		$admin_pages = tribe( 'admin.pages' );
 
-		if ( ! Tribe__Settings::instance()->should_setup_pages() ) {
+		if ( ! tribe( 'settings' )->should_setup_pages() ) {
 			return;
 		}
 
@@ -282,7 +272,7 @@ class Tribe__Events__Admin__Event_Settings {
 			return $url;
 		}
 
-		if ( self::$settings_page_id !== $page ) {
+		if ( static::$settings_page_id !== $page ) {
 			return $url;
 		}
 
@@ -316,7 +306,7 @@ class Tribe__Events__Admin__Event_Settings {
 			return $url;
 		}
 
-		if ( self::$settings_page_id !== $page ) {
+		if ( static::$settings_page_id !== $page ) {
 			return $url;
 		}
 
@@ -369,11 +359,13 @@ class Tribe__Events__Admin__Event_Settings {
 			return;
 		}
 
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
+		include_once \Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
+		include_once \Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
+		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
+		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
-		new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
-		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
+		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
+		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
 	}
 
 	/**
@@ -388,9 +380,9 @@ class Tribe__Events__Admin__Event_Settings {
 			return;
 		}
 
-		include_once Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/tribe-options-network.php';
+		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-network.php';
 
-		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
+		$this->tabs['network'] = new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
 	}
 
 	/**
@@ -405,7 +397,7 @@ class Tribe__Events__Admin__Event_Settings {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
-		if ( ! empty( $admin_page ) && self::$settings_page_id !== $admin_page ) {
+		if ( ! empty( $admin_page ) && static::$settings_page_id !== $admin_page ) {
 			return $footer_text;
 		}
 
@@ -459,7 +451,7 @@ class Tribe__Events__Admin__Event_Settings {
 	 */
 	public function maybe_hijack_save_network_settings( $options, $admin_page ) {
 		// If we're saving the network settings page for TEC, bail.
-		if ( ! empty( $admin_page ) && self::$settings_page_id == $admin_page ) {
+		if ( ! empty( $admin_page ) && static::$settings_page_id == $admin_page ) {
 			return $options;
 		}
 
