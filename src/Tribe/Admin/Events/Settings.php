@@ -1,5 +1,5 @@
 <?php
-namespace Tribe\Events\Admin;
+namespace Tribe\Events\Admin\Events;
 
 /**
  * Manages the admin settings UI in relation to events configuration.
@@ -10,7 +10,7 @@ use Tribe__Settings_Tab;
 use Tribe__Events__Main as Plugin;
 use Tribe\Admin\Troubleshooting as Troubleshooting;
 
-class Event_Settings {
+class Settings {
 
 	/**
 	 * The Events Calendar settings page slug.

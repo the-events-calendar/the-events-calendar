@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events\Admin\Filter_Bar;
 
-use Tribe\Events\Admin\Event_Settings;
+use Tribe\Events\Admin\Events\Settings;
 use Tribe__Events__Main;
 use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;
@@ -112,7 +112,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * @since TBD Early bail if we're not on TEC settings.
 	 */
 	public function add_tab( $admin_page ) {
-		$tec_settings_page_id = tribe( Event_Settings::class )::$settings_page_id;
+		$tec_settings_page_id = tribe( Settings::class )::$settings_page_id;
 
 		if ( ! empty( $admin_page ) && $tec_settings_page_id !== $admin_page ) {
 			return;

@@ -1,7 +1,7 @@
 <?php
 // Don't load directly
 
-use Tribe\Events\Admin\Event_Settings;
+use Tribe\Events\Admin\Events\Settings;
 
 defined( 'WPINC' ) or die;
 
@@ -66,7 +66,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_eb_credentials();
 
 		wp_redirect(
-			tribe( Event_Settings::class )->get_url( [ 'tab' => 'addons' ] )
+			tribe( Settings::class )->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -205,7 +205,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_meetup_credentials();
 
 		wp_redirect(
-			tribe( Event_Settings::class )->get_url( [ 'tab' => 'addons' ] )
+			tribe( Settings::class )->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}
@@ -329,7 +329,7 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	public function do_import_settings_tab( $admin_page ) {
-		$tec_settings_page_id = tribe( Event_Settings::class )::$settings_page_id;
+		$tec_settings_page_id = tribe( Settings::class )::$settings_page_id;
 
 		if ( ! empty( $admin_page ) && $tec_settings_page_id !== $admin_page ) {
 			return;
@@ -771,7 +771,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_fb_credentials();
 
 		wp_redirect(
-			tribe( Event_Settings::class )->get_url( [ 'tab' => 'addons' ] )
+			tribe( Settings::class )->get_url( [ 'tab' => 'addons' ] )
 		);
 		die;
 	}

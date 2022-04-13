@@ -3,7 +3,7 @@
  * Main Tribe Events Calendar class.
  */
 use Tribe\DB_Lock;
-use Tribe\Events\Admin\Event_Settings;
+use Tribe\Events\Admin\Events\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -1059,10 +1059,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since TBD
 		 *
-		 * @return \Tribe\Events\Admin\Event_Settings
+		 * @return Settings
 		 */
 		public function settings() {
-			return tribe( \Tribe\Events\Admin\Event_Settings::class );
+			return tribe( Settings::class );
 		}
 
 		/**
@@ -1115,7 +1115,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					[
 						'slug'                  => 'the-events-calendar',
 						'admin_page'            => 'tribe_events_page_tec-events-settings',
-						'admin_url'             => tribe( Event_Settings::class )->get_url(),
+						'admin_url'             => tribe( Settings::class )->get_url(),
 						'activation_transient'  => '_tribe_events_activation_redirect',
 						'version'               => self::VERSION,
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
@@ -1300,7 +1300,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function do_addons_api_settings_tab( $admin_page ) {
 			// Bail if we're not on TEC settings.
-			if ( ! empty( $admin_page ) && tribe( Event_Settings::class )::$settings_page_id !== $admin_page ) {
+			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
 				return;
 			}
 
@@ -1351,7 +1351,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function do_upgrade_tab( $admin_page ) {
 			// Bail if we're not on TEC settings.
-			if ( ! empty( $admin_page ) && tribe( Event_Settings::class )::$settings_page_id !== $admin_page ) {
+			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
 				return;
 			}
 
@@ -4479,7 +4479,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @todo move to an admin class
 		 */
 		public function addLinksToPluginActions( $actions ) {
-			$actions['settings']       = '<a href="' . tribe( Event_Settings::class )->get_url() . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
+			$actions['settings']       = '<a href="' . tribe( Settings::class )->get_url() . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
 			$actions['tribe-calendar'] = '<a href="' . $this->getLink() . '">' . esc_html__( 'Calendar', 'the-events-calendar' ) . '</a>';
 
 			return $actions;

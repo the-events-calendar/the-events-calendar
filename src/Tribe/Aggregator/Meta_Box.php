@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Admin\Event_Settings;
+use Tribe\Events\Admin\Events\Settings;
 
 class Tribe__Events__Aggregator__Meta_Box {
 	/**
@@ -69,7 +69,7 @@ class Tribe__Events__Aggregator__Meta_Box {
 		$origin            = $aggregator->api( 'origins' )->get_name( $origin );
 		$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 		$last_import       = $last_import ? tribe_format_date( $last_import, true, $datepicker_format . ' h:i a' ) : null;
-		$settings_link     = tribe( Event_Settings::class )->get_url( [ 'tab' => 'imports' ] );
+		$settings_link     = tribe( Settings::class )->get_url( [ 'tab' => 'imports' ] );
 		$import_setting    = tribe_get_option( 'tribe_aggregator_default_update_authority', Tribe__Events__Aggregator__Settings::$default_update_authority );
 
 		include Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/aggregator/meta-box.php';

@@ -1,7 +1,7 @@
 <?php
 // Don't load directly
 
-use Tribe\Events\Admin\Event_Settings;
+use Tribe\Events\Admin\Events\Settings;
 
 defined( 'WPINC' ) or die;
 
@@ -652,7 +652,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$url_map = array(
 			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
-			'settings' => tribe( Event_Settings::class )->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
+			'settings' => tribe( Settings::class )->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
 		);
 
 		if ( ! isset( $url_map[ $type ] ) ) {

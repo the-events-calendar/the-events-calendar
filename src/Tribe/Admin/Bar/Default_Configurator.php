@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Admin\Event_Settings;
+use Tribe\Events\Admin\Events\Settings;
 
 class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__Admin__Bar__Configurator_Interface {
 
@@ -88,7 +88,7 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 				$wp_admin_bar->add_menu( [
 					'id'     => 'tribe-events-settings',
 					'title'  => esc_html__( 'Settings', 'the-events-calendar' ),
-					'href'   => tribe( Event_Settings::class )->get_url(),
+					'href'   => tribe( Settings::class )->get_url(),
 					'parent' => 'tribe-events-settings-group',
 				] );
 			}
