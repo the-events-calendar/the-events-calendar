@@ -205,7 +205,9 @@ class Events {
 			FROM {$wpdb->posts} p
 			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 			WHERE p.post_type = %s
-			AND pm.meta_value IN(%s, %s)",
+				AND p.post_status != 'auto-draft'
+			  	AND p.post_parent = 0
+				AND pm.meta_value IN(%s, %s)",
 			Event_Report::META_KEY_MIGRATION_PHASE,
 			TEC::POSTTYPE,
 			Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
