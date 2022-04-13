@@ -28,11 +28,11 @@ class Tribe__Events__Amalgamator {
 	 */
 	public function merge_duplicates() {
 		/**
-		 * Whether or not duplicate organizers should be merged.
+		 * Whether duplicate organizers should be merged.
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $merge_organizers (true) Whether or not duplicate organizers should be merged.
+		 * @param boolean $merge_organizers Whether duplicate organizers should be merged, defualt true.
 		 */
 		$merge_organizers = (bool) apply_filters( 'tribe_merge_identical_organizers_enabled', true );
 
@@ -41,11 +41,11 @@ class Tribe__Events__Amalgamator {
 		}
 
 		/**
-		 * Whether or not duplicate venues should be merged.
+		 * Whether duplicate venues should be merged.
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $merge_venues (true) Whether or not duplicate venues should be merged.
+		 * @param boolean $merge_venues Whether duplicate venues should be merged, default true.
 		 */
 		$merge_venues = (bool) apply_filters( 'tribe_merge_identical_venues_enabled', true );
 
@@ -205,13 +205,10 @@ class Tribe__Events__Amalgamator {
 	 *
 	 * @since TBD - Change to public method.
 	 *
-	 * @param array $venue_ids
+	 * @param array<string|integer> $venue_ids An Array of venue ids to merge.
 	 */
 	public function amalgamate_venues( $venue_ids ) {
-		if (
-			empty( $venue_ids )
-			|| count( $venue_ids ) < 2
-		) {
+		if ( empty( $venue_ids ) || count( $venue_ids ) < 2 ) {
 			return;
 		}
 
@@ -233,10 +230,7 @@ class Tribe__Events__Amalgamator {
 		$keep = (array) apply_filters( 'tribe_amalgamate_venues_keep_venue', [], $venue_ids );
 
 		// If not an array or empty, run the default venues amalgamate.
-		if (
-			! is_array( $keep )
-			|| empty( $keep )
-		){
+		if ( ! is_array( $keep ) || empty( $keep ) ) {
 			$this->run_amalgamate_venues( $venue_ids, [] );
 
 			return;
@@ -275,12 +269,20 @@ class Tribe__Events__Amalgamator {
 	public function run_amalgamate_venues( $venue_ids, $keep = [] ) {
 		global $wpdb;
 
+		// If $venue_ids is empty, then return.
+		if ( empty( $venue_ids ) ) {
+			return;
+		}
+
 		// If $keep is empty, then use the first venue id in the array..
 		if ( empty( $keep ) ) {
 			$keep = array_shift( $venue_ids );
 		}
 
-		$old_ids = implode( ',', $venue_ids );
+		$merging_ids = array_map( static function ( $id ) use ( $wpdb ) {
+			return $wpdb->prepare( '%d', $id );
+		}, $venue_ids );
+
 		$sql     = "
 			UPDATE {$wpdb->postmeta}
 			SET meta_value=%d
@@ -288,7 +290,7 @@ class Tribe__Events__Amalgamator {
 			AND meta_value
 			IN(%s)
 		";
-		$sql     = $wpdb->prepare( $sql, $keep, '_EventVenueID', $old_ids );
+		$sql     = $wpdb->prepare( $sql, $keep, '_EventVenueID', implode(',', $merging_ids) );
 		$wpdb->query( $sql );
 
 		$this->update_default_venues( $keep, $venue_ids );
@@ -324,10 +326,7 @@ class Tribe__Events__Amalgamator {
 		$keep = (array) apply_filters( 'tribe_amalgamate_organizers_keep_organizer', [], $organizer_ids );
 
 		// If not an array or empty, run the default venues amalgamate.
-		if (
-			! is_array( $keep )
-			|| empty( $keep )
-		){
+		if ( ! is_array( $keep ) || empty( $keep ) ) {
 			$this->run_amalgamate_organizers( $organizer_ids, [] );
 
 			return;
@@ -366,12 +365,20 @@ class Tribe__Events__Amalgamator {
 	public function run_amalgamate_organizers( $organizer_ids, $keep = [] ) {
 		global $wpdb;
 
+		// If $organizer_ids is empty, then return.
+		if ( empty( $organizer_ids ) ) {
+			return;
+		}
+
 		// If $keep is empty, then use the first venue id in the array..
 		if ( empty( $keep ) ) {
 			$keep = array_shift( $organizer_ids );
 		}
 
-		$old_ids = implode( ',', $organizer_ids );
+		$merging_ids = array_map( static function ( $id ) use ( $wpdb ) {
+			return $wpdb->prepare( '%d', $id );
+		}, $organizer_ids );
+
 		$sql     = "
 			UPDATE {$wpdb->postmeta}
 			SET meta_value=%d
@@ -379,7 +386,7 @@ class Tribe__Events__Amalgamator {
 			AND meta_value
 			IN(%s)
 		";
-		$sql     = $wpdb->prepare( $sql, $keep, '_EventOrganizerID', $old_ids );
+		$sql     = $wpdb->prepare( $sql, $keep, '_EventOrganizerID', implode(',', $merging_ids) );
 		$wpdb->query( $sql );
 		$this->update_default_organizers( $keep, $organizer_ids );
 		$this->delete_posts( $organizer_ids );
