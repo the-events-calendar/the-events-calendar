@@ -1,9 +1,14 @@
 <?php
-
+/**
+ * Class File_Importer_Events_CostTest
+ *
+ * @since   TBD
+ *
+ * @package Tribe\Events\Importer
+ */
 namespace Tribe\Events\Importer;
 
 require_once 'File_Importer_EventsTest.php';
-
 
 class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 
