@@ -1224,7 +1224,7 @@ class View implements View_Interface {
 	 * This allows us to save a query when determining pagination for list-like views.
 	 *
 	 * @since 5.0.0
-	 * @since TBD ZEnsure our max() gets all ints for math reasons
+	 * @since TBD Ensure our max() gets all ints, for math reasons.
 	 *
 	 * @param null|int $offset_override Offset override value.
 	 * @param \WP_Query $query WP Query object.
