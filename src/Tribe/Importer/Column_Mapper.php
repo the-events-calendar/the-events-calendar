@@ -76,6 +76,7 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_show_map_link'     => esc_html__( 'Event Show Map Link', 'the-events-calendar' ),
 			'event_show_map'          => esc_html__( 'Event Show Map', 'the-events-calendar' ),
 			'event_cost'              => esc_html__( 'Event Cost', 'the-events-calendar' ),
+			'event_currency_code'     => esc_html__( 'Event ISO Currency Code', 'the-events-calendar' ),
 			'event_currency_symbol'   => esc_html__( 'Event Currency Symbol', 'the-events-calendar' ),
 			'event_currency_position' => esc_html__( 'Event Currency Position', 'the-events-calendar' ),
 			'event_category'          => esc_html__( 'Event Category', 'the-events-calendar' ),

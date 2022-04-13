@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Feature - Add support to CSV import for the ISO Currency Code field. [TEC-4341]
 * Fix - Correctly calculate Event duration when the Event crosses the daylight saving date and time. [TEC-4336]
 
 = [5.14.1] 2022-03-17 =
