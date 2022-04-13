@@ -1224,6 +1224,7 @@ class View implements View_Interface {
 	 * This allows us to save a query when determining pagination for list-like views.
 	 *
 	 * @since 5.0.0
+	 * @since TBD ZEnsure our max() gets all ints for math reasons
 	 *
 	 * @param null|int $offset_override Offset override value.
 	 * @param \WP_Query $query WP Query object.
@@ -1238,11 +1239,12 @@ class View implements View_Interface {
 		$context = $this->get_context();
 
 		$current_page = max(
-			$context->get( 'page' ),
-			$context->get( 'paged' ),
+			(int) $context->get( 'page' ),
+			(int) $context->get( 'paged' ),
 			1
 		);
-		return ( $current_page - 1 ) * $this->get_context()->get( 'events_per_page' );
+
+		return ( $current_page - 1 ) * $context->get( 'events_per_page' );
 	}
 
 	/**
