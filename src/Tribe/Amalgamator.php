@@ -32,7 +32,7 @@ class Tribe__Events__Amalgamator {
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $merge_organizers Whether duplicate organizers should be merged, defualt true.
+		 * @param boolean $merge_organizers Whether duplicate organizers should be merged, default true.
 		 */
 		$merge_organizers = (bool) apply_filters( 'tribe_merge_identical_organizers_enabled', true );
 
