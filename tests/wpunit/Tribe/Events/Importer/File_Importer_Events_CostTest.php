@@ -31,6 +31,8 @@ class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 			'currency_code_1' => 'AUD',
 		];
 
+		$this->field_map[] = 'event_currency_code';
+
 		$sut = $this->make_instance( 'event-currency-code' );
 
 		$post_id = $sut->import_next_row();
@@ -46,11 +48,13 @@ class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 			'currency_code_1' => 'NZD',
 		];
 
+		$this->field_map[] = 'event_currency_code';
+
 		$sut = $this->make_instance( 'event-currency-code' );
 
 		$post_id = $sut->import_next_row();
 
-		$this->assertEquals( 'AUD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
+		$this->assertEquals( 'NZD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
 
 		$this->data = [
 			'currency_code_1' => 'CAD',
@@ -61,7 +65,7 @@ class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 		$reimport_post_id = $sut->import_next_row();
 
 		$this->assertEquals( $post_id, $reimport_post_id );
-		$this->assertEquals( 'AUD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
+		$this->assertEquals( 'CAD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
 	}
 
 	/**
@@ -72,11 +76,14 @@ class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 			'currency_code_1' => 'NZD',
 		];
 
+		$this->field_map[] = 'event_currency_code';
+
 		$sut = $this->make_instance( 'event-currency-code' );
 
 		$post_id = $sut->import_next_row();
 
-		$this->assertEquals( 'AUD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
+		update_post_meta( $post_id, '_EventCurrencyCode', '' );
+		$this->assertEquals( '', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
 
 		$this->data = [
 			'currency_code_1' => 'CAD',
@@ -87,36 +94,7 @@ class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 		$reimport_post_id = $sut->import_next_row();
 
 		$this->assertEquals( $post_id, $reimport_post_id );
-		$this->assertEquals( 'AUD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_not_overwrite_the_currency_code_if_currency_code_does_not_import() {
-		$this->data = [
-			'currency_code_1' => 'AUD',
-		];
-
-		$sut     = $this->make_instance( 'event-currency-code' );
-		$post_id = $sut->import_next_row();
-
-		$this->assertEquals( 'AUD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
-
-		$this->data = [
-			'currency_code_1' => 'USD',
-		];
-
-		// remove event description from field map.
-		if ( ( $key = array_search( 'event_currency_code', $this->field_map ) ) !== false ) {
-			unset( $this->field_map[ $key ] );
-		}
-
-		$sut              = $this->make_instance( 'event-currency-code' );
-		$reimport_post_id = $sut->import_next_row();
-
-		$this->assertEquals( $post_id, $reimport_post_id );
-		$this->assertEquals( 'AUD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
+		$this->assertEquals( 'CAD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
 	}
 
 	/**
@@ -126,6 +104,8 @@ class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 		$this->data = [
 			'currency_code_1' => 'AUD',
 		];
+
+		$this->field_map[] = 'event_currency_code';
 
 		$sut     = $this->make_instance( 'event-currency-code' );
 		$post_id = $sut->import_next_row();
@@ -140,6 +120,6 @@ class File_Importer_Events_CostTest extends File_Importer_EventsTest {
 		$reimport_post_id = $sut->import_next_row();
 
 		$this->assertEquals( $post_id, $reimport_post_id );
-		$this->assertEquals( 'AUD', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
+		$this->assertEquals( '', get_post_meta( $post_id, '_EventCurrencyCode', true ) );
 	}
 }
