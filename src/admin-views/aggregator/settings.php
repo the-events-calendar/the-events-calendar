@@ -680,7 +680,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 				'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s.',
 				'the-events-calendar'
 			),
-			'<a href="' . esc_url( Tribe__Settings::instance()->get_url( [ 'page' => 'tribe-help' ] ) ) . '#tribe-tribe-aggregator-status">' . esc_html__( 'Help page', 'the-events-calendar' ) . '</a>'
+			'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url( [ 'page' => 'tribe-help' ] ) ) . '#tribe-tribe-aggregator-status">' . esc_html__( 'Help page', 'the-events-calendar' ) . '</a>'
 		);
 		?>
 	</p>
@@ -755,4 +755,11 @@ $import = apply_filters(
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
 	new Tribe__Settings_Tab( 'imports', esc_html__( 'Imports', 'the-events-calendar' ), $import );
+	add_filter(
+		'tec_events_settings_tabs_ids',
+		function( $tabs ) {
+			$tabs[] = 'imports';
+			return $tabs;
+		}
+	);
 }

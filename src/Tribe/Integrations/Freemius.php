@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Events\Admin\Settings;
+
 /**
  * Facilitates smoother integration with the Freemius.
  *
@@ -273,7 +275,7 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return string The Settings page path.
 	 */
 	public function get_settings_path() {
-		return sprintf( 'edit.php?post_type=%s&page=%s', Tribe__Events__Main::POSTTYPE, $this->page );
+		return str_replace( get_admin_url(), '', tribe( Settings::class )->get_url() );
 	}
 
 	/**
@@ -284,7 +286,7 @@ class Tribe__Events__Integrations__Freemius {
 	 * @return string The welcome page URL.
 	 */
 	public function get_welcome_url() {
-		return Tribe__Settings::instance()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] );
+		return tribe( Settings::class )->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] );
 	}
 
 	/**

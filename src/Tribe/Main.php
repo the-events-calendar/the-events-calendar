@@ -3,6 +3,7 @@
  * Main Tribe Events Calendar class.
  */
 use Tribe\DB_Lock;
+use Tribe\Events\Admin\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -534,6 +535,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function bind_implementations(  ) {
 			tribe_singleton( 'tec.main', $this );
 
+			// Admin provider.
+			tribe_register_provider( \Tribe\Events\Admin\Provider::class );
+
 			// i18n.
 			tribe_singleton( 'tec.i18n', new Tribe\Events\I18n( $this ) );
 
@@ -1051,6 +1055,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Settings page object accessor.
+		 *
+		 * @since TBD
+		 *
+		 * @return Settings
+		 */
+		public function settings() {
+			return tribe( Settings::class );
+		}
+
+		/**
 		 * Initializes any admin-specific code (expects to be called when admin_init fires).
 		 */
 		public function admin_init() {
@@ -1099,6 +1114,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page(
 					[
 						'slug'                  => 'the-events-calendar',
+						'admin_page'            => 'tribe_events_page_tec-events-settings',
+						'admin_url'             => tribe( Settings::class )->get_url(),
 						'activation_transient'  => '_tribe_events_activation_redirect',
 						'version'               => self::VERSION,
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
@@ -1277,9 +1294,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Initialize the addons api settings tab
+		 * Initialize the addons api settings tab.
+		 *
+		 * @since TBD Added check to see if we are on TEC settings page.
 		 */
-		public function do_addons_api_settings_tab() {
+		public function do_addons_api_settings_tab( $admin_page ) {
+			// Bail if we're not on TEC settings.
+			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
+				return;
+			}
+
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
 		}
 
@@ -1323,8 +1347,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Create the upgrade tab
 		 *
 		 * @since 4.9.12
+		 * @since TBD Added check to see if we are on TEC settings page.
 		 */
-		public function do_upgrade_tab() {
+		public function do_upgrade_tab( $admin_page ) {
+			// Bail if we're not on TEC settings.
+			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
+				return;
+			}
+
 			if ( ! $this->show_upgrade() ) {
 				return;
 			}
@@ -1384,6 +1414,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'network_admin' => is_network_admin(),
 					'show_save'     => true,
 				]
+			);
+
+			add_filter(
+				'tec_events_settings_tabs_ids',
+				function( $tabs ) {
+					$tabs[] = 'upgrade';
+					return $tabs;
+				}
 			);
 		}
 
@@ -4441,7 +4479,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @todo move to an admin class
 		 */
 		public function addLinksToPluginActions( $actions ) {
-			$actions['settings']       = '<a href="' . Tribe__Settings::instance()->get_url() . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
+			$actions['settings']       = '<a href="' . tribe( Settings::class )->get_url() . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
 			$actions['tribe-calendar'] = '<a href="' . $this->getLink() . '">' . esc_html__( 'Calendar', 'the-events-calendar' ) . '</a>';
 
 			return $actions;

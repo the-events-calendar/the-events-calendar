@@ -5,7 +5,7 @@
  */
 $internal = [];
 
-$current_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] );
+$current_url = tribe( 'tec.main' )->settings()->get_url( [ 'tab' => 'addons' ] );
 
 // if there's an Event Aggregator license key, add the Meetup.com API fields
 if ( get_option( 'pue_install_key_event_aggregator' ) ) {
@@ -160,4 +160,11 @@ $addons = apply_filters(
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
 	new Tribe__Settings_Tab( 'addons', esc_html__( 'Integrations', 'the-events-calendar' ), $addons );
+	add_filter(
+		'tec_events_settings_tabs_ids',
+		function( $tabs ) {
+			$tabs[] = 'addons';
+			return $tabs;
+		}
+	);
 }
