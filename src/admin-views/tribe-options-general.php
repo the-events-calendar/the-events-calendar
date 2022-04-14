@@ -20,7 +20,7 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 		],
 		'view-calendar-link'            => [
 			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . ' <a href="' . esc_url( Tribe__Events__Main::instance()->getLink() ) . '">' . esc_html__( 'Right here', 'the-events-calendar' ) . '</a>.</p>',
+			'html' => '<p>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . ' <a href="' . esc_url( tribe( 'tec.main' )->getLink() ) . '">' . esc_html__( 'Right here', 'the-events-calendar' ) . '</a>.</p>',
 		],
 	]
 );
