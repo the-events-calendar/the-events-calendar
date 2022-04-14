@@ -225,6 +225,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Tweak - Added filters `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer` for better control of the merge duplicate venues and organizers functionality. [BTRIA-1082]
+* Fix - Correctly calculate Event duration when the Event crosses the daylight saving date and time. [TEC-4336]
+* Fix - don't try to validate "raw" as a date. [TEC-4254]
+* Fix - Ensure the Views don't try to do math with strings. [TEC-4322]
 * Fix - Ensure Google Calendar links include the event description if it exists. [TEC-4315]
 
 = [5.14.1] 2022-03-17 =

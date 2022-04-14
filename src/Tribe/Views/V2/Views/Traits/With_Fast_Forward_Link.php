@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main;
 
 /**
  * Class With_Fast_Forward_Link
@@ -40,10 +41,21 @@ trait With_Fast_Forward_Link {
 		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
 
 		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			return $this->cached_urls[ $cache_key ];
+			//return $this->cached_urls[ $cache_key ];
 		}
 
-		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
+		$next_event = tribe_events()->where( 'starts_after', $date );
+		$tax = $this->context->get( 'taxonomy' );
+
+		// This only handles event category for now.
+		if ( ! empty( $tax ) && Tribe__Events__Main::TAXONOMY == $tax ) {
+			$cat = $this->context->get( $tax );
+			if ( ! empty( $cat ) ) {
+				$next_event = $next_event->where( 'category', (array) $cat );
+			}
+		}
+
+		$next_event = $next_event->first();
 
 		if ( ! $next_event instanceof \WP_Post ) {
 			return '';
@@ -79,20 +91,14 @@ trait With_Fast_Forward_Link {
 	public function use_ff_link( $canonical = false, array $passthru_vars = [] ) {
 		// Default is true.
 		$use_ff_link = true;
-		$tax         = $this->context->get( 'taxonomy' );
-		$use_ff_link = empty( $tax );
 
 		// Don't do filter checks if taxonomy check has failed.
-		if ( $use_ff_link ) {
+		if ( ! empty( $this->context->get( 'taxonomy' ) ) ) {
 			// @todo [BTRIA-598]: @stephen Move this to Filterbar.
 			$filters = array_filter( (array) $this->context->get( 'view_data' ) );
 
-			if ( isset( $filters['url'] ) ) {
-				unset( $filters['url'] );
-			}
-			if ( isset( $filters['form_submit'] ) ) {
-				unset( $filters['form_submit'] );
-			}
+			unset( $filters['url'] );
+			unset( $filters['form_submit'] );
 
 			$filters     = \array_values( $filters );
 			$use_ff_link = empty( $filters );
