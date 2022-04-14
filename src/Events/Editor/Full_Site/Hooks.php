@@ -23,15 +23,24 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->add_actions();
 	}
 
-	protected function add_filters(): void {
+	/**
+	 * Adds the filters required by the FSE components.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
-
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option'], 10, 2 );
 	}
 
-	protected function add_actions(): void {
+	/**
+	 * Adds the actions required by the FSE components.
+	 *
+	 * @since TBD
+	 */
+	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
 	}
 
@@ -57,7 +66,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *     @type array  $slug__in List of slugs to include.
 	 *     @type int    $wp_id Post ID of customized template.
 	 * }
-	 * @param string $template_type wp_template or wp_template_part.
+	 *
+	 *
+	 * @return array The modified $query.
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
 		// Don't load this template in the admin - so it's not editable by users.
@@ -72,6 +83,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * If we're using a FSE theme, we always use the full styling.
 	 *
 	 * @since TBD
+	 *
 	 * @param string  $value The value of the option.
 	 * @return string $value The original value, or an empty string if FSE is active.
 	 */

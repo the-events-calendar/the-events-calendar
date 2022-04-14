@@ -19,10 +19,9 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array<string,mixed> The array of default attributes.
 	 */
 	public function default_attributes() {
-
 		return [];
 	}
 

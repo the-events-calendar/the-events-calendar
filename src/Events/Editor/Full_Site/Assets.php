@@ -16,7 +16,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-    * @since TBD
+     * @since TBD
 	 */
 	public function register() {
 		$plugin = Events_Main::instance();

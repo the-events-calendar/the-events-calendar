@@ -58,6 +58,13 @@ class Templates {
 	}
 
 
+	/**
+	 * Returns the constructed template object for the query.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Block_Template
+	 */
 	public function get_template_events_archive() {
 		$template_content = file_get_contents(
 			dirname( \Tribe__Main::instance()->plugin_path ) . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
