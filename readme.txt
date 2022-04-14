@@ -225,6 +225,11 @@ Remember to always make a backup of your database and files before updating!
 
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
+= [TBD] TBD =
+
+* Tweak - Added filters `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer` for better control of the merge duplicate venues and organizers functionality. [BTRIA-1082]
+* Fix - Correctly calculate Event duration when the Event crosses the daylight saving date and time. [TEC-4336]
+
 = [5.14.1] 2022-03-17 =
 
 * Tweak - Update the backend block editor UI for a single event to look similar to its frontend version in order to create a true WYSIWYG experience when using the block editor. [TEC-4250]
