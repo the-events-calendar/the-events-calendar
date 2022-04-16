@@ -3,6 +3,7 @@
 // Include the base CT1 migration test case.
 require_once __DIR__ . '/CT1_Migration_Test_Case.php';
 
+use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Tables\Events;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use function tad\WPBrowser\addListener;
@@ -65,3 +66,5 @@ addListener( Codeception\Events::TEST_AFTER, $clean_after_test );
 // Ensure the CT1 code branch is enabled.
 putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=0' );
 $_ENV['TEC_CUSTOM_TABLES_V1_DISABLED'] = 0;
+// Run the activation routine to ensure the tables will be set up independently of the previous state.
+Activation::activate();
