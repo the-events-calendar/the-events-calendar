@@ -17,7 +17,6 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
@@ -45,7 +44,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function register() {
-		$this->container->tag( [ Event_Query_Controller::class, ], 'query_controllers' );
+		$this->container->singleton( Event_Query_Controller::class, Event_Query_Controller::class );
 
 		$this->add_actions();
 		$this->add_filters();
@@ -302,10 +301,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $posts;
 		}
 
-		foreach ( $this->container->tagged( 'query_controllers' ) as $controller ) {
-			/** @var Abstract_Query_Controller $controller */
-			$posts = $controller->inject_posts( $posts, $query );
-		}
+		/** @var Event_Query_Controller $controller */
+		$controller = $this->container->make( Event_Query_Controller::class );
+		$posts      = $controller->inject_posts( $posts, $query );
+
+		// There is only one main query: the filter should run once.
+		remove_filter( current_filter(), [ $this, 'filter_posts_pre_query' ] );
 
 		return $posts;
 	}
