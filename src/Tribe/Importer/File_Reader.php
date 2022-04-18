@@ -27,8 +27,8 @@ class Tribe__Events__Importer__File_Reader {
 		/*
 		 * In PHP 8.0.15 to 8.0.17 or 8.1.2 to 8.1.4 the use of seek() and then key() returns 0 when using the flag SplFileObject::READ_CSV.
 		 * This bug is fixed in PHP 8.0.18 and 8.1.5.
-		 * @see https://github.com/php/php-src/pull/8138
-		 * @see https://github.com/php/php-src/issues/8121
+		 * @see https://github.com/php/php-src/issues/8236 - outlines the issue with seek()
+		 * @see https://github.com/php/php-src/pull/8138 - PR to fix the issue
 		 */
 		if ( 0 === $total_lines ) {
 			$total_lines = iterator_count( $this->file );
