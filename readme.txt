@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correctly calculate Event duration when the Event crosses the daylight saving date and time. [TEC-4336]
 * Fix - don't try to validate "raw" as a date. [TEC-4254]
 * Fix - Ensure the Views don't try to do math with strings. [TEC-4322]
+* Fix - Ensure Google Calendar links include the event description if it exists. [TEC-4315]
 
 = [5.14.1] 2022-03-17 =
 
