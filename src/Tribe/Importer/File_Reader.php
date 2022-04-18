@@ -15,8 +15,14 @@ class Tribe__Events__Importer__File_Reader {
 		$this->file = new SplFileObject( $this->path );
 		$this->file->setFlags( SplFileObject::SKIP_EMPTY | SplFileObject::READ_CSV | SplFileObject::READ_AHEAD | SplFileObject::DROP_NEW_LINE );
 		$this->set_csv_params( $this->get_csv_params() );
-		$this->file->seek( $this->file->getSize() );
-		$this->lines = $this->file->key();
+		$this->file->seek( PHP_INT_MAX );
+		$total_lines = $this->file->key();
+		// In PHP 8.0.15 to 8.0.17 or 8.1.2 to 8.1.4 the use of seek() and then key() returns 0 when using the flag SplFileObject::READ_CSV.
+		// This bug is fixed in PHP 8.0.18 and 8.1.5.
+		if ( 0 === $total_lines ) {
+			$total_lines = iterator_count( $this->file );
+		}
+		$this->lines = $total_lines;
 		$this->file->rewind();
 
 		add_filter( 'tribe_events_import_row', [ $this, 'sanitize_row' ] );
