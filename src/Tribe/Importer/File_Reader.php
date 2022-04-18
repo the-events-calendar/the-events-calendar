@@ -9,6 +9,13 @@ class Tribe__Events__Importer__File_Reader {
 	private $last_line_read = 0;
 	public $lines;
 
+	/**
+	 * Construct for Tribe__Events__Importer__File_Reader.
+	 *
+	 * @since TBD - Fix for PHP 8.0.15 to 8.0.17 on getting the last line of the csv file.
+	 *
+	 * @param string $file_path The full path to the file.
+	 */
 	public function __construct( $file_path ) {
 		ini_set( 'auto_detect_line_endings', true );
 		$this->path = $file_path;
@@ -17,8 +24,12 @@ class Tribe__Events__Importer__File_Reader {
 		$this->set_csv_params( $this->get_csv_params() );
 		$this->file->seek( PHP_INT_MAX );
 		$total_lines = $this->file->key();
-		// In PHP 8.0.15 to 8.0.17 or 8.1.2 to 8.1.4 the use of seek() and then key() returns 0 when using the flag SplFileObject::READ_CSV.
-		// This bug is fixed in PHP 8.0.18 and 8.1.5.
+		/*
+		 * In PHP 8.0.15 to 8.0.17 or 8.1.2 to 8.1.4 the use of seek() and then key() returns 0 when using the flag SplFileObject::READ_CSV.
+		 * This bug is fixed in PHP 8.0.18 and 8.1.5.
+		 * @see https://github.com/php/php-src/pull/8138
+		 * @see https://github.com/php/php-src/issues/8121
+		 */
 		if ( 0 === $total_lines ) {
 			$total_lines = iterator_count( $this->file );
 		}
