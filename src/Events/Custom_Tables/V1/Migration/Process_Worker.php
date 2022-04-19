@@ -365,7 +365,7 @@ class Process_Worker {
 	 *
 	 * @since TBD
 	 */
-	public function shutdown_handler(  ) {
+	public function shutdown_handler() {
 		// In case we fail above, release transaction.
 		if ( $this->dry_run ) {
 			$this->transaction_rollback();
@@ -385,7 +385,12 @@ class Process_Worker {
 	 *
 	 * @return bool Whether the migration, or its preview, is completed or not.
 	 */
-	public function check_phase( ) {
+	public function check_phase() {
+		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'phase'  => $this->state->get_phase(),
+		] );
+
 		$phase               = $this->state->get_phase();
 		$migration_completed = in_array(
 			                       $phase, [
@@ -396,6 +401,10 @@ class Process_Worker {
 		                       && $this->events->get_total_events_in_progress() === 0;
 
 		if ( ! $migration_completed ) {
+			do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			] );
+
 			return false;
 		}
 
@@ -406,6 +415,10 @@ class Process_Worker {
 		$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
 		$this->state->set( 'complete_timestamp', time() );
 		$this->state->save();
+		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'phase'  => $this->state->get_phase(),
+		] );
 
 		return true;
 	}
