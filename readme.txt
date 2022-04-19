@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure the Views don't try to do math with strings. [TEC-4322]
 * Fix - Enable more than 5 csv entries to be imported when using 8.0.15 to 8.0.17 or 8.1.2 to 8.1.4. [TEC-4312]
 * Fix - Ensure Google Calendar links include the event description if it exists. [TEC-4315]
+* Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
 
 = [5.14.1] 2022-03-17 =
 
