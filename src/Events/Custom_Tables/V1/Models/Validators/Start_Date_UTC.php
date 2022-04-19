@@ -73,11 +73,10 @@ class Start_Date_UTC extends Validator {
 			// If the Start Date and Timezone are provided, the value should check out with those.
 			$timezone              = Timezones::build_timezone_object( $model->timezone );
 			$utc                   = Timezones::build_timezone_object( 'UTC' );
-			$start_date_utc_object = Dates::build_date_object( $model->start_date_utc, $utc );
-			$start_date_object     = Dates::build_date_object( $model->start_date, $timezone );
-			$start_date_object->setTimezone( Timezones::build_timezone_object( 'UTC' ) );
+			$start_date_utc_object = Dates::immutable( $model->start_date_utc, $utc );
+			$start_date_object     = Dates::immutable( $model->start_date, $timezone );
 
-			if ( $start_date_object->format( Dates::DBDATETIMEFORMAT ) === $start_date_utc_object->format( Dates::DBDATETIMEFORMAT ) ) {
+			if ( $start_date_object->format( 'U' ) === $start_date_utc_object->format( 'U' ) ) {
 				return true;
 			}
 

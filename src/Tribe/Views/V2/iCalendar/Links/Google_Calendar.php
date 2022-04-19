@@ -50,7 +50,7 @@ class Google_Calendar extends Link_Abstract {
 			 *
 			 * @param boolean $use_single_url Use the single event url for single event views. Default true.
 			 */
-			$use_single_url = apply_filters( 'tec_views_v2_subscribe_links_gcal_single_url', true, );
+			$use_single_url = apply_filters( 'tec_views_v2_subscribe_links_gcal_single_url', true );
 
 			if ( $use_single_url ) {
 				return $this->generate_single_url();

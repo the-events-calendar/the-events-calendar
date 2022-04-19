@@ -1,130 +1,406 @@
-let Ct1Upgrade = {};
+let upgradeBoxElement = null;
+let localizedData = null;
+let ajaxUrl = null;
+let pollInterval = 5000;
+let pollTimeoutId = null;
+let currentViewState = {
+	poll: true,
+};
 
-( function( $, obj ) {
-	obj.selectors = {
-		v2DisableDialog: '#tec-ct1-migration__v2-disable-dialog',
-		v2Enabled: 'input[name="views_v2_enabled"]',
-		alertOkButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-alert__continue',
-		alertCloseButton: '.tec-ct1-upgrade-__modal-container--v2-disable-dialog .tribe-modal__close-button',
-		rootReportNode: '.tec-ct1-upgrade__row', // Used to constrain some selectors
-		barsSelector: '.tec-ct1-upgrade-bar .bar',
-		barsProgressSelector: '.tec-ct1-upgrade-bar .progress',
-		upgradeBox: '#tec-ct1-upgrade-box',
-	};
-	obj.upgradeBoxElement = null;
-	obj.report_poll_interval = 5000;
-	obj.poll_timeout = null;
-	obj.get_report = function(successCallback) {
-		// Initialize our report - heartbeat polling
-		// @todo cleanup
-		$.ajax({
-			type : "GET",
-			dataType : "json",
-			url : tecCt1Upgrade.ajaxUrl,
-			data : {action: tecCt1Upgrade.actions.get_report},
-			success: successCallback
+export const selectors = {
+	upgradeBox: '#tec-ct1-upgrade-dynamic',
+	startPreviewButton: '.tec-ct1-upgrade-start-migration-preview',
+	startMigrationButton: '.tec-ct1-upgrade-start-migration',
+	cancelMigrationButton: '.tec-ct1-upgrade-cancel-migration',
+};
+
+/**
+ * Builds a URL-encoded query string from an object or string.
+ *
+ * @param {Object|string} data The data object, or string, to convert to query
+ * 												     string.
+ *
+ * @returns {string} The data converted to a URL-encoded query string, including
+ * 									 the leading `?`.
+ *
+ * @throws {Error} If the data is not a string or an object.
+ */
+export const buildQueryString = (data = {}) => {
+	if (!(
+			(data instanceof Object && !Array.isArray(data))
+			|| typeof data === 'string')
+	) {
+		throw new Error('data must be an object or a string');
+	}
+
+	if ('string' === typeof data) {
+		const extractedData = {};
+		data.split('&').map((keyAndValue) => {
+			const [key, value] = keyAndValue.split('=', 2);
+			extractedData[key] = value;
 		});
+		data = extractedData;
 	}
-	obj.data_migration_on_dom = function(key, value) {
-		const rs = obj.selectors.rootReportNode;
-		$(rs+' [data-migration="'+key+'"]')
-			.text(value);
-	}
-	obj.bar_progress = function(completed, total) {
-		const percent = Math.round(completed / total);
-		// Leave on default if we have less than 1 percent
-		if(percent > 1) {
-			$(obj.selectors.barsSelector).css('width', percent+'%');
-		}
-		$(obj.selectors.barsProgressSelector).attr('title', percent+'%');
-	}
-	obj.handle_report_data = function(data) {
-		const {has_changes: hasChanges, report_html: reportHtml} = data;
-		if(!(hasChanges && obj.upgradeBoxElement instanceof Element) ){
-			// Nothing to update.
-			return;
-		}
 
-		obj.upgradeBoxElement.innerHTML = reportHtml;
+	const queryString =  Object.keys(data).map(
+			function(k) {
+				return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+			},
+	).join('&');
+
+	return queryString ? '?' + queryString : '';
+};
+
+/**
+ * Sends an AJAX GET request to the specified URL.
+ *
+ * @since TBD
+ *
+ * @param {string} url The URL to send the GET request to.
+ * @param {string|Object|null} data The data object or string, it will be
+ * 																  URL-encoded.
+ * @param {function|null} onSuccess The function that will be called on a
+ * 																	successful  request, it will be passed the
+ * 																	JSON parsed response data.
+ * @param {function|null} onFailure The function that will be called if the
+ * 													        request fails, it will be passed the raw
+ * 													        response body.
+ * @param {function|null} onError   The function that will be called if there's
+ * 																  an error with the request or if there's an
+ * 																  error	parsing the response JSON.
+ */
+export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
+	if (!url) {
+		return;
 	}
-	/**
-	 * Fetches the report data, and delegates to the dom handlers
-	 *
-	 * @param successCallback
-	 */
-	obj.sync_report_data = function(successCallback) {
-		obj.get_report(
-			function (response) {
-				obj.handle_report_data(response);
-				if(successCallback) {
-					successCallback(response);
+
+	const compiledUrl = url + buildQueryString(data);
+	const request = new XMLHttpRequest();
+	request.open('GET', compiledUrl, true);
+
+	request.onreadystatechange = function() {
+		// In local files, status is 0 upon success in Mozilla Firefox
+		if (request.readyState === XMLHttpRequest.DONE) {
+			const status = request.status;
+			if (status === 0 || (status >= 200 && status < 400)) {
+				try {
+					onSuccess && onSuccess(JSON.parse(this.response));
+				} catch (e) {
+					onError && onError(this.response);
 				}
+			} else {
+				onFailure && onFailure(this.response);
+			}
+		}
+	};
+
+	request.onerror = function() {
+		onError && onError();
+	};
+
+	request.send();
+};
+
+/**
+ * Return the main node that wraps our dynamic content.
+ *
+ * @since TBD
+ *
+ * @param {boolean} refresh Fetch from cache of the node or reselect it.
+ *
+ */
+export const getUpgradeBoxElement = () => {
+	return document.getElementById(selectors.upgradeBox.substr(1));
+};
+
+export const onSuccess = () => {
+
+};
+
+export const onFailure = () => {
+
+};
+
+export const onError = () => {
+
+};
+
+/**
+ * Recursively sync and poll report data.
+ *
+ * @since TBD
+ */
+export const recursePollForReport = () => {
+	syncReportData(
+			pollForReport,
+	);
+};
+
+export const shouldPoll = () => {
+	return currentViewState.poll || tecCt1Upgrade.forcePolling;
+};
+
+/**
+ * Start the recursive poll for report changes.
+ *
+ * @since TBD
+ */
+export const pollForReport = () => {
+	if (!shouldPoll()) {
+		return;
+	}
+	// Start polling.
+	pollTimeoutId = setTimeout(recursePollForReport, pollInterval);
+};
+
+/**
+ * Handles the response from the report request.
+ *
+ * @since TBD
+ *
+ * @param {object} data The response object with the compiled report data.
+ */
+export const handleReportData = function(data) {
+	const {nodes, key, html} = data;
+
+	// Write our HTML if we are new.
+	if (!currentViewState.key || currentViewState.key !== key) {
+		getUpgradeBoxElement().innerHTML = html;
+		bindNodes(key);
+	}
+	// Iterate on nodes.
+	nodes.forEach(
+			(node) => {
+				if (isNodeDiff(node.key, node.hash)) {
+					// Write new content.
+					let element = document.querySelector(node.target);
+					if (element) {
+						element.innerHTML = node.html;
+						bindNodes(node.key);
+					}
+				}
+			},
+	);
+	// Store changes locally for next request.
+	currentViewState = data;
+};
+
+/**
+ * Binds the dynamic nodes with their listeners.
+ *
+ * @since TBD
+ *
+ * @param {string} key The node key.
+ */
+export const bindNodes = (key) => {
+	let element;
+
+	// Start preview button.
+	element = document.querySelector(selectors.startPreviewButton);
+	if (element) {
+		element.addEventListener('click', handleStartMigrationWithPreview);
+	}
+
+	// Start migration button.
+	element = document.querySelector(selectors.startMigrationButton);
+	if (element) {
+		element.addEventListener('click', handleStartMigration);
+	}
+
+	// Revert migration button.
+	element = document.querySelector(selectors.cancelMigrationButton);
+	if (element) {
+		element.addEventListener('click', handleCancelMigration);
+	}
+}
+
+/**
+ * Handle the cancel migration action.
+ *
+ * @since TBD
+ *
+ * @param {Event} e
+ */
+export const handleCancelMigration = (e) => {
+	e.preventDefault();
+	if (confirm(tecCt1Upgrade.text_dictionary.confirm_cancel_migration)) {
+		e.target.setAttribute('disabled', 'disabled');
+		e.target.removeEventListener('click', handleCancelMigration);
+
+		// Stop our render check momentarily.
+		// We will have a new state immediately after our cancel migration finishes.
+		cancelReportPoll();
+		ajaxGet(
+			tecCt1Upgrade.ajaxUrl,
+			{
+				action: tecCt1Upgrade.actions.cancelMigration,
+				_ajax_nonce: tecCt1Upgrade.nonce,
+			},
+			(response) => {
+				// Sync + Restart polling, now we will have a new view.
+				handleReportData(response);
+				pollForReport();
 			}
 		);
 	}
-	/**
-	 * Recursive loop to poll the report data
-	 */
-	obj.poll_report_data = function() {
-		obj.poll_timeout = setTimeout(function() {
-			obj.sync_report_data(
-				obj.poll_report_data
-			);
-		}, obj.report_poll_interval)
+}
+
+/**
+ * Handle the start migration preview click event.
+ *
+ * @since TBD
+ *
+ * @param {Event} e
+ */
+export const handleStartMigrationWithPreview = (e) => {
+	e.preventDefault();
+	e.target.setAttribute('disabled', 'disabled');
+	e.target.removeEventListener('click', handleStartMigrationWithPreview);
+	startMigration(true);
+}
+
+/**
+ * Handle the start migration click event.
+ *
+ * @since TBD
+ *
+ * @param {Event}
+ */
+export const handleStartMigration = (e) => {
+	e.preventDefault();
+	e.target.setAttribute('disabled', 'disabled');
+	e.target.removeEventListener('click', handleStartMigration);
+	startMigration(false);
+
+}
+
+/**
+ * Will start either a preview or migration, sending a request to the backend to queue workers.
+ *
+ * @since TBD
+ *
+ * @param {boolean} isPreview Flag to denote if we are doing a dry run or a
+ *     real migration.
+ */
+export const startMigration = (isPreview) => {
+	// Stop our render check momentarily.
+	// We will have a new state immediately after our start migration finishes.
+	cancelReportPoll();
+	ajaxGet(
+		tecCt1Upgrade.ajaxUrl,
+		{
+			action: tecCt1Upgrade.actions.startMigration,
+			tec_events_custom_tables_v1_migration_dry_run: isPreview ? 1 : 0,
+			_ajax_nonce: tecCt1Upgrade.nonce,
+		},
+		(response) => {
+			// Sync + Restart polling, now we will have a new view.
+			handleReportData(response);
+			pollForReport();
+		}
+	);
+}
+
+/**
+ * Cancel our report polling.
+ *
+ * @since TBD
+ */
+export const cancelReportPoll = () => {
+	clearTimeout(pollTimeoutId);
+}
+
+/**
+ * Checks if the node changed in the poll intervals.
+ *
+ * @since TBD
+ *
+ * @param {string} searchKey The node key to reference if changes.
+ * @param {string} searchHash The hash that might change for a particular node
+ *     key.
+ *
+ * @returns {boolean} True if the node changed, false if not.
+ */
+export const isNodeDiff = (searchKey, searchHash) => {
+	const {nodes} = currentViewState;
+	if (!nodes) {
+		return true;
 	}
-	obj.cancel_report_poll = function () {
-		// Kills any queued polls
-		clearTimeout(obj.poll_timeout);
-	}
-	obj.start_report_polling = function() {
-		// Get initial report data immediately
-		obj.sync_report_data();
-		// Start polling
-		obj.poll_report_data();
+	const node = nodes.find(
+			({key}) => key === searchKey,
+	);
+
+	if (!node) {
+		return true;
 	}
 
-	obj.handle_start_preview = function () {
-// @todo cleanup
-		$('.tec-ct1-upgrade-start-migration-preview')
-			.off('click', obj.handle_start_preview);
-		$('.tec-ct1-upgrade-start-migration-preview').attr('disabled', 'disabled');
+	return node.hash !== searchHash;
+};
 
-		$.ajax({
-			type : "GET",
-			dataType : "json",
-			// @todo remove this hard-coded URL and use the one localized from the back-end
-			url : "/wp-admin/admin-ajax.php",
-			data : {action: tecCt1Upgrade.actions.cancel_migration},
-			success: function (response) {console.log(response)}
-		});
+/**
+ * Fetches the report data, and delegates to the handlers.
+ *
+ * @since TBD
+ *
+ * @param {function|null} successCallback Callback fired on success.
+ */
+export const syncReportData = function(successCallback = null) {
+	getReport(
+			function(response) {
+				handleReportData(response);
+				if (successCallback) {
+					successCallback(response);
+				}
+			},
+	);
+};
+
+/**
+ * Get the report data from the backend.
+ *
+ * @since TBD
+ *
+ * @param {function} successCallback Callback fired on success.
+ */
+export const getReport = (successCallback) => {
+	ajaxGet(
+			tecCt1Upgrade.ajaxUrl,
+			{
+				action: tecCt1Upgrade.actions.getReport,
+				_ajax_nonce: tecCt1Upgrade.nonce,
+			},
+			successCallback,
+	);
+};
+
+/**
+ * Kick off the CT1 upgrade loop and node updates.
+ *
+ * @since TBD
+ */
+export const init = () => {
+	localizedData = window.tecCt1Upgrade;
+
+	if (!localizedData) {
+		return;
 	}
 
-	obj.bind_listeners = function () {
-		// @todo cleanup
-		$('.tec-ct1-upgrade-start-migration-preview')
-			.on('click', obj.handle_start_preview);
+	upgradeBoxElement = getUpgradeBoxElement(true);
+	ajaxUrl = localizedData.ajaxUrl;
+	pollInterval = localizedData.pollInterval || pollInterval;
+
+	if (pollInterval === 0) {
+		return;
 	}
 
-	obj.init = function() {
-		$( document ).on( 'change', obj.selectors.v2Enabled, function() {
-			if ( $( this ).is( ':checked' ) ) {
-				return;
-			}
+	// Get initial report data immediately, then start polling.
+	syncReportData(pollForReport);
+};
 
-			$( obj.selectors.v2DisableDialog ).click();
-		});
-
-		$( document ).on( 'click', obj.selectors.alertOkButton, function() {
-			$( obj.selectors.alertCloseButton ).click();
-		} );
-
-		obj.upgradeBoxElement = document.getElementById(obj.selectors.upgradeBox.substr(1));
-
-		// Initialize our report - heartbeat polling
-	//@todo	obj.start_report_polling();
-		obj.bind_listeners();
-	};
-
-	$( obj.init );
-
-} )( jQuery, Ct1Upgrade );
+// On DOM ready, init.
+if (document.readyState !== 'loading') {
+	init();
+}
+else {
+	document.addEventListener('DOMContentLoaded', init);
+}

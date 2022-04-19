@@ -273,11 +273,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 * @since 5.14.0
 	 */
 	public static function add_post_type_metabox() {
-		$request_vars = tribe_get_request_vars();
-		if ( empty( $request_vars['post'] ) || ! tribe_is_venue( $request_vars['post'] ) ) {
+
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
 			return;
 		}
-		$self = new Tribe__Events__Venue;
 
 		add_meta_box(
 			'tribe_events_venue_details',
@@ -287,6 +286,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			'normal',
 			'high'
 		);
+
 	}
 
 	/**

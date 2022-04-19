@@ -11,12 +11,12 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 		'upsell-heading'                => [
 			'type'        => 'heading',
 			'label'       => esc_html__( 'Finding & extending your calendar.', 'the-events-calendar' ),
-			'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
+			'conditional' => ! tec_should_hide_upsell(),
 		],
 		'finding-heading'               => [
 			'type'        => 'heading',
 			'label'       => esc_html__( 'Finding your calendar.', 'the-events-calendar' ),
-			'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
+			'conditional' => tec_should_hide_upsell(),
 		],
 		'view-calendar-link'            => [
 			'type' => 'html',
@@ -146,6 +146,19 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'validation_type' => 'textarea',
 			'size'            => 'small',
 			'default'         => '$',
+		],
+		'defaultCurrencyCode'         => [
+			'type'            => 'text',
+			'label'           => esc_html__( 'Default currency code', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Set the default currency ISO-4217 code for event costs. This is a three-letter code and is mainly used for data/SEO purposes.', 'the-events-calendar' ),
+			'validation_type' => 'textarea',
+			'size'            => 'small',
+			'default'         => 'USD',
+			'attributes'      => [
+				'minlength'   => 3,
+				'maxlength'   => 3,
+				'placeholder' => __( 'USD', 'the-events-calendar' ),
+			],
 		],
 		'reverseCurrencyPosition'       => [
 			'type'            => 'checkbox_bool',

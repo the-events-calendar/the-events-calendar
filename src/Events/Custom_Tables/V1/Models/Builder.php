@@ -19,6 +19,33 @@ use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
  * @package TEC\Events\Custom_Tables\V1\Models
  */
 class Builder {
+
+	/**
+	 * @var int Flag to validate the Builder::upsert was an insert. Note - This is dependent on whether the MySQL
+	 *      CLIENT_FOUND_ROWS flag is set or not.
+	 */
+	const UPSERT_DID_INSERT = 1;
+	/**
+	 * @var int Flag to validate the Builder::upsert was an update. Note - This is dependent on whether the MySQL
+	 *      CLIENT_FOUND_ROWS flag is set or not.
+	 */
+	const UPSERT_DID_UPDATE = 2;
+	/**
+	 * @var int Flag to validate the Builder::upsert made no changes. Note - This is dependent on whether the MySQL
+	 *      CLIENT_FOUND_ROWS flag is set or not.
+	 */
+	const UPSERT_DID_NOT_CHANGE = 0;
+
+	/**
+	 * A class-wide query execution toggle that will prevent the execution
+	 * of SQL queries across all instances of the the Builder.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	private static $class_execute_queries = true;
+
 	/**
 	 * The size of the batch the Builder should use to fetch
 	 * Models in unbound query methods like `find_all`.
@@ -154,6 +181,22 @@ class Builder {
 	}
 
 	/**
+	 * Sets the class-wide queries execution toggle that will enable or
+	 * disable the execution of queries overriding the per-instance value of the
+	 * `$execute_queries` flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $class_execute_queries Whether to enable or disable the execution
+	 *                                    of queries class-wide.
+	 *
+	 * @see Builder::enable_query_execution() to set the flag on a per-instance basis
+	 */
+	public static function class_enable_query_execution( $class_execute_queries ) {
+		self::$class_execute_queries = $class_execute_queries;
+	}
+
+	/**
 	 * Get an instance to this builder class.
 	 *
 	 * @since TBD
@@ -223,7 +266,7 @@ class Builder {
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
 	 * @param array<string,mixed>|null $data      The data to be inserted or updated into the table.
 	 *
-	 * @return bool If the operation was completed correctly or not.
+	 * @return false|int The rows affected flag or false on failure.
 	 */
 	public function upsert( array $unique_by, array $data = null ) {
 		if ( empty( $unique_by ) ) {
@@ -295,15 +338,15 @@ class Builder {
 
 		$this->queries[] = $SQL;
 
-		if ( $this->execute_queries ) {
+		if ( $this->execute_queries && self::$class_execute_queries ) {
 			/*
 			 * Depending on the db implementation, it could not run updates and return `0`.
 			 * We need to make sure it does not return exactly boolean `false`.
 			 */
-			return false !== $wpdb->query( $SQL );
+			return $wpdb->query( $SQL );
 		}
 
-		return true;
+		return 0;
 	}
 
 	/**

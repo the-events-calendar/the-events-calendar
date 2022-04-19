@@ -17,7 +17,6 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
@@ -28,6 +27,7 @@ use Tribe__Customizer__Section as Customizer_Section;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use WP_Post;
 
 /**
  * Class Hooks
@@ -44,7 +44,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function register() {
-		$this->container->tag( [ Event_Query_Controller::class, ], 'query_controllers' );
+		$this->container->singleton( Event_Query_Controller::class, Event_Query_Controller::class );
 
 		$this->add_actions();
 		$this->add_filters();
@@ -69,6 +69,39 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+	}
+
+	/**
+	 * Enqueue Customizer styles for the single event block editor screen.
+	 *
+	 * @since 5.14.1
+	 */
+	public function enqueue_customizer_in_block_editor() {
+		// Make sure we're on the block edit screen
+		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
+			return;
+		}
+
+		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
+			return;
+		}
+
+		global $post;
+		// Make sure we're editing an Event post.
+		if ( empty( $post ) || ! $post instanceof WP_Post || ! tribe_is_event( $post ) ) {
+			return;
+		}
+
+		// Append the customizer styles to the single block stylesheet
+		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
+			$sheets[] = 'tribe-admin-v2-single-blocks';
+
+			return $sheets;
+		} );
+
+		// Print the styles!
+		tribe( 'customizer' )->inline_style( true );
 	}
 
 	/**
@@ -282,10 +315,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $posts;
 		}
 
-		foreach ( $this->container->tagged( 'query_controllers' ) as $controller ) {
-			/** @var Abstract_Query_Controller $controller */
-			$posts = $controller->inject_posts( $posts, $query );
-		}
+		/** @var Event_Query_Controller $controller */
+		$controller = $this->container->make( Event_Query_Controller::class );
+		$posts      = $controller->inject_posts( $posts, $query );
+
+		// There is only one main query: the filter should run once.
+		remove_filter( current_filter(), [ $this, 'filter_posts_pre_query' ] );
 
 		return $posts;
 	}

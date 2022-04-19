@@ -90,7 +90,7 @@ class Events {
 	protected function upsert_event( $post_id ) {
 		$data = Event::data_from_post( $post_id );
 
-		if ( ! Event::upsert( [ 'post_id' ], $data ) ) {
+		if ( Event::upsert( [ 'post_id' ], $data ) === false ) {
 			throw new RuntimeException( 'Failed to upsert Event data in repository.' );
 		}
 

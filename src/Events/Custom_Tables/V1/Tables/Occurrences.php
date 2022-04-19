@@ -9,6 +9,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Tables;
 
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Custom_Table;
+
 /**
  * Class Occurrences
  *
@@ -16,15 +18,30 @@ namespace TEC\Events\Custom_Tables\V1\Tables;
  *
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
-class Occurrences extends Base_Custom_Table {
+class Occurrences extends Abstract_Custom_Table {
 	/**
-	 * The table name, without prefix.
-	 *
-	 * @since    TBD
-	 *
-	 * @internal Use the `table_name` method to get the table name.
+	 * @inheritDoc
 	 */
-	const TABLE_NAME = 'tec_occurrences';
+	const SCHEMA_VERSION_OPTION = 'tec_ct1_occurrences_table_schema_version';
+
+	/**
+	 * @inheritDoc
+	 */
+	const SCHEMA_VERSION = '1.0.0';
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function base_table_name() {
+		return 'tec_occurrences';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function group_name() {
+		return 'tec';
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -38,7 +55,7 @@ class Occurrences extends Base_Custom_Table {
 	 */
 	protected function get_update_sql() {
 		global $wpdb;
-		$table_name      = $this->get_table_name( true );
+		$table_name      = self::table_name( true );
 		$charset_collate = $wpdb->get_charset_collate();
 
 		return "CREATE TABLE `{$table_name}` (
@@ -63,7 +80,7 @@ class Occurrences extends Base_Custom_Table {
 	 * {@inheritdoc}
 	 */
 	protected function after_update( array $results ) {
-		$this_table   = $this->get_table_name( true );
+		$this_table   = self::table_name( true );
 		$events_table = Events::table_name( true );
 
 		$updated = false;

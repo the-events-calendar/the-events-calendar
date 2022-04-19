@@ -13,8 +13,10 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use TEC\Events\Custom_Tables\V1\Migration\Admin\Phase_View_Renderer;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 
 /**
@@ -53,6 +55,12 @@ class Ajax {
 	 */
 	const ACTION_UNDO = 'wp_ajax_tec_events_custom_tables_v1_migration_undo';
 
+	/**
+	 * The name of the action that will be used to create the nonce used by
+	 * all requests that will start, cancel, undo or get a report about
+	 * the migration process.
+	 */
+	const NONCE_ACTION = 'tec-ct1-upgrade';
 
 	/**
 	 * A reference to the current background processing handler.
@@ -89,22 +97,15 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return string The JSON-encoded data for the front-end.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
+	 *
 	 */
-	public function get_report( $echo = true ) {
-		// @todo Add pagination?
-		$page   = 1;
-		$count  = 20;
-		$report = Site_Report::build( $page, $count );
+	public function send_report( $echo = true ) {
+		check_ajax_referer( self::NONCE_ACTION );
 
-		$html = tribe( Upgrade_Tab::class )->get_phase_inner_html();
-		$response      = [
-			// 'has_changes' => $report->has_changes,
-			// @todo remove this hard-coded value used for testing.
-			'has_changes' => true,
-			'report_html' => $html,
-		];
-
+		$response = $this->get_report();
 		if ( $echo ) {
 			wp_send_json( $response );
 			die();
@@ -114,23 +115,151 @@ class Ajax {
 	}
 
 	/**
+	 * Builds the structured report HTML.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function get_report() {
+
+		// What phase are we in?
+		$state = tribe( State::class );
+		$phase = $state->get_phase();
+
+		/**
+		 * Filters the Phase_View_Renderer being constructed for this phase.
+		 *
+		 * @since TBD
+		 *
+		 * @param Phase_View_Renderer A reference to the Phase_View_Renderer that should be used.
+		 *                           Initially `null`.
+		 * @param string $phase      The current phase we are in.
+		 */
+		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
+		if ( ! $renderer instanceof Phase_View_Renderer ) {
+			$renderer = $this->get_renderer_for_phase( $phase );
+		}
+
+		return $renderer->compile();
+	}
+
+	/**
+	 * Will construct the appropriate templates and nodes to be compiled, for this phase in the migration.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase of the migration.
+	 *
+	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
+	 */
+	protected function get_renderer_for_phase( $phase ) {
+		// @todo flesh out pagination more
+		$page        = -1;
+		$count       = 1000;
+		$site_report = Site_Report::build();
+
+		switch ( $phase ) {
+			case null;
+			case State::PHASE_PREVIEW_PROMPT:
+				$phase = State::PHASE_PREVIEW_PROMPT;
+				$renderer = new Phase_View_Renderer( $phase,
+					"/phase/$phase.php",
+					[
+						'state'  => tribe( State::class ),
+						'report' => $site_report,
+						'text'   => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( false );
+				break;
+			case State::PHASE_MIGRATION_COMPLETE:
+				$renderer = new Phase_View_Renderer( $phase,
+					"/phase/$phase.php",
+					[
+						'state'         => tribe( State::class ),
+						'report'        => $site_report,
+						'event_reports' => $site_report->get_event_reports( $page, $count ),
+						'text'          => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( false );
+				break;
+			case State::PHASE_UNDO_IN_PROGRESS:
+				$renderer = new Phase_View_Renderer( $phase,
+					"/phase/$phase.php",
+					[
+						'state'  => tribe( State::class ),
+						'report' => $site_report,
+						'text'   => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( true );
+				break;
+			case State::PHASE_MIGRATION_PROMPT:
+				$renderer = new Phase_View_Renderer( $phase,
+					"/phase/$phase.php",
+					[
+						'phase'         => $phase,
+						'report'        => $site_report,
+						'event_reports' => $site_report->get_event_reports( $page, $count ),
+						'text'          => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( false );
+				break;
+			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_IN_PROGRESS:
+				$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
+				$renderer->register_node( 'progress-bar',
+					'.tec-ct1-upgrade-update-bar-container',
+					'/partials/progress-bar.php',
+					[
+						'phase'  => $phase,
+						'report' => $site_report,
+						'text'   => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( true );
+				break;
+		}
+
+		// Log our poll status
+		do_action( 'tribe_log', 'debug', 'Ajax: Migration report poll renderer', [
+			'source'             => __CLASS__.' '.__METHOD__.' '.__LINE__,
+			'report'   => $site_report,
+		] );
+
+		return $renderer;
+	}
+
+	/**
 	 * Handles the request from the Admin UI to start the migration and returns
 	 * a first report about its progress.
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report A report about the migration start process.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
 	 */
 	public function start_migration( $echo = true ) {
-		// @todo This should have state with the process starting?
-		$report = Site_Report::build();
-		$this->process->start();
+		check_ajax_referer( self::NONCE_ACTION );
 
+		$dry_run = ! empty( $_REQUEST['tec_events_custom_tables_v1_migration_dry_run'] );
+		// Log our start
+		do_action( 'tribe_log', 'debug', 'Ajax: Start migration', [
+			'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'dry_run' => $dry_run,
+		] );
+		$this->process->start( $dry_run );
+
+		$response = $this->get_report();
 		if ( $echo ) {
-			wp_send_json( $report );
+			wp_send_json( $response );
 		}
 
-		return $report;
+		return wp_json_encode( $response );
 	}
 
 	/**
@@ -139,18 +268,26 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report A report about the migration cancel process.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
+	 *
 	 */
 	public function cancel_migration( $echo = true ) {
-		// @todo This should have state with the process canceling?
-		$report = Site_Report::build();
-		$this->process->cancel();
-
+		check_ajax_referer( self::NONCE_ACTION );
+		// Log our start
+		do_action( 'tribe_log', 'debug', 'Ajax: Cancel migration', [
+			'source'       => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+		] );
+		// A cancel action is identical to an undo.
+		$this->process->undo();
+		$response = $this->get_report();
 		if ( $echo ) {
-			wp_send_json( $report );
+			wp_send_json( $response );
+			die();
 		}
 
-		return $report;
+		return wp_json_encode( $response );
 	}
 
 	/**
@@ -159,17 +296,23 @@ class Ajax {
 	 *
 	 * @since TBD
 	 *
-	 * @return Site_Report A report about the migration undo process.
+	 * @param bool $echo Flag whether we echo or return json string.
+	 *
+	 * @return void|string The JSON-encoded data for the front-end.
 	 */
 	public function undo_migration( $echo = true ) {
-		// @todo This should have state with the process undoing?
-		$report = Site_Report::build();
+		check_ajax_referer( self::NONCE_ACTION );
+		// Log our start
+		do_action( 'tribe_log', 'debug', 'Ajax: Undo migration', [
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+		] );
 		$this->process->undo();
-
+		$response = $this->get_report();
 		if ( $echo ) {
-			wp_send_json( $report );
+			wp_send_json( $response );
+			die();
 		}
 
-		return $report;
+		return wp_json_encode( $response );
 	}
 }

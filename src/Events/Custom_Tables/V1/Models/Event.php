@@ -27,7 +27,6 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date_UTC;
 use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validator;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Timezone;
-use TEC\Events\Custom_Tables\V1\Tables\Events;
 use Tribe\Events\Models\Post_Types\Event as TribeEvent;
 use Tribe__Events__Main as TEC;
 use WP_Post;
@@ -87,7 +86,7 @@ class Event extends Model {
 	/**
 	 * {@inheritdoc}
 	 */
-	protected $table = Events::TABLE_NAME;
+	protected $table = 'tec_events';
 
 	/**
 	 * {@inheritdoc}

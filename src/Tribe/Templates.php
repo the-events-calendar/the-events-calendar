@@ -19,7 +19,7 @@ class Tribe__Events__Templates extends Tribe__Templates {
 	 *                         - plugin_path
 	 *                         - disable_view_check - bypass the check to see if the view is enabled
 	 *
-	 * @return template path
+	 * @return string Template path.
 	 **/
 	public static function getTemplateHierarchy( $template, $args = [] ) {
 		if ( ! is_array( $args ) ) {

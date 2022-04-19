@@ -47,6 +47,11 @@ export default {
 			source: 'meta',
 			meta: '_EventCurrencySymbol',
 		},
+		currencyCode: {
+			type: 'string',
+			source: 'meta',
+			meta: '_EventCurrencyCode',
+		},
 		currencyPosition: {
 			type: 'string',
 			source: 'meta',

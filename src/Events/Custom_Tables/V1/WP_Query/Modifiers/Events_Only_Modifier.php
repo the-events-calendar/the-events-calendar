@@ -94,4 +94,14 @@ class Events_Only_Modifier extends Base_Modifier {
 	public function unhook() {
 		remove_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 100 );
 	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since TBD
+	 */
+	protected function is_target_query( WP_Query $query = null ) {
+		return parent::is_target_query( $query )
+			   && ! tribe( Events_Not_In_Series_Modifier::class )->applies_to( $query );
+	}
 }

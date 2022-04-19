@@ -1,78 +1,104 @@
+<?php
+
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+
+/**
+ * @var string            $template_directory The absolute path to the Migration template root directory.
+ * @var Site_Report       $report             The report details.
+ * @var String_Dictionary $text               Our text dictionary.
+ */
+?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
 		<h3>
-			<?php use TEC\Events_Pro\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
-
-			echo $logo; ?>
-			<?php esc_html_e( 'Preview complete', 'the-events-calendar' ); ?>
+			<?php
+			include $template_directory . '/upgrade-logo.php';
+			?>
+			<?php echo esc_html( $text->get( 'preview-complete' ) ); ?>
 		</h3>
 
 		<p>
 			<?php
 			echo sprintf(
-				esc_html__( 'The migration preview is done and ready for your review. No changes have been made to your events, but this report shows what adjustments will be made during the migration to the new system. If you have any questions, please %1$sreach out to our support team%2$s.', 'the-events-calendar' ),
-				'<a href="https://evnt.is/2n" rel="noopener" target="_blank">',
-				'</a>'
+					esc_html( $text->get( 'preview-complete-paragraph' ) ),
+					'<a href="https://evnt.is/2n" rel="noopener" target="_blank">',
+					'</a>'
 			);
 			?>
 		</p>
 
 		<p class="tec-ct1-upgrade__alert">
 			<i class="tec-ct1-upgrade__alert-icon">!</i>
+			<span>
 			<?php
-			echo sprintf(
-				esc_html__( 'From this preview, we estimate that the full migration process will take approximately %3$s...%4$s hour(s). During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on your site.', 'the-events-calendar' ),
-				'<strong>',
-				'</strong>',
-				'<span data-migration="estimated_time_in_hours">',
-					'</span>'
-			);
+			if ( $report->has_errors ) {
+				echo esc_html( $text->get( 'migration-is-blocked' ) );
+			} else {
+				echo sprintf(
+						esc_html( $text->get( 'preview-estimate' ) ),
+						'<strong>',
+						'</strong>',
+						$report->estimated_time_in_minutes
+				);
 
-			if ( $addendum = tribe( \TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab::class )->get_migration_prompt_addendum() ) {
-				?>
-				<strong><?php echo esc_html( $addendum ); ?></strong>
-				<?php
+				if ( $addendum = $text->get( 'migration-prompt-plugin-state-addendum' ) ) {
+					?>
+					<strong><?php echo esc_html( $addendum ); ?></strong>
+					<?php
+				}
 			}
-
-			echo sprintf(
-				esc_html__( '%1$s%3$sLearn more about the migration%4$s.%2$s', 'the-events-calendar' ),
-				'<strong>',
-				'</strong>',
-				'<a href="https://evnt.is/recurrence-2-0" target="_blank" rel="noopener">',
-				'</a>'
-			);
 			?>
+			</span>
+			<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
+				<strong><?php echo esc_html( $text->get( 'learn-more-button' ) ); ?></strong>
+			</a>
 		</p>
 	</div>
 
 	<div class="image-container">
-		<img class="screenshot" src="<?php echo esc_url( plugins_url( 'src/resources/images/upgrade-views-screenshot.png', TRIBE_EVENTS_FILE ) ); ?>" alt="<?php esc_attr_e( 'screenshot of updated calendar views', 'the-events-calendar' ); ?>" />
+		<img class="screenshot"
+			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>
 
 <div class="tec-ct1-upgrade__row">
 	<?php
-	$datetime_heading = __( 'Previewed Date/Time:', 'the-events-calendar' );
-	$total_heading    = __( 'Total Events Previewed:', 'the-events-calendar' );
+	$datetime_heading = $text->get( 'previewed-date-heading' );
+	$total_heading    = $text->get( 'previewed-total-heading' );
 	ob_start();
 	?>
-		<em
-			title="<?php esc_attr_e( 'Re-run preview', 'the-events-calendar' ) ?>"
-		>
-			<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
-		</em>
-		<a href=""><?php esc_html_e( 'Re-run preview', 'the-events-calendar' ); ?></a>
+	<em title="<?php esc_attr( $text->get( 're-run-preview-button' ) ) ?>">
+		<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
+	</em>
+	<a class="tec-ct1-upgrade-start-migration-preview"
+	   href="#"><?php echo esc_html( $text->get( 're-run-preview-button' ) ); ?></a>
 	<?php
 	$heading_action = ob_get_clean();
 	include_once __DIR__ . '/report.php';
 	?>
 </div>
 
-<div class="tec-ct1-upgrade__row">
+<div class="tec-ct1-upgrade__row tec-ct1-action-container">
 	<div class="content-container">
-		<button type="button"><?php esc_html_e( 'Start migration', 'the-events-calendar' ); ?></button>
-		<i data-migration="estimated_time_in_hours_text">
-			...
+		<button class="tec-ct1-upgrade-start-migration"
+				<?php
+				if ( $report->has_errors ) { // @todo Do we want to block migration like this?
+					?>
+					disabled="disabled"
+				<?php } ?>
+				type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
+		<i>
+			<?php
+			if ( $report->estimated_time_in_minutes === 1 ) {
+				$message = esc_html( $text->get( 'estimated-time-singular' ) );
+			} else {
+				$message = esc_html( $text->get( 'estimated-time-plural' ) );
+			}
+
+			echo sprintf( $message, $report->estimated_time_in_minutes );
+			?>
 		</i>
 	</div>
 </div>
