@@ -172,11 +172,9 @@ class Process_Worker {
 			 * @param bool $dry_run     Whether the strategy should be provided for a real migration
 			 *                          or its preview.
 			 */
-			$strategy   = apply_filters( 'tec_events_custom_tables_v1_migration_strategy', null, $post_id, $dry_run );
-			$recurrence = get_post_meta( $post_id, '_EventRecurrence', true );
+			$strategy = apply_filters( 'tec_events_custom_tables_v1_migration_strategy', null, $post_id, $dry_run );
 
-			// Fallback to single event handler.
-			if ( ! $strategy instanceof Strategy_Interface && empty( $recurrence ) ) {
+			if ( ! $strategy instanceof Strategy_Interface ) {
 				$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
 			}
 
@@ -187,13 +185,8 @@ class Process_Worker {
 				$this->start_transaction();
 			}
 
-			// Did we find the appropriate strategy?
-			if ( $strategy ) {
-				// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
-				$strategy->apply( $this->event_report );
-			} else {
-				$this->event_report->migration_failed( "Unable to locate migration strategy." );
-			}
+			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
+			$strategy->apply( $this->event_report );
 
 			if ( $this->dry_run ) {
 				$this->rollback_transaction();
