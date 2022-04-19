@@ -12,10 +12,9 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
-use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
+use TEC\Events_Pro\Custom_Tables\V1\Traits\With_Event_Recurrence_Introspection;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -26,7 +25,7 @@ use Tribe__Events__Main as TEC;
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
 class Single_Event_Migration_Strategy implements Strategy_Interface {
-	use With_Database_Transactions;
+	use With_Event_Recurrence_Introspection;
 
 	/**
 	 * {@inheritDoc}
@@ -53,6 +52,13 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
 			throw new Migration_Exception( 'Post is not an Event.' );
 		}
+
+		$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
+
+		if ( ! empty( $recurrence_meta ) ) {
+			throw new Migration_Exception( 'Attempting to run Single Event strategy for recurring event. Is a strategy missing for this type of event?' );
+		}
+
 		$this->dry_run = $dry_run;
 	}
 
