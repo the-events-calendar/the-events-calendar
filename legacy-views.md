@@ -80,6 +80,7 @@
 * `Tribe__Events__Template__List`
 * `Tribe_Events_List_Template`
 * `Tribe__Events__Template__Month`
+  * [x] There are usages of this in Filter Bar
 * `Tribe_Events_Month_Template`
 * `Tribe__Template_Factory`
   * [ ] There are usages of this in Event Tickets
@@ -263,9 +264,12 @@
 * `Tribe__Events__Query::init`
 * `Tribe__Events__Query::parse_query`
   * [ ] `WP_Query->tribe_is_event`
+    * [ ] There are usages of this in Filter Bar
   * [ ] `WP_Query->tribe_is_multi_posttype`
   * [ ] `WP_Query->eventDisplay`
+    * [ ] There are usages of this in Filter Bar
   * [ ] `WP_Query->tribe_is_event_category`
+    * [ ] There are usages of this in Filter Bar
   * [ ] `WP_Query->tribe_is_event_venue`
   * [ ] `WP_Query->tribe_is_event_organizer`
   * [ ] `WP_Query->tribe_is_event_query`
@@ -305,39 +309,34 @@
   * [ ] Pro make use of this
 * `tribe_events_get_views`
   * [ ] Pro make use of this
+* `Tribe__Events__Template__Single_Event::setup_meta`
 * `Tribe__Events__Template_Factory::asset_package`
-* `Tribe__Events__Template_Factory::setup_meta`
 * `Tribe__Events__Template_Factory::get_asset_factory_instance`
 * `Tribe__Events__Template_Factory::handle_asset_package_request`
-* `Tribe__Events__Template_Factory::handle_asset_package_request`
-* `Tribe__Events__Template_Factory::handle_asset_package_request`
-* `Tribe__Events__Template_Factory::handle_asset_package_request`
-* `Tribe__Events__Template__Single_Event::setup_meta`
+* `Tribe__Events__Template_Factory::setup_meta`
 * `tribe_initialize_view`
 * `Tribe__Events__Templates::init`
-* `Tribe__Events__Templates::templateChooser`
 * `Tribe__Events__Templates::instantiate_template_class`
-* `Tribe__Events__Templates::maybeSpoofQuery`
-* `Tribe__Events__Templates::maybe_modify_global_post_title`
-* `Tribe__Events__Templates::modify_global_post_title`
-* `Tribe__Events__Templates::restore_global_post_title`
-* `Tribe__Events__Templates::spoof_the_post`
-* `Tribe__Events__Templates::setup_ecp_template`
 * `Tribe__Events__Templates::load_ecp_comments_page_template`
 * `Tribe__Events__Templates::load_ecp_into_page_template`
+* `Tribe__Events__Templates::maybe_modify_global_post_title`
+* `Tribe__Events__Templates::maybeSpoofQuery`
+* `Tribe__Events__Templates::modify_global_post_title`
+* `Tribe__Events__Templates::restore_global_post_title`
 * `Tribe__Events__Templates::setup_ecp_template`
-* `Tribe__Events__Templates::spoof_the_post`
 * `Tribe__Events__Templates::showInLoops`
+* `Tribe__Events__Templates::spoof_the_post`
+* `Tribe__Events__Templates::templateChooser`
 * `Tribe__Events__Templates::theme_body_class`
   * [ ] Community Events uses this method
-* `Tribe__Events__Templates::needs_compatibility_fix`
-* `Tribe__Events__Templates::wpHeadFinished`
-* `Tribe__Events__Templates::remove_singular_body_class`
 * `Tribe__Events__Templates::add_singular_body_class`
-* `Tribe__Events__Templates::template_body_class`
 * `Tribe__Events__Templates::get_current_page_template`
+* `Tribe__Events__Templates::needs_compatibility_fix`
+* `Tribe__Events__Templates::remove_singular_body_class`
 * `Tribe__Events__Templates::restoreQuery`
 * `Tribe__Events__Templates::spoof_the_post`
+* `Tribe__Events__Templates::template_body_class`
+* `Tribe__Events__Templates::wpHeadFinished`
 * `event_grid_view`
 * `get_event_google_map_link`
 * `event_google_map_link`
@@ -509,4 +508,3 @@
 * `tribe_events_list_widget_after_the_event_title`
 * `tribe_events_list_widget_before_the_meta`
 * `tribe_events_list_widget_after_the_meta`
-
