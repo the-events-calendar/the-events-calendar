@@ -158,8 +158,10 @@ class Events {
 			"SELECT COUNT(DISTINCT `ID`)
 			FROM {$wpdb->posts} p
 			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-			WHERE p.post_type = %s",
+			LEFT JOIN {$wpdb->postmeta} pm_s on pm_s.post_id = p.ID AND pm_s.meta_key = %s
+			WHERE pm_s.meta_id is null AND p.post_type = %s", 
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
+			Event_Report::META_KEY_MIGRATION_PHASE,
 			TEC::POSTTYPE
 		);
 		$in_progress             = (int) $wpdb->get_var( $total_in_progress_query );
