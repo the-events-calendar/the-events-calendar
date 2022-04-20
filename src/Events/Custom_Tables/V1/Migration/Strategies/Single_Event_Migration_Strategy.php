@@ -72,7 +72,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 			throw new Migration_Exception( 'Event model could not be upserted. Could have failed locating required data for insertion.' );
 		}
 
-		if ( $this->dry_run && $upserted === 0 && ! $this->transactions_supported() ) {
+		if ( $this->dry_run && $upserted === 0 ) {
 			// Transactions are not supported, it did not explode: enough preview.
 			return $event_report->add_strategy( self::get_slug() )
 			                    ->migration_success();
