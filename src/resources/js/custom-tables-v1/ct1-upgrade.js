@@ -268,10 +268,14 @@ export const handleStartMigrationWithPreview = (e) => {
  */
 export const handleStartMigration = (e) => {
 	e.preventDefault();
-	e.target.setAttribute('disabled', 'disabled');
-	e.target.removeEventListener('click', handleStartMigration);
-	startMigration(false);
-
+	const message = tecCt1Upgrade.text_dictionary.migration_in_progress_paragraph + ' '
+		+ tecCt1Upgrade.text_dictionary.migration_prompt_plugin_state_addendum;
+	// @todo Move these confirm boxes to the preferred TEC dialog library.
+	if (confirm(message)) {
+		e.target.setAttribute('disabled', 'disabled');
+		e.target.removeEventListener('click', handleStartMigration);
+		startMigration(false);
+	}
 }
 
 /**
