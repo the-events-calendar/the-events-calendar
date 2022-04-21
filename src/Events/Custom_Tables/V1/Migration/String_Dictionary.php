@@ -83,7 +83,7 @@ class String_Dictionary {
 		 */
 		$this->map = apply_filters( 'tec_events_custom_tables_v1_migration_strings', [
 			'confirm_cancel_migration'                            => __(
-				// @todo We need to update the copy and UI, likely with more translations
+			// @todo We need to update the copy and UI, likely with more translations
 				"Are you sure you want to revert the migration?",
 				'the-events-calendar'
 			),
@@ -275,6 +275,22 @@ class String_Dictionary {
 			'migration-progress-bar-events-remaining'             => _x(
 				'%1$s%2$d%3$s remaining',
 				'Number of events awaiting migration',
+				'the-events-calendar'
+			),
+			'migration-error-k-canceled'                          => __(
+				'Canceled.',
+				'the-events-calendar'
+			),
+			'migration-error-k-exit'                              => __(
+				'The "die" or "exit" function was called during the migration process; output: %s',
+				'the-events-calendar'
+			),
+			'migration-error-k-exception'                         => __(
+				'Fatal error: %s',
+				'the-events-calendar'
+			),
+			'migration-error-k-enqueue-failed'                    => __(
+				'Cannot enqueue action to migrate Event with post ID %s',
 				'the-events-calendar'
 			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),

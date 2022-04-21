@@ -153,7 +153,7 @@ class Process_Worker {
 				State::PHASE_PREVIEW_IN_PROGRESS,
 				State::PHASE_MIGRATION_IN_PROGRESS
 			], true ) ) {
-				$this->event_report->migration_failed( 'Canceled.' );
+				$this->event_report->migration_failed( 'canceled' );
 				$this->migration_completed = true;
 
 				return $this->event_report;
@@ -197,6 +197,7 @@ class Process_Worker {
 				 */
 				clean_post_cache( $post_id );
 
+				// @todo Fix this - it is not working. Maybe change to throw errors that occurr in the worker?
 				if ( $this->event_report->error ) {
 					$this->event_report->migration_failed( $this->event_report->error );
 				} else {
@@ -215,14 +216,14 @@ class Process_Worker {
 			if ( $this->dry_run ) {
 				$this->rollback_transaction();
 			}
-			$this->event_report->migration_failed( $e->getMessage() );
+			$this->event_report->migration_failed( 'exception', [ $e->getMessage() ] );
 		} catch ( \Exception $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
 				$this->rollback_transaction();
 			}
 
-			$this->event_report->migration_failed( $e->getMessage() );
+			$this->event_report->migration_failed( 'exception', [ $e->getMessage() ] );
 		}
 
 		$this->migration_completed = true;
@@ -244,7 +245,7 @@ class Process_Worker {
 
 			if ( empty( $action_id ) ) {
 				// If we cannot migrate the next Event we need to migrate, then the migration has failed.
-				$this->event_report->migration_failed( "Cannot enqueue action to migrate Event with post ID $next_post_id." );
+				$this->event_report->migration_failed( "enqueue-failed", [ $next_post_id ] );
 			}
 		} else if ( ! $this->check_phase() ) {
 			// Start a recursive check, but only if we are not already doing so.
@@ -453,9 +454,7 @@ class Process_Worker {
 		$trimmed_buffer = substr( $buffer, 0, 1024 );
 
 		// If we're here, some code called `die` or `exit`.
-		$this->event_report->migration_failed(
-			'The "die" or "exit" function was called during the migration process; output: ' . $trimmed_buffer
-		);
+		$this->event_report->migration_failed( 'exit', [ $trimmed_buffer ] );
 
 		/*
 		 * This method might be the last executing before a hard `die` or `exit` call, let's check the phase.

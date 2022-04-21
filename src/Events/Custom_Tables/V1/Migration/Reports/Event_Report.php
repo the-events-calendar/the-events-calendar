@@ -9,6 +9,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use WP_Post;
 use JsonSerializable;
 
@@ -420,18 +421,25 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $reason A human-readable description of why the migration failed.
+	 * @param string $reason_key A reason key that is translated into the human-readable description of why the migration failed.
+	 * @param array  $context    Context args that can be applied to the error message.
 	 *
 	 * @return Event_Report A reference to the Event Report object for the specific
 	 *                      that is being processed.
 	 */
-	public function migration_failed( $reason ) {
+	public function migration_failed( $reason_key, array $context = array() ) {
 		// Track time immediately
 		$this->set_end_timestamp();
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
- 
-		return $this->set_error( $reason )
+
+		// Parse message here, so we don't need to store the context.
+		$text    = tribe( String_Dictionary::class );
+		$message = $text->get( "migration-error-k-$reason_key" );
+		array_unshift( $context, $message );
+		$message = call_user_func_array( 'sprintf', $context );
+
+		return $this->set_error( $message )
 		            ->set_status( self::STATUS_FAILURE )
 		            ->save();
 	}
