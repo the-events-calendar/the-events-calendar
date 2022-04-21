@@ -299,7 +299,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 
 		$event = tribe_events()->set_args( $args )->create();
 
-		$this->assertEquals( 1, get_post_meta( $event->ID, '_EventHideFromUpcoming', true ) );
+		$this->assertEquals( 'yes', get_post_meta( $event->ID, '_EventHideFromUpcoming', true ) );
 	}
 
 	/**
