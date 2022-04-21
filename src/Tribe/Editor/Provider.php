@@ -16,7 +16,7 @@ class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
 
 		tribe( 'events.editor' )->hook();
 
-		if ( ! tec_is_full_site_editor() && ! tribe( 'editor' )->should_load_blocks() ) {
+		if ( ! tribe( 'editor' )->should_load_blocks() ||! tec_is_full_site_editor() ) {
 			return;
 		}
 
