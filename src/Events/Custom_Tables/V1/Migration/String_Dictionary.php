@@ -286,11 +286,19 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-error-k-exception'                         => __(
-				'Fatal error: %s',
+				'Error: %s',
 				'the-events-calendar'
 			),
 			'migration-error-k-enqueue-failed'                    => __(
 				'Cannot enqueue action to migrate Event with post ID %s',
+				'the-events-calendar'
+			),
+			'migration-error-k-check-phase-enqueue-failed'        => __(
+				'Cannot enqueue action to check migration status.',
+				'the-events-calendar'
+			),
+			'migration-error-k-unknown-shutdown'                  => __(
+				'Unknown error occurred, shutting down.',
 				'the-events-calendar'
 			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),

@@ -197,12 +197,7 @@ class Process_Worker {
 				 */
 				clean_post_cache( $post_id );
 
-				// @todo Fix this - it is not working. Maybe change to throw errors that occurr in the worker?
-				if ( $this->event_report->error ) {
-					$this->event_report->migration_failed( $this->event_report->error );
-				} else {
-					$this->event_report->migration_success();
-				}
+				$this->event_report->migration_success();
 			} else {
 				$this->transaction_commit();
 			}
@@ -253,7 +248,7 @@ class Process_Worker {
 				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
 				if ( empty( $action_id ) ) {
 					// The migration might have technically completed, but we cannot know for sure and will be conservative.
-					$this->event_report->migration_failed( "Cannot enqueue action to check migration status." );
+					$this->event_report->migration_failed( "check-phase-enqueue-failed" );
 				}
 			}
 		}
@@ -372,7 +367,7 @@ class Process_Worker {
 			$this->transaction_rollback();
 		}
 		// If we're here, the migration failed.
-		$this->event_report->migration_failed( 'Unknown error occurred, shutting down.' );
+		$this->event_report->migration_failed( "unknown-shutdown" );
 	}
 
 	/**
