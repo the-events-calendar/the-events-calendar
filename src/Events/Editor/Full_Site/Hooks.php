@@ -83,6 +83,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * If we're using a FSE theme, we always use the full styling.
 	 *
 	 * @since TBD
+	 
 	 *
 	 * @param string  $value The value of the option.
 	 * @return string $value The original value, or an empty string if FSE is active.
