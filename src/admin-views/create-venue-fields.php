@@ -196,7 +196,7 @@ if ( ! $_POST && is_admin() ) {
 	<td>
 		<input
 			tabindex="<?php tribe_events_tab_index(); ?>"
-			type='text'
+			type='url'
 			id='EventWebsite'
 			name='venue[URL][]'
 			size='14'
