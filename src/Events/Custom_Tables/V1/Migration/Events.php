@@ -113,7 +113,7 @@ class Events {
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
-				WHERE p.post_type = %s
+				WHERE p.post_type = %s AND p.post_parent = 0
 				ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID",
 				Event_Report::META_KEY_REPORT_DATA,
 				Event_Report::META_KEY_ORDER_WEIGHT,
@@ -131,7 +131,7 @@ class Events {
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
-				WHERE p.post_type = %s
+				WHERE p.post_type = %s AND p.post_parent = 0
 				ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID
 				LIMIT %d, %d",
 				Event_Report::META_KEY_REPORT_DATA,
@@ -159,7 +159,7 @@ class Events {
 			FROM {$wpdb->posts} p
 			INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 			LEFT JOIN {$wpdb->postmeta} pm_s on pm_s.post_id = p.ID AND pm_s.meta_key = %s
-			WHERE pm_s.meta_id is null AND p.post_type = %s", 
+			WHERE pm_s.meta_id is null AND p.post_type = %s AND p.post_parent = 0",
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 			Event_Report::META_KEY_MIGRATION_PHASE,
 			TEC::POSTTYPE
