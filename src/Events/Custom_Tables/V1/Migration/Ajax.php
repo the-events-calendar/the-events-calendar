@@ -53,7 +53,7 @@ class Ajax {
 	 * The full name of the action that will be fired following a request from
 	 * the migration UI to undo the migration.
 	 */
-	const ACTION_UNDO = 'wp_ajax_tec_events_custom_tables_v1_migration_undo';
+	const ACTION_REVERT = 'wp_ajax_tec_events_custom_tables_v1_migration_undo';
 
 	/**
 	 * The name of the action that will be used to create the nonce used by
@@ -185,9 +185,10 @@ class Ajax {
 				);
 				$renderer->should_poll( false );
 				break;
-			case State::PHASE_UNDO_IN_PROGRESS:
+			case State::PHASE_CANCEL_IN_PROGRESS:
+			case State::PHASE_REVERT_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase,
-					"/phase/$phase.php",
+					"/phase/undo-in-progress.php",
 					[
 						'state'  => tribe( State::class ),
 						'report' => $site_report,
@@ -280,7 +281,7 @@ class Ajax {
 			'source'       => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 		] );
 		// A cancel action is identical to an undo.
-		$this->process->undo();
+		$this->process->cancel();
 		$response = $this->get_report();
 		if ( $echo ) {
 			wp_send_json( $response );
@@ -300,13 +301,13 @@ class Ajax {
 	 *
 	 * @return void|string The JSON-encoded data for the front-end.
 	 */
-	public function undo_migration( $echo = true ) {
+	public function revert_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
 		// Log our start
 		do_action( 'tribe_log', 'debug', 'Ajax: Undo migration', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 		] );
-		$this->process->undo();
+		$this->process->revert();
 		$response = $this->get_report();
 		if ( $echo ) {
 			wp_send_json( $response );

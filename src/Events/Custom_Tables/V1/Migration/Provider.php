@@ -68,7 +68,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
-		add_action( Ajax::ACTION_UNDO, [ $this, 'undo_migration' ] );
+		add_action( Ajax::ACTION_REVERT, [ $this, 'revert_migration' ] );
 		add_action( 'action_scheduler_bulk_cancel_actions', [ $this, 'cancel_async_actions' ]  );
 		add_action( 'action_scheduler_canceled_action', [ $this, 'cancel_async_action' ]  );
 
@@ -226,8 +226,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              of echoing a JSON format string back for the Migration UI JS component
 	 *              to consume.
 	 */
-	public function undo_migration() {
-		$this->container->make( Ajax::class )->undo_migration();
+	public function revert_migration() {
+		$this->container->make( Ajax::class )->revert_migration();
 	}
 
 	/**

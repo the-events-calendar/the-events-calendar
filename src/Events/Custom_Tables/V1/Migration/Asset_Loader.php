@@ -78,7 +78,7 @@ class Asset_Loader {
 					'getReport'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
 					'startMigration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
 					'cancelMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
-					'undoMigration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_UNDO ),
+					'revertMigration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_REVERT ),
 				],
 				'forcePolling'    => $on_progress_modal_page
 			]

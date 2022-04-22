@@ -215,12 +215,20 @@ class String_Dictionary {
 				'Reverse migration',
 				'the-events-calendar'
 			),
+			'cancel-migration-in-progress'                        => __(
+				'Cancellation in progress',
+				'the-events-calendar'
+			),
+			'cancel-migration-in-progress-paragraph'              => __(
+				'We are canceling your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
+				'the-events-calendar'
+			),
 			'reverse-migration-in-progress'                       => __(
 				'Reverse migration in progress',
 				'the-events-calendar'
 			),
 			'reverse-migration-in-progress-paragraph'             => __(
-				'We are reversing your site\'s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
+				'We are reversing your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
 			'migration-prompt-changes-to-events'                  => __(

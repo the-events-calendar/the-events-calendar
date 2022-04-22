@@ -236,7 +236,7 @@ export const handleCancelMigration = (e) => {
 
 		// Stop our render check momentarily.
 		// We will have a new state immediately after our cancel migration finishes.
-		undoMigration();
+		undoMigration(tecCt1Upgrade.actions.cancelMigration);
 	}
 }
 
@@ -255,19 +255,19 @@ export const handleRevertMigration = (e) => {
 
 		// Stop our render check momentarily.
 		// We will have a new state immediately after our cancel migration finishes.
-		undoMigration();
+		undoMigration(tecCt1Upgrade.actions.revertMigration);
 	}
 }
 
 /**
  * Handles the AJAX call to cancel/revert.
  */
-export const undoMigration = () => {
+export const undoMigration = (action) => {
 	cancelReportPoll();
 	ajaxGet(
 		tecCt1Upgrade.ajaxUrl,
 		{
-			action: tecCt1Upgrade.actions.cancelMigration,
+			action: action,
 			_ajax_nonce: tecCt1Upgrade.nonce,
 		},
 		(response) => {

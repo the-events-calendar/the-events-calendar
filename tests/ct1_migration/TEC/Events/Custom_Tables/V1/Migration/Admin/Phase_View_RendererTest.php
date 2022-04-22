@@ -187,18 +187,42 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
-	 * Should render HTML from Undo In Progress templates.
+	 * Should render HTML from Cancel In Progress templates.
 	 *
 	 * @test
 	 */
-	public function should_render_undo_in_progress_ok() {
+	public function should_render_cancel_in_progress_ok() {
 		// Setup templates.
-		$phase = State::PHASE_UNDO_IN_PROGRESS;
+		$phase = State::PHASE_CANCEL_IN_PROGRESS;
 		$state = tribe( State::class );
 		$text  = tribe( String_Dictionary::class );
 
 		$renderer = new Phase_View_Renderer( $phase,
-			"/phase/$phase.php",
+			"/phase/undo-in-progress.php",
+			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'cancel-migration-in-progress' ), $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Revert In Progress templates.
+	 *
+	 * @test
+	 */
+	public function should_render_revert_in_progress_ok() {
+		// Setup templates.
+		$phase = State::PHASE_REVERT_IN_PROGRESS;
+		$state = tribe( State::class );
+		$text  = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/phase/undo-in-progress.php",
 			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
 		);
 

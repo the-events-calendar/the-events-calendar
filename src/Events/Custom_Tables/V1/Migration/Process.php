@@ -98,15 +98,15 @@ class Process {
 	}
 
 	/**
-	 * Starts the migration undoing process.
+	 * Starts the cancel migration process.
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean False if undo already started.
+	 * @return boolean False if undo blocked.
 	 */
-	public function undo() {
+	public function cancel() {
 		// Check if we are already doing this action?
-		if ( $this->state->get_phase() === State::PHASE_UNDO_IN_PROGRESS ) {
+		if ( $this->state->get_phase() === State::PHASE_CANCEL_IN_PROGRESS ) {
 			return false;
 		}
 		// Check if we are allowed.
@@ -115,10 +115,51 @@ class Process {
 		}
 
 		// Flag our new phase.
-		$this->state->set( 'phase', State::PHASE_UNDO_IN_PROGRESS );
+		$this->state->set( 'phase', State::PHASE_CANCEL_IN_PROGRESS );
 		$this->state->set( 'locked_by_undo', true );
 		$this->state->save();
 
+		// Ensure Action Scheduler tables are there.
+		$this->undo();
+
+		return true;
+	}
+
+	/**
+	 * Starts the revert migration process.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean False if undo blocked.
+	 */
+	public function revert() {
+		// Check if we are already doing this action?
+		if ( $this->state->get_phase() === State::PHASE_REVERT_IN_PROGRESS ) {
+			return false;
+		}
+		// Check if we are allowed.
+		if ( ! $this->state->should_allow_reverse_migration() ) {
+			return false;
+		}
+
+		// Flag our new phase.
+		$this->state->set( 'phase', State::PHASE_REVERT_IN_PROGRESS );
+		$this->state->set( 'locked_by_undo', true );
+		$this->state->save();
+
+		// Ensure Action Scheduler tables are there.
+		$this->undo();
+
+		return true;
+	}
+
+	/**
+	 * Starts the migration undoing process.
+	 *
+	 * @since TBD
+	 *
+	 */
+	protected function undo() {
 		// Ensure Action Scheduler tables are there.
 		ActionScheduler::store()->init();
 
@@ -130,8 +171,6 @@ class Process {
 
 		// Now queue our undo loop.
 		as_enqueue_async_action( Process_Worker::ACTION_UNDO );
-
-		return true;
 	}
 
 	/**

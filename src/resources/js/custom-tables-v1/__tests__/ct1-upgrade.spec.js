@@ -68,7 +68,7 @@ describe('CT1 Upgrade UI', () => {
 			getReport: 'get_report',
 			startMigration: 'start_migration',
 			cancelMigration: 'cancel_migration',
-			undoMigration: 'undo_migration',
+			revertMigration: 'revert_migration',
 		},
 	};
 

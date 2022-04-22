@@ -75,13 +75,22 @@ class State {
 	const PHASE_MIGRATION_COMPLETE = 'migration-complete';
 
 	/**
-	 * Indicates the migration is in progress.
+	 * Indicates a cancel migration is in progress.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	const PHASE_UNDO_IN_PROGRESS = 'undo-in-progress';
+	const PHASE_CANCEL_IN_PROGRESS = 'cancel-in-progress';
+
+	/**
+	 * Indicates a revert migration is in progress.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const PHASE_REVERT_IN_PROGRESS = 'revert-in-progress';
 
 	/**
 	 * The key used in the calendar options to store the current state.
@@ -209,7 +218,8 @@ class State {
 		$states = [
 			self::PHASE_MIGRATION_IN_PROGRESS,
 			self::PHASE_PREVIEW_IN_PROGRESS,
-			self::PHASE_UNDO_IN_PROGRESS,
+			self::PHASE_CANCEL_IN_PROGRESS,
+			self::PHASE_REVERT_IN_PROGRESS,
 		];
 
 		return in_array( $this->get_phase(), $states, true );
@@ -225,7 +235,8 @@ class State {
 	public function should_lock_for_maintenance() {
 		$states = [
 			self::PHASE_MIGRATION_IN_PROGRESS,
-			self::PHASE_UNDO_IN_PROGRESS,
+			self::PHASE_CANCEL_IN_PROGRESS,
+			self::PHASE_REVERT_IN_PROGRESS,
 		];
 
 		return in_array( $this->get_phase(), $states, true );
