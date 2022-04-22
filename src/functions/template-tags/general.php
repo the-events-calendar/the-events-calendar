@@ -566,6 +566,55 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Event Tags (Display)
+	 *
+	 * Display the event tags
+	 *
+	 * @category Events
+	 * @param null|string $label
+	 * @param string      $separator
+	 * @param bool        $echo
+	 *
+	 * @return array
+	 * @uses the_terms()
+	 */
+	 //todo clean this up and move part to the class?
+	function tribe_meta_event_archive_tags( $label = null, $separator = ', ', $echo = true ) {
+		if ( ! $label ) {
+			$label = esc_html__( 'Tags:', 'the-events-calendar' );
+		}
+
+		$terms = get_the_terms( get_the_ID(), 'post_tag' );
+
+		if ( is_wp_error( $terms ) ) {
+			return $terms;
+		}
+
+		if ( empty( $terms ) ) {
+			return false;
+		}
+
+		$term_links = [];
+
+		foreach ( $terms as $term ) {
+			$link = tribe_events_get_url( [ 'tag' => $term->slug, 'post_type' => 'tribe_events', 'eventDisplay' => 'default' ] );
+			if ( is_wp_error( $link ) ) {
+				return $link;
+			}
+			$term_links[] = '<a href="' . esc_url( $link ) . '" rel="tag">' . $term->name . '</a>';
+		}
+		$before = '<dt class="tribe-event-tags-label">' . $label . '</dt><dd class="tribe-event-tags">';
+		$after = '</dd>';
+		$list = $before . implode( $separator, $term_links ) . $after;
+
+		if ( $echo ) {
+			echo $list;
+		} else {
+			return $list;
+		}
+	}
+
+	/**
 	 * Event Post Meta
 	 *
 	 * Get event post meta.

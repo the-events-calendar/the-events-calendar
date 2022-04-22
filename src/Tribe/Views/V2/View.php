@@ -784,7 +784,7 @@ class View implements View_Interface {
 			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 			TEC::TAXONOMY      => $category,
-			'post_tag'      => $tag,
+			'tag'              => $tag,
 		];
 
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
