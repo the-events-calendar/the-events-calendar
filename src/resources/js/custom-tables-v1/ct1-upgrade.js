@@ -12,6 +12,7 @@ export const selectors = {
 	startPreviewButton: '.tec-ct1-upgrade-start-migration-preview',
 	startMigrationButton: '.tec-ct1-upgrade-start-migration',
 	cancelMigrationButton: '.tec-ct1-upgrade-cancel-migration',
+	revertMigrationButton: '.tec-ct1-upgrade-revert-migration',
 };
 
 /**
@@ -207,10 +208,16 @@ export const bindNodes = (key) => {
 		element.addEventListener('click', handleStartMigration);
 	}
 
-	// Revert migration button.
+	// Cancel migration button.
 	element = document.querySelector(selectors.cancelMigrationButton);
 	if (element) {
 		element.addEventListener('click', handleCancelMigration);
+	}
+
+	// Revert migration button.
+	element = document.querySelector(selectors.revertMigrationButton);
+	if (element) {
+		element.addEventListener('click', handleRevertMigration);
 	}
 }
 
@@ -229,20 +236,46 @@ export const handleCancelMigration = (e) => {
 
 		// Stop our render check momentarily.
 		// We will have a new state immediately after our cancel migration finishes.
-		cancelReportPoll();
-		ajaxGet(
-			tecCt1Upgrade.ajaxUrl,
-			{
-				action: tecCt1Upgrade.actions.cancelMigration,
-				_ajax_nonce: tecCt1Upgrade.nonce,
-			},
-			(response) => {
-				// Sync + Restart polling, now we will have a new view.
-				handleReportData(response);
-				pollForReport();
-			}
-		);
+		undoMigration();
 	}
+}
+
+/**
+ * Handle the revert migration action.
+ *
+ * @since TBD
+ *
+ * @param {Event} e
+ */
+export const handleRevertMigration = (e) => {
+	e.preventDefault();
+	if (confirm(tecCt1Upgrade.text_dictionary.confirm_revert_migration)) {
+		e.target.setAttribute('disabled', 'disabled');
+		e.target.removeEventListener('click', handleRevertMigration);
+
+		// Stop our render check momentarily.
+		// We will have a new state immediately after our cancel migration finishes.
+		undoMigration();
+	}
+}
+
+/**
+ * Handles the AJAX call to cancel/revert.
+ */
+export const undoMigration = () => {
+	cancelReportPoll();
+	ajaxGet(
+		tecCt1Upgrade.ajaxUrl,
+		{
+			action: tecCt1Upgrade.actions.cancelMigration,
+			_ajax_nonce: tecCt1Upgrade.nonce,
+		},
+		(response) => {
+			// Sync + Restart polling, now we will have a new view.
+			handleReportData(response);
+			pollForReport();
+		}
+	);
 }
 
 /**

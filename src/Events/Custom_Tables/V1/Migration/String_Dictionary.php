@@ -83,8 +83,18 @@ class String_Dictionary {
 		 */
 		$this->map = apply_filters( 'tec_events_custom_tables_v1_migration_strings', [
 			'confirm_cancel_migration'                            => __(
-			// @todo We need to update the copy and UI, likely with more translations
-				"Are you sure you want to revert the migration?",
+				"To safely cancel the migration, we need to reverse the process on any data that has already been modified. Your site will remain in maintenance mode until we have safely reversed the process.",
+				'the-events-calendar'
+			),
+			'confirm_revert_migration'                            => __(
+			// @todo We need to update the UI
+				"Are you sure you want to reverse the recurring event system migration process?
+
+- You will no longer be able to use the new recurring event and Series features.
+- All event edits you have made since migration will be lost.
+- As with migration, you will not be able to edit events or calendar options during this process and some frontend actions will be paused.
+- Reverse migration should take less time than the original migration, but there is no time estimate available.
+",
 				'the-events-calendar'
 			),
 			'completed-screenshot-url'                            => plugins_url(

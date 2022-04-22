@@ -44,7 +44,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 		ob_start();
 		?>
 		<a href="#"
-		   class="tec-ct1-upgrade-cancel-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'reverse-migration-button' ) ); ?></a>
+		   class="tec-ct1-upgrade-revert-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'reverse-migration-button' ) ); ?></a>
 		<?php
 		$heading_action = ob_get_clean();
 	}

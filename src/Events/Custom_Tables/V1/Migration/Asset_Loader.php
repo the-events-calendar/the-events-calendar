@@ -66,6 +66,7 @@ class Asset_Loader {
 				'pollInterval'    => 5000,
 				'text_dictionary' => [
 					'confirm_cancel_migration'               => $text->get( 'confirm_cancel_migration' ),
+					'confirm_revert_migration'               => $text->get( 'confirm_revert_migration' ),
 					'migration_prompt_plugin_state_addendum' => $text->get( 'migration-prompt-plugin-state-addendum' ),
 					'migration_in_progress_paragraph'        => sprintf(
 						$text->get( 'migration-in-progress-paragraph' ),
