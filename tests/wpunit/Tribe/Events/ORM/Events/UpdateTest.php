@@ -18,7 +18,7 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'       => [ 'end_date', '_EventEndDate', '2018-10-31 11:00:00' ],
 			'end_date_utc'   => [ 'end_date_utc', '_EventEndDateUTC', '2018-10-31 11:00:00' ],
 			'duration'       => [ 'duration', '_EventDuration', '14400' ],
-			'all_day'        => [ 'all_day', '_EventAllDay', 1 ],
+			'all_day'        => [ 'all_day', '_EventAllDay', 'yes' ],
 			'timezone'       => [ 'timezone', '_EventTimezone', 'Europe/Paris' ],
 		];
 	}
