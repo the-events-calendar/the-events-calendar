@@ -14,6 +14,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
+use Tribe__Admin__Notices;
 
 /**
  * Class Process_Worker. Handles the migration and undo operations.
@@ -323,6 +324,23 @@ class Process_Worker {
 		foreach ( $meta_keys as $meta_key ) {
 			delete_metadata( 'post', 0, $meta_key, '', true );
 		}
+
+		// Setup success admin notice.
+		// @todo Is this the best way to do this...?
+		$is_cancel = $this->state->get_phase() === State::PHASE_CANCEL_IN_PROGRESS;
+		$text      = tribe( String_Dictionary::class );
+		$notice    = $text->get( $is_cancel ? 'cancel-migration-complete-notice' : 'revert-migration-complete-notice' );
+
+		Tribe__Admin__Notices::instance()->register_transient(
+			'admin_notice_undo_migration_complete',
+			"<p>$notice</p>",
+			[
+				'type'      => 'success',
+				'dismiss'   => true,
+				'recurring' => true,
+			],
+			MONTH_IN_SECONDS
+		);
 
 		$this->state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
 		$this->state->save();

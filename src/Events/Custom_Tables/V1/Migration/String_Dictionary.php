@@ -223,6 +223,14 @@ class String_Dictionary {
 				'We are canceling your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
+			'cancel-migration-complete-notice'                    => __(
+				'Cancellation complete.',
+				'the-events-calendar'
+			),
+			'revert-migration-complete-notice'                    => __(
+				'Reverse migration complete.',
+				'the-events-calendar'
+			),
 			'reverse-migration-in-progress'                       => __(
 				'Reverse migration in progress',
 				'the-events-calendar'
