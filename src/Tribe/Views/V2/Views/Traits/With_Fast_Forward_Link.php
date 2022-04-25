@@ -45,14 +45,10 @@ trait With_Fast_Forward_Link {
 		}
 
 		$next_event = tribe_events()->where( 'starts_after', $date );
-		$tax = $this->context->get( 'taxonomy' );
 
-		// This only handles event category for now.
-		if ( ! empty( $tax ) && Tribe__Events__Main::TAXONOMY == $tax ) {
-			$cat = $this->context->get( $tax );
-			if ( ! empty( $cat ) ) {
-				$next_event = $next_event->where( 'category', (array) $cat );
-			}
+		$event_cat = isset( $this->repository_args[ Tribe__Events__Main::TAXONOMY ] ) ? $this->repository_args[ Tribe__Events__Main::TAXONOMY ] : null;
+		if ( ! empty( $event_cat ) ) {
+			$next_event = $next_event->where( 'category', (array) $event_cat );
 		}
 
 		/**
