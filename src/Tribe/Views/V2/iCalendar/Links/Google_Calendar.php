@@ -226,7 +226,11 @@ class Google_Calendar extends Link_Abstract {
 		}
 
 		// Append the "read more" link.
-		$event_details .= sprintf( esc_html__( ' (View Full %1$s Description Here: %2$s)', 'the-events-calendar' ), $this->singular_event_label, $event_url );
+		$event_details .= sprintf(
+			esc_html_x( ' (View Full %1$s Description Here: %2$s)', 'Link to full description. %1$s: pre=translated event term. %2$s: event url.', 'the-events-calendar' ),
+			tribe_get_event_label_singular_lowercase(),
+			$event_url
+		);
 
 		return $event_details;
 	}
