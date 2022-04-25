@@ -41,19 +41,25 @@ trait With_Fast_Forward_Link {
 		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
 
 		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			//return $this->cached_urls[ $cache_key ];
+			return $this->cached_urls[ $cache_key ];
 		}
 
 		$next_event = tribe_events()->where( 'starts_after', $date );
-		$tax = $this->context->get( 'taxonomy' );
 
-		// This only handles event category for now.
-		if ( ! empty( $tax ) && Tribe__Events__Main::TAXONOMY == $tax ) {
-			$cat = $this->context->get( $tax );
-			if ( ! empty( $cat ) ) {
-				$next_event = $next_event->where( 'category', (array) $cat );
-			}
+		$event_cat = isset( $this->repository_args[ Tribe__Events__Main::TAXONOMY ] ) ? $this->repository_args[ Tribe__Events__Main::TAXONOMY ] : null;
+		if ( ! empty( $event_cat ) ) {
+			$next_event = $next_event->where( 'category', (array) $event_cat );
 		}
+
+		/**
+		 * Allows other plugins to modify the events repository for the fast-forward link.
+		 *
+		 * @since TBD
+		 *
+		 * @param Tribe__Repository__Interface $next_event Current instance of the events repository class.
+		 * @param View_Interface               $view       The View currently rendering.
+		 */
+		$next_event = apply_filters( 'tribe_events_views_v2_ff_link_next_event', $next_event, $this );
 
 		$next_event = $next_event->first();
 
@@ -103,7 +109,6 @@ trait With_Fast_Forward_Link {
 			$filters     = \array_values( $filters );
 			$use_ff_link = empty( $filters );
 		}
-
 
 		/**
 		 * Filters whether the fast-forward link should be used in Views or not whenever possible.
