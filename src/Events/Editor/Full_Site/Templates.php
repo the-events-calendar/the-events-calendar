@@ -22,7 +22,7 @@ class Templates {
 	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @var string The archive slug.
 	 */
 	public static $archive_slug = 'archive-' . Tribe__Events__Main::POSTTYPE;
 

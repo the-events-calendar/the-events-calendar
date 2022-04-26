@@ -8,7 +8,7 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return string The name/slug of this block.
 	 */
 	public function slug() {
 		return 'archive-events';

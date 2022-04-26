@@ -93,7 +93,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @return boolean
+	 * @return boolean Whether The current theme supports full-site editing or not.
 	 */
 	public function is_full_site_editor() {
 		return tec_is_full_site_editor();
