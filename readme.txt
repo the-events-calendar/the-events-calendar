@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
 Stable tag: 5.14.2
-Tested up to: 5.9.2
+Tested up to: 5.9.3
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.14.2] TBD =
+= [5.14.2] 2022-04-27 =
 
 * Feature - Add support to CSV import for the ISO Currency Code field. [TEC-4341]
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
