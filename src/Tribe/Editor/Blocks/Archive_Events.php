@@ -4,7 +4,7 @@ namespace Tribe\Events\Editor\Blocks;
 class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 
 	/**
-	 * Which is the name/slug of this block
+	 * Returns the name/slug of this block.
 	 *
 	 * @since TBD
 	 *
@@ -15,7 +15,7 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	}
 
 	/**
-	 * Set the default attributes of this block
+	 * Set the default attributes of this block.
 	 *
 	 * @since TBD
 	 *
@@ -26,30 +26,20 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	}
 
 	/**
-	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it
+	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
 	 * @since TBD
 	 *
-	 * @param  array $attributes
+	 * @param  array $attributes The block attributes.
 	 *
-	 * @return string
+	 * @return string The block HTML.
 	 */
 	public function render( $attributes = [] ) {
 		$args['attributes'] = $this->attributes( $attributes );
 
-		// Add the rendering attributes into global context
+		// Add the rendering attributes into global context.
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
 		return tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
-	}
-
-	/**
-	 * Register the Assets for when this block is active
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function assets() {
 	}
 }

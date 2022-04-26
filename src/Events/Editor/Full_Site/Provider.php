@@ -29,7 +29,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->register_singletons();
 
 		// Register the Service Provider for Hooks.
-		$this->container->register(Hooks::class);
+		$this->container->register( Hooks::class );
 
 		// Register the Service Provider for Assets.
 		$this->register_assets();
@@ -38,14 +38,20 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( static::class, $this );
 	}
 
-	protected function register_singletons() {
+	/**
+	 * Registers any requires singletons.
+	 *
+	 * @since TBD
+	 *
+	 */
+	private function register_singletons() {
 		$this->container->singleton( Archive_Events::class, Archive_Events::class, [ 'load' ] );
 	}
 
 	/**
 	 * Binds and sets up implementations.
 	 *
-     * @since TBD
+	 * @since TBD
 	 */
 	public function register_assets() {
 		$plugin = Events_Main::instance();
@@ -82,6 +88,13 @@ class Provider extends \tad_DI52_ServiceProvider {
 		);
 	}
 
+	/**
+	 * Internal FSE function for asset conditional testing.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
 	public function is_full_site_editor() {
 		return tec_is_full_site_editor();
 	}

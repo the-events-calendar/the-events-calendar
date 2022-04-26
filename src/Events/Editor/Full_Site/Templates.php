@@ -17,6 +17,13 @@ use WP_Block_Template;
  */
 class Templates {
 
+	/**
+	 * The archive slug.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public static $archive_slug = 'archive-' . Tribe__Events__Main::POSTTYPE;
 
 	/**
@@ -57,13 +64,12 @@ class Templates {
 		return $query_result;
 	}
 
-
 	/**
 	 * Returns the constructed template object for the query.
 	 *
 	 * @since TBD
 	 *
-	 * @return WP_Block_Template
+	 * @return WP_Block_Template A reference to the template object for the query.
 	 */
 	public function get_template_events_archive() {
 		$template_content = file_get_contents(
