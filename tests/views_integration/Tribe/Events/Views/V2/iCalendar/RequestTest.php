@@ -293,11 +293,6 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 
 		$events_indexed = wp_list_pluck( static::$events, 'ID' );
 
-
-		codecept_debug( $events_indexed );
-		codecept_debug( $expected_events_index );
-
-
 		add_filter( 'tribe_ical_feed_posts_per_page', static function () {
 			return 4;
 		} );
