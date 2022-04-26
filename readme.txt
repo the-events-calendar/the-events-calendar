@@ -225,6 +225,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
+
+= [TBD] TBD =
+
 * Feature - Add support to CSV import for the ISO Currency Code field. [TEC-4341]
 * Tweak - Updated the venue website field to type URL. [TEC-4349]
 * Tweak - Added filters `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer` for better control of the merge duplicate venues and organizers functionality. [BTRIA-1082]
