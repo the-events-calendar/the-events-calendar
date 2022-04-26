@@ -640,6 +640,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Filter Bar upsell.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 
+			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 *
