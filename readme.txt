@@ -231,6 +231,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filters `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer` for better control of the merge duplicate venues and organizers functionality. [TEC-4225]
 * Tweak - Added filter `tribe_events_views_v2_ff_link_next_event` to allow better control of the fast-forward link target. [ECP-957]
 * Tweak - Allow filtering of the "next event" query in the fast-forward link. [ECP-957]
+* Tweak - Added filters: `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer`, `tribe_events_views_v2_ff_link_next_event`.
+* Tweak - Changed views: `blocks/archive-events`.
 * Fix - Correctly calculate Event duration when the Event crosses the daylight saving date and time. [TEC-4336]
 * Fix - Don't try to validate "raw" as a date. [TEC-4254]
 * Fix - Ensure the Views don't try to do math with strings. [TEC-4322]
