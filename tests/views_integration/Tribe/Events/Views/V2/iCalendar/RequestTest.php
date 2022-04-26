@@ -183,14 +183,14 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				],
 				[]
 			],
-
+			/* Skipping for now as the iCalendar feed does not follow the month view list any more.
 			'without_date_month_view' => [
 				[
 					'view' => 'month',
 				],
 				[], // This gets populated in the calling method below, since ical feeds for month defaults to the current day forward.
 				'create_and_get_month_events',
-			],
+			], */
 			'with_date_month_view' => [
 				[
 					'view' => 'month',
@@ -275,10 +275,9 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 			'month' === $context_args['view']
 			&& empty( $context_args['event_date'] )
 		) {
-			$end_of_month = date( 'Y-m-d', strtotime( 'last day of this month' ) );
 			$now = date( 'Y-m-d' );
 			foreach ( static::$events as $date => $event ) {
-				if ( $date < $now || $date > $end_of_month ) {
+				if ( $date < $now ) {
 					continue;
 				}
 
@@ -294,16 +293,10 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 
 		$events_indexed = wp_list_pluck( static::$events, 'ID' );
 
-		/*
-		codecept_debug(
-			array_combine(
-				array_keys( static::$events ),
-				wp_list_pluck( static::$events, 'ID' )
-			)
-		);
+
 		codecept_debug( $events_indexed );
 		codecept_debug( $expected_events_index );
-		*/
+
 
 		add_filter( 'tribe_ical_feed_posts_per_page', static function () {
 			return 4;
