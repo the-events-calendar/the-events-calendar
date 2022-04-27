@@ -8,6 +8,8 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
  * @var String_Dictionary $text               The text dictionary.
  * @var State             $state              The migration state.
  */
+
+$url = esc_url( get_admin_url( null, 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) );
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="image-container">
@@ -22,32 +24,8 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 			<?php echo esc_html( $text->get( 'migration-complete' ) ); ?>
 		</h3>
 		<p>
-			<?php
-			echo sprintf(
-					esc_html( $text->get( 'migration-complete-paragraph' ) ),
-					'<a href="' . esc_url( admin_url( 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE ) ) . '">',
-					'</a>',
-					'<a href="' . esc_url( tribe_events_get_url() ) . '">',
-					'<a href="https://evnt.is/recurrence-2-0" target="_blank" rel="noopener">'
-			);
-			?>
+			<a href="<?php echo $url; ?>"><?php echo esc_html( $text->get( 'migration-view-report-button' ) ); ?></a>
 		</p>
 	</div>
 </div>
 
-<div class="tec-ct1-upgrade__row">
-	<?php
-	$datetime_heading = $text->get( 'migration-date-heading' );
-	$total_heading    = $text->get( 'migration-total-heading' );
-	$heading_action   = '';
-	if ( $state->should_allow_reverse_migration() ) {
-		ob_start();
-		?>
-		<a href="#"
-		   class="tec-ct1-upgrade-revert-migration tec-ct1-upgrade__link-danger"><?php echo esc_html( $text->get( 'reverse-migration-button' ) ); ?></a>
-		<?php
-		$heading_action = ob_get_clean();
-	}
-	include __DIR__ . '/report.php';
-	?>
-</div>

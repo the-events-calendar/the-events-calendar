@@ -327,6 +327,10 @@ class String_Dictionary {
 				'Unknown error occurred, shutting down.',
 				'the-events-calendar'
 			),
+			'migration-view-report-button'                        => __(
+				'View the migration report',
+				'the-events-calendar'
+			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),
 		] );
 	}
