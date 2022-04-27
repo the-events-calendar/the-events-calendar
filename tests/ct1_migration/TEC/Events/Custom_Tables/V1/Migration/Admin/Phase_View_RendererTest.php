@@ -257,4 +257,126 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( $text->get( 'migration-in-progress' ), $output['html'] );
 	}
+
+	/**
+	 * Should render HTML from Maintenance Mode Cancel In Progress templates.
+	 *
+	 * @test
+	 */
+	public function should_render_maintenance_cancel_in_progress_ok() {
+		// Setup templates.
+		$phase = State::PHASE_CANCEL_IN_PROGRESS;
+		$state = tribe( State::class );
+		$text  = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/maintenance-mode/phase/$phase.php",
+			[ 'state' => $state, 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'cancel-migration-in-progress' ), $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Maintenance Mode Revert In Progress templates.
+	 *
+	 * @test
+	 */
+	public function should_render_maintenance_revert_in_progress_ok() {
+		// Setup templates.
+		$phase = State::PHASE_REVERT_IN_PROGRESS;
+		$state = tribe( State::class );
+		$text  = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/maintenance-mode/phase/$phase.php",
+			[ 'state' => $state, 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'reverse-migration-in-progress' ), $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Maintenance Mode Migration Complete templates.
+	 *
+	 * @test
+	 */
+	public function should_render_maintenance_migration_complete_ok() {
+		// Setup templates.
+		$phase = State::PHASE_MIGRATION_COMPLETE;
+		$state = tribe( State::class );
+		$text  = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/maintenance-mode/phase/$phase.php",
+			[ 'state' => $state, 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'migration-complete' ), $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Maintenance Mode Migration Canceled templates.
+	 *
+	 * @test
+	 */
+	public function should_render_maintenance_migration_canceled_ok() {
+		$this->markTestIncomplete( "Todo - needs phase" );
+		// Setup templates.
+		$phase = State::PHASE_MIGRATION_COMPLETE;
+		$state = tribe( State::class );
+		$text  = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/maintenance-mode/phase/$phase.php",
+			[ 'state' => $state, 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'migration-complete' ), $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Maintenance Mode Migration Reverse Complete templates.
+	 *
+	 * @test
+	 */
+	public function should_render_maintenance_migration_reversed_ok() {
+		$this->markTestIncomplete( "Todo - needs phase" );
+		// Setup templates.
+		$phase = State::PHASE_MIGRATION_COMPLETE;
+		$state = tribe( State::class );
+		$text  = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/maintenance-mode/phase/$phase.php",
+			[ 'state' => $state, 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'migration-complete' ), $output['html'] );
+	}
 }
