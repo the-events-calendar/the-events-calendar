@@ -283,6 +283,13 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	private function load_action_scheduler() {
+		$load_action_scheduler = [ $this, 'load_action_scheduler_late' ];
+
+		if ( ! has_action( 'tec_events_custom_tables_v1_load_action_scheduler', $load_action_scheduler ) ) {
+			// Add a custom action that will allow triggering the load of Action Scheduler.
+			add_action( 'tec_events_custom_tables_v1_load_action_scheduler', $load_action_scheduler );
+		}
+
 		/*
 		 * We do not sense around for of the functions defined by Action Scheduler by design:
 		 * Action Scheduler will take care of loading the most recent version. If we looked
@@ -291,7 +298,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 * this plugin.
 		 */
 		if ( did_action( 'plugins_loaded' ) || doing_action( 'plugins_loaded' ) ) {
-			add_action( 'init', [ $this, 'load_action_scheduler_late' ], - 99999 );
+			add_action( 'init', $load_action_scheduler, - 99999 );
 
 			return;
 		}
