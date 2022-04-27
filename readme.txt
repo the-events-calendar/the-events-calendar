@@ -227,7 +227,6 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Add support to CSV import for the ISO Currency Code field. [TEC-4341]
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
-* Tweak - Updated the venue website field to type URL. [TEC-4349]
 * Tweak - Added filters `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer` for better control of the merge duplicate venues and organizers functionality. [TEC-4225]
 * Tweak - Added filter `tribe_events_views_v2_ff_link_next_event` to allow better control of the fast-forward link target. [ECP-957]
 * Tweak - Allow filtering of the "next event" query in the fast-forward link. [ECP-957]
