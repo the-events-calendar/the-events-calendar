@@ -400,13 +400,17 @@ export const syncReportData = function(successCallback = null) {
  * @param {function} successCallback Callback fired on success.
  */
 export const getReport = (successCallback) => {
+	var queryArgs = {
+		action: tecCt1Upgrade.actions.getReport,
+		_ajax_nonce: tecCt1Upgrade.nonce,
+	};
+	if (tecCt1Upgrade.isMaintenanceMode) {
+		queryArgs.is_maintenance_mode = '1';
+	}
 	ajaxGet(
-			tecCt1Upgrade.ajaxUrl,
-			{
-				action: tecCt1Upgrade.actions.getReport,
-				_ajax_nonce: tecCt1Upgrade.nonce,
-			},
-			successCallback,
+		tecCt1Upgrade.ajaxUrl,
+		queryArgs,
+		successCallback,
 	);
 };
 

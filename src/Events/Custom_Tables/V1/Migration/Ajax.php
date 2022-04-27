@@ -138,6 +138,7 @@ class Ajax {
 		 */
 		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
 		if ( ! $renderer instanceof Phase_View_Renderer ) {
+
 			$renderer = $this->get_renderer_for_phase( $phase );
 		}
 
@@ -155,16 +156,20 @@ class Ajax {
 	 */
 	protected function get_renderer_for_phase( $phase ) {
 		// @todo flesh out pagination more
-		$page        = -1;
+		$page        = - 1;
 		$count       = 1000;
 		$site_report = Site_Report::build();
 
+		// First determine base directory.
+		$base_dir = get_query_var( "is_maintenance_mode", false ) ? "/maintenance-mode/phase" : "/phase";
+
+		// Then build the renderer.
 		switch ( $phase ) {
 			case null;
 			case State::PHASE_PREVIEW_PROMPT:
-				$phase = State::PHASE_PREVIEW_PROMPT;
+				$phase    = State::PHASE_PREVIEW_PROMPT;
 				$renderer = new Phase_View_Renderer( $phase,
-					"/phase/$phase.php",
+					"$base_dir/$phase.php",
 					[
 						'state'  => tribe( State::class ),
 						'report' => $site_report,
@@ -175,7 +180,7 @@ class Ajax {
 				break;
 			case State::PHASE_MIGRATION_COMPLETE:
 				$renderer = new Phase_View_Renderer( $phase,
-					"/phase/$phase.php",
+					"$base_dir/$phase.php",
 					[
 						'state'         => tribe( State::class ),
 						'report'        => $site_report,
@@ -188,7 +193,7 @@ class Ajax {
 			case State::PHASE_CANCEL_IN_PROGRESS:
 			case State::PHASE_REVERT_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase,
-					"/phase/undo-in-progress.php",
+					"/$base_dir/undo-in-progress.php",
 					[
 						'state'  => tribe( State::class ),
 						'report' => $site_report,
@@ -199,7 +204,7 @@ class Ajax {
 				break;
 			case State::PHASE_MIGRATION_PROMPT:
 				$renderer = new Phase_View_Renderer( $phase,
-					"/phase/$phase.php",
+					"$base_dir/$phase.php",
 					[
 						'phase'         => $phase,
 						'report'        => $site_report,
@@ -211,7 +216,9 @@ class Ajax {
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
-				$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
+				$renderer = new Phase_View_Renderer( $phase,
+					"$base_dir/$phase.php"
+				);
 				$renderer->register_node( 'progress-bar',
 					'.tec-ct1-upgrade-update-bar-container',
 					'/partials/progress-bar.php',
@@ -227,8 +234,8 @@ class Ajax {
 
 		// Log our poll status
 		do_action( 'tribe_log', 'debug', 'Ajax: Migration report poll renderer', [
-			'source'             => __CLASS__.' '.__METHOD__.' '.__LINE__,
-			'report'   => $site_report,
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'report' => $site_report,
 		] );
 
 		return $renderer;
@@ -278,7 +285,7 @@ class Ajax {
 		check_ajax_referer( self::NONCE_ACTION );
 		// Log our start
 		do_action( 'tribe_log', 'debug', 'Ajax: Cancel migration', [
-			'source'       => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 		] );
 		// A cancel action is identical to an undo.
 		$this->process->cancel();

@@ -45,11 +45,11 @@ class Asset_Loader {
 	 * @since TBD
 	 */
 	public function enqueue_scripts() {
-		$on_settings_page       = isset( $_GET['page'] )
-		                          && $_GET['page'] === tribe( 'settings' )->adminSlug;
-		$on_progress_modal_page = tribe( Progress_Modal::class )->should_render();
+		$on_settings_page         = isset( $_GET['page'] )
+		                            && $_GET['page'] === tribe( 'settings' )->adminSlug;
+		$on_maintenance_mode_page = tribe( Progress_Modal::class )->should_render();
 
-		if ( ! $on_settings_page && ! $on_progress_modal_page ) {
+		if ( ! $on_settings_page && ! $on_maintenance_mode_page ) {
 			return;
 		}
 
@@ -61,10 +61,10 @@ class Asset_Loader {
 		wp_localize_script( 'tec-ct1-upgrade-admin-js',
 			'tecCt1Upgrade',
 			[
-				'ajaxUrl'         => admin_url() . 'admin-ajax.php',
-				'nonce'           => wp_create_nonce( Ajax::NONCE_ACTION ),
-				'pollInterval'    => 5000,
-				'text_dictionary' => [
+				'ajaxUrl'           => admin_url() . 'admin-ajax.php',
+				'nonce'             => wp_create_nonce( Ajax::NONCE_ACTION ),
+				'pollInterval'      => 5000,
+				'text_dictionary'   => [
 					'confirm_cancel_migration'               => $text->get( 'confirm_cancel_migration' ),
 					'confirm_revert_migration'               => $text->get( 'confirm_revert_migration' ),
 					'migration_prompt_plugin_state_addendum' => $text->get( 'migration-prompt-plugin-state-addendum' ),
@@ -74,13 +74,14 @@ class Asset_Loader {
 						''
 					)
 				],
-				'actions'         => [
+				'actions'           => [
 					'getReport'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
 					'startMigration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
 					'cancelMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
-					'revertMigration'   => str_replace( 'wp_ajax_', '', Ajax::ACTION_REVERT ),
+					'revertMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_REVERT ),
 				],
-				'forcePolling'    => $on_progress_modal_page
+				'forcePolling'      => $on_maintenance_mode_page,
+				'isMaintenanceMode' => $on_maintenance_mode_page
 			]
 		);
 	}

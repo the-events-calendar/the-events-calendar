@@ -116,7 +116,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 				'event_reports' => $site_report->get_event_reports( 1, 20 )
 			]
 		);
-		$output   = $renderer->compile();
+		$output      = $renderer->compile();
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
@@ -199,7 +199,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		$renderer = new Phase_View_Renderer( $phase,
 			"/phase/undo-in-progress.php",
-			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
+			[ 'state' => $state, 'report' => Site_Report::build(), 'text' => $text ]
 		);
 
 		$output = $renderer->compile();
@@ -223,7 +223,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		$renderer = new Phase_View_Renderer( $phase,
 			"/phase/undo-in-progress.php",
-			[ 'state' => $state, 'report' => Site_Report::build( 1, 20 ), 'text' => $text ]
+			[ 'state' => $state, 'report' => Site_Report::build(), 'text' => $text ]
 		);
 
 		$output = $renderer->compile();
@@ -232,5 +232,29 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( $text->get( 'reverse-migration-in-progress' ), $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Maintenance Mode Migration In Progress templates.
+	 *
+	 * @test
+	 */
+	public function should_render_maintenance_migration_in_progress_ok() {
+		// Setup templates.
+		$phase = State::PHASE_MIGRATION_IN_PROGRESS;
+		$state = tribe( State::class );
+		$text  = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/maintenance-mode/phase/$phase.php",
+			[ 'state' => $state, 'text' => $text ]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'migration-in-progress' ), $output['html'] );
 	}
 }
