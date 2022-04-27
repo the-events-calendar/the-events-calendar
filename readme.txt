@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.14.2] 2022-04-27 =
+= [5.14.2] 2022-04-28 =
 
 * Feature - Add support to CSV import for the ISO Currency Code field. [TEC-4341]
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
