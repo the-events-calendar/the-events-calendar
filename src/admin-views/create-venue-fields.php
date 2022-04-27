@@ -24,7 +24,7 @@ if ( ! $_POST && is_admin() ) {
 
 	} else {
 		$_VenuePhone            = tribe_get_phone();
-		$_VenueURL              = strip_tags( tribe_get_venue_website_link( null, null ) );
+		$_VenueURL              = strip_tags( tribe_get_venue_link( null, false ) );
 		$_VenueAddress          = tribe_get_address();
 		$_VenueCity             = tribe_get_city();
 		$_VenueProvince         = tribe_get_province();
