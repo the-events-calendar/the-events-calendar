@@ -160,8 +160,9 @@ class Ajax {
 		$count       = 1000;
 		$site_report = Site_Report::build();
 
+
 		// First determine base directory.
-		$base_dir = get_query_var( "is_maintenance_mode", false ) ? "/maintenance-mode/phase" : "/phase";
+		$base_dir = ! empty( $_GET["is_maintenance_mode"] ) ? "/maintenance-mode/phase" : "/phase";
 
 		// Then build the renderer.
 		switch ( $phase ) {
@@ -179,6 +180,7 @@ class Ajax {
 				$renderer->should_poll( false );
 				break;
 			case State::PHASE_MIGRATION_COMPLETE:
+			case State::PHASE_MIGRATION_PROMPT:
 				$renderer = new Phase_View_Renderer( $phase,
 					"$base_dir/$phase.php",
 					[
@@ -193,7 +195,7 @@ class Ajax {
 			case State::PHASE_CANCEL_IN_PROGRESS:
 			case State::PHASE_REVERT_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase,
-					"/$base_dir/undo-in-progress.php",
+					"$base_dir/$phase.php",
 					[
 						'state'  => tribe( State::class ),
 						'report' => $site_report,
@@ -201,18 +203,6 @@ class Ajax {
 					]
 				);
 				$renderer->should_poll( true );
-				break;
-			case State::PHASE_MIGRATION_PROMPT:
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$phase.php",
-					[
-						'phase'         => $phase,
-						'report'        => $site_report,
-						'event_reports' => $site_report->get_event_reports( $page, $count ),
-						'text'          => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( false );
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:

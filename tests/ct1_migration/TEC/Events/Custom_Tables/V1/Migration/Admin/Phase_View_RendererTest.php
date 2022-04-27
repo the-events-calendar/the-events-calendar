@@ -313,13 +313,17 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_migration_complete_ok() {
 		// Setup templates.
-		$phase = State::PHASE_MIGRATION_COMPLETE;
-		$state = tribe( State::class );
-		$text  = tribe( String_Dictionary::class );
-
-		$renderer = new Phase_View_Renderer( $phase,
+		$phase       = State::PHASE_MIGRATION_COMPLETE;
+		$state       = tribe( State::class );
+		$text        = tribe( String_Dictionary::class );
+		$site_report = Site_Report::build();
+		$renderer    = new Phase_View_Renderer( $phase,
 			"/maintenance-mode/phase/$phase.php",
-			[ 'state' => $state, 'text' => $text ]
+			[ 'state'         => $state,
+			  'text'          => $text,
+			  'report'        => $site_report,
+			  'event_reports' => $site_report->get_event_reports( 1, 20 )
+			]
 		);
 
 		$output = $renderer->compile();
