@@ -63,8 +63,10 @@ $clean_after_test = static function () {
 };
 addListener( Codeception\Events::TEST_AFTER, $clean_after_test );
 
-// Ensure the CT1 code branch is enabled.
-putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=0' );
-$_ENV['TEC_CUSTOM_TABLES_V1_DISABLED'] = 0;
-// Run the activation routine to ensure the tables will be set up independently of the previous state.
-Activation::activate();
+addListener( Codeception\Events::SUITE_BEFORE, static function () {
+	// Ensure the CT1 code branch is enabled.
+	putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=0' );
+	$_ENV['TEC_CUSTOM_TABLES_V1_DISABLED'] = 0;
+	// Run the activation routine to ensure the tables will be set up independently of the previous state.
+	Activation::activate();
+} );
