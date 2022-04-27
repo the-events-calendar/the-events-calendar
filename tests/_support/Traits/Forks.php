@@ -10,6 +10,10 @@
 
 namespace Tribe\Events\Test\Traits;
 
+use Codeception\Exception\ModuleException;
+use Codeception\Module\Db;
+use Codeception\Module\WPDb;
+
 /**
  * Trait Forks.
  *
@@ -53,12 +57,29 @@ trait Forks {
 			$wpdb->close();
 			$wpdb->check_connection( false );
 
-			$do();
+			// Close the WPDb module connection, if any, for the above reason.
+			if ( method_exists( $this, 'getModule' ) ) {
+				try {
+					/** @var WPDb $db_module */
+					$db_module = $this->getModule( 'WPDb' );
+					$db_module->__destruct();
+				} catch ( ModuleException $e ) {
+					// Ok, not there, not an issue.
+				}
+			}
 
-			exit;
+			try {
+				$do();
+				exit( 0 );
+			} catch ( \Throwable $t ) {
+				codecept_debug(  'Fork process error => ' . $t->getMessage() );
+				// Silence the errors and exit a failure status.
+				exit( 1 );
+			}
 		}
 
 		// Main process.
+
 		return $pid;
 	}
 
