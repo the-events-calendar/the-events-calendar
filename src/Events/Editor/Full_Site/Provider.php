@@ -8,7 +8,7 @@ use \Tribe__Events__Main as Events_Main;
 /**
  * Class Provider
  *
- * @since TBD
+ * @since 5.14.2
  *
  * @package TEC\Events\Editor\Full_Site
  */
@@ -16,7 +16,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register the provider singletons.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 */
 	public function register() {
 		if ( ! tec_is_full_site_editor() ) {
@@ -41,7 +41,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers any requires singletons.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 */
 	private function register_singletons() {
@@ -51,7 +51,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 */
 	public function register_assets() {
 		$plugin = Events_Main::instance();
@@ -91,7 +91,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Internal FSE function for asset conditional testing.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @return boolean Whether The current theme supports full-site editing or not.
 	 */

@@ -11,7 +11,7 @@ use WP_Block_Template;
 /**
  * Class Templates
  *
- * @since   TBD
+ * @since   5.14.2
  *
  * @package TEC\Events\Editor\Full_Site
  */
@@ -20,7 +20,7 @@ class Templates {
 	/**
 	 * The archive slug.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @var string The archive slug.
 	 */
@@ -29,7 +29,7 @@ class Templates {
 	/**
 	 * Modify the available Templates so that people can edit the template.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array  $query {
@@ -67,7 +67,7 @@ class Templates {
 	/**
 	 * Returns the constructed template object for the query.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @return WP_Block_Template A reference to the template object for the query.
 	 */

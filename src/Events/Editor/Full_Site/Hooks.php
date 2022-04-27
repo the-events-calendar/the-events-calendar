@@ -7,7 +7,7 @@ use Tribe\Events\Editor\Blocks\Archive_Events;
 /**
  * Class Hooks
  *
- * @since   TBD
+ * @since   5.14.2
  *
  * @package TEC\Events\Editor\Full_Site
  */
@@ -16,7 +16,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 */
 	public function register() {
 		$this->add_filters();
@@ -26,7 +26,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the filters required by the FSE components.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 */
 	protected function add_filters() {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
@@ -38,7 +38,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the actions required by the FSE components.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
@@ -47,7 +47,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the Events Archive template.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 */
 	public function action_register_archive_template() {
 		return $this->container->make( Archive_Events::class )->register();
@@ -56,7 +56,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the archive template to the array of block templates.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
@@ -82,8 +82,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * If we're using a FSE theme, we always use the full styling.
 	 *
-	 * @since TBD
-	 
+	 * @since 5.14.2
+
 	 *
 	 * @param string  $value The value of the option.
 	 * @return string $value The original value, or an empty string if FSE is active.
@@ -96,7 +96,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Override the get_single_option to return the default event template when FSE is active.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @param mixed  $option      Results of option query.
 	 * @param string $default     The default value.
@@ -120,7 +120,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Overwrite the template option on save if FSE is active.
 	 * We only support the default events template for now.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @param array<string, mixed> $options   The array of values to save. In the format option key => value.
 	 * @param string               $option_id The main option ID.

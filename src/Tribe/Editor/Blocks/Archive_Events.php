@@ -6,7 +6,7 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Returns the name/slug of this block.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @return string The name/slug of this block.
 	 */
@@ -17,7 +17,7 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Set the default attributes of this block.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @return array<string,mixed> The array of default attributes.
 	 */
@@ -28,7 +28,7 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @param  array $attributes The block attributes.
 	 *

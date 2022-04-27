@@ -30,7 +30,7 @@ class Tribe__Events__Amalgamator {
 		/**
 		 * Whether duplicate organizers should be merged.
 		 *
-		 * @since TBD
+		 * @since 5.14.2
 		 *
 		 * @param boolean $merge_organizers Whether duplicate organizers should be merged, default true.
 		 */
@@ -43,7 +43,7 @@ class Tribe__Events__Amalgamator {
 		/**
 		 * Whether duplicate venues should be merged.
 		 *
-		 * @since TBD
+		 * @since 5.14.2
 		 *
 		 * @param boolean $merge_venues Whether duplicate venues should be merged, default true.
 		 */
@@ -82,7 +82,7 @@ class Tribe__Events__Amalgamator {
 				/**
 				 * Filter the fields that should be used for comparison when checking for duplicates.
 				 *
-				 * @since TBD
+				 * @since 5.14.2
 				 *
 				 * @param array<string|string> $data The array of fields with values to be checked.
 				 * @param integer              $id   The post id of the organizer being merged.
@@ -140,7 +140,7 @@ class Tribe__Events__Amalgamator {
 				/**
 				 * Filter the fields that should be used for comparison when checking for duplicates.
 				 *
-				 * @since TBD
+				 * @since 5.14.2
 				 *
 				 * @param array $data The array of fields with values to be checked.
 				 */
@@ -203,7 +203,7 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Merge all venues in the given list into one post (keeping the first)
 	 *
-	 * @since TBD - Change to public method.
+	 * @since 5.14.2 - Change to public method.
 	 *
 	 * @param array<string|integer> $venue_ids An Array of venue ids to merge.
 	 */
@@ -222,7 +222,7 @@ class Tribe__Events__Amalgamator {
 		/**
 		 * Filter the venue ids that should be kept.
 		 *
-		 * @since TBD
+		 * @since 5.14.2
 		 *
 		 * @param array<string|integer> An Array of the post ids to keep or an empty array.
 		 * @param array<string|integer> $venue_ids An Array of venue ids to merge.
@@ -261,7 +261,7 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Run the Venue amalgamation, by default it keeps the lowest venue_id.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @param array<string|integer> $venue_ids An Array of venue ids to merge.
 	 * @param array<string|integer> $keep      An Array of the post IDs to keep or an empty array.
@@ -318,7 +318,7 @@ class Tribe__Events__Amalgamator {
 		/**
 		 * Filter the organizer IDs that should be kept.
 		 *
-		 * @since TBD
+		 * @since 5.14.2
 		 *
 		 * @param array<string|integer> An Array of the post IDs to keep or an empty array if not defined.
 		 * @param array<string|integer> An Array of organizer ids to merge.
@@ -357,7 +357,7 @@ class Tribe__Events__Amalgamator {
 	/**
 	 * Run the Venue amalgamation, by default it keeps the lowest venue_id.
 	 *
-	 * @since TBD
+	 * @since 5.14.2
 	 *
 	 * @param array<string|integer> $organizer_ids An Array of organizer ids to merge.
 	 * @param array<string|integer> $keep      An Array of the post IDs to keep or an empty array.
