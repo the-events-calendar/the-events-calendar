@@ -14,7 +14,6 @@ use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use TEC\Events_Pro\Custom_Tables\V1\Traits\With_Event_Recurrence_Introspection;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -25,8 +24,6 @@ use Tribe__Events__Main as TEC;
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
 class Single_Event_Migration_Strategy implements Strategy_Interface {
-	use With_Event_Recurrence_Introspection;
-
 	/**
 	 * {@inheritDoc}
 	 */
