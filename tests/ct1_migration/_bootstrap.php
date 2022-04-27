@@ -71,4 +71,5 @@ addListener( Codeception\Events::SUITE_BEFORE, static function () {
 	tribe()->register( TEC\Events\Custom_Tables\V1\Provider::class );
 	// Run the activation routine to ensure the tables will be set up independently of the previous state.
 	Activation::activate();
+	do_action( 'tec_events_custom_tables_v1_load_action_scheduler' );
 } );
