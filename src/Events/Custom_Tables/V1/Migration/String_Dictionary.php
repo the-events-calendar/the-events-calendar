@@ -216,7 +216,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'cancel-migration-in-progress'                        => __(
-				'Cancellation in progress',
+				'Cancelation in progress',
 				'the-events-calendar'
 			),
 			'cancel-migration-in-progress-paragraph'              => __(
@@ -224,7 +224,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'cancel-migration-complete-notice'                    => __(
-				'Cancellation complete.',
+				'Cancelation complete.',
 				'the-events-calendar'
 			),
 			'revert-migration-complete-notice'                    => __(
