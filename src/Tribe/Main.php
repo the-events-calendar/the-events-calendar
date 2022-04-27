@@ -3253,8 +3253,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if (
-					class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Activation' )
-					&& ! ( defined( 'TEC_CUSTOM_TABLES_V1_DISABLED' ) && TEC_CUSTOM_TABLES_V1_DISABLED )
+					class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' )
+					&& TEC\Events\Custom_Tables\V1\Provider::is_active()
 			) {
 				// Register the Custom Tables V1 provider, if defined, to set up the custom tables.
 				TEC\Events\Custom_Tables\V1\Activation::activate();
