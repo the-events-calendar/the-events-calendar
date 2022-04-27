@@ -6,10 +6,18 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
+use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
 class Activation_StateTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
+
+	/**
+	 * @before
+	 */
+	public function register_tables_schema() {
+		tribe()->register( Tables::class );
+	}
 
 	/**
 	 * @after each test make sure the custom tables will be there for the following ones.
