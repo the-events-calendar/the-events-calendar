@@ -198,7 +198,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$text  = tribe( String_Dictionary::class );
 
 		$renderer = new Phase_View_Renderer( $phase,
-			"/phase/undo-in-progress.php",
+			"/phase/$phase.php",
 			[ 'state' => $state, 'report' => Site_Report::build(), 'text' => $text ]
 		);
 
@@ -222,7 +222,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$text  = tribe( String_Dictionary::class );
 
 		$renderer = new Phase_View_Renderer( $phase,
-			"/phase/undo-in-progress.php",
+			"/phase/$phase.php",
 			[ 'state' => $state, 'report' => Site_Report::build(), 'text' => $text ]
 		);
 
@@ -319,10 +319,11 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$site_report = Site_Report::build();
 		$renderer    = new Phase_View_Renderer( $phase,
 			"/maintenance-mode/phase/$phase.php",
-			[ 'state'         => $state,
-			  'text'          => $text,
-			  'report'        => $site_report,
-			  'event_reports' => $site_report->get_event_reports( 1, 20 )
+			[
+				'state'         => $state,
+				'text'          => $text,
+				'report'        => $site_report,
+				'event_reports' => $site_report->get_event_reports( 1, 20 )
 			]
 		);
 
@@ -339,16 +340,20 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 *
 	 * @test
 	 */
-	public function should_render_maintenance_migration_canceled_ok() {
-		$this->markTestIncomplete( "Todo - needs phase" );
+	public function should_render_maintenance_migration_cancel_complete_ok() {
 		// Setup templates.
-		$phase = State::PHASE_MIGRATION_COMPLETE;
-		$state = tribe( State::class );
-		$text  = tribe( String_Dictionary::class );
+		$phase       = State::PHASE_CANCEL_COMPLETE;
+		$state       = tribe( State::class );
+		$site_report = Site_Report::build();
+		$text        = tribe( String_Dictionary::class );
 
 		$renderer = new Phase_View_Renderer( $phase,
 			"/maintenance-mode/phase/$phase.php",
-			[ 'state' => $state, 'text' => $text ]
+			[
+				'state'  => $state,
+				'report' => $site_report,
+				'text'   => tribe( String_Dictionary::class )
+			]
 		);
 
 		$output = $renderer->compile();
@@ -356,7 +361,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-complete' ), $output['html'] );
+		$this->assertContains( $text->get( 'migration-canceled' ), $output['html'] );
 	}
 
 	/**
@@ -364,16 +369,20 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 *
 	 * @test
 	 */
-	public function should_render_maintenance_migration_reversed_ok() {
-		$this->markTestIncomplete( "Todo - needs phase" );
+	public function should_render_maintenance_migration_reverse_complete_ok() {
 		// Setup templates.
-		$phase = State::PHASE_MIGRATION_COMPLETE;
-		$state = tribe( State::class );
-		$text  = tribe( String_Dictionary::class );
+		$phase       = State::PHASE_REVERT_COMPLETE;
+		$state       = tribe( State::class );
+		$site_report = Site_Report::build();
+		$text        = tribe( String_Dictionary::class );
 
 		$renderer = new Phase_View_Renderer( $phase,
 			"/maintenance-mode/phase/$phase.php",
-			[ 'state' => $state, 'text' => $text ]
+			[
+				'state'  => $state,
+				'report' => $site_report,
+				'text'   => tribe( String_Dictionary::class )
+			]
 		);
 
 		$output = $renderer->compile();
@@ -381,6 +390,6 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-complete' ), $output['html'] );
+		$this->assertContains( $text->get( 'migration-reversed' ), $output['html'] );
 	}
 }
