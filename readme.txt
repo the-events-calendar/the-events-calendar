@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.14.1
-Tested up to: 5.9.2
+Stable tag: 5.15.0
+Tested up to: 5.9.3
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -222,6 +222,10 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.15.0] TBD =
+
+* Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
 
 = [5.14.1] 2022-03-17 =
 
