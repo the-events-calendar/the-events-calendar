@@ -21,6 +21,7 @@ modules:
                 - the-events-calendar/the-events-calendar.php
             activatePlugins:
                 - the-events-calendar/the-events-calendar.php
+            theme: twentytwenty
 env:
     wpml:
         modules:

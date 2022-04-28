@@ -183,7 +183,7 @@ class Event_Creation_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 3, $post->post_author );
 		$this->assertEquals( 'This is event content!', $post->post_content );
 		//The Event does not go all day so it is 'no'
-		$this->assertEquals( 'no', get_post_meta( $post->ID, '_EventAllDay', true ) );
+		$this->assertFalse( tribe_is_truthy( get_post_meta( $post->ID, '_EventAllDay', true ) ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventHideFromUpcoming', true ) );
 		$this->assertEquals( 5, get_post_meta( $post->ID, '_EventOrganizerID', true ) );
 		$this->assertEquals( 8, get_post_meta( $post->ID, '_EventVenueID', true ) );
@@ -212,7 +212,7 @@ class Event_Creation_Test extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( 3, $post->post_author );
 		$this->assertEquals( 'This is event content!', $post->post_content );
-		$this->assertEquals( 'no', get_post_meta( $post->ID, '_EventAllDay', true ) );
+		$this->assertFalse( tribe_is_truthy( get_post_meta( $post->ID, '_EventAllDay', true ) ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventHideFromUpcoming', true ) );
 		$this->assertEquals( 5, get_post_meta( $post->ID, '_EventOrganizerID', true ) );
 		$this->assertEquals( 8, get_post_meta( $post->ID, '_EventVenueID', true ) );
