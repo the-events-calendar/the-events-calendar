@@ -342,7 +342,7 @@ class Process_Worker {
 			MONTH_IN_SECONDS
 		);
 
-		$this->state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
+		$this->state->set( 'phase', $is_cancel ? State::PHASE_CANCEL_COMPLETE : State::PHASE_REVERT_COMPLETE );
 		$this->state->save();
 
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );

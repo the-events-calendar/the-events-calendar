@@ -160,17 +160,26 @@ class Ajax {
 		$count       = 1000;
 		$site_report = Site_Report::build();
 
+		// Is the Maintenance Mode view requesting the report? This changes how we handle the views.
+		$is_maintenance_mode = ! empty( $_GET["is_maintenance_mode"] );
 
-		// First determine base directory.
-		$base_dir = ! empty( $_GET["is_maintenance_mode"] ) ? "/maintenance-mode/phase" : "/phase";
+		// Determine base directory for templates.
+		$base_dir = $is_maintenance_mode ? "/maintenance-mode/phase" : "/phase";
 
 		// Then build the renderer.
 		switch ( $phase ) {
 			case null;
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_REVERT_COMPLETE:
 			case State::PHASE_PREVIEW_PROMPT:
-				$phase    = State::PHASE_PREVIEW_PROMPT;
+				// Maintenance mode has templates for each phase, upgrade page only has one view.
+				if ( $is_maintenance_mode ) {
+					$template = $phase;
+				} else {
+					$template = State::PHASE_PREVIEW_PROMPT;
+				}
 				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$phase.php",
+					"$base_dir/$template.php",
 					[
 						'state'  => tribe( State::class ),
 						'report' => $site_report,

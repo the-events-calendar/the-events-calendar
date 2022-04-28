@@ -27,7 +27,25 @@ class State {
 	 *
 	 * @var string
 	 */
-	const PHASE_MIGRATION_NOT_REQUIRED = 'migration_not_required';
+	const PHASE_MIGRATION_NOT_REQUIRED = 'migration-not-required';
+
+	/**
+	 * Indicates the migration cancel has completed.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const PHASE_CANCEL_COMPLETE = 'cancel-complete';
+
+	/**
+	 * Indicates the migration revert has completed.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const PHASE_REVERT_COMPLETE = 'revert-complete';
 
 	/**
 	 * Indicates the migration preview is ready to start.

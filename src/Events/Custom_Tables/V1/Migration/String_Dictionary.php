@@ -331,6 +331,18 @@ class String_Dictionary {
 				'View the migration report',
 				'the-events-calendar'
 			),
+			'migration-canceled'                                  => __(
+				'Migration canceled',
+				'the-events-calendar'
+			),
+			'migration-reversed'                                  => __(
+				'Migration reversed',
+				'the-events-calendar'
+			),
+			'migration-okay-button'                               => __(
+				'Okay',
+				'the-events-calendar'
+			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),
 		] );
 	}

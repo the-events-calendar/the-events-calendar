@@ -147,7 +147,6 @@ class Process {
 		$this->state->set( 'locked_by_undo', true );
 		$this->state->save();
 
-		// Ensure Action Scheduler tables are there.
 		$this->undo();
 
 		return true;
