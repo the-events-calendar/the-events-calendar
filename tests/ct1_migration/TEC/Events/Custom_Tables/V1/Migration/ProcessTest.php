@@ -27,13 +27,28 @@ class ProcessTest extends \CT1_Migration_Test_Case {
 	 *
 	 * @test
 	 */
-	public function should_lock_undo_action() {
+	public function should_lock_revert_action() {
 		$this->given_action_scheduler_is_loaded();
 		$post = $this->given_a_non_migrated_single_event();
 		update_post_meta( $post->ID, Event_Report::META_KEY_MIGRATION_PHASE, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
 		$events  = new Events;
 		$process = new Process( $events, new State( $events ) );
-		$this->assertTrue( $process->undo() );
-		$this->assertFalse( $process->undo() );
+		$this->assertTrue( $process->revert() );
+		$this->assertFalse( $process->revert() );
+	}
+
+	/**
+	 * Should lock the processing when attempting to run the same action.
+	 *
+	 * @test
+	 */
+	public function should_lock_cancel_action() {
+		$this->given_action_scheduler_is_loaded();
+		$post = $this->given_a_non_migrated_single_event();
+		update_post_meta( $post->ID, Event_Report::META_KEY_MIGRATION_PHASE, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
+		$events  = new Events;
+		$process = new Process( $events, new State( $events ) );
+		$this->assertTrue( $process->cancel() );
+		$this->assertFalse( $process->cancel() );
 	}
 }
