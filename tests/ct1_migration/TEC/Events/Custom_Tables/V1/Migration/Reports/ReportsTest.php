@@ -3,6 +3,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 class ReportsTest extends \CT1_Migration_Test_Case {
 
@@ -212,6 +213,7 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 	 * @throws \Tribe__Repository__Usage_Error
 	 */
 	public function should_save_failed_event_report() {
+		$text = tribe( String_Dictionary::class );
 		// Setup some faux state
 		$post1      = tribe_events()->set_args( [
 			'title'      => "Event " . rand( 1, 999 ),
@@ -225,7 +227,8 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$some_error = uniqid( 'test_', true );
+		$error_key  = 'canceled';
+		$some_error = $text->get( 'migration-error-k-' . $error_key );
 
 		// Fail the report
 		$event_report1 = ( new Event_Report( $post1 ) )
@@ -234,7 +237,7 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			->set( 'is_single', false )
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
-		$event_report1->migration_failed( $some_error );
+		$event_report1->migration_failed( $error_key );
 		$event_report = new Event_Report( $post1 );
 
 		// Assert it is saved properly
