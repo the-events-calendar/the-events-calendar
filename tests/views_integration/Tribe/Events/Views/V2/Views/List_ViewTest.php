@@ -7,6 +7,7 @@ use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 use Tribe__Utils__Post_Collection as Collection;
+use Tribe__Events__Main as TEC;
 
 class List_ViewTest extends ViewTestCase {
 
@@ -175,6 +176,18 @@ class List_ViewTest extends ViewTestCase {
 				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_results_found_w_keyword', 'cabbage' ) ],
 			]
 		];
+		yield 'no_results_found_w_category' => [
+			[ 'event_category' => 'test' ],
+			[
+				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_upcoming_events' ) ],
+			]
+		];
+		yield 'no_results_found_w_tag' => [
+			[ 'post_tag' => 'test' ],
+			[
+				Messages::TYPE_NOTICE => [ Messages::for_key( 'no_upcoming_events' ) ],
+			]
+		];
 	}
 
 	/**
@@ -282,5 +295,112 @@ class List_ViewTest extends ViewTestCase {
 			'8am to 3pm',
 		];
 		$this->assertEquals($expected, $collection->pluck('post_title'))	;
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_render_with_upcoming_taxonomy_events() {
+		$events = [];
+		$cat    = $this->factory()->term->create( [ 'taxonomy' => TEC::TAXONOMY ] );
+		$cat_term = get_term( $cat, TEC::TAXONOMY  );
+		$tag    = $this->factory()->tag->create();
+		$tag_term = get_term( $tag, 'post_tag'  );
+
+		// Create the events.
+		foreach (
+			[
+				'tomorrow 9am',
+				'+1 week',
+				'+9 days',
+			] as $start_date
+		) {
+			$events[] = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_date,
+				'status'     => 'publish',
+			] )->create();
+		}
+
+		// Create the events with taxonomies.
+		foreach (
+			[
+				'tomorrow 9am',
+				'+4 days',
+				'+2 week',
+			] as $start_date
+		) {
+			$events[] = $new_event = tribe_events()->set_args( [
+				'start_date' => $start_date,
+				'timezone'   => 'America/New_York',
+				'duration'   => 2 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_date,
+				'status'     => 'publish',
+				'category'   => $cat,
+				'tag'        => $tag,
+			] )->create();
+
+			// Added manually addition of the taxonomies as the above coding was not adding them.
+			wp_set_object_terms( $new_event->ID, $cat, TEC::TAXONOMY, false );
+			wp_set_object_terms( $new_event->ID, $tag_term->slug, 'post_tag', false );
+		}
+
+		// Sanity check
+		$this->assertEquals( 6, tribe_events()->where( 'ends_after', 'now' )->count() );
+
+		$this->remap_posts( $events, [
+			'events/featured/1.json',
+			'events/single/1.json',
+			'events/single/2.json',
+			'events/featured/2.json',
+			'events/single/3.json',
+			'events/single/4.json'
+		] );
+
+		// Category Archive.
+		$context   = tribe_context()->alter( [
+			'event_display'      => 'list',
+			'event_display_mode' => 'list',
+			'today'              => $this->mock_date_value,
+			'now'                => $this->mock_date_value,
+			'event_date'         => $this->mock_date_value,
+			'event_category'     => $cat_term->slug
+		] );
+
+		$list_view = View::make( List_View::class, $context );
+
+		$html = $list_view->get_html();
+
+		// Let's make sure the View is displaying what events we expect it to display.
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 3, 5 ), 'ID' );
+		$this->assertEquals(
+			$expected_post_ids,
+			$list_view->found_post_ids()
+		);
+
+		$this->assertMatchesSnapshot( $html );
+
+		// Tag Archive.
+		$context_tag   = tribe_context()->alter( [
+			'event_display'      => 'list',
+			'event_display_mode' => 'list',
+			'today'              => $this->mock_date_value,
+			'now'                => $this->mock_date_value,
+			'event_date'         => $this->mock_date_value,
+			'post_tag'           => $tag_term->slug
+		] );
+
+		$list_view_tag = View::make( List_View::class, $context_tag );
+
+		$html_tag = $list_view_tag->get_html();
+
+		$this->assertEquals(
+			$expected_post_ids,
+			$list_view_tag->found_post_ids()
+		);
+
+		$this->assertMatchesSnapshot( $html_tag );
 	}
 }

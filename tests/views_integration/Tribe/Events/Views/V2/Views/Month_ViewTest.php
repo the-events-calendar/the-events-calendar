@@ -285,4 +285,160 @@ class Month_ViewTest extends ViewTestCase {
 		$expected = home_url( str_replace( '{{ first_date }}', $first_date, $expected_template ) );
 		$this->assertEquals( $expected, $day_view_more_link );
 	}
+
+	/**
+	 * @test
+	 */
+	public function test_render_with_events_w_taxonomies() {
+		$timezone_string = 'Europe/Paris';
+		$timezone        = new \DateTimeZone( $timezone_string );
+		update_option( 'timezone_string', $timezone_string );
+		$cat    = $this->factory()->term->create( [ 'taxonomy' => TEC::TAXONOMY ] );
+		$cat_term = get_term( $cat, TEC::TAXONOMY  );
+		$tag    = $this->factory()->tag->create();
+		$tag_term = get_term( $tag, 'post_tag'  );
+		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
+
+		$events    = array_map(
+			static function ( $i ) use ( $now, $timezone, $cat, $tag ) {
+				$new_event = tribe_events()->set_args(
+					[
+						'start_date' => $now->setTime( 10 + $i, 0 ),
+						'timezone'   => $timezone,
+						'duration'   => 2 * HOUR_IN_SECONDS,
+						'title'      => 'Test Event - ' . $i,
+						'status'     => 'publish',
+						'category'   => $cat,
+						'tag'        => $tag,
+					]
+				)->create();
+
+				// Added manually addition of the taxonomies as the above coding was not adding them.
+				if ( 1 === $i || 2 === $i ) {
+					wp_set_object_terms( $new_event->ID, $cat, TEC::TAXONOMY, false );
+					wp_set_object_terms( $new_event->ID, $tag, 'post_tag', false );
+				}
+
+				return $new_event;
+			},
+			range( 1, 3 )
+		);
+		$event_ids = wp_list_pluck($events,'ID') ;
+		$mock_and_insert = function($template, $id){
+			$this->wp_insert_post($this->get_mock_event( $template, [ 'id' => $id ] ));
+
+			return $id;
+		};
+		$remapped_post_ids = array_combine( $event_ids, [
+			$mock_and_insert( 'events/single/id.template.json', 234234234 ),
+			$mock_and_insert( 'events/single/id.template.json', 2453454355 ),
+			$mock_and_insert( 'events/single/id.template.json', 3094853477 ),
+		] );
+
+		add_filter(
+			'tribe_events_views_v2_view_data',
+			function ( array $data ) use ( $remapped_post_ids ) {
+				if ( ! empty( $data['events'] ) ) {
+					foreach ( $data['events'] as &$day_events_ids ) {
+						$day_events_ids = $this->remap_post_id_array( $day_events_ids, $remapped_post_ids );
+					}
+				}
+
+				return $data;
+			}
+		);
+		add_filter( 'tribe_events_views_v2_view_month_template_vars', function ( $vars ) use ( $remapped_post_ids )
+		{
+			$vars['events']['2019-01-01']         = $this->remap_post_id_array( $vars['events']['2019-01-01'],
+				$remapped_post_ids );
+			$vars['days']['2019-01-01']['events'] = array_combine(
+				$remapped_post_ids,
+				array_map( 'tribe_get_event', $remapped_post_ids )
+			);
+
+			return $vars;
+		} );
+
+		// Category Archive.
+		$context = tribe_context()->alter( [
+			'today'          => $this->mock_date_value,
+			'now'            => $this->mock_date_value,
+			'event_date'     => $now->format( 'Y-m-d' ),
+			'event_category' => $cat_term->slug
+		] );
+
+		/** @var Month_View $month_view */
+		$month_view      = View::make( Month_View::class, $context );
+
+		$html = $month_view->get_html();
+
+		$expected_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+
+		$this->assertEquals( $expected_ids, $month_view->found_post_ids() );
+
+		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
+			$day          = new \DateTimeImmutable( $date, $timezone );
+			$expected_ids = tribe_events()
+				->by_args( ['event_category' => $cat_term->slug] )
+				->where(
+					'date_overlaps',
+					$day->setTime( 0, 0 ),
+					$day->setTime( 23, 59, 59 ),
+					$timezone,
+				)->get_ids();
+
+			$this->assertEquals(
+				$expected_ids,
+				$found_day_ids,
+				sprintf(
+					'Day %s event IDs mismatch, expected %s, got %s',
+					$day->format( 'Y-m-d' ),
+					json_encode( $expected_ids ),
+					json_encode( $found_day_ids )
+				)
+			);
+		}
+
+		$this->assertMatchesSnapshot( $html );
+
+		// Tag Archive.
+		$context_tag = tribe_context()->alter( [
+			'today'      => $this->mock_date_value,
+			'now'        => $this->mock_date_value,
+			'event_date' => $now->format( 'Y-m-d' ),
+			'post_tag'   => $tag_term->slug
+		] );
+
+		/** @var Month_View $month_view_tag */
+		$month_view_tag      = View::make( Month_View::class, $context_tag );
+
+		$html_tag = $month_view_tag->get_html();
+
+		$this->assertEquals( $expected_ids, $month_view_tag->found_post_ids() );
+
+		foreach ( $month_view_tag->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
+			$day          = new \DateTimeImmutable( $date, $timezone );
+			$expected_ids = tribe_events()
+				->by_args( ['event_category' => $cat_term->slug] )
+				->where(
+					'date_overlaps',
+					$day->setTime( 0, 0 ),
+					$day->setTime( 23, 59, 59 ),
+					$timezone,
+				)->get_ids();
+
+			$this->assertEquals(
+				$expected_ids,
+				$found_day_ids,
+				sprintf(
+					'Day %s event IDs mismatch, expected %s, got %s',
+					$day->format( 'Y-m-d' ),
+					json_encode( $expected_ids ),
+					json_encode( $found_day_ids )
+				)
+			);
+		}
+
+		$this->assertMatchesSnapshot( $html_tag );
+	}
 }
