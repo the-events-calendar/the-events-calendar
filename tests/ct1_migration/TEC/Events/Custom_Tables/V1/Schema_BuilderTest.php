@@ -8,7 +8,7 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Table_Schema_Interface;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
-use    TEC\Events\Custom_Tables\V1\Provider as TableProvider;
+use TEC\Events\Custom_Tables\V1\Provider as TableProvider;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
 
