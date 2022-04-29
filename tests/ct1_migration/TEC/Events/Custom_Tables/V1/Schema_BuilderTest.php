@@ -8,6 +8,7 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Table_Schema_Interface;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
+use    TEC\Events\Custom_Tables\V1\Provider as TableProvider;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
 
@@ -26,6 +27,13 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		if ( ! $occurrences_updated ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
+	}
+
+	/**
+	 * @before each test to make sure our tables are registered.
+	 */
+	public function setup_table_provider() {
+		tribe()->register( TableProvider::class );
 	}
 
 	/**
@@ -119,9 +127,9 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	public function should_sync_version() {
 		$field_schema = $this->custom_field_schema();
 		$this->given_a_field_schema_exists( $field_schema );
-
 		$schema_builder = tribe( Schema_Builder::class );
 		$schema_builder->up();
+
 		// Is version there?
 		$occurrence_version = get_option( OccurrencesSchema::SCHEMA_VERSION_OPTION );
 		$field_version      = get_option( $field_schema::SCHEMA_VERSION_OPTION );
@@ -209,14 +217,14 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_support_group_when_checking_for_all_tables_existence() {
-		add_filter('query',static function($query){
+		add_filter( 'query', static function ( $query ) {
 			if ( $query !== 'SHOW TABLES' ) {
 				return $query;
 			}
 
 			return 'SELECT "fodz" UNION ALL SELECT "klutz" UNION ALL SELECT "zorps"';
-		});
-		$fodz_table = new class implements Table_Schema_Interface{
+		} );
+		$fodz_table  = new class implements Table_Schema_Interface {
 			public static function uid_column() {
 			}
 
@@ -243,7 +251,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 				return 'one';
 			}
 		};
-		$klutz_table = new class implements Table_Schema_Interface{
+		$klutz_table = new class implements Table_Schema_Interface {
 			public static function uid_column() {
 			}
 
@@ -270,7 +278,7 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 				return 'one';
 			}
 		};
-		$zorps_table = new class implements Table_Schema_Interface{
+		$zorps_table = new class implements Table_Schema_Interface {
 			public static function uid_column() {
 			}
 
@@ -297,16 +305,16 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 				return 'two';
 			}
 		};
-		$tables = [ $fodz_table, $klutz_table, $zorps_table ];
+		$tables      = [ $fodz_table, $klutz_table, $zorps_table ];
 		add_filter( 'tec_events_custom_tables_v1_table_schemas', static function () use ( $tables ) {
 			return $tables;
 		} );
 
-		$schema_builder   = new Schema_Builder;
+		$schema_builder = new Schema_Builder;
 
 		$this->assertTrue( $schema_builder->all_tables_exist() );
-		$this->assertTrue( $schema_builder->all_tables_exist('one') );
-		$this->assertTrue( $schema_builder->all_tables_exist('two') );
-		$this->assertFalse( $schema_builder->all_tables_exist('three') );
+		$this->assertTrue( $schema_builder->all_tables_exist( 'one' ) );
+		$this->assertTrue( $schema_builder->all_tables_exist( 'two' ) );
+		$this->assertFalse( $schema_builder->all_tables_exist( 'three' ) );
 	}
 }
