@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+*Fix - On Event tag archives only show events with the tag, change the single event tag links to use the event tag archive, and add link to event tag archive in the admin. [TEC-4314]
+
 = [5.14.2.1] 2022-04-28 =
 
 * Fix - Correct an issue with linked common release.
