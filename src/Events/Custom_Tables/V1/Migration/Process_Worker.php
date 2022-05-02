@@ -231,34 +231,48 @@ class Process_Worker {
 		// Close the output buffer.
 		ob_end_clean();
 
+		$did_migration_error = ! $dry_run && $this->event_report->error;
+		$continue_queue      = true;
+		// If error in the migration phase, need to stop the queue.
+		if ( $did_migration_error ) {
+			$continue_queue = false;
+		}
 
-		// Get next event to process.
-		$next_post_id = $this->events->get_id_to_process();
+		if ( $continue_queue ) {
+			// Get next event to process.
+			$next_post_id = $this->events->get_id_to_process();
 
-		if ( $next_post_id ) {
-			// Enqueue a new (Action Scheduler) action to import another Event.
-			$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $next_post_id, $dry_run ] );
+			if ( $next_post_id ) {
+				// Enqueue a new (Action Scheduler) action to import another Event.
+				$action_id = as_enqueue_async_action( self::ACTION_PROCESS, [ $next_post_id, $dry_run ] );
 
-			if ( empty( $action_id ) ) {
-				// If we cannot migrate the next Event we need to migrate, then the migration has failed.
-				$this->event_report->migration_failed( "enqueue-failed", [ $next_post_id ] );
-			}
-		} else if ( ! $this->check_phase() ) {
-			// Start a recursive check, but only if we are not already doing so.
-			if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
-				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
 				if ( empty( $action_id ) ) {
-					// The migration might have technically completed, but we cannot know for sure and will be conservative.
-					$this->event_report->migration_failed( "check-phase-enqueue-failed" );
+					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
+					$this->event_report->migration_failed( "enqueue-failed", [ $next_post_id ] );
+				}
+			} else if ( ! $this->check_phase() ) {
+				// Start a recursive check, but only if we are not already doing so.
+				if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
+					$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
+					if ( empty( $action_id ) ) {
+						// The migration might have technically completed, but we cannot know for sure and will be conservative.
+						$this->event_report->migration_failed( "check-phase-enqueue-failed" );
+					}
 				}
 			}
+		}
+
+		// If any error in migration phase, we need to stop and put back in a preview state for the user.
+		if ( $did_migration_error ) {
+			$this->cancel_migration_with_failure();
+		} else {
+			$this->check_phase();
 		}
 
 		// Do not hold a reference to the Report once the worker is done.
 		$event_report       = $this->event_report;
 		$this->event_report = null;
 
-		$this->check_phase();
 
 		// Log our worker ending
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:end', [
@@ -270,6 +284,16 @@ class Process_Worker {
 		] );
 
 		return $event_report;
+	}
+
+	/**
+	 * Will trigger the migration failure handling.
+	 *
+	 * @since TBD
+	 */
+	public function cancel_migration_with_failure() {
+		$process = tribe( Process::class );
+		$process->cancel_migration_with_failure();
 	}
 
 	/**
@@ -300,6 +324,7 @@ class Process_Worker {
 
 			return;
 		}
+		$current_phase = $this->state->get_phase();
 
 		// @todo Review - missing anything? Better way?
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
@@ -309,9 +334,13 @@ class Process_Worker {
 		// Clear meta values.
 		$meta_keys = [
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-			Event_Report::META_KEY_REPORT_DATA,
 			Event_Report::META_KEY_MIGRATION_PHASE,
 		];
+
+		// If we are in migration failure, we want to preserve the report data.
+		if ( $current_phase !== State::PHASE_MIGRATION_FAILURE_IN_PROGRESS ) {
+			$meta_keys[] = Event_Report::META_KEY_REPORT_DATA;
+		}
 
 		/**
 		 * Filters the list of post meta keys to be removed during a migration cancel.
@@ -326,23 +355,50 @@ class Process_Worker {
 		}
 
 		// Setup success admin notice.
-		// @todo Is this the best way to do this...?
-		$is_cancel = $this->state->get_phase() === State::PHASE_CANCEL_IN_PROGRESS;
-		$text      = tribe( String_Dictionary::class );
-		$notice    = $text->get( $is_cancel ? 'cancel-migration-complete-notice' : 'revert-migration-complete-notice' );
+		switch ( $current_phase ) {
+			case State::PHASE_CANCEL_IN_PROGRESS:
+			case State::PHASE_REVERT_IN_PROGRESS:
+				$is_cancel = $current_phase === State::PHASE_CANCEL_IN_PROGRESS;
+				$text      = tribe( String_Dictionary::class );
+				$notice    = $text->get( $is_cancel ? 'cancel-migration-complete-notice' : 'revert-migration-complete-notice' );
 
-		Tribe__Admin__Notices::instance()->register_transient(
-			'admin_notice_undo_migration_complete',
-			"<p>$notice</p>",
-			[
-				'type'      => 'success',
-				'dismiss'   => true,
-				'recurring' => true,
-			],
-			MONTH_IN_SECONDS
-		);
+				Tribe__Admin__Notices::instance()->register_transient(
+					'admin_notice_undo_migration_complete',
+					"<p>$notice</p>",
+					[
+						'type'      => 'success',
+						'dismiss'   => true,
+						'recurring' => true,
+					],
+					MONTH_IN_SECONDS
+				);
+				break;
+		}
 
-		$this->state->set( 'phase', $is_cancel ? State::PHASE_CANCEL_COMPLETE : State::PHASE_REVERT_COMPLETE );
+		// Which is our next phase?
+		switch ( $current_phase ) {
+			case State::PHASE_CANCEL_IN_PROGRESS:
+				$next_phase = State::PHASE_CANCEL_COMPLETE;
+				break;
+			case State::PHASE_REVERT_IN_PROGRESS:
+				$next_phase = State::PHASE_REVERT_COMPLETE;
+				break;
+			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
+				$next_phase = State::PHASE_MIGRATION_FAILURE_COMPLETE;
+				break;
+			default:
+				// Should not happen.
+				// Graceful fallback.
+				$next_phase = State::PHASE_PREVIEW_PROMPT;
+				do_action( 'tribe_log', 'error', 'Worker: on undo, next phase not mapped.', [
+					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+					'meta'   => $meta,
+					'phase'  => $current_phase,
+				] );
+				break;
+		}
+
+		$this->state->set( 'phase', $next_phase );
 		$this->state->save();
 
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );

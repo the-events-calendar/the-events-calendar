@@ -20,6 +20,25 @@ use Tribe__Utils__Array as Arr;
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class State {
+
+	/**
+	 * Indicates the migration failed and is enacting remediation steps.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const PHASE_MIGRATION_FAILURE_IN_PROGRESS = 'migration-failed-in-progress';
+
+	/**
+	 * Indicates the migration failed and remediation steps are finished.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const PHASE_MIGRATION_FAILURE_COMPLETE = 'migration-failed-complete';
+
 	/**
 	 * Indicates the migration is not required at all.
 	 *

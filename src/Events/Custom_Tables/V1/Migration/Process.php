@@ -43,11 +43,11 @@ class Process {
 	 * @since TBD
 	 *
 	 * @param Events $events A reference to the current Events' migration repository.
-	 * @param State $state A reference to the migration state data.
+	 * @param State  $state  A reference to the migration state data.
 	 */
 	public function __construct( Events $events, State $state ) {
 		$this->events = $events;
-		$this->state = $state;
+		$this->state  = $state;
 	}
 
 	/**
@@ -144,6 +144,28 @@ class Process {
 
 		// Flag our new phase.
 		$this->state->set( 'phase', State::PHASE_REVERT_IN_PROGRESS );
+		$this->state->set( 'locked_by_undo', true );
+		$this->state->save();
+
+		$this->undo();
+
+		return true;
+	}
+
+	/**
+	 * When doing a migration failure cleanup, handle the appropriate steps.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean False if undo blocked.
+	 */
+	public function cancel_migration_with_failure() {
+		if ( $this->state->get_phase() === State::PHASE_MIGRATION_FAILURE_IN_PROGRESS ) {
+			return false;
+		}
+
+		// Flag our new phase.
+		$this->state->set( 'phase', State::PHASE_MIGRATION_FAILURE_IN_PROGRESS );
 		$this->state->set( 'locked_by_undo', true );
 		$this->state->save();
 
