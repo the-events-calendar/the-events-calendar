@@ -223,15 +223,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
+
 = [5.14.2.1] 2022-04-28 =
 
 * Fix - Correct an issue with linked common release.
 
 = [5.14.2] 2022-04-28 =
-
-* Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
-
-= [TBD] TBD =
 
 * Feature - Add support to CSV import for the ISO Currency Code field. [TEC-4341]
 * Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
