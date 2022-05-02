@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.14.3';
+		const VERSION             = '5.14.2.1';
 
 		/**
 		 * Min Pro Addon
@@ -639,6 +639,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Filter Bar upsell.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
+
+			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
