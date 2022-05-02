@@ -1,0 +1,1 @@
+<?php return '<dt class="tribe-event-tags-label">Class Tags:</dt><dd class="tribe-event-tags"><a href="http://wordpress.test/events/tag/term-31/" rel="tag">Term 31</a># <a href="http://wordpress.test/events/tag/term-32/" rel="tag">Term 32</a></dd>';
