@@ -23,7 +23,8 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 			<?php echo esc_html( $text->get( 'migration-canceled' ) ); ?>
 		</h3>
 		<p>
-			<a href="javascript:window.location.reload(true)"><?php echo esc_html( $text->get( 'migration-okay-button' ) ); ?></a>
+			<button type="button"
+					href="javascript:window.location.reload(true)"><?php echo esc_html( $text->get( 'migration-okay-button' ) ); ?></button>
 		</p>
 	</div>
 </div>
