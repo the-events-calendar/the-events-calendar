@@ -24,7 +24,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 		</h3>
 		<p>
 			<button type="button"
-					href="javascript:window.location.reload(true)"><?php echo esc_html( $text->get( 'migration-okay-button' ) ); ?></button>
+					onclick="window.location.reload(true)"><?php echo esc_html( $text->get( 'migration-okay-button' ) ); ?></button>
 		</p>
 	</div>
 </div>
