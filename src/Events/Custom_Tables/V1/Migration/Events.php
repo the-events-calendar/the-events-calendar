@@ -57,8 +57,10 @@ class Events {
 	    SELECT p.ID, %s,%s
 	    FROM {$wpdb->posts} p
 			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN(%s, %s)
-	    WHERE p.post_type = %s AND pm.meta_value IS NULL
+	    WHERE p.post_type = %s
+	    	AND pm.meta_value IS NULL
 	    	AND p.post_status != 'auto-draft'
+	    	AND p.post_parent = 0
 	    LIMIT %d";
 		$lock_query = $wpdb->prepare( $lock_query,
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
