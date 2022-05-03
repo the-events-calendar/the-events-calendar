@@ -28,8 +28,8 @@ export const selectors = {
  */
 export const buildQueryString = (data = {}) => {
 	if (!(
-			(data instanceof Object && !Array.isArray(data))
-			|| typeof data === 'string')
+		(data instanceof Object && !Array.isArray(data))
+		|| typeof data === 'string')
 	) {
 		throw new Error('data must be an object or a string');
 	}
@@ -43,10 +43,10 @@ export const buildQueryString = (data = {}) => {
 		data = extractedData;
 	}
 
-	const queryString =  Object.keys(data).map(
-			function(k) {
-				return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
-			},
+	const queryString = Object.keys(data).map(
+		function (k) {
+			return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+		},
 	).join('&');
 
 	return queryString ? '?' + queryString : '';
@@ -79,7 +79,7 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 	const request = new XMLHttpRequest();
 	request.open('GET', compiledUrl, true);
 
-	request.onreadystatechange = function() {
+	request.onreadystatechange = function () {
 		// In local files, status is 0 upon success in Mozilla Firefox
 		if (request.readyState === XMLHttpRequest.DONE) {
 			const status = request.status;
@@ -95,7 +95,7 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 		}
 	};
 
-	request.onerror = function() {
+	request.onerror = function () {
 		onError && onError();
 	};
 
@@ -133,7 +133,7 @@ export const onError = () => {
  */
 export const recursePollForReport = () => {
 	syncReportData(
-			pollForReport,
+		pollForReport,
 	);
 };
 
@@ -161,7 +161,7 @@ export const pollForReport = () => {
  *
  * @param {object} data The response object with the compiled report data.
  */
-export const handleReportData = function(data) {
+export const handleReportData = function (data) {
 	const {nodes, key, html} = data;
 
 	// Write our HTML if we are new.
@@ -171,16 +171,16 @@ export const handleReportData = function(data) {
 	}
 	// Iterate on nodes.
 	nodes.forEach(
-			(node) => {
-				if (isNodeDiff(node.key, node.hash)) {
-					// Write new content.
-					let element = document.querySelector(node.target);
-					if (element) {
-						element.innerHTML = node.html;
-						bindNodes(node.key);
-					}
+		(node) => {
+			if (isNodeDiff(node.key, node.hash)) {
+				// Write new content.
+				let element = document.querySelector(node.target);
+				if (element) {
+					element.innerHTML = node.html;
+					bindNodes(node.key);
 				}
-			},
+			}
+		},
 	);
 	// Store changes locally for next request.
 	currentViewState = data;
@@ -197,27 +197,35 @@ export const bindNodes = (key) => {
 	let element;
 
 	// Start preview button.
-	element = document.querySelector(selectors.startPreviewButton);
+	element = document.querySelectorAll(selectors.startPreviewButton);
 	if (element) {
-		element.addEventListener('click', handleStartMigrationWithPreview);
+		element.forEach(function (node) {
+			node.addEventListener('click', handleStartMigrationWithPreview);
+		});
 	}
 
 	// Start migration button.
-	element = document.querySelector(selectors.startMigrationButton);
+	element = document.querySelectorAll(selectors.startMigrationButton);
 	if (element) {
-		element.addEventListener('click', handleStartMigration);
+		element.forEach(function (node) {
+			node.addEventListener('click', handleStartMigration);
+		});
 	}
 
 	// Cancel migration button.
-	element = document.querySelector(selectors.cancelMigrationButton);
+	element = document.querySelectorAll(selectors.cancelMigrationButton);
 	if (element) {
-		element.addEventListener('click', handleCancelMigration);
+		element.forEach(function (node) {
+			node.addEventListener('click', handleCancelMigration);
+		});
 	}
 
 	// Revert migration button.
-	element = document.querySelector(selectors.revertMigrationButton);
+	element = document.querySelectorAll(selectors.revertMigrationButton);
 	if (element) {
-		element.addEventListener('click', handleRevertMigration);
+		element.forEach(function (node) {
+			node.addEventListener('click', handleRevertMigration);
+		});
 	}
 }
 
@@ -364,7 +372,7 @@ export const isNodeDiff = (searchKey, searchHash) => {
 		return true;
 	}
 	const node = nodes.find(
-			({key}) => key === searchKey,
+		({key}) => key === searchKey,
 	);
 
 	if (!node) {
@@ -381,14 +389,14 @@ export const isNodeDiff = (searchKey, searchHash) => {
  *
  * @param {function|null} successCallback Callback fired on success.
  */
-export const syncReportData = function(successCallback = null) {
+export const syncReportData = function (successCallback = null) {
 	getReport(
-			function(response) {
-				handleReportData(response);
-				if (successCallback) {
-					successCallback(response);
-				}
-			},
+		function (response) {
+			handleReportData(response);
+			if (successCallback) {
+				successCallback(response);
+			}
+		},
 	);
 };
 
@@ -441,7 +449,6 @@ export const init = () => {
 // On DOM ready, init.
 if (document.readyState !== 'loading') {
 	init();
-}
-else {
+} else {
 	document.addEventListener('DOMContentLoaded', init);
 }
