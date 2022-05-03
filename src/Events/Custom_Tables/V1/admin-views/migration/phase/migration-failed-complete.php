@@ -70,13 +70,15 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 				<ul>
 					<?php foreach ( $event_reports as $event ) : ?>
 						<li>
-							<a target="_blank"
-							   href="<?php echo get_edit_post_link( $event->source_event_post->ID, false ) ?>"><?php echo esc_html( $event->source_event_post->post_title ); ?></a>
-							—
 							<?php
 							if ( $event->error ) {
-								esc_html_e( $event->error, 'the-events-calendar' );
+								echo $event->error ;
 							} else {
+								?>
+								<a target="_blank"
+								   href="<?php echo get_edit_post_link( $event->source_event_post->ID, false ) ?>"><?php echo esc_html( $event->source_event_post->post_title ); ?></a>
+								—
+							<?php
 								foreach ( $event->strategies_applied as $action ) {
 									switch ( $action ) {
 										case 'split':
