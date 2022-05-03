@@ -304,27 +304,31 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-error-k-canceled'                          => __(
-				'Canceled.',
+				'The event %s generated an error: Migration was canceled.',
 				'the-events-calendar'
 			),
 			'migration-error-k-exit'                              => __(
-				'The "die" or "exit" function was called during the migration process; output: %s',
+				'%sThe event %s generated an error: The "die" or "exit" function was called during the migration process; output: %s.%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
 			'migration-error-k-exception'                         => __(
-				'Error: %s',
+				'%sThe event %s generated an error: [%s].%s %sTry again after deactivating any plugins unrelated to events.%s',
+				'the-events-calendar'
+			),
+			'migration-error-k-tickets-exception'                 => __(
+				'%sThe event %s cannot be migrated because we do not yet support tickets on recurring events.%s %sRemove the tickets or wait to migrate until a path is available (%sRead more%s).%s',
 				'the-events-calendar'
 			),
 			'migration-error-k-enqueue-failed'                    => __(
-				'Cannot enqueue action to migrate Event with post ID %s',
+				'%sThe event %s generated an error: Cannot enqueue action to migrate Event with post ID %s.%s %sYour site may be under high load and unable to process the necessary requests. Try again when site activity is low.%s',
 				'the-events-calendar'
 			),
 			'migration-error-k-check-phase-enqueue-failed'        => __(
-				'Cannot enqueue action to check migration status.',
+				'%sThe event %s generated an error: Cannot enqueue action to check migration status.%s %sYour site may be under high load and unable to process the necessary requests. Try again when site activity is low.%s',
 				'the-events-calendar'
 			),
 			'migration-error-k-unknown-shutdown'                  => __(
-				'Unknown error occurred, shutting down.',
+				'%sThe event %s generated an unknown error.%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
 			'migration-view-report-button'                        => __(
@@ -352,7 +356,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-failure-complete-alert'                    => __(
-				'We\'ve detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, re-run the migration preview to make sure your site is ready to go.',
+				'We\'ve detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, %sre-run the migration preview%s to make sure your site is ready to go.',
 				'the-events-calendar'
 			),
 			'migration-failure-complete-date-heading'             => __(
