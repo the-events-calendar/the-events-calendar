@@ -220,7 +220,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'cancel-migration-in-progress-paragraph'              => __(
-				'We are canceling your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
+				'We are canceling your site\'s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
 			'cancel-migration-complete-notice'                    => __(
@@ -236,7 +236,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'reverse-migration-in-progress-paragraph'             => __(
-				'We are reversing your site’s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
+				'We are reversing your site\'s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
 			'migration-prompt-changes-to-events'                  => __(
@@ -341,6 +341,26 @@ class String_Dictionary {
 			),
 			'migration-okay-button'                               => __(
 				'Okay',
+				'the-events-calendar'
+			),
+			'migration-failure-complete'                          => __(
+				'Migration failure',
+				'the-events-calendar'
+			),
+			'migration-failure-complete-paragraph'                => __(
+				'Your site could not be safely migrated to the new events system.',
+				'the-events-calendar'
+			),
+			'migration-failure-complete-alert'                    => __(
+				'We\'ve detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, re-run the migration preview to make sure your site is ready to go.',
+				'the-events-calendar'
+			),
+			'migration-failure-complete-date-heading'             => __(
+				'Migration attempted',
+				'the-events-calendar'
+			),
+			'migration-failure-complete-after-report'             => __(
+				'Your site may be under high load and unable to process the necessary requests. Try again when site activity is low.',
 				'the-events-calendar'
 			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),

@@ -168,26 +168,6 @@ class Ajax {
 
 		// Then build the renderer.
 		switch ( $phase ) {
-			case null;
-			case State::PHASE_CANCEL_COMPLETE:
-			case State::PHASE_REVERT_COMPLETE:
-			case State::PHASE_PREVIEW_PROMPT:
-				// Maintenance mode has templates for each phase, upgrade page only has one view.
-				if ( $is_maintenance_mode ) {
-					$template = $phase;
-				} else {
-					$template = State::PHASE_PREVIEW_PROMPT;
-				}
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$template.php",
-					[
-						'state'  => tribe( State::class ),
-						'report' => $site_report,
-						'text'   => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( false );
-				break;
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
 				$renderer = new Phase_View_Renderer( $phase,
@@ -214,6 +194,7 @@ class Ajax {
 				$renderer->should_poll( true );
 				break;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase,
 					"$base_dir/$phase.php"
@@ -228,6 +209,29 @@ class Ajax {
 					]
 				);
 				$renderer->should_poll( true );
+				break;
+			default:
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_REVERT_COMPLETE:
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				// Maintenance mode and migration failure has templates for each phase.
+				$specific_template = ( State::PHASE_MIGRATION_FAILURE_COMPLETE === $phase || $is_maintenance_mode );
+				if ( $specific_template ) {
+					$template = $phase;
+				} else {
+					// Other phases / views have this specific template.
+					$template = State::PHASE_PREVIEW_PROMPT;
+				}
+				$renderer = new Phase_View_Renderer( $phase,
+					"$base_dir/$template.php",
+					[
+						'state'  => tribe( State::class ),
+						'report' => $site_report,
+						'text'   => tribe( String_Dictionary::class )
+					]
+				);
+				$renderer->should_poll( false );
 				break;
 		}
 

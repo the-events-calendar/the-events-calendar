@@ -13,7 +13,6 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
  * @var Site_Report         $report             The site report data.
  * @var array<Event_Report> $event_reports      A list of the event report data.
  *
- * @todo we don't handle language for migration complete vs preview complete...
  */
 ?>
 <div class="tec-ct1-upgrade__report">
