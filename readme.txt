@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Ensure all expected subscribe links show when using the default page template. [TEC-4313]
+* Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
 
 = [5.14.2.1] 2022-04-28 =
 
