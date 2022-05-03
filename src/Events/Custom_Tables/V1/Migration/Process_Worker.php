@@ -398,6 +398,7 @@ class Process_Worker {
 				break;
 		}
 
+		$this->state->set( 'complete_timestamp', time() );
 		$this->state->set( 'phase', $next_phase );
 		$this->state->save();
 
