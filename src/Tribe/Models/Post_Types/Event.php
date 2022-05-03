@@ -19,6 +19,7 @@ use Tribe\Utils\Lazy_String;
 use Tribe\Utils\Post_Thumbnail;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Featured_Events as Featured;
+use Tribe__Events__Main;
 use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Timezones as Timezones;
 use Tribe__Events__Venue as Venue;
@@ -37,6 +38,18 @@ class Event extends Base {
 	 * {@inheritDoc}
 	 */
 	protected function build_properties( $filter ) {
+		// Sanity check.
+		if ( Tribe__Events__Main::POSTTYPE !== $this->post->post_type ) {
+
+			bdump([
+				$filter,
+				$this->post->post_type,
+				debug_backtrace()
+			]);
+
+			return [];
+		}
+
 		try {
 			$cache_this = $this->get_caching_callback( $filter );
 
@@ -65,9 +78,11 @@ class Event extends Base {
 			$end_date_utc_object   = Dates::immutable( $end_date_utc, $utc_timezone );
 			$end_of_day_object     = Dates::immutable( $end_of_day, $timezone );
 
-			if ( empty( $duration ) ) {
+			if ( is_null( $duration ) ) {
 				// This is really an edge case, but here we have the information to rebuild it.
 				$duration = $end_date_utc_object->getTimestamp() - $start_date_utc_object->getTimestamp();
+				// Then set it for future use.
+				update_post_meta( $post_id, '_EventDuration', $duration );
 			}
 
 			/*

@@ -2,6 +2,9 @@
 
 namespace Tribe\Events\Editor;
 
+use Tribe__Events__Main;
+use Tribe__Date_Utils as Dates;
+
 /**
  * Events block editor hooks.
  *
@@ -27,6 +30,22 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_actions() {
 		add_action( 'current_screen', [ $this, 'add_widget_resources' ] );
+		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [ $this, 'calculate_duration' ], 20 );
+	}
+
+	public function calculate_duration( $post_id ) {
+		$post_meta             = get_post_meta( $post_id );
+		$duration_value        = (int) isset( $post_meta['_EventDuration'][0] ) ? $post_meta['_EventDuration'][0] : null;
+		$start_date_utc        = isset( $post_meta['_EventStartDateUTC'][0] ) ? $post_meta['_EventStartDateUTC'][0] : null;
+		$end_date_utc          = isset( $post_meta['_EventEndDateUTC'][0] ) ? $post_meta['_EventEndDateUTC'][0] : null;
+		$utc_timezone          = new \DateTimezone( 'UTC' );
+		$start_date_utc_object = Dates::immutable( $start_date_utc, $utc_timezone );
+		$end_date_utc_object   = Dates::immutable( $end_date_utc, $utc_timezone );
+		$duration              = $end_date_utc_object->getTimestamp() - $start_date_utc_object->getTimestamp();
+
+		if ( is_null( $duration_value ) || (int) $duration_value !== (int) $duration ) {
+			update_post_meta( $post_id, '_EventDuration', $duration );
+		}
 	}
 
 	/**

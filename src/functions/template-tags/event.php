@@ -109,6 +109,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return null;
 		}
 
+		if ( Tribe__Events__Main::POSTTYPE !== $cache_post->post_type ) {
+			return null;
+		}
+
 		if ( ! isset( $cache['option_start_of_week'] ) ) {
 			$cache['option_start_of_week'] = get_option( 'start_of_week' );
 		}
