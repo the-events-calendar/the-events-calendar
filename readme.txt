@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure all expected subscribe links show when using the default page template. [TEC-4313]
+
 = [5.14.2.1] 2022-04-28 =
 
 * Fix - Correct an issue with linked common release.
