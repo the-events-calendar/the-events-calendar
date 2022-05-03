@@ -200,8 +200,8 @@ HTML;
 	 */
 	public function test_event_tag_archive_link( $label, $separator ) {
 		$this->set_permalinks();
-		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1' ] );
-		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2' ] );
+		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'test-1' ] );
+		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2', 'name' => 'test-2' ] );
 		$tag_term   = get_term( $tag, 'post_tag' );
 		$tag_term_2 = get_term( $tag_2, 'post_tag' );
 
@@ -229,8 +229,8 @@ HTML;
 	 */
 	public function test_wp_tag_archive_link( $label, $separator ) {
 		$this->set_permalinks();
-		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1' ] );
-		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2' ] );
+		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'test-1' ] );
+		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2', 'name' => 'test-2' ] );
 		$tag_term   = get_term( $tag, 'post_tag' );
 		$tag_term_2 = get_term( $tag_2, 'post_tag' );
 
@@ -258,8 +258,8 @@ HTML;
 	 */
 	public function test_with_wp_filter_tag_archive_link( $label, $separator ) {
 		$this->set_permalinks();
-		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1' ] );
-		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2' ] );
+		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'test-1' ] );
+		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2', 'name' => 'test-2' ] );
 		$tag_term   = get_term( $tag, 'post_tag' );
 		$tag_term_2 = get_term( $tag_2, 'post_tag' );
 
