@@ -238,7 +238,9 @@ abstract class Link_Abstract implements Link_Interface {
 	 */
 	public function get_uri( View $view = null ) {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
-		$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
+		if ( is_single() ) {
+			$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
+		}
 
 		if ( empty( $feed_url ) && null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
@@ -318,7 +320,11 @@ abstract class Link_Abstract implements Link_Interface {
 		// iCalendarize!
 		$passthrough_args['ical'] = 1;
 
-		// Tidy.
+		// Allow all views to utilize the list view so they collect the appropriate number of events.
+		// Note: this is only applied to subscription links - the ics direct link downloads what you see on the page!
+		$passthrough_args["eventDisplay"] = 'list';
+
+		// Tidy (remove empty-value pairs).
 		$passthrough_args = array_filter( $passthrough_args );
 
 		/**

@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
+
 = [5.14.2.1] 2022-04-28 =
 
 * Fix - Correct an issue with linked common release.
