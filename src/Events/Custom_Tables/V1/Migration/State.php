@@ -257,6 +257,7 @@ class State {
 			self::PHASE_PREVIEW_IN_PROGRESS,
 			self::PHASE_CANCEL_IN_PROGRESS,
 			self::PHASE_REVERT_IN_PROGRESS,
+			self::PHASE_MIGRATION_FAILURE_IN_PROGRESS,
 		];
 
 		return in_array( $this->get_phase(), $states, true );
@@ -274,6 +275,7 @@ class State {
 			self::PHASE_MIGRATION_IN_PROGRESS,
 			self::PHASE_CANCEL_IN_PROGRESS,
 			self::PHASE_REVERT_IN_PROGRESS,
+			self::PHASE_MIGRATION_FAILURE_IN_PROGRESS,
 		];
 
 		return in_array( $this->get_phase(), $states, true );

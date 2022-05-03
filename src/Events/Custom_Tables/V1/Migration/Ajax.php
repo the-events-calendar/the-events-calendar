@@ -166,6 +166,9 @@ class Ajax {
 		// Determine base directory for templates.
 		$base_dir = $is_maintenance_mode ? "/maintenance-mode/phase" : "/phase";
 
+		// Base template is phase name. Some phases might change.
+		$template = $phase;
+
 		// Then build the renderer.
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
@@ -193,11 +196,12 @@ class Ajax {
 				);
 				$renderer->should_poll( true );
 				break;
-			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
+				$template = State::PHASE_MIGRATION_IN_PROGRESS;
+			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
 				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$phase.php"
+					"$base_dir/$template.php"
 				);
 				$renderer->register_node( 'progress-bar',
 					'.tec-ct1-upgrade-update-bar-container',
