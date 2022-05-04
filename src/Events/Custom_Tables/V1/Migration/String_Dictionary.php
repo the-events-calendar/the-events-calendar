@@ -363,6 +363,14 @@ class String_Dictionary {
 				'Migration attempted',
 				'the-events-calendar'
 			),
+			'migration-failed'                                    => __(
+				'Migration failed',
+				'the-events-calendar'
+			),
+			'migration-failure-complete-view-report-button'       => __(
+				'View the error report',
+				'the-events-calendar'
+			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),
 		] );
 	}
