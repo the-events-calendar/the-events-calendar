@@ -40,13 +40,6 @@ class Event extends Base {
 	protected function build_properties( $filter ) {
 		// Sanity check.
 		if ( Tribe__Events__Main::POSTTYPE !== $this->post->post_type ) {
-
-			bdump([
-				$filter,
-				$this->post->post_type,
-				debug_backtrace()
-			]);
-
 			return [];
 		}
 
