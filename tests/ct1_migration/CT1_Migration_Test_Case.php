@@ -16,15 +16,13 @@ class CT1_Migration_Test_Case extends \Codeception\Test\Unit {
 		// This will load all the factories.
 		self::$factory = new FactoryStore();
 		static::$factory->getThingFactory( 'post' );
-
-		self::backup_hooks();
 	}
 
 	protected static function factory() {
 		return self::$factory;
 	}
 
-	private static function backup_hooks() {
+	private function backup_hooks() {
 		$globals = [ 'wp_actions', 'wp_current_filter' ];
 		foreach ( $globals as $key ) {
 			self::$hooks_saved[ $key ] = $GLOBALS[ $key ];
@@ -39,6 +37,7 @@ class CT1_Migration_Test_Case extends \Codeception\Test\Unit {
 		$this->flush_cache();
 		$this->set_user_to_admin();
 		$this->filter_site_url();
+		$this->backup_hooks();
 	}
 
 	public function tearDown() {
