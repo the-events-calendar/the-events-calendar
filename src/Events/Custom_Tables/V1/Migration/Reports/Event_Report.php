@@ -435,8 +435,12 @@ class Event_Report implements JsonSerializable {
 
 		// Parse message here, so we don't need to store the context.
 		$text    = tribe( String_Dictionary::class );
-		$message = $text->get( "migration-error-k-$reason_key" );
-		array_unshift( $context, $message );
+
+		// Expected exceptions have the message pre generated.
+		if($reason_key !== 'expected-exception') {
+			array_unshift( $context, $text->get( "migration-error-k-$reason_key" ) );
+		}
+
 		$message = call_user_func_array( 'sprintf', $context );
 
 		return $this->set_error( $message )

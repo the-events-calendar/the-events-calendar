@@ -10,6 +10,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
+use TEC\Events\Custom_Tables\V1\Migration\Expected_Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
@@ -97,6 +98,18 @@ class Process_Worker {
 	public function __construct( Events $events, State $state ) {
 		$this->events = $events;
 		$this->state  = $state;
+	}
+
+	/**
+	 * @since TBD
+	 *
+	 * @return string The HTML markup with the event link.
+	 */
+	public function get_event_link_markup() {
+		$post_id = $this->event_report->source_event_post->ID;
+		$post    = get_post( $post_id );
+
+		return '<a target="_blank" href="' . get_edit_post_link( $post_id ) . '">' . $post->post_title . '</a>';
 	}
 
 	/**
@@ -207,19 +220,40 @@ class Process_Worker {
 			if ( ! $this->event_report->error ) {
 				$this->event_report->migration_success();
 			}
+		} catch ( Expected_Migration_Exception $e ) {
+			if ( $this->dry_run ) {
+				$this->rollback_transaction();
+			}
+			$this->event_report->migration_failed( 'expected-exception', [
+				$e->getMessage(),
+			] );
 		} catch ( \Throwable $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
 				$this->rollback_transaction();
 			}
-			$this->event_report->migration_failed( 'exception', [ $e->getMessage() ] );
+			$this->event_report->migration_failed( 'exception', [
+				'<p>',
+				$this->get_event_link_markup(),
+				$e->getMessage(),
+				'</p>',
+				'<p>',
+				'</p>'
+			] );
 		} catch ( \Exception $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
 				$this->rollback_transaction();
 			}
 
-			$this->event_report->migration_failed( 'exception', [ $e->getMessage() ] );
+			$this->event_report->migration_failed( 'exception', [
+				'<p>',
+				$this->get_event_link_markup(),
+				$e->getMessage(),
+				'</p>',
+				'<p>',
+				'</p>'
+			] );
 		}
 
 		$this->migration_completed = true;
@@ -248,7 +282,14 @@ class Process_Worker {
 
 				if ( empty( $action_id ) ) {
 					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
-					$this->event_report->migration_failed( "enqueue-failed", [ $next_post_id ] );
+					$this->event_report->migration_failed( "enqueue-failed", [
+						'<p>',
+						$this->get_event_link_markup(),
+						$next_post_id,
+						'</p>',
+						'<p>',
+						'</p>'
+					] );
 				}
 			} else if ( ! $this->check_phase() ) {
 				// Start a recursive check, but only if we are not already doing so.
@@ -256,7 +297,13 @@ class Process_Worker {
 					$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
 					if ( empty( $action_id ) ) {
 						// The migration might have technically completed, but we cannot know for sure and will be conservative.
-						$this->event_report->migration_failed( "check-phase-enqueue-failed" );
+						$this->event_report->migration_failed( "check-phase-enqueue-failed", [
+							'<p>',
+							$this->get_event_link_markup(),
+							'</p>',
+							'<p>',
+							'</p>'
+						] );
 					}
 				}
 			}
@@ -441,8 +488,16 @@ class Process_Worker {
 		if ( $this->dry_run ) {
 			$this->transaction_rollback();
 		}
+		$event_link_markup = $this->get_event_link_markup();
+
 		// If we're here, the migration failed.
-		$this->event_report->migration_failed( "unknown-shutdown" );
+		$this->event_report->migration_failed( "unknown-shutdown", [
+			'<p>',
+			$event_link_markup,
+			'</p>',
+			'<p>',
+			'</p>'
+		] );
 	}
 
 	/**
@@ -516,6 +571,8 @@ class Process_Worker {
 			$this->transaction_rollback();
 		}
 
+		$event_link_markup = $this->get_event_link_markup();
+
 		/**
 		 * Since we're storing output of arbitrary length in the database, let's
 		 * trim it down to something that should not go over the `mysql_max_packet`
@@ -524,7 +581,14 @@ class Process_Worker {
 		$trimmed_buffer = substr( $buffer, 0, 1024 );
 
 		// If we're here, some code called `die` or `exit`.
-		$this->event_report->migration_failed( 'exit', [ $trimmed_buffer ] );
+		$this->event_report->migration_failed( 'exit', [
+			'<p>',
+			$event_link_markup,
+			$trimmed_buffer,
+			'</p>',
+			'<p>',
+			'</p>'
+		] );
 
 		/*
 		 * This method might be the last executing before a hard `die` or `exit` call, let's check the phase.

@@ -46,50 +46,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 					<strong><?php echo esc_html( $text->get( 'migration-prompt-no-changes-to-events' ) ); ?></strong>
 				</p>
 			<?php endif; ?>
-			<ul>
-				<?php foreach ( $event_reports as $event ) : ?>
-					<li>
-						<a target="_blank"
-						   href="<?php echo get_edit_post_link( $event->source_event_post->ID, false ) ?>"><?php echo esc_html( $event->source_event_post->post_title ); ?></a>
-						—
-						<?php
-						if ( $event->error ) {
-							esc_html_e( $event->error, 'the-events-calendar' );
-						} else {
-							foreach ( $event->strategies_applied as $action ) {
-								switch ( $action ) {
-									case 'split':
-										echo sprintf(
-												esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
-												'<strong>',
-												count( $event->created_events ),
-												'</strong>'
-										);
-										echo sprintf(
-												esc_html( $text->get( "migration-prompt-strategy-$action-new-series" ) ),
-												$event->series[0]->post_title // @todo This ok?
-										);
-										break;
-									default:
-										// Do we have language for this strategy?
-										$output = sprintf(
-												esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
-												'<strong>',
-												'</strong>'
-										);
-										if ( $output ) {
-											echo $output;
-										} else {
-											echo esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
-										}
-										break;
-								}
-							}
-						}
-						?>
-					</li>
-				<?php endforeach; ?>
-			</ul>
+			<?php include( $template_directory . '/partials/event-loop.php' ); ?>
 		</div>
 		<footer class="tec-ct1-upgrade__report-body-footer">
 			<a href="http://evnt.is/recurrence-2-0-report" target="_blank" rel="noopener">

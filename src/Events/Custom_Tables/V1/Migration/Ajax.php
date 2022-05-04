@@ -230,9 +230,10 @@ class Ajax {
 				$renderer = new Phase_View_Renderer( $phase,
 					"$base_dir/$template.php",
 					[
-						'state'  => tribe( State::class ),
-						'report' => $site_report,
-						'text'   => tribe( String_Dictionary::class )
+						'state'         => tribe( State::class ),
+						'report'        => $site_report,
+						'text'          => tribe( String_Dictionary::class ),
+						'event_reports' => $site_report->get_event_reports( $page, $count )
 					]
 				);
 				$renderer->should_poll( false );

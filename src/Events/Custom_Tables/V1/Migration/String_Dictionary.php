@@ -363,10 +363,6 @@ class String_Dictionary {
 				'Migration attempted',
 				'the-events-calendar'
 			),
-			'migration-failure-complete-after-report'             => __(
-				'Your site may be under high load and unable to process the necessary requests. Try again when site activity is low.',
-				'the-events-calendar'
-			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),
 		] );
 	}
