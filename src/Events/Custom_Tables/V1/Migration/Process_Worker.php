@@ -267,6 +267,8 @@ class Process_Worker {
 
 		$did_migration_error = ! $dry_run && $this->event_report->error;
 		$continue_queue      = true;
+		$next_post_id        = null;
+
 		// If error in the migration phase, need to stop the queue.
 		if ( $did_migration_error ) {
 			$continue_queue = false;
