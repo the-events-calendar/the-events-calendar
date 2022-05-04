@@ -247,13 +247,15 @@ if ( ! tec_is_full_site_editor() ) {
 }
 
 $styling_array['tribeEnableViews'] = [
-	'type'            => 'checkbox_list',
-	'label'           => __( 'Enable event views', 'the-events-calendar' ),
-	'tooltip'         => $tribe_enable_views_tooltip,
-	'default'         => array_keys( $views_options ),
-	'options'         => $views_options,
-	'validation_type' => 'options_multi',
-];
+			'type'            => 'checkbox_list',
+			'label'           => __( 'Enable event views', 'the-events-calendar' ),
+			'tooltip'         => $tribe_enable_views_tooltip,
+			'default'         => array_keys( $enabled_views ),
+			'options'         => array_map( static function( $view ) {
+				return tribe( Manager::class )->get_view_label_by_class( $view );
+			}, $views ),
+			'validation_type' => 'options_multi',
+		];
 
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
