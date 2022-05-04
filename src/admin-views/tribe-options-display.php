@@ -258,37 +258,7 @@ $styling_array['tribeEnableViews'] = [
 $display_tab_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
 	$display_tab_fields,
-<<<<<<< HEAD
-	[
-		'tribeEventsBasicSettingsTitle'      => [
-			'type' => 'html',
-			'html' => '<h3>' . __( 'Basic Template Settings', 'the-events-calendar' ) . '</h3>',
-		],
-		'stylesheetOption'                   => $stylesheet_option,
-		'stylesheet_mode'                    => $stylesheet_mode,
-		'tribeEventsTemplate'                => [
-			'type'            => 'dropdown',
-			'label'           => __( 'Events template', 'the-events-calendar' ),
-			'tooltip'         => __( 'Choose a page template to control the appearance of your calendar and event content.', 'the-events-calendar' ),
-			'validation_type' => 'options',
-			'size'            => 'small',
-			'default'         => 'default',
-			'options'         => $template_options,
-		],
-		'tribeEnableViews'                   => [
-			'type'            => 'checkbox_list',
-			'label'           => __( 'Enable event views', 'the-events-calendar' ),
-			'tooltip'         => $tribe_enable_views_tooltip,
-			'default'         => array_keys( $enabled_views ),
-			'options'         => array_map( static function( $view ) {
-				return tribe( Manager::class )->get_view_label_by_class( $view );
-			}, $views ),
-			'validation_type' => 'options_multi',
-		],
-	]
-=======
 	$styling_array
->>>>>>> 84117d3e0f12876b11e747134faa993a7e0e0ef0
 );
 
 $display_tab_fields = Tribe__Main::array_insert_before_key(
