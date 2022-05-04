@@ -73,7 +73,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 */
-	private function update_old_durations() {
+	public function update_old_durations() {
 		if ( ! empty( tribe_get_option( 'fix_duration' ) ) ) {
 			return;
 		}
