@@ -59,15 +59,13 @@ class Event extends Base {
 
 			$post_id = $this->post->ID;
 
-			$post_meta = get_post_meta( $post_id );
-
-			$start_date            = isset( $post_meta['_EventStartDate'][0] ) ? $post_meta['_EventStartDate'][0] : null;
-			$start_date_utc        = isset( $post_meta['_EventStartDateUTC'][0] ) ? $post_meta['_EventStartDateUTC'][0] : null;
-			$end_date              = isset( $post_meta['_EventEndDate'][0] ) ? $post_meta['_EventEndDate'][0] : null;
-			$end_date_utc          = isset( $post_meta['_EventEndDateUTC'][0] ) ? $post_meta['_EventEndDateUTC'][0] : null;
-			$duration              = (int) isset( $post_meta['_EventDuration'][0] ) ? $post_meta['_EventDuration'][0] : null;
+			$start_date            = get_post_meta( $post_id, '_EventStartDate', true );
+			$start_date_utc        = get_post_meta( $post_id, '_EventStartDateUTC', true );
+			$end_date              = get_post_meta( $post_id, '_EventEndDate', true );
+			$end_date_utc          = get_post_meta( $post_id, '_EventEndDateUTC', true );
+			$duration              = get_post_meta( $post_id, '_EventDuration', true );
 			$timezone_string       = Timezones::get_event_timezone_string( $post_id );
-			$all_day               = tribe_is_truthy( isset( $post_meta['_EventAllDay'][0] ) ? $post_meta['_EventAllDay'][0] : null );
+			$all_day               = tribe_is_truthy( get_post_meta( $post_id, '_EventAllDay', true ) );
 			$end_of_day            = tribe_end_of_day( $start_date );
 			$timezone              = Timezones::build_timezone_object( $timezone_string );
 			$site_timezone         = Timezones::build_timezone_object();
@@ -78,8 +76,8 @@ class Event extends Base {
 			$end_date_utc_object   = Dates::immutable( $end_date_utc, $utc_timezone );
 			$end_of_day_object     = Dates::immutable( $end_of_day, $timezone );
 
-			if ( is_null( $duration ) ) {
-				// This is really an edge case, but here we have the information to rebuild it.
+			if ( empty( $duration ) ) {
+				// In the past this might not have been calculated, but here we have the information to rebuild it.
 				$duration = $end_date_utc_object->getTimestamp() - $start_date_utc_object->getTimestamp();
 				// Then set it for future use.
 				update_post_meta( $post_id, '_EventDuration', $duration );
@@ -178,7 +176,7 @@ class Event extends Base {
 				}
 			}
 
-			$featured              = tribe_is_truthy( isset( $post_meta[ Featured::FEATURED_EVENT_KEY ][0] ) ? $post_meta[ Featured::FEATURED_EVENT_KEY ][0] : null );
+			$featured              = tribe_is_truthy( get_post_meta( $post_id, Featured::FEATURED_EVENT_KEY, true ) );
 			$sticky                = get_post_field( 'menu_order', $post_id ) === - 1;
 			$organizer_names_fetch = Organizer::get_fetch_names_callback( $post_id );
 			$organizer_fetch       = Organizer::get_fetch_callback( $post_id );

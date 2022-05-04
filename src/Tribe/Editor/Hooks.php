@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Editor;
 
-use Tribe__Events__Main;
+use Tribe__Events__Main as TEC;
 use Tribe__Date_Utils as Dates;
 
 /**
@@ -30,21 +30,35 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_actions() {
 		add_action( 'current_screen', [ $this, 'add_widget_resources' ] );
-		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [ $this, 'calculate_duration' ], 20 );
+		add_action( 'save_post_' . TEC::POSTTYPE, [ $this, 'calculate_duration' ], 20 );
 	}
 
+	/**
+	 * Calculate the event duration based on the saved start and end dates.
+	 * This occurs during post save, and checks the saved value against the calculated value on updates.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id
+	 *
+	 */
 	public function calculate_duration( $post_id ) {
-		$post_meta             = get_post_meta( $post_id );
-		$duration_value        = (int) isset( $post_meta['_EventDuration'][0] ) ? $post_meta['_EventDuration'][0] : null;
-		$start_date_utc        = isset( $post_meta['_EventStartDateUTC'][0] ) ? $post_meta['_EventStartDateUTC'][0] : null;
-		$end_date_utc          = isset( $post_meta['_EventEndDateUTC'][0] ) ? $post_meta['_EventEndDateUTC'][0] : null;
+		$saved_duration        = get_post_meta( $post_id, '_EventDuration'  );
+		$start_date_utc        = get_post_meta( $post_id, '_EventStartDateUTC' );
+		$end_date_utc          = get_post_meta( $post_id, '_EventEndDateUTC'  );
+
+		// Don't calculate if a date is missing.
+		if ( empty( $start_date_utc ) || empty( $end_date_utc ) ) {
+			return;
+		}
+
 		$utc_timezone          = new \DateTimezone( 'UTC' );
 		$start_date_utc_object = Dates::immutable( $start_date_utc, $utc_timezone );
 		$end_date_utc_object   = Dates::immutable( $end_date_utc, $utc_timezone );
-		$duration              = $end_date_utc_object->getTimestamp() - $start_date_utc_object->getTimestamp();
+		$calculated_duration   = $end_date_utc_object->getTimestamp() - $start_date_utc_object->getTimestamp();
 
-		if ( is_null( $duration_value ) || (int) $duration_value !== (int) $duration ) {
-			update_post_meta( $post_id, '_EventDuration', $duration );
+		if ( empty( $saved_duration ) || (int) $saved_duration !== (int) $calculated_duration ) {
+			update_post_meta( $post_id, '_EventDuration', $calculated_duration );
 		}
 	}
 
