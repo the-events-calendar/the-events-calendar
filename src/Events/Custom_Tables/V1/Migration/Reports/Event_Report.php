@@ -433,14 +433,13 @@ class Event_Report implements JsonSerializable {
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
 
-		// Parse message here, so we don't need to store the context.
-		$text    = tribe( String_Dictionary::class );
-
 		// Expected exceptions have the message pre generated.
-		if($reason_key !== 'expected-exception') {
+		if ( $reason_key !== 'expected-exception' ) {
+			$text = tribe( String_Dictionary::class );
 			array_unshift( $context, $text->get( "migration-error-k-$reason_key" ) );
 		}
 
+		// Parse message here, so we don't need to store the context.
 		$message = call_user_func_array( 'sprintf', $context );
 
 		return $this->set_error( $message )
