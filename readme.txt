@@ -225,7 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
+* Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
 * Fix - On Event tag archives only show events with the tag, change the single event tag links to use the event tag archive, and add link to event tag archive in the admin. [TEC-4314]
 
 = [5.14.2.1] 2022-04-28 =
