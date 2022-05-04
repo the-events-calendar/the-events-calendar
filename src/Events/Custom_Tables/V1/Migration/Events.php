@@ -100,48 +100,75 @@ class Events {
 	 *
 	 * @since TBD
 	 *
-	 * @param $page  int Page in a pagination retrieval.
-	 * @param $count int How many to retrieve.
+	 * @param int         $page            Page in a pagination retrieval.
+	 * @param int         $count           How many to retrieve.
+	 * @param null|string $status_to_fetch Will only fetch the events of this status. If no specified will ignore
+	 *                                     status.
 	 *
 	 * @return array<numeric>
 	 */
-	public function get_events_migrated( $page, $count ) {
-		global $wpdb; $total_events_migrated = $this->get_total_events_migrated();
-		// @todo do we want to query for "locked" and "event reported" events?
+	public function get_events_migrated( $page, $count, $status_to_fetch = null ) {
+		global $wpdb;
+		$total_events_migrated = $this->get_total_events_migrated();
 		// Get in progress / complete events
 		if ( $page === - 1 || $count > $total_events_migrated ) {
-			$query = $wpdb->prepare(
-				"SELECT DISTINCT ID
+			$params   = [];
+			$q        = "SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
-				WHERE p.post_type = %s AND p.post_parent = 0
-				ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID",
-				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_ORDER_WEIGHT,
-				TEC::POSTTYPE
-			);
+				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s ";
+			$params[] = Event_Report::META_KEY_REPORT_DATA;
+			$params[] = Event_Report::META_KEY_ORDER_WEIGHT;
+			// Add joins.
+			if ( $status_to_fetch ) {
+				$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
+				$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
+			}
+			// Add where statement.
+			$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
+			$params[] = TEC::POSTTYPE;
+			if ( $status_to_fetch ) {
+				$q        .= " AND pm_s.meta_value = %s ";
+				$params[] = $status_to_fetch;
+			}
+			$q .= " ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID ";
+
+			$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
 		} else {
 			$total_pages = $total_events_migrated / $count;
 			if ( $page > $total_pages ) {
 				$page = $total_pages;
 			}
-			$start = ( $page - 1 ) * $count;
-
-			$query = $wpdb->prepare(
-				"SELECT DISTINCT ID
+			$start  = ( $page - 1 ) * $count;
+			$params = [];
+			$q      = "SELECT DISTINCT `ID`
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
-				WHERE p.post_type = %s AND p.post_parent = 0
-				ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID
-				LIMIT %d, %d",
-				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_ORDER_WEIGHT,
-				TEC::POSTTYPE,
-				$start,
-				$count
-			);
+				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s ";
+
+			$params [] = Event_Report::META_KEY_REPORT_DATA;
+			$params [] = Event_Report::META_KEY_ORDER_WEIGHT;
+
+			// Add joins.
+			if ( $status_to_fetch ) {
+				$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
+				$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
+			}
+
+			// Add where statement.
+			$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
+			$params[] = TEC::POSTTYPE;
+			if ( $status_to_fetch ) {
+				$q        .= " AND pm_s.meta_value = %s ";
+				$params[] = $status_to_fetch;
+			}
+
+			$q         .= " ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID
+				LIMIT %d, %d ";
+			$params [] = $start;
+			$params [] = $count;
+
+			$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
 		}
 
 		return $wpdb->get_col( $query );

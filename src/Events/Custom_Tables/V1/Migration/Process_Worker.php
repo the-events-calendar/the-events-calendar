@@ -381,12 +381,12 @@ class Process_Worker {
 		// Clear meta values.
 		$meta_keys = [
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-			Event_Report::META_KEY_MIGRATION_PHASE,
 		];
 
 		// If we are in migration failure, we want to preserve the report data.
 		if ( $current_phase !== State::PHASE_MIGRATION_FAILURE_IN_PROGRESS ) {
 			$meta_keys[] = Event_Report::META_KEY_REPORT_DATA;
+			$meta_keys[] = Event_Report::META_KEY_MIGRATION_PHASE;
 		}
 
 		/**

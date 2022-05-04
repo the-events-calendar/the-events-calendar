@@ -233,7 +233,7 @@ class Ajax {
 						'state'         => tribe( State::class ),
 						'report'        => $site_report,
 						'text'          => tribe( String_Dictionary::class ),
-						'event_reports' => $site_report->get_event_reports( $page, $count )
+						'event_reports' => $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE )
 					]
 				);
 				$renderer->should_poll( false );
