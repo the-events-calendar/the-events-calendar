@@ -31,6 +31,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_actions() {
 		add_action( 'current_screen', [ $this, 'add_widget_resources' ] );
 		add_action( 'save_post_' . TEC::POSTTYPE, [ $this, 'calculate_duration' ], 20 );
+		add_action( 'plugins_loaded', [ $this, 'update_old_durations' ] );
 	}
 
 	/**
@@ -39,15 +40,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id
-	 *
+	 * @param int $post_id The event we are setting a duration for.
 	 */
 	public function calculate_duration( $post_id ) {
-		$saved_duration        = get_post_meta( $post_id, '_EventDuration'  );
-		$start_date_utc        = get_post_meta( $post_id, '_EventStartDateUTC' );
-		$end_date_utc          = get_post_meta( $post_id, '_EventEndDateUTC'  );
+		// Sanity check.
+		if ( TEC::POSTTYPE !== get_post_type( $post_id ) ) {
+			return;
+		}
 
-		// Don't calculate if a date is missing.
+		$saved_duration = get_post_meta( $post_id, '_EventDuration', true  );
+		$start_date_utc = get_post_meta( $post_id, '_EventStartDateUTC', true );
+		$end_date_utc   = get_post_meta( $post_id, '_EventEndDateUTC', true  );
+
+		// Don't try to calculate if a date is missing.
 		if ( empty( $start_date_utc ) || empty( $end_date_utc ) ) {
 			return;
 		}
@@ -60,6 +65,41 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( empty( $saved_duration ) || (int) $saved_duration !== (int) $calculated_duration ) {
 			update_post_meta( $post_id, '_EventDuration', $calculated_duration );
 		}
+	}
+
+	/**
+	 * A run-once function to update any existing events that are missing
+	 * the `_EventDuration meta.
+	 *
+	 * @since TBD
+	 */
+	private function update_old_durations() {
+		if ( ! empty( tribe_get_option( 'fix_duration' ) ) ) {
+			return;
+		}
+
+		global $wpdb;
+			$query = $wpdb->prepare( "insert into $wpdb->postmeta (post_id, meta_key, meta_value)
+						select p.ID, %s, TIME_TO_SEC(TIMEDIFF(end.meta_value, start.meta_value))
+						from $wpdb->posts p
+						join $wpdb->postmeta start on start.post_id = p.ID
+						and start.meta_key = %s join $wpdb->postmeta end
+						on end.post_id = p.ID and end.meta_key = %s
+						left join $wpdb->postmeta as duration
+						on p.ID = duration.post_id and  duration.meta_key = %s
+						where p.post_type = %s and duration.meta_value is null",
+						'_EventDuration',
+						'_EventStartDateUTC',
+						'_EventEndDateUTC',
+						'_EventDuration',
+						TEC::POSTTYPE
+					);
+
+			$fixed = $wpdb->query( $query );
+
+			if( $fixed ) {
+				tribe_update_option( 'fix_duration', 1 );
+			}
 	}
 
 	/**
