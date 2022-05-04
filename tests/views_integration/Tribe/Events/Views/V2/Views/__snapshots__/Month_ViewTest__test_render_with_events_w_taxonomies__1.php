@@ -3110,7 +3110,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe_events_cat%3Dcat-1%26tribe-bar-date%3D2022-05-03%26ical%3D1"
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe_events_cat%3Dcat-1%26tribe-bar-date%3D2022-05-04%26ical%3D1"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -3121,7 +3121,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe_events_cat=cat-1&#038;tribe-bar-date=2022-05-03&#038;ical=1"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe_events_cat=cat-1&#038;tribe-bar-date=2022-05-04&#038;ical=1"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"

@@ -414,6 +414,8 @@ class Month_ViewTest extends ViewTestCase {
 
 		$html_tag = $month_view_tag->get_html();
 
+		$expected_ids = wp_list_pluck( array_slice( $events, 0, 2 ), 'ID' );
+
 		$this->assertEquals( $expected_ids, $month_view_tag->found_post_ids() );
 
 		foreach ( $month_view_tag->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
