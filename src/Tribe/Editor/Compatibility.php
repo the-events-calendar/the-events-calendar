@@ -31,15 +31,6 @@ class Tribe__Events__Editor__Compatibility {
 	 *
 	 * @var string
 	 */
-	public static $blocks_editor_value = null;
-
-	/**
-	 * Key for the Hidden Field of toggling blocks editor.
-	 *
-	 * @since 5.14.0
-	 *
-	 * @var string
-	 */
 	public static $blocks_editor_hidden_field_key = 'toggle_blocks_editor_hidden_field';
 
 	/**
