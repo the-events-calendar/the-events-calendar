@@ -352,6 +352,10 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initializes the template
 	 */
 	public function filter_template_include( $template ) {
+		if ( tec_is_full_site_editor() ) {
+			return $template;
+		}
+
 		$query   = tribe_get_global_query_object();
 		$context = tribe_context();
 

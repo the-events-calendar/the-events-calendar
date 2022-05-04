@@ -14,6 +14,7 @@ namespace TEC\Events\Custom_Tables\V1;
 
 use tad_DI52_Container as Container;
 use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 
 /**
  * Class Provider
@@ -89,7 +90,6 @@ class Provider extends Service_Provider {
 		 */
 		try {
 			$this->bind_implementations();
-			$this->add_filters();
 
 			require_once __DIR__ . '/functions.php';
 			require_once __DIR__ . '/template-tags.php';
@@ -100,11 +100,19 @@ class Provider extends Service_Provider {
 			$this->container->singleton( self::class, self::class );
 			$this->container->singleton( 'tec.custom-tables.v1.provider', self::class );
 			$this->container->register( Tables\Provider::class );
-			$this->container->register( WP_Query\Provider::class );
-			$this->container->register( Updates\Provider::class );
-			$this->container->register( Repository\Provider::class );
-			$this->container->register( Views\V2\Provider::class );
 			$this->container->register( Migration\Provider::class );
+			// *NOTE* - Ensure only adding providers that are always required in here,
+			// versus most features that should go in the `Full_Activation_Provider`.
+
+			$schema_builder = $this->container->make( Schema_Builder::class );
+			// Should we fully activate?
+			if ( $schema_builder->all_tables_exist( 'tec' ) ) {
+				// These providers should be the ones that extend the bulk of features for CT1,
+				// with only the bare minimum of providers registered above, to determine important state information.
+				$this->container->register( Full_Activation_Provider::class );
+			}
+
+			$this->add_filters();
 
 			/*
 			 * Integrations with 3rd party code are registered last to

@@ -93,8 +93,8 @@
 	color: white;
 	cursor: pointer;
 	font-size: 1rem;
+	margin-right: 2rem;
 	line-height: 1.2;
-	margin: 2rem 1.5rem 0.25rem 0.25rem;
 	padding: 1rem 0.5rem;
 	text-decoration: none;
 	white-space: nowrap;
@@ -180,8 +180,8 @@
 	border-radius: 4px;
 	font-family: Courier;
 	font-size: 12px;
-	margin: 0.5rem 0;
-	padding: 1rem 1rem 2rem;
+	margin: 0.5rem 0 0 0;
+	padding: 1rem 1rem 1rem;
 }
 
 .tec-ct1-upgrade__report-body-content {
@@ -204,36 +204,46 @@
 }
 
 /*========= Modal =========*/
-.tribe-common .tribe-dialog__wrapper.tec-ct1-upgrade {
+
+.tribe-common .tribe-dialog__wrapper .tec-ct1-action-container {
+	display: none;
+}
+
+.tribe-common .tribe-dialog__wrapper .tec-ct1-upgrade {
+	background: transparent;
+	border: none;
+}
+.tribe-common .tribe-dialog__wrapper.tec-ct1-dialog-wrapper {
 	overflow-y: auto;
 	width: 660px;
 }
 
-.tribe-common .tec-ct1-upgrade .tribe-dialog__close-button {
+.tribe-common .tec-ct1-dialog-wrapper .tribe-dialog__close-button {
 	display: none;
 }
 
-.tribe-dialog__wrapper.tec-ct1-upgrade .image-container {
+.tribe-common .tribe-dialog__wrapper.tec-ct1-dialog-wrapper .image-container {
 	display: none;
 }
 
-.tec-ct1-upgrade__modal-container {
+.tec-ct1-dialog-wrapper {
 	z-index: 2000;
 	position: absolute;
 }
 
-.tec-ct1-upgrade__modal-container button {
+.tec-ct1-dialog-wrapper button {
 	padding: 10px;
 }
 
-.tribe-common.tec-ct1-upgrade__modal-container--v2-disable-dialog .tribe-dialog__wrapper {
+.tribe-common.tec-ct1-dialog-wrapper--v2-disable-dialog .tribe-dialog__wrapper {
 	overflow-y: auto;
 }
 
-.tribe-common.tec-ct1-upgrade__modal-container--v2-disable-dialog .tribe-dialog__overlay {
+.tribe-common.tec-ct1-dialog-wrapper--v2-disable-dialog .tribe-dialog__overlay {
 	background-color: var(--tribe-modal-overlay-color);
 }
 
-.tribe-common.tec-ct1-upgrade__modal-container--v2-disable-dialog .tribe-dialog__close-button {
+.tribe-common.tec-ct1-dialog-wrapper--v2-disable-dialog .tribe-dialog__close-button {
 	border: 0;
 }
+

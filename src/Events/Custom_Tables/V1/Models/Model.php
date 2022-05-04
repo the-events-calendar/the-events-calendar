@@ -23,7 +23,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  *
- * @method static bool upsert( array $unique_by, array $data ) Update or Insert a new record into the table.
+ * @method static bool|int upsert( array $unique_by, array $data ) Update or Insert a new record into the table.
  * @method static Model|null find( mixed $value, string $column = null ) Find a record based on the $value and column provided
  * @method static Builder set_batch_size( int $size ) Sets the size of the batch the Builder should use to fetch models in unbound query methods like `find_all`.
  * @method static Generator find_all( mixed $value, string $column = null ) Find all the records based one the $value and column provided.

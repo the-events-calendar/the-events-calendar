@@ -10,6 +10,7 @@
   "src/modules/icons/*",
   "src/resources/css/**/*.min.css",
   "src/resources/js/app/*.min.js",
+  "src/resources/js/custom-tables-v1/*.min.js",
   "src/resources/js/views/*",
   "src/resources/js/*",
   "src/resources/images/**/*",
@@ -34,6 +35,6 @@
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.min.js",
-  "vendor/woocommerce/action-scheduler/*",
+  "vendor/woocommerce/action-scheduler/**/*",
   "uninstall.php"
 ]

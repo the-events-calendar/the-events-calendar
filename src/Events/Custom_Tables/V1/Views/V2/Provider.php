@@ -12,10 +12,8 @@ namespace TEC\Events\Custom_Tables\V1\Views\V2;
 use Exception;
 use stdClass;
 use tad_DI52_ServiceProvider;
-use Tribe__Customizer;
-use Tribe__Customizer__Section;
-use Tribe__Template;
-use Tribe__Utils__Color;
+use Tribe__Customizer as Customizer;
+use Tribe__Customizer__Section as Customizer_Section;
 
 /**
  * Class Provider
@@ -33,12 +31,14 @@ class Provider extends tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	public function register() {
+		$this->container->singleton( Customizer_Compatibility::class, Customizer_Compatibility::class );
+
 		add_filter( 'tribe_events_views_v2_by_day_view_day_results', [
 			$this,
 			'prepare_by_day_view_day_results',
 		], 10, 2 );
 
-		// Customizer
+		// Handle Customizer styles.
 		add_filter( 'tribe_customizer_global_elements_css_template', [
 			$this,
 			'update_global_customizer_styles',
@@ -64,49 +64,19 @@ class Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
-	 * @throws Exception If the Color util is built incorrectly.
+	 * @since TBD
 	 *
-	 * @param Tribe__Customizer__Section $section      The Global Elements section.
-	 * @param Tribe__Customizer          $customizer   The current Customizer instance.
-	 *
-	 * @param string                     $css_template The CSS template, as produced by the Global Elements.
+	 * @param Customizer_Section $section      The Global Elements section.
+	 * @param Customizer         $customizer   The current Customizer instance.
+	 * @param string             $css_template The CSS template, as produced by the Global Elements.
 	 *
 	 * @return string The filtered CSS template.
 	 *
+	 * @throws Exception If the Color util is built incorrectly.
+	 *
 	 */
 	public function update_global_customizer_styles( $css_template, $section, $customizer ) {
-		if ( ! ( is_string( $css_template ) && $section instanceof Tribe__Customizer__Section && $customizer instanceof Tribe__Customizer ) ) {
-			return $css_template;
-		}
-
-		if ( $customizer->has_option( $section->ID, 'accent_color' ) ) {
-			$settings = $customizer->get_option( [ $section->ID ] );
-
-			$accent_color     = new Tribe__Utils__Color( $settings['accent_color'] );
-			$accent_color_rgb = $accent_color::hexToRgb( $settings['accent_color'] );
-			$accent_css_rgb   = $accent_color_rgb['R'] . ',' . $accent_color_rgb['G'] . ',' . $accent_color_rgb['B'];
-
-			$accent_color_hover  = 'rgba(' . $accent_css_rgb . ',0.8)';
-			$accent_color_active = 'rgba(' . $accent_css_rgb . ',0.9)';
-
-			// Organizer/Venue Links Overrides.
-			$css_template .= '
-				.tribe-common a.tribe-events-calendar-series-archive__link,
-				.tribe-common a:visited.tribe-events-calendar-series-archive__link {
-					color: <%= global_elements.accent_color %>;
-				}
-
-				.tribe-common a:hover.tribe-events-calendar-series-archive__link,
-				.tribe-common a:focus.tribe-events-calendar-series-archive__link {
-					color: ' . $accent_color_hover . ';
-				}
-
-				.tribe-common a:active.tribe-events-calendar-series-archive__link {
-					color: ' . $accent_color_active . ';
-				}
-			';
-		}
-
-		return $css_template;
+		return $this->container->make( Customizer_Compatibility::class )
+		                       ->update_global_customizer_styles( $css_template, $section, $customizer );;
 	}
 }

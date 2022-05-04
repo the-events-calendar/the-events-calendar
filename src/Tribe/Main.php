@@ -209,6 +209,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCurrencySymbol',
+			'_EventCurrencyCode',
 			'_EventCurrencyPosition',
 			'_EventCost',
 			'_EventCostMin',
@@ -632,11 +633,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// First boot.
 			tribe_register_provider( Tribe\Events\Service_Providers\First_Boot::class );
 
+			// Filter Bar upsell.
+			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 
-			/**
-			 * Allows other plugins and services to override/change the bound implementations.
-			 */
-			do_action( 'tribe_events_bound_implementations' );
+			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
 
 			// Database locks.
 			tribe_singleton( 'db-lock', DB_Lock::class );
@@ -648,6 +648,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
+
+			/**
+			 * Allows other plugins and services to override/change the bound implementations.
+			 *
+			 * DO NOT put anything after this unless you _need to_ and know the implications!
+			 */
+			do_action( 'tribe_events_bound_implementations' );
 		}
 
 		/**
@@ -770,8 +777,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			/* edit-post metaboxes */
 			add_action( 'admin_menu', [ $this, 'addEventBox' ] );
-			add_action( 'admin_menu', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
-			add_action( 'admin_menu', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
+			add_action( 'add_meta_boxes', [ 'Tribe__Events__Venue', 'add_post_type_metabox' ] );
+			add_action( 'add_meta_boxes', [ 'Tribe__Events__Organizer', 'add_post_type_metabox' ] );
 
 			add_action( 'wp_insert_post', [ $this, 'addPostOrigin' ], 10, 2 );
 			add_action( 'save_post', [ $this, 'addEventMeta' ], 15, 2 );
@@ -807,7 +814,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'plugin_row_meta', [ $this, 'addMetaLinks' ], 10, 2 );
 			// organizer and venue
-			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ) {
+			if ( ! tec_should_hide_upsell() ) {
 				add_action( 'wp_dashboard_setup', [ $this, 'dashboardWidget' ] );
 				add_action( 'tribe_events_cost_table', [ $this, 'maybeShowMetaUpsell' ] );
 			}
@@ -1219,19 +1226,33 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return boolean
 		 */
 		public function show_upgrade() {
-			$show_tab = current_user_can( 'activate_plugins' );
+			$can_show_tab = current_user_can( 'activate_plugins' );
 
 			/**
-			 * Provides an opportunity to override the decision to show or hide the upgrade tab
+			 * Provides an opportunity to override the decision to show or hide the upgrade tab.
 			 *
 			 * Normally it will only show if the current user has the "activate_plugins" capability
 			 * and there are some currently-activated premium plugins.
 			 *
 			 * @since 4.9.12
+			 * @since TBD This filter now controls only the capability to show the Upgrade tab.
 			 *
 			 * @param bool $show_tab True or False for showing the Upgrade Tab.
 			 */
-			if ( ! apply_filters( 'tribe_events_show_upgrade_tab', $show_tab ) ) {
+			$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
+
+			if ( ! $can_show_tab ) {
+				return false;
+			}
+
+			/**
+			 * Filters whether the Upgrade Tab has actually any content to show or not.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool $has_content Whether the tab has any content to show or not.
+			 */
+			if ( ! apply_filters( 'tec_events_upgrade_tab_has_content', false ) ) {
 				return false;
 			}
 
@@ -1265,12 +1286,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				]
 			);
 
-			/**
-			 * Get Upgrade tab template.
-			 */
-			ob_start();
-			include_once $this->plugin_path . 'src/admin-views/tribe-options-upgrade.php';
-			$upgrade_tab_html = ob_get_clean();
+			$upgrade_tab_html = '';
 
 			$upgrade_tab = [
 				'info-box-description' => [
@@ -2791,6 +2807,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
+			}
+
+			if (
+					class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' )
+					&& TEC\Events\Custom_Tables\V1\Provider::is_active()
+			) {
+				// Register the Custom Tables V1 provider, if defined, to set up the custom tables.
+				TEC\Events\Custom_Tables\V1\Activation::activate();
 			}
 		}
 

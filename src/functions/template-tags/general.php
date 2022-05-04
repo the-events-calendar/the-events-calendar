@@ -39,7 +39,7 @@ function tribe_get_view( $view = false ) {
  * You should escape it wherever you use it!
  *
  * @since 3.10
- * @since5.1.6 remove escaping.
+ * @since 5.1.6 remove escaping.
  *
  * @return string The singular version of the Event Label.
  */
@@ -49,7 +49,7 @@ function tribe_get_event_label_singular() {
 	 * Note: the output of this filter is not escaped!
 	 *
 	 * @since 3.10
-	 * @since5.1.6 Remove escaping.
+	 * @since 5.1.6 Remove escaping.
 	 *
 	 * @param string $label The singular version of the Event label, defaults to "Event" (uppercase)
 	 */
@@ -67,7 +67,7 @@ function tribe_get_event_label_singular() {
  * You should escape it wherever you use it!
  *
  * @since 4.1.1
- * @since5.1.6 remove escaping.
+ * @since 5.1.6 remove escaping.
  *
  * @return string The lowercase singular version of the Event Label.
  */
@@ -77,7 +77,7 @@ function tribe_get_event_label_singular_lowercase() {
 	 * Note: the output of this filter is not escaped!
 	 *
 	 * @since 4.1.1
-	 * @since5.1.6 Remove escaping.
+	 * @since 5.1.6 Remove escaping.
 	 *
 	 * @param string $label The singular lowercase version of the Event label, defaults to "event" (lowercase)
 	 */
@@ -95,7 +95,7 @@ function tribe_get_event_label_singular_lowercase() {
  * You should escape it wherever you use it!
  *
  * @since 3.10
- * @since5.1.6 remove escaping.
+ * @since 5.1.6 remove escaping.
  *
  * @return string The plural version of the Event Label.
  */
@@ -105,7 +105,7 @@ function tribe_get_event_label_plural() {
 	 * Note: the output of this filter is not escaped!
 	 *
 	 * @since 3.10
-	 * @since5.1.6 Remove escaping.
+	 * @since 5.1.6 Remove escaping.
 	 *
 	 * @param string $label The plural version of the Event label, defaults to "Events" (uppercase)
 	 */
@@ -123,7 +123,7 @@ function tribe_get_event_label_plural() {
  * You should escape it wherever you use it!
  *
  * @since 4.1.1
- * @since5.1.6 remove escaping.
+ * @since 5.1.6 remove escaping.
  *
  * @return string The lowercase plural version of the Event Label.
  */
@@ -133,7 +133,7 @@ function tribe_get_event_label_plural_lowercase() {
 	 * Note: the output of this filter is not escaped!
 	 *
 	 * @since 4.1.1
-	 * @since5.1.6 Remove escaping.
+	 * @since 5.1.6 Remove escaping.
 	 *
 	 * @param string $label The plural lowercase version of the Event label, defaults to "events" (lowercase)
 	 */
@@ -148,7 +148,7 @@ function tribe_get_event_label_plural_lowercase() {
  * in the correct directories for Tribe Events templates
  *
  * @uses Tribe__Templates::getTemplateHierarchy
- **@param null|string $name
+ * @param null|string $name
  *
  * @param array  $data optional array of vars to inject into the template part
  *

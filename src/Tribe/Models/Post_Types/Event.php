@@ -113,7 +113,7 @@ class Event extends Base {
 			$this_week_duration = null;
 			$displays_on        = [];
 
-			if ( Dates::is_valid_date( $filter ) ) {
+			if ( 'raw' !== $filter && Dates::is_valid_date( $filter ) ) {
 				list( $week_start, $week_end ) = Dates::get_week_start_end( $filter );
 
 				$week_cache_key = $post_id . '_' . $week_start->format( Dates::DBDATEFORMAT ) . '_week';

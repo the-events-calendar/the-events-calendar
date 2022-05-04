@@ -758,6 +758,40 @@ function tribe_get_venue_website_link( $post_id = null, $label = null ) {
 			if ( empty( $parseUrl['scheme'] ) ) {
 				$url = "http://$url";
 			}
+
+			/**
+			 * Allows customization of a venue's website link target.
+			 *
+			 * @since ??
+			 * @since 4.5.11 Added docblock and venue ID to filter.
+			 *
+			 * @param string $target  The target attribute string. Defaults to "_self".
+			 * @param string $url     The link URL.
+			 * @param int    $post_id The venue ID.
+			 */
+			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $url, $post_id );
+			$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
+
+			/**
+			 * Allows customization of a venue's website link label.
+			 *
+			 * @since ??
+			 * @since 4.5.11 Added docblock and venue ID to filter.
+			 *
+			 * @param string $label   The venue's website link label.
+			 * @param int    $post_id The venue ID.
+			 */
+			$website_link_label = apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ), $post_id );
+
+			$html = sprintf(
+				'<a href="%1$s" target="%2$s" rel="%3$s">%4$s</a>',
+				esc_attr( esc_url( $url ) ),
+				esc_attr( $website_link_target ),
+				esc_attr( $rel ),
+				esc_html( $website_link_label )
+			);
+		} else {
+			$html = '';
 		}
 
 		/**

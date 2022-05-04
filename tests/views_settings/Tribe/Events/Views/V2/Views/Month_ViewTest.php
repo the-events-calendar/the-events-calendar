@@ -78,16 +78,30 @@ class Month_ViewTest extends WPTestCase {
 		$days              = $template_vars['events'];
 		$the_days          = array_keys( $days );
 		$event_ids_per_day = array_filter( $days );
-		$stack_ids_per_day = array_filter( array_combine(
-			array_keys( $template_vars['days'] ),
-			array_map( static function ( $day ) {
-				return count( $day ) ? wp_list_pluck( $day, 'ID' ) : [];
-			}, array_column( $template_vars['days'], 'multiday_events' ) )
-		) );
+		$stack_ids_per_day = array_filter(
+			array_combine(
+				array_keys( $template_vars['days'] ),
+				array_map(
+					static function ( $day ) {
+						$day = array_filter( $day );
+						// We need to handle null/empty values so wp_list_pluck doesn't choke on them.
+						$new_day =  ( empty( $day ) || ! is_array( $day ) ? [] : empty( wp_list_pluck( $day, 'ID' ) ) ) ? [] : wp_list_pluck( $day, 'ID' );
+						return array_filter( $new_day );
+					},
+					array_column( $template_vars['days'], 'multiday_events' )
+				)
+			)
+		);
+
 
 		$expected_days = $this->build_expected_days( $alterations );
 		list( $expected_event_ids_per_day, $expected_stack_per_day ) = $this->parse_expected_events( $expected );
 
+		// Ensure we remove the null/empty values so we match what's in $stack_ids_per_day.
+		$expected_stack_per_day = array_map(
+			'array_filter',
+			$expected_stack_per_day
+		);
 
 		$expected = $this->render_ascii_calendar(
 			reset( $expected_days ), end( $expected_days ), $expected_event_ids_per_day, 7

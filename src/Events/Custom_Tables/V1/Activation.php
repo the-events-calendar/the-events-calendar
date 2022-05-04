@@ -9,7 +9,9 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
+use TEC\Events\Custom_Tables\V1\Migration\Events;
+use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 
 /**
  * Class Activation
@@ -33,21 +35,19 @@ class Activation {
 	 * @since TBD
 	 */
 	public static function activate() {
-		// Delete the transient to make sure the activation code will run again.
-		delete_transient( self::ACTIVATION_TRANSIENT );
-
-		self::init();
+		$schema_builder = tribe( Schema_Builder::class);
+		$schema_builder->up();
 	}
 
 	/**
-	 * Initializes the custom tables required by the feature to work.
+	 * Checks the state to determine if whether we can create custom tables.
 	 *
-	 * This method will run once a day (using transients) and is idem-potent
-	 * in the context of the same day.
+	 * This method will run once a day (using transients).
 	 *
 	 * @since TBD
 	 */
 	public static function init() {
+		// Check if we ran recently.
 		$initialized = get_transient( self::ACTIVATION_TRANSIENT );
 
 		if ( $initialized ) {
@@ -56,11 +56,24 @@ class Activation {
 
 		set_transient( self::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
 
-		$services = tribe();
+		$services       = tribe();
+		$schema_builder = $services->make( Schema_Builder::class );
 
-		$services->register( Tables::class );
+		// Sync any schema changes we may have.
+		if ( $schema_builder->all_tables_exist( 'tec' ) ) {
+			$schema_builder->up();
 
-		$services->make( Tables::class )->update_tables( true );
+			return;
+		}
+
+		$state = $services->make( State::class );
+
+		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
+		if ( $services->make( Events::class )->get_total_events() === 0 && $state->get_phase() === null ) {
+			$schema_builder->up();
+			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
+			$state->save();
+		}
 	}
 
 	/**
@@ -71,8 +84,7 @@ class Activation {
 	public static function deactivate() {
 		$services = tribe();
 
-		$services->register( Tables::class );
-
-		$services->make( Tables::class )->clean();
+		// @todo Should we drop the tables here, gracefully, if no data was generated?
+		$services->make( Schema_Builder::class )->clean();
 	}
 }

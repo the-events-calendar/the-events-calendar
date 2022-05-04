@@ -1187,7 +1187,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$the_end       = clone $dates_changed['Start'];
 					$the_end->setTimestamp( $end_timestamp );
 
-					$postarr['meta_input']['_EventEndDate'] = $the_end->format( $datetime_format );
+					$postarr['meta_input']['_EventEndDate']    = $the_end
+						->setTimezone( $timezone )
+						->format( $datetime_format );
 					$postarr['meta_input']['_EventEndDateUTC'] = $the_end
 						->setTimezone( $utc )
 						->format( $datetime_format );

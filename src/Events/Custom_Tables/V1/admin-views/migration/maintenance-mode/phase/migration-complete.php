@@ -1,0 +1,31 @@
+<?php
+
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+use TEC\Events\Custom_Tables\V1\Migration\State;
+
+/**
+ * @var string            $template_directory The absolute path to the Migration template root directory.
+ * @var String_Dictionary $text               The text dictionary.
+ * @var State             $state              The migration state.
+ */
+
+$url = esc_url( get_admin_url( null, 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' ) );
+?>
+<div class="tec-ct1-upgrade__row">
+	<div class="image-container">
+		<img class="screenshot"
+			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
+	</div>
+
+	<div class="content-container">
+		<h3>
+			<?php include $template_directory . '/upgrade-logo.php'; ?>
+			<?php echo esc_html( $text->get( 'migration-complete' ) ); ?>
+		</h3>
+		<p>
+			<a href="<?php echo $url; ?>"><?php echo esc_html( $text->get( 'migration-view-report-button' ) ); ?></a>
+		</p>
+	</div>
+</div>
+
