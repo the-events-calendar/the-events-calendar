@@ -223,12 +223,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
-= [5.14.0] 2022-02-15 =
-
-=======
 = [5.14.2.1] 2022-04-28 =
 
 * Fix - Correct an issue with linked common release.
@@ -281,7 +277,6 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.14.0] 2022-02-15 =
 
->>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
 * Feature - Add a Filter Bar upsell banner to the Filters tab that displays when the Filter Bar plugin isn't active. [TEC-4238]
 * Tweak - Correct documentation around the subscribe link filters. Add link slug as array keys for `tec_views_v2_single_subscribe_links` filter. [TEC-4215]
 * Tweak - Move and deprecate some methods specific to the Google Calendar link from Main to the new Google_Calendar class. [TEC-4235]
