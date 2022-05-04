@@ -3,6 +3,7 @@
 msgid ""
 msgstr ""
 <<<<<<< HEAD
+<<<<<<< HEAD
 "Project-Id-Version: The Events Calendar 5.14.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
@@ -13,14 +14,21 @@ msgstr ""
 "PO-Revision-Date: 2022-02-09 17:15\n"
 =======
 "Project-Id-Version: The Events Calendar 5.14.2\n"
+=======
+"Project-Id-Version: The Events Calendar 5.14.0.4\n"
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
 "POT-Creation-Date: 2022-04-26 21:14:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+<<<<<<< HEAD
 "PO-Revision-Date: 2022-04-26 21:14\n"
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+"PO-Revision-Date: 2022-03-16 15:17\n"
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -63,10 +71,14 @@ msgid "%s"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4395
 =======
 #: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4398
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:4396
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/Tribe/Views/V2/Views/Widgets/Widget_View.php:61
 #: src/admin-views/tribe-options-upgrade.php:20
 msgid "View Calendar"
@@ -79,11 +91,15 @@ msgstr ""
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
 <<<<<<< HEAD
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:210 src/Tribe/Main.php:2166
+<<<<<<< HEAD
 #: src/Tribe/Main.php:5503 src/Tribe/Main.php:5550 src/Tribe/Organizer.php:95
 =======
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:210 src/Tribe/Main.php:2168
 #: src/Tribe/Main.php:5506 src/Tribe/Main.php:5553 src/Tribe/Organizer.php:93
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:5504 src/Tribe/Main.php:5551 src/Tribe/Organizer.php:93
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/Tribe/Venue.php:129
 msgid "Edit %s"
 msgstr ""
@@ -95,10 +111,14 @@ msgid "Import"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4443
 =======
 #: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4446
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4444
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Settings"
 msgstr ""
 
@@ -107,10 +127,14 @@ msgid "Help"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Admin/Filter_Bar/Provider.php:126
 =======
 #: src/Tribe/Admin/Filter_Bar/Provider.php:131
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Admin/Filter_Bar/Provider.php:131
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/admin-views/admin-update-message.php:64
 msgid "Filters"
 msgstr ""
@@ -157,10 +181,14 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Timezones.php:149
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Editor/Compatibility.php:116 src/Tribe/Google/Maps_API_Key.php:77
 =======
 #: src/Tribe/Editor/Compatibility.php:129 src/Tribe/Google/Maps_API_Key.php:77
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Editor/Compatibility.php:129 src/Tribe/Google/Maps_API_Key.php:77
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Read more"
 msgstr ""
 
@@ -2161,6 +2189,7 @@ msgid "Add Button Text"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Editor/Compatibility.php:122
 msgid "Activate Block Editor for Events"
 msgstr ""
@@ -2171,6 +2200,8 @@ msgstr ""
 
 #: src/Tribe/Editor/Compatibility.php:130
 =======
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/Tribe/Editor/Compatibility.php:135
 msgid "Activate Block Editor for Events"
 msgstr ""
@@ -2180,7 +2211,10 @@ msgid "Enable the Gutenberg block editor interface for creating events."
 msgstr ""
 
 #: src/Tribe/Editor/Compatibility.php:143
+<<<<<<< HEAD
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Hidden Blocks Editor Config"
 msgstr ""
 
@@ -2843,6 +2877,7 @@ msgid "Upcoming Events"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.14.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.14.0)  #-#-#-#-#
@@ -2880,6 +2915,9 @@ msgstr ""
 #: src/Tribe/Main.php:1017
 =======
 #. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.14.2)  #-#-#-#-#
+=======
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.14.0.4)  #-#-#-#-#
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #. Plugin Name of the plugin/theme
 #. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.14.2)  #-#-#-#-#
 #. Author of the plugin/theme
@@ -2913,17 +2951,25 @@ msgstr ""
 msgid "today"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:1022
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:1020
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgctxt "featured events slug"
 msgid "featured"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Main.php:1018
 =======
 #: src/Tribe/Main.php:1023
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:1021
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgctxt "all events slug"
 msgid "all"
 msgstr ""
@@ -3244,13 +3290,21 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1573
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:208
+<<<<<<< HEAD
 #: src/functions/template-tags/general.php:140
+=======
+#: src/functions/template-tags/general.php:137
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Events"
 msgstr ""
 
 #: src/Tribe/Main.php:1581 src/admin-views/aggregator/tabs/import-form.php:227
 #: src/admin-views/aggregator/tabs/import-form.php:239
+<<<<<<< HEAD
 #: src/functions/template-tags/general.php:84
+=======
+#: src/functions/template-tags/general.php:81
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Event"
 msgstr ""
 
@@ -3321,11 +3375,16 @@ msgstr ""
 msgid "tag"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:2161 src/Tribe/Organizer.php:93 src/Tribe/Venue.php:127
+=======
+#: src/Tribe/Main.php:2161 src/Tribe/Organizer.php:91 src/Tribe/Venue.php:127
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Add New"
 msgstr ""
 
 #: src/Tribe/Main.php:2163 src/Tribe/Main.php:2370 src/Tribe/Main.php:2371
+<<<<<<< HEAD
 #: src/Tribe/Organizer.php:94 src/Tribe/Venue.php:128
 msgid "Add New %s"
 msgstr ""
@@ -3349,6 +3408,8 @@ msgid "Add New"
 msgstr ""
 
 #: src/Tribe/Main.php:2165 src/Tribe/Main.php:2372 src/Tribe/Main.php:2373
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/Tribe/Organizer.php:92 src/Tribe/Venue.php:128
 msgid "Add New %s"
 msgstr ""
@@ -3357,12 +3418,17 @@ msgstr ""
 msgid "New %s"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:2174 src/Tribe/Organizer.php:95 src/Tribe/Venue.php:131
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:2172 src/Tribe/Organizer.php:95 src/Tribe/Venue.php:131
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/views/month/single-day.php:31
 msgid "View %s"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Main.php:2175 src/Tribe/Organizer.php:98 src/Tribe/Venue.php:132
 msgid "Search %s"
@@ -3373,10 +3439,22 @@ msgid "No %s found"
 msgstr ""
 
 #: src/Tribe/Main.php:2181 src/Tribe/Organizer.php:100 src/Tribe/Venue.php:134
+=======
+#: src/Tribe/Main.php:2175 src/Tribe/Organizer.php:96 src/Tribe/Venue.php:132
+msgid "Search %s"
+msgstr ""
+
+#: src/Tribe/Main.php:2178 src/Tribe/Organizer.php:97 src/Tribe/Venue.php:133
+msgid "No %s found"
+msgstr ""
+
+#: src/Tribe/Main.php:2181 src/Tribe/Organizer.php:98 src/Tribe/Venue.php:134
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "No %s found in Trash"
 msgstr ""
 
 #: src/Tribe/Main.php:2184 src/Tribe/Main.php:2323 src/Tribe/Main.php:2345
+<<<<<<< HEAD
 #: src/Tribe/Organizer.php:101 src/Tribe/Venue.php:135
 msgid "%s published."
 msgstr ""
@@ -3410,6 +3488,8 @@ msgid "No %s found in Trash"
 msgstr ""
 
 #: src/Tribe/Main.php:2186 src/Tribe/Main.php:2325 src/Tribe/Main.php:2347
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/Tribe/Organizer.php:99 src/Tribe/Venue.php:135
 msgid "%s published."
 msgstr ""
@@ -3422,6 +3502,7 @@ msgstr ""
 msgid "%s reverted to draft."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:2195 src/Tribe/Organizer.php:102 src/Tribe/Venue.php:138
 msgid "%s scheduled."
 msgstr ""
@@ -3430,6 +3511,15 @@ msgstr ""
 #: src/Tribe/Main.php:2320 src/Tribe/Main.php:2339 src/Tribe/Main.php:2342
 #: src/Tribe/Organizer.php:103 src/Tribe/Venue.php:139
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:2193 src/Tribe/Organizer.php:102 src/Tribe/Venue.php:138
+msgid "%s scheduled."
+msgstr ""
+
+#: src/Tribe/Main.php:2196 src/Tribe/Main.php:2279 src/Tribe/Main.php:2315
+#: src/Tribe/Main.php:2318 src/Tribe/Main.php:2337 src/Tribe/Main.php:2340
+#: src/Tribe/Organizer.php:103 src/Tribe/Venue.php:139
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "%s updated."
 msgstr ""
 
@@ -3437,10 +3527,14 @@ msgstr ""
 #. Translators: %s: Organizer singular.
 #. Translators: %s: Venue singular.
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Main.php:2200 src/Tribe/Organizer.php:108 src/Tribe/Venue.php:142
 =======
 #: src/Tribe/Main.php:2202 src/Tribe/Organizer.php:106 src/Tribe/Venue.php:142
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:2200 src/Tribe/Organizer.php:106 src/Tribe/Venue.php:142
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "%s Link"
 msgstr ""
 
@@ -3448,7 +3542,11 @@ msgstr ""
 #. Translators: %s: Organizer singular.
 #. Translators: %s: Venue singular.
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Main.php:2204 src/Tribe/Organizer.php:112 src/Tribe/Venue.php:146
+=======
+#: src/Tribe/Main.php:2204 src/Tribe/Organizer.php:110 src/Tribe/Venue.php:146
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "A link to a particular %s."
 msgstr ""
 
@@ -3675,11 +3773,19 @@ msgstr ""
 msgid "page"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:2666 src/functions/template-tags/general.php:112
 msgid "event"
 msgstr ""
 
 #: src/Tribe/Main.php:2667 src/functions/template-tags/general.php:168
+=======
+#: src/Tribe/Main.php:2666 src/functions/template-tags/general.php:109
+msgid "event"
+msgstr ""
+
+#: src/Tribe/Main.php:2667 src/functions/template-tags/general.php:165
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "events"
 msgstr ""
 
@@ -3726,6 +3832,7 @@ msgstr ""
 msgid "%s Options"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:4267
 msgid "Support"
 msgstr ""
@@ -3749,6 +3856,9 @@ msgid "%s Options"
 msgstr ""
 
 #: src/Tribe/Main.php:4270
+=======
+#: src/Tribe/Main.php:4268
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Support"
 msgstr ""
 
@@ -3764,13 +3874,18 @@ msgstr ""
 msgid "Additional Functionality"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:4345
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:4343
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Main.php:4343
 msgid "Check out the %savailable add-ons%s."
@@ -3791,6 +3906,9 @@ msgstr ""
 #: src/Tribe/Main.php:4495 src/admin-views/aggregator/fields/schedule.php:43
 =======
 #: src/Tribe/Main.php:4346
+=======
+#: src/Tribe/Main.php:4344
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
@@ -3806,12 +3924,17 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:4498 src/admin-views/aggregator/fields/schedule.php:43
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:4496 src/admin-views/aggregator/fields/schedule.php:43
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/admin-views/aggregator/fields/schedule.php:61
 msgid "Day"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Main.php:4518
 msgid "Search for %s by Keyword."
@@ -3825,10 +3948,18 @@ msgstr ""
 
 #: src/Tribe/Main.php:4524
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:4519
+msgid "Search for %s by Keyword."
+msgstr ""
+
+#: src/Tribe/Main.php:4522
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/views/v2/components/events-bar/search-button.php:24
 msgid "Search"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Main.php:4522
 msgid "Keyword"
@@ -3913,6 +4044,9 @@ msgstr ""
 #: src/Tribe/Main.php:4594 src/Tribe/Main.php:4631
 =======
 #: src/Tribe/Main.php:4525
+=======
+#: src/Tribe/Main.php:4523
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Keyword"
 msgstr ""
 
@@ -3992,12 +4126,17 @@ msgstr ""
 msgid "2 digit month dot 4 digit year"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:4597 src/Tribe/Main.php:4634
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:4595 src/Tribe/Main.php:4632
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Main.php:4596
 msgid "Search for %s by Date. Please use the format %s."
@@ -4026,6 +4165,9 @@ msgstr ""
 #: src/Tribe/Main.php:5435
 =======
 #: src/Tribe/Main.php:4599
+=======
+#: src/Tribe/Main.php:4597
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Search for %s by Date. Please use the format %s."
 msgstr ""
 
@@ -4049,18 +4191,26 @@ msgstr ""
 msgid "Once Every 30 Mins"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Main.php:5438
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:5436
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Main.php:5448
 =======
 #: src/Tribe/Main.php:5451
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:5449
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid ""
 "The following plugins are out of date: %1$s. All add-ons contain "
 "dependencies on The Events Calendar and will not function properly unless "
@@ -4068,10 +4218,14 @@ msgid ""
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Main.php:5487 src/Tribe/Main.php:5544
 =======
 #: src/Tribe/Main.php:5490 src/Tribe/Main.php:5547
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Main.php:5488 src/Tribe/Main.php:5545
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Use Saved %s:"
 msgstr ""
 
@@ -4079,33 +4233,37 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/Tribe/Organizer.php:180 src/functions/template-tags/organizer.php:130
+#: src/Tribe/Organizer.php:178 src/functions/template-tags/organizer.php:130
 msgid "Organizer"
 msgstr ""
 
-#: src/Tribe/Organizer.php:194
+#: src/Tribe/Organizer.php:192
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:207
 #: src/functions/template-tags/organizer.php:158
 msgid "Organizers"
 msgstr ""
 
-#: src/Tribe/Organizer.php:207
+#: src/Tribe/Organizer.php:205
 msgid "organizer"
 msgstr ""
 
-#: src/Tribe/Organizer.php:221
+#: src/Tribe/Organizer.php:219
 msgid "organizers"
 msgstr ""
 
-#: src/Tribe/Organizer.php:402
+#: src/Tribe/Organizer.php:400
 msgid "Unnamed %s"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Organizer.php:731 src/Tribe/Venue.php:284
 =======
 #: src/Tribe/Organizer.php:727 src/Tribe/Venue.php:283
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Organizer.php:727 src/Tribe/Venue.php:283
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "%s Information"
 msgstr ""
 
@@ -5800,6 +5958,7 @@ msgid "Custom Color"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Views/V2/Hooks.php:509
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
@@ -5815,6 +5974,9 @@ msgstr ""
 #: src/Tribe/Views/V2/Hooks.php:882
 =======
 #: src/Tribe/Views/V2/Hooks.php:547
+=======
+#: src/Tribe/Views/V2/Hooks.php:543
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
@@ -5826,30 +5988,43 @@ msgstr ""
 msgid "The Events Calendar - View V2"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Views/V2/Hooks.php:920
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Views/V2/Hooks.php:916
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Views/V2/Hooks.php:910
 =======
 #: src/Tribe/Views/V2/Hooks.php:948
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Views/V2/Hooks.php:944
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/Tribe/Views/V2/Hooks.php:938
 =======
 #: src/Tribe/Views/V2/Hooks.php:976
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/Tribe/Views/V2/Hooks.php:972
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/Tribe/Views/V2/Hooks.php:1076
 msgid "Enabled"
@@ -5860,13 +6035,19 @@ msgstr ""
 #: src/admin-views/tribe-options-general.php:187
 =======
 #: src/Tribe/Views/V2/Hooks.php:1114
+=======
+#: src/Tribe/Views/V2/Hooks.php:1110
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Enabled"
 msgstr ""
 
 #: src/Tribe/Views/V2/Hooks.php:1114
 #: src/admin-views/tribe-options-general.php:182
 #: src/admin-views/tribe-options-general.php:200
+<<<<<<< HEAD
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Disabled"
 msgstr ""
 
@@ -7312,10 +7493,14 @@ msgstr ""
 #: src/admin-views/create-venue-fields.php:181
 #: src/admin-views/organizer-meta-box.php:31
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/venue-meta-box.php:169
 =======
 #: src/admin-views/venue-meta-box.php:168
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/venue-meta-box.php:168
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/views/blocks/parts/organizer.php:58
 #: src/views/modules/meta/organizer.php:44 src/views/modules/meta/venue.php:42
 msgid "Phone:"
@@ -7325,10 +7510,14 @@ msgstr ""
 #: src/admin-views/create-venue-fields.php:195
 #: src/admin-views/organizer-meta-box.php:37
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/venue-meta-box.php:186
 =======
 #: src/admin-views/venue-meta-box.php:185
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/venue-meta-box.php:185
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/functions/template-tags/link.php:456
 #: src/functions/template-tags/organizer.php:480
 #: src/functions/template-tags/venue.php:817
@@ -7378,19 +7567,27 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:156
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/venue-meta-box.php:136
 =======
 #: src/admin-views/venue-meta-box.php:135
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/venue-meta-box.php:135
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Select a State:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:167
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/venue-meta-box.php:152
 =======
 #: src/admin-views/venue-meta-box.php:151
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/venue-meta-box.php:151
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Postal Code:"
 msgstr ""
 
@@ -7404,10 +7601,14 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:226
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/venue-meta-box.php:208
 =======
 #: src/admin-views/venue-meta-box.php:207
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/venue-meta-box.php:207
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Show Map:"
 msgstr ""
 
@@ -7417,10 +7618,14 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:242
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/venue-meta-box.php:226
 =======
 #: src/admin-views/venue-meta-box.php:225
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/venue-meta-box.php:225
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Show Map Link:"
 msgstr ""
 
@@ -7501,22 +7706,32 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:255
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "ISO Currency Code:"
 msgstr ""
 
 #: src/admin-views/events-meta-box.php:269
+<<<<<<< HEAD
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/views/blocks/parts/details.php:145
 #: src/views/modules/meta/details.php:139
 msgid "Cost:"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/events-meta-box.php:263
 =======
 #: src/admin-views/events-meta-box.php:277
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/events-meta-box.php:277
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Enter a 0 for %s that are free or leave blank to hide the field."
 msgstr ""
 
@@ -8168,12 +8383,17 @@ msgid "This option allows you to automatically move past events to trash."
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/tribe-options-general.php:170
 #: src/admin-views/tribe-options-general.php:188
 =======
 #: src/admin-views/tribe-options-general.php:183
 #: src/admin-views/tribe-options-general.php:201
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/tribe-options-general.php:183
+#: src/admin-views/tribe-options-general.php:201
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "1 month"
 msgstr ""
 
@@ -8420,10 +8640,14 @@ msgid "Step 2 of 2"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/admin-views/venue-meta-box.php:266
 =======
 #: src/admin-views/venue-meta-box.php:265
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/admin-views/venue-meta-box.php:265
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "%s Name can not be empty"
 msgstr ""
 
@@ -8662,16 +8886,21 @@ msgstr ""
 
 #. translators: %s is the singular translation of "Event"
 <<<<<<< HEAD
+<<<<<<< HEAD
 #: src/functions/template-tags/general.php:519
 =======
 #: src/functions/template-tags/general.php:516
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+#: src/functions/template-tags/general.php:516
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
 msgstr[0] ""
 msgstr[1] ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/functions/template-tags/general.php:558
 msgid "Tags:"
@@ -8683,6 +8912,8 @@ msgstr ""
 
 #: src/functions/template-tags/general.php:1284
 =======
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/functions/template-tags/general.php:555
 msgid "Tags:"
 msgstr ""
@@ -8692,12 +8923,16 @@ msgid "Loading %s"
 msgstr ""
 
 #: src/functions/template-tags/general.php:1281
+<<<<<<< HEAD
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
 msgstr ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #: src/functions/template-tags/general.php:1410
 msgid "Find out more »"
@@ -8709,6 +8944,8 @@ msgstr ""
 
 #: src/functions/template-tags/general.php:1536
 =======
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 #: src/functions/template-tags/general.php:1407
 msgid "Find out more »"
 msgstr ""
@@ -8718,7 +8955,10 @@ msgid "%s for"
 msgstr ""
 
 #: src/functions/template-tags/general.php:1533
+<<<<<<< HEAD
 >>>>>>> 708ee51a56a11857322e5877e2dfb8d85cc94bdb
+=======
+>>>>>>> ac07d1a3de433ebbcc77c150c6cb7349567550b5
 msgid "Calendar powered by %s"
 msgstr ""
 

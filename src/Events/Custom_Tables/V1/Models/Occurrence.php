@@ -29,7 +29,6 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date_UTC;
 use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validator;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Timezones as Timezones;
@@ -93,7 +92,7 @@ class Occurrence extends Model {
 	/**
 	 * {@inheritdoc}
 	 */
-	protected $table = Occurrences::TABLE_NAME;
+	protected $table = 'tec_occurrences';
 
 	/**
 	 * {@inheritdoc}

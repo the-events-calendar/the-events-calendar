@@ -9,6 +9,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Tables;
 
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Custom_Table;
+
 /**
  * Class Events
  *
@@ -16,22 +18,44 @@ namespace TEC\Events\Custom_Tables\V1\Tables;
  *
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
-class Events extends Base_Custom_Table {
+class Events extends Abstract_Custom_Table {
 	/**
-	 * The table name, without prefix.
-	 *
-	 * @since TBD
-	 *
-	 * @internal Use the `table_name` method to get the table name.
+	 * @inheritDoc
 	 */
-	const TABLE_NAME = 'tec_events';
+	const SCHEMA_VERSION_OPTION = 'tec_ct1_events_table_schema_version';
+
+	/**
+	 * @inheritDoc
+	 */
+	const SCHEMA_VERSION = '1.0.0';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function uid_column() {
+		return 'event_id';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function base_table_name() {
+		return 'tec_events';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function group_name() {
+		return 'tec';
+	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function get_update_sql() {
 		global $wpdb;
-		$table_name = $this->get_table_name(true);
+		$table_name = self::table_name(true);
 		$charset_collate = $wpdb->get_charset_collate();
 
 		return "CREATE TABLE `{$table_name}` (
@@ -58,9 +82,9 @@ class Events extends Base_Custom_Table {
 		if ( ! count( $results ) ) {
 			return $results;
 		}
-
+		// @todo why here and not in create?
 		global $wpdb;
-		$table_name = $this->get_table_name( true );
+		$table_name = self::table_name( true );
 
 		$updated = false;
 
@@ -77,10 +101,4 @@ class Events extends Base_Custom_Table {
 		return $results;
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function uid_column() {
-		return 'event_id';
-	}
 }

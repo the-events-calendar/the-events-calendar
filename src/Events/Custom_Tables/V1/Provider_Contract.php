@@ -7,7 +7,7 @@
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
 
-namespace TEC\Events\Custom_Tables\V1\WP_Query;
+namespace TEC\Events\Custom_Tables\V1;
 
 /**
  * Interface Provider_Contract

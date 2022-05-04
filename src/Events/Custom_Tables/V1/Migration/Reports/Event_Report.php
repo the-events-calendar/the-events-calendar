@@ -8,6 +8,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
+use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use WP_Post;
 use JsonSerializable;
 
@@ -22,7 +24,7 @@ use JsonSerializable;
  * @property null|string error
  * @property string      status
  * @property array       created_events
- * @property bool        is_recurring
+ * @property bool        is_single
  * @property string      tickets_provider
  * @property bool        has_tickets
  * @property null|float  end_timestamp
@@ -30,6 +32,10 @@ use JsonSerializable;
  */
 class Event_Report implements JsonSerializable {
 
+	/**
+	 * Key used to store a weighted numeric value for sorting report results.
+	 */
+	const META_KEY_ORDER_WEIGHT = '_tec_ct1_report_order_weight';
 	/**
 	 * Key used to flag this event is in progress and already assigned
 	 * to a strategy worker.
@@ -59,10 +65,6 @@ class Event_Report implements JsonSerializable {
 	 * Flag for migration completed with a failure.
 	 */
 	const META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE = 'MIGRATION_FAILURE';
-	/**
-	 * Flag for undo completed with a failure.
-	 */
-	const META_VALUE_MIGRATION_PHASE_UNDO_FAILURE = 'UNDO_FAILURE';
 
 	/**
 	 * Status flags for a particular operation. This is not tied to the action,
@@ -76,23 +78,46 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Status for failed migration.
 	 */
-	const FAILURE_STATUS = 'failure';
+	const STATUS_FAILURE = 'failure';
 
 	/**
 	 * Status for successful migration.
 	 */
-	const SUCCESS_STATUS = 'success';
+	const STATUS_SUCCESS = 'success';
+
+	/**
+	 * The report key used to indicate whether the migration of an Event is a failure or not.
+	 */
+	const REPORT_KEY_FAILURE = 'report_failure';
+
+	/**
+	 * The report key used to indicate whether an Event is single and has tickets or not.
+	 */
+	const REPORT_KEY_SINGLE_WITH_TICKETS = 'report_single_event_with_tickets';
+
+	/**
+	 * The report key used to indicate whether an Event is single or not.
+	 */
+	const REPORT_KEY_SINGLE_EVENT = 'report_is_single_event';
 
 	/**
 	 * @since TBD
+	 *
+	 * @var int Sort order weight.
+	 */
+	private $report_order_weight = 0;
+
+	/**
+	 * @since TBD
+	 *
 	 * @var array<string, mixed> Report data.
 	 */
-	protected $data = [
+	private $data = [
 		'start_timestamp'    => null,
 		'end_timestamp'      => null,
 		'has_tickets'        => false,
 		'tickets_provider'   => '',
-		'is_recurring'       => false,
+		'is_single'          => true,
 		'created_events'     => [],
 		'status'             => '', // @todo Do we really need this? This could be handled by the meta phase...
 		'error'              => null,
@@ -102,23 +127,45 @@ class Event_Report implements JsonSerializable {
 	];
 
 	/**
+	 * A map from the supported report keys to their assigned weight.
+	 * Initialized in the `__construct` method.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,int>
+	 */
+	private $report_weights_map = [];
+
+	/**
 	 * Construct and hydrate the Event_Report for this WP_Post
 	 *
 	 * @since TBD
 	 *
 	 * @param WP_Post $source_post
 	 */
-	public function __construct( WP_Post $source_post ) {
-		$this->data['source_event_post'] = (object) [
-			'ID'         => $source_post->ID,
-			'post_title' => $source_post->post_title,
+	public function __construct( $source_post ) {
+		// @todo Construct override ? Allow for passing report data directly..?
+		if ( $source_post instanceof WP_Post ) {
+			$this->data['source_event_post'] = (object) [
+				'ID'         => $source_post->ID,
+				'post_title' => $source_post->post_title,
+			];
+		}
+
+		$this->report_weights_map = [
+			self::REPORT_KEY_FAILURE             => 10 ** 5,
+			self::REPORT_KEY_SINGLE_WITH_TICKETS => 10 ** 4,
+			self::REPORT_KEY_SINGLE_EVENT        => 10 ** 3,
 		];
 
 		$this->hydrate();
 	}
 
 	/**
+	 * Get all of the report data.
+	 *
 	 * @since TBD
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function get_data() {
@@ -144,6 +191,42 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * This will set a weight on the current `report_order_weight`.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,int> $key_bits A map from weight report entries to a base value
+	 *                                    that has not been weighted yet.
+	 *
+	 * @return $this A reference to this objec, for chaining.
+	 */
+	public function set_report_order_weight( array $key_bits = []) {
+		/**
+		 * Filters the report weights map to allow other plugins to manipulate the order
+		 * the reports should be sorted by.
+		 *
+		 * @param array<string,int> A map from report weight keys to their weight.
+		 *
+		 * @since TBD
+		 *
+		 */
+		$report_weights_map = apply_filters( 'tec_events_custom_tables_v1_event_report_weights_map', $this->report_weights_map );
+
+		$acc = 0;
+		foreach ( $key_bits as $report_key => $bit ) {
+			$report_key_weight = isset( $report_weights_map[ $report_key ] )
+				? $report_weights_map[ $report_key ]
+				: 0;
+			$acc               += $bit * $report_key_weight;
+		}
+		$this->report_order_weight = $acc;
+
+		return $this;
+	}
+
+	/**
+	 * Add each WP_Post for events that will be created for this migration strategy.
+	 *
 	 * @since TBD
 	 *
 	 * @param WP_Post $post
@@ -165,23 +248,10 @@ class Event_Report implements JsonSerializable {
 	 * When you start the migration process set the appropriate state.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	public function start_event_migration() {
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_IN_PROGRESS );
-
-		return $this->set_start_timestamp();
-	}
-
-	/**
-	 * When you start the undo process set the appropriate state.
-	 *
-	 * @since TBD
-	 * @return $this
-	 */
-	public function start_event_undo_migration() {
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_UNDO_IN_PROGRESS );
-
 		return $this->set_start_timestamp();
 	}
 
@@ -189,6 +259,7 @@ class Event_Report implements JsonSerializable {
 	 * Setup the microtime for when the migration starts.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	protected function set_start_timestamp() {
@@ -201,6 +272,7 @@ class Event_Report implements JsonSerializable {
 	 * Setup the microtime for when the migration ends.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	protected function set_end_timestamp() {
@@ -210,20 +282,24 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Sets a key in the report data.
+	 *
 	 * @since TBD
 	 *
-	 * @param bool $is_recurring
+	 * @param string     $key   The key to set in the report data.
+	 * @param mixed|null $value The value to set for the key.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining purposes.
 	 */
-	public function set_is_recurring( bool $is_recurring ) {
-		//@todo Should we infer this from the created_events data...? Or statically apply / require being applied?
-		$this->data['is_recurring'] = $is_recurring;
+	public function set( $key, $value = null ) {
+		$this->data[ $key ] = $value;
 
 		return $this;
 	}
 
 	/**
+	 * Set the error message for migration failure events.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $reason
@@ -237,15 +313,20 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Set the status flag for this report.
+	 *
 	 * @since TBD
 	 *
-	 * @param string $status
+	 * @param string $status The status to set the migration state to, should be
+	 *                       one of the `ALLOWED_STATUSES` constant.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining.
+	 *
+	 * @throws Migration_Exception If the input status is not allowed.
 	 */
-	protected function set_status( string $status ) {
+	protected function set_status( $status ) {
 		if ( ! in_array( $status, self::ALLOWED_STATUSES ) ) {
-			throw \Exception( "Invalid status applied: $status" );
+			throw new Migration_Exception( "Invalid status applied: $status" );
 		}
 		$this->data['status'] = $status;
 
@@ -253,6 +334,8 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Add each WP_Post for series that will be created for this migration strategy.
+	 *
 	 * @since TBD
 	 *
 	 * @param WP_Post $post
@@ -269,27 +352,30 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * Add each strategy applied for this migration.
+	 *
 	 * @since TBD
 	 *
-	 * @param string $strategy
+	 * @param string $strategy The slug of the applied migration strategy.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining.
 	 */
-	public function add_strategy( string $strategy ) {
-		// @todo validate strategies applied? Don't care in case of third party?
+	public function add_strategy( $strategy ) {
 		$this->data['strategies_applied'][] = $strategy;
 
 		return $this;
 	}
 
 	/**
+	 * Set the ticket provider, when an ET event.
+	 *
 	 * @since TBD
 	 *
-	 * @param string $tickets_provider
+	 * @param string $tickets_provider The slug of the tickets provider, if any.
 	 *
-	 * @return $this
+	 * @return $this A reference to this object, for chaining.
 	 */
-	public function set_tickets_provider( string $tickets_provider ) {
+	public function set_tickets_provider( $tickets_provider ) {
 		$this->data['has_tickets']      = (bool) $tickets_provider;
 		$this->data['tickets_provider'] = $tickets_provider;
 
@@ -297,51 +383,17 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
-	 * Mark this event undo migration as a success, and save in the database.
-	 *
-	 * @since TBD
-	 * @return Event_Report
-	 * @todo  Do we need undo failure?
-	 */
-	public function undo_success() {
-		// We clear our meta data when we are done.
-		$this->clear_meta();
-		$this->data = [];
-
-		return $this;
-	}
-
-	/**
-	 * Mark this event migration as a failure, and save in database with a reason.
+	 * Removes all of the migration metadata.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $reason
-	 *
-	 * @return Event_Report
-	 */
-	public function undo_failed( string $reason ) {
-		// Track time immediately
-		$this->set_end_timestamp();
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_UNDO_FAILURE );
-		$this->unlock_event();
-
-		return $this->set_error( $reason )
-		            ->set_status( self::FAILURE_STATUS )
-		            ->save();
-	}
-
-
-	/**
-	 * Removes all of the migration meta data.
-	 *
-	 * @since TBD
 	 * @return $this
 	 */
 	public function clear_meta() {
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE );
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA );
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_LOCK_HASH );
+		delete_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT );
 
 		return $this;
 	}
@@ -350,6 +402,7 @@ class Event_Report implements JsonSerializable {
 	 * Mark this event migration as a success, and save in the database.
 	 *
 	 * @since TBD
+	 *
 	 * @return Event_Report
 	 */
 	public function migration_success() {
@@ -359,7 +412,7 @@ class Event_Report implements JsonSerializable {
 		$this->unlock_event();
 
 		return $this
-			->set_status( self::SUCCESS_STATUS )
+			->set_status( self::STATUS_SUCCESS )
 			->save();
 	}
 
@@ -368,27 +421,42 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $reason
+	 * @param string $reason_key A reason key that is translated into the human-readable description of why the migration failed.
+	 * @param array  $context    Context args that can be applied to the error message.
 	 *
-	 * @return Event_Report
+	 * @return Event_Report A reference to the Event Report object for the specific
+	 *                      that is being processed.
 	 */
-	public function migration_failed( string $reason ) {
+	public function migration_failed( $reason_key, array $context = array() ) {
 		// Track time immediately
 		$this->set_end_timestamp();
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
 
-		return $this->set_error( $reason )
-		            ->set_status( self::FAILURE_STATUS )
+		// Parse message here, so we don't need to store the context.
+		$text    = tribe( String_Dictionary::class );
+
+		// Expected exceptions have the message pre generated.
+		if($reason_key !== 'expected-exception') {
+			array_unshift( $context, $text->get( "migration-error-k-$reason_key" ) );
+		}
+
+		$message = call_user_func_array( 'sprintf', $context );
+
+		return $this->set_error( $message )
+		            ->set_status( self::STATUS_FAILURE )
 		            ->save();
 	}
 
 	/**
 	 * Will remove the lock from this Event.
 	 *
+	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	public function unlock_event() {
+		// @todo this seems a bit off-place here.
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_LOCK_HASH );
 
 		return $this;
@@ -398,18 +466,45 @@ class Event_Report implements JsonSerializable {
 	 * Stores current state in the meta table.
 	 *
 	 * @since TBD
+	 *
 	 * @return $this
 	 */
 	protected function save() {
+		$post_id = $this->source_event_post->ID;
+
+		// @todo Not fully implemented. How do we detect tickets?
+
+		$report_weights = [
+			self::REPORT_KEY_FAILURE             => ! empty( $this->data['error'] ),
+			self::REPORT_KEY_SINGLE_WITH_TICKETS => 0,
+			self::REPORT_KEY_SINGLE_EVENT        => 1,
+		];
+
+		/**
+		 * Filters the elements and bits associated with each report weight.
+		 *
+		 * @since TBD
+		 *
+		 * @param  array<string,int> A map from the report weight keys to their "bit", either 0 or 1.
+		 * @param array<string,mixed>  $data The data of this migration report.
+		 * @param int $post_id The post ID of the Event object of this report.
+		 */
+		$report_weights = apply_filters( 'tec_events_custom_tables_v1_event_report_element_weights', $report_weights, $this->data, $post_id );
+
+		$this->set_report_order_weight( $report_weights );
+
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA, $this->data );
+		update_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT, $this->report_order_weight );
 
 		return $this;
 	}
 
 	/**
+	 * Getter for the report data.
+	 *
 	 * @since TBD
 	 *
-	 * @param $prop
+	 * @param string $prop The property key.
 	 *
 	 * @return mixed|null
 	 */
@@ -418,7 +513,10 @@ class Event_Report implements JsonSerializable {
 	}
 
 	/**
+	 * The JSON serializer logic.
+	 *
 	 * @since TBD
+	 *
 	 * @return array
 	 */
 	public function jsonSerialize() {

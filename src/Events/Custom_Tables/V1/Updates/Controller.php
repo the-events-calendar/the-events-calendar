@@ -156,6 +156,42 @@ class Controller {
 	}
 
 	/**
+	 * Will trigger a contextual event inserted action hook.
+	 *
+	 * @since TBD
+	 *
+	 * @param $post_id
+	 */
+	public function event_was_inserted_by_request( $post_id ) {
+		/**
+		 * When we have created a new event, fire this action with the post ID. Triggered only during an HTTP request.
+		 *
+		 * @since TBD
+		 *
+		 * @param numeric $post_id The event post ID.
+		 */
+		do_action( 'tec_events_custom_tables_v1_request_after_insert_event', $post_id );
+	}
+
+	/**
+	 * Will trigger a contextual event updated action hook.
+	 *
+	 * @since TBD
+	 *
+	 * @param $post_id
+	 */
+	public function event_was_updated_by_request( $post_id ) {
+		/**
+		 * When we have updated an existing event, fire this action with the post ID. Triggered only during an HTTP request.
+		 *
+		 * @since TBD
+		 *
+		 * @param numeric $post_id The event post ID.
+		 */
+		do_action( 'tec_events_custom_tables_v1_request_after_update_event', $post_id );
+	}
+
+	/**
 	 * Updates the custom tables with the data for an Event post.
 	 *
 	 * @since TBD
@@ -196,10 +232,20 @@ class Controller {
 		 */
 		$updated = apply_filters( 'tec_events_custom_tables_v1_commit_post_updates', null, $post_id, $request );
 
+		/**
+		 * These hooks are a way to further add context to the type of event occurring. In the case of an HTTP request, versus some other update operation.
+		 */
+		add_action( 'tec_events_custom_tables_v1_after_insert_event', [ $this, 'event_was_inserted_by_request' ] );
+		add_action( 'tec_events_custom_tables_v1_after_update_event', [ $this, 'event_was_updated_by_request' ] );
 		if ( null === $updated ) {
 			// Apply the default logic.
 			$updated = $this->events->update( $post_id );
 		}
+		/**
+		 * Clean up context specific hooks.
+		 */
+		remove_action( 'tec_events_custom_tables_v1_after_insert_event', [ $this, 'event_was_inserted_by_request' ] );
+		remove_action( 'tec_events_custom_tables_v1_after_update_event', [ $this, 'event_was_updated_by_request' ] );
 
 		/**
 		 * Filters whether an Event custom tables data has been correctly updated or not.

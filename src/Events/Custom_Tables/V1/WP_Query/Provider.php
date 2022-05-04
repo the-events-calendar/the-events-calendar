@@ -11,6 +11,7 @@
 namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
 use Serializable;
+use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Repository\Custom_Tables_Query_Filters;

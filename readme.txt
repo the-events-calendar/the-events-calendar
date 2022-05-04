@@ -216,7 +216,6 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 == Upgrade Notice ==
 
 = [5.0] =
-
 Please see the changelog for the complete list of changes in this release.
 Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
 Remember to always make a backup of your database and files before updating!
