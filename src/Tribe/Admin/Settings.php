@@ -426,6 +426,8 @@ class Settings {
 		$tabs = [
 			'general',
 			'display',
+			'addons',
+			'imports',
 		];
 
 		/**
@@ -456,15 +458,16 @@ class Settings {
 		}
 
 		$tec_tabs = $this->get_events_settings_tabs_ids();
+		$form_options['hideSettingsTabs'] = $_POST['hideSettingsTabs'];
 
 		// Iterate over the TEC settings tab ids and merge the network settings.
 		foreach ( $tec_tabs as $tab => $key ) {
 			if ( in_array( $key, $options['hideSettingsTabs'] ) ) {
-				$_POST['hideSettingsTabs'][] = $key;
-				$options['hideSettingsTabs'] = $key;
+				$_POST['hideSettingsTabs'][]        = $key;
+				$form_options['hideSettingsTabs'][] = $key;
 			}
 		}
 
-		return $options;
+		return $form_options;
 	}
 }
