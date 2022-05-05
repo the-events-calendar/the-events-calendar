@@ -196,7 +196,7 @@ class Event_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	public function test_tribe_create_event_template_tag_duration_meta_information() {
 		$post = get_post( tribe_create_event( $this->post_example_settings ) );
 
-		$this->assertEquals( '223800000', get_post_meta( $post->ID, '_EventDuration', true ) ));
+		$this->assertEquals( '223800000', get_post_meta( $post->ID, '_EventDuration', true ) );
 	}
 
 	/**
