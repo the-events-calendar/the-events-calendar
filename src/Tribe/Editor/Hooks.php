@@ -79,15 +79,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		global $wpdb;
-			$query = $wpdb->prepare( "insert into $wpdb->postmeta (post_id, meta_key, meta_value)
-						select p.ID, %s, TIME_TO_SEC(TIMEDIFF(end.meta_value, start.meta_value))
+			$query = $wpdb->prepare( "INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
+						SELECT p.ID, %s, TIME_TO_SEC(TIMEDIFF(end.meta_value, start.meta_value))
 						from $wpdb->posts p
-						join $wpdb->postmeta start on start.post_id = p.ID
-						and start.meta_key = %s join $wpdb->postmeta end
-						on end.post_id = p.ID and end.meta_key = %s
-						left join $wpdb->postmeta as duration
-						on p.ID = duration.post_id and  duration.meta_key = %s
-						where p.post_type = %s and duration.meta_value is null",
+						JOIN $wpdb->postmeta start ON start.post_id = p.ID
+						AND start.meta_key = %s JOIN $wpdb->postmeta end
+						ON end.post_id = p.ID AND end.meta_key = %s
+						LEFT JOIN $wpdb->postmeta duration
+						ON p.ID = duration.post_id AND duration.meta_key = %s
+						WHERE p.post_type = %s AND duration.meta_value IS NULL",
 						'_EventDuration',
 						'_EventStartDateUTC',
 						'_EventEndDateUTC',
@@ -97,7 +97,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 			$fixed = $wpdb->query( $query );
 
-			if( $fixed ) {
+			if( false !== $fixed ) {
 				tribe_update_option( 'fix_duration', 1 );
 			}
 	}
