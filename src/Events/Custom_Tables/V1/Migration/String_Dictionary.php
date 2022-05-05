@@ -97,10 +97,13 @@ class String_Dictionary {
 ",
 				'the-events-calendar'
 			),
-			'completed-screenshot-url'                               => plugins_url(
-			// @todo correct screenshot here
+			'preview-prompt-completed-screenshot-url'                => plugins_url(
 				'src/resources/images/upgrade-views-screenshot.png',
 				TRIBE_EVENTS_FILE
+			),
+			'preview-prompt-screenshot-alt'                          => __(
+				'screenshot of updated calendar views',
+				'the-events-calendar'
 			),
 			'preview-prompt-get-ready'                               => __(
 				'Get ready for the new recurring events!',
@@ -129,10 +132,6 @@ class String_Dictionary {
 			),
 			'start-migration-preview-button'                         => __(
 				'Start migration preview',
-				'the-events-calendar'
-			),
-			'updated-views-screenshot-alt'                           => __(
-				'screenshot of updated calendar views',
 				'the-events-calendar'
 			),
 			'preview-in-progress'                                    => __(

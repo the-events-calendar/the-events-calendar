@@ -43,8 +43,8 @@ use TEC\Events\Custom_Tables\V1\Migration\Download_Report_Provider;
 
 	<div class="image-container">
 		<img class="screenshot"
-			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
-			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
+			 src="<?php echo esc_url( $text->get( 'preview-prompt-completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'preview-prompt-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>
 
