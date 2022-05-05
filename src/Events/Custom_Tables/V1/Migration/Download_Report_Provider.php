@@ -10,6 +10,8 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
+use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
  * Class Download_Report_Provider.
@@ -20,7 +22,11 @@ use tad_DI52_ServiceProvider as Service_Provider;
  */
 class Download_Report_Provider extends Service_Provider {
 
+	/**
+	 * @var string The page slug.
+	 */
 	const DOWNLOAD_SLUG = 'migration-report-download';
+
 
 	/**
 	 * Registers the required implementations and hooks into the required
@@ -31,12 +37,11 @@ class Download_Report_Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function register() {
-
 		if ( is_admin() ) {
 			add_action( 'admin_menu', function () {
 				add_dashboard_page(
-					__( 'Welcome', 'textdomain' ),
-					__( 'Welcome', 'textdomain' ),
+					null,
+					null,
 					'manage_options',
 					self::DOWNLOAD_SLUG,
 					[ $this, 'download_csv' ]
@@ -48,30 +53,49 @@ class Download_Report_Provider extends Service_Provider {
 		}
 	}
 
+	/**
+	 * Outputs the CSV file for the current event report.
+	 *
+	 * @since TBD
+	 *
+	 * @return false|void
+	 */
 	public function download_csv() {
-		// Check for current user privileges
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return false;
-		}
 
 		// Check if we are in WP-Admin
-		if ( ! is_admin() ) {
+		if ( ! is_admin() || empty( $_GET['noheader'] ) ) {
 			return false;
 		}
 
-		// Nonce Check
-		$nonce = isset( $_GET['_wpnonce'] ) ? $_GET['_wpnonce'] : '';
-		if ( ! wp_verify_nonce( $nonce, 'download_csv' ) ) {
-			die( 'Security check error' );
-		}
+		$site_report = Site_Report::build();
+		$reports     = $site_report->get_event_reports();
+		$delimiter   = ',';
+		$output      = fopen( 'php://output', 'w' );
+		$charset     = get_option( 'blog_charset' );
 
-
-		header( 'Content-Type: text/csv; charset=UTF-8;' );
-
-		header( 'Content-Disposition: attachment; filename="downloaded.pdf"' ); // Supply a file name to save
+		header( "Content-Type: text/csv; charset=$charset;" );
+		header( 'Content-Disposition: attachment; filename="migration_event_report.csv"' );
 		header( "Cache-Control: no-cache, must-revalidate" );
-		header( "Expires: Sat, 26 Jul 1997 05:00:00 GMT" ); // Date in the past
+		header( "Expires: Sat, 26 Jul 1997 05:00:00 GMT" );
 
+		// Determine which reports we want. Different logic based on the current phase.
+		// @todo
+
+		fputcsv( $output, [ 'Event Name', 'Admin URL', 'Status', 'Has Error' ], $delimiter );
+		foreach ( $reports as $report ) {
+			$message   = str_replace( [ "\n", "\t" ], " ", strip_tags( $report->error ) );
+			$has_error = ! $report->error ? "No" : "Yes";
+
+			$item = [
+				$report->source_event_post->post_title,
+				get_edit_post_link( $report->source_event_post->ID, 'url' ),
+				$message,
+				$has_error
+			];
+
+			fputcsv( $output, $item, $delimiter );
+		}
+		fclose( $output );
 		exit;
 	}
 
