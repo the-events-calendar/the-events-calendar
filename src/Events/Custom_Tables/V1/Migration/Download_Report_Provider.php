@@ -10,6 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
@@ -68,12 +69,20 @@ class Download_Report_Provider extends Service_Provider {
 		}
 
 		// Determine which reports we want. Different logic based on the current phase.
-		// @todo
 		$site_report = Site_Report::build();
-		$reports     = $site_report->get_event_reports();
-		$delimiter   = ',';
-		$output      = fopen( 'php://output', 'w' );
-		$charset     = get_option( 'blog_charset' );
+		$state       = tribe( State::class );
+		switch ( $state->get_phase() ) {
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				$reports = $site_report->get_event_reports( - 1, 9999, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+				break;
+			default:
+				$reports = $site_report->get_event_reports();;
+				break;
+		}
+
+		$delimiter = ',';
+		$output    = fopen( 'php://output', 'w' );
+		$charset   = get_option( 'blog_charset' );
 
 		header( "Content-Type: text/csv; charset=$charset;" );
 		header( 'Content-Disposition: attachment; filename="migration_event_report.csv"' );
@@ -100,6 +109,15 @@ class Download_Report_Provider extends Service_Provider {
 		}
 		fclose( $output );
 		exit;
+	}
+
+	/**
+	 * @since TBD
+	 *
+	 * @return string The admin url to the file.
+	 */
+	public static function get_download_url() {
+		return admin_url( "?noheader=1&page=" . self::DOWNLOAD_SLUG );
 	}
 
 }

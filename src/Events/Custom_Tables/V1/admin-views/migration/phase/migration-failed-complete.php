@@ -2,6 +2,7 @@
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+use TEC\Events\Custom_Tables\V1\Migration\Download_Report_Provider;
 
 /**
  * @var string              $template_directory The absolute path to the Migration template root directory.
@@ -67,8 +68,8 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 				<?php include( $template_directory . '/partials/event-loop.php' ); ?>
 			</div>
 			<footer class="tec-ct1-upgrade__report-body-footer">
+				<a href="<?php echo Download_Report_Provider::get_download_url() ?>"><?php echo $text->get( 'migration-download-report-button' ); ?></a>
 			</footer>
-
 		</div>
 	</div>
 

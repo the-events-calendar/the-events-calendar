@@ -371,6 +371,10 @@ class String_Dictionary {
 				'View the error report',
 				'the-events-calendar'
 			),
+			'migration-download-report-button'                    => __(
+				'Download report',
+				'the-events-calendar'
+			),
 			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),
 		] );
 	}
