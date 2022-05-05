@@ -193,6 +193,12 @@ class Event_Creation_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '2012-01-03 15:25:00', get_post_meta( $post->ID, '_EventEndDate', true ) );
 	}
 
+	public function test_tribe_create_event_template_tag_duration_meta_information() {
+		$post = get_post( tribe_create_event( $this->post_example_settings ) );
+
+		$this->assertEquals( '223800000', get_post_meta( $post->ID, '_EventDuration', true ) ));
+	}
+
 	/**
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *
