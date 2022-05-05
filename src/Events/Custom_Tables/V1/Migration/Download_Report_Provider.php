@@ -67,6 +67,8 @@ class Download_Report_Provider extends Service_Provider {
 			return false;
 		}
 
+		// Determine which reports we want. Different logic based on the current phase.
+		// @todo
 		$site_report = Site_Report::build();
 		$reports     = $site_report->get_event_reports();
 		$delimiter   = ',';
@@ -78,19 +80,20 @@ class Download_Report_Provider extends Service_Provider {
 		header( "Cache-Control: no-cache, must-revalidate" );
 		header( "Expires: Sat, 26 Jul 1997 05:00:00 GMT" );
 
-		// Determine which reports we want. Different logic based on the current phase.
-		// @todo
-
 		fputcsv( $output, [ 'Event Name', 'Admin URL', 'Status', 'Has Error' ], $delimiter );
 		foreach ( $reports as $report ) {
-			$message   = str_replace( [ "\n", "\t" ], " ", strip_tags( $report->error ) );
-			$has_error = ! $report->error ? "No" : "Yes";
+			$has_error = (bool) $report->error;
+			if ( $has_error ) {
+				$message = str_replace( [ "\n", "\t" ], " ", strip_tags( $report->error ) );
+			} else {
+				$message = $report->get_migration_strategy_text();
+			}
 
 			$item = [
 				$report->source_event_post->post_title,
 				get_edit_post_link( $report->source_event_post->ID, 'url' ),
 				$message,
-				$has_error
+				$has_error ? "Yes" : "No"
 			];
 
 			fputcsv( $output, $item, $delimiter );

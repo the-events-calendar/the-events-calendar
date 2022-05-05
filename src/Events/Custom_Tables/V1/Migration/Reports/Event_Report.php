@@ -447,6 +447,50 @@ class Event_Report implements JsonSerializable {
 		            ->save();
 	}
 
+
+	/**
+	 * This will retrieve the translated text for the migration strategies being applied to this event.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The translated migration strategy being applied.
+	 */
+	public function get_migration_strategy_text() {
+		$text    = tribe( String_Dictionary::class );
+		$message = '';
+		foreach ( $this->strategies_applied as $action ) {
+			switch ( $action ) {
+				case 'split':
+					$message .= sprintf(
+						esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
+						'<strong>',
+						count( $this->created_events ),
+						'</strong>'
+					);
+					$message .= sprintf(
+						esc_html( $text->get( "migration-prompt-strategy-$action-new-series" ) ),
+						$this->series[0]->post_title // @todo This ok?
+					);
+					break;
+				default:
+					// Do we have language for this strategy?
+					$output = sprintf(
+						esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
+						'<strong>',
+						'</strong>'
+					);
+					if ( $output ) {
+						$message .= $output;
+					} else {
+						$message .= esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
+					}
+					break;
+			}
+		}
+
+		return $message;
+	}
+
 	/**
 	 * Will remove the lock from this Event.
 	 *
