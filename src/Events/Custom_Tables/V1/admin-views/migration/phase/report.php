@@ -53,7 +53,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 			<a href="http://evnt.is/recurrence-2-0-report" target="_blank"
 			   rel="noopener"><?php echo esc_html( $text->get( 'migration-prompt-learn-about-report-button' ) ); ?></a>
 			|
-			<a href="<?php echo Download_Report_Provider::get_download_url() ?>"><?php echo $text->get( 'migration-download-report-button' ); ?></a>
+			<a href="<?php echo Download_Report_Provider::get_download_url(); ?>"><?php echo $text->get( 'migration-download-report-button' ); ?></a>
 		</footer>
 	</div>
 </div>
