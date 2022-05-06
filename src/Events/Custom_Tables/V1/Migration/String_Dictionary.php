@@ -101,6 +101,11 @@ class String_Dictionary {
 				'src/resources/images/upgrade-views-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
+			// @todo
+			'small-completed-screenshot-url'                          => plugins_url(
+				'src/resources/images/upgrade-views-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
 			'preview-screenshot-alt'                                 => __(
 				'screenshot of updated calendar views',
 				'the-events-calendar'
