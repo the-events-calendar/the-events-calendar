@@ -25,7 +25,37 @@ class File_Download {
 	 * @var string The page slug.
 	 */
 	const DOWNLOAD_SLUG = 'migration-report-download';
+	/**
+	 * @var string The query var to check for our page slug.
+	 */
+	const DOWNLOAD_QUERY_PARAM = 'action';
 
+	/**
+	 * Get the download URL string.
+	 *
+	 * @since TBD
+	 *
+	 * @return string|void
+	 */
+	public static function get_download_url() {
+
+		return admin_url( "?" . self::DOWNLOAD_QUERY_PARAM . "=" . self::DOWNLOAD_SLUG . '&wpnonce=' . wp_create_nonce() );
+	}
+
+	/**
+	 * Whether this is a legitimate download request.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool If the download should continue.
+	 */
+	public function should_download() {
+		if ( ! isset( $_GET['wpnonce'] ) || ! isset( $_GET[ self::DOWNLOAD_QUERY_PARAM ] ) || ( $_GET[ self::DOWNLOAD_QUERY_PARAM ] !== self::DOWNLOAD_SLUG ) ) {
+			return false;
+		}
+
+		return (bool) wp_verify_nonce( $_GET['wpnonce'] );
+	}
 
 	/**
 	 * Outputs the CSV file for the current event report.
@@ -36,7 +66,7 @@ class File_Download {
 	 */
 	public function download_csv() {
 		// Check if we are in WP-Admin
-		if ( ! is_admin() || empty( $_GET['noheader'] ) ) {
+		if ( ! $this->should_download() ) {
 			return false;
 		}
 

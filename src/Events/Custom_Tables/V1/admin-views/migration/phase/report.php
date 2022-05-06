@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Events\Custom_Tables\V1\Migration\Download_Report_Provider;
+use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\File_Download;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
@@ -53,7 +53,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 			<a href="http://evnt.is/recurrence-2-0-report" target="_blank"
 			   rel="noopener"><?php echo esc_html( $text->get( 'migration-prompt-learn-about-report-button' ) ); ?></a>
 			|
-			<a href="<?php echo Download_Report_Provider::get_download_url(); ?>"><?php echo $text->get( 'migration-download-report-button' ); ?></a>
+			<a href="<?php echo File_Download::get_download_url(); ?>"><?php echo $text->get( 'migration-download-report-button' ); ?></a>
 		</footer>
 	</div>
 </div>
