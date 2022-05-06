@@ -24,7 +24,8 @@ class File_Download {
 	/**
 	 * @var string The page slug.
 	 */
-	const DOWNLOAD_SLUG = 'migration-report-download';
+	const DOWNLOAD_SLUG = 'ct1-migration-report-download';
+
 	/**
 	 * @var string The query var to check for our page slug.
 	 */
@@ -38,8 +39,7 @@ class File_Download {
 	 * @return string|void
 	 */
 	public static function get_download_url() {
-
-		return admin_url( "?" . self::DOWNLOAD_QUERY_PARAM . "=" . self::DOWNLOAD_SLUG . '&wpnonce=' . wp_create_nonce() );
+		return admin_url( "?" . self::DOWNLOAD_QUERY_PARAM . "=" . urlencode( self::DOWNLOAD_SLUG ) . '&wpnonce=' . wp_create_nonce() );
 	}
 
 	/**
