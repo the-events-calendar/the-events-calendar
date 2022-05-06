@@ -58,8 +58,8 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 	<div class="image-container">
 		<img class="screenshot"
-			 src="<?php echo esc_url( $text->get( 'preview-prompt-completed-screenshot-url' ) ); ?>"
-			 alt="<?php echo esc_attr( $text->get( 'preview-prompt-screenshot-alt' ) ); ?>"/>
+			 src="<?php echo esc_url( $text->get( 'tall-completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'preview-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>
 
