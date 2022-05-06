@@ -138,16 +138,19 @@ class Site_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $page  The page to retrieve in a pagination request. If -1, it will retrieve all reports in the
-	 *                   database.
-	 * @param int $count The number of event reports to retrieve. If $page is -1 this will be ignored.
+	 * @param int         $page            The page to retrieve in a pagination request. If -1, it will retrieve all
+	 *                                     reports in the database.
+	 * @param int         $count           The number of event reports to retrieve. If $page is -1 this will be
+	 *                                     ignored.
+	 * @param null|string $status_to_fetch Will only fetch the events of this status. If no specified will ignore
+	 *                                     status.
 	 *
 	 * @return array<Event_Report> A sorted list of Event_Report objects.
 	 */
-	public function get_event_reports( $page = - 1, $count = 20 ) {
+	public function get_event_reports( $page = - 1, $count = 20, $status_to_fetch = null ) {
 		$event_repo = tribe( Events::class );
 		// Get all the events that have been touched by migration
-		$post_ids      = $event_repo->get_events_migrated( $page, $count );
+		$post_ids      = $event_repo->get_events_migrated( $page, $count, $status_to_fetch );
 		$event_reports = [];
 		foreach ( $post_ids as $post_id ) {
 			$event_reports[] = new Event_Report( get_post( $post_id ) );

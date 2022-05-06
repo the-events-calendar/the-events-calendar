@@ -173,12 +173,16 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
+				$event_reports = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+				if ( ! count( $event_reports ) ) {
+					$site_report->get_event_reports( $page, $count );
+				}
 				$renderer = new Phase_View_Renderer( $phase,
 					"$base_dir/$phase.php",
 					[
 						'state'         => tribe( State::class ),
 						'report'        => $site_report,
-						'event_reports' => $site_report->get_event_reports( $page, $count ),
+						'event_reports' => $event_reports,
 						'text'          => tribe( String_Dictionary::class )
 					]
 				);
@@ -233,7 +237,7 @@ class Ajax {
 						'state'         => tribe( State::class ),
 						'report'        => $site_report,
 						'text'          => tribe( String_Dictionary::class ),
-						'event_reports' => $site_report->get_event_reports( $page, $count )
+						'event_reports' => $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE )
 					]
 				);
 				$renderer->should_poll( false );

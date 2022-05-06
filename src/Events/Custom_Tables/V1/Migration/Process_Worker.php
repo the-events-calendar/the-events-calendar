@@ -267,6 +267,8 @@ class Process_Worker {
 
 		$did_migration_error = ! $dry_run && $this->event_report->error;
 		$continue_queue      = true;
+		$next_post_id        = null;
+
 		// If error in the migration phase, need to stop the queue.
 		if ( $did_migration_error ) {
 			$continue_queue = false;
@@ -381,12 +383,12 @@ class Process_Worker {
 		// Clear meta values.
 		$meta_keys = [
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-			Event_Report::META_KEY_MIGRATION_PHASE,
 		];
 
 		// If we are in migration failure, we want to preserve the report data.
 		if ( $current_phase !== State::PHASE_MIGRATION_FAILURE_IN_PROGRESS ) {
 			$meta_keys[] = Event_Report::META_KEY_REPORT_DATA;
+			$meta_keys[] = Event_Report::META_KEY_MIGRATION_PHASE;
 		}
 
 		/**

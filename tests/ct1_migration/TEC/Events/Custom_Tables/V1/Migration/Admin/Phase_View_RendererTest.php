@@ -392,4 +392,65 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( $text->get( 'migration-reversed' ), $output['html'] );
 	}
+
+
+	/**
+	 * Should render HTML from Maintenance Mode Migration Failure Complete templates.
+	 *
+	 * @test
+	 */
+	public function should_render_maintenance_migration_failure_complete_ok() {
+		// Setup templates.
+		$phase       = State::PHASE_MIGRATION_FAILURE_COMPLETE;
+		$state       = tribe( State::class );
+		$site_report = Site_Report::build();
+		$text        = tribe( String_Dictionary::class );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/maintenance-mode/phase/$phase.php",
+			[
+				'state'  => $state,
+				'report' => $site_report,
+				'text'   => tribe( String_Dictionary::class )
+			]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'migration-failed' ), $output['html'] );
+	}
+
+	/**
+	 * Should render HTML from Maintenance Mode Migration Failure Complete templates.
+	 *
+	 * @test
+	 */
+	public function should_render_migration_failure_complete_ok() {
+		// Setup templates.
+		$phase         = State::PHASE_MIGRATION_FAILURE_COMPLETE;
+		$state         = tribe( State::class );
+		$site_report   = Site_Report::build();
+		$text          = tribe( String_Dictionary::class );
+		$event_reports = $site_report->get_event_reports( 1, 20 );
+
+		$renderer = new Phase_View_Renderer( $phase,
+			"/phase/$phase.php",
+			[
+				'state'         => $state,
+				'report'        => $site_report,
+				'event_reports' => $event_reports,
+				'text'          => tribe( String_Dictionary::class )
+			]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertContains( $text->get( 'migration-failure-complete' ), $output['html'] );
+	}
 }

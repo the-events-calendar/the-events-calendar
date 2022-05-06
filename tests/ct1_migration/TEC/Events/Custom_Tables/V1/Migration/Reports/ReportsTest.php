@@ -227,8 +227,9 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$error_key  = 'canceled';
-		$some_error = $text->get( 'migration-error-k-' . $error_key );
+		$error_key = 'canceled';
+		$error_context = "Some Event";
+		$some_error = sprintf( $text->get( 'migration-error-k-' . $error_key ), $error_context );
 
 		// Fail the report
 		$event_report1 = ( new Event_Report( $post1 ) )
@@ -237,7 +238,7 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			->set( 'is_single', false )
 			->add_created_event( $post2, 1 )
 			->add_strategy( 'split' );
-		$event_report1->migration_failed( $error_key );
+		$event_report1->migration_failed( $error_key, [ $error_context ] );
 		$event_report = new Event_Report( $post1 );
 
 		// Assert it is saved properly

@@ -10,6 +10,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+use TEC\Events_Pro\Custom_Tables\V1\Migration\Strategy\Multi_Rule_Event_Migration_Strategy;
 use WP_Post;
 use JsonSerializable;
 
@@ -433,19 +434,53 @@ class Event_Report implements JsonSerializable {
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
 
-		// Parse message here, so we don't need to store the context.
-		$text    = tribe( String_Dictionary::class );
-
 		// Expected exceptions have the message pre generated.
-		if($reason_key !== 'expected-exception') {
+		if ( $reason_key !== 'expected-exception' ) {
+			$text = tribe( String_Dictionary::class );
 			array_unshift( $context, $text->get( "migration-error-k-$reason_key" ) );
 		}
 
+		// Parse message here, so we don't need to store the context.
 		$message = call_user_func_array( 'sprintf', $context );
 
 		return $this->set_error( $message )
 		            ->set_status( self::STATUS_FAILURE )
 		            ->save();
+	}
+
+
+	/**
+	 * This will retrieve the translated text for the migration strategies being applied to this event.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The translated migration strategy being applied.
+	 */
+	public function get_migration_strategy_text() {
+		$text    = tribe( String_Dictionary::class );
+		$message = '';
+		foreach ( $this->strategies_applied as $action ) {
+			switch ( $action ) {
+				case Multi_Rule_Event_Migration_Strategy::get_slug():
+					$message .= sprintf(
+						esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
+						count( $this->created_events ),
+						count( $this->created_events )
+					);
+					break;
+				default:
+					// Do we have language for this strategy?
+					$output =  esc_html( $text->get( "migration-prompt-strategy-$action" ) ) ;
+					if ( $output ) {
+						$message .= $output;
+					} else {
+						$message .= esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
+					}
+					break;
+			}
+		}
+
+		return $message;
 	}
 
 	/**

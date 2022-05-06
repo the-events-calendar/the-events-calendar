@@ -13,8 +13,8 @@ $url = admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events
 <div class="tec-ct1-upgrade__row">
 	<div class="image-container">
 		<img class="screenshot"
-			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
-			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
+			 src="<?php echo esc_url( $text->get( 'tall-completed-screenshot-url' ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'preview-screenshot-alt' ) ); ?>"/>
 	</div>
 
 	<div class="content-container">
