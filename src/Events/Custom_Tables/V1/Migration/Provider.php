@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
+use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use Tribe__Events__Main as TEC;

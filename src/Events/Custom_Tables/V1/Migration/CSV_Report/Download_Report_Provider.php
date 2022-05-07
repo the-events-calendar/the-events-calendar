@@ -4,24 +4,21 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Custom_Tables\V1\Migration;
+ * @package TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
  */
 
-namespace TEC\Events\Custom_Tables\V1\Migration;
+namespace TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
 
 use tad_DI52_ServiceProvider as Service_Provider;
-use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\File_Download;
 
 /**
  * Class Download_Report_Provider.
  *
  * @since   TBD
  *
- * @package TEC\Events\Custom_Tables\V1\Migration;
+ * @package TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
  */
 class Download_Report_Provider extends Service_Provider {
-
-
 	/**
 	 * Registers the required implementations and hooks into the required
 	 * actions and filters.
