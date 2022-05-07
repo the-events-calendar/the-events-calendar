@@ -32,6 +32,11 @@ class File_Download {
 	const DOWNLOAD_QUERY_PARAM = 'action';
 
 	/**
+	 * @var array The list of columns that are output.
+	 */
+	const CSV_COLUMNS = [ 'Event Name', 'Admin URL', 'Status', 'Has Error' ];
+
+	/**
 	 * Get the download URL string.
 	 *
 	 * @since TBD
@@ -62,9 +67,11 @@ class File_Download {
 	 *
 	 * @since TBD
 	 *
+	 * @param bool $should_exit Whether the downloader should exit automatically or continue.
+	 *
 	 * @return false|void
 	 */
-	public function download_csv() {
+	public function download_csv( $should_exit = true ) {
 		// Check if we are in WP-Admin
 		if ( ! $this->should_download() ) {
 			return false;
@@ -90,7 +97,7 @@ class File_Download {
 		header( "Cache-Control: no-cache, must-revalidate" );
 		header( "Expires: Sat, 26 Jul 1997 05:00:00 GMT" );
 
-		fputcsv( $output, [ 'Event Name', 'Admin URL', 'Status', 'Has Error' ], $delimiter );
+		fputcsv( $output, self::CSV_COLUMNS, $delimiter );
 		foreach ( $reports as $report ) {
 			$has_error = (bool) $report->error;
 			if ( $has_error ) {
@@ -109,6 +116,8 @@ class File_Download {
 			fputcsv( $output, $item, $delimiter );
 		}
 		fclose( $output );
-		exit;
+		if ( $should_exit ) {
+			exit;
+		}
 	}
 }
