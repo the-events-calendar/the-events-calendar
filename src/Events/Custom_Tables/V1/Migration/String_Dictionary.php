@@ -97,13 +97,44 @@ class String_Dictionary {
 ",
 				'the-events-calendar'
 			),
-			'tall-completed-screenshot-url'                          => plugins_url(
-				'src/resources/images/upgrade-views-screenshot.png',
+			'migration-complete-screenshot-url'                      => plugins_url(
+				'src/resources/images/migration/migration-complete-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			// @todo
-			'small-completed-screenshot-url'                          => plugins_url(
-				'src/resources/images/upgrade-views-screenshot.png',
+			'migration-prompt-screenshot-url'                        => plugins_url(
+				'src/resources/images/migration/migration-prompt-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'migration-failed-complete-screenshot-url'               => plugins_url(
+				'src/resources/images/migration/migration-prompt-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'preview-in-progress-screenshot-url'                     => plugins_url(
+				'src/resources/images/migration/preview-in-progress-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'migration-in-progress-screenshot-url'                   => plugins_url(
+				'src/resources/images/migration/preview-in-progress-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'cancel-in-progress-screenshot-url'                      => plugins_url(
+				'src/resources/images/migration/preview-in-progress-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'revert-in-progress-screenshot-url'                      => plugins_url(
+				'src/resources/images/migration/preview-in-progress-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'preview-prompt-screenshot-url'                          => plugins_url(
+				'src/resources/images/migration/preview-prompt-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'cancel-complete-screenshot-url'                         => plugins_url(
+				'src/resources/images/migration/preview-prompt-screenshot.png',
+				TRIBE_EVENTS_FILE
+			),
+			'revert-complete-screenshot-url'                         => plugins_url(
+				'src/resources/images/migration/preview-prompt-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
 			'preview-screenshot-alt'                                 => __(
