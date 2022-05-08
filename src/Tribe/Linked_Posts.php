@@ -1,4 +1,6 @@
 <?php
+
+use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 /**
  * Object used to handle the linking/unlinking of post types for events
  */
@@ -90,6 +92,7 @@ class Tribe__Events__Linked_Posts {
 		$default_post_types = [
 			Tribe__Events__Venue::POSTTYPE,
 			Tribe__Events__Organizer::POSTTYPE,
+			Series::POSTTYPE
 		];
 
 		/**
