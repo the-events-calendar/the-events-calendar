@@ -69,7 +69,10 @@ class Activation {
 		$state = $services->make( State::class );
 
 		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
-		if ( $services->make( Events::class )->get_total_events() === 0 && $state->get_phase() === null ) {
+		if (
+			$services->make( Events::class )->get_total_events() === 0
+			&& in_array( $state->get_phase(), [ null, State::PHASE_MIGRATION_NOT_REQUIRED ], true )
+		) {
 			$schema_builder->up();
 			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
 			$state->save();
