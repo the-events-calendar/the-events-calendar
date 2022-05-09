@@ -159,6 +159,7 @@ class Ajax {
 		$page        = - 1;
 		$count       = 1000;
 		$site_report = Site_Report::build();
+		$phase       = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
 
 		// Is the Maintenance Mode view requesting the report? This changes how we handle the views.
 		$is_maintenance_mode = ! empty( $_GET["is_maintenance_mode"] );
