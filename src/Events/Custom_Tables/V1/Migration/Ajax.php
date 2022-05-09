@@ -122,7 +122,6 @@ class Ajax {
 	 * @return array<string, mixed>
 	 */
 	protected function get_report() {
-
 		// What phase are we in?
 		$state = tribe( State::class );
 		$phase = $state->get_phase();
@@ -145,63 +144,53 @@ class Ajax {
 		return $renderer->compile();
 	}
 
+	/**
+	 * Construct the query args for the primary renderer template (not used for the node templates).
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase.
+	 *
+	 * @return array<string,mixed> The primary renderer template args.
+	 */
 	protected function get_renderer_args( $phase ) {
-		// @todo flesh out pagination more
 		$page          = - 1;
 		$count         = 1000;
 		$site_report   = Site_Report::build();
-		$renderer_args = [];
-
+		$renderer_args = [
+			'state'  => tribe( State::class ),
+			'report' => $site_report,
+			'text'   => tribe( String_Dictionary::class )
+		];
 
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
-				$event_reports = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
-				if ( ! count( $event_reports ) ) {
-					$event_reports = $site_report->get_event_reports( $page, $count );
+				$renderer_args['event_reports'] = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+				if ( ! count( $renderer_args['event_reports'] ) ) {
+					$renderer_args['event_reports'] = $site_report->get_event_reports( $page, $count );
 				}
-				$renderer_args = [
-					'state'         => tribe( State::class ),
-					'report'        => $site_report,
-					'event_reports' => $event_reports,
-					'text'          => tribe( String_Dictionary::class )
-				];
-
-				break;
-			case State::PHASE_CANCEL_IN_PROGRESS:
-			case State::PHASE_REVERT_IN_PROGRESS:
-				$renderer_args = [
-					'state'  => tribe( State::class ),
-					'report' => $site_report,
-					'text'   => tribe( String_Dictionary::class )
-				];
-				break;
-			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
-			case State::PHASE_PREVIEW_IN_PROGRESS:
-			case State::PHASE_MIGRATION_IN_PROGRESS:
-				$renderer_args = [
-					'phase'  => $phase,
-					'report' => $site_report,
-					'text'   => tribe( String_Dictionary::class )
-				];
-
 				break;
 			case State::PHASE_CANCEL_COMPLETE:
 			case State::PHASE_REVERT_COMPLETE:
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
-				$renderer_args = [
-					'state'         => tribe( State::class ),
-					'report'        => $site_report,
-					'text'          => tribe( String_Dictionary::class ),
-					'event_reports' => $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE )
-				];
+				$renderer_args['event_reports'] = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 				break;
 		}
 
 		return $renderer_args;
 	}
 
+	/**
+	 * Based on the current phase, find the correct template file for the renderer.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase.
+	 *
+	 * @return string|void The primary template file to load for this phase.
+	 */
 	protected function get_renderer_template( $phase ) {
 		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
 
@@ -211,16 +200,10 @@ class Ajax {
 		// Determine base directory for templates.
 		$base_dir = $is_maintenance_mode ? "/maintenance-mode/phase" : "/phase";
 
-		// Base template is phase name. Some phases might change.
+		// Base template is phase name. Some phases might change it with other logic.
 		$template = $phase;
 
-
 		switch ( $phase ) {
-			case State::PHASE_MIGRATION_COMPLETE:
-			case State::PHASE_MIGRATION_PROMPT:
-			case State::PHASE_CANCEL_IN_PROGRESS:
-			case State::PHASE_REVERT_IN_PROGRESS:
-				return "$base_dir/$phase.php";
 			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
 				$template = State::PHASE_MIGRATION_IN_PROGRESS;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
@@ -240,10 +223,20 @@ class Ajax {
 				}
 
 				return "$base_dir/$template.php";
-
+			default:
+				return "$base_dir/$template.php";
 		}
 	}
 
+	/**
+	 * Determines if the frontend should poll for updates from the backend.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase.
+	 *
+	 * @return bool Whether the frontend should continue polling.
+	 */
 	protected function should_renderer_poll( $phase ) {
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
