@@ -176,7 +176,7 @@ class Ajax {
 			case State::PHASE_MIGRATION_PROMPT:
 				$event_reports = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 				if ( ! count( $event_reports ) ) {
-					$site_report->get_event_reports( $page, $count );
+					$event_reports = $site_report->get_event_reports( $page, $count );
 				}
 				$renderer = new Phase_View_Renderer( $phase,
 					"$base_dir/$phase.php",
