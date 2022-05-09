@@ -37,16 +37,8 @@ class StateTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_not_require_migration_if_there_are_no_events() {
-		$this->given_the_current_migration_phase_is( null );
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_NOT_REQUIRED );
 		$events = new Events;
-		$this->assertEquals( 0, $events->get_total_events() );
-
-		$state       = new State( $events );
-		$is_required = $state->is_required();
-
-		$this->assertFalse( $is_required );
-
-		$this->assertEquals( State::PHASE_MIGRATION_NOT_REQUIRED, $state->get_phase() );
 
 		// Run a new fetch to make sure the status "sticks".
 		$state       = new State( $events );

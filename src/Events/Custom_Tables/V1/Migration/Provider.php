@@ -83,22 +83,9 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Set our state appropriately.
-	 */
-	public function init_migration_state() {
-		$state = $this->container->make( State::class );
-		if ( ! $state->get_phase() ) {
-			$state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
-		}
-	}
-
-	/**
 	 * Run actions on WordPress 'init' action.
 	 */
 	public function init() {
-		// Initial state setup.
-		$this->init_migration_state();
-
 		// Activate maintenance mode, if required.
 		$this->activate_maintenance_mode();
 	}

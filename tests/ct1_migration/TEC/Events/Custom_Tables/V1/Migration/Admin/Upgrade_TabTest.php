@@ -88,7 +88,7 @@ class Upgrade_TabTest extends \CT1_Migration_Test_Case {
 		$tab         = new Upgrade_Tab( $state );
 		$should_show = $tab->should_show();
 
-		$this->assertFalse( $should_show );
+		$this->assertTrue( $should_show );
 	}
 
 	/**
