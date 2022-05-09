@@ -92,7 +92,6 @@ class Tribe__Events__Linked_Posts {
 		$default_post_types = [
 			Tribe__Events__Venue::POSTTYPE,
 			Tribe__Events__Organizer::POSTTYPE,
-			Series::POSTTYPE
 		];
 
 		/**
