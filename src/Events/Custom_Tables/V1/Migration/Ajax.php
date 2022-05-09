@@ -145,21 +145,65 @@ class Ajax {
 		return $renderer->compile();
 	}
 
-	/**
-	 * Will construct the appropriate templates and nodes to be compiled, for this phase in the migration.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $phase The current phase of the migration.
-	 *
-	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
-	 */
-	protected function get_renderer_for_phase( $phase ) {
+	protected function get_renderer_args( $phase ) {
 		// @todo flesh out pagination more
-		$page        = - 1;
-		$count       = 1000;
-		$site_report = Site_Report::build();
-		$phase       = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
+		$page          = - 1;
+		$count         = 1000;
+		$site_report   = Site_Report::build();
+		$renderer_args = [];
+
+
+		switch ( $phase ) {
+			case State::PHASE_MIGRATION_COMPLETE:
+			case State::PHASE_MIGRATION_PROMPT:
+				$event_reports = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+				if ( ! count( $event_reports ) ) {
+					$event_reports = $site_report->get_event_reports( $page, $count );
+				}
+				$renderer_args = [
+					'state'         => tribe( State::class ),
+					'report'        => $site_report,
+					'event_reports' => $event_reports,
+					'text'          => tribe( String_Dictionary::class )
+				];
+
+				break;
+			case State::PHASE_CANCEL_IN_PROGRESS:
+			case State::PHASE_REVERT_IN_PROGRESS:
+				$renderer_args = [
+					'state'  => tribe( State::class ),
+					'report' => $site_report,
+					'text'   => tribe( String_Dictionary::class )
+				];
+				break;
+			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
+			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_IN_PROGRESS:
+				$renderer_args = [
+					'phase'  => $phase,
+					'report' => $site_report,
+					'text'   => tribe( String_Dictionary::class )
+				];
+
+				break;
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_REVERT_COMPLETE:
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				$renderer_args = [
+					'state'         => tribe( State::class ),
+					'report'        => $site_report,
+					'text'          => tribe( String_Dictionary::class ),
+					'event_reports' => $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE )
+				];
+				break;
+		}
+
+		return $renderer_args;
+	}
+
+	protected function get_renderer_template( $phase ) {
+		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
 
 		// Is the Maintenance Mode view requesting the report? This changes how we handle the views.
 		$is_maintenance_mode = ! empty( $_GET["is_maintenance_mode"] );
@@ -170,56 +214,18 @@ class Ajax {
 		// Base template is phase name. Some phases might change.
 		$template = $phase;
 
-		// Then build the renderer.
+
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
-				$event_reports = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
-				if ( ! count( $event_reports ) ) {
-					$event_reports = $site_report->get_event_reports( $page, $count );
-				}
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$phase.php",
-					[
-						'state'         => tribe( State::class ),
-						'report'        => $site_report,
-						'event_reports' => $event_reports,
-						'text'          => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( false );
-				break;
 			case State::PHASE_CANCEL_IN_PROGRESS:
 			case State::PHASE_REVERT_IN_PROGRESS:
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$phase.php",
-					[
-						'state'  => tribe( State::class ),
-						'report' => $site_report,
-						'text'   => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( true );
-				break;
+				return "$base_dir/$phase.php";
 			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
 				$template = State::PHASE_MIGRATION_IN_PROGRESS;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$template.php"
-				);
-				$renderer->register_node( 'progress-bar',
-					'.tec-ct1-upgrade-update-bar-container',
-					'/partials/progress-bar.php',
-					[
-						'phase'  => $phase,
-						'report' => $site_report,
-						'text'   => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( true );
-				break;
-			default:
+				return "$base_dir/$template.php";
 			case State::PHASE_CANCEL_COMPLETE:
 			case State::PHASE_REVERT_COMPLETE:
 			case State::PHASE_PREVIEW_PROMPT:
@@ -232,24 +238,60 @@ class Ajax {
 					// Other phases / views have this specific template.
 					$template = State::PHASE_PREVIEW_PROMPT;
 				}
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$template.php",
+
+				return "$base_dir/$template.php";
+
+		}
+	}
+
+	protected function should_renderer_poll( $phase ) {
+		switch ( $phase ) {
+			case State::PHASE_MIGRATION_COMPLETE:
+			case State::PHASE_MIGRATION_PROMPT:
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_REVERT_COMPLETE:
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				return false;
+			default:
+				return true;
+		}
+	}
+
+	/**
+	 * Will construct the appropriate templates and nodes to be compiled, for this phase in the migration.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase of the migration.
+	 *
+	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
+	 */
+	protected function get_renderer_for_phase( $phase ) {
+		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
+
+		// Get the args.
+		$renderer_args = $this->get_renderer_args( $phase );
+		$template      = $this->get_renderer_template( $phase );
+		$renderer      = new Phase_View_Renderer( $phase, $template, $renderer_args );
+		$renderer->should_poll( $this->should_renderer_poll( $phase ) );
+
+		switch ( $phase ) {
+			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
+			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_IN_PROGRESS:
+
+				$renderer->register_node( 'progress-bar',
+					'.tec-ct1-upgrade-update-bar-container',
+					'/partials/progress-bar.php',
 					[
-						'state'         => tribe( State::class ),
-						'report'        => $site_report,
-						'text'          => tribe( String_Dictionary::class ),
-						'event_reports' => $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE )
+						'phase'  => $phase,
+						'report' => Site_Report::build(),
+						'text'   => tribe( String_Dictionary::class )
 					]
 				);
-				$renderer->should_poll( false );
 				break;
 		}
-
-		// Log our poll status
-		do_action( 'tribe_log', 'debug', 'Ajax: Migration report poll renderer', [
-			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'report' => $site_report,
-		] );
 
 		return $renderer;
 	}
