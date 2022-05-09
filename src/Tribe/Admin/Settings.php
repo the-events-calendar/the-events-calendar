@@ -107,7 +107,7 @@ class Settings {
 	}
 
 	/**
-	 * Get the icon for The Events Calendar settings page.
+	 * Get the icon for The Events Calendar menu item.
 	 *
 	 * @since TBD
 	 *
@@ -119,7 +119,7 @@ class Settings {
 		/**
 		 * Filter the menu icon for The Events Calendar in the WordPress admin.
 		 *
-		 * @since TDB
+		 * @since TBD
 		 *
 		 * @param string $icon The menu icon for The Events Calendar in the WordPress admin.
 		 */
