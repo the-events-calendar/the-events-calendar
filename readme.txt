@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Put back the event website label for Classic editor. [TEC-4334]
 * Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
 * Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
 
