@@ -100,18 +100,28 @@ class Events {
 	 *
 	 * @since TBD
 	 *
-	 * @param int         $page            Page in a pagination retrieval.
-	 * @param int         $count           How many to retrieve.
-	 * @param null|string $status_to_fetch Will only fetch the events of this status. If no specified will ignore
-	 *                                     status.
+	 * @param int   $page   Page in a pagination retrieval.
+	 * @param int   $count  How many to retrieve.
+	 * @param array $filter Filter the events returned.
 	 *
 	 * @return array<numeric>
 	 */
-	public function get_events_migrated( $page, $count, $status_to_fetch = null ) {
+	public function get_events_migrated( $page, $count, $filter = [] ) {
 		global $wpdb;
 		$total_events_migrated = $this->get_total_events_migrated();
+
+		// paginate
+		// failure status
+		// type of failure/success
+		// upcoming/past
+
+		//Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+		//	'upcoming' => true,
+
+
 		// Get in progress / complete events
 		if ( $page === - 1 || $count > $total_events_migrated ) {
+			// @todo
 			$params   = [];
 			$q        = "SELECT DISTINCT ID
 				FROM {$wpdb->posts} p
@@ -120,16 +130,16 @@ class Events {
 			$params[] = Event_Report::META_KEY_REPORT_DATA;
 			$params[] = Event_Report::META_KEY_ORDER_WEIGHT;
 			// Add joins.
-			if ( $status_to_fetch ) {
+			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
 				$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
 				$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
 			}
 			// Add where statement.
 			$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
 			$params[] = TEC::POSTTYPE;
-			if ( $status_to_fetch ) {
+			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
 				$q        .= " AND pm_s.meta_value = %s ";
-				$params[] = $status_to_fetch;
+				$params[] = $filter[ Event_Report::META_KEY_MIGRATION_PHASE ];
 			}
 			$q .= " ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID ";
 
@@ -139,18 +149,20 @@ class Events {
 			if ( $page > $total_pages ) {
 				$page = $total_pages;
 			}
-			$start  = ( $page - 1 ) * $count;
-			$params = [];
-			$q      = "SELECT DISTINCT `ID`
+			$start     = ( $page - 1 ) * $count;
+			$params    = [];
+			$q         = "SELECT DISTINCT `ID`
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s ";
-
+				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
+				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDateUTC'";
 			$params [] = Event_Report::META_KEY_REPORT_DATA;
 			$params [] = Event_Report::META_KEY_ORDER_WEIGHT;
 
+
+// @todo 'strategy' => Single_Event_Migration_Strategy::get_slug()
 			// Add joins.
-			if ( $status_to_fetch ) {
+			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
 				$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
 				$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
 			}
@@ -158,13 +170,21 @@ class Events {
 			// Add where statement.
 			$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
 			$params[] = TEC::POSTTYPE;
-			if ( $status_to_fetch ) {
+			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
 				$q        .= " AND pm_s.meta_value = %s ";
-				$params[] = $status_to_fetch;
+				$params[] = $filter[ Event_Report::META_KEY_MIGRATION_PHASE ];
+			}
+			// Are we grabbing upcoming or past events?
+			if ( isset( $filter['upcoming'] ) ) {
+				$gtlt = $filter['upcoming'] ? '>=' : '<';
+
+				$q        .= " AND  pm_d.meta_value $gtlt %s";
+				$now      = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
+				$params[] = $now->format( 'YYYY-MM-DD H:i:s' );
 			}
 
-			$q         .= " ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID
-				LIMIT %d, %d ";
+			// @todo Confirm ordering - look at list view?
+			$q         .= " ORDER BY pm_d.meta_value DESC  LIMIT %d, %d ";
 			$params [] = $start;
 			$params [] = $count;
 
@@ -256,7 +276,7 @@ class Events {
 	 *
 	 * @return int The total number of Events in the database, migrated or not.
 	 */
-	public function get_total_events(  ) {
+	public function get_total_events() {
 		global $wpdb;
 		$total_events = (int) $wpdb->get_var(
 			$wpdb->prepare(

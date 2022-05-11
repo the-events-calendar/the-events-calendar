@@ -166,7 +166,11 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
-				$renderer_args['event_reports'] = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+				$renderer_args['event_reports'] = $site_report->get_event_reports(
+					$page,
+					$count,
+					[ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
+				);
 				if ( ! count( $renderer_args['event_reports'] ) ) {
 					$renderer_args['event_reports'] = $site_report->get_event_reports( $page, $count );
 				}
@@ -175,7 +179,10 @@ class Ajax {
 			case State::PHASE_REVERT_COMPLETE:
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
-				$renderer_args['event_reports'] = $site_report->get_event_reports( $page, $count, Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+				$renderer_args['event_reports'] = $site_report->get_event_reports(
+					$page,
+					$count, [ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
+				);
 				break;
 		}
 

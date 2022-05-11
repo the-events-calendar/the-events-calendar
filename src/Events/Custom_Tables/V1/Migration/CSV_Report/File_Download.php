@@ -82,8 +82,8 @@ class File_Download {
 		$state       = tribe( State::class );
 
 		if ( State::PHASE_MIGRATION_FAILURE_COMPLETE === $state->get_phase() ) {
-			$status_to_fetch = Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE;
-			$reports         = $site_report->get_event_reports( - 1, 9999, $status_to_fetch );
+			$filter  = [ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ];
+			$reports = $site_report->get_event_reports( - 1, 9999, $filter );
 		} else {
 			$reports = $site_report->get_event_reports();
 		}
