@@ -118,7 +118,7 @@ class Events {
 		//Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
 		//	'upcoming' => true,
 
-
+// @todo ditch total events check
 		// Get in progress / complete events
 		if ( $page === - 1 || $count > $total_events_migrated ) {
 			// @todo
@@ -167,6 +167,11 @@ class Events {
 				$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
 			}
 
+			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
+				$q        .= " INNER JOIN {$wpdb->postmeta} pm_c ON p.ID = pm_c.post_id AND pm_c.meta_key = %s ";
+				$params[] = Event_Report::META_KEY_MIGRATION_CATEGORY;
+			}
+
 			// Add where statement.
 			$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
 			$params[] = TEC::POSTTYPE;
@@ -174,13 +179,18 @@ class Events {
 				$q        .= " AND pm_s.meta_value = %s ";
 				$params[] = $filter[ Event_Report::META_KEY_MIGRATION_PHASE ];
 			}
+			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
+				$q        .= " AND pm_c.meta_value = %s ";
+				$params[] = $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ];
+			}
+
 			// Are we grabbing upcoming or past events?
 			if ( isset( $filter['upcoming'] ) ) {
 				$gtlt = $filter['upcoming'] ? '>=' : '<';
 
 				$q        .= " AND  pm_d.meta_value $gtlt %s";
 				$now      = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
-				$params[] = $now->format( 'YYYY-MM-DD H:i:s' );
+				$params[] = $now->format( 'Y-m-d H:i:s' );
 			}
 
 			// @todo Confirm ordering - look at list view?

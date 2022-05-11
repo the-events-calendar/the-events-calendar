@@ -2,10 +2,16 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
+use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
+use Tribe__Date_Utils as Dates;
 
 class ReportsTest extends \CT1_Migration_Test_Case {
+
+	use CT1_Fixtures;
 
 	/**
 	 * Our Event_Report needs to be JSON compatible for storage/frontend consumption.
@@ -215,21 +221,21 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 	public function should_save_failed_event_report() {
 		$text = tribe( String_Dictionary::class );
 		// Setup some faux state
-		$post1      = tribe_events()->set_args( [
+		$post1         = tribe_events()->set_args( [
 			'title'      => "Event " . rand( 1, 999 ),
 			'start_date' => date( 'Y-m-d H:i:s' ),
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$post2      = tribe_events()->set_args( [
+		$post2         = tribe_events()->set_args( [
 			'title'      => "Event " . rand( 1, 999 ),
 			'start_date' => date( 'Y-m-d H:i:s' ),
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$error_key = 'canceled';
+		$error_key     = 'canceled';
 		$error_context = "Some Event";
-		$some_error = sprintf( $text->get( 'migration-error-k-' . $error_key ), $error_context );
+		$some_error    = sprintf( $text->get( 'migration-error-k-' . $error_key ), $error_context );
 
 		// Fail the report
 		$event_report1 = ( new Event_Report( $post1 ) )
@@ -305,5 +311,110 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 		$this->assertTrue( $site_report->has_errors );
 		$this->assertCount( 2, $site_report->get_event_reports() );
 		$this->assertCount( 1, $site_report->get_event_reports( 1, 1 ) );
+	}
+
+	/**
+	 * Utility to generate reports with various criteria.
+	 *
+	 * @param int     $count           How many events to create.
+	 * @param boolean $upcoming        Whether the event is in the future or past.
+	 * @param string  $report_category The report category based on success/failure grouping.
+	 * @param boolean $is_failure      Whether the event report should be flagged as a failure or success.
+	 *
+	 * @return array<Event_Report>
+	 * @throws \Exception
+	 */
+	protected function given_number_single_events( $count, $upcoming, $report_category, $is_failure ) {
+
+		$timezone = new \DateTimeZone( 'Europe/Paris' );
+		$utc      = new \DateTimeZone( 'UTC' );
+		if ( $upcoming ) {
+			$now = new \DateTimeImmutable( 'next week', $timezone );
+		} else {
+			$now = new \DateTimeImmutable( 'last week', $timezone );
+		}
+		$two_hours  = new \DateInterval( 'PT2H' );
+		$event_args = [
+			'meta_input' => [
+				'_EventStartDate'    => $now->format( Dates::DBDATETIMEFORMAT ),
+				'_EventEndDate'      => $now->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventStartDateUTC' => $now->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventEndDateUTC'   => $now->setTimezone( $utc )->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventDuration'     => 7200,
+				'_EventTimezone'     => $timezone->getName(),
+			],
+		];
+		$reports    = [];
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$post         = $this->given_a_non_migrated_single_event( $event_args );
+			$event_report = new Event_Report( $post );
+			if ( $is_failure ) {
+				$event_report->migration_failed( $report_category );
+			} else {
+				$event_report->add_strategy( $report_category );
+				$event_report->migration_success();
+			}
+			$reports[] = $event_report;
+		}
+
+		return $reports;
+	}
+
+	/**
+	 * The various filter criteria should retrieve the appropriate reports.
+	 *
+	 * @test
+	 */
+	public function should_get_filtered_event_reports() {
+		$events = new Events();
+		// Set up some past and upcoming events with different categories.
+		$this->given_number_single_events( 29, true, Single_Event_Migration_Strategy::get_slug(), false );
+		$this->given_number_single_events( 30, true, 'faux-category', false );
+		$this->given_number_single_events( 31, false, Single_Event_Migration_Strategy::get_slug(), false );
+		$this->given_number_single_events( 32, false, 'faux-category', false );
+		$this->given_number_single_events( 8, false, 'faux-category', true );
+
+		// Assert the reports retrieved match based on the filters applied.
+		$reports = $events->get_events_migrated( 1, 35, [
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => true,
+			Event_Report::META_KEY_MIGRATION_CATEGORY => Single_Event_Migration_Strategy::get_slug()
+		] );
+		$this->assertCount( 29, $reports );
+
+		$reports = $events->get_events_migrated( 1, 35, [
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => true,
+			Event_Report::META_KEY_MIGRATION_CATEGORY => 'faux-category'
+		] );
+		$this->assertCount( 30, $reports );
+
+		$reports = $events->get_events_migrated( 1, 35, [
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => false,
+			Event_Report::META_KEY_MIGRATION_CATEGORY => Single_Event_Migration_Strategy::get_slug()
+		] );
+		$this->assertCount( 31, $reports );
+
+		$reports = $events->get_events_migrated( 1, 35, [
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => false,
+			Event_Report::META_KEY_MIGRATION_CATEGORY => 'faux-category'
+		] );
+		$this->assertCount( 32, $reports );
+
+		$reports = $events->get_events_migrated( 1, 100, [
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			Event_Report::META_KEY_MIGRATION_CATEGORY => 'faux-category'
+		] );
+		$this->assertCount( 62, $reports );
+
+		$reports = $events->get_events_migrated( 1, 100, [
+			Event_Report::META_KEY_MIGRATION_CATEGORY => 'faux-category'
+		] );
+		$this->assertCount( 70, $reports );
+
+		$reports = $events->get_events_migrated( 1, 150 );
+		$this->assertCount( 130, $reports );
 	}
 }
