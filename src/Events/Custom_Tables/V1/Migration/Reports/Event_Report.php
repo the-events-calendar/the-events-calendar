@@ -10,7 +10,6 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
-use TEC\Events_Pro\Custom_Tables\V1\Migration\Strategy\Multi_Rule_Event_Migration_Strategy;
 use WP_Post;
 use JsonSerializable;
 
@@ -480,13 +479,13 @@ class Event_Report implements JsonSerializable {
 		$message = '';
 		foreach ( $this->strategies_applied as $action ) {
 			switch ( $action ) {
-				case Multi_Rule_Event_Migration_Strategy::get_slug():
+/*				case Multi_Rule_Event_Migration_Strategy::get_slug():
 					$message .= sprintf(
 						esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
 						count( $this->created_events ),
 						count( $this->created_events )
 					);
-					break;
+					break;*/
 				default:
 					// Do we have language for this strategy?
 					$output = esc_html( $text->get( "migration-prompt-strategy-$action" ) );
