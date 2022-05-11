@@ -225,6 +225,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
+* Feature - Add import links for Outlook 365 and Outlook Live to single events. [TEC-4168]
 * Fix - Put back the event website label for Classic editor. [TEC-4334]
 * Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
 
