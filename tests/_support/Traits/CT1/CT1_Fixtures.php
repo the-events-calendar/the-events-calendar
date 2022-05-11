@@ -43,13 +43,13 @@ trait CT1_Fixtures {
 	/**
 	 * @return \WP_Post
 	 */
-	private function given_a_non_migrated_single_event() {
+	private function given_a_non_migrated_single_event( $override_event_args = [] ) {
 		// Create an Event.
-		$timezone  = new \DateTimeZone( 'Europe/Paris' );
-		$utc       = new \DateTimeZone( 'UTC' );
-		$now       = new \DateTimeImmutable( 'now', $timezone );
-		$two_hours = new \DateInterval( 'PT2H' );
-		$post_id   = ( new \WP_UnitTest_Factory_For_Post() )->create( [
+		$timezone   = new \DateTimeZone( 'Europe/Paris' );
+		$utc        = new \DateTimeZone( 'UTC' );
+		$now        = new \DateTimeImmutable( 'now', $timezone );
+		$two_hours  = new \DateInterval( 'PT2H' );
+		$event_args = [
 			'post_type'   => TEC::POSTTYPE,
 			'meta_input'  => [
 				'_EventStartDate'    => $now->format( Dates::DBDATETIMEFORMAT ),
@@ -61,7 +61,10 @@ trait CT1_Fixtures {
 				'_EventTimezoneAbbr' => Timezones::abbr( $now, $timezone ),
 			],
 			'post_status' => 'publish',
-		] );
+		];
+
+		$post_id    = ( new \WP_UnitTest_Factory_For_Post() )->create( array_merge( $event_args, $override_event_args ) );
+
 		// Make sure no models are present in the custom tables for it.
 		Occurrence_Model::where( 'post_id', '=', $post_id )
 		                ->delete();
