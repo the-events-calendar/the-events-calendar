@@ -389,6 +389,7 @@ class Process_Worker {
 		if ( $current_phase !== State::PHASE_MIGRATION_FAILURE_IN_PROGRESS ) {
 			$meta_keys[] = Event_Report::META_KEY_REPORT_DATA;
 			$meta_keys[] = Event_Report::META_KEY_MIGRATION_PHASE;
+			$meta_keys[] = Event_Report::META_KEY_MIGRATION_CATEGORY;
 		}
 
 		/**

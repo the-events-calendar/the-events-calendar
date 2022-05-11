@@ -34,6 +34,11 @@ use JsonSerializable;
 class Event_Report implements JsonSerializable {
 
 	/**
+	 * Key used to store the category this event is associated with. These categories are used to organize reports for
+	 * some views.
+	 */
+	const META_KEY_MIGRATION_CATEGORY = '_tec_ct1_report_category';
+	/**
 	 * Key used to store a weighted numeric value for sorting report results.
 	 */
 	const META_KEY_ORDER_WEIGHT = '_tec_ct1_report_order_weight';
@@ -138,6 +143,15 @@ class Event_Report implements JsonSerializable {
 	private $report_weights_map = [];
 
 	/**
+	 * The report category to apply to this event when it is saved.
+	 *
+	 * @since TBD
+	 *
+	 * @var null|string
+	 */
+	private $report_category_to_be_applied = null;
+
+	/**
 	 * Construct and hydrate the Event_Report for this WP_Post
 	 *
 	 * @since TBD
@@ -201,14 +215,14 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @return $this A reference to this objec, for chaining.
 	 */
-	public function set_report_order_weight( array $key_bits = []) {
+	public function set_report_order_weight( array $key_bits = [] ) {
 		/**
 		 * Filters the report weights map to allow other plugins to manipulate the order
 		 * the reports should be sorted by.
 		 *
-		 * @param array<string,int> A map from report weight keys to their weight.
-		 *
 		 * @since TBD
+		 *
+		 * @param array<string,int> A map from report weight keys to their weight.
 		 *
 		 */
 		$report_weights_map = apply_filters( 'tec_events_custom_tables_v1_event_report_weights_map', $this->report_weights_map );
@@ -307,7 +321,7 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	protected function set_error( string $reason ) {
+	protected function set_error( $reason ) {
 		$this->data['error'] = $reason;
 
 		return $this;
@@ -362,7 +376,8 @@ class Event_Report implements JsonSerializable {
 	 * @return $this A reference to this object, for chaining.
 	 */
 	public function add_strategy( $strategy ) {
-		$this->data['strategies_applied'][] = $strategy;
+		$this->report_category_to_be_applied = $strategy;
+		$this->data['strategies_applied'][]  = $strategy;
 
 		return $this;
 	}
@@ -409,6 +424,7 @@ class Event_Report implements JsonSerializable {
 	public function migration_success() {
 		// Track time immediately
 		$this->set_end_timestamp();
+
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
 		$this->unlock_event();
 
@@ -422,13 +438,16 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $reason_key A reason key that is translated into the human-readable description of why the migration failed.
+	 * @param string $reason_key A reason key that is translated into the human-readable description of why the
+	 *                           migration failed.
 	 * @param array  $context    Context args that can be applied to the error message.
 	 *
 	 * @return Event_Report A reference to the Event Report object for the specific
 	 *                      that is being processed.
 	 */
 	public function migration_failed( $reason_key, array $context = array() ) {
+		$this->report_category_to_be_applied = $reason_key;
+
 		// Track time immediately
 		$this->set_end_timestamp();
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
@@ -470,7 +489,7 @@ class Event_Report implements JsonSerializable {
 					break;
 				default:
 					// Do we have language for this strategy?
-					$output =  esc_html( $text->get( "migration-prompt-strategy-$action" ) ) ;
+					$output = esc_html( $text->get( "migration-prompt-strategy-$action" ) );
 					if ( $output ) {
 						$message .= $output;
 					} else {
@@ -520,9 +539,9 @@ class Event_Report implements JsonSerializable {
 		 *
 		 * @since TBD
 		 *
-		 * @param  array<string,int> A map from the report weight keys to their "bit", either 0 or 1.
-		 * @param array<string,mixed>  $data The data of this migration report.
-		 * @param int $post_id The post ID of the Event object of this report.
+		 * @param array<string,int> A map from the report weight keys to their "bit", either 0 or 1.
+		 * @param array<string,mixed> $data    The data of this migration report.
+		 * @param int                 $post_id The post ID of the Event object of this report.
 		 */
 		$report_weights = apply_filters( 'tec_events_custom_tables_v1_event_report_element_weights', $report_weights, $this->data, $post_id );
 
@@ -530,6 +549,11 @@ class Event_Report implements JsonSerializable {
 
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA, $this->data );
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT, $this->report_order_weight );
+
+		// The report category should have been determined by now. It is either going to be a particular migration strategy for those events that are successful, or an error key when a failure.
+		if ( $this->report_category_to_be_applied ) {
+			update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_CATEGORY, $this->report_category_to_be_applied );
+		}
 
 		return $this;
 	}
