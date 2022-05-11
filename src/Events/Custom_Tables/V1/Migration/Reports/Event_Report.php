@@ -478,23 +478,25 @@ class Event_Report implements JsonSerializable {
 		$text    = tribe( String_Dictionary::class );
 		$message = '';
 		foreach ( $this->strategies_applied as $action ) {
-			switch ( $action ) {
-/*				case Multi_Rule_Event_Migration_Strategy::get_slug():
-					$message .= sprintf(
-						esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
-						count( $this->created_events ),
-						count( $this->created_events )
-					);
-					break;*/
-				default:
-					// Do we have language for this strategy?
-					$output = esc_html( $text->get( "migration-prompt-strategy-$action" ) );
-					if ( $output ) {
-						$message .= $output;
-					} else {
-						$message .= esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
-					}
-					break;
+			/**
+			 * Optional message override filter, in order to apply a different pattern to the report status message being generated.
+			 *
+			 * @since TBD
+			 *
+			 * @param null|string  $message The default message.
+			 * @param Event_Report $this    The event report this message is for.
+			 */
+			$message_override = apply_filters( "tec_events_custom_tables_v1_migration_strategy_text_override_$action", null, $this );
+			if ( $message_override ) {
+				$message .= $message_override;
+			} else {
+				// Do we have language for this strategy?
+				$output = esc_html( $text->get( "migration-prompt-strategy-$action" ) );
+				if ( $output ) {
+					$message .= $output;
+				} else {
+					$message .= esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
+				}
 			}
 		}
 
