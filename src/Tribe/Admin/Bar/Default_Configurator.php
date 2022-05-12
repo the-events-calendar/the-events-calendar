@@ -13,8 +13,7 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 	 */
 	public function configure( WP_Admin_Bar $wp_admin_bar ) {
 		$main = Tribe__Events__Main::instance();
-
-		$icon = '<span id="tec-events-ab-icon" class="ab-item tec-events-logo svg" style=\'background-image: url("' . tribe( Settings::class )->get_menu_icon() . ' !important;")\'></span>';
+		$icon = '<div id="tec-events-ab-icon" class="ab-item tec-events-logo svg"></div>';
 
 		$wp_admin_bar->add_menu( [
 			'id'    => 'tribe-events',
