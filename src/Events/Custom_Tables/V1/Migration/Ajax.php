@@ -280,7 +280,6 @@ class Ajax {
 			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
-
 				$renderer->register_node( 'progress-bar',
 					'.tec-ct1-upgrade-update-bar-container',
 					'/partials/progress-bar.php',
@@ -290,6 +289,30 @@ class Ajax {
 						'text'   => tribe( String_Dictionary::class )
 					]
 				);
+				break;
+			case State::PHASE_MIGRATION_PROMPT:
+				// If we are paginating
+				if(!empty($_GET['page']) && !empty($_GET['count'])) {
+					$events = tribe(Events::class);
+					$primary_filter = [
+						Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+						'upcoming'                                => !empty($_GET['upcoming']),
+					];
+					if(!empty($_GET['report_category'])) {
+						$primary_filter[Event_Report::META_KEY_MIGRATION_CATEGORY] = $_GET['report_category'];
+					}
+					$event_reports = $events->get_events_migrated( $_GET['page'], $_GET['count'], $primary_filter );
+					$renderer->register_node( 'paginated-events',
+						'.tec-ct1-upgrade-events-container',
+						'/partials/event-items.php',
+						[
+							'phase'  => $phase,
+							'text'   => tribe( String_Dictionary::class ),
+							'event_reports' => $event_reports
+						]
+					);
+				}
+
 				break;
 		}
 

@@ -314,53 +314,6 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
-	 * Utility to generate reports with various criteria.
-	 *
-	 * @param int     $count           How many events to create.
-	 * @param boolean $upcoming        Whether the event is in the future or past.
-	 * @param string  $report_category The report category based on success/failure grouping.
-	 * @param boolean $is_failure      Whether the event report should be flagged as a failure or success.
-	 *
-	 * @return array<Event_Report>
-	 * @throws \Exception
-	 */
-	protected function given_number_single_events( $count, $upcoming, $report_category, $is_failure ) {
-
-		$timezone = new \DateTimeZone( 'Europe/Paris' );
-		$utc      = new \DateTimeZone( 'UTC' );
-		if ( $upcoming ) {
-			$now = new \DateTimeImmutable( 'next week', $timezone );
-		} else {
-			$now = new \DateTimeImmutable( 'last week', $timezone );
-		}
-		$two_hours  = new \DateInterval( 'PT2H' );
-		$event_args = [
-			'meta_input' => [
-				'_EventStartDate'    => $now->format( Dates::DBDATETIMEFORMAT ),
-				'_EventEndDate'      => $now->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
-				'_EventStartDateUTC' => $now->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ),
-				'_EventEndDateUTC'   => $now->setTimezone( $utc )->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
-				'_EventDuration'     => 7200,
-				'_EventTimezone'     => $timezone->getName(),
-			],
-		];
-		$reports    = [];
-		for ( $i = 0; $i < $count; $i ++ ) {
-			$post         = $this->given_a_non_migrated_single_event( $event_args );
-			$event_report = new Event_Report( $post );
-			if ( $is_failure ) {
-				$event_report->migration_failed( $report_category );
-			} else {
-				$event_report->add_strategy( $report_category );
-				$event_report->migration_success();
-			}
-			$reports[] = $event_report;
-		}
-
-		return $reports;
-	}
-
-	/**
 	 * The various filter criteria should retrieve the appropriate reports.
 	 *
 	 * @test
@@ -368,11 +321,11 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 	public function should_get_filtered_event_reports() {
 		$events = new Events();
 		// Set up some past and upcoming events with different categories.
-		$this->given_number_single_events( 29, true, Single_Event_Migration_Strategy::get_slug(), false );
-		$this->given_number_single_events( 30, true, 'faux-category', false );
-		$this->given_number_single_events( 31, false, Single_Event_Migration_Strategy::get_slug(), false );
-		$this->given_number_single_events( 32, false, 'faux-category', false );
-		$this->given_number_single_events( 8, false, 'faux-category', true );
+		$this->given_number_single_event_reports( 29, true, Single_Event_Migration_Strategy::get_slug(), false );
+		$this->given_number_single_event_reports( 30, true, 'faux-category', false );
+		$this->given_number_single_event_reports( 31, false, Single_Event_Migration_Strategy::get_slug(), false );
+		$this->given_number_single_event_reports( 32, false, 'faux-category', false );
+		$this->given_number_single_event_reports( 8, false, 'faux-category', true );
 
 		// Assert the reports retrieved match based on the filters applied.
 		$reports = $events->get_events_migrated( 1, 35, [
@@ -431,9 +384,9 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			Event_Report::META_KEY_MIGRATION_CATEGORY => Single_Event_Migration_Strategy::get_slug()
 		];
 		// Set up some past and upcoming events with different categories.
-		$this->given_number_single_events( 150, true, Single_Event_Migration_Strategy::get_slug(), false );
+		$this->given_number_single_event_reports( 150, true, Single_Event_Migration_Strategy::get_slug(), false );
 		// Some data that we should not accidentally retrieve during pagination (it is excluded by the filter).
-		$this->given_number_single_events( 150, false, Single_Event_Migration_Strategy::get_slug(), false );
+		$this->given_number_single_event_reports( 150, false, Single_Event_Migration_Strategy::get_slug(), false );
 
 		$page_one_reports = $events->get_events_migrated( 1, 50, $primary_filter );
 		$this->assertCount( 50, $page_one_reports );

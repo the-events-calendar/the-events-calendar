@@ -2,11 +2,16 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
+use TEC\Events\Custom_Tables\V1\Migration\Events;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
 class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
+
+	use CT1_Fixtures;
 
 	/**
 	 * Should find and structure the templates with their metadata.
@@ -452,5 +457,61 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertNotEmpty( $output );
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$this->assertContains( $text->get( 'migration-failure-complete' ), $output['html'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_paginate_migration_prompt() {
+		// Setup
+		$this->given_number_single_event_reports( 150, true, 'faux-category', false );
+		$phase       = State::PHASE_MIGRATION_PROMPT;
+		$state       = tribe( State::class );
+		$site_report = Site_Report::build();
+
+		$renderer                = new Phase_View_Renderer( $phase,
+			"/phase/$phase.php",
+			[
+				'state'         => $state,
+				'report'        => $site_report,
+				'event_reports' => [], // @todo
+				'text'          => tribe( String_Dictionary::class )
+			]
+		);
+		$_GET['page']            = 1;
+		$_GET['count']           = 20;
+		$_GET['report_category'] = 'faux-category';
+		$_GET['upcoming']        = true;
+
+		// If we are paginating
+		$events         = tribe( Events::class );
+		$primary_filter = [
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => ! empty( $_GET['upcoming'] ),
+			Event_Report::META_KEY_MIGRATION_CATEGORY => $_GET['report_category']
+		];
+
+		$event_reports = $site_report->get_event_reports( $_GET['page'], $_GET['count'], $primary_filter );
+		$renderer->register_node( 'paginated-events',
+			'.tec-ct1-upgrade-events-container',
+			'/partials/event-items.php',
+			[
+				'event_reports' => $event_reports
+			]
+		);
+
+		$output = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertNotEmpty( $event_reports );
+		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$node = $output['nodes'][0];
+		foreach ( $event_reports as $event_report ) {
+			/**
+			 * @var Event_Report $event_report
+			 */
+			$this->assertContains( $event_report->source_event_post->post_title, $node['html'] );
+		}
 	}
 }
