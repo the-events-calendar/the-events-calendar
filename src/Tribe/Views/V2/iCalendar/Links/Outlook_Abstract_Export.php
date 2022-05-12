@@ -165,11 +165,18 @@ abstract class Outlook_Abstract_Export extends Link_Abstract {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
+		// Remove ical query and add back after urlencoding the rest of the url.
+		$feed_url = remove_query_arg( 'ical', $feed_url );
+
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
+
+		$feed_url = urlencode( $feed_url );
+
+		$feed_url = add_query_arg( [ 'ical' => 1 ], $feed_url );
 
 		$params = [
 			'rru'  => 'addsubscription',
-			'url'  => $feed_url,
+			'url'  => urlencode( $feed_url ),
 			'name' => urlencode( get_bloginfo( 'name' ) . ' ' . $view->get_title() ),
 		];
 
