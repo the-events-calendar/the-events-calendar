@@ -460,25 +460,47 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertContains( $text->get( 'migration-failure-complete' ), $output['html'] );
 	}
 
+
 	/**
-	 * @test
+	 * @return array
 	 */
-	public function should_paginate_migration_prompt() {
+	public function paginate_provider() {
+		return array(
+			'Page 1, Count 50, Total Events 150, Upcoming Events' => array( 1, 50, 150, true ),
+			'Page 1, Count 50, Total Events 150, Past Events'     => array( 1, 50, 150, false ),
+			'Page 1, Count 50, Total Events 10, Upcoming Events'  => array( 1, 50, 10, true ),
+			'Page 1, Count 50, Total Events 10, Past Events'      => array( 1, 50, 10, false ),
+			'Page 3, Count 10, Total Events 22, Upcoming Events'  => array( 3, 10, 22, true ),
+			'Page 4, Count 10, Total Events 22, Upcoming Events'  => array( 4, 10, 22, true ),
+
+		);
+	}
+
+	/**
+	 * Should generate the HTML nodes for the pagination queries.
+	 * @dataProvider paginate_provider
+	 * @test
+	 *
+	 * @param int     $page
+	 * @param int     $count
+	 * @param int     $total
+	 * @param boolean $upcoming
+	 */
+	public function should_paginate_migration_prompt( $page, $count, $total, $upcoming ) {
 		// Setup
-		$this->given_number_single_event_reports( 150, true, 'faux-category', false );
+		$this->given_number_single_event_reports( $total, $upcoming, 'faux-category', false );
 		$phase       = State::PHASE_MIGRATION_PROMPT;
 		$state       = tribe( State::class );
 		$site_report = Site_Report::build();
 		$ajax        = tribe( Ajax::class );
 
-		$_GET['page']            = 1;
-		$_GET['count']           = 20;
+		$_GET['page']            = $page;
+		$_GET['count']           = $count;
 		$_GET['report_category'] = 'faux-category';
-		$_GET['upcoming']        = true;
+		$_GET['upcoming']        = $upcoming;
 		$renderer                = $ajax->get_renderer_for_phase( $phase );
 
 		// If we are paginating
-		$events         = tribe( Events::class );
 		$primary_filter = [
 			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
 			'upcoming'                                => ! empty( $_GET['upcoming'] ),
@@ -490,7 +512,14 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertNotEmpty( $event_reports );
+		// Should have events?
+		$start       = $page === 1 ? 0 : ( $page - 1 ) * $count;
+		$should_have = $start < $total;
+		if ( $should_have ) {
+			$this->assertNotEmpty( $event_reports );
+		} else {
+			$this->assertEmpty( $event_reports );
+		}
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 		$node = $output['nodes'][0];
 		foreach ( $event_reports as $event_report ) {
