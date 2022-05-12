@@ -123,23 +123,9 @@ class Ajax {
 	 */
 	protected function get_report() {
 		// What phase are we in?
-		$state = tribe( State::class );
-		$phase = $state->get_phase();
-
-		/**
-		 * Filters the Phase_View_Renderer being constructed for this phase.
-		 *
-		 * @since TBD
-		 *
-		 * @param Phase_View_Renderer A reference to the Phase_View_Renderer that should be used.
-		 *                           Initially `null`.
-		 * @param string $phase      The current phase we are in.
-		 */
-		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
-		if ( ! $renderer instanceof Phase_View_Renderer ) {
-
-			$renderer = $this->get_renderer_for_phase( $phase );
-		}
+		$state    = tribe( State::class );
+		$phase    = $state->get_phase();
+		$renderer = $this->get_renderer_for_phase( $phase );
 
 		return $renderer->compile();
 	}
@@ -267,7 +253,23 @@ class Ajax {
 	 *
 	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
 	 */
-	protected function get_renderer_for_phase( $phase ) {
+	public function get_renderer_for_phase( $phase ) {
+
+		/**
+		 * Filters the Phase_View_Renderer being constructed for this phase.
+		 *
+		 * @since TBD
+		 *
+		 * @param Phase_View_Renderer A reference to the Phase_View_Renderer that should be used.
+		 *                           Initially `null`.
+		 * @param string $phase      The current phase we are in.
+		 */
+		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
+		if ( $renderer instanceof Phase_View_Renderer ) {
+
+			return $renderer;
+		}
+
 		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
 
 		// Get the args.
@@ -292,22 +294,22 @@ class Ajax {
 				break;
 			case State::PHASE_MIGRATION_PROMPT:
 				// If we are paginating
-				if(!empty($_GET['page']) && !empty($_GET['count'])) {
-					$events = tribe(Events::class);
+				if ( ! empty( $_GET['page'] ) && ! empty( $_GET['count'] ) ) {
+					$site_report    = Site_Report::build();
 					$primary_filter = [
-						Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-						'upcoming'                                => !empty($_GET['upcoming']),
+						Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+						'upcoming'                             => ! empty( $_GET['upcoming'] ),
 					];
-					if(!empty($_GET['report_category'])) {
-						$primary_filter[Event_Report::META_KEY_MIGRATION_CATEGORY] = $_GET['report_category'];
+					if ( ! empty( $_GET['report_category'] ) ) {
+						$primary_filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] = $_GET['report_category'];
 					}
-					$event_reports = $events->get_events_migrated( $_GET['page'], $_GET['count'], $primary_filter );
+					$event_reports = $site_report->get_event_reports( $_GET['page'], $_GET['count'], $primary_filter );
 					$renderer->register_node( 'paginated-events',
 						'.tec-ct1-upgrade-events-container',
 						'/partials/event-items.php',
 						[
-							'phase'  => $phase,
-							'text'   => tribe( String_Dictionary::class ),
+							'phase'         => $phase,
+							'text'          => tribe( String_Dictionary::class ),
 							'event_reports' => $event_reports
 						]
 					);

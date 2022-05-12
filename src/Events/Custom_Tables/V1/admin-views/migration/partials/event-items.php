@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report; 
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 
 /**
  * @var array<Event_Report> $event_reports A list of the event report data.

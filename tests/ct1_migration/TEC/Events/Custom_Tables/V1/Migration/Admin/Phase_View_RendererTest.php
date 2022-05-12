@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
+use TEC\Events\Custom_Tables\V1\Migration\Ajax;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
@@ -468,20 +469,13 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$phase       = State::PHASE_MIGRATION_PROMPT;
 		$state       = tribe( State::class );
 		$site_report = Site_Report::build();
+		$ajax        = tribe( Ajax::class );
 
-		$renderer                = new Phase_View_Renderer( $phase,
-			"/phase/$phase.php",
-			[
-				'state'         => $state,
-				'report'        => $site_report,
-				'event_reports' => [], // @todo
-				'text'          => tribe( String_Dictionary::class )
-			]
-		);
 		$_GET['page']            = 1;
 		$_GET['count']           = 20;
 		$_GET['report_category'] = 'faux-category';
 		$_GET['upcoming']        = true;
+		$renderer                = $ajax->get_renderer_for_phase( $phase );
 
 		// If we are paginating
 		$events         = tribe( Events::class );
@@ -492,15 +486,7 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		];
 
 		$event_reports = $site_report->get_event_reports( $_GET['page'], $_GET['count'], $primary_filter );
-		$renderer->register_node( 'paginated-events',
-			'.tec-ct1-upgrade-events-container',
-			'/partials/event-items.php',
-			[
-				'event_reports' => $event_reports
-			]
-		);
-
-		$output = $renderer->compile();
+		$output        = $renderer->compile();
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
