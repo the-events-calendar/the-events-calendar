@@ -112,13 +112,11 @@ class Events {
 		// If the first page, start at 0. Else increment to the next page and start there.
 		$start     = $page === 1 ? 0 : ( $page - 1 ) * $count;
 		$params    = [];
-		$q         = "SELECT DISTINCT `ID`
+		$q         = "SELECT DISTINCT `ID`, pm_d.meta_value
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
 				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDate'";
 		$params [] = Event_Report::META_KEY_REPORT_DATA;
-		$params [] = Event_Report::META_KEY_ORDER_WEIGHT;
 
 		// Add joins.
 		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
@@ -162,7 +160,7 @@ class Events {
 
 		$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
 
-		return $wpdb->get_col( $query );
+		return $wpdb->get_col( $query, 0 );
 	}
 
 	/**

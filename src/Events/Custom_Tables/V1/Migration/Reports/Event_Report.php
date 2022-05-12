@@ -38,10 +38,6 @@ class Event_Report implements JsonSerializable {
 	 */
 	const META_KEY_MIGRATION_CATEGORY = '_tec_ct1_report_category';
 	/**
-	 * Key used to store a weighted numeric value for sorting report results.
-	 */
-	const META_KEY_ORDER_WEIGHT = '_tec_ct1_report_order_weight';
-	/**
 	 * Key used to flag this event is in progress and already assigned
 	 * to a strategy worker.
 	 */
@@ -104,13 +100,6 @@ class Event_Report implements JsonSerializable {
 	 * The report key used to indicate whether an Event is single or not.
 	 */
 	const REPORT_KEY_SINGLE_EVENT = 'report_is_single_event';
-
-	/**
-	 * @since TBD
-	 *
-	 * @var int Sort order weight.
-	 */
-	private $report_order_weight = 0;
 
 	/**
 	 * @since TBD
@@ -200,40 +189,6 @@ class Event_Report implements JsonSerializable {
 			$data = [];
 		}
 		$this->data = array_merge( $this->data, $data );
-
-		return $this;
-	}
-
-	/**
-	 * This will set a weight on the current `report_order_weight`.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string,int> $key_bits A map from weight report entries to a base value
-	 *                                    that has not been weighted yet.
-	 *
-	 * @return $this A reference to this objec, for chaining.
-	 */
-	public function set_report_order_weight( array $key_bits = [] ) {
-		/**
-		 * Filters the report weights map to allow other plugins to manipulate the order
-		 * the reports should be sorted by.
-		 *
-		 * @since TBD
-		 *
-		 * @param array<string,int> A map from report weight keys to their weight.
-		 *
-		 */
-		$report_weights_map = apply_filters( 'tec_events_custom_tables_v1_event_report_weights_map', $this->report_weights_map );
-
-		$acc = 0;
-		foreach ( $key_bits as $report_key => $bit ) {
-			$report_key_weight = isset( $report_weights_map[ $report_key ] )
-				? $report_weights_map[ $report_key ]
-				: 0;
-			$acc               += $bit * $report_key_weight;
-		}
-		$this->report_order_weight = $acc;
 
 		return $this;
 	}
@@ -408,7 +363,6 @@ class Event_Report implements JsonSerializable {
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE );
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA );
 		delete_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_LOCK_HASH );
-		delete_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT );
 
 		return $this;
 	}
@@ -535,21 +489,7 @@ class Event_Report implements JsonSerializable {
 			self::REPORT_KEY_SINGLE_EVENT        => 1,
 		];
 
-		/**
-		 * Filters the elements and bits associated with each report weight.
-		 *
-		 * @since TBD
-		 *
-		 * @param array<string,int> A map from the report weight keys to their "bit", either 0 or 1.
-		 * @param array<string,mixed> $data    The data of this migration report.
-		 * @param int                 $post_id The post ID of the Event object of this report.
-		 */
-		$report_weights = apply_filters( 'tec_events_custom_tables_v1_event_report_element_weights', $report_weights, $this->data, $post_id );
-
-		$this->set_report_order_weight( $report_weights );
-
 		update_post_meta( $this->source_event_post->ID, self::META_KEY_REPORT_DATA, $this->data );
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_ORDER_WEIGHT, $this->report_order_weight );
 
 		// The report category should have been determined by now. It is either going to be a particular migration strategy for those events that are successful, or an error key when a failure.
 		if ( $this->report_category_to_be_applied ) {
