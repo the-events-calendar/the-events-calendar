@@ -116,7 +116,7 @@ class Events {
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDateUTC'";
+				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDate'";
 		$params [] = Event_Report::META_KEY_REPORT_DATA;
 		$params [] = Event_Report::META_KEY_ORDER_WEIGHT;
 
@@ -148,7 +148,7 @@ class Events {
 			$gtlt = $filter['upcoming'] ? '>=' : '<';
 
 			$q        .= " AND  pm_d.meta_value $gtlt %s";
-			$now      = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
+			$now      = new \DateTime( 'now', wp_timezone() );
 			$params[] = $now->format( 'Y-m-d H:i:s' );
 		}
 
@@ -161,7 +161,7 @@ class Events {
 		}
 
 		$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
-		
+
 		return $wpdb->get_col( $query );
 	}
 
