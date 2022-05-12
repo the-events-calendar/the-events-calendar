@@ -3,6 +3,8 @@
  * Create a easy way to hook to the Add-ons Tab Fields
  * @var array
  */
+use Tribe\Events\Admin\Settings as Plugin_Settings;
+
 $internal                   = [];
 $use_global_settings_phrase = esc_html__( 'Use global import settings', 'the-events-calendar' );
 $post_statuses = get_post_statuses();
@@ -382,7 +384,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > Integrations%2$s',
 					'the-events-calendar'
 				),
-				'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',
+				'<a href="' . tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'addons' ] ) . '">',
 				'</a>'
 			). '</p>',
 			'priority'        => 40.2,
