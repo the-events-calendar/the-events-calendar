@@ -828,7 +828,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_init', [ $this, 'init_admin_list_screen' ] );
 			}
 
-			// Load organizer and venue editors
+			// Load Organizer and Venue editors.
 			add_action( 'admin_menu', [ $this, 'addVenueAndOrganizerEditor' ] );
 
 			add_action( 'tribe_venue_table_top', [ $this, 'display_rich_snippets_helper' ], 5 );
@@ -837,14 +837,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'wp', [ $this, 'issue_noindex' ] );
 			add_action( 'plugin_row_meta', [ $this, 'addMetaLinks' ], 10, 2 );
-			// organizer and venue
+			// Organizer and venue.
 			if ( ! tec_should_hide_upsell() ) {
 				add_action( 'wp_dashboard_setup', [ $this, 'dashboardWidget' ] );
 				add_action( 'tribe_events_cost_table', [ $this, 'maybeShowMetaUpsell' ] );
 			}
 
 			add_action(
-				'load-tribe_events_page_' . Tribe__Settings::$parent_slug,
+				'load-tribe_events_page_' . Tribe\Events\Admin\Settings::$settings_page_id ,
 				[
 					'Tribe__Events__Amalgamator',
 					'listen_for_migration_button',

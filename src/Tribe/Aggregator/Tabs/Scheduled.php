@@ -2,6 +2,8 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use Tribe\Events\Admin\Settings as Plugin_Settings;
+
 class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregator__Tabs__Abstract {
 	/**
 	 * Static Singleton Holder
@@ -372,14 +374,16 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 				</strong>
 			</p>
 			<p>
-				<?php printf(
-						esc_html__( 'To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s.', 'the-events-calendar' ),
-						'<a href="' . esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ) . '">',
-						'</a>'
-					); ?>
+				<?php
+				printf(
+					// Translators: %1$s: opening link tag, %2$s: closing link tag.
+					esc_html__( 'To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s.', 'the-events-calendar' ),
+					'<a href="' . esc_url( tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'licenses' ] ) ) . '">',
+					'</a>'
+				); ?>
 			</p>
 			<p>
-				<a href="<?php echo esc_url( admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=licenses' ) ); ?>" class="tribe-license-link tribe-button tribe-button-primary"><?php esc_html_e( 'Enter Event Aggregator License', 'the-events-calendar' ); ?></a>
+				<a href="<?php echo esc_url( tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'licenses' ] ) ); ?>" class="tribe-license-link tribe-button tribe-button-primary"><?php esc_html_e( 'Enter Event Aggregator License', 'the-events-calendar' ); ?></a>
 			</p>
 		</div>
 		<?php
