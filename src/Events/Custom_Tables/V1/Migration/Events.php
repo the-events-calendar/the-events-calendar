@@ -108,99 +108,60 @@ class Events {
 	 */
 	public function get_events_migrated( $page, $count, $filter = [] ) {
 		global $wpdb;
-		$total_events_migrated = $this->get_total_events_migrated();
 
-		// paginate
-		// failure status
-		// type of failure/success
-		// upcoming/past
-
-		//Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-		//	'upcoming' => true,
-
-// @todo ditch total events check
-		// Get in progress / complete events
-		if ( $page === - 1 || $count > $total_events_migrated ) {
-			// @todo
-			$params   = [];
-			$q        = "SELECT DISTINCT ID
-				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s ";
-			$params[] = Event_Report::META_KEY_REPORT_DATA;
-			$params[] = Event_Report::META_KEY_ORDER_WEIGHT;
-			// Add joins.
-			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
-				$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
-				$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
-			}
-			// Add where statement.
-			$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
-			$params[] = TEC::POSTTYPE;
-			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
-				$q        .= " AND pm_s.meta_value = %s ";
-				$params[] = $filter[ Event_Report::META_KEY_MIGRATION_PHASE ];
-			}
-			$q .= " ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID ";
-
-			$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
-		} else {
-			$total_pages = $total_events_migrated / $count;
-			if ( $page > $total_pages ) {
-				$page = $total_pages;
-			}
-			$start     = ( $page - 1 ) * $count;
-			$params    = [];
-			$q         = "SELECT DISTINCT `ID`
+		// If the first page, start at 0. Else increment to the next page and start there.
+		$start     = $page === 1 ? 0 : ( $page - 1 ) * $count;
+		$params    = [];
+		$q         = "SELECT DISTINCT `ID`
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
 				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
 				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDateUTC'";
-			$params [] = Event_Report::META_KEY_REPORT_DATA;
-			$params [] = Event_Report::META_KEY_ORDER_WEIGHT;
+		$params [] = Event_Report::META_KEY_REPORT_DATA;
+		$params [] = Event_Report::META_KEY_ORDER_WEIGHT;
 
-
-// @todo 'strategy' => Single_Event_Migration_Strategy::get_slug()
-			// Add joins.
-			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
-				$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
-				$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
-			}
-
-			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
-				$q        .= " INNER JOIN {$wpdb->postmeta} pm_c ON p.ID = pm_c.post_id AND pm_c.meta_key = %s ";
-				$params[] = Event_Report::META_KEY_MIGRATION_CATEGORY;
-			}
-
-			// Add where statement.
-			$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
-			$params[] = TEC::POSTTYPE;
-			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
-				$q        .= " AND pm_s.meta_value = %s ";
-				$params[] = $filter[ Event_Report::META_KEY_MIGRATION_PHASE ];
-			}
-			if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
-				$q        .= " AND pm_c.meta_value = %s ";
-				$params[] = $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ];
-			}
-
-			// Are we grabbing upcoming or past events?
-			if ( isset( $filter['upcoming'] ) ) {
-				$gtlt = $filter['upcoming'] ? '>=' : '<';
-
-				$q        .= " AND  pm_d.meta_value $gtlt %s";
-				$now      = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
-				$params[] = $now->format( 'Y-m-d H:i:s' );
-			}
-
-			// @todo Confirm ordering - look at list view?
-			$q         .= " ORDER BY pm_d.meta_value DESC  LIMIT %d, %d ";
-			$params [] = $start;
-			$params [] = $count;
-
-			$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
+		// Add joins.
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
+			$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
+			$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
 		}
 
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
+			$q        .= " INNER JOIN {$wpdb->postmeta} pm_c ON p.ID = pm_c.post_id AND pm_c.meta_key = %s ";
+			$params[] = Event_Report::META_KEY_MIGRATION_CATEGORY;
+		}
+
+		// Add where statement.
+		$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
+		$params[] = TEC::POSTTYPE;
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
+			$q        .= " AND pm_s.meta_value = %s ";
+			$params[] = $filter[ Event_Report::META_KEY_MIGRATION_PHASE ];
+		}
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
+			$q        .= " AND pm_c.meta_value = %s ";
+			$params[] = $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ];
+		}
+
+		// Are we grabbing upcoming or past events?
+		if ( isset( $filter['upcoming'] ) ) {
+			$gtlt = $filter['upcoming'] ? '>=' : '<';
+
+			$q        .= " AND  pm_d.meta_value $gtlt %s";
+			$now      = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
+			$params[] = $now->format( 'Y-m-d H:i:s' );
+		}
+
+		// @todo Confirm ordering - look at list view?
+		$q .= " ORDER BY pm_d.meta_value DESC ";
+		if ( $page !== - 1 ) {
+			$q         .= "  LIMIT %d, %d ";
+			$params [] = $start;
+			$params [] = $count;
+		}
+
+		$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
+		
 		return $wpdb->get_col( $query );
 	}
 

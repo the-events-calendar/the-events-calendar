@@ -417,4 +417,47 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 		$reports = $events->get_events_migrated( 1, 150 );
 		$this->assertCount( 130, $reports );
 	}
+
+	/**
+	 * Should paginate properly across various scenarios.
+	 *
+	 * @test
+	 */
+	public function should_paginate_event_reports() {
+		$events = new Events();
+		$primary_filter = [
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => true,
+			Event_Report::META_KEY_MIGRATION_CATEGORY => Single_Event_Migration_Strategy::get_slug()
+		];
+		// Set up some past and upcoming events with different categories.
+		$this->given_number_single_events( 150, true, Single_Event_Migration_Strategy::get_slug(), false );
+		// Some data that we should not accidentally retrieve during pagination (it is excluded by the filter).
+		$this->given_number_single_events( 150, false, Single_Event_Migration_Strategy::get_slug(), false );
+
+		$page_one_reports = $events->get_events_migrated( 1, 50, $primary_filter );
+		$this->assertCount( 50, $page_one_reports );
+
+		$page_two_reports = $events->get_events_migrated( 2, 50, $primary_filter);
+		$this->assertCount( 50, $page_two_reports );
+
+		$page_three_reports = $events->get_events_migrated( 3, 50,$primary_filter);
+		$this->assertCount( 50, $page_three_reports );
+
+		// Get IDs and ensure there are 150 unique
+		$ids = array_unique(array_merge($page_one_reports, $page_two_reports, $page_three_reports));
+		$this->assertCount(150, $ids);
+
+		// Should be a page past our events for this filter.
+		$reports = $events->get_events_migrated( 4, 50, $primary_filter );
+		$this->assertCount( 0, $reports );
+
+		// Should be a page past, when the count is equal to the total.
+		$reports = $events->get_events_migrated( 2, 150, $primary_filter );
+		$this->assertCount( 0, $reports );
+
+		// Should fetch them all with -1
+		$reports = $events->get_events_migrated( -1, null, $primary_filter);
+		$this->assertCount( 150, $reports );
+	}
 }
