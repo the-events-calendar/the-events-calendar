@@ -93,9 +93,16 @@ class Phase_View_Renderer {
 	 *                                      will be a target in the primary template.
 	 * @param string              $template Path to the node template.
 	 * @param array<string,mixed> $vars     A map from context variable names to their values.
+	 * @param array<string,mixed> $options  Frontend options to apply to this node.
 	 */
-	public function register_node( $key, $selector, $template, $vars = [] ) {
-		$this->nodes[] = [ 'target' => $selector, 'template' => $template, 'key' => $key, 'vars' => $vars ];
+	public function register_node( $key, $selector, $template, $vars = [], $options = [] ) {
+		$this->nodes[] = [
+			'target'   => $selector,
+			'template' => $template,
+			'key'      => $key,
+			'vars'     => $vars,
+			'options'  => $options,
+		];
 	}
 
 	/**
@@ -111,12 +118,12 @@ class Phase_View_Renderer {
 		$nodes = [];
 		foreach ( $this->nodes as $node ) {
 			$html    = $this->get_template_html( $node['template'], $node['vars'] );
-			$nodes[] = [
+			$nodes[] = array_merge( $node['options'], [
 				'html'   => $html,
 				'hash'   => sha1( $html ),
 				'key'    => $node['key'],
 				'target' => $node['target']
-			];
+			] );
 		}
 
 		return $nodes;
@@ -135,7 +142,7 @@ class Phase_View_Renderer {
 			// Based on what is registered, render the parent template
 			'html'  => $this->pre_post_content( $this->get_template_html( $this->template_path, $this->vars ) ),
 			'nodes' => $this->compile_nodes(),
-			'poll' => $this->poll,
+			'poll'  => $this->poll,
 		];
 	}
 
