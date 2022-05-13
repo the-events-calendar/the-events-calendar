@@ -10,6 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -80,6 +81,7 @@ class Asset_Loader {
 					'cancelMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
 					'revertMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_REVERT ),
 				],
+				'event_categories'  => tribe( Event_Report_Categories::class )->get_categories(),
 				'forcePolling'      => $on_maintenance_mode_page,
 				'isMaintenanceMode' => $on_maintenance_mode_page
 			]

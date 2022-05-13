@@ -13,6 +13,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use Tribe__Events__Main as TEC;
@@ -55,6 +56,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Process::class, Process::class );
 		$this->container->singleton( Ajax::class, Ajax::class );
 		$this->container->singleton( Asset_Loader::class, Asset_Loader::class );
+		$this->container->singleton( Event_Report_Categories::class, Event_Report_Categories::class );
 		$this->container->register( Download_Report_Provider::class );
 
 		$this->load_action_scheduler();

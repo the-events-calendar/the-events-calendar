@@ -17,6 +17,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Admin\Phase_View_Renderer;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 
 /**
@@ -152,18 +153,13 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
-				// @todo
-				$event_categories = [
-					[ 'event_category_key'   => 'tec-ecp-single-rule-strategy',
-					  'event_category_label' => 'Faux Category'
-					]
-				];
+				$event_categories = tribe( Event_Report_Categories::class )->get_categories();
 				foreach ( $event_categories as $i => $category ) {
 					$event_reports = $site_report->get_event_reports(
 						$page,
 						$count,
 						[
-							Event_Report::META_KEY_MIGRATION_CATEGORY => $category['event_category_key'],
+							Event_Report::META_KEY_MIGRATION_CATEGORY => $category['key'],
 							Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
 						]
 					);

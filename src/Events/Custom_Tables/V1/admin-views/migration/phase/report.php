@@ -40,8 +40,14 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 				</p>
 			<?php endif; ?>
 			<?php
-			foreach ($event_categories as $category) {
-				extract($category);
+			foreach ( $event_categories as $category ) {
+				/**
+				 * @var string $key
+				 * @var string $label;
+				 */
+				extract( $category );
+				$event_category_key   = $key;
+				$event_category_label = $label;
 				include( $template_directory . '/partials/event-loop.php' );
 			}
 			?>
