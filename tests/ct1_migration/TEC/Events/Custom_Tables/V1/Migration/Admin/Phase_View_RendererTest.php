@@ -490,7 +490,6 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Setup
 		$this->given_number_single_event_reports( $total, $upcoming, 'faux-category', false );
 		$phase       = State::PHASE_MIGRATION_PROMPT;
-		$state       = tribe( State::class );
 		$site_report = Site_Report::build();
 		$ajax        = tribe( Ajax::class );
 

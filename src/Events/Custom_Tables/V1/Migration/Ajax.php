@@ -152,14 +152,33 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
-				$renderer_args['event_reports'] = $site_report->get_event_reports(
-					$page,
-					$count,
-					[ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
-				);
-				if ( ! count( $renderer_args['event_reports'] ) ) {
-					$renderer_args['event_reports'] = $site_report->get_event_reports( $page, $count );
+				// @todo
+				$event_categories = [
+					[ 'event_category_key'   => 'tec-ecp-single-rule-strategy',
+					  'event_category_label' => 'Faux Category'
+					]
+				];
+				foreach ( $event_categories as $i => $category ) {
+					$event_reports = $site_report->get_event_reports(
+						$page,
+						$count,
+						[
+							Event_Report::META_KEY_MIGRATION_CATEGORY => $category['event_category_key'],
+							Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
+						]
+					);
+					// No reports? Skip this category.
+					if ( empty( $event_reports ) ) {
+						unset( $event_categories[ $i ] );
+						continue;
+					}
+					$event_categories[ $i ]['event_reports'] = $event_reports;
+					// @todo
+					$event_categories[ $i ]['has_upcoming'] = true;
+					$event_categories[ $i ]['has_past']     = true;
 				}
+
+				$renderer_args['event_categories'] = $event_categories;
 				break;
 			case State::PHASE_CANCEL_COMPLETE:
 			case State::PHASE_REVERT_COMPLETE:
@@ -311,6 +330,10 @@ class Ajax {
 							'phase'         => $phase,
 							'text'          => tribe( String_Dictionary::class ),
 							'event_reports' => $event_reports
+						],
+						[
+							'prepend' => ! $primary_filter['upcoming'],
+							'append'  => $primary_filter['upcoming'],
 						]
 					);
 				}

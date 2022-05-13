@@ -12,7 +12,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
  * @var string              $total_heading      The heading for the total events.
  * @var string              $heading_action     The action bar relevant for this phase.
  * @var Site_Report         $report             The site report data.
- * @var array<Event_Report> $event_reports      A list of the event report data.
+ * @var array<mixed> $event_categories      A list of the event report data inside of each category.
  *
  */
 ?>
@@ -34,20 +34,17 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 	</header>
 	<div class="tec-ct1-upgrade__report-body">
 		<div class="tec-ct1-upgrade__report-body-content">
-			<?php if ( $report->has_changes ) : ?>
-				<strong>
-					<?php
-					// @todo We could potentially use the phase as a key for the different text definition, i.e. $text->get($phase.'-changes-to-events')
-					echo esc_html( $text->get( 'migration-prompt-changes-to-events' ) );
-					?>
-				</strong>
-				<?php echo esc_html( $text->get( 'migration-prompt-events-modified' ) ); ?>
-			<?php else: ?>
+			<?php if (! $report->has_changes ) : ?>
 				<p>
 					<strong><?php echo esc_html( $text->get( 'migration-prompt-no-changes-to-events' ) ); ?></strong>
 				</p>
 			<?php endif; ?>
-			<?php include( $template_directory . '/partials/event-loop.php' ); ?>
+			<?php
+			foreach ($event_categories as $category) {
+				extract($category);
+				include( $template_directory . '/partials/event-loop.php' );
+			}
+			?>
 		</div>
 		<footer class="tec-ct1-upgrade__report-body-footer">
 			<a href="http://evnt.is/recurrence-2-0-report" target="_blank"
