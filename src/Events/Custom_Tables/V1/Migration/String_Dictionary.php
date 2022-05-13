@@ -274,14 +274,6 @@ class String_Dictionary {
 				'We are reversing your site\'s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
-			'migration-prompt-changes-to-events'                     => __(
-				'Changes to events!',
-				'the-events-calendar'
-			),
-			'migration-prompt-events-modified'                       => __(
-				'The following events will be modified during the migration process:',
-				'the-events-calendar'
-			),
 			'migration-prompt-no-changes-to-events'                  => __(
 				'Events can migrate with no changes!',
 				'the-events-calendar'
