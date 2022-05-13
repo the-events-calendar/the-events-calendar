@@ -141,8 +141,7 @@ class Ajax {
 	 * @return array<string,mixed> The primary renderer template args.
 	 */
 	protected function get_renderer_args( $phase ) {
-		$page          = - 1;
-		$count         = 1000;
+		$count         = 25;
 		$site_report   = Site_Report::build();
 		$renderer_args = [
 			'state'  => tribe( State::class ),
@@ -153,25 +152,41 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
+				// This should only handle first render - pagination should be handled elsewhere.
 				$event_categories = tribe( Event_Report_Categories::class )->get_categories();
 				foreach ( $event_categories as $i => $category ) {
+					$filter        = [
+						Event_Report::META_KEY_MIGRATION_CATEGORY => $category['key'],
+						Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
+					];
 					$event_reports = $site_report->get_event_reports(
-						$page,
-						$count,
-						[
-							Event_Report::META_KEY_MIGRATION_CATEGORY => $category['key'],
-							Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
-						]
+						1,
+						$count + 1, // Add one to test if we can fetch upcoming
+						$filter
 					);
 					// No reports? Skip this category.
 					if ( empty( $event_reports ) ) {
 						unset( $event_categories[ $i ] );
 						continue;
 					}
+					// If we could find more than requested, it means we have more upcoming. See above.
+					$has_upcoming = $count < count( $event_reports );
+					// Ditch extra one.
+					if ( $has_upcoming ) {
+						array_pop( $event_reports );
+					}
 					$event_categories[ $i ]['event_reports'] = $event_reports;
-					// @todo
-					$event_categories[ $i ]['has_upcoming'] = true;
-					$event_categories[ $i ]['has_past']     = true;
+
+					// Check if any in the past
+					$past_filter                            = $filter;
+					$past_filter['upcoming']                = false;
+					$event_reports                          = $site_report->get_event_reports(
+						1,
+						1,
+						$past_filter
+					);
+					$event_categories[ $i ]['has_upcoming'] = $has_upcoming;
+					$event_categories[ $i ]['has_past']     = ! empty( $event_reports );
 				}
 
 				$renderer_args['event_categories'] = $event_categories;
@@ -181,7 +196,7 @@ class Ajax {
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
 				$renderer_args['event_reports'] = $site_report->get_event_reports(
-					$page,
+					1,
 					$count, [ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
 				);
 				break;
