@@ -40,8 +40,17 @@ class Event_Tag {
 			return $actions;
 		}
 
-		//todo translate
-		$actions['event-view'] = '<a href="' . esc_url( $link ) . '" rel="tag">Event View</a>';
+		$events_label_singular = tribe_get_event_label_singular();
+		// Translators: %s: Event singular.
+		$event_view = sprintf(
+			_x( '%s View',
+				'The text used for the link to the event archive in the admin post tag list.',
+				'the-events-calendar'
+			),
+			$events_label_singular
+		);
+
+		$actions['event-view'] = '<a href="' . esc_url( $link ) . '" rel="tag">' . esc_html( $event_view ) . '</a>';
 
 		return $actions;
 	}
