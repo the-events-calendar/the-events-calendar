@@ -72,24 +72,46 @@ class Ajax {
 	 */
 	private $process;
 	/**
-	 * A reference to the current progress modal handler.
-	 *
 	 * @since TBD
 	 *
-	 * @var Progress_Modal
+	 * @var Site_Report
 	 */
-	private $progress_modal;
+	private $site_report;
+	/**
+	 * @since TBD
+	 *
+	 * @var Events
+	 */
+	private $events_repository;
+	/**
+	 * @since TBD
+	 *
+	 * @var State
+	 */
+	private $state;
+	/**
+	 * @since TBD
+	 *
+	 * @var String_Dictionary
+	 */
+	private $text;
 
 	/**
 	 * Ajax constructor.
 	 *
-	 * since TBD
+	 * @since TBD
 	 *
-	 * @param Process $process A reference to the current background processing handler.
+	 * @param Process           $process           The process master.
+	 * @param Events            $events_repository The migration events repository.
+	 * @param String_Dictionary $text              The string translations object.
+	 * @param State             $state             The migration state.
 	 */
-	public function __construct( Process $process, Progress_Modal $progress_modal ) {
-		$this->process        = $process;
-		$this->progress_modal = $progress_modal;
+	public function __construct( Process $process, Events $events_repository, String_Dictionary $text, State $state ) {
+		$this->process           = $process;
+		$this->site_report       = Site_Report::build();
+		$this->events_repository = $events_repository;
+		$this->state             = $state;
+		$this->text              = $text;
 	}
 
 	/**
@@ -124,11 +146,44 @@ class Ajax {
 	 */
 	protected function get_report() {
 		// What phase are we in?
-		$state    = tribe( State::class );
+		$state    = $this->state;
 		$phase    = $state->get_phase();
 		$renderer = $this->get_renderer_for_phase( $phase );
 
 		return $renderer->compile();
+	}
+
+
+	/**
+	 * Will fetch event reports for a particular filter, and check if there are more to request for that filter.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $page  Which page we are on.
+	 * @param int $count How many we want.
+	 * @param     $filter
+	 *
+	 * @return array{ has_more:bool, event_reports:array<Event_Report> }
+	 */
+	protected function get_events_and_has_more( $page, $count, $filter ) {
+		$event_reports = $this->site_report->get_event_reports(
+			$page,
+			$count,
+			$filter
+		);
+		// Did we even have enough to fill our request?
+		if ( count( $event_reports ) < $count ) {
+			$has_more = false;
+		} else {
+			// If we did, lets see if there is another page.
+			$has_more = ! empty( $this->events_repository->get_events_migrated(
+				$page + 1,
+				$count,
+				$filter
+			) );
+		}
+
+		return [ 'has_more' => $has_more, 'event_reports' => $event_reports ];
 	}
 
 	/**
@@ -142,11 +197,10 @@ class Ajax {
 	 */
 	protected function get_renderer_args( $phase ) {
 		$count         = 25;
-		$site_report   = Site_Report::build();
 		$renderer_args = [
-			'state'  => tribe( State::class ),
-			'report' => $site_report,
-			'text'   => tribe( String_Dictionary::class )
+			'state'  => $this->state,
+			'report' => $this->site_report,
+			'text'   => $this->text
 		];
 
 		switch ( $phase ) {
@@ -155,38 +209,28 @@ class Ajax {
 				// This should only handle first render - pagination should be handled elsewhere.
 				$event_categories = tribe( Event_Report_Categories::class )->get_categories();
 				foreach ( $event_categories as $i => $category ) {
-					$filter        = [
+					$upcoming_filter         = [
 						Event_Report::META_KEY_MIGRATION_CATEGORY => $category['key'],
-						Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS
+						Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+						'upcoming'                                => true
 					];
-					$event_reports = $site_report->get_event_reports(
-						1,
-						$count + 1, // Add one to test if we can fetch upcoming
-						$filter
-					);
+					$past_filter             = $upcoming_filter;
+					$past_filter['upcoming'] = false;
+					$upcoming_events         = $this->get_events_and_has_more( 1, $count, $upcoming_filter );
+					$past_events             = $this->get_events_and_has_more( 1, $count, $past_filter );
+					// Grab upcoming if any, else grab past events.
+					$event_categories[ $i ] ['event_reports'] = empty( $upcoming_events['event_reports'] )
+						? $past_events['event_reports']
+						: $upcoming_events['event_reports'];
+
 					// No reports? Skip this category.
-					if ( empty( $event_reports ) ) {
+					if ( empty( $event_categories[ $i ] ['event_reports'] ) ) {
 						unset( $event_categories[ $i ] );
 						continue;
 					}
-					// If we could find more than requested, it means we have more upcoming. See above.
-					$has_upcoming = $count < count( $event_reports );
-					// Ditch extra one.
-					if ( $has_upcoming ) {
-						array_pop( $event_reports );
-					}
-					$event_categories[ $i ]['event_reports'] = $event_reports;
 
-					// Check if any in the past
-					$past_filter                            = $filter;
-					$past_filter['upcoming']                = false;
-					$event_reports                          = $site_report->get_event_reports(
-						1,
-						1,
-						$past_filter
-					);
-					$event_categories[ $i ]['has_upcoming'] = $has_upcoming;
-					$event_categories[ $i ]['has_past']     = ! empty( $event_reports );
+					$event_categories[ $i ]['has_upcoming'] = $upcoming_events['has_more'];
+					$event_categories[ $i ]['has_past']     = $past_events['has_more'];
 				}
 
 				$renderer_args['event_categories'] = $event_categories;
@@ -195,7 +239,7 @@ class Ajax {
 			case State::PHASE_REVERT_COMPLETE:
 			case State::PHASE_PREVIEW_PROMPT:
 			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
-				$renderer_args['event_reports'] = $site_report->get_event_reports(
+				$renderer_args['event_reports'] = $this->site_report->get_event_reports(
 					1,
 					$count, [ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
 				);
@@ -317,15 +361,14 @@ class Ajax {
 					'/partials/progress-bar.php',
 					[
 						'phase'  => $phase,
-						'report' => Site_Report::build(),
-						'text'   => tribe( String_Dictionary::class )
+						'report' => $this->site_report,
+						'text'   => $this->text
 					]
 				);
 				break;
 			case State::PHASE_MIGRATION_PROMPT:
 				// If we are paginating
 				if ( ! empty( $_GET['page'] ) && ! empty( $_GET['count'] ) ) {
-					$site_report    = Site_Report::build();
 					$primary_filter = [
 						Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
 						'upcoming'                             => ! empty( $_GET['upcoming'] ),
@@ -333,13 +376,13 @@ class Ajax {
 					if ( ! empty( $_GET['report_category'] ) ) {
 						$primary_filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] = $_GET['report_category'];
 					}
-					$event_reports = $site_report->get_event_reports( $_GET['page'], $_GET['count'], $primary_filter );
+					$event_reports = $this->site_report->get_event_reports( $_GET['page'], $_GET['count'], $primary_filter );
 					$renderer->register_node( 'paginated-events',
 						'.tec-ct1-upgrade-events-container',
 						'/partials/event-items.php',
 						[
 							'phase'         => $phase,
-							'text'          => tribe( String_Dictionary::class ),
+							'text'          => $this->text,
 							'event_reports' => $event_reports
 						],
 						[

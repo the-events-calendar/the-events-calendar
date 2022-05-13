@@ -145,7 +145,7 @@ class Events {
 		if ( isset( $filter['upcoming'] ) ) {
 			$gtlt = $filter['upcoming'] ? '>=' : '<';
 
-			$q        .= " AND  pm_d.meta_value $gtlt %s";
+			$q        .= " AND  pm_d.meta_value $gtlt %s ";
 			$now      = new \DateTime( 'now', wp_timezone() );
 			$params[] = $now->format( 'Y-m-d H:i:s' );
 		}
