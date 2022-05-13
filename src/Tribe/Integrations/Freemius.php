@@ -102,6 +102,7 @@ class Tribe__Events__Integrations__Freemius {
 			Tribe__App_Shop::MENU_SLUG             => true,
 			Tribe__Events__Aggregator__Page::$slug => true,
 			'tribe-help'                           => true,
+			\Tribe\Events\Admin\Settings::$settings_page_id => true,
 		];
 
 		if ( isset( $valid_page[ $page ] ) ) {
