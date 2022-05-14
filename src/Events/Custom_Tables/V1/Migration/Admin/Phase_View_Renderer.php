@@ -51,6 +51,15 @@ class Phase_View_Renderer {
 	private $nodes = [];
 
 	/**
+	 * Passthrough options which will be output to the response.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,mixed>
+	 */
+	private $options = [];
+
+	/**
 	 * A flag variable indicating whether the JS code receiving the data should
 	 * start, or keep, polling the backend for data or not.
 	 *
@@ -68,8 +77,10 @@ class Phase_View_Renderer {
 	 * @param string              $key       Our template key.
 	 * @param string              $file_path Path to the primary template.
 	 * @param array<string,mixed> $vars      Vars we need to pass down to the primary template.
+	 * @param array<string,mixed> $options   Vars to passthrough to the frontend output.
 	 */
-	public function __construct( $key, $file_path, $vars = [] ) {
+	public function __construct( $key, $file_path, array $vars = [], array $options = [] ) {
+		$this->options       = $options;
 		$this->key           = $key;
 		$this->template_path = $file_path;
 		// Our root template directory for all migration templates.
@@ -137,13 +148,13 @@ class Phase_View_Renderer {
 	 * @return array<string, mixed> The compiled output.
 	 */
 	public function compile() {
-		return [
+		return array_merge( $this->options, [
 			'key'   => $this->key,
 			// Based on what is registered, render the parent template
 			'html'  => $this->pre_post_content( $this->get_template_html( $this->template_path, $this->vars ) ),
 			'nodes' => $this->compile_nodes(),
 			'poll'  => $this->poll,
-		];
+		] );
 	}
 
 	/**

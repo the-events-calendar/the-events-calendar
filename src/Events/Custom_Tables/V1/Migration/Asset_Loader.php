@@ -76,6 +76,7 @@ class Asset_Loader {
 					)
 				],
 				'actions'           => [
+					'paginateEvents'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_PAGINATE_EVENTS ),
 					'getReport'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
 					'startMigration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
 					'cancelMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),

@@ -70,6 +70,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
 		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
+		add_action( Ajax::ACTION_PAGINATE_EVENTS, [ $this, 'paginate_events' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_REVERT, [ $this, 'revert_migration' ] );
@@ -180,6 +181,19 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function send_report() {
 		return $this->container->make( Ajax::class )->send_report();
+	}
+
+	/**
+	 * Sends (echoes) a JSON format report of a batch of paginated events.
+	 *
+	 * @since TBD
+	 *
+	 * @return void The method does not return any value and will have the side effect
+	 *              of echoing a JSON format string back for the Migration UI JS component
+	 *              to consume.
+	 */
+	public function paginate_events() {
+		return $this->container->make( Ajax::class )->paginate_events();
 	}
 
 	/**

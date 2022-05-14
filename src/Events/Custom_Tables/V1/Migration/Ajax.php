@@ -30,6 +30,11 @@ class Ajax {
 
 	/**
 	 * The full name of the action that will be fired following a migration UI
+	 * request for a paginated batch of events.
+	 */
+	const ACTION_PAGINATE_EVENTS = 'wp_ajax_tec_events_custom_tables_v1_migration_event_pagination';
+	/**
+	 * The full name of the action that will be fired following a migration UI
 	 * request for a report.
 	 *
 	 * @since TBD
@@ -136,6 +141,65 @@ class Ajax {
 
 		return wp_json_encode( $response );
 	}
+
+	/**
+	 * Requests a batch of paginated events.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $echo
+	 *
+	 * @return false|string|void
+	 */
+	public function paginate_events( $echo = true ) {
+		check_ajax_referer( self::NONCE_ACTION );
+		$response = $this->get_paginated_response( $_GET['page'], 25, ! empty( $_GET['upcoming'] ), $_GET['report_category'] );
+		if ( $echo ) {
+			wp_send_json( $response );
+			die();
+		}
+
+		return wp_json_encode( $response );
+	}
+
+	/**
+	 * Responds to the paginated requests.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $page The page of results we are fetching.
+	 * @param int $count The number of events we are requesting.
+	 * @param bool $upcoming If we want upcoming or past events.
+	 * @param string $category The category of event reports we are searching.
+	 *
+	 * @return mixed[]
+	 */
+	protected function get_paginated_response( $page, $count, $upcoming, $category ) {
+		$phase = $this->state->get_phase();
+
+		$filter        = [
+			Event_Report::META_KEY_MIGRATION_CATEGORY => $category,
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => $upcoming
+		];
+		$event_details = $this->get_events_and_has_more( $page, $count, $filter );
+		$renderer_args = [
+			'state'         => $this->state,
+			'report'        => $this->site_report,
+			'text'          => $this->text,
+			'event_reports' => $event_details['event_reports']
+		];
+
+		$renderer = new Phase_View_Renderer(
+			$phase . '-paginated',
+			'/partials/event-items.php',
+			$renderer_args,
+			[ 'has_more' => $event_details['has_more'], 'append' => $upcoming, 'prepend' => ! $upcoming ]
+		);
+
+		return $renderer->compile();
+	}
+
 
 	/**
 	 * Builds the structured report HTML.
@@ -356,12 +420,14 @@ class Ajax {
 			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
+				// * Warning, need a new report object here, state will have changed.
+				$site_report = Site_Report::build();
 				$renderer->register_node( 'progress-bar',
 					'.tec-ct1-upgrade-update-bar-container',
 					'/partials/progress-bar.php',
 					[
 						'phase'  => $phase,
-						'report' => $this->site_report,
+						'report' => $site_report,
 						'text'   => $this->text
 					]
 				);

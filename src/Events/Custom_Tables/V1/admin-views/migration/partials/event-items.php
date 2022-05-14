@@ -7,7 +7,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
  */
 ?>
 <?php foreach ( $event_reports as $event ) : ?>
-	<li>
+	<div>
 		<?php
 		if ( $event->error ) {
 			echo $event->error;
@@ -18,5 +18,5 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 			<?php
 		}
 		?>
-	</li>
+	</div>
 <?php endforeach; ?>

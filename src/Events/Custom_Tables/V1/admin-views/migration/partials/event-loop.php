@@ -14,11 +14,11 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 	<span>
 		<strong><?php echo esc_html( $event_category_label ); ?></strong>
 	</span>
-	<ul class="tec-ct1-upgrade-events-container tec-ct1-upgrade-events-category-<?php echo esc_attr( $event_category_key ); ?>">
+	<div class="tec-ct1-upgrade-events-container tec-ct1-upgrade-events-category-<?php echo esc_attr( $event_category_key ); ?>">
 		<?php
 		include( $template_directory . '/partials/event-items.php' );
 		?>
-	</ul>
+	</div>
 <?php
 if ( $has_past ) {
 	?>
@@ -30,7 +30,9 @@ if ( $has_past ) {
 	<?php
 }
 if ( $has_past && $has_upcoming ) {
-	echo " | ";
+	?>
+	<span class='tec-ct1-upgrade-migration-pagination-separator'> | </span>
+	<?php
 }
 if ( $has_upcoming ) {
 	?>
