@@ -11,6 +11,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
  * @var boolean $has_past             Whether to add past events paginate button.
  */
 ?>
+<div class="tec-ct1-upgrade-events-category-container">
 	<span>
 		<strong><?php echo esc_html( $event_category_label ); ?></strong>
 	</span>
@@ -19,29 +20,38 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 		include( $template_directory . '/partials/event-items.php' );
 		?>
 	</div>
-<?php
-if ( $has_past ) {
-	?>
-	<a
-			href="#"
-			data-events-paginate-category="<?php echo esc_attr( $event_category_key ); ?>"
-			data-events-paginate="1"
-	>Show past events</a>
 	<?php
-}
-if ( $has_past && $has_upcoming ) {
+	if ( $has_past || $has_upcoming ) {
+		?>
+		<div class="tec-ct1-upgrade-events-pagination-buttons-container">
+			<?php
+			if ( $has_past ) {
+				?>
+				<a
+						href="#"
+						data-events-paginate-category="<?php echo esc_attr( $event_category_key ); ?>"
+						data-events-paginate="1"
+				>Show past events</a>
+				<?php
+			}
+			if ( $has_past && $has_upcoming ) {
+				?>
+				<span class='tec-ct1-upgrade-migration-pagination-separator'> | </span>
+				<?php
+			}
+			if ( $has_upcoming ) {
+				?>
+				<a
+						href="#"
+						data-events-paginate-category="<?php echo esc_attr( $event_category_key ); ?>"
+						data-events-paginate-upcoming="1"
+						data-events-paginate="1"
+				>Show more upcoming events</a>
+				<?php
+			}
+			?>
+		</div>
+		<?php
+	}
 	?>
-	<span class='tec-ct1-upgrade-migration-pagination-separator'> | </span>
-	<?php
-}
-if ( $has_upcoming ) {
-	?>
-	<a
-			href="#"
-			data-events-paginate-category="<?php echo esc_attr( $event_category_key ); ?>"
-			data-events-paginate-upcoming="1"
-			data-events-paginate="1"
-	>Show more upcoming events</a>
-	<?php
-}
-?>
+</div>
