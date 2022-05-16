@@ -277,6 +277,115 @@ class Day_ViewTest extends ViewTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function test_render_w_events_w_taxonomies() {
+		$timezone_string = 'America/Sao_Paulo';
+		$timezone        = Timezones::build_timezone_object( $timezone_string );
+		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );
+		update_option( 'timezone_string', $timezone_string );
+		$cat    = $this->factory()->term->create( [ 'slug' => 'cat-1', 'taxonomy' => TEC::TAXONOMY ] );
+		$cat_term = get_term( $cat, TEC::TAXONOMY  );
+		$tag    = $this->factory()->tag->create( [ 'slug' => 'tag-1' ] );
+		$tag_term = get_term( $tag, 'post_tag'  );
+
+		$events = [];
+
+		// Create the events.
+		foreach (
+			[
+				'09:00',
+				'12:30',
+			] as $start_time
+		) {
+			$events[] = tribe_events()->set_args( [
+				'start_date' => $today . ' ' . $start_time,
+				'timezone'   => $timezone_string,
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_time,
+				'status'     => 'publish',
+				'category'   => $cat,
+				'tag'        => $tag,
+			] )->create();
+		}
+
+		// Create the events with taxonomies.
+		foreach (
+			[
+				'09:00',
+				'12:00',
+				'16:30',
+
+			] as $start_time
+		) {
+			$events[] = $new_event = tribe_events()->set_args( [
+				'start_date' => $today . ' ' . $start_time,
+				'timezone'   => $timezone_string,
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - ' . $start_time,
+				'status'     => 'publish',
+				'category'   => $cat,
+				'tag'        => $tag,
+			] )->create();
+
+			// Added manually addition of the taxonomies as the above coding was not adding them.
+			wp_set_object_terms( $new_event->ID, $cat, TEC::TAXONOMY, false );
+			wp_set_object_terms( $new_event->ID, $tag, 'post_tag', false );
+		}
+
+		// Sanity check
+		$day_start = tribe_beginning_of_day( $today );
+		$day_end   = tribe_end_of_day( $today );
+		$this->assertEquals( 5, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count() );
+
+		add_filter( 'tribe_events_views_v2_view_day_template_vars', function ( array $vars ) {
+			$vars['events'] = [
+				$this->get_mock_event( 'events/featured/id.template.json', [ 'id' => 904385349785 ] ),
+				$this->get_mock_event( 'events/single/id.template.json', [ 'id' => 349589759485 ] ),
+				$this->get_mock_event( 'events/single/id.template.json', [ 'id' => 340934095850 ] ),
+				$this->get_mock_event( 'events/featured/id.template.json', [ 'id' => 904385349781 ] ),
+				$this->get_mock_event( 'events/single/id.template.json', [ 'id' => 349589759480 ] ),
+				$this->get_mock_event( 'events/single/id.template.json', [ 'id' => 340934095823 ] ),
+			];
+
+			return $vars;
+		} );
+
+		// Category Archive.
+		$context  = tribe_context()->alter( [
+			'today'          => $this->mock_date_value,
+			'now'            => $this->mock_date_value,
+			'event_date'     => $this->mock_date_value,
+			'event_category' => $cat_term->slug
+		] );
+		$day_view = View::make( Day_View::class, $context );
+
+		$html = $day_view->get_html();
+
+		// Let's make sure the View is displaying what events we expect it to display.
+		$expected_post_ids = wp_list_pluck( array_slice( $events, 2, 5 ), 'ID' );
+
+		$this->assertEquals( $expected_post_ids, $day_view->found_post_ids() );
+
+		$this->assertMatchesSnapshot( $html );
+
+		// Tag Archive.
+		$context_tag  = tribe_context()->alter( [
+			'today'      => $this->mock_date_value,
+			'now'        => $this->mock_date_value,
+			'event_date' => $this->mock_date_value,
+			'post_tag'   => $tag_term->slug
+		] );
+		$day_view_tag = View::make( Day_View::class, $context_tag );
+
+		$html_tag = $day_view_tag->get_html();
+
+		$this->assertEquals( $expected_post_ids, $day_view_tag->found_post_ids() );
+
+		$this->assertMatchesSnapshot( $html_tag );
+	}
+
 	public function tearDown() {
 		parent::tearDown();
 		if ( isset( $this->date_default_timezone ) ) {
