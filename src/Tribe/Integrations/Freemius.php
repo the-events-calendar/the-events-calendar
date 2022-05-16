@@ -206,7 +206,7 @@ class Tribe__Events__Integrations__Freemius {
 		$page = tribe_get_request_var( 'page', false );
 
 		if ( 'tribe-common-account' !== $page ) {
-			//return;
+			return;
 		}
 
 		$url = admin_url( 'admin.php' );
