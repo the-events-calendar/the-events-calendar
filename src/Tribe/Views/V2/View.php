@@ -1976,6 +1976,10 @@ class View implements View_Interface {
 		$breadcrumbs = [];
 		$taxonomy    = TEC::TAXONOMY;
 		$context_tax = $context->get( $taxonomy, false );
+		if ( empty( $context_tax ) ) {
+			$taxonomy    = 'post_tag';
+			$context_tax = $context->get( $taxonomy, false );
+		}
 
 		// Get term slug if taxonomy is not empty
 		if ( ! empty( $context_tax ) ) {
