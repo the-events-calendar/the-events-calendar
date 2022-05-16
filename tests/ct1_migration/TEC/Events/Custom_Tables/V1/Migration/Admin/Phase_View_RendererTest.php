@@ -417,26 +417,25 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_paginate_migration_prompt( $page, $count, $total, $upcoming ) {
 		// Setup
-		$this->given_number_single_event_reports( $total, $upcoming, 'faux-category', false );
+		$category = 'faux-category';
+		$this->given_number_single_event_reports( $total, $upcoming, $category, false );
 		$phase       = State::PHASE_MIGRATION_PROMPT;
 		$site_report = Site_Report::build();
 		$ajax        = tribe( Ajax::class );
+		$state = tribe(State::class);
+		$state->set('phase', $phase);
+		$state->save();
 
-		$_GET['page']            = $page;
-		$_GET['count']           = $count;
-		$_GET['report_category'] = 'faux-category';
-		$_GET['upcoming']        = $upcoming;
-		$renderer                = $ajax->get_renderer_for_phase( $phase );
-
-		// If we are paginating
 		$primary_filter = [
 			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-			'upcoming'                                => ! empty( $_GET['upcoming'] ),
-			Event_Report::META_KEY_MIGRATION_CATEGORY => $_GET['report_category']
+			'upcoming'                                => $upcoming,
+			Event_Report::META_KEY_MIGRATION_CATEGORY => $category
 		];
 
-		$event_reports = $site_report->get_event_reports( $_GET['page'], $_GET['count'], $primary_filter );
-		$output        = $renderer->compile();
+		$event_reports = $site_report->get_event_reports( $page, $count, $primary_filter );
+
+		// If we are paginating
+		$output = $ajax->get_paginated_response( $page, $count, $upcoming, $category );
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
@@ -444,17 +443,17 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$start       = $page === 1 ? 0 : ( $page - 1 ) * $count;
 		$should_have = $start < $total;
 		if ( $should_have ) {
-			$this->assertNotEmpty( $event_reports );
+			$this->assertContains( 'tec-ct1-upgrade-event-item', $output['html'] );
 		} else {
-			$this->assertEmpty( $event_reports );
+			$this->assertNotContains( 'tec-ct1-upgrade-event-item', $output['html'] );
 		}
 		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$node = $output['nodes'][0];
+
 		foreach ( $event_reports as $event_report ) {
 			/**
 			 * @var Event_Report $event_report
 			 */
-			$this->assertContains( $event_report->source_event_post->post_title, $node['html'] );
+			$this->assertContains( $event_report->source_event_post->post_title, $output['html'] );
 		}
 	}
 }

@@ -7,7 +7,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
  */
 ?>
 <?php foreach ( $event_reports as $event ) : ?>
-	<div>
+	<div class="tec-ct1-upgrade-event-item">
 		<?php
 		if ( $event->error ) {
 			echo $event->error;

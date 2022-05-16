@@ -174,7 +174,7 @@ class Ajax {
 	 *
 	 * @return mixed[]
 	 */
-	protected function get_paginated_response( $page, $count, $upcoming, $category ) {
+	public function get_paginated_response( $page, $count, $upcoming, $category ) {
 		$phase = $this->state->get_phase();
 
 		$filter        = [
