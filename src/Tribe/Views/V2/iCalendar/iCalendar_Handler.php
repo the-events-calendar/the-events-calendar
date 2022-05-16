@@ -36,10 +36,10 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	protected $default_feeds = [
 		Google_Calendar::class,
 		iCal::class,
-		iCalendar_Export::class,
-		Outlook_Export::class,
 		Outlook_365_Export::class,
 		Outlook_Live_Export::class,
+		iCalendar_Export::class,
+		Outlook_Export::class,
 	];
 
 	/**
