@@ -106,10 +106,14 @@ class Process_Worker {
 	 * @return string The HTML markup with the event link.
 	 */
 	public function get_event_link_markup() {
-		$post_id = $this->event_report->source_event_post->ID;
-		$post    = get_post( $post_id );
+		$post_id          = $this->event_report->source_event_post->ID;
+		$post_title       = $this->event_report->source_event_post->post_title;
+		$post             = get_post( $post_id );
+		$action           = '&action=edit';
+		$post_type_object = get_post_type_object( $post->post_type );
+		$url              = admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
 
-		return '<a target="_blank" href="' . get_edit_post_link( $post_id ) . '">' . $post->post_title . '</a>';
+		return '<a target="_blank" href="' . $url . '">' . $post_title . '</a>';
 	}
 
 	/**
