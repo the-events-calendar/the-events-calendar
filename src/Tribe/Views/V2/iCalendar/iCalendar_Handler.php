@@ -177,6 +177,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 * @see   `tribe_events_ical_single_event_links` filter.
 	 *
 	 * @since 5.12.0
+	 * @since TBD - Move to Single_Events class to handle Outlook.
 	 *
 	 * @param string $calendar_links The link content.
 	 *
@@ -188,29 +189,9 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 			return $calendar_links;
 		}
 
-		$calendar_links = '<div class="tribe-events-cal-links">';
+		$subscribe_links = $this->get_subscribe_links();
 
-		$links = [];
-		/**
-		 * Allows each link type to add itself to the links on the Event Single views.
-		 *
-		 * @since 5.12.0
-		 *
-		 * @param array<string|string> $subscribe_links The array of link objects.
-		 * @param View|null            $view            The current View implementation.
-		 */
-		$links = apply_filters( 'tec_views_v2_single_subscribe_links', $links, null );
-
-		// Remove any that are empty post-filtering.
-		$links = array_filter( $links );
-
-		foreach ( $links as $link ) {
-			$calendar_links .= $link;
-		}
-
-		$calendar_links .= '</div><!-- .tribe-events-cal-links -->';
-
-		return $calendar_links;
+		return $this->container->make( Single_Events::class )->single_event_links( $calendar_links, $subscribe_links );
 	}
 
 	/**

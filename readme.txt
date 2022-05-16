@@ -227,9 +227,11 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
 * Feature - Add import links for Outlook 365 and Outlook Live to single events. [TEC-4168]
+* Feature - Update single event export to use a dropdown template to support more links. [TEC-4176]
 * Feature - Add Outlook ics as an option for Subscribe to Calendar that removes the X-WR-CALNAME from the file. [TEC-4188]
 * Fix - Put back the event website label for Classic editor. [TEC-4334]
 * Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
+* Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
 
 = [5.14.2.1] 2022-04-28 =
 
