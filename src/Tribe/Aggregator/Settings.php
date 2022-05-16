@@ -418,24 +418,25 @@ class Tribe__Events__Aggregator__Settings {
 	 *
 	 * Origin default settings trump global settings
 	 *
-	 * @param string $origin Origin
+	 * @since TBD - Fix the default category is added to the origin.
 	 *
-	 * @return string
+	 * @param string $origin The name of the EA origin.
+	 *
+	 * @return integer|null The category id for null if none set.
 	 */
 	public function default_category( $origin = null ) {
-		$default = null;
-		$setting = tribe_get_option( 'tribe_aggregator_default_category', $default );
-
-		if ( $origin ) {
-			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $setting );
-
-			if ( ! empty( $origin_setting ) ) {
-				$setting = $origin_setting;
-			}
+		$setting = null;
+		$default = tribe_get_option( 'tribe_aggregator_default_category', null );
+		if ( -1 !== (int) $default ) {
+			$setting = $default;
 		}
 
-		if ( -1 === (int) $setting ) {
-			$setting = $default;
+		if ( $origin ) {
+			$origin_setting = tribe_get_option( "tribe_aggregator_default_{$origin}_category", $default );
+
+			if ( ! empty( $origin_setting ) && -1 !== (int) $origin_setting ) {
+				$setting = $origin_setting;
+			}
 		}
 
 		return $setting;
