@@ -113,16 +113,9 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$time  = time();
 		$state->set( 'complete_timestamp', $time );
 		$state->save();
-		$site_report = Site_Report::build();
-		$renderer    = new Phase_View_Renderer( $phase,
-			"/phase/$phase.php",
-			[
-				'report'        => $site_report,
-				'text'          => $text,
-				'event_reports' => $site_report->get_event_reports( 1, 20 )
-			]
-		);
-		$output      = $renderer->compile();
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
+		$output   = $renderer->compile();
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
@@ -141,14 +134,12 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_migration_in_progress_ok() {
 		// Setup templates.
-		$phase    = State::PHASE_MIGRATION_IN_PROGRESS;
-		$renderer = new Phase_View_Renderer( $phase, "/phase/$phase.php" );
+		$phase = State::PHASE_MIGRATION_IN_PROGRESS;
+
 		$text     = tribe( String_Dictionary::class );
-		$renderer->register_node( 'progress-bar',
-			'.tec-ct1-upgrade-update-bar-container',
-			'/partials/progress-bar.php',
-			[ 'report' => Site_Report::build(), 'phase' => $phase, 'text' => $text ]
-		);
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
+
 
 		$output = $renderer->compile();
 		$node   = array_pop( $output['nodes'] );
@@ -172,15 +163,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$state       = tribe( State::class );
 		$text        = tribe( String_Dictionary::class );
 		$site_report = Site_Report::build();
-		$renderer    = new Phase_View_Renderer( $phase,
-			"/phase/$phase.php",
-			[
-				'state'         => $state,
-				'report'        => $site_report,
-				'text'          => $text,
-				'event_reports' => $site_report->get_event_reports( 1, 20 )
-			]
-		);
+		$ajax        = tribe( Ajax::class );
+		$renderer    = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -203,10 +187,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$state = tribe( State::class );
 		$text  = tribe( String_Dictionary::class );
 
-		$renderer = new Phase_View_Renderer( $phase,
-			"/phase/$phase.php",
-			[ 'state' => $state, 'report' => Site_Report::build(), 'text' => $text ]
-		);
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -227,10 +209,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$state = tribe( State::class );
 		$text  = tribe( String_Dictionary::class );
 
-		$renderer = new Phase_View_Renderer( $phase,
-			"/phase/$phase.php",
-			[ 'state' => $state, 'report' => Site_Report::build(), 'text' => $text ]
-		);
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -247,16 +227,13 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_migration_in_progress_ok() {
 		// Setup templates.
-		$phase = State::PHASE_MIGRATION_IN_PROGRESS;
-		$state = tribe( State::class );
-		$text  = tribe( String_Dictionary::class );
+		$phase                       = State::PHASE_MIGRATION_IN_PROGRESS;
+		$_GET["is_maintenance_mode"] = '1';
+		$text                        = tribe( String_Dictionary::class );
 
-		$renderer = new Phase_View_Renderer( $phase,
-			"/maintenance-mode/phase/$phase.php",
-			[ 'state' => $state, 'text' => $text ]
-		);
-
-		$output = $renderer->compile();
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
+		$output   = $renderer->compile();
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
@@ -271,14 +248,12 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_cancel_in_progress_ok() {
 		// Setup templates.
-		$phase = State::PHASE_CANCEL_IN_PROGRESS;
-		$state = tribe( State::class );
-		$text  = tribe( String_Dictionary::class );
+		$phase                       = State::PHASE_CANCEL_IN_PROGRESS;
+		$_GET["is_maintenance_mode"] = '1';
+		$text                        = tribe( String_Dictionary::class );
 
-		$renderer = new Phase_View_Renderer( $phase,
-			"/maintenance-mode/phase/$phase.php",
-			[ 'state' => $state, 'text' => $text ]
-		);
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -295,14 +270,11 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_revert_in_progress_ok() {
 		// Setup templates.
-		$phase = State::PHASE_REVERT_IN_PROGRESS;
-		$state = tribe( State::class );
-		$text  = tribe( String_Dictionary::class );
-
-		$renderer = new Phase_View_Renderer( $phase,
-			"/maintenance-mode/phase/$phase.php",
-			[ 'state' => $state, 'text' => $text ]
-		);
+		$phase                       = State::PHASE_REVERT_IN_PROGRESS;
+		$_GET["is_maintenance_mode"] = '1';
+		$text                        = tribe( String_Dictionary::class );
+		$ajax                        = tribe( Ajax::class );
+		$renderer                    = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -319,19 +291,11 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_migration_complete_ok() {
 		// Setup templates.
-		$phase       = State::PHASE_MIGRATION_COMPLETE;
-		$state       = tribe( State::class );
-		$text        = tribe( String_Dictionary::class );
-		$site_report = Site_Report::build();
-		$renderer    = new Phase_View_Renderer( $phase,
-			"/maintenance-mode/phase/$phase.php",
-			[
-				'state'         => $state,
-				'text'          => $text,
-				'report'        => $site_report,
-				'event_reports' => $site_report->get_event_reports( 1, 20 )
-			]
-		);
+		$phase                       = State::PHASE_MIGRATION_COMPLETE;
+		$text                        = tribe( String_Dictionary::class );
+		$_GET["is_maintenance_mode"] = '1';
+		$ajax                        = tribe( Ajax::class );
+		$renderer                    = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -348,19 +312,11 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_migration_cancel_complete_ok() {
 		// Setup templates.
-		$phase       = State::PHASE_CANCEL_COMPLETE;
-		$state       = tribe( State::class );
-		$site_report = Site_Report::build();
-		$text        = tribe( String_Dictionary::class );
-
-		$renderer = new Phase_View_Renderer( $phase,
-			"/maintenance-mode/phase/$phase.php",
-			[
-				'state'  => $state,
-				'report' => $site_report,
-				'text'   => tribe( String_Dictionary::class )
-			]
-		);
+		$phase                       = State::PHASE_CANCEL_COMPLETE;
+		$_GET["is_maintenance_mode"] = '1';
+		$text                        = tribe( String_Dictionary::class );
+		$ajax                        = tribe( Ajax::class );
+		$renderer                    = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -377,21 +333,13 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_migration_reverse_complete_ok() {
 		// Setup templates.
-		$phase       = State::PHASE_REVERT_COMPLETE;
-		$state       = tribe( State::class );
-		$site_report = Site_Report::build();
-		$text        = tribe( String_Dictionary::class );
+		$phase                       = State::PHASE_REVERT_COMPLETE;
+		$_GET["is_maintenance_mode"] = '1';
+		$text                        = tribe( String_Dictionary::class );
 
-		$renderer = new Phase_View_Renderer( $phase,
-			"/maintenance-mode/phase/$phase.php",
-			[
-				'state'  => $state,
-				'report' => $site_report,
-				'text'   => tribe( String_Dictionary::class )
-			]
-		);
-
-		$output = $renderer->compile();
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
+		$output   = $renderer->compile();
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
@@ -407,19 +355,12 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_render_maintenance_migration_failure_complete_ok() {
 		// Setup templates.
-		$phase       = State::PHASE_MIGRATION_FAILURE_COMPLETE;
-		$state       = tribe( State::class );
-		$site_report = Site_Report::build();
-		$text        = tribe( String_Dictionary::class );
+		$phase                       = State::PHASE_MIGRATION_FAILURE_COMPLETE;
+		$_GET["is_maintenance_mode"] = '1';
+		$text                        = tribe( String_Dictionary::class );
 
-		$renderer = new Phase_View_Renderer( $phase,
-			"/maintenance-mode/phase/$phase.php",
-			[
-				'state'  => $state,
-				'report' => $site_report,
-				'text'   => tribe( String_Dictionary::class )
-			]
-		);
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
 
 		$output = $renderer->compile();
 
@@ -430,29 +371,17 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
-	 * Should render HTML from Maintenance Mode Migration Failure Complete templates.
+	 * Should render HTML from  Migration Failure Complete templates.
 	 *
 	 * @test
 	 */
 	public function should_render_migration_failure_complete_ok() {
 		// Setup templates.
-		$phase         = State::PHASE_MIGRATION_FAILURE_COMPLETE;
-		$state         = tribe( State::class );
-		$site_report   = Site_Report::build();
-		$text          = tribe( String_Dictionary::class );
-		$event_reports = $site_report->get_event_reports( 1, 20 );
-
-		$renderer = new Phase_View_Renderer( $phase,
-			"/phase/$phase.php",
-			[
-				'state'         => $state,
-				'report'        => $site_report,
-				'event_reports' => $event_reports,
-				'text'          => tribe( String_Dictionary::class )
-			]
-		);
-
-		$output = $renderer->compile();
+		$phase    = State::PHASE_MIGRATION_FAILURE_COMPLETE;
+		$text     = tribe( String_Dictionary::class );
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
+		$output   = $renderer->compile();
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
