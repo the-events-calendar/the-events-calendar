@@ -141,8 +141,8 @@ class Title {
 			$title = $this->build_day_title( $event_date );
 		}
 
-		$taxonomy    = TEC::TAXONOMY;
-		$term = $context->get( $taxonomy, false );
+		$taxonomy = TEC::TAXONOMY;
+		$term     = $context->get( $taxonomy, false );
 		if ( false === $term ) {
 			$taxonomy    = 'post_tag';
 			$term = $context->get( $taxonomy, false );
