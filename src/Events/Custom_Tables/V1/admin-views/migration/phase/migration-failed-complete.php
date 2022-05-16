@@ -66,7 +66,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 		</header>
 		<div class="tec-ct1-upgrade__report-body">
 			<div class="tec-ct1-upgrade__report-body-content">
-				<?php include( $template_directory . '/partials/event-loop.php' ); ?>
+				<?php include( $template_directory . '/partials/failure-event-loop.php' ); ?>
 			</div>
 			<footer class="tec-ct1-upgrade__report-body-footer">
 				<a href="<?php echo File_Download::get_download_url() ?>"><?php echo $text->get( 'migration-download-report-button' ); ?></a>
