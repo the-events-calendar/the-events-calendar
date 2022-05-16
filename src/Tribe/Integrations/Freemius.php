@@ -103,7 +103,7 @@ class Tribe__Events__Integrations__Freemius {
 			Tribe__App_Shop::MENU_SLUG                      => true,
 			Tribe__Events__Aggregator__Page::$slug          => true,
 			'tec-events-help'                               => true,
-			'tec-events-troubleshooting'                    => true,
+			'tec-troubleshooting'                           => true,
 		];
 
 		if ( isset( $valid_page[ $page ] ) ) {
