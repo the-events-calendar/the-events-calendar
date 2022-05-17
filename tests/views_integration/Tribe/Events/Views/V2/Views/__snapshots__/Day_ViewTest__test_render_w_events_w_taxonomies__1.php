@@ -25,7 +25,7 @@
 [{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 09:00","description":"","url":"http://test.tri.be/?tribe_events=test-event-0900-2%2F/","startDate":"2019-01-01T09:00:00-02:00","endDate":"2019-01-01T12:00:00-02:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 12:00","description":"","url":"http://test.tri.be/?tribe_events=test-event-1200%2F/","startDate":"2019-01-01T12:00:00-02:00","endDate":"2019-01-01T15:00:00-02:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 16:30","description":"","url":"http://test.tri.be/?tribe_events=test-event-1630%2F/","startDate":"2019-01-01T16:30:00-02:00","endDate":"2019-01-01T19:30:00-02:00","performer":"Organization"}]
 </script>
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[904385349785,349589759485,340934095850,904385349781,349589759480,340934095823],"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"subscribe_links":[],"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[904385349785,349589759485,340934095850,904385349781,349589759480,340934095823],"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"subscribe_links":{"gcal":{"label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"label":"iCalendar","single_label":"Add to iCalendar","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true}},"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
 		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
@@ -486,7 +486,53 @@
 	</ul>
 </nav>
 
-		
+		<div class="tribe-events-c-subscribe-dropdown__container">
+	<div class="tribe-events-c-subscribe-dropdown">
+		<div class="tribe-common-c-btn-border tribe-events-c-subscribe-dropdown__button" tabindex="0">
+			<button class="tribe-events-c-subscribe-dropdown__button-text">
+				Subscribe to calendar			</button>
+			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-subscribe-dropdown__button-icon"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+		</div>
+		<div class="tribe-events-c-subscribe-dropdown__content">
+			<ul class="tribe-events-c-subscribe-dropdown__list" tabindex="0">
+									
+<li class="tribe-events-c-subscribe-dropdown__list-item">
+	<a
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe_events_cat%3Dcat-1%26tribe-bar-date%3D2022-05-17%26ical%3D1%26eventDisplay%3Dlist"
+		class="tribe-events-c-subscribe-dropdown__list-item-link"
+		tabindex="0"
+		target="_blank"
+		rel="noopener noreferrer nofollow"
+	>
+		Google Calendar	</a>
+</li>
+									
+<li class="tribe-events-c-subscribe-dropdown__list-item">
+	<a
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe_events_cat=cat-1&#038;tribe-bar-date=2022-05-17&#038;ical=1&#038;eventDisplay=list"
+		class="tribe-events-c-subscribe-dropdown__list-item-link"
+		tabindex="0"
+		target="_blank"
+		rel="noopener noreferrer nofollow"
+	>
+		iCalendar	</a>
+</li>
+									
+<li class="tribe-events-c-subscribe-dropdown__list-item">
+	<a
+		href="http://test.tri.be/events/category/cat-1/today/?ical=1"
+		class="tribe-events-c-subscribe-dropdown__list-item-link"
+		tabindex="0"
+		target="_blank"
+		rel="noopener noreferrer nofollow"
+	>
+		Export .ics file	</a>
+</li>
+							</ul>
+		</div>
+	</div>
+</div>
+
 		<div class="tribe-events-after-html">
 	
 <!--
