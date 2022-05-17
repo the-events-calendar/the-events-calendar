@@ -109,7 +109,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * Create a Filter Bar upsell tab.
 	 *
 	 * @since 5.14.0
-	 * @since TBD Early bail if we're not on TEC settings.
+	 * @since 5.15.0 Early bail if we're not on TEC settings.
 	 */
 	public function add_tab( $admin_page ) {
 		$tec_settings_page_id = tribe( Settings::class )::$settings_page_id;

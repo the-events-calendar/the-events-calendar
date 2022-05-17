@@ -51,7 +51,7 @@ class Settings {
 		/**
 		 * Filters the admin settings URL.
 		 *
-		 * @since TBD
+		 * @since 5.15.0
 		 *
 		 * @param string $url The admin settings URL.
 		 */
@@ -61,7 +61,7 @@ class Settings {
 	/**
 	 * Adds The Events Calendar settings page to the pages configuration.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param array $pages An array containing the slug of the pages with tabs.
 	 *
@@ -95,7 +95,7 @@ class Settings {
 	/**
 	 * Defines wether the current page is The Events Calendar Settings page.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @return boolean Whether the current page is The Events Calendar Settings page.
 	 */
@@ -109,7 +109,7 @@ class Settings {
 	/**
 	 * Get the icon for The Events Calendar menu item.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @return string
 	 */
@@ -119,7 +119,7 @@ class Settings {
 		/**
 		 * Filter the menu icon for The Events Calendar in the WordPress admin.
 		 *
-		 * @since TBD
+		 * @since 5.15.0
 		 *
 		 * @param string $icon The menu icon for The Events Calendar in the WordPress admin.
 		 */
@@ -129,7 +129,7 @@ class Settings {
 	/**
 	 * Get the slug for The Events Calendar page/menu item.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @return string $menu_slug The slug for the The Events Calendar page/menu item.
 	 */
@@ -152,7 +152,7 @@ class Settings {
 	/**
 	 * Adds the menu and pages for The Events Calendar.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 */
 	public function add_admin_pages() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -192,7 +192,7 @@ class Settings {
 	/**
 	 * Maybe add network settings page for The Events Calendar.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 */
 	public function maybe_add_network_settings_page() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -220,7 +220,7 @@ class Settings {
 	/**
 	 * Maybe add troubleshooting page for The Events Calendar
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 */
 	public function maybe_add_troubleshooting() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -249,7 +249,7 @@ class Settings {
 	/**
 	 * Maybe add troubleshooting page for The Events Calendar
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 */
 	public function maybe_add_app_shop() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -278,7 +278,7 @@ class Settings {
 	/**
 	 * Filters the settings tab URL.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param string $url The URL of the settings tab.
 	 * @param string $page The slug of the page.
@@ -312,7 +312,7 @@ class Settings {
 	/**
 	 * Filters the settings page URL.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param string $url The URL of the settings page.
 	 * @param string $page The slug of the page.
@@ -370,7 +370,7 @@ class Settings {
 	/**
 	 * Do the basic main settings page.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param string $admin_page The slug of the admin page.
 	 */
@@ -391,7 +391,7 @@ class Settings {
 	/**
 	 * Generate network settings page for The Events Calendar.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param string $admin_page The slug of the admin page.
 	 */
@@ -408,7 +408,7 @@ class Settings {
 	/**
 	 * Add The Events Calendar admin footer text.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param string $footer_text The admin footer text.
 	 * @return string $footer_text The admin footer text, maybe modified.
@@ -438,7 +438,7 @@ class Settings {
 	/**
 	 * Get Events settings tab IDs.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @return array $tabs Array of tabs IDs for the Events settings page.
 	 */
@@ -453,7 +453,7 @@ class Settings {
 		/**
 		 * Filters the events settings tab IDs.
 		 *
-		 * @since TBD
+		 * @since 5.15.0
 		 *
 		 * @param array $tabs Array of tabs IDs for the Events settings page.
 		 */
@@ -464,7 +464,7 @@ class Settings {
 	 * Maybe hijack the saving for the network settings page, when not in TEC network settings.
 	 * The purpose is to merge the settings between plugins.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param array  $options Formatted the same as from get_options().
 	 * @param string $admin_page The admin page being saved.
@@ -498,7 +498,7 @@ class Settings {
 	/**
 	 * Filter the event type args to add the menu icon.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 *
 	 * @param array $args The default arguments for the event type.
 	 */

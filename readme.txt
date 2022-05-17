@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.15.0] TBD =
+= [5.15.0] 2022-05-17 =
 
 * Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
 

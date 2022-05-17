@@ -1057,7 +1057,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Settings page object accessor.
 		 *
-		 * @since TBD
+		 * @since 5.15.0
 		 *
 		 * @return Settings
 		 */
@@ -1296,7 +1296,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Initialize the addons api settings tab.
 		 *
-		 * @since TBD Added check to see if we are on TEC settings page.
+		 * @since 5.15.0 Added check to see if we are on TEC settings page.
 		 */
 		public function do_addons_api_settings_tab( $admin_page ) {
 			// Bail if we're not on TEC settings.
@@ -1347,7 +1347,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Create the upgrade tab
 		 *
 		 * @since 4.9.12
-		 * @since TBD Added check to see if we are on TEC settings page.
+		 * @since 5.15.0 Added check to see if we are on TEC settings page.
 		 */
 		public function do_upgrade_tab( $admin_page ) {
 			// Bail if we're not on TEC settings.
