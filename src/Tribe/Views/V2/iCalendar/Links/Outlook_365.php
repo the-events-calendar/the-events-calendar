@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles Outlook Live export/subscribe links.
+ * Handles Outlook 365 export/subscribe links.
  *
  * @since   TBD
  *
@@ -10,29 +10,29 @@
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 /**
- * Class Outlook_Live_Export
+ * Class Outlook_365
  *
  * @since   TBD
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
-class Outlook_Live_Export extends Outlook_Abstract_Export {
+class Outlook_365 extends Outlook_Abstract_Export {
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $slug = 'outlook-live';
+	public static $slug = 'outlook-365';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $calendar_slug = 'live';
+	public static $calendar_slug = 'office';
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		$this->label        = __( 'Outlook Live', 'the-events-calendar' );
+		$this->label        = __( 'Outlook 365', 'the-events-calendar' );
 		$this->single_label = $this->label;
 	}
 }

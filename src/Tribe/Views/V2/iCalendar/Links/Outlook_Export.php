@@ -31,7 +31,7 @@ class Outlook_Export extends Link_Abstract {
 		$this->label = __( 'Export Outlook .ics file', 'the-events-calendar' );
 		$this->single_label = $this->label;
 
-		add_filter( 'tec_views_v2_subscribe_link_outlook_ics_visibility', [ $this, 'filter_tec_views_v2_subscribe_link_outlook_ics_visibility'], 10, 2 );
+		add_filter( 'tec_views_v2_subscribe_link_outlook-ics_visibility', [ $this, 'filter_tec_views_v2_subscribe_link_outlook_ics_visibility'], 10, 2 );
 	}
 
 	/**
