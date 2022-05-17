@@ -478,7 +478,7 @@ class Settings {
 		}
 
 		if ( ! is_plugin_active_for_network( 'the-events-calendar/the-events-calendar.php' ) ) {
-			return;
+			return $options;
 		}
 
 		$tec_tabs = $this->get_events_settings_tabs_ids();
@@ -494,7 +494,6 @@ class Settings {
 
 		return $form_options;
 	}
-
 
 	/**
 	 * Filter the event type args to add the menu icon.
