@@ -228,6 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
 * Feature - Add export links for Outlook 365 and Outlook Live to single events. [TEC-4168]
 * Feature - Update single event export to use a dropdown template to support more links. [TEC-4176]
+* Fix - Ensure all expected subscribe links show when using the default page template. [TEC-4313]
 * Fix - Put back the event website label for Classic editor. [TEC-4334]
 * Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
 * Fix - On Event tag archives only show events with the tag, change the single event tag links to use the event tag archive, and add a link to event tag archive in the admin tag list. [TEC-4314]
