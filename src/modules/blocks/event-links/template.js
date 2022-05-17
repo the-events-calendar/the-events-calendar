@@ -14,7 +14,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import {CaretDown as CaretDownIcon, Link as LinkIcon } from '@moderntribe/events/icons';
+import { CaretDown as CaretDownIcon, Link as LinkIcon } from '@moderntribe/events/icons';
 import { wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 const { InspectorControls } = wpEditor;
@@ -40,7 +40,13 @@ const renderGoogleCalendarDropdown = ( {
 	attributes,
 	setGoogleCalendarLabel,
 } ) => {
-	const { hasiCal, hasGoogleCalendar, hasOutlook365, hasOutlookLive, googleCalendarLabel } = attributes;
+	const {
+		hasiCal,
+		hasGoogleCalendar,
+		hasOutlook365,
+		hasOutlookLive,
+		googleCalendarLabel,
+	} = attributes;
 
 	if ( ! hasGoogleCalendar && ! hasiCal && ! hasOutlook365 && ! hasOutlookLive ) {
 		return renderPlaceholder( googleCalendarPlaceholder );
@@ -112,7 +118,13 @@ const renderOutlookLiveDropdown = ( {
 	attributes,
 	setOutlookLiveLabel,
 } ) => {
-	const { hasiCal, hasGoogleCalendar, hasOutlook365, hasOutlookLive, outlookLiveLabel } = attributes;
+	const {
+		hasiCal,
+		hasGoogleCalendar,
+		hasOutlook365,
+		hasOutlookLive,
+		outlookLiveLabel,
+	} = attributes;
 
 	if ( ! hasGoogleCalendar && ! hasiCal && ! hasOutlook365 && ! hasOutlookLive ) {
 		return renderPlaceholder( outlookLivePlaceholder );
