@@ -1,5 +1,5 @@
 <?php return '<div
-	 class="tribe-common tribe-events tribe-events-view tribe-events-view--list" 	data-js="tribe-events-view"
+	 class="tribe-common tribe-events tribe-events-view tribe-events-view--day" 	data-js="tribe-events-view"
 	data-view-rest-nonce="2ab7cc6b39"
 	data-view-rest-url="http://test.tri.be/wp-json/tribe/views/v2/html"
 	data-view-rest-method="POST"
@@ -21,37 +21,15 @@
 	</div>
 </div>
 
-		
+		<script type="application/ld+json">
+[{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 09:00","description":"","url":"http://test.tri.be/?tribe_events=test-event-0900-2%2F/","startDate":"2019-01-01T09:00:00-02:00","endDate":"2019-01-01T12:00:00-02:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 12:00","description":"","url":"http://test.tri.be/?tribe_events=test-event-1200%2F/","startDate":"2019-01-01T12:00:00-02:00","endDate":"2019-01-01T15:00:00-02:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 16:30","description":"","url":"http://test.tri.be/?tribe_events=test-event-1630%2F/","startDate":"2019-01-01T16:30:00-02:00","endDate":"2019-01-01T19:30:00-02:00","performer":"Organization"}]
+</script>
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","title":"Events \\u2013 The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","breadcrumbs":[],"before_events":"<div id=\\"tribe-events\\" class=\\"tribe-no-js\\" data-live_ajax=\\"1\\" data-datepicker_format=\\"1\\" data-category=\\"\\" data-featured=\\"\\">","after_events":"<\\/div><!-- #tribe-events -->\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00&#038;ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"show_now":true,"now_label":"Now onwards","now_label_mobile":"Now onwards","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"1\\/1\\/2019","selected_start_date_label":"January 1","selected_end_datetime":"2019-01-01","selected_end_date_mobile":"1\\/1\\/2019","selected_end_date_label":"Now","datepicker_date":"1\\/1\\/2019","subscribe_links":{"gcal":{"label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"label":"iCalendar","single_label":"Add to iCalendar","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true}},"_context":{"slug":"list"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[904385349785,349589759485,340934095850,904385349781,349589759480,340934095823],"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"subscribe_links":{"gcal":{"label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"label":"iCalendar","single_label":"Add to iCalendar","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true}},"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
-		<div class="tribe-events-before-html">
-	<div id="tribe-events" class="tribe-no-js" data-live_ajax="1" data-datepicker_format="1" data-category="" data-featured=""></div>
-
+		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
-			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
-			<ul class="tribe-events-c-messages__message-list">
-									<li
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
-					There are no upcoming events.					</li>
-							</ul>
-		</div>
-	</div>
-			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
-			<ul class="tribe-events-c-messages__message-list">
-									<li
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
-					There are no upcoming events.					</li>
-							</ul>
-		</div>
-	</div>
-
+			
 			
 			<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
@@ -86,7 +64,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/list/?tribe-bar-date=2019-01-01+09%3A00%3A00" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01+09%3A00%3A00" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/category/cat-1/today/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/category/cat-1/today/" />
 
 		<div class="tribe-events-c-search__input-group">
 			<div
@@ -127,10 +105,9 @@
 			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">
-				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__button-icon-svg"  viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.451.432V17.6c0 .238.163.432.364.432H18.12c.2 0 .364-.194.364-.432V.432c0-.239-.163-.432-.364-.432H.815c-.2 0-.364.193-.364.432zm.993.81h16.024V3.56H1.444V1.24zM17.468 3.56H1.444v13.227h16.024V3.56z" class="tribe-common-c-svgicon__svg-fill"/><g clip-path="url(#tribe-events-c-view-selector__button-icon-svg-0)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 4.912v1.825c0 .504.409.913.913.913h1.825a.913.913 0 00.912-.913V4.912A.913.913 0 0014.57 4h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 7.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 5.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><g clip-path="url(#tribe-events-c-view-selector__button-icon-svg-1)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 10.912v1.825c0 .505.409.913.913.913h1.825a.913.913 0 00.912-.912v-1.825A.913.913 0 0014.57 10h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 13.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 11.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><defs><clipPath id="tribe-events-c-view-selector__button-icon-svg-0"><path transform="translate(3.451 4)" d="M0 0h13v4H0z"/></clipPath><clipPath id="tribe-events-c-view-selector__button-icon-svg-1"><path transform="translate(3.451 10)" d="M0 0h13v4H0z"/></clipPath></defs></svg>
-			</span>
+				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--day tribe-events-c-view-selector__button-icon-svg"  viewBox="0 0 19 18" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.363 17.569V.43C.363.193.526 0 .726 0H18c.201 0 .364.193.364.431V17.57c0 .238-.163.431-.364.431H.726c-.2 0-.363-.193-.363-.431zm16.985-16.33H1.354v2.314h15.994V1.24zM1.354 4.688h15.994v12.07H1.354V4.687zm11.164 9.265v-1.498c0-.413.335-.748.748-.748h1.498c.413 0 .748.335.748.748v1.498a.749.749 0 01-.748.748h-1.498a.749.749 0 01-.748-.748z" class="tribe-common-c-svgicon__svg-fill"/></svg>			</span>
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
-				List			</span>
+				Day			</span>
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-view-selector__button-icon-caret-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
 		</button>
 		<div
@@ -139,9 +116,9 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
 	<a
-		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01"
+		href="http://test.tri.be/events/category/cat-1/list/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -154,7 +131,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
 	<a
-		href="http://test.tri.be/events/month/2019-01/"
+		href="http://test.tri.be/events/category/cat-1/2019-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -164,9 +141,9 @@
 			Month		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
+					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/2019-01-01/"
+		href="http://test.tri.be/events/category/cat-1/day/2019-01-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -190,8 +167,8 @@
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous Events"
-		title="Previous Events"
+		aria-label="Previous day"
+		title="Previous day"
 		disabled
 	>
 		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
@@ -199,20 +176,21 @@
 </li>
 
 		<li class="tribe-events-c-top-bar__nav-list-item">
-	<button
+	<a
+		href="http://test.tri.be/events/category/cat-1/day/2019-01-02/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next Events"
-		title="Next Events"
-		disabled
+		aria-label="Next day"
+		title="Next day"
+		data-js="tribe-events-view-link"
 	>
 		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
-	</button>
+	</a>
 </li>
 	</ul>
 </nav>
 
 	<a
-	href="http://test.tri.be/events/list/"
+	href="http://test.tri.be/events/category/cat-1/today/"
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
 	aria-label="Click to select today&#039;s date"
@@ -232,12 +210,12 @@
 			datetime="2019-01-01"
 			class="tribe-events-c-top-bar__datepicker-time"
 		>
-							<span class="tribe-events-c-top-bar__datepicker-mobile">
-					Now onwards				</span>
-				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-					Now onwards				</span>
-					</time>
-				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-top-bar__datepicker-button-icon-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+			<span class="tribe-events-c-top-bar__datepicker-mobile">
+				1/1/2019			</span>
+			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+				January 1, 2019			</span>
+		</time>
+		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-top-bar__datepicker-button-icon-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
@@ -268,51 +246,242 @@
 	</div>
 
 </div>
-		</header>
+
+					</header>
 
 		
-		<div class="tribe-events-calendar-list">
+		<div class="tribe-events-calendar-day">
+
+							
+								<div class="tribe-events-calendar-day__time-separator">
+	<time
+		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
+		datetime="13:00"
+	>
+		1:00 pm	</time>
+</div>
+				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-904385349785 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
+	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+
+		
+		<div class="tribe-events-calendar-day__event-details">
+
+			<header class="tribe-events-calendar-day__event-header">
+				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+	<em
+	class="tribe-events-calendar-day__event-datetime-featured-icon"
+	title="Featured"
+>
+	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-day__event-datetime-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
+	<title>Featured</title>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
+</svg>
+</em>
+<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
+	Featured</span>
+	<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+	</div>
+				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=featured-test-event-904385349785"
+		title="Featured test event  904385349785"
+		rel="bookmark"
+		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
+	>
+		Featured test event  904385349785	</a>
+</h3>
+							</header>
+
+						
+		</div>
+
+	</div>
+</article>
+
+							
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-349589759485 tribe_events type-tribe_events status-publish hentry" >
+	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+
+		
+		<div class="tribe-events-calendar-day__event-details">
+
+			<header class="tribe-events-calendar-day__event-header">
+				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-349589759485"
+		title="Single Event 349589759485"
+		rel="bookmark"
+		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
+	>
+		Single Event 349589759485	</a>
+</h3>
+							</header>
+
+						
+		</div>
+
+	</div>
+</article>
+
+							
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-340934095850 tribe_events type-tribe_events status-publish hentry" >
+	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+
+		
+		<div class="tribe-events-calendar-day__event-details">
+
+			<header class="tribe-events-calendar-day__event-header">
+				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-340934095850"
+		title="Single Event 340934095850"
+		rel="bookmark"
+		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
+	>
+		Single Event 340934095850	</a>
+</h3>
+							</header>
+
+						
+		</div>
+
+	</div>
+</article>
+
+							
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-904385349781 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
+	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+
+		
+		<div class="tribe-events-calendar-day__event-details">
+
+			<header class="tribe-events-calendar-day__event-header">
+				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+	<em
+	class="tribe-events-calendar-day__event-datetime-featured-icon"
+	title="Featured"
+>
+	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-day__event-datetime-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
+	<title>Featured</title>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
+</svg>
+</em>
+<span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
+	Featured</span>
+	<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+	</div>
+				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=featured-test-event-904385349781"
+		title="Featured test event  904385349781"
+		rel="bookmark"
+		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
+	>
+		Featured test event  904385349781	</a>
+</h3>
+							</header>
+
+						
+		</div>
+
+	</div>
+</article>
+
+							
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-349589759480 tribe_events type-tribe_events status-publish hentry" >
+	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+
+		
+		<div class="tribe-events-calendar-day__event-details">
+
+			<header class="tribe-events-calendar-day__event-header">
+				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-349589759480"
+		title="Single Event 349589759480"
+		rel="bookmark"
+		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
+	>
+		Single Event 349589759480	</a>
+</h3>
+							</header>
+
+						
+		</div>
+
+	</div>
+</article>
+
+							
+												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-340934095823 tribe_events type-tribe_events status-publish hentry" >
+	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
+
+		
+		<div class="tribe-events-calendar-day__event-details">
+
+			<header class="tribe-events-calendar-day__event-header">
+				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-340934095823"
+		title="Single Event 340934095823"
+		rel="bookmark"
+		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
+	>
+		Single Event 340934095823	</a>
+</h3>
+							</header>
+
+						
+		</div>
+
+	</div>
+</article>
 
 			
 		</div>
 
-		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
+		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="Previous Events"
-		title="Previous Events"
+		aria-label="Previous Day"
+		title="Previous Day"
 		disabled
 	>
 		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
-		<span class="tribe-events-c-nav__prev-label">
-			Previous <span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
-	</button>
-</li>
-
-		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
-	<a
-		href="http://test.tri.be/events/list/"
-		class="tribe-events-c-nav__today tribe-common-b2"
-		data-js="tribe-events-view-link"
-		aria-label="Click to select today&#039;s date"
-		title="Click to select today&#039;s date"
-	>
-		Today	</a>
+		Previous Day	</button>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
-	<button
+	<a
+		href="http://test.tri.be/events/category/cat-1/day/2019-01-02/"
+		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="Next Events"
-		title="Next Events"
-		disabled
+		data-js="tribe-events-view-link"
+		aria-label="Next Day"
+		title="Next Day"
 	>
-		<span class="tribe-events-c-nav__next-label">
-			Next <span class="tribe-events-c-nav__next-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
-	</button>
+		Next Day		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+	</a>
 </li>
 	</ul>
 </nav>
@@ -329,7 +498,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2022-05-17%26ical%3D1%26eventDisplay%3Dlist"
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe_events_cat%3Dcat-1%26tribe-bar-date%3D2022-05-17%26ical%3D1%26eventDisplay%3Dlist"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -340,7 +509,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2022-05-17&#038;ical=1&#038;eventDisplay=list"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe_events_cat=cat-1&#038;tribe-bar-date=2022-05-17&#038;ical=1&#038;eventDisplay=list"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -351,7 +520,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01+09%3A00%3A00&#038;ical=1"
+		href="http://test.tri.be/events/category/cat-1/today/?ical=1"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -365,7 +534,7 @@
 </div>
 
 		<div class="tribe-events-after-html">
-	</div><!-- #tribe-events -->
+	
 <!--
 This calendar is powered by The Events Calendar.
 http://evnt.is/18wn
@@ -373,6 +542,7 @@ http://evnt.is/18wn
 </div>
 
 	</div>
+
 </div>
 
 <script class="tribe-events-breakpoints">
