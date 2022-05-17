@@ -195,7 +195,7 @@ class Tribe__Events__iCal {
 		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 
 		printf(
-			'<a class="tribe-events-ical tribe-events-button" title="%1$s" href="%2$s">+ %3$s</a>',
+			'<a class="tribe-events-ical tribe-events-button" rel="noindex nofollow" title="%1$s" href="%2$s">+ %3$s</a>',
 			$title,
 			esc_url( tribe_get_ical_link() ),
 			$text
