@@ -772,12 +772,19 @@ class View implements View_Interface {
 			$category = Arr::to_list( reset( $category ) );
 		}
 
+		$tag = $this->context->get( 'post_tag', false );
+
+		if ( is_array( $tag ) ) {
+			$tag = Arr::to_list( reset( $tag ) );
+		}
+
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
 			'eventDisplay'     => $this->slug,
 			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 			TEC::TAXONOMY      => $category,
+			'tag'              => $tag,
 		];
 
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
@@ -1206,6 +1213,11 @@ class View implements View_Interface {
 
 		if ( ! empty( $context_arr['event_category'] ) ) {
 			$args['event_category'] = $context_arr['event_category'];
+		}
+
+		// Sets up post tag URL for all views.
+		if ( ! empty( $context_arr['post_tag'] ) ) {
+			$args['tag'] = $context_arr['post_tag'];
 		}
 
 		// Setup featured only when set to true.
@@ -1964,6 +1976,10 @@ class View implements View_Interface {
 		$breadcrumbs = [];
 		$taxonomy    = TEC::TAXONOMY;
 		$context_tax = $context->get( $taxonomy, false );
+		if ( empty( $context_tax ) ) {
+			$taxonomy    = 'post_tag';
+			$context_tax = $context->get( $taxonomy, false );
+		}
 
 		// Get term slug if taxonomy is not empty
 		if ( ! empty( $context_tax ) ) {

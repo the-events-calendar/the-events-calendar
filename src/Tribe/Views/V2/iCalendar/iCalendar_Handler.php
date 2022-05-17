@@ -63,7 +63,9 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 
 		foreach ( $this->default_feeds as $feed_class ) {
 			// Register as a singleton for internal ease of use.
-			$this->container->singleton( $feed_class, $feed_class, [ 'hook' ] );
+			$this->container->singleton( $feed_class, $feed_class );
+			// Ensure all $feed_class hooks are set up now.
+			tribe( $feed_class )->hook();
 		}
 
 		$this->container->singleton( static::class, $this );

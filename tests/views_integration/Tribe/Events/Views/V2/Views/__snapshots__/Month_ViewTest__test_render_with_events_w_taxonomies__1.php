@@ -21,24 +21,15 @@
 	</div>
 </div>
 
-		
+		<script type="application/ld+json">
+[{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 1","description":"","url":"http://test.tri.be/?tribe_events=test-event-1%2F/","startDate":"2019-01-01T11:00:00+01:00","endDate":"2019-01-01T13:00:00+01:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 2","description":"","url":"http://test.tri.be/?tribe_events=test-event-2%2F/","startDate":"2019-01-01T12:00:00+01:00","endDate":"2019-01-01T14:00:00+01:00","performer":"Organization"}]
+</script>
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"month","prev_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2018-12\\/","next_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view_label":"Month","title":"The Events Calendar Tests","events":{"2018-12-31":[],"2019-01-01":[],"2019-01-02":[],"2019-01-03":[],"2019-01-04":[],"2019-01-05":[],"2019-01-06":[],"2019-01-07":[],"2019-01-08":[],"2019-01-09":[],"2019-01-10":[],"2019-01-11":[],"2019-01-12":[],"2019-01-13":[],"2019-01-14":[],"2019-01-15":[],"2019-01-16":[],"2019-01-17":[],"2019-01-18":[],"2019-01-19":[],"2019-01-20":[],"2019-01-21":[],"2019-01-22":[],"2019-01-23":[],"2019-01-24":[],"2019-01-25":[],"2019-01-26":[],"2019-01-27":[],"2019-01-28":[],"2019-01-29":[],"2019-01-30":[],"2019-01-31":[],"2019-02-01":[],"2019-02-02":[],"2019-02-03":[]},"url":"http:\\/\\/test.tri.be\\/events\\/month\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/month\\/","prev_label":"Dec","next_label":"Feb","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/month\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--month"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"today_date":"2019-01-01","grid_date":"2019-01-01","formatted_grid_date":"January 2019","formatted_grid_date_mobile":"1\\/2019","days":{"2018-12-31":{"date":"2018-12-31","is_start_of_week":true,"year_number":"2018","month_number":"12","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2018-12-31\\/"},"2019-01-01":{"date":"2019-01-01","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"1","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/"},"2019-01-02":{"date":"2019-01-02","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"2","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-02\\/"},"2019-01-03":{"date":"2019-01-03","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"3","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-03\\/"},"2019-01-04":{"date":"2019-01-04","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"4","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-04\\/"},"2019-01-05":{"date":"2019-01-05","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"5","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-05\\/"},"2019-01-06":{"date":"2019-01-06","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"6","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-06\\/"},"2019-01-07":{"date":"2019-01-07","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"7","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-07\\/"},"2019-01-08":{"date":"2019-01-08","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"8","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-08\\/"},"2019-01-09":{"date":"2019-01-09","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"9","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-09\\/"},"2019-01-10":{"date":"2019-01-10","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"10","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-10\\/"},"2019-01-11":{"date":"2019-01-11","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"11","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-11\\/"},"2019-01-12":{"date":"2019-01-12","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"12","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-12\\/"},"2019-01-13":{"date":"2019-01-13","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"13","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-13\\/"},"2019-01-14":{"date":"2019-01-14","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"14","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-14\\/"},"2019-01-15":{"date":"2019-01-15","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"15","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-15\\/"},"2019-01-16":{"date":"2019-01-16","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"16","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-16\\/"},"2019-01-17":{"date":"2019-01-17","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"17","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-17\\/"},"2019-01-18":{"date":"2019-01-18","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"18","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-18\\/"},"2019-01-19":{"date":"2019-01-19","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"19","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-19\\/"},"2019-01-20":{"date":"2019-01-20","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"20","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-20\\/"},"2019-01-21":{"date":"2019-01-21","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"21","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-21\\/"},"2019-01-22":{"date":"2019-01-22","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"22","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-22\\/"},"2019-01-23":{"date":"2019-01-23","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"23","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-23\\/"},"2019-01-24":{"date":"2019-01-24","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"24","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-24\\/"},"2019-01-25":{"date":"2019-01-25","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"25","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-25\\/"},"2019-01-26":{"date":"2019-01-26","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"26","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-26\\/"},"2019-01-27":{"date":"2019-01-27","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"27","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-27\\/"},"2019-01-28":{"date":"2019-01-28","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"28","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-28\\/"},"2019-01-29":{"date":"2019-01-29","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"29","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-29\\/"},"2019-01-30":{"date":"2019-01-30","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"30","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-30\\/"},"2019-01-31":{"date":"2019-01-31","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-31\\/"},"2019-02-01":{"date":"2019-02-01","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"1","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-01\\/"},"2019-02-02":{"date":"2019-02-02","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"2","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-02\\/"},"2019-02-03":{"date":"2019-02-03","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"3","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/2019-02-03\\/"}},"mobile_messages":{"notice":{"no-events-in-day":"There are no events on this day."}},"grid_start_date":"2018-12-31","subscribe_links":{"gcal":{"label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"label":"iCalendar","single_label":"Add to iCalendar","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true}},"_context":{"slug":"month"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"month","prev_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/2018-12\\/","next_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/2019-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_slug":"month","view_label":"Month","title":"The Events Calendar Tests","events":{"2018-12-31":[],"2019-01-01":[234234234,2453454355],"2019-01-02":[],"2019-01-03":[],"2019-01-04":[],"2019-01-05":[],"2019-01-06":[],"2019-01-07":[],"2019-01-08":[],"2019-01-09":[],"2019-01-10":[],"2019-01-11":[],"2019-01-12":[],"2019-01-13":[],"2019-01-14":[],"2019-01-15":[],"2019-01-16":[],"2019-01-17":[],"2019-01-18":[],"2019-01-19":[],"2019-01-20":[],"2019-01-21":[],"2019-01-22":[],"2019-01-23":[],"2019-01-24":[],"2019-01-25":[],"2019-01-26":[],"2019-01-27":[],"2019-01-28":[],"2019-01-29":[],"2019-01-30":[],"2019-01-31":[],"2019-02-01":[],"2019-02-02":[],"2019-02-03":[]},"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/month\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/month\\/","prev_label":"Dec","next_label":"Feb","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/month\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--month"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"today_date":"2019-01-01","grid_date":"2019-01-01","formatted_grid_date":"January 2019","formatted_grid_date_mobile":"1\\/2019","days":{"2018-12-31":{"date":"2018-12-31","is_start_of_week":true,"year_number":"2018","month_number":"12","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2018-12-31\\/"},"2019-01-01":{"date":"2019-01-01","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"1","events":{"234234234":234234234,"2453454355":2453454355,"3094853477":3094853477},"featured_events":[],"multiday_events":[],"found_events":2,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-01\\/"},"2019-01-02":{"date":"2019-01-02","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"2","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-02\\/"},"2019-01-03":{"date":"2019-01-03","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"3","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-03\\/"},"2019-01-04":{"date":"2019-01-04","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"4","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-04\\/"},"2019-01-05":{"date":"2019-01-05","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"5","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-05\\/"},"2019-01-06":{"date":"2019-01-06","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"6","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-06\\/"},"2019-01-07":{"date":"2019-01-07","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"7","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-07\\/"},"2019-01-08":{"date":"2019-01-08","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"8","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-08\\/"},"2019-01-09":{"date":"2019-01-09","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"9","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-09\\/"},"2019-01-10":{"date":"2019-01-10","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"10","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-10\\/"},"2019-01-11":{"date":"2019-01-11","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"11","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-11\\/"},"2019-01-12":{"date":"2019-01-12","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"12","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-12\\/"},"2019-01-13":{"date":"2019-01-13","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"13","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-13\\/"},"2019-01-14":{"date":"2019-01-14","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"14","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-14\\/"},"2019-01-15":{"date":"2019-01-15","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"15","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-15\\/"},"2019-01-16":{"date":"2019-01-16","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"16","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-16\\/"},"2019-01-17":{"date":"2019-01-17","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"17","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-17\\/"},"2019-01-18":{"date":"2019-01-18","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"18","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-18\\/"},"2019-01-19":{"date":"2019-01-19","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"19","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-19\\/"},"2019-01-20":{"date":"2019-01-20","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"20","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-20\\/"},"2019-01-21":{"date":"2019-01-21","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"21","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-21\\/"},"2019-01-22":{"date":"2019-01-22","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"22","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-22\\/"},"2019-01-23":{"date":"2019-01-23","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"23","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-23\\/"},"2019-01-24":{"date":"2019-01-24","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"24","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-24\\/"},"2019-01-25":{"date":"2019-01-25","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"25","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-25\\/"},"2019-01-26":{"date":"2019-01-26","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"26","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-26\\/"},"2019-01-27":{"date":"2019-01-27","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"27","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-27\\/"},"2019-01-28":{"date":"2019-01-28","is_start_of_week":true,"year_number":"2019","month_number":"01","day_number":"28","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-28\\/"},"2019-01-29":{"date":"2019-01-29","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"29","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-29\\/"},"2019-01-30":{"date":"2019-01-30","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"30","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-30\\/"},"2019-01-31":{"date":"2019-01-31","is_start_of_week":false,"year_number":"2019","month_number":"01","day_number":"31","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-01-31\\/"},"2019-02-01":{"date":"2019-02-01","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"1","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-02-01\\/"},"2019-02-02":{"date":"2019-02-02","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"2","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-02-02\\/"},"2019-02-03":{"date":"2019-02-03","is_start_of_week":false,"year_number":"2019","month_number":"02","day_number":"3","events":[],"featured_events":[],"multiday_events":[],"found_events":0,"more_events":0,"day_url":"http:\\/\\/test.tri.be\\/events\\/category\\/cat-1\\/day\\/2019-02-03\\/"}},"mobile_messages":{"notice":{"no-events-in-day":"There are no events on this day."}},"grid_start_date":"2018-12-31","subscribe_links":{"gcal":{"label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"label":"iCalendar","single_label":"Add to iCalendar","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true}},"_context":{"slug":"month"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
 		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
-			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
-			<ul class="tribe-events-c-messages__message-list">
-									<li
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
-					There are no upcoming events.					</li>
-							</ul>
-		</div>
-	</div>
-
+			
 			
 			<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
@@ -73,7 +64,7 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/month/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/month/" />
+		<input type="hidden" id="tribe-events-views[_wpnonce]" name="tribe-events-views[_wpnonce]" value="2ab7cc6b39" /><input type="hidden" name="_wp_http_referer" value="/events/category/cat-1/month/" />		<input type="hidden" name="tribe-events-views[url]" value="http://test.tri.be/events/category/cat-1/month/" />
 
 		<div class="tribe-events-c-search__input-group">
 			<div
@@ -127,7 +118,7 @@
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
 	<a
-		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01"
+		href="http://test.tri.be/events/category/cat-1/list/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -140,7 +131,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/month/2019-01/"
+		href="http://test.tri.be/events/category/cat-1/2019-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -152,7 +143,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
 	<a
-		href="http://test.tri.be/events/2019-01-01/"
+		href="http://test.tri.be/events/category/cat-1/day/2019-01-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -175,7 +166,7 @@
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="http://test.tri.be/events/month/2018-12/"
+		href="http://test.tri.be/events/category/cat-1/2018-12/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
 		aria-label="Previous month"
 		title="Previous month"
@@ -187,7 +178,7 @@
 
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
-		href="http://test.tri.be/events/month/2019-02/"
+		href="http://test.tri.be/events/category/cat-1/2019-02/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
 		aria-label="Next month"
 		title="Next month"
@@ -200,7 +191,7 @@
 </nav>
 
 	<a
-	href="http://test.tri.be/events/month/"
+	href="http://test.tri.be/events/category/cat-1/month/"
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
 	aria-label="Click to select today&#039;s date"
@@ -432,7 +423,7 @@
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			2 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
@@ -441,6 +432,12 @@
 			1		</time>
 	</h3>
 	
+		<em
+		class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event"
+		aria-label="Has events"
+		title="Has events"
+	>
+	</em>
 </button>
 	
 <div
@@ -450,17 +447,183 @@
 	
 <h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
-		0 events,
+		2 events,
 	</span>
 	<time
 		class="tribe-events-calendar-month__day-date-daynum"
 		datetime="2019-01-01"
 	>
-					1			</time>
+					<a
+				href="http://test.tri.be/events/category/cat-1/day/2019-01-01/"
+				class="tribe-events-calendar-month__day-date-link"
+				data-js="tribe-events-view-link"
+			>
+				1			</a>
+			</time>
 </h3>
 	<div class="tribe-events-calendar-month__events">
 		
-			</div>
+		
+	
+	
+<article  class="tribe-events-calendar-month__calendar-event post-234234234 tribe_events type-tribe_events status-publish hentry" >
+
+	
+	<div class="tribe-events-calendar-month__calendar-event-details">
+
+		<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<time datetime="13:04">
+		1:04 pm	</time>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="17:04">
+			5:04 pm		</time>
+		</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-234234234"
+		title="Single Event 234234234"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-234234234"
+		aria-describedby="tribe-events-tooltip-content-234234234"
+	>
+		Single Event 234234234	</a>
+</h3>
+
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-234234234"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-234234234"
+		title="Single Event 234234234"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Single Event 234234234	</a>
+</h3>
+					</div>
+</div>
+
+	</div>
+
+</article>
+
+	
+	
+<article  class="tribe-events-calendar-month__calendar-event post-2453454355 tribe_events type-tribe_events status-publish hentry" >
+
+	
+	<div class="tribe-events-calendar-month__calendar-event-details">
+
+		<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<time datetime="13:04">
+		1:04 pm	</time>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="17:04">
+			5:04 pm		</time>
+		</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-2453454355"
+		title="Single Event 2453454355"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-2453454355"
+		aria-describedby="tribe-events-tooltip-content-2453454355"
+	>
+		Single Event 2453454355	</a>
+</h3>
+
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-2453454355"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-2453454355"
+		title="Single Event 2453454355"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Single Event 2453454355	</a>
+</h3>
+					</div>
+</div>
+
+	</div>
+
+</article>
+
+	
+	
+<article  class="tribe-events-calendar-month__calendar-event post-3094853477 tribe_events type-tribe_events status-publish hentry" >
+
+	
+	<div class="tribe-events-calendar-month__calendar-event-details">
+
+		<div class="tribe-events-calendar-month__calendar-event-datetime">
+		<time datetime="13:04">
+		1:04 pm	</time>
+			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
+		<time datetime="17:04">
+			5:04 pm		</time>
+		</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-3094853477"
+		title="Single Event 3094853477"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
+		data-js="tribe-events-tooltip"
+		data-tooltip-content="#tribe-events-tooltip-content-3094853477"
+		aria-describedby="tribe-events-tooltip-content-3094853477"
+	>
+		Single Event 3094853477	</a>
+</h3>
+
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
+	<div
+		class="tribe-events-calendar-month__calendar-event-tooltip"
+		id="tribe-events-tooltip-content-3094853477"
+		role="tooltip"
+	>
+				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
+		<time datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
+		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-3094853477"
+		title="Single Event 3094853477"
+		rel="bookmark"
+		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
+	>
+		Single Event 3094853477	</a>
+</h3>
+					</div>
+</div>
+
+	</div>
+
+</article>
+
+	</div>
 
 	
 </div>
@@ -2148,18 +2311,7 @@
 
 		</div>
 
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
-			<ul class="tribe-events-c-messages__message-list">
-									<li
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
-					There are no upcoming events.					</li>
-							</ul>
-		</div>
-	</div>
-
+		
 		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
 
 	
@@ -2186,18 +2338,93 @@
 <div  class="tribe-events-calendar-month-mobile-events__mobile-day tribe-events-calendar-month-mobile-events__mobile-day--show"  id="tribe-events-calendar-mobile-day-2019-01-1">
 
 	
-		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
-			<ul class="tribe-events-c-messages__message-list">
-									<li
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-					There are no events on this day.					</li>
-							</ul>
-		</div>
-	</div>
+					
+			<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
+	<time
+		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
+		datetime="2019-06-20"
+	>
+		June 20	</time>
+</div>
 
+			
+			
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-234234234 tribe_events type-tribe_events status-publish hentry" >
+
+	
+	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
+
+		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
+				<time datetime="2019-06-20">
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+		</div>
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-234234234"
+		title="Single Event 234234234"
+		rel="bookmark"
+		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
+	>
+		Single Event 234234234	</a>
+</h3>
+		
+	</div>
+</article>
+
+					
+			
+			
+			
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-2453454355 tribe_events type-tribe_events status-publish hentry" >
+
+	
+	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
+
+		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
+				<time datetime="2019-06-20">
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+		</div>
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-2453454355"
+		title="Single Event 2453454355"
+		rel="bookmark"
+		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
+	>
+		Single Event 2453454355	</a>
+</h3>
+		
+	</div>
+</article>
+
+					
+			
+			
+			
+<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-3094853477 tribe_events type-tribe_events status-publish hentry" >
+
+	
+	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
+
+		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
+				<time datetime="2019-06-20">
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+		</div>
+		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-3094853477"
+		title="Single Event 3094853477"
+		rel="bookmark"
+		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
+	>
+		Single Event 3094853477	</a>
+</h3>
+		
+	</div>
+</article>
+
+		
+		
 	</div>
 
 	
@@ -2832,7 +3059,7 @@
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<a
-		href="http://test.tri.be/events/month/2018-12/"
+		href="http://test.tri.be/events/category/cat-1/2018-12/"
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
@@ -2845,7 +3072,7 @@
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--today">
 	<a
-		href="http://test.tri.be/events/month/"
+		href="http://test.tri.be/events/category/cat-1/month/"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
 		aria-label="Click to select today&#039;s date"
@@ -2856,7 +3083,7 @@
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<a
-		href="http://test.tri.be/events/month/2019-02/"
+		href="http://test.tri.be/events/category/cat-1/2019-02/"
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
@@ -2883,7 +3110,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2022-05-17%26ical%3D1%26eventDisplay%3Dlist"
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe_events_cat%3Dcat-1%26tribe-bar-date%3D2022-05-17%26ical%3D1%26eventDisplay%3Dlist"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -2894,7 +3121,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2022-05-17&#038;ical=1&#038;eventDisplay=list"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe_events_cat=cat-1&#038;tribe-bar-date=2022-05-17&#038;ical=1&#038;eventDisplay=list"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -2905,7 +3132,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="http://test.tri.be/events/month/?ical=1"
+		href="http://test.tri.be/events/category/cat-1/month/?ical=1"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
