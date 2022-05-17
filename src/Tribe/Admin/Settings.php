@@ -477,6 +477,10 @@ class Settings {
 			return $options;
 		}
 
+		if ( ! is_plugin_active_for_network( 'the-events-calendar/the-events-calendar.php' ) ) {
+			return;
+		}
+
 		$tec_tabs = $this->get_events_settings_tabs_ids();
 		$form_options['hideSettingsTabs'] = $_POST['hideSettingsTabs'];
 
