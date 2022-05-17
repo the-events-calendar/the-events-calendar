@@ -31,7 +31,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_actions() {
 		add_action( 'current_screen', [ $this, 'add_widget_resources' ] );
 		add_action( 'save_post_' . TEC::POSTTYPE, [ $this, 'calculate_duration' ], 20 );
-		add_action( 'plugins_loaded', [ $this, 'update_old_durations' ] );
 	}
 
 	/**
@@ -65,41 +64,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		if ( empty( $saved_duration ) || (int) $saved_duration !== (int) $calculated_duration ) {
 			update_post_meta( $post_id, '_EventDuration', $calculated_duration );
 		}
-	}
-
-	/**
-	 * A run-once function to update any existing events that are missing
-	 * the `_EventDuration meta.
-	 *
-	 * @since TBD
-	 */
-	public function update_old_durations() {
-		if ( ! empty( tribe_get_option( 'fix_duration' ) ) ) {
-			return;
-		}
-
-		global $wpdb;
-			$query = $wpdb->prepare( "INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
-						SELECT p.ID, %s, TIME_TO_SEC(TIMEDIFF(end.meta_value, start.meta_value))
-						from $wpdb->posts p
-						JOIN $wpdb->postmeta start ON start.post_id = p.ID
-						AND start.meta_key = %s JOIN $wpdb->postmeta end
-						ON end.post_id = p.ID AND end.meta_key = %s
-						LEFT JOIN $wpdb->postmeta duration
-						ON p.ID = duration.post_id AND duration.meta_key = %s
-						WHERE p.post_type = %s AND duration.meta_value IS NULL",
-						'_EventDuration',
-						'_EventStartDateUTC',
-						'_EventEndDateUTC',
-						'_EventDuration',
-						TEC::POSTTYPE
-					);
-
-			$fixed = $wpdb->query( $query );
-
-			if( false !== $fixed ) {
-				tribe_update_option( 'fix_duration', 1 );
-			}
 	}
 
 	/**
