@@ -70,7 +70,7 @@ class Tribe__Events__Integrations__Freemius {
 	 *
 	 * @var string
 	 */
-	private $page = 'tribe-common';
+	private $page = 'tec-events-settings';
 
 	/**
 	 * Tribe__Tickets__Integrations__Freemius constructor.
@@ -98,10 +98,12 @@ class Tribe__Events__Integrations__Freemius {
 		$page = tribe_get_request_var( 'page' );
 
 		$valid_page = [
-			Tribe__Settings::$parent_slug          => true,
-			Tribe__App_Shop::MENU_SLUG             => true,
-			Tribe__Events__Aggregator__Page::$slug => true,
-			'tribe-help'                           => true,
+			\Tribe\Events\Admin\Settings::$settings_page_id => true,
+			Tribe__Settings::$parent_slug                   => true,
+			Tribe__App_Shop::MENU_SLUG                      => true,
+			Tribe__Events__Aggregator__Page::$slug          => true,
+			'tec-events-help'                               => true,
+			'tec-troubleshooting'                           => true,
 		];
 
 		if ( isset( $valid_page[ $page ] ) ) {
