@@ -25,12 +25,34 @@
 [{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 09:00","description":"","url":"http://test.tri.be/?tribe_events=test-event-0900-2%2F/","startDate":"2019-01-01T09:00:00-02:00","endDate":"2019-01-01T12:00:00-02:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 12:00","description":"","url":"http://test.tri.be/?tribe_events=test-event-1200%2F/","startDate":"2019-01-01T12:00:00-02:00","endDate":"2019-01-01T15:00:00-02:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; 16:30","description":"","url":"http://test.tri.be/?tribe_events=test-event-1630%2F/","startDate":"2019-01-01T16:30:00-02:00","endDate":"2019-01-01T19:30:00-02:00","performer":"Organization"}]
 </script>
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/day\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[904385349785,349589759485,340934095850,904385349781,349589759480,340934095823],"url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/day\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"subscribe_links":[],"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/day\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[904385349785,349589759485,340934095850,904385349781,349589759480,340934095823],"url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[{"link":"http:\\/\\/test.tri.be\\/events\\/","label":"Events"},{"link":"","label":"tag-1"}],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/day\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"subscribe_links":[],"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
 		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
 			
+			<div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
+	<ol class="tribe-events-c-breadcrumbs__list">
+		
+							<li class="tribe-events-c-breadcrumbs__list-item">
+	<a
+		href="http://test.tri.be/events/"
+		class="tribe-events-c-breadcrumbs__list-item-link"
+		data-js="tribe-events-view-link"
+	>
+		Events	</a>
+	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+</li>
 			
+		
+							<li class="tribe-events-c-breadcrumbs__list-item">
+	<span class="tribe-events-c-breadcrumbs__list-item-text">
+		tag-1	</span>
+	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+</li>
+			
+			</ol>
+</div>
+
 			<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >

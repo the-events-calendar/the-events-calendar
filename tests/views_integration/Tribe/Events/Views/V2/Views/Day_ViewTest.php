@@ -285,9 +285,9 @@ class Day_ViewTest extends ViewTestCase {
 		$timezone        = Timezones::build_timezone_object( $timezone_string );
 		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );
 		update_option( 'timezone_string', $timezone_string );
-		$cat    = $this->factory()->term->create( [ 'slug' => 'cat-1', 'taxonomy' => TEC::TAXONOMY ] );
+		$cat    = $this->factory()->term->create( [ 'slug' => 'cat-1', 'name' => 'cat-1', 'taxonomy' => TEC::TAXONOMY ] );
 		$cat_term = get_term( $cat, TEC::TAXONOMY  );
-		$tag    = $this->factory()->tag->create( [ 'slug' => 'tag-1' ] );
+		$tag    = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'tag-1' ] );
 		$tag_term = get_term( $tag, 'post_tag'  );
 
 		$events = [];
