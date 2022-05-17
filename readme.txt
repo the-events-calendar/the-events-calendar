@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.15.0] 2022-05-17 =
 
 * Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
+* Language - 1 new strings added, 395 updated, 2 fuzzied, and 3 obsoleted
 
 = [5.14.1] 2022-03-17 =
 
