@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Prevent Redis Cache Pro fatals around date utilization and calculations on Views [TEC-4351]
 * Fix - Ensure all expected subscribe links show when using the default page template. [TEC-4313]
 * Fix - Put back the event website label for Classic editor. [TEC-4334]
 * Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
