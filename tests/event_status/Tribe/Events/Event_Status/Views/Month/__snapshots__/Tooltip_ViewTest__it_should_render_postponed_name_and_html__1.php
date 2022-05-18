@@ -6,7 +6,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2019-06-20">
-		<span class="tribe-event-date-start">May 17 @ 3:10 pm</span>	</time>
+		<span class="tribe-event-date-start">May 18 @ 8:39 pm</span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
