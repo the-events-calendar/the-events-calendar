@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use Tribe\Events\Views\V2\View as View;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Outlook_Abstract_Export
@@ -21,13 +22,31 @@ use Tribe\Events\Views\V2\View as View;
 abstract class Outlook_Abstract_Export extends Link_Abstract {
 
 	/**
-	 * Slug used to generate the outlook link.
+	 * Slug used to generate the Outlook link.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
 	public static $calendar_slug = '';
+
+	/**
+	 * Space replacement used to in Outlook link.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $outlook_space = '%20';
+
+	/**
+	 * Temporary space replacement used to to urlencode an Outlook link.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $outlook_temp_space = 'TEC_OUTLOOK_SPACE';
 
 	/**
 	 * Generate the parameters for the Outlook export buttons.
@@ -45,24 +64,26 @@ abstract class Outlook_Abstract_Export extends Link_Abstract {
 		$path = '/calendar/action/compose';
 		$rrv  = 'addevent';
 
-		$startdt = $event->start_date;
-		$enddt   = $event->end_date;
+		$startdt = '';
+		$enddt   = '';
 
 		/**
 		 * If event is an all day event, then adjust the end time.
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
-			$enddt = date( 'Y-m-d', strtotime( $enddt ) ) . 'T' . date( 'H:i:s', strtotime( $startdt ) );
+			$enddt = Dates::build_date_object( $event->end_date )->format( 'Y-m-d' )
+				. 'T'
+				. Dates::build_date_object( $event->start_date )->format( 'H:i:s' );
 		} else {
-			$enddt = date( 'c', strtotime( $enddt ) ); // 17 chars
+			$enddt = Dates::build_date_object( $event->end_date )->format( 'c' );
 			$enddt = substr( $enddt, 0, strlen( $enddt ) - 6 );
 		}
 
-		$startdt = date( 'c', strtotime( $startdt ) );
+		$startdt = Dates::build_date_object( $event->start_date )->format( 'c' );
 		$startdt = substr( $startdt, 0, strlen( $startdt ) - 6 );
 
-		$subject = $this->space_replace_and_encode( strip_tags( $event->post_title ) ); // 8+ chars
+		$subject = $this->space_replace_and_encode( strip_tags( $event->post_title ) );
 
 		/**
 		 * A filter to hide or show the event description.
@@ -210,9 +231,9 @@ abstract class Outlook_Abstract_Export extends Link_Abstract {
 	 * @return string The encoded URL string.
 	 */
 	public function space_replace_and_encode( $string ) {
-		$string = str_replace( ' ', 'TEC_OUTLOOK_SPACE', $string );
+		$string = str_replace( ' ', static::$outlook_temp_space, $string );
 		$string = urlencode( $string );
-		$string = str_replace( 'TEC_OUTLOOK_SPACE', '%20', $string );
+		$string = str_replace( static::$outlook_temp_space, static::$outlook_space, $string );
 
 		return $string;
 	}

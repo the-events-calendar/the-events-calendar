@@ -36,7 +36,24 @@ class Single_Events {
 	 * @param Template $template An instance of the plugin template handler.
 	 */
 	public function __construct( Template $template ) {
-		$this->template = $template;
+		$this->get_template( $template );
+	}
+
+	/**
+	 * Gets the template instance used to render single events iCalendar templates.
+	 *
+	 * @since TBD
+	 *
+	 * @param Template $template An instance of the plugin template handler.
+	 *
+	 * @return Template An instance of the plugin template handler.
+	 */
+	public function get_template( $template ) {
+		if ( empty( $this->template ) ) {
+			$this->template = $template;
+		}
+
+		return $this->template;
 	}
 
 	/**
@@ -51,27 +68,24 @@ class Single_Events {
 	 * @return string The altered link content.
 	 */
 	public function single_event_links( $calendar_links, $subscribe_links ) {
+		// Clear links.
 		$calendar_links = '';
-
-		$links = [];
 
 		/**
 		 * Allows each link type to add itself to the links on the Event Single views.
 		 *
 		 * @since 5.12.0
+		 * @deprecated TBD - Single events use the Subscribe Dropdown.
 		 *
 		 * @param array<string|string> $subscribe_links The array of link objects.
 		 * @param View|null            $view            The current View implementation.
 		 */
-		$links = apply_filters( 'tec_views_v2_single_subscribe_links', $links, null );
+		apply_filters_deprecated( 'tec_views_v2_single_subscribe_links', [ [], null ], 'TBD', '', 'Single event subscribe links use the subscribe dropdown, there is no replacement for this filter.' );
 
-		// Remove any that are empty post-filtering.
-		$links = array_filter( $links );
-
-		$count = count( $subscribe_links );
 		if ( 1 === count( $subscribe_links ) ) {
 			// If we only have one link in the list, show a "button".
-			$key = array_keys( $subscribe_links )[0];
+			reset($subscribe_links);
+			$key = key($subscribe_links);
 			$calendar_links .= $this->template->template( 'components/subscribe-links/single', [ 'item' => $subscribe_links[ $key ] ], false );
 		} else {
 			// If we have multiple links in the list, show a "dropdown".
