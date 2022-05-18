@@ -20,7 +20,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 		</h3>
 
 		<p>
-			<?php echo esc_html( $text->get( 'preview-prompt-features' ) ); ?>
+			<?php echo sprintf( $text->get( 'preview-prompt-features' ), '<a href="https://evnt.is/1b78" target="_blank">', '</a>' ); ?>
 		</p>
 
 		<p>

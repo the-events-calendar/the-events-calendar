@@ -147,7 +147,7 @@ class String_Dictionary {
 			),
 			'preview-prompt-upgrade-cta'                             => __( 'Upgrade your event data storage system.', 'the-events-calendar' ),
 			'preview-prompt-features'                                => __(
-				"We've completely revamped the way event information is stored on your site's database. Upgrade now to take advantage of faster calendar load times and improved performance.",
+				"We've completely revamped the way event information is stored on your site's database. Upgrade now to take advantage of faster calendar load times and improved performance. As with any significant site change, we recommend %screating a site backup%s before beginning the migration process.",
 				'the-events-calendar'
 			),
 			'preview-prompt-ready'                                   => __(
