@@ -302,9 +302,9 @@ class List_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_with_upcoming_taxonomy_events() {
 		$events = [];
-		$cat    = $this->factory()->term->create( [ 'slug' => 'cat-1', 'taxonomy' => TEC::TAXONOMY ] );
+		$cat    = $this->factory()->term->create( [ 'slug' => 'cat-1', 'name' => 'cat-1', 'taxonomy' => TEC::TAXONOMY ] );
 		$cat_term = get_term( $cat, TEC::TAXONOMY  );
-		$tag    = $this->factory()->tag->create( [ 'slug' => 'tag-1' ] );
+		$tag    = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'tag-1' ] );
 		$tag_term = get_term( $tag, 'post_tag'  );
 
 		// Create the events.

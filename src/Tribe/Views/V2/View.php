@@ -1422,6 +1422,17 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Get if we have events in the next page.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean Weather the View has events in the next page.
+	 */
+	public function get_has_next_event() {
+		return (boolean) $this->has_next_event;
+	}
+
+	/**
 	 * Sets up the View template variables.
 	 *
 	 * @since 4.9.4
@@ -1979,6 +1990,10 @@ class View implements View_Interface {
 		$breadcrumbs = [];
 		$taxonomy    = TEC::TAXONOMY;
 		$context_tax = $context->get( $taxonomy, false );
+		if ( empty( $context_tax ) ) {
+			$taxonomy    = 'post_tag';
+			$context_tax = $context->get( $taxonomy, false );
+		}
 
 		// Get term slug if taxonomy is not empty
 		if ( ! empty( $context_tax ) ) {
