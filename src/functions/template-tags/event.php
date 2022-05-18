@@ -109,6 +109,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			return null;
 		}
 
+		// Ensure we don't get back something that is _not_ an event.
 		if ( Tribe__Events__Main::POSTTYPE !== $cache_post->post_type ) {
 			return null;
 		}

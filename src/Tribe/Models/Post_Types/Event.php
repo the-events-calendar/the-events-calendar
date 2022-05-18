@@ -51,14 +51,15 @@ class Event extends Base {
 			$one_day    = new DateInterval( 'P1D' );
 
 			$post_id = $this->post->ID;
+			$post_meta = get_post_meta( $post_id );
 
-			$start_date            = get_post_meta( $post_id, '_EventStartDate', true );
-			$start_date_utc        = get_post_meta( $post_id, '_EventStartDateUTC', true );
-			$end_date              = get_post_meta( $post_id, '_EventEndDate', true );
-			$end_date_utc          = get_post_meta( $post_id, '_EventEndDateUTC', true );
-			$duration              = get_post_meta( $post_id, '_EventDuration', true );
+			$start_date            = isset( $post_meta['_EventStartDate'][0] ) ? $post_meta['_EventStartDate'][0] : null;
+			$start_date_utc        = isset( $post_meta['_EventStartDateUTC'][0] ) ? $post_meta['_EventStartDateUTC'][0] : null;
+			$end_date              = isset( $post_meta['_EventEndDate'][0] ) ? $post_meta['_EventEndDate'][0] : null;
+			$end_date_utc          = isset( $post_meta['_EventEndDateUTC'][0] ) ? $post_meta['_EventEndDateUTC'][0] : null;
+			$duration              = (int) isset( $post_meta['_EventDuration'][0] ) ? $post_meta['_EventDuration'][0] : null;
 			$timezone_string       = Timezones::get_event_timezone_string( $post_id );
-			$all_day               = tribe_is_truthy( get_post_meta( $post_id, '_EventAllDay', true ) );
+			$all_day               = tribe_is_truthy( isset( $post_meta['_EventAllDay'][0] ) ? $post_meta['_EventAllDay'][0] : null );
 			$end_of_day            = tribe_end_of_day( $start_date );
 			$timezone              = Timezones::build_timezone_object( $timezone_string );
 			$site_timezone         = Timezones::build_timezone_object();
@@ -169,7 +170,7 @@ class Event extends Base {
 				}
 			}
 
-			$featured              = tribe_is_truthy( get_post_meta( $post_id, Featured::FEATURED_EVENT_KEY, true ) );
+			$featured              = tribe_is_truthy( isset( $post_meta[ Featured::FEATURED_EVENT_KEY ][0] ) ? $post_meta[ Featured::FEATURED_EVENT_KEY ][0] : null );
 			$sticky                = get_post_field( 'menu_order', $post_id ) === - 1;
 			$organizer_names_fetch = Organizer::get_fetch_names_callback( $post_id );
 			$organizer_fetch       = Organizer::get_fetch_callback( $post_id );
