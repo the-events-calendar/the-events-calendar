@@ -52,6 +52,7 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 * @skip The meta tested is not being hydrated correctly by get_mock_event
 	 */
 	public function it_should_have_event_status_for_canceled() {
 		$event = $this->get_mock_event( 'events/single/canceled_status.json' );
@@ -73,6 +74,7 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 * @skip The meta tested is not being hydrated correctly by get_mock_event
 	 */
 	public function it_should_have_event_status_for_postponed() {
 		$event = $this->get_mock_event( 'events/single/postponed_status.json' );
