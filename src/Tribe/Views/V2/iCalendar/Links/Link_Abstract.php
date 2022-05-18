@@ -95,7 +95,6 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links' ], 10 );
-		add_filter( 'tec_views_v2_single_subscribe_links', [ $this, 'filter_tec_views_v2_single_subscribe_links' ], 10, 2 );
 
 		$this->set_hooked();
 	}
