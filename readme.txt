@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.15.0] 2022-05-17 =
+= [5.15.0] 2022-05-19 =
 
 * Version - The Events Calendar 5.15.0 is only compatible with Event Tickets 5.4.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Calendar PRO 5.14.0 and higher
