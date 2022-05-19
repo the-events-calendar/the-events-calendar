@@ -84,9 +84,8 @@ class Single_Events {
 
 		if ( 1 === count( $subscribe_links ) ) {
 			// If we only have one link in the list, show a "button".
-			reset($subscribe_links);
-			$key = key($subscribe_links);
-			$calendar_links .= $this->template->template( 'components/subscribe-links/single', [ 'item' => $subscribe_links[ $key ] ], false );
+			$item = array_shift( $subscribe_links );
+			$calendar_links .= $this->template->template( 'components/subscribe-links/single', [ 'item' => $item ], false );
 		} else {
 			// If we have multiple links in the list, show a "dropdown".
 			$calendar_links .= $this->template->template( 'components/subscribe-links/single-event-list', [ 'items' => $subscribe_links ], false );
