@@ -12,7 +12,7 @@ class Tribe__Events__Importer__File_Reader {
 	/**
 	 * Construct for Tribe__Events__Importer__File_Reader.
 	 *
-	 * @since TBD - Fix for PHP 8.0.15 to 8.0.17 on getting the last line of the csv file.
+	 * @since 5.14.2 - Fix for PHP 8.0.15 to 8.0.17 on getting the last line of the csv file.
 	 *
 	 * @param string $file_path The full path to the file.
 	 */

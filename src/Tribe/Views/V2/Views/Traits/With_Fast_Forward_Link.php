@@ -54,7 +54,7 @@ trait With_Fast_Forward_Link {
 		/**
 		 * Allows other plugins to modify the events repository for the fast-forward link.
 		 *
-		 * @since TBD
+		 * @since 5.14.2
 		 *
 		 * @param Tribe__Repository__Interface $next_event Current instance of the events repository class.
 		 * @param View_Interface               $view       The View currently rendering.

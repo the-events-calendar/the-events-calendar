@@ -224,18 +224,25 @@ Remember to always make a backup of your database and files before updating!
 
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
-= [5.14.2] TBD =
+= [5.14.2.1] 2022-04-28 =
+
+* Fix - Correct an issue with linked common release.
+
+= [5.14.2] 2022-04-28 =
 
 * Feature - Add support to CSV import for the ISO Currency Code field. [TEC-4341]
-* Tweak - Updated the venue website field to type URL. [TEC-4349]
+* Feature - First iteration of changes for Full Site Editor compatibility. [TEC-4262]
 * Tweak - Added filters `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer` for better control of the merge duplicate venues and organizers functionality. [TEC-4225]
 * Tweak - Added filter `tribe_events_views_v2_ff_link_next_event` to allow better control of the fast-forward link target. [ECP-957]
 * Tweak - Allow filtering of the "next event" query in the fast-forward link. [ECP-957]
+* Tweak - Added filters: `tribe_merge_identical_organizers_enabled`, `tribe_merge_identical_venues_enabled`, `tribe_merge_identical_organizers_fields`, `tribe_merge_identical_venues_fields`, `tribe_amalgamate_venues_keep_venue`, `tribe_amalgamate_organizers_keep_organizer`, `tribe_events_views_v2_ff_link_next_event`.
+* Tweak - Changed views: `blocks/archive-events`.
 * Fix - Correctly calculate Event duration when the Event crosses the daylight saving date and time. [TEC-4336]
 * Fix - Don't try to validate "raw" as a date. [TEC-4254]
 * Fix - Ensure the Views don't try to do math with strings. [TEC-4322]
 * Fix - Enable more than 5 csv entries to be imported when using 8.0.15 to 8.0.17 or 8.1.2 to 8.1.4. [TEC-4312]
 * Fix - Ensure Google Calendar links include the event description if it exists. [TEC-4315]
+* Language - 3 new strings added, 232 updated, 0 fuzzied, and 0 obsoleted.
 
 = [5.14.1] 2022-03-17 =
 
