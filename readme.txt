@@ -228,6 +228,9 @@ Remember to always make a backup of your database and files before updating!
 * Version - The Events Calendar 5.15.0 is only compatible with Event Tickets 5.4.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Calendar PRO 5.14.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Filterbar	5.3.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Virtual	1.10.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Community	4.9.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Eventbrite Tickets	4.6.11 and higher
 * Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
 * Language - 1 new strings added, 395 updated, 2 fuzzied, and 3 obsoleted
 
