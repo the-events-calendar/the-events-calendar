@@ -82,7 +82,7 @@ class Single_Events {
 		 */
 		apply_filters_deprecated( 'tec_views_v2_single_subscribe_links', [ [], null ], 'TBD', '', 'Single event subscribe links use the subscribe dropdown, there is no replacement for this filter.' );
 
-		if ( 4 === count( $subscribe_links ) ) {
+		if ( 1 === count( $subscribe_links ) ) {
 			// If we only have one link in the list, show a "button".
 			$item = array_shift( $subscribe_links );
 			$calendar_links .= $this->template->template( 'components/subscribe-links/single', [ 'item' => $item ], false );
