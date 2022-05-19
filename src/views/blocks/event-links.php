@@ -53,39 +53,11 @@ if ( empty( $items ) ) {
 	return;
 }
 
-remove_filter( 'the_content', 'do_blocks', 9 );
-?>
-<div class="tribe-block tribe-block__events-link">
-	<div class="tribe-events tribe-common">
-		<div class="tribe-events-c-subscribe-dropdown__container">
-			<div class="tribe-events-c-subscribe-dropdown">
-				<div class="tribe-common-c-btn-border tribe-events-c-subscribe-dropdown__button" tabindex="0">
-					<?php $this->template( 'v2/components/icons/cal-export', [ 'classes' => [ 'tribe-events-c-subscribe-dropdown__export-icon' ] ] ); ?>
-					<button class="tribe-events-c-subscribe-dropdown__button-text">
-						<?php echo esc_html__( 'Add to calendar', 'the-events-calendar' ); ?>
-					</button>
-					<?php $this->template( 'v2/components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-subscribe-dropdown__button-icon' ] ] ); ?>
-				</div>
-				<div class="tribe-events-c-subscribe-dropdown__content">
-					<ul class="tribe-events-c-subscribe-dropdown__list" tabindex="0">
-						<?php foreach ( $items as $item ) : ?>
-							<li class="tribe-events-c-subscribe-dropdown__list-item">
-								<a
-									href="<?php echo esc_url( $item->get_uri( null ) ); ?>"
-									class="tribe-events-c-subscribe-dropdown__list-item-link"
-									tabindex="0"
-									target="_blank"
-									rel="noopener noreferrer nofollow"
-								>
-									<?php echo esc_html( $item->get_label( null ) ); ?>
-								</a>
-							</li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<?php add_filter( 'the_content', 'do_blocks', 9 );
+if ( 1 === count( $items ) ) {
+	// If we only have one link in the list, show a "button".
+	$item = array_shift( $items );
+	$this->template( 'blocks/parts/subscribe-single', [ 'item' => $item ] );
+} else {
+	// If we have multiple links in the list, show a "dropdown".
+	$this->template( 'blocks/parts/subscribe-list', [ 'items' => $items ] );
+}

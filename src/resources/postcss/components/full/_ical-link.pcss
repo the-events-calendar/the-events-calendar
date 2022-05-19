@@ -139,6 +139,7 @@
 	}
 
 	.tribe-events-c-ical__link {
+		color: var(--tec-color-accent-primary);
 		font-size: var(--tec-font-size-2);
 		margin: 0 0 var(--tec-spacer-3);
 		width: 220px;
@@ -180,5 +181,18 @@
 		stroke: currentColor;
 		vertical-align: middle;
 		width: 21px;
+	}
+}
+
+#tribe-events-content {
+	.tribe-block__events-link {
+		/** Override for the single subscribe button link color in the block editor. **/
+		.tribe-events-c-ical__link {
+			color: var(--tec-color-accent-primary);
+
+			&:hover {
+				color: #ffffff;
+			}
+		}
 	}
 }
