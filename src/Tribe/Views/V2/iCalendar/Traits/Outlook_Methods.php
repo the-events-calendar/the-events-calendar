@@ -1,34 +1,25 @@
 <?php
 /**
- * Handles Outlook Abstract export/subscribe links.
+ * Handles Outlook Methods Trait export/subscribe links.
  *
  * @since   TBD
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
 
-namespace Tribe\Events\Views\V2\iCalendar\Links;
+namespace Tribe\Events\Views\V2\iCalendar\Traits;
 
 use Tribe\Events\Views\V2\View as View;
 use Tribe__Date_Utils as Dates;
 
 /**
- * Class Outlook_Abstract_Export
+ * Class Outlook_Methods
  *
  * @since   TBD
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
-abstract class Outlook_Abstract_Export extends Link_Abstract {
-
-	/**
-	 * Slug used to generate the Outlook link.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public static $calendar_slug = '';
+trait Outlook_Methods {
 
 	/**
 	 * Space replacement used to in Outlook link.
