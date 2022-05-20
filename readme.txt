@@ -1,10 +1,10 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
+Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.14.2.1
+Stable tag: 5.15.0
 Tested up to: 5.9.3
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -222,6 +222,17 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.15.0] 2022-05-19 =
+
+* Version - The Events Calendar 5.15.0 is only compatible with Event Tickets 5.4.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Calendar PRO 5.14.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Filterbar	5.3.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Virtual 1.10.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Community 4.9.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Eventbrite Tickets 4.6.11 and higher
+* Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
+* Language - 1 new strings added, 395 updated, 2 fuzzied, and 3 obsoleted
 
 = [5.14.2.1] 2022-04-28 =
 

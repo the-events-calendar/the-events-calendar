@@ -3,6 +3,7 @@
  * Main Tribe Events Calendar class.
  */
 use Tribe\DB_Lock;
+use Tribe\Events\Admin\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -39,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '5.7-dev';
+		const MIN_ADDON_VERSION   = '5.14-dev';
 
 		/**
 		 * Min Common
@@ -69,7 +70,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '4.11.2-dev';
+		protected $min_et_version = '5.4.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -534,6 +535,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function bind_implementations(  ) {
 			tribe_singleton( 'tec.main', $this );
 
+			// Admin provider.
+			tribe_register_provider( \Tribe\Events\Admin\Provider::class );
+
 			// i18n.
 			tribe_singleton( 'tec.i18n', new Tribe\Events\I18n( $this ) );
 
@@ -826,7 +830,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_action( 'admin_init', [ $this, 'init_admin_list_screen' ] );
 			}
 
-			// Load organizer and venue editors
+			// Load Organizer and Venue editors.
 			add_action( 'admin_menu', [ $this, 'addVenueAndOrganizerEditor' ] );
 
 			add_action( 'tribe_venue_table_top', [ $this, 'display_rich_snippets_helper' ], 5 );
@@ -835,14 +839,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'wp', [ $this, 'issue_noindex' ] );
 			add_action( 'plugin_row_meta', [ $this, 'addMetaLinks' ], 10, 2 );
-			// organizer and venue
+			// Organizer and venue.
 			if ( ! tec_should_hide_upsell() ) {
 				add_action( 'wp_dashboard_setup', [ $this, 'dashboardWidget' ] );
 				add_action( 'tribe_events_cost_table', [ $this, 'maybeShowMetaUpsell' ] );
 			}
 
 			add_action(
-				'load-tribe_events_page_' . Tribe__Settings::$parent_slug,
+				'load-tribe_events_page_' . Tribe\Events\Admin\Settings::$settings_page_id ,
 				[
 					'Tribe__Events__Amalgamator',
 					'listen_for_migration_button',
@@ -1053,6 +1057,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Settings page object accessor.
+		 *
+		 * @since 5.15.0
+		 *
+		 * @return Settings
+		 */
+		public function settings() {
+			return tribe( Settings::class );
+		}
+
+		/**
 		 * Initializes any admin-specific code (expects to be called when admin_init fires).
 		 */
 		public function admin_init() {
@@ -1101,6 +1116,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$this->activation_page = new Tribe__Admin__Activation_Page(
 					[
 						'slug'                  => 'the-events-calendar',
+						'admin_page'            => 'tribe_events_page_tec-events-settings',
+						'admin_url'             => tribe( Settings::class )->get_url(),
 						'activation_transient'  => '_tribe_events_activation_redirect',
 						'version'               => self::VERSION,
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
@@ -1279,9 +1296,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Initialize the addons api settings tab
+		 * Initialize the addons api settings tab.
+		 *
+		 * @since 5.15.0 Added check to see if we are on TEC settings page.
 		 */
-		public function do_addons_api_settings_tab() {
+		public function do_addons_api_settings_tab( $admin_page ) {
+			// Bail if we're not on TEC settings.
+			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
+				return;
+			}
+
 			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
 		}
 
@@ -1325,8 +1349,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Create the upgrade tab
 		 *
 		 * @since 4.9.12
+		 * @since 5.15.0 Added check to see if we are on TEC settings page.
 		 */
-		public function do_upgrade_tab() {
+		public function do_upgrade_tab( $admin_page ) {
+			// Bail if we're not on TEC settings.
+			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
+				return;
+			}
+
 			if ( ! $this->show_upgrade() ) {
 				return;
 			}
@@ -1386,6 +1416,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'network_admin' => is_network_admin(),
 					'show_save'     => true,
 				]
+			);
+
+			add_filter(
+				'tec_events_settings_tabs_ids',
+				function( $tabs ) {
+					$tabs[] = 'upgrade';
+					return $tabs;
+				}
 			);
 		}
 
@@ -4443,7 +4481,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @todo move to an admin class
 		 */
 		public function addLinksToPluginActions( $actions ) {
-			$actions['settings']       = '<a href="' . Tribe__Settings::instance()->get_url() . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
+			$actions['settings']       = '<a href="' . tribe( Settings::class )->get_url() . '">' . esc_html__( 'Settings', 'the-events-calendar' ) . '</a>';
 			$actions['tribe-calendar'] = '<a href="' . $this->getLink() . '">' . esc_html__( 'Calendar', 'the-events-calendar' ) . '</a>';
 
 			return $actions;

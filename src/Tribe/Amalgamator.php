@@ -2,6 +2,8 @@
 /**
  * Merge pre-3.0 duplicate venues and organizers
  */
+use Tribe\Events\Admin\Settings as Plugin_Settings;
+
 class Tribe__Events__Amalgamator {
 	private $default_venue = 0;
 	private $default_community_venue = 0;
@@ -450,18 +452,10 @@ class Tribe__Events__Amalgamator {
 	 * @return string
 	 */
 	public static function migration_button( $text = '' ) {
-		$text     = $text ? $text : __( 'Merge Duplicates', 'the-events-calendar' );
-		$settings = Tribe__Settings::instance();
+		$text = $text ? $text : __( 'Merge Duplicates', 'the-events-calendar' );
 
-		// get the base settings page url
-		$url = apply_filters(
-			'tribe_settings_url', add_query_arg(
-				[
-					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug,
-				], admin_url( 'edit.php' )
-			)
-		);
+		// Get the base settings page URL.
+		$url = tribe( Plugin_Settings::class )->get_url();
 
 		$url = add_query_arg( [ 'amalgamate' => '1' ], $url );
 		$url = wp_nonce_url( $url, 'amalgamate_duplicates' );
@@ -481,17 +475,10 @@ class Tribe__Events__Amalgamator {
 		$amalgamator = new self();
 		$amalgamator->merge_duplicates();
 
-		// redirect to base settings page
-		$settings = Tribe__Settings::instance();
-		$url      = apply_filters(
-			'tribe_settings_url', add_query_arg(
-				[
-					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug,
-				], admin_url( 'edit.php' )
-			)
-		);
+		// Redirect to base settings page.
+		$url = tribe( Plugin_Settings::class )->get_url();
+
 		wp_redirect( esc_url_raw( $url ) );
-		exit();
+		tribe_exit();
 	}
 }
