@@ -225,7 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.15.0.1] 2022-05-20 =
 
-* Fix - Prevent fatal when using Yoast due to missing function.
+* Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [BTRIA-1243]
 
 = [5.15.0] 2022-05-19 =
 
