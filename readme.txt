@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.15.0.1] 2022-05-20 =
 
 * Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [BTRIA-1243]
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
 
 = [5.15.0] 2022-05-19 =
 
