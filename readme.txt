@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.15.0
+Stable tag: 5.15.0.1
 Tested up to: 5.9.3
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -222,6 +222,10 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.15.0.1] 2022-05-20 =
+
+* Fix - Prevent fatal when using Yoast due to missing function.
 
 = [5.15.0] 2022-05-19 =
 
