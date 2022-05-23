@@ -46,9 +46,12 @@ class Asset_Loader {
 	 * @since TBD
 	 */
 	public function enqueue_scripts() {
+		$screen_id = 'tribe_events_page_tec-events-settings';
+		$screen = get_current_screen();
 		$on_settings_page         = isset( $_GET['page'] )
-		                            && $_GET['page'] === tribe( 'settings' )->adminSlug;
+		                            && $screen->id === $screen_id;
 		$on_maintenance_mode_page = tribe( Progress_Modal::class )->should_render();
+
 
 		if ( ! $on_settings_page && ! $on_maintenance_mode_page ) {
 			return;
