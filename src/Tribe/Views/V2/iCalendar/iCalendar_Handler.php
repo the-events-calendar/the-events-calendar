@@ -13,8 +13,9 @@ use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export;
 use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
-use Tribe\Events\Views\V2\iCalendar\Links\Outlook_365_Export;
-use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live_Export;
+use Tribe\Events\Views\V2\iCalendar\Links\Outlook_365;
+use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Export;
+use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
 use Tribe\Events\Views\V2\View;
 
 /**
@@ -35,9 +36,10 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	protected $default_feeds = [
 		Google_Calendar::class,
 		iCal::class,
+		Outlook_365::class,
+		Outlook_Live::class,
 		iCalendar_Export::class,
-		Outlook_365_Export::class,
-		Outlook_Live_Export::class,
+		Outlook_Export::class,
 	];
 
 	/**

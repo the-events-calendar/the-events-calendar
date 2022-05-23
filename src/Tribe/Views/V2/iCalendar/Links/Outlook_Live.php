@@ -12,13 +12,13 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 use Tribe\Events\Views\V2\iCalendar\Traits\Outlook_Methods;
 
 /**
- * Class Outlook_Live_Export
+ * Class Outlook_Live
  *
  * @since   TBD
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
-class Outlook_Live_Export extends Link_Abstract {
+class Outlook_Live extends Link_Abstract {
 
 	use Outlook_Methods;
 
