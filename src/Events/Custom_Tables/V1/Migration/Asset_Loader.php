@@ -61,9 +61,8 @@ class Asset_Loader {
 
 		$text = tribe( String_Dictionary::class );
 		wp_enqueue_style( 'tec-ct1-upgrade-admin-css' );
-		//wp_enqueue_script( 'tec-ct1-upgrade-admin-js' );
-
-/*		wp_localize_script( 'tec-ct1-upgrade-admin-js',
+		wp_enqueue_script( 'tec-ct1-upgrade-admin-js' );
+		wp_localize_script( 'tec-ct1-upgrade-admin-js',
 			'tecCt1Upgrade',
 			[
 				'ajaxUrl'           => admin_url() . 'admin-ajax.php',
@@ -90,7 +89,7 @@ class Asset_Loader {
 				'forcePolling'      => $on_maintenance_mode_page,
 				'isMaintenanceMode' => $on_maintenance_mode_page
 			]
-		);*/
+		);
 	}
 
 	/**
@@ -112,64 +111,11 @@ class Asset_Loader {
 			'tec-ct1-upgrade-admin-css',
 			TEC::instance()->plugin_url . "src/resources/css/custom-tables-v1/ct1-upgrade{$min}.css"
 		);
-/*		wp_register_script(
+		wp_register_script(
 			'tec-ct1-upgrade-admin-js',
 			TEC::instance()->plugin_url . "src/resources/js/custom-tables-v1/ct1-upgrade{$min}.js"
-		);*/
-
-		$on_maintenance_mode_page = tribe( Progress_Modal::class )->should_render();
-
-
-
-		$text = tribe( String_Dictionary::class );
-		tribe_assets(
-			TEC::instance(),
-			[
-				[
-					'tec-ct1-upgrade-admin-js',
-					'custom-tables-v1/ct1-upgrade.js',
-					[
-						'jquery',
-
-					],
-				],
-				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
-			],
-			'admin_enqueue_scripts',
-			[
-/*				'conditionals' => [
-					[ $this, 'is_screen' ],
-				],*/
-				'localize'     => (object) [
-					'name' => 'tecCt1Upgrade',
-					'data' => [
-						'ajaxUrl'           => admin_url() . 'admin-ajax.php',
-						'nonce'             => wp_create_nonce( Ajax::NONCE_ACTION ),
-						'pollInterval'      => 5000,
-						'text_dictionary'   => [
-							'confirm_cancel_migration'               => $text->get( 'confirm_cancel_migration' ),
-							'confirm_revert_migration'               => $text->get( 'confirm_revert_migration' ),
-							'migration_prompt_plugin_state_addendum' => $text->get( 'migration-prompt-plugin-state-addendum' ),
-							'migration_in_progress_paragraph'        => sprintf(
-								$text->get( 'migration-in-progress-paragraph' ),
-								'',
-								''
-							)
-						],
-						'actions'           => [
-							'paginateEvents'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_PAGINATE_EVENTS ),
-							'getReport'       => str_replace( 'wp_ajax_', '', Ajax::ACTION_REPORT ),
-							'startMigration'  => str_replace( 'wp_ajax_', '', Ajax::ACTION_START ),
-							'cancelMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_CANCEL ),
-							'revertMigration' => str_replace( 'wp_ajax_', '', Ajax::ACTION_REVERT ),
-						],
-						'event_categories'  => tribe( Event_Report_Categories::class )->get_categories(),
-						'forcePolling'      => $on_maintenance_mode_page,
-						'isMaintenanceMode' => $on_maintenance_mode_page
-					]
-				],
-			]
 		);
+
 		// We want to make sure the main JS file will be loaded as an ES6 module.
 		add_filter( 'script_loader_tag', [ $this, 'register_module_scripts' ], 10, 2 );
 
