@@ -1,10 +1,10 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
+Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.14.2.1
+Stable tag: 5.15.0.1
 Tested up to: 5.9.3
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -223,6 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+<<<<<<< HEAD
 = [TBD] TBD =
 
 * Fix - Prevent Redis Cache Pro fatals around date utilization and calculations on Views [TEC-4351]
@@ -232,6 +233,23 @@ Remember to always make a backup of your database and files before updating!
 * Fix - On Event tag archives only show events with the tag, change the single event tag links to use the event tag archive, and add a link to event tag archive in the admin tag list. [TEC-4314]
 * Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
 * Fix - Add rel noindex and nofollow to the legacy iCal export button. [TEC-4354]
+=======
+= [5.15.0.1] 2022-05-23 =
+
+* Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [BTRIA-1243]
+* Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
+
+= [5.15.0] 2022-05-19 =
+
+* Version - The Events Calendar 5.15.0 is only compatible with Event Tickets 5.4.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Calendar PRO 5.14.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Filterbar	5.3.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Virtual 1.10.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Community 4.9.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Eventbrite Tickets 4.6.11 and higher
+* Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
+* Language - 1 new strings added, 395 updated, 2 fuzzied, and 3 obsoleted
+>>>>>>> master
 
 = [5.14.2.1] 2022-04-28 =
 
