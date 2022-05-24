@@ -1447,6 +1447,9 @@ class View implements View_Interface {
 		}
 
 		$events = (array) $this->repository->all();
+		$events = array_filter( $events, static function ( $event ) {
+			return $event instanceof \WP_Post;
+		} );
 
 		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && -1 !== $this->repository_args['posts_per_page'];
 
