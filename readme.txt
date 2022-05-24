@@ -228,7 +228,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
 * Feature - Add export links for Outlook 365 and Outlook Live to single events. [TEC-4168]
 * Feature - Update single event export to use a dropdown template to support more links. [TEC-4176]
-* Feature - Add Outlook ics as an option for Subscribe to Calendar that removes the X-WR-CALNAME from the file. [TEC-4188]
+* Feature - Add Outlook ics as an option for Subscribe to Calendar that removes the X-WR-CALNAME from the file. Props to Andy Fragen @afragen [TEC-4188]
 * Fix - Prevent Redis Cache Pro fatals around date utilization and calculations on Views [TEC-4351]
 * Fix - Ensure all expected subscribe links show when using the default page template. [TEC-4313]
 * Fix - Put back the event website label for Classic editor. [TEC-4334]
