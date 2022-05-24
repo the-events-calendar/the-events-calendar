@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use Tribe__Events__Main as TEC;
-
+use Tribe\Events\Admin\Settings as Plugin_Settings;
 /**
  * Class Asset_Loader.
  *
@@ -46,10 +46,7 @@ class Asset_Loader {
 	 * @since TBD
 	 */
 	public function enqueue_scripts() {
-		$screen_id                = 'tribe_events_page_tec-events-settings';
-		$screen                   = get_current_screen();
-		$on_settings_page         = isset( $_GET['page'] )
-		                            && $screen->id === $screen_id;
+		$on_settings_page         = tribe( Plugin_Settings::class )->is_tec_events_settings();
 		$on_maintenance_mode_page = tribe( Progress_Modal::class )->should_render();
 
 
