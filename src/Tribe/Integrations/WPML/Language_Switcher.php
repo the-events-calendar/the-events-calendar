@@ -56,7 +56,7 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 		foreach ( $languages as &$language ) {
 			$sitepress->switch_lang( $language['code'] );
 			$language['url'] = $sitepress->convert_url(
-				$tec->getLink( $view, __( $view, 'the-events-calendar' ) ),
+				$tec->getLink( $view ),
 				$language['code']
 			);
 		}
