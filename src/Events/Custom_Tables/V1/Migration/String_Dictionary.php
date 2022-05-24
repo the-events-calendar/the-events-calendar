@@ -279,15 +279,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-prompt-strategy-tec-single-event-strategy'    => __(
-				'This event has been migrated with no adjustments.',
-				'the-events-calendar'
-			),
-			'migration-prompt-strategy-tec-ecp-single-rule-strategy' => __(
-				'This recurring event is now part of a new Series of the same name.',
-				'the-events-calendar'
-			),
-			'migration-prompt-strategy-tec-ecp-multi-rule-strategy'  => __(
-				'This recurring event had multiple recurrence rules and was split into %d recurring events with identical content. All %d events are part of a new Series of the same name.',
+				'The following events will be migrated with no adjustments:',
 				'the-events-calendar'
 			),
 			'migration-prompt-unknown-strategy'                      => __(
