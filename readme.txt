@@ -223,9 +223,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
 = [TBD] TBD =
 
+* Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
+* Feature - Add export links for Outlook 365 and Outlook Live to single events. [TEC-4168]
+* Feature - Update single event export to use a dropdown template to support more links. [TEC-4176]
+* Feature - Add Outlook ics as an option for Subscribe to Calendar that removes the X-WR-CALNAME from the file. [TEC-4188]
 * Fix - Prevent Redis Cache Pro fatals around date utilization and calculations on Views [TEC-4351]
 * Fix - Ensure all expected subscribe links show when using the default page template. [TEC-4313]
 * Fix - Put back the event website label for Classic editor. [TEC-4334]
@@ -233,7 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - On Event tag archives only show events with the tag, change the single event tag links to use the event tag archive, and add a link to event tag archive in the admin tag list. [TEC-4314]
 * Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
 * Fix - Add rel noindex and nofollow to the legacy iCal export button. [TEC-4354]
-=======
+
 = [5.15.0.1] 2022-05-23 =
 
 * Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [BTRIA-1243]
@@ -249,7 +252,6 @@ Remember to always make a backup of your database and files before updating!
 * Version - The Events Calendar 5.15.0 is only compatible with Eventbrite Tickets 4.6.11 and higher
 * Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
 * Language - 1 new strings added, 395 updated, 2 fuzzied, and 3 obsoleted
->>>>>>> master
 
 = [5.14.2.1] 2022-04-28 =
 
