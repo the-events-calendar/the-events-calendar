@@ -55,9 +55,6 @@ trait Outlook_Methods {
 		$path = '/calendar/action/compose';
 		$rrv  = 'addevent';
 
-		$startdt = '';
-		$enddt   = '';
-
 		/**
 		 * If event is an all day event, then adjust the end time.
 		 * Using the 'allday' parameter doesn't work well through time zones.
@@ -153,10 +150,10 @@ trait Outlook_Methods {
 		 *
 		 * @since TBD
 		 *
-		 * @param string                  $url      The url used to subscribe to a calendar in Outlook.
-		 * @param string                  $base_url The base url used to subscribe in Outlook.
-		 * @param array<string|string>    $params   An array of parameters added to the base url.
-		 * @param Outlook_Abstract_Export $this     An instance of the link abstract.
+		 * @param string               $url      The url used to subscribe to a calendar in Outlook.
+		 * @param string               $base_url The base url used to subscribe in Outlook.
+		 * @param array<string|string> $params   An array of parameters added to the base url.
+		 * @param Outlook_Methods      $this     An instance of the link abstract.
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_single_event_import_url', $url, $base_url, $params, $this );
 
@@ -184,7 +181,7 @@ trait Outlook_Methods {
 
 		$feed_url = urlencode( $feed_url );
 
-		$feed_url = add_query_arg( [ 'ical' => 1 ], $feed_url );
+		$feed_url = $feed_url . '&ical=1';
 
 		$params = [
 			'rru'  => 'addsubscription',
