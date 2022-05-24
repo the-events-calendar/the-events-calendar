@@ -138,7 +138,18 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$cache_key = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
 
 		if ( ! $force ) {
-			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			// Prevent warning from happening.
+			ini_set( 'unserialize_callback_func', '__return_false' );
+
+			$post = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+
+			// If not a WP_Post we reset value, so it ignores cache.
+			if ( ! $post instanceof WP_Post ) {
+				$post = false;
+			}
+
+			// Revert to the original value.
+			ini_restore( 'unserialize_callback_func' );
 		}
 
 		if ( false === $post ) {
