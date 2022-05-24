@@ -252,7 +252,6 @@ Remember to always make a backup of your database and files before updating!
 * Version - The Events Calendar 5.15.0 is only compatible with Eventbrite Tickets 4.6.11 and higher
 * Feature - Update Events menu to work with the new admin pages structure. [ET-1335]
 * Language - 1 new strings added, 395 updated, 2 fuzzied, and 3 obsoleted
->>>>>>> master
 
 = [5.14.2.1] 2022-04-28 =
 
