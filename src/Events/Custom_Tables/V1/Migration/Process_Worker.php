@@ -270,13 +270,9 @@ class Process_Worker {
 		ob_end_clean();
 
 		$did_migration_error = ! $dry_run && $this->event_report->error;
-		$continue_queue      = true;
-		$next_post_id        = null;
-
 		// If error in the migration phase, need to stop the queue.
-		if ( $did_migration_error ) {
-			$continue_queue = false;
-		}
+		$continue_queue = $did_migration_error ? false : true;
+		$next_post_id   = null;
 
 		if ( $continue_queue ) {
 			// Get next event to process.
@@ -297,20 +293,20 @@ class Process_Worker {
 						'</p>'
 					] );
 				}
-			} else if ( ! $this->check_phase() ) {
-				// Start a recursive check, but only if we are not already doing so.
-				if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
-					$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
-					if ( empty( $action_id ) ) {
-						// The migration might have technically completed, but we cannot know for sure and will be conservative.
-						$this->event_report->migration_failed( "check-phase-enqueue-failed", [
-							'<p>',
-							$this->get_event_link_markup(),
-							'</p>',
-							'<p>',
-							'</p>'
-						] );
-					}
+			}
+
+			// Start a recursive check, but only if we are not already doing so.
+			if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
+				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
+				if ( empty( $action_id ) ) {
+					// The migration might have technically completed, but we cannot know for sure and will be conservative.
+					$this->event_report->migration_failed( "check-phase-enqueue-failed", [
+						'<p>',
+						$this->get_event_link_markup(),
+						'</p>',
+						'<p>',
+						'</p>'
+					] );
 				}
 			}
 		}
@@ -325,7 +321,6 @@ class Process_Worker {
 		// Do not hold a reference to the Report once the worker is done.
 		$event_report       = $this->event_report;
 		$this->event_report = null;
-
 
 		// Log our worker ending
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:end', [
@@ -519,12 +514,13 @@ class Process_Worker {
 	 * @return bool Whether the migration, or its preview, is completed or not.
 	 */
 	public function check_phase() {
+		$state = tribe( State::class );
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'  => $this->state->get_phase(),
+			'phase'  => $state->get_phase(),
 		] );
 
-		$phase               = $this->state->get_phase();
+		$phase               = $state->get_phase();
 		$migration_completed = in_array(
 			                       $phase, [
 			                       State::PHASE_MIGRATION_IN_PROGRESS,
@@ -544,13 +540,13 @@ class Process_Worker {
 		$next_phase = $phase === State::PHASE_PREVIEW_IN_PROGRESS ?
 			State::PHASE_MIGRATION_PROMPT
 			: State::PHASE_MIGRATION_COMPLETE;
-		$this->state->set( 'phase', $next_phase );
-		$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
-		$this->state->set( 'complete_timestamp', time() );
-		$this->state->save();
+		$state->set( 'phase', $next_phase );
+		$state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
+		$state->set( 'complete_timestamp', time() );
+		$state->save();
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'  => $this->state->get_phase(),
+			'phase'  => $state->get_phase(),
 		] );
 
 		return true;
