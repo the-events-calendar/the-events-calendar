@@ -427,7 +427,7 @@ class Tribe__Events__Aggregator__Settings {
 	 *
 	 * Origin default settings trump global settings
 	 *
-	 * @since TBD - Fix the default category is added to the origin.
+	 * @since 5.16.0 - Fix the default category is added to the origin.
 	 *
 	 * @param string $origin The name of the EA origin.
 	 *

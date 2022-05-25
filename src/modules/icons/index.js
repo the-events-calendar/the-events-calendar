@@ -1,4 +1,5 @@
 export { default as Categories } from './categories.svg';
+export { default as CaretDown } from './caret-down.svg';
 export { default as CheckboxOn } from './checkbox-on.svg';
 export { default as CheckboxOff } from './checkbox-off.svg';
 export { default as Classic } from './classic.svg';

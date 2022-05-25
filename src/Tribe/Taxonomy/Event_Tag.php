@@ -2,7 +2,7 @@
 /**
  * Handles the event tags.
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Taxonomy
  */
@@ -14,7 +14,7 @@ use WP_Term;
 /**
  * Class Event_Tag
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Taxonomy
  */
@@ -23,7 +23,7 @@ class Event_Tag {
 	/**
 	 * Filters the post tag action links displayed for each term in the terms list table.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @param array<string|string> $actions An array of action links to be displayed.
 	 * @param WP_Term              $tag     Term object.
