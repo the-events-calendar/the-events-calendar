@@ -303,8 +303,12 @@ class Ajax {
 							continue;
 						}
 
-						$event_categories[ $i ]['has_upcoming'] = $upcoming_events['has_more'];
-						$event_categories[ $i ]['has_past']     = $past_events['has_more'];
+						$event_categories[ $i ]['has_upcoming']        = $upcoming_events['has_more'];
+						$event_categories[ $i ]['upcoming_start_page'] = $upcoming_events['has_more'] ? 2 : 1;
+						$event_categories[ $i ]['past_start_page']     = $past_events['has_more'] ? 2 : 1;
+						// By default we show upcoming, but will fall back to past events if no upcoming.
+						// We need to validate when we do this flip and confirm which we are showing and when we should show a "show more" button.
+						$event_categories[ $i ]['has_past'] = ! empty( $upcoming_events['event_reports'] ) && ! empty( $past_events['event_reports'] );
 					}
 					$renderer_args['event_categories'] = $event_categories;
 				}
