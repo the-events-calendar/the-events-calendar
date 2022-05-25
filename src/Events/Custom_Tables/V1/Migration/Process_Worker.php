@@ -611,7 +611,16 @@ class Process_Worker {
 	public function check_phase_complete() {
 		$completed = ! $this->state->is_running() || $this->check_phase();
 
+		do_action( 'tribe_log', 'debug', 'Worker: Check event:check_phase_complete', [
+			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'phase'     => tribe( State::class )->get_phase(),
+			'completed' => $completed
+		] );
+
 		if ( $completed ) {
+			do_action( 'tribe_log', 'debug', 'Worker: Check event:check_phase_complete', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			] );
 			// Clear all of our queued state check workers.
 			as_unschedule_all_actions( self::ACTION_CHECK_PHASE );
 
@@ -620,6 +629,10 @@ class Process_Worker {
 
 		// We may already have one scheduled, bail if we do.
 		if ( as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
+			do_action( 'tribe_log', 'debug', 'Worker: Check event:check_phase_complete', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			] );
+
 			return 0;
 		}
 
