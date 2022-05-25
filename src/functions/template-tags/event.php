@@ -146,9 +146,6 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			if ( ! $post instanceof WP_Post ) {
 				// If not a WP_Post we reset value, so it ignores cache.
 				$post = false;
-			} elseif ( ! $post->dates->start instanceof DateTimeImmutable && ! $post->dates->start instanceof DateTime ) {
-				// If not a date we completely reset the object.
-				$post = false;
 			}
 
 			// Revert to the original value.
