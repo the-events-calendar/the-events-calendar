@@ -214,8 +214,6 @@ class Process_Worker {
 				 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
 				 */
 				clean_post_cache( $post_id );
-
-				$this->event_report->migration_success();
 			} else {
 				$this->transaction_commit();
 			}
