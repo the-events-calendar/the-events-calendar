@@ -138,6 +138,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$cache_key = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
 
 		if ( ! $force ) {
+			$initial_unserialize_callback = ini_get( 'unserialize_callback_func' );
 			// Prevent warning from happening.
 			ini_set( 'unserialize_callback_func', '__return_false' );
 
@@ -149,7 +150,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			}
 
 			// Revert to the original value.
-			ini_restore( 'unserialize_callback_func' );
+			ini_set( 'unserialize_callback_func', $initial_unserialize_callback );
 		}
 
 		if ( false === $post ) {
