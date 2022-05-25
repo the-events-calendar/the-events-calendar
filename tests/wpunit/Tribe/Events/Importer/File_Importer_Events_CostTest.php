@@ -2,7 +2,7 @@
 /**
  * Class File_Importer_Events_CostTest
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Importer
  */

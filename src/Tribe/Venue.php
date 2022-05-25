@@ -769,7 +769,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Returns a string version of the full address of an event.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @see Tribe__Events__Main->fullAddressString()
 	 *

@@ -2,7 +2,7 @@
 /**
  * Handles Outlook 365 export/subscribe links.
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -14,7 +14,7 @@ use Tribe\Events\Views\V2\iCalendar\Traits\Outlook_Methods;
 /**
  * Class Outlook_365
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */

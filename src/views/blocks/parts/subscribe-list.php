@@ -9,7 +9,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 5.16.0
  *
  * @var array<Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract> $items Array containing subscribe/export objects.
  *

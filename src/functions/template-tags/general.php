@@ -568,7 +568,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Display the event tags in a list with links to the event tag archive.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @param null|string $label The label for the term list.
 	 * @param string      $separator The separator of each term.
@@ -580,7 +580,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Filter whether to use the WordPress tag archive urls, default false.
 		 *
-		 * @since TBD
+		 * @since 5.16.0
 		 *
 		 * @param boolean Whether to use the WordPress tag archive urls.
 		 */

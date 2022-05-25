@@ -2,7 +2,7 @@
 /**
  * The Event Taxonomy Service Provider.
  *
- * @since   TBD
+ * @since   5.16.0
  * @package Tribe\Events\Taxonomy
  */
 
@@ -13,7 +13,7 @@ use WP_Term;
 /**
  * Class Taxonomy_Provider
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Taxonomy
  */
@@ -22,7 +22,7 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 */
 	public function register() {
 		// Register the SP on the container
@@ -34,7 +34,7 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the filters required for taxonomies.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 */
 	protected function add_filters() {
 		add_filter( 'post_tag_row_actions', [ $this, 'event_tag_actions' ], 10, 2 );
@@ -43,7 +43,7 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the post tag action links displayed for each term in the terms list table.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @param array<string|string> $actions An array of action links to be displayed.
 	 * @param WP_Term              $tag     Term object.

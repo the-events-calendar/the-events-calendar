@@ -35,7 +35,7 @@ class Tribe__Events__iCal {
 	/**
 	 * The type of iCal Feed ( ical|outlook)
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @var string
 	 */
@@ -403,7 +403,7 @@ class Tribe__Events__iCal {
 	 * Get the file name of the *.ics file
 	 *
 	 * @since 4.9.4
-	 * @since TBD - Add the iCal type to the filename so both ics and outlook ics are unique names.
+	 * @since 5.16.0 - Add the iCal type to the filename so both ics and outlook ics are unique names.
 	 *
 	 * @return mixed The calendar name
 	 */
@@ -443,7 +443,7 @@ class Tribe__Events__iCal {
 	 * Get the start of the .ics File
 	 *
 	 * @since 4.9.4
-	 * @since TBD - Add a check for iCAL type to prevent Outlook ics from including X-WR-CALNAME.
+	 * @since 5.16.0 - Add a check for iCAL type to prevent Outlook ics from including X-WR-CALNAME.
 	 *
 	 * @return mixed
 	 */

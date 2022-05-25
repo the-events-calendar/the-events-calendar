@@ -1424,7 +1424,7 @@ class View implements View_Interface {
 	/**
 	 * Get if we have events in the next page.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @return boolean Weather the View has events in the next page.
 	 */

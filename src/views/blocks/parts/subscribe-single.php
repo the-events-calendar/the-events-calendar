@@ -9,7 +9,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 5.16.0
  *
  * @var Link_Abstract $item Object containing subscribe/export label and url.
  */

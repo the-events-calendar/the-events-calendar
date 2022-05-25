@@ -2,7 +2,7 @@
 /**
  * Handles Outlook iCalendar export links.
  *
- * @since TBD
+ * @since 5.16.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -14,7 +14,7 @@ use Tribe__Events__Main;
 /**
  * Class Outlook
  *
- * @since TBD
+ * @since 5.16.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -37,7 +37,7 @@ class Outlook_Export extends Link_Abstract {
 	/**
 	 * Filters the is_visible() function to not display on single events.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @param boolean $visible Whether to display the link.
 	 * @param View    $view     The current View object.

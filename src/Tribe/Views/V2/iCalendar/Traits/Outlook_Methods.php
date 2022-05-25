@@ -2,7 +2,7 @@
 /**
  * Handles Outlook Methods Trait export/subscribe links.
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -16,7 +16,7 @@ use Tribe__Events__Venue as Venue;
 /**
  * Class Outlook_Methods
  *
- * @since   TBD
+ * @since   5.16.0
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
@@ -25,7 +25,7 @@ trait Outlook_Methods {
 	/**
 	 * Space replacement used to in Outlook link.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ trait Outlook_Methods {
 	/**
 	 * Temporary space replacement used to to urlencode an Outlook link.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @var string
 	 */
@@ -43,7 +43,7 @@ trait Outlook_Methods {
 	/**
 	 * Generate the parameters for the Outlook export buttons.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @param string $calendar Whether it's Outlook live or Outlook 365.
 	 *
@@ -79,7 +79,7 @@ trait Outlook_Methods {
 		/**
 		 * A filter to hide or show the event description.
 		 *
-		 * @since TBD
+		 * @since 5.16.0
 		 *
 		 * @param bool $include_event_description Whether to include the event description or not.
 		 */
@@ -107,7 +107,7 @@ trait Outlook_Methods {
 			/**
 			 * Allows filtering the length of the event description.
 			 *
-			 * @since TBD
+			 * @since 5.16.0
 			 *
 			 * @param bool|int $num_words
 			 */
@@ -140,7 +140,7 @@ trait Outlook_Methods {
 	/**
 	 * Generate the single event "Add to calendar" URL.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @return string The singe event add to calendar URL.
 	 */
@@ -152,7 +152,7 @@ trait Outlook_Methods {
 		/**
 		 * Filter the Outlook single event import url.
 		 *
-		 * @since TBD
+		 * @since 5.16.0
 		 *
 		 * @param string               $url      The url used to subscribe to a calendar in Outlook.
 		 * @param string               $base_url The base url used to subscribe in Outlook.
@@ -167,7 +167,7 @@ trait Outlook_Methods {
 	/**
 	 * Generate the subscribe URL.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @return string The subscribe url.
 	 */
@@ -198,7 +198,7 @@ trait Outlook_Methods {
 		/**
 		 * Filter the Outlook subscribe url.
 		 *
-		 * @since TBD
+		 * @since 5.16.0
 		 *
 		 * @param string                  $url      The url used to subscribe to a calendar in Outlook.
 		 * @param string                  $base_url The base url used to subscribe in Outlook.
@@ -216,7 +216,7 @@ trait Outlook_Methods {
 	 * urlencode() changes the spaces to +. That is also how Outlook will show it.
 	 * So we're replacing it temporarily and then changing them to %20 which will work.
 	 *
-	 * @since TBD
+	 * @since 5.16.0
 	 *
 	 * @param string $string The URL string.
 	 *

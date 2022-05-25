@@ -179,7 +179,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 * @see   `tribe_events_ical_single_event_links` filter.
 	 *
 	 * @since 5.12.0
-	 * @since TBD - Move to Single_Events class to handle Outlook.
+	 * @since 5.16.0 - Move to Single_Events class to handle Outlook.
 	 *
 	 * @param string $calendar_links The link content.
 	 *
