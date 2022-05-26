@@ -35,17 +35,33 @@ export default {
 	attributes: {
 		googleCalendarLabel: {
 			type: 'html',
-			default: __( 'Add to Google Calendar', 'the-events-calendar' ),
+			default: __( 'Google Calendar', 'the-events-calendar' ),
 		},
 		iCalLabel: {
 			type: 'html',
-			default: __( 'Add to iCalendar', 'the-events-calendar' ),
+			default: __( 'iCalendar', 'the-events-calendar' ),
+		},
+		outlook365Label: {
+			type: 'html',
+			default: __( 'Outlook 365', 'the-events-calendar' ),
+		},
+		outlookLiveLabel: {
+			type: 'html',
+			default: __( 'Outlook Live', 'the-events-calendar' ),
 		},
 		hasiCal: {
 			type: 'html',
 			default: true,
 		},
 		hasGoogleCalendar: {
+			type: 'html',
+			default: true,
+		},
+		hasOutlook365: {
+			type: 'html',
+			default: true,
+		},
+		hasOutlookLive: {
 			type: 'html',
 			default: true,
 		},
