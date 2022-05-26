@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.16.0] TBD =
+= [5.16.0] 2022-05-26 =
 
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
 * Feature - Add export links for Outlook 365 and Outlook Live to single events. [TEC-4168]
@@ -236,6 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - On Event tag archives only show events with the tag, change the single event tag links to use the event tag archive, and add a link to event tag archive in the admin tag list. [TEC-4314]
 * Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
 * Fix - Add rel noindex and nofollow to the legacy iCal export button. [TEC-4354]
+* Language - 6 new strings added, 53 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.15.0.1] 2022-05-23 =
 
