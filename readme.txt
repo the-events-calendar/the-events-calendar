@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.16.0] 2022-05-26 =
+= [5.16.0] 2022-05-31 =
 
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
 * Feature - Add export links for Outlook 365 and Outlook Live to single events. [TEC-4168]
