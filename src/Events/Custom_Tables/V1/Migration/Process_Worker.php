@@ -15,6 +15,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
+use TEC\Events\Custom_Tables\V1\Traits\With_String_Dictionary;
 use Tribe__Admin__Notices;
 
 /**
@@ -25,6 +26,7 @@ use Tribe__Admin__Notices;
  */
 class Process_Worker {
 	use With_Database_Transactions;
+	use With_String_Dictionary;
 
 	/**
 	 * The full name of the action that will be fired to signal one
@@ -100,21 +102,6 @@ class Process_Worker {
 		$this->state  = $state;
 	}
 
-	/**
-	 * @since TBD
-	 *
-	 * @return string The HTML markup with the event link.
-	 */
-	public function get_event_link_markup() {
-		$post_id          = $this->event_report->source_event_post->ID;
-		$post_title       = $this->event_report->source_event_post->post_title;
-		$post             = get_post( $post_id );
-		$action           = '&action=edit';
-		$post_type_object = get_post_type_object( $post->post_type );
-		$url              = admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
-
-		return '<a target="_blank" href="' . $url . '">' . $post_title . '</a>';
-	}
 
 	/**
 	 * Processes an Event migration.
@@ -236,7 +223,7 @@ class Process_Worker {
 			}
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
-				$this->get_event_link_markup(),
+				$this->get_event_link_markup( $this->post_id ),
 				$e->getMessage(),
 				'</p>',
 				'<p>',
@@ -250,7 +237,7 @@ class Process_Worker {
 
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
-				$this->get_event_link_markup(),
+				$this->get_event_link_markup( $this->post_id ),
 				$e->getMessage(),
 				'</p>',
 				'<p>',
@@ -284,7 +271,7 @@ class Process_Worker {
 					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
 					$this->event_report->migration_failed( "enqueue-failed", [
 						'<p>',
-						$this->get_event_link_markup(),
+						$this->get_event_link_markup( $this->post_id ),
 						$next_post_id,
 						'</p>',
 						'<p>',
@@ -300,7 +287,7 @@ class Process_Worker {
 					// The migration might have technically completed, but we cannot know for sure and will be conservative.
 					$this->event_report->migration_failed( "check-phase-enqueue-failed", [
 						'<p>',
-						$this->get_event_link_markup(),
+						$this->get_event_link_markup( $this->post_id ),
 						'</p>',
 						'<p>',
 						'</p>'
@@ -488,7 +475,7 @@ class Process_Worker {
 		if ( $this->dry_run ) {
 			$this->transaction_rollback();
 		}
-		$event_link_markup = $this->get_event_link_markup();
+		$event_link_markup = $this->get_event_link_markup( $this->post_id );
 
 		// If we're here, the migration failed.
 		$this->event_report->migration_failed( "unknown-shutdown", [
@@ -572,7 +559,7 @@ class Process_Worker {
 			$this->transaction_rollback();
 		}
 
-		$event_link_markup = $this->get_event_link_markup();
+		$event_link_markup = $this->get_event_link_markup( $this->post_id );
 
 		/**
 		 * Since we're storing output of arbitrary length in the database, let's
