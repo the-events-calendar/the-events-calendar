@@ -71,7 +71,7 @@ if ( empty( $google_cal_link ) && empty( $ical_link ) ) {
 		<div class="tribe-block__btn--link tribe-block__events-ical">
 			<a
 				href="<?php echo esc_url( $ical_link ); ?>"
-				rel="noopener noreferrer nofollow"
+				rel="noopener noreferrer nofollow noindex"
 				title="<?php esc_attr_e( 'Add to iCalendar', 'the-events-calendar' ); ?>"
 			>
 				<img src="<?php echo Tribe__Main::instance()->plugin_url  . 'src/modules/icons/link.svg'; ?>" />

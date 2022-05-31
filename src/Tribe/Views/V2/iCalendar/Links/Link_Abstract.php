@@ -132,10 +132,13 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		$class   = sanitize_html_class( 'tribe-events-' . self::get_slug() );
-		$links[ self::get_slug() ] = '<a class="tribe-events-button ' . $class
-		           . '" href="' . esc_url( $uri )
-		           . '" title="' . esc_attr( $label )
-		           . '">+ ' . esc_html( $label ) . '</a>';
+		$links[ self::get_slug() ] = sprintf(
+			'<a class="tribe-events-button %1$s" href="%2$s" title="%3$s"  rel="noopener noreferrer noindex">%4$s</a>',
+			$class,
+			esc_url( $uri ),
+			esc_attr( $label ),
+			esc_html( $label )
+		);
 
 		return $links;
 	}
