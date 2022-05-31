@@ -223,7 +223,7 @@ class Process_Worker {
 			}
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
-				$this->get_event_link_markup( $this->post_id ),
+				$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 				$e->getMessage(),
 				'</p>',
 				'<p>',
@@ -237,7 +237,7 @@ class Process_Worker {
 
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
-				$this->get_event_link_markup( $this->post_id ),
+				$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 				$e->getMessage(),
 				'</p>',
 				'<p>',
@@ -271,7 +271,7 @@ class Process_Worker {
 					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
 					$this->event_report->migration_failed( "enqueue-failed", [
 						'<p>',
-						$this->get_event_link_markup( $this->post_id ),
+						$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 						$next_post_id,
 						'</p>',
 						'<p>',
@@ -287,7 +287,7 @@ class Process_Worker {
 					// The migration might have technically completed, but we cannot know for sure and will be conservative.
 					$this->event_report->migration_failed( "check-phase-enqueue-failed", [
 						'<p>',
-						$this->get_event_link_markup( $this->post_id ),
+						$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 						'</p>',
 						'<p>',
 						'</p>'
@@ -475,7 +475,7 @@ class Process_Worker {
 		if ( $this->dry_run ) {
 			$this->transaction_rollback();
 		}
-		$event_link_markup = $this->get_event_link_markup( $this->post_id );
+		$event_link_markup = $this->get_event_link_markup( $this->event_report->source_event_post->ID );
 
 		// If we're here, the migration failed.
 		$this->event_report->migration_failed( "unknown-shutdown", [
@@ -559,7 +559,7 @@ class Process_Worker {
 			$this->transaction_rollback();
 		}
 
-		$event_link_markup = $this->get_event_link_markup( $this->post_id );
+		$event_link_markup = $this->get_event_link_markup( $this->event_report->source_event_post->ID );
 
 		/**
 		 * Since we're storing output of arbitrary length in the database, let's
