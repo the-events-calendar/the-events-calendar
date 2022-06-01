@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fix admin links to work with the new admin page structure. [TEC-4380]
+
 = [5.16.0] 2022-05-31 =
 
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
