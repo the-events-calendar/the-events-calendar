@@ -3,6 +3,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use Tribe\Events\Test\WP_Screen;
 
 /**
  * Class Modal
@@ -41,17 +42,44 @@ class Progress_Modal {
 	public function should_render() {
 		$screen = get_current_screen();
 
-		$post_type = \Tribe__Events__Main::POSTTYPE;
+		/**
+		 * A filter to override when the migration maintenance modal should display and lock the screen.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool|null $should_render A bool flag to override when a maintenance modal should render.
+		 * @param WP_Screen $screen        The current WP_Screen instance.
+		 */
+		$should_render = apply_filters( 'tec_events_custom_tables_v1_should_render_maintenance_modal', null, $screen );
 
-		if (
-			"edit-{$post_type}" !== $screen->id
-			&& $post_type !== $screen->id
-			&& 'tribe_events_page_aggregator' !== $screen->id
-			&& 'tribe_events_page_tribe-admin-manager' !== $screen->id
-		) {
+		// Did we override?
+		if ( $should_render !== null ) {
+			return $should_render;
+		}
+
+		$post_type           = \Tribe__Events__Main::POSTTYPE;
+		$page_ids_to_disable = [
+			"edit-{$post_type}",
+			$post_type,
+			'tribe_events_page_aggregator',
+			'tribe_events_page_tribe-admin-manager',
+			'edit-tribe_events_cat',
+			'edit-post_tag',
+			'edit-tribe_venue',
+			'edit-tribe_organizer'
+		];
+
+		// Are we on one of the pages that might have a maintenance modal lock?
+		if ( ! in_array( $screen->id, $page_ids_to_disable, true ) ) {
 			return false;
 		}
 
+		// If normal tag page, don't render.
+		if ( $screen->id === 'edit-post_tag' && $screen->post_type !== $post_type ) {
+			return false;
+		}
+
+		// We are on the right page, lets see if we are in the right state?
 		return tribe( State::class )->should_lock_for_maintenance();
 	}
 
