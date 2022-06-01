@@ -31,7 +31,7 @@ remove_filter( 'the_content', 'do_blocks', 9 );
 					title="<?php echo esc_attr( $item->get_single_label() ); ?>"
 					href="<?php echo esc_url( $item->get_uri() ); ?>"
 					target="_blank"
-					rel="noopener noreferrer nofollow"
+					rel="noopener noreferrer nofollow noindex"
 				>
 					<?php $this->template( 'v2/components/icons/plus', [ 'classes' => [ 'tribe-events-c-ical__link-icon-svg' ] ] ); ?>
 					<?php echo esc_html( $item->get_single_label() ); ?>

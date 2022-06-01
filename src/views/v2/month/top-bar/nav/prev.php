@@ -22,7 +22,6 @@
 		aria-label="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		data-js="tribe-events-view-link"
-		<?php bdump( $prev_month ); ?>
 		<?php if ( ! $skip_empty && $prev_month !== $prev_event_date->format( 'n' )  ) : ?>
 			rel="nofollow noindex"
 		<?php endif; ?>

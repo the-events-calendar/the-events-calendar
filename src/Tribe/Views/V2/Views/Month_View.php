@@ -83,12 +83,6 @@ class Month_View extends By_Day_View {
 			$current_date->sub( new \DateInterval( 'P1M' ) )
 		);
 
-		bdump([
-			$prev_date,
-			Dates::build_date_object( $prev_event->dates->start ),
-			$current_date->sub( new \DateInterval( 'P1M' ) )
-		]);
-
 		return $prev_date;
 	}
 
