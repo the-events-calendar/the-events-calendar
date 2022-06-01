@@ -47,13 +47,22 @@ abstract class Link_Abstract implements Link_Interface {
 	public $visible = true;
 
 	/**
-	 * the link provider slug.
+	 * The link provider slug.
 	 *
 	 * @since 5.12.0
 	 *
 	 * @var string
 	 */
 	public static $slug;
+
+	/**
+	 * The slug used for the single event sharing block toggle.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $block_slug;
 
 	/**
 	 * Determines if this instance of the class has it's actions and filters hooked.
@@ -246,6 +255,10 @@ abstract class Link_Abstract implements Link_Interface {
 
 		if ( empty( $feed_url ) && null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
+		}
+
+		if ( empty( $feed_url ) ) {
+			return '';
 		}
 
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );

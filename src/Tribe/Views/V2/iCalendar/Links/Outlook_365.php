@@ -35,6 +35,11 @@ class Outlook_365 extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
+	public $block_slug = 'hasOutlook365';
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function register() {
 		$this->label        = __( 'Outlook 365', 'the-events-calendar' );
 		$this->single_label = $this->label;

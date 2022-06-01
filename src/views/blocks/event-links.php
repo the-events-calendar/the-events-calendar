@@ -25,39 +25,32 @@ $has_ical         = $this->attr( 'hasiCal' );
 $has_outlook_365  = $this->attr( 'hasOutlook365' );
 $has_outlook_live = $this->attr( 'hasOutlookLive' );
 
-
-remove_filter( 'the_content', 'do_blocks', 9 );
 $subscribe_links = empty( $this->get( ['subscribe_links'] ) ) ? false : $this->get( ['subscribe_links'] );
-
-$should_render  = $subscribe_links && ( $has_google_cal || $has_ical || $has_outlook_365 || $has_outlook_live );
-
-$items = [];
-
-if ( $has_google_cal && $this->get( [ 'subscribe_links', 'gcal' ] ) instanceof Link_Abstract ) {
-	$items[] = $this->get( [ 'subscribe_links', 'gcal' ] );
-}
-
-if ( $has_ical && $this->get( [ 'subscribe_links', 'ical' ] ) instanceof Link_Abstract ) {
-	$items[] = $this->get( [ 'subscribe_links', 'ical' ] );
-}
-
-if ( $has_outlook_365 && $this->get( [ 'subscribe_links', 'outlook-365' ] ) instanceof Link_Abstract ) {
-	$items[] = $this->get( [ 'subscribe_links', 'outlook-365' ] );
-}
-
-if ( $has_outlook_live && $this->get( [ 'subscribe_links', 'outlook-live' ] ) instanceof Link_Abstract ) {
-	$items[] = $this->get( [ 'subscribe_links', 'outlook-live' ] );
-}
-
-if ( empty( $items ) ) {
+// Just bail.
+if ( empty( $subscribe_links ) ) {
 	return;
 }
 
-if ( 1 === count( $items ) ) {
+$subscribe_links = array_filter(
+	$subscribe_links,
+	function( $item ) {
+		return $item instanceof Link_Abstract
+		&& isset( $item->block_slug )
+		&& $this->attr( $item->block_slug );
+	}
+);
+
+if ( empty( $subscribe_links ) ) {
+	return;
+}
+
+remove_filter( 'the_content', 'do_blocks', 9 );
+
+if ( 1 === count( $subscribe_links ) ) {
 	// If we only have one link in the list, show a "button".
-	$item = array_shift( $items );
+	$item = array_shift( $subscribe_links );
 	$this->template( 'blocks/parts/subscribe-single', [ 'item' => $item ] );
 } else {
 	// If we have multiple links in the list, show a "dropdown".
-	$this->template( 'blocks/parts/subscribe-list', [ 'items' => $items ] );
+	$this->template( 'blocks/parts/subscribe-list', [ 'items' => $subscribe_links ] );
 }
