@@ -600,7 +600,7 @@ class Process_Worker {
 
 		do_action( 'tribe_log', 'debug', 'Worker: Check event:check_phase_complete', [
 			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'     => tribe( State::class )->get_phase(),
+			'phase'     => $this->state->get_phase(),
 			'completed' => $completed
 		] );
 
