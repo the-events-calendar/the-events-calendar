@@ -22,10 +22,14 @@ extends Tribe__Editor__Blocks__Abstract {
 	 */
 	public function default_attributes() {
 		return [
-			'googleCalendarLabel' => esc_html__( 'Add to Google Calendar', 'the-events-calendar' ),
-			'iCalLabel'           => esc_html__( 'Add to iCalendar', 'the-events-calendar' ),
+			'googleCalendarLabel' => esc_html__( 'Google Calendar', 'the-events-calendar' ),
+			'iCalLabel'           => esc_html__( 'iCalendar', 'the-events-calendar' ),
+			'outlook365Label'     => esc_html__( 'Outlook 365', 'the-events-calendar' ),
+			'outlookLiveLabel'    => esc_html__( 'Outlook Live', 'the-events-calendar' ),
 			'hasiCal'             => true,
 			'hasGoogleCalendar'   => true,
+			'hasOutlook365'       => true,
+			'hasOutlookLive'      => true,
 		];
 	}
 
