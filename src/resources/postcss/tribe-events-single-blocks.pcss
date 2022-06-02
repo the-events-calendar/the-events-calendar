@@ -147,13 +147,10 @@
 /* = Sharing block view styles
 ============================================= */
 .tribe-block__events-link {
-	display: flex;
-	flex-wrap: wrap;
 	font-family: var(--tec-font-family-sans-serif);
 	padding: 20px 0;
 
-	.tribe-block__btn--link.tribe-block__events-ical,
-	.tribe-block__btn--link.tribe-block__events-gcal {
+	.tribe-block__btn--link {
 
 		&:before {
 			content: url("data:image/svg+xml,%3Csvg width='25' height='19' viewBox='0 0 25 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0.431057V17.5689C0 17.807 0.162753 18 0.363518 18H17.6365C17.8372 18 18 17.807 18 17.5689V13.0039H18.0005V8.01562H18V0.431057C18 0.192991 17.8372 0 17.6365 0H0.363518C0.162753 0 0 0.192991 0 0.431057ZM18 8.01562H16.9855V4.6875H0.990723V16.7571H16.9855V13.0039H18V8.01562ZM0.990723 1.23926H16.9855V3.55366H0.990723V1.23926Z' fill='%23141827'/%3E%3Cpath d='M22.918 10.5003L9.2067 10.5002' stroke='%23141827' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M20.6947 7.24467L23.9466 10.5174L20.7341 13.73' stroke='%23141827' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
@@ -165,7 +162,6 @@
 			border: none;
 			color: var(--tec-color-link-accent);
 			display: block;
-			font-size: var(--tec-font-size-3);
 			font-weight: normal;
 			margin: 10px 15px 10px 0;
 			min-height: revert;

@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Clean up some borked CSS in some sections of the Elementor `Event` widget. [ECP-1105]
+
 = [5.16.0] 2022-05-31 =
 
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
