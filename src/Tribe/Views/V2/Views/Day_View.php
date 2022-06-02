@@ -56,8 +56,10 @@ class Day_View extends View {
 	 * @return DateTime|false Either the previous event chronologically, the previous month, or false if no next event found.
 	 */
 	public function get_previous_event_date( $current_date ) {
+		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+
 		// Use cache to reduce the performance impact.
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( [ $current_date, $args ] ) );
 
 		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
 			return $this->cached_event_dates[ $cache_key ];
@@ -65,7 +67,7 @@ class Day_View extends View {
 
 		// Find the first event that starts before the start of today.
 		$prev_event = tribe_events()
-			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
+			->by_args( $this->filter_repository_args( parent::setup_repository_args( $args ) ) )
 			->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-d' ) ) )
 			->order( 'DESC' )
 			->first();
@@ -126,8 +128,10 @@ class Day_View extends View {
 	 * @return DateTime|false Either the next event chronologically, the next month, or false if no next event found.
 	 */
 	public function get_next_event_date( $current_date ) {
+		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+
 		// Use cache to reduce the performance impact.
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( [ $current_date, $args ] ) );
 
 		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
 			return $this->cached_event_dates[ $cache_key ];
@@ -135,7 +139,7 @@ class Day_View extends View {
 
 		// The first event that ends after the end of the month; it could still begin in this month.
 		$next_event = tribe_events()
-			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
+			->by_args( $args )
 			->where( 'starts_after', tribe_end_of_day( $current_date->format( 'Y-m-d' ) ) )
 			->order( 'ASC' )
 			->first();
