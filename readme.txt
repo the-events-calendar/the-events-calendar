@@ -225,7 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Add rel="noindex" to links that point to empty calendar views to not dilute SEO with empty results. [TEC-4354]
+* Fix - Add rel="noindex" to links that point to empty Month and Day Views so as to not dilute SEO with empty results. [TEC-4354]
 * Fix - Fix admin links to work with the new admin page structure. [TEC-4380]
 
 = [5.16.0] 2022-05-31 =
