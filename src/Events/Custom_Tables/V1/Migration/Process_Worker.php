@@ -106,10 +106,14 @@ class Process_Worker {
 	 * @return string The HTML markup with the event link.
 	 */
 	public function get_event_link_markup() {
-		$post_id = $this->event_report->source_event_post->ID;
-		$post    = get_post( $post_id );
+		$post_id          = $this->event_report->source_event_post->ID;
+		$post_title       = $this->event_report->source_event_post->post_title;
+		$post             = get_post( $post_id );
+		$action           = '&action=edit';
+		$post_type_object = get_post_type_object( $post->post_type );
+		$url              = admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
 
-		return '<a target="_blank" href="' . get_edit_post_link( $post_id ) . '">' . $post->post_title . '</a>';
+		return '<a target="_blank" href="' . $url . '">' . $post_title . '</a>';
 	}
 
 	/**
@@ -267,6 +271,8 @@ class Process_Worker {
 
 		$did_migration_error = ! $dry_run && $this->event_report->error;
 		$continue_queue      = true;
+		$next_post_id        = null;
+
 		// If error in the migration phase, need to stop the queue.
 		if ( $did_migration_error ) {
 			$continue_queue = false;
@@ -381,12 +387,13 @@ class Process_Worker {
 		// Clear meta values.
 		$meta_keys = [
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
-			Event_Report::META_KEY_MIGRATION_PHASE,
 		];
 
 		// If we are in migration failure, we want to preserve the report data.
 		if ( $current_phase !== State::PHASE_MIGRATION_FAILURE_IN_PROGRESS ) {
 			$meta_keys[] = Event_Report::META_KEY_REPORT_DATA;
+			$meta_keys[] = Event_Report::META_KEY_MIGRATION_PHASE;
+			$meta_keys[] = Event_Report::META_KEY_MIGRATION_CATEGORY;
 		}
 
 		/**

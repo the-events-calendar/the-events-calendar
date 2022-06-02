@@ -44,13 +44,27 @@ class Upgrade_Tab {
 	}
 
 	/**
-	 * Whether or not the upgrade tab in Event Settings should show.
+	 * Whether or not the upgrade tab in Event Settings should show. The tab will disappear after 30 days of migration completion.
 	 *
 	 * @since TBD
 	 *
 	 * @return bool Whether the upgrade tab should show or not.
 	 */
 	public function should_show() {
+		// If complete, use a 30 day expiration.
+		$complete_timestamp = $this->state->get( 'complete_timestamp' );
+		if ( $complete_timestamp && $this->state->get_phase() === State::PHASE_MIGRATION_COMPLETE ) {
+
+			$current_date   = ( new \DateTime( 'now', wp_timezone() ) );
+			$date_completed = ( new \DateTime( 'now', wp_timezone() ) )->setTimestamp( $complete_timestamp );
+			// 30 day old expiration
+			$expires_in_seconds = 30 * 24 * 60 * 60;
+
+			// If time for our reverse migration has expired
+			return ( $current_date->format( 'U' ) - $expires_in_seconds ) < $date_completed->format( 'U' );
+		}
+
+
 		return $this->state->is_required()
 		       || $this->state->is_running()
 		       || $this->state->is_completed();

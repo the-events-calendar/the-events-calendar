@@ -8,7 +8,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
  * @var String_Dictionary $text               The text dictionary.
  * @var string            $phase              The current phase.
  */
-$is_cancel     = $phase === State::PHASE_CANCEL_IN_PROGRESS;
+$is_cancel = $phase === State::PHASE_CANCEL_IN_PROGRESS;
 // Which copy do we show?
 $title_key     = $is_cancel ? 'cancel-migration-in-progress' : 'reverse-migration-in-progress';
 $paragraph_key = $is_cancel ? 'cancel-migration-in-progress-paragraph' : 'reverse-migration-in-progress-paragraph';
@@ -32,7 +32,7 @@ $paragraph_key = $is_cancel ? 'cancel-migration-in-progress-paragraph' : 'revers
 	</div>
 	<div class="image-container">
 		<img class="screenshot"
-			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
-			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
+			 src="<?php echo esc_url( $text->get( "$phase-screenshot-url" ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'preview-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>

@@ -68,6 +68,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
+		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
 	}
 
@@ -200,6 +201,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		$assets->disable_v1();
+	}
+
+	/**
+	 * Initializes the legacy Views for Single and Embed.
+	 *
+	 * @since TBD
+	 */
+	public function action_initialize_legacy_views() {
+		if ( tribe( Template_Bootstrap::class )->is_single_event() ) {
+			new \Tribe__Events__Template__Single_Event();
+		} elseif ( is_embed() || 'embed' === tribe( 'context' )->get( 'view' ) ) {
+			new \Tribe__Events__Template__Embed();
+		}
 	}
 
 	/**

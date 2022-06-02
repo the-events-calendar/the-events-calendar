@@ -335,8 +335,8 @@ class Tribe__Events__iCal {
 
 		$args = [
 			'eventDisplay' => 'custom',
-			'start_date' => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date' => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+			'start_date' => \Tribe\Events\Views\V2\Views\Month_View::calculate_first_cell_date( $month ),
+			'end_date' => \Tribe\Events\Views\V2\Views\Month_View::calculate_final_cell_date( $month ),
 			'posts_per_page' => -1,
 			'hide_upcoming' => true,
 		];
@@ -695,7 +695,7 @@ class Tribe__Events__iCal {
 		$item['URL'] = 'URL:' . get_permalink( $event_post->ID );
 
 		// Add location if available.
-		$location = $tec->fullAddressString( $event_post->ID );
+		$location = \Tribe__Events__Venue::get_address_full_string( $event_post->ID );
 		if ( ! empty( $location ) ) {
 			$str_location = $this->replace( $location, [ ',', "\n" ], [ '\,', '\n' ] );
 

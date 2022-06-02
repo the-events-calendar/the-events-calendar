@@ -295,13 +295,6 @@ class State {
 			return false;
 		}
 
-		if ( 0 === $this->events->get_total_events() && ! $this->is_running() ) {
-			$this->set( 'phase', self::PHASE_MIGRATION_NOT_REQUIRED );
-			$this->save();
-
-			return false;
-		}
-
 		return true;
 	}
 

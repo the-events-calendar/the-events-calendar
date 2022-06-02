@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Only_Modifier;
 use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Series_Relationship_Modifier;
 use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Not_In_Series_Modifier;
 use WP_Query;
-
+use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Admin_List_Modifier;
 /**
  * Class Monitor
  *
@@ -35,6 +35,7 @@ class WP_Query_Monitor implements Countable {
 	 */
 	private $implementations = [
 		Events_Only_Modifier::class,
+		Events_Admin_List_Modifier::class,
 		Events_Series_Relationship_Modifier::class,
 		Events_Not_In_Series_Modifier::class,
 	];

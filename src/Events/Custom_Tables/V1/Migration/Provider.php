@@ -12,6 +12,8 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use tad_DI52_ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
+use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use Tribe__Events__Main as TEC;
@@ -34,14 +36,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @return void
 	 */
 	public function register() {
-		if ( ! (
-			defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_ENABLED' )
-			&& TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_ENABLED
-		) ) {
-			// @todo remove this feature flag once the Migration work is completed.
-			return;
-		}
-
 		// Register the provider in the container.
 		$this->container->singleton( self::class, $this );
 
@@ -54,6 +48,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Process::class, Process::class );
 		$this->container->singleton( Ajax::class, Ajax::class );
 		$this->container->singleton( Asset_Loader::class, Asset_Loader::class );
+		$this->container->singleton( Event_Report_Categories::class, Event_Report_Categories::class );
+		$this->container->register( Download_Report_Provider::class );
 
 		$this->load_action_scheduler();
 
@@ -66,11 +62,12 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
 		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
+		add_action( Ajax::ACTION_PAGINATE_EVENTS, [ $this, 'paginate_events' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
 		add_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
 		add_action( Ajax::ACTION_REVERT, [ $this, 'revert_migration' ] );
-		add_action( 'action_scheduler_bulk_cancel_actions', [ $this, 'cancel_async_actions' ]  );
-		add_action( 'action_scheduler_canceled_action', [ $this, 'cancel_async_action' ]  );
+		add_action( 'action_scheduler_bulk_cancel_actions', [ $this, 'cancel_async_actions' ] );
+		add_action( 'action_scheduler_canceled_action', [ $this, 'cancel_async_action' ] );
 
 		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', $this->container->callback( Asset_Loader::class, 'enqueue_scripts' ) );
@@ -81,22 +78,9 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Set our state appropriately.
-	 */
-	public function init_migration_state() {
-		$state = $this->container->make( State::class );
-		if ( ! $state->get_phase() ) {
-			$state->set( 'phase', State::PHASE_PREVIEW_PROMPT );
-		}
-	}
-
-	/**
 	 * Run actions on WordPress 'init' action.
 	 */
 	public function init() {
-		// Initial state setup.
-		$this->init_migration_state();
-
 		// Activate maintenance mode, if required.
 		$this->activate_maintenance_mode();
 	}
@@ -189,6 +173,19 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function send_report() {
 		return $this->container->make( Ajax::class )->send_report();
+	}
+
+	/**
+	 * Sends (echoes) a JSON format report of a batch of paginated events.
+	 *
+	 * @since TBD
+	 *
+	 * @return void The method does not return any value and will have the side effect
+	 *              of echoing a JSON format string back for the Migration UI JS component
+	 *              to consume.
+	 */
+	public function paginate_events() {
+		return $this->container->make( Ajax::class )->paginate_events();
 	}
 
 	/**

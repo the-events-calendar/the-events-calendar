@@ -604,8 +604,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			return null;
 		}
 
-		$start = Tribe__Events__Template__Month::calculate_first_cell_date( $year_month_string );
-		$end   = Tribe__Events__Template__Month::calculate_final_cell_date( $year_month_string );
+		$start = \Tribe\Events\Views\V2\Views\Month_View::calculate_first_cell_date( $year_month_string );
+		$end   = \Tribe\Events\Views\V2\Views\Month_View::calculate_final_cell_date( $year_month_string );
 
 		return $this->filter_by_runs_between( $start, tribe_end_of_day( $end ) );
 	}

@@ -13,7 +13,6 @@ use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
-use Tribe__Events__Template__Month as Month;
 use Tribe__Utils__Array as Arr;
 
 class Month_View extends By_Day_View {
@@ -431,10 +430,89 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	protected function calculate_grid_start_end( $date ) {
-		$grid_start = Month::calculate_first_cell_date( $date );
-		$grid_end   = Month::calculate_final_cell_date( $date );
+		$grid_start = static::calculate_first_cell_date( $date );
+		$grid_end   = static::calculate_final_cell_date( $date );
 
 		return [ Dates::build_date_object( $grid_start ), Dates::build_date_object( $grid_end ) ];
+	}
+
+	/**
+	 * Return the date of the first day in the month view grid.
+	 *
+	 * This is not necessarily the 1st of the specified month, rather it is the date of the
+	 * first grid cell which could be anything upto 6 days earlier than the 1st of the month.
+	 *
+	 * @since TBD
+	 *
+	 * @param string  $month
+	 * @param integer $start_of_week
+	 *
+	 * @return bool|string (Y-m-d)
+	 */
+	public static function calculate_first_cell_date( $month, $start_of_week = null ) {
+		if ( null === $start_of_week ) {
+			$start_of_week = (int) get_option( 'start_of_week', 0 );
+		}
+
+		$day_1 = Dates::first_day_in_month( $month );
+		if ( $day_1 < $start_of_week ) {
+			$day_1 += 7;
+		}
+
+		$diff = $day_1 - $start_of_week;
+		if ( $diff >= 0 ) {
+			$diff = "-$diff";
+		}
+
+		try {
+			$date = new \DateTime( $month );
+			$date = new \DateTime( $date->format( 'Y-m-01' ) );
+			$date->modify( "$diff days" );
+
+			return $date->format( Dates::DBDATEFORMAT );
+		} catch ( \Exception $e ) {
+			return false;
+		}
+	}
+
+	/**
+	 * Return the date of the first day in the month view grid.
+	 *
+	 * This is not necessarily the last day of the specified month, rather it is the date of
+	 * the final grid cell which could be anything upto 6 days into the next month.
+	 *
+	 * @since TBD
+	 *
+	 * @param string  $month
+	 * @param integer $start_of_week
+	 *
+	 * @return bool|string (Y-m-d)
+	 */
+	public static function calculate_final_cell_date( $month, $start_of_week = null ) {
+		if ( null === $start_of_week ) {
+			$start_of_week = (int) get_option( 'start_of_week', 0 );
+		}
+
+		$last_day    = Dates::last_day_in_month( $month );
+		$end_of_week = Dates::week_ends_on( $start_of_week );
+		if ( $end_of_week < $last_day ) {
+			$end_of_week += 7;
+		}
+
+		$diff = $end_of_week - $last_day;
+		if ( $diff >= 0 ) {
+			$diff = "+$diff";
+		}
+
+		try {
+			$date = new \DateTime( $month );
+			$date = new \DateTime( $date->format( 'Y-m-t' ) );
+			$date->modify( "$diff days" );
+
+			return $date->format( Dates::DBDATEFORMAT );
+		} catch ( \Exception $e ) {
+			return false;
+		}
 	}
 
 	/**

@@ -6,6 +6,8 @@ let pollTimeoutId = null;
 let currentViewState = {
 	poll: true,
 };
+let pastCurrentPage = 1;
+let upcomingCurrentPage = 1;
 
 export const selectors = {
 	upgradeBox: '#tec-ct1-upgrade-dynamic',
@@ -13,6 +15,7 @@ export const selectors = {
 	startMigrationButton: '.tec-ct1-upgrade-start-migration',
 	cancelMigrationButton: '.tec-ct1-upgrade-cancel-migration',
 	revertMigrationButton: '.tec-ct1-upgrade-revert-migration',
+	paginateButton: '[data-events-paginate]'
 };
 
 /**
@@ -176,7 +179,13 @@ export const handleReportData = function (data) {
 				// Write new content.
 				let element = document.querySelector(node.target);
 				if (element) {
-					element.innerHTML = node.html;
+					if (node.prepend) {
+						element.innerHTML = node.html + element.innerHTML;
+					} else if (node.append) {
+						element.innerHTML = element.innerHTML + node.html;
+					} else {
+						element.innerHTML = node.html;
+					}
 					bindNodes(node.key);
 				}
 			}
@@ -200,6 +209,7 @@ export const bindNodes = (key) => {
 	element = document.querySelectorAll(selectors.startPreviewButton);
 	if (element) {
 		element.forEach(function (node) {
+			node.removeEventListener('click', handleStartMigrationWithPreview);
 			node.addEventListener('click', handleStartMigrationWithPreview);
 		});
 	}
@@ -208,6 +218,7 @@ export const bindNodes = (key) => {
 	element = document.querySelectorAll(selectors.startMigrationButton);
 	if (element) {
 		element.forEach(function (node) {
+			node.removeEventListener('click', handleStartMigration);
 			node.addEventListener('click', handleStartMigration);
 		});
 	}
@@ -216,6 +227,7 @@ export const bindNodes = (key) => {
 	element = document.querySelectorAll(selectors.cancelMigrationButton);
 	if (element) {
 		element.forEach(function (node) {
+			node.removeEventListener('click', handleCancelMigration);
 			node.addEventListener('click', handleCancelMigration);
 		});
 	}
@@ -224,9 +236,60 @@ export const bindNodes = (key) => {
 	element = document.querySelectorAll(selectors.revertMigrationButton);
 	if (element) {
 		element.forEach(function (node) {
+			node.removeEventListener('click', handleRevertMigration);
 			node.addEventListener('click', handleRevertMigration);
 		});
 	}
+
+	// Paginate events
+	element = document.querySelectorAll(selectors.paginateButton);
+	if (element) {
+		element.forEach(function (node) {
+			node.removeEventListener('click', handlePaginateClick(node));
+			node.addEventListener('click', handlePaginateClick(node));
+		});
+	}
+}
+
+const handlePaginateClick = (node) => (e) => {
+	e.preventDefault();
+	const isUpcoming = !!node.dataset.eventsPaginateUpcoming;
+	const category = node.dataset.eventsPaginateCategory;
+
+	if (isUpcoming) {
+		upcomingCurrentPage++;
+	} else {
+		pastCurrentPage++;
+	}
+	const page = isUpcoming ? upcomingCurrentPage : pastCurrentPage;
+
+	ajaxGet(
+		tecCt1Upgrade.ajaxUrl,
+		{
+			action: tecCt1Upgrade.actions.paginateEvents,
+			page: page,
+			upcoming: isUpcoming ? 1 : 0,
+			report_category: category,
+			_ajax_nonce: tecCt1Upgrade.nonce,
+		},
+		({html, append, prepend, has_more}) => {
+			const element = document.querySelector(`.tec-ct1-upgrade-events-category-${category}`);
+			if (prepend) {
+				element.innerHTML = html + element.innerHTML;
+			} else if (append) {
+				element.innerHTML = element.innerHTML + html;
+			} else {
+				element.innerHTML = html;
+			}
+			if (!has_more) {
+				let element = document.querySelector('.tec-ct1-upgrade-migration-pagination-separator');
+				if (element) {
+					element.remove();
+				}
+				e.target.remove();
+			}
+		}
+	);
 }
 
 /**

@@ -4,6 +4,7 @@ namespace Tribe\Events\Test\Traits\CT1;
 
 use TEC\Events\Custom_Tables\V1\Activation;
 use TEC\Events\Custom_Tables\V1\Migration\Provider;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Event as Event_Model;
@@ -18,6 +19,52 @@ use Tribe__Events__Main as TEC;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 
 trait CT1_Fixtures {
+	/**
+	 * Utility to generate reports with various criteria.
+	 *
+	 * @param int     $count           How many events to create.
+	 * @param boolean $upcoming        Whether the event is in the future or past.
+	 * @param string  $report_category The report category based on success/failure grouping.
+	 * @param boolean $is_failure      Whether the event report should be flagged as a failure or success.
+	 *
+	 * @return array<Event_Report>
+	 * @throws \Exception
+	 */
+	protected function given_number_single_event_reports( $count, $upcoming, $report_category, $is_failure ) {
+
+		$timezone = new \DateTimeZone( 'Europe/Paris' );
+		$utc      = new \DateTimeZone( 'UTC' );
+		if ( $upcoming ) {
+			$now = new \DateTimeImmutable( 'next week', $timezone );
+		} else {
+			$now = new \DateTimeImmutable( 'last week', $timezone );
+		}
+		$two_hours  = new \DateInterval( 'PT2H' );
+		$event_args = [
+			'meta_input' => [
+				'_EventStartDate'    => $now->format( Dates::DBDATETIMEFORMAT ),
+				'_EventEndDate'      => $now->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventStartDateUTC' => $now->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventEndDateUTC'   => $now->setTimezone( $utc )->add( $two_hours )->format( Dates::DBDATETIMEFORMAT ),
+				'_EventDuration'     => 7200,
+				'_EventTimezone'     => $timezone->getName(),
+			],
+		];
+		$reports    = [];
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$post         = $this->given_a_non_migrated_single_event( $event_args );
+			$event_report = new Event_Report( $post );
+			if ( $is_failure ) {
+				$event_report->migration_failed( $report_category );
+			} else {
+				$event_report->add_strategy( $report_category );
+				$event_report->migration_success();
+			}
+			$reports[] = $event_report;
+		}
+
+		return $reports;
+	}
 
 	/**
 	 * Reset the activation flags, and remove CT1 tables. We want to simulate no activation having been done yet.
@@ -43,13 +90,13 @@ trait CT1_Fixtures {
 	/**
 	 * @return \WP_Post
 	 */
-	private function given_a_non_migrated_single_event() {
+	private function given_a_non_migrated_single_event( $override_event_args = [] ) {
 		// Create an Event.
-		$timezone  = new \DateTimeZone( 'Europe/Paris' );
-		$utc       = new \DateTimeZone( 'UTC' );
-		$now       = new \DateTimeImmutable( 'now', $timezone );
-		$two_hours = new \DateInterval( 'PT2H' );
-		$post_id   = ( new \WP_UnitTest_Factory_For_Post() )->create( [
+		$timezone   = new \DateTimeZone( 'Europe/Paris' );
+		$utc        = new \DateTimeZone( 'UTC' );
+		$now        = new \DateTimeImmutable( 'now', $timezone );
+		$two_hours  = new \DateInterval( 'PT2H' );
+		$event_args = [
 			'post_type'   => TEC::POSTTYPE,
 			'meta_input'  => [
 				'_EventStartDate'    => $now->format( Dates::DBDATETIMEFORMAT ),
@@ -61,7 +108,10 @@ trait CT1_Fixtures {
 				'_EventTimezoneAbbr' => Timezones::abbr( $now, $timezone ),
 			],
 			'post_status' => 'publish',
-		] );
+		];
+
+		$post_id    = ( new \WP_UnitTest_Factory_For_Post() )->create( array_merge( $event_args, $override_event_args ) );
+
 		// Make sure no models are present in the custom tables for it.
 		Occurrence_Model::where( 'post_id', '=', $post_id )
 		                ->delete();

@@ -44,19 +44,19 @@ class Site_Report implements JsonSerializable {
 	 * @var array<mixed> The report data.
 	 */
 	protected $data = [
-		'estimated_time_in_seconds'  => 0,
+		'estimated_time_in_seconds' => 0,
 		'estimated_time_in_minutes' => 0,
-		'date_completed'           => null,
-		'total_events'             => null,
-		'total_events_migrated'    => null,
-		'total_events_in_progress' => null,
-		'has_changes'              => false,
-		'migration_phase'          => null,
-		'is_completed'             => false,
-		'is_running'               => false,
-		'has_errors'               => false,
-		'progress_percent'         => 0,
-		'total_events_failed'      => null,
+		'date_completed'            => null,
+		'total_events'              => null,
+		'total_events_migrated'     => null,
+		'total_events_in_progress'  => null,
+		'has_changes'               => false,
+		'migration_phase'           => null,
+		'is_completed'              => false,
+		'is_running'                => false,
+		'has_errors'                => false,
+		'progress_percent'          => 0,
+		'total_events_failed'       => null,
 	];
 
 	/**
@@ -91,8 +91,8 @@ class Site_Report implements JsonSerializable {
 	 * @return Site_Report A reference to the site migration report instance.
 	 */
 	public static function build() {
-		$event_repo = tribe(Events::class);
-		$state = tribe( State::class );
+		$event_repo = tribe( Events::class );
+		$state      = tribe( State::class );
 
 		// Total TEC events
 		$total_events = $event_repo->get_total_events();
@@ -138,16 +138,18 @@ class Site_Report implements JsonSerializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $page  The page to retrieve in a pagination request. If -1, it will retrieve all reports in the
-	 *                   database.
-	 * @param int $count The number of event reports to retrieve. If $page is -1 this will be ignored.
+	 * @param int   $page                  The page to retrieve in a pagination request. If -1, it will retrieve all
+	 *                                     reports in the database.
+	 * @param int   $count                 The number of event reports to retrieve. If $page is -1 this will be
+	 *                                     ignored.
+	 * @param array $filter                An option set of filters to apply to the search.
 	 *
 	 * @return array<Event_Report> A sorted list of Event_Report objects.
 	 */
-	public function get_event_reports( $page = - 1, $count = 20 ) {
+	public function get_event_reports( $page = - 1, $count = 20, $filter = [] ) {
 		$event_repo = tribe( Events::class );
 		// Get all the events that have been touched by migration
-		$post_ids      = $event_repo->get_events_migrated( $page, $count );
+		$post_ids      = $event_repo->get_events_migrated( $page, $count, $filter );
 		$event_reports = [];
 		foreach ( $post_ids as $post_id ) {
 			$event_reports[] = new Event_Report( get_post( $post_id ) );
