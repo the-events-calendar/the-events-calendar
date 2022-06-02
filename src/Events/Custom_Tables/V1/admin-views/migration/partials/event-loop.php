@@ -4,53 +4,54 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 /**
- * @var array<Event_Report> $event_reports A list of the event report data.
- * @var String_Dictionary   $text          Our text dictionary.
+ * @var string  $template_directory   The path to the template directory.
+ * @var string  $event_category_key   The key of the category this list is for.
+ * @var string  $event_category_label The label of the category this list is for.
+ * @var boolean $has_upcoming         Whether to add upcoming events paginate button.
+ * @var boolean $has_past             Whether to add past events paginate button.
  */
 ?>
-<ul>
-	<?php foreach ( $event_reports as $event ) : ?>
-		<li>
+<div class="tec-ct1-upgrade-events-category-container">
+	<span>
+		<strong><?php echo esc_html( $event_category_label ); ?></strong>
+	</span>
+	<div class="tec-ct1-upgrade-events-container tec-ct1-upgrade-events-category-<?php echo esc_attr( $event_category_key ); ?>">
+		<?php
+		include( $template_directory . '/partials/event-items.php' );
+		?>
+	</div>
+	<?php
+	if ( $has_past || $has_upcoming ) {
+		?>
+		<div class="tec-ct1-upgrade-events-pagination-buttons-container">
 			<?php
-			if ( $event->error ) {
-				echo $event->error;
-			} else {
+			if ( $has_past ) {
 				?>
-				<a target="_blank"
-				   href="<?php echo get_edit_post_link( $event->source_event_post->ID, false ) ?>"><?php echo esc_html( $event->source_event_post->post_title ); ?></a>
-				—
+				<a
+						href="#"
+						data-events-paginate-category="<?php echo esc_attr( $event_category_key ); ?>"
+						data-events-paginate="1"
+				>Show past events</a>
 				<?php
-				foreach ( $event->strategies_applied as $action ) {
-					switch ( $action ) {
-						case 'split':
-							echo sprintf(
-									esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
-									'<strong>',
-									count( $event->created_events ),
-									'</strong>'
-							);
-							echo sprintf(
-									esc_html( $text->get( "migration-prompt-strategy-$action-new-series" ) ),
-									$event->series[0]->post_title // @todo This ok?
-							);
-							break;
-						default:
-							// Do we have language for this strategy?
-							$output = sprintf(
-									esc_html( $text->get( "migration-prompt-strategy-$action" ) ),
-									'<strong>',
-									'</strong>'
-							);
-							if ( $output ) {
-								echo $output;
-							} else {
-								echo esc_html( $text->get( "migration-prompt-unknown-strategy" ) );
-							}
-							break;
-					}
-				}
+			}
+			if ( $has_past && $has_upcoming ) {
+				?>
+				<span class='tec-ct1-upgrade-migration-pagination-separator'> | </span>
+				<?php
+			}
+			if ( $has_upcoming ) {
+				?>
+				<a
+						href="#"
+						data-events-paginate-category="<?php echo esc_attr( $event_category_key ); ?>"
+						data-events-paginate-upcoming="1"
+						data-events-paginate="1"
+				>Show more upcoming events</a>
+				<?php
 			}
 			?>
-		</li>
-	<?php endforeach; ?>
-</ul>
+		</div>
+		<?php
+	}
+	?>
+</div>

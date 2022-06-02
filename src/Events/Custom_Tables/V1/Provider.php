@@ -14,7 +14,7 @@ namespace TEC\Events\Custom_Tables\V1;
 
 use tad_DI52_Container as Container;
 use tad_DI52_ServiceProvider as Service_Provider;
-use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
  * Class Provider
@@ -104,9 +104,9 @@ class Provider extends Service_Provider {
 			// *NOTE* - Ensure only adding providers that are always required in here,
 			// versus most features that should go in the `Full_Activation_Provider`.
 
-			$schema_builder = $this->container->make( Schema_Builder::class );
+			$state = $this->container->make( State::class );
 			// Should we fully activate?
-			if ( $schema_builder->all_tables_exist( 'tec' ) ) {
+			if ( $state->is_migrated() ) {
 				// These providers should be the ones that extend the bulk of features for CT1,
 				// with only the bare minimum of providers registered above, to determine important state information.
 				$this->container->register( Full_Activation_Provider::class );
@@ -238,7 +238,7 @@ class Provider extends Service_Provider {
 		$removed = 0;
 		foreach ( $this->added_filters as $tag => list( $callback, $priority ) ) {
 			remove_filter( $tag, $callback, $priority );
-			$removed++;
+			$removed ++;
 		}
 
 		return $removed;

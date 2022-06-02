@@ -78,9 +78,9 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$process = new Process_Worker( $events, new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
-		$this->assertEquals( 'Error: for reasons', $report->error );
+		$this->assertContains( 'for reasons', $report->error );
 		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
-		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $this->get_phase() );
+		$this->assertEquals( State::PHASE_MIGRATION_FAILURE_IN_PROGRESS, $this->get_phase() );
 	}
 
 	/**
@@ -107,9 +107,10 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$process = new Process_Worker( $events, new State( $events ) );
 		$report  = $process->migrate_event( $post_id, $dry_run );
 
-		$this->assertEquals( "Error: Random error", $report->error );
+		$this->assertContains( "Random error", $report->error );
 		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
-		$this->assertEquals( State::PHASE_MIGRATION_COMPLETE, $this->get_phase() );
+		// If an error, we abort migration and work to a rollback state.
+		$this->assertEquals( State::PHASE_MIGRATION_FAILURE_IN_PROGRESS, $this->get_phase() );
 	}
 
 	/**

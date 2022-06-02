@@ -1,4 +1,6 @@
 <?php
+
+use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 /**
  * Object used to handle the linking/unlinking of post types for events
  */

@@ -100,51 +100,67 @@ class Events {
 	 *
 	 * @since TBD
 	 *
-	 * @param $page  int Page in a pagination retrieval.
-	 * @param $count int How many to retrieve.
+	 * @param int   $page   Page in a pagination retrieval.
+	 * @param int   $count  How many to retrieve.
+	 * @param array $filter Filter the events returned.
 	 *
 	 * @return array<numeric>
 	 */
-	public function get_events_migrated( $page, $count ) {
-		global $wpdb; $total_events_migrated = $this->get_total_events_migrated();
-		// @todo do we want to query for "locked" and "event reported" events?
-		// Get in progress / complete events
-		if ( $page === - 1 || $count > $total_events_migrated ) {
-			$query = $wpdb->prepare(
-				"SELECT DISTINCT ID
-				FROM {$wpdb->posts} p
-				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
-				WHERE p.post_type = %s AND p.post_parent = 0
-				ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID",
-				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_ORDER_WEIGHT,
-				TEC::POSTTYPE
-			);
-		} else {
-			$total_pages = $total_events_migrated / $count;
-			if ( $page > $total_pages ) {
-				$page = $total_pages;
-			}
-			$start = ( $page - 1 ) * $count;
+	public function get_events_migrated( $page, $count, $filter = [] ) {
+		global $wpdb;
 
-			$query = $wpdb->prepare(
-				"SELECT DISTINCT ID
+		// If the first page, start at 0. Else increment to the next page and start there.
+		$start     = $page === 1 ? 0 : ( $page - 1 ) * $count;
+		$params    = [];
+		$q         = "SELECT DISTINCT `ID`, pm_d.meta_value
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_o ON p.ID = pm_o.post_id AND pm_o.meta_key = %s
-				WHERE p.post_type = %s AND p.post_parent = 0
-				ORDER BY CAST(pm_o.meta_value AS UNSIGNED) DESC, p.post_title, p.ID
-				LIMIT %d, %d",
-				Event_Report::META_KEY_REPORT_DATA,
-				Event_Report::META_KEY_ORDER_WEIGHT,
-				TEC::POSTTYPE,
-				$start,
-				$count
-			);
+				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDate'";
+		$params [] = Event_Report::META_KEY_REPORT_DATA;
+
+		// Add joins.
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
+			$q        .= " INNER JOIN {$wpdb->postmeta} pm_s ON p.ID = pm_s.post_id AND pm_s.meta_key = %s ";
+			$params[] = Event_Report::META_KEY_MIGRATION_PHASE;
 		}
 
-		return $wpdb->get_col( $query );
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
+			$q        .= " INNER JOIN {$wpdb->postmeta} pm_c ON p.ID = pm_c.post_id AND pm_c.meta_key = %s ";
+			$params[] = Event_Report::META_KEY_MIGRATION_CATEGORY;
+		}
+
+		// Add where statement.
+		$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
+		$params[] = TEC::POSTTYPE;
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
+			$q        .= " AND pm_s.meta_value = %s ";
+			$params[] = $filter[ Event_Report::META_KEY_MIGRATION_PHASE ];
+		}
+		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ] ) ) {
+			$q        .= " AND pm_c.meta_value = %s ";
+			$params[] = $filter[ Event_Report::META_KEY_MIGRATION_CATEGORY ];
+		}
+
+		// Are we grabbing upcoming or past events?
+		if ( isset( $filter['upcoming'] ) ) {
+			$gtlt = $filter['upcoming'] ? '>=' : '<';
+
+			$q        .= " AND  pm_d.meta_value $gtlt %s ";
+			$now      = new \DateTime( 'now', wp_timezone() );
+			$params[] = $now->format( 'Y-m-d H:i:s' );
+		}
+
+		// @todo Confirm ordering - look at list view?
+		$q .= " ORDER BY pm_d.meta_value DESC ";
+		if ( $page !== - 1 ) {
+			$q         .= "  LIMIT %d, %d ";
+			$params [] = $start;
+			$params [] = $count;
+		}
+
+		$query = call_user_func_array( [ $wpdb, 'prepare' ], array_merge( [ $q ], $params ) );
+
+		return $wpdb->get_col( $query, 0 );
 	}
 
 	/**
@@ -229,7 +245,7 @@ class Events {
 	 *
 	 * @return int The total number of Events in the database, migrated or not.
 	 */
-	public function get_total_events(  ) {
+	public function get_total_events() {
 		global $wpdb;
 		$total_events = (int) $wpdb->get_var(
 			$wpdb->prepare(

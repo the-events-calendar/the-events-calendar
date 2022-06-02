@@ -17,6 +17,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Admin\Phase_View_Renderer;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 
 /**
@@ -27,6 +28,11 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
  */
 class Ajax {
 
+	/**
+	 * The full name of the action that will be fired following a migration UI
+	 * request for a paginated batch of events.
+	 */
+	const ACTION_PAGINATE_EVENTS = 'wp_ajax_tec_events_custom_tables_v1_migration_event_pagination';
 	/**
 	 * The full name of the action that will be fired following a migration UI
 	 * request for a report.
@@ -71,24 +77,46 @@ class Ajax {
 	 */
 	private $process;
 	/**
-	 * A reference to the current progress modal handler.
-	 *
 	 * @since TBD
 	 *
-	 * @var Progress_Modal
+	 * @var Site_Report
 	 */
-	private $progress_modal;
+	private $site_report;
+	/**
+	 * @since TBD
+	 *
+	 * @var Events
+	 */
+	private $events_repository;
+	/**
+	 * @since TBD
+	 *
+	 * @var State
+	 */
+	private $state;
+	/**
+	 * @since TBD
+	 *
+	 * @var String_Dictionary
+	 */
+	private $text;
 
 	/**
 	 * Ajax constructor.
 	 *
-	 * since TBD
+	 * @since TBD
 	 *
-	 * @param Process $process A reference to the current background processing handler.
+	 * @param Process           $process           The process master.
+	 * @param Events            $events_repository The migration events repository.
+	 * @param String_Dictionary $text              The string translations object.
+	 * @param State             $state             The migration state.
 	 */
-	public function __construct( Process $process, Progress_Modal $progress_modal ) {
-		$this->process        = $process;
-		$this->progress_modal = $progress_modal;
+	public function __construct( Process $process, Events $events_repository, String_Dictionary $text, State $state ) {
+		$this->process           = $process;
+		$this->site_report       = Site_Report::build();
+		$this->events_repository = $events_repository;
+		$this->state             = $state;
+		$this->text              = $text;
 	}
 
 	/**
@@ -115,6 +143,65 @@ class Ajax {
 	}
 
 	/**
+	 * Requests a batch of paginated events.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $echo
+	 *
+	 * @return false|string|void
+	 */
+	public function paginate_events( $echo = true ) {
+		check_ajax_referer( self::NONCE_ACTION );
+		$response = $this->get_paginated_response( $_GET['page'], 25, ! empty( $_GET['upcoming'] ), $_GET['report_category'] );
+		if ( $echo ) {
+			wp_send_json( $response );
+			die();
+		}
+
+		return wp_json_encode( $response );
+	}
+
+	/**
+	 * Responds to the paginated requests.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $page     The page of results we are fetching.
+	 * @param int    $count    The number of events we are requesting.
+	 * @param bool   $upcoming If we want upcoming or past events.
+	 * @param string $category The category of event reports we are searching.
+	 *
+	 * @return mixed[]
+	 */
+	public function get_paginated_response( $page, $count, $upcoming, $category ) {
+		$phase = $this->state->get_phase();
+
+		$filter        = [
+			Event_Report::META_KEY_MIGRATION_CATEGORY => $category,
+			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+			'upcoming'                                => $upcoming
+		];
+		$event_details = $this->get_events_and_has_more( $page, $count, $filter );
+		$renderer_args = [
+			'state'         => $this->state,
+			'report'        => $this->site_report,
+			'text'          => $this->text,
+			'event_reports' => $event_details['event_reports']
+		];
+
+		$renderer = new Phase_View_Renderer(
+			$phase . '-paginated',
+			'/partials/event-items.php',
+			$renderer_args,
+			[ 'has_more' => $event_details['has_more'], 'append' => $upcoming, 'prepend' => ! $upcoming ]
+		);
+
+		return $renderer->compile();
+	}
+
+
+	/**
 	 * Builds the structured report HTML.
 	 *
 	 * @since TBD
@@ -122,43 +209,131 @@ class Ajax {
 	 * @return array<string, mixed>
 	 */
 	protected function get_report() {
-
 		// What phase are we in?
-		$state = tribe( State::class );
-		$phase = $state->get_phase();
-
-		/**
-		 * Filters the Phase_View_Renderer being constructed for this phase.
-		 *
-		 * @since TBD
-		 *
-		 * @param Phase_View_Renderer A reference to the Phase_View_Renderer that should be used.
-		 *                           Initially `null`.
-		 * @param string $phase      The current phase we are in.
-		 */
-		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
-		if ( ! $renderer instanceof Phase_View_Renderer ) {
-
-			$renderer = $this->get_renderer_for_phase( $phase );
-		}
+		$state    = $this->state;
+		$phase    = $state->get_phase();
+		$renderer = $this->get_renderer_for_phase( $phase );
 
 		return $renderer->compile();
 	}
 
+
 	/**
-	 * Will construct the appropriate templates and nodes to be compiled, for this phase in the migration.
+	 * Will fetch event reports for a particular filter, and check if there are more to request for that filter.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $phase The current phase of the migration.
+	 * @param int $page  Which page we are on.
+	 * @param int $count How many we want.
+	 * @param     $filter
 	 *
-	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
+	 * @return array{ has_more:bool, event_reports:array<Event_Report> }
 	 */
-	protected function get_renderer_for_phase( $phase ) {
-		// @todo flesh out pagination more
-		$page        = - 1;
-		$count       = 1000;
-		$site_report = Site_Report::build();
+	protected function get_events_and_has_more( $page, $count, $filter ) {
+		$event_reports = $this->site_report->get_event_reports(
+			$page,
+			$count,
+			$filter
+		);
+		// Did we even have enough to fill our request?
+		if ( count( $event_reports ) < $count ) {
+			$has_more = false;
+		} else {
+			// If we did, lets see if there is another page.
+			$has_more = ! empty( $this->events_repository->get_events_migrated(
+				$page + 1,
+				$count,
+				$filter
+			) );
+		}
+
+		return [ 'has_more' => $has_more, 'event_reports' => $event_reports ];
+	}
+
+	/**
+	 * Construct the query args for the primary renderer template (not used for the node templates).
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase.
+	 *
+	 * @return array<string,mixed> The primary renderer template args.
+	 */
+	protected function get_renderer_args( $phase ) {
+		$count         = 25;
+		$renderer_args = [
+			'state'  => $this->state,
+			'report' => $this->site_report,
+			'text'   => $this->text
+		];
+
+		switch ( $phase ) {
+			case State::PHASE_MIGRATION_COMPLETE:
+			case State::PHASE_MIGRATION_PROMPT:
+				if ( $this->site_report->has_errors ) {
+					$filter                         = [
+						Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE,
+					];
+					$renderer_args['event_reports'] = $this->site_report->get_event_reports(
+						1,
+						$count,
+						$filter
+					);
+				} else {
+					// This should only handle first render - pagination should be handled elsewhere.
+					$event_categories = tribe( Event_Report_Categories::class )->get_categories();
+					foreach ( $event_categories as $i => $category ) {
+						$upcoming_filter         = [
+							Event_Report::META_KEY_MIGRATION_CATEGORY => $category['key'],
+							Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
+							'upcoming'                                => true
+						];
+						$past_filter             = $upcoming_filter;
+						$past_filter['upcoming'] = false;
+						$upcoming_events         = $this->get_events_and_has_more( 1, $count, $upcoming_filter );
+						$past_events             = $this->get_events_and_has_more( 1, $count, $past_filter );
+						// Grab upcoming if any, else grab past events.
+						$event_categories[ $i ] ['event_reports'] = empty( $upcoming_events['event_reports'] )
+							? $past_events['event_reports']
+							: $upcoming_events['event_reports'];
+
+						// No reports? Skip this category.
+						if ( empty( $event_categories[ $i ] ['event_reports'] ) ) {
+							unset( $event_categories[ $i ] );
+							continue;
+						}
+
+						$event_categories[ $i ]['has_upcoming'] = $upcoming_events['has_more'];
+						$event_categories[ $i ]['has_past']     = $past_events['has_more'];
+					}
+					$renderer_args['event_categories'] = $event_categories;
+				}
+				break;
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_REVERT_COMPLETE:
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				$renderer_args['event_reports'] = $this->site_report->get_event_reports(
+					1,
+					$count, [ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
+				);
+				break;
+		}
+
+		return $renderer_args;
+	}
+
+	/**
+	 * Based on the current phase, find the correct template file for the renderer.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase.
+	 *
+	 * @return string|void The primary template file to load for this phase.
+	 */
+	protected function get_renderer_template( $phase ) {
+		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
 
 		// Is the Maintenance Mode view requesting the report? This changes how we handle the views.
 		$is_maintenance_mode = ! empty( $_GET["is_maintenance_mode"] );
@@ -166,55 +341,15 @@ class Ajax {
 		// Determine base directory for templates.
 		$base_dir = $is_maintenance_mode ? "/maintenance-mode/phase" : "/phase";
 
-		// Base template is phase name. Some phases might change.
+		// Base template is phase name. Some phases might change it with other logic.
 		$template = $phase;
 
-		// Then build the renderer.
 		switch ( $phase ) {
-			case State::PHASE_MIGRATION_COMPLETE:
-			case State::PHASE_MIGRATION_PROMPT:
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$phase.php",
-					[
-						'state'         => tribe( State::class ),
-						'report'        => $site_report,
-						'event_reports' => $site_report->get_event_reports( $page, $count ),
-						'text'          => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( false );
-				break;
-			case State::PHASE_CANCEL_IN_PROGRESS:
-			case State::PHASE_REVERT_IN_PROGRESS:
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$phase.php",
-					[
-						'state'  => tribe( State::class ),
-						'report' => $site_report,
-						'text'   => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( true );
-				break;
 			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
 				$template = State::PHASE_MIGRATION_IN_PROGRESS;
 			case State::PHASE_PREVIEW_IN_PROGRESS:
 			case State::PHASE_MIGRATION_IN_PROGRESS:
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$template.php"
-				);
-				$renderer->register_node( 'progress-bar',
-					'.tec-ct1-upgrade-update-bar-container',
-					'/partials/progress-bar.php',
-					[
-						'phase'  => $phase,
-						'report' => $site_report,
-						'text'   => tribe( String_Dictionary::class )
-					]
-				);
-				$renderer->should_poll( true );
-				break;
-			default:
+				return "$base_dir/$template.php";
 			case State::PHASE_CANCEL_COMPLETE:
 			case State::PHASE_REVERT_COMPLETE:
 			case State::PHASE_PREVIEW_PROMPT:
@@ -227,24 +362,87 @@ class Ajax {
 					// Other phases / views have this specific template.
 					$template = State::PHASE_PREVIEW_PROMPT;
 				}
-				$renderer = new Phase_View_Renderer( $phase,
-					"$base_dir/$template.php",
-					[
-						'state'         => tribe( State::class ),
-						'report'        => $site_report,
-						'text'          => tribe( String_Dictionary::class ),
-						'event_reports' => $site_report->get_event_reports( $page, $count )
-					]
-				);
-				$renderer->should_poll( false );
-				break;
+
+				return "$base_dir/$template.php";
+			default:
+				return "$base_dir/$template.php";
+		}
+	}
+
+	/**
+	 * Determines if the frontend should poll for updates from the backend.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase.
+	 *
+	 * @return bool Whether the frontend should continue polling.
+	 */
+	protected function should_renderer_poll( $phase ) {
+		switch ( $phase ) {
+			case State::PHASE_MIGRATION_COMPLETE:
+			case State::PHASE_MIGRATION_PROMPT:
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_REVERT_COMPLETE:
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				return false;
+			default:
+				return true;
+		}
+	}
+
+	/**
+	 * Will construct the appropriate templates and nodes to be compiled, for this phase in the migration.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $phase The current phase of the migration.
+	 *
+	 * @return Phase_View_Renderer The configured Phase_View_Renderer for this particular phase.
+	 */
+	public function get_renderer_for_phase( $phase ) {
+
+		/**
+		 * Filters the Phase_View_Renderer being constructed for this phase.
+		 *
+		 * @since TBD
+		 *
+		 * @param Phase_View_Renderer A reference to the Phase_View_Renderer that should be used.
+		 *                           Initially `null`.
+		 * @param string $phase      The current phase we are in.
+		 */
+		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
+		if ( $renderer instanceof Phase_View_Renderer ) {
+
+			return $renderer;
 		}
 
-		// Log our poll status
-		do_action( 'tribe_log', 'debug', 'Ajax: Migration report poll renderer', [
-			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'report' => $site_report,
-		] );
+		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
+
+		// Get the args.
+		$renderer_args = $this->get_renderer_args( $phase );
+		$template      = $this->get_renderer_template( $phase );
+		$renderer      = new Phase_View_Renderer( $phase, $template, $renderer_args );
+		$renderer->should_poll( $this->should_renderer_poll( $phase ) );
+
+		switch ( $phase ) {
+			case State::PHASE_MIGRATION_FAILURE_IN_PROGRESS:
+			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_IN_PROGRESS:
+				// * Warning, need a new report object here, state will have changed.
+				$site_report = Site_Report::build();
+				$renderer->register_node( 'progress-bar',
+					'.tec-ct1-upgrade-update-bar-container',
+					'/partials/progress-bar.php',
+					[
+						'phase'  => $phase,
+						'report' => $site_report,
+						'text'   => $this->text
+					]
+				);
+				break;
+		}
 
 		return $renderer;
 	}

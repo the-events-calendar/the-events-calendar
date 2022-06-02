@@ -84,7 +84,6 @@ class Process {
 		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_PHASE, '', true );
 		delete_metadata( 'post', 0, Event_Report::META_KEY_REPORT_DATA, '', true );
 		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_LOCK_HASH, '', true );
-		delete_metadata( 'post', 0, Event_Report::META_KEY_ORDER_WEIGHT, '', true );
 
 		// Flag our new phase.
 		$this->state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );

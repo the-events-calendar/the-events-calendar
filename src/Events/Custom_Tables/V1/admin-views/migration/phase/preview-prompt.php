@@ -5,6 +5,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 /**
  * @var string            $template_directory The absolute path to the Migration template root directory.
  * @var String_Dictionary $text               The text dictionary.
+ * @var string            $phase              The current phase.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
@@ -19,7 +20,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 		</h3>
 
 		<p>
-			<?php echo esc_html( $text->get( 'preview-prompt-features' ) ); ?>
+			<?php echo sprintf( $text->get( 'preview-prompt-features' ), '<a href="https://evnt.is/1b78" target="_blank">', '</a>' ); ?>
 		</p>
 
 		<p>
@@ -40,7 +41,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 	</div>
 	<div class="image-container">
 		<img class="screenshot"
-			 src="<?php echo esc_url( $text->get( 'completed-screenshot-url' ) ); ?>"
-			 alt="<?php echo esc_attr( $text->get( 'updated-views-screenshot-alt' ) ); ?>"/>
+			 src="<?php echo esc_url( $text->get( "$phase-screenshot-url" ) ); ?>"
+			 alt="<?php echo esc_attr( $text->get( 'preview-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>

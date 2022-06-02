@@ -45,6 +45,7 @@
 ## Classes moved to `src/deprecated`
 
 * `Tribe__Events__List_Widget` - modified to extend the new List Widget and deprecate publicly accessible methods.
+
 ## Classes Removed
 
 * `TribeEventsListWidget`

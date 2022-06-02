@@ -51,6 +51,15 @@ class Phase_View_Renderer {
 	private $nodes = [];
 
 	/**
+	 * Passthrough options which will be output to the response.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,mixed>
+	 */
+	private $options = [];
+
+	/**
 	 * A flag variable indicating whether the JS code receiving the data should
 	 * start, or keep, polling the backend for data or not.
 	 *
@@ -68,8 +77,10 @@ class Phase_View_Renderer {
 	 * @param string              $key       Our template key.
 	 * @param string              $file_path Path to the primary template.
 	 * @param array<string,mixed> $vars      Vars we need to pass down to the primary template.
+	 * @param array<string,mixed> $options   Vars to passthrough to the frontend output.
 	 */
-	public function __construct( $key, $file_path, $vars = [] ) {
+	public function __construct( $key, $file_path, array $vars = [], array $options = [] ) {
+		$this->options       = $options;
 		$this->key           = $key;
 		$this->template_path = $file_path;
 		// Our root template directory for all migration templates.
@@ -93,9 +104,16 @@ class Phase_View_Renderer {
 	 *                                      will be a target in the primary template.
 	 * @param string              $template Path to the node template.
 	 * @param array<string,mixed> $vars     A map from context variable names to their values.
+	 * @param array<string,mixed> $options  Frontend options to apply to this node.
 	 */
-	public function register_node( $key, $selector, $template, $vars = [] ) {
-		$this->nodes[] = [ 'target' => $selector, 'template' => $template, 'key' => $key, 'vars' => $vars ];
+	public function register_node( $key, $selector, $template, $vars = [], $options = [] ) {
+		$this->nodes[] = [
+			'target'   => $selector,
+			'template' => $template,
+			'key'      => $key,
+			'vars'     => $vars,
+			'options'  => $options,
+		];
 	}
 
 	/**
@@ -111,12 +129,12 @@ class Phase_View_Renderer {
 		$nodes = [];
 		foreach ( $this->nodes as $node ) {
 			$html    = $this->get_template_html( $node['template'], $node['vars'] );
-			$nodes[] = [
+			$nodes[] = array_merge( $node['options'], [
 				'html'   => $html,
 				'hash'   => sha1( $html ),
 				'key'    => $node['key'],
 				'target' => $node['target']
-			];
+			] );
 		}
 
 		return $nodes;
@@ -130,13 +148,13 @@ class Phase_View_Renderer {
 	 * @return array<string, mixed> The compiled output.
 	 */
 	public function compile() {
-		return [
+		return array_merge( $this->options, [
 			'key'   => $this->key,
 			// Based on what is registered, render the parent template
 			'html'  => $this->pre_post_content( $this->get_template_html( $this->template_path, $this->vars ) ),
 			'nodes' => $this->compile_nodes(),
-			'poll' => $this->poll,
-		];
+			'poll'  => $this->poll,
+		] );
 	}
 
 	/**
