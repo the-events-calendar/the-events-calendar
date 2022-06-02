@@ -51,6 +51,22 @@ class Maintenance_Mode {
 	}
 
 	/**
+	 * Output our special maintenance modal for all settings tabs except the Upgrade tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tab The settings tab this action is running for.
+	 */
+	public function inject_settings_page_modal( $tab ) {
+		if ( $tab === 'upgrade' || ! $this->migration_state->should_lock_for_maintenance() ) {
+			return;
+		}
+
+		$text = tribe( String_Dictionary::class );
+		include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/settings-maintenance-modal.php';
+	}
+
+	/**
 	 * Activates the migration mode, disabling a number of UI elements
 	 * across plugins, if required by the current migration state.
 	 *
@@ -87,6 +103,9 @@ class Maintenance_Mode {
 		// Modal that locks events access, to be rendered on several pages.
 		add_action( 'admin_footer', [ $this, 'inject_progress_modal' ] );
 		add_action( 'admin_print_footer_scripts', [ $this, 'inject_progress_modal_js_trigger' ], PHP_INT_MAX );
+
+		// A special overlay for our settings pages.
+		add_action( 'tribe_settings_after_content', [ $this, 'inject_settings_page_modal' ] );
 
 		/**
 		 * Fires an action to signal TEC requires putting the site in maintenance
