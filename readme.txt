@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Add rel="noindex" to links that point to empty calendar views. [TEC-4354]
+* Fix - Fix admin links to work with the new admin page structure. [TEC-4380]
 
 = [5.16.0] 2022-05-31 =
 

@@ -1,4 +1,6 @@
 <?php
+use Tribe\Events\Admin\Settings as Plugin_Settings;
+
 $has_license_key = tribe( 'events-aggregator.main' )->is_service_active();
 $hide_upsell     = tec_should_hide_upsell();
 
@@ -334,7 +336,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			<?php echo sprintf(
 				'%1$s %2$s%3$s%4$s %5$s',
 					esc_html__( 'Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar\'s', 'the-events-calendar' ),
-				'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
+				'<a href="' . esc_url( tribe( Plugin_Settings::class )->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
 					esc_html__( 'timezone settings', 'the-events-calendar' ),
 					'</a>',
 					esc_html__( 'to change how the actual time is displayed on your calendar.', 'the-events-calendar' )
@@ -345,7 +347,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 	<div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not="eventbrite">
 		<p class="tribe-limits-message">
 			<?php echo sprintf( esc_html__( 'The number of events available in the preview may be limited by your %1$sImport Settings.%2$s', 'the-events-calendar' ),
-				'<a href="' . esc_url( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_import_limit_type' ) ) . '#tribe-field-tribe_events_timezone_mode">',
+				'<a href="' . esc_url( tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'imports#tribe-field-tribe_aggregator_default_import_limit_type' ] ) ) . '#tribe-field-tribe_events_timezone_mode">',
 				'</a>' ); ?>
 		</p>
 	</div>
@@ -354,7 +356,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 			<?php echo sprintf(
 				'%1$s %2$s%3$s%4$s',
 					esc_html__( 'Events will be imported with the time zone defined by the source. If no time zone is specified, events will be assigned your site\'s default time zone ( see', 'the-events-calendar' ),
-				'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
+				'<a href="' . esc_url( tribe( Plugin_Settings::class )->get_url() ) . '#tribe-field-tribe_events_timezone_mode">',
 					esc_html__( 'Settings > General', 'the-events-calendar' ),
 					'</a> ).'
 				);
