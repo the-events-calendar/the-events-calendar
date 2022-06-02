@@ -68,6 +68,36 @@ class Day_View extends View {
 	}
 
 	/**
+	 * Get the date of the event immediately after to the current view date.
+	 *
+	 * @since TBD
+	 *
+	 * @param DateTime|false $current_date A DateTime object signifying the current date for the view.
+	 *
+	 * @return DateTime|false Either the next event chronologically, the next month, or false if no next event found.
+	 */
+	public function get_next_event_date( $current_date ) {
+		// The first event that ends after the end of the month; it could still begin in this month.
+		$next_event = tribe_events()
+			->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+			->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
+			->order( 'ASC' )
+			->first();
+
+		if ( ! $next_event instanceof \WP_Post ) {
+			return false;
+		}
+
+		// At a minimum pick the next month or the month the next event starts in.
+		$next_date = max(
+			Dates::build_date_object( $next_event->dates->start ),
+			$current_date->add( new \DateInterval( 'P1M' ) )
+		);
+
+		return $next_date;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
@@ -177,8 +207,22 @@ class Day_View extends View {
 
 		$template_vars = parent::setup_template_vars();
 		$sorted_events = $this->sort_events( $template_vars['events'] );
+		$next_date     = Dates::build_date_object( $template_vars['next_label'] )->format( 'Y-m-d' );
+		$prev_date     = Dates::build_date_object( $template_vars['prev_label'] )->format( 'Y-m-d' );
+		$index_next_rel = true;
+		$index_prev_rel = true;
 
-		$template_vars['events'] = $sorted_events;
+		if ( ! $this->skip_empty() ) {
+			$index_next_rel = $next_date !== $this->get_next_event_date( $template_vars['today'] )->format( 'Y-m-d' );
+			$index_prev_rel = $prev_date !== $this->get_previous_event_date( $template_vars['today'] )->format( 'Y-m-d' );
+		}
+
+		$next_rel = $index_next_rel ? 'next' : 'noindex';
+		$prev_rel = $index_prev_rel ? 'prev' : 'noindex';
+
+		$template_vars['events']   = $sorted_events;
+		$template_vars['next_rel'] = $next_rel;
+		$template_vars['prev_rel'] = $prev_rel;
 
 		return $template_vars;
 	}

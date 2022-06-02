@@ -35,8 +35,8 @@ $subscribe_links = array_filter(
 	$subscribe_links,
 	function( $item ) {
 		return $item instanceof Link_Abstract
-		&& isset( $item->block_slug )
-		&& $this->attr( $item->block_slug );
+			&& isset( $item->block_slug )
+			&& $this->attr( $item->block_slug );
 	}
 );
 

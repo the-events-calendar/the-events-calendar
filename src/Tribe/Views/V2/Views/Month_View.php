@@ -276,10 +276,20 @@ class Month_View extends By_Day_View {
 		$month_and_year_format         = tribe_get_option( 'monthAndYearFormat', 'F Y' );
 		$month_and_year_format_compact = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat', 'm1' ) );
 
-		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
 		$next_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of next month' )->format( 'n' );
-		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
+		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
 		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
+		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
+		$index_next_rel = true;
+		$index_prev_rel = true;
+
+		if ( ! $this->skip_empty() ) {
+			$index_next_rel = $next_month_num !== $this->get_next_event_date( $grid_date )->format( 'n' );
+			$index_prev_rel = $prev_month_num !== $this->get_previous_event_date( $grid_date )->format( 'n' );
+		}
+
+		$next_rel = $index_next_rel ? 'next' : 'noindex';
+		$prev_rel = $index_prev_rel ? 'prev' : 'noindex';
 
 		$mobile_messages = $this->get_mobile_messages();
 
@@ -291,13 +301,12 @@ class Month_View extends By_Day_View {
 		$template_vars['formatted_grid_date_mobile'] = $grid_date->format( $month_and_year_format_compact );
 		$template_vars['events']                     = $grid_days;
 		$template_vars['days']                       = $days;
-		$template_vars['prev_month']                 = $prev_month_num;
 		$template_vars['next_month']                 = $next_month_num;
-		$template_vars['prev_event_date']            = $this->get_previous_event_date( $grid_date );
-		$template_vars['next_event_date']            = $this->get_next_event_date( $grid_date );
-		$template_vars['skip_empty']                 = $this->skip_empty();
-		$template_vars['prev_label']                 = $prev_month;
+		$template_vars['prev_month']                 = $prev_month_num;
+		$template_vars['next_rel']                   = $next_rel;
+		$template_vars['prev_rel']                   = $prev_rel;
 		$template_vars['next_label']                 = $next_month;
+		$template_vars['prev_label']                 = $prev_month;
 		$template_vars['messages']                   = $this->messages->to_array();
 		$template_vars['mobile_messages']            = $mobile_messages;
 		$template_vars['grid_start_date']            = $grid_start_date;

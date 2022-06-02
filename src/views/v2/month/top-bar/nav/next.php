@@ -22,9 +22,7 @@
 		aria-label="<?php esc_attr_e( 'Next month', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Next month', 'the-events-calendar' ); ?>"
 		data-js="tribe-events-view-link"
-		<?php if ( ! $skip_empty && $prev_month !== $prev_event_date->format( 'n' )  ) : ?>
-			rel="noindex"
-		<?php endif; ?>
+		rel="<?php echo esc_attr( $next_rel ); ?>"
 	>
 		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</a>

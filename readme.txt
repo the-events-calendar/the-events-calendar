@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Add rel="noindex" to links that point to empty calendar views. [TEC-4354]
+
 = [5.16.0] 2022-05-31 =
 
 * Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
