@@ -21,7 +21,7 @@ class Tribe__Events__Query {
 	 */
 	public static function parse_query( $query ) {
 		if ( is_admin() ) {
-			return;
+			return $query;
 		}
 
 		// If this is set then the class will bail out of any filtering.
