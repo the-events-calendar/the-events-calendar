@@ -245,6 +245,10 @@ abstract class Link_Abstract implements Link_Interface {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
+		if ( empty( $feed_url ) ) {
+			return '';
+		}
+
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
 
 		return $feed_url;
