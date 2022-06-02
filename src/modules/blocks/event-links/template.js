@@ -156,7 +156,7 @@ const renderButtons = ( props ) => (
 						</button>
 						<CaretDownIcon />
 					</div>
-					<div className="tribe-events-c-subscribe-dropdown__content display:">
+					<div className="tribe-events-c-subscribe-dropdown__content">
 						<ul className="tribe-events-c-subscribe-dropdown__list">
 							{ renderGoogleCalendarDropdown( props ) }
 							{ renderiCalDropdown( props ) }
