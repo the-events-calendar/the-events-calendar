@@ -27,6 +27,13 @@ class Day_View extends View {
 	 */
 	protected $slug = 'day';
 
+	/**
+	 * Cached dates for the prev/next links.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	protected $cached_event_dates = [];
 
 	/**

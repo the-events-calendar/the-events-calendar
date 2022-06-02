@@ -38,6 +38,15 @@ class Month_View extends By_Day_View {
 	protected $slug = 'month';
 
 	/**
+	 * Cached dates for the prev/next links.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $cached_event_dates = [];
+
+	/**
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
