@@ -38,6 +38,37 @@ class Day_View extends View {
 	protected static $publicly_visible = true;
 
 	/**
+	 * Get the date of the event immediately previous to the current view date.
+	 *
+	 * @since TBD
+	 *
+	 * @param DateTime|false $current_date A DateTime object signifying the current date for the view.
+	 *
+	 * @return DateTime|false Either the previous event chronologically, the previous month, or false if no next event found.
+	 */
+	public function get_previous_event_date( $current_date ) {
+		// Find the first event that starts before the start of today.
+		$prev_event = tribe_events()
+			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
+			->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-d' ) ) )
+			->order( 'DESC' )
+			->first();
+
+		if ( ! $prev_event instanceof \WP_Post ) {
+			return false;
+		}
+
+		// Show the closest date on which that event appears (but not the current date).
+		$prev_event_date = Dates::build_date_object( $prev_event->dates->start );
+		$prev_date       = min(
+			$prev_event_date,
+			$current_date->sub( new \DateInterval( 'P1D' ) )
+		);
+
+		return $prev_date;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
@@ -79,8 +110,8 @@ class Day_View extends View {
 	public function get_next_event_date( $current_date ) {
 		// The first event that ends after the end of the month; it could still begin in this month.
 		$next_event = tribe_events()
-			->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
-			->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
+			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
+			->where( 'starts_after', tribe_end_of_day( $current_date->format( 'Y-m-d' ) ) )
 			->order( 'ASC' )
 			->first();
 
@@ -89,9 +120,10 @@ class Day_View extends View {
 		}
 
 		// At a minimum pick the next month or the month the next event starts in.
+		$next_event_date = Dates::build_date_object( $next_event->dates->start );
 		$next_date = max(
-			Dates::build_date_object( $next_event->dates->start ),
-			$current_date->add( new \DateInterval( 'P1M' ) )
+			$next_event_date,
+			$current_date->add( new \DateInterval( 'P1D' ) )
 		);
 
 		return $next_date;
@@ -204,21 +236,21 @@ class Day_View extends View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_template_vars() {
+		$template_vars   = parent::setup_template_vars();
+		$sorted_events   = $this->sort_events( $template_vars['events'] );
 
-		$template_vars = parent::setup_template_vars();
-		$sorted_events = $this->sort_events( $template_vars['events'] );
-		$next_date     = Dates::build_date_object( $template_vars['next_label'] )->format( 'Y-m-d' );
-		$prev_date     = Dates::build_date_object( $template_vars['prev_label'] )->format( 'Y-m-d' );
-		$index_next_rel = true;
-		$index_prev_rel = true;
+		$today           = Dates::build_date_object( $template_vars['url_event_date'] );
+		$next_date       = Dates::build_date_object( $template_vars['url_event_date'] )->add( new \DateInterval( 'P1D' ) )->format( 'Y-m-d' );
+		$prev_date       = Dates::build_date_object( $template_vars['url_event_date'] )->sub( new \DateInterval( 'P1D' ) )->format( 'Y-m-d' );
 
-		if ( ! $this->skip_empty() ) {
-			$index_next_rel = $next_date !== $this->get_next_event_date( $template_vars['today'] )->format( 'Y-m-d' );
-			$index_prev_rel = $prev_date !== $this->get_previous_event_date( $template_vars['today'] )->format( 'Y-m-d' );
-		}
+		$next_event_date = $this->get_next_event_date( $today );
+		$prev_event_date = $this->get_previous_event_date( $today );
 
-		$next_rel = $index_next_rel ? 'next' : 'noindex';
-		$prev_rel = $index_prev_rel ? 'prev' : 'noindex';
+		$index_next_rel  = $next_event_date && $next_date === $next_event_date->format( 'Y-m-d' );
+		$index_prev_rel  = $prev_event_date && $prev_date === $prev_event_date->format( 'Y-m-d' );
+
+		$next_rel        = $index_next_rel ? 'next' : 'noindex';
+		$prev_rel        = $index_prev_rel ? 'prev' : 'noindex';
 
 		$template_vars['events']   = $sorted_events;
 		$template_vars['next_rel'] = $next_rel;

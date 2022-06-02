@@ -68,7 +68,7 @@ class Month_View extends By_Day_View {
 	public function get_previous_event_date( $current_date ) {
 		// Find the first event that starts before the start of this month.
 		$prev_event = tribe_events()
-			->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
+			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
 			->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-01' ) ) )
 			->order( 'DESC' )
 			->first();
@@ -137,8 +137,8 @@ class Month_View extends By_Day_View {
 	public function get_next_event_date( $current_date ) {
 		// The first event that ends after the end of the month; it could still begin in this month.
 		$next_event = tribe_events()
-			->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
-			->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
+			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
+			->where( 'starts_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
 			->order( 'ASC' )
 			->first();
 
@@ -284,8 +284,8 @@ class Month_View extends By_Day_View {
 		$index_prev_rel = true;
 
 		if ( ! $this->skip_empty() ) {
-			$index_next_rel = $next_month_num !== $this->get_next_event_date( $grid_date )->format( 'n' );
-			$index_prev_rel = $prev_month_num !== $this->get_previous_event_date( $grid_date )->format( 'n' );
+			$index_next_rel = $next_month_num === $this->get_next_event_date( $grid_date )->format( 'n' );
+			$index_prev_rel = $prev_month_num === $this->get_previous_event_date( $grid_date )->format( 'n' );
 		}
 
 		$next_rel = $index_next_rel ? 'next' : 'noindex';
