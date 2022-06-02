@@ -61,14 +61,15 @@ class Month_View extends By_Day_View {
 	 *
 	 * @since TBD
 	 *
-	 * @param DateTime|false $current_date A DateTime object signifying the current date for the view.
+	 * @param DateTime $current_date A DateTime object signifying the current date for the view.
 	 *
 	 * @return DateTime|false Either the previous event chronologically, the previous month, or false if no next event found.
 	 */
 	public function get_previous_event_date( $current_date ) {
+		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
 		// Find the first event that starts before the start of this month.
 		$prev_event = tribe_events()
-			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
+			->by_args( $args )
 			->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-01' ) ) )
 			->order( 'DESC' )
 			->first();
@@ -78,9 +79,9 @@ class Month_View extends By_Day_View {
 		}
 
 		// Show the closest date on which that event appears (but not the current date).
-		$prev_date = min(
+		$prev_date  = min(
 			Dates::build_date_object( $prev_event->dates->start ),
-			$current_date->sub( new \DateInterval( 'P1M' ) )
+			$current_date->modify( '-1 month' )
 		);
 
 		return $prev_date;
@@ -147,9 +148,10 @@ class Month_View extends By_Day_View {
 		}
 
 		// At a minimum pick the next month or the month the next event starts in.
-		$next_date = max(
-			Dates::build_date_object( $next_event->dates->start ),
-			$current_date->add( new \DateInterval( 'P1M' ) )
+		$next_event_date = Dates::build_date_object( $next_event->dates->start );
+		$next_date       = max(
+			$next_event_date,
+			$current_date->modify( '+1 month' )
 		);
 
 		return $next_date;
@@ -284,8 +286,11 @@ class Month_View extends By_Day_View {
 		$index_prev_rel = true;
 
 		if ( ! $this->skip_empty() ) {
-			$index_next_rel = $next_month_num === $this->get_next_event_date( $grid_date )->format( 'n' );
-			$index_prev_rel = $prev_month_num === $this->get_previous_event_date( $grid_date )->format( 'n' );
+			$next_event_date = $this->get_next_event_date( Dates::build_date_object( $grid_date_str ) );
+			$previous_event_date = $this->get_previous_event_date( Dates::build_date_object( $grid_date_str ) );
+
+			$index_next_rel = $next_event_date && $next_month_num === $next_event_date->format( 'n' );
+			$index_prev_rel = $previous_event_date && $prev_month_num === $previous_event_date->format( 'n' );
 		}
 
 		$next_rel = $index_next_rel ? 'next' : 'noindex';

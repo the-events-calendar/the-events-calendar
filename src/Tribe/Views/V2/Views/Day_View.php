@@ -239,12 +239,11 @@ class Day_View extends View {
 		$template_vars   = parent::setup_template_vars();
 		$sorted_events   = $this->sort_events( $template_vars['events'] );
 
-		$today           = Dates::build_date_object( $template_vars['url_event_date'] );
 		$next_date       = Dates::build_date_object( $template_vars['url_event_date'] )->add( new \DateInterval( 'P1D' ) )->format( 'Y-m-d' );
 		$prev_date       = Dates::build_date_object( $template_vars['url_event_date'] )->sub( new \DateInterval( 'P1D' ) )->format( 'Y-m-d' );
 
-		$next_event_date = $this->get_next_event_date( $today );
-		$prev_event_date = $this->get_previous_event_date( $today );
+		$next_event_date = $this->get_next_event_date( Dates::build_date_object( $template_vars['url_event_date'] ) );
+		$prev_event_date = $this->get_previous_event_date( Dates::build_date_object( $template_vars['url_event_date'] ) );
 
 		$index_next_rel  = $next_event_date && $next_date === $next_event_date->format( 'Y-m-d' );
 		$index_prev_rel  = $prev_event_date && $prev_date === $prev_event_date->format( 'Y-m-d' );
