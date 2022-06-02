@@ -59,7 +59,7 @@ class Day_View extends View {
 		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
 
 		// Use cache to reduce the performance impact.
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( [ $current_date, $args ] ) );
+		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
 		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
 			return $this->cached_event_dates[ $cache_key ];
@@ -131,7 +131,7 @@ class Day_View extends View {
 		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
 
 		// Use cache to reduce the performance impact.
-		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( [ $current_date, $args ] ) );
+		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
 		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
 			return $this->cached_event_dates[ $cache_key ];
