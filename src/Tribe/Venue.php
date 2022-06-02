@@ -765,4 +765,40 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			return array_filter( $venues );
 		};
 	}
+
+	/**
+	 * Returns a string version of the full address of an event.
+	 *
+	 * @since 5.16.0
+	 *
+	 * @see Tribe__Events__Main->fullAddressString()
+	 *
+	 * @param int|WP_Post|null $event The post object or post id.
+	 *
+	 * @return string The event venue's address. Empty string if the event or venue isn't found.
+	 */
+	public static function generate_string_address( $event = null ) {
+		if ( empty( $event ) ) {
+			$event = get_the_ID();
+		}
+
+		if ( is_integer( $event ) ) {
+			$event = tribe_get_event( $event );
+		}
+
+		// Not an event? Bail.
+		if ( ! tribe_is_event( $event ) ) {
+			return '';
+		}
+
+		if ( ! tribe_has_venue( $event ) ) {
+			return '';
+		}
+
+		$tec     = Tribe__Events__Main::instance();
+		$address = $tec->fullAddressString( $event );
+		// The above includes the venue name.
+
+		return $address;
+	}
 }

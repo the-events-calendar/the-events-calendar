@@ -1,52 +1,112 @@
-.tribe-editor__events-link {
-	display: flex;
-	flex-wrap: wrap;
+.tribe-events-c-subscribe-dropdown__container {
+	width: 200px;
 }
 
-.tribe-editor__btn--link {
-	align-items: center;
-	background-color: transparent;
-	border: 1px solid #E1E3E6;
-	display: inline-flex;
-	justify-content: center;
-	margin: 10px 15px 10px 0;
-	min-height: 38px;
-	max-width: 100%;
-	padding: 0 17px 0 14px;
+.tribe-events-c-subscribe-dropdown__button {
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-accent-primary);
+	border-radius: var(--tec-border-radius-default);
+	box-sizing: border-box;
+	cursor: pointer;
+	display: inline-block;
+	height: auto;
+	line-height: var(--tec-line-height-3);
+	padding: 8px 14px;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	transition: var(--tec-transition);
+	width: 200px;
 
-	.tribe-editor__btn-input {
-		max-width: calc(100% - 33px);
+	button {
+		background-color: transparent;
+		border: none;
+		box-shadow: none;
+		color: var(--tec-color-button-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-2);
+		font-weight: var(--tec-font-weight-bold);
 	}
 
-	input {
-
-		/* extra class to override WP 5.0 styles */
-		.tribe-editor__events-link & {
-			color: #009FD4;
-			font-family: 'Helvetica', 'sans-serif';
-			font-weight: bold;
-			font-size: 1rem;
-			max-width: 100%;
-			border: none;
-		}
-
-		& * [data-mce-selected="inline-boundary"] {
-			background: transparent;
-		}
+	.tribe-events & .tribe-events-c-subscribe-dropdown__export-icon {
+		margin-bottom: -2px;
 	}
 
-	svg {
-		flex: none;
-		margin-right: 7px;
-		margin-bottom: 2px;
+	.tribe-events & .tribe-events-c-subscribe-dropdown__export-icon path,
+	.tribe-events & .tribe-events-c-subscribe-dropdown__button-icon path {
+		fill: var(--tec-color-accent-primary);
+		stroke: var(--tec-color-accent-primary);
+	}
+
+
+	&:focus-within,
+	&:focus,
+	&:hover {
+		.tribe-events & .tribe-events-c-subscribe-dropdown__export-icon path,
+		.tribe-events & .tribe-events-c-subscribe-dropdown__button-icon path {
+			fill: #ffffff;
+			stroke: #ffffff;
+		}
+
+		button {
+			color: #ffffff;
+		}
 	}
 }
 
-.tribe-editor__btn--placeholder {
-	border: 2px dashed #E1E3E6;
-	color: #8D949B;
+.tribe-events-c-subscribe-dropdown {
+	position: relative;
 
-	path {
-		fill: #8D949B;
+	.tribe-events-c-subscribe-dropdown__content {
+		position: absolute;
+		top: 42px;
+		width: 100%;
+		z-index: 100;
+	}
+
+
+	.tribe-events-c-subscribe-dropdown__list {
+		box-sizing: border-box;
+		list-style-type: none;
+		margin: 0;
+
+		.tribe-events & .tribe-events-c-subscribe-dropdown__list-item {
+			background-color: transparent;
+			border-radius: var(--tec-border-radius-default);
+			outline: 0;
+			padding: var(--tec-spacer-0);
+			text-align: left;
+
+			&:active,
+			&:hover,
+			&:focus,
+			&:focus-within {
+				background-color: var(--tec-color-background-secondary);
+			}
+
+			input {
+
+				/* extra class to override WP 5.0 styles */
+
+				.tribe-editor__events-link & {
+					background-color: transparent;
+					border: none;
+					box-sizing: border-box;
+					display: inline-block;
+					max-width: 100%;
+					padding: 0 0 0 var(--tec-spacer-3);
+					/* !important added as changes to share settings set the width to 2px */
+					width: 100% !important;
+				}
+
+				& * [data-mce-selected="inline-boundary"] {
+					background: transparent;
+				}
+
+				&:focus-visible {
+					outline: none;
+				}
+			}
+		}
 	}
 }
