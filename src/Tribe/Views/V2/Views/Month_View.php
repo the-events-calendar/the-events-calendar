@@ -66,6 +66,13 @@ class Month_View extends By_Day_View {
 	 * @return DateTime|false Either the previous event chronologically, the previous month, or false if no next event found.
 	 */
 	public function get_previous_event_date( $current_date ) {
+		// Use cache to reduce the performance impact.
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
+			return $this->cached_event_dates[ $cache_key ];
+		}
+
 		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
 		// Find the first event that starts before the start of this month.
 		$prev_event = tribe_events()
@@ -83,6 +90,8 @@ class Month_View extends By_Day_View {
 			Dates::build_date_object( $prev_event->dates->start ),
 			$current_date->modify( '-1 month' )
 		);
+
+		$this->cached_event_dates[ $cache_key ] = $prev_date;
 
 		return $prev_date;
 	}
@@ -136,6 +145,13 @@ class Month_View extends By_Day_View {
 	 * @return DateTime|false Either the next event chronologically, the next month, or false if no next event found.
 	 */
 	public function get_next_event_date( $current_date ) {
+		// Use cache to reduce the performance impact.
+		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( func_get_args() ) );
+
+		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
+			return $this->cached_event_dates[ $cache_key ];
+		}
+
 		// The first event that ends after the end of the month; it could still begin in this month.
 		$next_event = tribe_events()
 			->by_args( $this->filter_repository_args( parent::setup_repository_args( $this->context ) ) )
@@ -148,11 +164,12 @@ class Month_View extends By_Day_View {
 		}
 
 		// At a minimum pick the next month or the month the next event starts in.
-		$next_event_date = Dates::build_date_object( $next_event->dates->start );
 		$next_date       = max(
-			$next_event_date,
+			Dates::build_date_object( $next_event->dates->start ),
 			$current_date->modify( '+1 month' )
 		);
+
+		$this->cached_event_dates[ $cache_key ] = $next_date;
 
 		return $next_date;
 	}
