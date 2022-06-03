@@ -12,7 +12,6 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use TEC\Events\Custom_Tables\V1\Events\Max_Recurrence_Provider;
 use tad_DI52_ServiceProvider as Service_Provider;
 
 /**
@@ -60,7 +59,6 @@ class Full_Activation_Provider extends Service_Provider {
 			$this->container->register( Updates\Provider::class );
 			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
-			$this->container->register( Max_Recurrence_Provider::class );
 
 		} catch ( \Throwable $t ) {
 			// This code will never fire on PHP 5.6, but will do in PHP 7.0+.
