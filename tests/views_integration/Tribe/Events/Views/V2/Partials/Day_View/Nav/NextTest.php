@@ -15,6 +15,7 @@ class NextTest extends HtmlPartialTestCase
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'link' => 'http://test.tri.be',
+			'next_rel' => 'noindex',
 		] ) );
 	}
 }
