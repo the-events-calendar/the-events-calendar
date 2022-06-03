@@ -280,7 +280,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 		add_meta_box(
 			'tribe_events_venue_details',
-			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $self->get_venue_label_singular() ),
+			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), tribe( 'tec.linked-posts.venue' )->get_venue_label_singular() ),
 			[ static::class, 'render_meta_box' ],
 			static::POSTTYPE,
 			'normal',
