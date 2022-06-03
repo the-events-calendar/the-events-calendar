@@ -27,8 +27,12 @@ trait With_String_Dictionary {
 	 * @return string The HTML markup with the event link.
 	 */
 	private function get_event_link_markup( $post_id ) {
-		$post = get_post( $post_id );
+		$post             = get_post( $post_id );
+		$post_title       = $post->post_title;
+		$action           = '&action=edit';
+		$post_type_object = get_post_type_object( $post->post_type );
+		$url              = admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
 
-		return '<a target="_blank" href="' . get_edit_post_link( $post_id ) . '">' . $post->post_title . '</a>';
+		return '<a target="_blank" href="' . $url . '">' . $post_title . '</a>';
 	}
 }

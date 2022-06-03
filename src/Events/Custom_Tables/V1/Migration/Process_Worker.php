@@ -15,6 +15,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
+use TEC\Events\Custom_Tables\V1\Traits\With_String_Dictionary;
 use Tribe__Admin__Notices;
 
 /**
@@ -25,6 +26,7 @@ use Tribe__Admin__Notices;
  */
 class Process_Worker {
 	use With_Database_Transactions;
+	use With_String_Dictionary;
 
 	/**
 	 * The full name of the action that will be fired to signal one
@@ -100,21 +102,6 @@ class Process_Worker {
 		$this->state  = $state;
 	}
 
-	/**
-	 * @since TBD
-	 *
-	 * @return string The HTML markup with the event link.
-	 */
-	public function get_event_link_markup() {
-		$post_id          = $this->event_report->source_event_post->ID;
-		$post_title       = $this->event_report->source_event_post->post_title;
-		$post             = get_post( $post_id );
-		$action           = '&action=edit';
-		$post_type_object = get_post_type_object( $post->post_type );
-		$url              = admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
-
-		return '<a target="_blank" href="' . $url . '">' . $post_title . '</a>';
-	}
 
 	/**
 	 * Processes an Event migration.
@@ -214,8 +201,6 @@ class Process_Worker {
 				 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
 				 */
 				clean_post_cache( $post_id );
-
-				$this->event_report->migration_success();
 			} else {
 				$this->transaction_commit();
 			}
@@ -238,7 +223,7 @@ class Process_Worker {
 			}
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
-				$this->get_event_link_markup(),
+				$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 				$e->getMessage(),
 				'</p>',
 				'<p>',
@@ -252,7 +237,7 @@ class Process_Worker {
 
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
-				$this->get_event_link_markup(),
+				$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 				$e->getMessage(),
 				'</p>',
 				'<p>',
@@ -270,13 +255,9 @@ class Process_Worker {
 		ob_end_clean();
 
 		$did_migration_error = ! $dry_run && $this->event_report->error;
-		$continue_queue      = true;
-		$next_post_id        = null;
-
 		// If error in the migration phase, need to stop the queue.
-		if ( $did_migration_error ) {
-			$continue_queue = false;
-		}
+		$continue_queue = $did_migration_error ? false : true;
+		$next_post_id   = null;
 
 		if ( $continue_queue ) {
 			// Get next event to process.
@@ -290,27 +271,27 @@ class Process_Worker {
 					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
 					$this->event_report->migration_failed( "enqueue-failed", [
 						'<p>',
-						$this->get_event_link_markup(),
+						$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 						$next_post_id,
 						'</p>',
 						'<p>',
 						'</p>'
 					] );
 				}
-			} else if ( ! $this->check_phase() ) {
-				// Start a recursive check, but only if we are not already doing so.
-				if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
-					$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
-					if ( empty( $action_id ) ) {
-						// The migration might have technically completed, but we cannot know for sure and will be conservative.
-						$this->event_report->migration_failed( "check-phase-enqueue-failed", [
-							'<p>',
-							$this->get_event_link_markup(),
-							'</p>',
-							'<p>',
-							'</p>'
-						] );
-					}
+			}
+
+			// Start a recursive check, but only if we are not already doing so.
+			if ( ! as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
+				$action_id = as_enqueue_async_action( self::ACTION_CHECK_PHASE );
+				if ( empty( $action_id ) ) {
+					// The migration might have technically completed, but we cannot know for sure and will be conservative.
+					$this->event_report->migration_failed( "check-phase-enqueue-failed", [
+						'<p>',
+						$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
+						'</p>',
+						'<p>',
+						'</p>'
+					] );
 				}
 			}
 		}
@@ -325,7 +306,6 @@ class Process_Worker {
 		// Do not hold a reference to the Report once the worker is done.
 		$event_report       = $this->event_report;
 		$this->event_report = null;
-
 
 		// Log our worker ending
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:end', [
@@ -495,7 +475,7 @@ class Process_Worker {
 		if ( $this->dry_run ) {
 			$this->transaction_rollback();
 		}
-		$event_link_markup = $this->get_event_link_markup();
+		$event_link_markup = $this->get_event_link_markup( $this->event_report->source_event_post->ID );
 
 		// If we're here, the migration failed.
 		$this->event_report->migration_failed( "unknown-shutdown", [
@@ -519,12 +499,13 @@ class Process_Worker {
 	 * @return bool Whether the migration, or its preview, is completed or not.
 	 */
 	public function check_phase() {
+		$state = tribe( State::class );
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'  => $this->state->get_phase(),
+			'phase'  => $state->get_phase(),
 		] );
 
-		$phase               = $this->state->get_phase();
+		$phase               = $state->get_phase();
 		$migration_completed = in_array(
 			                       $phase, [
 			                       State::PHASE_MIGRATION_IN_PROGRESS,
@@ -544,13 +525,13 @@ class Process_Worker {
 		$next_phase = $phase === State::PHASE_PREVIEW_IN_PROGRESS ?
 			State::PHASE_MIGRATION_PROMPT
 			: State::PHASE_MIGRATION_COMPLETE;
-		$this->state->set( 'phase', $next_phase );
-		$this->state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
-		$this->state->set( 'complete_timestamp', time() );
-		$this->state->save();
+		$state->set( 'phase', $next_phase );
+		$state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
+		$state->set( 'complete_timestamp', time() );
+		$state->save();
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'  => $this->state->get_phase(),
+			'phase'  => $state->get_phase(),
 		] );
 
 		return true;
@@ -578,7 +559,7 @@ class Process_Worker {
 			$this->transaction_rollback();
 		}
 
-		$event_link_markup = $this->get_event_link_markup();
+		$event_link_markup = $this->get_event_link_markup( $this->event_report->source_event_post->ID );
 
 		/**
 		 * Since we're storing output of arbitrary length in the database, let's
@@ -617,7 +598,16 @@ class Process_Worker {
 	public function check_phase_complete() {
 		$completed = ! $this->state->is_running() || $this->check_phase();
 
+		do_action( 'tribe_log', 'debug', 'Worker: Check event:check_phase_complete', [
+			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			'phase'     => $this->state->get_phase(),
+			'completed' => $completed
+		] );
+
 		if ( $completed ) {
+			do_action( 'tribe_log', 'debug', 'Worker: Check event:check_phase_complete', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			] );
 			// Clear all of our queued state check workers.
 			as_unschedule_all_actions( self::ACTION_CHECK_PHASE );
 
@@ -626,6 +616,10 @@ class Process_Worker {
 
 		// We may already have one scheduled, bail if we do.
 		if ( as_has_scheduled_action( self::ACTION_CHECK_PHASE ) ) {
+			do_action( 'tribe_log', 'debug', 'Worker: Check event:check_phase_complete', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			] );
+
 			return 0;
 		}
 

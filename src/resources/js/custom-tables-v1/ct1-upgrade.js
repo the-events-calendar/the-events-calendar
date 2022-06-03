@@ -6,8 +6,8 @@ let pollTimeoutId = null;
 let currentViewState = {
 	poll: true,
 };
-let pastCurrentPage = 1;
-let upcomingCurrentPage = 1;
+let pastCurrentPage;
+let upcomingCurrentPage;
 
 export const selectors = {
 	upgradeBox: '#tec-ct1-upgrade-dynamic',
@@ -255,13 +255,18 @@ const handlePaginateClick = (node) => (e) => {
 	e.preventDefault();
 	const isUpcoming = !!node.dataset.eventsPaginateUpcoming;
 	const category = node.dataset.eventsPaginateCategory;
+	const defaultPage = node.dataset.eventsPaginateStartPage;
 
 	if (isUpcoming) {
-		upcomingCurrentPage++;
+		if (!upcomingCurrentPage) {
+			upcomingCurrentPage = defaultPage;
+		}
 	} else {
-		pastCurrentPage++;
+		if (!pastCurrentPage) {
+			pastCurrentPage = defaultPage;
+		}
 	}
-	const page = isUpcoming ? upcomingCurrentPage : pastCurrentPage;
+	const page = isUpcoming ? upcomingCurrentPage++ : pastCurrentPage++;
 
 	ajaxGet(
 		tecCt1Upgrade.ajaxUrl,
