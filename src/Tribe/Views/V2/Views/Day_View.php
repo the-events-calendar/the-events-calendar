@@ -56,7 +56,8 @@ class Day_View extends View {
 	 * @return DateTime|false Either the previous event chronologically, the previous month, or false if no next event found.
 	 */
 	public function get_previous_event_date( $current_date ) {
-		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+		$args = $this->filter_repository_args( $this->setup_repository_args( $this->context ) );
+		unset( $args['date_overlaps'] );
 
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
@@ -128,7 +129,8 @@ class Day_View extends View {
 	 * @return DateTime|false Either the next event chronologically, the next month, or false if no next event found.
 	 */
 	public function get_next_event_date( $current_date ) {
-		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+		$args = $this->filter_repository_args( $this->setup_repository_args( $this->context ) );
+		unset( $args['date_overlaps'] );
 
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
