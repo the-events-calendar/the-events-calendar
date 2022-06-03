@@ -67,7 +67,7 @@ class Day_View extends View {
 
 		// Find the first event that starts before the start of today.
 		$prev_event = tribe_events()
-			->by_args( $this->filter_repository_args( parent::setup_repository_args( $args ) ) )
+			->by_args( $args )
 			->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-d' ) ) )
 			->order( 'DESC' )
 			->first();
