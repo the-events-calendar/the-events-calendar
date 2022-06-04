@@ -1209,8 +1209,24 @@ class Tribe__Events__Linked_Posts {
 		}
 	}
 
+	/**
+	 * Outputs the metabox form sections for our linked posttypes.
+	 *
+	 * @param $event
+	 */
 	public function render_meta_box_sections( $event ) {
-		foreach ( $this->linked_post_types as $linked_post_type => $linked_post_type_data ) {
+		/**
+		 * A filter to control which linked posts will automatically render a metabox inside the editor.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> List of post types that are linked to the main tribe post type.
+		 *
+		 * @returns array<string> The list of post types we should render metaboxes for via the default means.
+		 */
+		$linked_post_types = apply_filters( 'tribe_events_linked_posts_should_render_meta_box', $this->linked_post_types );
+
+		foreach ( $linked_post_types as $linked_post_type => $linked_post_type_data ) {
 			$template = apply_filters( 'tribe_events_linked_post_meta_box_section', $this->main->plugin_path . 'src/admin-views/linked-post-section.php', $linked_post_type );
 			include $template;
 		}
