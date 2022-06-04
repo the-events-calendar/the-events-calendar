@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.15.0.1\n"
+"Project-Id-Version: The Events Calendar 5.16.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2022-05-23 14:30:59+00:00\n"
+"POT-Creation-Date: 2022-05-26 11:32:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-05-23 14:30\n"
+"PO-Revision-Date: 2022-05-26 11:32\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -241,13 +241,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/API/Origins.php:47
 #: src/Tribe/Aggregator/Record/gCal.php:14
+#: src/Tribe/Editor/Blocks/Event_Links.php:25
 #: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:35
-#: src/Tribe/iCal.php:132 src/admin-views/aggregator/settings.php:623
+#: src/Tribe/iCal.php:141 src/admin-views/aggregator/settings.php:623
 msgid "Google Calendar"
 msgstr ""
 
 #: src/Tribe/Aggregator/API/Origins.php:53
 #: src/Tribe/Aggregator/Record/iCal.php:14
+#: src/Tribe/Editor/Blocks/Event_Links.php:26
 #: src/Tribe/Views/V2/iCalendar/Links/iCal.php:29
 #: src/admin-views/aggregator/settings.php:615
 msgid "iCalendar"
@@ -1401,79 +1403,79 @@ msgstr ""
 msgid "Unknown service message"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:535
+#: src/Tribe/Aggregator/Settings.php:536
 msgid "By date range"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:536
+#: src/Tribe/Aggregator/Settings.php:537
 msgid "By number of events"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:537
+#: src/Tribe/Aggregator/Settings.php:538
 msgid "Do not limit (not recommended)"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:564 src/Tribe/Aggregator/Settings.php:565
+#: src/Tribe/Aggregator/Settings.php:565 src/Tribe/Aggregator/Settings.php:566
 msgid "24 hours"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:568 src/Tribe/Aggregator/Settings.php:569
+#: src/Tribe/Aggregator/Settings.php:569 src/Tribe/Aggregator/Settings.php:570
 msgid "72 hours"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:572
+#: src/Tribe/Aggregator/Settings.php:573
 msgid "One week"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:573
+#: src/Tribe/Aggregator/Settings.php:574
 msgid "one week"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:576
+#: src/Tribe/Aggregator/Settings.php:577
 msgid "Two weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:577
+#: src/Tribe/Aggregator/Settings.php:578
 msgid "two weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:580
+#: src/Tribe/Aggregator/Settings.php:581
 msgid "Three weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:581
+#: src/Tribe/Aggregator/Settings.php:582
 msgid "three weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:584
+#: src/Tribe/Aggregator/Settings.php:585
 msgid "One month"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:585
+#: src/Tribe/Aggregator/Settings.php:586
 msgid "one month"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:588
+#: src/Tribe/Aggregator/Settings.php:589
 msgid "Two months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:589
+#: src/Tribe/Aggregator/Settings.php:590
 msgid "two months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:592
+#: src/Tribe/Aggregator/Settings.php:593
 msgid "Three months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:593
+#: src/Tribe/Aggregator/Settings.php:594
 msgid "three months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:877
+#: src/Tribe/Aggregator/Settings.php:878
 msgid "Asynchronous"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:881
+#: src/Tribe/Aggregator/Settings.php:882
 msgid "Cron-based"
 msgstr ""
 
@@ -2143,16 +2145,14 @@ msgstr ""
 msgid "Show Featured Event Images"
 msgstr ""
 
-#: src/Tribe/Editor/Blocks/Event_Links.php:25
-#: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:36
-#: src/Tribe/iCal.php:132 src/views/blocks/event-links.php:62
-msgid "Add to Google Calendar"
+#: src/Tribe/Editor/Blocks/Event_Links.php:27
+#: src/Tribe/Views/V2/iCalendar/Links/Outlook_365.php:39
+msgid "Outlook 365"
 msgstr ""
 
-#: src/Tribe/Editor/Blocks/Event_Links.php:26
-#: src/Tribe/Views/V2/iCalendar/Links/iCal.php:30 src/Tribe/iCal.php:133
-#: src/views/blocks/event-links.php:75
-msgid "Add to iCalendar"
+#: src/Tribe/Editor/Blocks/Event_Links.php:28
+#: src/Tribe/Views/V2/iCalendar/Links/Outlook_Live.php:39
+msgid "Outlook Live"
 msgstr ""
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:25
@@ -2821,13 +2821,13 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.15.0.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.16.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.15.0.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 5.16.0)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Main.php:1021 src/Tribe/Main.php:1559 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
-#: src/functions/template-tags/general.php:1533 the-events-calendar.php:55
+#: src/functions/template-tags/general.php:1592 the-events-calendar.php:55
 msgid "The Events Calendar"
 msgstr ""
 
@@ -4760,6 +4760,13 @@ msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
 
+#. Translators: %s: Event singular.
+#: src/Tribe/Taxonomy/Event_Tag.php:46
+msgctxt ""
+"The text used for the link to the event archive in the admin post tag list."
+msgid "%s View"
+msgstr ""
+
 #: src/Tribe/Template/Day.php:118 src/Tribe/Template/Day.php:134
 #: src/views/v2/day/type-separator.php:29
 msgid "Ongoing"
@@ -5191,38 +5198,38 @@ msgstr ""
 msgid "Custom Color"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:547
+#: src/Tribe/Views/V2/Hooks.php:546
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:624
+#: src/Tribe/Views/V2/Hooks.php:623
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:639
+#: src/Tribe/Views/V2/Hooks.php:638
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:920
+#: src/Tribe/Views/V2/Hooks.php:919
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:948
+#: src/Tribe/Views/V2/Hooks.php:947
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:976
+#: src/Tribe/Views/V2/Hooks.php:975
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1114
+#: src/Tribe/Views/V2/Hooks.php:1113
 msgid "Enabled"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1114
+#: src/Tribe/Views/V2/Hooks.php:1113
 #: src/admin-views/tribe-options-general.php:182
 #: src/admin-views/tribe-options-general.php:200
 msgid "Disabled"
@@ -5285,24 +5292,24 @@ msgstr ""
 msgid "Past %s"
 msgstr ""
 
-#: src/Tribe/Views/V2/Template/Title.php:217
+#: src/Tribe/Views/V2/Template/Title.php:222
 #: src/functions/template-tags/loop.php:202
 msgid "%1$s for %2$s - %3$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/Template/Title.php:318
+#: src/Tribe/Views/V2/Template/Title.php:323
 #: src/functions/template-tags/loop.php:209
 msgctxt "month view"
 msgid "%1$s for %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/Template/Title.php:345
+#: src/Tribe/Views/V2/Template/Title.php:350
 #: src/functions/template-tags/loop.php:218
 msgctxt "day_view"
 msgid "%1$s for %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1998 src/views/v2/day/event/date/featured.php:27
+#: src/Tribe/Views/V2/View.php:2028 src/views/v2/day/event/date/featured.php:27
 #: src/views/v2/day/event/date/featured.php:32
 #: src/views/v2/latest-past/event/date/featured.php:27
 #: src/views/v2/latest-past/event/date/featured.php:32
@@ -5325,27 +5332,27 @@ msgctxt ""
 msgid "There are no events on this day."
 msgstr ""
 
-#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:49
+#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:51
 msgctxt "The datepicker label when the range start is now."
 msgid "Now"
 msgstr ""
 
 #. translators: the placeholder is for the date range start, e.g. "Now" or
 #. "October 23".
-#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:150
+#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:160
 msgctxt "The datepicker range definition when no events are found."
 msgid "%s onwards"
 msgstr ""
 
 #. translators: the placeholder is for the date range start, e.g. "Now" or
 #. "1/1/2020".
-#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:156
+#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:166
 msgctxt ""
 "The datepicker range definition when no events are found (for mobile)."
 msgid "%s onwards"
 msgstr ""
 
-#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:171
+#: src/Tribe/Views/V2/Views/Traits/List_Behavior.php:181
 msgctxt "The datepicker range definition when no more pages of events exist."
 msgid "Upcoming"
 msgstr ""
@@ -5360,7 +5367,7 @@ msgstr ""
 msgid "Export %s"
 msgstr ""
 
-#: src/Tribe/Views/V2/Views/Traits/iCal_Data.php:87 src/Tribe/iCal.php:186
+#: src/Tribe/Views/V2/Views/Traits/iCal_Data.php:87 src/Tribe/iCal.php:195
 msgid ""
 "Use this to share calendar data with Google Calendar, Apple iCal and other "
 "compatible apps"
@@ -5413,34 +5420,51 @@ msgctxt "The label for the option to enable JSON-LD in the List Widget."
 msgid "Generate JSON-LD data"
 msgstr ""
 
+#: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:36
+#: src/Tribe/iCal.php:141
+msgid "Add to Google Calendar"
+msgstr ""
+
 #: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:230
 msgctxt ""
 "Link to full description. %1$s: pre=translated event term. %2$s: event url."
 msgid " (View Full %1$s Description Here: %2$s)"
 msgstr ""
 
+#: src/Tribe/Views/V2/iCalendar/Links/Outlook_Export.php:31
+msgid "Export Outlook .ics file"
+msgstr ""
+
+#: src/Tribe/Views/V2/iCalendar/Links/iCal.php:30 src/Tribe/iCal.php:142
+msgid "Add to iCalendar"
+msgstr ""
+
 #: src/Tribe/Views/V2/iCalendar/Links/iCalendar_Export.php:31
 msgid "Export .ics file"
 msgstr ""
 
-#: src/Tribe/iCal.php:56
+#: src/Tribe/Views/V2/iCalendar/Traits/Outlook_Methods.php:103
+msgid "(View Full %1$s Description Here: %2$s)"
+msgstr ""
+
+#: src/Tribe/iCal.php:65
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr ""
 
-#: src/Tribe/iCal.php:57
+#: src/Tribe/iCal.php:66
 msgid "%1$s %2$s iCal Feed"
 msgstr ""
 
-#: src/Tribe/iCal.php:133
+#: src/Tribe/iCal.php:142
 msgid "Download .ics file"
 msgstr ""
 
-#: src/Tribe/iCal.php:185
+#: src/Tribe/iCal.php:194
 msgid "Export Events"
 msgstr ""
 
-#: src/Tribe/iCal.php:447
+#: src/Tribe/iCal.php:472
 msgctxt "iCal feed description"
 msgid "Events for %s"
 msgstr ""
@@ -7998,28 +8022,29 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/functions/template-tags/general.php:555
+#: src/functions/template-tags/general.php:593
 msgid "Tags:"
 msgstr ""
 
-#: src/functions/template-tags/general.php:666
+#: src/functions/template-tags/general.php:725
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1281
+#: src/functions/template-tags/general.php:1340
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1407
+#: src/functions/template-tags/general.php:1466
 msgid "Find out more »"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1408
+#: src/functions/template-tags/general.php:1467
 msgid "%s for"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1533
+#: src/functions/template-tags/general.php:1592
 msgid "Calendar powered by %s"
 msgstr ""
 
@@ -8064,8 +8089,13 @@ msgstr ""
 
 #. Translators: %s: Event (singular)
 #: src/views/blocks/parts/details.php:167
-#: src/views/modules/meta/details.php:161
+#: src/views/modules/meta/details.php:163
 msgid "%s Tags:"
+msgstr ""
+
+#: src/views/blocks/parts/subscribe-list.php:30
+#: src/views/v2/components/subscribe-links/single-event-list.php:27
+msgid "Add to calendar"
 msgstr ""
 
 #: src/views/day/nav.php:21
