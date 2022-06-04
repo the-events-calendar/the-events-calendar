@@ -770,6 +770,41 @@ function tribe_events_event_classes( $event = 0, $echo = true ) {
 	}
 }
 
+
+/**
+ * Prints out data attributes used in the template header tags
+ *
+ * @category Events
+ * @param string|null $current_view
+ *
+ **/
+function tribe_events_the_header_attributes( $current_view = null ) {
+	if ( ! $wp_query = tribe_get_global_query_object() ) {
+		return;
+	}
+
+	$attrs        = [];
+	$current_view = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
+
+	// wp_title was deprecated in WordPress 4.4. Fetch the document title with the new function (added in 4.4) if available
+	if ( function_exists( 'wp_get_document_title' ) ) {
+		$attrs['data-title'] = wp_get_document_title();
+	} else {
+		$attrs['data-title'] = wp_title( '|', false, 'right' );
+	}
+
+	$attrs['data-viewtitle'] = tribe_get_events_title( true );
+
+	if ( has_filter( 'tribe_events_mobile_breakpoint' ) ) {
+		$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
+	}
+
+	$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );
+	foreach ( $attrs as $attr => $value ) {
+		echo " $attr=" . '"' . esc_attr( $value ) . '"';
+	}
+}
+
 /**
  * Return an array with the days of the week, numbered with respect to the start_of_week WP option
  *
