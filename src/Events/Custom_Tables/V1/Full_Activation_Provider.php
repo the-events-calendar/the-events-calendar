@@ -13,6 +13,8 @@
 namespace TEC\Events\Custom_Tables\V1;
 
 use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use WP_CLI;
 
 /**
  * Class Full_Activation_Provider
@@ -59,6 +61,7 @@ class Full_Activation_Provider extends Service_Provider {
 			$this->container->register( Updates\Provider::class );
 			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
+			$this->register_schema_hooks();
 
 		} catch ( \Throwable $t ) {
 			// This code will never fire on PHP 5.6, but will do in PHP 7.0+.
@@ -89,5 +92,29 @@ class Full_Activation_Provider extends Service_Provider {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Registers the actions and filters required to have the custom table names available
+	 * as properties on the `$wpdb` instance and to hook into some WP_CLI operations to
+	 * empty the tables correctly.
+	 *
+	 * @since TBD
+	 */
+	private function register_schema_hooks() {
+		$schema_builder = $this->container->make( Schema_Builder::class );
+		$schema_builder->register_custom_tables_names();
+
+		if ( is_multisite() ) {
+			add_action( 'activate_blog', [ $schema_builder, 'update_blog_tables' ] );
+			add_action( 'activate_blog', [ $schema_builder, 'register_custom_tables_names' ] );
+			add_action( 'switch_blog', [ $schema_builder, 'update_blog_tables' ] );
+			add_action( 'switch_blog', [ $schema_builder, 'register_custom_tables_names' ] );
+			add_filter( 'wpmu_drop_tables', [ $schema_builder, 'filter_tables_list' ] );
+		}
+
+		if ( defined( 'WP_CLI' ) && method_exists( '\\WP_CLI', 'add_hook' ) ) {
+			WP_CLI::add_hook( 'after_invoke:site empty', [ $schema_builder, 'empty_custom_tables' ] );
+		}
 	}
 }

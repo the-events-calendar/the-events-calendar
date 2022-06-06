@@ -246,45 +246,6 @@ class Schema_Builder {
 	}
 
 	/**
-	 * Registers the service provider functions.
-	 *
-	 * @since TBD
-	 */
-	public function register() {
-// @todo Move this to the Provider?
-		$this->register_custom_tables_names();
-		$this->register_wpcli_support();
-
-		if ( is_multisite() ) {
-			$this->register_multisite_actions();
-		}
-	}
-
-	/**
-	 * Ensures the tables exist for a blog on activation or switch.
-	 *
-	 * @since TBD
-	 */
-	private function register_multisite_actions() {
-		add_action( 'activate_blog', [ $this, 'update_blog_tables' ] );
-		add_action( 'activate_blog', [ $this, 'register_custom_tables_names' ] );
-		add_action( 'switch_blog', [ $this, 'update_blog_tables' ] );
-		add_action( 'switch_blog', [ $this, 'register_custom_tables_names' ] );
-		add_filter( 'wpmu_drop_tables', [ $this, 'filter_tables_list' ] );
-	}
-
-	/**
-	 * Hooks into wp-cli actions to perform operations on custom tables.
-	 *
-	 * @since TBD
-	 */
-	private function register_wpcli_support() {
-		if ( defined( 'WP_CLI' ) && method_exists( '\\WP_CLI', 'add_hook' ) ) {
-			WP_CLI::add_hook( 'after_invoke:site empty', [ $this, 'empty_custom_tables' ] );
-		}
-	}
-
-	/**
 	 * Whether all the custom tables exist or not. Does not check custom fields.
 	 *
 	 * Note: the method will return `false` if even one table is missing.
