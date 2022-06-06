@@ -1,6 +1,7 @@
 <?php
 
 // Ensure the CT1 code branch is enabled.
+use Monolog\Logger;
 use TEC\Events\Custom_Tables\V1\Activation;
 
 putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=0' );
@@ -10,3 +11,6 @@ tribe()->register( TEC\Events\Custom_Tables\V1\Provider::class );
 // Run the activation routine to ensure the tables will be set up independently of the previous state.
 Activation::activate();
 tribe()->register( TEC\Events\Custom_Tables\V1\Full_Activation_Provider::class );
+// The logger has already been set up at this point, remove all handlers to silence it.
+$logger = tribe( Logger::class );
+$logger->setHandlers( [] );
