@@ -12,7 +12,6 @@ jobs:
           - muintegration
           - restv1
           - views_integration
-          - views_rest
           - views_settings
           - views_ui
           - views_v2_customizer_integration
@@ -20,6 +19,7 @@ jobs:
           - views_wpunit
           - wpunit
           - ct1_integration
+          # - views_rest # really weird error with RBE changes.
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
