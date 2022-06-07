@@ -12,6 +12,10 @@
 	<span class="tribe-events-status-label__text tribe-events-status-label__text--canceled">
 	Canceled</span>
 </span>
+<span class="tribe-events-status-label">
+	<span class="tribe-events-status-label__text tribe-events-status-label__text--canceled">
+	Canceled</span>
+</span>
 
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
