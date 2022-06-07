@@ -18,7 +18,7 @@ jobs:
           - views_widgets
           - views_wpunit
           - wpunit
-          - ct1_integration
+          # - ct1_integration
           # - views_rest # really weird error with RBE changes.
     runs-on: ubuntu-latest
     steps:
