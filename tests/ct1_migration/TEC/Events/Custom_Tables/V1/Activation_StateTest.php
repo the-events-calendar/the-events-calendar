@@ -39,7 +39,6 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_not_init_schema_with_events() {
-		global $wpdb;
 		$this->given_a_non_migrated_single_event();
 		// Reset state.
 		$this->given_a_reset_activation();
@@ -50,10 +49,7 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		// Validate expected state.
 		$state = tribe( State::class );
 		$this->assertNotEquals( State::PHASE_MIGRATION_COMPLETE, $state->get_phase() );
-		$q      = 'show tables';
-		$tables = $wpdb->get_col( $q );
-		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
-		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
+		$this->assert_custom_tables_not_exist();
 	}
 
 	/**
@@ -62,7 +58,6 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_init_schema_with_no_events() {
-		global $wpdb;
 		$this->given_a_site_with_no_events();
 		// Reset state.
 		$this->given_a_reset_activation();
@@ -73,10 +68,7 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		// Validate expected state.
 		$state = tribe( State::class );
 		$this->assertEquals( State::PHASE_MIGRATION_NOT_REQUIRED, $state->get_phase() );
-		$q      = 'show tables';
-		$tables = $wpdb->get_col( $q );
-		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
-		$this->assertContains( EventsSchema::table_name( true ), $tables );
+		$this->assert_custom_tables_exist();
 	}
 
 	/**
@@ -84,7 +76,6 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_activate_schema() {
-		global $wpdb;
 		$this->given_a_site_with_no_events();
 		// Reset state.
 		$this->given_a_reset_activation();
@@ -95,9 +86,25 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		// Validate expected state.
 		$state = tribe( State::class );
 		$this->assertEquals( null, $state->get_phase() );
-		$q      = 'show tables';
-		$tables = $wpdb->get_col( $q );
-		$this->assertContains( OccurrencesSchema::table_name( true ), $tables );
-		$this->assertContains( EventsSchema::table_name( true ), $tables );
+		$this->assert_custom_tables_exist();
+	}
+
+	/**
+	 * It should set state correctly when initialising with already existing tables
+	 *
+	 * @test
+	 */
+	public function should_set_state_correctly_when_initialising_with_already_existing_tables() {
+		$this->given_a_site_with_no_events();
+		$this->given_the_custom_tables_do_exist();
+		$this->given_the_current_migration_phase_is( null );
+		$this->given_custom_tables_are_not_initialized();
+
+		// Activate.
+		Activation::init();
+
+		$state = tribe( State::class );
+		$this->assertEquals( State::PHASE_MIGRATION_NOT_REQUIRED, $state->get_phase() );
+		$this->assert_custom_tables_exist();
 	}
 }

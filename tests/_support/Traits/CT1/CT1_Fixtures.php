@@ -75,7 +75,7 @@ trait CT1_Fixtures {
 		tribe( Schema_Builder::class )->down();
 
 		// Reset state in the db.
-		delete_transient( Activation::ACTIVATION_TRANSIENT );
+		$this->given_custom_tables_are_not_initialized();
 		$state = tribe( State::class );
 		$state->set( 'phase', null );
 		$state->save();
@@ -131,7 +131,6 @@ trait CT1_Fixtures {
 		$state          = tribe_get_option( State::STATE_OPTION_KEY, [] );
 		$state['phase'] = $phase;
 		tribe_update_option( State::STATE_OPTION_KEY, $state );
-		// @todo This gets cached in the singleton, need to update it too. Better way?
 		tribe( State::class )->set( 'phase', $phase );
 	}
 
@@ -154,8 +153,32 @@ trait CT1_Fixtures {
 		);
 	}
 
+	private function assert_custom_tables_exist() {
+		$schema_builder = tribe()->make( Schema_Builder::class );
+		foreach ( $schema_builder->get_registered_table_schemas() as $table_schema ) {
+			$this->assertTrue( $table_schema->exists() );
+		}
+	}
+
+	private function assert_custom_tables_not_exist(){
+		$schema_builder = tribe()->make( Schema_Builder::class );
+		foreach ( $schema_builder->get_registered_table_schemas() as $table_schema ) {
+			$this->assertFalse( $table_schema->exists() );
+		}
+	}
+
 	private function given_the_custom_tables_do_not_exist() {
-		tribe()->make( Schema_Builder::class )->down();
+		$schema_builder = tribe()->make( Schema_Builder::class );
+		$schema_builder->down();
+		foreach ( $schema_builder->get_registered_table_schemas() as $table_schema ) {
+			$this->assertFalse( $table_schema->exists() );
+		}
+	}
+
+	private function given_the_custom_tables_do_exist() {
+		$schema_builder = tribe()->make( Schema_Builder::class );
+		$schema_builder->up();
+		$this->assert_custom_tables_exist();
 	}
 
 	private function given_the_initialization_transient_expired() {
@@ -175,5 +198,9 @@ trait CT1_Fixtures {
 
 	private function given_action_scheduler_is_loaded() {
 		tribe( Provider::class )->load_action_scheduler_late();
+	}
+
+	private function given_custom_tables_are_not_initialized() {
+		delete_transient( Activation::ACTIVATION_TRANSIENT );
 	}
 }
