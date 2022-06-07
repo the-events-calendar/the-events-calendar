@@ -22,6 +22,7 @@
 		aria-label="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		data-js="tribe-events-view-link"
+		rel="<?php echo esc_attr( $prev_rel ); ?>"
 	>
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</a>

@@ -23,6 +23,7 @@
 		data-js="tribe-events-view-link"
 		aria-label="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
+		rel="<?php echo esc_attr( $next_rel ); ?>"
 	>
 		<?php esc_html_e( 'Next Day', 'the-events-calendar' ); ?>
 		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
