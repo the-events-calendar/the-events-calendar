@@ -30,7 +30,7 @@ class Day_View extends View {
 	/**
 	 * Cached dates for the prev/next links.
 	 *
-	 * @since TBD
+	 * @since 5.16.1
 	 *
 	 * @var array
 	 */
@@ -49,7 +49,7 @@ class Day_View extends View {
 	/**
 	 * Get the date of the event immediately previous to the current view date.
 	 *
-	 * @since TBD
+	 * @since 5.16.1
 	 *
 	 * @param DateTime|false $current_date A DateTime object signifying the current date for the view.
 	 *
@@ -124,7 +124,7 @@ class Day_View extends View {
 	/**
 	 * Get the date of the event immediately after to the current view date.
 	 *
-	 * @since TBD
+	 * @since 5.16.1
 	 *
 	 * @param DateTime|false $current_date A DateTime object signifying the current date for the view.
 	 *

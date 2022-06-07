@@ -653,7 +653,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		/**
 		 * Checks whether the page is being viewed in Elementor preview mode.
 		 *
-		 * @since TBD
+		 * @since 5.16.1
 		 *
 		 * @return bool Should the assets be enqueued.
 		 */
