@@ -127,49 +127,6 @@ class QueryTest extends Events_TestCase {
 	}
 
 	/**
-	 * It should apply query filters to query when tribe_suppress_query_filters flag is not set
-	 *
-	 * @test
-	 * @link https://moderntribe.atlassian.net/browse/TEC-3530
-	 */
-	public function should_apply_query_filters_to_query_when_tribe_suppress_query_filters_flag_is_not_set() {
-		// Run a Venue query first, this will hook the filters and is the condition that would trigger the issue.
-		new \WP_Query( [ 'post_type' => Venue::POSTTYPE ] );
-
-		global $wpdb;
-		$filtered_query = new \WP_Query( [
-			'post_type' => Main::POSTTYPE,
-		] );
-
-		$this->assertContains( 'ORDER BY EventStartDate', $filtered_query->request );
-		// Run the same request and make sure the SQL does not contain any error.
-		$wpdb->query( $filtered_query->request );
-		$this->assertEmpty( $wpdb->last_error );
-	}
-
-	/**
-	 * It should apply query filters to query when tribe_suppress_query_filters flag is false
-	 *
-	 * @test
-	 * @link https://moderntribe.atlassian.net/browse/TEC-3530
-	 */
-	public function should_apply_query_filters_to_query_when_tribe_suppress_query_filters_flag_is_false() {
-		// Run a Venue query first, this will hook the filters and is the condition that would trigger the issue.
-		new \WP_Query( [ 'post_type' => Venue::POSTTYPE ] );
-
-		$filtered_query = new \WP_Query( [
-			'post_type'                    => Main::POSTTYPE,
-			'tribe_suppress_query_filters' => false,
-		] );
-
-		$this->assertContains( 'ORDER BY EventStartDate', $filtered_query->request );
-		// Run the same request and make sure the SQL does not contain any error.
-		global $wpdb;
-		$wpdb->query( $filtered_query->request );
-		$this->assertEmpty( $wpdb->last_error );
-	}
-
-	/**
 	 * It should bail out of all filtering if tribe_suppress_query_filters set
 	 *
 	 * @test
@@ -203,39 +160,4 @@ class QueryTest extends Events_TestCase {
 			'tribe_is_event_category' => [ $applicator( 'tribe_is_event_category' ) ],
 		];
 	}
-
-	/**
-	 * It should bail out of posts_orderby if tribe_is_event set and tribe_suppress_query_filters_set
-	 *
-	 * This test covers the "dirty" case where, due to critical runs, a query would be flagged with
-	 * a property triggering the application of `posts_orderby` clauses to it.
-	 * Whether one of such flags is set or not, if the `tribe_suppress_query_filters` flag is set, then
-	 * `posts_orderby` SQL clauses should not be applied to the query.
-	 *
-	 * @test
-	 * @link https://moderntribe.atlassian.net/browse/TEC-3530
-	 * @dataProvider posts_orderby_application_flags
-	 */
-	public function should_bail_out_of_posts_orderby_if_tribe_is_event_set_and_tribe_suppress_query_filters_set(callable $flag_applicator) {
-		/*
-		 * Make sure the query will be flagged as an event one ensuring the `tribe_is_event` flag is applied to it:
-		 * this simulates the "dirty" parsing of the query and the "rogue" application of the `tribe_is_event` flag to
-		 * the query.
-		 */
-		add_action( 'parse_query', $flag_applicator, PHP_INT_MAX );
-		// Simulate the second "rogue" condition where a `Tribe__Events__Query::posts_orderby` method has been hooked.
-		add_filter( 'posts_orderby', [ Query::class, 'posts_orderby' ], 10, 2 );
-
-		$filtered_query = new \WP_Query( [
-			'post_type'                    => Main::POSTTYPE,
-			'tribe_suppress_query_filters' => true,
-		] );
-
-		$this->assertNotContains( 'ORDER BY EventStartDate', $filtered_query->request );
-		// Run the same request and make sure the SQL does not contain any error.
-		global $wpdb;
-		$wpdb->query( $filtered_query->request );
-		$this->assertEmpty( $wpdb->last_error );
-	}
-
 }
