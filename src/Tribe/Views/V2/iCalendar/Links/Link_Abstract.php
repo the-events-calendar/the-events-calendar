@@ -58,7 +58,7 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * The slug used for the single event sharing block toggle.
 	 *
-	 * @since TBD
+	 * @since 5.16.1
 	 *
 	 * @var string
 	 */

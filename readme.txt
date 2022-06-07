@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.0
+Stable tag: 5.16.1
 Tested up to: 6.0
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.16.1] 2022-06-09 =
 
 * Fix - Add rel="noindex" to links that point to empty Month and Day Views so as to not dilute SEO with empty results. [TEC-4354]
 * Fix - Clean up some borked CSS in some sections of the Elementor `Event` widget. [ECP-1105]
