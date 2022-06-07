@@ -91,4 +91,13 @@ interface Table_Schema_Interface {
 	 * @return string The name of the group the table belongs to.
 	 */
 	public static function group_name();
+
+	/**
+	 * Returns whether a table exists or not in the database.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function exists();
 }

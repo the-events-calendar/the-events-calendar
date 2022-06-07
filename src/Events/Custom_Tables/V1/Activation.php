@@ -62,8 +62,6 @@ class Activation {
 		// Sync any schema changes we may have.
 		if ( $schema_builder->all_tables_exist( 'tec' ) ) {
 			$schema_builder->up();
-
-			return;
 		}
 
 		$state = $services->make( State::class );

@@ -250,6 +250,10 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 			public static function group_name() {
 				return 'one';
 			}
+
+			public function exists() {
+				return false;
+			}
 		};
 		$klutz_table = new class implements Table_Schema_Interface {
 			public static function uid_column() {
@@ -277,6 +281,10 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 			public static function group_name() {
 				return 'one';
 			}
+
+			public function exists() {
+				return true;
+			}
 		};
 		$zorps_table = new class implements Table_Schema_Interface {
 			public static function uid_column() {
@@ -303,6 +311,10 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 
 			public static function group_name() {
 				return 'two';
+			}
+
+			public function exists() {
+				return true;
 			}
 		};
 		$tables      = [ $fodz_table, $klutz_table, $zorps_table ];
