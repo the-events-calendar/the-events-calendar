@@ -40,7 +40,11 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 
 		global $wpdb;
 
-		return $wpdb->query( "TRUNCATE {$this_table}" );
+		$wpdb->query( "SET foreign_key_checks = 0" );
+		$result = $wpdb->query( "TRUNCATE {$this_table}" );
+		$wpdb->query( "SET foreign_key_checks = 1" );
+
+		return $result;
 	}
 
 	/**

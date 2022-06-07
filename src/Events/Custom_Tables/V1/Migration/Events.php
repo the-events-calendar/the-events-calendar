@@ -71,7 +71,11 @@ class Events {
 			$limit
 		);
 
+		// The lock operation could fail and that is ok. A deadlock message should not be reported in this case.
+		$suppress_errors_backup = $wpdb->suppress_errors;
+		$wpdb->suppress_errors = true;
 		$wpdb->query( $lock_query );
+		$wpdb->suppress_errors = $suppress_errors_backup;
 
 		if ( ! $wpdb->rows_affected ) {
 			return [];
