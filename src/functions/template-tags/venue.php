@@ -300,12 +300,12 @@ function tribe_get_country( $postId = null ) {
  *
  * @since ??
  *
- * @param int  $postId           Either event id or venue id, if none specified, current post is used.
+ * @param int  $post_id           Either event id or venue id, if none specified, current post is used.
  * @param bool $includeVenueName To include the venue name or not.
  * @return string                Formatted event address.
  */
-function tribe_get_full_address( $postId = null, $includeVenueName = false ) {
-	$venue_id  = tribe_get_venue_id( $postId );
+function tribe_get_full_address( $post_id = null, $includeVenueName = false ) {
+	$venue_id  = tribe_get_venue_id( $post_id );
 	$tec       = Tribe__Events__Main::instance();
 
 	global $post;
