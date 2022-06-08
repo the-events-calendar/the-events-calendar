@@ -74,6 +74,14 @@ class Activation {
 			$schema_builder->up();
 			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
 			$state->save();
+
+			if ( ! tribe()->getVar( 'ct1_fully_activated' ) ) {
+				/**
+				 * On new installations the full activation code will find an empty state and
+				 * will have not activated at this point, do it now if required.
+				 */
+				tribe()->register( Full_Activation_Provider::class );
+			}
 		}
 	}
 

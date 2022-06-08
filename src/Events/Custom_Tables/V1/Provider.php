@@ -107,9 +107,13 @@ class Provider extends Service_Provider {
 			$state = $this->container->make( State::class );
 			// Should we fully activate?
 			if ( $state->is_migrated() ) {
-				// These providers should be the ones that extend the bulk of features for CT1,
-				// with only the bare minimum of providers registered above, to determine important state information.
+				/**
+				 * These providers should be the ones that extend the bulk of features for CT1,
+				 * with only the bare minimum of providers registered above, to determine important state information.
+				 */
 				$this->container->register( Full_Activation_Provider::class );
+				// Set a flag in the container to indicate there was a full activation of the CT1 component.
+				$this->container->setVar( 'ct1_fully_activated', true );
 			}
 
 			$this->add_filters();
