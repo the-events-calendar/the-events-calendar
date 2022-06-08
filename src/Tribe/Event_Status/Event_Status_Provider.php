@@ -159,12 +159,12 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 5.11.0
 	 *
-	 * @param WP_Post|array $post The events post object to be modified.
+	 * @param WP_Post $post The events post object to be modified.
 	 *
-	 * @return WP_Post|array The original event object decorated with properties related to event status.
+	 * @return \WP_Post The original event object decorated with properties related to event status.
 	 */
 	public function filter_tribe_get_event( $post ) {
-		if ( ! $post instanceof WP_Post && ! is_array( $post ) ) {
+		if ( ! $post instanceof WP_Post ) {
 			// We should only act on event posts, else bail.
 			return $post;
 		}
