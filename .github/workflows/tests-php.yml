@@ -18,8 +18,9 @@ jobs:
           - views_widgets
           - views_wpunit
           - wpunit
-          # - ct1_integration
-          # - views_rest # really weird error with RBE changes.
+          - ct1_integration
+          # really weird error with RBE changes.
+          - views_rest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
