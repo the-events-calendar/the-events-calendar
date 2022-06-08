@@ -35,14 +35,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.0-Beta3.2';
+		const VERSION             = '6.0.0-beta3.2';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-RBE-Beta3.2';
+		const MIN_ADDON_VERSION   = '6.0.0-beta3.2';
 
 		/**
 		 * Min Common
