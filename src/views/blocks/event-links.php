@@ -3,8 +3,7 @@
  * Block: Event Links
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/blocks/event-links.php
- *
+ * [your-theme]/tribe/events/blocks/event-links` *
  * See more documentation about our Blocks Editor templating system.
  *
  * @link http://evnt.is/1aiy
@@ -13,9 +12,9 @@
  *
  */
 
+// don't show on password protected posts
 use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
 
-// don't show on password protected posts
 if ( post_password_required() ) {
 	return;
 }
@@ -25,16 +24,17 @@ $has_ical         = $this->attr( 'hasiCal' );
 $has_outlook_365  = $this->attr( 'hasOutlook365' );
 $has_outlook_live = $this->attr( 'hasOutlookLive' );
 
-
 remove_filter( 'the_content', 'do_blocks', 9 );
 $subscribe_links = empty( $this->get( ['subscribe_links'] ) ) ? false : $this->get( ['subscribe_links'] );
 
 $should_render  = $subscribe_links && ( $has_google_cal || $has_ical || $has_outlook_365 || $has_outlook_live );
 
-$items = [];
-
-if ( $has_google_cal && $this->get( [ 'subscribe_links', 'gcal' ] ) instanceof Link_Abstract ) {
-	$items[] = $this->get( [ 'subscribe_links', 'gcal' ] );
+if ( $has_google_cal ) {
+	if ( $this->get( [ 'subscribe_links', 'gcal' ] ) instanceof Link_Abstract ) {
+		$google_cal_link = $subscribe_links['gcal']->get_uri( null );
+	} else {
+		$google_cal_link = Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
+	}
 }
 
 if ( $has_ical && $this->get( [ 'subscribe_links', 'ical' ] ) instanceof Link_Abstract ) {

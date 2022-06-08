@@ -185,13 +185,10 @@ class Tribe__Events__Assets {
 				]
 			);
 
-			// Setup our own script used to initialize each map
-			$embedded_map_url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
-
 			tribe_asset(
 				$plugin,
 				Tribe__Events__Embedded_Maps::MAP_HANDLE,
-				$embedded_map_url,
+				'embedded-map.js',
 				[ 'tribe-events-google-maps' ],
 				null,
 				[
@@ -222,114 +219,6 @@ class Tribe__Events__Assets {
 
 		tribe_asset(
 			$plugin,
-			'tribe-events-calendar-script',
-			'tribe-events.js',
-			[
-				'jquery',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-				'tribe-moment',
-				'tribe-moment-locales',
-			],
-			'wp_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'in_footer'    => false,
-				'localize'     => [
-					'name' => 'tribe_js_config',
-					'data' => [ $this, 'get_js_calendar_script_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-bar',
-			'tribe-events-bar.js',
-			[
-				'jquery',
-				'tribe-events-dynamic',
-				'tribe-events-calendar-script',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-			],
-			'wp_enqueue_scripts',
-			[
-				'in_footer'    => false,
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-calendar-mobile-style',
-			'tribe-events-theme-mobile.css',
-			[ 'tribe-events-calendar-style', 'tribe-accessibility-css' ],
-			'wp_enqueue_scripts',
-			[
-				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
-				'groups'       => [ 'events-styles' ],
-				'conditionals' => [
-					'operator' => 'AND',
-					[ $this, 'is_mobile_breakpoint' ],
-					[ $this, 'should_enqueue_frontend' ],
-					[ $this, 'is_style_option_tribe' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-calendar-full-mobile-style',
-			'tribe-events-full-mobile.css',
-			[ 'tribe-events-calendar-style', 'tribe-accessibility-css' ],
-			'wp_enqueue_scripts',
-			[
-				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
-				'groups'       => [ 'events-styles' ],
-				'priority'     => 7,
-				'conditionals' => [
-					'operator' => 'AND',
-					[ $this, 'is_mobile_breakpoint' ],
-					[ $this, 'should_enqueue_frontend' ],
-					[ $this, 'should_enqueue_full_styles' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-full-calendar-style',
-			'tribe-events-full.css',
-			[ 'tribe-accessibility-css' ],
-			'wp_enqueue_scripts',
-			[
-				'groups'       => [ 'events-styles' ],
-				'priority'     => 5,
-				'conditionals' => [
-					'operator' => 'AND',
-					[ $this, 'should_enqueue_frontend' ],
-					[ $this, 'should_enqueue_full_styles' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-calendar-style',
-			$this->get_style_file(),
-			[ 'tribe-events-custom-jquery-styles', 'tribe-events-bootstrap-datepicker-css' ],
-			'wp_enqueue_scripts',
-			[
-				'groups'       => [ 'events-styles' ],
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
 			'tribe-events-calendar-override-style',
 			Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' ),
 			[],
@@ -337,60 +226,6 @@ class Tribe__Events__Assets {
 			[
 				'groups'       => [ 'events-styles' ],
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
-
-		// Register AJAX views assets
-		tribe_asset(
-			$plugin,
-			'the-events-calendar',
-			'tribe-events-ajax-calendar.js',
-			[
-				'jquery',
-				'tribe-events-calendar-script',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-				'tribe-moment',
-				'tribe-moment-locales',
-			],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeCalendar',
-					'data' => [ $this, 'get_ajax_url_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-ajax-day',
-			'tribe-events-ajax-day.js',
-			[ 'jquery', 'tribe-events-calendar-script' ],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeCalendar',
-					'data' => [ $this, 'get_ajax_url_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-list',
-			'tribe-events-ajax-list.js',
-			[ 'jquery', 'tribe-events-calendar-script' ],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeList',
-					'data' => [
-						'ajaxurl'     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-						'tribe_paged' => absint( tribe_get_request_var( 'tribe_paged', 0 ) ),
-					],
-				],
 			]
 		);
 	}
