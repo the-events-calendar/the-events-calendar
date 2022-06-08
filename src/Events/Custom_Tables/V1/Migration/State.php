@@ -176,7 +176,7 @@ class State {
 	 * @since TBD
 	 */
 	public function __construct( Events $events ) {
-		$option_data  = (array) tribe_get_option( self::STATE_OPTION_KEY, $this->default_data );
+		$option_data  = (array) get_option( self::STATE_OPTION_KEY, $this->default_data );
 		$this->data   = wp_parse_args( $option_data, $this->default_data );
 		$this->events = $events;
 	}
@@ -349,6 +349,6 @@ class State {
 			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 			'phase'     => $this->data,
 		] );
-		tribe_update_option( self::STATE_OPTION_KEY, $this->data );
+		update_option( self::STATE_OPTION_KEY, $this->data );
 	}
 }
