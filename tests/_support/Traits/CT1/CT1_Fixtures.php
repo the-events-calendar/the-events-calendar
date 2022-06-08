@@ -128,9 +128,9 @@ trait CT1_Fixtures {
 	}
 
 	private function given_the_current_migration_phase_is( $phase = null ) {
-		$state          = tribe_get_option( State::STATE_OPTION_KEY, [] );
+		$state          = get_option( State::STATE_OPTION_KEY, [] );
 		$state['phase'] = $phase;
-		tribe_update_option( State::STATE_OPTION_KEY, $state );
+		update_option( State::STATE_OPTION_KEY, $state );
 		tribe( State::class )->set( 'phase', $phase );
 	}
 

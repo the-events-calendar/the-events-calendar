@@ -26,7 +26,7 @@ class StateTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 */
 	public function should_correctly_initialize_on_bad_option_values( $option_value ) {
-		tribe_update_option( State::STATE_OPTION_KEY, $option_value );
+		update_option( State::STATE_OPTION_KEY, $option_value );
 
 		new State( new Events );
 	}

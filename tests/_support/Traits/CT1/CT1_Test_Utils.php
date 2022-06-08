@@ -13,7 +13,7 @@ trait CT1_Test_Utils {
 		// Invalidate the options caches to make sure to get a live value.
 		tribe_set_var( Options::OPTION_CACHE_VAR_NAME, null );
 		wp_cache_flush();
-		$state = tribe_get_option( State::STATE_OPTION_KEY, [] );
+		$state = get_option( State::STATE_OPTION_KEY, [] );
 
 		return $state['phase'];
 	}
