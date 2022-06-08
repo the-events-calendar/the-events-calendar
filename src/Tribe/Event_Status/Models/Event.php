@@ -26,28 +26,20 @@ class Event {
 	 *
 	 * @since 5.11.0
 	 *
-	 * @param WP_Post|array $event The event post object.
+	 * @param WP_Post $event The event post object.
 	 *
 	 * @return WP_Post The original event object decorated with properties related to event status.
 	 */
-	public function add_properties( $event ) {
-		$event_status        = $this->get_status( $event );
-		$event_status_reason = $this->get_reason( $event );
-
-		if ( is_array( $event ) ) {
-			$event['event_status']        = $event_status;
-			$event['event_status_reason'] = $event_status_reason;
-		} else {
-			$event->event_status        = $event_status;
-			$event->event_status_reason = $event_status_reason;
-		}
+	public function add_properties( WP_Post $event ) {
+		$event->event_status        = $this->get_status( $event );
+		$event->event_status_reason = $this->get_reason( $event );
 
 		/**
 		 * Fires after the event object has been decorated with properties related to event status.
 		 *
 		 * @since 5.11.0
 		 *
-		 * @param WP_Post|array $event The event post object as decorated by the `tribe_get_event` function, with event
+		 * @param \WP_Post $event The event post object as decorated by the `tribe_get_event` function, with event
 		 *                        status related properties added.
 		 */
 		do_action( 'tribe_events_event_status_add_properties', $event );
