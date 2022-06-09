@@ -1,12 +1,13 @@
 <?php
 
-use \TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 /**
  * @var string            $template_directory The absolute path to the Migration template root directory.
  * @var String_Dictionary $text               The text dictionary.
  * @var string            $phase              The current phase.
  */
+
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
@@ -19,7 +20,11 @@ use \TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 		<p><?php echo esc_html( $text->get( 'preview-scanning-events' ) ); ?></p>
 		<div class="tec-ct1-upgrade-update-bar-container">
-
+			<p><?php echo esc_html( $text->get( 'loading-message' ) ); ?></p>
+		</div>
+		<div>
+			<a class="tec-ct1-upgrade-start-migration-preview"
+			   href="#"><?php echo esc_html( $text->get( 'retry-preview-button' ) ); ?></a>
 		</div>
 	</div>
 	<div class="image-container">
