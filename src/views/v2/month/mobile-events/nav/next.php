@@ -24,6 +24,7 @@
 		data-js="tribe-events-view-link"
 		aria-label="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		title="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
+		rel="<?php echo esc_attr( $next_rel ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
 		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>

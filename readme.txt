@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Add rel="noindex" to links that point to empty Month and Day Views so as to not dilute SEO with empty results. [TEC-4354]
 * Fix - Clean up some borked CSS in some sections of the Elementor `Event` widget. [ECP-1105]
 * Fix - Fix admin links to work with the new admin page structure. [TEC-4380]
+* Tweak - Removed filters: `tribe_settings_admin_slug`, `tribe_settings_url`, `tribe_events_enable_month_view_cache`
+* Tweak - Changed views: `blocks/event-links`, `blocks/parts/subscribe-list`, `blocks/parts/subscribe-single`,
+                         `v2/components/subscribe-links/item`, `v2/components/subscribe-links/single`, `v2/day/nav/next`,
+                         `v2/day/nav/prev`, `v2/day/top-bar/nav/next`, `v2/day/top-bar/nav/prev`, `v2/month/mobile-events/nav/next`,
+                         `v2/month/mobile-events/nav/prev`, `v2/month/top-bar/nav/next`, `v2/month/top-bar/nav/prev`
 
 = [5.16.0] 2022-05-31 =
 
@@ -257,7 +262,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Version - The Events Calendar 5.15.0 is only compatible with Event Tickets 5.4.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Calendar PRO 5.14.0 and higher
-* Version - The Events Calendar 5.15.0 is only compatible with Events Filterbar	5.3.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Filterbar    5.3.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Virtual 1.10.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Community 4.9.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Eventbrite Tickets 4.6.11 and higher
