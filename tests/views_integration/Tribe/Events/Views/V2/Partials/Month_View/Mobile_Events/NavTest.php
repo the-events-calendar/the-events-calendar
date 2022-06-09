@@ -19,6 +19,8 @@ class NavTest extends HtmlPartialTestCase
 			'next_url'   => 'http://test.tri.be',
 			'prev_label' => 'May',
 			'next_label' => 'July',
+			'prev_rel'   => 'noindex',
+			'next_rel'   => 'noindex',
 			'location'   => 'calendar',
 		] ) );
 	}
@@ -33,6 +35,8 @@ class NavTest extends HtmlPartialTestCase
 			'next_url'   => '',
 			'prev_label' => 'May',
 			'next_label' => 'July',
+			'prev_rel'   => 'noindex',
+			'next_rel'   => 'noindex',
 			'location'   => 'calendar',
 		] ) );
 	}
@@ -47,6 +51,8 @@ class NavTest extends HtmlPartialTestCase
 			'next_url'   => 'http://test.tri.be',
 			'prev_label' => 'May',
 			'next_label' => 'July',
+			'prev_rel'   => 'noindex',
+			'next_rel'   => 'noindex',
 			'location'   => 'calendar',
 		] ) );
 	}
@@ -61,6 +67,8 @@ class NavTest extends HtmlPartialTestCase
 			'next_url'   => '',
 			'prev_label' => 'May',
 			'next_label' => 'July',
+			'prev_rel'   => 'noindex',
+			'next_rel'   => 'noindex',
 			'location'   => 'calendar',
 		] ) );
 	}
