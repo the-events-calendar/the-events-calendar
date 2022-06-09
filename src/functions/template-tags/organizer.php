@@ -335,15 +335,6 @@ function tribe_get_organizer_link( $post_id = null, $full_link = true, $echo = f
 					esc_html( $name )
 				);
 			}
-
-			$html = sprintf(
-				'<a href="%1$s" target="%2$s" rel="%3$s">%4$s</a>',
-				esc_attr( esc_url( $url ) ),
-				esc_attr( $target ),
-				esc_attr( $rel ),
-				esc_html( $label )
-			);
-
 		} else {
 			$link = $url;
 		}
