@@ -893,8 +893,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			return '';
 		}
 
-		$tec     = Tribe__Events__Main::instance();
-		$address = $tec->fullAddressString( $event );
+		$address = Tribe__Events__Venue::get_address_full_string( $event );
 		// The above includes the venue name.
 
 		return $address;
