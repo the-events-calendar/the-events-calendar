@@ -32,8 +32,6 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 	 * @return array The languages with maybe updated URLs
 	 */
 	public function filter_icl_ls_languages( array $languages = [] ) {
-		global $wp_query;
-
 		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return $languages;
 		}
@@ -64,4 +62,48 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 
 		return $languages;
 	}
+
+	/**
+	 * @param array    $translations
+	 * @param WP_Query $saved_query
+	 *
+	 * @return array
+	 */
+	public function add_ls_to_single_occurrence( $translations, $saved_query ) {
+		global $wpdb;
+
+		if ( is_admin() || ! tribe_is_event_query() || is_archive() ) {
+			return $translations;
+		}
+
+		$provisional_id = apply_filters( 'tec_custom_tables_v1_provisional_post_base_provisional_id', 10000000 );
+		if ( $provisional_id && ! empty( $saved_query->post->ID ) && $saved_query->post->ID > $provisional_id ) {
+
+			// Convert the provisional ID to a post ID.
+			$post = $wpdb->get_row( $wpdb->prepare(
+				"SELECT post_id, start_date_utc, end_date_utc, duration FROM wp_tec_occurrences, (SELECT @row := 0) t WHERE occurrence_id = %s",
+				$saved_query->post->ID - $provisional_id
+			), ARRAY_A );
+
+			// Get translations of the post ID.
+			$post_type    = $saved_query->post->post_type;
+			$element_type = apply_filters( 'wpml_element_type', $post_type );
+			$element_trid = apply_filters( 'wpml_element_trid', false, $post['post_id'], $element_type );
+			$translations = apply_filters( 'wpml_get_element_translations', [], $element_trid, $element_type );
+
+			// Convert the post IDs back to provisional IDs.
+			foreach ( $translations as $code => $translation ) {
+				$translations[ $code ]->element_id = $wpdb->get_var( $wpdb->prepare(
+					"SELECT occurrence_id FROM wp_tec_occurrences WHERE post_id = %s AND start_date_utc = %s AND end_date_utc = %s AND duration = %s",
+					apply_filters( 'wpml_object_id', $post['post_id'], $post_type, true, $code ),
+					$post['start_date_utc'],
+					$post['end_date_utc'],
+					$post['duration'],
+				) ) + $provisional_id;
+			}
+		}
+
+		return $translations;
+	}
+
 }

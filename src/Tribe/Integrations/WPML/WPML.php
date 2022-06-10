@@ -79,6 +79,7 @@ class Tribe__Events__Integrations__WPML__WPML {
 
 		$language_switcher = Tribe__Events__Integrations__WPML__Language_Switcher::instance();
 		add_filter( 'icl_ls_languages', [ $language_switcher, 'filter_icl_ls_languages' ], 5 );
+		add_filter( 'wpml_get_ls_translations', [ $language_switcher, 'add_ls_to_single_occurrence' ], 10, 2 );
 
 		$meta = tribe( 'tec.integrations.wpml.meta' );
 		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 3 );
