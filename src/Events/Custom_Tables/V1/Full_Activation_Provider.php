@@ -48,6 +48,7 @@ class Full_Activation_Provider extends Service_Provider {
 		}
 
 		$this->did_register = true;
+		tribe()->setVar( 'ct1_fully_activated', true );
 
 		/*
 		 * This block should be the only one capturing exceptions thrown in the context of
