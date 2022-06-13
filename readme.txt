@@ -223,8 +223,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+== [TBD] TBD ==
 
+* Fix - Add a height to the subscribe to calendar export SVG icon on the single events page when using the `Skeleton Styles` to prevent it from taking over a huge portion of the page. [TEC-4399]
 * Fix - Remove link to Updates page from TEC Settings page. [TEC-4373]
 
 = [5.16.1] 2022-06-09 =
