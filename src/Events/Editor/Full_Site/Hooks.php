@@ -76,6 +76,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $query_result;
 		}
 
+		if ( is_singular( 'tribe_events' ) ) {
+			return $query_result;
+		}
+
 		return $this->container->make( Templates::class )->add_events_archive( $query_result, $query, $template_type );
 	}
 

@@ -73,7 +73,7 @@ class Templates {
 	 */
 	public function get_template_events_archive() {
 		$template_content = file_get_contents(
-			dirname( \Tribe__Main::instance()->plugin_path ) . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
+			dirname( TRIBE_EVENTS_FILE ) . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
 		);
 
 		$template                 = new WP_Block_Template();
