@@ -52,7 +52,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Before a HTTP request is processed and updates an Event Post, we might need to redirect the update
+	 * Before an HTTP request is processed and updates an Event Post, we might need to redirect the update
 	 * to either the real post ID or to a different post ID.
 	 *
 	 * @since TBD
@@ -125,7 +125,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'commit_rest_update' ], 100, 2 );
 
 		/**
-		 * Hook into the logic that would rebuidl the known range, setting the `earliest_date`
+		 * Hook into the logic that would rebuild the known range, setting the `earliest_date`
 		 * and `latest_date` options, to parse Occurrences, not Events.
 		 */
 		add_filter( 'tribe_events_rebuild_known_range', [ $this, 'rebuild_known_range' ] );
