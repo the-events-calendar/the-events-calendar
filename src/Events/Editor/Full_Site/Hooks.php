@@ -3,6 +3,7 @@
 namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
+use Tribe__Events__Main;
 
 /**
  * Class Hooks
@@ -76,7 +77,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $query_result;
 		}
 
-		if ( is_singular( 'tribe_events' ) ) {
+		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 			return $query_result;
 		}
 
