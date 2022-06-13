@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - correct issues with template paths when using FSE. [TBD]
+
 = [5.16.1] 2022-06-09 =
 
 * Fix - Add rel="noindex" to links that point to empty Month and Day Views so as to not dilute SEO with empty results. [TEC-4354]
