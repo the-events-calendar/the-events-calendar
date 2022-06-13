@@ -62,8 +62,9 @@ class Process {
 	public function start( $dry_run = true ) {
 		// Check if we are already doing this action?
 		if ( in_array( $this->state->get_phase(), [
-			State::PHASE_MIGRATION_IN_PROGRESS
-		] ) ) {
+			State::PHASE_MIGRATION_IN_PROGRESS,
+			State::PHASE_PREVIEW_IN_PROGRESS,
+		], true ) ) {
 			return false;
 		}
 		// Reset our undo state.
