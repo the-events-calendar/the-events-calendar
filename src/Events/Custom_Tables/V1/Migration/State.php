@@ -136,7 +136,7 @@ class State {
 	 *
 	 * @var string
 	 */
-	const STATE_OPTION_KEY = 'ct1_migration_state';
+	const STATE_OPTION_KEY = 'tec_ct1_migration_state';
 
 	/**
 	 * An array of default data the migration state will be hydrated with if no
