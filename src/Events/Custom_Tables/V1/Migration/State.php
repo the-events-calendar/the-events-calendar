@@ -9,7 +9,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Utils__Array as Arr;
 
 /**
