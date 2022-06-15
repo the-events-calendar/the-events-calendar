@@ -190,6 +190,15 @@ class List_View extends View {
 
 		$upcoming->order_by( '__none' );
 
+		/**
+		 * Check whether the Main Events Page is set as the homepage.
+		 * 
+		 * @since TBD
+		 */
+		if ( ! tribe_is_events_front_page() ) {
+			$page = 2;
+		}
+
 		if ( $upcoming->count() > 0 ) {
 			$query_args = [
 				'post_type'        => TEC::POSTTYPE,
