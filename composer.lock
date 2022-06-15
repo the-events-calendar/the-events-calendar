@@ -1346,16 +1346,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.8.3",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "1afdd860a2566ed3c2b0b4a3de6e23434a79ec85"
+                "reference": "337e3ad8e5716c15f9657bd214d16cc5e69df268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/1afdd860a2566ed3c2b0b4a3de6e23434a79ec85",
-                "reference": "1afdd860a2566ed3c2b0b4a3de6e23434a79ec85",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/337e3ad8e5716c15f9657bd214d16cc5e69df268",
+                "reference": "337e3ad8e5716c15f9657bd214d16cc5e69df268",
                 "shasum": ""
             },
             "require": {
@@ -1448,7 +1448,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-05T13:56:00+00:00"
+            "time": "2022-03-20T21:51:18+00:00"
         },
         {
             "name": "illuminate/contracts",
@@ -4557,6 +4557,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "symfony/error-handler",
             "time": "2020-10-24T10:57:07+00:00"
         },
         {
@@ -5436,12 +5437,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-events-calendar/tec-testing-facilities",
-                "reference": "b827bbe40743ff8b3e4232042d0331b0927ac424"
+                "reference": "6c66235042c4389079a0c98ff8e70ad0ac227eb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/b827bbe40743ff8b3e4232042d0331b0927ac424",
-                "reference": "b827bbe40743ff8b3e4232042d0331b0927ac424",
+                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/6c66235042c4389079a0c98ff8e70ad0ac227eb0",
+                "reference": "6c66235042c4389079a0c98ff8e70ad0ac227eb0",
                 "shasum": ""
             },
             "require": {
@@ -5505,7 +5506,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2022-01-12T16:49:42+00:00"
+            "time": "2022-05-20T15:21:07+00:00"
         },
         {
             "name": "the-events-calendar/tribalscents",
