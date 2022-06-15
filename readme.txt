@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.1
+Stable tag: 5.16.1.1
 Tested up to: 6.0
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Remove link to Updates page from TEC Settings page. [TEC-4373]
 * Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--past-month` to past month dates in the month view to allow easy targetting. [TEC-3447]
 * Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--next-month` to future month dates in the month view to allow easy targetting. [TEC-3819]
+
+= [5.16.1.1] 2022-06-15 =
+
+* Fix - correct issues with template paths when using FSE. [TEC-4401]
 
 = [5.16.1] 2022-06-09 =
 
