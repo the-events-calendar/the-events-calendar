@@ -304,11 +304,7 @@ class State {
 	 *
 	 * @return string The current migration phase the site is in.
 	 */
-	public function get_phase() {
-		do_action( 'tribe_log', 'debug', 'State: get_phase', [
-			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'     => $this->data['phase'],
-		] );
+	public function get_phase() { 
 		return $this->data['phase'];
 	}
 
