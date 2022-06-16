@@ -192,6 +192,9 @@ class Process_Worker {
 
 				return $this->event_report->migration_success();
 			}
+			// In the odd scenario where we previously had a transaction failure, but it was resolved later.
+			$this->state->set( 'preview_unsupported', false );
+			$this->state->save();
 
 			// Check if we are still in migration phase.
 			if ( ! in_array( $this->state->get_phase(), [
