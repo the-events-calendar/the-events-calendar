@@ -617,6 +617,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Admin Notices
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', [ 'hook' ] );
+			tribe_singleton( 'tec.admin.notice.update', 'Tribe__Events__Admin__Notice__Update' );
 			tribe_singleton( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, [ 'hook' ] );
 			tribe_singleton( Tribe\Events\Admin\Notice\Full_Site_Editor::class, Tribe\Events\Admin\Notice\Full_Site_Editor::class, [ 'hook' ] );
 
@@ -945,6 +946,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.rest-v1.main' );
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
+			tribe( 'tec.admin.notice.update' )->hook();
 			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
 			tribe( Tribe\Events\Admin\Notice\Full_Site_Editor::class );
 			tribe( 'tec.privacy' );
@@ -1077,7 +1079,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
 						'version_history_slug'  => 'previous_ecp_versions',
 						'update_page_title'     => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
-						'update_page_template'  => $this->plugin_path . 'src/admin-views/admin-update-message.php',
+						'update_page_template'  => $this->plugin_path . 'src/admin-views/updates/v6.0.php',						
 						'welcome_page_title'    => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
 						'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
 					]
