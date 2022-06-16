@@ -102,6 +102,39 @@ class Process_Worker {
 		$this->state  = $state;
 	}
 
+	/**
+	 * Sets up our shutdown and buffer handlers.
+	 *
+	 * @since TBD
+	 */
+	private function bind_shutdown_handlers() {
+		// Watch for any errors that may occur and store them in the Event_Report.
+		set_error_handler( [ $this, 'error_handler' ] );
+
+		// Set this as a fallback: we'll remove it later if everything goes fine.
+		add_action( 'shutdown', [ $this, 'shutdown_handler' ] );
+
+		/*
+		 * If some calls `die` or `exit` during the migration PHP might not trigger
+		 * shutdown. For that purpose let's buffer and try to capture the event and
+		 * the reason for it.
+		 */
+		ob_start( [ $this, 'ob_flush_handler' ] );
+	}
+
+	/**
+	 * Reverts and removes any shutdown or output buffer handlers we opened.
+	 *
+	 * @since TBD
+	 */
+	private function unbind_shutdown_handlers() {
+		// Restore error handling.
+		restore_error_handler();
+		// Remove shutdown hook.
+		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
+		// Close the output buffer.
+		ob_end_clean();
+	}
 
 	/**
 	 * Processes an Event migration.
@@ -141,18 +174,7 @@ class Process_Worker {
 		// Set our dead-man switch.
 		$this->migration_completed = false;
 
-		// Watch for any errors that may occur and store them in the Event_Report.
-		set_error_handler( [ $this, 'error_handler' ] );
-
-		// Set this as a fallback: we'll remove it later if everything goes fine.
-		add_action( 'shutdown', [ $this, 'shutdown_handler' ] );
-
-		/*
-		 * If some calls `die` or `exit` during the migration PHP might not trigger
-		 * shutdown. For that purpose let's buffer and try to capture the event and
-		 * the reason for it.
-		 */
-		ob_start( [ $this, 'ob_flush_handler' ] );
+		$this->bind_shutdown_handlers();;
 
 		try {
 			// Before we start preview, check if transactions are supported.
@@ -166,8 +188,9 @@ class Process_Worker {
 				$this->state->set( 'preview_unsupported', true );
 				$this->state->save();
 				$this->migration_completed = true;
+				$this->unbind_shutdown_handlers();
 
-				return $this->event_report;
+				return $this->event_report->migration_success();
 			}
 
 			// Check if we are still in migration phase.
@@ -177,6 +200,7 @@ class Process_Worker {
 			], true ) ) {
 				$this->event_report->migration_failed( 'canceled' );
 				$this->migration_completed = true;
+				$this->unbind_shutdown_handlers();
 
 				return $this->event_report;
 			}
@@ -264,12 +288,7 @@ class Process_Worker {
 
 		$this->migration_completed = true;
 
-		// Restore error handling.
-		restore_error_handler();
-		// Remove shutdown hook.
-		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
-		// Close the output buffer.
-		ob_end_clean();
+		$this->unbind_shutdown_handlers();
 
 		$did_migration_error = ! $dry_run && $this->event_report->error;
 		// If error in the migration phase, need to stop the queue.
