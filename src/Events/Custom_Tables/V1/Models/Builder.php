@@ -343,7 +343,15 @@ class Builder {
 			 * Depending on the db implementation, it could not run updates and return `0`.
 			 * We need to make sure it does not return exactly boolean `false`.
 			 */
-			return $wpdb->query( $SQL );
+			$result = $wpdb->query( $SQL );
+			if ( $result === false ) {
+				do_action( 'tribe_log', 'debug', 'Builder: upsert query failure.', [
+					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+					'trace'  => debug_backtrace( 2, 5 )
+				] );
+			}
+
+			return $result;
 		}
 
 		return 0;

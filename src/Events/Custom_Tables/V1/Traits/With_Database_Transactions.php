@@ -93,7 +93,15 @@ trait With_Database_Transactions {
 		 *
 		 * @param bool $check Whether transactions are supported or not.
 		 */
-		return apply_filters( 'tec_events_custom_tables_v1_db_transactions_supported', (bool) $check );
+		$check = apply_filters( 'tec_events_custom_tables_v1_db_transactions_supported', (bool) $check );
+		if ( ! $check ) {
+			do_action( 'tribe_log', 'debug', 'Check transaction support.', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+				'check'  => $check
+			] );
+		}
+
+		return $check;
 	}
 
 	/**

@@ -9,7 +9,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -136,7 +135,7 @@ class State {
 	 *
 	 * @var string
 	 */
-	const STATE_OPTION_KEY = 'ct1_migration_state';
+	const STATE_OPTION_KEY = 'tec_ct1_migration_state';
 
 	/**
 	 * An array of default data the migration state will be hydrated with if no
@@ -305,11 +304,7 @@ class State {
 	 *
 	 * @return string The current migration phase the site is in.
 	 */
-	public function get_phase() {
-		do_action( 'tribe_log', 'debug', 'State: get_phase', [
-			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'     => $this->data['phase'],
-		] );
+	public function get_phase() { 
 		return $this->data['phase'];
 	}
 
