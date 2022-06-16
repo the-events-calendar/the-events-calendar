@@ -1,10 +1,10 @@
 .tribe-ea {
 
 	.tribe-ea-tab {
-		padding: 20px;
-		margin-top: 20px;
-		border: 1px solid #ccc;
 		background-color: #fff;
+		border: 1px solid #ccc;
+		margin-top: 20px;
+		padding: 20px;
 
 		.form-table {
 			th[scope="row"] {
@@ -42,9 +42,9 @@
 	}
 
 	.tribe-ea-help {
-		padding: 4px;
 		color: #0073aa;
 		cursor: pointer;
+		padding: 4px;
 	}
 
 	.tribe-ea-hidden {
@@ -65,9 +65,9 @@
 	.tribe-ea-raw-list {
 		line-height: 1.25em;
 		list-style: square;
-		margin-top: 0;
-		margin-left: 22px;
 		margin-bottom: 6px;
+		margin-left: 22px;
+		margin-top: 0;
 
 		> li {
 			margin-bottom: 2px;
@@ -152,7 +152,7 @@
 		.dashicons {
 			font-size: 1.5rem;
 			line-height: 1.2rem;
-			margin-right: .5rem;
+			margin-right: 0.5rem;
 		}
 
 		.dashicons-warning {
@@ -166,9 +166,6 @@
 
 		#facebook_api_key {
 			margin-right: 1.5rem;
-		}
-
-		.tribe-message {
 		}
 
 		.tribe-credentials-success {
@@ -186,21 +183,22 @@
 		}
 
 		&.column-total {
-			width: 15%;
 			text-align: left;
+			width: 15%;
 		}
 	}
 
 	.tribe-ea-tab-scheduled {
 		td.column-source {
 			padding-left: 10px;
+
 			:not(.row-actions) a:first-of-type {
-				overflow : hidden;
-				white-space : nowrap;
-				text-overflow : ellipsis;
-				display : inline-block;
-				max-width : 100%;
+				display: inline-block;
+				max-width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
 				vertical-align: bottom;
+				white-space: nowrap;
 			}
 		}
 	}
@@ -219,17 +217,17 @@
 	}
 
 	.tribe-ea-report-status {
-		position: absolute;
-		width: 45px;
 		bottom: 0;
-		top: 0;
-		left: 0;
 		font-size: 25px;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 45px;
 
 		> .dashicons {
-			width: 100%;
-			padding-top: 10px;
 			font-size: inherit;
+			padding-top: 10px;
+			width: 100%;
 		}
 
 		.tribe-ea-status-success {
@@ -258,12 +256,13 @@
 		margin: 0 1px 0 0;
 	}
 
-	input, select {
+	input,
+	select {
 		margin-left: 0;
 	}
 
 	.tribe-refine {
-		margin-bottom: .25rem;
+		margin-bottom: 0.25rem;
 
 		&:last-child {
 			margin-bottom: 0;
@@ -279,9 +278,9 @@
 	}
 
 	.tribe-notice-tribe-missing-aggregator-license {
-		background-color: #F9F7F4;
+		background-color: #f9f7f4;
+		border: 1px solid #f9f7f4;
 		border-radius: 16px;
-		border: 1px solid #F9F7F4;
 		display: flex;
 		justify-content: space-between;
 		padding: 60px;
@@ -293,7 +292,7 @@
 		}
 
 		.tribe-notice-tribe-missing-aggregator-license__image {
-			background-image: url(../images/aggregator/ea-intro-img-text.png);
+			background-image: url('../images/aggregator/ea-intro-img-text.png');
 			background-position: center right;
 			background-repeat: no-repeat;
 			background-size: contain;
@@ -307,7 +306,7 @@
 		}
 
 		.upsell-banner {
-			background: url(../images/aggregator/EventAggregator-icon.svg) transparent no-repeat;
+			background: url('../images/aggregator/EventAggregator-icon.svg') transparent no-repeat;
 			background-position: left;
 			background-size: contain;
 			font-family: apercu-mono-bold, monospace;
@@ -363,10 +362,11 @@
 		&.tribe-active.tribe-dependent {
 			display: flex;
 		}
-		display: flex;
+
 		align-items: center;
-		justify-content: center;
+		display: flex;
 		flex: 1 1 auto;
+		justify-content: center;
 
 		&.tribe-banner-eventbrite-tickets {
 			background-image: linear-gradient(135deg, #0178ba 0%, #0178ba 25%, #01bdac 65%, #01bdac 100%);
@@ -377,8 +377,8 @@
 			h3 {
 				color: #fff;
 				font-size: 26px;
-				letter-spacing: 1px;
 				font-weight: normal;
+				letter-spacing: 1px;
 				padding: 0 45px;
 			}
 
@@ -386,7 +386,6 @@
 				max-width: 165px;
 			}
 		}
-
 	}
 
 	.tribe-button {
@@ -428,7 +427,7 @@
 	.dataTables_length,
 	.dataTables_filter {
 		line-height: 28px;
-		margin-bottom: .5rem;
+		margin-bottom: 0.5rem;
 
 		select {
 			margin-top: -2px;
@@ -441,14 +440,14 @@
 
 	dl.tribe-filters {
 		display: none;
-		margin-left: .5rem;
+		margin-left: 0.5rem;
 		margin-top: 0;
 
 		dt {
 			clear: left;
 			display: inline-block;
 			font-weight: bold;
-			margin-right: .25rem;
+			margin-right: 0.25rem;
 		}
 
 		dd {
@@ -458,13 +457,13 @@
 			&:after {
 				content: '';
 				display: block;
-				margin-bottom: .25rem;
+				margin-bottom: 0.25rem;
 			}
 		}
 	}
 
 	.widefat td p {
-		margin-bottom: .25em;
+		margin-bottom: 0.25em;
 	}
 
 	.tribe-ea-login-button {
@@ -474,17 +473,17 @@
 }
 
 .tribe-ea-table-container {
-	background-color: #FAFAFA;
-	border: 1px solid #E7E7E7;
+	background-color: #fafafa;
+	border: 1px solid #e7e7e7;
 	min-height: 25px;
-	padding: .5rem;
+	padding: 0.5rem;
 }
 
 .tribe-preview-container {
 	display: none;
+	margin-top: 0.5rem;
 	padding-left: 1rem;
 	padding-right: 1rem;
-	margin-top: .5rem;
 
 	.edit-form &,
 	.show-data &,
@@ -551,7 +550,7 @@
 
 	.spinner-message {
 		display: block;
-		margin-top: .25rem;
+		margin-top: 0.25rem;
 	}
 
 	.dataTable {
@@ -680,12 +679,13 @@
 
 	.tribe-timezone-message {
 		font-style: italic;
-		padding-top: .5rem;
+		padding-top: 0.5rem;
 	}
+
 	.tribe-limits-message {
 		font-style: italic;
-		padding: 0;
 		margin: 1em 0 -1.5em;
+		padding: 0;
 	}
 }
 
@@ -708,27 +708,19 @@
 		}
 	}
 
-	&.completed {
-		border-left-color: #46b450;
-
-		.progress .bar {
-			background: #7ad03a;
-		}
-	}
-
 	.tracker {
 		margin: 0;
 		padding: 0;
 
 		.tracked-item {
 			display: none;
-			margin: .25rem 0;
+			margin: 0.25rem 0;
 		}
 
 		&.has-created,
 		&.has-updated,
 		&.has-skipped {
-			padding-bottom: .25rem;
+			padding-bottom: 0.25rem;
 
 			.track-remaining {
 				display: block;
@@ -761,14 +753,14 @@
 }
 
 .select2-disabled {
-	margin-bottom: 0;
 	color: gray;
 	cursor: default;
+	margin-bottom: 0;
 }
 
 .tribe-dropdown-subtitle {
-	font-size: 11px;
 	color: gray;
+	font-size: 11px;
 }
 
 .select2-highlighted .tribe-dropdown-subtitle {
@@ -784,8 +776,8 @@
 			padding-right: 0;
 
 			input[type=text] {
-				width: 92%;
 				display: inline-block;
+				width: 92%;
 			}
 		}
 
