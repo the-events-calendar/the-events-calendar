@@ -189,14 +189,27 @@ class Process {
 		// Ensure Action Scheduler tables are there.
 		ActionScheduler::store()->init();
 
+		// Clear all of our queued workers.
+		$this->empty_process_queue();
+
+		// Now queue our undo loop.
+		as_enqueue_async_action( Process_Worker::ACTION_UNDO );
+	}
+
+	/**
+	 * Unschedules all of our process workers in the Action Schedule queue.
+	 *
+	 * @since TBD
+	 */
+	public function empty_process_queue() {
 		// Clear all of our queued migration workers.
 		as_unschedule_all_actions( Process_Worker::ACTION_PROCESS );
 
 		// Clear all of our queued state check workers.
 		as_unschedule_all_actions( Process_Worker::ACTION_CHECK_PHASE );
 
-		// Now queue our undo loop.
-		as_enqueue_async_action( Process_Worker::ACTION_UNDO );
+		// Clear all of our queued undo workers.
+		as_unschedule_all_actions( Process_Worker::ACTION_UNDO );
 	}
 
 	/**

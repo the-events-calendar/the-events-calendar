@@ -4,10 +4,11 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 /**
- * @var string            $template_directory The absolute path to the Migration template root directory.
- * @var Site_Report       $report             The report details.
- * @var String_Dictionary $text               Our text dictionary.
- * @var string            $phase              The current phase.
+ * @var string            $template_directory  The absolute path to the Migration template root directory.
+ * @var Site_Report       $report              The report details.
+ * @var String_Dictionary $text                Our text dictionary.
+ * @var string            $phase               The current phase.
+ * @var bool              $preview_unsupported Flag if preview is unsupported.
  */
 ?>
 <div class="tec-ct1-upgrade__row">
@@ -36,14 +37,22 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			if ( $report->has_errors ) {
 				echo esc_html( $text->get( 'migration-is-blocked' ) );
 			} else {
-				echo sprintf(
-						esc_html( $text->get( 'preview-estimate' ) ),
-						'<strong>',
-						'</strong>',
-						$report->estimated_time_in_minutes
-				);
-
-				if ( $addendum = $text->get( 'migration-prompt-plugin-state-addendum' ) ) {
+				if ( $preview_unsupported ) {
+					echo sprintf(
+							esc_html( $text->get( 'preview-unsupported' ) ),
+							'<strong>',
+							'</strong>'
+					);
+				} else {
+					echo sprintf(
+							esc_html( $text->get( 'preview-estimate' ) ),
+							'<strong>',
+							'</strong>',
+							$report->estimated_time_in_minutes
+					);
+				}
+				$addendum = $text->get( 'migration-prompt-plugin-state-addendum' );
+				if ( $addendum ) {
 					?>
 					<strong><?php echo esc_html( $addendum ); ?></strong>
 					<?php
@@ -63,24 +72,28 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			 alt="<?php echo esc_attr( $text->get( 'preview-screenshot-alt' ) ); ?>"/>
 	</div>
 </div>
-
-<div class="tec-ct1-upgrade__row">
-	<?php
-	$datetime_heading = $text->get( 'previewed-date-heading' );
-	$total_heading    = $text->get( 'previewed-total-heading' );
-	ob_start();
+<?php
+if ( ! $preview_unsupported ) {
 	?>
-	<em title="<?php esc_attr( $text->get( 're-run-preview-button' ) ) ?>">
-		<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
-	</em>
-	<a class="tec-ct1-upgrade-start-migration-preview"
-	   href="#"><?php echo esc_html( $text->get( 're-run-preview-button' ) ); ?></a>
+	<div class="tec-ct1-upgrade__row">
+		<?php
+		$datetime_heading = $text->get( 'previewed-date-heading' );
+		$total_heading    = $text->get( 'previewed-total-heading' );
+		ob_start();
+		?>
+		<em title="<?php esc_attr( $text->get( 're-run-preview-button' ) ) ?>">
+			<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
+		</em>
+		<a class="tec-ct1-upgrade-start-migration-preview"
+		   href="#"><?php echo esc_html( $text->get( 're-run-preview-button' ) ); ?></a>
+		<?php
+		$heading_action = ob_get_clean();
+		include_once __DIR__ . '/report.php';
+		?>
+	</div>
 	<?php
-	$heading_action = ob_get_clean();
-	include_once __DIR__ . '/report.php';
-	?>
-</div>
-
+}
+?>
 <div class="tec-ct1-upgrade__row tec-ct1-action-container">
 	<div class="content-container">
 		<?php
@@ -89,16 +102,22 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			<button class="tec-ct1-upgrade-start-migration"
 					type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
 		<?php } ?>
-		<i>
-			<?php
-			if ( $report->estimated_time_in_minutes === 1 ) {
-				$message = esc_html( $text->get( 'estimated-time-singular' ) );
-			} else {
-				$message = esc_html( $text->get( 'estimated-time-plural' ) );
-			}
-
-			echo sprintf( $message, $report->estimated_time_in_minutes );
+		<?php
+		if ( ! $preview_unsupported ) {
 			?>
-		</i>
+			<i>
+				<?php
+				if ( $report->estimated_time_in_minutes === 1 ) {
+					$message = esc_html( $text->get( 'estimated-time-singular' ) );
+				} else {
+					$message = esc_html( $text->get( 'estimated-time-plural' ) );
+				}
+
+				echo sprintf( $message, $report->estimated_time_in_minutes );
+				?>
+			</i>
+			<?php
+		}
+		?>
 	</div>
 </div>

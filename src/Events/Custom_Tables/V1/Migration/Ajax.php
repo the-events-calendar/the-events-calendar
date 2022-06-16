@@ -270,6 +270,7 @@ class Ajax {
 		switch ( $phase ) {
 			case State::PHASE_MIGRATION_COMPLETE:
 			case State::PHASE_MIGRATION_PROMPT:
+				$renderer_args['preview_unsupported'] = (bool) $this->state->get( 'preview_unsupported' );
 				if ( $this->site_report->has_errors ) {
 					$filter                         = [
 						Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE,
