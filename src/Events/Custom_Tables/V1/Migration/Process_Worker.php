@@ -116,6 +116,8 @@ class Process_Worker {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
+		global $wpdb;
+
 		// Log our worker starting
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:start', [
 			'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
@@ -153,6 +155,21 @@ class Process_Worker {
 		ob_start( [ $this, 'ob_flush_handler' ] );
 
 		try {
+			// Before we start preview, check if transactions are supported.
+			// If not, we want to stop gracefully and still allow migration to continue.
+			if ( $this->dry_run && ! $this->transactions_supported( $wpdb->prefix ) ) {
+				// Clear all our workers, we don't need to check anymore for preview.
+				tribe( Process::class )->empty_process_queue();
+
+				// Move us to the next phase - there will be a special message on that phase noting what happened.
+				$this->state->set( 'phase', State::PHASE_MIGRATION_PROMPT );
+				$this->state->set( 'preview_unsupported', true );
+				$this->state->save();
+				$this->migration_completed = true;
+
+				return $this->event_report;
+			}
+
 			// Check if we are still in migration phase.
 			if ( ! in_array( $this->state->get_phase(), [
 				State::PHASE_PREVIEW_IN_PROGRESS,
