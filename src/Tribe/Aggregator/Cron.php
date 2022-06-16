@@ -166,18 +166,12 @@ class Tribe__Events__Aggregator__Cron {
 		// Fetch the initial Date and Hour
 		$date = date( 'Y-m-d H' );
 
-		// Based on the Minutes construct a Cron
+		// Based on the Minutes construct a wp_cron
 		$minutes = (int) date( 'i' );
-		if ( $minutes < 15 ) {
-			$date .= ':00';
-		} elseif ( $minutes >= 15 && $minutes < 30 ) {
-			$date .= ':15';
-		}elseif ( $minutes >= 30 && $minutes < 45 ) {
-			$date .= ':30';
-		} else {
-			$date .= ':45';
-		}
-		$date .= ':00';
+		// Get minutes / 15 with no remainder.
+		$minutes = intdiv( $minutes, 15 ) * 15;
+		// Format it & insert into date string. Add 0 seconds.
+		$date .= sprintf(':%02d', $minutes) . ':00';
 
 		// Fetch the last half hour as a timestamp
 		$start_timestamp = strtotime( $date );
@@ -188,12 +182,12 @@ class Tribe__Events__Aggregator__Cron {
 
 		$current_time = time();
 
-		// if the start timestamp is older than RIGHT NOW, set it for 5 minutes from now
+		// if the start timestamp is older than RIGHT NOW, set it for 5 minutes from now.
 		if ( $current_time > $start_timestamp ) {
 			$start_timestamp = $current_time + absint( $random_minutes );
 		}
 
-		// Now add an action twice hourly
+		// Now add an action once every fifteen minutes.
 		wp_schedule_event( $start_timestamp, 'tribe-every15mins', self::$action );
 	}
 
