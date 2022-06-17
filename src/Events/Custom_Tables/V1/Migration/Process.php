@@ -23,6 +23,13 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 class Process {
 
 	/**
+	 * The meta key that will be used to flag an Event as migrated during the migration process.
+	 *
+	 * @since TBD
+	 */
+	const EVENT_CREATED_BY_MIGRATION_META_KEY = '_tec_event_created_by_migration';
+
+	/**
 	 * A reference to the current Events' migration repository.
 	 *
 	 * @since TBD

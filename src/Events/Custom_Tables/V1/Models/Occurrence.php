@@ -453,7 +453,7 @@ class Occurrence extends Model {
 	/**
 	 * @since TBD
 	 *
-	 * @param $id Provisional or other ID that we want to validate against the database as a valid Occurrence ID.
+	 * @param int $id Provisional or other ID that we want to validate against the database as a valid Occurrence ID.
 	 *
 	 * @return bool
 	 */

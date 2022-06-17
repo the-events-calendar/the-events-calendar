@@ -244,4 +244,23 @@ class Event extends Model {
 		 */
 		return apply_filters( 'tec_events_custom_tables_v1_event_data_from_post', $data, $event_id );
 	}
+
+	/**
+	 * Returns the value of a model field.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $post_id The Event post ID to return the value for.
+	 * @param string $field   The name of the Event model property to return the value for.
+	 *
+	 * @return mixed|null Either the field value, or the default value if not found.
+	 */
+	public static function get_field( $post_id, $field, $default = null ) {
+		$model = static::find( $post_id, 'post_id' );
+		if ( ! $model instanceof static ) {
+			return null;
+		}
+
+		return $model->{$field};
+	}
 }
