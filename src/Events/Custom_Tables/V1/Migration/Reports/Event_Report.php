@@ -412,6 +412,14 @@ class Event_Report implements JsonSerializable {
 			array_unshift( $context, $text->get( "migration-error-k-$reason_key" ) );
 		}
 
+		if($reason_key === 'exception') {
+			// @todo Remove this. Useful for troubleshooting
+			do_action( 'tribe_log', 'debug', 'Migration unexpected exception:', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+				'trace'  => debug_backtrace( 2, 6 )
+			] );
+		}
+
 		// Parse message here, so we don't need to store the context.
 		$message = call_user_func_array( 'sprintf', $context );
 
