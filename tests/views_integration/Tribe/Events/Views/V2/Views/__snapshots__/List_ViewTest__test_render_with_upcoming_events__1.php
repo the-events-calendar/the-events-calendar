@@ -25,7 +25,7 @@
 [{"@context":"http://schema.org","@type":"Event","name":"Test Event &#8211; +9 days","description":"","url":"http://test.tri.be/?tribe_events=test-event-9-days-2%2F/","startDate":"2019-06-20T13:01:20+00:00","endDate":"2019-06-20T17:01:20+00:00","performer":"Organization"},{"@context":"http://schema.org","@type":"Event","name":"Single Event 1","description":"","url":"http://test.tri.be/?tribe_events=single-event-1%2F/","startDate":"2019-06-20T13:04:08+00:00","endDate":"2019-06-20T17:04:08+00:00","performer":"Organization"}]
 </script>
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"list","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/2\\/?tribe-bar-date=2019-01-01+09%3A00%3A00","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","title":"Events \\u2013 The Events Calendar Tests","events":[7,8],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"2019-01-01","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"<div id=\\"tribe-events\\" class=\\"tribe-no-js\\" data-live_ajax=\\"1\\" data-datepicker_format=\\"1\\" data-category=\\"\\" data-featured=\\"\\">","after_events":"<\\/div><!-- #tribe-events -->\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00&#038;ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"show_now":true,"now_label":"Now","now_label_mobile":"Now","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"1\\/1\\/2019","selected_start_date_label":"January 1","selected_end_datetime":"2019-06-20","selected_end_date_mobile":"6\\/20\\/2019","selected_end_date_label":"June 20, 2019","datepicker_date":"1\\/1\\/2019","subscribe_links":{"gcal":{"label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"label":"iCalendar","single_label":"Add to iCalendar","visible":true},"outlook-365":{"label":"Outlook 365","single_label":"Outlook 365","visible":true},"outlook-live":{"label":"Outlook Live","single_label":"Outlook Live","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true},"outlook-ics":{"label":"Export Outlook .ics file","single_label":"Export Outlook .ics file","visible":true}},"_context":{"slug":"list"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"list","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/list\\/page\\/2\\/?tribe-bar-date=2019-01-01+09%3A00%3A00","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","title":"Events \\u2013 The Events Calendar Tests","events":[7,8],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"2019-01-01","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","breadcrumbs":[],"before_events":"<div id=\\"tribe-events\\" class=\\"tribe-no-js\\" data-live_ajax=\\"1\\" data-datepicker_format=\\"1\\" data-category=\\"\\" data-featured=\\"\\">","after_events":"<\\/div><!-- #tribe-events -->\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01+09%3A00%3A00&#038;ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"show_now":true,"now_label":"Now","now_label_mobile":"Now","show_end":false,"selected_start_datetime":"2019-01-01","selected_start_date_mobile":"1\\/1\\/2019","selected_start_date_label":"January 1","selected_end_datetime":"2019-06-20","selected_end_date_mobile":"6\\/20\\/2019","selected_end_date_label":"June 20, 2019","datepicker_date":"1\\/1\\/2019","subscribe_links":{"gcal":{"block_slug":"hasGoogleCalendar","label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"block_slug":"hasiCal","label":"iCalendar","single_label":"Add to iCalendar","visible":true},"outlook-365":{"block_slug":"hasOutlook365","label":"Outlook 365","single_label":"Outlook 365","visible":true},"outlook-live":{"block_slug":"hasOutlookLive","label":"Outlook Live","single_label":"Outlook Live","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true,"block_slug":null},"outlook-ics":{"label":"Export Outlook .ics file","single_label":"Export Outlook .ics file","visible":true,"block_slug":null}},"_context":{"slug":"list"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
 		<div class="tribe-events-before-html">
 	<div id="tribe-events" class="tribe-no-js" data-live_ajax="1" data-datepicker_format="1" data-category="" data-featured=""></div>
@@ -416,7 +416,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		Google Calendar	</a>
 </li>
@@ -427,7 +427,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		iCalendar	</a>
 </li>
@@ -438,7 +438,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		Outlook 365	</a>
 </li>
@@ -449,7 +449,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		Outlook Live	</a>
 </li>
@@ -460,7 +460,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		Export .ics file	</a>
 </li>
@@ -471,7 +471,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		Export Outlook .ics file	</a>
 </li>

@@ -264,7 +264,6 @@ class Day_ViewTest extends ViewTestCase {
 			return $repository_args;
 		} );
 		$view->get_template_vars();
-
 		$this->assertEquals(
 			'2019-09-11 00:00:00',
 			$repository_args['date_overlaps'][0],

@@ -382,17 +382,22 @@ class Tribe__Events__Query {
 	}
 
 	/**
-	 * Remove empty values from the query args
+	 * If the user has the Main events page set on the reading options it should return 0 or the default value in
+	 * order to avoid to set the:
+	 * - p
+	 * - page_id
 	 *
-	 * @param mixed $arg
+	 * variables when using  pre_get_posts or posts_where
 	 *
-	 * @return bool
-	 **/
-	private static function filter_args( $arg ) {
-		if ( empty( $arg ) && $arg !== false && 0 !== $arg ) {
-			return false;
-		}
-
-		return true;
+	 * This filter is removed when this functions has finished the execution
+	 *
+	 * @since 4.6.15
+	 *
+	 * @param $value
+	 *
+	 * @return int
+	 */
+	public static function default_page_on_front( $value ) {
+		return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
 	}
 }

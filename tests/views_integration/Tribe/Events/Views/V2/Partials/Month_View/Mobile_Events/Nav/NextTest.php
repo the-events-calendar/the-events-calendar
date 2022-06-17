@@ -14,8 +14,9 @@ class NextTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_label_and_link() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'label' => 'May',
-			'link'  => 'http://test.tri.be',
+			'label'    => 'May',
+			'link'     => 'http://test.tri.be',
+			'next_rel' => 'noindex',
 		] ) );
 	}
 }
