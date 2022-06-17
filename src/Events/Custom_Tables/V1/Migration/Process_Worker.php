@@ -174,7 +174,7 @@ class Process_Worker {
 		// Set our dead-man switch.
 		$this->migration_completed = false;
 
-		$this->bind_shutdown_handlers();;
+		$this->bind_shutdown_handlers();
 
 		try {
 			// Before we start preview, check if transactions are supported.
