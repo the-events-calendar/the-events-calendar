@@ -146,8 +146,9 @@ class State {
 	 * @var array<string,mixed>
 	 */
 	private $default_data = [
-		'complete_timestamp' => null,
-		'phase'              => null,
+		'complete_timestamp'  => null,
+		'phase'               => null,
+		'preview_unsupported' => false,
 	];
 
 	/**
@@ -304,7 +305,7 @@ class State {
 	 *
 	 * @return string The current migration phase the site is in.
 	 */
-	public function get_phase() { 
+	public function get_phase() {
 		return $this->data['phase'];
 	}
 
