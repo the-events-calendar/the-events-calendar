@@ -1,4 +1,6 @@
 <?php
+use TEC\Events\Custom_Tables\V1\Migration\State;
+
 /**
  * @internal This class may be removed or changed without notice
  */
@@ -70,6 +72,9 @@ class Tribe__Events__Admin__Notice__Update {
 	 * @return void
 	 */
 	public function add_block_editor_notice() {
+
+		$should_display_js = ! Tribe__Admin__Notices::instance()->has_user_dismissed( $notice->slug );
+
 		if ( ! $this->should_display() ) {
 			return;
 		}
@@ -88,7 +93,11 @@ class Tribe__Events__Admin__Notice__Update {
 	 *
 	 * @return bool
 	 */
-	public  function should_display() {
+	private function should_display() {
+		if ( tribe( State::class )->is_migrated() ) {
+			return false;
+		}
+
 		/** @var Tribe__Admin__Helpers $admin_helpers */
 		$admin_helpers = tribe( 'admin.helpers' );
 		return ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() );
@@ -101,7 +110,7 @@ class Tribe__Events__Admin__Notice__Update {
 	 *
 	 * @return string
 	 */	
-	public  function get_upgrade_tab_link() {
+	private function get_upgrade_tab_link() {
 		return get_admin_url( null, $this->upgrade_tab_link );
 	}
 
@@ -112,7 +121,7 @@ class Tribe__Events__Admin__Notice__Update {
 	 *
 	 * @return string
 	 */
-	public  function notice() {
+	public function notice() {
 		ob_start();
 		?>
 		<div class="tec-update-notice">
@@ -141,7 +150,7 @@ class Tribe__Events__Admin__Notice__Update {
 	 *
 	 * @return string
 	 */
-	public  function js_notice() {
+	public function js_notice() {
 		$js = '( function ( wp ) {';
 		$js .= 'const tec_update_description = "<b>' . esc_html( $this->update_title ) . '</b><p>' . esc_html( $this->update_description ) . '</p>";';
 		$js .= 'const tec_upgrade_tab_link = "' . esc_url( $this->upgrade_tab_link ) . '";';
