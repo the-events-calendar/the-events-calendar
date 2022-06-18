@@ -36,6 +36,14 @@ class Tribe__Events__Admin__Notice__Update {
 	 * @var string
 	 */
 	private $update_description = 'To complete your update to The Events Calendar 6.0 migrate your events to our new data storage system and start taking advantage of the new features.';
+		
+	/**
+	 * Notice
+	 *
+	 * @since  TBD
+	 * @var obj
+	 */
+	private $notice;
 
 	/**
 	 * Register update notices.
@@ -44,7 +52,7 @@ class Tribe__Events__Admin__Notice__Update {
 	 * @since 5.1.5 - add Virtual Events Notice.
 	 */
 	public function hook() {
-		$notice = tribe_notice(
+		$this->notice = tribe_notice(
 			'update-6-0',
 			[ $this, 'notice' ],
 			[
@@ -57,33 +65,8 @@ class Tribe__Events__Admin__Notice__Update {
 			[ $this, 'should_display' ]
 		);
 
-		$should_display_js = ! Tribe__Admin__Notices::instance()->has_user_dismissed( $notice->slug );
-		
-		if ( $should_display_js ) {
-			add_action( 'admin_enqueue_scripts', [ $this, 'add_block_editor_notice' ] );
-		}
-	}
-
-	/**
-	 * Add the JS for the admin notice.
-	 * 
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function add_block_editor_notice() {
-
-		$should_display_js = ! Tribe__Admin__Notices::instance()->has_user_dismissed( $notice->slug );
-
-		if ( ! $this->should_display() ) {
-			return;
-		}
-
-		global $current_screen;
-		$current_screen = get_current_screen();
-		if ( method_exists( $current_screen, 'is_block_editor') && $current_screen->is_block_editor() ) {
-			wp_add_inline_script( 'tribe-events-editor', $this->js_notice() );
-		}
+		add_action( 'admin_enqueue_scripts', [ $this, 'add_block_editor_notice' ] );
+		add_action( 'in_admin_header', [ $this, 'remove_admin_notices' ] );	
 	}
 
 	/**
@@ -93,25 +76,26 @@ class Tribe__Events__Admin__Notice__Update {
 	 *
 	 * @return bool
 	 */
-	private function should_display() {
+	public function should_display() {
+		$admin_helpers = tribe( 'admin.helpers' );
+
+		if ( ! $admin_helpers->is_screen() ) {
+			return false;
+		}
+
+		if ( ! $admin_helpers->is_post_type_screen() ) {
+			return false;
+		}
+
 		if ( tribe( State::class )->is_migrated() ) {
 			return false;
 		}
 
-		/** @var Tribe__Admin__Helpers $admin_helpers */
-		$admin_helpers = tribe( 'admin.helpers' );
-		return ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() );
-	}
+		if ( Tribe__Admin__Notices::instance()->has_user_dismissed( $this->notice->slug ) ) {
+			return false;
+		}
 
-	/**
-	 * Get the URL to the upgrade tab.
-	 * 
-	 * @since TBD
-	 *
-	 * @return string
-	 */	
-	private function get_upgrade_tab_link() {
-		return get_admin_url( null, $this->upgrade_tab_link );
+		return true;
 	}
 
 	/**
@@ -132,8 +116,12 @@ class Tribe__Events__Admin__Notice__Update {
 				<?php echo esc_html( $this->update_description  ); ?>
 			</div>
 			<div class="tec-update-notice__actions">
-				<a class="tec-update-notice__button button" href="<?php echo esc_url( $this->get_upgrade_tab_link() ); ?>">Start storage migration</a>
-				<a class="tec-update-notice__link" href="<?php echo esc_url( $this->learn_more_link ); ?>">Learn more</a>
+				<a class="tec-update-notice__button button" href="<?php echo esc_url( get_admin_url( null, $this->upgrade_tab_link ) ); ?>">
+					<?php esc_html_e( 'Start storage migration', 'the-events-calendar' ); ?>
+				</a>
+				<a class="tec-update-notice__link" href="<?php echo esc_url( $this->learn_more_link ); ?>">
+					<?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?>
+				</a>
 			</div>
 		</div>
 		<?php
@@ -141,6 +129,26 @@ class Tribe__Events__Admin__Notice__Update {
 		ob_end_clean();
 		
 		return $notice;
+	}
+
+	/**
+	 * Add the JS for the admin notice.
+	 * 
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function add_block_editor_notice() {
+		if ( ! $this->should_display() ) {
+			return;
+		}
+
+		global $current_screen;
+		$current_screen = get_current_screen();
+
+		if ( method_exists( $current_screen, 'is_block_editor') && $current_screen->is_block_editor() ) {
+			wp_add_inline_script( 'tribe-events-editor', $this->js_notice() );
+		}
 	}
 
 	/**
@@ -160,4 +168,20 @@ class Tribe__Events__Admin__Notice__Update {
 
 		return $js;
 	}
+
+	/**
+	 * Prevent admin notices from showing on the update page.
+	 * 
+	 * @since TBD
+	 *
+	 * @return void
+	 */	
+	public function remove_admin_notices() {
+		if ( ! isset( $_GET['update-message-the-events-calendar'] ) ) {
+			return;
+		}
+
+		remove_all_actions('admin_notices');
+		remove_all_actions('all_admin_notices');
+	}	
 }
