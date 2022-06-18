@@ -12,11 +12,14 @@
  * @version 4.7
  *
  */
+use Tribe__Utils__Array as Arr;
+
 $href = $this->attr( 'href' );
 
 if ( ! $href || ! $this->attr( 'urlLabel' ) ) {
 	return;
 }
+$post_id = Arr::get( $this->context, 'post_id' );
 
 /**
  * Filter the target attribute for the event website link
@@ -26,7 +29,7 @@ if ( ! $href || ! $this->attr( 'urlLabel' ) ) {
  * @param string $target The target attribute string. Defaults to "_self".
  * @param string $href   The link URL.
  */
-$target = apply_filters( 'tribe_get_event_website_link_target', '_self', $href, $this->context['post_id'] );
+$target = apply_filters( 'tribe_get_event_website_link_target', '_self', $href, $post_id );
 ?>
 <div class="tribe-block tribe-block__event-website">
 	<a

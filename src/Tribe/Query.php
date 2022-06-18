@@ -382,6 +382,21 @@ class Tribe__Events__Query {
 	}
 
 	/**
+	 * Remove empty values from the query args
+	 *
+	 * @param mixed $arg
+	 *
+	 * @return bool
+	 **/
+	private static function filter_args( $arg ) {
+		if ( empty( $arg ) && $arg !== false && 0 !== $arg ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * If the user has the Main events page set on the reading options it should return 0 or the default value in
 	 * order to avoid to set the:
 	 * - p
