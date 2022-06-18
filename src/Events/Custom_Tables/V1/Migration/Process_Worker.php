@@ -273,6 +273,12 @@ class Process_Worker {
 				'<p>',
 				'</p>'
 			] );
+
+			// @todo Remove this. Useful for troubleshooting
+			do_action( 'tribe_log', 'debug', 'Migration unexpected exception:', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+				'trace'  => $e->getTraceAsString()
+			] );
 		} catch ( \Exception $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
@@ -286,6 +292,11 @@ class Process_Worker {
 				'</p>',
 				'<p>',
 				'</p>'
+			] );
+			// @todo Remove this. Useful for troubleshooting
+			do_action( 'tribe_log', 'debug', 'Migration unexpected exception:', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+				'trace'  => $e->getTraceAsString()
 			] );
 		}
 
