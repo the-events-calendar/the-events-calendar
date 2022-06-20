@@ -222,9 +222,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
 = [RBE] RBE = Switch this to TBD once we're close to release.
-=======
+
 = [5.16.1.1] 2022-06-15 =
 
 * Fix - correct issues with template paths when using FSE. [TEC-4401]
@@ -239,7 +238,6 @@ Remember to always make a backup of your database and files before updating!
                          `v2/components/subscribe-links/item`, `v2/components/subscribe-links/single`, `v2/day/nav/next`,
                          `v2/day/nav/prev`, `v2/day/top-bar/nav/next`, `v2/day/top-bar/nav/prev`, `v2/month/mobile-events/nav/next`,
                          `v2/month/mobile-events/nav/prev`, `v2/month/top-bar/nav/next`, `v2/month/top-bar/nav/prev`
->>>>>>> 35080cef96d5636e574e291b6151a08aa50e5702
 
 = [5.16.0] 2022-05-31 =
 
