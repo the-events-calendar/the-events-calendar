@@ -1138,11 +1138,11 @@ tribe_aggregator.fields = {
 			obj.progress.$.notice.find( '.progress-container' ).remove();
 			obj.progress.$.notice.removeClass( 'notice-warning' ).addClass( 'notice-error' );
 		} else if ( data.complete ) {
-			//obj.progress.$.notice.show();
 			obj.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
 			obj.progress.$.tracker.remove();
 			obj.progress.$.notice.find( '.progress-container' ).remove();
 			obj.progress.$.notice.removeClass( 'notice-warning' ).addClass( 'notice-success' );
+			obj.progress.$.notice.show();
 		}
 	};
 
