@@ -171,7 +171,7 @@ class Tribe__Events__Aggregator__Cron {
 		// Get minutes / 15 with no remainder.
 		$minutes = intdiv( $minutes, 15 ) * 15;
 		// Format it & insert into date string. Add 0 seconds.
-		$date .= sprintf(':%02d', $minutes) . ':00';
+		$date .= sprintf( ':%02d', $minutes ) . ':00';
 
 		// Fetch the last half hour as a timestamp
 		$start_timestamp = strtotime( $date );
