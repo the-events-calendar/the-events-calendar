@@ -85,7 +85,7 @@ class List_View extends View {
 		$current_page = (int) $this->context->get( 'page', 1 );
 		$display      = $this->context->get( 'event_display_mode', $this->slug );
 
-		if ( $this->slug === $display || 'default' === $display ) {
+		if ( $this->slug === $display || 'default' === $display || $this instanceof $display ) {
 			$url = parent::next_url( $canonical );
 		} elseif ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
@@ -189,15 +189,6 @@ class List_View extends View {
 		] ) ) );
 
 		$upcoming->order_by( '__none' );
-
-		/**
-		 * Check whether the Main Events Page is set as the homepage.
-		 * 
-		 * @since TBD
-		 */
-		if ( ! tribe_is_events_front_page() ) {
-			$page = 2;
-		}
 
 		if ( $upcoming->count() > 0 ) {
 			$query_args = [
