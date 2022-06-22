@@ -2,6 +2,7 @@
 namespace Tribe\Events\Admin\Notice;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use Tribe__Admin__Notices;
 
 /**
  * @internal This class may be removed or changed without notice
