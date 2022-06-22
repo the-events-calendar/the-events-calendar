@@ -231,8 +231,8 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 if (
 	tribe( 'tec.main' )->show_upgrade()
 	|| (
-		is_multisite()
-		&& current_user_can( 'customize' )
+		is_multisite() &&
+		current_user_can( 'customize' )
 	)
 	) {
 	$display_tab_fields = Tribe__Main::array_insert_before_key(
