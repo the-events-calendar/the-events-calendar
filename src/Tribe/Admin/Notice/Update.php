@@ -63,7 +63,7 @@ class Update {
 				'type'    => 'info',
 				'wrap'    => false,
 				'recurring' => true,
-				'recurring_interval' => 'M'
+				'recurring_interval' => 'P1M'
 			],
 			[ $this, 'should_display' ]
 		);
