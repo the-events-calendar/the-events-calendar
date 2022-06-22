@@ -228,7 +228,13 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 	$styling_array
 );
 
-if ( tribe( 'tec.main' )->show_upgrade() ) {
+if (
+	tribe( 'tec.main' )->show_upgrade()
+	|| (
+		is_multisite()
+		&& current_user_can( 'customize' )
+	)
+	) {
 	$display_tab_fields = Tribe__Main::array_insert_before_key(
 		'tribeEventsDateFormatSettingsTitle',
 		$display_tab_fields,
