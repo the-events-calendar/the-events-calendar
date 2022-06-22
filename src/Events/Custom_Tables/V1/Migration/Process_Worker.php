@@ -137,6 +137,34 @@ class Process_Worker {
 	}
 
 	/**
+	 * Any actions to be run immediately before a dry run migration will be applied.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric $post_id
+	 */
+	public function before_dry_run( $post_id ) {
+		$this->start_transaction();
+	}
+
+	/**
+	 * Any actions to be run immediately after a dry run migration was applied.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric $post_id
+	 */
+	public function after_dry_run( $post_id ) {
+		$this->rollback_transaction();
+
+		/*
+		 * Our event report state would have been rolled back too, so try and reapply what was set locally.
+		 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
+		 */
+		clean_post_cache( $post_id );
+	}
+
+	/**
 	 * Processes an Event migration.
 	 *
 	 * @since TBD
@@ -231,20 +259,14 @@ class Process_Worker {
 
 			// In case we have an error in the strategy, and we are forced to exit early, lets start the transaction here.
 			if ( $this->dry_run ) {
-				$this->start_transaction();
+				$this->before_dry_run( $post_id );
 			}
 
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $this->event_report );
 
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
-
-				/*
-				 * Our event report state would have been rolled back too, so try and reapply what was set locally.
-				 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
-				 */
-				clean_post_cache( $post_id );
+				$this->after_dry_run( $post_id );
 			} else {
 				$this->transaction_commit();
 			}
@@ -255,7 +277,7 @@ class Process_Worker {
 			}
 		} catch ( Expected_Migration_Exception $e ) {
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
+				$this->after_dry_run( $post_id );
 			}
 			$this->event_report->migration_failed( 'expected-exception', [
 				$e->getMessage(),
@@ -263,7 +285,7 @@ class Process_Worker {
 		} catch ( \Throwable $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
+				$this->after_dry_run( $post_id );
 			}
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
@@ -282,7 +304,7 @@ class Process_Worker {
 		} catch ( \Exception $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
+				$this->after_dry_run( $post_id );
 			}
 
 			$this->event_report->migration_failed( 'exception', [
