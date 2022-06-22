@@ -34,7 +34,7 @@ $main = Tribe__Main::instance();
 		<p><?php esc_html_e( 'Once you migrate to the new data storage system, you’ll find improved performance for The Events Calendar. What does this mean for you? Faster event creation and editing on the backend and quicker loading times for your frontend calendar.', 'the-events-calendar' ); ?></p>
 
 		<div style="padding:56.25% 0 0 0;position:relative;">
-			<iframe src="https://player.vimeo.com/video/480516958?h=dda22d4e01" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The Events Calendar 6.0"></iframe>
+			<iframe src="https://evnt.is/1b8k" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The Events Calendar 6.0"></iframe>
 			<script src="https://player.vimeo.com/api/player.js"></script>
 		</div>
 	</div>
@@ -75,17 +75,17 @@ $main = Tribe__Main::instance();
 				<h3><span>💡</span><?php esc_html_e( 'Legacy Views', 'the-events-calendar' ); ?></h3>
 				<p><?php esc_html_e( 'We have fully removed the legacy views from The Events Calendar 6.0. Your views have been automatically updated.', 'the-events-calendar' ); ?></p>
 				<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php esc_html_e( 'View your calendar', 'the-events-calendar' ); ?></a>
-				<a href="/"><?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?></a>
+				<a href="https://theeventscalendar.com/knowledgebase/k/v1-deprecation-faqs/"><?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?></a>
 			</div>	
 			<div class="tec-update-page-grid__item tec-update-page-box ">
 				<h3><?php esc_html_e( 'Resources', 'the-events-calendar' ); ?></h3>
 				<ul>
 					<li><a href="https://theeventscalendar.com/knowledgebase/k/using-wordpress-export-tools-to-migrate-events-content/"><?php esc_html_e( 'Migrating Your Site', 'the-events-calendar' ); ?></a></li>
-					<li><a href="/"><?php esc_html_e( 'Event Series', 'the-events-calendar' ); ?></a></li>
+					<li><a href="https://theeventscalendar.com/knowledgebase/k/event-series/"><?php esc_html_e( 'Event Series', 'the-events-calendar' ); ?></a></li>
 					<li><a href="https://theeventscalendar.com/knowledgebase/k/recurring-events-event-series-in-events-calendar-pro/"><?php esc_html_e( 'Creating Recurring Events', 'the-events-calendar' ); ?></a></li>
-					<li><a href="/"><?php esc_html_e( 'Duplicating Events', 'the-events-calendar' ); ?></a></li>
-					<li><a href="/"><?php esc_html_e( 'Recurring Events & Tickets', 'the-events-calendar' ); ?></a></li>
-					<li><a href="/"><?php esc_html_e( 'Community Events & Series', 'the-events-calendar' ); ?></a></li>
+					<li><a href="https://theeventscalendar.com/knowledgebase/k/duplicate-events/"><?php esc_html_e( 'Duplicating Events', 'the-events-calendar' ); ?></a></li>
+					<li><a href="https://theeventscalendar.com/knowledgebase/k/recurring-events-and-tickets/"><?php esc_html_e( 'Recurring Events & Tickets', 'the-events-calendar' ); ?></a></li>
+					<li><a href="https://theeventscalendar.com/knowledgebase/k/community-events-with-series/"><?php esc_html_e( 'Community Events & Series', 'the-events-calendar' ); ?></a></li>
 					<li><a href="https://theeventscalendar.com/category/release-notes/"><?php esc_html_e( 'Release Notes', 'the-events-calendar' ); ?></a></li>
 					<li><a href="https://theeventscalendar.com/support/"><?php esc_html_e( 'Get Support', 'the-events-calendar' ); ?></a></li>
 				</ul>
