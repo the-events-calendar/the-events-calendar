@@ -1,6 +1,7 @@
 <?php
 namespace Tribe\Events\Admin\Notice;
 
+use Tribe__Admin__Helpers as Helpers;
 /**
  * Class Full_Site_Editor
  *
@@ -36,13 +37,8 @@ class Full_Site_Editor {
 	 */
 	public function incompatibility_should_display() {
 		global $current_screen;
-		$screens = [
-			'tribe_events_page_tribe-app-shop', // App shop.
-			'events_page_tribe-app-shop', // App shop.
-			'tribe_events_page_tribe-common', // Settings & Welcome.
-			'events_page_tribe-common', // Settings & Welcome.
-			'toplevel_page_tribe-common', // Settings & Welcome.
-		];
+
+		$screens = Helpers::get_admin_screens_list();
 
 		// If not a valid screen, don't display.
 		if ( empty( $current_screen->id ) || ! in_array( $current_screen->id, $screens, true ) ) {
