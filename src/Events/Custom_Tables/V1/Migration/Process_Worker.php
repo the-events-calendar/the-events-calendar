@@ -157,11 +157,46 @@ class Process_Worker {
 	public function after_dry_run( $post_id ) {
 		$this->rollback_transaction();
 
-		/*
-		 * Our event report state would have been rolled back too, so try and reapply what was set locally.
-		 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
-		 */
-		clean_post_cache( $post_id );
+		if ( wp_cache_get( $post_id, 'posts' ) ) {
+			$this->add_cache_compatibility_hooks();
+			/*
+			 * Our event report state would have been rolled back too, so try and reapply what was set locally.
+			 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
+			 */
+			clean_post_cache( $post_id );
+			$this->remove_cache_compatibility_hooks();
+		}
+	}
+
+	/**
+	 * Add hooks to handle cache issues when we are clearing post cache during migration.
+	 *
+	 * @since TBD
+	 */
+	public function add_cache_compatibility_hooks() {
+		add_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10, 1 );
+	}
+
+	/**
+	 * Remove hooks to handle cache issues when we are clearing post cache during migration.
+	 *
+	 * @since TBD
+	 */
+	public function remove_cache_compatibility_hooks() {
+		remove_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10 );
+	}
+
+	/**
+	 * Skips some cache actions that fail in our cleanup of post cache.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $all
+	 *
+	 * @return false
+	 */
+	public function wpsc_delete_related_pages_on_edit( $all ) {
+		return false;
 	}
 
 	/**
