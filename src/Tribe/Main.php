@@ -614,14 +614,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Purge Expired events
 			tribe_singleton( 'tec.event-cleaner', new Tribe__Events__Event_Cleaner() );
 
-			// Admin Notices
-			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', [ 'hook' ] );
-			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', [ 'hook' ] );
-			tribe_singleton( 'tec.admin.notice.update', 'Tribe__Events__Admin__Notice__Update' );
-			tribe_singleton( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class, [ 'hook' ] );
-			tribe_singleton( Tribe\Events\Admin\Notice\Full_Site_Editor::class, Tribe\Events\Admin\Notice\Full_Site_Editor::class, [ 'hook' ] );
-
-
 			// GDPR Privacy
 			tribe_singleton( 'tec.privacy', 'Tribe__Events__Privacy', [ 'hook' ] );
 
@@ -944,11 +936,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.assets' );
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
-			tribe( 'tec.admin.notice.timezones' );
-			tribe( 'tec.admin.notice.marketing' );
-			tribe( 'tec.admin.notice.update' )->hook();
-			tribe( Tribe\Events\Admin\Notice\Legacy_Views_Deprecation::class );
-			tribe( Tribe\Events\Admin\Notice\Full_Site_Editor::class );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
 			tribe( Tribe\Events\Admin\Filter_Bar\Provider::class );
