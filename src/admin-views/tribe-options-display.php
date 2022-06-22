@@ -231,6 +231,7 @@ $display_tab_fields = Tribe__Main::array_insert_before_key(
 if (
 	tribe( 'tec.main' )->show_upgrade()
 	|| (
+		// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
 		is_multisite() &&
 		current_user_can( 'customize' )
 	)
