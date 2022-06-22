@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 == [TBD] TBD ==
 
+* Fix - Ensure the `Next` button when using the `Event View` Elementor widget navigates to the next page on the first click. [FBAR-263]
 * Fix - Add a height to the subscribe to calendar export SVG icon on the single events page when using the `Skeleton Styles` to prevent it from taking over a huge portion of the page. [TEC-4399]
 * Fix - Remove link to Updates page from TEC Settings page. [TEC-4373]
 * Fix - Remove deprecated usage of `jQuery.attr( 'checked' )`
