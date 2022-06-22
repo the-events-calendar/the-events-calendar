@@ -1,10 +1,12 @@
 <?php
+namespace Tribe\Events\Admin\Notice;
+
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
  * @internal This class may be removed or changed without notice
  */
-class Tribe__Events__Admin__Notice__Update {
+class Update {
 	/**
 	 * Notice Slug on the user options
 	 *
@@ -35,7 +37,7 @@ class Tribe__Events__Admin__Notice__Update {
 	 * @since  TBD
 	 * @var string
 	 */
-	private $update_description = 'To complete your update to The Events Calendar 6.0 migrate your events to our new data storage system and start taking advantage of the new features.';
+	private $update_description = 'To complete this major calendar upgrade, you need to migrate your events to the new data storage system. Once migration finishes, you can take advantage of all the cool new 6.0 features!';
 		
 	/**
 	 * Notice
@@ -51,7 +53,7 @@ class Tribe__Events__Admin__Notice__Update {
 	 * @since TBD
 	 * @since 5.1.5 - add Virtual Events Notice.
 	 */
-	public function hook() {
+	public function register() {
 		$this->notice = tribe_notice(
 			'update-6-0',
 			[ $this, 'notice' ],
@@ -66,7 +68,6 @@ class Tribe__Events__Admin__Notice__Update {
 		);
 
 		add_action( 'admin_enqueue_scripts', [ $this, 'add_block_editor_notice' ] );
-		add_action( 'in_admin_header', [ $this, 'remove_admin_notices' ] );	
 	}
 
 	/**
@@ -78,6 +79,10 @@ class Tribe__Events__Admin__Notice__Update {
 	 */
 	public function should_display() {
 		$admin_helpers = tribe( 'admin.helpers' );
+
+		if ( isset( $_GET['update-message-the-events-calendar'] ) ) {
+			return false;
+		}
 
 		if ( ! $admin_helpers->is_screen() ) {
 			return false;
@@ -117,7 +122,7 @@ class Tribe__Events__Admin__Notice__Update {
 			</div>
 			<div class="tec-update-notice__actions">
 				<a class="tec-update-notice__button button" href="<?php echo esc_url( get_admin_url( null, $this->upgrade_tab_link ) ); ?>">
-					<?php esc_html_e( 'Start storage migration', 'the-events-calendar' ); ?>
+					<?php esc_html_e( 'Migrate your site', 'the-events-calendar' ); ?>
 				</a>
 				<a class="tec-update-notice__link" href="<?php echo esc_url( $this->learn_more_link ); ?>">
 					<?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?>
@@ -167,21 +172,5 @@ class Tribe__Events__Admin__Notice__Update {
 		$js .= '} )( window.wp );';
 
 		return $js;
-	}
-
-	/**
-	 * Prevent admin notices from showing on the update page.
-	 * 
-	 * @since TBD
-	 *
-	 * @return void
-	 */	
-	public function remove_admin_notices() {
-		if ( ! isset( $_GET['update-message-the-events-calendar'] ) ) {
-			return;
-		}
-
-		remove_all_actions('admin_notices');
-		remove_all_actions('all_admin_notices');
 	}	
 }
