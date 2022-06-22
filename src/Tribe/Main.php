@@ -42,7 +42,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-beta3.2';
+		const MIN_ADDON_VERSION   = '6.0.0-beta3.2-dev';
 
 		/**
 		 * Min Common
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.6.0-beta3.2';
+		protected $min_et_version = '5.6.0-beta3.2-dev';
 
 		/**
 		 * Maybe display data wrapper
