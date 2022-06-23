@@ -31,5 +31,6 @@ class Provider extends \tad_DI52_ServiceProvider {
 		add_filter( 'tec_admin_footer_text', tribe_callback( Settings::class, 'admin_footer_text_settings' ) );
 		add_filter( 'tribe-events-save-network-options', tribe_callback( Settings::class, 'maybe_hijack_save_network_settings' ), 10, 2 );
 		add_filter( 'tribe_events_register_event_type_args', tribe_callback( Settings::class, 'filter_event_type_args' ) );
+		add_filter( 'tec_admin_screens_list', tribe_callback( Settings::class, 'filter_admin_screens_list' ) );
 	}
 }

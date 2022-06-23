@@ -150,6 +150,18 @@ class Settings {
 	}
 
 	/**
+	 * Get the `hook_suffix` for The Events Calendar settings.
+	 *
+	 * @since TBD
+	 *
+	 * @return false|string The `hook_suffix` for The Events Calendar settings, false if not found.
+	 */
+	public function get_events_settings_hook_suffix() {
+		$admin_pages = tribe( 'admin.pages' );
+		return $admin_pages->get_page_hook_suffix( self::$settings_page_id );
+	}
+
+	/**
 	 * Adds the menu and pages for The Events Calendar.
 	 *
 	 * @since 5.15.0
@@ -506,5 +518,29 @@ class Settings {
 		$args['menu_icon'] = $this->get_menu_icon();
 
 		return $args;
+	}
+
+	/**
+	 * Filter `tec_admin_screens_list` to add TEC events screens.
+	 * This is used to add the TEC events screens to the list of screens.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $screens The list of screens.
+	 *
+	 * @return array $screens The modified list of screens.
+	 */
+	function filter_admin_screens_list( $screens ) {
+		if ( ! tribe( 'settings' )->should_setup_pages() ) {
+			return $screens;
+		}
+		$admin_pages = tribe( 'admin.pages' );
+
+		$screens[] = $this->get_get_events_settings_hook_suffix();
+		$screens[] = $admin_pages->get_page_hook_suffix( tribe( Tribe__App_Shop::class )::MENU_SLUG );
+		$screens[] = $admin_pages->get_page_hook_suffix( tribe( Troubleshooting::class ) );
+		$screens[] = $admin_pages->get_page_hook_suffix( 'tec-events-help' );
+
+		return $screens;
 	}
 }
