@@ -29,6 +29,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Timezone;
 use Tribe\Events\Models\Post_Types\Event as TribeEvent;
 use Tribe__Events__Main as TEC;
+use Tribe__Date_Utils as Dates;
 use WP_Post;
 
 /**
@@ -212,14 +213,10 @@ class Event extends Model {
 		$end_date_utc = get_post_meta( $post_id, '_EventEndDateUTC', true );
 		$duration = get_post_meta( $post_id, '_EventDuration', true );
 
-		try {
-			if ( ! empty( $start_date_utc ) && ! empty( $end_date_utc ) ) {
-				$utc      = new DateTimeZone( 'UTC' );
-				$duration = ( new DateTime( $end_date_utc, $utc ) )->format( 'U' )
-				            - ( new DateTime( $start_date_utc, $utc ) )->format( 'U' );
-			}
-		} catch ( Exception $e ) {
-			// Ok, we tried.
+		if ( empty( $duration ) && ! empty( $start_date_utc ) && ! empty( $end_date_utc ) ) {
+			$start_date_object = Dates::build_date_object( $start_date_utc, 'UTC' );
+			$end_date_object = Dates::build_date_object( $end_date_utc, 'UTC' );
+			$duration = $end_date_object->diff( $start_date_object )->format( '%s' );
 		}
 
 		$data = [

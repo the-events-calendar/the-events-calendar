@@ -44,6 +44,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( String_Dictionary::class, String_Dictionary::class );
 		$this->container->singleton( Site_Report::class, Site_Report::class );
 		$this->container->singleton( Page::class, Page::class );
+		$this->container->singleton( Admin\Template::class, Admin\Template::class );
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
 		$this->container->singleton( Process::class, Process::class );
 		$this->container->singleton( Ajax::class, Ajax::class );

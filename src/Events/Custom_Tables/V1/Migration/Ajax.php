@@ -76,24 +76,28 @@ class Ajax {
 	 * @var Process
 	 */
 	private $process;
+
 	/**
 	 * @since TBD
 	 *
 	 * @var Site_Report
 	 */
 	private $site_report;
+
 	/**
 	 * @since TBD
 	 *
 	 * @var Events
 	 */
 	private $events_repository;
+
 	/**
 	 * @since TBD
 	 *
 	 * @var State
 	 */
 	private $state;
+
 	/**
 	 * @since TBD
 	 *
