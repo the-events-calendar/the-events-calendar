@@ -150,6 +150,18 @@ class Settings {
 	}
 
 	/**
+	 * Get the `hook_suffix` for The Events Calendar settings.
+	 *
+	 * @since TBD
+	 *
+	 * @return false|string The `hook_suffix` for The Events Calendar settings, false if not found.
+	 */
+	public function get_events_settings_hook_suffix() {
+		$admin_pages = tribe( 'admin.pages' );
+		return $admin_pages->get_page_hook_suffix( self::$settings_page_id );
+	}
+
+	/**
 	 * Adds the menu and pages for The Events Calendar.
 	 *
 	 * @since 5.15.0
