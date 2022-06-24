@@ -148,7 +148,7 @@ trait Query_Monitor {
 
 		$this->modifiers[ $query ] = array_merge( $this->modifiers[ $query ], [ $modifier ] );
 		$modifier_class            = get_class( $modifier );
-		add_action( "tribe_events_icaltec_{$modifier_class}_done", $this->drop_modifiers( $query ) );
+		add_action( "tec_events_custom_tables_v1_{$modifier_class}_done", $this->drop_modifiers( $query ) );
 	}
 
 	/**
