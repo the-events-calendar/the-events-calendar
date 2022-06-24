@@ -3,6 +3,7 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use Tribe\Events\Test\WP_Screen;
 
 /**
@@ -133,8 +134,9 @@ class Progress_Modal {
 	 */
 	public function get_modal_content( $args = [] ) {
 		$template_path = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
-		$dialog_view = tribe( 'dialog.view' );
-		$args = $this->get_modal_args( $args );
+		$dialog_view   = tribe( 'dialog.view' );
+		$args          = $this->get_modal_args( $args );
+		$text          = tribe( String_Dictionary::class );
 
 		ob_start();
 		include $template_path.'/upgrade-box.php';
