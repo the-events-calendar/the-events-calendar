@@ -3,6 +3,10 @@ namespace Tribe\Events\Admin\Notice;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use Tribe__Admin__Notices;
+use Tribe__Template;
+
+use function tribe;
+use function tribe_asset;
 
 /**
  * @internal This class may be removed or changed without notice
@@ -49,6 +53,15 @@ class Update {
 	private $notice;
 
 	/**
+	 * Stores the instance of the notice template.
+	 *
+	 * @since 4.14.17
+	 *
+	 * @var Tribe__Template
+	 */
+	protected $template;
+
+	/**
 	 * Register update notices.
 	 *
 	 * @since TBD
@@ -68,7 +81,7 @@ class Update {
 			[ $this, 'should_display' ]
 		);
 
-		add_action( 'admin_enqueue_scripts', [ $this, 'add_block_editor_notice' ] );
+		$this->add_block_editor_notice();
 	}
 
 	/**
@@ -80,6 +93,10 @@ class Update {
 	 */
 	public function should_display() {
 		$admin_helpers = tribe( 'admin.helpers' );
+
+		if ( ! is_admin() ) {
+			return false;
+		}
 
 		if ( isset( $_GET['update-message-the-events-calendar'] ) ) {
 			return false;
@@ -112,29 +129,45 @@ class Update {
 	 * @return string
 	 */
 	public function notice() {
-		ob_start();
-		?>
-		<div class="tec-update-notice">
-			<h3 class="tec-update-notice__title">
-				<?php echo esc_html( $this->update_title ); ?>
-			</h3>
-			<div class="tec-update-notice__description">
-				<?php echo esc_html( $this->update_description  ); ?>
-			</div>
-			<div class="tec-update-notice__actions">
-				<a class="tec-update-notice__button button" href="<?php echo esc_url( get_admin_url( null, $this->upgrade_tab_link ) ); ?>">
-					<?php esc_html_e( 'Migrate your site', 'the-events-calendar' ); ?>
-				</a>
-				<a class="tec-update-notice__link" href="<?php echo esc_url( $this->learn_more_link ); ?>">
-					<?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?>
-				</a>
-			</div>
-		</div>
-		<?php
-		$notice = ob_get_contents();
-		ob_end_clean();
-		
-		return $notice;
+		$template = $this->get_template();
+		return $template->template( 'notices/update-6-0-0', $this->get_template_data(), false );
+	}
+
+	/**
+	 * HTML for the notice for sites using UTC Timezones.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	private function get_template_data() {
+		$data = [
+			'title' 		=>	$this->update_title,
+			'description' 	=> 	$this->update_description,
+			'upgrade_link' 	=> 	$this->upgrade_tab_link,
+			'learn_link' 	=> 	$this->learn_more_link
+		];
+
+		return $data;
+	}
+
+	/**
+	 * Get template object.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Template
+	 */
+	public function get_template() {
+		if ( empty( self::$template ) ) {
+			$this->template = new Tribe__Template();
+			$this->template->set_template_origin( tribe( 'tec.main' ) );
+			$this->template->set_template_folder( 'src/admin-views' );
+			$this->template->set_template_context_extract( true );
+			$this->template->set_template_folder_lookup( false );
+		}
+
+		return $this->template;
 	}
 
 	/**
@@ -145,33 +178,20 @@ class Update {
 	 * @return void
 	 */
 	public function add_block_editor_notice() {
-		if ( ! $this->should_display() ) {
-			return;
-		}
-
-		global $current_screen;
-		$current_screen = get_current_screen();
-
-		if ( method_exists( $current_screen, 'is_block_editor') && $current_screen->is_block_editor() ) {
-			wp_add_inline_script( 'tribe-events-editor', $this->js_notice() );
-		}
-	}
-
-	/**
-	 * Javascript for creating admin notice in the block editor.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function js_notice() {
-		$js = '( function ( wp ) {';
-		$js .= 'const tec_update_description = "<b>' . esc_html( $this->update_title ) . '</b><p>' . esc_html( $this->update_description ) . '</p>";';
-		$js .= 'const tec_upgrade_tab_link = "' . esc_url( $this->upgrade_tab_link ) . '";';
-		$js .= 'const tec_learn_more_link = "' . esc_url( $this->learn_more_link ) . '";';
-		$js .=	"wp.data.dispatch( 'core/notices' ).createNotice('info', tec_update_description, { __unstableHTML: true, isDismissible: true, actions: [ { url: tec_upgrade_tab_link, label: 'Start storage migration' }, { url: tec_learn_more_link, label: 'Learn more' } ] } );";
-		$js .= '} )( window.wp );';
-
-		return $js;
+		tribe_asset(
+			tribe( 'tec.main' ),
+			'the-events-calendar-update-6-0-0-notice',
+			'tec-update-6.0.0-notice.js',
+			[],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => true,
+				'localize'     => (object) [ 
+					'data' => $this->get_template_data(),
+					'name' => 'data'
+				],
+				'conditionals' => [ $this, 'should_display' ],
+			]
+		);
 	}	
 }
