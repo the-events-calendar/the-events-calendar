@@ -9,6 +9,7 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
+
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 
 /**
@@ -42,12 +43,12 @@ class Maintenance_Mode {
 	 *
 	 * @since TBD
 	 *
-	 * @param State $state A reference to the current migration state provider.
+	 * @param State          $state          A reference to the current migration state provider.
 	 * @param Progress_Modal $progress_modal A reference to the progress modal displayed to lock several pages.
 	 */
 	public function __construct( State $state, Progress_Modal $progress_modal ) {
 		$this->migration_state = $state;
-		$this->progress_modal = $progress_modal;
+		$this->progress_modal  = $progress_modal;
 	}
 
 	/**
@@ -75,7 +76,7 @@ class Maintenance_Mode {
 	 * @return bool Whether the Event-wide maintenance mode was activated or not.
 	 */
 	public function activate() {
-		if ( ! $this->migration_state->is_running() ) {
+		if ( ! $this->migration_state->should_lock_for_maintenance() ) {
 			return false;
 		}
 

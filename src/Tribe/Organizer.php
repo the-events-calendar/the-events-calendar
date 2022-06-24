@@ -722,6 +722,8 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			return;
 		}
 
+		$self = self::instance();
+
 		add_meta_box(
 			'tribe_events_organizer_details',
 			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $self->get_organizer_label_singular() ),

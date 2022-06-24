@@ -9,12 +9,6 @@ use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use function tad\WPBrowser\addListener;
 use function tad\WPBrowser\importDumpWithMysqlBin;
 
-// If the migration feature flag is not defined, then define it now.
-// @todo remove this when no more required.
-if ( ! defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_ENABLED' ) ) {
-	define( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_ENABLED', true );
-}
-
 // If the `uopz` extension is installed, let's make sure to `exit` and `die` will work properly.
 if ( function_exists( 'uopz_allow_exit' ) ) {
 	uopz_allow_exit( true );
