@@ -3,7 +3,7 @@
  * The template that displays the welcome message when the plugin is first activated.
  */
 
-$main = Tribe__Main::instance();
+$common_main = Tribe__Main::instance();
 ?>
 
 <div class="tribe-events-admin-content-wrapper">
@@ -16,7 +16,7 @@ $main = Tribe__Main::instance();
 	<div class="tribe-events-admin-title">
 		<img
 		class="tribe-events-admin-title__logo"
-		src="<?php echo esc_url( tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $main ) ); ?>"
+		src="<?php echo esc_url( tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $common_main ) ); ?>"
 		alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
 		/>
 
