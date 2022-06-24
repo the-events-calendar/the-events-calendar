@@ -83,6 +83,6 @@ class Redirection_Schema {
 		 *
 		 * @param array<string,array<string>> A map from meta keys to the corresponding custom table name and column.
 		 */
-		return apply_filters( 'tribe_events_icaltec_meta_key_redirection_map', $map );
+		return apply_filters( 'tec_events_custom_tables_v1_meta_key_redirection_map', $map );
 	}
 }
