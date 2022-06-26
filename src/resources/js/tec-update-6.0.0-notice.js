@@ -1,5 +1,7 @@
 ( function ( wp ) {
 
+    const { __ } = wp.i18n;
+
     wp.data.dispatch( 'core/notices' )
         .createNotice(
             'info', 
@@ -10,11 +12,11 @@
                 actions: [ 
                     { 
                         url: data.upgrade_link, 
-                        label: 'Start storage migration' 
+                        label: __( 'Start storage migration', 'the-events-calendar' )
                     }, 
                     { 
                         url: data.learn_link, 
-                        label: 'Learn more' 
+                        label: __( 'Learn more', 'the-events-calendar' )
                     }
                 ] 
             } 
