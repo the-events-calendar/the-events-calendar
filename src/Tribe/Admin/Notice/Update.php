@@ -69,7 +69,7 @@ class Update {
 	 */
 	public function register() {
 		$this->notice = tribe_notice(
-			'update-6-0',
+			'event-update-6-0',
 			[ $this, 'notice' ],
 			[
 				'dismiss' => 1,
@@ -159,7 +159,7 @@ class Update {
 	 * @return \Tribe__Template
 	 */
 	public function get_template() {
-		if ( empty( self::$template ) ) {
+		if ( empty( static::$template ) ) {
 			$this->template = new Tribe__Template();
 			$this->template->set_template_origin( tribe( 'tec.main' ) );
 			$this->template->set_template_folder( 'src/admin-views' );
