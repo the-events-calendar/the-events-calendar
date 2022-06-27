@@ -29,9 +29,9 @@ $common_main = Tribe__Main::instance();
 	<?php echo tribe( 'tec.admin.notice.update' )->notice(); ?>
 
 	<div class="tec-update-page-intro">
-		<h3><?php esc_html_e( 'You are almost done completing your update!', 'the-events-calendar' ); ?></h3>
-
-		<p><?php esc_html_e( 'Once you migrate to the new data storage system, you’ll find improved performance for The Events Calendar. What does this mean for you? Faster event creation and editing on the backend and quicker loading times for your frontend calendar.', 'the-events-calendar' ); ?></p>
+		<h3><?php esc_html_e( "What’s New in The Events Calendar 6.0", 'the-events-calendar' ); ?></h3>
+		<p><?php esc_html_e( "We’re excited to bring all of our users faster event creation and editing in the WordPress dashboard as well as quicker loading times for your website’s calendar. Watch the video or check out the release notes to learn more." ); ?></p>
+		<p><?php esc_html_e( 'Be sure to migrate to the new data storage system so you can take advantage of the improved performance.', 'the-events-calendar' ); ?></p>
 
 		<div style="padding:56.25% 0 0 0;position:relative;">
 			<iframe src="https://evnt.is/1b8k" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The Events Calendar 6.0"></iframe>
@@ -43,7 +43,7 @@ $common_main = Tribe__Main::instance();
 		<h3><span>⚡</span> <?php esc_html_e( 'New Features for Events Calendar Pro', 'the-events-calendar' ); ?></h3>
 		<div class="tec-update-page-grid">
 			<div class="tec-update-page-grid__item">
-				<p><?php esc_html_e( 'A game-changing ✨new✨ post type, called Series, that allows you to group and manage any single or recurring events together like never before.', 'the-events-calendar' ); ?></p>
+				<p><?php esc_html_e( 'A game-changing ✨new✨ post type, Series, allows you to group and display any single or recurring events together like never before.', 'the-events-calendar' ); ?></p>
 				<p><?php esc_html_e( 'With Series, you can edit an individual occurrence of a recurring event without disconnecting it from the others, allowing you to build complex event Series with different venues, images, and more.', 'the-events-calendar' ); ?></p>
 			</div>
 
@@ -54,11 +54,11 @@ $common_main = Tribe__Main::instance();
 		<div class="tec-update-page-grid">
 			<div class="tec-update-page-grid__item has-media">
 				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-2.png', false, 'src/resources/images/', null ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
-				<p><b><?php esc_html_e( 'Advanced editing options', 'the-events-calendar' ); ?></b> <?php esc_html_e( 'for recurring events to provide you with even more event possibilities.', 'the-events-calendar' ); ?></p>				
+				<p><b><?php esc_html_e( 'Advanced editing options', 'the-events-calendar' ); ?></b> <?php esc_html_e( 'for recurring events give you more possibilities for complex event management.', 'the-events-calendar' ); ?></p>				
 			</div>
 			<div class="tec-update-page-grid__item has-media">
 				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-3.png', false, 'src/resources/images/', null ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
-				<p><b><?php esc_html_e( 'Duplicate Event Tool', 'the-events-calendar' ); ?></b> <?php esc_html_e( 'allows you to recreate and modify your events in seconds, making event creation a breeze.', 'the-events-calendar' ); ?></p>				
+				<p><b><?php esc_html_e( 'With the Duplicate Event Tool', 'the-events-calendar' ); ?></b> <?php esc_html_e( 'you can replicate and modify any events in seconds, making event creation a breeze.', 'the-events-calendar' ); ?></p>				
 			</div>
 		</div>
 		<?php if( ! class_exists( 'Tribe__Events__Pro__Main' ) ): ?>
