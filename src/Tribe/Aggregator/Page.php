@@ -17,7 +17,7 @@ class Tribe__Events__Aggregator__Page {
 	public static $slug = 'aggregator';
 
 	/**
-	 * Stores the Registred ID from `add_submenu_page`
+	 * Stores the Registered ID from `add_submenu_page`
 	 *
 	 * @var string
 	 */
@@ -175,9 +175,6 @@ class Tribe__Events__Aggregator__Page {
 			],
 			'admin_enqueue_scripts',
 			[
-				'conditionals' => [
-					[ $this, 'is_screen' ],
-				],
 				'localize'     => (object) $localize_data,
 			]
 		);
@@ -240,7 +237,7 @@ class Tribe__Events__Aggregator__Page {
 	}
 
 	/**
-	 * Checks if we are in the correct screen
+	 * Checks if we are on the correct screen.
 	 *
 	 * @return boolean
 	 */
@@ -328,7 +325,7 @@ class Tribe__Events__Aggregator__Page {
 	}
 
 	/**
-	 * Gets the Page title for the Aggegator
+	 * Gets the Page title for the Aggregator
 	 *
 	 * @return string
 	 */
