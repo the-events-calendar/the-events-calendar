@@ -23,6 +23,13 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 class Process {
 
 	/**
+	 * The meta key that will be used to flag an Event as migrated during the migration process.
+	 *
+	 * @since TBD
+	 */
+	const EVENT_CREATED_BY_MIGRATION_META_KEY = '_tec_event_created_by_migration';
+
+	/**
 	 * A reference to the current Events' migration repository.
 	 *
 	 * @since TBD
@@ -182,14 +189,27 @@ class Process {
 		// Ensure Action Scheduler tables are there.
 		ActionScheduler::store()->init();
 
+		// Clear all of our queued workers.
+		$this->empty_process_queue();
+
+		// Now queue our undo loop.
+		as_enqueue_async_action( Process_Worker::ACTION_UNDO );
+	}
+
+	/**
+	 * Unschedules all of our process workers in the Action Schedule queue.
+	 *
+	 * @since TBD
+	 */
+	public function empty_process_queue() {
 		// Clear all of our queued migration workers.
 		as_unschedule_all_actions( Process_Worker::ACTION_PROCESS );
 
 		// Clear all of our queued state check workers.
 		as_unschedule_all_actions( Process_Worker::ACTION_CHECK_PHASE );
 
-		// Now queue our undo loop.
-		as_enqueue_async_action( Process_Worker::ACTION_UNDO );
+		// Clear all of our queued undo workers.
+		as_unschedule_all_actions( Process_Worker::ACTION_UNDO );
 	}
 
 	/**

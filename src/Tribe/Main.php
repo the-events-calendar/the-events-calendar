@@ -35,14 +35,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.0-beta3.2';
+		const VERSION             = '6.0.0-beta4';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-beta3.2';
+		const MIN_ADDON_VERSION   = '6.0.0-beta4-dev';
 
 		/**
 		 * Min Common
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.4.0-dev';
+		protected $min_et_version = '5.6.0-beta4-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -1228,8 +1228,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$edit_settings_link = __( ' ask the site administrator to set a different Events URL slug.', 'the-events-calendar' );
 
 			if ( current_user_can( $settings_cap ) ) {
-				$admin_slug         = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
-				$setting_page_link  = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-eventsSlug' ) );
+				$setting_page_link  = tribe( Tribe\Events\Admin\Settings::class )->get_url() . '#tribe-field-eventsSlug';
 				$edit_settings_link = sprintf( '<a href="%1$s">%2$s</a>', $setting_page_link, __( 'edit Events settings.', 'the-events-calendar' ) );
 			}
 

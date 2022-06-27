@@ -190,6 +190,10 @@ class String_Dictionary {
 				'From this preview, we estimate that the full migration process will take approximately %3$d minutes. During this time, %1$syou will not be able to create, edit, or manage your events.%2$s Your calendar will still be visible on your site.',
 				'the-events-calendar'
 			),
+			'preview-unsupported'                                 => __(
+				'Your system doesn\'t allow us to run a preview, but you can still try a migration. During migration, %1$syou will not be able to create, edit, or manage your events.%2$s Your calendar will still be visible on your site.',
+				'the-events-calendar'
+			),
 			'previewed-date-heading'                              => __(
 				'Preview completed',
 				'the-events-calendar'

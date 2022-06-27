@@ -10,18 +10,9 @@
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
-
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 class Upgrade_Tab {
-	/**
-	 * The absolute path, without trailing slash, to the root directory used for the templates.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	private $template_path;
-
 	/**
 	 * A reference to the current migration state handler.
 	 *
@@ -29,18 +20,17 @@ class Upgrade_Tab {
 	 *
 	 * @var State
 	 */
-	private $state;
+	protected $state;
 
 	/**
 	 * Upgrade_Tab constructor.
 	 *
 	 * since TBD
 	 *
-	 * @param State   $state   A reference to the current migration state handler.
+	 * @param State $state A reference to the current migration state handler.
 	 */
 	public function __construct( State $state ) {
-		$this->state         = $state;
-		$this->template_path = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
+		$this->state = $state;
 	}
 
 	/**
@@ -91,7 +81,6 @@ class Upgrade_Tab {
 	}
 
 
-
 	/**
 	 * Renders and returns the current phase HTML code.
 	 *
@@ -100,13 +89,12 @@ class Upgrade_Tab {
 	 * @return string The current phase HTML code.
 	 */
 	public function get_phase_html() {
-		$phase              = $this->state->get_phase();
-		$template_path      = $this->template_path;
+		$template_vars = [
+			'phase' => $this->state->get_phase(),
+			'text'  => tribe( String_Dictionary::class ),
+			'tab'   => $this,
+		];
 
-		ob_start();
-		include_once $this->template_path . '/upgrade-box.php';
-		$phase_html = ob_get_clean();
-
-		return (string)$phase_html;
+		return (string) tribe( Template::class )->template( 'migration/upgrade-box', $template_vars, false );
 	}
 }

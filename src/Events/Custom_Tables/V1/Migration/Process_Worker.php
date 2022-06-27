@@ -102,6 +102,102 @@ class Process_Worker {
 		$this->state  = $state;
 	}
 
+	/**
+	 * Sets up our shutdown and buffer handlers.
+	 *
+	 * @since TBD
+	 */
+	private function bind_shutdown_handlers() {
+		// Watch for any errors that may occur and store them in the Event_Report.
+		set_error_handler( [ $this, 'error_handler' ] );
+
+		// Set this as a fallback: we'll remove it later if everything goes fine.
+		add_action( 'shutdown', [ $this, 'shutdown_handler' ] );
+
+		/*
+		 * If some calls `die` or `exit` during the migration PHP might not trigger
+		 * shutdown. For that purpose let's buffer and try to capture the event and
+		 * the reason for it.
+		 */
+		ob_start( [ $this, 'ob_flush_handler' ] );
+	}
+
+	/**
+	 * Reverts and removes any shutdown or output buffer handlers we opened.
+	 *
+	 * @since TBD
+	 */
+	private function unbind_shutdown_handlers() {
+		// Restore error handling.
+		restore_error_handler();
+		// Remove shutdown hook.
+		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
+		// Close the output buffer.
+		ob_end_clean();
+	}
+
+	/**
+	 * Any actions to be run immediately before a dry run migration will be applied.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric $post_id
+	 */
+	public function before_dry_run( $post_id ) {
+		$this->start_transaction();
+	}
+
+	/**
+	 * Any actions to be run immediately after a dry run migration was applied.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric $post_id
+	 */
+	public function after_dry_run( $post_id ) {
+		$this->rollback_transaction();
+
+		if ( wp_cache_get( $post_id, 'posts' ) ) {
+			$this->add_cache_compatibility_hooks();
+			/*
+			 * Our event report state would have been rolled back too, so try and reapply what was set locally.
+			 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
+			 */
+			clean_post_cache( $post_id );
+			$this->remove_cache_compatibility_hooks();
+		}
+	}
+
+	/**
+	 * Add hooks to handle cache issues when we are clearing post cache during migration.
+	 *
+	 * @since TBD
+	 */
+	public function add_cache_compatibility_hooks() {
+		add_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10, 1 );
+	}
+
+	/**
+	 * Remove hooks to handle cache issues when we are clearing post cache during migration.
+	 *
+	 * @since TBD
+	 */
+	public function remove_cache_compatibility_hooks() {
+		remove_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10 );
+	}
+
+	/**
+	 * Skips some cache actions that fail in our cleanup of post cache.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $all
+	 *
+	 * @return false
+	 */
+	public function wpsc_delete_related_pages_on_edit( $all ) {
+		return false;
+	}
 
 	/**
 	 * Processes an Event migration.
@@ -116,6 +212,8 @@ class Process_Worker {
 	 *                      migration.
 	 */
 	public function migrate_event( $post_id, $dry_run = false ) {
+		global $wpdb;
+
 		// Log our worker starting
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:start', [
 			'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
@@ -139,20 +237,28 @@ class Process_Worker {
 		// Set our dead-man switch.
 		$this->migration_completed = false;
 
-		// Watch for any errors that may occur and store them in the Event_Report.
-		set_error_handler( [ $this, 'error_handler' ] );
-
-		// Set this as a fallback: we'll remove it later if everything goes fine.
-		add_action( 'shutdown', [ $this, 'shutdown_handler' ] );
-
-		/*
-		 * If some calls `die` or `exit` during the migration PHP might not trigger
-		 * shutdown. For that purpose let's buffer and try to capture the event and
-		 * the reason for it.
-		 */
-		ob_start( [ $this, 'ob_flush_handler' ] );
+		$this->bind_shutdown_handlers();
 
 		try {
+			// Before we start preview, check if transactions are supported.
+			// If not, we want to stop gracefully and still allow migration to continue.
+			if ( $this->dry_run && ! $this->transactions_supported( $wpdb->prefix ) ) {
+				// Clear all our workers, we don't need to check anymore for preview.
+				tribe( Process::class )->empty_process_queue();
+
+				// Move us to the next phase - there will be a special message on that phase noting what happened.
+				$this->state->set( 'phase', State::PHASE_MIGRATION_PROMPT );
+				$this->state->set( 'preview_unsupported', true );
+				$this->state->save();
+				$this->migration_completed = true;
+				$this->unbind_shutdown_handlers();
+
+				return $this->event_report->migration_success();
+			}
+			// In the odd scenario where we previously had a transaction failure, but it was resolved later.
+			$this->state->set( 'preview_unsupported', false );
+			$this->state->save();
+
 			// Check if we are still in migration phase.
 			if ( ! in_array( $this->state->get_phase(), [
 				State::PHASE_PREVIEW_IN_PROGRESS,
@@ -160,6 +266,7 @@ class Process_Worker {
 			], true ) ) {
 				$this->event_report->migration_failed( 'canceled' );
 				$this->migration_completed = true;
+				$this->unbind_shutdown_handlers();
 
 				return $this->event_report;
 			}
@@ -187,20 +294,14 @@ class Process_Worker {
 
 			// In case we have an error in the strategy, and we are forced to exit early, lets start the transaction here.
 			if ( $this->dry_run ) {
-				$this->start_transaction();
+				$this->before_dry_run( $post_id );
 			}
 
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $this->event_report );
 
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
-
-				/*
-				 * Our event report state would have been rolled back too, so try and reapply what was set locally.
-				 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
-				 */
-				clean_post_cache( $post_id );
+				$this->after_dry_run( $post_id );
 			} else {
 				$this->transaction_commit();
 			}
@@ -211,7 +312,7 @@ class Process_Worker {
 			}
 		} catch ( Expected_Migration_Exception $e ) {
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
+				$this->after_dry_run( $post_id );
 			}
 			$this->event_report->migration_failed( 'expected-exception', [
 				$e->getMessage(),
@@ -219,7 +320,7 @@ class Process_Worker {
 		} catch ( \Throwable $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
+				$this->after_dry_run( $post_id );
 			}
 			$this->event_report->migration_failed( 'exception', [
 				'<p>',
@@ -229,10 +330,16 @@ class Process_Worker {
 				'<p>',
 				'</p>'
 			] );
+
+			// @todo Remove this. Useful for troubleshooting
+			do_action( 'tribe_log', 'debug', 'Migration unexpected exception:', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+				'trace'  => $e->getTraceAsString()
+			] );
 		} catch ( \Exception $e ) {
 			// In case we fail above, release transaction.
 			if ( $this->dry_run ) {
-				$this->rollback_transaction();
+				$this->after_dry_run( $post_id );
 			}
 
 			$this->event_report->migration_failed( 'exception', [
@@ -242,17 +349,17 @@ class Process_Worker {
 				'</p>',
 				'<p>',
 				'</p>'
+			] );
+			// @todo Remove this. Useful for troubleshooting
+			do_action( 'tribe_log', 'debug', 'Migration unexpected exception:', [
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+				'trace'  => $e->getTraceAsString()
 			] );
 		}
 
 		$this->migration_completed = true;
 
-		// Restore error handling.
-		restore_error_handler();
-		// Remove shutdown hook.
-		remove_action( 'shutdown', [ $this, 'shutdown_handler' ] );
-		// Close the output buffer.
-		ob_end_clean();
+		$this->unbind_shutdown_handlers();
 
 		$did_migration_error = ! $dry_run && $this->event_report->error;
 		// If error in the migration phase, need to stop the queue.

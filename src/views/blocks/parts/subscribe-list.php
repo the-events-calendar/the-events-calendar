@@ -40,7 +40,7 @@ remove_filter( 'the_content', 'do_blocks', 9 );
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
 										tabindex="0"
 										target="_blank"
-										rel="noopener noreferrer nofollow"
+										rel="noopener noreferrer nofollow noindex"
 									>
 										<?php echo esc_html( $item->get_label( null ) ); ?>
 									</a>

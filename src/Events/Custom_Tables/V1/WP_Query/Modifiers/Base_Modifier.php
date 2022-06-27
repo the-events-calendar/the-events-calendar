@@ -76,7 +76,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 		 * @param  Base_Modifier|WP_Query_Modifier  $this  A reference to the modifier that is
 		 *                                                 triggering the action.
 		 */
-		do_action( "tribe_events_icaltec_{$modifier_class}_done", $this );
+		do_action( "tec_events_custom_tables_v1_{$modifier_class}_done", $this );
 	}
 
 	/**

@@ -3,6 +3,7 @@
 namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
+use Tribe__Events__Main;
 
 /**
  * Class Hooks
@@ -73,6 +74,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function filter_include_templates( $query_result, $query, $template_type ) {
 		// Don't load this template in the admin - so it's not editable by users.
 		if ( is_admin() ) {
+			return $query_result;
+		}
+
+		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 			return $query_result;
 		}
 

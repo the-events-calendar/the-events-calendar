@@ -16,6 +16,8 @@ class NavTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'prev_url'  => 'http://test.tri.be',
 			'next_url'  => 'http://test.tri.be',
+			'prev_rel' => 'noindex',
+			'next_rel' => 'noindex',
 		] ) );
 	}
 
@@ -25,6 +27,7 @@ class NavTest extends HtmlPartialTestCase
 	public function test_render_without_prev_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'next_url'  => 'http://test.tri.be',
+			'next_rel' => 'noindex',
 		] ) );
 	}
 
@@ -34,6 +37,7 @@ class NavTest extends HtmlPartialTestCase
 	public function test_render_without_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'prev_url'  => 'http://test.tri.be',
+			'prev_rel' => 'noindex',
 		] ) );
 	}
 

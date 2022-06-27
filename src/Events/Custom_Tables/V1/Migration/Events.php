@@ -57,16 +57,20 @@ class Events {
 	    SELECT p.ID, %s,%s
 	    FROM {$wpdb->posts} p
 			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN(%s, %s)
+			LEFT JOIN {$wpdb->postmeta} created_by_migration ON p.ID = created_by_migration.post_id
+				AND created_by_migration.meta_key = %s
 	    WHERE p.post_type = %s
 	    	AND pm.meta_value IS NULL
 	    	AND p.post_status != 'auto-draft'
 	    	AND p.post_parent = 0
+	    	and created_by_migration.meta_value IS NULL
 	    LIMIT %d";
 		$lock_query = $wpdb->prepare( $lock_query,
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 			$batch_uid,
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
 			Event_Report::META_KEY_MIGRATION_PHASE,
+			Process::EVENT_CREATED_BY_MIGRATION_META_KEY,
 			TEC::POSTTYPE,
 			$limit
 		);
@@ -116,11 +120,13 @@ class Events {
 		// If the first page, start at 0. Else increment to the next page and start there.
 		$start     = $page === 1 ? 0 : ( $page - 1 ) * $count;
 		$params    = [];
-		$q         = "SELECT DISTINCT `ID`, pm_d.meta_value
+		$q = "SELECT DISTINCT `ID`, pm_d.meta_value
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
-				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDate'";
-		$params [] = Event_Report::META_KEY_REPORT_DATA;
+				LEFT JOIN {$wpdb->postmeta} pm_d ON p.ID = pm_d.post_id AND pm_d.meta_key = '_EventStartDate'
+				LEFT JOIN {$wpdb->postmeta} created_by_migration ON p.ID = created_by_migration.post_ID
+					AND created_by_migration.meta_key = %s";
+		array_push( $params, Event_Report::META_KEY_REPORT_DATA, Process::EVENT_CREATED_BY_MIGRATION_META_KEY );
 
 		// Add joins.
 		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
@@ -134,7 +140,7 @@ class Events {
 		}
 
 		// Add where statement.
-		$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 ";
+		$q        .= " WHERE p.post_type = %s AND p.post_parent = 0 AND created_by_migration.meta_value IS NULL";
 		$params[] = TEC::POSTTYPE;
 		if ( isset( $filter[ Event_Report::META_KEY_MIGRATION_PHASE ] ) ) {
 			$q        .= " AND pm_s.meta_value = %s ";
@@ -253,7 +259,14 @@ class Events {
 		global $wpdb;
 		$total_events = (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(ID) FROM {$wpdb->posts} p WHERE p.post_type = %s AND post_parent = 0 AND p.post_status != 'auto-draft'",
+				"SELECT COUNT(ID) FROM {$wpdb->posts} p
+						LEFT JOIN {$wpdb->postmeta} created_by_migration ON p.ID = created_by_migration.post_id
+							AND created_by_migration.meta_key = %s
+						WHERE p.post_type = %s
+							AND post_parent = 0
+							AND p.post_status != 'auto-draft'
+							AND created_by_migration.meta_value IS NULL",
+				Process::EVENT_CREATED_BY_MIGRATION_META_KEY,
 				TEC::POSTTYPE
 			)
 		);

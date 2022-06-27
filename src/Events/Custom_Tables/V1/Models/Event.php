@@ -29,6 +29,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Timezone;
 use Tribe\Events\Models\Post_Types\Event as TribeEvent;
 use Tribe__Events__Main as TEC;
+use Tribe__Date_Utils as Dates;
 use WP_Post;
 
 /**
@@ -212,14 +213,10 @@ class Event extends Model {
 		$end_date_utc = get_post_meta( $post_id, '_EventEndDateUTC', true );
 		$duration = get_post_meta( $post_id, '_EventDuration', true );
 
-		try {
-			if ( ! empty( $start_date_utc ) && ! empty( $end_date_utc ) ) {
-				$utc      = new DateTimeZone( 'UTC' );
-				$duration = ( new DateTime( $end_date_utc, $utc ) )->format( 'U' )
-				            - ( new DateTime( $start_date_utc, $utc ) )->format( 'U' );
-			}
-		} catch ( Exception $e ) {
-			// Ok, we tried.
+		if ( empty( $duration ) && ! empty( $start_date_utc ) && ! empty( $end_date_utc ) ) {
+			$start_date_object = Dates::build_date_object( $start_date_utc, 'UTC' );
+			$end_date_object = Dates::build_date_object( $end_date_utc, 'UTC' );
+			$duration = $end_date_object->diff( $start_date_object )->format( '%s' );
 		}
 
 		$data = [
@@ -243,5 +240,24 @@ class Event extends Model {
 		 * @param int                 $event_id The Event post ID.
 		 */
 		return apply_filters( 'tec_events_custom_tables_v1_event_data_from_post', $data, $event_id );
+	}
+
+	/**
+	 * Returns the value of a model field.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $post_id The Event post ID to return the value for.
+	 * @param string $field   The name of the Event model property to return the value for.
+	 *
+	 * @return mixed|null Either the field value, or the default value if not found.
+	 */
+	public static function get_field( $post_id, $field, $default = null ) {
+		$model = static::find( $post_id, 'post_id' );
+		if ( ! $model instanceof static ) {
+			return null;
+		}
+
+		return $model->{$field};
 	}
 }

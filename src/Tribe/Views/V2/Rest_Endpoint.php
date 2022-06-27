@@ -75,7 +75,7 @@ class Rest_Endpoint {
 		 *
 		 * @param string $url            The View endpoint URL, either a REST API URL or a admin-ajax.php fallback URL if REST API
 		 *                               is not available.
-		 * @param bool   $rest_available Whether the REST API endpoing URL is available on the current site or not.
+		 * @param bool   $rest_available Whether the REST API endpoint URL is available on the current site or not.
 		 */
 		$url = apply_filters( 'tribe_events_views_v2_endpoint_url', $url, $rest_available );
 

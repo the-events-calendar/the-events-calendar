@@ -395,4 +395,24 @@ class Tribe__Events__Query {
 
 		return true;
 	}
+
+	/**
+	 * If the user has the Main events page set on the reading options it should return 0 or the default value in
+	 * order to avoid to set the:
+	 * - p
+	 * - page_id
+	 *
+	 * variables when using  pre_get_posts or posts_where
+	 *
+	 * This filter is removed when this functions has finished the execution
+	 *
+	 * @since 4.6.15
+	 *
+	 * @param $value
+	 *
+	 * @return int
+	 */
+	public static function default_page_on_front( $value ) {
+		return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
+	}
 }

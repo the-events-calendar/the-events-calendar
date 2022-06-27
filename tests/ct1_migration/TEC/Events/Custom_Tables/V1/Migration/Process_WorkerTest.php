@@ -242,7 +242,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 
 		$this->assertInstanceOf( Event_Report::class, $event_report );
 		$this->assertEquals( 'success', $event_report->status );
-		$this->assertEquals( [ Single_Event_Migration_Strategy::get_slug() ], $event_report->strategies_applied );
+		$this->assertEquals( [], $event_report->strategies_applied );
 		$this->assertEquals( 0, Event::where( 'post_id', '=', $post->ID )->count() );
 		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post->ID )->count() );
 	}
