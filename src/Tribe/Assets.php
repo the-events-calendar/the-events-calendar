@@ -142,6 +142,18 @@ class Tribe__Events__Assets {
 			]
 		);
 
+		// Admin update page CSS
+		tribe_asset(
+			$plugin,
+			'tribe-events-admin-update-page',
+			'admin-update-page.css',
+			[ ],
+			[ 'admin_enqueue_scripts', 'wp_enqueue_scripts' ],
+			[
+				'conditionals' => [ $this, 'should_enqueue_admin_update_page_assets' ],  
+			]
+		);	
+
 		// Setting page Assets
 		tribe_asset(
 			$plugin,
@@ -429,6 +441,28 @@ class Tribe__Events__Assets {
 		 */
 		return apply_filters( 'tribe_events_assets_should_enqueue_admin', $should_enqueue );
 	}
+
+	/**
+	 * Checks if we are on the correct admin page to enqueue updates assets.
+	 *
+	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_admin_update_page_assets() {
+		$should_enqueue = isset( $_GET[ 'update-message-the-events-calendar' ] );
+
+		/**
+		 * Allow filtering of where the base assets will be loaded.
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool $should_enqueue
+		 */
+		return apply_filters( 'tribe_events_assets_should_enqueue_admin_update_page_assets', $should_enqueue );
+	}
+	
+
 
 	/**
 	 * Checks if we have a mobile Breakpoint
