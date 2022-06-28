@@ -280,7 +280,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_handle_undo_migration() {
 		// Setup our state + sanity check
-		$schema_builder = tribe( Schema_Builder::class );
+		$schema_builder = new Schema_Builder();
 		$tables         = $schema_builder->get_registered_table_schemas();
 		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
 		$post = $this->given_a_non_migrated_single_event();
