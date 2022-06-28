@@ -7,6 +7,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Strategies\Null_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use Tribe\Events\Test\Traits\CT1\CT1_Test_Utils;
 use Tribe\Events\Test\Traits\Forks;
@@ -269,5 +270,49 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$this->assertEquals( [ Single_Event_Migration_Strategy::get_slug() ], $event_report->strategies_applied );
 		$this->assertEquals( 1, Event::where( 'post_id', '=', $post->ID )->count() );
 		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+	}
+
+
+	/**
+	 * It should handle undo migration
+	 *
+	 * @test
+	 */
+	public function should_handle_undo_migration() {
+		// Setup our state + sanity check
+		$schema_builder = tribe( Schema_Builder::class );
+		$tables         = $schema_builder->get_registered_table_schemas();
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post = $this->given_a_non_migrated_single_event();
+		add_filter( 'tec_events_custom_tables_v1_db_transactions_supported', '__return_false' );
+		$this->assertEquals( 0, Event::where( 'post_id', '=', $post->ID )->count() );
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+		$events       = new Events;
+		$worker       = new Process_Worker( $events, new State( $events ) );
+		$event_report = $worker->migrate_event( $post->ID, false );
+		$this->assertInstanceOf( Event_Report::class, $event_report );
+		$this->assertEquals( 'success', $event_report->status );
+		foreach ( $tables as $table ) {
+			$this->assertTrue( $table->exists(), 'The table should be here before undo is fired.' );
+		}
+
+		// Undo our migration.
+		$worker->undo_event_migration( [] );
+
+		// Test that the state is what we expect afterwards.
+		foreach ( $tables as $table ) {
+			$this->assertFalse( $table->exists(), 'The table should be gone after undo is fired.' );
+		}
+		$meta_keys = [
+			Event_Report::META_KEY_REPORT_DATA,
+			Event_Report::META_KEY_MIGRATION_PHASE,
+			Event_Report::META_KEY_MIGRATION_CATEGORY
+		];
+		foreach ( $meta_keys as $meta_key ) {
+			$this->assertEmpty( get_post_meta( $post->ID, $meta_key, true ), "The meta ($meta_key) should be gone after an undo." );
+		}
+
+		// Rebuild required tables for other tests.
+		$schema_builder->up();
 	}
 }

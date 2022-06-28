@@ -466,7 +466,6 @@ class Process_Worker {
 		}
 		$current_phase = $this->state->get_phase();
 
-		// @todo Review - missing anything? Better way?
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
 
 		tribe( Schema_Builder::class )->down();
