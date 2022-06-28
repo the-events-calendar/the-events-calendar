@@ -536,7 +536,7 @@ class Settings {
 		}
 		$admin_pages = tribe( 'admin.pages' );
 
-		$screens[] = $this->get_get_events_settings_hook_suffix();
+		$screens[] = $this->get_events_settings_hook_suffix();
 		$screens[] = $admin_pages->get_page_hook_suffix( tribe( Tribe__App_Shop::class )::MENU_SLUG );
 		$screens[] = $admin_pages->get_page_hook_suffix( tribe( Troubleshooting::class ) );
 		$screens[] = $admin_pages->get_page_hook_suffix( 'tec-events-help' );
