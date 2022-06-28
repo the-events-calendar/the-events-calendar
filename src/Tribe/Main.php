@@ -648,11 +648,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// First boot.
 			tribe_register_provider( Tribe\Events\Service_Providers\First_Boot::class );
 
-			// Filter Bar upsell.
-			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
-
-			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
-
 			// Database locks.
 			tribe_singleton( 'db-lock', DB_Lock::class );
 
