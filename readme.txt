@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure Aggregator CSV imports continue to run when on an admin page. [TEC-4070]
 * Fix - Correct hardcoded admin urls used for Event Settings page(s). [ECP-1175]
 * Fix - Remove deprecated usage of `jQuery.attr( 'checked' )`
+* Fix - Allow sub-site admins to use the updated calendar designs when their plugin access is restricted. [TEC-4382]
 * Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--past-month` to past month dates in the month view to allow easy targetting. [TEC-3447]
 * Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--next-month` to future month dates in the month view to allow easy targetting. [TEC-3819]
 
