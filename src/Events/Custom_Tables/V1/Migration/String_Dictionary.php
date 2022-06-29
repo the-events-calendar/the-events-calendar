@@ -159,11 +159,11 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'learn-more-button-url'                               => __(
-				'https://evnt.is/recurrence-2-0',
+				'https://evnt.is/1b79',
 				'the-events-calendar'
 			),
 			'learn-more-button'                                   => __(
-				'Learn more about the migration.',
+				'Learn more about the migration',
 				'the-events-calendar'
 			),
 			'start-migration-preview-button'                      => __(

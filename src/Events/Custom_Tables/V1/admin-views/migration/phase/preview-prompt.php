@@ -10,9 +10,11 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
+		<?php if ( class_exists( 'Tribe__Events__Pro__Main' ) ) : ?>
 		<span>
 			<?php echo esc_html( $text->get( 'preview-prompt-get-ready' ) ); ?>
 		</span>
+		<?php endif; ?>
 
 		<h3>
 			<?php include $template_directory . '/upgrade-logo.php';; ?>

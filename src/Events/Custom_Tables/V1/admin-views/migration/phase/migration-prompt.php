@@ -103,7 +103,7 @@ if ( ! $preview_unsupported ) {
 					type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
 		<?php } ?>
 		<?php
-		if ( ! $preview_unsupported ) {
+		if ( ! $preview_unsupported && ! $report->has_errors ) {
 			?>
 			<i>
 				<?php
