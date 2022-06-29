@@ -95,7 +95,10 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	}
 
 	public function no_widget_search( $repository_args, $context, $view ) {
-		unset( $repository_args['search'] );
+		// Sanity check.
+		if ( self::is_widget_in_use() ) {
+			unset( $repository_args['search'] );
+		}
 
 		return $repository_args;
 	}
