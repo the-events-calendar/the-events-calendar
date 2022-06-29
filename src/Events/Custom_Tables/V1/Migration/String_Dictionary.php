@@ -247,7 +247,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-complete-paragraph'                        => __(
-				'Your site is now using the upgraded event data storage system. Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more%2$s.',
+				'Go ahead and %1$scheck out your events%2$s or %3$view your calendar.%2$s',
 				'the-events-calendar'
 			),
 			'migration-date-heading'                              => __(
@@ -299,7 +299,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-prompt-learn-about-report-button'          => __(
-				'Learn more about your migration preview report',
+				'Learn more about your migration report',
 				'the-events-calendar'
 			),
 			'migration-is-blocked'                                => __(
