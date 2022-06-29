@@ -149,9 +149,15 @@ class Event_Report implements JsonSerializable {
 	public function __construct( $source_post ) {
 		// @todo Construct override ? Allow for passing report data directly..?
 		if ( $source_post instanceof WP_Post ) {
+			$post_title = $source_post->post_title;
+
+			if ( empty( $post_title ) ) {
+				$post_title = sprintf( esc_html__( 'ID %1$d (Untitled)', 'the-events-calendar' ), $source_post->ID );
+			}
+
 			$this->data['source_event_post'] = (object) [
 				'ID'         => $source_post->ID,
-				'post_title' => $source_post->post_title,
+				'post_title' => $post_title,
 			];
 		}
 
