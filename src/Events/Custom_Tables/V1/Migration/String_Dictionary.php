@@ -303,7 +303,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-is-blocked'                                => __(
-				'Migration is blocked due to errors found during preview.',
+				'We’ve detected one or more events that cannot be properly migrated. Please review the report below for more information. These issues must be resolved before you can migrate your site. Once you have updated or removed problematic events, to make sure your site is ready to go, please re-run the migration preview.',
 				'the-events-calendar'
 			),
 			'preview-progress-bar-events-done'                    => _x(
