@@ -49,8 +49,8 @@ if ( $today_date > $day_date ) {
 
 /**
  * Add a unique CSS class to past month dates.
- * 
- * @since TBD
+ *
+ * @since 5.16.2
  */
 if ( $day[ 'month_number' ] < date( 'm', strtotime( $today_date ) ) ) {
 	$day_classes[] = 'tribe-events-calendar-month__day--past-month';
@@ -58,8 +58,8 @@ if ( $day[ 'month_number' ] < date( 'm', strtotime( $today_date ) ) ) {
 
 /**
  * Add a unique CSS class to future month dates.
- * 
- * @since TBD
+ *
+ * @since 5.16.2
  */
 if ( $day[ 'month_number' ] > date( 'm', strtotime( $today_date ) ) ) {
 	$day_classes[] = 'tribe-events-calendar-month__day--next-month';
