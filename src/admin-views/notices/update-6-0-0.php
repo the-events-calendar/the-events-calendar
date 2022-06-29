@@ -20,7 +20,7 @@
     </div>
     <div class="tec-update-notice__actions">
         <a class="tec-update-notice__button button" href="<?php echo esc_url( get_admin_url( null, $upgrade_link ) ); ?>">
-            <?php esc_html_e( 'Migrate your site', 'the-events-calendar' ); ?>
+            <?php esc_html_e( 'Upgrade your events', 'the-events-calendar' ); ?>
         </a>
         <a class="tec-update-notice__link" href="<?php echo esc_url( $learn_link ); ?>">
             <?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?>
