@@ -297,6 +297,19 @@ class Process_Worker {
 				$this->before_dry_run( $post_id );
 			}
 
+			/**
+			 * Action to be fired immediately prior to applying migration strategy. Some migrations may still fail after this phase,
+			 * as there are various factors internal to the strategy that could cancel this migration.
+			 *
+			 * @since TBD
+			 *
+			 * @param Event_Report       $event_report The event report for this migration.
+			 * @param Strategy_Interface $strategy     The strategy being applied to this post.
+			 * @param numeric            $post_id      The post ID we are attempting to apply the migration to.
+			 * @param bool               $dry_run      Whether this is a dry run (preview) or a final migration being applied.
+			 */
+			do_action( 'tec_events_custom_tables_v1_before_migration_applied', $this->event_report, $strategy, $post_id, $dry_run );
+
 			// Apply strategy, use Event_Report to flag any pertinent details or any failure events.
 			$strategy->apply( $this->event_report );
 
