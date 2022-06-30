@@ -51,6 +51,11 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 							$report->estimated_time_in_minutes
 					);
 				}
+				?>
+				<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
+					<strong><?php echo esc_html( $text->get( 'learn-more-button' ) ); ?></strong>
+				</a>
+				<?php
 				$addendum = $text->get( 'migration-prompt-plugin-state-addendum' );
 				if ( $addendum ) {
 					?>
