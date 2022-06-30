@@ -299,11 +299,11 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-prompt-learn-about-report-button'          => __(
-				'Learn more about your migration report',
+				'Migration help',
 				'the-events-calendar'
 			),
 			'migration-is-blocked'                                => __(
-				'We’ve detected one or more events that cannot be properly migrated. Please review the report below for more information. These issues must be resolved before you can migrate your site. Once you have updated or removed problematic events, to make sure your site is ready to go, please re-run the migration preview.',
+				'We detected one or more events that cannot be properly migrated. Please review the report below for more information. These issues must be resolved before you can migrate your site. Once you have updated or removed problematic events, please re-run the migration preview.',
 				'the-events-calendar'
 			),
 			'preview-progress-bar-events-done'                    => _x(
@@ -379,7 +379,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-failure-complete-alert'                    => __(
-				'We\'ve detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, %sre-run the migration preview%s to make sure your site is ready to go.',
+				'We detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, re-run the migration preview to make sure your site is ready to go.',
 				'the-events-calendar'
 			),
 			'migration-failure-complete-date-heading'             => __(
