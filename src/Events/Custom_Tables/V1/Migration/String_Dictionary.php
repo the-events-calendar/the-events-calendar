@@ -159,11 +159,11 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'learn-more-button-url'                               => __(
-				'https://evnt.is/recurrence-2-0',
+				'https://evnt.is/1b79',
 				'the-events-calendar'
 			),
 			'learn-more-button'                                   => __(
-				'Learn more about the migration.',
+				'Learn more about the migration',
 				'the-events-calendar'
 			),
 			'start-migration-preview-button'                      => __(
@@ -247,7 +247,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-complete-paragraph'                        => __(
-				'Your site is now using the upgraded event data storage system. Go ahead and %1$scheck out your events%2$s, %3$sview your calendar%2$s, or %4$sread more%2$s.',
+				'Go ahead and %1$scheck out your events%2$s or %3$view your calendar.%2$s',
 				'the-events-calendar'
 			),
 			'migration-date-heading'                              => __(
@@ -299,11 +299,11 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-prompt-learn-about-report-button'          => __(
-				'Learn more about your migration preview report',
+				'Learn more about your migration report',
 				'the-events-calendar'
 			),
 			'migration-is-blocked'                                => __(
-				'Migration is blocked due to errors found during preview.',
+				'We’ve detected one or more events that cannot be properly migrated. Please review the report below for more information. These issues must be resolved before you can migrate your site. Once you have updated or removed problematic events, to make sure your site is ready to go, please re-run the migration preview.',
 				'the-events-calendar'
 			),
 			'preview-progress-bar-events-done'                    => _x(

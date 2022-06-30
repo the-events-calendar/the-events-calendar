@@ -60,9 +60,6 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			}
 			?>
 			</span>
-			<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
-				<strong><?php echo esc_html( $text->get( 'learn-more-button' ) ); ?></strong>
-			</a>
 		</p>
 	</div>
 
@@ -103,7 +100,7 @@ if ( ! $preview_unsupported ) {
 					type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
 		<?php } ?>
 		<?php
-		if ( ! $preview_unsupported ) {
+		if ( ! $preview_unsupported && ! $report->has_errors ) {
 			?>
 			<i>
 				<?php
