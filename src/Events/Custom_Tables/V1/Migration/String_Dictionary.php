@@ -247,7 +247,7 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-complete-paragraph'                        => __(
-				'Go ahead and %1$scheck out your events%2$s or %3$view your calendar.%2$s',
+				'Go ahead and %1$scheck out your events%2$s or %3$sview your calendar.%2$s',
 				'the-events-calendar'
 			),
 			'migration-date-heading'                              => __(
