@@ -384,7 +384,7 @@ class Event_Report implements JsonSerializable {
 		// Track time immediately
 		$this->set_end_timestamp();
 
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
+		update_post_meta( $this->source_event_post->ID, static::META_KEY_MIGRATION_PHASE, static::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS );
 		$this->unlock_event();
 
 		return $this
@@ -404,25 +404,25 @@ class Event_Report implements JsonSerializable {
 	 * @return Event_Report A reference to the Event Report object for the specific
 	 *                      that is being processed.
 	 */
-	public function migration_failed( $reason_key, array $context = array() ) {
+	public function migration_failed( $reason_key, array $context = [] ) {
 		$this->report_category_to_be_applied = $reason_key;
 
 		// Track time immediately
 		$this->set_end_timestamp();
-		update_post_meta( $this->source_event_post->ID, self::META_KEY_MIGRATION_PHASE, self::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
+		update_post_meta( $this->source_event_post->ID, static::META_KEY_MIGRATION_PHASE, static::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE );
 		$this->unlock_event();
 
 		// Expected exceptions have the message pre generated.
 		if ( $reason_key !== 'expected-exception' ) {
 			$text = tribe( String_Dictionary::class );
-			array_unshift( $context, $text->get( "migration-error-k-$reason_key" ) );
+			array_unshift( $context, $text->get( "migration-error-k-{$reason_key}" ) );
 		}
 
 		// Parse message here, so we don't need to store the context.
-		$message = call_user_func_array( 'sprintf', $context );
+		$message = sprintf( ...$context );
 
 		return $this->set_error( $message )
-		            ->set_status( self::STATUS_FAILURE )
+		            ->set_status( static::STATUS_FAILURE )
 		            ->save();
 	}
 
