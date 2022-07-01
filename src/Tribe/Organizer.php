@@ -718,7 +718,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @since 5.14.0
 	 */
 	public static function add_post_type_metabox() {
-		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( static::POSTTYPE ) ) {
 			return;
 		}
 
@@ -728,7 +728,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			'tribe_events_organizer_details',
 			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $self->get_organizer_label_singular() ),
 			[ static::class, 'render_meta_box' ],
-			Tribe__Events__Main::POSTTYPE,
+			static::POSTTYPE,
 			'normal',
 			'high'
 		);
