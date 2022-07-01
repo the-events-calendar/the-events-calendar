@@ -31,7 +31,7 @@ function tribe_get_view( $view = false ) {
 		)
 	) {
 		$view = 'single-event';
-		_deprecated_function( __FUNCTION__, '6.0.0', 'On version 6.0.0 any usage of this method without a defined $view was deprecated. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
+		_deprecated_function( 'tribe_get_view( $view = false )', '6.0.0', 'of this method without a defined $view will be completely removed soon. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization' );
 	}
 
 	$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, [ 'disable_view_check' => true ] );
