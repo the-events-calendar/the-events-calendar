@@ -1061,7 +1061,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
 						'version_history_slug'  => 'previous_ecp_versions',
 						'update_page_title'     => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
-						'update_page_template'  => $this->plugin_path . 'src/admin-views/updates/6.0.0.php',						
+						'update_page_template'  => $this->plugin_path . 'src/admin-views/updates/6.0.0.php',
 						'welcome_page_title'    => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
 						'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
 					]
