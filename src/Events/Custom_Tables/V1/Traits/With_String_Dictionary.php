@@ -28,7 +28,12 @@ trait With_String_Dictionary {
 	 */
 	private function get_event_link_markup( $post_id ) {
 		$post             = get_post( $post_id );
-		$post_title       = $post->post_title;
+		$post_title = $post->post_title;
+
+		if ( empty( $post_title ) ) {
+			$post_title = sprintf( esc_html__( 'ID %1$d (Untitled)', 'the-events-calendar' ), $post->ID );
+		}
+
 		$action           = '&action=edit';
 		$post_type_object = get_post_type_object( $post->post_type );
 		$url              = admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
