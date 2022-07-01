@@ -15,11 +15,23 @@ use Tribe__Timezones as Timezones;
  **/
 function tribe_get_view( $view = false ) {
 	do_action( 'tribe_pre_get_view' );
+
 	if (
 		! in_array( $view, [ 'single-event', 'embed' ] )
 		&& tec_events_views_v1_should_display_deprecated_notice()
 	) {
 		_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
+	}
+
+	if (
+		empty( $view )
+		&& (
+			is_singular( Tribe__Events__Main::POSTTYPE )
+			|| tribe_context()->is( 'event_post_type' )
+		)
+	) {
+		$view = 'single-event';
+		_deprecated_function( __FUNCTION__, '6.0.0', 'On version 6.0.0 any usage of this method without a defined $view was deprecated. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
 	}
 
 	$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, [ 'disable_view_check' => true ] );
