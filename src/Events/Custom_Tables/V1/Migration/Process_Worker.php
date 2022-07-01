@@ -648,6 +648,14 @@ class Process_Worker {
 		$state->set( 'migration', 'estimated_time_in_seconds', $this->events->calculate_time_to_completion() );
 		$state->set( 'complete_timestamp', time() );
 		$state->save();
+
+		/**
+		 * Triggers an action on the end of the Migration.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_events_custom_tables_v1_migration_completed' );
+
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 			'phase'  => $state->get_phase(),
