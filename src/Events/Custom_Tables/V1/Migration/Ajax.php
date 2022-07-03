@@ -478,6 +478,10 @@ class Ajax {
 		$this->process->start( $dry_run );
 
 		$response = $this->get_report();
+
+		// Make sure we flush before we start the migration.
+		flush_rewrite_rules();
+
 		if ( $echo ) {
 			wp_send_json( $response );
 		}
