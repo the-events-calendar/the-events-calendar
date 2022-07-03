@@ -16,6 +16,7 @@ use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\iCal_Data;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
+use Tribe\Utils\Taxonomy;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -402,16 +403,16 @@ class View implements View_Interface {
 			$view = $default_view;
 		}
 
-		list( $view_slug, $view_class ) = $manager->get_view( $view );
+		[ $view_slug, $view_class ] = $manager->get_view( $view );
 
 		// When not found use the default view.
 		if ( ! $view_class ) {
-			list( $view_slug, $view_class ) = $manager->get_view( $default_view );
+			[ $view_slug, $view_class ] = $manager->get_view( $default_view );
 		}
 
 		// Make sure we are using Reflector when it fails
 		if ( ! class_exists( $view_class ) ) {
-			list( $view_slug, $view_class ) = $manager->get_view( 'reflector' );
+			[ $view_slug, $view_class ] = $manager->get_view( 'reflector' );
 		}
 
 		if ( ! self::$container instanceof Container ) {
@@ -1451,6 +1452,8 @@ class View implements View_Interface {
 			return $event instanceof \WP_Post;
 		} );
 
+		Taxonomy::prime_term_cache( $events );
+
 		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && -1 !== $this->repository_args['posts_per_page'];
 
 		/*
@@ -2342,8 +2345,8 @@ class View implements View_Interface {
 				break;
 
 			case 'week':
-				list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
-				list( $view_week_start, $view_week_end )   = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+				[ $today_week_start, $today_week_end ] = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
+				[ $view_week_start, $view_week_end ]   = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
 
 				$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
 				$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
