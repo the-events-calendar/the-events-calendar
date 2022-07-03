@@ -15,6 +15,7 @@ body.tribe-update {
 	}
 
 	/* This overrides update page styles in common. */
+
 	h4 {
 		&:before {
 			content: none;
@@ -104,13 +105,13 @@ body.tribe-update {
 	grid-template-rows: auto;
 	margin: 32px 0;
 
-	@media (min-width: 710px){
+	@media (min-width: 710px) {
 		grid-template-columns: 1fr 1fr;
 	}
 
-	@media (min-width: 1217px){
+	@media (min-width: 1217px) {
 		gap: 64px;
-		margin: 64px 0;
+		margin: 50px 0;
 	}
 }
 
@@ -132,7 +133,7 @@ body.tribe-update {
 	}
 
 	img {
-		margin-right: 24px;			
+		margin-right: 24px;
 	}
 }
 
@@ -145,20 +146,21 @@ body.tribe-update {
 	}
 
 	img {
-		 margin-right: 12px;
+		margin-right: 12px;
 	}
 }
 
 /* Series details section */
-.tec-update-page-event-series {
+.tec-update-page-block {
+	margin-bottom: 100px;
 	h3 {
-		font-size: 24px;
+		font-size: 2.3rem;
 		font-weight: bold;
-		margin-bottom: 40px;
-		text-align: center;
+		line-height: 3rem;
+		margin: 1em 0;
 
-		@media (min-width: 710px) {
-			font-size: 32px;
+		@media (max-width: 710px) {
+			font-size: 1.6rem;
 		}
 	}
 
@@ -171,7 +173,6 @@ body.tribe-update {
 
 		.tec-update-page-grid__item:last-of-type {
 			order: -1;
-			text-align: center;
 
 			@media (min-width: 1217px) {
 				order: 2;
