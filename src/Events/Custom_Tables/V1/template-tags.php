@@ -41,8 +41,13 @@ function tribe_is_event_series( $post_id ) {
  * @return WP_Post|null The post representing the series otherwise `null`
  */
 function tec_event_series( $event_post_id ) {
+	$cache_key = 'tec_series_relationships';
 
-	$relationship = Series_Relationship::where( 'event_post_id', $event_post_id )->first();
+	$relationship = wp_cache_get( $event_post_id, $cache_key );
+	if ( false === $relationship ) {
+		$relationship = Series_Relationship::where( 'event_post_id', $event_post_id )->first();
+		wp_cache_add( $event_post_id, $relationship, $cache_key );
+	}
 
 	if ( $relationship === null ) {
 		return null;

@@ -25,11 +25,13 @@ class Builder {
 	 *      CLIENT_FOUND_ROWS flag is set or not.
 	 */
 	const UPSERT_DID_INSERT = 1;
+
 	/**
 	 * @var int Flag to validate the Builder::upsert was an update. Note - This is dependent on whether the MySQL
 	 *      CLIENT_FOUND_ROWS flag is set or not.
 	 */
 	const UPSERT_DID_UPDATE = 2;
+
 	/**
 	 * @var int Flag to validate the Builder::upsert made no changes. Note - This is dependent on whether the MySQL
 	 *      CLIENT_FOUND_ROWS flag is set or not.
@@ -75,6 +77,7 @@ class Builder {
 	 * @var Model model The model that is using this class.
 	 */
 	private $model;
+
 	/**
 	 * Base operation running in SQL; by default is a `SELECT *` statement
 	 *
@@ -83,6 +86,7 @@ class Builder {
 	 * @var string operation
 	 */
 	private $operation = 'SELECT *';
+
 	/**
 	 * Group of all the different where clauses combined with an AND boolean.
 	 *
@@ -91,6 +95,7 @@ class Builder {
 	 * @var string[] wheres
 	 */
 	private $wheres = [];
+
 	/**
 	 * Variable holding the value used to limit the results from the Query.
 	 *
@@ -99,6 +104,7 @@ class Builder {
 	 * @var  int|null limit
 	 */
 	private $limit;
+
 	/**
 	 * Variable holding the value used to offset the results from the Query.
 	 *
@@ -107,6 +113,7 @@ class Builder {
 	 * @var  int|null $offset
 	 */
 	private $offset;
+
 	/**
 	 * Variable holding the values of order used to construct the SQL query.
 	 *

@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
@@ -1131,6 +1132,7 @@ class View implements View_Interface {
 	protected function filter_template_vars( array $template_vars ) {
 		$events                        = $template_vars['events'] ?: [];
 
+
 		/*
 		 * Add the JSON-LD data here as all Views will pass from this code, but not all Views will call the
 		 * `View::setup_template_vars` method.
@@ -1453,6 +1455,17 @@ class View implements View_Interface {
 		} );
 
 		Taxonomy::prime_term_cache( $events );
+		Event::prime_cache( $events );
+
+		/**
+		 * Action triggered right after pulling all the Events from the DB, allowing cache to be primed corectly.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $events Which events were just selected.
+		 * @param self  $view   Which view we are dealing with.
+		 */
+		do_action( 'tec_events_views_v2_after_get_events', $events, $this );
 
 		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && -1 !== $this->repository_args['posts_per_page'];
 
