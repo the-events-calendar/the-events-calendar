@@ -212,6 +212,11 @@ class Tribe__Events__Capabilities {
 	 */
 	public function set_initial_caps( $force = false ) {
 		// Allows bailing on check for needs init.
+		if ( ! $force && ! is_admin() ) {
+			return;
+		}
+
+		// Allows bailing on check for needs init.
 		if ( ! $force && ! $this->needs_init() ) {
 			return;
 		}
