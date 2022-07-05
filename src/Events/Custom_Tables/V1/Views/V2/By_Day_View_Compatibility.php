@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Views\V2;
 
 use stdClass;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use Tribe\Events\Models\Post_Types\Event;
 use Tribe__Timezones as Timezones;
 
 /**

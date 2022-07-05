@@ -10,11 +10,13 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use DateTimeInterface;
+use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
+use Tribe\Utils\Taxonomy;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
@@ -136,7 +138,7 @@ abstract class By_Day_View extends View {
 			$this->user_date = $date ?: $this->context->get( 'event_date', 'now' );
 		}
 
-		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $this->user_date );
+		[ $grid_start, $grid_end ] = $this->calculate_grid_start_end( $this->user_date );
 
 		/**
 		 * Allows injecting the View grid days before any default logic runs.
@@ -783,7 +785,7 @@ abstract class By_Day_View extends View {
 			$this->repository->by_args( $this->get_repository_args() );
 		}
 		$this->repository->per_page( $per_page );
-		list( $start_date, $end_date ) = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
+		[ $start_date, $end_date ] = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
 		$this->repository->where( 'ends_after', $start_date );
 		$this->repository->where( 'starts_before', $end_date );
 	}

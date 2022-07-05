@@ -284,6 +284,17 @@ class Event extends Base {
 		} else {
 			$event_ids = wp_list_pluck( $events, 'ID' );
 		}
+
+		/**
+		 * Allows changing which Post IDs will get primed for cache
+		 *
+		 * @since TBD
+		 *
+		 * @param int[] $event_ids Which IDs we will prime.
+		 * @param \WP_Post[]|int[] $events Which event objects will generate the ids.
+		 */
+		$event_ids = apply_filters( 'tec_events_prime_cache_post_ids', $event_ids, $events );
+
 		_prime_post_caches( $event_ids );
 
 		$venue_ids =  array_map( static function( $event ) use ( $is_numeric )  {
