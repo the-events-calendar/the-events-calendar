@@ -28,6 +28,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * @return mixed The translated id for _EventOrganizerID & _EventVenueID or false.
 	 */
 	public function translate_post_id( $value, $object_id, $meta_key ) {
+		static $cached_values = [];
+
 		if ( ! empty( $_POST ) ) {
 			return $value;
 		}
@@ -37,6 +39,12 @@ class Tribe__Events__Integrations__WPML__Meta {
 		if ( ! in_array( $meta_key, $accepted_values ) ) {
 			return $value;
 		}
+
+		$cache_key = $object_id . '-' . $meta_key;
+		if ( isset( $cached_values[ $cache_key ] ) ) {
+			return $cached_values[ $cache_key ];
+		}
+		$cached_values[ $cache_key ] = false;
 
 		$value = $this->get_post_meta( $object_id, $meta_key );
 
@@ -73,6 +81,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 				$post_id = apply_filters( 'wpml_object_id', $post_id, $type, true );
 			}
 		}
+
+		$cached_values[ $cache_key ] = $value;
 
 		return $value;
 	}
