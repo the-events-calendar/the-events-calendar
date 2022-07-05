@@ -33,7 +33,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.16.1';
+		const VERSION             = '5.16.2';
 
 		/**
 		 * Min Pro Addon
@@ -1324,7 +1324,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return boolean
 		 */
 		public function show_upgrade() {
-			$show_tab = current_user_can( 'activate_plugins' );
+			// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
+			$show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
 
 			/**
 			 * Provides an opportunity to override the decision to show or hide the upgrade tab

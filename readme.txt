@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.1
+Stable tag: 5.16.2
 Tested up to: 6.0
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -222,6 +222,26 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+== [5.16.2] 2022-07-06 ==
+
+* Fix - Ensure the `Next` arrow in `List` and `Summary` views navigates to the correct page when the `Main Events Page` is set as the homepage. [TEC-4247]
+* Fix - Ensure the `Next` button when using the `Event View` Elementor widget navigates to the next page on the first click. [FBAR-263]
+* Fix - Add a height to the subscribe to calendar export SVG icon on the single events page when using the `Skeleton Styles` to prevent it from taking over a huge portion of the page. [TEC-4399]
+* Fix - Remove link to Updates page from TEC Settings page. [TEC-4373]
+* Fix - Ensure Aggregator CSV imports continue to run when on an admin page. [TEC-4070]
+* Fix - Correct hardcoded admin urls used for Event Settings page(s). [ECP-1175]
+* Fix - Ensure event widgets don't carry the global search param into their queries. [TEC-4048]
+* Fix - Allow sub-site admins to use the updated calendar designs when their plugin access is restricted. [TEC-4382]
+* Fix - Remove deprecated usage of `jQuery.attr( 'checked' )`
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--past-month` to past month dates in the month view to allow easy targeting. [TEC-3447]
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--next-month` to future month dates in the month view to allow easy targeting. [TEC-3819]
+* Tweak - Changed views: `v2/month/calendar-body/day`
+* Language - 1 new strings added, 113 updated, 0 fuzzied, and 3 obsoleted
+
+= [5.16.1.1] 2022-06-15 =
+
+* Fix - correct issues with template paths when using FSE. [TEC-4401]
 
 = [5.16.1] 2022-06-09 =
 
