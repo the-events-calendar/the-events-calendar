@@ -9,7 +9,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
  * @var State             $state              The migration state.
  * @var string            $phase              The current phase.
  */
-$url = admin_url( 'edit.php?page=tribe-common&tab=upgrade&post_type=tribe_events' );
+$url = esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tec-events-settings&tab=upgrade' ) );
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="image-container">
