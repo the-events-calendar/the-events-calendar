@@ -41,11 +41,12 @@ function tribe_is_event_series( $post_id ) {
  * @return WP_Post|null The post representing the series otherwise `null`
  */
 function tec_event_series( $event_post_id ) {
-	$cache_key = 'tec_series_relationships_' . $event_post_id;
 	$cache = tribe_cache();
+	$cache_key = Series_Relationship::get_cache_key( $event_post_id );
 
-	$relationship = $cache[ $cache_key ];
-	if ( ! $relationship instanceof Series_Relationship ) {
+	if ( isset( $cache[ $cache_key ] ) ) {
+		$relationship = $cache[ Series_Relationship::get_cache_key( $event_post_id ) ];
+	} else {
 		$relationship = Series_Relationship::where( 'event_post_id', $event_post_id )->first();
 		$cache[ $cache_key ] = $relationship;
 	}
