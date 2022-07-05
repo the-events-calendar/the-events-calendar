@@ -214,9 +214,9 @@ class Event extends Model {
 		$duration = get_post_meta( $post_id, '_EventDuration', true );
 
 		if ( empty( $duration ) && ! empty( $start_date_utc ) && ! empty( $end_date_utc ) ) {
-			$start_date_object = Dates::build_date_object( $start_date_utc, 'UTC' );
-			$end_date_object = Dates::build_date_object( $end_date_utc, 'UTC' );
-			$duration = $end_date_object->diff( $start_date_object )->format( '%s' );
+			$start_date_object = Dates::immutable( $start_date_utc, 'UTC' );
+			$end_date_object = Dates::immutable( $end_date_utc, 'UTC' );
+			$duration = $end_date_object->getTimestamp() - $start_date_object->getTimestamp();
 		}
 
 		$data = [
