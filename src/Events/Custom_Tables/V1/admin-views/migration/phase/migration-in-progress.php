@@ -30,7 +30,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			}
 			?>
 			<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
-				<strong><?php echo esc_html( $text->get( 'learn-more-button' ) ); ?></strong>
+				<?php echo esc_html( $text->get( 'learn-more-button' ) ); ?>
 			</a>
 		</p>
 
