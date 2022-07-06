@@ -73,7 +73,7 @@ class Tribe__Events__Front_Page_View {
 	}
 
 	/**
-	 * Parse the query when the customizer sends request to preview specifc page to avoid 404 pages
+	 * Parse the query when the customizer sends request to preview specific page to avoid 404 pages
 	 * or the wrong page.
 	 *
 	 * @since 4.6.15
