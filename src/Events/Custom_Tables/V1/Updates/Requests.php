@@ -98,7 +98,7 @@ class Requests {
 	 *
 	 * @return bool Whether the input Request is an update one or not.
 	 */
-	public function is_update_request( WP_REST_Request $request ) {
+	public function is_update_request( WP_REST_Request $request ): bool {
 		return ! empty( $request->get_param( 'id' ) )
 		       && (
 			       in_array( $request->get_method(), self::$update_http_methods, true )
