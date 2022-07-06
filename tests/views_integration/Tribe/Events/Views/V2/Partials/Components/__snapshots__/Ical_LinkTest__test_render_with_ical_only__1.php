@@ -14,7 +14,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		iCalendar	</a>
 </li>
@@ -25,7 +25,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		Export .ics file	</a>
 </li>

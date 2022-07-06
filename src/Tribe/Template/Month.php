@@ -178,7 +178,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			 * @param boolean $enable
 			 * @param array   $args
 			 */
-			$this->use_cache = apply_filters( 'tribe_events_enable_month_view_cache',
+			$this->use_cache = apply_filters(
+				'tribe_events_enable_month_view_cache',
 				$this->should_enable_month_view_cache(),
 				$this->args
 			);

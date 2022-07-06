@@ -650,6 +650,23 @@ class Assets extends \tad_DI52_ServiceProvider {
 	 * @return boolean
 	 */
 	public function should_enqueue_single_event_block_editor_styles() {
+		/**
+		 * Checks whether the page is being viewed in Elementor preview mode.
+		 *
+		 * @since 5.16.1
+		 *
+		 * @return bool Should the assets be enqueued.
+		 */
+		if (
+			defined( 'ELEMENTOR_PATH' )
+
+			&& ! empty( ELEMENTOR_PATH )
+
+			&& isset( $_GET[ 'elementor-preview' ] )
+		) {
+			return true;
+		}
+
 		// Bail if not Single Event V2.
 		if ( ! tribe_events_single_view_v2_is_enabled() ) {
 			return false;
