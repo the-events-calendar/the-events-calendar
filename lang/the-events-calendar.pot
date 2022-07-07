@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 5.16.2\n"
+"Project-Id-Version: The Events Calendar 5.16.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
 "POT-Creation-Date: 2022-07-05 15:12:28+00:00\n"
