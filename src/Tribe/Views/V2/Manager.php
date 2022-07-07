@@ -384,7 +384,7 @@ class Manager {
 		$domain = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label_domain", $domain, $view_class );
 
 		/**
-		 * Pass by the translation engine, dont remove.
+		 * Pass by the translation engine, don't remove.
 		 */
 		$label = __( $label, $domain );
 

@@ -17,7 +17,7 @@ see in terms of code formatting, so don't ignore him.
 
 ### Prerequisites
 
-* [composer](https://getcomposer.org/download/)
+* [composer](https://getcomposer.org/download/) (composer v1 required)
 * [node](https://nodejs.org/download/)
 * [nvm](https://github.com/nvm-sh/nvm)
 
