@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+== [TBD] TBD ==
+
+* Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
+
 == [5.16.2] 2022-07-06 ==
 
 * Fix - Ensure the `Next` arrow in `List` and `Summary` views navigates to the correct page when the `Main Events Page` is set as the homepage. [TEC-4247]
