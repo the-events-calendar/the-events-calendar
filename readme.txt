@@ -224,6 +224,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [RBE] RBE = Switch this to TBD once we're close to release.
 
+* Tweak - add the `tec_events_custom_tables_v1_blocks_editor_event_meta` to allow customizing the event meta data in Blocks Editor context.
+
 = [5.16.1.1] 2022-06-15 =
 
 * Fix - correct issues with template paths when using FSE. [TEC-4401]
