@@ -586,8 +586,13 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_html() {
+		add_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
+
 		if ( self::class === static::class ) {
-			return $this->template->render();
+			$html = $this->template->render();
+			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
+
+			return $html;
 		}
 
 		if ( $this->should_reset_page() ) {
@@ -621,6 +626,7 @@ class View implements View_Interface {
 			method_exists( $this, 'maybe_get_cached_html' )
 			&& $cached_html = $this->maybe_get_cached_html()
 		) {
+			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 			return $cached_html;
 		}
 
@@ -651,6 +657,7 @@ class View implements View_Interface {
 		}
 
 		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
+		remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
 		return $html;
 	}
@@ -2513,6 +2520,19 @@ class View implements View_Interface {
 		);
 
 		return $repository_args;
+	}
+
+	/**
+	 * Filters the current template current view which allows you to pull globally which view is currently being rendered.
+	 *
+	 * @since TBD
+	 *
+	 * @param View_Interface  $view Which is the previous view.
+	 *
+	 * @return self
+	 */
+	public function filter_set_current_view( $view ) {
+		return $this;
 	}
 
 	/**

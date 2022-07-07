@@ -5,6 +5,7 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
+use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Timezones as Timezones;
 
 /**
@@ -1354,6 +1355,49 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
 	 * @param string $after    part of the HTML wrapper that was appended.
 	 */
 	return apply_filters( 'tribe_events_event_short_schedule_details', $schedule, $event->ID, $before, $after );
+}
+
+/**
+ * Returns json for javascript templating functions throughout the plugin.
+ *
+ * @deprecated TBD We have no direct replacement as this can be incredibly bad for performance.
+ *
+ * @param mixed $__deprecated
+ * @param array $additional
+ *
+ * @return string
+ */
+function tribe_events_template_data( $__deprecated = null, array $additional = [] ) {
+	_deprecated_function( __METHOD__, 'TBD', 'With no direct replacements.' );
+	$json = tec_events_get_current_view()->get_template()->get_values();
+
+	if ( ! empty( $additional ) ) {
+		$json = array_merge( (array) $json, $additional );
+	}
+
+	$json = apply_filters( 'tribe_events_template_data_array', $json, $__deprecated, $additional );
+
+	$json = tribe_prepare_for_json_deep( $json );
+
+	return json_encode( $json );
+}
+
+/**
+ * Using a filter that each view will hook in it allows templates to get what is the current view being rendered.
+ *
+ * @since TBD
+ *
+ * @return null|\Tribe\Events\Views\V2\View_Interface
+ */
+function tec_events_get_current_view() {
+	/**
+	 * Which view is currently being rendered.
+	 *
+	 * @since TBD
+	 *
+	 * @pararm null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
+	 */
+	return apply_filters( 'tec_events_get_current_view', null );
 }
 
 /**
