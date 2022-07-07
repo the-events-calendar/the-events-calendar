@@ -33,7 +33,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.15.2.1';
+		const VERSION             = '5.16.2.1';
 
 		/**
 		 * Min Pro Addon
