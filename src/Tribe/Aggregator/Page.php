@@ -175,6 +175,9 @@ class Tribe__Events__Aggregator__Page {
 			],
 			'admin_enqueue_scripts',
 			[
+				'conditionals' => [
+					[ $this, 'load_aggregator_script' ],
+				],
 				'localize'     => (object) $localize_data,
 			]
 		);
@@ -234,6 +237,41 @@ class Tribe__Events__Aggregator__Page {
 		 * Fires an Action to allow Form actions to be hooked to
 		 */
 		return do_action( 'tribe_aggregator_page_request' );
+	}
+
+	/**
+	 * Basically an edited version of is_screen(), below,
+	 * that allows for loading on non-post edit pages.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public function load_aggregator_script() {
+		global $current_screen;
+
+		// Doing AJAX? bail.
+		if ( tribe( 'context' )->doing_ajax() ) {
+			return false;
+		}
+
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		// Don't load on post edit screens - can conflict with other datepickers.
+		if ( $current_screen->base === 'post' || $current_screen->base === 'post-new') {
+			return false;
+		}
+
+		/**
+		 * Allows for selective disabling of script loading.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $should_load Whether the scripts should load. Default true if we got here
+		 */
+		return apply_filters( 'tec-aggregator-load-scripts', true );
 	}
 
 	/**
