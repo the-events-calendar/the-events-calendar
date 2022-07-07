@@ -125,11 +125,13 @@ abstract class By_Day_View extends View {
 	 * @return array An array in the shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 	 */
 	public function get_grid_days( $date = null, $force = false ) {
+		$date_formatted = Dates::build_date_object( $date );
+
 		if (
 			! $force
 			&& ! empty( $this->grid_days_cache )
 			&& isset( $this->user_date )
-			&& ( ! $date || $this->user_date === $date )
+			&& ( ! $date || $this->user_date === $date_formatted->format( Dates::DBDATEFORMAT ) )
 		) {
 			return $this->grid_days_cache;
 		}
@@ -399,8 +401,7 @@ abstract class By_Day_View extends View {
 		 * @param \Tribe__Context $context    Context of request.
 		 * @param By_Day_View     $view       Current view object.
 		 */
-		return apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(),
-			$this );
+		return apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(), $this );
 	}
 
 	/**
