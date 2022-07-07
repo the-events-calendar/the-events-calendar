@@ -243,7 +243,7 @@ class Tribe__Events__Aggregator__Page {
 	 * Basically an edited version of is_screen(), below,
 	 * that allows for loading on non-post edit pages.
 	 *
-	 * @since TBD
+	 * @since 5.16.2.1
 	 *
 	 * @return boolean
 	 */
@@ -267,7 +267,7 @@ class Tribe__Events__Aggregator__Page {
 		/**
 		 * Allows for selective disabling of script loading.
 		 *
-		 * @since TBD
+		 * @since 5.16.2.1
 		 *
 		 * @param boolean $should_load Whether the scripts should load. Default true if we got here
 		 */
