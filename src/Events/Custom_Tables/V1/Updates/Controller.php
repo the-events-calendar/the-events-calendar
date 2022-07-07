@@ -305,7 +305,7 @@ class Controller {
 	 *
 	 * @return int|false Either the number of affected rows, or `false` on failure.
 	 */
-	public function delete_custom_tables_data( $post_id, WP_REST_Request $request = null ) {
+	public function delete_custom_tables_data( int $post_id, WP_REST_Request $request = null ) {
 		if ( null === $request ) {
 			$request = $this->requests->from_http_request();
 		}

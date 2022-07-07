@@ -275,7 +275,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @param int     $post_id The deleted Event post ID.
 	 */
-	public function delete_custom_tables_data( $post_id ) {
+	public function delete_custom_tables_data( int $post_id ) {
 		$this->container->make( Controller::class )->delete_custom_tables_data( $post_id );
 	}
 
