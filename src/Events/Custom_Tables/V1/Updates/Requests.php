@@ -102,7 +102,7 @@ class Requests {
 		return ! empty( $request->get_param( 'id' ) )
 		       && (
 			       in_array( $request->get_method(), self::$update_http_methods, true )
-			       || in_array( $request->get_param( 'action' ), [ 'trash', 'delete' ], true )
+			       || in_array( $request->get_param( 'action' ), [ 'trash', 'delete', 'untrash' ], true )
 		       );
 	}
 
@@ -144,5 +144,30 @@ class Requests {
 		$request->set_param( '_EventTimezone', $timezone->getName() );
 
 		return $request;
+	}
+
+	/**
+	 * Determines if the current request is a request to delete or trash a post or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Request $request A reference to the Request object to check.
+	 *
+	 * @return bool Whether the input Request is a request to delete or trash a post or not.
+	 */
+	public function is_delete_request( WP_REST_Request $request ): bool {
+		$method = $request->get_method();
+
+		return ! empty( $request->get_param( 'id' ) )
+		       && (
+			       (
+				       // A Classic Editor format request.
+				       in_array( $method, self::$update_http_methods, true )
+				       && in_array( $request->get_param( 'action' ), [ 'trash', 'delete' ], true )
+			       )
+			       ||
+			       // A REST API format request.
+			       in_array( $method, Arr::list_to_array( WP_REST_Server::DELETABLE ), true )
+		       );
 	}
 }
