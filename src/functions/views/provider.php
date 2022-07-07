@@ -50,7 +50,7 @@ function tribe_events_views_v2_is_enabled() {
  * Current only being triggered on plugin activation hook.
  *
  * @since TBD
- *        
+ *
  * @return bool  Whether initializer ran or not.
  */
 function tribe_events_settings_defaults_initializer() {
@@ -200,8 +200,6 @@ function tribe_events_single_view_v2_is_enabled() {
  *
  * @since 5.13.0
  *
- * @todo Once version 6.0.0 is launched this method will be deprecated since all v1 code will be REMOVED.
- *
  * @return bool
  */
 function tec_events_views_v1_should_display_deprecated_notice() {
@@ -209,8 +207,13 @@ function tec_events_views_v1_should_display_deprecated_notice() {
 	 * Allows toggling notices for V1 deprecation via a filter. Defaults to true.
 	 *
 	 * @since 5.13.0
+	 * @since 6.0.0 Deprecated filter.
+	 *
+	 * @deprecated TBD
 	 *
 	 * @return boolean Disable showing the
 	 */
-	return (bool) apply_filters( 'tec_events_views_v1_should_display_deprecated_notice', true );
+	apply_filters_deprecated( 'tec_events_views_v1_should_display_deprecated_notice', [ true ], '6.0.0', 'No replacement. Legacy views have been removed.' );
+
+	return false;
 }
