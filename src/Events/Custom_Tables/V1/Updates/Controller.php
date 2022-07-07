@@ -72,16 +72,22 @@ class Controller {
 	 * @return int The number of updated Events.
 	 */
 	public function commit_updates() {
-		if ( empty( $this->meta_watcher->get_marked_ids() ) ) {
+		$marked_ids = $this->meta_watcher->get_marked_ids();
+
+		if ( empty( $marked_ids ) ) {
 			return 0;
 		}
 
 		$request = $this->requests->from_http_request();
 
 		$updated = 0;
-		foreach ( $this->meta_watcher->get_marked_ids() as $booked_id ) {
-			$updated += $this->commit_post_updates( $booked_id, $request );
+		foreach ( $marked_ids as $marked_id ) {
+			$commit_post_updates = $this->commit_post_updates( $marked_id, $request );
+
+			$updated += $commit_post_updates;
 		}
+
+		$this->meta_watcher->remove( ...$marked_ids );
 
 		return $updated;
 	}
