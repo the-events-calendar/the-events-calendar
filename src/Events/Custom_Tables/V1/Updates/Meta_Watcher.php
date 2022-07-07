@@ -175,16 +175,16 @@ class Meta_Watcher {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id The post ID to remove from the marked IDs.
+	 * @param int ...$post_ids The post ID(s) to remove from the marked IDs.
 	 */
-	public function remove( $post_id ) {
-		$key = array_search( (int) $post_id, $this->marked_ids, true );
-
-		if ( false === $key ) {
-			return;
+	public function remove( int ...$post_ids ): void {
+		foreach ( $post_ids as $post_id ) {
+			$key = array_search( (int) $post_id, $this->marked_ids, true );
+			if ( false === $key ) {
+				return;
+			}
+			unset( $this->marked_ids[ $key ] );
 		}
-
-		unset( $this->marked_ids[ $key ] );
 		// Consolidate keys.
 		$this->marked_ids = array_values( $this->marked_ids );
 	}
