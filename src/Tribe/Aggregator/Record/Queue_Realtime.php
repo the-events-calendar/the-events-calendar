@@ -65,8 +65,13 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	}
 
 	public function render_update_message() {
+		if ( ! Tribe__Events__Aggregator__Page::instance()->aggregator_should_load_scripts() ) {
+			return false;
+		}
+
 		/** @var Tribe__Events__Aggregator__Record__Queue_Processor $processor */
 		$processor = tribe( 'events-aggregator.main' )->queue_processor;
+
 		if ( ! $this->record_id = $processor->next_waiting_record( true ) ) {
 			return false;
 		}

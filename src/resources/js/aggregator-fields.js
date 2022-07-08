@@ -134,9 +134,16 @@ tribe_aggregator.fields = {
 			callback( obj.$.fields );
 		} );
 
-		var $tribe_events = $( document.getElementById( 'eventDetails' ) );
-		if ( $tribe_events.data( 'datepicker_format' ) ) {
-			tribe_ev.state.datepicker_format = $tribe_events.data( 'datepicker_format' );
+		// @TODO: I don't think this is necessary any more?
+		// `tribe_ev` is only available on the front end and this script only loads in the admin
+		if (
+			typeof tribe_ev !== undefined &&
+			typeof tribe_ev.state !== undefined
+		) {
+			var $tribe_events = $( document.getElementById( 'eventDetails' ) );
+			if ( $tribe_events.data( 'datepicker_format' ) ) {
+				tribe_ev.state.datepicker_format = $tribe_events.data( 'datepicker_format' );
+			}
 		}
 
 		$( document )
