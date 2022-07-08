@@ -53,7 +53,7 @@ if ( $today_date > $day_date ) {
  * @since 5.16.2
  */
 if ( $day[ 'month_number' ] < date( 'm', strtotime( $today_date ) ) ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--past-month tribe-events-othermonth';
+	$day_classes[] = 'tribe-events-calendar-month__day--past-month';
 }
 
 /**
@@ -62,7 +62,7 @@ if ( $day[ 'month_number' ] < date( 'm', strtotime( $today_date ) ) ) {
  * @since 5.16.2
  */
 if ( $day[ 'month_number' ] > date( 'm', strtotime( $today_date ) ) ) {
-	$day_classes[] = 'tribe-events-calendar-month__day--next-month tribe-events-othermonth';
+	$day_classes[] = 'tribe-events-calendar-month__day--next-month';
 }
 
 /**
