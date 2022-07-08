@@ -226,6 +226,7 @@ Remember to always make a backup of your database and files before updating!
 == [TBD] TBD ==
 
 * Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
+* Tweak - Add a CSS class i.e. `tribe-events-othermonth` to past and future month dates in the month view to allow easy targeting similar to what we had in v1. [TEC-4034]
 
 == [5.16.2] 2022-07-06 ==
 
