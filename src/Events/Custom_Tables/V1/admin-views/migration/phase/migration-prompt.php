@@ -31,7 +31,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 		</p>
 
 		<p class="tec-ct1-upgrade__alert">
-			<i class="tec-ct1-upgrade__alert-icon">!</i>
+			<i class="tec-ct1-upgrade__alert-icon">i</i>
 			<span>
 			<?php
 			if ( $report->has_errors ) {

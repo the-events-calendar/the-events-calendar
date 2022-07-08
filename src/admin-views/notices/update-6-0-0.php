@@ -7,7 +7,7 @@
  * @var string $title - The notification title.
  * @var string $description - The notification text.
  * @var string $upgrade_link - The link to the upgrade tab.
- * @var string $learn_link - The link to the knowledgebase article.
+ * @var string $learn_link - The link to the knowledge base article.
  */
 ?>
 

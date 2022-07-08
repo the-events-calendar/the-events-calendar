@@ -5,57 +5,22 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 use Tribe__Admin__Notices;
 use Tribe__Template;
 
-use function tribe;
-use function tribe_asset;
-
 /**
  * @internal This class may be removed or changed without notice
  */
 class Update {
 	/**
-	 * Notice Slug on the user options
-	 *
-	 * @since  TBD
-	 * @var string
-	 */
-	private $learn_more_link = 'https://evnt.is/1b79';
-		
-	/**
-	 * Notice Slug on the user options
-	 *
-	 * @since  TBD
-	 * @var string
-	 */
-	private $upgrade_tab_link = 'edit.php?post_type=tribe_events&page=tec-events-settings&tab=upgrade';
-		
-	/**
-	 * Notice Slug on the user options
-	 *
-	 * @since  TBD
-	 * @var string
-	 */
-	private $update_title = 'One more thing left to do...';
-		
-	/**
-	 * Notice Slug on the user options
-	 *
-	 * @since  TBD
-	 * @var string
-	 */
-	private $update_description = 'To complete this major calendar upgrade, you need to migrate your events to the new data storage system. Once migration finishes, you can take advantage of all the cool new 6.0 features!';
-		
-	/**
 	 * Notice
 	 *
 	 * @since  TBD
-	 * @var obj
+	 * @var object
 	 */
 	private $notice;
 
 	/**
 	 * Stores the instance of the notice template.
 	 *
-	 * @since 4.14.17
+	 * @since TBD
 	 *
 	 * @var Tribe__Template
 	 */
@@ -65,7 +30,6 @@ class Update {
 	 * Register update notices.
 	 *
 	 * @since TBD
-	 * @since 5.1.5 - add Virtual Events Notice.
 	 */
 	public function register() {
 		$this->notice = tribe_notice(
@@ -81,12 +45,26 @@ class Update {
 			[ $this, 'should_display' ]
 		);
 
-		$this->add_block_editor_notice();
+		tribe_asset(
+			tribe( 'tec.main' ),
+			'tec-update-6-0-0-notice',
+			'tec-update-6.0.0-notice.js',
+			[],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => true,
+				'localize'     => [
+					'data' => $this->get_template_data(),
+					'name' => 'data'
+				],
+				'conditionals' => [ $this, 'should_display' ],
+			]
+		);
 	}
 
 	/**
 	 * Should the notice be displayed?
-	 * 
+	 *
 	 * @since TBD
 	 *
 	 * @return bool
@@ -110,6 +88,13 @@ class Update {
 			return false;
 		}
 
+		$tab = tribe_get_request_var( 'tab' );
+
+		// Bail on upgrade tab.
+		if ( $tab === 'upgrade' ) {
+			return false;
+		}
+
 		if ( tribe( State::class )->is_migrated() ) {
 			return false;
 		}
@@ -129,8 +114,7 @@ class Update {
 	 * @return string
 	 */
 	public function notice() {
-		$template = $this->get_template();
-		return $template->template( 'notices/update-6-0-0', $this->get_template_data(), false );
+		return $this->get_template()->template( 'notices/update-6-0-0', $this->get_template_data(), false );
 	}
 
 	/**
@@ -142,10 +126,10 @@ class Update {
 	 */
 	private function get_template_data() {
 		$data = [
-			'title' 		=>	$this->update_title,
-			'description' 	=> 	$this->update_description,
-			'upgrade_link' 	=> 	$this->upgrade_tab_link,
-			'learn_link' 	=> 	$this->learn_more_link
+			'title' 		=>	esc_html__( 'One more thing left to do...', 'the-events-calendar' ),
+			'description' 	=> 	esc_html__( 'To complete this major calendar upgrade, you need to migrate your events to the new data storage system. Once migration finishes, you can take advantage of all the cool new 6.0 features!', 'the-events-calendar' ),
+			'upgrade_link' 	=> 	'edit.php?post_type=tribe_events&page=tec-events-settings&tab=upgrade',
+			'learn_link' 	=> 	'https://evnt.is/1b79',
 		];
 
 		return $data;
@@ -159,7 +143,7 @@ class Update {
 	 * @return \Tribe__Template
 	 */
 	public function get_template() {
-		if ( empty( static::$template ) ) {
+		if ( empty( $this->template ) ) {
 			$this->template = new Tribe__Template();
 			$this->template->set_template_origin( tribe( 'tec.main' ) );
 			$this->template->set_template_folder( 'src/admin-views' );
@@ -169,29 +153,4 @@ class Update {
 
 		return $this->template;
 	}
-
-	/**
-	 * Add the JS for the admin notice.
-	 * 
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function add_block_editor_notice() {
-		tribe_asset(
-			tribe( 'tec.main' ),
-			'the-events-calendar-update-6-0-0-notice',
-			'tec-update-6.0.0-notice.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => true,
-				'localize'     => (object) [ 
-					'data' => $this->get_template_data(),
-					'name' => 'data'
-				],
-				'conditionals' => [ $this, 'should_display' ],
-			]
-		);
-	}	
 }

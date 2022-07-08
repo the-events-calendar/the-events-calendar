@@ -36,7 +36,7 @@
 .tec-ct1-upgrade .image-container img {
 	border-radius: 0.5rem;
 	display: inline-block;
-	filter: drop-shadow( 0 0 6px #ccc );
+	filter: drop-shadow(0 0 6px #ccc);
 	height: auto;
 	margin: 0;
 	vertical-align: top;
@@ -80,11 +80,6 @@
 	margin-bottom: 25px;
 }
 
-.tec-ct1-upgrade .tribe-update-bar {
-	display: block;
-	width: 100%;
-}
-
 .tec-ct1-upgrade button {
 	background: #334AFF;
 	border-radius: 0.25rem;
@@ -107,54 +102,33 @@
 	color: #fff;
 }
 
-.tec-ct1-upgrade .tribe-update-bar .progress {
-	border-radius: 4px;
-	height: 22px;
-	width: 100%;
-}
-
-.tec-ct1-upgrade .tribe-update-bar .bar {
-	background: #3352F5;
-	border-radius: 4px;
-	height: 22px;
-}
-
-.tec-ct1-upgrade .tribe-update-bar__summary {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	margin-top: 6px;
-}
-
-.tec-ct1-upgrade .tribe-update-bar__summary-remaining-text {
-	text-align: right;
-}
-
 .tec-ct1-upgrade-cancel-migration {
 	margin-top: 6px;
 }
 
-.tec-ct1-upgrade .tec-ct1-upgrade__alert {
-	background: #fff3cd;
-	border: 1px solid #dba617;
-	border-radius: 4px;
-	padding: 19px;
-}
+.tec-ct1-upgrade {
+	.tec-ct1-upgrade__alert {
+		background: #C7E8CA;
+		border: 1px solid #46B450;
+		border-radius: 4px;
+		padding: 19px;
+	}
 
-.tec-ct1-upgrade .tec-ct1-upgrade__alert-icon {
-	background: #dba617;
-	border-radius: 50%;
-	color: #fff;
-	display: inline-block;
-	font-family: Helvetica Neue;
-	font-size: 14px;
-	font-style: normal;
-	font-weight: bold;
-	height: 19px;
-	line-height: 19px;
-	margin-right: 0.25rem;
-	text-align: center;
-	width: 19px;
+	.tec-ct1-upgrade__alert-icon {
+		background: #46B450;
+		border-radius: 50%;
+		color: #fff;
+		display: inline-block;
+		font-family: Helvetica Neue;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: bold;
+		height: 19px;
+		line-height: 19px;
+		margin-right: 0.25rem;
+		text-align: center;
+		width: 19px;
+	}
 }
 
 .tec-ct1-upgrade__report {
@@ -164,6 +138,7 @@
 
 .tec-ct1-upgrade__report-header {
 	display: flex;
+	margin-bottom: 1rem;
 }
 
 .tec-ct1-upgrade__report-header-section {
@@ -221,6 +196,7 @@
 	background: transparent;
 	border: none;
 }
+
 .tribe-common .tribe-dialog__wrapper.tec-ct1-dialog-wrapper {
 	overflow-y: auto;
 	width: 660px;
@@ -258,7 +234,147 @@
 .tec-ct1-upgrade-events-category-container {
 	margin-bottom: 1rem;
 }
+
 .tec-ct1-upgrade-events-pagination-buttons-container {
 
 	padding-top: 1rem;
+}
+
+
+.tec-ct1-upgrade {
+	.tribe-update-bar {
+		display: block;
+		width: 100%;
+
+		.progress {
+			border-radius: 4px;
+			height: 22px;
+			width: 100%;
+		}
+
+		.bar {
+			background: #3352F5;
+			border-radius: 4px;
+			height: 22px;
+		}
+	}
+
+	progress {
+		--_track: #fff;
+		--_track-size: min(23px, 23px);
+		--_progress: #3352F5;
+		--_radius: 4px;
+		--_indeterminate-track: linear-gradient(to right,
+			var(--_track) 45%,
+			var(--_progress) 0%,
+			var(--_progress) 55%,
+			var(--_track) 0%
+		);
+		--_indeterminate-track-size: 225% 100%;
+		--_indeterminate-track-animation: tec-progress-loading 2s infinite ease;
+
+		/*  reset  */
+		appearance: none;
+		border: none;
+
+		/*  custom style  */
+		position: relative;
+		width: 100%;
+		height: var(--_track-size);
+		border-radius: var(--_radius);
+		border: 1px solid #ccc;
+		overflow: hidden;
+
+		&:focus-visible {
+			outline-color: var(--_progress);
+		}
+
+		/*  Safari/Chromium  */
+
+		&[value]::-webkit-progress-bar {
+			background-color: var(--_track);
+			border-radius: 4px;
+		}
+
+		&[value]::-webkit-progress-value {
+			background-color: var(--_progress);
+			border-radius: 4px;
+			transition: inline-size .25s ease-out;
+		}
+
+		/*  Firefox  */
+
+		&[value]::-moz-progress-bar {
+			background-color: var(--_progress);
+		}
+
+		/*  indeterminate  */
+
+		&:indeterminate::after {
+			content: "";
+			inset: 0;
+			position: absolute;
+			border-radius: 4px;
+			background: var(--_indeterminate-track);
+			background-size: var(--_indeterminate-track-size);
+			background-position: right;
+			animation: var(--_indeterminate-track-animation);
+		}
+
+		/*  indeterminate Safari  */
+
+		&:indeterminate::-webkit-progress-bar {
+			border-radius: 4px;
+			background: var(--_indeterminate-track);
+			background-size: var(--_indeterminate-track-size);
+			background-position: right;
+			animation: var(--_indeterminate-track-animation);
+		}
+
+		/*  indeterminate Firefox  */
+
+		&:indeterminate::-moz-progress-bar {
+			border-radius: 4px;
+			background: var(--_indeterminate-track);
+			background-size: var(--_indeterminate-track-size);
+			background-position: right;
+			animation: var(--_indeterminate-track-animation);
+		}
+
+		/*  complete  */
+
+		&:not([max])[value="1"]::before,
+		&[max="100"][value="100"]::before {
+			content: "✓";
+
+			position: absolute;
+			inset-block: 0;
+			inset-inline: auto 0;
+			display: flex;
+			align-items: center;
+			padding-inline-end: max(calc(var(--_track-size) / 4), 3px);
+
+			color: white;
+			font-size: calc(var(--_track-size) / 1.25);
+		}
+
+	}
+
+	.tribe-update-bar__summary {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		margin-top: 6px;
+	}
+
+	.tribe-update-bar__summary-remaining-text {
+		text-align: right;
+	}
+}
+
+
+@keyframes tec-progress-loading {
+	50% {
+		background-position: left;
+	}
 }
