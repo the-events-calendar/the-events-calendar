@@ -226,7 +226,7 @@ Remember to always make a backup of your database and files before updating!
 == [5.16.2.1] 2022-07-11 ==
 
 * Fix - Don't load Aggregator scripts on post edit pages to prevent datepicker conflicts [TBD]
-* Tweak - Added filter: `tec_aggregator_should_load_scripts`
+* Tweak - Added filter: `aggregator_should_load_scripts`
 
 == [5.16.2] 2022-07-06 ==
 

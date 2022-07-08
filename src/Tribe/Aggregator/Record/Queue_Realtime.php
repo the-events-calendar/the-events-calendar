@@ -65,7 +65,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	}
 
 	public function render_update_message() {
-		if ( ! Tribe__Events__Aggregator__Page::instance()->tec_aggregator_should_load_scripts() ) {
+		if ( ! Tribe__Events__Aggregator__Page::instance()->aggregator_should_load_scripts() ) {
 			return false;
 		}
 

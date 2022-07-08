@@ -176,7 +176,7 @@ class Tribe__Events__Aggregator__Page {
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [
-					[ $this, 'tec_aggregator_should_load_scripts' ],
+					[ $this, 'aggregator_should_load_scripts' ],
 				],
 				'localize'     => (object) $localize_data,
 			]
@@ -247,7 +247,7 @@ class Tribe__Events__Aggregator__Page {
 	 *
 	 * @return boolean
 	 */
-	public function tec_aggregator_should_load_scripts() {
+	public function aggregator_should_load_scripts() {
 		global $current_screen;
 
 		// Doing AJAX? bail.
@@ -271,7 +271,7 @@ class Tribe__Events__Aggregator__Page {
 		 *
 		 * @param boolean $should_load Whether the scripts should load. Default true if we got here
 		 */
-		return apply_filters( 'tec_aggregator_should_load_scripts', true );
+		return apply_filters( 'aggregator_should_load_scripts', true );
 	}
 
 	/**
