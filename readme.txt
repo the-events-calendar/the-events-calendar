@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.2
+Stable tag: 5.16.2.1
 Tested up to: 6.0
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -222,6 +222,11 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+== [5.16.2.1] 2022-07-08 ==
+
+* Fix - Don't load Aggregator scripts on post edit pages to prevent datepicker conflicts [TEC-4427]
+* Tweak - Added filter: `aggregator_should_load_scripts`
 
 == [5.16.2] 2022-07-06 ==
 
