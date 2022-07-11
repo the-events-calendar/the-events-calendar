@@ -813,7 +813,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	public function edit_venue_admin_bar_menu_link( $wp_admin_bar ) {
 		global $wp_query;
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() && $wp_query->tribe_is_event_venue ) {
 	
 			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label );
 	

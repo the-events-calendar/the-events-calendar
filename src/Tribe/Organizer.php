@@ -743,7 +743,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	public function edit_organizer_admin_bar_menu_link( $wp_admin_bar ) {
 		global $wp_query;
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() && $wp_query->tribe_is_event_organizer ) {
 	
 			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label );
 	
