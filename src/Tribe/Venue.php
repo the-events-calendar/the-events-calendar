@@ -11,7 +11,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		'public'              => false,
 		'rewrite'             => [ 'slug' => 'venue', 'with_front' => false ],
 		'show_ui'             => true,
-		'show_in_menu'        => 0,
+		'show_in_menu'        => false,
 		'supports'            => [ 'title', 'editor' ],
 		'capability_type'     => [ 'tribe_venue', 'tribe_venues' ],
 		'map_meta_cap'        => true,
@@ -813,7 +813,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	public function edit_venue_admin_bar_menu_link( $wp_admin_bar ) {
 		global $wp_query;
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() && $wp_query->tribe_is_event_venue ) {
 	
 			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label );
 	

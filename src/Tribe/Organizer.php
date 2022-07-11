@@ -21,7 +21,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		'public'              => false,
 		'rewrite'             => [ 'slug' => 'organizer', 'with_front' => false ],
 		'show_ui'             => true,
-		'show_in_menu'        => 0,
+		'show_in_menu'        => false,
 		'supports'            => [ 'title', 'editor' ],
 		'capability_type'     => [ 'tribe_organizer', 'tribe_organizers' ],
 		'map_meta_cap'        => true,
@@ -743,7 +743,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	public function edit_organizer_admin_bar_menu_link( $wp_admin_bar ) {
 		global $wp_query;
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() && $wp_query->tribe_is_event_organizer ) {
 	
 			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label );
 	
