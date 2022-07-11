@@ -345,6 +345,9 @@ abstract class By_Day_View extends View {
 		array_pop( $this->grid_days_found_cache );
 		$this->fill_week_duration_cache();
 
+		Taxonomy::prime_term_cache( $this->grid_events );
+		Event::prime_cache( $this->grid_events );
+
 		return $this->grid_days_cache;
 	}
 
