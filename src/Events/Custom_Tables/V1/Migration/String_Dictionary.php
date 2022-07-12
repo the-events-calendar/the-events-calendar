@@ -82,11 +82,11 @@ class String_Dictionary {
 		 *                             version.
 		 */
 		$this->map = apply_filters( 'tec_events_custom_tables_v1_migration_strings', [
-			'confirm_cancel_migration'                            => __(
+			'confirm_cancel_migration'                              => __(
 				"To safely cancel the migration, we need to reverse the process on any data that has already been modified. Your site will remain in maintenance mode until we have safely reversed the process.",
 				'the-events-calendar'
 			),
-			'confirm_revert_migration'                            => __(
+			'confirm_revert_migration'                              => __(
 			// @todo We need to update the UI
 				"Are you sure you want to reverse the recurring event system migration process?
 
@@ -97,152 +97,152 @@ class String_Dictionary {
 ",
 				'the-events-calendar'
 			),
-			'migration-complete-screenshot-url'                   => plugins_url(
+			'migration-complete-screenshot-url'                     => plugins_url(
 				'src/resources/images/migration/migration-complete-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'migration-prompt-screenshot-url'                     => plugins_url(
+			'migration-prompt-screenshot-url'                       => plugins_url(
 				'src/resources/images/migration/migration-prompt-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'migration-failed-complete-screenshot-url'            => plugins_url(
+			'migration-failed-complete-screenshot-url'              => plugins_url(
 				'src/resources/images/migration/migration-prompt-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'preview-in-progress-screenshot-url'                  => plugins_url(
+			'preview-in-progress-screenshot-url'                    => plugins_url(
 				'src/resources/images/migration/preview-in-progress-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'migration-in-progress-screenshot-url'                => plugins_url(
+			'migration-in-progress-screenshot-url'                  => plugins_url(
 				'src/resources/images/migration/preview-in-progress-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'cancel-in-progress-screenshot-url'                   => plugins_url(
+			'cancel-in-progress-screenshot-url'                     => plugins_url(
 				'src/resources/images/migration/preview-in-progress-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'revert-in-progress-screenshot-url'                   => plugins_url(
+			'revert-in-progress-screenshot-url'                     => plugins_url(
 				'src/resources/images/migration/preview-in-progress-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'preview-prompt-screenshot-url'                       => plugins_url(
+			'preview-prompt-screenshot-url'                         => plugins_url(
 				'src/resources/images/migration/preview-prompt-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'cancel-complete-screenshot-url'                      => plugins_url(
+			'cancel-complete-screenshot-url'                        => plugins_url(
 				'src/resources/images/migration/preview-prompt-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'revert-complete-screenshot-url'                      => plugins_url(
+			'revert-complete-screenshot-url'                        => plugins_url(
 				'src/resources/images/migration/preview-prompt-screenshot.png',
 				TRIBE_EVENTS_FILE
 			),
-			'preview-screenshot-alt'                              => __(
+			'preview-screenshot-alt'                                => __(
 				'screenshot of updated calendar views',
 				'the-events-calendar'
 			),
-			'preview-prompt-get-ready'                            => __(
+			'preview-prompt-get-ready'                              => __(
 				'Get ready for the new recurring events!',
 				'the-events-calendar'
 			),
-			'preview-prompt-upgrade-cta'                          => __( 'Upgrade your event data storage system.', 'the-events-calendar' ),
-			'preview-prompt-features'                             => __(
+			'preview-prompt-upgrade-cta'                            => __( 'Upgrade your event data storage system.', 'the-events-calendar' ),
+			'preview-prompt-features'                               => __(
 				"We've completely revamped the way event information is stored on your site's database. Upgrade now to take advantage of faster calendar load times and improved performance. As with any significant site change, we recommend %screating a site backup%s before beginning the migration process.",
 				'the-events-calendar'
 			),
-			'preview-prompt-ready'                                => __(
+			'preview-prompt-ready'                                  => __(
 				'Ready to go? The first step is a migration preview.',
 				'the-events-calendar'
 			),
-			'preview-prompt-scan-events'                          => __(
+			'preview-prompt-scan-events'                            => __(
 				"We'll scan your events and let you know how long your migration will take. The preview runs in the background, so you'll be able to continue using your site.",
 				'the-events-calendar'
 			),
-			'learn-more-button-url'                               => __(
+			'learn-more-button-url'                                 => __(
 				'https://evnt.is/1b79',
 				'the-events-calendar'
 			),
-			'learn-more-button'                                   => __(
+			'learn-more-button'                                     => __(
 				'Learn more about the migration',
 				'the-events-calendar'
 			),
-			'start-migration-preview-button'                      => __(
+			'start-migration-preview-button'                        => __(
 				'Start migration preview',
 				'the-events-calendar'
 			),
-			'preview-in-progress'                                 => __(
+			'preview-in-progress'                                   => __(
 				'Migration preview in progress',
 				'the-events-calendar'
 			),
-			'preview-scanning-events'                             => __(
+			'preview-scanning-events'                               => __(
 				"We're scanning your existing events so you'll know what to expect from the migration process. You can keep using your site and managing events. Check back later for the next step of migration.",
 				'the-events-calendar'
 			),
-			'preview-complete'                                    => __(
+			'preview-complete'                                      => __(
 				'Preview complete',
 				'the-events-calendar'
 			),
-			'preview-complete-paragraph'                          => __(
+			'preview-complete-paragraph'                            => __(
 				'The migration preview is done and ready for your review. No changes have been made to your events, but this report shows what adjustments will be made during the migration to the new system. If you have any questions, please %1$sreach out to our support team%2$s.',
 				'the-events-calendar'
 			),
-			'preview-estimate'                                    => __(
+			'preview-estimate'                                      => __(
 				'From this preview, we estimate that the full migration process will take approximately %3$d minutes. During this time, %1$syou will not be able to create, edit, or manage your events.%2$s Your calendar will still be visible on your site.',
 				'the-events-calendar'
 			),
-			'preview-unsupported'                                 => __(
+			'preview-unsupported'                                   => __(
 				'Your system doesn\'t allow us to run a preview, but you can still try a migration. During migration, %1$syou will not be able to create, edit, or manage your events.%2$s Your calendar will still be visible on your site.',
 				'the-events-calendar'
 			),
-			'previewed-date-heading'                              => __(
+			'previewed-date-heading'                                => __(
 				'Preview completed',
 				'the-events-calendar'
 			),
-			'previewed-total-heading'                             => __(
+			'previewed-total-heading'                               => __(
 				'Total events previewed:',
 				'the-events-calendar'
 			),
-			're-run-preview-button'                               => __(
+			're-run-preview-button'                                 => __(
 				'Re-run preview',
 				'the-events-calendar'
 			),
-			'start-migration-button'                              => __(
+			'start-migration-button'                                => __(
 				'Start migration',
 				'the-events-calendar'
 			),
-			'estimated-time-singular'                             => __(
+			'estimated-time-singular'                               => __(
 				'(Estimated time: %1$s minute)',
 				'the-events-calendar'
 			),
-			'estimated-time-plural'                               => __(
+			'estimated-time-plural'                                 => __(
 				'(Estimated time: %1$s minutes)',
 				'the-events-calendar'
 			),
-			'migration-in-progress'                               => __(
+			'migration-in-progress'                                 => __(
 				'Migration in progress',
 				'the-events-calendar'
 			),
-			'migration-in-progress-paragraph'                     => __(
+			'migration-in-progress-paragraph'                       => __(
 				'Your events are being migrated to the new system. During migration, %1$syou cannot make changes to your calendar or events.%2$s Your calendar will still be visible on the frontend.',
 				'the-events-calendar'
 			),
-			'loading-message'                                     => __(
+			'loading-message'                                       => __(
 				'Loading...',
 				'the-events-calendar'
 			),
-			'cancel-migration-button'                             => __(
+			'cancel-migration-button'                               => __(
 				'Cancel Migration',
 				'the-events-calendar'
 			),
-			'retry-preview-button'                                => __(
+			'retry-preview-button'                                  => __(
 				'Retry',
 				'the-events-calendar'
 			),
-			'cancel-migration-preview-button'                     => __(
+			'cancel-migration-preview-button'                       => __(
 				'Cancel Migration Preview',
 				'the-events-calendar'
 			),
-			'migration-complete'                                  => __(
+			'migration-complete'                                    => __(
 				'Migration complete!',
 				'the-events-calendar'
 			),
@@ -250,155 +250,159 @@ class String_Dictionary {
 				'Your site is now using the upgraded event data storage system. Go ahead and %1$scheck out your events%2$s or %3$sview your calendar.%2$s',
 				'the-events-calendar'
 			),
-			'migration-date-heading'                              => __(
+			'migration-date-heading'                                => __(
 				'Migration completed',
 				'the-events-calendar'
 			),
-			'migration-total-heading'                             => __(
+			'migration-total-heading'                               => __(
 				'Total events migrated:',
 				'the-events-calendar'
 			),
-			'reverse-migration-button'                            => __(
+			'reverse-migration-button'                              => __(
 				'Reverse migration',
 				'the-events-calendar'
 			),
-			'cancel-migration-in-progress'                        => __(
+			'cancel-migration-in-progress'                          => __(
 				'Cancelation in progress',
 				'the-events-calendar'
 			),
-			'cancel-migration-in-progress-paragraph'              => __(
+			'cancel-migration-in-progress-paragraph'                => __(
 				'We are canceling your site\'s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
-			'cancel-migration-complete-notice'                    => __(
+			'cancel-migration-complete-notice'                      => __(
 				'Cancelation complete.',
 				'the-events-calendar'
 			),
-			'revert-migration-complete-notice'                    => __(
+			'revert-migration-complete-notice'                      => __(
 				'Reverse migration complete.',
 				'the-events-calendar'
 			),
-			'reverse-migration-in-progress'                       => __(
+			'reverse-migration-in-progress'                         => __(
 				'Reverse migration in progress',
 				'the-events-calendar'
 			),
-			'reverse-migration-in-progress-paragraph'             => __(
+			'reverse-migration-in-progress-paragraph'               => __(
 				'We are reversing your site\'s migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused.',
 				'the-events-calendar'
 			),
-			'migration-prompt-no-changes-to-events'               => __(
+			'migration-prompt-no-changes-to-events'                 => __(
 				'Events can migrate with no changes!',
 				'the-events-calendar'
 			),
-			'migration-prompt-strategy-tec-single-event-strategy' => __(
-				'The following events will be migrated with no adjustments:',
+			'migration-prompt-strategy-tec-single-event-strategy'   => sprintf( __(
+				'The following %1$s will be migrated with no adjustments:',
 				'the-events-calendar'
-			),
-			'migration-prompt-unknown-strategy'                   => __(
+			), tribe_get_event_label_plural_lowercase() ),
+			'migration-complete-strategy-tec-single-event-strategy' => sprintf( __(
+				'The following %1$s have been migrated with no adjustments:',
+				'the-events-calendar'
+			), tribe_get_event_label_plural_lowercase() ),
+			'migration-prompt-unknown-strategy'                     => __(
 				'Unknown strategy applied to this event.',
 				'the-events-calendar'
 			),
-			'migration-prompt-learn-about-report-button'          => __(
+			'migration-prompt-learn-about-report-button'            => __(
 				'Migration help',
 				'the-events-calendar'
 			),
-			'migration-is-blocked'                                => __(
+			'migration-is-blocked'                                  => __(
 				'We detected one or more events that cannot be properly migrated. Please review the report below for more information. These issues must be resolved before you can migrate your site. Once you have updated or removed problematic events, please re-run the migration preview.',
 				'the-events-calendar'
 			),
-			'preview-progress-bar-events-done'                    => _x(
+			'preview-progress-bar-events-done'                      => _x(
 				'%1$s%2$d%3$s events previewed',
 				'Number of events previewed',
 				'the-events-calendar'
 			),
-			'preview-progress-bar-events-remaining'               => _x(
+			'preview-progress-bar-events-remaining'                 => _x(
 				'%1$s%2$d%3$s remaining',
 				'Number of events awaiting preview',
 				'the-events-calendar'
 			),
-			'migration-progress-bar-events-done'                  => _x(
+			'migration-progress-bar-events-done'                    => _x(
 				'%1$s%2$d%3$s events migrated',
 				'Number of events migrated',
 				'the-events-calendar'
 			),
-			'migration-progress-bar-events-remaining'             => _x(
+			'migration-progress-bar-events-remaining'               => _x(
 				'%1$s%2$d%3$s remaining',
 				'Number of events awaiting migration',
 				'the-events-calendar'
 			),
-			'migration-error-k-canceled'                          => __(
+			'migration-error-k-canceled'                            => __(
 				'The event %s generated an error: Migration was canceled.',
 				'the-events-calendar'
 			),
-			'migration-error-k-exit'                              => __(
+			'migration-error-k-exit'                                => __(
 				'%sThe event %s generated an error: The "die" or "exit" function was called during the migration process; output: %s.%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-exception'                         => __(
+			'migration-error-k-exception'                           => __(
 				'%sThe event %s generated an error: [%s].%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-tickets-exception'                 => __(
+			'migration-error-k-tickets-exception'                   => __(
 				'%sThe event %s cannot be migrated because we do not yet support tickets on recurring events.%s %sRemove the tickets or wait to migrate until a path is available (%sRead more%s).%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-enqueue-failed'                    => __(
+			'migration-error-k-enqueue-failed'                      => __(
 				'%sThe event %s generated an error: Cannot enqueue action to migrate Event with post ID %s.%s %sYour site may be under high load and unable to process the necessary requests. Try again when site activity is low.%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-check-phase-enqueue-failed'        => __(
+			'migration-error-k-check-phase-enqueue-failed'          => __(
 				'%sThe event %s generated an error: Cannot enqueue action to check migration status.%s %sYour site may be under high load and unable to process the necessary requests. Try again when site activity is low.%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-unknown-shutdown'                  => __(
+			'migration-error-k-unknown-shutdown'                    => __(
 				'%sThe event %s generated an unknown error.%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
-			'migration-view-report-button'                        => __(
+			'migration-view-report-button'                          => __(
 				'View the migration report',
 				'the-events-calendar'
 			),
-			'migration-canceled'                                  => __(
+			'migration-canceled'                                    => __(
 				'Migration canceled',
 				'the-events-calendar'
 			),
-			'migration-reversed'                                  => __(
+			'migration-reversed'                                    => __(
 				'Migration reversed',
 				'the-events-calendar'
 			),
-			'migration-okay-button'                               => __(
+			'migration-okay-button'                                 => __(
 				'Okay',
 				'the-events-calendar'
 			),
-			'migration-failure-complete'                          => __(
+			'migration-failure-complete'                            => __(
 				'Migration failure',
 				'the-events-calendar'
 			),
-			'migration-failure-complete-paragraph'                => __(
+			'migration-failure-complete-paragraph'                  => __(
 				'Your site could not be safely migrated to the new events system.',
 				'the-events-calendar'
 			),
-			'migration-failure-complete-alert'                    => __(
+			'migration-failure-complete-alert'                      => __(
 				'We detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, re-run the migration preview to make sure your site is ready to go.',
 				'the-events-calendar'
 			),
-			'migration-failure-complete-date-heading'             => __(
+			'migration-failure-complete-date-heading'               => __(
 				'Migration attempted',
 				'the-events-calendar'
 			),
-			'migration-failed'                                    => __(
+			'migration-failed'                                      => __(
 				'Migration failed',
 				'the-events-calendar'
 			),
-			'migration-failure-complete-view-report-button'       => __(
+			'migration-failure-complete-view-report-button'         => __(
 				'View the error report',
 				'the-events-calendar'
 			),
-			'migration-download-report-button'                    => __(
+			'migration-download-report-button'                      => __(
 				'Download report',
 				'the-events-calendar'
 			),
-			'migration-prompt-plugin-state-addendum'              => $this->get_plugin_state_migration_addendum(),
+			'migration-prompt-plugin-state-addendum'                => $this->get_plugin_state_migration_addendum(),
 		] );
 	}
 

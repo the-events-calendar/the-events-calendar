@@ -8,6 +8,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 
+use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 
@@ -20,12 +21,19 @@ class Event_Report_Categories {
 	protected $text;
 
 	/**
+	 * @var State The migration State object.
+	 */
+	protected $state;
+
+	/**
 	 * @since TBD
 	 *
-	 * @param String_Dictionary $text The translations object.
+	 * @param String_Dictionary $text  The translations object.
+	 * @param State             $state The migration State object.
 	 */
-	public function __construct( String_Dictionary $text ) {
-		$this->text = $text;
+	public function __construct( String_Dictionary $text, State $state ) {
+		$this->text  = $text;
+		$this->state = $state;
 	}
 
 	/**
@@ -36,10 +44,14 @@ class Event_Report_Categories {
 	 * @return array<array{ key:string, label:string }>
 	 */
 	public function get_categories() {
+		// If we are complete, show a different label.
+		$phase = $this->state->get_phase();
+		$label = $this->text->get( "$phase-strategy-" . Single_Event_Migration_Strategy::get_slug() );
+
 		$defaults = [
 			[
 				'key'   => Single_Event_Migration_Strategy::get_slug(),
-				'label' => $this->text->get( 'migration-prompt-strategy-' . Single_Event_Migration_Strategy::get_slug() )
+				'label' => $label
 			]
 		];
 
