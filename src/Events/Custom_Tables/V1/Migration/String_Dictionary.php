@@ -331,59 +331,31 @@ class String_Dictionary {
 				'the-events-calendar'
 			),
 			'migration-error-k-canceled'                            => __(
-				'%sThe event %s generated an error: Migration was canceled.%s',
-				'the-events-calendar'
-			),
-			'migration-error-k-canceled-dry-run'                    => __(
-				'%s%s - The event %s generated an error: Migration was canceled.%s',
+				'The event %s generated an error: Migration was canceled.',
 				'the-events-calendar'
 			),
 			'migration-error-k-exit'                                => __(
 				'%sThe event %s generated an error: The "die" or "exit" function was called during the migration process; output: %s.%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-exit-dry-run'                        => __(
-				'%s%s - The event %s generated an error: The "die" or "exit" function was called during the migration process; output: %s.%s %sTry again after deactivating any plugins unrelated to events.%s',
-				'the-events-calendar'
-			),
 			'migration-error-k-exception'                           => __(
-				'%sThe event %s generated an error: [%s].%s%sPlease try again or check out our %sTroubleshooting%s tips.%s',
-				'the-events-calendar'
-			),
-			'migration-error-k-exception-dry-run'                   => __(
-				'%s%s - Error: [%s]. Please try again or check out our %sTroubleshooting%s tips.%s',
+				'%sThe event %s generated an error: [%s].%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
 			'migration-error-k-tickets-exception'                   => __(
-				'%sThe event %s cannot be migrated because we do not yet support tickets on recurring events.%s%sRemove the tickets or wait to migrate until a path is available (%sRead more%s).%s',
-				'the-events-calendar'
-			),
-			'migration-error-k-tickets-exception-dry-run'           => __(
-				'%s%s - This recurring event has tickets and cannot be migrated. Remove the tickets or wait to migrate until a path is available (%sRead more%s).%s',
+				'%sThe event %s cannot be migrated because we do not yet support tickets on recurring events.%s %sRemove the tickets or wait to migrate until a path is available (%sRead more%s).%s',
 				'the-events-calendar'
 			),
 			'migration-error-k-enqueue-failed'                      => __(
 				'%sThe event %s generated an error: Cannot enqueue action to migrate Event with post ID %s.%s %sYour site may be under high load and unable to process the necessary requests. Try again when site activity is low.%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-enqueue-failed-dry-run'              => __(
-				'%s%s - Error: Cannot enqueue action to migrate %s with post ID %s. Your site may be under high load and unable to process the necessary requests. Try again later.%s',
-				'the-events-calendar'
-			),
 			'migration-error-k-check-phase-enqueue-failed'          => __(
 				'%sThe event %s generated an error: Cannot enqueue action to check migration status.%s %sYour site may be under high load and unable to process the necessary requests. Try again when site activity is low.%s',
 				'the-events-calendar'
 			),
-			'migration-error-k-check-phase-enqueue-failed-dry-run'  => __(
-				'%1$s%2$s - Error: Cannot enqueue action to check migration status. Your site may be under high load and unable to process the necessary requests. Try again later.%3$s',
-				'the-events-calendar'
-			),
 			'migration-error-k-unknown-shutdown'                    => __(
-				'%sThe event %s generated an error: The "die" or "exit" function was called during the migration process; output: .%s%sPlease try again or check out our %sTroubleshooting%s tips.%s',
-				'the-events-calendar'
-			),
-			'migration-error-k-unknown-shutdown-dry-run'            => __(
-				'%s%s - Error: The "die" or "exit" function was called during the migration process; output: %s. Please try again or check out our %sTroubleshooting%s tips.%s',
+				'%sThe event %s generated an unknown error.%s %sTry again after deactivating any plugins unrelated to events.%s',
 				'the-events-calendar'
 			),
 			'migration-view-report-button'                          => __(
