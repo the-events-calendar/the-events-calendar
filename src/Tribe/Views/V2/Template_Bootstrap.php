@@ -408,13 +408,13 @@ class Template_Bootstrap {
 	 */
 	public function filter_add_body_classes( $classes ) {
 		$setting  = $this->get_template_setting();
-		$template = $this->get_template_object()->get_path();
+		$active_theme = wp_get_theme();
 
 		if ( 'page' !== $setting ) {
 			return $classes;
 		}
 
-		$classes[] = 'page-template-' . sanitize_title( $template );
+		$classes[] = 'page-template-' . sanitize_title( $active_theme );
 
 		if ( ! get_queried_object() instanceof \WP_Term ) {
 			$key = array_search( 'archive', $classes, true );
