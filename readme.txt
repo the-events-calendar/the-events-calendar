@@ -223,12 +223,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-== [5.16.2.1] 2022-07-08 ==
+= [5.16.2.1] 2022-07-08 =
 
 * Fix - Don't load Aggregator scripts on post edit pages to prevent datepicker conflicts [TEC-4427]
 * Tweak - Added filter: `aggregator_should_load_scripts`
 
-== [5.16.2] 2022-07-06 ==
+= [5.16.2] 2022-07-06 =
 
 * Fix - Ensure the `Next` arrow in `List` and `Summary` views navigates to the correct page when the `Main Events Page` is set as the homepage. [TEC-4247]
 * Fix - Ensure the `Next` button when using the `Event View` Elementor widget navigates to the next page on the first click. [FBAR-263]
