@@ -59,7 +59,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			'progressText' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress ),
 		];
 
-		wp_localize_script( 'tribe-ea-fields', 'tribe_aggregator_save', $data );
+		wp_localize_script( 'tribe-ea-notice', 'tribe_aggregator_save', $data );
 
 		return $data;
 	}

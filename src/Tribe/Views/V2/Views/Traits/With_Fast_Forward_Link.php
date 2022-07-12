@@ -41,7 +41,7 @@ trait With_Fast_Forward_Link {
 		$cache_key = __METHOD__ . '_' . md5( wp_json_encode( array_merge( [ $date, $canonical ], $passthru_vars ) ) );
 
 		if ( isset( $this->cached_urls[ $cache_key ] ) ) {
-			return $this->cached_urls[ $cache_key ];
+			//return $this->cached_urls[ $cache_key ];
 		}
 
 		$next_event = tribe_events()->where( 'starts_after', $date );
@@ -50,6 +50,9 @@ trait With_Fast_Forward_Link {
 		if ( ! empty( $event_cat ) ) {
 			$next_event = $next_event->where( 'category', (array) $event_cat );
 		}
+
+		$foo =  $this->context->to_array();
+		$bar = 'what?';
 
 		/**
 		 * Allows other plugins to modify the events repository for the fast-forward link.

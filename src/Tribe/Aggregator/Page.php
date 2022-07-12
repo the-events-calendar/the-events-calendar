@@ -171,14 +171,44 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dropdowns',
 					],
 				],
-				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
+				[ 'tribe-ea-page', 'datatables-css' ],
 			],
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [
-					[ $this, 'aggregator_should_load_scripts' ],
+					[ $this, 'is_screen' ],
 				],
 				'localize'     => (object) $localize_data,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-styles',
+			'aggregator-page.css',
+			[],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-notice',
+			'aggregator-notice.js',
+			[ 'jquery' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				]
 			]
 		);
 	}
@@ -241,7 +271,7 @@ class Tribe__Events__Aggregator__Page {
 
 	/**
 	 * Basically an edited version of is_screen(), below,
-	 * that allows for loading on non-post edit pages.
+	 * that allows for loading on all non-post edit admin pages.
 	 *
 	 * @since 5.16.2.1
 	 *
