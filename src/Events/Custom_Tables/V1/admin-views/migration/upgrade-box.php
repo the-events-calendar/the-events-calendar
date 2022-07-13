@@ -17,7 +17,8 @@ $is_outdated_pro = class_exists( 'Tribe__Events__Pro__Main' ) && version_compare
 
 <?php if ( $is_outdated_pro ) : ?>
 <div class="tec-ct1-upgrade-outdated-pro">
-	@TODO: Use new copy from PO before launch.
+	<?php esc_html_e( 'You must update your version of Events Calendar Pro for access to calendar upgrades.', 'the-events-calendar' ) ?>
+	<p><strong>@TODO Waiting on extra copy from PO and design for this BOX.</strong></p>
 </div>
 <?php else : ?>
 <div id="tec-ct1-upgrade-box">
