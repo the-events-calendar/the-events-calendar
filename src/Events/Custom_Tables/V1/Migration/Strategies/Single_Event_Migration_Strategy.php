@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
+use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -66,7 +67,9 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		$upserted = Event::upsert( [ 'post_id' ], Event::data_from_post( $this->post_id ) );
 
 		if ( $upserted === false ) {
-			throw new Migration_Exception( 'Event model could not be upserted. Could have failed locating required data for insertion.' );
+			$errors       = Event::last_errors();
+			$error_string = implode( '. ', $errors );
+			throw new Migration_Exception( 'Event model could not be upserted. Could have failed locating required data for insertion. Errors: ' . $error_string );
 		}
 
 		if ( $this->dry_run && $upserted === 0 ) {
