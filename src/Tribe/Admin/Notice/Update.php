@@ -37,7 +37,7 @@ class Update {
 			[ $this, 'notice' ],
 			[
 				'dismiss' => 1,
-				'type'    => 'info',
+				'type'    => 'warning',
 				'wrap'    => false,
 				'recurring' => true,
 				'recurring_interval' => 'P1M'
