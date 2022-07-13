@@ -101,6 +101,17 @@ abstract class Model implements Serializable {
 	protected $errors = [];
 
 	/**
+	 * An associative array with the key of the error and the error message when validation fails for that particular
+	 * column. This is cumulative and will retain errors aside from a specific instance. Useful when interacting with the
+	 * models with the static API.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string, string>
+	 */
+	protected static $static_errors = [];
+
+	/**
 	 * A reference to the current Service Provider instance.
 	 *
 	 * @since TBD
@@ -205,8 +216,9 @@ abstract class Model implements Serializable {
 	 */
 	public function validate( array $columns = null ) {
 		// Reset all the columns before start.
-		$this->valid_columns = [];
-		$this->errors        = [];
+		$this->valid_columns   = [];
+		$this->errors          = [];
+		static::$static_errors = [];
 
 		if ( is_array( $columns ) ) {
 			$validations = $columns;
@@ -231,7 +243,9 @@ abstract class Model implements Serializable {
 				continue;
 			}
 
-			$this->errors[ $name ] = implode( " : ", $validator->get_error_messages() );
+			$error_string                   = implode( " : ", $validator->get_error_messages() );
+			$this->errors[ $name ]          = $error_string;
+			static::$static_errors[ $name ] = $error_string;
 		}
 
 		// No errors were found.
@@ -270,6 +284,18 @@ abstract class Model implements Serializable {
 	public function errors() {
 		// Remove all empty strings from the errors.
 		return array_filter( $this->errors );
+	}
+
+	/**
+	 * Returns the set of errors, if any, generated during validation across the most recent instances operation.
+	 * This is useful for situations when interacting with models via the static API.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> The set of errors, if any, generated during the Entry validation.
+	 */
+	public static function last_errors() {
+		return array_filter( static::$static_errors );
 	}
 
 	/**
@@ -342,6 +368,7 @@ abstract class Model implements Serializable {
 	public function reset() {
 		$this->data               = [];
 		$this->errors             = [];
+		static::$static_errors    = [];
 		$this->single_validations = [];
 
 		return $this;
