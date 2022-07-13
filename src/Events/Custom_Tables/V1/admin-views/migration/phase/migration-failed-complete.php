@@ -30,7 +30,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			?>
 		</p>
 
-		<p class="tec-ct1-upgrade__alert">
+		<p class="tec-ct1-upgrade__alert tec-ct1-upgrade__alert--error">
 			<i class="tec-ct1-upgrade__alert-icon">i</i>
 			<?php
 			echo sprintf(
