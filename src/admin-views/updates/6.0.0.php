@@ -37,8 +37,11 @@ $common_main = Tribe__Main::instance();
 			</div>
 
 			<div class="tec-update-page-grid__item">
-				<p><?php esc_html_e( "We’re excited to bring all of our users faster event creation and editing in the WordPress dashboard as well as quicker loading times for your website’s calendar. Watch the video or check out the release notes to learn more." ); ?></p>
-				<p><?php esc_html_e( 'Be sure to migrate to the new data storage system so you can take advantage of the improved performance.', 'the-events-calendar' ); ?></p>
+				<p>
+					<?php esc_html_e( "We’re excited to bring all of our users faster event creation and editing in the WordPress dashboard as well as quicker loading times for your website’s calendar." ); ?>
+					<?php printf( wp_kses( __( 'Watch the video or check out the <a href="%s">release notes</a> to learn more.', 'the-events-calendar' ), [ 'a' => [ 'href' => [] ] ] ), esc_url( 'https://theeventscalendar.com/category/release-notes/' ) ); ?>
+				</p>
+				<p><?php printf( wp_kses( __( 'Be sure to <a href="%s">migrate</a> to the new data storage system so you can take advantage of the improved performance.', 'the-events-calendar' ), [ 'a' => [ 'href' => [] ] ] ), esc_url( 'https://evnt.is/1b79' ) ); ?></p>
 			</div>
 	</div>
 
@@ -48,6 +51,7 @@ $common_main = Tribe__Main::instance();
 			<div class="tec-update-page-grid__item">
 				<p><?php esc_html_e( 'A game-changing ✨new✨ post type, Series, allows you to group and display any single or recurring events together like never before.', 'the-events-calendar' ); ?></p>
 				<p><?php esc_html_e( 'With Series, you can edit an individual occurrence of a recurring event without disconnecting it from the others, allowing you to build complex event Series with different venues, images, and more.', 'the-events-calendar' ); ?></p>
+				<p class="tec-update-page__row"><a href="https://evnt.is/1b94"><?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?></a> <a href="https://evnt.is/1b95"><?php esc_html_e( 'Watch a video', 'the-events-calendar' ); ?></a> <a href="https://evnt.is/1b96"><?php esc_html_e( 'See a demo', 'the-events-calendar' ); ?></a></p>
 			</div>
 
 			<div class="tec-update-page-grid__item">
