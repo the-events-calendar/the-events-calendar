@@ -23,8 +23,10 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			<p><?php echo esc_html( $text->get( 'loading-message' ) ); ?></p>
 		</div>
 		<div>
-			<a class="tec-ct1-upgrade-start-migration-preview"
-			   href="#"><?php echo esc_html( $text->get( 'retry-preview-button' ) ); ?></a>
+			<a
+				class="tec-ct1-upgrade-start-migration-preview"
+				href="#"
+			><?php echo esc_html( $text->get( 'retry-preview-button' ) ); ?></a>
 		</div>
 	</div>
 	<div class="image-container">
