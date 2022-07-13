@@ -651,3 +651,15 @@
 		}
 	}
 }
+
+/* Print Styles */
+@media print {
+	.single-featured-image-header,
+	#tribe-events-header,
+	.tribe-events-divider,
+	.recurring-info-tooltip {
+		a[href^="http"]:after {
+			content: none !important;
+		}
+	}
+}
