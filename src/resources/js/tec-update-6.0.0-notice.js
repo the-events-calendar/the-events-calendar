@@ -4,7 +4,7 @@
 
     wp.data.dispatch( 'core/notices' )
         .createNotice(
-            'info', 
+            'warning', 
             '<b>' +  data.title + '</b><p>' + data.description + '</p>', 
             { 
                 __unstableHTML: true, 

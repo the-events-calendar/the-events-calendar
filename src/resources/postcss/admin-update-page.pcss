@@ -61,7 +61,7 @@ body.tribe-update {
 	.tec-update-notice {
 		background: #ffffff;
 		border: 1px solid #cccccc;
-		border-left: 6px solid #3352F5;
+		border-left: 6px solid #dba617;
 		border-radius: 4px;
 		padding: 12px 32px;
 	}
@@ -69,14 +69,6 @@ body.tribe-update {
 	.tec-update-notice__link {
 		font-size: inherit;
 	}
-}
-
-/* utility class for box styles */
-.tec-update-page-box {
-	background: white;
-	border: 1px solid #cccccc;
-	border-radius: 8px;
-	padding: 32px;
 }
 
 /* Page intro */
@@ -137,6 +129,11 @@ body.tribe-update {
 	}
 }
 
+.tec-update-page__row {
+	display: flex;
+	gap: 24px;
+}
+
 /* Upgrade message section */
 .tec-update-page-upgrade-notice {
 	display: flex;
@@ -189,5 +186,18 @@ body.tribe-update {
 				margin-right: 12px;
 			}
 		}
+	}
+}
+
+/* utility class for box styles */
+.tec-update-page-box {
+	background: white;
+	border: 1px solid #cccccc;
+	border-radius: 8px;
+	padding: 32px;
+
+	h3 {
+		font-size: 1.5rem;
+		margin-top: 0;
 	}
 }
