@@ -305,7 +305,7 @@ class Event extends Base {
 				)
 			);
 		}, $events );
-		$venue_ids = array_merge( ...$venue_ids );
+		$venue_ids = empty( $venue_ids ) ? [] : array_merge( ...$venue_ids );
 
 		$organizer_ids = array_map( static function( $event ) use ( $is_numeric ) {
 			return array_filter(
@@ -316,7 +316,7 @@ class Event extends Base {
 			);
 		}, $events );
 
-		$organizer_ids = array_merge( ...$organizer_ids );
+		$organizer_ids = empty( $organizer_ids ) ? [] : array_merge( ...$organizer_ids );
 
 		$attachment_ids[] = array_map( static function( $post ) use ( $is_numeric ) {
 			$post_id = $is_numeric ? $post : $post->ID;

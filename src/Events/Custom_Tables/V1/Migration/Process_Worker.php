@@ -336,12 +336,10 @@ class Process_Worker {
 				$this->after_dry_run( $post_id );
 			}
 			$this->event_report->migration_failed( 'exception', [
-				'<p>',
 				$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 				$e->getMessage(),
-				'</p>',
-				'<p>',
-				'</p>'
+				'<a target="_blank" href="https://evnt.is/migrationhelp">',
+				'</a>'
 			] );
 
 			// @todo Remove this. Useful for troubleshooting
@@ -356,12 +354,10 @@ class Process_Worker {
 			}
 
 			$this->event_report->migration_failed( 'exception', [
-				'<p>',
 				$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 				$e->getMessage(),
-				'</p>',
-				'<p>',
-				'</p>'
+				'<a target="_blank" href="https://evnt.is/migrationhelp">',
+				'</a>'
 			] );
 			// @todo Remove this. Useful for troubleshooting
 			do_action( 'tribe_log', 'debug', 'Migration unexpected exception:', [
@@ -390,12 +386,8 @@ class Process_Worker {
 				if ( empty( $action_id ) ) {
 					// If we cannot migrate the next Event we need to migrate, then the migration has failed.
 					$this->event_report->migration_failed( "enqueue-failed", [
-						'<p>',
 						$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
 						$next_post_id,
-						'</p>',
-						'<p>',
-						'</p>'
 					] );
 				}
 			}
@@ -406,11 +398,7 @@ class Process_Worker {
 				if ( empty( $action_id ) ) {
 					// The migration might have technically completed, but we cannot know for sure and will be conservative.
 					$this->event_report->migration_failed( "check-phase-enqueue-failed", [
-						'<p>',
 						$this->get_event_link_markup( $this->event_report->source_event_post->ID ),
-						'</p>',
-						'<p>',
-						'</p>'
 					] );
 				}
 			}
@@ -598,11 +586,9 @@ class Process_Worker {
 
 		// If we're here, the migration failed.
 		$this->event_report->migration_failed( "unknown-shutdown", [
-			'<p>',
 			$event_link_markup,
-			'</p>',
-			'<p>',
-			'</p>'
+			'<a target="_blank" href="https://evnt.is/migrationhelp">',
+			'</a>'
 		] );
 	}
 
@@ -697,12 +683,10 @@ class Process_Worker {
 
 		// If we're here, some code called `die` or `exit`.
 		$this->event_report->migration_failed( 'exit', [
-			'<p>',
 			$event_link_markup,
 			$trimmed_buffer,
-			'</p>',
-			'<p>',
-			'</p>'
+			'<a target="_blank" href="https://evnt.is/migrationhelp">',
+			'</a>'
 		] );
 
 		/*
