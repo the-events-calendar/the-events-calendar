@@ -88,47 +88,4 @@
 			margin-bottom: var(--tec-spacer-7);
 		}
 	}
-
-	/* Print Styles */
-	@media print {
-		.tribe-events-c-top-bar__nav,
-		&.tribe-common--breakpoint-medium .tribe-events-c-top-bar__nav {
-			display: none !important;
-		}
-
-		.tribe-events-c-top-bar__today-button,
-		&.tribe-common--breakpoint-medium .tribe-events-c-top-bar__today-button {
-			display: none !important;
-		}
-
-		.tribe-events-c-top-bar__datepicker-button-icon-svg {
-			display: none !important;
-		}
-
-		.tribe-events-c-events-bar {
-			display: none !important;
-		}
-
-		.tribe-filter-bar {
-			display: none !important;
-		}
-
-		.tribe-filter-bar--open ~ [class^="tribe-events-calendar"],
-		.tribe-filter-bar--open ~ [class^="tribe-events-pro"] {
-			width: 100% !important;
-		}
-
-		a[href^="http"]:after {
-			content: none !important;
-		}
-
-		.tribe-events-calendar-month__day-date-link {
-			text-decoration: none !important;
-		}
-
-		.tribe-events-calendar-month__calendar-event-title-link,
-		.tribe-events-calendar-month__calendar-event-tooltip-title-link {
-			text-decoration: none;
-		}
-	}
 }

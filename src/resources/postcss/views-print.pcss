@@ -1,0 +1,68 @@
+/**
+ * View print styles.
+ *
+ * @since TBD
+ */
+
+.tribe-events {
+	/* Events Bar */
+	.tribe-events-c-events-bar {
+		display: none !important;
+	}
+
+	/* Top Bar & Nav */
+	.tribe-events-c-top-bar__nav,
+	.tribe-events-c-nav,
+	&.tribe-common--breakpoint-medium .tribe-events-c-top-bar__nav {
+		display: none !important;
+	}
+
+	.tribe-events-c-top-bar__today-button,
+	&.tribe-common--breakpoint-medium .tribe-events-c-top-bar__today-button {
+		display: none !important;
+	}
+
+	.tribe-events-c-top-bar__datepicker-button-icon-svg {
+		display: none !important;
+	}
+
+	/* Links */
+
+	a[href^="http"] {
+		text-decoration: none !important;
+
+		&:after {
+			content: none !important;
+		}
+	}
+
+
+	/* Filter Bar */
+	.tribe-filter-bar {
+		display: none !important;
+	}
+
+
+
+	.tribe-filter-bar--open ~ [class*="tribe-events-calendar"],
+	.tribe-filter-bar--open ~ [class*="tribe-events-pro"] {
+		width: 100% !important;
+	}
+
+	#tribe-events-header,
+	.recurring-info-tooltip,
+	.single-featured-image-header,
+	.tribe-events-divider {
+		a[href^="http"]:after {
+			content: none !important;
+		}
+	}
+}
+
+.single-tribe_events,
+.tribe-events {
+	/* Subscribe to Calendar */
+	.tribe-events-c-subscribe-dropdown__container {
+		display: none !important;
+	}
+}
