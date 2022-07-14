@@ -626,6 +626,23 @@ class Assets extends \tad_DI52_ServiceProvider {
 			return false;
 		}
 
+		/**
+		 * Checks whether the page is being viewed in Elementor preview mode.
+		 *
+		 * @since TBD
+		 *
+		 * @return bool Should the assets be enqueued.
+		 */
+		if (
+			defined( 'ELEMENTOR_PATH' )
+
+			&& ! empty( ELEMENTOR_PATH )
+
+			&& isset( $_GET[ 'elementor-preview' ] )
+		) {
+			return true;
+		}
+
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
 			return false;
