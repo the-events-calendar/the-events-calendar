@@ -264,7 +264,9 @@ class Process_Worker {
 				State::PHASE_PREVIEW_IN_PROGRESS,
 				State::PHASE_MIGRATION_IN_PROGRESS
 			], true ) ) {
-				$this->event_report->migration_failed( 'canceled' );
+				$this->event_report->migration_failed( 'canceled', [
+					$this->get_event_link_markup( $this->event_report->source_event_post->ID )
+				] );
 				$this->migration_completed = true;
 				$this->unbind_shutdown_handlers();
 
