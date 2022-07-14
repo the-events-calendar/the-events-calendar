@@ -1575,13 +1575,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$context = tribe_context();
 
-			if ( $context->is( 'tec_post_type' ) ) {
+			if ( ! $context->is( 'tec_post_type' ) ) {
 				return;
 			}
 
 			// By default, we add a noindex tag for all month view requests and any other
 			// event views that are devoid of events
-			$add_noindex   = ( ! $wp_query->have_posts() || 'month' === $context->get( 'view' ) );
+			$add_noindex  = ( ! $wp_query->have_posts() || 'month' === $context->get( 'view' ) );
 
 			/**
 			 * Determines if a noindex meta tag will be set for the current event view.
