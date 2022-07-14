@@ -80,20 +80,23 @@
 	margin-bottom: 25px;
 }
 
-.tec-ct1-upgrade button {
-	background: #334AFF;
-	border-radius: 0.25rem;
-	border: 0;
-	box-shadow: 0 2px black;
-	color: white;
-	cursor: pointer;
-	font-size: 1rem;
-	margin-right: 2rem;
-	line-height: 1.2;
-	padding: 1rem 0.5rem;
-	text-decoration: none;
-	white-space: nowrap;
-	width: 200px;
+.tec-ct1-upgrade {
+	button,
+	.tec-ct1-upgrade__button {
+		background: #334AFF;
+		border-radius: 0.25rem;
+		border: 0;
+		box-shadow: 0 2px black;
+		color: white;
+		cursor: pointer;
+		font-size: 1rem;
+		margin-right: 2rem;
+		line-height: 1.2;
+		padding: 1rem 0.5rem;
+		text-decoration: none;
+		white-space: nowrap;
+		width: 200px;
+	}
 }
 
 .tec-ct1-upgrade button[disabled] {
@@ -112,22 +115,31 @@
 		border: 1px solid #46B450;
 		border-radius: 4px;
 		padding: 19px;
-	}
 
-	.tec-ct1-upgrade__alert-icon {
-		background: #46B450;
-		border-radius: 50%;
-		color: #fff;
-		display: inline-block;
-		font-family: Helvetica Neue;
-		font-size: 14px;
-		font-style: normal;
-		font-weight: bold;
-		height: 19px;
-		line-height: 19px;
-		margin-right: 0.25rem;
-		text-align: center;
-		width: 19px;
+		.tec-ct1-upgrade__alert-icon {
+			background: #46B450;
+			border-radius: 50%;
+			color: #fff;
+			display: inline-block;
+			font-family: Helvetica Neue;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: bold;
+			height: 19px;
+			line-height: 19px;
+			margin-right: 0.25rem;
+			text-align: center;
+			width: 19px;
+		}
+
+		&.tec-ct1-upgrade__alert--error {
+			background: #fff3cd;
+			border-color: #dba617;
+
+			.tec-ct1-upgrade__alert-icon {
+				background: #dba617;
+			}
+		}
 	}
 }
 
@@ -265,10 +277,10 @@
 		--_progress: #3352F5;
 		--_radius: 4px;
 		--_indeterminate-track: linear-gradient(to right,
-			var(--_track) 45%,
-			var(--_progress) 0%,
-			var(--_progress) 55%,
-			var(--_track) 0%
+		var(--_track) 45%,
+		var(--_progress) 0%,
+		var(--_progress) 55%,
+		var(--_track) 0%
 		);
 		--_indeterminate-track-size: 225% 100%;
 		--_indeterminate-track-animation: tec-progress-loading 2s infinite ease;
