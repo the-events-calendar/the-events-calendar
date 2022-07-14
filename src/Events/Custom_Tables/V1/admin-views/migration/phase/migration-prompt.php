@@ -13,8 +13,8 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 
 $alert_classes = [
-	'tec-ct1-upgrade' => true,
-	'tec-ct1-upgrade__alert-error' => (bool) $report->has_errors,
+	'tec-ct1-upgrade__alert' => true,
+	'tec-ct1-upgrade__alert--error' => (bool) $report->has_errors,
 ];
 ?>
 <div class="tec-ct1-upgrade__row">

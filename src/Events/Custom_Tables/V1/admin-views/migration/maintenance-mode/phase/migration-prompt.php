@@ -10,6 +10,11 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
  * @var string            $phase              The current phase.
  */
 
+
+$alert_classes = [
+	'tec-ct1-upgrade__alert' => true,
+	'tec-ct1-upgrade__alert--error' => (bool) $report->has_errors,
+];
 ?>
 <div class="tec-ct1-upgrade__row">
 	<div class="content-container">
@@ -28,7 +33,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			?>
 		</p>
 
-		<p class="tec-ct1-upgrade__alert">
+		<p <?php tribe_classes( $alert_classes ); ?>>
 			<i class="tec-ct1-upgrade__alert-icon">i</i>
 			<span>
 			<?php
