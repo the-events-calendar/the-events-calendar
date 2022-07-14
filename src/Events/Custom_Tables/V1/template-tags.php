@@ -51,7 +51,7 @@ function tec_event_series( $event_post_id ) {
 		$cache[ $cache_key ] = $relationship;
 	}
 
-	if ( $relationship === null ) {
+	if ( ! $relationship instanceof Series_Relationship ) {
 		return null;
 	}
 
