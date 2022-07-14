@@ -382,7 +382,21 @@ class Custom_Tables_Query extends WP_Query {
 
 		remove_filter( 'posts_where', [ $this, 'filter_by_date' ] );
 
-		if ( $query instanceof WP_Query && $query->get( 'eventDate', null ) ) {
+		if (
+			$query instanceof WP_Query
+			&& $query->get( 'eventDate', null )
+			&& $query->is_single()
+		) {
+			/**
+			 * When dealing with DATE() casting on MySQL we need to be careful since `2022-08` would not validate as a
+			 * date in any version of MySQL, which wouldn't be a problem on its own but on version 8 of MySQL it will
+			 * throw an error, which is a blocker for functionality.
+			 *
+			 * So this particular query can only be executed when dealing with the Single view of a Series, which only
+			 * allows fully formatted dates.
+			 *
+			 * On Month view it will pass `YYYY-MM` kind of formatting, which will throw the error.
+			 */
 			$where .= sprintf(
 				' AND CAST(%1$s.%2$s AS DATE) = \'%3$s\'',
 				Occurrences::table_name( true ),
