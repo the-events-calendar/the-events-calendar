@@ -284,7 +284,7 @@ tribe_aggregator.fields = {
 		}
 
 		if ( 'object' === typeof tribe_aggregator_save ) {
-			$(document).trigger( 'tribe_aggregator_init_notice' )
+			$(document).trigger( 'tribe_aggregator_init_notice' );
 		}
 	};
 
