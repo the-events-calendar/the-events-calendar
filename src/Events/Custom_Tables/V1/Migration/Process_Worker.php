@@ -163,7 +163,11 @@ class Process_Worker {
 			 * Our event report state would have been rolled back too, so try and reapply what was set locally.
 			 * Clear our cache, since it reflects local state and not aware of transaction rollbacks.
 			 */
-			clean_post_cache( $post_id );
+			try {
+				clean_post_cache( $post_id );
+			} catch ( \Exception $e ) {
+				// Some plugin intervening in the caching system did something wrong: we did what we could.
+			}
 			$this->remove_cache_compatibility_hooks();
 		}
 	}
@@ -560,13 +564,23 @@ class Process_Worker {
 	 *
 	 * @param int    $errno  The error code.
 	 * @param string $errstr The error message.
+	 * @param string $errfile The file the error occurred in.
 	 *
-	 * @return void The method never returns and will always throw when encountering
-	 *              an error during the migration.
+	 * @return bool A value indicating whether the error handler handled the erorr or not..
 	 *
 	 * @throws Migration_Exception A reference to an exception wrapping the error.
 	 */
-	public function error_handler( $errno, $errstr ) {
+	public function error_handler( int $errno, string $errstr, string $errfile ): bool {
+		if ( $errno === E_WARNING ) {
+			$tec = basename( TRIBE_EVENTS_FILE );
+			$ecp = basename( EVENTS_CALENDAR_PRO_FILE );
+
+			if ( ! tec_is_file_from_plugins( $errfile, $tec, $ecp ) ) {
+				// Do not handle Warnings when coming from outside TEC or ECP codebase (e.g. caching plugins).
+				return false;
+			}
+		}
+
 		// Delegate to our try/catch handler.
 		throw new Migration_Exception( $errstr, $errno );
 	}
