@@ -635,9 +635,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 		 */
 		if (
 			defined( 'ELEMENTOR_PATH' )
-
 			&& ! empty( ELEMENTOR_PATH )
-
 			&& isset( $_GET[ 'elementor-preview' ] )
 		) {
 			return true;
