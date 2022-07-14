@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 == [TBD] TBD ==
 
+* Fix - Ensure the recurring event tooltip styles are loaded on the Elementor preview page for the `Event Widget`. [ECP-1196]
 * Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
 * Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
 * Tweak - Add a CSS class i.e. `tribe-events-calendar-month__day--other-month` to past and future month dates in the month view to allow easy targeting similar to what we had in v1. [TEC-4034]
