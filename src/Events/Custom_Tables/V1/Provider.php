@@ -71,18 +71,6 @@ class Provider extends Service_Provider {
 			define( 'TEC_CUSTOM_TABLES_V1_ROOT', __DIR__ );
 		}
 
-		if ( ! defined( 'TEC_CUSTOM_TABLES_V1_VERSION' ) ) {
-			define( 'TEC_CUSTOM_TABLES_V1_VERSION', '1.0.5-alpha.29' );
-		}
-
-		if ( ! defined( 'TEC_CUSTOM_TABLES_VERSION' ) ) {
-			define( 'TEC_CUSTOM_TABLES_VERSION', '1.0.5-alpha.29' );
-		}
-
-		if ( ! defined( 'TEC_CUSTOM_TABLES_V1_FILE' ) ) {
-			define( 'TEC_CUSTOM_TABLES_V1_FILE', TRIBE_EVENTS_FILE );
-		}
-
 		/*
 		 * This block should be the only one capturing exceptions thrown in the context of
 		 * the feature. This removes the burden of exception and error handling from the
@@ -92,7 +80,6 @@ class Provider extends Service_Provider {
 			$this->bind_implementations();
 
 			require_once __DIR__ . '/functions.php';
-			require_once __DIR__ . '/template-tags.php';
 
 			$this->container->singleton( Container::class, $this->container );
 

@@ -29,7 +29,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/functions/template-tags.php';
 		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/functions/classes.php';
 
 		$this->container->singleton( Manager::class, Manager::class );
