@@ -473,6 +473,11 @@ class Process_Worker {
 		}
 		$current_phase = $this->state->get_phase();
 
+		/*
+		 * Fires before the migration revert/cancellation starts.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
 
 		tribe( Schema_Builder::class )->down();
@@ -549,7 +554,13 @@ class Process_Worker {
 		$this->state->set( 'phase', $next_phase );
 		$this->state->save();
 
+		/**
+		 * Fires after the migration revert/cancellation has completed.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
+
 		// Log our worker ending
 		do_action( 'tribe_log', 'debug', 'Worker: Undo event migration:end', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
