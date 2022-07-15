@@ -46,7 +46,10 @@ $common_main = Tribe__Main::instance();
 	</div>
 
 	<div class="tec-update-page-block">
-		<h3><span>⚡</span> <?php esc_html_e( 'New Features for Events Calendar Pro', 'the-events-calendar' ); ?></h3>
+		<h3>
+			<img class="tec-inline-icon" src="<?php echo esc_url( tribe_resource_url( 'bolt.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="<?php esc_attr_e( 'Lightening bolt icon', 'the-events-calendar' ); ?>" />
+			<?php esc_html_e( 'New Features for Events Calendar Pro', 'the-events-calendar' ); ?>
+		</h3>
 		<div class="tec-update-page-grid">
 			<div class="tec-update-page-grid__item">
 				<p><?php esc_html_e( 'A game-changing ✨new✨ post type, Series, allows you to group and display any single or recurring events together like never before.', 'the-events-calendar' ); ?></p>
@@ -71,7 +74,7 @@ $common_main = Tribe__Main::instance();
 		<?php if( ! class_exists( 'Tribe__Events__Pro__Main' ) ): ?>
 			<div class="tec-update-page-upgrade-notice tec-update-page-box">
 				<img src="<?php echo esc_url( tribe_resource_url( 'lightning.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
-					<p><?php printf( wp_kses( __( 'Upgrade to <a href="%s">Events Calendar Pro</a> to unlock these features.', 'the-events-calendar' ), [ 'a' => [ 'href' => [] ] ] ), esc_url( 'https://theeventscalendar.com/products/wordpress-events-calendar/' ) ); ?></p>
+				<p><?php printf( wp_kses( __( 'Upgrade to <a href="%s">Events Calendar Pro</a> to unlock these features.', 'the-events-calendar' ), [ 'a' => [ 'href' => [] ] ] ), esc_url( 'https://theeventscalendar.com/products/wordpress-events-calendar/' ) ); ?></p>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -79,7 +82,10 @@ $common_main = Tribe__Main::instance();
 	<div class="tec-update-page-resources">
 		<div class="tec-update-page-grid">
 			<div class="tec-update-page-grid__item tec-update-page-box ">
-				<h3><span>💡</span><?php esc_html_e( 'Legacy Views', 'the-events-calendar' ); ?></h3>
+				<h3>
+					<img class="tec-inline-icon" src="<?php echo esc_url( tribe_resource_url( 'bulb.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="<?php esc_attr_e( 'Light bulb icon', 'the-events-calendar' ); ?>" />
+					<?php esc_html_e( 'Legacy Views', 'the-events-calendar' ); ?>
+				</h3>
 				<p><?php esc_html_e( 'We have fully removed the legacy views from The Events Calendar 6.0. Your views have been automatically updated.', 'the-events-calendar' ); ?></p>
 				<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"><?php esc_html_e( 'View your calendar', 'the-events-calendar' ); ?></a>
 				<a href="https://theeventscalendar.com/knowledgebase/k/v1-deprecation-faqs/"><?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?></a>
