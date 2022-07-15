@@ -1,24 +1,28 @@
-( function ( wp ) {
+( function ( wp, obj ) {
+	obj.data = window.tecBlocksEditorUpdateNoticeData;
 
-    const { __ } = wp.i18n;
+    const { __, sprintf } = wp.i18n;
 
     wp.data.dispatch( 'core/notices' )
         .createNotice(
-            'warning', 
-            '<b>' +  data.title + '</b><p>' + data.description + '</p>', 
-            { 
-                __unstableHTML: true, 
-                isDismissible: true, 
-                actions: [ 
-                    { 
-                        url: data.upgrade_link, 
-                        label: __( 'Start storage migration', 'the-events-calendar' )
-                    }, 
-                    { 
-                        url: data.learn_link, 
+            'warning',
+            `<b>${obj.data.title}</b><p>${obj.data.description}</p>`,
+            {
+                __unstableHTML: true,
+                isDismissible: true,
+                actions: [
+                    {
+                        url: obj.data.upgrade_link,
+                        label: sprintf(
+							__( 'Upgrade your %1$s', 'the-events-calendar' ),
+							obj.data.events_plural_lower
+						),
+                    },
+                    {
+                        url: obj.data.learn_link,
                         label: __( 'Learn more', 'the-events-calendar' )
                     }
-                ] 
-            } 
+                ]
+            }
         );
-} )( window.wp );
+} )( window.wp, {} );
