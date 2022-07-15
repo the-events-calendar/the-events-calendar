@@ -39,7 +39,12 @@
 		}
 	}
 
-	/* Filter Bar */
+	/* Subscribe to Calendar */
+	.tribe-events-c-subscribe-dropdown__container {
+		display: none !important;
+	}
+
+	/* Filter Bar - remove when we release print styles for Filter Bar */
 	.tribe-filter-bar {
 		display: none !important;
 	}
@@ -48,9 +53,17 @@
 	.tribe-filter-bar--open ~ [class*="tribe-events-pro"] {
 		width: 100% !important;
 	}
+}
 
-	/* Subscribe to Calendar */
-	.tribe-events-c-subscribe-dropdown__container {
-		display: none !important;
+/* Extend scrolling views */
+.tribe-events-pro {
+	.tribe-events-pro .tribe-events-pro-week-grid__events-row-wrapper,
+	.tribe-events-pro .tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__map,
+	.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__event-column {
+		height: auto !important;
+	}
+
+	.tribe-events-pro .tribe-events-pro-map__event-cards {
+		position: relative !important;
 	}
 }
