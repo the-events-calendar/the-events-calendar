@@ -22,6 +22,7 @@ use Tribe__Events__Featured_Events as Featured;
 use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Timezones as Timezones;
 use Tribe__Events__Venue as Venue;
+use WP_Post;
 
 /**
  * Class Event
@@ -274,11 +275,11 @@ class Event extends Base {
 	 *
 	 * @since TBD
 	 *
-	 * @param int[]|\WP_Post[] $events
+	 * @param array<int|WP_Post> $events
 	 */
 	public static function prime_cache( array $events = [] ) {
 		$first = reset( $events );
-		$is_numeric = ( ! $first instanceof \WP_Post );
+		$is_numeric = ( ! $first instanceof WP_Post );
 		if ( $is_numeric ) {
 			$event_ids = $events;
 		} else {
@@ -286,12 +287,12 @@ class Event extends Base {
 		}
 
 		/**
-		 * Allows changing which Post IDs will get primed for cache
+		 * Allows changing which Post IDs will get primed for cache.
 		 *
 		 * @since TBD
 		 *
-		 * @param int[] $event_ids Which IDs we will prime.
-		 * @param \WP_Post[]|int[] $events Which event objects will generate the ids.
+		 * @param array<int> $event_ids Which IDs we will prime.
+		 * @param array<int|WP_Post> $events Which event objects will generate the ids.
 		 */
 		$event_ids = apply_filters( 'tec_events_prime_cache_post_ids', $event_ids, $events );
 
