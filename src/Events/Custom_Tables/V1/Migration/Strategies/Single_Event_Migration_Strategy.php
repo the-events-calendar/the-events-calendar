@@ -10,11 +10,13 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
+use TEC\Events\Custom_Tables\V1\Migration\Expected_Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
-use TEC\Events\Custom_Tables\V1\Models\Builder;
+use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Custom_Tables\V1\Traits\With_String_Dictionary;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -25,6 +27,7 @@ use Tribe__Events__Main as TEC;
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
 class Single_Event_Migration_Strategy implements Strategy_Interface {
+	use With_String_Dictionary;
 	/**
 	 * {@inheritDoc}
 	 */
@@ -69,7 +72,17 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		if ( $upserted === false ) {
 			$errors       = Event::last_errors();
 			$error_string = implode( '. ', $errors );
-			throw new Migration_Exception( 'Event model could not be upserted. Could have failed locating required data for insertion. Errors: ' . $error_string );
+			$text         = tribe( String_Dictionary::class );
+
+			$message = sprintf(
+				$text->get( 'migration-error-k-upsert-failed' ),
+				$this->get_event_link_markup( $this->post_id ),
+				$error_string,
+				'<a target="_blank" href="https://evnt.is/migrationhelp">',
+				'</a>'
+			);
+
+			throw new Expected_Migration_Exception( $message );
 		}
 
 		if ( $this->dry_run && $upserted === 0 ) {
