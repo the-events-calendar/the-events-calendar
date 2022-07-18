@@ -439,7 +439,7 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		global $wpdb;
-		$join .= " LEFT JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+		$join .= " JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
 
 		return $join;
 	}
