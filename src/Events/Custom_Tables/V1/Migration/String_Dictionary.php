@@ -330,6 +330,11 @@ class String_Dictionary {
 				'Number of events awaiting migration',
 				'the-events-calendar'
 			),
+
+			'migration-error-k-upsert-failed'                            => __(
+				'The event %s generated an error: [%s]. Update the event and try again, or check out our %sTroubleshooting%s tips.',
+			'the-events-calendar'
+		),
 			'migration-error-k-canceled'                            => __(
 				'The event %s generated an error: Migration was canceled. Please try again.',
 				'the-events-calendar'

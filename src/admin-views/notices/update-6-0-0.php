@@ -13,6 +13,7 @@
 
 <div class="tec-update-notice">
     <h3 class="tec-update-notice__title">
+        <img src="<?php echo esc_url( tribe_resource_url( 'warning.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="alert icon" class="tec-inline-icon"/>
         <?php echo esc_html( $title ); ?>
     </h3>
     <div class="tec-update-notice__description">
