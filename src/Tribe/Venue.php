@@ -805,18 +805,18 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 	/**
 	 * Add edit link to admin bar when viewing the tribe_venue post type archive.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 5.16.3
+	 *
 	 * @param WP_Admin_Bar $wp_admin_bar The admin bar object.
 	 */
 	public function edit_venue_admin_bar_menu_link( $wp_admin_bar ) {
 		global $wp_query;
 
 		if ( ! is_admin() && $wp_query->tribe_is_event_venue ) {
-	
+
 			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label );
-	
+
 			$wp_admin_bar->add_menu([
 				'id'    => 'edit',
 				'title' => $title,
