@@ -57,6 +57,23 @@
 	.tribe-filter-bar--open ~ [class*="tribe-events-pro"] {
 		width: 100% !important;
 	}
+
+	/* Fonts */
+	&.tribe-common .tribe-common-h--alt.tribe-events-c-top-bar__datepicker-button {
+		--tec-font-weight-regular: var(--tec-font-weight-bold);
+	}
+
+	.tribe-events-calendar-month__header-column-title {
+		--tec-color-text-day-of-week-month: var(--tec-color-text-primary);
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime {
+		--tec-color-text-event-date-secondary: #727272;
+	}
+
+	.tribe-events-calendar-month__calendar-event-title-link {
+		font-weight: var(--tec-font-weight-regular);
+	}
 }
 
 /* Extend scrolling views in PRO - remove/move to ECP when we release print styles for EVents PRO */
