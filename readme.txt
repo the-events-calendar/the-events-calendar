@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+== [TBD] TBD ==
+
+* Tweak - Update the celandar print design. [TEC-4425]
+
 == [5.16.3] 2022-07-20 ==
 
 * Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
