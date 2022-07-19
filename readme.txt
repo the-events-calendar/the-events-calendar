@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.2.1
-Tested up to: 6.0
+Stable tag: 5.16.3
+Tested up to: 6.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -223,18 +223,19 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-== [TBD] TBD ==
+== [5.16.3] 2022-07-20 ==
 
 * Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
 * Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
 * Tweak - Add a CSS class i.e. `tribe-events-calendar-month__day--other-month` to past and future month dates in the month view to allow easy targeting similar to what we had in v1. [TEC-4034]
+* Tweak - Changed views: `v2/month/calendar-body/day`
 
-== [5.16.2.1] 2022-07-08 ==
+= [5.16.2.1] 2022-07-08 =
 
 * Fix - Don't load Aggregator scripts on post edit pages to prevent datepicker conflicts [TEC-4427]
 * Tweak - Added filter: `aggregator_should_load_scripts`
 
-== [5.16.2] 2022-07-06 ==
+= [5.16.2] 2022-07-06 =
 
 * Fix - Ensure the `Next` arrow in `List` and `Summary` views navigates to the correct page when the `Main Events Page` is set as the homepage. [TEC-4247]
 * Fix - Ensure the `Next` button when using the `Event View` Elementor widget navigates to the next page on the first click. [FBAR-263]
