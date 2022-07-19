@@ -48,16 +48,6 @@
 		display: none !important;
 	}
 
-	/* Filter Bar - remove/move to FBAR when we release print styles for Filter Bar */
-	.tribe-filter-bar {
-		display: none !important;
-	}
-
-	.tribe-filter-bar--open ~ [class*="tribe-events-calendar"],
-	.tribe-filter-bar--open ~ [class*="tribe-events-pro"] {
-		width: 100% !important;
-	}
-
 	/* Fonts */
 	&.tribe-common .tribe-common-h--alt.tribe-events-c-top-bar__datepicker-button {
 		--tec-font-weight-regular: var(--tec-font-weight-bold);
@@ -73,18 +63,5 @@
 
 	.tribe-events-calendar-month__calendar-event-title-link {
 		font-weight: var(--tec-font-weight-regular);
-	}
-}
-
-/* Extend scrolling views in PRO - remove/move to ECP when we release print styles for EVents PRO */
-.tribe-events-pro {
-	.tribe-events-pro .tribe-events-pro-week-grid__events-row-wrapper,
-	.tribe-events-pro .tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__map,
-	.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__event-column {
-		height: auto !important;
-	}
-
-	.tribe-events-pro .tribe-events-pro-map__event-cards {
-		position: relative !important;
 	}
 }
