@@ -13,6 +13,7 @@ class Events_Only_ModifierTest extends \Codeception\TestCase\WPTestCase {
 	 * @runInSeparateProcess to avoid carrying over the const to other tests
 	 */
 	public function should_not_apply_to_query_in_admin_context() {
+		xdebug_disable();
 		$query = new \WP_Query( [ 'post_type' => TEC::POSTTYPE ] );
 		define( 'WP_ADMIN', true );
 
@@ -28,6 +29,7 @@ class Events_Only_ModifierTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_apply_to_query_in_ajax_context() {
+		xdebug_disable();
 		$query = new \WP_Query( [ 'post_type' => TEC::POSTTYPE ] );
 		add_filter( 'wp_doing_ajax', '__return_true' );
 
@@ -45,6 +47,7 @@ class Events_Only_ModifierTest extends \Codeception\TestCase\WPTestCase {
 	 * @runInSeparateProcess to avoid carrying over the const to other tests
 	 */
 	public function should_apply_to_query_in_rest_context() {
+		xdebug_disable();
 		$query = new \WP_Query( [ 'post_type' => TEC::POSTTYPE ] );
 		define( 'REST_REQUEST', true );
 
