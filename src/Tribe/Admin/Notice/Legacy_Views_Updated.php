@@ -13,10 +13,20 @@ use Tribe__Date_Utils as Dates;
  * @package Tribe\Events\Admin\Notice
  */
 class Legacy_Views_Updated {
+
+	/**
+	 * Stores the instance of the notice template.
+	 *
+	 * @since TBD
+	 *
+	 * @var \Tribe__Template
+	 */
+	protected $template;
+
 	/**
 	 * Register legacy views updated notice.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function hook(): void {
 		tribe_notice(
@@ -34,7 +44,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Checks if we are in a page we need to display.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 *
 	 * @return bool
 	 */
@@ -48,7 +58,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Checks all methods required for display.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 *
 	 * @return bool
 	 */
@@ -70,37 +80,32 @@ class Legacy_Views_Updated {
 	}
 
 	/**
+	 * Get template object.
+	 *
+	 * @since TBD
+	 *
+	 * @return \Tribe__Template
+	 */
+	public function get_template() {
+		if ( empty( $this->template ) ) {
+			$this->template = new \Tribe__Template();
+			$this->template->set_template_origin( tribe( 'tec.main' ) );
+			$this->template->set_template_folder( 'src/admin-views' );
+			$this->template->set_template_context_extract( true );
+			$this->template->set_template_folder_lookup( false );
+		}
+
+		return $this->template;
+	}
+
+	/**
 	 * HTML for the notice for sites using V1.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 *
 	 * @return string
 	 */
 	public function notice(): string {
-
-		$link_one = sprintf(
-			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
-			esc_url( 'https://theeventscalendar.com/knowledgebase/k/v1-deprecation-faqs/' ),
-			esc_html_x( 'read the FAQs', 'Read more about deprecation of legacy views.', 'the-events-calendar' )
-		);
-		$link_two = sprintf(
-			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
-			esc_url( 'https://theeventscalendar.com/support/' ),
-			esc_html_x( 'contact support', 'Our support page for TEC', 'the-events-calendar' )
-		);
-
-		$title = esc_html__( 'Your calendar’s design has changed', 'the-events-calendar' );
-
-		$text  = __( 'We’ve detected that your site was still using our legacy calendar design. As part of the update to The Events Calendar 6.0, <strong>your calendar was automatically upgraded to the new designs.</strong>', 'the-events-calendar' );
-		$text  .= '<br><br>';
-		$text  .= sprintf( __( '<strong>Check out your calendar to see the improved designs live on your site.</strong> If you have a question or need help, %1$s or %2$s.', 'the-events-calendar' ), $link_one, $link_two );
-
-		$links = sprintf(
-			'<a href="%1$s" class="button">%2$s</a>',
-			tribe_events_get_url(),
-			esc_html__( 'View your calendar', 'the-events-calendar' )
-		);
-
-		return '<h3>' . $title . '</h3><p>' .  $text . '</p><p>' . $links . '</p>';
+		return $this->get_template()->template( 'notices/legacy-views-updated', [], false );
 	}
 }
