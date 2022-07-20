@@ -9,11 +9,13 @@
  * @var string $upgrade_link - The link to the upgrade tab.
  * @var string $learn_link - The link to the knowledge base article.
  */
+
+$main = Tribe__Events__Main::instance();
 ?>
 
 <div class="tec-update-notice">
     <h3 class="tec-update-notice__title">
-        <img src="<?php echo esc_url( tribe_resource_url( 'warning.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="alert icon" class="tec-inline-icon"/>
+        <img src="<?php echo esc_url( tribe_resource_url( 'warning.svg', false, 'src/resources/images/icons/', $main ) ); ?>" alt="alert icon" class="tec-inline-icon"/>
         <?php echo esc_html( $title ); ?>
     </h3>
     <div class="tec-update-notice__description">
