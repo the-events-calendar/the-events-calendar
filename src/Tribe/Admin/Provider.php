@@ -10,6 +10,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	public function register() {
 		$this->container->singleton( Settings::class, Settings::class );
 		$this->container->singleton( 'tec.admin.notice.legacy-views', Notice\Legacy_Views_Deprecation::class );
+		$this->container->singleton( Notice\Legacy_Views_Updated::class, Notice\Legacy_Views_Updated::class );
 		$this->container->singleton( 'tec.admin.notice.fse', Notice\Full_Site_Editor::class );
 		$this->container->singleton( 'tec.admin.notice.timezones', Notice\Timezones::class );
 		$this->container->singleton( 'tec.admin.notice.marketing', Notice\Marketing::class );
@@ -40,5 +41,6 @@ class Provider extends \tad_DI52_ServiceProvider {
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.marketing', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.legacy-views', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.fse', 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( Notice\Legacy_Views_Updated::class, 'hook' ) );
 	}
 }
