@@ -93,6 +93,7 @@ class Process {
 
 		// Flag our new phase.
 		$this->state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );
+		$this->state->set( 'started_timestamp', time() );
 		$this->state->save();
 
 		foreach ( $this->events->get_ids_to_process( 50 ) as $post_id ) {
