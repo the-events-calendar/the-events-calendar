@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.16.3.1] TBD =
+= [5.16.3.1] 2022-07-21 =
 
 * Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
 
