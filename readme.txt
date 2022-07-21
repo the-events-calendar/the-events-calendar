@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.3
+Stable tag: 5.16.3.1
 Tested up to: 6.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -227,9 +227,14 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Update the celandar print design. [TEC-4425]
 
+= [5.16.3.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
 == [5.16.3] 2022-07-20 ==
 
 * Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
+* Fix - Avoid some conflicts between the import notice and third-party plugins using jQuery datepicker in the admin. [TEC-4429]
 * Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
 * Tweak - Add a CSS class i.e. `tribe-events-calendar-month__day--other-month` to past and future month dates in the month view to allow easy targeting similar to what we had in v1. [TEC-4034]
 * Tweak - Changed views: `v2/month/calendar-body/day`
