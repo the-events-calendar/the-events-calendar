@@ -666,8 +666,10 @@ class Process_Worker {
 		 * Triggers an action on the end of the Migration.
 		 *
 		 * @since TBD
+		 *
+		 * @param bool $dry_run Whether the migration just completed is a dry-run one or not.
 		 */
-		do_action( 'tec_events_custom_tables_v1_migration_completed' );
+		do_action( 'tec_events_custom_tables_v1_migration_completed', $this->dry_run );
 
 		do_action( 'tribe_log', 'debug', 'Worker: Migrate event:check_phase', [
 			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,

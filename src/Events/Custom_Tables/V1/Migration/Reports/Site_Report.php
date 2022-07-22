@@ -22,6 +22,7 @@ use Tribe__Events__Main as TEC;
  * @property float  estimated_time_in_seconds
  * @property float  estimated_time_in_minutes
  * @property string date_completed
+ * @property string completed_timestamp
  * @property int    total_events
  * @property int    total_events_migrated
  * @property int    total_events_in_progress
@@ -47,6 +48,7 @@ class Site_Report implements JsonSerializable {
 		'estimated_time_in_seconds' => 0,
 		'estimated_time_in_minutes' => 0,
 		'date_completed'            => null,
+		'completed_timestamp'       => null,
 		'total_events'              => null,
 		'total_events_migrated'     => null,
 		'total_events_in_progress'  => null,
@@ -81,6 +83,7 @@ class Site_Report implements JsonSerializable {
 		$this->data['progress_percent']          = $data['progress_percent'];
 		$this->data['date_completed']            = $data['date_completed'];
 		$this->data['total_events_failed']       = $data['total_events_failed'];
+		$this->data['completed_timestamp']       = $data['completed_timestamp'];
 	}
 
 	/**
@@ -117,6 +120,7 @@ class Site_Report implements JsonSerializable {
 			'estimated_time_in_seconds' => $estimated_time_in_seconds,
 			'estimated_time_in_minutes' => round( $estimated_time_in_seconds / 60, 0 ),
 			'date_completed'            => $date_completed->format( 'F j, Y, g:i a' ),
+			'completed_timestamp'       => $date_completed->getTimestamp(),
 			'total_events_in_progress'  => $total_events_in_progress,
 			'total_events_migrated'     => $total_events_migrated,
 			'total_events'              => $total_events,
