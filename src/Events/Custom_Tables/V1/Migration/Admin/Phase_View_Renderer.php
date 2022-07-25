@@ -199,12 +199,17 @@ class Phase_View_Renderer {
 	 * @param string $template Relative path to the migration template file.
 	 * @param array  $vars     Variables to be put into local scope for the template.
 	 *
-	 * @return false|string
+	 * @return false|string|\WP_Error
 	 */
 	protected function get_template_html( $template, $vars = [] ) {
+		$file_path = $this->template_directory . $template;
+		if ( ! file_exists( $file_path ) ) {
+			return new \WP_Error( 'tec-ct1-migration-phase-non-existent-template', null, [ 'template' => $template, 'phase_renderer' => $this ] );
+		}
+
 		extract( $vars, EXTR_OVERWRITE );
 		ob_start();
-		include $this->template_directory . $template;
+		include $file_path;
 
 		return ob_get_clean();
 	}
