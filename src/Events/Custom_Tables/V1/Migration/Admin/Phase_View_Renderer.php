@@ -129,6 +129,11 @@ class Phase_View_Renderer {
 		$nodes = [];
 		foreach ( $this->nodes as $node ) {
 			$html    = $this->get_template_html( $node['template'], $node['vars'] );
+			// No need to handle the error just yet.
+			if ( is_wp_error( $html ) ) {
+				continue;
+			}
+
 			$nodes[] = array_merge( $node['options'], [
 				'html'   => $html,
 				'hash'   => sha1( $html ),
@@ -148,10 +153,15 @@ class Phase_View_Renderer {
 	 * @return array<string, mixed> The compiled output.
 	 */
 	public function compile() {
+		$html = $this->get_template_html( $this->template_path, $this->vars );
+		if ( is_wp_error( $html ) ) {
+			$html = '';
+		}
+
 		return array_merge( $this->options, [
 			'key'   => $this->key,
 			// Based on what is registered, render the parent template
-			'html'  => $this->pre_post_content( $this->get_template_html( $this->template_path, $this->vars ) ),
+			'html'  => $this->pre_post_content( $html ),
 			'nodes' => $this->compile_nodes(),
 			'poll'  => $this->poll,
 		] );
