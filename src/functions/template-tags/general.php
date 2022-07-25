@@ -161,11 +161,12 @@ function tribe_get_event_label_plural_lowercase() {
  * in the correct directories for Tribe Events templates
  *
  * @uses Tribe__Templates::getTemplateHierarchy
+ *
  * @param null|string $name
  *
- * @param array  $data optional array of vars to inject into the template part
+ * @param array       $data optional array of vars to inject into the template part
  *
- * @param string $slug
+ * @param string      $slug
  */
 function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
@@ -205,14 +206,15 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 }
 
 if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
-		/**
+	/**
 	 * Check if the current request is for a tribe view via ajax
 	 *
-	 * @since 6.0.0 Refactored to use tribe_context().
+	 * @since    6.0.0 Refactored to use tribe_context().
 	 *
-	 * @category Events
 	 * @param bool|string $view View slug.
+	 *
 	 * @return bool
+	 * @category Events
 	 */
 	function tribe_is_ajax_view_request( $view = false ) {
 		$context              = tribe_context();
@@ -261,17 +263,14 @@ function tribe_is_event( $postId = null ) {
 }
 
 /**
- * Get Event
+ * Get Events from the database.
  *
- * Queries the events using WordPress get_posts() by setting the post type and sorting by event date.
+ * Queries the events using the Query wrapper around the Events Repository.
  *
- * @link     http://codex.wordpress.org/Template_Tags/get_posts
- * @link     http://codex.wordpress.org/Function_Reference/get_post
+ * @link     https://developer.wordpress.org/reference/classes/wp_query/
  *
- * @see      get_posts()  for more params
- * }
- *
- * @uses     get_posts()
+ * @uses     tribe_events()
+ * @uses     Tribe__Events__Query::getEvents
  *
  * @param array $args          {
  *                             Optional. Array of Query parameters.
@@ -283,14 +282,13 @@ function tribe_is_event( $postId = null ) {
  * @type int    $venue         Select events from a specific Venue
  * @type int    $organizer     Select events from a specific Organizer
  * @type string $eventDisplay  How to display the Events, internal usage
+ *                             }
  *
  * @param bool  $full          Whether to return an array of event posts (default) or the query object
  *                             to fetch them.
  *
  * @return array|WP_Query A list of event posts matching the query arguments or a WP_Query instance
  *                        if the `$full` argument is set to `true`.
- * @category Events
- *
  */
 function tribe_get_events( $args = [], $full = false ) {
 	if ( empty ( $args['eventDisplay'] ) ) {
@@ -591,8 +589,8 @@ if ( ! function_exists( 'tribe_meta_event_category_name' ) ) {
 	 *
 	 * Return the current event category name based the url.
 	 *
-	 * @category Events
 	 * @return null|string Name of the Event Category
+	 * @category Events
 	 */
 	function tribe_meta_event_category_name() {
 		$context     = tribe_context();
@@ -614,9 +612,9 @@ if ( ! function_exists( 'tribe_meta_event_archive_tags' ) ) {
 	 *
 	 * @since 5.16.0
 	 *
-	 * @param null|string $label The label for the term list.
+	 * @param null|string $label     The label for the term list.
 	 * @param string      $separator The separator of each term.
-	 * @param bool        $echo, Whether to echo or return the list.
+	 * @param bool        $echo      , Whether to echo or return the list.
 	 *
 	 * @return string|void The html list of tags or void if no terms.
 	 */
@@ -662,6 +660,7 @@ if ( ! function_exists( 'tribe_meta_event_archive_tags' ) ) {
 
 		if ( $echo ) {
 			echo $list;
+
 			return;
 		}
 
@@ -848,10 +847,10 @@ function tribe_events_event_classes( $event = 0, $echo = true ) {
 /**
  * Prints out data attributes used in the template header tags
  *
- * @category Events
  * @param string|null $current_view
  *
- **/
+ **@category Events
+ */
 function tribe_events_the_header_attributes( $current_view = null ) {
 	if ( ! $wp_query = tribe_get_global_query_object() ) {
 		return;
@@ -1393,7 +1392,7 @@ function tec_events_get_current_view() {
 	/**
 	 * Which view is currently being rendered.
 	 *
-	 * @since TBD
+	 * @since  TBD
 	 *
 	 * @pararm null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
 	 */
@@ -1463,7 +1462,7 @@ if ( ! function_exists( 'tribe_events_is_view_enabled' ) ) {
 	 * @return bool
 	 **/
 	function tribe_events_is_view_enabled( $view ) {
-		$manager = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$manager      = tribe( \Tribe\Events\Views\V2\Manager::class );
 		$public_views = $manager->get_publicly_visible_views();
 
 		$enabled = isset( $public_views[ $view ] );
@@ -1588,7 +1587,7 @@ function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip
 		$skip_postdata_manipulation,
 		$allow_shortcodes,
 		$remove_shortcodes,
-		json_encode( $allowed_html )
+		json_encode( $allowed_html ),
 	] );
 
 	if ( ! isset( $cache_excerpts[ $cache_excerpts_key ] ) ) {
