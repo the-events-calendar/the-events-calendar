@@ -111,7 +111,7 @@ class Tribe__Events__Query {
 	}
 
 	/**
-	 * Customized WP_Query wrapper to setup event queries with default arguments.
+	 * Customized WP_Query wrapper to set up event queries with default arguments.
 	 *
 	 * @param array $args {
 	 *		Optional. Array of Query parameters.

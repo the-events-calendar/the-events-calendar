@@ -53,9 +53,6 @@ class Provider extends Service_Provider {
 	 * @return bool Whether the Provider did register or not.
 	 */
 	public function register() {
-		// Register the alpha/beta feedback collector service provider.
-		$this->container->register( Feedback\Provider::class );
-
 		if ( ! self::is_active() ) {
 			return false;
 		}
