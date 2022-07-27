@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-== [TBD] TBD ==
+= [TBD] TBD =
 
 * Tweak - Update the celandar print design. [TEC-4425]
 
