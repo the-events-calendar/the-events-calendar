@@ -170,6 +170,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
+
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
 	}
 
 	/**
@@ -1113,5 +1115,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'Views V2 Status' => tribe_events_views_v2_is_enabled() ? esc_html__( 'Enabled', 'the-events-calendar' ) : esc_html__( 'Disabled', 'the-events-calendar' ),
 		];
 		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $views_v2_status );
+	}
+
+	public function filter_url_date_conflicts( $params, $request ) {
+		if ( ! isset( $params['tribe-bar-date'] ) || ! isset( $params[ 'eventDate'] ) ) {
+			return $params;
+		}
+
+		$params[ 'eventDate'] = $params['tribe-bar-date'];
+
+		return $params;
 	}
 }
