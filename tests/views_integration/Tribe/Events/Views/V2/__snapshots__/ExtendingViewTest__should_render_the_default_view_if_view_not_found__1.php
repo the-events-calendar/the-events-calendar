@@ -23,11 +23,9 @@
 
 		
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","title":"Events \\u2013 The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","url_event_date":false,"bar":{"keyword":"","date":""},"today":"2020-01-01","now":"2020-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","breadcrumbs":[],"before_events":"<div id=\\"tribe-events\\" class=\\"tribe-no-js\\" data-live_ajax=\\"1\\" data-datepicker_format=\\"1\\" data-category=\\"\\" data-featured=\\"\\">","after_events":"<\\/div><!-- #tribe-events -->\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/","view_label":"Month"}},"show_latest_past":true,"show_now":true,"now_label":"Now onwards","now_label_mobile":"Now onwards","show_end":false,"selected_start_datetime":"2020-01-01","selected_start_date_mobile":"1\\/1\\/2020","selected_start_date_label":"January 1","selected_end_datetime":"2020-01-01","selected_end_date_mobile":"1\\/1\\/2020","selected_end_date_label":"Now","datepicker_date":"1\\/1\\/2020","subscribe_links":{"gcal":{"block_slug":"hasGoogleCalendar","label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"block_slug":"hasiCal","label":"iCalendar","single_label":"Add to iCalendar","visible":true},"outlook-365":{"block_slug":"hasOutlook365","label":"Outlook 365","single_label":"Outlook 365","visible":true},"outlook-live":{"block_slug":"hasOutlookLive","label":"Outlook Live","single_label":"Outlook Live","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true,"block_slug":null},"outlook-ics":{"label":"Export Outlook .ics file","single_label":"Export Outlook .ics file","visible":true,"block_slug":null}},"_context":{"slug":"list"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","title":"Events \\u2013 The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/","url_event_date":false,"bar":{"keyword":"","date":""},"today":"2020-01-01","now":"2020-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"2ab7cc6b39","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","prev_label":"","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/","view_label":"Month"}},"show_latest_past":true,"show_now":true,"now_label":"Now onwards","now_label_mobile":"Now onwards","show_end":false,"selected_start_datetime":"2020-01-01","selected_start_date_mobile":"1\\/1\\/2020","selected_start_date_label":"January 1","selected_end_datetime":"2020-01-01","selected_end_date_mobile":"1\\/1\\/2020","selected_end_date_label":"Now","datepicker_date":"1\\/1\\/2020","subscribe_links":{"gcal":{"block_slug":"hasGoogleCalendar","label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"block_slug":"hasiCal","label":"iCalendar","single_label":"Add to iCalendar","visible":true},"outlook-365":{"block_slug":"hasOutlook365","label":"Outlook 365","single_label":"Outlook 365","visible":true},"outlook-live":{"block_slug":"hasOutlookLive","label":"Outlook Live","single_label":"Outlook Live","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true,"block_slug":null},"outlook-ics":{"label":"Export Outlook .ics file","single_label":"Export Outlook .ics file","visible":true,"block_slug":null}},"_context":{"slug":"list"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
-		<div class="tribe-events-before-html">
-	<div id="tribe-events" class="tribe-no-js" data-live_ajax="1" data-datepicker_format="1" data-category="" data-featured=""></div>
-
+		
 		<header  class="tribe-events-header tribe-events-header--has-event-search" >
 			<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
@@ -317,7 +315,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2021-07-04%26ical%3D1%26eventDisplay%3Dlist"
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2020-01-01%26ical%3D1%26eventDisplay%3Dlist"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -328,7 +326,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2021-07-04&#038;ical=1&#038;eventDisplay=list"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2020-01-01&#038;ical=1&#038;eventDisplay=list"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -339,7 +337,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.office.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2021-07-04%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
+		href="https://outlook.office.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2020-01-01%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -350,7 +348,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.live.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2021-07-04%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
+		href="https://outlook.live.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2020-01-01%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -386,7 +384,7 @@
 </div>
 
 		<div class="tribe-events-after-html">
-	</div><!-- #tribe-events -->
+	
 <!--
 This calendar is powered by The Events Calendar.
 http://evnt.is/18wn
