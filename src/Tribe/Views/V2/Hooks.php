@@ -138,6 +138,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_option', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 
+		add_filter( 'tribe_get_option', [ $this, 'filter_date_escaping' ], 10, 2 );
+
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'tribe_events_filter_views_v2_wp_title_plural_events_label', [ $this, 'filter_wp_title_plural_events_label' ], 10, 2 );
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -871,6 +873,25 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$return_value = apply_filters( 'tribe_events_option_convert_live_filters', $return_value, $value );
 
 		return $return_value;
+	}
+
+	public function filter_date_escaping( $value, $optionName ) {
+		// A list of date options we may need to unescape.
+		$date_options = [
+			'dateWithoutYearFormat',
+			'monthAndYearFormat',
+		];
+
+		if ( ! in_array( $optionName, $date_options ) ) {
+			return $value;
+		}
+
+		// Note: backslash is hte escape character - so we need to escape it.
+		// This is the equivalent of replacing any occurrence of \\ with \
+		$value = str_replace( "\\\\", "\\", $value);
+		//$value = stripslashes( $value ); will strip out ones we want to keep!
+
+		return $value;
 	}
 
 	/**
