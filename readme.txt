@@ -225,7 +225,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Update the celandar print design. [TEC-4425]
+* Tweak - Update the calandar print design. [TEC-4425]
 
 = [5.16.3.1] 2022-07-21 =
 
