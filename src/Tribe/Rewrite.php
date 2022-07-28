@@ -444,10 +444,6 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * @return void
 	 */
 	public function maybe_delayed_flush_rewrite_rules() {
-		if ( ! is_admin() ) {
-			return;
-		}
-
 		$should_flush_rewrite_rules = tribe_is_truthy( get_transient( static::KEY_DELAYED_FLUSH_REWRITE_RULES ) );
 
 		if ( ! $should_flush_rewrite_rules ) {

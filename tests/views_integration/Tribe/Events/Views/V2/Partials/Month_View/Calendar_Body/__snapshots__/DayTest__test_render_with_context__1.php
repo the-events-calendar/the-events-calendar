@@ -84,7 +84,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2018-07-01">
-		<span class="tribe-event-date-start">July 1, 2018 @ 11:00 am</span> - <span class="tribe-event-date-end">July 4, 2018 @ 9:00 am</span>	</time>
+		<span class="tribe-event-date-start">July 1, 2018 @ 11:00 am</span> - <span class="tribe-event-date-end">July 4, 2018 @ 11:00 am</span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
@@ -128,7 +128,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2018-07-01">
-		<span class="tribe-event-date-start">July 1, 2018 @ 1:00 pm</span> - <span class="tribe-event-date-end">July 3, 2018 @ 11:00 am</span>	</time>
+		<span class="tribe-event-date-start">July 1, 2018 @ 1:00 pm</span> - <span class="tribe-event-date-end">July 3, 2018 @ 1:00 pm</span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
@@ -157,8 +157,8 @@
 		<time datetime="10:00">
 		10:00 am	</time>
 			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="11:00">
-			11:00 am		</time>
+		<time datetime="13:00">
+			1:00 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -181,7 +181,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2018-07-01">
-		<span class="tribe-event-date-start">July 1, 2018 @ 10:00 am</span> - <span class="tribe-event-time">11:00 am</span>	</time>
+		<span class="tribe-event-date-start">July 1, 2018 @ 10:00 am</span> - <span class="tribe-event-time">1:00 pm</span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
@@ -210,8 +210,8 @@
 		<time datetime="11:00">
 		11:00 am	</time>
 			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="12:00">
-			12:00 pm		</time>
+		<time datetime="14:00">
+			2:00 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -234,7 +234,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2018-07-01">
-		<span class="tribe-event-date-start">July 1, 2018 @ 11:00 am</span> - <span class="tribe-event-time">12:00 pm</span>	</time>
+		<span class="tribe-event-date-start">July 1, 2018 @ 11:00 am</span> - <span class="tribe-event-time">2:00 pm</span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a

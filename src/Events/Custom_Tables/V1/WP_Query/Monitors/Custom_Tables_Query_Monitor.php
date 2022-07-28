@@ -44,7 +44,7 @@ class Custom_Tables_Query_Monitor {
 	 *                should be ignored by the Monitor.
 	 */
 	public static function ignore_flag() {
-		return 'icaltec_ct_ignore';
+		return 'tec_events_ct_ignore';
 	}
 
 	/**

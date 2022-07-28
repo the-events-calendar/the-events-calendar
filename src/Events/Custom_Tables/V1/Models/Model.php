@@ -157,32 +157,39 @@ abstract class Model implements Serializable {
 	public $single_validations = [];
 
 	/**
+	 * A map from properties to either the callable that will resolve their value,
+	 * or their previously resolved value.
+	 *
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,callable|int|float|string>
+	 */
+	protected $extended_properties = [];
+
+
+	/**
 	 * Model constructor.
 	 *
 	 * @param  array                    $data       An array with key => value pairs used to populate the model on creation of the object.
 	 * @param  tad_DI52_Container|null  $container  A reference to the current Dependency Injection container instance.
 	 */
 	public function __construct( array $data = [], tad_DI52_Container $container = null ) {
-		$this->data             = $data;
-		$this->container        = $container ?: tribe();
+		$this->data = $data;
+		$this->container = $container ?: tribe();
 
 		$this->filter_extensions();
 
-		$extended_validators  = isset( static::$extensions[ $this->table ]['validators'] ) ?
-			static::$extensions[ $this->table ]['validators']
-			: [];
-		$extended_formatters  = isset( static::$extensions[ $this->table ]['formatters'] ) ?
-			static::$extensions[ $this->table ]['formatters']
-			: [];
-		$extended_hashed_keys = isset( static::$extensions[ $this->table ]['hashed_keys'] ) ?
-			static::$extensions[ $this->table ]['hashed_keys']
-			: [];
+		$extended_validators = static::$extensions[ $this->table ]['validators'] ?? [];
+		$extended_formatters = static::$extensions[ $this->table ]['formatters'] ?? [];
+		$extended_hashed_keys = static::$extensions[ $this->table ]['hashed_keys'] ?? [];
+		$extended_properties = static::$extensions[ $this->table ]['properties'] ?? [];
 
-		$this->validations    = array_merge( $this->validations, $extended_validators );
-		$this->formatters     = array_merge( $this->formatters, $extended_formatters );
-		$this->hashed_keys    = array_merge( $this->hashed_keys, $extended_hashed_keys );
+		$this->validations = array_merge( $this->validations, $extended_validators );
+		$this->formatters = array_merge( $this->formatters, $extended_formatters );
+		$this->hashed_keys = array_merge( $this->hashed_keys, $extended_hashed_keys );
+		$this->extended_properties = $extended_properties;
 	}
-
 	/**
 	 * Get the name of the table that is being affected by this model.
 	 *
@@ -442,6 +449,15 @@ abstract class Model implements Serializable {
 	 * @return mixed|null null if the value does not exists mixed otherwise the the value to the dynamic property.
 	 */
 	public function __get( $name ) {
+		if ( array_key_exists( $name, $this->extended_properties ) ) {
+			if ( is_callable( $this->extended_properties[ $name ] ) ) {
+				// Resolve the property value once.
+				$this->extended_properties[ $name ] = $this->extended_properties[$name]( $this->data );
+			}
+
+			return $this->extended_properties[ $name ];
+		}
+
 		if ( array_key_exists( $name, $this->data ) ) {
 			// Try to fin a method on this instance like `get_property_name_attribute
 			$method = 'get_' . strtolower( $name ) . '_attribute';

@@ -90,7 +90,7 @@ if ( ! $preview_unsupported ) {
 		ob_start();
 		?>
 		<em title="<?php esc_attr( $text->get( 're-run-preview-button' ) ) ?>">
-			<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
+			<?php include $template_directory . '/icons/rerun.php'; ?>
 		</em>
 		<a class="tec-ct1-upgrade-start-migration-preview"
 		   href="#"><?php echo esc_html( $text->get( 're-run-preview-button' ) ); ?></a>
