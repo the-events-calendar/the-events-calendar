@@ -84,7 +84,7 @@ class Phase_View_Renderer {
 		$this->key           = $key;
 		$this->template_path = $file_path;
 		// Our root template directory for all migration templates.
-		$this->template_directory = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
+		$this->template_directory = tribe( 'tec.main' )->plugin_path . 'src/Events/Custom_Tables/V1/admin-views/migration';
 		// Add the vars we already have, in case template relies on it.
 		$this->vars = array_merge( [
 			'phase'              => $key,

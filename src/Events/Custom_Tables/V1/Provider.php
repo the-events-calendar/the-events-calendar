@@ -64,10 +64,6 @@ class Provider extends Service_Provider {
 
 		$this->did_register = true;
 
-		if ( ! defined( 'TEC_CUSTOM_TABLES_V1_ROOT' ) ) {
-			define( 'TEC_CUSTOM_TABLES_V1_ROOT', __DIR__ );
-		}
-
 		/*
 		 * This block should be the only one capturing exceptions thrown in the context of
 		 * the feature. This removes the burden of exception and error handling from the

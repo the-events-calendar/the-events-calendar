@@ -133,7 +133,7 @@ class Progress_Modal {
 	 * @return string The modal content.
 	 */
 	public function get_modal_content( $args = [] ) {
-		$template_path = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
+		$template_path = tribe( 'tec.main' )->plugin_path . 'src/Events/Custom_Tables/V1/admin-views/migration';
 		$dialog_view   = tribe( 'dialog.view' );
 		$args          = $this->get_modal_args( $args );
 		$text          = tribe( String_Dictionary::class );
