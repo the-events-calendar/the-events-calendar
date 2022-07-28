@@ -75,9 +75,6 @@ class Provider extends Service_Provider {
 		 */
 		try {
 			$this->bind_implementations();
-
-			require_once __DIR__ . '/functions.php';
-
 			$this->container->singleton( Container::class, $this->container );
 
 			// Register this provider to allow getting hold of it from third-party code.
