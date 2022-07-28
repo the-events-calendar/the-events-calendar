@@ -64,7 +64,7 @@ class Maintenance_Mode {
 		}
 
 		$text = tribe( String_Dictionary::class );
-		include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/settings-maintenance-modal.php';
+		include tribe( 'tec.main' )->plugin_path . 'src/Events/Custom_Tables/V1/admin-views/migration/settings-maintenance-modal.php';
 	}
 
 	/**

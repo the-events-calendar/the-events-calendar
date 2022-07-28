@@ -50,7 +50,7 @@ class WP_Query_Monitor implements Countable {
 	 *                should be ignored by the Monitor.
 	 */
 	public static function ignore_flag() {
-		return 'icaltec_ignore';
+		return 'tec_events_ignore';
 	}
 
 	/**
