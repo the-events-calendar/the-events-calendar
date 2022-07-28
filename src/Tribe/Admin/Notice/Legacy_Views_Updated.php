@@ -35,6 +35,9 @@ class Legacy_Views_Updated {
 			[
 				'dismiss' => 1,
 				'type'    => 'warning',
+				'inline'  => static function () {
+					return isset( $_GET['update-message-the-events-calendar'] );
+				},
 				'wrap'    => false,
 			],
 			[ $this, 'should_display' ]
@@ -63,6 +66,14 @@ class Legacy_Views_Updated {
 	 * @return bool
 	 */
 	public function should_display(): bool {
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		if ( isset( $_GET['update-message-the-events-calendar'] ) ) {
+			return false;
+		}
+
 		return $this->is_valid_screen() && $this->has_views_v2_negative_value();
 	}
 

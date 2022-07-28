@@ -37,11 +37,16 @@ class Update {
 			'event-update-6-0',
 			[ $this, 'notice' ],
 			[
-				'dismiss'            => 1,
+				'dismiss'            => static function () {
+					return ! isset( $_GET['update-message-the-events-calendar'] );
+				},
 				'type'               => 'warning',
 				'wrap'               => false,
 				'recurring'          => true,
 				'recurring_interval' => 'P1M',
+				'inline'             => static function () {
+					return isset( $_GET['update-message-the-events-calendar'] );
+				},
 			],
 			[ $this, 'should_display' ]
 		);

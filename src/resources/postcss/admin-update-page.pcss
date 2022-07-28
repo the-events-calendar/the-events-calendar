@@ -10,6 +10,13 @@ body.tribe-update {
 	margin: 0;
 	max-width: none;
 
+	.notice {
+		box-sizing: border-box;
+		width: 100%;
+		margin: 0 auto 20px;
+		max-width: 1060px;
+	}
+
 	h1 {
 		display: none;
 	}
@@ -22,12 +29,14 @@ body.tribe-update {
 		}
 	}
 
-	p, a, li {
-		font-size: 16px;
-		line-height: 1.6;
+	.tec-update-page-block {
+		p, a, li {
+			font-size: 16px;
+			line-height: 1.6;
 
-		@media (min-width: 710px) {
-			font-size: 18px;
+			@media (min-width: 710px) {
+				font-size: 18px;
+			}
 		}
 	}
 
@@ -59,11 +68,6 @@ body.tribe-update {
 	}
 
 	.tec-update-notice {
-		background: #ffffff;
-		border: 1px solid #cccccc;
-		border-left: 6px solid #dba617;
-		border-radius: 4px;
-		padding: 12px 32px;
 	}
 
 	.tec-update-notice__link {
@@ -150,6 +154,7 @@ body.tribe-update {
 /* Series details section */
 .tec-update-page-block {
 	margin-bottom: 100px;
+
 	h3 {
 		font-size: 2.3rem;
 		font-weight: bold;
