@@ -49,6 +49,30 @@ class Schema_Builder {
 	}
 
 	/**
+	 * Get the md5 hash of all the registered schemas classes with their versions.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_registered_schemas_version_hash() {
+		$schemas = array_merge( $this->get_registered_table_schemas(),  $this->get_registered_field_schemas() );
+
+		$versions = [];
+		foreach( $schemas as $schema ) {
+			$class_name = get_class( $schema );
+			$constant_name = $class_name . '::SCHEMA_VERSION';
+			if ( ! defined( $constant_name ) ) {
+				continue;
+			}
+
+			$versions[ $class_name ] = constant( $constant_name );
+		}
+
+		return md5( json_encode( $versions ) );
+	}
+
+	/**
 	 * Get the registered table handlers.
 	 *
 	 * @since TBD
