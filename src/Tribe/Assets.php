@@ -150,9 +150,9 @@ class Tribe__Events__Assets {
 			[ ],
 			[ 'admin_enqueue_scripts', 'wp_enqueue_scripts' ],
 			[
-				'conditionals' => [ $this, 'should_enqueue_admin_update_page_assets' ],  
+				'conditionals' => [ $this, 'should_enqueue_admin_update_page_assets' ],
 			]
-		);	
+		);
 
 		// Setting page Assets
 		tribe_asset(
@@ -461,8 +461,6 @@ class Tribe__Events__Assets {
 		 */
 		return apply_filters( 'tribe_events_assets_should_enqueue_admin_update_page_assets', $should_enqueue );
 	}
-	
-
 
 	/**
 	 * Checks if we have a mobile Breakpoint
