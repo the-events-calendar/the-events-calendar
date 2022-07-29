@@ -35,7 +35,6 @@
 * `src/resources/js/tribe-events-ajax-calendar.js`
 * `src/resources/js/tribe-events-bar.js`
 * `src/resources/js/tribe-events-calendar-script.js`
-  * Filterbar usage of `tribe-events-calendar-script`
 * `src/resources/postcss/tribe-events-pro-full.pcss`
 * `src/resources/postcss/tribe-events-pro-full-mobile.pcss`
 * `src/resources/postcss/tribe-events-pro-skeleton.pcss`
@@ -44,7 +43,13 @@
 
 ## Classes moved to `src/deprecated`
 
-* `Tribe__Events__List_Widget` - modified to extend the new List Widget and deprecate publicly accessible methods.
+* `Tribe__Events__List_Widget`
+* `Tribe__Events__Template__Day`
+* `Tribe__Events__Template__List`
+* `Tribe__Events__Template__Month`
+* `Tribe__Events__Bar`
+* `Tribe__Events__Backcompat`
+* `Tribe__Template_Factory`
 
 ## Classes Removed
 
@@ -76,24 +81,15 @@
 * `Tribe__Events__Asset__Smoothness`
 * `Tribe__Events__Asset__Tribe_Events_Bar`
 * `Tribe__Events__Asset__Tribe_Select2`
-* `Tribe__Events__Template__Day`
 * `Tribe_Events_Day_Template`
-* `Tribe__Events__Template__List`
 * `Tribe_Events_List_Template`
-* `Tribe__Events__Template__Month`
-  * [x] There are usages of this in Filter Bar
 * `Tribe_Events_Month_Template`
-* `Tribe__Template_Factory`
-  * [ ] There are usages of this in Event Tickets
 * `Tribe_Template_Factory`
 * `TribeEventsQuery`
 * `TribeEventsTemplates`
 * `TribeRecurringEventCleanup`
 * `Tribe__Events__Recurring_Event_Cleanup`
 * `TribeEventsBar`
-* `Tribe__Events__Bar`
-  * [ ] `tec.bar` in Events Pro
-* `Tribe__Events__Backcompat`
 * `Tribe\Events\Views\V2\V1_Compat`
 * `Tribe__Events__Admin__Front_Page_View`
 * `Tribe__Events__Admin__Notices__Base_Notice`
@@ -151,32 +147,26 @@
 
 * `Tribe__Events__Main::add_new_organizer`
 * `Tribe__Events__Main::default_view`
-  * [ ] Pro makes use of this method
 * `Tribe__Events__Main::fullAddress`
 * `Tribe__Events__Main::fullAddressString`
 * `Tribe__Events__Main::getDateStringShortened`
 * `Tribe__Events__Main::getPostTypes`
-  * [ ] Community Events makes use, replace with `Tribe__Main::get_post_types()`
 * `Tribe__Events__Main::googleCalendarLink`
 * `Tribe__Events__Main::googleMapLink`
 * `Tribe__Events__Main::monthNames`
 * `Tribe__Events__Main::nextMonth`
-  * [ ] Pro makes use of this method
 * `Tribe__Events__Main::previousMonth`
-  * [ ] Pro makes use of this method
 * `Tribe__Events__Main::setDisplay`
-  * [ ] Investigate `Tribe__Events__Main->displaying`
-
+*
 ## Functions moved to `src/functions/template-tags/deprecated`
 
-* `tribe_events_the_header_attributes` - logic stripped out.
+* `tribe_events_the_header_attributes`
 * `tribe_get_next_day_date`
 * `tribe_get_previous_day_date`
 
 ## Functions/methods refactored
 
 * `tribe_events_is_view_enabled` - refactored to use Views\V2\Manager.
-  * [ ] Pro make use of this
 * `tribe_is_ajax_view_request` - switched to use tribe_context() and the Manager.
 * `tribe_meta_event_category_name` - refactored to use tribe_context().
 
@@ -184,7 +174,7 @@
 
 * `tribe_get_list_widget_events`
 * `Tribe__Events__Main::register_list_widget`
-* `Tribe__Events__Main::init_day_view` - [BTRIA-620]
+* `Tribe__Events__Main::init_day_view`
 * `Tribe__Events__Main::eventQueryVars`
 * `Tribe__Events__Main::ecpActive`
 * `Tribe__Events__Main::dateHelper`
@@ -256,27 +246,13 @@
 * `Tribe__Events__Main::redirect_past_upcoming_view_urls`
 * `Tribe__Events__Main::getOrganizerPostTypeArgs`
 * `Tribe__Events__Main::getVenuePostTypeArgs`
-  * [ ] Pro makes use of this method, replace with `Tribe__Events__Venue::instance()->post_type_args`
 * `Tribe__Events__Main::disable_pro`
 * `Tribe__Events__Main::template_redirect`
 * `Tribe__Events__Main::handle_submit_bar_redirect`
 * `Tribe__Events__Main::print_noindex_meta`
-  * [ ] Confirm why we might have removed this from our Views.
 * `Tribe__Events__Query::init`
 * `Tribe__Events__Query::parse_query`
-  * [ ] `WP_Query->tribe_is_event`
-    * [ ] There are usages of this in Filter Bar
-  * [ ] `WP_Query->tribe_is_multi_posttype`
-  * [ ] `WP_Query->eventDisplay`
-    * [ ] There are usages of this in Filter Bar
-  * [ ] `WP_Query->tribe_is_event_category`
-    * [ ] There are usages of this in Filter Bar
-  * [ ] `WP_Query->tribe_is_event_venue`
-  * [ ] `WP_Query->tribe_is_event_organizer`
-  * [ ] `WP_Query->tribe_is_event_query`
-  * [ ] `WP_Query->tribe_is_past`
 * `Tribe__Events__Query::pre_get_posts`
-  * [ ] `WP_Query->tribe_suppress_query_filters`
 * `Tribe__Events__Query::default_page_on_front`
 * `Tribe__Events__Query::multi_type_posts_fields`
 * `Tribe__Events__Query::posts_join`
@@ -307,9 +283,7 @@
 * `tribe_show_month`
 * `tribe_get_dropdown_link_prefix`
 * `tribe_events_get_filters`
-  * [ ] Pro make use of this
 * `tribe_events_get_views`
-  * [ ] Pro make use of this
 * `Tribe__Events__Template__Single_Event::setup_meta`
 * `Tribe__Events__Template_Factory::asset_package`
 * `Tribe__Events__Template_Factory::get_asset_factory_instance`
@@ -329,7 +303,6 @@
 * `Tribe__Events__Templates::spoof_the_post`
 * `Tribe__Events__Templates::templateChooser`
 * `Tribe__Events__Templates::theme_body_class`
-  * [ ] Community Events uses this method
 * `Tribe__Events__Templates::add_singular_body_class`
 * `Tribe__Events__Templates::get_current_page_template`
 * `Tribe__Events__Templates::needs_compatibility_fix`
@@ -479,19 +452,13 @@
 * `tribe_get_the_day_link_label`
 * `tribe_the_day_link`
 * `tribe_get_linked_day`
-* `tribe_events_get_views`
-  * [ ] Pro make use of this
 * `tribe_events_disabled_views`
 * `tribe_events_enabled_views`
 * `tribe_events_template_data`
 * `tribe_get_ticket_form`
 * `tribe_map_cost_array_callback`
 * `tribe_events_get_days_of_week`
-  * [ ] Pro make use of this
-* `tribe_is_community_edit_event_page`
-  * [ ] Community Events and community tickets uses this method
 * `tribe_is_community_my_events_page`
-  * [ ] Community Events uses this method
 * `tribe_display_current_events_slug`
 * `tribe_display_current_single_event_slug`
 * `tribe_display_current_ical_link`

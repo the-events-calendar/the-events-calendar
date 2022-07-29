@@ -215,14 +215,14 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 
 == Upgrade Notice ==
 
-= [5.0] =
+= [6.0] =
 Please see the changelog for the complete list of changes in this release.
-Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
+Previous versions of The Events Calendar are not cross-compatible with 6.X add-ons.
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [RBE] RBE = Switch this to TBD once we're close to release.
+= [6.0.0] 2022-0X-XX =
 
 * Tweak - add the `tec_events_custom_tables_v1_blocks_editor_event_meta` to allow customizing the event meta data in Blocks Editor context.
 

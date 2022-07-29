@@ -1,4 +1,5 @@
 <?php
+_deprecated_file( __FILE__, '6.0.0', '', 'This widget has been replaced by src/Tribe/Views/V2/Widgets/Widget_List.php' );
 /**
  * Event List Widget
  *
@@ -6,9 +7,6 @@
  *
  * Creates a widget that displays the next upcoming x events
  */
-
-_deprecated_file( __FILE__, '6.0.0', '', 'This widget has been replaced by src/Tribe/Views/V2/Widgets/Widget_List.php' );
-
 class Tribe__Events__List_Widget extends \Tribe\Events\Views\V2\Widgets\Widget_List {
 	/**
 	 * The main widget output function (called by the class's widget() function).
