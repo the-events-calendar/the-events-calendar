@@ -55,7 +55,7 @@ class Schema_Builder {
 	 *
 	 * @return string
 	 */
-	public function get_registered_schemas_version_hash() {
+	public function get_registered_schemas_version_hash() :string {
 		$schemas = array_merge( $this->get_registered_table_schemas(),  $this->get_registered_field_schemas() );
 
 		$versions = [];
@@ -75,6 +75,9 @@ class Schema_Builder {
 
 			$versions[ $class_name ] = constant( $constant_name );
 		}
+
+		// Sort to avoid hash changing due to order changes.
+		ksort( $versions );
 
 		return md5( json_encode( $versions ) );
 	}
