@@ -162,14 +162,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
-				'print_before' => static function() {
-					return '
-					<script>
-					if ( "undefined" !== typeof window.jQuery.fn.datepicker ) {
- 						window.tecBackupDatepicker = window.jQuery.fn.datepicker;
- 					}
-					</script>';
-				},
 			]
 		);
 
@@ -387,14 +379,6 @@ class Assets extends \tad_DI52_ServiceProvider {
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key ],
-				'print_after' => static function() {
-					return '
-					<script>
-					if ( "undefined" !== typeof window.tecBackupDatepicker ) {
- 						window.jQuery.fn.datepicker = window.tecBackupDatepicker;
- 					}
-					</script>';
-				},
 			]
 		);
 
