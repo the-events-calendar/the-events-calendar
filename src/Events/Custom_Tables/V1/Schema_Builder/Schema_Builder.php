@@ -2,8 +2,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
-use TEC\Events\Custom_Tables\V1\Tables\Custom_Field_Interface;
-use TEC\Events\Custom_Tables\V1\Tables\Custom_Table_Interface;
 use WP_CLI;
 
 class Schema_Builder {
