@@ -48,22 +48,23 @@ class Activation {
 	 */
 	public static function init() {
 		// Check if we ran recently.
-		$initialized = get_transient( self::ACTIVATION_TRANSIENT );
+		$db_hash = get_transient( static::ACTIVATION_TRANSIENT );
 
-		if ( $initialized ) {
+		$schema_builder = tribe( Schema_Builder::class );
+		$hash = $schema_builder->get_registered_schemas_version_hash();
+
+		if ( $db_hash == $hash ) {
 			return;
 		}
 
-		set_transient( self::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
-
-		$services       = tribe();
-		$schema_builder = $services->make( Schema_Builder::class );
+		set_transient( static::ACTIVATION_TRANSIENT, $hash, DAY_IN_SECONDS );
 
 		// Sync any schema changes we may have.
 		if ( $schema_builder->all_tables_exist( 'tec' ) ) {
 			$schema_builder->up();
 		}
 
+		$services  = tribe();
 		$state = $services->make( State::class );
 
 		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
