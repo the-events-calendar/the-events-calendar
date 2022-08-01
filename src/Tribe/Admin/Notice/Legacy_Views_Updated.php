@@ -74,7 +74,11 @@ class Legacy_Views_Updated {
 			return false;
 		}
 
-		return $this->is_valid_screen() && $this->has_views_v2_negative_value();
+		if ( ! $this->is_valid_screen() ) {
+			return false;
+		}
+
+		return tribe_installed_before( \Tribe__Events__Main::class, '6.0.0-dev' ) && $this->has_views_v2_negative_value();
 	}
 
 	/**
