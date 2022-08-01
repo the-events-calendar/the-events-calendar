@@ -875,6 +875,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $return_value;
 	}
 
+	/**
+	 * Ensures that date formats are escaped properly.
+	 * Converts "\\" to "\"  for escaped characters.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $value      The current value of the option.
+	 * @param string $optionName The option "key"
+	 *
+	 * @return mixed  $value     The modified value of the option.
+	 */
 	public function filter_date_escaping( $value, $optionName ) {
 		// A list of date options we may need to unescape.
 		$date_options = [
@@ -883,6 +894,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		];
 
 		if ( ! in_array( $optionName, $date_options ) ) {
+			return $value;
+		}
+
+		// Don't try to run string modification on an array or something.
+		if ( ! is_string( $value ) ) {
 			return $value;
 		}
 
@@ -1138,6 +1154,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $views_v2_status );
 	}
 
+	/**
+	 * Ensure we use the correct date on shortcodes.
+	 * If both `tribe-bar-date` and `eventDate` are present, `tribe-bar-date` overrides `eventDate`.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $params An associative array of parameters from the REST request.
+	 * @param \WP_REST_Request $request The current REST request.
+	 *
+	 * @return array $params A modified array of parameters from the REST request.
+	 */
 	public function filter_url_date_conflicts( $params, $request ) {
 		if ( ! isset( $params['tribe-bar-date'] ) || ! isset( $params[ 'eventDate'] ) ) {
 			return $params;
