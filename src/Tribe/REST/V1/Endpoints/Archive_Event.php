@@ -172,6 +172,16 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			 */
 			$args = apply_filters( 'tribe_events_archive_get_args', $args, $data, $request );
 
+			// If 'ticketed' param is set as true but args is missing that means we don't ET for parsing the args.
+//			if (
+//				isset( $request['ticketed'] )
+//				&& tribe_is_truthy( $request['ticketed'] )
+//				&& ! isset( $args['has_rsvp_or_tickets'] )
+//			)
+//			{
+//				return new WP_Error( 'event-tickets-not-active', __( 'There are not Ticketed Events', 'the-events-calendar' ), [ 'status' => 400 ] );
+//			}
+
 			$events = tribe_get_events( $args );
 
 			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
@@ -536,6 +546,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'type'              => 'integer',
 				'description'       => __( 'Events should be filtered by their post_parent being the specified one.', 'the-events-calendar' ),
 				'validate_callback' => [ $this->validator, 'is_event_id' ],
+			],
+			'ticketed' => [
+				'required'          => false,
+				'type'              => 'boolean',
+				'description'       => __( 'Events should be filtered depending on  ', 'the-events-calendar' ),
+				'validate_callback' => [ $this->validator, 'supports_ticketed' ],
 			],
 		];
 	}

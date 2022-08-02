@@ -232,4 +232,20 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 		return ! empty( $events ) && count( $valid ) === count( $events );
 	}
+
+	public function supports_ticketed( $value ) {
+
+		if ( ! tribe_is_truthy( $value ) ) {
+			return true;
+		}
+
+		try {
+			/** @var Tribe__Tickets__REST__V1__System $system */
+			$system = tribe( 'sstickets.rest-v1.system' );
+		} catch ( Exception $exception ) {
+			return new WP_Error( 'mira-la', 'khakhakhkah' );
+		}
+
+		return $system->et_rest_api_is_enabled();
+	}
 }
