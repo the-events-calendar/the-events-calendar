@@ -540,7 +540,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'ticketed' => [
 				'required'          => false,
 				'type'              => 'boolean',
-				'description'       => __( 'Events should be filtered depending on  ', 'the-events-calendar' ),
+				'description'       => __( 'Filter events with or without tickets.', 'the-events-calendar' ),
 				'validate_callback' => [ $this->validator, 'supports_ticketed' ],
 			],
 		];
