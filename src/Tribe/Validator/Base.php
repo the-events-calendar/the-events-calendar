@@ -238,7 +238,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $value Can be true ro false.
+	 * @param bool $value Can be true or false.
 	 *
 	 * @return bool|WP_Error
 	 */
