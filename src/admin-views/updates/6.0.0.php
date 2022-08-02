@@ -4,6 +4,7 @@
  */
 
 $common_main = Tribe__Main::instance();
+$notices = Tribe__Admin__Notices::instance();
 ?>
 
 <div class="tribe-events-admin-content-wrapper">
@@ -26,7 +27,10 @@ $common_main = Tribe__Main::instance();
 		</div>
 	</div>
 
-	<?php echo tribe( 'tec.admin.notice.update' )->notice(); ?>
+	<?php
+		echo $notices->render( 'events-legacy-views-updated', tribe( Tribe\Events\Admin\Notice\Legacy_Views_Updated::class )->notice() );
+		echo $notices->render( 'event-update-6-0', tribe( 'tec.admin.notice.update' )->notice() );
+	?>
 
 	<div class="tec-update-page-block">
 		<h3><?php esc_html_e( "What’s New in The Events Calendar 6.0", 'the-events-calendar' ); ?></h3>

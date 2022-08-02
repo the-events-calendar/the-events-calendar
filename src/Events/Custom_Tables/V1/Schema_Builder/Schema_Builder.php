@@ -2,8 +2,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
-use TEC\Events\Custom_Tables\V1\Tables\Custom_Field_Interface;
-use TEC\Events\Custom_Tables\V1\Tables\Custom_Table_Interface;
 use WP_CLI;
 
 class Schema_Builder {
@@ -46,6 +44,40 @@ class Schema_Builder {
 	public function get_field_schemas_that_need_updates() {
 
 		return $this->filter_for_version( $this->get_registered_field_schemas() );
+	}
+
+	/**
+	 * Get the md5 hash of all the registered schemas classes with their versions.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_registered_schemas_version_hash() :string {
+		$schemas = array_merge( $this->get_registered_table_schemas(),  $this->get_registered_field_schemas() );
+
+		$versions = [];
+		foreach( $schemas as $schema ) {
+			// Skip if not an Interface of Table or Field.
+			if ( ! $schema instanceof Table_Schema_Interface && ! $schema instanceof Field_Schema_Interface ) {
+				continue;
+			}
+
+			$class_name = get_class( $schema );
+			$constant_name = $class_name . '::SCHEMA_VERSION';
+
+			// Skip if the version constant is not defined.
+			if ( ! defined( $constant_name ) ) {
+				continue;
+			}
+
+			$versions[ $class_name ] = constant( $constant_name );
+		}
+
+		// Sort to avoid hash changing due to order changes.
+		ksort( $versions );
+
+		return md5( json_encode( $versions ) );
 	}
 
 	/**

@@ -84,7 +84,7 @@ class Phase_View_Renderer {
 		$this->key           = $key;
 		$this->template_path = $file_path;
 		// Our root template directory for all migration templates.
-		$this->template_directory = TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration';
+		$this->template_directory = tribe( 'tec.main' )->plugin_path . 'src/Events/Custom_Tables/V1/admin-views/migration';
 		// Add the vars we already have, in case template relies on it.
 		$this->vars = array_merge( [
 			'phase'              => $key,
@@ -129,6 +129,11 @@ class Phase_View_Renderer {
 		$nodes = [];
 		foreach ( $this->nodes as $node ) {
 			$html    = $this->get_template_html( $node['template'], $node['vars'] );
+			// No need to handle the error just yet.
+			if ( is_wp_error( $html ) ) {
+				continue;
+			}
+
 			$nodes[] = array_merge( $node['options'], [
 				'html'   => $html,
 				'hash'   => sha1( $html ),
@@ -148,10 +153,15 @@ class Phase_View_Renderer {
 	 * @return array<string, mixed> The compiled output.
 	 */
 	public function compile() {
+		$html = $this->get_template_html( $this->template_path, $this->vars );
+		if ( is_wp_error( $html ) ) {
+			$html = '';
+		}
+
 		return array_merge( $this->options, [
 			'key'   => $this->key,
 			// Based on what is registered, render the parent template
-			'html'  => $this->pre_post_content( $this->get_template_html( $this->template_path, $this->vars ) ),
+			'html'  => $this->pre_post_content( $html ),
 			'nodes' => $this->compile_nodes(),
 			'poll'  => $this->poll,
 		] );
@@ -199,12 +209,17 @@ class Phase_View_Renderer {
 	 * @param string $template Relative path to the migration template file.
 	 * @param array  $vars     Variables to be put into local scope for the template.
 	 *
-	 * @return false|string
+	 * @return false|string|\WP_Error
 	 */
 	protected function get_template_html( $template, $vars = [] ) {
+		$file_path = $this->template_directory . $template;
+		if ( ! file_exists( $file_path ) ) {
+			return new \WP_Error( 'tec-ct1-migration-phase-non-existent-template', null, [ 'template' => $template, 'phase_renderer' => $this ] );
+		}
+
 		extract( $vars, EXTR_OVERWRITE );
 		ob_start();
-		include $this->template_directory . $template;
+		include $file_path;
 
 		return ob_get_clean();
 	}

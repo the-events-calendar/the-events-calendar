@@ -58,7 +58,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			</div>
 			<div class="tec-ct1-action-container tec-ct1-upgrade__report-header-section tec-ct1-upgrade__report-header-section--rerun">
 				<em title="<?php esc_attr( $text->get( 're-run-preview-button' ) ) ?>">
-					<?php include TEC_CUSTOM_TABLES_V1_ROOT . '/admin-views/migration/icons/rerun.php'; ?>
+					<?php include $template_directory . '/icons/rerun.php'; ?>
 				</em>
 				<a class="tec-ct1-upgrade-start-migration-preview"
 				   href="#"><?php echo esc_html( $text->get( 're-run-preview-button' ) ); ?></a>

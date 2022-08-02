@@ -37,11 +37,16 @@ class Update {
 			'event-update-6-0',
 			[ $this, 'notice' ],
 			[
-				'dismiss'            => 1,
+				'dismiss'            => static function () {
+					return ! isset( $_GET['update-message-the-events-calendar'] );
+				},
 				'type'               => 'warning',
 				'wrap'               => false,
 				'recurring'          => true,
 				'recurring_interval' => 'P1M',
+				'inline'             => static function () {
+					return isset( $_GET['update-message-the-events-calendar'] );
+				},
 			],
 			[ $this, 'should_display' ]
 		);
@@ -127,7 +132,7 @@ class Update {
 	 */
 	private function get_template_data() {
 		$data = [
-			'title'               => esc_html__( '⚠️ One more thing left to do...', 'the-events-calendar' ),
+			'title'               => esc_html__( 'One more thing left to do...', 'the-events-calendar' ),
 			'description'         => esc_html__( 'To complete this major calendar upgrade, you need to migrate your events to the new data storage system. Once migration finishes, you can take advantage of all the cool new 6.0 features!', 'the-events-calendar' ),
 			'upgrade_link'        => 'edit.php?post_type=tribe_events&page=tec-events-settings&tab=upgrade',
 			'learn_link'          => 'https://evnt.is/1b79',

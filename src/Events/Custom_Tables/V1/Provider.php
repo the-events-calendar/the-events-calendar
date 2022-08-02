@@ -53,9 +53,6 @@ class Provider extends Service_Provider {
 	 * @return bool Whether the Provider did register or not.
 	 */
 	public function register() {
-		// Register the alpha/beta feedback collector service provider.
-		$this->container->register( Feedback\Provider::class );
-
 		if ( ! self::is_active() ) {
 			return false;
 		}
@@ -67,10 +64,6 @@ class Provider extends Service_Provider {
 
 		$this->did_register = true;
 
-		if ( ! defined( 'TEC_CUSTOM_TABLES_V1_ROOT' ) ) {
-			define( 'TEC_CUSTOM_TABLES_V1_ROOT', __DIR__ );
-		}
-
 		/*
 		 * This block should be the only one capturing exceptions thrown in the context of
 		 * the feature. This removes the burden of exception and error handling from the
@@ -78,9 +71,6 @@ class Provider extends Service_Provider {
 		 */
 		try {
 			$this->bind_implementations();
-
-			require_once __DIR__ . '/functions.php';
-
 			$this->container->singleton( Container::class, $this->container );
 
 			// Register this provider to allow getting hold of it from third-party code.

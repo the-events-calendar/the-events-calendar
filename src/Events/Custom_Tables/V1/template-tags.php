@@ -3,8 +3,6 @@
  * The plugin template tags.
  *
  * @since   TBD
- *
- * @package iCalTec
  */
 
 use TEC\Events_Pro\Custom_Tables\V1\Models\Series_Relationship;
