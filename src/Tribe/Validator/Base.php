@@ -243,7 +243,6 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * @return bool|WP_Error
 	 */
 	public function supports_ticketed( $value ) {
-
 		// Valid when value is false.
 		if ( ! tribe_is_truthy( $value ) ) {
 			return true;
