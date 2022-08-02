@@ -239,6 +239,39 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Removed actions: `tribe-events-bar-enqueue-scripts`, `tribe_events_widget_render`, `tribe_events_before_list_widget`, `tribe_events_list_widget_before_the_title`, `tribe_events_list_widget_after_the_title`, `tribe_events_after_list_widget`, `tribe_events_pre_get_posts`, `tribe_events_set_month_view_events_from_cache`, `tribe_events_calendar_loop_end`, `tribe_tec_template_chooser`, `tribe_events_filter_the_page_title`, `tribe-import-render-tab-`, `tribe_import_render_tab_`, `tribe_events_csv_import_complete`, `tribe_import_options_updated`, `tribe_meta_factory_register`, `tribe_pre_initialize_view`, `tribe_events_before_event_template_data_date_display`, `tribe_events_after_event_template_data_date_display`, `tribe_events_before_show_month`, `tribe_events_after_show_month`, `tribe_events_before_template`, `tribe_events_after_template`, `tribe_events_before_header`, `tribe_events_before_header_nav`, `tribe_events_after_header_nav`, `tribe_events_after_header`, `tribe_events_before_loop`, `tribe_events_after_loop`, `tribe_events_before_footer`, `tribe_events_before_footer_nav`, `tribe_events_after_footer_nav`, `tribe_events_after_footer`, `tribe_events_inside_before_loop`, `tribe_events_inside_after_loop`, `tribe_events_before_the_event_title`, `tribe_events_after_the_event_title`, `tribe_events_before_the_meta`, `tribe_events_inside_cost`, `tribe_events_after_the_meta`, `tribe_events_before_the_content`, `tribe_events_after_the_content`, `tribe_events_before_the_title`, `tribe_events_after_the_title`, `tribe_default_events_template_after_header`, `tribe_default_events_template_before_footer`, `tribe_events_list_before_the_content`, `tribe_events_bar_before_template`, `tribe_events_bar_after_template`, `tribe_events_before_the_grid`, `tribe_events_after_the_grid`, `tribe_events_before_nav`, `tribe_events_after_nav`, `tribe_events_list_widget_before_the_event_image`, `tribe_events_list_widget_after_the_event_image`, `tribe_events_list_widget_before_the_event_title`, `tribe_events_list_widget_after_the_event_title`, `tribe_events_list_widget_before_the_meta`, `tribe_events_list_widget_after_the_meta`
 * Tweak - Changed views: `blocks/event-links`, `blocks/event-website`, `blocks/parts/details`, `day`, `day/content`, `day/loop`, `day/nav`, `day/single-event`, `day/single-featured`, `day/title-bar`, `default-template`, `list`, `list/content`, `list/loop`, `list/nav`, `list/single-event`, `list/single-featured`, `list/title-bar`, `modules/address`, `modules/bar`, `modules/meta/details`, `month`, `month/content`, `month/loop-grid`, `month/mobile`, `month/nav`, `month/single-day`, `month/single-event`, `month/title-bar`, `month/tooltip`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event/title`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title`, `v2/month/mobile-events/mobile-day/mobile-event/title`, `widgets/calendar-widget`, `widgets/list-widget`
 
+= [5.16.3.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
+== [5.16.3] 2022-07-20 ==
+
+* Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
+* Fix - Avoid some conflicts between the import notice and third-party plugins using jQuery datepicker in the admin. [TEC-4429]
+* Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
+* Tweak - Add a CSS class i.e. `tribe-events-calendar-month__day--other-month` to past and future month dates in the month view to allow easy targeting similar to what we had in v1. [TEC-4034]
+* Tweak - Changed views: `v2/month/calendar-body/day`
+
+= [5.16.2.1] 2022-07-08 =
+
+* Fix - Don't load Aggregator scripts on post edit pages to prevent datepicker conflicts [TEC-4427]
+* Tweak - Added filter: `aggregator_should_load_scripts`
+
+= [5.16.2] 2022-07-06 =
+
+* Fix - Ensure the `Next` arrow in `List` and `Summary` views navigates to the correct page when the `Main Events Page` is set as the homepage. [TEC-4247]
+* Fix - Ensure the `Next` button when using the `Event View` Elementor widget navigates to the next page on the first click. [FBAR-263]
+* Fix - Add a height to the subscribe to calendar export SVG icon on the single events page when using the `Skeleton Styles` to prevent it from taking over a huge portion of the page. [TEC-4399]
+* Fix - Remove link to Updates page from TEC Settings page. [TEC-4373]
+* Fix - Ensure Aggregator CSV imports continue to run when on an admin page. [TEC-4070]
+* Fix - Correct hardcoded admin urls used for Event Settings page(s). [ECP-1175]
+* Fix - Ensure event widgets don't carry the global search param into their queries. [TEC-4048]
+* Fix - Allow sub-site admins to use the updated calendar designs when their plugin access is restricted. [TEC-4382]
+* Fix - Remove deprecated usage of `jQuery.attr( 'checked' )`
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--past-month` to past month dates in the month view to allow easy targeting. [TEC-3447]
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--next-month` to future month dates in the month view to allow easy targeting. [TEC-3819]
+* Tweak - Changed views: `v2/month/calendar-body/day`
+* Language - 1 new strings added, 113 updated, 0 fuzzied, and 3 obsoleted
+
 = [5.16.1.1] 2022-06-15 =
 
 * Fix - correct issues with template paths when using FSE. [TEC-4401]

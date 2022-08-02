@@ -17,7 +17,7 @@ class Tribe__Events__Aggregator__Page {
 	public static $slug = 'aggregator';
 
 	/**
-	 * Stores the Registred ID from `add_submenu_page`
+	 * Stores the Registered ID from `add_submenu_page`
 	 *
 	 * @var string
 	 */
@@ -172,7 +172,7 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dropdowns',
 					],
 				],
-				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
+				[ 'tribe-ea-page', 'datatables-css' ],
 			],
 			'admin_enqueue_scripts',
 			[
@@ -183,6 +183,36 @@ class Tribe__Events__Aggregator__Page {
 					'name' => 'tribe_aggregator',
 					'data' => $localize_data_callback,
 				],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-styles',
+			'aggregator-page.css',
+			[],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-notice',
+			'aggregator-notice.js',
+			[ 'jquery' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				]
 			]
 		);
 	}
@@ -244,7 +274,42 @@ class Tribe__Events__Aggregator__Page {
 	}
 
 	/**
-	 * Checks if we are in the correct screen
+	 * Basically an edited version of is_screen(), below,
+	 * that allows for loading on all non-post edit admin pages.
+	 *
+	 * @since 5.16.2.1
+	 *
+	 * @return boolean
+	 */
+	public function aggregator_should_load_scripts() {
+		global $current_screen;
+
+		// Doing AJAX? bail.
+		if ( tribe( 'context' )->doing_ajax() ) {
+			return false;
+		}
+
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		// Don't load on post edit screens - can conflict with other datepickers.
+		if ( $current_screen->base === 'post' || $current_screen->base === 'post-new') {
+			return false;
+		}
+
+		/**
+		 * Allows for selective disabling of script loading.
+		 *
+		 * @since 5.16.2.1
+		 *
+		 * @param boolean $should_load Whether the scripts should load. Default true if we got here
+		 */
+		return apply_filters( 'aggregator_should_load_scripts', true );
+	}
+
+	/**
+	 * Checks if we are on the correct screen.
 	 *
 	 * @return boolean
 	 */
@@ -332,7 +397,7 @@ class Tribe__Events__Aggregator__Page {
 	}
 
 	/**
-	 * Gets the Page title for the Aggegator
+	 * Gets the Page title for the Aggregator
 	 *
 	 * @return string
 	 */

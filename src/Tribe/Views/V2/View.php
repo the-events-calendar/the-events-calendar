@@ -2020,6 +2020,11 @@ class View implements View_Interface {
 
 		// Get term slug if taxonomy is not empty
 		if ( ! empty( $context_tax ) ) {
+			// Don't pass arrays to get_term_by()!
+			if ( is_array( $context_tax ) ) {
+				$context_tax = array_pop( $context_tax );
+			}
+
 			$term  = get_term_by( 'slug', $context_tax, $taxonomy );
 			if ( ! empty( $term->name ) ) {
 				$label = $term->name;

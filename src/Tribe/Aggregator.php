@@ -411,7 +411,7 @@ class Tribe__Events__Aggregator {
 		$should_load = (bool) apply_filters( 'tribe_aggregator_should_load', true );
 
 		// You shall not Load!
-		if ( false === $should_load ) {
+		if ( true !== $should_load ) {
 			return false;
 		}
 

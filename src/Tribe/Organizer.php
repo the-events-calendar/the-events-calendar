@@ -21,7 +21,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		'public'              => false,
 		'rewrite'             => [ 'slug' => 'organizer', 'with_front' => false ],
 		'show_ui'             => true,
-		'show_in_menu'        => 0,
+		'show_in_menu'        => false,
 		'supports'            => [ 'title', 'editor' ],
 		'capability_type'     => [ 'tribe_organizer', 'tribe_organizers' ],
 		'map_meta_cap'        => true,
@@ -129,6 +129,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			10,
 			2
 		);
+		add_action( 'admin_bar_menu', [ $this, 'edit_organizer_admin_bar_menu_link' ], 80 );
 	}
 
 	/**
@@ -783,5 +784,27 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			</table>
 		</div>
 	<?php
+	}
+
+	/**
+	 * Add edit link to admin bar when viewing the tribe_organizer post type archive.
+	 *
+	 * @since 5.16.3
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar The admin bar object.
+	 */
+	public function edit_organizer_admin_bar_menu_link( $wp_admin_bar ) {
+		global $wp_query;
+
+		if ( ! is_admin() && $wp_query->tribe_is_event_organizer ) {
+
+			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label );
+
+			$wp_admin_bar->add_menu([
+				'id'    => 'edit',
+				'title' => $title,
+				'href'  => admin_url( 'post.php?post=' . $wp_query->queried_object->ID . '&action=edit' ),
+			]);
+		}
 	}
 }

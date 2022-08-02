@@ -36,6 +36,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		tribe_notice( 'aggregator-update-msg', [ $this, 'render_update_message' ], 'type=warning&dismiss=0' );
 
 		add_filter( 'heartbeat_received', [ $this, 'receive_heartbeat' ], 10, 2 );
+
 		add_action( 'wp_ajax_tribe_aggregator_realtime_update', [ $this, 'ajax' ] );
 
 		$this->queue           = $queue;
@@ -58,18 +59,19 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			'progressText' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress ),
 		];
 
-		wp_localize_script( 'tribe-ea-fields', 'tribe_aggregator_save', $data );
+		wp_localize_script( 'tribe-ea-notice', 'tribe_aggregator_save', $data );
 
 		return $data;
 	}
 
 	public function render_update_message() {
-		if ( ! Tribe__Events__Aggregator__Page::instance()->is_screen() ) {
+		if ( ! Tribe__Events__Aggregator__Page::instance()->aggregator_should_load_scripts() ) {
 			return false;
 		}
 
 		/** @var Tribe__Events__Aggregator__Record__Queue_Processor $processor */
 		$processor = tribe( 'events-aggregator.main' )->queue_processor;
+
 		if ( ! $this->record_id = $processor->next_waiting_record( true ) ) {
 			return false;
 		}
@@ -86,11 +88,13 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 
 		ob_start();
 		$percent   = $this->sanitize_progress( $this->queue->progress_percentage() );
-		$spinner   = '<img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
 		?>
 		<div class="tribe-message">
 			<p>
-				<?php esc_html_e( 'Your import is currently in progress. Don\'t worry, you can safely navigate away&ndash;the import will continue in the background.', 'the-events-calendar' ); ?>
+				<?php esc_html_e(
+						'Your import is currently in progress. Don\'t worry, you can safely navigate away&ndash;the import will continue in the background.',
+						'the-events-calendar'
+				); ?>
 			</p>
 		</div>
 		<ul class="tracker">
@@ -139,7 +143,6 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		}
 
 		$response['ea_progress'] = $data;
-
 		return $response;
 	}
 
@@ -232,14 +235,14 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	 * @return array<string, mixed> An array with the details of the progress bar.
 	 */
 	private function get_queue_progress_data() {
-		if ( $this->record_id <= 0 ) {
+		if ( (int) $this->record_id <= 0 ) {
 			return [];
 		}
 
 		// Load the queue.
 		/** @var \Tribe__Events__Aggregator__Record__Queue_Interface $queue */
 		$queue = $this->queue ? $this->queue : Tribe__Events__Aggregator__Record__Queue_Processor::build_queue( $this->record_id );
-		// We always need to setup the Current Queue.
+		// We always need to set up the Current Queue.
 		$this->queue_processor->set_current_queue( $queue );
 
 		// Only if it's not empty that we care about processing.
@@ -256,7 +259,6 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 		$done          = $current_queue->is_empty() && empty( $current_queue->is_fetching() );
 
 		$percentage = $current_queue->progress_percentage();
-
 		return $this->get_progress_data( $current_queue, $percentage, $done );
 	}
 
