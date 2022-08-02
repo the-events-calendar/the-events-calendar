@@ -422,6 +422,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
+	 * @since TBD Added support for `ticketed` parameter.
+	 *
 	 * @return array
 	 */
 	public function READ_args() {
