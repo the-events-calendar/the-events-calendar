@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Strategies;
 
+use TEC\Events\Custom_Tables\V1\Migration\Expected_Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\State;
@@ -88,7 +89,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		// The Builder is, actually, the class doing the upsertion.
 		$this->uopz_set_return( Builder::class, 'upsert', false );
 
-		$this->expectException( Migration_Exception::class );
+		$this->expectException( Expected_Migration_Exception::class );
 
 		$strategy = new Strategy( $post_id, false );
 
