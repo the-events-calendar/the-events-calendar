@@ -1255,7 +1255,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function show_upgrade() {
 			// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
-			$show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
+			$can_show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
 
 			/**
 			 * Provides an opportunity to override the decision to show or hide the upgrade tab.
@@ -1266,7 +1266,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * @since 4.9.12
 			 * @since TBD This filter now controls only the capability to show the Upgrade tab.
 			 *
-			 * @param bool $show_tab True or False for showing the Upgrade Tab.
+			 * @param bool $can_show_tab True or False for showing the Upgrade Tab.
 			 */
 			$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
 
