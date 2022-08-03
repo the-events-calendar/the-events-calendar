@@ -70,15 +70,15 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 * batches of pending import record inserts/updates.
 	 */
 	public function register_scheduled_task() {
-		// Bail on registration of scheduled event in case we dont have an API setup.
+		// Bail on registration of scheduled event in case we don't have an API setup.
 		if ( is_wp_error( tribe( 'events-aggregator.service' )->api() ) ) {
-			// Also clear in case we dont have an API key.
+			// Also clear in case we don't have an API key.
 			$this->clear_scheduled_task();
 
 			return;
 		}
 
-		// Prevent from trying to schedule in case we dont have any scheduled records to process, value will either be false or 0.
+		// Prevent from trying to schedule in case we don't have any scheduled records to process, value will either be false or 0.
 		if ( ! $this->next_waiting_record( false, true ) ) {
 			// Also clear in case we don't have any records to process.
 			$this->clear_scheduled_task();
@@ -86,6 +86,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			return;
 		}
 
+		// If we have one scheduled, don't schedule another.
 		if ( wp_next_scheduled( self::$scheduled_key ) ) {
 			return;
 		}
@@ -93,7 +94,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		/**
 		 * Filter the interval at which to process import records.
 		 *
-		 * By default a custom interval of ever 30mins is specified, however
+		 * By default a custom interval of every 15mins is specified, however
 		 * other intervals such as "hourly", "twicedaily" and "daily" can
 		 * normally be substituted.
 		 *
@@ -105,7 +106,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	}
 
 	/**
-	 * Expected to fire upon plugin deactivation.
+	 * Fires upon plugin deactivation.
 	 */
 	public function clear_scheduled_task() {
 		wp_clear_scheduled_hook( self::$scheduled_key );

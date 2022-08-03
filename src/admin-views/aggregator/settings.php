@@ -682,7 +682,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 				'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s.',
 				'the-events-calendar'
 			),
-			'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url( [ 'page' => 'tribe-help' ] ) ) . '#tribe-tribe-aggregator-status">' . esc_html__( 'Help page', 'the-events-calendar' ) . '</a>'
+			'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url( [ 'page' => 'tec-troubleshooting' ] ) ) . '#tribe-events-admin__ea-status">' . esc_html__( 'Troubleshooting Page', 'the-events-calendar' ) . '</a>'
 		);
 		?>
 	</p>

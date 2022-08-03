@@ -44,7 +44,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @param WP_Screen $screen
 	 */
 	public function maybe_clear_eb_credentials( $screen ) {
-		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base && 'tribe_events_page_tec-events-settings' !== $screen->base  ) {
 			return;
 		}
 
@@ -187,7 +187,7 @@ class Tribe__Events__Aggregator__Settings {
 	 * @param WP_Screen $screen The current screen instance.
 	 */
 	public function maybe_clear_meetup_credentials( $screen ) {
-		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base && 'tribe_events_page_tec-events-settings' !== $screen->base ) {
 			return;
 		}
 
@@ -750,7 +750,7 @@ class Tribe__Events__Aggregator__Settings {
 	public function maybe_clear_fb_credentials( $screen ) {
 		_deprecated_function( __FUNCTION__, '4.6.23', 'Importing from Facebook is no longer supported in Event Aggregator.' );
 
-		if ( 'tribe_events_page_tribe-common' !== $screen->base ) {
+		if ( 'tribe_events_page_tribe-common' !== $screen->base && 'tribe_events_page_tec-events-settings' !== $screen->base ) {
 			return;
 		}
 
