@@ -47,13 +47,22 @@ abstract class Link_Abstract implements Link_Interface {
 	public $visible = true;
 
 	/**
-	 * the link provider slug.
+	 * The link provider slug.
 	 *
 	 * @since 5.12.0
 	 *
 	 * @var string
 	 */
 	public static $slug;
+
+	/**
+	 * The slug used for the single event sharing block toggle.
+	 *
+	 * @since 5.16.1
+	 *
+	 * @var string
+	 */
+	public $block_slug;
 
 	/**
 	 * Determines if this instance of the class has it's actions and filters hooked.
@@ -95,7 +104,6 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links' ], 10 );
-		add_filter( 'tec_views_v2_single_subscribe_links', [ $this, 'filter_tec_views_v2_single_subscribe_links' ], 10, 2 );
 
 		$this->set_hooked();
 	}
@@ -132,10 +140,13 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		$class   = sanitize_html_class( 'tribe-events-' . self::get_slug() );
-		$links[ self::get_slug() ] = '<a class="tribe-events-button ' . $class
-		           . '" href="' . esc_url( $uri )
-		           . '" title="' . esc_attr( $label )
-		           . '">+ ' . esc_html( $label ) . '</a>';
+		$links[ self::get_slug() ] = sprintf(
+			'<a class="tribe-events-button %1$s" href="%2$s" title="%3$s"  rel="noopener noreferrer noindex">%4$s</a>',
+			$class,
+			esc_url( $uri ),
+			esc_attr( $label ),
+			esc_html( $label )
+		);
 
 		return $links;
 	}
@@ -238,10 +249,16 @@ abstract class Link_Abstract implements Link_Interface {
 	 */
 	public function get_uri( View $view = null ) {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
-		$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
+		if ( is_single() ) {
+			$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
+		}
 
 		if ( empty( $feed_url ) && null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
+		}
+
+		if ( empty( $feed_url ) ) {
+			return '';
 		}
 
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
@@ -318,7 +335,11 @@ abstract class Link_Abstract implements Link_Interface {
 		// iCalendarize!
 		$passthrough_args['ical'] = 1;
 
-		// Tidy.
+		// Allow all views to utilize the list view so they collect the appropriate number of events.
+		// Note: this is only applied to subscription links - the ics direct link downloads what you see on the page!
+		$passthrough_args["eventDisplay"] = 'list';
+
+		// Tidy (remove empty-value pairs).
 		$passthrough_args = array_filter( $passthrough_args );
 
 		/**

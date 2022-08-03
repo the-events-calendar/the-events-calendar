@@ -1,5 +1,8 @@
 <?php
 // Don't load directly
+
+use Tribe\Events\Admin\Settings;
+
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator {
@@ -408,7 +411,7 @@ class Tribe__Events__Aggregator {
 		$should_load = (bool) apply_filters( 'tribe_aggregator_should_load', true );
 
 		// You shall not Load!
-		if ( false === $should_load ) {
+		if ( true !== $should_load ) {
 			return false;
 		}
 
@@ -619,7 +622,7 @@ class Tribe__Events__Aggregator {
 		</p>
 		<p>
 			<a
-				href="<?php echo esc_url( Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] ) ); ?>"
+				href="<?php echo esc_url( tribe( Settings::class )->get_url( [ 'tab' => 'addons' ] ) ); ?>"
 				class="tribe-license-link"
 			>
 				<?php esc_html_e( 'Renew your Event Aggregator Facebook token', 'the-events-calendar' ); ?>
