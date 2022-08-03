@@ -253,7 +253,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 			/** @var Tribe__Tickets__REST__V1__System $system */
 			$system = tribe( 'tickets.rest-v1.system' );
 		} catch ( Exception $exception ) {
-			return new WP_Error( 'event-tickets-not-active', __( 'Event Tickets plugin is not activated.' ), [ 'status' => 400 ] );
+			return new WP_Error( 'event-tickets-not-active', __( 'Event Tickets plugin is not activated.', 'the-events-calendar' ), [ 'status' => 400 ] );
 		}
 
 		return $system->et_rest_api_is_enabled();
