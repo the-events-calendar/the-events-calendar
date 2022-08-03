@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+=[TBD] TBD =
+
+* Fix - Correct a few misnamed custom prop references. [BTRIA-1301]
+
 = [5.16.3.1] 2022-07-21 =
 
 * Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
