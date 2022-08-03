@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Enhancement - Add support for `ticketed` parameter for Event archive REST API calls. [TEC-4439]
+
 = [5.16.4] TBD =
 
 * Fix - Ensure date formats are escaped on properly when they contain slashes. [ECP-1136]
