@@ -4,7 +4,6 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Codeception\TestCase\WPTestCase;
 use Generator;
-use TEC\Events_Pro\Custom_Tables\V1\EventRecurrence_Factory;
 use WP_Post;
 
 class ModelTest extends WPTestCase {
