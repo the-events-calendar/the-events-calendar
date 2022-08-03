@@ -43,7 +43,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( State::class, State::class );
 		$this->container->singleton( String_Dictionary::class, String_Dictionary::class );
 		$this->container->singleton( Site_Report::class, Site_Report::class );
-		$this->container->singleton( Page::class, Page::class ); // @todo This isn't used? Stubbed but forgotten?
 		$this->container->singleton( Admin\Template::class, Admin\Template::class );
 		$this->container->singleton( Maintenance_Mode::class, Maintenance_Mode::class );
 		$this->container->singleton( Process::class, Process::class );
