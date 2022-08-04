@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.3.1
+Stable tag: 5.16.4
 Tested up to: 6.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -223,14 +223,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [5.16.4] 2022-08-08 =
 
+* Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
+* Tweak - Update the calendar print design. [TEC-4425]
+* Tweak - Add new methods `filter_url_date_conflicts` and `filter_date_escaping` to filter and properly escape the date formats for some views. [ECP-1136]
+* Language - 0 new strings added, 403 updated, 0 fuzzied, and 124 obsoleted.
 * Enhancement - Add support for `ticketed` parameter for Event archive REST API calls. [TEC-4439]
-
-= [5.16.4] TBD =
-
-* Fix - Ensure date formats are escaped on properly when they contain slashes. [ECP-1136]
-* Tweak - Update the calandar print design. [TEC-4425]
 
 = [5.16.3.1] 2022-07-21 =
 
