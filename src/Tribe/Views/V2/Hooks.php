@@ -879,7 +879,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Ensures that date formats are escaped properly.
 	 * Converts "\\" to "\"  for escaped characters.
 	 *
-	 * @since TBD
+	 * @since 5.16.4
 	 *
 	 * @param mixed  $value      The current value of the option.
 	 * @param string $optionName The option "key"
@@ -1158,7 +1158,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Ensure we use the correct date on shortcodes.
 	 * If both `tribe-bar-date` and `eventDate` are present, `tribe-bar-date` overrides `eventDate`.
 	 *
-	 * @since TBD
+	 * @since 5.16.4
 	 *
 	 * @param array $params An associative array of parameters from the REST request.
 	 * @param \WP_REST_Request $request The current REST request.
