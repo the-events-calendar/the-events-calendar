@@ -176,6 +176,9 @@ class Custom_Tables_Query extends WP_Query {
 			$this->wp_query->found_posts = $this->found_posts;
 		}
 
+		// Set the request SQL that actually ran to allow easier debugging of the query.
+		$this->wp_query->request = $this->request;
+
 		return $results;
     }
 
