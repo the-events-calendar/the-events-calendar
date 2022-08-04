@@ -227,6 +227,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
 * Tweak - Update the calendar print design. [TEC-4425]
+* Tweak - Add new methods `filter_url_date_conflicts` and `filter_date_escaping` to filter and properly escape the date formats for some views. [ECP-1136]
 
 = [5.16.3.1] 2022-07-21 =
 
