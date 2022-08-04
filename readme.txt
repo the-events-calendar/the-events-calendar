@@ -223,7 +223,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.16.4] TBD =
+= [5.16.4] 2022-08-08 =
 
 * Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
 * Tweak - Update the calendar print design. [TEC-4425]
