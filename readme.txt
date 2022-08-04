@@ -225,8 +225,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.16.4] TBD =
 
-* Fix - Ensure date formats are escaped on properly when they contain slashes. [ECP-1136]
-* Tweak - Update the calandar print design. [TEC-4425]
+* Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
+* Tweak - Update the calendar print design. [TEC-4425]
 
 = [5.16.3.1] 2022-07-21 =
 
