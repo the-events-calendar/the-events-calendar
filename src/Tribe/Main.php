@@ -1417,7 +1417,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
 			new Tribe__Settings_Tab(
-				'upgrade', esc_html__( 'Upgrade', 'tribe-common' ),
+				'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
 				[
 					'priority'      => 100,
 					'fields'        => $upgrade_fields,
