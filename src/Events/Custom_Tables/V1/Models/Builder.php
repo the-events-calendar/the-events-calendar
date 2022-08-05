@@ -1440,4 +1440,17 @@ class Builder {
 
 		return $inserted;
 	}
+
+	/**
+	 * Gets the results and plucks a field from each.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $field The field to pluck.
+	 *
+	 * @return array The plucked values.
+	 */
+	public function pluck( string $field ): array {
+		return wp_list_pluck( $this->get(), $field );
+	}
 }
