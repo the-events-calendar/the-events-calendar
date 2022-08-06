@@ -89,9 +89,9 @@ class Legacy_Views_Updated {
 	 * @return bool
 	 */
 	protected function has_views_v2_negative_value(): bool {
-		$enabled = tribe_get_option( Manager::$option_enabled, null );
+		$enabled = tribe_get_option( Manager::$option_enabled, '__doesnt_exist__' );
 
-		return null === $enabled || false === $enabled || 0 === $enabled || '0' === $enabled;
+		return '__doesnt_exist__' === $enabled || false === $enabled || 0 === $enabled || '0' === $enabled;
 	}
 
 	/**
@@ -121,6 +121,10 @@ class Legacy_Views_Updated {
 	 * @return string
 	 */
 	public function notice(): string {
+		if ( ! $this->should_display() ) {
+			return '';
+		}
+
 		return $this->get_template()->template( 'notices/legacy-views-updated', [], false );
 	}
 }

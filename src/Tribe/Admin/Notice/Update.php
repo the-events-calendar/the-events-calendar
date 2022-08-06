@@ -120,6 +120,10 @@ class Update {
 	 * @return string
 	 */
 	public function notice() {
+		if ( ! $this->should_display() ) {
+			return '';
+		}
+
 		return $this->get_template()->template( 'notices/update-6-0-0', $this->get_template_data(), false );
 	}
 
