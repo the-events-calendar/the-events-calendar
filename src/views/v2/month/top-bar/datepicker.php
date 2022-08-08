@@ -39,12 +39,10 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 			class="tribe-events-c-top-bar__datepicker-time"
 		>
 			<span class="tribe-events-c-top-bar__datepicker-mobile">
-				<?php //echo esc_html( $formatted_grid_date_mobile ); ?>
-				<?php echo Dates::build_date_object( $selected_date_value )->format( 'M' ); ?>
+				<?php echo esc_html( $formatted_grid_date_mobile ); ?>
 			</span>
 			<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-				<?php //echo esc_html( $formatted_grid_date ); ?>
-				<?php echo Dates::build_date_object( $selected_date_value )->format( 'F' ); ?>
+				<?php echo esc_html( $formatted_grid_date ); ?>
 			</span>
 		</time>
 		<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-button-icon-svg' ] ] ); ?>
