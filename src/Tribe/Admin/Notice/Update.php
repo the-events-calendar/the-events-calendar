@@ -82,7 +82,7 @@ class Update {
 			return false;
 		}
 
-		if ( isset( $_GET['update-message-the-events-calendar'] ) ) {
+		if ( ! did_action( 'admin_notices' ) && isset( $_GET['update-message-the-events-calendar'] ) ) {
 			return false;
 		}
 
