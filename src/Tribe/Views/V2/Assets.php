@@ -147,6 +147,27 @@ class Assets extends \tad_DI52_ServiceProvider {
 			]
 		);
 
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-print',
+			'views-print.css',
+			[
+				'tribe-events-views-v2-skeleton',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [
+					'operator' => 'AND',
+					[ $this, 'should_enqueue_frontend' ],
+					[ $this, 'should_enqueue_full_styles' ],
+				],
+				'groups'       => [ static::$group_key ],
+				'print'        => true,
+				'media'        => 'print',
+			]
+		);
+
 		$bootstrap_datepicker_dependencies = [ 'jquery' ];
 		if ( static::datepicker_no_conflict_mode() ) {
 			$bootstrap_datepicker_dependencies[] = 'jquery-ui-datepicker';
