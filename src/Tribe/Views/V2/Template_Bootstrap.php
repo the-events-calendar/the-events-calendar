@@ -355,6 +355,10 @@ class Template_Bootstrap {
 	 * @return string Path to the File that initializes the template
 	 */
 	public function filter_template_include( $template ) {
+		if ( tec_is_full_site_editor() ) {
+			return $template;
+		}
+
 		$query   = tribe_get_global_query_object();
 		$context = tribe_context();
 
@@ -404,13 +408,13 @@ class Template_Bootstrap {
 	 */
 	public function filter_add_body_classes( $classes ) {
 		$setting  = $this->get_template_setting();
-		$template = $this->get_template_object()->get_path();
+		$active_theme = wp_get_theme();
 
 		if ( 'page' !== $setting ) {
 			return $classes;
 		}
 
-		$classes[] = 'page-template-' . sanitize_title( $template );
+		$classes[] = 'page-template-' . sanitize_title( $active_theme );
 
 		if ( ! get_queried_object() instanceof \WP_Term ) {
 			$key = array_search( 'archive', $classes, true );

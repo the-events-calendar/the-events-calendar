@@ -1,6 +1,7 @@
 <?php
 namespace Tribe\Events\Admin\Filter_Bar;
 
+use Tribe\Events\Admin\Settings;
 use Tribe__Events__Main;
 use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;
@@ -20,8 +21,13 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * @since 5.14.0
 	 */
 	public function register() {
-		// Bail if Filter Bar is already installed.
-		if ( class_exists( 'Tribe__Events__Filterbar__View' ) ) {
+		if ( tec_should_hide_upsell() ) {
+			return;
+		}
+
+
+		// Bail if Filter Bar is already installed/registered.
+		if ( has_action( 'tribe_common_loaded', 'tribe_register_filterbar' ) ) {
 			return;
 		}
 
@@ -103,8 +109,14 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * Create a Filter Bar upsell tab.
 	 *
 	 * @since 5.14.0
+	 * @since 5.15.0 Early bail if we're not on TEC settings.
 	 */
-	public function add_tab() {
+	public function add_tab( $admin_page ) {
+		$tec_settings_page_id = tribe( Settings::class )::$settings_page_id;
+
+		if ( ! empty( $admin_page ) && $tec_settings_page_id !== $admin_page ) {
+			return;
+		}
 
 		$tec_events_filter_bar_upsell_tab = [
 			'filter_bar-upsell-info-box-description' => [
@@ -130,6 +142,14 @@ class Provider extends \tad_DI52_ServiceProvider {
 				'network_admin' => is_network_admin(),
 				'show_save'     => false,
 			]
+		);
+
+		add_filter(
+			'tec_events_settings_tabs_ids',
+			function( $tabs ) {
+				$tabs[] = 'filter-view';
+				return $tabs;
+			}
 		);
 	}
 

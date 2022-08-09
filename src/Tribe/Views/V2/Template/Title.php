@@ -141,13 +141,24 @@ class Title {
 			$title = $this->build_day_title( $event_date );
 		}
 
-		$term = $context->get( TEC::TAXONOMY, false );
+		$taxonomy = TEC::TAXONOMY;
+		$term     = $context->get( $taxonomy, false );
+
+		if ( false === $term ) {
+			$taxonomy    = 'post_tag';
+			$term = $context->get( $taxonomy, false );
+		}
 
 		if ( false !== $term ) {
-			$cat = get_term_by( 'slug', $term, TEC::TAXONOMY );
+			// Don't pass arrays to get_term_by()!
+			if ( is_array( $term ) ) {
+				$term = array_pop( $term );
+			}
 
-			if ( $cat instanceof \WP_Term ) {
-				$title = $this->build_category_title( $title, $cat, $depth, $sep );
+			$tax = get_term_by( 'slug', $term, $taxonomy );
+
+			if ( $tax instanceof \WP_Term ) {
+				$title = $this->build_category_title( $title, $tax, $depth, $sep );
 			}
 		}
 

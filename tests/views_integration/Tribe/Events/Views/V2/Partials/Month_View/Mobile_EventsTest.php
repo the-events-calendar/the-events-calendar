@@ -20,6 +20,8 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 			'today_url'  => 'http://test.tri.be',
 			'prev_url'   => 'http://test.tri.be',
 			'next_url'   => 'http://test.tri.be',
+			'prev_rel'   => 'noindex',
+			'next_rel'   => 'noindex',
 			'prev_label' => 'May',
 			'next_label' => 'July',
 		] ) );
@@ -48,6 +50,8 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 			'today_url'  => 'http://test.tri.be',
 			'prev_url'   => 'http://test.tri.be',
 			'next_url'   => 'http://test.tri.be',
+			'prev_rel'   => 'noindex',
+			'next_rel'   => 'noindex',
 			'prev_label' => 'May',
 			'next_label' => 'July',
 			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
@@ -80,6 +84,8 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 			'today_url'        => 'http://test.tri.be',
 			'prev_url'         => 'http://test.tri.be',
 			'next_url'         => 'http://test.tri.be',
+			'prev_rel'         => 'noindex',
+			'next_rel'         => 'noindex',
 			'prev_label'       => 'May',
 			'next_label'       => 'July',
 		] ) );

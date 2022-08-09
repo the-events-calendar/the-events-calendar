@@ -42,6 +42,8 @@ class Top_BarTest extends HtmlPartialTestCase
 			'formatted_grid_date_mobile' => '1/2018',
 			'the_date'                   => Dates::build_date_object( '2018-01' ),
 			'date_formats'               => $date_formats,
+			'prev_rel' => 'noindex',
+			'next_rel' => 'noindex',
 		] ) );
 
 	}

@@ -22,9 +22,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @uses Tribe__Events__Templates::instantiate_template_class()
 	 **/
 	function tribe_initialize_view( $class = false ) {
-		if ( tec_events_views_v1_should_display_deprecated_notice() ) {
-			_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
-		}
 		do_action( 'tribe_pre_initialize_view' );
 		Tribe__Events__Templates::instantiate_template_class( $class );
 	}
@@ -566,6 +563,65 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		} else {
 			return $list;
 		}
+	}
+
+	/**
+	 * Display the event tags in a list with links to the event tag archive.
+	 *
+	 * @since 5.16.0
+	 *
+	 * @param null|string $label The label for the term list.
+	 * @param string      $separator The separator of each term.
+	 * @param bool        $echo, Whether to echo or return the list.
+	 *
+	 * @return string|void The html list of tags or void if no terms.
+	 */
+	function tribe_meta_event_archive_tags( $label = null, $separator = ', ', $echo = true ) {
+		/**
+		 * Filter whether to use the WordPress tag archive urls, default false.
+		 *
+		 * @since 5.16.0
+		 *
+		 * @param boolean Whether to use the WordPress tag archive urls.
+		 */
+		$use_wp_tag = apply_filters( 'tec_events_use_wordpress_tag_archive_url', false );
+		if ( $use_wp_tag ) {
+			return tribe_meta_event_tags( $label, $separator, $echo );
+		}
+
+		if ( ! $label ) {
+			$label = esc_html__( 'Tags:', 'the-events-calendar' );
+		}
+
+		$terms = get_the_terms( get_the_ID(), 'post_tag' );
+
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
+
+		if ( empty( $terms ) ) {
+			return;
+		}
+
+		$term_links = [];
+		foreach ( $terms as $term ) {
+			$link = tribe_events_get_url( [ 'tag' => $term->slug, 'post_type' => 'tribe_events', 'eventDisplay' => 'default' ] );
+			if ( is_wp_error( $link ) ) {
+				continue;
+			}
+			$term_links[] = '<a href="' . esc_url( $link ) . '" rel="tag">' . $term->name . '</a>';
+		}
+
+		$before = '<dt class="tribe-event-tags-label">' . $label . '</dt><dd class="tribe-event-tags">';
+		$after  = '</dd>';
+		$list   = $before . implode( $separator, $term_links ) . $after;
+
+		if ( $echo ) {
+			echo $list;
+			return;
+		}
+
+		return $list;
 	}
 
 	/**

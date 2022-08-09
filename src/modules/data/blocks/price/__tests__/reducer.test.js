@@ -12,6 +12,7 @@ const data = {
 	meta: {
 		_EventCurrencyPosition: 'prefix',
 		_EventCurrencySymbol: '€',
+		_EventCurrencyCode: 'EUR',
 		_EventCost: '15',
 	},
 };
@@ -31,6 +32,10 @@ describe( '[STORE] - Price reducer', () => {
 
 	it( 'Should set the cost symbol', () => {
 		expect( reducer( DEFAULT_STATE, actions.setSymbol( '€' ) ) ).toMatchSnapshot();
+	} );
+
+	it( 'Should set the cost code', () => {
+		expect( reducer( DEFAULT_STATE, actions.setCode( 'EUR' ) ) ).toMatchSnapshot();
 	} );
 
 	it( 'Should return the default state to meta map', () => {

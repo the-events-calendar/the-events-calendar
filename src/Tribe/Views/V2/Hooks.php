@@ -28,6 +28,7 @@ use Tribe__Customizer__Section as Customizer_Section;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use WP_Post;
 
 /**
  * Class Hooks
@@ -68,6 +69,39 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+	}
+
+	/**
+	 * Enqueue Customizer styles for the single event block editor screen.
+	 *
+	 * @since 5.14.1
+	 */
+	public function enqueue_customizer_in_block_editor() {
+		// Make sure we're on the block edit screen
+		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
+			return;
+		}
+
+		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
+			return;
+		}
+
+		global $post;
+		// Make sure we're editing an Event post.
+		if ( empty( $post ) || ! $post instanceof WP_Post || ! tribe_is_event( $post ) ) {
+			return;
+		}
+
+		// Append the customizer styles to the single block stylesheet
+		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
+			$sheets[] = 'tribe-admin-v2-single-blocks';
+
+			return $sheets;
+		} );
+
+		// Print the styles!
+		tribe( 'customizer' )->inline_style( true );
 	}
 
 	/**
@@ -104,6 +138,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_option', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 
+		add_filter( 'tribe_get_option', [ $this, 'filter_date_escaping' ], 10, 2 );
+
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'tribe_events_filter_views_v2_wp_title_plural_events_label', [ $this, 'filter_wp_title_plural_events_label' ], 10, 2 );
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -125,7 +161,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Add filters to change the display of website links on the Single Event template.
 		add_filter( 'tribe_get_event_website_link_label', [ $this, 'filter_single_event_details_event_website_label' ], 10, 2 );
-		add_filter( 'tribe_events_get_event_website_title', '__return_empty_string' );
 
 		add_filter( 'tribe_get_venue_website_link_label', [ $this, 'filter_single_event_details_venue_website_label' ], 10, 2 );
 		add_filter( 'tribe_events_get_venue_website_title', '__return_empty_string' );
@@ -137,6 +172,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
+
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
 	}
 
 	/**
@@ -197,6 +234,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function on_wp_head() {
+		if ( tec_is_full_site_editor() ) {
+			return;
+		}
+
 		$this->container->make( Template\Page::class )->maybe_hijack_main_query();
 	}
 
@@ -835,6 +876,41 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Ensures that date formats are escaped properly.
+	 * Converts "\\" to "\"  for escaped characters.
+	 *
+	 * @since 5.16.4
+	 *
+	 * @param mixed  $value      The current value of the option.
+	 * @param string $optionName The option "key"
+	 *
+	 * @return mixed  $value     The modified value of the option.
+	 */
+	public function filter_date_escaping( $value, $optionName ) {
+		// A list of date options we may need to unescape.
+		$date_options = [
+			'dateWithoutYearFormat',
+			'monthAndYearFormat',
+		];
+
+		if ( ! in_array( $optionName, $date_options ) ) {
+			return $value;
+		}
+
+		// Don't try to run string modification on an array or something.
+		if ( ! is_string( $value ) ) {
+			return $value;
+		}
+
+		// Note: backslash is hte escape character - so we need to escape it.
+		// This is the equivalent of replacing any occurrence of \\ with \
+		$value = str_replace( "\\\\", "\\", $value);
+		//$value = stripslashes( $value ); will strip out ones we want to keep!
+
+		return $value;
+	}
+
+	/**
 	 * Print Single Event JSON-LD.
 	 *
 	 * @since 5.0.3
@@ -1076,5 +1152,26 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'Views V2 Status' => tribe_events_views_v2_is_enabled() ? esc_html__( 'Enabled', 'the-events-calendar' ) : esc_html__( 'Disabled', 'the-events-calendar' ),
 		];
 		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $views_v2_status );
+	}
+
+	/**
+	 * Ensure we use the correct date on shortcodes.
+	 * If both `tribe-bar-date` and `eventDate` are present, `tribe-bar-date` overrides `eventDate`.
+	 *
+	 * @since 5.16.4
+	 *
+	 * @param array $params An associative array of parameters from the REST request.
+	 * @param \WP_REST_Request $request The current REST request.
+	 *
+	 * @return array $params A modified array of parameters from the REST request.
+	 */
+	public function filter_url_date_conflicts( $params, $request ) {
+		if ( ! isset( $params['tribe-bar-date'] ) || ! isset( $params[ 'eventDate'] ) ) {
+			return $params;
+		}
+
+		$params[ 'eventDate'] = $params['tribe-bar-date'];
+
+		return $params;
 	}
 }

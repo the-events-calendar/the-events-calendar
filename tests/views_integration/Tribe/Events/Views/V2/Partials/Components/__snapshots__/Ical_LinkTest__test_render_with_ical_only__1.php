@@ -10,11 +10,11 @@
 																		
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1&#038;eventDisplay=list"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		iCalendar	</a>
 </li>
@@ -25,7 +25,7 @@
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		Export .ics file	</a>
 </li>
