@@ -171,11 +171,44 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dropdowns',
 					],
 				],
-				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
+				[ 'tribe-ea-page', 'datatables-css' ],
 			],
 			'admin_enqueue_scripts',
 			[
+				'conditionals' => [
+					[ $this, 'is_screen' ],
+				],
 				'localize'     => (object) $localize_data,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-styles',
+			'aggregator-page.css',
+			[],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-notice',
+			'aggregator-notice.js',
+			[ 'jquery' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				]
 			]
 		);
 	}
@@ -234,6 +267,41 @@ class Tribe__Events__Aggregator__Page {
 		 * Fires an Action to allow Form actions to be hooked to
 		 */
 		return do_action( 'tribe_aggregator_page_request' );
+	}
+
+	/**
+	 * Basically an edited version of is_screen(), below,
+	 * that allows for loading on all non-post edit admin pages.
+	 *
+	 * @since 5.16.2.1
+	 *
+	 * @return boolean
+	 */
+	public function aggregator_should_load_scripts() {
+		global $current_screen;
+
+		// Doing AJAX? bail.
+		if ( tribe( 'context' )->doing_ajax() ) {
+			return false;
+		}
+
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		// Don't load on post edit screens - can conflict with other datepickers.
+		if ( $current_screen->base === 'post' || $current_screen->base === 'post-new') {
+			return false;
+		}
+
+		/**
+		 * Allows for selective disabling of script loading.
+		 *
+		 * @since 5.16.2.1
+		 *
+		 * @param boolean $should_load Whether the scripts should load. Default true if we got here
+		 */
+		return apply_filters( 'aggregator_should_load_scripts', true );
 	}
 
 	/**

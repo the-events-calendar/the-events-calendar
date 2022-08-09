@@ -64,6 +64,15 @@ if ( $day[ 'month_number' ] < date( 'm', strtotime( $today_date ) ) ) {
 if ( $day[ 'month_number' ] > date( 'm', strtotime( $today_date ) ) ) {
 	$day_classes[] = 'tribe-events-calendar-month__day--next-month';
 }
+
+/**
+ * Add a unique CSS class to any date that is not in the current month.
+ *
+ * @since 5.16.3
+ */
+if ( $day[ 'month_number' ] !== date( 'm', strtotime( $today_date ) ) ) {
+	$day_classes[] = 'tribe-events-calendar-month__day--other-month';
+}
 ?>
 
 <div

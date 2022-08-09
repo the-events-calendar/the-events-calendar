@@ -59,14 +59,19 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 			'progressText' => sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress ),
 		];
 
-		wp_localize_script( 'tribe-ea-fields', 'tribe_aggregator_save', $data );
+		wp_localize_script( 'tribe-ea-notice', 'tribe_aggregator_save', $data );
 
 		return $data;
 	}
 
 	public function render_update_message() {
+		if ( ! Tribe__Events__Aggregator__Page::instance()->aggregator_should_load_scripts() ) {
+			return false;
+		}
+
 		/** @var Tribe__Events__Aggregator__Record__Queue_Processor $processor */
 		$processor = tribe( 'events-aggregator.main' )->queue_processor;
+
 		if ( ! $this->record_id = $processor->next_waiting_record( true ) ) {
 			return false;
 		}
