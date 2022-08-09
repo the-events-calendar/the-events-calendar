@@ -143,12 +143,18 @@ class Title {
 
 		$taxonomy = TEC::TAXONOMY;
 		$term     = $context->get( $taxonomy, false );
+
 		if ( false === $term ) {
 			$taxonomy    = 'post_tag';
 			$term = $context->get( $taxonomy, false );
 		}
 
 		if ( false !== $term ) {
+			// Don't pass arrays to get_term_by()!
+			if ( is_array( $term ) ) {
+				$term = array_pop( $term );
+			}
+
 			$tax = get_term_by( 'slug', $term, $taxonomy );
 
 			if ( $tax instanceof \WP_Term ) {
