@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.1.1
-Tested up to: 6.0
+Stable tag: 5.16.4
+Tested up to: 6.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -222,6 +222,47 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.16.4] 2022-08-09 =
+
+* Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
+* Tweak - Update the calendar print design. [TEC-4425]
+* Tweak - Add support for `ticketed` parameter for Event archive REST API calls. [TEC-4439]
+* Tweak - Add new methods `filter_url_date_conflicts` and `filter_date_escaping` to filter and properly escape the date formats for some views. [ECP-1136]
+* Language - 0 new strings added, 403 updated, 0 fuzzied, and 124 obsoleted.
+
+= [5.16.3.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
+= [5.16.3] 2022-07-20 =
+
+* Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
+* Fix - Avoid some conflicts between the import notice and third-party plugins using jQuery datepicker in the admin. [TEC-4429]
+* Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
+* Tweak - Add a CSS class i.e. `tribe-events-calendar-month__day--other-month` to past and future month dates in the month view to allow easy targeting similar to what we had in v1. [TEC-4034]
+* Tweak - Changed views: `v2/month/calendar-body/day`
+
+= [5.16.2.1] 2022-07-08 =
+
+* Fix - Don't load Aggregator scripts on post edit pages to prevent datepicker conflicts [TEC-4427]
+* Tweak - Added filter: `aggregator_should_load_scripts`
+
+= [5.16.2] 2022-07-06 =
+
+* Fix - Ensure the `Next` arrow in `List` and `Summary` views navigates to the correct page when the `Main Events Page` is set as the homepage. [TEC-4247]
+* Fix - Ensure the `Next` button when using the `Event View` Elementor widget navigates to the next page on the first click. [FBAR-263]
+* Fix - Add a height to the subscribe to calendar export SVG icon on the single events page when using the `Skeleton Styles` to prevent it from taking over a huge portion of the page. [TEC-4399]
+* Fix - Remove link to Updates page from TEC Settings page. [TEC-4373]
+* Fix - Ensure Aggregator CSV imports continue to run when on an admin page. [TEC-4070]
+* Fix - Correct hardcoded admin urls used for Event Settings page(s). [ECP-1175]
+* Fix - Ensure event widgets don't carry the global search param into their queries. [TEC-4048]
+* Fix - Allow sub-site admins to use the updated calendar designs when their plugin access is restricted. [TEC-4382]
+* Fix - Remove deprecated usage of `jQuery.attr( 'checked' )`
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--past-month` to past month dates in the month view to allow easy targeting. [TEC-3447]
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--next-month` to future month dates in the month view to allow easy targeting. [TEC-3819]
+* Tweak - Changed views: `v2/month/calendar-body/day`
+* Language - 1 new strings added, 113 updated, 0 fuzzied, and 3 obsoleted
 
 = [5.16.1.1] 2022-06-15 =
 
