@@ -44,6 +44,8 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
  * @method static Builder output( string $output ) Sets the format that should be used to format results in SELECT queries.
  * @method static Builder all( ) Find all the records based on the built query.
  * @method static int upsert_set( array $data ) Update or Insert a multiple records into the table.
+ * @method static array pluck( string $field ) Pluck a single field from the results.
+ * @method static array map (callable $callback ) Maps from the results of the query to a new array using the callback.
  */
 abstract class Model implements Serializable {
 	/**

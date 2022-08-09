@@ -4,7 +4,7 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Codeception\TestCase\WPTestCase;
 use Generator;
-use TEC\Events_Pro\Custom_Tables\V1\EventRecurrence_Factory;
+use TEC\Events\Custom_Tables\V1\Tables\Events;
 use WP_Post;
 
 class ModelTest extends WPTestCase {
@@ -300,5 +300,95 @@ class ModelTest extends WPTestCase {
 			wp_list_pluck( array_slice( $occurrences, 6, 4 ), 'occurrence_id' ),
 			wp_list_pluck( $results, 'occurrence_id' )
 		);
+	}
+
+	/**
+	 * It should allow plucking fields from results
+	 *
+	 * @test
+	 */
+	public function should_allow_plucking_fields_from_results() {
+		$post_ids = [];
+		for ( $i = 1; $i <= 7; $i ++ ) {
+			$month = str_pad( $i, 2, '0', STR_PAD_LEFT );
+			$post_id = tribe_events()->set_args( array(
+				'title'      => 'Pluck test ' . $i,
+				'status'     => 'publish',
+				'start_date' => "2020-$month-01 10:00:00",
+				'end_date'   => "2020-$month-01 12:00:00",
+				'timezone'   => 'Europe/Paris',
+			) )->create()->ID;
+			$this->assertInstanceOf( Event::class, Event::find( $post_id, 'post_id' ) );
+			$post_ids[] = $post_id;
+		}
+
+		global $wpdb;
+		$events = Events::table_name( true );
+		// Try out some fields.
+		foreach ( [ 'start_date', 'end_date', 'timezone', 'updated_at' ] as $field ) {
+			$expected = $wpdb->get_col( "SELECT $field FROM $events WHERE post_id IN (" . implode( ',', $post_ids ) . ")" );
+			$plucked = Event::where_in( 'post_id', $post_ids )->pluck( $field );
+			$this->assertEquals( $expected, $plucked );
+		}
+	}
+
+	/**
+	 * It should pluck null when the field is not defined in the table schema
+	 *
+	 * @test
+	 */
+	public function should_pluck_null_when_the_field_is_not_defined_in_the_table_schema() {
+		$post_ids = [];
+		for ( $i = 1; $i <= 7; $i ++ ) {
+			$month = str_pad( $i, 2, '0', STR_PAD_LEFT );
+			$post_id = tribe_events()->set_args( array(
+				'title'      => 'Pluck test ' . $i,
+				'status'     => 'publish',
+				'start_date' => "2020-$month-01 10:00:00",
+				'end_date'   => "2020-$month-01 12:00:00",
+				'timezone'   => 'Europe/Paris',
+			) )->create()->ID;
+			$this->assertInstanceOf( Event::class, Event::find( $post_id, 'post_id' ) );
+			$post_ids[] = $post_id;
+		}
+
+		$expected = array_fill( 0, 7, null );
+		$plucked = Event::where_in( 'post_id', $post_ids )->pluck( 'non_existing_field' );
+		$this->assertEquals( $expected, $plucked );
+	}
+
+	/**
+	 * It should allow mapping results
+	 *
+	 * @test
+	 */
+	public function should_allow_mapping_results() {
+		$post_ids = [];
+		for ( $i = 1; $i <= 7; $i ++ ) {
+			$month = str_pad( $i, 2, '0', STR_PAD_LEFT );
+			$post_id = tribe_events()->set_args( array(
+				'title'      => 'Pluck test ' . $i,
+				'status'     => 'publish',
+				'start_date' => "2020-$month-01 10:00:00",
+				'end_date'   => "2020-$month-01 12:00:00",
+				'timezone'   => 'Europe/Paris',
+			) )->create()->ID;
+			$this->assertInstanceOf( Event::class, Event::find( $post_id, 'post_id' ) );
+			$post_ids[] = $post_id;
+		}
+
+		$expected = [
+			['Pluck test 1', '2020-01-01 10:00:00', '2020-01-01 12:00:00' ],
+			['Pluck test 2', '2020-02-01 10:00:00', '2020-02-01 12:00:00' ],
+			['Pluck test 3', '2020-03-01 10:00:00', '2020-03-01 12:00:00' ],
+			['Pluck test 4', '2020-04-01 10:00:00', '2020-04-01 12:00:00' ],
+			['Pluck test 5', '2020-05-01 10:00:00', '2020-05-01 12:00:00' ],
+			['Pluck test 6', '2020-06-01 10:00:00', '2020-06-01 12:00:00' ],
+			['Pluck test 7', '2020-07-01 10:00:00', '2020-07-01 12:00:00' ],
+		];
+		$plucked = Event::where_in( 'post_id', $post_ids )->map( static function ( Event $event ) {
+			return [ get_post( $event->post_id )->post_title, $event->start_date, $event->end_date ];
+		} );
+		$this->assertEquals( $expected, $plucked );
 	}
 }

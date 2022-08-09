@@ -11,8 +11,6 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 use JsonSerializable;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
-use TEC\Events_Pro\Custom_Tables\V1\EventRecurrence_Factory;
-use Tribe__Events__Main as TEC;
 
 /**
  * Class Site_Report.

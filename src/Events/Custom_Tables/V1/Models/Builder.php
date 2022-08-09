@@ -1440,4 +1440,30 @@ class Builder {
 
 		return $inserted;
 	}
+
+	/**
+	 * Gets the results and plucks a field from each.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $field The field to pluck.
+	 *
+	 * @return array The plucked values.
+	 */
+	public function pluck( string $field ): array {
+		return wp_list_pluck( $this->get(), $field );
+	}
+
+	/**
+	 * Maps from the results of the query to a new array using the callback.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $callback The callback to use to map the results.
+	 *
+	 * @return array The mapped results.
+	 */
+	public function map( callable $callback ): array {
+		return array_map( $callback, $this->get() );
+	}
 }
