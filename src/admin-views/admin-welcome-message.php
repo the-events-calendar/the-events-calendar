@@ -33,7 +33,7 @@ $main = Tribe__Main::instance();
 	<div class="tribe-events-admin-quick-nav">
 		<div class="tribe-events-admin-quick-nav__title"><?php esc_html_e( 'Quick Links:', 'the-events-calendar' ); ?></div>
 		<ul class="tribe-events-admin-quick-nav__links">
-			<li class="tribe-events-admin-quick-nav__link-item"><a href="edit.php?post_type=tribe_events&page=tribe-common" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Configure Settings', 'the-events-calendar' ); ?></a></li>
+			<li class="tribe-events-admin-quick-nav__link-item"><a href="edit.php?post_type=tribe_events&page=tec-events-settings" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Configure Settings', 'the-events-calendar' ); ?></a></li>
 			<li class="tribe-events-admin-quick-nav__link-item"><a href="post-new.php?post_type=tribe_events" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'Create an Event', 'the-events-calendar' ); ?></a></li>
 			<li class="tribe-events-admin-quick-nav__link-item"><a href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'View My Calendar', 'the-events-calendar' ); ?></a></li>
 		</ul>

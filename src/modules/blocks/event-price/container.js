@@ -35,6 +35,7 @@ const mapStateToProps = ( state, ownProps ) => ( {
 	cost: priceSelectors.getPrice( state ),
 	currencyPosition: priceSelectors.getPosition( state ),
 	currencySymbol: priceSelectors.getSymbol( state ),
+	currencyCode: priceSelectors.getCode( state ),
 	showCurrencySymbol: showCurrencySymbol( priceSelectors.getPrice( state ) ),
 	showCost: showCost( priceSelectors.getPrice( state ) ),
 	showCostDescription: ! isEmpty( trim( ownProps.attributes.costDescription ) ),
@@ -49,6 +50,10 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	setSymbol: ( symbol ) => {
 		ownProps.setAttributes( { currencySymbol: symbol } );
 		dispatch( priceActions.setSymbol( symbol ) );
+	},
+	setCode: ( code ) => {
+		ownProps.setAttributes( { currencyCode: code } );
+		dispatch( priceActions.setCode( code ) );
 	},
 	setCurrencyPosition: ( value ) => {
 		const position = priceUtils.getPosition( ! value );

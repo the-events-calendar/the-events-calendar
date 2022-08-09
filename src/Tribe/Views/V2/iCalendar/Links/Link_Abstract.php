@@ -44,16 +44,25 @@ abstract class Link_Abstract implements Link_Interface {
 	 *
 	 * @var boolean
 	 */
-	public $display = true;
+	public $visible = true;
 
 	/**
-	 * the link provider slug.
+	 * The link provider slug.
 	 *
 	 * @since 5.12.0
 	 *
 	 * @var string
 	 */
 	public static $slug;
+
+	/**
+	 * The slug used for the single event sharing block toggle.
+	 *
+	 * @since 5.16.1
+	 *
+	 * @var string
+	 */
+	public $block_slug;
 
 	/**
 	 * Determines if this instance of the class has it's actions and filters hooked.
@@ -95,7 +104,6 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links' ], 10 );
-		add_filter( 'tec_views_v2_single_subscribe_links', [ $this, 'filter_tec_views_v2_single_subscribe_links' ], 10, 2 );
 
 		$this->set_hooked();
 	}
@@ -104,7 +112,12 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function filter_tec_views_v2_subscribe_links( $subscribe_links ) {
-		$subscribe_links[ static::get_slug() ] = $this;
+		// Bail early if we're not supposed to show this link.
+		if ( ! $this->is_visible() ) {
+			return $subscribe_links;
+		}
+
+		$subscribe_links[ self::get_slug() ] = $this;
 
 		return $subscribe_links;
 	}
@@ -113,11 +126,27 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function filter_tec_views_v2_single_subscribe_links( $links ) {
-		$class   = sanitize_html_class( 'tribe-events-' . static::get_slug() );
-		$links[] = '<a class="tribe-events-button ' . $class
-		           . '" href="' . esc_url( $this->get_uri( null ) )
-		           . '" title="' . esc_attr( $this->get_single_label( null ) )
-		           . '">+ ' . esc_html( $this->get_single_label( null ) ) . '</a>';
+		// Bail early if we're not supposed to show this link.
+		if ( ! $this->is_visible() ) {
+			return $links;
+		}
+
+		$label   = $this->get_single_label( null );
+		$uri     = $this->get_uri( null );
+
+		// Don't add invalid or "invisible" links.
+		if ( empty( $label ) || empty( $uri ) ) {
+			return $links;
+		}
+
+		$class   = sanitize_html_class( 'tribe-events-' . self::get_slug() );
+		$links[ self::get_slug() ] = sprintf(
+			'<a class="tribe-events-button %1$s" href="%2$s" title="%3$s"  rel="noopener noreferrer noindex">%4$s</a>',
+			$class,
+			esc_url( $uri ),
+			esc_attr( $label ),
+			esc_html( $label )
+		);
 
 		return $links;
 	}
@@ -125,8 +154,36 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function is_visible( View $view = null ) {
-		return $this->display;
+	public function is_visible() {
+		$visible = $this->visible;
+
+		/**
+		 * Allows filtering of the visibility for the links.
+		 *
+		 * @since 5.14.0
+		 *
+		 * @param boolean $visible Whether to display the link.
+		 *
+		 * @return boolean $visible Whether to display the link.
+		 */
+		$visible = (boolean) apply_filters( 'tec_views_v2_subscribe_link_visibility', $visible );
+
+		/**
+		 * Allows link-specific filtering of the visibility.
+		 *
+		 * @since 5.14.0
+		 *
+		 * @param boolean $visible Whether to display the link.
+		 *
+		 * @return boolean $visible Whether to display the link.
+		 */
+		$visible = (boolean) apply_filters( 'tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility', $visible );
+
+		// Set the object property to the filtered value.
+		$this->set_visibility( $visible );
+
+		// Return
+		return $visible;
 	}
 
 	/**
@@ -184,7 +241,7 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function set_visibility( bool $visible ) {
-		$this->display = $visible;
+		$this->visible = $visible;
 	}
 
 	/**
@@ -192,10 +249,16 @@ abstract class Link_Abstract implements Link_Interface {
 	 */
 	public function get_uri( View $view = null ) {
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
-		$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
+		if ( is_single() ) {
+			$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
+		}
 
 		if ( empty( $feed_url ) && null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
+		}
+
+		if ( empty( $feed_url ) ) {
+			return '';
 		}
 
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
@@ -272,7 +335,11 @@ abstract class Link_Abstract implements Link_Interface {
 		// iCalendarize!
 		$passthrough_args['ical'] = 1;
 
-		// Tidy.
+		// Allow all views to utilize the list view so they collect the appropriate number of events.
+		// Note: this is only applied to subscription links - the ics direct link downloads what you see on the page!
+		$passthrough_args["eventDisplay"] = 'list';
+
+		// Tidy (remove empty-value pairs).
 		$passthrough_args = array_filter( $passthrough_args );
 
 		/**

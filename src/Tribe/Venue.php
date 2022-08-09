@@ -11,7 +11,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		'public'              => true,
 		'rewrite'             => [ 'slug' => 'venue', 'with_front' => false ],
 		'show_ui'             => true,
-		'show_in_menu'        => 0,
+		'show_in_menu'        => false,
 		'supports'            => [ 'title', 'editor' ],
 		'capability_type'     => [ 'tribe_venue', 'tribe_venues' ],
 		'map_meta_cap'        => true,
@@ -55,6 +55,22 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		'Province',
 		'Zip',
 		'Phone',
+	];
+
+
+
+	public $venueTags = [
+		'_VenueCountry',
+		'_VenueAddress',
+		'_VenueCity',
+		'_VenueStateProvince',
+		'_VenueState',
+		'_VenueProvince',
+		'_VenueZip',
+		'_VenuePhone',
+		'_VenueURL',
+		'_VenueShowMap',
+		'_VenueShowMapLink',
 	];
 
 	/**
@@ -141,6 +157,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_meta_box_title', [ $this, 'meta_box_title' ], 5, 2 );
 		add_filter( 'tribe_events_linked_post_default', [ $this, 'linked_post_default' ], 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
+		add_action( 'admin_bar_menu', [ $this, 'edit_venue_admin_bar_menu_link' ], 80 );
 	}
 
 	/**
@@ -249,6 +266,28 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		}
 
 		return $title;
+	}
+
+	/**
+	 * Include the venue editor meta box.
+	 *
+	 * @since 5.14.0
+	 */
+	public static function add_post_type_metabox() {
+
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+			return;
+		}
+
+		add_meta_box(
+			'tribe_events_venue_details',
+			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), tribe( 'tec.linked-posts.venue' )->get_venue_label_singular() ),
+			[ Tribe__Events__Main::instance(), 'VenueMetaBox' ],
+			self::POSTTYPE,
+			'normal',
+			'high'
+		);
+
 	}
 
 	/**
@@ -726,5 +765,63 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 			return array_filter( $venues );
 		};
+	}
+
+	/**
+	 * Returns a string version of the full address of an event.
+	 *
+	 * @since 5.16.0
+	 *
+	 * @see Tribe__Events__Main->fullAddressString()
+	 *
+	 * @param int|WP_Post|null $event The post object or post id.
+	 *
+	 * @return string The event venue's address. Empty string if the event or venue isn't found.
+	 */
+	public static function generate_string_address( $event = null ) {
+		if ( empty( $event ) ) {
+			$event = get_the_ID();
+		}
+
+		if ( is_integer( $event ) ) {
+			$event = tribe_get_event( $event );
+		}
+
+		// Not an event? Bail.
+		if ( ! tribe_is_event( $event ) ) {
+			return '';
+		}
+
+		if ( ! tribe_has_venue( $event ) ) {
+			return '';
+		}
+
+		$tec     = Tribe__Events__Main::instance();
+		$address = $tec->fullAddressString( $event );
+		// The above includes the venue name.
+
+		return $address;
+	}
+
+	/**
+	 * Add edit link to admin bar when viewing the tribe_venue post type archive.
+	 *
+	 * @since 5.16.3
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar The admin bar object.
+	 */
+	public function edit_venue_admin_bar_menu_link( $wp_admin_bar ) {
+		global $wp_query;
+
+		if ( ! is_admin() && $wp_query->tribe_is_event_venue ) {
+
+			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label );
+
+			$wp_admin_bar->add_menu([
+				'id'    => 'edit',
+				'title' => $title,
+				'href'  => admin_url( 'post.php?post=' . $wp_query->queried_object->ID . '&action=edit' ),
+			]);
+		}
 	}
 }

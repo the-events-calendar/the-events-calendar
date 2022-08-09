@@ -118,23 +118,14 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			return $is_enabled;
 		}
 
-		// Classic editor plugin is overriding.
-		if ( tribe( 'events.editor' )->is_classic_option_active() ) {
-			return false;
-		}
-
-		// Blocks aren't toggled on.
-		if ( tribe( 'events.editor.compatibility' )->is_blocks_editor_toggled_on() ) {
-			return $is_enabled;
-		}
-
-		return false;
+		return tribe( 'editor' )->should_load_blocks();
 	}
 
 	/**
-	 * When Gutenberg is active do not care about custom-fields as a metabox, but as part o the Rest API
+	 * When Gutenberg is active, we do not care about custom-fields as a metabox, but as part of the Rest API
 	 *
-	 * Code is located at: https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
+	 * Code is located at:
+	 * https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
 	 *
 	 * @todo  Block that option once the user has Gutenberg active
 	 *
@@ -170,7 +161,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		$editor = tribe( 'editor' );
 
 		// Bail if in classic editor
-		if ( $editor->is_classic_editor() ) {
+		if ( ! $editor->should_load_blocks() ) {
 			return false;
 		}
 

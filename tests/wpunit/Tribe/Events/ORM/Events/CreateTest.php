@@ -16,6 +16,8 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->organizer = new Organizer();
 		// To support taxonomy term creation and assignment.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		tribe( 'cache' )->reset();
 	}
 
 	/**
@@ -151,7 +153,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		$args  = [
 			'start_date' => '2018-03-04 09:00:00',
 			'end_date'   => '2018-03-06 11:00:00',
-			'all_day'    => 'yes',
+			'all_day'    => 1,
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
 		];
@@ -213,7 +215,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'   => 'A test event',
-			'show_map' => 'yes',
+			'show_map' => 1,
 			'show_map_link' => false,
 		];
 		$event = tribe_events()->set_args( $args )->create();
@@ -292,8 +294,9 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'           => '2018-03-06 11:00:00',
 			'timezone'           => 'Australia/Darwin',
 			'title'              => 'A test event',
-			'hide_from_upcoming' => true
+			'hide_from_upcoming' => 1
 		];
+
 		$event = tribe_events()->set_args( $args )->create();
 
 		$this->assertEquals( 'yes', get_post_meta( $event->ID, '_EventHideFromUpcoming', true ) );
@@ -310,7 +313,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
-			'sticky'        => true,
+			'sticky'     => 1,
 		];
 		$event = tribe_events()->set_args( $args )->create();
 
@@ -328,7 +331,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
-			'featured'        => true,
+			'featured'   => 1,
 		];
 		$event = tribe_events()->set_args( $args )->create();
 
@@ -418,6 +421,8 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		if ( null !== $input_timezone ) {
 			$args['timezone'] = $input_timezone;
 		}
+
+		tribe( 'cache' )->reset();
 
 		$event = tribe_events()->set_args( $args )->create();
 		$this->assertEquals( $expected, get_post_meta( $event->ID, '_EventTimezone', true ) );

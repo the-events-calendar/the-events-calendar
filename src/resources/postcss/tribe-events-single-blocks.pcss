@@ -15,7 +15,6 @@
 ============================================= */
 .tribe-block__event-website {
 	font-family: var(--tec-font-family-sans-serif);
-	padding: 20px 0;
 
 	a {
 		background-color: var(--tec-color-accent-primary);
@@ -23,8 +22,7 @@
 		border-radius: 4px;
 		font-size: var(--tec-font-size-3);
 		font-weight: var(--tec-font-weight-bold);
-		min-height: 40px;
-		padding: 0 20px;
+		padding: var(--tec-spacer-2) var(--tec-spacer-4);
 
 		#tribe-events-content & {
 			&,
@@ -236,6 +234,24 @@
 	}
 }
 
+/* = Datetime block view styles
+============================================= */
+.single-tribe_events .tribe-blocks-editor .tribe-events-schedule {
+	background: transparent;
+	border: none;
+	margin: 10px 0 15px;
+	padding: 0;
+
+	.tribe-events-schedule__datetime {
+		color: var(--tec-color-text-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-3);
+		font-weight: 400;
+		letter-spacing: normal;
+		line-height: 1.63;
+	}
+}
+
 /* = Related events block view styles
 ============================================= */
 .tribe-block__related-events__title {
@@ -247,6 +263,50 @@
 .single-tribe_events ul.tribe-related-events .tribe-related-events-title {
 	font-size: var(--tec-font-size-3);
 	line-height: 1.64;
+}
+
+.tribe-blocks-editor .tribe-related-event-info .tribe-event-date-start,
+.tribe-blocks-editor .tribe-related-event-info .tribe-event-time,
+.tribe-blocks-editor .tribe-related-event-info .timezone {
+	font-size: var(--tec-font-size-2);
+	line-height: 1.64;
+}
+
+/* = Event details classic block view styles
+============================================= */
+.single-tribe_events #tribe-events-content.tribe-blocks-editor .tribe-events-event-meta {
+	background: transparent;
+	border: none;
+	margin: 0;
+
+	.tribe-events-meta-group {
+		padding: 0;
+	}
+
+	.tribe-events-single-section-title {
+		color: var(--tec-color-text-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-4);
+		font-weight: bold;
+		letter-spacing: normal;
+		line-height: 1.64;
+	}
+
+	dl {
+		color: var(--tec-color-text-primary);
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: var(--tec-font-size-3);
+		letter-spacing: normal;
+		line-height: 1.64;
+
+		dd {
+			margin: 5px 0 10px;
+
+			.tribe-events-abbr {
+				text-decoration: none;
+			}
+		}
+	}
 }
 
 /* = Theme specific overrides

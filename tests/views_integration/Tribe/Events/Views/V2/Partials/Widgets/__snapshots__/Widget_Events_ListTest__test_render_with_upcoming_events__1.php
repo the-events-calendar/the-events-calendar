@@ -31,7 +31,7 @@
 </div>
 
 	<div class="tribe-events-widget-events-list__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-widget-events-list__event post-8 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-widget-events-list__event post-8 tribe_events type-tribe_events status-publish hentry" >
 			<div class="tribe-events-widget-events-list__event-details">
 
 				<header class="tribe-events-widget-events-list__event-header">
@@ -68,7 +68,7 @@
 </div>
 
 	<div class="tribe-events-widget-events-list__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-widget-events-list__event post-9 tribe_events type-tribe_events status-publish hentry entry" >
+		<article  class="tribe-events-widget-events-list__event post-9 tribe_events type-tribe_events status-publish hentry" >
 			<div class="tribe-events-widget-events-list__event-details">
 
 				<header class="tribe-events-widget-events-list__event-header">

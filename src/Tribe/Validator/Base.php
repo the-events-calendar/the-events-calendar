@@ -232,4 +232,30 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 		return ! empty( $events ) && count( $valid ) === count( $events );
 	}
+
+	/**
+	 * Checks whether `ticketed` param is valid or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $value Can be true or false.
+	 *
+	 * @return bool|WP_Error
+	 */
+	public function supports_ticketed( $value ) {
+		// Valid when value is false.
+		if ( ! tribe_is_truthy( $value ) ) {
+			return true;
+		}
+
+		// When value is true then we need to check if Event Tickets REST API is available or not.
+		try {
+			/** @var Tribe__Tickets__REST__V1__System $system */
+			$system = tribe( 'tickets.rest-v1.system' );
+		} catch ( Exception $exception ) {
+			return new WP_Error( 'event-tickets-not-active', __( 'Event Tickets plugin is not activated.', 'the-events-calendar' ), [ 'status' => 400 ] );
+		}
+
+		return $system->et_rest_api_is_enabled() ? true : new WP_Error( 'event-tickets-api-not-active', __( 'Event Tickets REST API is not available.', 'the-events-calendar' ), [ 'status' => 400 ] );
+	}
 }

@@ -31,6 +31,8 @@ class GoogleCalendarTest extends WPTestCase {
 		tribe_update_option( 'tribe_events_timezone_mode', Timezones::EVENT_TIMEZONE );
 		update_option( 'timezone_string', 'America/Los_Angeles' );
 
+		tribe( 'cache' )->reset();
+
 		$event_id = ( new Event() )->create_object( [ 'timezone' => 'America/Mexico_City' ] );
 
 		$this->assertSame(
@@ -48,6 +50,8 @@ class GoogleCalendarTest extends WPTestCase {
 		tribe_update_option( 'tribe_events_timezone_mode', Timezones::SITE_TIMEZONE );
 		update_option( 'timezone_string', 'America/Los_Angeles' );
 
+		tribe( 'cache' )->reset();
+
 		$event_id = ( new Event() )->create_object( [ 'timezone' => 'America/Mexico_City' ] );
 
 		$this->assertSame(
@@ -59,7 +63,7 @@ class GoogleCalendarTest extends WPTestCase {
 	/**
 	 * Extract the timezone from the generated gcal link.
 	 *
-	 * @since TBD
+	 * @since 5.7.0
 	 *
 	 * @param $event_id
 	 *

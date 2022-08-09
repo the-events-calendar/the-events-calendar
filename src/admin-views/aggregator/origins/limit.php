@@ -1,4 +1,6 @@
 <?php
+use Tribe\Events\Admin\Settings as Plugin_Settings;
+
 /** @var \Tribe__Events__Aggregator__Settings $settings */
 $settings          = tribe( 'events-aggregator.settings' );
 $global_limit_type = tribe_get_option( 'tribe_aggregator_default_import_limit_type', 'count' );
@@ -33,7 +35,7 @@ if ( 'range' === $global_limit_type ) {
 	);
 }
 
-$import_limit_link    = esc_url( admin_url( '/edit.php?post_type=tribe_events&page=tribe-common&tab=imports#tribe-field-tribe_aggregator_default_import_limit_type' ) );
+$import_limit_link    = esc_url( tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'imports#tribe-field-tribe_aggregator_default_import_limit_type' ] ) );
 $import_limit_message = $global_limit_message . ' ' . sprintf( '<a href="%s" target="_blank">%s</a> ', $import_limit_link, esc_html__( 'you can modify this setting here.', 'the-events-calendar' ) );
 ?>
 

@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\Views\Traits;
 
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main;
 
 /**
  * Class With_Fast_Forward_Link
@@ -43,7 +44,24 @@ trait With_Fast_Forward_Link {
 			return $this->cached_urls[ $cache_key ];
 		}
 
-		$next_event = tribe_events()->where( 'starts_after', $date )->per_page( 1 )->first();
+		$next_event = tribe_events()->where( 'starts_after', $date );
+
+		$event_cat = isset( $this->repository_args[ Tribe__Events__Main::TAXONOMY ] ) ? $this->repository_args[ Tribe__Events__Main::TAXONOMY ] : null;
+		if ( ! empty( $event_cat ) ) {
+			$next_event = $next_event->where( 'category', (array) $event_cat );
+		}
+
+		/**
+		 * Allows other plugins to modify the events repository for the fast-forward link.
+		 *
+		 * @since 5.14.2
+		 *
+		 * @param Tribe__Repository__Interface $next_event Current instance of the events repository class.
+		 * @param View_Interface               $view       The View currently rendering.
+		 */
+		$next_event = apply_filters( 'tribe_events_views_v2_ff_link_next_event', $next_event, $this );
+
+		$next_event = $next_event->first();
 
 		if ( ! $next_event instanceof \WP_Post ) {
 			return '';
@@ -79,25 +97,18 @@ trait With_Fast_Forward_Link {
 	public function use_ff_link( $canonical = false, array $passthru_vars = [] ) {
 		// Default is true.
 		$use_ff_link = true;
-		$tax         = $this->context->get( 'taxonomy' );
-		$use_ff_link = empty( $tax );
 
 		// Don't do filter checks if taxonomy check has failed.
-		if ( $use_ff_link ) {
+		if ( ! empty( $this->context->get( 'taxonomy' ) ) ) {
 			// @todo [BTRIA-598]: @stephen Move this to Filterbar.
 			$filters = array_filter( (array) $this->context->get( 'view_data' ) );
 
-			if ( isset( $filters['url'] ) ) {
-				unset( $filters['url'] );
-			}
-			if ( isset( $filters['form_submit'] ) ) {
-				unset( $filters['form_submit'] );
-			}
+			unset( $filters['url'] );
+			unset( $filters['form_submit'] );
 
 			$filters     = \array_values( $filters );
 			$use_ff_link = empty( $filters );
 		}
-
 
 		/**
 		 * Filters whether the fast-forward link should be used in Views or not whenever possible.

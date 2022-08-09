@@ -19,3 +19,8 @@ export const getPosition = createSelector(
 	[ getPriceBlock ],
 	( block ) => block.position,
 );
+
+export const getCode = createSelector(
+	[ getPriceBlock ],
+	( block ) => block.code,
+);

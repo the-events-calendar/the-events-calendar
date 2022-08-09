@@ -3,6 +3,8 @@
  * Create a easy way to hook to the Add-ons Tab Fields
  * @var array
  */
+use Tribe\Events\Admin\Settings as Plugin_Settings;
+
 $internal                   = [];
 $use_global_settings_phrase = esc_html__( 'Use global import settings', 'the-events-calendar' );
 $post_statuses = get_post_statuses();
@@ -124,7 +126,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		__( 'If you want to stop and clear current asynchronous import processes %1$s.', 'the-events-calendar' ),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
-				add_query_arg( [ Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ] ),
+				esc_url( add_query_arg( [ Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ] ) ),
 				esc_html__( 'click here', 'the-events-calendar' )
 		)
 	);
@@ -382,7 +384,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > Integrations%2$s',
 					'the-events-calendar'
 				),
-				'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',
+				'<a href="' . tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'addons' ] ) . '">',
 				'</a>'
 			). '</p>',
 			'priority'        => 40.2,
@@ -680,7 +682,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 				'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s.',
 				'the-events-calendar'
 			),
-			'<a href="' . esc_url( Tribe__Settings::instance()->get_url( [ 'page' => 'tribe-help' ] ) ) . '#tribe-tribe-aggregator-status">' . esc_html__( 'Help page', 'the-events-calendar' ) . '</a>'
+			'<a href="' . esc_url( tribe( 'tec.main' )->settings()->get_url( [ 'page' => 'tec-troubleshooting' ] ) ) . '#tribe-events-admin__ea-status">' . esc_html__( 'Troubleshooting Page', 'the-events-calendar' ) . '</a>'
 		);
 		?>
 	</p>

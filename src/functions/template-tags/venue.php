@@ -773,7 +773,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$website_link_label = apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ), $post_id );
 
 			$html = sprintf(
-				'<a href="%s" target="%s" rel="%s">%s</a>',
+				'<a href="%1$s" target="%2$s" rel="%3$s">%4$s</a>',
 				esc_attr( esc_url( $url ) ),
 				esc_attr( $website_link_target ),
 				esc_attr( $rel ),

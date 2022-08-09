@@ -1,7 +1,6 @@
 <?php
 
 use Tribe__Date_Utils as Date;
-use Tribe__Events__Main as TEC;
 
 /**
  * Initialize Gutenberg Event Meta fields
@@ -37,6 +36,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		register_meta( 'post', '_EventCost', $this->text() );
 		register_meta( 'post', '_EventCostDescription', $this->text() );
 		register_meta( 'post', '_EventCurrencySymbol', $this->text() );
+		register_meta( 'post', '_EventCurrencyCode', $this->text() );
 		register_meta( 'post', '_EventCurrencyPosition', $this->text() );
 
 		// Use sanitize_textarea_field to allow whitespaces
@@ -103,7 +103,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	}
 
 	/**
-	 * Short-circuits deleting metadata items that dont exist, for compatibility purposes we need to make sure
+	 * Short-circuits deleting metadata items that don't exist, for compatibility purposes we need to make sure
 	 * WordPress doesn't throw an error when the meta is not present.
 	 *
 	 * @since 5.5.0
