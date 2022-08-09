@@ -61,6 +61,7 @@ if ( tribe_is_not_min_php_version() ) {
 	if ( ! has_filter( 'admin_notices', 'tribe_not_php_version_notice' ) ) {
 		add_action( 'admin_notices', 'tribe_not_php_version_notice' );
 	}
+
 	return false;
 }
 

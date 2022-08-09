@@ -110,7 +110,7 @@ class Template extends Base_Template {
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param string|array|null $name Either a specific name to check, the frgments of a name to check, or `null` to let
+	 * @param string|array|null $name Either a specific name to check, the fragments of a name to check, or `null` to let
 	 *                                the view pick the template according to the template override rules.
 	 *
 	 * @return string The path to the template file the View will use to render its contents.
