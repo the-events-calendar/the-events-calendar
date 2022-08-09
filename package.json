@@ -43,12 +43,8 @@
       "!src/resources/postcss/tribe-events-theme.pcss"
     ],
     "jest": [
-<<<<<<< HEAD
       "src/modules/**/__tests__/**/*.js",
       "src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
-=======
-      "src/modules/**/__tests__/**/*.js"
->>>>>>> 795b2729c2ebd868f87fe3e866ca4e90e8fb082c
     ]
   },
   "scripts": {
