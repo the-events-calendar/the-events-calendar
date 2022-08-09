@@ -33,7 +33,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '5.15.0.1';
+		const VERSION             = '5.16.4';
 
 		/**
 		 * Min Pro Addon
@@ -571,7 +571,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Aggregator__REST__V1__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__CLI__Service_Provider' );
 			tribe_register_provider( 'Tribe__Events__Aggregator__Processes__Service_Provider' );
-
+			tribe_register_provider( Tribe\Events\Taxonomy\Taxonomy_Provider::class );
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
 
 			// @todo After version 6.0.0 this needs to move to the Events folder provider.
@@ -1293,8 +1293,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$edit_settings_link = __( ' ask the site administrator to set a different Events URL slug.', 'the-events-calendar' );
 
 			if ( current_user_can( $settings_cap ) ) {
-				$admin_slug         = apply_filters( 'tribe_settings_admin_slug', 'tribe-common' );
-				$setting_page_link  = apply_filters( 'tribe_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#tribe-field-eventsSlug' ) );
+				$setting_page_link  = tribe( Tribe\Events\Admin\Settings::class )->get_url() . '#tribe-field-eventsSlug';
 				$edit_settings_link = sprintf( '<a href="%1$s">%2$s</a>', $setting_page_link, __( 'edit Events settings.', 'the-events-calendar' ) );
 			}
 
@@ -1325,7 +1324,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return boolean
 		 */
 		public function show_upgrade() {
-			$show_tab = current_user_can( 'activate_plugins' );
+			// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
+			$show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
 
 			/**
 			 * Provides an opportunity to override the decision to show or hide the upgrade tab

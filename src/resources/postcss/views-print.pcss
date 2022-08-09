@@ -1,0 +1,78 @@
+/**
+ * View print styles.
+ *
+ * @since 5.16.4
+ */
+
+.single-tribe_events,
+.single-tribe_events.tribe-common--breakpoint-medium,
+.tribe-events,
+.tribe-events.tribe-common--breakpoint-medium {
+	/* Events Bar */
+	.tribe-events-c-events-bar {
+		display: none !important;
+	}
+
+	/* Top Bar & Nav */
+	.tribe-events-c-top-bar__nav,
+	.tribe-events-c-nav,
+	.tribe-events-nav-pagination {
+		display: none !important;
+	}
+
+	.tribe-events-c-top-bar__today-button {
+		display: none !important;
+	}
+
+	.tribe-events-c-top-bar__datepicker-button-icon-svg {
+		display: none !important;
+	}
+
+	.tribe-events-back {
+		display: none !important;
+	}
+
+	/* Links */
+
+	/* This hides all the browser-appended URLs in print mode */
+	a[href^="http"] {
+		text-decoration: none !important;
+
+		&:after {
+			content: none !important;
+		}
+	}
+
+	/* Subscribe to Calendar */
+	.tribe-events-c-subscribe-dropdown__container {
+		display: none !important;
+	}
+
+	/* Fonts */
+	&.tribe-common .tribe-common-h--alt.tribe-events-c-top-bar__datepicker-button {
+		--tec-font-weight-regular: var(--tec-font-weight-bold);
+	}
+
+	.tribe-events-calendar-month__header-column-title {
+		--tec-color-text-day-of-week-month: var(--tec-color-text-primary);
+	}
+
+	.tribe-events-calendar-month__calendar-event-datetime {
+		--tec-color-text-event-date-secondary: #727272;
+	}
+
+	.tribe-events-calendar-month__calendar-event-title-link {
+		font-weight: var(--tec-font-weight-regular);
+	}
+
+	.tribe-events-promo.tribe-common-b1.tribe-events-c-promo {
+		--tec-color-text-primary: #727272;
+		--tec-font-size-3: var(--tec-font-size-1);
+
+		.tribe-common-anchor-thin {
+			--tec-color-text-primary: #141827;
+
+			font-weight: var(--tec-font-weight-regular);
+		}
+	}
+}

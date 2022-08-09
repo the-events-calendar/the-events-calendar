@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.15.0.1
-Tested up to: 5.9.3
+Stable tag: 5.16.4
+Tested up to: 6.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -223,6 +223,77 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.16.4] 2022-08-09 =
+
+* Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
+* Tweak - Update the calendar print design. [TEC-4425]
+* Tweak - Add support for `ticketed` parameter for Event archive REST API calls. [TEC-4439]
+* Tweak - Add new methods `filter_url_date_conflicts` and `filter_date_escaping` to filter and properly escape the date formats for some views. [ECP-1136]
+* Language - 0 new strings added, 403 updated, 0 fuzzied, and 124 obsoleted.
+
+= [5.16.3.1] 2022-07-21 =
+
+* Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
+
+= [5.16.3] 2022-07-20 =
+
+* Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
+* Fix - Avoid some conflicts between the import notice and third-party plugins using jQuery datepicker in the admin. [TEC-4429]
+* Tweak - Add edit links to single venue and organizer pages to improve user experience. [ECP-1181]
+* Tweak - Add a CSS class i.e. `tribe-events-calendar-month__day--other-month` to past and future month dates in the month view to allow easy targeting similar to what we had in v1. [TEC-4034]
+* Tweak - Changed views: `v2/month/calendar-body/day`
+
+= [5.16.2.1] 2022-07-08 =
+
+* Fix - Don't load Aggregator scripts on post edit pages to prevent datepicker conflicts [TEC-4427]
+* Tweak - Added filter: `aggregator_should_load_scripts`
+
+= [5.16.2] 2022-07-06 =
+
+* Fix - Ensure the `Next` arrow in `List` and `Summary` views navigates to the correct page when the `Main Events Page` is set as the homepage. [TEC-4247]
+* Fix - Ensure the `Next` button when using the `Event View` Elementor widget navigates to the next page on the first click. [FBAR-263]
+* Fix - Add a height to the subscribe to calendar export SVG icon on the single events page when using the `Skeleton Styles` to prevent it from taking over a huge portion of the page. [TEC-4399]
+* Fix - Remove link to Updates page from TEC Settings page. [TEC-4373]
+* Fix - Ensure Aggregator CSV imports continue to run when on an admin page. [TEC-4070]
+* Fix - Correct hardcoded admin urls used for Event Settings page(s). [ECP-1175]
+* Fix - Ensure event widgets don't carry the global search param into their queries. [TEC-4048]
+* Fix - Allow sub-site admins to use the updated calendar designs when their plugin access is restricted. [TEC-4382]
+* Fix - Remove deprecated usage of `jQuery.attr( 'checked' )`
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--past-month` to past month dates in the month view to allow easy targeting. [TEC-3447]
+* Tweak - Add a unique CSS class i.e. `tribe-events-calendar-month__day--next-month` to future month dates in the month view to allow easy targeting. [TEC-3819]
+* Tweak - Changed views: `v2/month/calendar-body/day`
+* Language - 1 new strings added, 113 updated, 0 fuzzied, and 3 obsoleted
+
+= [5.16.1.1] 2022-06-15 =
+
+* Fix - correct issues with template paths when using FSE. [TEC-4401]
+
+= [5.16.1] 2022-06-09 =
+
+* Fix - Add rel="noindex" to links that point to empty Month and Day Views so as to not dilute SEO with empty results. [TEC-4354]
+* Fix - Clean up some borked CSS in some sections of the Elementor `Event` widget. [ECP-1105]
+* Fix - Fix admin links to work with the new admin page structure. [TEC-4380]
+* Tweak - Removed filters: `tribe_settings_admin_slug`, `tribe_settings_url`, `tribe_events_enable_month_view_cache`
+* Tweak - Changed views: `blocks/event-links`, `blocks/parts/subscribe-list`, `blocks/parts/subscribe-single`,
+                         `v2/components/subscribe-links/item`, `v2/components/subscribe-links/single`, `v2/day/nav/next`,
+                         `v2/day/nav/prev`, `v2/day/top-bar/nav/next`, `v2/day/top-bar/nav/prev`, `v2/month/mobile-events/nav/next`,
+                         `v2/month/mobile-events/nav/prev`, `v2/month/top-bar/nav/next`, `v2/month/top-bar/nav/prev`
+
+= [5.16.0] 2022-05-31 =
+
+* Feature - Add subscribe links for Outlook 365 and Outlook Live to the event views. [TEC-4168]
+* Feature - Add export links for Outlook 365 and Outlook Live to single events. [TEC-4168]
+* Feature - Update single event export to use a dropdown template to support more links. [TEC-4176]
+* Feature - Add Outlook ics as an option for Subscribe to Calendar that removes the X-WR-CALNAME from the file. Props to Andy Fragen @afragen [TEC-4188]
+* Fix - Prevent Redis Cache Pro fatals around date utilization and calculations on Views [TEC-4351]
+* Fix - Ensure all expected subscribe links show when using the default page template. [TEC-4313]
+* Fix - Put back the event website label for Classic editor. [TEC-4334]
+* Fix - Ensure that subscription links include events up to the limit, no matter the view settings. [TEC-4264]
+* Fix - On Event tag archives only show events with the tag, change the single event tag links to use the event tag archive, and add a link to event tag archive in the admin tag list. [TEC-4314]
+* Fix - Default event category in Global Import Settings to apply on new imports in Event Aggregator. [EA-426]
+* Fix - Add rel noindex and nofollow to the legacy iCal export button. [TEC-4354]
+* Language - 6 new strings added, 53 updated, 0 fuzzied, and 0 obsoleted
+
 = [5.15.0.1] 2022-05-23 =
 
 * Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [BTRIA-1243]
@@ -232,7 +303,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Version - The Events Calendar 5.15.0 is only compatible with Event Tickets 5.4.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Calendar PRO 5.14.0 and higher
-* Version - The Events Calendar 5.15.0 is only compatible with Events Filterbar	5.3.0 and higher
+* Version - The Events Calendar 5.15.0 is only compatible with Events Filterbar    5.3.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Virtual 1.10.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Events Community 4.9.0 and higher
 * Version - The Events Calendar 5.15.0 is only compatible with Eventbrite Tickets 4.6.11 and higher
