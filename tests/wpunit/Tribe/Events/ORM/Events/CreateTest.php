@@ -153,7 +153,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 		$args  = [
 			'start_date' => '2018-03-04 09:00:00',
 			'end_date'   => '2018-03-06 11:00:00',
-			'all_day'    => 'yes',
+			'all_day'    => 1,
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
 		];
@@ -215,7 +215,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'   => 'A test event',
-			'show_map' => 'yes',
+			'show_map' => 1,
 			'show_map_link' => false,
 		];
 		$event = tribe_events()->set_args( $args )->create();
@@ -294,7 +294,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'           => '2018-03-06 11:00:00',
 			'timezone'           => 'Australia/Darwin',
 			'title'              => 'A test event',
-			'hide_from_upcoming' => 'yes'
+			'hide_from_upcoming' => 1
 		];
 
 		$event = tribe_events()->set_args( $args )->create();
@@ -313,7 +313,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
-			'sticky'     => 'yes',
+			'sticky'     => 1,
 		];
 		$event = tribe_events()->set_args( $args )->create();
 
@@ -331,7 +331,7 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 			'end_date'   => '2018-03-06 11:00:00',
 			'timezone'   => 'Australia/Darwin',
 			'title'      => 'A test event',
-			'featured'   => 'yes',
+			'featured'   => 1,
 		];
 		$event = tribe_events()->set_args( $args )->create();
 

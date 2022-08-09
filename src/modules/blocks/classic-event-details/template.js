@@ -132,7 +132,9 @@ const ClassicEventDetails = ( props ) => {
 		currencyPosition,
 		setCurrencyPosition,
 		currencySymbol,
+		currencyCode,
 		setSymbol,
+		setCode,
 		setAttributes,
 	} = props;
 
@@ -192,6 +194,12 @@ const ClassicEventDetails = ( props ) => {
 						placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 						onChange={ setSymbol }
 					/>
+					<TextControl
+						label={ __( ' Currency Code', 'the-events-calendar' ) }
+						value={ currencyCode }
+						placeholder={ __( 'E.g.: USD', 'the-events-calendar' ) }
+						onChange={ setCode }
+					/>
 				</PanelBody>
 			</InspectorControls>
 		),
@@ -206,12 +214,14 @@ ClassicEventDetails.propTypes = {
 	cost: PropTypes.string,
 	currencyPosition: PropTypes.string,
 	currencySymbol: PropTypes.string,
+	currencyCode: PropTypes.string,
 	allDay: PropTypes.bool,
 	isSelected: PropTypes.bool,
 	setWebsite: PropTypes.func,
 	setCost: PropTypes.func,
 	toggleDashboardDateTime: PropTypes.func,
 	setSymbol: PropTypes.func,
+	setCode: PropTypes.func,
 	setCurrencyPosition: PropTypes.func,
 	setAllDay: PropTypes.func,
 };

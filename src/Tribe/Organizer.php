@@ -1,7 +1,5 @@
 <?php
 
-use Automattic\WooCommerce\Vendor\League\Container\Argument\ClassName;
-
 class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_organizer';
 
@@ -23,7 +21,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		'public'              => false,
 		'rewrite'             => [ 'slug' => 'organizer', 'with_front' => false ],
 		'show_ui'             => true,
-		'show_in_menu'        => 0,
+		'show_in_menu'        => false,
 		'supports'            => [ 'title', 'editor' ],
 		'capability_type'     => [ 'tribe_organizer', 'tribe_organizers' ],
 		'map_meta_cap'        => true,
@@ -131,6 +129,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			10,
 			2
 		);
+		add_action( 'admin_bar_menu', [ $this, 'edit_organizer_admin_bar_menu_link' ], 80 );
 	}
 
 	/**
@@ -720,19 +719,39 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @since 5.14.0
 	 */
 	public static function add_post_type_metabox() {
-		$request_vars = tribe_get_request_vars();
-		if ( empty( $request_vars['post'] ) || ! tribe_is_organizer( $request_vars['post'] ) ) {
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
 			return;
 		}
 
-		$self = new Tribe__Events__Organizer;
 		add_meta_box(
 			'tribe_events_organizer_details',
-			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $self->get_organizer_label_singular() ),
+			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), tribe( 'tec.linked-posts.organizer' )->get_organizer_label_singular() ),
 			[ Tribe__Events__Main::instance(), 'OrganizerMetaBox' ],
 			self::POSTTYPE,
 			'normal',
 			'high'
 		);
+	}
+
+	/**
+	 * Add edit link to admin bar when viewing the tribe_organizer post type archive.
+	 *
+	 * @since 5.16.3
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar The admin bar object.
+	 */
+	public function edit_organizer_admin_bar_menu_link( $wp_admin_bar ) {
+		global $wp_query;
+
+		if ( ! is_admin() && $wp_query->tribe_is_event_organizer ) {
+
+			$title = sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label );
+
+			$wp_admin_bar->add_menu([
+				'id'    => 'edit',
+				'title' => $title,
+				'href'  => admin_url( 'post.php?post=' . $wp_query->queried_object->ID . '&action=edit' ),
+			]);
+		}
 	}
 }

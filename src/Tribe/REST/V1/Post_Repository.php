@@ -127,6 +127,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'cost'                   => tribe_get_cost( $event_id, true ),
 			'cost_details'           => array(
 				'currency_symbol'   => isset( $meta['_EventCurrencySymbol'] ) ? $meta['_EventCurrencySymbol'] : '',
+				'currency_code'     => isset( $meta['_EventCurrencyCode'] ) ? $meta['_EventCurrencyCode'] : '',
 				'currency_position' => isset( $meta['_EventCurrencyPosition'] ) ? $meta['_EventCurrencyPosition'] : '',
 				'values'            => $this->get_cost_values( $event_id ),
 			),

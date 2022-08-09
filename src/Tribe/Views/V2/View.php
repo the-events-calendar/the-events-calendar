@@ -772,12 +772,19 @@ class View implements View_Interface {
 			$category = Arr::to_list( reset( $category ) );
 		}
 
+		$tag = $this->context->get( 'post_tag', false );
+
+		if ( is_array( $tag ) ) {
+			$tag = Arr::to_list( reset( $tag ) );
+		}
+
 		$query_args = [
 			'post_type'        => TEC::POSTTYPE,
 			'eventDisplay'     => $this->slug,
 			'tribe-bar-date'   => $this->context->get( 'event_date', '' ),
 			'tribe-bar-search' => $this->context->get( 'keyword', '' ),
 			TEC::TAXONOMY      => $category,
+			'tag'              => $tag,
 		];
 
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
@@ -1208,6 +1215,11 @@ class View implements View_Interface {
 			$args['event_category'] = $context_arr['event_category'];
 		}
 
+		// Sets up post tag URL for all views.
+		if ( ! empty( $context_arr['post_tag'] ) ) {
+			$args['tag'] = $context_arr['post_tag'];
+		}
+
 		// Setup featured only when set to true.
 		if ( $is_featured = tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
 			$args['featured'] = $is_featured;
@@ -1224,6 +1236,7 @@ class View implements View_Interface {
 	 * This allows us to save a query when determining pagination for list-like views.
 	 *
 	 * @since 5.0.0
+	 * @since 5.15.2 Ensure our max() gets all ints, for math reasons.
 	 *
 	 * @param null|int $offset_override Offset override value.
 	 * @param \WP_Query $query WP Query object.
@@ -1238,11 +1251,12 @@ class View implements View_Interface {
 		$context = $this->get_context();
 
 		$current_page = max(
-			$context->get( 'page' ),
-			$context->get( 'paged' ),
+			(int) $context->get( 'page' ),
+			(int) $context->get( 'paged' ),
 			1
 		);
-		return ( $current_page - 1 ) * $this->get_context()->get( 'events_per_page' );
+
+		return ( $current_page - 1 ) * $context->get( 'events_per_page' );
 	}
 
 	/**
@@ -1408,6 +1422,17 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Get if we have events in the next page.
+	 *
+	 * @since 5.16.0
+	 *
+	 * @return boolean Weather the View has events in the next page.
+	 */
+	public function get_has_next_event() {
+		return (boolean) $this->has_next_event;
+	}
+
+	/**
 	 * Sets up the View template variables.
 	 *
 	 * @since 4.9.4
@@ -1422,6 +1447,9 @@ class View implements View_Interface {
 		}
 
 		$events = (array) $this->repository->all();
+		$events = array_filter( $events, static function ( $event ) {
+			return $event instanceof \WP_Post;
+		} );
 
 		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && -1 !== $this->repository_args['posts_per_page'];
 
@@ -1962,9 +1990,18 @@ class View implements View_Interface {
 		$breadcrumbs = [];
 		$taxonomy    = TEC::TAXONOMY;
 		$context_tax = $context->get( $taxonomy, false );
+		if ( empty( $context_tax ) ) {
+			$taxonomy    = 'post_tag';
+			$context_tax = $context->get( $taxonomy, false );
+		}
 
 		// Get term slug if taxonomy is not empty
 		if ( ! empty( $context_tax ) ) {
+			// Don't pass arrays to get_term_by()!
+			if ( is_array( $context_tax ) ) {
+				$context_tax = array_pop( $context_tax );
+			}
+
 			$term  = get_term_by( 'slug', $context_tax, $taxonomy );
 			if ( ! empty( $term->name ) ) {
 				$label = $term->name;

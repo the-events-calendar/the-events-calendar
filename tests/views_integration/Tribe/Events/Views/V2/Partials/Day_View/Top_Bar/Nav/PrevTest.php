@@ -15,6 +15,7 @@ class PrevTest extends HtmlPartialTestCase
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'prev_url' => 'http://test.tri.be',
+			'prev_rel' => 'noindex',
 		] ) );
 	}
 }

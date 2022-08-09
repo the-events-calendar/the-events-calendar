@@ -23,3 +23,10 @@ export const setSymbol = ( symbol ) => ( {
 		symbol,
 	},
 } );
+
+export const setCode = ( code ) => ( {
+	type: types.SET_PRICE_CODE,
+	payload: {
+		code,
+	},
+} );
