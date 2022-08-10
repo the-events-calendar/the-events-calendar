@@ -185,7 +185,7 @@ class Tribe__Events__Integrations__Freemius {
 			null
 		);
 
-//		add_filter( 'tec_admin_update_page_bypass', [ $this, 'bypass_update_page' ], 10, 2 );
+		add_filter( 'tec_admin_update_page_bypass', [ $this, 'bypass_update_page' ], 10, 2 );
 	}
 
 	public function bypass_update_page( $bypass, $activation_page ) {
