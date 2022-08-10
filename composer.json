@@ -25,7 +25,7 @@
     "lucatume/wp-browser": "^3.1.4",
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
-    "the-events-calendar/tribalscents": "dev-master",
+    "the-events-calendar/coding-standards": "dev-master",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "0.7.3",
@@ -61,9 +61,9 @@
       "no-api": true
     },
     {
-      "name": "the-events-calendar/TribalScents",
+      "name": "the-events-calendar/coding-standards",
       "type": "github",
-      "url": "https://github.com/the-events-calendar/TribalScents",
+      "url": "https://github.com/the-events-calendar/coding-standards",
       "no-api": true
     }
   ],
