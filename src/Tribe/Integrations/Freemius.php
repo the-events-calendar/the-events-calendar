@@ -188,6 +188,16 @@ class Tribe__Events__Integrations__Freemius {
 		add_filter( 'tec_admin_update_page_bypass', [ $this, 'bypass_update_page' ], 10, 2 );
 	}
 
+	/**
+	 * Prevents the Freemius integration from happening on Update Message redirect pages.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $bypass
+	 * @param Tribe__Admin__Activation_Page $activation_page
+	 *
+	 * @return bool
+	 */
 	public function bypass_update_page( $bypass, $activation_page ) {
 		if ( 'update-message-the-events-calendar' !== $activation_page->update_slug ) {
 			return $bypass;
