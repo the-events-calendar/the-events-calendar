@@ -41,4 +41,16 @@ $import_limit_message = $global_limit_message . ' ' . sprintf( '<a href="%s" tar
 
 <div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not-empty data-condition-relation="and" data-condition-not='["url","eventbrite"]'>
 	<p><?php echo $import_limit_message; ?></p>
+	
+	<div class="tec-admin-ea-help-message">
+		<?php esc_html_e( 'Need assistance? You can find more information here:', 'the-events-calendar' ); ?>
+
+		<a class="tec-admin-ea-help-message--links" href="https://evnt.is/1bam" target="_blank" rel="noopener noreferrer">
+			<?php esc_html_e( 'Importing Calendar Data From a CSV File', 'the-events-calendar' ); ?>
+		</a>
+
+		<a class="tec-admin-ea-help-message--links" href="https://evnt.is/1ban" target="_blank" rel="noopener noreferrer">
+			<?php esc_html_e( 'CSV File Formatting and Examples ', 'the-events-calendar' ); ?>
+		</a>
+	</div>
 </div>
