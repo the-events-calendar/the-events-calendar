@@ -173,6 +173,14 @@ class Event extends Base {
 			$end_site           = $end_date_object->setTimezone( $site_timezone );
 			$use_event_timezone = Timezones::is_mode( Timezones::EVENT_TIMEZONE );
 
+			// Determine if current datetime is between event start and end dates.
+			$is_now             = Dates::range_coincides(
+				$now->format( 'U' ),
+				$now->add( $one_second )->format( 'U' ),
+				$start_date_utc_object->format( 'U' ),
+				$end_date_utc_object->format( 'U' )
+			);
+
 			$properties = [
 				'start_date'             => $start_date,
 				'start_date_utc'         => $start_date_utc,
@@ -192,6 +200,7 @@ class Event extends Base {
 				'duration'               => $duration,
 				'multiday'               => $multiday,
 				'is_past'                => $start_date_object < $now,
+				'is_now'                 => $is_now,
 				'all_day'                => $all_day,
 				'starts_this_week'       => $starts_this_week,
 				'ends_this_week'         => $ends_this_week,
