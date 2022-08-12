@@ -37,6 +37,11 @@
  *                                             multi-day stack for the day
  *      }
  */
+// Some static implementations might not have a $request_date - use $today_date.
+if ( empty( $request_date ) ) {
+	$request_date = $today_date;
+}
+
 $day_classes = \Tribe\Events\Views\V2\month_day_classes( $day, $day_date, $request_date, $today_date );
 $day_id = 'tribe-events-calendar-day-' . $day_date;
 ?>

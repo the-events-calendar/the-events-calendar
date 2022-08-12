@@ -6,6 +6,8 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Date_Utils as Dates;
+
 // Don't load directly!
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -103,14 +105,12 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  *
  * @param array<mixed> $day          The current day data.
  * @param string       $day_date     The current day date, in the `Y-m-d` format.
- * @param DateTime     $request_date The request date for the view.
+ * @param \DateTime    $request_date The request date for the view.
  * @param string       $today_date   Today's date in the `Y-m-d` format.
  *
- * @return array<string> $day_classes The classes to add to the day "cell".
+ * @return array<string,bool> $day_classes The classes to add to the day "cell".
  */
-function month_day_classes( $day, $day_date, $request_date, $today_date ) {
-	$day_classes = [ 'tribe-events-calendar-month__day' ];
-
+function month_day_classes( array $day, string $day_date, \DateTime $request_date, string $today_date ) {
 	// If for some reason we don't have a request date, use today's date.
 	$comparison_date = ! empty( $request_date ) ? $request_date->format( 'Y-m-d' ) : $today_date;
 
@@ -124,46 +124,36 @@ function month_day_classes( $day, $day_date, $request_date, $today_date ) {
 	 * @param string       $day_date        The current day date, in the `Y-m-d` format.
 	 * @param array<mixed> $day             The current day data.
 	 */
-	$comparison_date =  apply_filters( 'tec_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day  );
+	$comparison_date =  apply_filters( 'tec_events_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day  );
 
-	if ( $comparison_date === $day_date ) {
+	// Convert it to a date object.
+	$comparison_date = Dates::build_date_object( $comparison_date );
+
+	// Classes in array are applied if the value is truthy, not applied if the value is falsy.
+	$day_classes = [
+		'tribe-events-calendar-month__day'              => true,
 		// Add a class for the current day.
-		$day_classes[] = 'tribe-events-calendar-month__day--current';
-	} elseif ( $comparison_date > $day_date ) {
+		'tribe-events-calendar-month__day--current'     => $comparison_date->format( 'Y-m-d' ) === $day_date,
 		// Add a class for the past days (includes days in the requested month).
-		$day_classes[] = 'tribe-events-calendar-month__day--past';
-	}
-
-	/**
-	 * Add unique CSS class(es) to any date that is not in the current month.
-	 *
-	 * @since 5.16.3
-	 * @since TBD moved to month_day_classes function.
-	 */
-	$month = date( 'm', strtotime( $comparison_date ) );
-	if ( $day[ 'month_number' ] !== $month ) {
+		'tribe-events-calendar-month__day--past'        => $comparison_date->format( 'Y-m-d' ) > $day_date,
 		// Not the requested month.
-		$day_classes[] = 'tribe-events-calendar-month__day--other-month';
-
-		if ( $day[ 'month_number' ] < $month ) {
-			// Past month.
-			$day_classes[] = 'tribe-events-calendar-month__day--past-month';
-		} elseif ( $day[ 'month_number' ] > $month ) {
-			// Future month.
-			$day_classes[] = 'tribe-events-calendar-month__day--next-month';
-		}
-	}
+		'tribe-events-calendar-month__day--other-month' => $day[ 'month_number' ] !== $comparison_date->format( 'm' ),
+		// Past month.
+		'tribe-events-calendar-month__day--past-month'  => $day[ 'month_number' ] < $comparison_date->format( 'm' ),
+		// Future month.
+		'tribe-events-calendar-month__day--next-month'  => $day[ 'month_number' ] > $comparison_date->format( 'm' ),
+	];
 
 	/**
 	 * Allows filtering the final list of classes for each Month View day cell.
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string> $day_classes     The classes to add to the day "cell".
-	 * @param string        $comparison_date The date that was used for comparisons.
-	 * @param array<mixed>  $day             The current day data.
+	 * @param array<string,bool> $day_classes     The classes to add to the day "cell".
+	 * @param string             $comparison_date The date that was used for comparisons.
+	 * @param array<mixed>       $day             The current day data.
 	 *
 	 * @return array<string> $day_classes The final list of classes to add to the day "cell".
 	 */
-	return apply_filters( 'tec_month_day_classes', $day_classes, $comparison_date, $day );
+	return (array) apply_filters( 'tec_events_month_day_classes', $day_classes, $comparison_date, $day );
 }
