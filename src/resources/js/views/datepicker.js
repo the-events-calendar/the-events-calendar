@@ -643,7 +643,7 @@ tribe.events.views.datepicker = {};
 		obj.options.beforeShowYear = obj.filterYearCells;
 
 		// A tweak for RTL languages.
-		if ( document.dir === 'rtl' ) {
+		if (  document.dir && document.dir === 'rtl' ) {
 			obj.options.rtl = true;
 		}
 
