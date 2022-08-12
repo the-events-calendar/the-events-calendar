@@ -48,7 +48,7 @@ $main = Tribe__Events__Main::instance();
 
 		<img
 			class="tec-admin-ea-help-message__icon"
-			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns-blue.svg', false, null, $main ) ); ?>"
+			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
 			alt="<?php esc_attr_e( 'TEC Horns Icon', 'the-events-calendar' ); ?>"
 		/>
 		<a href="https://evnt.is/1bam" target="_blank" rel="noopener noreferrer">
@@ -57,7 +57,7 @@ $main = Tribe__Events__Main::instance();
 
 		<img
 			class="tec-admin-ea-help-message__icon"
-			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns-blue.svg', false, null, $main ) ); ?>"
+			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
 			alt="<?php esc_attr_e( 'TEC Horns Icon', 'the-events-calendar' ); ?>"
 		/>
 		<a href="https://evnt.is/1ban" target="_blank" rel="noopener noreferrer">
