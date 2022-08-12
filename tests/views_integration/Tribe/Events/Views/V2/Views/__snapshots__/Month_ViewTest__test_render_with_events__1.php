@@ -362,7 +362,7 @@
 			
 				
 <div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--past tribe-events-calendar-month__day--next-month tribe-events-calendar-month__day--other-month" 	role="gridcell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--past tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
 	aria-labelledby="tribe-events-calendar-day-2018-12-31"
 	data-js="tribe-events-month-grid-cell"
 >
@@ -2176,7 +2176,7 @@
 			
 				
 <div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--next-month tribe-events-calendar-month__day--other-month" 	role="gridcell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
 	aria-labelledby="tribe-events-calendar-day-2019-02-01"
 	data-js="tribe-events-month-grid-cell"
 >
@@ -2226,7 +2226,7 @@
 			
 				
 <div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--next-month tribe-events-calendar-month__day--other-month" 	role="gridcell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
 	aria-labelledby="tribe-events-calendar-day-2019-02-02"
 	data-js="tribe-events-month-grid-cell"
 >
@@ -2276,7 +2276,7 @@
 			
 				
 <div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--next-month tribe-events-calendar-month__day--other-month" 	role="gridcell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
 	aria-labelledby="tribe-events-calendar-day-2019-02-03"
 	data-js="tribe-events-month-grid-cell"
 >
