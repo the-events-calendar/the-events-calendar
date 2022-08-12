@@ -94,3 +94,76 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
 	 */
 	return apply_filters( 'tribe_events_views_v2_month_multiday_classes', $classes, $event, $day_date, $is_start_of_week, $today_date );
 }
+
+/**
+ * Used in the Month View days loop.
+ * Outputs classes for each day "cell".
+ *
+ * @since TBD
+ *
+ * @param array<mixed> $day          The current day data.
+ * @param string       $day_date     The current day date, in the `Y-m-d` format.
+ * @param DateTime     $request_date The request date for the view.
+ * @param string       $today_date   Today's date in the `Y-m-d` format.
+ *
+ * @return array<string> $day_classes The classes to add to the day "cell".
+ */
+function month_day_classes( $day, $day_date, $request_date, $today_date ) {
+	$day_classes = [ 'tribe-events-calendar-month__day' ];
+
+	// If for some reason we don't have a request date, use today's date.
+	$comparison_date = ! empty( $request_date ) ? $request_date->format( 'Y-m-d' ) : $today_date;
+
+	/**
+	 * Allows filtering the date used for comparison when generating the Month View day cell classes.
+	 *
+	 * @since TBD
+	 *
+	 * @param string       $comparison_date The date used for comparisons.
+	 * @param DateTime     $request_date    The request date for the view.
+	 * @param string       $day_date        The current day date, in the `Y-m-d` format.
+	 * @param array<mixed> $day             The current day data.
+	 */
+	$comparison_date =  apply_filters( 'tec_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day  );
+
+	if ( $comparison_date === $day_date ) {
+		// Add a class for the current day.
+		$day_classes[] = 'tribe-events-calendar-month__day--current';
+	} elseif ( $comparison_date > $day_date ) {
+		// Add a class for the past days (includes days in the requested month).
+		$day_classes[] = 'tribe-events-calendar-month__day--past';
+	}
+
+	/**
+	 * Add unique CSS class(es) to any date that is not in the current month.
+	 *
+	 * @since 5.16.3
+	 * @since TBD moved to month_day_classes function.
+	 */
+	$month = date( 'm', strtotime( $comparison_date ) );
+	if ( $day[ 'month_number' ] !== $month ) {
+		// Not the requested month.
+		$day_classes[] = 'tribe-events-calendar-month__day--other-month';
+
+		if ( $day[ 'month_number' ] < $month ) {
+			// Past month.
+			$day_classes[] = 'tribe-events-calendar-month__day--past-month';
+		} elseif ( $day[ 'month_number' ] > $month ) {
+			// Future month.
+			$day_classes[] = 'tribe-events-calendar-month__day--next-month';
+		}
+	}
+
+	/**
+	 * Allows filtering the final list of classes for each Month View day cell.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $day_classes     The classes to add to the day "cell".
+	 * @param string        $comparison_date The date that was used for comparisons.
+	 * @param array<mixed>  $day             The current day data.
+	 *
+	 * @return array<string> $day_classes The final list of classes to add to the day "cell".
+	 */
+	return apply_filters( 'tec_month_day_classes', $day_classes, $comparison_date, $day );
+}

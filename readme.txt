@@ -223,6 +223,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Move Month View day cell class logic to a standalone function with filters. [TBD]
+* Tweak - Add new method: `\Tribe\Events\Views\V2\month_day_classes` [TBD]
+* Tweak - Added filter `tec_month_day_classes_comparison_date` to filter the date used for class determination comparisons.
+* Tweak - Added filter `tec_month_day_classes` to filter the actual class list before it gets passed to the template.
+
 = [5.16.4] 2022-08-09 =
 
 * Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
