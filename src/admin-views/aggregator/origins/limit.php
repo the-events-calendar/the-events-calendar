@@ -37,6 +37,7 @@ if ( 'range' === $global_limit_type ) {
 
 $import_limit_link    = esc_url( tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'imports#tribe-field-tribe_aggregator_default_import_limit_type' ] ) );
 $import_limit_message = $global_limit_message . ' ' . sprintf( '<a href="%s" target="_blank">%s</a> ', $import_limit_link, esc_html__( 'you can modify this setting here.', 'the-events-calendar' ) );
+$main = Tribe__Events__Main::instance();
 ?>
 
 <div class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition-not-empty data-condition-relation="and" data-condition-not='["url","eventbrite"]'>
@@ -45,16 +46,22 @@ $import_limit_message = $global_limit_message . ' ' . sprintf( '<a href="%s" tar
 	<div class="tec-admin-ea-help-message">
 		<?php esc_html_e( 'Need assistance? You can find more information here:', 'the-events-calendar' ); ?>
 
-		<span class="tec-admin-ea-help-message__icon">
-			<a href="https://evnt.is/1bam" target="_blank" rel="noopener noreferrer">
-				<?php esc_html_e( 'Importing Calendar Data From a CSV File', 'the-events-calendar' ); ?>
-			</a>
-		</span>
+		<img
+			class="tec-admin-ea-help-message__icon"
+			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
+			alt="<?php esc_attr_e( 'TEC Horns Icon', 'the-events-calendar' ); ?>"
+		/>
+		<a href="https://evnt.is/1bam" target="_blank" rel="noopener noreferrer">
+			<?php esc_html_e( 'Importing Calendar Data From a CSV File', 'the-events-calendar' ); ?>
+		</a>
 
-		<span class="tec-admin-ea-help-message__icon">
-			<a href="https://evnt.is/1ban" target="_blank" rel="noopener noreferrer">
-				<?php esc_html_e( 'CSV File Formatting and Examples ', 'the-events-calendar' ); ?>
-			</a>
-		</span>
+		<img
+			class="tec-admin-ea-help-message__icon"
+			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
+			alt="<?php esc_attr_e( 'TEC Horns Icon', 'the-events-calendar' ); ?>"
+		/>
+		<a href="https://evnt.is/1ban" target="_blank" rel="noopener noreferrer">
+			<?php esc_html_e( 'CSV File Formatting and Examples ', 'the-events-calendar' ); ?>
+		</a>
 	</div>
 </div>
