@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Update the organizer website field to type URL. [TEC-4395]
+
 = [5.16.4] 2022-08-09 =
 
 * Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
