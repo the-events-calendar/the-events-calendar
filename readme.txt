@@ -223,6 +223,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+
 = [5.16.4] 2022-08-09 =
 
 * Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
