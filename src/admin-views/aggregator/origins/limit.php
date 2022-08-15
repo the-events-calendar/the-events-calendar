@@ -49,7 +49,7 @@ $main = Tribe__Events__Main::instance();
 		<img
 			class="tec-admin-ea-help-message__icon"
 			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
-			alt="<?php esc_attr_e( 'TEC Horns Icon', 'the-events-calendar' ); ?>"
+			alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
 		/>
 		<a href="https://evnt.is/1bam" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'Importing Calendar Data From a CSV File', 'the-events-calendar' ); ?>
@@ -58,7 +58,7 @@ $main = Tribe__Events__Main::instance();
 		<img
 			class="tec-admin-ea-help-message__icon"
 			src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
-			alt="<?php esc_attr_e( 'TEC Horns Icon', 'the-events-calendar' ); ?>"
+			alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
 		/>
 		<a href="https://evnt.is/1ban" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'CSV File Formatting and Examples ', 'the-events-calendar' ); ?>
