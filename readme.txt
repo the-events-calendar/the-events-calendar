@@ -223,9 +223,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-=[TBD] TBD =
+= [TBD] TBD =
 
-* Fix - Correct a few misnamed custom prop references. [BTRIA-1301]
+* Fix - Correct a few misnamed custom prop references. [TEC-4445]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 
 = [5.16.4] 2022-08-09 =
