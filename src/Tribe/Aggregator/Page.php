@@ -77,9 +77,8 @@ class Tribe__Events__Aggregator__Page {
 	public function init() {
 		$plugin = Tribe__Events__Main::instance();
 
-		$localize_data = [
-			'name' => 'tribe_aggregator',
-			'data' => [
+		$localize_data_callback = static function() {
+			$localize_data = [
 				'csv_column_mapping'   => [
 					'events'    => get_option( 'tribe_events_import_column_mapping_events', [] ),
 					'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', [] ),
@@ -136,22 +135,24 @@ class Tribe__Events__Aggregator__Page {
 				],
 				'default_settings'     => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
 				'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
-			],
-		];
+			];
 
-		/**
-		 * Filters the CSV column mapping output
-		 *
-		 * @param array $mapping Mapping data indexed by CSV import type
-		 */
-		$localize_data['data']['csv_column_mapping'] = apply_filters( 'tribe_aggregator_csv_column_mapping', $localize_data['data']['csv_column_mapping'] );
+			/**
+			 * Filters the CSV column mapping output
+			 *
+			 * @param array $mapping Mapping data indexed by CSV import type
+			 */
+			$localize_data['csv_column_mapping'] = apply_filters( 'tribe_aggregator_csv_column_mapping', $localize_data['csv_column_mapping'] );
 
-		/**
-		 * filters the whole array that will be localized for event aggregator.
-		 *
-		 * @param array $localize_data
-		 */
-		$localize_data['data'] = apply_filters( 'tribe_aggregator_localized_data', $localize_data['data'] );
+			/**
+			 * filters the whole array that will be localized for event aggregator.
+			 *
+			 * @param array $localize_data
+			 */
+			$localize_data = apply_filters( 'tribe_aggregator_localized_data', $localize_data );
+
+			return $localize_data;
+		};
 
 		// Load these on all the pages
 		tribe_assets(
@@ -178,7 +179,10 @@ class Tribe__Events__Aggregator__Page {
 				'conditionals' => [
 					[ $this, 'is_screen' ],
 				],
-				'localize'     => (object) $localize_data,
+				'localize'     => (object) [
+					'name' => 'tribe_aggregator',
+					'data' => $localize_data_callback,
+				],
 			]
 		);
 
