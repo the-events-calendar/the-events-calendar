@@ -54,7 +54,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		/**
 		 * Deprecated piece of code, but we need it in place to make sure
-		 * we dont break with older version of Event Tickets.
+		 * we don't break with older version of Event Tickets.
 		 *
 		 * @todo  remove once we have common version compare back working
 		 */
