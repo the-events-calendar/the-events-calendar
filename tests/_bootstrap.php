@@ -15,3 +15,7 @@ Codeception\Util\Autoload::addNamespace( 'Tribe\Events\Test\Acceptance\Steps', _
 if ( in_array( '--debug', $_SERVER['argv'], true ) ) {
 	$_SERVER['argv'][] = '--update-snapshots';
 }
+
+// By default, do not enable the Custom Tables v1 implementation in tests.
+putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=1' );
+$_ENV['TEC_CUSTOM_TABLES_V1_DISABLED'] = 1;
