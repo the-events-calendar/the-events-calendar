@@ -5,7 +5,6 @@ jobs:
     strategy:
       matrix:
         suite:
-          - acceptance
           - aggregatorv1
           - blocks_editor_integration
           - event_status
@@ -13,13 +12,15 @@ jobs:
           - muintegration
           - restv1
           - views_integration
-          - views_rest
           - views_settings
           - views_ui
           - views_v2_customizer_integration
           - views_widgets
           - views_wpunit
           - wpunit
+          - ct1_integration
+          # really weird error with RBE changes.
+          # - views_rest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository

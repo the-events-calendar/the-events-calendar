@@ -1,9 +1,12 @@
 <?php
 
+use Tribe\Events\Test\Traits\With_Uopz;
+
 /**
  * @group updates
  */
 class Updater_Test extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
 
 	public function test_update_required() {
 		$current_version = Tribe__Events__Main::VERSION;
@@ -28,7 +31,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$updater = Tribe__Events__Main::instance()->updater();
 		$version_from_updater = $updater->get_version_from_db();
 
-		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Updater' );
+		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Controller' );
 	}
 
 	public function test_update_version_option() {
@@ -121,6 +124,10 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		// @var Tribe__Events__Capabilities $capabilities
 		$capabilities = tribe( Tribe__Events__Capabilities::class );
+
+		// Level the playing field and set up the expected fixture.
+		$capabilities->delete_needs_init();
+		$this->uopz_set_return( 'is_admin', true );
 
 		$this->assertEmpty( $capabilities->needs_init() );
 
