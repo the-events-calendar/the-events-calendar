@@ -222,6 +222,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.1] TBD =
+
+* Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
+
 = [6.0.0] 2022-0X-XX =
 
 * Version - The Events Calendar 6.0.0 is only compatible with Events Calendar PRO 6.0.0 and higher
@@ -240,11 +244,19 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Removed actions: `tribe-events-bar-enqueue-scripts`, `tribe_events_widget_render`, `tribe_events_before_list_widget`, `tribe_events_list_widget_before_the_title`, `tribe_events_list_widget_after_the_title`, `tribe_events_after_list_widget`, `tribe_events_pre_get_posts`, `tribe_events_set_month_view_events_from_cache`, `tribe_events_calendar_loop_end`, `tribe_tec_template_chooser`, `tribe_events_filter_the_page_title`, `tribe-import-render-tab-`, `tribe_import_render_tab_`, `tribe_events_csv_import_complete`, `tribe_import_options_updated`, `tribe_meta_factory_register`, `tribe_pre_initialize_view`, `tribe_events_before_event_template_data_date_display`, `tribe_events_after_event_template_data_date_display`, `tribe_events_before_show_month`, `tribe_events_after_show_month`, `tribe_events_before_template`, `tribe_events_after_template`, `tribe_events_before_header`, `tribe_events_before_header_nav`, `tribe_events_after_header_nav`, `tribe_events_after_header`, `tribe_events_before_loop`, `tribe_events_after_loop`, `tribe_events_before_footer`, `tribe_events_before_footer_nav`, `tribe_events_after_footer_nav`, `tribe_events_after_footer`, `tribe_events_inside_before_loop`, `tribe_events_inside_after_loop`, `tribe_events_before_the_event_title`, `tribe_events_after_the_event_title`, `tribe_events_before_the_meta`, `tribe_events_inside_cost`, `tribe_events_after_the_meta`, `tribe_events_before_the_content`, `tribe_events_after_the_content`, `tribe_events_before_the_title`, `tribe_events_after_the_title`, `tribe_default_events_template_after_header`, `tribe_default_events_template_before_footer`, `tribe_events_list_before_the_content`, `tribe_events_bar_before_template`, `tribe_events_bar_after_template`, `tribe_events_before_the_grid`, `tribe_events_after_the_grid`, `tribe_events_before_nav`, `tribe_events_after_nav`, `tribe_events_list_widget_before_the_event_image`, `tribe_events_list_widget_after_the_event_image`, `tribe_events_list_widget_before_the_event_title`, `tribe_events_list_widget_after_the_event_title`, `tribe_events_list_widget_before_the_meta`, `tribe_events_list_widget_after_the_meta`
 * Tweak - Changed views: `blocks/event-links`, `blocks/event-website`, `blocks/parts/details`, `day`, `day/content`, `day/loop`, `day/nav`, `day/single-event`, `day/single-featured`, `day/title-bar`, `default-template`, `list`, `list/content`, `list/loop`, `list/nav`, `list/single-event`, `list/single-featured`, `list/title-bar`, `modules/address`, `modules/bar`, `modules/meta/details`, `month`, `month/content`, `month/loop-grid`, `month/mobile`, `month/nav`, `month/single-day`, `month/single-event`, `month/title-bar`, `month/tooltip`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event/title`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title`, `v2/month/mobile-events/mobile-day/mobile-event/title`, `widgets/calendar-widget`, `widgets/list-widget`
 
+= [5.16.4] 2022-08-09 =
+
+* Fix - Ensure date formats are escaped properly when they contain slashes. [ECP-1136]
+* Tweak - Update the calendar print design. [TEC-4425]
+* Tweak - Add support for `ticketed` parameter for Event archive REST API calls. [TEC-4439]
+* Tweak - Add new methods `filter_url_date_conflicts` and `filter_date_escaping` to filter and properly escape the date formats for some views. [ECP-1136]
+* Language - 0 new strings added, 403 updated, 0 fuzzied, and 124 obsoleted.
+
 = [5.16.3.1] 2022-07-21 =
 
 * Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
 
-== [5.16.3] 2022-07-20 ==
+= [5.16.3] 2022-07-20 =
 
 * Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
 * Fix - Avoid some conflicts between the import notice and third-party plugins using jQuery datepicker in the admin. [TEC-4429]

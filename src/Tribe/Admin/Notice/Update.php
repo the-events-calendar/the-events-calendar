@@ -82,7 +82,7 @@ class Update {
 			return false;
 		}
 
-		if ( isset( $_GET['update-message-the-events-calendar'] ) ) {
+		if ( ! did_action( 'admin_notices' ) && isset( $_GET['update-message-the-events-calendar'] ) ) {
 			return false;
 		}
 
@@ -120,6 +120,10 @@ class Update {
 	 * @return string
 	 */
 	public function notice() {
+		if ( ! $this->should_display() ) {
+			return '';
+		}
+
 		return $this->get_template()->template( 'notices/update-6-0-0', $this->get_template_data(), false );
 	}
 

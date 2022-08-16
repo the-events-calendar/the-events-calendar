@@ -138,6 +138,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_get_option', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 		add_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value' ], 10, 2 );
 
+		add_filter( 'tribe_get_option', [ $this, 'filter_date_escaping' ], 10, 2 );
+
 		if ( tribe_context()->doing_php_initial_state() ) {
 			add_filter( 'tribe_events_filter_views_v2_wp_title_plural_events_label', [ $this, 'filter_wp_title_plural_events_label' ], 10, 2 );
 			add_filter( 'wp_title', [ $this, 'filter_wp_title' ], 10, 2 );
@@ -170,6 +172,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
+
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
 	}
 
 	/**
@@ -887,6 +891,41 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
+	 * Ensures that date formats are escaped properly.
+	 * Converts "\\" to "\"  for escaped characters.
+	 *
+	 * @since 5.16.4
+	 *
+	 * @param mixed  $value      The current value of the option.
+	 * @param string $optionName The option "key"
+	 *
+	 * @return mixed  $value     The modified value of the option.
+	 */
+	public function filter_date_escaping( $value, $optionName ) {
+		// A list of date options we may need to unescape.
+		$date_options = [
+			'dateWithoutYearFormat',
+			'monthAndYearFormat',
+		];
+
+		if ( ! in_array( $optionName, $date_options ) ) {
+			return $value;
+		}
+
+		// Don't try to run string modification on an array or something.
+		if ( ! is_string( $value ) ) {
+			return $value;
+		}
+
+		// Note: backslash is hte escape character - so we need to escape it.
+		// This is the equivalent of replacing any occurrence of \\ with \
+		$value = str_replace( "\\\\", "\\", $value);
+		//$value = stripslashes( $value ); will strip out ones we want to keep!
+
+		return $value;
+	}
+
+	/**
 	 * Print Single Event JSON-LD.
 	 *
 	 * @since 5.0.3
@@ -1128,5 +1167,26 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			'Views V2 Status' => tribe_events_views_v2_is_enabled() ? esc_html__( 'Enabled', 'the-events-calendar' ) : esc_html__( 'Disabled', 'the-events-calendar' ),
 		];
 		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $views_v2_status );
+	}
+
+	/**
+	 * Ensure we use the correct date on shortcodes.
+	 * If both `tribe-bar-date` and `eventDate` are present, `tribe-bar-date` overrides `eventDate`.
+	 *
+	 * @since 5.16.4
+	 *
+	 * @param array $params An associative array of parameters from the REST request.
+	 * @param \WP_REST_Request $request The current REST request.
+	 *
+	 * @return array $params A modified array of parameters from the REST request.
+	 */
+	public function filter_url_date_conflicts( $params, $request ) {
+		if ( ! isset( $params['tribe-bar-date'] ) || ! isset( $params[ 'eventDate'] ) ) {
+			return $params;
+		}
+
+		$params[ 'eventDate'] = $params['tribe-bar-date'];
+
+		return $params;
 	}
 }

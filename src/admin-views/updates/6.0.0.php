@@ -3,14 +3,17 @@
  * The template that displays the welcome message when the plugin is first activated.
  */
 
+use Tribe__Events__Main as TEC;
+
 $common_main = Tribe__Main::instance();
 $notices = Tribe__Admin__Notices::instance();
+$tec = TEC::instance();
 ?>
 
 <div class="tribe-events-admin-content-wrapper">
 	<img
 		class="tribe-events-admin-graphic tribe-events-admin-graphic--desktop-only"
-		src="<?php echo esc_url( tribe_resource_url( 'update-page-graphic.png', false, 'src/resources/images/', null ) ); ?>"
+		src="<?php echo esc_url( tribe_resource_url( 'update-page-graphic.png', false, 'src/resources/images/', $tec ) ); ?>"
 		alt="<?php esc_attr_e( 'Shapes and lines for visual interest', 'the-events-calendar' ); ?>"
 	/>
 
@@ -51,7 +54,7 @@ $notices = Tribe__Admin__Notices::instance();
 
 	<div class="tec-update-page-block">
 		<h3>
-			<img class="tec-inline-icon" src="<?php echo esc_url( tribe_resource_url( 'bolt.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="<?php esc_attr_e( 'Lightening bolt icon', 'the-events-calendar' ); ?>" />
+			<img class="tec-inline-icon" src="<?php echo esc_url( tribe_resource_url( 'bolt.svg', false, 'src/resources/images/icons/', $tec ) ); ?>" alt="<?php esc_attr_e( 'Lightening bolt icon', 'the-events-calendar' ); ?>" />
 			<?php esc_html_e( 'New Features for Events Calendar Pro', 'the-events-calendar' ); ?>
 		</h3>
 		<div class="tec-update-page-grid">
@@ -62,22 +65,22 @@ $notices = Tribe__Admin__Notices::instance();
 			</div>
 
 			<div class="tec-update-page-grid__item">
-				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-1.png', false, 'src/resources/images/', null ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
+				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-1.png', false, 'src/resources/images/', $tec ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
 			</div>
 		</div>
 		<div class="tec-update-page-grid">
 			<div class="tec-update-page-grid__item has-media">
-				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-2.png', false, 'src/resources/images/', null ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
+				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-2.png', false, 'src/resources/images/', $tec ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
 				<p><b><?php esc_html_e( 'Advanced editing options', 'the-events-calendar' ); ?></b> <?php esc_html_e( 'for recurring events give you more possibilities for complex event management.', 'the-events-calendar' ); ?></p>
 			</div>
 			<div class="tec-update-page-grid__item has-media">
-				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-3.png', false, 'src/resources/images/', null ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
+				<img src="<?php echo esc_url( tribe_resource_url( 'update-page-features-3.png', false, 'src/resources/images/', $tec ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
 				<p><b><?php esc_html_e( 'With the Duplicate Event Tool', 'the-events-calendar' ); ?></b> <?php esc_html_e( 'you can replicate and modify any events in seconds, making event creation a breeze.', 'the-events-calendar' ); ?></p>
 			</div>
 		</div>
 		<?php if( ! class_exists( 'Tribe__Events__Pro__Main' ) ): ?>
 			<div class="tec-update-page-upgrade-notice tec-update-page-box">
-				<img src="<?php echo esc_url( tribe_resource_url( 'lightning.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
+				<img src="<?php echo esc_url( tribe_resource_url( 'lightning.svg', false, 'src/resources/images/icons/', $tec ) ); ?>" alt="<?php esc_attr_e( 'Event series graphic', 'the-events-calendar' ); ?>" />
 				<p><?php printf( wp_kses( __( 'Upgrade to <a href="%s">Events Calendar Pro</a> to unlock these features.', 'the-events-calendar' ), [ 'a' => [ 'href' => [] ] ] ), esc_url( 'https://theeventscalendar.com/products/wordpress-events-calendar/' ) ); ?></p>
 			</div>
 		<?php endif; ?>
@@ -87,7 +90,7 @@ $notices = Tribe__Admin__Notices::instance();
 		<div class="tec-update-page-grid">
 			<div class="tec-update-page-grid__item tec-update-page-box ">
 				<h3>
-					<img class="tec-inline-icon" src="<?php echo esc_url( tribe_resource_url( 'bulb.svg', false, 'src/resources/images/icons/', null ) ); ?>" alt="<?php esc_attr_e( 'Light bulb icon', 'the-events-calendar' ); ?>" />
+					<img class="tec-inline-icon" src="<?php echo esc_url( tribe_resource_url( 'bulb.svg', false, 'src/resources/images/icons/', $tec ) ); ?>" alt="<?php esc_attr_e( 'Light bulb icon', 'the-events-calendar' ); ?>" />
 					<?php esc_html_e( 'Legacy Views', 'the-events-calendar' ); ?>
 				</h3>
 				<p><?php esc_html_e( 'We have fully removed the legacy views from The Events Calendar 6.0. Your views have been automatically updated.', 'the-events-calendar' ); ?></p>
