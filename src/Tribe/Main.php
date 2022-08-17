@@ -2825,7 +2825,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * plugin activation callback
-		 * @see register_deactivation_hook()
+		 * @see register_activation_hook()
 		 *
 		 * @param bool $network_deactivating
 		 */

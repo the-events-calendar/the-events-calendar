@@ -7,7 +7,7 @@ use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
  */
 class Tribe__Events__Updater {
 	protected $version_option = 'schema-version';
-	protected $reset_version = '3.9'; // when a reset() is called, go to this version
+	protected $reset_version = '5.16.0'; // when a reset() is called, go to this version
 	protected $current_version = 0;
 	public $capabilities;
 
