@@ -154,7 +154,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		}
 
 		if ( false === $post ) {
-			$post = Event::from_post( $event )->to_post( $output, $filter );
+			$post = Event::from_post( $event )->to_post( OBJECT, $filter );
 
 			if ( empty( $post ) ) {
 				return null;
@@ -198,8 +198,14 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		 */
 		$post = apply_filters( 'tribe_get_event_after', $post, $event, $output, $filter );
 
-		if ( OBJECT !== $output ) {
-			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+		switch ( $output ) {
+			case ARRAY_A:
+				return (array) $post;
+			case ARRAY_N:
+				return array_values( (array) $post );
+			case OBJECT:
+			default;
+				return $post;
 		}
 
 		return $post;
