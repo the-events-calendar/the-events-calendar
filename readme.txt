@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.1] TBD =
 
+* Fix - Prevenet network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 
 = [6.0.0] 2022-0X-XX =
