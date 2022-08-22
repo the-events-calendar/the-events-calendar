@@ -305,7 +305,8 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * @return string The modified `GROUP BY` SQL.
 	 */
 	public function group_by_occurrence_id( $groupby, WP_Query $query ) {
-		if ( $this->current_query !== $query ) {
+		// Don't add group by if we don't have occurrence table joined.
+		if ( $this->current_query !== $query || empty( $this->query_vars['join'] ) ) {
 			return $groupby;
 		}
 
