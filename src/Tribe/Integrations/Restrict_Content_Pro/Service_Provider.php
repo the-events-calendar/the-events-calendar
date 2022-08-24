@@ -20,6 +20,8 @@ use Tribe__Events__Main as TEC;
 
 class Service_Provider {
 
+	protected static $option_slug = 'tec_events_rcp_hide_on_views';
+
 	/**
 	 * Hooks all the required methods for Restrict Content Pro usage on our code.
 	 *
@@ -38,8 +40,35 @@ class Service_Provider {
 			return;
 		}
 
+		// add actions
+		add_action( 'rcp_post_type_restrictions', [ $this, 'add_rcp_post_type_restrictions' ], 10, 2 );
+		add_action( 'rcp_save_post_type_restrictions', [ $this, 'rcp_save_post_type_restrictions' ], 20 );
+		add_action( 'rcp_action_save_post_type_restrictions', [ $this, 'rcp_save_post_type_restrictions' ], 20 );
+
+
 		// add hooks
-		add_filter( 'tribe_template_done', array( $this, 'filter_view_events' ), 20, 3 );
+		add_filter( 'tribe_template_done', [ $this, 'filter_view_events' ], 20, 3 );
+	}
+
+	public function add_rcp_post_type_restrictions() {
+		$option = tribe_get_option( self::$option_slug, false );
+		?>
+			<p>
+				<label for="<?php echo esc_attr( self::$option_slug ); ?>">
+					<input type="checkbox" name="<?php echo esc_attr( self::$option_slug ); ?>" id="<?php echo esc_attr( self::$option_slug ); ?>" value="1" <?php checked( $option, '1' ); ?>>
+					&nbsp;<?php echo esc_html_x( "Hide restricted events on calendar views.", 'Text label for control to hide restricted events on main calendar views.', 'the-events-calendar' ); ?>
+				</label>
+			</p>
+		<?php
+	}
+
+	public function rcp_save_post_type_restrictions() {
+		if ( empty( $_POST[ self::$option_slug ] ) ) {
+			tribe_remove_option( self::$option_slug );
+			return;
+		}
+
+		tribe_update_option( self::$option_slug, $_POST[ self::$option_slug ] );
 	}
 
 	/**
@@ -64,12 +93,17 @@ class Service_Provider {
 			return $done;
 		}
 
+		// Obey the setting.
+		if ( ! tribe_get_option( self::$option_slug, false ) ) {
+			return $done;
+		}
+
 		// No event in the context. We're using this to filter out the "larger" view templates, etc
 		if ( empty( $context['event'] ) ) {
 			return $done;
 		}
 
-		// Avoid issues with single event page.
+		// Avoid issues with single event page. RCP handles that just fine.
 		if ( is_single( TEC::POSTTYPE ) ) {
 			return $done;
 		}
