@@ -718,13 +718,8 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.initDatepicker = function() {
-		if ( $.fn.datepicker && $.fn.datepicker.noConflict ) {
-			var datepicker = $.fn.datepicker.noConflict();
-			$.fn.bootstrapDatepicker = datepicker;
-
-			obj.initDatepickerI18n();
-			obj.state.initialized = true;
-		}
+		obj.initDatepickerI18n();
+		obj.state.initialized = true;
 	};
 
 	/**

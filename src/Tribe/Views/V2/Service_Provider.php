@@ -50,8 +50,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 		$this->register_assets();
 
-		$this->register_v1_compat();
-
 		// Register the SP on the container
 		$this->container->singleton( 'events.views.v2.provider', $this );
 
@@ -83,18 +81,5 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		// Allow Hooks to be removed, by having the them registred to the container
 		$this->container->singleton( Hooks::class, $hooks );
 		$this->container->singleton( 'events.views.v2.hooks', $hooks );
-	}
-
-	/**
-	 * Registers the provider handling compatibility with v1 of the View system.
-	 *
-	 * @since 4.9.2
-	 */
-	protected function register_v1_compat() {
-		$v1_compat = new V1_Compat( $this->container );
-		$v1_compat->register();
-
-		$this->container->singleton( V1_Compat::class, $v1_compat );
-		$this->container->singleton( 'events.views.v1-compat', $v1_compat );
 	}
 }

@@ -68,8 +68,9 @@ class Tribe__Events__Front_Page_View {
 		$query->set( 'tribe_events_front_page', true );
 
 		// Some extra tricks required to help avoid problems when the default view is list view
-		$query->is_page = false;
-		$query->is_singular = false;
+		$query->is_page            = false;
+		$query->is_singular        = false;
+		$query->query['post_type'] = Tribe__Events__Main::POSTTYPE;
 	}
 
 	/**

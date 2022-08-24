@@ -8,7 +8,7 @@
 		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
-	<rule ref="TribalScents"/>
+	<rule ref="TEC"/>
 
 	<!--exclude the rule for violation of direct DB calls as some have no alternative-->
 	<rule ref="WordPress.DB.DirectDatabaseQuery">
