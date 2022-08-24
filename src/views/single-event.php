@@ -26,7 +26,7 @@ $template = tribe( Template_Bootstrap::class )->get_template_setting();
  * 
  * @since TBD
  */
-if ( 'Divi' == wp_get_theme() && ! ( 'event' === $template ) ) {
+if ( 'Divi' == wp_get_theme() && 'event' !== $template ) {
 	wp_reset_postdata();
 	
 	$event_id = get_queried_object_id();
