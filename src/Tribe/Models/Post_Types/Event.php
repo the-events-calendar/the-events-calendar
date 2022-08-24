@@ -194,13 +194,7 @@ class Event extends Base {
 				'duration'               => $duration,
 				'multiday'               => $multiday,
 				'is_past'                => $start_date_object < $now,
-				'is_now'                 => (
-					new Lazy_Boolean(
-						static function () use ( $start_date, $end_date ) {
-							return Dates::is_now( $start_date, $end_date );
-						}
-					)
-				)->on_resolve( $cache_this ),
+				'is_now'                 => Dates::is_now( $start_date, $end_date ),
 				'all_day'                => $all_day,
 				'starts_this_week'       => $starts_this_week,
 				'ends_this_week'         => $ends_this_week,
