@@ -14,6 +14,7 @@ use DatePeriod;
 use DateTimeZone;
 use Tribe\Events\Collections\Lazy_Post_Collection;
 use Tribe\Models\Post_Types\Base;
+use Tribe\Utils\Lazy_Boolean;
 use Tribe\Utils\Lazy_Collection;
 use Tribe\Utils\Lazy_String;
 use Tribe\Utils\Post_Thumbnail;
@@ -201,7 +202,13 @@ class Event extends Base {
 				'duration'               => $duration,
 				'multiday'               => $multiday,
 				'is_past'                => $start_date_object < $now,
-				'is_now'                 => $is_now,
+				'is_now'                 => (
+					new Lazy_Boolean(
+						static function () use ( $start_date, $end_date ) {
+							return Dates::is_now( $start_date, $end_date );
+						}
+					)
+				)->on_resolve( $cache_this ),
 				'all_day'                => $all_day,
 				'starts_this_week'       => $starts_this_week,
 				'ends_this_week'         => $ends_this_week,
@@ -211,12 +218,14 @@ class Event extends Base {
 				'featured'               => $featured,
 				'sticky'                 => $sticky,
 				'cost'                   => tribe_get_cost( $post_id, true ),
-				'excerpt'                => ( new Lazy_String(
-					static function () use ( $post_id ) {
-						return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) );
-					},
-					false
-				) )->on_resolve( $cache_this ),
+				'excerpt'                => (
+					new Lazy_String(
+						static function () use ( $post_id ) {
+							return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) );
+						},
+						false
+					)
+				)->on_resolve( $cache_this ),
 				'organizer_names'        => ( new Lazy_Collection( $organizer_names_fetch ) )->on_resolve( $cache_this ),
 				'organizers'             => (
 				new Lazy_Post_Collection(

@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.1] TBD =
 
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
+* Tweak - Add an event property for if the event is currently happening. [TBD]
 
 = [6.0.0] 2022-0X-XX =
 
