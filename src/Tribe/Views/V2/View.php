@@ -1492,6 +1492,28 @@ class View implements View_Interface {
 
 		$today_url      = $this->get_today_url( true );
 		$today          = $this->context->get( 'today', 'today' );
+		// The "Today" button title and aria-label text.
+		$today_title    = _x(
+			'Click to select today\'s date',
+			'The default title text for the today button.',
+			'the-events-calendar'
+		);
+
+		/**
+		 * Allows filtering of the "Today" button title and aria-label.
+		 *
+		 * @since TBD
+		 *
+		 * @param string                                $today_title The title string.
+		 * @param \Tribe\Events\Views\V2\View_Interface $view        The View currently rendering.
+		 */
+		$today_title = apply_filters(
+			'tec_events_today_button_title',
+			$today_title,
+			$this
+		);
+
+		$today_label = tec_events_get_today_button_label( $this );
 
 		$event_date = $this->context->get( 'event_date', false );
 
@@ -1534,6 +1556,8 @@ class View implements View_Interface {
 			'rest_nonce'           => $rest_nonce,
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
+			'today_title'          => $today_title,
+			'today_label'          => $today_label,
 			'prev_label'           => $this->get_link_label( $this->prev_url( false ) ),
 			'next_label'           => $this->get_link_label( $this->next_url( false ) ),
 			'date_formats'         => (object) [

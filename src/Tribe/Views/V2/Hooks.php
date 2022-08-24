@@ -174,6 +174,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
 
 		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
+
+		add_action( 'tec_events_today_button_label_view_month', [ $this, 'filter_tec_events_today_button_label_view_month' ], 10, 2 );
 	}
 
 	/**
@@ -1077,6 +1079,26 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return $this->container->make( iCalendar\Request::class )->get_event_ids();
+	}
+
+	/**
+	 * Filters the Today button label to change the text to something appropriate for Week View.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $today The string used for the "Today" button on calendar views.
+	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
+	 *
+	 * @return string $today
+	 */
+	public function filter_tec_events_today_button_label_view_month( $today, $view ) {
+		$today = esc_html_x(
+			'This Month',
+			'The default text label for the "today" button on the Month View.',
+			'the-events-calendar'
+		);
+
+		return $today;
 	}
 
 	/* DEPRECATED */

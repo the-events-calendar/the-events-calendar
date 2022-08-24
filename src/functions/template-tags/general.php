@@ -157,6 +157,49 @@ function tribe_get_event_label_plural_lowercase() {
 }
 
 /**
+ * Undocumented function
+ *
+ * @since TBD
+ *
+ * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
+ *               Hint: In templates, you can call $this->get_view() to get the view.
+ *
+ * @return string The label for the "Today" button.
+ */
+function tec_events_get_today_button_label( $view = null ) {
+	$today = esc_html_x(
+		'Today',
+		'The default text label for the "today" button on main calendar views.',
+		'the-events-calendar'
+	);
+
+	/**
+	 * Allows filtering of all labels for the today button at one time.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $today The string used for the "Today" button on calendar views.
+	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
+	 */
+	$today = apply_filters( 'tec_events_today_button_label', $today, $view );
+
+	// If we don't have the view - send it off!
+	if ( empty( $view ) ) {
+		return $today;
+	}
+
+	/**
+	 * Allows filtering a view-specific label for the today button.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $today The string used for the "Today" button on calendar views.
+	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
+	 */
+	return apply_filters( 'tec_events_today_button_label_view_' . $view->get_slug(), $today, $view );
+}
+
+/**
  * Includes a template part, similar to the WP get template part, but looks
  * in the correct directories for Tribe Events templates
  *
@@ -842,7 +885,6 @@ function tribe_events_event_classes( $event = 0, $echo = true ) {
 		return implode( ' ', $classes );
 	}
 }
-
 
 /**
  * Prints out data attributes used in the template header tags
