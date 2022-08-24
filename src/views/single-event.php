@@ -10,6 +10,7 @@
  * @version 4.6.19
  *
  */
+use Tribe\Events\Views\V2\Template_Bootstrap;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -18,7 +19,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural   = tribe_get_event_label_plural();
 
-$event_id = get_the_ID();
+$template = tribe( Template_Bootstrap::class )->get_template_setting();
+
+/**
+ * Get the $event_id using get_queried_object_id() for Divi users who aren't using the Default Events Template.
+ * 
+ * @since TBD
+ */
+if ( 'Divi' == wp_get_theme() && ! ( 'event' === $template ) ) {
+	wp_reset_postdata();
+	
+	$event_id = get_queried_object_id();
+} else {
+	$event_id = get_the_ID();
+}
 
 /**
  * Allows filtering of the single event template title classes.
