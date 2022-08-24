@@ -1,13 +1,15 @@
 <?php
+namespace Tribe\Events\Admin\Notice;
+
 use Tribe__Date_Utils as Dates;
-use Tribe__Timezones as Timezones;
+use Tribe__Timezones;
 use Tribe__Events__Timezones as Event_Timezones;
 
 /**
  * Shows an admin notice for Timezones
  * (When using UTC and on TEC Pages or WordPress > General Settings)
  */
-class Tribe__Events__Admin__Notice__Timezones {
+class Timezones {
 
 	/**
 	 * Notice Slug on the user options
@@ -117,7 +119,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 * @return boolean
 	 */
 	public function is_utc_timezone( $event = 0 ) {
-		$timezone = Timezones::wp_timezone_string();
+		$timezone = Tribe__Timezones::wp_timezone_string();
 		if ( $event ) {
 			$timezone = Event_Timezones::get_event_timezone_string( $event );
 		}
@@ -140,7 +142,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		}
 
 		$text = [];
-		$current_utc = Timezones::wp_timezone_string();
+		$current_utc = Tribe__Timezones::wp_timezone_string();
 
 		$url = 'http://evnt.is/1ad3';
 		$link = sprintf(
@@ -153,6 +155,5 @@ class Tribe__Events__Admin__Notice__Timezones {
 		$text[] = __( 'Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. %1$s', 'the-events-calendar' );
 
 		return sprintf( implode( '<br />', $text ), $link, $current_utc );
-
 	}
 }

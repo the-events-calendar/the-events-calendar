@@ -57,8 +57,6 @@ class Template_Bootstrap {
 	/**
 	 * Disables the Views V1 implementation of a Template Hijack
 	 *
-	 * @todo   use a better method to remove Views V1 from been initialized
-	 *
 	 * @since  4.9.2
 	 *
 	 * @return void
@@ -66,7 +64,6 @@ class Template_Bootstrap {
 	public function disable_v1() {
 		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
 		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
-		remove_action( 'plugins_loaded', [ V1_Event_Templates::class, 'init' ] );
 	}
 
 	/**
@@ -218,7 +215,7 @@ class Template_Bootstrap {
 		$should_display_single = (
 			$this->is_single_event()
 			&& ! tribe_is_showing_all()
-			&& ! V1_Templates::is_embed()
+			&& ! is_embed()
 		);
 
 		/**
@@ -389,8 +386,7 @@ class Template_Bootstrap {
 			return $template;
 		}
 
-		$view_slug = $context->get( 'view' );
-		$is_embed  = V1_Templates::is_embed() || 'embed' === $view_slug;
+		$is_embed  = is_embed() || 'embed' === $context->get( 'view' );
 
 		if ( $is_embed ) {
 			return $this->get_v1_embed_template_path();

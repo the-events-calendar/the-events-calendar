@@ -75,8 +75,18 @@ class Event implements Editor_Object_Interface {
 			}
 
 			if ( $this->post instanceof \WP_Post && TEC::POSTTYPE === $this->post->post_type ) {
-				$meta = Arr::flatten( (array) \get_post_meta( $this->post->ID ) );
 				$post_id = $this->post->ID;
+				$meta = Arr::flatten( (array) \get_post_meta( $post_id ) );
+
+				/**
+				 * Filters the meta data that will be localized for an Event object in the context of the Blocks editor.
+				 *
+				 * @since TBD
+				 *
+				 * @param array<string,mixed> $meta    The meta data to be localized.
+				 * @param int                 $post_id The post ID of the Event.
+				 */
+				$meta = apply_filters( 'tec_events_custom_tables_v1_blocks_editor_event_meta', $meta, $post_id );
 
 				$meta_fix_map = [
 					'_EventAllDay'      => 'tribe_is_truthy',

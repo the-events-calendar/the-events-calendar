@@ -6,15 +6,6 @@
  * @package TribeEventsCalendar
  *
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
-
-if ( class_exists( 'Tribe__Events__Template__Embed' ) ) {
-	return;
-}
-
 /**
  * Single event template class
  */
@@ -35,7 +26,7 @@ class Tribe__Events__Template__Embed extends Tribe__Events__Template_Factory {
 	 * are explicitly output
 	 */
 	public function embed_head() {
-		$css_path = Tribe__Events__Template_Factory::getMinFile( Tribe__Events__Main::instance()->plugin_url . 'src/resources/css/tribe-events-embed.css', true );
+		$css_path = Tribe__Events__Main::instance()->plugin_url . 'src/resources/css/tribe-events-embed.min.css';
 		$css_path = add_query_arg( 'ver', Tribe__Events__Main::VERSION, $css_path );
 		?>
 		<link rel="stylesheet" id="tribe-events-embed-css" href="<?php echo esc_url( $css_path ); ?>" type="text/css" media="all">

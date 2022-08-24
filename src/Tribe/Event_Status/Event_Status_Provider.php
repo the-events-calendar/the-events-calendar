@@ -169,7 +169,6 @@ class Event_Status_Provider extends \tad_DI52_ServiceProvider {
 			return $post;
 		}
 
-
 		return $this->container->make( Models\Event::class )->add_properties( $post );
 	}
 
