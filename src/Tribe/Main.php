@@ -601,6 +601,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Integrations
 			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', [ 'hook' ] );
 			tribe_singleton( \Tribe\Events\Integrations\WP_Rocket::class, \Tribe\Events\Integrations\WP_Rocket::class );
+			tribe_singleton( \Tribe\Events\Integrations\RCP_Integration::class, \Tribe\Events\Integrations\RCP_Integration::class );
 			tribe_singleton( \Tribe\Events\Integrations\Beaver_Builder::class, \Tribe\Events\Integrations\Beaver_Builder::class );
 
 			// Linked Posts
