@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 6.0.0-rc2
+Stable tag: 6.0.0
 Tested up to: 6.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -222,7 +222,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.0] 2022-0X-XX =
+= [6.0.0] 2022-08-29 =
 
 * Version - The Events Calendar 6.0.0 is only compatible with Events Calendar PRO 6.0.0 and higher
 * Feature - Custom tables and optimization of Cache Primers to enable reduced and stabilized number of queries on Event views.
