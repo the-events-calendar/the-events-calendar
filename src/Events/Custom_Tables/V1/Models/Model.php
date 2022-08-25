@@ -2,7 +2,7 @@
 /**
  * The base Model, implementing base methods useful in each Model implementation.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -19,7 +19,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
 /**
  * Class Model
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  *
@@ -49,7 +49,7 @@ abstract class Model implements Serializable {
 	/**
 	 * A map of the Model extensions, `null` when not yet initialized.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,array<string,array<string,mixed>>>|null
 	 */
@@ -58,7 +58,7 @@ abstract class Model implements Serializable {
 	/**
 	 * A map relating the columns of this model with a validation class.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @var array<string,ValidatorInterface>
 	 */
 	protected $validations = [];
@@ -66,7 +66,7 @@ abstract class Model implements Serializable {
 	/**
 	 * A map relating the column of this model to the Formatter implementation for each.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,Formatter>
 	 */
@@ -75,7 +75,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Hold the name of the table for this model.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string The table where this model is persisted.
 	 */
@@ -84,7 +84,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Get a list of the columns that passed the validation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string> An array with the name of the columns that are valid.
 	 */
@@ -94,7 +94,7 @@ abstract class Model implements Serializable {
 	 * An associative array with the key of the error and the error message when validation fails for that particular
 	 * column.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string, string>
 	 */
@@ -105,7 +105,7 @@ abstract class Model implements Serializable {
 	 * column. This is cumulative and will retain errors aside from a specific instance. Useful when interacting with the
 	 * models with the static API.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string, string>
 	 */
@@ -114,7 +114,7 @@ abstract class Model implements Serializable {
 	/**
 	 * A reference to the current Service Provider instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var tad_DI52_Container
 	 */
@@ -123,7 +123,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Array holding all the dynamic values attached to the object, before running the validation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string, mixed> An array holding the dynamic values set to this model.
 	 */
@@ -132,7 +132,7 @@ abstract class Model implements Serializable {
 	/**
 	 * A name of the column holding a reference to the primary key on this object.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string $primary_key The name of the primary key.
 	 */
@@ -140,7 +140,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Define the properties or the columns used to create a hash associated with this model.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string> A list with all the keys that are used to generate a hash for this model.
 	 */
@@ -150,7 +150,7 @@ abstract class Model implements Serializable {
 	 * Enable the model to indicate only a single field validation is happening, useful when we are just checking
 	 * the value of a single column instead of a composer series of values.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string, bool> $single_validation
 	 */
@@ -161,7 +161,7 @@ abstract class Model implements Serializable {
 	 * or their previously resolved value.
 	 *
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,callable|int|float|string>
 	 */
@@ -193,7 +193,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Get the name of the table that is being affected by this model.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The name of the table used for this model.
 	 */
@@ -204,7 +204,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Get the name of the primary column of this model.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The name of the column with the primary key value.s
 	 */
@@ -215,7 +215,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Validates the Entry to make sure all of its data is valid and consistent.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array|null  $columns
 	 *
@@ -262,7 +262,7 @@ abstract class Model implements Serializable {
 	/**
 	 * If this function passed the validation or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool If this function passed the validation or not.
 	 */
@@ -273,7 +273,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Whether the validations on this model failed.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool If the validation on this model failed.
 	 */
@@ -284,7 +284,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Returns the set of errors, if any, generated during the Entry validation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string> The set of errors, if any, generated during the Entry validation.
 	 */
@@ -297,7 +297,7 @@ abstract class Model implements Serializable {
 	 * Returns the set of errors, if any, generated during validation across the most recent instances operation.
 	 * This is useful for situations when interacting with models via the static API.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string> The set of errors, if any, generated during the Entry validation.
 	 */
@@ -309,7 +309,7 @@ abstract class Model implements Serializable {
 	 * Format only the column that were considered or are marked as valid, only valid and formatted columns are considered
 	 * as valid.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<array<string, mixed>, array<string>> An array with 2 elements, first the data as column => value, second array
 	 *                                                    is the format of each column like '%d' and such.
@@ -339,7 +339,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Create a unique hash for this occurrence.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array  $keys
 	 *
@@ -370,7 +370,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Reset the data of the model back to a clear state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function reset() {
 		$this->data               = [];
@@ -385,7 +385,7 @@ abstract class Model implements Serializable {
 	 * Any static method call that is not found is proxies to this magic method that creates a new instance of this model
 	 * and forwards the call to the builder.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $name       The name of the method.
 	 * @param  array   $arguments  An array with all the parameters to the method.
@@ -399,7 +399,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Any method that was not found on the model, pass it through the builder class.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $name       The name of the method.
 	 * @param  array   $arguments  An array with all the parameters to the method.
@@ -429,7 +429,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Set a value to a dynamic property.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $name   The name of the property.
 	 * @param  mixed   $value  The value of the property.
@@ -442,7 +442,7 @@ abstract class Model implements Serializable {
 	 * Getter to access dynamic properties, to allow to change the value when reading from MySQL, due all properties
 	 * are returned as string or NULL when those are null on the columns of each row.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $name  The name of the property.
 	 *
@@ -475,7 +475,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Getter to retrieve all currently stored model values.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,mixed> The model data, in array format.
 	 */
@@ -486,7 +486,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Make sure when using `isset` or `empty` with a model the value reviews the dynamic properties instead.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $name  The name of the property.
 	 *
@@ -499,7 +499,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Create a new method to transform the values from a model into an array.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @return array An array with the result of the data associated with this model.
 	 */
 	public function to_array() {
@@ -516,7 +516,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Returns whether a Column is valid for the model or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $column  The column to check against the Model.
 	 *
@@ -530,7 +530,7 @@ abstract class Model implements Serializable {
 	 * If a model is cached, make sure only the important data is serialized, to reduce the amount of space that the
 	 * object uses when stored as a string.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @return string The string representing the object.
 	 */
 	public function serialize() {
@@ -543,7 +543,7 @@ abstract class Model implements Serializable {
 	 * If this object is constructed out of a `unserialize` call make sure the properties are set up correctly on the
 	 * object.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $serialized
 	 */
@@ -562,7 +562,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Mechanism to detect if the specified column was set as single validation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $column The name of the column on the database where we are checking validation against with.
 	 *
@@ -575,7 +575,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Mechanism to set a column with single validation
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $column The name of the column on the database where we are checking validation against with.
 	 *
@@ -590,7 +590,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Mechanism to revert a single validation into a column.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $column The name of the column on the database where we are checking validation against with.
 	 *
@@ -605,7 +605,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Allow to convert this model into a string value.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @return string
 	 */
 	public function __toString() {
@@ -618,7 +618,7 @@ abstract class Model implements Serializable {
 	 * To avoid performance issues, Models can only be extended before
 	 * the `init` action.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and has the side effect of
 	 *              setting the static extensions property that will be applied to all
@@ -633,7 +633,7 @@ abstract class Model implements Serializable {
 		/**
 		 * Allows extending the Model to add fields, and required functionality, to it.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string,array<string,mixed>> An array of possible extensions.
 		 */

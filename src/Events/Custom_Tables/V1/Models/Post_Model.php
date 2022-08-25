@@ -3,7 +3,7 @@
  * The API implemented by Models based, and persisted by means of, WordPress posts only, without the use of
  * custom tables.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -13,7 +13,7 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 /**
  * Interface Post_Model
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -21,7 +21,7 @@ interface Post_Model {
 	/**
 	 * Validates, or inserts, posts of the post model type.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<int,string>|int|string A post ID to validate, the title of a post to insert or a list of those.
 	 * @param array<string,mixed> $create_overrides A map of overrides that should be used to insert the post if

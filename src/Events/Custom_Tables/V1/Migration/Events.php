@@ -2,7 +2,7 @@
 /**
  * ${CARET}
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 
@@ -14,14 +14,14 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Events.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Events {
 	/**
 	 * Returns an Event post ID, claimed and locked to process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $has_been_migrated Whether to limit results to only those that have been previously touched by
 	 *                                migration.
@@ -39,7 +39,7 @@ class Events {
 	 * Returns a set of Event post IDs that have been locked and claimed
 	 * for operation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $limit The max number of Event post IDs to return.
 	 *
@@ -95,7 +95,7 @@ class Events {
 	/**
 	 * Calculate how many events are remaining to migrate.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The total number of Events that are not migrated or migrating.
 	 */
@@ -106,7 +106,7 @@ class Events {
 	/**
 	 * Fetches all the post IDs of Events that have been migrated.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int   $page   Page in a pagination retrieval.
 	 * @param int   $count  How many to retrieve.
@@ -176,7 +176,7 @@ class Events {
 	/**
 	 * Total number of events that are flagged as locked for processing.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int
 	 */
@@ -200,7 +200,7 @@ class Events {
 	/**
 	 * Total number of events that are flagged with a failure.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int
 	 */
@@ -224,7 +224,7 @@ class Events {
 	/**
 	 * How many events have been migrated (failure and success).
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int
 	 */
@@ -251,7 +251,7 @@ class Events {
 	/**
 	 * The total number of TEC events.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The total number of Events in the database, migrated or not.
 	 */

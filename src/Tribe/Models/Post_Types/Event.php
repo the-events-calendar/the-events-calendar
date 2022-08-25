@@ -272,7 +272,7 @@ class Event extends Base {
 	 * that we know will for sure be on the base, allowing us to prevent queries to Posts to be requested individually
 	 * which can lead to hundreds of more SQL calls.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int[]|\WP_Post[] $events
 	 */
@@ -288,7 +288,7 @@ class Event extends Base {
 		/**
 		 * Allows changing which Post IDs will get primed for cache
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param int[] $event_ids Which IDs we will prime.
 		 * @param \WP_Post[]|int[] $events Which event objects will generate the ids.

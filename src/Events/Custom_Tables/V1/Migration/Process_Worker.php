@@ -2,7 +2,7 @@
 /**
  * Does the migration and undo operations.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 
@@ -21,7 +21,7 @@ use Tribe__Admin__Notices;
 /**
  * Class Process_Worker. Handles the migration and undo operations.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Process_Worker {
@@ -48,7 +48,7 @@ class Process_Worker {
 	/**
 	 * A reference to the current Events' migration repository.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @var Events
 	 */
 	private $events;
@@ -64,7 +64,7 @@ class Process_Worker {
 	 * A reference to the current event report, the one associated
 	 * to the Event that is being migrated.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Event_Report|null
 	 */
@@ -74,7 +74,7 @@ class Process_Worker {
 	 * A flag property used to keep track of whether a started
 	 * migration completed or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool|null
 	 */
@@ -83,7 +83,7 @@ class Process_Worker {
 	/**
 	 * Whether the current event migration is running in dry-run mode or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool|null
 	 */
@@ -92,7 +92,7 @@ class Process_Worker {
 	/**
 	 * Process_Worker constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Events $events A reference to the current Events' migration repository.
 	 * @param State  $state  A reference to the migration state data.
@@ -105,7 +105,7 @@ class Process_Worker {
 	/**
 	 * Sets up our shutdown and buffer handlers.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function bind_shutdown_handlers() {
 		// Watch for any errors that may occur and store them in the Event_Report.
@@ -125,7 +125,7 @@ class Process_Worker {
 	/**
 	 * Reverts and removes any shutdown or output buffer handlers we opened.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function unbind_shutdown_handlers() {
 		// Restore error handling.
@@ -139,7 +139,7 @@ class Process_Worker {
 	/**
 	 * Any actions to be run immediately before a dry run migration will be applied.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param numeric $post_id
 	 */
@@ -150,7 +150,7 @@ class Process_Worker {
 	/**
 	 * Any actions to be run immediately after a dry run migration was applied.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param numeric $post_id
 	 */
@@ -175,7 +175,7 @@ class Process_Worker {
 	/**
 	 * Add hooks to handle cache issues when we are clearing post cache during migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function add_cache_compatibility_hooks() {
 		add_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10, 1 );
@@ -184,7 +184,7 @@ class Process_Worker {
 	/**
 	 * Remove hooks to handle cache issues when we are clearing post cache during migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function remove_cache_compatibility_hooks() {
 		remove_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10 );
@@ -193,7 +193,7 @@ class Process_Worker {
 	/**
 	 * Skips some cache actions that fail in our cleanup of post cache.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param mixed $all
 	 *
@@ -206,7 +206,7 @@ class Process_Worker {
 	/**
 	 * Processes an Event migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int  $post_id The post ID of the Event to migrate.
 	 * @param bool $dry_run Whether the migration should commit or just preview
@@ -282,7 +282,7 @@ class Process_Worker {
 			 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
 			 * here will prevent TEC from using the default one.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param Strategy_Interface A reference to the migration strategy that should be used.
 			 *                          Initially `null`.
@@ -311,7 +311,7 @@ class Process_Worker {
 			 * Action to be fired immediately prior to applying migration strategy. Some migrations may still fail after this phase,
 			 * as there are various factors internal to the strategy that could cancel this migration.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param Event_Report       $event_report The event report for this migration.
 			 * @param Strategy_Interface $strategy     The strategy being applied to this post.
@@ -440,7 +440,7 @@ class Process_Worker {
 	/**
 	 * Will trigger the migration failure handling.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function cancel_migration_with_failure() {
 		$process = tribe( Process::class );
@@ -450,7 +450,7 @@ class Process_Worker {
 	/**
 	 * Undoes an Event migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string, mixed> The metadata we pass to ourselves.
 	 *
@@ -480,7 +480,7 @@ class Process_Worker {
 		/*
 		 * Fires before the migration revert/cancellation starts.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
 
@@ -501,7 +501,7 @@ class Process_Worker {
 		/**
 		 * Filters the list of post meta keys to be removed during a migration cancel.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string> $meta_keys List of keys to delete.
 		 */
@@ -561,7 +561,7 @@ class Process_Worker {
 		/**
 		 * Fires after the migration revert/cancellation has completed.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
 
@@ -575,7 +575,7 @@ class Process_Worker {
 	/**
 	 * Handles non-fatal errors that might be triggered during the migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int    $errno  The error code.
 	 * @param string $errstr The error message.
@@ -606,7 +606,7 @@ class Process_Worker {
 	 * or one that is properly handled. If not, then this method is
 	 * an attempt to log the failure.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function shutdown_handler() {
 		// In case we fail above, release transaction.
@@ -630,7 +630,7 @@ class Process_Worker {
 	 * when done; two or more concurrent workers doing the same will not break the
 	 * logic.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the migration, or its preview, is completed or not.
 	 */
@@ -669,7 +669,7 @@ class Process_Worker {
 		/**
 		 * Triggers an action on the end of the Migration.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param bool $dry_run Whether the migration just completed is a dry-run one or not.
 		 */
@@ -688,7 +688,7 @@ class Process_Worker {
 	 * across PHP versions when the `die` or `exit` function is called during
 	 * the migration process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $buffer A string buffer that will contain all the output
 	 *                       produced by the PHP code before the `die` or `exit`
@@ -733,7 +733,7 @@ class Process_Worker {
 	 * Checks if the current phase is completed or not,
 	 * else queue another action to run the same check.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The ID of the new Action scheduled to check
 	 *             on the migration phase, `0` if no new Action
@@ -774,7 +774,7 @@ class Process_Worker {
 	/**
 	 * Start a transaction with fallback on no-op queries if not supported.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function start_transaction() {
 		$this->transaction_started = $this->transaction_start();
@@ -788,7 +788,7 @@ class Process_Worker {
 	/**
 	 * Rolls back a transaction with fallback on no-op queries if not supported.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function rollback_transaction() {
 		if ( $this->transaction_started ) {

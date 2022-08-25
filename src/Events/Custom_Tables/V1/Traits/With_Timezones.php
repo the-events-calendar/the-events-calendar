@@ -2,7 +2,7 @@
 /**
  * Provides methods to manipulate timezones.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Traits;
 /**
  * Trait With_Timezones
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -23,7 +23,7 @@ trait With_Timezones {
 	 * Depending on the system providing the timezone string, the UTC+0 timezone might
 	 * have a different name, but still mean the same. This methods discriminates it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $time_zone_name The timezone name to check.
 	 *

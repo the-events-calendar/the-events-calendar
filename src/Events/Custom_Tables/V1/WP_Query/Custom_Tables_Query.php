@@ -2,7 +2,7 @@
 /**
  * An extension of the base WordPress WP_Query to redirect queries to the plugin custom tables.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -20,7 +20,7 @@ use WP_Query;
 /**
  * Class Custom_Tables_Query
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -28,7 +28,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * A reference to the original `WP_Query` object this Custom Tables Query should use.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var WP_Query|null
 	 */
@@ -37,7 +37,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Returns an instance of this class, built using the input `WP_Query` as a model.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query                  $wp_query       A reference to the `WP_Query` instance that
 	 *                                                   should be used as a model to build an instance
@@ -84,7 +84,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Adds an opportunity to filter the query_vars that will be used
 	 * in the newly constructed instance of this object.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $query_vars array<string,mixed> The query variables, as created by WordPress or previous filtering
 	 *                                        methods.
@@ -95,7 +95,7 @@ class Custom_Tables_Query extends WP_Query {
 		/**
 		 * Filters the query variables that will be used to build the Custom Tables Query.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string,mixed> $query_vars The query variables as set up by the Custom
 		 *                                        Tables Query.
@@ -113,7 +113,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * `meta_query` property after it's been built and before it's used to produce Custom Fields related
 	 * SQL.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<int|WP_Post> The query results, in the same format used by the `WP_Query::get_posts` method.
 	 */
@@ -151,7 +151,7 @@ class Custom_Tables_Query extends WP_Query {
 		/**
 		 * Fires before the Custom Tables query runs.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param Custom_Tables_Query $this A reference to this Custom Tables query.
 		 */
@@ -162,7 +162,7 @@ class Custom_Tables_Query extends WP_Query {
 		/**
 		 * Fires after the Custom Tables Query ran.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array|object|null   $results The query results.
 		 * @param Custom_Tables_Query $this    A reference to this Custom Tables query.
@@ -186,7 +186,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * This method is expected to be hooked to the `posts_search` hook in the `WP_Query::get_posts` method.
 	 * The method will not change
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string    $search    The WHERE clause as produced by the `WP_Query` instance.
 	 * @param  WP_Query  $wp_query  A reference to the `WP_Query` instance whose search WHERE clause is currently being
@@ -228,7 +228,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Redirects the `SELECT` part of the query to fetch from the Occurrences table.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string        $request_fields The original `SELECT` SQL.
 	 * @param  WP_Query|null $query          A reference to the `WP_Query` instance currently being
@@ -248,7 +248,7 @@ class Custom_Tables_Query extends WP_Query {
 		 * used to identify distinct Occurrences results in the context
 		 * of a Custom Tables Query.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param string $request_fields The Query fields request, e.g. `ids`.
 		 */
@@ -260,7 +260,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Changes the `GROUP BY` clause for posts to avoid the collapse of results on the post ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string         $groupby  The original `GROUP BY` SQL clause.
 	 * @param  WP_Query|null  $query    A reference to the `WP_Query` instance currently being filtered.
@@ -280,7 +280,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Replace the SQL clause that would order posts by ID to order them by Occurrence ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string        $order_by          The input `ORDER BY` SQL clause, as produced by the
 	 *                                         `WP_Query` class code.
@@ -317,7 +317,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Intercept appropriate order by fields and map to our new occurrence fields.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @inheritDoc
 	 *
@@ -342,7 +342,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Adds a filter for TEC custom queries in order to further parse the `WHERE` statements.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string        $where          The input `WHERE` clause, as built by the `WP_Query`
 	 *                                      class code.
@@ -354,7 +354,7 @@ class Custom_Tables_Query extends WP_Query {
 		/**
 		 * Filters the `WHERE` statement produced by the Custom Tables Query.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param string              $where    The `WHERE` statement produced by the Custom Tables Query.
 		 * @param WP_Query            $query    The query object being filtered.
@@ -367,7 +367,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Updates the `WHERE` statements to ensure any Event Query is date-bound.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string        $where          The input `WHERE` clause, as built by the `WP_Query`
 	 *                                      class code.
@@ -412,7 +412,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Filters the Query JOIN clause to JOIN on the Occurrences table if the Custom
 	 * Tables Meta Query did not do that already.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string   $join   The input JOIN query, as parsed and built by the WordPress
 	 *                         Query.
@@ -447,7 +447,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Implementation of the magic method to check if a property is set on this object or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $name The property to check for.
 	 *
@@ -460,7 +460,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Returns a reference to the `WP_Query` instance this instance is wrapping.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return WP_Query|null A reference to the `WP_Query` instance this object is wrapping.
 	 */

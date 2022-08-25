@@ -2,7 +2,7 @@
 /**
  * Provides an API to read and write the Migration state.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -14,7 +14,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class State.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -23,7 +23,7 @@ class State {
 	/**
 	 * Indicates the migration failed and is enacting remediation steps.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class State {
 	/**
 	 * Indicates the migration failed and remediation steps are finished.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class State {
 	/**
 	 * Indicates the migration is not required at all.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class State {
 	/**
 	 * Indicates the migration cancel has completed.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -59,7 +59,7 @@ class State {
 	/**
 	 * Indicates the migration revert has completed.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -68,7 +68,7 @@ class State {
 	/**
 	 * Indicates the migration preview is ready to start.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -77,7 +77,7 @@ class State {
 	/**
 	 * Indicates the migration preview is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -86,7 +86,7 @@ class State {
 	/**
 	 * Indicates the migration is ready to start and waiting for user confirmation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -95,7 +95,7 @@ class State {
 	/**
 	 * Indicates the migration is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -104,7 +104,7 @@ class State {
 	/**
 	 * Indicates the migration is complete.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -113,7 +113,7 @@ class State {
 	/**
 	 * Indicates a cancel migration is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -122,7 +122,7 @@ class State {
 	/**
 	 * Indicates a revert migration is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -131,7 +131,7 @@ class State {
 	/**
 	 * The key used in the calendar options to store the current state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -141,7 +141,7 @@ class State {
 	 * An array of default data the migration state will be hydrated with if no
 	 * corresponding option is set.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -155,7 +155,7 @@ class State {
 	 * An array that will contain the migration state as hydrated from the database values,
 	 * or from the default values.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -164,7 +164,7 @@ class State {
 	/**
 	 * A reference to the Migration Events repository handler.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Events
 	 */
@@ -173,7 +173,7 @@ class State {
 	/**
 	 * State constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function __construct( Events $events ) {
 		$option_data  = (array) get_option( self::STATE_OPTION_KEY, $this->default_data );
@@ -184,7 +184,7 @@ class State {
 	/**
 	 * Returns whether the migration is completed or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the migration is completed or not.
 	 */
@@ -201,7 +201,7 @@ class State {
 	/**
 	 * Returns whether the migration has been performed and has been successfully completed.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */
@@ -216,7 +216,7 @@ class State {
 	 * Check if we should allow a reverse migration action to occur. There is an expiration period of time for how long
 	 * we allow someone to reverse.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 *
@@ -247,7 +247,7 @@ class State {
 	/**
 	 * Returns whether there is work being done. Does not only check for an in progress migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether some worker actions are in flight.
 	 */
@@ -266,7 +266,7 @@ class State {
 	/**
 	 * Checks the phases we want to lock out access to certain features.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether we should lock the site for maintenance mode.
 	 */
@@ -284,7 +284,7 @@ class State {
 	/**
 	 * Returns whether the migration is required or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the migration is required or not.
 	 */
@@ -301,7 +301,7 @@ class State {
 	/**
 	 * Returns the current migration phase the site is in.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The current migration phase the site is in.
 	 */
@@ -312,7 +312,7 @@ class State {
 	/**
 	 * Returns a value for a specific data key or nested data key.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string ...$keys A set of one or more indexes to get the
 	 *                        value of.
@@ -327,7 +327,7 @@ class State {
 	/**
 	 * Set a value for the migration state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param ...$keys string The key(s) of the value to store.
 	 * @param $value   mixed The value to store.
@@ -340,7 +340,7 @@ class State {
 	/**
 	 * Save our current state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function save() {
 		do_action( 'tribe_log', 'debug', 'State: save', [

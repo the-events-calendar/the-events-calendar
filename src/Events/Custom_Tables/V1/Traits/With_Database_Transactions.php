@@ -2,7 +2,7 @@
 /**
  * Provides methods to manage database transactions.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits;
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Traits;
 /**
  * Trait With_Database_Transactions.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits;
  */
@@ -22,7 +22,7 @@ trait With_Database_Transactions {
 	 * to keep track whether the current queries are running in a transaction
 	 * or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -31,7 +31,7 @@ trait With_Database_Transactions {
 	/**
 	 * Returns whether all tables in a set use the InnoDB engine or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string> $tables The list of tables to check.
 	 *
@@ -60,7 +60,7 @@ trait With_Database_Transactions {
 	 * The method will look up the `posts` and `postmeta` table and
 	 * check if the ENGINE is INNODB to assume transactions are supported.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|null The table prefix to check for, or `null` to use
 	 *                    the current one.
@@ -89,7 +89,7 @@ trait With_Database_Transactions {
 		 * The initial value is set checking if the ENGINE of the `posts`
 		 * and `postmeta` table is the INNODB one or not.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param bool $check Whether transactions are supported or not.
 		 */
@@ -107,7 +107,7 @@ trait With_Database_Transactions {
 	/**
 	 * Starts a transaction if supported and possible.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the transaction started or not.
 	 */
@@ -128,7 +128,7 @@ trait With_Database_Transactions {
 	/**
 	 * Rollback the current transaction if supported and possible.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the transaction was rolled back or not.
 	 */
@@ -153,7 +153,7 @@ trait With_Database_Transactions {
 	/**
 	 * Commits the current transaction if supported and possible.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the transaction was committed or not.
 	 */
