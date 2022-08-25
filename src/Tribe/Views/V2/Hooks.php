@@ -175,7 +175,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
 
-		add_action( 'tec_events_today_button_label_view_month', [ $this, 'filter_tec_events_today_button_label_view_month' ], 10, 2 );
+		add_action( 'tec_events_view_month_today_button_label', [ $this, 'filter_tec_events_view_month_today_button_label' ], 10, 2 );
+		add_action( 'tec_events_view_month_today_button_title', [ $this, 'filter_tec_events_view_month_today_button_title' ], 10, 2 );
 	}
 
 	/**
@@ -1091,7 +1092,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string $today
 	 */
-	public function filter_tec_events_today_button_label_view_month( $today, $view ) {
+	public function filter_tec_events_view_month_today_button_label( $today, $view ) {
 		$today = esc_html_x(
 			'This Month',
 			'The default text label for the "today" button on the Month View.',
@@ -1099,6 +1100,26 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		);
 
 		return $today;
+	}
+
+	/**
+	 * Filters the Today button title and aria-label to change the text to something appropriate for Month View.
+	 *
+	 * @since TBD
+	 *
+	 * @param string                                $label The title string.
+	 * @param \Tribe\Events\Views\V2\View_Interface $view  The View currently rendering.
+	 *
+	 * @return string $label
+	 */
+	public function filter_tec_events_view_month_today_button_title( $label, $view ) {
+		$label = esc_html_x(
+			'Click to select the current month',
+			"The default text for the 'today' button's title and aria-label on the Week View.",
+			'the-events-calendar'
+		);
+
+		return $label;
 	}
 
 	/* DEPRECATED */

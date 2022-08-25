@@ -226,7 +226,9 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 * Tweak - Create a filterable function `tec_events_get_today_button_label()` for the text on the "Today" button on calendar views. [TEC-4458]
-* Tweak - Added filters: `tec_events_today_button_label` and `tec_events_today_button_label_view_{view_slug}` to filter the output of the `tec_events_get_today_button_label` function. [TEC-4458]
+* Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
+* Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
+                         `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
 
 = [6.0.0] 2022-0X-XX =
 

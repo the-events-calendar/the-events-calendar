@@ -1513,6 +1513,20 @@ class View implements View_Interface {
 			$this
 		);
 
+		/**
+		 * Allows filtering of the "Today" button title and aria-label.
+		 *
+		 * @since TBD
+		 *
+		 * @param string                                $today_title The title string.
+		 * @param \Tribe\Events\Views\V2\View_Interface $view        The View currently rendering.
+		 */
+		$today_title = apply_filters(
+			'tec_events_view_' . $this->slug . '_today_button_title',
+			$today_title,
+			$this
+		);
+
 		$today_label = tec_events_get_today_button_label( $this );
 
 		$event_date = $this->context->get( 'event_date', false );
