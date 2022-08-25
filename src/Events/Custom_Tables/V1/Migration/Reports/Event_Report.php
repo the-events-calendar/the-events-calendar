@@ -337,7 +337,11 @@ class Event_Report implements JsonSerializable {
 	 */
 	public function add_strategy( $strategy ) {
 		$this->report_category_to_be_applied = $strategy;
-		$this->data['strategies_applied'][]  = $strategy;
+
+		// Do not add the same strategy twice.
+		if ( ! in_array( $strategy, $this->data['strategies_applied'], true ) ) {
+			$this->data['strategies_applied'][] = $strategy;
+		}
 
 		return $this;
 	}

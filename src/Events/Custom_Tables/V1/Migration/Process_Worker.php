@@ -296,6 +296,10 @@ class Process_Worker {
 				$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
 			}
 
+			// Set a strategy slug immediately; the strategy can refine it later.
+			$strategy_class = get_class( $strategy );
+			$this->event_report->add_strategy( $strategy_class::get_slug() );
+
 			$this->event_report->start_event_migration();
 
 			// In case we have an error in the strategy, and we are forced to exit early, lets start the transaction here.
