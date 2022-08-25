@@ -10,12 +10,13 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use DateTimeInterface;
-use iCalTec\Views\V2\By_Day_View_Compatibility;
+use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
+use Tribe\Utils\Taxonomy;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
@@ -124,11 +125,13 @@ abstract class By_Day_View extends View {
 	 * @return array An array in the shape `[ <Y-m-d> => [...<events>], <Y-m-d> => [...<events>] ]`.
 	 */
 	public function get_grid_days( $date = null, $force = false ) {
+		$date_formatted = Dates::build_date_object( $date );
+
 		if (
 			! $force
 			&& ! empty( $this->grid_days_cache )
 			&& isset( $this->user_date )
-			&& ( ! $date || $this->user_date === $date )
+			&& ( ! $date || $this->user_date === $date_formatted->format( Dates::DBDATEFORMAT ) )
 		) {
 			return $this->grid_days_cache;
 		}
@@ -137,7 +140,7 @@ abstract class By_Day_View extends View {
 			$this->user_date = $date ?: $this->context->get( 'event_date', 'now' );
 		}
 
-		list( $grid_start, $grid_end ) = $this->calculate_grid_start_end( $this->user_date );
+		[ $grid_start, $grid_end ] = $this->calculate_grid_start_end( $this->user_date );
 
 		/**
 		 * Allows injecting the View grid days before any default logic runs.
@@ -249,7 +252,7 @@ abstract class By_Day_View extends View {
 			 *                                                  will represent the Event ID, start date, end date and
 			 *                                                  timezone.
 			 * @param array<int>                $view_event_ids The set of Event Post IDs to build and format the Day
-			 * @param By_Day_View_Compatibility $this           A reference to the `By_Day_View` instance that is applying the
+			 * @param By_Day_View               $this           A reference to the `By_Day_View` instance that is applying the
 			 *                                                  filter.
 			 */
 			$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
@@ -342,6 +345,9 @@ abstract class By_Day_View extends View {
 		array_pop( $this->grid_days_found_cache );
 		$this->fill_week_duration_cache();
 
+		Taxonomy::prime_term_cache( $this->grid_events );
+		Event::prime_cache( $this->grid_events );
+
 		return $this->grid_days_cache;
 	}
 
@@ -398,8 +404,7 @@ abstract class By_Day_View extends View {
 		 * @param \Tribe__Context $context    Context of request.
 		 * @param By_Day_View     $view       Current view object.
 		 */
-		return apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(),
-			$this );
+		return apply_filters( 'tribe_events_views_v2_by_day_view_chunk_size', self::CHUNK_SIZE, $this->get_context(), $this );
 	}
 
 	/**
@@ -784,7 +789,7 @@ abstract class By_Day_View extends View {
 			$this->repository->by_args( $this->get_repository_args() );
 		}
 		$this->repository->per_page( $per_page );
-		list( $start_date, $end_date ) = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
+		[ $start_date, $end_date ] = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
 		$this->repository->where( 'ends_after', $start_date );
 		$this->repository->where( 'starts_before', $end_date );
 	}
