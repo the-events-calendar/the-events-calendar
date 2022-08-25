@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Inclusion of Event Occurrences custom table `{$prefix}_tec_occurrences`.
 * Feature - Inclusion of Events custom table `{$prefix}_tec_events`.
 * Tweak - Legacy views are now fully deprecated and most of the template files and code was removed, please see other changelog items to see modifications.
-* Language - 123 new strings added, 255 updated, 0 fuzzied, and 161 obsoleted
+* Language - 123 new strings added, 296 updated, 0 fuzzied, and 161 obsoleted
 * Tweak - Methods marked as deprecated: `Tribe__Events__Main::add_new_organizer`, `Tribe__Events__Main::default_view`, `Tribe__Events__Main::fullAddress`, `Tribe__Events__Main::fullAddressString`, `Tribe__Events__Main::getDateStringShortened`, `Tribe__Events__Main::getPostTypes`, `Tribe__Events__Main::googleCalendarLink`, `Tribe__Events__Main::googleMapLink`, `Tribe__Events__Main::monthNames`, `Tribe__Events__Main::nextMonth`, `Tribe__Events__Main::previousMonth`, `Tribe__Events__Main::setDisplay`
 * Tweak - Functions moved to `src/functions/template-tags/deprecated`: `tribe_events_the_header_attributes`, `tribe_get_next_day_date`, `tribe_get_previous_day_date`
 * Tweak - Functions/methods refactored:  `tribe_events_is_view_enabled`, `tribe_is_ajax_view_request`, `tribe_meta_event_category_name`
