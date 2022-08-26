@@ -115,4 +115,9 @@ $settings_url = tribe( Tribe\Events\Admin\Settings::class )->get_url();
 		</div>
 	</div>
 
+	<div class="tec-update-page-callout tec-update-page-box">
+		<p><?php echo esc_html__( 'We won\'t post this page again once you skip to The Events Calendar Settings.', 'the-events-calendar' ); ?></p>
+		<a href="<?php echo esc_url( $settings_url ) ?>" class="tribe-events-admin-title__link"><?php esc_html_e( 'Take me to Settings ›', 'the-events-calendar' ); ?></a>
+	</div>
+
 </div>

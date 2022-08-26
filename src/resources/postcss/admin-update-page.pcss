@@ -155,6 +155,29 @@ body.tribe-update {
 	}
 }
 
+/* Upgrade message section */
+.tec-update-page-callout {
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: 1217px) {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.tribe-events-admin-title__link {
+		margin-left: 0;
+
+		@media (min-width: 1217px) {
+			margin-left: 10px;
+		}
+	}
+}
+
 /* Series details section */
 .tec-update-page-block {
 	margin-bottom: 100px;
