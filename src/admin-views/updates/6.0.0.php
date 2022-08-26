@@ -8,6 +8,7 @@ use Tribe__Events__Main as TEC;
 $common_main = Tribe__Main::instance();
 $notices = Tribe__Admin__Notices::instance();
 $tec = TEC::instance();
+$settings_url = tribe( Tribe\Events\Admin\Settings::class )->get_url();
 ?>
 
 <div class="tribe-events-admin-content-wrapper">
@@ -27,6 +28,7 @@ $tec = TEC::instance();
 		<div class="tribe-events-admin-title__heading-wrapper">
 			<p class="tribe-events-admin-title__sub-heading"><?php esc_html_e( 'Welcome to', 'the-events-calendar' ); ?></p>
 			<h2 class="tribe-events-admin-title__heading"><?php esc_html_e( 'The Events Calendar 6.0', 'the-events-calendar' ); ?></h2>
+			<a href="<?php echo esc_url( $settings_url ) ?>" class="tribe-events-admin-title__link"><?php esc_html_e( 'Take me to Settings ›', 'the-events-calendar' ); ?></a>
 		</div>
 	</div>
 
