@@ -20,11 +20,14 @@
     "eslint": [
       "src/modules/**/*.js",
       "src/resources/js/**/*.js",
+      "!src/resources/js/**/__tests__/**/*.js",
       "!src/resources/js/**/*.min.js",
       "!src/resources/js/app/**/*.js",
       "!src/resources/js/views/**/*.js",
       "!src/resources/js/events-admin.js",
       "!src/resources/js/tribe-events-bar.js",
+      "!src/resources/js/tec-update-6.0.0-notice.js",
+      "!src/resources/js/custom-tables-v1/ct1-upgrade.js",
       "!src/resources/js/tribe-events.js",
       "src/resources/js/views/**/*.js"
     ],
