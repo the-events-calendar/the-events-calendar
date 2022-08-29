@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.1] TBD =
 
+* Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 * Tweak - Create a filterable function `tec_events_get_today_button_label()` for the text on the "Today" button on calendar views. [TEC-4458]
 * Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
