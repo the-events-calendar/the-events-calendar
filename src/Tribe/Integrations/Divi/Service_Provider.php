@@ -28,26 +28,26 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 
 	public function hooks() {
 		add_filter(
-			'tec_events_single_event_id',
+			'tribe_post_id',
 			[
 				$this,
-				'filter_tec_events_single_event_id'
+				'filter_tribe_post_id'
 			]
 		);
 	}
 
-	public function filter_tec_events_single_event_id( $event_id ) {
+	public function filter_tribe_post_id( $event_id ) {
 		// try the "normal" way first.
 		if ( empty( $event_id ) ) {
 			$event_id = get_the_ID();
 		}
 
 		// look for a post
-		if ( isset( $_POST['et_post_id'] ) ) {
+		if ( ! tribe_is_event( $event_id ) && isset( $_POST['et_post_id'] ) ) {
 			$event_id = $_POST['et_post_id'];
 		}
 
-		if ( empty( $event_id ) ) {
+		if ( ! tribe_is_event( $event_id ) ) {
 			// maybe?
 			// wp_reset_postdata();
 

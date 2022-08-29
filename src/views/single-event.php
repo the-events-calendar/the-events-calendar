@@ -21,6 +21,7 @@ $events_label_plural   = tribe_get_event_label_plural();
 
 $template = tribe( Template_Bootstrap::class )->get_template_setting();
 
+$event_id   = Tribe__Events__Main::postIdHelper( get_the_ID() );
 $event_id = apply_filters( 'tec_events_single_event_id', get_the_ID() );
 
 /**
