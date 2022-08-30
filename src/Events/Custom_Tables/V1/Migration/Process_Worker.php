@@ -10,13 +10,13 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
-use TEC\Events\Custom_Tables\V1\Migration\Expected_Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 use TEC\Events\Custom_Tables\V1\Traits\With_String_Dictionary;
 use Tribe__Admin__Notices;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Process_Worker. Handles the migration and undo operations.
@@ -306,6 +306,8 @@ class Process_Worker {
 			if ( $this->dry_run ) {
 				$this->before_dry_run( $post_id );
 			}
+
+			$this->fix_event_duration( $post_id );
 
 			/**
 			 * Action to be fired immediately prior to applying migration strategy. Some migrations may still fail after this phase,
@@ -796,5 +798,41 @@ class Process_Worker {
 		} else {
 			Builder::class_enable_query_execution( true );
 		}
+	}
+
+	/**
+	 * Updates the `_EventDuration` meta value of the Event to make sure it will be consistent with the
+	 * start and end dates meta values.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The ID of the Event to update.
+	 *
+	 * @return void Updates the `_EventDuration` meta value of the Event.
+	 */
+	private function fix_event_duration( int $post_id ): void {
+		/**
+		 * Filters whether the content of an _EventDuration field should be fixed before migration or not.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param bool $fix_event_duration Whether the content of an _EventDuration field should be fixed before migration or not.
+		 * @param int  $post_id            The ID of the post being migrated.
+		 */
+		$should_fix_event_duration = apply_filters( 'tec_events_custom_tables_v1_fix_duration_in_migration', true, $post_id );
+
+		if ( ! $should_fix_event_duration ) {
+			return;
+		}
+
+		// At this stage, we can be sure the meta will be there.
+		$start_date = get_post_meta( $post_id, '_EventStartDate', true );
+		$end_date = get_post_meta( $post_id, '_EventEndDate', true );
+		$timezone = get_post_meta( $post_id, '_EventTimezone', true );
+		$dtstart = Dates::immutable( $start_date, $timezone );
+		$dtend = Dates::immutable( $end_date, $timezone );
+		$updated_duration = $dtend->getTimestamp() - $dtstart->getTimestamp();
+
+		update_post_meta( $post_id, '_EventDuration', $updated_duration );
 	}
 }
