@@ -3,7 +3,7 @@
  * The high-level class that will capture errors and exceptions raised by the Custom
  * Tables implementation and dispatch them.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -13,7 +13,7 @@ namespace TEC\Events\Custom_Tables\V1;
 /**
  * Class Notices
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -22,7 +22,7 @@ class Notices {
 	 * Handles an error or exception raised at any stage of the Custom Tables implementation
 	 * flow.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param \Throwable|\Exception $error A reference to the thrown Throwable (on PHP 7.0+)
 	 *                                     or Exception (on PHP 5.6) that should be handled.
@@ -44,7 +44,7 @@ class Notices {
 	/**
 	 * In wp-cli context, dispatch the current erorr to the CLI.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param \Throwable|\Exception $error The error to dispatch to the CLI.
 	 *
@@ -59,7 +59,7 @@ class Notices {
 	/**
 	 * In admin context, show the error as an admin notice.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param \Throwable|\Exception $error The error to dispatch to the CLI.
 	 */

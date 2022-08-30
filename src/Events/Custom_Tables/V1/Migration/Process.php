@@ -3,7 +3,7 @@
  * Handles the background processing the migration will use to migrate
  * events independently of the cron and user intervention.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 
@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 /**
  * Class Process. Responsible for overseeing some phase management, and delegating workers.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -25,14 +25,14 @@ class Process {
 	/**
 	 * The meta key that will be used to flag an Event as migrated during the migration process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	const EVENT_CREATED_BY_MIGRATION_META_KEY = '_tec_event_created_by_migration';
 
 	/**
 	 * A reference to the current Events' migration repository.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @var Events
 	 */
 	private $events;
@@ -47,7 +47,7 @@ class Process {
 	/**
 	 * Process constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Events $events A reference to the current Events' migration repository.
 	 * @param State  $state  A reference to the migration state data.
@@ -60,7 +60,7 @@ class Process {
 	/**
 	 * Starts the migration enqueueing the first set of Events to process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $dry_run Whether to do a preview or finalize the migration operations.
 	 *
@@ -106,7 +106,7 @@ class Process {
 	/**
 	 * Starts the cancel migration process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return boolean False if undo blocked.
 	 */
@@ -134,7 +134,7 @@ class Process {
 	/**
 	 * Starts the revert migration process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return boolean False if undo blocked.
 	 */
@@ -161,7 +161,7 @@ class Process {
 	/**
 	 * When doing a migration failure cleanup, handle the appropriate steps.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return boolean False if undo blocked.
 	 */
@@ -183,7 +183,7 @@ class Process {
 	/**
 	 * Starts the migration undoing process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 */
 	protected function undo() {
@@ -200,7 +200,7 @@ class Process {
 	/**
 	 * Unschedules all of our process workers in the Action Schedule queue.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function empty_process_queue() {
 		// Clear all of our queued migration workers.
@@ -216,7 +216,7 @@ class Process {
 	/**
 	 * Clean up when a queued migration worker is canceled.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $action_id numeric The action scheduler action ID
 	 */
@@ -236,7 +236,7 @@ class Process {
 	/**
 	 * Clean up when our queued migration workers are canceled.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $action_ids List of action IDs.
 	 */

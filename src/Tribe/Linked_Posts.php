@@ -1218,7 +1218,7 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 * A filter to control which linked posts will automatically render a metabox inside the editor.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string> List of post types that are linked to the main tribe post type.
 		 *

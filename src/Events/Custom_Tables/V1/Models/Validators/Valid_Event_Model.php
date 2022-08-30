@@ -2,7 +2,7 @@
 /**
  * Validates an input Event ID (from the Events table) input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
 /**
  * Class Valid_Event_Model
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */

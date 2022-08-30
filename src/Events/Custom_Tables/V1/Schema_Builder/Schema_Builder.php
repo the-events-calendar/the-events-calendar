@@ -9,7 +9,7 @@ class Schema_Builder {
 	/**
 	 * Helper to filter out the schema updates that are already current.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<Field_Schema_Interface|Table_Schema_Interface> $handlers
 	 *
@@ -25,7 +25,7 @@ class Schema_Builder {
 	/**
 	 * Get the registered table handlers that need updates.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<Table_Schema_Interface>
 	 */
@@ -37,7 +37,7 @@ class Schema_Builder {
 	/**
 	 * Get the registered field handlers that need updates.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<Field_Schema_Interface>
 	 */
@@ -49,7 +49,7 @@ class Schema_Builder {
 	/**
 	 * Get the md5 hash of all the registered schemas classes with their versions.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -83,7 +83,7 @@ class Schema_Builder {
 	/**
 	 * Get the registered table handlers.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<Table_Schema_Interface>
 	 */
@@ -94,7 +94,7 @@ class Schema_Builder {
 	/**
 	 * Get the registered field handlers.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<Field_Schema_Interface>
 	 */
@@ -106,13 +106,13 @@ class Schema_Builder {
 	/**
 	 * Trigger actions to drop the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function down() {
 		/**
 		 * Runs before the custom tables are dropped by The Events Calendar.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_pre_drop_tables' );
 
@@ -121,7 +121,7 @@ class Schema_Builder {
 		/**
 		 * Filters the tables to be dropped.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<Custom_Table_Interface> $table_classes A list of Custom_Table_Interface objects that will have their tables dropped.
 		 */
@@ -134,14 +134,14 @@ class Schema_Builder {
 		/**
 		 * Runs after the custom tables have been dropped by The Events Calendar.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_post_drop_tables' );
 
 		/**
 		 * Runs before the custom fields are dropped by The Events Calendar.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_pre_drop_fields' );
 
@@ -150,7 +150,7 @@ class Schema_Builder {
 		/**
 		 * Filters the fields to be dropped.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<Custom_Field_Interface> $field_classes A list of Custom_Field_Interface objects that will have their fields dropped.
 		 */
@@ -163,7 +163,7 @@ class Schema_Builder {
 		/**
 		 * Runs after the custom tables have been dropped by The Events Calendar.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_post_drop_fields' );
 	}
@@ -171,7 +171,7 @@ class Schema_Builder {
 	/**
 	 * Filters the list of tables for a blog adding the ones created by the plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $tables An array of table names for the blog.
 	 *
@@ -196,7 +196,7 @@ class Schema_Builder {
 	 * cast to a truthy value and force the table updates when
 	 * not really required to.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<mixed> A list of each creation or update result.
 	 */
@@ -207,7 +207,7 @@ class Schema_Builder {
 	/**
 	 * Creates or updates the custom tables the plugin will use.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $force Whether to force the creation or update of the tables or not.
 	 *
@@ -247,7 +247,7 @@ class Schema_Builder {
 	/**
 	 * Registers the custom table names as properties on the `wpdb` global.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register_custom_tables_names() {
 		global $wpdb;
@@ -266,7 +266,7 @@ class Schema_Builder {
 	/**
 	 * Empties the plugin custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function empty_custom_tables() {
 		$schemas = $this->get_registered_table_schemas();
@@ -282,7 +282,7 @@ class Schema_Builder {
 	 *
 	 * Note: the method will return `false` if even one table is missing.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|null $group An optional group name to restrict the check to.
 	 *

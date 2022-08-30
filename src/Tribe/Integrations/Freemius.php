@@ -191,7 +191,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Prevents the Freemius integration from happening on Update Message redirect pages.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $bypass
 	 * @param Tribe__Admin__Activation_Page $activation_page
@@ -320,7 +320,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The welcome page URL.
 	 */
@@ -331,7 +331,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The welcome page URL.
 	 */

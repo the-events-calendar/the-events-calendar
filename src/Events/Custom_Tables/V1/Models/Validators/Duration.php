@@ -2,7 +2,7 @@
 /**
  * Validates a Start Date UTC input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -16,7 +16,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Start_Date_UTC
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -77,7 +77,7 @@ class Duration extends Validator {
 	 * The Duration value represents the value of a single event occurrence.
 	 * As such it should be less than, or equal for Single Events, to the difference between End and Start.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string|int|\DateTimeInterface  $start_date  The Start Date.
 	 * @param  string|int|\DateTimeInterface  $end_date    The End Date.

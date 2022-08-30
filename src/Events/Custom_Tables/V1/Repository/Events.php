@@ -35,7 +35,7 @@ class Events {
 	 * Returns the callback that should be used to update Events in the context of
 	 * the Repository.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return callable The callback that should be used to upsert the Event data in the custom tables.
 	 */
@@ -57,7 +57,7 @@ class Events {
 	/**
 	 * Creates the database values for the Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int|WP_Post         $event_id The Event post ID, or a reference to the Event post object.
 	 * @param array<string,mixed> $data     The data, all of it, used to upsert the Event.
@@ -117,7 +117,7 @@ class Events {
 	/**
 	 * Upserts the Event data in the Occurrences custom table.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Event $event A reference to the Event model.
 	 *

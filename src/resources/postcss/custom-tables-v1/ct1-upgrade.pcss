@@ -5,10 +5,187 @@
 	margin: 20px 0;
 	padding: 0;
 	position: relative;
-}
 
-.tec-ct1-upgrade p {
-	font-size: 14px;
+	p {
+		font-size: 14px;
+		line-height: 23px;
+
+		&:last-of-type {
+			margin-bottom: 25px;
+		}
+	}
+
+	button,
+	.tec-ct1-upgrade__button {
+		background: #334aff;
+		border: 0;
+		border-radius: 0.25rem;
+		box-shadow: 0 2px black;
+		color: white;
+		cursor: pointer;
+		font-size: 1rem;
+		line-height: 1.2;
+		margin-right: 2rem;
+		padding: 1rem 0.5rem;
+		text-decoration: none;
+		white-space: nowrap;
+		width: 200px;
+	}
+
+	button[disabled] {
+		background: #ccc;
+		box-shadow: none;
+		color: #fff;
+	}
+
+	.tec-ct1-upgrade__alert {
+		background: #c7e8ca;
+		border: 1px solid #46b450;
+		border-radius: 4px;
+		padding: 19px;
+
+		.tec-ct1-upgrade__alert-icon {
+			background: #46b450;
+			border-radius: 50%;
+			color: #fff;
+			display: inline-block;
+			font-family: "Helvetica Neue", serif;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: bold;
+			height: 19px;
+			line-height: 19px;
+			margin-right: 0.25rem;
+			text-align: center;
+			width: 19px;
+		}
+
+		&.tec-ct1-upgrade__alert--error {
+			background: #fff3cd;
+			border-color: #dba617;
+
+			.tec-ct1-upgrade__alert-icon {
+				background: #dba617;
+			}
+		}
+	}
+
+	.tribe-update-bar {
+		display: block;
+		width: 100%;
+
+		.progress {
+			border-radius: 4px;
+			height: 22px;
+			width: 100%;
+		}
+
+		.bar {
+			background: #3352f5;
+			border-radius: 4px;
+			height: 22px;
+		}
+	}
+
+	progress {
+		--_indeterminate-track-animation: tec-progress-loading 4s infinite ease;
+		--_indeterminate-track-size: 225% 100%;
+		--_indeterminate-track: linear-gradient(to right, var(--_track) 45%, var(--_progress) 0%, var(--_progress) 55%, var(--_track) 0%);
+		--_progress: #3352f5;
+		--_radius: 4px;
+		--_track-size: min(23px, 23px);
+		--_track: #fff;
+
+		appearance: none;
+		border: none;
+		border-radius: var(--_radius);
+		height: var(--_track-size);
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+
+		&:focus-visible {
+			outline-color: var(--_progress);
+		}
+
+		/*  Safari/Chromium  */
+
+		&[value]::-webkit-progress-bar {
+			background-color: var(--_track);
+			border-radius: 4px;
+		}
+
+		&[value]::-webkit-progress-value {
+			background-color: var(--_progress);
+			border-radius: 4px;
+			transition: inline-size 0.25s ease-out;
+		}
+
+		/*  Firefox  */
+
+		&[value]::-moz-progress-bar {
+			background-color: var(--_progress);
+		}
+
+		/*  indeterminate  */
+
+		&:indeterminate:after {
+			animation: var(--_indeterminate-track-animation);
+			background: var(--_indeterminate-track);
+			background-position: right;
+			background-size: var(--_indeterminate-track-size);
+			border-radius: 4px;
+			content: "";
+			inset: 0;
+			position: absolute;
+		}
+
+		/*  indeterminate Safari  */
+
+		&:indeterminate::-webkit-progress-bar {
+			animation: var(--_indeterminate-track-animation);
+			background: var(--_indeterminate-track);
+			background-position: right;
+			background-size: var(--_indeterminate-track-size);
+			border-radius: 4px;
+		}
+
+		/*  indeterminate Firefox  */
+
+		&:indeterminate::-moz-progress-bar {
+			animation: var(--_indeterminate-track-animation);
+			background: var(--_indeterminate-track);
+			background-position: right;
+			background-size: var(--_indeterminate-track-size);
+			border-radius: 4px;
+		}
+
+		/*  complete  */
+
+		&:not([max])[value="1"]:before,
+		&[max="100"][value="100"]:before {
+			align-items: center;
+			color: white;
+			content: "✓";
+			display: flex;
+			font-size: calc(var(--_track-size) / 1.25);
+			inset-block: 0;
+			inset-inline: auto 0;
+			padding-inline-end: max(calc(var(--_track-size) / 4), 3px);
+			position: absolute;
+		}
+	}
+
+	.tribe-update-bar__summary {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 6px;
+		width: 100%;
+	}
+
+	.tribe-update-bar__summary-remaining-text {
+		text-align: right;
+	}
 }
 
 .tec-ct1-upgrade__row {
@@ -21,7 +198,7 @@
 }
 
 .tec-ct1-upgrade__row .content-container > span {
-	color: #334AFF;
+	color: #334aff;
 }
 
 .clear + .tec-ct1-upgrade {
@@ -29,8 +206,8 @@
 }
 
 .tec-ct1-upgrade .image-container {
-	padding: 2rem;
 	max-width: 245px;
+	padding: 2rem;
 }
 
 .tec-ct1-upgrade .image-container img {
@@ -72,75 +249,8 @@
 	margin: 0 0.25rem -3px 0;
 }
 
-.tec-ct1-upgrade p {
-	line-height: 23px;
-}
-
-.tec-ct1-upgrade p:last-of-type {
-	margin-bottom: 25px;
-}
-
-.tec-ct1-upgrade {
-	button,
-	.tec-ct1-upgrade__button {
-		background: #334AFF;
-		border-radius: 0.25rem;
-		border: 0;
-		box-shadow: 0 2px black;
-		color: white;
-		cursor: pointer;
-		font-size: 1rem;
-		margin-right: 2rem;
-		line-height: 1.2;
-		padding: 1rem 0.5rem;
-		text-decoration: none;
-		white-space: nowrap;
-		width: 200px;
-	}
-}
-
-.tec-ct1-upgrade button[disabled] {
-	background: #ccc;
-	box-shadow: none;
-	color: #fff;
-}
-
 .tec-ct1-upgrade-cancel-migration {
 	margin-top: 6px;
-}
-
-.tec-ct1-upgrade {
-	.tec-ct1-upgrade__alert {
-		background: #C7E8CA;
-		border: 1px solid #46B450;
-		border-radius: 4px;
-		padding: 19px;
-
-		.tec-ct1-upgrade__alert-icon {
-			background: #46B450;
-			border-radius: 50%;
-			color: #fff;
-			display: inline-block;
-			font-family: Helvetica Neue;
-			font-size: 14px;
-			font-style: normal;
-			font-weight: bold;
-			height: 19px;
-			line-height: 19px;
-			margin-right: 0.25rem;
-			text-align: center;
-			width: 19px;
-		}
-
-		&.tec-ct1-upgrade__alert--error {
-			background: #fff3cd;
-			border-color: #dba617;
-
-			.tec-ct1-upgrade__alert-icon {
-				background: #dba617;
-			}
-		}
-	}
 }
 
 .tec-ct1-upgrade__report {
@@ -175,14 +285,14 @@
 }
 
 .tec-ct1-upgrade__report-body-content {
-	font-family: Courier;
+	font-family: Courier, monospace;
 	font-size: 12px;
-	resize: vertical;
+	height: 140px;
+	margin-bottom: 1rem;
 	max-height: 600px;
 	min-height: 100px;
-	height: 140px;
 	overflow-y: scroll;
-	margin-bottom: 1rem;
+	resize: vertical;
 }
 
 .tec-ct1-upgrade .tec-ct1-upgrade__report-body-content ul {
@@ -198,7 +308,7 @@
 	color: #da394d;
 }
 
-/*========= Modal =========*/
+/* ========= Modal ========= */
 
 .tribe-common .tribe-dialog__wrapper .tec-ct1-action-container {
 	display: none;
@@ -223,8 +333,8 @@
 }
 
 .tec-ct1-dialog-wrapper {
-	z-index: 2000;
 	position: absolute;
+	z-index: 2000;
 }
 
 .tec-ct1-dialog-wrapper button {
@@ -248,142 +358,8 @@
 }
 
 .tec-ct1-upgrade-events-pagination-buttons-container {
-
 	padding-top: 1rem;
 }
-
-
-.tec-ct1-upgrade {
-	.tribe-update-bar {
-		display: block;
-		width: 100%;
-
-		.progress {
-			border-radius: 4px;
-			height: 22px;
-			width: 100%;
-		}
-
-		.bar {
-			background: #3352F5;
-			border-radius: 4px;
-			height: 22px;
-		}
-	}
-
-	progress {
-		--_track: #fff;
-		--_track-size: min(23px, 23px);
-		--_progress: #3352F5;
-		--_radius: 4px;
-		--_indeterminate-track: linear-gradient(to right,
-		var(--_track) 45%,
-		var(--_progress) 0%,
-		var(--_progress) 55%,
-		var(--_track) 0%
-		);
-		--_indeterminate-track-size: 225% 100%;
-		--_indeterminate-track-animation: tec-progress-loading 4s infinite ease;
-
-		/*  reset  */
-		appearance: none;
-		border: none;
-
-		/*  custom style  */
-		position: relative;
-		width: 100%;
-		height: var(--_track-size);
-		border-radius: var(--_radius);
-		border: 1px solid #ccc;
-		overflow: hidden;
-
-		&:focus-visible {
-			outline-color: var(--_progress);
-		}
-
-		/*  Safari/Chromium  */
-
-		&[value]::-webkit-progress-bar {
-			background-color: var(--_track);
-			border-radius: 4px;
-		}
-
-		&[value]::-webkit-progress-value {
-			background-color: var(--_progress);
-			border-radius: 4px;
-			transition: inline-size .25s ease-out;
-		}
-
-		/*  Firefox  */
-
-		&[value]::-moz-progress-bar {
-			background-color: var(--_progress);
-		}
-
-		/*  indeterminate  */
-
-		&:indeterminate::after {
-			content: "";
-			inset: 0;
-			position: absolute;
-			border-radius: 4px;
-			background: var(--_indeterminate-track);
-			background-size: var(--_indeterminate-track-size);
-			background-position: right;
-			animation: var(--_indeterminate-track-animation);
-		}
-
-		/*  indeterminate Safari  */
-
-		&:indeterminate::-webkit-progress-bar {
-			border-radius: 4px;
-			background: var(--_indeterminate-track);
-			background-size: var(--_indeterminate-track-size);
-			background-position: right;
-			animation: var(--_indeterminate-track-animation);
-		}
-
-		/*  indeterminate Firefox  */
-
-		&:indeterminate::-moz-progress-bar {
-			border-radius: 4px;
-			background: var(--_indeterminate-track);
-			background-size: var(--_indeterminate-track-size);
-			background-position: right;
-			animation: var(--_indeterminate-track-animation);
-		}
-
-		/*  complete  */
-
-		&:not([max])[value="1"]::before,
-		&[max="100"][value="100"]::before {
-			content: "✓";
-
-			position: absolute;
-			inset-block: 0;
-			inset-inline: auto 0;
-			display: flex;
-			align-items: center;
-			padding-inline-end: max(calc(var(--_track-size) / 4), 3px);
-
-			color: white;
-			font-size: calc(var(--_track-size) / 1.25);
-		}
-
-	}
-
-	.tribe-update-bar__summary {
-		display: flex;
-		justify-content: space-between;
-		width: 100%;
-		margin-top: 6px;
-	}
-
-	.tribe-update-bar__summary-remaining-text {
-		text-align: right;
-	}
-}
-
 
 @keyframes tec-progress-loading {
 	50% {

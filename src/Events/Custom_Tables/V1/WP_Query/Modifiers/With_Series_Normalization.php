@@ -2,7 +2,7 @@
 /**
  * Provides methods to normalize Series names or IDs to a uniform set in the context of Queries.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -16,7 +16,7 @@ use WP_Query;
 /**
  * Trait With_Series_Normalization
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -26,7 +26,7 @@ trait With_Series_Normalization {
 	/**
 	 * A map from query hashes to the normalized set of Series IDs.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,array<int>>
 	 */
@@ -36,7 +36,7 @@ trait With_Series_Normalization {
 	 * Normalizes an input set of Series post IDs and names to a set of
 	 * series post IDs.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query $query A reference to the Query object that is being filtered
 	 *                        and for whose the normalization is being done.
