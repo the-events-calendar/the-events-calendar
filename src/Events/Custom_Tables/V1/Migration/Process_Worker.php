@@ -17,6 +17,7 @@ use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 use TEC\Events\Custom_Tables\V1\Traits\With_String_Dictionary;
 use Tribe__Admin__Notices;
 use Tribe__Date_Utils as Dates;
+use Tribe__Timezones as Timezones;
 
 /**
  * Class Process_Worker. Handles the migration and undo operations.
@@ -828,6 +829,13 @@ class Process_Worker {
 		$start_date = get_post_meta( $post_id, '_EventStartDate', true );
 		$end_date = get_post_meta( $post_id, '_EventEndDate', true );
 		$timezone = get_post_meta( $post_id, '_EventTimezone', true );
+
+		if ( ! Timezones::is_valid_timezone( $timezone ) ) {
+			$timezone = Timezones::build_timezone_object()->getName();
+			update_post_meta( $post_id, '_EventTimezone', $timezone );
+			update_post_meta( $post_id, '_EventTimezoneAbbr', Timezones::abbr( $start_date, $timezone ) );
+		}
+
 		$utc = new \DateTimeZone( 'UTC' );
 
 		$dtstart = Dates::immutable( $start_date, $timezone );
