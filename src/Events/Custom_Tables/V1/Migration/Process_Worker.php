@@ -225,6 +225,8 @@ class Process_Worker {
 			'dry_run' => $dry_run
 		] );
 
+		$this->dry_run = $dry_run;
+
 		/*
 		 * Get our Event_Report ready for the strategy.
 		 * This is also used in our error catching, so needs to be defined outside that block.
@@ -235,8 +237,6 @@ class Process_Worker {
 			// We're done, the migration is complete and there is no more work to do.
 			return $this->event_report;
 		}
-
-		$this->dry_run = $dry_run;
 
 		// Set our dead-man switch.
 		$this->migration_completed = false;
