@@ -225,6 +225,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.1] TBD =
 
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
+* Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
 
 = [6.0.0] 2022-0X-XX =
 
