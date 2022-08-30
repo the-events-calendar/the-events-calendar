@@ -12,13 +12,20 @@ namespace Tribe\Events\Integrations\Divi;
 /**
  * Class Service_Provider
  *
- * @since   5.7.0
+ * @since   TBD
  *
  * @package Tribe\Events\Integrations\Divi
  */
 class Service_Provider extends \tad_DI52_ServiceProvider {
+
+	/**
+	 * Binds and sets up implementations.
+	 *
+	 * @since TBD
+	 */
 	public function register() {
 		$theme = wp_get_theme();
+
 		if ( 'divi' !== strtolower( $theme->template ) && 'divi' !== strtolower( $theme->parent->template ) ) {
 			return;
 		}
@@ -26,6 +33,11 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->hooks();
 	}
 
+	/**
+	 * Hooks the filters and actions required for this integration to work.
+	 *
+	 * @since TBD
+	 */
 	public function hooks() {
 		add_filter(
 			'tribe_post_id',
@@ -36,6 +48,13 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		);
 	}
 
+	/**
+	 * Get the $event_id using get_queried_object_id() for Divi users who aren't using the Default Events Template.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id The event ID.
+	 */
 	public function filter_tribe_post_id( $event_id ) {
 		// try the "normal" way first.
 		if ( empty( $event_id ) ) {
