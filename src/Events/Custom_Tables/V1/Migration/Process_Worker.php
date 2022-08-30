@@ -383,10 +383,24 @@ class Process_Worker {
 
 		$this->unbind_shutdown_handlers();
 
-		$did_migration_error = ! $dry_run && $this->event_report->error;
-		// If error in the migration phase, need to stop the queue.
-		$continue_queue = $did_migration_error ? false : true;
-		$next_post_id   = null;
+		// Flag to fail on first error.
+		$fail_on_first_error = ( defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE' )
+		                         && TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE )
+		                       || ! $dry_run;
+		/**
+		 * Filter to determine whether we should stop on first failure or not. Useful for troubleshooting in preview mode.
+		 * @since TBD
+		 *
+		 * @param bool $fail_on_first_error
+		 *
+		 * @returns bool
+		 */
+		$fail_on_first_error = apply_filters( 'tec_events_custom_tables_v1_migration_should_stop_on_failure', $fail_on_first_error );
+
+		// If error in the migration phase or fail on first error flag, then we need to stop the queue.
+		$did_migration_error = ( $fail_on_first_error && $this->event_report->error );
+		$continue_queue      = $did_migration_error ? false : true;
+		$next_post_id        = null;
 
 		if ( $continue_queue ) {
 			// Get next event to process.
