@@ -48,8 +48,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		if ( ! tribe_is_event( $event_id ) ) {
-			// maybe?
-			// wp_reset_postdata();
+			wp_reset_postdata();
 
 			$event_id = get_queried_object_id();
 		}
