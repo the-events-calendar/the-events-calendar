@@ -307,7 +307,7 @@ class Process_Worker {
 				$this->before_dry_run( $post_id );
 			}
 
-			$this->fix_event_duration( $post_id );
+			$this->fix_event_meta( $post_id );
 
 			/**
 			 * Action to be fired immediately prior to applying migration strategy. Some migrations may still fail after this phase,
@@ -801,27 +801,26 @@ class Process_Worker {
 	}
 
 	/**
-	 * Updates the `_EventDuration` meta value of the Event to make sure it will be consistent with the
-	 * start and end dates meta values.
+	 * Updates the Event date and duration meta to make sure it's consistent.
 	 *
 	 * @since TBD
 	 *
 	 * @param int $post_id The ID of the Event to update.
 	 *
-	 * @return void Updates the `_EventDuration` meta value of the Event.
+	 * @return void Updates the Event date and duration meta to make sure it's consistent.
 	 */
-	private function fix_event_duration( int $post_id ): void {
+	private function fix_event_meta( int $post_id ): void {
 		/**
-		 * Filters whether the content of an _EventDuration field should be fixed before migration or not.
+		 * Filters whether an Event date related meta should be fixed before migration or not.
 		 *
 		 * @since 6.0.0
 		 *
-		 * @param bool $fix_event_duration Whether the content of an _EventDuration field should be fixed before migration or not.
+		 * @param bool $fix_event_duration Whether the Event date related meta should be fixed before migration or not.
 		 * @param int  $post_id            The ID of the post being migrated.
 		 */
-		$should_fix_event_duration = apply_filters( 'tec_events_custom_tables_v1_fix_duration_in_migration', true, $post_id );
+		$should_fix_meta = apply_filters( 'tec_events_custom_tables_v1_migration_fix_event_date_meta', true, $post_id );
 
-		if ( ! $should_fix_event_duration ) {
+		if ( ! $should_fix_meta ) {
 			return;
 		}
 
@@ -829,10 +828,16 @@ class Process_Worker {
 		$start_date = get_post_meta( $post_id, '_EventStartDate', true );
 		$end_date = get_post_meta( $post_id, '_EventEndDate', true );
 		$timezone = get_post_meta( $post_id, '_EventTimezone', true );
+		$utc = new \DateTimeZone( 'UTC' );
+
 		$dtstart = Dates::immutable( $start_date, $timezone );
 		$dtend = Dates::immutable( $end_date, $timezone );
 		$updated_duration = $dtend->getTimestamp() - $dtstart->getTimestamp();
+		$start_date_utc = $dtstart->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+		$end_date_utc = $dtend->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
 
 		update_post_meta( $post_id, '_EventDuration', $updated_duration );
+		update_post_meta( $post_id, '_EventStartDateUTC', $start_date_utc );
+		update_post_meta( $post_id, '_EventEndDateUTC', $end_date_utc );
 	}
 }
