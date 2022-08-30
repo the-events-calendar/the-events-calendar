@@ -26,7 +26,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function register() {
 		$theme = wp_get_theme();
 
-		if ( 'divi' !== strtolower( $theme->template ) && 'divi' !== strtolower( $theme->parent->template ) ) {
+		if ( 'divi' !== strtolower( $theme->name ) && 'divi' !== strtolower( $theme->parent_theme ) ) {
 			return;
 		}
 
