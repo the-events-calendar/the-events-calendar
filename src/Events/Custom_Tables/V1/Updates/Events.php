@@ -3,7 +3,7 @@
  * Class responsible for top level database transactions, regarding changes
  * to Events and their related database entries/tables.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
@@ -21,7 +21,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Events
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
@@ -30,7 +30,7 @@ class Events {
 	/**
 	 * Updates an Event by post ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $post_id The Event post ID.
 	 *
@@ -57,7 +57,7 @@ class Events {
 			/**
 			 * When we have created a new event, fire this action with the post ID.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param numeric $post_id The event post ID.
 			 */
@@ -66,7 +66,7 @@ class Events {
 			/**
 			 * When we have updated an existing event, fire this action with the post ID.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param numeric $post_id The event post ID.
 			 */
@@ -105,7 +105,7 @@ class Events {
 	/**
 	 * Deletes an Event and related data from the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $post_id The Event post ID.
 	 *
@@ -128,7 +128,7 @@ class Events {
 	 * Rebuilds the known Events dates range setting the values of the options
 	 * used to track the earliest Event start date and the latest Event end date.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return true To indicate the earliest and latest Event dates were updated.
 	 */
@@ -146,7 +146,7 @@ class Events {
 	/**
 	 * Fetches an aggregate date value from the database.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @param string            $aggregate The SQL aggregate function to use, e.g. `MIN` or `MAX`.
 	 * @param string            $column    The column to use the aggregate function on.
 	 * @param array|string|null $stati     An array of post statuses to return the aggregate column for.
@@ -174,7 +174,7 @@ class Events {
 	/**
 	 * Returns the earliest Event start date in the database.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|array|null $stati A post status, or a set of post statuses, to fetch
 	 *                                 the earliest date for; or `null` to use the default
@@ -189,7 +189,7 @@ class Events {
 	/**
 	 * Returns the latest Event start date in the database.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|array|null $stati A post status, or a set of post statuses, to fetch
 	 *                                 the latest date for; or `null` to use the default

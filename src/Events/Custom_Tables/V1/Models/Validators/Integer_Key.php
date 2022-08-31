@@ -2,7 +2,7 @@
 /**
  * Validates an End Date UTC input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -20,7 +20,7 @@ class Integer_Key extends Validator {
 	/**
 	 * Variable reference to the positive integer validator.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Positive_Integer positive_integer
 	 */
@@ -28,7 +28,7 @@ class Integer_Key extends Validator {
 	/**
 	 * Validator to check if an integer key is provided.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Present present
 	 */
@@ -37,7 +37,7 @@ class Integer_Key extends Validator {
 	/**
 	 * Positive_Integer constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Present           $present  The present validator.
 	 * @param  Positive_Integer  $positive_integer

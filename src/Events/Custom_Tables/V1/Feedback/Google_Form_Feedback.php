@@ -2,7 +2,7 @@
 /**
  * Allows plugin users to submit feedback using a partially pre-filled Google Form.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Feedback;
 /**
  * Class Google_Form_Feedback
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
@@ -21,14 +21,14 @@ class Google_Form_Feedback implements Feedback_Interface {
 	/**
 	 * The URL of the form feedback should be submitted to.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfzTDl8ZpahmaV-7YjpB2dERoZpiJHA-cM8e-tdfZoma4jEkg/viewform?usp=pp_url';
 
 	/**
 	 * Renders the feedback prompt.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function render_classic_editor_version() {
 		?>
@@ -49,7 +49,7 @@ class Google_Form_Feedback implements Feedback_Interface {
 	/**
 	 * Returns the pre-filled form URL.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -60,7 +60,7 @@ class Google_Form_Feedback implements Feedback_Interface {
 	/**
 	 * Returns a map of the query arguments to apply to the Google Form URL for pre-filling.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,string> A map from the pre-fill entry IDs to the pre-filled values.
 	 */
@@ -116,7 +116,7 @@ class Google_Form_Feedback implements Feedback_Interface {
 	/**
 	 * Compiles the plugins information for the pre-filled submission.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string A list of the active plugins names and versions, not including
 	 *                this one.
@@ -145,7 +145,7 @@ class Google_Form_Feedback implements Feedback_Interface {
 	 * Filters whole editor configuration, to localize information
 	 * the Blocks Editor will be able to use.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,mixed> $config A map of the current editor configuration, for all plugins.
 	 *
@@ -166,7 +166,7 @@ class Google_Form_Feedback implements Feedback_Interface {
 	 *
 	 * Note: the content MUST be wrapped in an HTML to correctly render in the Blocks Editor context.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The notice HTML contents.
 	 */

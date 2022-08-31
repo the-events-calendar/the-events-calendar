@@ -8,7 +8,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Template
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\Admin
  */
@@ -16,7 +16,7 @@ class Template extends Tribe__Template {
 	/**
 	 * Building of the Class template configuration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function __construct() {
 		$this->set_template_origin( TEC::instance() );
