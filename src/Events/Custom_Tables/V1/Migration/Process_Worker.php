@@ -216,7 +216,7 @@ class Process_Worker {
 	 * @return Event_Report A reference to the migration report object produced by the
 	 *                      migration.
 	 */
-	public function migrate_event( $post_id, $dry_run = false ) {
+	public function migrate_event( int $post_id, bool $dry_run = false ): ?Event_Report {
 		global $wpdb;
 
 		// Log our worker starting
