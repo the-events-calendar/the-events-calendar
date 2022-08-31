@@ -2,7 +2,7 @@
 /**
  * Handles the binding and control of anything that is feedback related.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Feedback;
 /**
  * Class ServiceProvider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
@@ -21,7 +21,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register the feedback related implementations and hooks.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register() {
 		$this->container->singleton( Google_Form_Feedback::class, Google_Form_Feedback::class );

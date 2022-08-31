@@ -2,7 +2,7 @@
 /**
  * A value object providing information about an Event migration.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration\Reports;
  */
 
@@ -26,7 +26,7 @@ class Event_Report_Categories {
 	protected $state;
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param String_Dictionary $text  The translations object.
 	 * @param State             $state The migration State object.
@@ -39,7 +39,7 @@ class Event_Report_Categories {
 	/**
 	 * Retrieve the migration event report categories.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<array{ key:string, label:string }>
 	 */
@@ -60,7 +60,7 @@ class Event_Report_Categories {
 		 * Take note on the key, it is important and used in several areas to fetch and report the event report details. The
 		 * order matters for the templates, this is the display order. Sort accordingly.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<array{ key:string, label:string }> $defaults The default TEC migration event report categories.
 		 * @param String_Dictionary Translations object

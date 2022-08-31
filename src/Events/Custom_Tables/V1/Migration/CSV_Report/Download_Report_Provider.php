@@ -2,7 +2,7 @@
 /**
  * Registers the implementations and hooks for the Download Report migration button.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
  */
@@ -14,7 +14,7 @@ use tad_DI52_ServiceProvider as Service_Provider;
 /**
  * Class Download_Report_Provider.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
  */
@@ -23,7 +23,7 @@ class Download_Report_Provider extends Service_Provider {
 	 * Registers the required implementations and hooks into the required
 	 * actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void
 	 */
@@ -43,7 +43,7 @@ class Download_Report_Provider extends Service_Provider {
 	/**
 	 * Remove hooks.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function unregister() {
 		remove_action( "admin_action_" . File_Download::DOWNLOAD_SLUG, [ $this, 'download_csv' ] );
@@ -52,7 +52,7 @@ class Download_Report_Provider extends Service_Provider {
 	/**
 	 * Trigger the download CSV check.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function download_csv() {
 		$this->container->make( File_Download::class )->download_csv();

@@ -2,7 +2,7 @@
 /**
  * The Event validation and format schema.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -36,7 +36,7 @@ use Tribe__Timezones as Timezones;
 /**
  * Class Occurrence
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  *
@@ -104,7 +104,7 @@ class Occurrence extends Model {
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string[] hashed_keys
 	 */
@@ -122,7 +122,7 @@ class Occurrence extends Model {
 	 *
 	 * By default the Occurrence post ID will not be modified.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $occurrence_id The Occurrence post ID to normalize.
 	 *
@@ -132,7 +132,7 @@ class Occurrence extends Model {
 		/**
 		 * Filters the Occurrence post ID to normalize it.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param int $occurrence_id The Occurrence post ID to normalize.
 		 */
@@ -144,7 +144,7 @@ class Occurrence extends Model {
 	/**
 	 * Method to save the occurrences from an event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param mixed $args,... The arguments that should be used to generate and save the Occurrences.
 	 *
@@ -161,7 +161,7 @@ class Occurrence extends Model {
 			/**
 			 * Fires after Occurrences for an Event have been inserted.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param int   $post_id    The ID of the Event post the Occurrences are being saved for.
 			 * @param array $insertions The inserted Occurrences.
@@ -173,7 +173,7 @@ class Occurrence extends Model {
 		 * Fires after Occurrences for an Event have been inserted, or updated, in
 		 * the custom tables.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
 		 */
@@ -183,7 +183,7 @@ class Occurrence extends Model {
 	/**
 	 * Cast the value of the event ID to an integer if present, null otherwise when reading the `event_id` property.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -196,7 +196,7 @@ class Occurrence extends Model {
 	/**
 	 * Cast the value of the property `post_id` if present to an integer.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -209,7 +209,7 @@ class Occurrence extends Model {
 	/**
 	 * Dynamic accessor to the occurrence ID attribute.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -222,7 +222,7 @@ class Occurrence extends Model {
 	/**
 	 * If the occurrence was generated using a recurrence rule.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -235,7 +235,7 @@ class Occurrence extends Model {
 	/**
 	 * Returns the Occurrence model instance, if any , that starts first between all the Occurrences.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return Model|null Either the Model for the Occurrence entry that starts first, or `null`
 	 *                    to indicate there are no Occurrences.
@@ -249,7 +249,7 @@ class Occurrence extends Model {
 	/**
 	 * Returns the Occurrence mode, if any , that ends last between all the Occurrences.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return Model|null Either the Model for the Occurrence entry that ends last, or `null`
 	 *                    to indicate there are no Occurrences.
@@ -264,7 +264,7 @@ class Occurrence extends Model {
 	 * Returns whether an Occurrence is the last Occurrence in context of the Recurring Event
 	 * it belongs to, or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  int|Occurrence  $occurrence  Either an Occurrence `occurrence_id` or an instance of the
 	 *                                      Occurrence Model.
@@ -293,7 +293,7 @@ class Occurrence extends Model {
 	 * Returns whether an Occurrence is the first Occurrence in context of the Recurring Event
 	 * it belongs to, or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  int|Occurrence  $occurrence  Either an Occurrence `occurrence_id` or an instance of the
 	 *                                      Occurrence Model.
@@ -324,7 +324,7 @@ class Occurrence extends Model {
 	 * This method is used internally by the `save_occurrences` method to calculate what should
 	 * be inserted in the database for an Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param mixed $args,...       The set of arguments that should be used to generate the
 	 *                              Occurrences.
@@ -339,7 +339,7 @@ class Occurrence extends Model {
 		 * Filters the Generator that will provide the Occurrences insertions
 		 * for the Event.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param Generator<Occurrence>|null $generator    A reference to the Generator that will produce
 		 *                                                 the Occurrences for the data.
@@ -378,7 +378,7 @@ class Occurrence extends Model {
 			/**
 			 * Filters the Occurrence that should be returned to match the requested new Occurrence.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param Occurrence|null $occurrence The Occurrence instance as returned by TEC or other
 			 *                                    filtering functions.
@@ -405,7 +405,7 @@ class Occurrence extends Model {
 			/**
 			 * Fires after Occurrences for an Event have been updated.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param array $updates The updated Occurrences.
 			 * @param int   $post_id The ID of the Event post the Occurrences are being saved for.
@@ -442,7 +442,7 @@ class Occurrence extends Model {
 	 * This method will be internally called when trying to access the `updated_at`
 	 * property of the Model instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The Model instance `updated_at` attribute in string format.
 	 */
@@ -453,7 +453,7 @@ class Occurrence extends Model {
 	}
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $id Provisional or other ID that we want to validate against the database as a valid Occurrence ID.
 	 *

@@ -2,7 +2,7 @@
 /**
  * The plugin template tags.
  *
- * @since   TBD
+ * @since   6.0.0
  */
 
 use TEC\Events_Pro\Custom_Tables\V1\Models\Series_Relationship;
@@ -11,7 +11,7 @@ use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 /**
  * Whether a post is a valid Event Series or not.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param int|WP_Post $post_id The post ID or object to check.
  *
@@ -32,7 +32,7 @@ function tribe_is_event_series( $post_id ) {
  *
  * TODO: A more flexible approach to get the nth() series of an event or N series of an event.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param int $event_post_id The ID of the post ID event we are looking for.
  *
@@ -82,7 +82,7 @@ function tec_event_series( $event_post_id ) {
 /**
  * Determines if we should show the series title in the series marker.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param Series|int|null  $series The post object or ID of the series the event belongs to.
  * @param WP_Post|int|null $event  The post object or ID of the event we're displaying.
@@ -103,7 +103,7 @@ function tec_should_show_series_title( $series = null, $event = null ) {
 	/**
 	 * Allows filtering whether to show the series event title in the series marker.
 	 *
-	 * @TBD
+	 * @6.0.0
 	 *
 	 * @param boolean          $show_title Should we (visually) hide the title.
 	 * @param Series|int|null  $series The post object or ID of the series the event belongs to.
@@ -115,7 +115,7 @@ function tec_should_show_series_title( $series = null, $event = null ) {
 /**
  * Generates a list of classes for the marker label.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param Series|int|null  $series The post object or ID of the series the event belongs to.
  * @param WP_Post|int|null $event  The post object or ID of the event we're displaying.
@@ -136,7 +136,7 @@ function tec_get_series_marker_label_classes( $series = null, $event = null  ) {
 	/**
 	 * Allows filtering the series title classes.
 	 *
-	 * @TBD
+	 * @6.0.0
 	 *
 	 * @param array<string> A list of classes to apply to the series title.
 	 * @param Series|int|null  $series The post object or ID of the series the event belongs to.

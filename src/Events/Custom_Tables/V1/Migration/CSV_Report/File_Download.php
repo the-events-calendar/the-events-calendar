@@ -2,7 +2,7 @@
 /**
  * Handles the creation and download of a CSV file of the migration report.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
  */
@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 /**
  * Class File_Download.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
  */
@@ -39,7 +39,7 @@ class File_Download {
 	/**
 	 * Get the download URL string.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string|void
 	 */
@@ -50,7 +50,7 @@ class File_Download {
 	/**
 	 * Whether this is a legitimate download request.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool If the download should continue.
 	 */
@@ -65,7 +65,7 @@ class File_Download {
 	/**
 	 * Outputs the CSV file for the current event report.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $should_exit Whether the downloader should exit automatically or continue.
 	 *

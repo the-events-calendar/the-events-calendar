@@ -2,7 +2,7 @@
 /**
  * Validates a Start Date UTC input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -14,7 +14,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
 /**
  * Class Start_Date_UTC
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -23,7 +23,7 @@ class End_Date extends Validator {
 	/**
 	 * A Date Validator instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Valid_Date
 	 */
@@ -32,7 +32,7 @@ class End_Date extends Validator {
 	/**
 	 * A Dates Range validator instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Range_Dates
 	 */
@@ -41,7 +41,7 @@ class End_Date extends Validator {
 	/**
 	 * End_Date constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Valid_Date   $date_validator         A Date validator instance.
 	 * @param  Range_Dates  $range_dates_validator  A Dates Range validator instance.

@@ -11,14 +11,14 @@ use Tribe\Events\Test\WP_Screen;
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\Admin
  *
- * @since TBD
+ * @since 6.0.0
  */
 class Progress_Modal {
 
 	/**
 	 * Modal ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -27,7 +27,7 @@ class Progress_Modal {
 	/**
 	 * Modal target.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Progress_Modal {
 	/**
 	 * Check if we should render the modal.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return boolean Whether we should render the modal.
 	 */
@@ -46,7 +46,7 @@ class Progress_Modal {
 		/**
 		 * A filter to override when the migration maintenance modal should display and lock the screen.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param bool|null $should_render A bool flag to override when a maintenance modal should render.
 		 * @param WP_Screen $screen        The current WP_Screen instance.
@@ -87,7 +87,7 @@ class Progress_Modal {
 	/**
 	 * Outputs the maintenance modal markup.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function render_modal() {
 		if ( ! $this->should_render() ) {
@@ -101,7 +101,7 @@ class Progress_Modal {
 	/**
 	 * Get the default modal args.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $args Override default args by sending them in the `$args`.
 	 *
@@ -126,7 +126,7 @@ class Progress_Modal {
 	/**
 	 * Get the default modal contents.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $args Override default args by sending them in the `$args`.
 	 *

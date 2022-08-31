@@ -530,7 +530,7 @@ class Month_View extends By_Day_View {
 	 * This is not necessarily the 1st of the specified month, rather it is the date of the
 	 * first grid cell which could be anything upto 6 days earlier than the 1st of the month.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string  $month
 	 * @param integer $start_of_week
@@ -569,7 +569,7 @@ class Month_View extends By_Day_View {
 	 * This is not necessarily the last day of the specified month, rather it is the date of
 	 * the final grid cell which could be anything upto 6 days into the next month.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string  $month
 	 * @param integer $start_of_week

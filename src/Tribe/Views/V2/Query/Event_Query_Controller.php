@@ -303,7 +303,7 @@ class Event_Query_Controller {
 	/**
 	 * Checks whether a query is the main query running in the context of PHP initial state or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param \WP_Query $query A reference to the `WP_Query` instance to check.
 	 *

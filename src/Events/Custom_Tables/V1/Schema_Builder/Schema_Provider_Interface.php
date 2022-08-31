@@ -2,7 +2,7 @@
 /**
  * Interface for registering the Table and Field handlers.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
@@ -10,7 +10,7 @@ namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 /**
  * Interface Schema_Provider_Interface
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
@@ -18,14 +18,14 @@ interface Schema_Provider_Interface {
 	/**
 	 * Handles registering this providers table and field Schema_Builder hooks.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register();
 
 	/**
 	 * Return our set of table schema definitions.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<Field_Schema_Interface> A list of table schemas.
 	 */
@@ -35,14 +35,14 @@ interface Schema_Provider_Interface {
 	/**
 	 * Return our set of field schema definitions.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<Field_Schema_Interface> A list of field schemas.
 	 */
 	public static function get_field_schemas();
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<Table_Schema_Interface> $schemas
 	 *
@@ -51,7 +51,7 @@ interface Schema_Provider_Interface {
 	public function filter_table_schemas( $schemas );
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<Field_Schema_Interface> $schemas
 	 *

@@ -3,7 +3,7 @@
  * Registers the implementations and hooks required for the Migration of
  * existing events to the custom tables v1 implementation.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -21,7 +21,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Provider.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -31,7 +31,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Registers the required implementations and hooks into the required
 	 * actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void
 	 */
@@ -88,7 +88,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Unhooks the hooks set by the Provider in the `register` method.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side
 	 *              effect of unsetting the hooks set in the `register` method.
@@ -101,7 +101,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Executes one step of the migration process to migrate, or preview
 	 * the migration of, one Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int  $post_id The post ID of the Event to migrate.
 	 * @param bool $dry_run Whether the step should be executed in dry-run mode or not.
@@ -117,7 +117,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Executes a check on the current migration phase state to transition it to the correct
 	 * one if no Worker took care of that.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side-effect of
 	 *              updating the phase, if completed.
@@ -129,7 +129,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Executes one step of the migration process to undo the migration of one Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,mixed> The metadata the worker passes itself to track state.
 	 *
@@ -143,7 +143,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Respond to canceled Action Scheduler actions.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param numeric $action_id The action scheduler action ID.
 	 */
@@ -154,7 +154,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Respond to bulk canceled Action Scheduler actions.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $action_id A list of the action scheduler action IDs.
 	 */
@@ -165,7 +165,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Sends (echoes) a JSON format report of the site migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side effect
 	 *              of echoing a JSON format string back for the Migration UI JS component
@@ -178,7 +178,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Sends (echoes) a JSON format report of a batch of paginated events.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side effect
 	 *              of echoing a JSON format string back for the Migration UI JS component
@@ -191,7 +191,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Starts the migration and sends the initial report.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side effect
 	 *              of echoing a JSON format string back for the Migration UI JS component
@@ -204,7 +204,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Stops the migration and sends the final report.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side effect
 	 *              of echoing a JSON format string back for the Migration UI JS component
@@ -217,7 +217,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Undoes the migration and sends the initial report.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side effect
 	 *              of echoing a JSON format string back for the Migration UI JS component
@@ -231,7 +231,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Activate the Event-only maintenance mode, if required by the current
 	 * migration state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will have the side
 	 *              effect of putting the site Events, and related data, in maintenance
@@ -244,7 +244,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Filters whether the Upgrade tab, hosting the migration report, should show or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $show_tab The initial value as worked out by TEC and other plugins.
 	 *
@@ -258,7 +258,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Filters the Upgrade tab fields to add the ones dedicated to the Migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,mixed> $upgrade_fields The Upgrade page fields, as set up
 	 *                                            by The Events Calendar and other plugins.
@@ -277,7 +277,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * This method would, usually, run on the `plugins_loaded` action and might, in that
 	 * case, further delay the loading of the Action Scheduler library to the `init` action.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function load_action_scheduler() {
 		$load_action_scheduler = [ $this, 'load_action_scheduler_late' ];
@@ -312,7 +312,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * not during it. The provider will register exactly during the `plugins_loaded`
 	 * action, so we need to retry setting up Action Scheduler again.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function load_action_scheduler_late() {
 		$action_scheduler_file = TEC::instance()->plugin_path . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
