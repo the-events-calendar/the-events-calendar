@@ -2,7 +2,7 @@
 /**
  * The API provided by the plugin feedback channels.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Feedback;
 /**
  * Interface Feedback_Interface
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
@@ -22,7 +22,7 @@ interface Feedback_Interface {
 	 * Filters whole editor configuration, to localize information
 	 * the Blocks Editor will be able to use.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,mixed> $config A map of the current editor configuration, for all plugins.
 	 *
@@ -33,7 +33,7 @@ interface Feedback_Interface {
 	/**
 	 * Renders the feedback prompt in any context, but the Blocks Editor one.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function render_classic_editor_version();
 
@@ -42,7 +42,7 @@ interface Feedback_Interface {
      *
      * Note: the content MUST be wrapped in an HTML to correctly render in the Blocks Editor context.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The notice HTML contents.
 	 */

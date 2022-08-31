@@ -2,7 +2,7 @@
 /**
  * Models the Occurrence custom table.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
@@ -14,7 +14,7 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Custom_Table;
 /**
  * Class Occurrences
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Tables
  */

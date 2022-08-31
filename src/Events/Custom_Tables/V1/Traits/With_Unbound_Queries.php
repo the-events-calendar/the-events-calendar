@@ -3,7 +3,7 @@
  * Provides methods to run unbound queries for posts
  * without actually running unbound queries.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -15,7 +15,7 @@ use WP_Post;
 /**
  * Trait With_Unbound_Queries
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -25,7 +25,7 @@ trait With_Unbound_Queries {
 	/**
 	 * Runs an unbound `get_posts` query batching the query to make sure it will not kill the database.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,mixed> $args A set of arguments that should be used to run the query. Pagination,
 	 *                                  offset and posts-per-page settings will be overridden in each single
@@ -74,7 +74,7 @@ trait With_Unbound_Queries {
 	 * SQL, for this reason the original query SQL should not contain the
 	 * `LIMIT` clause.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string       $query  The prepared SQL query to run.
 	 * @param false|string $column A column to pluck from the result set, if

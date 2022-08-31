@@ -2,7 +2,7 @@
 /**
  * The API implemented by any implemetation of a Custom Tables v1 Event migration strategy.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 /**
  * Interface StrategyInterface.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\Stategies
  */
@@ -24,7 +24,7 @@ interface Strategy_Interface {
 	 * Returns the strategy slug that should uniquely identify it among the possible
 	 * migration strategies.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The migration strategy slug.
 	 */
@@ -34,7 +34,7 @@ interface Strategy_Interface {
 	 * Applies the migration strategy and returns a report representing
 	 * its effects.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Event_Report $event_report A reference to the Event Report that
 	 *                                   will be used for the Event.

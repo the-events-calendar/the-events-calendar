@@ -77,7 +77,7 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	/**
 	 * Checks if the query is looking for ticketed events and Event Tickets is available.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $value Can be true or false.
 	 *

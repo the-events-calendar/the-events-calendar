@@ -150,7 +150,7 @@ $website = tribe_get_event_website_link( $event_id );
 		/**
 		 * Included an action where we inject Series information about the event.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tribe_events_single_meta_details_section_after_datetime' );
 		?>

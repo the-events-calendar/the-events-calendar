@@ -2,7 +2,7 @@
 /**
  * Does the migration and undo operations.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 
@@ -10,18 +10,19 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
-use TEC\Events\Custom_Tables\V1\Migration\Expected_Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 use TEC\Events\Custom_Tables\V1\Traits\With_String_Dictionary;
 use Tribe__Admin__Notices;
+use Tribe__Date_Utils as Dates;
+use Tribe__Timezones as Timezones;
 
 /**
  * Class Process_Worker. Handles the migration and undo operations.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Process_Worker {
@@ -48,7 +49,7 @@ class Process_Worker {
 	/**
 	 * A reference to the current Events' migration repository.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @var Events
 	 */
 	private $events;
@@ -64,7 +65,7 @@ class Process_Worker {
 	 * A reference to the current event report, the one associated
 	 * to the Event that is being migrated.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Event_Report|null
 	 */
@@ -74,7 +75,7 @@ class Process_Worker {
 	 * A flag property used to keep track of whether a started
 	 * migration completed or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool|null
 	 */
@@ -83,7 +84,7 @@ class Process_Worker {
 	/**
 	 * Whether the current event migration is running in dry-run mode or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool|null
 	 */
@@ -92,7 +93,7 @@ class Process_Worker {
 	/**
 	 * Process_Worker constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Events $events A reference to the current Events' migration repository.
 	 * @param State  $state  A reference to the migration state data.
@@ -105,7 +106,7 @@ class Process_Worker {
 	/**
 	 * Sets up our shutdown and buffer handlers.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function bind_shutdown_handlers() {
 		// Watch for any errors that may occur and store them in the Event_Report.
@@ -125,7 +126,7 @@ class Process_Worker {
 	/**
 	 * Reverts and removes any shutdown or output buffer handlers we opened.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function unbind_shutdown_handlers() {
 		// Restore error handling.
@@ -139,7 +140,7 @@ class Process_Worker {
 	/**
 	 * Any actions to be run immediately before a dry run migration will be applied.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param numeric $post_id
 	 */
@@ -150,7 +151,7 @@ class Process_Worker {
 	/**
 	 * Any actions to be run immediately after a dry run migration was applied.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param numeric $post_id
 	 */
@@ -175,7 +176,7 @@ class Process_Worker {
 	/**
 	 * Add hooks to handle cache issues when we are clearing post cache during migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function add_cache_compatibility_hooks() {
 		add_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10, 1 );
@@ -184,7 +185,7 @@ class Process_Worker {
 	/**
 	 * Remove hooks to handle cache issues when we are clearing post cache during migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function remove_cache_compatibility_hooks() {
 		remove_filter( 'wpsc_delete_related_pages_on_edit', [ $this, 'wpsc_delete_related_pages_on_edit' ], 10 );
@@ -193,7 +194,7 @@ class Process_Worker {
 	/**
 	 * Skips some cache actions that fail in our cleanup of post cache.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param mixed $all
 	 *
@@ -206,7 +207,7 @@ class Process_Worker {
 	/**
 	 * Processes an Event migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int  $post_id The post ID of the Event to migrate.
 	 * @param bool $dry_run Whether the migration should commit or just preview
@@ -215,7 +216,7 @@ class Process_Worker {
 	 * @return Event_Report A reference to the migration report object produced by the
 	 *                      migration.
 	 */
-	public function migrate_event( $post_id, $dry_run = false ) {
+	public function migrate_event( int $post_id, bool $dry_run = false ): ?Event_Report {
 		global $wpdb;
 
 		// Log our worker starting
@@ -224,6 +225,8 @@ class Process_Worker {
 			'post_id' => $post_id,
 			'dry_run' => $dry_run
 		] );
+
+		$this->dry_run = $dry_run;
 
 		/*
 		 * Get our Event_Report ready for the strategy.
@@ -235,8 +238,6 @@ class Process_Worker {
 			// We're done, the migration is complete and there is no more work to do.
 			return $this->event_report;
 		}
-
-		$this->dry_run = $dry_run;
 
 		// Set our dead-man switch.
 		$this->migration_completed = false;
@@ -282,7 +283,7 @@ class Process_Worker {
 			 * Returning an object implementing the TEC\Events\Custom_Tables\V1\Migration\Strategy_Interface
 			 * here will prevent TEC from using the default one.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param Strategy_Interface A reference to the migration strategy that should be used.
 			 *                          Initially `null`.
@@ -296,6 +297,10 @@ class Process_Worker {
 				$strategy = new Single_Event_Migration_Strategy( $post_id, $dry_run );
 			}
 
+			// Set a strategy slug immediately; the strategy can refine it later.
+			$strategy_class = get_class( $strategy );
+			$this->event_report->add_strategy( $strategy_class::get_slug() );
+
 			$this->event_report->start_event_migration();
 
 			// In case we have an error in the strategy, and we are forced to exit early, lets start the transaction here.
@@ -303,11 +308,13 @@ class Process_Worker {
 				$this->before_dry_run( $post_id );
 			}
 
+			$this->fix_event_meta( $post_id );
+
 			/**
 			 * Action to be fired immediately prior to applying migration strategy. Some migrations may still fail after this phase,
 			 * as there are various factors internal to the strategy that could cancel this migration.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param Event_Report       $event_report The event report for this migration.
 			 * @param Strategy_Interface $strategy     The strategy being applied to this post.
@@ -376,10 +383,26 @@ class Process_Worker {
 
 		$this->unbind_shutdown_handlers();
 
-		$did_migration_error = ! $dry_run && $this->event_report->error;
-		// If error in the migration phase, need to stop the queue.
-		$continue_queue = $did_migration_error ? false : true;
-		$next_post_id   = null;
+		// Flag to fail on first error.
+		$fail_on_first_error = (
+			                       defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE' )
+			                       && TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE
+		                       )
+		                       || ! $dry_run;
+		/**
+		 * Filter to determine whether we should stop on first failure or not. Useful for troubleshooting in preview mode.
+		 * @since TBD
+		 *
+		 * @param bool $fail_on_first_error
+		 *
+		 * @returns bool Whether we should stop on first failure or not.
+		 */
+		$fail_on_first_error = apply_filters( 'tec_events_custom_tables_v1_migration_should_stop_on_failure', $fail_on_first_error );
+
+		// If error in the migration phase or fail on first error flag, then we need to stop the queue.
+		$did_migration_error = ( $fail_on_first_error && $this->event_report->error );
+		$continue_queue      = $did_migration_error ? false : true;
+		$next_post_id        = null;
 
 		if ( $continue_queue ) {
 			// Get next event to process.
@@ -436,7 +459,7 @@ class Process_Worker {
 	/**
 	 * Will trigger the migration failure handling.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function cancel_migration_with_failure() {
 		$process = tribe( Process::class );
@@ -446,7 +469,7 @@ class Process_Worker {
 	/**
 	 * Undoes an Event migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string, mixed> The metadata we pass to ourselves.
 	 *
@@ -476,7 +499,7 @@ class Process_Worker {
 		/*
 		 * Fires before the migration revert/cancellation starts.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_migration_before_cancel' );
 
@@ -497,7 +520,7 @@ class Process_Worker {
 		/**
 		 * Filters the list of post meta keys to be removed during a migration cancel.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string> $meta_keys List of keys to delete.
 		 */
@@ -557,7 +580,7 @@ class Process_Worker {
 		/**
 		 * Fires after the migration revert/cancellation has completed.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_migration_after_cancel' );
 
@@ -571,7 +594,7 @@ class Process_Worker {
 	/**
 	 * Handles non-fatal errors that might be triggered during the migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int    $errno  The error code.
 	 * @param string $errstr The error message.
@@ -602,7 +625,7 @@ class Process_Worker {
 	 * or one that is properly handled. If not, then this method is
 	 * an attempt to log the failure.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function shutdown_handler() {
 		// In case we fail above, release transaction.
@@ -626,7 +649,7 @@ class Process_Worker {
 	 * when done; two or more concurrent workers doing the same will not break the
 	 * logic.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the migration, or its preview, is completed or not.
 	 */
@@ -665,7 +688,7 @@ class Process_Worker {
 		/**
 		 * Triggers an action on the end of the Migration.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param bool $dry_run Whether the migration just completed is a dry-run one or not.
 		 */
@@ -684,7 +707,7 @@ class Process_Worker {
 	 * across PHP versions when the `die` or `exit` function is called during
 	 * the migration process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $buffer A string buffer that will contain all the output
 	 *                       produced by the PHP code before the `die` or `exit`
@@ -729,7 +752,7 @@ class Process_Worker {
 	 * Checks if the current phase is completed or not,
 	 * else queue another action to run the same check.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The ID of the new Action scheduled to check
 	 *             on the migration phase, `0` if no new Action
@@ -770,7 +793,7 @@ class Process_Worker {
 	/**
 	 * Start a transaction with fallback on no-op queries if not supported.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function start_transaction() {
 		$this->transaction_started = $this->transaction_start();
@@ -784,7 +807,7 @@ class Process_Worker {
 	/**
 	 * Rolls back a transaction with fallback on no-op queries if not supported.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function rollback_transaction() {
 		if ( $this->transaction_started ) {
@@ -792,5 +815,53 @@ class Process_Worker {
 		} else {
 			Builder::class_enable_query_execution( true );
 		}
+	}
+
+	/**
+	 * Updates the Event date and duration meta to make sure it's consistent.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The ID of the Event to update.
+	 *
+	 * @return void Updates the Event date and duration meta to make sure it's consistent.
+	 */
+	private function fix_event_meta( int $post_id ): void {
+		/**
+		 * Filters whether an Event date related meta should be fixed before migration or not.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param bool $fix_event_duration Whether the Event date related meta should be fixed before migration or not.
+		 * @param int  $post_id            The ID of the post being migrated.
+		 */
+		$should_fix_meta = apply_filters( 'tec_events_custom_tables_v1_migration_fix_event_date_meta', true, $post_id );
+
+		if ( ! $should_fix_meta ) {
+			return;
+		}
+
+		// At this stage, we can be sure the meta will be there.
+		$start_date = get_post_meta( $post_id, '_EventStartDate', true );
+		$end_date = get_post_meta( $post_id, '_EventEndDate', true );
+		$timezone = get_post_meta( $post_id, '_EventTimezone', true );
+
+		if ( ! Timezones::is_valid_timezone( $timezone ) ) {
+			$timezone = Timezones::build_timezone_object()->getName();
+			update_post_meta( $post_id, '_EventTimezone', $timezone );
+			update_post_meta( $post_id, '_EventTimezoneAbbr', Timezones::abbr( $start_date, $timezone ) );
+		}
+
+		$utc = new \DateTimeZone( 'UTC' );
+
+		$dtstart = Dates::immutable( $start_date, $timezone );
+		$dtend = Dates::immutable( $end_date, $timezone );
+		$updated_duration = $dtend->getTimestamp() - $dtstart->getTimestamp();
+		$start_date_utc = $dtstart->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+		$end_date_utc = $dtend->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+
+		update_post_meta( $post_id, '_EventDuration', $updated_duration );
+		update_post_meta( $post_id, '_EventStartDateUTC', $start_date_utc );
+		update_post_meta( $post_id, '_EventEndDateUTC', $end_date_utc );
 	}
 }
