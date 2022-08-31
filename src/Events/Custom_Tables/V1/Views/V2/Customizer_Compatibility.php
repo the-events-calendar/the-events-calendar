@@ -3,7 +3,7 @@
  * Handles the custom tables v1 implementation compatiblity with the Customizer
  * controls and settings.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2;
  */
@@ -17,7 +17,7 @@ use Tribe__Utils__Color as Color;
 /**
  * Class Customizer_Compatibility.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2;
  */
@@ -26,7 +26,7 @@ class Customizer_Compatibility {
 	/**
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Customizer_Section $section      The Global Elements section.
 	 * @param Customizer         $customizer   The current Customizer instance.

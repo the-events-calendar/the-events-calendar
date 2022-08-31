@@ -2,7 +2,7 @@
 /**
  * View: TEC 6.0.0 update notification
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @var string $title - The notification title.
  * @var string $description - The notification text.

@@ -2,7 +2,7 @@
 /**
  * Validates an End Date UTC input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */

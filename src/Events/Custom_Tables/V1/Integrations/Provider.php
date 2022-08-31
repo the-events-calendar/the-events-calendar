@@ -2,7 +2,7 @@
 /**
  * Provides the integrations required by the plugin to work with other plugins.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
@@ -15,7 +15,7 @@ use tad_DI52_ServiceProvider;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
@@ -23,7 +23,7 @@ class Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Registers the Service Providers required for the plugin to work with other plugins.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register() {
 		// Class defined by the Event Events plugin.

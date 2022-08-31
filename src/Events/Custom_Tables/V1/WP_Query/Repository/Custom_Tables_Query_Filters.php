@@ -3,7 +3,7 @@
  * An extension of the Query Filters class used by the Repository to
  * redirect some of its custom fields based queries to the plugin custom tables.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Repository
  */
@@ -20,7 +20,7 @@ use WP_Query;
 /**
  * Class Custom_Tables_Query_Filters
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Repository
  */
@@ -29,7 +29,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * The default query vars filtering application mask.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,bool>
 	 */
@@ -45,7 +45,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * A list of redirected meta keys, compiled during calls to the `redirect` method.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,array<string,mixed>>
 	 */
@@ -57,7 +57,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 *
 	 * The constructor will initialize this to the default value.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,bool>
 	 */
@@ -66,7 +66,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * A flag property to indicate whether the Custom Table redirections have been already applied or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -74,7 +74,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * Reference to the class used to replace values from the request.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Query_Replace query_redirect
 	 */
@@ -85,7 +85,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 *
 	 * Overrides the base constructor to set up a meta key redirection map.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Query_Replace  $query_redirect
 	 */
@@ -99,7 +99,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Overrides the default implementation to redirect some WHERE LIKE clauses
 	 * to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * {@inheritdoc}
 	 */
@@ -117,7 +117,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Redirects the current query vars as set from the ORM default implementation
 	 * to the Custom Tables where required.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function redirect() {
 		if ( $this->redirected ) {
@@ -163,7 +163,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Overrides the default implementation to redirect some `WHERE` clauses
 	 * to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * {@inheritdoc}
 	 */
@@ -181,7 +181,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Overrides the default implementation to redirect some `WHERE` clauses
 	 * to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * {@inheritdoc}
 	 */
@@ -199,7 +199,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Overrides the default implementation to redirect some 'JOIN' clauses
 	 * to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * {@inheritdoc}
 	 */
@@ -231,7 +231,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Overrides the default implementation to redirect some 'ORDER BY' clauses
 	 * to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * {@inheritdoc}
 	 */
@@ -249,7 +249,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Overrides the default implementation to redirect some 'SELECT' clauses
 	 * to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * {@inheritdoc}
 	 */
@@ -268,7 +268,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * Replaces references to `wp_posts.ID` with references to `Occurrences.occurrence_id`.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string|array<string>  $input  Either a single string to make the replacement
 	 *                                       in or a set of strings.
@@ -283,7 +283,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 		$wp_post_fields = $wpdb->posts . '.ID';
 
 		/**
-		 * @since TBD
+		 * @since 6.0.0
 		 * @see   Custom_Tables_Query::redirect_posts_fields() for this filter documentation.
 		 */
 		$select_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $wp_post_fields, 'ids' );
@@ -296,7 +296,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Filters the `GROUP BY` part of the SQL built by the Query to replace references
 	 * of `wp_posts.ID` with references to the `Occurrences.occurrence_id` table.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string    $groupby  The original `GROUP BY` string.
 	 * @param  WP_Query  $query    A reference to the `WP_Query` object that is currently
@@ -305,7 +305,8 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * @return string The modified `GROUP BY` SQL.
 	 */
 	public function group_by_occurrence_id( $groupby, WP_Query $query ) {
-		if ( $this->current_query !== $query ) {
+		// Don't add group by if we don't have occurrence table joined.
+		if ( $this->current_query !== $query || empty( $this->query_vars['join'] ) ) {
 			return $groupby;
 		}
 
@@ -323,7 +324,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * Overrides the base method to handle post parent based queries that might come from PRO code.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string      $join_clause The original JOIN clause to add.
 	 * @param string|null $id          An optional unique identifier for the JOIN clause in the context of the filters.
@@ -347,7 +348,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * Overrides the base method to handle requests based on the post parent, usually coming from PRO.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string      $where_clause The original WHERE clause the repository is adding to the query.
 	 * @param string|null $id           An optional unique identifier for the query.
@@ -385,7 +386,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * The mask will NOT change the value and content of each query var, it will just prevent the `filter_` methods
 	 * from applying if set to `false`. By default, all query vars will be applied.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|array<string> $query_var Either a query var, or a list of query vars to set the mask value for.
 	 * @param bool $mask Whether the query var should apply at filtering time (`true`) or not (`false`).
@@ -404,7 +405,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * Returns a reference to the current target Query.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return WP_Query A reference to the current target query.
 	 */
@@ -415,7 +416,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	/**
 	 * Resets the query vars filtering mask to the default value.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function reset_query_vars_mask() {
 		$this->query_vars_mask = self::$default_query_vars_mask;

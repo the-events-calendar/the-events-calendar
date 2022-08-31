@@ -2,7 +2,7 @@
 /**
  * Provides methods to manipulate date representations.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -16,7 +16,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Trait With_Dates_Representation
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
