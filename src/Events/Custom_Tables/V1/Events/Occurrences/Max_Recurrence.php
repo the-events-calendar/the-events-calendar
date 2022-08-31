@@ -3,7 +3,7 @@
  * Responsible for defining the Max Recurrence (recurrenceMaxMonthsAfter) option, which is referenced in several
  * locations.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Events
  */
@@ -16,13 +16,13 @@ namespace TEC\Events\Custom_Tables\V1\Events\Occurrences;
  *
  * This is defined in TEC because the default variable is defined in TEC, not PRO, despite being a PRO variable.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Occurrences
  */
 class Max_Recurrence {
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $defaults
 	 *
@@ -37,7 +37,7 @@ class Max_Recurrence {
 	/**
 	 * Sets our default value for the `recurrenceMaxMonthsAfter` field on the settings page.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array  $fields
 	 * @param string $settings_tab
@@ -60,7 +60,7 @@ class Max_Recurrence {
 	 * A way to see what the base default max recurrence months value is set to. Useful for areas that do not leverage
 	 * a default from initialization.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int
 	 */

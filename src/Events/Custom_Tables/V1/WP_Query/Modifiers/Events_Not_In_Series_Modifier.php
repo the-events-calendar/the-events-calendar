@@ -4,7 +4,7 @@
  *
  * This modifier will only apply to queries that have it specified in the query_args
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -17,7 +17,7 @@ use WP_Query;
 /**
  * Class Events_Series_Relationship_Modifier
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -56,7 +56,7 @@ class Events_Not_In_Series_Modifier extends Base_Modifier {
 	 * Adds a new LEFT JOIN clause to the query, relating any wp_post ID to event_post_id in the series relationship
 	 * table.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string   $join  the current join statement
 	 * @param WP_Query $query the current query
@@ -83,7 +83,7 @@ class Events_Not_In_Series_Modifier extends Base_Modifier {
 	 * Adds a new WHERE parameter to the query to make sure any sort of filtering happens only in wp_post IDs that do
 	 * not exist in the series relationship table.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string   $where the current where statement
 	 * @param WP_Query $query the current query

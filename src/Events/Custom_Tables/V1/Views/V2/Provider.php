@@ -2,7 +2,7 @@
 /**
  * Provides integration with Views V2.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */
@@ -18,7 +18,7 @@ use Tribe__Customizer__Section as Customizer_Section;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */
@@ -28,7 +28,7 @@ class Provider extends tad_DI52_ServiceProvider {
 	 * Registers the handlers and modifiers required to make the plugin correctly work
 	 * with Views v2.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register() {
 		$this->container->singleton( Customizer_Compatibility::class, Customizer_Compatibility::class );
@@ -48,7 +48,7 @@ class Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Returns the prepared `By_Day_View` day results.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<int,stdClass>|null $day_results  Either the prepared day results, or `null`
 	 *                                               if the day results have not been prepared yet.
@@ -64,7 +64,7 @@ class Provider extends tad_DI52_ServiceProvider {
 	/**
 	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Customizer_Section $section      The Global Elements section.
 	 * @param Customizer         $customizer   The current Customizer instance.

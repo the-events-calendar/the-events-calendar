@@ -2,7 +2,7 @@
 /**
  * Validates an Date input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -15,7 +15,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Valid_Date
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */

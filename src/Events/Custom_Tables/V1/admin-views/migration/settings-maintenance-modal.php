@@ -5,7 +5,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 /**
  * Template to be used on the Events Settings tabs for maintenance modal locking.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @var String_Dictionary $text The text dictionary for translations.
  */

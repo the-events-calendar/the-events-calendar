@@ -1359,7 +1359,7 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
 /**
  * Returns json for javascript templating functions throughout the plugin.
  *
- * @deprecated TBD We have no direct replacement as this can be incredibly bad for performance.
+ * @deprecated 6.0.0 We have no direct replacement as this can be incredibly bad for performance.
  *
  * @param mixed $__deprecated
  * @param array $additional
@@ -1367,7 +1367,7 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
  * @return string
  */
 function tribe_events_template_data( $__deprecated = null, array $additional = [] ) {
-	_deprecated_function( __METHOD__, 'TBD', 'With no direct replacements.' );
+	_deprecated_function( __METHOD__, '6.0.0', 'With no direct replacements.' );
 	$json = tec_events_get_current_view()->get_template()->get_values();
 
 	if ( ! empty( $additional ) ) {
@@ -1384,7 +1384,7 @@ function tribe_events_template_data( $__deprecated = null, array $additional = [
 /**
  * Using a filter that each view will hook in it allows templates to get what is the current view being rendered.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @return null|\Tribe\Events\Views\V2\View_Interface
  */
@@ -1392,7 +1392,7 @@ function tec_events_get_current_view() {
 	/**
 	 * Which view is currently being rendered.
 	 *
-	 * @since  TBD
+	 * @since  6.0.0
 	 *
 	 * @pararm null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
 	 */

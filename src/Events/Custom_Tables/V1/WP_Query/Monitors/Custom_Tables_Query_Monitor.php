@@ -2,7 +2,7 @@
 /**
  * Attaches the correct Custom Tables Query modifier to a Custom Tables Query depending on its nature.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Monitors
  */
@@ -16,7 +16,7 @@ use WP_Query;
 /**
  * Class Custom_Tables_Query_Monitor
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Monitors
  */
@@ -26,7 +26,7 @@ class Custom_Tables_Query_Monitor {
 	/**
 	 * A list of possible modifiers implementations.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string>
 	 */
@@ -38,7 +38,7 @@ class Custom_Tables_Query_Monitor {
 	 * Returns the flag property that will be set on a `WP_Query` instance to indicate it should
 	 * be ignored by the Monitor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The name of the flag property that will be set on a `WP_Query` object to indicate it
 	 *                should be ignored by the Monitor.
@@ -52,7 +52,7 @@ class Custom_Tables_Query_Monitor {
 	 *
 	 * This monitor will only apply to custom tables Queries.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query|null $query A reference to the WP Query object
 	 *                             to check.

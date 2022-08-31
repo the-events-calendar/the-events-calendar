@@ -2,7 +2,7 @@
 /**
  * Implements convenience methods to gather information about the Core WordPress tables.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Traits;
 /**
  * Trait With_Core_Tables
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -21,7 +21,7 @@ trait With_Core_Tables {
 	/**
 	 * Returns a list of the `posts` table columns.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string> A list of the `posts` table columns.
 	 */
