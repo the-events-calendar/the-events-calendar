@@ -384,8 +384,10 @@ class Process_Worker {
 		$this->unbind_shutdown_handlers();
 
 		// Flag to fail on first error.
-		$fail_on_first_error = ( defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE' )
-		                         && TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE )
+		$fail_on_first_error = (
+			                       defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE' )
+			                       && TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE
+		                       )
 		                       || ! $dry_run;
 		/**
 		 * Filter to determine whether we should stop on first failure or not. Useful for troubleshooting in preview mode.
@@ -393,7 +395,7 @@ class Process_Worker {
 		 *
 		 * @param bool $fail_on_first_error
 		 *
-		 * @returns bool
+		 * @returns bool Whether we should stop on first failure or not.
 		 */
 		$fail_on_first_error = apply_filters( 'tec_events_custom_tables_v1_migration_should_stop_on_failure', $fail_on_first_error );
 
