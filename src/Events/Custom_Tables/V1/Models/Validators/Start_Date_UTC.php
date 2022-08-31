@@ -2,7 +2,7 @@
 /**
  * Validates a Start Date UTC input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -16,7 +16,7 @@ use Tribe__Timezones as Timezones;
 /**
  * Class Start_Date_UTC
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -25,7 +25,7 @@ class Start_Date_UTC extends Validator {
 	/**
 	 * An instance of the Date validator.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Valid_Date
 	 */
@@ -33,7 +33,7 @@ class Start_Date_UTC extends Validator {
 	/**
 	 * An instance of the Date Ranges validator.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Range_Dates
 	 */
@@ -42,7 +42,7 @@ class Start_Date_UTC extends Validator {
 	/**
 	 * Start_Date_UTC constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Valid_Date   $date_validator  An instance of the Date validator.
 	 * @param  Range_Dates  $range_dates     An instance of the Date Ranges validator.

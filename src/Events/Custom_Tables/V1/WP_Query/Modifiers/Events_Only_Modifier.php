@@ -2,7 +2,7 @@
 /**
  * Modifies a query that is only fetching the Event post type to integrate with the plugin custom tables..
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -18,7 +18,7 @@ use WP_Query;
 /**
  * Class Events_Only_Modifier
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -41,7 +41,7 @@ class Events_Only_Modifier extends Base_Modifier {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function hook() {
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 100, 2 );
@@ -50,7 +50,7 @@ class Events_Only_Modifier extends Base_Modifier {
 	/**
 	 * Pre-fills the query posts with results fetched from the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 	 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
@@ -96,7 +96,7 @@ class Events_Only_Modifier extends Base_Modifier {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function unhook() {
 		remove_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 100 );
@@ -105,7 +105,7 @@ class Events_Only_Modifier extends Base_Modifier {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	protected function is_target_query( WP_Query $query = null ) {
 		return parent::is_target_query( $query )

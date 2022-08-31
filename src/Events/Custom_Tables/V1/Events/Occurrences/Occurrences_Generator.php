@@ -2,7 +2,7 @@
 /**
  * Generates occurrences for an Event.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Events
  */
@@ -18,7 +18,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 /**
  * Class Occurrences
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Events
  */
@@ -26,7 +26,7 @@ class Occurrences_Generator {
 	/**
 	 * Generate all the occurrences for this event, without using large chunks of memory in the process.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Event $event The Event model instance.
 	 *
@@ -45,7 +45,7 @@ class Occurrences_Generator {
 	/**
 	 * Builds and returns the entry for a Single Occurrence.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Event $event The Event model instance to generate the Occurrence entry for.
 	 *

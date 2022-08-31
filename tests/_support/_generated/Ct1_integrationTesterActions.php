@@ -1,3 +1,4 @@
+
 <?php  //[STAMP] 1b128e3bc257560c1c1f2ec6ac6458d2
 namespace _generated;
 

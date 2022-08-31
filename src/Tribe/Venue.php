@@ -293,7 +293,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Adds a venue chooser to the write post page
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public static function render_meta_box() {
 		global $post;

@@ -3,7 +3,7 @@
  * The strategy used by The Events Calendar to migrate a Single Event, an Event
  * occurring once, to the Custom Tables v1 data format and tables.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
@@ -22,7 +22,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Single_Event_Migration_Strategy.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\Strategies
  */
@@ -38,7 +38,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 	/**
 	 * Single_Event_Migration_Strategy constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int  $post_id The post ID of the Event to migrate.
 	 * @param bool $dry_run Whether the migration should actually commit information,
