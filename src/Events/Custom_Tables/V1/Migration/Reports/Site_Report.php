@@ -2,7 +2,7 @@
 /**
  * An immutable value object modeling the migration report for a site.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration\Report;
  */
 
@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 /**
  * Class Site_Report.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  * @property float  estimated_time_in_seconds
  * @property float  estimated_time_in_minutes
@@ -38,7 +38,7 @@ class Site_Report implements JsonSerializable {
 	/**
 	 * Site report data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<mixed> The report data.
 	 */
@@ -63,7 +63,7 @@ class Site_Report implements JsonSerializable {
 	/**
 	 * Site_Report constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array <string,mixed> $data The report data in array format.
 	 */
@@ -88,7 +88,7 @@ class Site_Report implements JsonSerializable {
 	/**
 	 * Factory that builds and returns the site migration report, with pagination for the Event_Reports.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return Site_Report A reference to the site migration report instance.
 	 */
@@ -139,7 +139,7 @@ class Site_Report implements JsonSerializable {
 	/**
 	 * Retrieves a sorted list of Event_Report objects.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int   $page                  The page to retrieve in a pagination request. If -1, it will retrieve all
 	 *                                     reports in the database.
@@ -164,7 +164,7 @@ class Site_Report implements JsonSerializable {
 	/**
 	 * Get all of the site report data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,mixed>
 	 */
@@ -175,7 +175,7 @@ class Site_Report implements JsonSerializable {
 	/**
 	 * Getter for site report data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $prop The key of the data.
 	 *
@@ -188,7 +188,7 @@ class Site_Report implements JsonSerializable {
 	/**
 	 * The JSON serializer.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,mixed>
 	 */

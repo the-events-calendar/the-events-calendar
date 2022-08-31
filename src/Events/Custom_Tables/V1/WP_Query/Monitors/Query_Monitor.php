@@ -2,7 +2,7 @@
 /**
  * Provides method to monitor a WP Query to attach and manage monitors.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Monitors
  */
@@ -18,7 +18,7 @@ use WP_Query;
 /**
  * Trait Query_Monitor
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Monitors
  */
@@ -28,7 +28,7 @@ trait Query_Monitor {
 	/**
 	 * A reference to the DI Container the Monitor will use to build the Modifiers.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var tad_DI52_Container
 	 */
@@ -37,7 +37,7 @@ trait Query_Monitor {
 	/**
 	 * An object storage that will map from WP_Query instances to their modifiers, if any.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var SplObjectStorage<WP_Query,array<WP_Query_Modifier>>
 	 */
@@ -46,7 +46,7 @@ trait Query_Monitor {
 	/**
 	 * A flag property to indicate whether the Monitor is enabled or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -56,7 +56,7 @@ trait Query_Monitor {
 	 * A flag property to indicate whether the Monitor should keep a reference to
 	 * the done Modifiers or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -65,7 +65,7 @@ trait Query_Monitor {
 	/**
 	 * Monitor constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param tad_DI52_Container|null $container    Either a reference to a specific container, or `null` to use the
 	 *                                              global one.
@@ -80,7 +80,7 @@ trait Query_Monitor {
 	/**
 	 * Attaches a Modifier to a WP_Query, if required.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query $query A reference to the WP Query object that is currently running.
 	 *
@@ -136,7 +136,7 @@ trait Query_Monitor {
 	/**
 	 * Registers the attachment of a Modifier to a `WP_Query` instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query_Modifier $modifier A reference to the Modifier instance attached to the `WP_Query` instance.
 	 * @param WP_Query          $query    A reference to the `WP_Query` object the modifier is attached to.
@@ -154,7 +154,7 @@ trait Query_Monitor {
 	/**
 	 * Returns a closure that will remove a set of Modifiers from the tracked Modifiers.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query $query The query that will be used as key to remove the modifiers.
 	 *
@@ -177,7 +177,7 @@ trait Query_Monitor {
 	/**
 	 * Return the number of Queries to which at least one modifier is attached.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The number of modifier instances.
 	 */
@@ -188,7 +188,7 @@ trait Query_Monitor {
 	/**
 	 * Remove instances from the modifiers so it can be garbage collected.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function detach() {
 		while ( $this->modifiers->valid() ) {
@@ -201,7 +201,7 @@ trait Query_Monitor {
 	/**
 	 * Returns a reference to the Modifier instance attached to a specific `WP_Query` instance, if any.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query $wp_query A reference to the `WP_Query` object to fetch the Modifier instance for.
 	 * @param int      $index    The index of the modifier to return
@@ -222,7 +222,7 @@ trait Query_Monitor {
 	 *
 	 * If the Monitor was already disabled, the method will not have any effect.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function disable() {
 		$this->enabled = false;
@@ -233,7 +233,7 @@ trait Query_Monitor {
 	 *
 	 * If the Monitor was already enabled, the method will not have any effect.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function enable() {
 		$this->enabled = true;
@@ -249,7 +249,7 @@ trait Query_Monitor {
 	 * Setting the flat to `true` will force the Monitor to keep references to all the modifiers
 	 * and cascading objects referenced by them: use only for testing, please.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $keep_modifiers_reference    Whether the Monitor should keep a reference
 	 *                                          to "done" Modifiers or not.

@@ -81,7 +81,7 @@ class Event implements Editor_Object_Interface {
 				/**
 				 * Filters the meta data that will be localized for an Event object in the context of the Blocks editor.
 				 *
-				 * @since TBD
+				 * @since 6.0.0
 				 *
 				 * @param array<string,mixed> $meta    The meta data to be localized.
 				 * @param int                 $post_id The post ID of the Event.

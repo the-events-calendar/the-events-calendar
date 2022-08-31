@@ -2,7 +2,7 @@
 /**
  * The template that will be used to render the Migration box.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @var string            $phase The current Migration phase the site is in.
  * @var Upgrade_Tab       $tab   The Tab we are hosting this template.

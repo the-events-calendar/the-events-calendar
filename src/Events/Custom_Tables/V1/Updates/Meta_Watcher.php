@@ -3,7 +3,7 @@
  * Watches any post meta updates, insertions or deletions for keys relevant
  * to the modeling of an Event.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
@@ -16,7 +16,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Meta_Watcher
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
@@ -25,7 +25,7 @@ class Meta_Watcher {
 	/**
 	 * A stack of Event post IDs that should be updated in this request.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<int>
 	 */
@@ -36,7 +36,7 @@ class Meta_Watcher {
 	 * for changes to make sure the custom tables are updated if one or more of
 	 * these fields is updated.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string>
 	 */
@@ -54,7 +54,7 @@ class Meta_Watcher {
 	 * Returns the filtered set of meta keys that should be tracked to detect
 	 * whether an Event post custom tables data might require update or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $id  The ID of the object (could not be an Event post!)
 	 *                 the filters are being applied for.
@@ -69,7 +69,7 @@ class Meta_Watcher {
 		 * Note: this filter will only run before, or on, the `init` action; after `init`
 		 * the filtered value will be cached for the rest of the request.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string> The list of tracked meta keys.
 		 * @param int|null $id  The ID of the object (could not be an Event post!)
@@ -88,7 +88,7 @@ class Meta_Watcher {
 	 * an Event, then mark the Event as requiring an update to its custom tables
 	 * information.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int    $object_id The ID  of the object (might be other than an Event post!)
 	 *                          whose meta is being updated.
@@ -117,7 +117,7 @@ class Meta_Watcher {
 	/**
 	 * Returns the current list of IDs marked for update.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<int> The current list of IDs marked for update.
 	 */
@@ -132,7 +132,7 @@ class Meta_Watcher {
 	 * of the order in which they are pushed: pop from the bottom, push
 	 * to the top.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int|null Either the next oldest tracked ID, or `null` if not found.
 	 */
@@ -148,7 +148,7 @@ class Meta_Watcher {
 	 * to the top.
 	 * Only Event IDs are allowed and are guaranteed to be added at most once.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $id The post ID to add in the last position of the FIFO queue.
 	 */
@@ -162,7 +162,7 @@ class Meta_Watcher {
 	/**
 	 * Returns whether an Event post ID is currently tracked by the meta watcher or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $post_id The Event post ID to check.
 	 */
@@ -173,7 +173,7 @@ class Meta_Watcher {
 	/**
 	 * Removes an ID from the marked IDs.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int ...$post_ids The post ID(s) to remove from the marked IDs.
 	 */

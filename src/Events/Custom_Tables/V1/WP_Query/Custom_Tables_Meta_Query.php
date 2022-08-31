@@ -3,7 +3,7 @@
  * An extension of the default WordPress Meta Query to redirect some custom fields to
  * the plugins custom tables.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -15,7 +15,7 @@ use WP_Meta_Query;
 /**
  * Class Custom_Tables_Meta_Query
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -24,7 +24,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * A set of SQL comparison operators that will operate on numeric inputs.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string>
 	 */
@@ -40,7 +40,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * A set of SQL comparison operators that do not necessarily operate on numeric inputs.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string>
 	 */
@@ -60,7 +60,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * A map from meta keys, e.g. '_EventStartDate', to the corresponding custom table name and column.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,<array<string>>
 	 */
@@ -69,7 +69,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * A list of tables the object has already joined.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,true>
 	 */
@@ -78,7 +78,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 * Whether to `LEFT JOIN` to the custom tables, thus yielding `NULL` values on the custom tables side
 	 * on missing matches from the posts tables, or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -90,7 +90,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 * This method overrides the default `WP_Meta_Query` constructor to set up the instance to suit
 	 * our requirements.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  false|array<string,mixed>  $meta_query  A meta query in a format supported by WordPress Meta Query.
 	 */
@@ -103,7 +103,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 * Overrides the base implementation to ensure the format of the meta query arguments is correct and the values are
 	 * coherent.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string|int,mixed> $queries The meta query array representation.
 	 *
@@ -154,7 +154,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 * As such, we still rely on the `WP_Meta_Query` implementation to redirect the custom fields we control
 	 * to the custom tables and let the base class handle the others.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array<string,mixed>         $clause         The clause in array format, specifying the key, value,
 	 *                                                     comparison operator and so on.
@@ -282,7 +282,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Normalizes, setting it to a default value if not set, the clause `compare` entry.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array<string,mixed>  $clause  The clause in array format.
 	 *
@@ -319,7 +319,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 * table), the `compare_key` will apply to the custom field name (`meta_key` in the `postmeta`
 	 * table).
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array<string,mixed>  $clause  The clause in array format.
 	 *
@@ -345,7 +345,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 * Returns the SQL string to use for the table and column with awareness of the
 	 * MySQL CAST, if required by the type.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $table      The  table name to build the table and column string for.
 	 * @param  string  $column     The column to build the table and column string for.
@@ -365,7 +365,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns the SQL fragment required to run a comparison or similar statement.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $table_and_column  The table and column string, with CAST if required.
 	 * @param  string  $meta_compare      The comparison operator, e.g. `=` or `>=`.
@@ -382,7 +382,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns a SQL statement to check if a redirected custom field exists.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $table  The name of the table to build the statement for.
 	 *
@@ -400,7 +400,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns a SQL statement to check if a redirected custom field not exists.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $table  The name of the table to build the statement for.
 	 *
@@ -417,7 +417,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns the SQL fragment required to run a `LIKE` or similar statement.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $table_and_column  The table and column string, with CAST if required.
 	 * @param  string  $meta_compare      The comparison operator, one of `LIKE` or `NOT LIKE`.
@@ -435,7 +435,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns the SQL fragment required to run a `IN` or similar statement.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string        $table_and_column  The table and column string, with CAST if required.
 	 * @param  string        $meta_compare      The comparison operator, one of `IN` or `NOT IN`.
@@ -454,7 +454,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns the SQL fragment required to run a `REGEXP` or similar statement.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string               $table_and_column  The table and column string, with CAST if required.
 	 * @param  string               $meta_compare      The comparison operator, one of `REGEXP`, `REGLIKE` or
@@ -473,7 +473,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns the SQL fragment required to run a `BETWEEN` or `NOT BETWEEN` statement.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string        $table_and_column  The table and column string, with CAST if required.
 	 * @param  string        $meta_compare      The comparison operator, either `BETWEEN` or `NOT BETWEEN`.
@@ -491,7 +491,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns a SQL statement for the default check.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  mixed  $value  The value to prepare the SQL for.
 	 *
@@ -506,7 +506,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Overrides the base method to return, for the custom fields controlled by the query, the custom table name.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array<string,mixed>         $clause         The clause in array format, specifying the key, value,
 	 *                                                     comparison operator and so on.
@@ -530,7 +530,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	/**
 	 * Returns whether the Custom Tables Meta Query did JOIN on a specific table or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|array<string> $table The table(s) to check.
 	 *
