@@ -2,7 +2,7 @@
 /**
  * A centralized repository of localized, filterable, strings.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -14,7 +14,7 @@ use Tribe__Dependency as Plugins;
 /**
  * Class Strings.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -22,7 +22,7 @@ class String_Dictionary {
 	/**
 	 * Whether the strings have been initialized or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -30,7 +30,7 @@ class String_Dictionary {
 	/**
 	 * A map from string slugs to their filtered, localized, version.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array
 	 */
@@ -38,7 +38,7 @@ class String_Dictionary {
 	/**
 	 * A reference to the current plugin dependencies handler.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Plugins
 	 */
@@ -47,7 +47,7 @@ class String_Dictionary {
 	/**
 	 * String_Dictionary constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Plugins $plugins A reference to the current plugin dependencies handler.
 	 */
@@ -58,7 +58,7 @@ class String_Dictionary {
 	/**
 	 * Initializes the strings map filtering it.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value and will
 	 *              lazily initialize the strings map.
@@ -76,7 +76,7 @@ class String_Dictionary {
 		 *
 		 * Note: this filter will run only once, the first time a string is requested.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string,string> A map from string keys to their localized, filtered,
 		 *                             version.
@@ -417,7 +417,7 @@ class String_Dictionary {
 	 * Note this code will sense around for both .org and premium plugins: it's by
 	 * design and meant to keep the logic lean.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -461,7 +461,7 @@ class String_Dictionary {
 		/**
 		 * The messaging around the active plugins and the effects on each plugin during a migration.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param string $text The messaging text.
 		 */
@@ -471,7 +471,7 @@ class String_Dictionary {
 	/**
 	 * Returns the filtered, localized string for a slug.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $key The key to return the string for.
 	 *

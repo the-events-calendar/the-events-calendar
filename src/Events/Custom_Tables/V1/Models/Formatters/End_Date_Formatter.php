@@ -2,7 +2,7 @@
 /**
  * Validates a date value.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Formatters
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Models\Formatters;
 /**
  * Class Date_Formatter
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Formatters
  */
@@ -20,7 +20,7 @@ class End_Date_Formatter implements Formatter {
 	/**
 	 * A reference to a text formatter instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Text_Formatter
 	 */
@@ -29,7 +29,7 @@ class End_Date_Formatter implements Formatter {
 	/**
 	 * Date_Formatter constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Text_Formatter  $formatter  A reference to a text formatter instance.
 	 */

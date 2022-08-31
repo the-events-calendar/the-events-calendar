@@ -2,7 +2,7 @@
 /**
  * Handles the custom tables updates integrating with the normal WordPress flow.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
@@ -19,7 +19,7 @@ use WP_REST_Server;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
@@ -55,7 +55,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Before an HTTP request is processed and updates an Event Post, we might need to redirect the update
 	 * to either the real post ID or to a different post ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function hook_to_redirect_post_udpates() {
 		/*
@@ -82,7 +82,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Just earmark Events whose meta has changed as possibly requiring an update, no **actual**
 	 * update to the custom tables happened yet.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function hook_to_watch_for_post_updates() {
 		add_action( 'updated_postmeta', [ $this, 'watch_for_meta_updates' ], 10, 3 );
@@ -100,7 +100,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Other updates might happen programmatically, i.e. by means of calls to the `wp_insert_post`
 	 * and similar functions.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 */
 	private function hook_to_commit_post_updates() {
@@ -134,7 +134,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Unregisters, from the Filters API, the actions and filters added by this provider.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function unregister() {
 		remove_action( 'updated_postmeta', [ $this, 'watch_for_meta_updates' ] );
@@ -151,14 +151,14 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * It will, instead, fire an action allowing other plugins to
 	 * intervene and redirect the post ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function redirect_classic_editor_post_id() {
 		/**
 		 * Fires when a Classic Editor request is ready to be redirected, before
 		 * any update specified by the request is applied to the post ID.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post' );
 	}
@@ -169,7 +169,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * By default, this method will NOT redirect the REST request and will
 	 * only provide other plugins the chance to do so.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param null|mixed      $result  The result of the dispatch, as filtered by
 	 *                                 WordPress and previous filters.
@@ -187,7 +187,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		 * yet, been dispatched.
 		 * Plugins that need to redirect the request should do so here.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param WP_REST_Request $request A reference to the REST Request that is
 		 *                                 going to be handled.
@@ -203,7 +203,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Watches the updates to the post objects meta values to detect and keep track
 	 * of changes that might require the data in the custom tables to be updated.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array|int $meta_ids Either a meta id or an array of meta ids that
 	 *                            are being updated.
@@ -218,7 +218,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Iterates over the list of Event posts that had their Event-related meta
 	 * updated to update their custom tables data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function commit_updates() {
 		$this->container->make( Controller::class )->commit_updates();
@@ -228,7 +228,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Commits custom tables updates for an Event post that might require it in the
 	 * context of a REST API request (including Blocks Editor).
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post         $post          A reference to the Event post object
 	 *                                       that is being updated.
@@ -245,7 +245,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * The filter is used as an action, the input `$location` value is not changed.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $location The location the post will be redirected to. Unused by the method.
 	 * @param int    $post_id  The post ID of the post that is being updated.
@@ -261,7 +261,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Hooks on the actions that will be fired when a post is deleted (NOT trashed)
 	 * from the database to, then, remove the custom tables data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function hook_to_delete_post_data() {
 		add_action( 'delete_post', [ $this, 'delete_custom_tables_data' ] );
@@ -271,7 +271,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Hooked on the post delete action, this method will clear all the custom
 	 * tables information related to the Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int     $post_id The deleted Event post ID.
 	 */
@@ -282,7 +282,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Rebuild the known range of Events from the Occurrences information.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the method did take care of rebuilding the known range or not.
 	 */

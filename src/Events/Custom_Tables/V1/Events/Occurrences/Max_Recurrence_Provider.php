@@ -2,7 +2,7 @@
 /**
  * Responsible for registering handlers for changes to the Max Recurrence (recurrenceMaxMonthsAfter) option.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Events
  */
@@ -16,7 +16,7 @@ use tad_DI52_ServiceProvider as Service_Provider;
  *
  * This is defined in TEC because the default variable is defined in TEC, not PRO, despite being a PRO variable.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Occurrences
  */
@@ -24,7 +24,7 @@ class Max_Recurrence_Provider extends Service_Provider {
 	/**
 	 * A flag property indicating whether the Service Provide did register or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -33,7 +33,7 @@ class Max_Recurrence_Provider extends Service_Provider {
 	/**
 	 * Registers the filters and implementations required by the Custom Tables implementation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the Provider did register or not.
 	 */
@@ -53,7 +53,7 @@ class Max_Recurrence_Provider extends Service_Provider {
 	/**
 	 * Sets our max recurrence months setting for initialized sites.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $defaults
 	 *
@@ -66,7 +66,7 @@ class Max_Recurrence_Provider extends Service_Provider {
 	/**
 	 * Sets our default value for the `recurrenceMaxMonthsAfter` field on the settings page.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array  $fields
 	 * @param string $settings_tab

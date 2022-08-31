@@ -2,7 +2,7 @@
 /**
  * Provides methods to gather information about a `WP_Query` instance.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -16,7 +16,7 @@ use WP_Query;
 /**
  * Trait With_WP_Query_Introspection
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits
  */
@@ -26,7 +26,7 @@ trait With_WP_Query_Introspection {
 	 * Checks whether a `WP_Query` instance is using any of the specified meta keys in
 	 * the meta query or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query       $query      A reference to the `WP_Query` instance to check.
 	 * @param  array<string>  $meta_keys  A list of meta keys to check: if the query
@@ -68,7 +68,7 @@ trait With_WP_Query_Introspection {
 	/**
 	 * Returns whether a `WP_Query` is only querying the specified post type or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query  $query      A reference to the `WP_Query` instance to check.
 	 * @param  string    $post_type  The post type to check the `WP_Query` for.
@@ -83,7 +83,7 @@ trait With_WP_Query_Introspection {
 	 * Checks whether a `WP_Query` instance was build by the TEC Repository
 	 * or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query  $query  A reference to the `WP_Query` instance to check.
 	 *
