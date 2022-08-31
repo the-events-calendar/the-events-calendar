@@ -3,7 +3,7 @@
  * Handles the maintenance mode set during migration to prevent WRITE operations on Events
  * and related information.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
 /**
  * Class Maintenance_Mode.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -23,7 +23,7 @@ class Maintenance_Mode {
 	/**
 	 * A reference to the current migration state provider.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var State
 	 */
@@ -32,7 +32,7 @@ class Maintenance_Mode {
 	/**
 	 * A reference to the progress modal displayed to lock several pages.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Progress_Modal
 	 */
@@ -41,7 +41,7 @@ class Maintenance_Mode {
 	/**
 	 * Maintenance_Mode constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param State          $state          A reference to the current migration state provider.
 	 * @param Progress_Modal $progress_modal A reference to the progress modal displayed to lock several pages.
@@ -54,7 +54,7 @@ class Maintenance_Mode {
 	/**
 	 * Output our special maintenance modal for all settings tabs except the Upgrade tab.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $tab The settings tab this action is running for.
 	 */
@@ -71,7 +71,7 @@ class Maintenance_Mode {
 	 * Activates the migration mode, disabling a number of UI elements
 	 * across plugins, if required by the current migration state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the Event-wide maintenance mode was activated or not.
 	 */
@@ -89,7 +89,7 @@ class Maintenance_Mode {
 	 * Hooks into filters and actions disabling a number of UI across plugins to make sure
 	 * no Event-related data will be modified during the migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void
 	 */
@@ -112,7 +112,7 @@ class Maintenance_Mode {
 		 * Fires an action to signal TEC requires putting the site in maintenance
 		 * mode while the migration completes.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 */
 		do_action( 'tec_events_custom_tables_v1_migration_maintenance_mode' );
 	}
@@ -137,7 +137,7 @@ class Maintenance_Mode {
 	/**
 	 * Inject the content and data of the Admin\Progress_Modal.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function inject_progress_modal() {
 		// @todo should this stay here?
@@ -147,7 +147,7 @@ class Maintenance_Mode {
 	/**
 	 * Inject the Admin\Progress_Modal trigger that pops open the modal.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function inject_progress_modal_js_trigger() {
 		// @todo should this stay here?

@@ -3,7 +3,7 @@
  * An information repository about table redirection.
  *
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 /**
  * Class Redirection_Schema
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -25,7 +25,7 @@ class Redirection_Schema {
 	 *
 	 * Note: extending classes should extend this method to modify the map.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,array<string>> The unfiltered version of the meta key redirection map.
 	 */
@@ -68,7 +68,7 @@ class Redirection_Schema {
 	 * Note: this method is to decouple the set up and filtering of the map for the benefit or external code; extending
 	 * classes should override the `get_meta_key_redirection_map` method.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,array<string>> The filtered version of the meta key redirection map.
 	 */
@@ -79,7 +79,7 @@ class Redirection_Schema {
 		 * Filters the meta key redirection map that will be used, from a meta key (e.g. `_EventStartDate`) to
 		 * redirect the request to a custom table key and colum.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string,array<string>> A map from meta keys to the corresponding custom table name and column.
 		 */

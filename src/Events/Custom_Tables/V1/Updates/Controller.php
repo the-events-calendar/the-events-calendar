@@ -2,7 +2,7 @@
 /**
  * Acts on WordPress update flow phases to update the Events and their custom tables data.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events_Pro\Updates
  */
@@ -17,7 +17,7 @@ use WP_REST_Request;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
@@ -26,7 +26,7 @@ class Controller {
 	/**
 	 * A reference to the current Meta Watcher service implementation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Meta_Watcher
 	 */
@@ -34,7 +34,7 @@ class Controller {
 	/**
 	 * A reference to the current Request Factory implementation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Requests
 	 */
@@ -42,7 +42,7 @@ class Controller {
 	/**
 	 * A reference to the Event, and related models, repository.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Events
 	 */
@@ -51,7 +51,7 @@ class Controller {
 	/**
 	 * Controller constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Meta_Watcher $meta_watcher A reference to the current Meta Watcher service implementation.
 	 * @param Requests     $requests     A reference to the curret Request factory and repository implementation.
@@ -67,7 +67,7 @@ class Controller {
 	 * Updates the custom tables' information for each Event post whose important
 	 * meta was updated during the request.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return int The number of updated Events.
 	 */
@@ -99,7 +99,7 @@ class Controller {
 	 * After a first update, the post ID is removed from the marked-for-update stack
 	 * and will not be automatically updated again during the request.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_REST_Request|null $request A reference to the object modeling the current request,
 	 *                                      or `null` to build a request from the current HTTP data.
@@ -136,7 +136,7 @@ class Controller {
 	/**
 	 * Checks if we are watching a meta key or leverage the filter to see if other situation to update CT.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_REST_Request $request A reference to the Request object modeling the context of the check.
 	 * @param int             $post_id The ID of the post the check is being made for.
@@ -150,7 +150,7 @@ class Controller {
 		 * Filters whether custom tables should be updated or not after the default logic
 		 * has run.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param bool            $update        Whether the custom tables should be updated or not, by
 		 *                                       default, the initial value will be based on whether a
@@ -164,7 +164,7 @@ class Controller {
 	/**
 	 * Will trigger a contextual event inserted action hook.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $post_id
 	 */
@@ -172,7 +172,7 @@ class Controller {
 		/**
 		 * When we have created a new event, fire this action with the post ID. Triggered only during an HTTP request.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param numeric $post_id The event post ID.
 		 */
@@ -182,7 +182,7 @@ class Controller {
 	/**
 	 * Will trigger a contextual event updated action hook.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $post_id
 	 */
@@ -190,7 +190,7 @@ class Controller {
 		/**
 		 * When we have updated an existing event, fire this action with the post ID. Triggered only during an HTTP request.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param numeric $post_id The event post ID.
 		 */
@@ -200,7 +200,7 @@ class Controller {
 	/**
 	 * Updates the custom tables with the data for an Event post.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int             $post_id The Even post ID.
 	 * @param WP_REST_Request $request A reference to the request object triggering the update.
@@ -211,7 +211,7 @@ class Controller {
 		/**
 		 * Fires before an Event custom tables data is updated.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param int             $post_id The post ID of the Event being updated.
 		 * @param WP_REST_Request $request A reference to the request object triggering the update.
@@ -223,7 +223,7 @@ class Controller {
 		 * information is applied.
 		 * Returning a non `null` value from this filter will prevent the default logic from running.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param mixed|null      $updated      Whether the post custom tables information was updated by any
 		 *                                      filtering function or not. If a non `null` value is returned
@@ -256,7 +256,7 @@ class Controller {
 		/**
 		 * Filters whether an Event custom tables data has been correctly updated or not.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param bool            $updated Whether the previous update operation was correctly performed or not.
 		 * @param int             $post_id The post ID of the Event being updated.
@@ -267,7 +267,7 @@ class Controller {
 		/**
 		 * Fires after an Event custom tables data is updated.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param int             $post_id The post ID of the Event being updated.
 		 * @param WP_REST_Request $request A reference to the request object triggering the update.
@@ -284,7 +284,7 @@ class Controller {
 	 * After a first update, the post ID is removed from the marked-for-update stack
 	 * and will not be automatically updated again during the request.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post         $post    A reference to the post object representing the Event
 	 *                                 post.
@@ -304,7 +304,7 @@ class Controller {
 	/**
 	 * Deletes an Event custom tables information.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int                  $post_id The deleted Event post ID.
 	 * @param WP_REST_Request|null $request A reference to the request object triggering the deletion, if any.
@@ -322,7 +322,7 @@ class Controller {
 		 * By the time this action fires, the Event post has not yet been removed from
 		 * the WordPress posts tables.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param int             $post_id The Event post ID.
 		 * @param WP_REST_Request $request A reference to the request object triggering the update.
@@ -337,7 +337,7 @@ class Controller {
 		 * By the time this action fires, the Event post has not yet been removed from
 		 * the WordPress posts tables.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param int             $affected The number of affected rows, across all custom tables.
 		 *                                  Keep in mind db-level deletions will not be counted in
@@ -351,7 +351,7 @@ class Controller {
 	/**
 	 * Filters the location a post should be redirected to.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $location The post redirection location, as worked out
 	 *                         by WordPress and previous filtering methods.
@@ -370,7 +370,7 @@ class Controller {
 		 *
 		 * The Events Calendar plugin will not redirect the post location, by default.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param string $location The original location to redirect the post provided by WordPress
 		 *                         and filtered by other intervening methods.

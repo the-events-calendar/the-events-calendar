@@ -1467,7 +1467,7 @@ class View implements View_Interface {
 		/**
 		 * Action triggered right after pulling all the Events from the DB, allowing cache to be primed corectly.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array $events Which events were just selected.
 		 * @param self  $view   Which view we are dealing with.
@@ -2568,7 +2568,7 @@ class View implements View_Interface {
 	/**
 	 * Filters the current template current view which allows you to pull globally which view is currently being rendered.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param View_Interface  $view Which is the previous view.
 	 *
