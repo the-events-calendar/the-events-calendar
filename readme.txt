@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD = (strudel)
 
+* Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 
 = [6.0.1] TBD = (scone)
