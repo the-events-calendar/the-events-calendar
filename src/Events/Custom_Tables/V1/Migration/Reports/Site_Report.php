@@ -11,8 +11,6 @@ namespace TEC\Events\Custom_Tables\V1\Migration\Reports;
 use JsonSerializable;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
-use TEC\Events_Pro\Custom_Tables\V1\EventRecurrence_Factory;
-use Tribe__Events__Main as TEC;
 
 /**
  * Class Site_Report.
@@ -52,6 +50,7 @@ class Site_Report implements JsonSerializable {
 		'total_events'              => null,
 		'total_events_migrated'     => null,
 		'total_events_in_progress'  => null,
+		'total_events_remaining'    => null,
 		'has_changes'               => false,
 		'migration_phase'           => null,
 		'is_completed'              => false,
@@ -69,21 +68,21 @@ class Site_Report implements JsonSerializable {
 	 * @param array <string,mixed> $data The report data in array format.
 	 */
 	public function __construct( array $data ) {
-		$this->data['estimated_time_in_seconds'] = $data['estimated_time_in_seconds'];
-		$this->data['estimated_time_in_minutes'] = $data['estimated_time_in_minutes'];
-		$this->data['total_events']              = (int) $data['total_events'];
+		$this->data['estimated_time_in_seconds'] = $data['estimated_time_in_seconds'] ?? 0;
+		$this->data['estimated_time_in_minutes'] = $data['estimated_time_in_minutes'] ?? 0;
+		$this->data['total_events']              = (int) $data['total_events'] ;
 		$this->data['total_events_remaining']    = (int) $data['total_events_remaining'];
 		$this->data['total_events_in_progress']  = (int) $data['total_events_in_progress'];
 		$this->data['total_events_migrated']     = (int) $data['total_events_migrated'];
 		$this->data['has_changes']               = (boolean) $data['has_changes'];
 		$this->data['has_errors']                = (boolean) $data['has_errors'];
-		$this->data['migration_phase']           = $data['migration_phase'];
-		$this->data['is_completed']              = $data['is_completed'];
-		$this->data['is_running']                = $data['is_running'];
-		$this->data['progress_percent']          = $data['progress_percent'];
-		$this->data['date_completed']            = $data['date_completed'];
-		$this->data['total_events_failed']       = $data['total_events_failed'];
-		$this->data['completed_timestamp']       = $data['completed_timestamp'];
+		$this->data['migration_phase']           = $data['migration_phase'] ?? null;
+		$this->data['is_completed']              = $data['is_completed'] ?? false;
+		$this->data['is_running']                = $data['is_running'] ?? false;
+		$this->data['progress_percent']          = $data['progress_percent'] ?? 0;
+		$this->data['date_completed']            = $data['date_completed'] ?? null;
+		$this->data['total_events_failed']       = $data['total_events_failed'] ?? null;
+		$this->data['completed_timestamp']       = $data['completed_timestamp'] ?? null;
 	}
 
 	/**

@@ -222,6 +222,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.1] TBD =
+
+* Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+* Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
+
 = [6.0.0] 2022-08-29 =
 
 * Version - The Events Calendar 6.0.0 is only compatible with Events Calendar PRO 6.0.0 and higher
@@ -252,7 +257,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
 
-== [5.16.3] 2022-07-20 ==
+= [5.16.3] 2022-07-20 =
 
 * Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
 * Fix - Avoid some conflicts between the import notice and third-party plugins using jQuery datepicker in the admin. [TEC-4429]
