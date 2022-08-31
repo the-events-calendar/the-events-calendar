@@ -85,11 +85,7 @@ class Process {
 		ActionScheduler::store()->init();
 
 		$action_ids = [];
-
-		// Remove what migration phase flags might have been set by previous previews or migrations.
-		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_PHASE, '', true );
-		delete_metadata( 'post', 0, Event_Report::META_KEY_REPORT_DATA, '', true );
-		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_LOCK_HASH, '', true );
+		$this->remove_migration_report_meta();
 
 		// Flag our new phase.
 		$this->state->set( 'phase', $dry_run ? State::PHASE_PREVIEW_IN_PROGRESS : State::PHASE_MIGRATION_IN_PROGRESS );
@@ -244,5 +240,19 @@ class Process {
 		foreach ( $action_ids as $action_id ) {
 			$this->cancel_async_action( $action_id );
 		}
+	}
+
+	/**
+	 * Remove the migration report meta from all events.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @return void
+	 */
+	public function remove_migration_report_meta(): void {
+		// Remove what migration phase flags might have been set by previous previews or migrations.
+		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_PHASE, '', true );
+		delete_metadata( 'post', 0, Event_Report::META_KEY_REPORT_DATA, '', true );
+		delete_metadata( 'post', 0, Event_Report::META_KEY_MIGRATION_LOCK_HASH, '', true );
 	}
 }
