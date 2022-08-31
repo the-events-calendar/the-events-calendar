@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.0.0-rc1\n"
+"Project-Id-Version: The Events Calendar 6.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-"
 "calendar\n"
-"POT-Creation-Date: 2022-08-09 17:27:50+00:00\n"
+"POT-Creation-Date: 2022-08-25 17:54:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-08-09 17:27\n"
+"PO-Revision-Date: 2022-08-25 17:54\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -2668,7 +2668,7 @@ msgstr ""
 msgid "Edit Venue"
 msgstr ""
 
-#: src/Tribe/Front_Page_View.php:238
+#: src/Tribe/Front_Page_View.php:239
 msgctxt "Customizer static front page setting"
 msgid "Main %s Page"
 msgstr ""
@@ -3104,11 +3104,11 @@ msgstr ""
 msgid "Could not save %s."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:346
+#: src/Tribe/Integrations/Freemius.php:399
 msgid "We hope you love %1$s"
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:351
+#: src/Tribe/Integrations/Freemius.php:404
 msgid ""
 "Hi, %1$s! This is an invitation to help our %2$s community. If you opt-in, "
 "some data about your usage of %2$s will be shared with our teams (so they "
@@ -3116,11 +3116,11 @@ msgid ""
 "on events management, WordPress, and our products from time to time."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:355
+#: src/Tribe/Integrations/Freemius.php:408
 msgid "And if you skip this, that's okay! %1$s will still work just fine."
 msgstr ""
 
-#: src/Tribe/Integrations/Freemius.php:359
+#: src/Tribe/Integrations/Freemius.php:412
 msgid "Powered by"
 msgstr ""
 
@@ -3238,9 +3238,9 @@ msgctxt ""
 msgid "Create or Find %s"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 6.0.0-rc1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 6.0.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 6.0.0-rc1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 6.0.0)  #-#-#-#-#
 #. Author of the plugin/theme
 #: src/Tribe/Main.php:953 src/Tribe/Main.php:1482 src/Tribe/Privacy.php:29
 #: src/admin-views/admin-welcome-message.php:29
@@ -5777,12 +5777,12 @@ msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:14
 #: src/admin-views/admin-welcome-message.php:20
-#: src/admin-views/updates/6.0.0.php:14
+#: src/admin-views/updates/6.0.0.php:17
 msgid "Shapes and lines for visual interest"
 msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:27
-#: src/admin-views/updates/6.0.0.php:21
+#: src/admin-views/updates/6.0.0.php:24
 msgid "The Events Calendar logo"
 msgstr ""
 
@@ -5861,7 +5861,7 @@ msgstr ""
 #: src/admin-views/admin-welcome-message.php:73
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 #: src/admin-views/notices/update-6-0-0.php:29
-#: src/admin-views/updates/6.0.0.php:61 src/admin-views/updates/6.0.0.php:95
+#: src/admin-views/updates/6.0.0.php:64 src/admin-views/updates/6.0.0.php:98
 msgid "Learn more"
 msgstr ""
 
@@ -7195,7 +7195,7 @@ msgid "contact support"
 msgstr ""
 
 #: src/admin-views/notices/legacy-views-updated.php:18
-#: src/admin-views/updates/6.0.0.php:94
+#: src/admin-views/updates/6.0.0.php:97
 msgid "View your calendar"
 msgstr ""
 
@@ -8050,147 +8050,147 @@ msgstr ""
 msgid "Step 2 of 2"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:25
+#: src/admin-views/updates/6.0.0.php:28
 msgid "Welcome to"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:26
+#: src/admin-views/updates/6.0.0.php:29
 msgid "The Events Calendar 6.0"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:36
+#: src/admin-views/updates/6.0.0.php:39
 msgid "What’s New in The Events Calendar 6.0"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:39
+#: src/admin-views/updates/6.0.0.php:42
 msgid "Video describing features on The Events Calendar 6.0"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:45
+#: src/admin-views/updates/6.0.0.php:48
 msgid ""
 "We’re excited to bring all of our users faster event creation and editing in "
 "the WordPress dashboard as well as quicker loading times for your website’s "
 "calendar."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:46
+#: src/admin-views/updates/6.0.0.php:49
 msgid ""
 "Watch the video or check out the <a href=\"%s\">release notes</a> to learn "
 "more."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:48
+#: src/admin-views/updates/6.0.0.php:51
 msgid ""
 "Be sure to <a href=\"%s\">migrate</a> to the new data storage system so you "
 "can take advantage of the improved performance."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:54
+#: src/admin-views/updates/6.0.0.php:57
 msgid "Lightening bolt icon"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:55
+#: src/admin-views/updates/6.0.0.php:58
 msgid "New Features for Events Calendar Pro"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:59
+#: src/admin-views/updates/6.0.0.php:62
 msgid ""
 "A game-changing ✨new✨ post type, Series, allows you to group and display any "
 "single or recurring events together like never before."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:60
+#: src/admin-views/updates/6.0.0.php:63
 msgid ""
 "With Series, you can edit an individual occurrence of a recurring event "
 "without disconnecting it from the others, allowing you to build complex "
 "event Series with different venues, images, and more."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:61
+#: src/admin-views/updates/6.0.0.php:64
 msgid "Watch a video"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:61
+#: src/admin-views/updates/6.0.0.php:64
 msgid "See a demo"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:65 src/admin-views/updates/6.0.0.php:70
-#: src/admin-views/updates/6.0.0.php:74 src/admin-views/updates/6.0.0.php:80
+#: src/admin-views/updates/6.0.0.php:68 src/admin-views/updates/6.0.0.php:73
+#: src/admin-views/updates/6.0.0.php:77 src/admin-views/updates/6.0.0.php:83
 msgid "Event series graphic"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:71
+#: src/admin-views/updates/6.0.0.php:74
 msgid "Advanced editing options"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:71
+#: src/admin-views/updates/6.0.0.php:74
 msgid ""
 "for recurring events give you more possibilities for complex event "
 "management."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:75
+#: src/admin-views/updates/6.0.0.php:78
 msgid "With the Duplicate Event Tool"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:75
+#: src/admin-views/updates/6.0.0.php:78
 msgid ""
 "you can replicate and modify any events in seconds, making event creation a "
 "breeze."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:81
+#: src/admin-views/updates/6.0.0.php:84
 msgid ""
 "Upgrade to <a href=\"%s\">Events Calendar Pro</a> to unlock these features."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:90
+#: src/admin-views/updates/6.0.0.php:93
 msgid "Light bulb icon"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:91
+#: src/admin-views/updates/6.0.0.php:94
 msgid "Legacy Views"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:93
+#: src/admin-views/updates/6.0.0.php:96
 msgid ""
 "We have fully removed the legacy views from The Events Calendar 6.0. Your "
 "views have been automatically updated."
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:98
+#: src/admin-views/updates/6.0.0.php:101
 msgid "Resources"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:100
+#: src/admin-views/updates/6.0.0.php:103
 msgid "Migrating Your Site"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:101
+#: src/admin-views/updates/6.0.0.php:104
 msgid "Event Series"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:102
+#: src/admin-views/updates/6.0.0.php:105
 msgid "Creating Recurring Events"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:103
+#: src/admin-views/updates/6.0.0.php:106
 msgid "Duplicating Events"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:104
+#: src/admin-views/updates/6.0.0.php:107
 msgid "Recurring Events & Tickets"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:105
+#: src/admin-views/updates/6.0.0.php:108
 msgid "Community Events & Series"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:106
+#: src/admin-views/updates/6.0.0.php:109
 msgid "Release Notes"
 msgstr ""
 
-#: src/admin-views/updates/6.0.0.php:107
+#: src/admin-views/updates/6.0.0.php:110
 msgid "Get Support"
 msgstr ""
 

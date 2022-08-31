@@ -209,7 +209,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Initializes the legacy Views for Single and Embed.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function action_initialize_legacy_views() {
 		if ( tribe( Template_Bootstrap::class )->is_single_event() ) {

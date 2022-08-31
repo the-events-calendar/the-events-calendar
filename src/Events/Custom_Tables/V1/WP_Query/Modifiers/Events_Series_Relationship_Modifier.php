@@ -4,7 +4,7 @@
  *
  * This modifier will NOT apply, and work, on custom tables queries.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -19,7 +19,7 @@ use WP_Query;
 /**
  * Class Events_Series_Relationship_Modifier
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */

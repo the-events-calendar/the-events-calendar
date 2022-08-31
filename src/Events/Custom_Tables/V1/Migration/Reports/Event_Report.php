@@ -2,7 +2,7 @@
 /**
  * A value object providing information about an Event migration.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 
@@ -16,7 +16,7 @@ use JsonSerializable;
 /**
  * Class Event_Report.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  * @property object      source_event_post
  * @property array       strategies_applied
@@ -102,7 +102,7 @@ class Event_Report implements JsonSerializable {
 	const REPORT_KEY_SINGLE_EVENT = 'report_is_single_event';
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string, mixed> Report data.
 	 */
@@ -124,7 +124,7 @@ class Event_Report implements JsonSerializable {
 	 * A map from the supported report keys to their assigned weight.
 	 * Initialized in the `__construct` method.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,int>
 	 */
@@ -133,7 +133,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * The report category to apply to this event when it is saved.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var null|string
 	 */
@@ -142,7 +142,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Construct and hydrate the Event_Report for this WP_Post
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $source_post
 	 */
@@ -173,7 +173,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Get all of the report data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -184,7 +184,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Will fetch its data from the database and populate it's internal state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return Event_Report
 	 */
@@ -202,7 +202,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Add each WP_Post for events that will be created for this migration strategy.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $post
 	 * @param         $occurrences_generated
@@ -222,7 +222,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * When you start the migration process set the appropriate state.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return $this
 	 */
@@ -233,7 +233,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Setup the microtime for when the migration starts.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return $this
 	 */
@@ -246,7 +246,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Setup the microtime for when the migration ends.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return $this
 	 */
@@ -259,7 +259,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Sets a key in the report data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string     $key   The key to set in the report data.
 	 * @param mixed|null $value The value to set for the key.
@@ -275,7 +275,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Set the error message for migration failure events.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $reason
 	 *
@@ -290,7 +290,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Set the status flag for this report.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $status The status to set the migration state to, should be
 	 *                       one of the `ALLOWED_STATUSES` constant.
@@ -311,7 +311,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Add each WP_Post for series that will be created for this migration strategy.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Post $post
 	 *
@@ -329,7 +329,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Add each strategy applied for this migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $strategy The slug of the applied migration strategy.
 	 *
@@ -337,7 +337,11 @@ class Event_Report implements JsonSerializable {
 	 */
 	public function add_strategy( $strategy ) {
 		$this->report_category_to_be_applied = $strategy;
-		$this->data['strategies_applied'][]  = $strategy;
+
+		// Do not add the same strategy twice.
+		if ( ! in_array( $strategy, $this->data['strategies_applied'], true ) ) {
+			$this->data['strategies_applied'][] = $strategy;
+		}
 
 		return $this;
 	}
@@ -345,7 +349,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Set the ticket provider, when an ET event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $tickets_provider The slug of the tickets provider, if any.
 	 *
@@ -361,7 +365,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Removes all of the migration metadata.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return $this
 	 */
@@ -376,7 +380,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Mark this event migration as a success, and save in the database.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return Event_Report
 	 */
@@ -395,7 +399,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Mark this event migration as a failure, and save in database with a reason.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $reason_key A reason key that is translated into the human-readable description of why the
 	 *                           migration failed.
@@ -430,7 +434,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * This will retrieve the translated text for the migration strategies being applied to this event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The translated migration strategy being applied.
 	 */
@@ -441,7 +445,7 @@ class Event_Report implements JsonSerializable {
 			/**
 			 * Optional message override filter, in order to apply a different pattern to the report status message being generated.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param null|string  $message The default message.
 			 * @param Event_Report $this    The event report this message is for.
@@ -466,7 +470,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Will remove the lock from this Event.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return $this
 	 */
@@ -480,7 +484,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Stores current state in the meta table.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return $this
 	 */
@@ -508,7 +512,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * Getter for the report data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $prop The property key.
 	 *
@@ -521,7 +525,7 @@ class Event_Report implements JsonSerializable {
 	/**
 	 * The JSON serializer logic.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array
 	 */

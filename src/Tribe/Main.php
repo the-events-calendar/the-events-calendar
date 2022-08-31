@@ -35,14 +35,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.0-rc1';
+		const VERSION             = '6.0.0';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-rc1-dev';
+		const MIN_ADDON_VERSION   = '6.0.0-dev';
 
 		/**
 		 * Min Common
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.5.0-rc1-dev';
+		protected $min_et_version = '5.5.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -1265,7 +1265,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * and there are some currently-activated premium plugins.
 			 *
 			 * @since 4.9.12
-			 * @since TBD This filter now controls only the capability to show the Upgrade tab.
+			 * @since 6.0.0 This filter now controls only the capability to show the Upgrade tab.
 			 *
 			 * @param bool $can_show_tab True or False for showing the Upgrade Tab.
 			 */
@@ -1278,7 +1278,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Filters whether the Upgrade Tab has actually any content to show or not.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param bool $has_content Whether the tab has any content to show or not.
 			 */

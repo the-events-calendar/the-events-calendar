@@ -49,7 +49,7 @@ function tribe_events_views_v2_is_enabled() {
  * Checks add loads default options for our settings.
  * Current only being triggered on plugin activation hook.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @return bool  Whether initializer ran or not.
  */
@@ -69,7 +69,7 @@ function tribe_events_settings_defaults_initializer() {
 	/**
 	 * Allows filtering of the settings defaults on activation.
 	 *
-	 * @since  TBD
+	 * @since  6.0.0
 	 *
 	 * @param array $default_options
 	 */
@@ -209,7 +209,7 @@ function tec_events_views_v1_should_display_deprecated_notice() {
 	 * @since 5.13.0
 	 * @since 6.0.0 Deprecated filter.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.0.0
 	 *
 	 * @return boolean Disable showing the
 	 */

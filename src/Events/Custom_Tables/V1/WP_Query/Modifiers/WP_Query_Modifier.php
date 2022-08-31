@@ -2,7 +2,7 @@
 /**
  * The API implemented by objects that modify a WP Query.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -14,7 +14,7 @@ use WP_Query;
 /**
  * Interface WP_Query_Modifier
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -22,7 +22,7 @@ interface WP_Query_Modifier {
 	/**
 	 * Sets the `WP_Query` the Modifier instance is attached to.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query  $query  A reference to the `WP_Query` instance the modifier is attached to.
 	 */
@@ -31,7 +31,7 @@ interface WP_Query_Modifier {
 	/**
 	 * Returns whether the object did act on a specific WordPress filter or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string  $tag  The name of the filter, e.g. `posts_pre_query`.
 	 *
@@ -46,7 +46,7 @@ interface WP_Query_Modifier {
 	 * use  the `did_filter` method to correctly discriminate whether the modifier did
 	 * intervene in a filter at all or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  string The filter name, e.g. `posts_pre_query`.
 	 *
@@ -58,7 +58,7 @@ interface WP_Query_Modifier {
 	/**
 	 * Register all the hooks with this Query Monitor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void
 	 */
@@ -68,7 +68,7 @@ interface WP_Query_Modifier {
 	 * Unhooks the query modifier from any filter or action it hooked itself,
 	 * or was hooked, to.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return void The method does not return any value.
 	 */
@@ -77,7 +77,7 @@ interface WP_Query_Modifier {
 	/**
 	 * Define if this modifier should be applied or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query|null  $query A reference to the query object
 	 *                               the modifier should be applied to.

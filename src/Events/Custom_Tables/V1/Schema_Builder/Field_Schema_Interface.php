@@ -2,7 +2,7 @@
 /**
  * The API implemented by each custom field. Used in cases where only a portion of an existing table must be modified.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Tables
  */
@@ -11,7 +11,7 @@ namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 /**
  * Interface Custom_Field_Interface
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
@@ -19,7 +19,7 @@ interface Field_Schema_Interface {
 	/**
 	 * Drop the custom fields.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool `true` if successful operation, `false` to indicate a failure.
 	 */
@@ -28,7 +28,7 @@ interface Field_Schema_Interface {
 	/**
 	 * Creates, or updates, the custom fields.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool `true` if successful operation, `false` to indicate a failure.
 	 */
@@ -37,7 +37,7 @@ interface Field_Schema_Interface {
 	/**
 	 * References our stored version versus the version defined in the class.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether our latest schema has been applied.
 	 */
@@ -46,7 +46,7 @@ interface Field_Schema_Interface {
 	/**
 	 * A reference to the table definition we are modifying with new fields.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return Abstract_Custom_Table
 	 */
