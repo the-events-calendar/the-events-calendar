@@ -10,13 +10,14 @@ namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
-use TEC\Events\Custom_Tables\V1\Migration\Expected_Migration_Exception;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Traits\With_Database_Transactions;
 use TEC\Events\Custom_Tables\V1\Traits\With_String_Dictionary;
 use Tribe__Admin__Notices;
+use Tribe__Date_Utils as Dates;
+use Tribe__Timezones as Timezones;
 
 /**
  * Class Process_Worker. Handles the migration and undo operations.
@@ -215,7 +216,7 @@ class Process_Worker {
 	 * @return Event_Report A reference to the migration report object produced by the
 	 *                      migration.
 	 */
-	public function migrate_event( $post_id, $dry_run = false ) {
+	public function migrate_event( int $post_id, bool $dry_run = false ): ?Event_Report {
 		global $wpdb;
 
 		// Log our worker starting
@@ -224,6 +225,8 @@ class Process_Worker {
 			'post_id' => $post_id,
 			'dry_run' => $dry_run
 		] );
+
+		$this->dry_run = $dry_run;
 
 		/*
 		 * Get our Event_Report ready for the strategy.
@@ -235,8 +238,6 @@ class Process_Worker {
 			// We're done, the migration is complete and there is no more work to do.
 			return $this->event_report;
 		}
-
-		$this->dry_run = $dry_run;
 
 		// Set our dead-man switch.
 		$this->migration_completed = false;
@@ -306,6 +307,8 @@ class Process_Worker {
 			if ( $this->dry_run ) {
 				$this->before_dry_run( $post_id );
 			}
+
+			$this->fix_event_meta( $post_id );
 
 			/**
 			 * Action to be fired immediately prior to applying migration strategy. Some migrations may still fail after this phase,
@@ -380,10 +383,26 @@ class Process_Worker {
 
 		$this->unbind_shutdown_handlers();
 
-		$did_migration_error = ! $dry_run && $this->event_report->error;
-		// If error in the migration phase, need to stop the queue.
-		$continue_queue = $did_migration_error ? false : true;
-		$next_post_id   = null;
+		// Flag to fail on first error.
+		$fail_on_first_error = (
+			                       defined( 'TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE' )
+			                       && TEC_EVENTS_CUSTOM_TABLES_V1_MIGRATION_STOP_ON_FAILURE
+		                       )
+		                       || ! $dry_run;
+		/**
+		 * Filter to determine whether we should stop on first failure or not. Useful for troubleshooting in preview mode.
+		 * @since TBD
+		 *
+		 * @param bool $fail_on_first_error
+		 *
+		 * @returns bool Whether we should stop on first failure or not.
+		 */
+		$fail_on_first_error = apply_filters( 'tec_events_custom_tables_v1_migration_should_stop_on_failure', $fail_on_first_error );
+
+		// If error in the migration phase or fail on first error flag, then we need to stop the queue.
+		$did_migration_error = ( $fail_on_first_error && $this->event_report->error );
+		$continue_queue      = $did_migration_error ? false : true;
+		$next_post_id        = null;
 
 		if ( $continue_queue ) {
 			// Get next event to process.
@@ -796,5 +815,53 @@ class Process_Worker {
 		} else {
 			Builder::class_enable_query_execution( true );
 		}
+	}
+
+	/**
+	 * Updates the Event date and duration meta to make sure it's consistent.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The ID of the Event to update.
+	 *
+	 * @return void Updates the Event date and duration meta to make sure it's consistent.
+	 */
+	private function fix_event_meta( int $post_id ): void {
+		/**
+		 * Filters whether an Event date related meta should be fixed before migration or not.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param bool $fix_event_duration Whether the Event date related meta should be fixed before migration or not.
+		 * @param int  $post_id            The ID of the post being migrated.
+		 */
+		$should_fix_meta = apply_filters( 'tec_events_custom_tables_v1_migration_fix_event_date_meta', true, $post_id );
+
+		if ( ! $should_fix_meta ) {
+			return;
+		}
+
+		// At this stage, we can be sure the meta will be there.
+		$start_date = get_post_meta( $post_id, '_EventStartDate', true );
+		$end_date = get_post_meta( $post_id, '_EventEndDate', true );
+		$timezone = get_post_meta( $post_id, '_EventTimezone', true );
+
+		if ( ! Timezones::is_valid_timezone( $timezone ) ) {
+			$timezone = Timezones::build_timezone_object()->getName();
+			update_post_meta( $post_id, '_EventTimezone', $timezone );
+			update_post_meta( $post_id, '_EventTimezoneAbbr', Timezones::abbr( $start_date, $timezone ) );
+		}
+
+		$utc = new \DateTimeZone( 'UTC' );
+
+		$dtstart = Dates::immutable( $start_date, $timezone );
+		$dtend = Dates::immutable( $end_date, $timezone );
+		$updated_duration = $dtend->getTimestamp() - $dtstart->getTimestamp();
+		$start_date_utc = $dtstart->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+		$end_date_utc = $dtend->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+
+		update_post_meta( $post_id, '_EventDuration', $updated_duration );
+		update_post_meta( $post_id, '_EventStartDateUTC', $start_date_utc );
+		update_post_meta( $post_id, '_EventEndDateUTC', $end_date_utc );
 	}
 }
