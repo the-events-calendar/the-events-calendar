@@ -2,7 +2,7 @@
 /**
  * Class to redirect clauses from the meta table into the custom table.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Repository
  */
@@ -15,7 +15,7 @@ use Tribe__Repository__Query_Filters as Query_Filters;
 /**
  * Class Query_Replace
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Repository
  */
@@ -24,7 +24,7 @@ class Query_Replace {
 	 * The filtered version of the meta key redirection map, the same used by
 	 * the Custom Tables Meta Query.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,array<string>>
 	 */
@@ -33,7 +33,7 @@ class Query_Replace {
 	/**
 	 * A set of `LIKE` clauses that should be redirected to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,array<string,string>>|null
 	 */
@@ -42,7 +42,7 @@ class Query_Replace {
 	/**
 	 * A list of the meta keys that should be redirected to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string>
 	 */
@@ -50,7 +50,7 @@ class Query_Replace {
 	/**
 	 * Initial state of the different sets of joins.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string> join
 	 */
@@ -58,7 +58,7 @@ class Query_Replace {
 	/**
 	 * Initial set of where clauses
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string> where
 	 */
@@ -66,7 +66,7 @@ class Query_Replace {
 	/**
 	 * List of fields selected for this query.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string fields
 	 */
@@ -74,7 +74,7 @@ class Query_Replace {
 	/**
 	 * Initial value for the order by.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string order_by
 	 */
@@ -82,7 +82,7 @@ class Query_Replace {
 	/**
 	 * Clause used to order the results after.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string> after_order_by
 	 */
@@ -93,7 +93,7 @@ class Query_Replace {
 	 *
 	 * Overrides the base constructor to set up a meta key redirection map.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function __construct() {
 		$this->meta_key_redirection_map = (array) Redirection_Schema::get_filtered_meta_key_redirection_map();
@@ -103,7 +103,7 @@ class Query_Replace {
 	/**
 	 * Sets the fields as those could be set on the `WP_Query` `fields` parameter.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $fields The fields value.
 	 *
@@ -118,7 +118,7 @@ class Query_Replace {
 	/**
 	 * Set the different joins.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array<string, string>  $join  An array with the different joins.
 	 *
@@ -133,7 +133,7 @@ class Query_Replace {
 	/**
 	 * Set the different where clauses available.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  array<string, string>  $where  The list of where clauses to be modified.
 	 *
@@ -148,7 +148,7 @@ class Query_Replace {
 	/**
 	 * Allow to set the order_by clause
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|array<string>|array<string,string> $order_by The order by clause, in any format supported by
 	 *                                                            `WP_Query`.
@@ -164,7 +164,7 @@ class Query_Replace {
 	/**
 	 * Custom setter for the after order by clause.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|array<string>|array<string,string> $after_order_by The order by clause, in any format supported
 	 *                                                                  by `WP_Query`.
@@ -177,7 +177,7 @@ class Query_Replace {
 	 * Parses the current filters, as set up by the default version of the class, and
 	 * redirects them to the Custom Tables where required.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,array<mixed>> The redirected query vars.
 	 */
@@ -304,7 +304,7 @@ class Query_Replace {
 	/**
 	 * Sets the array of `LIKE` clauses that should be redirected.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,array<string,string>>|null $like An array of `LIKE` clauses that should be redirected to
 	 *                                                      the custom tables.
@@ -322,7 +322,7 @@ class Query_Replace {
 	/**
 	 * Redirects the `ORDER BY` clauses, both before and after the default WordPress ones, to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,array<string,mixed>> $redirects A list of the redirections that should be applied as built
 	 *                                                     from the `JOIN` and `WHERE` clauses.
@@ -357,7 +357,7 @@ class Query_Replace {
 	 * The current implementation is just a pass-through logic as only post fields are supported
 	 * in the base logic and those are not redirected to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string,array<string,string>>|null The redirected `LIKE` clauses.
 	 */

@@ -2,7 +2,7 @@
 /**
  * The Event validation and format schema.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -35,7 +35,7 @@ use WP_Post;
 /**
  * Class Event
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  *
@@ -97,7 +97,7 @@ class Event extends Model {
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string[] hashed_keys
 	 */
@@ -114,7 +114,7 @@ class Event extends Model {
 	/**
 	 * Add relationship between the event and the occurrences.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return Occurrence A reference to the Occurrence model instance.
 	 */
@@ -125,7 +125,7 @@ class Event extends Model {
 	/**
 	 * Cast the value of the event ID to an integer if present, null otherwise when reading the `event_id` property.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -138,7 +138,7 @@ class Event extends Model {
 	/**
 	 * Cast the value of the property `post_id` if present to an integer.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -151,7 +151,7 @@ class Event extends Model {
 	/**
 	 * Cast the duration of the property `duration` to an integer.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -165,7 +165,7 @@ class Event extends Model {
 	 * Check if the event is infinite or not, when the end date is not present (is null) it means the event
 	 * is infinite.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the Event is infinite or not.
 	 */
@@ -176,7 +176,7 @@ class Event extends Model {
 	/**
 	 * Check if the event is a multi-day event.
 	 *
-	 * $since TBD
+	 * $since 6.0.0
 	 *
 	 * @return bool Whether an Event is multi-day or not.
 	 */
@@ -191,7 +191,7 @@ class Event extends Model {
 	 * The data provided from this method is *unvalidated* and must be passed to the Model
 	 * instance for validation and sanitization.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int|WP_Post $event_id Either the Event Post ID, or a reference to the Event
 	 *                              Post object.
@@ -233,7 +233,7 @@ class Event extends Model {
 		/**
 		 * Filters the data that will be returned to hydrate an Event model.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string,mixed> $data     The data for the Event, as prepared by The
 		 *                                      Events Calendar and previous filters.
@@ -245,7 +245,7 @@ class Event extends Model {
 	/**
 	 * Returns the value of a model field.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int    $post_id The Event post ID to return the value for.
 	 * @param string $field   The name of the Event model property to return the value for.

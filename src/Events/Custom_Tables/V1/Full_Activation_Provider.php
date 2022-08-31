@@ -5,7 +5,7 @@
  *
  * Should not be registered if the Custom Tables have not been generated yet.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -20,7 +20,7 @@ use WP_CLI;
 /**
  * Class Full_Activation_Provider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -28,7 +28,7 @@ class Full_Activation_Provider extends Service_Provider {
 	/**
 	 * A flag property indicating whether the Service Provide did register or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -37,7 +37,7 @@ class Full_Activation_Provider extends Service_Provider {
 	/**
 	 * Registers the filters and implementations required by the Custom Tables implementation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the Provider did register or not.
 	 */
@@ -76,7 +76,7 @@ class Full_Activation_Provider extends Service_Provider {
 			 * context of Custom Tables v1 implementation AND the server
 			 * runs PHP 7.0+.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param \Throwable $t The thrown error.
 			 */
@@ -89,7 +89,7 @@ class Full_Activation_Provider extends Service_Provider {
 			 * context of Custom Tables v1 implementation AND the server
 			 * runs PHP 5.6.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param \Exception $e The thrown error.
 			 */
@@ -104,7 +104,7 @@ class Full_Activation_Provider extends Service_Provider {
 	 * as properties on the `$wpdb` instance and to hook into some WP_CLI operations to
 	 * empty the tables correctly.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function register_schema_hooks() {
 		$schema_builder = $this->container->make( Schema_Builder::class );

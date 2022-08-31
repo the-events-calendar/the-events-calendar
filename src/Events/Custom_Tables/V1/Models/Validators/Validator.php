@@ -2,7 +2,7 @@
 /**
  * The API provided by each Validator implementation.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Models\Validators;
 /**
  * Class Validation
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -20,7 +20,7 @@ abstract class Validator implements ValidatorInterface {
 	/**
 	 * The error message if the validation fails.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array The error message if the validation fails.
 	 */
@@ -29,7 +29,7 @@ abstract class Validator implements ValidatorInterface {
 	/**
 	 * Get the validation error message.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array The validation error messages.
 	 */
@@ -40,7 +40,7 @@ abstract class Validator implements ValidatorInterface {
 	/**
 	 * Adds an error message to the list of errors.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $message The error message to save.
 	 *
@@ -55,7 +55,7 @@ abstract class Validator implements ValidatorInterface {
 	/**
 	 * Clears all the currently stored error messages.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return $this
 	 */

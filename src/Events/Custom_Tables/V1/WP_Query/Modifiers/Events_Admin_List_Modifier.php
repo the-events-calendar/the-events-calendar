@@ -2,7 +2,7 @@
 /**
  * Filters the admin events list view.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -15,7 +15,7 @@ use WP_Query;
 /**
  * Class Events_Admin_List_Modifier
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -31,14 +31,14 @@ class Events_Admin_List_Modifier extends Base_Modifier {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function hook() {
 		add_filter( 'posts_clauses_request', [ $this, 'filter_legacy_child_events' ], 100, 2 );
 	}
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,string> $pieces Query clauses.
 	 * @param WP_Query             $query  Main query object.
@@ -55,7 +55,7 @@ class Events_Admin_List_Modifier extends Base_Modifier {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function unhook() {
 		remove_filter( 'posts_clauses_request', [ $this, 'filter_legacy_child_events' ], 100, 2 );

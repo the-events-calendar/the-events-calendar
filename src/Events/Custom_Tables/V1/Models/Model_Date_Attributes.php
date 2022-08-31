@@ -3,7 +3,7 @@
  * Provides common methods for Models that return start and end date attributes
  * in string format.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -16,7 +16,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Trait Model_Date_Attributes
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -27,7 +27,7 @@ trait Model_Date_Attributes {
 	 * This method will be internally called when trying to access the `start_date`
 	 * property of the Model instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The Model instance `start_date` attribute in string format.
 	 */
@@ -43,7 +43,7 @@ trait Model_Date_Attributes {
 	 * This method will be internally called when trying to access the `start_date_utc`
 	 * property of the Model instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The Model instance `start_date_utc` attribute in string format.
 	 */
@@ -59,7 +59,7 @@ trait Model_Date_Attributes {
 	 * This method will be internally called when trying to access the `end_date`
 	 * property of the Model instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The Model instance `end_date` attribute in string format.
 	 */
@@ -75,7 +75,7 @@ trait Model_Date_Attributes {
 	 * This method will be internally called when trying to access the `end_date_utc`
 	 * property of the Model instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The Model instance `end_date_utc` attribute in string format.
 	 */

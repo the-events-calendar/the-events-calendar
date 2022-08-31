@@ -2,7 +2,7 @@
 /**
  * Groups the base methods and functions used by all custom field implementations.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 /**
  * Class Abstract_Custom_Field
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
@@ -37,7 +37,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 * Returns the table creation SQL for the fields being created in the format supported
 	 * by the `dbDelta` function.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The table creation SQL for the fields being created, in the format supported
 	 *                by the `dbDelta` function.
@@ -48,7 +48,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 * Allows extending classes that require it to run some methods
 	 * immediately after the table creation or update.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array<string,string> $results A map of results in the format
 	 *                                      returned by the `dbDelta` function.
@@ -64,7 +64,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	/**
 	 * Returns whether a fields' schema definition exists in the table or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether a set of fields exists in the database or not.
 	 */
@@ -108,7 +108,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	}
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string>
 	 */

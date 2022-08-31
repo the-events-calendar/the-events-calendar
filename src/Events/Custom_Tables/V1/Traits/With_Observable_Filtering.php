@@ -3,7 +3,7 @@
  * Provides methods to make an object interaction with the WordPress Filters
  * API observable.
  *
- * @since TBD
+ * @since 6.0.0
  */
 
 namespace TEC\Events\Custom_Tables\V1\Traits;
@@ -11,14 +11,14 @@ namespace TEC\Events\Custom_Tables\V1\Traits;
 /**
  * Trait With_Observable_Filtering
  *
- * @since TBD
+ * @since 6.0.0
  */
 trait With_Observable_Filtering {
 
 	/**
 	 * A list of the filters the modifier did act on.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string,bool>
 	 */
@@ -27,7 +27,7 @@ trait With_Observable_Filtering {
 	/**
 	 * Returns whether the object did act on a specific WordPress filter or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $tag The name of the filter, e.g. `posts_pre_query`.
 	 *
@@ -44,7 +44,7 @@ trait With_Observable_Filtering {
 	 * use  the `did_filter` method to correctly discriminate whether the modifier did
 	 * intervene in a filter at all or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string The filter name, e.g. `posts_pre_query`.
 	 *

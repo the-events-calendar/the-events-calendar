@@ -3,7 +3,7 @@
  * Handles the registration and set up of the filters required to integrate the plugin custom tables in the normal
  * WP_Query flow.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -21,7 +21,7 @@ use WP_Query;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -30,7 +30,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	 * Register the filters and bindings required to integrate the plugin custom tables in the normal
 	 * WP_Query flow.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register() {
 		if ( ! $this->container->isBound( static::class ) ) {
@@ -65,7 +65,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	/**
 	 * Attaches a Monitor instance to the running query.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query  $query  A reference to the currently running query.
 	 */
@@ -81,7 +81,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	 * Hooks into the Event Repository initialization to replace the default Query Filters
 	 * with an implementation that will redirect to the custom tables.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Repository  $repository  A reference to the instance of the repository that is initializing.
 	 */
@@ -96,7 +96,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	 * the class to make sure the Container instance, that uses non-serializable
 	 * Closures, will not be part of the serialized data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string An empty string, to not serialize the object.
 	 */
@@ -107,7 +107,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	/**
 	 * Returns void to not spawn the object from serialized data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $data The dat
 	 *

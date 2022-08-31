@@ -2,7 +2,7 @@
 /**
  * Validates an End Date UTC input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -15,7 +15,7 @@ use Tribe__Timezones as Timezones;
 /**
  * Class Valid_Timezone
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
