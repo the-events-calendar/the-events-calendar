@@ -8,7 +8,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Legacy_Views_Updated.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package Tribe\Events\Admin\Notice
  */
@@ -17,7 +17,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Stores the instance of the notice template.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var \Tribe__Template
 	 */
@@ -26,7 +26,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Register legacy views updated notice.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function hook(): void {
 		tribe_notice(
@@ -47,7 +47,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Checks if we are in a page we need to display.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */
@@ -61,7 +61,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Checks all methods required for display.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */
@@ -84,7 +84,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Determines that we have a negative value stored, which means this installation was forced into V2.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */
@@ -97,7 +97,7 @@ class Legacy_Views_Updated {
 	/**
 	 * Get template object.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return \Tribe__Template
 	 */
@@ -116,7 +116,7 @@ class Legacy_Views_Updated {
 	/**
 	 * HTML for the notice for sites using V1.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */

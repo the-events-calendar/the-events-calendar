@@ -2,7 +2,7 @@
 /**
  * Provides methods to interact with the string dictionary.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits;
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Traits;
 /**
  * Trait With_String_Dictionary.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Traits;
  */
@@ -20,7 +20,7 @@ trait With_String_Dictionary {
 	/**
 	 * Returns the markup for the event edit link.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $post_id The post ID.
 	 *

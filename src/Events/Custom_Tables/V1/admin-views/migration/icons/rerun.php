@@ -4,7 +4,7 @@
  *
  * @var string $icon_title A *pre-translated* replacement title for the default.
  *
- * @version TBD
+ * @version 6.0.0
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--rerun' ];

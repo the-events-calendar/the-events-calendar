@@ -40,7 +40,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	 */
 	public function should_provide_correct_parameters_to_migration_strategies( $dry_run ) {
 		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
-		$post_id  = $this->given_a_non_migrated_single_event();
+		$post_id  = $this->given_a_non_migrated_single_event()->ID;
 		$strategy = new Null_Migration_Strategy();
 		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function ( $strategy_param, $post_id_param, $dry_run_param ) use ( $strategy, $dry_run, $post_id ) {
 			$this->assertNull( $strategy_param );
@@ -66,7 +66,6 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	public function should_correctly_handle_throwing_migration_strategy() {
 		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
 		$post_id = $this->given_a_non_migrated_single_event()->ID;
-		$dry_run = null;
 		add_filter( 'tec_events_custom_tables_v1_migration_strategy', function () {
 			return new class extends Null_Migration_Strategy {
 				public function apply( Event_Report $event_report ) {
@@ -77,7 +76,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 
 		$events  = new Events;
 		$process = new Process_Worker( $events, new State( $events ) );
-		$report  = $process->migrate_event( $post_id, $dry_run );
+		$report  = $process->migrate_event( $post_id, false );
 
 		$this->assertContains( 'for reasons', $report->error );
 		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
