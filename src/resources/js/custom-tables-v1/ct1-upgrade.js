@@ -58,7 +58,7 @@ export const buildQueryString = (data = {}) => {
 /**
  * Sends an AJAX GET request to the specified URL.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {string} url The URL to send the GET request to.
  * @param {string|Object|null} data The data object or string, it will be
@@ -108,7 +108,7 @@ export const ajaxGet = (url, data = {}, onSuccess, onFailure, onError) => {
 /**
  * Return the main node that wraps our dynamic content.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {boolean} refresh Fetch from cache of the node or reselect it.
  *
@@ -132,7 +132,7 @@ export const onError = () => {
 /**
  * Recursively sync and poll report data.
  *
- * @since TBD
+ * @since 6.0.0
  */
 export const recursePollForReport = () => {
 	syncReportData(
@@ -147,7 +147,7 @@ export const shouldPoll = () => {
 /**
  * Start the recursive poll for report changes.
  *
- * @since TBD
+ * @since 6.0.0
  */
 export const pollForReport = () => {
 	if (!shouldPoll()) {
@@ -160,7 +160,7 @@ export const pollForReport = () => {
 /**
  * Handles the response from the report request.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {object} data The response object with the compiled report data.
  */
@@ -198,7 +198,7 @@ export const handleReportData = function (data) {
 /**
  * Binds the dynamic nodes with their listeners.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {string} key The node key.
  */
@@ -300,7 +300,7 @@ const handlePaginateClick = (node) => (e) => {
 /**
  * Handle the cancel migration action.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {Event} e
  */
@@ -319,7 +319,7 @@ export const handleCancelMigration = (e) => {
 /**
  * Handle the revert migration action.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {Event} e
  */
@@ -357,7 +357,7 @@ export const undoMigration = (action) => {
 /**
  * Handle the start migration preview click event.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {Event} e
  */
@@ -371,7 +371,7 @@ export const handleStartMigrationWithPreview = (e) => {
 /**
  * Handle the start migration click event.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {Event}
  */
@@ -390,7 +390,7 @@ export const handleStartMigration = (e) => {
 /**
  * Will start either a preview or migration, sending a request to the backend to queue workers.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {boolean} isPreview Flag to denote if we are doing a dry run or a
  *     real migration.
@@ -417,7 +417,7 @@ export const startMigration = (isPreview) => {
 /**
  * Cancel our report polling.
  *
- * @since TBD
+ * @since 6.0.0
  */
 export const cancelReportPoll = () => {
 	clearTimeout(pollTimeoutId);
@@ -426,7 +426,7 @@ export const cancelReportPoll = () => {
 /**
  * Checks if the node changed in the poll intervals.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {string} searchKey The node key to reference if changes.
  * @param {string} searchHash The hash that might change for a particular node
@@ -453,7 +453,7 @@ export const isNodeDiff = (searchKey, searchHash) => {
 /**
  * Fetches the report data, and delegates to the handlers.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {function|null} successCallback Callback fired on success.
  */
@@ -471,7 +471,7 @@ export const syncReportData = function (successCallback = null) {
 /**
  * Get the report data from the backend.
  *
- * @since TBD
+ * @since 6.0.0
  *
  * @param {function} successCallback Callback fired on success.
  */
@@ -493,7 +493,7 @@ export const getReport = (successCallback) => {
 /**
  * Kick off the CT1 upgrade loop and node updates.
  *
- * @since TBD
+ * @since 6.0.0
  */
 export const init = () => {
 	localizedData = window.tecCt1Upgrade;

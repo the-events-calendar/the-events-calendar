@@ -5,7 +5,7 @@
  * The provider will completely register, or not, the Custom Tables based
  * implementation. The registration will happen on `plugins_loaded::1`.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -19,7 +19,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -29,7 +29,7 @@ class Provider extends Service_Provider {
 	/**
 	 * A flag property indicating whether the Service Provide did register or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -39,7 +39,7 @@ class Provider extends Service_Provider {
 	 * A map of the filters added by the provider, the callbacks
 	 * and the priority of each.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string|string,callable,int>
 	 */
@@ -48,7 +48,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Registers the filters and implementations required by the Custom Tables implementation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the Provider did register or not.
 	 */
@@ -109,7 +109,7 @@ class Provider extends Service_Provider {
 			 * context of Custom Tables v1 implementation AND the server
 			 * runs PHP 7.0+.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param \Throwable $t The thrown error.
 			 */
@@ -122,7 +122,7 @@ class Provider extends Service_Provider {
 			 * context of Custom Tables v1 implementation AND the server
 			 * runs PHP 5.6.
 			 *
-			 * @since TBD
+			 * @since 6.0.0
 			 *
 			 * @param \Exception $e The thrown error.
 			 */
@@ -136,7 +136,7 @@ class Provider extends Service_Provider {
 	 * Returns whether the Custom Tables implementation should register, thus activate,
 	 * or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the Custom Tables implementation should register or not.
 	 */
@@ -158,7 +158,7 @@ class Provider extends Service_Provider {
 		 * Note: this filter will only apply if the disable constant or env var
 		 * are not set or are set to falsy values.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param bool $activate Defaults to `true`.
 		 */
@@ -169,7 +169,7 @@ class Provider extends Service_Provider {
 	 * Binds the implementations that will be required to run the Provider-level
 	 * code.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function bind_implementations() {
 		// Register this provider to make it easy to get hold of it.
@@ -185,7 +185,7 @@ class Provider extends Service_Provider {
 	 * Each action listed here can be removed by calling the provider
 	 * `unhook` method.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	private function add_filters() {
 		$on_error = $this->container->callback( Notices::class, 'on_error' );
@@ -200,7 +200,7 @@ class Provider extends Service_Provider {
 	 * Removes all the actions and filters registered by the Provider, or
 	 * only the specified one.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string|null $filter Removes a filter or action hooked by
 	 *                            the provider, if any.

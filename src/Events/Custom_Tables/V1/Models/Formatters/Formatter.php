@@ -2,7 +2,7 @@
 /**
  * API to define how the formatters should be defined.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Formatters;
  */
@@ -11,7 +11,7 @@ namespace TEC\Events\Custom_Tables\V1\Models\Formatters;
 /**
  * Interface Formatter
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Formatters
  */
@@ -19,7 +19,7 @@ interface Formatter {
 	/**
 	 * Format a column into a suitable format for processing.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param $value
 	 *
@@ -30,7 +30,7 @@ interface Formatter {
 	/**
 	 * Format used to prepare this value before is saved into the database like `%s` for strings.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return mixed How the data should be prepared (sanitized) before is saved into the DB.
 	 */

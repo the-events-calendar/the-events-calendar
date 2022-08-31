@@ -2,7 +2,7 @@
 /**
  * Handles registering the Table and Field handlers.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
@@ -13,7 +13,7 @@ use tad_DI52_ServiceProvider as Service_Provider;
 /**
  * Abstract class Schema_Provider
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */

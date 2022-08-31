@@ -3,7 +3,7 @@
  * A Request factory that uses the WP REST Request class as a base to
  * provide information about any HTTP request.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Updates;
  */
@@ -19,7 +19,7 @@ use Tribe__Timezones as Timezones;
 /**
  * Class Requests
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Editors\Classic
  */
@@ -28,7 +28,7 @@ class Requests {
 	 * A list of the HTTP methods considered to be updating in nature
 	 * by either creating, updating or deleting a post.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string>
 	 */
@@ -37,7 +37,7 @@ class Requests {
 	/**
 	 * Models the current HTTP request using a WP REST Request object.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return WP_REST_Request A reference to an instance of the WP_Rest_Request
 	 *                         set up to provide information about the current HTTP request.
@@ -70,7 +70,7 @@ class Requests {
 		 * Allows filtering the locations the factory will look up, **in order**, to find the current post ID
 		 * value.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param array<string> A list of keys the factory will look up, in the HTTP super-globals, to find
 		 *                       the current post ID.
@@ -97,7 +97,7 @@ class Requests {
 	 * In the context of this class an "update" is either a POST, PUT or PATCH
 	 * request for a post, or a GET request to trash or delete a post.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_REST_Request $request A reference to the Request object that
 	 *                                 should be inspected.
@@ -117,7 +117,7 @@ class Requests {
 	 * request parameters related to the definition of an Event start, end and timezone
 	 * to match the parameters.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 * @param mixed $start The description, timestamp or `DateTime` object representing
 	 *                     the Event start date and time.
 	 * @param mixed $end   The description, timestamp or `DateTime` object representing
@@ -155,7 +155,7 @@ class Requests {
 	/**
 	 * Determines if the current request is a request to delete or trash a post or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_REST_Request $request A reference to the Request object to check.
 	 *

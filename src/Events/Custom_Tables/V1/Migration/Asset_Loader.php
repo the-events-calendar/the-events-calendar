@@ -2,7 +2,7 @@
 /**
  * Handles loading our main assets for the migration UI.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -16,7 +16,7 @@ use Tribe\Events\Admin\Settings as Plugin_Settings;
 /**
  * Class Asset_Loader.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -24,7 +24,7 @@ class Asset_Loader {
 	/**
 	 * Whether the scripts and styles were registered with WordPress or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var bool
 	 */
@@ -33,7 +33,7 @@ class Asset_Loader {
 	/**
 	 * The handle of the main JS file we want loaded as a `module`.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var string
 	 */
@@ -43,7 +43,7 @@ class Asset_Loader {
 	 * Enqueues the scripts required by the migration front-end component and
 	 * the required localized data.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function enqueue_scripts() {
 		$on_settings_page         = tribe( Plugin_Settings::class )->is_tec_events_settings();
@@ -95,7 +95,7 @@ class Asset_Loader {
 	 * The method is idem-potent and will not register the scripts
 	 * a second time if already registered.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register_scripts() {
 		if ( $this->did_register_scripts ) {
@@ -125,7 +125,7 @@ class Asset_Loader {
 	 *
 	 * Once the filtering is applied, this method will remove itself from the filtering.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $tag    The HTML that is being produced for the script.
 	 * @param string $handle The handle of the script the HTML is being filtered for.

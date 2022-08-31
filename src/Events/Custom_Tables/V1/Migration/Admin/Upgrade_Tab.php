@@ -2,7 +2,7 @@
 /**
  * Handles the registration of classes, implementations, and filters for Migration activities.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\Admin
  */
@@ -16,7 +16,7 @@ class Upgrade_Tab {
 	/**
 	 * A reference to the current migration state handler.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var State
 	 */
@@ -25,7 +25,7 @@ class Upgrade_Tab {
 	/**
 	 * Upgrade_Tab constructor.
 	 *
-	 * since TBD
+	 * since 6.0.0
 	 *
 	 * @param State $state A reference to the current migration state handler.
 	 */
@@ -36,7 +36,7 @@ class Upgrade_Tab {
 	/**
 	 * Whether or not the upgrade tab in Event Settings should show. The tab will disappear after 30 days of migration completion.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool Whether the upgrade tab should show or not.
 	 */
@@ -63,7 +63,7 @@ class Upgrade_Tab {
 	/**
 	 * Get the migration phase content and inject into the admin fields.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param array $upgrade_fields TEC Settings options.
 	 *
@@ -84,7 +84,7 @@ class Upgrade_Tab {
 	/**
 	 * Renders and returns the current phase HTML code.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The current phase HTML code.
 	 */

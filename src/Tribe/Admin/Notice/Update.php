@@ -13,7 +13,7 @@ class Update {
 	/**
 	 * Notice
 	 *
-	 * @since  TBD
+	 * @since  6.0.0
 	 * @var object
 	 */
 	private $notice;
@@ -21,7 +21,7 @@ class Update {
 	/**
 	 * Stores the instance of the notice template.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Tribe__Template
 	 */
@@ -30,7 +30,7 @@ class Update {
 	/**
 	 * Register update notices.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function register() {
 		$this->notice = tribe_notice(
@@ -71,7 +71,7 @@ class Update {
 	/**
 	 * Should the notice be displayed?
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return bool
 	 */
@@ -115,7 +115,7 @@ class Update {
 	/**
 	 * HTML for the notice for sites using UTC Timezones.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string
 	 */
@@ -130,7 +130,7 @@ class Update {
 	/**
 	 * HTML for the notice for sites using UTC Timezones.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array
 	 */
@@ -149,7 +149,7 @@ class Update {
 	/**
 	 * Get template object.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return \Tribe__Template
 	 */
