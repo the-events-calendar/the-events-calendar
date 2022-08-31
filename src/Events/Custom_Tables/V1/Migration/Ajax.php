@@ -6,7 +6,7 @@
  * handler will concentrate on AJAX requests from the migraiton UI, not
  * from Action Scheduler.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -23,7 +23,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 /**
  * Class Ajax.
  *
- * @since   TBD
+ * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Ajax {
@@ -37,7 +37,7 @@ class Ajax {
 	 * The full name of the action that will be fired following a migration UI
 	 * request for a report.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	const ACTION_REPORT = 'wp_ajax_tec_events_custom_tables_v1_migration_report';
 
@@ -45,7 +45,7 @@ class Ajax {
 	 * The full name of the action that will be fired following a request from
 	 * the migration UI to start the migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	const ACTION_START = 'wp_ajax_tec_events_custom_tables_v1_migration_start';
 
@@ -71,35 +71,35 @@ class Ajax {
 	/**
 	 * A reference to the current background processing handler.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Process
 	 */
 	private $process;
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Site_Report
 	 */
 	private $site_report;
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Events
 	 */
 	private $events_repository;
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var State
 	 */
 	private $state;
 
 	/**
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var String_Dictionary
 	 */
@@ -108,7 +108,7 @@ class Ajax {
 	/**
 	 * Ajax constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param Process           $process           The process master.
 	 * @param Events            $events_repository The migration events repository.
@@ -127,7 +127,7 @@ class Ajax {
 	 * Builds and sends the report in the format expected by the Migration UI JS
 	 * component.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $echo Flag whether we echo or return json string.
 	 *
@@ -149,7 +149,7 @@ class Ajax {
 	/**
 	 * Requests a batch of paginated events.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $echo
 	 *
@@ -169,7 +169,7 @@ class Ajax {
 	/**
 	 * Responds to the paginated requests.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int    $page     The page of results we are fetching.
 	 * @param int    $count    The number of events we are requesting.
@@ -208,7 +208,7 @@ class Ajax {
 	/**
 	 * Builds the structured report HTML.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -225,7 +225,7 @@ class Ajax {
 	/**
 	 * Will fetch event reports for a particular filter, and check if there are more to request for that filter.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param int $page  Which page we are on.
 	 * @param int $count How many we want.
@@ -257,7 +257,7 @@ class Ajax {
 	/**
 	 * Construct the query args for the primary renderer template (not used for the node templates).
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $phase The current phase.
 	 *
@@ -335,7 +335,7 @@ class Ajax {
 	/**
 	 * Based on the current phase, find the correct template file for the renderer.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $phase The current phase.
 	 *
@@ -381,7 +381,7 @@ class Ajax {
 	/**
 	 * Determines if the frontend should poll for updates from the backend.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $phase The current phase.
 	 *
@@ -404,7 +404,7 @@ class Ajax {
 	/**
 	 * Will construct the appropriate templates and nodes to be compiled, for this phase in the migration.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param string $phase The current phase of the migration.
 	 *
@@ -415,7 +415,7 @@ class Ajax {
 		/**
 		 * Filters the Phase_View_Renderer being constructed for this phase.
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param Phase_View_Renderer A reference to the Phase_View_Renderer that should be used.
 		 *                           Initially `null`.
@@ -460,7 +460,7 @@ class Ajax {
 	 * Handles the request from the Admin UI to start the migration and returns
 	 * a first report about its progress.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $echo Flag whether we echo or return json string.
 	 *
@@ -493,7 +493,7 @@ class Ajax {
 	 * Handles the request from the Admin UI to cancel the migration and returns
 	 * a first report about its progress.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $echo Flag whether we echo or return json string.
 	 *
@@ -521,7 +521,7 @@ class Ajax {
 	 * Handles the request from the Admin UI to undo the migration and returns
 	 * a first report about its progress.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $echo Flag whether we echo or return json string.
 	 *

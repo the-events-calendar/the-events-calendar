@@ -738,7 +738,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Adds the Meta box for Organizers to the Events Post Type.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public static function render_meta_box() {
 		global $post;

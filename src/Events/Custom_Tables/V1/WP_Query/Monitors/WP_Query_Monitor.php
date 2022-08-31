@@ -2,7 +2,7 @@
 /**
  * Attaches the correct WP_Query modifier to a WP_Query depending on its nature.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Monitors
  */
@@ -19,7 +19,7 @@ use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Admin_List_Modifier;
 /**
  * Class Monitor
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Monitors
  */
@@ -29,7 +29,7 @@ class WP_Query_Monitor implements Countable {
 	/**
 	 * A list of possible modifiers implementations.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<string>
 	 */
@@ -44,7 +44,7 @@ class WP_Query_Monitor implements Countable {
 	 * Returns the flag property that will be set on a `WP_Query` instance to indicate it should
 	 * be ignored by the Monitor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return string The name of the flag property that will be set on a `WP_Query` object to indicate it
 	 *                should be ignored by the Monitor.
@@ -58,7 +58,7 @@ class WP_Query_Monitor implements Countable {
 	 *
 	 * This monitor will only apply to non-custom tables Queries.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param WP_Query|null $query A reference to the WP Query object
 	 *                             to check.

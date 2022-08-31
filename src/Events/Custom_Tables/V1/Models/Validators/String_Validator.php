@@ -2,7 +2,7 @@
 /**
  * Validates an End Date UTC input.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -20,7 +20,7 @@ class String_Validator extends Validator {
 	/**
 	 * Variable with a reference to the present validator.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Present present
 	 */
@@ -29,7 +29,7 @@ class String_Validator extends Validator {
 	/**
 	 * String_Validation constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Present  $present
 	 */

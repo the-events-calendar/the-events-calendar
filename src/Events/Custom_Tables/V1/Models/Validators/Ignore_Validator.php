@@ -2,7 +2,7 @@
 /**
  * A validator that will always validate.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -14,7 +14,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
 /**
  * Class Ignore_Validator
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -22,7 +22,7 @@ class Ignore_Validator extends Validator {
 	/**
 	 * Consider any input as valid.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Model   $model
 	 * @param  string  $name

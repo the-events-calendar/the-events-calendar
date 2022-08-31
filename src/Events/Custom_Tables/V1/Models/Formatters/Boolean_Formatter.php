@@ -3,7 +3,7 @@
  *
  *
  *
- * @since TBD
+ * @since 6.0.0
  */
 
 namespace TEC\Events\Custom_Tables\V1\Models\Formatters;
