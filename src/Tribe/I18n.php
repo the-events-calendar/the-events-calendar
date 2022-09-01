@@ -167,16 +167,16 @@ class I18n {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $strings    An array of strings (required).
-	 * @param array $languages Which l10n to fetch the string (required).
-	 * @param array $domains   Possible domains to re-load.
-	 * @param int   $flags     An integer resulting from the combination of compilation flags;
-	 *                         defaults to `static::COMPILE_ALL` to compile all versions of the translations.
-	 *                         `static::COMPILE_INPUT` will compile the translation for the string, as input.
-	 *                         `static::COMPILE_STRTOLOWER` will compile the translation for the string in its lowercase
-	 *                         version.
-	 *                         `static::COMPILE_UCFIRST` will compile the translation for the string in its title
-	 *                         version.
+	 * @param array<string> $strings   An array of strings (required).
+	 * @param array<string> $languages Which l10n to fetch the string (required).
+	 * @param array<string> $domains   Possible domains to re-load.
+	 * @param int           $flags     An integer resulting from the combination of compilation flags;
+	 *                                 defaults to `static::COMPILE_ALL` to compile all versions of the translations.
+	 *                                 `static::COMPILE_INPUT` will compile the translation for the string, as input.
+	 *                                 `static::COMPILE_STRTOLOWER` will compile the translation for the string in its
+	 *                                 lowercase version.
+	 *                                 `static::COMPILE_UCFIRST` will compile the translation for the string in its title
+	 *                                 version.
 	 *
 	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
 	 */
