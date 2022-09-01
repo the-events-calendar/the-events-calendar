@@ -103,7 +103,7 @@ class I18n {
 	}
 
 	/**
-	 * Get all possible translations for a String based on the given Languages and Domains
+	 * Get all possible translations for a String based on the given Languages and Domains.
 	 *
 	 * WARNING: This function is slow because it deals with files, so don't overuse it!
 	 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
@@ -157,8 +157,28 @@ class I18n {
 	}
 
 	/**
-	 * This function is same as above one, but instead of sanitzie with 'sanitize_key' function which removes also '%', 
-	 * it's using 'sanitiz_title' function for url usage.
+	 * Get all possible translations for a URL String based on the given Languages and Domains.
+	 *
+	 * WARNING: This function is slow because it deals with files, so don't overuse it!
+	 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
+	 *
+	 * This function is same as above one, but instead of sanitizing with 'sanitize_key()' which removes '%',
+	 * it uses 'sanitize_title()'.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $strings    An array of strings (required).
+	 * @param array $languages Which l10n to fetch the string (required).
+	 * @param array $domains   Possible domains to re-load.
+	 * @param int   $flags     An integer resulting from the combination of compilation flags;
+	 *                         defaults to `static::COMPILE_ALL` to compile all versions of the translations.
+	 *                         `static::COMPILE_INPUT` will compile the translation for the string, as input.
+	 *                         `static::COMPILE_STRTOLOWER` will compile the translation for the string in its lowercase
+	 *                         version.
+	 *                         `static::COMPILE_UCFIRST` will compile the translation for the string in its title
+	 *                         version.
+	 *
+	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
 	 */
 	public function get_i18n_url_strings_for_domains( $strings, $languages, $domains = [ 'default' ], $flags = 7 ) {
 		sort( $languages );
@@ -189,7 +209,7 @@ class I18n {
 
 		return $strings;
 	}
-		
+
 	/**
 	 * Executes a callback ensuring the `current_locale` will be set to the specified language code.
 	 *
