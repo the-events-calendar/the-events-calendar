@@ -18,7 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural   = tribe_get_event_label_plural();
 
+/**
+ * Supplies the event ID and if none is specified the current post is used.
+ * 
+ * @since TBD
+ */
 $event_id = Tribe__Events__Main::postIdHelper( get_the_ID() );
+
+/**
+ * Allows filtering the event ID while searching for it.
+ * 
+ * @since TBD
+ * 
+ * @param int get_the_ID(
+ */
 $event_id = apply_filters( 'tec_events_single_event_id', get_the_ID() );
 
 /**
