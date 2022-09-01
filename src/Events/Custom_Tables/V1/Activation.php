@@ -2,7 +2,7 @@
 /**
  * Handles the code that should be executed when the plugin is activated or deactivated.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 /**
  * Class Activation
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1
  */
@@ -25,14 +25,14 @@ class Activation {
 	 * The name of the transient that will be used to flag whether the plugin did activate
 	 * or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	const ACTIVATION_TRANSIENT = 'tec_custom_tables_v1_initialized';
 
 	/**
 	 * Handles the activation of the feature functions.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public static function activate() {
 		$schema_builder = tribe( Schema_Builder::class);
@@ -44,7 +44,7 @@ class Activation {
 	 *
 	 * This method will run once a day (using transients).
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public static function init() {
 		// Check if we ran recently.
@@ -89,7 +89,7 @@ class Activation {
 	/**
 	 * Handles the feature deactivation.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public static function deactivate() {
 		$services = tribe();

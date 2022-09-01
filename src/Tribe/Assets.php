@@ -445,7 +445,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we are on the correct admin page to enqueue updates assets.
 	 *
-	 * @since  TBD
+	 * @since  6.0.0
 	 *
 	 * @return bool
 	 */
@@ -455,7 +455,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering of where the base assets will be loaded.
 		 *
-		 * @since  TBD
+		 * @since  6.0.0
 		 *
 		 * @param bool $should_enqueue
 		 */

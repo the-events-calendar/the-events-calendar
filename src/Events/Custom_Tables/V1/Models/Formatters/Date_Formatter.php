@@ -2,7 +2,7 @@
 /**
  * Validates a date value.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Formatters
  */
@@ -14,7 +14,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Date_Formatter
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Formatters
  */
@@ -22,7 +22,7 @@ class Date_Formatter implements Formatter {
 	/**
 	 * A reference to a text formatter instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var Text_Formatter
 	 */
@@ -31,7 +31,7 @@ class Date_Formatter implements Formatter {
 	/**
 	 * Date_Formatter constructor.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  Text_Formatter  $formatter  A reference to a text formatter instance.
 	 */

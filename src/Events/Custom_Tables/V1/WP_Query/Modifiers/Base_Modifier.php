@@ -2,7 +2,7 @@
 /**
  * An abstract base for the modifiers, to implement common methods.
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -15,7 +15,7 @@ use WP_Query;
 /**
  * Class Base_Modifier
  *
- * @since   TBD
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
@@ -25,7 +25,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 	/**
 	 * A reference to the `WP_Query` instance this modifier is targeting, if any.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var WP_Query|null
 	 */
@@ -34,7 +34,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 	/**
 	 * Sets the reference to the `WP_Query` instance the Modifier should act on.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query  $query  A reference to the `WP_Query` instance this modifier is targeting.
 	 */
@@ -46,7 +46,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 	/**
 	 * Returns a reference to the `WP_Query` instance the modifier is attached to, if any.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @return WP_Query|null A reference to the `WP_Query` instance the modifier is attached to, or `null`
 	 *                       if the modifier is not currently attached to any query.
@@ -59,7 +59,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 	 * Deems the modifier action as completed and triggers the callbacks on the "done"
 	 * action.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 */
 	public function done() {
 		$modifier_class = get_class( $this );
@@ -71,7 +71,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 		 * any callback that will store that reference will prevent the garbage collection
 		 * of the Modifier and the instances (e.g. the `WP_Query` instance) it references!
 		 *
-		 * @since TBD
+		 * @since 6.0.0
 		 *
 		 * @param  Base_Modifier|WP_Query_Modifier  $this  A reference to the modifier that is
 		 *                                                 triggering the action.
@@ -82,7 +82,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 	/**
 	 * Returns whether a query instance is the one this modifier should target or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param  WP_Query  $query  A reference to the `WP_Query` instance to check.
 	 *
