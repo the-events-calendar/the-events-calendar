@@ -133,6 +133,15 @@ $website_title = tribe_events_get_event_website_title();
 		<?php endif ?>
 
 		<?php
+		/**
+		 * Included an action where we inject Series information about the event.
+		 *
+		 * @since 6.0.0
+		 */
+		do_action( 'tribe_events_single_meta_details_section_after_datetime' );
+		?>
+
+		<?php
 		// Event Cost
 		if ( ! empty( $cost ) ) : ?>
 
@@ -157,8 +166,15 @@ $website_title = tribe_events_get_event_website_title();
 		?>
 
 		<?php
-		/* Translators: %s: Event (singular) */
-		tribe_meta_event_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true );
+		tribe_meta_event_archive_tags(
+			/* Translators: %s: Event (singular) */
+			sprintf(
+				esc_html__( '%s Tags:', 'the-events-calendar' ),
+				tribe_get_event_label_singular()
+			),
+			', ',
+			true
+		);
 		?>
 
 		<?php

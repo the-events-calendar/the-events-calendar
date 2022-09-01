@@ -48,6 +48,8 @@ class Navigation_Test extends \Codeception\TestCase\WPTestCase {
 	 *   4   2015-12-03 15:00:00
 	 */
 	public function test_closest_event_linear() {
+		$this->markTestSkipped( 'LegacyViewsDeprecatedTest' );
+
 		$main = \Tribe__Events__Main::instance();
 		$settings = $this->post_example_settings;
 		unset( $settings['EventHideFromUpcoming'] );
@@ -103,6 +105,8 @@ class Navigation_Test extends \Codeception\TestCase\WPTestCase {
 	 *   5   2015-12-03 16:00:00
 	 */
 	public function test_closest_event_non_linear() {
+		$this->markTestSkipped( 'LegacyViewsDeprecatedTest' );
+
 		$main     = \Tribe__Events__Main::instance();
 		$settings = $this->post_example_settings;
 		unset( $settings['EventHideFromUpcoming'] );

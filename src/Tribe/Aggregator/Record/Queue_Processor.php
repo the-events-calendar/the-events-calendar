@@ -70,15 +70,15 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 * batches of pending import record inserts/updates.
 	 */
 	public function register_scheduled_task() {
-		// Bail on registration of scheduled event in case we dont have an API setup.
+		// Bail on registration of scheduled event in case we don't have an API setup.
 		if ( is_wp_error( tribe( 'events-aggregator.service' )->api() ) ) {
-			// Also clear in case we dont have an API key.
+			// Also clear in case we don't have an API key.
 			$this->clear_scheduled_task();
 
 			return;
 		}
 
-		// Prevent from trying to schedule in case we dont have any scheduled records to process, value will either be false or 0.
+		// Prevent from trying to schedule in case we don't have any scheduled records to process, value will either be false or 0.
 		if ( ! $this->next_waiting_record( false, true ) ) {
 			// Also clear in case we don't have any records to process.
 			$this->clear_scheduled_task();
@@ -86,6 +86,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 			return;
 		}
 
+		// If we have one scheduled, don't schedule another.
 		if ( wp_next_scheduled( self::$scheduled_key ) ) {
 			return;
 		}
@@ -93,7 +94,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		/**
 		 * Filter the interval at which to process import records.
 		 *
-		 * By default a custom interval of ever 30mins is specified, however
+		 * By default a custom interval of every 15mins is specified, however
 		 * other intervals such as "hourly", "twicedaily" and "daily" can
 		 * normally be substituted.
 		 *
@@ -105,7 +106,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	}
 
 	/**
-	 * Expected to fire upon plugin deactivation.
+	 * Fires upon plugin deactivation.
 	 */
 	public function clear_scheduled_task() {
 		wp_clear_scheduled_hook( self::$scheduled_key );
@@ -191,11 +192,18 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 	 */
 	public function next_waiting_record( $interactive_only = false, $cache = false ) {
 		if ( true === $cache ) {
-			$transient_key       = 'tribe-event-aggregator-next_waiting_record' . ( ! $interactive_only ?: '_interactive_only' );
+			$interactive_only_suffix = '';
+			if ( $interactive_only ) {
+				$interactive_only_suffix = '_interactive_only';
+			}
+			$transient_key       = 'tribe-event-aggregator-next_waiting_record' . ( ! $interactive_only ? '' : '_interactive_only' );
 			$next_waiting_record = get_transient( $transient_key );
 
 			if ( ! empty( $next_waiting_record ) ) {
 				return $this->current_record_id = $next_waiting_record;
+			} elseif ( null === $next_waiting_record ) {
+				// When not false we
+				return false;
 			}
 		}
 
@@ -221,6 +229,12 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		$waiting_records = get_posts( $args );
 
 		if ( empty( $waiting_records ) ) {
+			// Set cache in case of usage.
+			if ( true === $cache ) {
+				// Setting to null prevents us from running for 5 minutes.
+				set_transient( $transient_key, null, 5 * MINUTE_IN_SECONDS );
+			}
+
 			return $this->current_record_id = 0;
 		}
 

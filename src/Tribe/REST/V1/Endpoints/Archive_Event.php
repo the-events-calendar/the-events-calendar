@@ -422,6 +422,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
+	 * @since 6.0.0 Added support for `ticketed` parameter.
+	 *
 	 * @return array
 	 */
 	public function READ_args() {
@@ -536,6 +538,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'type'              => 'integer',
 				'description'       => __( 'Events should be filtered by their post_parent being the specified one.', 'the-events-calendar' ),
 				'validate_callback' => [ $this->validator, 'is_event_id' ],
+			],
+			'ticketed' => [
+				'required'          => false,
+				'type'              => 'boolean',
+				'description'       => __( 'Filter events with or without tickets.', 'the-events-calendar' ),
+				'validate_callback' => [ $this->validator, 'supports_ticketed' ],
 			],
 		];
 	}

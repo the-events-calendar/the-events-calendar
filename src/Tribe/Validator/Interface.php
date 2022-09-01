@@ -73,4 +73,15 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	 * @return bool
 	 */
 	public function is_event_id_list( $events, $sep = ',' );
+
+	/**
+	 * Checks if the query is looking for ticketed events and Event Tickets is available.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param bool $value Can be true or false.
+	 *
+	 * @return mixed
+	 */
+	public function supports_ticketed( $value );
 }

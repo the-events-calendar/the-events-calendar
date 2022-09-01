@@ -17,7 +17,7 @@ class Tribe__Events__Aggregator__Page {
 	public static $slug = 'aggregator';
 
 	/**
-	 * Stores the Registred ID from `add_submenu_page`
+	 * Stores the Registered ID from `add_submenu_page`
 	 *
 	 * @var string
 	 */
@@ -77,9 +77,8 @@ class Tribe__Events__Aggregator__Page {
 	public function init() {
 		$plugin = Tribe__Events__Main::instance();
 
-		$localize_data = [
-			'name' => 'tribe_aggregator',
-			'data' => [
+		$localize_data_callback = static function() {
+			$localize_data = [
 				'csv_column_mapping'   => [
 					'events'    => get_option( 'tribe_events_import_column_mapping_events', [] ),
 					'organizer' => get_option( 'tribe_events_import_column_mapping_organizers', [] ),
@@ -136,22 +135,24 @@ class Tribe__Events__Aggregator__Page {
 				],
 				'default_settings'     => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
 				'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
-			],
-		];
+			];
 
-		/**
-		 * Filters the CSV column mapping output
-		 *
-		 * @param array $mapping Mapping data indexed by CSV import type
-		 */
-		$localize_data['data']['csv_column_mapping'] = apply_filters( 'tribe_aggregator_csv_column_mapping', $localize_data['data']['csv_column_mapping'] );
+			/**
+			 * Filters the CSV column mapping output
+			 *
+			 * @param array $mapping Mapping data indexed by CSV import type
+			 */
+			$localize_data['csv_column_mapping'] = apply_filters( 'tribe_aggregator_csv_column_mapping', $localize_data['csv_column_mapping'] );
 
-		/**
-		 * filters the whole array that will be localized for event aggregator.
-		 *
-		 * @param array $localize_data
-		 */
-		$localize_data['data'] = apply_filters( 'tribe_aggregator_localized_data', $localize_data['data'] );
+			/**
+			 * filters the whole array that will be localized for event aggregator.
+			 *
+			 * @param array $localize_data
+			 */
+			$localize_data = apply_filters( 'tribe_aggregator_localized_data', $localize_data );
+
+			return $localize_data;
+		};
 
 		// Load these on all the pages
 		tribe_assets(
@@ -171,14 +172,47 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dropdowns',
 					],
 				],
-				[ 'tribe-ea-page', 'aggregator-page.css', [ 'datatables-css' ] ],
+				[ 'tribe-ea-page', 'datatables-css' ],
 			],
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [
 					[ $this, 'is_screen' ],
 				],
-				'localize'     => (object) $localize_data,
+				'localize'     => (object) [
+					'name' => 'tribe_aggregator',
+					'data' => $localize_data_callback,
+				],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-styles',
+			'aggregator-page.css',
+			[],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-ea-notice',
+			'aggregator-notice.js',
+			[ 'jquery' ],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [
+					'operator' => 'OR',
+					[ $this, 'is_screen' ],
+					[ $this, 'aggregator_should_load_scripts' ],
+				]
 			]
 		);
 	}
@@ -240,7 +274,42 @@ class Tribe__Events__Aggregator__Page {
 	}
 
 	/**
-	 * Checks if we are in the correct screen
+	 * Basically an edited version of is_screen(), below,
+	 * that allows for loading on all non-post edit admin pages.
+	 *
+	 * @since 5.16.2.1
+	 *
+	 * @return boolean
+	 */
+	public function aggregator_should_load_scripts() {
+		global $current_screen;
+
+		// Doing AJAX? bail.
+		if ( tribe( 'context' )->doing_ajax() ) {
+			return false;
+		}
+
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		// Don't load on post edit screens - can conflict with other datepickers.
+		if ( $current_screen->base === 'post' || $current_screen->base === 'post-new') {
+			return false;
+		}
+
+		/**
+		 * Allows for selective disabling of script loading.
+		 *
+		 * @since 5.16.2.1
+		 *
+		 * @param boolean $should_load Whether the scripts should load. Default true if we got here
+		 */
+		return apply_filters( 'aggregator_should_load_scripts', true );
+	}
+
+	/**
+	 * Checks if we are on the correct screen.
 	 *
 	 * @return boolean
 	 */
@@ -328,7 +397,7 @@ class Tribe__Events__Aggregator__Page {
 	}
 
 	/**
-	 * Gets the Page title for the Aggegator
+	 * Gets the Page title for the Aggregator
 	 *
 	 * @return string
 	 */

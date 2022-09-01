@@ -160,11 +160,4 @@ $addons = apply_filters(
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
 	new Tribe__Settings_Tab( 'addons', esc_html__( 'Integrations', 'the-events-calendar' ), $addons );
-	add_filter(
-		'tec_events_settings_tabs_ids',
-		function( $tabs ) {
-			$tabs[] = 'addons';
-			return $tabs;
-		}
-	);
 }

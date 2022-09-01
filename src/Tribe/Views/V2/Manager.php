@@ -166,13 +166,32 @@ class Manager {
 	}
 
 	/**
+	 * Get the slug for the default registered view.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @return string
+	 */
+	public function get_default_view_slug() {
+		$view = $this->get_default_view();
+
+		if ( ! $view ) {
+			return 'month';
+		}
+
+		return tribe( $view )->get_slug();
+	}
+
+	/**
 	 * Returns an associative array of Views currently registered that are publicly visible.
 	 *
 	 * @since  4.9.4
 	 *
+	 * @param bool $is_enabled Should only return enabled views or all publicly visible ones.
+	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 */
-	public function get_publicly_visible_views() {
+	public function get_publicly_visible_views( bool $is_enabled = true ) {
 		$views = $this->get_registered_views();
 
 		/*
@@ -184,8 +203,8 @@ class Manager {
 
 		$views = array_filter(
 			$views,
-			static function ( $view_class, $slug ) use ( $enabled_views ) {
-				return in_array( $slug, $enabled_views, true )
+			static function ( $view_class, $slug ) use ( $enabled_views, $is_enabled ) {
+				return ( ! $is_enabled || in_array( $slug, $enabled_views, true ) )
 				       && (bool) call_user_func( [ $view_class, 'is_publicly_visible' ] );
 			},
 			ARRAY_FILTER_USE_BOTH
@@ -384,7 +403,7 @@ class Manager {
 		$domain = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label_domain", $domain, $view_class );
 
 		/**
-		 * Pass by the translation engine, dont remove.
+		 * Pass by the translation engine, don't remove.
 		 */
 		$label = __( $label, $domain );
 

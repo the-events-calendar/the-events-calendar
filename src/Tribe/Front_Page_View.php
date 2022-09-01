@@ -68,12 +68,13 @@ class Tribe__Events__Front_Page_View {
 		$query->set( 'tribe_events_front_page', true );
 
 		// Some extra tricks required to help avoid problems when the default view is list view
-		$query->is_page = false;
-		$query->is_singular = false;
+		$query->is_page            = false;
+		$query->is_singular        = false;
+		$query->query['post_type'] = Tribe__Events__Main::POSTTYPE;
 	}
 
 	/**
-	 * Parse the query when the customizer sends request to preview specifc page to avoid 404 pages
+	 * Parse the query when the customizer sends request to preview specific page to avoid 404 pages
 	 * or the wrong page.
 	 *
 	 * @since 4.6.15

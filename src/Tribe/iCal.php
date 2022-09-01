@@ -33,6 +33,15 @@ class Tribe__Events__iCal {
 	protected $events = [];
 
 	/**
+	 * The type of iCal Feed ( ical|outlook)
+	 *
+	 * @since 5.16.0
+	 *
+	 * @var string
+	 */
+	protected $type = 'ical';
+
+	/**
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
 	 */
 	public function hook() {
@@ -129,8 +138,8 @@ class Tribe__Events__iCal {
 			return;
 		}
 		$calendar_links = '<div class="tribe-events-cal-links">';
-		$calendar_links .= '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" target="_blank" rel="noopener noreferrer" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'the-events-calendar' ) . '</a>';
-		$calendar_links .= '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'Add to iCalendar', 'the-events-calendar' ) . '</a>';
+		$calendar_links .= '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" target="_blank" rel="noopener noreferrer noindex" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'the-events-calendar' ) . '</a>';
+		$calendar_links .= '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '"  rel="noopener noreferrer noindex" >+ ' . esc_html__( 'Add to iCalendar', 'the-events-calendar' ) . '</a>';
 		$calendar_links .= '</div><!-- .tribe-events-cal-links -->';
 
 		/**
@@ -186,7 +195,7 @@ class Tribe__Events__iCal {
 		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
 
 		printf(
-			'<a class="tribe-events-ical tribe-events-button" title="%1$s" href="%2$s">+ %3$s</a>',
+			'<a class="tribe-events-ical tribe-events-button" rel="noindex nofollow" title="%1$s" href="%2$s">+ %3$s</a>',
 			$title,
 			esc_url( tribe_get_ical_link() ),
 			$text
@@ -197,48 +206,62 @@ class Tribe__Events__iCal {
 	 * Executes the iCal generator when the appropriate query_var or $_GET is setup.
 	 */
 	public function do_ical_template() {
-		// hijack to iCal template
-		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
-			/**
-			 * Action fired before the creation of the feed is started, helpful to set up methods and other filters used
-			 * on this class.
-			 *
-			 * @since 4.6.11
-			 */
-			do_action( 'tribe_events_ical_before' );
-
-			if ( ! $wp_query = tribe_get_global_query_object() ) {
-				return;
-			}
-
-			$event_ids = tribe_get_request_var( 'event_ids', false );
-
-			/**
-			 * Allows filtering the event IDs after the `Tribe__Events__ICal` class
-			 * tried to fetch them from the current request.
-			 *
-			 * @since 4.6.0
-			 *
-			 * @param array<int>|false Either a list of requested event post IDs or `false`
-			 *                         if the current request does not specify the event post
-			 *                         IDs to fetch.
-			 */
-			$event_ids = apply_filters( 'tribe_ical_template_event_ids', $event_ids );
-
-			if ( false !== $event_ids ) {
-				if ( empty( $event_ids ) ) {
-					die();
-				}
-				$event_ids = Arr::list_to_array( $event_ids );
-				$events = array_map( 'tribe_get_event', $event_ids );
-				$this->generate_ical_feed( $events );
-			} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-				$this->generate_ical_feed( $wp_query->post );
-			} else {
-				$this->generate_ical_feed();
-			}
-			die();
+		// hijack to iCal template if query string included.
+		if (
+			! get_query_var( 'ical' )
+			&& ! isset( $_GET['ical'] )
+			&& ! get_query_var( 'outlook-ical' )
+			&& ! isset( $_GET['outlook-ical'] )
+		) {
+			return;
 		}
+
+		if (
+			get_query_var( 'outlook-ical' )
+			|| isset( $_GET['outlook-ical'] )
+		) {
+			$this->type = 'outlook';
+		}
+
+		/**
+		 * Action fired before the creation of the feed is started, helpful to set up methods and other filters used
+		 * on this class.
+		 *
+		 * @since 4.6.11
+		 */
+		do_action( 'tribe_events_ical_before' );
+
+		if ( ! $wp_query = tribe_get_global_query_object() ) {
+			return;
+		}
+
+		$event_ids = tribe_get_request_var( 'event_ids', false );
+
+		/**
+		 * Allows filtering the event IDs after the `Tribe__Events__ICal` class
+		 * tried to fetch them from the current request.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array<int>|false Either a list of requested event post IDs or `false`
+		 *                         if the current request does not specify the event post
+		 *                         IDs to fetch.
+		 */
+		$event_ids = apply_filters( 'tribe_ical_template_event_ids', $event_ids );
+
+		if ( false !== $event_ids ) {
+			if ( empty( $event_ids ) ) {
+				die();
+			}
+			$event_ids = Arr::list_to_array( $event_ids );
+			$events = array_map( 'tribe_get_event', $event_ids );
+			$this->generate_ical_feed( $events );
+		} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+			$this->generate_ical_feed( $wp_query->post );
+		} else {
+			$this->generate_ical_feed();
+		}
+		die();
 	}
 
 	/**
@@ -335,8 +358,8 @@ class Tribe__Events__iCal {
 
 		$args = [
 			'eventDisplay' => 'custom',
-			'start_date' => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date' => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+			'start_date' => \Tribe\Events\Views\V2\Views\Month_View::calculate_first_cell_date( $month ),
+			'end_date' => \Tribe\Events\Views\V2\Views\Month_View::calculate_final_cell_date( $month ),
 			'posts_per_page' => -1,
 			'hide_upcoming' => true,
 		];
@@ -380,13 +403,14 @@ class Tribe__Events__iCal {
 	 * Get the file name of the *.ics file
 	 *
 	 * @since 4.9.4
+	 * @since 5.16.0 - Add the iCal type to the filename so both ics and outlook ics are unique names.
 	 *
 	 * @return mixed The calendar name
 	 */
 	protected function get_file_name() {
 		$event_ids = wp_list_pluck( $this->events, 'ID' );
 		$site = sanitize_title( get_bloginfo( 'name' ) );
-		$hash = substr( md5( implode( $event_ids ) ), 0, 11 );
+		$hash = substr( md5( $this->type . implode( $event_ids ) ), 0, 11 );
 		$filename = sprintf( '%s-%s.ics', $site, $hash );
 
 		/**
@@ -419,6 +443,7 @@ class Tribe__Events__iCal {
 	 * Get the start of the .ics File
 	 *
 	 * @since 4.9.4
+	 * @since 5.16.0 - Add a check for iCAL type to prevent Outlook ics from including X-WR-CALNAME.
 	 *
 	 * @return mixed
 	 */
@@ -439,7 +464,7 @@ class Tribe__Events__iCal {
 		 */
 		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blog_name );
 
-		if ( ! empty( $x_wr_calname ) ) {
+		if ( ! empty( $x_wr_calname ) && 'ical' === $this->type ) {
 			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
 		}
 
@@ -695,7 +720,7 @@ class Tribe__Events__iCal {
 		$item['URL'] = 'URL:' . get_permalink( $event_post->ID );
 
 		// Add location if available.
-		$location = $tec->fullAddressString( $event_post->ID );
+		$location = \Tribe__Events__Venue::get_address_full_string( $event_post->ID );
 		if ( ! empty( $location ) ) {
 			$str_location = $this->replace( $location, [ ',', "\n" ], [ '\,', '\n' ] );
 

@@ -5,10 +5,16 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Register implementations.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 */
 	public function register() {
-		tribe_singleton( Settings::class, Settings::class );
+		$this->container->singleton( Settings::class, Settings::class );
+		$this->container->singleton( 'tec.admin.notice.legacy-views', Notice\Legacy_Views_Deprecation::class );
+		$this->container->singleton( Notice\Legacy_Views_Updated::class, Notice\Legacy_Views_Updated::class );
+		$this->container->singleton( 'tec.admin.notice.fse', Notice\Full_Site_Editor::class );
+		$this->container->singleton( 'tec.admin.notice.timezones', Notice\Timezones::class );
+		$this->container->singleton( 'tec.admin.notice.marketing', Notice\Marketing::class );
+		$this->container->singleton( 'tec.admin.notice.update', Notice\Update::class );
 
 		$this->add_hooks();
 	}
@@ -16,19 +22,25 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Add hooks.
 	 *
-	 * @since TBD
+	 * @since 5.15.0
 	 */
 	public function add_hooks() {
-		add_action( 'tribe_settings_do_tabs', tribe_callback( Settings::class, 'settings_ui' ) );
-		add_action( 'admin_menu', tribe_callback( Settings::class, 'add_admin_pages' ), 11 );
-		add_action( 'network_admin_menu', tribe_callback( Settings::class, 'maybe_add_network_settings_page' ) );
-		add_action( 'tribe_settings_do_tabs', tribe_callback( Settings::class, 'do_network_settings_tab' ), 400 );
-
-		add_filter( 'tribe_settings_page_title', tribe_callback( Settings::class, 'settings_page_title' ) );
-		add_filter( 'tec_settings_tab_url', tribe_callback( Settings::class, 'filter_settings_tab_url' ), 50, 3 );
-		add_filter( 'tec_admin_pages_with_tabs', tribe_callback( Settings::class, 'add_to_pages_with_tabs' ), 20, 1 );
-		add_filter( 'tribe_settings_page_url', tribe_callback( Settings::class, 'filter_settings_page_url' ), 50, 3 );
-		add_filter( 'tec_admin_footer_text', tribe_callback( Settings::class, 'admin_footer_text_settings' ) );
-		add_filter( 'tribe-events-save-network-options', tribe_callback( Settings::class, 'maybe_hijack_save_network_settings' ), 10, 2 );
+		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'settings_ui' ) );
+		add_action( 'admin_menu', $this->container->callback( Settings::class, 'add_admin_pages' ), 11 );
+		add_action( 'network_admin_menu', $this->container->callback( Settings::class, 'maybe_add_network_settings_page' ) );
+		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_network_settings_tab' ), 400 );
+		add_filter( 'tribe_settings_page_title', $this->container->callback( Settings::class, 'settings_page_title' ) );
+		add_filter( 'tec_settings_tab_url', $this->container->callback( Settings::class, 'filter_settings_tab_url' ), 50, 3 );
+		add_filter( 'tec_admin_pages_with_tabs', $this->container->callback( Settings::class, 'add_to_pages_with_tabs' ), 20, 1 );
+		add_filter( 'tribe_settings_page_url', $this->container->callback( Settings::class, 'filter_settings_page_url' ), 50, 3 );
+		add_filter( 'tec_admin_footer_text', $this->container->callback( Settings::class, 'admin_footer_text_settings' ) );
+		add_filter( 'tribe-events-save-network-options', $this->container->callback( Settings::class, 'maybe_hijack_save_network_settings' ), 10, 2 );
+		add_filter( 'tribe_events_register_event_type_args', $this->container->callback( Settings::class, 'filter_event_type_args' ) );
+		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.update', 'register' ) );
+		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.timezones', 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.marketing', 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.legacy-views', 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.fse', 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( Notice\Legacy_Views_Updated::class, 'hook' ) );
 	}
 }

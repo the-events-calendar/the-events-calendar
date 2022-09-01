@@ -13,7 +13,6 @@ use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
-use Tribe__Events__Template__Month as Month;
 use Tribe__Utils__Array as Arr;
 
 class Month_View extends By_Day_View {
@@ -38,6 +37,15 @@ class Month_View extends By_Day_View {
 	protected $slug = 'month';
 
 	/**
+	 * Cached dates for the prev/next links.
+	 *
+	 * @since 5.16.1
+	 *
+	 * @var array
+	 */
+	protected $cached_event_dates = [];
+
+	/**
 	 * Visibility for this view.
 	 *
 	 * @since 4.9.4
@@ -57,6 +65,48 @@ class Month_View extends By_Day_View {
 	protected $grid_days = [];
 
 	/**
+	 * Get the date of the event immediately previous to the current view date.
+	 *
+	 * @since 5.16.1
+	 *
+	 * @param DateTime $current_date A DateTime object signifying the current date for the view.
+	 *
+	 * @return DateTime|false Either the previous event chronologically, the previous month, or false if no next event found.
+	 */
+	public function get_previous_event_date( $current_date ) {
+		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+
+
+		// Use cache to reduce the performance impact.
+		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
+
+		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
+			return $this->cached_event_dates[ $cache_key ];
+		}
+
+		// Find the first event that starts before the start of this month.
+		$prev_event = tribe_events()
+			->by_args( $args )
+			->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-01' ) ) )
+			->order( 'DESC' )
+			->first();
+
+		if ( ! $prev_event instanceof \WP_Post ) {
+			return false;
+		}
+
+		// Show the closest date on which that event appears (but not the current date).
+		$prev_date  = min(
+			Dates::build_date_object( $prev_event->dates->start ),
+			$current_date->modify( '-1 month' )
+		);
+
+		$this->cached_event_dates[ $cache_key ] = $prev_date;
+
+		return $prev_date;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function prev_url( $canonical = false, array $passthru_vars = [] ) {
@@ -72,21 +122,11 @@ class Month_View extends By_Day_View {
 		$current_date = Dates::build_date_object( $date );
 
 		if ( $this->skip_empty() ) {
-			// Find the first event that starts before the start of this month.
-			$prev_event = tribe_events()
-				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
-				->where( 'starts_before', tribe_beginning_of_day( $current_date->format( 'Y-m-01' ) ) )
-				->order( 'DESC' )
-				->first();
-			if ( ! $prev_event instanceof \WP_Post ) {
+			// Show the closest date on which that event appears (but not the current date).
+			$prev_date = $this->get_previous_event_date( $current_date, $canonical );
+			if ( ! $prev_date ) {
 				return $this->filter_prev_url( $canonical, '' );
 			}
-
-			// Show the closest date on which that event appears (but not the current date).
-			$prev_date = min(
-				$prev_event->dates->start,
-				$current_date->sub( new \DateInterval( 'P1M' ) )
-			);
 		} else {
 			$prev_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
 			$prev_date->sub( new \DateInterval( 'P1M' ) );
@@ -106,6 +146,46 @@ class Month_View extends By_Day_View {
 	}
 
 	/**
+	 * Get the date of the event immediately after to the current view date.
+	 *
+	 * @since 5.16.1
+	 *
+	 * @param DateTime|false $current_date A DateTime object signifying the current date for the view.
+	 *
+	 * @return DateTime|false Either the next event chronologically, the next month, or false if no next event found.
+	 */
+	public function get_next_event_date( $current_date ) {
+		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+		// Use cache to reduce the performance impact.
+		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
+
+		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
+			return $this->cached_event_dates[ $cache_key ];
+		}
+
+		// The first event that ends after the end of the month; it could still begin in this month.
+		$next_event = tribe_events()
+			->by_args( $this->filter_repository_args( $args ) )
+			->where( 'starts_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
+			->order( 'ASC' )
+			->first();
+
+		if ( ! $next_event instanceof \WP_Post ) {
+			return false;
+		}
+
+		// At a minimum pick the next month or the month the next event starts in.
+		$next_date       = max(
+			Dates::build_date_object( $next_event->dates->start ),
+			$current_date->modify( '+1 month' )
+		);
+
+		$this->cached_event_dates[ $cache_key ] = $next_date;
+
+		return $next_date;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function next_url( $canonical = false, array $passthru_vars = [] ) {
@@ -121,21 +201,11 @@ class Month_View extends By_Day_View {
 		$current_date = Dates::build_date_object( $date );
 
 		if ( $this->skip_empty() ) {
-			// The first event that ends after the end of the month; it could still begin in this month.
-			$next_event = tribe_events()
-				->by_args( $this->filter_repository_args( $this->setup_repository_args() ) )
-				->where( 'ends_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
-				->order( 'ASC' )
-				->first();
-			if ( ! $next_event instanceof \WP_Post ) {
+			// At a minimum pick the next month or the month the next event starts in.
+			$next_date = $this->get_next_event_date( $current_date, $canonical );
+			if ( ! $next_date ) {
 				return $this->filter_next_url( $canonical, '' );
 			}
-
-			// At a minimum pick the next month or the month the next event starts in.
-			$next_date = max(
-				$next_event->dates->start,
-				$current_date->add( new \DateInterval( 'P1M' ) )
-			);
 		} else {
 			$next_date = Dates::build_date_object( $current_date->format( 'Y-m-01' ) );
 			$next_date->add( new \DateInterval( 'P1M' ) );
@@ -236,10 +306,23 @@ class Month_View extends By_Day_View {
 		$month_and_year_format         = tribe_get_option( 'monthAndYearFormat', 'F Y' );
 		$month_and_year_format_compact = Dates::datepicker_formats( tribe_get_option( 'datepickerFormat', 'm1' ) );
 
-		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
 		$next_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of next month' )->format( 'n' );
-		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
+		$prev_month_num = Dates::build_date_object( $grid_date_str )->modify( 'first day of last month' )->format( 'n' );
 		$next_month     = Dates::wp_locale_month( $next_month_num, 'short' );
+		$prev_month     = Dates::wp_locale_month( $prev_month_num, 'short' );
+		$index_next_rel = true;
+		$index_prev_rel = true;
+
+		if ( ! $this->skip_empty() ) {
+			$next_event_date = $this->get_next_event_date( Dates::build_date_object( $grid_date_str ) );
+			$previous_event_date = $this->get_previous_event_date( Dates::build_date_object( $grid_date_str ) );
+
+			$index_next_rel = $next_event_date && $next_month_num === $next_event_date->format( 'n' );
+			$index_prev_rel = $previous_event_date && $prev_month_num === $previous_event_date->format( 'n' );
+		}
+
+		$next_rel = $index_next_rel ? 'next' : 'noindex';
+		$prev_rel = $index_prev_rel ? 'prev' : 'noindex';
 
 		$mobile_messages = $this->get_mobile_messages();
 
@@ -251,8 +334,12 @@ class Month_View extends By_Day_View {
 		$template_vars['formatted_grid_date_mobile'] = $grid_date->format( $month_and_year_format_compact );
 		$template_vars['events']                     = $grid_days;
 		$template_vars['days']                       = $days;
-		$template_vars['prev_label']                 = $prev_month;
+		$template_vars['next_month']                 = $next_month_num;
+		$template_vars['prev_month']                 = $prev_month_num;
+		$template_vars['next_rel']                   = $next_rel;
+		$template_vars['prev_rel']                   = $prev_rel;
 		$template_vars['next_label']                 = $next_month;
+		$template_vars['prev_label']                 = $prev_month;
 		$template_vars['messages']                   = $this->messages->to_array();
 		$template_vars['mobile_messages']            = $mobile_messages;
 		$template_vars['grid_start_date']            = $grid_start_date;
@@ -431,10 +518,89 @@ class Month_View extends By_Day_View {
 	 * {@inheritDoc}
 	 */
 	protected function calculate_grid_start_end( $date ) {
-		$grid_start = Month::calculate_first_cell_date( $date );
-		$grid_end   = Month::calculate_final_cell_date( $date );
+		$grid_start = static::calculate_first_cell_date( $date );
+		$grid_end   = static::calculate_final_cell_date( $date );
 
 		return [ Dates::build_date_object( $grid_start ), Dates::build_date_object( $grid_end ) ];
+	}
+
+	/**
+	 * Return the date of the first day in the month view grid.
+	 *
+	 * This is not necessarily the 1st of the specified month, rather it is the date of the
+	 * first grid cell which could be anything upto 6 days earlier than the 1st of the month.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param string  $month
+	 * @param integer $start_of_week
+	 *
+	 * @return bool|string (Y-m-d)
+	 */
+	public static function calculate_first_cell_date( $month, $start_of_week = null ) {
+		if ( null === $start_of_week ) {
+			$start_of_week = (int) get_option( 'start_of_week', 0 );
+		}
+
+		$day_1 = Dates::first_day_in_month( $month );
+		if ( $day_1 < $start_of_week ) {
+			$day_1 += 7;
+		}
+
+		$diff = $day_1 - $start_of_week;
+		if ( $diff >= 0 ) {
+			$diff = "-$diff";
+		}
+
+		try {
+			$date = new \DateTime( $month );
+			$date = new \DateTime( $date->format( 'Y-m-01' ) );
+			$date->modify( "$diff days" );
+
+			return $date->format( Dates::DBDATEFORMAT );
+		} catch ( \Exception $e ) {
+			return false;
+		}
+	}
+
+	/**
+	 * Return the date of the first day in the month view grid.
+	 *
+	 * This is not necessarily the last day of the specified month, rather it is the date of
+	 * the final grid cell which could be anything upto 6 days into the next month.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param string  $month
+	 * @param integer $start_of_week
+	 *
+	 * @return bool|string (Y-m-d)
+	 */
+	public static function calculate_final_cell_date( $month, $start_of_week = null ) {
+		if ( null === $start_of_week ) {
+			$start_of_week = (int) get_option( 'start_of_week', 0 );
+		}
+
+		$last_day    = Dates::last_day_in_month( $month );
+		$end_of_week = Dates::week_ends_on( $start_of_week );
+		if ( $end_of_week < $last_day ) {
+			$end_of_week += 7;
+		}
+
+		$diff = $end_of_week - $last_day;
+		if ( $diff >= 0 ) {
+			$diff = "+$diff";
+		}
+
+		try {
+			$date = new \DateTime( $month );
+			$date = new \DateTime( $date->format( 'Y-m-t' ) );
+			$date->modify( "$diff days" );
+
+			return $date->format( Dates::DBDATEFORMAT );
+		} catch ( \Exception $e ) {
+			return false;
+		}
 	}
 
 	/**

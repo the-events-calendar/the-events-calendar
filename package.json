@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.14.1",
+  "version": "6.0.0",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -20,11 +20,14 @@
     "eslint": [
       "src/modules/**/*.js",
       "src/resources/js/**/*.js",
+      "!src/resources/js/**/__tests__/**/*.js",
       "!src/resources/js/**/*.min.js",
       "!src/resources/js/app/**/*.js",
       "!src/resources/js/views/**/*.js",
       "!src/resources/js/events-admin.js",
       "!src/resources/js/tribe-events-bar.js",
+      "!src/resources/js/tec-update-6.0.0-notice.js",
+      "!src/resources/js/custom-tables-v1/ct1-upgrade.js",
       "!src/resources/js/tribe-events.js",
       "src/resources/js/views/**/*.js"
     ],
@@ -37,9 +40,13 @@
       "!src/resources/postcss/tribe-events-full.pcss",
       "!src/resources/postcss/tribe-events-skeleton.pcss",
       "!src/resources/postcss/tribe-events-theme-mobile.pcss",
+      "!src/resources/postcss/tribe-events-theme.pcss",
       "!src/resources/postcss/tribe-events-theme.pcss"
     ],
-    "jest": ["src/modules/**/__tests__/**/*.js"]
+    "jest": [
+      "src/modules/**/__tests__/**/*.js",
+      "src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
+    ]
   },
   "scripts": {
     "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
@@ -89,8 +96,10 @@
     "bezier-easing": "^2.1.0",
     "chrono-node": "^2.2.4",
     "classnames": "^2.2.6",
+    "clipboard": "^2.0.10",
     "file-loader": "^1.1.6",
     "he": "^1.2.0",
+    "intro.js": "^3.4.0",
     "jquery": "3.5.0",
     "lodash": "^4.17.21",
     "moment": "2.19.3",
@@ -116,8 +125,7 @@
     "url-loader": "^0.6.2",
     "validator": "^13.7.0",
     "whatwg-fetch": "^2.0.4",
-    "zero-fill": "^2.2.3",
-    "intro.js": "^3.4.0"
+    "zero-fill": "^2.2.3"
   },
   "browserslist": [
     "last 2 Chrome versions",

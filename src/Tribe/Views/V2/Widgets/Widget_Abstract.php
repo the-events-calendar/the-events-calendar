@@ -90,6 +90,26 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 
 		// Ensure widgets never get Filter Bar classes on their containers.
 		add_filter( "tribe_events_views_v2_filter_bar_{$this->view_slug}_view_html_classes", '__return_false' );
+
+		add_filter( "tribe_events_views_v2_view_{$this->view_slug}_repository_args", [ $this, 'no_widget_search' ] );
+	}
+
+	/**
+	 * Remove search terms from the widget repository args.
+	 *
+	 * @since 5.16.2
+	 *
+	 * @param array<string,mixed> $repository_args The arguments for the widget events query.
+	 *
+	 * @return array<string,mixed> $repository_args The modified args.
+	 */
+	public function no_widget_search( $repository_args ) {
+		// Sanity check.
+		if ( self::is_widget_in_use() ) {
+			unset( $repository_args['search'] );
+		}
+
+		return $repository_args;
 	}
 
 	/**

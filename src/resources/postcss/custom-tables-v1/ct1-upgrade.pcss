@@ -1,0 +1,368 @@
+.tec-ct1-upgrade {
+	background-color: #f9f9f9;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin: 20px 0;
+	padding: 0;
+	position: relative;
+
+	p {
+		font-size: 14px;
+		line-height: 23px;
+
+		&:last-of-type {
+			margin-bottom: 25px;
+		}
+	}
+
+	button,
+	.tec-ct1-upgrade__button {
+		background: #334aff;
+		border: 0;
+		border-radius: 0.25rem;
+		box-shadow: 0 2px black;
+		color: white;
+		cursor: pointer;
+		font-size: 1rem;
+		line-height: 1.2;
+		margin-right: 2rem;
+		padding: 1rem 0.5rem;
+		text-decoration: none;
+		white-space: nowrap;
+		width: 200px;
+	}
+
+	button[disabled] {
+		background: #ccc;
+		box-shadow: none;
+		color: #fff;
+	}
+
+	.tec-ct1-upgrade__alert {
+		background: #c7e8ca;
+		border: 1px solid #46b450;
+		border-radius: 4px;
+		padding: 19px;
+
+		.tec-ct1-upgrade__alert-icon {
+			background: #46b450;
+			border-radius: 50%;
+			color: #fff;
+			display: inline-block;
+			font-family: "Helvetica Neue", serif;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: bold;
+			height: 19px;
+			line-height: 19px;
+			margin-right: 0.25rem;
+			text-align: center;
+			width: 19px;
+		}
+
+		&.tec-ct1-upgrade__alert--error {
+			background: #fff3cd;
+			border-color: #dba617;
+
+			.tec-ct1-upgrade__alert-icon {
+				background: #dba617;
+			}
+		}
+	}
+
+	.tribe-update-bar {
+		display: block;
+		width: 100%;
+
+		.progress {
+			border-radius: 4px;
+			height: 22px;
+			width: 100%;
+		}
+
+		.bar {
+			background: #3352f5;
+			border-radius: 4px;
+			height: 22px;
+		}
+	}
+
+	progress {
+		--_indeterminate-track-animation: tec-progress-loading 4s infinite ease;
+		--_indeterminate-track-size: 225% 100%;
+		--_indeterminate-track: linear-gradient(to right, var(--_track) 45%, var(--_progress) 0%, var(--_progress) 55%, var(--_track) 0%);
+		--_progress: #3352f5;
+		--_radius: 4px;
+		--_track-size: min(23px, 23px);
+		--_track: #fff;
+
+		appearance: none;
+		border: none;
+		border-radius: var(--_radius);
+		height: var(--_track-size);
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+
+		&:focus-visible {
+			outline-color: var(--_progress);
+		}
+
+		/*  Safari/Chromium  */
+
+		&[value]::-webkit-progress-bar {
+			background-color: var(--_track);
+			border-radius: 4px;
+		}
+
+		&[value]::-webkit-progress-value {
+			background-color: var(--_progress);
+			border-radius: 4px;
+			transition: inline-size 0.25s ease-out;
+		}
+
+		/*  Firefox  */
+
+		&[value]::-moz-progress-bar {
+			background-color: var(--_progress);
+		}
+
+		/*  indeterminate  */
+
+		&:indeterminate:after {
+			animation: var(--_indeterminate-track-animation);
+			background: var(--_indeterminate-track);
+			background-position: right;
+			background-size: var(--_indeterminate-track-size);
+			border-radius: 4px;
+			content: "";
+			inset: 0;
+			position: absolute;
+		}
+
+		/*  indeterminate Safari  */
+
+		&:indeterminate::-webkit-progress-bar {
+			animation: var(--_indeterminate-track-animation);
+			background: var(--_indeterminate-track);
+			background-position: right;
+			background-size: var(--_indeterminate-track-size);
+			border-radius: 4px;
+		}
+
+		/*  indeterminate Firefox  */
+
+		&:indeterminate::-moz-progress-bar {
+			animation: var(--_indeterminate-track-animation);
+			background: var(--_indeterminate-track);
+			background-position: right;
+			background-size: var(--_indeterminate-track-size);
+			border-radius: 4px;
+		}
+
+		/*  complete  */
+
+		&:not([max])[value="1"]:before,
+		&[max="100"][value="100"]:before {
+			align-items: center;
+			color: white;
+			content: "✓";
+			display: flex;
+			font-size: calc(var(--_track-size) / 1.25);
+			inset-block: 0;
+			inset-inline: auto 0;
+			padding-inline-end: max(calc(var(--_track-size) / 4), 3px);
+			position: absolute;
+		}
+	}
+
+	.tribe-update-bar__summary {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 6px;
+		width: 100%;
+	}
+
+	.tribe-update-bar__summary-remaining-text {
+		text-align: right;
+	}
+}
+
+.tec-ct1-upgrade__row {
+	display: flex;
+}
+
+.tec-ct1-upgrade .content-container {
+	max-width: 600px;
+	padding: 2rem;
+}
+
+.tec-ct1-upgrade__row .content-container > span {
+	color: #334aff;
+}
+
+.clear + .tec-ct1-upgrade {
+	margin-top: 0;
+}
+
+.tec-ct1-upgrade .image-container {
+	max-width: 245px;
+	padding: 2rem;
+}
+
+.tec-ct1-upgrade .image-container img {
+	border-radius: 0.5rem;
+	display: inline-block;
+	filter: drop-shadow(0 0 6px #ccc);
+	height: auto;
+	margin: 0;
+	vertical-align: top;
+	width: 100%;
+}
+
+.tec-ct1-upgrade .tec-ct-1upgrade__row .content-container {
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+.tec-ct1-upgrade .tec-ct1-upgrade__row:first-of-type .content-container {
+	padding-top: 2rem;
+}
+
+.tec-ct1-upgrade .tec-ct1-upgrade__row:last-of-type {
+	padding-bottom: 2rem;
+}
+
+.tec-ct1-upgrade h3 {
+	font-size: 24px;
+	line-height: 1.4em;
+	margin-bottom: 1em;
+	margin-top: 0;
+}
+
+.tec-ct1-upgrade span + h3 {
+	margin-top: 1em;
+}
+
+.tec-ct1-upgrade .tec-ct1-upgrade__logo {
+	height: 22px;
+	margin: 0 0.25rem -3px 0;
+}
+
+.tec-ct1-upgrade-cancel-migration {
+	margin-top: 6px;
+}
+
+.tec-ct1-upgrade__report {
+	padding: 0 2rem 2rem;
+	width: 100%;
+}
+
+.tec-ct1-upgrade__report-header {
+	display: flex;
+	margin-bottom: 1rem;
+}
+
+.tec-ct1-upgrade__report-header-section {
+	border-right: 1px solid #3c434a;
+	padding: 0 0.5rem;
+}
+
+.tec-ct1-upgrade__report-header-section:first-child {
+	padding-left: 0;
+}
+
+.tec-ct1-upgrade__report-header-section:last-child {
+	border-right: 0;
+	padding-right: 0;
+}
+
+.tec-ct1-upgrade__report-body {
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	margin: 0 0 0 0;
+	padding: 1rem 1rem 1rem;
+}
+
+.tec-ct1-upgrade__report-body-content {
+	font-family: Courier, monospace;
+	font-size: 12px;
+	height: 140px;
+	margin-bottom: 1rem;
+	max-height: 600px;
+	min-height: 100px;
+	overflow-y: scroll;
+	resize: vertical;
+}
+
+.tec-ct1-upgrade .tec-ct1-upgrade__report-body-content ul {
+	list-style-type: disc;
+	margin-left: 20px;
+}
+
+.tec-ct1-upgrade__report-body-content li {
+	line-height: 23px;
+}
+
+.tec-ct1-upgrade .tec-ct1-upgrade__link-danger {
+	color: #da394d;
+}
+
+/* ========= Modal ========= */
+
+.tribe-common .tribe-dialog__wrapper .tec-ct1-action-container {
+	display: none;
+}
+
+.tribe-common .tribe-dialog__wrapper .tec-ct1-upgrade {
+	background: transparent;
+	border: none;
+}
+
+.tribe-common .tribe-dialog__wrapper.tec-ct1-dialog-wrapper {
+	overflow-y: auto;
+	width: 660px;
+}
+
+.tribe-common .tec-ct1-dialog-wrapper .tribe-dialog__close-button {
+	display: none;
+}
+
+.tribe-common .tribe-dialog__wrapper.tec-ct1-dialog-wrapper .image-container {
+	display: none;
+}
+
+.tec-ct1-dialog-wrapper {
+	position: absolute;
+	z-index: 2000;
+}
+
+.tec-ct1-dialog-wrapper button {
+	padding: 10px;
+}
+
+.tribe-common.tec-ct1-dialog-wrapper--v2-disable-dialog .tribe-dialog__wrapper {
+	overflow-y: auto;
+}
+
+.tribe-common.tec-ct1-dialog-wrapper--v2-disable-dialog .tribe-dialog__overlay {
+	background-color: var(--tribe-modal-overlay-color);
+}
+
+.tribe-common.tec-ct1-dialog-wrapper--v2-disable-dialog .tribe-dialog__close-button {
+	border: 0;
+}
+
+.tec-ct1-upgrade-events-category-container {
+	margin-bottom: 1rem;
+}
+
+.tec-ct1-upgrade-events-pagination-buttons-container {
+	padding-top: 1rem;
+}
+
+@keyframes tec-progress-loading {
+	50% {
+		background-position: left;
+	}
+}

@@ -70,7 +70,7 @@ class Tribe__Events__Integrations__Freemius {
 	 *
 	 * @var string
 	 */
-	private $page = 'tribe-common';
+	private $page = 'tec-events-settings';
 
 	/**
 	 * Tribe__Tickets__Integrations__Freemius constructor.
@@ -98,10 +98,12 @@ class Tribe__Events__Integrations__Freemius {
 		$page = tribe_get_request_var( 'page' );
 
 		$valid_page = [
-			Tribe__Settings::$parent_slug          => true,
-			Tribe__App_Shop::MENU_SLUG             => true,
-			Tribe__Events__Aggregator__Page::$slug => true,
-			'tribe-help'                           => true,
+			\Tribe\Events\Admin\Settings::$settings_page_id => true,
+			Tribe__Settings::$parent_slug                   => true,
+			Tribe__App_Shop::MENU_SLUG                      => true,
+			Tribe__Events__Aggregator__Page::$slug          => true,
+			'tec-events-help'                               => true,
+			'tec-troubleshooting'                           => true,
 		];
 
 		if ( isset( $valid_page[ $page ] ) ) {
@@ -152,9 +154,9 @@ class Tribe__Events__Integrations__Freemius {
 		] );
 
 		$this->instance->add_filter( 'connect_url', [ $this, 'get_connect_url' ], 10, 10 );
-		$this->instance->add_filter( 'after_skip_url', [ $this, 'get_welcome_url' ] );
-		$this->instance->add_filter( 'after_connect_url', [ $this, 'get_welcome_url' ] );
-		$this->instance->add_filter( 'after_pending_connect_url', [ $this, 'get_welcome_url' ] );
+		$this->instance->add_filter( 'after_skip_url', [ $this, 'get_redirect_url' ] );
+		$this->instance->add_filter( 'after_connect_url', [ $this, 'get_redirect_url' ] );
+		$this->instance->add_filter( 'after_pending_connect_url', [ $this, 'get_redirect_url' ] );
 		$this->instance->add_filter( 'plugin_icon', [ $this, 'get_plugin_icon_url' ] );
 
 		/*
@@ -182,6 +184,32 @@ class Tribe__Events__Integrations__Freemius {
 			[],
 			null
 		);
+
+		add_filter( 'tec_admin_update_page_bypass', [ $this, 'bypass_update_page' ], 10, 2 );
+	}
+
+	/**
+	 * Prevents the Freemius integration from happening on Update Message redirect pages.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param bool $bypass
+	 * @param Tribe__Admin__Activation_Page $activation_page
+	 *
+	 * @return bool
+	 */
+	public function bypass_update_page( $bypass, $activation_page ) {
+		if ( 'update-message-the-events-calendar' !== $activation_page->update_slug ) {
+			return $bypass;
+		}
+
+		$action = tribe_get_request_var( 'fs_action' );
+
+		if ( null === $action ) {
+			return $bypass;
+		}
+
+		return true;
 	}
 
 
@@ -287,6 +315,33 @@ class Tribe__Events__Integrations__Freemius {
 	 */
 	public function get_welcome_url() {
 		return tribe( Settings::class )->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] );
+	}
+
+	/**
+	 * Get the Welcome page URL.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @return string The welcome page URL.
+	 */
+	public function get_update_url() {
+		return tribe( Settings::class )->get_url( [ Tribe__Events__Main::instance()->activation_page->update_slug => 1 ] );
+	}
+
+	/**
+	 * Get the Welcome page URL.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @return string The welcome page URL.
+	 */
+	public function get_redirect_url() {
+		$activation_page = Tribe__Events__Main::instance()->activation_page;
+		if ( ! $activation_page->showed_update_message_for_current_version() ) {
+			return $this->get_update_url();
+		}
+
+		return $this->get_welcome_url();
 	}
 
 	/**

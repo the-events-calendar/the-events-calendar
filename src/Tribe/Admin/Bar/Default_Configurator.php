@@ -13,10 +13,11 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 	 */
 	public function configure( WP_Admin_Bar $wp_admin_bar ) {
 		$main = Tribe__Events__Main::instance();
+		$icon = '<div id="tec-events-ab-icon" class="ab-item tec-events-logo svg"></div>';
 
 		$wp_admin_bar->add_menu( [
 			'id'    => 'tribe-events',
-			'title' => '<span class="ab-icon dashicons-before dashicons-calendar"></span>' . sprintf( __( '%s', 'the-events-calendar' ), $main->plural_event_label ),
+			'title' => $icon . sprintf( __( '%s', 'the-events-calendar' ), $main->plural_event_label ),
 			'href'  => $main->getLink( 'home' ),
 		] );
 
