@@ -195,9 +195,9 @@ You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-ticke
 
 = Can I have more than one calendar on my site? =
 
-Unfortunately, no. However, you can use [event categories](https://theeventscalendar.com/knowledgebase/k/event-categories/) or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as “Fitness,” [like this example from our demo site](https://evnt.is/1ajv).
+Unfortunately, no. However, you can use [event categories](https://evnt.is/1bay) or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as “Fitness,” [like this example from our demo site](https://evnt.is/1ajv).
 
-With [Events Calendar Pro](https://theeventscalendar.com/products/wordpress-events-calendar/), you can use [shortcodes](https://evnt.is/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
+With [Events Calendar Pro](https://evnt.is/18wi), you can use [shortcodes](https://evnt.is/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
 
 = Can I allow people to submit events to my calendar? =
 
@@ -207,7 +207,7 @@ If you want to let users sell tickets for the events they submit, check out [Com
 
 = What’s the difference between The Events Calendar and Events Calendar Pro =
 
-The Events Calendar is our cornerstone plugin, and it’s required in order to run any of our premium calendar add-ons, including [Events Calendar Pro](https://theeventscalendar.com/products/wordpress-events-calendar/), [Community Events](https://theeventscalendar.com/products/community-events/), [Filter Bar](https://theeventscalendar.com/products/wordpress-calendar-filter-bar/), and others.
+The Events Calendar is our cornerstone plugin, and it’s required in order to run any of our premium calendar add-ons, including [Events Calendar Pro](https://evnt.is/18wi), [Community Events](https://evnt.is/1bax), [Filter Bar](https://evnt.is/fa), and others.
 
 In other words, Events Calendar Pro runs alongside The Events Calendar and enhances it with extra features, including recurring events and event Series, additional calendar views, calendar shortcodes, advanced widgets, custom event fields, a duplicate event tool, and more.
 
