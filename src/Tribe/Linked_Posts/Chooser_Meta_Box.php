@@ -186,6 +186,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Render a link to edit the linked post
 	 *
+	 * @since TBD Reversed check for editing posts. Added check if the $edit_link is empty.
 	 * @since 3.0
 	 *
 	 * @param int $linked_post_id
