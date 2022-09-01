@@ -48,8 +48,8 @@ jobs:
         uses: actions/checkout@v2
         if: steps.skip.outputs.value != 1
         with:
-          repository: the-events-calendar/tric
-          ref: main
+          repository: stellarwp/slic
+          ref: 0.5.35
           path: tric
           fetch-depth: 1
       # ------------------------------------------------------------------------------
