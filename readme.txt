@@ -224,6 +224,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD = (strudel)
 
+* Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TBD]
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 
