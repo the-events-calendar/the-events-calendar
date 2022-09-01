@@ -22,6 +22,7 @@ use Tribe__Events__Featured_Events as Featured;
 use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Timezones as Timezones;
 use Tribe__Events__Venue as Venue;
+use WP_Post;
 
 /**
  * Class Event
@@ -114,13 +115,13 @@ class Event extends Base {
 			$displays_on        = [];
 
 			if ( 'raw' !== $filter && Dates::is_valid_date( $filter ) ) {
-				list( $week_start, $week_end ) = Dates::get_week_start_end( $filter );
+				[ $week_start, $week_end ] = Dates::get_week_start_end( $filter );
 
 				$week_cache_key = $post_id . '_' . $week_start->format( Dates::DBDATEFORMAT ) . '_week';
 				$cached = tribe( 'cache' )[ $week_cache_key ];
 
 				if ( ! empty( $cached ) ) {
-					list( $happens_this_week, $starts_this_week, $ends_this_week, $this_week_duration, $displays_on) = $cached;
+					[ $happens_this_week, $starts_this_week, $ends_this_week, $this_week_duration, $displays_on] = $cached;
 					$displays_on = (array) $displays_on;
 				} else {
 					$the_start = $start_date_object;
@@ -267,4 +268,65 @@ class Event extends Base {
 		return 'events';
 	}
 
+	/**
+	 * When dealing with a lot of events and the way we handle templates we need a way to prime the cache for the events
+	 * that we know will for sure be on the base, allowing us to prevent queries to Posts to be requested individually
+	 * which can lead to hundreds of more SQL calls.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param array<int|WP_Post> $events
+	 */
+	public static function prime_cache( array $events = [] ) {
+		$first = reset( $events );
+		$is_numeric = ( ! $first instanceof WP_Post );
+		if ( $is_numeric ) {
+			$event_ids = $events;
+		} else {
+			$event_ids = wp_list_pluck( $events, 'ID' );
+		}
+
+		/**
+		 * Allows changing which Post IDs will get primed for cache.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param array<int> $event_ids Which IDs we will prime.
+		 * @param array<int|WP_Post> $events Which event objects will generate the ids.
+		 */
+		$event_ids = apply_filters( 'tec_events_prime_cache_post_ids', $event_ids, $events );
+
+		_prime_post_caches( $event_ids );
+
+		$venue_ids =  array_map( static function( $event ) use ( $is_numeric )  {
+			return array_filter(
+				array_map(
+					'absint',
+					(array) get_post_meta( $is_numeric ? $event : $event->ID, '_EventVenueID' )
+				)
+			);
+		}, $events );
+		$venue_ids = empty( $venue_ids ) ? [] : array_merge( ...$venue_ids );
+
+		$organizer_ids = array_map( static function( $event ) use ( $is_numeric ) {
+			return array_filter(
+				array_map(
+					'absint',
+					(array) get_post_meta( $is_numeric ? $event : $event->ID, '_EventOrganizerID' )
+				)
+			);
+		}, $events );
+
+		$organizer_ids = empty( $organizer_ids ) ? [] : array_merge( ...$organizer_ids );
+
+		$attachment_ids[] = array_map( static function( $post ) use ( $is_numeric ) {
+			$post_id = $is_numeric ? $post : $post->ID;
+			return (int) get_post_meta( $post_id, '_thumbnail_id', true );
+		}, $events );
+
+		$attachment_ids = array_filter( array_merge( ...$attachment_ids ) );
+		$posts = array_unique( array_merge( $venue_ids, $organizer_ids, $attachment_ids ) );
+
+		_prime_post_caches( $posts );
+	}
 }

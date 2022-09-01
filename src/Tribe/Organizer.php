@@ -719,18 +719,71 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 * @since 5.14.0
 	 */
 	public static function add_post_type_metabox() {
-		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+		if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( static::POSTTYPE ) ) {
 			return;
 		}
 
+		$self = self::instance();
+
 		add_meta_box(
 			'tribe_events_organizer_details',
-			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), tribe( 'tec.linked-posts.organizer' )->get_organizer_label_singular() ),
-			[ Tribe__Events__Main::instance(), 'OrganizerMetaBox' ],
-			self::POSTTYPE,
+			sprintf( esc_html__( '%s Information', 'the-events-calendar' ), $self->get_organizer_label_singular() ),
+			[ static::class, 'render_meta_box' ],
+			static::POSTTYPE,
 			'normal',
 			'high'
 		);
+	}
+
+	/**
+	 * Adds the Meta box for Organizers to the Events Post Type.
+	 *
+	 * @since 6.0.0
+	 */
+	public static function render_meta_box() {
+		global $post;
+		$options = '';
+		$style   = '';
+		$postId  = $post->ID;
+		$saved   = false;
+
+		if ( $post->post_type == static::POSTTYPE ) {
+
+			if ( ( is_admin() && isset( $_GET['post'] ) && $_GET['post'] ) || ( ! is_admin() && isset( $postId ) ) ) {
+				$saved = true;
+			}
+
+			if ( $postId ) {
+
+				if ( $saved ) { //if there is a post AND the post has been saved at least once.
+					$organizer_title = apply_filters( 'the_title', $post->post_title, $post->ID );
+				}
+
+				foreach ( Tribe__Events__Main::instance()->organizerTags as $tag ) {
+					if ( metadata_exists( 'post', $postId, $tag ) ) {
+						$$tag = get_post_meta( $postId, $tag, true );
+					}
+				}
+			}
+		}
+		?>
+		<style type="text/css">
+			#EventInfo {
+				border: none;
+			}
+		</style>
+		<div id='eventDetails' class="inside eventForm">
+			<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
+				<?php
+				$hide_organizer_title = true;
+				$organizer_meta_box_template = apply_filters( 'tribe_events_organizer_meta_box_template', Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/organizer-meta-box.php' );
+				if ( ! empty( $organizer_meta_box_template ) ) {
+					include( $organizer_meta_box_template );
+				}
+				?>
+			</table>
+		</div>
+	<?php
 	}
 
 	/**

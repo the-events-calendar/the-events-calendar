@@ -5,14 +5,6 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
-// Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
-
-if ( ! class_exists( 'Tribe__Events__Main' ) ) {
-	return;
-}
 
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
@@ -101,10 +93,10 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 		}
 
 		/*
-		 * Note:
-		 * events that start exactly on the EOD cutoff will count on the following day
-		 * events that end exactly on the EOD cutoff will count on the previous day
-		 */
+		* Note:
+		* events that start exactly on the EOD cutoff will count on the following day
+		* events that end exactly on the EOD cutoff will count on the previous day
+		*/
 
 		$event_is_on_date = Tribe__Date_Utils::range_coincides( $start_of_day, $end_of_day, $event_start, $event_end );
 
