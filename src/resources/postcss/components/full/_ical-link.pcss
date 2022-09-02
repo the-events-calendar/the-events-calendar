@@ -1,3 +1,4 @@
+.single-tribe_events,
 .tribe-events {
 	/* -----------------------------------------------------------------------------
  	 *
@@ -122,6 +123,76 @@
 		.tribe-events-c-subscribe-dropdown__list-item a:focus,
 		.tribe-events-c-subscribe-dropdown__list-item a:focus-within {
 			background-color: transparent !important;
+		}
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * Single Events
+ * ----------------------------------------------------------------------------- */
+
+.tribe-block__events-link,
+.single-tribe_events {
+
+	.tribe-events-c-ical {
+		text-align: left;
+	}
+
+	.tribe-events-c-ical__link {
+		color: var(--tec-color-accent-primary);
+		font-size: var(--tec-font-size-2);
+		margin: 0 0 var(--tec-spacer-3);
+		width: 220px;
+	}
+
+	.tribe-events {
+
+		.tribe-events-c-subscribe-dropdown__container {
+			width: 200px;
+		}
+
+		.tribe-events-c-subscribe-dropdown {
+			position: relative;
+		}
+
+		.tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__content {
+			position: absolute;
+			top: 42px;
+			width: 100%;
+			z-index: var(--tec-z-index-dropdown);
+		}
+
+		.tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button-icon {
+			margin-left: var(--tec-spacer-2);
+		}
+	}
+
+	.tribe-events-c-subscribe-dropdown__button {
+		padding: var(--tec-spacer-1) var(--tec-spacer-2);
+		width: 200px;
+	}
+
+	.tribe-events-c-subscribe-dropdown__export-icon {
+		color: currentColor;
+		display: inline-block;
+		height: 16px;
+		margin-right: var(--tec-spacer-1);
+		margin-top: -3px;
+		stroke: currentColor;
+		vertical-align: middle;
+		width: 21px;
+	}
+}
+
+#tribe-events-content {
+	.tribe-block__events-link {
+		/** Override for the single subscribe button link color in the block editor. **/
+		.tribe-events-c-ical__link {
+			color: var(--tec-color-accent-primary);
+
+			&:hover {
+				color: #fff;
+			}
 		}
 	}
 }

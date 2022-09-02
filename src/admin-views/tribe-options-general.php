@@ -11,16 +11,16 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 		'upsell-heading'                => [
 			'type'        => 'heading',
 			'label'       => esc_html__( 'Finding & extending your calendar.', 'the-events-calendar' ),
-			'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
+			'conditional' => ! tec_should_hide_upsell(),
 		],
 		'finding-heading'               => [
 			'type'        => 'heading',
 			'label'       => esc_html__( 'Finding your calendar.', 'the-events-calendar' ),
-			'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
+			'conditional' => tec_should_hide_upsell(),
 		],
 		'view-calendar-link'            => [
 			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . ' <a href="' . esc_url( Tribe__Events__Main::instance()->getLink() ) . '">' . esc_html__( 'Right here', 'the-events-calendar' ) . '</a>.</p>',
+			'html' => '<p>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . ' <a href="' . esc_url( tribe( 'tec.main' )->getLink() ) . '">' . esc_html__( 'Right here', 'the-events-calendar' ) . '</a>.</p>',
 		],
 	]
 );
@@ -147,6 +147,19 @@ $general_tab_fields = Tribe__Main::array_insert_before_key(
 			'size'            => 'small',
 			'default'         => '$',
 		],
+		'defaultCurrencyCode'         => [
+			'type'            => 'text',
+			'label'           => esc_html__( 'Default currency code', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Set the default currency ISO-4217 code for event costs. This is a three-letter code and is mainly used for data/SEO purposes.', 'the-events-calendar' ),
+			'validation_type' => 'textarea',
+			'size'            => 'small',
+			'default'         => 'USD',
+			'attributes'      => [
+				'minlength'   => 3,
+				'maxlength'   => 3,
+				'placeholder' => __( 'USD', 'the-events-calendar' ),
+			],
+		],
 		'reverseCurrencyPosition'       => [
 			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Currency symbol follows value', 'the-events-calendar' ),
@@ -210,14 +223,7 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 			'html'        =>
 				'<fieldset class="tribe-field tribe-field-html"><legend>' .
 					esc_html__( 'View Welcome Page', 'the-events-calendar' ) .
-				'</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
-		],
-		'viewUpdatePage'          => [
-			'type'        => 'html',
-			'html'        =>
-				'<fieldset class="tribe-field tribe-field-html"><legend>' .
-					esc_html__( 'View Update Page', 'the-events-calendar' ) .
-				'</legend><div class="tribe-field-wrap"><a href="' . Tribe__Settings::instance()->get_url( [ Tribe__Events__Main::instance()->activation_page->update_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Update Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you updated the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+				'</legend><div class="tribe-field-wrap"><a href="' . tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 		],
 	]
 );

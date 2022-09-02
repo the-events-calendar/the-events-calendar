@@ -212,6 +212,8 @@ EventDateTimeContent.propTypes = {
 	cost: PropTypes.string,
 	currencyPosition: PropTypes.oneOf( [ 'prefix', 'suffix', '' ] ),
 	currencySymbol: PropTypes.string,
+	currencyCode: PropTypes.string,
+	currencyCost: PropTypes.string,
 	end: PropTypes.string,
 	isEditable: PropTypes.bool,
 	isOpen: PropTypes.bool,

@@ -1,5 +1,8 @@
 <?php
 // Don't load directly
+
+use Tribe\Events\Admin\Settings;
+
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Tabs__Abstract {
@@ -506,7 +509,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * @return string
 	 */
 	public function maybe_display_aggregator_upsell() {
-		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+		if ( tec_should_hide_upsell() ) {
 			return;
 		}
 
@@ -549,7 +552,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	 * @return string
 	 */
 	public function maybe_display_eventbrite_upsell() {
-		if ( defined( 'TRIBE_HIDE_UPSELL' ) ) {
+		if ( tec_should_hide_upsell() ) {
 			return;
 		}
 
@@ -649,7 +652,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		$url_map = array(
 			'new'      => Tribe__Events__Aggregator__Page::instance()->get_url( array( 'tab' => $this->get_slug(), 'ea-auth' => 'facebook' ) ),
-			'settings' => Tribe__Settings::instance()->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
+			'settings' => tribe( Settings::class )->get_url( array( 'tab' => 'addons', 'ea-auth' => 'facebook' ) ),
 		);
 
 		if ( ! isset( $url_map[ $type ] ) ) {

@@ -2,10 +2,17 @@
 namespace TEC\Test\functions\template_tags;
 
 use Codeception\TestCase\WPTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Timezones as Timezones;
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
+use Tribe\Events\Test\Traits\With_Uopz;
 
 class generalTest extends WPTestCase {
+
+	use MatchesSnapshots;
+	use With_Post_Remapping;
+	use With_Uopz;
 
 	protected $content_w_blocks = <<< HTML
 <!-- wp:tribe/event-datetime /-->
@@ -150,5 +157,139 @@ HTML;
 		}
 		$event = static::factory()->event->create_and_get( $event_overrides );
 		$this->assertEquals( $expected, tribe_is_past_event( $event ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_empty_event_tag_archive_link( ) {
+		$html = tribe_meta_event_archive_tags( null, ', ', false );
+
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_empty_wp_tag_archive_link( ) {
+		$html = tribe_meta_event_tags( null, ', ', false );
+
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	public function tag_archive_provider() {
+		return [
+			[
+				'Event Tags:',
+				', ',
+			],
+			[
+				'Class Tags:',
+				'# ',
+			],
+			[
+				'',
+				'! ',
+			],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider tag_archive_provider
+	 */
+	public function test_event_tag_archive_link( $label, $separator ) {
+		$this->set_permalinks();
+		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'test-1' ] );
+		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2', 'name' => 'test-2' ] );
+		$tag_term   = get_term( $tag, 'post_tag' );
+		$tag_term_2 = get_term( $tag_2, 'post_tag' );
+
+		$event = tribe_events()->set_args( [
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'title'      => 'Tag Event',
+			'status'     => 'publish',
+			'tag'        => [ $tag, $tag_2 ],
+		] )->create();
+		$this->uopz_set_return( 'get_the_ID', $event->ID );
+
+		// Added manually addition of the taxonomies as the above coding was not adding them.
+		wp_set_object_terms( $event->ID, [ $tag_term->slug, $tag_term_2->slug ], 'post_tag', false );
+
+		$html = tribe_meta_event_archive_tags( $label, $separator, false );
+
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * @test
+	 * @dataProvider tag_archive_provider
+	 */
+	public function test_wp_tag_archive_link( $label, $separator ) {
+		$this->set_permalinks();
+		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'test-1' ] );
+		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2', 'name' => 'test-2' ] );
+		$tag_term   = get_term( $tag, 'post_tag' );
+		$tag_term_2 = get_term( $tag_2, 'post_tag' );
+
+		$event = tribe_events()->set_args( [
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'title'      => 'Tag Event',
+			'status'     => 'publish',
+			'tag'        => [ $tag, $tag_2 ],
+		] )->create();
+		$this->uopz_set_return( 'get_the_ID', $event->ID );
+
+		// Added manually addition of the taxonomies as the above coding was not adding them.
+		wp_set_object_terms( $event->ID, [ $tag_term->slug, $tag_term_2->slug ], 'post_tag', false );
+
+		$html = tribe_meta_event_tags( $label, $separator, false );
+
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * @test
+	 * @dataProvider tag_archive_provider
+	 */
+	public function test_with_wp_filter_tag_archive_link( $label, $separator ) {
+		$this->set_permalinks();
+		$tag        = $this->factory()->tag->create( [ 'slug' => 'tag-1', 'name' => 'test-1' ] );
+		$tag_2      = $this->factory()->tag->create( [ 'slug' => 'tag-2', 'name' => 'test-2' ] );
+		$tag_term   = get_term( $tag, 'post_tag' );
+		$tag_term_2 = get_term( $tag_2, 'post_tag' );
+
+		$event = tribe_events()->set_args( [
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'title'      => 'Tag Event',
+			'status'     => 'publish',
+			'tag'        => [ $tag, $tag_2 ],
+		] )->create();
+		$this->uopz_set_return( 'get_the_ID', $event->ID );
+
+		// Added manually addition of the taxonomies as the above coding was not adding them.
+		wp_set_object_terms( $event->ID, [ $tag_term->slug, $tag_term_2->slug ], 'post_tag', false );
+
+		add_filter( 'tec_events_use_wordpress_tag_archive_url', '__return_true' );
+
+		$html = tribe_meta_event_archive_tags( $label, $separator, false );
+
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	protected function set_permalinks() {
+		/** @var \WP_Rewrite */
+		global $wp_rewrite;
+		$structure = '/%postname%/';
+		$wp_rewrite->set_permalink_structure( $structure );
+		update_option( 'permalink_structure', $structure );
+		$wp_rewrite->init();
+		$wp_rewrite->flush_rules( true );
 	}
 }

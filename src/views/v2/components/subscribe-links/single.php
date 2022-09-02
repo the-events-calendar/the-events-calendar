@@ -34,7 +34,7 @@ if( ! $item->is_visible( $view ) ) {
 		title="<?php echo esc_attr( $item->get_single_label( $view ) ); ?>"
 		href="<?php echo esc_url( $item->get_uri( $view ) ); ?>"
 		target="_blank"
-		rel="noopener noreferrer nofollow"
+		rel="noopener noreferrer nofollow noindex"
 	>
 		<?php $this->template( 'components/icons/plus', [ 'classes' => [ 'tribe-events-c-ical__link-icon-svg' ] ] ); ?>
 		<?php echo esc_html( $item->get_single_label( $view ) ); ?>

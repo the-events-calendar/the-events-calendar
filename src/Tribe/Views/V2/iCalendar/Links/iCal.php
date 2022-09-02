@@ -25,6 +25,11 @@ class iCal extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
+	public $block_slug = 'hasiCal';
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function register() {
 		$this->label = __( 'iCalendar', 'the-events-calendar' );
 		$this->single_label = __( 'Add to iCalendar', 'the-events-calendar' );
