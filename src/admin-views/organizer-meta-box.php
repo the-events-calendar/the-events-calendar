@@ -36,7 +36,7 @@ do_action( 'tribe_events_organizer_before_metabox', $post );
 <tr class="organizer tribe-linked-type-organizer-website">
 	<td><?php esc_html_e( 'Website:', 'the-events-calendar' ); ?></td>
 	<td>
-		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerWebsite' name='organizer[Website]' size='25' value='<?php echo isset( $_OrganizerWebsite ) ? esc_attr( $_OrganizerWebsite ) : ''; ?>' />
+		<input tabindex="<?php tribe_events_tab_index(); ?>" type='url' id='OrganizerWebsite' name='organizer[Website]' size='25' value='<?php echo isset( $_OrganizerWebsite ) ? esc_attr( $_OrganizerWebsite ) : ''; ?>' />
 	</td>
 </tr>
 <tr class="organizer tribe-linked-type-organizer-email">
