@@ -39,8 +39,8 @@ class EventInsertionCest extends BaseRestCest {
 			'slug'        => 'an-event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => ( new DateTime( $start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'    => ( new DateTime( $end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' )
 		] );
 
 		$I->seeResponseCodeIs( 201 );
@@ -50,8 +50,8 @@ class EventInsertionCest extends BaseRestCest {
 			'slug'           => 'an-event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
 			'excerpt'        => trim( apply_filters( 'the_excerpt', 'An event excerpt' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'     => ( new DateTime( $start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'       => ( new DateTime( $end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
 			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
@@ -368,8 +368,8 @@ class EventInsertionCest extends BaseRestCest {
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => ( new DateTime( $start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'    => ( new DateTime( $end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
 		] );
 
 		$I->seeResponseCodeIs( 201 );
@@ -377,8 +377,8 @@ class EventInsertionCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $all_day_start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $all_day_end ) ),
+			'start_date'     => ( new DateTime( $all_day_start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'       => ( new DateTime( $all_day_end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
 			'utc_start_date' => Timezones::convert_date_from_timezone( $all_day_start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $all_day_end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'all_day'        => true,
