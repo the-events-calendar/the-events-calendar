@@ -106,6 +106,7 @@ jobs:
           ${SLIC_BIN} build-subdir off
           ${SLIC_BIN} xdebug off
           ${SLIC_BIN} debug on
+          ${SLIC_BIN} composer-cache set ${{ steps.get-composer-cache-dir.outputs.dir }}
           ${SLIC_BIN} info
           ${SLIC_BIN} config
       - name: Start the Chrome container
