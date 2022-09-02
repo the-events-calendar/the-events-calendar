@@ -19,7 +19,7 @@ use TEC\Events\Custom_Tables\V1\Models\Formatters\Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Integer_Key_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Numeric_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Text_Formatter;
-use TEC\Events\Custom_Tables\V1\Models\Validators\Duration;
+use TEC\Events\Custom_Tables\V1\Models\Validators\Occurrence_Duration;
 use TEC\Events\Custom_Tables\V1\Models\Validators\End_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\End_Date_UTC;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Integer_Key;
@@ -70,7 +70,7 @@ class Occurrence extends Model {
 		'end_date'       => End_Date::class,
 		'start_date_utc' => Start_Date_UTC::class,
 		'end_date_utc'   => End_Date_UTC::class,
-		'duration'       => Duration::class,
+		'duration'       => Occurrence_Duration::class,
 		'hash'           => String_Validator::class,
 		'updated_at'     => Valid_Date::class,
 	];
