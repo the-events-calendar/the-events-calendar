@@ -10,7 +10,6 @@
  *
  * @package TEC
  */
-
 /**
  * Copyright 2009-2021 by The Events Calendar and the contributors
  *
