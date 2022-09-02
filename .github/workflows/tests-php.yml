@@ -57,7 +57,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
-          ref: feature/use-slic-image
+          ref: main
           path: slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
