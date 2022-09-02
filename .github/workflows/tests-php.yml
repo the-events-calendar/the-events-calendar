@@ -56,13 +56,8 @@ jobs:
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
-<<<<<<< HEAD
-          ref: 0.5.35
-          path: tric
-=======
           ref: main
           path: slic
->>>>>>> master
           fetch-depth: 1
       # ------------------------------------------------------------------------------
       # Prepare our composer cache directory
