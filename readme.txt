@@ -259,7 +259,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Update Freemius to avoid PHP 8 fatals. [TEC-4330]
 
-== [5.16.3] 2022-07-20 ==
+= [5.16.3] 2022-07-20 =
 
 * Fix - Add a theme based CSS class to the HTML body tag when the `Default Page Template` setting is enabled under Events > Settings > Display. [TEC-4391]
 * Fix - Avoid some conflicts between the import notice and third-party plugins using jQuery datepicker in the admin. [TEC-4429]
