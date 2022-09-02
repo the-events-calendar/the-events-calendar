@@ -28,6 +28,13 @@ jobs:
           fetch-depth: 1000
           submodules: recursive
       # ------------------------------------------------------------------------------
+      # Set up PHP to run slic
+      # ------------------------------------------------------------------------------
+      - name: Configure PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      # ------------------------------------------------------------------------------
       # Check if any PHP files have changed
       # ------------------------------------------------------------------------------
       - name: Check changed files
@@ -42,15 +49,15 @@ jobs:
             echo "::set-output name=value::0"
           fi
       # ------------------------------------------------------------------------------
-      # Checkout tric
+      # Checkout slic
       # ------------------------------------------------------------------------------
-      - name: Checkout tric
+      - name: Checkout slic
         uses: actions/checkout@v2
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
-          ref: 0.5.35
-          path: tric
+          ref: main
+          path: slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
       # Prepare our composer cache directory
@@ -69,17 +76,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
       # ------------------------------------------------------------------------------
-      # Initialize tric
+      # Initialize slic
       # ------------------------------------------------------------------------------
-      - name: Set up tric env vars
+      - name: Set up slic env vars
         if: steps.skip.outputs.value != 1
         run: |
-          echo "TRIC_BIN=${GITHUB_WORKSPACE}/tric/tric" >> $GITHUB_ENV
-          echo "TRIC_WP_DIR=${GITHUB_WORKSPACE}/tric/_wordpress" >> $GITHUB_ENV
-          echo "TRIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
-      - name: Set run context for tric
+          echo "SLIC_BIN=${GITHUB_WORKSPACE}/slic/slic" >> $GITHUB_ENV
+          echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/slic/_wordpress" >> $GITHUB_ENV
+          echo "SLIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
+      - name: Set run context for slic
         if: steps.skip.outputs.value != 1
-        run: echo "TRIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
+        run: echo "SLIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
       - name: Start ssh-agent
         if: steps.skip.outputs.value != 1
         run: |
@@ -88,32 +95,32 @@ jobs:
       - name: Export SSH_AUTH_SOCK env var
         if: steps.skip.outputs.value != 1
         run: echo "SSH_AUTH_SOCK=/tmp/ssh_agent.sock" >> $GITHUB_ENV
-      - name: Set up tric for CI
+      - name: Set up slic for CI
         if: steps.skip.outputs.value != 1
         run: |
           cd ${GITHUB_WORKSPACE}/..
-          ${TRIC_BIN} here
-          ${TRIC_BIN} interactive off
-          ${TRIC_BIN} build-prompt off
-          ${TRIC_BIN} build-subdir off
-          ${TRIC_BIN} xdebug off
-          ${TRIC_BIN} debug on
-          ${TRIC_BIN} info
-          ${TRIC_BIN} config
+          ${SLIC_BIN} here
+          ${SLIC_BIN} interactive off
+          ${SLIC_BIN} build-prompt off
+          ${SLIC_BIN} build-subdir off
+          ${SLIC_BIN} xdebug off
+          ${SLIC_BIN} debug on
+          ${SLIC_BIN} info
+          ${SLIC_BIN} config
       - name: Start the Chrome container
         if: steps.skip.outputs.value != 1
-        run: ${TRIC_BIN} up chrome
+        run: ${SLIC_BIN} up chrome
       - name: Set up Common
         if: steps.skip.outputs.value != 1
         run: |
           docker network prune -f
-          ${TRIC_BIN} use the-events-calendar/common
-          ${TRIC_BIN} composer install --no-dev
+          ${SLIC_BIN} use the-events-calendar/common
+          ${SLIC_BIN} composer install --no-dev
       - name: Set up The Events Calendar
         if: steps.skip.outputs.value != 1
         run: |
-          ${TRIC_BIN} use the-events-calendar
-          ${TRIC_BIN} composer install
+          ${SLIC_BIN} use the-events-calendar
+          ${SLIC_BIN} composer install
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
-        run: ${TRIC_BIN} run ${{ matrix.suite }} --ext DotReporter
+        run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter
