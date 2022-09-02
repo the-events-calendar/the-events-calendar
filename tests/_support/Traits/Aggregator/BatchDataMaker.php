@@ -18,13 +18,16 @@ trait BatchDataMaker {
 			$origin = 'ical';
 		}
 
+		$events = [];
 		for ( $i = 0; $i < $events_count; $i ++ ) {
 			$events[] = $import_data->create_and_get_event_data( $origin );
 		}
 
 		return array_merge( [
 			'batch_hash' => '2389',
-			'events' => $events,
+			'events'     => array_map( static function ( $event ) {
+				return (array) $event;
+			}, $events ),
 			'status' => [
 				'data' => [
 					'total' => 89,
