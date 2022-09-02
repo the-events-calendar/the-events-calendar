@@ -24,7 +24,7 @@ class Duration extends Validator {
 	/**
 	 * @var Whole_Number
 	 */
-	private $whole_number_validator;
+	protected $whole_number_validator;
 
 	/**
 	 * Duration constructor.
@@ -84,7 +84,7 @@ class Duration extends Validator {
 	 *
 	 * @return bool Whether the Duration value is valid when validated in the context of the Dates or not.
 	 */
-	private function check_against_dates( $start_date, $end_date, int $duration, ?string $timezone = null ) {
+	protected function check_against_dates( $start_date, $end_date, int $duration, ?string $timezone = null ) {
 		$start_date_object = Dates::build_date_object( $start_date, $timezone );
 		$end_date_object = Dates::build_date_object( $end_date, $timezone );
 		$date_duration     = $end_date_object->getTimestamp() - $start_date_object->getTimestamp();
