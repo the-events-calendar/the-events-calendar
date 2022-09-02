@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.4
 Stable tag: 6.0.0
-Tested up to: 6.0.1
+Tested up to: 6.0.2
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -195,15 +195,22 @@ You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-ticke
 
 = Can I have more than one calendar on my site? =
 
-Unfortunately, no. However, you can use event categories or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as "Fitness," [like this example from our demo site](https://evnt.is/1ajv).
+Unfortunately, no. However, you can use [event categories](https://evnt.is/1bay) or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as “Fitness,” [like this example from our demo site](https://evnt.is/1ajv).
 
-With Events Calendar Pro, you can use [shortcodes](https://evnt.is/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
+With [Events Calendar Pro](https://evnt.is/18wi), you can use [shortcodes](https://evnt.is/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
 
 = Can I allow people to submit events to my calendar? =
 
 This is available with the [Community Events](https://evnt.is/2g) add-on to facilitate submissions. Install Community Events alongside The Events Calendar and a page will be added to your WordPress site with a form that visitors can use to submit events. As the calendar owner, you have full control over whether event submissions are published immediately or require moderation first.
 
 If you want to let users sell tickets for the events they submit, check out [Community Tickets](https://evnt.is/18wl). It runs with The Events Calendar, Community Events, and Event Tickets and empowers visitors to create and sell tickets, splitting the profits with you.
+
+= What’s the difference between The Events Calendar and Events Calendar Pro =
+
+The Events Calendar is our cornerstone plugin, and it’s required in order to run any of our premium calendar add-ons, including [Events Calendar Pro](https://evnt.is/18wi), [Community Events](https://evnt.is/1bax), [Filter Bar](https://evnt.is/fa), and others.
+
+In other words, Events Calendar Pro runs alongside The Events Calendar and enhances it with extra features, including recurring events and event Series, additional calendar views, calendar shortcodes, advanced widgets, custom event fields, a duplicate event tool, and more.
+
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -225,8 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD = (strudel)
 
+* Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TBD]
 * Tweak - Move Month View day cell class logic to a standalone function with filters. [TBD]
 * Tweak - Add new method: `\Tribe\Events\Views\V2\month_day_classes` [TBD]
+* Tweak - Update the organizer website field to type URL. [TEC-4395]
+* Tweak - Update the venue website field to type URL. [TEC-4349]
 
 = [6.0.1] TBD = (scone)
 
@@ -235,7 +245,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons.
 * Tweak - Added filter `tec_events_month_day_classes` to filter the actual class list before it gets passed to the template.
 
-= [6.0.0] 2022-08-29 =
+= [6.0.0] 2022-09-06 =
 
 * Version - The Events Calendar 6.0.0 is only compatible with Events Calendar PRO 6.0.0 and higher
 * Feature - Custom tables and optimization of Cache Primers to enable reduced and stabilized number of queries on Event views.
