@@ -77,9 +77,10 @@ class Import_Record {
 		}
 
 		$record['organizer'] = $this->create_and_get_many_organizers_data( $origin, $organizer_count, $organizer_overrides );
-		$record['venue']     = (array) $this->create_and_get_venue_data( $origin, $venue_overrides );
+		$record['venue']     = $this->create_and_get_venue_data( $origin, $venue_overrides );
 
-		return (object) $record;
+		// Ensure this will be recursively cast to stdClass.
+		return json_decode( json_encode( $record ), false );
 	}
 
 	/**
