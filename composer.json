@@ -38,7 +38,7 @@
   "config": {
     "preferred-install": "dist",
     "platform": {
-      "php": "7.4.29"
+      "php": "7.3.33"
     }
   },
   "autoload": {
