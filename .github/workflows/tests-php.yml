@@ -57,7 +57,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
-          ref: fix/116-wordpress-test-in-etc-hosts
+          ref: main
           path: slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
