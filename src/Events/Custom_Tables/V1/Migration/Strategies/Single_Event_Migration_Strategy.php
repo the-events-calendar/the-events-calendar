@@ -99,7 +99,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 
 		$event_model->occurrences()->save_occurrences();
 
-		$occurrences = Occurrence::where('post_id','=',$this->post_id)
+		$occurrences = Occurrence::where( 'post_id', '=', $this->post_id )
 			->count();
 
 		if ( $occurrences !== 1 ) {
