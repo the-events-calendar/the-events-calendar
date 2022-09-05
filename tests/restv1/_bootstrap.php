@@ -4,4 +4,5 @@
 use Codeception\Util\Autoload;
 
 Autoload::addNamespace( '\\', __DIR__ );
+require_once __DIR__ . '/BaseRestCest.php';
 
