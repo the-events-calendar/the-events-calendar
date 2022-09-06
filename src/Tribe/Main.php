@@ -6,6 +6,7 @@
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use TEC\Events\Settings\Provider as Settings_Provider;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -652,6 +653,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
+
+			// New Settings
+			tribe_register_provider( Settings_Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
