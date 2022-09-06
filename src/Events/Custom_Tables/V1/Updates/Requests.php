@@ -79,6 +79,12 @@ class Requests {
 
 		$post_id = Arr::get_first_set( $request->get_params(), $post_id_locations, 0 );
 
+		// If we're loading one of the front-end forms, `post_id` will be empty.
+		if ( empty( $post_id ) && tribe_is_frontend() ) {
+			global $post;
+			$post_id = $post->ID ?? $post_id;
+		}
+
 		// For consistency with the REST Request, set up the `id` parameter.
 		$request->set_param( 'id', (int) $post_id );
 
