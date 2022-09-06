@@ -69,6 +69,14 @@ class Tribe__Events__Updater {
 		return $this->get_update_callbacks();
 	}
 
+	/**
+	 * Getter for the private reset version.
+	 * Mainly for tests.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The reset version number.
+	 */
 	public function get_reset_version() {
 		return $this->reset_version;
 	}
