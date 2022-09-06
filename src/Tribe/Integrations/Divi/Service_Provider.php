@@ -56,8 +56,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		// look for a post
-		if ( ! tribe_is_event( $event_id ) && isset( $_POST['et_post_id'] ) ) {
-			$event_id = $_POST['et_post_id'];
+		if ( ! tribe_is_event( $event_id ) && tribe_get_request_var( 'et_post_id' ) ) {
+			$event_id = tribe_get_request_var( 'et_post_id' );
 		}
 
 		if ( ! tribe_is_event( $event_id ) ) {
