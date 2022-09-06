@@ -23,14 +23,15 @@ jQuery( function( $ ) {
 	/**
 	 * Logic for the organizer area -
 	 *"Add Organizer" button should be hidden by default, only appearing when there is more than 1 organizer.
-	 *"Trash" icon / delete button should be hidden by default, only appearing when there is more than 1 organizer or when an organizer has the value of -1.
+	 *"Trash" icon / delete button should be hidden by default, only appearing when there is more than 1 organizer
+	 *  or when an organizer has the value of -1.
 	 */
 	$( add_organizer_button ).hide();
 	organizer_delete_button_display_logic();
 
-	$( organizer_area ).on( 'change', '.linked-post-dropdown', function ( e ) {
+	$( organizer_area ).on( 'change', '.linked-post-dropdown', function ( ) {
 
-		if ( this.value != -1 ) {
+		if ( this.value !== -1 ) {
 			$( add_organizer_button ).show();
 		} else {
 			$( add_organizer_button ).hide();
@@ -41,9 +42,9 @@ jQuery( function( $ ) {
 	} );
 
 	// Functions to run when the delete button is clicked.
-	$( organizer_area ).on( 'click', organizer_delete_button, function ( e ) {
-		console.log("Clicked delete button");
-		// We have to run this in a setTimeout because the original functionality uses a fade of 500ms. Therefore we use 525ms to run slightly after it is done.
+	$( organizer_area ).on( 'click', organizer_delete_button, function ( ) {
+		// We have to run this in a setTimeout because the original functionality uses a fade of 500ms.
+		// Therefore we use 525ms to run slightly after it is done.
 		setTimeout( function () {
 			organizer_delete_button_display_logic();
 		}, 525 );
@@ -66,7 +67,7 @@ jQuery( function( $ ) {
 				return;
 			}
 			//If this is running, it's because we only have 1 organizer
-			if ( $( organizer_area + ' .linked-post-dropdown' ).val() != -1 ) {
+			if ( $( organizer_area + ' .linked-post-dropdown' ).val() !== -1 ) {
 				$( add_organizer_button ).show();
 			}
 
