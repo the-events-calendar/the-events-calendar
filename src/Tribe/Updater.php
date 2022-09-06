@@ -69,6 +69,10 @@ class Tribe__Events__Updater {
 		return $this->get_update_callbacks();
 	}
 
+	public function get_reset_version() {
+		return $this->reset_version;
+	}
+
 	/**
 	 * Returns an array of callbacks with version strings as keys.
 	 * Any key higher than the version recorded in the DB
