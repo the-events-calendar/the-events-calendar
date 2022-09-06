@@ -56,7 +56,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @return callable The callback that will handle upsertions of an Event custom tables data
 	 *                  in the context of a repository call.
 	 */
-	public function update_callback( $repository_callback, array $postarr = [] ) {
+	public function update_callback( callable $repository_callback, array $postarr = [] ): callable {
 		return $this->container->make( Events::class )->update_callback( $repository_callback, $postarr );
 	}
 }

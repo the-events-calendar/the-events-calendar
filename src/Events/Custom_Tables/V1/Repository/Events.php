@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Repository;
 
+use Closure;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use WP_Post;
 use Tribe__Events__Main as TEC;
@@ -37,11 +38,11 @@ class Events {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @return callable The callback that should be used to upsert the Event data in the custom tables.
+	 * @return Closure The callback that should be used to upsert the Event data in the custom tables.
 	 */
-	public function update_callback( callable $repository_callback, array $postarr = [] ): callable {
+	public function update_callback( callable $repository_callback, array $postarr = [] ): Closure {
 		// Run the original callback, then ours.
-		$wrapping_callback = function ( ...$args ) use ( $repository_callback, $postarr ) {
+		return function ( ...$args ) use ( $repository_callback, $postarr ) {
 			$post_id = $repository_callback( ...$args );
 
 			if ( ! $post_id ) {
@@ -50,8 +51,6 @@ class Events {
 
 			return $this->update( $post_id, $postarr );
 		};
-
-		return $wrapping_callback;
 	}
 
 	/**
