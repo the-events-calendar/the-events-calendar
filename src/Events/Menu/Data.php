@@ -1,9 +1,10 @@
 <?php
 	return [
+		'parent_page' => 'tec',
 		'section_id' => 'tec_events_general', // The section ID (required)
 		'section_title' => 'General Settings', // The section title (required)
 		'section_description' => 'Some intro description about this section.', // The section description (optional)
-		'section_order' => 5, // The order of the section (required)
+		'section_order' => 1, // The order of the section (required)
 		'fields' => [
 			[
 				'id' => 'text',

@@ -39,8 +39,8 @@ class EventInsertionCest extends BaseRestCest {
 			'slug'        => 'an-event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => ( new DateTime( $start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'    => ( new DateTime( $end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' )
 		] );
 
 		$I->seeResponseCodeIs( 201 );
@@ -50,8 +50,8 @@ class EventInsertionCest extends BaseRestCest {
 			'slug'           => 'an-event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
 			'excerpt'        => trim( apply_filters( 'the_excerpt', 'An event excerpt' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'     => ( new DateTime( $start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'       => ( new DateTime( $end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
 			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
@@ -368,8 +368,8 @@ class EventInsertionCest extends BaseRestCest {
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => ( new DateTime( $start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'    => ( new DateTime( $end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
 		] );
 
 		$I->seeResponseCodeIs( 201 );
@@ -377,8 +377,8 @@ class EventInsertionCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $all_day_start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $all_day_end ) ),
+			'start_date'     => ( new DateTime( $all_day_start, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
+			'end_date'       => ( new DateTime( $all_day_end, new DateTimeZone( $timezone ) ) )->format( 'Y-m-d H:i:s' ),
 			'utc_start_date' => Timezones::convert_date_from_timezone( $all_day_start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $all_day_end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'all_day'        => true,
@@ -1212,11 +1212,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * It should not hide event from listings w/ falsy hide_from_listings
 	 *
 	 * @test
-	 *
-	 * @example [false]
-	 * @example ["false"]
 	 */
-	public function should_not_hide_event_from_listings_w_falsy_hide_from_listings( Tester $I, \Codeception\Example $input ) {
+	public function should_not_hide_event_from_listings_w_falsy_hide_from_listings( Tester $I ) {
 		$I->generate_nonce_for_role( 'editor' );
 
 		$params                       = [
@@ -1225,7 +1222,7 @@ class EventInsertionCest extends BaseRestCest {
 			'start_date' => 'tomorrow 9am',
 			'end_date' => 'tomorrow 11am',
 		];
-		$params['hide_from_listings'] = $input[0];
+		$params['hide_from_listings'] = 'false';
 
 		$I->sendPOST( $this->events_url, $params );
 

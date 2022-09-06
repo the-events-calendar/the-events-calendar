@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18173a4e30b5253cf25c19b3df64a38f",
+    "content-hash": "53dc66beab5b1481b04269a156633c7d",
     "packages": [
         {
             "name": "woocommerce/action-scheduler",
@@ -2502,16 +2502,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.62.0",
+            "version": "2.62.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7507aec3d626797ce2123cf6c6556683be22b5f8"
+                "reference": "01bc4cdefe98ef58d1f9cb31bdbbddddf2a88f7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7507aec3d626797ce2123cf6c6556683be22b5f8",
-                "reference": "7507aec3d626797ce2123cf6c6556683be22b5f8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/01bc4cdefe98ef58d1f9cb31bdbbddddf2a88f7a",
+                "reference": "01bc4cdefe98ef58d1f9cb31bdbbddddf2a88f7a",
                 "shasum": ""
             },
             "require": {
@@ -2600,7 +2600,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T19:48:05+00:00"
+            "time": "2022-09-02T07:48:13+00:00"
         },
         {
             "name": "nilportugues/sql-query-formatter",
@@ -3980,33 +3980,33 @@
         },
         {
             "name": "scotteh/php-dom-wrapper",
-            "version": "0.7.3",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scotteh/php-dom-wrapper.git",
-                "reference": "ac4bd7035c50e4d7494c7b1307cd997b31403f71"
+                "reference": "54b064eb88e25887945a179b07097452b2f7af2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scotteh/php-dom-wrapper/zipball/ac4bd7035c50e4d7494c7b1307cd997b31403f71",
-                "reference": "ac4bd7035c50e4d7494c7b1307cd997b31403f71",
+                "url": "https://api.github.com/repos/scotteh/php-dom-wrapper/zipball/54b064eb88e25887945a179b07097452b2f7af2e",
+                "reference": "54b064eb88e25887945a179b07097452b2f7af2e",
                 "shasum": ""
             },
             "require": {
                 "ext-libxml": "*",
                 "ext-mbstring": "*",
                 "lib-libxml": ">=2.7.7",
-                "php": ">=5.5.9",
-                "symfony/css-selector": "^3.1"
+                "php": ">=7.1.0",
+                "symfony/css-selector": "^4.0 || ^5.0"
             },
             "require-dev": {
-                "phpdocumentor/phpdocumentor": "2.8.*",
-                "phpunit/phpunit": "4.6.*"
+                "phpdocumentor/phpdocumentor": "^2.9",
+                "phpunit/phpunit": "^7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.7-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -4035,9 +4035,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scotteh/php-dom-wrapper/issues",
-                "source": "https://github.com/scotteh/php-dom-wrapper/tree/master"
+                "source": "https://github.com/scotteh/php-dom-wrapper/tree/1.2.1"
             },
-            "time": "2017-11-15T10:42:40+00:00"
+            "time": "2020-02-22T00:53:56+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -5072,20 +5072,21 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.4.47",
+            "version": "v5.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "da3d9da2ce0026771f5fe64cb332158f1bd2bc33"
+                "reference": "c1681789f059ab756001052164726ae88512ae3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/da3d9da2ce0026771f5fe64cb332158f1bd2bc33",
-                "reference": "da3d9da2ce0026771f5fe64cb332158f1bd2bc33",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/c1681789f059ab756001052164726ae88512ae3d",
+                "reference": "c1681789f059ab756001052164726ae88512ae3d",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8"
+                "php": ">=7.2.5",
+                "symfony/polyfill-php80": "^1.16"
             },
             "type": "library",
             "autoload": {
@@ -5114,10 +5115,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony CssSelector Component",
+            "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v3.4.47"
+                "source": "https://github.com/symfony/css-selector/tree/v5.4.11"
             },
             "funding": [
                 {
@@ -5133,7 +5134,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-24T10:57:07+00:00"
+            "time": "2022-06-27T16:58:25+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",

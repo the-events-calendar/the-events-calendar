@@ -40,7 +40,7 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 		static::factory()->event = new Event();
 	}
 
-	public function wpSetUpBeforeClass() {
+	public static function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
 		// Let's backup the query vars to make sure we're using the full ones.
 		global $wp, $wp_rewrite;

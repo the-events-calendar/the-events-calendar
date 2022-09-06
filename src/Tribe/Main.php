@@ -6,7 +6,7 @@
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
-use TEC\Events\Settings\Provider as Settings_Provider;
+use TEC\Events\Menu\TEC_Menu;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -654,8 +654,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
 
-			// New Settings
-			tribe_register_provider( Settings_Provider::class );
+			// New Admin
+			tribe_singleton( 'tec.admin.menu', TEC_Menu::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -928,6 +928,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Add support for positioning the main events view on the site homepage
 			tribe( 'tec.front-page-view' )->hook();
+
+			tribe( 'tec.admin.menu' )->hooks();
 
 			tribe( 'events-aggregator.main' );
 			tribe( 'tec.shortcodes.event-details' );
