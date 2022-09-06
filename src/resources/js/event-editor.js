@@ -42,10 +42,11 @@ jQuery( function( $ ) {
 
 	// Functions to run when the delete button is clicked.
 	$( organizer_area ).on( 'click', organizer_delete_button, function ( e ) {
-		// We have to run this in a setTimeout because the original functionality uses a fade of 500ms. Therefore we use 510ms to run slightly after it is done.
+		console.log("Clicked delete button");
+		// We have to run this in a setTimeout because the original functionality uses a fade of 500ms. Therefore we use 525ms to run slightly after it is done.
 		setTimeout( function () {
 			organizer_delete_button_display_logic();
-		}, 510 );
+		}, 525 );
 
 	} );
 	/**
