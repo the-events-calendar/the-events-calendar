@@ -1212,11 +1212,8 @@ class EventInsertionCest extends BaseRestCest {
 	 * It should not hide event from listings w/ falsy hide_from_listings
 	 *
 	 * @test
-	 *
-	 * @example [false]
-	 * @example ["false"]
 	 */
-	public function should_not_hide_event_from_listings_w_falsy_hide_from_listings( Tester $I, \Codeception\Example $input ) {
+	public function should_not_hide_event_from_listings_w_falsy_hide_from_listings( Tester $I ) {
 		$I->generate_nonce_for_role( 'editor' );
 
 		$params                       = [
@@ -1225,7 +1222,7 @@ class EventInsertionCest extends BaseRestCest {
 			'start_date' => 'tomorrow 9am',
 			'end_date' => 'tomorrow 11am',
 		];
-		$params['hide_from_listings'] = $input[0];
+		$params['hide_from_listings'] = 'false';
 
 		$I->sendPOST( $this->events_url, $params );
 
