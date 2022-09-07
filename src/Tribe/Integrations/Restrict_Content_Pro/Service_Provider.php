@@ -20,6 +20,13 @@ use Tribe__Events__Main as TEC;
 
 class Service_Provider {
 
+	/**
+	 * Option slug used for storing the choice to apply post-type restrictions to the calendar views.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	protected static $option_slug = 'tec_events_rcp_hide_on_views';
 
 	/**
@@ -50,6 +57,11 @@ class Service_Provider {
 		add_filter( 'tribe_template_done', [ $this, 'filter_view_events' ], 20, 3 );
 	}
 
+	/**
+	 * Adds control for applying post-type restrictions to the calendar views.
+	 *
+	 * @since TBD
+	 */
 	public function add_rcp_post_type_restrictions() {
 		$option = tribe_get_option( self::$option_slug, false );
 		?>
@@ -62,6 +74,13 @@ class Service_Provider {
 		<?php
 	}
 
+	/**
+	 * Saves the value for applying post-type restrictions to the calendar views.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function rcp_save_post_type_restrictions() {
 		if ( empty( $_POST[ self::$option_slug ] ) ) {
 			tribe_remove_option( self::$option_slug );
