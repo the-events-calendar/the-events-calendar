@@ -86,7 +86,9 @@ class Event_Query_Controller {
 			// If the query posts have been pre-filled already then let's use the information.
 			$query_posts = $query->posts;
 
-			$post__in = wp_list_pluck( $query_posts, 'ID' );
+			$post__in = array_map( static function ( $post ): int {
+				return is_object( $post ) ? $post->ID : (int) $post;
+			}, $query_posts );
 		}
 
 		/**
