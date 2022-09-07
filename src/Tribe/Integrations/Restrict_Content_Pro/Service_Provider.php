@@ -82,12 +82,12 @@ class Service_Provider {
 	 * @return void
 	 */
 	public function rcp_save_post_type_restrictions() {
-		if ( empty( $_POST[ self::$option_slug ] ) ) {
+		if ( empty( tribe_get_request_var( self::$option_slug ) ) ) {
 			tribe_remove_option( self::$option_slug );
 			return;
 		}
 
-		tribe_update_option( self::$option_slug, $_POST[ self::$option_slug ] );
+		tribe_update_option( self::$option_slug, tribe_get_request_var( self::$option_slug ) );
 	}
 
 	/**

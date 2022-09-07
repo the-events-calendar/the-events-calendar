@@ -159,6 +159,13 @@ class Tribe__Events__Integrations__Manager {
 		return true;
 	}
 
+	/**
+	 * Loads our Restrict Content Pro integration.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
 	private function load_rcp_integration() {
 		if ( ! function_exists( 'rcp_user_can_access' ) ) {
 			return false;
