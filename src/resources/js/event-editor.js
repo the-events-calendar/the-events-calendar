@@ -36,14 +36,20 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 */
 	obj.organizer.deleteButtonDisplayLogic = () => {
 
+		const $organizers = $( obj.selectors.organizer.area ).find( '.saved-linked-post' );
+
 		$( obj.selectors.organizer.area ).find( obj.selectors.organizer.delete_button ).each( function () {
+
 			// If you have more than 1 organizer then we display the delete button.
-			if ( $( obj.selectors.organizer.area ).find( '.saved-linked-post' ).length > 1 ) {
+			if ( $organizers.length > 1 ) {
 				$( this ).show();
 				return;
 			}
+
+			const $organizer_dropdown = $( obj.selectors.organizer.area + ' ' + obj.selectors.organizer.post_dropdown );
+
 			//If this is running, it's because we only have 1 organizer
-			if ( $( obj.selectors.organizer.area + ' ' + obj.selectors.organizer.post_dropdown ).val() !== -1 ) {
+			if ( $organizer_dropdown.val() !== -1 ) {
 				$( obj.selectors.organizer.add_button ).show();
 			}
 
