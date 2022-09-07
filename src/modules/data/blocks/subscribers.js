@@ -5,19 +5,19 @@ import { wpData, postObjects } from '@moderntribe/common/utils/globals';
 import { editor } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 import {
-	defaultStateToMetaMap as datetimeMap,
+	reducer as datetimeReducer,
 	selectors as datetimeSelectors,
 } from './datetime';
 import {
-	defaultStateToMetaMap as priceMap,
+	reducer as priceReducer,
 	selectors as priceSelectors,
 } from './price';
 import {
-	defaultStateToMetaMap as venueMap,
+	reducer as venueReducer,
 	selectors as venueSelectors,
 } from './venue';
 import {
-	defaultStateToMetaMap as websiteMap,
+	reducer as websiteReducer,
 	selectors as websiteSelectors,
 } from './website';
 
@@ -75,10 +75,10 @@ const subscribe = () => {
 		unsubscribe();
 
 		const blockToMapAndSelectorMap = {
-			datetime: [ datetimeMap, datetimeSelectors.datetimeSelector ],
-			price: [ priceMap, priceSelectors.getPriceBlock ],
-			venue: [ venueMap, venueSelectors.venueBlockSelector ],
-			website: [ websiteMap, websiteSelectors.getWebsiteBlock ],
+			datetime: [ datetimeReducer.defaultStateToMetaMap, datetimeSelectors.datetimeSelector ],
+			price: [ priceReducer.defaultStateToMetaMap, priceSelectors.getPriceBlock ],
+			venue: [ venueReducer.defaultStateToMetaMap, venueSelectors.venueBlockSelector ],
+			website: [ websiteReducer.defaultStateToMetaMap, websiteSelectors.getWebsiteBlock ],
 		};
 		const blockKeys = Object.keys( blockToMapAndSelectorMap );
 		const postId = wpSelect( 'core/editor' ).getCurrentPostId();

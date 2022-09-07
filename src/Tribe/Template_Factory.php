@@ -5,16 +5,7 @@
  * The parent class for managing the view methods in core and addons
  *
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
-
-if ( class_exists( 'Tribe__Events__Template_Factory' ) ) {
-	return;
-}
-
-class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
+class Tribe__Events__Template_Factory {
 	/**
 	 * Length for excerpts on this template
 	 *
@@ -50,7 +41,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 **/
 	public function __construct() {
 		$this->hooks();
-		$this->asset_packages();
 	}
 
 	/**
@@ -58,16 +48,8 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 *
 	 **/
 	protected function hooks() {
-
-		$current_class = get_class( $this );
-		$ajax_hook     = constant( $current_class . '::AJAX_HOOK' );
-
 		// set up queries, vars, etc that needs to be used in this view
 		add_action( 'tribe_events_before_view', [ $this, 'setup_view' ], 10 );
-
-		// ajax requests
-		add_action( 'wp_ajax_' . $ajax_hook, [ $this, 'ajax_response' ] );
-		add_action( 'wp_ajax_nopriv_' . $ajax_hook, [ $this, 'ajax_response' ] );
 
 		// set notices
 		add_action( 'tribe_events_before_view', [ $this, 'set_notices' ], 15 );
@@ -492,87 +474,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 		}
 
 		return $option_value;
-	}
-
-	/************************
-	 *                      *
-	 *  Deprecated Methods  *
-	 *                      *
-	 ************************/
-
-	/**
-	 * Asset calls for vendor packages
-	 *
-	 * @deprecated 4.6.21
-	 *
-	 * @param string $name
-	 * @param array  $deps Dependents
-	 */
-	public static function asset_package( $name, $deps = [] ) {
-
-		$common = Tribe__Events__Main::instance();
-		$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
-
-		// setup plugin resources & 3rd party vendor urls
-		$vendor_url = trailingslashit( $common->plugin_url ) . 'vendor/';
-
-		self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $common );
-	}
-
-	/**
-	 * Handles an asset package request.
-	 *
-	 * @deprecated 4.6.21
-	 *
-	 * @param string      $name       The asset name in the `hyphen-separated-format`
-	 * @param array       $deps       An array of dependency handles
-	 * @param string      $vendor_url URL to vendor scripts and styles dir
-	 * @param string      $prefix     MT script and style prefix
-	 * @param Tribe__Main $tec        An instance of the main plugin class
-	 */
-	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
-
-		$asset = self::get_asset_factory_instance( $name );
-
-		self::prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec );
-	}
-
-	/**
-	 * Retrieves the appropriate asset factory instance
-	 *
-	 * @deprecated 4.6.21
-	 */
-	protected static function get_asset_factory_instance( $name ) {
-		$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
-		return $asset;
-	}
-
-	/**
-	 * Setup meta display in this template
-	 *
-	 * @deprecated 4.3
-	 **/
-	public function setup_meta() {
-		_deprecated_function( __METHOD__, '4.3' );
-
-		// customize meta items
-		tribe_set_the_meta_template( 'tribe_event_venue_name', [
-			'before'       => '',
-			'after'        => '',
-			'label_before' => '',
-			'label_after'  => '',
-			'meta_before'  => '<span class="%s">',
-			'meta_after'   => '</span>',
-		] );
-		tribe_set_meta_label( 'tribe_event_venue_address', '' );
-		tribe_set_the_meta_template( 'tribe_event_venue_address', [
-			'before'       => '',
-			'after'        => '',
-			'label_before' => '',
-			'label_after'  => '',
-			'meta_before'  => '',
-			'meta_after'   => '',
-		] );
 	}
 
 	/**

@@ -1,27 +1,43 @@
 <?php
 
+use \Tribe__Events__Capabilities as Capabilities;
+
 /**
  * @group capabilities
  */
 class Capabilities_Test extends \Codeception\TestCase\WPTestCase {
 
+	/**
+	 * @before
+	 */
+	public function ensure_caps_are_initialized() {
+		tribe( Capabilities::class )->set_initial_caps( true );
+	}
+
+	/**
+	 * @after
+	 */
+	public function remove_caps_init_transient() {
+		tribe( Capabilities::class )->delete_needs_init();
+	}
+
 	public function contributor_or_higher() {
 		return array(
-			array( 'subscriber', false ),
-			array( 'contributor', true ),
-			array( 'author', true ),
-			array( 'editor', true ),
-			array( 'administrator', true ),
+			'subscriber'    => [ 'subscriber', false ],
+			'contributor'   => [ 'contributor', true ],
+			'author'        => [ 'author', true ],
+			'editor'        => [ 'editor', true ],
+			'administrator' => [ 'administrator', true ],
 		);
 	}
 
 	public function author_or_higher() {
 		return array(
-			array( 'subscriber', false ),
-			array( 'contributor', false ),
-			array( 'author', true ),
-			array( 'editor', true ),
-			array( 'administrator', true ),
+			'subscriber'    => [ 'subscriber', false ],
+			'contributor'   => [ 'contributor', false ],
+			'author'        => [ 'author', true ],
+			'editor'        => [ 'editor', true ],
+			'administrator' => [ 'administrator', true ],
 		);
 	}
 

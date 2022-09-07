@@ -6,18 +6,18 @@ import { combineReducers } from 'redux';
 /**
  * Internal dependencies
  */
-import datetime, { setInitialState as datetimeSetInitialState } from './datetime';
-import organizers, { setInitialState as organizersSetInitialState } from './organizers';
-import price, { setInitialState as priceSetInitialState } from './price';
-import website, { setInitialState as websiteSetInitialState } from './website';
-import venue, { setInitialState as venueSetInitialState } from './venue';
+import datetime, { reducer as datetimeReducer } from './datetime';
+import organizers, { reducer as organizersReducer } from './organizers';
+import price, { reducer as priceReducer } from './price';
+import website, { reducer as websiteReducer } from './website';
+import venue, { reducer as venueReducer } from './venue';
 
 export const setInitialState = ( data ) => {
-	datetimeSetInitialState( data );
-	organizersSetInitialState( data );
-	priceSetInitialState( data );
-	venueSetInitialState( data );
-	websiteSetInitialState( data );
+	datetimeReducer.setInitialState( data );
+	organizersReducer.setInitialState( data );
+	priceReducer.setInitialState( data );
+	websiteReducer.setInitialState( data );
+	venueReducer.setInitialState( data );
 };
 
 export default combineReducers( {
