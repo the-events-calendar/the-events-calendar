@@ -825,6 +825,8 @@ class Process_Worker {
 	 * @param int $post_id The ID of the Event to update.
 	 *
 	 * @return void Updates the Event date and duration meta to make sure it's consistent.
+	 *
+	 * @throws Migration_Exception If the Event date and duration meta could not be updated.
 	 */
 	private function fix_event_meta( int $post_id ): void {
 		/**
@@ -844,24 +846,48 @@ class Process_Worker {
 		// At this stage, we can be sure the meta will be there.
 		$start_date = get_post_meta( $post_id, '_EventStartDate', true );
 		$end_date = get_post_meta( $post_id, '_EventEndDate', true );
-		$timezone = get_post_meta( $post_id, '_EventTimezone', true );
+		$start_date_utc = get_post_meta( $post_id, '_EventStartDateUTC', true );
+		$end_date_utc = get_post_meta( $post_id, '_EventEndDateUTC', true );
 
-		if ( ! Timezones::is_valid_timezone( $timezone ) ) {
-			$timezone = Timezones::build_timezone_object()->getName();
-			update_post_meta( $post_id, '_EventTimezone', $timezone );
-			update_post_meta( $post_id, '_EventTimezoneAbbr', Timezones::abbr( $start_date, $timezone ) );
+		$has_start = ! empty( $start_date ) || ! empty( $start_date_utc );
+		$has_end = ! empty( $end_date ) || ! empty( $end_date_utc );
+
+		if ( ! ( $has_start && $has_end ) ) {
+			throw new Migration_Exception(
+				'Required Event date data is missing: check the event for missing or invalid data in the start and end date fields.'
+			);
 		}
 
+		$timezone_string = get_post_meta( $post_id, '_EventTimezone', true );
+
+		if ( ! Timezones::is_valid_timezone( $timezone_string ) ) {
+			// Use the site one, if not set.
+			$timezone_string = Timezones::build_timezone_object()->getName();
+			update_post_meta( $post_id, '_EventTimezone', $timezone_string );
+			update_post_meta( $post_id, '_EventTimezoneAbbr', Timezones::abbr( $start_date, $timezone_string ) );
+		}
+
+		$timezone = Timezones::build_timezone_object( $timezone_string );
 		$utc = new \DateTimeZone( 'UTC' );
 
-		$dtstart = Dates::immutable( $start_date, $timezone );
-		$dtend = Dates::immutable( $end_date, $timezone );
+		$dtstart = $start_date ?
+			Dates::immutable( $start_date, $timezone )
+			: Dates::immutable( $start_date_utc, $utc )->setTimezone( $timezone );
+
+		$dtend = $end_date ?
+			Dates::immutable( $end_date, $timezone )
+			: Dates::immutable( $end_date_utc, $utc )->setTimezone( $timezone );
+
 		$updated_duration = $dtend->getTimestamp() - $dtstart->getTimestamp();
-		$start_date_utc = $dtstart->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
-		$end_date_utc = $dtend->setTimezone( $utc )->format( 'Y-m-d H:i:s' );
+		$event_start_date = $dtstart->format( Dates::DBDATETIMEFORMAT );
+		$event_end_date = $dtend->format( Dates::DBDATETIMEFORMAT );
+		$event_start_date_utc = $dtstart->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT );
+		$event_end_date_utc = $dtend->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT );
 
 		update_post_meta( $post_id, '_EventDuration', $updated_duration );
-		update_post_meta( $post_id, '_EventStartDateUTC', $start_date_utc );
-		update_post_meta( $post_id, '_EventEndDateUTC', $end_date_utc );
+		update_post_meta( $post_id, '_EventStartDate', $event_start_date );
+		update_post_meta( $post_id, '_EventEndDate', $event_end_date );
+		update_post_meta( $post_id, '_EventStartDateUTC', $event_start_date_utc );
+		update_post_meta( $post_id, '_EventEndDateUTC', $event_end_date_utc );
 	}
 }
