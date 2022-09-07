@@ -32,7 +32,7 @@ $event_id = Tribe__Events__Main::postIdHelper( get_the_ID() );
  * 
  * @param int get_the_ID(
  */
-$event_id = apply_filters( 'tec_events_single_event_id', get_the_ID() );
+$event_id = apply_filters( 'tec_events_single_event_id', $event_id );
 
 /**
  * Allows filtering of the single event template title classes.
