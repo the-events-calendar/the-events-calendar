@@ -66,12 +66,14 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	obj.organizer.bindEvents = () => {
 
 		/**
-		 * Logic for the organizer area -
-		 *"Add Organizer" button should be hidden by default, only appearing when there is more than 1 organizer.
-		 *"Trash" icon / delete button should be hidden by default, only appearing when there is more than 1 organizer
-		 *  or when an organizer has the value of -1.
+		 *	Logic for the organizer area -
+		 *	"Add Organizer" button should be hidden by default, only appearing when there is more than 1 organizer.
+		 *	"Trash" icon / delete button should be hidden by default, only appearing when there is more than 1 organizer
+		 *	or when an organizer has the value of -1.
 		 */
+		// Hide the "Add Organizer" button by default.
 		$( obj.selectors.organizer.add_button ).hide();
+		// Run our delete button logic.
 		obj.organizer.deleteButtonDisplayLogic();
 
 		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
