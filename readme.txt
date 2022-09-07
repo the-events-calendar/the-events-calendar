@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.0.1] 2022-09-07 =
 
-
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
 
 = [6.0.0] 2022-09-06 =
 
