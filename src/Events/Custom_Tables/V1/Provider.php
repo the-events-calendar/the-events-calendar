@@ -194,6 +194,7 @@ class Provider extends Service_Provider {
 
 		// If the plugin has been silently activated, then init it now.
 		add_action( 'init', [ Activation::class, 'init' ] );
+		add_filter( 'tec_system_information', [ Activation::class, 'filter_include_migration_to_system_info' ] );
 	}
 
 	/**

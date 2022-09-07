@@ -35,7 +35,7 @@ class Activation {
 	 * @since 6.0.0
 	 */
 	public static function activate() {
-		$schema_builder = tribe( Schema_Builder::class);
+		$schema_builder = tribe( Schema_Builder::class );
 		$schema_builder->up();
 	}
 
@@ -51,7 +51,7 @@ class Activation {
 		$db_hash = get_transient( static::ACTIVATION_TRANSIENT );
 
 		$schema_builder = tribe( Schema_Builder::class );
-		$hash = $schema_builder->get_registered_schemas_version_hash();
+		$hash           = $schema_builder->get_registered_schemas_version_hash();
 
 		if ( $db_hash == $hash ) {
 			return;
@@ -64,8 +64,8 @@ class Activation {
 			$schema_builder->up();
 		}
 
-		$services  = tribe();
-		$state = $services->make( State::class );
+		$services = tribe();
+		$state    = $services->make( State::class );
 
 		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
 		if (
@@ -84,6 +84,28 @@ class Activation {
 				tribe()->register( Full_Activation_Provider::class );
 			}
 		}
+	}
+
+	/**
+	 * Includes the Migration state into the System Information for support.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $info
+	 *
+	 * @return array
+	 */
+	public static function filter_include_migration_to_system_info( array $info = [] ): array {
+		$migration_status = [
+			'Custom Tables Migration Status' => tribe( State::class )->is_migrated() ? esc_html__( 'Completed', 'the-events-calendar' ) : esc_html__( 'Incomplete', 'the-events-calendar' ),
+		];
+
+		// Prevents problems in case we don't have sys info.
+		if ( empty( $info ) ) {
+			return $migration_status;
+		}
+
+		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $migration_status );
 	}
 
 	/**
