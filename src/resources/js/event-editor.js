@@ -69,7 +69,6 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		obj.organizer.deleteButtonDisplayLogic();
 
 		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
-			console.log( 'I am changing the select' );
 			if ( this.value !== -1 ) {
 				$( obj.selectors.organizer.add_button ).show();
 			} else {
