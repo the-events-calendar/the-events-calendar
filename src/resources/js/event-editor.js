@@ -38,7 +38,9 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 
 		const $organizers = $( obj.selectors.organizer.area ).find( '.saved-linked-post' );
 
-		$( obj.selectors.organizer.area ).find( obj.selectors.organizer.delete_button ).each( function () {
+		$( obj.selectors.organizer.area )
+			.find( obj.selectors.organizer.delete_button )
+			.each( function () {
 
 			// If you have more than 1 organizer then we display the delete button.
 			if ( $organizers.length > 1 ) {
@@ -46,7 +48,10 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 				return;
 			}
 
-			const $organizer_dropdown = $( obj.selectors.organizer.area + ' ' + obj.selectors.organizer.post_dropdown );
+			const $organizer_dropdown =
+				$( obj.selectors.organizer.area +
+					' '
+					+ obj.selectors.organizer.post_dropdown );
 
 			//If this is running, it's because we only have 1 organizer
 			if ( $organizer_dropdown.val() !== -1 ) {
@@ -67,8 +72,12 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 
 		/**
 		 *	Logic for the organizer area -
-		 *	"Add Organizer" button should be hidden by default, only appearing when there is more than 1 organizer.
-		 *	"Trash" icon / delete button should be hidden by default, only appearing when there is more than 1 organizer
+		 *	"Add Organizer" button should be hidden by default,
+		 *	only appearing when there is more than 1 organizer.
+		 *
+		 *	"Trash" icon / delete button should be hidden by default,
+		 *	only appearing when there is more than 1 organizer
+		 *
 		 *	or when an organizer has the value of -1.
 		 */
 		// Hide the "Add Organizer" button by default.
@@ -76,7 +85,8 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		// Run our delete button logic.
 		obj.organizer.deleteButtonDisplayLogic();
 
-		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
+		$( obj.selectors.organizer.area )
+			.on( 'change', obj.selectors.organizer.post_dropdown, function () {
 			if ( this.value !== -1 ) {
 				$( obj.selectors.organizer.add_button ).show();
 			} else {
@@ -88,7 +98,8 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		} );
 
 		// Functions to run when the delete button is clicked.
-		$( obj.selectors.organizer.area ).on( 'click', obj.selectors.organizer.delete_button, function () {
+		$( obj.selectors.organizer.area )
+			.on( 'click', obj.selectors.organizer.delete_button, function () {
 			// We have to run this in a setTimeout because the original functionality uses a fade of 500ms.
 			// Therefore we use 525ms to run slightly after it is done.
 			setTimeout( function () {
