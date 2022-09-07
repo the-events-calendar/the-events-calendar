@@ -302,6 +302,8 @@ class AbstractTest extends Events_TestCase {
 			return $venue_id;
 		}, 10, 2 );
 		$sut = new Url_Import_Record();
+		$sut->meta['origin'] = 'url';
+		$sut->meta['post_status'] = 'publish';
 
 		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
 		$activity       = $sut->insert_posts( [ $item ] );
@@ -325,6 +327,8 @@ class AbstractTest extends Events_TestCase {
 			return $organizer_ids[ $i ++ ];
 		}, 10, 2 );
 		$sut = new Url_Import_Record();
+		$sut->meta['origin'] = 'url';
+		$sut->meta['post_status'] = 'publish';
 
 		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
 		$activity           = $sut->insert_posts( [ $item ] );
@@ -477,6 +481,9 @@ class AbstractTest extends Events_TestCase {
 				return 'test';
 			}
 		};
+
+		$test_record->meta['origin'] = $origin;
+		$test_record->meta['post_status'] = 'publish';
 
 		return $test_record;
 	}

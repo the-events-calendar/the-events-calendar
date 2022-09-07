@@ -19,7 +19,7 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 		static::factory()->event = new Event();
 	}
 
-	public function wpSetUpBeforeClass() {
+	public static function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
 	}
 
