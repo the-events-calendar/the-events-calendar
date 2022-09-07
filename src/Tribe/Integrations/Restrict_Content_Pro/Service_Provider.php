@@ -42,11 +42,6 @@ class Service_Provider {
 			return;
 		}
 
-		// Bail if RCP isn't active.
-		if ( ! function_exists( 'rcp_user_can_access' ) ) {
-			return;
-		}
-
 		// add actions
 		add_action( 'rcp_post_type_restrictions', [ $this, 'add_rcp_post_type_restrictions' ], 10, 2 );
 		add_action( 'rcp_save_post_type_restrictions', [ $this, 'rcp_save_post_type_restrictions' ], 20 );
@@ -107,11 +102,6 @@ class Service_Provider {
 	 * @return null|bool Null to display the event, boolean false to not.
 	 */
 	public function filter_view_events( $done, $name, $context ) {
-		// Don't call a function we can't access.
-		if ( ! function_exists( 'rcp_user_can_access' ) ) {
-			return $done;
-		}
-
 		// Obey the setting.
 		if ( ! tribe_get_option( self::$option_slug, false ) ) {
 			return $done;
@@ -142,6 +132,17 @@ class Service_Provider {
 
 		// No? return something other than null - the event won't display.
 		return false;
+	}
+
+	/**
+	 * Get the option slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string $option_slug The option slug for this setting.
+	 */
+	public static function get_slug() {
+		return self::$option_slug;
 	}
 
 }

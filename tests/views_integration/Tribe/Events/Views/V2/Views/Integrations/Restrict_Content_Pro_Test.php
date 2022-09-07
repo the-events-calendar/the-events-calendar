@@ -7,6 +7,8 @@ use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main as TEC;
 use Tribe\Events\Views\V2\Views\Month_View as Month;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Integrations\Restrict_Content_Pro\Service_Provider as RCP_Integration;
+
 
 class Restrict_Content_Pro_Test extends ViewTestCase {
 	use MatchesSnapshots;
@@ -42,30 +44,30 @@ class Restrict_Content_Pro_Test extends ViewTestCase {
 			]
 		);
 
-		// Remove v1 filtering to have consistent results.
-		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
-		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
-
 		update_option( 'permalink_structure', '/%postname%/' );
 		flush_rewrite_rules();
 
 		tribe( 'cache' )->reset();
+		$this->provider = tribe( RCP_Integration::class );
+		$this->provider->hook();
 	}
 
 	public function restrict_all() {
-		uopz_set_return( 'rcp_user_can_access', false );
-	}
-
-	public function unrestrict_all() {
-		uopz_set_return( 'rcp_user_can_access', true );
+		$option_slug = tribe( RCP_Integration::class )::get_slug();
+		add_filter( "tribe_get_option_{$option_slug}", function() { return '1'; } );
+		uopz_add_function( 'rcp_user_can_access', function () { return false; } );
+		uopz_set_return( RCP_Integration::class, 'filter_view_events', false );
 	}
 
 	public function clear_restrictions() {
-		uopz_unset_return( 'rcp_user_can_access' );
+		$option_slug = tribe( RCP_Integration::class )::get_slug();
+		remove_filter( "tribe_get_option_{$option_slug}", function() { return '1'; } );
+		uopz_unset_return( RCP_Integration::class, 'filter_view_events' );
+		uopz_del_function( 'rcp_user_can_access' );
 	}
 
 	/**
-	 * Test render with events
+	 * Test render with restrictions removed
 	 */
 	public function test_render_unrestricted() {
 		$timezone_string = 'Europe/Paris';
@@ -128,34 +130,11 @@ class Restrict_Content_Pro_Test extends ViewTestCase {
 		$month_view      = View::make( Month::class, $this->context );
 		$html = $month_view->get_html();
 
-		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
-
-		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
-			$day          = new \DateTimeImmutable( $date, $timezone );
-			$expected_ids = tribe_events()
-				->where(
-					'date_overlaps',
-					$day->setTime( 0, 0 ),
-					$day->setTime( 23, 59, 59 ),
-					$timezone
-				)->get_ids();
-
-			$this->assertEquals(
-				$expected_ids,
-				$found_day_ids,
-				sprintf(
-					'Day %s event IDs mismatch, expected %s, got %s',
-					$day->format( 'Y-m-d' ),
-					json_encode( $expected_ids ),
-					json_encode( $found_day_ids )
-				)
-			);
-		}
-
-		 $this->assertMatchesSnapshot( $html );
+		$this->assertMatchesSnapshot( $html );
 	}
+
 	/**
-	 * Test render with events
+	 * Test render with restrictions in place
 	 */
 	public function test_render_restricted() {
 		$this->restrict_all();
@@ -222,32 +201,20 @@ class Restrict_Content_Pro_Test extends ViewTestCase {
 		$month_view      = View::make( Month::class, $this->context );
 		$html = $month_view->get_html();
 
-		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
-
-		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
-			$day          = new \DateTimeImmutable( $date, $timezone );
-			$expected_ids = tribe_events()
-				->where(
-					'date_overlaps',
-					$day->setTime( 0, 0 ),
-					$day->setTime( 23, 59, 59 ),
-					$timezone
-				)->get_ids();
-
-			$this->assertEquals(
-				$expected_ids,
-				$found_day_ids,
-				sprintf(
-					'Day %s event IDs mismatch, expected %s, got %s',
-					$day->format( 'Y-m-d' ),
-					json_encode( $expected_ids ),
-					json_encode( $found_day_ids )
-				)
-			);
-		}
-
 		 $this->assertMatchesSnapshot( $html );
 
 		 $this->clear_restrictions();
 	}
+
+	/**
+	 * Make sure we didn't get the same thing for both of the above tests.
+	 */
+	public function test_comparison() {
+		$snapshot_file_path_1 = file_get_contents( $this->getSnapshotDirectory() . '/Restrict_Content_Pro_Test__test_render_unrestricted__1.php' );
+		$snapshot_file_path_2 = file_get_contents( $this->getSnapshotDirectory() . '/Restrict_Content_Pro_Test__test_render_restricted__1.php' );
+
+		$this->assertNotEquals( $snapshot_file_path_1, $snapshot_file_path_2 );
+	}
+
+
 }

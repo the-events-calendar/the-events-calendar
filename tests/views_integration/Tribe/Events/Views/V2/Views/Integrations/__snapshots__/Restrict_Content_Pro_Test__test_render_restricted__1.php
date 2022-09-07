@@ -468,181 +468,10 @@
 		
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-234234234 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month__calendar-event--featured" >
-
-	
-	<div class="tribe-events-calendar-month__calendar-event-details">
-
-		<div class="tribe-events-calendar-month__calendar-event-datetime">
-	<em
-	class="tribe-events-calendar-month__calendar-event-datetime-featured-icon"
-	title="Featured"
->
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__calendar-event-datetime-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Featured</title>
-	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
-</svg>
-</em>
-	<time datetime="13:01">
-		1:01 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:01">
-			5:01 pm		</time>
-		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
-	<a
-		href="http://test.tri.be/?tribe_events=featured-test-event-234234234"
-		title="Featured test event  234234234"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-events-tooltip-content-234234234"
-		aria-describedby="tribe-events-tooltip-content-234234234"
-	>
-		Featured test event  234234234	</a>
-</h3>
-
-		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
-	<div
-		class="tribe-events-calendar-month__calendar-event-tooltip"
-		id="tribe-events-tooltip-content-234234234"
-		role="tooltip"
-	>
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
-	<em
-	class="tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon"
-	title="Featured"
->
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__calendar-event-tooltip-datetime-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Featured</title>
-	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
-</svg>
-</em>
-	<time datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
-	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
-	<a
-		href="http://test.tri.be/?tribe_events=featured-test-event-234234234"
-		title="Featured test event  234234234"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
-	>
-		Featured test event  234234234	</a>
-</h3>
-					</div>
-</div>
-
-	</div>
-
-</article>
-
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-2453454355 tribe_events type-tribe_events status-publish hentry" >
-
-	
-	<div class="tribe-events-calendar-month__calendar-event-details">
-
-		<div class="tribe-events-calendar-month__calendar-event-datetime">
-		<time datetime="13:04">
-		1:04 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:04">
-			5:04 pm		</time>
-		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-2453454355"
-		title="Single Event 2453454355"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-events-tooltip-content-2453454355"
-		aria-describedby="tribe-events-tooltip-content-2453454355"
-	>
-		Single Event 2453454355	</a>
-</h3>
-
-		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
-	<div
-		class="tribe-events-calendar-month__calendar-event-tooltip"
-		id="tribe-events-tooltip-content-2453454355"
-		role="tooltip"
-	>
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
-		<time datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
-	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-2453454355"
-		title="Single Event 2453454355"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
-	>
-		Single Event 2453454355	</a>
-</h3>
-					</div>
-</div>
-
-	</div>
-
-</article>
-
 	
 	
-<article  class="tribe-events-calendar-month__calendar-event post-3094853477 tribe_events type-tribe_events status-publish hentry" >
-
-	
-	<div class="tribe-events-calendar-month__calendar-event-details">
-
-		<div class="tribe-events-calendar-month__calendar-event-datetime">
-		<time datetime="13:04">
-		1:04 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:04">
-			5:04 pm		</time>
-		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-3094853477"
-		title="Single Event 3094853477"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-title-link tribe-common-anchor-thin"
-		data-js="tribe-events-tooltip"
-		data-tooltip-content="#tribe-events-tooltip-content-3094853477"
-		aria-describedby="tribe-events-tooltip-content-3094853477"
-	>
-		Single Event 3094853477	</a>
-</h3>
-
-		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
-	<div
-		class="tribe-events-calendar-month__calendar-event-tooltip"
-		id="tribe-events-tooltip-content-3094853477"
-		role="tooltip"
-	>
-				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
-		<time datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
-	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-3094853477"
-		title="Single Event 3094853477"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
-	>
-		Single Event 3094853477	</a>
-</h3>
-					</div>
-</div>
-
-	</div>
-
-</article>
-
 	</div>
 
 	
@@ -2359,101 +2188,17 @@
 
 	
 					
-			<div class="tribe-events-c-day-marker tribe-events-calendar-month-mobile-events__day-marker">
-	<time
-		class="tribe-events-c-day-marker__date tribe-common-h7 tribe-common-h--alt"
-		datetime="2019-06-20"
-	>
-		June 20	</time>
-</div>
-
 			
 			
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-234234234 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-month-mobile-events__mobile-event--featured" >
-
-	
-	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
-
-		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-	<em
-	class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon"
-	title="Featured"
->
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Featured</title>
-	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
-</svg>
-</em>
-<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
-	Featured</span>
-			<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
-		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
-	<a
-		href="http://test.tri.be/?tribe_events=featured-test-event-234234234"
-		title="Featured test event  234234234"
-		rel="bookmark"
-		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
-	>
-		Featured test event  234234234	</a>
-</h3>
-		
-	</div>
-</article>
-
+			
 					
 			
 			
 			
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-2453454355 tribe_events type-tribe_events status-publish hentry" >
-
-	
-	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
-
-		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-				<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
-		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-2453454355"
-		title="Single Event 2453454355"
-		rel="bookmark"
-		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
-	>
-		Single Event 2453454355	</a>
-</h3>
-		
-	</div>
-</article>
-
 					
 			
 			
 			
-<article  class="tribe-events-calendar-month-mobile-events__mobile-event post-3094853477 tribe_events type-tribe_events status-publish hentry" >
-
-	
-	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
-
-		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-				<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
-		</div>
-		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-3094853477"
-		title="Single Event 3094853477"
-		rel="bookmark"
-		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
-	>
-		Single Event 3094853477	</a>
-</h3>
-		
-	</div>
-</article>
-
 		
 		
 	</div>
