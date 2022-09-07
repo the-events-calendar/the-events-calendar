@@ -5,7 +5,7 @@
  * This class does nothing by itself - it is meant to be extended for specific menus,
  * changing the properties as appropriate.
  *
- * @since   4.9.18
+ * @since TBD
  *
  * @package TEC\Events\Menu
  */
@@ -57,7 +57,7 @@ class TEC_Menu extends Menu {
 	 *
 	 * @var string
 	 */
-	public $menu_slug = 'tec';
+	public static $menu_slug = 'tec';
 
 	/**
 	 * Undocumented variable
@@ -100,37 +100,18 @@ class TEC_Menu extends Menu {
 	 *
 	 * @since TBD
 	 *
-	 * @var string
-	 */
-	public $settings_file = '';
-
-	/**
-	 * Undocumented variable
-	 *
-	 * @since TBD
-	 *
-	 * @var obj
-	 */
-	public $settings_page;
-
-	/**
-	 * Undocumented variable
-	 *
-	 * @since TBD
-	 *
 	 * @var array
 	 */
-	public $settings_page_data = [
-		'sections'      => [],
-		'tabs'          => [],
-	];
+	public $settings_page_data = [];
 
 	public function __construct() {
+		parent::__construct();
 		$this->settings_file = plugin_dir_path( __FILE__ ) . 'Data.php';
-		$this->callback = $this->render();
 	}
 
 	public function render() {
-		echo "Hi there!";
+		?>
+		<h1>Hi there!</h1>
+		<?php
 	}
 }

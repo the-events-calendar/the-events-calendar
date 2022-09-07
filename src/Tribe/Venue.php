@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Events\Menu\TEC_Menu;
 class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_venue';
 
@@ -158,6 +159,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_default', [ $this, 'linked_post_default' ], 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
 		add_action( 'admin_bar_menu', [ $this, 'edit_venue_admin_bar_menu_link' ], 80 );
+		add_action( 'tec_menu_setup_' . TEC_Menu::$menu_slug, [ $this, 'setup_venue_menus' ] );
 	}
 
 	/**
@@ -894,7 +896,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			return '';
 		}
 
-		$address = Tribe__Events__Venue::get_address_full_string( $event );
+		$address = self::get_address_full_string( $event );
 		// The above includes the venue name.
 
 		return $address;
@@ -920,5 +922,23 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				'href'  => admin_url( 'post.php?post=' . $wp_query->queried_object->ID . '&action=edit' ),
 			]);
 		}
+	}
+
+	public function setup_venue_menus() {
+		add_submenu_page(
+			TEC_Menu::$menu_slug,
+			sprintf(
+				esc_html__( 'Add New %s',
+				'the-events-calendar' ),
+				$this->singular_venue_label
+			),
+			sprintf(
+				esc_html__( 'Add New %s',
+				'the-events-calendar' ),
+				$this->singular_venue_label
+			),
+			'edit_tribe_venues',
+			'post-new.php?post_type=' . self::POSTTYPE
+		);
 	}
 }
