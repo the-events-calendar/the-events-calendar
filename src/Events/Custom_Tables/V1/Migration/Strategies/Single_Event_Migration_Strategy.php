@@ -57,7 +57,7 @@ class Single_Event_Migration_Strategy implements Strategy_Interface {
 		$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
 
 		if ( ! empty( $recurrence_meta ) && ! empty( $recurrence_meta['rules'] ) ) {
-			throw new Migration_Exception( 'Attempting to run Single Event strategy for recurring event. Is a strategy missing for this type of event?' );
+			throw new Migration_Exception( 'Attempting to run Single Event strategy for recurring event. Is The Events Calendar PRO installed and active?' );
 		}
 
 		$this->dry_run = $dry_run;
