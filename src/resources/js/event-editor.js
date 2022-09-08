@@ -6,43 +6,42 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 ( function ( $, obj ) {
 	'use strict';
 
-	obj = obj || {};
-
 	/**
-	 *	Setup our selectors.
+	 * Setup our selectors.
 	 *
-	 *	@since TBD
+	 * @since TBD
 	 */
 	obj.selectors = {
-		$sticky_in_month_view_checkbox: 'input[name="EventShowInCalendar"]',
-		$featured_event_checkbox: 'input[name="feature_event"]',
+		sticky_in_month_view_checkbox: 'input[name="EventShowInCalendar"]',
+		featured_event_checkbox: 'input[name="feature_event"]',
 		organizer: {
 			area: '#event_tribe_organizer',
 			delete_button: '.tribe-delete-this',
 			add_button: '#event_tribe_organizer .tribe-add-post',
 			post_dropdown: '.linked-post-dropdown',
+			saved_organizers: '.saved-linked-post',
 		},
 	};
 
 	obj.organizer = {};
 	/**
-	 *	Controls logic for the Organizer delete button to display.
+	 * Controls logic for the Organizer delete button to display.
 	 *
-	 *	If more than 1 organizer exists, display the delete button.
-	 *	If only 1 organizer exists, hide the delete button.
+	 * If more than one organizer exists, display the delete button.
+	 * If only one organizer exists, hide the delete button.
 	 *
-	 *	@since TBD
-	 *	@return void
+	 * @since TBD
+	 * @return void
 	 */
 	obj.organizer.deleteButtonDisplayLogic = () => {
 
-		const $organizers = $( obj.selectors.organizer.area ).find( '.saved-linked-post' );
+		const $organizers = $( obj.selectors.organizer.area ).find( obj.selectors.organizer.saved_organizers );
 
 		$( obj.selectors.organizer.area )
 			.find( obj.selectors.organizer.delete_button )
 			.each( function () {
 
-				// If you have more than 1 organizer then we display the delete button.
+				// If you have more than one organizer then we display the delete button.
 				if ( $organizers.length > 1 ) {
 					$( this ).show();
 					return;
@@ -50,10 +49,8 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 
 				const $organizer_dropdown = $( obj.selectors.organizer.area + ' ' + obj.selectors.organizer.post_dropdown );
 
-				//If this is running, it's because we only have 1 organizer
-				if ( $organizer_dropdown.val() !== '-1' ) {
-					$( obj.selectors.organizer.add_button ).show();
-				}
+				//If this is running, it's because we only have one organizer.
+				obj.organizer.addButtonLogic( $organizer_dropdown.val() );
 
 				$( this ).hide();
 
@@ -61,34 +58,41 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 
 	};
 	/**
-	 *	Trigger events for bind events.
+	 * Logic to display, or hide the "Add Organizer" button.
 	 *
-	 *	@since TBD
+	 * @since TBD
+	 *
+	 * @param selectValue
+	 * @return void
+	 */
+	obj.organizer.addButtonLogic = ( selectValue ) => {
+		if ( selectValue !== '-1' ) {
+			$( obj.selectors.organizer.add_button ).show();
+		} else {
+			$( obj.selectors.organizer.add_button ).hide();
+		}
+	};
+	/**
+	 * Trigger events for bind events.
+	 *
+	 * @since TBD
 	 */
 	obj.organizer.bindEvents = () => {
 
 		/**
 		 *	Logic for the organizer area -
 		 *	"Add Organizer" button should be hidden by default,
-		 *	only appearing when there is more than 1 organizer.
+		 *	only appearing when there is more than one organizer.
 		 *
 		 *	"Trash" icon / delete button should be hidden by default,
-		 *	only appearing when there is more than 1 organizer
+		 *	only appearing when there is more than one organizer selected
 		 *
 		 *	or when an organizer has the value of -1.
 		 */
 		// Hide the "Add Organizer" button by default.
-		$( obj.selectors.organizer.add_button ).hide();
-		// Run our delete button logic.
-		obj.organizer.deleteButtonDisplayLogic();
 
 		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
-			if ( this.value !== '-1' ) {
-				$( obj.selectors.organizer.add_button ).show();
-			} else {
-				$( obj.selectors.organizer.add_button ).hide();
-			}
-
+			obj.organizer.addButtonLogic( this.value );
 			obj.organizer.deleteButtonDisplayLogic();
 
 		} );
@@ -115,7 +119,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 */
 	obj.auto_enable_sticky_field = function () {
 		if ( $( this ).prop( 'checked' ) ) {
-			$( obj.selectors.$sticky_in_month_view_checkbox ).prop( 'checked', true );
+			$( obj.selectors.sticky_in_month_view_checkbox ).prop( 'checked', true );
 		}
 	};
 
@@ -125,7 +129,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * @since TBD
 	 */
 	obj.bindFeaturedEvents = () => {
-		$( obj.selectors.$featured_event_checkbox ).on( 'change', obj.auto_enable_sticky_field );
+		$( obj.selectors.featured_event_checkbox ).on( 'change', obj.auto_enable_sticky_field );
 		$( obj ).trigger( 'event-editor-post-init.tribe' );
 	};
 
@@ -135,6 +139,10 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * @since TBD
 	 */
 	obj.init = () => {
+		// Hide the "Add Organizer" button by default.
+		$( obj.selectors.organizer.add_button ).hide();
+		// Run our delete button logic.
+		obj.organizer.deleteButtonDisplayLogic();
 		obj.organizer.bindEvents();
 		obj.bindFeaturedEvents();
 	};
@@ -142,4 +150,4 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	//Init our main object
 	obj.init();
 
-} )( jQuery );
+} )( jQuery, tribe_events_event_editor );
