@@ -67,7 +67,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * @param selectValue
 	 * @return void
 	 */
-	obj.organizer.addButtonLogic = ( selectValue ) => {
+	obj.organizer.addButtonLogic = function ( selectValue ) {
 		if ( selectValue !== '-1' ) {
 			$( obj.selectors.organizer.add_button ).show();
 		} else {
@@ -79,7 +79,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 *
 	 * @since TBD
 	 */
-	obj.organizer.bindEvents = () => {
+	obj.organizer.bindEvents = function () {
 
 		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
 			obj.organizer.addButtonLogic( this.value );
@@ -107,7 +107,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * @since TBD
 	 *
 	 */
-	obj.auto_enable_sticky_field = () => {
+	obj.auto_enable_sticky_field = function () {
 		if ( $( this ).prop( 'checked' ) ) {
 			$( obj.selectors.sticky_in_month_view_checkbox ).prop( 'checked', true );
 		}
@@ -118,7 +118,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 *
 	 * @since TBD
 	 */
-	obj.bindFeaturedEvents = () => {
+	obj.bindFeaturedEvents = function () {
 		$( obj.selectors.featured_event_checkbox ).on( 'change', obj.auto_enable_sticky_field );
 		$( obj ).trigger( 'event-editor-post-init.tribe' );
 	};
@@ -128,7 +128,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 *
 	 * @since TBD
 	 */
-	obj.init = () => {
+	obj.init = function () {
 		// Hide the "Add Organizer" button by default.
 		$( obj.selectors.organizer.add_button ).hide();
 		// Run our delete button logic.
