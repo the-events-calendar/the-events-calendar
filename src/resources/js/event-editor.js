@@ -34,9 +34,10 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * @since TBD
 	 * @return void
 	 */
-	obj.organizer.deleteButtonDisplayLogic = () => {
+	obj.organizer.deleteButtonDisplayLogic = function () {
 
-		const $organizers = $( obj.selectors.organizer.area ).find( obj.selectors.organizer.saved_organizers );
+		const $organizers = $( obj.selectors.organizer.area )
+			.find( obj.selectors.organizer.saved_organizers );
 
 		$( obj.selectors.organizer.area )
 			.find( obj.selectors.organizer.delete_button )
@@ -48,7 +49,10 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 					return;
 				}
 
-				const $organizer_dropdown = $( obj.selectors.organizer.area + ' ' + obj.selectors.organizer.post_dropdown );
+				const $organizer_dropdown =
+					$( obj.selectors.organizer.area +
+						' ' +
+						obj.selectors.organizer.post_dropdown );
 
 				//If this is running, it's because we only have one organizer.
 				obj.organizer.addButtonLogic( $organizer_dropdown.val() );
@@ -81,7 +85,8 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 */
 	obj.organizer.bindEvents = function () {
 
-		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
+		$( obj.selectors.organizer.area )
+			.on( 'change', obj.selectors.organizer.post_dropdown, function () {
 			obj.organizer.addButtonLogic( this.value );
 			obj.organizer.deleteButtonDisplayLogic();
 
