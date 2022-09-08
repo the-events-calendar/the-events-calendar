@@ -24,6 +24,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	};
 
 	obj.organizer = {};
+
 	/**
 	 * Controls logic for the Organizer delete button to display.
 	 *
@@ -57,6 +58,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 			} );
 
 	};
+
 	/**
 	 * Logic to display, or hide the "Add Organizer" button.
 	 *
@@ -147,7 +149,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		obj.bindFeaturedEvents();
 	};
 
-	//Init our main object
+	// Init our main object.
 	obj.init();
 
 } )( jQuery, tribe_events_event_editor );
