@@ -38,6 +38,16 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $value;
 		}
 
+		$cache = tribe_cache();
+
+		$cache_key = $object_id . '-' . $meta_key;
+
+		if ( isset( $cached[ $cache_key ] ) ) {
+			return $cached[ $cache_key ];
+		}
+
+		$cached_values[ $cache_key ] = false;
+
 		$value = $this->get_post_meta( $object_id, $meta_key );
 
 		if ( empty( $value ) ) {
@@ -73,6 +83,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 				$post_id = apply_filters( 'wpml_object_id', $post_id, $type, true );
 			}
 		}
+
+		$cached[ $cache_key ] = $value;
 
 		return $value;
 	}
