@@ -35,7 +35,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.0';
+		const VERSION             = '6.0.0.1';
 
 		/**
 		 * Min Pro Addon
@@ -600,8 +600,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Integrations
 			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', [ 'hook' ] );
-			tribe_singleton( \Tribe\Events\Integrations\WP_Rocket::class, \Tribe\Events\Integrations\WP_Rocket::class );
-			tribe_singleton( \Tribe\Events\Integrations\Beaver_Builder::class, \Tribe\Events\Integrations\Beaver_Builder::class );
+
 
 			// Linked Posts
 			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );

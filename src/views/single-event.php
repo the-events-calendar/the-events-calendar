@@ -18,7 +18,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural   = tribe_get_event_label_plural();
 
-$event_id = get_the_ID();
+$event_id = Tribe__Events__Main::postIdHelper( get_the_ID() );
+
+/**
+ * Allows filtering of the event ID.
+ * 
+ * @since TBD
+ * 
+ * @param int $event_id
+ */
+$event_id = apply_filters( 'tec_events_single_event_id', $event_id );
 
 /**
  * Allows filtering of the single event template title classes.
