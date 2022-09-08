@@ -81,18 +81,6 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 */
 	obj.organizer.bindEvents = () => {
 
-		/**
-		 *	Logic for the organizer area -
-		 *	"Add Organizer" button should be hidden by default,
-		 *	only appearing when there is more than one organizer.
-		 *
-		 *	"Trash" icon / delete button should be hidden by default,
-		 *	only appearing when there is more than one organizer selected
-		 *
-		 *	or when an organizer has the value of -1.
-		 */
-		// Hide the "Add Organizer" button by default.
-
 		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
 			obj.organizer.addButtonLogic( this.value );
 			obj.organizer.deleteButtonDisplayLogic();
@@ -119,7 +107,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * @since TBD
 	 *
 	 */
-	obj.auto_enable_sticky_field = function () {
+	obj.auto_enable_sticky_field = () => {
 		if ( $( this ).prop( 'checked' ) ) {
 			$( obj.selectors.sticky_in_month_view_checkbox ).prop( 'checked', true );
 		}
