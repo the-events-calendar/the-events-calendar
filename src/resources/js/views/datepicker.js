@@ -642,6 +642,16 @@ tribe.events.views.datepicker = {};
 		obj.options.beforeShowMonth = obj.filterMonthCells;
 		obj.options.beforeShowYear = obj.filterYearCells;
 
+		// A tweak for RTL languages.
+		if (  document.dir && document.dir === 'rtl' ) {
+			obj.options.rtl = true;
+		}
+
+		// ...and for document language.
+		if ( document.lang ) {
+			obj.options.language = document.lang;
+		}
+
 		$input
 			.bootstrapDatepicker( obj.options )
 			.on( changeEvent, { container: $container }, changeHandler )
