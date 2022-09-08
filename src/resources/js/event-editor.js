@@ -42,25 +42,22 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 			.find( obj.selectors.organizer.delete_button )
 			.each( function () {
 
-			// If you have more than 1 organizer then we display the delete button.
-			if ( $organizers.length > 1 ) {
-				$( this ).show();
-				return;
-			}
+				// If you have more than 1 organizer then we display the delete button.
+				if ( $organizers.length > 1 ) {
+					$( this ).show();
+					return;
+				}
 
-			const $organizer_dropdown =
-				$( obj.selectors.organizer.area +
-					' '
-					+ obj.selectors.organizer.post_dropdown );
+				const $organizer_dropdown = $( obj.selectors.organizer.area + ' ' + obj.selectors.organizer.post_dropdown );
 
-			//If this is running, it's because we only have 1 organizer
-			if ( $organizer_dropdown.val() !== -1 ) {
-				$( obj.selectors.organizer.add_button ).show();
-			}
+				//If this is running, it's because we only have 1 organizer
+				if ( $organizer_dropdown.val() !== '-1' ) {
+					$( obj.selectors.organizer.add_button ).show();
+				}
 
-			$( this ).hide();
+				$( this ).hide();
 
-		} );
+			} );
 
 	};
 	/**
@@ -85,9 +82,8 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		// Run our delete button logic.
 		obj.organizer.deleteButtonDisplayLogic();
 
-		$( obj.selectors.organizer.area )
-			.on( 'change', obj.selectors.organizer.post_dropdown, function () {
-			if ( this.value !== -1 ) {
+		$( obj.selectors.organizer.area ).on( 'change', obj.selectors.organizer.post_dropdown, function () {
+			if ( this.value !== '-1' ) {
 				$( obj.selectors.organizer.add_button ).show();
 			} else {
 				$( obj.selectors.organizer.add_button ).hide();
@@ -100,13 +96,13 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		// Functions to run when the delete button is clicked.
 		$( obj.selectors.organizer.area )
 			.on( 'click', obj.selectors.organizer.delete_button, function () {
-			// We have to run this in a setTimeout because the original functionality uses a fade of 500ms.
-			// Therefore we use 525ms to run slightly after it is done.
-			setTimeout( function () {
-				obj.organizer.deleteButtonDisplayLogic();
-			}, 525 );
+				// We have to run this in a setTimeout because the original functionality uses a fade of 500ms.
+				// Therefore we use 525ms to run slightly after it is done.
+				setTimeout( function () {
+					obj.organizer.deleteButtonDisplayLogic();
+				}, 525 );
 
-		} );
+			} );
 
 	};
 
