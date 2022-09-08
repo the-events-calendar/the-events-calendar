@@ -77,7 +77,7 @@ class Tribe__Events__Updater {
 	 *
 	 * @return string The reset version number.
 	 */
-	public function get_reset_version() {
+	public function get_reset_version(): string {
 		return $this->reset_version;
 	}
 
