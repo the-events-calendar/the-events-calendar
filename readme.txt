@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.4
-Stable tag: 6.0.0
+Stable tag: 6.0.0.1
 Tested up to: 6.0.2
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -233,6 +233,11 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
+* Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
+
+= [6.0.0.1] 2022-09-07 =
+
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
 
 = [6.0.0] 2022-09-06 =
 
