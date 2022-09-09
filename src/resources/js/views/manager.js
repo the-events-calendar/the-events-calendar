@@ -601,12 +601,31 @@ tribe.events.views.manager = {};
 		// Clean up the container and event listeners
 		obj.cleanup( $container );
 
+		/*
+		 * Dispatch an event before the container is replaced; bound events are
+		 * removed!
+		 */
+		document.dispatchEvent(
+				new CustomEvent(
+						'containerReplaceBefore.tribeEvents',
+						{ detail: $container },
+				),
+		);
+
 		// Replace the current container with the new Data.
 		$container.replaceWith( $html );
 		$container = $html;
 
 		// Setup the container with the data received.
 		obj.setup( 0, $container );
+
+		// Dispatch an event after the container is replaced and set up.
+		document.dispatchEvent(
+				new CustomEvent(
+						'containerReplaceAfter.tribeEvents',
+						{ detail: $container },
+				),
+		);
 
 		// Update the global set of containers with all of the manager object.
 		obj.selectContainers();
