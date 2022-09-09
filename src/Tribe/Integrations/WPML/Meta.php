@@ -40,7 +40,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 
 		$cache = tribe_cache();
 
-		$cache_key = $object_id . '-' . $meta_key;
+		$cache_key = 'wpml_meta_translate_post_id_' . $object_id . '-' . $meta_key;
 
 		if ( isset( $cache[ $cache_key ] ) ) {
 			return $cache[ $cache_key ];
