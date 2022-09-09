@@ -136,8 +136,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @todo  Requirement to setup other JS modules after hijacking Click and
-	 *     Submit
+	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
 	 *
 	 * @param  {Integer}        index     jQuery.each index param
 	 * @param  {Element|jQuery} container Which element we are going to setup
@@ -172,8 +171,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {Element|jQuery} element Which element we getting the container
-	 *     from
+	 * @param  {Element|jQuery} element Which element we getting the container from
 	 *
 	 * @return {jQuery}
 	 */
@@ -214,8 +212,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {Element|jQuery} $container Which element we are using as the
-	 *     container.
+	 * @param  {Element|jQuery} $container Which element we are using as the container.
 	 *
 	 * @return {Boolean}
 	 */
@@ -464,8 +461,8 @@ tribe.events.views.manager = {};
 	};
 
 	/**
-	 * Performs an AJAX request given the data for the REST API and which
-	 * container we are going to pass the answer to.
+	 * Performs an AJAX request given the data for the REST API and which container
+	 * we are going to pass the answer to.
 	 *
 	 * @since 4.9.2
 	 *
@@ -691,8 +688,7 @@ tribe.events.views.manager = {};
 	 */
 	obj.getLastContainer = function() {
 		/**
-		 * @todo @bordoni @paul improve this when shortcodes are also managing the
-		 *     URL.
+		 * @todo @bordoni @paul improve this when shortcodes are also managing the URL.
 		 */
 		if ( ! obj.$lastContainer.length ) {
 			obj.$lastContainer = obj.$containers.filter( '[data-view-manage-url="1"]' ).eq( 0 );
