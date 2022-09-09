@@ -1,6 +1,6 @@
 <?php
 /**
- * ${CARET}
+ * Provides methods to query the Events posts and postmeta tables in the context of the migration process.
  *
  * @since   6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
@@ -56,14 +56,20 @@ class Events {
 		$lock_query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
 	    SELECT p.ID, %s,%s
 	    FROM {$wpdb->posts} p
-			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN(%s, %s)
+			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN (%s, %s)
 			LEFT JOIN {$wpdb->postmeta} created_by_migration ON p.ID = created_by_migration.post_id
 				AND created_by_migration.meta_key = %s
+			LEFT JOIN {$wpdb->postmeta} pm1 ON p.ID = pm1.post_id AND pm1.meta_key = '_EventStartDate'
+			LEFT JOIN {$wpdb->postmeta} pm2 ON p.ID = pm2.post_id AND pm2.meta_key = '_EventStartDateUTC'
+			LEFT JOIN {$wpdb->postmeta} pm3 ON p.ID = pm3.post_id AND pm3.meta_key = '_EventEndDate'
+			LEFT JOIN {$wpdb->postmeta} pm4 ON p.ID = pm4.post_id AND pm4.meta_key = '_EventEndDateUTC'
 	    WHERE p.post_type = %s
 	    	AND pm.meta_value IS NULL
 	    	AND p.post_status != 'auto-draft'
 	    	AND p.post_parent = 0
-	    	and created_by_migration.meta_value IS NULL
+	    	AND created_by_migration.meta_value IS NULL
+			AND ((pm1.meta_value IS NOT NULL AND pm1.meta_value != '') OR (pm2.meta_value IS NOT NULL AND pm2.meta_value != ''))
+			AND ((pm3.meta_value IS NOT NULL AND pm3.meta_value != '') OR (pm4.meta_value IS NOT NULL AND pm4.meta_value != ''))
 	    LIMIT %d";
 		$lock_query = $wpdb->prepare( $lock_query,
 			Event_Report::META_KEY_MIGRATION_LOCK_HASH,
@@ -262,10 +268,17 @@ class Events {
 				"SELECT COUNT(ID) FROM {$wpdb->posts} p
 						LEFT JOIN {$wpdb->postmeta} created_by_migration ON p.ID = created_by_migration.post_id
 							AND created_by_migration.meta_key = %s
+						LEFT JOIN {$wpdb->postmeta} pm1 ON p.ID = pm1.post_id AND pm1.meta_key = '_EventStartDate'
+						LEFT JOIN {$wpdb->postmeta} pm2 ON p.ID = pm2.post_id AND pm2.meta_key = '_EventStartDateUTC'
+						LEFT JOIN {$wpdb->postmeta} pm3 ON p.ID = pm3.post_id AND pm3.meta_key = '_EventEndDate'
+						LEFT JOIN {$wpdb->postmeta} pm4 ON p.ID = pm4.post_id AND pm4.meta_key = '_EventEndDateUTC'
 						WHERE p.post_type = %s
 							AND post_parent = 0
 							AND p.post_status != 'auto-draft'
-							AND created_by_migration.meta_value IS NULL",
+							AND created_by_migration.meta_value IS NULL
+							AND ((pm1.meta_value IS NOT NULL AND pm1.meta_value != '') OR (pm2.meta_value IS NOT NULL AND pm2.meta_value != ''))
+							AND ((pm3.meta_value IS NOT NULL AND pm3.meta_value != '') OR (pm4.meta_value IS NOT NULL AND pm4.meta_value != ''))
+						",
 				Process::EVENT_CREATED_BY_MIGRATION_META_KEY,
 				TEC::POSTTYPE
 			)

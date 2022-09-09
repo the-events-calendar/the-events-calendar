@@ -41,12 +41,12 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		$version_in_db = $updater->get_version_from_db();
 
-		$this->assertEquals( $version_in_db, $current_version, "checking that the version in the database was set to $current_version" );
+		$this->assertEquals( $current_version, $version_in_db, "checking that the version in the database was set to $current_version" );
 
 		$updater->reset();
 
 		$version_in_db = $updater->get_version_from_db();
-		$this->assertEquals( $version_in_db, 3.9, 'checking that the version in the database was set to 3.9' );
+		$this->assertEquals( $updater->get_reset_version(), $version_in_db, 'checking that the version in the database was set to 3.9' );
 	}
 
 	public function test_get_update_callbacks() {
@@ -63,9 +63,9 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$current_version = Tribe__Events__Main::VERSION;
 		$updater = Tribe__Events__Main::instance()->updater();
 
-		$contant_updates = $updater->get_constant_update_callbacks();
-		foreach ( $contant_updates as $contant_update_callable ) {
-			$this->assertTrue( is_callable( $contant_update_callable ), 'checking constant update function is callable' );
+		$constant_updates = $updater->get_constant_update_callbacks();
+		foreach ( $constant_updates as $constant_update_callable ) {
+			$this->assertTrue( is_callable( $constant_update_callable ), 'checking constant update function is callable' );
 		}
 	}
 
