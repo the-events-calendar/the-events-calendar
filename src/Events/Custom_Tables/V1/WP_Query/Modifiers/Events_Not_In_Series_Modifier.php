@@ -45,6 +45,11 @@ class Events_Not_In_Series_Modifier extends Base_Modifier {
 	 * {@inheritdoc}
 	 */
 	public function applies_to( WP_Query $query = null ) {
+
+		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			return false;
+		}
+
 		if ( empty( $query->query_vars[ self::POST_NOT_IN_SERIES ] ) ) {
 			return false;
 		}
