@@ -42,8 +42,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 
 		$cache_key = $object_id . '-' . $meta_key;
 
-		if ( isset( $cached[ $cache_key ] ) ) {
-			return $cached[ $cache_key ];
+		if ( isset( $cache[ $cache_key ] ) ) {
+			return $cache[ $cache_key ];
 		}
 
 		$cached_values[ $cache_key ] = false;
@@ -84,7 +84,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			}
 		}
 
-		$cached[ $cache_key ] = $value;
+		$cache[ $cache_key ] = $value;
 
 		return $value;
 	}
