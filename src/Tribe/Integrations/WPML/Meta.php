@@ -46,8 +46,6 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $cache[ $cache_key ];
 		}
 
-		$cached_values[ $cache_key ] = false;
-
 		$value = $this->get_post_meta( $object_id, $meta_key );
 
 		if ( empty( $value ) ) {
