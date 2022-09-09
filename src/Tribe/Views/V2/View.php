@@ -27,6 +27,7 @@ use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
+use WP_Post;
 
 /**
  * Class View
@@ -1469,8 +1470,8 @@ class View implements View_Interface {
 		 *
 		 * @since 6.0.0
 		 *
-		 * @param array $events Which events were just selected.
-		 * @param self  $view   Which view we are dealing with.
+		 * @param array<WP_Post> $events Which events were just selected.
+		 * @param self           $view   Which view we are dealing with.
 		 */
 		do_action( 'tec_events_views_v2_after_get_events', $events, $this );
 
