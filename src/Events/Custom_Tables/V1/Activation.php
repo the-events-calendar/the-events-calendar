@@ -96,8 +96,15 @@ class Activation {
 	 * @return array
 	 */
 	public static function filter_include_migration_to_system_info( array $info = [] ): array {
+		$phase = tribe( State::class )->get_phase();
+		$incomplete_label = esc_html__( 'Incomplete', 'the-events-calendar' );
+		$status_map = [
+			State::PHASE_MIGRATION_COMPLETE => esc_html__( 'Completed', 'the-events-calendar' ),
+			State::PHASE_MIGRATION_NOT_REQUIRED => esc_html__( 'Not Required', 'the-events-calendar' ),
+		];
+
 		$migration_status = [
-			'Custom Tables Migration Status' => tribe( State::class )->is_migrated() ? esc_html__( 'Completed', 'the-events-calendar' ) : esc_html__( 'Incomplete', 'the-events-calendar' ),
+			'Custom Tables Migration Status' => ! empty( $phase ) && ! empty( $status_map[ $phase ] ) ? $status_map[ $phase ] : $incomplete_label,
 		];
 
 		// Prevents problems in case we don't have sys info.
