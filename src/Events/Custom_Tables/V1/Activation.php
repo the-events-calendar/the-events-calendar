@@ -97,10 +97,11 @@ class Activation {
 	 */
 	public static function filter_include_migration_to_system_info( array $info = [] ): array {
 		$phase = tribe( State::class )->get_phase();
-		$incomplete_label = esc_html__( 'Incomplete', 'the-events-calendar' );
+		// String not translated on purpose.
+		$incomplete_label = 'Incomplete';
 		$status_map = [
-			State::PHASE_MIGRATION_COMPLETE => esc_html__( 'Completed', 'the-events-calendar' ),
-			State::PHASE_MIGRATION_NOT_REQUIRED => esc_html__( 'Not Required', 'the-events-calendar' ),
+			State::PHASE_MIGRATION_COMPLETE => 'Completed', // String not translated on purpose.
+			State::PHASE_MIGRATION_NOT_REQUIRED => 'Not Required', // String not translated on purpose.
 		];
 
 		$migration_status = [
