@@ -929,8 +929,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Add support for positioning the main events view on the site homepage
 			tribe( 'tec.front-page-view' )->hook();
 
-			tribe( 'tec.admin.menu' )->hooks();
-
 			tribe( 'events-aggregator.main' );
 			tribe( 'tec.shortcodes.event-details' );
 			tribe( 'tec.ignored-events' );

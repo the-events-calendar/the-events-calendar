@@ -12,7 +12,7 @@
 
 namespace TEC\Events\Menu;
 
-use TEC\Common\Menu\Menu as Menu;
+use TEC\Common\Menus\Abstract_Menu;
 
 /**
  * Class Menu
@@ -21,7 +21,7 @@ use TEC\Common\Menu\Menu as Menu;
  *
  * @package TEC\Events\Menu
  */
-class TEC_Menu extends Menu {
+class TEC_Menu extends Abstract_Menu {
 
 	/**
 	 * Undocumented variable
@@ -30,7 +30,7 @@ class TEC_Menu extends Menu {
 	 *
 	 * @var string
 	 */
-	public $page_title = '';
+	public $page_title = 'The Events Calendar';
 
 	/**
 	 * Undocumented variable
@@ -58,15 +58,6 @@ class TEC_Menu extends Menu {
 	 * @var string
 	 */
 	public static $menu_slug = 'tec';
-
-	/**
-	 * Undocumented variable
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public $callback = '';
 
 	/**
 	 * Undocumented variable
