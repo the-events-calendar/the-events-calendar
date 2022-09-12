@@ -96,8 +96,9 @@ class TEC_Menu extends Abstract_Menu {
 	public $settings_page_data = [];
 
 	public function __construct() {
-		parent::__construct();
+		$foo ='';
 		$this->settings_file = plugin_dir_path( __FILE__ ) . 'Data.php';
+		parent::__construct();
 	}
 
 	public function render() {

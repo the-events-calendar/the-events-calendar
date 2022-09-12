@@ -655,7 +655,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
 
 			// New Admin
-			tribe_singleton( 'tec.admin.menu', TEC_Menu::class );
+			tribe_singleton( TEC_Menu::class, TEC_Menu::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -938,6 +938,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
 			tribe( Tribe\Events\Admin\Filter_Bar\Provider::class );
+			tribe( TEC_Menu::class)->build();
 		}
 
 		/**
