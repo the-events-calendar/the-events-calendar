@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use Tribe__Main as Common;
 
 /**
  * Class Activation
@@ -35,7 +36,7 @@ class Activation {
 	 * @since 6.0.0
 	 */
 	public static function activate() {
-		$schema_builder = tribe( Schema_Builder::class);
+		$schema_builder = tribe( Schema_Builder::class );
 		$schema_builder->up();
 	}
 
@@ -51,7 +52,7 @@ class Activation {
 		$db_hash = get_transient( static::ACTIVATION_TRANSIENT );
 
 		$schema_builder = tribe( Schema_Builder::class );
-		$hash = $schema_builder->get_registered_schemas_version_hash();
+		$hash           = $schema_builder->get_registered_schemas_version_hash();
 
 		if ( $db_hash == $hash ) {
 			return;
@@ -64,8 +65,8 @@ class Activation {
 			$schema_builder->up();
 		}
 
-		$services  = tribe();
-		$state = $services->make( State::class );
+		$services = tribe();
+		$state    = $services->make( State::class );
 
 		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
 		if (
@@ -84,6 +85,39 @@ class Activation {
 				tribe()->register( Full_Activation_Provider::class );
 			}
 		}
+	}
+
+	/**
+	 * Includes the Migration state into the System Information for support.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $info The system information, as produced by the
+	 *                                  default logic and previous filters.
+	 *
+	 * @return array<string,mixed> The filtered system information.
+	 */
+	public static function filter_include_migration_in_system_info( array $info = [] ): array {
+		$phase = tribe( State::class )->get_phase();
+		// String not translated on purpose.
+		$incomplete_label = 'Incomplete';
+		$status_map = [
+			State::PHASE_MIGRATION_COMPLETE => 'Completed', // String not translated on purpose.
+			State::PHASE_MIGRATION_NOT_REQUIRED => 'Not Required', // String not translated on purpose.
+		];
+
+		$migration_status = [
+			'Custom Tables Migration Status' => ! empty( $phase ) && ! empty( $status_map[ $phase ] ) ?
+				$status_map[ $phase ]
+				: $incomplete_label,
+		];
+
+		// Prevents problems in case we don't have sys info.
+		if ( empty( $info ) ) {
+			return $migration_status;
+		}
+
+		return Common::array_insert_before_key( 'Settings', $info, $migration_status );
 	}
 
 	/**

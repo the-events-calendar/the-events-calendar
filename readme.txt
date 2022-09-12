@@ -231,6 +231,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.1] TBD =
 
+* Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+* Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
+* Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
 * Fix - correct some text domains. [TEC-4450]
 * Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
