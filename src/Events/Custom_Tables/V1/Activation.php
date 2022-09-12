@@ -12,6 +12,7 @@ namespace TEC\Events\Custom_Tables\V1;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use Tribe__Main as Common;
 
 /**
  * Class Activation
@@ -91,11 +92,12 @@ class Activation {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $info
+	 * @param array<string,mixed> $info The system information, as produced by the
+	 *                                  default logic and previous filters.
 	 *
-	 * @return array
+	 * @return array<string,mixed> The filtered system information.
 	 */
-	public static function filter_include_migration_to_system_info( array $info = [] ): array {
+	public static function filter_include_migration_in_system_info( array $info = [] ): array {
 		$phase = tribe( State::class )->get_phase();
 		// String not translated on purpose.
 		$incomplete_label = 'Incomplete';
@@ -105,7 +107,9 @@ class Activation {
 		];
 
 		$migration_status = [
-			'Custom Tables Migration Status' => ! empty( $phase ) && ! empty( $status_map[ $phase ] ) ? $status_map[ $phase ] : $incomplete_label,
+			'Custom Tables Migration Status' => ! empty( $phase ) && ! empty( $status_map[ $phase ] ) ?
+				$status_map[ $phase ]
+				: $incomplete_label,
 		];
 
 		// Prevents problems in case we don't have sys info.
@@ -113,7 +117,7 @@ class Activation {
 			return $migration_status;
 		}
 
-		return \Tribe__Main::array_insert_before_key( 'Settings', $info, $migration_status );
+		return Common::array_insert_before_key( 'Settings', $info, $migration_status );
 	}
 
 	/**
