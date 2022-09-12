@@ -6,7 +6,7 @@
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
-use TEC\Events\Menu\TEC_Menu;
+use TEC\Events\Menus\TEC_Menu;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -654,8 +654,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
 
-			// New Admin
-			tribe_singleton( TEC_Menu::class, TEC_Menu::class );
+			// Menus
+			tribe_register_provider( TEC\Events\Menus\Service_Provider::class );
+
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -938,7 +939,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
 			tribe( Tribe\Events\Admin\Filter_Bar\Provider::class );
-			tribe( TEC_Menu::class)->build();
 		}
 
 		/**

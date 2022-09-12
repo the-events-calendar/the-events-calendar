@@ -7,10 +7,10 @@
  *
  * @since TBD
  *
- * @package TEC\Events\Menu
+ * @package TEC\Events\Menus
  */
 
-namespace TEC\Events\Menu;
+namespace TEC\Events\Menus;
 
 use TEC\Common\Menus\Abstract_Menu;
 
@@ -19,7 +19,7 @@ use TEC\Common\Menus\Abstract_Menu;
  *
  * @since TBD
  *
- * @package TEC\Events\Menu
+ * @package TEC\Events\Menus
  */
 class TEC_Menu extends Abstract_Menu {
 
@@ -57,7 +57,7 @@ class TEC_Menu extends Abstract_Menu {
 	 *
 	 * @var string
 	 */
-	public static $menu_slug = 'tec';
+	public static $menu_slug = 'tec_events';
 
 	/**
 	 * Undocumented variable
@@ -96,7 +96,6 @@ class TEC_Menu extends Abstract_Menu {
 	public $settings_page_data = [];
 
 	public function __construct() {
-		$foo ='';
 		$this->settings_file = plugin_dir_path( __FILE__ ) . 'Data.php';
 		parent::__construct();
 	}
