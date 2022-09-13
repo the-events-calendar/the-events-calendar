@@ -240,6 +240,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Add caching to prevent duplicated queries for translated venue/organizer values. props to @dgwatkins for the suggested fix! [TEC-4428]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+* Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
 
 = [6.0.0.1] 2022-09-07 =
 
