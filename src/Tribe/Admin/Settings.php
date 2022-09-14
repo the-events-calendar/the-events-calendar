@@ -163,7 +163,7 @@ class Settings {
 			[
 				'id'       => static::$settings_page_id,
 				'parent'   => $this->get_tec_events_menu_slug(),
-				'title'    => esc_html__( 'Settings', 'tribe-common' ),
+				'title'    => esc_html__( 'Settings', 'the-events-calendar' ),
 				'path'     => static::$settings_page_id,
 				'callback' => [
 					tribe( 'settings' ),
@@ -392,8 +392,8 @@ class Settings {
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
-		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
-		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
+		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'the-events-calendar' ), $generalTab );
+		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'the-events-calendar' ), $displayTab );
 	}
 
 	/**
