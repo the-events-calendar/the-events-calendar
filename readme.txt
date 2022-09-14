@@ -231,15 +231,14 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.1] TBD =
 
-* Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
-* Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
-* Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
-* Fix - correct some text domains. [TEC-4450]
+* Fix - Correct some text domains. [TEC-4450]
 * Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
 * Fix - Add caching to prevent duplicated queries for translated venue/organizer values. props to @dgwatkins for the suggested fix! [TEC-4428]
+* Fix - Check the document for `lang` and `rtl` attributes and pass them on to the datepicker so it adapts properly. [TEC-4452]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+* Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
 * Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
 
 = [6.0.0.1] 2022-09-07 =
