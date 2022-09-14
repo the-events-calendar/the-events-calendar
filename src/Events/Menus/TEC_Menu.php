@@ -77,29 +77,6 @@ class TEC_Menu extends Abstract_Menu {
 	 */
 	public $position = '5';
 
-	/**
-	 * Undocumented variable
-	 *
-	 * @since TBD
-	 *
-	 * @var boolean
-	 */
-	public $settings = true;
-
-	/**
-	 * Undocumented variable
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	public $settings_page_data = [];
-
-	public function __construct() {
-		$this->settings_file = plugin_dir_path( __FILE__ ) . 'Data.php';
-		parent::__construct();
-	}
-
 	public function render() {
 		?>
 		<h1>Hi there!</h1>
