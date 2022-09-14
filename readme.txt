@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.1] TBD =
 
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
-* Fix - Correct some text domains. [TEC-4450]
+* Fix - Correct some translation domains pointing to the wrong plugin. [TEC-4450]
 * Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
 * Fix - Add caching to prevent duplicated queries for translated venue/organizer values. props to @dgwatkins for the suggested fix! [TEC-4428]
 * Fix - Check the document for `lang` and `rtl` attributes and pass them on to the datepicker so it adapts properly. [TEC-4452]
