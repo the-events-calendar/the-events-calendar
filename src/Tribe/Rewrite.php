@@ -634,12 +634,18 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 *
 	 * @return array The updated parsed query variables.
 	 */
-	public function filter_rewrite_parse_query_vars( array $query_vars = [], array $unused = [], $url = '' ) {
+	public function filter_rewrite_parse_query_vars( array $query_vars = [], array $unused = [], string $url = '' ) {
 		if ( empty( $url ) ) {
 			return $query_vars;
 		}
 
-		parse_str( parse_url( $url, PHP_URL_QUERY ), $url_query_vars );
+		$parsed_url = parse_url( $url, PHP_URL_QUERY );
+
+		if ( empty( $parsed_url ) ) {
+			return $query_vars;
+		}
+
+		parse_str( $parsed_url, $url_query_vars );
 
 		if (
 			! isset( $query_vars['eventDisplay'], $url_query_vars['eventDisplay'] )
