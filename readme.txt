@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.1] TBD =
+= [6.0.1] 2022-09-21 =
 
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
 * Fix - Correct some translation domains pointing to the wrong plugin. [TEC-4450]
@@ -242,6 +242,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
 * Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
 * Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
+* Language - 5 new strings added, 162 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.0.1] 2022-09-07 =
 
