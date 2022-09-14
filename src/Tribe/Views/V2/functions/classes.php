@@ -127,7 +127,7 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	$comparison_date =  apply_filters( 'tec_events_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day  );
 
 	// Convert it to a date object.
-	$comparison_date = Dates::build_date_object( $comparison_date );
+	$comparison_date = Dates::immutable( $comparison_date );
 
 	// Classes in array are applied if the value is truthy, not applied if the value is falsy.
 	$day_classes = [
