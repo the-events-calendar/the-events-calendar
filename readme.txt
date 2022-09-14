@@ -242,7 +242,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
 * Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
 * Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
-* Language - 5 new strings added, 162 updated, 0 fuzzied, and 0 obsoleted
+* Language - 5 new strings added, 163 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.0.1] 2022-09-07 =
 
