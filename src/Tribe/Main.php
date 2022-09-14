@@ -601,7 +601,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Integrations
 			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', [ 'hook' ] );
 
-
 			// Linked Posts
 			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );
 			tribe_singleton( 'tec.linked-posts.venue', 'Tribe__Events__Venue' );
