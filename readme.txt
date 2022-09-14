@@ -238,10 +238,15 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Check the document for `lang` and `rtl` attributes and pass them on to the datepicker so it adapts properly. [TEC-4452]
 * Fix - Corrected an issue where the Organizer Block was showing the "Add Another Organizer" button when no organizers were selected. [CE-11]
 * Fix - Corrected an issue where the "Edit Venue" and "Edit Organizer" links were displaying with no link. [CE-165]
+* Fix - Correct migration error when The Events Calendar PRO is not active. [TEC-4475]
+* Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
+* Fix - Correct a problem with moving tickets when The Events Calendar PRO is not active. [TEC-4471]
+* Fix - Correct reported migration errors around dates, durations, and timezones. [ECP-1304]
+* Fix - Correct an issue with migrating past events that straddle Daylight Savings Time. [ECP-1270]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
 * Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
-* Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
+* Tweak - Add compatibility for new "Convert to single" option in The Events Calendar PRO. [ECP-1308]
 * Language - 5 new strings added, 163 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.0.1] 2022-09-07 =
