@@ -5,7 +5,7 @@
  * @since TBD
  *
  * @see https://github.com/gilbitron/WordPress-Settings-Framework
- * @package TEC\Events\Menuss
+ * @package TEC\Events\Menus
  */
 
 /**

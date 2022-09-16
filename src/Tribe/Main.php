@@ -89,7 +89,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected $post_type_args = [
 			'public'          => true,
 			'rewrite'         => [ 'slug' => 'event', 'with_front' => false ],
-			'menu_position'   => 6,
+			'show_in_menu'    => false,
+			'menu_position'   => 0,
 			'supports'        => [
 				'title',
 				'editor',
@@ -2267,10 +2268,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addVenueAndOrganizerEditor() {
-			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_venue_label, 'the-events-calendar' ), __( $this->plural_venue_label, 'the-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . Tribe__Events__Venue::POSTTYPE );
-			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_organizer_label, 'the-events-calendar' ), __( $this->plural_organizer_label, 'the-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . Tribe__Events__Organizer::POSTTYPE );
-			add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Venue::POSTTYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . Tribe__Events__Venue::POSTTYPE );
-			add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Organizer::POSTTYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . Tribe__Events__Organizer::POSTTYPE );
+			//add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_venue_label, 'the-events-calendar' ), __( $this->plural_venue_label, 'the-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . Tribe__Events__Venue::POSTTYPE );
+			//add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_organizer_label, 'the-events-calendar' ), __( $this->plural_organizer_label, 'the-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . Tribe__Events__Organizer::POSTTYPE );
+			//add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Venue::POSTTYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . Tribe__Events__Venue::POSTTYPE );
+			//add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Organizer::POSTTYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . Tribe__Events__Organizer::POSTTYPE );
 		}
 
 		/**

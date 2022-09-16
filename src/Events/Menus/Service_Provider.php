@@ -16,33 +16,36 @@ namespace TEC\Events\Menus;
  * @package TEC\Events\Menus
  */
 class Service_Provider extends \tad_DI52_ServiceProvider {
-	public $top_level = [
+	public $menus = [
 		'TEC_Menu',
-	];
-
-	public $submenus = [
+		//'Home',
+		//'Troubleshooting',
 		'Venue',
+		'Organizer',
 	];
 
 	public function register() {
 		$this->register_menus();
-		$this->register_submenus();
+		$this->build_menus();
 	}
 
 	public function register_menus() {
-		foreach ( $this->top_level as $menu ) {
-			$menu = __NAMESPACE__ . '\\' . $menu;
-			$menu_class = new $menu;
+		foreach ( $this->menus as $menu ) {
+			$menu_class = $this->get_class_object_from_name( $menu );
 			tribe_singleton( $menu_class::class, $menu_class::class );
 		}
 	}
 
-	public function register_submenus() {
-		foreach ( $this->submenus as $submenu ) {
-			$submenu = __NAMESPACE__ . '\\' . $submenu;
-			$submenu_class = new $submenu;
-			tribe_singleton( $submenu_class::class, $submenu_class::class );
+	public function build_menus() {
+		foreach ( $this->menus as $menu ) {
+			$menu_class = $this->get_class_object_from_name( $menu );
+			tribe( $menu_class::class )->build();
 		}
+	}
+
+	private function get_class_object_from_name( $name ) {
+		$name = __NAMESPACE__ . '\\' . $name;
+		return new $name;
 	}
 
 }

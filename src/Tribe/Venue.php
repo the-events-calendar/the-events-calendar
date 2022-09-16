@@ -1,6 +1,4 @@
 <?php
-
-use TEC\Events\Menu\TEC_Menu;
 class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_venue';
 
@@ -148,8 +146,6 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			),
 		] );
 
-		$this->register_post_type();
-
 		add_filter( 'tribe_events_linked_post_type_args', [ $this, 'filter_linked_post_type_args' ], 10, 2 );
 		add_filter( 'tribe_events_linked_post_id_field_index', [ $this, 'linked_post_id_field_index' ], 10, 2 );
 		add_filter( 'tribe_events_linked_post_name_field_index', [ $this, 'linked_post_name_field_index' ], 10, 2 );
@@ -159,12 +155,15 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_default', [ $this, 'linked_post_default' ], 10, 2 );
 		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
 		add_action( 'admin_bar_menu', [ $this, 'edit_venue_admin_bar_menu_link' ], 80 );
+
+		// We want this to load _after_ the event post type.
+		add_action( 'init', [ $this, 'register_venue_post_type'], 15 );
 	}
 
 	/**
 	 * Registers the post type
 	 */
-	public function register_post_type() {
+	public function register_venue_post_type() {
 		register_post_type(
 			self::POSTTYPE,
 			apply_filters( 'tribe_events_register_venue_type_args', $this->post_type_args )
