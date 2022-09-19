@@ -16,7 +16,7 @@ use TEC\Common\Menus\Traits\Submenu;
 use Tribe__Events__Main;
 
 /**
- * Class Admin Home.
+ * Class Events CPT admin/menu.
  *
  * @since TBD
  *
@@ -39,8 +39,6 @@ class Event extends Abstract_Menu {
 	 * {@inheritDoc}
 	 */
 	public static $menu_slug = 'tec-events-event';
-
-
 
 	/**
 	 * {@inheritDoc}

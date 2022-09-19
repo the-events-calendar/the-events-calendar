@@ -16,7 +16,7 @@ use TEC\Common\Menus\Traits\Submenu;
 use Tribe__Events__Venue;
 
 /**
- * Class Admin Home.
+ * Class Venue Menu Item.
  *
  * @since TBD
  *
@@ -24,7 +24,6 @@ use Tribe__Events__Venue;
  */
 class Venue extends Abstract_Menu {
 	use Submenu, CPT;
-
 
 	/**
 	 * (@inheritDoc)

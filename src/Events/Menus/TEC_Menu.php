@@ -41,12 +41,12 @@ class TEC_Menu extends Abstract_Menu {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function build() {
+	public function init() {
 		$this->page_title = _x( 'The Events Calendar', 'The title for the admin page', 'the-events-calendar');
 		$this->menu_title = _x( 'The Events Calendar', 'The title for the admin menu link', 'the-events-calendar');
 		$this->icon_url   = $this->get_menu_icon();
 
-		parent::build();
+		parent::init();
 	}
 
 	/**
