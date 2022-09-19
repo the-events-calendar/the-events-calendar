@@ -23,18 +23,35 @@ use Tribe__Events__Venue;
  * @package TEC\Events\Menus
  */
 class Venue extends Abstract_Menu {
-	use Submenu;
-	use CPT;
+	use Submenu, CPT;
 
-	public function __construct() {
-		$this->page_title      = _x( 'Venues', 'The title for the admin page', 'the-events-calendar');
-		$this->menu_title      = _x( 'Venues', 'The title for the admin menu link', 'the-events-calendar');
-		$this->position        = 15;
-		$this->parent_slug     = 'tec-events';
-		$this->capability      = 'edit_tribe_events';
-		static::$post_type       = Tribe__Events__Venue::POSTTYPE;
 
-		parent::__construct();
+	/**
+	 * (@inheritDoc)
+	 */
+	protected $capability = 'edit_tribe_events';
+
+	/**
+	 * (@inheritDoc)
+	 */
+	public static $menu_slug = 'tec-events-venue';
+
+	/**
+	 * (@inheritDoc)
+	 */
+	protected $position = 15;
+
+	/**
+	 * (@inheritDoc)
+	 */
+	public function init() {
+		parent::init();
+
+		$this->menu_title  = _x( 'Venues', 'The title for the admin menu link', 'the-events-calendar');
+		$this->page_title  = _x( 'Venues', 'The title for the admin page', 'the-events-calendar');
+		$this->parent_file = 'tec-events';
+		$this->parent_slug = 'tec-events';
+		$this->post_type   = Tribe__Events__Venue::POSTTYPE;
 	}
 
 }

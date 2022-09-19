@@ -8,10 +8,6 @@
  * @package TEC\Events\Menus
  */
 
-/**
- * Define our settings.
- */
-
 add_filter(
 	'wpsf_register_settings_tec',
 	function( $tec_settings ) {
