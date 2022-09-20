@@ -200,7 +200,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads the Hello Elementor theme integration.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 */
 	private function load_divi_integration() {
 		tribe_register_provider( Tribe\Events\Integrations\Divi\Service_Provider::class );

@@ -26,7 +26,7 @@ class Events {
 	/**
 	 * A map of the update data per post ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @var array<int,array<string,mixed>>
 	 */

@@ -2,7 +2,7 @@
 /**
  * Validates Occurrence Duration input.
  *
- * @since TBD
+ * @since 6.0.1
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Models\Model;
 /**
  * Class Occurrence_Duration
  *
- * @since TBD
+ * @since 6.0.1
  *
  * @package TEC\Events\Custom_Tables\V1\Models\Validators
  */
@@ -59,7 +59,7 @@ class Occurrence_Duration extends Duration {
 	/**
 	 * Fetch the timezone that relates to this occurrence.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @param Occurrence $model The occurrence to fetch it's timezone for.
 	 *

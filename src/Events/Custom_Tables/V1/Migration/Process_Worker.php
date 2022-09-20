@@ -391,7 +391,7 @@ class Process_Worker {
 		                       || ! $dry_run;
 		/**
 		 * Filter to determine whether we should stop on first failure or not. Useful for troubleshooting in preview mode.
-		 * @since TBD
+		 * @since 6.0.1
 		 *
 		 * @param bool $fail_on_first_error
 		 *
@@ -823,7 +823,7 @@ class Process_Worker {
 	/**
 	 * Updates the Event date and duration meta to make sure it's consistent.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @param int $post_id The ID of the Event to update.
 	 *

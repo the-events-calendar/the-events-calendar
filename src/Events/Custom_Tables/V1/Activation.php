@@ -90,7 +90,7 @@ class Activation {
 	/**
 	 * Includes the Migration state into the System Information for support.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @param array<string,mixed> $info The system information, as produced by the
 	 *                                  default logic and previous filters.
