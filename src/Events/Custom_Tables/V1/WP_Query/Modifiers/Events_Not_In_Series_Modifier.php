@@ -63,7 +63,7 @@ class Events_Not_In_Series_Modifier extends Base_Modifier {
 	 *
 	 * @return string
 	 */
-	public function join_on_series_relationships_table( $join, WP_Query $query ) {
+	public function join_on_series_relationships_table( $join, $query ) {
 		if ( $query !== $this->query ) {
 			return $join;
 		}
@@ -90,7 +90,7 @@ class Events_Not_In_Series_Modifier extends Base_Modifier {
 	 *
 	 * @return string
 	 */
-	public function where_event_is_unrelated_to_series( $where, WP_Query $query ) {
+	public function where_event_is_unrelated_to_series( $where, $query ) {
 		if ( $query !== $this->query ) {
 			return $where;
 		}
