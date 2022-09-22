@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.1] 2022-09-21 =
+= [6.0.1] 2022-09-22 =
 
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
 * Fix - Correct some translation domains pointing to the wrong plugin. [TEC-4450]
