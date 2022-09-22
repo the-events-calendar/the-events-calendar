@@ -19,7 +19,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public $menus = [
 		'TEC_Menu',
 		'Event',
-		//'New Event',
+		//'New Event', Handled by the CPT Trait
 		//'Tags',
 		//'Event Categories',
 		//'Series', * ECP only
