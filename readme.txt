@@ -229,6 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+
+= [TBD] TBD = (planoplausarus)
+
+* Feat - Support the `strict_dates` REST API argument in the `/events` endpoint to control the inclusiveness of the date parameters. [TEC-4493]
+
 = [6.0.1] 2022-09-22 =
 
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]

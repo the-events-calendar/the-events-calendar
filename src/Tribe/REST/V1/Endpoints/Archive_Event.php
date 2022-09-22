@@ -73,6 +73,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$args['post_parent'] = $request['post_parent'];
 
+
+		// Allow REST API users to define the default behavior of the inclusive date parameters.
+		$use_inclusive_start_end_dates = true;
+		if ( isset( $request['strict_dates'] ) ) {
+			$use_inclusive_start_end_dates = ! $request['strict_dates'];
+		}
+
 		/**
 		 * Allows users to override "inclusive" start and end dates and  make the REST API use a
 		 * timezone-adjusted date range.
@@ -91,7 +98,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 *
 		 * @param bool $use_inclusive Defaults to true. Whether to use "inclusive" start and end dates.
 		 */
-		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', true ) ) {
+		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', $use_inclusive_start_end_dates ) ) {
 
 			if ( $args['start_date'] ) {
 				$args['start_date'] = tribe_beginning_of_day( $request['start_date'] );
@@ -454,7 +461,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_time' ],
 				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
-				'description'       => __( 'Events should start before the specified date', 'the-events-calendar' ),
+				'description'       => __( 'Events should end before the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
 			'search'      => [
