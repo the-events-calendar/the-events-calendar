@@ -58,8 +58,8 @@ class Events_Only_Modifier extends Base_Modifier {
 	 *
 	 * @return null|array<WP_Post|int> The filtered value of the posts, injected before the query actually runs.
 	 */
-	public function filter_posts_pre_query( $posts = null, WP_Query $wp_query = null ) {
-		if ( ! $this->is_target_query( $wp_query ) ) {
+	public function filter_posts_pre_query( $posts = null, $wp_query = null ) {
+		if ( ! ( $wp_query instanceof WP_Query && $this->is_target_query( $wp_query ) ) ) {
 			return $posts;
 		}
 

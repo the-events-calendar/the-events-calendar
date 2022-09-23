@@ -49,7 +49,8 @@
     "psr-4": {
       "Tribe\\Events\\" : "src/Tribe",
       "TEC\\Events\\" : "src/Events"
-    }
+    },
+    "classmap": ["src/deprecated/Traits/"]
   },
   "autoload-dev": {
     "psr-4": {
