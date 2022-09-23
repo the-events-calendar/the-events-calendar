@@ -391,7 +391,7 @@ class Process_Worker {
 		                       || ! $dry_run;
 		/**
 		 * Filter to determine whether we should stop on first failure or not. Useful for troubleshooting in preview mode.
-		 * @since TBD
+		 * @since 6.0.1
 		 *
 		 * @param bool $fail_on_first_error
 		 *
@@ -606,10 +606,13 @@ class Process_Worker {
 	 */
 	public function error_handler( int $errno, string $errstr, string $errfile ): bool {
 		if ( $errno === E_WARNING ) {
-			$tec = basename( TRIBE_EVENTS_FILE );
-			$ecp = basename( EVENTS_CALENDAR_PRO_FILE );
+			$check_plugins = [ basename( TRIBE_EVENTS_FILE ) ];
 
-			if ( ! tec_is_file_from_plugins( $errfile, $tec, $ecp ) ) {
+			if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
+				$check_plugins[] = basename( EVENTS_CALENDAR_PRO_FILE );
+			}
+
+			if ( ! tec_is_file_from_plugins( $errfile, ...$check_plugins ) ) {
 				// Do not handle Warnings when coming from outside TEC or ECP codebase (e.g. caching plugins).
 				return false;
 			}
@@ -820,7 +823,7 @@ class Process_Worker {
 	/**
 	 * Updates the Event date and duration meta to make sure it's consistent.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @param int $post_id The ID of the Event to update.
 	 *

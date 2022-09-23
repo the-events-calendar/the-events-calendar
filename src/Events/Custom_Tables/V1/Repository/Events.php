@@ -26,11 +26,11 @@ class Events {
 	/**
 	 * A map of the update data per post ID.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @var array<int,array<string,mixed>>
 	 */
-	protected $update_data = [];
+	private $update_data = [];
 
 	/**
 	 * Returns the callback that should be used to update Events in the context of
