@@ -22,9 +22,9 @@ $event_id = Tribe__Events__Main::postIdHelper( get_the_ID() );
 
 /**
  * Allows filtering of the event ID.
- * 
- * @since TBD
- * 
+ *
+ * @since 6.0.1
+ *
  * @param int $event_id
  */
 $event_id = apply_filters( 'tec_events_single_event_id', $event_id );

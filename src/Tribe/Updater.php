@@ -73,7 +73,7 @@ class Tribe__Events__Updater {
 	 * Getter for the private reset version.
 	 * Mainly for tests.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @return string The reset version number.
 	 */
