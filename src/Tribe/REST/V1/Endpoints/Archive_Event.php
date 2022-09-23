@@ -75,10 +75,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 
 		// Allow REST API users to define the default behavior of the inclusive date parameters.
-		$use_inclusive_start_end_dates = true;
-		if ( isset( $request['strict_dates'] ) ) {
-			$use_inclusive_start_end_dates = ! $request['strict_dates'];
-		}
+		$use_inclusive_start_end_dates = isset( $request['strict_dates'] ) ? ! $request['strict_dates'] : true;
 
 		/**
 		 * Allows users to override "inclusive" start and end dates and  make the REST API use a
