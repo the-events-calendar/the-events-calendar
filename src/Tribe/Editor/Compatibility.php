@@ -19,7 +19,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * Key we store the toggle under in the tribe_events_calendar_options array.
 	 *
 	 * @since 15.4.0
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @deprecated Using the \Tribe__Cache object instead of caching locally.
 	 *
