@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.4
-Stable tag: 6.0.0.1
+Stable tag: 6.0.1
 Tested up to: 6.0.2
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -236,14 +236,25 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 
-= [6.0.1] TBD = (scone)
+= [6.0.1] 2022-09-22 =
 
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
-* Fix - correct some text domains. [TEC-4450]
+* Fix - Correct some translation domains pointing to the wrong plugin. [TEC-4450]
 * Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
 * Fix - Add caching to prevent duplicated queries for translated venue/organizer values. props to @dgwatkins for the suggested fix! [TEC-4428]
+* Fix - Check the document for `lang` and `rtl` attributes and pass them on to the datepicker so it adapts properly. [TEC-4452]
+* Fix - Corrected an issue where the Organizer Block was showing the "Add Another Organizer" button when no organizers were selected. [CE-11]
+* Fix - Corrected an issue where the "Edit Venue" and "Edit Organizer" links were displaying with no link. [CE-165]
+* Fix - Correct migration error when The Events Calendar PRO is not active. [TEC-4475]
+* Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
+* Fix - Correct a problem with moving tickets when The Events Calendar PRO is not active. [TEC-4471]
+* Fix - Correct an issue with migrating past events that straddle Daylight Savings Time. [ECP-1270]
+* Fix - Fix the Community Events recurrence link. [ECP-1215]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+* Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
+* Tweak - Add compatibility for new "Convert to single" option in The Events Calendar PRO. [ECP-1308]
+* Language - 5 new strings added, 163 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.0.1] 2022-09-07 =
 
