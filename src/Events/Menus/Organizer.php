@@ -34,17 +34,17 @@ class Organizer extends Abstract_Menu {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $menu_slug = 'tec-events-organizer';
+	public $menu_slug = 'tec-events-organizer';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $position      = 20;
+	protected $position = 20;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function init() {
+	public function init() : void {
 		parent::init();
 
 		$this->menu_title  = _x( 'Organizers', 'The title for the admin menu link', 'the-events-calendar');

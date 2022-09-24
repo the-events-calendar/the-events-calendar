@@ -13,6 +13,7 @@ namespace TEC\Events\Menus;
 use TEC\Common\Menus\Abstract_Menu;
 use TEC\Common\Menus\Traits\CPT;
 use TEC\Common\Menus\Traits\Submenu;
+use TEC\Common\Menus\Traits\With_Admin_Bar;
 use Tribe__Events__Main;
 
 /**
@@ -23,7 +24,9 @@ use Tribe__Events__Main;
  * @package TEC\Events\Menus
  */
 class Event extends Abstract_Menu {
-	use Submenu, CPT;
+	use Submenu;
+	use CPT;
+	use With_Admin_Bar;
 
 	/**
 	 * {@inheritDoc}
@@ -33,25 +36,24 @@ class Event extends Abstract_Menu {
 	/**
 	 * {@inheritDoc}
 	 */
+	public $menu_slug = 'tec-events-event';
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected $position = 10;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $menu_slug = 'tec-events-event';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function init() {
+	public function init() : void {
 		parent::init();
 
-		$this->menu_title  = _x( 'Events', 'The title for the admin menu link', 'the-events-calendar');
-		$this->page_title  = _x( 'Events', 'The title for the admin page', 'the-events-calendar');
-		$this->parent_file = 'tec-events';
-		$this->parent_slug = 'tec-events';
-		$this->post_type   = Tribe__Events__Main::POSTTYPE;
-		$this->new_menu    = true;
+		$this->menu_title   = _x( 'Events', 'The title for the admin menu link', 'the-events-calendar');
+		$this->page_title   = _x( 'Events', 'The title for the admin page', 'the-events-calendar');
+		$this->parent_file  = 'tec-events';
+		$this->parent_slug  = 'tec-events';
+		$this->post_type    = Tribe__Events__Main::POSTTYPE;
+		$this->add_new_menu = true;
 	}
-
 }

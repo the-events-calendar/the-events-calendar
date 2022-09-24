@@ -33,7 +33,7 @@ class Venue extends Abstract_Menu {
 	/**
 	 * (@inheritDoc)
 	 */
-	public static $menu_slug = 'tec-events-venue';
+	public $menu_slug = 'tec-events-venue';
 
 	/**
 	 * (@inheritDoc)
@@ -43,7 +43,7 @@ class Venue extends Abstract_Menu {
 	/**
 	 * (@inheritDoc)
 	 */
-	public function init() {
+	public function init() : void {
 		parent::init();
 
 		$this->menu_title  = _x( 'Venues', 'The title for the admin menu link', 'the-events-calendar');
