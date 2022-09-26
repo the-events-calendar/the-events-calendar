@@ -4,6 +4,7 @@ use Tribe\Events\Integrations\Beaver_Builder;
 use Tribe\Events\Integrations\Fusion\Service_Provider as Fusion_Integration;
 use Tribe\Events\Integrations\Hello_Elementor\Service_Provider as Hello_Elementor_Integration;
 use Tribe\Events\Integrations\WP_Rocket;
+use Tribe\Events\Integrations\Restrict_Content_Pro\Service_Provider as RCP_Integration;
 
 /**
  * Class Tribe__Events__Integrations__Manager
@@ -43,6 +44,7 @@ class Tribe__Events__Integrations__Manager {
 		$this->load_wpml_integration();
 		$this->load_X_theme_integration();
 		$this->load_wp_rocket_integration();
+		$this->load_rcp_integration();
 		$this->load_beaver_builder_integration();
 		$this->load_fusion_integration();
 		$this->load_hello_elementor_integration();
@@ -161,6 +163,25 @@ class Tribe__Events__Integrations__Manager {
 	}
 
 	/**
+	 * Loads our Restrict Content Pro integration.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	private function load_rcp_integration() {
+		if ( ! function_exists( 'rcp_user_can_access' ) ) {
+			return false;
+		}
+
+		tribe_singleton( \Tribe\Events\Integrations\RCP_Integration::class, \Tribe\Events\Integrations\RCP_Integration::class );
+
+		tribe( RCP_Integration::class )->hook();
+
+		return true;
+	}
+
+	/**
 	 * Loads our beaver builder plugin integration.
 	 *
 	 * @since  5.0.2
@@ -200,7 +221,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads the Hello Elementor theme integration.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 */
 	private function load_divi_integration() {
 		tribe_register_provider( Tribe\Events\Integrations\Divi\Service_Provider::class );

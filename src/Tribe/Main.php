@@ -19,6 +19,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 	 * This is where all the magic happens, the unicorns run wild and the leprechauns use WordPress to schedule events.
 	 */
 	class Tribe__Events__Main {
+		use Tribe__Events__Main_Deprecated;
+
 		/**
 		 * This constant is deprecated (as of 4.0) in favor of Tribe__Main::OPTIONNAME
 		 */
@@ -35,7 +37,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.0.1';
+		const VERSION             = '6.0.1';
 
 		/**
 		 * Min Pro Addon
@@ -600,7 +602,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Integrations
 			tribe_singleton( 'tec.integrations.twenty-seventeen', 'Tribe__Events__Integrations__Twenty_Seventeen', [ 'hook' ] );
-
 
 			// Linked Posts
 			tribe_singleton( 'tec.linked-posts', 'Tribe__Events__Linked_Posts' );
@@ -4150,11 +4151,5 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$this->get_autoloader_instance()->register_prefixes( $prefixes );
 		}
-
-		/************************
-		 *                      *
-		 *  Deprecated Methods  *
-		 *                      *
-		 ************************/
 	}
 }

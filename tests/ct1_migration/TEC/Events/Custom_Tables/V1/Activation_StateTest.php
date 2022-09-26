@@ -107,4 +107,43 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		$this->assertEquals( State::PHASE_MIGRATION_NOT_REQUIRED, $state->get_phase() );
 		$this->assert_custom_tables_exist();
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_correctly_include_migrated_status_support_data() {
+		$state = tribe( State::class );
+		$state->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
+
+		$support_data = Activation::filter_include_migration_in_system_info( [] );
+
+		$this->assertArrayHasKey( 'Custom Tables Migration Status', $support_data, 'It should contain the migration status key' );
+		$this->assertEquals( $support_data['Custom Tables Migration Status'], 'Completed', 'Migration status should be Complete' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_correctly_include_incomplete_status_support_data() {
+		$state = tribe( State::class );
+		$state->set( 'phase', State::PHASE_MIGRATION_IN_PROGRESS );
+
+		$support_data = Activation::filter_include_migration_in_system_info( [] );
+
+		$this->assertArrayHasKey( 'Custom Tables Migration Status', $support_data, 'It should contain the migration status key' );
+		$this->assertEquals( $support_data['Custom Tables Migration Status'], 'Incomplete', 'Migration status should be Complete' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_correctly_include_migration_not_required_status_support_data() {
+		$state = tribe( State::class );
+		$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
+
+		$support_data = Activation::filter_include_migration_in_system_info( [] );
+
+		$this->assertArrayHasKey( 'Custom Tables Migration Status', $support_data, 'It should contain the migration status key' );
+		$this->assertEquals( $support_data['Custom Tables Migration Status'], 'Not Required', 'Migration status should be Complete' );
+	}
 }
