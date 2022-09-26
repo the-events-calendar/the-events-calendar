@@ -197,7 +197,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The WHERE clause as produced by the `WP_Query` instance, untouched by the method.
 	 */
-	public function replace_meta_query( $search, WP_Query $wp_query ) {
+	public function replace_meta_query( $search, $wp_query ) {
 		if ( $wp_query !== $this ) {
 			// Only target the class own instance.
 			return $search;
@@ -239,7 +239,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The filtered `SELECT` clause.
 	 */
-	public function redirect_posts_fields( $request_fields, WP_Query $query = null ) {
+	public function redirect_posts_fields( $request_fields, $query = null ) {
 		if ( $this !== $query ) {
 			return $request_fields;
 		}
@@ -270,7 +270,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The updated `GROUP BY` SQL clause.
 	 */
-	public function group_posts_by_occurrence_id( $groupby, WP_Query $query = null ) {
+	public function group_posts_by_occurrence_id( $groupby, $query = null ) {
 		if ( $this !== $query ) {
 			return $groupby;
 		}
@@ -292,7 +292,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * @return string The filtered `ORDER BY` SQL clause, redirecting `wp_posts.ID` to Occurrence ID,
 	 *                if required.
 	 */
-	public function order_by_occurrence_id( $order_by, WP_Query $query = null ) {
+	public function order_by_occurrence_id( $order_by, $query = null ) {
 		if ( $this !== $query ) {
 			return $order_by;
 		}
@@ -353,7 +353,11 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The `WHERE` SQL clause, modified to be date-bound, if required.
 	 */
-	public function filter_where( $where, WP_Query $query ) {
+	public function filter_where( $where, $query ) {
+		if ( ! $query instanceof WP_Query ) {
+			return $where;
+		}
+
 		/**
 		 * Filters the `WHERE` statement produced by the Custom Tables Query.
 		 *
@@ -378,7 +382,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The `WHERE` SQL clause, modified to be date-bound, if required.
 	 */
-	public function filter_by_date( $where, WP_Query $query = null ) {
+	public function filter_by_date( $where, $query = null ) {
 		if ( $this !== $query ) {
 			return $where;
 		}

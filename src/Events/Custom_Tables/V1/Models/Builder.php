@@ -1444,7 +1444,7 @@ class Builder {
 	/**
 	 * Gets the results and plucks a field from each.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @param string $field The field to pluck.
 	 *
@@ -1457,7 +1457,7 @@ class Builder {
 	/**
 	 * Maps from the results of the query to a new array using the callback.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @param callable $callback The callback to use to map the results.
 	 *
