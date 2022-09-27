@@ -110,7 +110,7 @@ class Process_Worker {
 	 */
 	private function bind_shutdown_handlers() {
 		// Watch for any errors that may occur and store them in the Event_Report.
-		set_error_handler( [ $this, 'error_handler' ] );
+		set_error_handler( [ $this, 'error_handler' ], E_WARNING | E_NOTICE | E_USER_WARNING | E_USER_NOTICE );
 
 		// Set this as a fallback: we'll remove it later if everything goes fine.
 		add_action( 'shutdown', [ $this, 'shutdown_handler' ] );
@@ -605,17 +605,15 @@ class Process_Worker {
 	 * @throws Migration_Exception A reference to an exception wrapping the error.
 	 */
 	public function error_handler( int $errno, string $errstr, string $errfile ): bool {
-		if ( $errno === E_WARNING ) {
-			$check_plugins = [ basename( TRIBE_EVENTS_FILE ) ];
+		$check_plugins = [ basename( TRIBE_EVENTS_FILE ) ];
 
-			if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
-				$check_plugins[] = basename( EVENTS_CALENDAR_PRO_FILE );
-			}
+		if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
+			$check_plugins[] = basename( EVENTS_CALENDAR_PRO_FILE );
+		}
 
-			if ( ! tec_is_file_from_plugins( $errfile, ...$check_plugins ) ) {
-				// Do not handle Warnings when coming from outside TEC or ECP codebase (e.g. caching plugins).
-				return false;
-			}
+		if ( ! tec_is_file_from_plugins( $errfile, ...$check_plugins ) ) {
+			// Do not handle Warnings when coming from outside TEC or ECP codebase (e.g. caching plugins).
+			return false;
 		}
 
 		// Delegate to our try/catch handler.
