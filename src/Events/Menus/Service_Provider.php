@@ -3,7 +3,7 @@
  * The main service provider for the version 2 of the Views.
  *
  * @package TEC\Events\Menus
- * @since   TBD
+ * @since TBD
  */
 
 namespace TEC\Events\Menus;
@@ -11,7 +11,7 @@ namespace TEC\Events\Menus;
 /**
  * Class Service_Provider
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Menus
  */
@@ -20,30 +20,34 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		'TEC_Menu',
 		'Event',
 		//'New Event', Handled by the CPT Trait of the Event menu.
-		//'Tags',
-		//'Event Categories',
+		'Tags',
+		'Event_Categories',
 		//'Series', * ECP only
 		'Venue',
 		'Organizer',
-		//'Import',
-		//'Settings',
-		//'Help',
+		'Import',
+		'Settings',
+		'Help',
 		'Troubleshooting',
-		// 'App Shop',
+		'Add_Ons',
+		'Tabbed_Test',
 	];
 
-	public function register() {
+	/**
+	 * Register the menus.
+	 *
+	 * @since TBD
+	 */
+	public function register() : void {
 		foreach ( $this->menus as $menu ) {
 			$menu_class = $this->get_class_object_from_name( $menu );
 			// Create the singleton
 			tribe_singleton( $menu_class::class, $menu_class::class );
-			// Build the menu.
-			tribe( $menu_class::class )->build();
 		}
 	}
 
 	/**
-	 * Given the "name" in the $menus array defined above, get ta class object.
+	 * Given the "name" in the $menus array defined above, get the class object.
 	 *
 	 * @since TBD
 	 *
@@ -53,5 +57,4 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$name = __NAMESPACE__ . '\\' . $name;
 		return new $name;
 	}
-
 }

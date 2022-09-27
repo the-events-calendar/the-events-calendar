@@ -22,8 +22,7 @@ use TEC\Common\Menus\Traits\With_Admin_Bar;
  * @package TEC\Events\Menus
  */
 class Troubleshooting extends Abstract_Menu {
-	use Submenu;
-	use With_Admin_Bar; // not working - have to detach from \Tribe\Admin\Troubleshooting
+	use Submenu, With_Admin_Bar;
 
 	/**
 	 * {@inheritDoc}
@@ -38,25 +37,25 @@ class Troubleshooting extends Abstract_Menu {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $position = 25;
+	protected $position = 60;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function init() : void {
-		parent::init();
-
 		$this->menu_title  = _x( 'Troubleshooting', 'The title for the admin menu link', 'the-events-calendar');
 		$this->page_title  = _x( 'Troubleshooting', 'The title for the admin page', 'the-events-calendar');
 		$this->parent_slug = 'tec-events';
+
+		parent::init();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function render() : void {
-		echo "Troubleshooting";
-		//tribe_asset_enqueue( 'tribe-admin-help-page' );
-		//include_once Tribe__Events__Main::instance()->plugin_path . 'content/troubleshooting.php';
+		tribe_asset_enqueue( 'tribe-admin-help-page' );
+		$main = \Tribe__Main::instance();
+		include_once $main->plugin_path . 'src/admin-views/troubleshooting.php';
 	}
 }

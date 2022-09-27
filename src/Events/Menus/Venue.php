@@ -38,7 +38,7 @@ class Venue extends Abstract_Menu {
 	/**
 	 * (@inheritDoc)
 	 */
-	protected $position = 15;
+	protected $position = 30;
 
 	/**
 	 * (@inheritDoc)
@@ -52,5 +52,4 @@ class Venue extends Abstract_Menu {
 		$this->parent_slug = 'tec-events';
 		$this->post_type   = Tribe__Events__Venue::POSTTYPE;
 	}
-
 }

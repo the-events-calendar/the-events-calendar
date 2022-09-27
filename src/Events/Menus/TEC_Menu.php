@@ -28,7 +28,7 @@ class TEC_Menu extends Abstract_Menu {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $capability    = 'edit_tribe_events';
+	protected $capability = 'edit_tribe_events';
 
 	/**
 	 * {@inheritDoc}
@@ -47,6 +47,7 @@ class TEC_Menu extends Abstract_Menu {
 		$this->page_title = _x( 'The Events Calendar', 'The title for the admin page', 'the-events-calendar');
 		$this->menu_title = _x( 'The Events Calendar', 'The title for the admin menu link', 'the-events-calendar');
 		$this->icon_url   = $this->get_menu_icon();
+		$this->de_duplicate = true;
 
 		parent::init();
 	}

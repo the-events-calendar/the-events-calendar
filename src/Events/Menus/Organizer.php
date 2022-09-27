@@ -39,19 +39,18 @@ class Organizer extends Abstract_Menu {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $position = 20;
+	protected $position = 35;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function init() : void {
-		parent::init();
-
 		$this->menu_title  = _x( 'Organizers', 'The title for the admin menu link', 'the-events-calendar');
 		$this->page_title  = _x( 'Organizers', 'The title for the admin page', 'the-events-calendar');
 		$this->parent_file = 'tec-events';
 		$this->parent_slug = 'tec-events';
 		$this->post_type   = Tribe__Events__Organizer::POSTTYPE;
-	}
 
+		parent::init();
+	}
 }
