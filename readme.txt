@@ -238,8 +238,9 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
-* Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method [ECP-1326]
-* Fix - Do not run wasteful queries on `switch_blog` in multi-site installations [BTRIA-1370]
+* Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
+* Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
+* Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
 
 = [6.0.1] 2022-09-22 =
 
