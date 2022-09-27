@@ -19,6 +19,7 @@ jobs:
           - views_wpunit
           - wpunit
           - ct1_integration
+          - ct1_multisite_integration
           - deprecated
           # really weird error with RBE changes.
           # - views_rest

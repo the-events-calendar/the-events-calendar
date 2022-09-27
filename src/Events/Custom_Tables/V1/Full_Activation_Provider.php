@@ -111,9 +111,9 @@ class Full_Activation_Provider extends Service_Provider {
 		$schema_builder->register_custom_tables_names();
 
 		if ( is_multisite() ) {
-			add_action( 'activate_blog', [ $schema_builder, 'update_blog_tables' ] );
+			add_action( 'activate_blog', [ $this, 'update_blog_tables' ] );
 			add_action( 'activate_blog', [ $schema_builder, 'register_custom_tables_names' ] );
-			add_action( 'switch_blog', [ $schema_builder, 'update_blog_tables' ] );
+			add_action( 'switch_blog', [ $this, 'update_blog_tables' ] );
 			add_action( 'switch_blog', [ $schema_builder, 'register_custom_tables_names' ] );
 			add_filter( 'wpmu_drop_tables', [ $schema_builder, 'filter_tables_list' ] );
 		}
@@ -121,5 +121,34 @@ class Full_Activation_Provider extends Service_Provider {
 		if ( defined( 'WP_CLI' ) && method_exists( '\\WP_CLI', 'add_hook' ) ) {
 			WP_CLI::add_hook( 'after_invoke:site empty', [ $schema_builder, 'empty_custom_tables' ] );
 		}
+	}
+
+	/**
+	 * Updates the custom tables for a blog,
+	 *
+	 * @since TBD
+	 *
+	 * @param int $blog_id The blog ID to udpate the tables for.
+	 *
+	 * @return void        Custom tables are updated, if required.
+	 */
+	public function update_blog_tables( $blog_id ): void {
+		$blog_id = (int) $blog_id;
+
+		if ( empty( $blog_id ) ) {
+			// Not a valid blog ID.
+			return;
+		}
+
+		if ( get_transient( Activation::ACTIVATION_TRANSIENT ) ) {
+			// Already activated on this site.
+			return;
+		}
+
+		$schema_builder = $this->container->make( Schema_Builder::class );
+		$schema_builder->update_blog_tables( $blog_id );
+
+		// Do not run again on this site for a day.
+		set_transient( Activation::ACTIVATION_TRANSIENT, true, DAY_IN_SECONDS );
 	}
 }
