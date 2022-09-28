@@ -670,7 +670,7 @@ jQuery( function( $ ) {
 		}
 	);
 
-	// Workaround for venue & organizer post types when editing or adding
+	/* Workaround for venue & organizer post types when editing or adding
 	// so events parent menu stays open and active
 	if ( $( 'body' ).hasClass( 'post-type-tribe_venue' ) ) {
 		$( '#menu-posts-tribe_events, #menu-posts-tribe_events a.wp-has-submenu' )
@@ -688,6 +688,7 @@ jQuery( function( $ ) {
 			.parent()
 			.addClass( 'current' );
 	}
+	*/
 
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end

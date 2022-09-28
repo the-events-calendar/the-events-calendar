@@ -223,6 +223,7 @@ class Settings {
 	 * @since 5.15.0
 	 */
 	public function maybe_add_troubleshooting() {
+		return;
 		$admin_pages = tribe( 'admin.pages' );
 
 		if ( ! tribe( 'settings' )->should_setup_pages() ) {

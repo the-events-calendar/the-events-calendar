@@ -181,7 +181,7 @@ trait Query_Monitor {
 	 *
 	 * @return int The number of modifier instances.
 	 */
-	public function count() {
+	public function count() : int {
 		return $this->modifiers->count();
 	}
 

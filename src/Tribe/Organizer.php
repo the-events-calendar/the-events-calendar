@@ -111,8 +111,6 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			),
 		] );
 
-		$this->register_post_type();
-
 		add_filter( 'tribe_events_linked_post_type_args', [ $this, 'filter_linked_post_type_args' ], 10, 2 );
 		add_filter( 'tribe_events_linked_post_id_field_index', [ $this, 'linked_post_id_field_index' ], 10, 2 );
 		add_filter( 'tribe_events_linked_post_name_field_index', [ $this, 'linked_post_name_field_index' ], 10, 2 );
@@ -130,12 +128,15 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			2
 		);
 		add_action( 'admin_bar_menu', [ $this, 'edit_organizer_admin_bar_menu_link' ], 80 );
+
+		// We want this to load _after_ the event post type.
+		add_action( 'init', [ $this, 'register_organizer_post_type'], 15 );
 	}
 
 	/**
 	 * Registers the post type
 	 */
-	public function register_post_type() {
+	public function register_organizer_post_type() {
 		/**
 		 * Filters the post type arguments for the tribe_organizer post type
 		 *

@@ -109,11 +109,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
       # ------------------------------------------------------------------------------
-      # Downgrade composer
+      # Set Composer version
       # ------------------------------------------------------------------------------
-      - name: Downgrade composer to v1
+      - name: Upgrade composer to v2
         run: |
-          sudo composer self-update --1
+          sudo composer self-update --2
           sudo chown $USER $HOME/.composer
       # ------------------------------------------------------------------------------
       # Initialize tut
