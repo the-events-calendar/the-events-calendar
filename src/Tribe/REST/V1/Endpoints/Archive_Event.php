@@ -24,6 +24,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'status'      => 'post_status',
 		'post_parent' => 'post_parent',
 		'include'     => 'post__in',
+		'starts_before' => 'starts_before',
+		'starts_after' => 'starts_after',
+		'ends_before' => 'ends_before',
+		'ends_after' => 'ends_after',
 	];
 
 	/**
@@ -55,15 +59,43 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	public function get( WP_REST_Request $request ) {
 		$args        = [];
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
+		$relative_dates = false;
 
 		$args['paged']          = $request['page'];
 		$args['posts_per_page'] = $request['per_page'];
-		$args['start_date']     = isset( $request['start_date'] ) ?
-			Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
-			: false;
-		$args['end_date']       = isset( $request['end_date'] ) ?
-			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
-			: false;
+
+		if ( isset( $request['starts_before'] ) ) {
+			$args['starts_before'] = Tribe__Timezones::localize_date( $date_format, $request['starts_before'] );
+			$relative_dates = true;
+		}
+
+		if ( isset( $request['starts_after'] ) ) {
+			$args['starts_after'] = Tribe__Timezones::localize_date( $date_format, $request['starts_after'] );
+			$relative_dates = true;
+		}
+
+		if ( isset( $request['ends_before'] ) ) {
+			$args['ends_before'] = Tribe__Timezones::localize_date( $date_format, $request['ends_before'] );
+			$relative_dates = true;
+		}
+
+		if ( isset( $request['ends_after'] ) ) {
+			$args['ends_after'] = Tribe__Timezones::localize_date( $date_format, $request['ends_after'] );
+			$relative_dates = true;
+		}
+
+		if ( ! $relative_dates ) {
+			$args['start_date']     = isset( $request['start_date'] ) ?
+				Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
+				: false;
+		}
+
+		if ( ! $relative_dates ) {
+			$args['end_date']       = isset( $request['end_date'] ) ?
+				Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
+				: false;
+		}
+
 		$args['s']              = $request['search'];
 
 		if ( $post__in = $request['include'] ) {

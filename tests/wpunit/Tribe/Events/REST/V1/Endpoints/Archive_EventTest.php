@@ -812,6 +812,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$event_1 = $this->factory()->event->create( [ 'when' => '2018-01-01 16:00:00' ] );
 		$event_2 = $this->factory()->event->create( [ 'when' => '2018-01-01 19:00:00' ] );
 		$event_3 = $this->factory()->event->create( [ 'when' => '2018-01-02 10:00:00' ] );
+		$event_4 = $this->factory()->event->create( [ 'ends_after' => '2017-12-30 10:00:00', 'starts_before' => '2018-01-02 10:00:00' ] );
+
 		$request = new \WP_REST_Request();
 		$request['start_date'] = '2018-01-01 15:00:00';
 		$request['end_date'] = '2018-01-01 18:00:00';
@@ -822,7 +824,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
 		$this->assertEquals( [
 			$event_1,
-			$event_2
+			$event_2,
+			$event_4,
 		], $ids, 'Inclusive dates will extend to include all Events in the day.' );
 
 		$request['strict_dates'] = false;
