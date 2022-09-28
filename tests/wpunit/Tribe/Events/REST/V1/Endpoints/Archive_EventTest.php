@@ -863,11 +863,9 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
-		$this->assertEquals( [
-			$event_1,
-			$event_2,
-			$event_4,
-			$event_5,
-		], $ids, 'Setting relative dates in a request will retrieve single-day and multi-day events spanning the same period.' );
+		$expected_ids = [ $event_1, $event_2, $event_4, $event_5 ];
+		sort( $event_ids );
+		sort( $ids );
+		$this->assertEquals( $expected_ids, $ids, 'Setting relative dates in a request will retrieve single-day and multi-day events spanning the same period.' );
 	}
 }
