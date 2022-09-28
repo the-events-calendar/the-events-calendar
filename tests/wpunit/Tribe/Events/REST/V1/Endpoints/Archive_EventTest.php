@@ -868,6 +868,6 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 			$event_2,
 			$event_4,
 			$event_5,
-		], $ids, 'Inclusive dates will extend to include all Events in the day.' );
+		], $ids, 'Setting relative dates in a request will retrieve single-day and multi-day events spanning the same period.' );
 	}
 }
