@@ -856,8 +856,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$event_5 = $this->factory()->event->create( [ 'start_date' => '2017-12-29 10:00:00', 'end_date' => '2018-01-03 10:00:00' ] );
 
 		$request = new \WP_REST_Request();
-		$request['ends_after'] = '2017-12-31 23:59:59';
-		$request['starts_before'] = '2018-01-01 23:59:59';
+		$request['ends_after'] = '2017-12-31';
+		$request['starts_before'] = '2018-01-01';
 
 		$endpoint = $this->make_instance();
 
