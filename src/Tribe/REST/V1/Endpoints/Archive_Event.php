@@ -136,6 +136,22 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			if ( ! empty( $args['end_date'] ) ) {
 				$args['end_date'] = tribe_end_of_day( $request['end_date'] );
 			}
+
+			if ( ! empty( $args['ends_after'] ) ) {
+				$args['ends_after'] = tribe_end_of_day( $request['ends_after'] );
+			}
+
+			if ( ! empty( $args['ends_before'] ) ) {
+				$args['ends_before'] = tribe_end_of_day( $request['ends_before'] );
+			}
+
+			if ( ! empty( $args['starts_before'] ) ) {
+				$args['starts_before'] = tribe_end_of_day( $request['starts_before'] );
+			}
+
+			if ( ! empty( $args['starts_after'] ) ) {
+				$args['starts_after'] = tribe_end_of_day( $request['starts_after'] );
+			}
 		}
 
 		$args['meta_query'] = array_filter( [
@@ -171,6 +187,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
+
+		if ( $relative_dates ) {
+			unset( $args['start_date'], $args['end_date'] );
+		}
 
 		if ( null === $request['status'] ) {
 			$cap                 = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
