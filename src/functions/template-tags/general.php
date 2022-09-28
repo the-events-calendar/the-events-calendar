@@ -157,7 +157,7 @@ function tribe_get_event_label_plural_lowercase() {
 }
 
 /**
- * Undocumented function
+ * Get the filtered text label for the "Today" button on calendar views.
  *
  * @since TBD
  *
