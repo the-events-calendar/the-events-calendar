@@ -84,17 +84,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$relative_dates = true;
 		}
 
-		if ( ! $relative_dates ) {
-			$args['start_date']     = isset( $request['start_date'] ) ?
-				Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
-				: false;
-		}
+		$args['start_date']     = isset( $request['start_date'] ) ?
+			Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
+			: false;
 
-		if ( ! $relative_dates ) {
-			$args['end_date']       = isset( $request['end_date'] ) ?
-				Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
-				: false;
-		}
+		$args['end_date']       = isset( $request['end_date'] ) ?
+			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
+			: false;
 
 		$args['s']              = $request['search'];
 
@@ -189,7 +185,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
 		if ( $relative_dates ) {
-			unset( $args['start_date'], $args['end_date'] );
+			if ( ! isset( $request['start_date'] ) ) {
+				unset( $args['start_date'] );
+			}
+
+			if ( isset( $request['end_date'] ) ) {
+				unset( $args['end_date'] );
+			}
 		}
 
 		if ( null === $request['status'] ) {

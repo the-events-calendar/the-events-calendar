@@ -871,7 +871,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$endpoint = $this->make_instance();
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
-		$expected_ids = [ $event_4 ];
+		$expected_ids = [ $event_1, $event_2, $event_4 ];
 		sort( $expected_ids );
 		sort( $ids );
 		$this->assertEquals( $expected_ids, $ids, 'Setting mixed static and relative dates in a request will retrieve the stricter set of events.' );
