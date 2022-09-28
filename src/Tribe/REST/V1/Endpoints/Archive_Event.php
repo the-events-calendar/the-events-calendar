@@ -129,11 +129,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 */
 		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', $use_inclusive_start_end_dates ) ) {
 
-			if ( $args['start_date'] ) {
+			if ( ! empty( $args['start_date'] ) ) {
 				$args['start_date'] = tribe_beginning_of_day( $request['start_date'] );
 			}
 
-			if ( $args['end_date'] ) {
+			if ( ! empty( $args['end_date'] ) ) {
 				$args['end_date'] = tribe_end_of_day( $request['end_date'] );
 			}
 		}
