@@ -852,8 +852,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$event_1 = $this->factory()->event->create( [ 'when' => '2018-01-01 16:00:00' ] );
 		$event_2 = $this->factory()->event->create( [ 'when' => '2018-01-01 19:00:00' ] );
 		$event_3 = $this->factory()->event->create( [ 'when' => '2018-01-02 10:00:00' ] );
-		$event_4 = $this->factory()->event->create( [ 'start_date' => '2017-12-30 10:00:00', 'end_date' => '2018-01-02 10:00:00' ] );
-		$event_5 = $this->factory()->event->create( [ 'start_date' => '2017-12-29 10:00:00', 'end_date' => '2018-01-03 10:00:00' ] );
+		$event_4 = $this->factory()->event->create( [ 'when' => '2017-12-30 10:00:00', 'duration' => 3 * DAY_IN_SECONDS ] );
+		$event_5 = $this->factory()->event->create( [ 'when' => '2017-12-29 10:00:00', 'duration' => 5 * DAY_IN_SECONDS ] );
 
 		$request = new \WP_REST_Request();
 		$request['ends_after'] = '2017-12-31';
