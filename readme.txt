@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.4
-Stable tag: 6.0.0.1
+Stable tag: 6.0.1
 Tested up to: 6.0.2
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -232,22 +232,39 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD = (strudel)
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
+* Fix - Correct a few misnamed custom prop references. [TEC-4445]
 * Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TBD]
+* Fix - Ensure we handle if By_Day_View gets a null $event_obj->dates. Props to @juliangumenita for the fix! [TBD]
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
+* Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
+* Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
+* Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
+* Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
 
-= [6.0.1] TBD = (scone)
+= [6.0.1] 2022-09-22 =
 
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
-* Fix - correct some text domains. [TEC-4450]
+* Fix - Correct some translation domains pointing to the wrong plugin. [TEC-4450]
 * Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
 * Fix - Add caching to prevent duplicated queries for translated venue/organizer values. props to @dgwatkins for the suggested fix! [TEC-4428]
+* Fix - Check the document for `lang` and `rtl` attributes and pass them on to the datepicker so it adapts properly. [TEC-4452]
+* Fix - Corrected an issue where the Organizer Block was showing the "Add Another Organizer" button when no organizers were selected. [CE-11]
+* Fix - Corrected an issue where the "Edit Venue" and "Edit Organizer" links were displaying with no link. [CE-165]
+* Fix - Correct migration error when The Events Calendar PRO is not active. [TEC-4475]
+* Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
+* Fix - Correct a problem with moving tickets when The Events Calendar PRO is not active. [TEC-4471]
+* Fix - Correct an issue with migrating past events that straddle Daylight Savings Time. [ECP-1270]
+* Fix - Fix the Community Events recurrence link. [ECP-1215]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
 * Tweak - Create a filterable function `tec_events_get_today_button_label()` for the text on the "Today" button on calendar views. [TEC-4458]
 * Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
 * Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
                          `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+* Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
+* Tweak - Add compatibility for new "Convert to single" option in The Events Calendar PRO. [ECP-1308]
+* Language - 5 new strings added, 163 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.0.1] 2022-09-07 =
 

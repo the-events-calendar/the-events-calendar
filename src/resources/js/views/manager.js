@@ -608,8 +608,8 @@ tribe.events.views.manager = {};
 		document.dispatchEvent(
 				new CustomEvent(
 						'containerReplaceBefore.tribeEvents',
-						{ detail: $container },
-				),
+						{ detail: $container }
+				)
 		);
 
 		// Replace the current container with the new Data.
@@ -623,8 +623,8 @@ tribe.events.views.manager = {};
 		document.dispatchEvent(
 				new CustomEvent(
 						'containerReplaceAfter.tribeEvents',
-						{ detail: $container },
-				),
+						{ detail: $container }
+				)
 		);
 
 		// Update the global set of containers with all of the manager object.
