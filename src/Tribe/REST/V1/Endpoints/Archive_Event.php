@@ -138,11 +138,11 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			}
 
 			if ( ! empty( $args['ends_before'] ) ) {
-				$args['ends_before'] = tribe_beginning_of_day( $request['ends_before'] );
+				$args['ends_before'] = tribe_end_of_day( $request['ends_before'] );
 			}
 
 			if ( ! empty( $args['starts_before'] ) ) {
-				$args['starts_before'] = tribe_beginning_of_day( $request['starts_before'] );
+				$args['starts_before'] = tribe_end_of_day( $request['starts_before'] );
 			}
 
 			if ( ! empty( $args['starts_after'] ) ) {
