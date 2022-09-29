@@ -2122,7 +2122,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Gets all ids that already exist in the post meta table from the provided records
 	 *
 	 * @param array $records Array of records
-	 * @param array $data    Submitted data
 	 *
 	 * @return array
 	 */
@@ -2140,7 +2139,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$selected_ids = json_decode( $this->meta['ids_to_import'] );
 			}
 		} else {
-			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
+			$source_field = $unique_field['source'];
+			$selected_ids = array_filter( array_map( static function ( $entry ) use ( $source_field ) {
+				$array_entry = (array) $entry;
+				return $array_entry[ $source_field ] ?? null;
+			}, $import_data ) );
 		}
 
 		if ( empty( $selected_ids ) ) {
