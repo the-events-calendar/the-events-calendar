@@ -189,7 +189,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				unset( $args['start_date'] );
 			}
 
-			if ( isset( $request['end_date'] ) ) {
+			if ( ! isset( $request['end_date'] ) ) {
 				unset( $args['end_date'] );
 			}
 		}
@@ -518,28 +518,24 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'starts_before'  => [
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_time' ],
-				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
 				'description'       => __( 'Events that start before the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
 			'starts_after'  => [
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_time' ],
-				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
 				'description'       => __( 'Events that start after the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
 			'ends_before'  => [
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_time' ],
-				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'tomorrow 23:59' ),
 				'description'       => __( 'Events that end before the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
 			'ends_after'  => [
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_time' ],
-				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'tomorrow 23:59' ),
 				'description'       => __( 'Events that end after the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
