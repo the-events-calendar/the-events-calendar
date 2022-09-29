@@ -821,7 +821,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
-		$this->assertEquals( [
+		$this->assertEqualSets( [
 			$event_1,
 			$event_2,
 		], $ids, 'Inclusive dates will extend to include all Events in the day.' );
@@ -857,13 +857,11 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$request = new \WP_REST_Request();
 		$request['ends_after'] = '2017-12-31';
-		$request['starts_before'] = '2018-01-01';
+		$request['starts_before'] = '2018-01-02';
 		$endpoint = $this->make_instance();
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
-		$expected_ids = [ $event_1, $event_2, $event_4, $event_5 ];
-		sort( $expected_ids );
-		sort( $ids );
+		$expected_ids = [ $event_5, $event_4, $event_1, $event_2 ]; // Ordered by date
 		$this->assertEquals( $expected_ids, $ids, 'Setting relative dates in a request will retrieve single-day and multi-day events spanning the same period.' );
 
 		$request['start_date'] = '2017-12-30';
@@ -871,9 +869,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$endpoint = $this->make_instance();
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
-		$expected_ids = [ $event_1, $event_2, $event_4 ];
-		sort( $expected_ids );
-		sort( $ids );
+		$expected_ids = [ $event_4, $event_1, $event_2 ]; // Ordered by date
 		$this->assertEquals( $expected_ids, $ids, 'Setting mixed static and relative dates in a request will retrieve the stricter set of events.' );
 	}
 }
