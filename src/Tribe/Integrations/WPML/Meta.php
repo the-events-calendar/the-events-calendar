@@ -68,7 +68,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 					 * @param string $type The type of element the ID belongs to.
 					 * @param bool    true   If set to true it will always return a value (the original value, if translation is missing)
 					 */
-					$id = (string) apply_filters( 'wpml_object_id', $id, $type, true );$id = apply_filters( 'wpml_object_id', $id, $type, true );
+					$id = (string) apply_filters( 'wpml_object_id', $id, $type, true );
 				}
 				$post_id = $ids;
 			} else {
