@@ -282,8 +282,6 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
-	 * It should correctly insert posts
-	 *
 	 * @test
 	 */
 	public function should_not_duplicate_when_uid_is_already_present() {
@@ -333,15 +331,65 @@ class AbstractTest extends Events_TestCase {
 		\Tribe__Events__Aggregator__Record__Manual_Test::$unique_id_fields = \Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
 
 		$data = [
-			[
-				'uid' => $uid,
-			]
+			[ 'uid' => $uid, ]
 		];
 
 		$existing_ids = $manual_test_record->get_existing_ids_from_import_data( $data );
+		$this->assertCount( 1, $existing_ids );
 		$existing_id = reset( $existing_ids );
 
 		$this->assertEquals( $existing_id->post_id, $event_id );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_not_duplicate_when_uid_is_not_present() {
+		// Insert Manual Test as a valid UNIQUE ID field source.
+		\Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields['manual-test'] = [
+			'source' => 'uid',
+			'target' => 'uid',
+		];
+
+		$post = $this->factory()->post->create_and_get( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => 'ea/manual-test',
+		] );
+
+		$record = new Record();
+		$record->set_post( $post );
+		$record->frequency             = (object) [
+			'id'       => 'on_demand',
+			'interval' => 0,
+		];
+		$record->meta['post_status']   = 'publish';
+		$record->meta['origin']        = 'manual-test';
+		$record->meta['ids_to_import'] = 'all';
+
+		$uid = '__unique_uuid_for_manual_test_not_present__' . time();
+
+		$successful_child_record = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => $record->post->post_mime_type,
+		] );
+
+		$manual_test_record = new \Tribe__Events__Aggregator__Record__Manual_Test( $record );
+		$manual_test_record->meta['origin'] = 'manual-test';
+
+		// Enforce this particular Static variable.
+		\Tribe__Events__Aggregator__Record__Manual_Test::$unique_id_fields = \Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
+
+		$data = [
+			[ 'uid' => $uid, ]
+		];
+
+		$existing_ids = $manual_test_record->get_existing_ids_from_import_data( $data );
+		$this->assertCount( 0, $existing_ids );
 	}
 
 	/**
