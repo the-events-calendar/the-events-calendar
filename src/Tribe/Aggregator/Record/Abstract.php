@@ -2140,7 +2140,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 				$selected_ids = json_decode( $this->meta['ids_to_import'] );
 			}
 		} else {
-			$selected_ids = array_map( 'absint', array_filter( wp_list_pluck( $import_data, $unique_field['source'] ) ) );
+			$selected_ids = wp_list_pluck( $import_data, $unique_field['source'] );
 		}
 
 		if ( empty( $selected_ids ) ) {
