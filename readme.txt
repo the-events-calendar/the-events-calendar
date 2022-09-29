@@ -241,6 +241,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
 * Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
 * Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
+* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
 
 = [6.0.1] 2022-09-22 =
 

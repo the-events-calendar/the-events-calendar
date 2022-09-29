@@ -52,8 +52,10 @@ class Custom_Tables_Query extends WP_Query {
 		// Initialize a new instance of the query.
 		$ct_query = new self();
 		$ct_query->init();
-		$ct_query->query      = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
-		$ct_query->query_vars = $ct_query->query;
+		$filtered_query = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
+		$ct_query->query = $filtered_query;
+		$filtered_query_vars = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query_vars ) );
+		$ct_query->query_vars = $filtered_query_vars;
 
 		// Keep a reference to the original `WP_Query` instance.
 		$ct_query->wp_query = $wp_query;
@@ -127,7 +129,7 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_fields', [ $this, 'redirect_posts_fields' ], 10, 2 );
 		// While not ideal, this is the only way to intervene on `GROUP BY` in the `get_posts()` method.
 		add_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ], 10, 2 );
-		add_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 10, 2 );
+		add_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 100, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_by_date' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_where' ], 10, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
@@ -283,6 +285,8 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Replace the SQL clause that would order posts by ID to order them by Occurrence ID.
 	 *
+	 * The correct ORDER BY clause will be built from the redirection map.
+	 *
 	 * @since 6.0.0
 	 *
 	 * @param string        $order_by          The input `ORDER BY` SQL clause, as produced by the
@@ -297,20 +301,49 @@ class Custom_Tables_Query extends WP_Query {
 			return $order_by;
 		}
 
-		remove_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ] );
+		remove_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 100 );
 
+		$original_order_by = $this->wp_query->query_vars['orderby'] ?? [];
+		$normalized_order_by = tribe_normalize_orderby( $original_order_by );
 		$occurrences = Occurrences::table_name( true );
-		global $wpdb;
 
-		/*
-		 * Replace, implicitly redirecting them, a curated list of order criteria to the Occurrence-table
-		 * based criteria.
-		 *
-		 * @todo is this code eligible for a more general purpose use? Should it be more flexible?
-		 */
+		if ( ! empty( $normalized_order_by ) ) {
+			global $wpdb;
+
+			// Rebuild the ORDER string based on the custom tables redirection.
+			$buffer = [];
+			$meta_query_clauses = $this->meta_query->get_clauses();
+			foreach ( $normalized_order_by as $original_key => $direction ) {
+				if ( $original_key === 'meta_value' ) {
+					// Handle queries with on meta value.
+					$original_key = array_key_first( $meta_query_clauses );
+				}
+
+				if ( in_array( $original_key, [ 'ID', $wpdb->posts . '.ID' ], true ) ) {
+					// If the order is by post ID, order by post ID and occurrence ID.
+					$buffer[] = "ID $direction, $occurrences.occurrence_id $direction";
+					continue;
+				}
+
+				if ( ! ( is_string( $original_key ) && isset( $meta_query_clauses[ $original_key ] ) ) ) {
+					// Not a key we redirect or handle.
+					$buffer[] = $original_key . ' ' . $direction;
+					continue;
+				}
+
+				$alias = $meta_query_clauses[ $original_key ]['alias'];
+				$key = $meta_query_clauses[ $original_key ]['key'];
+				$cast = ! empty( $meta_query_clauses[ $original_key ]['cast'] ) ?
+					$meta_query_clauses[ $original_key ]['cast'] : 'CHAR';
+				$buffer[] = sprintf( "CAST(%s.%s AS %s) %s", $alias, $key, $cast, $direction );
+			}
+			$order_by = implode( ', ', $buffer );
+		}
+
+		// Handle some curated keys.
 		$order_by = str_replace(
-			[ $wpdb->posts . '.ID', 'event_date', 'event_duration' ],
-			[ $occurrences . '.occurrence_id', $occurrences . '.start_date', $occurrences . '.duration' ],
+			[ 'event_date', 'event_date_utc', 'event_duration' ],
+			[ $occurrences . '.start_date', $occurrences . '.start_date_utc', $occurrences . '.duration' ],
 			$order_by
 		);
 
