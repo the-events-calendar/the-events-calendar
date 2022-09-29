@@ -2122,7 +2122,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Gets all ids that already exist in the post meta table from the provided records
 	 *
 	 * @param array $records Array of records
-	 * @param array $data    Submitted data
 	 *
 	 * @return array
 	 */
@@ -2141,11 +2140,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 		} else {
 			$source_field = $unique_field['source'];
-			$selected_ids = array_filter( array_map( static function ( $entry ) use ( $source_field ): ?int {
+			$selected_ids = array_filter( array_map( static function ( $entry ) use ( $source_field ) {
 				$array_entry = (array) $entry;
-				$value = $array_entry[ $source_field ] ?? null;
-
-				return is_numeric( $value ) ? (int) $value : null;
+				return $array_entry[ $source_field ] ?? null;
 			}, $import_data ) );
 		}
 
