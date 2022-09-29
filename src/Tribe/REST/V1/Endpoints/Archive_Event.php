@@ -103,10 +103,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 
 		// Allow REST API users to define the default behavior of the inclusive date parameters.
-		$use_inclusive_start_end_dates = isset( $request['strict_dates'] ) ? filter_var( $request['strict_dates'], FILTER_VALIDATE_BOOLEAN ) : true;
+		$use_inclusive_start_end_dates = isset( $request['strict_dates'] ) ? ! filter_var( $request['strict_dates'], FILTER_VALIDATE_BOOLEAN ) : true;
 
 		/**
-		 * Allows users to override "inclusive" start and end dates and  make the REST API use a
+		 * Allows users to override the default "inclusive" start and end dates and  make the REST API use a
 		 * timezone-adjusted date range.
 		 *
 		 * Example: wp-json/tribe/events/v1/events?start_date=2017-12-21&end_date=2017-12-22
@@ -115,13 +115,13 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 *   2017-12-21 00:00:00 and end_date to 2017-12-22 23:59:59. Events within this range will
 		 *   be retrieved.
 		 *
-		 * - If you set this filter to false on a site whose timezone is America/New_York, then the
+		 * - If you set this filter to true on a site whose timezone is America/New_York, then the
 		 *   REST API would set start_date to 2017-12-20 19:00:00 and end_date to
 		 *   2017-12-21 19:00:00. A different range of events to draw from.
 		 *
 		 * @since 4.6.8
 		 *
-		 * @param bool $use_inclusive Defaults to true. Whether to use "inclusive" start and end dates.
+		 * @param bool $use_inclusive Defaults to false (inclusive, not strict). Whether to use "inclusive" start and end dates.
 		 */
 		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', $use_inclusive_start_end_dates ) ) {
 
@@ -542,8 +542,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			'strict_dates'  => [
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_string' ],
-				'default'           => 'true',
-				'description'       => __( 'Dates set using the start_date/end_date, starts_*/ends_* are set to start at 0:00 and end at 11:59pm/23:59 of the specified dates.', 'the-events-calendar' ),
+				'default'           => 'false',
+				'description'       => __( 'Dates set using the start_date/end_date, starts_*/ends_* are set to start at the specified times. The default behavior is to include the entire days.', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
 			'search'      => [

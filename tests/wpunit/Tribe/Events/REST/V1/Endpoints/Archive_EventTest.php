@@ -830,15 +830,15 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
 		$this->assertEquals( [
-			$event_1
+			$event_1,
+			$event_2,
 		], $ids, 'Inclusive dates will extend to include all Events in the day.' );
 
 		$request['strict_dates'] = true;
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
 		$this->assertEquals( [
-			$event_1,
-			$event_2,
+			$event_1
 		], $ids, 'Strict dates will include only Events in the time range.' );
 	}
 
