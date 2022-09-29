@@ -9,6 +9,7 @@ use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Import_Record;
 use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Aggregator__Record__Abstract as Base;
+use Tribe__Events__Aggregator__Record__Manual_Test as Manual_Test_Record;
 use Tribe__Events__Aggregator__Record__Scheduled_Test as Record;
 use Tribe__Events__Aggregator__Record__Url as Url_Import_Record;
 use Tribe__Events__Aggregator__Records as Records;
@@ -286,7 +287,7 @@ class AbstractTest extends Events_TestCase {
 	 */
 	public function should_not_duplicate_when_uid_is_already_present() {
 		// Insert Manual Test as a valid UNIQUE ID field source.
-		\Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields['manual-test'] = [
+		Base::$unique_id_fields['manual-test'] = [
 			'source' => 'uid',
 			'target' => 'uid',
 		];
@@ -324,11 +325,11 @@ class AbstractTest extends Events_TestCase {
 			]
 		] );
 
-		$manual_test_record = new \Tribe__Events__Aggregator__Record__Manual_Test( $record );
+		$manual_test_record = new Manual_Test_Record( $record );
 		$manual_test_record->meta['origin'] = 'manual-test';
 
 		// Enforce this particular Static variable.
-		\Tribe__Events__Aggregator__Record__Manual_Test::$unique_id_fields = \Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
+		Manual_Test_Record::$unique_id_fields = Base::$unique_id_fields;
 
 		$data = [
 			[ 'uid' => $uid, ]
@@ -346,7 +347,7 @@ class AbstractTest extends Events_TestCase {
 	 */
 	public function should_not_duplicate_when_uid_is_not_present() {
 		// Insert Manual Test as a valid UNIQUE ID field source.
-		\Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields['manual-test'] = [
+		Base::$unique_id_fields['manual-test'] = [
 			'source' => 'uid',
 			'target' => 'uid',
 		];
@@ -378,11 +379,11 @@ class AbstractTest extends Events_TestCase {
 			'post_mime_type' => $record->post->post_mime_type,
 		] );
 
-		$manual_test_record = new \Tribe__Events__Aggregator__Record__Manual_Test( $record );
+		$manual_test_record = new Manual_Test_Record( $record );
 		$manual_test_record->meta['origin'] = 'manual-test';
 
 		// Enforce this particular Static variable.
-		\Tribe__Events__Aggregator__Record__Manual_Test::$unique_id_fields = \Tribe__Events__Aggregator__Record__Abstract::$unique_id_fields;
+		Manual_Test_Record::$unique_id_fields = Base::$unique_id_fields;
 
 		$data = [
 			[ 'uid' => $uid, ]
