@@ -18,6 +18,37 @@ use Tribe\Events\Test\Traits\With_Uopz;
 class Event_ModelTest extends WPTestCase {
 	use With_Post_Remapping, With_Uopz;
 
+	public function is_now_events() {
+		return [
+			[
+				'start_date' => '-1 day',
+				'duration'   => 'P2D',
+				'expected'   => true,
+			],
+			[
+				'start_date' => '+1 day',
+				'duration'   => 'P2D',
+				'expected'   => false,
+			],
+			[
+				'start_date' => '-2 day',
+				'duration'   => 'P1D',
+				'expected'   => false,
+			],
+			[
+				'start_date' => '-1 hour',
+				'duration'   => 'PT1H',
+				'expected'   => false,
+			],
+			[
+				'start_date' => '+1 hour',
+				'duration'   => 'PT1H',
+				'expected'   => false,
+			]
+		];
+
+	}
+
 	/**
 	 * @test
 	 */
@@ -50,24 +81,23 @@ class Event_ModelTest extends WPTestCase {
 
 	/**
 	 * @test
+	 *
+	 * @dataProvider is_now_events
 	 */
-	public function it_should_return_is_now() {
-		$mock  = $this->get_mock_event( 'events/single/1.json' );
-		$event = Event::from_post( $mock )->to_post();
+	public function test_is_now_property( string $when, string $duration, bool $expected) {
+		$start = Dates::build_date_object(  $when );
 
-		$this->assertFalse( $event->is_now );
-	}
+		$args = [
+			'title'      => 'Single Event',
+			'start_date' => $start->format( Dates::DBDATETIMEFORMAT ),
+			'end_date'   => $start->add( new \DateInterval( $duration ) )->format( Dates::DBDATETIMEFORMAT ),
+			'timezone'   => 'Europe/Paris',
+		];
 
-	/**
-	 * @test
-	 */
-	public function it_should_return_is_now_true() {
-		// Here, we're just overriding the function in common to assure it returns true.
-		$this->uopz_set_return( Dates::class, 'is_now', true );
-		$mock  = $this->get_mock_event( 'events/single/1.json' );
-		$event = Event::from_post( $mock )->to_post();
+		$event = tribe_events()
+			->set_args( $args )->create();
 
-		$this->assertTrue( $event->is_now );
+		$this->assertEquals( $expected, $event->is_now );
 	}
 
 	/**
