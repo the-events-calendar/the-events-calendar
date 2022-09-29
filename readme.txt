@@ -242,6 +242,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
 * Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
 * Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
+* Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
 
 = [6.0.1] 2022-09-22 =
 
