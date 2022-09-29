@@ -24,10 +24,11 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * @param string $value
 	 * @param int    $object_id
 	 * @param string $meta_key
+	 * @param bool   $single
 	 *
 	 * @return mixed The translated id for _EventOrganizerID & _EventVenueID or false.
 	 */
-	public function translate_post_id( $value, $object_id, $meta_key ) {
+	public function translate_post_id( $value, $object_id, $meta_key, $single ) {
 		if ( ! empty( $_POST ) ) {
 			return $value;
 		}
@@ -49,7 +50,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 		$value = $this->get_post_meta( $object_id, $meta_key );
 
 		if ( empty( $value ) ) {
-			return false;
+			return $single ? [ $value ] : $value;
 		}
 
 		$type = false !== strpos( $meta_key, 'Organizer' )
@@ -67,7 +68,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 					 * @param string $type The type of element the ID belongs to.
 					 * @param bool    true   If set to true it will always return a value (the original value, if translation is missing)
 					 */
-					$id = apply_filters( 'wpml_object_id', $id, $type, true );
+					$id = (string) apply_filters( 'wpml_object_id', $id, $type, true );$id = apply_filters( 'wpml_object_id', $id, $type, true );
 				}
 				$post_id = $ids;
 			} else {
@@ -78,7 +79,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 				 * @param string $type    The type of element the ID belongs to.
 				 * @param bool    true       If set to true it will always return a value (the original value, if translation is missing)
 				 */
-				$post_id = apply_filters( 'wpml_object_id', $post_id, $type, true );
+				$post_id = (string) apply_filters( 'wpml_object_id', $post_id, $type, true );
 			}
 		}
 
