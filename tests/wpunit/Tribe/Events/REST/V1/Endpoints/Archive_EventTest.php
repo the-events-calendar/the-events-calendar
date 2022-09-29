@@ -809,8 +809,8 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function should_allow_controlling_inclusive_dates_at_request_level() {
 		$event_0 = $this->factory()->event->create( [ 'when' => '2017-12-31 17:00:00' ] );
-		$event_1 = $this->factory()->event->create( [ 'when' => '2018-01-01 16:00:00' ] );
-		$event_2 = $this->factory()->event->create( [ 'when' => '2018-01-01 19:00:00' ] );
+		$event_1 = $this->factory()->event->create( [ 'when' => '2018-01-01 16:00:00', 'duration' => 30 * MINUTE_IN_SECONDS ] );
+		$event_2 = $this->factory()->event->create( [ 'when' => '2018-01-01 20:00:00', 'duration' => 30 * MINUTE_IN_SECONDS ] );
 		$event_3 = $this->factory()->event->create( [ 'when' => '2018-01-02 10:00:00' ] );
 
 		$request = new \WP_REST_Request();
@@ -821,7 +821,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
-		$this->assertEqualSets( [
+		$this->assertEquals( [
 			$event_1,
 			$event_2,
 		], $ids, 'Inclusive dates will extend to include all Events in the day.' );
@@ -830,15 +830,15 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
 		$this->assertEquals( [
-			$event_1,
-			$event_2
+			$event_1
 		], $ids, 'Inclusive dates will extend to include all Events in the day.' );
 
 		$request['strict_dates'] = true;
 		$results = $endpoint->get( $request );
 		$ids = wp_list_pluck( $results->data['events'], 'id' );
 		$this->assertEquals( [
-			$event_1
+			$event_1,
+			$event_2,
 		], $ids, 'Strict dates will include only Events in the time range.' );
 	}
 
