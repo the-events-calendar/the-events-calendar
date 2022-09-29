@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.1.1] 2022-09-29 =
 
-
+* Fix - Prevent Google Calendar duplicated Events from Importing with Aggregator. [TEC-4497]
 
 = [6.0.1] 2022-09-22 =
 
