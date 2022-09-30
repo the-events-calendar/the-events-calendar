@@ -23,6 +23,7 @@ function tribe_is_month() {
 	 * @since 4.6.15 Added inline documentation for this filter.
 	 *
 	 * @param boolean $is_month Whether you're on the main Month View or not
+	 * @param Tribe__Context The global context object.
 	 */
 	return apply_filters( 'tribe_is_month', $is_month, $context );
 }
