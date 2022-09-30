@@ -10,6 +10,12 @@ class Tribe__Events__Deactivation extends Tribe__Abstract_Deactivation {
 		// Ensure the class is loaded before using it, we're in shutdown context and common autoloader might be unset.
 		require_once __DIR__ . '/Updater.php';
 		$updater = new Tribe__Events__Updater( Tribe__Main::VERSION );
+
+		// Reset uses cached values, which means the sub-sites will be overwritten by the main site cache.
+		if ( $this->network && ! is_main_site() ) {
+			return;
+		}
+
 		$updater->reset();
 	}
 

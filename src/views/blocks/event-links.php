@@ -3,8 +3,7 @@
  * Block: Event Links
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/blocks/event-links.php
- *
+ * [your-theme]/tribe/events/blocks/event-links` *
  * See more documentation about our Blocks Editor templating system.
  *
  * @link http://evnt.is/1aiy
@@ -13,7 +12,17 @@
  *
  */
 
+// don't show on password protected posts
 use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
+
+if ( post_password_required() ) {
+	return;
+}
+
+$has_google_cal   = $this->attr( 'hasGoogleCalendar' );
+$has_ical         = $this->attr( 'hasiCal' );
+$has_outlook_365  = $this->attr( 'hasOutlook365' );
+$has_outlook_live = $this->attr( 'hasOutlookLive' );
 
 // don't show on password protected posts
 if ( post_password_required() ) {

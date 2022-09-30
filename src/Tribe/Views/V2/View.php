@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
@@ -16,6 +17,7 @@ use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\iCal_Data;
 use Tribe\Events\Views\V2\Views\Traits\Json_Ld_Data;
+use Tribe\Utils\Taxonomy;
 use Tribe__Container as Container;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -25,6 +27,7 @@ use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Events__Venue as Venue;
 use Tribe__Repository__Interface as Repository;
 use Tribe__Utils__Array as Arr;
+use WP_Post;
 
 /**
  * Class View
@@ -402,16 +405,16 @@ class View implements View_Interface {
 			$view = $default_view;
 		}
 
-		list( $view_slug, $view_class ) = $manager->get_view( $view );
+		[ $view_slug, $view_class ] = $manager->get_view( $view );
 
 		// When not found use the default view.
 		if ( ! $view_class ) {
-			list( $view_slug, $view_class ) = $manager->get_view( $default_view );
+			[ $view_slug, $view_class ] = $manager->get_view( $default_view );
 		}
 
 		// Make sure we are using Reflector when it fails
 		if ( ! class_exists( $view_class ) ) {
-			list( $view_slug, $view_class ) = $manager->get_view( 'reflector' );
+			[ $view_slug, $view_class ] = $manager->get_view( 'reflector' );
 		}
 
 		if ( ! self::$container instanceof Container ) {
@@ -584,8 +587,13 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_html() {
+		add_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
+
 		if ( self::class === static::class ) {
-			return $this->template->render();
+			$html = $this->template->render();
+			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
+
+			return $html;
 		}
 
 		if ( $this->should_reset_page() ) {
@@ -619,6 +627,7 @@ class View implements View_Interface {
 			method_exists( $this, 'maybe_get_cached_html' )
 			&& $cached_html = $this->maybe_get_cached_html()
 		) {
+			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 			return $cached_html;
 		}
 
@@ -649,6 +658,7 @@ class View implements View_Interface {
 		}
 
 		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
+		remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
 		return $html;
 	}
@@ -1130,6 +1140,7 @@ class View implements View_Interface {
 	protected function filter_template_vars( array $template_vars ) {
 		$events                        = $template_vars['events'] ?: [];
 
+
 		/*
 		 * Add the JSON-LD data here as all Views will pass from this code, but not all Views will call the
 		 * `View::setup_template_vars` method.
@@ -1450,6 +1461,19 @@ class View implements View_Interface {
 		$events = array_filter( $events, static function ( $event ) {
 			return $event instanceof \WP_Post;
 		} );
+
+		Taxonomy::prime_term_cache( $events );
+		Event::prime_cache( $events );
+
+		/**
+		 * Action triggered right after pulling all the Events from the DB, allowing cache to be primed corectly.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param array<WP_Post> $events Which events were just selected.
+		 * @param self           $view   Which view we are dealing with.
+		 */
+		do_action( 'tec_events_views_v2_after_get_events', $events, $this );
 
 		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && -1 !== $this->repository_args['posts_per_page'];
 
@@ -2347,8 +2371,8 @@ class View implements View_Interface {
 				break;
 
 			case 'week':
-				list( $today_week_start, $today_week_end ) = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
-				list( $view_week_start, $view_week_end )   = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
+				[ $today_week_start, $today_week_end ] = Dates::get_week_start_end( $today, (int) $this->context->get( 'start_of_week', 0 ) );
+				[ $view_week_start, $view_week_end ]   = Dates::get_week_start_end( $view_date, (int) $this->context->get( 'start_of_week', 0 ) );
 
 				$today_formatted     = $today_week_start->format( Dates::DBDATEFORMAT );
 				$view_date_formatted = $view_week_start->format( Dates::DBDATEFORMAT );
@@ -2502,6 +2526,19 @@ class View implements View_Interface {
 		);
 
 		return $repository_args;
+	}
+
+	/**
+	 * Filters the current template current view which allows you to pull globally which view is currently being rendered.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param View_Interface  $view Which is the previous view.
+	 *
+	 * @return self
+	 */
+	public function filter_set_current_view( $view ) {
+		return $this;
 	}
 
 	/**

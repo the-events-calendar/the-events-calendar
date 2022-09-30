@@ -269,7 +269,7 @@ class Context extends \tad_DI52_ServiceProvider {
 								];
 								$found = array_filter( $found );
 
-								return count( $found ) ?: Tribe__Context::NOT_FOUND;
+								return count( $found ) ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
@@ -296,7 +296,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
-								return [ TEC::POSTTYPE ] === (array) $post_type;
+								return [ TEC::POSTTYPE ] === (array) $post_type ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 					],
@@ -311,7 +311,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
-								return [ Venue::POSTTYPE ] === (array) $post_type;
+								return [ Venue::POSTTYPE ] === (array) $post_type ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 					],
@@ -326,7 +326,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
-								return [ Organizer::POSTTYPE ] === (array) $post_type;
+								return [ Organizer::POSTTYPE ] === (array) $post_type ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 					],
