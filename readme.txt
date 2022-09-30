@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD = (strudel)
+= [TBD] TBD =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
 * Fix - Correct a few misnamed custom prop references. [TEC-4445]
@@ -243,6 +243,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
+* Tweak - Add an event property for if the event is currently happening. [TBD]
 
 = [6.0.1] 2022-09-22 =
 
