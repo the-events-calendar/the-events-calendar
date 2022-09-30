@@ -19,7 +19,7 @@
     "codeception/module-rest": "^1.0",
     "codeception/module-webdriver": "^1.0",
     "codeception/util-universalframework": "^1.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
     "lucatume/wp-browser": "^3.1.4",
@@ -39,6 +39,9 @@
     "preferred-install": "dist",
     "platform": {
       "php": "7.3.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "autoload": {
