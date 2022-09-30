@@ -176,6 +176,7 @@ class Custom_Tables_Query extends WP_Query {
 			&& empty( $this->get( 'no_found_rows', false ) )
 		) {
 			$this->wp_query->found_posts = $this->found_posts;
+			$this->wp_query->max_num_pages = $this->max_num_pages;
 		}
 
 		// Set the request SQL that actually ran to allow easier debugging of the query.
@@ -279,7 +280,11 @@ class Custom_Tables_Query extends WP_Query {
 
 		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
 
-		return '';
+		$occurrences = Occurrences::table_name( true );
+		global $wpdb;
+
+		// Group by the occurrence ID, not the post ID.
+		return str_replace( "$wpdb->posts.ID", "$occurrences.occurrence_id", $groupby );
 	}
 
 	/**
