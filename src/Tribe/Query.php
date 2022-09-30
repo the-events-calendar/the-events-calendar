@@ -4,6 +4,8 @@
  */
 
 use Tribe__Utils__Array as Arr;
+use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main as TEC;
 
 class Tribe__Events__Query {
 	/**
@@ -32,11 +34,12 @@ class Tribe__Events__Query {
 		$context = tribe_context();
 
 		// These are only required for Main Query stuff.
-		if ( ! $context->is( 'is_main_query' ) ) {
-			return $query;
-		}
+		if ( ! ( $context->is( 'is_main_query' ) && $context->is( 'tec_post_type' ) ) ) {
+			if ( ( (array) $query->get( 'post_type', [] ) ) === [ TEC::POSTTYPE ] ) {
+				// Not the main query in Event context, but it's an event query: check back later.
+				add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
+			}
 
-		if ( ! $context->is( 'tec_post_type' ) )  {
 			return $query;
 		}
 
@@ -107,6 +110,18 @@ class Tribe__Events__Query {
 			$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 		}
 
+		// Hook reasonably late on the action that will fire next to filter and order Events by date, if required.
+		add_filter( 'tribe_events_parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
+
+		/**
+		 * Fires after the query has been parsed by The Events Calendar.
+		 * If this action fires, then the query is for the Event post type, is the main
+		 * query, and TEC filters are not suppressed.
+		 *
+		 * @since 3.5.1
+		 *
+		 * @param WP_Query $query The parsed WP_Query object.
+		 */
 		do_action( 'tribe_events_parse_query', $query );
 	}
 
@@ -414,5 +429,72 @@ class Tribe__Events__Query {
 	 */
 	public static function default_page_on_front( $value ) {
 		return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
+	}
+
+	/**
+	 * Provided a query for Events, the method will set the query variables up to filter
+	 * and order Events by start and end date.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Query $query The query object to modify.
+	 *
+	 * @return void The query object is modified by reference.
+	 */
+	public static function filter_and_order_by_date( $query ) {
+		if ( ! $query instanceof WP_Query ) {
+			return;
+		}
+
+		if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+			// Filters were suppressed by others, bail.
+			return;
+		}
+
+		// Work done: stop filtering.
+		remove_filter( current_action(), [ __CLASS__, 'filter_and_order_by_date' ] );
+
+		$query_vars = $query->query_vars ?? [];
+
+		// If a clause on the '_Event(Start|End)Date(UTC)' meta key is present in any query variable, bail.
+		if ( ! empty( $query_vars ) && preg_match( '/_Event(Start|End)Date(UTC)?/', serialize( $query_vars ) ) ) {
+			return;
+		}
+
+		/**
+		 * Filters the value that will be used to indicate the current moment in an
+		 * Event query. The query will return Events ending after the current moment.
+		 *
+		 * @since TBD
+		 *
+		 * @param string|int|DateTimeInterface $current_moment The current moment, defaults to `now`.
+		 * @param WP_Query                     $query          The query object being filtered.
+		 */
+		$current_moment = apply_filters( 'tec_events_query_current_moment', 'now', $query );
+
+		// Only get Events ending after now altering the current meta query.
+		$meta_query = $query_vars['meta_query'] ?? [];
+		$meta_query['tec_event_start_date'] = [
+			'key'     => '_EventStartDate',
+			'compare' => 'EXISTS',
+		];
+		$meta_query['tec_event_end_date'] = [
+			'key'     => '_EventEndDate',
+			'value'   => Dates::immutable( $current_moment )->format( Dates::DBDATETIMEFORMAT ),
+			'compare' => '>=',
+			'type'    => 'DATETIME',
+		];
+		$query->query_vars['meta_query'] = $meta_query;
+
+		// Order the resulting events by start date, then post date.
+		$orderby = $query_vars['orderby'] ?? '';
+		$order = $query_vars['order'] ?? null;
+		$query->query_vars['orderby'] = tribe_normalize_orderby( $orderby, $order );
+		$query->query_vars['orderby']['tec_event_start_date'] = 'ASC';
+		$query->query_vars['orderby']['post_date'] = 'ASC';
+
+		// Duplicate the values on the `query` property of the query.
+		$query->query['meta_query'] = $query->query_vars['meta_query'];
+		$query->query['orderby'] = $query->query_vars['orderby'];
 	}
 }
