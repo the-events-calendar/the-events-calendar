@@ -102,7 +102,7 @@ class Widget_ListTest extends ViewTestCase {
 		);
 
 		// @todo separate this out into a non today-based test.
-		// $this->assertMatchesSnapshot( $html );
+		$this->assertMatchesSnapshot( $html );
 	}
 
 	/**
@@ -157,7 +157,7 @@ class Widget_ListTest extends ViewTestCase {
 		);
 
 		// @todo separate this out into a non today-based test.
-		// $this->assertMatchesSnapshot( $html );
+		$this->assertMatchesSnapshot( $html );
 	}
 
 	/**
@@ -221,7 +221,7 @@ class Widget_ListTest extends ViewTestCase {
 		$this->assertNotFalse( stripos( $html, 'ld+json' ) );
 
 		// @todo separate this out into a non today-based test.
-		// $this->assertMatchesSnapshot( $html );
+		$this->assertMatchesSnapshot( $html );
 	}
 
 	public function remove_json_ld( $template_vars ) {
@@ -284,7 +284,7 @@ class Widget_ListTest extends ViewTestCase {
 		$this->assertFalse( stripos( $html, 'ld+json' ) );
 
 		// @todo separate this out into a non today-based test.
-		// $this->assertMatchesSnapshot( $html );
+		$this->assertMatchesSnapshot( $html );
 
 		remove_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'remove_json_ld' ] );
 	}
