@@ -77,20 +77,40 @@ function tribe_is_showing_all() : bool {
 /**
  * Date View Test
  *
- *  Check if current display is "bydate"
+ * Check if current display is a date-based View.
  *
  * @return bool
  */
 function tribe_is_by_date() {
-	$tribe_ecp        = Tribe__Events__Main::instance();
-	$tribe_is_by_date = ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
+	$by_date_views = [
+		'month',
+		'day',
+	];
 
 	/**
-	 * Allows for customization of the result of whether or not a "bydate" view is being viewed.
+	 * Allows for customization of the list of date-based views.
 	 *
-	 * @param bool $tribe_is_by_date Whether a "bydate" calendar view is currently being displayed.
+	 * @since TBD
+	 *
+	 * @param array<string> $by_date_views
 	 */
-	return apply_filters( 'tribe_is_by_date', $tribe_is_by_date );
+	$by_date_views = (array) apply_filters( 'tribe_views_v2_is_by_date_views', $by_date_views );
+
+	$context = tribe_context();
+	$context_view = $context->get( 'view' );
+
+	$tribe_is_by_date = in_array(
+		$context_view,
+		$by_date_views
+	);
+
+	/**
+	 * Allows for customization of the result of whether or not a "by date" view is being viewed.
+	 *
+	 * @param bool $tribe_is_by_date Whether a "by date" calendar view is currently being displayed.
+	 * @param Tribe__Context The global context object.
+	 */
+	return apply_filters( 'tribe_is_by_date', $tribe_is_by_date, $context );
 }
 
 /**

@@ -14,8 +14,8 @@
  * @return bool
  */
 function tribe_is_month() {
-	$tribe_ecp = Tribe__Events__Main::instance();
-	$is_month  = ( 'month' === $tribe_ecp->displaying ) ? true : false;
+	$context = tribe_context();
+	$is_month  = ( 'month' === $context->get( 'view', 'default' ) );
 
 	/**
 	 * Allows filtering of the tribe_is_month boolean value.
@@ -23,9 +23,8 @@ function tribe_is_month() {
 	 * @since 4.6.15 Added inline documentation for this filter.
 	 *
 	 * @param boolean $is_month Whether you're on the main Month View or not
-	 * @param Tribe__Events__Main $tribe_ecp The current Tribe__Events__Main instance.
 	 */
-	return apply_filters( 'tribe_is_month', $is_month, $tribe_ecp );
+	return apply_filters( 'tribe_is_month', $is_month, $context );
 }
 
 /**

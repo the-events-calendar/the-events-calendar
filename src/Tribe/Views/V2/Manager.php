@@ -149,7 +149,7 @@ class Manager {
 		$view_slug = $this->get_default_view_option();
 		$view_class = Arr::get( $registered_views, $view_slug, reset( $registered_views ) );
 
-		// Class for the view doesnt exist we bail with false.
+		// Class for the view doesn't exist we bail with false.
 		if ( ! class_exists( $view_class ) ) {
 			return false;
 		}
