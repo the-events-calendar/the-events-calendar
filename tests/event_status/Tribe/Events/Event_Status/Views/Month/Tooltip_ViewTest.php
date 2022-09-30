@@ -23,7 +23,6 @@ class Tooltip_ViewTest extends HtmlPartialTestCase {
 
 	/**
 	 * @test
-	 * @skip The meta tested is not being hydrated correctly by get_mock_event
 	 */
 	public function it_should_render_canceled_name_and_html() {
 		$event = $this->get_mock_event( 'events/single/canceled_status.json' );
@@ -34,7 +33,6 @@ class Tooltip_ViewTest extends HtmlPartialTestCase {
 
 	/**
 	 * @test
-	 * @skip The meta tested is not being hydrated correctly by get_mock_event
 	 */
 	public function it_should_render_postponed_name_and_html() {
 		$event = $this->get_mock_event( 'events/single/postponed_status.json' );
