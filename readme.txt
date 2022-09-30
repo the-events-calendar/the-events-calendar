@@ -229,18 +229,21 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD = (strudel)
+= [TBD] TBD =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
 * Fix - Correct a few misnamed custom prop references. [TEC-4445]
 * Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TBD]
 * Fix - Ensure we handle if By_Day_View gets a null $event_obj->dates. Props to @juliangumenita for the fix! [TBD]
-* Tweak - Update the organizer website field to type URL. [TEC-4395]
-* Tweak - Update the venue website field to type URL. [TEC-4349]
 * Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
 * Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
 * Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
 * Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
+* Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
+* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
+* Tweak - Update the organizer website field to type URL. [TEC-4395]
+* Tweak - Update the venue website field to type URL. [TEC-4349]
+* Tweak - Add an event property for if the event is currently happening. [TBD]
 
 = [6.0.1] 2022-09-22 =
 
