@@ -240,6 +240,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
 * Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
 * Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
+* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 
