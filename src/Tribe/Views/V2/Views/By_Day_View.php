@@ -604,8 +604,8 @@ abstract class By_Day_View extends View {
 					$cache_key             = $event . '_' . $week_start . '_week';
 					$happens_this_week     = true;
 					$event_obj             = tribe_get_event( $event );
-					$event_start           = $event_obj->dates->start_display->format( Dates::DBDATEFORMAT );
-					$event_end             = $event_obj->dates->end_display->format( Dates::DBDATEFORMAT );
+					$event_start           = ! empty( $event_obj->dates->start_display ) ? $event_obj->dates->start_display->format( Dates::DBDATEFORMAT ) : '';
+					$event_end             = ! empty( $event_obj->dates->end_display ) ? $event_obj->dates->end_display->format( Dates::DBDATEFORMAT ) : '';
 					$starts_this_week      = $occurrences['first'][ $event ] >= $week_start && $event_start >= $week_start;
 					$ends_this_week        = $occurrences['last'][ $event ] <= $week_end && $event_end <= $week_end;
 					$displays_on[ $event ] = [];
