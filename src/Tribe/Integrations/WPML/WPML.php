@@ -81,7 +81,7 @@ class Tribe__Events__Integrations__WPML__WPML {
 		add_filter( 'icl_ls_languages', [ $language_switcher, 'filter_icl_ls_languages' ], 5 );
 
 		$meta = tribe( 'tec.integrations.wpml.meta' );
-		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 3 );
+		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 4 );
 		add_filter( 'pre_get_posts', tribe_callback( $meta, 'include_all_languages' ) );
 
 		// Disable month view caching when WPML is activated for now, until we

@@ -11,11 +11,13 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use Tribe\Events\Test\Traits\CT1\CT1_Test_Utils;
 use Tribe\Events\Test\Traits\Forks;
+use Tribe\Events\Test\Traits\With_Uopz;
 
 class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
 	use CT1_Test_Utils;
 	use Forks;
+	use With_Uopz;
 
 	private $uopz_allow_exit_ini_value;
 
@@ -313,5 +315,100 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 
 		// Rebuild required tables for other tests.
 		$schema_builder->up();
+	}
+
+	public function migration_notices_and_warnings_data_provider(): \Generator {
+		yield 'E_NOTICE from tec plugins' => [
+			function () {
+				$test_array = [];
+				$foo = $test_array['undefined_index'];
+			},
+			true,
+			'failure'
+		];
+
+		yield 'E_WARNING from tec plugins' => [
+			function () {
+				$o->property = 23;
+			},
+			true,
+			'failure'
+		];
+
+		yield 'E_USER_NOTICE from tec plugins' => [
+			function () {
+				trigger_error( 'This is a user notice', E_USER_NOTICE );
+			},
+			true,
+			'failure'
+		];
+
+		yield 'E_USER_WARNING from tec plugins' => [
+			function () {
+				trigger_error( 'This is a user warning', E_USER_WARNING );
+			},
+			true,
+			'failure'
+		];
+
+		yield 'E_NOTICE from non-tec plugins' => [
+			function () {
+				$test_array = [];
+				$foo = $test_array['undefined_index'];
+			},
+			false,
+			'success'
+		];
+
+		yield 'E_WARNING from not-tec plugins' => [
+			function () {
+				include 'undefined_file.php';
+			},
+			false,
+			'success'
+		];
+
+		yield 'E_USER_NOTICE from non-tec plugins' => [
+			function () {
+				trigger_error( 'This is a user notice', E_USER_NOTICE );
+			},
+			false,
+			'success'
+		];
+
+		yield 'E_USER_WARNING from non-tec plugins' => [
+			function () {
+				trigger_error( 'This is a user warning', E_USER_WARNING );
+			},
+			false,
+			'success'
+		];
+	}
+
+	/**
+	 * It should correctly handle notices and warnings during migration
+	 *
+	 * @test
+	 * @dataProvider migration_notices_and_warnings_data_provider
+	 */
+	public function should_correctly_handle_notices_and_warnings_during_migration(
+		\Closure $before_migration,
+		bool $from_tec_plugins,
+		string $expected_status
+	): void {
+		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
+		$post = $this->given_a_non_migrated_single_event();
+		$this->assertEquals( 0, Event::where( 'post_id', '=', $post->ID )->count() );
+		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+		// The following code will trigger an E_NOTICE error.
+		add_action( 'tec_events_custom_tables_v1_before_migration_applied', $before_migration );
+		$this->uopz_set_return( 'tec_is_file_from_plugins', $from_tec_plugins );
+
+		$events = new Events;
+		$worker = new Process_Worker( $events, new State( $events ) );
+
+		$event_report = $worker->migrate_event( $post->ID, true );
+
+		$this->assertEquals( $expected_status, $event_report->status );
 	}
 }

@@ -88,6 +88,14 @@ class Schema_Builder {
 	 * @return array<Table_Schema_Interface>
 	 */
 	public function get_registered_table_schemas() {
+		/**
+		 * Filters the list of table schemas that will be used to build the database tables.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param array<Table_Schema_Interface> $table_schemas An array of table schema objects;
+		 *                                                     empty by default.
+		 */
 		return apply_filters( 'tec_events_custom_tables_v1_table_schemas', [] );
 	}
 
@@ -99,6 +107,14 @@ class Schema_Builder {
 	 * @return array<Field_Schema_Interface>
 	 */
 	public function get_registered_field_schemas() {
+		/**
+		 * Filters the list of field schemas that will be used to build the database tables.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param array<Field_Schema_Interface> $field_schemas An array of field schema objects;
+		 *                                                     empty by default.
+		 */
 		return apply_filters( 'tec_events_custom_tables_v1_field_schemas', [] );
 	}
 
@@ -198,10 +214,20 @@ class Schema_Builder {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @return array<mixed> A list of each creation or update result.
+	 * @return array<string,mixed> A list of each creation or update result; empty if
+	 *                      the blog tables have already been updated in this request.
 	 */
-	public function update_blog_tables() {
-		return $this->up( false );
+	public function update_blog_tables( int $blog_id ): array {
+		if ( tribe_cache()[ 'ct1_schema_builder_update_blog_tables_' . $blog_id ] ) {
+			// Already up for this site in this request.
+			return [];
+		}
+
+		$result = $this->up( false );
+
+		tribe_cache()[ 'ct1_schema_builder_update_blog_tables_' . $blog_id ] = true;
+
+		return $result;
 	}
 
 	/**
@@ -240,6 +266,16 @@ class Schema_Builder {
 			$custom_table                           = $field_schema->table_schema();
 			$results[ $custom_table::table_name() ] = $field_schema->update();
 		}
+
+		/**
+		 * Runs after the custom tables have been created or updated by The Events Calendar.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,bool> $results A map from each table name to whether it was created or updated correctly.
+		 * @param bool               $force   Whether the tables were forced to be created or updated or not.
+		 */
+		do_action( 'tec_events_custom_tables_v1_schema_builder_after_up', $results, $force );
 
 		return count( $results ) ? array_merge( ...array_values( $results ) ) : [];
 	}
