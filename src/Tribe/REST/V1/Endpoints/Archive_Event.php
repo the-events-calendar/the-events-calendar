@@ -185,11 +185,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		$args = $this->parse_args( $args, $request->get_default_params() );
 
 		if ( $relative_dates ) {
-			if ( ! isset( $request['start_date'] ) ) {
+			$query_params = $request->get_query_params();
+			if ( ! isset( $query_params['start_date'] ) ) {
 				unset( $args['start_date'] );
 			}
 
-			if ( ! isset( $request['end_date'] ) ) {
+			if ( ! isset( $query_params['end_date'] ) ) {
 				unset( $args['end_date'] );
 			}
 		}
