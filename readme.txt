@@ -246,6 +246,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Tweak - Add an event property for if the event is currently happening. [TBD]
 * Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
+* Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
 
 = [6.0.1] 2022-09-22 =
 
