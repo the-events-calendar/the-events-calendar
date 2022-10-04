@@ -40,8 +40,19 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 6.0.1
 	 */
-	protected function hooks() {
+	protected function hooks(): void {
 		add_filter( 'tribe_post_id', [ $this, 'filter_tribe_post_id' ] );
+	}
+
+	/**
+	 * Unregisters the filters and actions required for this integration to work.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function unregister(): void {
+		remove_filter( 'tribe_post_id', [ $this, 'filter_tribe_post_id' ] );
 	}
 
 	/**
@@ -52,19 +63,17 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @param int $event_id The event ID.
 	 */
 	public function filter_tribe_post_id( $event_id ) {
-		// try the "normal" way first.
+		// Try the "normal" way first.
 		if ( empty( $event_id ) ) {
 			$event_id = get_the_ID();
 		}
 
-		// look for a post
+		// Look for a post in the query variables.
 		if ( ! tribe_is_event( $event_id ) && tribe_get_request_var( 'et_post_id' ) ) {
 			$event_id = tribe_get_request_var( 'et_post_id' );
 		}
 
 		if ( ! tribe_is_event( $event_id ) ) {
-			wp_reset_postdata();
-
 			$event_id = get_queried_object_id();
 		}
 
