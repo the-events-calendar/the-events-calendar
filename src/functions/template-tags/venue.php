@@ -304,19 +304,19 @@ function tribe_get_country( $postId = null ) {
  * @param bool $includeVenueName To include the venue name or not.
  * @return string                Formatted event address.
  */
-function tribe_get_full_address( $post_id = null, $includeVenueName = false ) {
-	$venue_id  = tribe_get_venue_id( $post_id );
-	$tec       = Tribe__Events__Main::instance();
+function tribe_get_full_address( $event_id = null, $includeVenueName = false ) {
+	$post_id  = tribe_get_venue_id( $event_id );
 
 	global $post;
 	if ( ! is_null( $post_id ) ) {
 		$tmp_post = $post;
 		$post     = get_post( $post_id );
 	}
+
 	ob_start();
 	tribe_get_template_part( 'modules/address' );
-	$address = ob_get_contents();
-	ob_end_clean();
+	$address = ob_get_clean();
+
 	if ( ! empty( $tmp_post ) ) {
 		$post = $tmp_post;
 	}
@@ -328,10 +328,10 @@ function tribe_get_full_address( $post_id = null, $includeVenueName = false ) {
 	 * @since 4.5.11 Added docblock; also added $venue_id and $includeVenueName to filter.
 	 *
 	 * @param string $address The formatted event address
-	 * @param int $venue_id The venue ID.
-	 * @param bool $includeVenueName To include the venue name or not.
+	 * @param int    $post_id The venue ID.
+	 * @param bool   $includeVenueName To include the venue name or not.
 	 */
-	return apply_filters( 'tribe_get_full_address', $address, $venue_id, $includeVenueName );
+	return apply_filters( 'tribe_get_full_address', $address, $post_id, $includeVenueName );
 }
 
 /**
