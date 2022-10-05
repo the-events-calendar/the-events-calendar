@@ -41,7 +41,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @since 6.0.1
 	 */
 	protected function hooks() {
-		add_filter( 'tribe_post_id', [ $this, 'filter_tribe_post_id' ] );
+//		add_filter( 'tribe_post_id', [ $this, 'filter_tribe_post_id' ] );
 	}
 
 	/**
