@@ -37,7 +37,7 @@ class Tribe__Events__Query {
 		if ( ! ( $context->is( 'is_main_query' ) && $context->is( 'tec_post_type' ) ) ) {
 			if ( ( (array) $query->get( 'post_type', [] ) ) === [ TEC::POSTTYPE ] ) {
 				// Not the main query in Event context, but it's an event query: check back later.
-				$query = add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
+				add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
 			}
 
 			return $query;
@@ -111,7 +111,7 @@ class Tribe__Events__Query {
 		}
 
 		// Hook reasonably late on the action that will fire next to filter and order Events by date, if required.
-		$query = add_filter( 'tribe_events_parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
+		add_filter( 'tribe_events_parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
 
 		/**
 		 * Fires after the query has been parsed by The Events Calendar.
@@ -439,16 +439,21 @@ class Tribe__Events__Query {
 	 *
 	 * @param WP_Query $query The query object to modify.
 	 *
-	 * @return WP_Query The modified query object.
+	 * @return void The query object is modified by reference.
 	 */
 	public static function filter_and_order_by_date( $query ) {
 		if ( ! $query instanceof WP_Query ) {
-			return $query;
+			return;
 		}
 
 		if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
 			// Filters were suppressed by others, bail.
-			return $query;
+			return;
+		}
+
+		// If this is a query for a single event, we don't need to order it.
+		if ( $query->is_single ) {
+			return;
 		}
 
 		// Work done: stop filtering.
@@ -458,7 +463,7 @@ class Tribe__Events__Query {
 
 		// If a clause on the '_Event(Start|End)Date(UTC)' meta key is present in any query variable, bail.
 		if ( ! empty( $query_vars ) && preg_match( '/_Event(Start|End)Date(UTC)?/', serialize( $query_vars ) ) ) {
-			return $query;
+			return;
 		}
 
 		/**
@@ -496,7 +501,5 @@ class Tribe__Events__Query {
 		// Duplicate the values on the `query` property of the query.
 		$query->query['meta_query'] = $query->query_vars['meta_query'];
 		$query->query['orderby'] = $query->query_vars['orderby'];
-
-		return $query;
 	}
 }
