@@ -73,7 +73,6 @@ class Custom_Tables_Query extends WP_Query {
 			 * @var Custom_Tables_Query_Filters $query_filters
 		     */
 			$query_filters = $wp_query->builder->filter_query;
-			$query_filters->set_query_var_mask( 'join', false );
 			$query_filters->set_query( $ct_query );
 		}
 
@@ -484,7 +483,12 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		global $wpdb;
-		$join .= " JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+		$str = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+
+		if ( strpos( $join, $str ) === false ) {
+			// Let's add the JOIN clause only if we did not already.
+			$join .= ' ' . $str;
+		}
 
 		return $join;
 	}

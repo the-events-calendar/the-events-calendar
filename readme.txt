@@ -248,6 +248,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add an event property for if the event is currently happening. [TBD]
 * Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
 * Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
+* Fix - Handle repository query filters correctly in custom tables context; fix a REST API issue. [TBD]
 
 = [6.0.1.1] 2022-09-29 =
 
