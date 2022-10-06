@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.4
-Stable tag: 6.0.1
+Stable tag: 6.0.2
 Tested up to: 6.0.2
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,7 +229,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+
+= [6.0.2] TBD =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
 * Fix - Correct a few misnamed custom prop references. [TEC-4445]
@@ -246,6 +247,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add an event property for if the event is currently happening. [TBD]
 * Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
 * Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
+
+= [6.0.1.1] 2022-09-29 =
+
+* Fix - Prevent Google Calendar duplicated Events from Importing with Aggregator. [TEC-4497]
 
 = [6.0.1] 2022-09-22 =
 
