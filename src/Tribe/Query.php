@@ -451,6 +451,11 @@ class Tribe__Events__Query {
 			return;
 		}
 
+		// If this is a query for a single event, we don't need to order it.
+		if ( $query->is_single ) {
+			return;
+		}
+
 		// Work done: stop filtering.
 		remove_filter( current_action(), [ __CLASS__, 'filter_and_order_by_date' ] );
 
