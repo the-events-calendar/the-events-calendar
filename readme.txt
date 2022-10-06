@@ -252,10 +252,6 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Prevent Google Calendar duplicated Events from Importing with Aggregator. [TEC-4497]
 
-= [6.0.1.1] 2022-09-29 =
-
-* Fix - Prevent Google Calendar duplicated Events from Importing with Aggregator. [TEC-4497]
-
 = [6.0.1] 2022-09-22 =
 
 * Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
