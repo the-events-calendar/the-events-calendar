@@ -349,4 +349,17 @@ class State {
 		] );
 		update_option( self::STATE_OPTION_KEY, $this->data );
 	}
+
+	/**
+	 * Returns whether the current phase is a migration dry-run or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current phase is a migration dry-run or not.
+	 */
+	public function is_dry_run(): bool {
+		$phase = $this->get_phase();
+
+		return $phase === self::PHASE_PREVIEW_IN_PROGRESS;
+	}
 }
