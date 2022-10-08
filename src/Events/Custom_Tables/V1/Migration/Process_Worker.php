@@ -938,12 +938,18 @@ class Process_Worker {
 			return $migrated;
 		}
 
+		/**
+		 * We don't want to trigger cancellation steps - we are still processing, just taking out of queue.
+		 */
+		remove_action( 'action_scheduler_canceled_action', [ tribe( Provider::class ), 'cancel_async_action' ] );
+
 		/** @var \ActionScheduler_Action $action */
 		foreach ( $actions as $action ) {
 			// Unschedule a pending action to migrate the Event now.
 			$hook = $action->get_hook();
 			$args = $action->get_args();
 			$group = $action->get_group();
+
 			$unscheduled = as_unschedule_action( $hook, $args, $group );
 
 			if ( empty( $unscheduled ) ) {

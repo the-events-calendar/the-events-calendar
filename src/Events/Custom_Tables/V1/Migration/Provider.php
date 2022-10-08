@@ -345,7 +345,10 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @return void Some Events might be migrated.
 	 */
 	public function migrate_events_on_js_poll(): void {
-		if ( ! tribe( State::class )->is_running() ) {
+		if ( ! in_array( $this->container->make( State::class )->get_phase(), [
+			State::PHASE_MIGRATION_IN_PROGRESS,
+			State::PHASE_PREVIEW_IN_PROGRESS
+		] ) ) {
 			return;
 		}
 

@@ -359,7 +359,15 @@ class State {
 	 */
 	public function is_dry_run(): bool {
 		$phase = $this->get_phase();
-
-		return $phase === self::PHASE_PREVIEW_IN_PROGRESS;
+		switch($phase) {
+			case State::PHASE_REVERT_COMPLETE:
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				return true;
+			default:
+				return false;
+		}
 	}
 }
