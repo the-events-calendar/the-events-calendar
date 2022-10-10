@@ -14,9 +14,11 @@ class TodayTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_label_and_link() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today_url' => 'http://test.tri.be',
-			'prev_rel'  => 'noindex',
-			'next_rel'  => 'noindex',
+			'today_url'   => 'http://test.tri.be',
+			'today_label' => 'Today',
+			'today_title' => 'Click to select today\'s date',
+			'prev_rel'    => 'noindex',
+			'next_rel'    => 'noindex',
 		] ) );
 	}
 }

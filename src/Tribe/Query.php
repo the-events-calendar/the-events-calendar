@@ -35,7 +35,28 @@ class Tribe__Events__Query {
 
 		// These are only required for Main Query stuff.
 		if ( ! ( $context->is( 'is_main_query' ) && $context->is( 'tec_post_type' ) ) ) {
-			if ( ( (array) $query->get( 'post_type', [] ) ) === [ TEC::POSTTYPE ] ) {
+
+			if ( $query->is_home() ) {
+				/**
+				 * The following filter will remove the virtual page from the option page and return a 0 as it's not
+				 * set when the SQL query is constructed to avoid having a is_page() instead of a is_home().
+				 */
+				add_filter( 'option_page_on_front', [ __CLASS__, 'default_page_on_front' ] );
+				// check option for including events in the main wordpress loop, if true, add events post type
+				if ( tribe_get_option( 'showEventsInMainLoop', false ) && ! get_query_var( 'tribe_events_front_page' ) ) {
+					$query->query_vars['post_type']   = isset( $query->query_vars['post_type'] )
+						? ( array ) $query->query_vars['post_type']
+						: [ 'post' ];
+
+					if ( ! in_array( Tribe__Events__Main::POSTTYPE, $query->query_vars['post_type'], true ) ) {
+						$query->query_vars['post_type'][] = Tribe__Events__Main::POSTTYPE;
+					}
+					$query->tribe_is_multi_posttype   = true;
+				}
+			}
+
+
+			if ( ( (array) $query->get( 'post_type', [] ) ) === [ Tribe__Events__Main::POSTTYPE ] ) {
 				// Not the main query in Event context, but it's an event query: check back later.
 				add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
 			}

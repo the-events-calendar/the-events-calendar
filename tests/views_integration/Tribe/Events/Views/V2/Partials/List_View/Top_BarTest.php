@@ -25,6 +25,8 @@ class Top_BarTest extends HtmlPartialTestCase
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'today_url'                  => 'http://test.tri.be',
+			'today_label'                => 'Today',
+			'today_title'                => 'Click to select today\'s date',
 			'is_now'                     => true,
 			'show_now'                   => true,
 			'now_label'                  => 'Now',
