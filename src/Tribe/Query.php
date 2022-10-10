@@ -56,7 +56,7 @@ class Tribe__Events__Query {
 			}
 
 
-			if ( ( (array) $query->get( 'post_type', [] ) ) === [  ] ) {
+			if ( ( (array) $query->get( 'post_type', [] ) ) === [ Tribe__Events__Main::POSTTYPE ] ) {
 				// Not the main query in Event context, but it's an event query: check back later.
 				add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
 			}
