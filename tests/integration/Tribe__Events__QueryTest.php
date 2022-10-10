@@ -98,8 +98,6 @@ class Tribe__Events__QueryTest extends \Codeception\TestCase\WPTestCase {
 		$query->query( [ 'post_type' => TEC::POSTTYPE ] );
 		$sql = $query->request;
 
-		codecept_debug( $sql );
-
 		$this->assertMatchesSnapshot( $sql );
 		$this->assertEquals( $by_start_date_ids, wp_list_pluck( $query->posts, 'ID' ) );
 	}
