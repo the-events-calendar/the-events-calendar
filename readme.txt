@@ -229,7 +229,6 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-
 = [6.0.2] TBD =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
