@@ -308,7 +308,7 @@ class Schema_Builder {
 		$schemas = $this->get_registered_table_schemas();
 		foreach ( $schemas as $custom_table ) {
 			/** @var Table_Schema_Interface $custom_table */
-			if ( class_exists( WP_CLI::class ) ) {
+			if ( class_exists( 'WP_CLI' ) ) {
 				WP_CLI::debug( 'Emptying table ' . $custom_table::table_name(), 'TEC' );
 			}
 			$custom_table->empty_table();
