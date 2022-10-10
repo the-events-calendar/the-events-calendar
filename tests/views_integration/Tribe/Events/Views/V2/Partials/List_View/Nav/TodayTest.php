@@ -14,7 +14,9 @@ class TodayTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_context() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today_url' => 'http://test.tri.be',
+			'today_url'   => 'http://test.tri.be',
+			'today_label' => 'Today',
+			'today_title' => 'Click to select today\'s date',
 		] ) );
 	}
 }
