@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.2] TBD =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
+* Fix - Revert the code erroneous removed on legacy views removal around the "Show events with the site's other posts" setting.
 * Fix - Resolve problems with tribe_get_full_address() which was not properly returning venue address.
 * Fix - Correct a few misnamed custom prop references. [TEC-4445]
 * Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TBD]
