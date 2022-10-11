@@ -1063,7 +1063,7 @@ class Builder {
 	 * @return $this
 	 */
 	public function order_by( $column = null, $order = 'ASC' ) {
-		if ( in_array( $order, [ 'ASC', 'DESC' ], true ) ) {
+		if ( in_array( strtoupper( $order ), [ 'ASC', 'DESC' ], true ) ) {
 			$this->order = [
 				'column' => null === $column ? $this->model->primary_key_name() : $column,
 				'order'  => $order,

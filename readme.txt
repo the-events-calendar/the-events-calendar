@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.4
-Stable tag: 6.0.1
+Stable tag: 6.0.2
 Tested up to: 6.0.2
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,9 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.2] TBD =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
+* Fix - Revert the code erroneous removed on legacy views removal around the "Show events with the site's other posts" setting.
+* Fix - Resolve problems with tribe_get_full_address() which was not properly returning venue address.
 * Fix - Correct a few misnamed custom prop references. [TEC-4445]
 * Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TBD]
 * Fix - Ensure we handle if By_Day_View gets a null $event_obj->dates. Props to @juliangumenita for the fix! [TBD]
@@ -241,9 +243,20 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
 * Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
 * Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
+* Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
+* Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Tweak - Add an event property for if the event is currently happening. [TBD]
+* Tweak - Create a filterable function `tec_events_get_today_button_label()` for the text on the "Today" button on calendar views. [TEC-4458]
+* Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
+* Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
+                         `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
+
+
+= [6.0.1.1] 2022-09-29 =
+
+* Fix - Prevent Google Calendar duplicated Events from Importing with Aggregator. [TEC-4497]
 
 = [6.0.1] 2022-09-22 =
 
