@@ -8,6 +8,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use ActionScheduler_Store;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
@@ -100,7 +101,7 @@ class Process_Worker {
 	 */
 	public function __construct( Events $events, State $state ) {
 		$this->events = $events;
-		$this->state  = $state;
+		$this->state = $state;
 	}
 
 	/**
@@ -401,8 +402,8 @@ class Process_Worker {
 
 		// If error in the migration phase or fail on first error flag, then we need to stop the queue.
 		$did_migration_error = ( $fail_on_first_error && $this->event_report->error );
-		$continue_queue      = $did_migration_error ? false : true;
-		$next_post_id        = null;
+		$continue_queue = $did_migration_error ? false : true;
+		$next_post_id = null;
 
 		if ( $continue_queue ) {
 			// Get next event to process.
@@ -441,7 +442,7 @@ class Process_Worker {
 		}
 
 		// Do not hold a reference to the Report once the worker is done.
-		$event_report       = $this->event_report;
+		$event_report = $this->event_report;
 		$this->event_report = null;
 
 		// Log our worker ending
@@ -485,7 +486,7 @@ class Process_Worker {
 			$meta['started_timestamp'] = time();
 		}
 
-		$seconds_to_wait  = 60 * 5; // 5 minutes
+		$seconds_to_wait = 60 * 5; // 5 minutes
 		$max_time_reached = ( time() - $meta['started_timestamp'] ) > $seconds_to_wait;
 
 		// Are we still processing some events? If so, recurse and wait to do the undo operation.
@@ -534,8 +535,8 @@ class Process_Worker {
 			case State::PHASE_CANCEL_IN_PROGRESS:
 			case State::PHASE_REVERT_IN_PROGRESS:
 				$is_cancel = $current_phase === State::PHASE_CANCEL_IN_PROGRESS;
-				$text      = tribe( String_Dictionary::class );
-				$notice    = $text->get( $is_cancel ? 'cancel-migration-complete-notice' : 'revert-migration-complete-notice' );
+				$text = tribe( String_Dictionary::class );
+				$notice = $text->get( $is_cancel ? 'cancel-migration-complete-notice' : 'revert-migration-complete-notice' );
 
 				Tribe__Admin__Notices::instance()->register_transient(
 					'admin_notice_undo_migration_complete',
@@ -596,8 +597,8 @@ class Process_Worker {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param int    $errno  The error code.
-	 * @param string $errstr The error message.
+	 * @param int    $errno   The error code.
+	 * @param string $errstr  The error message.
 	 * @param string $errfile The file the error occurred in.
 	 *
 	 * @return bool A value indicating whether the error handler handled the erorr or not..
@@ -661,7 +662,7 @@ class Process_Worker {
 			'phase'  => $state->get_phase(),
 		] );
 
-		$phase               = $state->get_phase();
+		$phase = $state->get_phase();
 		$migration_completed = in_array(
 			                       $phase, [
 			                       State::PHASE_MIGRATION_IN_PROGRESS,
@@ -890,5 +891,81 @@ class Process_Worker {
 		update_post_meta( $post_id, '_EventEndDate', $event_end_date );
 		update_post_meta( $post_id, '_EventStartDateUTC', $event_start_date_utc );
 		update_post_meta( $post_id, '_EventEndDateUTC', $event_end_date_utc );
+	}
+
+	/**
+	 * Migrates up to a number of not yet migrated Events.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $count The number of Events to migrate, at the most.
+	 *
+	 * @return int The number of migrated Events.
+	 */
+	public function migrate_many_events( int $count ): int {
+		if ( $count <= 0 ) {
+			return 0;
+		}
+
+		$free_ids = $this->events->get_ids_to_process( $count );
+		$dry_run = $this->state->is_dry_run();
+		$migrated = 0;
+
+		if ( count( $free_ids ) > 0 ) {
+			// We might have less free ids than we want but have some, roll with it.
+			foreach ( $free_ids as $post_id ) {
+				$report = $this->migrate_event( $post_id, $dry_run );
+				$migrated ++;
+
+				if ( ! ( $report instanceof Event_Report && $report->status === 'success' ) ) {
+					// We have an error, stop here.
+					break;
+				}
+			}
+
+			return $migrated;
+		}
+
+		// We have no free ids, let's see if we can grab some from the Action Scheduler actions.
+		$actions = as_get_scheduled_actions( [
+			'hook'     => self::ACTION_PROCESS,
+			'status'   => ActionScheduler_Store::STATUS_PENDING,
+			'per_page' => $count,
+		] );
+
+		if ( count( $actions ) === 0 ) {
+			// We have no pending actions, we're done.
+			return $migrated;
+		}
+
+		/**
+		 * We don't want to trigger cancellation steps - we are still processing, just taking out of queue.
+		 */
+		remove_action( 'action_scheduler_canceled_action', [ tribe( Provider::class ), 'cancel_async_action' ] );
+
+		/** @var \ActionScheduler_Action $action */
+		foreach ( $actions as $action ) {
+			// Unschedule a pending action to migrate the Event now.
+			$hook = $action->get_hook();
+			$args = $action->get_args();
+			$group = $action->get_group();
+
+			$unscheduled = as_unschedule_action( $hook, $args, $group );
+
+			if ( empty( $unscheduled ) ) {
+				// The action might have been executed in the meantime, skip it.
+				continue;
+			}
+
+			$report = $this->migrate_event( ...$args );
+			$migrated ++;
+
+			if ( ! ( $report instanceof Event_Report && $report->status === 'success' ) ) {
+				// We have an error, stop here.
+				break;
+			}
+		}
+
+		return $migrated;
 	}
 }

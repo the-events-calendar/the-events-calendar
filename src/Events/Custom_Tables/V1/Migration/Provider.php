@@ -61,6 +61,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Process_Worker::ACTION_CHECK_PHASE, [ $this, 'check_migration_phase' ], 10, 2 );
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
+		// Before the JSON report is dispatched (and the request exits) migrate some events.
+		add_action( Ajax::ACTION_REPORT, [ $this, 'migrate_events_on_js_poll' ], 9 );
 		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
 		add_action( Ajax::ACTION_PAGINATE_EVENTS, [ $this, 'paginate_events' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
@@ -333,5 +335,37 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function load_action_scheduler_late() {
 		$action_scheduler_file = TEC::instance()->plugin_path . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 		require_once $action_scheduler_file;
+	}
+
+	/**
+	 * Piggy-back on the Migration UI JS component polling of the backend to migrate some events, if possible.
+	 *
+	 * @since TBD
+	 *
+	 * @return void Some Events might be migrated.
+	 */
+	public function migrate_events_on_js_poll(): void {
+		if ( ! in_array( $this->container->make( State::class )->get_phase(), [
+			State::PHASE_MIGRATION_IN_PROGRESS,
+			State::PHASE_PREVIEW_IN_PROGRESS
+		] ) ) {
+			return;
+		}
+
+		/**
+		 * Filters how many Events should be migrated in a single AJAX request to the Migration UI backend.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $count The number of Events to migrate on the migration UI JS component polling; returning
+		 *                   `0` will disable the functionality.
+		 */
+		$count = apply_filters( 'tec_events_custom_tables_v1_migration_js_poll_count', 10 );
+
+		if ( ! $count ) {
+			return;
+		}
+
+		$this->container->make( Process_Worker::class )->migrate_many_events( $count );
 	}
 }
