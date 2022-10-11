@@ -229,7 +229,6 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-
 = [6.0.2] TBD =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
@@ -241,13 +240,17 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
 * Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
 * Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
-* Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
+* Fix - Do not throw errors during migration when notices or errors come from other plugins. [ECP-1318]
 * Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
 * Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
 * Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
 * Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
 * Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
 * Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
+* Tweak - Move Month View day cell class logic to a standalone function with filters. [TBD]
+* Tweak - Add new method: `\Tribe\Events\Views\V2\month_day_classes` [TBD]
+* Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons.
+* Tweak - Added filter `tec_events_month_day_classes` to filter the actual class list before it gets passed to the template.
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Tweak - Add an event property for if the event is currently happening. [TBD]
