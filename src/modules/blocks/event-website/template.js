@@ -23,7 +23,8 @@ const { URLInput } = wpEditor;
  * Module Code
  */
 
-const placeholder = __( 'Add Event Website', 'the-events-calendar' );
+const placeholder = __( 'Button text', 'the-events-calendar' );
+const urlPlaceholder = __( 'website URL', 'the-events-calendar' );
 
 const renderUrlInput = ( { isSelected, url, setWebsite } ) => (
 	isSelected && (
@@ -33,6 +34,7 @@ const renderUrlInput = ( { isSelected, url, setWebsite } ) => (
 				autoFocus={ false } // eslint-disable-line jsx-a11y/no-autofocus
 				value={ url }
 				onChange={ setWebsite }
+				placeholder={ urlPlaceholder }
 			/>
 		</div>
 	)
