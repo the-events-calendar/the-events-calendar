@@ -258,7 +258,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
 * Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
                          `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
-* Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TBD]
+* Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TEC-4517]
 
 = [6.0.1.1] 2022-09-29 =
 
