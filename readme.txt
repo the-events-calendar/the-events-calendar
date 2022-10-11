@@ -244,9 +244,11 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
 * Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
 * Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
+* Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
 * Tweak - Move Month View day cell class logic to a standalone function with filters. [TBD]
 * Tweak - Add new method: `\Tribe\Events\Views\V2\month_day_classes` [TBD]
-* Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
+* Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons.
+* Tweak - Added filter `tec_events_month_day_classes` to filter the actual class list before it gets passed to the template.
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Tweak - Add an event property for if the event is currently happening. [TBD]
@@ -274,8 +276,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct an issue with migrating past events that straddle Daylight Savings Time. [ECP-1270]
 * Fix - Fix the Community Events recurrence link. [ECP-1215]
 * Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
-* Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons.
-* Tweak - Added filter `tec_events_month_day_classes` to filter the actual class list before it gets passed to the template.
 * Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
 * Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
 * Tweak - Add compatibility for new "Convert to single" option in The Events Calendar PRO. [ECP-1308]
