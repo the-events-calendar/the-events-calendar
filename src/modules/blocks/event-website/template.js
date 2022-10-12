@@ -23,7 +23,8 @@ const { URLInput } = wpEditor;
  * Module Code
  */
 
-const placeholder = __( 'Button text', 'the-events-calendar' );
+const placeholder = __( 'Add Event Website', 'the-events-calendar' );
+const buttonPlaceholder = __( 'Button text', 'the-events-calendar' );
 const urlPlaceholder = __( 'website URL', 'the-events-calendar' );
 
 const renderUrlInput = ( { isSelected, url, setWebsite } ) => (
@@ -63,7 +64,7 @@ const renderLabelInput = ( { isSelected, attributes, setAttributes } ) => {
 				id="tribe-events-website-link"
 				className={ inputClassNames }
 				value={ attributes.urlLabel }
-				placeholder={ placeholder }
+				placeholder={ isSelected ? buttonPlaceholder : placeholder }
 				onChange={ setLabel }
 			/>
 		</div>
@@ -89,8 +90,13 @@ const EventWebsite = ( props ) => {
 		? renderPlaceholder()
 		: [ renderLabelInput( props ), renderUrlInput( props ) ];
 
+	const blockContainerClassNames = classNames( {
+		'tribe-editor__block tribe-editor__event-website': true,
+		'tribe-editor__event-website--selected': isSelected,
+	} );
+
 	return (
-		<div className="tribe-editor__block tribe-editor__event-website">
+		<div className={ blockContainerClassNames }>
 			{ eventWebsite }
 		</div>
 	);

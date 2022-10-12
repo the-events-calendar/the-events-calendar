@@ -68,20 +68,67 @@
 }
 
 .tribe-editor__event-website__url {
-	display: flex;
 	align-items: center;
-	margin-top: 5px;
+	display: flex;
+	padding-left: var(--tec-spacer-1);
 
 	.dashicon {
+		color: var(--tec-color-accent-primary);
 		margin-right: 6px;
 	}
 
 	input {
 		background-color: transparent;
+		margin-bottom: -6px;
 
 		&:hover,
 		&:focus {
 			background-color: #fff;
+		}
+	}
+}
+
+.tribe-editor__event-website {
+	display: flex;
+	justify-content: space-between;
+
+	#tribe-events-website-link {
+		min-width: calc(100% - 35px);
+	}
+
+	&--selected {
+		border: 1px solid #E5E8EB;
+
+		.tribe-editor__event-website__label-text {
+			#tribe-events-website-link {
+				background-color: transparent;
+				border: none;
+				border-radius: 0;
+				color: var(--tec-color-text-primary);
+				font-size: var(--tec-font-size-4);
+				font-weight: 400;
+				min-height: 40px;
+				padding: 0 20px;
+
+				&::placeholder {
+					color: var(--tec-color-text-primary);
+				}
+			}
+		}
+
+		.tribe-editor__event-website__url {
+			position: relative;
+
+			&::before {
+				background-color: #E5E8EB;
+				bottom: 15%;
+				content: '';
+				height: 60%;
+				left: -15px;
+				position: absolute;
+				top: 15%;
+				width: 2px;
+			}
 		}
 	}
 }
