@@ -34,13 +34,17 @@ class Clear_Event_Cache {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 	 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
+	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 	 *                                             plugins at this stage.
 	 *
 	 * @return null|array<WP_Post|int> The filtered value of the posts, injected before the query actually runs.
 	 */
 	public function filter_posts_pre_query( $posts = null, $wp_query = null ) {
+		if ( ! $wp_query instanceof WP_Query ) {
+			return $posts;
+		}
+
 		$cache_hash = md5( serialize( $wp_query->query ) );
 
 		if ( $wp_query->request !== 'SELECT * FROM wp_posts WHERE ID IN(0)' ) {
