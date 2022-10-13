@@ -47,7 +47,6 @@ class Clear_Event_Cache {
 			if ( ! empty( $posts ) ) {
 				wp_cache_add( $cache_hash, $posts, static::$cache_group_key );
 			}
-			return $posts;
 		}
 
 		$posts = wp_cache_get( $cache_hash, static::$cache_group_key );
@@ -56,7 +55,9 @@ class Clear_Event_Cache {
 		}
 
 		$post = reset( $posts );
-		clean_post_cache( $post->ID );
+		if ( $post instanceof WP_Post ) {
+			clean_post_cache( $post );
+		}
 
 		return $posts;
 	}
