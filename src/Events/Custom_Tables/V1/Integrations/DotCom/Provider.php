@@ -2,7 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Integrations\DotCom;
 
-use tad_DI52_ServiceProvider;
+use tad_DI52_ServiceProvider as Service_Provider;
 use WP_Query;
 use WP_Post;
 
@@ -13,27 +13,16 @@ use WP_Post;
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations\DotCom
  */
-class Provider extends tad_DI52_ServiceProvider {
+class Provider extends Service_Provider {
 
 	/**
 	 * @inheritDoc
 	 */
 	public function register() {
-		// Ensures that the integration only does anything when in WP.com environment.
-		if ( ! defined( 'WPCOMSH_VERSION' ) ) {
-			return;
-		}
-
-		$this->hook();
-	}
-
-	/**
-	 * Hooks all the actions and filters.
-	 *
-	 * @since TBD
-	 */
-	protected function hook(): void {
-		add_filter( 'tec_events_custom_tables_v1_events_only_modifier_filter_posts_pre_query', [ $this, 'filter_posts_pre_query' ], 101, 2 );
+		add_filter( 'tec_events_custom_tables_v1_events_only_modifier_filter_posts_pre_query', [
+			$this,
+			'filter_posts_pre_query'
+		], 101, 2 );
 	}
 
 	/**
@@ -41,12 +30,16 @@ class Provider extends tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 */
-	protected function unhook(): void {
-		remove_filter( 'tec_events_custom_tables_v1_events_only_modifier_filter_posts_pre_query', [ $this, 'filter_posts_pre_query' ], 101 );
+	protected function unregister(): void {
+		remove_filter( 'tec_events_custom_tables_v1_events_only_modifier_filter_posts_pre_query', [
+			$this,
+			'filter_posts_pre_query'
+		], 101 );
 	}
 
 	/**
-	 * Clears the Single Event Post Cache due to how weirdly broken cache ends up for WP.com single event due to occurrences.
+	 * Clears the Single Event Post Cache due to how weirdly broken cache ends up for WP.com single event due to
+	 * occurrences.
 	 *
 	 * @since TBD
 	 *
