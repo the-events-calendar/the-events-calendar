@@ -10,7 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\Integrations;
 
 
-use tad_DI52_ServiceProvider;
+use tad_DI52_ServiceProvider as Service_Provider;
 
 /**
  * Class Provider
@@ -19,7 +19,7 @@ use tad_DI52_ServiceProvider;
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
-class Provider extends tad_DI52_ServiceProvider {
+class Provider extends Service_Provider {
 	/**
 	 * Registers the Service Providers required for the plugin to work with other plugins.
 	 *
@@ -29,6 +29,11 @@ class Provider extends tad_DI52_ServiceProvider {
 		// Class defined by the Event Events plugin.
 		if ( class_exists( '\\TEC\\Event_Tickets\\Custom_Tables\\V1\\Provider' ) ) {
 			$this->container->register( \TEC\Tickets\Custom_Tables\V1\Provider::class );
+		}
+
+		if ( defined( 'WPCOMSH_VERSION' ) ) {
+			// WP.com specific integrations.
+			$this->container->register( Dot_Com\Provider::class );
 		}
 	}
 }
