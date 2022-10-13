@@ -249,6 +249,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolve problems with tribe_get_full_address() which was not properly returning venue address.
 * Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
 * Fix - Revert the code erroneous removed on legacy views removal around the "Show events with the site's other posts" setting.
+* Fix - Prevent a potential fatal when WP-CLI isn't present. [TEC-4470]
 * Tweak - Move Month View day cell class logic to a standalone function with filters. [TEC-4457]
 * Tweak - Add new method: `\Tribe\Events\Views\V2\month_day_classes` [TEC-4457]
 * Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons. [TEC-4457]
