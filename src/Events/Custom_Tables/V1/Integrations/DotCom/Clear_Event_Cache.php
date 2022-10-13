@@ -21,6 +21,15 @@ use WP_Post;
 class Clear_Event_Cache {
 
 	/**
+	 * The cache group key for the WP.com event caching.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $cache_group_key = 'tec_wpcom_queries';
+
+	/**
 	 * Clears the Single Event Post Cache due to how weirdly broken cache ends up for WP.com single event due to occurrences.
 	 *
 	 * @since TBD
@@ -32,35 +41,23 @@ class Clear_Event_Cache {
 	 * @return null|array<WP_Post|int> The filtered value of the posts, injected before the query actually runs.
 	 */
 	public function filter_posts_pre_query( $posts = null, $wp_query = null ) {
-		if ( $wp_query->request !== 'SELECT * FROM wp_post WHERE ID IN(0)' ) {
+		$cache_hash = md5( serialize( $wp_query->query ) );
+
+		if ( $wp_query->request !== 'SELECT * FROM wp_posts WHERE ID IN(0)' ) {
+			if ( ! empty( $posts ) ) {
+				wp_cache_add( $cache_hash, $posts, static::$cache_group_key );
+			}
 			return $posts;
 		}
 
-		$args = $wp_query->query;
-		$random_post_id = $this->get_random_post_id_nonexistent();
-		$args['post__not_in'] = $random_post_id;
-		$posts = get_posts( $args );
+		$posts = wp_cache_get( $cache_hash, static::$cache_group_key );
+		if ( empty( $posts ) ) {
+			return $posts;
+		}
+
 		$post = reset( $posts );
 		clean_post_cache( $post->ID );
 
 		return $posts;
 	}
-
-	/**
-	 * Gets a non-existent post ID for the purposes of purging cache for the wp_query.
-	 *
-	 * @since TBD
-	 *
-	 * @return int
-	 */
-	protected function get_random_post_id_nonexistent(): int {
-		// will find an ID that doesn't exist.
-		do {
-			$post_id = random_int( 500000, 1000000 );
-			$post = get_post( $post_id );
-		} while( $post instanceof WP_Post );
-
-		return $post_id;
-	}
-
 }
