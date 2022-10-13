@@ -33,7 +33,7 @@ class Provider extends tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	protected function hook(): void {
-		add_filter( 'tec_events_custom_tables_v1_filter_posts_pre_query', [ $this, 'filter_posts_pre_query' ], 101, 2 );
+		add_filter( 'tec_events_custom_tables_v1_events_only_modifier_filter_posts_pre_query', [ $this, 'filter_posts_pre_query' ], 101, 2 );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Provider extends tad_DI52_ServiceProvider {
 	 * @since TBD
 	 */
 	protected function unhook(): void {
-		remove_filter( 'tec_events_custom_tables_v1_filter_posts_pre_query', [ $this, 'filter_posts_pre_query' ], 101 );
+		remove_filter( 'tec_events_custom_tables_v1_events_only_modifier_filter_posts_pre_query', [ $this, 'filter_posts_pre_query' ], 101 );
 	}
 
 	/**
