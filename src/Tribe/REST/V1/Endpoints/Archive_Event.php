@@ -28,6 +28,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'starts_after' => 'starts_after',
 		'ends_before' => 'ends_before',
 		'ends_after' => 'ends_after',
+		'ticketed' => 'ticketed',
 	];
 
 	/**
@@ -100,6 +101,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$args['post_parent'] = $request['post_parent'];
+
+		$args['ticketed'] = $request['ticketed'];
 
 
 		// Allow REST API users to define the default behavior of the inclusive date parameters.

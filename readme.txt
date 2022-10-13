@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Feat - Support the `strict_dates` REST API argument in the `/events` endpoint to control the inclusiveness of the date parameters. [TEC-4493]
 * Feat - Support relative date parameters (e.g: `starts_before`, `ends_after` as REST API arguments in the `/events` endpoint to retrieve single day and multi-day events in a single search. [TEC-4493]
+* Fix - Handle repository query filters correctly in custom tables context; fix a REST API issue. [ET-1567]
 
 = [6.0.1.1] 2022-09-29 =
 
