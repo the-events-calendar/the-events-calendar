@@ -90,7 +90,7 @@ class Events_Only_Modifier extends Base_Modifier {
 
 		$this->done();
 
-		return $posts;
+		return apply_filters( 'tec_events_custom_tables_v1_filter_posts_pre_query', $posts, $wp_query );
 	}
 
 	/**
