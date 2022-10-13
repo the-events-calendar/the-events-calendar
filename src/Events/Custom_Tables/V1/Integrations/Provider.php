@@ -33,7 +33,7 @@ class Provider extends Service_Provider {
 
 		if ( defined( 'WPCOMSH_VERSION' ) ) {
 			// WP.com specific integrations.
-			$this->container->register( DotCom\Provider::class );
+			$this->container->register( Dot_Com\Provider::class );
 		}
 	}
 }

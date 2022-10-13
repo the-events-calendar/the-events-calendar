@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [ [TEC-4457]]
 * Feature - Support the `strict_dates` REST API argument in the `/events` endpoint to control the inclusiveness of the date parameters. [TEC-4493]
 * Feature - Support relative date parameters (e.g: `starts_before`, `ends_after` as REST API arguments in the `/events` endpoint to retrieve single day and multi-day events in a single search. [TEC-4493]
+* Fix - Prevent problems with WordPress.com Memcache turning Event Single Pages into 404s after the first visit [TEC-4488]
 * Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TEC-4518]
 * Fix - Avoid resetting post data in some Dive theme and plugins. [TEC-4510]
 * Fix - Correct a few misnamed custom prop references. [TEC-4445]

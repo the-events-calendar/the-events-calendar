@@ -7,7 +7,7 @@
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
 
-namespace TEC\Events\Custom_Tables\V1\Integrations\DotCom;
+namespace TEC\Events\Custom_Tables\V1\Integrations\Dot_Com;
 
 use WP_Query;
 use WP_Post;

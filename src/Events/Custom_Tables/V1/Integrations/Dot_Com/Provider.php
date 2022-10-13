@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Events\Custom_Tables\V1\Integrations\DotCom;
+namespace TEC\Events\Custom_Tables\V1\Integrations\Dot_Com;
 
 use tad_DI52_ServiceProvider as Service_Provider;
 use WP_Query;
@@ -43,8 +43,8 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 	 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
+	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 	 *                                             plugins at this stage.
 	 *
 	 * @return null|array<WP_Post|int> The filtered value of the posts, injected before the query actually runs.
