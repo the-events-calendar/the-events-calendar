@@ -472,6 +472,10 @@ class Tribe__Events__Query {
 			return;
 		}
 
+		if ( ! in_array( Tribe__Events__Main::POSTTYPE, (array) $query->get( 'post_type', [] ) ) ) {
+			return;
+		}
+
 		// If this is a query for a single event, we don't need to order it.
 		if ( $query->is_single ) {
 			return;
