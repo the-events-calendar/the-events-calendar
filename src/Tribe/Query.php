@@ -467,6 +467,11 @@ class Tribe__Events__Query {
 			return;
 		}
 
+		if ( (array) $query->get( 'post_type' ) !== [ TEC::POSTTYPE ] ) {
+			// Not an Event only query.
+			return;
+		}
+
 		if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
 			// Filters were suppressed by others, bail.
 			return;
