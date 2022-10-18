@@ -93,7 +93,7 @@
 	justify-content: space-between;
 
 	#tribe-events-website-link {
-		min-width: calc(100% - 35px);
+		min-width: calc(100% - 25px);
 	}
 
 	&--selected {
@@ -107,6 +107,7 @@
 				color: var(--tec-color-text-primary);
 				font-size: var(--tec-font-size-4);
 				font-weight: 400;
+				max-width: 205px;
 				min-height: 40px;
 				padding: 0 20px;
 
@@ -131,4 +132,8 @@
 			}
 		}
 	}
+}
+
+.tribe-editor__block.tribe-editor__event-website .tribe-editor__event-website__label-text input {
+	padding: 0 13px 0 20px;
 }
