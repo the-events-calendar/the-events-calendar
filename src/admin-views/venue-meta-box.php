@@ -191,7 +191,7 @@ do_action( 'tribe_events_venue_before_metabox', $post );
 			name='venue[URL]'
 			size='14'
 			tabindex="<?php tribe_events_tab_index(); ?>"
-			type='url'
+			type='text'
 			value='<?php echo ( isset( $_VenueURL ) ? esc_attr( $_VenueURL ) : '' ); ?>'
 		/>
 	</td>
