@@ -90,7 +90,7 @@ trait CT1_Fixtures {
 	/**
 	 * @return \WP_Post
 	 */
-	private function given_a_non_migrated_single_event( $override_event_args = [] ) {
+	private function given_a_non_migrated_single_event( $override_event_args = [] ): \WP_Post {
 		// Create an Event.
 		$timezone   = new \DateTimeZone( 'Europe/Paris' );
 		$utc        = new \DateTimeZone( 'UTC' );

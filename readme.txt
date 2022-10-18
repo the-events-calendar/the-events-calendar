@@ -235,28 +235,37 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.2] TBD =
 
-* Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [TBD]
-* Fix - Revert the code erroneous removed on legacy views removal around the "Show events with the site's other posts" setting.
-* Fix - Resolve problems with tribe_get_full_address() which was not properly returning venue address.
+* Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [ [TEC-4457]]
+* Feature - Support the `strict_dates` REST API argument in the `/events` endpoint to control the inclusiveness of the date parameters. [TEC-4493]
+* Feature - Support relative date parameters (e.g: `starts_before`, `ends_after` as REST API arguments in the `/events` endpoint to retrieve single day and multi-day events in a single search. [TEC-4493]
+* Fix - Prevent problems with WordPress.com Memcache turning Event Single Pages into 404s after the first visit [TEC-4488]
+* Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TEC-4518]
+* Fix - Avoid resetting post data in some Dive theme and plugins. [TEC-4510]
 * Fix - Correct a few misnamed custom prop references. [TEC-4445]
-* Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TBD]
-* Fix - Ensure we handle if By_Day_View gets a null $event_obj->dates. Props to @juliangumenita for the fix! [TBD]
-* Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
-* Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
-* Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
-* Fix - Do not throw during migration when notices or errors come from other plugins. [ECP-1318]
 * Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
-* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
-* Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [BTRIA-1385]
-* Fix - Avoid resetting post data in some Dive theme and plugins. [BTRIA-1397]
+* Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
+* Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [TEC-4508]
+* Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
+* Fix - Do not throw errors during migration when notices or errors come from other plugins. [ECP-1318]
+* Fix - Ensure `tribe_is_month` and `tribe_is_by_date` work as expected. [TEC-4509]
+* Fix - Ensure we handle if By_Day_View gets a null $event_obj->dates. Props to @juliangumenita for the fix! [TEC-4509]
+* Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
+* Fix - Resolve problems with tribe_get_full_address() which was not properly returning venue address.
+* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4470]
+* Fix - Revert the code erroneous removed on legacy views removal around the "Show events with the site's other posts" setting.
+* Fix - Prevent a potential fatal when WP-CLI isn't present. [TEC-4470]
+* Tweak - Move Month View day cell class logic to a standalone function with filters. [TEC-4457]
+* Tweak - Add new method: `\Tribe\Events\Views\V2\month_day_classes` [TEC-4457]
+* Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons. [TEC-4457]
+* Tweak - Added filter `tec_events_month_day_classes` to filter the actual class list before it gets passed to the template. [TEC-4457]
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
-* Tweak - Add an event property for if the event is currently happening. [TBD]
+* Tweak - Add an event property for if the event is currently happening. [TEC-4454]
 * Tweak - Create a filterable function `tec_events_get_today_button_label()` for the text on the "Today" button on calendar views. [TEC-4458]
 * Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
 * Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
                          `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
-
+* Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TEC-4517]
 
 = [6.0.1.1] 2022-09-29 =
 
@@ -377,7 +386,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.15.0.1] 2022-05-23 =
 
-* Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [BTRIA-1243]
+* Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [TEC-4376]
 * Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
 
 = [5.15.0] 2022-05-19 =

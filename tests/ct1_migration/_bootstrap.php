@@ -14,8 +14,24 @@ if ( function_exists( 'uopz_allow_exit' ) ) {
 	uopz_allow_exit( true );
 }
 
+if ( ! function_exists( 'tec_ct1_migration_as_truncate_tables' ) ) {
+	function tec_ct1_migration_as_truncate_tables(): void {
+		global $wpdb;
+		$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 0' );
+		foreach ( $wpdb->get_col( 'SHOW TABLES' ) as $table ) {
+			if ( 0 === strpos( $table, $wpdb->prefix . 'actionscheduler_' ) ) {
+				$truncated = $wpdb->query( 'TRUNCATE TABLE ' . $table );
+				if ( $truncated === false ) {
+					throw new RuntimeException( 'Could not truncate table ' . $table );
+				}
+			}
+		}
+		$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 1' );
+	}
+}
+
 // Since we do not drop and import the DB dump after each test, let's do a lighter cleanup here.
-$clean_after_test = static function () {
+$clean_custom_tables = static function () {
 	global $wpdb;
 	$last_error        = $wpdb->last_error;
 	$occurrences_table = Occurrences::table_name( true );
@@ -48,14 +64,10 @@ $clean_after_test = static function () {
 	importDumpWithMysqlBin( __DIR__ . '/../_data/ct1_migration/options_dump.sql', DB_NAME, DB_USER, DB_PASSWORD, DB_HOST );
 
 	// Empty all Action Scheduler tables.
-	$all_tables = (array) $wpdb->get_col( 'SHOW TABLES' );
-	foreach ( $all_tables as $table ) {
-		if ( 0 === strpos( $table, $wpdb->prefix . 'actionscheduler_' ) ) {
-			$wpdb->query( 'TRUNCATE TABLE ' . $table );
-		}
-	}
+	tec_ct1_migration_as_truncate_tables();
 };
-addListener( Codeception\Events::TEST_AFTER, $clean_after_test );
+addListener( Codeception\Events::TEST_AFTER, $clean_custom_tables );
+addListener( Codeception\Events::SUITE_BEFORE, $clean_custom_tables );
 
 addListener( Codeception\Events::SUITE_BEFORE, static function () {
 	// Ensure the CT1 code branch is enabled.

@@ -90,7 +90,16 @@ class Events_Only_Modifier extends Base_Modifier {
 
 		$this->done();
 
-		return $posts;
+		/**
+		 * Allow filtering just for when applied the Events Only Modifier.
+		 *
+		 * @since TBD
+		 *
+		 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
+		 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
+		 *                                             plugins at this stage.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_events_only_modifier_filter_posts_pre_query', $posts, $wp_query );
 	}
 
 	/**
