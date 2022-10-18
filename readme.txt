@@ -247,7 +247,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure we handle if By_Day_View gets a null $event_obj->dates. Props to @juliangumenita for the fix! [TEC-4509]
 * Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
 * Fix - Resolve problems with tribe_get_full_address() which was not properly returning venue address.
-* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4770]
+* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4470]
 * Fix - Revert the code erroneous removed on legacy views removal around the "Show events with the site's other posts" setting.
 * Fix - Prevent a potential fatal when WP-CLI isn't present. [TEC-4470]
 * Tweak - Move Month View day cell class logic to a standalone function with filters. [TEC-4457]

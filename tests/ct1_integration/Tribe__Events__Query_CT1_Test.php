@@ -6,6 +6,7 @@ use Tribe\Events\Test\Traits\With_Uopz;
 use Tribe\Events\Views\V2\Hooks;
 use Tribe__Events__Main as TEC;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Venue as Venue;
 
 class Tribe__Events__Query_CT1_Test extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
@@ -169,5 +170,50 @@ class Tribe__Events__Query_CT1_Test extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertMatchesSnapshot( $sql );
 		$this->assertEquals( $by_post_date_ids, wp_list_pluck( $query->posts, 'ID' ) );
+	}
+
+	/**
+	 * It should not filter and order a query for non Events CPT
+	 *
+	 * @test
+	 */
+	public function should_not_filter_and_order_a_query_for_non_events_cpt(): void {
+		$this->unregister_views_v2_hooks();
+
+		// Set up things to simulate a request for an Event with a non-existing ID of 1.
+		$_GET[ TEC::POSTTYPE ] = '1';
+
+		$query = new WP_Query();
+
+		$this->assertFalse( $query->is_main_query() );
+
+		// Now, query for Venues: still a TEC CPT, but not an Event.
+		$query->query( [ 'post_type' => Venue::POSTTYPE ] );
+
+		$sql = $query->request;
+
+		$this->assertMatchesSnapshot( $sql );
+	}
+
+	/**
+	 * It should not filter and order query for not only Events
+	 * @test
+	 */
+	public function should_not_filter_and_order_query_for_not_only_events(): void {
+		$this->unregister_views_v2_hooks();
+
+		// Set up things to simulate a request for an Event with a non-existing ID of 1.
+		$_GET[ TEC::POSTTYPE ] = '1';
+
+		$query = new WP_Query();
+
+		$this->assertFalse( $query->is_main_query() );
+
+		// Now, query for Venues AND Events.
+		$query->query( [ 'post_type' => [ Venue::POSTTYPE, TEC::POSTTYPE ] ] );
+
+		$sql = $query->request;
+
+		$this->assertMatchesSnapshot( $sql );
 	}
 }
