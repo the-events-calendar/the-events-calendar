@@ -262,6 +262,9 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
                          `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
 * Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TEC-4517]
+* Feat - Support the `strict_dates` REST API argument in the `/events` endpoint to control the inclusiveness of the date parameters. [TEC-4493]
+* Feat - Support relative date parameters (e.g: `starts_before`, `ends_after` as REST API arguments in the `/events` endpoint to retrieve single day and multi-day events in a single search. [TEC-4493]
+* Fix - Handle repository query filters correctly in custom tables context; fix a REST API issue. [ET-1567]
 
 = [6.0.1.1] 2022-09-29 =
 
