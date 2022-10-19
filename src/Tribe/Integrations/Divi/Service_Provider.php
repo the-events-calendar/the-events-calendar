@@ -46,7 +46,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Unregisters the filters and actions required for this integration to work.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return void
 	 */

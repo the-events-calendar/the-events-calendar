@@ -101,7 +101,7 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  * Used in the Month View days loop.
  * Outputs classes for each day "cell".
  *
- * @since TBD
+ * @since 6.0.2
  *
  * @param array<mixed> $day          The current day data.
  * @param string       $day_date     The current day date, in the `Y-m-d` format.
@@ -117,7 +117,7 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	/**
 	 * Allows filtering the date used for comparison when generating the Month View day cell classes.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param string       $comparison_date The date used for comparisons.
 	 * @param DateTime     $request_date    The request date for the view.
@@ -147,7 +147,7 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	/**
 	 * Allows filtering the final list of classes for each Month View day cell.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param array<string,bool> $day_classes     The classes to add to the day "cell".
 	 * @param string             $comparison_date The date that was used for comparisons.

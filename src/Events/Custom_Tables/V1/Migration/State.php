@@ -353,7 +353,7 @@ class State {
 	/**
 	 * Returns whether the current phase is a migration dry-run or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return bool Whether the current phase is a migration dry-run or not.
 	 */

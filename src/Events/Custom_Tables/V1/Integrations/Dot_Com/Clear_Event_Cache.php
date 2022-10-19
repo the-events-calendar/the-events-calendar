@@ -2,7 +2,7 @@
 /**
  * Provides the integrations required by the plugin to work with other plugins.
  *
- * @since   TBD
+ * @since   6.0.2
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
@@ -15,7 +15,7 @@ use WP_Post;
 /**
  * Class Clear_Event_Cache
  *
- * @since TBD
+ * @since 6.0.2
  *
  */
 class Clear_Event_Cache {
@@ -23,7 +23,7 @@ class Clear_Event_Cache {
 	/**
 	 * The cache group key for the WP.com event caching.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Clear_Event_Cache {
 	/**
 	 * Clears the Single Event Post Cache due to how weirdly broken cache ends up for WP.com single event due to occurrences.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
 	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.

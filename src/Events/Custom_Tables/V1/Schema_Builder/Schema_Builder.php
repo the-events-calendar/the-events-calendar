@@ -270,7 +270,7 @@ class Schema_Builder {
 		/**
 		 * Runs after the custom tables have been created or updated by The Events Calendar.
 		 *
-		 * @since TBD
+		 * @since 6.0.2
 		 *
 		 * @param array<string,bool> $results A map from each table name to whether it was created or updated correctly.
 		 * @param bool               $force   Whether the tables were forced to be created or updated or not.

@@ -1503,7 +1503,7 @@ class View implements View_Interface {
 		/**
 		 * Allows filtering of the "Today" button title and aria-label.
 		 *
-		 * @since TBD
+		 * @since 6.0.2
 		 *
 		 * @param string                                $today_title The title string.
 		 * @param \Tribe\Events\Views\V2\View_Interface $view        The View currently rendering.
@@ -1517,7 +1517,7 @@ class View implements View_Interface {
 		/**
 		 * Allows filtering of the "Today" button title and aria-label.
 		 *
-		 * @since TBD
+		 * @since 6.0.2
 		 *
 		 * @param string                                $today_title The title string.
 		 * @param \Tribe\Events\Views\V2\View_Interface $view        The View currently rendering.

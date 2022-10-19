@@ -93,7 +93,7 @@ class Events_Only_Modifier extends Base_Modifier {
 		/**
 		 * Allow filtering just for when applied the Events Only Modifier.
 		 *
-		 * @since TBD
+		 * @since 6.0.2
 		 *
 		 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
 		 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
