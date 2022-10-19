@@ -255,13 +255,13 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons. [TEC-4457]
 * Tweak - Added filter `tec_events_month_day_classes` to filter the actual class list before it gets passed to the template. [TEC-4457]
 * Tweak - Update the organizer website field to type URL. [TEC-4395]
-* Tweak - Update the venue website field to type URL. [TEC-4349]
 * Tweak - Add an event property for if the event is currently happening. [TEC-4454]
 * Tweak - Create a filterable function `tec_events_get_today_button_label()` for the text on the "Today" button on calendar views. [TEC-4458]
 * Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
 * Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
                          `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
 * Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TEC-4517]
+* Language - 11 new strings added, 149 updated, 2 fuzzied, and 2 obsoleted.
 
 = [6.0.1.1] 2022-09-29 =
 
