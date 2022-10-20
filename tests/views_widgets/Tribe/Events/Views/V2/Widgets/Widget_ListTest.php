@@ -101,6 +101,7 @@ class Widget_ListTest extends ViewTestCase {
 			$widget_list_view->found_post_ids()
 		);
 
+		// @todo separate this out into a non today-based test.
 		$this->assertMatchesSnapshot( $html );
 	}
 
@@ -155,6 +156,7 @@ class Widget_ListTest extends ViewTestCase {
 			$widget_list_view->found_post_ids()
 		);
 
+		// @todo separate this out into a non today-based test.
 		$this->assertMatchesSnapshot( $html );
 	}
 
@@ -218,6 +220,7 @@ class Widget_ListTest extends ViewTestCase {
 
 		$this->assertNotFalse( stripos( $html, 'ld+json' ) );
 
+		// @todo separate this out into a non today-based test.
 		$this->assertMatchesSnapshot( $html );
 	}
 
@@ -280,6 +283,7 @@ class Widget_ListTest extends ViewTestCase {
 		// There is no way the snapshot will start with this string, so assertFalse seems safe enough here.
 		$this->assertFalse( stripos( $html, 'ld+json' ) );
 
+		// @todo separate this out into a non today-based test.
 		$this->assertMatchesSnapshot( $html );
 
 		remove_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'remove_json_ld' ] );

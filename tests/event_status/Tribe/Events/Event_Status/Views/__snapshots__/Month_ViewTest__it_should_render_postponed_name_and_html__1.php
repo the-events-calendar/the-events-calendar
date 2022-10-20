@@ -1,12 +1,4 @@
-<?php return '<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt"><span class="tribe-events-status-label">
-	<span class="tribe-events-status-label__text tribe-events-status-label__text--postponed">
-	Postponed</span>
-</span>
-<span class="tribe-events-status-label">
-	<span class="tribe-events-status-label__text tribe-events-status-label__text--postponed">
-	Postponed</span>
-</span>
-
+<?php return '<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"

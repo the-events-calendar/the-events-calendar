@@ -15,9 +15,10 @@ class Tooltip_ViewTest extends HtmlPartialTestCase {
 	 */
 	public function it_should_render_standard_title() {
 		$event = $this->get_mock_event( 'events/single/1.json' );
-		$this->assertMatchesSnapshot( $this->get_partial_html( [
+		$partial_html = $this->get_partial_html( [
 			'event' => $event,
-		] ) );
+		] );
+		$this->assertMatchesSnapshot( $partial_html );
 	}
 
 	/**
