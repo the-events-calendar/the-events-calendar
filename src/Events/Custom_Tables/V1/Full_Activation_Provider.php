@@ -126,7 +126,7 @@ class Full_Activation_Provider extends Service_Provider {
 	/**
 	 * Updates the custom tables for a blog,
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param int $blog_id The blog ID to udpate the tables for.
 	 *

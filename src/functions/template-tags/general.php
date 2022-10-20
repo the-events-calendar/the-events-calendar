@@ -159,7 +159,7 @@ function tribe_get_event_label_plural_lowercase() {
 /**
  * Get the filtered text label for the "Today" button on calendar views.
  *
- * @since TBD
+ * @since 6.0.2
  *
  * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
  *               Hint: In templates, you can call $this->get_view() to get the view.
@@ -176,7 +176,7 @@ function tec_events_get_today_button_label( $view = null ) {
 	/**
 	 * Allows filtering of all labels for the today button at one time.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param string $today The string used for the "Today" button on calendar views.
 	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
@@ -191,7 +191,7 @@ function tec_events_get_today_button_label( $view = null ) {
 	/**
 	 * Allows filtering a view-specific label for the today button.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param string $today The string used for the "Today" button on calendar views.
 	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.

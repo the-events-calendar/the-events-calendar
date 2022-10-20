@@ -340,7 +340,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Piggy-back on the Migration UI JS component polling of the backend to migrate some events, if possible.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return void Some Events might be migrated.
 	 */
@@ -355,7 +355,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		/**
 		 * Filters how many Events should be migrated in a single AJAX request to the Migration UI backend.
 		 *
-		 * @since TBD
+		 * @since 6.0.2
 		 *
 		 * @param int $count The number of Events to migrate on the migration UI JS component polling; returning
 		 *                   `0` will disable the functionality.
