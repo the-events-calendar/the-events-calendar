@@ -603,20 +603,16 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 		return $return;
 	}
 
-	$post = false;
-	if ( ! $force ) {
-		$cache_key = 'tribe_get_organizer_object_' . md5( json_encode( [ $organizer, $output, $filter ] ) );
-		/** @var Tribe__Cache $cache */
-		$cache = tribe( 'cache' );
-		$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-	}
+	/** @var Tribe__Cache $cache */
+	$cache = tribe( 'cache' );
+	$cache_key = 'tribe_get_organizer_object_' . md5( json_encode( [ $organizer, $output, $filter ] ) );
+
+	// Try getting the memoized value.
+	$post = $cache[ $cache_key ];
 
 	if ( false === $post ) {
+		// No memoized value, build from properties.
 		$post = Organizer::from_post( $organizer )->to_post( $output, $filter );
-
-		if ( empty( $post ) ) {
-			return null;
-		}
 
 		/**
 		 * Filters the organizer post object before caching it and returning it.
@@ -633,8 +629,29 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 		 */
 		$post = apply_filters( 'tribe_get_organizer_object', $post, $output, $filter );
 
-		$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		// Memoize the value.
+		$cache[ $cache_key ] = $post;
 	}
+
+	if ( empty( $post ) ) {
+		return null;
+	}
+
+	/**
+	 * Filters the organizer result after the organizer has been built from the function.
+	 *
+	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param WP_Post     $post        The organizer post object to filter and return.
+	 * @param int|WP_Post $organizer   The organizer object to fetch.
+	 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+	 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+	 *                                 respectively. Defaults to `OBJECT`.
+	 * @param string      $filter      The filter, or context of the fetch.
+	 */
+	$post = apply_filters( 'tribe_get_organiser_object_after', $post, $organizer, $output, $filter );
 
 	if ( OBJECT !== $output ) {
 		$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
