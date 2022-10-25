@@ -100,12 +100,15 @@ class Manager {
 		 *
 		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 		 */
-		$views = (array) apply_filters( 'tribe_events_views', [
-			'list'        => List_View::class,
-			'month'       => Month_View::class,
-			'day'         => Day_View::class,
-			'latest-past' => Latest_Past_View::class,
-		] );
+		$views = (array) apply_filters(
+			'tribe_events_views',
+			[
+				'day'         => Day_View::class,
+				'latest-past' => Latest_Past_View::class,
+				'list'        => List_View::class,
+				'month'       => Month_View::class,
+			]
+		);
 
 		// Make sure the Reflector View is always available.
 		$views['reflector'] = Reflector_View::class;
@@ -342,13 +345,7 @@ class Manager {
 	 * @return string|false The label associated with a given View.
 	 */
 	public function get_view_label_by_class( $view_class ) {
-		$slug = $this->get_view_slug_by_class( $view_class );
-
-		if ( ! $slug ) {
-			return false;
-		}
-
-		return $this->prepare_view_label( $slug, $view_class );
+		return tribe( $view_class )->get_label();
 	}
 
 	/**
@@ -367,11 +364,14 @@ class Manager {
 			return false;
 		}
 
-		return $this->prepare_view_label( $slug, $view_class );
+		return tribe( $view_class )->get_label();
 	}
 
 	/**
 	 * Prepare the view Label with filters for the domain and label.
+	 *
+	 * @since 5.0.0
+	 * @deprecated TBD Translations do not handle variable domains well. Now handled in the View class.
 	 *
 	 * @param  string $slug       The view slug.
 	 * @param  string $view_class The view fully qualified class name.
@@ -379,54 +379,67 @@ class Manager {
 	 * @return string             The filtered label associated with a given View.
 	 */
 	protected function prepare_view_label( $slug, $view_class ) {
-		$label = ucfirst( $slug );
-
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated TBD We cannot use variables for domains.
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $slug         Slug of the view we are getting the label for.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$domain = apply_filters( 'tribe_events_views_v2_manager_view_label_domain', 'the-events-calendar', $slug, $view_class );
+		$domain = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label_domain', [ 'the-events-calendar', $slug, $view_class ], 'TBD' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated TBD We cannot use variables for domains.
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$domain = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label_domain", $domain, $view_class );
+		$domain = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label_domain", [ $domain, $view_class ], 'TBD' );
 
 		/**
 		 * Pass by the translation engine, don't remove.
+		 * This originally was `$label = __( $label, $domain );`
+		 *
+		 * The problem is, that doesn't wind up in the .pot file and so it not translated.
+		 * You _cannot_ use a variable for the domain.
+		 * If the translated string is just a variable, it won't get translated either.
+		 *
+		 * @see http://ottopress.com/2012/internationalization-youre-probably-doing-it-wrong/
 		 */
-		$label = __( $label, $domain );
+		$label = tribe( $view_class )->get_label();
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated TBD Filtering is now done in the View class.
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $slug         Slug of the view we are getting the label for.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$label = apply_filters( 'tribe_events_views_v2_manager_view_label', $label, $slug, $view_class );
+		$label = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label', [ $label, $slug, $view_class ], 'TBD', 'tribe_events_views_v2_view_label' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated TBD Filtering is now done in the View class.
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$label = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label", $label, $view_class );
+		$label = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label", [ $label, $view_class ], 'TBD', 'tribe_events_views_v2_{$slug}_view_label' );
 
 		return $label;
 	}

@@ -70,7 +70,7 @@ class View implements View_Interface {
 	 *
 	 * @var string
 	 */
-	protected $slug = '';
+	protected $slug = 'view';
 
 	/**
 	 * The template slug the View instance will use to locate its template files.
@@ -225,6 +225,16 @@ class View implements View_Interface {
 	protected $cached_urls = [];
 
 	/**
+	 * The translated label string for the view.
+	 * Subject to later filters.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public $label = 'view';
+
+	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.11
@@ -233,12 +243,15 @@ class View implements View_Interface {
 	 */
 	public function __construct( Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
-		$this->rewrite = TEC_Rewrite::instance();
+		$this->rewrite  = TEC_Rewrite::instance();
+
 
 		// For plain permalinks, the pagination variable is "page".
 		if ( $this->rewrite->is_plain_permalink() ) {
 			$this->page_key = 'page';
 		}
+
+		$this->label = _x( 'View', 'The text label for a generic View.', 'tribe-common ' );
 	}
 
 	/**
@@ -667,7 +680,26 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_label() {
-		return tribe( Manager::class )->get_view_label_by_slug( $this->get_slug() );
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $label        Label of the Current view.
+		 * @param string $slug         Slug of the view we are getting the label for.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		$label = apply_filters( 'tribe_events_views_v2_view_label', $this->label, $this->slug, $this );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $label        Label of the Current view.
+		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 */
+		return apply_filters( "tribe_events_views_v2_{$this->slug}_view_label", $label, $this );
 	}
 
 	/**

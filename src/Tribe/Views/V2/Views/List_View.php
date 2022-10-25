@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
+use Tribe\Events\Views\V2\Messages;
 use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as TEC_Rewrite;
@@ -43,6 +44,19 @@ class List_View extends View {
 	 * @var bool
 	 */
 	protected static $date_in_url = false;
+
+	/**
+	 * View constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Messages|null $messages An instance of the messages collection.
+	 */
+	public function __construct( Messages $messages = null ) {
+		parent::__construct( $messages );
+
+		$this->label = _x( 'List', 'The text label for the List View.', 'the-events-calendar' );
+	}
 
 	/**
 	 * {@inheritDoc}

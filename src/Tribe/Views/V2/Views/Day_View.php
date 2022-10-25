@@ -14,6 +14,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
+use Tribe__Context;
 
 class Day_View extends View {
 	use With_Fast_Forward_Link;
@@ -45,6 +46,19 @@ class Day_View extends View {
 	 * @var bool
 	 */
 	protected static $publicly_visible = true;
+
+	/**
+	 * View constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Messages|null $messages An instance of the messages collection.
+	 */
+	public function __construct( Messages $messages = null ) {
+		parent::__construct( $messages );
+
+		$this->label = _x( 'Day', 'The text label for the Day View.', 'the-events-calendar' );
+	}
 
 	/**
 	 * Get the date of the event immediately previous to the current view date.
