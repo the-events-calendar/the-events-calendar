@@ -165,7 +165,7 @@ class Tribe__Events__Integrations__Manager {
 	/**
 	 * Loads our Restrict Content Pro integration.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return bool
 	 */

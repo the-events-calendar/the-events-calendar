@@ -5,13 +5,13 @@
  * This trait will only make sense in the context of the `Tribe__Events__Main` class
  * and it should not be used elsewhere.
  *
- * @since TBD
+ * @since 6.0.2
  */
 
 /**
  * Trait Tribe__Events__Main_Deprecated.
  *
- * @since TBD
+ * @since 6.0.2
  */
 trait Tribe__Events__Main_Deprecated {
 	/**

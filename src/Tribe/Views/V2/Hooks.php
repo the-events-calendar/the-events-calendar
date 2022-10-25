@@ -1085,7 +1085,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the Today button label to change the text to something appropriate for Week View.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param string $today The string used for the "Today" button on calendar views.
 	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
@@ -1105,7 +1105,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the Today button title and aria-label to change the text to something appropriate for Month View.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param string                                $label The title string.
 	 * @param \Tribe\Events\Views\V2\View_Interface $view  The View currently rendering.
@@ -1236,7 +1236,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Unregisters all the filters and action handled by the class.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return void Filters and actions will be unregistered.
 	 */

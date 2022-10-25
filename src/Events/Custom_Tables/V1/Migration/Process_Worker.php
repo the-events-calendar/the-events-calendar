@@ -896,7 +896,7 @@ class Process_Worker {
 	/**
 	 * Migrates up to a number of not yet migrated Events.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param int $count The number of Events to migrate, at the most.
 	 *

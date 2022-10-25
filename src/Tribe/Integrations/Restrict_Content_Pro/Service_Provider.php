@@ -3,7 +3,7 @@
  * Handles compatibility with Restrict Content Pro plugin.
  *
  * @package Tribe\Events\Integrations\Restrict_Content_Pro
- * @since TBD
+ * @since 6.0.2
  */
 
 namespace Tribe\Events\Integrations\Restrict_Content_Pro;
@@ -15,7 +15,7 @@ use Tribe__Events__Main as TEC;
  *
  * @package Tribe\Events\Integrations
  *
- * @since TBD
+ * @since 6.0.2
  */
 
 class Service_Provider {
@@ -23,7 +23,7 @@ class Service_Provider {
 	/**
 	 * Option slug used for storing the choice to apply post-type restrictions to the calendar views.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Service_Provider {
 	/**
 	 * Hooks all the required methods for Restrict Content Pro usage on our code.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return void  Action hook with no return.
 	 */
@@ -55,7 +55,7 @@ class Service_Provider {
 	/**
 	 * Adds control for applying post-type restrictions to the calendar views.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 */
 	public function add_rcp_post_type_restrictions() {
 		$option = tribe_get_option( self::$option_slug, false );
@@ -72,7 +72,7 @@ class Service_Provider {
 	/**
 	 * Saves the value for applying post-type restrictions to the calendar views.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return void
 	 */
@@ -93,7 +93,7 @@ class Service_Provider {
 	 * $done is null by default, if you return _anything_ other than null, the template won't display.
  	 * There are actually 4 params passed, but the last is $echo - useless for our purposes so we don't include it.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param string  null     Whether to continue displaying the template or not.
 	 * @param array   $name    Template name. Unused although it could be used for targeting a specific template.
@@ -137,7 +137,7 @@ class Service_Provider {
 	/**
 	 * Get the option slug.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @return string $option_slug The option slug for this setting.
 	 */

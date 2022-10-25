@@ -165,7 +165,7 @@ class I18n {
 	 * This function is same as above one, but instead of sanitizing with 'sanitize_key()' which removes '%',
 	 * it uses 'sanitize_title()'.
 	 *
-	 * @since TBD
+	 * @since 6.0.2
 	 *
 	 * @param array<string> $strings   An array of strings (required).
 	 * @param array<string> $languages Which l10n to fetch the string (required).
