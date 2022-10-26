@@ -8,6 +8,7 @@ use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Factories\Venue;
 use Tribe\Test\PHPUnit\Traits\With_Filter_Manipulation;
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Timezones as Timezones;
 
 class eventTest extends WPTestCase {
@@ -402,7 +403,7 @@ class eventTest extends WPTestCase {
 
 		$event = tribe_get_event( $post_id );
 
-		$cached_before = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		$cached_before = $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST );
 
 		$this->assertFalse( $cached_before );
 
@@ -410,12 +411,21 @@ class eventTest extends WPTestCase {
 			function () use ( $cache, $cache_key, $event ) {
 				$event->organizers->all();
 				do_action( 'shutdown' );
-				$cached = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+				$cached = $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST );
 				$this->assertInternalType( 'array', $cached );
 				$this->assertNotEmpty( array_intersect_key( get_object_vars( $event ), $cached ) );
 			}
 		);
 
 		wp_using_ext_object_cache( $using_backup );
+	}
+
+	/**
+	 * It should type-cast dates to built-in classes during pre-caching serialization
+	 *
+	 * @test
+	 */
+	public function should_type_cast_dates_to_built_in_classes_during_pre_caching_serialization() {
+
 	}
 }
