@@ -159,7 +159,17 @@ class Custom_Tables_Query extends WP_Query {
 		 */
 		do_action( 'tec_events_custom_tables_v1_custom_tables_query_pre_get_posts', $this );
 
+		$set_found_rows = empty( $this->get( 'no_found_rows', false ) );
+
+		if ( $set_found_rows ) {
+			add_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ], 10, 2 );
+		}
+
 		$results = parent::get_posts();
+
+		if ( $set_found_rows ) {
+			remove_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ] );
+		}
 
 		/**
 		 * Fires after the Custom Tables Query ran.
@@ -173,7 +183,7 @@ class Custom_Tables_Query extends WP_Query {
 
 		if (
 			$this->wp_query instanceof WP_Query
-			&& empty( $this->get( 'no_found_rows', false ) )
+			&& $set_found_rows
 		) {
 			$this->wp_query->found_posts = $this->found_posts;
 			$this->wp_query->max_num_pages = $this->max_num_pages;
@@ -511,5 +521,29 @@ class Custom_Tables_Query extends WP_Query {
 	 */
 	public function get_wp_query() {
 		return $this->wp_query;
+	}
+
+	/**
+	 * Filters the query that would run to fill in the `found_posts` property of the `WP_Query` instance
+	 * to short-circuit and return the number of posts found by the Custom Tables Query.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $found_posts_query The SQL query that would run to fill in the `found_posts` property of the
+	 *                                  `WP_Query` instance.
+	 * @param        $query             WP_Query The `WP_Query` instance that is currently filtering its `found_posts`
+	 *                                  property.
+	 *
+	 * @return string The filtered SQL query that will run to fill in the `found_posts` property of the `WP_Query`
+	 *                instance.
+	 */
+	protected function filter_found_posts_query( $found_posts_query, $query ) {
+		if ( $this !== $query ) {
+			return $found_posts_query;
+		}
+
+		remove_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ] );
+
+		return 'SELECT ' . $this->found_posts;
 	}
 }

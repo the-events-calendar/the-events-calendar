@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
+
 = [6.0.2] 2022-10-20 =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [ [TEC-4457]]
