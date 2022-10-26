@@ -137,7 +137,6 @@ class Tribe__Events__Editor__Compatibility {
 		$read_more_url  = 'https://theeventscalendar.com/gutenberg-block-editor-news/?utm_source=tec&utm_medium=eventscalendarapp&utm_term=adminnotice&utm_campaign=gutenbergrelease&utm_content=ebook-gutenberg&cid=tec_eventscalendarapp_adminnotice_gutenbergrelease_ebook-gutenberg';
 		$read_more_link = sprintf( ' <a href="%2$s" target="_blank">%1$s</a>.', esc_html__( 'Read more', 'the-events-calendar' ), esc_url( $read_more_url ) );
 
-		$insert_before = 'showComments';
 		$insert_data = [
 			static::$blocks_editor_key        => [
 				'type'            => 'checkbox_bool',
@@ -156,7 +155,11 @@ class Tribe__Events__Editor__Compatibility {
 			],
 		];
 
-		return Tribe__Main::array_insert_before_key( $insert_before, $fields, $insert_data );
+		return Tribe__Main::array_insert_after_key(
+			'tec-events-settings-general-editing-title',
+			$fields,
+			$insert_data
+		);
 	}
 
 	/* DEPRECATED */
