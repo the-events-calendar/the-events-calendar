@@ -642,7 +642,7 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
-	 * @since 5.0.0
+	 * @since TBD
 	 *
 	 * @param WP_Post     $post        The organizer post object to filter and return.
 	 * @param int|WP_Post $organizer   The organizer object to fetch.
