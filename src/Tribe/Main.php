@@ -873,13 +873,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_currency_symbol', [ $this, 'maybe_set_currency_symbol_with_post' ], 10, 2 );
 			add_filter( 'tribe_reverse_currency_position', [ $this, 'maybe_set_currency_position_with_post' ], 10, 2 );
 
-			// Settings page hooks
-			add_action( 'tribe_settings_do_tabs', [ $this, 'do_addons_api_settings_tab' ] );
-			add_filter( 'tribe_general_settings_tab_fields', [ $this, 'general_settings_tab_fields' ] );
-			add_filter( 'tribe_display_settings_tab_fields', [ $this, 'display_settings_tab_fields' ] );
-			add_filter( 'tribe_settings_url', [ $this, 'tribe_settings_url' ] );
-			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
-
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', [ $this, 'add_help_section_feature_box_content' ] );
 			add_action( 'tribe_help_pre_get_sections', [ $this, 'add_help_section_support_content' ] );
@@ -1230,132 +1223,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$line_2 = sprintf( __( '%1$s or %2$s', 'the-events-calendar' ), $edit_post_link, $edit_settings_link );
 
 			return Tribe__Admin__Notices::instance()->render( 'archive-slug-conflict', sprintf( '<p>%s</p><p>%s</p>', $line_1, $line_2 ) );
-		}
-
-		/**
-		 * Initialize the addons api settings tab.
-		 *
-		 * @since 5.15.0 Added check to see if we are on TEC settings page.
-		 */
-		public function do_addons_api_settings_tab( $admin_page ) {
-			// Bail if we're not on TEC settings.
-			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
-				return;
-			}
-
-			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
-		}
-
-		/**
-		 * should we show the upgrade nags?
-		 *
-		 * @since 4.9.12
-		 *
-		 * @return boolean
-		 */
-		public function show_upgrade() {
-			// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
-			$can_show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
-
-			/**
-			 * Provides an opportunity to override the decision to show or hide the upgrade tab.
-			 *
-			 * Normally it will only show if the current user has the "activate_plugins" capability
-			 * and there are some currently-activated premium plugins.
-			 *
-			 * @since 4.9.12
-			 * @since 6.0.0 This filter now controls only the capability to show the Upgrade tab.
-			 *
-			 * @param bool $can_show_tab True or False for showing the Upgrade Tab.
-			 */
-			$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
-
-			if ( ! $can_show_tab ) {
-				return false;
-			}
-
-			/**
-			 * Filters whether the Upgrade Tab has actually any content to show or not.
-			 *
-			 * @since 6.0.0
-			 *
-			 * @param bool $has_content Whether the tab has any content to show or not.
-			 */
-			if ( ! apply_filters( 'tec_events_upgrade_tab_has_content', false ) ) {
-				return false;
-			}
-
-			return true;
-		}
-
-		/**
-		 * Create the upgrade tab
-		 *
-		 * @since 4.9.12
-		 * @since 5.15.0 Added check to see if we are on TEC settings page.
-		 */
-		public function do_upgrade_tab( $admin_page ) {
-			// Bail if we're not on TEC settings.
-			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
-				return;
-			}
-
-			if ( ! $this->show_upgrade() ) {
-				return;
-			}
-
-			tribe_asset(
-				self::instance(),
-				'tribe-admin-upgrade-page',
-				'admin-upgrade-page.js',
-				[ 'tribe-common' ],
-				'admin_enqueue_scripts',
-				[
-					'localize' => [
-						'name' => 'tribe_upgrade',
-						'data' => [
-							'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
-							'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
-						],
-					],
-				]
-			);
-
-			$upgrade_tab_html = '';
-
-			$upgrade_tab = [
-				'info-box-description' => [
-					'type' => 'html',
-					'html' => $upgrade_tab_html,
-				],
-			];
-
-			/**
-			 * Allows the fields displayed in the upgrade tab to be modified.
-			 *
-			 * @since 4.9.12
-			 *
-			 * @param array $upgrade_tab Array of fields used to setup the Upgrade Tab.
-			 */
-			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
-
-			new Tribe__Settings_Tab(
-				'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
-				[
-					'priority'      => 100,
-					'fields'        => $upgrade_fields,
-					'network_admin' => is_network_admin(),
-					'show_save'     => true,
-				]
-			);
-
-			add_filter(
-				'tec_events_settings_tabs_ids',
-				function( $tabs ) {
-					$tabs[] = 'upgrade';
-					return $tabs;
-				}
-			);
 		}
 
 		/**
@@ -3765,47 +3632,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $post;
-		}
-
-		/**
-		 * Inject TEC specific setting fields into the general tab
-		 *
-		 * @param array $general_tab_fields Fields for the general settings tab
-		 *
-		 * @return array
-		 */
-		public function general_settings_tab_fields( $general_tab_fields ) {
-			require_once $this->plugin_path . 'src/admin-views/tribe-options-general.php';
-
-			return $general_tab_fields;
-		}
-
-		/**
-		 * Inject TEC specific setting fields into the display tab
-		 *
-		 * @param array $display_tab_fields Fields for the display settings tab
-		 *
-		 * @return array
-		 */
-		public function display_settings_tab_fields( $display_tab_fields ) {
-			require_once $this->plugin_path . 'src/admin-views/tribe-options-display.php';
-
-			return $display_tab_fields;
-		}
-
-		/**
-		 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it
-		 *
-		 * @param string $url Settings URL to filter
-		 *
-		 * @return string
-		 */
-		public function tribe_settings_url( $url ) {
-			if ( is_network_admin() ) {
-				return $url;
-			}
-
-			return add_query_arg( [ 'post_type' => self::POSTTYPE ], $url );
 		}
 
 		/**

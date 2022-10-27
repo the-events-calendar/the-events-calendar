@@ -3,23 +3,60 @@
 $tec              = Tribe__Events__Main::instance();
 $site_time_format = get_option( 'time_format' );
 
+$general_tab_fields = [
+	'info-start'                    => [
+		'type' => 'html',
+		'html' => '<div id="modern-tribe-info">
+					<img
+						src="' . plugins_url( 'resources/images/logos/tec-brand.svg', dirname( __FILE__ ) ) . '"
+						alt="' . esc_attr( 'The Events Calendar brand logo', 'the-event-calendar' ) . '"
+					/>',
+	],
+	'upsell-info'                   => [
+		'type'        => 'html',
+		'html'        => '<p>' . esc_html__( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'the-event-calendar' ) . ' <a target="_blank" rel="noopener noreferrer" href="' . Tribe__Main::$tec_url . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app">' . esc_html__( 'Check out the available add-ons', 'the-event-calendar' ) . '</a>.</p>',
+		'conditional' => ( ! tec_should_hide_upsell() ) && class_exists( 'Tribe__Events__Main' ),
+	],
+	'donate-link-heading'           => [
+		'type'  => 'heading',
+		'label' => esc_html__( 'We hope our plugin is helping you out.', 'the-event-calendar' ),
+		'conditional' => class_exists( 'Tribe__Events__Main' ),
+	],
+	'donate-link-info'              => [
+		'type'        => 'html',
+		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to The Events Calendar for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'the-event-calendar' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.png', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'the-event-calendar' ) . '</a>.</p>',
+		'conditional' => class_exists( 'Tribe__Events__Main' ),
+	],
+	'donate-link'                   => [
+		'type'            => 'checkbox_bool',
+		'label'           => esc_html__( 'Show The Events Calendar link', 'the-event-calendar' ),
+		'default'         => false,
+		'validation_type' => 'boolean',
+		'conditional' => class_exists( 'Tribe__Events__Main' ),
+	],
+	'info-end'                      => [
+		'type' => 'html',
+		'html' => '</div>',
+	],
+	'tribe-form-content-start'      => [
+		'type' => 'html',
+		'html' => '<div class="tribe-settings-form-wrap">',
+	],
+	'tribe-form-content-end'        => [
+		'type' => 'html',
+		'html' => '</div>',
+	],
+];
+
 $tec_events_general_heading_text = tec_should_hide_upsell()
 	? esc_html__( 'Finding your calendar.', 'the-events-calendar' )
 	: esc_html__( 'Finding & extending your calendar.', 'the-events-calendar' );
-
-$posts_per_page_tooltip = class_exists( 'Tribe__Events__Pro__Main', false )
-	? esc_html__( 'The number of events per page on the List View. Does not affect other views.', 'the-events-calendar' )
-	: esc_html__( 'The number of events per page on the List, Photo, and Map Views. Does not affect other views.', 'the-events-calendar' );
 
 $tec_events_general_header = [
 	// after info-start
 	'upsell-heading'     => [
 		'type'  => 'heading',
 		'label' => $tec_events_general_heading_text,
-	],
-	'view-calendar-link' => [
-		'type' => 'html',
-		'html' => '<p>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . ' <a href="' . esc_url( tribe( 'tec.main' )->getLink() ) . '">' . esc_html__( 'Right here', 'the-events-calendar' ) . '</a>.</p>',
 	],
 ];
 
@@ -88,27 +125,6 @@ $tec_events_general_editing = [
 		'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'the-events-calendar' ), '<code>' . trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/</code>' ) . '</p>',
 		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 	],
-	'multiDayCutoff'                   => [
-		'type'            => 'dropdown',
-		'label'           => esc_html__( 'End of day cutoff', 'the-events-calendar' ),
-		'validation_type' => 'options',
-		'size'            => 'small',
-		'default'         => date_i18n( $site_time_format, strtotime( '12:00 am' ) ),
-		'options'         => [
-			'00:00' => date_i18n( $site_time_format, strtotime( '12:00 am' ) ),
-			'01:00' => date_i18n( $site_time_format, strtotime( '01:00 am' ) ),
-			'02:00' => date_i18n( $site_time_format, strtotime( '02:00 am' ) ),
-			'03:00' => date_i18n( $site_time_format, strtotime( '03:00 am' ) ),
-			'04:00' => date_i18n( $site_time_format, strtotime( '04:00 am' ) ),
-			'05:00' => date_i18n( $site_time_format, strtotime( '05:00 am' ) ),
-			'06:00' => date_i18n( $site_time_format, strtotime( '06:00 am' ) ),
-			'07:00' => date_i18n( $site_time_format, strtotime( '07:00 am' ) ),
-			'08:00' => date_i18n( $site_time_format, strtotime( '08:00 am' ) ),
-			'09:00' => date_i18n( $site_time_format, strtotime( '09:00 am' ) ),
-			'10:00' => date_i18n( $site_time_format, strtotime( '10:00 am' ) ),
-			'11:00' => date_i18n( $site_time_format, strtotime( '11:00 am' ) ),
-		],
-	],
 ];
 
 $tec_events_general_data = [
@@ -118,7 +134,7 @@ $tec_events_general_data = [
 	],
 	'amalgamate-duplicates'                         => [
 		'type'        => 'html',
-		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'Duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="tribe-field-indent description">' . esc_html__( 'Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'Duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="tribe-field-indent description">' . esc_html__( 'Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset>',
 	],
 	tribe( 'tec.event-cleaner' )->key_trash_events  => [
 		'type'            => 'dropdown',
@@ -163,6 +179,41 @@ $tec_events_general_troubleshooting = [
 		'type' => 'html',
 		'html' => '<h3>' . esc_html__( 'Troubleshooting', 'the-events-calendar' ) . '</h3>',
 	],
+	'view-calendar-link' => [
+		'type' => 'html',
+		'html' => '<fieldset class="tribe-field tribe-field-html"><legend>'
+			. esc_html__( 'Where\'s my calendar?', 'the-events-calendar' )
+			. '</legend><div class="tribe-field-wrap"><a href="'
+			. esc_url( tribe( 'tec.main' )->getLink() ) . '">'
+			. esc_html__( 'Right here', 'the-events-calendar' )
+			. '</a>.</div></fieldset><div class="clear"></div>',
+	],
+	'ical-info'                        => [
+		'type'             => 'html',
+		'display_callback' => '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . esc_html__( 'Here is the iCal feed URL for your events:', 'the-events-calendar' ) . ' <code>' . tribe_get_ical_link() . '</code></p>',
+		'conditional'      => function_exists( 'tribe_get_ical_link' ), // @TODO: this never loads.
+	],
+	'view-welcome-page'                  => [
+		'type'        => 'html',
+		'html'        =>
+			'<fieldset class="tribe-field tribe-field-html"><legend>' .
+				esc_html__( 'View Welcome Page', 'the-events-calendar' ) .
+			'</legend><div class="tribe-field-wrap"><a href="' . tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset>',
+	],
+	'debugEvents' => [
+		'type'            => 'checkbox_bool',
+		'label'           => esc_html__( 'Debug mode', 'the-event-calendar' ),
+		'tooltip' => sprintf(
+			esc_html__(
+				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.',
+				'the-event-calendar'
+			),
+			'<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/extend/plugins/debug-bar/">' . esc_html__( 'Debug Bar Plugin', 'the-event-calendar' ) . '</a>'
+		),
+		'default'         => false,
+		'validation_type' => 'boolean',
+		'conditional'     => is_super_admin()
+	],
 ];
 
 $tec_events_general_settings = $tec_events_general_editing + $tec_events_general_data + $tec_events_general_troubleshooting;
@@ -173,37 +224,11 @@ $general_tab_fields = Tribe__Main::array_insert_after_key(
 	$tec_events_general_settings
 );
 
-/*
-$general_tab_fields = Tribe__Main::array_insert_before_key(
-	'debugEvents',
-	$general_tab_fields,
-	[
-		'postsPerPage'                     => [
-			'type'            => 'text',
-			'label'           => esc_html__( 'Number of events to show per page', 'the-events-calendar' ),
-			'tooltip'         => $posts_per_page_tooltip,
-			'size'            => 'small',
-			'default'         => tribe_events_views_v2_is_enabled() ? 12 : get_option( 'posts_per_page' ),
-			'validation_type' => 'positive_int',
-		],
-		'ical-info'                        => [
-			'type'             => 'html',
-			'display_callback' => ( function_exists( 'tribe_get_ical_link' ) ) ? '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . esc_html__( 'Here is the iCal feed URL for your events:', 'the-events-calendar' ) . ' <code>' . tribe_get_ical_link() . '</code></p>' : '',
-			'conditional'      => function_exists( 'tribe_get_ical_link' ),
-		],
-		'view-welcome-page'                  => [
-			'type'        => 'html',
-			'html'        =>
-				'<fieldset class="tribe-field tribe-field-html"><legend>' .
-					esc_html__( 'View Welcome Page', 'the-events-calendar' ) .
-				'</legend><div class="tribe-field-wrap"><a href="' . tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
-		],
-	]
-);
-*/
-
 $general_tab_fields = tribe( 'events.editor.compatibility' )->insert_toggle_blocks_editor_field( $general_tab_fields );
 
 $general_tab_fields = apply_filters( 'tribe-event-general-settings-fields', $general_tab_fields );
 
-return $general_tab_fields;
+$general_tab = [
+	'priority' => 0,
+	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $general_tab_fields ),
+];

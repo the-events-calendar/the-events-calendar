@@ -2,13 +2,15 @@
 use \Tribe\Events\Views\V2\Manager;
 
 $tec = Tribe__Events__Main::instance();
+$tcmn = Tribe__Main::instance();
+$ecp = class_exists( 'Tribe__Events__Pro__Main', false );
 
 $template_options = [
 	''        => esc_html__( 'Default Events Template', 'the-events-calendar' ),
 	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 ];
 
-$templates        = get_page_templates();
+$templates = get_page_templates();
 ksort( $templates );
 foreach ( array_keys( $templates ) as $template ) {
 	$template_options[ $templates[ $template ] ] = $template;
@@ -18,7 +20,7 @@ $stylesheet_option = [ 'type' => 'html'];
 
 $tribe_enable_views_tooltip = esc_html__( 'You must select at least one view.', 'the-events-calendar' );
 
-if ( tribe_is_using_basic_gmaps_api() && class_exists( 'Tribe__Events__Pro__Main' ) ) {
+if ( $ecp && tribe_is_using_basic_gmaps_api() ) {
 	$tribe_enable_views_tooltip .= ' ' . sprintf(
 		__( 'Please note that you are using The Events Calendar\'s default Google Maps API key, which will limit the Map View\'s functionality. Visit %sthe API Settings page%s to learn more and add your own Google Maps API key.', 'the-events-calendar' ),
 		sprintf( '<a href="edit.php?page=tribe-common&tab=addons&post_type=%s">', Tribe__Events__Main::POSTTYPE ),
@@ -26,9 +28,23 @@ if ( tribe_is_using_basic_gmaps_api() && class_exists( 'Tribe__Events__Pro__Main
 	);
 }
 
-$views = tribe( Manager::class )->get_publicly_visible_views( false );
+$views         = tribe( Manager::class )->get_publicly_visible_views( false );
 $enabled_views = tribe( Manager::class )->get_publicly_visible_views();
+$view_options  = array_map(
+	static function( $view ) {
+		return tribe( Manager::class )->get_view_label_by_class( $view );
+	},
+	$enabled_views
+);
 
+$posts_per_page_tooltip = class_exists( 'Tribe__Events__Pro__Main', false )
+	? esc_html__( 'The number of events per page on the List View. Does not affect other views.', 'the-events-calendar' )
+	: esc_html__( 'The number of events per page on the List, Photo, and Map Views. Does not affect other views.', 'the-events-calendar' );
+
+// Start Tab content
+$tec_events_display_fields = [];
+
+// Header array.
 $tec_events_display_header = [
 	'info-start'           => [
 		'type' => 'html',
@@ -55,6 +71,8 @@ $tec_events_display_header = [
 		'html' => '</div>',
 	],
 ];
+
+// Basic Template Settings array.
 $tec_events_display_template = [
 	'tribe-events-basic-settings-title' => [
 		'type' => 'html',
@@ -98,12 +116,7 @@ $tec_events_display_template = [
 		'label'           => __( 'Enable event views', 'the-events-calendar' ),
 		'tooltip'         => $tribe_enable_views_tooltip,
 		'default'         => array_keys( $enabled_views ),
-		'options'         => array_map(
-			static function( $view ) {
-				return tribe( Manager::class )->get_view_label_by_class( $view );
-			},
-			$views
-		),
+		'options'         => $view_options,
 		'validation_type' => 'options_multi',
 	],
 	'viewOption'              => [
@@ -141,10 +154,13 @@ $tec_events_display_template = [
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
-	'multi-day-cutoff-helper'             => [
-		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( esc_html__( "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar.", 'the-events-calendar' ) ) . '</p>',
-		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
+	'postsPerPage'                     => [
+		'type'            => 'text',
+		'label'           => esc_html__( 'Number of events to show per page', 'the-events-calendar' ),
+		'tooltip'         => $posts_per_page_tooltip,
+		'size'            => 'small',
+		'default'         => tribe_events_views_v2_is_enabled() ? 12 : get_option( 'posts_per_page' ),
+		'validation_type' => 'positive_int',
 	],
 	'showComments'                     => [
 		'type'            => 'checkbox_bool',
@@ -154,89 +170,8 @@ $tec_events_display_template = [
 		'validation_type' => 'boolean',
 	],
 ];
-$tec_events_display_date     = [
-	'dateWithYearFormat' => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Date with year', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Enter the format to use for displaying dates with the year. Used when displaying a date in a future year.', 'the-events-calendar' ),
-		'default'         => get_option( 'date_format' ),
-		'size'            => 'medium',
-		'validation_type' => 'not_empty',
-	],
-	'dateWithoutYearFormat' => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Date without year', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Enter the format to use for displaying dates without a year. Used when showing an event from the current year.', 'the-events-calendar' ),
-		'default'         => 'F j',
-		'size'            => 'medium',
-		'validation_type' => 'not_empty',
-	],
-	'monthAndYearFormat'    => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Month and year format', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Enter the format to use for dates that show a month and year only. Used on month view.', 'the-events-calendar' ),
-		'default'         => 'F Y',
-		'size'            => 'medium',
-		'validation_type' => 'not_empty',
-	],
-	'dateTimeSeparator'  => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Date time separator', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Enter the separator that will be placed between the date and time, when both are shown.', 'the-events-calendar' ),
-		'default'         => ' @ ',
-		'size'            => 'small',
-		'validation_type' => 'html',
-	],
-	'timeRangeSeparator' => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Time range separator', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Enter the separator that will be used between the start and end time of an event.', 'the-events-calendar' ),
-		'default'         => ' - ',
-		'size'            => 'small',
-		'validation_type' => 'html',
-	],
-];
-$tec_events_display_advanced = [
-	'tribe-events-advanced-settings-title' => [
-		'type' => 'html',
-		'html' => '<h3>' . esc_html__( 'Advanced Template Settings', 'the-events-calendar' ) . '</h3>',
-	],
-	'tribeEventsBeforeHTML'            => [
-		'type'            => 'wysiwyg',
-		'label'           => esc_html__( 'Add HTML before event content', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'the-events-calendar' ),
-		'validation_type' => 'html',
-	],
-	'tribeEventsAfterHTML'             => [
-		'type'            => 'wysiwyg',
-		'label'           => esc_html__( 'Add HTML after event content', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'the-events-calendar' ),
-		'validation_type' => 'html',
-	],
-];
-$tec_events_display_maps = [
-	'tribe-google-maps-settings-title'     => [
-		'type' => 'html',
-		'html' => '<h3>' . esc_html__( 'Map Settings', 'the-events-calendar' ) . '</h3>',
-	],
-	'embedGoogleMaps'                  => [
-		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Enable Maps', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Check to enable maps for events and venues.', 'the-events-calendar' ),
-		'default'         => true,
-		'class'           => 'google-embed-size',
-		'validation_type' => 'boolean',
-	],
-	'embedGoogleMapsZoom'              => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Google Maps default zoom level', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( '0 = zoomed out; 21 = zoomed in.', 'the-events-calendar' ),
-		'size'            => 'small',
-		'default'         => 10,
-		'class'           => 'google-embed-field',
-		'validation_type' => 'number_or_percent',
-	],
-];
+
+// Currency Settings array.
 $tec_events_display_currency = [
 	'tribe-events-currency-title' => [
 		'type' => 'html',
@@ -272,43 +207,98 @@ $tec_events_display_currency = [
 	],
 ];
 
+// Map Settings array.
+$tec_events_display_maps = [
+	'tribe-google-maps-settings-title'     => [
+		'type' => 'html',
+		'html' => '<h3>' . esc_html__( 'Map Settings', 'the-events-calendar' ) . '</h3>',
+	],
+	'embedGoogleMaps'                  => [
+		'type'            => 'checkbox_bool',
+		'label'           => esc_html__( 'Enable Maps', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Check to enable maps for events and venues.', 'the-events-calendar' ),
+		'default'         => true,
+		'class'           => 'google-embed-size',
+		'validation_type' => 'boolean',
+	],
+	'embedGoogleMapsZoom'              => [
+		'type'            => 'text',
+		'label'           => esc_html__( 'Google Maps default zoom level', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( '0 = zoomed out; 21 = zoomed in.', 'the-events-calendar' ),
+		'size'            => 'small',
+		'default'         => 10,
+		'class'           => 'google-embed-field',
+		'validation_type' => 'number_or_percent',
+	],
+];
 
-// Form start.
-$display_tab_fields = Tribe__Main::array_insert_before_key(
+// Advanced Template Settings array.
+$tec_events_display_advanced = [
+	'tribe-events-advanced-settings-title' => [
+		'type' => 'html',
+		'html' => '<h3>' . esc_html__( 'Advanced Template Settings', 'the-events-calendar' ) . '</h3>',
+	],
+	'tribeEventsBeforeHTML'            => [
+		'type'            => 'wysiwyg',
+		'label'           => esc_html__( 'Add HTML before event content', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'the-events-calendar' ),
+		'validation_type' => 'html',
+	],
+	'tribeEventsAfterHTML'             => [
+		'type'            => 'wysiwyg',
+		'label'           => esc_html__( 'Add HTML after event content', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'the-events-calendar' ),
+		'validation_type' => 'html',
+	],
+];
+
+//
+
+// Insert Settings header.
+$tec_events_display_fields = Tribe__Main::array_insert_before_key(
 	'tribe-form-content-start',
-	$display_tab_fields,
+	$tec_events_display_fields,
 	$tec_events_display_header
 );
 
-// datepickerFormat
-$display_tab_fields = Tribe__Main::array_insert_before_key(
-	'datepickerFormat',
-	$display_tab_fields,
-	$tec_events_display_date
-);
-
-// datepickerFormat
-$display_tab_fields = Tribe__Main::array_insert_after_key(
-	'timeRangeSeparator',
-	$display_tab_fields,
-	$tec_events_display_currency
-);
-
-// datepickerFormat
-$display_tab_fields = Tribe__Main::array_insert_after_key(
-	'reverseCurrencyPosition',
-	$display_tab_fields,
-	$tec_events_display_maps
-);
-
-$display_tab_fields = Tribe__Main::array_insert_before_key(
+// Insert Basic Template Settings.
+$tec_events_display_fields = Tribe__Main::array_insert_before_key(
 	'tribeEventsDateFormatSettingsTitle',
-	$display_tab_fields,
+	$tec_events_display_fields,
 	$tec_events_display_template
 );
 
-$display_tab_fields = Tribe__Main::array_insert_after_key(
+// Insert Currency Settings.
+$tec_events_display_fields = Tribe__Main::array_insert_after_key(
+	'timeRangeSeparator',
+	$tec_events_display_fields,
+	$tec_events_display_currency
+);
+
+// Insert Map Settings.
+$tec_events_display_fields = Tribe__Main::array_insert_after_key(
+	'reverseCurrencyPosition',
+	$tec_events_display_fields,
+	$tec_events_display_maps
+);
+
+// Insert Advanced Template Settings.
+$tec_events_display_fields = Tribe__Main::array_insert_after_key(
 	'datepickerFormat',
-	$display_tab_fields,
+	$tec_events_display_fields,
 	$tec_events_display_advanced
 );
+
+/**
+ * Filter the fields available on the display settings tab
+ *
+ * @param array $fields a nested associative array of fields & field info passed to Tribe__Field
+ *
+ * @see Tribe__Field
+ */
+$tec_events_display_fields = apply_filters( 'tec_events_display_settings_tab_fields', $tec_events_display_fields );
+
+$tec_events_display_tab = [
+		'priority' => 10,
+		'fields'   => $tec_events_display_fields,
+];

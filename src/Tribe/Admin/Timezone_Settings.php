@@ -10,7 +10,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	public function __construct() {
 		$this->listen();
 		add_action( 'wp_ajax_tribe_timezone_update', [ $this, 'ajax_updater' ] );
-		add_filter( 'tribe_display_settings_tab_fields', [ $this, 'settings_ui' ], 20 );
+		add_filter( 'tribe_dates_settings_tab_fields', [ $this, 'settings_ui' ], 20 );
 	}
 
 	/**
@@ -40,8 +40,8 @@ class Tribe__Events__Admin__Timezone_Settings {
 		}
 
 		// Add the new section just before the settings form is closed
-		return Tribe__Main::array_insert_after_key(
-			'timeRangeSeparator',
+		return Tribe__Main::array_insert_before_key(
+			'tribe-form-content-end',
 			$general_settings,
 			$timezone_settings
 		);

@@ -31,6 +31,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * Key for the Hidden Field of toggling blocks editor.
 	 *
 	 * @since 5.14.0
+	 * @deprecated TBD
 	 *
 	 * @var string
 	 */
@@ -145,13 +146,6 @@ class Tribe__Events__Editor__Compatibility {
 				'default'         => false,
 				'validation_type' => 'boolean',
 				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-field' ],
-			],
-			static::$blocks_editor_hidden_field_key => [
-				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Hidden Blocks Editor Config', 'the-events-calendar' ),
-				'default'         => false,
-				'validation_type' => 'boolean',
-				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-hidden-field' ],
 			],
 		];
 
