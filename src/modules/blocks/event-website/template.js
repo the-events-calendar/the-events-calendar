@@ -25,7 +25,7 @@ const { URLInput } = wpEditor;
 
 const placeholder = __( 'Add Event Website', 'the-events-calendar' );
 const buttonPlaceholder = __( 'Button text', 'the-events-calendar' );
-const urlPlaceholder = __( 'website URL', 'the-events-calendar' );
+const urlPlaceholder = __( 'Website URL', 'the-events-calendar' );
 
 const renderUrlInput = ( { isSelected, url, setWebsite } ) => (
 	isSelected && (
