@@ -200,7 +200,7 @@ if ( ! $_POST && is_admin() ) {
 			id='EventWebsite'
 			name='venue[URL][]'
 			size='14'
-			value='<?php echo isset( $_VenueURL ) ? esc_url( $_VenueURL ) : '' ?>'
+			value='<?php echo isset( $_VenueURL ) ? esc_url( $_VenueURL ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue URL', 'the-events-calendar' ); ?>"
 		/>
 	</td>
