@@ -231,6 +231,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Serialization and unserialization issues related to caching of post models. [TEC-4379]
+* Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
+* Tweak - Add the `tribe_get_venue_object_after` and `tribe_get_organizer_object_after` filters. [TEC-4379]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 
 = [6.0.2] 2022-10-20 =
