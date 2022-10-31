@@ -225,10 +225,6 @@ class Settings {
 	public function maybe_add_troubleshooting() {
 		$admin_pages = tribe( 'admin.pages' );
 
-		if ( ! tribe( 'settings' )->should_setup_pages() ) {
-			return;
-		}
-
 		$troubleshooting = tribe( Troubleshooting::class );
 
 		$admin_pages->register_page(
