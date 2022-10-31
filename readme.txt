@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.3] 2022-10-26 =
+= [6.0.3] 2022-10-31 =
 
 * Fix - Handle repository query filters correctly in custom tables context; fix a REST API issue. [ET-1567]
 
