@@ -250,10 +250,6 @@ class Settings {
 	public function maybe_add_app_shop() {
 		$admin_pages = tribe( 'admin.pages' );
 
-		if ( ! tribe( 'settings' )->should_setup_pages() ) {
-			return;
-		}
-
 		$app_shop = tribe( Tribe__App_Shop::class );
 
 		$admin_pages->register_page(
