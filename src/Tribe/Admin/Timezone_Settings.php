@@ -10,7 +10,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	public function __construct() {
 		$this->listen();
 		add_action( 'wp_ajax_tribe_timezone_update', [ $this, 'ajax_updater' ] );
-		add_filter( 'tribe_dates_settings_tab_fields', [ $this, 'settings_ui' ], 20 );
+		add_filter( 'tec_events_pro_dates_settings_tab_fields', [ $this, 'settings_ui' ], 20 );
 	}
 
 	/**

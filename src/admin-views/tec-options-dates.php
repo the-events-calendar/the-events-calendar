@@ -94,6 +94,7 @@ $tec_events_date_fields     = [
 	'multiDayCutoff'                   => [
 		'type'            => 'dropdown',
 		'label'           => esc_html__( 'End of day cutoff', 'the-events-calendar' ),
+		'tooltip'         => __( "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar.", 'the-events-calendar' ),
 		'validation_type' => 'options',
 		'size'            => 'small',
 		'default'         => date_i18n( $site_time_format, strtotime( '12:00 am' ) ),
@@ -112,18 +113,13 @@ $tec_events_date_fields     = [
 			'11:00' => date_i18n( $site_time_format, strtotime( '11:00 am' ) ),
 		],
 	],
-	'multi-day-cutoff-helper'            => [
-		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( esc_html__( "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar.", 'the-events-calendar' ) ) . '</p>',
-		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
-	],
 	'tribe-form-content-end'             => [
 		'type' => 'html',
 		'html' => '</div>',
 	],
 ];
 
-$tec_events_date_fields  = apply_filters( 'tribe_dates_settings_tab_fields', $tec_events_date_fields );
+$tec_events_date_fields  = apply_filters( 'tec_events_pro_dates_settings_tab_fields', $tec_events_date_fields );
 
 $tec_events_display_date = [
 	'priority' => 20,

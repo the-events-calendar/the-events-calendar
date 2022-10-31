@@ -49,6 +49,7 @@ class Tribe__Events__Editor__Compatibility {
 	public function hook() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 100 );
 		add_filter( 'classic_editor_enabled_editors_for_post_type', [ $this, 'filter_classic_editor_enabled_editors_for_post_type' ], 10, 2 );
+		add_filter( 'tribe-event-general-settings-fields', [ $this, 'insert_toggle_blocks_editor_field' ] );
 	}
 
 	/**
@@ -130,7 +131,7 @@ class Tribe__Events__Editor__Compatibility {
 	 *
 	 * @return array
 	 */
-	public function insert_toggle_blocks_editor_field( $fields = [] ) {
+	public function insert_toggle_blocks_editor_field( $fields ) {
 		if ( ! tribe( 'editor' )->is_wp_version() ) {
 			return $fields;
 		}
