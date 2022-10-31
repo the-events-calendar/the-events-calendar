@@ -133,6 +133,8 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_where', [ $this, 'filter_by_date' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_where' ], 10, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
+		// This is the last filter in the `WP_Query` class: use this as an action to clean up.
+		add_filter( 'the_posts', [ $this, 'remove_late_filters' ], 10, 2 );
 
 		// This "parallel" query should not be manipulated by the WP_Query_Monitor.
 		$monitor_ignore_flag          = WP_Query_Monitor::ignore_flag();
@@ -161,6 +163,8 @@ class Custom_Tables_Query extends WP_Query {
 
 		$results = parent::get_posts();
 
+		$this->remove_filters();
+
 		/**
 		 * Fires after the Custom Tables Query ran.
 		 *
@@ -171,16 +175,19 @@ class Custom_Tables_Query extends WP_Query {
 		 */
 		do_action( 'tec_events_custom_tables_v1_custom_tables_query_results', $results, $this );
 
-		if (
-			$this->wp_query instanceof WP_Query
-			&& empty( $this->get( 'no_found_rows', false ) )
-		) {
-			$this->wp_query->found_posts = $this->found_posts;
-			$this->wp_query->max_num_pages = $this->max_num_pages;
-		}
+		$set_found_rows = empty( $this->get( 'no_found_rows', false ) );
 
-		// Set the request SQL that actually ran to allow easier debugging of the query.
-		$this->wp_query->request = $this->request;
+		if ( $this->wp_query instanceof WP_Query ) {
+			if ( $set_found_rows ) {
+				// Avoid `SELECT FOUND_ROWS()` running twice. See #ECP-1360.
+				add_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ], 10, 2 );
+				$this->wp_query->found_posts = $this->found_posts;
+				$this->wp_query->max_num_pages = $this->max_num_pages;
+			}
+
+			// Set the request SQL that actually ran to allow easier debugging of the query.
+			$this->wp_query->request = $this->request;
+		}
 
 		return $results;
     }
@@ -511,5 +518,75 @@ class Custom_Tables_Query extends WP_Query {
 	 */
 	public function get_wp_query() {
 		return $this->wp_query;
+	}
+
+	/**
+	 * Short-circuits the controlled `WP_Query` instance query to get the number of found results
+	 * to avoid it from running twice.
+	 *
+	 * The Custom Tables query will pre-fill the results on the `posts_pre_query` filter and will run,
+	 * in that context, a query to get the posts and the found rows. The `WP_Query` instance whose posts
+	 * are pre-filled, will attempt to run the query to get the found rows again. This method will intercept
+	 * that second `SELECT FOUND_ROWS()` query to pre-fill it with a result the Custom Tables query already
+	 * has.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $found_posts_query The SQL query that would run to fill in the `found_posts` property of the
+	 *                                  `WP_Query` instance.
+	 * @param        $query             WP_Query The `WP_Query` instance that is currently filtering its `found_posts`
+	 *                                  property.
+	 *
+	 * @return string The filtered SQL query that will run to fill in the `found_posts` property of the `WP_Query`
+	 *                instance.
+	 */
+	public function filter_found_posts_query( $found_posts_query, $query ) {
+		if ( $this->wp_query !== $query ) {
+			return $found_posts_query;
+		}
+
+		remove_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ] );
+
+		return 'SELECT ' . $this->found_posts;
+	}
+
+	/**
+	 * Removes all the filters the Custom Tables Query has added to filter its own inner workings while
+	 * pre-filling the results in the `posts_pre_query` filter.
+	 *
+	 * @since TBD
+	 *
+	 * @return void Lingering filters will be removed.
+	 */
+	protected function remove_filters(): void {
+		remove_filter( 'posts_search', [ $this, 'replace_meta_query' ], 10 );
+		remove_filter( 'posts_fields', [ $this, 'redirect_posts_fields' ] );
+		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
+		remove_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 100 );
+		remove_filter( 'posts_where', [ $this, 'filter_by_date' ], 10 );
+		remove_filter( 'posts_where', [ $this, 'filter_where' ], 10 );
+		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10 );
+		remove_filter( 'the_posts', [ $this, 'remove_late_filters' ] );
+	}
+
+	/**
+	 * Removes late filters that are required after the `posts_pre_query` filter.
+	 *
+	 * @since TBD
+	 *
+	 * @param array    $the_posts The array of posts that will be returned by the `WP_Query` instance.
+	 * @param WP_Query $query     WP_Query The `WP_Query` instance that is currently filtering its `the_posts` property.
+	 *
+	 * @return array The filtered array of posts that will be returned by the `WP_Query` instance, not modified by
+	 *               this filter.
+	 */
+	public function remove_late_filters( $the_posts, $query ) {
+		if ( $query !== $this->wp_query ) {
+			return $the_posts;
+		}
+
+		remove_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ] );
+
+		return $the_posts;
 	}
 }
