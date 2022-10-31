@@ -338,6 +338,7 @@ class Tribe__Events__Updater {
 
 			// Update reason to central source.
 			update_post_meta( $event_id, Event_Status_Meta::$key_status_reason, $reason );
+			clean_post_cache( $event_id );
 		}
 	}
 }
