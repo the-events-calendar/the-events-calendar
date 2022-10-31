@@ -45,7 +45,7 @@
     ],
     "jest": [
       "src/modules/**/__tests__/**/*.js",
-      "src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
+      "!src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
     ]
   },
   "scripts": {
