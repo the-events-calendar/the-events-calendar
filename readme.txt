@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.5
-Stable tag: 6.0.2
+Stable tag: 6.0.3
 Tested up to: 6.0.3
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -238,6 +238,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Fix - More robust type checking in Builder methods. [ECP-1402]
 
+= [6.0.3] 2022-10-31 =
+
+* Fix - Handle repository query filters correctly in custom tables context; fix a REST API issue. [ET-1567]
+
 = [6.0.2] 2022-10-20 =
 
 * Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [ [TEC-4457]]
@@ -271,6 +275,7 @@ Remember to always make a backup of your database and files before updating!
                          `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
 * Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TEC-4517]
 * Language - 11 new strings added, 149 updated, 2 fuzzied, and 2 obsoleted.
+
 
 = [6.0.1.1] 2022-09-29 =
 
