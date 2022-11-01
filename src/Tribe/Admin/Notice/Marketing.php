@@ -1,8 +1,10 @@
 <?php
+namespace Tribe\Events\Admin\Notice;
+
 /**
  * @internal This class may be removed or changed without notice
  */
-class Tribe__Events__Admin__Notice__Marketing {
+class Marketing {
 	/**
 	 * Register marketing notices.
 	 *

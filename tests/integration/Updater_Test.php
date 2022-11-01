@@ -1,9 +1,12 @@
 <?php
 
+use Tribe\Events\Test\Traits\With_Uopz;
+
 /**
  * @group updates
  */
 class Updater_Test extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
 
 	public function test_update_required() {
 		$current_version = Tribe__Events__Main::VERSION;
@@ -28,7 +31,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$updater = Tribe__Events__Main::instance()->updater();
 		$version_from_updater = $updater->get_version_from_db();
 
-		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Updater' );
+		$this->assertEquals( $version_from_updater, $version_from_settings_manager, 'checking that the version from Settings Manager matches the version from Controller' );
 	}
 
 	public function test_update_version_option() {
@@ -38,12 +41,12 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		$version_in_db = $updater->get_version_from_db();
 
-		$this->assertEquals( $version_in_db, $current_version, "checking that the version in the database was set to $current_version" );
+		$this->assertEquals( $current_version, $version_in_db, "checking that the version in the database was set to $current_version" );
 
 		$updater->reset();
 
 		$version_in_db = $updater->get_version_from_db();
-		$this->assertEquals( $version_in_db, 3.9, 'checking that the version in the database was set to 3.9' );
+		$this->assertEquals( $updater->get_reset_version(), $version_in_db, 'checking that the version in the database was set to 3.9' );
 	}
 
 	public function test_get_update_callbacks() {
@@ -60,9 +63,9 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 		$current_version = Tribe__Events__Main::VERSION;
 		$updater = Tribe__Events__Main::instance()->updater();
 
-		$contant_updates = $updater->get_constant_update_callbacks();
-		foreach ( $contant_updates as $contant_update_callable ) {
-			$this->assertTrue( is_callable( $contant_update_callable ), 'checking constant update function is callable' );
+		$constant_updates = $updater->get_constant_update_callbacks();
+		foreach ( $constant_updates as $constant_update_callable ) {
+			$this->assertTrue( is_callable( $constant_update_callable ), 'checking constant update function is callable' );
 		}
 	}
 
@@ -121,6 +124,10 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		// @var Tribe__Events__Capabilities $capabilities
 		$capabilities = tribe( Tribe__Events__Capabilities::class );
+
+		// Level the playing field and set up the expected fixture.
+		$capabilities->delete_needs_init();
+		$this->uopz_set_return( 'is_admin', true );
 
 		$this->assertEmpty( $capabilities->needs_init() );
 

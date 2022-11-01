@@ -24,6 +24,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		'status'      => 'post_status',
 		'post_parent' => 'post_parent',
 		'include'     => 'post__in',
+		'starts_before' => 'starts_before',
+		'starts_after' => 'starts_after',
+		'ends_before' => 'ends_before',
+		'ends_after' => 'ends_after',
 	];
 
 	/**
@@ -55,15 +59,39 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	public function get( WP_REST_Request $request ) {
 		$args        = [];
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
+		$relative_dates = false;
 
 		$args['paged']          = $request['page'];
 		$args['posts_per_page'] = $request['per_page'];
+
+		if ( isset( $request['starts_before'] ) ) {
+			$args['starts_before'] = Tribe__Timezones::localize_date( $date_format, $request['starts_before'] );
+			$relative_dates = true;
+		}
+
+		if ( isset( $request['starts_after'] ) ) {
+			$args['starts_after'] = Tribe__Timezones::localize_date( $date_format, $request['starts_after'] );
+			$relative_dates = true;
+		}
+
+		if ( isset( $request['ends_before'] ) ) {
+			$args['ends_before'] = Tribe__Timezones::localize_date( $date_format, $request['ends_before'] );
+			$relative_dates = true;
+		}
+
+		if ( isset( $request['ends_after'] ) ) {
+			$args['ends_after'] = Tribe__Timezones::localize_date( $date_format, $request['ends_after'] );
+			$relative_dates = true;
+		}
+
 		$args['start_date']     = isset( $request['start_date'] ) ?
 			Tribe__Timezones::localize_date( $date_format, $request['start_date'] )
 			: false;
+
 		$args['end_date']       = isset( $request['end_date'] ) ?
 			Tribe__Timezones::localize_date( $date_format, $request['end_date'] )
 			: false;
+
 		$args['s']              = $request['search'];
 
 		if ( $post__in = $request['include'] ) {
@@ -73,8 +101,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 		$args['post_parent'] = $request['post_parent'];
 
+
+		// Allow REST API users to define the default behavior of the inclusive date parameters.
+		$use_inclusive_start_end_dates = isset( $request['strict_dates'] ) ? ! filter_var( $request['strict_dates'], FILTER_VALIDATE_BOOLEAN ) : true;
+
 		/**
-		 * Allows users to override "inclusive" start and end dates and  make the REST API use a
+		 * Allows users to override the default "inclusive" start and end dates and  make the REST API use a
 		 * timezone-adjusted date range.
 		 *
 		 * Example: wp-json/tribe/events/v1/events?start_date=2017-12-21&end_date=2017-12-22
@@ -83,22 +115,38 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		 *   2017-12-21 00:00:00 and end_date to 2017-12-22 23:59:59. Events within this range will
 		 *   be retrieved.
 		 *
-		 * - If you set this filter to false on a site whose timezone is America/New_York, then the
+		 * - If you set this filter to true on a site whose timezone is America/New_York, then the
 		 *   REST API would set start_date to 2017-12-20 19:00:00 and end_date to
 		 *   2017-12-21 19:00:00. A different range of events to draw from.
 		 *
 		 * @since 4.6.8
 		 *
-		 * @param bool $use_inclusive Defaults to true. Whether to use "inclusive" start and end dates.
+		 * @param bool $use_inclusive Defaults to false (inclusive, not strict). Whether to use "inclusive" start and end dates.
 		 */
-		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', true ) ) {
+		if ( apply_filters( 'tribe_events_rest_use_inclusive_start_end_dates', $use_inclusive_start_end_dates ) ) {
 
-			if ( $args['start_date'] ) {
+			if ( ! empty( $args['start_date'] ) ) {
 				$args['start_date'] = tribe_beginning_of_day( $request['start_date'] );
 			}
 
-			if ( $args['end_date'] ) {
+			if ( ! empty( $args['end_date'] ) ) {
 				$args['end_date'] = tribe_end_of_day( $request['end_date'] );
+			}
+
+			if ( ! empty( $args['ends_after'] ) ) {
+				$args['ends_after'] = tribe_end_of_day( $request['ends_after'] );
+			}
+
+			if ( ! empty( $args['ends_before'] ) ) {
+				$args['ends_before'] = tribe_end_of_day( $request['ends_before'] );
+			}
+
+			if ( ! empty( $args['starts_before'] ) ) {
+				$args['starts_before'] = tribe_end_of_day( $request['starts_before'] );
+			}
+
+			if ( ! empty( $args['starts_after'] ) ) {
+				$args['starts_after'] = tribe_end_of_day( $request['starts_after'] );
 			}
 		}
 
@@ -135,6 +183,17 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 		}
 
 		$args = $this->parse_args( $args, $request->get_default_params() );
+
+		if ( $relative_dates ) {
+			$query_params = $request->get_query_params();
+			if ( ! isset( $query_params['start_date'] ) ) {
+				unset( $args['start_date'] );
+			}
+
+			if ( ! isset( $query_params['end_date'] ) ) {
+				unset( $args['end_date'] );
+			}
+		}
 
 		if ( null === $request['status'] ) {
 			$cap                 = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
@@ -422,7 +481,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
-	 * @since TBD Added support for `ticketed` parameter.
+	 * @since 6.0.0 Added support for `ticketed` parameter.
 	 *
 	 * @return array
 	 */
@@ -447,14 +506,45 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_time' ],
 				'default'           => Tribe__Timezones::localize_date( Tribe__Date_Utils::DBDATETIMEFORMAT, 'yesterday 23:59' ),
-				'description'       => __( 'Events should start after the specified date', 'the-events-calendar' ),
+				'description'       => __( 'Events that start on the specified date', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
 			'end_date'    => [
 				'required'          => false,
 				'validate_callback' => [ $this->validator, 'is_time' ],
 				'default'           => date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+24 months' ) ),
-				'description'       => __( 'Events should start before the specified date', 'the-events-calendar' ),
+				'description'       => __( 'Events that end on the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
+			],
+			'starts_before'  => [
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_time' ],
+				'description'       => __( 'Events that start before the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
+			],
+			'starts_after'  => [
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_time' ],
+				'description'       => __( 'Events that start after the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
+			],
+			'ends_before'  => [
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_time' ],
+				'description'       => __( 'Events that end before the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
+			],
+			'ends_after'  => [
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_time' ],
+				'description'       => __( 'Events that end after the specified date', 'the-events-calendar' ),
+				'swagger_type'      => 'string',
+			],
+			'strict_dates'  => [
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_string' ],
+				'default'           => 'false',
+				'description'       => __( 'Dates set using the start_date/end_date, starts_*/ends_* are set to start at the specified times. The default behavior is to include the entire days.', 'the-events-calendar' ),
 				'swagger_type'      => 'string',
 			],
 			'search'      => [

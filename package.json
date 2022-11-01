@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "5.16.4",
+  "version": "6.0.2",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -10,10 +10,7 @@
   "_glotPressUrl": "https://translate.wordpress.org",
   "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": [
-    "po",
-    "mo"
-  ],
+  "_glotPressFormats": ["po", "mo"],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -23,11 +20,14 @@
     "eslint": [
       "src/modules/**/*.js",
       "src/resources/js/**/*.js",
+      "!src/resources/js/**/__tests__/**/*.js",
       "!src/resources/js/**/*.min.js",
       "!src/resources/js/app/**/*.js",
       "!src/resources/js/views/**/*.js",
       "!src/resources/js/events-admin.js",
       "!src/resources/js/tribe-events-bar.js",
+      "!src/resources/js/tec-update-6.0.0-notice.js",
+      "!src/resources/js/custom-tables-v1/ct1-upgrade.js",
       "!src/resources/js/tribe-events.js",
       "src/resources/js/views/**/*.js"
     ],
@@ -40,10 +40,12 @@
       "!src/resources/postcss/tribe-events-full.pcss",
       "!src/resources/postcss/tribe-events-skeleton.pcss",
       "!src/resources/postcss/tribe-events-theme-mobile.pcss",
+      "!src/resources/postcss/tribe-events-theme.pcss",
       "!src/resources/postcss/tribe-events-theme.pcss"
     ],
     "jest": [
-      "src/modules/**/__tests__/**/*.js"
+      "src/modules/**/__tests__/**/*.js",
+      "!src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
     ]
   },
   "scripts": {
@@ -65,10 +67,7 @@
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
-  "engines": {
-    "node": "16.6.1",
-    "npm": "7.20.3"
-  },
+  "engines": { "node": "16.6.1", "npm": "7.20.3" },
   "devDependencies": {
     "@the-events-calendar/product-taskmaster": "^2.1.1",
     "@wordpress/hooks": "^1.3.2",

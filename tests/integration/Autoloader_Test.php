@@ -27,7 +27,7 @@ class Autoloader_Test extends \Codeception\TestCase\WPTestCase {
 	 * Test if a class exists that is autoloaded through the plugin and deprecated.
 	 */
 	public function test_deprecated_class_exists() {
-		$class = 'Tribe_Events_Single_Event_Template';
+		$class = 'Tribe__Events__List_Widget';
 		add_filter( 'deprecated_file_trigger_error', '__return_false' );
 		$this->assertTrue( class_exists( $class ), 'Class "' . $class . '" does not exist.' );
 	}

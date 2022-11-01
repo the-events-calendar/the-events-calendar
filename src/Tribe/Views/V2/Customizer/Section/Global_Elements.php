@@ -441,7 +441,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 		if ( $this->should_include_setting_css( 'event_date_time_color' ) ) {
 			$date_color   = $this->get_option( 'event_date_time_color' );
 			$new_styles[] = "--tec-color-text-event-date: {$date_color};";
-			$new_styles[] = "--tec-color-text-event-date-secondary: {$date_color};";
+			$new_styles[] = "--tec-color-text-secondary-event-date: {$date_color};";
 		}
 
 		// Link color overrides.
