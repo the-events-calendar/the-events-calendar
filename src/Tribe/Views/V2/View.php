@@ -232,7 +232,7 @@ class View implements View_Interface {
 	 *
 	 * @var string
 	 */
-	public $label = 'view';
+	protected static $label = 'View';
 
 	/**
 	 * View constructor.
@@ -676,20 +676,15 @@ class View implements View_Interface {
 		return $html;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_label() {
+	public static function get_view_label() {
+		return static::filter_view_label( static::$label );
+	}
+
+	protected static function filter_view_label( $label ) {
 		/**
-		 * Filters the label that will be used on the UI for views listing.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $label        Label of the Current view.
-		 * @param string $slug         Slug of the view we are getting the label for.
-		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 * On the next feature version we need to remove.
 		 */
-		$label = apply_filters( 'tribe_events_views_v2_view_label', $this->label, $this->slug, $this );
+		$slug = tribe( Manager::class )->get_view_slug_by_class( static::class );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
@@ -697,9 +692,25 @@ class View implements View_Interface {
 		 * @since TBD
 		 *
 		 * @param string $label        Label of the Current view.
-		 * @param string $view_class   Class Name of the view we are getting the label for.
+		 * @param string $slug         Slug of the view we are getting the label for.
 		 */
-		return apply_filters( "tribe_events_views_v2_{$this->slug}_view_label", $label, $this );
+		$label = apply_filters( 'tec_events_views_v2_view_label', $label, $slug );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $label        Label of the Current view.
+		 */
+		return apply_filters( "tec_events_views_v2_{$slug}_view_label", $label );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_label() {
+		return static::get_view_label();
 	}
 
 	/**

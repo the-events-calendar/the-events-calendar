@@ -103,10 +103,10 @@ class Manager {
 		$views = (array) apply_filters(
 			'tribe_events_views',
 			[
-				'day'         => Day_View::class,
-				'latest-past' => Latest_Past_View::class,
 				'list'        => List_View::class,
 				'month'       => Month_View::class,
+				'day'         => Day_View::class,
+				'latest-past' => Latest_Past_View::class,
 			]
 		);
 
@@ -345,7 +345,7 @@ class Manager {
 	 * @return string|false The label associated with a given View.
 	 */
 	public function get_view_label_by_class( $view_class ) {
-		return tribe( $view_class )->get_label();
+		return $view_class::get_view_label();
 	}
 
 	/**
@@ -364,7 +364,7 @@ class Manager {
 			return false;
 		}
 
-		return tribe( $view_class )->get_label();
+		return $view_class::get_view_label();
 	}
 
 	/**
