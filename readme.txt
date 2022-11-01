@@ -236,6 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add the `tribe_get_venue_object_after` and `tribe_get_organizer_object_after` filters. [TEC-4379]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
+* Fix - Handle translated rewrite slugs correctly. [TEC-3733]
 
 = [6.0.3] 2022-10-31 =
 
