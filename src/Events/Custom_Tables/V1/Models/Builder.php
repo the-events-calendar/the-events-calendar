@@ -762,11 +762,14 @@ class Builder {
 	 */
 	public function first() {
 		$results = $this->limit( 1 )->get();
+
 		if ( empty( $results ) ) {
 			return null;
 		}
 
-		return reset( $results );
+		$result = reset( $results );
+
+		return $result instanceof $this->model ? $result : null;
 	}
 
 	/**
