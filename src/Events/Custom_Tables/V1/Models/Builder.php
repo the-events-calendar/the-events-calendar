@@ -769,7 +769,15 @@ class Builder {
 
 		$result = reset( $results );
 
-		return $result instanceof $this->model ? $result : null;
+		switch ( $this->output_format ) {
+			case OBJECT:
+			default:
+				return $result instanceof $this->model ? $result : null;
+			case ARRAY_N:
+				return is_array( $result ) ? array_values( $result ) : null;
+			case ARRAY_A:
+				return is_array( $result ) ? $result : null;
+		}
 	}
 
 	/**
