@@ -758,7 +758,8 @@ class Builder {
 	 * Limit the results from a query to a single result and return the first instance if available otherwise null.
 	 *
 	 * @since 6.0.0
-	 * @return Model|null
+	 *
+	 * @return Model|array|null The requested model in the required format, or `null` if the model could not be found.
 	 */
 	public function first() {
 		$results = $this->limit( 1 )->get();
