@@ -2,9 +2,11 @@
 
 namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
+use Spatie\Snapshots\MatchesSnapshots;
 use Tribe__Events__Main as TEC;
 
 class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
+	use MatchesSnapshots;
 
 	/**
 	 * @before
@@ -127,5 +129,56 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 7, $matches );
 		$this->assertEquals( 9, $query->found_posts );
 		$this->assertEquals( 2, $query->max_num_pages );
+	}
+
+	/**
+	 * It should not run found_rows query twice per single query
+	 *
+	 * @test
+	 */
+	public function should_not_run_found_rows_query_twice_per_single_query(): void {
+		$events = [];
+		foreach ( range( 1, 3 ) as $k ) {
+			$events[] = tribe_events()->set_args( [
+				'post_title'  => 'Event ' . $k,
+				'post_status' => 'publish',
+				'start_date'  => "+$k days 10 am",
+				'duration'    => 2 * HOUR_IN_SECONDS,
+			] )->create()->ID;
+		}
+
+		// Start logging the queries now.
+		$logged_queries = [];
+		add_filter( 'query', static function ( string $query ) use ( &$logged_queries ): string {
+			$trimmed_query = trim( $query );
+
+			// Only log SELECT queries.
+			if ( strpos( $trimmed_query, 'SELECT' ) !== 0 ) {
+				return $query;
+			}
+
+			$logged_queries[] = $trimmed_query;
+
+			return $query;
+		} );
+
+		// Run a query that will be handled and pre-filled by the Custom Tables Query.
+		$wp_query = new \WP_Query();
+		$found = $wp_query->query( [
+			'fields'     => 'ids',
+			'post_type'  => TEC::POSTTYPE,
+			// Fix the date comparison value to avoid the snapshots being invalidated by time.
+			'meta_query' => [
+				[
+					'key'     => '_EventStartDate',
+					'compare' => '>',
+					'value'   => '2022-10-01 08:00:00',
+				],
+			],
+		] );
+
+		// We do not really care about the ORDER here, just the set nature.
+		$this->assertEqualSets( $events, $found );
+		$this->assertMatchesSnapshot( $logged_queries );
 	}
 }

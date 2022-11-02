@@ -57,20 +57,17 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 		return $return;
 	}
 
-	$post = false;
-	if ( ! $force ) {
-		$cache_key = 'tribe_get_venue_object_' . md5( json_encode( [ $venue, $output, $filter ] ) );
-		/** @var Tribe__Cache $cache */
-		$cache = tribe( 'cache' );
-		$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-	}
+	/** @var Tribe__Cache $cache */
+	$cache = tribe( 'cache' );
+	$cache_key = 'tribe_get_venue_object_' . md5( json_encode( [ $venue, $output, $filter ] ) );
+
+	// Try getting the memoized value.
+	$post = $cache[ $cache_key ];
 
 	if ( false === $post ) {
+		// No memoized value, build from properties.
 		$post = Venue::from_post( $venue )->to_post( $output, $filter );
 
-		if ( empty( $post ) ) {
-			return null;
-		}
 		/**
 		 * Filters the venue post object before caching it and returning it.
 		 *
@@ -86,8 +83,29 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 		 */
 		$post = apply_filters( 'tribe_get_venue_object', $post, $output, $filter );
 
-		$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		// Memoize the value.
+		$cache[ $cache_key ] = $post;
 	}
+
+	if ( empty( $post ) ) {
+		return null;
+	}
+
+	/**
+	 * Filters the venue result after the venue has been built from the function.
+	 *
+	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post     $post        The venue post object to filter and return.
+	 * @param int|WP_Post $venue       The venue object to fetch.
+	 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+	 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+	 *                                 respectively. Defaults to `OBJECT`.
+	 * @param string      $filter      The filter, or context of the fetch.
+	 */
+	$post = apply_filters( 'tribe_get_venue_object_after', $post, $venue, $output, $filter );
 
 	if ( OBJECT !== $output ) {
 		$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );

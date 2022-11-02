@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.5
 Stable tag: 6.0.3
-Tested up to: 6.0.3
+Tested up to: 6.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -228,6 +228,14 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [TBD] TBD =
+
+* Fix - Serialization and unserialization issues related to caching of post models. [TEC-4379]
+* Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
+* Tweak - Add the `tribe_get_venue_object_after` and `tribe_get_organizer_object_after` filters. [TEC-4379]
+* Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
+* Tweak - Update the venue website field to type URL. [TEC-4349]
 
 = [6.0.3] 2022-10-31 =
 
