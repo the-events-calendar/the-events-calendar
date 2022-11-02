@@ -66,17 +66,21 @@ class Month_View extends By_Day_View {
 	protected $grid_days = [];
 
 	/**
-	 * View constructor.
+	 * Default untranslated value for the label of this view.
 	 *
 	 * @since TBD
 	 *
-	 * @param Messages|null $messages An instance of the messages collection.
-	 * @param Stack    $stack    An instance of the stack handler.
+	 * @var string
 	 */
-	public function __construct( Messages $messages = null, Stack $stack ) {
-		parent::__construct( $messages, $stack );
+	protected static $label = 'Month';
 
-		$this->label = _x( 'Month', 'The text label for the Month View.', 'the-events-calendar' );
+	/**
+	 * @inheritDoc
+	 */
+	public static function get_view_label(): string {
+		static::$label = _x( 'Month', 'The text label for the Month View.', 'the-events-calendar' );
+
+		return static::filter_view_label( static::$label );
 	}
 
 	/**

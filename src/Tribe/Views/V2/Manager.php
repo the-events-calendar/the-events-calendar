@@ -345,6 +345,14 @@ class Manager {
 	 * @return string|false The label associated with a given View.
 	 */
 	public function get_view_label_by_class( $view_class ) {
+		if ( ! $view_class ) {
+			return false;
+		}
+
+		if ( ! method_exists( $view_class, 'get_view_label' ) ) {
+			return false;
+		}
+
 		return $view_class::get_view_label();
 	}
 
@@ -358,9 +366,16 @@ class Manager {
 	 * @return string|false The label associated with a given View.
 	 */
 	public function get_view_label_by_slug( $slug ) {
+		/**
+		 * @var $view_class
+		 */
 		$view_class = $this->get_view_class_by_slug( $slug );
 
 		if ( ! $view_class ) {
+			return false;
+		}
+
+		if ( ! method_exists( $view_class, 'get_view_label' ) ) {
 			return false;
 		}
 
@@ -379,6 +394,8 @@ class Manager {
 	 * @return string             The filtered label associated with a given View.
 	 */
 	protected function prepare_view_label( $slug, $view_class ) {
+		_deprecated_function( __METHOD__, 'TBD', 'No direct replacements, see more at View::filter_view_label()' );
+
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 * Deprecated.

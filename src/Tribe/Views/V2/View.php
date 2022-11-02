@@ -50,13 +50,6 @@ class View implements View_Interface {
 	protected static $container;
 
 	/**
-	 * The slug of the not found view.
-	 *
-	 * @var string
-	 */
-	protected $not_found_slug;
-
-	/**
 	 * An instance of the context the View will use to render, if any.
 	 *
 	 * @var Context
@@ -170,7 +163,7 @@ class View implements View_Interface {
 	protected $should_manage_url = true;
 
 	/**
-	 * An collection of user-facing messages the View should display.
+	 * A collection of user-facing messages the View should display.
 	 *
 	 * @since 4.9.11
 	 *
@@ -250,8 +243,6 @@ class View implements View_Interface {
 		if ( $this->rewrite->is_plain_permalink() ) {
 			$this->page_key = 'page';
 		}
-
-		$this->label = _x( 'View', 'The text label for a generic View.', 'tribe-common ' );
 	}
 
 	/**
@@ -676,15 +667,33 @@ class View implements View_Interface {
 		return $html;
 	}
 
-	public static function get_view_label() {
+	/**
+	 * Returns the view label value after filtering.
+	 *
+	 * This is the method you want to overwrite to replace the label for a view with translations.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public static function get_view_label(): string {
 		return static::filter_view_label( static::$label );
 	}
 
-	protected static function filter_view_label( $label ) {
+	/**
+	 * Filters the view label value allowing changes to be made.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $label Which label we are filtering for.
+	 *
+	 * @return string
+	 */
+	protected static function filter_view_label( string $label ): string {
 		/**
 		 * On the next feature version we need to remove.
 		 */
-		$slug = tribe( Manager::class )->get_view_slug_by_class( static::class );
+		$slug = tribe( Manager::class )->get_view_slug_by_class( self::class );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.

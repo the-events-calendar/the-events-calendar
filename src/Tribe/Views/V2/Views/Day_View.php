@@ -47,9 +47,19 @@ class Day_View extends View {
 	 */
 	protected static $publicly_visible = true;
 
+	/**
+	 * Default untranslated value for the label of this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	protected static $label = 'Day';
 
-	public static function get_view_label() {
+	/**
+	 * @inheritDoc
+	 */
+	public static function get_view_label(): string {
 		static::$label = _x( 'Day', 'The text label for the Day View.', 'the-events-calendar' );
 
 		return static::filter_view_label( static::$label );

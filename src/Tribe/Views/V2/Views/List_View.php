@@ -46,16 +46,21 @@ class List_View extends View {
 	protected static $date_in_url = false;
 
 	/**
-	 * View constructor.
+	 * Default untranslated value for the label of this view.
 	 *
 	 * @since TBD
 	 *
-	 * @param Messages|null $messages An instance of the messages collection.
+	 * @var string
 	 */
-	public function __construct( Messages $messages = null ) {
-		parent::__construct( $messages );
+	protected static $label = 'List';
 
-		$this->label = _x( 'List', 'The text label for the List View.', 'the-events-calendar' );
+	/**
+	 * @inheritDoc
+	 */
+	public static function get_view_label(): string {
+		static::$label = _x( 'List', 'The text label for the List View.', 'the-events-calendar' );
+
+		return static::filter_view_label( static::$label );
 	}
 
 	/**
