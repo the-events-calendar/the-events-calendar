@@ -38,7 +38,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * @return string
 	 */
-	public function get_view_label(): string;
+	public static function get_view_label(): string;
 
 	/**
 	 * Returns a View label.
