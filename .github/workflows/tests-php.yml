@@ -126,7 +126,7 @@ jobs:
           ${SLIC_BIN} composer install
       - name: Set up required themes
         if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} wp theme install twentytwenty --activate
+        run: ${SLIC_WP_DIR} wp theme install twentytwenty --activate
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter
