@@ -124,9 +124,6 @@ jobs:
         run: |
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
-      - name: Set up required themes
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} wp theme install twentytwenty
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter
