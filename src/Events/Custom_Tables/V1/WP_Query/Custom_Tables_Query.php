@@ -160,6 +160,12 @@ class Custom_Tables_Query extends WP_Query {
 		 */
 		do_action( 'tec_events_custom_tables_v1_custom_tables_query_pre_get_posts', $this );
 
+		/*
+		 * Since WordPress 6.1 query results are cached. To cache the results the `get_post` function
+		 * will run too early for the post hydration logic to kick in.
+		 */
+		$this->set( 'cache_results', false );
+
 		$results = parent::get_posts();
 
 		$this->remove_filters();
