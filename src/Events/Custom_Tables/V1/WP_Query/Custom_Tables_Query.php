@@ -9,12 +9,10 @@
 
 namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
-use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Repository\Custom_Tables_Query_Filters;
-use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Replace_Results;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_Query;
@@ -628,29 +626,20 @@ class Custom_Tables_Query extends WP_Query {
 
 		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
 
-		if ( empty( $found_posts ) ) {
+		if ( empty( $found_posts ) || ! is_array( $query->posts ) ) {
 			return $found_posts;
 		}
 
-		$occurence_ids = wp_list_pluck( $query->posts, 'occurrence_id' );
-
-		switch ( $this->get( 'fields' ) ) {
-			case 'ids':
-				$query->posts = $occurence_ids;
-				break;
-			case 'id=>parent':
-				$mapped = [];
-				$occurrences = Occurrence::where_in( 'occurrence_id', $occurence_ids )->all();
-				foreach ( $occurrences as $occurrence ) {
-					$mapped[ $occurrence->occurrence_id ] = $occurrence->post_id;
-				}
-				$query->posts = $mapped;
-				break;
-			case '':
-			default:
-				$query->posts = tribe( Replace_Results::class )->replace( $occurence_ids, $this );
-				break;
-		}
+		/**
+		 * Filters the posts that will be hydrated by the Custom Tables Query early, before
+		 * query caching introduced in WordPress 6.1 kicks in.
+		 *
+		 * @since TBD
+		 *
+		 * @param array               $posts The posts that will be hydrated by the Custom Tables Query early.
+		 * @param Custom_Tables_Query $this  The Custom Tables Query instance.
+		 */
+		$query->posts = apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', $query->posts, $query );
 
 		return $found_posts;
 	}
