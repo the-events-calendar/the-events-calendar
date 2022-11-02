@@ -456,9 +456,15 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 		// Now remove from the input query JOIN any JOIN already handled by this filter.
 		$b_join_whats = array_column( $query_join_couples, 1 );
 		foreach ( $query_vars_join_couples as $k => [$join_type, $join_what] ) {
+			// Are there more to remove? This may shrink each iteration.
+			if ( count( $query_join_couples ) === 1 ) {
+				break;
+			}
+
 			if ( ! in_array( $join_what, $b_join_whats, true ) ) {
 				continue;
 			}
+
 			// Remove the JOIN clause from the query JOIN: it should be overridden by the filter's JOIN.
 			unset( $query_join_couples[ array_search( $join_what, $b_join_whats, true ) ] );
 		}
