@@ -127,6 +127,7 @@ jobs:
       - name: Ensure Twenty-Twenty is installed
         if: steps.skip.outputs.value != 1
         run: |
+          ${SLIC_BIN} up
           ${SLIC_BIN} wp theme install twentytwenty --activate
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
