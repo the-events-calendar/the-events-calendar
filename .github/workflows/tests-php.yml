@@ -5,22 +5,22 @@ jobs:
     strategy:
       matrix:
         suite:
-          - aggregatorv1
-          - blocks_editor_integration
-          - event_status
-          - integration
-          - muintegration
-          - restv1
-          - views_integration
-          - views_settings
-          - views_ui
-          - views_v2_customizer_integration
+#          - aggregatorv1
+#          - blocks_editor_integration
+#          - event_status
+#          - integration
+#          - muintegration
+#          - restv1
+#          - views_integration
+#          - views_settings
+#          - views_ui
+#          - views_v2_customizer_integration
           - views_widgets
-          - views_wpunit
-          - wpunit
-          - ct1_integration
-          - ct1_multisite_integration
-          - deprecated
+#          - views_wpunit
+#          - wpunit
+#          - ct1_integration
+#          - ct1_multisite_integration
+#          - deprecated
           # really weird error with RBE changes.
           # - views_rest
     runs-on: ubuntu-latest
@@ -119,6 +119,10 @@ jobs:
           docker network prune -f
           ${SLIC_BIN} use the-events-calendar/common
           ${SLIC_BIN} composer install --no-dev
+      - name: Ensure Twenty-Twenty is installed
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} wp theme install twentytwenty --activate
       - name: Set up The Events Calendar
         if: steps.skip.outputs.value != 1
         run: |
