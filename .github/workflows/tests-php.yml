@@ -5,22 +5,22 @@ jobs:
     strategy:
       matrix:
         suite:
-#          - aggregatorv1
-#          - blocks_editor_integration
-#          - event_status
-#          - integration
-#          - muintegration
-#          - restv1
-#          - views_integration
-#          - views_settings
-#          - views_ui
-#          - views_v2_customizer_integration
+          - aggregatorv1
+          - blocks_editor_integration
+          - event_status
+          - integration
+          - muintegration
+          - restv1
+          - views_integration
+          - views_settings
+          - views_ui
+          - views_v2_customizer_integration
           - views_widgets
-#          - views_wpunit
-#          - wpunit
-#          - ct1_integration
-#          - ct1_multisite_integration
-#          - deprecated
+          - views_wpunit
+          - wpunit
+          - ct1_integration
+          - ct1_multisite_integration
+          - deprecated
           # really weird error with RBE changes.
           # - views_rest
     runs-on: ubuntu-latest
