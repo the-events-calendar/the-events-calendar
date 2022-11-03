@@ -55,7 +55,7 @@ class Clear_Event_Cache {
 
 		$posts = wp_cache_get( $cache_hash, static::$cache_group_key );
 		if ( empty( $posts ) ) {
-			return $posts;
+			return [];
 		}
 
 		$post = reset( $posts );
