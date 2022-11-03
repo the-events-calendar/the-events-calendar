@@ -49,6 +49,9 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		$updater->migrate_event_status_reason_field();
 
+		// Flush the cache to remove cached and memoized artifacts.
+		wp_cache_flush();
+
 		$fetched_event = tribe_get_event( $event, OBJECT, 'raw', true );
 		$this->assertEquals( $status, $fetched_event->event_status );
 		$this->assertEquals( $reason, $fetched_event->event_status_reason );

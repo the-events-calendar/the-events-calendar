@@ -196,11 +196,11 @@ if ( ! $_POST && is_admin() ) {
 	<td>
 		<input
 			tabindex="<?php tribe_events_tab_index(); ?>"
-			type='text'
+			type='url'
 			id='EventWebsite'
 			name='venue[URL][]'
 			size='14'
-			value='<?php echo isset( $_VenueURL ) ? esc_attr( $_VenueURL ) : ''; ?>'
+			value='<?php echo isset( $_VenueURL ) ? esc_url( $_VenueURL ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue URL', 'the-events-calendar' ); ?>"
 		/>
 	</td>
