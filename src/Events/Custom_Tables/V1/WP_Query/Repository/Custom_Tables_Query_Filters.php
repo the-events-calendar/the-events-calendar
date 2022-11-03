@@ -437,7 +437,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			// Nothing to deduplicate.
 			return $query_join;
 		}
-
+		
 		// Break each current JOIN clause into a set of couples in the shape `['JOIN' 'table on ...']`.
 		$query_vars_join_couples = [];
 		$preg_split_flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE;
@@ -459,8 +459,14 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			if ( ! in_array( $join_what, $b_join_whats, true ) ) {
 				continue;
 			}
+
 			// Remove the JOIN clause from the query JOIN: it should be overridden by the filter's JOIN.
 			unset( $query_join_couples[ array_search( $join_what, $b_join_whats, true ) ] );
+		}
+
+		// Removed all queries
+		if ( empty( $query_join_couples ) ) {
+			return '';
 		}
 
 		// Re-assemble the JOIN clause, minus the JOIN clauses removed as already handled by this filter.
