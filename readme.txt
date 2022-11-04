@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Correct issues where early queries can interfere with View template redirects. [TEC-4554]
 * Fix - Serialization and unserialization issues related to caching of post models. [TEC-4379]
+* Fix - Prevent default WordPress occurrence query caching because we cache it ourselves. [TEC-4379]
 * Tweak - Add the `tribe_get_venue_object_after` and `tribe_get_organizer_object_after` filters. [TEC-4379]
 
 = [6.0.3] 2022-10-31 =
