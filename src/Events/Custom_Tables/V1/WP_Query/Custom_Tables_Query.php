@@ -143,11 +143,12 @@ class Custom_Tables_Query extends WP_Query {
 		$monitor = tribe(Custom_Tables_Query_Monitor::class);
 		$monitor->attach( $this );
 
-        // This "parallel" query should not be manipulated from other query managers.
+		// This "parallel" query should not be manipulated from other query managers.
 		$this->set( 'tribe_suppress_query_filters', true );
 		$this->tribe_suppress_query_filters = true;
 		$this->set( 'tribe_include_date_meta', false );
 		$this->tribe_include_date_meta = false;
+		$this->set( 'cache_results', false );
 
 		/**
 		 * Fires before the Custom Tables query runs.
