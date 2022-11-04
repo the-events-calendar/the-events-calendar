@@ -712,7 +712,7 @@ class View implements View_Interface {
 		 *
 		 * @param string $label        Label of the Current view.
 		 */
-		return apply_filters( "tec_events_views_v2_{$slug}_view_label", $label );
+		return (string) apply_filters( "tec_events_views_v2_{$slug}_view_label", $label );
 	}
 
 	/**
