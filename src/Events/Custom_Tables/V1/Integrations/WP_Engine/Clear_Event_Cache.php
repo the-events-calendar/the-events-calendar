@@ -7,7 +7,7 @@
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
 
-namespace TEC\Events\Custom_Tables\V1\Integrations\Dot_Com;
+namespace TEC\Events\Custom_Tables\V1\Integrations\WP_Engine;
 
 use WP_Query;
 use WP_Post;
@@ -15,7 +15,7 @@ use WP_Post;
 /**
  * Class Clear_Event_Cache
  *
- * @since 6.0.2
+ * @since 6.0.2.1
  *
  */
 class Clear_Event_Cache {
@@ -23,16 +23,16 @@ class Clear_Event_Cache {
 	/**
 	 * The cache group key for the WP.com event caching.
 	 *
-	 * @since 6.0.2
+	 * @since 6.0.2.1
 	 *
 	 * @var string
 	 */
-	public static $cache_group_key = 'tec_wpcom_queries';
+	public static $cache_group_key = 'tec_wp_engine_queries';
 
 	/**
 	 * Clears the Single Event Post Cache due to how weirdly broken cache ends up for WP.com single event due to occurrences.
 	 *
-	 * @since 6.0.2
+	 * @since 6.0.2.1
 	 *
 	 * @param array<WP_Post|int>|null $posts       The filter input value, it could have already be filtered by other
 	 * @param WP_Query|null           $wp_query    A reference to the `WP_Query` instance that is currently running.
