@@ -11,6 +11,7 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe\Utils\Query;
+use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
@@ -63,6 +64,24 @@ class Month_View extends By_Day_View {
 	 * @var array
 	 */
 	protected $grid_days = [];
+
+	/**
+	 * Default untranslated value for the label of this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $label = 'Month';
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function get_view_label(): string {
+		static::$label = _x( 'Month', 'The text label for the Month View.', 'the-events-calendar' );
+
+		return static::filter_view_label( static::$label );
+	}
 
 	/**
 	 * Get the date of the event immediately previous to the current view date.
