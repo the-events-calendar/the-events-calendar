@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure view labels are translated appropriately. [TEC-4485]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
+* Fix - Translation of Event Occurrences URL when using WPML and the Custom Tables V1 implementation. [TBD]
 * Fix - More robust type checking in Builder methods. [ECP-1402]
 
 = [6.0.3.1] 2022-11-03 =
