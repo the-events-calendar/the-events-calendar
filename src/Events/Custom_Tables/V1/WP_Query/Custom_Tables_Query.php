@@ -145,11 +145,12 @@ class Custom_Tables_Query extends WP_Query {
 		$monitor = tribe(Custom_Tables_Query_Monitor::class);
 		$monitor->attach( $this );
 
-        // This "parallel" query should not be manipulated from other query managers.
+		// This "parallel" query should not be manipulated from other query managers.
 		$this->set( 'tribe_suppress_query_filters', true );
 		$this->tribe_suppress_query_filters = true;
 		$this->set( 'tribe_include_date_meta', false );
 		$this->tribe_include_date_meta = false;
+		$this->set( 'cache_results', false );
 
 		/**
 		 * Fires before the Custom Tables query runs.
@@ -159,6 +160,21 @@ class Custom_Tables_Query extends WP_Query {
 		 * @param Custom_Tables_Query $this A reference to this Custom Tables query.
 		 */
 		do_action( 'tec_events_custom_tables_v1_custom_tables_query_pre_get_posts', $this );
+
+		$set_found_rows = empty( $this->get( 'no_found_rows', false ) );
+
+		/*
+		 * Since WordPress 6.1 query results are cached. To cache the results the `get_post` function
+		 * will run too early for the post hydration logic to kick in in the `post_results` filter.
+		 * We try to do the same hydration while fetching found rows; if the request is not to set
+		 * found rows, then we'll do the hydration in the `post_results` filter and prevent query caching.
+		 * This is not ideal, but will do for now as a temporary fix.
+		 */
+		if ( $set_found_rows ) {
+			add_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0, 2 );
+		} else {
+			$this->set( 'cache_results', false );
+		}
 
 		$results = parent::get_posts();
 
@@ -173,8 +189,6 @@ class Custom_Tables_Query extends WP_Query {
 		 * @param Custom_Tables_Query $this    A reference to this Custom Tables query.
 		 */
 		do_action( 'tec_events_custom_tables_v1_custom_tables_query_results', $results, $this );
-
-		$set_found_rows = empty( $this->get( 'no_found_rows', false ) );
 
 		if ( $this->wp_query instanceof WP_Query ) {
 			if ( $set_found_rows ) {
@@ -563,14 +577,15 @@ class Custom_Tables_Query extends WP_Query {
 	 * @return void Lingering filters will be removed.
 	 */
 	protected function remove_filters(): void {
-		remove_filter( 'posts_search', [ $this, 'replace_meta_query' ], 10 );
+		remove_filter( 'posts_search', [ $this, 'replace_meta_query' ] );
 		remove_filter( 'posts_fields', [ $this, 'redirect_posts_fields' ] );
 		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
 		remove_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 100 );
-		remove_filter( 'posts_where', [ $this, 'filter_by_date' ], 10 );
-		remove_filter( 'posts_where', [ $this, 'filter_where' ], 10 );
-		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10 );
+		remove_filter( 'posts_where', [ $this, 'filter_by_date' ] );
+		remove_filter( 'posts_where', [ $this, 'filter_where' ] );
+		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ] );
 		remove_filter( 'the_posts', [ $this, 'remove_late_filters' ] );
+		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
 	}
 
 	/**
@@ -592,5 +607,41 @@ class Custom_Tables_Query extends WP_Query {
 		remove_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ] );
 
 		return $the_posts;
+	}
+
+	/**
+	 * Attempt an early hydration of the post caches when fetching the found rows, this method
+	 * is using the `found_posts` filter as an action.
+	 *
+	 * @since TBD
+	 *
+	 * @param int      $found_posts The number of found posts, not used by this method.
+	 * @param WP_Query $query       The `WP_Query` instance that is currently filtering its `found_posts` property.
+	 *
+	 * @return int The number of found posts, not modified by this method.
+	 */
+	public function hydrate_posts_on_found_rows( $found_posts, $query ) {
+		if ( $query !== $this ) {
+			return $found_posts;
+		}
+
+		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
+
+		if ( empty( $found_posts ) || ! is_array( $query->posts ) ) {
+			return $found_posts;
+		}
+
+		/**
+		 * Filters the posts that will be hydrated by the Custom Tables Query early, before
+		 * query caching introduced in WordPress 6.1 kicks in.
+		 *
+		 * @since TBD
+		 *
+		 * @param array               $posts The posts that will be hydrated by the Custom Tables Query early.
+		 * @param Custom_Tables_Query $this  The Custom Tables Query instance.
+		 */
+		$query->posts = apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', $query->posts, $query );
+
+		return $found_posts;
 	}
 }
