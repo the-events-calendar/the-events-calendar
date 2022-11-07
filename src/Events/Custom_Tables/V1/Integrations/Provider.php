@@ -35,5 +35,10 @@ class Provider extends Service_Provider {
 			// WP.com specific integrations.
 			$this->container->register( Dot_Com\Provider::class );
 		}
+
+		if ( function_exists( 'is_wpe' ) ) {
+			// WP Engine specific integrations.
+			$this->container->register( WP_Engine\Provider::class );
+		}
 	}
 }

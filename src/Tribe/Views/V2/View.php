@@ -50,13 +50,6 @@ class View implements View_Interface {
 	protected static $container;
 
 	/**
-	 * The slug of the not found view.
-	 *
-	 * @var string
-	 */
-	protected $not_found_slug;
-
-	/**
 	 * An instance of the context the View will use to render, if any.
 	 *
 	 * @var Context
@@ -70,7 +63,7 @@ class View implements View_Interface {
 	 *
 	 * @var string
 	 */
-	protected $slug = '';
+	protected $slug = 'view';
 
 	/**
 	 * The template slug the View instance will use to locate its template files.
@@ -170,7 +163,7 @@ class View implements View_Interface {
 	protected $should_manage_url = true;
 
 	/**
-	 * An collection of user-facing messages the View should display.
+	 * A collection of user-facing messages the View should display.
 	 *
 	 * @since 4.9.11
 	 *
@@ -225,6 +218,16 @@ class View implements View_Interface {
 	protected $cached_urls = [];
 
 	/**
+	 * The translated label string for the view.
+	 * Subject to later filters.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $label = 'View';
+
+	/**
 	 * View constructor.
 	 *
 	 * @since 4.9.11
@@ -233,7 +236,8 @@ class View implements View_Interface {
 	 */
 	public function __construct( Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
-		$this->rewrite = TEC_Rewrite::instance();
+		$this->rewrite  = TEC_Rewrite::instance();
+
 
 		// For plain permalinks, the pagination variable is "page".
 		if ( $this->rewrite->is_plain_permalink() ) {
@@ -664,10 +668,58 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Returns the view label value after filtering.
+	 *
+	 * This is the method you want to overwrite to replace the label for a view with translations.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public static function get_view_label(): string {
+		return static::filter_view_label( static::$label );
+	}
+
+	/**
+	 * Filters the view label value allowing changes to be made.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $label Which label we are filtering for.
+	 *
+	 * @return string
+	 */
+	protected static function filter_view_label( string $label ): string {
+		/**
+		 * On the next feature version we need to remove.
+		 */
+		$slug = tribe( Manager::class )->get_view_slug_by_class( self::class );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $label        Label of the Current view.
+		 * @param string $slug         Slug of the view we are getting the label for.
+		 */
+		$label = apply_filters( 'tec_events_views_v2_view_label', $label, $slug );
+
+		/**
+		 * Filters the label that will be used on the UI for views listing.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $label        Label of the Current view.
+		 */
+		return (string) apply_filters( "tec_events_views_v2_{$slug}_view_label", $label );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function get_label() {
-		return tribe( Manager::class )->get_view_label_by_slug( $this->get_slug() );
+		return static::get_view_label();
 	}
 
 	/**
