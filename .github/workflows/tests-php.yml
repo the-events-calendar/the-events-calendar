@@ -134,7 +134,7 @@ jobs:
           ${SLIC_BIN} wp theme install twentytwenty --activate
 
       # ------------------------------------------------------------------------------
-      # Prepare our composer cache directory
+      # Try to install the external plugins
       # ------------------------------------------------------------------------------
 
       - name: Read which external plugins should be loaded.
@@ -145,7 +145,8 @@ jobs:
           file: tests/${{ matrix.suite }}.suite.dist.yml
           key-path: '[ "external_plugins" ]'
 
-      - name: Display read-yaml output
+      - name: Install the plugins on this particular Test Suite
+        if: steps.skip.outputs.value != 1 && steps.yml-test-suite-data.outputs.data
         run: |
           ${SLIC_BIN} wp plugin install ${{ steps.yml-test-suite-data.outputs.data }}
 
