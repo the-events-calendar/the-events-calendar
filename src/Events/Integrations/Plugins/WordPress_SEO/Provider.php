@@ -26,8 +26,7 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		return
-			function_exists( 'YoastSEO' )
+		return function_exists( 'YoastSEO' )
 			&& defined( 'WPSEO_VERSION' )
 			&& version_compare( WPSEO_VERSION, '19.0', '>=' );
 	}

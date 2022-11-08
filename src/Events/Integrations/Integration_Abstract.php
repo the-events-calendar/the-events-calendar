@@ -37,7 +37,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	abstract public static function get_slug(): string;
 
 	/**
-	 * Gets the value for if this integration should load.
+	 * Determines whether this integration should load.
 	 *
 	 * @since TBD
 	 *
@@ -48,11 +48,11 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Filters the value and applies all the required layers of filtering.
+	 * Filters whether the integration should load.
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $value
+	 * @param bool $value Whether the integration should load.
 	 *
 	 * @return bool
 	 */
@@ -65,28 +65,28 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $value   Should load value.
+		 * @param bool $value   Whether the integration should load.
 		 * @param string $type  Type of integration we are loading.
 		 * @param string $slug  Slug of the integration we are loading.
 		 */
 		$value = apply_filters( 'tec_events_integrations_should_load', $value, $type, $slug );
 
 		/**
-		 * Filters if integrations of a particular type should be loaded.
+		 * Filters if integrations of the current type should be loaded.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $value   Should load value.
+		 * @param bool $value   Whether the integration should load.
 		 * @param string $slug  Slug of the integration we are loading.
 		 */
 		$value = apply_filters( "tec_events_integrations_{$type}_should_load", $value, $slug );
 
 		/**
-		 * Filters if a particular integration should be loaded.
+		 * Filters if a specific integration (by type and slug) should be loaded.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $value   Should load value.
+		 * @param bool $value   Whether the integration should load.
 		 */
 		return (bool) apply_filters( "tec_events_integrations_{$type}_{$slug}_should_load", $value );
 	}
@@ -95,7 +95,6 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	 * Determines if the integration in question should be loaded.
 	 *
 	 * @since TBD
-	 *
 	 *
 	 * @return bool
 	 */
