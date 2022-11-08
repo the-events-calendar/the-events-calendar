@@ -106,6 +106,11 @@ class Tribe__Events__Integrations__WPML__WPML {
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_template_vars_urls' ] );
 		add_filter( 'tribe_events_views_v2_view_public_views', [ Views_V2_Filters::class, 'translate_public_views_urls' ] );
 		add_filter( 'tribe_events_views_v2_request_uri', [ Views_V2_Filters::class, 'translate_view_request_uri' ] );
+
+		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+			// Handle the translation of the Events permalinks in Views v2 and Custom Tables V1 context.
+			add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_events_permalinks' ] );
+		}
 	}
 
 	protected function setup_cache_expiration_triggers() {

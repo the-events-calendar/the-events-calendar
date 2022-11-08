@@ -30,10 +30,5 @@ class Provider extends Service_Provider {
 		if ( class_exists( '\\TEC\\Event_Tickets\\Custom_Tables\\V1\\Provider' ) ) {
 			$this->container->register( \TEC\Tickets\Custom_Tables\V1\Provider::class );
 		}
-
-		if ( defined( 'WPCOMSH_VERSION' ) ) {
-			// WP.com specific integrations.
-			$this->container->register( Dot_Com\Provider::class );
-		}
 	}
 }

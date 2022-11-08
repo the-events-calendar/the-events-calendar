@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.5
-Stable tag: 6.0.3
+Stable tag: 6.0.4
 Tested up to: 6.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,13 +229,26 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.4] TBD =
 
-* Fix - Serialization and unserialization issues related to caching of post models. [TEC-4379]
+* Fix - Fix for fatal error on Series page in PHP 7.3. [TEC-4549]
+* Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon
 * Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
-* Tweak - Add the `tribe_get_venue_object_after` and `tribe_get_organizer_object_after` filters. [TEC-4379]
+* Fix - Ensure view labels are translated appropriately. [TEC-4485]
+* Fix - Errors and warnings in WP.com installations due to empty query results. [TEC-4543]
+* Fix - Translation of Event Occurrences URL when using WPML and the Custom Tables V1 implementation. [TBD]
+* Fix - More robust type checking in Builder methods. [ECP-1402]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
+* Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
+* Tweak - Do not add date-based ordering to queries when using `none` or `rand` order. [TEC-4555]
+
+= [6.0.3.1] 2022-11-03 =
+
+* Fix - Correct issues where early queries can interfere with View template redirects. [TEC-4554]
+* Fix - Serialization and unserialization issues related to caching of post models. [TEC-4379]
+* Fix - Prevent default WordPress occurrence query caching because we cache it ourselves. [TEC-4379]
+* Tweak - Add the `tribe_get_venue_object_after` and `tribe_get_organizer_object_after` filters. [TEC-4379]
 
 = [6.0.3] 2022-10-31 =
 

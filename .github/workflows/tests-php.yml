@@ -23,6 +23,8 @@ jobs:
           - deprecated
           # really weird error with RBE changes.
           # - views_rest
+          - wp_json_api
+          - ct1_wp_json_api
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -124,6 +126,13 @@ jobs:
         run: |
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
+      - name: Init the WordPress container
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} up wordpress
+      - name: Ensure Twenty-Twenty is installed
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} wp theme install twentytwenty --activate
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter

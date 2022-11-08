@@ -194,7 +194,7 @@ class Template_Bootstrap {
 	public function get_view_html() {
 		$query     = tribe_get_global_query_object();
 		$context   = tribe_context();
-		$view_slug = $context->get( 'view' );
+		$view_slug = $context->get( 'event_display' );
 
 		/**
 		 * Filters the HTML for the view before we do any other logic around that.
