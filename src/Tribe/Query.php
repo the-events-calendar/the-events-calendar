@@ -492,11 +492,6 @@ class Tribe__Events__Query {
 			return;
 		}
 
-		// If the query order is `none` or `rand` we don't need to order it.
-		if ( in_array( $query->get( 'orderby' ), [ 'none', 'rand' ], true ) ) {
-			return;
-		}
-
 		/**
 		 * Filters the value that will be used to indicate the current moment in an
 		 * Event query. The query will return Events ending after the current moment.
