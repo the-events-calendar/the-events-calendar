@@ -37,8 +37,12 @@ class Provider extends Integration_Abstract {
 	 */
 	protected function load(): void {
 		add_filter( 'wpseo_schema_graph_pieces', [ $this, 'add_graph_pieces' ], 11, 2 );
-	}
 
+		$tec_integration = YoastSEO()->classes->get( 'Yoast\\WP\\SEO\\Integrations\\Third_Party\\The_Events_Calendar' );
+		if ( ! empty( $tec_integration ) ) {
+			remove_filter( 'wpseo_schema_graph_pieces', [ $tec_integration, 'add_graph_pieces' ], 11 );
+		}
+	}
 
 	/**
 	 * Adds the events graph pieces to the schema collector.
