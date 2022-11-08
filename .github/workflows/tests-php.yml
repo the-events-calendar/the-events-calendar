@@ -145,13 +145,20 @@ jobs:
           file: tests/${{ matrix.suite }}.suite.dist.yml
           key-path: '[ "external_plugins" ]'
 
-      - name: Install the plugins on this particular Test Suite
+      - name: Prepare variable for
         if: steps.skip.outputs.value != 1 && steps.yml-test-suite-data.outputs.data
+        id: test_suite_plugins_required
         run: |
-          echo "${steps.yml-test-suite-data.outputs.data}"
-          echo "${steps.yml-test-suite-data.outputs.data,,}"
-          echo "${{steps.yml-test-suite-data.outputs.data}}"
-#          ${SLIC_BIN} wp plugin install ${{ steps.yml-test-suite-data.outputs.data }}
+          TEST_SUITE_DATA="${steps.yml-test-suite-data.outputs.data}"
+          TEST_SUITE_DATA="${TEST_SUITE_DATA//','/' '}"
+          TEST_SUITE_DATA="${TEST_SUITE_DATA//$'['/''}"
+          TEST_SUITE_DATA="${TEST_SUITE_DATA//$']'/''}"
+          echo "::set-output name=content::$TEST_SUITE_DATA"
+
+      - name: Install the plugins on this particular Test Suite
+        if: steps.skip.outputs.value != 1 && steps.test_suite_plugins_required.outputs.content
+        run: |
+          ${SLIC_BIN} wp plugin install ${{ steps.test_suite_plugins_required.outputs.content }}
 
       # ------------------------------------------------------------------------------
       # Run the Actual tests
