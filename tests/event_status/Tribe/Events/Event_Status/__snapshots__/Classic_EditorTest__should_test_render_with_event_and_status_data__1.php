@@ -14,13 +14,13 @@
 		id="tribe-events-status-status"
 		name="tribe-events-status[status]"
 		class="tribe-dropdown tribe-events-status__status-select"
-		value=""
-		 data-placeholder="Select an Event Status" data-hide-search data-prevent-clear data-options="[{&quot;text&quot;:&quot;Scheduled&quot;,&quot;id&quot;:&quot;scheduled&quot;,&quot;value&quot;:&quot;scheduled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Canceled&quot;,&quot;id&quot;:&quot;canceled&quot;,&quot;value&quot;:&quot;canceled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Postponed&quot;,&quot;id&quot;:&quot;postponed&quot;,&quot;value&quot;:&quot;postponed&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Scheduled&quot;,&quot;id&quot;:&quot;scheduled&quot;,&quot;value&quot;:&quot;scheduled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Canceled&quot;,&quot;id&quot;:&quot;canceled&quot;,&quot;value&quot;:&quot;canceled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Postponed&quot;,&quot;id&quot;:&quot;postponed&quot;,&quot;value&quot;:&quot;postponed&quot;,&quot;selected&quot;:false}]" 	>
+		value="canceled"
+		 data-placeholder="Select an Event Status" data-hide-search data-prevent-clear data-options="[{&quot;text&quot;:&quot;Scheduled&quot;,&quot;id&quot;:&quot;scheduled&quot;,&quot;value&quot;:&quot;scheduled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Canceled&quot;,&quot;id&quot;:&quot;canceled&quot;,&quot;value&quot;:&quot;canceled&quot;,&quot;selected&quot;:true},{&quot;text&quot;:&quot;Postponed&quot;,&quot;id&quot;:&quot;postponed&quot;,&quot;value&quot;:&quot;postponed&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Scheduled&quot;,&quot;id&quot;:&quot;scheduled&quot;,&quot;value&quot;:&quot;scheduled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Canceled&quot;,&quot;id&quot;:&quot;canceled&quot;,&quot;value&quot;:&quot;canceled&quot;,&quot;selected&quot;:true},{&quot;text&quot;:&quot;Postponed&quot;,&quot;id&quot;:&quot;postponed&quot;,&quot;value&quot;:&quot;postponed&quot;,&quot;selected&quot;:false}]" data-selected="canceled" 	>
 					<option value="scheduled" >Scheduled</option>
-					<option value="canceled" >Canceled</option>
+					<option value="canceled"  selected=\'selected\'>Canceled</option>
 					<option value="postponed" >Postponed</option>
 					<option value="scheduled" >Scheduled</option>
-					<option value="canceled" >Canceled</option>
+					<option value="canceled"  selected=\'selected\'>Canceled</option>
 					<option value="postponed" >Postponed</option>
 			</select>
 </div>
@@ -40,7 +40,7 @@
 				class="tribe-events-status-components-textarea-control__input"
 				id="tribe-events-status-status-reason"
 				name="tribe-events-status[status-reason]"
-			></textarea>
+			>Because</textarea>
 		</div>
 	</div>
 </div>

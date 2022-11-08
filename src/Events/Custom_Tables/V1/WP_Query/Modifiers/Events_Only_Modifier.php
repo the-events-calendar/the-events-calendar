@@ -63,9 +63,10 @@ class Events_Only_Modifier extends Base_Modifier {
 			return $posts;
 		}
 
-		if ( null !== $posts ) {
-			$this->unhook();
+		// This modifier should stop filtering queries, since this is the one to filter.
+		$this->unhook();
 
+		if ( null !== $posts ) {
 			// If something already intervened in the filter, then bail and do not touch the query at all.
 			return $posts;
 		}
