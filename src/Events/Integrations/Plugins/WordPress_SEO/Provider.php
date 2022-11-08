@@ -37,7 +37,17 @@ class Provider extends Integration_Abstract {
 	 */
 	protected function load(): void {
 		add_filter( 'wpseo_schema_graph_pieces', [ $this, 'add_graph_pieces' ], 11, 2 );
+		add_action( 'init', [ $this, 'remove_yoast_legacy_integration' ], 20 );
+	}
 
+	/**
+	 * Prevent the old Yoast plugin integration with TEC from loading.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function remove_yoast_legacy_integration(): void {
 		$tec_integration = YoastSEO()->classes->get( 'Yoast\\WP\\SEO\\Integrations\\Third_Party\\The_Events_Calendar' );
 		if ( ! empty( $tec_integration ) ) {
 			remove_filter( 'wpseo_schema_graph_pieces', [ $tec_integration, 'add_graph_pieces' ], 11 );
