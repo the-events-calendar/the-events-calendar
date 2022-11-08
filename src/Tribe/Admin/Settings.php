@@ -380,12 +380,12 @@ class Settings {
 		}
 
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tec-options-dates.php';
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
+		//include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tec-options-dates.php';
 
 		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'the-events-calendar' ), $general_tab );
 		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'the-events-calendar' ), $tec_events_display_tab );
-		$this->tabs[ 'date']   = new Tribe__Settings_Tab( 'dates', esc_html__( 'Date/Time', 'the-events-calendar' ), $tec_events_display_date );
+		//$this->tabs[ 'date']   = new Tribe__Settings_Tab( 'dates', esc_html__( 'Date/Time', 'the-events-calendar' ), $tec_events_display_date );
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
 	}
 
@@ -407,7 +407,7 @@ class Settings {
 		}
 
 		// Ensure these are the first tabs.
-		$first   = [ 'general', 'dates', 'display' ];
+		$first   = [ 'general', 'display' ];
 		$tabs   = array_merge( array_flip( $first ), $tabs );
 
 		// Ensure these are the last tabs.
@@ -570,11 +570,13 @@ class Settings {
 			'map'     => _x( 'Map', 'Label for the Map View checkbox.', 'the-events-calendar' ),
 		];
 
+		$tooltip_label = _x( 'PRO', 'The label for the premium view indicator.', 'the-events-calendar' );
+
 		// Loop through the term array above and create teaser checkboxes.
 		ob_start();
 
 		foreach( $views as $name => $label ) { ?>
-			<label title="Summary" class="tec-disabled"><input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled><?php echo esc_attr( $label ) ?> <span class="tec-settings-teaser-pill">PRO</span></label>
+			<label title="Summary" class="tec-disabled"><input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled><?php echo esc_attr( $label ) ?> <span class="tec-settings-teaser-pill"><?php echo esc_html( $tooltip_label ); ?></span></label>
 		<?php }
 
 		$ecp_string = ob_get_clean();

@@ -12,9 +12,9 @@ $event_cleaner = tribe( 'tec.event-cleaner' );
 $general_tab_fields = [
 	'info-start'             => [
 		'type' => 'html',
-		'html' => '<div id="modern-tribe-info">',
-	],'
-	upsell-heading'          => [
+		'html' => '<div id="modern-tribe-info" class="tec-settings-header">',
+	],
+	'upsell-heading'          => [
 		'type'  => 'heading',
 		'label' => $tec_events_general_heading_text,
 	],
@@ -49,46 +49,53 @@ $general_tab_fields = [
 		'html'        => '<p>' . esc_html__( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'the-event-calendar' ) . ' <a target="_blank" rel="noopener noreferrer" href="' . Tribe__Main::$tec_url . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app">' . esc_html__( 'Check out the available add-ons', 'the-event-calendar' ) . '</a>.</p>',
 		'conditional' => ( false ) && class_exists( 'Tribe__Events__Main' ),
 	],
-];
-
-$tec_events_general_toc = [
-	'tec-general-toc-start'           => [
-		'type' => 'html',
-		'html' => '<ul id="tec-events-general-toc" class="tec-events-settings__toc">',
-	],
-	'tec-general-toc-label'           => [
-		'type' => 'html',
-		'html' => '<li>' . _x( 'Jump to:', 'Text introducing the table of contents links.', 'the-events-calendar' ) . '</li>',
-	],
-	'tec-general-toc-viewing'         => [
-		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-viewing">' . _x( 'Viewing', 'Viewing table of contents link.', 'the-events-calendar' ) . '</a>',
-	],
-	'tec-general-toc-editing'         => [
-		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-editing">' . _x( 'Editing', 'Editing table of contents link.', 'the-events-calendar' ) . '</a>',
-	],
-	'tec-general-toc-troubleshooting' => [
-		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-troubleshooting">' . _x( 'Troubleshooting', 'Troubleshooting table of contents link.', 'the-events-calendar' ) . '</a>',
-	],
-	'tec-general-toc-end'             => [
-		'type' => 'html',
-		'html' => '</ul>',
-	],
-];
-
-// Check and add the TOC
-if ( true ) {
-	$general_tab_fields += $tec_events_general_toc;
-}
-
-// Close the info block and start the form content wrapper.
-$tec_events_general_form_end = [
 	'info-end'                 => [
 		'type' => 'html',
 		'html' => '</div>',
 	],
+];
+
+// Add the TOC
+$tec_events_general_toc = [
+	'tec-settings-general-toc-nav-start'             => [
+		'type' => 'html',
+		'html' => '<div class="tec-settings-header">',
+	],
+	'tec-settings-general-toc-start'           => [
+		'type' => 'html',
+		'html' => '<ul id="tec-events-general-toc" class="tec-events-settings__toc">',
+	],
+	'tec-settings-general-toc-label'           => [
+		'type' => 'html',
+		'html' => '<li>' . _x( 'Jump to:', 'Text introducing the table of contents links.', 'the-events-calendar' ) . '</li>',
+	],
+	'tec-settings-general-toc-viewing'         => [
+		'type' => 'html',
+		'html' => '<li><a href="#tec-settings-general-viewing">' . _x( 'Viewing', 'Viewing table of contents link.', 'the-events-calendar' ) . '</a>',
+	],
+	'tec-settings-general-toc-editing'         => [
+		'type' => 'html',
+		'html' => '<li><a href="#tec-settings-general-editing">' . _x( 'Editing', 'Editing table of contents link.', 'the-events-calendar' ) . '</a>',
+	],
+	'tec-settings-general-toc-troubleshooting' => [
+		'type' => 'html',
+		'html' => '<li><a href="#tec-settings-general-troubleshooting">' . _x( 'Troubleshooting', 'Troubleshooting table of contents link.', 'the-events-calendar' ) . '</a>',
+	],
+	'tec-settings-general-toc-end'             => [
+		'type' => 'html',
+		'html' => '</ul>',
+	],
+	'tec-settings-general-toc-nav-end'                 => [
+		'type' => 'html',
+		'html' => '</div>',
+	],
+];
+
+$general_tab_fields += $tec_events_general_toc;
+
+// Start the form content wrapper.
+$tec_events_general_form_end = [
+
 	'tribe-form-content-start' => [
 		'type' => 'html',
 		'html' => '<div class="tribe-settings-form-wrap">',
