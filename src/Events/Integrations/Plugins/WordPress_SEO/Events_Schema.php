@@ -42,15 +42,28 @@ class Events_Schema extends Abstract_Schema_Piece {
 	 * @return bool
 	 */
 	public function is_needed() {
+		$is_needed = false;
 		if ( is_single() && get_post_type() === TEC_Plugin::POSTTYPE ) {
 			// The single event view.
-			return true;
+			$is_needed = true;
 		} elseif ( tribe_is_month() ) {
 			// The month event view.
-			return true;
+			$is_needed = true;
 		}
 
-		return false;
+		$integration_slug = Provider::get_slug();
+		$integration_type = Provider::get_type();
+
+		/**
+		 * Allows the event data to be modified by themes and other plugins.
+		 *
+		 * @since   TBD
+		 *
+		 * @param bool $is_needed Weather to load the Schema.
+		 *
+		 * @example tec_events_integrations_plugin_wordpress-seo_events_schema_is_needed
+		 */
+		return apply_filters( "tec_events_integrations_{$integration_type}_{$integration_slug}_events_schema_is_needed", $is_needed );
 	}
 
 	/**
