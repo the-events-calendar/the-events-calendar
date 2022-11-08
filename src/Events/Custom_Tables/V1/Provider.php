@@ -151,6 +151,9 @@ class Provider extends Service_Provider {
 			return false;
 		}
 
+		// Finally read an option value to determine if the feature should be active or not.
+		$active = (bool) get_option( 'tec_custom_tables_v1_active', true );
+
 		/**
 		 * Allows filtering whether the whole Custom Tables v1 implementation
 		 * should be activated or not.
@@ -162,7 +165,7 @@ class Provider extends Service_Provider {
 		 *
 		 * @param bool $activate Defaults to `true`.
 		 */
-		return (bool) apply_filters( 'tec_events_custom_tables_v1_enabled', true );
+		return (bool) apply_filters( 'tec_events_custom_tables_v1_enabled', $active );
 	}
 
 	/**
