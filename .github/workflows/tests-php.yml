@@ -9,6 +9,7 @@ jobs:
           - blocks_editor_integration
           - event_status
           - integration
+          - integrations_plugin_wordpress_seo
           - muintegration
           - restv1
           - views_integration
