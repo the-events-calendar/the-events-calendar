@@ -22,4 +22,5 @@ modules:
             activatePlugins:
                 - the-events-calendar/the-events-calendar.php
                 - wordpress-seo/wp-seo.php
-
+external_plugins:
+  - wordpress-seo

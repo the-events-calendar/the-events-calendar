@@ -132,6 +132,26 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: |
           ${SLIC_BIN} wp theme install twentytwenty --activate
+
+      # ------------------------------------------------------------------------------
+      # Prepare our composer cache directory
+      # ------------------------------------------------------------------------------
+
+      - name: Read which external plugins should be loaded.
+        id: yml-test-suite-data
+        if: steps.skip.outputs.value != 1
+        uses: jbutcher5/read-yaml@main
+        with:
+          file: tests/${{ matrix.suite }}.suite.dist.yml
+          key-path: '[ "external_plugins" ]'
+
+      - name: Display read-yaml output
+        run: echo "${{ steps.yml-test-suite-data.outputs.data }}"
+
+      # ------------------------------------------------------------------------------
+      # Run the Actual tests
+      # ------------------------------------------------------------------------------
+
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter
