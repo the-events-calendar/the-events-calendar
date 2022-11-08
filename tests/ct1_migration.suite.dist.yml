@@ -20,7 +20,7 @@ modules:
         WPLoader:
           # Just load WordPress using the same db as WPDb.
           loadOnly: true
-          wpRootFolder: %WP_ROOT_FOLDER%
+          wpRootFolder: "%WP_ROOT_FOLDER%"
           dbName: %WP_DB_NAME%
           dbHost: %WP_DB_HOST%
           dbUser: %WP_DB_USER%

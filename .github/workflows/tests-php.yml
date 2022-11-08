@@ -148,7 +148,10 @@ jobs:
       - name: Install the plugins on this particular Test Suite
         if: steps.skip.outputs.value != 1 && steps.yml-test-suite-data.outputs.data
         run: |
-          ${SLIC_BIN} wp plugin install ${{ steps.yml-test-suite-data.outputs.data }}
+          echo "${steps.yml-test-suite-data.outputs.data}"
+          echo "${steps.yml-test-suite-data.outputs.data,,}"
+          echo "${{steps.yml-test-suite-data.outputs.data}}"
+#          ${SLIC_BIN} wp plugin install ${{ steps.yml-test-suite-data.outputs.data }}
 
       # ------------------------------------------------------------------------------
       # Run the Actual tests
