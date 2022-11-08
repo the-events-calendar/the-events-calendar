@@ -319,6 +319,7 @@ class Custom_Tables_Query extends WP_Query {
 		global $wpdb;
 		$occurrences = Occurrences::table_name( true );
 
+		// Let's try to handle some specific cases first.
 		switch ( $orderby ) {
 			case 'event_date':
 				$parsed = $occurrences . '.start_date';
@@ -340,6 +341,10 @@ class Custom_Tables_Query extends WP_Query {
 				// The second `order` is omitted: it will be added by the following `parse_order` call.
 				$parsed = "ID $order, $occurrences.occurrence_id";
 				break;
+			case 'none':
+			case 'rand':
+				// Fast-track the `none` and `rand` order bys.
+				return parent::parse_orderby( $orderby );
 			default:
 				$parsed = null;
 		}
@@ -348,22 +353,37 @@ class Custom_Tables_Query extends WP_Query {
 			return $parsed;
 		}
 
+		// Handle order imposed by a meta value.
 		$meta_query_clauses = $this->meta_query->get_clauses();
 
-		if ( isset( $meta_query_clauses[ $orderby ] ) ) {
-			// Map using the redirection map.
+		$meta_query_orderby = $orderby;
+		if ( $orderby === 'meta_value' ) {
+			// Handle the case where the order is by a meta key and value couple.
+			$meta_query_orderby = $this->get( 'meta_key' );
+		} else if ( isset( $meta_query_clauses[ $orderby ]['original_meta_key'] ) ) {
+			// Handle the case where the order is by the meta query key.
+			$meta_query_orderby = $meta_query_clauses[ $orderby ]['original_meta_key'];
+		}
+
+		if ( count( $meta_query_clauses ) ) {
 			$map = Redirection_Schema::get_filtered_meta_key_redirection_map();
-			$meta_query_clause = $meta_query_clauses[ $orderby ];
-			$original_meta_key = $meta_query_clause['original_meta_key'] ?? null;
-			if ( ! empty( $original_meta_key ) && isset( $map[ $original_meta_key ] ) ) {
+
+			foreach ( $meta_query_clauses as $meta_query_clause ) {
+				$original_meta_key = $meta_query_clause['original_meta_key'] ?? null;
+
+				if ( $meta_query_orderby !== $original_meta_key ) {
+					continue;
+				}
+
+				$matching_mapping = $map[ $original_meta_key ] ?? null;
+
+				if ( $matching_mapping === null || ! isset( $map[ $original_meta_key ]['column'] ) ) {
+					continue;
+				}
+
 				return $occurrences . '.' . $map[ $original_meta_key ]['column'];
 			}
 		}
-
-//		if ( $original_key === 'meta_value' ) {
-//			// Handle queries with on meta value.
-//			$original_key = array_key_first( $meta_query_clauses );
-//		}
 
 		// Let the parent handle the rest.
 		return parent::parse_orderby( $orderby );
