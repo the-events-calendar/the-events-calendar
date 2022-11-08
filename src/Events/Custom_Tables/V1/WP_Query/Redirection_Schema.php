@@ -58,6 +58,7 @@ class Redirection_Schema {
 				'column' => 'duration',
 				'join_posts_on' => 'post_id',
 			],
+			// @todo - timezone?
 		];
 	}
 

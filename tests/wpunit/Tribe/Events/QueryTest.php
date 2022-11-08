@@ -1,8 +1,6 @@
 <?php
-
 namespace Tribe\Events;
 
-use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Query as Query;
@@ -17,8 +15,6 @@ use WP_Query;
  * @package Tribe__Events__Main
  */
 class QueryTest extends Events_TestCase {
-	use MatchesSnapshots;
-
 	/**
 	 * It should allow getting found posts for arguments
 	 *
@@ -27,13 +23,13 @@ class QueryTest extends Events_TestCase {
 	public function should_allow_getting_found_posts_for_arguments() {
 		$this->factory()->event->create_many( 5 );
 
-		$args = [ 'found_posts' => true ];
+		$args        = [ 'found_posts' => true ];
 		$found_posts = Query::getEvents( $args );
 
 		$this->assertEquals( 5, $found_posts );
 	}
 
-	public function truthy_and_falsy_values() {
+	public function truthy_and_falsy_values(  ) {
 		return [
 			[ 'true', true ],
 			[ 'true', true ],
@@ -43,15 +39,14 @@ class QueryTest extends Events_TestCase {
 			[ 1, true ],
 		];
 
-	}
-
+}
 	/**
 	 * It should allow truthy and falsy values for the found_posts argument
 	 *
 	 * @test
 	 * @dataProvider truthy_and_falsy_values
 	 */
-	public function should_allow_truthy_and_falsy_values_for_the_found_posts_argument( $found_posts, $bool ) {
+	public function should_allow_truthy_and_falsy_values_for_the_found_posts_argument($found_posts, $bool) {
 		$this->factory()->event->create_many( 5 );
 
 		$this->assertEquals( Query::getEvents( [ 'found_posts' => $found_posts ] ), Query::getEvents( [ 'found_posts' => $bool ] ) );
@@ -65,7 +60,7 @@ class QueryTest extends Events_TestCase {
 	public function should_override_posts_per_page_and_paged_arguments_when_using_found_posts() {
 		$this->factory()->event->create_many( 5 );
 
-		$args = [ 'found_posts' => true, 'posts_per_page' => 3, 'paged' => 2 ];
+		$args        = [ 'found_posts' => true, 'posts_per_page' => 3, 'paged' => 2 ];
 		$found_posts = Query::getEvents( $args );
 
 		$this->assertEquals( 5, $found_posts );
@@ -77,7 +72,7 @@ class QueryTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_return_0_when_no_posts_are_found_and_found_posts_is_set() {
-		$args = [ 'found_posts' => true ];
+		$args        = [ 'found_posts' => true ];
 		$found_posts = Query::getEvents( $args );
 
 		$this->assertEquals( 0, $found_posts );
@@ -97,7 +92,7 @@ class QueryTest extends Events_TestCase {
 
 		// Respecting hidden events is the default behaviour
 		$all_unhidden_upcoming_events = Query::getEvents( [
-			'found_posts' => true,
+			'found_posts'   => true,
 		] );
 
 		// It should also be possible to explicitly request this
@@ -153,7 +148,7 @@ class QueryTest extends Events_TestCase {
 		$this->assertEmpty( $wpdb->last_error );
 	}
 
-	public function posts_orderby_application_flags(): array {
+	public function posts_orderby_application_flags(  ):array {
 		$applicator = static function ( $flag ): \Closure {
 			return static function ( WP_Query $query ) use ( $flag ) {
 				$query->{$flag} = true;
@@ -164,26 +159,5 @@ class QueryTest extends Events_TestCase {
 			'tribe_is_event'          => [ $applicator( 'tribe_is_event' ) ],
 			'tribe_is_event_category' => [ $applicator( 'tribe_is_event_category' ) ],
 		];
-	}
-
-	public function orderby_clause_not_requiring_date_filtering_data_provider(): \Generator {
-		yield 'none' => [ 'none' ];
-		yield 'rand' => [ 'rand' ];
-	}
-
-	/**
-	 * It should not add date-based orderby clauses when not required
-	 *
-	 * @test
-	 * @dataProvider orderby_clause_not_requiring_date_filtering_data_provider
-	 */
-	public function should_not_add_date_based_orderby_clauses_when_not_required( string $orderby ): void {
-		$query = new \WP_Query( [
-			'post_type' => Main::POSTTYPE,
-			'orderby'   => $orderby,
-			'order'     => 'ASC',
-		] );
-
-		$this->assertMatchesSnapshot( $query->request );
 	}
 }

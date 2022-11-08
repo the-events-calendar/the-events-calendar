@@ -240,8 +240,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - More robust type checking in Builder methods. [ECP-1402]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
-* Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
-* Tweak - Do not add date-based ordering to queries when using `none` or `rand` order. [TEC-4555]
 
 = [6.0.3.1] 2022-11-03 =
 
