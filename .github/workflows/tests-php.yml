@@ -146,7 +146,8 @@ jobs:
           key-path: '[ "external_plugins" ]'
 
       - name: Display read-yaml output
-        run: echo "${{ steps.yml-test-suite-data.outputs.data }}"
+        run: |
+          ${SLIC_BIN} wp plugin install ${{ steps.yml-test-suite-data.outputs.data }}
 
       # ------------------------------------------------------------------------------
       # Run the Actual tests
