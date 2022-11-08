@@ -14,7 +14,7 @@
  * @return bool
  */
 function tribe_is_month() {
-	$context = tribe_context();
+	$context = tribe_contet();
 	$is_month  = ( 'month' === $context->get( 'view', 'default' ) );
 
 	/**
