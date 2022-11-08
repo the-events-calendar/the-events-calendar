@@ -39,6 +39,23 @@ $general_tab_fields = [
 			_x( 'Getting Started Guide', 'Text for button-style link to Getting Started guide.', 'the-events-calendar')
 		),
 	],
+	'donate-link-heading'           => [
+		'type'  => 'heading',
+		'label' => esc_html__( 'We hope our plugin is helping you out.', 'tribe-common' ),
+		'conditional' => class_exists( 'Tribe__Events__Main' ),
+	],
+	'donate-link-info'              => [
+		'type'        => 'html',
+		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to The Events Calendar for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.png', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
+		'conditional' => class_exists( 'Tribe__Events__Main' ),
+	],
+	'donate-link'                               => [
+		'type'            => 'checkbox_bool',
+		'label'           => esc_html__( 'Show The Events Calendar link', 'the-event-calendar' ),
+		'default'         => false,
+		'validation_type' => 'boolean',
+		'conditional' => class_exists( 'Tribe__Events__Main' ),
+	],
 	'ical-info'              => [
 		'type'             => 'html',
 		'display_callback' => '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . esc_html__( 'Here is the iCal feed URL for your events:', 'the-events-calendar' ) . ' <code>' . tribe_get_ical_link() . '</code></p>',
@@ -108,7 +125,7 @@ $general_tab_fields += $tec_events_general_form_end;
 $tec_events_general_viewing = [
 	'tec-events-settings-general-viewing-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-viewing">' . esc_html__( 'Viewing', 'the-events-calendar' ) . '<a href="#tec-events-general-toc" class="tec-top-link">top ^</a></h3>',
+		'html' => '<h3 id="tec-settings-general-viewing">' . esc_html__( 'Viewing', 'the-events-calendar' ) . '</h3>',
 	],
 	'unpretty-permalinks-url'                   => [
 		'type'  => 'wrapped_html',
@@ -200,13 +217,6 @@ $tec_events_general_viewing = [
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
-	'donate-link'                               => [
-		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Show The Events Calendar link', 'the-event-calendar' ),
-		'default'         => false,
-		'validation_type' => 'boolean',
-		'conditional' => class_exists( 'Tribe__Events__Main' ),
-	],
 ];
 
 $general_tab_fields += $tec_events_general_viewing;
@@ -215,7 +225,7 @@ $general_tab_fields += $tec_events_general_viewing;
 $tec_events_general_editing = [
 	'tec-events-settings-general-editing-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-editing">' . esc_html__( 'Editing', 'the-events-calendar' ) . ' <a href="#tec-events-general-toc" class="tec-top-link">top ^</a></h3>',
+		'html' => '<h3 id="tec-settings-general-editing">' . esc_html__( 'Editing', 'the-events-calendar' ) . '</h3>',
 	],
 	'disable_metabox_custom_fields'             => [
 		'type'            => 'checkbox_bool',
@@ -236,7 +246,7 @@ $general_tab_fields += $tec_events_general_editing;
 $tec_events_general_troubleshooting = [
 	'tec-events-settings-general-troubleshooting-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-troubleshooting">' . esc_html__( 'Troubleshooting', 'the-events-calendar' ) . ' <a href="#tec-events-general-toc" class="tec-top-link">top ^</a></h3>',
+		'html' => '<h3 id="tec-settings-general-troubleshooting">' . esc_html__( 'Troubleshooting', 'the-events-calendar' ) . '</h3>',
 	],
 	'view-welcome-page'                                 => [
 		'type'        => 'html',

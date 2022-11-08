@@ -139,7 +139,6 @@ class Provider extends \tad_DI52_ServiceProvider {
 			esc_html_x( 'Filters', 'Label for the Filters tab.', 'the-events-calendar' ),
 			[
 				'priority'      => 40,
-				'add_on'        => true,
 				'fields'        => $tec_events_admin_filter_bar_upsell_fields,
 				'network_admin' => is_network_admin(),
 				'show_save'     => false,
