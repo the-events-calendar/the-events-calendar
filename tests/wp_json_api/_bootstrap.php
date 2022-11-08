@@ -13,7 +13,7 @@ function disable_ct1_in_database(): void {
 // Before each test empty the cache of the WordPress instance loaded in the tests context and make sure CT1 is disabled.
 addListener( Codeception\Events::TEST_BEFORE, static function () {
 	wp_cache_flush();
-	enable_ct1_in_database();
+	disable_ct1_in_database();
 } );
 
 // Clean up the tables we know we might have put stuff in.
