@@ -243,6 +243,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
 * Tweak - Do not add date-based ordering to queries when using `none` or `rand` order. [TEC-4555]
+* Language - 3 new strings added, 144 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.0.3.1] 2022-11-03 =
 
