@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Reorganize the General and Display settings tab content. [TCMN-149]
+
 = [6.0.4] TBD =
 
 * Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558]
@@ -243,7 +247,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Tweak - Do not add date-based ordering to queries when using `none` or `rand` order. [TEC-4555]
-* Tweak - Reorganize the General and Display settings tab content. [TBD]
 
 = [6.0.3.1] 2022-11-03 =
 
