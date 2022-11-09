@@ -3,13 +3,13 @@ modules:
     enabled: [WPLoader, \Helper\Deprecated]
     config:
       WPLoader:
-        wpRootFolder: "%WP_ROOT_FOLDER%"
-        dbName: "%WP_TEST_DB_NAME%"
-        dbHost: "%WP_TEST_DB_HOST%"
-        dbUser: "%WP_TEST_DB_USER%"
-        dbPassword: "%WP_TEST_DB_PASSWORD%"
+        wpRootFolder: %WP_ROOT_FOLDER%
+        dbName: %WP_TEST_DB_NAME%
+        dbHost: %WP_TEST_DB_HOST%
+        dbUser: %WP_TEST_DB_USER%
+        dbPassword: %WP_TEST_DB_PASSWORD%
         tablePrefix: test_
-        domain: "%WP_DOMAIN%"
+        domain: %WP_DOMAIN%
         adminEmail: admin@tribe.localhost
         title: 'The Events Calendar Tests'
         plugins:
