@@ -13,7 +13,7 @@ modules:
     WPDb:
       dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
       user: "%WP_DB_USER%"
-      password: : "%WP_DB_PASSWORD%"
+      password: "%WP_DB_PASSWORD%"
       dump: tests/_data/restv1-dump.sql
       populate: true
       cleanup: true
