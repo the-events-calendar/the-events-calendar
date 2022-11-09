@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.4] TBD =
 
+* Feature - Include Yoast WordPress SEO OpenGraph integration [TEC-4558]
 * Fix - Fix for fatal error on Series page in PHP 7.3. [TEC-4549]
 * Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon
 * Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
