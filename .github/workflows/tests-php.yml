@@ -149,10 +149,8 @@ jobs:
         if: steps.skip.outputs.value != 1 && steps.yml-test-suite-data.outputs.data
         id: test_suite_plugins_required
         run: |
-          TEST_SUITE_DATA="${steps.yml-test-suite-data.outputs.data}"
-          TEST_SUITE_DATA="${TEST_SUITE_DATA//','/' '}"
-          TEST_SUITE_DATA="${TEST_SUITE_DATA//$'['/''}"
-          TEST_SUITE_DATA="${TEST_SUITE_DATA//$']'/''}"
+          TEST_SUITE_DATA="${{ steps.yml-test-suite-data.outputs.data }}"
+          TEST_SUITE_DATA=$(echo ${TEST_SUITE_DATA} | sed "s|,| |g" | sed "s|\[| |g" | sed "s|\]| |g")
           echo "::set-output name=content::$TEST_SUITE_DATA"
 
       - name: Install the plugins on this particular Test Suite
