@@ -6,9 +6,6 @@ use Wp_json_apiTester as Tester;
 class Events_ArchiveCest {
 	use WP_JSON_API_Information;
 
-	public function _before( Wp_json_apiTester $I ) {
-	}
-
 	/**
 	 * It should return an empty array when there are no events in the site
 	 *
