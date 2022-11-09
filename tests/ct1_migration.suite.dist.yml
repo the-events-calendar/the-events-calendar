@@ -1,27 +1,27 @@
 actor: Ct1_migrationTester
 bootstrap: _bootstrap.php
 modules:
-    enabled:
-        - \Helper\Ct1_migration
-        - WPLoader
-        - WPDb
-    config:
-        WPDb:
-          dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
-          user: %WP_DB_USER%
-          password: %WP_DB_PASSWORD%
-          dump: tests/_data/ct1_migration/dump.sql
-          populate: true # Do import the dump when the suite starts.
-          cleanup: false # Do not clean the db between tests, we'll deal with it.
-          url: '%WP_URL%'
-          originalUrl: 'http://wordpress.test'
-          tablePrefix: '%WP_TABLE_PREFIX%'
-          waitlock: 10
-        WPLoader:
-          # Just load WordPress using the same db as WPDb.
-          loadOnly: true
-          wpRootFolder: "%WP_ROOT_FOLDER%"
-          dbName: %WP_DB_NAME%
-          dbHost: %WP_DB_HOST%
-          dbUser: %WP_DB_USER%
-          dbPassword: %WP_DB_PASSWORD%
+  enabled:
+    - \Helper\Ct1_migration
+    - WPLoader
+    - WPDb
+  config:
+    WPDb:
+      dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
+      user: "%WP_DB_USER%"
+      password: "%WP_DB_PASSWORD%"
+      dump: tests/_data/ct1_migration/dump.sql
+      populate: true # Do import the dump when the suite starts.
+      cleanup: false # Do not clean the db between tests, we'll deal with it.
+      url: '%WP_URL%'
+      originalUrl: 'http://wordpress.test'
+      tablePrefix: '%WP_TABLE_PREFIX%'
+      waitlock: 10
+    WPLoader:
+      # Just load WordPress using the same db as WPDb.
+      loadOnly: true
+      wpRootFolder: "%WP_ROOT_FOLDER%"
+      dbName: "%WP_DB_NAME%"
+      dbHost: "%WP_DB_HOST%"
+      dbUser: "%WP_DB_USER%"
+      dbPassword: "%WP_DB_PASSWORD%"
