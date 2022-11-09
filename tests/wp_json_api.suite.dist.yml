@@ -11,32 +11,32 @@ modules:
         - WPFilesystem
     config:
       WPDb:
-        dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
-        user: %WP_DB_USER%
-        password: %WP_DB_PASSWORD%
-        dump: tests/_data/restv1-dump.sql
+        dsn: "mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%"
+        user: ""%WP_DB_USER%"
+        password: "%WP_DB_PASSWORD%"
+        dump: "tests/_data/restv1-dump.sql"
         populate: true
         cleanup: false # Taking care of that in _bootstrap.php file.
-        url: '%WP_URL%'
-        originalUrl: 'http://wordpress.test'
-        tablePrefix: '%WP_TABLE_PREFIX%'
+        url: "%WP_URL%"
+        originalUrl: "http://wordpress.test"
+        tablePrefix: "'%WP_TABLE_PREFIX%'"
         waitlock: 10
       WPBrowser:
-        url: '%WP_URL%'
-        adminUsername: %WP_ADMIN_USERNAME%
-        adminPassword: '%WP_ADMIN_PASSWORD%'
-        adminUrl: /wp-admin
+        url: ""%WP_URL%"
+        adminUsername: "%WP_ADMIN_USERNAME%"
+        adminPassword: ""%WP_ADMIN_PASSWORD%"
+        adminUrl: "/wp-admin"
       REST:
         depends: WPBrowser
-        url: '%WP_URL%'
+        url: "%WP_URL%'"
       WPLoader:
         # just load WordPress using the same db as WPDb
         loadOnly: true
-        wpRootFolder: %WP_ROOT_FOLDER%
-        dbName: %WP_DB_NAME%
-        dbHost: %WP_DB_HOST%
-        dbUser: %WP_DB_USER%
-        dbPassword: '%WP_DB_PASSWORD%'
+        wpRootFolder: "%WP_ROOT_FOLDER%"
+        dbName: "%WP_DB_NAME%"
+        dbHost: "%WP_DB_HOST%"
+        dbUser: "%WP_DB_USER%"
+        dbPassword: "%WP_DB_PASSWORD%"
       WPFilesystem:
-        wpRootFolder: %WP_ROOT_FOLDER%
+        wpRootFolder: "%WP_ROOT_FOLDER%"
 
