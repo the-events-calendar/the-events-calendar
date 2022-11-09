@@ -217,8 +217,9 @@ class Events_Schema extends Abstract_Schema_Piece {
 			// ORGANIZER.
 			if ( tribe_has_organizer( $post_id ) ) {
 				if ( ! $d->organizer ) {
-					$d->organizer = new stdClass();
+					$d->organizer = [];
 				}
+				$d->organizer = (object) $d->organizer;
 
 				$organizer_id              = tribe_get_organizer_id( $post_id );
 				$d->organizer->description = get_the_excerpt( $organizer_id );
@@ -233,8 +234,9 @@ class Events_Schema extends Abstract_Schema_Piece {
 			// VENUE / LOCATION.
 			if ( tribe_has_venue( $post_id ) ) {
 				if ( ! $d->location ) {
-					$d->location = new stdClass();
+					$d->location = [];
 				}
+				$d->location = (object) $d->location;
 
 				$venue_id                 = tribe_get_venue_id( $post_id );
 				$d->location->description = get_the_excerpt( $venue_id );
