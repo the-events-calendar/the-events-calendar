@@ -175,7 +175,7 @@ class Filters {
 	 *
 	 * @return array<string,mixed> The View template variables, the Occurrences' permalink translated if required.
 	 */
-	public function translate_events_permalinks( $template_vars ) {
+	public static function translate_events_permalinks( $template_vars ) {
 		if ( ! ( is_array( $template_vars ) && isset( $template_vars['events'] ) && is_array( $template_vars['events'] ) ) ) {
 			return $template_vars;
 		}
