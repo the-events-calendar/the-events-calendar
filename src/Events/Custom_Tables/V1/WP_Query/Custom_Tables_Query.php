@@ -26,6 +26,15 @@ use WP_Query;
  */
 class Custom_Tables_Query extends WP_Query {
 	/**
+	 * The last error string logged by any instance of the class.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $last_error = '';
+
+	/**
 	 * A reference to the original `WP_Query` object this Custom Tables Query should use.
 	 *
 	 * @since 6.0.0
@@ -107,6 +116,17 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Returns the last error string logged by any instance of the class.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The last error string logged by any instance of the class.
+	 */
+	public static function get_last_error(): string {
+		return self::$last_error;
+	}
+
+	/**
 	 * Overrides the base method to replace the Meta Query with one that will redirect
 	 * to the plugin custom tables.
 	 *
@@ -133,6 +153,7 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
 		// This is the last filter in the `WP_Query` class: use this as an action to clean up.
 		add_filter( 'the_posts', [ $this, 'remove_late_filters' ], 10, 2 );
+		add_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200, 2 );
 
 		// This "parallel" query should not be manipulated by the WP_Query_Monitor.
 		$monitor_ignore_flag          = WP_Query_Monitor::ignore_flag();
@@ -176,6 +197,9 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		$results = parent::get_posts();
+
+		global $wpdb;
+		self::$last_error = (string) $wpdb->last_error;
 
 		$this->remove_filters();
 
@@ -307,15 +331,16 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
-	 * Intercept appropriate order by fields and map to our new occurrence fields.
+	 * Redirects the the table and fields used in the `ORDER BY` clause of the query to the Custom Tables,
+	 * if required.
 	 *
 	 * @since 6.0.0
 	 *
-	 * @inheritDoc
+	 * @param string $orderby The original `ORDER BY` SQL clause.
 	 *
-	 * @return string The redirected ORDER clause, if required.
+	 * @return string|false The redirected `ORDER BY` field, `false` on failure.
 	 */
-	protected function parse_orderby( $orderby ) {
+	protected function parse_orderby( $orderby ){
 		global $wpdb;
 		$occurrences = Occurrences::table_name( true );
 
@@ -336,7 +361,7 @@ class Custom_Tables_Query extends WP_Query {
 				$original_order_by = $this->query_vars['orderby'] ?? [];
 				$normalized_order_by = tribe_normalize_orderby( $original_order_by );
 				$occurrences = Occurrences::table_name( true );
-				$order = $normalized_order_by[ $orderby ] ?? 'ASC';
+				$order = $normalized_order_by['ID'] ?? $normalized_order_by[ $wpdb->posts . '.ID' ] ?? 'DESC';
 
 				// The second `order` is omitted: it will be added by the following `parse_order` call.
 				$parsed = "ID $order, $occurrences.occurrence_id";
@@ -385,7 +410,7 @@ class Custom_Tables_Query extends WP_Query {
 			}
 		}
 
-		// Let the parent handle the rest.
+		// Let the parent handle the rest or return the input unchanged.
 		return parent::parse_orderby( $orderby );
 	}
 
@@ -574,6 +599,7 @@ class Custom_Tables_Query extends WP_Query {
 		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ] );
 		remove_filter( 'the_posts', [ $this, 'remove_late_filters' ] );
 		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
+		remove_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200 );
 	}
 
 	/**
@@ -631,5 +657,64 @@ class Custom_Tables_Query extends WP_Query {
 		$query->posts = apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', $query->posts, $query );
 
 		return $found_posts;
+	}
+
+	/**
+	 * Filters the `ORDER` section of the query to redirect the fields that require it to the custom tables.
+	 *
+	 * The `parse_orderby` method might have not completely taken care of this redirection if the query did
+	 * not originally specify any `orderby` or later filters have modified the `ORDER BY` section of the query
+	 * further.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $posts_orderby The `ORDER` section of the query.
+	 * @param WP_Query $query         The `WP_Query` instance that is currently filtering its `posts_orderby` property.
+	 *
+	 * @return string The filtered `ORDER` section of the query.
+	 */
+	public function redirect_posts_orderby( $posts_orderby, $query ) {
+		if ( $query !== $this ) {
+			return $posts_orderby;
+		}
+
+		remove_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200 );
+
+		if ( ! is_string( $posts_orderby ) || trim( $posts_orderby ) === '' ) {
+			return $posts_orderby;
+		}
+
+		$redirected_orderbys = '';
+		$orderbys = explode( ',', $posts_orderby );
+		foreach ( $orderbys as $orderby_frag ) {
+			// Fast-track the `rand` order, no need to redirect anything.
+			if ( stripos( $orderby_frag, 'rand' ) === 0 ) {
+				$redirected_orderbys .= $orderby_frag;
+				continue;
+			}
+
+			// Each `ORDER BY` entry could specify an order (DESC|ASC) or not.
+			if ( preg_match( '~(?<orderby>.*?)\s?(?<order>ASC|DESC)$~i', $orderby_frag, $m ) ) {
+				$orderby = trim( $m['orderby'] );
+				$order = trim( $m['order'] );
+			} else {
+				// Follow the WordPress default and use DESC if no order is specified.
+				$orderby = $orderby_frag;
+				$order = 'DESC';
+			}
+
+			if ( strpos( $redirected_orderbys, $orderby ) !== false ) {
+				// The field has been already added to the redirected `ORDER BY` clause.
+				continue;
+			}
+
+			$parsed_orderby = $this->parse_orderby( (string) $orderby ) ?: $orderby;
+
+			$redirected_orderbys .= $redirected_orderbys === '' ?
+				$parsed_orderby . ' ' . $order
+				: ', ' . $parsed_orderby . ' ' . $order;
+		}
+
+		return $redirected_orderbys;
 	}
 }
