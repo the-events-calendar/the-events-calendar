@@ -24,4 +24,3 @@ modules:
         - wordpress-seo/wp-seo.php
 external_plugins:
   - wordpress-seo
-  - fakerpress

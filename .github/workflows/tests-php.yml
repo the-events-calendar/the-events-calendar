@@ -5,23 +5,23 @@ jobs:
     strategy:
       matrix:
         suite:
-#          - aggregatorv1
-#          - blocks_editor_integration
-#          - event_status
-#          - integration
+          - aggregatorv1
+          - blocks_editor_integration
+          - event_status
+          - integration
           - integrations_plugin_wordpress_seo
-#          - muintegration
-#          - restv1
-#          - views_integration
-#          - views_settings
-#          - views_ui
-#          - views_v2_customizer_integration
-#          - views_widgets
-#          - views_wpunit
-#          - wpunit
-#          - ct1_integration
-#          - ct1_multisite_integration
-#          - deprecated
+          - muintegration
+          - restv1
+          - views_integration
+          - views_settings
+          - views_ui
+          - views_v2_customizer_integration
+          - views_widgets
+          - views_wpunit
+          - wpunit
+          - ct1_integration
+          - ct1_multisite_integration
+          - deprecated
           # really weird error with RBE changes.
           # - views_rest
     runs-on: ubuntu-latest
@@ -150,7 +150,7 @@ jobs:
         id: test_suite_plugins_required
         run: |
           TEST_SUITE_DATA="${{ steps.yml-test-suite-data.outputs.data }}"
-          TEST_SUITE_DATA=$(echo ${TEST_SUITE_DATA} | sed "s|,| |g" | sed "s|\[| |g" | sed "s|\]| |g")
+          TEST_SUITE_DATA=$(echo ${TEST_SUITE_DATA} | sed "s|,||g" | sed "s|\[| |g" | sed "s|\]||g")
           echo "::set-output name=content::$TEST_SUITE_DATA"
 
       - name: Install the plugins on this particular Test Suite
