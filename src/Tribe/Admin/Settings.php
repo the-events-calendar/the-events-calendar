@@ -553,11 +553,12 @@ class Settings {
 			<label title="Summary" class="tec-disabled">
 				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled>
 				<?php echo esc_attr( $label ) ?>
-				<span
+				<a
+					href="https://theeventscalendar.com/products/wordpress-events-calendar/"
 					class="tec-settings-teaser-pill"
 					title="<?php echo esc_attr( $tooltip_title ); ?>"
 				><?php echo esc_html( $tooltip_label ); ?>
-				</span>
+				</a>
 			</label>
 		<?php }
 
