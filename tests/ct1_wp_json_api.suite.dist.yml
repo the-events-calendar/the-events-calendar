@@ -12,23 +12,23 @@ modules:
     config:
       WPDb:
         dsn: "mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%"
-        user: ""%WP_DB_USER%"
+        user: "%WP_DB_USER%"
         password: "%WP_DB_PASSWORD%"
-        dump: "tests/_data/restv1-dump.sql"
+        dump: "tests/_data/ct1_wp_json_api_000.sql"
         populate: true
         cleanup: false # Taking care of that in _bootstrap.php file.
         url: "%WP_URL%"
         originalUrl: "http://wordpress.test"
-        tablePrefix: "'%WP_TABLE_PREFIX%'"
+        tablePrefix: "%WP_TABLE_PREFIX%"
         waitlock: 10
       WPBrowser:
-        url: ""%WP_URL%"
+        url: "%WP_URL%"
         adminUsername: "%WP_ADMIN_USERNAME%"
-        adminPassword: ""%WP_ADMIN_PASSWORD%"
+        adminPassword: "%WP_ADMIN_PASSWORD%"
         adminUrl: "/wp-admin"
       REST:
-        depends: WPBrowser
-        url: "%WP_URL%'"
+        depends: "WPBrowser"
+        url: "%WP_URL%"
       WPLoader:
         # just load WordPress using the same db as WPDb
         loadOnly: true
@@ -39,3 +39,4 @@ modules:
         dbPassword: "%WP_DB_PASSWORD%"
       WPFilesystem:
         wpRootFolder: "%WP_ROOT_FOLDER%"
+
