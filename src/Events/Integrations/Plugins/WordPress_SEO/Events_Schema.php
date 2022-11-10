@@ -14,7 +14,7 @@ use Tribe__Events__Main as TEC_Plugin;
 /**
  * Class Events_Schema
  *
- * @since   TBD
+ * @since   6.0.4
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -37,7 +37,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 	/**
 	 * Determines whether a piece should be added to the graph.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return bool
 	 */
@@ -57,7 +57,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 		/**
 		 * Allows the event data to be modified by themes and other plugins.
 		 *
-		 * @since   TBD
+		 * @since   6.0.4
 		 *
 		 * @param bool $is_needed Weather to load the Schema.
 		 *
@@ -70,7 +70,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 	 * Adds our Event piece of the graph.
 	 * Partially lifted from the 'Tribe__JSON_LD__Abstract' class.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @see https://docs.theeventscalendar.com/reference/classes/tribe__json_ld__abstract/
 	 * @return array Event Schema markup
@@ -112,7 +112,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 	 * Get and return the schema markup for a collection of posts.
 	 * If the posts array is empty, only the current post is returned.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param array $posts The collection of posts we want schema markup for.
 	 *
@@ -139,7 +139,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 		/**
 		 * Allows the event data to be modified by themes and other plugins.
 		 *
-		 * @depecated TBD
+		 * @depecated 6.0.4
 		 *
 		 * @param array $tribe_data objects representing the Google Markup for each event.
 		 * @param array $args       the arguments used to get data
@@ -154,14 +154,14 @@ class Events_Schema extends Abstract_Schema_Piece {
 				$tribe_data,
 				$args,
 			],
-			'TBD',
+			'6.0.4',
 			"tec_events_integrations_{$integration_type}_{$integration_slug}_json_ld_{$type}_data"
 		);
 
 		/**
 		 * Allows the event data to be modified by themes and other plugins.
 		 *
-		 * @since   TBD
+		 * @since   6.0.4
 		 *
 		 * @param array $tribe_data objects representing the Google Markup for each event.
 		 * @param array $args       the arguments used to get data
@@ -177,7 +177,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 	/**
 	 * Transform the tribe schema markup and adapt it to the Yoast SEO standard.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param array $data The data retrieved from the TEC plugin.
 	 *
@@ -265,7 +265,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 	/**
 	 * Get an array of events for the requested month.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return array An array of posts of the custom post type event.
 	 */
