@@ -30,6 +30,17 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_html();
 
 	/**
+	 * Returns the view label.
+	 *
+	 * It is different from the dynamic get_label because it avoids building a whole instance just for the base label.
+	 *
+	 * @since  TBD
+	 *
+	 * @return string
+	 */
+	public static function get_view_label(): string;
+
+	/**
 	 * Returns a View label.
 	 *
 	 * @since  4.9.4

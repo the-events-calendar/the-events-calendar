@@ -1,52 +1,52 @@
 actor: Views_uiTester
 modules:
-    enabled:
-        - \Helper\Views_ui
-        # see https://github.com/lucatume/wp-browser#modules to know the general ratio of each
-        - WPWebDriver #browse
-        - WPDb #manipulate the database and look up stuff
-        - WPFilesystem #manipulate the WP filesystem, scaffold themes and plugins
-        - Asserts #PHPUnit-like assertions
-        - WPLoader
-        - \Helper\TribeDb
-    config:
-      WPWebDriver:
-        # We have to use a URL Chromedriver will be able to resolve.
-        # See the `.env` file for more information.
-        url: '%WP_CHROMEDRIVER_URL%'
-        # see codeception.dist.yml for the configuration
-        adminUsername: %WP_ADMIN_USERNAME%
-        adminPassword: %WP_ADMIN_PASSWORD%
-        adminPath: '/wp-admin'
-        browser: chrome
-        host: %CHROMEDRIVER_HOST%
-        port: %CHROMEDRIVER_PORT%
-        window_size: false
-        capabilities:
-          chromeOptions:
-            args: ["--headless", "--disable-gpu", "--proxy-server='direct://'", "--proxy-bypass-list=*", "--url-base=/wd/hub" ]
-      WPDb:
-        dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
-        user: %WP_DB_USER%
-        password: %WP_DB_PASSWORD%
-        dump: 'tests/_data/dump.sql'
-        populate: true
-        waitlock: 10
-        cleanup: true
-        reconnect: false
-        url: '%WP_URL%'
-        tablePrefix: 'wp_'
-      WPFilesystem:
-        wpRootFolder: '%WP_ROOT_FOLDER%'
-        themes: '/wp-content/themes'
-        plugins: '/wp-content/plugins'
-        mu-plugins: '/wp-content/mu-plugins'
-        uploads: '/wp-content/uploads'
-      WPLoader:
-        # just load WordPress using the same db as WPDb
-        loadOnly: true
-        wpRootFolder: %WP_ROOT_FOLDER%
-        dbName: %WP_DB_NAME%
-        dbHost: %WP_DB_HOST%
-        dbUser: %WP_DB_USER%
-        dbPassword: '%WP_DB_PASSWORD%'
+  enabled:
+    - \Helper\Views_ui
+    # see https://github.com/lucatume/wp-browser#modules to know the general ratio of each
+    - WPWebDriver #browse
+    - WPDb #manipulate the database and look up stuff
+    - WPFilesystem #manipulate the WP filesystem, scaffold themes and plugins
+    - Asserts #PHPUnit-like assertions
+    - WPLoader
+    - \Helper\TribeDb
+  config:
+    WPWebDriver:
+      # We have to use a URL Chromedriver will be able to resolve.
+      # See the `.env` file for more information.
+      url: '%WP_CHROMEDRIVER_URL%'
+      # see codeception.dist.yml for the configuration
+      adminUsername: "%WP_ADMIN_USERNAME%"
+      adminPassword: "%WP_ADMIN_PASSWORD%"
+      adminPath: '/wp-admin'
+      browser: chrome
+      host: "%CHROMEDRIVER_HOST%"
+      port: "%CHROMEDRIVER_PORT%"
+      window_size: false
+      capabilities:
+        chromeOptions:
+          args: [ "--headless", "--disable-gpu", "--proxy-server='direct://'", "--proxy-bypass-list=*", "--url-base=/wd/hub" ]
+    WPDb:
+      dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
+      user: "%WP_DB_USER%"
+      password: "%WP_DB_PASSWORD%"
+      dump: 'tests/_data/dump.sql'
+      populate: true
+      waitlock: 10
+      cleanup: true
+      reconnect: false
+      url: '%WP_URL%'
+      tablePrefix: 'wp_'
+    WPFilesystem:
+      wpRootFolder: '%WP_ROOT_FOLDER%'
+      themes: '/wp-content/themes'
+      plugins: '/wp-content/plugins'
+      mu-plugins: '/wp-content/mu-plugins'
+      uploads: '/wp-content/uploads'
+    WPLoader:
+      # just load WordPress using the same db as WPDb
+      loadOnly: true
+      wpRootFolder: "%WP_ROOT_FOLDER%"
+      dbName: "%WP_DB_NAME%"
+      dbHost: "%WP_DB_HOST%"
+      dbUser: "%WP_DB_USER%"
+      dbPassword: "%WP_DB_PASSWORD%"

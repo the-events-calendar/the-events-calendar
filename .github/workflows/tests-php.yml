@@ -9,6 +9,7 @@ jobs:
           - blocks_editor_integration
           - event_status
           - integration
+          - integrations_plugin_wordpress_seo
           - muintegration
           - restv1
           - views_integration
@@ -23,6 +24,8 @@ jobs:
           - deprecated
           # really weird error with RBE changes.
           # - views_rest
+          - wp_json_api
+          - ct1_wp_json_api
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -124,6 +127,43 @@ jobs:
         run: |
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
+      - name: Init the WordPress container
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} up wordpress
+      - name: Ensure Twenty-Twenty is installed
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} wp theme install twentytwenty --activate
+
+      # ------------------------------------------------------------------------------
+      # Try to install the external plugins
+      # ------------------------------------------------------------------------------
+
+      - name: Read which external plugins should be loaded.
+        id: yml-test-suite-data
+        if: steps.skip.outputs.value != 1
+        uses: jbutcher5/read-yaml@main
+        with:
+          file: tests/${{ matrix.suite }}.suite.dist.yml
+          key-path: '[ "external_plugins" ]'
+
+      - name: Prepare variable for
+        if: steps.skip.outputs.value != 1 && steps.yml-test-suite-data.outputs.data
+        id: test_suite_plugins_required
+        run: |
+          TEST_SUITE_DATA="${{ steps.yml-test-suite-data.outputs.data }}"
+          TEST_SUITE_DATA=$(echo ${TEST_SUITE_DATA} | sed "s|,||g" | sed "s|\[| |g" | sed "s|\]||g")
+          echo "::set-output name=content::$TEST_SUITE_DATA"
+
+      - name: Install the plugins on this particular Test Suite
+        if: steps.skip.outputs.value != 1 && steps.test_suite_plugins_required.outputs.content
+        run: |
+          ${SLIC_BIN} wp plugin install ${{ steps.test_suite_plugins_required.outputs.content }}
+
+      # ------------------------------------------------------------------------------
+      # Run the Actual tests
+      # ------------------------------------------------------------------------------
+
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter

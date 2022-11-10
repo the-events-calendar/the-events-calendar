@@ -37,7 +37,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.3';
+		const VERSION             = '6.0.4';
 
 		/**
 		 * Min Pro Addon
@@ -442,14 +442,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Disable older versions of Community Events to prevent fatal Error.
 			remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
-
-			// Third-party compatibility problems.
-			if ( function_exists( 'YoastSEO' ) && defined( 'WPSEO_VERSION' ) ) {
-				add_action( 'init', static function() {
-					$tec_integration = YoastSEO()->classes->get( 'Yoast\\WP\\SEO\\Integrations\\Third_Party\\The_Events_Calendar' );
-					\remove_filter( 'wpseo_schema_graph_pieces', [ $tec_integration, 'add_graph_pieces' ], 11 );
-				} );
-			}
 		}
 
 		/**
@@ -652,6 +644,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
+
+			// Load the new third-party integration system.
+			tribe_register_provider( TEC\Events\Integrations\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

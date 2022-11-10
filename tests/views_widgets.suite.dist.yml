@@ -1,21 +1,21 @@
-actor: Event_statusTester
+actor: Views_widgetsTester
 bootstrap: _bootstrap.php
 modules:
     enabled:
-        - \Helper\event_status
+        - \Helper\Views_widgets
         - WPLoader
         - WPQueries
     config:
       WPLoader:
-        wpRootFolder: %WP_ROOT_FOLDER%
-        dbName: %WP_TEST_DB_NAME%
-        dbHost: %WP_TEST_DB_HOST%
-        dbUser: %WP_TEST_DB_USER%
-        dbPassword: %WP_TEST_DB_PASSWORD%
+        wpRootFolder: "%WP_ROOT_FOLDER%"
+        dbName: "%WP_TEST_DB_NAME%"
+        dbHost: "%WP_TEST_DB_HOST%"
+        dbUser: "%WP_TEST_DB_USER%"
+        dbPassword: "%WP_TEST_DB_PASSWORD%"
         tablePrefix: test_
-        domain: %WP_DOMAIN%
+        domain: "%WP_DOMAIN%"
         adminEmail: admin@tribe.localhost
-        title: 'The Events Calendar Event Status Tests'
+        title: 'The Events Calendar Tests'
         plugins:
           - the-events-calendar/the-events-calendar.php
         activatePlugins:

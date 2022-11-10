@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Integrations\WPML\Views\V2;
 
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+
 /**
  * Class Filters
  *
@@ -162,5 +164,30 @@ class Filters {
 		$lang_negotiation = (int) $sitepress->get_setting( 'language_negotiation_type' );
 
 		return WPML_LANGUAGE_NEGOTIATION_TYPE_DIRECTORY === $lang_negotiation;
+	}
+
+	/**
+	 * Filters the View repository arguments to correctly translate the Occurrences permalinks.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $template_vars The View template variables.
+	 *
+	 * @return array<string,mixed> The View template variables, the Occurrences' permalink translated if required.
+	 */
+	public static function translate_events_permalinks( $template_vars ) {
+		if ( ! ( is_array( $template_vars ) && isset( $template_vars['events'] ) && is_array( $template_vars['events'] ) ) ) {
+			return $template_vars;
+		}
+
+		foreach ( $template_vars['events'] as &$event ) {
+			if ( empty( $event->permalink ) ) {
+				continue;
+			}
+
+			$event->permalink = get_permalink( Occurrence::normalize_id( $event->ID ) );
+		}
+
+		return $template_vars;
 	}
 }
