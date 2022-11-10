@@ -239,10 +239,12 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Errors and warnings in WP.com installations due to empty query results. [TEC-4543]
 * Fix - Translation of Event Occurrences URL when using WPML and the Custom Tables V1 implementation. [ECP-1373]
 * Fix - More robust type checking in Builder methods. [ECP-1402]
+* Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
-* Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
 * Tweak - Do not add date-based ordering to queries when using `none` or `rand` order. [TEC-4555]
+* Tweak - Added filters: `tec_events_integrations_should_load`, `tec_events_integrations_{$type}_should_load`, `tec_events_integrations_{$type}_{$slug}_should_load`, `tec_events_integrations_{$integration_type}_{$integration_slug}_events_schema_is_needed`, `tec_events_integrations_{$integration_type}_{$integration_slug}_json_ld_{$type}_data`, `tec_events_views_v2_view_label`, `tec_events_views_v2_{$slug}_view_label`
+* Tweak - Removed filters: `tribe_events_views`, `tribe_events_views_v2_manager_view_label_domain`, `tribe_events_views_v2_manager_{$slug}_view_label_domain`, `tribe_events_views_v2_manager_view_label`, `tribe_events_views_v2_manager_{$slug}_view_label`
 * Language - 3 new strings added, 144 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.0.3.1] 2022-11-03 =
