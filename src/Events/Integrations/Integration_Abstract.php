@@ -5,7 +5,7 @@ namespace TEC\Events\Integrations;
 /**
  * Class Integration_Abstract
  *
- * @since   TBD
+ * @since   6.0.4
  *
  * @package TEC\Events\Integrations
  */
@@ -13,7 +13,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 */
 	public function register() {
 		// Registers this provider as a singleton for ease of use.
@@ -30,7 +30,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	/**
 	 * Gets the slug for this integration.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return string
 	 */
@@ -39,7 +39,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	/**
 	 * Determines whether this integration should load.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return bool
 	 */
@@ -50,7 +50,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters whether the integration should load.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param bool $value Whether the integration should load.
 	 *
@@ -63,7 +63,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filters if integrations should be loaded.
 		 *
-		 * @since TBD
+		 * @since 6.0.4
 		 *
 		 * @param bool $value   Whether the integration should load.
 		 * @param string $type  Type of integration we are loading.
@@ -74,7 +74,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filters if integrations of the current type should be loaded.
 		 *
-		 * @since TBD
+		 * @since 6.0.4
 		 *
 		 * @param bool $value   Whether the integration should load.
 		 * @param string $slug  Slug of the integration we are loading.
@@ -84,7 +84,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 		/**
 		 * Filters if a specific integration (by type and slug) should be loaded.
 		 *
-		 * @since TBD
+		 * @since 6.0.4
 		 *
 		 * @param bool $value   Whether the integration should load.
 		 */
@@ -94,7 +94,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	/**
 	 * Determines if the integration in question should be loaded.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return bool
 	 */
@@ -103,7 +103,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	/**
 	 * Loads the integration itself.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return void
 	 */
@@ -112,7 +112,7 @@ abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
 	/**
 	 * Determines the integration type.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return string
 	 */

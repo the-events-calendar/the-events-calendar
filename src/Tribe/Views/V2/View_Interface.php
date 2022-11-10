@@ -34,7 +34,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 *
 	 * It is different from the dynamic get_label because it avoids building a whole instance just for the base label.
 	 *
-	 * @since  TBD
+	 * @since  6.0.4
 	 *
 	 * @return string
 	 */

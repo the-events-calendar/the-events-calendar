@@ -386,7 +386,7 @@ class Manager {
 	 * Prepare the view Label with filters for the domain and label.
 	 *
 	 * @since 5.0.0
-	 * @deprecated TBD Translations do not handle variable domains well. Now handled in the View class.
+	 * @deprecated 6.0.4 Translations do not handle variable domains well. Now handled in the View class.
 	 *
 	 * @param  string $slug       The view slug.
 	 * @param  string $view_class The view fully qualified class name.
@@ -394,32 +394,32 @@ class Manager {
 	 * @return string             The filtered label associated with a given View.
 	 */
 	protected function prepare_view_label( $slug, $view_class ) {
-		_deprecated_function( __METHOD__, 'TBD', 'No direct replacements, see more at View::filter_view_label()' );
+		_deprecated_function( __METHOD__, '6.0.4', 'No direct replacements, see more at View::filter_view_label()' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 * Deprecated.
 		 *
 		 * @since 5.0.0
-		 * @deprecated TBD We cannot use variables for domains.
+		 * @deprecated 6.0.4 We cannot use variables for domains.
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $slug         Slug of the view we are getting the label for.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$domain = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label_domain', [ 'the-events-calendar', $slug, $view_class ], 'TBD' );
+		$domain = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label_domain', [ 'the-events-calendar', $slug, $view_class ], '6.0.4' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 * Deprecated.
 		 *
 		 * @since 5.0.0
-		 * @deprecated TBD We cannot use variables for domains.
+		 * @deprecated 6.0.4 We cannot use variables for domains.
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$domain = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label_domain", [ $domain, $view_class ], 'TBD' );
+		$domain = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label_domain", [ $domain, $view_class ], '6.0.4' );
 
 		/**
 		 * Pass by the translation engine, don't remove.
@@ -438,25 +438,25 @@ class Manager {
 		 * Deprecated.
 		 *
 		 * @since 5.0.0
-		 * @deprecated TBD Filtering is now done in the View class.
+		 * @deprecated 6.0.4 Filtering is now done in the View class.
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $slug         Slug of the view we are getting the label for.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$label = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label', [ $label, $slug, $view_class ], 'TBD', 'tribe_events_views_v2_view_label' );
+		$label = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label', [ $label, $slug, $view_class ], '6.0.4', 'tribe_events_views_v2_view_label' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 * Deprecated.
 		 *
 		 * @since 5.0.0
-		 * @deprecated TBD Filtering is now done in the View class.
+		 * @deprecated 6.0.4 Filtering is now done in the View class.
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$label = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label", [ $label, $view_class ], 'TBD', 'tribe_events_views_v2_{$slug}_view_label' );
+		$label = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label", [ $label, $view_class ], '6.0.4', 'tribe_events_views_v2_{$slug}_view_label' );
 
 		return $label;
 	}

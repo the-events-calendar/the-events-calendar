@@ -28,7 +28,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * The last error string logged by any instance of the class.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @var string
 	 */
@@ -118,7 +118,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Returns the last error string logged by any instance of the class.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return string The last error string logged by any instance of the class.
 	 */
@@ -562,7 +562,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * that second `SELECT FOUND_ROWS()` query to pre-fill it with a result the Custom Tables query already
 	 * has.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param string $found_posts_query The SQL query that would run to fill in the `found_posts` property of the
 	 *                                  `WP_Query` instance.
@@ -586,7 +586,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Removes all the filters the Custom Tables Query has added to filter its own inner workings while
 	 * pre-filling the results in the `posts_pre_query` filter.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return void Lingering filters will be removed.
 	 */
@@ -605,7 +605,7 @@ class Custom_Tables_Query extends WP_Query {
 	/**
 	 * Removes late filters that are required after the `posts_pre_query` filter.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param array    $the_posts The array of posts that will be returned by the `WP_Query` instance.
 	 * @param WP_Query $query     WP_Query The `WP_Query` instance that is currently filtering its `the_posts` property.
@@ -627,7 +627,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Attempt an early hydration of the post caches when fetching the found rows, this method
 	 * is using the `found_posts` filter as an action.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param int      $found_posts The number of found posts, not used by this method.
 	 * @param WP_Query $query       The `WP_Query` instance that is currently filtering its `found_posts` property.
@@ -649,7 +649,7 @@ class Custom_Tables_Query extends WP_Query {
 		 * Filters the posts that will be hydrated by the Custom Tables Query early, before
 		 * query caching introduced in WordPress 6.1 kicks in.
 		 *
-		 * @since TBD
+		 * @since 6.0.4
 		 *
 		 * @param array               $posts The posts that will be hydrated by the Custom Tables Query early.
 		 * @param Custom_Tables_Query $this  The Custom Tables Query instance.
@@ -666,7 +666,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * not originally specify any `orderby` or later filters have modified the `ORDER BY` section of the query
 	 * further.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param string   $posts_orderby The `ORDER` section of the query.
 	 * @param WP_Query $query         The `WP_Query` instance that is currently filtering its `posts_orderby` property.

@@ -2,7 +2,7 @@
 /**
  * Provides methods to alter how the Repository perform updates.
  *
- * @since   tbd
+ * @since   6.0.3.1
  *
  * @package tec\events\custom_tables\v1\repository
  */
@@ -18,7 +18,7 @@ use RuntimeException;
 /**
  * Provides methods to alter how the repository performs some operations.
  *
- * @since   tbd
+ * @since   6.0.3.1
  *
  * @package tec\events\custom_tables\v1\repository
  */
