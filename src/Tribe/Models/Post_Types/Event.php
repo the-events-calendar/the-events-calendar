@@ -339,7 +339,7 @@ class Event extends Base {
 	/**
 	 * Overrides the base method to conver the I18n Dates to PHP built-in Date types.
 	 *
-	 * @since TBD
+	 * @since 6.0.3.1
 	 *
 	 * @param array<string,mixed> $properties The properties to filter.
 	 *
@@ -367,7 +367,7 @@ class Event extends Base {
 	/**
 	 * Overrides the base method to convert date properties to I18n Dates.
 	 *
-	 * @since TBD
+	 * @since 6.0.3.1
 	 *
 	 * @param array<string,mixed> $properties The properties to filter.
 	 *

@@ -96,7 +96,7 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
-	 * @since TBD
+	 * @since 6.0.3.1
 	 *
 	 * @param WP_Post     $post        The venue post object to filter and return.
 	 * @param int|WP_Post $venue       The venue object to fetch.
