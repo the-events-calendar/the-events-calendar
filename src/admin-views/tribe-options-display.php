@@ -42,12 +42,11 @@ $tec_events_display_fields = [
 	'info-box-description' => [
 		'type' => 'html',
 		'html' => '<p>'
-				  . __( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the two style sheet options or pick a page template from your theme.', 'the-events-calendar' )
-				  . '</p> <p>'
+				  . __( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). ', 'the-events-calendar' )
 				  . sprintf(
 						  /* Translators: %s: URL to knowledgebase. Please continue to use &#37; for % to avoid PHP warnings. */
-					  __( 'There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href="%s">themer\'s guide</a> for instructions on custom modifications.', 'the-events-calendar' ),
-					  Tribe__Main::$tec_url . 'knowledgebase/themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
+					  __( ' Check out our <a href="%s">customization guide</a> for instructions on template modifications.', 'the-events-calendar' ),
+					  esc_url( 'https://evnt.is/1bbs' )
 				  )
 				  . '</p>',
 	],
