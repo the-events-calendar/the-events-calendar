@@ -25,23 +25,9 @@ $enable_button_html = <<<HTML
 HTML;
 
 return [
-	'tribe_events_timezones_title'     => [
-		'type' => 'html',
-		'html' => '<h3>' . esc_html__( 'Time Zone Settings', 'the-events-calendar' ) . '</h3>',
-	],
 	'tribe_events_enable_timezones'    => [
 		'type' => 'html',
 		'html' => $enable_button_html,
-	],
-	'tribe_events_timezone_mode'       => [
-		'type'            => 'dropdown',
-		'label'           => esc_html__( 'Time zone mode', 'the-events-calendar' ),
-		'validation_type' => 'options',
-		'size'            => 'large',
-		'options'         => [
-			'event' => esc_html__( 'Use manual time zones for each event', 'the-events-calendar' ),
-			'site'  => esc_html__( 'Use the site-wide time zone everywhere', 'the-events-calendar' ),
-		],
 	],
 	'tribe_events_timezones_show_zone' => [
 		'type'            => 'checkbox_bool',
@@ -52,5 +38,15 @@ return [
 		),
 		'default'         => false,
 		'validation_type' => 'boolean',
+	],
+	'tribe_events_timezone_mode'       => [
+		'type'            => 'dropdown',
+		'label'           => esc_html__( 'Time zone mode', 'the-events-calendar' ),
+		'validation_type' => 'options',
+		'size'            => 'large',
+		'options'         => [
+			'event' => esc_html__( 'Use manual time zones for each event', 'the-events-calendar' ),
+			'site'  => esc_html__( 'Use the site-wide time zone everywhere', 'the-events-calendar' ),
+		],
 	],
 ];

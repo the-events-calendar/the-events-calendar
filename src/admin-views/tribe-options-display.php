@@ -133,7 +133,7 @@ $tec_events_display_template = [
 							'the-events-calendar'
 						)
 						.'</p>',
-			'tribe'    => __( 'Enhanced Styles', 'the-events-calendar' )
+			'tribe'    => __( 'Default Styles', 'the-events-calendar' )
 						. '<p class=\'description tribe-style-selection\'>'
 						. __(
 							'A fully designed and styled theme for your events pages.',

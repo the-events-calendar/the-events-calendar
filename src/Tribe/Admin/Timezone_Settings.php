@@ -10,21 +10,21 @@ class Tribe__Events__Admin__Timezone_Settings {
 	public function __construct() {
 		$this->listen();
 		add_action( 'wp_ajax_tribe_timezone_update', [ $this, 'ajax_updater' ] );
-		add_filter( 'tec_events_pro_dates_settings_tab_fields', [ $this, 'settings_ui' ], 20 );
+		add_filter( 'tec_events_display_settings_tab_fields', [ $this, 'settings_ui' ], 20 );
 	}
 
 	/**
-	 * Adds timezone settings to the *General* settings tab.
+	 * Adds timezone settings to the *Display* settings tab.
 	 *
 	 * When it is determined that timezone data still needs to be generated for one or more
 	 * events then only the update tool will be exposed in this area, in all other cases this
 	 * is not exposed and the ordinary timezone settings will be visible.
 	 *
-	 * @param array $general_settings
+	 * @param array $display_settings
 	 *
 	 * @return array
 	 */
-	public function settings_ui( array $general_settings ) {
+	public function settings_ui( array $display_settings ) {
 		$updater = new Tribe__Events__Admin__Timezone_Updater;
 
 		// Load all timezone settings
@@ -41,8 +41,8 @@ class Tribe__Events__Admin__Timezone_Settings {
 
 		// Add the new section just before the settings form is closed
 		return Tribe__Main::array_insert_before_key(
-			'tribe-form-content-end',
-			$general_settings,
+			'tribe-events-currency-title',
+			$display_settings,
 			$timezone_settings
 		);
 	}

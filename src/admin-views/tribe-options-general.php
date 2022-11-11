@@ -253,7 +253,9 @@ $tec_events_general_troubleshooting = [
 		'html'        =>
 			'<fieldset class="tribe-field tribe-field-html"><legend>' .
 				esc_html__( 'View Welcome Page', 'the-events-calendar' ) .
-			'</legend><div class="tribe-field-wrap"><a href="' . tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</p></div></fieldset>',
+			'</legend>
+			<div class="tribe-field-wrap">
+			<a href="' . tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</a></div></fieldset>',
 	],
 	'debugEvents'                                       => [
 		'type'            => 'checkbox_bool',
