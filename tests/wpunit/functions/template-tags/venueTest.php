@@ -211,6 +211,9 @@ class venueTest extends Events_TestCase {
 	 * Test tribe_get_venue_object returns null for non-existing venue
 	 */
 	public function test_tribe_get_venue_object_returns_null_for_non_existing_venue() {
+		add_filter( 'tribe_get_venue_object', function ( \WP_Post $wp_post ) {
+			// We should not be called with a null value, will fatal if we are called.
+		} );
 		// Sanity check: let's make sure this does not exist.
 		$this->assertNull( get_post( 23 ) );
 
