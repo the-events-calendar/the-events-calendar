@@ -526,6 +526,11 @@ class Settings {
 	 * @return string        The modified HTML output.
 	 */
 	public static function tease_premium_views( $output ): string {
+		// Honor the "hide upsells" functionality.
+		if ( tec_should_hide_upsell() ) {
+			return $output;
+		}
+
 		// If ECP is installed, we don't need to tease.
 		if ( class_exists( 'Tribe__Events__Pro__Main', false ) ) {
 			return $output;
@@ -554,7 +559,7 @@ class Settings {
 				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled>
 				<?php echo esc_attr( $label ) ?>
 				<a
-					href="https://theeventscalendar.com/products/wordpress-events-calendar/"
+					href="https://evnt.is/1bb-"
 					class="tec-settings-teaser-pill"
 					title="<?php echo esc_attr( $tooltip_title ); ?>"
 				><?php echo esc_html( $tooltip_label ); ?>
