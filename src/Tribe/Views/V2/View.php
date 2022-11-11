@@ -221,7 +221,7 @@ class View implements View_Interface {
 	 * The translated label string for the view.
 	 * Subject to later filters.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @var string
 	 */
@@ -672,7 +672,7 @@ class View implements View_Interface {
 	 *
 	 * This is the method you want to overwrite to replace the label for a view with translations.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return string
 	 */
@@ -683,7 +683,7 @@ class View implements View_Interface {
 	/**
 	 * Filters the view label value allowing changes to be made.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param string $label Which label we are filtering for.
 	 *
@@ -698,7 +698,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 6.0.4
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $slug         Slug of the view we are getting the label for.
@@ -708,7 +708,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the label that will be used on the UI for views listing.
 		 *
-		 * @since TBD
+		 * @since 6.0.4
 		 *
 		 * @param string $label        Label of the Current view.
 		 */
