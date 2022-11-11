@@ -472,25 +472,58 @@
 	}
 }
 
-.tribe-settings-form .tribe-settings-form-wrap .tec-settings-infobox {
-	border: 1px solid #d5d5d5;
-	border-radius: 4px;
-	column-gap: 20px;
-	display: grid;
-	grid-template-columns: auto 1fr;
-	padding: 20px;
+.tribe-settings-form {
+	.tec-settings-display,
+	.tec-settings-general {
+		.tribe-field-indent {
+			margin-left: 255px;
+		}
 
-	> * {
-		grid-column: 2;
-		margin-left: 0;
-		padding-left: 0;
+		fieldset .description {
+			padding-left: 0;
+		}
+
+		.tribe-field-wrap input[type="checkbox"] ~ .description {
+			display: inline-block;
+			margin-top: 0;
+		}
+
+		.tribe-field-wrap input[type="checkbox"] {
+			margin-top: 2px !important;
+			vertical-align: top;
+		}
 	}
 
-	.tec-settings-infobox-logo {
-		grid-column: 1;
-		grid-row-end: 2;
-		grid-row-start: 1;
-		width: 48px;
+	.tribe-settings-form-wrap .tec-settings-infobox {
+		background-color: #fff;
+		border: 1px solid #d5d5d5;
+		border-radius: 4px;
+		column-gap: 20px;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		margin: 10px 0;
+		padding: 20px;
+
+		> * {
+			grid-column: 1;
+			padding-left: 0;
+		}
+
+		.tec-settings-infobox-logo ~ * {
+			grid-column: 2;
+			margin-left: 0;
+		}
+
+		.tec-settings-infobox-logo {
+			grid-column: 1;
+			grid-row: 1 / 10;
+			width: 48px;
+		}
+
+		.tec-settings-infobox-title {
+			margin-top: 0;
+			padding: 0;
+		}
 	}
 }
 

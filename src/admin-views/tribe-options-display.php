@@ -108,7 +108,7 @@ $tec_events_general_form_end = [
 
 	'tribe-form-content-start' => [
 		'type' => 'html',
-		'html' => '<div class="tribe-settings-form-wrap">',
+		'html' => '<div class="tribe-settings-form-wrap tec-settings-display">',
 	],
 ];
 
@@ -342,6 +342,31 @@ $tec_events_display_currency = [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-events-settings-display-currency">' . esc_html__( 'Currency Settings', 'the-events-calendar' ) . '</h3>',
 	],
+	'tec-tickets-infobox-start' => [
+		'type' => 'html',
+		'html' => '<div class="tec-settings-infobox">'
+	],
+	'tec-tickets-infobox-logo' => [
+		'type' => 'html',
+		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-et.svg', dirname( __FILE__ ) ) . '" alt="Events Tickets Logo">',
+	],
+	'tec-tickets-infobox-title' => [
+		'type' => 'html',
+		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Charge for your events with tickets', 'the-events-calendar' ) . '</h3>',
+	],
+	/* @TODO: This is placeholder text! */
+	'tec-tickets-infobox-content' => [
+		'type' => 'html',
+		'html' => '<p>' . __( 'Need to charge for events, or just need folks to sign up ahead of time? Event Tickets Plus has got you covered.', 'the-events-calendar' ) . '</p>',
+	],
+	'tec-tickets-infobox-link' => [
+		'type' => 'html',
+		'html' => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
+	],
+	'tec-tickets-infobox-end' => [
+		'type' => 'html',
+		'html' => '</div>'
+	],
 	'defaultCurrencySymbol'   => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Default currency symbol', 'the-events-calendar' ),
@@ -379,6 +404,34 @@ $tec_events_display_maps = [
 	'tribe-google-maps-settings-title'     => [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-events-settings-display-maps">' . esc_html__( 'Map Settings', 'the-events-calendar' ) . '</h3>',
+	],
+	'tec-maps-infobox-start' => [
+		'type' => 'html',
+		'html' => '<div class="tec-settings-infobox">'
+	],
+	'tec-maps-infobox-title' => [
+		'type' => 'html',
+		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Advanced Google Maps functionality', 'the-events-calendar' ) . '</h3>',
+	],
+	/* @TODO: The link i this and the next section should probably be different. */
+	'tec-maps-infobox-content' => [
+		'type' => 'html',
+		'html' => sprintf(
+			/* Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag */
+			__( '%1$sThe Events Calendar comes with a default API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %2$sGoogle Maps API key%3$s.%4$s', 'the-events-calendar' ),
+			'<p>',
+			'<a href="' . esc_url( 'https://evnt.is/1bbu' ) . '">',
+			'</a>',
+			'</p>'
+		),
+	],
+	'tec-maps-infobox-link' => [
+		'type' => 'html',
+		'html' => '<a href="' . esc_url( 'https://evnt.is/1bbu' ) . '">' . __( 'Read more.', 'the-events-calendar' ) . '</a>',
+	],
+	'tec-maps-infobox-end' => [
+		'type' => 'html',
+		'html' => '</div>'
 	],
 	'embedGoogleMaps'                  => [
 		'type'            => 'checkbox_bool',

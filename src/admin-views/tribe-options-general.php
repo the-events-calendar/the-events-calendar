@@ -107,7 +107,7 @@ $tec_events_general_form_end = [
 
 	'tribe-form-content-start' => [
 		'type' => 'html',
-		'html' => '<div class="tribe-settings-form-wrap">',
+		'html' => '<div class="tribe-settings-form-wrap tec-settings-general">',
 	],
 ];
 
@@ -213,29 +213,6 @@ $tec_events_general_viewing = [
 
 $general_tab_fields += $tec_events_general_viewing;
 
-$tec_events_general_aggregator_infobox = [
-	'tec-aggregator-infobox-start' => [
-		'type' => 'html',
-		'html' => '<div class="tec-settings-infobox">'
-	],
-	'tec-aggregator-infobox-logo' => [
-		'type' => 'html',
-		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-event-aggregator.svg', dirname( __FILE__ ) ) . '" alt="Events Aggregator Logo">',
-	],
-	'tec-aggregator-infobox-title' => [
-		'type' => 'html',
-		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Import events with Event Aggregator', 'the-events-calendar' ) . '</h3>',
-	],
-	'tec-aggregator-infobox-content' => [
-		'type' => 'html',
-		'html' => '<p>' . __( 'Effortlessly fill your calendar with events from Meetup, Eventbrite, iCal, Google Calendar, and more.', 'the-events-calendar' ) . '</p>',
-	],
-	'tec-aggregator-infobox-end' => [
-		'type' => 'html',
-		'html' => '</div>'
-	],
-];
-
 // Add the "Editing" section.
 $tec_events_general_editing = [
 	'tec-events-settings-general-editing-title'      => [
@@ -287,14 +264,33 @@ $tec_events_general_troubleshooting = [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-general-troubleshooting">' . esc_html__( 'Troubleshooting', 'the-events-calendar' ) . '</h3>',
 	],
-	'view-welcome-page'                                 => [
-		'type'        => 'html',
-		'html'        =>
-			'<fieldset class="tribe-field tribe-field-html"><legend>' .
-				esc_html__( 'View Welcome Page', 'the-events-calendar' ) .
-			'</legend>
-			<div class="tribe-field-wrap">
-			<a href="' . tribe( 'tec.main' )->settings()->get_url( [ $tec->activation_page->welcome_slug => 1 ] ) . '" class="button">' . esc_html__( 'View Welcome Page', 'the-events-calendar' ) . '</a><p class="tribe-field-indent description">' . esc_html__( 'View the page that displayed when you initially installed the plugin.', 'the-events-calendar' ) . '</a></div></fieldset>',
+	'tec-troubleshooting-infobox-start' => [
+		'type' => 'html',
+		'html' => '<div class="tec-settings-infobox">'
+	],
+	'tec-troubleshooting-infobox-logo' => [
+		'type' => 'html',
+		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-image-high-five.svg', dirname( __FILE__ ) ) . '" alt="Events troubleshooting Logo">',
+	],
+	'tec-troubleshooting-infobox-title' => [
+		'type' => 'html',
+		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'There is a solution for every problem', 'the-events-calendar' ) . '</h3>',
+	],
+	'tec-troubleshooting-infobox-content' => [
+		'type' => 'html',
+		'html' => sprintf(
+			/* Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag */
+			 __( '%1$sSometimes things just don’t work as expected. The %2$stroubleshooting page%3$s has a wealth of resources to get you back on track.%4$s', 'the-events-calendar' ),
+			 '<p>',
+			 '<a href="' . esc_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' ) . '">',
+			 '</a>',
+			 '</p>',
+		),
+
+	],
+	'tec-troubleshooting-infobox-end' => [
+		'type' => 'html',
+		'html' => '</div>'
 	],
 	'debugEvents'                                       => [
 		'type'            => 'checkbox_bool',
