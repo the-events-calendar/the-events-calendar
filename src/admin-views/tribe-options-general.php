@@ -280,6 +280,7 @@ $tec_events_general_viewing = [
 $general_tab_fields += $tec_events_general_viewing;
 
 $is_missing_aggregator_license_key = '' === get_option( 'pue_install_key_event_aggregator' );
+$should_hide_upsell                = tec_should_hide_upsell();
 
 // Add the "Editing" section.
 $tec_events_general_editing = [
@@ -290,32 +291,32 @@ $tec_events_general_editing = [
 	'tec-aggregator-infobox-start' => [
 		'type' => 'html',
 		'html' => '<div class="tec-settings-infobox">',
-		'conditional' => $is_missing_aggregator_license_key,
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-logo' => [
 		'type' => 'html',
 		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-event-aggregator.svg', dirname( __FILE__ ) ) . '" alt="Events Aggregator Logo">',
-		'conditional' => $is_missing_aggregator_license_key,
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-title' => [
 		'type' => 'html',
 		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Import events with Event Aggregator', 'the-events-calendar' ) . '</h3>',
-		'conditional' => $is_missing_aggregator_license_key,
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-content' => [
 		'type' => 'html',
 		'html' => '<p>' . __( 'Effortlessly fill your calendar with events from Meetup, Eventbrite, iCal, Google Calendar, and more.', 'the-events-calendar' ) . '</p>',
-		'conditional' => $is_missing_aggregator_license_key,
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-link' => [
 		'type' => 'html',
 		'html' => '<a href="' . esc_url( 'https://evnt.is/1bby' ) . '">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
-		'conditional' => $is_missing_aggregator_license_key,
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-end' => [
 		'type' => 'html',
 		'html' => '</div>',
-		'conditional' => $is_missing_aggregator_license_key,
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'disable_metabox_custom_fields'                  => [
 		'type'            => 'checkbox_bool',
