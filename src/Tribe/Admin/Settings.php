@@ -381,11 +381,9 @@ class Settings {
 
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
-		//include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tec-options-dates.php';
 
 		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'the-events-calendar' ), $general_tab );
 		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'the-events-calendar' ), $tec_events_display_tab );
-		//$this->tabs[ 'date']   = new Tribe__Settings_Tab( 'dates', esc_html__( 'Date/Time', 'the-events-calendar' ), $tec_events_display_date );
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
 	}
 
