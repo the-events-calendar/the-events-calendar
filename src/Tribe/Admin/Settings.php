@@ -549,11 +549,11 @@ class Settings {
 	 * Initialize the addons api settings tab.
 	 *
 	 * @since 5.15.0 Added check to see if we are on TEC settings page.
-	 * @since TBD    Moved to Settings class. Made static.
+	 * @since TBD    Moved to Settings class.
 	 */
-	public static function do_addons_api_settings_tab( $admin_page ): void {
+	public function do_addons_api_settings_tab( $admin_page ): void {
 		// Bail if we're not on TEC settings.
-		if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
+		if ( ! empty( $admin_page ) && static::$settings_page_id !== $admin_page ) {
 			return;
 		}
 
@@ -564,11 +564,11 @@ class Settings {
 	 * should we show the upgrade nags?
 	 *
 	 * @since 4.9.12
-	 * @since TBD    Moved to Settings class. Made static.
+	 * @since TBD    Moved to Settings class.
 	 *
 	 * @return boolean
 	 */
-	public static function show_upgrade(): bool {
+	public function show_upgrade(): bool {
 		// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
 		$can_show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
 
@@ -608,15 +608,15 @@ class Settings {
 	 *
 	 * @since 4.9.12
 	 * @since 5.15.0 Added check to see if we are on TEC settings page.
-	 * @since TBD    Moved to Settings class. Made static.
+	 * @since TBD    Moved to Settings class.
 	 */
-	public static function do_upgrade_tab( $admin_page ): void {
+	public function do_upgrade_tab( $admin_page ): void {
 		// Bail if we're not on TEC settings.
-		if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
+		if ( ! empty( $admin_page ) && static::$settings_page_id !== $admin_page ) {
 			return;
 		}
 
-		if ( ! self::show_upgrade() ) {
+		if ( ! $this->show_upgrade() ) {
 			return;
 		}
 
@@ -678,13 +678,13 @@ class Settings {
 	 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it
 	 *
 	 * @since 4.3.5
-	 * @since TBD    Moved to Settings class. Made static.
+	 * @since TBD    Moved to Settings class.
 	 *
 	 * @param string $url Settings URL to filter
 	 *
 	 * @return string
 	 */
-	public static function tribe_settings_url( $url ): string {
+	public function filter_url( $url ): string {
 		if ( is_network_admin() ) {
 			return $url;
 		}
