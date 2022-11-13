@@ -33,7 +33,7 @@ $posts_per_page_tooltip = class_exists( 'Tribe__Events__Pro__Main', false )
 $tec_events_display_fields = [
 	'info-start'           => [
 		'type' => 'html',
-		'html' => '<div id="modern-tribe-info">',
+		'html' => '<div class="tec-settings-header">',
 	],
 	'info-box-title'       => [
 		'type' => 'html',
