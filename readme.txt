@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Reorganize the General and Display settings tab content. [TCMN-149]
+
 = [6.0.4] TBD =
 
 * Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558]
