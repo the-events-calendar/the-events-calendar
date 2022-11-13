@@ -1221,6 +1221,45 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Initialize the addons api settings tab.
+		 *
+		 * @since 5.15.0 Added check to see if we are on TEC settings page.
+		 *
+		 * @deprected TBD
+		 */
+		public function do_addons_api_settings_tab( $admin_page ) {
+			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->do_addons_api_settings_tab()' );
+			tribe( Settings::class )->do_addons_api_settings_tab( $admin_page );
+		}
+
+		/**
+		 * Should we show the upgrade nags?
+		 *
+		 * @since 4.9.12
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return bool
+		 */
+		public function show_upgrade() {
+			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->show_upgrade()' );
+			return tribe( Settings::class)->show_upgrade();
+		}
+
+		/**
+		 * Create the upgrade tab.
+		 *
+		 * @since 4.9.12
+		 * @since 5.15.0 Added check to see if we are on TEC settings page.
+		 *
+		 * @deprecated TBD
+		 */
+		public function do_upgrade_tab( $admin_page ) {
+			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->do_upgrade_tab()' );
+			tribe( Settings::class )->do_upgrade_tab( $admin_page );
+		}
+
+		/**
 		 * By default Tribe__Tracker won't track Event Post Types, so we add them here.
 		 *
 		 * @since  4.5
@@ -3627,6 +3666,46 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			return $post;
+		}
+
+		/**
+		 * Inject TEC specific setting fields into the general tab.
+		 *
+		 * @param array $general_tab_fields Fields for the general settings tab.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return array
+		 */
+		public function general_settings_tab_fields( $general_tab_fields ) {
+			_deprecated_function( __METHOD__, 'TBD', 'No replacement. Handled by Settings::settings_ui()' );
+		}
+
+		/**
+		 * Inject TEC specific setting fields into the display tab.
+		 *
+		 * @param array $display_tab_fields Fields for the display settings tab.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return array
+		 */
+		public function display_settings_tab_fields( $display_tab_fields ) {
+			_deprecated_function( __METHOD__, 'TBD', 'No replacement. Handled by Settings::settings_ui()' );
+		}
+
+		/**
+		 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it.
+		 *
+		 * @param string $url Settings URL to filter.
+		 *
+		 * @deprecated TBD
+		 *
+		 * @return string
+		 */
+		public function tribe_settings_url( $url ) {
+			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->filter_url()' );
+			return tribe( Settings::class )->filter_url( $url );
 		}
 
 		/**

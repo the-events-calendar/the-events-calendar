@@ -68,6 +68,10 @@ function tribe_get_venue_object( $venue = null, $output = OBJECT, $filter = 'raw
 		// No memoized value, build from properties.
 		$post = Venue::from_post( $venue )->to_post( $output, $filter );
 
+		if ( empty( $post ) ) {
+			return null;
+		}
+
 		/**
 		 * Filters the venue post object before caching it and returning it.
 		 *
