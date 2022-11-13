@@ -129,7 +129,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
 		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );
 
-		add_filter( 'tribe-event-general-settings-fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
+		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50, 2 );
 		add_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 		add_filter( 'tribe_template_file', [ $this, 'filter_template_file' ], 10, 3 );
@@ -1258,7 +1258,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		remove_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
 		remove_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
 		remove_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ] );
-		remove_filter( 'tribe-event-general-settings-fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
+		remove_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
 		remove_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50 );
 		remove_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
 		remove_filter( 'tribe_template_file', [ $this, 'filter_template_file' ] );

@@ -283,10 +283,7 @@ $general_tab_fields += [
 	]
 ];
 
-// Backwards compatibility.
-$general_tab = apply_filters_deprecated( 'tribe_general_settings_tab_fields', [ $general_tab_fields ], 'TBD', 'tribe-event-general-settings-fields' );
-
 $general_tab = [
 	'priority' => 0,
-	'fields'   => apply_filters( 'tribe-event-general-settings-fields', $general_tab_fields ),
+	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $general_tab_fields ),
 ];
