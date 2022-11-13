@@ -525,14 +525,14 @@ class Settings {
 	 *
 	 * @return string        The modified HTML output.
 	 */
-	public static function tease_premium_views( $output ): string {
-		// Honor the "hide upsells" functionality.
-		if ( tec_should_hide_upsell() ) {
+	public function tease_premium_views( $output ): string {
+		// If ECP is installed, we don't need to tease.
+		if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
 			return $output;
 		}
 
-		// If ECP is installed, we don't need to tease.
-		if ( class_exists( 'Tribe__Events__Pro__Main', false ) ) {
+		// Honor the "hide upsells" functionality.
+		if ( tec_should_hide_upsell() ) {
 			return $output;
 		}
 
