@@ -162,7 +162,7 @@ class Custom_Tables_Query extends WP_Query {
 
 		// This parallel query should be modified by custom tables query modifiers, if any.
 		/** @var Custom_Tables_Query_Monitor $monitor */
-		$monitor = tribe(Custom_Tables_Query_Monitor::class);
+		$monitor = tribe( Custom_Tables_Query_Monitor::class );
 		$monitor->attach( $this );
 
 		// This "parallel" query should not be manipulated from other query managers.
