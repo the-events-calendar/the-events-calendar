@@ -546,6 +546,67 @@ class Settings {
 	}
 
 	/**
+	 * Adds disabled ECP views to the views list as a "teaser".
+	 *
+	 * @since TBD
+	 *
+	 * @param string $output The HTML output for the Views checkboxes.
+	 *
+	 * @return string        The modified HTML output.
+	 */
+	public function tease_premium_views( $output ): string {
+		// If ECP is installed, we don't need to tease.
+		if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
+			return $output;
+		}
+
+		// Honor the "hide upsells" functionality.
+		if ( tec_should_hide_upsell() ) {
+			return $output;
+		}
+
+		/* Translators: These View terms should match the ones in Events Calendar PRO. */
+		$views = [
+			'summary' => _x( 'Summary', 'Label for the Summary View checkbox.', 'the-events-calendar' ),
+			'photo'   => _x( 'Photo', 'Label for the Photo View checkbox.', 'the-events-calendar' ),
+			'week'    => _x( 'Week', 'Label for the Week View checkbox.', 'the-events-calendar' ),
+			'map'     => _x( 'Map', 'Label for the Map View checkbox.', 'the-events-calendar' ),
+		];
+
+		$tooltip_label = _x( 'PRO', 'The label for the premium view indicator.', 'the-events-calendar' );
+		$tooltip_title = _x(
+			'Get Events Calendar Pro to use this View.',
+			'The title (hover text) for the premium view indicator.',
+			'the-events-calendar'
+		);
+
+		// Loop through the term array above and create teaser checkboxes.
+		ob_start();
+
+		foreach( $views as $name => $label ) { ?>
+			<label title="Summary" class="tec-disabled">
+				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled>
+				<?php echo esc_attr( $label ) ?>
+				<a
+					href="https://evnt.is/1bb-"
+					class="tec-settings-teaser-pill"
+					title="<?php echo esc_attr( $tooltip_title ); ?>"
+				><?php echo esc_html( $tooltip_label ); ?>
+				</a>
+			</label>
+		<?php }
+
+		$ecp_string = ob_get_clean();
+
+		// Insert the teaser checkboxes.
+		$pattern    = '/label><p/m';
+		$subst      = 'label>' . $ecp_string . '<p';
+		$output     = preg_replace($pattern, $subst, $output, 1);
+
+		return $output;
+	}
+
+	/**
 	 * Initialize the addons api settings tab.
 	 *
 	 * @since 5.15.0 Added check to see if we are on TEC settings page.
