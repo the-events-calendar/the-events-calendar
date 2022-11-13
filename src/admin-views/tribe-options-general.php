@@ -154,9 +154,9 @@ $tec_events_general_toc = [
 		'type' => 'html',
 		'html' => '<li><a href="#tec-settings-general-editing">' . _x( 'Editing', 'Editing table of contents link.', 'the-events-calendar' ) . '</a>',
 	],
-	'tec-settings-general-toc-troubleshooting' => [
+	'tec-settings-general-toc-debugging' => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-troubleshooting">' . _x( 'Debugging', 'Debugging table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-general-debugging">' . _x( 'Debugging', 'Debugging table of contents link.', 'the-events-calendar' ) . '</a>',
 	],
 	'tec-settings-general-toc-end'             => [
 		'type' => 'html',
@@ -303,10 +303,10 @@ $tec_events_general_editing = [
 $general_tab_fields += $tec_events_general_editing;
 
 // Add the "Debugging" section.
-$tec_events_general_troubleshooting = [
-	'tec-events-settings-general-troubleshooting-title' => [
+$tec_events_general_debugging = [
+	'tec-events-settings-general-debugging-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-troubleshooting">' . esc_html_x( 'Debugging', 'Title for the debugging section of the general settings.', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-general-debugging">' . esc_html_x( 'Debugging', 'Title for the debugging section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
 	'debugEvents'                                       => [
 		'type'            => 'checkbox_bool',
@@ -324,7 +324,7 @@ $tec_events_general_troubleshooting = [
 	],
 ];
 
-$general_tab_fields += $tec_events_general_troubleshooting;
+$general_tab_fields += $tec_events_general_debugging;
 
 // Close the form content wrapper.
 $general_tab_fields += [
@@ -334,10 +334,7 @@ $general_tab_fields += [
 	]
 ];
 
-// Backwards compatibility.
-$general_tab = apply_filters_deprecated( 'tribe_general_settings_tab_fields', [ $general_tab_fields ], 'TBD', 'tribe-event-general-settings-fields' );
-
 $general_tab = [
 	'priority' => 0,
-	'fields'   => apply_filters( 'tribe-event-general-settings-fields', $general_tab_fields ),
+	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $general_tab_fields ),
 ];

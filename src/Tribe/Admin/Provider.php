@@ -29,7 +29,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		add_action( 'admin_menu', $this->container->callback( Settings::class, 'add_admin_pages' ), 11 );
 		add_action( 'tribe_settings_do_tabs', $this->container->callback(  Settings::class, 'do_addons_api_settings_tab' ) );
 		add_action( 'tribe_settings_do_tabs', $this->container->callback(  Settings::class, 'do_upgrade_tab' ) );
-		add_filter( 'tribe_settings_url', $this->container->callback(  Settings::class, 'tribe_settings_url' ) );
+		add_filter( 'tribe_settings_url', $this->container->callback(  Settings::class, 'filter_url' ) );
 		add_action( 'network_admin_menu', $this->container->callback( Settings::class, 'maybe_add_network_settings_page' ) );
 		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_network_settings_tab' ), 400 );
 		add_filter( 'tribe_settings_page_title', $this->container->callback( Settings::class, 'settings_page_title' ) );
@@ -39,6 +39,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		add_filter( 'tec_admin_footer_text', $this->container->callback( Settings::class, 'admin_footer_text_settings' ) );
 		add_filter( 'tribe-events-save-network-options', $this->container->callback( Settings::class, 'maybe_hijack_save_network_settings' ), 10, 2 );
 		add_filter( 'tribe_events_register_event_type_args', $this->container->callback( Settings::class, 'filter_event_type_args' ) );
+		add_filter( 'tribe_field_output_checkbox_list_tribeEnableViews', $this->container->callback( Settings::class, 'tease_premium_views' ) );
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.update', 'register' ) );
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.timezones', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.marketing', 'hook' ) );
