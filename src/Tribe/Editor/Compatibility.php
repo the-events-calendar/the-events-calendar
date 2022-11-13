@@ -150,8 +150,8 @@ class Tribe__Events__Editor__Compatibility {
 			],
 		];
 
-		return Tribe__Main::array_insert_after_key(
-			'tec-events-settings-general-editing-title',
+		return Tribe__Main::array_insert_before_key(
+			'disable_metabox_custom_fields',
 			$fields,
 			$insert_data
 		);

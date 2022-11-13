@@ -104,14 +104,12 @@ $general_tab_fields = [
 	'tec-donate-link-info'                           => [
 		'type'        => 'html',
 		'html'        => '<p>' . esc_html__( 'If you’re enjoying The Events Calendar, give us kudos by including a link in the footer of calendar views. It really helps us a lot.', 'tribe-common' ) . '</p>',
-		'conditional' => class_exists( 'Tribe__Events__Main' ),
 	],
 	'donate-link'                                    => [
 		'type'            => 'checkbox_bool',
 		'label'           => esc_html__( 'Show The Events Calendar link', 'the-event-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
-		'conditional'     => class_exists( 'Tribe__Events__Main' ),
 	],
 	'tec-links-donate-section-end'                   => [
 		'type' => 'html',
@@ -126,7 +124,7 @@ $general_tab_fields = [
 		'display_callback' => '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . esc_html__( 'Here is the iCal feed URL for your events:', 'the-events-calendar' ) . ' <code>' . tribe_get_ical_link() . '</code></p>',
 		'conditional'      => function_exists( 'tribe_get_ical_link' ), // @TODO: this never loads.
 	],
-	'info-end'                                       => [
+	'info-end'                 => [
 		'type' => 'html',
 		'html' => '</div>',
 	],
@@ -175,7 +173,7 @@ $tec_events_general_form_end = [
 
 	'tribe-form-content-start' => [
 		'type' => 'html',
-		'html' => '<div class="tribe-settings-form-wrap">',
+		'html' => '<div class="tribe-settings-form-wrap tec-settings-general">',
 	],
 ];
 
@@ -281,20 +279,53 @@ $tec_events_general_viewing = [
 
 $general_tab_fields += $tec_events_general_viewing;
 
+$is_missing_aggregator_license_key = '' === get_option( 'pue_install_key_event_aggregator' );
+$should_hide_upsell                = tec_should_hide_upsell();
+
 // Add the "Editing" section.
 $tec_events_general_editing = [
-	'tec-events-settings-general-editing-title' => [
+	'tec-events-settings-general-editing-title'      => [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-general-editing">' . esc_html_x( 'Editing', 'Title for the editing section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
-	'disable_metabox_custom_fields'             => [
+	'tec-aggregator-infobox-start' => [
+		'type' => 'html',
+		'html' => '<div class="tec-settings-infobox">',
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
+	],
+	'tec-aggregator-infobox-logo' => [
+		'type' => 'html',
+		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-event-aggregator.svg', dirname( __FILE__ ) ) . '" alt="Events Aggregator Logo">',
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
+	],
+	'tec-aggregator-infobox-title' => [
+		'type' => 'html',
+		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Import events with Event Aggregator', 'the-events-calendar' ) . '</h3>',
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
+	],
+	'tec-aggregator-infobox-content' => [
+		'type' => 'html',
+		'html' => '<p>' . __( 'Effortlessly fill your calendar with events from Meetup, Eventbrite, iCal, Google Calendar, and more.', 'the-events-calendar' ) . '</p>',
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
+	],
+	'tec-aggregator-infobox-link' => [
+		'type' => 'html',
+		'html' => '<a href="' . esc_url( 'https://evnt.is/1bby' ) . '">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
+	],
+	'tec-aggregator-infobox-end' => [
+		'type' => 'html',
+		'html' => '</div>',
+		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
+	],
+	'disable_metabox_custom_fields'                  => [
 		'type'            => 'checkbox_bool',
 		'label'           => esc_html__( 'Show Custom Fields metabox', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enable WordPress Custom Fields on events in the classic editor.', 'the-events-calendar' ),
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
-	'amalgamate-duplicates'                     => [
+	'amalgamate-duplicates'                          => [
 		'type'        => 'html',
 		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'Merge duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="tribe-field-indent description">' . esc_html__( 'Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset>',
 	],
@@ -307,6 +338,34 @@ $tec_events_general_debugging = [
 	'tec-events-settings-general-debugging-title' => [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-general-debugging">' . esc_html_x( 'Debugging', 'Title for the debugging section of the general settings.', 'the-events-calendar' ) . '</h3>',
+	],
+	'tec-troubleshooting-infobox-start' => [
+		'type' => 'html',
+		'html' => '<div class="tec-settings-infobox">'
+	],
+	'tec-troubleshooting-infobox-logo' => [
+		'type' => 'html',
+		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-image-high-five.svg', dirname( __FILE__ ) ) . '" alt="Events troubleshooting Logo">',
+	],
+	'tec-troubleshooting-infobox-title' => [
+		'type' => 'html',
+		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'There is a solution for every problem', 'the-events-calendar' ) . '</h3>',
+	],
+	'tec-troubleshooting-infobox-content' => [
+		'type' => 'html',
+		'html' => sprintf(
+			/* Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag */
+			 __( '%1$sSometimes things just don’t work as expected. The %2$stroubleshooting page%3$s has a wealth of resources to get you back on track.%4$s', 'the-events-calendar' ),
+			 '<p>',
+			 '<a href="' . esc_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' ) . '">',
+			 '</a>',
+			 '</p>',
+		),
+
+	],
+	'tec-troubleshooting-infobox-end' => [
+		'type' => 'html',
+		'html' => '</div>',
 	],
 	'debugEvents'                                       => [
 		'type'            => 'checkbox_bool',
