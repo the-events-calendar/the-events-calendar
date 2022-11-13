@@ -336,6 +336,8 @@ $tec_events_date_fields     = [
 
 $tec_events_display_fields += $tec_events_date_fields;
 
+$is_missing_event_tickets_plus = ! defined( 'EVENT_TICKETS_PLUS_FILE' );
+
 // Insert Currency settings.
 $tec_events_display_currency = [
 	'tribe-events-currency-title' => [
@@ -344,28 +346,34 @@ $tec_events_display_currency = [
 	],
 	'tec-tickets-infobox-start' => [
 		'type' => 'html',
-		'html' => '<div class="tec-settings-infobox">'
+		'html' => '<div class="tec-settings-infobox">',
+		'conditional' => $is_missing_event_tickets_plus,
 	],
 	'tec-tickets-infobox-logo' => [
 		'type' => 'html',
 		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-et.svg', dirname( __FILE__ ) ) . '" alt="Events Tickets Logo">',
+		'conditional' => $is_missing_event_tickets_plus,
 	],
 	'tec-tickets-infobox-title' => [
 		'type' => 'html',
 		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Charge for your events with tickets', 'the-events-calendar' ) . '</h3>',
+		'conditional' => $is_missing_event_tickets_plus,
 	],
 	/* @TODO: This is placeholder text! */
 	'tec-tickets-infobox-content' => [
 		'type' => 'html',
 		'html' => '<p>' . __( 'Need to charge for events, or just need folks to sign up ahead of time? Event Tickets Plus has got you covered.', 'the-events-calendar' ) . '</p>',
+		'conditional' => $is_missing_event_tickets_plus,
 	],
 	'tec-tickets-infobox-link' => [
 		'type' => 'html',
 		'html' => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
+		'conditional' => $is_missing_event_tickets_plus,
 	],
 	'tec-tickets-infobox-end' => [
 		'type' => 'html',
-		'html' => '</div>'
+		'html' => '</div>',
+		'conditional' => $is_missing_event_tickets_plus,
 	],
 	'defaultCurrencySymbol'   => [
 		'type'            => 'text',
