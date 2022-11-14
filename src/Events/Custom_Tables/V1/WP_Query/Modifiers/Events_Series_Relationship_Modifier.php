@@ -12,7 +12,6 @@
 namespace TEC\Events\Custom_Tables\V1\WP_Query\Modifiers;
 
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
-use TEC\Events_Pro\Custom_Tables\V1\Tables\Series_Relationships;
 use Tribe__Events__Main as TEC;
 use WP_Query;
 
@@ -23,24 +22,7 @@ use WP_Query;
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query\Modifiers
  */
-class Events_Series_Relationship_Modifier extends Base_Modifier {
-	use With_Series_Normalization;
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function hook() {
-		add_filter( 'posts_join', [ $this, 'join_on_series_relationships_table' ], 10, 2 );
-		add_filter( 'posts_where', [ $this, 'where_event_is_related_to_series' ], 10, 2 );
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function unhook() {
-		remove_filter( 'posts_join', [ $this, 'join_on_series_relationships_table' ] );
-		remove_filter( 'posts_where', [ $this, 'where_event_is_related_to_series' ] );
-	}
+class Events_Series_Relationship_Modifier extends Occurrences_Series_Relationship_Modifier {
 
 	/**
 	 * {@inheritdoc}
@@ -61,19 +43,7 @@ class Events_Series_Relationship_Modifier extends Base_Modifier {
 
 		remove_filter( 'posts_join', [ $this, 'join_on_series_relationships_table' ] );
 
-		$related_series_ids = $this->normalize_query_series_ids( $query );
-
-		if ( ! count( $related_series_ids ) ) {
-			return $join;
-		}
-
-		global $wpdb;
-		$posts                = $wpdb->posts;
-		$series_relationships = Series_Relationships::table_name( true );
-
-		$join .= "\nJOIN {$series_relationships} ON {$posts}.ID = {$series_relationships}.event_post_id";
-
-		return $join;
+		return parent::join_on_series_relationships_table( $join, $query );
 	}
 
 	/**
@@ -86,18 +56,6 @@ class Events_Series_Relationship_Modifier extends Base_Modifier {
 
 		remove_filter( 'posts_where', [ $this, 'where_event_is_related_to_series' ] );
 
-		$related_series_ids = $this->normalize_query_series_ids( $query );
-
-		if ( ! count( $related_series_ids ) ) {
-			return $where;
-		}
-
-		$series_relationships = Series_Relationships::table_name( true );
-		$related_series       = implode( ',', $related_series_ids );
-
-
-		$where .= " AND {$series_relationships}.series_post_id IN ({$related_series})";
-
-		return $where;
+		return parent::where_event_is_related_to_series( $where, $query );
 	}
 }
