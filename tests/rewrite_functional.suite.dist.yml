@@ -14,7 +14,7 @@ modules:
       password: "%WP_DB_PASSWORD%"
       dump: "tests/_data/rewrite_functional_dump.sql"
       populate: true
-      cleanup: false # Taking care of that in _bootstrap.php file.
+      cleanup: true
       url: "%WP_URL%"
       originalUrl: "http://wordpress.test"
       tablePrefix: "%WP_TABLE_PREFIX%"
