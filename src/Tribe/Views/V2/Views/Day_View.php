@@ -50,7 +50,7 @@ class Day_View extends View {
 	/**
 	 * Default untranslated value for the label of this view.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @var string
 	 */

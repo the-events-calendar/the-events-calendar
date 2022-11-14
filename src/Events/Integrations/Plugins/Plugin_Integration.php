@@ -6,7 +6,7 @@ trait Plugin_Integration {
 	/**
 	 * Gets the integration type.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return string
 	 */

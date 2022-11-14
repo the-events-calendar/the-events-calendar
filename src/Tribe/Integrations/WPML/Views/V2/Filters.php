@@ -169,7 +169,7 @@ class Filters {
 	/**
 	 * Filters the View repository arguments to correctly translate the Occurrences permalinks.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @param array<string,mixed> $template_vars The View template variables.
 	 *

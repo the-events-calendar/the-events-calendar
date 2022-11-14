@@ -8,7 +8,7 @@ use TEC\Events\Integrations\Plugins\Plugin_Integration;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.4
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -42,7 +42,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Prevent the old Yoast plugin integration with TEC from loading.
 	 *
-	 * @since TBD
+	 * @since 6.0.4
 	 *
 	 * @return void
 	 */
