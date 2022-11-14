@@ -231,10 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.4] TBD =
 
-* Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558]
+* Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558][TEC-4561]
 * Fix - Fix for fatal when adding Featured Venue Events widget on Appearance -> Widgets screen. [ECP-1411]
 * Fix - Fix for fatal error on Series page in PHP 7.3. [TEC-4549]
-* Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon
+* Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon [TEC-4570]
 * Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
 * Fix - Ensure view labels are translated appropriately. [TEC-4485]
 * Fix - Errors and warnings in WP.com installations due to empty query results. [TEC-4543]
