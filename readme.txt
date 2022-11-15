@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.4] 2022-11-15 =
 
+* Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
 * Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558][TEC-4561]
 * Fix - Fix for fatal when adding Featured Venue Events widget on Appearance -> Widgets screen. [ECP-1411]
 * Fix - Fix for fatal error on Series page in PHP 7.3. [TEC-4549]
