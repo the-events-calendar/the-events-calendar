@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 5.8.5
+Requires at least: 5.8.6
 Stable tag: 6.0.4
 Tested up to: 6.1
 Requires PHP: 7.3
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.4] TBD =
+= [6.0.4] 2022-11-15 =
 
 * Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558][TEC-4561]
 * Fix - Fix for fatal when adding Featured Venue Events widget on Appearance -> Widgets screen. [ECP-1411]
