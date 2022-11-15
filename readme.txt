@@ -241,7 +241,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Translation of Event Occurrences URL when using WPML and the Custom Tables V1 implementation. [ECP-1373]
 * Fix - More robust type checking in Builder methods. [ECP-1402]
 * Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
-* Fix - Prevent error around Free regular expression for JSON-LD on updated views. [TBD]
 * Fix - Prevent error when updating Venue in sites using object cache. [TEC-4348]
 * Fix - Prevent date format error when trying to subscribe to calendar in sites using object cache. [TEC-4459]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
