@@ -248,18 +248,28 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		}
 
 		$tec = Tribe__Events__Main::instance();
+		$user_locale = get_user_locale();
+		$locale = get_locale();
+
+		if ( $user_locale !== $locale ) {
+			/*
+			 * The bases should be generated using the site locale, not the user locale.
+			 * Switch to the site locale and force the plugins to load the correct translations.
+			 */
+			$this->locale_switcher->switch_to_locale( $locale );
+		}
 
 		$default_bases = [
-			'month'    => [ 'month', $tec->monthSlug ],
-			'list'     => [ 'list', $tec->listSlug ],
-			'today'    => [ 'today', $tec->todaySlug ],
-			'day'      => [ 'day', $tec->daySlug ],
-			'tag'      => [ 'tag', $tec->tag_slug ],
-			'tax'      => [ 'category', $tec->category_slug ],
+			'month'    => [ 'month', sanitize_title( __( 'month', 'the-events-calendar' ) ) ],
+			'list'     => [ 'list', sanitize_title( __( 'list', 'the-events-calendar' ) ) ],
+			'today'    => [ 'today', sanitize_title( __( 'today', 'the-events-calendar' ) ) ],
+			'day'      => [ 'day', sanitize_title( __( 'day', 'the-events-calendar' ) ) ],
+			'tag'      => [ 'tag', $tec->get_tag_slug() ],
+			'tax'      => [ 'category', $tec->get_category_slug() ],
 			'page'     => [ 'page', esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ],
-			'single'   => [ tribe_get_option( 'singleEventSlug', 'event' ), $tec->rewriteSlugSingular ],
-			'archive'  => [ tribe_get_option( 'eventsSlug', 'events' ), $tec->rewriteSlug ],
-			'featured' => [ 'featured', $tec->featured_slug ],
+			'single'   => [ tribe_get_option( 'singleEventSlug', 'event' ), $tec->getRewriteSlugSingular() ],
+			'archive'  => [ tribe_get_option( 'eventsSlug', 'events' ), $tec->getRewriteSlug() ],
+			'featured' => [ 'featured', sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) ) ],
 		];
 
 		/**
@@ -342,6 +352,10 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
+
+		if ( $this->locale_switcher->is_locale_switched() ) {
+			$this->locale_switcher->restore_previous_locale();
+		}
 
 		$this->bases = $bases;
 
