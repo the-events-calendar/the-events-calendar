@@ -2696,4 +2696,12 @@ class View implements View_Interface {
 	public static function register_assets( $object ) {
 		// Default to a no-op.
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_rewrite_slugs(): array {
+		// This translation method relies on the slug being translated elsewhere.
+		return [ $this->get_slug(), translate( $this->slug, 'the-events-calendar' ) ];
+	}
 }

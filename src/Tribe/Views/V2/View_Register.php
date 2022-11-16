@@ -62,7 +62,7 @@ class View_Register {
 	 */
 	public function __construct( $slug, $name, $class, $priority = 40, $route_slug = null ) {
 		$this->slug       = $slug;
-		$this->route_slug = $route_slug ? $route_slug : $slug;
+		$this->route_slug = $route_slug ?: $slug;
 		$this->name       = $name;
 		$this->class      = $class;
 		$this->priority   = $priority;
@@ -108,26 +108,26 @@ class View_Register {
 	public function filter_add_routes( $rewrite ) {
 		// Setup base rewrite rules
 		$rewrite
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%1' ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%1' ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1' ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1', 'featured' => true ] );
+			->archive( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%1' ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%1' ] )
+			->archive( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1' ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1', 'featured' => true ] );
 
 		// Setup taxonomy based rewrite rules.
 		$rewrite
-			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
-			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
-			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->tax( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
+			->tax( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
+			->tax( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
+			->tax( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->tax( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
 
 		// Setup post_tag rewrite rules.
 		$rewrite
-			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
-			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
-			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->tag( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
+			->tag( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
+			->tag( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
+			->tag( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->tag( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
 	}
 
 	/**
@@ -141,8 +141,12 @@ class View_Register {
 	 * @return array         The modified version of the array of bases
 	 */
 	public function filter_add_base_slugs( $bases = [] ) {
+		/** @var View_Interface $view */
+		$view = tribe( $this->class );
+		[ $en_slug, $localized_slug ] = $view->get_rewrite_slugs();
+
 		// Support the original and translated forms for added robustness
-		$bases[ $this->route_slug ] = [  $this->route_slug , $this->route_slug ];
+		$bases[ $this->slug ] = [ $en_slug, $localized_slug ];
 
 		return $bases;
 	}
