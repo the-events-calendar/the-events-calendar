@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.4
-Tested up to: 6.1
+Stable tag: 6.0.5
+Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.4] 2022-11-15 =
 
+* Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
 * Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558][TEC-4561]
 * Fix - Fix for fatal when adding Featured Venue Events widget on Appearance -> Widgets screen. [ECP-1411]
 * Fix - Fix for fatal error on Series page in PHP 7.3. [TEC-4549]
@@ -245,7 +246,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Translation of Event Occurrences URL when using WPML and the Custom Tables V1 implementation. [ECP-1373]
 * Fix - More robust type checking in Builder methods. [ECP-1402]
 * Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
-* Fix - Prevent error around Free regular expression for JSON-LD on updated views. [TBD]
 * Fix - Prevent error when updating Venue in sites using object cache. [TEC-4348]
 * Fix - Prevent date format error when trying to subscribe to calendar in sites using object cache. [TEC-4459]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
