@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 5.8.5
+Requires at least: 5.8.6
 Stable tag: 6.0.4
 Tested up to: 6.1
 Requires PHP: 7.3
@@ -229,19 +229,19 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.4] TBD =
+= [6.0.4] 2022-11-15 =
 
-* Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558]
+* Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
+* Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558][TEC-4561]
 * Fix - Fix for fatal when adding Featured Venue Events widget on Appearance -> Widgets screen. [ECP-1411]
 * Fix - Fix for fatal error on Series page in PHP 7.3. [TEC-4549]
-* Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon
+* Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon [TEC-4570]
 * Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
 * Fix - Ensure view labels are translated appropriately. [TEC-4485]
 * Fix - Errors and warnings in WP.com installations due to empty query results. [TEC-4543]
 * Fix - Translation of Event Occurrences URL when using WPML and the Custom Tables V1 implementation. [ECP-1373]
 * Fix - More robust type checking in Builder methods. [ECP-1402]
 * Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
-* Fix - Prevent error around Free regular expression for JSON-LD on updated views. [TBD]
 * Fix - Prevent error when updating Venue in sites using object cache. [TEC-4348]
 * Fix - Prevent date format error when trying to subscribe to calendar in sites using object cache. [TEC-4459]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
