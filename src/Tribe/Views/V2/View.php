@@ -1244,9 +1244,10 @@ class View implements View_Interface {
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since 4.9.3
-	 * @since TBD
+	 * @since TBD Now will merge a "global" repository arg filter, which will be applied elsewhere as well as this
+	 *        primary repository query.
 	 *
-	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
+	 * @param Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
 	 * @return array The arguments, ready to be set on the View repository instance.
 	 */
