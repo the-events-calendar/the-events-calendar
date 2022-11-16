@@ -11,4 +11,11 @@ class Test_View extends View {
 		return __CLASS__;
 	}
 
+	public function _public_repository_args() {
+		return $this->get_repository_args();
+	}
+
+	public function _public_global_repository_args() {
+		return $this->get_global_repository_args();
+	}
 }
