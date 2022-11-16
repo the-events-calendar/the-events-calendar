@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]
+
 = [6.0.4] 2022-11-15 =
 
 * Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
