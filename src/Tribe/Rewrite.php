@@ -2,6 +2,7 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
+use TEC\Common\Translations_Loader;
 use Tribe\Events\I18n;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Main as TEC;
@@ -251,12 +252,25 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$user_locale = get_user_locale();
 		$locale = get_locale();
 
+		/**
+		 * Filters the text domains that should be loaded to get the correctly localized base slugs.
+		 *
+		 * @since 3.11.2
+		 *
+		 * @param array<string,string> $text_domains A map from text domain to the path to the file containing the
+		 *                                           translations.
+		 */
+		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
+			'default'             => true, // Default doesn't need file path
+			'the-events-calendar' => $tec->plugin_dir . 'lang/',
+		) );
+
 		if ( $user_locale !== $locale ) {
 			/*
 			 * The bases should be generated using the site locale, not the user locale.
 			 * Switch to the site locale and force the plugins to load the correct translations.
 			 */
-			$this->locale_switcher->switch_to_locale( $locale );
+			$this->translations_loader->load( $locale, $domains );
 		}
 
 		$default_bases = [
@@ -292,9 +306,8 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_base_slugs', $default_bases );
 
-		// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
-		$bases            = array_map( 'array_unique', $bases );
-		$unfiltered_bases = $bases;
+		// Remove duplicates (no need to have 'month' twice if no translations are in effect, for example).
+		$bases = array_map( 'array_unique', $bases );
 
 		apply_filters_deprecated(
 			'tribe_events_rewrite_i18n_languages',
@@ -302,18 +315,6 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			'5.1.5',
 			'Deprecated in version 5.1.1, not used since version 4.2.'
 		);
-
-		// By default we load the Default and our plugin domains
-		$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
-			'default'             => true, // Default doesn't need file path
-			'the-events-calendar' => $tec->plugin_dir . 'lang/',
-		) );
-
-		// In this moment set up the object locale bases too.
-		$this->localized_bases = $this->get_localized_bases( $unfiltered_bases, $domains );
-
-		// Merge the localized bases into the non-localized bases to ensure any following filter will apply to all.
-		$bases = $this->merge_localized_bases( $bases );
 
 		/**
 		 * Use `tribe_events_rewrite_i18n_slugs_raw` to modify the raw version of the l10n slugs bases.
@@ -352,10 +353,6 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		 *                        domains with a `'plugin-slug' => '/absolute/path/to/lang/dir'`
 		 */
 		$bases = apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method, $domains );
-
-		if ( $this->locale_switcher->is_locale_switched() ) {
-			$this->locale_switcher->restore_previous_locale();
-		}
 
 		$this->bases = $bases;
 
