@@ -11,6 +11,7 @@ namespace TEC\Events\Custom_Tables\V1\WP_Query\Modifiers;
 
 use TEC\Events\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
+use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Modifiers\Events_Not_In_Series_Modifier;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_Query;
@@ -119,6 +120,6 @@ class Events_Only_Modifier extends Base_Modifier {
 	 */
 	protected function is_target_query( WP_Query $query = null ) {
 		return parent::is_target_query( $query )
-			   && ! tribe( Events_Not_In_Series_Modifier::class )->applies_to( $query );
+		       && ( ! class_exists( Events_Not_In_Series_Modifier::class ) || ! tribe( Events_Not_In_Series_Modifier::class )->applies_to( $query ) );
 	}
 }

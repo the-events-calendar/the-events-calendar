@@ -12,10 +12,9 @@ namespace TEC\Events\Custom_Tables\V1\WP_Query\Monitors;
 use Countable;
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
 use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Only_Modifier;
-use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Series_Relationship_Modifier;
-use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Not_In_Series_Modifier;
 use WP_Query;
 use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Admin_List_Modifier;
+
 /**
  * Class Monitor
  *
@@ -25,20 +24,6 @@ use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Events_Admin_List_Modifier;
  */
 class WP_Query_Monitor implements Countable {
 	use Query_Monitor;
-
-	/**
-	 * A list of possible modifiers implementations.
-	 *
-	 * @since 6.0.0
-	 *
-	 * @var array<string>
-	 */
-	private $implementations = [
-		Events_Only_Modifier::class,
-		Events_Admin_List_Modifier::class,
-		Events_Series_Relationship_Modifier::class,
-		Events_Not_In_Series_Modifier::class,
-	];
 
 	/**
 	 * Returns the flag property that will be set on a `WP_Query` instance to indicate it should
