@@ -2586,16 +2586,32 @@ class View implements View_Interface {
 	protected function get_global_repository_args() {
 		if ( ! is_array( $this->global_repository_args ) ) {
 			/**
-			 * Will filter any repository args to be applied globally on the various repository queries on this view.
+			 * Will filter any repository args to be applied globally on the various repository queries on
+			 * this view.
 			 *
 			 * @since TBD
 			 *
-			 * @param array<string,mixed> Events Repository args that will be applied globally to all event repository queries.
+			 * @param array<string,mixed> Events Repository args that will be applied globally to all event
+			 *                            repository queries.
 			 * @param View $this The View object being rendered.
 			 *
 			 * @return array<string,mixed> The repository args to be applied.
 			 */
 			$this->global_repository_args = apply_filters( 'tec_events_views_v2_view_global_repository_args', [], $this );
+
+			/**
+			 * A view specific filter for repository args to be applied globally on the various repository
+			 * queries on this view.
+			 *
+			 * @since TBD
+			 *
+			 * @param array<string,mixed> Events Repository args that will be applied globally to all
+			 *                            event repository queries.
+			 * @param View $this The View object being rendered.
+			 *
+			 * @return array<string,mixed> The repository args to be applied.
+			 */
+			$this->global_repository_args = apply_filters( "tec_events_views_v2_{$this->slug}_view_global_repository_args", $this->global_repository_args, $this );
 		}
 
 		return $this->global_repository_args;
