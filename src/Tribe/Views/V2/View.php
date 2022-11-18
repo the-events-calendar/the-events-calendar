@@ -1279,7 +1279,7 @@ class View implements View_Interface {
 		];
 
 		// Merge our global repository args with the primary event args.
-		$args = array_merge($args, $this->get_global_repository_args());
+		$args = array_merge( $args, $this->get_global_repository_args() );
 
 		add_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 
