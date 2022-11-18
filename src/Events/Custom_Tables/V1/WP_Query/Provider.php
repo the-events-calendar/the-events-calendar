@@ -51,7 +51,6 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 			add_action( 'tribe_repository_events_init', [ $this, 'replace_repository_query_filters' ] );
 		}
 
-		//
 		if ( ! has_filter( 'tec_events_custom_tables_v1_query_modifier_implementations', [
 			$this,
 			'filter_query_modifier_implementations'
@@ -60,6 +59,16 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 				$this,
 				'filter_query_modifier_implementations'
 			], 10, 2 );
+		}
+
+		if ( ! has_filter( 'tec_events_custom_tables_v1_query_modifier_should_modify', [
+			$this,
+			'filter_should_modify_query'
+		] ) ) {
+			add_filter( 'tec_events_custom_tables_v1_query_modifier_should_modify', [
+				$this,
+				'filter_should_modify_query'
+			], 10, 3 );
 		}
 
 		wp_cache_add_non_persistent_groups( [ 'tec_occurrences' ] );
@@ -77,6 +86,22 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	}
 
 	/**
+	 * Flag whether a particular query modifier should modify the query or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool              $should_filter Whether this modifier will apply changes to this query.
+	 * @param WP_Query          $wp_query      The query being modified.
+	 * @param WP_Query_Modifier $modifier      The modifier that will apply.
+	 *
+	 * @return bool
+	 */
+	public function filter_should_modify_query( bool $should_filter, $wp_query, WP_Query_Modifier $modifier ): bool {
+		return $this->container->make( WP_Query_Monitor_Filters::class )
+		                       ->filter_should_modify_query( $should_filter, $wp_query, $modifier );
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function unregister() {
@@ -85,6 +110,10 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 		remove_filter( 'tec_events_custom_tables_v1_query_modifier_implementations', [
 			$this,
 			'filter_query_modifier_implementations'
+		] );
+		remove_filter( 'tec_events_custom_tables_v1_query_modifier_should_modify', [
+			$this,
+			'filter_should_modify_query'
 		] );
 
 		$this->container->make( WP_Query_Monitor::class )->detach();

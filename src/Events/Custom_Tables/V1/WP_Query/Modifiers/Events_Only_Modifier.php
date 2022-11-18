@@ -119,7 +119,19 @@ class Events_Only_Modifier extends Base_Modifier {
 	 * @since 6.0.0
 	 */
 	protected function is_target_query( WP_Query $query = null ) {
-		return parent::is_target_query( $query )
-		       && ( ! class_exists( Events_Not_In_Series_Modifier::class ) || ! tribe( Events_Not_In_Series_Modifier::class )->applies_to( $query ) );
+		/**
+		 * Filters whether this modifier should modify the query.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool          $should_filter Should filter, defaults to rely on internal logic whether to modify.
+		 * @param WP_Query      $query         The query object.
+		 * @param Base_Modifier $modifier      The modifier being used to filter the query.
+		 *
+		 * @return bool Whether this modifier should continue and filter or not.
+		 */
+		$should_filter = apply_filters( 'tec_events_custom_tables_v1_query_modifier_should_modify', true, $query, $this );
+
+		return parent::is_target_query( $query ) && $should_filter;
 	}
 }

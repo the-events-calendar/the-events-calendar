@@ -112,6 +112,7 @@ trait Query_Monitor {
 				$this->implementations,
 				$this
 			);
+			$this->implementations = array_unique( $this->implementations );
 		}
 
 		return $this->implementations;
