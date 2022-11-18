@@ -96,7 +96,7 @@ trait Query_Monitor {
 	 */
 	public function get_implementations(): array {
 		// Keep running filter until init is finished.
-		if ( did_action( 'init' ) > 0 || empty($this->implementations) ) {
+		if ( did_action( 'init' ) > 0 || empty( $this->implementations ) ) {
 			/**
 			 * Filters the Query Modifier implementations that will be used in the Query Monitor parsing.
 			 *
