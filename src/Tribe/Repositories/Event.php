@@ -1783,12 +1783,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$hidden = tribe_is_truthy( $hidden );
 
 		if ( $hidden ) {
-			$this->by( 'meta_equals', '_EventHideFromUpcoming', 'yes' );
-
 			return;
 		}
 
-		$this->by( 'meta_not_exists', '_EventHideFromUpcoming' );
+		$hidden_posts = tribe( \Tribe\Events\Views\V2\Query\Hide_From_Upcoming_Controller::class )->get_hidden_post_ids();
+
+		$this->not_in( $hidden_posts );
 	}
 
 	/**
