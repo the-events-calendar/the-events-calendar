@@ -130,8 +130,6 @@ class Events_Only_Modifier extends Base_Modifier {
 		 *
 		 * @return bool Whether this modifier should continue and filter or not.
 		 */
-		$should_filter = apply_filters( 'tec_events_custom_tables_v1_query_modifier_should_modify', true, $query, $this );
-
-		return parent::is_target_query( $query ) && $should_filter;
+		return apply_filters( 'tec_events_custom_tables_v1_query_modifier_applies_to_query', parent::is_target_query( $query ), $query, $this );
 	}
 }
