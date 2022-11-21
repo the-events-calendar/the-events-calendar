@@ -357,13 +357,13 @@ $tec_events_display_currency = [
 	],
 	'tec-tickets-infobox-title' => [
 		'type' => 'html',
-		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Charge for your events with tickets', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 class="tec-settings-infobox-title">' .  __( 'Start selling tickets to your events', 'the-events-calendar' ) . '</h3>',
 		'conditional' => $is_missing_event_tickets_plus && ! $should_hide_upsell,
 	],
 	/* @TODO: This is placeholder text! */
 	'tec-tickets-infobox-content' => [
 		'type' => 'html',
-		'html' => '<p>' . __( 'Need to charge for events, or just need folks to sign up ahead of time? Event Tickets Plus has got you covered.', 'the-events-calendar' ) . '</p>',
+		'html' => '<p>' . __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ) . '</p>',
 		'conditional' => $is_missing_event_tickets_plus && ! $should_hide_upsell,
 	],
 	'tec-tickets-infobox-link' => [
