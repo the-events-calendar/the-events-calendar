@@ -127,8 +127,6 @@ class Events_Only_Modifier extends Base_Modifier {
 		 * @param bool          $should_filter Should filter, defaults to rely on internal logic whether to modify.
 		 * @param WP_Query      $query         The query object.
 		 * @param Base_Modifier $modifier      The modifier being used to filter the query.
-		 *
-		 * @return bool Whether this modifier should continue and filter or not.
 		 */
 		return apply_filters( 'tec_events_custom_tables_v1_query_modifier_applies_to_query', parent::is_target_query( $query ), $query, $this );
 	}
