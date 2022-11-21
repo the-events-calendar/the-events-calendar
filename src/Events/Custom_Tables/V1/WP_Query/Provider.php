@@ -12,12 +12,9 @@ namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
 use Serializable;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
-use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\WP_Query_Modifier;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
-use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Repository\Custom_Tables_Query_Filters;
-use TEC\Events\Custom_Tables\V1\WP_Query\WP_Query_Monitor_Filters;
 use Tribe__Repository as Repository;
 use WP_Query;
 
@@ -51,28 +48,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 			add_action( 'tribe_repository_events_init', [ $this, 'replace_repository_query_filters' ] );
 		}
 
-		if ( ! has_filter( 'tec_events_custom_tables_v1_query_modifier_implementations', [
-			$this,
-			'filter_query_modifier_implementations'
-		] ) ) {
-			add_filter( 'tec_events_custom_tables_v1_query_modifier_implementations', [
-				$this,
-				'filter_query_modifier_implementations'
-			], 10, 2 );
-		}
-
 		wp_cache_add_non_persistent_groups( [ 'tec_occurrences' ] );
-	}
-
-	/**
-	 * @param array<WP_Query_Modifier> $implementations The query modifier implementations to be filtered.
-	 * @param Query_Monitor            $query_monitor   An instance of a Query Monitor class.
-	 *
-	 * @return array<WP_Query_Modifier> The filtered query modifier implementations.
-	 */
-	public function filter_query_modifier_implementations( array $implementations, $query_monitor ): array {
-		return $this->container->make( WP_Query_Monitor_Filters::class )
-		                       ->filter_query_modifier_implementations( $implementations, $query_monitor );
 	}
 
 	/**
@@ -81,10 +57,6 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	public function unregister() {
 		remove_action( 'pre_get_posts', [ $this, 'attach_monitor' ], 200 );
 		remove_action( 'tribe_repository_events_init', [ $this, 'replace_repository_query_filters' ] );
-		remove_filter( 'tec_events_custom_tables_v1_query_modifier_implementations', [
-			$this,
-			'filter_query_modifier_implementations'
-		] );
 
 		$this->container->make( WP_Query_Monitor::class )->detach();
 		$this->register = false;

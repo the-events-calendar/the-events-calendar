@@ -86,8 +86,8 @@ trait Query_Monitor {
 	 * @return array<WP_Query_Modifier> List of WP_Query_Modifier implementations.
 	 */
 	public function get_implementations(): array {
-		// Keep running filter until init is finished. Will run 1 or more times.
-		if ( did_action( 'init' ) === 0 || empty( $this->implementations ) ) {
+		// Keep running filter until init is finished. Will run one or more times.
+		if ( doing_action( 'init' ) || ! did_action( 'init' ) || $this->implementations === null ) {
 			/**
 			 * Filters the Query Modifier implementations that will be used in the Query Monitor parsing.
 			 *
@@ -96,8 +96,6 @@ trait Query_Monitor {
 			 * @param array<WP_Query_Modifier>  The list of Query Modifier implementations that will be used in the
 			 *                                  query parsing.
 			 * @param Query_monitor This instance of the Query Monitor retrieving implementations.
-			 *
-			 * @return array<WP_Query_Modifier> The filtered list of Query Modifier implementations.
 			 */
 			$this->implementations = apply_filters( 'tec_events_custom_tables_v1_query_modifier_implementations',
 				$this->implementations ?? [],

@@ -26,6 +26,15 @@ class WP_Query_Monitor implements Countable {
 	use Query_Monitor;
 
 	/**
+	 * A list of possible modifiers implementations.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @var array<string>
+	 */
+	private $implementations = [ Events_Only_Modifier::class, Events_Admin_List_Modifier::class ];
+
+	/**
 	 * Returns the flag property that will be set on a `WP_Query` instance to indicate it should
 	 * be ignored by the Monitor.
 	 *

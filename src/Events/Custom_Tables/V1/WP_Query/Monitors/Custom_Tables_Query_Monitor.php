@@ -23,6 +23,16 @@ class Custom_Tables_Query_Monitor {
 	use Query_Monitor;
 
 	/**
+	 * A list of possible modifiers implementations.
+	 * Will be filtered into an array of modifiers.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @var null|array<string>
+	 */
+	private $implementations = null;
+
+	/**
 	 * Returns the flag property that will be set on a `WP_Query` instance to indicate it should
 	 * be ignored by the Monitor.
 	 *
