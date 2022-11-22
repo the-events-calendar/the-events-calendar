@@ -45,7 +45,7 @@ $tec_events_display_fields = [
 				  . __( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). ', 'the-events-calendar' )
 				  . sprintf(
 						  /* Translators: %s: URL to knowledgebase. Please continue to use &#37; for % to avoid PHP warnings. */
-					  __( ' Check out our <a href="%s">customization guide</a> for instructions on template modifications.', 'the-events-calendar' ),
+					  __( ' Check out our <a href="%s" rel="noopener" target="_blank">customization guide</a> for instructions on template modifications.', 'the-events-calendar' ),
 					  esc_url( 'https://evnt.is/1bbs' )
 				  )
 				  . '</p>',
@@ -183,7 +183,7 @@ $tec_events_display_template = [
 		'type'            => 'text',
 		'label'           => __( 'Month view events per day', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
-			__( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s">Read more</a>.', 'the-events-calendar' ),
+			__( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ),
 			'https://evnt.is/rh'
 		),
 		'validation_type' => 'int',
@@ -368,7 +368,7 @@ $tec_events_display_currency = [
 	],
 	'tec-tickets-infobox-link' => [
 		'type' => 'html',
-		'html' => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
+		'html' => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '" rel="noopener" target="_blank">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
 		'conditional' => $is_missing_event_tickets_plus && ! $should_hide_upsell,
 	],
 	'tec-tickets-infobox-end' => [
@@ -429,14 +429,10 @@ $tec_events_display_maps = [
 			/* Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag */
 			__( '%1$sThe Events Calendar comes with a default API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %2$sGoogle Maps API key%3$s.%4$s', 'the-events-calendar' ),
 			'<p>',
-			'<a href="' . esc_url( 'https://evnt.is/1bbu' ) . '">',
+			'<a href="' . esc_url( 'https://evnt.is/1bbu' ) . '" rel="noopener" target="_blank">',
 			'</a>',
 			'</p>'
 		),
-	],
-	'tec-maps-infobox-link' => [
-		'type' => 'html',
-		'html' => '<a href="' . esc_url( 'https://evnt.is/1bbu' ) . '">' . __( 'Read more.', 'the-events-calendar' ) . '</a>',
 	],
 	'tec-maps-infobox-end' => [
 		'type' => 'html',
