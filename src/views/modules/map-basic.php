@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <iframe
+  aria-label="<?php esc_attr_e( 'Map view google map embed single events page', 'the-events-calendar' ); ?>"
   width="<?php echo esc_attr( $width ); ?>"
   height="<?php echo esc_attr( $height ); ?>"
   frameborder="0" style="border:0"
