@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.5] TBD =
 
+* Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
 
 = [6.0.4] 2022-11-15 =

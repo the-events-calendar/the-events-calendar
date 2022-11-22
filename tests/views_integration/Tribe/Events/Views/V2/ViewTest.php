@@ -399,4 +399,51 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertSame( $original_wp_query, $GLOBALS['wp_query'] );
 		$this->assertEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
 	}
+
+
+	/**
+	 * Should correctly filter the two repository args.
+	 *
+	 * @test
+	 */
+	public function should_correctly_filter_repository_args() {
+		$expected_primary_args = [ 'primary_test_arg' => 'fake' ];
+		$expected_global_args  = [ 'global_test_arg' => 'fake' ];
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		// Add a global arg.
+		add_filter( 'tec_events_views_v2_view_global_repository_args',
+			function ( $args, $view ) use ( $expected_global_args ) {
+				return array_merge( $args, $expected_global_args );
+			}, 10, 2 );
+		// Add a primary arg.
+		add_filter( 'tribe_events_views_v2_view_repository_args',
+			function ( $args, $context ) use ( $expected_primary_args ) {
+				return array_merge( $args, $expected_primary_args );
+			}, 10, 2 );
+		$view = View::make( 'test' );
+
+		// Primary should fetch properly.
+		$primary_args = $view->_public_repository_args();
+		foreach ( $expected_primary_args as $expected_key => $expected_value ) {
+			$this->assertArrayHasKey( $expected_key, $primary_args );
+			$this->assertEquals( $expected_value, $primary_args[ $expected_key ] );
+		}
+		// Primary should also fetch the global arg.
+		foreach ( $expected_global_args as $expected_key => $expected_value ) {
+			$this->assertArrayHasKey( $expected_key, $primary_args );
+			$this->assertEquals( $expected_value, $primary_args[ $expected_key ] );
+		}
+		// Globals should fetch properly.
+		$global_args = $view->_public_global_repository_args();
+		foreach ( $expected_global_args as $expected_key => $expected_value ) {
+			$this->assertArrayHasKey( $expected_key, $global_args );
+			$this->assertEquals( $expected_value, $global_args[ $expected_key ] );
+		}
+		// Globals should not contain primary.
+		foreach ( $expected_primary_args as $expected_key => $expected_value ) {
+			$this->assertArrayNotHasKey( $expected_key, $global_args );
+		}
+	}
 }
