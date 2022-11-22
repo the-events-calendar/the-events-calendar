@@ -310,7 +310,7 @@ tribe.events.views.manager = {};
 
 		var $link = $( this );
 		var url = $link.attr( 'href' );
-		var currentUrl = containerData.url;
+		var currentUrl = containerData.prev_url;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
