@@ -49,14 +49,14 @@ $general_tab_fields = [
 	'tec-documentation-section-getting-started-link' => [
 		'type' => 'html',
 		'html' => '<li><a href="'
-			. esc_url( 'https://evnt.is/1bbv' ) . '">'
+			. esc_url( 'https://evnt.is/1bbv' ) . '" rel="noopener" target="_blank">'
 			. esc_html__( 'Getting started guide', 'the-events-calendar' )
 			. '</a></li>',
 	],
 	'tec-documentation-section-knowledgebase-link'   => [
 		'type' => 'html',
 		'html' => '<li><a href="'
-			. esc_url( 'https://evnt.is/1bbw' ) . '">'
+			. esc_url( 'https://evnt.is/1bbw' ) . '" rel="noopener" target="_blank">'
 			. esc_html__( 'Knowledgebase', 'the-events-calendar' )
 			. '</a></li>',
 	],
@@ -271,7 +271,7 @@ $tec_events_general_viewing = [
 	'enable_month_view_cache'                   => [
 		'type'            => 'checkbox_bool',
 		'label'           => __( 'Enable the Month View Cache', 'the-events-calendar' ),
-		'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'the-events-calendar' ), 'https://evnt.is/18di' ),
+		'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ), 'https://evnt.is/18di' ),
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
@@ -310,7 +310,7 @@ $tec_events_general_editing = [
 	],
 	'tec-aggregator-infobox-link' => [
 		'type' => 'html',
-		'html' => '<a href="' . esc_url( 'https://evnt.is/1bby' ) . '">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
+		'html' => '<a href="' . esc_url( 'https://evnt.is/1bby' ) . '" rel="noopener" target="_blank">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
 		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-end' => [
