@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
+
 = [6.0.5] TBD =
 
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
