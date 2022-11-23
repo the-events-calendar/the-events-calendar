@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.5] TBD =
 
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
+* Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]
+* Tweak - Reorganize the General and Display settings tab content. [TCMN-149]
+* Tweak - New headers for the General and Display settings tabs. [TEC-4573]
+* Tweak - Add view upsells for ECP [TEC-4572]
+* Tweak - Add settings info boxes. [TEC-4574]
 
 = [6.0.4] 2022-11-15 =
 
