@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - New headers for the General and Display settings tabs. [TEC-4573]
 * Tweak - Add view upsells for ECP [TEC-4572]
 * Tweak - Add settings info boxes. [TEC-4574]
+* Fix - Avoid issues when trying to import some .ics format files with Event Aggregator. [EA-461]
 
 = [6.0.4] 2022-11-15 =
 
