@@ -86,6 +86,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	 * @param  Repository  $repository  A reference to the instance of the repository that is initializing.
 	 */
 	public function replace_repository_query_filters( Repository $repository ) {
+		// NOTE: this hook is overwritten in Events Calendar Pro with Pro related query filters.
 		$custom_tables_query_filters = $this->container->make( Custom_Tables_Query_Filters::class );
 		add_filter( 'posts_groupby', [ $custom_tables_query_filters, 'group_by_occurrence_id' ], 200, 2 );
 		$repository->filter_query = $custom_tables_query_filters;
