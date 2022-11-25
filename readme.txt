@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.5] TBD =
+= [6.0.5] 2022-11-29 =
 
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
 * Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]
@@ -238,6 +238,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add view upsells for ECP [TEC-4572]
 * Tweak - Add settings info boxes. [TEC-4574]
 * Fix - Avoid issues when trying to import some .ics format files with Event Aggregator. [EA-461]
+* Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
+* Language - 115 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
 
 = [6.0.4] 2022-11-15 =
 
