@@ -1225,10 +1225,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 5.15.0 Added check to see if we are on TEC settings page.
 		 *
-		 * @deprected TBD
+		 * @deprected 6.0.5
 		 */
 		public function do_addons_api_settings_tab( $admin_page ) {
-			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->do_addons_api_settings_tab()' );
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->do_addons_api_settings_tab()' );
 			tribe( Settings::class )->do_addons_api_settings_tab( $admin_page );
 		}
 
@@ -1237,12 +1237,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.9.12
 		 *
-		 * @deprecated TBD
+		 * @deprecated 6.0.5
 		 *
 		 * @return bool
 		 */
 		public function show_upgrade() {
-			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->show_upgrade()' );
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->show_upgrade()' );
 			return tribe( Settings::class)->show_upgrade();
 		}
 
@@ -1252,10 +1252,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since 4.9.12
 		 * @since 5.15.0 Added check to see if we are on TEC settings page.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 6.0.5
 		 */
 		public function do_upgrade_tab( $admin_page ) {
-			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->do_upgrade_tab()' );
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->do_upgrade_tab()' );
 			tribe( Settings::class )->do_upgrade_tab( $admin_page );
 		}
 
@@ -3673,12 +3673,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param array $general_tab_fields Fields for the general settings tab.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 6.0.5
 		 *
 		 * @return array
 		 */
 		public function general_settings_tab_fields( $general_tab_fields ) {
-			_deprecated_function( __METHOD__, 'TBD', 'No replacement. Handled by Settings::settings_ui()' );
+			_deprecated_function( __METHOD__, '6.0.5', 'No replacement. Handled by Settings::settings_ui()' );
 		}
 
 		/**
@@ -3686,12 +3686,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param array $display_tab_fields Fields for the display settings tab.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 6.0.5
 		 *
 		 * @return array
 		 */
 		public function display_settings_tab_fields( $display_tab_fields ) {
-			_deprecated_function( __METHOD__, 'TBD', 'No replacement. Handled by Settings::settings_ui()' );
+			_deprecated_function( __METHOD__, '6.0.5', 'No replacement. Handled by Settings::settings_ui()' );
 		}
 
 		/**
@@ -3699,12 +3699,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @param string $url Settings URL to filter.
 		 *
-		 * @deprecated TBD
+		 * @deprecated 6.0.5
 		 *
 		 * @return string
 		 */
 		public function tribe_settings_url( $url ) {
-			_deprecated_function( __METHOD__, 'TBD', 'tribe( Settings::class )->filter_url()' );
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->filter_url()' );
 			return tribe( Settings::class )->filter_url( $url );
 		}
 
