@@ -238,6 +238,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add view upsells for ECP [TEC-4572]
 * Tweak - Add settings info boxes. [TEC-4574]
 * Fix - Avoid issues when trying to import some .ics format files with Event Aggregator. [EA-461]
+* Deprecation - `Tribe__Events__Editor__Compatibility::$blocks_editor_hidden_field_key`.
+* Deprecation - `Tribe__Events__Main::do_addons_api_settings_tab()`, `Tribe__Events__Main::show_upgrade()`,
+				`Tribe__Events__Main::do_upgrade_tab()`, `Tribe__Events__Main::general_settings_tab_fields()`,
+				`Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
 * Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Language - 115 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
 
