@@ -64,14 +64,17 @@ class Tribe__Events__Query {
 				// Include Events in the main loop if the option is checked.
 				if ( ! $any_post_type && tribe_get_option( 'showEventsInMainLoop', false ) ) {
 					self::add_post_type_to_query( $query, TEC::POSTTYPE );
-					// This is now a multi-post-type query.
-					$query->tribe_is_multi_posttype = true;
 				}
 			} else if ( $is_event_query ) {
 				// Not the main query, but it's an event query: check back later to filter and order by date.
 				add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
 			}
 		}
+
+		// Refresh the value of the flag: it might have changed in the previous block.
+		$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
+		// Refresh the query post types: they might have been modified.
+		$query_post_types = (array) $query->get( 'post_type' );
 
 		// Add Events to tag archives when not looking at the admin screen for posts.
 		if ( ! $any_post_type
@@ -87,7 +90,10 @@ class Tribe__Events__Query {
 
 		// This query will fetch the Event post type, and others.
 		$query->tribe_is_multi_posttype = $any_post_type
-		                                  || ( count( $query_post_types ) > 1 && $query->tribe_is_event );
+		                                  || (
+			                                  count( $query_post_types ) > 1
+			                                  && in_array( TEC::POSTTYPE, $query_post_types, true )
+		                                  );
 
 		// check if any possibility of this being an event category
 		$query->tribe_is_event_category = $query->is_tax( TEC::TAXONOMY );
@@ -104,7 +110,7 @@ class Tribe__Events__Query {
 		$event_display = $query->get( 'eventDisplay' );
 
 		$query->tribe_is_past = ( $is_main_query && 'past' === tribe_context()->get( 'event_display' ) )
-		                        || ( $event_display === 'past' );
+		                        || $event_display === 'past';
 
 		// Never allow 404 on month view.
 		if (
@@ -538,11 +544,13 @@ class Tribe__Events__Query {
 	 * @return void The query object is modified by reference.
 	 */
 	protected static function add_post_type_to_query( WP_Query $query, string ...$post_types ): void {
-		$query->set( 'post_type', array_unique(
+		$updated_post_types = array_unique(
 			array_merge(
 				$post_types,
 				(array) $query->get( 'post_type' )
 			)
-		) );
+		);
+		$query->set( 'post_type', $updated_post_types );
+		$query->query['post_types'] = $updated_post_types;
 	}
 }
