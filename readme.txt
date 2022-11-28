@@ -229,14 +229,22 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.5] TBD =
+= [6.0.5] 2022-11-29 =
 
+* Fix - Add correct text domains to the Organizer block. [TEC-4466]
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
 * Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]
 * Tweak - Reorganize the General and Display settings tab content. [TCMN-149]
 * Tweak - New headers for the General and Display settings tabs. [TEC-4573]
-* Tweak - Add view upsells for ECP [TEC-4572]
+* Tweak - Add view upsells for ECP on the settings display tab. [TEC-4572]
 * Tweak - Add settings info boxes. [TEC-4574]
+* Fix - Avoid issues when trying to import some .ics format files with Event Aggregator. [EA-461]
+* Deprecation - `Tribe__Events__Editor__Compatibility::$blocks_editor_hidden_field_key`.
+* Deprecation - `Tribe__Events__Main::do_addons_api_settings_tab()`, `Tribe__Events__Main::show_upgrade()`,
+				`Tribe__Events__Main::do_upgrade_tab()`, `Tribe__Events__Main::general_settings_tab_fields()`,
+				`Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
+* Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
+* Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
 
 = [6.0.4] 2022-11-15 =
 

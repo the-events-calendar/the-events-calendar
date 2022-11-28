@@ -137,7 +137,7 @@ class View implements View_Interface {
 	/**
 	 * Stores the filtered global repository args. These args will be baked into all event queries.
 	 *
-	 * @since TBD
+	 * @since 6.0.5
 	 *
 	 * @var null|array<string,mixed> Will be null until compiled by the getter.
 	 */
@@ -1244,8 +1244,8 @@ class View implements View_Interface {
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since 4.9.3
-	 * @since TBD Now will merge a "global" repository arg filter, which will be applied elsewhere as well as this
-	 *        primary repository query.
+	 * @since 6.0.5 Now will merge a "global" repository arg filter, which will be applied elsewhere as well as this
+	 * 		        primary repository query.
 	 *
 	 * @param Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
@@ -2579,7 +2579,7 @@ class View implements View_Interface {
 	/**
 	 * Compiled the global repository args that should be applied to all events queried for this view.
 	 *
-	 * @since TBD
+	 * @since 6.0.5
 	 *
 	 * @return array The global filtered repository args.
 	 */
@@ -2589,7 +2589,7 @@ class View implements View_Interface {
 			 * Will filter any repository args to be applied globally on the various repository queries on
 			 * this view.
 			 *
-			 * @since TBD
+			 * @since 6.0.5
 			 *
 			 * @param array<string,mixed> Events Repository args that will be applied globally to all event
 			 *                            repository queries.
@@ -2603,7 +2603,7 @@ class View implements View_Interface {
 			 * A view specific filter for repository args to be applied globally on the various repository
 			 * queries on this view.
 			 *
-			 * @since TBD
+			 * @since 6.0.5
 			 *
 			 * @param array<string,mixed> Events Repository args that will be applied globally to all
 			 *                            event repository queries.
