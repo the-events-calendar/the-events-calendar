@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.5] 2022-11-29 =
 
+* Fix - Fix for scenarios where fatal `Call to a member function get() on null in... the-events-calendar/src/Tribe/Query.php(46)` would occur when `$wp_query` global was not set. [TEC-4566]
 * Fix - Add correct text domains to the Organizer block. [TEC-4466]
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
 * Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]
