@@ -31,7 +31,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * Key for the Hidden Field of toggling blocks editor.
 	 *
 	 * @since 5.14.0
-	 * @deprecated TBD
+	 * @deprecated 6.0.5
 	 *
 	 * @var string
 	 */
