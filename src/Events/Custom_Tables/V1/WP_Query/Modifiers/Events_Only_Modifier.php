@@ -11,6 +11,7 @@ namespace TEC\Events\Custom_Tables\V1\WP_Query\Modifiers;
 
 use TEC\Events\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
+use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Modifiers\Events_Not_In_Series_Modifier;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_Query;
@@ -118,7 +119,15 @@ class Events_Only_Modifier extends Base_Modifier {
 	 * @since 6.0.0
 	 */
 	protected function is_target_query( WP_Query $query = null ) {
-		return parent::is_target_query( $query )
-			   && ! tribe( Events_Not_In_Series_Modifier::class )->applies_to( $query );
+		/**
+		 * Filters whether this modifier should modify the query.
+		 *
+		 * @since 6.0.5
+		 *
+		 * @param bool          $should_filter Should filter, defaults to rely on internal logic whether to modify.
+		 * @param WP_Query      $query         The query object.
+		 * @param Base_Modifier $modifier      The modifier being used to filter the query.
+		 */
+		return apply_filters( 'tec_events_custom_tables_v1_query_modifier_applies_to_query', parent::is_target_query( $query ), $query, $this );
 	}
 }

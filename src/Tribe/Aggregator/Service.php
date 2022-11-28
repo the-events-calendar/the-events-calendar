@@ -505,7 +505,7 @@ class Tribe__Events__Aggregator__Service {
 		];
 
 		if ( isset( $args['file'] ) ) {
-			$boundary = wp_generate_password( 24 );
+			$boundary = wp_generate_password( 24, false );
 			$headers = [
 				'content-type' => 'multipart/form-data; boundary=' . $boundary,
 			];

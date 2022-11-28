@@ -10,7 +10,6 @@
 namespace TEC\Events\Custom_Tables\V1\WP_Query\Monitors;
 
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
-use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\Occurrences_Series_Relationship_Modifier;
 use WP_Query;
 
 /**
@@ -25,14 +24,13 @@ class Custom_Tables_Query_Monitor {
 
 	/**
 	 * A list of possible modifiers implementations.
+	 * Will be filtered into an array of modifiers.
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var array<string>
+	 * @var null|array<string>
 	 */
-	private $implementations = [
-		Occurrences_Series_Relationship_Modifier::class,
-	];
+	private $implementations = null;
 
 	/**
 	 * Returns the flag property that will be set on a `WP_Query` instance to indicate it should
