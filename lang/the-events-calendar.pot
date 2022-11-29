@@ -9,8 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-25T10:23:50-08:00\n"
-"PO-Revision-Date: 2022-11-25 18:23\n"
+"POT-Creation-Date: 2022-11-28T09:01:05-08:00\n"
+"PO-Revision-Date: 2022-11-28 17:01\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -8052,6 +8052,14 @@ msgstr ""
 
 #: src/modules/blocks/event-organizer/form/template.js:91
 msgid "Add email"
+msgstr ""
+
+#: src/modules/blocks/event-organizer/index.js:21
+msgid "Event Organizer"
+msgstr ""
+
+#: src/modules/blocks/event-organizer/index.js:22
+msgid "List a host or coordinator for this event."
 msgstr ""
 
 #: src/modules/blocks/event-organizer/template.js:103
