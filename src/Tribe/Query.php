@@ -11,6 +11,8 @@ use Tribe__Events__Organizer as Organizer;
 use Tribe__Admin__Helpers as Admin_Helpers;
 
 class Tribe__Events__Query {
+	use Tribe__Events__Query_Deprecated;
+
 	/**
 	 * @since 4.9.4
 	 *
