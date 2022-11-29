@@ -5,27 +5,27 @@ jobs:
     strategy:
       matrix:
         suite:
-          - aggregatorv1
-          - blocks_editor_integration
-          - event_status
-          - integration
-          - integrations_plugin_wordpress_seo
-          - muintegration
-          - restv1
-          - views_integration
-          - views_settings
-          - views_ui
-          - views_v2_customizer_integration
-          - views_widgets
-          - views_wpunit
-          - wpunit
-          - ct1_integration
-          - ct1_multisite_integration
+#          - aggregatorv1
+#          - blocks_editor_integration
+#          - event_status
+#          - integration
+#          - integrations_plugin_wordpress_seo
+#          - muintegration
+#          - restv1
+#          - views_integration
+#          - views_settings
+#          - views_ui
+#          - views_v2_customizer_integration
+#          - views_widgets
+#          - views_wpunit
+#          - wpunit
+#          - ct1_integration
+#          - ct1_multisite_integration
           - deprecated
           # really weird error with RBE changes.
           # - views_rest
-          - wp_json_api
-          - ct1_wp_json_api
+#          - wp_json_api
+#          - ct1_wp_json_api
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -62,7 +62,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
-          ref: main
+          ref: 1.1.5
           path: slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
@@ -127,12 +127,10 @@ jobs:
         run: |
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
-      - name: Init the WordPress container
-        if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} up wordpress
       - name: Ensure Twenty-Twenty is installed
         if: steps.skip.outputs.value != 1
         run: |
+          ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp theme install twentytwenty --activate
 
       # ------------------------------------------------------------------------------
