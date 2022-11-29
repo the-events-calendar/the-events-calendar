@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
+
 = [6.0.5] 2022-11-29 =
 
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
