@@ -39,7 +39,8 @@ class Tribe__Events__Query {
 		$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
 		$any_post_type  = (array) $query->get( 'post_type' ) === [ 'any' ];
 		$is_main_query  = $query->is_main_query();
-		$query_post_types = (array) $query->get( 'post_type' );
+		$query_post_types = self::get_query_post_types( $query );
+
 		$tec_post_types   = [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ];
 
 		if ( $is_main_query ) {
@@ -534,6 +535,26 @@ class Tribe__Events__Query {
 	}
 
 	/**
+	 * Returns the query post type(s) in array format.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Query $query The query object to read the post type entry from.
+	 *
+	 * @return array<string> The post type(s) read from the query.
+	 */
+	protected static function get_query_post_types( WP_Query $query ): array {
+		$query_post_types = (array) $query->get( 'post_type' );
+
+		// A query for the main posts page will not have a `post_type` set: let's correct that now.
+		if ( $query_post_types === [ '' ] ) {
+			$query_post_types = [ 'post' ];
+		}
+
+		return $query_post_types;
+	}
+
+	/**
 	 * Updates the query post count to include the specified ones.
 	 *
 	 * @since TBD
@@ -544,13 +565,11 @@ class Tribe__Events__Query {
 	 * @return void The query object is modified by reference.
 	 */
 	protected static function add_post_type_to_query( WP_Query $query, string ...$post_types ): void {
-		$updated_post_types = array_unique(
-			array_merge(
-				$post_types,
-				(array) $query->get( 'post_type' )
-			)
-		);
+		$query_post_types = self::get_query_post_types( $query );
+
+		$updated_post_types = array_unique( array_merge( $post_types, $query_post_types ) );
+
 		$query->set( 'post_type', $updated_post_types );
-		$query->query['post_types'] = $updated_post_types;
+		$query->query['post_type'] = $updated_post_types;
 	}
 }

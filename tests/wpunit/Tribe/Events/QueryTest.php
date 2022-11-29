@@ -530,4 +530,26 @@ class QueryTest extends Events_TestCase {
 			);
 		}
 	}
+
+	/**
+	 * It should correctly add Events to main query for posts.
+	 *
+	 * This is the logic underlying the "Included Events in main blog loop" option in Events > Settings.
+	 *
+	 * @test
+	 */
+	public function should_correctly_add_events_to_main_query_for_postst(): void {
+		// Simulate a main query for posts, WordPress would NOT specify the `post_type`.
+		global $wp_the_query;
+		$wp_the_query = new WP_Query();
+		$wp_the_query->query([]);
+
+		$this->assertEquals( [ Main::POSTTYPE, 'post' ], $wp_the_query->get( 'post_type' ) );
+		$this->assertFalse( $wp_the_query->tribe_is_event );
+		$this->assertTrue( $wp_the_query->tribe_is_multi_posttype );
+		$this->assertFalse( $wp_the_query->tribe_is_event_category );
+		$this->assertFalse( $wp_the_query->tribe_is_event_venue );
+		$this->assertFalse( $wp_the_query->tribe_is_event_organizer );
+		$this->assertFalse( $wp_the_query->tribe_is_event_query );
+	}
 }
