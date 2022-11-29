@@ -14,6 +14,7 @@
  * @since 6.0.2
  */
 trait Tribe__Events__Main_Deprecated {
+
 	/**
 	 * Get the prev/next post for a given event. Ordered by start date instead of ID.
 	 *
