@@ -454,11 +454,25 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			// Additionally store datetimes in UTC
 			if ( empty( $data['EventStartDateUTC'] ) ) {
-				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+				if ( Tribe__Events__Timezones::is_utc_offset( $data['EventTimezone'] ) ) {
+					// Convert a UTC offset timezone to a localized timezone, e.g. UTC-5 to America/New_York.
+					$data['EventStartDateUTC'] = Tribe__Date_Utils::immutable( $data['EventStartDate'], $data['EventTimezone'] )
+					                                              ->setTimezone( new DateTimeZone( 'UTC' ) )
+					                                              ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+				} else {
+					$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+				}
 			}
 
 			if ( empty( $data['EventEndDateUTC'] ) ) {
-				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+				if ( Tribe__Events__Timezones::is_utc_offset( $data['EventTimezone'] ) ) {
+					// Convert a UTC offset timezone to a localized timezone, e.g. UTC-5 to America/New_York.
+					$data['EventEndDateUTC'] = Tribe__Date_Utils::immutable( $data['EventEndDate'], $data['EventTimezone'] )
+					                                            ->setTimezone( new DateTimeZone( 'UTC' ) )
+					                                            ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+				} else {
+					$data['EventEndDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+				}
 			}
 
 			// sanity check that start date < end date
