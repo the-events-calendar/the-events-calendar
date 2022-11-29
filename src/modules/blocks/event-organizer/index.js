@@ -18,8 +18,8 @@ import { editorDefaults } from '@moderntribe/common/utils/globals';
 
 export default {
 	id: 'event-organizer',
-	title: __( 'Event Organizer', 'events-gutenberg' ),
-	description: __( 'List a host or coordinator for this event.', 'events-gutenberg' ),
+	title: __( 'Event Organizer', 'the-events-calendar' ),
+	description: __( 'List a host or coordinator for this event.', 'the-events-calendar' ),
 	icon: <OrganizerIcon />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],

@@ -135,6 +135,15 @@ class View implements View_Interface {
 	protected $repository_args = [];
 
 	/**
+	 * Stores the filtered global repository args. These args will be baked into all event queries.
+	 *
+	 * @since 6.0.5
+	 *
+	 * @var null|array<string,mixed> Will be null until compiled by the getter.
+	 */
+	protected $global_repository_args = null;
+
+	/**
 	 * The key that should be used to indicate the page in an archive.
 	 * Extending classes should not need to modify this.
 	 *
@@ -1235,8 +1244,10 @@ class View implements View_Interface {
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since 4.9.3
+	 * @since 6.0.5 Now will merge a "global" repository arg filter, which will be applied elsewhere as well as this
+	 * 		        primary repository query.
 	 *
-	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
+	 * @param Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
 	 * @return array The arguments, ready to be set on the View repository instance.
 	 */
@@ -1266,6 +1277,9 @@ class View implements View_Interface {
 			 */
 			'view_override_offset' => true,
 		];
+
+		// Merge our global repository args with the primary event args.
+		$args = array_merge( $args, $this->get_global_repository_args() );
 
 		add_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 
@@ -2560,6 +2574,47 @@ class View implements View_Interface {
 		}
 
 		return $this->filter_repository_args( $this->setup_repository_args() );
+	}
+
+	/**
+	 * Compiled the global repository args that should be applied to all events queried for this view.
+	 *
+	 * @since 6.0.5
+	 *
+	 * @return array The global filtered repository args.
+	 */
+	protected function get_global_repository_args() {
+		if ( ! is_array( $this->global_repository_args ) ) {
+			/**
+			 * Will filter any repository args to be applied globally on the various repository queries on
+			 * this view.
+			 *
+			 * @since 6.0.5
+			 *
+			 * @param array<string,mixed> Events Repository args that will be applied globally to all event
+			 *                            repository queries.
+			 * @param View $this The View object being rendered.
+			 *
+			 * @return array<string,mixed> The repository args to be applied.
+			 */
+			$this->global_repository_args = apply_filters( 'tec_events_views_v2_view_global_repository_args', [], $this );
+
+			/**
+			 * A view specific filter for repository args to be applied globally on the various repository
+			 * queries on this view.
+			 *
+			 * @since 6.0.5
+			 *
+			 * @param array<string,mixed> Events Repository args that will be applied globally to all
+			 *                            event repository queries.
+			 * @param View $this The View object being rendered.
+			 *
+			 * @return array<string,mixed> The repository args to be applied.
+			 */
+			$this->global_repository_args = apply_filters( "tec_events_views_v2_{$this->slug}_view_global_repository_args", $this->global_repository_args, $this );
+		}
+
+		return $this->global_repository_args;
 	}
 
 	/**
