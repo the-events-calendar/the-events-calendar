@@ -229,6 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
+* Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
+
 = [6.0.5] 2022-11-29 =
 
 * Fix - Fix for scenarios where fatal `Call to a member function get() on null in... the-events-calendar/src/Tribe/Query.php(46)` would occur when `$wp_query` global was not set. [TEC-4566]
