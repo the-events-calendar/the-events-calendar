@@ -152,7 +152,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 *
 	 * @return bool Whether this constraint exists.
 	 */
-	protected function has_constraint( $this_field, $this_table ): bool {
+	public function has_constraint( $this_field, $this_table ): bool {
 		return ! empty( $this->get_schema_constraint( $this_field, $this_table ) );
 	}
 
@@ -166,7 +166,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 *
 	 * @return stdClass|null
 	 */
-	protected function get_schema_constraint( $this_field, $this_table ): ?stdClass {
+	public function get_schema_constraint( $this_field, $this_table ): ?stdClass {
 		global $wpdb;
 
 		$query = $wpdb->prepare(
