@@ -163,7 +163,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 * @param string $this_field The field of the table that has the foreign key (not the target of the constraint).
 	 * @param string $this_table The table that has the foreign key (not the target of the constraint).
 	 *
-	 * @return stdClass|null
+	 * @return stdClass|null A stdClass with the INFORMATION_SCHEMA.key_column_usage or null if none found.
 	 */
 	public function get_schema_constraint( $this_field, $this_table ): ?stdClass {
 		global $wpdb;
