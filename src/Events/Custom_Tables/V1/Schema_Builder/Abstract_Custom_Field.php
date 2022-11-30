@@ -24,8 +24,8 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 * {@inheritdoc}
 	 */
 	public function update() {
+		$this->before_update();
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-
 		$results = (array) dbDelta( $this->get_update_sql() );
 		$this->sync_stored_version();
 		$results = $this->after_update( $results );
@@ -43,6 +43,16 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 *                by the `dbDelta` function.
 	 */
 	abstract protected function get_update_sql();
+
+	/**
+	 * Allows extending classes that require it to run some methods
+	 * immediately before the field creation or update.
+	 *
+	 * @since TBD
+	 *
+	 */
+	protected function before_update() {
+	}
 
 	/**
 	 * Allows extending classes that require it to run some methods
