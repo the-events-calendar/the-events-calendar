@@ -78,9 +78,8 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 * immediately before the table creation or update.
 	 *
 	 * @since TBD
-	 *
 	 */
-	protected function before_update() {
+	protected function before_update() :void {
 	}
 
 	/**

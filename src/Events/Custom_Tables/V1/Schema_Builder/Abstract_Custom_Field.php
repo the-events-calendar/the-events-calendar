@@ -49,9 +49,8 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 * immediately before the field creation or update.
 	 *
 	 * @since TBD
-	 *
 	 */
-	protected function before_update() {
+	protected function before_update() :void {
 	}
 
 	/**
