@@ -122,7 +122,7 @@ class Events_Only_Modifier extends Base_Modifier {
 		/**
 		 * Filters whether this modifier should modify the query.
 		 *
-		 * @since TBD
+		 * @since 6.0.5
 		 *
 		 * @param bool          $should_filter Should filter, defaults to rely on internal logic whether to modify.
 		 * @param WP_Query      $query         The query object.

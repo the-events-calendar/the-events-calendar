@@ -390,7 +390,7 @@ class Settings {
 	/**
 	 * Sort the tabs, forcing some to the front and some to the end.
 	 *
-	 * @since TBD
+	 * @since 6.0.5
 	 *
 	 * @param array $tabs        The array of tabs.
 	 * @param string $admin_page The ID of the admin page we are on.
@@ -548,7 +548,7 @@ class Settings {
 	/**
 	 * Adds disabled ECP views to the views list as a "teaser".
 	 *
-	 * @since TBD
+	 * @since 6.0.5
 	 *
 	 * @param string $output The HTML output for the Views checkboxes.
 	 *
@@ -610,7 +610,7 @@ class Settings {
 	 * Initialize the addons api settings tab.
 	 *
 	 * @since 5.15.0 Added check to see if we are on TEC settings page.
-	 * @since TBD    Moved to Settings class.
+	 * @since 6.0.5  Moved to Settings class.
 	 */
 	public function do_addons_api_settings_tab( $admin_page ): void {
 		// Bail if we're not on TEC settings.
@@ -625,7 +625,7 @@ class Settings {
 	 * should we show the upgrade nags?
 	 *
 	 * @since 4.9.12
-	 * @since TBD    Moved to Settings class.
+	 * @since 6.0.5	 Moved to Settings class.
 	 *
 	 * @return boolean
 	 */
@@ -669,7 +669,7 @@ class Settings {
 	 *
 	 * @since 4.9.12
 	 * @since 5.15.0 Added check to see if we are on TEC settings page.
-	 * @since TBD    Moved to Settings class.
+	 * @since 6.0.5  Moved to Settings class.
 	 */
 	public function do_upgrade_tab( $admin_page ): void {
 		// Bail if we're not on TEC settings.
@@ -739,7 +739,7 @@ class Settings {
 	 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it
 	 *
 	 * @since 4.3.5
-	 * @since TBD    Moved to Settings class.
+	 * @since 6.0.5 Moved to Settings class.
 	 *
 	 * @param string $url Settings URL to filter
 	 *

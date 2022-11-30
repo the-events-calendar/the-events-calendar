@@ -81,7 +81,7 @@ trait Query_Monitor {
 	 * Will filter and retrieve the list of WP_Query_Modifier implementations. Any implementation filters
 	 * must be applied before the init hook is completed.
 	 *
-	 * @since TBD
+	 * @since 6.0.5
 	 *
 	 * @return array<WP_Query_Modifier> List of WP_Query_Modifier implementations.
 	 */
@@ -91,7 +91,7 @@ trait Query_Monitor {
 			/**
 			 * Filters the Query Modifier implementations that will be used in the Query Monitor parsing.
 			 *
-			 * @since TBD
+			 * @since 6.0.5
 			 *
 			 * @param array<WP_Query_Modifier>  The list of Query Modifier implementations that will be used in the
 			 *                                  query parsing.
