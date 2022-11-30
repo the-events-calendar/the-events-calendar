@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
 * Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
+* Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
 
 = [6.0.5] 2022-11-29 =
 
