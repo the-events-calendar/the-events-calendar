@@ -2,7 +2,6 @@
 // Don't load directly
 defined( 'WPINC' ) or die;
 
-use TEC\Common\Translations_Loader;
 use Tribe\Events\I18n;
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Main as TEC;
@@ -273,7 +272,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			$this->translations_loader->load( $locale, $domains );
 		}
 
-		$default_bases = [
+		$default_bases         = [
 			'month'    => [ 'month', sanitize_title( __( 'month', 'the-events-calendar' ) ) ],
 			'list'     => [ 'list', sanitize_title( __( 'list', 'the-events-calendar' ) ) ],
 			'today'    => [ 'today', sanitize_title( __( 'today', 'the-events-calendar' ) ) ],
