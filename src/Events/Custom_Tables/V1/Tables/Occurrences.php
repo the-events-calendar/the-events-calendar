@@ -85,27 +85,26 @@ class Occurrences extends Abstract_Custom_Table {
 	protected function after_update( array $results ) {
 		global $wpdb;
 		$this_table        = self::table_name( true );
-		$occurrences_table = self::table_name( true );
 		$updated           = false;
 		if (
 			$this->exists()
-			&& ! $this->has_index( 'event_id', $occurrences_table )
+			&& ! $this->has_index( 'event_id', $this_table )
 		) {
 			$SQL     = "ALTER TABLE {$this_table} ADD INDEX (event_id)";
 			$updated = $wpdb->query( $SQL );
 		} else if ( $this->exists()
-		            && $this->has_constraint( 'event_id', $occurrences_table ) ) {
+		            && $this->has_constraint( 'event_id', $this_table ) ) {
 			// We are moving away from foreign key constraints. If this is our old schema, find the FK name and drop it.
-			$constraint      = $this->get_schema_constraint( 'event_id', $occurrences_table );
+			$constraint      = $this->get_schema_constraint( 'event_id', $this_table );
 			$foreign_key_name = $constraint->CONSTRAINT_NAME ?? null;
 			if ( $foreign_key_name ) {
-				$updated = $wpdb->query( "ALTER TABLE {$occurrences_table} DROP FOREIGN KEY $foreign_key_name" );
+				$updated = $wpdb->query( "ALTER TABLE {$this_table} DROP FOREIGN KEY {$foreign_key_name}" );
 			}
 		}
 
 		$message = $updated
-			? "Added event_id as key in {$occurrences_table}"
-			: "Failed to add event_id as key in {$occurrences_table}";
+			? "Added event_id as key in {$this_table}"
+			: "Failed to add event_id as key in {$this_table}";
 
 		$results[ $this_table . '.event_id' ] = $message;
 
