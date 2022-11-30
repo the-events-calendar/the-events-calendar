@@ -310,7 +310,7 @@ tribe.events.views.manager = {};
 
 		var $link = $( this );
 		var url = $link.attr( 'href' );
-		var currentUrl = containerData.prev_url;
+		var prevUrl = containerData.prev_url;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
@@ -321,7 +321,7 @@ tribe.events.views.manager = {};
 		}
 
 		var data = {
-			prev_url: encodeURI( decodeURI( currentUrl ) ),
+			prev_url: encodeURI( decodeURI( prevUrl ) ),
 			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
 			_wpnonce: nonce,
