@@ -401,6 +401,62 @@ class Default_Canonical_URL_Resolution_Cest {
 		}
 	}
 
+	public function test_canonical_url_resolution_for_it_IT_user_on_en_US_site_with_translated_slugs(Tester $I): void {
+		// Create a new administrator user with the it_IT language locale.
+		$admin_it_id = $I->haveUserInDatabase( 'admin_it', 'administrator', [
+				'user_login' => 'admin_it',
+				'user_pass'  => 'admin_it',
+				'user_email' => 'admin_it@wordpress.test',
+			]
+		);
+		//Ensure the user locale is set to it_IT.
+		$I->dontHaveUserMetaInDatabase( [ 'user_id' => $admin_it_id, 'meta_key' => 'locale' ] );
+		$I->haveUserMetaInDatabase( $admin_it_id, 'locale', 'it_IT' );
+		// The language of the site should be default one, en_US.
+		$I->assertEquals( '', $I->grabOptionFromDatabase( 'WPLANG' ) );
+		// The language of the admin should be the it_IT one.
+		$I->assertEquals( [ 'it_IT' ], $I->grabUserMetaFromDatabase( $admin_it_id, 'locale' ) );
+		// Canonical URL resolution will require some categories and tags to be present to work correctly.
+		$this->given_some_event_categories_and_tags( $I );
+		// Log-in as the it_IT admin to make sure any `current_user_can` check will pass.
+		$I->loginAs( 'admin_it', 'admin_it' );
+		$site_url = $I->grabSiteUrl();
+		// The `events` and `event` slug are translated by the user using the options.
+		$I->update_plugin_option( 'eventsSlug', 'classes' );
+		$I->update_plugin_option( 'singleEventSlug', 'class' );
+
+		// The resolution en_US should not change because the user has an it_IT locale, but should ue the custom slugs.
+		$eng_expected_canonical_url_mapping = str_replace(
+			[ 'events/', 'event/' ],
+			[ 'classes/', 'class/' ],
+			self::$eng_expected_canonical_url_mapping
+		);
+
+		foreach ( $eng_expected_canonical_url_mapping as $input => $expected ) {
+			// Endpoint provided by the plugin put in place in the bootstrap.php file.
+			$I->sendAjaxPostRequest( '/wp-json/tec-canonical/url', [
+				'url' => $site_url . '/' . ltrim( $input, '/' ),
+			] );
+
+			$I->seeResponseIs( $site_url . '/' . ltrim( $expected, '/' ) );
+		}
+
+		// Now have the it_IT admin regenerate rewrite rules.
+		$I->amOnAdminPage( '/options-permalink.php' );
+		$I->click( '#submit' );
+
+		// Test the resolution of the it_IT admin again.
+		// The resolution en_US should not change because the user has an it_IT locale.
+		foreach ( $eng_expected_canonical_url_mapping as $input => $expected ) {
+			// Endpoint provided by the plugin put in place in the bootstrap.php file.
+			$I->sendAjaxPostRequest( '/wp-json/tec-canonical/url', [
+				'url' => $site_url . '/' . ltrim( $input, '/' ),
+			] );
+
+			$I->seeResponseIs( $site_url . '/' . ltrim( $expected, '/' ) );
+		}
+	}
+
 	public function test_canonical_url_resolution_for_it_IT_user_on_it_IT_site( Tester $I ): void {
 		// Create a new administrator user with the it_IT language locale.
 		$admin_it_id = $I->haveUserInDatabase( 'admin_it', 'administrator', [
@@ -426,9 +482,10 @@ class Default_Canonical_URL_Resolution_Cest {
 			codecept_data_dir( 'translations/the-events-calendar-rewrite-it_IT.mo' ),
 			'the-events-calendar/lang/the-events-calendar-it_IT.mo'
 		);
-		// The `events` and `event` slug should not be translated in the `.mo` file, but using options.
+		// The `events` and `event` slug are translated by the user using the options.
 		$I->update_plugin_option( 'eventsSlug', 'eventi' );
 		$I->update_plugin_option( 'singleEventSlug', 'evento' );
+		// The `events` and `event` slug should not be translated in the `.mo` file, but using options.
 		// Now have the it_IT admin regenerate rewrite rules.
 		$I->amOnAdminPage( '/options-permalink.php' );
 		$I->click( '#submit' );
@@ -441,5 +498,7 @@ class Default_Canonical_URL_Resolution_Cest {
 
 			$I->seeResponseIs( $site_url . '/' . ltrim( $expected, '/' ) );
 		}
+
+		// @todo test /events and /event slugs.
 	}
 }
