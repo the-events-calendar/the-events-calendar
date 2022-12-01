@@ -263,18 +263,33 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			$this->translations_loader->load( $locale, $domains );
 		}
 
-		$default_bases         = [
-			'month'    => [ 'month', sanitize_title( __( 'month', 'the-events-calendar' ) ) ],
-			'list'     => [ 'list', sanitize_title( __( 'list', 'the-events-calendar' ) ) ],
-			'today'    => [ 'today', sanitize_title( __( 'today', 'the-events-calendar' ) ) ],
-			'day'      => [ 'day', sanitize_title( __( 'day', 'the-events-calendar' ) ) ],
-			'tag'      => [ 'tag', $tec->get_tag_slug() ],
-			'tax'      => [ 'category', $tec->get_category_slug() ],
-			'page'     => [ 'page', esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ],
-			'single'   => [ tribe_get_option( 'singleEventSlug', 'event' ), $tec->getRewriteSlugSingular() ],
-			'archive'  => [ tribe_get_option( 'eventsSlug', 'events' ), $tec->getRewriteSlug() ],
-			'featured' => [ 'featured', sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) ) ],
-		];
+		$cache         = tribe_cache();
+		$cache_key     = 'tec_rewrite_default_bases_' . $locale;
+		$default_bases = $cache[ $cache_key ];
+
+		if ( empty( $default_bases ) ) {
+			$default_bases = [
+				'month'    => [ 'month', sanitize_title( __( 'month', 'the-events-calendar' ) ) ],
+				'list'     => [ 'list', sanitize_title( __( 'list', 'the-events-calendar' ) ) ],
+				'today'    => [ 'today', sanitize_title( __( 'today', 'the-events-calendar' ) ) ],
+				'day'      => [ 'day', sanitize_title( __( 'day', 'the-events-calendar' ) ) ],
+				'tag'      => [ 'tag', $tec->get_tag_slug() ],
+				'tax'      => [ 'category', $tec->get_category_slug() ],
+				'page'     => [
+					'page',
+					esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' )
+				],
+				'single'   => [ tribe_get_option( 'singleEventSlug', 'event' ), $tec->getRewriteSlugSingular() ],
+				'archive'  => [ tribe_get_option( 'eventsSlug', 'events' ), $tec->getRewriteSlug() ],
+				'featured' => [
+					'featured',
+					sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) )
+				],
+			];
+
+			// Memoize the default bases per-locale.
+			$cache[ $cache_key ] = $default_bases;
+		}
 
 		/**
 		 * If you want to modify the base slugs before the i18n happens filter this use this filter
