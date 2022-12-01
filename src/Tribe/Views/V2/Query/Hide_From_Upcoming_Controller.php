@@ -2,6 +2,8 @@
 
 namespace Tribe\Events\Views\V2\Query;
 
+use Tribe__Cache_Listener as Cache_Listener;
+
 /**
  * Class Hide_From_Upcoming_Controller
  *
@@ -11,10 +13,26 @@ namespace Tribe\Events\Views\V2\Query;
  */
 class Hide_From_Upcoming_Controller {
 
+	/**
+	 * Stores the name of the Tribe Cache for the upcoming ids that need to be hidden.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	protected $timed_option_key = 'events_hide_from_upcoming_ids';
 
+	/**
+	 * Determine which are the posts are supposed to be hidden.
+	 * Please be careful with this query below, it's currently an unbound query, that is why it only runs once a day.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
 	public function get_hidden_post_ids(): array {
-		$hidden_ids = tec_timed_option()->get( $this->timed_option_key );
+		$expiration_trigger = Cache_Listener::TRIGGER_SAVE_POST;
+		$hidden_ids = tribe_cache()->get( $this->timed_option_key, $expiration_trigger );
 
 		if ( null === $hidden_ids ) {
 			global $wpdb;
@@ -29,7 +47,7 @@ class Hide_From_Upcoming_Controller {
 			";
 			$hidden_ids = $wpdb->get_col( $sql );
 
-			tec_timed_option()->set( $this->timed_option_key, $hidden_ids, DAY_IN_SECONDS );
+			tribe_cache()->set( $this->timed_option_key, $hidden_ids, DAY_IN_SECONDS, $expiration_trigger );
 		}
 
 		return $hidden_ids;
