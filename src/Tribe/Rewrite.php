@@ -226,15 +226,6 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	}
 
 	/**
-	 * Checking if WPML is active on this WP
-	 *
-	 * @return boolean
-	 */
-	public function is_wpml_active() {
-		return ! empty( $GLOBALS['sitepress'] ) && $GLOBALS['sitepress'] instanceof SitePress;
-	}
-
-	/**
 	 * Get the base slugs for the Plugin Rewrite rules
 	 *
 	 * WARNING: Don't mess with the filters below if you don't know what you are doing
