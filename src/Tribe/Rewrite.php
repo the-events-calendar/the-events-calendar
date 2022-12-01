@@ -137,7 +137,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			->archive( [ 'ical' ], [ 'ical' => 1 ] )
 			->archive( [ '{{ featured }}', 'ical' ], [ 'ical' => 1, 'featured' => true ] )
 			->archive( [ '(\d{4}-\d{2}-\d{2})', 'ical' ], [ 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1' ] )
-			->archive( [ '(\d{4}-\d{2}-\d{2})', 'ical', 'featured' ], [ 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ] )
+			->archive( [ '(\d{4}-\d{2}-\d{2})', 'ical', '{{ featured }}' ], [ 'ical' => 1, 'eventDisplay' => 'day', 'eventDate' => '%1', 'featured' => true ] )
 
 			// Taxonomy
 			->tax( [ '{{ page }}', '(\d+)' ], [ 'eventDisplay' => 'list', 'paged' => '%2' ] )
