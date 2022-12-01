@@ -257,8 +257,21 @@ abstract class Model implements Serializable {
 			static::$static_errors[ $name ] = $error_string;
 		}
 
+		if ( ! empty( $this->errors() ) ) {
+			// For debug purposes, log validation errors.
+			// These will fail update/insertions on the database.
+			do_action( 'tribe_log',
+				'debug',
+				"Model failed validation.", [
+					'source' => __METHOD__ . ':' . __LINE__,
+					'errors' => $this->errors(),
+				] );
+
+			return false;
+		}
+
 		// No errors were found.
-		return empty( $this->errors() );
+		return true;
 	}
 
 	/**
