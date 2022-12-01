@@ -32,7 +32,7 @@ class Hide_From_Upcoming_Controller {
 	 */
 	public function get_hidden_post_ids(): array {
 		$expiration_trigger = Cache_Listener::TRIGGER_SAVE_POST;
-		$hidden_ids = tribe_cache()->get( $this->timed_option_key, $expiration_trigger );
+		$hidden_ids = tribe_cache()->get( $this->timed_option_key, $expiration_trigger, null );
 
 		if ( null === $hidden_ids ) {
 			global $wpdb;
@@ -50,7 +50,7 @@ class Hide_From_Upcoming_Controller {
 			tribe_cache()->set( $this->timed_option_key, $hidden_ids, DAY_IN_SECONDS, $expiration_trigger );
 		}
 
-		return $hidden_ids;
+		return (array) $hidden_ids;
 	}
 
 }
