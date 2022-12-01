@@ -6,7 +6,7 @@ use Closure;
 use Generator;
 use Tribe__Events__Main as TEC;
 
-class EventsTest extends \Codeception\TestCase\WPTestCase {
+class Events_Migration_RepositoryTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @before
 	 */
@@ -57,6 +57,17 @@ class EventsTest extends \Codeception\TestCase\WPTestCase {
 			], $postarr ) );
 		};
 
+		$event_w_duplicate_meta_information = function ( array $postarr = [] ) use ( $good_event_w_all_information ): int {
+			$id = $good_event_w_all_information( $postarr );
+			add_post_meta( $id, '_EventStartDate', '2019-01-01 10:00:00' );
+			add_post_meta( $id, '_EventEndDate', '2019-01-01 11:00:00' );
+			add_post_meta( $id, '_EventStartDateUTC', '2019-01-01 15:00:00' );
+			add_post_meta( $id, '_EventEndDateUTC', '2019-01-01 16:00:00' );
+			add_post_meta( $id, '_EventTimezone', 'America/New_York' );
+
+			return $id;
+		};
+
 		$setup_event_missing_meta = function ( array $missing_meta, array $postarr = [] ): int {
 			return $this->create_event( array_merge( [
 				'post_title' => 'Event missing some meta',
@@ -102,7 +113,7 @@ class EventsTest extends \Codeception\TestCase\WPTestCase {
 			$good_event_w_all_information( [ 'post_status' => 'trash' ] );
 			$good_event_w_all_information( [ 'post_status' => 'pending' ] );
 		};
-		yield 'event with good information in diff. stati' => [ $setup_fixture, 3 ];
+		yield 'event with good information in diff. status' => [ $setup_fixture, 3 ];
 
 		$setup_fixture = static function () use ( $setup_event_missing_meta ) {
 			$setup_event_missing_meta( [ '_EventStartDate', ], [ 'post_status' => 'draft' ] );
@@ -110,14 +121,13 @@ class EventsTest extends \Codeception\TestCase\WPTestCase {
 			$setup_event_missing_meta( [ '_EventEndDate', ], [ 'post_status' => 'trash' ] );
 			$setup_event_missing_meta( [ '_EventEndDateUTC' ], [ 'post_status' => 'pending' ] );
 		};
-		yield 'event with partial information in diff. stati' => [ $setup_fixture, 4 ];
+		yield 'event with partial information in diff. status' => [ $setup_fixture, 4 ];
 
-		$setup_fixture = static function () use ( $setup_event_missing_meta ) {
-			$setup_event_missing_meta( [ '_EventStartDate', '_EventStartDateUTC' ], [ 'post_status' => 'draft' ] );
-			$setup_event_missing_meta( [ '_EventEndDate', '_EventEndDateUTC' ], [ 'post_status' => 'trash' ] );
-			$setup_event_missing_meta( [ '_EventEndDate', '_EventEndDateUTC' ], [ 'post_status' => 'pending' ] );
+		$setup_fixture = static function () use ( $event_w_duplicate_meta_information ) {
+			$event_w_duplicate_meta_information( [ 'post_status' => 'publish' ] );
+			$event_w_duplicate_meta_information( [ 'post_status' => 'publish' ] );
 		};
-		yield 'event with missing information in diff. stati' => [ $setup_fixture, 0 ];
+		yield 'valid event with duplicate meta information' => [ $setup_fixture, 2 ];
 	}
 
 	/**

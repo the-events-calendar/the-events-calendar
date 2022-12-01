@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <iframe
+  aria-label="<?php esc_attr_e( 'Venue location map', 'the-events-calendar' ); ?>"
   width="<?php echo esc_attr( $width ); ?>"
   height="<?php echo esc_attr( $height ); ?>"
   frameborder="0" style="border:0"
