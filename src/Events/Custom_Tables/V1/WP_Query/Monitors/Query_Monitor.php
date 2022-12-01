@@ -78,6 +78,36 @@ trait Query_Monitor {
 	}
 
 	/**
+	 * Will filter and retrieve the list of WP_Query_Modifier implementations. Any implementation filters
+	 * must be applied before the init hook is completed.
+	 *
+	 * @since 6.0.5
+	 *
+	 * @return array<WP_Query_Modifier> List of WP_Query_Modifier implementations.
+	 */
+	public function get_implementations(): array {
+		// Keep running filter until init is finished. Will run one or more times.
+		if ( doing_action( 'init' ) || ! did_action( 'init' ) || $this->implementations === null ) {
+			/**
+			 * Filters the Query Modifier implementations that will be used in the Query Monitor parsing.
+			 *
+			 * @since 6.0.5
+			 *
+			 * @param array<WP_Query_Modifier>  The list of Query Modifier implementations that will be used in the
+			 *                                  query parsing.
+			 * @param Query_monitor This instance of the Query Monitor retrieving implementations.
+			 */
+			$this->implementations = apply_filters( 'tec_events_custom_tables_v1_query_modifier_implementations',
+				$this->implementations ?? [],
+				$this
+			);
+			$this->implementations = array_unique( $this->implementations );
+		}
+
+		return $this->implementations;
+	}
+
+	/**
 	 * Attaches a Modifier to a WP_Query, if required.
 	 *
 	 * @since 6.0.0
@@ -114,7 +144,8 @@ trait Query_Monitor {
 		}
 
 		$modifiers = [];
-		foreach ( $this->implementations as $class_name ) {
+
+		foreach ( $this->get_implementations() as $class_name ) {
 			$modifier = $this->container->make( $class_name );
 			if ( $modifier instanceof WP_Query_Modifier && $modifier->applies_to( $query ) ) {
 				$query->set( 'tribe_remove_date_filters', true );

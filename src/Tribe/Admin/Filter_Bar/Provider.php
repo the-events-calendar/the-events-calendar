@@ -135,7 +135,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$tec_events_admin_filter_bar_upsell_fields = apply_filters( 'tec_events_filterbar_upgrade_content', $tec_events_filter_bar_upsell_tab );
 
 		new Tribe__Settings_Tab(
-			'filter-view', esc_html__( 'Filters', 'the_events_calendar' ),
+			'filter-view',
+			esc_html_x( 'Filters', 'Label for the Filters tab.', 'the-events-calendar' ),
 			[
 				'priority'      => 40,
 				'fields'        => $tec_events_admin_filter_bar_upsell_fields,
