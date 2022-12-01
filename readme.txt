@@ -231,6 +231,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.5] TBD =
 
+* Tweak - Prevent unbound query for previous URL on list based views, improving performance.
+* Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
+
 = [6.0.4] 2022-11-15 =
 
 * Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
