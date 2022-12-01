@@ -231,6 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.5] TBD =
 
+* Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
+
 = [6.0.4] 2022-11-15 =
 
 * Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
