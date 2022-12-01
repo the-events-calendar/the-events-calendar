@@ -3,6 +3,7 @@
 namespace TEC\Events\Custom_Tables\V1;
 
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Custom_Field;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Abstract_Custom_Table;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Field_Schema_Interface;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Table_Schema_Interface;
@@ -145,6 +146,49 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
+	 * Tests tables with constraints can be created, destroyed and detected.
+	 *
+	 * @test
+	 */
+	public function should_detect_constraints() {
+		$schema_builder = tribe( Schema_Builder::class );
+		$schemas        = $this->get_custom_table_schemas_with_constraint();
+		$this->given_a_table_schema_exists( $schemas );
+		// The order matters. "Child" has a FK that targets the "parent".
+		[ $parent_schema, $child_schema ] = $schemas;
+
+		$schema_builder->up( true );
+
+		// Confirm they were built with constraints in place
+		$this->assertTrue( $parent_schema->exists() );
+		$this->assertTrue( $child_schema->exists() );
+
+		// Test constraints
+		$this->assertTrue( $child_schema->has_constraint( $parent_schema::uid_column(), $child_schema::table_name( true ) ) );
+		$this->assertIsObject( $child_schema->get_schema_constraint( $parent_schema::uid_column(), $child_schema::table_name( true ) ) );
+		$this->assertFalse( $child_schema->has_constraint( 'notarealfield', $child_schema::table_name( true ) ) );
+		$this->assertNull( $child_schema->get_schema_constraint( 'notarealfield', $child_schema::table_name( true ) ) );
+
+		$schema_builder->down();
+
+		$this->assertFalse( $parent_schema->exists() );
+		$this->assertFalse( $child_schema->exists() );
+		$this->assertFalse( $child_schema->has_constraint( $parent_schema::uid_column(), $child_schema::table_name( true ) ) );
+		$this->assertNull( $child_schema->get_schema_constraint( $parent_schema::uid_column(), $child_schema::table_name( true ) ) );
+	}
+
+	/**
+	 * Add this schema to the registered list.
+	 *
+	 * @param array<Table_Schema_Interface> $table_schemas
+	 */
+	public function given_a_table_schema_exists( $table_schemas = [] ) {
+		add_filter( 'tec_events_custom_tables_v1_table_schemas', function ( $fields ) use ( $table_schemas ) {
+			return $table_schemas;
+		} );
+	}
+
+	/**
 	 * Add this schema to the registered list.
 	 *
 	 * @param Field_Schema_Interface $field_schema
@@ -180,6 +224,65 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 		$q = 'show tables';
 
 		return $wpdb->get_col( $q );
+	}
+
+	/**
+	 * @return array<Abstract_Custom_Table>
+	 */
+	public function get_custom_table_schemas_with_constraint() {
+		return [
+			new class extends Abstract_Custom_Table {
+				const SCHEMA_VERSION = '1.0.0';
+				const SCHEMA_VERSION_OPTION = 'tec_ct1_custom_tbl_parent_version_key';
+
+				public static function uid_column() {
+					return 'parent_id';
+				}
+
+				public static function base_table_name() {
+					return 'faux_parent';
+				}
+
+				public function get_update_sql() {
+					$table_name = self::table_name( true );
+					$uid_field  = self::uid_column();
+
+					return "CREATE TABLE `{$table_name}` (
+				`{$uid_field}` INT NOT NULL,
+				PRIMARY KEY ($uid_field)
+				) ENGINE=INNODB;";
+				}
+			},
+			new class extends Abstract_Custom_Table {
+				const SCHEMA_VERSION = '1.0.0';
+				const SCHEMA_VERSION_OPTION = 'tec_ct1_custom_tbl_child_version_key';
+
+				public static function uid_column() {
+					return 'child_id';
+				}
+
+				public static function base_table_name() {
+					return 'faux_child';
+				}
+
+				public function get_update_sql() {
+					global $wpdb;
+					$table_name       = self::table_name( true );
+					$uid_field        = self::uid_column();
+					$parent_uid_field = 'parent_id';;
+					$parent_table_name = $wpdb->prefix . 'faux_parent';
+
+					return "CREATE TABLE `{$table_name}` (
+				`{$uid_field}` INT,
+				`{$parent_uid_field}` INT,
+				INDEX par_ind (`{$parent_uid_field}`),
+				FOREIGN KEY (`{$parent_uid_field}`)
+				REFERENCES {$parent_table_name}(`{$parent_uid_field}`)
+				ON DELETE CASCADE
+				) ENGINE=INNODB;";
+				}
+			}
+		];
 	}
 
 	/**
