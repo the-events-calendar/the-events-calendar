@@ -477,11 +477,6 @@ class Default_Canonical_URL_Resolution_Cest {
 		// Log-in as the it_IT admin to make sure any `current_user_can` check will pass.
 		$I->loginAs( 'admin_it', 'admin_it' );
 		$site_url = $I->grabSiteUrl();
-		// The plugin might not contain the it_IT translations yet, add it now.
-		$I->have_translation_file_for_plugin(
-			codecept_data_dir( 'translations/the-events-calendar-rewrite-it_IT.mo' ),
-			'the-events-calendar/lang/the-events-calendar-it_IT.mo'
-		);
 		// The `events` and `event` slug are translated by the user using the options.
 		$I->update_plugin_option( 'eventsSlug', 'eventi' );
 		$I->update_plugin_option( 'singleEventSlug', 'evento' );

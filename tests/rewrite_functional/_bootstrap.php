@@ -24,6 +24,14 @@ function tec_canonical_url_mu_plugin_path( WPFilesystem $fs ): string {
  * for the whole suite execution.
  */
 addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
+	static $placed;
+
+	if ( $placed ) {
+		return;
+	}
+
+	$placed = true;
+
 	$container = $e->getTest()->getMetadata()->getService( 'di' );
 	/** @var WPFilesystem $fs */
 	$fs = $container->get( WPFilesystem::class );
@@ -36,6 +44,24 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 	}
 
 	$fs->writeToFile( $pathname, $code );
+
+	// Place the translations files before the tests.
+	$fs_iterator_flags = FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS | FilesystemIterator::CURRENT_AS_PATHNAME;
+	$translation_files = new RegexIterator(
+		new FilesystemIterator( codecept_data_dir( 'translations' ), $fs_iterator_flags ),
+		'/\.mo$/'
+	);
+	foreach ( $translation_files as $translation_file ) {
+		$destination = dirname( __DIR__, 2 ) . '/lang/' . basename( $translation_file );
+
+		if ( is_file( $destination ) && ! unlink( $destination ) ) {
+			throw new \RuntimeException( "Could not delete {$destination}" );
+		}
+
+		if ( ! copy( $translation_file, $destination ) ) {
+			throw new \RuntimeException( "Could not copy {$translation_file} to {$destination}" );
+		}
+	}
 } );
 
 // When the suite is done, remove the mu-plugin file.
