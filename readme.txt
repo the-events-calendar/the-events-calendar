@@ -255,6 +255,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
 
+* Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
+
 = [6.0.4] 2022-11-15 =
 
 * Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
