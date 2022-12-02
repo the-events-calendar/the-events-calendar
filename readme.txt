@@ -236,6 +236,9 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
 * Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
+* Tweak - Prevent unbound query for previous URL on list based views, improving performance.
+* Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
+* Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
 
 = [6.0.5] 2022-11-29 =
 
@@ -255,8 +258,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
 
-* Tweak - Prevent unbound query for previous URL on list based views, improving performance.
-* Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
 
 = [6.0.4] 2022-11-15 =
 
