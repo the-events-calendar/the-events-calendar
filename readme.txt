@@ -229,8 +229,17 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fix for a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
+* Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
+* Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
+* Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
+* Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
+
 = [6.0.5] 2022-11-29 =
 
+* Fix - Fix for scenarios where fatal `Call to a member function get() on null in... the-events-calendar/src/Tribe/Query.php(46)` would occur when `$wp_query` global was not set. [TEC-4566]
 * Fix - Add correct text domains to the Organizer block. [TEC-4466]
 * Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
 * Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]

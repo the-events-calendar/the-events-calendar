@@ -412,7 +412,17 @@ class Builder {
 			$SQL             = $wpdb->prepare( $SQL, ...$validated['values'] );
 			$this->queries[] = $SQL;
 			if ( $this->execute_queries ) {
-				$result += (int) $wpdb->query( $SQL );
+				$query_result = $wpdb->query( $SQL );
+				$result       += (int) $query_result;
+			}
+			// Log our errors.
+			if ( $query_result === false && $wpdb->last_error ) {
+				do_action( 'tribe_log',
+					'error',
+					"ORM Builder mysql error while performing insert on {$this->model->table_name()}.", [
+						'source'      => __METHOD__ . ':' . __LINE__,
+						'mysql error' => $wpdb->last_error,
+					] );
 			}
 		} while ( count( $data ) );
 
