@@ -493,7 +493,5 @@ class Default_Canonical_URL_Resolution_Cest {
 
 			$I->seeResponseIs( $site_url . '/' . ltrim( $expected, '/' ) );
 		}
-
-		// @todo test /events and /event slugs.
 	}
 }
