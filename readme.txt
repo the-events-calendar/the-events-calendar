@@ -231,9 +231,11 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Fix for a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
 * Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
 * Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
+* Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
 
 = [6.0.5] 2022-11-29 =
 
