@@ -40,6 +40,9 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 
 // When the suite is done, remove the mu-plugin file.
 addListener( Codeception\Events::SUITE_AFTER, static function ( SuiteEvent $e ) {
-	$fs = $e->getSuite()->getModules()['WPFilesystem'];
-	$fs->deleteFile( tec_canonical_url_mu_plugin_path( $fs ) );
+	$fs       = $e->getSuite()->getModules()['WPFilesystem'];
+	$pathname = tec_canonical_url_mu_plugin_path( $fs );
+	if ( file_exists( $pathname ) ) {
+		$fs->deleteFile( $pathname );
+	}
 } );
