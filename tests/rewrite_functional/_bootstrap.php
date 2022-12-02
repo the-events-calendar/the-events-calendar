@@ -6,7 +6,7 @@ use Codeception\Module\WPFilesystem;
 use function tad\WPBrowser\addListener;
 
 // This function will get around re-configuration or late configuration settings.
-function tec_canonical_url_mu_plugin_path( WPFilesystem $fs = null ): string {
+function tec_canonical_url_mu_plugin_path( WPFilesystem $fs ): string {
 	static $pathname;
 
 	if ( $pathname ) {
@@ -28,7 +28,7 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 	/** @var WPFilesystem $fs */
 	$fs = $container->get( WPFilesystem::class );
 
-	$code = file_get_contents( codecept_data_dir( 'plugins/tec-canonical-url-service.php' ) );
+	$code     = file_get_contents( codecept_data_dir( 'plugins/tec-canonical-url-service.php' ) );
 	$pathname = tec_canonical_url_mu_plugin_path( $fs );
 
 	if ( file_exists( $pathname ) ) {
@@ -41,5 +41,5 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 // When the suite is done, remove the mu-plugin file.
 addListener( Codeception\Events::SUITE_AFTER, static function ( SuiteEvent $e ) {
 	$fs = $e->getSuite()->getModules()['WPFilesystem'];
-	$fs->deleteFile( tec_canonical_url_mu_plugin_path() );
+	$fs->deleteFile( tec_canonical_url_mu_plugin_path( $fs ) );
 } );
