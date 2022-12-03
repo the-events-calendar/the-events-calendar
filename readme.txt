@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
 * Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
+* Fix - Prevent Serializable interface deprecated error in PHP 8.1 when migrating events. [ECP-1319]
 * Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
 * Tweak - Improve performance on the `tribe_events()` and on the Event Views by removing an unnecessary JOIN for hiding of specific upcoming events.
 
