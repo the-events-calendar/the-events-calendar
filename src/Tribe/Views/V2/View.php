@@ -2451,11 +2451,6 @@ class View implements View_Interface {
 			return;
 		}
 
-		// If no events found, do not show.
-		if ( 0 === tribe_events()->found() ) {
-			return;
-		}
-
 		$now    = $this->context->get( 'now', time() );
 		$latest = tribe_events_latest_date();
 
@@ -2513,6 +2508,11 @@ class View implements View_Interface {
 
 		// If threshold is less than upcoming events, do not show Recent Past Events.
 		if ( $latest_past_threshold < count( $events ) ) {
+			return;
+		}
+
+		// If no events found, do not show.
+		if ( 0 === tribe_events()->found() ) {
 			return;
 		}
 

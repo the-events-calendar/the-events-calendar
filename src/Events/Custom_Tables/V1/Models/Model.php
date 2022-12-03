@@ -545,24 +545,38 @@ abstract class Model implements Serializable {
 	 * If a model is cached, make sure only the important data is serialized, to reduce the amount of space that the
 	 * object uses when stored as a string.
 	 *
-	 * @since 6.0.0
+	 * @since TBD
+	 *
 	 * @return string The string representing the object.
 	 */
-	public function serialize() {
+	public function __serialize(): array {
 		$encode = wp_json_encode( $this->to_array() );
 
 		return is_string( $encode ) ? $encode : '';
 	}
 
 	/**
+	 * If a model is cached, make sure only the important data is serialized, to reduce the amount of space that the
+	 * object uses when stored as a string.
+	 *
+	 * @since 6.0.0
+	 * @since TBD - Utilize magic method for 8.1 support.
+	 *
+	 * @return string The string representing the object.
+	 */
+	public function serialize(): string {
+		return serialize( $this->__serialize() );
+	}
+
+	/**
 	 * If this object is constructed out of a `unserialize` call make sure the properties are set up correctly on the
 	 * object.
 	 *
-	 * @since 6.0.0
+	 * @since TBD
 	 *
 	 * @param  string  $serialized
 	 */
-	public function unserialize( $serialized ) {
+	public function __unserialize(array $serialized): void {
 		$data = json_decode( $serialized, true );
 
 		if ( ! is_array( $data ) ) {
@@ -572,6 +586,19 @@ abstract class Model implements Serializable {
 		foreach ( $data as $column => $value ) {
 			$this->{$column} = $value;
 		}
+	}
+
+	/**
+	 * If this object is constructed out of a `unserialize` call make sure the properties are set up correctly on the
+	 * object.
+	 *
+	 * @since 6.0.0
+	 * @since TBD - Utilize magic method for 8.1 support.
+	 *
+	 * @param  string  $serialized
+	 */
+	public function unserialize( $serialized ) {
+		$this->__unserialize( unserialize( $serialized ) );
 	}
 
 	/**

@@ -2,8 +2,8 @@
 /**
  * The List View.
  *
+ * @since   4.9.2
  * @package Tribe\Events\Views\V2\Views
- * @since 4.9.2
  */
 
 namespace Tribe\Events\Views\V2\Views;
@@ -19,6 +19,7 @@ use Tribe__Utils__Array as Arr;
 
 class List_View extends View {
 	use List_Behavior;
+
 	/**
 	 * Slug for this view
 	 *
@@ -78,7 +79,7 @@ class List_View extends View {
 
 		if ( 'past' === $display ) {
 			$url = parent::next_url( $canonical, [ Utils\View::get_past_event_display_key() => 'past' ] );
-		} else if ( $current_page > 1 ) {
+		} elseif ( $current_page > 1 ) {
 			$url = parent::prev_url( $canonical );
 		} else {
 			$url = $this->get_past_url( $canonical );
@@ -125,7 +126,7 @@ class List_View extends View {
 	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
-	 * @param int  $page The page to return the URL for.
+	 * @param int  $page      The page to return the URL for.
 	 *
 	 * @return string The URL to the past URL page, if available, or an empty string.
 	 */
@@ -140,6 +141,7 @@ class List_View extends View {
 		] ) ) );
 
 		$past->order_by( '__none' );
+		$past->per_page( 1 );
 
 		if ( $past->count() > 0 ) {
 			$event_display_key = Utils\View::get_past_event_display_key();
@@ -192,7 +194,7 @@ class List_View extends View {
 	 * @since 4.9.3
 	 *
 	 * @param bool $canonical Whether to return the canonical version of the URL or the normal one.
-	 * @param int  $page The page to return the URL for.
+	 * @param int  $page      The page to return the URL for.
 	 *
 	 * @return string The URL to the upcoming URL page, if available, or an empty string.
 	 */
@@ -200,7 +202,7 @@ class List_View extends View {
 		$default_date   = 'now';
 		$date           = $this->context->get( 'event_date', $default_date );
 		$event_date_var = $default_date === $date ? '' : $date;
-		$url = '';
+		$url            = '';
 
 		$upcoming = tribe_events()->by_args( $this->setup_repository_args( $this->context->alter( [
 			'eventDisplay' => $this->slug,
@@ -255,7 +257,7 @@ class List_View extends View {
 
 		$context_arr = $context->to_array();
 
-		$date = Arr::get( $context_arr, 'event_date', 'now' );
+		$date          = Arr::get( $context_arr, 'event_date', 'now' );
 		$event_display = Arr::get( $context_arr, 'event_display_mode', Arr::get( $context_arr, 'event_display' ), 'current' );
 
 		if ( 'past' !== $event_display ) {

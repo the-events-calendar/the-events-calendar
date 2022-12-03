@@ -1781,14 +1781,19 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_hidden_on_upcoming( $hidden ) {
 		$hidden = tribe_is_truthy( $hidden );
+		$hidden_posts = tribe( \Tribe\Events\Views\V2\Query\Hide_From_Upcoming_Controller::class )->get_hidden_post_ids();
 
 		if ( $hidden ) {
-			$this->by( 'meta_equals', '_EventHideFromUpcoming', 'yes' );
-
-			return;
+			if ( isset( $this->query_args['post__in'] ) ) {
+				$hidden_posts = array_merge( (array) $this->query_args['post__in'], $hidden_posts );
+			}
+			$this->in( $hidden_posts );
+		} else {
+			if ( isset( $this->query_args['post__not_in'] ) ) {
+				$hidden_posts = array_merge( (array) $this->query_args['post__not_in'], $hidden_posts );
+			}
+			$this->not_in( $hidden_posts );
 		}
-
-		$this->by( 'meta_not_exists', '_EventHideFromUpcoming' );
 	}
 
 	/**
