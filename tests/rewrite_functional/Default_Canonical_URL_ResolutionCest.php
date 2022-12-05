@@ -424,6 +424,9 @@ class Default_Canonical_URL_Resolution_Cest {
 		$I->assertEquals( [ 'it_IT' ], $I->grabUserMetaFromDatabase( $admin_it_id, 'locale' ) );
 		// Canonical URL resolution will require some categories and tags to be present to work correctly.
 		$this->given_some_event_categories_and_tags( $I );
+		// The `events` and `event` slug are translated by the user using the options.
+		$I->update_plugin_option( 'eventsSlug', 'classes' );
+		$I->update_plugin_option( 'singleEventSlug', 'class' );
 		// Regenerate the rewrite rules to start from the correct state.
 		$I->loginAsAdmin();
 		$I->amOnAdminPage( '/options-permalink.php' );
@@ -431,9 +434,6 @@ class Default_Canonical_URL_Resolution_Cest {
 		// Log-in as the it_IT admin to make sure any `current_user_can` check will pass.
 		$I->loginAs( 'admin_it', 'admin_it' );
 		$site_url = $I->grabSiteUrl();
-		// The `events` and `event` slug are translated by the user using the options.
-		$I->update_plugin_option( 'eventsSlug', 'classes' );
-		$I->update_plugin_option( 'singleEventSlug', 'class' );
 
 		// The resolution en_US should not change because the user has an it_IT locale, but should ue the custom slugs.
 		$eng_expected_canonical_url_mapping = str_replace(
