@@ -46,6 +46,31 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 			throw new \RuntimeException( "Could not copy {$translation_file} to {$destination}" );
 		}
 	}
+
+	// Make sure the WordPress Core and free plugin translations are not there to start from known state.
+	$wp_root = getenv( 'WP_ROOT_FOLDER' );
+	foreach ( [ 'it_IT' ] as $language ) {
+		foreach ( glob( $wp_root . "/wp-content/languages/*$language.mo" ) as $file ) {
+			if ( is_file( $file ) && ! unlink( $file ) ) {
+				throw new \RuntimeException( "Could not delete WordPress translation file {$file}" );
+			}
+		}
+		foreach ( glob( $wp_root . "/wp-content/languages/$language*.json" ) as $file ) {
+			if ( is_file( $file ) && ! unlink( $file ) ) {
+				throw new \RuntimeException( "Could not delete WordPress translation file {$file}" );
+			}
+		}
+		foreach ( glob( $wp_root . "/wp-content/languages/plugins/*$language.mo" ) as $file ) {
+			if ( is_file( $file ) && ! unlink( $file ) ) {
+				throw new \RuntimeException( "Could not delete WordPress translation file {$file}" );
+			}
+		}
+		foreach ( glob( $wp_root . "/wp-content/languages/plugins/$language*.json" ) as $file ) {
+			if ( is_file( $file ) && ! unlink( $file ) ) {
+				throw new \RuntimeException( "Could not delete WordPress translation file {$file}" );
+			}
+		}
+	}
 } );
 
 // When the suite is done, remove the plugin file.
