@@ -19,7 +19,7 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 	$placed = true;
 
 	$plugin_source_pathname = codecept_data_dir( 'plugins/tec-canonical-url-service.php' );
-	$plugin_dest_pathname   = dirname( __DIR__, 4 ) . '/plugins/tec-canonical-url-service.php';
+	$plugin_dest_pathname   = dirname( __DIR__, 3 ) . '/tec-canonical-url-service.php';
 
 	if ( file_exists( $plugin_dest_pathname ) && ! unlink( $plugin_dest_pathname ) ) {
 		throw new RuntimeException( "Could not remove file $plugin_dest_pathname." );
@@ -50,9 +50,8 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 
 // When the suite is done, remove the mu-plugin file.
 addListener( Codeception\Events::SUITE_AFTER, static function ( SuiteEvent $e ) {
-	$fs                   = $e->getSuite()->getModules()['WPFilesystem'];
 	$plugin_dest_pathname = dirname( __DIR__, 4 ) . '/plugins/tec-canonical-url-service.php';
-	if ( file_exists( $plugin_dest_pathname ) ) {
-		$fs->deleteFile( $plugin_dest_pathname );
+	if ( file_exists( $plugin_dest_pathname ) && ! unlink( $plugin_dest_pathname ) ) {
+		throw new RuntimeException( "Could not remove file $plugin_dest_pathname." );
 	}
 } );
