@@ -12,7 +12,6 @@ namespace Tribe\Events\Views\V2\iCalendar;
 use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 use Tribe__Events__iCal as iCal;
-use Tribe__Events__Main as Main;
 
 /**
  * Class Request
