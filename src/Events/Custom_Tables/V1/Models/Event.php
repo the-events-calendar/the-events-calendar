@@ -9,9 +9,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\Models;
 
-use DateTime;
-use DateTimeZone;
-use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\End_Date_Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Integer_Key_Formatter;

@@ -44,8 +44,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function register() {
-		$this->container->singleton( Event_Query_Controller::class, Event_Query_Controller::class );
-
 		$this->add_actions();
 		$this->add_filters();
 	}
