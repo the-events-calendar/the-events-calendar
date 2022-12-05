@@ -340,8 +340,10 @@ class Default_Canonical_URL_Resolution_Cest {
 		$I->assertEquals( [ '' ], $I->grabUserMetaFromDatabase( 1, 'locale' ) );
 		// Canonical URL resolution will require some categories and tags to be present to work correctly.
 		$this->given_some_event_categories_and_tags( $I );
-		// Log-in as admin to make sure any `current_user_can` check will pass.
+		// Regenerate the rewrite rules to start from the correct state.
 		$I->loginAsAdmin();
+		$I->amOnAdminPage( '/options-permalink.php' );
+		$I->click( '#submit' );
 		$site_url = $I->grabSiteUrl();
 
 		foreach ( self::$eng_expected_canonical_url_mapping as $input => $expected ) {
@@ -371,6 +373,10 @@ class Default_Canonical_URL_Resolution_Cest {
 		$I->assertEquals( [ 'it_IT' ], $I->grabUserMetaFromDatabase( $admin_it_id, 'locale' ) );
 		// Canonical URL resolution will require some categories and tags to be present to work correctly.
 		$this->given_some_event_categories_and_tags( $I );
+		// Regenerate the rewrite rules to start from the correct state.
+		$I->loginAsAdmin();
+		$I->amOnAdminPage( '/options-permalink.php' );
+		$I->click( '#submit' );
 		// Log-in as the it_IT admin to make sure any `current_user_can` check will pass.
 		$I->loginAs( 'admin_it', 'admin_it' );
 		$site_url = $I->grabSiteUrl();
@@ -418,6 +424,10 @@ class Default_Canonical_URL_Resolution_Cest {
 		$I->assertEquals( [ 'it_IT' ], $I->grabUserMetaFromDatabase( $admin_it_id, 'locale' ) );
 		// Canonical URL resolution will require some categories and tags to be present to work correctly.
 		$this->given_some_event_categories_and_tags( $I );
+		// Regenerate the rewrite rules to start from the correct state.
+		$I->loginAsAdmin();
+		$I->amOnAdminPage( '/options-permalink.php' );
+		$I->click( '#submit' );
 		// Log-in as the it_IT admin to make sure any `current_user_can` check will pass.
 		$I->loginAs( 'admin_it', 'admin_it' );
 		$site_url = $I->grabSiteUrl();
