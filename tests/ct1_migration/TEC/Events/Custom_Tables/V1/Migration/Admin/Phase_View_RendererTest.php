@@ -115,6 +115,24 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
+	 * Tests loading with invalid template.
+	 *
+	 * @test
+	 */
+	public function should_render_gracefully_with_no_template() {
+		// Setup templates.
+		$phase = State::PHASE_MIGRATION_PROMPT;
+
+		$renderer = new Phase_View_Renderer( $phase, 'faux-template', [] );
+		$output   = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertIsArray( $output );
+		$this->assertEmpty( $output['nodes'] );
+		$this->assertMatchesSnapshot( $output['html'] );
+	}
+
+	/**
 	 * Should render migration page properly (with migration button etc) when in a convoluted state.
 	 *
 	 * @test
