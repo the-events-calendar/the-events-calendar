@@ -72,7 +72,6 @@ class Request {
 			$event_ids = $view->get_ical_ids( $this->ical->feed_posts_per_page() );
 		} else {
 			$event_ids = [ $this->context->get( 'post_id' ) ];
-
 		}
 
 		return $event_ids;
