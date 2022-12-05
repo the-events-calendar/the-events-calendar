@@ -36,14 +36,16 @@ addListener( Codeception\Events::TEST_BEFORE, static function ( TestEvent $e ) {
 	/** @var WPFilesystem $fs */
 	$fs = $container->get( WPFilesystem::class );
 
-	$code     = file_get_contents( codecept_data_dir( 'plugins/tec-canonical-url-service.php' ) );
-	$pathname = tec_canonical_url_mu_plugin_path( $fs );
+	$plugin_source_pathname = codecept_data_dir( 'plugins/tec-canonical-url-service.php' );
+	$plugin_dest_pathname   = tec_canonical_url_mu_plugin_path( $fs );
 
-	if ( file_exists( $pathname ) ) {
-		$fs->deleteFile( $pathname );
+	if ( file_exists( $plugin_dest_pathname ) && ! unlink( $plugin_dest_pathname ) ) {
+		throw new RuntimeException( "Could not remove file $plugin_dest_pathname." );
 	}
 
-	$fs->writeToFile( $pathname, $code );
+	if ( ! copy( $plugin_source_pathname, $plugin_dest_pathname ) ) {
+		throw new \RuntimeException( "Could not copy $plugin_source_pathname to $plugin_dest_pathname" );
+	}
 
 	// Place the translations files before the tests.
 	$fs_iterator_flags = FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS | FilesystemIterator::CURRENT_AS_PATHNAME;
