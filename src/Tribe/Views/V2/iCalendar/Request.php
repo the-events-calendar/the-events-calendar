@@ -67,7 +67,7 @@ class Request {
 	public function get_event_ids() {
 		$view_slug = $this->context->get( 'view', 'default' );
 
-		if ( 'single-event' !== $view_slug && ! is_singular( Main::POSTTYPE ) ) {
+		if ( 'single-event' !== $view_slug ) {
 			$view      = View::make( $view_slug, $this->context );
 			$event_ids = $view->get_ical_ids( $this->ical->feed_posts_per_page() );
 		} else {
