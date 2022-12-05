@@ -69,7 +69,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
 						Tribe__Context::FUNC             => [
 							static function () {
-								if ( 1 === (int) get_query_var( 'ical', 0 ) && is_singular( TEC::POSTTYPE) ) {
+								if ( 1 === (int) tribe_get_request_var( 'ical', 0 ) && is_singular( TEC::POSTTYPE) ) {
 									return 'single-event';
 								}
 
