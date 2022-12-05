@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\iCalendar;
 use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 use Tribe__Events__iCal as iCal;
+use Tribe__Events__Main as Main;
 
 /**
  * Class Request
@@ -66,13 +67,13 @@ class Request {
 	public function get_event_ids() {
 		$view_slug = $this->context->get( 'view', 'default' );
 
-		if ( 'single-event' !== $view_slug ) {
+		if ( 'single-event' !== $view_slug && ! is_singular( Main::POSTTYPE ) ) {
 			$view      = View::make( $view_slug, $this->context );
 			$event_ids = $view->get_ical_ids( $this->ical->feed_posts_per_page() );
 		} else {
 			$event_ids = [ $this->context->get( 'post_id' ) ];
-		}
 
+		}
 
 		return $event_ids;
 	}
