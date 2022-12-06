@@ -73,7 +73,6 @@ class Request {
 			$event_ids = [ $this->context->get( 'post_id' ) ];
 		}
 
-
 		return $event_ids;
 	}
 }
