@@ -212,15 +212,25 @@ class Phase_View_Renderer {
 	 * @return false|string|\WP_Error
 	 */
 	protected function get_template_html( $template, $vars = [] ) {
-		$file_path = $this->template_directory . $template;
-		if ( ! file_exists( $file_path ) ) {
-			return new \WP_Error( 'tec-ct1-migration-phase-non-existent-template', null, [ 'template' => $template, 'phase_renderer' => $this ] );
+		$get_template_html_file_path = $this->template_directory . $template;
+		extract( $vars, EXTR_OVERWRITE );
+		if ( ! file_exists( $get_template_html_file_path ) ) {
+			do_action( 'tribe_log',
+				'error',
+				'Error locating template file.', [
+					'source'    => __METHOD__ . ':' . __LINE__,
+					'file_path' => $get_template_html_file_path,
+					'template'  => $template
+				] );
+
+			return new \WP_Error( 'tec-ct1-migration-phase-non-existent-template',
+				null,
+				[ 'template' => $template, 'phase_renderer' => $this ]
+			);
 		}
 
-		extract( $vars, EXTR_OVERWRITE );
 		ob_start();
-		include $file_path;
-
+		include $get_template_html_file_path;
 		return ob_get_clean();
 	}
 

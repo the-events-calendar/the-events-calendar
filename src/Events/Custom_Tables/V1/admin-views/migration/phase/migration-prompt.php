@@ -13,8 +13,8 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 
 
 $alert_classes = [
-	'tec-ct1-upgrade__alert' => true,
-	'tec-ct1-upgrade__alert--error' => (bool) $report->has_errors,
+		'tec-ct1-upgrade__alert'        => true,
+		'tec-ct1-upgrade__alert--error' => (bool) $report->has_errors,
 ];
 ?>
 <div class="tec-ct1-upgrade__row">
@@ -40,23 +40,12 @@ $alert_classes = [
 			<i class="tec-ct1-upgrade__alert-icon">i</i>
 			<span>
 			<?php
-			if ( $report->has_errors ) {
-				echo esc_html( $text->get( 'migration-is-blocked' ) );
-			} else {
-				if ( $preview_unsupported ) {
-					echo sprintf(
-							esc_html( $text->get( 'preview-unsupported' ) ),
-							'<strong>',
-							'</strong>'
-					);
-				} else {
-					echo sprintf(
-							esc_html( $text->get( 'preview-estimate' ) ),
-							'<strong>',
-							'</strong>',
-							$report->estimated_time_in_minutes
-					);
-				}
+			if ( $preview_unsupported ) {
+				echo sprintf(
+						esc_html( $text->get( 'preview-unsupported' ) ),
+						'<strong>',
+						'</strong>'
+				);
 				$addendum = $text->get( 'migration-prompt-plugin-state-addendum' );
 				if ( $addendum ) {
 					?>
@@ -64,7 +53,29 @@ $alert_classes = [
 					<?php
 				}
 				?>
-				<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank" rel="noopener">
+				<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank"
+				   rel="noopener">
+					<?php echo esc_html( $text->get( 'learn-more-button' ) ); ?>.
+				</a>
+				<?php
+			} else if ( $report->has_errors ) {
+				echo esc_html( $text->get( 'migration-is-blocked' ) );
+			} else {
+				echo sprintf(
+						esc_html( $text->get( 'preview-estimate' ) ),
+						'<strong>',
+						'</strong>',
+						$report->estimated_time_in_minutes
+				);
+				$addendum = $text->get( 'migration-prompt-plugin-state-addendum' );
+				if ( $addendum ) {
+					?>
+					<strong><?php echo esc_html( $addendum ); ?></strong>
+					<?php
+				}
+				?>
+				<a href="<?php echo esc_url( $text->get( 'learn-more-button-url' ) ); ?>" target="_blank"
+				   rel="noopener">
 					<?php echo esc_html( $text->get( 'learn-more-button' ) ); ?>.
 				</a>
 				<?php
@@ -105,7 +116,7 @@ if ( ! $preview_unsupported ) {
 <div class="tec-ct1-upgrade__row tec-ct1-action-container">
 	<div class="content-container">
 		<?php
-		if ( ! $report->has_errors ) {
+		if ( ! $report->has_errors || $preview_unsupported ) {
 			?>
 			<button class="tec-ct1-upgrade-start-migration"
 					type="button"><?php echo esc_html( $text->get( 'start-migration-button' ) ); ?></button>
