@@ -67,6 +67,15 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
 						Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
 						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
+						Tribe__Context::FUNC             => [
+							static function () {
+								if ( 1 === (int) tribe_get_request_var( 'ical', 0 ) && is_singular( TEC::POSTTYPE ) ) {
+									return 'single-event';
+								}
+
+								return Tribe__Context::NOT_FOUND;
+							}
+						],
 						Tribe__Context::TRIBE_OPTION     => 'viewOption',
 					],
 					'write' => [
