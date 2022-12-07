@@ -547,12 +547,10 @@ abstract class Model implements Serializable {
 	 *
 	 * @since TBD
 	 *
-	 * @return string The string representing the object.
+	 * @return array The array representation of the object.
 	 */
 	public function __serialize(): array {
-		$encode = wp_json_encode( $this->to_array() );
-
-		return is_string( $encode ) ? $encode : '';
+		return $this->to_array();
 	}
 
 	/**
@@ -574,16 +572,10 @@ abstract class Model implements Serializable {
 	 *
 	 * @since TBD
 	 *
-	 * @param  string  $serialized
+	 * @param  array  $serialized The array representation of the object.
 	 */
 	public function __unserialize(array $serialized): void {
-		$data = json_decode( $serialized, true );
-
-		if ( ! is_array( $data ) ) {
-			return;
-		}
-
-		foreach ( $data as $column => $value ) {
+		foreach ( $serialized as $column => $value ) {
 			$this->{$column} = $value;
 		}
 	}
