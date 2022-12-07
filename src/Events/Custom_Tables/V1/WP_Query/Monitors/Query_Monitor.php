@@ -208,10 +208,10 @@ trait Query_Monitor {
 	/**
 	 * Return the number of Queries to which at least one modifier is attached.
 	 *
-	 * @since 6.0.0
-	 *
+	 * @since 6.0.0 *
 	 * @return int The number of modifier instances.
 	 */
+	#[\ReturnTypeWillChange]
 	public function count() {
 		return $this->modifiers->count();
 	}
