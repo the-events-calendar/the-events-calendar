@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
+use Spatie\Snapshots\MatchesSnapshots;
 use TEC\Events\Custom_Tables\V1\Migration\Ajax;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
@@ -11,8 +12,20 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
 class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
-
+	use MatchesSnapshots;
 	use CT1_Fixtures;
+
+	public function setUp() {
+		parent::setUp();
+		global $wpdb;
+		// clear our post state
+		$keys = [ Event_Report::META_KEY_REPORT_DATA ];
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key IN('" . implode( "','", $keys ) . "')" );
+		// clear our migration state
+		update_option( State::STATE_OPTION_KEY, [] );
+		tribe()->offsetUnset( Ajax::class );
+		tribe()->offsetUnset( State::class );
+	}
 
 	/**
 	 * Should find and structure the templates with their metadata.
@@ -98,6 +111,64 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$this->assertContains( $text->get( 'preview-in-progress' ), $output['html'] );
 		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
 		$this->assertContains( 'tribe-update-bar__summary-progress-text', $node['html'] );
+
+	}
+
+	/**
+	 * Tests loading with invalid template.
+	 *
+	 * @test
+	 */
+	public function should_render_gracefully_with_no_template() {
+		// Setup templates.
+		$phase = State::PHASE_MIGRATION_PROMPT;
+
+		$renderer = new Phase_View_Renderer( $phase, 'faux-template', [] );
+		$output   = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertIsArray( $output );
+		$this->assertEmpty( $output['nodes'] );
+		$this->assertMatchesSnapshot( $output['html'] );
+	}
+
+	/**
+	 * Should render migration page properly (with migration button etc) when in a convoluted state.
+	 *
+	 * @test
+	 */
+	public function should_render_migration_prompt_with_error_no_preview_ok() {
+		// Setup some faux state
+		$faux_post1 = tribe_events()->set_args( [
+			'title'      => "Event " . rand( 1, 999 ),
+			'start_date' => date( 'Y-m-d H:i:s' ),
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+
+		$event_report = ( new Event_Report( $faux_post1 ) )
+			->start_event_migration()
+			->set_tickets_provider( 'woocommerce' )
+			->set( 'is_single', true )
+			->add_strategy( 'split' );
+		$event_report->migration_failed( 'Failure' );
+
+		// Setup templates.
+		$phase = State::PHASE_MIGRATION_PROMPT;
+		$time  = time();
+		$text  = tribe( String_Dictionary::class );
+		$state = tribe( State::class );
+		$state->set( 'preview_unsupported', true );
+		$state->set( 'complete_timestamp', $time );
+		$state->save();
+		$ajax     = tribe( Ajax::class );
+		$renderer = $ajax->get_renderer_for_phase( $phase );
+		$output   = $renderer->compile();
+
+		// Check for expected compiled values.
+		$this->assertNotEmpty( $output );
+		$this->assertEmpty( $output['nodes'] );
+		$this->assertMatchesSnapshot( $output['html'] );
 	}
 
 	/**
@@ -419,12 +490,14 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Setup
 		$category = 'faux-category';
 		$this->given_number_single_event_reports( $total, $upcoming, $category, false );
-		$phase       = State::PHASE_MIGRATION_PROMPT;
+		$phase = State::PHASE_MIGRATION_PROMPT;
+
+
+		$state = tribe( State::class );
+		$state->set( 'phase', $phase );
+		$state->save();
 		$site_report = Site_Report::build();
 		$ajax        = tribe( Ajax::class );
-		$state = tribe(State::class);
-		$state->set('phase', $phase);
-		$state->save();
 
 		$primary_filter = [
 			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,

@@ -655,7 +655,11 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			return $query_vars;
 		}
 
-		parse_str( parse_url( $url, PHP_URL_QUERY ), $url_query_vars );
+		$query_string   = parse_url( $url, PHP_URL_QUERY );
+		$url_query_vars = [];
+		if ( ! empty( $query_string ) ) {
+			parse_str( $query_string, $url_query_vars );
+		}
 
 		if (
 			! isset( $query_vars['eventDisplay'], $url_query_vars['eventDisplay'] )
