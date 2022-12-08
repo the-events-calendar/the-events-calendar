@@ -550,10 +550,9 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		// If possible add a `localized_slug` entry to each localized matcher to support multi-language.
 		array_walk(
 			$localized_matchers,
-			function ( array &$localized_matcher ) {
-				if ( isset( $localized_matcher['base'], $this->localized_bases[ $localized_matcher['base'] ] ) ) {
-					$localized_matcher['localized_slug'] = $this->localized_bases[ $localized_matcher['base'] ];
-				}
+			static function ( array &$localized_matcher ) {
+				// The localized version of the slug will be the last one.
+				$localized_matcher['localized_slug'] = end( $localized_matcher['localized_slugs'] ) ?? $localized_matcher['en_slug'];
 			}
 		);
 
@@ -732,82 +731,5 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		];
 
 		return $entry;
-	}
-
-	/**
-	 * Returns the map of localized bases for the specified text domains.
-	 *
-	 * The bases are the ones used to build the permalinks, the domains are those of the currently activated plugins
-	 * that include a localized rewrite component.
-	 *
-	 * @since 5.1.1
-	 *
-	 * @param array<string> $bases   The bases to set up the locale translation for.
-	 * @param array<string> $domains A list of text domains belonging to the plugins currently active that handle and
-	 *                               provide support for a localized rewrite component.
-	 *
-	 * @return array<string,string> A map relating the bases in their English, lowercase form to their current locale
-	 *                              translated form.
-	 */
-	public function get_localized_bases( array $bases, array $domains ) {
-		$locale             = get_locale();
-		$cache_key          = __METHOD__ . md5( serialize( array_merge( $bases, $domains, [ $locale ] ) ) );
-		$expiration_trigger = Cache_Listener::TRIGGER_GENERATE_REWRITE_RULES;
-
-		$cached = tribe_cache()->get( $cache_key, $expiration_trigger, false );
-
-		if ( false !== $cached ) {
-			return $cached;
-		}
-
-		$flags           = I18n::COMPILE_STRTOLOWER;
-		$localized_bases = tribe( 'tec.i18n' )
-			->get_i18n_url_strings_for_domains( $bases, [ $locale ], $domains, $flags );
-
-		$return = array_filter(
-			array_map(
-				static function ( $locale_base ) {
-					return is_array( $locale_base ) ? end( $locale_base ) : false;
-				},
-				$localized_bases
-			)
-		);
-
-		tribe_cache()->set( $cache_key, $return, DAY_IN_SECONDS, $expiration_trigger );
-
-		return $return;
-	}
-
-	/**
-	 * Enrich the bases adding the localized ones.
-	 *
-	 * Note: the method is not conditioned by the current locale (e.g. do not do this if current locale is en_US) to
-	 * avoid issues with translation plugins that might filter the locale dynamically.
-	 *
-	 * @since 5.1.5
-	 *
-	 * @param array<array<string>> $bases The input bases, in the format `[<base> => [<version_1>, <version_2>, ...]]`.
-	 *
-	 * @return array<array<string>> The input bases modified to include the localized version of the bases.
-	 *                              The format is the same as the input: `[<base> => [<version_1>, <version_2>, ...]]`.
-	 */
-	protected function merge_localized_bases( array $bases = [] ) {
-		foreach ( $bases as $base_slug => $bases_list ) {
-			if ( isset( $this->localized_bases[ $base_slug ] ) ) {
-				// Deal with 1 or more bases in string or array form.
-				$localized_bases = (array) $this->localized_bases[ $base_slug ];
-				$localized_base  = reset( $localized_bases );
-				$transliterated  = preg_replace( '/[^A-Za-z0-9]/', '', convert_chars( urldecode( $localized_base ) ) );
-				$match           = array_search( $transliterated, $bases[ $base_slug ], true );
-				if ( false === $match ) {
-					$bases[ $base_slug ][] = $localized_base;
-				} else {
-					$bases[ $base_slug ][ $match ] = $localized_base;
-				}
-				$bases[ $base_slug ]   = array_unique( $bases[ $base_slug ] );
-			}
-		}
-
-		return $bases;
 	}
 }
