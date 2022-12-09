@@ -92,7 +92,7 @@ class View_Register {
 		add_filter( 'tribe_events_views', [ $this, 'filter_events_views' ] );
 		add_filter( 'tribe-events-bar-views', [ $this, 'filter_tec_bar_views' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_base_slugs', [ $this, 'filter_add_base_slugs' ], $this->priority );
-		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_add_matchers_to_query_vars_map' ], $this->priority, 2 );
+		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_add_matchers_to_query_vars_map' ], $this->priority, 1 );
 	}
 
 	/**
@@ -156,13 +156,15 @@ class View_Register {
 	 *
 	 * @since 5.7.0
 	 * @since 5.10.0 Using the decoupled route slug.
+	 * @since TBD Use the en_US slug as matcher key.
 	 *
-	 * @param array $bases Bases that are already set.
+	 * @param array<string,string> $matchers A map from the matcher name to the query var name.
 	 *
-	 * @return array         The modified version of the array of bases.
+	 * @return array<string,string>         The modified version of the array of bases.
 	 */
-	public function filter_add_matchers_to_query_vars_map( $matchers = [], $rewrite = null ) {
-		$matchers[ $this->route_slug ] = 'eventDisplay';
+	public function filter_add_matchers_to_query_vars_map( array $matchers = [] ) {
+		// Use the en_US slug as the matcher key, the rewrite resolution is based on en_US keys.
+		$matchers[ $this->slug ] = 'eventDisplay';
 
 		return $matchers;
 	}
