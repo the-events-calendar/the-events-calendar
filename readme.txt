@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent Serializable interface deprecated error in PHP 8.1 when migrating events. [ECP-1319]
 * Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
 * Fix - Ensure that when we hit a single-event ical endpoint we get a the correct single event. [TEC-4469]
+* Fix - Avoid PHP fatal error on PHP 8.0+ in some settings' pages when setting the front page to the Main Events Page. [BTRIA-1545]
 * Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
 * Tweak - Prevent unbound query for previous URL on list based views, improving performance.
 * Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
