@@ -231,12 +231,15 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Fixed for the migration state in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
 * Fix - Fix for a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
 * Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
 * Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
 * Fix - Prevent Serializable interface deprecated error in PHP 8.1 when migrating events. [ECP-1319]
 * Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
+* Fix - Ensure that when we hit a single-event ical endpoint we get a the correct single event. [TEC-4469]
+* Fix - Avoid PHP fatal error on PHP 8.0+ in some settings' pages when setting the front page to the Main Events Page. [BTRIA-1545]
 * Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
 * Tweak - Prevent unbound query for previous URL on list based views, improving performance.
 * Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
