@@ -212,6 +212,10 @@ class View_Register {
 	public function add_canonical_tags() {
 		$url = '';
 
+		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
+			return;
+		}
+
 		// Don't add canonical element to the single events page.
 		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 			return;
