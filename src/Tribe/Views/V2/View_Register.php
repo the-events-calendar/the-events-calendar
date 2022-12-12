@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Main;
+
 /**
  * Class View_Register
  *
@@ -93,6 +95,7 @@ class View_Register {
 		add_filter( 'tribe-events-bar-views', [ $this, 'filter_tec_bar_views' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_base_slugs', [ $this, 'filter_add_base_slugs' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_add_matchers_to_query_vars_map' ], $this->priority, 2 );
+		add_action( 'wp_head', [ $this, 'add_canonical_tags' ] );
 	}
 
 	/**
@@ -197,5 +200,23 @@ class View_Register {
 		];
 
 		return $views;
+	}
+
+	/**
+	 * Add caninical element to calendar views.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string $url The canonical URL
+	 */
+	public function add_canonical_tags() {
+		$url = '';
+
+		// Don't add canonical element to the single events page.
+		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+			return;
+		}
+
+		echo "\n<link rel='canonical' href='" . esc_url( $url ) . "' />\n";
 	}
 }
