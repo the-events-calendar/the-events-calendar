@@ -52,6 +52,7 @@ class Events {
 		$batch_uid = uniqid( 'tec_ct1_action', true ); // Should be pretty unique.
 
 		// Let's avoid table locks in the following query, this could have Deadlock side effects.
+		// @see https://dev.mysql.com/doc/refman/5.7/en/set-transaction.html to know what this is doing.
 		$wpdb->query("SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED");
 
 		// Atomic query.
