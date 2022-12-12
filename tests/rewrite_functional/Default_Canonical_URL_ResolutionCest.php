@@ -346,6 +346,19 @@ class Default_Canonical_URL_Resolution_Cest {
 		$I->click( '#submit' );
 		$site_url = $I->grabSiteUrl();
 
+		// Check the Views Selector is showing the correct URLs for the Views.
+		$I->amOnPage( '/events/' );
+		foreach (
+			[
+				'list'    => $site_url . '/events/list/',
+				'month'   => $site_url . '/events/month/',
+				'day'     => $site_url . '/events/today/',
+			] as $view_slug => $expected_url
+		) {
+			$selector = "#tribe-events-view-selector-content > ul > li.tribe-events-c-view-selector__list-item.tribe-events-c-view-selector__list-item--$view_slug > a";
+			$I->seeElement( $selector, [ 'href' => $expected_url ] );
+		}
+
 		foreach ( self::$eng_expected_canonical_url_mapping as $input => $expected ) {
 			// Endpoint provided by the plugin put in place in the bootstrap.php file.
 			$I->sendAjaxPostRequest( '/wp-json/tec-canonical/url', [
@@ -381,6 +394,19 @@ class Default_Canonical_URL_Resolution_Cest {
 		$I->loginAs( 'admin_it', 'admin_it' );
 		$site_url = $I->grabSiteUrl();
 
+		// Check the Views Selector is showing the correct URLs for the Views.
+		$I->amOnPage( '/events/' );
+		foreach (
+			[
+				'list'    => $site_url . '/events/list/',
+				'month'   => $site_url . '/events/month/',
+				'day'     => $site_url . '/events/today/',
+			] as $view_slug => $expected_url
+		) {
+			$selector = "#tribe-events-view-selector-content > ul > li.tribe-events-c-view-selector__list-item.tribe-events-c-view-selector__list-item--$view_slug > a";
+			$I->seeElement( $selector, [ 'href' => $expected_url ] );
+		}
+
 		// The resolution en_US should not change because the user has an it_IT locale.
 		foreach ( self::$eng_expected_canonical_url_mapping as $input => $expected ) {
 			// Endpoint provided by the plugin put in place in the bootstrap.php file.
@@ -394,6 +420,19 @@ class Default_Canonical_URL_Resolution_Cest {
 		// Now have the it_IT admin regenerate rewrite rules.
 		$I->amOnAdminPage( '/options-permalink.php' );
 		$I->click( '#submit' );
+
+		// Check the Views Selector is showing the correct URLs for the Views.
+		$I->amOnPage( '/events/' );
+		foreach (
+			[
+				'list'    => $site_url . '/events/list/',
+				'month'   => $site_url . '/events/month/',
+				'day'     => $site_url . '/events/today/',
+			] as $view_slug => $expected_url
+		) {
+			$selector = "#tribe-events-view-selector-content > ul > li.tribe-events-c-view-selector__list-item.tribe-events-c-view-selector__list-item--$view_slug > a";
+			$I->seeElement( $selector, [ 'href' => $expected_url ] );
+		}
 
 		// Test the resolution of the it_IT admin again.
 		// The resolution en_US should not change because the user has an it_IT locale.
@@ -435,6 +474,19 @@ class Default_Canonical_URL_Resolution_Cest {
 		$I->loginAs( 'admin_it', 'admin_it' );
 		$site_url = $I->grabSiteUrl();
 
+		// Check the Views Selector is showing the correct URLs for the Views.
+		$I->amOnPage( '/classes/' );
+		foreach (
+			[
+				'list'    => $site_url . '/classes/list/',
+				'month'   => $site_url . '/classes/month/',
+				'day'     => $site_url . '/classes/today/',
+			] as $view_slug => $expected_url
+		) {
+			$selector = "#tribe-events-view-selector-content > ul > li.tribe-events-c-view-selector__list-item.tribe-events-c-view-selector__list-item--$view_slug > a";
+			$I->seeElement( $selector, [ 'href' => $expected_url ] );
+		}
+
 		// The resolution en_US should not change because the user has an it_IT locale, but should ue the custom slugs.
 		$eng_expected_canonical_url_mapping = str_replace(
 			[ 'events/', 'event/' ],
@@ -454,6 +506,19 @@ class Default_Canonical_URL_Resolution_Cest {
 		// Now have the it_IT admin regenerate rewrite rules.
 		$I->amOnAdminPage( '/options-permalink.php' );
 		$I->click( '#submit' );
+
+		// Check the Views Selector is showing the correct URLs for the Views.
+		$I->amOnPage( '/classes/' );
+		foreach (
+			[
+				'list'    => $site_url . '/classes/list/',
+				'month'   => $site_url . '/classes/month/',
+				'day'     => $site_url . '/classes/today/',
+			] as $view_slug => $expected_url
+		) {
+			$selector = "#tribe-events-view-selector-content > ul > li.tribe-events-c-view-selector__list-item.tribe-events-c-view-selector__list-item--$view_slug > a";
+			$I->seeElement( $selector, [ 'href' => $expected_url ] );
+		}
 
 		// Test the resolution of the it_IT admin again.
 		// The resolution en_US should not change because the user has an it_IT locale.
@@ -494,6 +559,19 @@ class Default_Canonical_URL_Resolution_Cest {
 		// Now have the it_IT admin regenerate rewrite rules.
 		$I->amOnAdminPage( '/options-permalink.php' );
 		$I->click( '#submit' );
+
+		// Check the Views Selector is showing the correct URLs for the Views.
+		$I->amOnPage( '/eventi/' );
+		foreach (
+			[
+				'list'    => $site_url . '/eventi/lista/',
+				'month'   => $site_url . '/eventi/mese/',
+				'day'     => $site_url . '/eventi/oggi/',
+			] as $view_slug => $expected_url
+		) {
+			$selector = "#tribe-events-view-selector-content > ul > li.tribe-events-c-view-selector__list-item.tribe-events-c-view-selector__list-item--$view_slug > a";
+			$I->seeElement( $selector, [ 'href' => $expected_url ] );
+		}
 
 		foreach ( self::$it_expected_canonical_url_mapping as $input => $expected ) {
 			// Endpoint provided by the plugin put in place in the bootstrap.php file.
