@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.6] 2022-12-13 =
+= [6.0.6] 2022-12-14 =
 
 * Fix - Fixed for the migration state in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
 * Fix - Fix for a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
