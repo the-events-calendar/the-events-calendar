@@ -802,55 +802,77 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		);
 	}
 
+	public function relative_end_times_provider() {
+		return [
+			'ends_after now'         => [
+				'ends_after',
+				'now',
+				true
+			],
+			'ends_after now +2 hour' => [
+				'ends_after',
+				'now +2 hour',
+				false
+			],
+			'ends_on_or_before now +1 hour'  => [
+				'ends_on_or_before',
+				'now +1 hour',
+				true
+			],
+			'ends_on_or_before now'  => [
+				'ends_on_or_before',
+				'now',
+				false
+			],
+			'ends_before now'        => [
+				'ends_before',
+				'now',
+				false
+			],
+			'ends_before now +2 hour'        => [
+				'ends_before',
+				'now +2 hour',
+				true
+			],
+		];
+	}
+
 	/**
 	 * Validate we can search by relative ending times.
 	 *
+	 * @dataProvider relative_end_times_provider
 	 * @test
 	 */
-	public function should_search_by_relative_end_times_correctly() {
+	public function should_search_by_relative_end_times_correctly(
+		$where_key, $where_value, $should_contain, $event_timezone = 'America/Los_Angeles', $event_start_date = 'now'
+	) {
+		// This is largely relevant for event specific searching.
 		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
 		// This test is specifically validating relative time searching.
 		// Given a very recent event.
-		$timezone = new DateTimeZone( 'America/Los_Angeles' );
-		$date     = new DateTime( 'now', $timezone );
+		$timezone = new DateTimeZone( $event_timezone );
+		$date     = new DateTime( $event_start_date, $timezone );
 		$event_id = $this->factory()
 			->event
 			->starting_on( $date->format( 'Y-m-d H:i:s' ) )
 			->with_timezone( $timezone->getName() )
 			->lasting( HOUR_IN_SECONDS )
 			->create();
-		// Search now.
+
+		// Search with relative key / value.
 		$expected_ids = tribe_events()
-			->where( 'ends_after', 'now' )
+			->where( $where_key, $where_value )
 			->get_ids();
 
-		// Should find it still.
-		$this->assertContains( $event_id, $expected_ids );
+		if ( $should_contain ) {
+			// Should find it.
+			$this->assertContains( $event_id, $expected_ids, "Based on the $where_key=$where_value search, we SHOULD find the event." );
+		} else {
+			// Should NOT find it.
+			$this->assertNotContains( $event_id, $expected_ids, "Based on the $where_key=$where_value search, we SHOULD NOT find the event." );
+		}
 
-		// Search now or after.
-		$expected_ids = tribe_events()
-			->where( 'ends_on_or_before', 'now' )
-			->get_ids();
-
-		// Should find it still.
-		$this->assertNotContains( $event_id, $expected_ids );
-
-		// Search after event ended.
-		$expected_ids = tribe_events()
-			->where( 'ends_after', 'now +2 hour' )
-			->get_ids();
-
-		// Should not find it.
-		$this->assertNotContains( $event_id, $expected_ids );
-
-		// Search after event ended.
-		$expected_ids = tribe_events()
-			->where( 'ends_before', 'now' )
-			->get_ids();
-
-		// Should not find it.
-		$this->assertNotContains( $event_id, $expected_ids );
-
+		// Flip back for other tests.
 		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 	}
 
