@@ -245,6 +245,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
 * Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
 * Tweak - Improve performance on the `tribe_events()` and on the Event Views by removing an unnecessary JOIN for hiding of specific upcoming events.
+* Tweak - Added actions: `tribe_log`
+* Tweak - Changed views: `modules/map-basic`
 * Language - 1 new strings added, 17 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.5] 2022-11-29 =
