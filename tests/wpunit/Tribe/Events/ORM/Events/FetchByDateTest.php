@@ -2,6 +2,8 @@
 
 namespace Tribe\Events\ORM\Events;
 
+use DateTime;
+use DateTimeZone;
 use Tribe\Events\Test\Factories\Event;
 
 class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
@@ -87,8 +89,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
-		$ny    = new \DateTimeZone( $ny_timezone_string );
-		$paris = new \DateTimeZone( $site_timezone );
+		$ny    = new DateTimeZone( $ny_timezone_string );
+		$paris = new DateTimeZone( $site_timezone );
 		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
 
 		$starts_before_ends_before  = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
@@ -138,8 +140,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
-		$ny    = new \DateTimeZone( $ny_timezone_string );
-		$paris = new \DateTimeZone( $site_timezone );
+		$ny    = new DateTimeZone( $ny_timezone_string );
+		$paris = new DateTimeZone( $site_timezone );
 		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
 
 		$starts_before_ends_before  = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
@@ -191,8 +193,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
-		$ny    = new \DateTimeZone( $ny_timezone_string );
-		$paris = new \DateTimeZone( $site_timezone );
+		$ny    = new DateTimeZone( $ny_timezone_string );
+		$paris = new DateTimeZone( $site_timezone );
 		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
 
 		$starts_before_ends_before  = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
@@ -238,8 +240,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
-		$ny    = new \DateTimeZone( $ny_timezone_string );
-		$paris = new \DateTimeZone( $site_timezone );
+		$ny    = new DateTimeZone( $ny_timezone_string );
+		$paris = new DateTimeZone( $site_timezone );
 		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
 
 		$start_before_ends_before   = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
@@ -288,8 +290,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
-		$ny    = new \DateTimeZone( $ny_timezone_string );
-		$paris = new \DateTimeZone( $site_timezone );
+		$ny    = new DateTimeZone( $ny_timezone_string );
+		$paris = new DateTimeZone( $site_timezone );
 		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
 
 		$start_before_ends_before   = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
@@ -332,8 +334,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$site_timezone      = 'Europe/Paris';
 		$ny_timezone_string = 'America/New_York';
 		update_option( 'timezone_string', $site_timezone );
-		$ny    = new \DateTimeZone( $ny_timezone_string );
-		$paris = new \DateTimeZone( $site_timezone );
+		$ny    = new DateTimeZone( $ny_timezone_string );
+		$paris = new DateTimeZone( $site_timezone );
 		$date  = new \DateTime( '2018-01-15 16:00:00', $ny );
 
 		$start_before_ends_before   = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
@@ -525,9 +527,9 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_filtering_events_by_timezone() {
-		$utc   = new \DateTimeZone( 'UTC' );
-		$ny    = new \DateTimeZone( 'America/New_York' );
-		$paris = new \DateTimezone( 'Europe/Paris' );
+		$utc   = new DateTimeZone( 'UTC' );
+		$ny    = new DateTimeZone( 'America/New_York' );
+		$paris = new DateTimezone( 'Europe/Paris' );
 
 		$utc_event    = $this->factory()->event->starting_on( '2018-01-10 10:00:00' )
 		                                       ->with_timezone( 'UTC' )
@@ -562,7 +564,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_filtering_events_by_start_and_end_date() {
 		$ny_timezone_string    = 'America/New_York';
 		$paris_timezone_string = 'Europe/Paris';
-		$ny                    = new \DateTimeZone( $ny_timezone_string );
+		$ny                    = new DateTimeZone( $ny_timezone_string );
 		$start                 = new \DateTime( '2018-01-10 16:00:00', $ny );
 		$end                   = new \DateTime( '2018-01-17 16:00:00', $ny );
 		extract( $this->create_events_from_dates( [
@@ -625,8 +627,8 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		$to_taipei_tz = function ( \WP_Post $p ) {
 			$utc_start = get_post_meta( $p->ID, '_EventStartDateUTC', true );
 
-			return ( new \DateTime( $utc_start, new \DateTimeZone( 'UTC' ) ) )
-				->setTimezone( new \DateTimeZone( 'Asia/Taipei' ) )
+			return ( new \DateTime( $utc_start, new DateTimeZone( 'UTC' ) ) )
+				->setTimezone( new DateTimeZone( 'Asia/Taipei' ) )
 				->format( 'Y-m-d H:i:s' );
 		};
 
@@ -798,5 +800,103 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 				2 * HOUR_IN_SECONDS
 			)->get_ids()
 		);
+	}
+
+	/**
+	 * Validate we can search by relative ending times.
+	 *
+	 * @test
+	 */
+	public function should_search_by_relative_end_times_correctly() {
+		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+		// This test is specifically validating relative time searching.
+		// Given a very recent event.
+		$timezone = new DateTimeZone( 'America/Los_Angeles' );
+		$date     = new DateTime( 'now', $timezone );
+		$event_id = $this->factory()
+			->event
+			->starting_on( $date->format( 'Y-m-d H:i:s' ) )
+			->with_timezone( $timezone->getName() )
+			->lasting( HOUR_IN_SECONDS )
+			->create();
+		// Search now.
+		$expected_ids = tribe_events()
+			->where( 'ends_after', 'now' )
+			->get_ids();
+
+		// Should find it still.
+		$this->assertContains( $event_id, $expected_ids );
+
+		// Search now or after.
+		$expected_ids = tribe_events()
+			->where( 'ends_on_or_before', 'now' )
+			->get_ids();
+
+		// Should find it still.
+		$this->assertNotContains( $event_id, $expected_ids );
+
+		// Search after event ended.
+		$expected_ids = tribe_events()
+			->where( 'ends_after', 'now +2 hour' )
+			->get_ids();
+
+		// Should not find it.
+		$this->assertNotContains( $event_id, $expected_ids );
+
+		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
+	}
+
+	/**
+	 * Validate we can search by relative starting times.
+	 *
+	 * @test
+	 */
+	public function should_search_by_relative_start_times_correctly() {
+		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+
+		// This test is specifically validating relative time searching.
+		// Given a very recent event.
+		$timezone = new DateTimeZone( 'America/Los_Angeles' );
+		$date     = new DateTime( 'now', $timezone );
+		$event_id = $this->factory()
+			->event
+			->starting_on( $date->format( 'Y-m-d H:i:s' ) )
+			->with_timezone( $timezone->getName() )
+			->lasting( HOUR_IN_SECONDS )
+			->create();
+
+		// Search now.
+		$expected_ids = tribe_events()
+			->where( 'starts_after', 'now -1 hour' )
+			->get_ids();
+
+		// Should find it still.
+		$this->assertContains( $event_id, $expected_ids );
+
+		// Search now.
+		$expected_ids = tribe_events()
+			->where( 'starts_before', 'now -1 hour' )
+			->get_ids();
+
+		// Should find it still.
+		$this->assertNotContains( $event_id, $expected_ids );
+
+		// Search now or after.
+		$expected_ids = tribe_events()
+			->where( 'starts_on_or_after', 'now -1 hour' )
+			->get_ids();
+
+		// Should find it still.
+		$this->assertContains( $event_id, $expected_ids );
+
+		// Search after event ended.
+		$expected_ids = tribe_events()
+			->where( 'starts_after', 'now' )
+			->get_ids();
+
+		// Should not find it.
+		$this->assertNotContains( $event_id, $expected_ids );
+
+		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 	}
 }
