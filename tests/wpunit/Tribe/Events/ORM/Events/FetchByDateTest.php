@@ -843,6 +843,14 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		// Should not find it.
 		$this->assertNotContains( $event_id, $expected_ids );
 
+		// Search after event ended.
+		$expected_ids = tribe_events()
+			->where( 'ends_before', 'now' )
+			->get_ids();
+
+		// Should not find it.
+		$this->assertNotContains( $event_id, $expected_ids );
+
 		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 	}
 

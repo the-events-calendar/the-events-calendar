@@ -263,10 +263,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+
 		return [
 			'meta_query' => [
 				'starts-before' => [
-					'key'     => $this->start_meta_key,
+					'key'     => $key,
 					'compare' => '<',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
@@ -324,10 +327,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+
 		return [
 			'meta_query' => [
 				'ends-before' => [
-					'key'     => $this->end_meta_key,
+					'key'     => $key,
 					'compare' => '<',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
