@@ -122,7 +122,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	 * the class to make sure the Container instance, that uses non-serializable
 	 * Closures, will not be part of the serialized data.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @return array An empty array, the object is not serializable.
 	 */
@@ -133,7 +133,7 @@ class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provid
 	/**
 	 * Returns void to not spawn the object from serialized data.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param array $data The data to unserialize.
 	 *

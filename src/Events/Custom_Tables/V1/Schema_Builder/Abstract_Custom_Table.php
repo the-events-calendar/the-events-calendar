@@ -77,7 +77,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 * Allows extending classes that require it to run some methods
 	 * immediately before the table creation or update.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 */
 	protected function before_update() :void {
 	}
@@ -144,7 +144,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	/**
 	 * Checks if a constraint exists for a particular field.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param string $this_field The field of the table that has the foreign key (not the target of the constraint).
 	 * @param string $this_table The table that has the foreign key (not the target of the constraint).
@@ -158,7 +158,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	/**
 	 * Fetches the constraint for a particular field.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param string $this_field The field of the table that has the foreign key (not the target of the constraint).
 	 * @param string $this_table The table that has the foreign key (not the target of the constraint).
