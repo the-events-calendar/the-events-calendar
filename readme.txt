@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
+
 = [6.0.6] 2022-12-13 =
 
 * Fix - Fixed for the migration state in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
@@ -238,7 +242,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
 * Fix - Prevent Serializable interface deprecated error in PHP 8.1 when migrating events. [ECP-1319]
 * Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
-* Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Ensure that when we hit a single-event ical endpoint we get a the correct single event. [TEC-4469]
 * Fix - Avoid PHP fatal error on PHP 8.0+ in some settings' pages when setting the front page to the Main Events Page. [BTRIA-1545]
 * Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
