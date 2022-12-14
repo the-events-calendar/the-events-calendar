@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.0.5\n"
+"Project-Id-Version: The Events Calendar 6.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-28T09:01:05-08:00\n"
-"PO-Revision-Date: 2022-11-28 17:01\n"
+"POT-Creation-Date: 2022-12-12T22:20:06-08:00\n"
+"PO-Revision-Date: 2022-12-13 06:20\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -2117,7 +2117,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:243
 #: src/admin-views/tribe-options-general.php:261
-#: src/Tribe/Views/V2/Hooks.php:1210
+#: src/Tribe/Views/V2/Hooks.php:1208
 msgid "Disabled"
 msgstr ""
 
@@ -4550,24 +4550,24 @@ msgstr ""
 msgid "Enter Event Aggregator License"
 msgstr ""
 
-#: src/Tribe/API.php:798
+#: src/Tribe/API.php:815
 msgid "An event having a post meta value of `%s` meridian is not valid. Make sure it is either `am` or `pm`, or remove it entirely if using the 24-hour format."
 msgstr ""
 
-#: src/Tribe/API.php:826
+#: src/Tribe/API.php:843
 msgid "An event having a post meta value of `%s` hour (am/pm) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:843
+#: src/Tribe/API.php:860
 msgid "An event having a post meta value of `%s` hour (12-hour) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:850
+#: src/Tribe/API.php:867
 msgid "An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23."
 msgstr ""
 
-#: src/Tribe/API.php:880
-#: src/Tribe/API.php:891
+#: src/Tribe/API.php:897
+#: src/Tribe/API.php:908
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
 msgstr ""
 
@@ -4875,7 +4875,7 @@ msgstr ""
 msgid "Edit Venue"
 msgstr ""
 
-#: src/Tribe/Front_Page_View.php:239
+#: src/Tribe/Front_Page_View.php:242
 msgctxt "Customizer static front page setting"
 msgid "Main %s Page"
 msgstr ""
@@ -7424,44 +7424,44 @@ msgstr ""
 msgid "Options selected here will override what was selected in the \"Global Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:568
+#: src/Tribe/Views/V2/Hooks.php:566
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:645
+#: src/Tribe/Views/V2/Hooks.php:643
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:660
+#: src/Tribe/Views/V2/Hooks.php:658
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:976
+#: src/Tribe/Views/V2/Hooks.php:974
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1004
+#: src/Tribe/Views/V2/Hooks.php:1002
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1032
+#: src/Tribe/Views/V2/Hooks.php:1030
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1096
+#: src/Tribe/Views/V2/Hooks.php:1094
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1116
+#: src/Tribe/Views/V2/Hooks.php:1114
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1210
+#: src/Tribe/Views/V2/Hooks.php:1208
 msgid "Enabled"
 msgstr ""
 
@@ -7545,7 +7545,7 @@ msgctxt "The text label for the Day View."
 msgid "Day"
 msgstr ""
 
-#: src/Tribe/Views/V2/Views/List_View.php:61
+#: src/Tribe/Views/V2/Views/List_View.php:62
 msgctxt "The text label for the List View."
 msgid "List"
 msgstr ""
@@ -7685,6 +7685,10 @@ msgstr ""
 
 #: src/views/kitchen-sink/page.php:299
 msgid "In a location"
+msgstr ""
+
+#: src/views/modules/map-basic.php:28
+msgid "Venue location map"
 msgstr ""
 
 #: src/views/single-event.php:78
