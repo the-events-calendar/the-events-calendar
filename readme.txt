@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - This fixes an issue with how we interpret relative date searches in several Event repository filters. We were passing UTC dates on non-UTC event date fields, and this could show up in situations like the `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
+
+= [TBD] TBD =
+
 * Fix - Fixed for the migration state in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
 * Fix - Fix for a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
 * Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
