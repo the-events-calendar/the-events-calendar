@@ -203,7 +203,7 @@ class View_Register {
 	}
 
 	/**
-	 * Add canonical element to the head of all calendar views.
+	 * Add canonical tag to the head of all calendar views.
 	 * 
 	 * @since TBD
 	 * 
