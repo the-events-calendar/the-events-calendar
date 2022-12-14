@@ -539,7 +539,7 @@ class Tribe__Events__Query {
 	/**
 	 * Returns the query post type(s) in array format.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param WP_Query $query The query object to read the post type entry from.
 	 *
@@ -559,7 +559,7 @@ class Tribe__Events__Query {
 	/**
 	 * Updates the query post count to include the specified ones.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param WP_Query $query         The query object to modify.
 	 * @param string   ...$post_types The post types to add to the query `post_types` entry.

@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.5
+Stable tag: 6.0.6
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.6] 2022-12-14 =
 
 * Fix - This fixes an issue with how we interpret relative date searches in several Event repository filters. We were passing UTC dates on non-UTC event date fields, and this could show up in situations like the `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
 
@@ -249,6 +249,9 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
 * Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
 * Tweak - Improve performance on the `tribe_events()` and on the Event Views by removing an unnecessary JOIN for hiding of specific upcoming events.
+* Tweak - Added actions: `tribe_log`
+* Tweak - Changed views: `modules/map-basic`
+* Language - 1 new strings added, 17 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.5] 2022-11-29 =
 
