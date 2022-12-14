@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Ensure that events that have venues assigned can updated successfuly on all browsers. [TEC-4596]
+* Fix - Ensure that events which have venues assigned can be updated successfuly on all browsers. [TEC-4596]
 
 = [6.0.6] 2022-12-14 =
 
