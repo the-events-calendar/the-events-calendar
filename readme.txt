@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add canonical tag to the head of all calendar views. [TEC-4538]
+
 = [6.0.6] 2022-12-14 =
 
 * Fix - Fixed for the migration state in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]

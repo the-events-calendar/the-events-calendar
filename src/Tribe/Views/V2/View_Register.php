@@ -203,24 +203,25 @@ class View_Register {
 	}
 
 	/**
-	 * Add canonical element to calendar views.
+	 * Add canonical element to the head of all calendar views.
 	 * 
 	 * @since TBD
 	 * 
-	 * @param string $url The canonical URL.
+	 * @param string $current_url The URL of the page being currently viewed.
 	 */
 	public function add_canonical_tags() {
-		$url = '';
+		global $wp;
+
+		$current_url = home_url( $wp->request );
 
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
 			return;
 		}
 
-		// Don't add canonical element to the single events page.
 		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
 			return;
 		}
 
-		echo "\n<link rel='canonical' href='" . esc_url( $url ) . "' />\n";
+		echo "\n<link rel='canonical' href='" . esc_url( $current_url ) . "' />\n";
 	}
 }
