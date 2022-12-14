@@ -229,6 +229,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.6.1] 2022-12-14 =
+
 = [6.0.6] 2022-12-14 =
 
 * Fix - Resolved a migration state problem in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
