@@ -1922,6 +1922,10 @@ function tribe_is_events_home() {
 
 	$wp_query = tribe_get_global_query_object();
 
+	if ( ! $wp_query instanceof WP_Query ) {
+		return false;
+	}
+
 	if ( tribe_is_events_front_page() ) {
 		return true;
 	}
