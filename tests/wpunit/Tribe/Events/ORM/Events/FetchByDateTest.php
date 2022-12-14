@@ -55,7 +55,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_get_events_by_not_all_day_status_no() {
 		$not_all_day_dont_exist = $this->factory()->event->create_many( 1 );
-		$not_all_day_no = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => 'no' ] ] );
+		$not_all_day_no         = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => 'no' ] ] );
 
 		$this->assertEqualSets(
 			array_merge( $not_all_day_no, $not_all_day_dont_exist ),
@@ -71,7 +71,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_get_events_by_not_all_day_status_zero() {
 		$not_all_day_dont_exist = $this->factory()->event->create_many( 1 );
-		$not_all_day_zero = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => '0' ] ] );
+		$not_all_day_zero       = $this->factory()->event->create_many( 1, [ 'meta_input' => [ '_EventAllDay' => '0' ] ] );
 
 		$this->assertEqualSets(
 			array_merge( $not_all_day_zero, $not_all_day_dont_exist ),
@@ -592,7 +592,7 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_fetching_events_by_on_date() {
-		$ny_timezone_string    = 'America/New_York';
+		$ny_timezone_string = 'America/New_York';
 		extract( $this->create_events_from_dates( [
 			'one'   => [ '2018-01-01 10:00:00', 2 * HOUR_IN_SECONDS ],
 			'two'   => [ '2018-01-10 10:00:00', 2 * HOUR_IN_SECONDS ],
@@ -606,12 +606,12 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->per_page( - 1 )
 			->order_by( 'event_date', 'ASC' )
 			->collect();
-			/*
-		codecept_debug( 'Event dates in ASC UTC date order: '
-		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDateUTC' ) ) );
-		codecept_debug( 'Event dates in ASC non-UTC date order: '
-		                . implode( PHP_EOL, $events->pluck_meta( '_EventStartDate' ) ) );
-		*/
+		/*
+	codecept_debug( 'Event dates in ASC UTC date order: '
+					. implode( PHP_EOL, $events->pluck_meta( '_EventStartDateUTC' ) ) );
+	codecept_debug( 'Event dates in ASC non-UTC date order: '
+					. implode( PHP_EOL, $events->pluck_meta( '_EventStartDate' ) ) );
+	*/
 		$tribe____repository___ = tribe_events();
 		$utc_matches            = $tribe____repository___
 			->where( 'on_date', '2018-01-10' )
@@ -802,34 +802,139 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		);
 	}
 
+	public function relative_between_times_provider() {
+		return [
+			'ends_between now and now +2 hour'                    => [
+				'ends_between',
+				'now',
+				'now +2 hour',
+				true
+			],
+			'ends_between now -1 hour and now'                    => [
+				'ends_between',
+				'now -1 hour',
+				'now',
+				false
+			],
+			'starts_between now +1 hour and now +2 hour'          => [
+				'starts_between',
+				'now +1 hour',
+				'now +2 hour',
+				false
+			],
+			'starts_between now -1 hour and now +1 hour'          => [
+				'starts_between',
+				'now -1 hour',
+				'now +1 hour',
+				true
+			],
+			'starts_and_ends_between now -1 hour and now +2 hour' => [
+				'starts_and_ends_between',
+				'now -1 hour',
+				'now +2 hour',
+				true
+			],
+			'starts_and_ends_between now +1 hour and now +2 hour' => [
+				'starts_and_ends_between',
+				'now +1 hour',
+				'now +2 hour',
+				false
+			],
+			'runs_between now -1 hour and now +2 hour'            => [
+				'runs_between',
+				'now -1 hour',
+				'now +2 hour',
+				true
+			],
+			'runs_between now +2 hour and now +3 hour'            => [
+				'runs_between',
+				'now +2 hour',
+				'now +3 hour',
+				false
+			],
+		];
+	}
+
+	/**
+	 * Validate we can search by relative between times.
+	 *
+	 * @dataProvider relative_between_times_provider
+	 * @test
+	 */
+	public function should_search_by_relative_between_times_correctly(
+		$where_key,
+		$where_value_start,
+		$where_value_end,
+		$should_contain,
+		$event_timezone = 'America/Los_Angeles',
+		$event_start_date = 'now'
+	) {
+		// This is largely relevant for event specific searching.
+		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+		// This test is specifically validating relative time searching.
+		// Given a very recent event.
+		$timezone = new DateTimeZone( $event_timezone );
+		$date     = new DateTime( $event_start_date, $timezone );
+		$event_id = $this->factory()
+			->event
+			->starting_on( $date->format( 'Y-m-d H:i:s' ) )
+			->with_timezone( $timezone->getName() )
+			->lasting( HOUR_IN_SECONDS )
+			->create();
+
+		// Search with relative key / value.
+		$expected_ids = tribe_events()
+			->where( $where_key, $where_value_start, $where_value_end )
+			->get_ids();
+
+		if ( $should_contain ) {
+			// Should find it.
+			$this->assertContains(
+				$event_id,
+				$expected_ids,
+				"Based on the $where_key between $where_value_start and $where_value_end search, we SHOULD find the event."
+			);
+		} else {
+			// Should NOT find it.
+			$this->assertNotContains(
+				$event_id,
+				$expected_ids,
+				"Based on the $where_key between $where_value_start and $where_value_end search, we SHOULD NOT find the event."
+			);
+		}
+
+		// Flip back for other tests.
+		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
+	}
+
 	public function relative_end_times_provider() {
 		return [
-			'ends_after now'         => [
+			'ends_after now'                => [
 				'ends_after',
 				'now',
 				true
 			],
-			'ends_after now +2 hour' => [
+			'ends_after now +2 hour'        => [
 				'ends_after',
 				'now +2 hour',
 				false
 			],
-			'ends_on_or_before now +1 hour'  => [
+			'ends_on_or_before now +1 hour' => [
 				'ends_on_or_before',
 				'now +1 hour',
 				true
 			],
-			'ends_on_or_before now'  => [
+			'ends_on_or_before now'         => [
 				'ends_on_or_before',
 				'now',
 				false
 			],
-			'ends_before now'        => [
+			'ends_before now'               => [
 				'ends_before',
 				'now',
 				false
 			],
-			'ends_before now +2 hour'        => [
+			'ends_before now +2 hour'       => [
 				'ends_before',
 				'now +2 hour',
 				true
@@ -876,18 +981,56 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 	}
 
+	public function relative_start_times_provider() {
+		return [
+			'starts_after now -1 hour'       => [
+				'starts_after',
+				'now -1 hour',
+				true
+			],
+			'starts_after now +1 hour'       => [
+				'starts_after',
+				'now +1 hour',
+				false
+			],
+			'starts_on_or_after now +1 hour' => [
+				'starts_on_or_after',
+				'now +1 hour',
+				false
+			],
+			'starts_on_or_after now'         => [
+				'starts_on_or_after',
+				'now',
+				true
+			],
+			'starts_before now -1 hour'      => [
+				'starts_before',
+				'now -1 hour',
+				false
+			],
+			'starts_before now +1 hour'      => [
+				'starts_before',
+				'now +1 hour',
+				true
+			],
+		];
+	}
+
 	/**
-	 * Validate we can search by relative starting times.
+	 * Validate we can search by relative start times.
 	 *
+	 * @dataProvider relative_start_times_provider
 	 * @test
 	 */
-	public function should_search_by_relative_start_times_correctly() {
+	public function should_search_by_relative_start_times_correctly(
+		$where_key, $where_value, $should_contain, $event_timezone = 'America/Los_Angeles', $event_start_date = 'now'
+	) {
+		// This is largely relevant for event specific searching.
 		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
-
 		// This test is specifically validating relative time searching.
 		// Given a very recent event.
-		$timezone = new DateTimeZone( 'America/Los_Angeles' );
-		$date     = new DateTime( 'now', $timezone );
+		$timezone = new DateTimeZone( $event_timezone );
+		$date     = new DateTime( $event_start_date, $timezone );
 		$event_id = $this->factory()
 			->event
 			->starting_on( $date->format( 'Y-m-d H:i:s' ) )
@@ -895,38 +1038,20 @@ class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 			->lasting( HOUR_IN_SECONDS )
 			->create();
 
-		// Search now.
+		// Search with relative key / value.
 		$expected_ids = tribe_events()
-			->where( 'starts_after', 'now -1 hour' )
+			->where( $where_key, $where_value )
 			->get_ids();
 
-		// Should find it still.
-		$this->assertContains( $event_id, $expected_ids );
+		if ( $should_contain ) {
+			// Should find it.
+			$this->assertContains( $event_id, $expected_ids, "Based on the $where_key=$where_value search, we SHOULD find the event." );
+		} else {
+			// Should NOT find it.
+			$this->assertNotContains( $event_id, $expected_ids, "Based on the $where_key=$where_value search, we SHOULD NOT find the event." );
+		}
 
-		// Search now.
-		$expected_ids = tribe_events()
-			->where( 'starts_before', 'now -1 hour' )
-			->get_ids();
-
-		// Should find it still.
-		$this->assertNotContains( $event_id, $expected_ids );
-
-		// Search now or after.
-		$expected_ids = tribe_events()
-			->where( 'starts_on_or_after', 'now -1 hour' )
-			->get_ids();
-
-		// Should find it still.
-		$this->assertContains( $event_id, $expected_ids );
-
-		// Search after event ended.
-		$expected_ids = tribe_events()
-			->where( 'starts_after', 'now' )
-			->get_ids();
-
-		// Should not find it.
-		$this->assertNotContains( $event_id, $expected_ids );
-
+		// Flip back for other tests.
 		tribe_update_option( 'tribe_events_timezone_mode', 'site' );
 	}
 }
