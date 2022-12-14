@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [TBD]
+
 = [6.0.5] 2022-11-29 =
 
 * Fix - Fix for scenarios where fatal `Call to a member function get() on null in... the-events-calendar/src/Tribe/Query.php(46)` would occur when `$wp_query` global was not set. [TEC-4566]
