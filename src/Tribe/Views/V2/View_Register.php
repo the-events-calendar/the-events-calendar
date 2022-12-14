@@ -83,6 +83,7 @@ class View_Register {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'filter_add_routes' ], 5 );
+		add_action( 'wp_head', [ $this, 'add_canonical_tags' ] );
 	}
 
 	/**
@@ -95,7 +96,6 @@ class View_Register {
 		add_filter( 'tribe-events-bar-views', [ $this, 'filter_tec_bar_views' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_base_slugs', [ $this, 'filter_add_base_slugs' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_add_matchers_to_query_vars_map' ], $this->priority, 2 );
-		add_action( 'wp_head', [ $this, 'add_canonical_tags' ] );
 	}
 
 	/**
@@ -203,11 +203,11 @@ class View_Register {
 	}
 
 	/**
-	 * Add caninical element to calendar views.
+	 * Add canonical element to calendar views.
 	 * 
 	 * @since TBD
 	 * 
-	 * @param string $url The canonical URL
+	 * @param string $url The canonical URL.
 	 */
 	public function add_canonical_tags() {
 		$url = '';
