@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [TBD]
+* Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [BTRIA-1556]
 
 = [6.0.5] 2022-11-29 =
 
