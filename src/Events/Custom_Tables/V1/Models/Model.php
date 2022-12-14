@@ -257,8 +257,21 @@ abstract class Model implements Serializable {
 			static::$static_errors[ $name ] = $error_string;
 		}
 
+		if ( ! empty( $this->errors() ) ) {
+			// For debug purposes, log validation errors.
+			// These will fail update/insertions on the database.
+			do_action( 'tribe_log',
+				'debug',
+				"Model failed validation.", [
+					'source' => __METHOD__ . ':' . __LINE__,
+					'errors' => $this->errors(),
+				] );
+
+			return false;
+		}
+
 		// No errors were found.
-		return empty( $this->errors() );
+		return true;
 	}
 
 	/**
@@ -532,13 +545,39 @@ abstract class Model implements Serializable {
 	 * If a model is cached, make sure only the important data is serialized, to reduce the amount of space that the
 	 * object uses when stored as a string.
 	 *
+	 * @since 6.0.6
+	 *
+	 * @return array The array representation of the object.
+	 */
+	public function __serialize(): array {
+		return $this->to_array();
+	}
+
+	/**
+	 * If a model is cached, make sure only the important data is serialized, to reduce the amount of space that the
+	 * object uses when stored as a string.
+	 *
 	 * @since 6.0.0
+	 * @since 6.0.6 - Utilize magic method for 8.1 support.
+	 *
 	 * @return string The string representing the object.
 	 */
-	public function serialize() {
-		$encode = wp_json_encode( $this->to_array() );
+	public function serialize(): string {
+		return serialize( $this->__serialize() );
+	}
 
-		return is_string( $encode ) ? $encode : '';
+	/**
+	 * If this object is constructed out of a `unserialize` call make sure the properties are set up correctly on the
+	 * object.
+	 *
+	 * @since 6.0.6
+	 *
+	 * @param  array  $serialized The array representation of the object.
+	 */
+	public function __unserialize(array $serialized): void {
+		foreach ( $serialized as $column => $value ) {
+			$this->{$column} = $value;
+		}
 	}
 
 	/**
@@ -546,19 +585,12 @@ abstract class Model implements Serializable {
 	 * object.
 	 *
 	 * @since 6.0.0
+	 * @since 6.0.6 - Utilize magic method for 8.1 support.
 	 *
 	 * @param  string  $serialized
 	 */
 	public function unserialize( $serialized ) {
-		$data = json_decode( $serialized, true );
-
-		if ( ! is_array( $data ) ) {
-			return;
-		}
-
-		foreach ( $data as $column => $value ) {
-			$this->{$column} = $value;
-		}
+		$this->__unserialize( unserialize( $serialized ) );
 	}
 
 	/**

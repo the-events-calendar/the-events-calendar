@@ -30,6 +30,7 @@ class Tribe__Events__Front_Page_View {
 			// Implement front page view
 			add_action( 'parse_query', [ $this, 'parse_query' ], 5 );
 			add_filter( 'tribe_events_get_link', [ $this, 'main_event_page_links' ] );
+			add_filter( 'pre_option_page_on_front', [ $this, 'hydrate_virtual_page_cache' ] );
 		}
 
 		add_action( 'parse_query', [ $this, 'parse_customizer_query' ] );
@@ -235,6 +236,8 @@ class Tribe__Events__Front_Page_View {
 			return $output;
 		}
 
+		$this->hydrate_virtual_page_cache();
+
 		$label = sprintf(
 			esc_html_x( 'Main %s Page', 'Customizer static front page setting', 'the-events-calendar' ),
 			tribe_get_event_label_plural()
@@ -243,6 +246,7 @@ class Tribe__Events__Front_Page_View {
 		$selected = $this->is_page_on_front() ? 'selected' : '';
 		$option = '<option class="level-0" value="' . $this->get_virtual_id() . '" ' . $selected . '>' . $label . '</option></select>';
 		return str_replace( '</select>', $option, $output );
+
 	}
 
 	/**
@@ -268,6 +272,7 @@ class Tribe__Events__Front_Page_View {
 		} elseif ( 'page' === $value && $this->is_virtual_page_on_front() ) {
 			tribe_update_option( 'front_page_event_archive', true );
 		}
+
 		return $value;
 	}
 
@@ -348,5 +353,25 @@ class Tribe__Events__Front_Page_View {
 	 */
 	public function get_virtual_id() {
 		return $this->home_virtual_ID;
+	}
+
+	/**
+	 * Hydrates the post cache for the post that should represent the virtual page.
+	 *
+	 * @since 6.0.6
+	 *
+	 * @param mixed|null $input The first iput of the method, when used as a filter.
+	 *
+	 * @return mixed|null The first input of the method, when used as a filter, unmodified.
+	 */
+	public function hydrate_virtual_page_cache( $input = null ) {
+		if ( wp_cache_get( $this->home_virtual_ID, 'posts' ) instanceof WP_Post ) {
+			return $input;
+		}
+
+		// Since the page is a virtual one, do not set the post ID, it will be set to `0` by default.
+		wp_cache_set( $this->home_virtual_ID, new WP_Post( (object) [ 'post_type' => 'page' ] ), 'posts' );
+
+		return $input;
 	}
 }

@@ -527,7 +527,7 @@ class Event_Report implements JsonSerializable {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @return array
+	 * @return mixed
 	 */
 	public function jsonSerialize() {
 		return $this->data;

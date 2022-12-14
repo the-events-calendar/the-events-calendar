@@ -25,9 +25,11 @@ class Occurrences extends Abstract_Custom_Table {
 	const SCHEMA_VERSION_OPTION = 'tec_ct1_occurrences_table_schema_version';
 
 	/**
+	 * @since 6.0.6 Will now simply create an `event_id` index, removes the foreign key from the previous version.
+	 *
 	 * @inheritDoc
 	 */
-	const SCHEMA_VERSION = '1.0.0';
+	const SCHEMA_VERSION = '1.0.1';
 
 	/**
 	 * @inheritDoc
@@ -74,32 +76,35 @@ class Occurrences extends Abstract_Custom_Table {
 	}
 
 	/**
-	 * Overrides the base method to add `event_id` as foreign key on the Events
-	 * custom table.
+	 * Overrides the base method to add `event_id` as key.
+	 *
+	 * @since 6.0.6 Will now create an `event_id` index, removes the foreign key from the previous version.
 	 *
 	 * {@inheritdoc}
 	 */
 	protected function after_update( array $results ) {
-		$this_table   = self::table_name( true );
-		$events_table = Events::table_name( true );
-
-		$updated = false;
+		global $wpdb;
+		$this_table        = self::table_name( true );
+		$updated           = false;
 		if (
 			$this->exists()
-			&& $this->exists( Events::table_name( true ) )
-			&& ! $this->has_index( 'event_id', $events_table )
+			&& ! $this->has_index( 'event_id', $this_table )
 		) {
-			global $wpdb;
-			$SQL = "ALTER TABLE {$this_table}
-				ADD FOREIGN KEY (event_id) REFERENCES {$events_table} (event_id)
-				ON DELETE CASCADE";
-
+			$SQL     = "ALTER TABLE {$this_table} ADD INDEX (event_id)";
 			$updated = $wpdb->query( $SQL );
+		} else if ( $this->exists()
+		            && $this->has_constraint( 'event_id', $this_table ) ) {
+			// We are moving away from foreign key constraints. If this is our old schema, find the FK name and drop it.
+			$constraint      = $this->get_schema_constraint( 'event_id', $this_table );
+			$foreign_key_name = $constraint->CONSTRAINT_NAME ?? null;
+			if ( $foreign_key_name ) {
+				$updated = $wpdb->query( "ALTER TABLE {$this_table} DROP FOREIGN KEY {$foreign_key_name}" );
+			}
 		}
 
 		$message = $updated
-			? "Added event_id as foreign key from {$events_table}"
-			: "Failed to add event_id as foreign key from {$events_table}";
+			? "Added event_id as key in {$this_table}"
+			: "Failed to add event_id as key in {$this_table}";
 
 		$results[ $this_table . '.event_id' ] = $message;
 
