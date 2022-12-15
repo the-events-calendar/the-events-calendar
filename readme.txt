@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.6.2] 2022-12-15 =
 
-
+* Fix - Fix layout issues with Avada, Divi, and similar themes. [TEC-4623]
 
 = [6.0.6.1] 2022-12-14 =
 
