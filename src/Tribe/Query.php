@@ -52,7 +52,7 @@ class Tribe__Events__Query {
 			count( array_intersect( $query_post_types, $tec_post_types ) ) === 0
 			&& ! ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
 		) {
-			return;
+			//return;
 		}
 
 		if ( $is_main_query ) {
@@ -90,7 +90,8 @@ class Tribe__Events__Query {
 		$query_post_types = (array) $query->get( 'post_type' );
 
 		// Add Events to tag archives when not looking at the admin screen for posts.
-		if ( ! $any_post_type
+		if (
+			! $any_post_type
 		     && $query->is_tag
 		     && ! $is_event_query
 		     && ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
@@ -139,8 +140,6 @@ class Tribe__Events__Query {
 
 		if ( tribe_is_events_front_page() ) {
 			$query->is_home = true;
-		} else {
-			$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 		}
 
 		// Hook reasonably late on the action that will fire next to filter and order Events by date, if required.
