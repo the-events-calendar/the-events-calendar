@@ -39,16 +39,6 @@ class Tribe__Events__Query {
 			return;
 		}
 
-		// Bail if we're not dealing with any event or event related queries.
-		if (
-			! $query->get( 'post_type' ) === [ TEC::POSTTYPE ]
-			&& ! $query->get( 'post_type' ) === [ Organizer::POSTTYPE ]
-			&& ! $query->get( 'post_type' ) === [ Venue::POSTTYPE ]
-			&& ! ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
-		) {
-			return;
-		}
-
 		// Work out if this is an Event query or not, do not set the flag yet.
 		$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
 		$any_post_type  = (array) $query->get( 'post_type' ) === [ 'any' ];
@@ -56,6 +46,14 @@ class Tribe__Events__Query {
 		$query_post_types = self::get_query_post_types( $query );
 
 		$tec_post_types   = [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ];
+
+		// Bail if we're not dealing with any event or event related queries.
+		if (
+			count( array_intersect( $query_post_types, $tec_post_types ) ) === 0
+			&& ! ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
+		) {
+			return;
+		}
 
 		if ( $is_main_query ) {
 			if ( $query->is_single() && count( array_intersect( $query_post_types, $tec_post_types ) ) === 0 ) {
