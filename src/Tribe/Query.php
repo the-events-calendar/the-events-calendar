@@ -27,6 +27,17 @@ class Tribe__Events__Query {
 	 * @param WP_Query $query
 	 */
 	public static function parse_query( $query ) {
+
+		// Bail if we're not dealing with any event or event related queries.
+		if ( 
+			! tribe_is_event_query()
+			|| ! tribe_is_event_organizer()
+			|| ! tribe_is_event_venue()
+			|| ! ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
+		) {
+			return;
+		}
+
 		// Do not act on wrong object types or in the context of an Admin request.
 		if ( ! $query instanceof WP_Query || is_admin() ) {
 			return;
