@@ -27,8 +27,6 @@ class Tribe__Events__Query {
 	 * @param WP_Query $query
 	 */
 	public static function parse_query( $query ) {
-		global $post;
-
 		// Do not act on wrong object types or in the context of an Admin request.
 		if ( ! $query instanceof WP_Query || is_admin() ) {
 			return;
@@ -46,14 +44,6 @@ class Tribe__Events__Query {
 		$query_post_types = self::get_query_post_types( $query );
 
 		$tec_post_types   = [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ];
-
-		// Bail if we're not dealing with any event or event related queries.
-		if (
-			count( array_intersect( $query_post_types, $tec_post_types ) ) === 0
-			&& ! ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
-		) {
-			//return;
-		}
 
 		if ( $is_main_query ) {
 			if ( $query->is_single() && count( array_intersect( $query_post_types, $tec_post_types ) ) === 0 ) {
@@ -92,9 +82,9 @@ class Tribe__Events__Query {
 		// Add Events to tag archives when not looking at the admin screen for posts.
 		if (
 			! $any_post_type
-		     && $query->is_tag
-		     && ! $is_event_query
-		     && ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
+			&& $query->is_tag
+			&& ! $is_event_query
+			&& ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
 		) {
 			self::add_post_type_to_query( $query, TEC::POSTTYPE );
 		}
