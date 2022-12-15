@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.8] 2023-01-TBD =
+
+
+
 = [6.0.6.1] 2022-12-14 =
 
 * Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [BTRIA-1556]
