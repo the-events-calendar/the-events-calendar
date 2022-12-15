@@ -235,8 +235,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.6] 2022-12-14 =
 
-* Fix - Fixed for the migration state in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
-* Fix - Fix for a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
+* Fix - Resolved a migration state problem in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
+* Fix - Prevent a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
 * Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
 * Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
@@ -249,7 +249,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
 * Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
 * Tweak - Improve performance on the `tribe_events()` and on the Event Views by removing an unnecessary JOIN for hiding of specific upcoming events.
-* Tweak - Added actions: `tribe_log`
 * Tweak - Changed views: `modules/map-basic`
 * Language - 1 new strings added, 17 updated, 0 fuzzied, and 0 obsoleted
 
