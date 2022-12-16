@@ -1889,6 +1889,10 @@ function tribe_is_events_front_page() {
 
 	$wp_query = tribe_get_global_query_object();
 
+	if ( ! $wp_query instanceof WP_Query ) {
+		return false;
+	}
+
 	$events_as_front_page = tribe_get_option( 'front_page_event_archive', false );
 
 	// If the reading option has an events page as front page and we are on that page is on the home of events.
@@ -1917,6 +1921,10 @@ function tribe_is_events_front_page() {
 function tribe_is_events_home() {
 
 	$wp_query = tribe_get_global_query_object();
+
+	if ( ! $wp_query instanceof WP_Query ) {
+		return false;
+	}
 
 	if ( tribe_is_events_front_page() ) {
 		return true;
