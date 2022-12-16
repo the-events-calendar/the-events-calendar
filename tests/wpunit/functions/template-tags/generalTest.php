@@ -292,4 +292,16 @@ HTML;
 		$wp_rewrite->init();
 		$wp_rewrite->flush_rules( true );
 	}
+
+	/**
+	 * It should return false if global query object not WP_Query
+	 *
+	 * @test
+	 */
+	public function should_return_false_if_global_query_object_not_wp_query(): void {
+		$this->uopz_set_return( 'tribe_get_global_query_object', null );
+
+		$this->assertFalse( tribe_is_events_front_page() );
+		$this->assertFalse( tribe_is_events_home() );
+	}
 }
