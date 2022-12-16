@@ -271,6 +271,11 @@ class Events_Schema extends Abstract_Schema_Piece {
 	 */
 	private function get_month_events() {
 		$wp_query = tribe_get_global_query_object();
+
+		if ( ! $wp_query instanceof \WP_Query ) {
+			return [];
+		}
+
 		$event_date = $wp_query->get( 'eventDate' );
 
 		$month = $event_date;
