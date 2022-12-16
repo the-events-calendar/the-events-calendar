@@ -80,10 +80,11 @@ class Tribe__Events__Query {
 		$query_post_types = (array) $query->get( 'post_type' );
 
 		// Add Events to tag archives when not looking at the admin screen for posts.
-		if ( ! $any_post_type
-		     && $query->is_tag
-		     && ! $is_event_query
-		     && ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
+		if (
+			! $any_post_type
+			&& $query->is_tag
+			&& ! $is_event_query
+			&& ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
 		) {
 			self::add_post_type_to_query( $query, TEC::POSTTYPE );
 		}
@@ -129,8 +130,6 @@ class Tribe__Events__Query {
 
 		if ( tribe_is_events_front_page() ) {
 			$query->is_home = true;
-		} else {
-			$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 		}
 
 		// Hook reasonably late on the action that will fire next to filter and order Events by date, if required.
@@ -539,7 +538,7 @@ class Tribe__Events__Query {
 	/**
 	 * Returns the query post type(s) in array format.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param WP_Query $query The query object to read the post type entry from.
 	 *
@@ -559,7 +558,7 @@ class Tribe__Events__Query {
 	/**
 	 * Updates the query post count to include the specified ones.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param WP_Query $query         The query object to modify.
 	 * @param string   ...$post_types The post types to add to the query `post_types` entry.
