@@ -48,7 +48,7 @@ abstract class Abstract_Custom_Field implements Field_Schema_Interface {
 	 * Allows extending classes that require it to run some methods
 	 * immediately before the field creation or update.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 */
 	protected function before_update() :void {
 	}

@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.5
+Stable tag: 6.0.6.2
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -231,20 +231,34 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Fixed for the migration state in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
-* Fix - Fix for a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
+* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
+
+= [6.0.6.2] 2022-12-16 =
+
+* Fix - Fix layout issues with Avada, Divi, and similar themes. [TEC-4623]
+
+= [6.0.6.1] 2022-12-14 =
+
+* Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [BTRIA-1556]
+
+= [6.0.6] 2022-12-14 =
+
+* Fix - Resolved a migration state problem in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
+* Fix - Prevent a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
 * Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
 * Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
 * Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
 * Fix - Prevent Serializable interface deprecated error in PHP 8.1 when migrating events. [ECP-1319]
 * Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
 * Fix - Ensure that when we hit a single-event ical endpoint we get a the correct single event. [TEC-4469]
-* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
+* Fix - Avoid PHP fatal error on PHP 8.0+ in some settings' pages when setting the front page to the Main Events Page. [BTRIA-1545]
 * Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
 * Tweak - Prevent unbound query for previous URL on list based views, improving performance.
 * Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
 * Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
 * Tweak - Improve performance on the `tribe_events()` and on the Event Views by removing an unnecessary JOIN for hiding of specific upcoming events.
+* Tweak - Changed views: `modules/map-basic`
+* Language - 1 new strings added, 17 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.5] 2022-11-29 =
 

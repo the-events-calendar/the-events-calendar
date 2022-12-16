@@ -7,7 +7,7 @@ use Tribe__Cache_Listener as Cache_Listener;
 /**
  * Class Hide_From_Upcoming_Controller
  *
- * @since   TBD
+ * @since   6.0.6
  *
  * @package Tribe\Events\Views\V2\Query
  */
@@ -16,7 +16,7 @@ class Hide_From_Upcoming_Controller {
 	/**
 	 * Stores the name of the Tribe Cache for the upcoming ids that need to be hidden.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @var string
 	 */
@@ -26,7 +26,7 @@ class Hide_From_Upcoming_Controller {
 	 * Determine which are the posts are supposed to be hidden.
 	 * Please be careful with this query below, it's currently an unbound query, that is why it only runs once a day.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @return array
 	 */
