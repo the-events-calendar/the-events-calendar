@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.6.2
+Stable tag: 6.0.8
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.8] 2023-01-TBD =
 
 * Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
 
