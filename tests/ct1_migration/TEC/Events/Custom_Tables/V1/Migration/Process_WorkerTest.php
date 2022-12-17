@@ -11,7 +11,7 @@ use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use Tribe\Events\Test\Traits\CT1\CT1_Test_Utils;
 use Tribe\Events\Test\Traits\Forks;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
@@ -402,7 +402,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post->ID )->count() );
 		// The following code will trigger an E_NOTICE error.
 		add_action( 'tec_events_custom_tables_v1_before_migration_applied', $before_migration );
-		$this->uopz_set_return( 'tec_is_file_from_plugins', $from_tec_plugins );
+		$this->set_fn_return( 'tec_is_file_from_plugins', $from_tec_plugins );
 
 		$events = new Events;
 		$worker = new Process_Worker( $events, new State( $events ) );
