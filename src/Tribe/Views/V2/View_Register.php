@@ -8,6 +8,8 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Main;
+
 /**
  * Class View_Register
  *
@@ -81,6 +83,7 @@ class View_Register {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'filter_add_routes' ], 5 );
+		add_action( 'wp_head', [ $this, 'add_canonical_tags' ] );
 	}
 
 	/**
@@ -203,5 +206,28 @@ class View_Register {
 		];
 
 		return $views;
+	}
+
+	/**
+	 * Add canonical tag to the head of all calendar views.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string $current_url The URL of the page being currently viewed.
+	 */
+	public function add_canonical_tags() {
+		global $wp;
+
+		$current_url = home_url( $wp->request );
+
+		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
+			return;
+		}
+
+		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+			return;
+		}
+
+		echo "\n<link rel='canonical' href='" . esc_url( $current_url ) . "' />\n";
 	}
 }
