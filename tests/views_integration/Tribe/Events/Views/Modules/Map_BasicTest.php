@@ -6,7 +6,7 @@ use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 /**
- * Class Map_BasicTest
+ * Class Map_BasicTest.
  *
  * @package Tribe\Events\Views\Modules
  */
