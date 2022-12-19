@@ -240,7 +240,6 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.6.1] 2022-12-14 =
 
 * Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [BTRIA-1556]
->>>>>>> origin/release/B23.alexa
 
 = [6.0.6] 2022-12-14 =
 
