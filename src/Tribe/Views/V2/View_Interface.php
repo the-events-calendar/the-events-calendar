@@ -263,4 +263,13 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return View_Interface A reference to the View-like that is being directed.
 	 */
 	public function disable_url_management();
+
+	/**
+	 * Returns the View `en_US` and localized rewrite slugs.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> The View `en_US` and localized rewrite slugs.
+	 */
+	public function get_rewrite_slugs(): array;
 }

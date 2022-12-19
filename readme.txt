@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.8] 2023-01-TBD =
 
+* Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
 
 = [6.0.6.2] 2022-12-16 =
@@ -277,7 +278,6 @@ Remember to always make a backup of your database and files before updating!
 				`Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
 * Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
-
 
 = [6.0.4] 2022-11-15 =
 
