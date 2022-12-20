@@ -373,7 +373,7 @@ function tribe_is_in_main_loop() {
  * @return bool
  */
 function tribe_is_list_view() {
-	$is_list_view = tec_is_view( 'list' );
+	$is_list_view = tec_is_view( List_View::get_view_slug() );
 
 	return apply_filters( 'tribe_is_list_view', $is_list_view );
 }
@@ -495,17 +495,17 @@ function tec_is_view( $view_slug = 'default' ): bool {
 	// make sure we return true when the default view is 'month'.
 	if ( 'default' !== $view_slug && 'default' === $current_view ) {
 		$is_view = ( $view_slug === tribe_get_option( 'viewOption' ) );
-    }
+	}
 
 	/**
-	 * Allows generic filtering of the tribe_is_view boolean value.
+	 * Allows generic filtering of the tec_is_view boolean value.
 	 *
 	 * @since TBD
 	 *
 	 * @param boolean $is_view Whether you're on the View or not
 	 * @param Tribe__Context The global context object.
 	 */
-	$is_view = apply_filters( 'tribe_is_view', $is_view, $context );
+	$is_view = apply_filters( 'tec_is_view', $is_view, $context );
 
 	/**
 	 * Allows view-specific filtering of the tribe_is_view boolean value.
@@ -515,5 +515,5 @@ function tec_is_view( $view_slug = 'default' ): bool {
 	 * @param boolean $is_view Whether you're on the View or not
 	 * @param Tribe__Context The global context object.
 	 */
-	return apply_filters( "tribe_is_{$view_slug}_view", $is_view, $context );
+	return apply_filters( "tec_is_{$view_slug}_view", $is_view, $context );
 }

@@ -37,7 +37,7 @@ class List_View extends View {
 	 *
 	 * @var string
 	 */
-	protected static $view_slug = 'day';
+	protected static $view_slug = 'list';
 
 	/**
 	 * Visibility for this view.

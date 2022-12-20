@@ -70,6 +70,8 @@ class View implements View_Interface {
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
 	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected static $view_slug = 'view';
@@ -802,6 +804,7 @@ class View implements View_Interface {
 		}, $this->get_parents_slug() );
 
 		$html_classes = array_merge( $base_classes, $parents, $classes );
+		$view_slug    = static::get_view_slug();
 
 		/**
 		 * Filters the HTML classes applied to a View top-level container.
@@ -812,7 +815,7 @@ class View implements View_Interface {
 		 * @param string $view_slug    The current view slug.
 		 * @param View   $instance     The current View object.
 		 */
-		$html_classes = apply_filters( 'tribe_events_views_v2_view_html_classes', $html_classes, static::get_view_slug(), $this );
+		$html_classes = apply_filters( 'tribe_events_views_v2_view_html_classes', $html_classes, $view_slug, $this );
 
 		/**
 		 * Filters the HTML classes applied to a specific View top-level container.
@@ -822,7 +825,7 @@ class View implements View_Interface {
 		 * @param array $html_classes Array of classes used for this view.
 		 * @param View  $instance     The current View object.
 		 */
-		$html_classes = apply_filters( 'tribe_events_views_v2_' . static::get_view_slug() . '_view_html_classes', $html_classes, $this );
+		$html_classes = apply_filters( "tribe_events_views_v2_{$view_slug}_view_html_classes", $html_classes, $this );
 
 		return $html_classes;
 	}
@@ -1944,6 +1947,8 @@ class View implements View_Interface {
 		 */
 		$title = apply_filters( "tribe_events_views_v2_view_title", $title, $this );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the title for this view.
 		 *
@@ -1952,7 +1957,7 @@ class View implements View_Interface {
 		 * @param string $title This view filtered title.
 		 * @param View   $this  This view object.
 		 */
-		$title = apply_filters( 'tribe_events_views_v2_view_' . static::get_view_slug() . '_title', $title, $this );
+		$title = apply_filters( "tribe_events_views_v2_view_{$view_slug}_title", $title, $this );
 
 		return html_entity_decode( $title, ENT_QUOTES );
 	}
@@ -1994,6 +1999,8 @@ class View implements View_Interface {
 		 */
 		$messages = apply_filters( 'tribe_events_views_v2_view_messages', $messages, $this, $this->messages );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the user-facing messages a specific View will print on the frontend.
 		 *
@@ -2004,7 +2011,7 @@ class View implements View_Interface {
 		 * @param View     $this             The current View instance being rendered.
 		 * @param Messages $messages_handler The messages handler object the View used to render the messages.
 		 */
-		$messages = apply_filters( 'tribe_events_views_v2_view_' . static::get_view_slug() . '_messages', $messages, $events, $this, $this->messages );
+		$messages = apply_filters( "tribe_events_views_v2_view_{$view_slug}_messages", $messages, $events, $this, $this->messages );
 
 		return $messages;
 	}
@@ -2377,6 +2384,8 @@ class View implements View_Interface {
 	 * @return array<string,string> The filtered list of data attributes for the View top-level container.
 	 */
 	protected function get_container_data() {
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the data for a View top-level container.
 		 *
@@ -2386,7 +2395,7 @@ class View implements View_Interface {
 		 * @param string               $view_slug The current view slug.
 		 * @param View                 $instance  The current View object.
 		 */
-		$data = apply_filters( 'tribe_events_views_v2_view_container_data', [], static::get_view_slug(), $this );
+		$data = apply_filters( 'tribe_events_views_v2_view_container_data', [], $view_slug, $this );
 
 		/**
 		 * Filters the data for a specific View top-level container.
@@ -2396,7 +2405,7 @@ class View implements View_Interface {
 		 * @param array<string,string> $data     Associative array of data for the View top-level container.
 		 * @param View                 $instance The current View object.
 		 */
-		$data = apply_filters( 'tribe_events_views_v2_' . static::get_view_slug() . '_view_container_data', $data, $this );
+		$data = apply_filters( "tribe_events_views_v2_{$view_slug}_view_container_data", $data, $this );
 
 		return $data;
 	}
@@ -2409,7 +2418,8 @@ class View implements View_Interface {
 	 * @return boolean If we should display Latest Past Events.
 	 */
 	protected function should_show_latest_past_events_view() {
-		$show = $this->context->get( 'show_latest_past', true );
+		$show      = $this->context->get( 'show_latest_past', true );
+		$view_slug = static::get_view_slug();
 
 		/**
 		 * Filters Whether the Latest Past Events Should Show for all Views.
@@ -2420,7 +2430,7 @@ class View implements View_Interface {
 		 * @param string  $view_slug The current view slug.
 		 * @param View    $instance  The current View object.
 		 */
-		$show = apply_filters( 'tribe_events_views_v2_show_latest_past_events_view', $show, static::get_view_slug(), $this );
+		$show = apply_filters( 'tribe_events_views_v2_show_latest_past_events_view', $show, $view_slug, $this );
 
 		/**
 		 * Filters Whether the Latest Past Events Should Show for a specific View.
@@ -2430,7 +2440,7 @@ class View implements View_Interface {
 		 * @param boolean $show     If we should display Latest Past Events.
 		 * @param View    $instance The current View object.
 		 */
-		$show = apply_filters( 'tribe_events_views_v2_' . static::get_view_slug() . '_show_latest_past_events_view', $show, $this );
+		$show = apply_filters( "tribe_events_views_v2_{$view_slug}_show_latest_past_events_view", $show, $this );
 
 		return $show;
 	}
