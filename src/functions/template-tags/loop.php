@@ -5,7 +5,9 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
+use phpDocumentor\Reflection\Types\Boolean;
 use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 
 /**
@@ -86,8 +88,8 @@ function tribe_is_showing_all() : bool {
  */
 function tribe_is_by_date() {
 	$by_date_views = [
-		tribe( Month_View::class )->get_slug(),
-		tribe( Day_View::class )->get_slug(),
+		Month_View::get_view_slug(),
+		Day_View::get_view_slug(),
 	];
 
 	$context = tribe_context();
@@ -371,7 +373,7 @@ function tribe_is_in_main_loop() {
  * @return bool
  */
 function tribe_is_list_view() {
-	$is_list_view = 'list' == Tribe__Events__Main::instance()->displaying ? true : false;
+	$is_list_view = tec_is_view( 'list' );
 
 	return apply_filters( 'tribe_is_list_view', $is_list_view );
 }
@@ -466,4 +468,52 @@ function tribe_right_navigation_classes() {
  **/
 function tribe_is_view( $view = false ) {
 	return $view === Tribe__Events__Main::instance()->displaying;
+}
+
+/**
+ * Check whether we're on a particular view.
+ *
+ * @since TBD
+ *
+ * @param  string $view_slug The view slug we are looking for.
+ *
+ * @return boolean Whether we're on the requested view.
+ */
+function tec_is_view( $view_slug = 'default' ): bool {
+	// in case we get passed "false" or null.
+	if ( ! is_string( $view_slug ) ) {
+		$view_slug = 'default';
+	}
+
+	$view_slug = strtolower( $view_slug );
+	$context = tribe_context();
+	$current_view = $context->get( 'view', 'default' );
+
+	$is_view = ( $view_slug === $current_view );
+
+	// If we get 'default' but are testing for 'month',
+	// make sure we return true when the default view is 'month'.
+	if ( 'default' !== $view_slug && 'default' === $current_view ) {
+		$is_view = ( $view_slug === tribe_get_option( 'viewOption' ) );
+    }
+
+	/**
+	 * Allows generic filtering of the tribe_is_view boolean value.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $is_view Whether you're on the View or not
+	 * @param Tribe__Context The global context object.
+	 */
+	$is_view = apply_filters( 'tribe_is_view', $is_view, $context );
+
+	/**
+	 * Allows view-specific filtering of the tribe_is_view boolean value.
+	 *
+	 * @since TBD
+	 *
+	 * @param boolean $is_view Whether you're on the View or not
+	 * @param Tribe__Context The global context object.
+	 */
+	return apply_filters( "tribe_is_{$view_slug}_view", $is_view, $context );
 }

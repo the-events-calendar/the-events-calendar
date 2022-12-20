@@ -14,8 +14,8 @@
  * @return bool
  */
 function tribe_is_month() {
-	$context = tribe_context();
-	$is_month  = ( 'month' === $context->get( 'view', 'default' ) );
+	$context  = tribe_context();
+	$is_month = tec_is_view( 'month' );
 
 	/**
 	 * Allows filtering of the tribe_is_month boolean value.

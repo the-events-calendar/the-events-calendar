@@ -155,7 +155,7 @@ class Widget_View extends View {
 		 * @param Context              $context The context to use to setup the args.
 		 * @param Widget_View          $widget  Instance of the Widget View we are filtering for.
 		 */
-		$args = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_repository_args", $args, $context, $this );
+		$args = apply_filters( 'tribe_events_views_v2_' . static::get_view_slug() . '_widget_repository_args', $args, $context, $this );
 
 		return $args;
 	}
@@ -181,7 +181,7 @@ class Widget_View extends View {
 		 * @param string $view_slug    The current widget slug.
 		 * @param View   $instance     The current View object.
 		 */
-		$classes = apply_filters( 'tribe_events_views_v2_widget_compatibility_classes', $classes, $this->get_slug(), $this );
+		$classes = apply_filters( 'tribe_events_views_v2_widget_compatibility_classes', $classes, static::get_view_slug(), $this );
 
 		/**
 		 * Filters the HTML classes applied to a specific widget top-level container.
@@ -191,7 +191,7 @@ class Widget_View extends View {
 		 * @param array $classes Array of classes used for this widget.
 		 * @param View  $instance     The current View object.
 		 */
-		$classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_compatibility_classes", $classes, $this );
+		$classes = apply_filters( 'tribe_events_views_v2_' . static::get_view_slug() . '_widget_compatibility_classes', $classes, $this );
 
 		return $classes;
 	}
@@ -211,7 +211,7 @@ class Widget_View extends View {
 		 * @param string $view_slug    The current widget slug.
 		 * @param View   $instance     The current View object.
 		 */
-		$html_classes = apply_filters( 'tribe_events_views_v2_widget_html_classes', $html_classes, $this->get_slug(), $this );
+		$html_classes = apply_filters( 'tribe_events_views_v2_widget_html_classes', $html_classes, static::get_view_slug(), $this );
 
 		/**
 		 * Filters the HTML classes applied to a specific widget top-level container.
@@ -221,7 +221,7 @@ class Widget_View extends View {
 		 * @param array $html_classes Array of classes used for this widget.
 		 * @param View  $instance     The current View object.
 		 */
-		$html_classes = apply_filters( "tribe_events_views_v2_{$this->get_slug()}_widget_html_classes", $html_classes, $this );
+		$html_classes = apply_filters( 'tribe_events_views_v2_' . static::get_view_slug() . '_widget_html_classes', $html_classes, $this );
 
 		return $html_classes;
 	}

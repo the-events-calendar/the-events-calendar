@@ -159,8 +159,8 @@ trait HTML_Cache {
 
 		$pre_conditions = 0 === $this->get_password_protected_events_count();
 		$should_cache   = $pre_conditions
-		                  && isset( $cached_views[ $this->get_slug() ] )
-		                  && $cached_views[ $this->get_slug() ]
+		                  && isset( $cached_views[ static::get_view_slug() ] )
+		                  && $cached_views[ static::get_view_slug() ]
 		                  && $this->should_enable_html_cache( $context );
 
 		/**

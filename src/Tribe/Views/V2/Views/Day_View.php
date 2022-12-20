@@ -21,12 +21,22 @@ class Day_View extends View {
 
 	/**
 	 * Slug for this view
+	 * @todo deprecate and use static::$view_slug
 	 *
 	 * @since 4.9.4
 	 *
 	 * @var string
 	 */
 	protected $slug = 'day';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'day';
 
 	/**
 	 * Cached dates for the prev/next links.

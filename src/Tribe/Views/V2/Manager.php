@@ -178,11 +178,7 @@ class Manager {
 	public function get_default_view_slug() {
 		$view = $this->get_default_view();
 
-		if ( ! $view ) {
-			return 'month';
-		}
-
-		return tribe( $view )->get_slug();
+		return $view ? $view::get_view_slug() : Month_View::get_view_slug();
 	}
 
 	/**

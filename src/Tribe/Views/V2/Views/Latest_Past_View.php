@@ -17,12 +17,22 @@ class Latest_Past_View extends View {
 	use List_Behavior;
 	/**
 	 * Slug for this view
+	 * @todo deprecate and use static::$view_slug
 	 *
 	 * @since 5.1.0
 	 *
 	 * @var string
 	 */
 	protected $slug = 'latest-past';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'latest-past';
 
 	/**
 	 * Visibility for this view.

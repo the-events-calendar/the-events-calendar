@@ -101,6 +101,16 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_slug();
 
 	/**
+	 * Statically returns the View slug, thus not requiring the View be instantiated first.
+	 * Usually this is the one it was registered with in the `tribe_events_views` filter.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
+	 */
+	public static function get_view_slug(): string;
+
+	/**
 	 * Returns a View template path, usually a prefix for the template slug.
 	 *
 	 * @since 5.2.1

@@ -30,12 +30,22 @@ class Month_View extends By_Day_View {
 
 	/**
 	 * Slug for this view.
+	 * @todo deprecate and use static::$view_slug
 	 *
 	 * @since 4.9.3
 	 *
 	 * @var string
 	 */
 	protected $slug = 'month';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'month';
 
 	/**
 	 * Cached dates for the prev/next links.
