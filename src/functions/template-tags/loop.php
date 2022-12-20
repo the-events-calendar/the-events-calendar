@@ -467,7 +467,7 @@ function tribe_right_navigation_classes() {
  * @return bool
  **/
 function tribe_is_view( $view = false ) {
-	return $view === Tribe__Events__Main::instance()->displaying;
+	return tec_is_view( $view );
 }
 
 /**
@@ -508,7 +508,7 @@ function tec_is_view( $view_slug = 'default' ): bool {
 	$is_view = apply_filters( 'tec_is_view', $is_view, $context );
 
 	/**
-	 * Allows view-specific filtering of the tribe_is_view boolean value.
+	 * Allows view-specific filtering of the tec_is_view boolean value.
 	 *
 	 * @since TBD
 	 *
