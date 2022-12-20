@@ -26,6 +26,7 @@ jobs:
           # - views_rest
           - wp_json_api
           - ct1_wp_json_api
+          - rewrite_functional
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
