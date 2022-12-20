@@ -232,7 +232,9 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.8] 2023-01-TBD =
 
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
-* Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
+* Fix - Avoid the issue of events which have venues assigned not being able to be updated successfully on some browsers. [TEC-4596]
+* Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
+* Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
 * Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
 
 = [6.0.6.2] 2022-12-16 =
