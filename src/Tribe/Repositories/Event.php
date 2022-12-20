@@ -264,7 +264,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                         ->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
 
 		return [
 			'meta_query' => [
@@ -296,7 +296,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                         ->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
 
 		return [
 			'meta_query' => [
@@ -328,7 +328,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                         ->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
 
 		return [
 			'meta_query' => [
@@ -360,7 +360,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                         ->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
 
 		return [
 			'meta_query' => [
@@ -392,7 +392,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                         ->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
 
 		return [
 			'meta_query' => [
@@ -424,7 +424,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                         ->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$key = $date->getTimezone()->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
 
 		return [
 			'meta_query' => [
@@ -653,16 +653,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array An array of arguments that should be added to the WP_Query object.
 	 */
 	public function filter_by_runs_between( $start_datetime, $end_datetime, $timezone = null ) {
-		$start_date_obj = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
-		                                   ->setTimezone( $this->normal_timezone );
-		$end_date_obj   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
-		                                   ->setTimezone( $this->normal_timezone );
-		$start_date     = $start_date_obj->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-		$end_date       = $end_date_obj->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
+		                               ->setTimezone( $this->normal_timezone )
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
+		                               ->setTimezone( $this->normal_timezone )
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$start_key = $start_date_obj->getTimezone()->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
-		$end_key   = $end_date_obj->getTimezone()->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+		$start_key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+		$end_key   = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
 
 		return [
 			'meta_query' => [
@@ -761,18 +761,18 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array An array of arguments that should be added to the WP_Query object.
 	 */
 	public function filter_by_starts_and_ends_between( $start_datetime, $end_datetime, $timezone = null ) {
-		$start_date_obj = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
-		                                   ->setTimezone( $this->normal_timezone );
-		$start_date     = $start_date_obj->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-		$end_date_obj   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
-		                                   ->setTimezone( $this->normal_timezone );
-		$end_date       = $end_date_obj->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
+		                               ->setTimezone( $this->normal_timezone )
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
+		                               ->setTimezone( $this->normal_timezone )
+		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		$interval = [ $start_date, $end_date ];
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
-		$start_key = $start_date_obj->getTimezone()->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
-		$end_key   = $end_date_obj->getTimezone()->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+		$start_key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+		$end_key   = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
 
 		return [
 			'meta_query' => [
