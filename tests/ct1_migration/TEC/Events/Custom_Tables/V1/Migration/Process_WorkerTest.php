@@ -86,6 +86,16 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
+	 * Make sure state is cleaned up from other tests.
+	 */
+	public function setUp() {
+		parent::setUp();
+		tribe()->offsetUnset( State::class );
+		tribe()->offsetUnset( Process_Worker::class );
+		tribe()->offsetUnset( Process::class );
+	}
+
+	/**
 	 * It should correctly handle error in migration strategy
 	 *
 	 * @test
