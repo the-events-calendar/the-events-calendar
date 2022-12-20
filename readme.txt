@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.8] 2023-01-TBD =
 
+* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Avoid the issue of events which have venues assigned not being able to be updated successfully on some browsers. [TEC-4596]
 * Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
