@@ -16,7 +16,7 @@ class DataTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_context() {
 		$view      = View::make( Month_View::class );
-		$view_slug = $view->get_slug();
+		$view_slug = $view::get_view_slug();
 
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'view'      => $view,
