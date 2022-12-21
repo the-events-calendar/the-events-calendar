@@ -20,9 +20,9 @@ class Reflector_View extends View {
 
 	/**
 	 * Slug for this view.
-	 * @todo deprecate and use static::$view_slug
 	 *
 	 * @since 4.9.4
+	 * @deprecated TBD
 	 *
 	 * @var string
 	 */

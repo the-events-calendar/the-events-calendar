@@ -60,6 +60,7 @@ class View implements View_Interface {
 	 * The slug of the View instance, usually the one it was registered with in the `tribe_events_views`filter.
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
+	 * @deprecated TBD
 	 *
 	 * @var string
 	 */
@@ -760,6 +761,8 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_slug() {
+		_deprecated_function( __METHOD__, 'TBD', 'Use static get_view_slug()' );
+
 		return static::get_view_slug();
 	}
 
@@ -834,7 +837,6 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function set_slug( $slug ) {
-		$this->slug        = $slug;
 		static::$view_slug = $slug;
 		$this->template->set( 'slug', $slug );
 	}

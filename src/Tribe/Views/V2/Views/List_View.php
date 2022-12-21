@@ -22,9 +22,9 @@ class List_View extends View {
 
 	/**
 	 * Slug for this view
-	 * @todo deprecate and use static::$view_slug
 	 *
 	 * @since 4.9.3
+	 * @deprecated TBD
 	 *
 	 * @var string
 	 */

@@ -17,9 +17,9 @@ class Latest_Past_View extends View {
 	use List_Behavior;
 	/**
 	 * Slug for this view
-	 * @todo deprecate and use static::$view_slug
 	 *
 	 * @since 5.1.0
+	 * @deprecated TBD
 	 *
 	 * @var string
 	 */

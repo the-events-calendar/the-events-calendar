@@ -86,6 +86,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * Sets the View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
 	 * @since 4.9.2
+	 * @deprecated TBD
 	 *
 	 * @param string $slug The slug to set for the View instance.
 	 */
@@ -95,6 +96,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * Returns a View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
 	 * @since 4.9.2
+	 * @deprecated TBD
 	 *
 	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 */
