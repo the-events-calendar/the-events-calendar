@@ -17,10 +17,10 @@ use Tribe\Events\Views\V2\Views\Month_View;
  *
  * @return bool
  */
-function tribe_is_past() {
+function tribe_is_past(): bool {
 
 	if ( ! $wp_query = tribe_get_global_query_object() ) {
-		return;
+		return false;
 	}
 
 	$is_past = ! empty( $wp_query->tribe_is_past ) && ! tribe_is_showing_all() ? $wp_query->tribe_is_past : false;
@@ -30,7 +30,7 @@ function tribe_is_past() {
 	 *
 	 * @param bool $is_past Whether the current view shows upcoming past or not.
 	 */
-	return apply_filters( 'tribe_is_past', $is_past );
+	return (bool) apply_filters( 'tribe_is_past', $is_past );
 }
 
 /**
@@ -40,10 +40,10 @@ function tribe_is_past() {
  *
  * @return bool
  */
-function tribe_is_upcoming() {
+function tribe_is_upcoming(): bool {
 
 	if ( ! $wp_query = tribe_get_global_query_object() ) {
-		return;
+		return false;
 	}
 
 	$is_upcoming = ( tribe_is_list_view() && ! tribe_is_past() ) ? true : false;
@@ -53,7 +53,7 @@ function tribe_is_upcoming() {
 	 *
 	 * @param bool $is_upcoming Whether the current view shows upcoming events or not.
 	 */
-	return apply_filters( 'tribe_is_upcoming', $is_upcoming );
+	return (bool) apply_filters( 'tribe_is_upcoming', $is_upcoming );
 }
 
 /**
@@ -86,7 +86,7 @@ function tribe_is_showing_all() : bool {
  *
  * @return bool
  */
-function tribe_is_by_date() {
+function tribe_is_by_date(): bool {
 	$by_date_views = [
 		Month_View::get_view_slug(),
 		Day_View::get_view_slug(),
@@ -102,6 +102,7 @@ function tribe_is_by_date() {
 
 	/**
 	 * Allows for customization of the result of whether or not a "by date" view is being viewed.
+	 * Typically Month and Day Views.
 	 * Events PRO hooks in here to indicate that Week View is a by-date-view at 10.
 	 *
 	 * @param bool $tribe_is_by_date Whether a "by date" calendar view is currently being displayed.
@@ -363,8 +364,8 @@ function tribe_get_past_link() {
  *
  * @return bool
  */
-function tribe_is_in_main_loop() {
-	return apply_filters( 'tribe_is_main_loop', false );
+function tribe_is_in_main_loop(): bool {
+	return (bool) apply_filters( 'tribe_is_main_loop', false );
 }
 
 /**
@@ -372,10 +373,19 @@ function tribe_is_in_main_loop() {
  *
  * @return bool
  */
-function tribe_is_list_view() {
+function tribe_is_list_view(): bool {
+	$context  = tribe_context();
 	$is_list_view = tec_is_view( List_View::get_view_slug() );
 
-	return apply_filters( 'tribe_is_list_view', $is_list_view );
+	/**
+	 * Allows filtering of the tribe_is_list_view boolean value.
+	 *
+	 * @since TBD Added context to parameters.
+	 *
+	 * @param bool           $is_list_view If we're on the List View
+	 * @param Tribe__Context $context      The current context
+	 */
+	return (bool) apply_filters( 'tribe_is_list_view', $is_list_view, $context );
 }
 
 /**
@@ -464,9 +474,13 @@ function tribe_right_navigation_classes() {
 /**
  * Checks whether we're on a particular view
  *
+ * @deprecated TBD
+ *
  * @return bool
  **/
 function tribe_is_view( $view = false ) {
+	_deprecated_function( __METHOD__, 'TBD', 'tec_is_view');
+
 	return tec_is_view( $view );
 }
 
@@ -479,7 +493,7 @@ function tribe_is_view( $view = false ) {
  *
  * @return boolean Whether we're on the requested view.
  */
-function tec_is_view( $view_slug = 'default' ): bool {
+function tec_is_view( string $view_slug = 'default' ): bool {
 	// in case we get passed "false" or null.
 	if ( ! is_string( $view_slug ) ) {
 		$view_slug = 'default';
@@ -515,5 +529,5 @@ function tec_is_view( $view_slug = 'default' ): bool {
 	 * @param boolean $is_view Whether you're on the View or not
 	 * @param Tribe__Context The global context object.
 	 */
-	return apply_filters( "tec_is_{$view_slug}_view", $is_view, $context );
+	return (bool) apply_filters( "tec_is_{$view_slug}_view", $is_view, $context );
 }

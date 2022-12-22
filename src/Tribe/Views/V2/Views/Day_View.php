@@ -284,7 +284,7 @@ class Day_View extends View {
 			}
 
 			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url     = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+			$input_url     = add_query_arg( [ 'eventDisplay' => static::$view_slug ], $input_url );
 			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {
