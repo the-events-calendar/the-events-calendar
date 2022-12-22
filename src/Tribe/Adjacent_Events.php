@@ -1,5 +1,8 @@
 <?php
 
+use Tribe__Cache_Listener as Cache_Listener;
+use Tribe__Events__Main as TEC;
+
 /**
  * Controls getting a previous or next event from the context of a single event being viewed.
  */
@@ -189,74 +192,89 @@ class Tribe__Events__Adjacent_Events {
 	 * Get the prev/next post for a given event. Ordered by start date instead of ID.
 	 *
 	 * @since 4.6.12
+	 * @since TBD Cache the query results.
 	 *
 	 * @param string  $mode Either 'next' or 'previous'.
 	 *
-	 * @return null|WP_Post
+	 * @return null|WP_Post The closest Event post object, or `null` if no post was found.
 	 */
 	public function get_closest_event( $mode = 'next' ) {
-		$post_obj = get_post( $this->current_event_id );
-
-		if ( 'previous' === $mode ) {
-			$order      = 'DESC';
-			$direction  = '<';
-		} else {
-			$order      = 'ASC';
-			$direction  = '>';
-			$mode       = 'next';
+		if ( empty( $this->current_event_id ) ) {
+			return null;
 		}
 
-		$args = [
-			'posts_per_page' => 1,
-			'post__not_in'   => [ $this->current_event_id ],
-			'meta_query'     => [
-				[
-					'key'     => '_EventStartDate',
-					'value'   => $post_obj->_EventStartDate,
-					'type'    => 'DATETIME',
-					'compare' => $direction,
+		$cache     = tribe_cache();
+		$cache_key = 'tec_events_closest_event_' . $this->current_event_id . '_' . $mode;
+		// The cached value will be the post ID, or `null`, to avoid pre-fetch issues.
+		$cached = $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST, false );
+		$event = $cached;
+		if ( ! empty( $cached ) ) {
+			// If not empty, it should be a valid event post ID.
+			$event = get_post( $cached );
+			if ( ! ( $event instanceof WP_Post && $event->post_type === TEC::POSTTYPE ) ) {
+				$event = false;
+			}
+		} elseif ( $cached !== null ) {
+			// If not a post ID, then it should be `null`.
+			$event = false;
+		}
+
+		$post_obj = get_post( $this->current_event_id );
+
+		if ( $event === false ) {
+			if ( 'previous' === $mode ) {
+				$order     = 'DESC';
+				$direction = '<';
+			} else {
+				$order     = 'ASC';
+				$direction = '>';
+				$mode      = 'next';
+			}
+			$args       = [
+				'posts_per_page' => 1,
+				'post__not_in'   => [ $this->current_event_id ],
+				'meta_query'     => [
+					[
+						'key'     => '_EventStartDate',
+						'value'   => $post_obj->_EventStartDate,
+						'type'    => 'DATETIME',
+						'compare' => $direction,
+					],
+					[
+						'key'     => '_EventHideFromUpcoming',
+						'compare' => 'NOT EXISTS',
+					],
+					'relation' => 'AND',
 				],
-				[
-					'key'     => '_EventHideFromUpcoming',
-					'compare' => 'NOT EXISTS',
-				],
-				'relation'    => 'AND',
-			],
-		];
+			];
+			$events_orm = tribe_events();
+			/**
+			 * Allows the query arguments used when retrieving the next/previous event link
+			 * to be modified.
+			 *
+			 * @since 4.6.12
+			 *
+			 * @param array   $args
+			 * @param WP_Post $post_obj
+			 */
+			$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post_obj );
+			$events_orm->order_by( 'event_date', $order );
+			$events_orm->by_args( $args );
+			$query = $events_orm->get_query();// Make sure we are not including same datetime events
+			add_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );// Fetch the posts
+			$query->get_posts();// Remove this filter right after fetching the events
+			remove_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
+			$results = $query->posts;
+			$event = null;
 
-		$events_orm = tribe_events();
+			// If we successfully located the next/prev event, we should have precisely one element in $results
+			if ( 1 === count( $results ) ) {
+				$event = reset( $results );
+			}
 
-		/**
-		 * Allows the query arguments used when retrieving the next/previous event link
-		 * to be modified.
-		 *
-		 * @since 4.6.12
-		 *
-		 * @param array   $args
-		 * @param WP_Post $post_obj
-		 */
-		$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post_obj );
-
-		$events_orm->order_by( 'event_date', $order );
-		$events_orm->by_args( $args );
-		$query = $events_orm->get_query();
-
-		// Make sure we are not including same datetime events
-		add_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
-
-		// Fetch the posts
-		$query->get_posts();
-
-		// Remove this filter right after fetching the events
-		remove_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
-
-		$results = $query->posts;
-
-		$event = null;
-
-		// If we successfully located the next/prev event, we should have precisely one element in $results
-		if ( 1 === count( $results ) ) {
-			$event = current( $results );
+			$value = $event instanceof WP_Post ? $event->ID : $event;
+			// Cache until an Event is updated; just the ID to avoid pre-fetching issues, or `null`.
+			$cache->set( $cache_key, $value, WEEK_IN_SECONDS, Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		/**
