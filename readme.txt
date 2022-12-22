@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
-* Fix - Avoid running slow query for adjacent events when possible. [TBD]
+* Fix - Avoid running slow query for adjacent events when possible. [TEC-4633]
 * Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
 
 = [6.0.6.2] 2022-12-16 =
