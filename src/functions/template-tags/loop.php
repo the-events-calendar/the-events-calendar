@@ -489,20 +489,24 @@ function tribe_is_view( $view = false ) {
  *
  * @since TBD
  *
- * @param  string $view_slug The view slug we are looking for.
+ * @param  string $view_slug      (optional) The view slug we are looking for. Defaults to checking if we are on the default view.
+ * @param Tribe__Context $context (optional) The view context. Generated via tribe_context() if not supplied.
  *
  * @return boolean Whether we're on the requested view.
  */
-function tec_is_view( string $view_slug = 'default' ): bool {
+function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	// in case we get passed "false" or null.
 	if ( ! is_string( $view_slug ) ) {
 		$view_slug = 'default';
 	}
+	if ( ! $context instanceof Tribe__Context ) {
+		$context = tribe_context();
+	}
 
-	$view_slug = strtolower( $view_slug );
-	$context = tribe_context();
 	$current_view = $context->get( 'view', 'default' );
 
+	// ensure we strict-compare apples to apples here.
+	$view_slug = strtolower( $view_slug );
 	$is_view = ( $view_slug === $current_view );
 
 	// If we get 'default' but are testing for 'month',
