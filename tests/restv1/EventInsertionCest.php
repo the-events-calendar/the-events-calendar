@@ -63,17 +63,18 @@ class EventInsertionCest extends BaseRestCest {
 	 * It should allow to set the start date using natural language
 	 *
 	 * @test
-	 * @example ["tomorrow 9am", "tomorrow 11am"]
-	 * @example ["tomorrow 11am", "tomorrow 1pm"]
-	 * @example ["next wednesday 4pm", "next wednesday 5pm"]
+	 * @example ["tomorrow 9am", "tomorrow 11am", "America/New_York"]
+	 * @example ["tomorrow 11am", "tomorrow 1pm", "America/New_York"]
+	 * @example ["next wednesday 4pm", "next wednesday 5pm", "America/New_York"]
+	 * @example ["tomorrow 9am", "tomorrow 11am", "America/Juneau"]
+	 * @example ["tomorrow 9am", "tomorrow 11am", "Australia/Sydney"]
+	 * @example ["tomorrow 9am", "tomorrow 11am", "Atlantic/Reykjavik"]
 	 */
 	public function it_should_allow_to_set_the_start_date_using_natural_language( Tester $I, \Codeception\Example $data ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$start = $data[0];
-		$end = $data[1];
+		list( $start, $end, $timezone ) = $data;
 
-		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
 		$I->sendPOST( $this->events_url, [
@@ -84,10 +85,13 @@ class EventInsertionCest extends BaseRestCest {
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
 
+		// Proper dates based on timezone
+		$start_obj = new DateTime( $start, new DateTimeZone( $timezone ) );
+		$end_obj   = new DateTime( $end, new DateTimeZone( $timezone ) );
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'     => $start_obj->format( 'Y-m-d H:i:s' ),
+			'end_date'       => $end_obj->format( 'Y-m-d H:i:s' ),
 			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
