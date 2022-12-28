@@ -124,13 +124,15 @@ class EventInsertionCest extends BaseRestCest {
 			'timezone'   => $timezone,
 		] );
 
+		$start_obj = new DateTime( $start, new DateTimeZone( $timezone ) );
+		$end_obj   = new DateTime( $end, new DateTimeZone( $timezone ) );
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'timezone'       => $timezone,
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'     => $start_obj->format( 'Y-m-d H:i:s' ),
+			'end_date'       => $end_obj->format( 'Y-m-d H:i:s' ),
 			'utc_start_date' => Timezones::convert_date_from_timezone( $start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 		] );
@@ -327,16 +329,17 @@ class EventInsertionCest extends BaseRestCest {
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
-		$start = 'tomorrow 9am';
-		$end = 'tomorrow 11am';
 		$all_day_start = 'tomorrow 00:00:00';
-		$all_day_end = 'tomorrow 23:59:59';
+		$all_day_end   = 'tomorrow 23:59:59';
+		$start_obj     = new DateTime( $all_day_start, new DateTimeZone( $timezone ) );
+		$end_obj       = new DateTime( $all_day_end, new DateTimeZone( $timezone ) );
+
 		$I->sendPOST( $this->events_url, [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'all_day'     => true,
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( $start ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( $end ) ),
+			'start_date'  => $start_obj->format( 'Y-m-d H:i:s' ),
+			'end_date'    => $end_obj->format( 'Y-m-d H:i:s' ),
 		] );
 
 		$I->seeResponseCodeIs( 201 );
@@ -344,8 +347,8 @@ class EventInsertionCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'description'    => trim( apply_filters( 'the_content', 'An event content' ) ),
-			'start_date'     => date( 'Y-m-d H:i:s', strtotime( $all_day_start ) ),
-			'end_date'       => date( 'Y-m-d H:i:s', strtotime( $all_day_end ) ),
+			'start_date'     => $start_obj->format( 'Y-m-d H:i:s' ),
+			'end_date'       => $end_obj->format( 'Y-m-d H:i:s' ),
 			'utc_start_date' => Timezones::convert_date_from_timezone( $all_day_start, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'utc_end_date'   => Timezones::convert_date_from_timezone( $all_day_end, $timezone, 'UTC', 'Y-m-d H:i:s' ),
 			'all_day'        => true,
