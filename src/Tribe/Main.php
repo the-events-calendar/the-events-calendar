@@ -2319,7 +2319,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function( __METHOD__, '6.0.0' );
 		}
 
-				/**
+		/**
 		 * Returns the default view, providing a fallback if the default is no longer available.
 		 *
 		 * This can be useful is for instance a view added by another plugin (such as PRO) is
