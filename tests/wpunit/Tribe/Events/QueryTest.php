@@ -4,7 +4,7 @@ namespace Tribe\Events;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Testcases\Events_TestCase;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Query as Query;
 use Tribe__Events__Organizer as Organizer;
@@ -214,7 +214,7 @@ class QueryTest extends Events_TestCase {
 	 */
 	public function should_not_parse_query_in_admin_context(): void {
 		// Simulate an admin context request.
-		$this->uopz_set_return( 'is_admin', true );
+		$this->set_fn_return( 'is_admin', true );
 		$wp_query = new WP_Query( [ 'post_type' => 'tribe_events' ] );
 
 		$this->assertFalse( isset( $wp_query->tribe_is_event ) );
@@ -356,7 +356,7 @@ class QueryTest extends Events_TestCase {
 	 */
 	public function should_not_add_events_to_tag_archives_when_looking_at_admin_screen_for_posts(): void {
 		// Simulate the fact we're looking at an admin tag archive for posts.
-		$this->uopz_set_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
+		$this->set_fn_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
 			public function is_post_type_screen( $post_type = null ) {
 				return true;
 			}
@@ -376,7 +376,7 @@ class QueryTest extends Events_TestCase {
 	 */
 	public function should_add_events_to_tag_archives_when_not_looking_at_admin_screen_for_posts(): void {
 		// Simulate the fact we're looking at an admin tag archive for posts.
-		$this->uopz_set_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
+		$this->set_fn_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
 			public function is_post_type_screen( $post_type = null ) {
 				return false;
 			}
