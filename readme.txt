@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.7] 2023-01-TBD =
 
 * Fix - This fixes an issue with how we interpret relative date searches in several Event repository filters. We were passing UTC dates on non-UTC event date fields, and this could show up in situations like the `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
+* Fix - Fixes relative dates on our REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
 * Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
