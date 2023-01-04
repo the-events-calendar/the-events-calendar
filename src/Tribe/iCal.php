@@ -732,7 +732,7 @@ class Tribe__Events__iCal {
 		// Add categories if available.
 		$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, [ 'fields' => 'names' ] );
 
-		if ( ! empty( $event_cats ) ) {
+		if ( ! empty( $event_cats ) && ! is_wp_error( $event_cats ) ) {
 			$item['CATEGORIES'] = 'CATEGORIES:' . $this->html_decode( join( ',', $event_cats ) );
 		}
 
