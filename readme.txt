@@ -235,10 +235,12 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fixes relative dates on our REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
 * Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
+* Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
 * Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
 * Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
-* Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
 * Fix - Fix a primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
+* Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
+* Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
 
 = [6.0.6.2] 2022-12-16 =
 

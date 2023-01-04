@@ -210,9 +210,9 @@ class View_Register {
 
 	/**
 	 * Add canonical tag to the head of all calendar views.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @param string $current_url The URL of the page being currently viewed.
 	 */
 	public function add_canonical_tags() {
