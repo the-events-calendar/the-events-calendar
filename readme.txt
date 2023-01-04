@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.8] 2023-01-TBD =
+= [6.0.7] 2023-01-TBD =
 
 * Fix - This fixes an issue with how we interpret relative date searches in several Event repository filters. We were passing UTC dates on non-UTC event date fields, and this could show up in situations like the `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
 * Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
