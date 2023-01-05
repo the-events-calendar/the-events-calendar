@@ -1,4 +1,9 @@
 <?php
+
+use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
+
 /**
  * Registers and Enqueues the assets
  *
@@ -620,9 +625,9 @@ class Tribe__Events__Assets {
 			'events_base'        => tribe_get_events_link(),
 			'update_urls'        => [
 				'shortcode' => [
-					'list'  => true,
-					'month' => true,
-					'day'   => true,
+					Month_View::get_view_slug() => true,
+					List_View::get_view_slug()  => true,
+					Day_View::get_view_slug()   => true,
 				],
 			],
 		];

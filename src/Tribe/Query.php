@@ -3,6 +3,8 @@
  * Controls the main event query.  Allows for recurring events.
  */
 
+use Tribe\Events\Views\V2\Views\Month_View;
+use Tribe\Events\Views\V2\Views\List_View;
 use Tribe__Utils__Array as Arr;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
@@ -80,10 +82,11 @@ class Tribe__Events__Query {
 		$query_post_types = (array) $query->get( 'post_type' );
 
 		// Add Events to tag archives when not looking at the admin screen for posts.
-		if ( ! $any_post_type
-		     && $query->is_tag
-		     && ! $is_event_query
-		     && ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
+		if (
+			! $any_post_type
+			&& $query->is_tag
+			&& ! $is_event_query
+			&& ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
 		) {
 			self::add_post_type_to_query( $query, TEC::POSTTYPE );
 		}
@@ -119,7 +122,7 @@ class Tribe__Events__Query {
 		if (
 			! $query->tribe_is_event_category
 			&& $is_main_query
-			&& $event_display === 'month'
+			&& $event_display === Month_View::get_view_slug()
 			&& ! $query->is_tax()
 		) {
 			$query->is_post_type_archive = true;
@@ -129,8 +132,6 @@ class Tribe__Events__Query {
 
 		if ( tribe_is_events_front_page() ) {
 			$query->is_home = true;
-		} else {
-			$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 		}
 
 		// Hook reasonably late on the action that will fire next to filter and order Events by date, if required.
@@ -256,7 +257,13 @@ class Tribe__Events__Query {
 			// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
 			if (
 				! $has_date_args
-				&& in_array( $display, [ 'upcoming', 'list' ] )
+				&& in_array(
+						$display,
+						[
+							'upcoming',
+							List_View::get_view_slug()
+						]
+					)
 			) {
 				if ( empty( $args['tribe_is_past'] ) ) {
 					$args['start_date'] = 'now';

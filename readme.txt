@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.8
+Stable tag: 6.0.7
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,9 +229,22 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.8] 2023-01-TBD =
+= [6.0.7] 2023-01-TBD =
 
+* Fix - This fixes an issue with how we interpret relative date searches in several Event repository filters. We were passing UTC dates on non-UTC event date fields, and this could show up in situations like the `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
+* Fix - Fixes relative dates on our REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
+* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
+* Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
+* Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
+* Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+* Fix - Fix a primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
+* Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
+* Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
 
+= [6.0.6.2] 2022-12-16 =
+
+* Fix - Fix layout issues with Avada, Divi, and similar themes. [TEC-4623]
 
 = [6.0.6.1] 2022-12-14 =
 
@@ -273,7 +286,6 @@ Remember to always make a backup of your database and files before updating!
 				`Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
 * Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
-
 
 = [6.0.4] 2022-11-15 =
 
