@@ -495,24 +495,30 @@ function tribe_is_view( $view = false ) {
  * @return boolean Whether we're on the requested view.
  */
 function tec_is_view( string $view_slug = 'default', $context = null ): bool {
-	// in case we get passed "false" or null.
+	$view_slug = strtolower( $view_slug );
+	$is_view   = false;
+
+	// In case we somehow get passed a non-string.
 	if ( ! is_string( $view_slug ) ) {
 		$view_slug = 'default';
 	}
+
 	if ( ! $context instanceof Tribe__Context ) {
 		$context = tribe_context();
 	}
 
-	$current_view = $context->get( 'view', 'default' );
+	if ( $context->is( 'tec_post_type' ) ) {
+		$current_view = $context->get( 'view', 'default' );
 
-	// ensure we strict-compare apples to apples here.
-	$view_slug = strtolower( $view_slug );
-	$is_view = ( $view_slug === $current_view );
+		// ensure we strict-compare apples to apples here.
 
-	// If we get 'default' but are testing for 'month',
-	// make sure we return true when the default view is 'month'.
-	if ( 'default' !== $view_slug && 'default' === $current_view ) {
-		$is_view = ( $view_slug === tribe_get_option( 'viewOption' ) );
+		$is_view = ( $view_slug === $current_view );
+
+		// If we get 'default' but are testing for 'month',
+		// make sure we return true when the default view is 'month'.
+		if ( 'default' !== $view_slug && 'default' === $current_view ) {
+			$is_view = ( $view_slug === tribe_get_option( 'viewOption' ) );
+		}
 	}
 
 	/**
@@ -523,7 +529,7 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	 * @param boolean $is_view Whether you're on the View or not
 	 * @param Tribe__Context The global context object.
 	 */
-	$is_view = apply_filters( 'tec_is_view', $is_view, $context );
+	$is_view = apply_filters( 'tec_is_view', $is_view, $view_slug, $context );
 
 	/**
 	 * Allows view-specific filtering of the tec_is_view boolean value.
