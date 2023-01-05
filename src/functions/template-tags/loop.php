@@ -495,8 +495,8 @@ function tribe_is_view( $view = false ) {
  * @return boolean Whether we're on the requested view.
  */
 function tec_is_view( string $view_slug = 'default', $context = null ): bool {
-	$view_slug = strtolower( $view_slug );
 	$is_view   = false;
+	$view_slug = strtolower( $view_slug );
 
 	// In case we somehow get passed a non-string.
 	if ( ! is_string( $view_slug ) ) {
@@ -509,8 +509,6 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 
 	if ( $context->is( 'tec_post_type' ) ) {
 		$current_view = $context->get( 'view', 'default' );
-
-		// ensure we strict-compare apples to apples here.
 
 		$is_view = ( $view_slug === $current_view );
 
