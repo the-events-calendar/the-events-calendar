@@ -242,6 +242,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure we did not get an error object back when requesting event category. [TEC-4619]
 * Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
 * Tweak - Change some labelling of event settings in the admin. [TEC-4626]
+* Tweak - Reorganize a few Event settings in the admin. [TEC_4627]
 * Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
 
 = [6.0.6.2] 2022-12-16 =
