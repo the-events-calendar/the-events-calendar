@@ -17,14 +17,17 @@ class Map_BasicTest extends HtmlTestCase {
 	 * Test render google maps iframe with mock data.
 	 */
 	public function test_render_google_maps_iframe_with_mock_data() {
-		$venue     = "My Test Venue";
-		$width     = "100";
-		$height    = "200";
-		$embed_url = "http://example.com";
-
-		// TODO: update this to use TEC's in-built template locating system.
 		ob_start();
-		include "src/views/modules/map-basic.php";
+		tribe_get_template_part(
+			'modules/map-basic',
+			null,
+			[
+				'venue'     => 'My test venue',
+				'embed_url' => 'http://example.com',
+				'width'     => 100,
+				'height'    => 200,
+			]
+		);
 		$html = ob_get_clean();
 
 		$this->assertMatchesSnapshot( $html );
