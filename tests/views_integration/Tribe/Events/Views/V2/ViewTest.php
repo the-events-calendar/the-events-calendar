@@ -161,7 +161,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 
 		$view = View::make( 'test' );
 
-		$this->assertEquals( 'test', $view->get_slug() );
+		$this->assertEquals( 'test', $view::get_view_slug() );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 use Tribe__Events__Editor__Compatibility as Compatibility;
 
@@ -54,7 +54,7 @@ class Tribe__Events__Editor__CompatibilityTest extends \Codeception\TestCase\WPT
 				$this->cache[ $key ] = $value;
 			}
 		};
-		$this->uopz_set_return( 'tribe_cache', $mock_cache );
+		$this->set_fn_return( 'tribe_cache', $mock_cache );
 		tribe_update_option( 'toggle_blocks_editor', $option_value );
 		$cache_key = 'tec_editor_compatibility_' . Compatibility::$blocks_editor_key;
 
@@ -92,7 +92,7 @@ class Tribe__Events__Editor__CompatibilityTest extends \Codeception\TestCase\WPT
 				$this->cache[ $key ] = $value;
 			}
 		};
-		$this->uopz_set_return( 'tribe_cache', $mock_cache );
+		$this->set_fn_return( 'tribe_cache', $mock_cache );
 		tribe_update_option( 'toggle_blocks_editor', $option_value );
 		$cache_key = 'tec_editor_compatibility_' . Compatibility::$blocks_editor_key;
 

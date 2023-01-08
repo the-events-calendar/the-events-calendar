@@ -6,6 +6,9 @@
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -37,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.8';
+		const VERSION             = '6.0.7';
 
 		/**
 		 * Min Pro Addon
@@ -1225,7 +1228,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 5.15.0 Added check to see if we are on TEC settings page.
 		 *
-		 * @deprected 6.0.5
+		 * @deprecated 6.0.5
 		 */
 		public function do_addons_api_settings_tab( $admin_page ) {
 			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->do_addons_api_settings_tab()' );
@@ -1483,7 +1486,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// By default, we add a noindex tag for all month view requests and any other
 			// event views that are devoid of events
-			$add_noindex  = ( ! $wp_query->have_posts() || 'month' === $context->get( 'view' ) );
+			$add_noindex  = ( ! $wp_query->have_posts() || Month_View::get_view_slug() === $context->get( 'view' ) );
 
 			/**
 			 * Determines if a noindex meta tag will be set for the current event view.
@@ -1716,10 +1719,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					if ( is_singular( self::POSTTYPE )
 						 || is_singular( Tribe__Events__Venue::POSTTYPE )
 						 || is_tax( self::TAXONOMY )
-						 || ( ( tribe_is_upcoming()
-								|| tribe_is_past()
-								|| tribe_is_month() )
-							  && isset( $wp_query->query_vars['eventDisplay'] ) )
+						 || (
+								(
+									tribe_is_upcoming()
+									|| tribe_is_past()
+									|| tribe_is_month()
+								)
+							  && isset( $wp_query->query_vars['eventDisplay'] )
+							)
 					) {
 						$item->classes[] = 'current-menu-item current_page_item';
 					}
@@ -2312,7 +2319,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function( __METHOD__, '6.0.0' );
 		}
 
-				/**
+		/**
 		 * Returns the default view, providing a fallback if the default is no longer available.
 		 *
 		 * This can be useful is for instance a view added by another plugin (such as PRO) is
@@ -2534,14 +2541,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				case 'home':
 					$event_url = trailingslashit( esc_url_raw( $event_url ) );
 					break;
-				case 'month':
+				case Month_View::get_view_slug():
 					if ( $secondary ) {
 						$event_url = trailingslashit( esc_url_raw( $event_url . $secondary ) );
 					} else {
 						$event_url = trailingslashit( esc_url_raw( $event_url . $this->monthSlug ) );
 					}
 					break;
-				case 'list':
+				case List_View::get_view_slug():
 				case 'upcoming':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
@@ -2554,7 +2561,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$link      = trailingslashit( get_permalink( $p ) );
 					$event_url = trailingslashit( esc_url_raw( $link ) );
 					break;
-				case 'day':
+				case Day_View::get_view_slug():
 					if ( empty( $secondary ) ) {
 						$secondary = $this->todaySlug;
 					} else {
@@ -2621,14 +2628,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			switch ( $type ) {
-				case 'day':
+				case Day_View::get_view_slug():
 					$eventUrl = add_query_arg( [ 'tribe_event_display' => $type ], $eventUrl );
 					if ( $secondary ) {
 						$eventUrl = add_query_arg( [ 'eventDate' => $secondary ], $eventUrl );
 					}
 					break;
 				case 'week':
-				case 'month':
+				case Month_View::get_view_slug():
 					$eventUrl = add_query_arg( [ 'tribe_event_display' => $type ], $eventUrl );
 					if ( is_string( $secondary ) ) {
 						$eventUrl = add_query_arg( [ 'eventDate' => $secondary ], $eventUrl );
@@ -2636,13 +2643,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						$eventUrl = add_query_arg( $secondary, $eventUrl );
 					}
 					break;
-				case 'list':
+				case List_View::get_view_slug():
 				case 'past':
 				case 'upcoming':
 					$eventUrl = add_query_arg( [ 'tribe_event_display' => $type ], $eventUrl );
 					break;
 				case 'dropdown':
-					$dropdown = add_query_arg( [ 'tribe_event_display' => 'month', 'eventDate' => ' ' ], $eventUrl );
+					$dropdown = add_query_arg( [ 'tribe_event_display' => Month_View::get_view_slug(), 'eventDate' => ' ' ], $eventUrl );
 					$eventUrl = rtrim( $dropdown ); // tricksy
 					break;
 				case 'single':
