@@ -376,6 +376,8 @@ abstract class By_Day_View extends View {
 	protected function get_events_per_day() {
 		$events_per_day = $this->context->get( 'events_per_page', 12 );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the number of events per day to fetch in th View.
 		 *
@@ -384,7 +386,7 @@ abstract class By_Day_View extends View {
 		 * @param int         $events_per_day The default number of events that will be fetched for each day.
 		 * @param By_Day_View $this           The current View instance.
 		 */
-		return apply_filters( "tribe_events_views_v2_{$this->slug}_events_per_day", $events_per_day, $this );
+		return apply_filters( "tribe_events_views_v2_{$view_slug}_events_per_day", $events_per_day, $this );
 	}
 
 	/**
@@ -685,7 +687,7 @@ abstract class By_Day_View extends View {
 			}
 
 			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+			$input_url = add_query_arg( [ 'eventDisplay' => static::$view_slug ], $input_url );
 
 			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
