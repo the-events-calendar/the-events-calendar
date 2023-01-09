@@ -32,32 +32,4 @@ class Map_BasicTest extends HtmlTestCase {
 
 		$this->assertMatchesSnapshot( $html );
 	}
-
-	/**
-	 * Test render Google Maps iframe when a valid venue ID is passed and no venue title passed.
-	 */
-	public function test_render_google_maps_iframe_venue_id_passed_no_venue_title_passed() {
-
-	}
-
-	/**
-	 * Test render Google Maps iframe when no venue ID and title are passed.
-	 */
-	public function test_render_google_maps_iframe_no_venue_id_passed_no_venue_title_passed() {
-
-	}
-
-	/**
-	 * Test render Google Maps iframe when no venue ID is passed but a valid venue title is.
-	 */
-	public function test_render_google_maps_iframe_no_venue_id_passed_valid_venue_title_passed() {
-
-	}
-
-	/**
-	 * Test render Google Maps iframe when an incorrect venue ID is passed and no venue title is.
-	 */
-	public function test_render_google_maps_iframe_incorrect_venue_id_passed_no_venue_title_passed() {
-
-	}
 }

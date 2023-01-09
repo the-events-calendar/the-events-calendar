@@ -22,11 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$venue = tribe_get_venue();
+$venue_title = tribe_get_venue();
 ?>
 
 <iframe
-  title="<?php echo sprintf( __( "Google maps iframe displaying the address to %s", 'the-events-calendar' ), $venue ); ?>"
+  title="<?php echo sprintf( __( "Google maps iframe displaying the address to %s", 'the-events-calendar' ), $venue_title ); ?>"
   aria-label="<?php esc_attr_e( 'Venue location map', 'the-events-calendar' ); ?>"
   width="<?php echo esc_attr( $width ); ?>"
   height="<?php echo esc_attr( $height ); ?>"
