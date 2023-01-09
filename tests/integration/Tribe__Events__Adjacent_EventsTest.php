@@ -277,6 +277,8 @@ class Tribe__Events__Adjacent_EventsTest extends WPTestCase {
 				return static::factory()->post->create();
 			}
 		];
+		yield 'string 0' => [ '0' ];
+		yield 'int 0' => [ 0 ];
 	}
 
 	/**
