@@ -13,6 +13,10 @@
 
 namespace Tribe\Events\Service_Providers;
 
+use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
+
 /**
  * Class First_Boot
  *
@@ -51,7 +55,10 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 	 * @since 5.1.5
 	 */
 	public function set_default_options() {
-		$options = \Tribe__Settings_Manager::get_options();
+		$options         = \Tribe__Settings_Manager::get_options();
+		$month_view_slug = Month_View::get_view_slug();
+		$list_view_slug  = List_View::get_view_slug();
+		$day_view_slug   = Day_View::get_view_slug();
 
 		$options['did_init'] = true;
 
@@ -62,12 +69,16 @@ class First_Boot extends \tad_DI52_ServiceProvider {
 
 		if ( ! isset( $options['tribeEnableViews'] ) ) {
 			// Set the Enabled Views to List, Month, and Day.
-			$options['tribeEnableViews'] = [ 'list', 'month', 'day' ];
+			$options['tribeEnableViews'] = [
+				$list_view_slug,
+				$month_view_slug,
+				$day_view_slug,
+			];
 		}
 
 		if ( ! isset( $options['viewOption'] ) ) {
 			// Set the Default View to List.
-			$options['viewOption'] = 'list';
+			$options['viewOption'] = $list_view_slug;
 		}
 
 		\Tribe__Settings_Manager::set_options( $options );

@@ -37,7 +37,7 @@ $tec_events_display_fields = [
 	],
 	'info-box-title'       => [
 		'type' => 'html',
-		'html' => '<h2>' . __( 'Display Settings', 'the-events-calendar' ) . '</h2>',
+		'html' => '<h2>' . __( 'Display Settings', 'Display settings tab header', 'the-events-calendar' ) . '</h2>',
 	],
 	'info-box-description' => [
 		'type' => 'html',
@@ -118,7 +118,7 @@ $tec_events_display_fields += $tec_events_general_form_end;
 $tec_events_display_template = [
 	'tribe-events-calendar-display-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-calendar">' . __( 'Calendar Display', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-calendar">' . __( 'Calendar Display', 'Calendar display settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'stylesheetOption'              => [ 'type' => 'html'],
 	'stylesheet_mode'               => [
@@ -207,7 +207,7 @@ $tec_events_display_template = [
 	],
 	'tribeDisableTribeBar'    => [
 		'type'            => 'checkbox_bool',
-		'label'           => __( 'Disable the Event Search Bar', 'the-events-calendar' ),
+		'label'           => __( 'Hide the search field on all views', 'the-events-calendar' ),
 		'tooltip'         => __( 'Check this to use the classic header.', 'the-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
@@ -222,7 +222,7 @@ $sample_date = strtotime( 'January 15 ' . date( 'Y' ) );
 $tec_events_date_fields     = [
 	'tribeEventsDateFormatSettingsTitle' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-date">' . esc_html__( 'Date Format Settings', 'tribe-common' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-date">' . esc_html__( 'Date & Time', 'Date and Time settings section header', 'tribe-common' ) . '</h3>',
 	],
 	'tribeEventsDateFormatExplanation'   => [
 		'type' => 'html',
@@ -236,7 +236,7 @@ $tec_events_date_fields     = [
 	],
 	'dateWithYearFormat'                 => [
 		'type'            => 'text',
-		'label'           => esc_html__( 'Date with year', 'the-events-calendar' ),
+		'label'           => esc_html__( 'Date with year format', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
 			esc_html__( 'Enter the format to use for displaying dates with the year. Used when showing an event from a future year. Example: %1$s', 'the-events-calendar' ),
 			date(
@@ -253,7 +253,7 @@ $tec_events_date_fields     = [
 	],
 	'dateWithoutYearFormat'              => [
 		'type'            => 'text',
-		'label'           => esc_html__( 'Date without year', 'the-events-calendar' ),
+		'label'           => esc_html__( 'Date without year format', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
 			esc_html__( 'Enter the format to use for displaying dates without a year. Used when showing an event from the current year. Example: %1$s', 'the-events-calendar' ),
 			date( tribe_get_option( 'dateWithoutYearFormat', 'F j' ), $sample_date )
@@ -275,7 +275,7 @@ $tec_events_date_fields     = [
 	],
 	'datepickerFormat'                   => [
 		'type'            => 'dropdown',
-		'label'           => esc_html__( 'Compact Date Format', 'tribe-common' ),
+		'label'           => esc_html__( 'Compact date format', 'tribe-common' ),
 		'tooltip'         => esc_html__( 'Select the date format used for elements with minimal space, such as in datepickers.', 'tribe-common' ),
 		'default'         => 1,
 		'options'         => [
@@ -343,7 +343,7 @@ $should_hide_upsell            = tec_should_hide_upsell();
 $tec_events_display_currency = [
 	'tribe-events-currency-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-currency">' . esc_html__( 'Currency Settings', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-currency">' . esc_html__( 'Currency', 'Currency settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-tickets-infobox-start' => [
 		'type' => 'html',
@@ -412,7 +412,7 @@ $tec_events_display_fields += $tec_events_display_currency;
 $tec_events_display_maps = [
 	'tribe-google-maps-settings-title'     => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-maps">' . esc_html__( 'Map Settings', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-maps">' . esc_html__( 'Map', 'Map settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-maps-infobox-start' => [
 		'type' => 'html',
@@ -463,7 +463,7 @@ $tec_events_display_fields += $tec_events_display_maps;
 $tec_events_display_advanced = [
 	'tribe-events-advanced-settings-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-additional">' . esc_html__( 'Additional Content Settings', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-additional">' . esc_html__( 'Additional Content', 'Additional content settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEventsBeforeHTML'            => [
 		'type'            => 'wysiwyg',
