@@ -237,7 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
 * Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
-* Fix - Avoid running slow query for adjacent events when possible. [TBD]
+* Fix - Avoid running slow query for adjacent events when possible. [TEC-4633]
 * Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
 * Fix - Fix a primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
 * Fix - Ensure we did not get an error object back when requesting event category. [TEC-4619]
