@@ -229,6 +229,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+* Fix - Modified single-event.php to use tribe_get_formatted_cost instead of tribe_get_cost.
+
 = [6.0.6.2] 2022-12-16 =
 
 * Fix - Fix layout issues with Avada, Divi, and similar themes. [TEC-4623]
