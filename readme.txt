@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Event repository filters, when passing UTC dates on non-UTC event date fields, when using `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
 * Fix - Resolve problem with relative dates on REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
+* Fix - Prevent Update page from display on minor updates, only for major updates and feature updates. [TEC-4589]
 * Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
