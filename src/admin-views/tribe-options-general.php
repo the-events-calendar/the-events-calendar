@@ -152,6 +152,10 @@ $tec_events_general_toc = [
 		'type' => 'html',
 		'html' => '<li><a href="#tec-settings-general-editing">' . _x( 'Editing', 'Editing table of contents link.', 'the-events-calendar' ) . '</a>',
 	],
+	'tec-settings-general-toc-maintenance'         => [
+		'type' => 'html',
+		'html' => '<li><a href="#tec-settings-general-maintenance">' . _x( 'Maintenance', 'Maintenance table of contents link.', 'the-events-calendar' ) . '</a>',
+	],
 	'tec-settings-general-toc-debugging' => [
 		'type' => 'html',
 		'html' => '<li><a href="#tec-settings-general-debugging">' . _x( 'Debugging', 'Debugging table of contents link.', 'the-events-calendar' ) . '</a>',
@@ -232,42 +236,6 @@ $tec_events_general_viewing = [
 		'default'         => false,
 		'validation_type' => 'boolean',
 	],
-	$event_cleaner->key_trash_events            => [
-		'type'            => 'dropdown',
-		'label'           => esc_html__( 'Move to trash events older than', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'This option allows you to automatically move past events to trash.', 'the-events-calendar' ),
-		'validation_type' => 'options',
-		'size'            => 'small',
-		'default'         => null,
-		'options'         => [
-			null => esc_html__( 'Disabled', 'the-events-calendar' ),
-			1    => esc_html__( '1 month', 'the-events-calendar' ),
-			3    => esc_html__( '3 months', 'the-events-calendar' ),
-			6    => esc_html__( '6 months', 'the-events-calendar' ),
-			9    => esc_html__( '9 months', 'the-events-calendar' ),
-			12   => esc_html__( '1 year', 'the-events-calendar' ),
-			24   => esc_html__( '2 years', 'the-events-calendar' ),
-			36   => esc_html__( '3 years', 'the-events-calendar' ),
-		],
-	],
-	$event_cleaner->key_delete_events           => [
-		'type'            => 'dropdown',
-		'label'           => esc_html__( 'Permanently delete events older than', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'This option allows you to bulk delete past events. Be careful and backup your database before removing your events as there is no way to reverse the changes.', 'the-events-calendar' ),
-		'validation_type' => 'options',
-		'size'            => 'small',
-		'default'         => null,
-		'options'         => [
-			null => esc_html__( 'Disabled', 'the-events-calendar' ),
-			1    => esc_html__( '1 month', 'the-events-calendar' ),
-			3    => esc_html__( '3 months', 'the-events-calendar' ),
-			6    => esc_html__( '6 months', 'the-events-calendar' ),
-			9    => esc_html__( '9 months', 'the-events-calendar' ),
-			12   => esc_html__( '1 year', 'the-events-calendar' ),
-			24   => esc_html__( '2 years', 'the-events-calendar' ),
-			36   => esc_html__( '3 years', 'the-events-calendar' ),
-		],
-	],
 	'enable_month_view_cache'                   => [
 		'type'            => 'checkbox_bool',
 		'label'           => __( 'Enable the Month View Cache', 'the-events-calendar' ),
@@ -325,13 +293,59 @@ $tec_events_general_editing = [
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
+];
+
+$general_tab_fields += $tec_events_general_editing;
+
+// Add the "Maintenance" section.
+$tec_events_general_maintenance = [
+	'tec-events-settings-general-maintenance-title'      => [
+		'type' => 'html',
+		'html' => '<h3 id="tec-settings-general-maintenance">' . esc_html_x( 'Maintenance', 'Title for the maintenance section of the general settings.', 'the-events-calendar' ) . '</h3>',
+	],
+	$event_cleaner->key_trash_events            => [
+		'type'            => 'dropdown',
+		'label'           => esc_html__( 'Move to trash events older than', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'This option allows you to automatically move past events to trash.', 'the-events-calendar' ),
+		'validation_type' => 'options',
+		'size'            => 'small',
+		'default'         => null,
+		'options'         => [
+			null => esc_html__( 'Disabled', 'the-events-calendar' ),
+			1    => esc_html__( '1 month', 'the-events-calendar' ),
+			3    => esc_html__( '3 months', 'the-events-calendar' ),
+			6    => esc_html__( '6 months', 'the-events-calendar' ),
+			9    => esc_html__( '9 months', 'the-events-calendar' ),
+			12   => esc_html__( '1 year', 'the-events-calendar' ),
+			24   => esc_html__( '2 years', 'the-events-calendar' ),
+			36   => esc_html__( '3 years', 'the-events-calendar' ),
+		],
+	],
+	$event_cleaner->key_delete_events           => [
+		'type'            => 'dropdown',
+		'label'           => esc_html__( 'Permanently delete events older than', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'This option allows you to bulk delete past events. Be careful and backup your database before removing your events as there is no way to reverse the changes.', 'the-events-calendar' ),
+		'validation_type' => 'options',
+		'size'            => 'small',
+		'default'         => null,
+		'options'         => [
+			null => esc_html__( 'Disabled', 'the-events-calendar' ),
+			1    => esc_html__( '1 month', 'the-events-calendar' ),
+			3    => esc_html__( '3 months', 'the-events-calendar' ),
+			6    => esc_html__( '6 months', 'the-events-calendar' ),
+			9    => esc_html__( '9 months', 'the-events-calendar' ),
+			12   => esc_html__( '1 year', 'the-events-calendar' ),
+			24   => esc_html__( '2 years', 'the-events-calendar' ),
+			36   => esc_html__( '3 years', 'the-events-calendar' ),
+		],
+	],
 	'amalgamate-duplicates'                          => [
 		'type'        => 'html',
 		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'Merge duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="tribe-field-indent description">' . esc_html__( 'Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset>',
 	],
 ];
 
-$general_tab_fields += $tec_events_general_editing;
+$general_tab_fields += $tec_events_general_maintenance;
 
 // Add the "Debugging" section.
 $tec_events_general_debugging = [
