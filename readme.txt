@@ -231,15 +231,16 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.7] 2023-01-TBD =
 
-* Fix - This fixes an issue with how we interpret relative date searches in several Event repository filters. We were passing UTC dates on non-UTC event date fields, and this could show up in situations like the `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
-* Fix - Fixes relative dates on our REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
+* Fix - Event repository filters, when passing UTC dates on non-UTC event date fields, when using `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
+* Fix - Resolve problem with relative dates on REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
+* Fix - Prevent Update page from display on minor updates, only for major updates and feature updates. [TEC-4589]
 * Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
-* Fix - Avoid the issue of events which have venues assigned not being able to be updated successfuly on some browsers. [TEC-4596]
-* Fix - Avoid running slow query for adjacent events when possible. [TEC-4633]
+* Fix - Avoid the issue of events which have venues assigned not being able to be updated successfully on some browsers. [TEC-4596]
 * Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
-* Fix - Fix a primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
+* Fix - Prevent primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
+* Fix - Avoid running slow query for adjacent events when possible. [TEC-4633]
 * Fix - Ensure we did not get an error object back when requesting event category. [TEC-4619]
 * Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
 * Tweak - Change some labelling of event settings in the admin. [TEC-4626]
