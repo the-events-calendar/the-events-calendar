@@ -48,41 +48,41 @@ class Activation {
 	 * @since 6.0.0
 	 */
 	public static function init() {
+		$services = tribe();
+
 		// Check if we ran recently.
 		$db_hash = get_transient( static::ACTIVATION_TRANSIENT );
 
-		$schema_builder = tribe( Schema_Builder::class );
+		$schema_builder = $services->make( Schema_Builder::class );
 		$hash           = $schema_builder->get_registered_schemas_version_hash();
 
-		if ( $db_hash == $hash ) {
+		// Sync any schema changes we may have.
+		if ( ! $schema_builder->all_tables_exist( 'tec' ) ) {
+			$schema_builder->up( true );
+		}
+
+		if ( $db_hash === $hash ) {
 			return;
 		}
 
-		set_transient( static::ACTIVATION_TRANSIENT, $hash, DAY_IN_SECONDS );
+		set_transient( static::ACTIVATION_TRANSIENT, $hash, HOUR_IN_SECONDS );
 
-		// Sync any schema changes we may have.
-		if ( $schema_builder->all_tables_exist( 'tec' ) ) {
-			$schema_builder->up();
-		}
-
-		$services = tribe();
-		$state    = $services->make( State::class );
+		$state = $services->make( State::class );
 
 		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
 		if (
-			$services->make( Events::class )->get_total_events() === 0
-			&& in_array( $state->get_phase(), [ null, State::PHASE_MIGRATION_NOT_REQUIRED ], true )
+			in_array( $state->get_phase(), [ null, State::PHASE_MIGRATION_NOT_REQUIRED ], true )
+			&& $services->make( Events::class )->get_total_events() === 0
 		) {
-			$schema_builder->up();
 			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
 			$state->save();
 
-			if ( ! tribe()->getVar( 'ct1_fully_activated' ) ) {
+			if ( ! $services->getVar( 'ct1_fully_activated' ) ) {
 				/**
 				 * On new installations the full activation code will find an empty state and
 				 * will have not activated at this point, do it now if required.
 				 */
-				tribe()->register( Full_Activation_Provider::class );
+				$services->register( Full_Activation_Provider::class );
 			}
 		}
 	}
@@ -101,8 +101,8 @@ class Activation {
 		$phase = tribe( State::class )->get_phase();
 		// String not translated on purpose.
 		$incomplete_label = 'Incomplete';
-		$status_map = [
-			State::PHASE_MIGRATION_COMPLETE => 'Completed', // String not translated on purpose.
+		$status_map       = [
+			State::PHASE_MIGRATION_COMPLETE     => 'Completed', // String not translated on purpose.
 			State::PHASE_MIGRATION_NOT_REQUIRED => 'Not Required', // String not translated on purpose.
 		];
 
