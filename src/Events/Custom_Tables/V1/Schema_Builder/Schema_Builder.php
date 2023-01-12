@@ -341,7 +341,13 @@ class Schema_Builder {
 			return false;
 		}
 
-		$result        = $wpdb->get_col( 'SHOW TABLES' );
+		$sql_in_statement = array_map( static function( $table_class ) {
+			return $table_class::table_name();
+		}, $table_classes );
+
+		$sql_in_statement = '"' . implode( '", "', $sql_in_statement ) . '"';
+
+		$result        = $wpdb->get_col( "SELECT DISTINCT table_name FROM information_schema.tables WHERE table_schema = database() AND table_name IN ( {$sql_in_statement} )" );
 		foreach ( $table_classes as $class ) {
 			if ( ! in_array( $class::table_name(), $result, true ) ) {
 
