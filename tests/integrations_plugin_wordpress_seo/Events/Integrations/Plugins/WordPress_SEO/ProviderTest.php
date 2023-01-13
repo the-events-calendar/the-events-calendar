@@ -6,7 +6,7 @@ namespace TEC\Events\Integrations\Plugins\WordPress_SEO;
 /**
  * Class Provider_Test
  *
- * @since   5.0.8
+ * @since   6.0.7
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */

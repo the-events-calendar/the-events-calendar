@@ -159,7 +159,7 @@ class View_Register {
 	 *
 	 * @since 5.7.0
 	 * @since 5.10.0 Using the decoupled route slug.
-	 * @since 5.0.8 Use the en_US slug as matcher key.
+	 * @since 6.0.7 Use the en_US slug as matcher key.
 	 *
 	 * @param array<string,string> $matchers A map from the matcher name to the query var name.
 	 *
@@ -211,7 +211,7 @@ class View_Register {
 	/**
 	 * Add canonical tag to the head of all calendar views.
 	 *
-	 * @since 5.0.8
+	 * @since 6.0.7
 	 *
 	 * @param string $current_url The URL of the page being currently viewed.
 	 */

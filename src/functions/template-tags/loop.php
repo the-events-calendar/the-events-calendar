@@ -380,7 +380,7 @@ function tribe_is_list_view(): bool {
 	/**
 	 * Allows filtering of the tribe_is_list_view boolean value.
 	 *
-	 * @since 5.0.8 Added context to parameters.
+	 * @since 6.0.7 Added context to parameters.
 	 *
 	 * @param bool           $is_list_view If we're on the List View
 	 * @param Tribe__Context $context      The current context
@@ -474,12 +474,12 @@ function tribe_right_navigation_classes() {
 /**
  * Checks whether we're on a particular view
  *
- * @deprecated 5.0.8
+ * @deprecated 6.0.7
  *
  * @return bool
  **/
 function tribe_is_view( $view = false ) {
-	_deprecated_function( __METHOD__, '5.0.8', 'tec_is_view');
+	_deprecated_function( __METHOD__, '6.0.7', 'tec_is_view');
 
 	return tec_is_view( $view );
 }
@@ -487,7 +487,7 @@ function tribe_is_view( $view = false ) {
 /**
  * Check whether we're on a particular view.
  *
- * @since 5.0.8
+ * @since 6.0.7
  *
  * @param  string $view_slug      (optional) The view slug we are looking for. Defaults to checking if we are on the default view.
  * @param Tribe__Context $context (optional) The view context. Generated via tribe_context() if not supplied.
@@ -522,7 +522,7 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	/**
 	 * Allows generic filtering of the tec_is_view boolean value.
 	 *
-	 * @since 5.0.8
+	 * @since 6.0.7
 	 *
 	 * @param boolean $is_view Whether you're on the View or not
 	 * @param Tribe__Context The global context object.
@@ -532,7 +532,7 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	/**
 	 * Allows view-specific filtering of the tec_is_view boolean value.
 	 *
-	 * @since 5.0.8
+	 * @since 6.0.7
 	 *
 	 * @param boolean $is_view Whether you're on the View or not
 	 * @param Tribe__Context The global context object.

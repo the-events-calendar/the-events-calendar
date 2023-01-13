@@ -24,7 +24,7 @@ class List_View extends View {
 	 * Slug for this view
 	 *
 	 * @since 4.9.3
-	 * @deprecated 5.0.8
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ class List_View extends View {
 	/**
 	 * Statically accessible slug for this view.
 	 *
-	 * @since 5.0.8
+	 * @since 6.0.7
 	 *
 	 * @var string
 	 */

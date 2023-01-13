@@ -911,7 +911,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	}
 
 	/**
-	 * @since 5.0.8
+	 * @since 6.0.7
 	 *
 	 * data structure
 	 * set_name => [
