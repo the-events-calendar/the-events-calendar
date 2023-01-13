@@ -57,6 +57,7 @@ class Map_BasicTest extends HtmlTestCase {
 				'height'    => 200,
 			]
 		);
+
 		$html = ob_get_clean();
 
 		remove_filter(
