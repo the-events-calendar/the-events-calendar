@@ -222,7 +222,7 @@ class Template extends Base_Template {
 	/**
 	 * Returns the current template view slug.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @return string The view slug.
 	 */

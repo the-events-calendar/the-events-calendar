@@ -24,7 +24,7 @@ class Widget_List_View extends Widget_View {
 	 * The slug for this view.
 	 *
 	 * @since 5.2.1
-	 * @deprecated TBD
+	 * @deprecated 5.0.8
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ class Widget_List_View extends Widget_View {
 	/**
 	 * The slug for this view.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @var string
 	 */

@@ -61,7 +61,7 @@ class View implements View_Interface {
 	 * The slug of the View instance, usually the one it was registered with in the `tribe_events_views`filter.
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
-	 * @deprecated TBD
+	 * @deprecated 5.0.8
 	 *
 	 * @var string
 	 */
@@ -72,7 +72,7 @@ class View implements View_Interface {
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @var string
 	 */
@@ -762,7 +762,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_slug() {
-		_deprecated_function( __METHOD__, 'TBD', 'Use static get_view_slug()' );
+		_deprecated_function( __METHOD__, '5.0.8', 'Use static get_view_slug()' );
 
 		return static::get_view_slug();
 	}
@@ -838,7 +838,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function set_slug( $slug ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '5.0.8' );
 		static::$view_slug = $slug;
 	}
 

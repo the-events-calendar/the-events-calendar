@@ -19,7 +19,7 @@ class Latest_Past_View extends View {
 	 * Slug for this view
 	 *
 	 * @since 5.1.0
-	 * @deprecated TBD
+	 * @deprecated 5.0.8
 	 *
 	 * @var string
 	 */
@@ -28,7 +28,7 @@ class Latest_Past_View extends View {
 	/**
 	 * Statically accessible slug for this view.
 	 *
-	 * @since TBD
+	 * @since 5.0.8
 	 *
 	 * @var string
 	 */
