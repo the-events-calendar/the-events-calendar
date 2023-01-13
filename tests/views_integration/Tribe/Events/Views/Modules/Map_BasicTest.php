@@ -12,9 +12,11 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 class Map_BasicTest extends HtmlTestCase {
 
 	/**
-	 * Test render Google Maps iframe with mock data.
+	 * Test rendering of Google Maps iframe when a venue is passed.
+	 * 
+	 * @test
 	 */
-	public function test_render_google_maps_iframe_with_passed_venue() {
+	public function it_renders_google_maps_iframe_with_passed_venue() {
 		ob_start();
 
 		tribe_get_template_part(
@@ -34,9 +36,11 @@ class Map_BasicTest extends HtmlTestCase {
 	}
 
 	/**
-	 * Test render Google Maps iframe with mock data.
+	 * Test rendering of Google Maps iframe using mocked global.
+	 * 
+	 * @test
 	 */
-	public function test_render_google_maps_iframe_with_mocked_global() {
+	public function it_renders_google_maps_iframe_with_mocked_global() {
 		ob_start();
 
 		// Filter the output of tribe_get_venue to mock the global objects.
