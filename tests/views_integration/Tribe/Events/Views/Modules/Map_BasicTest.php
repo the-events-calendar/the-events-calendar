@@ -3,6 +3,7 @@
 namespace Tribe\Events\Views\Modules;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
+
 /**
  * Class Map_BasicTest.
  *
@@ -21,13 +22,13 @@ class Map_BasicTest extends HtmlTestCase {
 			null,
 			[
 				'venue'     => 'Jazz Club',
-				'embed_url' => 'https://example.com',
+				'embed_url' => 'https://example.com/',
 				'width'     => 100,
 				'height'    => 200,
 			]
 		);
-		$html = ob_get_clean();
 
+		$html = ob_get_clean();
 
 		$this->assertMatchesSnapshot( $html );
 	}
@@ -37,11 +38,12 @@ class Map_BasicTest extends HtmlTestCase {
 	 */
 	public function test_render_google_maps_iframe_with_mocked_global() {
 		ob_start();
-		// Filter the output of tribe_get_venue to mock the global objects
+
+		// Filter the output of tribe_get_venue to mock the global objects.
 		add_filter(
 			'tribe_get_venue',
-			function( $venue ) {
-				return "Disco Club";
+			function ( $venue ) {
+				return 'Disco Club';
 			}
 		);
 
@@ -50,7 +52,7 @@ class Map_BasicTest extends HtmlTestCase {
 			null,
 			[
 				'venue'     => '',
-				'embed_url' => 'https://example.com',
+				'embed_url' => 'https://example.com/',
 				'width'     => 100,
 				'height'    => 200,
 			]
@@ -59,11 +61,10 @@ class Map_BasicTest extends HtmlTestCase {
 
 		remove_filter(
 			'tribe_get_venue',
-			function( $venue ) {
-				return "Disco Club";
+			function ( $venue ) {
+				return 'Disco Club';
 			}
 		);
-
 
 		$this->assertMatchesSnapshot( $html );
 	}
