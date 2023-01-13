@@ -1611,6 +1611,8 @@ class View implements View_Interface {
 			$this
 		);
 
+		$view_slug = static::$view_slug;
+
 		/**
 		 * Allows filtering of the "Today" button title and aria-label.
 		 *
@@ -1620,7 +1622,7 @@ class View implements View_Interface {
 		 * @param \Tribe\Events\Views\V2\View_Interface $view        The View currently rendering.
 		 */
 		$today_title = apply_filters(
-			'tec_events_view_' . static::$view_slug . '_today_button_title',
+			"tec_events_view_{$view_slug}_today_button_title",
 			$today_title,
 			$this
 		);
