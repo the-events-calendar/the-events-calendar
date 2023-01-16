@@ -192,7 +192,7 @@ class Tribe__Events__Adjacent_Events {
 	 * Get the prev/next post for a given event. Ordered by start date instead of ID.
 	 *
 	 * @since 4.6.12
-	 * @since TBD Cache the query results.
+	 * @since 6.0.7 Cache the query results.
 	 *
 	 * @param string  $mode Either 'next' or 'previous'.
 	 *

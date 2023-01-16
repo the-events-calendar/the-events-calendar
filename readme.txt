@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
+
 = [6.0.7] 2023-01-TBD =
 
 * Fix - Event repository filters, when passing UTC dates on non-UTC event date fields, when using `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
@@ -246,7 +250,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Change some labelling of event settings in the admin. [TEC-4626]
 * Tweak - Reorganize a few Event settings in the admin. [TEC_4627]
 * Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
-* Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
+* Tweak - Added filters: `tribe_events_views_v2_{$view_slug}_view_html_classes`, `tribe_events_views_v2_view_{$view_slug}_template_vars`, `tribe_events_views_v2_view_{$view_slug}_url`, `tribe_events_views_v2_view_{$view_slug}_prev_url`, `tribe_events_views_v2_view_{$view_slug}_next_url`, `tribe_events_views_v2_view_{$view_slug}_link_label_format`, `tribe_events_views_v2_view_{$view_slug}_title`, `tribe_events_views_v2_view_{$view_slug}_messages`, `tribe_events_views_v2_view_{$view_slug}_breadcrumbs`, `tribe_events_views_v2_view_{$view_slug}_display_events_bar`, `tribe_events_views_v2_view_{$view_slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$view_slug}_public_views`, `tribe_events_views_v2_{$view_slug}_view_container_data`, `tribe_events_views_v2_{$view_slug}_show_latest_past_events_view`, `tribe_events_views_v2_{$view_slug}_events_per_day`, `tribe_events_views_v2_view_{$view_slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$view_slug}_breakpoints`, `tribe_events_views_v2_view_{$view_slug}_cached_html`, `tribe_events_views_v2_{$view_slug}_widget_repository_args`, `tribe_events_views_v2_{$view_slug}_widget_compatibility_classes`, `tribe_events_views_v2_{$view_slug}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_label`, `tec_is_view`, `tec_is_{$view_slug}_view`
+* Tweak - Removed filters: `tribe_events_views_v2_{$this->get_slug()}_view_html_classes`, `tribe_events_views_v2_view_{$this->slug}_template_vars`, `tribe_events_views_v2_view_{$this->slug}_url`, `tribe_events_views_v2_view_{$this->slug}_prev_url`, `tribe_events_views_v2_view_{$this->slug}_next_url`, `tribe_events_views_v2_view_{$this->slug}_link_label_format`, `tribe_events_views_v2_view_{$slug}_title`, `tribe_events_views_v2_view_{$slug}_messages`, `tribe_events_views_v2_view_{$this->slug}_breadcrumbs`, `tribe_events_views_v2_view_{$this->slug}_display_events_bar`, `tribe_events_views_v2_view_{$this->slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$this->slug}_public_views`, `tribe_events_views_v2_{$this->get_slug()}_view_container_data`, `tribe_events_views_v2_{$this->get_slug()}_show_latest_past_events_view`, `tec_events_views_v2_{$this->slug}_view_global_repository_args`, `tribe_events_views_v2_{$this->slug}_events_per_day`, `tribe_events_views_v2_view_{$this->slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$this->slug}_breakpoints`, `tribe_events_views_v2_view_{$this->slug}_cached_html`, `tribe_events_views_v2_{$this->get_slug()}_widget_repository_args`, `tribe_events_views_v2_{$this->get_slug()}_widget_compatibility_classes`, `tribe_events_views_v2_{$this->get_slug()}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_title`
 
 = [6.0.6.2] 2022-12-16 =
 

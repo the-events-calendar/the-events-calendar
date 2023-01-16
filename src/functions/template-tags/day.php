@@ -14,7 +14,7 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 		/**
 		 * Allows filtering of the tribe_is_day boolean value.
 		 *
-		 * @since TBD Added context to parameters.
+		 * @since 6.0.7 Added context to parameters.
 		 *
 		 * @param bool           $is_day  If we're on the Day View
 		 * @param Tribe__Context $context The current context
