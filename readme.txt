@@ -310,6 +310,8 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
 * Fix - Prevent error when updating Venue in sites using object cache. [TEC-4348]
 * Fix - Prevent date format error when trying to subscribe to calendar in sites using object cache. [TEC-4459]
+* Fix - Resolve compatibility issue between Yoast SEO and FacetWP. [TEC-4628]
+* Fix - Resolve the issue where `tribe_is_upcoming()` and other conditionals were not working as expected. [TEC-4301]
 * Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
 * Tweak - Update the venue website field to type URL. [TEC-4349]
 * Tweak - Do not add date-based ordering to queries when using `none` or `rand` order. [TEC-4555]
