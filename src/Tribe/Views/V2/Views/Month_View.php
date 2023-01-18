@@ -31,7 +31,7 @@ class Month_View extends By_Day_View {
 	 * Slug for this view.
 	 *
 	 * @since 4.9.3
-	 * @deprecated TBD
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * Statically accessible slug for this view.
 	 *
-	 * @since TBD
+	 * @since 6.0.7
 	 *
 	 * @var string
 	 */

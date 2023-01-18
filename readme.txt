@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Event repository filters, when passing UTC dates on non-UTC event date fields, when using `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
 * Fix - Resolve problem with relative dates on REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
 * Fix - Prevent Update page from display on minor updates, only for major updates and feature updates. [TEC-4589]
-* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TBD]
+* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TEC-4613]
 * Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
 * Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
 * Fix - Avoid the issue of events which have venues assigned not being able to be updated successfully on some browsers. [TEC-4596]
@@ -242,10 +242,15 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
 * Fix - Avoid running slow query for adjacent events when possible. [TEC-4633]
 * Fix - Ensure we did not get an error object back when requesting event category. [TEC-4619]
+* Fix - Fix the issue of an invalid property error notice being thrown while visiting the Attendee Registration page as an admin. [TEC-4608]
+* Fix - Resolve compatibility issue between Yoast SEO and FacetWP. [TEC-4628]
+* Fix - Resolve the issue where `tribe_is_upcoming()` and other conditionals were not working as expected. [TEC-4301]
 * Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
 * Tweak - Change some labelling of event settings in the admin. [TEC-4626]
-* Tweak - Reorganize a few Event settings in the admin. [TEC_4627]
+* Tweak - Reorganize a few Event settings in the admin. [TEC-4627]
 * Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
+* Tweak - Added filters: `tribe_events_views_v2_{$view_slug}_view_html_classes`, `tribe_events_views_v2_view_{$view_slug}_template_vars`, `tribe_events_views_v2_view_{$view_slug}_url`, `tribe_events_views_v2_view_{$view_slug}_prev_url`, `tribe_events_views_v2_view_{$view_slug}_next_url`, `tribe_events_views_v2_view_{$view_slug}_link_label_format`, `tribe_events_views_v2_view_{$view_slug}_title`, `tribe_events_views_v2_view_{$view_slug}_messages`, `tribe_events_views_v2_view_{$view_slug}_breadcrumbs`, `tribe_events_views_v2_view_{$view_slug}_display_events_bar`, `tribe_events_views_v2_view_{$view_slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$view_slug}_public_views`, `tribe_events_views_v2_{$view_slug}_view_container_data`, `tribe_events_views_v2_{$view_slug}_show_latest_past_events_view`, `tribe_events_views_v2_{$view_slug}_events_per_day`, `tribe_events_views_v2_view_{$view_slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$view_slug}_breakpoints`, `tribe_events_views_v2_view_{$view_slug}_cached_html`, `tribe_events_views_v2_{$view_slug}_widget_repository_args`, `tribe_events_views_v2_{$view_slug}_widget_compatibility_classes`, `tribe_events_views_v2_{$view_slug}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_label`, `tec_is_view`, `tec_is_{$view_slug}_view`
+* Tweak - Removed filters: `tribe_events_views_v2_{$this->get_slug()}_view_html_classes`, `tribe_events_views_v2_view_{$this->slug}_template_vars`, `tribe_events_views_v2_view_{$this->slug}_url`, `tribe_events_views_v2_view_{$this->slug}_prev_url`, `tribe_events_views_v2_view_{$this->slug}_next_url`, `tribe_events_views_v2_view_{$this->slug}_link_label_format`, `tribe_events_views_v2_view_{$slug}_title`, `tribe_events_views_v2_view_{$slug}_messages`, `tribe_events_views_v2_view_{$this->slug}_breadcrumbs`, `tribe_events_views_v2_view_{$this->slug}_display_events_bar`, `tribe_events_views_v2_view_{$this->slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$this->slug}_public_views`, `tribe_events_views_v2_{$this->get_slug()}_view_container_data`, `tribe_events_views_v2_{$this->get_slug()}_show_latest_past_events_view`, `tec_events_views_v2_{$this->slug}_view_global_repository_args`, `tribe_events_views_v2_{$this->slug}_events_per_day`, `tribe_events_views_v2_view_{$this->slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$this->slug}_breakpoints`, `tribe_events_views_v2_view_{$this->slug}_cached_html`, `tribe_events_views_v2_{$this->get_slug()}_widget_repository_args`, `tribe_events_views_v2_{$this->get_slug()}_widget_compatibility_classes`, `tribe_events_views_v2_{$this->get_slug()}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_title`
 
 = [6.0.6.2] 2022-12-16 =
 

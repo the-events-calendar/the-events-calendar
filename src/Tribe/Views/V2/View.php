@@ -61,7 +61,7 @@ class View implements View_Interface {
 	 * The slug of the View instance, usually the one it was registered with in the `tribe_events_views`filter.
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
-	 * @deprecated TBD
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
@@ -72,7 +72,7 @@ class View implements View_Interface {
 	 *
 	 * This value will be set by the `View::make()` method while building a View instance.
 	 *
-	 * @since TBD
+	 * @since 6.0.7
 	 *
 	 * @var string
 	 */
@@ -762,7 +762,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_slug() {
-		_deprecated_function( __METHOD__, 'TBD', 'Use static get_view_slug()' );
+		_deprecated_function( __METHOD__, '6.0.7', 'Use static get_view_slug()' );
 
 		return static::get_view_slug();
 	}
@@ -838,7 +838,7 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function set_slug( $slug ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.0.7' );
 		static::$view_slug = $slug;
 	}
 
@@ -1611,6 +1611,8 @@ class View implements View_Interface {
 			$this
 		);
 
+		$view_slug = static::$view_slug;
+
 		/**
 		 * Allows filtering of the "Today" button title and aria-label.
 		 *
@@ -1620,7 +1622,7 @@ class View implements View_Interface {
 		 * @param \Tribe\Events\Views\V2\View_Interface $view        The View currently rendering.
 		 */
 		$today_title = apply_filters(
-			'tec_events_view_' . static::$view_slug . '_today_button_title',
+			"tec_events_view_{$view_slug}_today_button_title",
 			$today_title,
 			$this
 		);
