@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.7] 2023-01-TBD =
+= [6.0.7] 2023-01-18 =
 
 * Fix - Event repository filters, when passing UTC dates on non-UTC event date fields, when using `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
 * Fix - Resolve problem with relative dates on REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
