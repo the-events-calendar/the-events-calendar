@@ -3,9 +3,8 @@
 namespace TEC\Events\Custom_Tables\V1;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
-use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
+use TEC\Events\Custom_Tables\V1\Tables\Events as Events_Schema;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences as Occurrences_Schema;
 use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use Tribe\Tests\Traits\With_Uopz;
@@ -26,11 +25,11 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 * @after each test make sure the custom tables will be there for the following ones.
 	 */
 	public function recreate_custom_tables(): void {
-		$events_updated = ( new EventsSchema )->update();
+		$events_updated = ( new Events_Schema )->update();
 		if ( ! $events_updated ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
-		$occurrences_updated = ( new OccurrencesSchema() )->update();
+		$occurrences_updated = ( new Occurrences_Schema() )->update();
 		if ( ! $occurrences_updated ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
@@ -309,5 +308,47 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		$this->assertEquals( 1, $calls );
 		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
 		$this->assertEqualsWithDelta( time(), get_transient( Activation::ACTIVATION_TRANSIENT ), 5 );
+	}
+
+	/**
+	 * It should recreate the tables if removed after activation
+	 *
+	 * @test
+	 */
+	public function should_recreate_the_tables_if_removed_after_activation(): void {
+		// We're not using real object cache.
+		$this->set_fn_return( 'wp_using_ext_object_cache', false );
+		// The transient value is set to 26 hours ago.
+		$last_run_time = time() - 26 * HOUR_IN_SECONDS;
+		set_transient( Activation::ACTIVATION_TRANSIENT, $last_run_time, DAY_IN_SECONDS );
+		// The Migration state is set to completed.
+		tribe( State::class )->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
+		// But, in the meantime, the tables have been removed.
+		global $wpdb;
+		$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 0' );
+		$wpdb->query( "DROP TABLE IF EXISTS " . Events_Schema::table_name( true ) );
+		$wpdb->query( "DROP TABLE IF EXISTS " . Occurrences_Schema::table_name( true ) );
+		$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 1' );
+		// The Schema Builder up function should be called.
+		$calls = 0;
+		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', static function () use ( &$calls ) {
+			$calls ++;
+		} );
+
+		// Activate.
+		Activation::init();
+
+		$this->assertEquals( 1, $calls );
+		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
+		$this->assertEqualsWithDelta( time(), get_transient( Activation::ACTIVATION_TRANSIENT ), 5 );
+		// The tables should be there.
+		$this->assertEquals(
+			Events_Schema::table_name( true ),
+			$wpdb->get_var( "SHOW TABLES LIKE '" . Events_Schema::table_name( true ) . "'" )
+		);
+		$this->assertEquals(
+			Occurrences_Schema::table_name( true ),
+			$wpdb->get_var( "SHOW TABLES LIKE '" . Occurrences_Schema::table_name( true ) . "'" )
+		);
 	}
 }

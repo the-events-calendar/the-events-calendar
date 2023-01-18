@@ -73,17 +73,18 @@ class Activation {
 		$state          = $services->make( State::class );
 		$phase          = $state->get_phase();
 		$events         = $services->make( Events::class );
-		$phase_set      = false;
 
 		// If the migration phase is not set and there are no Events to migrate, then the migration is not required.
 		if ( $phase === null && $events->get_total_events() === 0 ) {
 			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
 			$state->save();
-			$phase_set = true;
 		}
 
-		// Update the table if they already exist or we just set the migration phase.
-		if ( $phase_set || $schema_builder->all_tables_exist( 'tec' ) ) {
+		$update = $state->is_dry_run() || $state->is_running() || $state->is_completed()
+			|| $state->is_migrated();
+
+		// Update the tables if required by the migration phase.
+		if ( $update ) {
 			$schema_builder->up( true );
 
 			// Ensure late activation only after we have the tables.
