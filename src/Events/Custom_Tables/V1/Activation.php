@@ -41,7 +41,7 @@ class Activation {
 	}
 
 	/**
-	 * Checks the state to determine if whether we can create custom tables.
+	 * Checks the state to determine if whether we should create or update custom tables.
 	 *
 	 * This method will run once a day (using transients).
 	 *
@@ -50,28 +50,43 @@ class Activation {
 	public static function init() {
 		$services = tribe();
 
-		// Check if we ran recently.
-		$db_hash = get_transient( static::ACTIVATION_TRANSIENT );
+		/*
+		 * Transients will use the cache when using real object cache, why check both then?
+		 * Transients might be disabled. In that case we'll use the cache and work around that limitation.
+		 * A user seeking to force the Activation to run again can flush the cache when using one, or clear
+		 * the transient when not using one.
+		 */
+		if ( wp_using_ext_object_cache() ) {
+			$last_run = wp_cache_get( static::ACTIVATION_TRANSIENT );
+		} else {
+			$last_run = get_transient( static::ACTIVATION_TRANSIENT );
+		}
+		$last_run = is_numeric( $last_run ) ? (int) $last_run : null;
+		$now      = time();
 
-		$schema_builder = $services->make( Schema_Builder::class );
-		$hash           = $schema_builder->get_registered_schemas_version_hash();
-
-		if ( $db_hash !== $hash ) {
-			// Sync any schema changes we may have.
-			$schema_builder->up( true );
-			set_transient( static::ACTIVATION_TRANSIENT, $hash, HOUR_IN_SECONDS );
+		// If the activation last ran less than 24 hours ago, bail.
+		if ( $last_run && $last_run > ( $now - DAY_IN_SECONDS ) ) {
+			return;
 		}
 
-		$state = $services->make( State::class );
+		$schema_builder = $services->make( Schema_Builder::class );
+		$state          = $services->make( State::class );
+		$phase          = $state->get_phase();
+		$events         = $services->make( Events::class );
+		$phase_set      = false;
 
-		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
-		if (
-			in_array( $state->get_phase(), [ null, State::PHASE_MIGRATION_NOT_REQUIRED ], true )
-			&& $services->make( Events::class )->get_total_events() === 0
-		) {
+		// If the migration phase is not set and there are no Events to migrate, then the migration is not required.
+		if ( $phase === null && $events->get_total_events() === 0 ) {
 			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
 			$state->save();
+			$phase_set = true;
+		}
 
+		// Update the table if they already exist or we just set the migration phase.
+		if ( $phase_set || $schema_builder->all_tables_exist( 'tec' ) ) {
+			$schema_builder->up( true );
+
+			// Ensure late activation only after we have the tables.
 			if ( ! $services->getVar( 'ct1_fully_activated' ) ) {
 				/**
 				 * On new installations the full activation code will find an empty state and
@@ -79,6 +94,16 @@ class Activation {
 				 */
 				$services->register( Full_Activation_Provider::class );
 			}
+		}
+
+		if ( wp_using_ext_object_cache() ) {
+			wp_cache_set( static::ACTIVATION_TRANSIENT, $now, '', DAY_IN_SECONDS );
+			// Clean up.
+			delete_transient( static::ACTIVATION_TRANSIENT );
+		} else {
+			set_transient( static::ACTIVATION_TRANSIENT, $now, DAY_IN_SECONDS );
+			// Clean up.
+			wp_cache_delete( static::ACTIVATION_TRANSIENT );
 		}
 	}
 

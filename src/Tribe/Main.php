@@ -4074,7 +4074,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void The method will clear the state of the Custom Tables v1 activation.
 		 */
-		protected static function clear_ct1_activation_state(): void {
+		public static function clear_ct1_activation_state(): void {
 			/*
 			 * Value is hard-coded to avoid autoloading the Activation class for the sole purpose of getting the
 			 * transient name.
@@ -4083,11 +4083,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$transient_key = 'tec_custom_tables_v1_initialized';
 
-			// Delete the transient to make sure the activation code will run again.
 			delete_transient( $transient_key );
-
-			// Transient will still be found, ensure it is truthy false.
-			wp_cache_set( $transient_key, null, 'options' );
+			wp_cache_delete( $transient_key );
 		}
 	}
 }
