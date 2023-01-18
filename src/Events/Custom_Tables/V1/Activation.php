@@ -56,16 +56,11 @@ class Activation {
 		$schema_builder = $services->make( Schema_Builder::class );
 		$hash           = $schema_builder->get_registered_schemas_version_hash();
 
-		if ( $db_hash === $hash ) {
-			return;
-		}
-
-		// Sync any schema changes we may have.
-		if ( ! $schema_builder->all_tables_exist( 'tec' ) ) {
+		if ( $db_hash !== $hash && ! $schema_builder->all_tables_exist( 'tec' ) ) {
+			// Sync any schema changes we may have.
 			$schema_builder->up( true );
+			set_transient( static::ACTIVATION_TRANSIENT, $hash, HOUR_IN_SECONDS );
 		}
-
-		set_transient( static::ACTIVATION_TRANSIENT, $hash, HOUR_IN_SECONDS );
 
 		$state = $services->make( State::class );
 

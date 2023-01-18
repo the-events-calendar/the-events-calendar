@@ -2754,6 +2754,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! is_network_admin()  ) {
 				// We set with a string to avoid having to include a file here.
 				set_transient( '_tribe_events_delayed_flush_rewrite_rules', 'yes', 0 );
+
+				$transient_key = 'tec_custom_tables_v1_initialized';
+
+				if ( class_exists( '\TEC\Events\Custom_Tables\V1\Activation' ) && defined( '\TEC\Events\Custom_Tables\V1\Activation::ACTIVATION_TRANSIENT' ) ) {
+					$transient_key = \TEC\Events\Custom_Tables\V1\Activation::ACTIVATION_TRANSIENT;
+				}
+				// Delete the transient to make sure the activation code will run again.
+				delete_transient( $transient_key );
+
+				// Transient will still be found, ensure it is truthy false.
+				wp_cache_set( $transient_key, null, 'options' );
 			}
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
@@ -2785,6 +2796,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! class_exists( 'Tribe__Cache' ) ) {
 				require_once dirname( dirname( __FILE__ ) ) . '/common/src/Tribe/Cache.php';
 			}
+
+			$transient_key = 'tec_custom_tables_v1_initialized';
+
+			if ( class_exists( '\TEC\Events\Custom_Tables\V1\Activation' ) && defined( '\TEC\Events\Custom_Tables\V1\Activation::ACTIVATION_TRANSIENT' ) ) {
+				$transient_key = \TEC\Events\Custom_Tables\V1\Activation::ACTIVATION_TRANSIENT;
+			}
+			// Delete the transient to make sure the activation code will run again.
+			delete_transient( $transient_key );
+
+			// Transient will still be found, ensure it is truthy false.
+			wp_cache_set( $transient_key, null, 'options' );
 
 			$hook_name = 'tribe_schedule_transient_purge';
 
