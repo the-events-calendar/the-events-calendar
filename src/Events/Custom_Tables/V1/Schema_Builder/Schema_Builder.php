@@ -53,8 +53,8 @@ class Schema_Builder {
 	 *
 	 * @return string
 	 */
-	public function get_registered_schemas_version_hash() :string {
-		$schemas = array_merge( $this->get_registered_table_schemas(),  $this->get_registered_field_schemas() );
+	public function get_registered_schemas_version_hash(): string {
+		$schemas = array_merge( $this->get_registered_table_schemas(), $this->get_registered_field_schemas() );
 
 		$versions = [];
 		foreach( $schemas as $schema ) {
@@ -260,6 +260,7 @@ class Schema_Builder {
 		}
 
 		$field_schemas = $force ? $this->get_registered_field_schemas() : $this->get_field_schemas_that_need_updates();
+
 		// Get all registered table classes.
 		foreach ( $field_schemas as $field_schema ) {
 			/** @var Field_Schema_Interface $field_schema */
