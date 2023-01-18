@@ -5,7 +5,6 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
-
 /**
  * Link to Previous Event (Display)
  *
@@ -175,7 +174,7 @@ function tribe_get_view_permalink( $slug, $term = null ) {
  */
 function tribe_get_gridview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
-	$output    = $tribe_ecp->getLink( 'month', false, $term );
+	$output    = $tribe_ecp->getLink( \Tribe\Events\Views\V2\Views\Month_View::get_view_slug(), false, $term );
 
 	return apply_filters( 'tribe_get_gridview_link', $output );
 }
@@ -191,7 +190,7 @@ function tribe_get_gridview_link( $term = null ) {
  */
 function tribe_get_listview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
-	$output    = $tribe_ecp->getLink( 'list', false, $term );
+	$output    = $tribe_ecp->getLink( \Tribe\Events\Views\V2\Views\List_View::get_view_slug(), false, $term );
 
 	return apply_filters( 'tribe_get_listview_link', $output );
 }
@@ -217,10 +216,10 @@ function tribe_get_listview_past_link( $term = null ) {
  *
  * Returns a link to the next/previous list view page
  *
- * @param string $direction 'next' or 'prev'
- * @param int|null $term Term ID
- * @param string $currently_displaying Type of listview page that is currently being displayed ('past' or 'list')
- * @param int $page Current page number being displayed
+ * @param string   $direction 'next' or 'prev'.
+ * @param int|null $term Term ID.
+ * @param string   $currently_displaying Type of listview page that is currently being displayed ('past' or 'list').
+ * @param int      $page Current page number being displayed.
  *
  * @return string URL
  */
@@ -233,10 +232,13 @@ function tribe_get_listview_dir_link( $direction = 'next', $term = null, $curren
 	}
 
 	$args = tribe_get_listview_args( $page, $direction, $currently_displaying );
-	$link = add_query_arg( [
-		'tribe_event_display' => $args['display'],
-		'tribe_paged'         => absint( $args['page'] ),
-	], $link );
+	$link = add_query_arg(
+		[
+			'tribe_event_display' => $args['display'],
+			'tribe_paged'         => absint( $args['page'] ),
+		],
+		$link
+	);
 
 	return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
 }
@@ -259,17 +261,18 @@ function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_dis
 	}
 
 	// assume we want to display what we're currently displaying (until we discover otherwise)
-	$display = $currently_displaying;
+	$display        = $currently_displaying;
+	$list_view_slug = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
 
 	if (
-		( 'next' === $direction && 'list' === $currently_displaying )
+		( 'next' === $direction && $list_view_slug === $currently_displaying )
 		|| ( 'prev' === $direction && 'past' === $currently_displaying )
 	) {
 		$page++;
-	} elseif ( 'list' === $currently_displaying && 1 === $page ) {
+	} elseif ( $list_view_slug === $currently_displaying && 1 === $page ) {
 		$display = 'past';
 	} elseif ( 'past' === $currently_displaying && 1 === $page ) {
-		$display = 'list';
+		$display = $list_view_slug;
 	} else {
 		$page--;
 	}
@@ -288,9 +291,10 @@ function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_dis
  * @return string
  */
 function tribe_get_listview_display() {
-	$default_display = 'list';
+	$view_slug       = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
+	$default_display = $view_slug;
 	$display         = tribe_get_request_var( 'tribe_event_display', $default_display );
-	$valid_values    = [ 'list', 'past' ];
+	$valid_values    = [ $view_slug, 'past' ];
 
 	return in_array( $display, $valid_values ) ? $display : $default_display;
 }
@@ -464,4 +468,3 @@ function tribe_get_event_website_url( $event = null ) {
 
 	return apply_filters( 'tribe_get_event_website_url', $url, $post_id );
 }
-

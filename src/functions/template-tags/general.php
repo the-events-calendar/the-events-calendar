@@ -188,6 +188,8 @@ function tec_events_get_today_button_label( $view = null ) {
 		return $today;
 	}
 
+	$view_slug = $view::get_view_slug();
+
 	/**
 	 * Allows filtering a view-specific label for the today button.
 	 *
@@ -196,7 +198,7 @@ function tec_events_get_today_button_label( $view = null ) {
 	 * @param string $today The string used for the "Today" button on calendar views.
 	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
 	 */
-	return apply_filters( 'tec_events_view_' . $view->get_slug() .'_today_button_label', $today, $view );
+	return apply_filters( "tec_events_view_{$view_slug}_today_button_label", $today, $view );
 }
 
 /**

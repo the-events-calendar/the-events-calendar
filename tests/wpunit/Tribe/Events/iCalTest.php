@@ -97,7 +97,7 @@ class iCalTest extends WPTestCase {
 
 		for ( $i = 0; $i < $events_total_count; $i ++ ) {
 			$meta = [ '_EventStartDate' => date( \Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+' . ( $i + 1 ) . ' days' ) ) ];
-			$this->factory()->post->create( [ 'post_type' => $post_type, 'meta_input' => $meta ] );
+			$this->factory()->event->create( [ 'post_type' => $post_type, 'meta_input' => $meta ] );
 		}
 
 		/** @var \WP_Query $wp_query */
@@ -149,7 +149,7 @@ class iCalTest extends WPTestCase {
 
 		for ( $i = 0; $i < $events_total_count; $i ++ ) {
 			$meta = [ '_EventStartDate' => date( \Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+' . ( $i + 1 ) . ' days' ) ) ];
-			$this->factory()->post->create( [ 'post_type' => $post_type, 'meta_input' => $meta ] );
+			$this->factory()->event->create( [ 'post_type' => $post_type, 'meta_input' => $meta ] );
 		}
 
 		/** @var \WP_Query $wp_query */
