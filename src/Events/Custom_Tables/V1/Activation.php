@@ -28,7 +28,7 @@ class Activation {
 	 *
 	 * @since 6.0.0
 	 */
-	const ACTIVATION_TRANSIENT = 'tec_custom_tables_v1_initialized';
+	public const ACTIVATION_TRANSIENT = 'tec_custom_tables_v1_initialized';
 
 	/**
 	 * Handles the activation of the feature functions.
