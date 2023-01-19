@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.7.1] 2023-01-24 =
 
+* Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
 
 = [6.0.7] 2023-01-18 =
 
