@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is respected on the single events page.
+
 = [6.0.7.1] 2023-01-19 =
 
 * Fix - Prevent fatal when using The Events Calendar with Event Tickets due to Common library not being updated.
