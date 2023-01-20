@@ -185,7 +185,7 @@ function tribe_get_basic_gmap_embed_url( $address_string ) {
 	$embed_url_args = [
 		'key'  => $api_key,
 		'q'    => urlencode( $address_string ),
-		'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
+		'zoom' => (int) tribe_get_option( 'embedGoogleMapsZoom', 15 ),
 	];
 
 	$embed_url = add_query_arg(
