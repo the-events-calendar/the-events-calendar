@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= TBD [TBD] =
+
+* Feature - Add Event Automator to Add-ons page. [TEC-4660]
+
 = [6.0.7.1] 2023-01-19 =
 
 * Fix - Prevent fatal when using The Events Calendar with Event Tickets due to Common library not being updated.
