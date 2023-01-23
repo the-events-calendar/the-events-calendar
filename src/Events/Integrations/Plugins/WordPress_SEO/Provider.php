@@ -26,9 +26,24 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		return function_exists( 'YoastSEO' )
-			&& defined( 'WPSEO_VERSION' )
-			&& version_compare( WPSEO_VERSION, '19.0', '>=' );
+		return function_exists( 'YoastSEO' ) && $this->version_compare( '19.0' );
+	}
+
+	/**
+	 * Checks the version of Yoast SEO against a given Version.
+	 *
+	 * @uses version_compare()
+	 *
+	 * @since TBD
+	 *
+	 * @param string $version
+	 * @param string $operator [optional]
+	 *
+	 * @return bool
+	 */
+	public function version_compare( $version, $operator = '>=' ): bool {
+		return defined( 'WPSEO_VERSION' )
+			&& version_compare( WPSEO_VERSION, $version, $operator );
 	}
 
 	/**
@@ -36,7 +51,10 @@ class Provider extends Integration_Abstract {
 	 */
 	protected function load(): void {
 		add_filter( 'wpseo_schema_graph_pieces', [ $this, 'add_graph_pieces' ], 11, 2 );
-		add_action( 'init', [ $this, 'remove_yoast_legacy_integration' ], 20 );
+
+		if ( $this->version_compare( '19.2' ) ) {
+			add_action( 'init', [ $this, 'remove_yoast_legacy_integration' ], 20 );
+		}
 	}
 
 	/**
