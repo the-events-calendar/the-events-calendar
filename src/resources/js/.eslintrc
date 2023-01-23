@@ -35,6 +35,7 @@
     "TribeList": true,
     "tribeUtils": true,
     "typenow": true,
+		"TribeEventsAdminNoticeInstall": true,
 	"wp": true
   }
 }
