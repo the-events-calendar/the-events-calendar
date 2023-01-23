@@ -55,14 +55,12 @@ class Install_Event_Tickets {
 			return;
 		}
 
-		add_action( 'wp_ajax_nopriv_notice_install_event_ticketsr', [ $this, 'ajax_handle_notice_install_event_tickets' ] );
 		add_action( 'wp_ajax_notice_install_event_tickets', [ $this, 'ajax_handle_notice_install_event_tickets' ] );
 
 		$this->assets();
 		$this->notice_install();
 		$this->notice_activate();
 	}
-
 
 	/**
 	 * Register `Install` notice assets.

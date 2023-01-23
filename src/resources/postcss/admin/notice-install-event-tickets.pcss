@@ -1,15 +1,15 @@
 /* The Events Calendar Utilities */
-@import '../utilities/_all.pcss';
+@import '../utilities/_variables-skeleton.pcss';
 
 .tribe-notice-event-tickets-install,
 .tribe-notice-event-tickets-activate {
 	border-left-color: var(--tec-color-accent-primary);
-	border-radius: 4px;
+	border-radius: var(--tec-border-radius-default);
 	display: flex;
 	padding: 0;
 
 	h3 {
-		line-height: 1.2;
+		line-height: var(--tec-line-height-0);
 		margin: 0;
 	}
 }
@@ -18,7 +18,7 @@
 	overflow: hidden;
 	width: 70px;
 	text-align: center;
-	padding-top: 15px;
+	padding-top: var(--tec-spacer-3);
 	flex-grow: 0;
 	flex-shrink: 0;
 
@@ -28,5 +28,5 @@
 }
 
 .tec-admin__notice-install-content {
-	padding: 20px 20px 20px 0;
+	padding: var(--tec-spacer-4) var(--tec-spacer-4) var(--tec-spacer-4) 0;
 }
