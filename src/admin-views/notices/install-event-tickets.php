@@ -42,12 +42,12 @@ $button_classes = [
 		<?php tribe_classes( $button_classes ); ?>
 		data-plugin-slug="<?php echo esc_attr( $plugin_slug ); ?>"
 		data-nonce="<?php echo esc_attr( $ajax_nonce ); ?>"
-		data-action=<?php echo esc_attr( $action ); ?>
-		data-redirect-url=<?php echo esc_attr( $redirect_url ); ?>
-		data-installing-label=<?php echo esc_attr( $installing_label ); ?>
-		data-installed-label=<?php echo esc_attr( $installed_label ); ?>
-		data-activating-label=<?php echo esc_attr( $activating_label ); ?>
-		data-activated-label=<?php echo esc_attr( $activated_label ); ?>
+		data-action="<?php echo esc_attr( $action ); ?>"
+		data-redirect-url="<?php echo esc_attr( $redirect_url ); ?>"
+		data-installing-label="<?php echo esc_attr( $installing_label ); ?>"
+		data-installed-label="<?php echo esc_attr( $installed_label ); ?>"
+		data-activating-label="<?php echo esc_attr( $activating_label ); ?>"
+		data-activated-label="<?php echo esc_attr( $activated_label ); ?>"
 	><?php echo esc_html( $button_label ); ?></button>
 
 </div>
