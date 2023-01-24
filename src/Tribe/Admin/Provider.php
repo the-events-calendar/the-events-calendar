@@ -15,7 +15,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( 'tec.admin.notice.timezones', Notice\Timezones::class );
 		$this->container->singleton( 'tec.admin.notice.marketing', Notice\Marketing::class );
 		$this->container->singleton( 'tec.admin.notice.update', Notice\Update::class );
-		$this->container->singleton( 'tec.admin.notice.install-event-tickets', Notice\Install_Event_Tickets::class );
+		$this->container->singleton( Notice\Install_Event_Tickets::class, Notice\Install_Event_Tickets::class );
 
 		$this->add_hooks();
 	}
