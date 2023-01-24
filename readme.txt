@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Add support for opt-in direct deletion of EA older records using the `tec_event_aggregator_direct_record_deletion` filter or setting the `TEC_EVENT_AGGREGATOR_RECORDS_PURGE_DIRECT_DELETION` constant. [EA-446]
+* Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
 * Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
 * Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
 
