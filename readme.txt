@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.8] TBD =
+
+* Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
+
 = [6.0.7.1] 2023-01-19 =
 
 * Fix - Prevent fatal when using The Events Calendar with Event Tickets due to Common library not being updated.
