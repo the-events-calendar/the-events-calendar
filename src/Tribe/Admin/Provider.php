@@ -47,6 +47,6 @@ class Provider extends \tad_DI52_ServiceProvider {
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.legacy-views', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.fse', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( Notice\Legacy_Views_Updated::class, 'hook' ) );
-		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.install-event-tickets', 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( Notice\Install_Event_Tickets::class, 'hook' ) );
 	}
 }
