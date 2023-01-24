@@ -242,7 +242,7 @@ class Install_Event_Tickets {
 		$this->enqueue_assets();
 
 		$args = [
-			'description'  => __( 'You\'re almost there! Activate Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ),
+			'description'  => __( 'You\'re almost there! Activate Event Tickets for free and you\'ll be able to sell tickets, collect RSVPs, and manage attendees all from your Dashboard.', 'the-events-calendar' ),
 			'button_label' => __( 'Activate Event Tickets', 'the-events-calendar' ),
 			'action'       => 'activate',
 		];
@@ -280,7 +280,7 @@ class Install_Event_Tickets {
 			'plugin_slug'      => self::$plugin_slug,
 			'action'           => 'install',
 			'title'            => __( 'Start selling tickets to your Events', 'the-events-calendar' ),
-			'description'      => __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ),
+			'description'      => __( 'Sell tickets, collect RSVPs, and manage attendees for free with Event Tickets.', 'the-events-calendar' ),
 			'button_label'     => __( 'Install Event Tickets', 'the-events-calendar' ),
 			'tickets_logo'     => Tribe__Main::instance()->plugin_url . '/src/resources/images/tec-tickets-logo.svg',
 			'ajax_nonce'       => wp_create_nonce( 'tribe_events_admin_notice_install' ),
