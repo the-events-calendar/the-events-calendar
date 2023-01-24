@@ -10,7 +10,6 @@ use WP_Upgrader;
 use WP_Ajax_Upgrader_Skin;
 use Plugin_Upgrader;
 use Tribe__Main;
-use Tribe__Admin__Notices;
 use Tribe__Template;
 
 /**
@@ -58,8 +57,26 @@ class Install_Event_Tickets {
 		add_action( 'wp_ajax_notice_install_event_tickets', [ $this, 'ajax_handle_notice_install_event_tickets' ] );
 
 		$this->assets();
-		$this->notice_install();
-		$this->notice_activate();
+
+		tribe_notice(
+			'event-tickets-install',
+			[ $this, 'notice_install' ],
+			[
+				'dismiss' => true,
+				'type'    => 'warning',
+			],
+			[ $this, 'should_display_notice_install' ]
+		);
+
+		tribe_notice(
+			'event-tickets-activate',
+			[ $this, 'notice_activate' ],
+			[
+				'dismiss' => true,
+				'type'    => 'warning',
+			],
+			[ $this, 'should_display_notice_activate' ]
+		);
 	}
 
 	/**
@@ -80,17 +97,18 @@ class Install_Event_Tickets {
 				'jquery',
 				'tribe-common',
 			],
-			null,
+			[ 'admin_enqueue_scripts' ],
 			[
-				'localize' => [
+				'localize'     => [
 					[
 						'name' => 'TribeEventsAdminNoticeInstall',
-						'data' => [ 'ajaxurl' => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ), ]
+						'data' => [ 'ajaxurl' => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) ],
 					],
 				],
-				'groups'   => [
+				'groups'       => [
 					self::$assets_group,
 				],
+				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
 
@@ -98,13 +116,17 @@ class Install_Event_Tickets {
 			$plugin,
 			'tribe-events-admin-notice-install-event-tickets-css',
 			'admin/notice-install-event-tickets.css',
-			[ 'tec-variables-full' ],
+			[
+				'wp-components',
+				'tec-variables-full',
+			],
 			[
 				'admin_enqueue_scripts',
 				'wp_enqueue_scripts',
 			],
 			[
-				'groups' => self::$assets_group,
+				'groups'       => [ self::$assets_group ],
+				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
 	}
@@ -151,7 +173,7 @@ class Install_Event_Tickets {
 	 * @return boolean True if active.
 	 */
 	public function is_active( $slug = '' ): bool {
-		return is_plugin_active( $this->get_plugin_path( $slug ) );
+		return is_plugin_active( $this->get_plugin_path( $slug ) ) || did_action( 'tribe_tickets_plugin_loaded' );
 	}
 
 	/**
@@ -172,7 +194,7 @@ class Install_Event_Tickets {
 	 *
 	 * @return bool True if the install notice should be displayed.
 	 */
-	public function should_display_notice_install() {
+	public function should_display_notice_install(): bool {
 		return ! $this->is_installed()
 			&& empty( tribe_get_request_var( 'welcome-message-the-events-calendar' ) )
 			&& ! $this->is_install_plugin_page();
@@ -185,7 +207,7 @@ class Install_Event_Tickets {
 	 *
 	 * @return bool True if the activate notice should be displayed.
 	 */
-	public function should_display_notice_activate() {
+	public function should_display_notice_activate(): bool {
 		return $this->is_installed() && ! $this->is_active() && ! $this->is_install_plugin_page();
 	}
 
@@ -193,54 +215,38 @@ class Install_Event_Tickets {
 	 * Install notice for `Event Tickets`.
 	 *
 	 * @since TBD
+	 *
+	 * @return string $html The HTML for the notice.
 	 */
-	public function notice_install() {
-		if ( ! $this->should_display_notice_install() ) {
-			return '';
-		}
-
-		$this->enqueue_assets();
-
+	public function notice_install(): string {
 		$html = $this->get_template()->template(
 			'notices/install-event-tickets',
 			$this->get_template_data(),
 			false
 		);
 
-		tribe_notice(
-			'event-tickets-install',
-			$html,
-			[
-				'dismiss' => true,
-				'type'    => 'warning',
-			]
-		);
+		return $html;
 	}
 
 	/**
-	 * Enqueue assets required for the notice.
+	 * Should enqueue assets required for the notice.
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @return bool True if the assets should be enqueued.
 	 */
-	private function enqueue_assets() {
-		wp_enqueue_style( 'wp-components' );
-		tribe_asset_enqueue_group( self::$assets_group );
+	public function should_enqueue_assets(): bool {
+		return $this->should_display_notice_activate() || $this->should_display_notice_install();
 	}
 
 	/**
 	 * Activate notice for `Event Tickets`.
 	 *
 	 * @since TBD
+	 *
+	 * @return string $html The HTML for the notice.
 	 */
-	public function notice_activate() {
-		if ( ! $this->should_display_notice_activate() ) {
-			return '';
-		}
-
-		$this->enqueue_assets();
-
+	public function notice_activate(): string {
 		$args = [
 			'description'  => __( 'You\'re almost there! Activate Event Tickets for free and you\'ll be able to sell tickets, collect RSVPs, and manage attendees all from your Dashboard.', 'the-events-calendar' ),
 			'button_label' => __( 'Activate Event Tickets', 'the-events-calendar' ),
@@ -253,14 +259,7 @@ class Install_Event_Tickets {
 			false
 		);
 
-		tribe_notice(
-			'event-tickets-activate',
-			$html,
-			[
-				'dismiss' => true,
-				'type'    => 'warning',
-			]
-		);
+		return $html;
 	}
 
 	/**
@@ -311,7 +310,11 @@ class Install_Event_Tickets {
 			wp_send_json_error( [ 'message' => wpautop( __( 'Security Error, Need higher Permissions to install plugin.' ), 'the-events-calendar' ) ] );
 		}
 
-		$vars    = $_REQUEST;
+		$vars = [
+			'request' => tribe_get_request_var( 'request' ),
+			'slug'    => tribe_get_request_var( 'slug' ),
+		];
+
 		$success = false;
 
 		if ( 'install' === $vars['request'] ) {
