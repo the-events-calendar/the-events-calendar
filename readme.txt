@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-* Fix - Prevent Yoast SEO 16.2 notice due to integration with The Events Calendar [BTRIA-1585]
+* Fix - Prevent Yoast SEO 19.2 notice due to integration with The Events Calendar [BTRIA-1585]
 
 = [6.0.7.1] 2023-01-19 =
 
