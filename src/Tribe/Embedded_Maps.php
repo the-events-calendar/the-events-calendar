@@ -103,6 +103,7 @@ class Tribe__Events__Embedded_Maps {
 				'modules/map-basic',
 				null,
 				[
+					'venue'     => esc_html( get_the_title( $this->venue_id ) ),
 					'embed_url' => tribe_get_basic_gmap_embed_url( $this->address ),
 					'address'   => $this->address,
 					'index'     => $index,
