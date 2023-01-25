@@ -348,6 +348,10 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		public static function custom_columns( $column_id, $post_id ) {
 			switch ( $column_id ) {
 				case 'events-cats':
+					if ( ! taxonomy_exists( Tribe__Events__Main::TAXONOMY ) ) {
+						return [];
+					}
+
 					$event_cats = wp_get_post_terms(
 						$post_id,
 						Tribe__Events__Main::TAXONOMY,

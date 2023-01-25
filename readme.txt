@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
 * Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
 * Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
+* Fix - Ensure the code will work correctly when the Events' category taxonomy is unregistered. [TEC-4664]
 
 = [6.0.7.1] 2023-01-19 =
 
