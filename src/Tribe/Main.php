@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Main Tribe Events Calendar class.
  */
@@ -2754,6 +2755,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! is_network_admin()  ) {
 				// We set with a string to avoid having to include a file here.
 				set_transient( '_tribe_events_delayed_flush_rewrite_rules', 'yes', 0 );
+
+				self::clear_ct1_activation_state();
 			}
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
@@ -2785,6 +2788,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! class_exists( 'Tribe__Cache' ) ) {
 				require_once dirname( dirname( __FILE__ ) ) . '/common/src/Tribe/Cache.php';
 			}
+
+			self::clear_ct1_activation_state();
 
 			$hook_name = 'tribe_schedule_transient_purge';
 
@@ -4057,6 +4062,29 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			];
 
 			$this->get_autoloader_instance()->register_prefixes( $prefixes );
+		}
+
+		/**
+		 * Idempotent method to clear the state of the Custom Tables v1 activation state.
+		 *
+		 * Note the state might be persisted in the database, as a transient, or in the cache.
+		 * The method will handle both cases.
+		 *
+		 * @since TBD
+		 *
+		 * @return void The method will clear the state of the Custom Tables v1 activation.
+		 */
+		public static function clear_ct1_activation_state(): void {
+			/*
+			 * Value is hard-coded to avoid autoloading the Activation class for the sole purpose of getting the
+			 * transient name.
+			 *
+			 * @see TEC\Events\Custom_Tables\V1\Activation::ACTIVATION_TRANSIENT
+			 */
+			$transient_key = 'tec_custom_tables_v1_initialized';
+
+			delete_transient( $transient_key );
+			wp_cache_delete( $transient_key );
 		}
 	}
 }

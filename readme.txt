@@ -229,6 +229,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.8] TBD =
+
+* Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
 * Fix - Prevent Yoast SEO 19.2 notice due to integration with The Events Calendar [BTRIA-1585]
 
 = [6.0.7.1] 2023-01-19 =
