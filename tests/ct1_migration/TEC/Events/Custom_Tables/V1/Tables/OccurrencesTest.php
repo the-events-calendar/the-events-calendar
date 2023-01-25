@@ -2,6 +2,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Tables;
 
+require_once __DIR__ . '/Tables_Test_Case.php';
+
 class OccurrencesTest extends Tables_Test_Case {
 	protected function get_insert_query( object $data ): string {
 		$table_name = Occurrences::table_name( true );
