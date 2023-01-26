@@ -103,15 +103,15 @@ class Manager {
 		$views = (array) apply_filters(
 			'tribe_events_views',
 			[
-				'list'        => List_View::class,
-				'month'       => Month_View::class,
-				'day'         => Day_View::class,
-				'latest-past' => Latest_Past_View::class,
+				List_View::get_view_slug()        => List_View::class,
+				Month_View::get_view_slug()       => Month_View::class,
+				Day_View::get_view_slug()         => Day_View::class,
+				Latest_Past_View::get_view_slug() => Latest_Past_View::class,
 			]
 		);
 
 		// Make sure the Reflector View is always available.
-		$views['reflector'] = Reflector_View::class;
+		$views[ Reflector_View::get_view_slug() ] = Reflector_View::class;
 
 		return $views;
 	}
@@ -178,11 +178,7 @@ class Manager {
 	public function get_default_view_slug() {
 		$view = $this->get_default_view();
 
-		if ( ! $view ) {
-			return 'month';
-		}
-
-		return tribe( $view )->get_slug();
+		return $view ? $view::get_view_slug() : Month_View::get_view_slug();
 	}
 
 	/**
