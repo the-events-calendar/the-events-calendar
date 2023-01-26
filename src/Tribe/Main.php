@@ -4070,7 +4070,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Note the state might be persisted in the database, as a transient, or in the cache.
 		 * The method will handle both cases.
 		 *
-		 * @since TBD
+		 * @since 6.0.8
 		 *
 		 * @return void The method will clear the state of the Custom Tables v1 activation.
 		 */

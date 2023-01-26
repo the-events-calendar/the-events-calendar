@@ -34,10 +34,10 @@ class Provider extends Integration_Abstract {
 	 *
 	 * @uses version_compare()
 	 *
-	 * @since TBD
+	 * @since 6.0.8
 	 *
-	 * @param string $version
-	 * @param string $operator [optional]
+	 * @param string $version  The version of Yoast we are comparing the installed version to.
+	 * @param string $operator The comparison operator. Defaults to >=
 	 *
 	 * @return bool
 	 */
