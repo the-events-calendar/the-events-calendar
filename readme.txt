@@ -236,6 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
 * Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
 * Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
+* Fix - Change the type of the date-related custom tables date fields to VARCHAR to avoid warnings on stricter SQL modes. [TEC-4536]
 
 = [6.0.7.1] 2023-01-19 =
 
