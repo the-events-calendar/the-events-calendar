@@ -28,7 +28,7 @@ class Activation {
 	 *
 	 * @since 6.0.0
 	 */
-	const ACTIVATION_TRANSIENT = 'tec_custom_tables_v1_initialized';
+	public const ACTIVATION_TRANSIENT = 'tec_custom_tables_v1_initialized';
 
 	/**
 	 * Handles the activation of the feature functions.
@@ -41,49 +41,70 @@ class Activation {
 	}
 
 	/**
-	 * Checks the state to determine if whether we can create custom tables.
+	 * Checks the state to determine if whether we should create or update custom tables.
 	 *
 	 * This method will run once a day (using transients).
 	 *
 	 * @since 6.0.0
 	 */
 	public static function init() {
-		// Check if we ran recently.
-		$db_hash = get_transient( static::ACTIVATION_TRANSIENT );
+		$services = tribe();
 
-		$schema_builder = tribe( Schema_Builder::class );
-		$hash           = $schema_builder->get_registered_schemas_version_hash();
+		/*
+		 * Transients will use the cache when using real object cache, why check both then?
+		 * Transients might be disabled. In that case we'll use the cache and work around that limitation.
+		 * A user seeking to force the Activation to run again can flush the cache when using one, or clear
+		 * the transient when not using one.
+		 */
+		if ( wp_using_ext_object_cache() ) {
+			$last_run = wp_cache_get( static::ACTIVATION_TRANSIENT );
+		} else {
+			$last_run = get_transient( static::ACTIVATION_TRANSIENT );
+		}
+		$last_run = is_numeric( $last_run ) ? (int) $last_run : null;
+		$now      = time();
 
-		if ( $db_hash == $hash ) {
+		// If the activation last ran less than 24 hours ago, bail.
+		if ( $last_run && $last_run > ( $now - DAY_IN_SECONDS ) ) {
 			return;
 		}
 
-		set_transient( static::ACTIVATION_TRANSIENT, $hash, DAY_IN_SECONDS );
+		$schema_builder = $services->make( Schema_Builder::class );
+		$state          = $services->make( State::class );
+		$phase          = $state->get_phase();
+		$events         = $services->make( Events::class );
 
-		// Sync any schema changes we may have.
-		if ( $schema_builder->all_tables_exist( 'tec' ) ) {
-			$schema_builder->up();
-		}
-
-		$services = tribe();
-		$state    = $services->make( State::class );
-
-		// Check if we have any events to migrate, if not we can set up our schema and flag the migration complete.
-		if (
-			$services->make( Events::class )->get_total_events() === 0
-			&& in_array( $state->get_phase(), [ null, State::PHASE_MIGRATION_NOT_REQUIRED ], true )
-		) {
-			$schema_builder->up();
+		// If the migration phase is not set and there are no Events to migrate, then the migration is not required.
+		if ( $phase === null && $events->get_total_events() === 0 ) {
 			$state->set( 'phase', State::PHASE_MIGRATION_NOT_REQUIRED );
 			$state->save();
+		}
 
-			if ( ! tribe()->getVar( 'ct1_fully_activated' ) ) {
+		$update = $state->is_dry_run() || $state->is_running() || $state->is_completed()
+			|| $state->is_migrated();
+
+		// Update the tables if required by the migration phase.
+		if ( $update ) {
+			$schema_builder->up( true );
+
+			// Ensure late activation only after we have the tables.
+			if ( ! $services->getVar( 'ct1_fully_activated' ) ) {
 				/**
 				 * On new installations the full activation code will find an empty state and
 				 * will have not activated at this point, do it now if required.
 				 */
-				tribe()->register( Full_Activation_Provider::class );
+				$services->register( Full_Activation_Provider::class );
 			}
+		}
+
+		if ( wp_using_ext_object_cache() ) {
+			wp_cache_set( static::ACTIVATION_TRANSIENT, $now, '', DAY_IN_SECONDS );
+			// Clean up.
+			delete_transient( static::ACTIVATION_TRANSIENT );
+		} else {
+			set_transient( static::ACTIVATION_TRANSIENT, $now, DAY_IN_SECONDS );
+			// Clean up.
+			wp_cache_delete( static::ACTIVATION_TRANSIENT );
 		}
 	}
 
@@ -101,8 +122,8 @@ class Activation {
 		$phase = tribe( State::class )->get_phase();
 		// String not translated on purpose.
 		$incomplete_label = 'Incomplete';
-		$status_map = [
-			State::PHASE_MIGRATION_COMPLETE => 'Completed', // String not translated on purpose.
+		$status_map       = [
+			State::PHASE_MIGRATION_COMPLETE     => 'Completed', // String not translated on purpose.
 			State::PHASE_MIGRATION_NOT_REQUIRED => 'Not Required', // String not translated on purpose.
 		];
 
