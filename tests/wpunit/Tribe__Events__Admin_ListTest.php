@@ -1,9 +1,12 @@
 <?php
 
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Admin_List as Admin_List;
 use Tribe__Events__Main as TEc;
 
 class Tribe__Events__Admin_ListTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
+
 	/**
 	 * @after
 	 */
@@ -20,9 +23,28 @@ class Tribe__Events__Admin_ListTest extends \Codeception\TestCase\WPTestCase {
 		] )->create()->ID;
 		unregister_taxonomy( TEC::TAXONOMY );
 
-		$admin_list = new Admin_List();
-		$columns    = $admin_list->custom_columns( 'events-cats', $post_id );
+		$this->expectOutputString( '' );
 
-		$this->assertEquals( [], $columns );
+		$admin_list = new Admin_List();
+		$admin_list->custom_columns( 'events-cats', $post_id );
+	}
+
+	public function test_custom_columns_with_bad_terms(): void {
+		$post_id = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'publish',
+			'start_date' => '2018-01-01 08:00:00',
+			'end_date'   => '2018-01-01 10:00:00',
+		] )->create()->ID;
+		$this->set_fn_return( 'wp_get_post_terms', [
+			null,
+			'Good Term',
+			new WP_Error( 'bad term', 'bad term' ),
+		] );
+
+		$this->expectOutputString( 'Good Term' );
+
+		$admin_list = new Admin_List();
+		$admin_list->custom_columns( 'events-cats', $post_id );
 	}
 }
