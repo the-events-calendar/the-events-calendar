@@ -9,7 +9,7 @@
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "require-dev": {
-    "bordoni/phpass": "0.3.5",
+    "bordoni/phpass": "^0.3.5",
     "automattic/vipwpcs": "^2.0",
     "codeception/module-asserts": "^1.0",
     "codeception/module-cli": "^1.0",
@@ -23,7 +23,7 @@
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.3.8",
     "lucatume/wp-browser": "^3.1.4",
-    "lucatume/wp-snaphot-assertions": "1.1.0",
+    "lucatume/wp-snaphot-assertions": "^1.1.0",
     "mikey179/vfsstream": "^1.6",
     "the-events-calendar/coding-standards": "dev-master",
     "the-events-calendar/tec-testing-facilities": "dev-master",
