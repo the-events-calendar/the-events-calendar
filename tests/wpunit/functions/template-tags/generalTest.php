@@ -6,7 +6,7 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Timezones as Timezones;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class generalTest extends WPTestCase {
 
@@ -213,7 +213,7 @@ HTML;
 			'status'     => 'publish',
 			'tag'        => [ $tag, $tag_2 ],
 		] )->create();
-		$this->uopz_set_return( 'get_the_ID', $event->ID );
+		$this->set_fn_return( 'get_the_ID', $event->ID );
 
 		// Added manually addition of the taxonomies as the above coding was not adding them.
 		wp_set_object_terms( $event->ID, [ $tag_term->slug, $tag_term_2->slug ], 'post_tag', false );
@@ -242,7 +242,7 @@ HTML;
 			'status'     => 'publish',
 			'tag'        => [ $tag, $tag_2 ],
 		] )->create();
-		$this->uopz_set_return( 'get_the_ID', $event->ID );
+		$this->set_fn_return( 'get_the_ID', $event->ID );
 
 		// Added manually addition of the taxonomies as the above coding was not adding them.
 		wp_set_object_terms( $event->ID, [ $tag_term->slug, $tag_term_2->slug ], 'post_tag', false );
@@ -271,7 +271,7 @@ HTML;
 			'status'     => 'publish',
 			'tag'        => [ $tag, $tag_2 ],
 		] )->create();
-		$this->uopz_set_return( 'get_the_ID', $event->ID );
+		$this->set_fn_return( 'get_the_ID', $event->ID );
 
 		// Added manually addition of the taxonomies as the above coding was not adding them.
 		wp_set_object_terms( $event->ID, [ $tag_term->slug, $tag_term_2->slug ], 'post_tag', false );
@@ -291,5 +291,17 @@ HTML;
 		update_option( 'permalink_structure', $structure );
 		$wp_rewrite->init();
 		$wp_rewrite->flush_rules( true );
+	}
+
+	/**
+	 * It should return false if global query object not WP_Query
+	 *
+	 * @test
+	 */
+	public function should_return_false_if_global_query_object_not_wp_query(): void {
+		$this->set_fn_return( 'tribe_get_global_query_object', null );
+
+		$this->assertFalse( tribe_is_events_front_page() );
+		$this->assertFalse( tribe_is_events_home() );
 	}
 }

@@ -25,7 +25,7 @@ class Occurrences extends Abstract_Custom_Table {
 	const SCHEMA_VERSION_OPTION = 'tec_ct1_occurrences_table_schema_version';
 
 	/**
-	 * @since TBD Will now simply create an `event_id` index, removes the foreign key from the previous version.
+	 * @since 6.0.6 Will now simply create an `event_id` index, removes the foreign key from the previous version.
 	 *
 	 * @inheritDoc
 	 */
@@ -78,7 +78,7 @@ class Occurrences extends Abstract_Custom_Table {
 	/**
 	 * Overrides the base method to add `event_id` as key.
 	 *
-	 * @since TBD Will now create an `event_id` index, removes the foreign key from the previous version.
+	 * @since 6.0.6 Will now create an `event_id` index, removes the foreign key from the previous version.
 	 *
 	 * {@inheritdoc}
 	 */

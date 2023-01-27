@@ -358,7 +358,7 @@ class Tribe__Events__Front_Page_View {
 	/**
 	 * Hydrates the post cache for the post that should represent the virtual page.
 	 *
-	 * @since TBD
+	 * @since 6.0.6
 	 *
 	 * @param mixed|null $input The first iput of the method, when used as a filter.
 	 *

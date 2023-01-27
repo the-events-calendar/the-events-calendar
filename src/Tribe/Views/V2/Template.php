@@ -89,14 +89,14 @@ class Template extends Base_Template {
 
 		// Set some global defaults all Views are likely to search for; those will be overridden by each View.
 		$this->set_values( [
-			'slug'     => $view->get_slug(),
+			'slug'     => $view::get_view_slug(),
 			'prev_url' => '',
 			'next_url' => '',
 		], false );
 
 		// Set some defaults on the template.
 		$this->set( 'view_class', get_class( $view ), false );
-		$this->set( 'view_slug', $view->get_slug(), false );
+		$this->set( 'view_slug', $view::get_view_slug(), false );
 		$this->set( 'view_label', $view::get_view_label(), false );
 
 		// Set which view globally.
@@ -116,7 +116,7 @@ class Template extends Base_Template {
 	 * @return string The path to the template file the View will use to render its contents.
 	 */
 	public function get_template_file( $name = null ) {
-		$name = null !== $name ? $name : $this->view->get_slug();
+		$name = null !== $name ? $name : $this->view::get_view_slug();
 
 		$cache_key = is_array( $name ) ? implode( '/', $name ) : $name;
 
@@ -159,7 +159,7 @@ class Template extends Base_Template {
 		);
 
 		if ( $this->view instanceof View_Interface ) {
-			$this->set( 'view_slug', $this->view->get_slug(), false );
+			$this->set( 'view_slug', $this->view::get_view_slug(), false );
 			$this->set( 'view_label', $this->view::get_view_label(), false );
 			$this->set( 'view_class', get_class( $this->view ), false );
 		}
@@ -217,6 +217,19 @@ class Template extends Base_Template {
 	 */
 	public function get_view() {
 		return $this->view;
+	}
+
+	/**
+	 * Returns the current template view slug.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @return string The view slug.
+	 */
+	public function get_view_slug() {
+		$view = $this->get_view();
+
+		return $view::get_view_slug();
 	}
 
 	/**

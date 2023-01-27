@@ -2,8 +2,7 @@
 namespace Tribe\Events\Views\V2;
 
 class Test_Context_View extends View {
-
-	protected $slug = 'test-context';
+	protected static $view_slug = 'test-context';
 
 	public function get_html() {
 		$html = '<script type="text/javascript">'
