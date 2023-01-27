@@ -263,10 +263,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+
 		return [
 			'meta_query' => [
 				'starts-before' => [
-					'key'     => $this->start_meta_key,
+					'key'     => $key,
 					'compare' => '<',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
@@ -292,10 +295,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+
 		return [
 			'meta_query' => [
 				'ends-before' => [
-					'key'     => $this->end_meta_key,
+					'key'     => $key,
 					'compare' => '<=',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
@@ -321,10 +327,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+
 		return [
 			'meta_query' => [
 				'ends-before' => [
-					'key'     => $this->end_meta_key,
+					'key'     => $key,
 					'compare' => '<',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
@@ -350,10 +359,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+
 		return [
 			'meta_query' => [
 				'starts-after' => [
-					'key'     => $this->start_meta_key,
+					'key'     => $key,
 					'compare' => '>',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
@@ -379,10 +391,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+
 		return [
 			'meta_query' => [
 				'starts-after' => [
-					'key'     => $this->start_meta_key,
+					'key'     => $key,
 					'compare' => '>=',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
@@ -408,10 +423,13 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
 		                         ->setTimezone( $this->normal_timezone );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+
 		return [
 			'meta_query' => [
 				'ends-after' => [
-					'key'     => $this->end_meta_key,
+					'key'     => $key,
 					'compare' => '>',
 					'value'   => $date->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 					'type'    => 'DATETIME',
@@ -495,9 +513,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
 		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $utc->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+
 		$this->by(
 			'meta_between',
-			$this->start_meta_key,
+			$key,
 			[
 				$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 				$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
@@ -525,9 +546,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
 		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$key = $utc->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+
 		$this->by(
 			'meta_between',
-			$this->end_meta_key,
+			$key,
 			[
 				$lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
 				$upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT ),
@@ -604,8 +628,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			return null;
 		}
 
-		$start = Tribe__Events__Template__Month::calculate_first_cell_date( $year_month_string );
-		$end   = Tribe__Events__Template__Month::calculate_final_cell_date( $year_month_string );
+		$start = \Tribe\Events\Views\V2\Views\Month_View::calculate_first_cell_date( $year_month_string );
+		$end   = \Tribe\Events\Views\V2\Views\Month_View::calculate_final_cell_date( $year_month_string );
 
 		return $this->filter_by_runs_between( $start, tribe_end_of_day( $end ) );
 	}
@@ -636,19 +660,23 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		                               ->setTimezone( $this->normal_timezone )
 		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$start_key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+		$end_key   = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+
 		return [
 			'meta_query' => [
 				'runs-between' => [
 					'starts'   => [
 						'after-the-start' => [
-							'key'     => $this->start_meta_key,
+							'key'     => $start_key,
 							'value'   => $start_date,
 							'compare' => '>=',
 							'type'    => 'DATETIME',
 						],
 						'relation'        => 'AND',
 						'before-the-end'  => [
-							'key'     => $this->start_meta_key,
+							'key'     => $start_key,
 							'value'   => $end_date,
 							'compare' => '<=',
 							'type'    => 'DATETIME',
@@ -657,14 +685,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					'relation' => 'OR',
 					'ends'     => [
 						'after-the-start' => [
-							'key'     => $this->end_meta_key,
+							'key'     => $end_key,
 							'value'   => $start_date,
 							'compare' => '>=',
 							'type'    => 'DATETIME',
 						],
 						'relation'        => 'AND',
 						'before-the-end'  => [
-							'key'     => $this->end_meta_key,
+							'key'     => $end_key,
 							'value'   => $end_date,
 							'compare' => '<=',
 							'type'    => 'DATETIME',
@@ -742,18 +770,22 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$interval = [ $start_date, $end_date ];
 
+		// If this is a UTC date, use our UTC field, else whatever was specified.
+		$start_key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
+		$end_key   = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
+
 		return [
 			'meta_query' => [
 				'starts-ends-between' => [
 					'starts-between' => [
-						'key'     => $this->start_meta_key,
+						'key'     => $start_key,
 						'value'   => $interval,
 						'compare' => 'BETWEEN',
 						'type'    => 'DATETIME',
 					],
 					'relation'       => 'AND',
 					'ends-between'   => [
-						'key'     => $this->end_meta_key,
+						'key'     => $end_key,
 						'value'   => $interval,
 						'compare' => 'BETWEEN',
 						'type'    => 'DATETIME',
@@ -1090,7 +1122,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 			$timezone         = Tribe__Timezones::build_timezone_object( $input_timezone );
 			$timezone_changed = $input_timezone !== $current_event_timezone_string;
-			$utc              = $this->normal_timezone;
+			$utc              = new DateTimezone('UTC');
 			$dates_changed    = [];
 
 			/**
@@ -1187,7 +1219,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$the_end       = clone $dates_changed['Start'];
 					$the_end->setTimestamp( $end_timestamp );
 
-					$postarr['meta_input']['_EventEndDate'] = $the_end->format( $datetime_format );
+					$postarr['meta_input']['_EventEndDate']    = $the_end
+						->setTimezone( $timezone )
+						->format( $datetime_format );
 					$postarr['meta_input']['_EventEndDateUTC'] = $the_end
 						->setTimezone( $utc )
 						->format( $datetime_format );
@@ -1779,14 +1813,19 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_hidden_on_upcoming( $hidden ) {
 		$hidden = tribe_is_truthy( $hidden );
+		$hidden_posts = tribe( \Tribe\Events\Views\V2\Query\Hide_From_Upcoming_Controller::class )->get_hidden_post_ids();
 
 		if ( $hidden ) {
-			$this->by( 'meta_equals', '_EventHideFromUpcoming', 'yes' );
-
-			return;
+			if ( isset( $this->query_args['post__in'] ) ) {
+				$hidden_posts = array_merge( (array) $this->query_args['post__in'], $hidden_posts );
+			}
+			$this->in( $hidden_posts );
+		} else {
+			if ( isset( $this->query_args['post__not_in'] ) ) {
+				$hidden_posts = array_merge( (array) $this->query_args['post__not_in'], $hidden_posts );
+			}
+			$this->not_in( $hidden_posts );
 		}
-
-		$this->by( 'meta_not_exists', '_EventHideFromUpcoming' );
 	}
 
 	/**

@@ -163,7 +163,7 @@ class Settings {
 			[
 				'id'       => static::$settings_page_id,
 				'parent'   => $this->get_tec_events_menu_slug(),
-				'title'    => esc_html__( 'Settings', 'tribe-common' ),
+				'title'    => esc_html__( 'Settings', 'the-events-calendar' ),
 				'path'     => static::$settings_page_id,
 				'callback' => [
 					tribe( 'settings' ),
@@ -225,10 +225,6 @@ class Settings {
 	public function maybe_add_troubleshooting() {
 		$admin_pages = tribe( 'admin.pages' );
 
-		if ( ! tribe( 'settings' )->should_setup_pages() ) {
-			return;
-		}
-
 		$troubleshooting = tribe( Troubleshooting::class );
 
 		$admin_pages->register_page(
@@ -253,10 +249,6 @@ class Settings {
 	 */
 	public function maybe_add_app_shop() {
 		$admin_pages = tribe( 'admin.pages' );
-
-		if ( ! tribe( 'settings' )->should_setup_pages() ) {
-			return;
-		}
 
 		$app_shop = tribe( Tribe__App_Shop::class );
 
@@ -387,13 +379,50 @@ class Settings {
 			return;
 		}
 
-		include_once \Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once \Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
-		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
-		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
+		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'the-events-calendar' ), $general_tab );
+		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'the-events-calendar' ), $tec_events_display_tab );
+		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
+	}
+
+	/**
+	 * Sort the tabs, forcing some to the front and some to the end.
+	 *
+	 * @since 6.0.5
+	 *
+	 * @param array $tabs        The array of tabs.
+	 * @param string $admin_page The ID of the admin page we are on.
+	 *
+	 * @todo deprecate this when we can get the tab priority working correctly, globally.
+	 *
+	 * @return array             The sorted array of tabs.
+	 */
+	public function sort_tabs( $tabs, $admin_page ): array {
+		if ( $admin_page !== 'tec-events-settings' ) {
+			return $tabs;
+		}
+
+		// Ensure these are the first tabs.
+		$first   = [ 'general', 'display' ];
+		$tabs   = array_merge( array_flip( $first ), $tabs );
+
+		// Ensure these are the last tabs.
+		$last = [ 'licenses', 'addons', 'imports' ];
+
+
+		foreach( $last as $sort ) {
+			if ( ! isset( $tabs[ $sort ] ) ) {
+				continue;
+			}
+			// TL/DR: grab each tab, unset it and append it to the end of the array in order.
+			$temp = $tabs[ $sort ];
+			unset( $tabs[ $sort ] );
+			$tabs[ $sort ] = $temp;
+		}
+
+		return $tabs;
 	}
 
 	/**
@@ -403,7 +432,7 @@ class Settings {
 	 *
 	 * @param string $admin_page The slug of the admin page.
 	 */
-	public function do_network_settings_tab( $admin_page ) {
+	public function do_network_settings_tab( $admin_page ): void {
 		if ( ! empty( $admin_page ) && self::$settings_page_id !== $admin_page ) {
 			return;
 		}
@@ -421,7 +450,7 @@ class Settings {
 	 * @param string $footer_text The admin footer text.
 	 * @return string $footer_text The admin footer text, maybe modified.
 	 */
-	public function admin_footer_text_settings( $footer_text ) {
+	public function admin_footer_text_settings( $footer_text ): string {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 
@@ -450,7 +479,7 @@ class Settings {
 	 *
 	 * @return array $tabs Array of tabs IDs for the Events settings page.
 	 */
-	public function get_events_settings_tabs_ids() {
+	public function get_events_settings_tabs_ids(): array {
 		$tabs = [
 			'general',
 			'display',
@@ -479,7 +508,7 @@ class Settings {
 	 *
 	 * @return array $options Formatted the same as from get_options(), maybe modified.
 	 */
-	public function maybe_hijack_save_network_settings( $options, $admin_page ) {
+	public function maybe_hijack_save_network_settings( $options, $admin_page ): array {
 		// If we're saving the network settings page for TEC, bail.
 		if ( ! empty( $admin_page ) && static::$settings_page_id == $admin_page ) {
 			return $options;
@@ -510,9 +539,217 @@ class Settings {
 	 *
 	 * @param array $args The default arguments for the event type.
 	 */
-	public function filter_event_type_args( $args ) {
+	public function filter_event_type_args( $args ): array {
 		$args['menu_icon'] = $this->get_menu_icon();
 
 		return $args;
+	}
+
+	/**
+	 * Adds disabled ECP views to the views list as a "teaser".
+	 *
+	 * @since 6.0.5
+	 *
+	 * @param string $output The HTML output for the Views checkboxes.
+	 *
+	 * @return string        The modified HTML output.
+	 */
+	public function tease_premium_views( $output ): string {
+		// If ECP is installed, we don't need to tease.
+		if ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
+			return $output;
+		}
+
+		// Honor the "hide upsells" functionality.
+		if ( tec_should_hide_upsell() ) {
+			return $output;
+		}
+
+		/* Translators: These View terms should match the ones in Events Calendar PRO. */
+		$views = [
+			'summary' => _x( 'Summary', 'Label for the Summary View checkbox.', 'the-events-calendar' ),
+			'photo'   => _x( 'Photo', 'Label for the Photo View checkbox.', 'the-events-calendar' ),
+			'week'    => _x( 'Week', 'Label for the Week View checkbox.', 'the-events-calendar' ),
+			'map'     => _x( 'Map', 'Label for the Map View checkbox.', 'the-events-calendar' ),
+		];
+
+		$tooltip_label = _x( 'PRO', 'The label for the premium view indicator.', 'the-events-calendar' );
+		$tooltip_title = _x(
+			'Get Events Calendar Pro to use this View.',
+			'The title (hover text) for the premium view indicator.',
+			'the-events-calendar'
+		);
+
+		// Loop through the term array above and create teaser checkboxes.
+		ob_start();
+
+		foreach( $views as $name => $label ) { ?>
+			<label title="Summary" class="tec-disabled">
+				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled>
+				<?php echo esc_attr( $label ) ?>
+				<a
+					href="https://evnt.is/1bb-"
+					class="tec-settings-teaser-pill"
+					title="<?php echo esc_attr( $tooltip_title ); ?>"
+				><?php echo esc_html( $tooltip_label ); ?>
+				</a>
+			</label>
+		<?php }
+
+		$ecp_string = ob_get_clean();
+
+		// Insert the teaser checkboxes.
+		$pattern    = '/label><p/m';
+		$subst      = 'label>' . $ecp_string . '<p';
+		$output     = preg_replace($pattern, $subst, $output, 1);
+
+		return $output;
+	}
+
+	/**
+	 * Initialize the addons api settings tab.
+	 *
+	 * @since 5.15.0 Added check to see if we are on TEC settings page.
+	 * @since 6.0.5  Moved to Settings class.
+	 */
+	public function do_addons_api_settings_tab( $admin_page ): void {
+		// Bail if we're not on TEC settings.
+		if ( ! empty( $admin_page ) && static::$settings_page_id !== $admin_page ) {
+			return;
+		}
+
+		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
+	}
+
+	/**
+	 * should we show the upgrade nags?
+	 *
+	 * @since 4.9.12
+	 * @since 6.0.5	 Moved to Settings class.
+	 *
+	 * @return boolean
+	 */
+	public function show_upgrade(): bool {
+		// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
+		$can_show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
+
+		/**
+		 * Provides an opportunity to override the decision to show or hide the upgrade tab.
+		 *
+		 * Normally it will only show if the current user has the "activate_plugins" capability
+		 * and there are some currently-activated premium plugins.
+		 *
+		 * @since 4.9.12
+		 * @since 6.0.0 This filter now controls only the capability to show the Upgrade tab.
+		 *
+		 * @param bool $can_show_tab True or False for showing the Upgrade Tab.
+		 */
+		$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
+
+		if ( ! $can_show_tab ) {
+			return false;
+		}
+
+		/**
+		 * Filters whether the Upgrade Tab has actually any content to show or not.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param bool $has_content Whether the tab has any content to show or not.
+		 */
+		if ( ! apply_filters( 'tec_events_upgrade_tab_has_content', false ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Create the upgrade tab
+	 *
+	 * @since 4.9.12
+	 * @since 5.15.0 Added check to see if we are on TEC settings page.
+	 * @since 6.0.5  Moved to Settings class.
+	 */
+	public function do_upgrade_tab( $admin_page ): void {
+		// Bail if we're not on TEC settings.
+		if ( ! empty( $admin_page ) && static::$settings_page_id !== $admin_page ) {
+			return;
+		}
+
+		if ( ! $this->show_upgrade() ) {
+			return;
+		}
+
+		tribe_asset(
+			Plugin::instance(),
+			'tribe-admin-upgrade-page',
+			'admin-upgrade-page.js',
+			[ 'tribe-common' ],
+			'admin_enqueue_scripts',
+			[
+				'localize' => [
+					'name' => 'tribe_upgrade',
+					'data' => [
+						'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
+						'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
+					],
+				],
+			]
+		);
+
+		$upgrade_tab_html = '';
+
+		$upgrade_tab = [
+			'info-box-description' => [
+				'type' => 'html',
+				'html' => $upgrade_tab_html,
+			],
+		];
+
+		/**
+		 * Allows the fields displayed in the upgrade tab to be modified.
+		 *
+		 * @since 4.9.12
+		 *
+		 * @param array $upgrade_tab Array of fields used to setup the Upgrade Tab.
+		 */
+		$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
+
+		new Tribe__Settings_Tab(
+			'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
+			[
+				'priority'      => 100,
+				'fields'        => $upgrade_fields,
+				'network_admin' => is_network_admin(),
+				'show_save'     => true,
+			]
+		);
+
+		add_filter(
+			'tec_events_settings_tabs_ids',
+			function( $tabs ) {
+				$tabs[] = 'upgrade';
+				return $tabs;
+			}
+		);
+	}
+
+	/**
+	 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it
+	 *
+	 * @since 4.3.5
+	 * @since 6.0.5 Moved to Settings class.
+	 *
+	 * @param string $url Settings URL to filter
+	 *
+	 * @return string
+	 */
+	public function filter_url( $url ): string {
+		if ( is_network_admin() ) {
+			return $url;
+		}
+
+		return add_query_arg( [ 'post_type' => Plugin::POSTTYPE ], $url );
 	}
 }

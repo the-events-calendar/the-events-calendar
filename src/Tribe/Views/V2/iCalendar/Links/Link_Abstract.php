@@ -304,7 +304,7 @@ abstract class Link_Abstract implements Link_Interface {
 			$view_url_args['tribe-bar-date'] = $view_url_args['eventDate'];
 		} else {
 			// Subscribe from today (default calendar view).
-			$view_url_args['tribe-bar-date'] = Dates::build_date_object()->format( Dates::DBDATEFORMAT );
+			$view_url_args['tribe-bar-date'] = Dates::build_date_object( $view->get_context()->get( 'today' ) )->format( Dates::DBDATEFORMAT );
 		}
 
 
@@ -337,7 +337,7 @@ abstract class Link_Abstract implements Link_Interface {
 
 		// Allow all views to utilize the list view so they collect the appropriate number of events.
 		// Note: this is only applied to subscription links - the ics direct link downloads what you see on the page!
-		$passthrough_args["eventDisplay"] = 'list';
+		$passthrough_args["eventDisplay"] = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
 
 		// Tidy (remove empty-value pairs).
 		$passthrough_args = array_filter( $passthrough_args );

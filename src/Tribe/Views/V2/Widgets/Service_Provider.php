@@ -78,7 +78,6 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	public function hook() {
 		add_filter( 'tribe_widgets', [ $this, 'register_widget' ] );
 		add_filter( 'tribe_events_views', [ $this, 'add_views' ] );
-		add_action( 'widgets_init', [ $this, 'unregister_list_widget' ], 95 );
 	}
 
 	/**
@@ -106,17 +105,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	 * @return array<string,string> $views The modified array of views in the shape `[ <slug> => <class> ]`.
 	 */
 	public function add_views( $views ) {
-		$views['widget-events-list'] = Widget_List_View::class;
+		$views[ Widget_List_View::get_view_slug() ] = Widget_List_View::class;
 
 		return $views;
-	}
-
-	/**
-	 * Unregister the existing List Widget.
-	 *
-	 * @since 5.3.0
-	 */
-	public function unregister_list_widget() {
-		unregister_widget( 'Tribe__Events__List_Widget' );
 	}
 }

@@ -81,7 +81,7 @@ class Tribe__Events__Integrations__WPML__WPML {
 		add_filter( 'icl_ls_languages', [ $language_switcher, 'filter_icl_ls_languages' ], 5 );
 
 		$meta = tribe( 'tec.integrations.wpml.meta' );
-		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 3 );
+		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 4 );
 		add_filter( 'pre_get_posts', tribe_callback( $meta, 'include_all_languages' ) );
 
 		// Disable month view caching when WPML is activated for now, until we
@@ -106,6 +106,11 @@ class Tribe__Events__Integrations__WPML__WPML {
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_template_vars_urls' ] );
 		add_filter( 'tribe_events_views_v2_view_public_views', [ Views_V2_Filters::class, 'translate_public_views_urls' ] );
 		add_filter( 'tribe_events_views_v2_request_uri', [ Views_V2_Filters::class, 'translate_view_request_uri' ] );
+
+		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+			// Handle the translation of the Events permalinks in Views v2 and Custom Tables V1 context.
+			add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_events_permalinks' ] );
+		}
 	}
 
 	protected function setup_cache_expiration_triggers() {

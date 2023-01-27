@@ -30,6 +30,17 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	public function get_html();
 
 	/**
+	 * Returns the view label.
+	 *
+	 * It is different from the dynamic get_label because it avoids building a whole instance just for the base label.
+	 *
+	 * @since  6.0.4
+	 *
+	 * @return string
+	 */
+	public static function get_view_label(): string;
+
+	/**
 	 * Returns a View label.
 	 *
 	 * @since  4.9.4
@@ -75,6 +86,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * Sets the View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
 	 * @since 4.9.2
+	 * @deprecated 6.0.7
 	 *
 	 * @param string $slug The slug to set for the View instance.
 	 */
@@ -84,10 +96,21 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * Returns a View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
 	 * @since 4.9.2
+	 * @deprecated 6.0.7
 	 *
 	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 */
 	public function get_slug();
+
+	/**
+	 * Statically returns the View slug, thus not requiring the View be instantiated first.
+	 * Usually this is the one it was registered with in the `tribe_events_views` filter.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
+	 */
+	public static function get_view_slug(): string;
 
 	/**
 	 * Returns a View template path, usually a prefix for the template slug.
@@ -252,4 +275,13 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return View_Interface A reference to the View-like that is being directed.
 	 */
 	public function disable_url_management();
+
+	/**
+	 * Returns the View `en_US` and localized rewrite slugs.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @return array<string> The View `en_US` and localized rewrite slugs.
+	 */
+	public function get_rewrite_slugs(): array;
 }

@@ -22,30 +22,31 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
-    "lucatume/wp-browser": "^3.0.14",
+    "lucatume/wp-browser": "^3.1.4",
     "lucatume/wp-snaphot-assertions": "1.1.0",
     "mikey179/vfsstream": "^1.6",
-    "the-events-calendar/tribalscents": "dev-master",
+    "the-events-calendar/coding-standards": "dev-master",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
-    "scotteh/php-dom-wrapper": "0.7.3",
+    "scotteh/php-dom-wrapper": "^1.0",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "wp-coding-standards/wpcs": "^2.1",
     "vlucas/phpdotenv": "^4.1"
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist",
     "platform": {
-      "php": "7.0.33"
+      "php": "7.3.33"
     }
   },
   "autoload": {
     "psr-4": {
       "Tribe\\Events\\" : "src/Tribe",
       "TEC\\Events\\" : "src/Events"
-    }
+    },
+    "classmap": ["src/deprecated/Traits/"]
   },
   "autoload-dev": {
     "psr-4": {
@@ -61,13 +62,14 @@
       "no-api": true
     },
     {
-      "name": "the-events-calendar/TribalScents",
+      "name": "the-events-calendar/coding-standards",
       "type": "github",
-      "url": "https://github.com/the-events-calendar/TribalScents",
+      "url": "https://github.com/the-events-calendar/coding-standards",
       "no-api": true
     }
   ],
   "require": {
+    "woocommerce/action-scheduler": "^3.4.0"
   },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",

@@ -14,6 +14,7 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
+use Tribe__Context;
 
 class Day_View extends View {
 	use With_Fast_Forward_Link;
@@ -22,10 +23,20 @@ class Day_View extends View {
 	 * Slug for this view
 	 *
 	 * @since 4.9.4
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
 	protected $slug = 'day';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'day';
 
 	/**
 	 * Cached dates for the prev/next links.
@@ -45,6 +56,24 @@ class Day_View extends View {
 	 * @var bool
 	 */
 	protected static $publicly_visible = true;
+
+	/**
+	 * Default untranslated value for the label of this view.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @var string
+	 */
+	protected static $label = 'Day';
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function get_view_label(): string {
+		static::$label = _x( 'Day', 'The text label for the Day View.', 'the-events-calendar' );
+
+		return static::filter_view_label( static::$label );
+	}
 
 	/**
 	 * Get the date of the event immediately previous to the current view date.
@@ -255,7 +284,7 @@ class Day_View extends View {
 			}
 
 			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url     = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+			$input_url     = add_query_arg( [ 'eventDisplay' => static::$view_slug ], $input_url );
 			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {

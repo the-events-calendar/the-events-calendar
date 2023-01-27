@@ -310,7 +310,7 @@ tribe.events.views.manager = {};
 
 		var $link = $( this );
 		var url = $link.attr( 'href' );
-		var currentUrl = containerData.url;
+		var prevUrl = containerData.prev_url;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
@@ -321,7 +321,7 @@ tribe.events.views.manager = {};
 		}
 
 		var data = {
-			prev_url: encodeURI( decodeURI( currentUrl ) ),
+			prev_url: encodeURI( decodeURI( prevUrl ) ),
 			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
 			_wpnonce: nonce,
@@ -601,12 +601,31 @@ tribe.events.views.manager = {};
 		// Clean up the container and event listeners
 		obj.cleanup( $container );
 
+		/*
+		 * Dispatch an event before the container is replaced; bound events are
+		 * removed!
+		 */
+		document.dispatchEvent(
+				new CustomEvent(
+						'containerReplaceBefore.tribeEvents',
+						{ detail: $container }
+				)
+		);
+
 		// Replace the current container with the new Data.
 		$container.replaceWith( $html );
 		$container = $html;
 
 		// Setup the container with the data received.
 		obj.setup( 0, $container );
+
+		// Dispatch an event after the container is replaced and set up.
+		document.dispatchEvent(
+				new CustomEvent(
+						'containerReplaceAfter.tribeEvents',
+						{ detail: $container }
+				)
+		);
 
 		// Update the global set of containers with all of the manager object.
 		obj.selectContainers();

@@ -132,7 +132,7 @@ $website = tribe_get_event_website_link( $event_id );
 				<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php echo esc_attr( $end_ts ); ?>">
 					<?php echo $time_formatted; ?>
 					<?php if ( $show_time_zone ) : ?>
-						<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>
+						<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>w
 					<?php endif; ?>
 				</div>
 			</dd>
@@ -145,6 +145,15 @@ $website = tribe_get_event_website_link( $event_id );
 			<dt> <?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?> </dt>
 			<dd class="tribe-events-event-cost"> <?php echo esc_html( $cost ); ?> </dd>
 		<?php endif ?>
+
+		<?php
+		/**
+		 * Included an action where we inject Series information about the event.
+		 *
+		 * @since 6.0.0
+		 */
+		do_action( 'tribe_events_single_meta_details_section_after_datetime' );
+		?>
 
 		<?php
 		echo tribe_get_event_categories(

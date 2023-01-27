@@ -7,7 +7,7 @@ use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
  */
 class Tribe__Events__Updater {
 	protected $version_option = 'schema-version';
-	protected $reset_version = '3.9'; // when a reset() is called, go to this version
+	protected $reset_version = '5.16.0'; // when a reset() is called, go to this version
 	protected $current_version = 0;
 	public $capabilities;
 
@@ -67,6 +67,18 @@ class Tribe__Events__Updater {
 	 */
 	protected function get_updates() {
 		return $this->get_update_callbacks();
+	}
+
+	/**
+	 * Getter for the private reset version.
+	 * Mainly for tests.
+	 *
+	 * @since 6.0.1
+	 *
+	 * @return string The reset version number.
+	 */
+	public function get_reset_version(): string {
+		return $this->reset_version;
 	}
 
 	/**
@@ -326,6 +338,7 @@ class Tribe__Events__Updater {
 
 			// Update reason to central source.
 			update_post_meta( $event_id, Event_Status_Meta::$key_status_reason, $reason );
+			clean_post_cache( $event_id );
 		}
 	}
 }

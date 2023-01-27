@@ -83,7 +83,6 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		return static::$events;
 	}
 
-
 	protected function create_and_get_month_events() {
 		static::$events = [];
 		$featured = [

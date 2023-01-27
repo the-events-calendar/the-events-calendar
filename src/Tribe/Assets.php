@@ -1,4 +1,9 @@
 <?php
+
+use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
+
 /**
  * Registers and Enqueues the assets
  *
@@ -142,6 +147,18 @@ class Tribe__Events__Assets {
 			]
 		);
 
+		// Admin update page CSS
+		tribe_asset(
+			$plugin,
+			'tribe-events-admin-update-page',
+			'admin-update-page.css',
+			[ ],
+			[ 'admin_enqueue_scripts', 'wp_enqueue_scripts' ],
+			[
+				'conditionals' => [ $this, 'should_enqueue_admin_update_page_assets' ],
+			]
+		);
+
 		// Setting page Assets
 		tribe_asset(
 			$plugin,
@@ -185,13 +202,10 @@ class Tribe__Events__Assets {
 				]
 			);
 
-			// Setup our own script used to initialize each map
-			$embedded_map_url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
-
 			tribe_asset(
 				$plugin,
 				Tribe__Events__Embedded_Maps::MAP_HANDLE,
-				$embedded_map_url,
+				'embedded-map.js',
 				[ 'tribe-events-google-maps' ],
 				null,
 				[
@@ -220,47 +234,6 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		tribe_asset(
-			$plugin,
-			'tribe-events-calendar-script',
-			'tribe-events.js',
-			[
-				'jquery',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-				'tribe-moment',
-				'tribe-moment-locales',
-			],
-			'wp_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-				'in_footer'    => false,
-				'localize'     => [
-					'name' => 'tribe_js_config',
-					'data' => [ $this, 'get_js_calendar_script_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-bar',
-			'tribe-events-bar.js',
-			[
-				'jquery',
-				'tribe-events-dynamic',
-				'tribe-events-calendar-script',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-			],
-			'wp_enqueue_scripts',
-			[
-				'in_footer'    => false,
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
 
 		tribe_asset(
 			$plugin,
@@ -328,6 +301,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
+
 		tribe_asset(
 			$plugin,
 			'tribe-events-calendar-override-style',
@@ -337,60 +311,6 @@ class Tribe__Events__Assets {
 			[
 				'groups'       => [ 'events-styles' ],
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
-
-		// Register AJAX views assets
-		tribe_asset(
-			$plugin,
-			'the-events-calendar',
-			'tribe-events-ajax-calendar.js',
-			[
-				'jquery',
-				'tribe-events-calendar-script',
-				'tribe-events-bootstrap-datepicker',
-				'tribe-events-jquery-resize',
-				'jquery-placeholder',
-				'tribe-moment',
-				'tribe-moment-locales',
-			],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeCalendar',
-					'data' => [ $this, 'get_ajax_url_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-ajax-day',
-			'tribe-events-ajax-day.js',
-			[ 'jquery', 'tribe-events-calendar-script' ],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeCalendar',
-					'data' => [ $this, 'get_ajax_url_data' ],
-				],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-events-list',
-			'tribe-events-ajax-list.js',
-			[ 'jquery', 'tribe-events-calendar-script' ],
-			null,
-			[
-				'localize' => [
-					'name' => 'TribeList',
-					'data' => [
-						'ajaxurl'     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-						'tribe_paged' => absint( tribe_get_request_var( 'tribe_paged', 0 ) ),
-					],
-				],
 			]
 		);
 	}
@@ -525,6 +445,26 @@ class Tribe__Events__Assets {
 		 * @param bool $should_enqueue
 		 */
 		return apply_filters( 'tribe_events_assets_should_enqueue_admin', $should_enqueue );
+	}
+
+	/**
+	 * Checks if we are on the correct admin page to enqueue updates assets.
+	 *
+	 * @since  6.0.0
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_admin_update_page_assets() {
+		$should_enqueue = isset( $_GET[ 'update-message-the-events-calendar' ] );
+
+		/**
+		 * Allow filtering of where the base assets will be loaded.
+		 *
+		 * @since  6.0.0
+		 *
+		 * @param bool $should_enqueue
+		 */
+		return apply_filters( 'tribe_events_assets_should_enqueue_admin_update_page_assets', $should_enqueue );
 	}
 
 	/**
@@ -685,9 +625,9 @@ class Tribe__Events__Assets {
 			'events_base'        => tribe_get_events_link(),
 			'update_urls'        => [
 				'shortcode' => [
-					'list'  => true,
-					'month' => true,
-					'day'   => true,
+					Month_View::get_view_slug() => true,
+					List_View::get_view_slug()  => true,
+					Day_View::get_view_slug()   => true,
 				],
 			],
 		];

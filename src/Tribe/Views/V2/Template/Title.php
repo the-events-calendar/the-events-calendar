@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Views\V2\Template;
 
+use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
@@ -133,11 +135,11 @@ class Title {
 			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
 		}
 
-		if ( 'month' === $event_display_mode ) {
+		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
 		}
 
-		if ( 'day' === $event_display_mode ) {
+		if ( Day_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_day_title( $event_date );
 		}
 
