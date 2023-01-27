@@ -235,8 +235,9 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
 * Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
 * Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
-* Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
+* Fix - Ensure the code will work correctly when the Events' category taxonomy is unregistered. [TEC-4664]
 * Fix - Change the type of the date-related custom tables date fields to VARCHAR to avoid warnings on stricter SQL modes. [TEC-4536]
+* Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
 
 = [6.0.8] 2023-01-26 =
 
