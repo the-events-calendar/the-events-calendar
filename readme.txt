@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.7.1
+Stable tag: 6.0.8
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -237,6 +237,12 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
 * Fix - Ensure the code will work correctly when the Events' category taxonomy is unregistered. [TEC-4664]
 * Fix - Change the type of the date-related custom tables date fields to VARCHAR to avoid warnings on stricter SQL modes. [TEC-4536]
+
+= [6.0.8] 2023-01-26 =
+
+* Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
+* Fix - Prevent Yoast SEO 19.2 notice due to integration with The Events Calendar [TEC-4662]
+* Language - 5 new strings added, 171 updated, 1 fuzzied, and 8 obsoleted.
 
 = [6.0.7.1] 2023-01-19 =
 
