@@ -19,7 +19,7 @@
     "codeception/module-rest": "^1.0",
     "codeception/module-webdriver": "^1.0",
     "codeception/util-universalframework": "^1.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.0",
     "lucatume/wp-browser": "^3.1.4",
@@ -66,42 +66,13 @@
       "type": "github",
       "url": "https://github.com/the-events-calendar/coding-standards",
       "no-api": true
-    },
-    {
-      "type": "composer",
-      "url": "https://packagist.org"
-    },
-    { "packagist": false }
+    }
   ],
   "require": {
-    "woocommerce/action-scheduler": "^3.4.0",
-    "stellarwp/installer": "dev-main"
+    "woocommerce/action-scheduler": "^3.4.0"
   },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
-    "stop-chromedriver": "docker stop chromedriver",
-    "strauss": [
-      "[[ -f ./bin/strauss.phar ]] || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
-      "vendor/stellarwp/installer/bin/set-domain domain=the-events-calendar",
-      "@php bin/strauss.phar"
-    ],
-    "post-install-cmd": [
-      "@strauss"
-    ],
-    "post-update-cmd": [
-      "@strauss"
-    ]
-  },
-  "extra": {
-    "strauss": {
-      "target_directory": "vendor/vendor-prefixed",
-      "namespace_prefix": "TEC\\Events",
-      "classmap_prefix": "TEC__Events__",
-      "constant_prefix": "TEC_EVENTS_",
-      "packages": [
-        "stellarwp/installer"
-      ],
-      "delete_vendor_files": true
-    }
+    "stop-chromedriver": "docker stop chromedriver"
   }
 }
