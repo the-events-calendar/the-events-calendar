@@ -8,6 +8,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.
+	 *
+	 * @since TBD
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
@@ -20,15 +22,19 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Hooked to the plugins_loaded action.
 	 *
+	 * @since TBD
+	 *
 	 * @return void
 	 */
 	public function bootstrap() {
 		Installer\Config::set_hook_prefix( 'tec_events' );
-		Installer\Installer::get()->register_plugin( 'event-tickets', __( 'Event Tickets', 'the-events-calendar' ), 'event-tickets/event-tickets.php' );
+		Installer\Installer::get()->register_plugin( 'event-tickets', 'Event Tickets' );
 	}
 
 	/**
 	 * Filters the installer button classes.
+	 *
+	 * @since TBD
 	 *
 	 * @param array|mixed $classes The button classes.
 	 *
