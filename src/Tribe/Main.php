@@ -3,6 +3,7 @@
  * Main Tribe Events Calendar class.
  */
 
+use TEC\Events\StellarWP\Installer;
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
@@ -650,6 +651,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Load the new third-party integration system.
 			tribe_register_provider( TEC\Events\Integrations\Provider::class );
+
+			Installer\Config::set_hook_prefix( 'tec_events' );
+			$installer = Installer\Installer::get();
+			$installer->register_plugin( 'event-tickets', __( 'Event Tickets', 'the-events-calendar' ), 'event-tickets/event-tickets.php' );
+			add_filter( 'stellarwp/installer/tec_events/button_classes', static function( $classes ) {
+				$classes[] = 'components-button';
+				$classes[] = 'is-primary';
+				$classes[] = 'tec-admin__notice-install-content-button';
+				return $classes;
+			} );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

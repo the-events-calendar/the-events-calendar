@@ -36,6 +36,7 @@
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.min.js",
+  "vendor/vendor-prefixed/**/*",
   "vendor/woocommerce/action-scheduler/**/*",
   "uninstall.php"
 ]

@@ -17,6 +17,8 @@
  * @var string $activating_label The `Activating` label.
  * @var string $activated_label  The `Activated` label.
  */
+use TEC\Events\StellarWP\Installer\Installer;
+
 $button_classes = [
 	'components-button',
 	'is-primary',
@@ -37,17 +39,8 @@ $button_classes = [
 		<?php echo wpautop( esc_html( $description ) ); ?>
 	</div>
 
-	<button
-		id="tribe-tickets-install-plugin"
-		<?php tribe_classes( $button_classes ); ?>
-		data-plugin-slug="<?php echo esc_attr( $plugin_slug ); ?>"
-		data-nonce="<?php echo esc_attr( $ajax_nonce ); ?>"
-		data-action="<?php echo esc_attr( $action ); ?>"
-		data-redirect-url="<?php echo esc_attr( $redirect_url ); ?>"
-		data-installing-label="<?php echo esc_attr( $installing_label ); ?>"
-		data-installed-label="<?php echo esc_attr( $installed_label ); ?>"
-		data-activating-label="<?php echo esc_attr( $activating_label ); ?>"
-		data-activated-label="<?php echo esc_attr( $activated_label ); ?>"
-	><?php echo esc_html( $button_label ); ?></button>
+	<?php
+	Installer::get()->render_plugin_button( 'event-tickets', $action, $button_label, $redirect_url );
+	?>
 
 </div>
