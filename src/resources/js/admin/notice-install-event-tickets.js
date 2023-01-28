@@ -51,12 +51,15 @@ tribe.events.admin.noticeInstall = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'stellarwp_installer_tec_events_error', function( e ) {
-			const $button = $( e.stellarwp.selector );
-			const $description = $button.siblings( obj.selectors.noticeDescription );
-			$description.html( e.stellarwp.message );
-			$button.remove();
-		} );
+		wp.hooks.addAction(
+			'stellarwp_installer_tec_events_error',
+			function( selector, slug, action, message, hookPrefix ) {
+				const $button = $( selector );
+				const $description = $button.siblings( obj.selectors.noticeDescription );
+				$description.html( message );
+				$button.remove();
+			}
+		);
 	};
 
 	// Configure on document ready.
