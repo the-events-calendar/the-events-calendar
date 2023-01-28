@@ -1,6 +1,6 @@
 <?php return '<div class="tec-admin__notice-install-aside">
 	<img
-		src="http://wordpress.test/wp-content/plugins/the-events-calendar/common//src/resources/images/tec-tickets-logo.svg"
+		src="http://wordpress.test/wp-content/plugins/the-events-calendar/common/src/resources/images/logo/event-tickets.svg"
 		alt="Event Tickets"
 	/>
 </div>
@@ -13,16 +13,18 @@
 	</div>
 
 	<button
-		id="tribe-tickets-install-plugin"
-		 class="components-button is-primary tec-admin__notice-install-content-button" 		data-plugin-slug="event-tickets"
-		data-nonce="61e185a7e5"
-		data-action="activate"
-		data-redirect-url="http://test.tri.be/wp-admin/admin.php?page=tec-tickets-settings"
-		data-installing-label="Installing..."
-		data-installed-label="Installed!"
-		data-activating-label="Activating..."
-		data-activated-label="Activated!"
-	>Activate Event Tickets</button>
+		class="stellarwp-installer-tec_events__install-button stellarwp-installer-tec_events__install-button--event-tickets components-button is-primary tec-admin__notice-install-content-button"
+	data-slug="event-tickets"
+	data-hook-prefix="tec_events"
+	data-nonce="0044db0cf6"
+	data-action="stellarwp_installer_tec_events_install_plugin_event-tickets"
+	data-request-action="activate"
+	data-redirect-url="http://test.tri.be/wp-admin/admin.php?page=tec-tickets-settings"
+	data-installing-label="Installing..."
+	data-installed-label="Installed!"
+	data-activating-label="Installing..."
+	data-activated-label="Activated!"
+>Activate Event Tickets</button>
 
 </div>
 ';
