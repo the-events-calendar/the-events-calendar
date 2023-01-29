@@ -24,6 +24,7 @@ abstract class Abstract_Schema_Provider extends Service_Provider implements Sche
 	public function register() {
 		add_filter( 'tec_events_custom_tables_v1_table_schemas', [ $this, 'filter_table_schemas' ] );
 		add_filter( 'tec_events_custom_tables_v1_field_schemas', [ $this, 'filter_field_schemas' ] );
+		$this->container->singleton( static::class, $this );
 	}
 
 	/**
