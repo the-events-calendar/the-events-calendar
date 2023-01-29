@@ -6,10 +6,7 @@
 
 namespace Tribe\Events\Admin\Notice;
 
-use WP_Upgrader;
-use WP_Ajax_Upgrader_Skin;
-use Plugin_Upgrader;
-use TEC\Events\StellarWP\Installer\Installer;
+use TEC\Common\StellarWP\Installer\Installer;
 use Tribe__Main;
 use Tribe__Template;
 
@@ -125,33 +122,14 @@ class Install_Event_Tickets {
 	}
 
 	/**
-	 * Get the plugin path for `Event Tickets`, by default.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $slug The plugin slug.
-	 *
-	 * @return string $path The plugin path.
-	 */
-	protected function get_plugin_path( $slug = '' ): string {
-		if ( empty( $slug ) ) {
-			$slug = self::$plugin_slug;
-		}
-
-		return $slug . '/' . $slug . '.php';
-	}
-
-	/**
 	 * Checks if `Event Tickets` is installed.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $slug The plugin slug.
-	 *
 	 * @return boolean True if active
 	 */
-	public function is_installed( $slug = '' ): bool {
-		return Installer::get()->is_installed( 'event-tickets' );
+	public function is_installed(): bool {
+		return Installer::get()->is_installed( static::$plugin_slug );
 	}
 
 	/**
@@ -159,12 +137,10 @@ class Install_Event_Tickets {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $slug The plugin slug.
-	 *
 	 * @return boolean True if active.
 	 */
-	public function is_active( $slug = '' ): bool {
-		return Installer::get()->is_active( 'event-tickets' );
+	public function is_active(): bool {
+		return Installer::get()->is_active( static::$plugin_slug );
 	}
 
 	/**
@@ -267,7 +243,6 @@ class Install_Event_Tickets {
 		$redirect_url = add_query_arg( [ 'page' => 'tec-tickets-settings' ], $admin_url );
 
 		$defaults = [
-			'plugin_slug'      => self::$plugin_slug,
 			'action'           => 'install',
 			'title'            => __( 'Start selling tickets to your Events', 'the-events-calendar' ),
 			'description'      => __( 'Sell tickets, collect RSVPs, and manage attendees for free with Event Tickets.', 'the-events-calendar' ),

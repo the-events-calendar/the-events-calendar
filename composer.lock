@@ -4,61 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89e4603af5ad15d2e82de95b1506105f",
+    "content-hash": "49c229362ce1684376a28f435b3e5a6c",
     "packages": [
-        {
-            "name": "stellarwp/installer",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stellarwp/installer.git",
-                "reference": "859c3d2929def6c445884fc447538d76bf225cdb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/installer/zipball/859c3d2929def6c445884fc447538d76bf225cdb",
-                "reference": "859c3d2929def6c445884fc447538d76bf225cdb",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "automattic/vipwpcs": "^2.3",
-                "codeception/module-asserts": "^1.0",
-                "codeception/module-cli": "^1.0",
-                "codeception/module-db": "^1.0",
-                "codeception/module-filesystem": "^1.0",
-                "codeception/module-phpbrowser": "^1.0",
-                "codeception/module-webdriver": "^1.0",
-                "codeception/util-universalframework": "^1.0",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-                "lucatume/wp-browser": "^3.1",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "szepeviktor/phpstan-wordpress": "^1.1",
-                "the-events-calendar/coding-standards": "dev-master",
-                "wp-coding-standards/wpcs": "^2.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "StellarWP\\Installer\\": "src/Installer",
-                    "StellarWP\\Installer\\Assets_JS\\": "src/assets/js",
-                    "StellarWP\\Installer\\Admin_Views\\": "src/admin-views"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "StellarWP plugin install/activation library.",
-            "support": {
-                "issues": "https://github.com/stellarwp/installer/issues",
-                "source": "https://github.com/stellarwp/installer/tree/main"
-            },
-            "time": "2023-01-28T14:24:40+00:00"
-        },
         {
             "name": "woocommerce/action-scheduler",
             "version": "3.5.4",
@@ -6899,7 +6846,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/installer": 20,
         "the-events-calendar/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },

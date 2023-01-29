@@ -39,6 +39,9 @@
     "preferred-install": "dist",
     "platform": {
       "php": "7.3.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "autoload": {
@@ -69,34 +72,10 @@
     }
   ],
   "require": {
-    "woocommerce/action-scheduler": "^3.4.0",
-    "stellarwp/installer": "dev-main"
+    "woocommerce/action-scheduler": "^3.4.0"
   },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
-    "stop-chromedriver": "docker stop chromedriver",
-    "strauss": [
-      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
-      "vendor/stellarwp/installer/bin/set-domain domain=the-events-calendar",
-      "@php bin/strauss.phar"
-    ],
-    "post-install-cmd": [
-      "@strauss"
-    ],
-    "post-update-cmd": [
-      "@strauss"
-    ]
-  },
-  "extra": {
-    "strauss": {
-      "target_directory": "vendor/vendor-prefixed",
-      "namespace_prefix": "TEC\\Events",
-      "classmap_prefix": "TEC__Events__",
-      "constant_prefix": "TEC_EVENTS_",
-      "packages": [
-        "stellarwp/installer"
-      ],
-      "delete_vendor_files": true
-    }
+    "stop-chromedriver": "docker stop chromedriver"
   }
 }
