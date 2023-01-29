@@ -13,11 +13,11 @@
 	</div>
 
 	<button
-		class="stellarwp-installer-tec_events__install-button stellarwp-installer-tec_events__install-button--event-tickets components-button is-primary tec-admin__notice-install-content-button"
+		class="stellarwp-installer-tec__install-button stellarwp-installer-tec__install-button--event-tickets components-button is-primary tec-admin__notice-install-content-button"
 	data-slug="event-tickets"
-	data-hook-prefix="tec_events"
-	data-nonce="0044db0cf6"
-	data-action="stellarwp_installer_tec_events_install_plugin_event-tickets"
+	data-hook-prefix="tec"
+	data-nonce="db0002d336"
+	data-action="stellarwp_installer_tec_install_plugin_event-tickets"
 	data-request-action="install"
 	data-redirect-url="http://test.tri.be/wp-admin/admin.php?page=tec-tickets-settings"
 	data-installing-label="Installing..."
