@@ -20,7 +20,7 @@ $label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_labe
 $events_mobile_friendly_label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), '<span class="tribe-events-c-nav__next-label-plural tribe-common-a11y-visual-hide">' . tribe_get_event_label_plural() . '</span>' );
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
-	<button
+	<a
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		aria-label="<?php echo esc_attr( $label ); ?>"
 		title="<?php echo esc_attr( $label ); ?>"
@@ -30,5 +30,5 @@ $events_mobile_friendly_label = sprintf( __( 'Next %1$s', 'the-events-calendar' 
 			<?php echo wp_kses( $events_mobile_friendly_label, [ 'span' => [ 'class' => [] ] ] ); ?>
 		</span>
 		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
-	</button>
+	</a>
 </li>

@@ -6,12 +6,18 @@
 
 .tribe-events {
 
-	.tribe-events-c-top-bar__datepicker-button {
+	button.tribe-events-c-top-bar__datepicker-button {
 		transition: var(--tec-transition-opacity);
+		background-color: transparent;
+		border: none;
+		outline: none;
+		color: var(--tec-color-text-primary);
 
 		&:hover,
 		&:focus {
 			opacity: var(--tec-opacity-icon-hover);
+			border: none;
+			outline: none;
 		}
 
 		&:active {
