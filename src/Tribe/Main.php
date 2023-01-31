@@ -652,6 +652,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Load the new third-party integration system.
 			tribe_register_provider( TEC\Events\Integrations\Provider::class );
 
+			// Set up the installer.
+			tribe_register_provider( TEC\Events\Installer\Provider::class );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 *
