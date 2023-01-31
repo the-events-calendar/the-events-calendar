@@ -207,8 +207,8 @@ $tec_events_display_template = [
 	],
 	'tribeDisableTribeBar'    => [
 		'type'            => 'checkbox_bool',
-		'label'           => __( 'Hide the search field on all views', 'the-events-calendar' ),
-		'tooltip'         => __( 'Check this to use the classic header.', 'the-events-calendar' ),
+		'label'           => __( 'Disable the event search bar', 'the-events-calendar' ),
+		'tooltip'         => __( 'Hide the search field on all views.', 'the-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
 	],
@@ -412,7 +412,7 @@ $tec_events_display_fields += $tec_events_display_currency;
 $tec_events_display_maps = [
 	'tribe-google-maps-settings-title'     => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-maps">' . esc_html__( 'Map', 'Map settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-maps">' . esc_html__( 'Maps', 'Map settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-maps-infobox-start' => [
 		'type' => 'html',
