@@ -6,12 +6,26 @@
 
 .tribe-events {
 
-	.tribe-events-c-top-bar__datepicker-button {
+	button.tribe-events-c-top-bar__nav-link--prev:disabled,
+	button.tribe-events-c-top-bar__nav-link--next:disabled {
+		background-color: transparent;
+		border: none;
+		color: var(--tec-color-text-disabled);
+		outline: none;
+	}
+
+	button.tribe-events-c-top-bar__datepicker-button {
+		background-color: transparent;
+		border: none;
+		color: var(--tec-color-text-primary);
+		outline: none;
 		transition: var(--tec-transition-opacity);
 
 		&:hover,
 		&:focus {
+			border: none;
 			opacity: var(--tec-opacity-icon-hover);
+			outline: none;
 		}
 
 		&:active {
