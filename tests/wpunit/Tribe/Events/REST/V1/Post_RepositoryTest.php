@@ -4,12 +4,15 @@ namespace Tribe\Events\REST\V1;
 
 use Prophecy\Argument;
 use Tribe\Events\Test\Testcases\Events_TestCase;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Cost_Utils as Cost_Utils;
 use Tribe__Events__Main as Main;
 use Tribe__Events__REST__V1__Messages as Messages;
 use Tribe__Events__REST__V1__Post_Repository as Post_Repository;
+use Tribe__Events__Main as TEC;
 
 class Post_RepositoryTest extends Events_TestCase {
+	use With_Uopz;
 
 	protected $backups = [
 		'tec.cost-utils',
@@ -689,5 +692,52 @@ class Post_RepositoryTest extends Events_TestCase {
 		$parsed     = $event_data['cost_details']['values'];
 
 		$this->assertEquals( $expected, $parsed );
+	}
+
+	/**
+	 * @after
+	 */
+	public function reregister_taxonomies(): void {
+		TEC::instance()->register_taxonomy();
+	}
+
+	public function test_get_event_data_will_work_when_cat_tax_unregistered(): void {
+		unregister_taxonomy( TEC::TAXONOMY );
+
+		$event = tribe_events()->set_args( [
+			'title'      => 'Test event',
+			'start_date' => 'tomorrow 9am',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+
+		$repository = $this->make_instance();
+		$event_data = $repository->get_event_data( $event->ID );
+
+		$this->assertEquals( [], $event_data['categories'] );
+	}
+
+	public function test_get_terms_will_work_correctly_with_bad_terms():void{
+		$event      = tribe_events()->set_args( [
+			'title'      => 'Test event',
+			'start_date' => 'tomorrow 9am',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+		$cat_term_2 = static::factory()->term->create_and_get( [
+			'taxonomy' => TEC::TAXONOMY,
+			'name'     => 'Category 2',
+		] );
+		$this->set_fn_return( 'wp_get_post_terms', [
+			null,
+			$cat_term_2,
+			new \WP_Error( 'error', 'error' ),
+		] );
+
+		$repository = $this->make_instance();
+		$terms      = $repository->get_terms( $event->ID, TEC::TAXONOMY );
+
+		$this->assertCount( 1, $terms );
+		$this->assertEquals( $cat_term_2->term_id, $terms[0]['id'] );
 	}
 }

@@ -7,9 +7,9 @@ use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__Timezones as Timezones;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Tests\Traits\With_Uopz;
+use Tribe__Events__Main as TEC;
 
 class generalTest extends WPTestCase {
-
 	use MatchesSnapshots;
 	use With_Post_Remapping;
 	use With_Uopz;
@@ -303,5 +303,88 @@ HTML;
 
 		$this->assertFalse( tribe_is_events_front_page() );
 		$this->assertFalse( tribe_is_events_home() );
+	}
+
+	/**
+	 * @after
+	 */
+	public function reregister_taxonomies(): void {
+		TEC::instance()->register_taxonomy();
+	}
+
+	public function test_tribe_get_event_cat_works_with_unregistered_cat_tax():void{
+		unregister_taxonomy( TEC::TAXONOMY );
+
+		$post_id = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create()->ID;
+
+		$this->assertEquals( [], tribe_get_event_cat_ids( $post_id ) );
+		$this->assertEquals( [], tribe_get_event_cat_slugs( $post_id ) );
+	}
+
+	public function test_tribe_get_event_cat_works_with_bad_terms(): void {
+		$good_term = static::factory()->term->create_and_get( [ 'taxonomy' => TEC::TAXONOMY, 'slug' => 'good-term' ] );
+		$this->set_fn_return( 'get_the_terms', [
+			null,
+			$good_term,
+			new \WP_Error( 'bad_term', 'bad_term' ),
+		] );
+		$post_id = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create()->ID;
+
+		$this->assertCount( 1, tribe_get_event_cat_ids( $post_id ) );
+		$this->assertEquals( $good_term->term_id, tribe_get_event_cat_ids( $post_id )[0] );
+		$this->assertCount( 1, tribe_get_event_cat_slugs( $post_id ) );
+		$this->assertEquals( $good_term->slug, tribe_get_event_cat_slugs( $post_id )[0] );
+	}
+
+	public function test_tribe_meta_event_archive_tags_with_unregistered_cat_tax(): void {
+		unregister_taxonomy( TEC::TAXONOMY );
+		global $post;
+		$post = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+
+		$this->assertEquals( '', tribe_meta_event_archive_tags( null, null, false ) );
+	}
+
+	public function test_tribe_meta_event_archive_tags_with_bad_terms():void{
+		$good_term = static::factory()->term->create_and_get( [
+			'name'     => 'Test Cat',
+			'taxonomy' => TEC::TAXONOMY,
+			'slug'     => 'good-term'
+		] );
+		$this->set_fn_return( 'get_the_terms', [
+			null,
+			$good_term,
+			new \WP_Error( 'bad_term', 'bad_term' ),
+		] );
+		global $post;
+		$post = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create()->ID;
+
+		$expected = '<dt class="tribe-event-tags-label">Tags:</dt><dd class="tribe-event-tags">' .
+		            '<a href="http://wordpress.test/events/tag/(%5B/%5D+)/" rel="tag">Test Cat</a>' .
+		            '</dd>';
+		$this->assertEquals( $expected, tribe_meta_event_archive_tags( null, null, false ) );
 	}
 }

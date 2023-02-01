@@ -207,7 +207,7 @@ $tec_events_display_template = [
 	],
 	'tribeDisableTribeBar'    => [
 		'type'            => 'checkbox_bool',
-		'label'           => __( 'Disable the Event Search Bar', 'the-events-calendar' ),
+		'label'           => __( 'Disable the event search bar', 'the-events-calendar' ),
 		'tooltip'         => __( 'Hide the search field on all views.', 'the-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
