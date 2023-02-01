@@ -90,6 +90,7 @@ jobs:
           echo $FILENAME
       - name: Check if zip already exists
         uses: the-events-calendar/action-s3-utility@main
+        if: github.event.inputs.final != '1'
         id: s3_zip
         continue-on-error: true
         env:
