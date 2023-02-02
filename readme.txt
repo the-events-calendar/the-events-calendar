@@ -245,6 +245,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
 * Fix - Prevent Yoast SEO 19.2 notice due to integration with The Events Calendar [TEC-4662]
+* Feature - Add Event Automator to Add-ons page. [TEC-4660]
 * Language - 5 new strings added, 171 updated, 1 fuzzied, and 8 obsoleted.
 
 = [6.0.7.1] 2023-01-19 =
