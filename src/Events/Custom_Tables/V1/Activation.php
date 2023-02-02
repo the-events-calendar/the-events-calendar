@@ -176,10 +176,10 @@ class Activation {
 		$health_check = tribe( Health_Check::class );
 
 		// Check if we have flagged as "migrated" but we show a mismatch of data in our tables.
-		if ( $health_check->is_event_data_healthy() ) {
+		if ( ! $health_check->is_event_data_healthy() ) {
 			$issue_reports[] = "Missing `Event` Table Data";
 		}
-		if ( $health_check->is_occurrence_data_healthy() ) {
+		if ( ! $health_check->is_occurrence_data_healthy() ) {
 			$issue_reports[] = "Missing `Occurrences` Table Data";
 		}
 		if ( $health_check->is_event_table_missing() ) {
