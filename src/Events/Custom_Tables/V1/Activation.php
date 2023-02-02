@@ -11,7 +11,10 @@ namespace TEC\Events\Custom_Tables\V1;
 
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Tables\Events as EventsTable;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
+use Tribe__Events__Main;
 use Tribe__Main as Common;
 
 /**
@@ -138,7 +141,51 @@ class Activation {
 			return $migration_status;
 		}
 
+		$migration_status = self::filter_include_migration_health_check_info($migration_status);
+
 		return Common::array_insert_before_key( 'Settings', $info, $migration_status );
+	}
+
+	/**
+	 * Adds some health check reports to assist in troubleshooting.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $info The report data to add our health check to.
+	 *
+	 * @return array<string,mixed> The modified report data.
+	 */
+	public static function filter_include_migration_health_check_info( array $info ): array {
+		global $wpdb;
+		$migrated      = tribe( State::class )->is_migrated();
+		$issue_reports = [];
+		// Check if we have flagged as "migrated" but we show a mismatch of data in our tables.
+		if ( $migrated ) {
+			$events_table      = EventsTable::table_name();
+			$occurrences_table = Occurrences::table_name();
+			$posts_count       = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type= %s", Tribe__Events__Main::POSTTYPE ) );
+			$events_count      = $wpdb->get_var( "SELECT COUNT(*) FROM $events_table" );
+			$occurrences_count = $wpdb->get_var( "SELECT COUNT(*) FROM $occurrences_table" );
+			if ( $posts_count > 0 && $events_count < 1 ) {
+				$issue_reports[] = "Missing `Event` Table Data";
+			}
+			if ( $posts_count > 0 && $occurrences_count < 1 ) {
+				$issue_reports[] = "Missing `Occurrences` Table Data";
+			}
+			if ( ! is_numeric( $events_count ) ) {
+				$issue_reports[] = "`Event` Table Missing";
+			}
+			if ( ! is_numeric( $occurrences_count ) ) {
+				$issue_reports[] = "`Occurrences` Table Missing";
+			}
+		}
+		$reports = empty( $issue_reports ) ? 'Good!' : implode( $issue_reports, ' | ' );
+		// Add health checks here.
+		$migration_health_check = [
+			'Custom Tables Health Check' => $reports // If no bad reports, it's good.
+		];
+
+		return array_merge( $info, $migration_health_check );
 	}
 
 	/**
