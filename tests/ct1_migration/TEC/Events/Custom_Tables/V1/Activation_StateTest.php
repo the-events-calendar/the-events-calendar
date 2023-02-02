@@ -113,6 +113,19 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	/**
 	 * @test
 	 */
+	public function should_correctly_include_migrated_health_check(): void {
+		$state = tribe( State::class );
+		$state->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
+
+		$support_data = Activation::filter_include_migration_health_check_info( [] );
+
+		$this->assertArrayHasKey( 'Custom Tables Health Check', $support_data, 'It should contain the custom tables health key' );
+		$this->assertEquals( $support_data['Custom Tables Health Check'], 'Good!', 'Migration health should be good.' );
+	}
+
+	/**
+	 * @test
+	 */
 	public function should_correctly_include_migrated_status_support_data(): void {
 		$state = tribe( State::class );
 		$state->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
