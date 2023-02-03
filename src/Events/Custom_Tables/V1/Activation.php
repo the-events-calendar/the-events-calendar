@@ -9,9 +9,13 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
+use TEC\Events\Custom_Tables\V1\Health_Check;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Tables\Events as EventsTable;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
+use Tribe__Events__Main;
 use Tribe__Main as Common;
 
 /**
@@ -41,15 +45,16 @@ class Activation {
 	}
 
 	/**
-	 * Checks the state to determine if whether we should create or update custom tables.
+	 * This is reliant on the Activation::init run to refresh this value. If you are inspecting this
+	 * last run value, ensure you are checking after it has a chance to check and refresh cache/transient
+	 * do to their schema sync checks.
 	 *
-	 * This method will run once a day (using transients).
+	 * @since TBD
 	 *
-	 * @since 6.0.0
+	 * @return int|null Last time we attempted activating our tables, null if last run cache
+	 *                  expired or never ran.
 	 */
-	public static function init() {
-		$services = tribe();
-
+	public static function last_run_time(): ?int {
 		/*
 		 * Transients will use the cache when using real object cache, why check both then?
 		 * Transients might be disabled. In that case we'll use the cache and work around that limitation.
@@ -61,7 +66,20 @@ class Activation {
 		} else {
 			$last_run = get_transient( static::ACTIVATION_TRANSIENT );
 		}
-		$last_run = is_numeric( $last_run ) ? (int) $last_run : null;
+
+		return is_numeric( $last_run ) ? (int) $last_run : null;
+	}
+
+	/**
+	 * Checks the state to determine if whether we should create or update custom tables.
+	 *
+	 * This method will run once a day (using transients).
+	 *
+	 * @since 6.0.0
+	 */
+	public static function init() {
+		$services = tribe();
+		$last_run = static::last_run_time();
 		$now      = time();
 
 		// If the activation last ran less than 24 hours ago, bail.
@@ -138,7 +156,47 @@ class Activation {
 			return $migration_status;
 		}
 
+		$migration_status = static::filter_include_migration_health_check_info( $migration_status );
+
 		return Common::array_insert_before_key( 'Settings', $info, $migration_status );
+	}
+
+	/**
+	 * Adds some health check reports to assist in troubleshooting.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $info The report data to add our health check to.
+	 *
+	 * @return array<string,mixed> The modified report data.
+	 */
+	public static function filter_include_migration_health_check_info( array $info = [] ): array {
+		$issue_reports = [];
+
+		$health_check = tribe( Health_Check::class );
+
+		// Check if we have flagged as "migrated" but we show a mismatch of data in our tables.
+		if ( ! $health_check->is_event_data_healthy() ) {
+			$issue_reports[] = "Missing `Event` Table Data";
+		}
+		if ( ! $health_check->is_occurrence_data_healthy() ) {
+			$issue_reports[] = "Missing `Occurrences` Table Data";
+		}
+		if ( $health_check->is_event_table_missing() ) {
+			$issue_reports[] = "`Event` Table Missing";
+		}
+		if ( $health_check->is_occurrence_table_missing() ) {
+			$issue_reports[] = "`Occurrences` Table Missing";
+		}
+
+		$reports = empty( $issue_reports ) ? 'Good!' : implode( $issue_reports, ' | ' );
+
+		// Add health checks here.
+		$migration_health_check = [
+			'Custom Tables Health Check' => $reports // If no bad reports, it's good.
+		];
+
+		return array_merge( $info, $migration_health_check );
 	}
 
 	/**
