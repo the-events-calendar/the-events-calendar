@@ -9,7 +9,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );

@@ -16,7 +16,7 @@ use Tribe__Events__Main;
 class Health_Check {
 
 	/**
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @var State The state object.
 	 */
@@ -25,7 +25,7 @@ class Health_Check {
 	/**
 	 * Construct the Migration Health Check object.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @param State $state The migration state instance.
 	 */
@@ -36,7 +36,7 @@ class Health_Check {
 	/**
 	 * Checks if something is missing or malformed in the data.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return bool Checks if something is missing or malformed in the data.
 	 */
@@ -62,7 +62,7 @@ class Health_Check {
 	/**
 	 * Checks if something is missing or malformed in the data.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return bool Checks if something is missing or malformed in the data.
 	 */
@@ -88,7 +88,7 @@ class Health_Check {
 	/**
 	 *  Whether the table should exist but doesn't. It considers activation state.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return bool Whether the table should exist but doesn't. It considers activation state.
 	 */
@@ -112,7 +112,7 @@ class Health_Check {
 	/**
 	 *  Whether the table should exist but doesn't. It considers activation state.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return bool Whether the table should exist but doesn't. It considers activation state.
 	 */

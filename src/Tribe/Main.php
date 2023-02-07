@@ -4051,7 +4051,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Registers the Events' category taxonomy in WordPress.
 		 *
-		 * @since TBD
+		 * @since 6.0.9
 		 *
 		 * @return WP_Taxonomy|WP_Error The registered taxonomy object on success, WP_Error object on failure.
 		 */
