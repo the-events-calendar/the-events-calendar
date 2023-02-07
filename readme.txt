@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.9] 2023-02-09 =
 
 * Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, more error checking in WPML integration. [TEC-4679]
 * Fix - Updating some button styles to be more compatible with global button styles, such as Elementor global styling. [TEC-4653]
 * Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
 * Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
