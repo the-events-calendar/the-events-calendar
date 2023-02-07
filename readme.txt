@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.8
+Stable tag: 6.0.9
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.9] 2023-02-09 =
 
 * Tweak - Update the datepicker label on the list-style views to `Upcoming` when no events are found. [TEC-3960]
 
@@ -244,6 +244,9 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add support for opt-in direct deletion of EA older records using the `tec_event_aggregator_direct_record_deletion` filter or setting the `TEC_EVENT_AGGREGATOR_RECORDS_PURGE_DIRECT_DELETION` constant. [EA-446]
 * Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
 * Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
+* Tweak - Added filters: `tec_event_aggregator_direct_record_deletion`, `tec_event_aggregator_direct_record_deletion_batch_size`, `tec_events_views_v2_redirected`
+* Tweak - Changed views: `modules/map-basic`
+* Language - 6 new strings added, 125 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.8] 2023-01-26 =
 

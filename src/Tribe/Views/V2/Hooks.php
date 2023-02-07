@@ -619,7 +619,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		 *
 		 * The initial value is set by looking up the `tribe_redirected` query argument.
 		 *
-		 * @since TBD
+		 * @since 6.0.9
 		 *
 		 * @param bool $is_redirected Whether the current request is being redirected by TEC or not.
 		 */

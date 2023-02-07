@@ -49,7 +49,7 @@ class Activation {
 	 * last run value, ensure you are checking after it has a chance to check and refresh cache/transient
 	 * do to their schema sync checks.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return int|null Last time we attempted activating our tables, null if last run cache
 	 *                  expired or never ran.
@@ -164,7 +164,7 @@ class Activation {
 	/**
 	 * Adds some health check reports to assist in troubleshooting.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @param array<string,mixed> $info The report data to add our health check to.
 	 *

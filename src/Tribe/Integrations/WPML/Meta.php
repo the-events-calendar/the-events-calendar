@@ -229,7 +229,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 * to update an event to add the meta key used by WPML to indicate a post is a duplicate
 	 * of another.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @param array<string> $meta_keys The list of meta keys tracked by the Custom Tables v1 implementation.
 	 *
