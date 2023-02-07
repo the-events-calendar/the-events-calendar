@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.9] 2023-02-09 =
 
 * Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
 * Fix - Updating some button styles to be more compatible with global button styles, such as Elementor global styling. [TEC-4653]
@@ -240,6 +240,9 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add support for opt-in direct deletion of EA older records using the `tec_event_aggregator_direct_record_deletion` filter or setting the `TEC_EVENT_AGGREGATOR_RECORDS_PURGE_DIRECT_DELETION` constant. [EA-446]
 * Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
 * Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
+* Tweak - Added filters: `tec_event_aggregator_direct_record_deletion`, `tec_event_aggregator_direct_record_deletion_batch_size`, `tec_events_views_v2_redirected`
+* Tweak - Changed views: `modules/map-basic`
+* Language - 6 new strings added, 125 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.8] 2023-01-26 =
 
