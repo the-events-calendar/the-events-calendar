@@ -75,7 +75,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	/**
 	 * Run translations of the rewrite rules array.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @param array $rewrite_rules The rewrite rules to apply translations to.
 	 *
@@ -112,7 +112,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	/**
 	 * Attempts to replace rules with translations.
 	 *
-	 * @since TBD Some safeguard around return value, in case of unexpected rules.
+	 * @since 6.0.9 Some safeguard around return value, in case of unexpected rules.
 	 *
 	 * @param array $rewrite_rules Associative array of rewrite rules to translate.
 	 *
