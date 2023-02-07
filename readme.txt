@@ -229,11 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.9] 2023-02-09 =
+= [TBD] TBD =
 
 * Tweak - Update the datepicker label on the list-style views to `Upcoming` when no events are found. [TEC-3960]
 
-= [TBD] TBD =
+= [6.0.9] 2023-02-09 =
 
 * Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
 * Fix - Updating some button styles to be more compatible with global button styles, such as Elementor global styling. [TEC-4653]
