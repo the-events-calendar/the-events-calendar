@@ -58,7 +58,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 * Filters the rewrite rules array to add support for translated versions of
 	 * venue and organizer slugs in their rules.
 	 *
-	 * @since TBD Moving type check down to safeguard this public filter.
+	 * @since 6.0.9 Moving type check down to safeguard this public filter.
 	 *
 	 * @param array|mixed $rewrite_rules The rewrite rules associative array from the rewrite_rules_array filter.
 	 *
