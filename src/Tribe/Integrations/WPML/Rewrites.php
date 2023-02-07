@@ -65,7 +65,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 * @return array|mixed Translated rewrite rules or what was passed in.
 	 */
 	public function filter_rewrite_rules_array( $rewrite_rules ) {
-		if ( ! is_array( $rewrite_rules ) ) {
+		if ( ! is_array( $rewrite_rules ) || empty( $rewrite_rules ) ) {
 			return $rewrite_rules;
 		}
 
