@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
+
 = [6.0.9] 2023-02-09 =
 
 * Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
