@@ -58,11 +58,30 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 * Filters the rewrite rules array to add support for translated versions of
 	 * venue and organizer slugs in their rules.
 	 *
-	 * @param array $rewrite_rules
+	 * @since 6.0.9 Moving type check down to safeguard this public filter.
 	 *
-	 * @return array
+	 * @param array|mixed $rewrite_rules The rewrite rules associative array from the rewrite_rules_array filter.
+	 *
+	 * @return array|mixed Translated rewrite rules or what was passed in.
 	 */
-	public function filter_rewrite_rules_array( array $rewrite_rules ) {
+	public function filter_rewrite_rules_array( $rewrite_rules ) {
+		if ( ! is_array( $rewrite_rules ) || empty( $rewrite_rules ) ) {
+			return $rewrite_rules;
+		}
+
+		return $this->translate_rewrite_rules_array( $rewrite_rules );
+	}
+
+	/**
+	 * Run translations of the rewrite rules array.
+	 *
+	 * @since 6.0.9
+	 *
+	 * @param array $rewrite_rules The rewrite rules to apply translations to.
+	 *
+	 * @return array The translated rules.
+	 */
+	public function translate_rewrite_rules_array( array $rewrite_rules ): array {
 		$this->prepare_venue_slug_translations();
 		$this->prepare_organizer_slug_translations();
 
@@ -90,7 +109,16 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		$this->organizer_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );
 	}
 
-	protected function replace_rules_with_translations( array $rewrite_rules ) {
+	/**
+	 * Attempts to replace rules with translations.
+	 *
+	 * @since 6.0.9 Some safeguard around return value, in case of unexpected rules.
+	 *
+	 * @param array $rewrite_rules Associative array of rewrite rules to translate.
+	 *
+	 * @return array Translated rules.
+	 */
+	protected function replace_rules_with_translations( array $rewrite_rules ): array {
 		$keys      = array_keys( $rewrite_rules );
 		$values    = array_values( $rewrite_rules );
 		$positions = array_flip( $keys );
@@ -101,8 +129,14 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 			$replaced_keys[ $original_position ] = $replacement;
 		}
 
+		$combined_array = array_combine( $replaced_keys, $values );
 
-		return array_combine( $replaced_keys, $values );
+		// Something went wrong with our translation merge, return original values.
+		if ( ! is_array( $combined_array ) ) {
+			return $rewrite_rules;
+		}
+
+		return $combined_array;
 	}
 
 	/**
