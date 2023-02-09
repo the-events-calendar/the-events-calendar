@@ -34,7 +34,9 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $value;
 		}
 
-		$object_id = Occurrence::normalize_id( $object_id );
+		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+			$object_id = Occurrence::normalize_id( $object_id );
+		}
 
 		$accepted_values = [ '_EventOrganizerID', '_EventVenueID' ];
 
