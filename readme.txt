@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.8
+Stable tag: 6.0.9
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,10 +229,28 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.9] 2023-02-09 =
+
+* Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, more error checking in WPML integration. [TEC-4679]
+* Fix - Updating some button styles to be more compatible with global button styles, such as Elementor global styling. [TEC-4653]
+* Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
+* Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
+* Fix - Ensure the code will work correctly when the Events' category taxonomy is unregistered. [TEC-4664]
+* Fix - Change the type of the date-related custom tables date fields to VARCHAR to avoid warnings on stricter SQL modes. [TEC-4536]
+* Fix - Add logic to our template tags to handle non-string returns from `get_the_terms_list()` [TEC-4664]
+* Tweak - Add support for opt-in direct deletion of EA older records using the `tec_event_aggregator_direct_record_deletion` filter or setting the `TEC_EVENT_AGGREGATOR_RECORDS_PURGE_DIRECT_DELETION` constant. [EA-446]
+* Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
+* Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
+* Tweak - Added filters: `tec_event_aggregator_direct_record_deletion`, `tec_event_aggregator_direct_record_deletion_batch_size`, `tec_events_views_v2_redirected`
+* Tweak - Changed views: `modules/map-basic`
+* Language - 6 new strings added, 125 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.0.8] 2023-01-26 =
 
 * Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
 * Fix - Prevent Yoast SEO 19.2 notice due to integration with The Events Calendar [TEC-4662]
+* Feature - Add Event Automator to Add-ons page. [TEC-4660]
 * Language - 5 new strings added, 171 updated, 1 fuzzied, and 8 obsoleted.
 
 = [6.0.7.1] 2023-01-19 =

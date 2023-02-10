@@ -30,12 +30,13 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		$this->restore_context();
 	}
 
-	protected function create_and_get_generic_events() {
+	protected function create_and_get_generic_events( $expected_events ) {
 		static::$events = [];
 		$featured = [
 			'today',
 			'next week monday',
 		];
+		$events = [];
 
 		foreach (
 			[
@@ -47,6 +48,9 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				'today',
 			] as $start_date
 		) {
+			if ( ! in_array( $start_date, $expected_events ) ) {
+				continue;
+			}
 			$events[ $start_date ] = tribe_events()->set_args( [
 				'start_date' => $start_date,
 				'timezone'   => 'Europe/Paris',
@@ -57,27 +61,35 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 			] )->create();
 		}
 
-		$events[ 'next week tuesday' ] = tribe_events()->set_args( [
-			'start_date' => 'next week tuesday',
-			'timezone'   => 'Europe/Paris',
-			'duration'   => 28 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event - next tuesday',
-			'status'     => 'publish',
-		] )->create();
-		$events[ 'next week wednesday' ] = tribe_events()->set_args( [
-			'start_date' => 'next week wednesday',
-			'timezone'   => 'Europe/Paris',
-			'duration'   => ( 24 * HOUR_IN_SECONDS ) - 1,
-			'title'      => 'Test Event - next wednesday',
-			'status'     => 'publish',
-		] )->create();
-		$events['this week sunday'] = tribe_events()->set_args( [
-			'start_date' => 'next sunday',
-			'timezone'   => 'Europe/Paris',
-			'duration'   => 36 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event - this week sunday 36 hours',
-			'status'     => 'publish',
-		] )->create();
+		if ( in_array( 'next week tuesday', $expected_events ) ) {
+			$events[ 'next week tuesday' ] = tribe_events()->set_args( [
+				'start_date' => 'next week tuesday',
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 28 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - next tuesday',
+				'status'     => 'publish',
+			] )->create();
+		}
+
+		if ( in_array( 'next week wednesday', $expected_events ) ) {
+			$events['next week wednesday'] = tribe_events()->set_args( [
+				'start_date' => 'next week wednesday',
+				'timezone'   => 'Europe/Paris',
+				'duration'   => ( 24 * HOUR_IN_SECONDS ) - 1,
+				'title'      => 'Test Event - next wednesday',
+				'status'     => 'publish',
+			] )->create();
+		}
+
+		if ( in_array( 'this week sunday', $expected_events ) ) {
+			$events['this week sunday'] = tribe_events()->set_args( [
+				'start_date' => 'next sunday',
+				'timezone'   => 'Europe/Paris',
+				'duration'   => 36 * HOUR_IN_SECONDS,
+				'title'      => 'Test Event - this week sunday 36 hours',
+				'status'     => 'publish',
+			] )->create();
+		}
 
 		static::$events = $events;
 		return static::$events;
@@ -148,31 +160,57 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'view' => 'list',
 				],
-				[
+				[ // Expected events.
 					'this week sunday',
 					'next week monday',
 					'next week tuesday',
 					'next week wednesday',
 				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ // Events to create.
+					'-49 days',
+					'this week sunday',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+					'+49 days',
+				],
 			],
 			'with_date_list_view' => [
 				[
 					'view' => 'list',
 					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
 				],
-				[
+				[ // Expected events.
 					'next week tuesday',
 					'next week wednesday',
 					'next week thursday',
 					'+49 days',
 				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ // Events to create.
+					'-49 days',
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				],
 			],
 			'without_date_featured_list_view' => [
 				[
 					'view' => 'list',
 					'featured' => true,
 				],
-				[ 'next week monday' ] // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[
+					'next week monday',
+				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ // Events to create.
+					'-49 days',
+					'this week sunday',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				],
 			],
 			'with_date_featured_list_view' => [
 				[
@@ -180,7 +218,16 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'featured' => true,
 					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
 				],
-				[]
+				[],
+				[ // Events to create.
+					'-49 days',
+					'this week sunday',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				],
 			],
 			/* Skipping for now as the iCalendar feed does not follow the month view list any more.
 			'without_date_month_view' => [
@@ -199,6 +246,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					date( 'Y-m-01', strtotime( 'next month' ) ),
 					date( 'Y-m-10', strtotime( 'next month' ) ),
 				],
+				[],
 				'create_and_get_month_events',
 			],
 			'without_date_featured_month_view' => [
@@ -207,6 +255,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'featured' => true,
 				],
 				[], // This gets populated in the calling method below, since ical feeds for month defaults to the current day forward.
+				[],
 				'create_and_get_month_events',
 			],
 			'with_date_featured_month_view' => [
@@ -216,6 +265,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'event_date' => date( 'Y-m-10', strtotime( 'last month' ) ),
 				],
 				[],
+				[],
 				'create_and_get_month_events',
 			],
 
@@ -224,9 +274,18 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'view' => 'day',
 				],
-				[
+				[ // Expected events.
 					'today',
 				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ // Events to create.
+					'-49 days',
+					'today',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				],
 			],
 			'with_date_day_view' => [
 				[
@@ -236,13 +295,33 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'next week tuesday',
 				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ // Events to create.
+					'-49 days',
+					'today',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				],
 			],
 			'without_date_featured_day_view' => [
 				[
 					'view' => 'day',
 					'featured' => true,
 				],
-				[ 'today' ] // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ // Expected events.
+					'today',
+				], // @todo @bordoni Take care of multi-day on the bleeding edges of the event date filtering.
+				[ // Events to create.
+					'-49 days',
+					'today',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				],
 			],
 			'with_date_featured_day_view' => [
 				[
@@ -250,7 +329,16 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'featured' => true,
 					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
 				],
-				[]
+				[],
+				[ // Events to create.
+					'-49 days',
+					'today',
+					'next week monday',
+					'next week tuesday',
+					'next week wednesday',
+					'next week thursday',
+					'+49 days',
+				],
 			],
 		];
 
@@ -261,9 +349,9 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider request_context_data
 	 * @test
 	 */
-	public function it_should_render_based_on_context_arguments( $context_args, $expected_events_index, $method = 'create_and_get_generic_events' ) {
+	public function it_should_render_based_on_context_arguments( $context_args, $expected_events_index, $events_to_create, $method = 'create_and_get_generic_events' ) {
 		// create the events.
-		call_user_func_array( [ $this, $method ], [] );
+		call_user_func_array( [ $this, $method ], [ $events_to_create ] );
 
 		/**
 		 * If we are looking at the month view ical data, the current month only grabs events for the current day forward.
