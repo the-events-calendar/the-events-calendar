@@ -7,6 +7,12 @@ on:
         description: 'Zip type: 0 = dev, 1 = production'
         required: false
         default: '0'
+      slack_channel:
+        description: 'Slack channel ID to post to'
+        required: false
+      slack_thread:
+        description: 'Slack thread to post to'
+        required: false
 jobs:
   zip:
     runs-on: ubuntu-latest
@@ -25,20 +31,18 @@ jobs:
       - name: Setup branch for consumption in subsequent steps
         id: settings
         run: |
-          echo "::set-output name=branch::${JOB_BRANCH}"
-      # ------------------------------------------------------------------------------
+          echo "branch=${JOB_BRANCH}" >> $GITHUB_OUTPUT
+      # -----------------------------------------------------------------------------
       # Setup SSH keys and known_hosts
       # ------------------------------------------------------------------------------
-      - name: Setup SSH keys and known_hosts
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add - <<< "${{ secrets.GH_ACTIONS_SSH_KEY }}"
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.GH_ACTIONS_SSH_KEY }}
+          name: id_rsa
+          known_hosts: github.com
       # ------------------------------------------------------------------------------
-      # Checkout the repo and tric
+      # Checkout the repo and tut
       # ------------------------------------------------------------------------------
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -50,9 +54,18 @@ jobs:
       - name: Checkout tut
         uses: actions/checkout@v2
         with:
+          token: ${{ secrets.GH_BOT_TOKEN }}
           repository: the-events-calendar/tut
           ref: main
           path: tut
+          fetch-depth: 1
+      - name: Checkout jenkins-scripts
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          repository: the-events-calendar/jenkins-scripts
+          ref: main
+          path: jenkins-scripts
           fetch-depth: 1
       # ------------------------------------------------------------------------------
       # Determine if we need to zip
@@ -63,8 +76,8 @@ jobs:
         run: |
           REPO_ORG=$GITHUB_ACTOR
           REPO_NAME=$( echo $GITHUB_REPOSITORY | sed "s/the-events-calendar\///")
-          MAIN_FILE=$(jq ".plugins[] | select( .name | test(\"$REPO_NAME\") ) | .main" tut/tut.json | sed 's/"//g' )
-          VERSION_LINE=$(jq ".plugins[] | select( .name | test(\"$REPO_NAME\") ) | .version" tut/tut.json | sed 's/"//g' )
+          MAIN_FILE=$(jq ".plugins[] | select( .name | test(\"$REPO_NAME\") ) | .main" tut/tut.json | sed 's/"//g' | head -n 1 )
+          VERSION_LINE=$(jq ".plugins[] | select( .name | test(\"$REPO_NAME\") ) | .version" tut/tut.json | sed 's/"//g' | head -n 1)
           ZIP_NAME=$(jq "._zipname" package.json | sed 's/"//g' )
           VERSION=$(grep -r "$VERSION_LINE" $MAIN_FILE | head -n 1 | sed -r "s/.*${VERSION_LINE}[^']*'([^']*)'.*/\1/")
           HASH=$(git rev-parse --short=8 HEAD)
@@ -73,10 +86,11 @@ jobs:
           if [ "${JOB_FINAL}" == "1" ]; then
             FILENAME="${ZIP_NAME}.${VERSION}.zip"
           fi
-          echo "::set-output name=value::${FILENAME}"
+          echo "value=${FILENAME}" >> $GITHUB_OUTPUT
           echo $FILENAME
       - name: Check if zip already exists
         uses: the-events-calendar/action-s3-utility@main
+        if: github.event.inputs.final != '1'
         id: s3_zip
         continue-on-error: true
         env:
@@ -87,21 +101,16 @@ jobs:
           S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           COMMAND: exists
           FILE: ${{ steps.file_name.outputs.value }}
-      - name: Set zip generation if a workflow dispatch or zip does not exist in s3
-        id: generate_zip
-        if: github.event_name == 'workflow_dispatch' || steps.s3_zip.outcome != 'success'
-        run: |
-          echo "::set-output name=value::1"
       # ------------------------------------------------------------------------------
       # Prepare our cache directories
       # ------------------------------------------------------------------------------
       - name: Get Composer Cache Directory
-        if: steps.generate_zip.outputs.value == 1
+        if: steps.s3_zip.outcome != 'success'
         id: get-composer-cache-dir
         run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - uses: actions/cache@v2
-        if: steps.generate_zip.outputs.value == 1
+        if: steps.s3_zip.outcome != 'success'
         id: composer-cache
         with:
           path: ${{ steps.get-composer-cache-dir.outputs.dir }}
@@ -119,21 +128,26 @@ jobs:
       # Initialize tut
       # ------------------------------------------------------------------------------
       - name: Set up tut env vars
-        if: steps.generate_zip.outputs.value == 1
+        if: steps.s3_zip.outcome != 'success'
         run: |
           echo "TUT_BIN=${GITHUB_WORKSPACE}/tut/tut" >> $GITHUB_ENV
       - name: Make tut envfile
-        if: steps.generate_zip.outputs.value == 1
+        if: steps.s3_zip.outcome != 'success'
         working-directory: ./tut
         run: |
           touch .env
           echo "GITHUB_USER=${{ secrets.GH_BOT_USER }}" >> .env
           echo "GITHUB_OAUTH_TOKEN=${{ secrets.GH_BOT_token }}" >> .env
       - name: Install tut composer dependencies
-        if: steps.generate_zip.outputs.value == 1
+        if: steps.s3_zip.outcome != 'success'
         working-directory: ./tut
         run: |
           composer install --no-dev -o --ignore-platform-reqs
+      - name: Install jenkins-scripts composer dependencies
+        working-directory: ./jenkins-scripts
+        run: |
+          composer install --no-dev -o --ignore-platform-reqs
+          cp script-config-sample.yml script-config.yml
       # ------------------------------------------------------------------------------
       # Zip
       # ------------------------------------------------------------------------------
@@ -141,20 +155,23 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         id: zip
-        if: steps.generate_zip.outputs.value == 1
+        if: steps.s3_zip.outcome != 'success'
         working-directory: ../
         run: |
           REPO_ORG=$GITHUB_ACTOR
           REPO_NAME=$( echo $GITHUB_REPOSITORY | sed "s/the-events-calendar\///")
           mkdir zip
           if [ "${JOB_FINAL}" == "1" ]; then
-            $TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output="./zip" --final -v
+            output=$($TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output=./zip --final -v)
           else
-            $TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output="./zip" -v
+            output=$($TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output=./zip -v)
           fi
+          echo "$output"
+          touch ${GITHUB_WORKSPACE}/results.txt
+          echo "$output" > ${GITHUB_WORKSPACE}/results.txt
           mv zip ${GITHUB_WORKSPACE}/zip
       - uses: the-events-calendar/action-s3-utility@main
-        if: steps.generate_zip.outputs.value == 1
+        if: steps.s3_zip.outcome != 'success'
         with:
           args: --acl public-read --follow-symlinks
         env:
@@ -165,3 +182,19 @@ jobs:
           S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           COMMAND: sync
           SOURCE_DIR: /github/workspace/zip
+      - name: Maybe prep data for Slack message
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != '' && steps.s3_zip.outcome == 'success'
+        working-directory: ../
+        run: |
+          touch ${GITHUB_WORKSPACE}/results.txt
+          echo "Packaging results" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "-----------------" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "Successfully packaged:" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "* ./zip/\"${{ steps.file_name.outputs.value }}\"" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "" >> ${GITHUB_WORKSPACE}/results.txt
+      - name: Maybe notify in Slack
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != ''
+        working-directory: ../
+        run: |
+          php ${GITHUB_WORKSPACE}/jenkins-scripts/mt-jenkins package:send-results --channel ${{ github.event.inputs.slack_channel }} --ts ${{ github.event.inputs.slack_thread }} --results-file "${GITHUB_WORKSPACE}/results.txt" --slack-token ${{ secrets.SLACK_TOKEN }} --build-url https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
