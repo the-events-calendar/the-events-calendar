@@ -102,7 +102,7 @@
     "intro.js": "^3.4.0",
     "jquery": "3.5.0",
     "lodash": "^4.17.21",
-    "moment": "2.19.3",
+    "moment": "2.29.4",
     "moment-timezone": "0.5.13",
     "mt-a11y-dialog": "^5.1.1",
     "prop-types": "^15.6.2",
