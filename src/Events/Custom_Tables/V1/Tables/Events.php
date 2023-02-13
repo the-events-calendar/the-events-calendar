@@ -27,7 +27,7 @@ class Events extends Abstract_Custom_Table {
 	/**
 	 * @inheritDoc
 	 */
-	const SCHEMA_VERSION = '1.0.0';
+	const SCHEMA_VERSION = '1.0.1';
 
 	/**
 	 * {@inheritdoc}
@@ -58,14 +58,15 @@ class Events extends Abstract_Custom_Table {
 		$table_name = self::table_name(true);
 		$charset_collate = $wpdb->get_charset_collate();
 
+		// VARCHAR(19) to store YYYY-MM-DD HH:MM:SS values as strings and allow partial compare.
 		return "CREATE TABLE `{$table_name}` (
 			`event_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 			`post_id` BIGINT(20) UNSIGNED NOT NULL,
-			`start_date` DATETIME NOT NULL,
-			`end_date` DATETIME DEFAULT NULL,
+			`start_date` VARCHAR(19) NOT NULL,
+			`end_date` VARCHAR(19) DEFAULT NULL,
 			`timezone` VARCHAR(30) NOT NULL DEFAULT 'UTC',
-			`start_date_utc` DATETIME NOT NULL,
-			`end_date_utc` DATETIME DEFAULT NULL,
+			`start_date_utc` VARCHAR(19) NOT NULL,
+			`end_date_utc` VARCHAR(19) DEFAULT NULL,
 			`duration` MEDIUMINT(30) DEFAULT 7200,
 			`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			`hash` varchar(40) NOT NULL,

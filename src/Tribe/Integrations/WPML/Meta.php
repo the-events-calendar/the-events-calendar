@@ -223,4 +223,26 @@ class Tribe__Events__Integrations__WPML__Meta {
 
 		return array_unique( array_filter( array_merge( ...$buffer ) ) );
 	}
+
+	/**
+	 * Filters the meta keys tracked by the Custom Tables v1 implementation to detect a request
+	 * to update an event to add the meta key used by WPML to indicate a post is a duplicate
+	 * of another.
+	 *
+	 * @since 6.0.9
+	 *
+	 * @param array<string> $meta_keys The list of meta keys tracked by the Custom Tables v1 implementation.
+	 *
+	 * @return array<string> The list of meta keys tracked by the Custom Tables v1 implementation, including
+	 *                       the one used by WPML to indicate a post is a duplicate of another.
+	 */
+	public static function filter_ct1_update_meta_keys( $meta_keys ) {
+		if ( ! is_array( $meta_keys ) ) {
+			return $meta_keys;
+		}
+
+		$meta_keys[] = '_icl_lang_duplicate_of';
+
+		return $meta_keys;
+	}
 }
