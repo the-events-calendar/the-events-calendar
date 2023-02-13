@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Update the datepicker label on the list-style views to `Upcoming` when no events are found. [TEC-3960]
+* Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 
 = [6.0.9] 2023-02-09 =
 
