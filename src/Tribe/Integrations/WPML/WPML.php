@@ -110,6 +110,11 @@ class Tribe__Events__Integrations__WPML__WPML {
 		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
 			// Handle the translation of the Events permalinks in Views v2 and Custom Tables V1 context.
 			add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_events_permalinks' ] );
+			// Filter the tracked meta keys to trigger the update of the custom tables when duplicating events.
+			add_filter( 'tec_events_custom_tables_v1_tracked_meta_keys', [
+				Tribe__Events__Integrations__WPML__Meta::class,
+				'filter_ct1_update_meta_keys'
+			] );
 		}
 	}
 

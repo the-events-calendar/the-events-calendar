@@ -64,10 +64,14 @@
 
 		&:disabled {
 			background-color: transparent;
+			background-image: none;
 			color: var(--tec-color-text-disabled);
+			cursor: default;
+			pointer-events: none;
 		}
 	}
 
+	button.tribe-events-c-nav__prev,
 	.tribe-events-c-nav__prev {
 
 		&:hover,
@@ -90,6 +94,12 @@
 		}
 
 		&:disabled {
+			background-color: transparent;
+			background-image: none;
+			border: none;
+			cursor: default;
+			outline: none;
+			pointer-events: none;
 
 			.tribe-events-c-nav__prev-icon-svg path {
 				fill: var(--tec-color-icon-disabled);
@@ -116,6 +126,7 @@
 		}
 	}
 
+	button.tribe-events-c-nav__next,
 	.tribe-events-c-nav__next {
 
 		&:hover,
@@ -138,6 +149,12 @@
 		}
 
 		&:disabled {
+			background-color: transparent;
+			background-image: none;
+			border: none;
+			cursor: default;
+			outline: none;
+			pointer-events: none;
 
 			.tribe-events-c-nav__next-icon-svg path {
 				fill: var(--tec-color-icon-disabled);

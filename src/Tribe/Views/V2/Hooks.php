@@ -611,11 +611,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$parsed = \Tribe__Events__Rewrite::instance()->parse_request( $redirect_url );
 
-		if (
-			empty( $parsed['tribe_redirected'] )
-			&& $view !== Arr::get( (array) $parsed, 'eventDisplay' )
-		) {
+		// Event Tickets will set this to flag a redirected request.
+		$is_redirected = ! empty( $parsed['tribe_redirected'] );
 
+		/**
+		 * Filters whether the current request is being redirectedor not.
+		 *
+		 * The initial value is set by looking up the `tribe_redirected` query argument.
+		 *
+		 * @since 6.0.9
+		 *
+		 * @param bool $is_redirected Whether the current request is being redirected by TEC or not.
+		 */
+		$is_redirected = apply_filters( 'tec_events_views_v2_redirected', $is_redirected );
+
+		if ( ! $is_redirected && $view !== Arr::get( (array) $parsed, 'eventDisplay' ) ) {
 			/*
 			 * If we're here we know we should be looking at a View URL.
 			 * If the proposed URL does not resolve to a View, do not redirect.
