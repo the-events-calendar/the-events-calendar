@@ -42,7 +42,7 @@ FORMATS.date = settings() && settings().dateWithYearFormat
 /**
  * Renders a separator based on the type called
  *
- * @param {object} props The props passed to the template
+ * @param {Object} props The props passed to the template
  * @param {string} type - The type of separator
  * @param {Array|string} className The class names for the separator
  * @returns {ReactElement} A React Dom Element null if none.
