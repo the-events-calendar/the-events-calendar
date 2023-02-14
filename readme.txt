@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix: Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
+
 = [6.0.9] 2023-02-09 =
 
 * Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
