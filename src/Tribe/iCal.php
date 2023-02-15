@@ -301,11 +301,13 @@ class Tribe__Events__iCal {
 			return $this->get_month_view_events();
 		}
 
+		$list_view_slug = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
+
 		if ( tribe_is_organizer() ) {
 			return $this->get_events_list(
 				[
-					'organizer' => get_the_ID(),
-					'eventDisplay' => 'list',
+					'organizer'    => get_the_ID(),
+					'eventDisplay' => $list_view_slug,
 				]
 			);
 		}
@@ -313,8 +315,8 @@ class Tribe__Events__iCal {
 		if ( tribe_is_venue() ) {
 			return $this->get_events_list(
 				[
-					'venue' => get_the_ID(),
-					'eventDisplay' => tribe_get_request_var( 'tribe_event_display', 'list' ),
+					'venue'        => get_the_ID(),
+					'eventDisplay' => tribe_get_request_var( 'tribe_event_display', $list_view_slug ),
 				]
 			);
 		}
@@ -325,7 +327,7 @@ class Tribe__Events__iCal {
 
 		$args = $wp_query->query_vars;
 
-		if ( 'list' === $args['eventDisplay'] ) {
+		if ( $list_view_slug === $args['eventDisplay'] ) {
 			// Whe producing a List view iCal feed the `eventDate` is misleading.
 			unset( $args['eventDate'] );
 		}
@@ -357,11 +359,11 @@ class Tribe__Events__iCal {
 			: $wp_query->get( 'eventDate' );
 
 		$args = [
-			'eventDisplay' => 'custom',
-			'start_date' => \Tribe\Events\Views\V2\Views\Month_View::calculate_first_cell_date( $month ),
-			'end_date' => \Tribe\Events\Views\V2\Views\Month_View::calculate_final_cell_date( $month ),
+			'eventDisplay'   => 'custom',
+			'start_date'     => \Tribe\Events\Views\V2\Views\Month_View::calculate_first_cell_date( $month ),
+			'end_date'       => \Tribe\Events\Views\V2\Views\Month_View::calculate_final_cell_date( $month ),
 			'posts_per_page' => -1,
-			'hide_upcoming' => true,
+			'hide_upcoming'  => true,
 		];
 
 		// Verify the Initial Category.
@@ -728,10 +730,10 @@ class Tribe__Events__iCal {
 		}
 
 		// Add categories if available.
-		$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, [ 'fields' => 'names' ] );
+		$event_cats = wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, [ 'fields' => 'names' ] );
 
-		if ( ! empty( $event_cats ) ) {
-			$item['CATEGORIES'] = 'CATEGORIES:' . $this->html_decode( join( ',', $event_cats ) );
+		if ( ! is_wp_error( $event_cats ) && ! empty( $event_cats ) ) {
+			$item['CATEGORIES'] = 'CATEGORIES:' . $this->html_decode( join( ',', (array) $event_cats ) );
 		}
 
 		// Add featured image if available.

@@ -11,7 +11,6 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe\Utils\Query;
-use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
@@ -32,10 +31,20 @@ class Month_View extends By_Day_View {
 	 * Slug for this view.
 	 *
 	 * @since 4.9.3
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
 	protected $slug = 'month';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'month';
 
 	/**
 	 * Cached dates for the prev/next links.
@@ -405,7 +414,7 @@ class Month_View extends By_Day_View {
 		// Let's prepare an array of days more digestible by the templates.
 		$days = [];
 
-		$default_day_url_args = array_merge( $this->get_url_args(), [ 'eventDisplay' => 'day' ] );
+		$default_day_url_args = array_merge( $this->get_url_args(), [ 'eventDisplay' => Day_View::get_view_slug() ] );
 
 		/**
 		 * Allows filtering the base URL arguments that will be added to each "View More" link in Month View.

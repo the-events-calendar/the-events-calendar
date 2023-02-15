@@ -12,7 +12,7 @@ use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use Tribe\Events\Test\Traits\CT1\CT1_Test_Utils;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
@@ -87,7 +87,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$report  = new Event_Report( $post );
 		$post_id = $post->ID;
 		// The Builder is, actually, the class doing the upsertion.
-		$this->uopz_set_return( Builder::class, 'upsert', false );
+		$this->set_fn_return( Builder::class, 'upsert', false );
 
 		$this->expectException( Expected_Migration_Exception::class );
 
@@ -106,7 +106,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$report  = new Event_Report( $post );
 		$post_id = $post->ID;
 		// Say we're done, but we've done nothing.
-		$this->uopz_set_return( Builder::class, 'upsert', true );
+		$this->set_fn_return( Builder::class, 'upsert', true );
 
 		$this->expectException( Migration_Exception::class );
 

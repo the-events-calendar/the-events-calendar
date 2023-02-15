@@ -2,7 +2,7 @@
 
 use Spatie\Snapshots\MatchesSnapshots;
 use TEC\Events\Custom_Tables\V1\Provider as CT1_Provider;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Events\Views\V2\Hooks;
 use Tribe__Events__Main as TEC;
 use Tribe__Date_Utils as Dates;

@@ -188,6 +188,8 @@ function tec_events_get_today_button_label( $view = null ) {
 		return $today;
 	}
 
+	$view_slug = $view::get_view_slug();
+
 	/**
 	 * Allows filtering a view-specific label for the today button.
 	 *
@@ -196,7 +198,7 @@ function tec_events_get_today_button_label( $view = null ) {
 	 * @param string $today The string used for the "Today" button on calendar views.
 	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
 	 */
-	return apply_filters( 'tec_events_view_' . $view->get_slug() .'_today_button_label', $today, $view );
+	return apply_filters( "tec_events_view_{$view_slug}_today_button_label", $today, $view );
 }
 
 /**
@@ -465,8 +467,16 @@ function tribe_is_past_event( $event = null ) {
  * @category Events
  */
 function tribe_get_event_cat_ids( $post_id = 0 ) {
-	$post_id = Tribe__Events__Main::postIdHelper( $post_id );
-	$terms   = array_filter( (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY ) );
+	$post_id  = Tribe__Events__Main::postIdHelper( $post_id );
+	$terms = get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
+
+	if ( $terms instanceof WP_Error ) {
+		return [];
+	}
+
+	$terms = array_values( array_filter( $terms, static function ( $term ) {
+		return $term instanceof WP_Term;
+	} ) );
 
 	return wp_list_pluck( $terms, 'term_id' );
 }
@@ -481,13 +491,19 @@ function tribe_get_event_cat_ids( $post_id = 0 ) {
  */
 function tribe_get_event_cat_slugs( $post_id = 0 ) {
 	$post_id = Tribe__Events__Main::postIdHelper( $post_id );
-	$terms   = (array) get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
-	$terms   = array_filter(
+	$terms   = get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
+
+	if ( $terms instanceof WP_Error ) {
+		return [];
+	}
+
+	$terms = array_values( array_filter(
 		$terms,
 		static function ( $term ) {
 			return $term instanceof WP_Term;
 		}
-	);
+	) );
+
 	$slugs   = wp_list_pluck( $terms, 'slug' );
 
 	return apply_filters( 'tribe_get_event_cat_slugs', $slugs, $post_id );
@@ -680,9 +696,13 @@ if ( ! function_exists( 'tribe_meta_event_archive_tags' ) ) {
 
 		$terms = get_the_terms( get_the_ID(), 'post_tag' );
 
-		if ( is_wp_error( $terms ) ) {
+		if ( empty( $terms ) || is_wp_error( $terms ) ) {
 			return;
 		}
+
+		$terms = array_values( array_filter( $terms, static function ( $term ) {
+			return $term instanceof WP_Term;
+		} ) );
 
 		if ( empty( $terms ) ) {
 			return;

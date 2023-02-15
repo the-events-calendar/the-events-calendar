@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.6.2
+Stable tag: 6.0.9
 Tested up to: 6.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
@@ -229,9 +229,62 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+
 = [TBD] TBD =
 
 * Fix - Modified single-event.php to use tribe_get_formatted_cost instead of tribe_get_cost. [TEC-4652]
+
+= [6.0.9] 2023-02-09 =
+
+* Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, more error checking in WPML integration. [TEC-4679]
+* Fix - Updating some button styles to be more compatible with global button styles, such as Elementor global styling. [TEC-4653]
+* Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
+* Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
+* Fix - Ensure the code will work correctly when the Events' category taxonomy is unregistered. [TEC-4664]
+* Fix - Change the type of the date-related custom tables date fields to VARCHAR to avoid warnings on stricter SQL modes. [TEC-4536]
+* Fix - Add logic to our template tags to handle non-string returns from `get_the_terms_list()` [TEC-4664]
+* Tweak - Add support for opt-in direct deletion of EA older records using the `tec_event_aggregator_direct_record_deletion` filter or setting the `TEC_EVENT_AGGREGATOR_RECORDS_PURGE_DIRECT_DELETION` constant. [EA-446]
+* Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
+* Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
+* Tweak - Added filters: `tec_event_aggregator_direct_record_deletion`, `tec_event_aggregator_direct_record_deletion_batch_size`, `tec_events_views_v2_redirected`
+* Tweak - Changed views: `modules/map-basic`
+* Language - 6 new strings added, 125 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.8] 2023-01-26 =
+
+* Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
+* Fix - Prevent Yoast SEO 19.2 notice due to integration with The Events Calendar [TEC-4662]
+* Feature - Add Event Automator to Add-ons page. [TEC-4660]
+* Language - 5 new strings added, 171 updated, 1 fuzzied, and 8 obsoleted.
+
+= [6.0.7.1] 2023-01-19 =
+
+* Fix - Prevent fatal when using The Events Calendar with Event Tickets due to Common library not being updated.
+
+= [6.0.7] 2023-01-18 =
+
+* Version - The Events Calendar 6.0.7 is only compatible with Events Calendar PRO 6.0.6 and higher
+* Fix - Event repository filters, when passing UTC dates on non-UTC event date fields, when using `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
+* Fix - Resolve problem with relative dates on REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
+* Fix - Prevent Update page from display on minor updates, only for major updates and feature updates. [TEC-4589]
+* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TEC-4613]
+* Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
+* Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
+* Fix - Avoid the issue of events which have venues assigned not being able to be updated successfully on some browsers. [TEC-4596]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+* Fix - Prevent primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
+* Fix - Avoid running slow query for adjacent events when possible. [TEC-4633]
+* Fix - Ensure we did not get an error object back when requesting event category. [TEC-4619]
+* Fix - Fix the issue of an invalid property error notice being thrown while visiting the Attendee Registration page as an admin. [TEC-4608]
+* Fix - Resolve compatibility issue between Yoast SEO and FacetWP. [TEC-4628]
+* Fix - Resolve the issue where `tribe_is_upcoming()` and other conditionals were not working as expected. [TEC-4301]
+* Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
+* Tweak - Change some labelling of event settings in the admin. [TEC-4626]
+* Tweak - Reorganize a few Event settings in the admin. [TEC-4627]
+* Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
+* Tweak - Added filters: `tribe_events_views_v2_{$view_slug}_view_html_classes`, `tribe_events_views_v2_view_{$view_slug}_template_vars`, `tribe_events_views_v2_view_{$view_slug}_url`, `tribe_events_views_v2_view_{$view_slug}_prev_url`, `tribe_events_views_v2_view_{$view_slug}_next_url`, `tribe_events_views_v2_view_{$view_slug}_link_label_format`, `tribe_events_views_v2_view_{$view_slug}_title`, `tribe_events_views_v2_view_{$view_slug}_messages`, `tribe_events_views_v2_view_{$view_slug}_breadcrumbs`, `tribe_events_views_v2_view_{$view_slug}_display_events_bar`, `tribe_events_views_v2_view_{$view_slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$view_slug}_public_views`, `tribe_events_views_v2_{$view_slug}_view_container_data`, `tribe_events_views_v2_{$view_slug}_show_latest_past_events_view`, `tribe_events_views_v2_{$view_slug}_events_per_day`, `tribe_events_views_v2_view_{$view_slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$view_slug}_breakpoints`, `tribe_events_views_v2_view_{$view_slug}_cached_html`, `tribe_events_views_v2_{$view_slug}_widget_repository_args`, `tribe_events_views_v2_{$view_slug}_widget_compatibility_classes`, `tribe_events_views_v2_{$view_slug}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_label`, `tec_is_view`, `tec_is_{$view_slug}_view`
+* Tweak - Removed filters: `tribe_events_views_v2_{$this->get_slug()}_view_html_classes`, `tribe_events_views_v2_view_{$this->slug}_template_vars`, `tribe_events_views_v2_view_{$this->slug}_url`, `tribe_events_views_v2_view_{$this->slug}_prev_url`, `tribe_events_views_v2_view_{$this->slug}_next_url`, `tribe_events_views_v2_view_{$this->slug}_link_label_format`, `tribe_events_views_v2_view_{$slug}_title`, `tribe_events_views_v2_view_{$slug}_messages`, `tribe_events_views_v2_view_{$this->slug}_breadcrumbs`, `tribe_events_views_v2_view_{$this->slug}_display_events_bar`, `tribe_events_views_v2_view_{$this->slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$this->slug}_public_views`, `tribe_events_views_v2_{$this->get_slug()}_view_container_data`, `tribe_events_views_v2_{$this->get_slug()}_show_latest_past_events_view`, `tec_events_views_v2_{$this->slug}_view_global_repository_args`, `tribe_events_views_v2_{$this->slug}_events_per_day`, `tribe_events_views_v2_view_{$this->slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$this->slug}_breakpoints`, `tribe_events_views_v2_view_{$this->slug}_cached_html`, `tribe_events_views_v2_{$this->get_slug()}_widget_repository_args`, `tribe_events_views_v2_{$this->get_slug()}_widget_compatibility_classes`, `tribe_events_views_v2_{$this->get_slug()}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_title`
 
 = [6.0.6.2] 2022-12-16 =
 
@@ -277,7 +330,6 @@ Remember to always make a backup of your database and files before updating!
 				`Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
 * Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
-
 
 = [6.0.4] 2022-11-15 =
 

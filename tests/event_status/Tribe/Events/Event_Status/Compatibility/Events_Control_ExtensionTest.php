@@ -5,7 +5,7 @@ namespace Tribe\Events\Event_Status\Compatibility\Events_Control_Extension;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Event_Status\Admin_Template;
 use Tribe\Events\Test\Factories\Event;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Events_Control_ExtensionTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
@@ -22,7 +22,7 @@ class Events_Control_ExtensionTest extends \Codeception\TestCase\WPTestCase {
 		// Simulate the `tribe_plugins_loaded` action to ensure all the provider methods are hooked.
 		$this->service_provider->handle_filters();
 
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 	}
 
 	/**
