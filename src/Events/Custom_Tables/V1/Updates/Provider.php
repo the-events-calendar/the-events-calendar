@@ -46,7 +46,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Post_Ops::class, Post_Ops::class );
 
 		$this->hook_to_watch_for_post_updates();
-		$this->hook_to_redirect_post_udpates();
+		$this->hook_to_redirect_post_updates();
 		$this->hook_to_commit_post_updates();
 		$this->hook_to_delete_post_data();
 	}
@@ -57,7 +57,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since 6.0.0
 	 */
-	private function hook_to_redirect_post_udpates() {
+	private function hook_to_redirect_post_updates() {
 		/*
 		 * Classic Editor updates will come through the `wp-admin/post.php` file.
 		 * This includes Trash and Delete requests.
