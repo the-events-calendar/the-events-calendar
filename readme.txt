@@ -229,7 +229,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-* Fix - Modified single-event.php to use tribe_get_formatted_cost instead of tribe_get_cost.
+= [TBD] TBD =
+
+* Fix - Modified single-event.php to use tribe_get_formatted_cost instead of tribe_get_cost. [TEC-4652]
 
 = [6.0.6.2] 2022-12-16 =
 
