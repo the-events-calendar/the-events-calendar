@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix: Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
 * Fix - Ensure the Subscribe to Calendar Dropdown opens and closes consistently across all themes. [TEC-4388]
 
 = [6.0.9] 2023-02-09 =
