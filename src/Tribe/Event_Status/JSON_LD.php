@@ -20,6 +20,13 @@ use WP_Post;
 class JSON_LD {
 
 	/**
+	 * Schema for EventScheduled event status.
+	 *
+	 * @since TBD
+	 */
+	const SCHEDULED_SCHEMA = 'https://schema.org/EventScheduled';
+
+	/**
 	 * The reference schema URL for an offline event attendance mode.
 	 *
 	 * @since 5.11.0
@@ -45,6 +52,7 @@ class JSON_LD {
 	 * Modifiers to the JSON LD event object.
 	 *
 	 * @since 5.11.0
+	 * @since TBD Adding a default value for eventStatus.
 	 *
 	 * @param object  $data The JSON-LD object.
 	 * @param array   $args The arguments used to get data.
@@ -73,7 +81,8 @@ class JSON_LD {
 
 		$data->eventAttendanceMode = $attendance_mode;
 
-		// Update event status schema.
+		// Set event status schema.
+		$data->eventStatus = static::SCHEDULED_SCHEMA;
 		if ( 'canceled' === $event->event_status ) {
 			$data->eventStatus = static::CANCELED_SCHEMA;
 		} elseif ( 'postponed' === $event->event_status ) {
