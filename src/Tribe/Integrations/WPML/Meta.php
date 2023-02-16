@@ -1,6 +1,7 @@
 <?php
 
 use Tribe__Events__Main as Main;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 
 /**
  * Translate post ids in Event meta data.
@@ -31,6 +32,10 @@ class Tribe__Events__Integrations__WPML__Meta {
 	public function translate_post_id( $value, $object_id, $meta_key, $single ) {
 		if ( ! empty( $_POST ) ) {
 			return $value;
+		}
+
+		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+			$object_id = Occurrence::normalize_id( $object_id );
 		}
 
 		$accepted_values = [ '_EventOrganizerID', '_EventVenueID' ];
