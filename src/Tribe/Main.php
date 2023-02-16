@@ -546,6 +546,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Admin provider.
 			tribe_register_provider( \Tribe\Events\Admin\Provider::class );
 
+			// Telemetry
+			tribe_register_provider( \TEC\Events\Telemetry\Provider::class );
+
 			// i18n.
 			tribe_singleton( 'tec.i18n', new Tribe\Events\I18n( $this ) );
 

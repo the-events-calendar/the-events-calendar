@@ -4,8 +4,206 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61d9ee6a7c69a5f305d9e591b5fa6fef",
+    "content-hash": "a74bf8c4b5816f5ad80f0e1312370902",
     "packages": [
+        {
+            "name": "lucatume/di52",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lucatume/di52.git",
+                "reference": "6d1e3641d02995c78027a565e8d205d9b6e73eca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/6d1e3641d02995c78027a565e8d205d9b6e73eca",
+                "reference": "6d1e3641d02995c78027a565e8d205d9b6e73eca",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "aliases.php"
+                ],
+                "psr-4": {
+                    "lucatume\\DI52\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Luca Tumedei",
+                    "email": "luca@theaveragedev.com"
+                }
+            ],
+            "description": "A PHP 5.6 compatible dependency injection container.",
+            "support": {
+                "issues": "https://github.com/lucatume/di52/issues",
+                "source": "https://github.com/lucatume/di52/tree/3.1.1"
+            },
+            "time": "2023-02-16T16:19:29+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/1.1.1"
+            },
+            "time": "2021-03-05T17:36:06+00:00"
+        },
+        {
+            "name": "stellarwp/container-contract",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/container-contract.git",
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/container-contract/zipball/b1568be99b4d2d38446895d31a1c0f3718bf4d36",
+                "reference": "b1568be99b4d2d38446895d31a1c0f3718bf4d36",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\ContainerContract\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "homepage": "https://stellarwp.com"
+                }
+            ],
+            "description": "StellarWP Container Interface",
+            "homepage": "https://github.com/stellarwp/container-contract",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop"
+            ],
+            "support": {
+                "issues": "https://github.com/stellarwp/container-contract/issues",
+                "source": "https://github.com/stellarwp/container-contract/tree/1.1.0"
+            },
+            "time": "2023-02-13T21:24:31+00:00"
+        },
+        {
+            "name": "stellarwp/telemetry",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/telemetry.git",
+                "reference": "3a0a1c40e44bc56776f77b23f78bb8ecbb3a8cb4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/telemetry/zipball/3a0a1c40e44bc56776f77b23f78bb8ecbb3a8cb4",
+                "reference": "3a0a1c40e44bc56776f77b23f78bb8ecbb3a8cb4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1",
+                "stellarwp/container-contract": "^1.0"
+            },
+            "require-dev": {
+                "automattic/vipwpcs": "^2.3",
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+                "lucatume/di52": "3.0.0",
+                "lucatume/wp-browser": "^3.1",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "szepeviktor/phpstan-wordpress": "^1.1",
+                "the-events-calendar/coding-standards": "dev-master",
+                "wp-coding-standards/wpcs": "^2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Telemetry\\": "src/Telemetry",
+                    "StellarWP\\Telemetry\\Views_Dir\\": "src/views",
+                    "StellarWP\\Telemetry\\Assets_Dir\\": "src/resources"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Telemetry library for StellarWP plugins.",
+            "support": {
+                "issues": "https://github.com/stellarwp/telemetry/issues",
+                "source": "https://github.com/stellarwp/telemetry/tree/1.0.5"
+            },
+            "time": "2023-02-16T17:29:53+00:00"
+        },
         {
             "name": "woocommerce/action-scheduler",
             "version": "3.5.4",
@@ -3564,54 +3762,6 @@
             },
             "abandoned": true,
             "time": "2018-08-09T05:50:03+00:00"
-        },
-        {
-            "name": "psr/container",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/container.git",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Container\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
-                }
-            ],
-            "description": "Common Container Interface (PHP FIG PSR-11)",
-            "homepage": "https://github.com/php-fig/container",
-            "keywords": [
-                "PSR-11",
-                "container",
-                "container-interface",
-                "container-interop",
-                "psr"
-            ],
-            "support": {
-                "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/1.1.1"
-            },
-            "time": "2021-03-05T17:36:06+00:00"
         },
         {
             "name": "psr/event-dispatcher",

@@ -4,6 +4,12 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	die;
 }
 
+use TEC\Events\StellarWP\Telemetry\Uninstall;
+
+require_once dirname( TRIBE_EVENTS_FILE ) . '/vendor/vendor-prefixed/autoload.php';
+
+Uninstall::run( 'the-events-calendar' );
+
 require __DIR__ . '/common/vendor/freemius/start.php';
 $tec_freemius = fs_dynamic_init( [
 	'id' => '3069',

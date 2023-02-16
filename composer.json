@@ -8,6 +8,13 @@
   ],
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "lucatume/di52": "^3.1",
+    "stellarwp/telemetry": "^1.0.4",
+    "woocommerce/action-scheduler": "^3.4.0"
+  },
   "require-dev": {
     "bordoni/phpass": "^0.3.5",
     "automattic/vipwpcs": "^2.0",
@@ -33,8 +40,6 @@
     "wp-coding-standards/wpcs": "^2.1",
     "vlucas/phpdotenv": "^4.1"
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "config": {
     "preferred-install": "dist",
     "platform": {
@@ -71,11 +76,34 @@
       "no-api": true
     }
   ],
-  "require": {
-    "woocommerce/action-scheduler": "^3.4.0"
-  },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
-    "stop-chromedriver": "docker stop chromedriver"
+    "stop-chromedriver": "docker stop chromedriver",
+    "strauss": [
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
+      "@php bin/strauss.phar",
+      "echo \"<?php\" > vendor/lucatume/di52/aliases.php",
+      "echo \"<?php\" > vendor/vendor-prefixed/lucatume/di52/aliases.php"
+    ],
+    "post-install-cmd": [
+      "@strauss"
+    ],
+    "post-update-cmd": [
+      "@strauss"
+    ]
+  },
+  "extra": {
+    "strauss": {
+      "target_directory": "vendor/vendor-prefixed",
+      "namespace_prefix": "TEC\\Events",
+      "classmap_prefix": "TEC__Events__",
+      "constant_prefix": "TEC_EVENTS_",
+      "packages": [
+        "lucatume/di52",
+        "stellarwp/container-contract",
+        "stellarwp/telemetry"
+      ],
+      "delete_vendor_files": true
+    }
   }
 }

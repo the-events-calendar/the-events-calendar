@@ -4,6 +4,9 @@
  */
 
 $main = Tribe__Main::instance();
+
+// Trigger our telemetry opt-in.
+do_action( 'tec-telemetry-modal' );
 ?>
 
 <div class="tribe-events-admin-content-wrapper">
