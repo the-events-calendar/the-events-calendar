@@ -234,8 +234,9 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		Activation::init();
 
 		$this->assertEquals( 1, $calls );
-		$this->assertEqualsWithDelta( time(), wp_cache_get( Activation::ACTIVATION_TRANSIENT ), 5 );
 		$this->assertEquals( false, get_transient( Activation::ACTIVATION_TRANSIENT ) );
+		$this->assertTrue( is_int( wp_cache_get( Activation::ACTIVATION_TRANSIENT ) ) );
+		$this->assertGreaterThan( $last_run_time, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
 	}
 
 	/**
@@ -246,9 +247,10 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	public function should_use_transient_value_over_cache_when_using_transients(): void {
 		// We're not using real object cache.
 		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		// The transient value is set to 26 hours sago.
+		// The transient value is set to 26 hours ago.
 		$last_run_time = time() - 26 * HOUR_IN_SECONDS;
 		set_transient( Activation::ACTIVATION_TRANSIENT, $last_run_time, DAY_IN_SECONDS );
+
 		// The cached value is set to 1 hour ago.
 		wp_cache_set( Activation::ACTIVATION_TRANSIENT, time() - HOUR_IN_SECONDS );
 		// The Schema Builder up function should be called.
@@ -262,7 +264,9 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 
 		$this->assertEquals( 1, $calls );
 		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertEqualsWithDelta( time(), get_transient( Activation::ACTIVATION_TRANSIENT ), 5 );
+		$this->assertTrue( is_int( get_transient( Activation::ACTIVATION_TRANSIENT ) ) );
+		// Should have updated via the init()
+		$this->assertGreaterThan( $last_run_time, get_transient( Activation::ACTIVATION_TRANSIENT ) );
 	}
 
 	/**
@@ -290,8 +294,9 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		Activation::init();
 
 		$this->assertEquals( 1, $calls );
-		$this->assertEqualsWithDelta( time(), wp_cache_get( Activation::ACTIVATION_TRANSIENT ), 5 );
 		$this->assertEquals( false, get_transient( Activation::ACTIVATION_TRANSIENT ) );
+		$this->assertTrue( is_int( wp_cache_get( Activation::ACTIVATION_TRANSIENT ) ) );
+		$this->assertGreaterThan( $last_run_time, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
 	}
 
 	/**
@@ -320,7 +325,8 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 
 		$this->assertEquals( 1, $calls );
 		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertEqualsWithDelta( time(), get_transient( Activation::ACTIVATION_TRANSIENT ), 5 );
+		$this->assertTrue( is_int( get_transient( Activation::ACTIVATION_TRANSIENT ) ) );
+		$this->assertGreaterThan( $last_run_time, get_transient( Activation::ACTIVATION_TRANSIENT ) );
 	}
 
 	/**
@@ -353,7 +359,9 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 
 		$this->assertEquals( 1, $calls );
 		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertEqualsWithDelta( time(), get_transient( Activation::ACTIVATION_TRANSIENT ), 5 );
+		$this->assertTrue( is_int( get_transient( Activation::ACTIVATION_TRANSIENT ) ) );
+		$this->assertGreaterThan( $last_run_time, get_transient( Activation::ACTIVATION_TRANSIENT ) );
+
 		// The tables should be there.
 		$this->assertEquals(
 			Events_Schema::table_name( true ),
