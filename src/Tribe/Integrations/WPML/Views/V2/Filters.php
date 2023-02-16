@@ -185,7 +185,7 @@ class Filters {
 				continue;
 			}
 
-			$event->permalink = get_permalink( Occurrence::normalize_id( $event->ID ) );
+			$event->permalink = apply_filters( 'wpml_permalink', $event->permalink );
 		}
 
 		return $template_vars;

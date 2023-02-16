@@ -232,9 +232,12 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix: Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
+* Fix - Display Venue correctly in List-like views when using WPML. [ECP-1443]
+* Fix - Link to the correct Occurrence when using CT1 and WPML. [TEC-4632]
 * Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 * Tweak - Modified single-event.php to use `tribe_get_formatted_cost` instead of `tribe_get_cost` to display the event cost. [TEC-4699]
+
 
 = [6.0.9] 2023-02-09 =
 
