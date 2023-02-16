@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix: Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
 * Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
-* Tweak - Modified single-event.php to use `tribe_get_formatted_cost` to display the event cost instead of `tribe_get_cost`. [TEC-4699]
+* Tweak - Modified single-event.php to use `tribe_get_formatted_cost` instead of `tribe_get_cost` to display the event cost. [TEC-4699]
 
 = [6.0.9] 2023-02-09 =
 
