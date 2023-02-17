@@ -30,12 +30,18 @@ class Provider extends Service_Provider {
 		$this->container->bind( Telemetry::class, Telemetry::class );
 
 		$this->add_actions();
+		$this->add_filters();
 	}
 
 	public function add_actions() {
 		add_action( 'tribe_plugins_loaded', [ $this, 'initialize_telemetry' ] );
 		add_action( 'admin_init', [ $this, 'save_opt_in_setting_field' ] );
 		add_action( 'tec-telemetry-modal', [ $this, 'do_optin_modal' ] );
+
+	}
+
+	public function add_filters() {
+		add_filter( 'debug_information', [ $this, 'filter_debug_information' ] );
 	}
 
 	public function initialize_telemetry() {
@@ -48,5 +54,9 @@ class Provider extends Service_Provider {
 
 	public function do_optin_modal() {
 		$this->container->make( Telemetry::class )->do_optin_modal();
+	}
+
+	public function filter_debug_information( $info ) {
+		return $this->container->make( Debug_Info::class )->add_data( $info );
 	}
 }

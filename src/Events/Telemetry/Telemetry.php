@@ -7,7 +7,7 @@ use TEC\Events\StellarWP\Telemetry\Config;
 use TEC\Events\Container;
 
 class Telemetry {
-	public $plugin_slug  = 'the-events-calendar';
+	public static $plugin_slug  = 'the-events-calendar';
 
 	public $hook_prefix = 'tec-events';
 
@@ -34,7 +34,7 @@ class Telemetry {
 		Config::set_hook_prefix( $this->hook_prefix );
 
 		// Set a unique plugin slug.
-		Config::set_stellar_slug( $this->plugin_slug );
+		Config::set_stellar_slug( static::$plugin_slug );
 
 		// Initialize the library.
 		Core::instance()->init( __FILE__ );
@@ -48,14 +48,16 @@ class Telemetry {
 	 * @return void
 	 */
 	public function do_optin_modal() {
-		$user_name = wp_get_current_user()->display_name;
+		$user_name   = esc_html( wp_get_current_user()->display_name );
+		$plugin_slug = static::$plugin_slug;
+
 		$this->optin_args = [
 			'plugin_logo'           => tribe_resource_url( 'images/logos/tec-brand.svg', false, null, \Tribe__Events__Main::instance() ),
 			'plugin_logo_width'     => 151,
 			'plugin_logo_height'    => 32,
 			'plugin_logo_alt'       => 'The Events Calendar Logo',
 			'plugin_name'           => 'The Events Calendar',
-			'plugin_slug'           => $this->plugin_slug,
+			'plugin_slug'           => $plugin_slug,
 			'user_name'             => $user_name,
 			'permissions_url'       => '#',
 			'tos_url'               => '#',
@@ -66,13 +68,13 @@ class Telemetry {
 		];
 
 		add_filter(
-			"stellarwp/telemetry/{$this->plugin_slug}/optin_args",
+			"stellarwp/telemetry/{$plugin_slug}/optin_args",
 			function( $args ) {
 				return array_merge( $args, $this->optin_args );
 			}
 		);
 
-		do_action( "stellarwp/telemetry/{$this->plugin_slug}/optin" );
+		do_action( "stellarwp/telemetry/{$plugin_slug}/optin" );
 	}
 
 	/**
