@@ -546,6 +546,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Admin provider.
 			tribe_register_provider( \Tribe\Events\Admin\Provider::class );
 
+			// Site Health
+			tribe_register_provider( \TEC\Events\Site_Health\Provider::class );
+
 			// Telemetry
 			tribe_register_provider( \TEC\Events\Telemetry\Provider::class );
 

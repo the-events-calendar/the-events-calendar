@@ -1,10 +1,40 @@
 <?php
+/**
+ * Class that handles interfacing with core Site Health.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Site_Health
+ */
 
-namespace TEC\Events\Telemetry;
+namespace TEC\Events\Site_Health;
 
 use Tribe__Events__Main;
+/**
+ * Class Site_Health
+ *
+ * @since   TBD
 
-class Debug_Info {
+ * @package TEC\Events\Site_Health
+ */
+class Site_Health {
+	/**
+	 * Slug used for insertion.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $slug = 'the-events-calendar';
+	/**
+	 * Adds our Events Calendar section to the Site Health Info tab.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $info The debug information to be added to the core information page.
+	 *
+	 * @return array The debug information to be added to the core information page.
+	 */
 	public function add_data( $info ) {
 		$event_counts     = wp_count_posts( Tribe__Events__Main::POSTTYPE );
 		$organizer_counts = wp_count_posts( \Tribe__Events__Organizer::POSTTYPE );
@@ -12,15 +42,24 @@ class Debug_Info {
 
 		$fields = [
 			'published_events' => [
-				'label' => esc_html__( 'Total published events', 'the-events-calendar' ),
+				'label' => sprintf(
+					esc_html__( 'Total published %1$s', 'the-events-calendar' ),
+					tribe_get_event_label_plural_lowercase()
+				),
 				'value' => empty( $event_counts->publish ) ? 0 : $event_counts->publish,
 			],
 			'published_organizers' => [
-				'label' => esc_html__( 'Total published organizers', 'the-events-calendar' ),
+				'label' => sprintf(
+					esc_html__( 'Total published %1$s', 'the-events-calendar' ),
+					strtolower( tribe_get_organizer_label_plural() )
+				),
 				'value' => empty( $organizer_counts->publish ) ? 0 : $organizer_counts->publish,
 			],
 			'published_venues' => [
-				'label' => esc_html__( 'Total published venues', 'the-events-calendar' ),
+				'label' => sprintf(
+					esc_html__( 'Total published %1$s', 'the-events-calendar' ),
+					strtolower( tribe_get_venue_label_plural() )
+				),
 				'value' => empty( $venue_counts->publish ) ? 0 : $venue_counts->publish,
 			],
 		];
@@ -34,28 +73,27 @@ class Debug_Info {
 		 */
 		$fields = apply_filters( 'tec_debug_info_data', $fields );
 
-		$info[ Telemetry::$plugin_slug ] = [
+		$section[ static::$slug ] = [
 			'label'       => esc_html__( 'The Events Calendar', 'the-events-calendar' ),
 			'description' => esc_html__( 'This section contains information on The Events Calendar Plugin.', 'the-events-calendar' ),
 			'fields'      => $fields,
 		];
 
+		// Insert before media? (wp-media)
+		$info = \Tribe__Main::array_insert_before_key(
+			'wp-media',
+			$info,
+			$section
+		);
+		;
+
 		return $info;
-	}
-
-	public function get_data() {
-
 	}
 }
 
 /*
 
-number of single events (ECP)
-number of imported events
-number of recurring events (ECP)
-number of Series (ECP)
-number of ticketed events (ET)
-number of RSVPd events (ET)
+
 
 Block Editor for Events
 Include events in main blog loop

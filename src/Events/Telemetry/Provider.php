@@ -40,9 +40,7 @@ class Provider extends Service_Provider {
 
 	}
 
-	public function add_filters() {
-		add_filter( 'debug_information', [ $this, 'filter_debug_information' ] );
-	}
+	public function add_filters() {}
 
 	public function initialize_telemetry() {
 		$this->container->make( Telemetry::class )->init();
@@ -54,9 +52,5 @@ class Provider extends Service_Provider {
 
 	public function do_optin_modal() {
 		$this->container->make( Telemetry::class )->do_optin_modal();
-	}
-
-	public function filter_debug_information( $info ) {
-		return $this->container->make( Debug_Info::class )->add_data( $info );
 	}
 }

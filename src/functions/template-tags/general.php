@@ -494,7 +494,15 @@ function tribe_get_event_cat_slugs( $post_id = 0 ) {
 	$terms   = get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
 
 	if ( $terms instanceof WP_Error ) {
-		return [];
+		/**
+		 * Allows filtering of the term slug array.
+		 *
+		 * @since 3.0
+		 *
+		 * @param array $slugs The list of category slugs. Empty array if the event has no assigned categories.
+		 * @param int $post_id The ID of the event we are getting slugs for.
+		 */
+		return (array) apply_filters( 'tribe_get_event_cat_slugs', [], $post_id );
 	}
 
 	$terms = array_values( array_filter(
@@ -506,7 +514,15 @@ function tribe_get_event_cat_slugs( $post_id = 0 ) {
 
 	$slugs   = wp_list_pluck( $terms, 'slug' );
 
-	return apply_filters( 'tribe_get_event_cat_slugs', $slugs, $post_id );
+	/**
+	 * Allows filtering of the term slug array.
+	 *
+	 * @since 3.0
+	 *
+	 * @param array $slugs The list of category slugs. Empty array if the event has no assigned categories.
+	 * @param int $post_id The ID of the event we are getting slugs for.
+	 */
+	return (array) apply_filters( 'tribe_get_event_cat_slugs', $slugs, $post_id );
 }
 
 /**

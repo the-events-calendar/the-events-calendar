@@ -1,19 +1,56 @@
 <?php
-
+/**
+ * Handles Telemetry setup and actions.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Telemetry
+ */
 namespace TEC\Events\Telemetry;
 
 use TEC\Events\StellarWP\Telemetry\Core;
 use TEC\Events\StellarWP\Telemetry\Config;
+use TEC\Events\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Events\Container;
+use TEC\Events\Site_Health\Site_Health;
 
+/**
+ * Class Telemetry
+ *
+ * @since   TBD
+
+ * @package TEC\Events\Telemetry
+ */
 class Telemetry {
+	/**
+	 * The plugin slug used for identification
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public static $plugin_slug  = 'the-events-calendar';
 
+	/**
+	 * The custom hook prefix.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	public $hook_prefix = 'tec-events';
 
+	/**
+	 * Array to hold the optin args.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	private $optin_args = [];
 
 	function init() {
+		static::$plugin_slug = Site_Health::$slug;
 		/**
 		 * Configure the container.
 		 *
