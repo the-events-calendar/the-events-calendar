@@ -496,7 +496,6 @@ tribe.events.views.manager = {};
 	obj.getAjaxSettings = function( $container ) {
 		var ajaxSettings = {
 			url: $container.data( 'view-rest-url' ),
-			accepts: 'html',
 			dataType: 'html',
 			method: $container.data( 'view-rest-method' ) || 'POST',
 			'async': true, // async is keyword
