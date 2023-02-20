@@ -494,8 +494,8 @@ function tribe_get_event_cat_slugs( $post_id = 0 ) {
 	$terms   = get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
 
 	/**
-	 * Returns an empty array when there are no categories
-	 * assigned to an event or when $terms generates an error.
+	 * Returns an empty array on events that aren't assigned
+	 * to any category or when $terms generates an error.
 	 */
 	if (  empty ( $terms ) || $terms instanceof WP_Error ) {
 		return [];
