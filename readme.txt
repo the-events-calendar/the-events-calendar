@@ -229,6 +229,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.10] 2023-02-22 =
+
+* Version - The Events Calendar 6.0.10 is only compatible with Events Calendar PRO 6.0.9 and higher
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
+
 = [6.0.9] 2023-02-09 =
 
 * Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
