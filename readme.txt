@@ -6,7 +6,7 @@ Donate link: https://evnt.is/29
 Requires at least: 5.8.6
 Stable tag: 6.0.10
 Tested up to: 6.1.1
-Requires PHP: 7.3
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -228,6 +228,15 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.0.10] 2023-02-22 =
+
+* Version - The Events Calendar 6.0.10 is only compatible with Events Calendar PRO 6.0.9 and higher
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
 
 = [6.0.9] 2023-02-09 =
 
