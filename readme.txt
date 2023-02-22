@@ -6,7 +6,7 @@ Donate link: https://evnt.is/29
 Requires at least: 5.8.6
 Stable tag: 6.0.10
 Tested up to: 6.1.1
-Requires PHP: 7.3
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
