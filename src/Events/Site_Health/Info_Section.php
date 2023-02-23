@@ -44,7 +44,7 @@ class Info_Section extends Info_Section_Abstract {
 	 *
 	 * @var bool $show_count
 	 */
-	protected bool $show_count = true;
+	protected bool $show_count = false;
 
 	/**
 	 * If this section is private.

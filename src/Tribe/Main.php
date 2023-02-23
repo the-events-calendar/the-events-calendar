@@ -656,7 +656,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( TEC\Events\Installer\Provider::class );
 
 			// Set up Site Health
-			//tribe_register_provider( TEC\Events\Site_Health\Provider::class );
+			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
