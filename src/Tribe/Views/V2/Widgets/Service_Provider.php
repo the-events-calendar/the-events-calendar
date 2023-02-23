@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 /**
  * Class Service_Provider
@@ -18,7 +19,7 @@ use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.

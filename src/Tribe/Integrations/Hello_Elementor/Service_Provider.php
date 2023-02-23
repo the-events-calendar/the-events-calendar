@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Integrations\Hello_Elementor;
 
+use TEC\Common\lucatume\DI52\ServiceProvider;
+
 /**
  * Class Service_Provider
  *
@@ -16,7 +18,7 @@ namespace Tribe\Events\Integrations\Hello_Elementor;
  *
  * @package Tribe\Events\Integrations\Hello_Elementor
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends ServiceProvider {
 	public function register() {
 		if ( 'hello-elementor' !== get_template() ) {
 			return;

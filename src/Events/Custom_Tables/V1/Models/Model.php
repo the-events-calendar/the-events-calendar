@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 use Closure;
 use Generator;
 use Serializable;
-use tad_DI52_Container;
+use TEC\Common\lucatume\DI52\Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
 
@@ -118,7 +118,7 @@ abstract class Model implements Serializable {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var tad_DI52_Container
+	 * @var Container
 	 */
 	private $container;
 
@@ -174,9 +174,9 @@ abstract class Model implements Serializable {
 	 * Model constructor.
 	 *
 	 * @param  array                    $data       An array with key => value pairs used to populate the model on creation of the object.
-	 * @param  tad_DI52_Container|null  $container  A reference to the current Dependency Injection container instance.
+	 * @param  Container|null  $container  A reference to the current Dependency Injection container instance.
 	 */
-	public function __construct( array $data = [], tad_DI52_Container $container = null ) {
+	public function __construct( array $data = [], Container $container = null ) {
 		$this->data = $data;
 		$this->container = $container ?: tribe();
 

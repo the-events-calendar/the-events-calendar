@@ -12,7 +12,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Repository;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\lucatume\DI52\ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 
 /** * Class Provider.

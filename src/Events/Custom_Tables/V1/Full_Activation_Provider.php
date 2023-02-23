@@ -12,7 +12,7 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\lucatume\DI52\ServiceProvider as Service_Provider;
 use TEC\Events\Custom_Tables\V1\Events\Occurrences\Max_Recurrence_Provider;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use WP_CLI;

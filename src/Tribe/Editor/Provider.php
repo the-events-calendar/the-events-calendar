@@ -1,6 +1,7 @@
 <?php
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
-class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
+class Tribe__Events__Editor__Provider extends ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.

@@ -10,7 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\WP_Query\Monitors;
 
 use SplObjectStorage;
-use tad_DI52_Container;
+use TEC\Common\lucatume\DI52\Container;
 use TEC\Events\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\WP_Query_Modifier;
 use WP_Query;
@@ -30,7 +30,7 @@ trait Query_Monitor {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var tad_DI52_Container
+	 * @var Container
 	 */
 	private $container;
 
@@ -67,10 +67,10 @@ trait Query_Monitor {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param tad_DI52_Container|null $container    Either a reference to a specific container, or `null` to use the
+	 * @param Container|null $container    Either a reference to a specific container, or `null` to use the
 	 *                                              global one.
 	 */
-	public function __construct( tad_DI52_Container $container = null ) {
+	public function __construct( Container $container = null ) {
 		$this->modifiers = new SplObjectStorage();
 		$this->container = $container ?: tribe();
 		// By default the monitor will be enabled.
@@ -208,7 +208,7 @@ trait Query_Monitor {
 	/**
 	 * Return the number of Queries to which at least one modifier is attached.
 	 *
-	 * @since 6.0.0 
+	 * @since 6.0.0
 	 *
 	 * @return int The number of modifier instances.
 	 */

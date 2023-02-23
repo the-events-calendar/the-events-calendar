@@ -11,9 +11,9 @@ namespace TEC\Events\Custom_Tables\V1\Views\V2;
 
 use Exception;
 use stdClass;
-use tad_DI52_ServiceProvider;
 use Tribe__Customizer as Customizer;
 use Tribe__Customizer__Section as Customizer_Section;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 /**
  * Class Provider
@@ -22,7 +22,7 @@ use Tribe__Customizer__Section as Customizer_Section;
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */
-class Provider extends tad_DI52_ServiceProvider {
+class Provider extends ServiceProvider {
 
 	/**
 	 * Registers the handlers and modifiers required to make the plugin correctly work

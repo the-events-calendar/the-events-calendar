@@ -2,12 +2,14 @@
 
 namespace Tribe\Events\Editor;
 
+use TEC\Common\lucatume\DI52\ServiceProvider;
+
 /**
  * Events block editor hooks.
  *
  * @since 5.12.0
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *

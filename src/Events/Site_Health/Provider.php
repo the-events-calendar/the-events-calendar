@@ -10,6 +10,8 @@
 
  namespace TEC\Events\Site_Health;
 
+ use TEC\Common\lucatume\DI52\ServiceProvider;
+
  /**
   * Class Site_Health
   *
@@ -17,7 +19,7 @@
 
   * @package TEC\Events\Site_Health
   */
- class Provider extends \tad_DI52_ServiceProvider {
+ class Provider extends ServiceProvider {
 	/**
 	 * Internal placeholder to pass around the section slug.
 	 *

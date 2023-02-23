@@ -18,6 +18,7 @@
 namespace Tribe\Events\Views\V2\Customizer;
 
 use Tribe__Events__Main as TEC;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 /**
  * Class Hooks
@@ -26,7 +27,7 @@ use Tribe__Events__Main as TEC;
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.

@@ -8,6 +8,7 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Feedback;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 /**
  * Class ServiceProvider
@@ -16,7 +17,7 @@ namespace TEC\Events\Custom_Tables\V1\Feedback;
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends ServiceProvider {
 
 	/**
 	 * Register the feedback related implementations and hooks.
