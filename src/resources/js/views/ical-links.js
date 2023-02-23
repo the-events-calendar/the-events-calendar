@@ -41,10 +41,7 @@
 		icalLinks: '.tribe-events-c-subscribe-dropdown',
 		icalLinksButton: '.tribe-events-c-subscribe-dropdown__button-text',
 		icalLinksButtonActiveClass: 'tribe-events-c-subscribe-dropdown__button--active',
-		icalLinksListContainer: '.tribe-events-c-subscribe-dropdown__content',
-		icalLinksListContainerShow: 'tribe-events-c-subscribe-dropdown__content--show',
-		icalLinksIcon: '.tribe-events-c-subscribe-dropdown__button-icon',
-		icalLinksIconRotate: 'tribe-events-c-subscribe-dropdown__button-icon--rotate',
+		icalLinksListContainer: 'tribe-events-c-subscribe-dropdown__content',
 	};
 
 	/**
@@ -58,28 +55,6 @@
 	 */
 	obj.handleIcalLinksButtonClick = function( event ) {
 		$( event.target ).toggleClass( obj.selectors.icalLinksButtonActiveClass );
-	};
-
-	/**
-	 * Toggles active class on the dropdown container.
-	 *
-	 * @since TBD
-	 *
-	 * @return {void}
-	 */
-	obj.handleIcalLinksListContainerClick = function() {
-		$( obj.selectors.icalLinksListContainer ).toggleClass( obj.selectors.icalLinksListContainerShow );
-	};
-
-	/**
-	 * Toggles rotate class on the button icon.
-	 *
-	 * @since TBD
-	 *
-	 * @return {void}
-	 */
-	obj.handleIcalLinksIconClick = function() {
-		$( obj.selectors.icalLinksIcon ).toggleClass( obj.selectors.icalLinksIconRotate );
 	};
 
 	/**
@@ -97,16 +72,6 @@
 			obj.selectors.icalLinksButton,
 			obj.handleIcalLinksButtonClick
 		);
-
-		$( obj.selectors.icalLinksButton ).on(
-			'click',
-			obj.handleIcalLinksListContainerClick
-		);
-
-		$( obj.selectors.icalLinksButton ).on(
-			'click',
-			obj.handleIcalLinksIconClick
-		);
 	};
 	/**
 	 * Unbinds events for container
@@ -121,14 +86,6 @@
 		$container
 			.find( obj.selectors.icalLinksButton )
 			.off( 'click', obj.handleIcalLinksButtonClick );
-
-		$container
-			.find( obj.selectors.icalLinksButton )
-			.off( 'click', obj.handleIcalLinksListContainerClick );
-
-		$container
-			.find( obj.selectors.icalLinksButton )
-			.off( 'click', obj.handleIcalLinksIconRotate );
 	};
 
 	/**
