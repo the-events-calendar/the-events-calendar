@@ -36,6 +36,8 @@ if ( ! $event->thumbnail->exists ) {
 			<?php endif; ?>
 			<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
 				alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
+			<?php else : // We need to ensure we have an empty alt tag for accessibility reasons if the user doesn't set one for the featured image ?>
+				alt=""
 			<?php endif; ?>
 			<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
 				title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
