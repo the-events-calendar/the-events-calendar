@@ -140,6 +140,7 @@ function tribe_events_title( $depth = true ) {
  * @return string title
  */
 function tribe_get_events_title( $depth = true ) {
+	$context = tribe_context();
 
 	if ( ! $wp_query = tribe_get_global_query_object() ) {
 		return;
@@ -206,8 +207,9 @@ function tribe_get_events_title( $depth = true ) {
 	 *
 	 * @param string $title The "Events" page title as it's been generated thus far.
 	 * @param bool   $depth Whether to include the linked title or not.
+	 * @param Context $context The context used to build the title, it could be the global one
 	 */
-	return apply_filters( 'tribe_get_events_title', $title, $depth );
+	return apply_filters( 'tribe_get_events_title', $title, $depth, $context );
 }
 
 /**
