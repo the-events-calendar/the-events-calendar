@@ -24,7 +24,8 @@
 	>
 		<img
 			src="http://test.tri.be/wp-content/uploads/2018/08/featured-image.jpg"
-													title="featured-image.jpg"
+										alt=""
+										title="featured-image.jpg"
 						class="tribe-events-calendar-latest-past__event-featured-image"
 		/>
 	</a>
