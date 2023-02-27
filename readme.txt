@@ -236,6 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Link to the correct Occurrence when using CT1 and WPML. [TEC-4632]
 * Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
 * Fix - Avoid fatal error in `tribe_events_event_classes` when called on events that aren't assigned to any category. [TEC-4709]
+* Fix - Ensure the Subscribe to Calendar Dropdown opens and closes consistently across all themes. [TEC-4388]
 * Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 * Tweak - Add empty alt tag to featured images across all views when a user doesn't explicitly define one to improve SEO. [ECP-1454]
