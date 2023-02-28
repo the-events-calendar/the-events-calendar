@@ -12,9 +12,9 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use \tad_DI52_Container as Container;
+use TEC\Common\lucatume\DI52\Container as Container;
 
-use \tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
@@ -25,7 +25,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
  *
  * @package TEC\Events\Custom_Tables\V1
  */
-class Provider extends Service_Provider {
+class Provider extends ServiceProvider {
 	const DISABLED = 'TEC_CUSTOM_TABLES_V1_DISABLED';
 
 	/**

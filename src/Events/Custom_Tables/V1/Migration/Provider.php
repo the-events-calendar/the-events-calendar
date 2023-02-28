@@ -10,8 +10,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use \tad_DI52_ServiceProvider as Service_Provider;
-
+use TEC\Common\lucatume\DI52\ServiceProvider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
@@ -26,7 +25,7 @@ use Tribe__Events__Main as TEC;
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
-class Provider extends Service_Provider implements Provider_Contract {
+class Provider extends ServiceProvider implements Provider_Contract {
 
 	/**
 	 * Registers the required implementations and hooks into the required

@@ -3,10 +3,10 @@
 namespace TEC\Events\Installer;
 
 use TEC\Common\StellarWP\Installer\Installer;
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends ServiceProvider {
 
 
 	/**

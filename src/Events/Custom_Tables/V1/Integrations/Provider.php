@@ -10,7 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\Integrations;
 
 
-use \tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
 /**
@@ -20,7 +20,7 @@ use \tad_DI52_ServiceProvider as Service_Provider;
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
-class Provider extends Service_Provider {
+class Provider extends ServiceProvider {
 	/**
 	 * Registers the Service Providers required for the plugin to work with other plugins.
 	 *

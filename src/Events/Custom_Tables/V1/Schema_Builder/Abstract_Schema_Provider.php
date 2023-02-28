@@ -8,7 +8,7 @@
  */
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
-use \tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
 /**
@@ -18,7 +18,7 @@ use \tad_DI52_ServiceProvider as Service_Provider;
  *
  * @package TEC\Events\Custom_Tables\V1\Schema_Builder
  */
-abstract class Abstract_Schema_Provider extends Service_Provider implements Schema_Provider_Interface {
+abstract class Abstract_Schema_Provider extends ServiceProvider implements Schema_Provider_Interface {
 	/**
 	 * @inheritDoc
 	 */

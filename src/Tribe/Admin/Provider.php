@@ -1,10 +1,10 @@
 <?php
 namespace Tribe\Events\Admin;
 
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
 
 
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends ServiceProvider {
 
 	/**
 	 * Register implementations.

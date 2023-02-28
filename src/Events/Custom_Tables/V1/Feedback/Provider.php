@@ -8,7 +8,7 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Feedback;
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
 
 
 /**
@@ -18,7 +18,7 @@ use \tad_DI52_ServiceProvider as ServiceProvider;
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends ServiceProvider {
 
 
 	/**

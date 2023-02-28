@@ -4,7 +4,7 @@ namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe__Events__Main;
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
 /**
@@ -14,7 +14,7 @@ use \tad_DI52_ServiceProvider as ServiceProvider;
  *
  * @package TEC\Events\Editor\Full_Site
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends ServiceProvider {
 
 
 	/**

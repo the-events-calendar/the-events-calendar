@@ -6,7 +6,7 @@
  * @since 4.9
  */
 
- use \tad_DI52_ServiceProvider as ServiceProvider;
+ use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
 /**
@@ -14,7 +14,7 @@
  *
  * @since 4.9
  */
-class Tribe__Events__Service_Providers__ORM extends \tad_DI52_ServiceProvider {
+class Tribe__Events__Service_Providers__ORM extends ServiceProvider {
 
 
 	/**

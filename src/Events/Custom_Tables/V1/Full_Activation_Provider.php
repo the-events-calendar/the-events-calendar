@@ -12,7 +12,7 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use \tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 use TEC\Events\Custom_Tables\V1\Events\Occurrences\Max_Recurrence_Provider;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
@@ -25,7 +25,7 @@ use WP_CLI;
  *
  * @package TEC\Events\Custom_Tables\V1
  */
-class Full_Activation_Provider extends Service_Provider {
+class Full_Activation_Provider extends ServiceProvider {
 	/**
 	 * A flag property indicating whether the Service Provide did register or not.
 	 *

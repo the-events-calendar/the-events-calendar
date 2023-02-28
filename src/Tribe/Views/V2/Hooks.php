@@ -28,7 +28,7 @@ use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
 /**
@@ -38,7 +38,7 @@ use \tad_DI52_ServiceProvider as ServiceProvider;
  *
  * @package Tribe\Events\Views\V2
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends ServiceProvider {
 
 
 	/**

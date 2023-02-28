@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Editor;
 
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
 /**
@@ -10,7 +10,7 @@ use \tad_DI52_ServiceProvider as ServiceProvider;
  *
  * @since 5.12.0
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends ServiceProvider {
 
 	/**
 	 * Binds and sets up implementations.

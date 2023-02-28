@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 use Closure;
 use Generator;
 use Serializable;
-use tad_DI52_Container as Container;
+use TEC\Common\lucatume\DI52\Container as Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
 

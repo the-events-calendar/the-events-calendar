@@ -25,10 +25,10 @@ use Tribe__Events__Venue as Venue;
  * @package Tribe\Events\Service_Providers
  */
 
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
-class Context extends \tad_DI52_ServiceProvider {
+class Context extends ServiceProvider {
 
 
 	/**

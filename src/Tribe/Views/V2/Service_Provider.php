@@ -9,7 +9,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Event_Status\Event_Status_Provider;
-use \tad_DI52_ServiceProvider as ServiceProvider;
+use TEC\Common\lucatume\DI52\ServiceProvider;
 
 
 /**
@@ -19,7 +19,7 @@ use \tad_DI52_ServiceProvider as ServiceProvider;
  *
  * @package Tribe\Events\Views\V2
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends ServiceProvider {
 
 
 	/**
