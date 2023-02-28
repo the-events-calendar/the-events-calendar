@@ -9,7 +9,8 @@
 
 namespace Tribe\Events\Integrations\Divi;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Class Service_Provider
@@ -18,7 +19,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Integrations\Divi
  */
-class Service_Provider extends ServiceProvider {
+class Service_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

@@ -9,7 +9,8 @@
 namespace Tribe\Events\Taxonomy;
 
 use WP_Term;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Class Taxonomy_Provider
@@ -18,7 +19,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Taxonomy
  */
-class Taxonomy_Provider extends ServiceProvider {
+class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

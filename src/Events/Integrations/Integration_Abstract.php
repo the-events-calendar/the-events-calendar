@@ -2,7 +2,8 @@
 
 namespace TEC\Events\Integrations;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Class Integration_Abstract
@@ -11,7 +12,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package TEC\Events\Integrations
  */
-abstract class Integration_Abstract extends ServiceProvider {
+abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
+
 	/**
 	 * Binds and sets up implementations.
 	 *

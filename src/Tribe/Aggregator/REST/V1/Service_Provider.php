@@ -1,6 +1,7 @@
 <?php
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Class Tribe__Events__Aggregator__REST__V1__Service_Provider
@@ -9,7 +10,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @since 4.6.15
  */
-class Tribe__Events__Aggregator__REST__V1__Service_Provider extends ServiceProvider {
+class Tribe__Events__Aggregator__REST__V1__Service_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Binds and sets up implementations.

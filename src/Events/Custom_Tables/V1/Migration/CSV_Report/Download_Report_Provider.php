@@ -9,7 +9,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
 
-use TEC\Common\lucatume\DI52\ServiceProvider as Service_Provider;
+use \tad_DI52_ServiceProvider as Service_Provider;
+
 
 /**
  * Class Download_Report_Provider.

@@ -8,7 +8,8 @@
  */
 namespace TEC\Events\Integrations;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Class Provider
@@ -17,7 +18,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package TEC\Events\Integrations
  */
-class Provider extends ServiceProvider {
+class Provider extends \tad_DI52_ServiceProvider {
+
 	/**
 	 * Binds and sets up implementations.
 	 *

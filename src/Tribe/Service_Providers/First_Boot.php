@@ -16,7 +16,8 @@ namespace Tribe\Events\Service_Providers;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Class First_Boot
@@ -25,7 +26,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Service_Providers
  */
-class First_Boot extends ServiceProvider {
+class First_Boot extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Hooks the filters required to set up The Events Calendar after a fresh install.

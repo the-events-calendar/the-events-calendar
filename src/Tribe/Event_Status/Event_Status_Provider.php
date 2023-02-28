@@ -10,7 +10,8 @@ namespace Tribe\Events\Event_Status;
 
 use Tribe\Extensions\EventsControl\Main as Events_Control_Main;
 use Tribe\Events\Event_Status\Compatibility\Filter_Bar\Detect;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Context as Context;
 use WP_Post;
@@ -22,7 +23,8 @@ use WP_Post;
  *
  * @package Tribe\Events\Event_Status
  */
-class Event_Status_Provider extends ServiceProvider {
+class Event_Status_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * The constant to disable the event status coding.

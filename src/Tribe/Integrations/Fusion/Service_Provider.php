@@ -9,7 +9,8 @@
 
 namespace Tribe\Events\Integrations\Fusion;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Class Service_Provider
@@ -18,7 +19,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Integrations\Fusion
  */
-class Service_Provider extends ServiceProvider {
+class Service_Provider extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Registers the bindings and hooks the filters required for the Fusion Core integration to work.

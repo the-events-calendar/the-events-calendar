@@ -13,7 +13,8 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Plugin;
 use Tribe__Events__Templates;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use \tad_DI52_ServiceProvider as ServiceProvider;
+
 
 /**
  * Register
@@ -22,7 +23,8 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Views\V2
  */
-class Assets extends ServiceProvider {
+class Assets extends \tad_DI52_ServiceProvider {
+
 
 	/**
 	 * Key for this group of assets.

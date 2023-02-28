@@ -10,7 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\WP_Query\Monitors;
 
 use SplObjectStorage;
-use TEC\Common\lucatume\DI52\Container;
+use tad_DI52_Container as Container;
 use TEC\Events\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\WP_Query_Modifier;
 use WP_Query;

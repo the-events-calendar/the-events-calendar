@@ -9,7 +9,8 @@
 
 namespace TEC\Events\Legacy\Views\V1;
 
-use TEC\Common\lucatume\DI52\ServiceProvider as Service_Provider;
+use \tad_DI52_ServiceProvider as Service_Provider;
+
 use Tribe__Utils__Array as Arr;
 
 /**
