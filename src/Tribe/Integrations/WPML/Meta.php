@@ -52,10 +52,16 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $cache[ $cache_key ];
 		}
 
-		$value = $this->get_post_meta( $object_id, $meta_key );
+		$original_value = $value;
+		$value          = $this->get_post_meta( $object_id, $meta_key );
 
 		if ( empty( $value ) ) {
-			return $single ? [ $value ] : $value;
+			/*
+			 * Return the original value: if this method is filtering a check, the exact value, not just an empty vaulue,
+			 * matters. If the original value is `null` and this method returns an empty string or empty array, the
+			 * returned value will make the `get_metadata_raw` function bail out and return the incorrect value.
+			 */
+			return $single ? [ $original_value ] : $original_value;
 		}
 
 		$type = false !== strpos( $meta_key, 'Organizer' )
@@ -71,7 +77,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 					 *
 					 * @param int    $id   The ID of the post type or taxonomy term to filter
 					 * @param string $type The type of element the ID belongs to.
-					 * @param bool    true   If set to true it will always return a value (the original value, if translation is missing)
+					 * @param bool   $return true   If set to true it will always return a value (the original value, if translation is missing)
 					 */
 					$id = (string) apply_filters( 'wpml_object_id', $id, $type, true );
 				}
