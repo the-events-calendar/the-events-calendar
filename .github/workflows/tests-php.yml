@@ -5,28 +5,28 @@ jobs:
     strategy:
       matrix:
         suite:
-#          - aggregatorv1
-#          - blocks_editor_integration
-#          - event_status
+          - aggregatorv1
+          - blocks_editor_integration
+          - event_status
           - integration
-#          - integrations_plugin_wordpress_seo
-#          - muintegration
-#          - restv1
-#          - views_integration
-#          - views_settings
-#          - views_ui
-#          - views_v2_customizer_integration
-#          - views_widgets
-#          - views_wpunit
-#          - wpunit
-#          - ct1_integration
-#          - ct1_multisite_integration
-#          - deprecated
-#          # really weird error with RBE changes.
-#          # - views_rest
-#          - wp_json_api
-#          - ct1_wp_json_api
-#          - rewrite_functional
+          - integrations_plugin_wordpress_seo
+          - muintegration
+          - restv1
+          - views_integration
+          - views_settings
+          - views_ui
+          - views_v2_customizer_integration
+          - views_widgets
+          - views_wpunit
+          - wpunit
+          - ct1_integration
+          - ct1_multisite_integration
+          - deprecated
+          # really weird error with RBE changes.
+          # - views_rest
+          - wp_json_api
+          - ct1_wp_json_api
+          - rewrite_functional
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
