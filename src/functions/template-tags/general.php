@@ -474,6 +474,11 @@ function tribe_get_event_cat_ids( $post_id = 0 ) {
 		return [];
 	}
 
+	// Makes sure we are not throwing fatals on PHP 8.0.
+	if ( empty( $terms ) ) {
+		return [];
+	}
+
 	$terms = array_values( array_filter( $terms, static function ( $term ) {
 		return $term instanceof WP_Term;
 	} ) );
@@ -496,9 +501,9 @@ function tribe_get_event_cat_slugs( $post_id = 0 ) {
 	/**
 	 * Returns an empty array on events that aren't assigned
 	 * to any category or when $terms generates an error.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @return array
 	 */
 	if (  empty ( $terms ) || $terms instanceof WP_Error ) {
