@@ -459,16 +459,20 @@ function tribe_is_past_event( $event = null ) {
 }
 
 /**
- * Event Category ID's
+ * Returns an array terms `term_id` from the taxonomy `tribe_cat` for a given event.
  *
- * Display the event category ID as a class for events wrapper
+ * @since 3.0.0
+ * @since TBD Type hinting the return to array.
  *
  * @uses     wp_get_object_terms()
- * @category Events
+ *
+ * @param int|string|WP_Post $post_id
+ *
+ * @return array<int>
  */
-function tribe_get_event_cat_ids( $post_id = 0 ) {
-	$post_id  = Tribe__Events__Main::postIdHelper( $post_id );
-	$terms = get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
+function tribe_get_event_cat_ids( $post_id = 0 ): array {
+	$post_id = Tribe__Events__Main::postIdHelper( $post_id );
+	$terms   = get_the_terms( $post_id, Tribe__Events__Main::TAXONOMY );
 
 	if ( $terms instanceof WP_Error ) {
 		return [];
