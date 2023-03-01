@@ -49,7 +49,9 @@ class Tribe__Events__Integrations__WPML__Meta {
 		$cache_key = 'wpml_meta_translate_post_id_' . $object_id . '-' . $meta_key;
 
 		if ( isset( $cache[ $cache_key ] ) ) {
-			return $cache[ $cache_key ];
+			$cached = $cache[ $cache_key ];
+
+			return $single ? $cached : [ $cached ];
 		}
 
 		$original_value = $value;
@@ -94,7 +96,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			}
 		}
 
-		$cache[ $cache_key ] = $value;
+		$cache[ $cache_key ] = $value[0];
 
 		return $single ? $value[0] : $value;
 	}

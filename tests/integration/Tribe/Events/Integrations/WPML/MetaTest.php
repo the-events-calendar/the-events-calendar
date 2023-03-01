@@ -69,6 +69,28 @@ class MetaTest extends \Codeception\TestCase\WPTestCase {
 				];
 			}
 		];
+		yield 'supported meta, db value is serialized set of post IDs, multiple' => [
+			function () {
+				$_POST          = [];
+				$post_id        = $this->given_an_event()->ID;
+				$organizer_1_id = tribe_organizers()->set_args( [
+					'title' => 'Test Organizer',
+				] )->create()->ID;
+				$organizer_2_id = tribe_organizers()->set_args( [
+					'title' => 'Test Organizer',
+				] )->create()->ID;
+				update_post_meta( $post_id, '_EventOrganizerID', [ $organizer_1_id, $organizer_2_id ] );
+				add_filter( 'wpml_object_id', static fn( $id ) => $id + 23 );
+
+				return [
+					null,
+					$post_id,
+					'_EventOrganizerID',
+					false,
+					[ [ $organizer_1_id + 23, $organizer_2_id + 23 ] ]
+				];
+			}
+		];
 		yield 'supported meta, db value is single post ID' => [
 			function () {
 				$_POST          = [];
@@ -88,6 +110,25 @@ class MetaTest extends \Codeception\TestCase\WPTestCase {
 				];
 			}
 		];
+		yield 'supported meta, db value is single post ID, multiple' => [
+			function () {
+				$_POST          = [];
+				$post_id        = $this->given_an_event()->ID;
+				$organizer_1_id = tribe_organizers()->set_args( [
+					'title' => 'Test Organizer',
+				] )->create()->ID;
+				update_post_meta( $post_id, '_EventOrganizerID', $organizer_1_id );
+				add_filter( 'wpml_object_id', static fn( $id ) => $id + 23 );
+
+				return [
+					null,
+					$post_id,
+					'_EventOrganizerID',
+					false,
+					[ $organizer_1_id + 23 ]
+				];
+			}
+		];
 	}
 
 	/**
@@ -100,5 +141,7 @@ class MetaTest extends \Codeception\TestCase\WPTestCase {
 		$filtered_meta_value = $meta->translate_post_id( $value, $object_id, $meta_key, $single );
 
 		$this->assertEquals( $expected, $filtered_meta_value );
+		$cached_value = $meta->translate_post_id( $value, $object_id, $meta_key, $single );
+		$this->assertEquals( $expected, $cached_value );
 	}
 }
