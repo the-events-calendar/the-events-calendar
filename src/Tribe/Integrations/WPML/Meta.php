@@ -75,8 +75,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 					/**
 					 * Returns an element’s ID in the current language or in another specified language.
 					 *
-					 * @param int    $id   The ID of the post type or taxonomy term to filter
-					 * @param string $type The type of element the ID belongs to.
+					 * @param int    $id     The ID of the post type or taxonomy term to filter
+					 * @param string $type   The type of element the ID belongs to.
 					 * @param bool   $return true   If set to true it will always return a value (the original value, if translation is missing)
 					 */
 					$id = (string) apply_filters( 'wpml_object_id', $id, $type, true );
@@ -134,7 +134,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 		}
 
 		// Pre-fill the key to post type map to avoid calling expensive functions for each element.
-		$keys       = [
+		$keys = [
 			'_EventVenueID'     => Main::VENUE_POST_TYPE,
 			'_EventOrganizerID' => Main::ORGANIZER_POST_TYPE,
 		];
@@ -161,8 +161,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 *
 	 * @since 5.8.2
 	 *
-	 * @param     string $element_type The post element type as WPML expects it: `post_<post_type>`.
-	 * @param int $element_id The ID of the linked post (element) to translate.
+	 * @param string $element_type The post element type as WPML expects it: `post_<post_type>`.
+	 * @param int    $element_id   The ID of the linked post (element) to translate.
 	 *
 	 * @return array<int> A list of the available translation IDs for the specified linked post.
 	 */
