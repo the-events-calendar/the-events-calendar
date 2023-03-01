@@ -61,7 +61,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			 * matters. If the original value is `null` and this method returns an empty string or empty array, the
 			 * returned value will make the `get_metadata_raw` function bail out and return the incorrect value.
 			 */
-			return $single ? [ $original_value ] : $original_value;
+			return $original_value;
 		}
 
 		$type = false !== strpos( $meta_key, 'Organizer' )
@@ -96,7 +96,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 
 		$cache[ $cache_key ] = $value;
 
-		return $value;
+		return $single ? $value[0] : $value;
 	}
 
 	/**
