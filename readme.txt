@@ -231,8 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix: Fix for scenarios when a lang code is not set in a partial WPML activation, an error would occur and stop processing event saves. [ECP-1442]
-* Fix: Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
+* Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
+* Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
 * Fix - Display Venue correctly in List-like views when using WPML. [ECP-1443]
 * Fix - Link to the correct Occurrence when using CT1 and WPML. [TEC-4632]
 * Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
