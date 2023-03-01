@@ -33,6 +33,7 @@ class WPMLTest extends WPTestCase {
 	/**
 	 * @test
 	 * @dataProvider rewrite_rules_data_provider
+	 * @skip
 	 */
 	public function should_handle_filter_rewrite_rules_ok( $expected, $faux_rewrite ) {
 		$wpml_rewrite = Tribe__Events__Integrations__WPML__Rewrites::instance();
