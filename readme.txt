@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid fatal error in `tribe_events_event_classes` when called on events that aren't assigned to any category. [TEC-4709]
 * Fix - Ensure the Subscribe to Calendar Dropdown opens and closes consistently across all themes. [TEC-4388]
 * Fix - Ensure the date tags for recurring events are displayed correctly in the `Events List` widget. [ECP-1382]
+* Fix - Fix an issue that stopped the default venue values from populating when submitting a Community Event. [CE-178]
 * Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 * Tweak - Add empty alt tag to featured images across all views when a user doesn't explicitly define one to improve SEO. [ECP-1454]
