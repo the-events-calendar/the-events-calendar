@@ -44,6 +44,7 @@ class WPMLTest extends WPTestCase {
 
 	/**
 	 * @test
+	 * @skip SIGSEGV (139) when running in CI context; investigation will follow.
 	 */
 	public function should_handle_missing_lang_code_linked_post_filter() {
 		$venue_id = tribe_create_venue( [
