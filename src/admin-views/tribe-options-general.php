@@ -173,7 +173,7 @@ $tec_events_general_toc = [
 $general_tab_fields += $tec_events_general_toc;
 
 // Start the form content wrapper.
-$tec_events_general_form_end = [
+$tec_events_general_form_start = [
 
 	'tribe-form-content-start' => [
 		'type' => 'html',
@@ -181,7 +181,7 @@ $tec_events_general_form_end = [
 	],
 ];
 
-$general_tab_fields += $tec_events_general_form_end;
+$general_tab_fields += $tec_events_general_form_start;
 
 // Add the "Viewing" section.
 $tec_events_general_viewing = [
@@ -245,7 +245,7 @@ $tec_events_general_viewing = [
 	],
 ];
 
-$general_tab_fields += $tec_events_general_viewing;
+$general_tab_fields +=  apply_filters( 'tribe_general_settings_viewing_section', $tec_events_general_viewing );
 
 $is_missing_aggregator_license_key = '' === get_option( 'pue_install_key_event_aggregator' );
 $should_hide_upsell                = tec_should_hide_upsell();
@@ -295,7 +295,7 @@ $tec_events_general_editing = [
 	],
 ];
 
-$general_tab_fields += $tec_events_general_editing;
+$general_tab_fields +=  apply_filters( 'tribe_general_settings_editing_section', $tec_events_general_editing );
 
 // Add the "Maintenance" section.
 $tec_events_general_maintenance = [
@@ -345,7 +345,7 @@ $tec_events_general_maintenance = [
 	],
 ];
 
-$general_tab_fields += $tec_events_general_maintenance;
+$general_tab_fields +=  apply_filters( 'tribe_general_settings_maintenance_section', $tec_events_general_maintenance );
 
 // Add the "Debugging" section.
 $tec_events_general_debugging = [
@@ -375,7 +375,6 @@ $tec_events_general_debugging = [
 			 '</a>',
 			 '</p>',
 		),
-
 	],
 	'tec-troubleshooting-infobox-end' => [
 		'type' => 'html',
@@ -397,7 +396,7 @@ $tec_events_general_debugging = [
 	],
 ];
 
-$general_tab_fields += $tec_events_general_debugging;
+$general_tab_fields +=  apply_filters( 'tribe_general_settings_debugging_section', $tec_events_general_debugging );
 
 // Close the form content wrapper.
 $general_tab_fields += [

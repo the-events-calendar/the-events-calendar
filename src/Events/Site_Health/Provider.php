@@ -1,5 +1,4 @@
 <?php
-// tec_debug_info_sections
 /**
  * Service Provider for interfacing with tec-common Site Health.
  *
@@ -8,19 +7,18 @@
  * @package TEC\Events\Site_Health
  */
 
- namespace TEC\Events\Site_Health;
+namespace TEC\Events\Site_Health;
 
- use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
-
+use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
 
  /**
-  * Class Site_Health
+  * Class Provider
   *
   * @since   TBD
 
   * @package TEC\Events\Site_Health
   */
- class Provider extends ServiceProvider {
+class Provider extends ServiceProvider {
 
 	/**
 	 * Internal placeholder to pass around the section slug.
@@ -56,4 +54,4 @@
 		return $this->container->make( Info_Section::class )->add_fields();
 	}
 
- }
+}
