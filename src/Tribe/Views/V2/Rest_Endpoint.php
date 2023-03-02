@@ -108,7 +108,7 @@ class Rest_Endpoint {
 					return is_string( $view );
 				},
 				'sanitize_callback' => static function ( $view ) {
-					return filter_var( $view, FILTER_SANITIZE_STRING );
+					return htmlspecialchars( $view, ENT_QUOTES );
 				},
 			],
 			'_wpnonce' => [
@@ -117,7 +117,7 @@ class Rest_Endpoint {
 					return is_string( $nonce );
 				},
 				'sanitize_callback' => static function ( $nonce ) {
-					return filter_var( $nonce, FILTER_SANITIZE_STRING );
+					return htmlspecialchars( $nonce, ENT_QUOTES );
 				},
 			],
 			'view_data' => [
@@ -138,7 +138,7 @@ class Rest_Endpoint {
 				return is_string( $action );
 			},
 			'sanitize_callback' => static function ( $action ) {
-				return filter_var( $action, FILTER_SANITIZE_STRING );
+				return htmlspecialchars( $action, ENT_QUOTES );
 			},
 		];
 
