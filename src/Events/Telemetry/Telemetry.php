@@ -74,7 +74,11 @@ class Telemetry {
 				%3$s: opening anchor tag for privacy policy link.
 				%4$s: closing anchor tags.
 				*/
-				_x( 'Enable this option to share usage data with The Events Calendar and StellarWP. %1$sWhat permissions are being granted?%4$s %2$sRead our Terms of Service%4$s %3$sRead our Privacy Policy%4$s', 'Description of optin setting.', 'the-events-calendar' ),
+				_x(
+					'Enable this option to share usage data with The Events Calendar and StellarWP. %1$sWhat permissions are being granted?%4$s %2$sRead our terms of service%4$s. %3$sRead our privacy policy%4$s.',
+					'Description of optin setting.',
+					'the-events-calendar'
+				),
 				'<a href=" ' . Common_Telemetry::get_permissions_url() . ' ">',
 				'<a href=" ' . Common_Telemetry::get_terms_url() . ' ">',
 				'<a href=" ' . Common_Telemetry::get_privacy_url() . ' ">',
