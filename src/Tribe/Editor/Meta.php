@@ -139,8 +139,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		global $wp;
 
-		$current_url = home_url( $wp->request );
-		$allowed_rest_url = rest_url( 'wp/v2' );
+		$current_url      = home_url( $wp->request );
+		$allowed_rest_url = home_url( trailingslashit( rest_get_url_prefix() ) . 'wp/v2' );
 
 		// Only this overwrite on the Tribe Events Endpoint.
 		if ( false === strpos( $current_url, $allowed_rest_url ) ) {
