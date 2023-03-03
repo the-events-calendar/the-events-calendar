@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
+
 = [6.0.10] TBD =
 
 * Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
