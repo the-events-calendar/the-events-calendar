@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.10] TBD =
 
 * Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
 * Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid fatal error in `tribe_events_event_classes` when called on events that aren't assigned to any category. [TEC-4709]
 * Fix - Ensure the Subscribe to Calendar Dropdown opens and closes consistently across all themes. [TEC-4388]
 * Fix - Ensure the date tags for recurring events are displayed correctly in the `Events List` widget. [ECP-1382]
+* Fix - Prevent PHP 8.0+ fatal around iCal exporting with param not being array [TEC-4726]
 * Fix - Failures while saving Events from Blocks Editor while using WPML. [ECP-1429]
 * Fix - Fix an issue that stopped the default venue values from populating when submitting a Community Event. [CE-178]
 * Fix - Prevent fatal on PHP 8+ for `tribe_get_event_cat_slugs` with bad typing around `array_filter` [TEC-4725]
