@@ -243,6 +243,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Failures while saving Events from Blocks Editor while using WPML. [ECP-1429]
 * Fix - Fix an issue that stopped the default venue values from populating when submitting a Community Event. [CE-178]
 * Fix - Prevent fatal on PHP 8+ for `tribe_get_event_cat_slugs` with bad typing around `array_filter` [TEC-4725]
+* Fix - Prevent fatal on PHP 8+ during generation of the activation report when issues exist.
 * Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 * Tweak - Add empty alt tag to featured images across all views when a user doesn't explicitly define one to improve SEO. [ECP-1454]

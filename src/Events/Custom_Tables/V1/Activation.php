@@ -189,7 +189,7 @@ class Activation {
 			$issue_reports[] = "`Occurrences` Table Missing";
 		}
 
-		$reports = empty( $issue_reports ) ? 'Good!' : implode( $issue_reports, ' | ' );
+		$reports = empty( $issue_reports ) ? 'Good!' : implode( ' | ', $issue_reports );
 
 		// Add health checks here.
 		$migration_health_check = [
