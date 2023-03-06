@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Avoid JS error in Block Editor. [n/a]
+* Fix - Avoid PHP errors originating from a missing HTML template when the migration to Custom Tables v1 is not required. [n/a]
 
 = [6.0.10] 2023-02-22 =
 

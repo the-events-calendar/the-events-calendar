@@ -216,6 +216,17 @@ class Ajax {
 		// What phase are we in?
 		$state    = $this->state;
 		$phase    = $state->get_phase();
+
+		// Short-circuit if migration is not required.
+		if ( $phase === State::PHASE_MIGRATION_NOT_REQUIRED ) {
+			return [
+				'key'   => '',
+				'html'  => '',
+				'nodes' => [],
+				'poll'  => false,
+			];
+		}
+
 		$renderer = $this->get_renderer_for_phase( $phase );
 
 		return $renderer->compile();
