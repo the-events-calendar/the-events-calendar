@@ -102,17 +102,18 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 	};
 };
 
-const StatefulEventOrganizer = ( {   ...props } ) => {
+const StatefulEventOrganizer = ( { ...props } ) => {
 	useEffect( () => {
 		// Manage our initial state for defaults.
 		let defaults = editorDefaults();
-		if(defaults && defaults.organizer) {
-			props.setAttributes({organizer:defaults.organizer});
+		let attributes = props.attributes;
+		if ( ! attributes.organizer && defaults && defaults.organizer ) {
+			props.setAttributes( { organizer: defaults.organizer } );
 		}
-	},[] )
+	}, [] )
 
 	return (
-		<EventOrganizer { ...props }   />
+		<EventOrganizer { ...props } />
 	)
 }
 
