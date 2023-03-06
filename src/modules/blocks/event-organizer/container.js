@@ -102,12 +102,13 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 	};
 };
 
-const StatefulEventOrganizer = ( { ...props } ) => {
+const StatefulEventOrganizer = ( props ) => {
 	useEffect( () => {
 		// Manage our initial state for defaults.
-		let defaults = editorDefaults();
-		let attributes = props.attributes;
-		if ( ! attributes.organizer && defaults && defaults.organizer ) {
+		const defaults = editorDefaults();
+		const { attributes: { organizer } } = props;
+
+		if ( ! organizer && defaults && defaults.organizer ) {
 			props.setAttributes( { organizer: defaults.organizer } );
 		}
 	}, [] )
@@ -117,7 +118,6 @@ const StatefulEventOrganizer = ( { ...props } ) => {
 	)
 }
 
-
 export default compose(
 	withStore( { isolated: true, postType: editor.ORGANIZER } ),
 	withForm( ( props ) => props.clientId ),
@@ -125,6 +125,3 @@ export default compose(
 	withDetails( 'organizer' ),
 	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
 )( StatefulEventOrganizer );
-
-
-
