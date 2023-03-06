@@ -228,6 +228,6 @@ class View_Register {
 			return;
 		}
 
-		echo "\n<link rel='canonical' href='" . esc_url( $current_url ) . "' />\n";
+		echo "\n<link rel='canonical' href='" . esc_url( $current_url ) . "/' />\n";
 	}
 }
