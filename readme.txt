@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Avoid JS error in Block Editor. [n/a]
+
 = [6.0.10] 2023-02-22 =
 
 * Version - The Events Calendar 6.0.10 is only compatible with Events Calendar PRO 6.0.9 and higher
