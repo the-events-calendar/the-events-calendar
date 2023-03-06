@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { uniq } from 'lodash';
@@ -18,6 +19,7 @@ import { editor } from '@moderntribe/common/data';
 import { toOrganizer } from '@moderntribe/events/elements/organizer-form/utils';
 import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
 import EventOrganizer from './template';
+import { editorDefaults } from '@moderntribe/common/utils/globals';
 
 /**
  * Module Code
@@ -70,6 +72,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 		...restStateProps,
 		...restDispatchProps,
 		onFormSubmit: ( fields ) => {
+			// Request with cleaned up form fields, callback will dispatch to create new organizer details component.
 			ownProps.sendForm( toOrganizer( fields ), onFormCompleted( state, dispatch, ownProps ) );
 		},
 		onItemSelect: ( organizerID, details ) => {
@@ -99,10 +102,28 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 	};
 };
 
+const StatefulEventOrganizer = ( {   ...props } ) => {
+	useEffect( () => {
+		// Manage our initial state for defaults.
+		let defaults = editorDefaults();
+		if(defaults && defaults.organizer) {
+			props.setAttributes({organizer:defaults.organizer});
+		}
+	},[] )
+
+	return (
+		<EventOrganizer { ...props }   />
+	)
+}
+
+
 export default compose(
 	withStore( { isolated: true, postType: editor.ORGANIZER } ),
 	withForm( ( props ) => props.clientId ),
 	connect( mapStateToProps ),
 	withDetails( 'organizer' ),
 	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
-)( EventOrganizer );
+)( StatefulEventOrganizer );
+
+
+
