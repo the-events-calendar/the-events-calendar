@@ -218,7 +218,7 @@ class View_Register {
 	public function add_canonical_tags() {
 		global $wp;
 
-		$current_url = home_url( $wp->request );
+		$current_url = trailingslashit( home_url( $wp->request ) );
 
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
 			return;
@@ -228,6 +228,6 @@ class View_Register {
 			return;
 		}
 
-		echo "\n" . '<link rel="canonical" id="tec-seo-meta-tag" href="' . esc_url( $current_url ) . '/" />' . "\n";
+		echo "\n" . '<link rel="canonical" id="tec-seo-meta-tag" href="' . esc_url( $current_url ) . '" />' . "\n";
 	}
 }
