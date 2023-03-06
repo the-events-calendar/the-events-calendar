@@ -220,7 +220,7 @@ class Ajax {
 		// Short-circuit if migration is not required.
 		if ( $phase === State::PHASE_MIGRATION_NOT_REQUIRED ) {
 			return [
-				'key'   => '',
+				'key'   => 'migration-not-required',
 				'html'  => '',
 				'nodes' => [],
 				'poll'  => false,
