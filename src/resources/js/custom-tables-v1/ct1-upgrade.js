@@ -167,7 +167,7 @@ export const pollForReport = () => {
 export const handleReportData = function (data) {
 	const {nodes, key, html} = data;
 
-	if ( key === 'migration-not-required' ) {
+	if ( key === 'stop' ) {
 		currentViewState.poll = false;
 		return;
 	}
