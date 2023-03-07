@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { uniq } from 'lodash';
+import PropTypes from 'prop-types';
 
 /**
  * Internal dependencies
@@ -115,8 +116,13 @@ const StatefulEventOrganizer = ( props ) => {
 
 	return (
 		<EventOrganizer { ...props } />
-	)
-}
+	);
+};
+
+StatefulEventOrganizer.propTypes = {
+	attributes: PropTypes.array,
+	setAttributes: PropTypes.func,
+};
 
 export default compose(
 	withStore( { isolated: true, postType: editor.ORGANIZER } ),
