@@ -456,7 +456,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		);
 		tribe_asset(
 			$plugin,
-			'tribe-the-events-calendar-main',
+			'tribe-the-events-calendar-editor',
 			'app/main.js',
 			[],
 			'enqueue_block_editor_assets',

@@ -1,6 +1,7 @@
 <?php
 
 use Tribe__Events__Main as Main;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 
 /**
  * Translate post ids in Event meta data.
@@ -33,6 +34,10 @@ class Tribe__Events__Integrations__WPML__Meta {
 			return $value;
 		}
 
+		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+			$object_id = Occurrence::normalize_id( $object_id );
+		}
+
 		$accepted_values = [ '_EventOrganizerID', '_EventVenueID' ];
 
 		if ( ! in_array( $meta_key, $accepted_values ) ) {
@@ -44,13 +49,21 @@ class Tribe__Events__Integrations__WPML__Meta {
 		$cache_key = 'wpml_meta_translate_post_id_' . $object_id . '-' . $meta_key;
 
 		if ( isset( $cache[ $cache_key ] ) ) {
-			return $cache[ $cache_key ];
+			$cached = $cache[ $cache_key ];
+
+			return $single ? $cached : [ $cached ];
 		}
 
-		$value = $this->get_post_meta( $object_id, $meta_key );
+		$original_value = $value;
+		$value          = $this->get_post_meta( $object_id, $meta_key );
 
 		if ( empty( $value ) ) {
-			return $single ? [ $value ] : $value;
+			/*
+			 * Return the original value: if this method is filtering a check, the exact value, not just an empty vaulue,
+			 * matters. If the original value is `null` and this method returns an empty string or empty array, the
+			 * returned value will make the `get_metadata_raw` function bail out and return the incorrect value.
+			 */
+			return $original_value;
 		}
 
 		$type = false !== strpos( $meta_key, 'Organizer' )
@@ -64,9 +77,9 @@ class Tribe__Events__Integrations__WPML__Meta {
 					/**
 					 * Returns an element’s ID in the current language or in another specified language.
 					 *
-					 * @param int    $id   The ID of the post type or taxonomy term to filter
-					 * @param string $type The type of element the ID belongs to.
-					 * @param bool    true   If set to true it will always return a value (the original value, if translation is missing)
+					 * @param int    $id     The ID of the post type or taxonomy term to filter
+					 * @param string $type   The type of element the ID belongs to.
+					 * @param bool   $return true   If set to true it will always return a value (the original value, if translation is missing)
 					 */
 					$id = (string) apply_filters( 'wpml_object_id', $id, $type, true );
 				}
@@ -83,9 +96,9 @@ class Tribe__Events__Integrations__WPML__Meta {
 			}
 		}
 
-		$cache[ $cache_key ] = $value;
+		$cache[ $cache_key ] = $value[0];
 
-		return $value;
+		return $single ? $value[0] : $value;
 	}
 
 	/**
@@ -123,7 +136,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 		}
 
 		// Pre-fill the key to post type map to avoid calling expensive functions for each element.
-		$keys       = [
+		$keys = [
 			'_EventVenueID'     => Main::VENUE_POST_TYPE,
 			'_EventOrganizerID' => Main::ORGANIZER_POST_TYPE,
 		];
@@ -150,8 +163,8 @@ class Tribe__Events__Integrations__WPML__Meta {
 	 *
 	 * @since 5.8.2
 	 *
-	 * @param     string $element_type The post element type as WPML expects it: `post_<post_type>`.
-	 * @param int $element_id The ID of the linked post (element) to translate.
+	 * @param string $element_type The post element type as WPML expects it: `post_<post_type>`.
+	 * @param int    $element_id   The ID of the linked post (element) to translate.
 	 *
 	 * @return array<int> A list of the available translation IDs for the specified linked post.
 	 */
