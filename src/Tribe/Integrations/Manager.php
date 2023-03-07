@@ -5,6 +5,8 @@ use Tribe\Events\Integrations\Fusion\Service_Provider as Fusion_Integration;
 use Tribe\Events\Integrations\Hello_Elementor\Service_Provider as Hello_Elementor_Integration;
 use Tribe\Events\Integrations\WP_Rocket;
 use Tribe\Events\Integrations\Restrict_Content_Pro\Service_Provider as RCP_Integration;
+use Tribe\Events\Integrations\Yoast_SEO\Service_Provider as Yoast_SEO;
+use Tribe\Events\Integrations\Rank_Math\Service_Provider as Rank_Math;
 
 /**
  * Class Tribe__Events__Integrations__Manager
@@ -49,6 +51,8 @@ class Tribe__Events__Integrations__Manager {
 		$this->load_fusion_integration();
 		$this->load_hello_elementor_integration();
 		$this->load_divi_integration();
+		$this->load_yoast_seo_integration();
+		$this->load_rank_math_seo_integration();
 	}
 
 	/**
@@ -225,5 +229,31 @@ class Tribe__Events__Integrations__Manager {
 	 */
 	private function load_divi_integration() {
 		tribe_register_provider( Tribe\Events\Integrations\Divi\Service_Provider::class );
+	}
+
+	/**
+	 * Loads the integrations if the Yoast SEO plugin is currently active.
+	 *
+	 * @since TBD
+	 */
+	private function load_yoast_seo_integration() {
+		if ( ! defined( 'WPSEO_FILE' ) || empty( WPSEO_FILE ) ) {
+			return;
+		}
+
+		tribe_register_provider( Yoast_SEO::class );
+	}
+
+	/**
+	 * Loads the integrations if the RankMath SEO plugin is currently active.
+	 *
+	 * @since TBD
+	 */
+	private function load_rank_math_seo_integration() {
+		if ( ! defined( 'RANK_MATH_FILE' ) || empty( RANK_MATH_FILE ) ) {
+			return;
+		}
+
+		tribe_register_provider( Rank_Math::class );
 	}
 }
