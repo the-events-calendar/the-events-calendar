@@ -83,7 +83,7 @@ class View_Register {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'filter_add_routes' ], 5 );
-		add_action( 'wp_head', [ $this, 'add_canonical_tags' ] );
+		add_action( 'wp', [ $this, 'add_canonical_tag' ] );
 	}
 
 	/**
@@ -209,25 +209,50 @@ class View_Register {
 	}
 
 	/**
-	 * Add canonical tag to the head of all calendar views.
+	 * The canonical tag that should be added to the page header.
 	 *
-	 * @since 6.0.7
+	 * @since TBD
 	 *
 	 * @param string $current_url The URL of the page being currently viewed.
 	 */
-	public function add_canonical_tags() {
+	public function set_canonical_tag() {
 		global $wp;
 
 		$current_url = trailingslashit( home_url( $wp->request ) );
 
+		echo "\n" . '<link rel="canonical" id="tec-seo-meta-tag" href="' . esc_url( $current_url ) . '" />' . "\n";
+	}
+
+	/**
+	 * Add canonical tag to the head of all calendar views.
+	 *
+	 * @since 6.0.7
+	 * @since TBD
+	 *
+	 * @param bool $add_canonical_tag Whether or not we should add the canonical tag to the current event view.
+	 */
+	public function add_canonical_tag() {
+		$add_canonical_tag = true;
+
 		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
-			return;
+			$add_canonical_tag = false;
 		}
 
 		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-			return;
+			$add_canonical_tag = false;
 		}
 
-		echo "\n" . '<link rel="canonical" id="tec-seo-meta-tag" href="' . esc_url( $current_url ) . '" />' . "\n";
+		/**
+		 * Determines whether or not a canonical tag will be added to the current event view.
+		 *
+		 * @since TBD
+		 *
+		 * @var bool $add_canonical_tag Whether or not we should add the current event view.
+		 */
+		$add_canonical_tag = apply_filters( 'tribe_events_add_canonical_tag', $add_canonical_tag );
+
+		if ( $add_canonical_tag ) {
+			add_action( 'wp_head', [ $this, 'set_canonical_tag' ] );
+		}
 	}
 }
