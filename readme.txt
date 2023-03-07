@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
+
 = [6.0.10] TBD =
 
 * Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
