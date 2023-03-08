@@ -30,7 +30,7 @@ export default {
 	attributes: {
 		organizer: {
 			type: 'html',
-			default: 0,
+			default: null,
 		},
 		organizers: {
 			type: 'array',

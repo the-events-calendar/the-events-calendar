@@ -110,7 +110,7 @@ const StatefulEventOrganizer = ( props ) => {
 		const defaults = editorDefaults();
 		const { attributes: { organizer } } = props;
 
-		if ( ! organizer && defaults && defaults.organizer ) {
+		if ( organizer === null && defaults && defaults.organizer ) {
 			props.setAttributes( { organizer: defaults.organizer } );
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,7 +122,7 @@ const StatefulEventOrganizer = ( props ) => {
 };
 
 StatefulEventOrganizer.propTypes = {
-	attributes: PropTypes.array,
+	attributes: PropTypes.object,
 	setAttributes: PropTypes.func,
 };
 
