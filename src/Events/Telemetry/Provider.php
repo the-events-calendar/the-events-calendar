@@ -51,5 +51,4 @@ class Provider extends ServiceProvider {
 	public function filter_tribe_general_settings_debugging_section( $fields ) {
 		return $this->container->get( Telemetry::class )->filter_tribe_general_settings_debugging_section( $fields );
 	}
-
 }
