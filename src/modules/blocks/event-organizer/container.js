@@ -103,6 +103,13 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 	};
 };
 
+/**
+ * Our Event Organizer blocks container. This is responsible for managing the state passed down to the template.
+ * 
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const StatefulEventOrganizer = ( props ) => {
 	// This hook should only run once, it checks for default values.
 	useEffect( () => {
