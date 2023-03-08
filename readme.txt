@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
+
 = [6.0.10] TBD =
 
 * Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
