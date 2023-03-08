@@ -25,16 +25,10 @@ class Provider extends Integration_Abstract {
 	/**
 	 * @inheritDoc
 	 * 
-	 * @return bool $should_load Whether or not integrations should load.
+	 * @return bool Whether or not integrations should load.
 	 */
 	public function load_conditionals(): bool {
-		$should_load = true;
-
-		if ( ! defined( 'RANK_MATH_FILE' ) || empty( RANK_MATH_FILE ) ) {
-			$should_load = false;
-		}
-
-		return $should_load;
+		return defined( 'RANK_MATH_FILE' ) && ! empty( RANK_MATH_FILE );
 	}
 
 	/**
