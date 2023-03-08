@@ -104,6 +104,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 };
 
 const StatefulEventOrganizer = ( props ) => {
+	// This hook should only run once, it checks for default values.
 	useEffect( () => {
 		// Manage our initial state for defaults.
 		const defaults = editorDefaults();
@@ -112,7 +113,8 @@ const StatefulEventOrganizer = ( props ) => {
 		if ( ! organizer && defaults && defaults.organizer ) {
 			props.setAttributes( { organizer: defaults.organizer } );
 		}
-	}, [] )
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [] );
 
 	return (
 		<EventOrganizer { ...props } />
