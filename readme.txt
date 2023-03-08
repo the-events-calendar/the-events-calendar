@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixes situation in block editor where a default organizer would not persist after being saved. [ECP-1061]
+
 = [6.0.10] TBD =
 
 * Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
