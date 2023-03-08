@@ -51,7 +51,10 @@ class Tribe__Events__Integrations__WPML__Meta {
 		if ( isset( $cache[ $cache_key ] ) ) {
 			$cached = $cache[ $cache_key ];
 
-			return $single ? $cached : [ $cached ];
+			// The cached value must be an array.
+			if ( is_array( $cached ) ) {
+				return $single ? reset( $cached ) : $cached;
+			}
 		}
 
 		$original_value = $value;
@@ -96,7 +99,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			}
 		}
 
-		$cache[ $cache_key ] = $value[0];
+		$cache[ $cache_key ] = $value;
 
 		return $single ? $value[0] : $value;
 	}
