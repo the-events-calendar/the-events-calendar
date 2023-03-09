@@ -53,6 +53,7 @@ tribe.events.admin.noticeInstall = {};
 	obj.ready = function() {
 		wp.hooks.addAction(
 			'stellarwp_installer_tec_error',
+			'tec/eventTicketsInstallerError',
 			function( selector, slug, action, message ) {
 				const $button = $( selector );
 				const $description = $button.siblings( obj.selectors.noticeDescription );
