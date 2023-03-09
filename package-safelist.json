@@ -14,6 +14,7 @@
   "src/resources/css/custom-tables-v1/*.css",
   "src/resources/js/views/*",
   "src/resources/js/*",
+  "src/resources/js/admin/*",
   "src/resources/images/**/*",
   "src/resources/icons/**/*",
   "src/resources/deprecated/**/*",
