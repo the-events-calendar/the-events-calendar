@@ -4,7 +4,6 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets;
 
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Events\Integrations\Plugins\Plugin_Integration;
-use TEC\Tickets\Emails\Email\Ticket;
 
 /**
  * Class Provider
@@ -52,7 +51,7 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	protected function load(): void {
-		add_filter( 'tec_tickets_emails_settings_' . Ticket::$id, [ $this, 'filter_tec_ticket_settings' ], 11, 2 );
+		add_filter( 'tec_tickets_emails_ticket_settings', [ $this, 'filter_tec_ticket_settings' ], 11, 2 );
 	}
 
 	/**
