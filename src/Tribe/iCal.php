@@ -46,10 +46,7 @@ class Tribe__Events__iCal {
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
-		add_action(
-			'tribe_events_single_event_after_the_content',
-			[ $this, 'single_event_links' ]
-		);
+		add_action( 'tribe_events_single_event_after_the_content', [ $this, 'single_event_links' ] );
 		add_action( 'template_redirect', [ $this, 'do_ical_template' ] );
 		add_filter( 'tribe_get_ical_link', [ $this, 'day_view_ical_link' ], 20, 1 );
 		add_action( 'wp_head', [ $this, 'set_feed_link' ], 2, 0 );
@@ -521,7 +518,7 @@ class Tribe__Events__iCal {
 			}
 
 			$transitions = $timezone->getTransitions( $start, $end );
-			if ( count( $transitions ) === 1 ) {
+			if ( is_array( $transitions ) && count( $transitions ) === 1 ) {
 				$transitions[] = array_values( $transitions )[ 0 ];
 			}
 

@@ -11,7 +11,7 @@ namespace TEC\Events\Custom_Tables\V1\Integrations;
 
 
 use TEC\Common\lucatume\DI52\ServiceProvider;
-
+use TEC\Events\Custom_Tables\V1\Integrations\ACF\Controller as ACF_Controller;
 
 /**
  * Class Provider
@@ -30,6 +30,11 @@ class Provider extends ServiceProvider {
 		// Class defined by the Event Events plugin.
 		if ( class_exists( '\\TEC\\Event_Tickets\\Custom_Tables\\V1\\Provider' ) ) {
 			$this->container->register( \TEC\Tickets\Custom_Tables\V1\Provider::class );
+		}
+
+		// Class defined by the Advanced Custom Fields plugin.
+		if ( class_exists( 'ACF' ) ) {
+			$this->container->register( ACF_Controller::class );
 		}
 	}
 }
