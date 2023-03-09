@@ -111,13 +111,12 @@ class Controller extends Service_Provider {
 	 * @return void Actions and filters are removed.
 	 */
 	public function unregister() {
+		// Unhook the same action twice for each supported field type; see the `register` method.
 		foreach ( self::get_supported_field_types() as $supported_field_type ) {
-			// Detect the start of a specific ACF field type to boot the handling.
 			remove_action( 'acf/render_field/type=' . $supported_field_type, [
 				$this,
 				'start_acf_handling'
 			], self::EARLY_PRIORITY );
-			// Hook again reasonably late to stop the handling.
 			remove_action( 'acf/render_field/type=' . $supported_field_type, [
 				$this,
 				'stop_acf_handling'
