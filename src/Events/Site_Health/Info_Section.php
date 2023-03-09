@@ -70,10 +70,6 @@ class Info_Section extends Info_Section_Abstract {
 		$this->description = esc_html__( 'This section contains information on The Events Calendar Plugin.', 'the-events-calendar' );
 	}
 
-	public function bool_to_text( $bool ): string {
-		return empty( $bool ) ? 'false' : 'true';
-	}
-
 	/**
 	 * Adds our default section to the Site Health Info tab.
 	 *
@@ -160,7 +156,11 @@ class Info_Section extends Info_Section_Abstract {
 		return $fields;
 	}
 
-	private function clean_status_counts( $obj ) {
+	public function bool_to_text( $bool ): string {
+		return tribe_is_truthy( $bool ) ? 'true' : 'false';
+	}
+
+	public function clean_status_counts( $obj ) {
 		$obj = (array) $obj;
 		$stati = [
 			'publish',
