@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixes an edge case where running get_posts() twice with a taxonomy query, would result in an extra where statement added limiting results in an unexpected way. [TEC-4695]
+
 = [6.0.11] TBD =
 
 * Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
