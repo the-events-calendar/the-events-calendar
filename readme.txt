@@ -233,7 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 
-= [6.0.10] TBD =
+= [6.0.11] TBD =
 
 * Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
 * Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
@@ -252,6 +252,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 * Tweak - Add empty alt tag to featured images across all views when a user doesn't explicitly define one to improve SEO. [ECP-1454]
 * Tweak - Modified single-event.php to use `tribe_get_formatted_cost` instead of `tribe_get_cost` to display the event cost. [TEC-4699]
+* Fix - Correctly display Recurring Event Venue and Organizer details on the front-end and back-end when using WPML. [ECP-1442, ECP-1455]
+* Fix - Avoid PHP errors originating from a missing HTML template when the migration to Custom Tables v1 is not required. [ECP-1472]
 
 = [6.0.10] 2023-02-22 =
 
