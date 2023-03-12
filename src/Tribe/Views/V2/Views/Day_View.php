@@ -110,6 +110,8 @@ class Day_View extends View {
 			->first();
 
 		if ( ! $prev_event instanceof \WP_Post ) {
+			$this->cached_event_dates[ $cache_key ] = false;
+
 			return false;
 		}
 
@@ -188,6 +190,8 @@ class Day_View extends View {
 			->first();
 
 		if ( ! $next_event instanceof \WP_Post ) {
+			$this->cached_event_dates[ $cache_key ] = false;
+
 			return false;
 		}
 
