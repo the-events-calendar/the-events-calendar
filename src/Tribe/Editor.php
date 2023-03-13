@@ -443,8 +443,21 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
-			'tribe-the-events-calendar-data',
-			'app/data.js',
+			'tribe-the-events-calendar-vendor',
+			'app/vendor.js',
+			[],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'localize'     => [],
+				'conditionals' => [ $this, 'is_events_post_type' ],
+				'priority'     => 100,
+			]
+		);
+		tribe_asset(
+			$plugin,
+			'tribe-the-events-calendar-editor',
+			'app/main.js',
 			[],
 			'enqueue_block_editor_assets',
 			[
@@ -452,72 +465,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'localize'     => [],
 				'conditionals' => [ $this, 'is_events_post_type' ],
 				'priority'     => 101,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-editor',
-			'app/editor.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 102,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-icons',
-			'app/icons.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 103,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-hoc',
-			'app/hoc.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 104,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-elements',
-			'app/elements.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 105,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-blocks',
-			'app/blocks.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 106,
 			]
 		);
 
@@ -536,13 +483,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'wp-i18n',
 				'wp-element',
 				'wp-editor',
-				'tribe-common-gutenberg-data',
-				'tribe-common-gutenberg-utils',
-				'tribe-common-gutenberg-store',
-				'tribe-common-gutenberg-icons',
-				'tribe-common-gutenberg-hoc',
-				'tribe-common-gutenberg-elements',
-				'tribe-common-gutenberg-components',
+				'tribe-common-gutenberg-vendor',
+				'tribe-common-gutenberg-modules',
+				'tribe-common-gutenberg-main',
 			],
 			'enqueue_block_editor_assets',
 			[
@@ -596,8 +539,8 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
-			'tribe-block-editor',
-			'app/editor.css',
+			'tribe-block-editor-vendor',
+			'app/vendor.css',
 			[],
 			'enqueue_block_editor_assets',
 			[
@@ -608,8 +551,8 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
-			'tribe-block-editor-blocks',
-			'app/blocks.css',
+			'tribe-block-editor-main',
+			'app/main.css',
 			[],
 			'enqueue_block_editor_assets',
 			[

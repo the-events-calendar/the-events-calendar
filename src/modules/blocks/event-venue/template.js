@@ -305,7 +305,7 @@ class EventVenue extends Component {
 	 *
 	 * @todo  We need to save the data into Meta Fields to avoid redoing the Geocode
 	 * @todo  Move the Maps into Pro
-	 * @param  {object} details Information to pass along to the geocoder
+	 * @param  {Object} details Information to pass along to the geocoder
 	 * @return {void}
 	 */
 	getCoordinates = ( details ) => {

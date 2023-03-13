@@ -4,9 +4,9 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.9
+Stable tag: 6.0.10
 Tested up to: 6.1.1
-Requires PHP: 7.3
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -229,18 +229,36 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.11] TBD =
 
-* Fix: Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
+* Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
+* Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
 * Fix - Display Venue correctly in List-like views when using WPML. [ECP-1443]
 * Fix - Link to the correct Occurrence when using CT1 and WPML. [TEC-4632]
 * Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
 * Fix - Avoid fatal error in `tribe_events_event_classes` when called on events that aren't assigned to any category. [TEC-4709]
+* Fix - Ensure the Subscribe to Calendar Dropdown opens and closes consistently across all themes. [TEC-4388]
+* Fix - Ensure the date tags for recurring events are displayed correctly in the `Events List` widget. [ECP-1382]
+* Fix - Prevent PHP 8.0+ fatal around iCal exporting with param not being array [TEC-4726]
+* Fix - Failures while saving Events from Blocks Editor while using WPML. [ECP-1429]
+* Fix - Fix an issue that stopped the default venue values from populating when submitting a Community Event. [CE-178]
+* Fix - Prevent fatal on PHP 8+ for `tribe_get_event_cat_slugs` with bad typing around `array_filter` [TEC-4725]
+* Fix - Prevent fatal on PHP 8+ during generation of the activation report when issues exist.
 * Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 * Tweak - Add empty alt tag to featured images across all views when a user doesn't explicitly define one to improve SEO. [ECP-1454]
 * Tweak - Modified single-event.php to use `tribe_get_formatted_cost` instead of `tribe_get_cost` to display the event cost. [TEC-4699]
+* Fix - Correctly display Recurring Event Venue and Organizer details on the front-end and back-end when using WPML. [ECP-1442, ECP-1455]
+* Fix - Avoid PHP errors originating from a missing HTML template when the migration to Custom Tables v1 is not required. [ECP-1472]
 
+= [6.0.10] 2023-02-22 =
+
+* Version - The Events Calendar 6.0.10 is only compatible with Events Calendar PRO 6.0.9 and higher
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
 
 = [6.0.9] 2023-02-09 =
 
