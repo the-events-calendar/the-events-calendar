@@ -202,7 +202,7 @@ class Month_View extends By_Day_View {
 
 		// The first event that ends after the end of the month; it could still begin in this month.
 		$next_event = tribe_events()
-			->by_args( $this->filter_repository_args( $args ) )
+			->by_args( $args )
 			->where( 'starts_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
 			->order( 'ASC' )
 			->first();
